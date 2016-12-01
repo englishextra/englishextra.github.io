@@ -356,12 +356,12 @@ u,
 	transition: opacity 0.5s linear;
 	padding: 0;
 	margin: 0;
-	margin-top: -5.250rem;
+	margin-top: -6.250rem;
 }
 .site-logo {
 	display: inline-block;
-	width: 10.500rem;
-	height: 10.500rem;
+	width: 12.500rem;
+	height: 12.500rem;
 	line-height: 0;
 	vertical-align: middle;
 	border-bottom-color: transparent;
@@ -369,7 +369,7 @@ u,
 	background-image: url(../img/sitelogo-rounded-D54848-168x168.svg);
 	background-position: center center;
 	background-repeat: no-repeat;
-	background-size: 10.500rem 10.500rem;
+	background-size: 12.500rem 12.500rem;
 	/* background-size: 12vh 12vh; */
 	/* -webkit-transform: rotate(0deg);
 	-ms-transform: rotate(0deg);
