@@ -252,7 +252,7 @@ u,
 .page.is-active .btn-nav-menu:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e90a";
-	font-size: 110.500pt;
+	font-size: 15.000pt;
 }
 .page.is-active .panel-nav-menu {
 	left: 280px;
