@@ -1,0 +1,12 @@
+<SearchPlugin xmlns="http://www.mozilla.org/2006/browser/search/" xmlns:os="http://a9.com/-/spec/opensearch/1.1/">
+	<os:ShortName>Английский без регистрации</os:ShortName>
+	<os:Description>Английский без регистрации</os:Description>
+	<os:InputEncoding>UTF-8</os:InputEncoding>
+	<os:Image width="16" height="16">data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAA3NCSVQICAjb4U/gAAAAw1BMVEXVJCThaGjuqKj2z8/aPj7ohofdTU387e3yvb3YMzPrm5vleHjfWlr54+PqlZXws7P////1zMzWKyvZOjraQED9+PjbQkLja2vXMDDeU1PgYmLsn5/99/fxubnZODjpj4/mfX321NTbRkbvr6/YNjbzwsHWLi7ZPDzVKSndUFDrmJjjcXHeVlbtoqLXMjLjamrrnZ3YNDT65eXxtbXlenrhZWXibm7xu7rpiYnrl5fXLCzeVFTtoaHmf3/jaGjtm5vzw8HdzCOcAAAACXBIWXMAAAsSAAALEgHS3X78AAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAAIhJREFUGJVjEEEDDNgEhIWFRVSEEQLCjPxmVtw8wkgCZpaMogYSCC0a8hb8stqcnCxQAXVJc2VbVQkxcZgKdTZBM2lWNUUBKRWYtSpKzMLMsryawjABCS4mDi0tVQa4Cglpdi5OI2tuBRWYS5V0hExldAVM4AIiwixi/IJSeih+4eSUw+k5FAAA9sQWc627I2MAAAAASUVORK5CYII=</os:Image>
+	<UpdateInterval>1</UpdateInterval>
+	<UpdateUrl>http://englishextra.github.io/searchplugins/mycroft/sitesearch.xml</UpdateUrl>
+	<IconUpdateUrl>http://englishextra.github.io/searchplugins/mycroft/sitesearch.gif</IconUpdateUrl>
+	<SearchForm>http://yandex.ru/sitesearch</SearchForm>
+	<os:Url type="text/html" method="GET" template="http://yandex.ru/sitesearch?text={searchTerms}&amp;searchid=2192588">
+	</os:Url>
+</SearchPlugin>

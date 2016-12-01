@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- <?xml-stylesheet type="text/xsl" media="screen" href="/~d/styles/rss2enclosuresfull.xsl"?><?xml-stylesheet type="text/css" media="screen" href="http://feeds.feedburner.com/~d/styles/itemcontent.css"?><rss xmlns:media="http://search.yahoo.com/mrss/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0"> -->
+<?xml-stylesheet type="text/xsl" media="screen" href="/feeds/rss2.xsl"?><?xml-stylesheet type="text/css" media="screen" href="http://feeds.feedburner.com/~d/styles/itemcontent.css"?><rss xmlns:media="http://search.yahoo.com/mrss/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+	<channel>
+		<generator>RSS Builder by B!Soft</generator>
+		<title>Английский без регистрации</title>
+		<link>https://englishextra.github.io/</link>
+		<description>English Grammar for Russian-Speakers</description>
+		<language>ru</language>
+		<managingEditor>englishextra@mail.ru (Serguei Shimansky)</managingEditor>
+		<webMaster>englishextra@mail.ru (Serguei Shimansky)</webMaster>
+		<copyright>© Copyright 2006-2016 englishextra.github.io All Rights Reserved.</copyright>
+		<image>
+			<title>Английский без регистрации</title>
+			<link>https://englishextra.github.io/</link>
+			<url>http://englishextra.github.io/apple-touch-icon-144x144.png</url>
+			<width>144</width>
+			<height>144</height>
+		</image>
+		<atom10:link xmlns:atom10="http://www.w3.org/2005/Atom" rel="self" type="application/rss+xml" href="https://englishextra.github.io/feeds/pages.xml" /><feedburner:info xmlns:feedburner="http://rssnamespace.org/feedburner/ext/1.0" uri="englishextra" /><atom10:link xmlns:atom10="http://www.w3.org/2005/Atom" rel="hub" href="http://pubsubhubbub.appspot.com/" /><media:rating>nonadult</media:rating><media:copyright>© Copyright 2006-2016 englishextra.github.io All Rights Reserved.</media:copyright><itunes:owner><itunes:email>englishextra@mail.ru</itunes:email></itunes:owner><itunes:explicit>no</itunes:explicit>
+		<!-- https://gist.github.com/skattyadz/814315 -->
+		<itunes:category text="Education"><itunes:category text="Language Courses"/></itunes:category><itunes:subtitle>English Grammar for Russian-Speakers</itunes:subtitle>
+		<item>
+			<title>Грамматика - Неправильные глаголы (таблица)</title>
+			<pubDate>Wed, 3 Aug 2016 12:31:42 +0300</pubDate>
+			<link>https://englishextra.github.io/pages/grammar/grammar_irregular_verbs.html</link>
+			<guid isPermaLink="true">https://englishextra.github.io/pages/grammar/grammar_irregular_verbs.html</guid>
+			<author>englishextra@mail.ru (Serguei Shimansky)</author>
+			<comments>https://englishextra.github.io/pages/grammar/grammar_irregular_verbs.html</comments>
+			<category>grammar</category>
+			<description><![CDATA[Часть английских глаголов образуют вторую (причастие 1) и третью (причастие 2) форму не по правилам.]]></description>
+		</item>
+		<item>
+			<title>Грамматика - «Ex-» и «former», или Осторожно: морпехи</title>
+			<pubDate>Fri, 29 Jul 2016 19:09:57 +0300</pubDate>
+			<link>https://englishextra.github.io/pages/grammar/grammar_ex_former.html</link>
+			<guid isPermaLink="true">https://englishextra.github.io/pages/grammar/grammar_ex_former.html</guid>
+			<author>englishextra@mail.ru (Serguei Shimansky)</author>
+			<comments>https://englishextra.github.io/pages/grammar/grammar_ex_former.html</comments>
+			<category>grammar</category>
+			<description><![CDATA[«Ex-» и «former» — синонимы, но части речи — разные. Оба означают «бывший». «Ex-» — необязательно «предыдущий» и вовсе не имеет негативного подтекста. «Former» ставится перед званиями и титулами, но для краткости и экономии места в заголовках традиционно используется «ex-», а в основном тексте — и «ex-», и «former». «Ex-» не используют с неодушевленными объектами. «Ex-» используют во избежание путанницы: «former» — это также «второй из двух». В употреблении «ex-» или «former» с различными словами сложились предпочтения.]]></description>
+		</item>
+		<item>
+			<title>Грамматика - To me / for me, или Надуманная проблема</title>
+			<pubDate>Tue, 14 Jun 2016 19:28:55 GMT</pubDate>
+			<link>https://englishextra.github.io/pages/grammar/grammar_to_me_for_me.html</link>
+			<guid isPermaLink="true">https://englishextra.github.io/pages/grammar/grammar_to_me_for_me.html</guid>
+			<author>englishextra@mail.ru (Serguei Shimansky)</author>
+			<comments>https://englishextra.github.io/pages/grammar/grammar_to_me_for_me.html</comments>
+			<category>grammar</category>
+			<enclosure url="http://farm8.staticflickr.com/7132/27952299286_0695fe2e84_z.jpg" length="117777" type="image/jpeg" />
+			<description><![CDATA[<p>«To me» — «мне», дательный падеж. «For me» — «для меня», родительный падеж; или «за (вместо) меня», винительный падеж.</p><p><img src="http://farm8.staticflickr.com/7132/27952299286_0695fe2e84_z.jpg"></p>]]></description>
+		</item>
+		<item>
+			<title>Тесты - Common Mistakes Test Advanced</title>
+			<pubDate>Sat, 9 Apr 2016 19:38:03 +0300</pubDate>
+			<link>https://englishextra.github.io/pages/tests/tests_common_mistakes_test_advanced.html</link>
+			<guid isPermaLink="true">https://englishextra.github.io/pages/tests/tests_common_mistakes_test_advanced.html</guid>
+			<author>englishextra@mail.ru (Serguei Shimansky)</author>
+			<comments>https://englishextra.github.io/pages/tests/tests_common_mistakes_test_advanced.html</comments>
+			<category>tests</category>
+			<enclosure url="http://farm2.staticflickr.com/1670/24723553474_d47672f2bd_z.jpg" length="88354" type="image/jpeg" />
+			<description><![CDATA[<p>All the sentences contain common mistakes. Write the corrections.</p><p><img src="https://farm2.staticflickr.com/1670/24723553474_d47672f2bd_z.jpg"></p>]]></description>
+		</item>
+		<item>
+			<title>Тесты - ЕГЭ 2015: разбор ошибок</title>
+			<pubDate>Wed, 24 Feb 2016 19:46:04 +0300</pubDate>
+			<link>https://privateteacher.herokuapp.com/#/previous_ege_analysis</link>
+			<guid isPermaLink="true">https://privateteacher.herokuapp.com/#/previous_ege_analysis</guid>
+			<author>englishextra@mail.ru (Serguei Shimansky)</author>
+			<comments>https://privateteacher.herokuapp.com/#/previous_ege_analysis</comments>
+			<category>tests</category>
+			<description><![CDATA[Методические рекомендации для учителей, подготовленные на основе анализа типичных ошибок участников ЕГЭ 2015 года по иностранным языкам. Москва, 2015.]]></description>
+		</item>
+		<item>
+			<title>Пособия - Most Commonly Used Idioms</title>
+			<pubDate>Tue, 13 Oct 2015 19:56:49 +0300</pubDate>
+			<link>https://englishextra.github.io/pages/aids/aids_most_commonly_used_idioms.html</link>
+			<guid isPermaLink="true">https://englishextra.github.io/pages/aids/aids_most_commonly_used_idioms.html</guid>
+			<author>englishextra@mail.ru (Serguei Shimansky)</author>
+			<comments>https://englishextra.github.io/pages/aids/aids_most_commonly_used_idioms.html</comments>
+			<category>aids</category>
+			<description><![CDATA[‘You’ll find that if you hang in, and knock yourself out with hard work, before you know it, you will have mastered these hip expressions and come through with flying colors.’]]></description>
+		</item>
+		<item>
+			<title>Грамматика - Glossary of Grammatical Terms</title>
+			<pubDate>Sat, 22 Aug 2015 20:00:07 +0300</pubDate>
+			<link>https://englishextra.github.io/pages/grammar/grammar_glossary_of_grammatical_terms.html</link>
+			<guid isPermaLink="true">https://englishextra.github.io/pages/grammar/grammar_glossary_of_grammatical_terms.html</guid>
+			<author>englishextra@mail.ru (Serguei Shimansky)</author>
+			<comments>https://englishextra.github.io/pages/grammar/grammar_glossary_of_grammatical_terms.html</comments>
+			<category>grammar</category>
+			<description><![CDATA[Мини-словарь специальных терминов английской грамматики. Полезен для понимания правил, которые неизбежно используют профессиональную лексику.]]></description>
+		</item>
+		<item>
+			<title>Грамматика - Alone / by myself / on my own</title>
+			<pubDate>Sat, 22 Aug 2015 20:02:11 +0300</pubDate>
+			<link>https://englishextra.github.io/pages/grammar/grammar_alone_by_myself_and_on_my_own.html</link>
+			<guid isPermaLink="true">https://englishextra.github.io/pages/grammar/grammar_alone_by_myself_and_on_my_own.html</guid>
+			<author>englishextra@mail.ru (Serguei Shimansky)</author>
+			<comments>https://englishextra.github.io/pages/grammar/grammar_alone_by_myself_and_on_my_own.html</comments>
+			<category>grammar</category>
+			<enclosure url="http://farm2.staticflickr.com/1572/24724025884_3c2085b7d5_z.jpg" length="27911" type="image/jpeg" />
+			<description><![CDATA[<p>Alone — «один (в одиночестве, одинокий)»; by myself — «один (в одиночестве, без чьего-либо участия)»; on my own — «один (сам по себе, без чьей-либо помощи)».</p><p><img src="https://farm2.staticflickr.com/1572/24724025884_3c2085b7d5_z.jpg"></p>]]></description>
+		</item>
+		<item>
+			<title>Транскрипты - Essential British English Expressions</title>
+			<pubDate>Mon, 13 Jul 2015 20:05:35 +0300</pubDate>
+			<link>https://englishextra.github.io/pages/transcripts/transcripts_linguaspectrum_essential_british_english_expressions.html</link>
+			<guid isPermaLink="true">https://englishextra.github.io/pages/transcripts/transcripts_linguaspectrum_essential_british_english_expressions.html</guid>
+			<author>englishextra@mail.ru (Serguei Shimansky)</author>
+			<comments>https://englishextra.github.io/pages/transcripts/transcripts_linguaspectrum_essential_british_english_expressions.html</comments>
+			<category>transcripts</category>
+			<enclosure url="http://farm2.staticflickr.com/1698/24651691653_41661b1f59_z.jpg" length="63735" type="image/jpeg" />
+			<description><![CDATA[<p>Inspired by the series of videos by Linguaspectrum. Please see credits at the bottom of the page.</p><p><img src="https://farm2.staticflickr.com/1698/24651691653_41661b1f59_z.jpg"></p>]]></description>
+		</item>
+		<item>
+			<title>Чтение - Country, Language, People, Person, Capital</title>
+			<pubDate>Sun, 24 May 2015 20:09:25 +0300</pubDate>
+			<link>https://englishextra.github.io/pages/reading/reading_country_language_person_capital.html</link>
+			<guid isPermaLink="true">https://englishextra.github.io/pages/reading/reading_country_language_person_capital.html</guid>
+			<author>englishextra@mail.ru (Serguei Shimansky)</author>
+			<comments>https://englishextra.github.io/pages/reading/reading_country_language_person_capital.html</comments>
+			<category>reading</category>
+			<description><![CDATA[«Russians» или «the Russians», «Italian» или «Italians», а как будет «испанец» — «a Spanish» или как-то иначе?]]></description>
+		</item>
+		<item>
+			<title>Грамматика - Неконтиниусные глаголы</title>
+			<pubDate>Wed, 20 May 2015 20:11:16 +0300</pubDate>
+			<link>https://englishextra.github.io/pages/grammar/grammar_stative_and_action_verbs.html</link>
+			<guid isPermaLink="true">https://englishextra.github.io/pages/grammar/grammar_stative_and_action_verbs.html</guid>
+			<author>englishextra@mail.ru (Serguei Shimansky)</author>
+			<comments>https://englishextra.github.io/pages/grammar/grammar_stative_and_action_verbs.html</comments>
+			<category>grammar</category>
+			<description><![CDATA[Глаголы состояния, или статальные глаголы (statal / stative verbs), обозначают состояния или отношения.]]></description>
+		</item>
+		<item>
+			<title>Чтение - The Man with the Scar</title>
+			<pubDate>Fri, 3 Apr 2015 20:12:58 +0300</pubDate>
+			<link>https://englishextra.github.io/pages/reading/reading_the_man_with_the_scar.html</link>
+			<guid isPermaLink="true">https://englishextra.github.io/pages/reading/reading_the_man_with_the_scar.html</guid>
+			<comments>https://englishextra.github.io/pages/reading/reading_the_man_with_the_scar.html</comments>
+			<category>reading</category>
+			<enclosure url="http://farm2.staticflickr.com/1481/24975435730_882695c209_z.jpg" length="45011" type="image/jpeg" />
+			<description><![CDATA[<p>by Somerset W. Maugham.</p><p><img src="https://farm2.staticflickr.com/1481/24975435730_882695c209_z.jpg"></p>]]></description>
+		</item>
+		<item>
+			<title>Статьи - Правила чтения</title>
+			<pubDate>Sat, 28 Mar 2015 20:17:53 +0300</pubDate>
+			<link>https://englishextra.github.io/pages/articles/articles_reading_rules_utf.html</link>
+			<guid isPermaLink="true">https://englishextra.github.io/pages/articles/articles_reading_rules_utf.html</guid>
+			<author>englishextra@mail.ru (Serguei Shimansky)</author>
+			<comments>https://englishextra.github.io/pages/articles/articles_reading_rules_utf.html</comments>
+			<category>articles</category>
+			<description><![CDATA[В английском языке звуков больше, чем букв. Звуки имеют различное выражение на письме. Один и тот же звук может выражаться разными буквами или буквосочетаниями. Для распознания звуков используются транскрипционные знаки. По транскрипции в словаре можно понять, как произносится слово.]]></description>
+		</item>
+		<item>
+			<title>Еще! - Неправильные глаголы</title>
+			<pubDate>Fri, 27 Mar 2015 20:19:47 +0300</pubDate>
+			<link>https://englishextra.github.io/pages/more/more_irregular_verbs.html</link>
+			<guid isPermaLink="true">https://englishextra.github.io/pages/more/more_irregular_verbs.html</guid>
+			<author>englishextra@mail.ru (Serguei Shimansky)</author>
+			<comments>https://englishextra.github.io/pages/more/more_irregular_verbs.html</comments>
+			<category>more</category>
+			<description><![CDATA[Английские неправильные глаголы с транскрипцией и переводом на русский. Скачать заставку для Windows, таблицу, озвучку.]]></description>
+		</item>
+		<item>
+			<title>Чтение - Russia-Ukraine War Conflict</title>
+			<pubDate>Wed, 25 Mar 2015 20:22:08 +0300</pubDate>
+			<link>https://englishextra.github.io/pages/reading/reading_russia_ukraine_war_conflict_vocabulary.html</link>
+			<guid isPermaLink="true">https://englishextra.github.io/pages/reading/reading_russia_ukraine_war_conflict_vocabulary.html</guid>
+			<author>englishextra@mail.ru (Serguei Shimansky)</author>
+			<comments>https://englishextra.github.io/pages/reading/reading_russia_ukraine_war_conflict_vocabulary.html</comments>
+			<category>reading</category>
+			<enclosure url="http://farm2.staticflickr.com/1457/25153898792_50a094ea75_z.jpg" length="88053" type="image/jpeg" />
+			<description><![CDATA[<p><img src="https://farm2.staticflickr.com/1457/25153898792_50a094ea75_z.jpg"></p><p>“My definition of a free society is a society where it is safe to be unpopular.” (Adlai Stevenson, United Nations ambassador 1961—1965).</p>]]></description>
+		</item>
+		<item>
+			<title>Транскрипты - English Vocabulary for Business</title>
+			<pubDate>Fri, 6 Mar 2015 20:26:42 +0300</pubDate>
+			<link>https://englishextra.github.io/pages/transcripts/transcripts_video_vocab_transcripts.html</link>
+			<guid isPermaLink="true">https://englishextra.github.io/pages/transcripts/transcripts_video_vocab_transcripts.html</guid>
+			<comments>https://englishextra.github.io/pages/transcripts/transcripts_video_vocab_transcripts.html</comments>
+			<category>transcripts</category>
+			<description><![CDATA[Пособие составлено на основе оригинальных транскриптов обучающих видеороликов от Video Vocab о современной деловой лексике.]]></description>
+		</item>
+	</channel>
+</rss>
