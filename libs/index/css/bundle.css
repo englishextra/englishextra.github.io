@@ -425,11 +425,20 @@ u,
 	padding: 0;
 	margin: 0;
 	margin-top: -9.000rem;
+	margin-top: -7.500vw;
 }
 .site-logo {
 	display: inline-block;
 	width: 18.000rem;
 	height: 18.000rem;
+	/*!
+	 * landscape 288 / (1920 / 100) = 15vw
+	 * portrait 288 / (1920 / 100) = 15vh
+	 * caniuse.com/#feat=viewport-units
+	 * css-tricks.com/viewport-sized-typography/
+	 */
+	width: 15.000vw;
+	height: 15.000vw;
 	line-height: 0;
 	vertical-align: middle;
 	border-bottom-color: transparent;
@@ -438,7 +447,7 @@ u,
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: 18.000rem 18.000rem;
-	/* background-size: 12vh 12vh; */
+	background-size: 15.000vw 15.000vw;
 	/* -webkit-transform: rotate(0deg);
 	-ms-transform: rotate(0deg);
 	transform: rotate(0deg); */
@@ -528,105 +537,145 @@ u,
  * 480 landscape => 320 portrait
  * 320 landscape => 240 portrait
  */
-@media only screen and (max-width:1080px) and (orientation:portrait) {
-	.holder-site-logo {
-		margin-top: -9.000rem;
-	}
-	.site-logo {
-		width: 18.000rem;
-		height: 18.000rem;
-		background-size: 18.000rem 18.000rem;
-	}
-}
 @media only screen and (max-width:1920px) and (orientation:landscape) {
 	.holder-site-logo {
 		margin-top: -9.000rem;
+		margin-top: -7.500vw;
 	}
 	.site-logo {
 		width: 18.000rem;
 		height: 18.000rem;
 		background-size: 18.000rem 18.000rem;
+		width: 15.000vw;
+		height: 15.000vw;
+		background-size: 15.000vw 15.000vw;
+	}
+}
+@media only screen and (max-width:1080px) and (orientation:portrait) {
+	.holder-site-logo {
+		margin-top: -9.000rem;
+		margin-top: -7.500vh;
+	}
+	.site-logo {
+		width: 18.000rem;
+		height: 18.000rem;
+		background-size: 18.000rem 18.000rem;
+		width: 15.000vh;
+		height: 15.000vh;
+		background-size: 15.000vh 15.000vh;
 	}
 }
 @media only screen and (max-width:1366px) and (orientation:landscape) {
 	.holder-site-logo {
 		margin-top: -6.250rem;
+		margin-top: -7.500vw;
 	}
 	.site-logo {
 		width: 12.500rem;
 		height: 12.500rem;
 		background-size: 12.500rem 12.500rem;
+		width: 15.000vw;
+		height: 15.000vw;
+		background-size: 15.000vw 15.000vw;
 	}
 }
 @media only screen and (max-width:1280px) and (orientation:landscape) {
 	.holder-site-logo {
 		margin-top: -6.000rem;
+		margin-top: -7.500vw;
 	}
 	.site-logo {
 		width: 12.000rem;
 		height: 12.000rem;
 		background-size: 12.000rem 12.000rem;
+		width: 15.000vw;
+		height: 15.000vw;
+		background-size: 15.000vw 15.000vw;
 	}
 }
 @media only screen and (max-width:1024px) and (orientation:landscape) {
 	.holder-site-logo {
 		margin-top: -4.750rem;
+		margin-top: -7.500vw;
 	}
 	.site-logo {
 		width: 9.500rem;
 		height: 9.500rem;
 		background-size: 9.500rem 9.500rem;
+		width: 15.000vw;
+		height: 15.000vw;
+		background-size: 15.000vw 15.000vw;
 	}
 }
 @media only screen and (max-width:980px) and (orientation:portrait) {
 	.holder-site-logo {
 		margin-top: -6.000rem;
+		margin-top: -7.500vh;
 	}
 	.site-logo {
 		width: 12.000rem;
 		height: 12.000rem;
 		background-size: 12.000rem 12.000rem;
+		width: 15.000vh;
+		height: 15.000vh;
+		background-size: 15.000vh 15.000vh;
 	}
 }
 @media only screen and (max-width:900px) and (orientation:portrait) {
 	.holder-site-logo {
 		margin-top: -9.000rem;
+		margin-top: -7.500vh;
 	}
 	.site-logo {
 		width: 18.000rem;
 		height: 18.000rem;
 		background-size: 18.000rem 18.000rem;
+		width: 15.000vh;
+		height: 15.000vh;
+		background-size: 15.000vh 15.000vh;
 	}
 }
 @media only screen and (max-width:800px) and (orientation:portrait) {
 	.holder-site-logo {
 		margin-top: -6.000rem;
+		margin-top: -7.500vh;
 	}
 	.site-logo {
 		width: 12.000rem;
 		height: 12.000rem;
 		background-size: 12.000rem 12.000rem;
+		width: 15.000vh;
+		height: 15.000vh;
+		background-size: 15.000vh 15.000vh;
 	}
 }
 @media only screen and (max-width:768px) and (orientation:portrait) {
 	.holder-site-logo {
 		margin-top: -4.750rem;
+		margin-top: -7.500vh;
 	}
 	.site-logo {
 		width: 9.500rem;
 		height: 9.500rem;
 		background-size: 9.500rem 9.500rem;
+		width: 15.000vh;
+		height: 15.000vh;
+		background-size: 15.000vh 15.000vh;
 	}
 }
 @media only screen and (max-width:640px) and (orientation:landscape) {
 	.holder-site-logo {
 		margin-top: -3.000rem;
+		margin-top: -7.500vw;
 	}
 	.site-logo {
 		width: 6.000rem;
 		height: 6.000rem;
 		background-image: url(../img/sitelogo-rounded-BB3F3F-72x72.svg);
 		background-size: 6.000rem 6.000rem;
+		width: 15.000vw;
+		height: 15.000vw;
+		background-size: 15.000vw 15.000vw;
 	}
 	.no-svg .site-logo {
 		background-image: url(../img/sitelogo-rounded-BB3F3F-72x72.png);
@@ -635,32 +684,44 @@ u,
 @media only screen and (max-width:600px) and (orientation:portrait) {
 	.holder-site-logo {
 		margin-top: -6.000rem;
+		margin-top: -7.500vh;
 	}
 	.site-logo {
 		width: 12.000rem;
 		height: 12.000rem;
 		background-size: 12.000rem 12.000rem;
+		width: 15.000vh;
+		height: 15.000vh;
+		background-size: 15.000vh 15.000vh;
 	}
 }
 @media only screen and (max-width:480px) and (orientation:landscape) {
 	.holder-site-logo {
 		margin-top: -2.250rem;
+		margin-top: -7.500vw;
 	}
 	.site-logo {
 		width: 4.500rem;
 		height: 4.500rem;
 		background-size: 4.500rem 4.500rem;
+		width: 15.000vw;
+		height: 15.000vw;
+		background-size: 15.000vw 15.000vw;
 	}
 }
 @media only screen and (max-width:360px) and (orientation:portrait) {
 	.holder-site-logo {
 		margin-top: -3.000rem;
+		margin-top: -7.500vh;
 	}
 	.site-logo {
 		width: 6.000rem;
 		height: 6.000rem;
 		background-image: url(../img/sitelogo-rounded-BB3F3F-72x72.svg);
 		background-size: 6.000rem 6.000rem;
+		width: 15.000vh;
+		height: 15.000vh;
+		background-size: 15.000vh 15.000vh;
 	}
 	.no-svg .site-logo {
 		background-image: url(../img/sitelogo-rounded-BB3F3F-72x72.png);
@@ -669,31 +730,43 @@ u,
 @media only screen and (max-width:320px) and (orientation:portrait) {
 	.holder-site-logo {
 		margin-top: -2.250rem;
+		margin-top: -7.500vh;
 	}
 	.site-logo {
 		width: 4.500rem;
 		height: 4.500rem;
 		background-size: 4.500rem 4.500rem;
+		width: 15.000vh;
+		height: 15.000vh;
+		background-size: 15.000vh 15.000vh;
 	}
 }
 @media only screen and (max-width:320px) and (orientation:landscape) {
 	.holder-site-logo {
 		margin-top: -1.500rem;
+		margin-top: -7.500vw;
 	}
 	.site-logo {
 		width: 3.000rem;
 		height: 3.000rem;
 		background-size: 3.000rem 3.000rem;
+		width: 15.000vw;
+		height: 15.000vw;
+		background-size: 15.000vw 15.000vw;
 	}
 }
 @media only screen and (max-width:240px) and (orientation:portrait) {
 	.holder-site-logo {
 		margin-top: -1.500rem;
+		margin-top: -7.500vh;
 	}
 	.site-logo {
 		width: 3.000rem;
 		height: 3.000rem;
 		background-size: 3.000rem 3.000rem;
+		width: 15.000vh;
+		height: 15.000vh;
+		background-size: 15.000vh 15.000vh;
 	}
 }
 /*!
