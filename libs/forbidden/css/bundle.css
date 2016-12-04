@@ -747,10 +747,10 @@ u,
 	left: 0;
 	right: 0;
 	top: auto;
-	font-size: 0.750em;
+	font-size: 0.813rem;
 	text-align: center;
 	color: #FFFFFF;
-	text-shadow: 0 0 0.125em rgba(0,0,0,0.9);
+	text-shadow: 0 0 0.125rem rgba(0,0,0,0.9);
 }
 .copyright a {
 	font-weight: 400;
