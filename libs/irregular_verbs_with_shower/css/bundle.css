@@ -8,6 +8,107 @@
 /* @import "normalize"; */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background-color:transparent}a:active,a:hover{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:bold}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-0.5em}sub{bottom:-0.25em}img{border:0}svg:not(:root){overflow:hidden}figure{margin:1em 40px}hr{box-sizing:content-box;height:0}pre{overflow:auto}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}button{overflow:visible}button,select{text-transform:none}button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}input[type="number"]::-webkit-inner-spin-button,input[type="number"]::-webkit-outer-spin-button{height:auto}input[type="search"]{-webkit-appearance:textfield;box-sizing:content-box}input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0}textarea{overflow:auto}optgroup{font-weight:bold}table{border-collapse:collapse;border-spacing:0}td,th{padding:0}
+/*! @import "share-buttons"; */
+/*!
+ * pluso, yashare
+ */
+.ya-share2 {
+	position: fixed !important;
+	right: 41.250pt;
+	bottom: 7.500pt;
+	visibility: hidden;
+	opacity: 0;
+	-webkit-transition: visibility 0s,opacity 0.1s linear;
+	transition: visibility 0s,opacity 0.1s linear;
+}
+.pluso {
+	position: fixed !important;
+	right: 0;
+	bottom: 0;
+	visibility: hidden;
+	opacity: 0;
+	-webkit-transition: visibility 0s,opacity 0.1s linear;
+	transition: visibility 0s,opacity 0.1s linear;
+}
+.share-buttons {
+	display: inline-block;
+	width: 33.000pt;
+	height: 33.000pt;
+	position: fixed;
+	bottom: 0;
+	right: 33.000pt;
+	text-indent: 0;
+	text-align: center;
+	text-decoration: none;
+	background: none rgba(211,211,211,0.5);
+	border: none;
+	overflow: hidden;
+	-webkit-transition: background 0.1s linear;
+	transition: background 0.1s linear;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	outline: none;
+	z-index: 999;
+}
+.share-buttons:hover {
+	background-color: rgba(213,213,213,1);
+}
+.share-buttons:before {
+	font-family: "englishextra-ui-icons";
+	content: "\e91d";
+	font-size: 18.000pt;
+	line-height: 33.000pt;
+	color: rgba(25,25,25,0.5);
+}
+/*! @import "ui-totop"; */
+/*!
+ * github.com/sksmatt/UItoTop-jQuery-Plugin/
+ */
+#ui-totop {
+	display: inline-block;
+	width: 33.000pt;
+	height: 33.000pt;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	text-indent: 100%;
+	text-decoration: none;
+	border: none;
+	visibility: hidden;
+	opacity: 0;
+	overflow: hidden;
+	-webkit-transition: all 0.1s linear;
+	transition: all 0.1s linear;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	outline: none;
+	z-index: 999;
+}
+#ui-totop-hover {
+	display: block;
+	float: left;
+	width: 33.000pt;
+	height: 33.000pt;
+	overflow: hidden;
+}
+#ui-totop:hover {
+	background-color: rgba(213,213,213,1);
+}
+/*!
+ * using icon font
+ */
+#ui-totop {
+	text-indent: 0;
+	text-align: center;
+}
+#ui-totop-hover {
+	background: none rgba(211,211,211,0.5);
+}
+#ui-totop-hover:before {
+	font-family: "englishextra-ui-icons";
+	content: "\e923";
+	font-size: 18.000pt;
+	line-height: 33.000pt;
+	color: rgba(25,25,25,0.5);
+}
 /*! @import "main"; */
 /*!
  * custom
@@ -421,109 +522,11 @@ u,
 	-webkit-transition: width .2s linear;
 	transition: width .2s linear;
 }
-/*! @import "share-buttons"; */
 /*!
- * pluso, yashare
+ * overrides to share-buttons
  */
-.ya-share2 {
-	position: fixed !important;
-	right: 41.250pt;
-	bottom: 7.500pt;
-	visibility: hidden;
-	opacity: 0;
-	-webkit-transition: visibility 0s,opacity 0.1s linear;
-	transition: visibility 0s,opacity 0.1s linear;
-}
-.pluso {
-	position: fixed !important;
-	right: 0;
-	bottom: 0;
-	visibility: hidden;
-	opacity: 0;
-	-webkit-transition: visibility 0s,opacity 0.1s linear;
-	transition: visibility 0s,opacity 0.1s linear;
-}
-.share-buttons {
-	display: inline-block;
-	width: 33.000pt;
-	height: 33.000pt;
-	position: fixed;
-	bottom: 0;
-	right: 33.000pt;
-	text-indent: 0;
-	text-align: center;
-	text-decoration: none;
-	background: none rgba(211,211,211,0.5);
-	border: none;
-	overflow: hidden;
-	-webkit-transition: background 0.1s linear;
-	transition: background 0.1s linear;
-	-webkit-tap-highlight-color: rgba(0,0,0,0);
-	outline: none;
-	z-index: 999;
-}
-.share-buttons:hover {
-	background-color: rgba(213,213,213,1);
-}
-.share-buttons:before {
-	font-family: "englishextra-ui-icons";
-	content: "\e91d";
-	font-size: 18.000pt;
-	line-height: 33.000pt;
-	color: rgba(25,25,25,0.5);
-}
 .full .share-buttons {
 	display: none;
-}
-/*! @import "ui-totop"; */
-/*!
- * github.com/sksmatt/UItoTop-jQuery-Plugin/
- */
-#ui-totop {
-	display: inline-block;
-	width: 33.000pt;
-	height: 33.000pt;
-	position: fixed;
-	bottom: 0;
-	right: 0;
-	text-indent: 100%;
-	text-decoration: none;
-	border: none;
-	visibility: hidden;
-	opacity: 0;
-	overflow: hidden;
-	-webkit-transition: all 0.1s linear;
-	transition: all 0.1s linear;
-	-webkit-tap-highlight-color: rgba(0,0,0,0);
-	outline: none;
-	z-index: 999;
-}
-#ui-totop-hover {
-	display: block;
-	float: left;
-	width: 33.000pt;
-	height: 33.000pt;
-	overflow: hidden;
-}
-#ui-totop:hover {
-	background-color: rgba(213,213,213,1);
-}
-/*!
- * using icon font
- */
-#ui-totop {
-	text-indent: 0;
-	text-align: center;
-}
-#ui-totop-hover {
-	background: none rgba(211,211,211,0.5);
-}
-#ui-totop-hover:before {
-	font-family: "englishextra-ui-icons";
-	content: "\e923";
-	font-size: 18.000pt;
-	line-height: 33.000pt;
-	color: rgba(25,25,25,0.5);
 }
 /*!
  * overrides to ui-totop

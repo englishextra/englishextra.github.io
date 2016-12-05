@@ -2,7 +2,11 @@
  * location qr code
  */.location-qr-code{width:100%;display:block;float:left;text-align:left;background:#FFF}.location-qr-code .qr-code-img{display:block;width:10em;height:10em;background:0 0;background-size:10em 10em;border:0;vertical-align:bottom;padding:0;margin:0}/*! @import "vk-like"; *//*!
  * vk-like
- */.vk-like{display:inline-block;height:17.25pt;position:absolute!important;top:7.5pt;left:75pt;line-height:0;visibility:hidden;opacity:0;-webkit-transition:visibility 0s,opacity .1s linear;transition:visibility 0s,opacity .1s linear;z-index:1000}.btn-show-vk-like{display:inline-block;width:33pt;height:33pt;position:absolute;top:0;left:66pt;text-indent:0;text-align:center;text-decoration:none;background:none rgba(66,66,66,.5);border:none;overflow:hidden;-webkit-transition:background .2s linear;transition:background .2s linear;-webkit-tap-highlight-color:rgba(0,0,0,0);outline:0;z-index:999}.btn-show-vk-like:hover{background-color:rgba(66,66,66,1)}.btn-show-vk-like:before{font-family:englishextra-ui-icons;content:"\e925";font-size:18pt;line-height:33pt;color:#FFF}/*! @import "main"; *//*!
+ */.vk-like{display:inline-block;height:17.25pt;position:absolute!important;top:7.5pt;left:75pt;line-height:0;visibility:hidden;opacity:0;-webkit-transition:visibility 0s,opacity .1s linear;transition:visibility 0s,opacity .1s linear;z-index:1000}.btn-show-vk-like{display:inline-block;width:33pt;height:33pt;position:absolute;top:0;left:66pt;text-indent:0;text-align:center;text-decoration:none;background:none rgba(66,66,66,.5);border:none;overflow:hidden;-webkit-transition:background .2s linear;transition:background .2s linear;-webkit-tap-highlight-color:rgba(0,0,0,0);outline:0;z-index:999}.btn-show-vk-like:hover{background-color:rgba(66,66,66,1)}.btn-show-vk-like:before{font-family:englishextra-ui-icons;content:"\e925";font-size:18pt;line-height:33pt;color:#FFF}/*! @import "animate.partial"; *//*!
+ * some animations from animate.css
+ * github.com/daneden/animate.css
+ * daneden.github.io/animate.css/
+ */@-webkit-keyframes pulse{25%{-webkit-transform:scale(1.1);transform:scale(1.1)}75%{-webkit-transform:scale(0.9);transform:scale(0.9)}}@keyframes pulse{25%{-webkit-transform:scale(1.1);transform:scale(1.1)}75%{-webkit-transform:scale(0.9);transform:scale(0.9)}}.pulse{-webkit-animation-name:pulse;animation-name:pulse}/*! @import "main"; *//*!
  * custom
  */body,html{height:100%}html{font-size:100%;/*!
 	 * set the parent to background transparent
@@ -32,18 +36,14 @@
  * using icon font
  */.btn-menu-more{text-align:center;background:none rgba(66,66,66,.5)}.btn-menu-more:before{font-family:englishextra-ui-icons;content:"\e915";font-size:18pt;line-height:33pt;color:#FFF}.holder-panel-menu-more{display:block;position:absolute;top:33pt;left:33pt;color:#363636;background:#F0F0F0;border:.75pt solid rgba(45,116,189,1);box-shadow:.125em .125em .125em 0 rgba(50,50,50,.3);visibility:hidden;opacity:0;-webkit-transition:visibility 0s,opacity .1s linear;transition:visibility 0s,opacity .1s linear;z-index:999}.holder-panel-menu-more.is-active{visibility:visible;opacity:1}.panel-menu-more{display:inline-block;min-width:204pt;width:100%;height:100%;font-size:.857em;line-height:1.5;list-style-type:none;padding:0;margin:0}.panel-menu-more li a{display:block;font-weight:400;padding:.625em .75em}.panel-menu-more li a:active,.panel-menu-more li a:focus,.panel-menu-more li a:hover{text-decoration:none;color:inherit;background-color:rgba(190,212,235,1)}/*!
  * site-logo
- */.holder-site-logo{width:100%;position:absolute;top:50%;left:0;text-align:center;opacity:0;-webkit-transition:opacity .5s linear;transition:opacity .5s linear;padding:0;margin:0;margin-top:-9rem;margin-top:-7.5vw}.site-logo{display:inline-block;width:18rem;/*!
-	 * landscape 288 / (1920 / 100) = 15vw
-	 * portrait 288 / (1920 / 100) = 15vh
-	 * caniuse.com/#feat=viewport-units
-	 * css-tricks.com/viewport-sized-typography/
-	 */width:15vw;height:15vw;line-height:0;vertical-align:middle;border-bottom-color:transparent;background-color:transparent;background-image:url(../img/sitelogo-rounded-BB3F3F-200x200.svg);background-position:center center;background-repeat:no-repeat;background-size:18rem 18rem;background-size:15vw 15vw;-webkit-transition:all .2s ease-out;transition:all .2s ease-out;margin-top:0;margin-left:0}.no-svg .site-logo{background-image:url(../img/sitelogo-rounded-BB3F3F-200x200.png)}/*!
- * Pulse
- *//*! @import "animate.partial"; *//*!
- * some animations from animate.css
- * github.com/daneden/animate.css
+ * landscape 288 / (1920 / 100) = 15vw
+ * portrait 288 / (1920 / 100) = 15vh
+ * caniuse.com/#feat=viewport-units
+ * css-tricks.com/viewport-sized-typography/
+ */.holder-site-logo{width:100%;position:absolute;top:50%;left:0;text-align:center;opacity:0;-webkit-transition:opacity .5s linear;transition:opacity .5s linear;padding:0;margin:0;margin-top:-9rem;margin-top:-7.5vw}.site-logo{display:inline-block;width:15vw;height:15vw;line-height:0;vertical-align:middle;border-bottom-color:transparent;background-color:transparent;background-image:url(../img/sitelogo-rounded-BB3F3F-200x200.svg);background-position:center center;background-repeat:no-repeat;background-size:18rem 18rem;background-size:15vw 15vw;-webkit-transition:all .2s ease-out;transition:all .2s ease-out;margin-top:0;margin-left:0}.no-svg .site-logo{background-image:url(../img/sitelogo-rounded-BB3F3F-200x200.png)}/*!
+ * reset for animate.css
  * daneden.github.io/animate.css/
- */@-webkit-keyframes pulse{25%{-webkit-transform:scale(1.1);transform:scale(1.1)}75%{-webkit-transform:scale(0.9);transform:scale(0.9)}}@keyframes pulse{25%{-webkit-transform:scale(1.1);transform:scale(1.1)}75%{-webkit-transform:scale(0.9);transform:scale(0.9)}}.pulse{-webkit-animation-name:pulse;animation-name:pulse}.site-logo.animated{-webkit-animation-duration:2s;animation-duration:2s;-webkit-animation-timing-function:linear;animation-timing-function:linear;-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite}/*!
+ */.site-logo.animated{-webkit-animation-duration:2s;animation-duration:2s;-webkit-animation-timing-function:linear;animation-timing-function:linear;-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite}/*!
  * fix size for the logo
  * round to 8-fold
  * 1920 / 6.76 = 284 ~ 288
