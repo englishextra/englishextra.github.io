@@ -39,7 +39,11 @@
 	 * css-tricks.com/viewport-sized-typography/
 	 */width:15vw;height:15vw;line-height:0;vertical-align:middle;border-bottom-color:transparent;background-color:transparent;background-image:url(../img/sitelogo-rounded-BB3F3F-200x200.svg);background-position:center center;background-repeat:no-repeat;background-size:18rem 18rem;background-size:15vw 15vw;-webkit-transition:all .2s ease-out;transition:all .2s ease-out;margin-top:0;margin-left:0}.no-svg .site-logo{background-image:url(../img/sitelogo-rounded-BB3F3F-200x200.png)}/*!
  * Pulse
- */@-webkit-keyframes site-logo{25%{-webkit-transform:scale(1.1);transform:scale(1.1)}75%{-webkit-transform:scale(0.9);transform:scale(0.9)}}@keyframes site-logo{25%{-webkit-transform:scale(1.1);transform:scale(1.1)}75%{-webkit-transform:scale(0.9);transform:scale(0.9)}}.site-logo{-webkit-animation-name:site-logo;animation-name:site-logo;-webkit-animation-duration:2s;animation-duration:2s;-webkit-animation-timing-function:linear;animation-timing-function:linear;-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite}/*!
+ *//*! @import "animate.partial"; *//*!
+ * some animations from animate.css
+ * github.com/daneden/animate.css
+ * daneden.github.io/animate.css/
+ */@-webkit-keyframes pulse{25%{-webkit-transform:scale(1.1);transform:scale(1.1)}75%{-webkit-transform:scale(0.9);transform:scale(0.9)}}@keyframes pulse{25%{-webkit-transform:scale(1.1);transform:scale(1.1)}75%{-webkit-transform:scale(0.9);transform:scale(0.9)}}.pulse{-webkit-animation-name:pulse;animation-name:pulse}.site-logo.animated{-webkit-animation-duration:2s;animation-duration:2s;-webkit-animation-timing-function:linear;animation-timing-function:linear;-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite}/*!
  * fix size for the logo
  * round to 8-fold
  * 1920 / 6.76 = 284 ~ 288
