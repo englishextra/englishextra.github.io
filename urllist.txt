@@ -8,7 +8,6 @@ https://englishextra.github.io/pages/aids/aids_topics.html
 https://englishextra.github.io/pages/tests/tests_grammar_tests_with_answers.html
 https://englishextra.github.io/pages/tests/tests_gia_ege_letter_sample.html
 https://englishextra.github.io/pages/tests/tests_ege_essay_sample.html
-https://englishextra.github.io/pages/webdev/webdev_about.html
 https://englishextra.github.io/pages/more/more_irregular_verbs.html
 https://englishextra.github.io/pages/more/more_newsletter_can_get_english_for_free.html
 https://englishextra.github.io/pages/more/more_products.html
@@ -66,6 +65,8 @@ https://englishextra.github.io/pages/transcripts/transcripts_episode_stop_swingi
 https://englishextra.github.io/pages/transcripts/transcripts_linguaspectrum_essential_british_english_expressions.html
 https://englishextra.github.io/pages/transcripts/transcripts_linguaspectrum_spell.html
 https://englishextra.github.io/pages/transcripts/transcripts_video_vocab_transcripts.html
-https://englishextra.github.io/serguei/index.html
-https://englishextra.github.io/portfolio/index.html
+https://englishextra.github.io/pages/webdev/webdev_about.html
 https://englishextra.github.io/pages/webdev/webdev_brief_for_website.html
+https://englishextra.github.io/portfolio/index.html
+https://englishextra.github.io/portfolio/pictures.html
+https://englishextra.github.io/serguei/index.html

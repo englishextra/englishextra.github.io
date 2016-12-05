@@ -1,434 +1,434 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+	xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+		http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
-<url>
-  <loc>https://englishextra.github.io/</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>1.00</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/contents.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/articles/articles_reading_rules_utf.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/grammar/grammar_usage_of_articles_a_the.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/grammar/grammar_usage_of_tenses.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/grammar/grammar_phrasal_verbs.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/aids/aids_topics.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/tests/tests_grammar_tests_with_answers.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/tests/tests_gia_ege_letter_sample.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/tests/tests_ege_essay_sample.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/webdev/webdev_about.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/more/more_irregular_verbs.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/more/more_newsletter_can_get_english_for_free.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/more/more_products.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/aids/aids_most_commonly_used_idioms.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/aids/aids_teaching_pronunciation.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/grammar/grammar_ex_former.html</loc>
-  <lastmod>2016-07-16T23:12:11+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/grammar/grammar_grammar_girl_s_quick_and_dirty_grammar_at_a_glance.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/grammar/grammar_all_whole_entire.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/grammar/grammar_alone_by_myself_and_on_my_own.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/grammar/grammar_attributes_order.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/grammar/grammar_can_could_be_able_to.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/grammar/grammar_capital_letters.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/grammar/grammar_comma_before_who_which_that.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/grammar/grammar_common_and_proper_nouns.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/grammar/grammar_conditionals.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/grammar/grammar_degrees_of_comparison.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/grammar/grammar_foreign_words.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/grammar/grammar_glossary_of_grammatical_terms.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/grammar/grammar_in_at_on.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/grammar/grammar_in_hospital_at_work.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/grammar/grammar_may_might_be_allowed_to.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/grammar/grammar_modal_verbs.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/grammar/grammar_much_many_little_few.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/grammar/grammar_or_nor_neither.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/grammar/grammar_reported_speech.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/grammar/grammar_saying_numbers.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/grammar/grammar_stative_and_action_verbs.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/grammar/grammar_the_listing_comma.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/grammar/grammar_to_me_for_me.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/grammar/grammar_too_enough_so_such.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/grammar/grammar_translating_participles.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/grammar/grammar_usage_of_hyphens.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/grammar/grammar_when_must_means_probably.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/grammar/grammar_word_order.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/reading/reading_country_language_person_capital.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/reading/reading_russia_ukraine_war_conflict_vocabulary.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/reading/reading_the_man_with_the_scar.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/tests/tests_advanced_grammar_in_use_level_test.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/tests/tests_english_grammar_in_use_level_test.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/tests/tests_essential_grammar_in_use_level_test.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/tests/tests_ege_english_test_sample.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/tests/tests_ege_english_test_sample_speaking.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/tests/tests_gia_english_test_sample.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/tests/tests_gia_english_test_sample_speaking.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/tests/tests_languagelink_online_test.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/tests/tests_macmillan_practice_tests_for_the_russian_state_exam_2nd_test_20.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/tests/tests_macmillan_practice_tests_for_the_russian_state_exam_keys.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/tests/tests_macmillan_practice_tests_for_the_russian_state_exam_keys_2nd.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/tests/tests_common_mistakes_test_advanced.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/tests/tests_english_allrussian_olympiad_regional_stage_2013.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/tests/tests_previous_ege_analysis.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/transcripts/transcripts_episode_all_train_compartments_smell_vaguely_of_shit.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/transcripts/transcripts_episode_cousins_question_mark.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/transcripts/transcripts_episode_stop_swinging_the_bat.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/transcripts/transcripts_linguaspectrum_essential_british_english_expressions.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/transcripts/transcripts_linguaspectrum_spell.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/transcripts/transcripts_video_vocab_transcripts.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/serguei/index.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/portfolio/index.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://englishextra.github.io/pages/webdev/webdev_brief_for_website.html</loc>
-  <lastmod>2016-07-18T19:06:02+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.51</priority>
-</url>
+	<url>
+		<loc>https://englishextra.github.io/</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>1.00</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/contents.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/articles/articles_reading_rules_utf.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/grammar/grammar_usage_of_articles_a_the.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/grammar/grammar_usage_of_tenses.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/grammar/grammar_phrasal_verbs.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/aids/aids_topics.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/tests/tests_grammar_tests_with_answers.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/tests/tests_gia_ege_letter_sample.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/tests/tests_ege_essay_sample.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/more/more_irregular_verbs.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/more/more_newsletter_can_get_english_for_free.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/more/more_products.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/aids/aids_most_commonly_used_idioms.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/aids/aids_teaching_pronunciation.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/grammar/grammar_ex_former.html</loc>
+		<lastmod>2016-07-16T23:12:11+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/grammar/grammar_grammar_girl_s_quick_and_dirty_grammar_at_a_glance.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/grammar/grammar_all_whole_entire.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/grammar/grammar_alone_by_myself_and_on_my_own.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/grammar/grammar_attributes_order.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/grammar/grammar_can_could_be_able_to.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/grammar/grammar_capital_letters.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/grammar/grammar_comma_before_who_which_that.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/grammar/grammar_common_and_proper_nouns.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/grammar/grammar_conditionals.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/grammar/grammar_degrees_of_comparison.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/grammar/grammar_foreign_words.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/grammar/grammar_glossary_of_grammatical_terms.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/grammar/grammar_in_at_on.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/grammar/grammar_in_hospital_at_work.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/grammar/grammar_may_might_be_allowed_to.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/grammar/grammar_modal_verbs.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/grammar/grammar_much_many_little_few.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/grammar/grammar_or_nor_neither.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/grammar/grammar_reported_speech.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/grammar/grammar_saying_numbers.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/grammar/grammar_stative_and_action_verbs.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/grammar/grammar_the_listing_comma.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/grammar/grammar_to_me_for_me.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/grammar/grammar_too_enough_so_such.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/grammar/grammar_translating_participles.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/grammar/grammar_usage_of_hyphens.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/grammar/grammar_when_must_means_probably.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/grammar/grammar_word_order.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/reading/reading_country_language_person_capital.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/reading/reading_russia_ukraine_war_conflict_vocabulary.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/reading/reading_the_man_with_the_scar.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/tests/tests_advanced_grammar_in_use_level_test.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/tests/tests_english_grammar_in_use_level_test.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/tests/tests_essential_grammar_in_use_level_test.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/tests/tests_ege_english_test_sample.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/tests/tests_ege_english_test_sample_speaking.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/tests/tests_gia_english_test_sample.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/tests/tests_gia_english_test_sample_speaking.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/tests/tests_languagelink_online_test.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/tests/tests_macmillan_practice_tests_for_the_russian_state_exam_2nd_test_20.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/tests/tests_macmillan_practice_tests_for_the_russian_state_exam_keys.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/tests/tests_macmillan_practice_tests_for_the_russian_state_exam_keys_2nd.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/tests/tests_common_mistakes_test_advanced.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/tests/tests_english_allrussian_olympiad_regional_stage_2013.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/tests/tests_previous_ege_analysis.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/transcripts/transcripts_episode_all_train_compartments_smell_vaguely_of_shit.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/transcripts/transcripts_episode_cousins_question_mark.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/transcripts/transcripts_episode_stop_swinging_the_bat.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/transcripts/transcripts_linguaspectrum_essential_british_english_expressions.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/transcripts/transcripts_linguaspectrum_spell.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/transcripts/transcripts_video_vocab_transcripts.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/serguei/index.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/portfolio/index.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.64</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/webdev/webdev_about.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.80</priority>
+	</url>
+	<url>
+		<loc>https://englishextra.github.io/pages/webdev/webdev_brief_for_website.html</loc>
+		<lastmod>2016-07-18T19:06:02+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.51</priority>
+	</url>
 </urlset>
