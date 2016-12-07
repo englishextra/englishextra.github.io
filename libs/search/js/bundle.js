@@ -516,6 +516,7 @@ var manageSearchInput = function () {
 	k = function (e) {
 		e.focus();
 		evento.add(e, "input", g.bind(null, e));
+		/* e.oninput = g.bind(null, e); */
 	};
 	if (a) {
 		k(a);

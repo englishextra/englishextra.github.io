@@ -637,7 +637,7 @@ var Notifier42 = function (m, n, t) {
 		m = d.createTextNode(m);
 	}
 	appendFragment(m, c);
-	var s = function (cb) {
+	var s = function (f) {
 		c[cL].remove(an2);
 		c[cL].add(an4);
 		var r = function  ()  {
@@ -647,8 +647,8 @@ var Notifier42 = function (m, n, t) {
 				c[cL].remove(t);
 			}
 			removeChildren(c);
-			if (cb && "function" === typeof cb) {
-				cb();
+			if (f && "function" === typeof f) {
+				f();
 			}
 		};
 		setAutoClearedTimeout(r, 400);
@@ -672,9 +672,7 @@ var Notifier42 = function (m, n, t) {
 	}
 	return {
 		destroy : function () {
-			return s(function () {
-				removeElement(c);
-			});
+			return s(removeElement.bind(null, c));
 		}
 	};
 };

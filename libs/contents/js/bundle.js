@@ -778,6 +778,7 @@ var manageSearchInput = function () {
 	k = function (e) {
 		e.focus();
 		evento.add(e, "input", g.bind(null, e));
+		/* e.oninput = g.bind(null, e); */
 	};
 	if (a) {
 		k(a);
@@ -1321,11 +1322,13 @@ var initContentsKamil = function () {
 					removeChildren(_li);
 					crel(_li, "" + v);
 					evento.add(_li, "click", h_li.bind(null, v));
+					/* _li.onclick = h_li.bind(null, v); */
 					if (v.match(/^\s*$/)) {
 						setStyleDisplayNone(_ul);
 						setStyleDisplayNone(_li);
 					}
 					evento.add(text, "input", h_text);
+					/* text.oninput = h_text; */
 					l++;
 				}
 				/*!
