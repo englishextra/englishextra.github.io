@@ -332,8 +332,8 @@ var manageExternalLinks = function (ctx) {
 			if ("undefined" !== typeof getHTTP && getHTTP()) {
 				e.target = "_blank";
 			} else {
-				evento.add(e, "click", h_e);
-				/* e.onclick = h_e; */
+				/* evento.add(e, "click", h_e); */
+				e.onclick = h_e;
 			}
 		}
 	};
@@ -553,6 +553,7 @@ var initUiTotop = function () {
 		/*jshint +W107 */
 		a.title = t;
 		evento.add(a, "click", h_a);
+		/* a.onclick = h_a; */
 		setStyleOpacity(a, 0);
 		s.id = v;
 		appendFragment(crel(a, s, "" + t), b);

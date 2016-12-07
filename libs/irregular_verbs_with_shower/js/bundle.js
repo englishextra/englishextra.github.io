@@ -342,22 +342,19 @@ var manageExternalLinks = function (ctx) {
 	var w = window,
 	a = ctx ? BALA.one("a", ctx) || "" : BALA.one("a") || "",
 	g = function (e) {
-		var p = e.getAttribute("href") || "";
+		var p = e.getAttribute("href") || "",
+		h_e = function (ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			openDeviceBrowser(p);
+		};
 		if (p && parseLink(p).isCrossDomain && parseLink(p).hasHTTP) {
-			e.title = "" + (parseLink(p).hostname || "") + " откроетс¤ в новой вкладке";
+			e.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
 			if ("undefined" !== typeof getHTTP && getHTTP()) {
 				e.target = "_blank";
 			} else {
-				evento.add(e, "click", function (e) {
-					e.stopPropagation();
-					e.preventDefault();
-					openDeviceBrowser(p);
-				});
-				/* e.onclick = function (e) {
-					e.stopPropagation();
-					e.preventDefault();
-					openDeviceBrowser(p);
-				}; */
+				/* evento.add(e, "click", h_e); */
+				e.onclick = h_e;
 			}
 		}
 	};
@@ -529,6 +526,7 @@ var initUiTotop = function () {
 		/*jshint +W107 */
 		a.title = t;
 		evento.add(a, "click", h_a);
+		/* a.onclick = h_a; */
 		setStyleOpacity(a, 0);
 		s.id = v;
 		appendFragment(crel(a, s, "" + t), b);
@@ -596,11 +594,13 @@ var initPlusoYaShare = function () {
 	v = function () {
 		var h_a = function (e) {
 			evento.remove(a, "click", h_a);
+			/* a.onclick = null; */
 			e.preventDefault();
 			e.stopPropagation();
 			q();
 		};
 		evento.add(a, "click", h_a);
+		/* a.onclick = h_a; */
 	};
 	if ((pluso || ya_share2) && a) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {

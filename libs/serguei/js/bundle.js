@@ -64,9 +64,9 @@
  * MIT License
  * @requires setImmediate {@link https://github.com/YuzuJS/setImmediate YuzuJS/setImmediate}
  * "#" => ""
- * "#/" => "/"
+ * "#/" => "/" wont trigger anything? {@link https://github.com/jgallen23/routie/issues/49}
  * "#/home" => "/home"
- * routie({"/": function () {},"/feedback": function () {};};
+ * routie({"/contents": function () {},"/feedback": function () {};};
  * routie.navigate("/somepage");
  * changed setTimeout to setImmediate in navigate method
  * added window object existence check
@@ -487,8 +487,8 @@ var manageExternalLinks = function (ctx) {
 			if ("undefined" !== typeof getHTTP && getHTTP()) {
 				e.target = "_blank";
 			} else {
-				evento.add(e, "click", h_e);
-				/* e.onclick = h_e; */
+				/* evento.add(e, "click", h_e); */
+				e.onclick = h_e;
 			}
 		}
 	};
@@ -655,14 +655,18 @@ var Notifier42 = function (m, n, t) {
 	},
 	h_b = function () {
 		evento.remove(b, "click", h_b);
+		/* b.onclick = null; */
 		s();
 	},
 	h_c = function () {
 		evento.remove(c, "click", h_c);
+		/* c.onclick = null; */
 		s();
 	};
 	evento.add(b, "click", h_b);
 	evento.add(c, "click", h_c);
+	/* b.onclick = h_b;
+	c.onclick = h_c; */
 	if (0 !== n) {
 		setAutoClearedTimeout(s, n);
 	}
@@ -759,11 +763,13 @@ var manageDisqusButton = function () {
 	e = c ? (BALA.one("#btn-show-disqus") || "") : "",
 	h_e = function () {
 		evento.remove(e, "click", h_e);
+		/* e.onclick = null; */
 		loadRefreshDisqus();
 		return !1;
 	};
 	if (c && e) {
 		evento.add(e, "click", h_e);
+		/* e.onclick = h_e; */
 	}
 };
 evento.add(window, "load", function () {
@@ -821,12 +827,14 @@ var initYandexMap = function (a) {
 	},
 	h_b_d = function () {
 		evento.remove(b_d, "click", h_b_d);
+		/* b_d.onclick = null; */
 		myMap.destroy();
 	};
 	if (c && f && z && b_s) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			if (b_d) {
 				evento.add(b_d, "click", h_b_d);
+				/* b_d.onclick = h_b_d; */
 			}
 			LoadingSpinner.show();
 			if (scriptIsLoaded(js)) {
@@ -849,11 +857,13 @@ var manageYandexMapButton = function (a) {
 	e = c ? (BALA.one(c[ds].btnShow) || "") : "",
 	h_e = function () {
 		evento.remove(e, "click", h_e);
+		/* e.onclick = null; */
 		initYandexMap(a);
 		return !1;
 	};
 	if (c && e) {
 		evento.add(e, "click", h_e);
+		/* e.onclick = h_e; */
 	}
 };
 evento.add(window, "load", function () {
@@ -914,15 +924,19 @@ var manageDataLightboxImgLinks = function (ctx) {
 		},
 		z = function () {
 			var h_c = function () {
-				evento.remove(c, "click", h_c);
+				/* evento.remove(c, "click", h_c); */
+				c.onclick = null;
 				r();
 			},
 			h_w = function (e) {
-				evento.remove(w, "keyup", h_w);
+				/* evento.remove(w, "keyup", h_w); */
+				w.onkeyup =  null;
 				v(e);
 			};
-			evento.add(c, "click", h_c);
-			evento.add(w, "keyup",  h_w);
+			/* evento.add(c, "click", h_c);
+			evento.add(w, "keyup",  h_w); */
+			c.onclick = h_c;
+			w.onkeyup =  h_w;
 			setStyleDisplayBlock(c);
 			LoadingSpinner.hide();
 		},
@@ -958,8 +972,8 @@ var manageDataLightboxImgLinks = function (ctx) {
 			if (parseLink(p).isAbsolute && !parseLink(p).hasHTTP) {
 				e.setAttribute("href", p.replace(/^/, getHTTP(!0) + ":"));
 			}
-			evento.add(e, "click", h_e.bind(null, e));
-			/* e.onclick = h_e.bind(null, e); */
+			/* evento.add(e, "click", h_e.bind(null, e)); */
+			e.onclick = h_e.bind(null, e);
 		}
 	};
 	if (a) {
@@ -1093,6 +1107,7 @@ var initNavMenu = function () {
 			}
 		};
 		evento.add(container, "click", h_container);
+		/* container.onclick = h_container; */
 	},
 	k = function () {
 		var h_e = function (e) {
@@ -1104,6 +1119,7 @@ var initNavMenu = function () {
 			btn[cL].toggle(is_active);
 		};
 		evento.add(btn, "click", h_e);
+		/* btn.onclick = h_e; */
 	},
 	q = function () {
 		holder[cL].remove(is_active);
@@ -1139,6 +1155,7 @@ var initNavMenu = function () {
 			n(e);
 		};
 		evento.add(e, "click", h_e);
+		/* e.onclick = h_e; */
 		if (e.href == p) {
 			n(e);
 		} else {
@@ -1191,9 +1208,11 @@ var initMenuMore = function () {
 	},
 	g = function (e) {
 		evento.add(e, "click", h_e);
+		/* e.onclick = h_e; */
 	},
 	k = function () {
 		evento.add(container, "click", h_e);
+		/* container.onclick = h_e; */
 	},
 	q = function () {
 		var h_btn = function (e)  {
@@ -1202,6 +1221,7 @@ var initMenuMore = function () {
 			holder[cL].toggle(is_active);
 		};
 		evento.add(btn, "click", h_btn);
+		/* btn.onclick = h_btn; */
 	},
 	v = function () {
 		if (w._) {
@@ -1278,6 +1298,7 @@ var initUiTotop = function () {
 		/*jshint +W107 */
 		a.title = t;
 		evento.add(a, "click", h_a);
+		/* a.onclick = h_a; */
 		setStyleOpacity(a, 0);
 		s.id = v;
 		appendFragment(crel(a, s, "" + t), b);
@@ -1345,11 +1366,13 @@ var initPlusoYaShare = function () {
 	v = function () {
 		var h_a = function (e) {
 			evento.remove(a, "click", h_a);
+			/* a.onclick = null; */
 			e.preventDefault();
 			e.stopPropagation();
 			q();
 		};
 		evento.add(a, "click", h_a);
+		/* a.onclick = h_a; */
 	};
 	if ((pluso || ya_share2) && a) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
@@ -1401,11 +1424,13 @@ var initVKLike = function () {
 	q = function () {
 		var h_a = function (e) {
 			evento.remove(a, "click", h_a);
+			/* a.onclick = null; */
 			e.preventDefault();
 			e.stopPropagation();
 			k();
 		};
 		evento.add(a, "click", h_a);
+		/* a.onclick = h_a; */
 	};
 	if (c && a) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
@@ -1500,14 +1525,16 @@ var manageDataTargetLinks = function (ctx) {
 		var u = e.dataset.url || "",
 		t = e.dataset.target || "",
 		h_e = function (_this, e) {
-			evento.remove(_this, "click", h_e);
+			/* evento.remove(_this, "click", h_e); */
+			_this.onclick = null;
 			e.preventDefault();
 			e.stopPropagation();
 			includeHTMLintoTarget(_this, u, t);
 		};
 		if (u && t) {
 			e.title = "Появится здесь же";
-			evento.add(e, "click", h_e.bind(null, e));
+			/* evento.add(e, "click", h_e.bind(null, e)); */
+			e.onclick = h_e.bind(null, e);
 		}
 	};
 	if (a) {
@@ -1566,6 +1593,7 @@ var highlightNavMenuItem = function () {
 };
 /*!
  * observe mutations
+ * bind functions only for inserted DOM
  */
 var observeMutations = function (c) {
 	"use strict";
@@ -1578,7 +1606,6 @@ var observeMutations = function (c) {
 					console.log(e.type, "removed: " + e.removedNodes.length + " nodes");
 					if ("childList" === e.type || "subtree" === e.type) {
 						mo.disconnect();
-						/* bind functions only for inserted DOM */
 						manageExternalLinks(c);
 						manageLocalLinks(c);
 						manageDataTargetLinks(c);
@@ -1600,9 +1627,13 @@ var observeMutations = function (c) {
  */
 evento.add(window, "load", function () {
 	"use strict";
-	var pN = "parentNode",
+	var w = window,
+	h = w.location.hash || "",
+	pN = "parentNode",
 	c = BALA.one("#container-includes")[pN] || BALA.one("body") || "";
-	observeMutations(c);
+	if (h) {
+		observeMutations(c);
+	}
 });
 /*!
  * apply changes to static DOM,
@@ -1626,10 +1657,10 @@ var insertExternalHTML = function (a, u, cb) {
 	"use strict";
 	var w = window,
 	c = BALA.one(a) || "",
-	g = function (t, cb) {
+	g = function (t, f) {
 		insertTextAsFragment(t, c, function () {
-			if (cb && "function" === typeof cb) {
-				cb();
+			if (f && "function" === typeof f) {
+				f();
 			}
 		});
 	},
@@ -1722,9 +1753,11 @@ var initRoutie = function (ci) {
 	},
 	redirectToDefaultPage = function (h, t) {
 		t = t || "";
+		var w = window;
 		if (h) {
 			reinitVirtualPage("" + t);
-			location.hash = "#" + h;
+			w.location.hash = "#" + h;
+			/* w.location.reload(); */
 			if (history.pushState) {
 				history.replaceState(null, null, "#" + h);
 			}

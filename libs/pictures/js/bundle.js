@@ -374,8 +374,8 @@ var manageExternalLinks = function (ctx) {
 			if ("undefined" !== typeof getHTTP && getHTTP()) {
 				e.target = "_blank";
 			} else {
-				evento.add(e, "click", h_e);
-				/* e.onclick = h_e; */
+				/* evento.add(e, "click", h_e); */
+				e.onclick = h_e;
 			}
 		}
 	};
@@ -841,6 +841,7 @@ var initNavMenu = function () {
 			}
 		};
 		evento.add(container, "click", h_container);
+		/* container.onclick = h_container; */
 	},
 	k = function () {
 		var h_e = function (e) {
@@ -852,6 +853,7 @@ var initNavMenu = function () {
 			btn[cL].toggle(is_active);
 		};
 		evento.add(btn, "click", h_e);
+		/* btn.onclick = h_e; */
 	},
 	q = function () {
 		holder[cL].remove(is_active);
@@ -887,6 +889,7 @@ var initNavMenu = function () {
 			n(e);
 		};
 		evento.add(e, "click", h_e);
+		/* e.onclick = h_e; */
 		if (e.href == p) {
 			n(e);
 		} else {
@@ -939,9 +942,11 @@ var initMenuMore = function () {
 	},
 	g = function (e) {
 		evento.add(e, "click", h_e);
+		/* e.onclick = h_e; */
 	},
 	k = function () {
 		evento.add(container, "click", h_e);
+		/* container.onclick = h_e; */
 	},
 	q = function () {
 		var h_btn = function (e)  {
@@ -950,6 +955,7 @@ var initMenuMore = function () {
 			holder[cL].toggle(is_active);
 		};
 		evento.add(btn, "click", h_btn);
+		/* btn.onclick = h_btn; */
 	},
 	v = function () {
 		if (w._) {
@@ -1026,6 +1032,7 @@ var initUiTotop = function () {
 		/*jshint +W107 */
 		a.title = t;
 		evento.add(a, "click", h_a);
+		/* a.onclick = h_a; */
 		setStyleOpacity(a, 0);
 		s.id = v;
 		appendFragment(crel(a, s, "" + t), b);
@@ -1093,11 +1100,13 @@ var initPlusoYaShare = function () {
 	v = function () {
 		var h_a = function (e) {
 			evento.remove(a, "click", h_a);
+			/* a.onclick = null; */
 			e.preventDefault();
 			e.stopPropagation();
 			q();
 		};
 		evento.add(a, "click", h_a);
+		/* a.onclick = h_a; */
 	};
 	if ((pluso || ya_share2) && a) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
@@ -1149,11 +1158,13 @@ var initVKLike = function () {
 	q = function () {
 		var h_a = function (e) {
 			evento.remove(a, "click", h_a);
+			/* a.onclick = null; */
 			e.preventDefault();
 			e.stopPropagation();
 			k();
 		};
 		evento.add(a, "click", h_a);
+		/* a.onclick = h_a; */
 	};
 	if (c && a) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {

@@ -400,8 +400,8 @@ var manageExternalLinks = function (ctx) {
 			if ("undefined" !== typeof getHTTP && getHTTP()) {
 				e.target = "_blank";
 			} else {
-				evento.add(e, "click", h_e);
-				/* e.onclick = h_e; */
+				/* evento.add(e, "click", h_e); */
+				e.onclick = h_e;
 			}
 		}
 	};
@@ -649,9 +649,11 @@ var initMenuMore = function () {
 	},
 	g = function (e) {
 		evento.add(e, "click", h_e);
+		/* e.onclick = h_e; */
 	},
 	k = function () {
 		evento.add(container, "click", h_e);
+		/* container.onclick = h_e; */
 	},
 	q = function () {
 		var h_btn = function (e)  {
@@ -660,6 +662,7 @@ var initMenuMore = function () {
 			holder[cL].toggle(is_active);
 		};
 		evento.add(btn, "click", h_btn);
+		/* btn.onclick = h_btn; */
 	},
 	v = function () {
 		if (w._) {
@@ -743,11 +746,13 @@ var initPlusoYaShare = function () {
 	v = function () {
 		var h_a = function (e) {
 			evento.remove(a, "click", h_a);
+			/* a.onclick = null; */
 			e.preventDefault();
 			e.stopPropagation();
 			q();
 		};
 		evento.add(a, "click", h_a);
+		/* a.onclick = h_a; */
 	};
 	if ((pluso || ya_share2) && a) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
@@ -799,11 +804,13 @@ var initVKLike = function () {
 	q = function () {
 		var h_a = function (e) {
 			evento.remove(a, "click", h_a);
+			/* a.onclick = null; */
 			e.preventDefault();
 			e.stopPropagation();
 			k();
 		};
 		evento.add(a, "click", h_a);
+		/* a.onclick = h_a; */
 	};
 	if (c && a) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
