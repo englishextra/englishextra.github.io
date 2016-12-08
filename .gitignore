@@ -3,9 +3,6 @@
 *.bat
 *.db
 *.eps
-*.git*
-*.hg*
-*.iml
 *.iml
 *.komodoproject
 *.phprj

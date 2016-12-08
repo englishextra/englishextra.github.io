@@ -496,9 +496,7 @@ var manageExternalLinks = function (ctx) {
 		}
 	}
 };
-evento.add(window, "load", function () {
-	manageExternalLinks();
-});
+evento.add(window, "load", manageExternalLinks.bind(null, ""));
 /*!
  * set title to local links
  */
@@ -530,24 +528,24 @@ var manageLocalLinks = function (ctx) {
 		}
 	}
 };
-evento.add(window, "load", function () {
-	manageLocalLinks();
-});
+evento.add(window, "load", manageLocalLinks.bind(null, ""));
 /*!
  * init fastclick
  * github.com/ftlabs/fastclick
  */
-var loadInitFastClick = function () {
+var initFastClick = function () {
 	"use strict";
 	var w = window,
 	b = BALA.one("body") || "";
+	if (w.FastClick) {
+		FastClick.attach(b);
+	}
+};
+var loadInitFastClick = function () {
+	"use strict";
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
 		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-			ajaxLoadTriggerJS("/cdn/fastclick/1.0.6/js/fastclick.fixed.min.js", function () {
-				if (w.FastClick) {
-					FastClick.attach(b);
-				}
-			});
+			ajaxLoadTriggerJS("/cdn/fastclick/1.0.6/js/fastclick.fixed.min.js", initFastClick);
 		}
 	}
 };
@@ -569,8 +567,6 @@ var initMasonryDisqus = function () {
 	k = ".masonry-grid-sizer",
 	grid = BALA.one(g) || "",
 	grid_item = BALA.one(h) || "",
-	masonry_js_src = "../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js",
-	packery_draggabilly_js_src = "../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js",
 	cL = "classList",
 	pN = "parentNode",
 	/*! Masonry */
@@ -648,9 +644,7 @@ var initMasonryDisqus = function () {
 			disqus_thread[cL].add(is_active);
 		};
 		if (!scriptIsLoaded(embed_js_src)) {
-			loadJS(embed_js_src, function () {
-				s();
-			});
+			loadJS(embed_js_src, s);
 		}
 	};
 	if (grid && grid_item) {
@@ -671,14 +665,11 @@ var initMasonryDisqus = function () {
 		}
 	}
 };
-evento.add(window, "load", function () {
-	ajaxLoadTriggerJS("../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js", function () {
-		initMasonryDisqus();
-	});
-	/* ajaxLoadTriggerJS("../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js", function () {
-		initMasonryDisqus();
-	}); */
-});
+var loadInitMasonryDisqus = function () {
+	ajaxLoadTriggerJS("../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js", initMasonryDisqus);
+	/* ajaxLoadTriggerJS("../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js", initMasonryDisqus); */
+};
+evento.add(window, "load", loadInitMasonryDisqus);
 /*!
  * init AJAX JSON select
  */
@@ -763,9 +754,7 @@ var manageContentsSelect = function (ctx) {
 		}
 	}
 };
-evento.add(window, "load", function () {
-	manageContentsSelect();
-});
+evento.add(window, "load", manageContentsSelect.bind(null, ""));
 /*!
  * manage search input
  */
@@ -818,9 +807,7 @@ var showLocationQR = function () {
 		}
 	}
 };
-evento.add(window, "load", function () {
-	showLocationQR();
-});
+evento.add(window, "load", showLocationQR);
 /*!
  * init nav-menu
  */
@@ -1112,9 +1099,8 @@ var initUiTotop = function () {
 		}
 	},
 	q = function () {
-		evento.add(w, "scroll", function () {
-			k(this);
-		});
+		evento.add(w, "scroll", k.bind(null, w));
+		/* w.onscroll = k.bind(null, w); */
 	};
 	if (b) {
 		g(function () {
@@ -1140,9 +1126,7 @@ var initPlusoYaShare = function () {
 	},
 	k = function (js, s, b) {
 		if (!scriptIsLoaded(js)) {
-			loadJS(js, function () {
-				g(s, b);
-			});
+			loadJS(js, g.bind(null, s, b));
 		}
 	},
 	q = function () {
@@ -1207,9 +1191,7 @@ var initVKLike = function () {
 	},
 	k = function () {
 		if (!scriptIsLoaded(js)) {
-			loadJS(js, function () {
-				g();
-			});
+			loadJS(js, g);
 		}
 	},
 	q = function () {
@@ -1397,9 +1379,7 @@ var initContentsKamil = function () {
 	}
 };
 var loadInitContentsKamil = function () {
-	ajaxLoadTriggerJS("../cdn/kamil/0.1.1/js/kamil.fixed.min.js", function () {
-		initContentsKamil();
-	});
+	ajaxLoadTriggerJS("../cdn/kamil/0.1.1/js/kamil.fixed.min.js", initContentsKamil);
 };
 docReady(loadInitContentsKamil);
 /*!
@@ -1427,15 +1407,16 @@ var initSearchForm = function () {
 		crel(ya_site_form, {
 			"onclick" : "return {'action':'https://yandex.com/search/site/','arrow':false,'bg':'transparent','fontsize':16,'fg':'#000000','language':'auto','logo':'rb','publicname':'\u041f\u043e\u0438\u0441\u043a \u043f\u043e \u0441\u0430\u0439\u0442\u0443 englishextra.github.io','suggest':true,'target':'_blank','tld':'com','type':3,'usebigdictionary':true,'searchid':2192588,'input_fg':'#363636','input_bg':'#E9E9E9','input_fontStyle':'normal','input_fontWeight':'normal','input_placeholder':'\u041F\u043E\u0438\u0441\u043A','input_placeholderColor':'#686868','input_borderColor':'#E9E9E9'};"
 		});
+		var f = function () {
+			/*!
+			 * yandex will load its own css making form visible
+			 */
+			if (w.Ya) {
+				Ya.Site.Form.init();
+			}
+		};
 		if (!scriptIsLoaded(all_js_src)) {
-			loadJS(all_js_src, function () {
-				if (w.Ya) {
-					Ya.Site.Form.init();
-				}
-				/*!
-				 * yandex will load its own css making form visible
-				 */
-			});
+			loadJS(all_js_src, f);
 		}
 	},
 	q = function () {
@@ -1457,9 +1438,7 @@ var initSearchForm = function () {
 		q();
 	}
 };
-evento.add(window, "load", function () {
-	initSearchForm();
-});
+evento.add(window, "load", initSearchForm);
 /*!
  * init manUP.js
  */
@@ -1472,7 +1451,7 @@ docReady(loadManUp);
 /*!
  * show page, finish ToProgress
  */
-evento.add(window, "load", function () {
+var showPageFinishProgress = function () {
 	"use strict";
 	var a = BALA.one("#container") || "",
 	g = function () {
@@ -1500,4 +1479,5 @@ evento.add(window, "load", function () {
 			g();
 		}
 	}
-});
+};
+evento.add(window, "load", showPageFinishProgress);

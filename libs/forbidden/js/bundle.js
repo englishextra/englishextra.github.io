@@ -391,9 +391,7 @@ var manageExternalLinks = function (ctx) {
 		}
 	}
 };
-evento.add(window, "load", function () {
-	manageExternalLinks();
-});
+evento.add(window, "load", manageExternalLinks.bind(null, ""));
 /*!
  * set title to local links
  */
@@ -425,9 +423,7 @@ var manageLocalLinks = function (ctx) {
 		}
 	}
 };
-evento.add(window, "load", function () {
-	manageLocalLinks();
-});
+evento.add(window, "load", manageLocalLinks.bind(null, ""));
 /*!
  * init fastclick
  * github.com/ftlabs/fastclick
@@ -440,15 +436,15 @@ var initFastClick = function () {
 		FastClick.attach(b);
 	}
 };
-docReady(function () {
+var loadInitFastClick = function () {
+	"use strict";
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
 		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-			ajaxLoadTriggerJS("/cdn/fastclick/1.0.6/js/fastclick.fixed.min.js", function () {
-				initFastClick();
-			});
+			ajaxLoadTriggerJS("/cdn/fastclick/1.0.6/js/fastclick.fixed.min.js", initFastClick);
 		}
 	}
-});
+};
+docReady(loadInitFastClick);
 /*!
  * init qr-code
  * stackoverflow.com/questions/12777622/how-to-use-enquire-js
@@ -482,9 +478,7 @@ var showLocationQR = function () {
 		}
 	}
 };
-evento.add(window, "load", function () {
-	showLocationQR();
-});
+evento.add(window, "load", showLocationQR);
 /*!
  * init nav-menu
  */
@@ -742,9 +736,7 @@ var initVKLike = function () {
 	},
 	k = function () {
 		if (!scriptIsLoaded(js)) {
-			loadJS(js, function () {
-				g();
-			});
+			loadJS(js, g);
 		}
 	},
 	q = function () {
@@ -778,7 +770,7 @@ docReady(function () {
 /*!
  * show page, finish ToProgress
  */
-evento.add(window, "load", function () {
+var showPageFinishProgress = function () {
 	"use strict";
 	var a = BALA.one("#page") || "",
 	c = BALA.one("#holder-site-logo") || "",
@@ -808,4 +800,5 @@ evento.add(window, "load", function () {
 			g();
 		}
 	}
-});
+};
+evento.add(window, "load", showPageFinishProgress);

@@ -200,15 +200,14 @@ var initParallax = function () {
 		setStyleDisplayBlock(m);
 	}
 };
-evento.add(window, "load", function () {
-	ajaxLoadTriggerJS("/cdn/parallax/2.1.3/js/parallax.fixed.min.js", function () {
-		initParallax();
-	});
-});
+var loadInitParallax = function () {
+	ajaxLoadTriggerJS("/cdn/parallax/2.1.3/js/parallax.fixed.min.js", initParallax);
+};
+evento.add(window, "load", loadInitParallax);
 /*!
  * show page, finish ToProgress
  */
-evento.add(window, "load", function () {
+var showPageFinishProgress = function () {
 	"use strict";
 	var a = BALA.one("#container") || "",
 	c = BALA.one("#progress") || "",
@@ -237,4 +236,5 @@ evento.add(window, "load", function () {
 			g();
 		}
 	}
-});
+};
+evento.add(window, "load", showPageFinishProgress);

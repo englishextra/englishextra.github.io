@@ -786,9 +786,7 @@ var manageExternalLinks = function (ctx) {
 		}
 	}
 };
-evento.add(window, "load", function () {
-	manageExternalLinks();
-});
+evento.add(window, "load", manageExternalLinks.bind(null, ""));
 /*!
  * set title to local links
  */
@@ -820,24 +818,24 @@ var manageLocalLinks = function (ctx) {
 		}
 	}
 };
-evento.add(window, "load", function () {
-	manageLocalLinks();
-});
+evento.add(window, "load", manageLocalLinks.bind(null, ""));
 /*!
  * init fastclick
  * github.com/ftlabs/fastclick
  */
-var loadInitFastClick = function () {
+var initFastClick = function () {
 	"use strict";
 	var w = window,
 	b = BALA.one("body") || "";
+	if (w.FastClick) {
+		FastClick.attach(b);
+	}
+};
+var loadInitFastClick = function () {
+	"use strict";
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
 		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-			ajaxLoadTriggerJS("/cdn/fastclick/1.0.6/js/fastclick.fixed.min.js", function () {
-				if (w.FastClick) {
-					FastClick.attach(b);
-				}
-			});
+			ajaxLoadTriggerJS("/cdn/fastclick/1.0.6/js/fastclick.fixed.min.js", initFastClick);
 		}
 	}
 };
@@ -956,11 +954,11 @@ var Notifier42 = function (m, n, t) {
 /*!
  * notifier42-write-a-comment-on-content
  */
-docReady(function () {
+var initNotifier42WriteComment = function () {
 	"use strict";
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
 		var w = window,
-		n = "notifier42-write-a-comment-on-content",
+		n = "notifier42-write-comment",
 		m = "Напишите, что понравилось, а что нет. Регистрироваться не нужно.",
 		p = parseLink(w.location.href).origin,
 		s = function () {
@@ -974,7 +972,8 @@ docReady(function () {
 			setAutoClearedTimeout(s, 16000);
 		}
 	}
-});
+};
+docReady(initNotifier42WriteComment);
 /*!
  * load Yandex map
  * tech.yandex.ru/maps/jsbox/2.1/mapbasics
@@ -1002,7 +1001,7 @@ var initYandexMap = function (a) {
 			setStyleDisplayBlock(b_s);
 		}
 	},
-	g = function() {
+	g = function () {
 		ymaps.ready(init);
 		c[cL].add(is_active);
 		setStyleDisplayNone(b_s);
@@ -1015,9 +1014,7 @@ var initYandexMap = function (a) {
 		}
 	},
 	v = function () {
-		loadJS(js, function () {
-			k();
-		});
+		loadJS(js, k);
 	},
 	q = function () {
 		removeChildren(c);
@@ -1066,9 +1063,7 @@ var manageYandexMapButton = function (a) {
 		/* e.onclick = h_e; */
 	}
 };
-evento.add(window, "load", function () {
-	manageYandexMapButton("#ymap");
-});
+evento.add(window, "load", manageYandexMapButton.bind(null, "#ymap"));
 /*!
  * manage data lightbox img links
  */
@@ -1193,9 +1188,7 @@ var manageDataLightboxImgLinks = function (ctx) {
 		}
 	}
 };
-evento.add(window, "load", function () {
-	manageDataLightboxImgLinks();
-});
+evento.add(window, "load", manageDataLightboxImgLinks.bind(null, ""));
 /*!
  * hide ui buttons in fullscreen mode
  */
@@ -1286,11 +1279,10 @@ var initAllMasonry = function () {
 		}
 	}
 };
-evento.add(window, "load", function () {
-	ajaxLoadTriggerJS("../../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js", function () {
-		initAllMasonry();
-	});
-});
+var loadInitAllMasonry = function () {
+	ajaxLoadTriggerJS("../../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js", initAllMasonry);
+};
+evento.add(window, "load", loadInitAllMasonry);
 /*!
  * init all Packery grids
  */
@@ -1363,11 +1355,10 @@ var initAllPackery = function () {
 		}
 	}
 };
-evento.add(window, "load", function () {
-	ajaxLoadTriggerJS("../../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js", function () {
-		initAllPackery();
-	});
-});
+var loadInitAllPackery = function () {
+	ajaxLoadTriggerJS("../../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js", initAllPackery);
+};
+evento.add(window, "load", loadInitAllPackery);
 /*!
  * init photoswipe
  */
@@ -1587,10 +1578,11 @@ var initPhotoswipe = function () {
 		}
 	},
 	z = function () {
-		/* ajaxLoadTriggerJS(photoswipe_js_src, function () {
+		/* var fn = function () {
 			v();
 			pswp(c);
-		}); */
+		};
+		ajaxLoadTriggerJS(photoswipe_js_src, fn); */
 		v();
 		pswp(c);
 	};
@@ -1598,11 +1590,10 @@ var initPhotoswipe = function () {
 		z();
 	}
 };
-docReady(function () {
-	ajaxLoadTriggerJS("../cdn/photoswipe/4.1.0/js/photoswipe.photoswipe-ui-default.fixed.min.js", function () {
-		initPhotoswipe();
-	});
-});
+var loadInitPhotoswipe = function () {
+	ajaxLoadTriggerJS("../cdn/photoswipe/4.1.0/js/photoswipe.photoswipe-ui-default.fixed.min.js", initPhotoswipe);
+};
+docReady(loadInitPhotoswipe);
 /*!
  * init tablesort
  * github.com/tristen/tablesort
@@ -1646,16 +1637,15 @@ var initTablesort = function (ctx) {
 		k();
 	}
 };
-docReady(function () {
+var loadInitTablesort = function () {
 	var a = BALA.one("table.sort") || "";
 	if (a) {
 		if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
-			ajaxLoadTriggerJS("../../cdn/tablesort/4.0.1/js/tablesort.fixed.min.js", function () {
-				initTablesort();
-			});
+			ajaxLoadTriggerJS("../../cdn/tablesort/4.0.1/js/tablesort.fixed.min.js", initTablesort.bind(null, ""));
 		}
 	}
-});
+};
+docReady(loadInitTablesort);
 /*!
  * init prettyPrint
  */
@@ -1663,13 +1653,13 @@ var loadInitPrettyPrint = function () {
 	"use strict";
 	var w = window,
 	a = BALA.one('[class^="prettyprint"]') || "",
-	s = "../../cdn/google-code-prettify/0.1/js/prettify.lang-css.fixed.min.js";
+	f = function () {
+		if (w.prettyPrint) {
+			prettyPrint();
+		}
+	};
 	if (a) {
-		ajaxLoadTriggerJS("../../cdn/google-code-prettify/0.1/js/prettify.lang-css.fixed.min.js", function () {
-			if (w.prettyPrint) {
-				prettyPrint();
-			}
-		});
+		ajaxLoadTriggerJS("../../cdn/google-code-prettify/0.1/js/prettify.lang-css.fixed.min.js", f);
 	}
 };
 docReady(loadInitPrettyPrint);
@@ -1738,12 +1728,13 @@ var showDownloadApp = function (n) {
 		g();
 	}
 };
-evento.add(window, "load", function () {
+var loadShowDownloadApp = function () {
 	var s = function () {
 		showDownloadApp(8000);
 	};
 	setAutoClearedTimeout(s, 3000);
-});
+};
+evento.add(window, "load", loadShowDownloadApp);
 /*!
  * replace img src with data-src
  */
@@ -1838,20 +1829,22 @@ var manageDataSrcIframe = function (ctx) {
 		}
 	}
 };
-evento.add(window, "load", function () {
+var loadManageDataSrcImgIframe = function () {
 	var a = BALA.one("img[data-src]") || "",
-	c = BALA.one("iframe[data-src]") || "";
+	c = BALA.one("iframe[data-src]") || "",
+	f = function () {
+		if (a) {
+			manageDataSrcImg();
+		}
+		if (c) {
+			manageDataSrcIframe();
+		}
+	};
 	if (a || c) {
-		ajaxLoadTriggerJS("../../cdn/lazyload/3.2.2/js/lazyload.fixed.min.js", function () {
-			if (a) {
-				manageDataSrcImg();
-			}
-			if (c) {
-				manageDataSrcIframe();
-			}
-		});
+		ajaxLoadTriggerJS("../../cdn/lazyload/3.2.2/js/lazyload.fixed.min.js", f);
 	}
-});
+};
+evento.add(window, "load", loadManageDataSrcImgIframe);
 /*!
  * manage search input
  */
@@ -1916,9 +1909,7 @@ var manageExpandingLayers = function (ctx) {
 		q();
 	}
 };
-evento.add(window, "load", function () {
-	manageExpandingLayers();
-});
+evento.add(window, "load", manageExpandingLayers.bind(null, ""));
 /*!
  * show source code
  */
@@ -1964,9 +1955,7 @@ var manageSourceCodeLayers = function (ctx) {
 		q();
 	}
 };
-evento.add(window, "load", function () {
-	manageSourceCodeLayers();
-});
+evento.add(window, "load", manageSourceCodeLayers.bind(null, ""));
 /*!
  * init qr-code
  * stackoverflow.com/questions/12777622/how-to-use-enquire-js
@@ -2000,9 +1989,7 @@ var showLocationQR = function () {
 		}
 	}
 };
-evento.add(window, "load", function () {
-	showLocationQR();
-});
+evento.add(window, "load", showLocationQR);
 /*!
  * init nav-menu
  */
@@ -2311,9 +2298,8 @@ var initUiTotop = function () {
 		}
 	},
 	q = function () {
-		evento.add(w, "scroll", function () {
-			k(this);
-		});
+		evento.add(w, "scroll", k.bind(null, w));
+		/* w.onscroll = k.bind(null, w); */
 	};
 	if (b) {
 		g(function () {
@@ -2339,9 +2325,7 @@ var initPlusoYaShare = function () {
 	},
 	k = function (js, s, b) {
 		if (!scriptIsLoaded(js)) {
-			loadJS(js, function () {
-				g(s, b);
-			});
+			loadJS(js, g.bind(null, s, b));
 		}
 	},
 	q = function () {
@@ -2402,20 +2386,17 @@ var initMasonryImagesLoaded = function () {
 				}
 			}
 		};
-		/* ajaxLoadTriggerJS(masonry_imagesloaded_js_src, function () {
-			s();
-		}); */
+		/* ajaxLoadTriggerJS(masonry_imagesloaded_js_src, s); */
 		s();
 	};
 	if (grid && grid_item) {
 		q();
 	}
 };
-evento.add(window, "load", function () {
-	ajaxLoadTriggerJS("../cdn/masonry/4.1.1/js/masonry.imagesloaded.pkgd.fixed.min.js", function () {
-		initMasonryImagesLoaded();
-	});
-});
+var loadInitMasonryImagesLoaded = function () {
+	ajaxLoadTriggerJS("../cdn/masonry/4.1.1/js/masonry.imagesloaded.pkgd.fixed.min.js", initMasonryImagesLoaded);
+};
+evento.add(window, "load", loadInitMasonryImagesLoaded);
 /*!
  * init superbox
  * If you want coords relative to the parent node, use element.offsetTop.
@@ -2550,11 +2531,13 @@ var initSuperBox = function () {
 		if (s_close) {
 			var h_s_close = function (e) {
 				evento.remove(s_close, "click", h_s_close);
+				/* s_close.onclick = null; */
 				e.preventDefault();
 				e.stopPropagation();
 				doOnClose();
 			};
 			evento.add(s_close, "click", h_s_close);
+			/* s_close.onclick = h_s_close; */
 		}
 	},
 	k = function (e) {
@@ -2600,8 +2583,6 @@ var initMasonryDisqus = function () {
 	k = ".masonry-grid-sizer",
 	grid = BALA.one(g) || "",
 	grid_item = BALA.one(h) || "",
-	masonry_js_src = "../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js",
-	packery_draggabilly_js_src = "../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js",
 	cL = "classList",
 	pN = "parentNode",
 	/*! Masonry */
@@ -2679,9 +2660,7 @@ var initMasonryDisqus = function () {
 			disqus_thread[cL].add(is_active);
 		};
 		if (!scriptIsLoaded(embed_js_src)) {
-			loadJS(embed_js_src, function () {
-				s();
-			});
+			loadJS(embed_js_src, s);
 		}
 	};
 	if (grid && grid_item) {
@@ -2702,14 +2681,11 @@ var initMasonryDisqus = function () {
 		}
 	}
 };
-evento.add(window, "load", function () {
-	ajaxLoadTriggerJS("../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js", function () {
-		initMasonryDisqus();
-	});
-	/* ajaxLoadTriggerJS("../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js", function () {
-		initMasonryDisqus();
-	}); */
-});
+var loadInitMasonryDisqus = function () {
+	ajaxLoadTriggerJS("../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js", initMasonryDisqus);
+	/* ajaxLoadTriggerJS("../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js", initMasonryDisqus); */
+};
+evento.add(window, "load", loadInitMasonryDisqus);
 /*!
  * init parallax
  */
@@ -2734,11 +2710,10 @@ var initParallax = function () {
 		setStyleDisplayBlock(m);
 	}
 };
-evento.add(window, "load", function () {
-	ajaxLoadTriggerJS("/cdn/parallax/2.1.3/js/parallax.fixed.min.js", function () {
-		initParallax();
-	});
-});
+var loadInitParallax = function () {
+	ajaxLoadTriggerJS("/cdn/parallax/2.1.3/js/parallax.fixed.min.js", initParallax);
+};
+evento.add(window, "load", loadInitParallax);
 /*!
  * insert External HTML
  * @param {String} a Target Element id/class
@@ -2906,9 +2881,7 @@ var manageDataTargetLinks = function (ctx) {
 		}
 	}
 };
-evento.add(window, "load", function () {
-	manageDataTargetLinks();
-});
+evento.add(window, "load", manageDataTargetLinks.bind(null, ""));
 /*!
  * load or refresh disqus_thread on click
  */
@@ -2941,9 +2914,7 @@ var loadRefreshDisqus = function () {
 		}
 	},
 	v = function () {
-		loadJS(js, function () {
-			g();
-		});
+		loadJS(js, g);
 	},
 	z = function () {
 		removeChildren(c);
@@ -2981,9 +2952,7 @@ var manageDisqusButton = function () {
 		/* e.onclick = h_e; */
 	}
 };
-evento.add(window, "load", function () {
-	manageDisqusButton();
-});
+evento.add(window, "load", manageDisqusButton);
 /*!
  * init disqus_thread on scroll
  */
@@ -3010,9 +2979,7 @@ var initDisqusOnScroll = function () {
 		},
 		k = function () {
 			if (!scriptIsLoaded(embed_js_src)) {
-				loadJS(embed_js_src, function () {
-					g();
-				});
+				loadJS(embed_js_src, g);
 			}
 		},
 		q = function () {
@@ -3066,9 +3033,7 @@ var initDisqusOnScroll = function () {
 		}
 	}
 };
-evento.add(window, "load", function () {
-	initDisqusOnScroll();
-});
+evento.add(window, "load", initDisqusOnScroll);
 /*!
  * init DoSlide
  * A simple slider.
@@ -3131,11 +3096,10 @@ var initDoSlide = function () {
 		}
 	}
 };
-docReady(function () {
-	ajaxLoadTriggerJS("../../cdn/doSlide/1.1.4/js/do-slide.fixed.min.js", function () {
-		initDoSlide();
-	});
-});
+var loadInitDoSlide = function () {
+	ajaxLoadTriggerJS("../../cdn/doSlide/1.1.4/js/do-slide.fixed.min.js", initDoSlide);
+};
+docReady(loadInitDoSlide);
 /*!
  * manage static select
  */
@@ -3172,9 +3136,7 @@ var manageStaticSelect = function (ctx) {
 		k();
 	}
 };
-evento.add(window, "load", function () {
-	manageStaticSelect();
-});
+evento.add(window, "load", manageStaticSelect.bind(null, ""));
 /*!
  * init AJAX JSON select
  */
@@ -3259,9 +3221,7 @@ var manageContentsSelect = function (ctx) {
 		}
 	}
 };
-evento.add(window, "load", function () {
-	manageContentsSelect();
-});
+evento.add(window, "load", manageContentsSelect.bind(null, ""));
 /*!
  * init Contents Kamil autocomplete
  * github.com/oss6/kamil/wiki/Example-with-label:link-json-and-typo-correct-suggestion
@@ -3538,9 +3498,7 @@ var initContentsKamil = function () {
 	}
 };
 var loadInitContentsKamil = function () {
-	ajaxLoadTriggerJS("../cdn/kamil/0.1.1/js/kamil.fixed.min.js", function () {
-		initContentsKamil();
-	});
+	ajaxLoadTriggerJS("../cdn/kamil/0.1.1/js/kamil.fixed.min.js", initContentsKamil);
 };
 docReady(loadInitContentsKamil);
 /*!
@@ -3819,9 +3777,7 @@ var initPagesKamil = function () {
 	}
 };
 var loadInitPagesKamil = function () {
-	ajaxLoadTriggerJS("../../cdn/kamil/0.1.1/js/kamil.fixed.min.js", function () {
-		initPagesKamil();
-	});
+	ajaxLoadTriggerJS("../../cdn/kamil/0.1.1/js/kamil.fixed.min.js", initPagesKamil);
 };
 docReady(loadInitPagesKamil);
 /*!
@@ -3857,9 +3813,7 @@ var initVKLike = function () {
 	},
 	k = function () {
 		if (!scriptIsLoaded(js)) {
-			loadJS(js, function () {
-				g();
-			});
+			loadJS(js, g);
 		}
 	},
 	q = function () {
@@ -3916,7 +3870,7 @@ var observeMutations = function (c) {
 /*!
  * apply changes to inserted DOM
  */
-evento.add(window, "load", function () {
+var updateDomOnLoad = function () {
 	"use strict";
 	var w = window,
 	h = w.location.hash || "",
@@ -3925,18 +3879,20 @@ evento.add(window, "load", function () {
 	if (h) {
 		observeMutations(c);
 	}
-});
+};
+evento.add(window, "load", updateDomOnLoad);
 /*!
  * apply changes to static DOM,
  * and apply changes to inserted DOM
  */
-evento.add(window, "hashchange", function () {
+var updateDomOnHashchange = function () {
 	"use strict";
 	highlightNavMenuItem();
 	var pN = "parentNode",
 	c = BALA.one("#container-includes")[pN] || BALA.one("body") || "";
 	observeMutations(c);
-});
+};
+evento.add(window, "hashchange", updateDomOnHashchange);
 /*!
  * init routie
  * @param {String} ci HTML id string
@@ -4079,7 +4035,7 @@ docReady(loadManUp);
 /*!
  * show page, finish ToProgress
  */
-evento.add(window, "load", function () {
+var showPageFinishProgress = function () {
 	"use strict";
 	var a = BALA.one("#container") || "",
 	g = function () {
@@ -4107,4 +4063,5 @@ evento.add(window, "load", function () {
 			g();
 		}
 	}
-});
+};
+evento.add(window, "load", showPageFinishProgress);

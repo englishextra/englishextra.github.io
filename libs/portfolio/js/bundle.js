@@ -443,9 +443,7 @@ var manageExternalLinks = function (ctx) {
 		}
 	}
 };
-evento.add(window, "load", function () {
-	manageExternalLinks();
-});
+evento.add(window, "load", manageExternalLinks.bind(null, ""));
 /*!
  * set title to local links
  */
@@ -477,24 +475,24 @@ var manageLocalLinks = function (ctx) {
 		}
 	}
 };
-evento.add(window, "load", function () {
-	manageLocalLinks();
-});
+evento.add(window, "load", manageLocalLinks.bind(null, ""));
 /*!
  * init fastclick
  * github.com/ftlabs/fastclick
  */
-var loadInitFastClick = function () {
+var initFastClick = function () {
 	"use strict";
 	var w = window,
 	b = BALA.one("body") || "";
+	if (w.FastClick) {
+		FastClick.attach(b);
+	}
+};
+var loadInitFastClick = function () {
+	"use strict";
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
 		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-			ajaxLoadTriggerJS("/cdn/fastclick/1.0.6/js/fastclick.fixed.min.js", function () {
-				if (w.FastClick) {
-					FastClick.attach(b);
-				}
-			});
+			ajaxLoadTriggerJS("/cdn/fastclick/1.0.6/js/fastclick.fixed.min.js", initFastClick);
 		}
 	}
 };
@@ -633,11 +631,13 @@ var initSuperBox = function () {
 		if (s_close) {
 			var h_s_close = function (e) {
 				evento.remove(s_close, "click", h_s_close);
+				/* s_close.onclick = null; */
 				e.preventDefault();
 				e.stopPropagation();
 				doOnClose();
 			};
 			evento.add(s_close, "click", h_s_close);
+			/* s_close.onclick = h_s_close; */
 		}
 	},
 	k = function (e) {
@@ -699,9 +699,7 @@ var showLocationQR = function () {
 		}
 	}
 };
-evento.add(window, "load", function () {
-	showLocationQR();
-});
+evento.add(window, "load", showLocationQR);
 /*!
  * init nav-menu
  */
@@ -943,9 +941,8 @@ var initUiTotop = function () {
 		}
 	},
 	q = function () {
-		evento.add(w, "scroll", function () {
-			k(this);
-		});
+		evento.add(w, "scroll", k.bind(null, w));
+		/* w.onscroll = k.bind(null, w); */
 	};
 	if (b) {
 		g(function () {
@@ -971,9 +968,7 @@ var initPlusoYaShare = function () {
 	},
 	k = function (js, s, b) {
 		if (!scriptIsLoaded(js)) {
-			loadJS(js, function () {
-				g(s, b);
-			});
+			loadJS(js, g.bind(null, s, b));
 		}
 	},
 	q = function () {
@@ -1038,9 +1033,7 @@ var initVKLike = function () {
 	},
 	k = function () {
 		if (!scriptIsLoaded(js)) {
-			loadJS(js, function () {
-				g();
-			});
+			loadJS(js, g);
 		}
 	},
 	q = function () {
@@ -1075,7 +1068,7 @@ docReady(loadManUp);
 /*!
  * show page, finish ToProgress
  */
-evento.add(window, "load", function () {
+var showPageFinishProgress = function () {
 	"use strict";
 	var a = BALA.one("#superbox") || "",
 	g = function () {
@@ -1103,4 +1096,5 @@ evento.add(window, "load", function () {
 			g();
 		}
 	}
-});
+};
+evento.add(window, "load", showPageFinishProgress);

@@ -342,9 +342,7 @@ var manageExternalLinks = function (ctx) {
 		}
 	}
 };
-evento.add(window, "load", function () {
-	manageExternalLinks();
-});
+evento.add(window, "load", manageExternalLinks.bind(null, ""));
 /*!
  * set title to local links
  */
@@ -376,9 +374,7 @@ var manageLocalLinks = function (ctx) {
 		}
 	}
 };
-evento.add(window, "load", function () {
-	manageLocalLinks();
-});
+evento.add(window, "load", manageLocalLinks.bind(null, ""));
 /*!
  * init ui-totop
  */
@@ -446,9 +442,8 @@ var initUiTotop = function () {
 		}
 	},
 	q = function () {
-		evento.add(w, "scroll", function () {
-			k(this);
-		});
+		evento.add(w, "scroll", k.bind(null, w));
+		/* w.onscroll = k.bind(null, w); */
 	};
 	if (b) {
 		g(function () {
@@ -460,11 +455,12 @@ docReady(initUiTotop);
 /*!
  * show page, finish ToProgress
  */
-evento.add(window, "load", function () {
+var showPageFinishProgress = function () {
 	"use strict";
 	var a = BALA.one("#page") || "";
 	setStyleOpacity(a, 1);
 	setImmediate(function () {
 		progressBar.complete();
 	});
-});
+};
+evento.add(window, "load", showPageFinishProgress);

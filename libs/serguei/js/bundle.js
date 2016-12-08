@@ -509,9 +509,7 @@ var manageExternalLinks = function (ctx) {
 		}
 	}
 };
-evento.add(window, "load", function () {
-	manageExternalLinks();
-});
+evento.add(window, "load", manageExternalLinks.bind(null, ""));
 /*!
  * set title to local links
  */
@@ -543,24 +541,24 @@ var manageLocalLinks = function (ctx) {
 		}
 	}
 };
-evento.add(window, "load", function () {
-	manageLocalLinks();
-});
+evento.add(window, "load", manageLocalLinks.bind(null, ""));
 /*!
  * init fastclick
  * github.com/ftlabs/fastclick
  */
-var loadInitFastClick = function () {
+var initFastClick = function () {
 	"use strict";
 	var w = window,
 	b = BALA.one("body") || "";
+	if (w.FastClick) {
+		FastClick.attach(b);
+	}
+};
+var loadInitFastClick = function () {
+	"use strict";
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
 		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-			ajaxLoadTriggerJS("/cdn/fastclick/1.0.6/js/fastclick.fixed.min.js", function () {
-				if (w.FastClick) {
-					FastClick.attach(b);
-				}
-			});
+			ajaxLoadTriggerJS("/cdn/fastclick/1.0.6/js/fastclick.fixed.min.js", initFastClick);
 		}
 	}
 };
@@ -679,7 +677,7 @@ var Notifier42 = function (m, n, t) {
 /*!
  * notifier42-write-me
  */
-docReady(function () {
+var initNotifier42WriteMe = function () {
 	"use strict";
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
 		var w = window,
@@ -697,7 +695,8 @@ docReady(function () {
 			setAutoClearedTimeout(s, 8000);
 		}
 	}
-});
+};
+docReady(initNotifier42WriteMe);
 /*!
  * load or refresh disqus_thread on click
  */
@@ -730,9 +729,7 @@ var loadRefreshDisqus = function () {
 		}
 	},
 	v = function () {
-		loadJS(js, function () {
-			g();
-		});
+		loadJS(js, g);
 	},
 	z = function () {
 		removeChildren(c);
@@ -770,9 +767,7 @@ var manageDisqusButton = function () {
 		/* e.onclick = h_e; */
 	}
 };
-evento.add(window, "load", function () {
-	manageDisqusButton();
-});
+evento.add(window, "load", manageDisqusButton);
 /*!
  * load Yandex map
  * tech.yandex.ru/maps/jsbox/2.1/mapbasics
@@ -800,7 +795,7 @@ var initYandexMap = function (a) {
 			setStyleDisplayBlock(b_s);
 		}
 	},
-	g = function() {
+	g = function () {
 		ymaps.ready(init);
 		c[cL].add(is_active);
 		setStyleDisplayNone(b_s);
@@ -813,9 +808,7 @@ var initYandexMap = function (a) {
 		}
 	},
 	v = function () {
-		loadJS(js, function () {
-			k();
-		});
+		loadJS(js, k);
 	},
 	q = function () {
 		removeChildren(c);
@@ -864,9 +857,7 @@ var manageYandexMapButton = function (a) {
 		/* e.onclick = h_e; */
 	}
 };
-evento.add(window, "load", function () {
-	manageYandexMapButton("#ymap");
-});
+evento.add(window, "load", manageYandexMapButton.bind(null, "#ymap"));
 /*!
  * manage data lightbox img links
  */
@@ -991,9 +982,7 @@ var manageDataLightboxImgLinks = function (ctx) {
 		}
 	}
 };
-evento.add(window, "load", function () {
-	manageDataLightboxImgLinks();
-});
+evento.add(window, "load", manageDataLightboxImgLinks.bind(null, ""));
 /*!
  * replace img src with data-src
  */
@@ -1037,11 +1026,10 @@ var manageDataSrcImg = function (ctx) {
 		}
 	}
 };
-evento.add(window, "load", function () {
-	ajaxLoadTriggerJS("../cdn/lazyload/3.2.2/js/lazyload.fixed.min.js", function () {
-		manageDataSrcImg();
-	});
-});
+var loadManageDataSrcImg = function () {
+	ajaxLoadTriggerJS("../cdn/lazyload/3.2.2/js/lazyload.fixed.min.js", manageDataSrcImg.bind(null, ""));
+};
+evento.add(window, "load", loadManageDataSrcImg);
 /*!
  * init qr-code
  * stackoverflow.com/questions/12777622/how-to-use-enquire-js
@@ -1075,9 +1063,7 @@ var showLocationQR = function () {
 		}
 	}
 };
-evento.add(window, "load", function () {
-	showLocationQR();
-});
+evento.add(window, "load", showLocationQR);
 /*!
  * init nav-menu
  */
@@ -1319,9 +1305,8 @@ var initUiTotop = function () {
 		}
 	},
 	q = function () {
-		evento.add(w, "scroll", function () {
-			k(this);
-		});
+		evento.add(w, "scroll", k.bind(null, w));
+		/* w.onscroll = k.bind(null, w); */
 	};
 	if (b) {
 		g(function () {
@@ -1347,9 +1332,7 @@ var initPlusoYaShare = function () {
 	},
 	k = function (js, s, b) {
 		if (!scriptIsLoaded(js)) {
-			loadJS(js, function () {
-				g(s, b);
-			});
+			loadJS(js, g.bind(null, s, b));
 		}
 	},
 	q = function () {
@@ -1414,9 +1397,7 @@ var initVKLike = function () {
 	},
 	k = function () {
 		if (!scriptIsLoaded(js)) {
-			loadJS(js, function () {
-				g();
-			});
+			loadJS(js, g);
 		}
 	},
 	q = function () {
@@ -1552,9 +1533,7 @@ var manageDataTargetLinks = function (ctx) {
 		}
 	}
 };
-evento.add(window, "load", function () {
-	manageDataTargetLinks();
-});
+evento.add(window, "load", manageDataTargetLinks.bind(null, ""));
 /*!
  * highlight current nav-menu item
  */
@@ -1623,7 +1602,7 @@ var observeMutations = function (c) {
 /*!
  * apply changes to inserted DOM
  */
-evento.add(window, "load", function () {
+var updateDomOnLoad = function () {
 	"use strict";
 	var w = window,
 	h = w.location.hash || "",
@@ -1632,18 +1611,20 @@ evento.add(window, "load", function () {
 	if (h) {
 		observeMutations(c);
 	}
-});
+};
+evento.add(window, "load", updateDomOnLoad);
 /*!
  * apply changes to static DOM,
  * and apply changes to inserted DOM
  */
-evento.add(window, "hashchange", function () {
+var updateDomOnHashchange = function () {
 	"use strict";
 	highlightNavMenuItem();
 	var pN = "parentNode",
 	c = BALA.one("#container-includes")[pN] || BALA.one("body") || "";
 	observeMutations(c);
-});
+};
+evento.add(window, "hashchange", updateDomOnHashchange);
 /*!
  * insert External HTML
  * @param {String} a Target Element id/class
@@ -1772,7 +1753,7 @@ var initRoutie = function (ci) {
 			redirectToDefaultPage("/contents");
 		},
 		"/contents": function () {
-			loadVirtualPage(ci, "./includes/contents.html", function () {
+			loadVirtualPage(ci, "./includes/contents.html", function (bar) {
 				reinitVirtualPage();
 				manageYandexMapButton("#ymap");
 				/* try {
@@ -1854,7 +1835,7 @@ docReady(loadManUp);
 /*!
  * show page, finish ToProgress
  */
-evento.add(window, "load", function () {
+var showPageFinishProgress = function () {
 	"use strict";
 	var b = BALA.one("body") || "",
 	c = BALA.one("#container") || "",
@@ -1897,4 +1878,5 @@ evento.add(window, "load", function () {
 	if (a) {
 		setAutoClearedTimeout(v, 2000);
 	}
-});
+};
+evento.add(window, "load", showPageFinishProgress);
