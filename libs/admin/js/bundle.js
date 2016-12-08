@@ -389,7 +389,7 @@ var initUiTotop = function () {
 		var z = function (n) {
 			var o = w.pageYOffset,
 			i = 0,
-			si = setInterval(function (o, l) {
+			f = function (o, l) {
 					return function () {
 						l -= o * n;
 						w.scrollTo(0, l);
@@ -398,8 +398,8 @@ var initUiTotop = function () {
 							clearInterval(si);
 						}
 					};
-				}
-					(n, o--), 50);
+				},
+			si = setInterval(f.bind(null, n, o--), 50);
 		},
 		t = "Наверх",
 		a = crel("a"),
@@ -457,10 +457,9 @@ docReady(initUiTotop);
  */
 var showPageFinishProgress = function () {
 	"use strict";
-	var a = BALA.one("#page") || "";
+	var a = BALA.one("#page") || "",
+	pBC = progressBar.complete();
 	setStyleOpacity(a, 1);
-	setImmediate(function () {
-		progressBar.complete();
-	});
+	setImmediate(pBC);
 };
 evento.add(window, "load", showPageFinishProgress);

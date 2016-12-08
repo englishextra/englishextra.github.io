@@ -548,13 +548,14 @@ var initSuperBox = function () {
 		var reveal_pos = _this.offsetTop,
 		hide_pos = w.pageYOffset || d.documentElement.scrollTop;
 		/* crel(s_cur_desc, crel("p", "" + reveal_pos + " / " + hide_pos)); */
-		setImmediate(function () {
+		var si1 = function () {
 			if (w.zenscroll) {
 				zenscroll.toY(reveal_pos, 200);
 			} else {
 				w.scroll(0, reveal_pos);
 			}
-		});
+		};
+		setImmediate(si1);
 		s_cur_desc[cL].add(an, an1);
 		/*!
 		 * track clicks on external links
@@ -612,13 +613,14 @@ var initSuperBox = function () {
 		 */
 		var s_close = BALA.one("." + s4, s_cur_desc) || "",
 		doOnClose = function () {
-			setImmediate(function () {
+			var si2 = function () {
 				if (w.zenscroll) {
 					zenscroll.toY(hide_pos, 200);
 				} else {
 					w.scroll(0, hide_pos);
 				}
-			});
+			};
+			setImmediate(si2);
 			s_cur_desc[cL].remove(an1);
 			s_cur_desc[cL].add(an2);
 			var s = function () {
@@ -730,7 +732,7 @@ var initNavMenu = function () {
 		/* container.onclick = h_container; */
 	},
 	k = function () {
-		var h_e = function (e) {
+		var h_btn = function (e) {
 			e.preventDefault();
 			e.stopPropagation();
 			holder[cL].remove(is_active);
@@ -738,8 +740,8 @@ var initNavMenu = function () {
 			panel[cL].toggle(is_active);
 			btn[cL].toggle(is_active);
 		};
-		evento.add(btn, "click", h_e);
-		/* btn.onclick = h_e; */
+		evento.add(btn, "click", h_btn);
+		/* btn.onclick = h_btn; */
 	},
 	q = function () {
 		holder[cL].remove(is_active);
@@ -888,7 +890,7 @@ var initUiTotop = function () {
 		var z = function (n) {
 			var o = w.pageYOffset,
 			i = 0,
-			si = setInterval(function (o, l) {
+			f = function (o, l) {
 					return function () {
 						l -= o * n;
 						w.scrollTo(0, l);
@@ -897,8 +899,8 @@ var initUiTotop = function () {
 							clearInterval(si);
 						}
 					};
-				}
-					(n, o--), 50);
+				},
+			si = setInterval(f.bind(null, n, o--), 50);
 		},
 		t = "Наверх",
 		a = crel("a"),
@@ -1071,20 +1073,20 @@ docReady(loadManUp);
 var showPageFinishProgress = function () {
 	"use strict";
 	var a = BALA.one("#superbox") || "",
+	pBC = progressBar.complete(),
 	g = function () {
 		setStyleOpacity(a, 1);
-		setImmediate(function () {
-			progressBar.complete();
-		});
+		setImmediate(pBC);
 	},
 	k = function () {
-		var si = new Interval(50, function () {
-				if (imagesPreloaded && 0 !== si) {
-					si.stop();
-					si = 0;
-					g();
-				}
-			});
+		var f = function () {
+			if (imagesPreloaded && 0 !== si) {
+				si.stop();
+				si = 0;
+				g();
+			}
+		},
+		si = new Interval(50, f);
 		if (si) {
 			si.run();
 		}

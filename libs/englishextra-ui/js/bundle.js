@@ -672,7 +672,7 @@ var Notifier42 = function (m, n, t) {
 		m = d.createTextNode(m);
 	}
 	appendFragment(m, c);
-	var s = function (f) {
+	var g = function (f) {
 		c[cL].remove(an2);
 		c[cL].add(an4);
 		var r = function  ()  {
@@ -691,23 +691,23 @@ var Notifier42 = function (m, n, t) {
 	h_b = function () {
 		evento.remove(b, "click", h_b);
 		/* b.onclick = null; */
-		s();
+		g();
 	},
 	h_c = function () {
 		evento.remove(c, "click", h_c);
 		/* c.onclick = null; */
-		s();
+		g();
 	};
 	evento.add(b, "click", h_b);
 	evento.add(c, "click", h_c);
 	/* b.onclick = h_b;
 	c.onclick = h_c; */
 	if (0 !== n) {
-		setAutoClearedTimeout(s, n);
+		setAutoClearedTimeout(g, n);
 	}
 	return {
 		destroy : function () {
-			return s(removeElement.bind(null, c));
+			return g(removeElement.bind(null, c));
 		}
 	};
 };
@@ -822,17 +822,17 @@ var manageDataLightboxImgLinks = function (ctx) {
 		r = function () {
 			m[cL].remove(an2);
 			m[cL].add(an4);
-			var s1 = function ()  {
+			var st1 = function ()  {
 				c[cL].remove(an, an3);
 				m[cL].remove(an, an4);
 				setStyleDisplayNone(c);
 			},
-			s2 = function () {
+			st2 = function () {
 				c[cL].remove(an1);
 				c[cL].add(an3);
-				setAutoClearedTimeout(s1, 400);
+				setAutoClearedTimeout(st1, 400);
 			};
-			setAutoClearedTimeout(s2, 400);
+			setAutoClearedTimeout(st2, 400);
 		},
 		v = function (e) {
 			if (27 === (e.which || e.keyCode)) {
@@ -1187,7 +1187,7 @@ var initNavMenu = function () {
 		/* container.onclick = h_container; */
 	},
 	k = function () {
-		var h_e = function (e) {
+		var h_btn = function (e) {
 			e.preventDefault();
 			e.stopPropagation();
 			holder[cL].remove(is_active);
@@ -1195,8 +1195,8 @@ var initNavMenu = function () {
 			panel[cL].toggle(is_active);
 			btn[cL].toggle(is_active);
 		};
-		evento.add(btn, "click", h_e);
-		/* btn.onclick = h_e; */
+		evento.add(btn, "click", h_btn);
+		/* btn.onclick = h_btn; */
 	},
 	q = function () {
 		holder[cL].remove(is_active);
@@ -1395,7 +1395,7 @@ var initUiTotop = function () {
 		var z = function (n) {
 			var o = w.pageYOffset,
 			i = 0,
-			si = setInterval(function (o, l) {
+			f = function (o, l) {
 					return function () {
 						l -= o * n;
 						w.scrollTo(0, l);
@@ -1404,8 +1404,8 @@ var initUiTotop = function () {
 							clearInterval(si);
 						}
 					};
-				}
-					(n, o--), 50);
+				},
+			si = setInterval(f.bind(null, n, o--), 50);
 		},
 		t = "Наверх",
 		a = crel("a"),
@@ -1510,7 +1510,7 @@ docReady(initPlusoYaShare);
 /*!
  * init download app btn
  */
-var showDownloadApp = function (n) {
+var initDownloadAppBtn = function (n) {
 	"use strict";
 	n = n || 2000;
 	var d = document,
@@ -1572,13 +1572,13 @@ var showDownloadApp = function (n) {
 		g();
 	}
 };
-var loadShowDownloadApp = function () {
+var loadInitDownloadAppBtn = function () {
 	var s = function () {
-		showDownloadApp(8000);
+		initDownloadAppBtn(8000);
 	};
 	setAutoClearedTimeout(s, 3000);
 };
-evento.add(window, "load", loadShowDownloadApp);
+evento.add(window, "load", loadInitDownloadAppBtn);
 /*!
  * init disqus_thread on scroll
  */
@@ -1846,12 +1846,12 @@ var initPagesKamil = function () {
 			 */
 			ac.on("kamilselect", function (e) {
 				var p = e.item.link || "",
-				u = function () {
+				si = function () {
 					e.inputElement.value = "";
 					changeLocation(p);
 				};
 				if (p) {
-					setImmediate(u);
+					setImmediate(si);
 				}
 			});
 		}
@@ -1955,10 +1955,9 @@ docReady(loadManUp);
  */
 var showPageFinishProgress = function () {
 	"use strict";
-	var a = BALA.one("#container") || "";
+	var a = BALA.one("#container") || "",
+	pBC = progressBar.complete();
 	setStyleOpacity(a, 1);
-	setImmediate(function () {
-		progressBar.complete();
-	});
+	setImmediate(pBC);
 };
 evento.add(window, "load", showPageFinishProgress);

@@ -439,7 +439,7 @@ docReady(loadShower);
 /*!
  * hide ui buttons in fullscreen mode
  */
-var hideUiButtonsInFullscreen = function () {
+var hideUiBtnsInFullScreen = function () {
 	"use strict";
 	var w = window,
 	cd_prev = BALA.one(".cd-prev") || "",
@@ -476,11 +476,12 @@ var hideUiButtonsInFullscreen = function () {
 		}
 	}
 };
-evento.add(window, "resize", function () {
+var resizeHideUiBtnsInFullScreen = function () {
 	if (!("undefined" !== typeof earlyDeviceSize && "medium" === earlyDeviceSize)) {
-		hideUiButtonsInFullscreen();
+		hideUiBtnsInFullScreen();
 	}
-});
+};
+evento.add(window, "resize", resizeHideUiBtnsInFullScreen);
 /*!
  * init ui-totop
  */
@@ -495,7 +496,7 @@ var initUiTotop = function () {
 		var z = function (n) {
 			var o = w.pageYOffset,
 			i = 0,
-			si = setInterval(function (o, l) {
+			f = function (o, l) {
 					return function () {
 						l -= o * n;
 						w.scrollTo(0, l);
@@ -504,8 +505,8 @@ var initUiTotop = function () {
 							clearInterval(si);
 						}
 					};
-				}
-					(n, o--), 50);
+				},
+			si = setInterval(f.bind(null, n, o--), 50);
 		},
 		t = "Наверх",
 		a = crel("a"),
@@ -621,10 +622,9 @@ docReady(loadManUp);
  */
 var showPageFinishProgress = function () {
 	"use strict";
-	var a = BALA.one("#page") || "";
+	var a = BALA.one("#page") || "",
+	pBC = progressBar.complete();
 	setStyleOpacity(a, 1);
-	setImmediate(function () {
-		progressBar.complete();
-	});
+	setImmediate(pBC);
 };
 evento.add(window, "load", showPageFinishProgress);

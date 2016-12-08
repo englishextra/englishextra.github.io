@@ -457,7 +457,7 @@ docReady(loadInitFastClick);
 /*!
  * hide ui buttons in fullscreen mode
  */
-var hideUiButtonsInFullscreen = function () {
+var hideUiBtnsInFullScreen = function () {
 	"use strict";
 	var w = window,
 	cd_prev = BALA.one(".cd-prev") || "",
@@ -494,11 +494,12 @@ var hideUiButtonsInFullscreen = function () {
 		}
 	}
 };
-evento.add(window, "resize", function () {
+var resizeHideUiBtnsInFullScreen = function () {
 	if (!("undefined" !== typeof earlyDeviceSize && "medium" === earlyDeviceSize)) {
-		hideUiButtonsInFullscreen();
+		hideUiBtnsInFullScreen();
 	}
-});
+};
+evento.add(window, "resize", resizeHideUiBtnsInFullScreen);
 /*!
  * init DoSlide
  * A simple slider.
@@ -529,16 +530,20 @@ var initDoSlide = function () {
 		} else { */
 			setStyleDisplayBlock(cd_prev);
 			setStyleDisplayBlock(cd_next);
-			evento.add(cd_prev, "click", function (e) {
+			var h_cd_prev = function (e) {
 				e.preventDefault();
 				e.stopPropagation();
 				slide.prev();
-			});
-			evento.add(cd_next, "click", function (e) {
+			};
+			evento.add(cd_prev, "click", h_cd_prev);
+			/* cd_prev.onclick = h_cd_prev; */
+			var h_cd_next = function (e) {
 				e.preventDefault();
 				e.stopPropagation();
 				slide.next();
-			});
+			};
+			evento.add(cd_next, "click", h_cd_next);
+			/* cd_next.onclick = h_cd_next; */
 		}
 	};
 	/*!
@@ -799,10 +804,9 @@ docReady(loadManUp);
  */
 var showPageFinishProgress = function () {
 	"use strict";
-	var a = BALA.one("#container") || "";
+	var a = BALA.one("#container") || "",
+	pBC = progressBar.complete();
 	setStyleOpacity(a, 1);
-	setImmediate(function () {
-		progressBar.complete();
-	});
+	setImmediate(pBC);
 };
 evento.add(window, "load", showPageFinishProgress);

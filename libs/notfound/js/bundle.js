@@ -213,18 +213,17 @@ var showPageFinishProgress = function () {
 	c = BALA.one("#progress") || "",
 	g = function () {
 		setStyleOpacity(a, 1);
-		setImmediate(function () {
-			setStyleDisplayNone(c);
-		});
+		setImmediate(setStyleDisplayNone.bind(null, c));
 	},
 	k = function () {
-		var si = new Interval(50, function () {
-				if (imagesPreloaded && 0 !== si) {
-					si.stop();
-					si = 0;
-					g();
-				}
-			});
+		var f = function () {
+			if (imagesPreloaded && 0 !== si) {
+				si.stop();
+				si = 0;
+				g();
+			}
+		},
+		si = new Interval(50, f);
 		if (si) {
 			si.run();
 		}
