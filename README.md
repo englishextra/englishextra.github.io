@@ -2,7 +2,7 @@
 
 English Grammar for Russian-Speakers
 
-[![englishextra.github.io](https://farm6.staticflickr.com/5457/31052821490_f143f1f5f6_o.jpg)](https://englishextra.github.io/)
+[![englishextra.github.io](https://farm1.staticflickr.com/713/30676588744_d8e9120222_o.jpg)](https://englishextra.github.io/)
 
 ## On-line
 

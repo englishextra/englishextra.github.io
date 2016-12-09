@@ -167,9 +167,9 @@ var Interval=function(d,f){this.baseline=void 0;this.run=function(){if(void 0===
  * modified for babel Evento - v1.0.0
  * by Erik Royall <erikroyalL@hotmail.com> (http://erikroyall.github.io)
  * Dual licensed under MIT and GPL
- * when target element is window,
- * function expressions should be wrapped with anonymous function
- * evento.add(window,"load",function(){});
+ * identifier needs binding if its function has arguments
+ * var fn=function(a){a=a||"";if(a){return a;}};
+ * evento.add(window,"load",fn.bind(null,some_value));
  * removed Array.prototype.indexOf shim
  * removed Helio stuff which seems to be added
  * for some other library, and works without Helio
