@@ -407,14 +407,13 @@ var manageExternalLinks = function (ctx) {
 	};
 	if (a) {
 		a = ctx ? BALA("a", ctx) || "" : BALA("a") || "";
+		var fe = function (e) {
+			g(e);
+		};
 		if (w._) {
-			_.each(a, function (e) {
-				g(e);
-			});
+			_.each(a, fe);
 		} else if (w.forEach) {
-			forEach(a, function (e) {
-				g(e);
-			}, !1);
+			forEach(a, fe, !1);
 		} else {
 			for (var i = 0, l = a.length; i < l; i += 1) {
 				g(a[i]);
@@ -439,14 +438,13 @@ var manageLocalLinks = function (ctx) {
 	};
 	if (a) {
 		a = ctx ? BALA("a", ctx) || "" : BALA("a") || "";
+		var fe = function (e) {
+			g(e);
+		};
 		if (w._) {
-			_.each(a, function (e) {
-				g(e);
-			});
+			_.each(a, fe);
 		} else if (w.forEach) {
-			forEach(a, function (e) {
-				g(e);
-			}, !1);
+			forEach(a, fe, !1);
 		} else {
 			for (var i = 0, l = a.length; i < l; i += 1) {
 				g(a[i]);
@@ -561,7 +559,7 @@ var showLocationQR = function () {
 	g = function () {
 		removeChildren(a);
 		var t = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
-		s = getHTTP() + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(p),
+		s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(p),
 		m = crel("img");
 		m[cL].add(cls);
 		m.src = s;
@@ -664,14 +662,13 @@ var initMenuMore = function () {
 		/* btn.onclick = h_btn; */
 	},
 	v = function () {
+		var fe = function (e) {
+			g(e);
+		};
 		if (w._) {
-			_.each(items, function (e) {
-				g(e);
-			});
+			_.each(items, fe);
 		} else if (w.forEach) {
-			forEach(items, function (e) {
-				g(e);
-			}, !1);
+			forEach(items, fe, !1);
 		} else {
 			for (var i = 0, l = items.length; i < l; i += 1) {
 				g(items[i]);
@@ -719,8 +716,8 @@ var initPlusoYaShare = function () {
 	var a = BALA.one("#share-buttons") || "",
 	pluso = BALA.one(".pluso") || "",
 	ya_share2 = BALA.one(".ya-share2") || "",
-	pluso_like_js_src = getHTTP() + "://share.pluso.ru/pluso-like.js",
-	share_js_src = getHTTP() + "://yastatic.net/share2/share.js",
+	pluso_like_js_src = getHTTP(!0) + "://share.pluso.ru/pluso-like.js",
+	share_js_src = getHTTP(!0) + "://yastatic.net/share2/share.js",
 	g = function (s, b) {
 		setStyleVisibilityVisible(s);
 		setStyleOpacity(s, 1);
@@ -768,7 +765,7 @@ var initVKLike = function () {
 	var w = window,
 	c = BALA.one("#vk-like") || "",
 	a = BALA.one("#btn-show-vk-like") || "",
-	js = getHTTP() + "://vk.com/js/api/openapi.js?122",
+	js = getHTTP(!0) + "://vk.com/js/api/openapi.js?122",
 	g = function () {
 		try {
 			if (w.VK) {

@@ -771,14 +771,13 @@ var manageExternalLinks = function (ctx) {
 	};
 	if (a) {
 		a = ctx ? BALA("a", ctx) || "" : BALA("a") || "";
+		var fe = function (e) {
+			g(e);
+		};
 		if (w._) {
-			_.each(a, function (e) {
-				g(e);
-			});
+			_.each(a, fe);
 		} else if (w.forEach) {
-			forEach(a, function (e) {
-				g(e);
-			}, !1);
+			forEach(a, fe, !1);
 		} else {
 			for (var i = 0, l = a.length; i < l; i += 1) {
 				g(a[i]);
@@ -803,14 +802,13 @@ var manageLocalLinks = function (ctx) {
 	};
 	if (a) {
 		a = ctx ? BALA("a", ctx) || "" : BALA("a") || "";
+		var fe = function (e) {
+			g(e);
+		};
 		if (w._) {
-			_.each(a, function (e) {
-				g(e);
-			});
+			_.each(a, fe);
 		} else if (w.forEach) {
-			forEach(a, function (e) {
-				g(e);
-			}, !1);
+			forEach(a, fe, !1);
 		} else {
 			for (var i = 0, l = a.length; i < l; i += 1) {
 				g(a[i]);
@@ -961,7 +959,7 @@ var initNotifier42WriteComment = function () {
 		n = "notifier42-write-comment",
 		m = "Напишите, что понравилось, а что нет. Регистрироваться не нужно.",
 		p = parseLink(w.location.href).origin,
-		s = function () {
+		g = function () {
 			new Notifier42(crel("a", {
 					"href" : "#disqus_thread"
 				}, m),
@@ -969,7 +967,7 @@ var initNotifier42WriteComment = function () {
 			Cookies.set(n, encodeURIComponent(m));
 		};
 		if (!Cookies.get(n) && p) {
-			setAutoClearedTimeout(s, 16000);
+			setAutoClearedTimeout(g, 16000);
 		}
 	}
 };
@@ -988,7 +986,7 @@ var initYandexMap = function (a) {
 	z = c ? (c[ds].zoom || "") : "",
 	b_s = c ? (BALA.one(c[ds].btnShow) || "") : "",
 	b_d = c ? (BALA.one(c[ds].btnDestroy) || "") : "",
-	js = getHTTP() + "://api-maps.yandex.ru/2.1/?lang=ru_RU",
+	js = getHTTP(!0) + "://api-maps.yandex.ru/2.1/?lang=ru_RU",
 	myMap,
 	init = function () {
 		try {
@@ -1173,14 +1171,13 @@ var manageDataLightboxImgLinks = function (ctx) {
 	};
 	if (a) {
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
+		var fe = function (e) {
+			k(e);
+		};
 		if (w._) {
-			_.each(a, function (e) {
-				k(e);
-			});
+			_.each(a, fe);
 		} else if (w.forEach) {
-			forEach(a, function (e) {
-				k(e);
-			}, !1);
+			forEach(a, fe, !1);
 		} else {
 			for (var j = 0, l = a.length; j < l; j += 1) {
 				k(a[j]);
@@ -1200,7 +1197,7 @@ var hideUiBtnsInFullScreen = function () {
 	btn_nav_menu = BALA.one(".btn-nav-menu") || "",
 	btn_menu_more = BALA.one(".btn-menu-more") || "",
 	btn_show_vk_like = BALA.one(".btn-show-vk-like") || "",
-	openapi_js_src = getHTTP() + "://vk.com/js/api/openapi.js?122",
+	openapi_js_src = getHTTP(!0) + "://vk.com/js/api/openapi.js?122",
 	vk_like = BALA.one(".vk-like") || "",
 	btn_block_social_buttons = BALA.one(".share-buttons") || "",
 	ui_totop = BALA.one("#ui-totop") || "",
@@ -1255,15 +1252,14 @@ var initAllMasonry = function () {
 						gutter : 0
 					});
 			}
+		},
+		fe = function (e) {
+			s(e);
 		};
 		if (w._) {
-			_.each(a, function (e) {
-				s(e);
-			});
+			_.each(a, fe);
 		} else if (w.forEach) {
-			forEach(a, function (e) {
-				s(e);
-			}, !1);
+			forEach(a, fe, !1);
 		} else {
 			for (var i = 0, l = a.length; i < l; i += 1) {
 				s(a[i]);
@@ -1304,36 +1300,34 @@ var initAllPackery = function () {
 						columnWidth : k,
 						gutter : 0
 					});
+			},
+			fe = function (e) {
+				s(e);
 			};
 			if (w._) {
-				_.each(a, function (e) {
-					s(e);
-				});
+				_.each(a, fe);
 			} else if (w.forEach) {
-				forEach(a, function (e) {
-					s(e);
-				}, !1);
+				forEach(a, fe, !1);
 			} else {
 				for (var j = 0, m = a.length; j < m; j += 1) {
 					s(a[j]);
 				}
 			}
 			if (w.Draggabilly) {
-				var draggie;
-				var f = function (e) {
+				var draggie,
+				f = function (e) {
 					var draggableElem = e;
 					draggie = new Draggabilly(draggableElem, {});
 					draggies.push(draggie);
 				},
-				draggies = [];
+				draggies = [],
+				fe2 = function (e) {
+					f(e);
+				};
 				if (w._) {
-					_.each(c, function (e) {
-						f(e);
-					});
+					_.each(c, fe2);
 				} else if (w.forEach) {
-					forEach(c, function (e) {
-						f(e);
-					}, !1);
+					forEach(c, fe2, !1);
 				} else {
 					for (var i = 0, l = c.length; i < l; i += 1) {
 						f(c[i]);
@@ -1541,14 +1535,13 @@ var initPhotoswipe = function () {
 		}
 	},
 	k = function (a) {
+		var fe = function (e) {
+			g(e);
+		};
 		if (w._) {
-			_.each(a, function (e) {
-				g(e);
-			});
+			_.each(a, fe);
 		} else if (w.forEach) {
-			forEach(a, function (e) {
-				g(e);
-			}, !1);
+			forEach(a, fe, !1);
 		} else {
 			for (var i = 0, l = a.length; i < l; i += 1) {
 				g(a[i]);
@@ -1563,15 +1556,14 @@ var initPhotoswipe = function () {
 		}
 	},
 	v = function () {
-		var galleries = BALA(c);
+		var galleries = BALA(c),
+		fe = function (e) {
+			q(e);
+		};
 		if (w._) {
-			_.each(galleries, function (e) {
-				q(e);
-			});
+			_.each(galleries, fe);
 		} else if (w.forEach) {
-			forEach(galleries, function (e) {
-				q(e);
-			}, !1);
+			forEach(galleries, fe, !1);
 		} else {
 			for (var i = 0, l = galleries.length; i < l; i += 1) {
 				q(galleries[i]);
@@ -1619,15 +1611,14 @@ var initTablesort = function (ctx) {
 		}
 	},
 	k = function () {
-		var a = BALA(cls) || "";
+		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
+		var fe = function (e) {
+			g(e);
+		};
 		if (w._) {
-			_.each(a, function (e) {
-				g(e);
-			});
+			_.each(a, fe);
 		} else if (w.forEach) {
-			forEach(a, function (e) {
-				g(e);
-			}, !1);
+			forEach(a, fe, !1);
 		} else {
 			for (var i = 0, l = a.length; i < l; i += 1) {
 				g(a[i]);
@@ -1764,14 +1755,13 @@ var manageDataSrcImg = function (ctx) {
 	};
 	if (a) {
 		a = ctx ? BALA(el, ctx) || "" : BALA(el) || "";
+		var fe = function (e) {
+			g(e);
+		};
 		if (w._) {
-			_.each(a, function (e) {
-				g(e);
-			});
+			_.each(a, fe);
 		} else if (w.forEach) {
-			forEach(a, function (e) {
-				g(e);
-			}, !1);
+			forEach(a, fe, !1);
 		} else {
 			for (var i = 0, l = a.length; i < l; i += 1) {
 				g(a[i]);
@@ -1815,14 +1805,13 @@ var manageDataSrcIframe = function (ctx) {
 	};
 	if (a) {
 		a = ctx ? BALA(el, ctx) || "" : BALA(el) || "";
+		var fe = function (e) {
+			g(e);
+		};
 		if (w._) {
-			_.each(a, function (e) {
-				g(e);
-			});
+			_.each(a, fe);
 		} else if (w.forEach) {
-			forEach(a, function (e) {
-				g(e);
-			}, !1);
+			forEach(a, fe, !1);
 		} else {
 			for (var i = 0, l = a.length; i < l; i += 1) {
 				g(a[i]);
@@ -1892,14 +1881,13 @@ var manageExpandingLayers = function (ctx) {
 	},
 	q = function () {
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
+		var fe = function (e) {
+			k(e);
+		};
 		if (w._) {
-			_.each(a, function (e) {
-				k(e);
-			});
+			_.each(a, fe);
 		} else if (w.forEach) {
-			forEach(a, function (e) {
-				k(e);
-			}, !1);
+			forEach(a, fe, !1);
 		} else {
 			for (var i = 0, l = a.length; i < l; i += 1) {
 				k(a[i]);
@@ -1938,14 +1926,13 @@ var manageSourceCodeLayers = function (ctx) {
 	},
 	q = function () {
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
+		var fe = function (e) {
+			k(e);
+		};
 		if (w._) {
-			_.each(a, function (e) {
-				k(e);
-			});
+			_.each(a, fe);
 		} else if (w.forEach) {
-			forEach(a, function (e) {
-				k(e);
-			}, !1);
+			forEach(a, fe, !1);
 		} else {
 			for (var i = 0, l = a.length; i < l; i += 1) {
 				k(a[i]);
@@ -1972,7 +1959,7 @@ var showLocationQR = function () {
 	g = function () {
 		removeChildren(a);
 		var t = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
-		s = getHTTP() + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(p),
+		s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(p),
 		m = crel("img");
 		m[cL].add(cls);
 		m.src = s;
@@ -2043,14 +2030,13 @@ var initNavMenu = function () {
 		e[cL].add(is_active);
 	},
 	s = function (a) {
+		var fe = function (e) {
+			m(e);
+		};
 		if (w._) {
-			_.each(a, function (e) {
-				m(e);
-			});
+			_.each(a, fe);
 		} else if (w.forEach) {
-			forEach(a, function (e) {
-				m(e);
-			}, !1);
+			forEach(a, fe, !1);
 		} else {
 			for (var j = 0, l = a.length; j < l; j += 1) {
 				m(a[j]);
@@ -2074,14 +2060,13 @@ var initNavMenu = function () {
 		}
 	},
 	z = function () {
+		var fe2 = function (e) {
+			v(items, e);
+		};
 		if (w._) {
-			_.each(items, function (e) {
-				v(items, e);
-			});
+			_.each(items, fe2);
 		} else if (w.forEach) {
-			forEach(items, function (e) {
-				v(items, e);
-			}, !1);
+			forEach(items, fe2, !1);
 		} else {
 			for (var i = 0, l = items.length; i < l; i += 1) {
 				v(items, items[i]);
@@ -2185,14 +2170,13 @@ var initMenuMore = function () {
 		/* btn.onclick = h_btn; */
 	},
 	v = function () {
+		var fe = function (e) {
+			g(e);
+		};
 		if (w._) {
-			_.each(items, function (e) {
-				g(e);
-			});
+			_.each(items, fe);
 		} else if (w.forEach) {
-			forEach(items, function (e) {
-				g(e);
-			}, !1);
+			forEach(items, fe, !1);
 		} else {
 			for (var i = 0, l = items.length; i < l; i += 1) {
 				g(items[i]);
@@ -2315,8 +2299,8 @@ var initPlusoYaShare = function () {
 	var a = BALA.one("#share-buttons") || "",
 	pluso = BALA.one(".pluso") || "",
 	ya_share2 = BALA.one(".ya-share2") || "",
-	pluso_like_js_src = getHTTP() + "://share.pluso.ru/pluso-like.js",
-	share_js_src = getHTTP() + "://yastatic.net/share2/share.js",
+	pluso_like_js_src = getHTTP(!0) + "://share.pluso.ru/pluso-like.js",
+	share_js_src = getHTTP(!0) + "://yastatic.net/share2/share.js",
 	g = function (s, b) {
 		setStyleVisibilityVisible(s);
 		setStyleOpacity(s, 1);
@@ -2492,15 +2476,14 @@ var initSuperBox = function () {
 					evento.add(e, "click", h_n.bind(null, e));
 					/* e.onclick = h_n.bind(null, e); */
 				}
+			},
+			fe = function (e) {
+				trackClicks(e);
 			};
 			if (w._) {
-				_.each(links, function (e) {
-					trackClicks(e);
-				});
+				_.each(links, fe);
 			} else if (w.forEach) {
-				forEach(links, function (e) {
-					trackClicks(e);
-				}, !1);
+				forEach(links, fe, !1);
 			} else {
 				for (var j = 0, l = links.length; j < l; j += 1) {
 					trackClicks(links[j]);
@@ -2551,14 +2534,13 @@ var initSuperBox = function () {
 		e.onclick = h_e.bind(null, e);
 	};
 	if (lists) {
+		var fe2 = function (e) {
+			k(e);
+		};
 		if (w._) {
-			_.each(lists, function (e) {
-				k(e);
-			});
+			_.each(lists, fe2);
 		} else if (w.forEach) {
-			forEach(lists, function (e) {
-				k(e);
-			}, !1);
+			forEach(lists, fe2, !1);
 		} else {
 			for (var i = 0, l = lists.length; i < l; i += 1) {
 				k(lists[i]);
@@ -2578,7 +2560,7 @@ var initMasonryDisqus = function () {
 	disqus_thread = BALA.one("#disqus_thread") || "",
 	is_active = "is-active",
 	disqus_shortname = disqus_thread ? (disqus_thread.dataset.shortname || "") : "",
-	embed_js_src = getHTTP() + "://" + disqus_shortname + ".disqus.com/embed.js",
+	embed_js_src = getHTTP(!0) + "://" + disqus_shortname + ".disqus.com/embed.js",
 	g = ".masonry-grid",
 	h = ".masonry-grid-item",
 	k = ".masonry-grid-sizer",
@@ -2611,23 +2593,22 @@ var initMasonryDisqus = function () {
 				if (c) {
 					if (w.Draggabilly) {
 						var draggie,
-						t = function (e) {
+						f = function (e) {
 							var draggableElem = e;
 							draggie = new Draggabilly(draggableElem, {});
 							draggies.push(draggie);
 						},
 						draggies = [];
+						var fe = function (e) {
+							f(e);
+						};
 						if (w._) {
-							_.each(c, function (e) {
-								t(e);
-							});
+							_.each(c, fe);
 						} else if (w.forEach) {
-							forEach(c, function (e) {
-								t(e);
-							}, !1);
+							forEach(c, fe, !1);
 						} else {
 							for (var i = 0, l = c.length; i < l; i += 1) {
-								t(c[i]);
+								f(c[i]);
 							}
 						}
 						if (pckry && draggie) {
@@ -2728,11 +2709,12 @@ var insertExternalHTML = function (a, u, cb) {
 	var w = window,
 	c = BALA.one(a) || "",
 	g = function (t, f) {
-		insertTextAsFragment(t, c, function () {
+		var tf = function () {
 			if (f && "function" === typeof f) {
 				f();
 			}
-		});
+		};
+		insertTextAsFragment(t, c, tf);
 	},
 	k = function () {
 		if (w.Promise && w.fetch && !isElectron) {
@@ -2788,7 +2770,7 @@ var includeHTMLintoTarget = function (_this, u, t) {
 			}
 		},
 		k = function (t) {
-			insertTextAsFragment(t, c, function () {
+			var tf = function () {
 				s();
 				if (c_pn) {
 					manageExternalLinks(c_pn);
@@ -2796,7 +2778,8 @@ var includeHTMLintoTarget = function (_this, u, t) {
 					manageDataSrcImg(c_pn);
 					manageDataLightboxImgLinks(c_pn);
 				}
-			});
+			};
+			insertTextAsFragment(t, c, tf);
 		},
 		q = function () {
 			s();
@@ -2868,14 +2851,13 @@ var manageDataTargetLinks = function (ctx) {
 	};
 	if (a) {
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
+		var fe = function (e) {
+			g(e);
+		};
 		if (w._) {
-			_.each(a, function (e) {
-				g(e);
-			});
+			_.each(a, fe);
 		} else if (w.forEach) {
-			forEach(a, function (e) {
-				g(e);
-			}, !1);
+			forEach(a, fe, !1);
 		} else {
 			for (var i = 0, l = a.length; i < l; i += 1) {
 				g(a[i]);
@@ -2895,7 +2877,7 @@ var loadRefreshDisqus = function () {
 	btn = BALA.one("#btn-show-disqus") || "",
 	n = c ? (c.dataset.shortname || "") : "",
 	p = w.location.href || "",
-	js = getHTTP() + "://" + n + ".disqus.com/embed.js",
+	js = getHTTP(!0) + "://" + n + ".disqus.com/embed.js",
 	cL = "classList",
 	g = function () {
 		setStyleDisplayNone(btn);
@@ -2970,8 +2952,9 @@ var initDisqusOnScroll = function () {
 		btn = BALA.one("#btn-show-disqus") || "",
 		p = w.location.href || "",
 		disqus_shortname = disqus_thread ? (disqus_thread.dataset.shortname || "") : "",
-		embed_js_src = getHTTP() + "://" + disqus_shortname + ".disqus.com/embed.js",
+		embed_js_src = getHTTP(!0) + "://" + disqus_shortname + ".disqus.com/embed.js",
 		cL = "classList",
+		pN = "parentNode",
 		g = function () {
 			setStyleDisplayNone(btn);
 			disqus_thread[cL].add(is_active);
@@ -2999,7 +2982,7 @@ var initDisqusOnScroll = function () {
 			removeChildren(disqus_thread);
 			appendFragment(crel("p", "Комментарии доступны только в веб версии этой страницы."), disqus_thread);
 			disqus_thread.removeAttribute("id");
-			setStyleDisplayNone(btn.parentNode);
+			setStyleDisplayNone(btn[pN]);
 		};
 		if (disqus_thread && btn && disqus_shortname && p) {
 			if ("undefined" !== typeof getHTTP && getHTTP()) {
@@ -3190,15 +3173,14 @@ var manageContentsSelect = function (ctx) {
 	q = function (r) {
 		var jpr = safelyParseJSON(r);
 		if (jpr) {
-			var df = d.createDocumentFragment();
+			var df = d.createDocumentFragment(),
+			fe = function (e) {
+				g(e, df);
+			};
 			if (w._) {
-				_.each(jpr, function (e) {
-					g(e, df);
-				});
+				_.each(jpr, fe);
 			} else if (w.forEach) {
-				forEach(jpr, function (e) {
-					g(e, df);
-				}, !1);
+				forEach(jpr, fe, !1);
 			} else {
 				for (var i = 0, l = jpr.length; i < l; i += 1) {
 					g(jpr[i], df);
@@ -3224,9 +3206,10 @@ var manageContentsSelect = function (ctx) {
 				console.log("Error parsing file", e);
 			});
 		} else {
-			ajaxLoadUnparsedJSON(jsn, function (r) {
+			var ft = function (r) {
 				q(r);
-			});
+			};
+			ajaxLoadUnparsedJSON(jsn, ft);
 		}
 	}
 };
@@ -3259,18 +3242,15 @@ var initContentsKamil = function () {
 				/*!
 				 * limit output
 				 */
+				var fe = function (e, i) {
+					if (i < 10) {
+						_this._renderItemData(ul, e, i);
+					}
+				};
 				if (w._) {
-					_.each(items, function (e, i) {
-						if (i < 10) {
-							_this._renderItemData(ul, e, i);
-						}
-					});
+					_.each(items, fe);
 				} else if (w.forEach) {
-					forEach(items, function (e, i) {
-						if (i < 10) {
-							_this._renderItemData(ul, e, i);
-						}
-					}, !1);
+					forEach(items, fe, !1);
 				} else {
 					for (var j = 0, l = items.length; j < l; j += 1) {
 						if (j < 10) {
@@ -3288,14 +3268,13 @@ var initContentsKamil = function () {
 					e.title = "" + t;
 				},
 				lis = BALA("li", ul);
+				var fe2 = function (e) {
+					g(e);
+				};
 				if (w._) {
-					_.each(lis, function (e) {
-						g(e);
-					});
+					_.each(lis, fe2);
 				} else if (w.forEach) {
-					forEach(lis, function (e) {
-						g(e);
-					}, !1);
+					forEach(lis, fe2, !1);
 				} else {
 					for (var k = 0, m = lis.length; k < m; k += 1) {
 						g(lis[k]);
@@ -3333,9 +3312,10 @@ var initContentsKamil = function () {
 				console.log("Error parsing file", e);
 			});
 		} else {
-			ajaxLoadUnparsedJSON(jsn, function (r) {
+			var ft = function (r) {
 				q(r);
-			});
+			};
+			ajaxLoadUnparsedJSON(jsn, ft);
 		}
 	}
 };
@@ -3386,18 +3366,15 @@ var initContentsKamil = function () {
 				/*!
 				 * limit output
 				 */
+				var fe = function (e, i) {
+					if (i < 10) {
+						_this._renderItemData(ul, e, i);
+					}
+				};
 				if (w._) {
-					_.each(items, function (e, i) {
-						if (i < 10) {
-							_this._renderItemData(ul, e, i);
-						}
-					});
+					_.each(items, fe);
 				} else if (w.forEach) {
-					forEach(items, function (e, i) {
-						if (i < 10) {
-							_this._renderItemData(ul, e, i);
-						}
-					}, !1);
+					forEach(items, fe, !1);
 				} else {
 					for (var i = 0; i < l; i += 1) {
 						if (i < 10) {
@@ -3450,14 +3427,13 @@ var initContentsKamil = function () {
 					e.title = "" + t;
 				},
 				lis = BALA("li", ul);
+				var fe2 = function (e) {
+					g(e);
+				};
 				if (w._) {
-					_.each(lis, function (e) {
-						g(e);
-					});
+					_.each(lis, fe2);
 				} else if (w.forEach) {
-					forEach(lis, function (e) {
-						g(e);
-					}, !1);
+					forEach(lis, fe2, !1);
 				} else {
 					for (var j = 0, m = lis.length; j < m; j += 1) {
 						g(lis[j]);
@@ -3502,9 +3478,10 @@ var initContentsKamil = function () {
 				console.log("Error parsing file", e);
 			});
 		} else {
-			ajaxLoadUnparsedJSON(jsn, function (r) {
+			var ft = function (r) {
 				q(r);
-			});
+			};
+			ajaxLoadUnparsedJSON(jsn, ft);
 		}
 	}
 };
@@ -3540,18 +3517,15 @@ var initPagesKamil = function () {
 				/*!
 				 * limit output
 				 */
+				var fe = function (e, i) {
+					if (i < 10) {
+						_this._renderItemData(ul, e, i);
+					}
+				};
 				if (w._) {
-					_.each(items, function (e, i) {
-						if (i < 10) {
-							_this._renderItemData(ul, e, i);
-						}
-					});
+					_.each(items, fe);
 				} else if (w.forEach) {
-					forEach(items, function (e, i) {
-						if (i < 10) {
-							_this._renderItemData(ul, e, i);
-						}
-					}, !1);
+					forEach(items, fe, !1);
 				} else {
 					for (var j = 0, l = items.length; j < l; j += 1) {
 						if (j < 10) {
@@ -3569,14 +3543,13 @@ var initPagesKamil = function () {
 					e.title = "" + t;
 				},
 				lis = BALA("li", ul);
+				var fe2 = function (e) {
+					g(e);
+				};
 				if (w._) {
-					_.each(lis, function (e) {
-						g(e);
-					});
+					_.each(lis, fe2);
 				} else if (w.forEach) {
-					forEach(lis, function (e) {
-						g(e);
-					}, !1);
+					forEach(lis, fe2, !1);
 				} else {
 					for (var k = 0, m = lis.length; k < m; k += 1) {
 						g(lis[k]);
@@ -3614,9 +3587,10 @@ var initPagesKamil = function () {
 				console.log("Error parsing file", e);
 			});
 		} else {
-			ajaxLoadUnparsedJSON(jsn, function (r) {
+			var ft = function (r) {
 				q(r);
-			});
+			};
+			ajaxLoadUnparsedJSON(jsn, ft);
 		}
 	}
 };
@@ -3667,18 +3641,15 @@ var initPagesKamil = function () {
 				/*!
 				 * limit output
 				 */
+				var fe = function (e, i) {
+					if (i < 10) {
+						_this._renderItemData(ul, e, i);
+					}
+				};
 				if (w._) {
-					_.each(items, function (e, i) {
-						if (i < 10) {
-							_this._renderItemData(ul, e, i);
-						}
-					});
+					_.each(items, fe);
 				} else if (w.forEach) {
-					forEach(items, function (e, i) {
-						if (i < 10) {
-							_this._renderItemData(ul, e, i);
-						}
-					}, !1);
+					forEach(items, fe, !1);
 				} else {
 					for (var i = 0; i < l; i += 1) {
 						if (i < 10) {
@@ -3731,14 +3702,13 @@ var initPagesKamil = function () {
 					e.title = "" + t;
 				},
 				lis = BALA("li", ul);
+				var fe2 = function (e) {
+					g(e);
+				};
 				if (w._) {
-					_.each(lis, function (e) {
-						g(e);
-					});
+					_.each(lis, fe2);
 				} else if (w.forEach) {
-					forEach(lis, function (e) {
-						g(e);
-					}, !1);
+					forEach(lis, fe2, !1);
 				} else {
 					for (var j = 0, m = lis.length; j < m; j += 1) {
 						g(lis[j]);
@@ -3783,9 +3753,10 @@ var initPagesKamil = function () {
 				console.log("Error parsing file", e);
 			});
 		} else {
-			ajaxLoadUnparsedJSON(jsn, function (r) {
+			var ft = function (r) {
 				q(r);
-			});
+			};
+			ajaxLoadUnparsedJSON(jsn, ft);
 		}
 	}
 };
@@ -3801,7 +3772,7 @@ var initVKLike = function () {
 	var w = window,
 	c = BALA.one("#vk-like") || "",
 	a = BALA.one("#btn-show-vk-like") || "",
-	js = getHTTP() + "://vk.com/js/api/openapi.js?122",
+	js = getHTTP(!0) + "://vk.com/js/api/openapi.js?122",
 	g = function () {
 		try {
 			if (w.VK) {
@@ -3857,8 +3828,8 @@ var observeMutations = function (c) {
 	"use strict";
 	c = BALA.one(c) || BALA.one("body") || "";
 	if (c) {
-		var f = function (e) {
-			var s = function (m) {
+		var g = function (e) {
+			var fe = function (m) {
 				console.log("mutations observer: " + m.type);
 				console.log(m.type, "added: " + m.addedNodes.length + " nodes");
 				console.log(m.type, "removed: " + m.removedNodes.length + " nodes");
@@ -3871,9 +3842,9 @@ var observeMutations = function (c) {
 					manageDataLightboxImgLinks(c);
 				}
 			};
-			e.forEach(s);
+			e.forEach(fe);
 		},
-		mo = new MutationObserver(f);
+		mo = new MutationObserver(g);
 		mo.observe(c, {
 			childList: !0,
 			subtree: !0,

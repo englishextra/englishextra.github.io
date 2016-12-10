@@ -494,14 +494,13 @@ var manageExternalLinks = function (ctx) {
 	};
 	if (a) {
 		a = ctx ? BALA("a", ctx) || "" : BALA("a") || "";
+		var fe = function (e) {
+			g(e);
+		};
 		if (w._) {
-			_.each(a, function (e) {
-				g(e);
-			});
+			_.each(a, fe);
 		} else if (w.forEach) {
-			forEach(a, function (e) {
-				g(e);
-			}, !1);
+			forEach(a, fe, !1);
 		} else {
 			for (var i = 0, l = a.length; i < l; i += 1) {
 				g(a[i]);
@@ -526,14 +525,13 @@ var manageLocalLinks = function (ctx) {
 	};
 	if (a) {
 		a = ctx ? BALA("a", ctx) || "" : BALA("a") || "";
+		var fe = function (e) {
+			g(e);
+		};
 		if (w._) {
-			_.each(a, function (e) {
-				g(e);
-			});
+			_.each(a, fe);
 		} else if (w.forEach) {
-			forEach(a, function (e) {
-				g(e);
-			}, !1);
+			forEach(a, fe, !1);
 		} else {
 			for (var i = 0, l = a.length; i < l; i += 1) {
 				g(a[i]);
@@ -684,7 +682,7 @@ var initNotifier42WriteMe = function () {
 		n = "notifier42-write-me",
 		m = "Напишите мне, отвечу очень скоро. Регистрироваться не нужно.",
 		p = parseLink(w.location.href).origin,
-		s = function () {
+		g = function () {
 			new Notifier42(crel("a", {
 					"href" : "#/feedback"
 				}, m),
@@ -692,7 +690,7 @@ var initNotifier42WriteMe = function () {
 			Cookies.set(n, encodeURIComponent(m));
 		};
 		if (!Cookies.get(n) && p) {
-			setAutoClearedTimeout(s, 8000);
+			setAutoClearedTimeout(g, 8000);
 		}
 	}
 };
@@ -708,7 +706,7 @@ var loadRefreshDisqus = function () {
 	btn = BALA.one("#btn-show-disqus") || "",
 	n = c ? (c.dataset.shortname || "") : "",
 	p = w.location.href || "",
-	js = getHTTP() + "://" + n + ".disqus.com/embed.js",
+	js = getHTTP(!0) + "://" + n + ".disqus.com/embed.js",
 	cL = "classList",
 	g = function () {
 		setStyleDisplayNone(btn);
@@ -782,7 +780,7 @@ var initYandexMap = function (a) {
 	z = c ? (c[ds].zoom || "") : "",
 	b_s = c ? (BALA.one(c[ds].btnShow) || "") : "",
 	b_d = c ? (BALA.one(c[ds].btnDestroy) || "") : "",
-	js = getHTTP() + "://api-maps.yandex.ru/2.1/?lang=ru_RU",
+	js = getHTTP(!0) + "://api-maps.yandex.ru/2.1/?lang=ru_RU",
 	myMap,
 	init = function () {
 		try {
@@ -967,14 +965,13 @@ var manageDataLightboxImgLinks = function (ctx) {
 	};
 	if (a) {
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
+		var fe = function (e) {
+			k(e);
+		};
 		if (w._) {
-			_.each(a, function (e) {
-				k(e);
-			});
+			_.each(a, fe);
 		} else if (w.forEach) {
-			forEach(a, function (e) {
-				k(e);
-			}, !1);
+			forEach(a, fe, !1);
 		} else {
 			for (var j = 0, l = a.length; j < l; j += 1) {
 				k(a[j]);
@@ -1011,14 +1008,13 @@ var manageDataSrcImg = function (ctx) {
 	};
 	if (a) {
 		a = ctx ? BALA(el, ctx) || "" : BALA(el) || "";
+		var fe = function (e) {
+			g(e);
+		};
 		if (w._) {
-			_.each(a, function (e) {
-				g(e);
-			});
+			_.each(a, fe);
 		} else if (w.forEach) {
-			forEach(a, function (e) {
-				g(e);
-			}, !1);
+			forEach(a, fe, !1);
 		} else {
 			for (var i = 0, l = a.length; i < l; i += 1) {
 				g(a[i]);
@@ -1045,7 +1041,7 @@ var showLocationQR = function () {
 	g = function () {
 		removeChildren(a);
 		var t = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
-		s = getHTTP() + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(p),
+		s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(p),
 		m = crel("img");
 		m[cL].add(cls);
 		m.src = s;
@@ -1116,14 +1112,13 @@ var initNavMenu = function () {
 		e[cL].add(is_active);
 	},
 	s = function (a) {
+		var fe = function (e) {
+			m(e);
+		};
 		if (w._) {
-			_.each(a, function (e) {
-				m(e);
-			});
+			_.each(a, fe);
 		} else if (w.forEach) {
-			forEach(a, function (e) {
-				m(e);
-			}, !1);
+			forEach(a, fe, !1);
 		} else {
 			for (var j = 0, l = a.length; j < l; j += 1) {
 				m(a[j]);
@@ -1147,14 +1142,13 @@ var initNavMenu = function () {
 		}
 	},
 	z = function () {
+		var fe2 = function (e) {
+			v(items, e);
+		};
 		if (w._) {
-			_.each(items, function (e) {
-				v(items, e);
-			});
+			_.each(items, fe2);
 		} else if (w.forEach) {
-			forEach(items, function (e) {
-				v(items, e);
-			}, !1);
+			forEach(items, fe2, !1);
 		} else {
 			for (var i = 0, l = items.length; i < l; i += 1) {
 				v(items, items[i]);
@@ -1208,14 +1202,13 @@ var initMenuMore = function () {
 		/* btn.onclick = h_btn; */
 	},
 	v = function () {
+		var fe = function (e) {
+			g(e);
+		};
 		if (w._) {
-			_.each(items, function (e) {
-				g(e);
-			});
+			_.each(items, fe);
 		} else if (w.forEach) {
-			forEach(items, function (e) {
-				g(e);
-			}, !1);
+			forEach(items, fe, !1);
 		} else {
 			for (var i = 0, l = items.length; i < l; i += 1) {
 				g(items[i]);
@@ -1321,8 +1314,8 @@ var initPlusoYaShare = function () {
 	var a = BALA.one("#share-buttons") || "",
 	pluso = BALA.one(".pluso") || "",
 	ya_share2 = BALA.one(".ya-share2") || "",
-	pluso_like_js_src = getHTTP() + "://share.pluso.ru/pluso-like.js",
-	share_js_src = getHTTP() + "://yastatic.net/share2/share.js",
+	pluso_like_js_src = getHTTP(!0) + "://share.pluso.ru/pluso-like.js",
+	share_js_src = getHTTP(!0) + "://yastatic.net/share2/share.js",
 	g = function (s, b) {
 		setStyleVisibilityVisible(s);
 		setStyleOpacity(s, 1);
@@ -1370,7 +1363,7 @@ var initVKLike = function () {
 	var w = window,
 	c = BALA.one("#vk-like") || "",
 	a = BALA.one("#btn-show-vk-like") || "",
-	js = getHTTP() + "://vk.com/js/api/openapi.js?122",
+	js = getHTTP(!0) + "://vk.com/js/api/openapi.js?122",
 	g = function () {
 		try {
 			if (w.VK) {
@@ -1436,7 +1429,7 @@ var includeHTMLintoTarget = function (_this, u, t) {
 			}
 		},
 		k = function (t) {
-			insertTextAsFragment(t, c, function () {
+			var tf = function () {
 				s();
 				if (c_pn) {
 					manageExternalLinks(c_pn);
@@ -1444,7 +1437,8 @@ var includeHTMLintoTarget = function (_this, u, t) {
 					manageDataSrcImg(c_pn);
 					manageDataLightboxImgLinks(c_pn);
 				}
-			});
+			};
+			insertTextAsFragment(t, c, tf);
 		},
 		q = function () {
 			s();
@@ -1516,14 +1510,13 @@ var manageDataTargetLinks = function (ctx) {
 	};
 	if (a) {
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
+		var fe = function (e) {
+			g(e);
+		};
 		if (w._) {
-			_.each(a, function (e) {
-				g(e);
-			});
+			_.each(a, fe);
 		} else if (w.forEach) {
-			forEach(a, function (e) {
-				g(e);
-			}, !1);
+			forEach(a, fe, !1);
 		} else {
 			for (var i = 0, l = a.length; i < l; i += 1) {
 				g(a[i]);
@@ -1551,14 +1544,13 @@ var highlightNavMenuItem = function () {
 		}
 	};
 	if (c && a && p) {
+		var fe = function (e) {
+			g(e);
+		};
 		if (w._) {
-			_.each(a, function (e) {
-				g(e);
-			});
+			_.each(a, fe);
 		} else if (w.forEach) {
-			forEach(a, function (e) {
-				g(e);
-			}, !1);
+			forEach(a, fe, !1);
 		} else {
 			for (var i = 0, l = a.length; i < l; i += 1) {
 				g(a[i]);
@@ -1574,8 +1566,8 @@ var observeMutations = function (c) {
 	"use strict";
 	c = BALA.one(c) || BALA.one("body") || "";
 	if (c) {
-		var f = function (e) {
-			var s = function (m) {
+		var g = function (e) {
+			var fe = function (m) {
 				console.log("mutations observer: " + m.type);
 				console.log(m.type, "added: " + m.addedNodes.length + " nodes");
 				console.log(m.type, "removed: " + m.removedNodes.length + " nodes");
@@ -1588,9 +1580,9 @@ var observeMutations = function (c) {
 					manageDataLightboxImgLinks(c);
 				}
 			};
-			e.forEach(s);
+			e.forEach(fe);
 		},
-		mo = new MutationObserver(f);
+		mo = new MutationObserver(g);
 		mo.observe(c, {
 			childList: !0,
 			subtree: !0,
@@ -1637,11 +1629,12 @@ var insertExternalHTML = function (a, u, cb) {
 	var w = window,
 	c = BALA.one(a) || "",
 	g = function (t, f) {
-		insertTextAsFragment(t, c, function () {
+		var tf = function () {
 			if (f && "function" === typeof f) {
 				f();
 			}
-		});
+		};
+		insertTextAsFragment(t, c, tf);
 	},
 	k = function () {
 		if (w.Promise && w.fetch && !isElectron) {

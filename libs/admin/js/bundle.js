@@ -327,14 +327,13 @@ var manageExternalLinks = function (ctx) {
 	};
 	if (a) {
 		a = ctx ? BALA("a", ctx) || "" : BALA("a") || "";
+		var fe = function (e) {
+			g(e);
+		};
 		if (w._) {
-			_.each(a, function (e) {
-				g(e);
-			});
+			_.each(a, fe);
 		} else if (w.forEach) {
-			forEach(a, function (e) {
-				g(e);
-			}, !1);
+			forEach(a, fe, !1);
 		} else {
 			for (var i = 0, l = a.length; i < l; i += 1) {
 				g(a[i]);
@@ -359,14 +358,13 @@ var manageLocalLinks = function (ctx) {
 	};
 	if (a) {
 		a = ctx ? BALA("a", ctx) || "" : BALA("a") || "";
+		var fe = function (e) {
+			g(e);
+		};
 		if (w._) {
-			_.each(a, function (e) {
-				g(e);
-			});
+			_.each(a, fe);
 		} else if (w.forEach) {
-			forEach(a, function (e) {
-				g(e);
-			}, !1);
+			forEach(a, fe, !1);
 		} else {
 			for (var i = 0, l = a.length; i < l; i += 1) {
 				g(a[i]);

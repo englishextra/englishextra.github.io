@@ -481,14 +481,13 @@ var manageExternalLinks = function (ctx) {
 	};
 	if (a) {
 		a = ctx ? BALA("a", ctx) || "" : BALA("a") || "";
+		var fe = function (e) {
+			g(e);
+		};
 		if (w._) {
-			_.each(a, function (e) {
-				g(e);
-			});
+			_.each(a, fe);
 		} else if (w.forEach) {
-			forEach(a, function (e) {
-				g(e);
-			}, !1);
+			forEach(a, fe, !1);
 		} else {
 			for (var i = 0, l = a.length; i < l; i += 1) {
 				g(a[i]);
@@ -513,14 +512,13 @@ var manageLocalLinks = function (ctx) {
 	};
 	if (a) {
 		a = ctx ? BALA("a", ctx) || "" : BALA("a") || "";
+		var fe = function (e) {
+			g(e);
+		};
 		if (w._) {
-			_.each(a, function (e) {
-				g(e);
-			});
+			_.each(a, fe);
 		} else if (w.forEach) {
-			forEach(a, function (e) {
-				g(e);
-			}, !1);
+			forEach(a, fe, !1);
 		} else {
 			for (var i = 0, l = a.length; i < l; i += 1) {
 				g(a[i]);
@@ -561,7 +559,7 @@ var initMasonryDisqus = function () {
 	disqus_thread = BALA.one("#disqus_thread") || "",
 	is_active = "is-active",
 	disqus_shortname = disqus_thread ? (disqus_thread.dataset.shortname || "") : "",
-	embed_js_src = getHTTP() + "://" + disqus_shortname + ".disqus.com/embed.js",
+	embed_js_src = getHTTP(!0) + "://" + disqus_shortname + ".disqus.com/embed.js",
 	g = ".masonry-grid",
 	h = ".masonry-grid-item",
 	k = ".masonry-grid-sizer",
@@ -594,23 +592,22 @@ var initMasonryDisqus = function () {
 				if (c) {
 					if (w.Draggabilly) {
 						var draggie,
-						t = function (e) {
+						f = function (e) {
 							var draggableElem = e;
 							draggie = new Draggabilly(draggableElem, {});
 							draggies.push(draggie);
 						},
 						draggies = [];
+						var fe = function (e) {
+							f(e);
+						};
 						if (w._) {
-							_.each(c, function (e) {
-								t(e);
-							});
+							_.each(c, fe);
 						} else if (w.forEach) {
-							forEach(c, function (e) {
-								t(e);
-							}, !1);
+							forEach(c, fe, !1);
 						} else {
 							for (var i = 0, l = c.length; i < l; i += 1) {
-								t(c[i]);
+								f(c[i]);
 							}
 						}
 						if (pckry && draggie) {
@@ -715,15 +712,14 @@ var manageContentsSelect = function (ctx) {
 	q = function (r) {
 		var jpr = safelyParseJSON(r);
 		if (jpr) {
-			var df = d.createDocumentFragment();
+			var df = d.createDocumentFragment(),
+			fe = function (e) {
+				g(e, df);
+			};
 			if (w._) {
-				_.each(jpr, function (e) {
-					g(e, df);
-				});
+				_.each(jpr, fe);
 			} else if (w.forEach) {
-				forEach(jpr, function (e) {
-					g(e, df);
-				}, !1);
+				forEach(jpr, fe, !1);
 			} else {
 				for (var i = 0, l = jpr.length; i < l; i += 1) {
 					g(jpr[i], df);
@@ -749,9 +745,10 @@ var manageContentsSelect = function (ctx) {
 				console.log("Error parsing file", e);
 			});
 		} else {
-			ajaxLoadUnparsedJSON(jsn, function (r) {
+			var ft = function (r) {
 				q(r);
-			});
+			};
+			ajaxLoadUnparsedJSON(jsn, ft);
 		}
 	}
 };
@@ -790,7 +787,7 @@ var showLocationQR = function () {
 	g = function () {
 		removeChildren(a);
 		var t = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
-		s = getHTTP() + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(p),
+		s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(p),
 		m = crel("img");
 		m[cL].add(cls);
 		m.src = s;
@@ -861,14 +858,13 @@ var initNavMenu = function () {
 		e[cL].add(is_active);
 	},
 	s = function (a) {
+		var fe = function (e) {
+			m(e);
+		};
 		if (w._) {
-			_.each(a, function (e) {
-				m(e);
-			});
+			_.each(a, fe);
 		} else if (w.forEach) {
-			forEach(a, function (e) {
-				m(e);
-			}, !1);
+			forEach(a, fe, !1);
 		} else {
 			for (var j = 0, l = a.length; j < l; j += 1) {
 				m(a[j]);
@@ -892,14 +888,13 @@ var initNavMenu = function () {
 		}
 	},
 	z = function () {
+		var fe2 = function (e) {
+			v(items, e);
+		};
 		if (w._) {
-			_.each(items, function (e) {
-				v(items, e);
-			});
+			_.each(items, fe2);
 		} else if (w.forEach) {
-			forEach(items, function (e) {
-				v(items, e);
-			}, !1);
+			forEach(items, fe2, !1);
 		} else {
 			for (var i = 0, l = items.length; i < l; i += 1) {
 				v(items, items[i]);
@@ -1003,14 +998,13 @@ var initMenuMore = function () {
 		/* btn.onclick = h_btn; */
 	},
 	v = function () {
+		var fe = function (e) {
+			g(e);
+		};
 		if (w._) {
-			_.each(items, function (e) {
-				g(e);
-			});
+			_.each(items, fe);
 		} else if (w.forEach) {
-			forEach(items, function (e) {
-				g(e);
-			}, !1);
+			forEach(items, fe, !1);
 		} else {
 			for (var i = 0, l = items.length; i < l; i += 1) {
 				g(items[i]);
@@ -1116,8 +1110,8 @@ var initPlusoYaShare = function () {
 	var a = BALA.one("#share-buttons") || "",
 	pluso = BALA.one(".pluso") || "",
 	ya_share2 = BALA.one(".ya-share2") || "",
-	pluso_like_js_src = getHTTP() + "://share.pluso.ru/pluso-like.js",
-	share_js_src = getHTTP() + "://yastatic.net/share2/share.js",
+	pluso_like_js_src = getHTTP(!0) + "://share.pluso.ru/pluso-like.js",
+	share_js_src = getHTTP(!0) + "://yastatic.net/share2/share.js",
 	g = function (s, b) {
 		setStyleVisibilityVisible(s);
 		setStyleOpacity(s, 1);
@@ -1165,7 +1159,7 @@ var initVKLike = function () {
 	var w = window,
 	c = BALA.one("#vk-like") || "",
 	a = BALA.one("#btn-show-vk-like") || "",
-	js = getHTTP() + "://vk.com/js/api/openapi.js?122",
+	js = getHTTP(!0) + "://vk.com/js/api/openapi.js?122",
 	g = function () {
 		try {
 			if (w.VK) {
@@ -1257,18 +1251,15 @@ var initContentsKamil = function () {
 				/*!
 				 * limit output
 				 */
+				var fe = function (e, i) {
+					if (i < 10) {
+						_this._renderItemData(ul, e, i);
+					}
+				};
 				if (w._) {
-					_.each(items, function (e, i) {
-						if (i < 10) {
-							_this._renderItemData(ul, e, i);
-						}
-					});
+					_.each(items, fe);
 				} else if (w.forEach) {
-					forEach(items, function (e, i) {
-						if (i < 10) {
-							_this._renderItemData(ul, e, i);
-						}
-					}, !1);
+					forEach(items, fe, !1);
 				} else {
 					for (var i = 0; i < l; i += 1) {
 						if (i < 10) {
@@ -1321,14 +1312,13 @@ var initContentsKamil = function () {
 					e.title = "" + t;
 				},
 				lis = BALA("li", ul);
+				var fe2 = function (e) {
+					g(e);
+				};
 				if (w._) {
-					_.each(lis, function (e) {
-						g(e);
-					});
+					_.each(lis, fe2);
 				} else if (w.forEach) {
-					forEach(lis, function (e) {
-						g(e);
-					}, !1);
+					forEach(lis, fe2, !1);
 				} else {
 					for (var j = 0, m = lis.length; j < m; j += 1) {
 						g(lis[j]);
@@ -1373,9 +1363,10 @@ var initContentsKamil = function () {
 				console.log("Error parsing file", e);
 			});
 		} else {
-			ajaxLoadUnparsedJSON(jsn, function (r) {
+			var ft = function (r) {
 				q(r);
-			});
+			};
+			ajaxLoadUnparsedJSON(jsn, ft);
 		}
 	}
 };
@@ -1392,10 +1383,10 @@ var initSearchForm = function () {
 	h = BALA.one("html") || "",
 	search_form = BALA.one("#search_form") || "",
 	ya_site_form = BALA.one(".ya-site-form.ya-site-form_inited_no") || "",
-	all_js_src = getHTTP() + "://site.yandex.net/v2.0/js/all.js",
+	all_js_src = getHTTP(!0) + "://site.yandex.net/v2.0/js/all.js",
 	cL = "classList",
 	g = function () {
-		search_form.action = getHTTP() + "://yandex.ru/sitesearch";
+		search_form.action = getHTTP(!0) + "://yandex.ru/sitesearch";
 		search_form.target = "_blank";
 	},
 	k = function () {
