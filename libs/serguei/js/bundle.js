@@ -436,12 +436,12 @@ var openDeviceBrowser = function (a) {
 	"use strict";
 	var w = window,
 	g = function () {
-		var electronShell = "undefined" !== typeof isElectron && isElectron ? require("electron").shell : "";
-		return electronShell ? electronShell.openExternal(a) : "";
+		var es = "undefined" !== typeof isElectron && isElectron ? require("electron").shell : "";
+		return es ? es.openExternal(a) : "";
 	},
 	k = function () {
-		var nwGui = "undefined" !== typeof isNwjs && isNwjs ? require("nw.gui") : "";
-		return nwGui ? nwGui.Shell.openExternal(a) : "";
+		var ns = "undefined" !== typeof isNwjs && isNwjs ? require("nw.gui").Shell : "";
+		return ns ? ns.openExternal(a) : "";
 	},
 	q = function () {
 		/*!
@@ -587,12 +587,12 @@ var LoadingSpinner = function () {
 		show: function () {
 			return h[cL].contains(cls) || h[cL].add(cls);
 		},
-		hide: function (cb, n) {
+		hide: function (f, n) {
 			n = n || 500;
 			var s = function () {
 				h[cL].remove(cls);
-				if (cb && "function" === typeof cb) {
-					cb();
+				if (f && "function" === typeof f) {
+					f();
 				}
 			};
 			return setAutoClearedTimeout(s, n);
@@ -1248,11 +1248,11 @@ var initUiTotop = function () {
 	h = BALA.one("html") || "",
 	u = "ui-totop",
 	v = "ui-totop-hover",
-	g = function (cb) {
+	g = function (f) {
 		var z = function (n) {
 			var o = w.pageYOffset,
 			i = 0,
-			f = function (o, l) {
+			x = function (o, l) {
 					return function () {
 						l -= o * n;
 						w.scrollTo(0, l);
@@ -1262,7 +1262,7 @@ var initUiTotop = function () {
 						}
 					};
 				},
-			si = setInterval(f.bind(null, n, o--), 50);
+			si = setInterval(x.bind(null, n, o--), 50);
 		},
 		t = "Наверх",
 		a = crel("a"),
@@ -1286,8 +1286,8 @@ var initUiTotop = function () {
 		setStyleOpacity(a, 0);
 		s.id = v;
 		appendFragment(crel(a, s, "" + t), b);
-		if (cb && "function" === typeof cb) {
-			cb();
+		if (f && "function" === typeof f) {
+			f();
 		}
 	},
 	k = function (_this) {
@@ -1309,9 +1309,7 @@ var initUiTotop = function () {
 		/* w.onscroll = k.bind(null, w); */
 	};
 	if (b) {
-		g(function () {
-			q();
-		});
+		g(q);
 	}
 };
 docReady(initUiTotop);
@@ -1576,26 +1574,28 @@ var observeMutations = function (c) {
 	"use strict";
 	c = BALA.one(c) || BALA.one("body") || "";
 	if (c) {
-		var mo = new MutationObserver(function (e) {
-				e.forEach(function (e) {
-					console.log("mutations observer: " + e.type);
-					console.log(e.type, "added: " + e.addedNodes.length + " nodes");
-					console.log(e.type, "removed: " + e.removedNodes.length + " nodes");
-					if ("childList" === e.type || "subtree" === e.type) {
-						mo.disconnect();
-						manageExternalLinks(c);
-						manageLocalLinks(c);
-						manageDataTargetLinks(c);
-						manageDataSrcImg(c);
-						manageDataLightboxImgLinks(c);
-					}
-				});
-			});
+		var f = function (e) {
+			var s = function (m) {
+				console.log("mutations observer: " + m.type);
+				console.log(m.type, "added: " + m.addedNodes.length + " nodes");
+				console.log(m.type, "removed: " + m.removedNodes.length + " nodes");
+				if ("childList" === m.type || "subtree" === m.type) {
+					mo.disconnect();
+					manageExternalLinks(c);
+					manageLocalLinks(c);
+					manageDataTargetLinks(c);
+					manageDataSrcImg(c);
+					manageDataLightboxImgLinks(c);
+				}
+			};
+			e.forEach(s);
+		},
+		mo = new MutationObserver(f);
 		mo.observe(c, {
-			childList : !0,
-			subtree : !0,
-			attributes : !1,
-			characterData : !1
+			childList: !0,
+			subtree: !0,
+			attributes: !1,
+			characterData: !1
 		});
 	}
 };
@@ -1699,9 +1699,7 @@ var initRoutie = function (ci) {
 		/*!
 		 * hide loading spinner before scrolling
 		 */
-		LoadingSpinner.hide(function () {
-			scrollToTop();
-		});
+		LoadingSpinner.hide(scrollToTop);
 		d.title = initialDocumentTitle + "" + t + userBrowsingDetails;
 		if (a && w.showLocationQR) {
 			if ("undefined" !== typeof getHTTP && getHTTP()) {
@@ -1840,7 +1838,9 @@ var showPageFinishProgress = function () {
 	var b = BALA.one("body") || "",
 	c = BALA.one("#container") || "",
 	a = BALA.one(".holder-site-logo") || "",
-	pBC = progressBar.complete(),
+	pBC = function () {
+		progressBar.complete();
+	},
 	g = function () {
 		setStyleOpacity(c, 1);
 		setImmediate(pBC);

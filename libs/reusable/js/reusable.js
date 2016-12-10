@@ -713,12 +713,12 @@ var openDeviceBrowser = function (a) {
 	"use strict";
 	var w = window,
 	g = function () {
-		var electronShell = "undefined" !== typeof isElectron && isElectron ? require("electron").shell : "";
-		return electronShell ? electronShell.openExternal(a) : "";
+		var es = "undefined" !== typeof isElectron && isElectron ? require("electron").shell : "";
+		return es ? es.openExternal(a) : "";
 	},
 	k = function () {
-		var nwGui = "undefined" !== typeof isNwjs && isNwjs ? require("nw.gui") : "";
-		return nwGui ? nwGui.Shell.openExternal(a) : "";
+		var ns = "undefined" !== typeof isNwjs && isNwjs ? require("nw.gui").Shell : "";
+		return ns ? ns.openExternal(a) : "";
 	},
 	q = function () {
 		/*!
@@ -864,12 +864,12 @@ var LoadingSpinner = function () {
 		show: function () {
 			return h[cL].contains(cls) || h[cL].add(cls);
 		},
-		hide: function (cb, n) {
+		hide: function (f, n) {
 			n = n || 500;
 			var s = function () {
 				h[cL].remove(cls);
-				if (cb && "function" === typeof cb) {
-					cb();
+				if (f && "function" === typeof f) {
+					f();
 				}
 			};
 			return setAutoClearedTimeout(s, n);
@@ -1709,13 +1709,13 @@ var initDownloadAppBtn = function (n) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			a.target = "_blank";
 		} else {
-			/* evento.add(a, "click", h_a); */
-		a.onclick = h_a;
+			evento.add(a, "click", h_a);
 			/* a.onclick = h_a; */
 		}
 		appendFragment(a, b);
 		var s1 = function () {
 			evento.remove(a, "click", h_a);
+			/* a.onclick = null; */
 			removeElement(a);
 		},
 		s2 = function () {
@@ -2242,11 +2242,11 @@ var initUiTotop = function () {
 	h = BALA.one("html") || "",
 	u = "ui-totop",
 	v = "ui-totop-hover",
-	g = function (cb) {
+	g = function (f) {
 		var z = function (n) {
 			var o = w.pageYOffset,
 			i = 0,
-			f = function (o, l) {
+			x = function (o, l) {
 					return function () {
 						l -= o * n;
 						w.scrollTo(0, l);
@@ -2256,7 +2256,7 @@ var initUiTotop = function () {
 						}
 					};
 				},
-			si = setInterval(f.bind(null, n, o--), 50);
+			si = setInterval(x.bind(null, n, o--), 50);
 		},
 		t = "Наверх",
 		a = crel("a"),
@@ -2280,8 +2280,8 @@ var initUiTotop = function () {
 		setStyleOpacity(a, 0);
 		s.id = v;
 		appendFragment(crel(a, s, "" + t), b);
-		if (cb && "function" === typeof cb) {
-			cb();
+		if (f && "function" === typeof f) {
+			f();
 		}
 	},
 	k = function (_this) {
@@ -2303,9 +2303,7 @@ var initUiTotop = function () {
 		/* w.onscroll = k.bind(null, w); */
 	};
 	if (b) {
-		g(function () {
-			q();
-		});
+		g(q);
 	}
 };
 docReady(initUiTotop);
@@ -2977,7 +2975,7 @@ var initDisqusOnScroll = function () {
 		g = function () {
 			setStyleDisplayNone(btn);
 			disqus_thread[cL].add(is_active);
-			if (!!waypoint) {
+			if ("undefined" !== typeof waypoint && waypoint) {
 				waypoint.destroy();
 			}
 		},
@@ -2989,12 +2987,13 @@ var initDisqusOnScroll = function () {
 		q = function () {
 			var h_btn = function (e) {
 				evento.remove(btn, "click", h_btn);
+				/* btn.onclick = null; */
 				e.preventDefault();
 				e.stopPropagation();
 				k();
 			};
-			/* evento.add(btn, "click", h_btn); */
-		btn.onclick = h_btn;
+			evento.add(btn, "click", h_btn);
+			/* btn.onclick = h_btn; */
 		},
 		v = function () {
 			removeChildren(disqus_thread);
@@ -3023,10 +3022,12 @@ var initDisqusOnScroll = function () {
 						var h_w = function () {
 							if (isInViewport(disqus_thread)) {
 								evento.remove(w, "scroll", h_w);
+								/* w.onscroll = null; */
 								k();
 							}
 						};
 						evento.add(w, "scroll", h_w);
+						/* w.onscroll = h_w; */
 					} else {
 						q();
 					}
@@ -3351,8 +3352,8 @@ var initContentsKamil = function () {
 	d = document,
 	b = BALA.one("body") || "",
 	search_form = BALA.one("#search_form") || "",
-	text_id = "text",
-	text = BALA.one("#" + text_id) || "",
+	id = "#text",
+	text = BALA.one(id) || "",
 	_ul_id = "kamil-typo-autocomplete",
 	_ul_class = "kamil-autocomplete",
 	kamil_js_src = "../cdn/kamil/0.1.1/js/kamil.fixed.min.js",
@@ -3361,7 +3362,7 @@ var initContentsKamil = function () {
 	q = function (r) {
 		var jpr = safelyParseJSON(r);
 		if (jpr) {
-			var ac = new Kamil("#" + text_id, {
+			var ac = new Kamil(id, {
 					source: jpr,
 					minChars: 2
 				});
@@ -3411,7 +3412,6 @@ var initContentsKamil = function () {
 					text.value = v;
 					text.focus();
 					setStyleDisplayNone(_ul);
-					setStyleDisplayNone(this);
 				},
 				h_text = function () {
 					if (text.value.length < 3 || text.value.match(/^\s*$/)) {
@@ -3438,7 +3438,7 @@ var initContentsKamil = function () {
 					}
 					evento.add(text, "input", h_text);
 					/* text.oninput = h_text; */
-					l++;
+					l += 1;
 				}
 				/*!
 				 * truncate text
@@ -3476,7 +3476,11 @@ var initContentsKamil = function () {
 					changeLocation(p);
 				};
 				if (p) {
-					setImmediate(si);
+					/*!
+					 * nwjs wont like setImmediate here
+					 */
+					/* setImmediate(si); */
+					si();
 				}
 			});
 		}
@@ -3492,12 +3496,11 @@ var initContentsKamil = function () {
 				return r.text();
 			}).catch (function (e) {
 				console.log("Error fetch-ing file", e);
-			})
-				.then(function (t) {
-					q(t);
-				}).catch (function (e) {
-					console.log("Error parsing file", e);
-				});
+			}).then(function (t) {
+				q(t);
+			}).catch (function (e) {
+				console.log("Error parsing file", e);
+			});
 		} else {
 			ajaxLoadUnparsedJSON(jsn, function (r) {
 				q(r);
@@ -3630,8 +3633,8 @@ var initPagesKamil = function () {
 	d = document,
 	b = BALA.one("body") || "",
 	search_form = BALA.one("#search_form") || "",
-	text_id = "text",
-	text = BALA.one("#" + text_id) || "",
+	id = "#text",
+	text = BALA.one(id) || "",
 	_ul_id = "kamil-typo-autocomplete",
 	_ul_class = "kamil-autocomplete",
 	kamil_js_src = "../../cdn/kamil/0.1.1/js/kamil.fixed.min.js",
@@ -3640,7 +3643,7 @@ var initPagesKamil = function () {
 	q = function (r) {
 		var jpr = safelyParseJSON(r);
 		if (jpr) {
-			var ac = new Kamil("#" + text_id, {
+			var ac = new Kamil(id, {
 					source: jpr,
 					minChars: 2
 				});
@@ -3690,7 +3693,6 @@ var initPagesKamil = function () {
 					text.value = v;
 					text.focus();
 					setStyleDisplayNone(_ul);
-					setStyleDisplayNone(this);
 				},
 				h_text = function () {
 					if (text.value.length < 3 || text.value.match(/^\s*$/)) {
@@ -3717,7 +3719,7 @@ var initPagesKamil = function () {
 					}
 					evento.add(text, "input", h_text);
 					/* text.oninput = h_text; */
-					l++;
+					l += 1;
 				}
 				/*!
 				 * truncate text
@@ -3755,7 +3757,11 @@ var initPagesKamil = function () {
 					changeLocation(p);
 				};
 				if (p) {
-					setImmediate(si);
+					/*!
+					 * nwjs wont like setImmediate here
+					 */
+					/* setImmediate(si); */
+					si();
 				}
 			});
 		}
@@ -3771,12 +3777,11 @@ var initPagesKamil = function () {
 				return r.text();
 			}).catch (function (e) {
 				console.log("Error fetch-ing file", e);
-			})
-				.then(function (t) {
-					q(t);
-				}).catch (function (e) {
-					console.log("Error parsing file", e);
-				});
+			}).then(function (t) {
+				q(t);
+			}).catch (function (e) {
+				console.log("Error parsing file", e);
+			});
 		} else {
 			ajaxLoadUnparsedJSON(jsn, function (r) {
 				q(r);
@@ -3852,26 +3857,28 @@ var observeMutations = function (c) {
 	"use strict";
 	c = BALA.one(c) || BALA.one("body") || "";
 	if (c) {
-		var mo = new MutationObserver(function (e) {
-				e.forEach(function (e) {
-					console.log("mutations observer: " + e.type);
-					console.log(e.type, "added: " + e.addedNodes.length + " nodes");
-					console.log(e.type, "removed: " + e.removedNodes.length + " nodes");
-					if ("childList" === e.type || "subtree" === e.type) {
-						mo.disconnect();
-						manageExternalLinks(c);
-						manageLocalLinks(c);
-						manageDataTargetLinks(c);
-						manageDataSrcImg(c);
-						manageDataLightboxImgLinks(c);
-					}
-				});
-			});
+		var f = function (e) {
+			var s = function (m) {
+				console.log("mutations observer: " + m.type);
+				console.log(m.type, "added: " + m.addedNodes.length + " nodes");
+				console.log(m.type, "removed: " + m.removedNodes.length + " nodes");
+				if ("childList" === m.type || "subtree" === m.type) {
+					mo.disconnect();
+					manageExternalLinks(c);
+					manageLocalLinks(c);
+					manageDataTargetLinks(c);
+					manageDataSrcImg(c);
+					manageDataLightboxImgLinks(c);
+				}
+			};
+			e.forEach(s);
+		},
+		mo = new MutationObserver(f);
 		mo.observe(c, {
-			childList : !0,
-			subtree : !0,
-			attributes : !1,
-			characterData : !1
+			childList: !0,
+			subtree: !0,
+			attributes: !1,
+			characterData: !1
 		});
 	}
 };
@@ -4046,7 +4053,9 @@ docReady(loadManUp);
 var showPageFinishProgress = function () {
 	"use strict";
 	var a = BALA.one("#container") || "",
-	pBC = progressBar.complete(),
+	pBC = function () {
+		progressBar.complete();
+	},
 	g = function () {
 		setStyleOpacity(a, 1);
 		setImmediate(pBC);

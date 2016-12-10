@@ -269,12 +269,12 @@ var openDeviceBrowser = function (a) {
 	"use strict";
 	var w = window,
 	g = function () {
-		var electronShell = "undefined" !== typeof isElectron && isElectron ? require("electron").shell : "";
-		return electronShell ? electronShell.openExternal(a) : "";
+		var es = "undefined" !== typeof isElectron && isElectron ? require("electron").shell : "";
+		return es ? es.openExternal(a) : "";
 	},
 	k = function () {
-		var nwGui = "undefined" !== typeof isNwjs && isNwjs ? require("nw.gui") : "";
-		return nwGui ? nwGui.Shell.openExternal(a) : "";
+		var ns = "undefined" !== typeof isNwjs && isNwjs ? require("nw.gui").Shell : "";
+		return ns ? ns.openExternal(a) : "";
 	},
 	q = function () {
 		/*!
@@ -385,11 +385,11 @@ var initUiTotop = function () {
 	h = BALA.one("html") || "",
 	u = "ui-totop",
 	v = "ui-totop-hover",
-	g = function (cb) {
+	g = function (f) {
 		var z = function (n) {
 			var o = w.pageYOffset,
 			i = 0,
-			f = function (o, l) {
+			x = function (o, l) {
 					return function () {
 						l -= o * n;
 						w.scrollTo(0, l);
@@ -399,7 +399,7 @@ var initUiTotop = function () {
 						}
 					};
 				},
-			si = setInterval(f.bind(null, n, o--), 50);
+			si = setInterval(x.bind(null, n, o--), 50);
 		},
 		t = "Наверх",
 		a = crel("a"),
@@ -423,8 +423,8 @@ var initUiTotop = function () {
 		setStyleOpacity(a, 0);
 		s.id = v;
 		appendFragment(crel(a, s, "" + t), b);
-		if (cb && "function" === typeof cb) {
-			cb();
+		if (f && "function" === typeof f) {
+			f();
 		}
 	},
 	k = function (_this) {
@@ -446,9 +446,7 @@ var initUiTotop = function () {
 		/* w.onscroll = k.bind(null, w); */
 	};
 	if (b) {
-		g(function () {
-			q();
-		});
+		g(q);
 	}
 };
 docReady(initUiTotop);
@@ -458,7 +456,9 @@ docReady(initUiTotop);
 var showPageFinishProgress = function () {
 	"use strict";
 	var a = BALA.one("#page") || "",
-	pBC = progressBar.complete();
+	pBC = function () {
+		progressBar.complete();
+	};
 	setStyleOpacity(a, 1);
 	setImmediate(pBC);
 };

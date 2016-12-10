@@ -349,12 +349,12 @@ var openDeviceBrowser = function (a) {
 	"use strict";
 	var w = window,
 	g = function () {
-		var electronShell = "undefined" !== typeof isElectron && isElectron ? require("electron").shell : "";
-		return electronShell ? electronShell.openExternal(a) : "";
+		var es = "undefined" !== typeof isElectron && isElectron ? require("electron").shell : "";
+		return es ? es.openExternal(a) : "";
 	},
 	k = function () {
-		var nwGui = "undefined" !== typeof isNwjs && isNwjs ? require("nw.gui") : "";
-		return nwGui ? nwGui.Shell.openExternal(a) : "";
+		var ns = "undefined" !== typeof isNwjs && isNwjs ? require("nw.gui").Shell : "";
+		return ns ? ns.openExternal(a) : "";
 	},
 	q = function () {
 		/*!
@@ -831,7 +831,9 @@ docReady(loadManUp);
 var showPageFinishProgress = function () {
 	"use strict";
 	var a = BALA.one("#container") || "",
-	pBC = progressBar.complete(),
+	pBC = function () {
+		progressBar.complete();
+	},
 	g = function () {
 		setStyleOpacity(a, 1);
 		setImmediate(pBC);
