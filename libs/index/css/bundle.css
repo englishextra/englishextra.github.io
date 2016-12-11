@@ -771,6 +771,7 @@ u,
  * other
  */
 .copyright {
+	display: none;
 	position: absolute;
 	bottom: 1.750em;
 	left: 0;
