@@ -389,10 +389,10 @@ evento.add(window, "load", manageLocalLinks.bind(null, ""));
  * init comments logic
  */
 var initComments = function () {
-	/*!
-	 * init menu
-	 */
 	if ("undefined" !== typeof window.jQuery) {
+		/*!
+		 * init menu
+		 */
 		$(document).ready(function () {
 			var h_show_menu = function (e) {
 				e.preventDefault();
@@ -408,11 +408,9 @@ var initComments = function () {
 			});
 			$(".activity-feed-wrapper").height(maxHeight);
 		});
-	}
-	/*!
-	 * init comments
-	 */
-	if ("undefined" !== typeof window.jQuery) {
+		/*!
+		 * init comments
+		 */
 		$(function () {
 			"use strict";
 			var w = window,
