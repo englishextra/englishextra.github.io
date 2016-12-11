@@ -599,10 +599,14 @@ u,
 	.site-logo {
 		width: 9.500rem;
 		height: 9.500rem;
+		background-image: url(../img/sitelogo-rounded-BB3F3F-72x72.svg);
 		background-size: 9.500rem 9.500rem;
 		width: 15.000vw;
 		height: 15.000vw;
 		background-size: 15.000vw 15.000vw;
+	}
+	.no-svg .site-logo {
+		background-image: url(../img/sitelogo-rounded-BB3F3F-72x72.png);
 	}
 }
 @media only screen and (max-width:980px) and (orientation:portrait) {
@@ -655,10 +659,14 @@ u,
 	.site-logo {
 		width: 9.500rem;
 		height: 9.500rem;
+		background-image: url(../img/sitelogo-rounded-BB3F3F-72x72.svg);
 		background-size: 9.500rem 9.500rem;
 		width: 15.000vh;
 		height: 15.000vh;
 		background-size: 15.000vh 15.000vh;
+	}
+	.no-svg .site-logo {
+		background-image: url(../img/sitelogo-rounded-BB3F3F-72x72.png);
 	}
 }
 @media only screen and (max-width:640px) and (orientation:landscape) {
@@ -669,14 +677,10 @@ u,
 	.site-logo {
 		width: 6.000rem;
 		height: 6.000rem;
-		background-image: url(../img/sitelogo-rounded-BB3F3F-72x72.svg);
 		background-size: 6.000rem 6.000rem;
 		width: 15.000vw;
 		height: 15.000vw;
 		background-size: 15.000vw 15.000vw;
-	}
-	.no-svg .site-logo {
-		background-image: url(../img/sitelogo-rounded-BB3F3F-72x72.png);
 	}
 }
 @media only screen and (max-width:600px) and (orientation:portrait) {
@@ -715,14 +719,10 @@ u,
 	.site-logo {
 		width: 6.000rem;
 		height: 6.000rem;
-		background-image: url(../img/sitelogo-rounded-BB3F3F-72x72.svg);
 		background-size: 6.000rem 6.000rem;
 		width: 15.000vh;
 		height: 15.000vh;
 		background-size: 15.000vh 15.000vh;
-	}
-	.no-svg .site-logo {
-		background-image: url(../img/sitelogo-rounded-BB3F3F-72x72.png);
 	}
 }
 @media only screen and (max-width:320px) and (orientation:portrait) {
