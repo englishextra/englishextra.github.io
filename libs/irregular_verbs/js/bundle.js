@@ -165,11 +165,11 @@ var clearRequestTimeout=function(handle){if(window.cancelAnimationFrame){window.
  * based on requestTimeout and clearRequestTimeout
  * gist.github.com/joelambert/1002116
  * gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b
- * @param {Object} fn handle/function
- * @param {Int} [delay] a whole positive number
- * setAutoClearedTimeout(fn,delay)
+ * @param {Object} f handle/function
+ * @param {Int} [n] a whole positive number
+ * setAutoClearedTimeout(f,n)
  */
-var setAutoClearedTimeout=function(fn,delay){delay=delay||200;if(!!fn&&"function"===typeof fn){var sct=requestTimeout(function(){clearRequestTimeout(sct);fn();},delay);}};
+var setAutoClearedTimeout=function(f,n){n=n||200;if(f&&"function"===typeof f){var st=requestTimeout(function(){clearRequestTimeout(st);f();},n);}};
 /*!
  * Plain javascript replacement for jQuery's .ready()
  * so code can be scheduled to run when the document is ready
@@ -215,11 +215,11 @@ var scriptIsLoaded=function(s){for(var b=document.getElementsByTagName("script")
  * modified callback(x.responseText,x); to callback(eval(x.responseText),x);
  * stackoverflow.com/questions/3728798/running-javascript-downloaded-with-xmlhttprequest
  * @param {String} u path string
- * @param {Object} [cb] callback function
+ * @param {Object} [f] callback function
  * @param {Object} [e] on error callback function
- * ajaxLoadTriggerJS(u,cb,e)
+ * ajaxLoadTriggerJS(u,f,e)
  */
-var ajaxLoadTriggerJS=function(u,cb,e){var w=window,x=w.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");x.overrideMimeType("application/javascript;charset=utf-8");x.open("GET",u,!0);x.onreadystatechange=function(){if(x.status=="404"){if(e&&"function"===typeof e){e();}console.log("Error XMLHttpRequest-ing file",x.status);return!1;}else if(x.readyState==4&&x.status==200&&x.responseText){try{var Fn=Function;new Fn(""+x.responseText).call("undefined"===typeof window?"undefined"===typeof self?"undefined"===typeof global?this:global:self:window);}catch(m){throw new Error("Error evaluating file. "+m);}if(cb&&"function"===typeof cb){cb(x.responseText);}}};x.send(null);};
+var ajaxLoadTriggerJS=function(u,f,e){var w=window,x=w.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");x.overrideMimeType("application/javascript;charset=utf-8");x.open("GET",u,!0);x.onreadystatechange=function(){if(x.status=="404"){if(e&&"function"===typeof e){e();}console.log("Error XMLHttpRequest-ing file",x.status);return!1;}else if(x.readyState==4&&x.status==200&&x.responseText){try{var Fn=Function;new Fn(""+x.responseText).call("undefined"===typeof window?"undefined"===typeof self?"undefined"===typeof global?this:global:self:window);}catch(m){throw new Error("Error evaluating file. "+m);}if(f&&"function"===typeof f){f(x.responseText);}}};x.send(null);};
 /*!
  * remove all children of parent element
  * gist.github.com/englishextra/da26bf39bc90fd29435e8ae0b409ddc3
@@ -282,9 +282,9 @@ var setStyleVisibilityHidden=function(a){return function(){if(a){a.style.visibil
 var parseLink=function(url,full){full=full||!1;return function(){var _r=function(s){return s.replace(/^(#|\?)/,"").replace(/\:$/,"");},l=location||"",_p=function(protocol){switch(protocol){case"http:":return full?":"+80:80;case"https:":return full?":"+443:443;default:return full?":"+l.port:l.port;}},_s=(0===url.indexOf("//")||!!~url.indexOf("://")),w=window.location||"",_o=function(){var o=w.protocol+"//"+w.hostname+(w.port?":"+w.port:"");return o||"";},_c=function(){var c=document.createElement("a");c.href=url;var v=c.protocol+"//"+c.hostname+(c.port?":"+c.port:"");return v!==_o();},a=document.createElement("a");a.href=url;return{href:a.href,origin:_o(),host:a.host||l.host,port:("0"===a.port||""===a.port)?_p(a.protocol):(full?a.port:_r(a.port)),hash:full?a.hash:_r(a.hash),hostname:a.hostname||l.hostname,pathname:a.pathname.charAt(0)!="/"?(full?"/"+a.pathname:a.pathname):(full?a.pathname:a.pathname.slice(1)),protocol:!a.protocol||":"==a.protocol?(full?l.protocol:_r(l.protocol)):(full?a.protocol:_r(a.protocol)),search:full?a.search:_r(a.search),query:full?a.search:_r(a.search),isAbsolute:_s,isRelative:!_s,isCrossDomain:_c(),hasHTTP:/^(http|https):\/\//i.test(url)?!0:!1};}();};
 /*!
  * get current protocol - "http" or "https", else return ""
- * @param {Boolean} [f] When set to "true", and the result is empty,
+ * @param {Boolean} [a] When set to "true", and the result is empty,
  * the function will return "http"
- * getHTTP()(f)
+ * getHTTP(a)
  */
 var getHTTP=function(a){return function(f){return"http:"===a?"http":"https:"===a?"https":f?"http":"";};}(window.location.protocol||"");
 /*!

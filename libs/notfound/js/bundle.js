@@ -122,7 +122,7 @@ if (document.title) {
  * stackoverflow.com/questions/5978519/setinterval-and-how-to-use-clearinterval
  * @param {Int} d a whole positive number
  * @param {Object} f handle/function
- * interval(d,f)
+ * Interval(d,f)
  */
 var Interval=function(d,f){this.baseline=void 0;this.run=function(){if(void 0===this.baseline){this.baseline=(new Date()).getTime();}f();var c=(new Date()).getTime();this.baseline+=d;var b=d-(c-this.baseline);if(0>b){b=0;}(function(d){d.timer=setTimeout(function(){d.run(c);},b);}(this));};this.stop=function(){clearTimeout(this.timer);};};
 /*!
@@ -152,11 +152,11 @@ var Interval=function(d,f){this.baseline=void 0;this.run=function(){if(void 0===
  * modified callback(x.responseText,x); to callback(eval(x.responseText),x);
  * stackoverflow.com/questions/3728798/running-javascript-downloaded-with-xmlhttprequest
  * @param {String} u path string
- * @param {Object} [cb] callback function
+ * @param {Object} [f] callback function
  * @param {Object} [e] on error callback function
- * ajaxLoadTriggerJS(u,cb,e)
+ * ajaxLoadTriggerJS(u,f,e)
  */
-var ajaxLoadTriggerJS=function(u,cb,e){var w=window,x=w.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");x.overrideMimeType("application/javascript;charset=utf-8");x.open("GET",u,!0);x.onreadystatechange=function(){if(x.status=="404"){if(e&&"function"===typeof e){e();}console.log("Error XMLHttpRequest-ing file",x.status);return!1;}else if(x.readyState==4&&x.status==200&&x.responseText){try{var Fn=Function;new Fn(""+x.responseText).call("undefined"===typeof window?"undefined"===typeof self?"undefined"===typeof global?this:global:self:window);}catch(m){throw new Error("Error evaluating file. "+m);}if(cb&&"function"===typeof cb){cb(x.responseText);}}};x.send(null);};
+var ajaxLoadTriggerJS=function(u,f,e){var w=window,x=w.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");x.overrideMimeType("application/javascript;charset=utf-8");x.open("GET",u,!0);x.onreadystatechange=function(){if(x.status=="404"){if(e&&"function"===typeof e){e();}console.log("Error XMLHttpRequest-ing file",x.status);return!1;}else if(x.readyState==4&&x.status==200&&x.responseText){try{var Fn=Function;new Fn(""+x.responseText).call("undefined"===typeof window?"undefined"===typeof self?"undefined"===typeof global?this:global:self:window);}catch(m){throw new Error("Error evaluating file. "+m);}if(f&&"function"===typeof f){f(x.responseText);}}};x.send(null);};
 /*!
  * set style display block of an element
  * @param {Object} a an HTML Element
