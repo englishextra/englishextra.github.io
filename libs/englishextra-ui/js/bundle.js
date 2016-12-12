@@ -352,14 +352,6 @@ var appendFragmentAfter=function(e,a){if("string"===typeof e){e=document.createT
  */
 var prependFragmentBefore=function(e,a){if("string"===typeof e){e=document.createTextNode(e);}var p=a.parentNode||"",df=document.createDocumentFragment();return function(){if(p){df.appendChild(e);p.insertBefore(df,a);}}();};
 /*!
- * Adds Element AFTER NeighborElement
- * gist.github.com/englishextra/c19556b7a61865e3631cc879aaeb314e
- * @param {String|object} e HTML Element to append after
- * @param {Object} a target HTML Element
- * appendAfter(e,a)
- */
-var appendAfter=function(e,a){var p=a.parentNode||"",s=a.nextSibling||"";return function(){if(p&&s){p.insertBefore(e,s);}}();};
-/*!
  * set style display block of an element
  * @param {Object} a an HTML Element
  * setStyleDisplayBlock(a)

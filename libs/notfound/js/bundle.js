@@ -39,35 +39,6 @@ if ("undefined" === typeof console) {
 	};
 }
 /*!
- * detect Node.js
- * github.com/lyrictenor/node-is-nwjs/blob/master/is-nodejs.js
- * @returns {Boolean} true or false
- */
-var isNodejs = "undefined" !== typeof process && "undefined" !== typeof require || "";
-/*!
- * detect Electron
- * @returns {Boolean} true or false
- */
-var isElectron = "undefined" !== typeof window && window.process && "renderer" === window.process.type || "";
-/*!
- * detect NW.js
- * github.com/lyrictenor/node-is-nwjs/blob/master/index.js
- * @returns {Boolean} true or false
- */
-var isNwjs = function () {
-	if ("undefined" !== typeof isNodejs && isNodejs) {
-		try {
-			if ("undefined" !== typeof require("nw.gui")) {
-				return !0;
-			}
-		} catch (e) {
-			return !1;
-		}
-	}
-	return !1;
-}
-();
-/*!
  * modified MediaHack - (c) 2013 Pomke Nohkan MIT LICENCED.
  * gist.github.com/englishextra/ff8c9dde94abe32a9d7c4a65e0f2ccac
  * jsfiddle.net/englishextra/xg7ce8kc/

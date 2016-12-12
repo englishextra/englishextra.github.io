@@ -302,14 +302,6 @@ var setStyleVisibilityVisible=function(a){return function(){if(a){a.style.visibi
  */
 var setStyleVisibilityHidden=function(a){return function(){if(a){a.style.visibility="hidden";}}();};
 /*!
- * Adds Element AFTER NeighborElement
- * gist.github.com/englishextra/c19556b7a61865e3631cc879aaeb314e
- * @param {String|object} e HTML Element to append after
- * @param {Object} a target HTML Element
- * appendAfter(e,a)
- */
-var appendAfter=function(e,a){var p=a.parentNode||"",s=a.nextSibling||"";return function(){if(p&&s){p.insertBefore(e,s);}}();};
-/*!
  * modified for babel Unified URL parsing API in the browser and node
  * github.com/wooorm/parse-link
  * removed AMD, CommonJS support
