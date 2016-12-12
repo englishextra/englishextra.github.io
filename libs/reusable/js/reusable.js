@@ -1,12 +1,4 @@
 /*!
- * externalcounters.js
- * track visitors
- * gist.github.com/englishextra/12dec2c7a796ab9ec5e9ed84b134c055
- */
-!/localhost/.test(self.location.host)&&(function(b,a,c,d){if(c&&d){var e=encodeURIComponent(a.referrer||"");b=encodeURIComponent(b.location.href||"");a=encodeURIComponent(("undefined"!==typeof earlyDocumentTitle?earlyDocumentTitle:(a.title||"")).replace("\x27","&#39;").replace("\x28","&#40;").replace("\x29","&#41;"));c.setAttribute("style","position:absolute;left:-9999px;width:1px;height:1px;border:0;background:transparent url("+d+"?dmn="+b+"&rfrr="+e+"&ttl="+a+"&encoding=utf-8) top left no-repeat;")}})(window,document,document.getElementById("externalcounters")||"",/localhost/.test(self.location.host)?"http://localhost/externalcounters/": "//shimansky.biz/externalcounters/");
-(function(d){var g=/localhost/.test(self.location.host)?"http://localhost/externalcounters/":"//shimansky.biz/externalcounters/",c=d.getElementsByTagName("a")||"",a=self.location.protocol+"//"+self.location.host+"/"||"",h=self.location.host+"/"||"",k=encodeURIComponent(d.location.href||""),l=encodeURIComponent((d.title||"").replace("\x27","&#39;").replace("\x28","&#40;").replace("\x29","&#41;"));if(c&&a&&h)for(a=0;a<c.length;a+=1)if(b=c[a],(e=b.getAttribute("href")||"")&&(e.match(/^\/scripts\//)||/(http|ftp|https):\/\/[\w-]+(\.[\w-]+)|(localhost)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/.test(e))&& !b.getAttribute("rel"))c[a].onclick=function(){var a=this.getAttribute("href"),c=document.body.firstChild,f=d.createElement("div");f.setAttribute("style","position:absolute;left:-9999px;width:1px;height:1px;border:0;background:transparent url("+g+"?dmn="+encodeURIComponent(a)+"&rfrr="+k+"&ttl="+l+"&encoding=utf-8) top left no-repeat;");c.parentNode.insertBefore(f,c)}})(document);
-(function(k){k.addEventListener("blur",function(){(function(d,w){var a=/localhost/.test(self.location.host)?"http://localhost/externalcounters/":"//shimansky.biz/externalcounters/",b=encodeURIComponent(d.referrer||""),c=encodeURIComponent(w.location.href||""),e=encodeURIComponent((d.title||"").replace("\x27","&#39;").replace("\x28","&#40;").replace("\x29","&#41;")+" - \u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442 \u043d\u0435 \u0430\u043a\u0442\u0438\u0432\u0435\u043d"),f=d.createElement("div"),g=document.body.firstChild;f.setAttribute("style", "position:absolute;left:-9999px;width:1px;height:1px;border:0;background:transparent url("+a+"?dmn="+c+"\x26rfrr="+b+"\x26ttl="+e+"\x26encoding=utf-8) top left no-repeat;");g.parentNode.insertBefore(f,g);}(document,window));},!1);}(window));
-/*!
  * modified for babel ToProgress v0.1.1
  * http://github.com/djyde/ToProgress
  * gist.github.com/englishextra/6a8c79c9efbf1f2f50523d46a918b785
@@ -2679,61 +2671,6 @@ var loadInitParallax = function () {
 };
 evento.add(window, "load", loadInitParallax);
 /*!
- * insert External HTML
- * @param {String} a Target Element id/class
- * @param {String} u path string
- * @param {Object} [cb] callback function
- * insertExternalHTML(a, u, cb)
- */
-var insertExternalHTML = function (a, u, cb) {
-	"use strict";
-	var w = window,
-	c = BALA.one(a) || "",
-	g = function (t, f) {
-		var tf = function () {
-			if (f && "function" === typeof f) {
-				f();
-			}
-		};
-		insertTextAsFragment(t, c, tf);
-	},
-	k = function () {
-		if (w.Promise && w.fetch && !isElectron) {
-			fetch(u).then(function (r) {
-				if (!r.ok) {
-					throw new Error(r.statusText);
-				}
-				return r;
-			}).then(function (r) {
-				return r.text();
-			}).then(function (t) {
-				g(t, cb);
-			}).catch (function (e) {
-				console.log("Error inserting content", e);
-			});
-		} else if (w.reqwest) {
-			reqwest({
-				url : u,
-				type : "html",
-				method : "get",
-				error : function (e) {
-					console.log("Error reqwest-ing file", e);
-				},
-				success : function (r) {
-					g(r, cb);
-				}
-			});
-		} else {
-			ajaxLoadHTML(u, function (r) {
-				g(r, cb);
-			});
-		}
-	};
-	if (c) {
-		k();
-	}
-};
-/*!
  * set event on include HTML links
  */
 var includeHTMLintoTarget = function (_this, u, t) {
@@ -3802,12 +3739,65 @@ var initVKLike = function () {
 };
 docReady(initVKLike);
 /*!
+ * externalcounters.js
+ * track visitors
+ * gist.github.com/englishextra/12dec2c7a796ab9ec5e9ed84b134c055
+ */
+if (!/localhost/.test(self.location.host)) {
+	(function (b, a, c, d) {
+		if (c && d) {
+			var e = encodeURIComponent(a.referrer || "");
+			b = encodeURIComponent(b.location.href || "");
+			a = encodeURIComponent(("undefined" !== typeof initialDocumentTitle ? initialDocumentTitle : (a.title || "")).replace("\x27", "&#39;").replace("\x28", "&#40;").replace("\x29", "&#41;"));
+			c.setAttribute("style", "position:absolute;left:-9999px;width:1px;height:1px;border:0;background:transparent url(" + d + "?dmn=" + b + "&rfrr=" + e + "&ttl=" + a + "&encoding=utf-8) top left no-repeat;");
+		}
+	})(window, document, document.getElementById("externalcounters") || "", /localhost/.test(self.location.host) ? "http://localhost/externalcounters/" : "//shimansky.biz/externalcounters/");
+}
+;(function (d) {
+	var g = /localhost/.test(self.location.host) ? "http://localhost/externalcounters/" : "//shimansky.biz/externalcounters/",
+	c = d.getElementsByTagName("a") || "",
+	a = self.location.protocol + "//" + self.location.host + "/" || "",
+	h = self.location.host + "/" || "",
+	k = encodeURIComponent(d.location.href || ""),
+	l = encodeURIComponent((d.title || "").replace("\x27", "&#39;").replace("\x28", "&#40;").replace("\x29", "&#41;"));
+	if (c && a && h) {
+		var s = function () {
+			var a = this.getAttribute("href"),
+			c = document.body.firstChild,
+			f = d.createElement("div");
+			f.setAttribute("style", "position:absolute;left:-9999px;width:1px;height:1px;border:0;background:transparent url(" + g + "?dmn=" + encodeURIComponent(a) + "&rfrr=" + k + "&ttl=" + l + "&encoding=utf-8) top left no-repeat;");
+			c.parentNode.insertBefore(f, c);
+		};
+		for (a = 0; a < c.length; a += 1) {
+			if (b = c[a], (e = b.getAttribute("href") || "") && (e.match(/^\/scripts\//) || /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)|(localhost)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/.test(e)) && !b.getAttribute("rel")) {
+				c[a].onclick = s;
+			}
+		}
+	}
+})(document);
+(function (k) {
+	k.addEventListener("blur", function () {
+		(function (d, w) {
+			var a = /localhost/.test(self.location.host) ? "http://localhost/externalcounters/" : "//shimansky.biz/externalcounters/",
+			b = encodeURIComponent(d.referrer || ""),
+			c = encodeURIComponent(w.location.href || ""),
+			e = encodeURIComponent((d.title || "").replace("\x27", "&#39;").replace("\x28", "&#40;").replace("\x29", "&#41;") + " - \u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442 \u043d\u0435 \u0430\u043a\u0442\u0438\u0432\u0435\u043d"),
+			f = d.createElement("div"),
+			g = document.body.firstChild;
+			f.setAttribute("style", "position:absolute;left:-9999px;width:1px;height:1px;border:0;background:transparent url(" + a + "?dmn=" + c + "\x26rfrr=" + b + "\x26ttl=" + e + "\x26encoding=utf-8) top left no-repeat;");
+			g.parentNode.insertBefore(f, g);
+		}
+			(document, window));
+	}, !1);
+}
+	(window));
+/*!
  * observe mutations
  * bind functions only for inserted DOM
  */
 var observeMutations = function (c) {
 	"use strict";
-	c = BALA.one(c) || BALA.one("body") || "";
+	c = BALA.one(c) || "";
 	if (c) {
 		var g = function (e) {
 			var fe = function (m) {
@@ -3837,159 +3827,206 @@ var observeMutations = function (c) {
 /*!
  * apply changes to inserted DOM
  */
-var updateDomOnLoad = function () {
+var updateInsertedDom = function () {
 	"use strict";
 	var w = window,
 	h = w.location.hash || "",
 	pN = "parentNode",
-	c = BALA.one("#container-includes")[pN] || BALA.one("body") || "";
-	if (h) {
+	c = BALA.one("#container-includes")[pN] || "";
+	if (c && h) {
 		observeMutations(c);
 	}
 };
-evento.add(window, "load", updateDomOnLoad);
+evento.add(window, "load", updateInsertedDom);
+evento.add(window, "hashchange", updateInsertedDom);
 /*!
- * apply changes to static DOM,
- * and apply changes to inserted DOM
+ * insert External HTML
+ * @param {String} a Target Element id/class
+ * @param {String} u path string
+ * @param {Object} [cb] callback function
+ * insertExternalHTML(a, u, cb)
  */
-var updateDomOnHashchange = function () {
+var insertExternalHTML = function (a, u, f) {
 	"use strict";
-	highlightNavMenuItem();
-	var pN = "parentNode",
-	c = BALA.one("#container-includes")[pN] || BALA.one("body") || "";
-	observeMutations(c);
+	var w = window,
+	c = BALA.one(a) || "",
+	g = function (t, s) {
+		var q = function () {
+			if (s && "function" === typeof s) {
+				s();
+			}
+		};
+		insertTextAsFragment(t, c, q);
+	},
+	k = function () {
+		if (w.Promise && w.fetch && !isElectron) {
+			fetch(u).then(function (r) {
+				if (!r.ok) {
+					throw new Error(r.statusText);
+				}
+				return r;
+			}).then(function (r) {
+				return r.text();
+			}).then(function (t) {
+				g(t, f);
+			}).catch (function (e) {
+				console.log("Error inserting content", e);
+			});
+		} else if (w.reqwest) {
+			reqwest({
+				url : u,
+				type : "html",
+				method : "get",
+				error : function (e) {
+					console.log("Error reqwest-ing file", e);
+				},
+				success : function (r) {
+					g(r, f);
+				}
+			});
+		} else {
+			ajaxLoadHTML(u, function (r) {
+				g(r, f);
+			});
+		}
+	};
+	if (c) {
+		k();
+	}
 };
-evento.add(window, "hashchange", updateDomOnHashchange);
 /*!
  * init routie
  * @param {String} ci HTML id string
  */
-var loadVirtualPage = function (c, h, f) {
+var initRoutie = function (ci) {
 	"use strict";
-	if (c && h) {
-		LoadingSpinner.show();
-		insertExternalHTML(c, h, f);
-	}
-},
-reinitVirtualPage = function (t) {
-	"use strict";
-	t = t || "";
-	var d = document/* ,
-	h = BALA.one("html") || "",
-	cls = "loading-spinner",
-	cL = "classList" */;
-	/*!
-	 * hide loading spinner before scrolling
-	 */
-	/* LoadingSpinner.hide();
-	var si = new Interval(50, function () {
-			if (!h[cL].contains(cls) && 0 !== si) {
-				si.stop(),
-				si = 0;
-				scrollToTop();
-			}
-		});
-	si && si.run(); */
-	LoadingSpinner.hide(function () {
-		scrollToTop();
-	});
-	d.title = initialDocumentTitle + "" + t + userBrowsingDetails;
-	if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
-		showLocationQR();
-	}
-},
-loadNotFoundPage = function (a) {
-	"use strict";
-	var c = BALA.one(a) || "";
-	if (c) {
-		LoadingSpinner.show();
-		removeChildren(c);
-		appendFragment(crel("div", {
-				"class" : "content-wrapper"
-			}, crel("div", {
-					"class" : "grid grid-pad"
+	var loadVirtualPage = function (c, h, f) {
+		if (c && h) {
+			LoadingSpinner.show();
+			insertExternalHTML(c, h, f);
+		}
+	},
+	reinitVirtualPage = function (t) {
+		t = t || "";
+		var d = document;
+		/*!
+		 * hide loading spinner before scrolling
+		 */
+		LoadingSpinner.hide(scrollToTop);
+		d.title = initialDocumentTitle + "" + t + userBrowsingDetails;
+	},
+	loadNotFoundPage = function (a) {
+		var c = BALA.one(a) || "";
+		if (c) {
+			LoadingSpinner.show();
+			removeChildren(c);
+			appendFragment(crel("div", {
+					"class": "content-wrapper"
 				}, crel("div", {
-						"class" : "col col-1-1"
+						"class": "grid grid-pad"
 					}, crel("div", {
-							"class" : "content"
-						}, crel("p", "Нет такой страницы. ", crel("a", {
-									"href" : "#/contents"
-								}, "Исправить?")))))), c);
-		reinitVirtualPage(" - Нет такой страницы");
-	}
-};
-/*!
- * init routie
- * "#" => ""
- * "#/" => "/"
- * "#/home" => "/home"
- */
-routie({
-	"/": function () {
-		loadVirtualPage(ci, "./includes/home.html", function () {
-			reinitVirtualPage();
-			manageYandexMapButton("#ymap");
-			/* try {
-				if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
-					initYandexMap("#ymap");
+							"class": "col col-1-1"
+						}, crel("div", {
+								"class": "content"
+							}, crel("p", "Нет такой страницы. ", crel("a", {
+										"href": "#/contents"
+									}, "Исправить?")))))), c);
+			reinitVirtualPage(" - Нет такой страницы");
+		}
+	},
+	redirectToDefaultPage = function (h, t) {
+		t = t || "";
+		var w = window;
+		if (h) {
+			reinitVirtualPage("" + t);
+			w.location.hash = "#" + h;
+			/* w.location.reload(); */
+			if (history.pushState) {
+				history.replaceState(null, null, "#" + h);
+			}
+		}
+	};
+	/*!
+	 * init routie
+	 * "#" => ""
+	 * "#/" => "/"
+	 * "#/home" => "/home"
+	 */
+	routie({
+		"": function () {
+			redirectToDefaultPage("/contents");
+		},
+		"/contents": function () {
+			loadVirtualPage(ci, "./includes/contents.html", function () {
+				reinitVirtualPage();
+				manageYandexMapButton("#ymap");
+				/* try {
+					if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
+						initYandexMap("#ymap");
+					}
+				} catch (e) {
+					console.log(e);
+				} */
+			});
+		},
+		"/feedback": function () {
+			loadVirtualPage(ci, "./includes/feedback.html", function () {
+				reinitVirtualPage(" - Напишите мне");
+				manageDisqusButton();
+				/* if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
+					loadRefreshDisqus();
+				} */
+			});
+		},
+		"/schedule": function () {
+			if ("undefined" !== typeof getHTTP && getHTTP()) {
+				if ("undefined" !== typeof isOldOpera && !isOldOpera) {
+					loadVirtualPage(ci, "./includes/schedule.html", function () {
+						reinitVirtualPage(" - Расписание");
+					});
 				}
-			} catch (e) {
-				console.log(e);
-			} */
-		});
-	},
-	"/feedback": function () {
-		loadVirtualPage(ci, "./includes/feedback.html", function () {
-			reinitVirtualPage(" - Напишите мне");
-			manageDisqusButton();
-			/* if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
-				loadRefreshDisqus();
-			} */
-		});
-	},
-	"/schedule": function () {
-		if (!!getHTTP() && !isOldOpera) {
-			loadVirtualPage(ci, "./includes/schedule.html", function () {
-				reinitVirtualPage(" - Расписание");
+			}
+		},
+		"/map": function () {
+			if ("undefined" !== typeof getHTTP && getHTTP()) {
+				if ("undefined" !== typeof isOldOpera && !isOldOpera) {
+					loadVirtualPage(ci, "./includes/map.html", function () {
+						reinitVirtualPage(" - Смотреть на карте");
+					});
+				}
+			}
+		},
+		"/level_test": function () {
+			loadVirtualPage(ci, "./includes/level_test.html", function () {
+				reinitVirtualPage(" - Уровневый тест");
 			});
-		}
-	},
-	"/map": function () {
-		if (!!getHTTP() && !isOldOpera) {
-			loadVirtualPage(ci, "./includes/map.html", function () {
-				reinitVirtualPage(" - Смотреть на карте");
+		},
+		"/common_mistakes": function () {
+			loadVirtualPage(ci, "./includes/common_mistakes.html", function () {
+				reinitVirtualPage(" - Распространенные ошибки");
 			});
+		},
+		"/demo_ege": function () {
+			loadVirtualPage(ci, "./includes/demo_ege.html", function () {
+				reinitVirtualPage(" - Демо-вариант ЕГЭ-11 АЯ (ПЧ)");
+			});
+		},
+		"/demo_ege_speaking": function () {
+			loadVirtualPage(ci, "./includes/demo_ege_speaking.html", function () {
+				reinitVirtualPage(" - Демо-вариант ЕГЭ-11 АЯ (УЧ)");
+			});
+		},
+		"/previous_ege_analysis": function () {
+			loadVirtualPage(ci, "./includes/previous_ege_analysis.html", function () {
+				reinitVirtualPage(" - ЕГЭ 2015: разбор ошибок");
+			});
+		},
+		"/*": function () {
+			loadNotFoundPage(ci);
 		}
-	},
-	"/level_test": function () {
-		loadVirtualPage(ci, "./includes/level_test.html", function () {
-			reinitVirtualPage(" - Уровневый тест");
-		});
-	},
-	"/common_mistakes": function () {
-		loadVirtualPage(ci, "./includes/common_mistakes.html", function () {
-			reinitVirtualPage(" - Распространенные ошибки");
-		});
-	},
-	"/demo_ege": function () {
-		loadVirtualPage(ci, "./includes/demo_ege.html", function () {
-			reinitVirtualPage(" - Демо-вариант ЕГЭ-11 АЯ (ПЧ)");
-		});
-	},
-	"/demo_ege_speaking": function () {
-		loadVirtualPage(ci, "./includes/demo_ege_speaking.html", function () {
-			reinitVirtualPage(" - Демо-вариант ЕГЭ-11 АЯ (УЧ)");
-		});
-	},
-	"/previous_ege_analysis": function () {
-		loadVirtualPage(ci, "./includes/previous_ege_analysis.html", function () {
-			reinitVirtualPage(" - ЕГЭ 2015: разбор ошибок");
-		});
-	},
-	"/*": function () {
-		loadNotFoundPage(ci);
-	}
-});
+	});
+}
+	("#container-includes");
 /*!
  * init manUP.js
  */
@@ -4004,12 +4041,14 @@ docReady(loadManUp);
  */
 var showPageFinishProgress = function () {
 	"use strict";
-	var a = BALA.one("#container") || "",
+	var b = BALA.one("body") || "",
+	c = BALA.one("#container") || "",
+	a = BALA.one(".holder-site-logo") || "",
 	pBC = function () {
 		progressBar.complete();
 	},
 	g = function () {
-		setStyleOpacity(a, 1);
+		setStyleOpacity(c, 1);
 		setImmediate(pBC);
 	},
 	k = function () {
@@ -4024,13 +4063,26 @@ var showPageFinishProgress = function () {
 		if (si) {
 			si.run();
 		}
+	},
+	q = function () {
+		setStyleDisplayNone(a);
+		if (b) {
+			b.style.overflowY = "auto";
+		}
+	},
+	v = function () {
+		a.classList.add("animated", "fadeOut");
+		setAutoClearedTimeout(q, 500);
 	};
-	if (a) {
+	if (c) {
 		if ("undefined" !== typeof imagesPreloaded) {
 			k();
 		} else {
 			g();
 		}
+	}
+	if (a) {
+		setAutoClearedTimeout(v, 2000);
 	}
 };
 evento.add(window, "load", showPageFinishProgress);

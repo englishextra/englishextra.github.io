@@ -1558,13 +1558,14 @@ var highlightNavMenuItem = function () {
 		}
 	}
 };
+evento.add(window, "hashchange", highlightNavMenuItem);
 /*!
  * observe mutations
  * bind functions only for inserted DOM
  */
 var observeMutations = function (c) {
 	"use strict";
-	c = BALA.one(c) || BALA.one("body") || "";
+	c = BALA.one(c) || "";
 	if (c) {
 		var g = function (e) {
 			var fe = function (m) {
@@ -1594,29 +1595,18 @@ var observeMutations = function (c) {
 /*!
  * apply changes to inserted DOM
  */
-var updateDomOnLoad = function () {
+var updateInsertedDom = function () {
 	"use strict";
 	var w = window,
 	h = w.location.hash || "",
 	pN = "parentNode",
-	c = BALA.one("#container-includes")[pN] || BALA.one("body") || "";
-	if (h) {
+	c = BALA.one("#container-includes")[pN] || "";
+	if (c && h) {
 		observeMutations(c);
 	}
 };
-evento.add(window, "load", updateDomOnLoad);
-/*!
- * apply changes to static DOM,
- * and apply changes to inserted DOM
- */
-var updateDomOnHashchange = function () {
-	"use strict";
-	highlightNavMenuItem();
-	var pN = "parentNode",
-	c = BALA.one("#container-includes")[pN] || BALA.one("body") || "";
-	observeMutations(c);
-};
-evento.add(window, "hashchange", updateDomOnHashchange);
+evento.add(window, "load", updateInsertedDom);
+evento.add(window, "hashchange", updateInsertedDom);
 /*!
  * insert External HTML
  * @param {String} a Target Element id/class
@@ -1624,17 +1614,17 @@ evento.add(window, "hashchange", updateDomOnHashchange);
  * @param {Object} [cb] callback function
  * insertExternalHTML(a, u, cb)
  */
-var insertExternalHTML = function (a, u, cb) {
+var insertExternalHTML = function (a, u, f) {
 	"use strict";
 	var w = window,
 	c = BALA.one(a) || "",
-	g = function (t, f) {
-		var tf = function () {
-			if (f && "function" === typeof f) {
-				f();
+	g = function (t, s) {
+		var q = function () {
+			if (s && "function" === typeof s) {
+				s();
 			}
 		};
-		insertTextAsFragment(t, c, tf);
+		insertTextAsFragment(t, c, q);
 	},
 	k = function () {
 		if (w.Promise && w.fetch && !isElectron) {
@@ -1646,7 +1636,7 @@ var insertExternalHTML = function (a, u, cb) {
 			}).then(function (r) {
 				return r.text();
 			}).then(function (t) {
-				g(t, cb);
+				g(t, f);
 			}).catch (function (e) {
 				console.log("Error inserting content", e);
 			});
@@ -1659,12 +1649,12 @@ var insertExternalHTML = function (a, u, cb) {
 					console.log("Error reqwest-ing file", e);
 				},
 				success : function (r) {
-					g(r, cb);
+					g(r, f);
 				}
 			});
 		} else {
 			ajaxLoadHTML(u, function (r) {
-				g(r, cb);
+				g(r, f);
 			});
 		}
 	};
@@ -1686,21 +1676,12 @@ var initRoutie = function (ci) {
 	},
 	reinitVirtualPage = function (t) {
 		t = t || "";
-		var w = window,
-		d = document,
-		a = BALA.one("#location-qr-code") || "";
+		var d = document;
 		/*!
 		 * hide loading spinner before scrolling
 		 */
 		LoadingSpinner.hide(scrollToTop);
 		d.title = initialDocumentTitle + "" + t + userBrowsingDetails;
-		if (a && w.showLocationQR) {
-			if ("undefined" !== typeof getHTTP && getHTTP()) {
-				if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
-					showLocationQR();
-				}
-			}
-		}
 	},
 	loadNotFoundPage = function (a) {
 		var c = BALA.one(a) || "";

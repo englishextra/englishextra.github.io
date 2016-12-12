@@ -396,10 +396,10 @@ evento.add(window, "load", manageLocalLinks.bind(null, ""));
  */
 var initSearch = function () {
 	if ("undefined" !== typeof window.jQuery) {
-		/*!
-		 * init menu
-		 */
 		$(document).ready(function () {
+			/*!
+			 * init menu
+			 */
 			var h_show_menu = function (e) {
 				e.preventDefault();
 				e.stopPropagation();
@@ -413,14 +413,16 @@ var initSearch = function () {
 				}
 			});
 			$(".activity-feed-wrapper").height(maxHeight);
-		});
-		/*!
-		 * init search submit
-		 */
-		if (jQuery.pnotify) {
-			$(document).ready(function () {
-				var text = $("#text") || "",
-				search_form_submit_button = $("#search_form_submit_button") || "",
+			/*!
+			 * common objects
+			 */
+			var text = $("#text") || "",
+			search_form = $("#search_form") || "";
+			/*!
+			 * init search submit
+			 */
+			if (jQuery.pnotify) {
+				var search_form_submit_button = $("#search_form_submit_button") || "",
 				error_msg = {
 					history: !1,
 					stack: !1,
@@ -432,7 +434,6 @@ var initSearch = function () {
 					pnotify_addclass: "ui-pnotify-error",
 					delay: 3E3
 				},
-				search_form = $("#search_form") || "",
 				search_form_reset_button = $("#search_form_reset_button") || "",
 				notify = jQuery.pnotify || "";
 				if (text) {
@@ -448,18 +449,14 @@ var initSearch = function () {
 					var h_search_form_reset_button = text.focus();
 					search_form_reset_button.click(h_search_form_reset_button);
 				}
-			});
-		}
-		/*!
-		 * init autocomplete
-		 * results are cached cache.sqlite > cache_search_autocomplete
-		 */
-		if ($.fn.autocomplete) {
-			$(document).ready(function () {
-				var text = "text",
-				search_form = "search_form",
-				action = "/scripts/autocomplete/";
-				$("#" + text).autocomplete({
+			}
+			/*!
+			 * init autocomplete
+			 * results are cached cache.sqlite > cache_search_autocomplete
+			 */
+			if ($.fn.autocomplete) {
+				var action = "/scripts/autocomplete/";
+				text.autocomplete({
 					source: function (b, a) {
 						$.ajax({
 							url: action,
@@ -481,8 +478,8 @@ var initSearch = function () {
 					minLength: 1,
 					select: function (b, a) {
 						if (a.item.value && (a.item.value.match(/^http\:\/\//) || a.item.value.match(/^https\:\/\//) || a.item.value.match(/^\/search\//) || a.item.value.match(/^\//))) {
-							$(b.target).val($("#" + text).val());
-							$("#" + search_form).submit();
+							$(b.target).val(text.val());
+							search_form.submit();
 							return changeLocation(a.item.value),
 							!1;
 						}
@@ -490,8 +487,8 @@ var initSearch = function () {
 					open: function () {},
 					close: function () {}
 				});
-			});
-		}
+			}
+		});
 	}
 };
 var loadInitSearch = function () {
