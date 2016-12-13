@@ -21,3 +21,7 @@ https://github.com/englishextra/englishextra.github.io.git
  - [GitHub](https://github.com/englishextra/englishextra.github.io)
  - [BitBucket](https://bitbucket.org/englishextra/englishextra.github.io)
  - [GitLab](https://gitlab.com/englishextra/englishextra.github.io)
+
+## Copyright
+
+© [englishextra.github.com](https://englishextra.github.com/), 2015-2017
