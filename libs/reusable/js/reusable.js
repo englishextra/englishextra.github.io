@@ -323,11 +323,6 @@ var fadeOut=function(el){el.style.opacity=1;(function fade(){if((el.style.opacit
  */
 ;(function(){var e={easing:{linear:function(a){return a},quadratic:function(a){return Math.pow(a,2)},swing:function(a){return.5-Math.cos(a*Math.PI)/2},circ:function(a){return 1-Math.sin(Math.acos(a))},back:function(a,b){return Math.pow(a,2)*((b+1)*a-b)},bounce:function(a){for(var b=0,c=1;;b+=c,c/=2)if(a>=(7-4*b)/11)return-Math.pow((11-6*b-11*a)/4,2)+Math.pow(c,2)},elastic:function(a,b){return Math.pow(2,10*(a-1))*Math.cos(20*Math.PI*b/3*a)}},animate:function(a){var b=new Date,c=setInterval(function(){var d=(new Date-b)/a.duration;1<d&&(d=1);a.progress=d;var e=a.delta(d);a.step(e);1==d&&(clearInterval(c),"function"==typeof a.complete&&a.complete())},a.delay||10)},fadeOut:function(a,b){this.animate({duration:b.duration,delta:function(a){a=this.progress;return e.easing.swing(a)},complete:b.complete,step:function(b){a.style.opacity=1-b}})},fadeIn:function(a,b){this.animate({duration:b.duration,delta:function(a){a=this.progress;return e.easing.swing(a)},complete:b.complete,step:function(b){a.style.opacity=0+b}})}};window.FX=e})();
 /*!
- * Scroll to top with Zenscroll, or fallback
- * scrollToTop()
- */
-var scrollToTop=function(){var w=window;return w.zenscroll?zenscroll.toY(0):w.scrollTo(0,0);};
-/*!
  * Plain javascript replacement for jQuery's .ready()
  * so code can be scheduled to run when the document is ready
  * github.com/jfriend00/docReady
@@ -619,6 +614,11 @@ var isValidId=function(a,full){return full?/^\#[A-Za-z][-A-Za-z0-9_:.]*$/.test(a
  * findPos(a)
  */
 var findPos=function(a){a=a.getBoundingClientRect();var b=document.body,c=document.documentElement;return{top:Math.round(a.top+(window.pageYOffset||c.scrollTop||b.scrollTop)-(c.clientTop||b.clientTop||0)),left:Math.round(a.left+(window.pageXOffset||c.scrollLeft||b.scrollLeft)-(c.clientLeft||b.clientLeft||0))};};
+/*!
+ * Scroll to top with Zenscroll, or fallback
+ * scrollToTop()
+ */
+var scrollToTop=function(){var w=window;return w.zenscroll?zenscroll.toY(0):w.scrollTo(0,0);};
 /*!
  * change document location
  * @param {String} a URL / path string
@@ -3792,54 +3792,6 @@ if (!/localhost/.test(self.location.host)) {
 }
 	(window));
 /*!
- * observe mutations
- * bind functions only for inserted DOM
- */
-var observeMutations = function (c) {
-	"use strict";
-	c = BALA.one(c) || "";
-	if (c) {
-		var g = function (e) {
-			var fe = function (m) {
-				console.log("mutations observer: " + m.type);
-				console.log(m.type, "added: " + m.addedNodes.length + " nodes");
-				console.log(m.type, "removed: " + m.removedNodes.length + " nodes");
-				if ("childList" === m.type || "subtree" === m.type) {
-					mo.disconnect();
-					manageExternalLinks(c);
-					manageLocalLinks(c);
-					manageDataTargetLinks(c);
-					manageDataSrcImg(c);
-					manageDataLightboxImgLinks(c);
-				}
-			};
-			e.forEach(fe);
-		},
-		mo = new MutationObserver(g);
-		mo.observe(c, {
-			childList: !0,
-			subtree: !0,
-			attributes: !1,
-			characterData: !1
-		});
-	}
-};
-/*!
- * apply changes to inserted DOM
- */
-var updateInsertedDom = function () {
-	"use strict";
-	var w = window,
-	h = w.location.hash || "",
-	pN = "parentNode",
-	c = BALA.one("#container-includes")[pN] || "";
-	if (c && h) {
-		observeMutations(c);
-	}
-};
-evento.add(window, "load", updateInsertedDom);
-evento.add(window, "hashchange", updateInsertedDom);
-/*!
  * insert External HTML
  * @param {String} a Target Element id/class
  * @param {String} u path string
@@ -4027,6 +3979,54 @@ var initRoutie = function (ci) {
 	});
 }
 	("#container-includes");
+/*!
+ * observe mutations
+ * bind functions only for inserted DOM
+ */
+var observeMutations = function (c) {
+	"use strict";
+	c = BALA.one(c) || "";
+	if (c) {
+		var g = function (e) {
+			var fe = function (m) {
+				console.log("mutations observer: " + m.type);
+				console.log(m.type, "added: " + m.addedNodes.length + " nodes");
+				console.log(m.type, "removed: " + m.removedNodes.length + " nodes");
+				if ("childList" === m.type || "subtree" === m.type) {
+					mo.disconnect();
+					manageExternalLinks(c);
+					manageLocalLinks(c);
+					manageDataTargetLinks(c);
+					manageDataSrcImg(c);
+					manageDataLightboxImgLinks(c);
+				}
+			};
+			e.forEach(fe);
+		},
+		mo = new MutationObserver(g);
+		mo.observe(c, {
+			childList: !0,
+			subtree: !0,
+			attributes: !1,
+			characterData: !1
+		});
+	}
+};
+/*!
+ * apply changes to inserted DOM
+ */
+var updateInsertedDom = function () {
+	"use strict";
+	var w = window,
+	h = w.location.hash || "",
+	pN = "parentNode",
+	c = BALA.one("#container-includes")[pN] || "";
+	if (c && h) {
+		observeMutations(c);
+	}
+};
+evento.add(window, "load", updateInsertedDom);
+evento.add(window, "hashchange", updateInsertedDom);
 /*!
  * init manUP.js
  */

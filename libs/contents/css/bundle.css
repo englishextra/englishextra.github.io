@@ -118,6 +118,12 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 	animation-name: slideInUp; */
 	margin: 1.500%;
 }
+.masonry-grid-item a,
+.masonry-grid-item a:hover,
+.masonry-grid-item a:active,
+.masonry-grid-item a:focus {
+	color: inherit;
+}
 .masonry-grid-item img {
 	display: block;
 	width: 100%;
@@ -127,16 +133,6 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 	background: #FFFFFF;
 	padding: 1.000em;
 	min-height: 11.750rem;
-}
-.masonry-grid-item-content a {
-	font-weight: inherit;
-	text-decoration: none;
-	color: #307CCA;
-}
-.masonry-grid-item-content a:hover,
-.masonry-grid-item-content a:active,
-.masonry-grid-item-content a:focus {
-	color: #EA6743;
 }
 .masonry-grid-item-content h2 {
 	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI Light","Segoe WP Light",sans-serif;
@@ -1013,6 +1009,9 @@ body,
 .ya-site-form__submit {
 	display: none !important;
 }
+/*!
+ * other
+ */
 .footer {
 	max-width: 39.000rem;
 	font-size: 0.875rem;
