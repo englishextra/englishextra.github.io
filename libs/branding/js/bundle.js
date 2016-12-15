@@ -463,13 +463,16 @@ var openDeviceBrowser = function (a) {
 	}
 };
 /*!
- * set target blank to external links
+ * set click event on external links,
+ * so that they open in new browser tab
+ * @param {Object} [ctx] context HTML Element
  */
 var manageExternalLinks = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
 	var w = window,
-	a = ctx ? BALA.one("a", ctx) || "" : BALA.one("a") || "",
+	cls = "a",
+	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	g = function (e) {
 		var p = e.getAttribute("href") || "",
 		h_e = function (ev) {
@@ -488,7 +491,7 @@ var manageExternalLinks = function (ctx) {
 		}
 	};
 	if (a) {
-		a = ctx ? BALA("a", ctx) || "" : BALA("a") || "";
+		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
 		var fe = function (e) {
 			g(e);
 		};
@@ -505,13 +508,16 @@ var manageExternalLinks = function (ctx) {
 };
 evento.add(window, "load", manageExternalLinks.bind(null, ""));
 /*!
- * set title to local links
+ * set title on local links,
+ * so that they inform that they open in currnet tab
+ * @param {Object} [ctx] context HTML Element
  */
 var manageLocalLinks = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
 	var w = window,
-	a = ctx ? BALA.one("a", ctx) || "" : BALA.one("a") || "",
+	cls = "a",
+	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	g = function (e) {
 		var p = e.getAttribute("href") || "";
 		if (p && parseLink(p).isRelative && !e.getAttribute("title")) {
@@ -519,7 +525,7 @@ var manageLocalLinks = function (ctx) {
 		}
 	};
 	if (a) {
-		a = ctx ? BALA("a", ctx) || "" : BALA("a") || "";
+		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
 		var fe = function (e) {
 			g(e);
 		};
@@ -560,10 +566,10 @@ docReady(loadInitFastClick);
  * loading spinner
  * dependent on setAutoClearedTimeout
  * gist.github.com/englishextra/24ef040fbda405f7468da70e4f3b69e7
- * @param {Object} [cb] callback function
+ * @param {Object} [f] callback function
  * @param {Int} [n] any positive whole number, default: 500
  * LoadingSpinner.show();
- * LoadingSpinner.hide(cb,n);
+ * LoadingSpinner.hide(f,n);
  */
 var LoadingSpinner = function () {
 	"use strict";
@@ -858,6 +864,7 @@ var manageDataLightboxImgLinks = function (ctx) {
 evento.add(window, "load", manageDataLightboxImgLinks.bind(null, ""));
 /*!
  * replace img src with data-src
+ * @param {Object} [ctx] context HTML Element
  */
 var manageDataSrcImg = function (ctx) {
 	"use strict";
@@ -900,6 +907,7 @@ var manageDataSrcImg = function (ctx) {
 };
 /*!
  * append media-iframe
+ * @param {Object} [ctx] context HTML Element
  */
 var manageDataSrcIframe = function (ctx) {
 	"use strict";
@@ -965,7 +973,8 @@ var loadManageDataSrcImgIframe = function () {
 };
 evento.add(window, "load", loadManageDataSrcImgIframe);
 /*!
- * manage static select
+ * add smooth scroll or redirection to static select options
+ * @param {Object} [ctx] context HTML Element
  */
 var manageStaticSelect = function (ctx) {
 	"use strict";
@@ -1021,7 +1030,8 @@ var manageSearchInput = function () {
 };
 docReady(manageSearchInput);
 /*!
- * show hidden-layer
+ * add click event on hidden-layer show btn
+ * @param {Object} [ctx] context HTML Element
  */
 var manageExpandingLayers = function (ctx) {
 	"use strict";
@@ -1066,7 +1076,8 @@ var manageExpandingLayers = function (ctx) {
 };
 evento.add(window, "load", manageExpandingLayers.bind(null, ""));
 /*!
- * show source code
+ * add click event on source code show btn
+ * @param {Object} [ctx] context HTML Element
  */
 var manageSourceCodeLayers = function (ctx) {
 	"use strict";

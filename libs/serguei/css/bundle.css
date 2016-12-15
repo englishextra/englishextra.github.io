@@ -391,7 +391,7 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 .contacts-qr-code .qr-code-img {
 	padding: 0.875rem;
 }
-/*! @import "vk-like"; */
+/*! @import "vk-like-light"; */
 /*!
  * vk-like
  */
@@ -437,7 +437,7 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 	line-height: 33.000pt;
 	color: #848484;
 }
-/*! @import "share-buttons"; */
+/*! @import "share-buttons-light"; */
 /*!
  * pluso, yashare
  */
@@ -514,7 +514,7 @@ img[class^="books-"],img[class*=" books-"]{ max-width: 100%; background-size: 10
 .ymap.is-active {
 	min-height: 21.688rem;
 }
-/*! @import "disqus_thread"; */
+/*! @import "disqus-thread"; */
 /*!
  * disqus
  */
@@ -738,7 +738,7 @@ u,
 	text-align: center;
 }
 /*!
- * layout
+ * other
  */
 .page {
 	width: 100%;
@@ -771,23 +771,24 @@ body,
 	margin: 0 auto;
 	padding: 33.000pt 0 0 0;
 }
-.container-includes {
+.app-content {
 	width: 100%;
 	height: 100%;
 	margin: 0 auto;
 	padding: 0;
 }
 .container .content-wrapper,
-.container-includes .content-wrapper {
+.app-content .content-wrapper {
 	min-height: 100%;
 	background-color: #FFFFFF;
 }
 .container .content-wrapper:after,
-.container-includes:after {
+.app-content:after {
 	content: "";
 	display: table;
 	clear: both;
 }
+/* @import "nav-menu-light"; */
 /*!
  * nav menu
  */
@@ -892,6 +893,7 @@ body,
 	 */
 	left: 280px;
 }
+/* @import "menu-more-light"; */
 /*!
  * menu more
  */

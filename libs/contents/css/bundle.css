@@ -6,7 +6,7 @@ font-face{font-family:"Source Sans Pro";src:url(../../../fonts/source-sans-pro-f
 /* @import "normalize"; */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background-color:transparent}a:active,a:hover{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:bold}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-0.5em}sub{bottom:-0.25em}img{border:0}svg:not(:root){overflow:hidden}figure{margin:1em 40px}hr{box-sizing:content-box;height:0}pre{overflow:auto}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}button{overflow:visible}button,select{text-transform:none}button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}input[type="number"]::-webkit-inner-spin-button,input[type="number"]::-webkit-outer-spin-button{height:auto}input[type="search"]{-webkit-appearance:textfield;box-sizing:content-box}input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0}textarea{overflow:auto}optgroup{font-weight:bold}table{border-collapse:collapse;border-spacing:0}td,th{padding:0}
-/*! @import "masonry-grid"; */
+/*! @import "contents-masonry-grid"; */
 /*!
  * masonry grid
  */
@@ -19,18 +19,6 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 	and adding the overflow rule restores the behavior you'd expect. */
 	overflow-x: auto;
 	overflow-y: hidden;
-}
-.masonry-grid-wrapper a {
-	font-weight: inherit;
-	color: #307CCA;
-}
-.masonry-grid-wrapper a:hover,
-.masonry-grid-wrapper a:active,
-.masonry-grid-wrapper a:focus {
-	color: #EA6743;
-}
-.masonry-grid-wrapper .highlight {
-	color: #EE6944;
 }
 .masonry-grid-wrapper h1 {
 	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI Light","Segoe WP Light",sans-serif;
@@ -274,6 +262,9 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 .masonry-grid-item-content img {
 	padding: -0.750em;
 }
+.masonry-grid-item-content .highlight {
+	color: #EE6944;
+}
 @media only screen and (max-width: 20em) {
 	.masonry-grid {
 		max-width: 93.8%;
@@ -405,7 +396,7 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 	padding: 0;
 	margin: 0;
 }
-/*! @import "vk-like"; */
+/*! @import "vk-like-light"; */
 /*!
  * vk-like
  */
@@ -451,7 +442,7 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 	line-height: 33.000pt;
 	color: #848484;
 }
-/*! @import "share-buttons"; */
+/*! @import "share-buttons-light"; */
 /*!
  * pluso, yashare
  */
@@ -530,7 +521,7 @@ img[class^="contents-banner-"],img[class*=" contents-banner-"]{ max-width: 100%;
 .contents-banner-transcripts-640x336 { background-position: 0 91.666667%; background-size: 100%; }
 .contents-banner-vimeo-640x336 { background-position: 0 95.833333%; background-size: 100%; }
 .contents-banner-vk-640x336 { background-position: 0 100%; background-size: 100%; }
-/*! @import "disqus_thread"; */
+/*! @import "contents-disqus-thread"; */
 /*!
  * disqus
  */
@@ -720,7 +711,7 @@ u,
 	}
 }
 /*!
- * layout
+ * other
  */
 .page {
 	width: 100%;
@@ -752,6 +743,7 @@ body,
 	margin: 0 auto;
 	padding: 33.000pt 0 0 0;
 }
+/* @import "nav-menu-light"; */
 /*!
  * nav menu
  */
@@ -856,6 +848,7 @@ body,
 	 */
 	left: 280px;
 }
+/* @import "menu-more-light"; */
 /*!
  * menu more
  */

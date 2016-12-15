@@ -29,7 +29,7 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 	padding: 0;
 	margin: 0;
 }
-/*! @import "vk-like"; */
+/*! @import "vk-like-light"; */
 /*!
  * vk-like
  */
@@ -75,7 +75,7 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 	line-height: 33.000pt;
 	color: rgba(25,25,25,0.5);
 }
-/*! @import "share-buttons"; */
+/*! @import "share-buttons-light"; */
 /*!
  * pluso, yashare
  */
@@ -258,7 +258,7 @@ u,
 	}
 }
 /*!
- * layout
+ * other
  */
 .container {
 	position: relative;
@@ -283,8 +283,9 @@ u,
 	padding: 0;
 	box-sizing: border-box;
 }
+/* @import "irregular-verbs-nav-menu"; */
 /*!
- * navigation
+ * nav-menu
  */
 .btn-nav-menu {
 	-webkit-transition: all 0.2s ease-out;
@@ -317,6 +318,7 @@ u,
 	line-height: 33.000pt;
 	color: rgba(25,25,25,0.5);
 }
+/* @import "menu-more-light"; */
 /*!
  * menu more
  */

@@ -340,7 +340,7 @@ pre.prettyprint,code.prettyprint{background-color:#E9E9E9;border-radius:0;}pre.p
 	padding: 0;
 	margin: 0;
 }
-/*! @import "vk-like"; */
+/*! @import "vk-like-light"; */
 /*!
  * vk-like
  */
@@ -386,7 +386,7 @@ pre.prettyprint,code.prettyprint{background-color:#E9E9E9;border-radius:0;}pre.p
 	line-height: 33.000pt;
 	color: #848484;
 }
-/*! @import "share-buttons"; */
+/*! @import "share-buttons-light"; */
 /*!
  * pluso, yashare
  */
@@ -437,7 +437,7 @@ pre.prettyprint,code.prettyprint{background-color:#E9E9E9;border-radius:0;}pre.p
 	line-height: 33.000pt;
 	color: rgba(25,25,25,0.5);
 }
-/*! @import "disqus_thread"; */
+/*! @import "disqus-thread"; */
 /*!
  * disqus
  */
@@ -661,7 +661,7 @@ u,
 	text-align: center;
 }
 /*!
- * layout
+ * other
  */
 .page {
 	width: 100%;
@@ -694,6 +694,7 @@ body,
 	margin: 0 auto;
 	padding: 33.000pt 0 0 0;
 }
+/* @import "nav-menu-light"; */
 /*!
  * nav menu
  */
@@ -798,6 +799,7 @@ body,
 	 */
 	left: 280px;
 }
+/* @import "menu-more-light"; */
 /*!
  * menu more
  */

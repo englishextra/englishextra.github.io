@@ -334,13 +334,16 @@ var openDeviceBrowser = function (a) {
 	}
 };
 /*!
- * set target blank to external links
+ * set click event on external links,
+ * so that they open in new browser tab
+ * @param {Object} [ctx] context HTML Element
  */
 var manageExternalLinks = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
 	var w = window,
-	a = ctx ? BALA.one("a", ctx) || "" : BALA.one("a") || "",
+	cls = "a",
+	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	g = function (e) {
 		var p = e.getAttribute("href") || "",
 		h_e = function (ev) {
@@ -359,7 +362,7 @@ var manageExternalLinks = function (ctx) {
 		}
 	};
 	if (a) {
-		a = ctx ? BALA("a", ctx) || "" : BALA("a") || "";
+		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
 		var fe = function (e) {
 			g(e);
 		};
@@ -376,13 +379,16 @@ var manageExternalLinks = function (ctx) {
 };
 evento.add(window, "load", manageExternalLinks.bind(null, ""));
 /*!
- * set title to local links
+ * set title on local links,
+ * so that they inform that they open in currnet tab
+ * @param {Object} [ctx] context HTML Element
  */
 var manageLocalLinks = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
 	var w = window,
-	a = ctx ? BALA.one("a", ctx) || "" : BALA.one("a") || "",
+	cls = "a",
+	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	g = function (e) {
 		var p = e.getAttribute("href") || "";
 		if (p && parseLink(p).isRelative && !e.getAttribute("title")) {
@@ -390,7 +396,7 @@ var manageLocalLinks = function (ctx) {
 		}
 	};
 	if (a) {
-		a = ctx ? BALA("a", ctx) || "" : BALA("a") || "";
+		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
 		var fe = function (e) {
 			g(e);
 		};

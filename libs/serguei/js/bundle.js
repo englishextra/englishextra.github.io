@@ -468,13 +468,16 @@ var openDeviceBrowser = function (a) {
 	}
 };
 /*!
- * set target blank to external links
+ * set click event on external links,
+ * so that they open in new browser tab
+ * @param {Object} [ctx] context HTML Element
  */
 var manageExternalLinks = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
 	var w = window,
-	a = ctx ? BALA.one("a", ctx) || "" : BALA.one("a") || "",
+	cls = "a",
+	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	g = function (e) {
 		var p = e.getAttribute("href") || "",
 		h_e = function (ev) {
@@ -493,7 +496,7 @@ var manageExternalLinks = function (ctx) {
 		}
 	};
 	if (a) {
-		a = ctx ? BALA("a", ctx) || "" : BALA("a") || "";
+		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
 		var fe = function (e) {
 			g(e);
 		};
@@ -510,13 +513,16 @@ var manageExternalLinks = function (ctx) {
 };
 evento.add(window, "load", manageExternalLinks.bind(null, ""));
 /*!
- * set title to local links
+ * set title on local links,
+ * so that they inform that they open in currnet tab
+ * @param {Object} [ctx] context HTML Element
  */
 var manageLocalLinks = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
 	var w = window,
-	a = ctx ? BALA.one("a", ctx) || "" : BALA.one("a") || "",
+	cls = "a",
+	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	g = function (e) {
 		var p = e.getAttribute("href") || "";
 		if (p && parseLink(p).isRelative && !e.getAttribute("title")) {
@@ -524,7 +530,7 @@ var manageLocalLinks = function (ctx) {
 		}
 	};
 	if (a) {
-		a = ctx ? BALA("a", ctx) || "" : BALA("a") || "";
+		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
 		var fe = function (e) {
 			g(e);
 		};
@@ -565,10 +571,10 @@ docReady(loadInitFastClick);
  * loading spinner
  * dependent on setAutoClearedTimeout
  * gist.github.com/englishextra/24ef040fbda405f7468da70e4f3b69e7
- * @param {Object} [cb] callback function
+ * @param {Object} [f] callback function
  * @param {Int} [n] any positive whole number, default: 500
  * LoadingSpinner.show();
- * LoadingSpinner.hide(cb,n);
+ * LoadingSpinner.hide(f,n);
  */
 var LoadingSpinner = function () {
 	"use strict";
@@ -982,6 +988,7 @@ var manageDataLightboxImgLinks = function (ctx) {
 evento.add(window, "load", manageDataLightboxImgLinks.bind(null, ""));
 /*!
  * replace img src with data-src
+ * @param {Object} [ctx] context HTML Element
  */
 var manageDataSrcImg = function (ctx) {
 	"use strict";
@@ -1564,8 +1571,8 @@ evento.add(window, "load", manageDataTargetLinks.bind(null, ""));
  * insert External HTML
  * @param {String} a Target Element id/class
  * @param {String} u path string
- * @param {Object} [cb] callback function
- * insertExternalHTML(a, u, cb)
+ * @param {Object} [f] callback function
+ * insertExternalHTML(a, u, f)
  */
 var insertExternalHTML = function (a, u, f) {
 	"use strict";
@@ -1617,9 +1624,9 @@ var insertExternalHTML = function (a, u, f) {
 };
 /*!
  * init routie
- * @param {String} ci HTML id string
+ * @param {String} ctx HTML id string
  */
-var initRoutie = function (ci) {
+var initRoutie = function (ctx) {
 	"use strict";
 	var loadVirtualPage = function (c, h, f) {
 		if (c && h) {
@@ -1657,100 +1664,103 @@ var initRoutie = function (ci) {
 	},
 	redirectToDefaultPage = function (h, t) {
 		t = t || "";
-		var w = window;
 		if (h) {
 			reinitVirtualPage("" + t);
-			w.location.hash = "#" + h;
-			/* w.location.reload(); */
+			changeHash(h);
 			if (history.pushState) {
 				history.replaceState(null, null, "#" + h);
 			}
 		}
-	};
+	},
+	appContent = BALA.one(ctx) || "";
 	/*!
 	 * init routie
 	 * "#" => ""
 	 * "#/" => "/"
 	 * "#/home" => "/home"
 	 */
-	routie({
-		"": function () {
-			redirectToDefaultPage("/contents");
-		},
-		"/contents": function () {
-			loadVirtualPage(ci, "./includes/contents.html", function (bar) {
-				reinitVirtualPage();
-				manageYandexMapButton("#ymap");
-				/* try {
-					if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
-						initYandexMap("#ymap");
+	if (appContent) {
+		routie({
+			"": function () {
+				redirectToDefaultPage("/contents");
+			},
+			"/contents": function () {
+				loadVirtualPage(ctx, "./includes/contents.html", function () {
+					reinitVirtualPage(" - Содержание");
+					manageYandexMapButton("#ymap");
+					/* try {
+						if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
+							initYandexMap("#ymap");
+						}
+					} catch (e) {
+						console.log(e);
+					} */
+				});
+			},
+			"/feedback": function () {
+				loadVirtualPage(ctx, "./includes/feedback.html", function () {
+					reinitVirtualPage(" - Напишите мне");
+					var c = BALA.one(ctx) || "";
+					manageDisqusButton(c);
+					/* if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
+						loadRefreshDisqus(c);
+					} */
+				});
+			},
+			"/schedule": function () {
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					if ("undefined" !== typeof isOldOpera && !isOldOpera) {
+						loadVirtualPage(ctx, "./includes/schedule.html", function () {
+							reinitVirtualPage(" - Расписание");
+						});
 					}
-				} catch (e) {
-					console.log(e);
-				} */
-			});
-		},
-		"/feedback": function () {
-			loadVirtualPage(ci, "./includes/feedback.html", function () {
-				reinitVirtualPage(" - Напишите мне");
-				manageDisqusButton();
-				/* if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
-					loadRefreshDisqus();
-				} */
-			});
-		},
-		"/schedule": function () {
-			if ("undefined" !== typeof getHTTP && getHTTP()) {
-				if ("undefined" !== typeof isOldOpera && !isOldOpera) {
-					loadVirtualPage(ci, "./includes/schedule.html", function () {
-						reinitVirtualPage(" - Расписание");
-					});
 				}
-			}
-		},
-		"/map": function () {
-			if ("undefined" !== typeof getHTTP && getHTTP()) {
-				if ("undefined" !== typeof isOldOpera && !isOldOpera) {
-					loadVirtualPage(ci, "./includes/map.html", function () {
-						reinitVirtualPage(" - Смотреть на карте");
-					});
+			},
+			"/map": function () {
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					if ("undefined" !== typeof isOldOpera && !isOldOpera) {
+						loadVirtualPage(ctx, "./includes/map.html", function () {
+							reinitVirtualPage(" - Смотреть на карте");
+						});
+					}
 				}
+			},
+			"/level_test": function () {
+				loadVirtualPage(ctx, "./includes/level_test.html", function () {
+					reinitVirtualPage(" - Уровневый тест");
+				});
+			},
+			"/common_mistakes": function () {
+				loadVirtualPage(ctx, "./includes/common_mistakes.html", function () {
+					reinitVirtualPage(" - Распространенные ошибки");
+				});
+			},
+			"/demo_ege": function () {
+				loadVirtualPage(ctx, "./includes/demo_ege.html", function () {
+					reinitVirtualPage(" - Демо-вариант ЕГЭ-11 АЯ (ПЧ)");
+				});
+			},
+			"/demo_ege_speaking": function () {
+				loadVirtualPage(ctx, "./includes/demo_ege_speaking.html", function () {
+					reinitVirtualPage(" - Демо-вариант ЕГЭ-11 АЯ (УЧ)");
+				});
+			},
+			"/previous_ege_analysis": function () {
+				loadVirtualPage(ctx, "./includes/previous_ege_analysis.html", function () {
+					reinitVirtualPage(" - ЕГЭ 2015: разбор ошибок");
+				});
+			},
+			"/*": function () {
+				loadNotFoundPage(ctx);
 			}
-		},
-		"/level_test": function () {
-			loadVirtualPage(ci, "./includes/level_test.html", function () {
-				reinitVirtualPage(" - Уровневый тест");
-			});
-		},
-		"/common_mistakes": function () {
-			loadVirtualPage(ci, "./includes/common_mistakes.html", function () {
-				reinitVirtualPage(" - Распространенные ошибки");
-			});
-		},
-		"/demo_ege": function () {
-			loadVirtualPage(ci, "./includes/demo_ege.html", function () {
-				reinitVirtualPage(" - Демо-вариант ЕГЭ-11 АЯ (ПЧ)");
-			});
-		},
-		"/demo_ege_speaking": function () {
-			loadVirtualPage(ci, "./includes/demo_ege_speaking.html", function () {
-				reinitVirtualPage(" - Демо-вариант ЕГЭ-11 АЯ (УЧ)");
-			});
-		},
-		"/previous_ege_analysis": function () {
-			loadVirtualPage(ci, "./includes/previous_ege_analysis.html", function () {
-				reinitVirtualPage(" - ЕГЭ 2015: разбор ошибок");
-			});
-		},
-		"/*": function () {
-			loadNotFoundPage(ci);
-		}
-	});
+		});
+	}
 }
-("#container-includes");
+	("#app-content");
 /*!
  * observe mutations
  * bind functions only for inserted DOM
+ * @param {String} c HTML Element class or id string
  */
 var observeMutations = function (c) {
 	"use strict";
@@ -1789,7 +1799,7 @@ var updateInsertedDom = function () {
 	var w = window,
 	h = w.location.hash || "",
 	pN = "parentNode",
-	c = BALA.one("#container-includes")[pN] || "";
+	c = BALA.one("#app-content")[pN] || "";
 	if (c && h) {
 		observeMutations(c);
 	}
@@ -1855,3 +1865,92 @@ var showPageFinishProgress = function () {
 	}
 };
 evento.add(window, "load", showPageFinishProgress);
+
+
+
+
+
+
+
+
+
+
+
+/*!
+ * modified for babel Implement infinite scrolling
+ * github.com/alexblack/infinite-scroll
+ * - Inspired by: http://ravikiranj.net/drupal/201106/code/javascript/how-implement-infinite-scrolling-using-native-javascript-and-yui3
+ * infiniteScroll({distance:50,callback: function (done) {
+ * 1. fetch data from the server
+ * 2. insert it into the document
+ * 3. call done when we are done
+ * window.location.hash = "#/somepage";
+ * done();}});
+ * exposed as window / self / global property;
+ * source: github.com/alexblack/infinite-scroll/blob/master/infinite-scroll.js
+ * passes jshint
+ */
+;(function (root) {
+	var getScrollPos = function () {
+		if (/msie/gi.test(navigator.userAgent)) {
+			return document.documentElement.scrollTop;
+		} else {
+			return window.pageYOffset;
+		}
+	},
+	prevScrollPos = getScrollPos() || "",
+	handleScroll = function (scroller, event) {
+		if (scroller.updateInitiated) {
+			return;
+		}
+		var scrollPos = getScrollPos();
+		if (scrollPos == prevScrollPos) {
+			return;
+		}
+		var pageHeight = document.documentElement.scrollHeight,
+		clientHeight = document.documentElement.clientHeight;
+		if (pageHeight - (scrollPos + clientHeight) < scroller.options.distance) {
+			scroller.updateInitiated = true;
+			scroller.options.callback(function () {
+				scroller.updateInitiated = false;
+			});
+		}
+		prevScrollPos = scrollPos;
+	};
+	root.infiniteScroll = function (options) {
+		var defaults = {
+			callback: function () {},
+			distance: 50
+		};
+		for (var key in defaults) {
+			if (defaults.hasOwnProperty(key)) {
+				if ("undefined" === typeof options[key]) {
+					options[key] = defaults[key];
+				}
+			}
+		}
+		var scroller = {
+			options: options,
+			updateInitiated: false
+		};
+		window.onscroll = function (event) {
+			handleScroll(scroller, event);
+		};
+		document.ontouchmove = function (event) {
+			handleScroll(scroller, event);
+		};
+	};
+}
+	("undefined"===typeof window?"undefined"===typeof self?"undefined"===typeof global?this:global:self:window));
+infiniteScroll({
+	distance: 50,
+	callback: function (done) {
+		window.location.hash = "#/contents";
+		done();
+}});
+
+
+
+
+
+
