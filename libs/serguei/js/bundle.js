@@ -376,6 +376,12 @@ var setStyleVisibilityHidden=function(a){return function(){if(a){a.style.visibil
  */
 var scrollToTop=function(){var w=window;return w.zenscroll?zenscroll.toY(0):w.scrollTo(0,0);};
 /*!
+ * change window hash
+ * @param {String} a hash string without hash sign
+ * changeHash(a)
+ */
+var changeHash=function(a){return function(){if(a){window.location.hash="#"+("#"===a[0]?a.substr(1):a);}}();};
+/*!
  * modified for babel Unified URL parsing API in the browser and node
  * github.com/wooorm/parse-link
  * removed AMD, CommonJS support
@@ -1865,92 +1871,4 @@ var showPageFinishProgress = function () {
 	}
 };
 evento.add(window, "load", showPageFinishProgress);
-
-
-
-
-
-
-
-
-
-
-
-/*!
- * modified for babel Implement infinite scrolling
- * github.com/alexblack/infinite-scroll
- * - Inspired by: http://ravikiranj.net/drupal/201106/code/javascript/how-implement-infinite-scrolling-using-native-javascript-and-yui3
- * infiniteScroll({distance:50,callback: function (done) {
- * 1. fetch data from the server
- * 2. insert it into the document
- * 3. call done when we are done
- * window.location.hash = "#/somepage";
- * done();}});
- * exposed as window / self / global property;
- * source: github.com/alexblack/infinite-scroll/blob/master/infinite-scroll.js
- * passes jshint
- */
-;(function (root) {
-	var getScrollPos = function () {
-		if (/msie/gi.test(navigator.userAgent)) {
-			return document.documentElement.scrollTop;
-		} else {
-			return window.pageYOffset;
-		}
-	},
-	prevScrollPos = getScrollPos() || "",
-	handleScroll = function (scroller, event) {
-		if (scroller.updateInitiated) {
-			return;
-		}
-		var scrollPos = getScrollPos();
-		if (scrollPos == prevScrollPos) {
-			return;
-		}
-		var pageHeight = document.documentElement.scrollHeight,
-		clientHeight = document.documentElement.clientHeight;
-		if (pageHeight - (scrollPos + clientHeight) < scroller.options.distance) {
-			scroller.updateInitiated = true;
-			scroller.options.callback(function () {
-				scroller.updateInitiated = false;
-			});
-		}
-		prevScrollPos = scrollPos;
-	};
-	root.infiniteScroll = function (options) {
-		var defaults = {
-			callback: function () {},
-			distance: 50
-		};
-		for (var key in defaults) {
-			if (defaults.hasOwnProperty(key)) {
-				if ("undefined" === typeof options[key]) {
-					options[key] = defaults[key];
-				}
-			}
-		}
-		var scroller = {
-			options: options,
-			updateInitiated: false
-		};
-		window.onscroll = function (event) {
-			handleScroll(scroller, event);
-		};
-		document.ontouchmove = function (event) {
-			handleScroll(scroller, event);
-		};
-	};
-}
-	("undefined"===typeof window?"undefined"===typeof self?"undefined"===typeof global?this:global:self:window));
-infiniteScroll({
-	distance: 50,
-	callback: function (done) {
-		window.location.hash = "#/contents";
-		done();
-}});
-
-
-
-
-
 
