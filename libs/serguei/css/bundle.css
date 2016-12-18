@@ -1188,10 +1188,22 @@ body,
 	border-bottom-style: solid;
 	border-bottom-color: inherit;
 }
-.col .button-larger {
+/*!
+ * buttons
+ */
+.col .btn-larger {
 	font-size: 1.000rem;
 	font-weight: 400;
 	height: 2.250rem;
+}
+.col .btn-primary {
+	color: #FFFFFF;
+	background-color: #474747;
+	border-color: #474747;
+}
+.col .btn-primary:hover {
+	background-color: #606060;
+	border-color: #606060;
 }
 /*!
  * vcard block

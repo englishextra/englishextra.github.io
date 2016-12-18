@@ -576,6 +576,41 @@ var manageLocalLinks = function (ctx) {
 };
 evento.add(window, "load", manageLocalLinks.bind(null, ""));
 /*!
+ * set click event on data path links,
+ * so that they change window path
+ * @param {Object} [ctx] context HTML Element
+ */
+var manageDataPathLinks = function (ctx) {
+	"use strict";
+	ctx = ctx || "";
+	var w = window,
+	cls = "[data-path]",
+	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	g = function (e) {
+		var h = e.dataset.path || "";
+		if (h && parseLink(h).isRelative) {
+			/* evento.add(e, "click", changeLocation.bind(null, h)); */
+			e.onclick = changeLocation.bind(null, h);
+		}
+	};
+	if (a) {
+		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
+		var fe = function (e) {
+			g(e);
+		};
+		if (w._) {
+			_.each(a, fe);
+		} else if (w.forEach) {
+			forEach(a, fe, !1);
+		} else {
+			for (var i = 0, l = a.length; i < l; i += 1) {
+				g(a[i]);
+			}
+		}
+	}
+};
+evento.add(window, "load", manageDataPathLinks.bind(null, ""));
+/*!
  * init fastclick
  * github.com/ftlabs/fastclick
  */
