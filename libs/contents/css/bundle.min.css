@@ -63,8 +63,8 @@
  * fix for yandex search
  * site.yandex.net/v2.0/js/suggest.js
  */.holder-search-form table td{padding:0!important}.ya-site-form.ya-site-form_inited_no{visibility:hidden}.ya-page_js_yes .ya-site-form_inited_no,.ya-site-form__submit{display:none!important}/*!
- * other
- */.footer{max-width:39rem;font-size:.875rem;line-height:1.5;text-align:center;margin:1.5rem auto 0}.footer p{font-size:.813rem;line-height:1.5}/*!
+ * footer
+ */.footer{max-width:39rem;font-size:.875rem;line-height:1.5;text-align:center;margin:1.5rem auto 0}.footer a{font-weight:inherit;color:#307CCA}.footer a:active,.footer a:focus,.footer a:hover{color:#EA6743}.footer a:visited{color:#8F9BA8}.footer p{font-size:.813rem;line-height:1.5}/*!
  * retina
  *//*!
  * font for mobile

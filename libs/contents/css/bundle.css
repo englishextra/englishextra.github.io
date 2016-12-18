@@ -1003,7 +1003,7 @@ body,
 	display: none !important;
 }
 /*!
- * other
+ * footer
  */
 .footer {
 	max-width: 39.000rem;
@@ -1011,6 +1011,18 @@ body,
 	line-height: 1.500;
 	text-align: center;
 	margin: 1.500rem auto 0 auto;
+}
+.footer a {
+	font-weight: inherit;
+	color: #307CCA;
+}
+.footer a:hover,
+.footer a:active,
+.footer a:focus {
+	color: #EA6743;
+}
+.footer a:visited {
+	color: #8F9BA8;
 }
 .footer p {
 	font-size: 0.813rem;

@@ -1220,6 +1220,18 @@ body,
 	background-color: #DFDFDF;
 	border-color: #DFDFDF;
 }
+.col .btn-link,
+.col .btn-link:active,
+.col .btn-link:focus {
+	color: inherit;
+	background-color: transparent;
+	border-color: #E9E9E9;
+}
+.col .btn-link:hover {
+	color: inherit;
+	background-color: transparent;
+	border-color: #E9E9E9;
+}
 /*!
  * sg specific
  */
