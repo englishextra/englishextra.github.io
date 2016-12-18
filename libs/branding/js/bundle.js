@@ -553,10 +553,10 @@ var manageDataPathLinks = function (ctx) {
 	cls = "[data-path]",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	g = function (e) {
-		var h = e.dataset.path || "";
-		if (h && parseLink(h).isRelative) {
-			/* evento.add(e, "click", changeLocation.bind(null, h)); */
-			e.onclick = changeLocation.bind(null, h);
+		var p = e.dataset.path || "";
+		if (p && parseLink(p).isRelative) {
+			/* evento.add(e, "click", changeLocation.bind(null, p)); */
+			e.onclick = changeLocation.bind(null, p);
 		}
 	};
 	if (a) {

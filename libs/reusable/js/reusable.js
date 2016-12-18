@@ -2768,7 +2768,7 @@ var manageDataTargetLinks = function (ctx) {
 	cls = "[data-target]",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	g = function (e) {
-		var u = e.dataset.url || "",
+		var u = e.dataset.include || "",
 		t = e.dataset.target || "",
 		h_e = function (_this, e) {
 			/* evento.remove(_this, "click", h_e); */

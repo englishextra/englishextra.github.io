@@ -1196,7 +1196,9 @@ body,
 	font-weight: 400;
 	height: 2.250rem;
 }
-.col .btn-primary {
+.col .btn-primary,
+.col .btn-primary:active,
+.col .btn-primary:focus {
 	color: #FFFFFF;
 	background-color: #474747;
 	border-color: #474747;

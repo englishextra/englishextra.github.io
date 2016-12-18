@@ -1197,7 +1197,9 @@ body,
 	font-weight: 400;
 	height: 2.250rem;
 }
-.col .btn-primary {
+.col .btn-primary,
+.col .btn-primary:active,
+.col .btn-primary:focus {
 	color: #FFFFFF;
 	background-color: #474747;
 	border-color: #474747;
@@ -1206,14 +1208,17 @@ body,
 	background-color: #606060;
 	border-color: #606060;
 }
-.col .btn-secondary {
+.col .btn-secondary,
+.col .btn-secondary:active,
+.col .btn-secondary:focus {
 	color: inherit;
 	background-color: #E9E9E9;
 	border-color: #E9E9E9;
 }
 .col .btn-secondary:hover {
-	background-color: #606060;
-	border-color: #606060;
+	color: inherit;
+	background-color: #DFDFDF;
+	border-color: #DFDFDF;
 }
 /*!
  * sg specific
