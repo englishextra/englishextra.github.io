@@ -140,20 +140,6 @@ if (document.title) {
  */
 ;(function(){var forEach=function(a,b,c){var d=-1,e=a.length>>>0;(function f(g){var h,j=false===g;do++d;while(!(d in a)&&d!==e);if(j||d===e){if(c){c(!j,a);}return;}g=b.call({async:function(){return h=!0,f;}},a[d],d,a);if(!h){f(g);}})();};window.forEach=forEach;}());
 /*!
- * Accurate Javascript setInterval replacement
- * gist.github.com/manast/1185904
- * gist.github.com/englishextra/f721a0c4d12aa30f74c2e089370e09eb
- * minified with closure-compiler.appspot.com/home
- * var si=new interval(50,function(){if(1===1){si.stop(),si=0;}});si.run();
- * The handle will be a number that isn't equal to 0;
- * therefore, 0 makes a handy flag value for "no timer set".
- * stackoverflow.com/questions/5978519/setinterval-and-how-to-use-clearinterval
- * @param {Int} d a whole positive number
- * @param {Object} f handle/function
- * Interval(d,f)
- */
-var Interval=function(d,f){this.baseline=void 0;this.run=function(){if(void 0===this.baseline){this.baseline=(new Date()).getTime();}f();var c=(new Date()).getTime();this.baseline+=d;var b=d-(c-this.baseline);if(0>b){b=0;}(function(d){d.timer=setTimeout(function(){d.run(c);},b);}(this));};this.stop=function(){clearTimeout(this.timer);};};
-/*!
  * Plain javascript replacement for jQuery's .ready()
  * so code can be scheduled to run when the document is ready
  * github.com/jfriend00/docReady
@@ -376,21 +362,22 @@ var manageExternalLinks = function (ctx) {
 				e.onclick = h_e;
 			}
 		}
-	};
-	if (a) {
+	},
+	k = function () {
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		var fe = function (e) {
-			g(e);
-		};
 		if (w._) {
-			_.each(a, fe);
+			_.each(a, g);
 		} else if (w.forEach) {
-			forEach(a, fe, !1);
+			forEach(a, g, !1);
 		} else {
 			for (var i = 0, l = a.length; i < l; i += 1) {
 				g(a[i]);
 			}
 		}
+	};
+	if (a) {
+		k();
+		console.log("triggered function: manageExternalLinks");
 	}
 };
 evento.add(window, "load", manageExternalLinks.bind(null, ""));
@@ -410,21 +397,22 @@ var manageLocalLinks = function (ctx) {
 		if (p && parseLink(p).isRelative && !e.getAttribute("title")) {
 			e.title = "Откроется здесь же";
 		}
-	};
-	if (a) {
+	},
+	k = function () {
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		var fe = function (e) {
-			g(e);
-		};
 		if (w._) {
-			_.each(a, fe);
+			_.each(a, g);
 		} else if (w.forEach) {
-			forEach(a, fe, !1);
+			forEach(a, g, !1);
 		} else {
 			for (var i = 0, l = a.length; i < l; i += 1) {
 				g(a[i]);
 			}
 		}
+	};
+	if (a) {
+		k();
+		console.log("triggered function: manageLocalLinks");
 	}
 };
 evento.add(window, "load", manageLocalLinks.bind(null, ""));
@@ -438,6 +426,7 @@ var initFastClick = function () {
 	b = BALA.one("body") || "";
 	if (w.FastClick) {
 		FastClick.attach(b);
+		console.log("triggered function: initFastClick");
 	}
 };
 var loadInitFastClick = function () {
@@ -480,6 +469,7 @@ var showLocationQR = function () {
 		} else {
 			setStyleDisplayNone(a);
 		}
+		console.log("triggered function: showLocationQR");
 	}
 };
 evento.add(window, "load", showLocationQR);
@@ -535,25 +525,22 @@ var initNavMenu = function () {
 		e[cL].add(is_active);
 	},
 	s = function (a) {
-		var fe = function (e) {
-			m(e);
-		};
 		if (w._) {
-			_.each(a, fe);
+			_.each(a, m);
 		} else if (w.forEach) {
-			forEach(a, fe, !1);
+			forEach(a, m, !1);
 		} else {
 			for (var j = 0, l = a.length; j < l; j += 1) {
 				m(a[j]);
 			}
 		}
 	},
-	v = function (a, e) {
+	v = function (e) {
 		var h_e = function ()  {
 			if (panel[cL].contains(is_active)) {
 				q();
 			}
-			s(a);
+			s(items);
 			n(e);
 		};
 		evento.add(e, "click", h_e);
@@ -565,16 +552,13 @@ var initNavMenu = function () {
 		}
 	},
 	z = function () {
-		var fe2 = function (e) {
-			v(items, e);
-		};
 		if (w._) {
-			_.each(items, fe2);
+			_.each(items, v);
 		} else if (w.forEach) {
-			forEach(items, fe2, !1);
+			forEach(items, v, !1);
 		} else {
 			for (var i = 0, l = items.length; i < l; i += 1) {
-				v(items, items[i]);
+				v(items[i]);
 			}
 		}
 	};
@@ -588,6 +572,7 @@ var initNavMenu = function () {
 		 * close nav, scroll to top, highlight active nav item
 		 */
 		z();
+		console.log("triggered function: initNavMenu");
 	}
 };
 docReady(initNavMenu);
@@ -638,6 +623,7 @@ var addAppUpdatesLink = function () {
 	};
 	if (panel && items && p) {
 		g();
+		console.log("triggered function: addAppUpdatesLink");
 	}
 };
 docReady(addAppUpdatesLink);
@@ -675,13 +661,10 @@ var initMenuMore = function () {
 		/* btn.onclick = h_btn; */
 	},
 	v = function () {
-		var fe = function (e) {
-			g(e);
-		};
 		if (w._) {
-			_.each(items, fe);
+			_.each(items, g);
 		} else if (w.forEach) {
-			forEach(items, fe, !1);
+			forEach(items, g, !1);
 		} else {
 			for (var i = 0, l = items.length; i < l; i += 1) {
 				g(items[i]);
@@ -701,6 +684,7 @@ var initMenuMore = function () {
 		 * hide menu more on item clicked
 		 */
 		v();
+		console.log("triggered function: initMenuMore");
 	}
 };
 docReady(initMenuMore);
@@ -757,18 +741,22 @@ var initVKLike = function () {
 		} else {
 			setStyleDisplayNone(a);
 		}
+		console.log("triggered function: initVKLike");
 	}
 };
 docReady(initVKLike);
 /*!
  * init manUP.js
  */
-var loadManUp = function () {
+var initManUp = function () {
+	console.log("triggered function: initManUp");
+};
+var loadInitManUp = function () {
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		ajaxLoadTriggerJS("/cdn/ManUp.js/0.7/js/manup.fixed.min.js");
+		ajaxLoadTriggerJS("/cdn/ManUp.js/0.7/js/manup.fixed.min.js", initManUp);
 	}
 };
-docReady(loadManUp);
+docReady(loadInitManUp);
 /*!
  * show page, finish ToProgress
  */
@@ -785,17 +773,12 @@ var showPageFinishProgress = function () {
 		setImmediate(pBC);
 	},
 	k = function () {
-		var f = function () {
-			if (imagesPreloaded && 0 !== si) {
-				si.stop();
-				si = 0;
+		var si = setInterval(function () {
+			if (imagesPreloaded) {
+				clearInterval(si);
 				g();
 			}
-		},
-		si = new Interval(50, f);
-		if (si) {
-			si.run();
-		}
+		}, 100);
 	};
 	if (a && c) {
 		if ("undefined" !== typeof imagesPreloaded) {
@@ -804,5 +787,6 @@ var showPageFinishProgress = function () {
 			g();
 		}
 	}
+	console.log("triggered function: showPageFinishProgress");
 };
 evento.add(window, "load", showPageFinishProgress);

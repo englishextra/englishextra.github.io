@@ -385,21 +385,22 @@ var manageExternalLinks = function (ctx) {
 				e.onclick = h_e;
 			}
 		}
-	};
-	if (a) {
+	},
+	k = function () {
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		var fe = function (e) {
-			g(e);
-		};
 		if (w._) {
-			_.each(a, fe);
+			_.each(a, g);
 		} else if (w.forEach) {
-			forEach(a, fe, !1);
+			forEach(a, g, !1);
 		} else {
 			for (var i = 0, l = a.length; i < l; i += 1) {
 				g(a[i]);
 			}
 		}
+	};
+	if (a) {
+		k();
+		console.log("triggered function: manageExternalLinks");
 	}
 };
 evento.add(window, "load", manageExternalLinks.bind(null, ""));
@@ -421,13 +422,10 @@ var manageLocalLinks = function (ctx) {
 	};
 	if (a) {
 		a = ctx ? BALA("a", ctx) || "" : BALA("a") || "";
-		var fe = function (e) {
-			g(e);
-		};
 		if (w._) {
-			_.each(a, fe);
+			_.each(a, g);
 		} else if (w.forEach) {
-			forEach(a, fe, !1);
+			forEach(a, g, !1);
 		} else {
 			for (var i = 0, l = a.length; i < l; i += 1) {
 				g(a[i]);
@@ -446,6 +444,7 @@ var initFastClick = function () {
 	b = BALA.one("body") || "";
 	if (w.FastClick) {
 		FastClick.attach(b);
+		console.log("triggered function: initFastClick");
 	}
 };
 var loadInitFastClick = function () {
@@ -570,6 +569,7 @@ var initDoSlide = function () {
 	}
 };
 var loadInitDoSlide = function () {
+	"use strict";
 	ajaxLoadTriggerJS("../../cdn/doSlide/1.1.4/js/do-slide.fixed.min.js", initDoSlide);
 };
 docReady(loadInitDoSlide);
@@ -604,6 +604,7 @@ var showLocationQR = function () {
 		} else {
 			setStyleDisplayNone(a);
 		}
+		console.log("triggered function: showLocationQR");
 	}
 };
 evento.add(window, "load", showLocationQR);
@@ -641,13 +642,10 @@ var initMenuMore = function () {
 		/* btn.onclick = h_btn; */
 	},
 	v = function () {
-		var fe = function (e) {
-			g(e);
-		};
 		if (w._) {
-			_.each(items, fe);
+			_.each(items, g);
 		} else if (w.forEach) {
-			forEach(items, fe, !1);
+			forEach(items, g, !1);
 		} else {
 			for (var i = 0, l = items.length; i < l; i += 1) {
 				g(items[i]);
@@ -667,6 +665,7 @@ var initMenuMore = function () {
 		 * hide menu more on item clicked
 		 */
 		v();
+		console.log("triggered function: initMenuMore");
 	}
 };
 docReady(initMenuMore);
@@ -733,6 +732,7 @@ var initPlusoYaShare = function () {
 		} else {
 			setStyleDisplayNone(a);
 		}
+		console.log("triggered function: initPlusoYaShare");
 	}
 };
 docReady(initPlusoYaShare);
@@ -789,18 +789,22 @@ var initVKLike = function () {
 		} else {
 			setStyleDisplayNone(a);
 		}
+		console.log("triggered function: initVKLike");
 	}
 };
 docReady(initVKLike);
 /*!
  * init manUP.js
  */
-var loadManUp = function () {
+var initManUp = function () {
+	console.log("triggered function: initManUp");
+};
+var loadInitManUp = function () {
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		ajaxLoadTriggerJS("/cdn/ManUp.js/0.7/js/manup.fixed.min.js");
+		ajaxLoadTriggerJS("/cdn/ManUp.js/0.7/js/manup.fixed.min.js", initManUp);
 	}
 };
-docReady(loadManUp);
+docReady(loadInitManUp);
 /*!
  * show page, finish ToProgress
  */
@@ -812,5 +816,6 @@ var showPageFinishProgress = function () {
 	};
 	setStyleOpacity(a, 1);
 	setImmediate(pBC);
+	console.log("triggered function: showPageFinishProgress");
 };
 evento.add(window, "load", showPageFinishProgress);

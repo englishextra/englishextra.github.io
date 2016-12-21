@@ -83,20 +83,6 @@ if (document.title) {
 	document.title = document.title + userBrowsingDetails;
 }
 /*!
- * Accurate Javascript setInterval replacement
- * gist.github.com/manast/1185904
- * gist.github.com/englishextra/f721a0c4d12aa30f74c2e089370e09eb
- * minified with closure-compiler.appspot.com/home
- * var si=new interval(50,function(){if(1===1){si.stop(),si=0;}});si.run();
- * The handle will be a number that isn't equal to 0;
- * therefore, 0 makes a handy flag value for "no timer set".
- * stackoverflow.com/questions/5978519/setinterval-and-how-to-use-clearinterval
- * @param {Int} d a whole positive number
- * @param {Object} f handle/function
- * Interval(d,f)
- */
-var Interval=function(d,f){this.baseline=void 0;this.run=function(){if(void 0===this.baseline){this.baseline=(new Date()).getTime();}f();var c=(new Date()).getTime();this.baseline+=d;var b=d-(c-this.baseline);if(0>b){b=0;}(function(d){d.timer=setTimeout(function(){d.run(c);},b);}(this));};this.stop=function(){clearTimeout(this.timer);};};
-/*!
  * modified for babel Evento - v1.0.0
  * by Erik Royall <erikroyalL@hotmail.com> (http://erikroyall.github.io)
  * Dual licensed under MIT and GPL
@@ -172,6 +158,7 @@ var initParallax = function () {
 	}
 };
 var loadInitParallax = function () {
+	"use strict";
 	ajaxLoadTriggerJS("/cdn/parallax/2.1.3/js/parallax.fixed.min.js", initParallax);
 };
 evento.add(window, "load", loadInitParallax);
@@ -187,17 +174,12 @@ var showPageFinishProgress = function () {
 		setImmediate(setStyleDisplayNone.bind(null, c));
 	},
 	k = function () {
-		var f = function () {
-			if (imagesPreloaded && 0 !== si) {
-				si.stop();
-				si = 0;
+		var si = setInterval(function () {
+			if (imagesPreloaded) {
+				clearInterval(si);
 				g();
 			}
-		},
-		si = new Interval(50, f);
-		if (si) {
-			si.run();
-		}
+		}, 100);
 	};
 	if (a) {
 		if ("undefined" !== typeof imagesPreloaded) {
@@ -206,5 +188,6 @@ var showPageFinishProgress = function () {
 			g();
 		}
 	}
+	console.log("triggered function: showPageFinishProgress");
 };
 evento.add(window, "load", showPageFinishProgress);

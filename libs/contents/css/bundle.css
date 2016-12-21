@@ -11,7 +11,10 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
  * masonry grid
  */
 .masonry-grid-wrapper {
+	/*! stackoverflow.com/questions/26595515/masonry-js-not-displaying-correctly-in-firefox */
+	float: left;
 	display: block;
+	width: 100%;
 	height: 100%;
 	background-color: rgba(242,242,242,1);
 	/*! stackoverflow.com/questions/14967413/background-color-not-showing-for-a-div
@@ -118,9 +121,9 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 	height: auto;
 }
 .masonry-grid-item-content {
+	/* min-height: 11.750rem; */
 	background: #FFFFFF;
 	padding: 1.000em;
-	min-height: 11.750rem;
 }
 .masonry-grid-item-content h2 {
 	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI Light","Segoe WP Light",sans-serif;

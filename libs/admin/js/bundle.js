@@ -327,21 +327,22 @@ var manageExternalLinks = function (ctx) {
 				e.onclick = h_e;
 			}
 		}
-	};
-	if (a) {
+	},
+	k = function () {
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		var fe = function (e) {
-			g(e);
-		};
 		if (w._) {
-			_.each(a, fe);
+			_.each(a, g);
 		} else if (w.forEach) {
-			forEach(a, fe, !1);
+			forEach(a, g, !1);
 		} else {
 			for (var i = 0, l = a.length; i < l; i += 1) {
 				g(a[i]);
 			}
 		}
+	};
+	if (a) {
+		k();
+		console.log("triggered function: manageExternalLinks");
 	}
 };
 evento.add(window, "load", manageExternalLinks.bind(null, ""));
@@ -361,21 +362,22 @@ var manageLocalLinks = function (ctx) {
 		if (p && parseLink(p).isRelative && !e.getAttribute("title")) {
 			e.title = "Откроется здесь же";
 		}
-	};
-	if (a) {
+	},
+	k = function () {
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		var fe = function (e) {
-			g(e);
-		};
 		if (w._) {
-			_.each(a, fe);
+			_.each(a, g);
 		} else if (w.forEach) {
-			forEach(a, fe, !1);
+			forEach(a, g, !1);
 		} else {
 			for (var i = 0, l = a.length; i < l; i += 1) {
 				g(a[i]);
 			}
 		}
+	};
+	if (a) {
+		k();
+		console.log("triggered function: manageLocalLinks");
 	}
 };
 evento.add(window, "load", manageLocalLinks.bind(null, ""));
@@ -451,6 +453,7 @@ var initUiTotop = function () {
 	};
 	if (b) {
 		g(q);
+		console.log("triggered function: initUiTotop");
 	}
 };
 docReady(initUiTotop);
@@ -465,5 +468,6 @@ var showPageFinishProgress = function () {
 	};
 	setStyleOpacity(a, 1);
 	setImmediate(pBC);
+	console.log("triggered function: showPageFinishProgress");
 };
 evento.add(window, "load", showPageFinishProgress);
