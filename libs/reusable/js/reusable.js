@@ -232,7 +232,7 @@ var forEach=function(a,b){if(Array.prototype.forEach)Array.prototype.forEach.cal
  * gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b
  * paulirish.com/2011/requestanimationframe-for-smart-animating/
  */
-window.requestAnimFrame=(function(){return window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(callback,element){window.setTimeout(callback,1000/60);};})();
+var requestAnimFrame=(function(){return window.requestAnimationFrame||function(callback,element){window.setTimeout(callback,1000/60);};})();
 /*!
  * Behaves the same as setTimeout except uses requestAnimationFrame()
  * where possible for better performance
@@ -240,20 +240,22 @@ window.requestAnimFrame=(function(){return window.requestAnimationFrame||window.
  * the fallback function requestAnimFrame is incorporated
  * gist.github.com/joelambert/1002116
  * gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b
+ * jsfiddle.net/englishextra/dnyomc4j/
  * @param {Object} fn The callback function
  * @param {Int} delay The delay in milliseconds
  * requestTimeout(fn,delay)
  */
-var requestTimeout=function(fn,delay){if(!window.requestAnimationFrame&&!window.webkitRequestAnimationFrame&&!(window.mozRequestAnimationFrame&&window.mozCancelRequestAnimationFrame)&&!window.oRequestAnimationFrame&&!window.msRequestAnimationFrame){return window.setTimeout(fn,delay);}var requestAnimFrame=function(callback,element){window.setTimeout(callback,1000/60);},start=new Date().getTime(),handle={};function loop(){var current=new Date().getTime(),delta=current-start;if(delta>=delay){fn.call();}else{handle.value=requestAnimFrame(loop);}}handle.value=requestAnimFrame(loop);return handle;};
+var requestTimeout=function(fn,delay){var requestAnimFrame=(function(){return window.requestAnimationFrame||function(callback,element){window.setTimeout(callback,1000/60);};})(),start=new Date().getTime(),handle={};function loop(){var current=new Date().getTime(),delta=current-start;if(delta>=delay){fn.call();}else{handle.value=requestAnimFrame(loop);}}handle.value=requestAnimFrame(loop);return handle;};
 /*!
  * Behaves the same as clearTimeout except uses cancelRequestAnimationFrame()
  * where possible for better performance
  * gist.github.com/joelambert/1002116
  * gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b
+ * jsfiddle.net/englishextra/dnyomc4j/
  * @param {Int|Object} handle The callback function
  * clearRequestTimeout(handle)
  */
-var clearRequestTimeout=function(handle){if(window.cancelAnimationFrame){window.cancelAnimationFrame(handle.value);}else{if(window.webkitCancelAnimationFrame){window.webkitCancelAnimationFrame(handle.value);}else{if(window.webkitCancelRequestAnimationFrame){window.webkitCancelRequestAnimationFrame(handle.value);}else{if(window.mozCancelRequestAnimationFrame){window.mozCancelRequestAnimationFrame(handle.value);}else{if(window.oCancelRequestAnimationFrame){window.oCancelRequestAnimationFrame(handle.value);}else{if(window.msCancelRequestAnimationFrame){window.msCancelRequestAnimationFrame(handle.value);}else{clearTimeout(handle);}}}}}}};
+var clearRequestTimeout=function(handle){if(window.cancelAnimationFrame){window.cancelAnimationFrame(handle.value);}else{window.clearTimeout(handle);}};
 /*!
  * set and clear timeout
  * based on requestTimeout and clearRequestTimeout
@@ -270,17 +272,22 @@ var setAutoClearedTimeout=function(f,n){n=n||200;if(f&&"function"===typeof f){va
  * the fallback function requestAnimFrame is incorporated
  * gist.github.com/joelambert/1002116
  * gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b
+ * jsfiddle.net/englishextra/sxrzktkz/
  * @param {Object} fn The callback function
  * @param {Int} delay The delay in milliseconds
+ * requestInterval(fn, delay);
  */
-window.requestInterval=function(fn,delay){if(!window.requestAnimationFrame&&!window.webkitRequestAnimationFrame&&!(window.mozRequestAnimationFrame&&window.mozCancelRequestAnimationFrame)&&!window.oRequestAnimationFrame&&!window.msRequestAnimationFrame){return window.setInterval(fn,delay);};var requestAnimFrame=function(callback,element){window.setTimeout(callback,1000/60);},start=new Date().getTime(),handle={};function loop(){var current=new Date().getTime(),delta=current-start;if(delta>=delay){fn.call();start=new Date().getTime();};handle.value=requestAnimFrame(loop);}handle.value=requestAnimFrame(loop);return handle;};
+var requestInterval=function(fn,delay){var requestAnimFrame=(function(){return window.requestAnimationFrame||function(callback,element){window.setTimeout(callback,1000/60);};})(),start=new Date().getTime(),handle={};function loop(){handle.value=requestAnimFrame(loop);var current=new Date().getTime(),delta=current-start;if(delta>=delay){fn.call();start=new Date().getTime();}}handle.value=requestAnimFrame(loop);return handle;};
 /*!
- * Behaves the same as clearInterval except uses cancelRequestAnimationFrame() where possible for better performance
+ * Behaves the same as clearInterval except uses cancelRequestAnimationFrame()
+ * where possible for better performance
  * gist.github.com/joelambert/1002116
  * gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b
- * @param {Int|Object} fn The callback function
+ * jsfiddle.net/englishextra/sxrzktkz/
+ * @param {Int|Object} handle function handle, or function
+ * clearRequestInterval(handle);
  */
-window.clearRequestInterval=function(handle){window.cancelAnimationFrame?window.cancelAnimationFrame(handle.value):window.webkitCancelAnimationFrame?window.webkitCancelAnimationFrame(handle.value):window.webkitCancelRequestAnimationFrame?window.webkitCancelRequestAnimationFrame(handle.value):window.mozCancelRequestAnimationFrame?window.mozCancelRequestAnimationFrame(handle.value):window.oCancelRequestAnimationFrame?window.oCancelRequestAnimationFrame(handle.value):window.msCancelRequestAnimationFrame?window.msCancelRequestAnimationFrame(handle.value):clearInterval(handle);}
+var clearRequestInterval=function(handle){if(window.cancelAnimationFrame){window.cancelAnimationFrame(handle.value);}else{window.clearInterval(handle);}};
 /*!
  * Fade In
  * gist.github.com/englishextra/cbf5137a95ed5e02927cd3e19e271bae
@@ -2624,10 +2631,10 @@ var initMasonryDisqus = function () {
 					console.log("function initMasonryDisqus => initialised msnry");
 				}
 			},
-			si = setInterval(function () {
+			si = requestInterval(function () {
 					console.log("function initMasonryDisqus => started Interval");
 					if (imagesPreloaded) {
-						clearInterval(si);
+						clearRequestInterval(si);
 						console.log("function initMasonryDisqus => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
 						s();
 					}
@@ -2679,10 +2686,10 @@ var initMasonryDisqus = function () {
 					}
 				}
 			},
-			si = setInterval(function () {
+			si = requestInterval(function () {
 					console.log("function initMasonryDisqus => started Interval");
 					if (imagesPreloaded) {
-						clearInterval(si);
+						clearRequestInterval(si);
 						console.log("function initMasonryDisqus => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
 						s();
 					}
@@ -2699,11 +2706,11 @@ var initMasonryDisqus = function () {
 	},
 	z = function () {
 		var s = function () {
-			var si = setInterval(function () {
+			var si = requestInterval(function () {
 					console.log("function initMasonryDisqus => started Interval");
 					var disqus_thread_height = disqus_thread.clientHeight || disqus_thread.offsetHeight || "";
 					if (108 < disqus_thread_height) {
-						clearInterval(si);
+						clearRequestInterval(si);
 						console.log("function initMasonryDisqus => si=" + si + "; disqus_thread_height=" + disqus_thread_height);
 						if ("undefined" !== typeof msnry && msnry) {
 							msnry.layout();
@@ -4188,12 +4195,14 @@ var showPageFinishProgress = function () {
 		setImmediate(pBC);
 	},
 	k = function () {
-		var si = setInterval(function () {
-			if (imagesPreloaded) {
-				clearInterval(si);
-				g();
-			}
-		}, 100);
+		var si = requestInterval(function () {
+				console.log("function showPageFinishProgress => started Interval");
+				if (imagesPreloaded) {
+					clearRequestInterval(si);
+					console.log("function showPageFinishProgress => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
+					g();
+				}
+			}, 100);
 	},
 	q = function () {
 		/* setStyleDisplayNone(a); */

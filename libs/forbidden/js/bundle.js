@@ -783,12 +783,14 @@ var showPageFinishProgress = function () {
 		setImmediate(pBC);
 	},
 	k = function () {
-		var si = setInterval(function () {
-			if (imagesPreloaded) {
-				clearInterval(si);
-				g();
-			}
-		}, 100);
+		var si = requestInterval(function () {
+				console.log("function showPageFinishProgress => started Interval");
+				if (imagesPreloaded) {
+					clearRequestInterval(si);
+					console.log("function showPageFinishProgress => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
+					g();
+				}
+			}, 100);
 	};
 	if (a && c) {
 		if ("undefined" !== typeof imagesPreloaded) {

@@ -153,6 +153,28 @@ if (document.title) {
  */
 ;(function(){var forEach=function(a,b,c){var d=-1,e=a.length>>>0;(function f(g){var h,j=false===g;do++d;while(!(d in a)&&d!==e);if(j||d===e){if(c){c(!j,a);}return;}g=b.call({async:function(){return h=!0,f;}},a[d],d,a);if(!h){f(g);}})();};window.forEach=forEach;}());
 /*!
+ * Behaves the same as setInterval except uses requestAnimationFrame() where possible for better performance
+ * modified gist.github.com/joelambert/1002116
+ * the fallback function requestAnimFrame is incorporated
+ * gist.github.com/joelambert/1002116
+ * gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b
+ * jsfiddle.net/englishextra/sxrzktkz/
+ * @param {Object} fn The callback function
+ * @param {Int} delay The delay in milliseconds
+ * requestInterval(fn, delay);
+ */
+var requestInterval=function(fn,delay){var requestAnimFrame=(function(){return window.requestAnimationFrame||function(callback,element){window.setTimeout(callback,1000/60);};})(),start=new Date().getTime(),handle={};function loop(){handle.value=requestAnimFrame(loop);var current=new Date().getTime(),delta=current-start;if(delta>=delay){fn.call();start=new Date().getTime();}}handle.value=requestAnimFrame(loop);return handle;};
+/*!
+ * Behaves the same as clearInterval except uses cancelRequestAnimationFrame()
+ * where possible for better performance
+ * gist.github.com/joelambert/1002116
+ * gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b
+ * jsfiddle.net/englishextra/sxrzktkz/
+ * @param {Int|Object} handle function handle, or function
+ * clearRequestInterval(handle);
+ */
+var clearRequestInterval=function(handle){if(window.cancelAnimationFrame){window.cancelAnimationFrame(handle.value);}else{window.clearInterval(handle);}};
+/*!
  * Plain javascript replacement for jQuery's .ready()
  * so code can be scheduled to run when the document is ready
  * github.com/jfriend00/docReady
@@ -567,10 +589,10 @@ var initMasonryDisqus = function () {
 					console.log("function initMasonryDisqus => initialised msnry");
 				}
 			},
-			si = setInterval(function () {
+			si = requestInterval(function () {
 					console.log("function initMasonryDisqus => started Interval");
 					if (imagesPreloaded) {
-						clearInterval(si);
+						clearRequestInterval(si);
 						console.log("function initMasonryDisqus => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
 						s();
 					}
@@ -622,10 +644,10 @@ var initMasonryDisqus = function () {
 					}
 				}
 			},
-			si = setInterval(function () {
+			si = requestInterval(function () {
 					console.log("function initMasonryDisqus => started Interval");
 					if (imagesPreloaded) {
-						clearInterval(si);
+						clearRequestInterval(si);
 						console.log("function initMasonryDisqus => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
 						s();
 					}
@@ -642,11 +664,11 @@ var initMasonryDisqus = function () {
 	},
 	z = function () {
 		var s = function () {
-			var si = setInterval(function () {
+			var si = requestInterval(function () {
 					console.log("function initMasonryDisqus => started Interval");
 					var disqus_thread_height = disqus_thread.clientHeight || disqus_thread.offsetHeight || "";
 					if (108 < disqus_thread_height) {
-						clearInterval(si);
+						clearRequestInterval(si);
 						console.log("function initMasonryDisqus => si=" + si + "; disqus_thread_height=" + disqus_thread_height);
 						if ("undefined" !== typeof msnry && msnry) {
 							msnry.layout();
@@ -1486,12 +1508,14 @@ var showPageFinishProgress = function () {
 		setImmediate(pBC);
 	},
 	k = function () {
-		var si = setInterval(function () {
-			if (imagesPreloaded) {
-				clearInterval(si);
-				g();
-			}
-		}, 100);
+		var si = requestInterval(function () {
+				console.log("function showPageFinishProgress => started Interval");
+				if (imagesPreloaded) {
+					clearRequestInterval(si);
+					console.log("function showPageFinishProgress => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
+					g();
+				}
+			}, 100);
 	};
 	if (a) {
 		if ("undefined" !== typeof imagesPreloaded) {
