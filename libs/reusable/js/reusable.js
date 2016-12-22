@@ -1726,7 +1726,7 @@ var loadInitTablesort = function () {
 		if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
 			/* ajaxLoadTriggerJS(js, initTablesort.bind(null, "")); */
 			if (!scriptIsLoaded(js)) {
-				loadJS(js, initTablesort.bind(null, ""))
+				loadJS(js, initTablesort.bind(null, ""));
 			}
 		}
 	}
