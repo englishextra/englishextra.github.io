@@ -486,6 +486,7 @@ var openDeviceBrowser = function (a) {
 	v = function () {
 		return w.open(a, "_system", "scrollbars=1,location=no");
 	};
+	console.log("triggered function: openDeviceBrowser");
 	if ("undefined" !== typeof isElectron && isElectron) {
 		g();
 	} else if ("undefined" !== typeof isNwjs && isNwjs) {
@@ -539,8 +540,8 @@ var manageExternalLinks = function (ctx) {
 		}
 	};
 	if (a) {
-		k();
 		console.log("triggered function: manageExternalLinks");
+		k();
 	}
 };
 evento.add(window, "load", manageExternalLinks.bind(null, ""));
@@ -574,8 +575,8 @@ var manageLocalLinks = function (ctx) {
 		}
 	};
 	if (a) {
-		k();
 		console.log("triggered function: manageLocalLinks");
+		k();
 	}
 };
 evento.add(window, "load", manageLocalLinks.bind(null, ""));
@@ -590,8 +591,9 @@ var manageDataPathLinks = function (ctx) {
 	var w = window,
 	cls = "[data-path]",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	ds = "dataset",
 	g = function (e) {
-		var p = e.dataset.path || "";
+		var p = e[ds].path || "";
 		if (p && parseLink(p).isRelative) {
 			/* evento.add(e, "click", changeLocation.bind(null, p)); */
 			e.onclick = changeLocation.bind(null, p);
@@ -610,8 +612,8 @@ var manageDataPathLinks = function (ctx) {
 		}
 	};
 	if (a) {
-		k();
 		console.log("triggered function: manageDataPathLinks");
+		k();
 	}
 };
 evento.add(window, "load", manageDataPathLinks.bind(null, ""));
@@ -626,8 +628,9 @@ var manageDataUrlLinks = function (ctx) {
 	var w = window,
 	cls = "[data-url]",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	ds = "dataset",
 	g = function (e) {
-		var p = e.dataset.url || "",
+		var p = e[ds].url || "",
 		h_e = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
@@ -662,8 +665,8 @@ var manageDataUrlLinks = function (ctx) {
 		}
 	};
 	if (a) {
-		k();
 		console.log("triggered function: manageDataUrlLinks");
+		k();
 	}
 };
 evento.add(window, "load", manageDataUrlLinks.bind(null, ""));
@@ -676,8 +679,8 @@ var initFastClick = function () {
 	var w = window,
 	b = BALA.one("body") || "";
 	if (w.FastClick) {
-		FastClick.attach(b);
 		console.log("triggered function: initFastClick");
+		FastClick.attach(b);
 	}
 };
 var loadInitFastClick = function () {
@@ -704,6 +707,7 @@ var LoadingSpinner = function () {
 	cls = "loading-spinner",
 	a = BALA.one("." + cls) || "",
 	cL = "classList";
+	console.log("triggered function: LoadingSpinner");
 	if (!a) {
 		a = crel("div");
 		a[cL].add(cls);
@@ -749,6 +753,7 @@ var Notifier42 = function (m, n, t) {
 	an = "animated",
 	an2 = "fadeInUp",
 	an4 = "fadeOutDown";
+	console.log("triggered function: Notifier42");
 	if (!c) {
 		c = crel("div");
 		appendFragment(c, b);
@@ -818,6 +823,7 @@ var initNotifier42WriteComment = function () {
 			Cookies.set(n, encodeURIComponent(m));
 		};
 		if (!Cookies.get(n) && p) {
+			console.log("triggered function: initNotifier42WriteComment");
 			setAutoClearedTimeout(g, 16000);
 		}
 	}
@@ -859,14 +865,19 @@ var initTablesort = function (ctx) {
 		}
 	};
 	if (a) {
+		console.log("triggered function: initTablesort");
 		k();
 	}
 };
 var loadInitTablesort = function () {
-	var a = BALA.one("table.sort") || "";
+	var a = BALA.one("table.sort") || "",
+	js = "../../cdn/tablesort/4.0.1/js/tablesort.fixed.min.js";
 	if (a) {
 		if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
-			ajaxLoadTriggerJS("../../cdn/tablesort/4.0.1/js/tablesort.fixed.min.js", initTablesort.bind(null, ""));
+			/* ajaxLoadTriggerJS(js, initTablesort.bind(null, "")); */
+			if (!scriptIsLoaded(js)) {
+				loadJS(js, initTablesort.bind(null, ""))
+			}
 		}
 	}
 };
@@ -885,6 +896,7 @@ var manageDataLightboxImgLinks = function (ctx) {
 	c = BALA.one("." + ilc) || "",
 	m = BALA.one("img", c) || "",
 	cL = "classList",
+	ds = "dataset",
 	an = "animated",
 	an1 = "fadeIn",
 	an2 = "fadeInUp",
@@ -963,7 +975,7 @@ var manageDataLightboxImgLinks = function (ctx) {
 		});
 	},
 	k = function (e) {
-		var v = e.dataset.lightbox || "",
+		var v = e[ds].lightbox || "",
 		p = e.getAttribute("href") || "",
 		h_e = function (_this, e) {
 			e.stopPropagation();
@@ -979,6 +991,7 @@ var manageDataLightboxImgLinks = function (ctx) {
 		}
 	};
 	if (a) {
+		console.log("triggered function: manageDataLightboxImgLinks");
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
 		if (w._) {
 			_.each(a, k);
@@ -989,7 +1002,6 @@ var manageDataLightboxImgLinks = function (ctx) {
 				k(a[j]);
 			}
 		}
-		console.log("triggered function: manageDataLightboxImgLinks");
 	}
 };
 evento.add(window, "load", manageDataLightboxImgLinks.bind(null, ""));
@@ -1021,6 +1033,7 @@ var manageDataSrcImg = function (ctx) {
 		}
 	};
 	if (a) {
+		console.log("triggered function: manageDataSrcImg");
 		a = ctx ? BALA(el, ctx) || "" : BALA(el) || "";
 		if (w._) {
 			_.each(a, g);
@@ -1031,7 +1044,6 @@ var manageDataSrcImg = function (ctx) {
 				g(a[i]);
 			}
 		}
-		console.log("triggered function: manageDataSrcImg");
 	}
 };
 /*!
@@ -1070,6 +1082,7 @@ var manageDataSrcIframe = function (ctx) {
 		}
 	};
 	if (a) {
+		console.log("triggered function: manageDataSrcIframe");
 		a = ctx ? BALA(el, ctx) || "" : BALA(el) || "";
 		if (w._) {
 			_.each(a, g);
@@ -1080,12 +1093,12 @@ var manageDataSrcIframe = function (ctx) {
 				g(a[i]);
 			}
 		}
-		console.log("triggered function: manageDataSrcIframe");
 	}
 };
 var loadManageDataSrcImgIframe = function () {
 	var a = BALA.one("img[data-src]") || "",
 	c = BALA.one("iframe[data-src]") || "",
+	js = "../../cdn/lazyload/3.2.2/js/lazyload.fixed.min.js";
 	f = function () {
 		if (a) {
 			manageDataSrcImg();
@@ -1095,7 +1108,10 @@ var loadManageDataSrcImgIframe = function () {
 		}
 	};
 	if (a || c) {
-		ajaxLoadTriggerJS("../../cdn/lazyload/3.2.2/js/lazyload.fixed.min.js", f);
+		/* ajaxLoadTriggerJS(js, f); */
+		if (!scriptIsLoaded(js)) {
+			loadJS(js, f);
+		}
 	}
 };
 evento.add(window, "load", loadManageDataSrcImgIframe);
@@ -1133,8 +1149,8 @@ var manageStaticSelect = function (ctx) {
 		a.onchange = g.bind(null, a);
 	};
 	if (a) {
-		k();
 		console.log("triggered function: manageStaticSelect");
+		k();
 	}
 };
 evento.add(window, "load", manageStaticSelect.bind(null, ""));
@@ -1153,8 +1169,8 @@ var manageSearchInput = function () {
 		/* e.oninput = g.bind(null, e); */
 	};
 	if (a) {
-		k(a);
 		console.log("triggered function: manageSearchInput");
+		k(a);
 	}
 };
 docReady(manageSearchInput);
@@ -1197,8 +1213,8 @@ var manageExpandingLayers = function (ctx) {
 		}
 	};
 	if (a) {
-		q();
 		console.log("triggered function: manageExpandingLayers");
+		q();
 	}
 };
 evento.add(window, "load", manageExpandingLayers.bind(null, ""));
@@ -1226,6 +1242,7 @@ var showLocationQR = function () {
 		appendFragment(m, a);
 	};
 	if (a && p) {
+		console.log("triggered function: showLocationQR");
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
 				g();
@@ -1233,7 +1250,6 @@ var showLocationQR = function () {
 		} else {
 			setStyleDisplayNone(a);
 		}
-		console.log("triggered function: showLocationQR");
 	}
 };
 evento.add(window, "load", showLocationQR);
@@ -1327,6 +1343,7 @@ var initNavMenu = function () {
 		}
 	};
 	if (container && page && btn && panel && items) {
+		console.log("triggered function: initNavMenu");
 		/*!
 		 * open or close nav
 		 */
@@ -1336,7 +1353,6 @@ var initNavMenu = function () {
 		 * close nav, scroll to top, highlight active nav item
 		 */
 		z();
-		console.log("triggered function: initNavMenu");
 	}
 };
 docReady(initNavMenu);
@@ -1374,9 +1390,9 @@ var addAppUpdatesLink = function () {
 			/*!
 			 * no prevent default and  void .href above
 			 */
-			/*jshint -W107 */
+			/* jshint -W107 */
 			a.href = "javascript:void(0);";
-			/*jshint +W107 */
+			/* jshint +W107 */
 			evento.add(a, "click", openDeviceBrowser.bind(null, p));
 			/* a.onclick = openDeviceBrowser.bind(null, p); */
 		}
@@ -1386,8 +1402,8 @@ var addAppUpdatesLink = function () {
 		}
 	};
 	if (panel && items && p) {
-		g();
 		console.log("triggered function: addAppUpdatesLink");
+		g();
 	}
 };
 docReady(addAppUpdatesLink);
@@ -1436,6 +1452,7 @@ var initMenuMore = function () {
 		}
 	};
 	if (container && holder && btn && panel && items) {
+		console.log("triggered function: initMenuMore");
 		/*!
 		 * hide menu more on outside click
 		 */
@@ -1448,7 +1465,6 @@ var initMenuMore = function () {
 		 * hide menu more on item clicked
 		 */
 		v();
-		console.log("triggered function: initMenuMore");
 	}
 };
 docReady(initMenuMore);
@@ -1470,7 +1486,7 @@ var initUiTotop = function () {
 					return function () {
 						l -= o * n;
 						w.scrollTo(0, l);
-						i++;
+						i += 1;
 						if (150 < i || 0 > l) {
 							clearInterval(si);
 						}
@@ -1491,9 +1507,9 @@ var initUiTotop = function () {
 			}
 		};
 		a.id = u;
-		/*jshint -W107 */
+		/* jshint -W107 */
 		a.href = "javascript:void(0);";
-		/*jshint +W107 */
+		/* jshint +W107 */
 		a.title = t;
 		evento.add(a, "click", h_a);
 		/* a.onclick = h_a; */
@@ -1523,8 +1539,8 @@ var initUiTotop = function () {
 		/* w.onscroll = k.bind(null, w); */
 	};
 	if (b) {
-		g(q);
 		console.log("triggered function: initUiTotop");
+		g(q);
 	}
 };
 docReady(initUiTotop);
@@ -1569,12 +1585,12 @@ var initPlusoYaShare = function () {
 		/* a.onclick = h_a; */
 	};
 	if ((pluso || ya_share2) && a) {
+		console.log("triggered function: initPlusoYaShare");
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			v();
 		} else {
 			setStyleDisplayNone(a);
 		}
-		console.log("triggered function: initPlusoYaShare");
 	}
 };
 docReady(initPlusoYaShare);
@@ -1640,6 +1656,7 @@ var initDownloadAppBtn = function (n) {
 		setAutoClearedTimeout(s2, n);
 	};
 	if (b && s && p) {
+		console.log("triggered function: initDownloadAppBtn");
 		g();
 	}
 };
@@ -1664,10 +1681,11 @@ var initDisqusOnScroll = function () {
 		is_active = "is-active",
 		btn = BALA.one("#btn-show-disqus") || "",
 		p = w.location.href || "",
-		disqus_shortname = disqus_thread ? (disqus_thread.dataset.shortname || "") : "",
-		embed_js_src = getHTTP(!0) + "://" + disqus_shortname + ".disqus.com/embed.js",
 		cL = "classList",
+		ds = "dataset",
 		pN = "parentNode",
+		disqus_shortname = disqus_thread ? (disqus_thread[ds].shortname || "") : "",
+		embed_js_src = getHTTP(!0) + "://" + disqus_shortname + ".disqus.com/embed.js",
 		g = function () {
 			setStyleDisplayNone(btn);
 			disqus_thread[cL].add(is_active);
@@ -1698,6 +1716,7 @@ var initDisqusOnScroll = function () {
 			setStyleDisplayNone(btn[pN]);
 		};
 		if (disqus_thread && btn && disqus_shortname && p) {
+			console.log("triggered function: initDisqusOnScroll");
 			if ("undefined" !== typeof getHTTP && getHTTP()) {
 				if ("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize) {
 					q();
@@ -1731,7 +1750,6 @@ var initDisqusOnScroll = function () {
 			} else {
 				v();
 			}
-			console.log("triggered function: initDisqusOnScroll");
 		}
 	}
 };
@@ -1745,11 +1763,12 @@ var initVKLike = function () {
 	c = BALA.one("#vk-like") || "",
 	a = BALA.one("#btn-show-vk-like") || "",
 	js = getHTTP(!0) + "://vk.com/js/api/openapi.js?122",
+	ds = "dataset",
 	g = function () {
 		try {
 			if (w.VK) {
 				VK.init({
-					apiId: (c.dataset.apiid || ""),
+					apiId: (c[ds].apiid || ""),
 					nameTransportPath: "/xd_receiver.htm",
 					onlyWidgets: !0
 				});
@@ -1784,12 +1803,12 @@ var initVKLike = function () {
 		/* a.onclick = h_a; */
 	};
 	if (c && a) {
+		console.log("triggered function: initVKLike");
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			q();
 		} else {
 			setStyleDisplayNone(a);
 		}
-		console.log("triggered function: initVKLike");
 	}
 };
 docReady(initVKLike);
@@ -1831,6 +1850,7 @@ var initPagesKamil = function () {
 			 * show suggestions
 			 */
 			ac.renderMenu = function (ul, items) {
+				items = items || "";
 				var l = items.length,
 				_this = this,
 				/*!
@@ -1841,13 +1861,15 @@ var initPagesKamil = function () {
 						_this._renderItemData(ul, e, i);
 					}
 				};
-				if (w._) {
-					_.each(items, f);
-				} else if (w.forEach) {
-					forEach(items, f, !1);
-				} else {
-					for (var i = 0; i < l; i += 1) {
-						f(items[i], i);
+				if (items) {
+					if (w._) {
+						_.each(items, f);
+					} else if (w.forEach) {
+						forEach(items, f, !1);
+					} else {
+						for (var i = 0; i < l; i += 1) {
+							f(items[i], i);
+						}
 					}
 				}
 				/*!
@@ -1888,20 +1910,22 @@ var initPagesKamil = function () {
 				/*!
 				 * truncate text
 				 */
-				var g = function (e) {
+				var lis = BALA("li", ul) || "",
+				g = function (e) {
 					var t = e.firstChild.textContent || "",
 					n = d.createTextNode(truncString(t, 24));
 					e.replaceChild(n, e.firstChild);
 					e.title = "" + t;
-				},
-				lis = BALA("li", ul);
-				if (w._) {
-					_.each(lis, g);
-				} else if (w.forEach) {
-					forEach(lis, g, !1);
-				} else {
-					for (var j = 0, m = lis.length; j < m; j += 1) {
-						g(lis[j]);
+				};
+				if (lis) {
+					if (w._) {
+						_.each(lis, g);
+					} else if (w.forEach) {
+						forEach(lis, g, !1);
+					} else {
+						for (var j = 0, m = lis.length; j < m; j += 1) {
+							g(lis[j]);
+						}
 					}
 				}
 			};
@@ -1950,13 +1974,17 @@ var initPagesKamil = function () {
 		}
 	};
 	if (search_form && text) {
-		v();
 		console.log("triggered function: initPagesKamil");
+		v();
 	}
 };
 var loadInitPagesKamil = function () {
 	"use strict";
-	ajaxLoadTriggerJS("../../cdn/kamil/0.1.1/js/kamil.fixed.min.js", initPagesKamil);
+	var js = "../../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
+	/* ajaxLoadTriggerJS(js, initPagesKamil); */
+	if (!scriptIsLoaded(js)) {
+		loadJS(js, initPagesKamil);
+	}
 };
 docReady(loadInitPagesKamil);
 /*!
@@ -2006,6 +2034,7 @@ var initSearchForm = function () {
 		/* search_form.onsubmit = h_search_form; */
 		setStyleDisplayNone(ya_site_form);
 	};
+	console.log("triggered function: initSearchForm");
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
 		if (search_form) {
 			g();
@@ -2016,7 +2045,6 @@ var initSearchForm = function () {
 	} else {
 		q();
 	}
-	console.log("triggered function: initSearchForm");
 };
 evento.add(window, "load", initSearchForm);
 /*!
@@ -2040,8 +2068,8 @@ var showPageFinishProgress = function () {
 	pBC = function () {
 		progressBar.complete();
 	};
+	console.log("triggered function: showPageFinishProgress");
 	setStyleOpacity(a, 1);
 	setImmediate(pBC);
-	console.log("triggered function: showPageFinishProgress");
 };
 evento.add(window, "load", showPageFinishProgress);

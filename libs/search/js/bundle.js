@@ -181,6 +181,14 @@ if (document.title) {
  */
 ;(function(){var evento=function(){if("undefined"==typeof window||!("document"in window)){return console.log("window is undefined or document is not in window"),!1;}var win=window,doc=win.document,_handlers={},addEvent,removeEvent,triggerEvent;addEvent=(function(){if(typeof doc.addEventListener==="function"){return function(el,evt,fn){el.addEventListener(evt,fn,false);_handlers[el]=_handlers[el]||{};_handlers[el][evt]=_handlers[el][evt]||[];_handlers[el][evt].push(fn);};}else if(typeof doc.attachEvent==="function"){return function(el,evt,fn){el.attachEvent(evt,fn);_handlers[el]=_handlers[el]||{};_handlers[el][evt]=_handlers[el][evt]||[];_handlers[el][evt].push(fn);};}else{return function(el,evt,fn){el["on"+evt]=fn;_handlers[el]=_handlers[el]||{};_handlers[el][evt]=_handlers[el][evt]||[];_handlers[el][evt].push(fn);};}}());removeEvent=(function(){if(typeof doc.removeEventListener==="function"){return function(el,evt,fn){el.removeEventListener(evt,fn,false);};}else if(typeof doc.detachEvent==="function"){return function(el,evt,fn){el.detachEvent(evt,fn);};}else{return function(el,evt,fn){el["on"+evt]=undefined;};}}());triggerEvent=function(el,evt){_handlers[el]=_handlers[el]||{};_handlers[el][evt]=_handlers[el][evt]||[];for(var _i=0,_l=_handlers[el][evt].length;_i<_l;_i+=1){_handlers[el][evt][_i]();}};return{add:addEvent,remove:removeEvent,trigger:triggerEvent,_handlers:_handlers};}();window.evento=evento;}());
 /*!
+ * How can I check if a JS file has been included already?
+ * gist.github.com/englishextra/403a0ca44fc5f495400ed0e20bc51d47
+ * stackoverflow.com/questions/18155347/how-can-i-check-if-a-js-file-has-been-included-already
+ * @param {String} s path string
+ * scriptIsLoaded(s)
+ */
+var scriptIsLoaded=function(s){for(var b=document.getElementsByTagName("script")||"",a=0;a<b.length;a++)if(b[a].getAttribute("src")==s)return!0;return!1;};
+/*!
  * Load and execute JS via AJAX
  * gist.github.com/englishextra/8dc9fe7b6ff8bdf5f9b483bf772b9e1c
  * IE 5.5+, Firefox, Opera, Chrome, Safari XHR object
@@ -306,6 +314,7 @@ var openDeviceBrowser = function (a) {
 	v = function () {
 		return w.open(a, "_system", "scrollbars=1,location=no");
 	};
+	console.log("triggered function: openDeviceBrowser");
 	if ("undefined" !== typeof isElectron && isElectron) {
 		g();
 	} else if ("undefined" !== typeof isNwjs && isNwjs) {
@@ -359,8 +368,8 @@ var manageExternalLinks = function (ctx) {
 		}
 	};
 	if (a) {
-		k();
 		console.log("triggered function: manageExternalLinks");
+		k();
 	}
 };
 evento.add(window, "load", manageExternalLinks.bind(null, ""));
@@ -394,8 +403,8 @@ var manageLocalLinks = function (ctx) {
 		}
 	};
 	if (a) {
-		k();
 		console.log("triggered function: manageLocalLinks");
+		k();
 	}
 };
 evento.add(window, "load", manageLocalLinks.bind(null, ""));
@@ -501,7 +510,11 @@ var initSearch = function () {
 };
 var loadInitSearch = function () {
 	"use strict";
-	ajaxLoadTriggerJS("../libs/search/js/vendors.min.js", initSearch);
+	var js = "../libs/search/js/vendors.min.js";
+	/* ajaxLoadTriggerJS(js, initSearch); */
+	if (!scriptIsLoaded(js)) {
+		loadJS(js, initSearch);
+	}
 };
 docReady(loadInitSearch);
 /*!
@@ -519,8 +532,8 @@ var manageSearchInput = function () {
 		/* e.oninput = g.bind(null, e); */
 	};
 	if (a) {
-		k(a);
 		console.log("triggered function: manageSearchInput");
+		k(a);
 	}
 };
 docReady(manageSearchInput);
@@ -542,7 +555,7 @@ var initUiTotop = function () {
 					return function () {
 						l -= o * n;
 						w.scrollTo(0, l);
-						i++;
+						i += 1;
 						if (150 < i || 0 > l) {
 							clearInterval(si);
 						}
@@ -563,9 +576,9 @@ var initUiTotop = function () {
 			}
 		};
 		a.id = u;
-		/*jshint -W107 */
+		/* jshint -W107 */
 		a.href = "javascript:void(0);";
-		/*jshint +W107 */
+		/* jshint +W107 */
 		a.title = t;
 		evento.add(a, "click", h_a);
 		/* a.onclick = h_a; */
@@ -595,8 +608,8 @@ var initUiTotop = function () {
 		/* w.onscroll = k.bind(null, w); */
 	};
 	if (b) {
-		g(q);
 		console.log("triggered function: initUiTotop");
+		g(q);
 	}
 };
 docReady(initUiTotop);
@@ -609,8 +622,8 @@ var showPageFinishProgress = function () {
 	pBC = function () {
 		progressBar.complete();
 	};
+	console.log("triggered function: showPageFinishProgress");
 	setStyleOpacity(a, 1);
 	setImmediate(pBC);
-	console.log("triggered function: showPageFinishProgress");
 };
 evento.add(window, "load", showPageFinishProgress);

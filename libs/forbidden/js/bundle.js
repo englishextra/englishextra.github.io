@@ -140,19 +140,27 @@ if (document.title) {
  */
 ;(function(){var forEach=function(a,b,c){var d=-1,e=a.length>>>0;(function f(g){var h,j=false===g;do++d;while(!(d in a)&&d!==e);if(j||d===e){if(c){c(!j,a);}return;}g=b.call({async:function(){return h=!0,f;}},a[d],d,a);if(!h){f(g);}})();};window.forEach=forEach;}());
 /*!
- * Accurate Javascript setInterval replacement
- * gist.github.com/manast/1185904
- * gist.github.com/englishextra/f721a0c4d12aa30f74c2e089370e09eb
- * minified with closure-compiler.appspot.com/home
- * var si=new interval(50,function(){if(1===1){si.stop(),si=0;}});si.run();
- * The handle will be a number that isn't equal to 0;
- * therefore, 0 makes a handy flag value for "no timer set".
- * stackoverflow.com/questions/5978519/setinterval-and-how-to-use-clearinterval
- * @param {Int} d a whole positive number
- * @param {Object} f handle/function
- * Interval(d,f)
+ * Behaves the same as setInterval except uses requestAnimationFrame() where possible for better performance
+ * modified gist.github.com/joelambert/1002116
+ * the fallback function requestAnimFrame is incorporated
+ * gist.github.com/joelambert/1002116
+ * gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b
+ * jsfiddle.net/englishextra/sxrzktkz/
+ * @param {Object} fn The callback function
+ * @param {Int} delay The delay in milliseconds
+ * requestInterval(fn, delay);
  */
-var Interval=function(d,f){this.baseline=void 0;this.run=function(){if(void 0===this.baseline){this.baseline=(new Date()).getTime();}f();var c=(new Date()).getTime();this.baseline+=d;var b=d-(c-this.baseline);if(0>b){b=0;}(function(d){d.timer=setTimeout(function(){d.run(c);},b);}(this));};this.stop=function(){clearTimeout(this.timer);};};
+var requestInterval=function(fn,delay){var requestAnimFrame=(function(){return window.requestAnimationFrame||function(callback,element){window.setTimeout(callback,1000/60);};})(),start=new Date().getTime(),handle={};function loop(){handle.value=requestAnimFrame(loop);var current=new Date().getTime(),delta=current-start;if(delta>=delay){fn.call();start=new Date().getTime();}}handle.value=requestAnimFrame(loop);return handle;};
+/*!
+ * Behaves the same as clearInterval except uses cancelRequestAnimationFrame()
+ * where possible for better performance
+ * gist.github.com/joelambert/1002116
+ * gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b
+ * jsfiddle.net/englishextra/sxrzktkz/
+ * @param {Int|Object} handle function handle, or function
+ * clearRequestInterval(handle);
+ */
+var clearRequestInterval=function(handle){if(window.cancelAnimationFrame){window.cancelAnimationFrame(handle.value);}else{window.clearInterval(handle);}};
 /*!
  * Plain javascript replacement for jQuery's .ready()
  * so code can be scheduled to run when the document is ready
@@ -337,6 +345,7 @@ var openDeviceBrowser = function (a) {
 	v = function () {
 		return w.open(a, "_system", "scrollbars=1,location=no");
 	};
+	console.log("triggered function: openDeviceBrowser");
 	if ("undefined" !== typeof isElectron && isElectron) {
 		g();
 	} else if ("undefined" !== typeof isNwjs && isNwjs) {
@@ -390,8 +399,8 @@ var manageExternalLinks = function (ctx) {
 		}
 	};
 	if (a) {
-		k();
 		console.log("triggered function: manageExternalLinks");
+		k();
 	}
 };
 evento.add(window, "load", manageExternalLinks.bind(null, ""));
@@ -425,8 +434,8 @@ var manageLocalLinks = function (ctx) {
 		}
 	};
 	if (a) {
-		k();
 		console.log("triggered function: manageLocalLinks");
+		k();
 	}
 };
 evento.add(window, "load", manageLocalLinks.bind(null, ""));
@@ -439,8 +448,8 @@ var initFastClick = function () {
 	var w = window,
 	b = BALA.one("body") || "";
 	if (w.FastClick) {
-		FastClick.attach(b);
 		console.log("triggered function: initFastClick");
+		FastClick.attach(b);
 	}
 };
 var loadInitFastClick = function () {
@@ -476,6 +485,7 @@ var showLocationQR = function () {
 		appendFragment(m, a);
 	};
 	if (a && p) {
+		console.log("triggered function: showLocationQR");
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
 				g();
@@ -483,7 +493,6 @@ var showLocationQR = function () {
 		} else {
 			setStyleDisplayNone(a);
 		}
-		console.log("triggered function: showLocationQR");
 	}
 };
 evento.add(window, "load", showLocationQR);
@@ -577,6 +586,7 @@ var initNavMenu = function () {
 		}
 	};
 	if (container && page && btn && panel && items) {
+		console.log("triggered function: initNavMenu");
 		/*!
 		 * open or close nav
 		 */
@@ -586,7 +596,6 @@ var initNavMenu = function () {
 		 * close nav, scroll to top, highlight active nav item
 		 */
 		z();
-		console.log("triggered function: initNavMenu");
 	}
 };
 docReady(initNavMenu);
@@ -624,9 +633,9 @@ var addAppUpdatesLink = function () {
 			/*!
 			 * no prevent default and  void .href above
 			 */
-			/*jshint -W107 */
+			/* jshint -W107 */
 			a.href = "javascript:void(0);";
-			/*jshint +W107 */
+			/* jshint +W107 */
 			evento.add(a, "click", openDeviceBrowser.bind(null, p));
 			/* a.onclick = openDeviceBrowser.bind(null, p); */
 		}
@@ -636,8 +645,8 @@ var addAppUpdatesLink = function () {
 		}
 	};
 	if (panel && items && p) {
-		g();
 		console.log("triggered function: addAppUpdatesLink");
+		g();
 	}
 };
 docReady(addAppUpdatesLink);
@@ -686,6 +695,7 @@ var initMenuMore = function () {
 		}
 	};
 	if (container && holder && btn && panel && items) {
+		console.log("triggered function: initMenuMore");
 		/*!
 		 * hide menu more on outside click
 		 */
@@ -698,7 +708,6 @@ var initMenuMore = function () {
 		 * hide menu more on item clicked
 		 */
 		v();
-		console.log("triggered function: initMenuMore");
 	}
 };
 docReady(initMenuMore);
@@ -711,11 +720,12 @@ var initVKLike = function () {
 	c = BALA.one("#vk-like") || "",
 	a = BALA.one("#btn-show-vk-like") || "",
 	js = getHTTP(!0) + "://vk.com/js/api/openapi.js?122",
+	ds = "dataset",
 	g = function () {
 		try {
 			if (w.VK) {
 				VK.init({
-					apiId: (c.dataset.apiid || ""),
+					apiId: (c[ds].apiid || ""),
 					nameTransportPath: "/xd_receiver.htm",
 					onlyWidgets: !0
 				});
@@ -750,23 +760,15 @@ var initVKLike = function () {
 		/* a.onclick = h_a; */
 	};
 	if (c && a) {
+		console.log("triggered function: initVKLike");
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			q();
 		} else {
 			setStyleDisplayNone(a);
 		}
-		console.log("triggered function: initVKLike");
 	}
 };
 docReady(initVKLike);
-/*!
- * init manUP.js
- */
-docReady(function () {
-	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		ajaxLoadTriggerJS("/cdn/ManUp.js/0.7/js/manup.fixed.min.js");
-	}
-});
 /*!
  * show page, finish ToProgress
  */
@@ -793,12 +795,12 @@ var showPageFinishProgress = function () {
 			}, 100);
 	};
 	if (a && c) {
+		console.log("triggered function: showPageFinishProgress");
 		if ("undefined" !== typeof imagesPreloaded) {
 			k();
 		} else {
 			g();
 		}
 	}
-	console.log("triggered function: showPageFinishProgress");
 };
 evento.add(window, "load", showPageFinishProgress);

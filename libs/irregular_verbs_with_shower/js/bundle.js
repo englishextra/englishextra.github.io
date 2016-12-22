@@ -321,6 +321,7 @@ var openDeviceBrowser = function (a) {
 	v = function () {
 		return w.open(a, "_system", "scrollbars=1,location=no");
 	};
+	console.log("triggered function: openDeviceBrowser");
 	if ("undefined" !== typeof isElectron && isElectron) {
 		g();
 	} else if ("undefined" !== typeof isNwjs && isNwjs) {
@@ -374,8 +375,8 @@ var manageExternalLinks = function (ctx) {
 		}
 	};
 	if (a) {
-		k();
 		console.log("triggered function: manageExternalLinks");
+		k();
 	}
 };
 evento.add(window, "load", manageExternalLinks.bind(null, ""));
@@ -409,8 +410,8 @@ var manageLocalLinks = function (ctx) {
 		}
 	};
 	if (a) {
-		k();
 		console.log("triggered function: manageLocalLinks");
+		k();
 	}
 };
 evento.add(window, "load", manageLocalLinks.bind(null, ""));
@@ -423,8 +424,8 @@ var initFastClick = function () {
 	var w = window,
 	b = BALA.one("body") || "";
 	if (w.FastClick) {
-		FastClick.attach(b);
 		console.log("triggered function: initFastClick");
+		FastClick.attach(b);
 	}
 };
 var loadInitFastClick = function () {
@@ -439,11 +440,19 @@ docReady(loadInitFastClick);
 /*!
  * init Shower
  */
-var loadShower = function () {
+var initShower = function () {
 	"use strict";
-	ajaxLoadTriggerJS("../../cdn/shower/1.0.1/js/shower.fixed.min.js");
+	console.log("triggered function: initShower");
 };
-docReady(loadShower);
+var loadInitShower = function () {
+	"use strict";
+	var js = "../../cdn/shower/1.0.1/js/shower.fixed.min.js";
+	/* ajaxLoadTriggerJS(js, initShower); */
+	if (!scriptIsLoaded(js)) {
+		loadJS(js, initShower);
+	}
+};
+docReady(loadInitShower);
 /*!
  * hide ui buttons in fullscreen mode
  */
@@ -508,7 +517,7 @@ var initUiTotop = function () {
 					return function () {
 						l -= o * n;
 						w.scrollTo(0, l);
-						i++;
+						i += 1;
 						if (150 < i || 0 > l) {
 							clearInterval(si);
 						}
@@ -529,9 +538,9 @@ var initUiTotop = function () {
 			}
 		};
 		a.id = u;
-		/*jshint -W107 */
+		/* jshint -W107 */
 		a.href = "javascript:void(0);";
-		/*jshint +W107 */
+		/* jshint +W107 */
 		a.title = t;
 		evento.add(a, "click", h_a);
 		/* a.onclick = h_a; */
@@ -561,8 +570,8 @@ var initUiTotop = function () {
 		/* w.onscroll = k.bind(null, w); */
 	};
 	if (b) {
-		g(q);
 		console.log("triggered function: initUiTotop");
+		g(q);
 	}
 };
 docReady(initUiTotop);
@@ -607,12 +616,12 @@ var initPlusoYaShare = function () {
 		/* a.onclick = h_a; */
 	};
 	if ((pluso || ya_share2) && a) {
+		console.log("triggered function: initPlusoYaShare");
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			v();
 		} else {
 			setStyleDisplayNone(a);
 		}
-		console.log("triggered function: initPlusoYaShare");
 	}
 };
 docReady(initPlusoYaShare);
@@ -637,8 +646,8 @@ var showPageFinishProgress = function () {
 	pBC = function () {
 		progressBar.complete();
 	};
+	console.log("triggered function: showPageFinishProgress");
 	setStyleOpacity(a, 1);
 	setImmediate(pBC);
-	console.log("triggered function: showPageFinishProgress");
 };
 evento.add(window, "load", showPageFinishProgress);

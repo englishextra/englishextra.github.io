@@ -391,6 +391,7 @@ var openDeviceBrowser = function (a) {
 	v = function () {
 		return w.open(a, "_system", "scrollbars=1,location=no");
 	};
+	console.log("triggered function: openDeviceBrowser");
 	if ("undefined" !== typeof isElectron && isElectron) {
 		g();
 	} else if ("undefined" !== typeof isNwjs && isNwjs) {
@@ -444,8 +445,8 @@ var manageExternalLinks = function (ctx) {
 		}
 	};
 	if (a) {
-		k();
 		console.log("triggered function: manageExternalLinks");
+		k();
 	}
 };
 evento.add(window, "load", manageExternalLinks.bind(null, ""));
@@ -488,8 +489,8 @@ var initFastClick = function () {
 	var w = window,
 	b = BALA.one("body") || "";
 	if (w.FastClick) {
-		FastClick.attach(b);
 		console.log("triggered function: initFastClick");
+		FastClick.attach(b);
 	}
 };
 var loadInitFastClick = function () {
@@ -688,6 +689,7 @@ var showLocationQR = function () {
 		appendFragment(m, a);
 	};
 	if (a && p) {
+		console.log("triggered function: showLocationQR");
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
 				g();
@@ -695,7 +697,6 @@ var showLocationQR = function () {
 		} else {
 			setStyleDisplayNone(a);
 		}
-		console.log("triggered function: showLocationQR");
 	}
 };
 evento.add(window, "load", showLocationQR);
@@ -789,6 +790,7 @@ var initNavMenu = function () {
 		}
 	};
 	if (container && page && btn && panel && items) {
+		console.log("triggered function: initNavMenu");
 		/*!
 		 * open or close nav
 		 */
@@ -798,7 +800,6 @@ var initNavMenu = function () {
 		 * close nav, scroll to top, highlight active nav item
 		 */
 		z();
-		console.log("triggered function: initNavMenu");
 	}
 };
 docReady(initNavMenu);
@@ -847,6 +848,7 @@ var initMenuMore = function () {
 		}
 	};
 	if (container && holder && btn && panel && items) {
+		console.log("triggered function: initMenuMore");
 		/*!
 		 * hide menu more on outside click
 		 */
@@ -859,7 +861,6 @@ var initMenuMore = function () {
 		 * hide menu more on item clicked
 		 */
 		v();
-		console.log("triggered function: initMenuMore");
 	}
 };
 docReady(initMenuMore);
@@ -881,7 +882,7 @@ var initUiTotop = function () {
 					return function () {
 						l -= o * n;
 						w.scrollTo(0, l);
-						i++;
+						i += 1;
 						if (150 < i || 0 > l) {
 							clearInterval(si);
 						}
@@ -902,9 +903,9 @@ var initUiTotop = function () {
 			}
 		};
 		a.id = u;
-		/*jshint -W107 */
+		/* jshint -W107 */
 		a.href = "javascript:void(0);";
-		/*jshint +W107 */
+		/* jshint +W107 */
 		a.title = t;
 		evento.add(a, "click", h_a);
 		/* a.onclick = h_a; */
@@ -934,8 +935,8 @@ var initUiTotop = function () {
 		/* w.onscroll = k.bind(null, w); */
 	};
 	if (b) {
-		g(q);
 		console.log("triggered function: initUiTotop");
+		g(q);
 	}
 };
 docReady(initUiTotop);
@@ -980,12 +981,12 @@ var initPlusoYaShare = function () {
 		/* a.onclick = h_a; */
 	};
 	if ((pluso || ya_share2) && a) {
+		console.log("triggered function: initPlusoYaShare");
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			v();
 		} else {
 			setStyleDisplayNone(a);
 		}
-		console.log("triggered function: initPlusoYaShare");
 	}
 };
 docReady(initPlusoYaShare);
@@ -998,11 +999,12 @@ var initVKLike = function () {
 	c = BALA.one("#vk-like") || "",
 	a = BALA.one("#btn-show-vk-like") || "",
 	js = getHTTP(!0) + "://vk.com/js/api/openapi.js?122",
+	ds = "dataset",
 	g = function () {
 		try {
 			if (w.VK) {
 				VK.init({
-					apiId: (c.dataset.apiid || ""),
+					apiId: (c[ds].apiid || ""),
 					nameTransportPath: "/xd_receiver.htm",
 					onlyWidgets: !0
 				});
@@ -1037,12 +1039,12 @@ var initVKLike = function () {
 		/* a.onclick = h_a; */
 	};
 	if (c && a) {
+		console.log("triggered function: initVKLike");
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			q();
 		} else {
 			setStyleDisplayNone(a);
 		}
-		console.log("triggered function: initVKLike");
 	}
 };
 docReady(initVKLike);
@@ -1082,12 +1084,12 @@ var showPageFinishProgress = function () {
 			}, 100);
 	};
 	if (a) {
+		console.log("triggered function: showPageFinishProgress");
 		if ("undefined" !== typeof imagesPreloaded) {
 			k();
 		} else {
 			g();
 		}
 	}
-	console.log("triggered function: showPageFinishProgress");
 };
 evento.add(window, "load", showPageFinishProgress);

@@ -124,18 +124,13 @@ var clearRequestInterval=function(handle){if(window.cancelAnimationFrame){window
  */
 ;(function(){var evento=function(){if("undefined"==typeof window||!("document"in window)){return console.log("window is undefined or document is not in window"),!1;}var win=window,doc=win.document,_handlers={},addEvent,removeEvent,triggerEvent;addEvent=(function(){if(typeof doc.addEventListener==="function"){return function(el,evt,fn){el.addEventListener(evt,fn,false);_handlers[el]=_handlers[el]||{};_handlers[el][evt]=_handlers[el][evt]||[];_handlers[el][evt].push(fn);};}else if(typeof doc.attachEvent==="function"){return function(el,evt,fn){el.attachEvent(evt,fn);_handlers[el]=_handlers[el]||{};_handlers[el][evt]=_handlers[el][evt]||[];_handlers[el][evt].push(fn);};}else{return function(el,evt,fn){el["on"+evt]=fn;_handlers[el]=_handlers[el]||{};_handlers[el][evt]=_handlers[el][evt]||[];_handlers[el][evt].push(fn);};}}());removeEvent=(function(){if(typeof doc.removeEventListener==="function"){return function(el,evt,fn){el.removeEventListener(evt,fn,false);};}else if(typeof doc.detachEvent==="function"){return function(el,evt,fn){el.detachEvent(evt,fn);};}else{return function(el,evt,fn){el["on"+evt]=undefined;};}}());triggerEvent=function(el,evt){_handlers[el]=_handlers[el]||{};_handlers[el][evt]=_handlers[el][evt]||[];for(var _i=0,_l=_handlers[el][evt].length;_i<_l;_i+=1){_handlers[el][evt][_i]();}};return{add:addEvent,remove:removeEvent,trigger:triggerEvent,_handlers:_handlers};}();window.evento=evento;}());
 /*!
- * Load and execute JS via AJAX
- * gist.github.com/englishextra/8dc9fe7b6ff8bdf5f9b483bf772b9e1c
- * IE 5.5+, Firefox, Opera, Chrome, Safari XHR object
- * gist.github.com/Xeoncross/7663273
- * modified callback(x.responseText,x); to callback(eval(x.responseText),x);
- * stackoverflow.com/questions/3728798/running-javascript-downloaded-with-xmlhttprequest
- * @param {String} u path string
- * @param {Object} [f] callback function
- * @param {Object} [e] on error callback function
- * ajaxLoadTriggerJS(u,f,e)
+ * How can I check if a JS file has been included already?
+ * gist.github.com/englishextra/403a0ca44fc5f495400ed0e20bc51d47
+ * stackoverflow.com/questions/18155347/how-can-i-check-if-a-js-file-has-been-included-already
+ * @param {String} s path string
+ * scriptIsLoaded(s)
  */
-var ajaxLoadTriggerJS=function(u,f,e){var w=window,x=w.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");x.overrideMimeType("application/javascript;charset=utf-8");x.open("GET",u,!0);x.onreadystatechange=function(){if(x.status=="404"){if(e&&"function"===typeof e){e();}console.log("Error XMLHttpRequest-ing file",x.status);return!1;}else if(x.readyState==4&&x.status==200&&x.responseText){try{var Fn=Function;new Fn(""+x.responseText).call("undefined"===typeof window?"undefined"===typeof self?"undefined"===typeof global?this:global:self:window);}catch(m){throw new Error("Error evaluating file. "+m);}if(f&&"function"===typeof f){f(x.responseText);}}};x.send(null);};
+var scriptIsLoaded=function(s){for(var b=document.getElementsByTagName("script")||"",a=0;a<b.length;a++)if(b[a].getAttribute("src")==s)return!0;return!1;};
 /*!
  * set style display block of an element
  * @param {Object} a an HTML Element
@@ -164,8 +159,7 @@ var initParallax = function () {
 	mq = w.matchMedia("(min-width: 768px)"),
 	s = BALA.one("#scene1") || "",
 	p = BALA.one("#parallax") || "",
-	m = BALA.one("#parallax-disabled") || "",
-	j = "/cdn/parallax/2.1.3/js/parallax.fixed.min.js";
+	m = BALA.one("#parallax-disabled") || "";
 	if (mq.matches) {
 		setStyleDisplayBlock(p);
 		setStyleDisplayNone(m);
@@ -181,7 +175,11 @@ var initParallax = function () {
 };
 var loadInitParallax = function () {
 	"use strict";
-	ajaxLoadTriggerJS("/cdn/parallax/2.1.3/js/parallax.fixed.min.js", initParallax);
+	var js = "/cdn/parallax/2.1.3/js/parallax.fixed.min.js";
+	/* ajaxLoadTriggerJS(js, initParallax); */
+	if (!scriptIsLoaded(js)) {
+		loadJS(js, initParallax);
+	}
 };
 evento.add(window, "load", loadInitParallax);
 /*!
@@ -206,12 +204,12 @@ var showPageFinishProgress = function () {
 			}, 100);
 	};
 	if (a) {
+		console.log("triggered function: showPageFinishProgress");
 		if ("undefined" !== typeof imagesPreloaded) {
 			k();
 		} else {
 			g();
 		}
 	}
-	console.log("triggered function: showPageFinishProgress");
 };
 evento.add(window, "load", showPageFinishProgress);
