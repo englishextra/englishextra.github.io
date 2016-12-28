@@ -461,7 +461,7 @@ var ajaxLoadUnparsedJSON=function(u,f,e){var w=window,x=w.XMLHttpRequest?new XML
  * @param {String} a JSON string
  * safelyParseJSON(a)
  */
-var safelyParseJSON=function(a){var w=window;try{return w.json_parse?json_parse(a):JSON.parse(a);}catch(e){console.log(e);}};
+var safelyParseJSON=function(a){var w=window;try{return"string"===typeof a?w.json_parse?json_parse(a):JSON.parse(a):a;}catch(e){console.log(e.name+": "+e.message);}};
 /*!
  * return an array of values that match on a certain key
  * techslides.com/how-to-parse-and-search-json-in-javascript
@@ -4332,7 +4332,7 @@ var showPageFinishProgress = function () {
 		}
 	}
 	if (a) {
-		setAutoClearedTimeout(v, 2000);
+		setAutoClearedTimeout(v, 1500);
 	}
 };
 evento.add(window, "load", showPageFinishProgress);

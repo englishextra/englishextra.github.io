@@ -266,7 +266,7 @@ var ajaxLoadUnparsedJSON=function(u,f,e){var w=window,x=w.XMLHttpRequest?new XML
  * @param {String} a JSON string
  * safelyParseJSON(a)
  */
-var safelyParseJSON=function(a){var w=window;try{return w.json_parse?json_parse(a):JSON.parse(a);}catch(e){console.log(e);}};
+var safelyParseJSON=function(a){var w=window;try{return"string"===typeof a?w.json_parse?json_parse(a):JSON.parse(a):a;}catch(e){console.log(e.name+": "+e.message);}};
 /*!
  * loop over the Array
  * stackoverflow.com/questions/18238173/javascript-loop-through-json-array

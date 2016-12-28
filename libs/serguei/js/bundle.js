@@ -1916,7 +1916,7 @@ var showPageFinishProgress = function () {
 		}
 	}
 	if (a) {
-		setAutoClearedTimeout(v, 2000);
+		setAutoClearedTimeout(v, 1500);
 	}
 };
 evento.add(window, "load", showPageFinishProgress);
