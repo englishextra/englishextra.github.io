@@ -565,6 +565,9 @@ docReady(loadInitFastClick);
  * init disqus_thread and Masonry / Packery
  * add Draggabilly to Packarey
  * gist.github.com/englishextra/5e423ff34f67982f017b
+ * percentPosition: true works well with percent-width items,
+ * as items will not transition their position on resize.
+ * masonry.desandro.com/options.html
  */
 var initMasonryDisqus = function () {
 	"use strict";
@@ -589,7 +592,8 @@ var initMasonryDisqus = function () {
 					msnry = new Masonry(a, {
 							itemSelector: h,
 							columnWidth: k,
-							gutter: 0
+							gutter: 0,
+							percentPosition: !0
 						});
 					console.log("function initMasonryDisqus => initialised msnry");
 				}
@@ -599,7 +603,9 @@ var initMasonryDisqus = function () {
 					if (imagesPreloaded) {
 						clearRequestInterval(si);
 						console.log("function initMasonryDisqus => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
-						s();
+						/* s(); */
+						/* setAutoClearedTimeout(s, 1000 / 60); */
+						setImmediate(s);
 					}
 				}, 100);
 		},
@@ -620,7 +626,8 @@ var initMasonryDisqus = function () {
 					pckry = new Packery(a, {
 							itemSelector: h,
 							columnWidth: k,
-							gutter: 0
+							gutter: 0,
+							percentPosition: !0
 						});
 					console.log("function initMasonryDisqus => initialised pckry");
 					if (c) {
@@ -654,7 +661,9 @@ var initMasonryDisqus = function () {
 					if (imagesPreloaded) {
 						clearRequestInterval(si);
 						console.log("function initMasonryDisqus => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
-						s();
+						/* s(); */
+						/* setAutoClearedTimeout(s, 1000 / 60); */
+						setImmediate(s);
 					}
 				}, 100);
 		},

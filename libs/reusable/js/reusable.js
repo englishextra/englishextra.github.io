@@ -2486,7 +2486,9 @@ var initMasonryImagesLoaded = function () {
 		}
 	};
 	if (c && a) {
-		q();
+		/* q(); */
+		/* setAutoClearedTimeout(q, 1000 / 60); */
+		setImmediate(q);
 	}
 };
 var loadInitMasonryImagesLoaded = function () {
@@ -2666,6 +2668,9 @@ docReady(initSuperBox);
  * init disqus_thread and Masonry / Packery
  * add Draggabilly to Packarey
  * gist.github.com/englishextra/5e423ff34f67982f017b
+ * percentPosition: true works well with percent-width items,
+ * as items will not transition their position on resize.
+ * masonry.desandro.com/options.html
  */
 var initMasonryDisqus = function () {
 	"use strict";
@@ -2690,7 +2695,8 @@ var initMasonryDisqus = function () {
 					msnry = new Masonry(a, {
 							itemSelector: h,
 							columnWidth: k,
-							gutter: 0
+							gutter: 0,
+							percentPosition: !0
 						});
 					console.log("function initMasonryDisqus => initialised msnry");
 				}
@@ -2700,7 +2706,9 @@ var initMasonryDisqus = function () {
 					if (imagesPreloaded) {
 						clearRequestInterval(si);
 						console.log("function initMasonryDisqus => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
-						s();
+						/* s(); */
+						/* setAutoClearedTimeout(s, 1000 / 60); */
+						setImmediate(s);
 					}
 				}, 100);
 		},
@@ -2721,7 +2729,8 @@ var initMasonryDisqus = function () {
 					pckry = new Packery(a, {
 							itemSelector: h,
 							columnWidth: k,
-							gutter: 0
+							gutter: 0,
+							percentPosition: !0
 						});
 					console.log("function initMasonryDisqus => initialised pckry");
 					if (c) {
@@ -2755,7 +2764,9 @@ var initMasonryDisqus = function () {
 					if (imagesPreloaded) {
 						clearRequestInterval(si);
 						console.log("function initMasonryDisqus => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
-						s();
+						/* s(); */
+						/* setAutoClearedTimeout(s, 1000 / 60); */
+						setImmediate(s);
 					}
 				}, 100);
 		},
@@ -4336,3 +4347,103 @@ var showPageFinishProgress = function () {
 	}
 };
 evento.add(window, "load", showPageFinishProgress);
+/*!
+ * manage infinit scroll
+ * @param {String} ctx HTML id string
+ */
+var manageInfiniteScroll = function (ctx) {
+	"use strict";
+	ctx = ctx || "";
+	var w = window,
+	cls = ".holder-btn-next-article [data-hash]",
+	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	ds = "dataset",
+	h = a ? (a[ds].hash || "") : "",
+	g = function () {
+		if (isInViewport(a)) {
+			var st = requestTimeout(function () {
+					clearRequestTimeout(st);
+					/* evento.remove(w, "scroll", g); */
+					w.onscroll = null;
+					changeHash(h);
+				}, 2000);
+		}
+	},
+	k = function () {
+		/* evento.add(w, "scroll", g); */
+		w.onscroll = g;
+	};
+	if (a && h) {
+		k();
+	}
+};
+evento.add(window, "load", manageInfiniteScroll);
+/*!
+ * Promise based script loader for the browser using script tags
+ * github.com/MiguelCastillo/load-js
+ * type: defaults to text/javascript
+ * async: defaults to false
+ * charset: defaults to utf-8
+ * id: no default value
+ * url: required if no text is provided
+ * text: required if no url is provided
+ * loadJS(["https://code.jquery.com/jquery-2.2.1.js",
+ * "https://unpkg.com/react@15.3.1/dist/react.min.js"])
+ * .then(function(){console.log("jQuery and react are loaded");});
+ * loadJS([{async:true,url:"https://code.jquery.com/jquery-2.2.1.js"},
+ * {async:true,url:"https://unpkg.com/react@15.3.1/dist/react.min.js"}])
+ * .then(()=>{console.log("all done!");});
+ * source: gist.github.com/pranksinatra/a4e57e586249dc3833e4
+ * passes jshint
+ */
+var promiseLoadJS = (function () {
+	function exec(options) {
+		if (typeof options === "string") {
+			options = {
+				url: options
+			};
+		}
+		if (!options.url && !options.text) {
+			throw new Error("must provide a url or text to load");
+		}
+		var head = document.getElementsByTagName("head")[0] || document.documentElement;
+		var script = document.createElement("script");
+		script.charset = options.charset || "utf-8";
+		script.type = options.type || "text/javascript";
+		script.async = !!options.async;
+		if (options.hasOwnProperty("id")) {
+			script.id = options.id;
+		}
+		if (options.url) {
+			script.src = options.url;
+			return loadScript(head, script);
+		} else {
+			script.text = options.text;
+			return runScript(head, script);
+		}
+	}
+	function runScript(head, script) {
+		head.appendChild(script);
+		return Promise.resolve(script);
+	}
+	function loadScript(head, script) {
+		return new Promise(function (resolve) {
+			var done = false;
+			script.onload = script.onreadystatechange = function () {
+				if (!done && (!this.readyState || this.readyState === "loaded" || this.readyState === "complete")) {
+					done = true;
+					script.onload = script.onreadystatechange = null;
+					if (head && script.parentNode) {
+						head.removeChild(script);
+					}
+					resolve(script);
+				}
+			};
+			head.appendChild(script);
+		});
+	}
+	return function load(items) {
+		return items instanceof Array ? Promise.all(items.map(exec)) : exec(items);
+	};
+}
+	());

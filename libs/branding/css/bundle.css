@@ -297,25 +297,23 @@ pre.prettyprint,code.prettyprint{background-color:#E9E9E9;border-radius:0;}pre.p
 	display: block;
 	clear: both;
 }
-.masonry-grid-sizer {
-	width: 50.000%;
+.masonry-grid-sizer,
+.masonry-grid-item {
+	width: 33.333%;
 }
 .masonry-grid-item {
 	float: left;
-	width: 50.000%;
+	font-weight: 300;
+	font-size: 1.000rem;
+	min-height: 5.125rem;
 }
 @media handheld,only screen and (max-width:800px) {
-	.masonry-grid-sizer {
-		width: 50%;
-	}
+	.masonry-grid-sizer,
 	.masonry-grid-item {
 		width: 50%;
 	}
 }
 .masonry-grid-item div {
-	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI Light","Segoe WP Light",sans-serif;
-	font-weight: 300;
-	font-size: 1.000rem;
 	min-height: 5.125rem;
 }
 /*! @import "location-qr-code"; */

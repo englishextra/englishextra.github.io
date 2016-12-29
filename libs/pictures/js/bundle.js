@@ -498,7 +498,9 @@ var initMasonryImagesLoaded = function () {
 		}
 	};
 	if (c && a) {
-		q();
+		/* q(); */
+		/* setAutoClearedTimeout(q, 1000 / 60); */
+		setImmediate(q);
 	}
 };
 var loadInitMasonryImagesLoaded = function () {
