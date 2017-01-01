@@ -289,6 +289,25 @@ var docReady=(function(){"use strict";if("undefined"==typeof window||!("document
  */
 var evento=(function(){return function(){if("undefined"==typeof window||!("document"in window)){return console.log("window is undefined or document is not in window"),!1;}var win=window,doc=win.document,_handlers={},addEvent,removeEvent,triggerEvent;addEvent=(function(){if(typeof doc.addEventListener==="function"){return function(el,evt,fn){el.addEventListener(evt,fn,false);_handlers[el]=_handlers[el]||{};_handlers[el][evt]=_handlers[el][evt]||[];_handlers[el][evt].push(fn);};}else if(typeof doc.attachEvent==="function"){return function(el,evt,fn){el.attachEvent(evt,fn);_handlers[el]=_handlers[el]||{};_handlers[el][evt]=_handlers[el][evt]||[];_handlers[el][evt].push(fn);};}else{return function(el,evt,fn){el["on"+evt]=fn;_handlers[el]=_handlers[el]||{};_handlers[el][evt]=_handlers[el][evt]||[];_handlers[el][evt].push(fn);};}}());removeEvent=(function(){if(typeof doc.removeEventListener==="function"){return function(el,evt,fn){el.removeEventListener(evt,fn,false);};}else if(typeof doc.detachEvent==="function"){return function(el,evt,fn){el.detachEvent(evt,fn);};}else{return function(el,evt,fn){el["on"+evt]=undefined;};}}());triggerEvent=function(el,evt){_handlers[el]=_handlers[el]||{};_handlers[el][evt]=_handlers[el][evt]||[];for(var _i=0,_l=_handlers[el][evt].length;_i<_l;_i+=1){_handlers[el][evt][_i]();}};return{add:addEvent,remove:removeEvent,trigger:triggerEvent,_handlers:_handlers};}();}());
 /*!
+ * Promise based script loader for the browser using script tags
+ * github.com/MiguelCastillo/load-js
+ * type: defaults to text/javascript
+ * async: defaults to false
+ * charset: defaults to utf-8
+ * id: no default value
+ * url: required if no text is provided
+ * text: required if no url is provided
+ * loadJS(["https://code.jquery.com/jquery-2.2.1.js",
+ * "https://unpkg.com/react@15.3.1/dist/react.min.js"])
+ * .then(function(){console.log("jQuery and react are loaded");});
+ * loadJS([{async:true,url:"https://code.jquery.com/jquery-2.2.1.js"},
+ * {async:true,url:"https://unpkg.com/react@15.3.1/dist/react.min.js"}])
+ * .then(()=>{console.log("all done!");});
+ * source: gist.github.com/pranksinatra/a4e57e586249dc3833e4
+ * passes jshint
+ */
+;(function(){function exec(options){if("string"===typeof options){options={url:options};}if(!options.url&&!options.text){throw new Error("must provide a url or text to load");}var head=document.getElementsByTagName("head")[0]||document.documentElement;var script=document.createElement("script");script.charset=options.charset||"utf-8";script.type=options.type||"text/javascript";script.async=!!options.async;if(options.hasOwnProperty("id")){script.id=options.id;}if(options.url){script.src=options.url;return loadScript(head,script);}else{script.text=options.text;return runScript(head,script);}}function runScript(head,script){head.appendChild(script);return Promise.resolve(script);}function loadScript(head,script){return new Promise(function(resolve){var done=false;script.onload=script.onreadystatechange=function(){if(!done&&(!this.readyState||this.readyState==="loaded"||this.readyState==="complete")){done=true;script.onload=script.onreadystatechange=null;if(head&&script.parentNode){head.removeChild(script);}resolve(script);}};head.appendChild(script);});}var promiseLoadJS=function(items){return items instanceof Array?Promise.all(items.map(exec)):exec(items);};("undefined"!==typeof window?window:this).promiseLoadJS=promiseLoadJS;}());
+/*!
  * How can I check if a JS file has been included already?
  * gist.github.com/englishextra/403a0ca44fc5f495400ed0e20bc51d47
  * stackoverflow.com/questions/18155347/how-can-i-check-if-a-js-file-has-been-included-already
@@ -1060,10 +1079,18 @@ var manageDataSrcImg = function (ctx) {
 };
 var loadManageDataSrcImg = function () {
 	"use strict";
-	var js = "../cdn/lazyload/3.2.2/js/lazyload.fixed.min.js";
-	/* ajaxLoadTriggerJS(js, manageDataSrcImg.bind(null, "")); */
-	if (!scriptIsLoaded(js)) {
-		loadJS(js, manageDataSrcImg.bind(null, ""));
+	var w = window,
+	js = "../cdn/lazyload/3.2.2/js/lazyload.fixed.min.js";
+	if (w.XMLHttpRequest || w.ActiveXObject) {
+		if (w.Promise) {
+			promiseLoadJS(js).then(manageDataSrcImg.bind(null, ""));
+		} else {
+			ajaxLoadTriggerJS(js, manageDataSrcImg.bind(null, ""));
+		}
+	} else {
+		if (!scriptIsLoaded(js)) {
+			loadJS(js, manageDataSrcImg.bind(null, ""));
+		}
 	}
 };
 evento.add(window, "load", loadManageDataSrcImg);
@@ -1879,12 +1906,9 @@ var showPageFinishProgress = function () {
 	var b = BALA.one("body") || "",
 	c = BALA.one("#container") || "",
 	a = BALA.one(".holder-site-logo") || "",
-	pBC = function () {
-		progressBar.complete();
-	},
 	g = function () {
 		setStyleOpacity(c, 1);
-		setImmediate(pBC);
+		progressBar.complete();
 	},
 	k = function () {
 		var si = requestInterval(function () {
@@ -1920,4 +1944,3 @@ var showPageFinishProgress = function () {
 	}
 };
 evento.add(window, "load", showPageFinishProgress);
-

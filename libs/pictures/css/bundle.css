@@ -109,6 +109,9 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 	.masonry-grid-item {
 		width: 50%;
 	}
+	.masonry-grid-item {
+		float: left;
+	}
 }
 @media only screen and (min-width: 60.063em) {
 	.masonry-grid-wrapper h1 {

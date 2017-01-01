@@ -153,6 +153,39 @@ if (document.title) {
 var forEach=(function(){return function(a,b,c){var d=-1,e=a.length>>>0;(function f(g){var h,j=false===g;do++d;while(!(d in a)&&d!==e);if(j||d===e){if(c){c(!j,a);}return;}g=b.call({async:function(){return h=!0,f;}},a[d],d,a);if(!h){f(g);}})();};}());
 /*jslint bitwise: false */
 /*!
+ * Behaves the same as setTimeout except uses requestAnimationFrame()
+ * where possible for better performance
+ * modified gist.github.com/joelambert/1002116
+ * the fallback function requestAnimFrame is incorporated
+ * gist.github.com/joelambert/1002116
+ * gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b
+ * jsfiddle.net/englishextra/dnyomc4j/
+ * @param {Object} fn The callback function
+ * @param {Int} delay The delay in milliseconds
+ * requestTimeout(fn,delay)
+ */
+var requestTimeout=function(fn,delay){var requestAnimFrame=(function(){return window.requestAnimationFrame||function(callback,element){window.setTimeout(callback,1000/60);};})(),start=new Date().getTime(),handle={};function loop(){var current=new Date().getTime(),delta=current-start;if(delta>=delay){fn.call();}else{handle.value=requestAnimFrame(loop);}}handle.value=requestAnimFrame(loop);return handle;};
+/*!
+ * Behaves the same as clearTimeout except uses cancelRequestAnimationFrame()
+ * where possible for better performance
+ * gist.github.com/joelambert/1002116
+ * gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b
+ * jsfiddle.net/englishextra/dnyomc4j/
+ * @param {Int|Object} handle The callback function
+ * clearRequestTimeout(handle)
+ */
+var clearRequestTimeout=function(handle){if(window.cancelAnimationFrame){window.cancelAnimationFrame(handle.value);}else{window.clearTimeout(handle);}};
+/*!
+ * set and clear timeout
+ * based on requestTimeout and clearRequestTimeout
+ * gist.github.com/joelambert/1002116
+ * gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b
+ * @param {Object} f handle/function
+ * @param {Int} [n] a whole positive number
+ * setAutoClearedTimeout(f,n)
+ */
+var setAutoClearedTimeout=function(f,n){n=n||200;if(f&&"function"===typeof f){var st=requestTimeout(function(){clearRequestTimeout(st);f();},n);}};
+/*!
  * Behaves the same as setInterval except uses requestAnimationFrame() where possible for better performance
  * modified gist.github.com/joelambert/1002116
  * the fallback function requestAnimFrame is incorporated
@@ -204,6 +237,25 @@ var docReady=(function(){"use strict";if("undefined"==typeof window||!("document
  * passes jshint
  */
 var evento=(function(){return function(){if("undefined"==typeof window||!("document"in window)){return console.log("window is undefined or document is not in window"),!1;}var win=window,doc=win.document,_handlers={},addEvent,removeEvent,triggerEvent;addEvent=(function(){if(typeof doc.addEventListener==="function"){return function(el,evt,fn){el.addEventListener(evt,fn,false);_handlers[el]=_handlers[el]||{};_handlers[el][evt]=_handlers[el][evt]||[];_handlers[el][evt].push(fn);};}else if(typeof doc.attachEvent==="function"){return function(el,evt,fn){el.attachEvent(evt,fn);_handlers[el]=_handlers[el]||{};_handlers[el][evt]=_handlers[el][evt]||[];_handlers[el][evt].push(fn);};}else{return function(el,evt,fn){el["on"+evt]=fn;_handlers[el]=_handlers[el]||{};_handlers[el][evt]=_handlers[el][evt]||[];_handlers[el][evt].push(fn);};}}());removeEvent=(function(){if(typeof doc.removeEventListener==="function"){return function(el,evt,fn){el.removeEventListener(evt,fn,false);};}else if(typeof doc.detachEvent==="function"){return function(el,evt,fn){el.detachEvent(evt,fn);};}else{return function(el,evt,fn){el["on"+evt]=undefined;};}}());triggerEvent=function(el,evt){_handlers[el]=_handlers[el]||{};_handlers[el][evt]=_handlers[el][evt]||[];for(var _i=0,_l=_handlers[el][evt].length;_i<_l;_i+=1){_handlers[el][evt][_i]();}};return{add:addEvent,remove:removeEvent,trigger:triggerEvent,_handlers:_handlers};}();}());
+/*!
+ * Promise based script loader for the browser using script tags
+ * github.com/MiguelCastillo/load-js
+ * type: defaults to text/javascript
+ * async: defaults to false
+ * charset: defaults to utf-8
+ * id: no default value
+ * url: required if no text is provided
+ * text: required if no url is provided
+ * loadJS(["https://code.jquery.com/jquery-2.2.1.js",
+ * "https://unpkg.com/react@15.3.1/dist/react.min.js"])
+ * .then(function(){console.log("jQuery and react are loaded");});
+ * loadJS([{async:true,url:"https://code.jquery.com/jquery-2.2.1.js"},
+ * {async:true,url:"https://unpkg.com/react@15.3.1/dist/react.min.js"}])
+ * .then(()=>{console.log("all done!");});
+ * source: gist.github.com/pranksinatra/a4e57e586249dc3833e4
+ * passes jshint
+ */
+;(function(){function exec(options){if("string"===typeof options){options={url:options};}if(!options.url&&!options.text){throw new Error("must provide a url or text to load");}var head=document.getElementsByTagName("head")[0]||document.documentElement;var script=document.createElement("script");script.charset=options.charset||"utf-8";script.type=options.type||"text/javascript";script.async=!!options.async;if(options.hasOwnProperty("id")){script.id=options.id;}if(options.url){script.src=options.url;return loadScript(head,script);}else{script.text=options.text;return runScript(head,script);}}function runScript(head,script){head.appendChild(script);return Promise.resolve(script);}function loadScript(head,script){return new Promise(function(resolve){var done=false;script.onload=script.onreadystatechange=function(){if(!done&&(!this.readyState||this.readyState==="loaded"||this.readyState==="complete")){done=true;script.onload=script.onreadystatechange=null;if(head&&script.parentNode){head.removeChild(script);}resolve(script);}};head.appendChild(script);});}var promiseLoadJS=function(items){return items instanceof Array?Promise.all(items.map(exec)):exec(items);};("undefined"!==typeof window?window:this).promiseLoadJS=promiseLoadJS;}());
 /*!
  * How can I check if a JS file has been included already?
  * gist.github.com/englishextra/403a0ca44fc5f495400ed0e20bc51d47
@@ -486,11 +538,13 @@ var initMasonryImagesLoaded = function () {
 					itemSelector: h,
 					columnWidth: k,
 					gutter: 0,
-					percentPosition: true
+					percentPosition: !0
 				});
+			console.log("function initMasonryImagesLoaded => initialised msnry");
 			var imgLoad = imagesLoaded(g);
 			imgLoad.on("progress", function (instance) {
 				msnry.layout();
+				console.log("function initMasonryImagesLoaded => reinitialised imgLoad");
 			});
 			if ("undefined" !== typeof imagesPreloaded) {
 				imagesPreloaded = !0;
@@ -498,17 +552,40 @@ var initMasonryImagesLoaded = function () {
 		}
 	};
 	if (c && a) {
-		/* q(); */
-		/* setAutoClearedTimeout(q, 1000 / 60); */
-		setImmediate(q);
+		setAutoClearedTimeout(q, 100);
 	}
 };
 var loadInitMasonryImagesLoaded = function () {
 	"use strict";
-	var js = "../cdn/masonry/4.1.1/js/masonry.imagesloaded.pkgd.fixed.min.js";
-	/* ajaxLoadTriggerJS(js, initMasonryImagesLoaded); */
-	if (!scriptIsLoaded(js)) {
-		loadJS(js, initMasonryImagesLoaded);
+	var w = window,
+	/* js = "../cdn/masonry/4.1.1/js/masonry.imagesloaded.pkgd.fixed.min.js"; */
+	js = "../cdn/packery/2.1.1/js/packery.imagesloaded.pkgd.fixed.min.js";
+	if (w.XMLHttpRequest || w.ActiveXObject) {
+		if (w.Promise) {
+			promiseLoadJS(js).then(initMasonryImagesLoaded);
+		} else {
+			ajaxLoadTriggerJS(js, initMasonryImagesLoaded);
+		}
+	} else {
+		if (!scriptIsLoaded(js)) {
+			loadJS(js, initMasonryImagesLoaded);
+		}
+	}
+};var loadInitMasonryImagesLoaded = function () {
+	"use strict";
+	var w = window,
+	/* js = "../cdn/masonry/4.1.1/js/masonry.imagesloaded.pkgd.fixed.min.js"; */
+	js = "../cdn/packery/2.1.1/js/packery.imagesloaded.pkgd.fixed.min.js";
+	if (w.XMLHttpRequest || w.ActiveXObject) {
+		if (w.Promise) {
+			promiseLoadJS(js).then(initMasonryImagesLoaded);
+		} else {
+			ajaxLoadTriggerJS(js, initMasonryImagesLoaded);
+		}
+	} else {
+		if (!scriptIsLoaded(js)) {
+			loadJS(js, initMasonryImagesLoaded);
+		}
 	}
 };
 evento.add(window, "load", loadInitMasonryImagesLoaded);
@@ -738,10 +815,18 @@ var initPhotoswipe = function () {
 };
 var loadInitPhotoswipe = function () {
 	"use strict";
-	var js = "../cdn/photoswipe/4.1.0/js/photoswipe.photoswipe-ui-default.fixed.min.js";
-	/* ajaxLoadTriggerJS(js, initPhotoswipe); */
-	if (!scriptIsLoaded(js)) {
-		loadJS(js, initPhotoswipe);
+	var w = window,
+	js = "../cdn/photoswipe/4.1.0/js/photoswipe.photoswipe-ui-default.fixed.min.js";
+	if (w.XMLHttpRequest || w.ActiveXObject) {
+		if (w.Promise) {
+			promiseLoadJS(js).then(initPhotoswipe);
+		} else {
+			ajaxLoadTriggerJS(js, initPhotoswipe);
+		}
+	} else {
+		if (!scriptIsLoaded(js)) {
+			loadJS(js, initPhotoswipe);
+		}
 	}
 };
 docReady(loadInitPhotoswipe);
@@ -788,10 +873,18 @@ var manageDataSrcImg = function (ctx) {
 };
 var loadManageDataSrcImg = function () {
 	"use strict";
-	var js = "../cdn/lazyload/3.2.2/js/lazyload.fixed.min.js";
-	/* ajaxLoadTriggerJS(js, manageDataSrcImg.bind(null, "")); */
-	if (!scriptIsLoaded(js)) {
-		loadJS(js, manageDataSrcImg.bind(null, ""));
+	var w = window,
+	js = "../cdn/lazyload/3.2.2/js/lazyload.fixed.min.js";
+	if (w.XMLHttpRequest || w.ActiveXObject) {
+		if (w.Promise) {
+			promiseLoadJS(js).then(manageDataSrcImg.bind(null, ""));
+		} else {
+			ajaxLoadTriggerJS(js, manageDataSrcImg.bind(null, ""));
+		}
+	} else {
+		if (!scriptIsLoaded(js)) {
+			loadJS(js, manageDataSrcImg.bind(null, ""));
+		}
 	}
 };
 evento.add(window, "load", loadManageDataSrcImg);
@@ -1196,12 +1289,9 @@ docReady(loadInitManUp);
 var showPageFinishProgress = function () {
 	"use strict";
 	var a = BALA.one("#masonry-grid") || "",
-	pBC = function () {
-		progressBar.complete();
-	},
 	g = function () {
 		setStyleOpacity(a, 1);
-		setImmediate(pBC);
+		progressBar.complete();
 	},
 	k = function () {
 		var si = requestInterval(function () {

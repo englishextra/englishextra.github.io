@@ -299,7 +299,7 @@ pre.prettyprint,code.prettyprint{background-color:#E9E9E9;border-radius:0;}pre.p
 }
 .masonry-grid-sizer,
 .masonry-grid-item {
-	width: 33.333%;
+	width: 50%;
 }
 .masonry-grid-item {
 	float: left;

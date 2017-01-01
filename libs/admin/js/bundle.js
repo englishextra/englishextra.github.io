@@ -466,12 +466,9 @@ docReady(initUiTotop);
  */
 var showPageFinishProgress = function () {
 	"use strict";
-	var a = BALA.one("#page") || "",
-	pBC = function () {
-		progressBar.complete();
-	};
+	var a = BALA.one("#page") || "";
 	console.log("triggered function: showPageFinishProgress");
 	setStyleOpacity(a, 1);
-	setImmediate(pBC);
+	progressBar.complete();
 };
 evento.add(window, "load", showPageFinishProgress);

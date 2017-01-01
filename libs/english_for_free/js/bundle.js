@@ -576,7 +576,8 @@ var initSuperBox = function () {
 				w.scroll(0, reveal_pos);
 			}
 		};
-		setImmediate(si1);
+		/* setImmediate(si1); */
+		setAutoClearedTimeout(si1, 100);
 		s_cur_desc[cL].add(an, an1);
 		/*!
 		 * track clicks on external links
@@ -637,7 +638,8 @@ var initSuperBox = function () {
 					w.scroll(0, hide_pos);
 				}
 			};
-			setImmediate(si2);
+			/* setImmediate(si2); */
+			setAutoClearedTimeout(si2, 100);
 			s_cur_desc[cL].remove(an1);
 			s_cur_desc[cL].add(an2);
 			var s = function () {
@@ -1133,12 +1135,9 @@ docReady(loadInitManUp);
 var showPageFinishProgress = function () {
 	"use strict";
 	var a = BALA.one("#superbox") || "",
-	pBC = function () {
-		progressBar.complete();
-	},
 	g = function () {
 		setStyleOpacity(a, 1);
-		setImmediate(pBC);
+		progressBar.complete();
 	},
 	k = function () {
 		var si = requestInterval(function () {

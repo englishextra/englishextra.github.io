@@ -792,13 +792,10 @@ var showPageFinishProgress = function () {
 	"use strict";
 	var a = BALA.one("#page") || "",
 	c = BALA.one("#holder-site-logo") || "",
-	pBC = function () {
-		setStyleOpacity(c, 1);
-		progressBar.complete();
-	},
 	g = function () {
 		setStyleOpacity(a, 1);
-		setImmediate(pBC);
+		setStyleOpacity(c, 1);
+		progressBar.complete();
 	},
 	k = function () {
 		var si = requestInterval(function () {

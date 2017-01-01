@@ -228,6 +228,25 @@ var evento=(function(){return function(){if("undefined"==typeof window||!("docum
  */
 var isInViewport=function(w,d){var g=function(e){return(e=e?e.getBoundingClientRect()||"":"")?0<=e.top&&0<=e.left&&e.bottom<=(w.innerHeight||d.clientHeight)&&e.right<=(w.innerWidth||d.clientWidth):!0;};return g;}(window,document.documentElement||"");
 /*!
+ * Promise based script loader for the browser using script tags
+ * github.com/MiguelCastillo/load-js
+ * type: defaults to text/javascript
+ * async: defaults to false
+ * charset: defaults to utf-8
+ * id: no default value
+ * url: required if no text is provided
+ * text: required if no url is provided
+ * loadJS(["https://code.jquery.com/jquery-2.2.1.js",
+ * "https://unpkg.com/react@15.3.1/dist/react.min.js"])
+ * .then(function(){console.log("jQuery and react are loaded");});
+ * loadJS([{async:true,url:"https://code.jquery.com/jquery-2.2.1.js"},
+ * {async:true,url:"https://unpkg.com/react@15.3.1/dist/react.min.js"}])
+ * .then(()=>{console.log("all done!");});
+ * source: gist.github.com/pranksinatra/a4e57e586249dc3833e4
+ * passes jshint
+ */
+;(function(){function exec(options){if("string"===typeof options){options={url:options};}if(!options.url&&!options.text){throw new Error("must provide a url or text to load");}var head=document.getElementsByTagName("head")[0]||document.documentElement;var script=document.createElement("script");script.charset=options.charset||"utf-8";script.type=options.type||"text/javascript";script.async=!!options.async;if(options.hasOwnProperty("id")){script.id=options.id;}if(options.url){script.src=options.url;return loadScript(head,script);}else{script.text=options.text;return runScript(head,script);}}function runScript(head,script){head.appendChild(script);return Promise.resolve(script);}function loadScript(head,script){return new Promise(function(resolve){var done=false;script.onload=script.onreadystatechange=function(){if(!done&&(!this.readyState||this.readyState==="loaded"||this.readyState==="complete")){done=true;script.onload=script.onreadystatechange=null;if(head&&script.parentNode){head.removeChild(script);}resolve(script);}};head.appendChild(script);});}var promiseLoadJS=function(items){return items instanceof Array?Promise.all(items.map(exec)):exec(items);};("undefined"!==typeof window?window:this).promiseLoadJS=promiseLoadJS;}());
+/*!
  * How can I check if a JS file has been included already?
  * gist.github.com/englishextra/403a0ca44fc5f495400ed0e20bc51d47
  * stackoverflow.com/questions/18155347/how-can-i-check-if-a-js-file-has-been-included-already
@@ -743,17 +762,25 @@ var initAllMasonry = function () {
 };
 var loadInitAllMasonry = function () {
 	"use strict";
-	var js = "../../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js";
-	/* ajaxLoadTriggerJS(js, initAllMasonry); */
-	if (!scriptIsLoaded(js)) {
-		loadJS(js, initAllMasonry);
+	var w = window,
+	js = "../../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js";
+	if (w.XMLHttpRequest || w.ActiveXObject) {
+		if (w.Promise) {
+			promiseLoadJS(js).then(initAllMasonry);
+		} else {
+			ajaxLoadTriggerJS(js, initAllMasonry);
+		}
+	} else {
+		if (!scriptIsLoaded(js)) {
+			loadJS(js, initAllMasonry);
+		}
 	}
 };
 evento.add(window, "load", loadInitAllMasonry);
 /*!
  * init all Packery grids
  */
-/* var initAllPackery = function () {
+var initAllPackery = function () {
 	"use strict";
 	var w = window,
 	g = ".masonry-grid",
@@ -768,7 +795,8 @@ evento.add(window, "load", loadInitAllMasonry);
 				pckry = new Packery(e, {
 						itemSelector : h,
 						columnWidth : k,
-						gutter : 0
+						gutter : 0,
+						percentPosition: !0
 					});
 			};
 			if (w._) {
@@ -814,16 +842,24 @@ evento.add(window, "load", loadInitAllMasonry);
 			v(a, c);
 		}
 	}
-}; */
-/* var loadInitAllPackery = function () {
+};
+var loadInitAllPackery = function () {
 	"use strict";
-	var js = "../../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js"; */
-	/* ajaxLoadTriggerJS(js, initAllPackery); */
-	/* if (!scriptIsLoaded(js)) {
-		loadJS(js, initAllPackery);
+	var w = window,
+	js = "../../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js";
+	if (w.XMLHttpRequest || w.ActiveXObject) {
+		if (w.Promise) {
+			promiseLoadJS(js).then(initAllPackery);
+		} else {
+			ajaxLoadTriggerJS(js, initAllPackery);
+		}
+	} else {
+		if (!scriptIsLoaded(js)) {
+			loadJS(js, initAllPackery);
+		}
 	}
 };
-evento.add(window, "load", loadInitAllPackery); */
+/* evento.add(window, "load", loadInitAllPackery); */
 /*!
  * init prettyPrint
  */
@@ -840,10 +876,18 @@ var initPrettyPrint = function () {
 };
 var loadInitPrettyPrint = function () {
 	"use strict";
-	var js = "../../cdn/google-code-prettify/0.1/js/prettify.lang-css.fixed.min.js";
-	/* ajaxLoadTriggerJS(js, initPrettyPrint); */
-	if (!scriptIsLoaded(js)) {
-		loadJS(js, initPrettyPrint);
+	var w = window,
+	js = "../../cdn/google-code-prettify/0.1/js/prettify.lang-css.fixed.min.js";
+	if (w.XMLHttpRequest || w.ActiveXObject) {
+		if (w.Promise) {
+			promiseLoadJS(js).then(initPrettyPrint);
+		} else {
+			ajaxLoadTriggerJS(js, initPrettyPrint);
+		}
+	} else {
+		if (!scriptIsLoaded(js)) {
+			loadJS(js, initPrettyPrint);
+		}
 	}
 };
 docReady(loadInitPrettyPrint);
@@ -1061,9 +1105,11 @@ var manageDataSrcIframe = function (ctx) {
 	}
 };
 var loadManageDataSrcImgIframe = function () {
-	var a = BALA.one("img[data-src]") || "",
+	"use strict";
+	var w = window,
+	a = BALA.one("img[data-src]") || "",
 	c = BALA.one("iframe[data-src]") || "",
-	js = "../../cdn/lazyload/3.2.2/js/lazyload.fixed.min.js";
+	js = "../../cdn/lazyload/3.2.2/js/lazyload.fixed.min.js",
 	f = function () {
 		if (a) {
 			manageDataSrcImg();
@@ -1073,9 +1119,16 @@ var loadManageDataSrcImgIframe = function () {
 		}
 	};
 	if (a || c) {
-		/* ajaxLoadTriggerJS(js, f); */
-		if (!scriptIsLoaded(js)) {
-			loadJS(js, f);
+		if (w.XMLHttpRequest || w.ActiveXObject) {
+			if (w.Promise) {
+				promiseLoadJS(js).then(f);
+			} else {
+				ajaxLoadTriggerJS(js, f);
+			}
+		} else {
+			if (!scriptIsLoaded(js)) {
+				loadJS(js, f);
+			}
 		}
 	}
 };
@@ -1910,10 +1963,18 @@ var initPagesKamil = function () {
 };
 var loadInitPagesKamil = function () {
 	"use strict";
-	var js = "../../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
-	/* ajaxLoadTriggerJS(js, initPagesKamil); */
-	if (!scriptIsLoaded(js)) {
-		loadJS(js, initPagesKamil);
+	var w = window,
+	js = "../../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
+	if (w.XMLHttpRequest || w.ActiveXObject) {
+		if (w.Promise) {
+			promiseLoadJS(js).then(initPagesKamil);
+		} else {
+			ajaxLoadTriggerJS(js, initPagesKamil);
+		}
+	} else {
+		if (!scriptIsLoaded(js)) {
+			loadJS(js, initPagesKamil);
+		}
 	}
 };
 docReady(loadInitPagesKamil);
@@ -1994,12 +2055,9 @@ docReady(loadInitManUp);
  */
 var showPageFinishProgress = function () {
 	"use strict";
-	var a = BALA.one("#container") || "",
-	pBC = function () {
-		progressBar.complete();
-	};
+	var a = BALA.one("#container") || "";
 	console.log("triggered function: showPageFinishProgress");
 	setStyleOpacity(a, 1);
-	setImmediate(pBC);
+	progressBar.complete();
 };
 evento.add(window, "load", showPageFinishProgress);

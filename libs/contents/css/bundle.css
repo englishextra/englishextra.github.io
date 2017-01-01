@@ -305,6 +305,7 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 		width: 50%;
 	}
 	.masonry-grid-item {
+		float: left;
 		width: 47%;
 	}
 }

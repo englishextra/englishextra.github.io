@@ -367,6 +367,21 @@ var evento=(function(){return function(){if("undefined"==typeof window||!("docum
  */
 var isInViewport=function(w,d){var g=function(e){return(e=e?e.getBoundingClientRect()||"":"")?0<=e.top&&0<=e.left&&e.bottom<=(w.innerHeight||d.clientHeight)&&e.right<=(w.innerWidth||d.clientWidth):!0;};return g;}(window,document.documentElement||"");
 /*!
+ * preload an image with callback
+ */
+var imagesPreloaded=!1;(function(m){m="[object Array]"===Object.prototype.toString.apply(m)?m:[m];var t=function(){imagesPreloaded=!0;},f=function(){imagesPreloaded=!1;},c=[];for(var i=0,l=m.length;i<l;i++){c[i]=new Image();c[i].onabort=f;c[i].onerror=f;c[i].onload=t;c[i].src=m[i];}})(["sprite.png"]);
+/*!
+ * Dynamically removing / replacing an external JavaScript or CSS file
+ * javascriptkit.com/javatutors/loadjavascriptcss2.shtml
+ * removeJsCssFile("somescript.js", "js");
+ * removeJsCssFile("somestyle.css", "css");
+ * replaceJsCssFile("oldscript.js", "newscript.js", "js");
+ * replaceJsCssFile("oldstyle.css", "newstyle", "css");
+ */
+var removeJsCssFile=function(e,c){for(var d="js"==c?"src":"css"==c?"href":"none",b=document.getElementsByTagName("js"==c?"script":"css"==c?"link":"none"),a=b.length;0<=a;a--){if(b[a]&&null!==b[a].getAttribute(d)&&-1!=b[a].getAttribute(d).indexOf(e)){b[a].parentNode.removeChild(b[a]);}}};
+var createJsCssFile=function(b,c){var a=!1;if("js"==c){a=document.createElement("script");a.setAttribute("type","text/javascript");a.setAttribute("src",b);}else{if("css"==c){a=document.createElement("link");a.setAttribute("rel","stylesheet");a.setAttribute("type","text/css");a.setAttribute("href",b);}}return a;};
+var replaceJsCssFile=function(e,f,c){for(var d="js"==c?"src":"css"==c?"href":"none",b=document.getElementsByTagName("js"==c?"script":"css"==c?"link":"none"),a=b.length;0<=a;a--){if(b[a]&&null!==b[a].getAttribute(d)&&-1!=b[a].getAttribute(d).indexOf(e)){var g=createJsCssFile(f,c);b[a].parentNode.replaceChild(g,b[a]);}}};
+/*!
  * load CSS async
  * modified order of arguments, added callback option, removed CommonJS stuff
  * github.com/filamentgroup/loadCSS
@@ -389,20 +404,24 @@ var isInViewport=function(w,d){var g=function(e){return(e=e?e.getBoundingClientR
  */
 ;(function(){var loadJS=function(_src,callback){"use strict";var ref=document.getElementsByTagName("script")[0];var script=document.createElement("script");script.src=_src;script.async=true;ref.parentNode.insertBefore(script,ref);if(callback&&"function"===typeof callback){script.onload=callback;}return script;};("undefined"!==typeof window?window:this).loadJS=loadJS;}());
 /*!
- * Dynamically removing / replacing an external JavaScript or CSS file
- * javascriptkit.com/javatutors/loadjavascriptcss2.shtml
- * removeJsCssFile("somescript.js", "js");
- * removeJsCssFile("somestyle.css", "css");
- * replaceJsCssFile("oldscript.js", "newscript.js", "js");
- * replaceJsCssFile("oldstyle.css", "newstyle", "css");
+ * Promise based script loader for the browser using script tags
+ * github.com/MiguelCastillo/load-js
+ * type: defaults to text/javascript
+ * async: defaults to false
+ * charset: defaults to utf-8
+ * id: no default value
+ * url: required if no text is provided
+ * text: required if no url is provided
+ * loadJS(["https://code.jquery.com/jquery-2.2.1.js",
+ * "https://unpkg.com/react@15.3.1/dist/react.min.js"])
+ * .then(function(){console.log("jQuery and react are loaded");});
+ * loadJS([{async:true,url:"https://code.jquery.com/jquery-2.2.1.js"},
+ * {async:true,url:"https://unpkg.com/react@15.3.1/dist/react.min.js"}])
+ * .then(()=>{console.log("all done!");});
+ * source: gist.github.com/pranksinatra/a4e57e586249dc3833e4
+ * passes jshint
  */
-var removeJsCssFile=function(e,c){for(var d="js"==c?"src":"css"==c?"href":"none",b=document.getElementsByTagName("js"==c?"script":"css"==c?"link":"none"),a=b.length;0<=a;a--){if(b[a]&&null!==b[a].getAttribute(d)&&-1!=b[a].getAttribute(d).indexOf(e)){b[a].parentNode.removeChild(b[a]);}}};
-var createJsCssFile=function(b,c){var a=!1;if("js"==c){a=document.createElement("script");a.setAttribute("type","text/javascript");a.setAttribute("src",b);}else{if("css"==c){a=document.createElement("link");a.setAttribute("rel","stylesheet");a.setAttribute("type","text/css");a.setAttribute("href",b);}}return a;};
-var replaceJsCssFile=function(e,f,c){for(var d="js"==c?"src":"css"==c?"href":"none",b=document.getElementsByTagName("js"==c?"script":"css"==c?"link":"none"),a=b.length;0<=a;a--){if(b[a]&&null!==b[a].getAttribute(d)&&-1!=b[a].getAttribute(d).indexOf(e)){var g=createJsCssFile(f,c);b[a].parentNode.replaceChild(g,b[a]);}}};
-/*!
- * preload an image with callback
- */
-var imagesPreloaded=!1;(function(m){m="[object Array]"===Object.prototype.toString.apply(m)?m:[m];var t=function(){imagesPreloaded=!0;},f=function(){imagesPreloaded=!1;},c=[];for(var i=0,l=m.length;i<l;i++){c[i]=new Image();c[i].onabort=f;c[i].onerror=f;c[i].onload=t;c[i].src=m[i];}})(["sprite.png"]);
+;(function(){function exec(options){if("string"===typeof options){options={url:options};}if(!options.url&&!options.text){throw new Error("must provide a url or text to load");}var head=document.getElementsByTagName("head")[0]||document.documentElement;var script=document.createElement("script");script.charset=options.charset||"utf-8";script.type=options.type||"text/javascript";script.async=!!options.async;if(options.hasOwnProperty("id")){script.id=options.id;}if(options.url){script.src=options.url;return loadScript(head,script);}else{script.text=options.text;return runScript(head,script);}}function runScript(head,script){head.appendChild(script);return Promise.resolve(script);}function loadScript(head,script){return new Promise(function(resolve){var done=false;script.onload=script.onreadystatechange=function(){if(!done&&(!this.readyState||this.readyState==="loaded"||this.readyState==="complete")){done=true;script.onload=script.onreadystatechange=null;if(head&&script.parentNode){head.removeChild(script);}resolve(script);}};head.appendChild(script);});}var promiseLoadJS=function(items){return items instanceof Array?Promise.all(items.map(exec)):exec(items);};("undefined"!==typeof window?window:this).promiseLoadJS=promiseLoadJS;}());
 /*!
  * How can I check if a CSS file has been included already?
  * gist.github.com/englishextra/d00e7046c9957199ff3e87af693f38be
@@ -1387,10 +1406,18 @@ var initAllMasonry = function () {
 };
 var loadInitAllMasonry = function () {
 	"use strict";
-	var js = "../../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js";
-	/* ajaxLoadTriggerJS(js, initAllMasonry); */
-	if (!scriptIsLoaded(js)) {
-		loadJS(js, initAllMasonry);
+	var w = window,
+	js = "../../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js";
+	if (w.XMLHttpRequest || w.ActiveXObject) {
+		if (w.Promise) {
+			promiseLoadJS(js).then(initAllMasonry);
+		} else {
+			ajaxLoadTriggerJS(js, initAllMasonry);
+		}
+	} else {
+		if (!scriptIsLoaded(js)) {
+			loadJS(js, initAllMasonry);
+		}
 	}
 };
 evento.add(window, "load", loadInitAllMasonry);
@@ -1412,7 +1439,8 @@ var initAllPackery = function () {
 				pckry = new Packery(e, {
 						itemSelector : h,
 						columnWidth : k,
-						gutter : 0
+						gutter : 0,
+						percentPosition: !0
 					});
 			};
 			if (w._) {
@@ -1459,15 +1487,23 @@ var initAllPackery = function () {
 		}
 	}
 };
-/* var loadInitAllPackery = function () {
+var loadInitAllPackery = function () {
 	"use strict";
-	var js = "../../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js"; */
-	/* ajaxLoadTriggerJS(js, initAllPackery); */
-	/* if (!scriptIsLoaded(js)) {
-		loadJS(js, initAllPackery);
+	var w = window,
+	js = "../../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js";
+	if (w.XMLHttpRequest || w.ActiveXObject) {
+		if (w.Promise) {
+			promiseLoadJS(js).then(initAllPackery);
+		} else {
+			ajaxLoadTriggerJS(js, initAllPackery);
+		}
+	} else {
+		if (!scriptIsLoaded(js)) {
+			loadJS(js, initAllPackery);
+		}
 	}
 };
-evento.add(window, "load", loadInitAllPackery); */
+/* evento.add(window, "load", loadInitAllPackery); */
 /*!
  * init photoswipe
  */
@@ -1694,10 +1730,18 @@ var initPhotoswipe = function () {
 };
 var loadInitPhotoswipe = function () {
 	"use strict";
-	var js = "../cdn/photoswipe/4.1.0/js/photoswipe.photoswipe-ui-default.fixed.min.js";
-	/* ajaxLoadTriggerJS(js, initPhotoswipe); */
-	if (!scriptIsLoaded(js)) {
-		loadJS(js, initPhotoswipe);
+	var w = window,
+	js = "../cdn/photoswipe/4.1.0/js/photoswipe.photoswipe-ui-default.fixed.min.js";
+	if (w.XMLHttpRequest || w.ActiveXObject) {
+		if (w.Promise) {
+			promiseLoadJS(js).then(initPhotoswipe);
+		} else {
+			ajaxLoadTriggerJS(js, initPhotoswipe);
+		}
+	} else {
+		if (!scriptIsLoaded(js)) {
+			loadJS(js, initPhotoswipe);
+		}
 	}
 };
 docReady(loadInitPhotoswipe);
@@ -1742,14 +1786,18 @@ var initTablesort = function (ctx) {
 	}
 };
 var loadInitTablesort = function () {
-	var a = BALA.one("table.sort") || "",
+	"use strict";
+	var w = window,
 	js = "../../cdn/tablesort/4.0.1/js/tablesort.fixed.min.js";
-	if (a) {
-		if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
-			/* ajaxLoadTriggerJS(js, initTablesort.bind(null, "")); */
-			if (!scriptIsLoaded(js)) {
-				loadJS(js, initTablesort.bind(null, ""));
-			}
+	if (w.XMLHttpRequest || w.ActiveXObject) {
+		if (w.Promise) {
+			promiseLoadJS(js).then(initTablesort.bind(null, ""));
+		} else {
+			ajaxLoadTriggerJS(js, initTablesort.bind(null, ""));
+		}
+	} else {
+		if (!scriptIsLoaded(js)) {
+			loadJS(js, initTablesort.bind(null, ""));
 		}
 	}
 };
@@ -1770,10 +1818,18 @@ var initPrettyPrint = function () {
 };
 var loadInitPrettyPrint = function () {
 	"use strict";
-	var js = "../../cdn/google-code-prettify/0.1/js/prettify.lang-css.fixed.min.js";
-	/* ajaxLoadTriggerJS(js, initPrettyPrint); */
-	if (!scriptIsLoaded(js)) {
-		loadJS(js, initPrettyPrint);
+	var w = window,
+	js = "../../cdn/google-code-prettify/0.1/js/prettify.lang-css.fixed.min.js";
+	if (w.XMLHttpRequest || w.ActiveXObject) {
+		if (w.Promise) {
+			promiseLoadJS(js).then(initPrettyPrint);
+		} else {
+			ajaxLoadTriggerJS(js, initPrettyPrint);
+		}
+	} else {
+		if (!scriptIsLoaded(js)) {
+			loadJS(js, initPrettyPrint);
+		}
 	}
 };
 docReady(loadInitPrettyPrint);
@@ -1940,9 +1996,11 @@ var manageDataSrcIframe = function (ctx) {
 	}
 };
 var loadManageDataSrcImgIframe = function () {
-	var a = BALA.one("img[data-src]") || "",
+	"use strict";
+	var w = window,
+	a = BALA.one("img[data-src]") || "",
 	c = BALA.one("iframe[data-src]") || "",
-	js = "../../cdn/lazyload/3.2.2/js/lazyload.fixed.min.js";
+	js = "../../cdn/lazyload/3.2.2/js/lazyload.fixed.min.js",
 	f = function () {
 		if (a) {
 			manageDataSrcImg();
@@ -1952,9 +2010,16 @@ var loadManageDataSrcImgIframe = function () {
 		}
 	};
 	if (a || c) {
-		/* ajaxLoadTriggerJS(js, f); */
-		if (!scriptIsLoaded(js)) {
-			loadJS(js, f);
+		if (w.XMLHttpRequest || w.ActiveXObject) {
+			if (w.Promise) {
+				promiseLoadJS(js).then(f);
+			} else {
+				ajaxLoadTriggerJS(js, f);
+			}
+		} else {
+			if (!scriptIsLoaded(js)) {
+				loadJS(js, f);
+			}
 		}
 	}
 };
@@ -2474,29 +2539,56 @@ var initMasonryImagesLoaded = function () {
 					itemSelector: h,
 					columnWidth: k,
 					gutter: 0,
-					percentPosition: true
+					percentPosition: !0
 				});
+			console.log("function initMasonryImagesLoaded => initialised msnry");
 			var imgLoad = imagesLoaded(g);
 			imgLoad.on("progress", function (instance) {
 				msnry.layout();
+				console.log("function initMasonryImagesLoaded => reinitialised imgLoad");
 			});
 			if ("undefined" !== typeof imagesPreloaded) {
 				imagesPreloaded = !0;
 			}
+		} else {
+			if (w.Packery && w.imagesLoaded) {
+				var pckry = new Packery(c, {
+						itemSelector: h,
+						columnWidth: k,
+						gutter: 0,
+						percentPosition: !0
+					});
+				console.log("function initMasonryImagesLoaded => initialised pckry");
+				var imgLoad = imagesLoaded(g);
+				imgLoad.on("progress", function (instance) {
+					pckry.layout();
+					console.log("function initMasonryImagesLoaded => reinitialised imgLoad");
+				});
+				if ("undefined" !== typeof imagesPreloaded) {
+					imagesPreloaded = !0;
+				}
+			}
 		}
 	};
 	if (c && a) {
-		/* q(); */
-		/* setAutoClearedTimeout(q, 1000 / 60); */
-		setImmediate(q);
+		setAutoClearedTimeout(q, 100);
 	}
 };
 var loadInitMasonryImagesLoaded = function () {
 	"use strict";
-	var js = "../cdn/masonry/4.1.1/js/masonry.imagesloaded.pkgd.fixed.min.js";
-	/* ajaxLoadTriggerJS(js, initMasonryImagesLoaded); */
-	if (!scriptIsLoaded(js)) {
-		loadJS(js, initMasonryImagesLoaded);
+	var w = window,
+	/* js = "../cdn/masonry/4.1.1/js/masonry.imagesloaded.pkgd.fixed.min.js"; */
+	js = "../cdn/packery/2.1.1/js/packery.imagesloaded.pkgd.fixed.min.js";
+	if (w.XMLHttpRequest || w.ActiveXObject) {
+		if (w.Promise) {
+			promiseLoadJS(js).then(initMasonryImagesLoaded);
+		} else {
+			ajaxLoadTriggerJS(js, initMasonryImagesLoaded);
+		}
+	} else {
+		if (!scriptIsLoaded(js)) {
+			loadJS(js, initMasonryImagesLoaded);
+		}
 	}
 };
 evento.add(window, "load", loadInitMasonryImagesLoaded);
@@ -2558,7 +2650,8 @@ var initSuperBox = function () {
 				w.scroll(0, reveal_pos);
 			}
 		};
-		setImmediate(si1);
+		/* setImmediate(si1); */
+		setAutoClearedTimeout(si1, 100);
 		s_cur_desc[cL].add(an, an1);
 		/*!
 		 * track clicks on external links
@@ -2619,7 +2712,8 @@ var initSuperBox = function () {
 					w.scroll(0, hide_pos);
 				}
 			};
-			setImmediate(si2);
+			/* setImmediate(si2); */
+			setAutoClearedTimeout(si2, 100);
 			s_cur_desc[cL].remove(an1);
 			s_cur_desc[cL].add(an2);
 			var s = function () {
@@ -2668,7 +2762,7 @@ docReady(initSuperBox);
  * init disqus_thread and Masonry / Packery
  * add Draggabilly to Packarey
  * gist.github.com/englishextra/5e423ff34f67982f017b
- * percentPosition: true works well with percent-width items,
+ * percentPosition: !0 works well with percent-width items,
  * as items will not transition their position on resize.
  * masonry.desandro.com/options.html
  */
@@ -2690,93 +2784,82 @@ var initMasonryDisqus = function () {
 	/*! Masonry */
 	q = function (a) {
 		var t = function () {
-			var s = function () {
-				if (w.Masonry) {
-					msnry = new Masonry(a, {
-							itemSelector: h,
-							columnWidth: k,
-							gutter: 0,
-							percentPosition: !0
-						});
-					console.log("function initMasonryDisqus => initialised msnry");
-				}
-			},
-			si = requestInterval(function () {
+			if (w.Masonry) {
+				msnry = new Masonry(a, {
+						itemSelector: h,
+						columnWidth: k,
+						gutter: 0,
+						percentPosition: !0
+					});
+				console.log("function initMasonryDisqus => initialised msnry");
+			}
+			var si = requestInterval(function () {
 					console.log("function initMasonryDisqus => started Interval");
 					if (imagesPreloaded) {
 						clearRequestInterval(si);
 						console.log("function initMasonryDisqus => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
-						/* s(); */
-						/* setAutoClearedTimeout(s, 1000 / 60); */
-						setImmediate(s);
+						msnry.layout();
+						console.log("function initMasonryDisqus => reinitialised msnry");
 					}
 				}, 100);
-		},
-		u = function () {
-			setAutoClearedTimeout(s, 500);
 		};
 		if ("undefined" !== typeof imagesPreloaded) {
-			t();
+			setAutoClearedTimeout(t, 100);
 		} else {
-			u();
+			console.log("function initMasonryDisqus => undefined: imagesPreloaded");
 		}
 	},
 	/*! or Packery */
 	v = function (a, c) {
 		var x = function () {
-			var s = function () {
-				if (w.Packery) {
-					pckry = new Packery(a, {
-							itemSelector: h,
-							columnWidth: k,
-							gutter: 0,
-							percentPosition: !0
-						});
-					console.log("function initMasonryDisqus => initialised pckry");
-					if (c) {
-						if (w.Draggabilly) {
-							var draggie,
-							f = function (e) {
-								var draggableElem = e;
-								draggie = new Draggabilly(draggableElem, {});
-								draggies.push(draggie);
-								console.log("function initMasonryDisqus => initialised draggie");
-							},
-							draggies = [];
-							if (w._) {
-								_.each(c, f);
-							} else if (w.forEach) {
-								forEach(c, f, !1);
-							} else {
-								for (var i = 0, l = c.length; i < l; i += 1) {
-									f(c[i]);
-								}
+			if (w.Packery) {
+				pckry = new Packery(a, {
+						itemSelector: h,
+						columnWidth: k,
+						gutter: 0,
+						percentPosition: !0
+					});
+				console.log("function initMasonryDisqus => initialised pckry");
+				var si = requestInterval(function () {
+						console.log("function initMasonryDisqus => started Interval");
+						if (imagesPreloaded) {
+							clearRequestInterval(si);
+							console.log("function initMasonryDisqus => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
+							pckry.layout();
+							console.log("function initMasonryDisqus => reinitialised pckry");
+						}
+					}, 100);
+				if (c) {
+					if (w.Draggabilly) {
+						var draggie,
+						f = function (e) {
+							var draggableElem = e;
+							draggie = new Draggabilly(draggableElem, {});
+							draggies.push(draggie);
+							console.log("function initMasonryDisqus => initialised draggie");
+						},
+						draggies = [];
+						if (w._) {
+							_.each(c, f);
+						} else if (w.forEach) {
+							forEach(c, f, !1);
+						} else {
+							for (var i = 0, l = c.length; i < l; i += 1) {
+								f(c[i]);
 							}
-							if (pckry && draggie) {
-								pckry.bindDraggabillyEvents(draggie);
-							}
+						}
+						if (pckry && draggie) {
+							pckry.bindDraggabillyEvents(draggie);
+							console.log("function initMasonryDisqus => binded draggie to pckry");
 						}
 					}
 				}
-			},
-			si = requestInterval(function () {
-					console.log("function initMasonryDisqus => started Interval");
-					if (imagesPreloaded) {
-						clearRequestInterval(si);
-						console.log("function initMasonryDisqus => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
-						/* s(); */
-						/* setAutoClearedTimeout(s, 1000 / 60); */
-						setImmediate(s);
-					}
-				}, 100);
-		},
-		y = function () {
-			setAutoClearedTimeout(s, 500);
+			}
 		};
 		if ("undefined" !== typeof imagesPreloaded) {
-			x();
+			setAutoClearedTimeout(x, 100);
 		} else {
-			y();
+			console.log("function initMasonryDisqus => undefined: imagesPreloaded");
 		}
 	},
 	z = function () {
@@ -2793,7 +2876,7 @@ var initMasonryDisqus = function () {
 						} else {
 							if ("undefined" !== typeof pckry && pckry) {
 								pckry.layout();
-								console.log("function initMasonryDisqus => reinitialised msnry");
+								console.log("function initMasonryDisqus => reinitialised pckry");
 							}
 						}
 					}
@@ -2824,16 +2907,185 @@ var initMasonryDisqus = function () {
 };
 var loadInitMasonryDisqus = function () {
 	"use strict";
-	var masonry_js = "../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"/* ,
-	packery_draggabilly_js = "../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js" */;
-	/* ajaxLoadTriggerJS(masonry_js, initMasonryDisqus); */
-	/* ajaxLoadTriggerJS(packery_draggabilly_js, initMasonryDisqus); */
-	if (!scriptIsLoaded(masonry_js)) {
-		loadJS(masonry_js, initMasonryDisqus);
+	var w = window,
+	js = "../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js";
+	/* js = "../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js"; */
+	if (w.XMLHttpRequest || w.ActiveXObject) {
+		if (w.Promise) {
+			promiseLoadJS(js).then(initMasonryDisqus);
+		} else {
+			ajaxLoadTriggerJS(js, initMasonryDisqus);
+		}
+	} else {
+		if (!scriptIsLoaded(js)) {
+			loadJS(js, initMasonryDisqus);
+		}
 	}
-	/* if (!scriptIsLoaded(packery_draggabilly_js)) {
-		loadJS(packery_draggabilly_js, initMasonryDisqus);
-	} */
+};
+evento.add(window, "load", loadInitMasonryDisqus);
+/*!
+ * init disqus_thread and Masonry / Packery
+ * add Draggabilly to Packarey
+ * gist.github.com/englishextra/5e423ff34f67982f017b
+ * percentPosition: !0 works well with percent-width items,
+ * as items will not transition their position on resize.
+ * masonry.desandro.com/options.html
+ */
+var initMasonryDisqus = function () {
+	"use strict";
+	var w = window,
+	disqus_thread = BALA.one("#disqus_thread") || "",
+	is_active = "is-active",
+	ds = "dataset",
+	disqus_shortname = disqus_thread ? (disqus_thread[ds].shortname || "") : "",
+	embed_js_src = getHTTP(!0) + "://" + disqus_shortname + ".disqus.com/embed.js",
+	g = ".masonry-grid",
+	h = ".masonry-grid-item",
+	k = ".masonry-grid-sizer",
+	grid = BALA.one(g) || "",
+	grid_item = BALA.one(h) || "",
+	cL = "classList",
+	pN = "parentNode",
+	/*! Masonry */
+	q = function (a) {
+		var t = function () {
+			if (w.Masonry) {
+				msnry = new Masonry(a, {
+						itemSelector: h,
+						columnWidth: k,
+						gutter: 0,
+						percentPosition: !0
+					});
+				console.log("function initMasonryDisqus => initialised msnry");
+			}
+			var si = requestInterval(function () {
+					console.log("function initMasonryDisqus => started Interval");
+					if (imagesPreloaded) {
+						clearRequestInterval(si);
+						console.log("function initMasonryDisqus => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
+						msnry.layout();
+						console.log("function initMasonryDisqus => reinitialised msnry");
+					}
+				}, 100);
+		};
+		if ("undefined" !== typeof imagesPreloaded) {
+			setAutoClearedTimeout(t, 100);
+		} else {
+			console.log("function initMasonryDisqus => undefined: imagesPreloaded");
+		}
+	},
+	/*! or Packery */
+	v = function (a, c) {
+		var x = function () {
+			if (w.Packery) {
+				pckry = new Packery(a, {
+						itemSelector: h,
+						columnWidth: k,
+						gutter: 0,
+						percentPosition: !0
+					});
+				console.log("function initMasonryDisqus => initialised pckry");
+				var si = requestInterval(function () {
+						console.log("function initMasonryDisqus => started Interval");
+						if (imagesPreloaded) {
+							clearRequestInterval(si);
+							console.log("function initMasonryDisqus => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
+							pckry.layout();
+							console.log("function initMasonryDisqus => reinitialised pckry");
+						}
+					}, 100);
+				if (c) {
+					if (w.Draggabilly) {
+						var draggie,
+						f = function (e) {
+							var draggableElem = e;
+							draggie = new Draggabilly(draggableElem, {});
+							draggies.push(draggie);
+							console.log("function initMasonryDisqus => initialised draggie");
+						},
+						draggies = [];
+						if (w._) {
+							_.each(c, f);
+						} else if (w.forEach) {
+							forEach(c, f, !1);
+						} else {
+							for (var i = 0, l = c.length; i < l; i += 1) {
+								f(c[i]);
+							}
+						}
+						if (pckry && draggie) {
+							pckry.bindDraggabillyEvents(draggie);
+							console.log("function initMasonryDisqus => binded draggie to pckry");
+						}
+					}
+				}
+			}
+		};
+		if ("undefined" !== typeof imagesPreloaded) {
+			setAutoClearedTimeout(x, 100);
+		} else {
+			console.log("function initMasonryDisqus => undefined: imagesPreloaded");
+		}
+	},
+	z = function () {
+		var s = function () {
+			var si = requestInterval(function () {
+					console.log("function initMasonryDisqus => started Interval");
+					var disqus_thread_height = disqus_thread.clientHeight || disqus_thread.offsetHeight || "";
+					if (108 < disqus_thread_height) {
+						clearRequestInterval(si);
+						console.log("function initMasonryDisqus => si=" + si + "; disqus_thread_height=" + disqus_thread_height);
+						if ("undefined" !== typeof msnry && msnry) {
+							msnry.layout();
+							console.log("function initMasonryDisqus => reinitialised msnry");
+						} else {
+							if ("undefined" !== typeof pckry && pckry) {
+								pckry.layout();
+								console.log("function initMasonryDisqus => reinitialised pckry");
+							}
+						}
+					}
+				}, 100);
+			disqus_thread[cL].add(is_active);
+		};
+		if (!scriptIsLoaded(embed_js_src)) {
+			loadJS(embed_js_src, s);
+		}
+	};
+	if (grid && grid_item) {
+		console.log("triggered function: initMasonryDisqus");
+		var msnry,
+		pckry;
+		/*! Masonry */
+		q(grid);
+		/*! or Packery */
+		var c = BALA(h) || "";
+		v(grid, c);
+		if (disqus_thread && disqus_shortname) {
+			if ("undefined" !== typeof getHTTP && getHTTP()) {
+				z();
+			} else {
+				setStyleDisplayNone(disqus_thread[pN][pN]);
+			}
+		}
+	}
+};
+var loadInitMasonryDisqus = function () {
+	"use strict";
+	var w = window,
+	js = "../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js";
+	/* js = "../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js"; */
+	if (w.XMLHttpRequest || w.ActiveXObject) {
+		if (w.Promise) {
+			promiseLoadJS(js).then(initMasonryDisqus);
+		} else {
+			ajaxLoadTriggerJS(js, initMasonryDisqus);
+		}
+	} else {
+		if (!scriptIsLoaded(js)) {
+			loadJS(js, initMasonryDisqus);
+		}
+	}
 };
 evento.add(window, "load", loadInitMasonryDisqus);
 /*!
@@ -2861,10 +3113,18 @@ var initParallax = function () {
 };
 var loadInitParallax = function () {
 	"use strict";
-	var js = "/cdn/parallax/2.1.3/js/parallax.fixed.min.js";
-	/* ajaxLoadTriggerJS(js, initParallax); */
-	if (!scriptIsLoaded(js)) {
-		loadJS(js, initParallax);
+	var w = window,
+	js = "/cdn/parallax/2.1.3/js/parallax.fixed.min.js";
+	if (w.XMLHttpRequest || w.ActiveXObject) {
+		if (w.Promise) {
+			promiseLoadJS(js).then(initParallax);
+		} else {
+			ajaxLoadTriggerJS(js, initParallax);
+		}
+	} else {
+		if (!scriptIsLoaded(js)) {
+			loadJS(js, initParallax);
+		}
 	}
 };
 evento.add(window, "load", loadInitParallax);
@@ -3212,10 +3472,18 @@ var initDoSlide = function () {
 };
 var loadInitDoSlide = function () {
 	"use strict";
-	var js = "../../cdn/doSlide/1.1.4/js/do-slide.fixed.min.js";
-	/* ajaxLoadTriggerJS(js, initDoSlide); */
-	if (!scriptIsLoaded(js)) {
-		loadJS(js, initDoSlide);
+	var w = window,
+	js = "../../cdn/doSlide/1.1.4/js/do-slide.fixed.min.js";
+	if (w.XMLHttpRequest || w.ActiveXObject) {
+		if (w.Promise) {
+			promiseLoadJS(js).then(initDoSlide);
+		} else {
+			ajaxLoadTriggerJS(js, initDoSlide);
+		}
+	} else {
+		if (!scriptIsLoaded(js)) {
+			loadJS(js, initDoSlide);
+		}
 	}
 };
 docReady(loadInitDoSlide);
@@ -3423,10 +3691,12 @@ var initContentsKamil = function () {
 			ac.on("kamilselect", function (e) {
 				var p = e.item.link || "";
 				if (p) {
-					setImmediate(function () {
+					/* setImmediate(function () {
 						e.inputElement.value = "";
 						changeLocation(p);
-					});
+					}); */
+					e.inputElement.value = "";
+					changeLocation(p);
 				}
 			});
 		}
@@ -3627,10 +3897,18 @@ var initContentsKamil = function () {
 };
 var loadInitContentsKamil = function () {
 	"use strict";
-	var js = "../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
-	/* ajaxLoadTriggerJS(js, initContentsKamil); */
-	if (!scriptIsLoaded(js)) {
-		loadJS(js, initContentsKamil);
+	var w = window,
+	js = "../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
+	if (w.XMLHttpRequest || w.ActiveXObject) {
+		if (w.Promise) {
+			promiseLoadJS(js).then(initContentsKamil);
+		} else {
+			ajaxLoadTriggerJS(js, initContentsKamil);
+		}
+	} else {
+		if (!scriptIsLoaded(js)) {
+			loadJS(js, initContentsKamil);
+		}
 	}
 };
 docReady(loadInitContentsKamil);
@@ -3708,10 +3986,12 @@ var initPagesKamil = function () {
 			ac.on("kamilselect", function (e) {
 				var p = e.item.link || "";
 				if (p) {
-					setImmediate(function () {
+					/* setImmediate(function () {
 						e.inputElement.value = "";
 						changeLocation(p);
-					});
+					}); */
+					e.inputElement.value = "";
+					changeLocation(p);
 				}
 			});
 		}
@@ -3912,10 +4192,18 @@ var initPagesKamil = function () {
 };
 var loadInitPagesKamil = function () {
 	"use strict";
-	var js = "../../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
-	/* ajaxLoadTriggerJS(js, initPagesKamil); */
-	if (!scriptIsLoaded(js)) {
-		loadJS(js, initPagesKamil);
+	var w = window,
+	js = "../../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
+	if (w.XMLHttpRequest || w.ActiveXObject) {
+		if (w.Promise) {
+			promiseLoadJS(js).then(initPagesKamil);
+		} else {
+			ajaxLoadTriggerJS(js, initPagesKamil);
+		}
+	} else {
+		if (!scriptIsLoaded(js)) {
+			loadJS(js, initPagesKamil);
+		}
 	}
 };
 docReady(loadInitPagesKamil);
@@ -4306,12 +4594,9 @@ var showPageFinishProgress = function () {
 	var b = BALA.one("body") || "",
 	c = BALA.one("#container") || "",
 	a = BALA.one(".holder-site-logo") || "",
-	pBC = function () {
-		progressBar.complete();
-	},
 	g = function () {
 		setStyleOpacity(c, 1);
-		setImmediate(pBC);
+		progressBar.complete();
 	},
 	k = function () {
 		var si = requestInterval(function () {
@@ -4378,72 +4663,3 @@ var manageInfiniteScroll = function (ctx) {
 	}
 };
 evento.add(window, "load", manageInfiniteScroll);
-/*!
- * Promise based script loader for the browser using script tags
- * github.com/MiguelCastillo/load-js
- * type: defaults to text/javascript
- * async: defaults to false
- * charset: defaults to utf-8
- * id: no default value
- * url: required if no text is provided
- * text: required if no url is provided
- * loadJS(["https://code.jquery.com/jquery-2.2.1.js",
- * "https://unpkg.com/react@15.3.1/dist/react.min.js"])
- * .then(function(){console.log("jQuery and react are loaded");});
- * loadJS([{async:true,url:"https://code.jquery.com/jquery-2.2.1.js"},
- * {async:true,url:"https://unpkg.com/react@15.3.1/dist/react.min.js"}])
- * .then(()=>{console.log("all done!");});
- * source: gist.github.com/pranksinatra/a4e57e586249dc3833e4
- * passes jshint
- */
-var promiseLoadJS = (function () {
-	function exec(options) {
-		if (typeof options === "string") {
-			options = {
-				url: options
-			};
-		}
-		if (!options.url && !options.text) {
-			throw new Error("must provide a url or text to load");
-		}
-		var head = document.getElementsByTagName("head")[0] || document.documentElement;
-		var script = document.createElement("script");
-		script.charset = options.charset || "utf-8";
-		script.type = options.type || "text/javascript";
-		script.async = !!options.async;
-		if (options.hasOwnProperty("id")) {
-			script.id = options.id;
-		}
-		if (options.url) {
-			script.src = options.url;
-			return loadScript(head, script);
-		} else {
-			script.text = options.text;
-			return runScript(head, script);
-		}
-	}
-	function runScript(head, script) {
-		head.appendChild(script);
-		return Promise.resolve(script);
-	}
-	function loadScript(head, script) {
-		return new Promise(function (resolve) {
-			var done = false;
-			script.onload = script.onreadystatechange = function () {
-				if (!done && (!this.readyState || this.readyState === "loaded" || this.readyState === "complete")) {
-					done = true;
-					script.onload = script.onreadystatechange = null;
-					if (head && script.parentNode) {
-						head.removeChild(script);
-					}
-					resolve(script);
-				}
-			};
-			head.appendChild(script);
-		});
-	}
-	return function load(items) {
-		return items instanceof Array ? Promise.all(items.map(exec)) : exec(items);
-	};
-}
-	());
