@@ -533,6 +533,7 @@ var initMasonryImagesLoaded = function () {
 	c = BALA.one(g) || "",
 	a = BALA.one(h) || "",
 	q = function () {
+		var imgLoad;
 		if (w.Masonry && w.imagesLoaded) {
 			var msnry = new Masonry(c, {
 					itemSelector: h,
@@ -541,7 +542,7 @@ var initMasonryImagesLoaded = function () {
 					percentPosition: !0
 				});
 			console.log("function initMasonryImagesLoaded => initialised msnry");
-			var imgLoad = imagesLoaded(g);
+			imgLoad = imagesLoaded(g);
 			imgLoad.on("progress", function (instance) {
 				msnry.layout();
 				console.log("function initMasonryImagesLoaded => reinitialised imgLoad");
@@ -549,6 +550,24 @@ var initMasonryImagesLoaded = function () {
 			if ("undefined" !== typeof imagesPreloaded) {
 				imagesPreloaded = !0;
 			}
+		} else if (w.Packery && w.imagesLoaded) {
+			var pckry = new Packery(c, {
+					itemSelector: h,
+					columnWidth: k,
+					gutter: 0,
+					percentPosition: !0
+				});
+			console.log("function initMasonryImagesLoaded => initialised pckry");
+			imgLoad = imagesLoaded(g);
+			imgLoad.on("progress", function (instance) {
+				pckry.layout();
+				console.log("function initMasonryImagesLoaded => reinitialised imgLoad");
+			});
+			if ("undefined" !== typeof imagesPreloaded) {
+				imagesPreloaded = !0;
+			}
+		} else {
+			console.log("function initMasonry => no library is loaded");
 		}
 	};
 	if (c && a) {
@@ -556,22 +575,6 @@ var initMasonryImagesLoaded = function () {
 	}
 };
 var loadInitMasonryImagesLoaded = function () {
-	"use strict";
-	var w = window,
-	/* js = "../cdn/masonry/4.1.1/js/masonry.imagesloaded.pkgd.fixed.min.js"; */
-	js = "../cdn/packery/2.1.1/js/packery.imagesloaded.pkgd.fixed.min.js";
-	if (w.XMLHttpRequest || w.ActiveXObject) {
-		if (w.Promise) {
-			promiseLoadJS(js).then(initMasonryImagesLoaded);
-		} else {
-			ajaxLoadTriggerJS(js, initMasonryImagesLoaded);
-		}
-	} else {
-		if (!scriptIsLoaded(js)) {
-			loadJS(js, initMasonryImagesLoaded);
-		}
-	}
-};var loadInitMasonryImagesLoaded = function () {
 	"use strict";
 	var w = window,
 	/* js = "../cdn/masonry/4.1.1/js/masonry.imagesloaded.pkgd.fixed.min.js"; */
