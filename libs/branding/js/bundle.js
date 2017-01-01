@@ -780,6 +780,7 @@ evento.add(window, "load", loadInitAllMasonry);
 /*!
  * init all Packery grids
  */
+/*
 var initAllPackery = function () {
 	"use strict";
 	var w = window,
@@ -859,7 +860,8 @@ var loadInitAllPackery = function () {
 		}
 	}
 };
-/* evento.add(window, "load", loadInitAllPackery); */
+evento.add(window, "load", loadInitAllPackery);
+*/
 /*!
  * init prettyPrint
  */

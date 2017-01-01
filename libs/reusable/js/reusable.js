@@ -1424,6 +1424,7 @@ evento.add(window, "load", loadInitAllMasonry);
 /*!
  * init all Packery grids
  */
+/*
 var initAllPackery = function () {
 	"use strict";
 	var w = window,
@@ -1503,7 +1504,8 @@ var loadInitAllPackery = function () {
 		}
 	}
 };
-/* evento.add(window, "load", loadInitAllPackery); */
+evento.add(window, "load", loadInitAllPackery);
+*/
 /*!
  * init photoswipe
  */
@@ -2758,171 +2760,6 @@ var initSuperBox = function () {
 	}
 };
 docReady(initSuperBox);
-/*!
- * init disqus_thread and Masonry / Packery
- * add Draggabilly to Packarey
- * gist.github.com/englishextra/5e423ff34f67982f017b
- * percentPosition: !0 works well with percent-width items,
- * as items will not transition their position on resize.
- * masonry.desandro.com/options.html
- */
-var initMasonryDisqus = function () {
-	"use strict";
-	var w = window,
-	disqus_thread = BALA.one("#disqus_thread") || "",
-	is_active = "is-active",
-	ds = "dataset",
-	disqus_shortname = disqus_thread ? (disqus_thread[ds].shortname || "") : "",
-	embed_js_src = getHTTP(!0) + "://" + disqus_shortname + ".disqus.com/embed.js",
-	g = ".masonry-grid",
-	h = ".masonry-grid-item",
-	k = ".masonry-grid-sizer",
-	grid = BALA.one(g) || "",
-	grid_item = BALA.one(h) || "",
-	cL = "classList",
-	pN = "parentNode",
-	/*! Masonry */
-	q = function (a) {
-		var t = function () {
-			if (w.Masonry) {
-				msnry = new Masonry(a, {
-						itemSelector: h,
-						columnWidth: k,
-						gutter: 0,
-						percentPosition: !0
-					});
-				console.log("function initMasonryDisqus => initialised msnry");
-			}
-			var si = requestInterval(function () {
-					console.log("function initMasonryDisqus => started Interval");
-					if (imagesPreloaded) {
-						clearRequestInterval(si);
-						console.log("function initMasonryDisqus => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
-						msnry.layout();
-						console.log("function initMasonryDisqus => reinitialised msnry");
-					}
-				}, 100);
-		};
-		if ("undefined" !== typeof imagesPreloaded) {
-			setAutoClearedTimeout(t, 100);
-		} else {
-			console.log("function initMasonryDisqus => undefined: imagesPreloaded");
-		}
-	},
-	/*! or Packery */
-	v = function (a, c) {
-		var x = function () {
-			if (w.Packery) {
-				pckry = new Packery(a, {
-						itemSelector: h,
-						columnWidth: k,
-						gutter: 0,
-						percentPosition: !0
-					});
-				console.log("function initMasonryDisqus => initialised pckry");
-				var si = requestInterval(function () {
-						console.log("function initMasonryDisqus => started Interval");
-						if (imagesPreloaded) {
-							clearRequestInterval(si);
-							console.log("function initMasonryDisqus => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
-							pckry.layout();
-							console.log("function initMasonryDisqus => reinitialised pckry");
-						}
-					}, 100);
-				if (c) {
-					if (w.Draggabilly) {
-						var draggie,
-						f = function (e) {
-							var draggableElem = e;
-							draggie = new Draggabilly(draggableElem, {});
-							draggies.push(draggie);
-							console.log("function initMasonryDisqus => initialised draggie");
-						},
-						draggies = [];
-						if (w._) {
-							_.each(c, f);
-						} else if (w.forEach) {
-							forEach(c, f, !1);
-						} else {
-							for (var i = 0, l = c.length; i < l; i += 1) {
-								f(c[i]);
-							}
-						}
-						if (pckry && draggie) {
-							pckry.bindDraggabillyEvents(draggie);
-							console.log("function initMasonryDisqus => binded draggie to pckry");
-						}
-					}
-				}
-			}
-		};
-		if ("undefined" !== typeof imagesPreloaded) {
-			setAutoClearedTimeout(x, 100);
-		} else {
-			console.log("function initMasonryDisqus => undefined: imagesPreloaded");
-		}
-	},
-	z = function () {
-		var s = function () {
-			var si = requestInterval(function () {
-					console.log("function initMasonryDisqus => started Interval");
-					var disqus_thread_height = disqus_thread.clientHeight || disqus_thread.offsetHeight || "";
-					if (108 < disqus_thread_height) {
-						clearRequestInterval(si);
-						console.log("function initMasonryDisqus => si=" + si + "; disqus_thread_height=" + disqus_thread_height);
-						if ("undefined" !== typeof msnry && msnry) {
-							msnry.layout();
-							console.log("function initMasonryDisqus => reinitialised msnry");
-						} else {
-							if ("undefined" !== typeof pckry && pckry) {
-								pckry.layout();
-								console.log("function initMasonryDisqus => reinitialised pckry");
-							}
-						}
-					}
-				}, 100);
-			disqus_thread[cL].add(is_active);
-		};
-		if (!scriptIsLoaded(embed_js_src)) {
-			loadJS(embed_js_src, s);
-		}
-	};
-	if (grid && grid_item) {
-		console.log("triggered function: initMasonryDisqus");
-		var msnry,
-		pckry;
-		/*! Masonry */
-		q(grid);
-		/*! or Packery */
-		var c = BALA(h) || "";
-		v(grid, c);
-		if (disqus_thread && disqus_shortname) {
-			if ("undefined" !== typeof getHTTP && getHTTP()) {
-				z();
-			} else {
-				setStyleDisplayNone(disqus_thread[pN][pN]);
-			}
-		}
-	}
-};
-var loadInitMasonryDisqus = function () {
-	"use strict";
-	var w = window,
-	js = "../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js";
-	/* js = "../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js"; */
-	if (w.XMLHttpRequest || w.ActiveXObject) {
-		if (w.Promise) {
-			promiseLoadJS(js).then(initMasonryDisqus);
-		} else {
-			ajaxLoadTriggerJS(js, initMasonryDisqus);
-		}
-	} else {
-		if (!scriptIsLoaded(js)) {
-			loadJS(js, initMasonryDisqus);
-		}
-	}
-};
-evento.add(window, "load", loadInitMasonryDisqus);
 /*!
  * init disqus_thread and Masonry / Packery
  * add Draggabilly to Packarey
