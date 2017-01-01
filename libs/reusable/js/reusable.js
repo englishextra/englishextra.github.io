@@ -2795,16 +2795,16 @@ var initMasonryDisqus = function () {
 						percentPosition: !0
 					});
 				console.log("function initMasonryDisqus => initialised msnry");
+				var si = requestInterval(function () {
+						console.log("function initMasonryDisqus => started Interval");
+						if (imagesPreloaded) {
+							clearRequestInterval(si);
+							console.log("function initMasonryDisqus => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
+							msnry.layout();
+							console.log("function initMasonryDisqus => reinitialised msnry");
+						}
+					}, 100);
 			}
-			var si = requestInterval(function () {
-					console.log("function initMasonryDisqus => started Interval");
-					if (imagesPreloaded) {
-						clearRequestInterval(si);
-						console.log("function initMasonryDisqus => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
-						msnry.layout();
-						console.log("function initMasonryDisqus => reinitialised msnry");
-					}
-				}, 100);
 		};
 		if ("undefined" !== typeof imagesPreloaded) {
 			setAutoClearedTimeout(t, 100);
