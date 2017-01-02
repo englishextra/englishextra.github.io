@@ -1373,14 +1373,54 @@ var initAllMasonry = function () {
 	k = ".masonry-grid-sizer",
 	grid = BALA.one(g) || "",
 	grid_item = BALA.one(h) || "",
-	q = function (a) {
+	q = function (a, c) {
 		var f = function (e) {
 			if (w.Masonry) {
 				var msnry = new Masonry(e, {
-						itemSelector : h,
-						columnWidth : k,
-						gutter : 0
+						itemSelector: h,
+						columnWidth: k,
+						gutter: 0
 					});
+			} else if (w.Packery) {
+				var pckry,
+				f = function (e) {
+					pckry = new Packery(e, {
+							itemSelector: h,
+							columnWidth: k,
+							gutter: 0,
+							percentPosition: !0
+						});
+				};
+				if (w._) {
+					_.each(a, f);
+				} else if (w.forEach) {
+					forEach(a, f, !1);
+				} else {
+					for (var j = 0, m = a.length; j < m; j += 1) {
+						f(a[j]);
+					}
+				}
+				if (w.Draggabilly) {
+					var draggie,
+					s = function (e) {
+						var draggableElem = e;
+						draggie = new Draggabilly(draggableElem, {});
+						draggies.push(draggie);
+					},
+					draggies = [];
+					if (w._) {
+						_.each(c, s);
+					} else if (w.forEach) {
+						forEach(c, s, !1);
+					} else {
+						for (var i = 0, l = c.length; i < l; i += 1) {
+							s(c[i]);
+						}
+					}
+					if (pckry) {
+						pckry.bindDraggabillyEvents(draggie);
+					}
+				}
 			}
 		};
 		if (w._) {
@@ -1394,20 +1434,23 @@ var initAllMasonry = function () {
 		}
 	},
 	v = function (a) {
-		q(a);
+		q(a, c);
 	};
 	if (grid && grid_item) {
 		console.log("triggered function: initAllMasonry");
-		var a = BALA(g);
-		if (a) {
-			v(a);
+		var a = BALA(g),
+		c = BALA(h) || "";
+		if (a && c) {
+			v(a, c);
 		}
 	}
 };
 var loadInitAllMasonry = function () {
 	"use strict";
 	var w = window,
-	js = "../../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js";
+	/* js = "../../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
+	/* js = "../../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js"; */
+	js = "../../cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
 	if (w.XMLHttpRequest || w.ActiveXObject) {
 		if (w.Promise) {
 			promiseLoadJS(js).then(initAllMasonry);
@@ -1421,91 +1464,6 @@ var loadInitAllMasonry = function () {
 	}
 };
 evento.add(window, "load", loadInitAllMasonry);
-/*!
- * init all Packery grids
- */
-/*
-var initAllPackery = function () {
-	"use strict";
-	var w = window,
-	g = ".masonry-grid",
-	h = ".masonry-grid-item",
-	k = ".masonry-grid-sizer",
-	grid = BALA.one(g) || "",
-	grid_item = BALA.one(h) || "",
-	q = function (a, c) {
-		if (w.Packery) {
-			var pckry,
-			f = function (e) {
-				pckry = new Packery(e, {
-						itemSelector : h,
-						columnWidth : k,
-						gutter : 0,
-						percentPosition: !0
-					});
-			};
-			if (w._) {
-				_.each(a, f);
-			} else if (w.forEach) {
-				forEach(a, f, !1);
-			} else {
-				for (var j = 0, m = a.length; j < m; j += 1) {
-					f(a[j]);
-				}
-			}
-			if (w.Draggabilly) {
-				var draggie,
-				s = function (e) {
-					var draggableElem = e;
-					draggie = new Draggabilly(draggableElem, {});
-					draggies.push(draggie);
-				},
-				draggies = [];
-				if (w._) {
-					_.each(c, s);
-				} else if (w.forEach) {
-					forEach(c, s, !1);
-				} else {
-					for (var i = 0, l = c.length; i < l; i += 1) {
-						s(c[i]);
-					}
-				}
-				if (pckry) {
-					pckry.bindDraggabillyEvents(draggie);
-				}
-			}
-		}
-	},
-	v = function (a, c) {
-		q(a, c);
-	};
-	if (grid && grid_item) {
-		console.log("triggered function: initAllPackery");
-		var a = BALA(g),
-		c = BALA(h) || "";
-		if (a, c) {
-			v(a, c);
-		}
-	}
-};
-var loadInitAllPackery = function () {
-	"use strict";
-	var w = window,
-	js = "../../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js";
-	if (w.XMLHttpRequest || w.ActiveXObject) {
-		if (w.Promise) {
-			promiseLoadJS(js).then(initAllPackery);
-		} else {
-			ajaxLoadTriggerJS(js, initAllPackery);
-		}
-	} else {
-		if (!scriptIsLoaded(js)) {
-			loadJS(js, initAllPackery);
-		}
-	}
-};
-evento.add(window, "load", loadInitAllPackery);
-*/
 /*!
  * init photoswipe
  */
