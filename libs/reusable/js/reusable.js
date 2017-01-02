@@ -2909,6 +2909,23 @@ var initMasonryDisqus = function () {
 	}
 };
 var loadInitMasonryDisqus = function () {
+	"use strict";
+	var w = window,
+	/* js = "../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
+	/* js = "../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js"; */
+	js = "../cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
+	if (w.XMLHttpRequest || w.ActiveXObject) {
+		if (w.Promise) {
+			promiseLoadJS(js).then(initMasonryDisqus);
+		} else {
+			ajaxLoadTriggerJS(js, initMasonryDisqus);
+		}
+	} else {
+		if (!scriptIsLoaded(js)) {
+			loadJS(js, initMasonryDisqus);
+		}
+	}
+};
 evento.add(window, "load", loadInitMasonryDisqus);
 /*!
  * init parallax
