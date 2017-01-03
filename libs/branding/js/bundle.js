@@ -1662,9 +1662,8 @@ var initDisqusOnScroll = function () {
 		if (disqus_thread && btn && disqus_shortname && p) {
 			console.log("triggered function: initDisqusOnScroll");
 			if ("undefined" !== typeof getHTTP && getHTTP()) {
-				if ("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize) {
-					q();
-				} else {
+				q();
+				if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
 					if (w.Waypoint) {
 						try {
 							var waypoint = new Waypoint({

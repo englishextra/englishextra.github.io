@@ -604,7 +604,10 @@ body {
 	line-height: 1.500;
 	width: 100%;
 	color: #363636;
-	background-color: #FFFFFF;
+	/* background-color: #FFFFFF; */
+	background-color: #F3F3F3;
+	background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHhtbG5zOnhsaW5rPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rJyB3aWR0aD0nMjAwJyBoZWlnaHQ9JzMwMCcgdmlld0JveD0nMCAwIDIwMCAzMDAnPgoJPGZpbHRlciBpZD0nZnV6eicgeD0nMCcgeT0nMCc+CgkJPGZlVHVyYnVsZW5jZSB0eXBlPSd0dXJidWxlbmNlJyBiYXNlRnJlcXVlbmN5PScwLjgnIG51bU9jdGF2ZXM9JzEwJyBzdGl0Y2hUaWxlcz0nc3RpdGNoJy8+Cgk8L2ZpbHRlcj4KCTxyZWN0IHdpZHRoPScxMDAlJyBoZWlnaHQ9JzEwMCUnIGZpbHRlcj0ndXJsKCNmdXp6KScgb3BhY2l0eT0nMC4yJy8+Cjwvc3ZnPg==);
+	background-repeat: repeat;
 	-webkit-text-size-adjust: none;
 	-ms-text-size-adjust: none;
 	text-size-adjust: none;
@@ -745,15 +748,14 @@ u,
 	height: 100%;
 	position: relative;
 	left: 0;
-	background-color: transparent;
 }
-body,
+/* body,
 .page {
 	background-image: linear-gradient(rgba(242,242,242,1), rgba(242,242,242,1));
 	background-size: 100% 33.000pt;
 	background-position: top left;
 	background-repeat: no-repeat;
-}
+} */
 .page.is-active {
 	position: relative;
 	left: 280px;
@@ -779,7 +781,9 @@ body,
 }
 .container .content-wrapper,
 .app-content .content-wrapper {
+	width: 100%;
 	min-height: 100%;
+	position: absolute;
 	background-color: #FFFFFF;
 }
 .container .content-wrapper:after,
