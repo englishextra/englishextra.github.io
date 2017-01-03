@@ -52,7 +52,7 @@ body {
 }
 /*! @import "masonry-grid"; */
 /*!
- * masonry grid
+ * masonry grid wrapper
  */
 .masonry-grid-wrapper {
 	width: 92%;
@@ -72,49 +72,15 @@ body {
 	text-decoration: none;
 	color: inherit;
 }
+/*!
+ * filtering controls
+ */
 .masonry-filter-controls {
 	margin: 0;
 }
 .masonry-filter-controls p {
 	margin: 0;
 }
-.masonry-grid {
-	display: block;
-	width: 100%;
-	background: transparent;
-	padding: 0;
-	margin: 0 auto 1.500rem auto;
-}
-.masonry-grid:after {
-	content: "";
-	display: block;
-	clear: both;
-}
-.masonry-grid-item {
-	float: left;
-	min-height: 6.750rem;
-	font-size: 1.000rem;
-	font-weight: 300;
-	color: #FFFFFF;
-	background-color: #677689;
-}
-.masonry-grid-item:hover {
-	opacity: 0.9;
-}
-.masonry-grid-sizer,
-.masonry-grid-item {
-	width: 20%;
-}
-.masonry-grid-item a {
-	display: block;
-	height: 6.750rem;
-	text-decoration: none;
-	color: inherit;
-	padding: 1.000rem;
-}
-/*!
- * filtering controls
- */
 .holder-filter-buttons {
 	text-align: center;
 	background-color: #474747;
@@ -150,7 +116,7 @@ body {
 .filter-select:active,
 .filter-select:focus {
 	display: block;
-	width: 99.90%;
+	width: 100%;
 	height: 2.250rem;
 	font-size: 0.875rem;
 	text-align: center;
@@ -170,6 +136,46 @@ body {
 .filter-select option:checked {
 	box-shadow: inset 2.250rem 2.250rem #606060;
 }
+/*!
+ * masonry grid
+ */
+.masonry-grid {
+	display: block;
+	width: 100%;
+	background: transparent;
+	padding: 0;
+	margin: 0 auto 1.500rem auto;
+}
+.masonry-grid:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+.masonry-grid-item {
+	float: left;
+	min-height: 6.750rem;
+	font-size: 1.000rem;
+	font-weight: 300;
+	color: #FFFFFF;
+	background-color: #677689;
+}
+.masonry-grid-item:hover {
+	opacity: 0.9;
+}
+.masonry-grid-sizer,
+.masonry-grid-item {
+	width: 25%;
+}
+.masonry-grid-item a {
+	display: block;
+	height: 6.750rem;
+	text-decoration: none;
+	color: inherit;
+	padding: 1.000rem;
+}
+/*!
+ * footer
+ */
 .footer {
 	font-size: 0.813rem;
 	font-weight: 400;
@@ -183,6 +189,12 @@ body {
 	color: inherit;
 }
 @media handheld,only screen and (max-width:1080px) {
+	.holder-filter-buttons {
+		display: none;
+	}
+	.holder-filter-select {
+		display: block;
+	}
 	.masonry-grid-wrapper {
 		width: 100%;
 		padding-left: 1.000rem;
@@ -190,21 +202,15 @@ body {
 	}
 	.masonry-grid-sizer,
 	.masonry-grid-item {
-		width: 33.333%;
-	}
-	.holder-filter-buttons {
-		display: none;
-	}
-	.holder-filter-select {
-		display: block;
+		width: 50%;
 	}
 }
 @media handheld,only screen and (max-width:640px) {
-	.masonry-grid-wrapper h1 {
-		font-size: 1.772rem;
-	}
 	.masonry-grid-wrapper {
 		width: 100%;
+	}
+	.masonry-grid-wrapper h1 {
+		font-size: 1.772rem;
 	}
 	.masonry-grid-sizer,
 	.masonry-grid-item {
