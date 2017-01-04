@@ -33,7 +33,7 @@
  * englishextra specific rules
  */a{color:inherit;text-decoration:none;-webkit-tap-highlight-color:rgba(0,0,0,0);outline:0}a:active,a:focus,a:hover{-webkit-tap-highlight-color:rgba(0,0,0,0);outline:0}img{border:0;-ms-interpolation-mode:bicubic;vertical-align:bottom}p:first-child{margin-top:0}p:last-child{margin-bottom:0}.bolder,b,strong{font-weight:700}.italic,em,i{font-style:italic}.underline,u{text-decoration:underline}*,::before,:after{box-sizing:border-box}::-moz-selection{color:rgba(255,255,255,.9);background:rgba(48,124,202,.9)}::selection{color:rgba(255,255,255,.9);background:rgba(48,124,202,.9)}/*!
  * clearfix css-tricks.com/snippets/css/clear-fix/
- */.cf:after{visibility:hidden;display:block;content:"";clear:both;height:0}/*!
+ */.cf:after{display:block;visibility:hidden;height:0;content:"";clear:both}/*!
  * fit width
  */.fit-width{min-width:100%}/*!
  * hide and show on mobile
@@ -55,7 +55,7 @@
  * menu more
  */.btn-menu-more{display:inline-block;width:33pt;height:33pt;position:absolute;top:0;left:33pt;text-decoration:none;-webkit-transition:background .2s linear;transition:background .2s linear;cursor:pointer;z-index:999}.btn-menu-more:hover{background-color:rgba(66,66,66,1)}/*!
  * using icon font
- */.btn-menu-more{text-align:center;background:none transparent}.btn-menu-more:before{font-family:englishextra-ui-icons;content:"\e915";font-size:18pt;line-height:33pt;color:#FFF}.holder-panel-menu-more{display:block;position:absolute;top:33pt;left:33pt;color:#363636;background:#F0F0F0;border:.75pt solid rgba(45,116,189,1);box-shadow:.125em .125em .125em 0 rgba(50,50,50,.3);visibility:hidden;opacity:0;-webkit-transition:visibility 0s,opacity .1s linear;transition:visibility 0s,opacity .1s linear;z-index:999}.holder-panel-menu-more.is-active{visibility:visible;opacity:1}.panel-menu-more{display:inline-block;min-width:204pt;width:100%;height:100%;font-size:.857em;line-height:1.5;list-style-type:none;padding:0;margin:0}.panel-menu-more li a{display:block;font-weight:400;padding:.625em .75em}.panel-menu-more li a:active,.panel-menu-more li a:focus,.panel-menu-more li a:hover{text-decoration:none;color:inherit;background-color:rgba(190,212,235,1)}/*!
+ */.btn-menu-more{text-align:center;background:none transparent}.btn-menu-more:before{font-family:englishextra-ui-icons;content:"\e915";font-size:18pt;line-height:33pt;color:#FFF}.holder-panel-menu-more{display:block;visibility:hidden;position:absolute;top:33pt;left:33pt;color:#363636;background:#F0F0F0;border:.75pt solid rgba(45,116,189,1);box-shadow:.125em .125em .125em 0 rgba(50,50,50,.3);opacity:0;-webkit-transition:visibility 0s,opacity .1s linear;transition:visibility 0s,opacity .1s linear;z-index:999}.holder-panel-menu-more.is-active{visibility:visible;opacity:1}.panel-menu-more{display:inline-block;min-width:204pt;width:100%;height:100%;font-size:.857em;line-height:1.5;list-style-type:none;padding:0;margin:0}.panel-menu-more li a{display:block;font-weight:400;padding:.625em .75em}.panel-menu-more li a:active,.panel-menu-more li a:focus,.panel-menu-more li a:hover{text-decoration:none;color:inherit;background-color:rgba(190,212,235,1)}/*!
  * retina
  *//*!
  * font for mobile

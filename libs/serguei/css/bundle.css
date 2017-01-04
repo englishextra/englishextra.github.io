@@ -616,10 +616,6 @@ body {
 	-webkit-touch-callout: none;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	outline: none;
-	/* -webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none; */
 	overflow-x: hidden;
 	margin: 0;
 	padding: 0;
@@ -680,11 +676,11 @@ u,
  * clearfix css-tricks.com/snippets/css/clear-fix/
  */
 .cf:after {
-	visibility: hidden;
 	display: block;
+	visibility: hidden;
+	height: 0;
 	content: "";
 	clear: both;
-	height: 0;
 }
 /*!
  * fit width
@@ -934,6 +930,7 @@ u,
 }
 .holder-panel-menu-more {
 	display: block;
+	visibility: hidden;
 	position: absolute;
 	top: 33.000pt;
 	left: 33.000pt;
@@ -941,7 +938,6 @@ u,
 	background: #F0F0F0;
 	border: 0.750pt solid rgba(45,116,189,1);
 	box-shadow: 0.125em 0.125em 0.125em 0 rgba(50,50,50,0.3);
-	visibility: hidden;
 	opacity: 0;
 	-webkit-transition: visibility 0s,opacity 0.1s linear;
 	transition: visibility 0s,opacity 0.1s linear;
