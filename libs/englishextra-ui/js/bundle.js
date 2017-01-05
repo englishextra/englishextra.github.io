@@ -1039,8 +1039,8 @@ var manageDataSrcImg = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
 	var w = window,
-	el = "img[data-src]",
-	a = ctx ? BALA.one(el, ctx) || "" : BALA.one(el) || "",
+	cls = "img[data-src]",
+	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	ds = "dataset",
 	pN = "parentNode",
 	g = function (e) {
@@ -1060,7 +1060,7 @@ var manageDataSrcImg = function (ctx) {
 	};
 	if (a) {
 		console.log("triggered function: manageDataSrcImg");
-		a = ctx ? BALA(el, ctx) || "" : BALA(el) || "";
+		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
 		if (w._) {
 			_.each(a, g);
 		} else if (w.forEach) {
@@ -1080,8 +1080,8 @@ var manageDataSrcIframe = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
 	var w = window,
-	el = "iframe[data-src]",
-	a = ctx ? BALA.one(el, ctx) || "" : BALA.one(el) || "",
+	cls = "iframe[data-src]",
+	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	ds = "dataset",
 	pN = "parentNode",
 	g = function (e) {
@@ -1109,7 +1109,7 @@ var manageDataSrcIframe = function (ctx) {
 	};
 	if (a) {
 		console.log("triggered function: manageDataSrcIframe");
-		a = ctx ? BALA(el, ctx) || "" : BALA(el) || "";
+		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
 		if (w._) {
 			_.each(a, g);
 		} else if (w.forEach) {
