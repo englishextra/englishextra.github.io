@@ -213,10 +213,10 @@ var evento=(function(){return function(){if("undefined"==typeof window||!("docum
  * id: no default value
  * url: required if no text is provided
  * text: required if no url is provided
- * loadJS(["https://code.jquery.com/jquery-2.2.1.js",
+ * promiseLoadJS(["https://code.jquery.com/jquery-2.2.1.js",
  * "https://unpkg.com/react@15.3.1/dist/react.min.js"])
  * .then(function(){console.log("jQuery and react are loaded");});
- * loadJS([{async:true,url:"https://code.jquery.com/jquery-2.2.1.js"},
+ * promiseLoadJS([{async:true,url:"https://code.jquery.com/jquery-2.2.1.js"},
  * {async:true,url:"https://unpkg.com/react@15.3.1/dist/react.min.js"}])
  * .then(()=>{console.log("all done!");});
  * source: gist.github.com/pranksinatra/a4e57e586249dc3833e4
@@ -473,8 +473,8 @@ var initFastClick = function () {
 		console.log("triggered function: initFastClick");
 		FastClick.attach(b);
 	}
-};
-var loadInitFastClick = function () {
+},
+loadInitFastClick = function () {
 	"use strict";
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
 		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
@@ -593,8 +593,8 @@ var initDoSlide = function () {
 			g();
 		}
 	}
-};
-var loadInitDoSlide = function () {
+},
+loadInitDoSlide = function () {
 	"use strict";
 	var w = window,
 	js = "../../cdn/doSlide/1.1.4/js/do-slide.fixed.min.js";
@@ -837,8 +837,8 @@ docReady(initVKLike);
  */
 var initManUp = function () {
 	console.log("triggered function: initManUp");
-};
-var loadInitManUp = function () {
+},
+loadInitManUp = function () {
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
 		ajaxLoadTriggerJS("/cdn/ManUp.js/0.7/js/manup.fixed.min.js", initManUp);
 	}

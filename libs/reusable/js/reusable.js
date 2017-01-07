@@ -412,10 +412,10 @@ var replaceJsCssFile=function(e,f,c){for(var d="js"==c?"src":"css"==c?"href":"no
  * id: no default value
  * url: required if no text is provided
  * text: required if no url is provided
- * loadJS(["https://code.jquery.com/jquery-2.2.1.js",
+ * promiseLoadJS(["https://code.jquery.com/jquery-2.2.1.js",
  * "https://unpkg.com/react@15.3.1/dist/react.min.js"])
  * .then(function(){console.log("jQuery and react are loaded");});
- * loadJS([{async:true,url:"https://code.jquery.com/jquery-2.2.1.js"},
+ * promiseLoadJS([{async:true,url:"https://code.jquery.com/jquery-2.2.1.js"},
  * {async:true,url:"https://unpkg.com/react@15.3.1/dist/react.min.js"}])
  * .then(()=>{console.log("all done!");});
  * source: gist.github.com/pranksinatra/a4e57e586249dc3833e4
@@ -931,8 +931,8 @@ var initFastClick = function () {
 		console.log("triggered function: initFastClick");
 		FastClick.attach(b);
 	}
-};
-var loadInitFastClick = function () {
+},
+loadInitFastClick = function () {
 	"use strict";
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
 		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
@@ -1444,8 +1444,8 @@ var initAllMasonry = function () {
 			v(a, c);
 		}
 	}
-};
-var loadInitAllMasonry = function () {
+},
+loadInitAllMasonry = function () {
 	"use strict";
 	var w = window,
 	/* js = "../../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
@@ -1687,8 +1687,8 @@ var initPhotoswipe = function () {
 		console.log("triggered function: initPhotoswipe");
 		v();
 	}
-};
-var loadInitPhotoswipe = function () {
+},
+loadInitPhotoswipe = function () {
 	"use strict";
 	var w = window,
 	js = "../cdn/photoswipe/4.1.0/js/photoswipe.photoswipe-ui-default.fixed.min.js";
@@ -1744,8 +1744,8 @@ var initTablesort = function (ctx) {
 		console.log("triggered function: initTablesort");
 		k();
 	}
-};
-var loadInitTablesort = function () {
+},
+loadInitTablesort = function () {
 	"use strict";
 	var w = window,
 	js = "../../cdn/tablesort/4.0.1/js/tablesort.fixed.min.js";
@@ -1775,8 +1775,8 @@ var initPrettyPrint = function () {
 			prettyPrint();
 		}
 	}
-};
-var loadInitPrettyPrint = function () {
+},
+loadInitPrettyPrint = function () {
 	"use strict";
 	var w = window,
 	js = "../../cdn/google-code-prettify/0.1/js/prettify.lang-css.fixed.min.js";
@@ -1857,8 +1857,8 @@ var initDownloadAppBtn = function (n) {
 		console.log("triggered function: initDownloadAppBtn");
 		g();
 	}
-};
-var loadInitDownloadAppBtn = function () {
+},
+loadInitDownloadAppBtn = function () {
 	var s = function () {
 		initDownloadAppBtn(8000);
 	};
@@ -1954,8 +1954,8 @@ var manageDataSrcIframe = function (ctx) {
 			}
 		}
 	}
-};
-var loadManageDataSrcImgIframe = function () {
+},
+loadManageDataSrcImgIframe = function () {
 	"use strict";
 	var w = window,
 	a = BALA.one("img[data-src]") || "",
@@ -2534,8 +2534,8 @@ var initMasonryImagesLoaded = function () {
 	if (c && a) {
 		setAutoClearedTimeout(q, 100);
 	}
-};
-var loadInitMasonryImagesLoaded = function () {
+},
+loadInitMasonryImagesLoaded = function () {
 	"use strict";
 	var w = window,
 	/* js = "../cdn/masonry/4.1.1/js/masonry.imagesloaded.pkgd.fixed.min.js"; */
@@ -2865,8 +2865,8 @@ var initMasonryDisqus = function () {
 			}
 		}
 	}
-};
-var loadInitMasonryDisqus = function () {
+},
+loadInitMasonryDisqus = function () {
 	"use strict";
 	var w = window,
 	/* js = "../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
@@ -2907,8 +2907,8 @@ var initParallax = function () {
 		setStyleDisplayNone(p);
 		setStyleDisplayBlock(m);
 	}
-};
-var loadInitParallax = function () {
+},
+loadInitParallax = function () {
 	"use strict";
 	var w = window,
 	js = "/cdn/parallax/2.1.3/js/parallax.fixed.min.js";
@@ -3265,8 +3265,8 @@ var initDoSlide = function () {
 			g();
 		}
 	}
-};
-var loadInitDoSlide = function () {
+},
+loadInitDoSlide = function () {
 	"use strict";
 	var w = window,
 	js = "../../cdn/doSlide/1.1.4/js/do-slide.fixed.min.js";
@@ -3690,8 +3690,8 @@ var initContentsKamil = function () {
 		console.log("triggered function: initContentsKamil");
 		v();
 	}
-};
-var loadInitContentsKamil = function () {
+},
+loadInitContentsKamil = function () {
 	"use strict";
 	var w = window,
 	js = "../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
@@ -3985,8 +3985,8 @@ var initPagesKamil = function () {
 		console.log("triggered function: initPagesKamil");
 		v();
 	}
-};
-var loadInitPagesKamil = function () {
+},
+loadInitPagesKamil = function () {
 	"use strict";
 	var w = window,
 	js = "../../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
@@ -4375,8 +4375,8 @@ evento.add(window, "hashchange", updateInsertedDom);
  */
 var initManUp = function () {
 	console.log("triggered function: initManUp");
-};
-var loadInitManUp = function () {
+},
+loadInitManUp = function () {
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
 		ajaxLoadTriggerJS("/cdn/ManUp.js/0.7/js/manup.fixed.min.js", initManUp);
 	}

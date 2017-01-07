@@ -192,10 +192,10 @@ var evento=(function(){return function(){if("undefined"==typeof window||!("docum
  * id: no default value
  * url: required if no text is provided
  * text: required if no url is provided
- * loadJS(["https://code.jquery.com/jquery-2.2.1.js",
+ * promiseLoadJS(["https://code.jquery.com/jquery-2.2.1.js",
  * "https://unpkg.com/react@15.3.1/dist/react.min.js"])
  * .then(function(){console.log("jQuery and react are loaded");});
- * loadJS([{async:true,url:"https://code.jquery.com/jquery-2.2.1.js"},
+ * promiseLoadJS([{async:true,url:"https://code.jquery.com/jquery-2.2.1.js"},
  * {async:true,url:"https://unpkg.com/react@15.3.1/dist/react.min.js"}])
  * .then(()=>{console.log("all done!");});
  * source: gist.github.com/pranksinatra/a4e57e586249dc3833e4
@@ -512,8 +512,8 @@ var initComments = function () {
 			load_pt_comments.load("/scripts/comments/?load=posts&limit=100");
 		});
 	}
-};
-var loadInitComments = function () {
+},
+loadInitComments = function () {
 	"use strict";
 	var w = window,
 	js = "../libs/comments/js/vendors.min.js";

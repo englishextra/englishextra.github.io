@@ -13,6 +13,17 @@
  */
 var ToProgress=(function(){if("undefined"==typeof window||!("document"in window)){return console.log("window is undefined or document is not in window"),!1;}var TP=function(){function t(){var s=document.createElement("fakeelement"),i={transition:"transitionend",OTransition:"oTransitionEnd",MozTransition:"transitionend",WebkitTransition:"webkitTransitionEnd"};for(var j in i){if(i.hasOwnProperty(j)){if(void 0!==s.style[j]){return i[j];}}}}function s(t,a){if(this.progress=0,this.options={id:"top-progress-bar",color:"#F44336",height:"2px",duration:0.2},t&&"object"==typeof t){for(var i in t){if(t.hasOwnProperty(i)){this.options[i]=t[i];}}}if(this.options.opacityDuration=3*this.options.duration,this.progressBar=document.createElement("div"),this.progressBar.id=this.options.id,this.progressBar.setCSS=function(t){for(var a in t){if(t.hasOwnProperty(a)){this.style[a]=t[a];}}},this.progressBar.setCSS({position:a?"relative":"fixed",top:"0",left:"0",right:"0","background-color":this.options.color,height:this.options.height,width:"0%",transition:"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s","-moz-transition":"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s","-webkit-transition":"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s"}),a){var o=document.querySelector(a);if(o){if(o.hasChildNodes()){o.insertBefore(this.progressBar,o.firstChild);}else{o.appendChild(this.progressBar);}}}else{document.body.appendChild(this.progressBar);}}var i=t();return s.prototype.transit=function(){this.progressBar.style.width=this.progress+"%";},s.prototype.getProgress=function(){return this.progress;},s.prototype.setProgress=function(t,s){this.show();this.progress=t>100?100:0>t?0:t;this.transit();if(s){s();}},s.prototype.increase=function(t,s){this.show();this.setProgress(this.progress+t,s);},s.prototype.decrease=function(t,s){this.show();this.setProgress(this.progress-t,s);},s.prototype.finish=function(t){var s=this;this.setProgress(100,t);this.hide();if(i){this.progressBar.addEventListener(i,function(t){s.reset();s.progressBar.removeEventListener(t.type,TP);});}},s.prototype.reset=function(t){this.progress=0;this.transit();if(t){t();}},s.prototype.hide=function(){this.progressBar.style.opacity="0";},s.prototype.show=function(){this.progressBar.style.opacity="1";},s;};return TP();}());
 /*!
+ * modified for babel Zenscroll - v3.2.2
+ * github.com/zengabor/zenscroll
+ * Copyright 2015-2016 Gabor Lenard
+ * removed AMD, CommonJS support
+ * fixed IIFE enforcing
+ * added brackets in if / for
+ * source: github.com/zengabor/zenscroll/blob/dist/zenscroll.js
+ * passes jshint
+ */
+var zenscroll=(function(){"use strict";if(typeof window==="undefined"||!("document"in window)){return{};}var createScroller=function(scrollContainer,defaultDuration,edgeOffset){defaultDuration=defaultDuration||999;if(!edgeOffset&&edgeOffset!==0){edgeOffset=9;}var scrollTimeoutId;var setScrollTimeoutId=function(newValue){scrollTimeoutId=newValue;};var docElem=document.documentElement;var nativeSmoothScrollEnabled=function(){return("getComputedStyle"in window)&&window.getComputedStyle(scrollContainer?scrollContainer:document.body)["scroll-behavior"]==="smooth";};var getScrollTop=function(){if(scrollContainer){return scrollContainer.scrollTop;}else{return window.scrollY||docElem.scrollTop;}};var getViewHeight=function(){if(scrollContainer){return Math.min(scrollContainer.offsetHeight,window.innerHeight);}else{return window.innerHeight||docElem.clientHeight;}};var getRelativeTopOf=function(elem){if(scrollContainer){return elem.offsetTop;}else{return elem.getBoundingClientRect().top+getScrollTop()-docElem.offsetTop;}};var stopScroll=function(){clearTimeout(scrollTimeoutId);setScrollTimeoutId(0);};var scrollToY=function(endY,duration,onDone){stopScroll();if(nativeSmoothScrollEnabled()){(scrollContainer||window).scrollTo(0,endY);if(onDone){onDone();}}else{var startY=getScrollTop();var distance=Math.max(endY,0)-startY;duration=duration||Math.min(Math.abs(distance),defaultDuration);var startTime=new Date().getTime();(function loopScroll(){setScrollTimeoutId(setTimeout(function(){var p=Math.min((new Date().getTime()-startTime)/duration,1);var y=Math.max(Math.floor(startY+distance*(p<0.5?2*p*p:p*(4-p*2)-1)),0);if(scrollContainer){scrollContainer.scrollTop=y;}else{window.scrollTo(0,y);}if(p<1&&(getViewHeight()+y)<(scrollContainer||docElem).scrollHeight){loopScroll();}else{setTimeout(stopScroll,99);if(onDone){onDone();}}},9));})();}};var scrollToElem=function(elem,duration,onDone){scrollToY(getRelativeTopOf(elem)-edgeOffset,duration,onDone);};var scrollIntoView=function(elem,duration,onDone){var elemHeight=elem.getBoundingClientRect().height;var elemTop=getRelativeTopOf(elem);var elemBottom=elemTop+elemHeight;var containerHeight=getViewHeight();var containerTop=getScrollTop();var containerBottom=containerTop+containerHeight;if((elemTop-edgeOffset)<containerTop||(elemHeight+edgeOffset)>containerHeight){scrollToElem(elem,duration,onDone);}else if((elemBottom+edgeOffset)>containerBottom){scrollToY(elemBottom-containerHeight+edgeOffset,duration,onDone);}else if(onDone){onDone();}};var scrollToCenterOf=function(elem,duration,offset,onDone){scrollToY(Math.max(getRelativeTopOf(elem)-getViewHeight()/2+(offset||elem.getBoundingClientRect().height/2),0),duration,onDone);};var setup=function(newDefaultDuration,newEdgeOffset){if(newDefaultDuration){defaultDuration=newDefaultDuration;}if(newEdgeOffset===0||newEdgeOffset){edgeOffset=newEdgeOffset;}};return{setup:setup,to:scrollToElem,toY:scrollToY,intoView:scrollIntoView,center:scrollToCenterOf,stop:stopScroll,moving:function(){return!!scrollTimeoutId;}};};var defaultScroller=createScroller();if("addEventListener"in window&&document.body.style.scrollBehavior!=="smooth"&&!window.noZensmooth){var replaceUrl=function(hash){try{history.replaceState({},"",window.location.href.split("#")[0]+hash);}catch(e){}};window.addEventListener("click",function(event){var anchor=event.target;while(anchor&&anchor.tagName!=="A"){anchor=anchor.parentNode;}if(!anchor||event.which!==1||event.shiftKey||event.metaKey||event.ctrlKey||event.altKey){return;}var href=anchor.getAttribute("href")||"";if(href.indexOf("#")===0){if(href==="#"){event.preventDefault();defaultScroller.toY(0);replaceUrl("");}else{var targetId=anchor.hash.substring(1);var targetElem=document.getElementById(targetId);if(targetElem){event.preventDefault();defaultScroller.to(targetElem);replaceUrl("#"+targetId);}}}},false);}return{createScroller:createScroller,setup:defaultScroller.setup,to:defaultScroller.to,toY:defaultScroller.toY,intoView:defaultScroller.intoView,center:defaultScroller.stop,moving:defaultScroller.moving};}());
+/*!
  * A function for elements selection - v0.1.9
  * github.com/finom/bala
  * @param {String} a id, class or tag string
@@ -142,61 +153,6 @@ if (document.title) {
 var forEach=(function(){return function(a,b,c){var d=-1,e=a.length>>>0;(function f(g){var h,j=false===g;do++d;while(!(d in a)&&d!==e);if(j||d===e){if(c){c(!j,a);}return;}g=b.call({async:function(){return h=!0,f;}},a[d],d,a);if(!h){f(g);}})();};}());
 /*jslint bitwise: false */
 /*!
- * Behaves the same as setTimeout except uses requestAnimationFrame()
- * where possible for better performance
- * modified gist.github.com/joelambert/1002116
- * the fallback function requestAnimFrame is incorporated
- * gist.github.com/joelambert/1002116
- * gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b
- * jsfiddle.net/englishextra/dnyomc4j/
- * @param {Object} fn The callback function
- * @param {Int} delay The delay in milliseconds
- * requestTimeout(fn,delay)
- */
-var requestTimeout=function(fn,delay){var requestAnimFrame=(function(){return window.requestAnimationFrame||function(callback,element){window.setTimeout(callback,1000/60);};})(),start=new Date().getTime(),handle={};function loop(){var current=new Date().getTime(),delta=current-start;if(delta>=delay){fn.call();}else{handle.value=requestAnimFrame(loop);}}handle.value=requestAnimFrame(loop);return handle;};
-/*!
- * Behaves the same as clearTimeout except uses cancelRequestAnimationFrame()
- * where possible for better performance
- * gist.github.com/joelambert/1002116
- * gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b
- * jsfiddle.net/englishextra/dnyomc4j/
- * @param {Int|Object} handle The callback function
- * clearRequestTimeout(handle)
- */
-var clearRequestTimeout=function(handle){if(window.cancelAnimationFrame){window.cancelAnimationFrame(handle.value);}else{window.clearTimeout(handle);}};
-/*!
- * Behaves the same as setInterval except uses requestAnimationFrame() where possible for better performance
- * modified gist.github.com/joelambert/1002116
- * the fallback function requestAnimFrame is incorporated
- * gist.github.com/joelambert/1002116
- * gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b
- * jsfiddle.net/englishextra/sxrzktkz/
- * @param {Object} fn The callback function
- * @param {Int} delay The delay in milliseconds
- * requestInterval(fn, delay);
- */
-var requestInterval=function(fn,delay){var requestAnimFrame=(function(){return window.requestAnimationFrame||function(callback,element){window.setTimeout(callback,1000/60);};})(),start=new Date().getTime(),handle={};function loop(){handle.value=requestAnimFrame(loop);var current=new Date().getTime(),delta=current-start;if(delta>=delay){fn.call();start=new Date().getTime();}}handle.value=requestAnimFrame(loop);return handle;};
-/*!
- * Behaves the same as clearInterval except uses cancelRequestAnimationFrame()
- * where possible for better performance
- * gist.github.com/joelambert/1002116
- * gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b
- * jsfiddle.net/englishextra/sxrzktkz/
- * @param {Int|Object} handle function handle, or function
- * clearRequestInterval(handle);
- */
-var clearRequestInterval=function(handle){if(window.cancelAnimationFrame){window.cancelAnimationFrame(handle.value);}else{window.clearInterval(handle);}};
-/*!
- * set and clear timeout
- * based on requestTimeout and clearRequestTimeout
- * gist.github.com/joelambert/1002116
- * gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b
- * @param {Object} f handle/function
- * @param {Int} [n] a whole positive number
- * setAutoClearedTimeout(f,n)
- */
-var setAutoClearedTimeout=function(f,n){n=n||200;if(f&&"function"===typeof f){var st=requestTimeout(function(){clearRequestTimeout(st);f();},n);}};
-/*!
  * Plain javascript replacement for jQuery's .ready()
  * so code can be scheduled to run when the document is ready
  * github.com/jfriend00/docReady
@@ -267,13 +223,6 @@ var scriptIsLoaded=function(s){for(var b=document.getElementsByTagName("script")
  */
 var ajaxLoadTriggerJS=function(u,f,e){var w=window,x=w.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");x.overrideMimeType("application/javascript;charset=utf-8");x.open("GET",u,!0);x.onreadystatechange=function(){if(x.status=="404"){if(e&&"function"===typeof e){e();}console.log("Error XMLHttpRequest-ing file",x.status);return!1;}else if(x.readyState==4&&x.status==200&&x.responseText){try{var Fn=Function;new Fn(""+x.responseText).call("undefined"===typeof window?"undefined"===typeof self?"undefined"===typeof global?this:global:self:window);}catch(m){throw new Error("Error evaluating file. "+m);}if(f&&"function"===typeof f){f(x.responseText);}}};x.send(null);};
 /*!
- * remove all children of parent element
- * gist.github.com/englishextra/da26bf39bc90fd29435e8ae0b409ddc3
- * @param {Object} e parent HTML Element
- * removeChildren(e)
- */
-var removeChildren=function(e){return function(){if(e&&e.firstChild){for(;e.firstChild;){e.removeChild(e.firstChild);}}}();};
-/*!
  * append node into other with fragment
  * gist.github.com/englishextra/0ff3204d5fb285ef058d72f31e3af766
  * @param {String|object} e an HTML Element to append
@@ -281,26 +230,6 @@ var removeChildren=function(e){return function(){if(e&&e.firstChild){for(;e.firs
  * appendFragment(e,a)
  */
 var appendFragment=function(e,a){"use strict";var d=document;a=a||d.getElementsByTagNames("body")[0]||"";return function(){if(e){var d=document,df=d.createDocumentFragment()||"",aC="appendChild";if("string"===typeof e){e=d.createTextNode(e);}df[aC](e);a[aC](df);}}();};
-/*!
- * Adds Element as fragment BEFORE NeighborElement
- * gist.github.com/englishextra/fa19e39ce84982b17fc76485db9d1bea
- * @param {String|object} e HTML Element to prepend before before
- * @param {Object} a target HTML Element
- * prependFragmentBefore(e,a)
- */
-var prependFragmentBefore=function(e,a){if("string"===typeof e){e=document.createTextNode(e);}var p=a.parentNode||"",df=document.createDocumentFragment();return function(){if(p){df.appendChild(e);p.insertBefore(df,a);}}();};
-/*!
- * set style display block of an element
- * @param {Object} a an HTML Element
- * setStyleDisplayBlock(a)
- */
-var setStyleDisplayBlock=function(a){return function(){if(a){a.style.display="block";}}();};
-/*!
- * set style display none of an element
- * @param {Object} a an HTML Element
- * setStyleDisplayNone(a)
- */
-var setStyleDisplayNone=function(a){return function(){if(a){a.style.display="none";}}();};
 /*!
  * set style opacity of an element
  * @param {Object} a an HTML Element
@@ -497,420 +426,286 @@ var manageLocalLinks = function (ctx) {
 };
 evento.add(window, "load", manageLocalLinks.bind(null, ""));
 /*!
- * init fastclick
- * github.com/ftlabs/fastclick
+ * replace img src with data-src
+ * @param {Object} [ctx] context HTML Element
  */
-var initFastClick = function () {
+var manageDataSrcImg = function (ctx) {
 	"use strict";
+	ctx = ctx || "";
 	var w = window,
-	b = BALA.one("body") || "";
-	if (w.FastClick) {
-		console.log("triggered function: initFastClick");
-		FastClick.attach(b);
-	}
-},
-loadInitFastClick = function () {
-	"use strict";
-	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-			ajaxLoadTriggerJS("/cdn/fastclick/1.0.6/js/fastclick.fixed.min.js", initFastClick);
-		}
-	}
-};
-docReady(loadInitFastClick);
-/*!
- * init DoSlide
- * A simple slider.
- * github.com/MopTym/doSlide/blob/master/demo/3_1_slider.html
- */
-var initDoSlide = function () {
-	"use strict";
-	var w = window,
-	d = document,
-	cd_prev = BALA.one(".cd-prev") || "",
-	cd_next = BALA.one(".cd-next") || "",
-	timer = function (slide, interval, token) {
-		var next = function () {
-			token = setTimeout(next, interval);
-			if (!(d.hidden || d.webkitHidden)) {
-				slide.next();
-			}
-		};
-		return function () {
-			clearTimeout(token);
-			token = setTimeout(next, interval);
-		};
-	},
-	g = function () {
-		if ("undefined" !== typeof slideTimer) {
-			/* setStyleDisplayNone(cd_prev);
-			setStyleDisplayNone(cd_next);
-		} else { */
-			setStyleDisplayBlock(cd_prev);
-			setStyleDisplayBlock(cd_next);
-			var h_cd_prev = function (e) {
-				e.preventDefault();
-				e.stopPropagation();
-				slide.prev();
-			};
-			evento.add(cd_prev, "click", h_cd_prev);
-			/* cd_prev.onclick = h_cd_prev; */
-			var h_cd_next = function (e) {
-				e.preventDefault();
-				e.stopPropagation();
-				slide.next();
-			};
-			evento.add(cd_next, "click", h_cd_next);
-			/* cd_next.onclick = h_cd_next; */
-		}
-	};
-	/*!
-	 * dont JSMin line below: Notepad++ will freeze
-	 * comment out if you dont want slide autorotation
-	 */
-	if (w.DoSlide) {
-		var slide = new DoSlide(".container", {
-			duration : 2000,
-			horizontal : true,
-			infinite : true
-		}),
-		slideTimer = timer(slide, 5000);
-		slide.onChanged(slideTimer).do(slideTimer);
-		/*!
-		 * init next button if no slide autorotation
-		 */
-		if (cd_next || cd_prev) {
-			g();
-		}
-	}
-},
-loadInitDoSlide = function () {
-	"use strict";
-	var w = window,
-	js = "../../cdn/doSlide/1.1.4/js/do-slide.fixed.min.js";
-	if (w.XMLHttpRequest || w.ActiveXObject) {
-		if (w.Promise) {
-			promiseLoadJS(js).then(initDoSlide);
-		} else {
-			ajaxLoadTriggerJS(js, initDoSlide);
-		}
-	} else {
-		if (!scriptIsLoaded(js)) {
-			loadJS(js, initDoSlide);
-		}
-	}
-};
-docReady(loadInitDoSlide);
-/*!
- * init qr-code
- * stackoverflow.com/questions/12777622/how-to-use-enquire-js
- */
-var showLocationQR = function () {
-	"use strict";
-	var w = window,
-	d = document,
-	a = BALA.one("#location-qr-code") || "",
-	p = w.location.href || "",
-	cls = "qr-code-img",
-	cL = "classList",
-	g = function () {
-		removeChildren(a);
-		var t = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
-		s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(p),
-		m = crel("img");
-		m[cL].add(cls);
-		m.src = s;
-		m.title = t;
-		m.alt = t;
-		appendFragment(m, a);
-	};
-	if (a && p) {
-		console.log("triggered function: showLocationQR");
-		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
-				g();
-			}
-		} else {
-			setStyleDisplayNone(a);
-		}
-	}
-};
-evento.add(window, "load", showLocationQR);
-/*!
- * add updates link to menu more
- * place that above init menu more
- */
-var addAppUpdatesLink = function () {
-	"use strict";
-	var panel = BALA.one("#panel-menu-more") || "",
-	items = BALA("li", panel) || "",
-	s = navigator.userAgent || "",
-	p;
-	if (/Windows/i.test(s) && /(WOW64|Win64)/i.test(s)) {
-		p = "https://englishextraapp.codeplex.com/downloads/get/1539373";
-	} else if (/(x86_64|x86-64|x64;|amd64|AMD64|x64_64)/i.test(s) && /(Linux|X11)/i.test(s)) {
-		p = "https://englishextraapp.codeplex.com/downloads/get/1540156";
-	} else if (/IEMobile/i.test(s)) {
-		p = "https://englishextraapp.codeplex.com/downloads/get/1536102";
-	} else if (/Android/i.test(s)) {
-		p = "https://englishextraapp.codeplex.com/downloads/get/1528911";
-	} else {
-		p = "";
-	}
-	var	g = function () {
-		var li = crel("li"),
-		a = crel("a"),
-		t = "Скачать приложение сайта";
-		a.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
-		a.href = p;
-		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			a.target = "_blank";
-		} else {
-			/*!
-			 * no prevent default and  void .href above
-			 */
-			/* jshint -W107 */
-			a.href = "javascript:void(0);";
-			/* jshint +W107 */
-			evento.add(a, "click", openDeviceBrowser.bind(null, p));
-			/* a.onclick = openDeviceBrowser.bind(null, p); */
-		}
-		crel(li, crel(a, "" + t));
-		if (!!panel.firstChild) {
-			prependFragmentBefore(li, panel.firstChild);
-		}
-	};
-	if (panel && items && p) {
-		console.log("triggered function: addAppUpdatesLink");
-		g();
-	}
-};
-docReady(addAppUpdatesLink);
-/*!
- * init menu-more
- */
-var initMenuMore = function () {
-	"use strict";
-	var w = window,
-	container = BALA.one("#container") || "",
-	holder = BALA.one("#holder-panel-menu-more") || "",
-	btn = BALA.one("#btn-menu-more") || "",
-	panel = BALA.one("#panel-menu-more") || "",
-	items = BALA("li", panel) || "",
-	cL = "classList",
-	is_active = "is-active",
-	h_e = function () {
-		holder[cL].remove(is_active);
-	},
+	cls = "img[data-src]",
+	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	ds = "dataset",
+	pN = "parentNode",
 	g = function (e) {
-		evento.add(e, "click", h_e);
-		/* e.onclick = h_e; */
-	},
-	k = function () {
-		evento.add(container, "click", h_e);
-		/* container.onclick = h_e; */
-	},
-	q = function () {
-		var h_btn = function (e)  {
-			e.preventDefault();
-			e.stopPropagation();
-			holder[cL].toggle(is_active);
-		};
-		evento.add(btn, "click", h_btn);
-		/* btn.onclick = h_btn; */
-	},
-	v = function () {
-		if (w._) {
-			_.each(items, g);
-		} else if (w.forEach) {
-			forEach(items, g, !1);
-		} else {
-			for (var i = 0, l = items.length; i < l; i += 1) {
-				g(items[i]);
+		var p = e[ds].src || "";
+		if (p) {
+			if (parseLink(p).isAbsolute && !parseLink(p).hasHTTP) {
+				e[ds].src = p.replace(/^/, getHTTP(!0) + ":");
 			}
+			if (w.lzld) {
+				lzld(e);
+			} else {
+				e.src = e[ds].src;
+			}
+			setStyleVisibilityVisible(e[pN]);
+			setStyleOpacity(e[pN], 1);
 		}
-	};
-	if (container && holder && btn && panel && items) {
-		console.log("triggered function: initMenuMore");
-		/*!
-		 * hide menu more on outside click
-		 */
-		k();
-		/*!
-		 * show or hide menu more
-		 */
-		q();
-		/*!
-		 * hide menu more on item clicked
-		 */
-		v();
-	}
-};
-docReady(initMenuMore);
-/*!
- * show menu-more on document ready
- */
-var showMenuMore = function (n) {
-	"use strict";
-	n = n || 2000;
-	var a = BALA.one("#holder-panel-menu-more") || "",
-	is_active = "is-active",
-	cL = "classList",
-	s = function () {
-		a[cL].add(is_active);
 	};
 	if (a) {
-		setAutoClearedTimeout(s, n);
-	}
-};
-docReady(showMenuMore.bind(null, 2000));
-/*!
- * init pluso-engine or ya-share on click
- */
-var initPlusoYaShare = function () {
-	"use strict";
-	var a = BALA.one("#share-buttons") || "",
-	pluso = BALA.one(".pluso") || "",
-	ya_share2 = BALA.one(".ya-share2") || "",
-	pluso_like_js_src = getHTTP(!0) + "://share.pluso.ru/pluso-like.js",
-	share_js_src = getHTTP(!0) + "://yastatic.net/share2/share.js",
-	g = function (s, b) {
-		setStyleVisibilityVisible(s);
-		setStyleOpacity(s, 1);
-		setStyleDisplayNone(b);
-	},
-	k = function (js, s, b) {
-		if (!scriptIsLoaded(js)) {
-			loadJS(js, g.bind(null, s, b));
-		}
-	},
-	q = function () {
-		if (pluso) {
-			k(pluso_like_js_src, pluso, a);
+		console.log("triggered function: manageDataSrcImg");
+		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
+		if (w._) {
+			_.each(a, g);
+		} else if (w.forEach) {
+			forEach(a, g, !1);
 		} else {
-			if (ya_share2) {
-				k(share_js_src, ya_share2, a);
+			for (var i = 0, l = a.length; i < l; i += 1) {
+				g(a[i]);
 			}
 		}
-	},
-	v = function () {
-		var h_a = function (e) {
-			evento.remove(a, "click", h_a);
-			/* a.onclick = null; */
-			e.preventDefault();
-			e.stopPropagation();
-			q();
-		};
-		evento.add(a, "click", h_a);
-		/* a.onclick = h_a; */
-	};
-	if ((pluso || ya_share2) && a) {
-		console.log("triggered function: initPlusoYaShare");
-		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			v();
-		} else {
-			setStyleDisplayNone(a);
-		}
 	}
-};
-docReady(initPlusoYaShare);
-/*!
- * init vk-like on click
- */
-var initVKLike = function () {
+},
+loadManageDataSrcImg = function () {
 	"use strict";
 	var w = window,
-	c = BALA.one("#vk-like") || "",
-	a = BALA.one("#btn-show-vk-like") || "",
-	js = getHTTP(!0) + "://vk.com/js/api/openapi.js?122",
-	ds = "dataset",
+	js = "./cdn/lazyload/3.2.2/js/lazyload.fixed.min.js";
+	if (w.XMLHttpRequest || w.ActiveXObject) {
+		if (w.Promise) {
+			promiseLoadJS(js).then(manageDataSrcImg.bind(null, ""));
+		} else {
+			ajaxLoadTriggerJS(js, manageDataSrcImg.bind(null, ""));
+		}
+	} else {
+		if (!scriptIsLoaded(js)) {
+			loadJS(js, manageDataSrcImg.bind(null, ""));
+		}
+	}
+};
+evento.add(window, "load", loadManageDataSrcImg);
+/*!
+ * init masonry
+ */
+var initMasonry = function (ctx) {
+	"use strict";
+	ctx = ctx || "";
+	var w = window,
+	cls = ".masonry-grid",
+	h = ".masonry-grid-item",
+	k = ".masonry-grid-sizer",
+	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	cls1 = ".holder-filter-buttons",
+	holder_btns = ctx ? BALA.one(cls1, ctx) || "" : BALA.one(cls1) || "",
+	cls2 = ".holder-filter-buttons button[data-filter]",
+	btn = ctx ? BALA.one(cls2, ctx) || "" : BALA.one(cls2) || "",
+	btns = ctx ? BALA(cls2, ctx) || "" : BALA(cls2) || "",
+	cls3 = ".holder-filter-select",
+	holder_sel = ctx ? BALA.one(cls3, ctx) || "" : BALA.one(cls3) || "",
+	cls4 = ".filter-select",
+	sel = ctx ? BALA.one(cls4, ctx) || "" : BALA.one(cls4) || "",
 	g = function () {
-		try {
-			if (w.VK) {
-				VK.init({
-					apiId: (c[ds].apiid || ""),
-					nameTransportPath: "/xd_receiver.htm",
-					onlyWidgets: !0
+		clearTimeout(st);
+		var imgLoad;
+		if (w.Masonry && w.Isotope) {
+			var iso = new Isotope(a, {
+					itemSelector: h,
+					layoutMode: "masonry",
+					masonry: {
+						columnWidth: k,
+						gutter: 0
+					},
+					percentPosition: !0,
 				});
-				VK.Widgets.Like("vk-like", {
-					type: "button",
-					height: 24
+			console.log("function initMasonry => initialised iso");
+			imgLoad = imagesLoaded(a);
+			imgLoad.on("progress", function (instance) {
+				iso.layout();
+				console.log("function initMasonry => reinitialised iso");
+			});
+			var h_btns = function (e) {
+				iso.arrange({
+					filter: e.dataset.filter
 				});
+				for (var i = 0, l = btns.length; i < l; i += 1) {
+					btns[i].classList.remove("is-active");
+				}
+				e.classList.add("is-active");
+				for (var j = 0, m = sel.options.length; j < m; j += 1) {
+					if (sel.options[j].value === e.dataset.filter) {
+						sel.selectedIndex = j;
+						break;
+					}
+				}
+			};
+			if (btn) {
+				for (var i = 0, l = btns.length; i < l; i += 1) {
+					btns[i].onclick = h_btns.bind(null, btns[i]);
+				}
 			}
-			setStyleVisibilityVisible(c);
-			setStyleOpacity(c, 1);
-			setStyleDisplayNone(a);
-		} catch(e) {
-			setStyleVisibilityHidden(c);
-			setStyleOpacity(c, 0);
-			setStyleDisplayBlock(a);
+			var h_sel = function (e) {
+				iso.arrange({
+					filter: e.options[e.selectedIndex].value
+				});
+				for (var i = 0, l = btns.length; i < l; i += 1) {
+					btns[i].classList.remove("is-active");
+				}
+				for (var j = 0, m = btns.length; j < m; j += 1) {
+					if (btns[j].dataset.filter === e.options[e.selectedIndex].value) {
+						btns[j].classList.add("is-active");
+						break;
+					}
+				}
+			};
+			if (sel) {
+				sel.onchange = h_sel.bind(null, sel);
+			}
+		} else if (w.Masonry) {
+			var msnry = new Masonry(a, {
+					itemSelector: h,
+					columnWidth: k,
+					gutter: 0,
+					percentPosition: !0
+				});
+			console.log("function initMasonry => initialised msnry");
+			imgLoad = imagesLoaded(a);
+			imgLoad.on("progress", function (instance) {
+				msnry.layout();
+				console.log("function initMasonry => reinitialised msnry");
+			});
+			if (holder_btns) {
+				holder_btns.style.display = "none";
+			}
+			if (holder_sel) {
+				holder_sel.style.display = "none";
+			}
+		} else if (w.Packery) {
+			var pckry = new Packery(a, {
+					itemSelector: h,
+					columnWidth: k,
+					gutter: 0,
+					percentPosition: !0
+				});
+			console.log("function initMasonry => initialised pckry");
+			imgLoad = imagesLoaded(a);
+			imgLoad.on("progress", function (instance) {
+				pckry.layout();
+				console.log("function initMasonry => reinitialised pckry");
+			});
+			if (holder_btns) {
+				holder_btns.style.display = "none";
+			}
+			if (holder_sel) {
+				holder_sel.style.display = "none";
+			}
+		} else {
+			console.log("function initMasonry => no lib included");
+		}
+	};
+	var st = setTimeout(g, 100);
+},
+loadInitMasonry = function () {
+	"use strict";
+	var w = window,
+	/* js = "./cdn/masonry/4.1.1/js/masonry.imagesloaded.pkgd.fixed.min.js"; */
+	/* js = "./cdn/packery/2.1.1/js/packery.imagesloaded.pkgd.fixed.min.js"; */
+	js = "./cdn/isotope/3.0.1/js/isotope.imagesloaded.pkgd.fixed.min.js";
+	if (w.XMLHttpRequest || w.ActiveXObject) {
+		if (w.Promise) {
+			promiseLoadJS(js).then(initMasonry.bind(null, ""));
+		} else {
+			ajaxLoadTriggerJS(js, initMasonry.bind(null, ""));
+		}
+	} else {
+		if (!scriptIsLoaded(js)) {
+			loadJS(js, initMasonry.bind(null, ""));
+		}
+	}
+};
+evento.add(window, "load", loadInitMasonry);
+/*!
+ * init ui-totop
+ */
+var initUiTotop = function () {
+	"use strict";
+	var w = window,
+	b = BALA.one("body") || "",
+	h = BALA.one("html") || "",
+	u = "ui-totop",
+	v = "ui-totop-hover",
+	g = function (f) {
+		var z = function (n) {
+			var o = w.pageYOffset,
+			i = 0,
+			x = function (o, l) {
+					return function () {
+						l -= o * n;
+						w.scrollTo(0, l);
+						i += 1;
+						if (150 < i || 0 > l) {
+							clearInterval(si);
+						}
+					};
+				},
+			si = setInterval(x.bind(null, n, o--), 50);
+		},
+		t = "Наверх",
+		a = crel("a"),
+		s = crel("span"),
+		h_a = function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+			if (w.zenscroll) {
+				zenscroll.toY(0);
+			} else {
+				z(50);
+			}
+		};
+		a.id = u;
+		/* jshint -W107 */
+		a.href = "javascript:void(0);";
+		/* jshint +W107 */
+		a.title = t;
+		evento.add(a, "click", h_a);
+		/* a.onclick = h_a; */
+		setStyleOpacity(a, 0);
+		s.id = v;
+		appendFragment(crel(a, s, "" + t), b);
+		if (f && "function" === typeof f) {
+			f();
 		}
 	},
-	k = function () {
-		if (!scriptIsLoaded(js)) {
-			loadJS(js, g);
+	k = function (_this) {
+		var a = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
+		c = _this.innerHeight || h.clientHeight || b.clientHeight || "",
+		e = BALA.one("#" + u) || "";
+		if (a && c && e) {
+			if (a > c) {
+				setStyleVisibilityVisible(e);
+				setStyleOpacity(e, 1);
+			} else {
+				setStyleVisibilityHidden(e);
+				setStyleOpacity(e, 0);
+			}
 		}
 	},
 	q = function () {
-		var h_a = function (e) {
-			evento.remove(a, "click", h_a);
-			/* a.onclick = null; */
-			e.preventDefault();
-			e.stopPropagation();
-			k();
-		};
-		evento.add(a, "click", h_a);
-		/* a.onclick = h_a; */
+		evento.add(w, "scroll", k.bind(null, w));
+		/* w.onscroll = k.bind(null, w); */
 	};
-	if (c && a) {
-		console.log("triggered function: initVKLike");
-		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			q();
-		} else {
-			setStyleDisplayNone(a);
-		}
+	if (b) {
+		console.log("triggered function: initUiTotop");
+		g(q);
 	}
 };
-docReady(initVKLike);
-/*!
- * init manUP.js
- */
-var initManUp = function () {
-	console.log("triggered function: initManUp");
-},
-loadInitManUp = function () {
-	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		ajaxLoadTriggerJS("/cdn/ManUp.js/0.7/js/manup.fixed.min.js", initManUp);
-	}
-};
-docReady(loadInitManUp);
+docReady(initUiTotop);
 /*!
  * show page, finish ToProgress
  */
 var showPageFinishProgress = function () {
 	"use strict";
-	var a = BALA.one("#container") || "",
-	g = function () {
-		setStyleOpacity(a, 1);
-		progressBar.complete();
-	},
-	k = function () {
-		var si = requestInterval(function () {
-				console.log("function showPageFinishProgress => started Interval");
-				if (imagesPreloaded) {
-					clearRequestInterval(si);
-					console.log("function showPageFinishProgress => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
-					g();
-				}
-			}, 100);
-	};
-	if (a) {
-		console.log("triggered function: showPageFinishProgress");
-		if ("undefined" !== typeof imagesPreloaded) {
-			k();
-		} else {
-			g();
-		}
-	}
+	var a = BALA.one("#container") || "";
+	console.log("triggered function: showPageFinishProgress");
+	setStyleOpacity(a, 1);
+	progressBar.complete();
 };
 evento.add(window, "load", showPageFinishProgress);

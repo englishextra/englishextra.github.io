@@ -456,8 +456,8 @@ var initFastClick = function () {
 		console.log("triggered function: initFastClick");
 		FastClick.attach(b);
 	}
-};
-var loadInitFastClick = function () {
+},
+loadInitFastClick = function () {
 	"use strict";
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
 		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {

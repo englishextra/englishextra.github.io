@@ -456,8 +456,8 @@ var initFastClick = function () {
 		console.log("triggered function: initFastClick");
 		FastClick.attach(b);
 	}
-};
-var loadInitFastClick = function () {
+},
+loadInitFastClick = function () {
 	"use strict";
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
 		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
@@ -778,8 +778,8 @@ docReady(initVKLike);
  */
 var initManUp = function () {
 	console.log("triggered function: initManUp");
-};
-var loadInitManUp = function () {
+},
+loadInitManUp = function () {
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
 		ajaxLoadTriggerJS("/cdn/ManUp.js/0.7/js/manup.fixed.min.js", initManUp);
 	}

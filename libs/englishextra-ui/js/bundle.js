@@ -263,10 +263,10 @@ var isInViewport=function(w,d){var g=function(e){return(e=e?e.getBoundingClientR
  * id: no default value
  * url: required if no text is provided
  * text: required if no url is provided
- * loadJS(["https://code.jquery.com/jquery-2.2.1.js",
+ * promiseLoadJS(["https://code.jquery.com/jquery-2.2.1.js",
  * "https://unpkg.com/react@15.3.1/dist/react.min.js"])
  * .then(function(){console.log("jQuery and react are loaded");});
- * loadJS([{async:true,url:"https://code.jquery.com/jquery-2.2.1.js"},
+ * promiseLoadJS([{async:true,url:"https://code.jquery.com/jquery-2.2.1.js"},
  * {async:true,url:"https://unpkg.com/react@15.3.1/dist/react.min.js"}])
  * .then(()=>{console.log("all done!");});
  * source: gist.github.com/pranksinatra/a4e57e586249dc3833e4
@@ -704,8 +704,8 @@ var initFastClick = function () {
 		console.log("triggered function: initFastClick");
 		FastClick.attach(b);
 	}
-};
-var loadInitFastClick = function () {
+},
+loadInitFastClick = function () {
 	"use strict";
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
 		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
@@ -890,8 +890,8 @@ var initTablesort = function (ctx) {
 		console.log("triggered function: initTablesort");
 		k();
 	}
-};
-var loadInitTablesort = function () {
+},
+loadInitTablesort = function () {
 	"use strict";
 	var w = window,
 	js = "../../cdn/tablesort/4.0.1/js/tablesort.fixed.min.js";
@@ -1120,8 +1120,8 @@ var manageDataSrcIframe = function (ctx) {
 			}
 		}
 	}
-};
-var loadManageDataSrcImgIframe = function () {
+},
+loadManageDataSrcImgIframe = function () {
 	"use strict";
 	var w = window,
 	a = BALA.one("img[data-src]") || "",
@@ -1691,8 +1691,8 @@ var initDownloadAppBtn = function (n) {
 		console.log("triggered function: initDownloadAppBtn");
 		g();
 	}
-};
-var loadInitDownloadAppBtn = function () {
+},
+loadInitDownloadAppBtn = function () {
 	var s = function () {
 		initDownloadAppBtn(8000);
 	};
@@ -2005,8 +2005,8 @@ var initPagesKamil = function () {
 		console.log("triggered function: initPagesKamil");
 		v();
 	}
-};
-var loadInitPagesKamil = function () {
+},
+loadInitPagesKamil = function () {
 	"use strict";
 	var w = window,
 	js = "../../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
@@ -2088,8 +2088,8 @@ evento.add(window, "load", initSearchForm);
  */
 var initManUp = function () {
 	console.log("triggered function: initManUp");
-};
-var loadInitManUp = function () {
+},
+loadInitManUp = function () {
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
 		ajaxLoadTriggerJS("/cdn/ManUp.js/0.7/js/manup.fixed.min.js", initManUp);
 	}
