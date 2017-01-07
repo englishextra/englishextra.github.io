@@ -494,6 +494,7 @@ var initMasonry = function (ctx) {
 	h = ".masonry-grid-item",
 	k = ".masonry-grid-sizer",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	c = ctx ? BALA.one(h, ctx) || "" : BALA.one(h) || "",
 	cls1 = ".holder-filter-buttons",
 	holder_btns = ctx ? BALA.one(cls1, ctx) || "" : BALA.one(cls1) || "",
 	cls2 = ".holder-filter-buttons button[data-filter]",
@@ -503,6 +504,8 @@ var initMasonry = function (ctx) {
 	holder_sel = ctx ? BALA.one(cls3, ctx) || "" : BALA.one(cls3) || "",
 	cls4 = ".filter-select",
 	sel = ctx ? BALA.one(cls4, ctx) || "" : BALA.one(cls4) || "",
+	cls5 = ".holder-filter-controls",
+	holder_controls = ctx ? BALA.one(cls5, ctx) || "" : BALA.one(cls5) || "",
 	g = function () {
 		clearTimeout(st);
 		var imgLoad;
@@ -517,11 +520,13 @@ var initMasonry = function (ctx) {
 					percentPosition: !0,
 				});
 			console.log("function initMasonry => initialised iso");
-			imgLoad = imagesLoaded(a);
-			imgLoad.on("progress", function (instance) {
-				iso.layout();
-				console.log("function initMasonry => reinitialised iso");
-			});
+			if (w.imagesLoaded) {
+				imgLoad = imagesLoaded(a);
+				imgLoad.on("progress", function (instance) {
+					iso.layout();
+					console.log("function initMasonry => reinitialised iso");
+				});
+			}
 			var h_btns = function (e) {
 				iso.arrange({
 					filter: e.dataset.filter
@@ -559,6 +564,9 @@ var initMasonry = function (ctx) {
 			if (sel) {
 				sel.onchange = h_sel.bind(null, sel);
 			}
+			if (holder_controls) {
+				holder_controls.classList.add("visible");
+			}
 		} else if (w.Masonry) {
 			var msnry = new Masonry(a, {
 					itemSelector: h,
@@ -567,16 +575,15 @@ var initMasonry = function (ctx) {
 					percentPosition: !0
 				});
 			console.log("function initMasonry => initialised msnry");
-			imgLoad = imagesLoaded(a);
-			imgLoad.on("progress", function (instance) {
-				msnry.layout();
-				console.log("function initMasonry => reinitialised msnry");
-			});
-			if (holder_btns) {
-				holder_btns.style.display = "none";
+			if (w.imagesLoaded) {
+				imgLoad = imagesLoaded(a);
+				imgLoad.on("progress", function (instance) {
+					msnry.layout();
+					console.log("function initMasonry => reinitialised msnry");
+				});
 			}
-			if (holder_sel) {
-				holder_sel.style.display = "none";
+			if (holder_controls) {
+				holder_controls.classList.remove("visible");
 			}
 		} else if (w.Packery) {
 			var pckry = new Packery(a, {
@@ -586,16 +593,41 @@ var initMasonry = function (ctx) {
 					percentPosition: !0
 				});
 			console.log("function initMasonry => initialised pckry");
-			imgLoad = imagesLoaded(a);
-			imgLoad.on("progress", function (instance) {
-				pckry.layout();
-				console.log("function initMasonry => reinitialised pckry");
-			});
-			if (holder_btns) {
-				holder_btns.style.display = "none";
+			if (w.imagesLoaded) {
+				imgLoad = imagesLoaded(a);
+				imgLoad.on("progress", function (instance) {
+					pckry.layout();
+					console.log("function initMasonry => reinitialised pckry");
+				});
 			}
-			if (holder_sel) {
-				holder_sel.style.display = "none";
+			if (c) {
+				c = ctx ? BALA(h, ctx) || "" : BALA(h) || "";
+				if (w.Draggabilly) {
+					var draggie,
+					f = function (e) {
+						var draggableElem = e;
+						draggie = new Draggabilly(draggableElem, {});
+						draggies.push(draggie);
+						console.log("function initMasonry => initialised draggie");
+					},
+					draggies = [];
+					if (w._) {
+						_.each(c, f);
+					} else if (w.forEach) {
+						forEach(c, f, !1);
+					} else {
+						for (var j = 0, m = c.length; j < m; j += 1) {
+							f(c[j]);
+						}
+					}
+					if (pckry && draggie) {
+						pckry.bindDraggabillyEvents(draggie);
+						console.log("function initMasonry => binded draggie to pckry");
+					}
+				}
+			}
+			if (holder_controls) {
+				holder_controls.classList.remove("visible");
 			}
 		} else {
 			console.log("function initMasonry => no lib included");
@@ -608,6 +640,7 @@ loadInitMasonry = function () {
 	var w = window,
 	/* js = "./cdn/masonry/4.1.1/js/masonry.imagesloaded.pkgd.fixed.min.js"; */
 	/* js = "./cdn/packery/2.1.1/js/packery.imagesloaded.pkgd.fixed.min.js"; */
+	/* js = "./cdn/packery/2.1.1/js/packery.imagesloaded.draggabilly.pkgd.fixed.min.js"; */
 	js = "./cdn/isotope/3.0.1/js/isotope.imagesloaded.pkgd.fixed.min.js";
 	if (w.XMLHttpRequest || w.ActiveXObject) {
 		if (w.Promise) {

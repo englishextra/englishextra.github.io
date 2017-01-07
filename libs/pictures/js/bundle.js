@@ -534,7 +534,7 @@ var initMasonryImagesLoaded = function () {
 	a = BALA.one(h) || "",
 	q = function () {
 		var imgLoad;
-		if (w.Masonry && w.imagesLoaded) {
+		if (w.Masonry) {
 			var msnry = new Masonry(c, {
 					itemSelector: h,
 					columnWidth: k,
@@ -542,15 +542,17 @@ var initMasonryImagesLoaded = function () {
 					percentPosition: !0
 				});
 			console.log("function initMasonryImagesLoaded => initialised msnry");
-			imgLoad = imagesLoaded(g);
-			imgLoad.on("progress", function (instance) {
-				msnry.layout();
-				console.log("function initMasonryImagesLoaded => reinitialised msnry");
-			});
+			if (w.imagesLoaded) {
+				imgLoad = imagesLoaded(g);
+				imgLoad.on("progress", function (instance) {
+					msnry.layout();
+					console.log("function initMasonryImagesLoaded => reinitialised msnry");
+				});
+			}
 			if ("undefined" !== typeof imagesPreloaded) {
 				imagesPreloaded = !0;
 			}
-		} else if (w.Packery && w.imagesLoaded) {
+		} else if (w.Packery) {
 			var pckry = new Packery(c, {
 					itemSelector: h,
 					columnWidth: k,
@@ -558,11 +560,13 @@ var initMasonryImagesLoaded = function () {
 					percentPosition: !0
 				});
 			console.log("function initMasonryImagesLoaded => initialised pckry");
-			imgLoad = imagesLoaded(g);
-			imgLoad.on("progress", function (instance) {
-				pckry.layout();
-				console.log("function initMasonryImagesLoaded => reinitialised pckry");
-			});
+			if (w.imagesLoaded) {
+				imgLoad = imagesLoaded(g);
+				imgLoad.on("progress", function (instance) {
+					pckry.layout();
+					console.log("function initMasonryImagesLoaded => reinitialised pckry");
+				});
+			}
 			if ("undefined" !== typeof imagesPreloaded) {
 				imagesPreloaded = !0;
 			}

@@ -72,10 +72,6 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	padding: 1.000rem;
 	margin: 0;
 }
-.masonry-filter-controls {
-	width: 98%;
-	margin: 0 auto;
-}
 @media handheld,only screen and (max-width:1080px) {
 	.masonry-grid-wrapper {
 		width: 100%;
@@ -324,6 +320,17 @@ u,
 /*!
  * filtering controls
  */
+.holder-filter-controls {
+	width: 98%;
+	height: 0;
+	visibility: hidden;
+	margin: 0 auto -2% auto;
+}
+.holder-filter-controls.visible {
+	height: auto;
+	visibility: visible;
+	margin-bottom: 0;
+}
 .holder-filter-buttons {
 	text-align: center;
 	background-color: #474747;
