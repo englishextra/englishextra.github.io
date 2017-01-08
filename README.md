@@ -4,7 +4,7 @@
 
 [![Travis](https://img.shields.io/travis/englishextra/englishextra.github.io.svg)](https://github.com/englishextra/englishextra.github.io)
 
-[![englishextra.github.io](https://farm1.staticflickr.com/389/31976951082_4c3c1446a9_o.jpg)](https://englishextra.github.io/)
+[![englishextra.github.io](https://farm1.staticflickr.com/712/32184197115_99ed13dde0_o.jpg)](https://englishextra.github.io/)
 
 ## On-line
 
