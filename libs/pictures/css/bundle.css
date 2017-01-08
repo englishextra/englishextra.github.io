@@ -39,6 +39,7 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	text-align: center;
 	white-space: nowrap;
 	margin: 0;
+	z-index: 999999;
 }
 .masonry-grid {
 	display: block;
@@ -118,7 +119,7 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	.masonry-grid-wrapper h1 {
 		width: 100%;
 		position: absolute;
-		top: -33.000pt;
+		top: 0;
 		left: 99.000pt;
 		padding-right: 198.000pt;
 	}
@@ -465,10 +466,7 @@ u,
 .container {
 	width: 100%;
 	height: 100%;
-	position: relative;
-	top: 33.000pt;
-	left: 0;
-	padding: 0;
+	padding: 33.000pt 0 0 0;
 	margin: 0 auto;
 }
 /*!
