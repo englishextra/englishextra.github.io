@@ -18,8 +18,8 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	bottom: 7.500pt;
 	visibility: hidden;
 	opacity: 0;
-	-webkit-transition: visibility 0s,opacity 0.1s linear;
-	transition: visibility 0s,opacity 0.1s linear;
+	-webkit-transition: visibility 0s, opacity 0.2s linear;
+	transition: visibility 0s, opacity 0.2s linear;
 }
 .pluso {
 	position: fixed !important;
@@ -27,8 +27,8 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	bottom: 0;
 	visibility: hidden;
 	opacity: 0;
-	-webkit-transition: visibility 0s,opacity 0.1s linear;
-	transition: visibility 0s,opacity 0.1s linear;
+	-webkit-transition: visibility 0s, opacity 0.2s linear;
+	transition: visibility 0s, opacity 0.2s linear;
 }
 .share-buttons {
 	display: inline-block;
@@ -43,8 +43,8 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	background: none rgba(211,211,211,0.5);
 	border: none;
 	overflow: hidden;
-	-webkit-transition: background 0.1s linear;
-	transition: background 0.1s linear;
+	-webkit-transition: background 0.2s linear;
+	transition: background 0.2s linear;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	outline: none;
 	z-index: 999;
@@ -76,8 +76,8 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	visibility: hidden;
 	opacity: 0;
 	overflow: hidden;
-	-webkit-transition: all 0.1s linear;
-	transition: all 0.1s linear;
+	-webkit-transition: all 0.2s linear;
+	transition: all 0.2s linear;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	outline: none;
 	z-index: 999;

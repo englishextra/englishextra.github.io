@@ -167,8 +167,8 @@ html > body > .ui-pnotify {
 	visibility: hidden;
 	opacity: 0;
 	overflow: hidden;
-	-webkit-transition: all 0.1s linear;
-	transition: all 0.1s linear;
+	-webkit-transition: all 0.2s linear;
+	transition: all 0.2s linear;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	outline: none;
 	z-index: 999;
@@ -342,8 +342,8 @@ u,
 	 */
 	min-height: 100%;
 	opacity: 0;
-	-webkit-transition: opacity 0.5s linear;
-	transition: opacity 0.5s linear;
+	-webkit-transition: opacity 0.2s linear;
+	transition: opacity 0.2s linear;
 }
 #wrapper {
 	padding-left: 310px;

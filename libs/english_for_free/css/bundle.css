@@ -32,8 +32,8 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	max-width: 100%;
 	background-color: transparent;
 	opacity: 0;
-	-webkit-transition: opacity 0.5s linear;
-	transition: opacity 0.5s linear;
+	-webkit-transition: opacity 0.2s linear;
+	transition: opacity 0.2s linear;
 	margin: 0 auto;
 }
 .superbox:after {
@@ -53,8 +53,8 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	height: auto;
 	box-shadow: 0 0.571em 0.286em -0.286em rgba(50,50,50,0.2);
 	opacity: 0.85;
-	-webkit-transition: all 0.25s ease-in-out;
-	transition: all 0.25s ease-in-out;
+	-webkit-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
 	cursor: pointer;
 	padding: 0;
 }
@@ -66,6 +66,8 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	width: 100%;
 	float: left;
 	position: relative;
+	top: 0;
+	left: 0;
 	color: transparent;
 	background: #242424;
 	box-shadow: inset 0 0.063em 0.313em #232323;
@@ -306,8 +308,8 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	line-height: 0;
 	visibility: hidden;
 	opacity: 0;
-	-webkit-transition: visibility 0s,opacity 0.1s linear;
-	transition: visibility 0s,opacity 0.1s linear;
+	-webkit-transition: visibility 0s, opacity 0.2s linear;
+	transition: visibility 0s, opacity 0.2s linear;
 	z-index: 1000;
 }
 .btn-show-vk-like {
@@ -349,8 +351,8 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	bottom: 7.500pt;
 	visibility: hidden;
 	opacity: 0;
-	-webkit-transition: visibility 0s,opacity 0.1s linear;
-	transition: visibility 0s,opacity 0.1s linear;
+	-webkit-transition: visibility 0s, opacity 0.2s linear;
+	transition: visibility 0s, opacity 0.2s linear;
 }
 .pluso {
 	position: fixed !important;
@@ -358,8 +360,8 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	bottom: 0;
 	visibility: hidden;
 	opacity: 0;
-	-webkit-transition: visibility 0s,opacity 0.1s linear;
-	transition: visibility 0s,opacity 0.1s linear;
+	-webkit-transition: visibility 0s, opacity 0.2s linear;
+	transition: visibility 0s, opacity 0.2s linear;
 }
 .share-buttons {
 	display: inline-block;
@@ -374,8 +376,8 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	background: none rgba(211,211,211,0.5);
 	border: none;
 	overflow: hidden;
-	-webkit-transition: background 0.1s linear;
-	transition: background 0.1s linear;
+	-webkit-transition: background 0.2s linear;
+	transition: background 0.2s linear;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	outline: none;
 	z-index: 999;
@@ -430,8 +432,8 @@ img[class^="english4free-banner-"],img[class*=" english4free-banner-"]{ max-widt
 	visibility: hidden;
 	opacity: 0;
 	overflow: hidden;
-	-webkit-transition: all 0.1s linear;
-	transition: all 0.1s linear;
+	-webkit-transition: all 0.2s linear;
+	transition: all 0.2s linear;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	outline: none;
 	z-index: 999;
@@ -601,6 +603,8 @@ u,
 	 */
 	min-height: 100%;
 	position: relative;
+	top: 0;
+	left: 0;
 }
 .page.is-active {
 	position: relative;
@@ -611,6 +615,7 @@ u,
 	height: 100%;
 	position: relative;
 	top: 33.000pt;
+	left: 0;
 	padding: 0;
 	margin: 0 auto;
 }
@@ -627,6 +632,8 @@ u,
 .panel-nav-menu,
 .panel-nav-menu li {
 	position: relative;
+	top: 0;
+	left: 0;
 }
 .panel-nav-menu {
 	display: block;
@@ -764,8 +771,8 @@ u,
 	border: 0.750pt solid rgba(45,116,189,1);
 	box-shadow: 0.125em 0.125em 0.125em 0 rgba(50,50,50,0.3);
 	opacity: 0;
-	-webkit-transition: visibility 0s,opacity 0.1s linear;
-	transition: visibility 0s,opacity 0.1s linear;
+	-webkit-transition: visibility 0s, opacity 0.2s linear;
+	transition: visibility 0s, opacity 0.2s linear;
 	z-index: 999;
 }
 .holder-panel-menu-more.is-active {

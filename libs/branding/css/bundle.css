@@ -350,8 +350,8 @@ pre.prettyprint,code.prettyprint{background-color:#E9E9E9;border-radius:0;}pre.p
 	line-height: 0;
 	visibility: hidden;
 	opacity: 0;
-	-webkit-transition: visibility 0s,opacity 0.1s linear;
-	transition: visibility 0s,opacity 0.1s linear;
+	-webkit-transition: visibility 0s, opacity 0.2s linear;
+	transition: visibility 0s, opacity 0.2s linear;
 	z-index: 1000;
 }
 .btn-show-vk-like {
@@ -393,8 +393,8 @@ pre.prettyprint,code.prettyprint{background-color:#E9E9E9;border-radius:0;}pre.p
 	bottom: 7.500pt;
 	visibility: hidden;
 	opacity: 0;
-	-webkit-transition: visibility 0s,opacity 0.1s linear;
-	transition: visibility 0s,opacity 0.1s linear;
+	-webkit-transition: visibility 0s, opacity 0.2s linear;
+	transition: visibility 0s, opacity 0.2s linear;
 }
 .pluso {
 	position: fixed !important;
@@ -402,8 +402,8 @@ pre.prettyprint,code.prettyprint{background-color:#E9E9E9;border-radius:0;}pre.p
 	bottom: 0;
 	visibility: hidden;
 	opacity: 0;
-	-webkit-transition: visibility 0s,opacity 0.1s linear;
-	transition: visibility 0s,opacity 0.1s linear;
+	-webkit-transition: visibility 0s, opacity 0.2s linear;
+	transition: visibility 0s, opacity 0.2s linear;
 }
 .share-buttons {
 	display: inline-block;
@@ -418,8 +418,8 @@ pre.prettyprint,code.prettyprint{background-color:#E9E9E9;border-radius:0;}pre.p
 	background: none rgba(211,211,211,0.5);
 	border: none;
 	overflow: hidden;
-	-webkit-transition: background 0.1s linear;
-	transition: background 0.1s linear;
+	-webkit-transition: background 0.2s linear;
+	transition: background 0.2s linear;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	outline: none;
 	z-index: 999;
@@ -468,8 +468,8 @@ pre.prettyprint,code.prettyprint{background-color:#E9E9E9;border-radius:0;}pre.p
 	visibility: hidden;
 	opacity: 0;
 	overflow: hidden;
-	-webkit-transition: all 0.1s linear;
-	transition: all 0.1s linear;
+	-webkit-transition: all 0.2s linear;
+	transition: all 0.2s linear;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	outline: none;
 	z-index: 999;
@@ -670,6 +670,8 @@ u,
 	 */
 	min-height: 100%;
 	position: relative;
+	top: 0;
+	left: 0;
 	/* svgeneration.com/recipes/Granite/ #F3F3F3 0.8 0.2 */
 	background-color: #F3F3F3;
 	background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHhtbG5zOnhsaW5rPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rJyB3aWR0aD0nMjAwJyBoZWlnaHQ9JzMwMCcgdmlld0JveD0nMCAwIDIwMCAzMDAnPgoJPGZpbHRlciBpZD0nZnV6eicgeD0nMCcgeT0nMCc+CgkJPGZlVHVyYnVsZW5jZSB0eXBlPSd0dXJidWxlbmNlJyBiYXNlRnJlcXVlbmN5PScwLjgnIG51bU9jdGF2ZXM9JzEwJyBzdGl0Y2hUaWxlcz0nc3RpdGNoJy8+Cgk8L2ZpbHRlcj4KCTxyZWN0IHdpZHRoPScxMDAlJyBoZWlnaHQ9JzEwMCUnIGZpbHRlcj0ndXJsKCNmdXp6KScgb3BhY2l0eT0nMC4yJy8+Cjwvc3ZnPg==);
@@ -729,6 +731,8 @@ u,
 .panel-nav-menu,
 .panel-nav-menu li {
 	position: relative;
+	top: 0;
+	left: 0;
 }
 .panel-nav-menu {
 	display: block;
@@ -866,8 +870,8 @@ u,
 	border: 0.750pt solid rgba(45,116,189,1);
 	box-shadow: 0.125em 0.125em 0.125em 0 rgba(50,50,50,0.3);
 	opacity: 0;
-	-webkit-transition: visibility 0s,opacity 0.1s linear;
-	transition: visibility 0s,opacity 0.1s linear;
+	-webkit-transition: visibility 0s, opacity 0.2s linear;
+	transition: visibility 0s, opacity 0.2s linear;
 	z-index: 999;
 }
 .holder-panel-menu-more.is-active {
@@ -1486,8 +1490,8 @@ u,
 	margin-left: 0.500em;
 }
 .col .sg-animated {
-	-webkit-transition: all 0.6s ease-out;
-	transition: all 0.6s ease-out;
+	-webkit-transition: all 0.2s ease-out;
+	transition: all 0.2s ease-out;
 }
 .col .sg-markup-controls {
 	overflow: hidden;

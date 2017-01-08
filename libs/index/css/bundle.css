@@ -40,8 +40,8 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	line-height: 0;
 	visibility: hidden;
 	opacity: 0;
-	-webkit-transition: visibility 0s,opacity 0.1s linear;
-	transition: visibility 0s,opacity 0.1s linear;
+	-webkit-transition: visibility 0s, opacity 0.2s linear;
+	transition: visibility 0s, opacity 0.2s linear;
 	z-index: 1000;
 }
 .btn-show-vk-like {
@@ -247,6 +247,8 @@ u,
 	 */
 	min-height: 100%;
 	position: relative;
+	top: 0;
+	left: 0;
 	opacity: 0;
 	background-color: transparent;
 	/* background-image: url(//farm6.staticflickr.com/5539/30578927754_6684bd4693_o.jpg); */
@@ -299,6 +301,8 @@ u,
 .panel-nav-menu,
 .panel-nav-menu li {
 	position: relative;
+	top: 0;
+	left: 0;
 }
 .panel-nav-menu {
 	display: block;
@@ -436,8 +440,8 @@ u,
 	border: 0.750pt solid rgba(45,116,189,1);
 	box-shadow: 0.125em 0.125em 0.125em 0 rgba(50,50,50,0.3);
 	opacity: 0;
-	-webkit-transition: visibility 0s,opacity 0.1s linear;
-	transition: visibility 0s,opacity 0.1s linear;
+	-webkit-transition: visibility 0s, opacity 0.2s linear;
+	transition: visibility 0s, opacity 0.2s linear;
 	z-index: 999;
 }
 .holder-panel-menu-more.is-active {
