@@ -569,7 +569,7 @@ var initDoSlide = function () {
 	 * comment out if you dont want slide autorotation
 	 */
 	if (w.DoSlide) {
-		var slide = new DoSlide(".container", {
+		var slide = new DoSlide(".ds-container", {
 			duration : 2000,
 			horizontal : true,
 			infinite : true

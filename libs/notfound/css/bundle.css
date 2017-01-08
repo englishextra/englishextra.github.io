@@ -34,12 +34,12 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	animation: orbit 7.15s infinite;
 }
 .progress .progress-ball .progress-inner-ball {
-	position: absolute;
 	width: 0.571rem;
 	height: 0.571rem;
-	background: #FFFFFF;
-	left: 0;
+	position: absolute;
 	top: 0;
+	left: 0;
+	background: #FFFFFF;
 	border-radius: 0.571rem;
 }
 .progress #progress-ball-1 {
@@ -320,7 +320,6 @@ u,
 	 */
 	min-height: 100%;
 	position: relative;
-	left: 0;
 }
 .container {
 	width: 100%;

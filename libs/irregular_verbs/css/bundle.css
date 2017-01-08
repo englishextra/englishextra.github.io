@@ -269,13 +269,10 @@ u,
 	 */
 	min-height: 100%;
 	position: relative;
-	left: 0;
 }
 .container {
 	width: 100%;
 	height: 100%;
-	position: relative;
-	top: 0;
 	opacity: 0;
 	-webkit-transition: opacity 0.2s linear;
 	transition: opacity 0.2s linear;
@@ -401,20 +398,24 @@ u,
  * Homepage - https://github.com/MopTym/doSlide
  */
 .ds-parent {
-	margin: 0;
-	padding: 0;
 	overflow: hidden;
+	padding: 0;
+	margin: 0;
 }
 .ds-container {
-	position: absolute;
 	width: 100%;
 	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
 	overflow: hidden;
+	padding: 0;
+	margin: 0 auto;
 }
 .ds-container>* {
-	position: relative;
 	width: 100%;
 	height: 100%;
+	position: relative;
 	box-sizing: border-box;
 	overflow: hidden;
 }

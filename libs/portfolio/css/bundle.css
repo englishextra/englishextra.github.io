@@ -599,7 +599,6 @@ u,
 	 */
 	min-height: 100%;
 	position: relative;
-	left: 0;
 }
 .page.is-active {
 	position: relative;
