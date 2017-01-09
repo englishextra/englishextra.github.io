@@ -11,6 +11,7 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
  */
 .masonry-grid-wrapper {
 	width: 92%;
+	height: 100%;
 	max-width: 70.000rem;
 	padding-top: 1.500rem;
 	padding-bottom: 1.500rem;
