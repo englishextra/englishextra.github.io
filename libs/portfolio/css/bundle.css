@@ -1,17 +1,17 @@
-/*! @import "font-face"; */
+/*! @import "portfolio-font-face"; */
 @font-face{font-family:"englishextra-ui-icons";src:url(../../../fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.woff2) format("woff2"),url(../../../fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.woff) format("woff"),url(../../../fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.ttf) format("truetype");font-weight:normal;font-style:normal;}
 @font-face{font-family:"Exo2";src:url(../../../fonts/exo2-fontfacekit/Exo2Light.woff2) format("woff2"),url(../../../fonts/exo2-fontfacekit/Exo2Light.woff) format("woff"),url(../../../fonts/exo2-fontfacekit/Exo2Light.ttf) format("truetype");font-style:normal;font-weight:300;}
 @font-face{font-family:"Exo2";src:url(../../../fonts/exo2-fontfacekit/Exo2Regular.woff2) format("woff2"),url(../../../fonts/exo2-fontfacekit/Exo2Regular.woff) format("woff"),url(../../../fonts/exo2-fontfacekit/Exo2Regular.ttf) format("truetype");font-style:normal;font-weight:400;}
-/* @import "normalize"; */
+/*! @import "normalize"; */
 /*! normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */
 button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-block}progress,sub,sup{vertical-align:baseline}html{font-family:sans-serif;line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0} menu,article,aside,details,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figcaption,figure,main{display:block}figure{margin:1em 40px}hr{box-sizing:content-box;height:0}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}a:active,a:hover{outline-width:0}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative}sub{bottom:-.25em}sup{top:-.5em}audio:not([controls]){display:none;height:0}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{font-family:sans-serif;font-size:100%;line-height:1.15;margin:0}button,input{}button,select{text-transform:none}[type=submit], [type=reset],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:ButtonText dotted 1px}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}[hidden],template{display:none}
-/* @import "github-fork-ribbon"; */
+/*! @import "github-fork-ribbon"; */
 /*!
  * "Fork me on GitHub" CSS ribbon v0.1.1 | MIT License
  * https://github.com/simonwhitaker/github-fork-ribbon-css
 */
 .github-fork-ribbon{position:absolute;padding:2px 0;background-color:#a00;background-image:-webkit-gradient(linear,left top,left bottom,from(rgba(0,0,0,0)),to(rgba(0,0,0,.15)));background-image:-webkit-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,.15));background-image:-moz-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,.15));background-image:-ms-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,.15));background-image:-o-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,.15));background-image:linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,.15));-webkit-box-shadow:0 2px 3px 0 rgba(0,0,0,.5);-moz-box-shadow:0 2px 3px 0 rgba(0,0,0,.5);box-shadow:0 2px 3px 0 rgba(0,0,0,.5);font:700 13px "Helvetica Neue",Helvetica,Arial,sans-serif;z-index:9999;pointer-events:auto}.github-fork-ribbon a,.github-fork-ribbon a:hover{color:#fff;text-decoration:none;text-shadow:0 -1px rgba(0,0,0,.5);text-align:center;width:200px;line-height:20px;display:inline-block;padding:2px 0;border-width:1px 0;border-style:dotted;border-color:#fff;border-color:rgba(255,255,255,.7)}.github-fork-ribbon-wrapper{width:150px;height:150px;position:absolute;overflow:hidden;top:0;z-index:9999;pointer-events:none}.github-fork-ribbon-wrapper.fixed{position:fixed}.github-fork-ribbon-wrapper.left{left:0}.github-fork-ribbon-wrapper.right{right:0}.github-fork-ribbon-wrapper.left-bottom{position:fixed;top:inherit;bottom:0;left:0}.github-fork-ribbon-wrapper.right-bottom{position:fixed;top:inherit;bottom:0;right:0}.github-fork-ribbon-wrapper.right .github-fork-ribbon{top:42px;right:-43px;-webkit-transform:rotate(45deg);-moz-transform:rotate(45deg);-ms-transform:rotate(45deg);-o-transform:rotate(45deg);transform:rotate(45deg)}.github-fork-ribbon-wrapper.left .github-fork-ribbon{top:42px;left:-43px;-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);-ms-transform:rotate(-45deg);-o-transform:rotate(-45deg);transform:rotate(-45deg)}.github-fork-ribbon-wrapper.left-bottom .github-fork-ribbon{top:80px;left:-43px;-webkit-transform:rotate(45deg);-moz-transform:rotate(45deg);-ms-transform:rotate(45deg);-o-transform:rotate(45deg);transform:rotate(45deg)}.github-fork-ribbon-wrapper.right-bottom .github-fork-ribbon{top:80px;right:-43px;-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);-ms-transform:rotate(-45deg);-o-transform:rotate(-45deg);transform:rotate(-45deg)}
-/* @import "superbox"; */
+/*! @import "superbox"; */
 /*!
  * superbox
  */
@@ -226,7 +226,7 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 		width: 25%;
 	}
 }
-/*! @import "animate.partial"; */
+/*! @import "portfolio-animate.partial"; */
 /*!
  * some animations from animate.css
  * github.com/daneden/animate.css
@@ -300,7 +300,7 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	padding: 0;
 	margin: 0;
 }
-/*! @import "vk-like-light"; */
+/*! @import "vk-like-dark"; */
 /*!
  * vk-like
  */
@@ -327,7 +327,7 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
-	background: none transparent;
+	background: none rgba(66,66,66,0.5);
 	border: none;
 	overflow: hidden;
 	-webkit-transition: background 0.2s linear;
@@ -397,7 +397,7 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	line-height: 33.000pt;
 	color: rgba(25,25,25,0.5);
 }
-/*! @import "sprites"; */
+/*! @import "portfolio-sprites"; */
 /* Generated by http://responsive-css.spritegen.com Responsive CSS Sprite Generator */
 img[class^="portfolio-banner-"],img[class*=" portfolio-banner-"]{ max-width: 100%; background-size: 100%; background-image: url(../img/sprite.png); }
 .portfolio-banner-bd-640x480 { background-position: 0 0%; background-size: 100%; }
@@ -462,7 +462,7 @@ img[class^="portfolio-banner-"],img[class*=" portfolio-banner-"]{ max-width: 100
 	line-height: 33.000pt;
 	color: rgba(25,25,25,0.5);
 }
-/*! @import "main"; */
+/*! @import "portfolio-main"; */
 /*!
  * custom
  */
@@ -618,7 +618,7 @@ u,
 	padding: 0;
 	margin: 0 auto;
 }
-/* @import "nav-menu-dark"; */
+/*! @import "nav-menu-dark"; */
 /*!
  * nav menu
  */
@@ -698,7 +698,7 @@ u,
  */
 .btn-nav-menu {
 	text-align: center;
-	background: none transparent;
+	background: none rgba(66,66,66,0.5);
 }
 .btn-nav-menu:before {
 	font-family: "englishextra-ui-icons";
@@ -725,7 +725,7 @@ u,
 	 */
 	left: 0;
 }
-/* @import "menu-more-dark"; */
+/*! @import "menu-more-dark"; */
 /*!
  * menu more
  */
@@ -750,7 +750,7 @@ u,
  */
 .btn-menu-more {
 	text-align: center;
-	background: none transparent;
+	background: none rgba(66,66,66,0.5);
 }
 .btn-menu-more:before {
 	font-family: "englishextra-ui-icons";
