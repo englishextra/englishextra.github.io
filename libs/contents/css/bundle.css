@@ -92,15 +92,6 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 .masonry-grid-item {
 	float: left;
 	box-shadow: 0 0.250em 0.250em 0 rgba(150,150,150,0.2);
-	/*!
-	 * raw.githubusercontent.com/daneden/animate.css/master/animate.css
-	 */
-	/* -webkit-animation-duration: 2s;
-	animation-duration: 2s;
-	-webkit-animation-fill-mode: both;
-	animation-fill-mode: both;
-	-webkit-animation-name: slideInUp;
-	animation-name: slideInUp; */
 	margin: 1.500%;
 }
 .masonry-grid-item a,
@@ -737,13 +728,18 @@ u,
 	position: relative;
 	left: 280px;
 }
+.panel-nav-top {
+	width: 100%;
+	height: 33.000pt;
+}
 .container {
 	width: 100%;
 	height: 100%;
 	opacity: 0;
 	-webkit-transition: opacity 0.2s linear;
 	transition: opacity 0.2s linear;
-	padding: 33.000pt 0 0 0;
+	/* padding: 33.000pt 0 0 0; */
+	padding: 0;
 	margin: 0 auto;
 }
 /* @import "nav-menu-light"; */
