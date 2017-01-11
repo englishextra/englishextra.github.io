@@ -1,14 +1,14 @@
-/*! @import "irregular-verbs-with-shower-font-face"; */
+/** @import "irregular-verbs-with-shower-font-face"; */
 @font-face{font-family:"englishextra-ui-icons";src:url(../../../fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.woff2) format("woff2"),url(../../../fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.woff) format("woff"),url(../../../fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.ttf) format("truetype");font-weight:normal;font-style:normal;}
 @font-face{font-family:"Source Sans Pro";src:url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Light.otf.woff2) format("woff2"),url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Light.otf.woff) format("woff"),url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Light.ttf) format("truetype");font-weight:300;font-style:normal;font-stretch:normal;}
 @font-face{font-family:"Source Sans Pro";src:url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Regular.otf.woff2) format("woff2"),url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Regular.otf.woff) format("woff"),url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Regular.ttf) format("truetype");font-weight:400;font-style:normal;font-stretch:normal;}
 @font-face{font-family:"Source Sans Pro";src:url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-It.otf.woff2) format("woff2"),url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-It.otf.woff) format("woff"),url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-It.ttf) format("truetype");font-weight:400;font-style:italic;font-stretch:normal;}
 @font-face{font-family:"Source Sans Pro";src:url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Bold.otf.woff2) format("woff2"),url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Bold.otf.woff) format("woff"),url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Bold.ttf) format("truetype");font-weight:700;font-style:normal;font-stretch:normal;}
 @font-face{font-family:"Source Code Pro";src:url(../../../fonts/source-code-pro-fontfacekit/SourceCodePro-Regular.otf.woff2) format("woff2"),url(../../../fonts/source-code-pro-fontfacekit/SourceCodePro-Regular.otf.woff) format("woff"),url(../../../fonts/source-code-pro-fontfacekit/SourceCodePro-Regular.ttf) format("truetype");font-weight:400;font-style:normal;font-stretch:normal;}
-/*! @import "normalize"; */
-/*! normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */
+/** @import "normalize"; */
+/** normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */
 button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-block}progress,sub,sup{vertical-align:baseline}html{font-family:sans-serif;line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0} menu,article,aside,details,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figcaption,figure,main{display:block}figure{margin:1em 40px}hr{box-sizing:content-box;height:0}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}a:active,a:hover{outline-width:0}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative}sub{bottom:-.25em}sup{top:-.5em}audio:not([controls]){display:none;height:0}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{font-family:sans-serif;font-size:100%;line-height:1.15;margin:0}button,input{}button,select{text-transform:none}[type=submit], [type=reset],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:ButtonText dotted 1px}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}[hidden],template{display:none}
-/*! @import "irregular-verbs-with-shower-shower"; */
+/** @import "irregular-verbs-with-shower-shower"; */
 .badge {
 	font-size: 11.250pt;
 	line-height: 2.500;
@@ -213,8 +213,8 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	-webkit-transition: width .2s linear;
 	transition: width .2s linear;
 }
-/*! @import "share-buttons-light"; */
-/*!
+/** @import "share-buttons-light"; */
+/**
  * pluso, yashare
  */
 .ya-share2 {
@@ -264,8 +264,8 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	line-height: 33.000pt;
 	color: rgba(25,25,25,0.5);
 }
-/*! @import "ui-totop"; */
-/*!
+/** @import "ui-totop"; */
+/**
  * github.com/sksmatt/UItoTop-jQuery-Plugin/
  */
 #ui-totop {
@@ -297,7 +297,7 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 #ui-totop:hover {
 	background-color: rgba(213,213,213,1);
 }
-/*!
+/**
  * using icon font
  */
 #ui-totop {
@@ -314,8 +314,8 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	line-height: 33.000pt;
 	color: rgba(25,25,25,0.5);
 }
-/*! @import "irregular-verbs-with-shower-main"; */
-/*!
+/** @import "irregular-verbs-with-shower-main"; */
+/**
  * custom
  */
 html/* ,
@@ -324,7 +324,7 @@ body */ {
 }
 html {
 	font-size: 100%;
-	/*!
+	/**
 	 * set the parent to background transparent
 	 * and position relative to parent, absolute for child
 	 */
@@ -357,7 +357,7 @@ body {
 	margin: 0;
 	padding: 0;
 }
-/*!
+/**
  * englishextra specific rules
  */
 a {
@@ -409,7 +409,7 @@ u,
 	color: rgba(255,255,255,0.9);
 	background: rgba(48,124,202,0.9);
 }
-/*!
+/**
  * clearfix css-tricks.com/snippets/css/clear-fix/
  */
 .cf:after {
@@ -419,13 +419,13 @@ u,
 	content: "";
 	clear: both;
 }
-/*!
+/**
  * fit width
  */
 .fit-width {
 	min-width: 100%;
 }
-/*!
+/**
  * hide and show on mobile
  */
 .show-inline-on-mobile,
@@ -445,8 +445,8 @@ u,
 		display: block !important;
 	}
 }
-/*! @import "irregular-verbs-with-shower-nav-menu"; */
-/*!
+/** @import "irregular-verbs-with-shower-nav-menu"; */
+/**
  * nav-menu
  */
 .holder-btn-nav-menu {
@@ -470,7 +470,7 @@ u,
 .full .holder-btn-nav-menu {
 	display: none;
 }
-/*!
+/**
  * using icon font
  */
 .holder-btn-nav-menu {
@@ -484,7 +484,7 @@ u,
 	line-height: 33.000pt;
 	color: #848484;
 }
-/*!
+/**
  * other
  */
 .caption {
@@ -518,13 +518,13 @@ u,
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	outline: none;
 }
-/*!
+/**
  * overrides to share-buttons
  */
 .full .share-buttons {
 	display: none;
 }
-/*!
+/**
  * overrides to ui-totop
  */
 .full #ui-totop,
@@ -534,12 +534,12 @@ u,
 	top: -9999px;
 	left: -9999px;
 }
-/*!
+/**
  * retina
  */
 @media only screen and (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
 }
-/*!
+/**
  * font for mobile
  * iosfonts.com/
  * google.com/design/spec/style/typography.html#typography-language-categorization
@@ -557,7 +557,7 @@ u,
 		font-family: "Consolas","Droid Sans Mono","Menlo","Source Code Pro",monospace;
 	}
 }
-/*!
+/**
  * used for making screensaver
  */
 /* .full {

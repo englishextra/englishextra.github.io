@@ -1,19 +1,19 @@
-/*! @import "contents-font-face"; */
+/** @import "contents-font-face"; */
 @font-face{font-family:"englishextra-ui-icons";src:url(../../../fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.woff2) format("woff2"),url(../../../fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.woff) format("woff"),url(../../../fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.ttf) format("truetype");font-weight:normal;font-style:normal;}
 @font-face{font-family:"Source Sans Pro";src:url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Light.otf.woff2) format("woff2"),url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Light.otf.woff) format("woff"),url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Light.ttf) format("truetype");font-weight:300;font-style:normal;font-stretch:normal;}
 @font-face{font-family:"Source Sans Pro";src:url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Regular.otf.woff2) format("woff2"),url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Regular.otf.woff) format("woff"),url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Regular.ttf) format("truetype");font-weight:400;font-style:normal;font-stretch:normal;}
 @font-face{font-family:"Source Sans Pro";src:url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Bold.otf.woff2) format("woff2"),url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Bold.otf.woff) format("woff"),url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Bold.ttf) format("truetype");font-weight:700;font-style:normal;font-stretch:normal;}
-/*! @import "normalize"; */
-/*! normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */
+/** @import "normalize"; */
+/** normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */
 button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-block}progress,sub,sup{vertical-align:baseline}html{font-family:sans-serif;line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0} menu,article,aside,details,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figcaption,figure,main{display:block}figure{margin:1em 40px}hr{box-sizing:content-box;height:0}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}a:active,a:hover{outline-width:0}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative}sub{bottom:-.25em}sup{top:-.5em}audio:not([controls]){display:none;height:0}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{font-family:sans-serif;font-size:100%;line-height:1.15;margin:0}button,input{}button,select{text-transform:none}[type=submit], [type=reset],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:ButtonText dotted 1px}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}[hidden],template{display:none}
-/*! @import "contents-masonry-grid"; */
-/*!
+/** @import "contents-masonry-grid"; */
+/**
  * masonry grid
  */
 .masonry-grid-wrapper {
 	width: 100%;
 	height: 100%;
-	/*! stackoverflow.com/questions/14967413/background-color-not-showing-for-a-div
+	/** stackoverflow.com/questions/14967413/background-color-not-showing-for-a-div
 	Because the content collapses when the children are floated
 	and adding the overflow rule restores the behavior you'd expect. */
 	overflow-x: auto;
@@ -52,7 +52,7 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	font-style: normal;
 	padding-left: 0.188rem;
 }
-/*!
+/**
  * fix select border for electron and nw
  */
 .masonry-grid-wrapper .holder-contents-select select,
@@ -62,7 +62,7 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	border: 0.750pt solid #FFFFFF;
 }
 .masonry-grid-wrapper .footer {
-	/*! 720px - 24px - 24px */
+	/** 720px - 24px - 24px */
 	max-width: 672px;
 	font-size: 0.813rem;
 	line-height: 1.500;
@@ -331,8 +331,8 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 		max-width: 81.3%;
 	}
 }
-/*! @import "kamil-autocomplete"; */
-/*!
+/** @import "kamil-autocomplete"; */
+/**
  * modified Kamil v0.0.1
  * Autocomplete library
  * oss6.github.io/kamil
@@ -365,8 +365,8 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	color: inherit;
 	background-color: rgba(190,212,235,1);
 }
-/*! @import "location-qr-code"; */
-/*!
+/** @import "location-qr-code"; */
+/**
  * location qr code
  */
 .location-qr-code {
@@ -387,8 +387,8 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	padding: 0;
 	margin: 0;
 }
-/*! @import "vk-like-light"; */
-/*!
+/** @import "vk-like-light"; */
+/**
  * vk-like
  */
 .vk-like {
@@ -433,8 +433,8 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	line-height: 33.000pt;
 	color: #848484;
 }
-/*! @import "share-buttons-light"; */
-/*!
+/** @import "share-buttons-light"; */
+/**
  * pluso, yashare
  */
 .ya-share2 {
@@ -484,7 +484,7 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	line-height: 33.000pt;
 	color: rgba(25,25,25,0.5);
 }
-/*! @import "contents-sprites"; */
+/** @import "contents-sprites"; */
 /* Generated by http://responsive-css.spritegen.com Responsive CSS Sprite Generator */
 img[class^="contents-banner-"],img[class*=" contents-banner-"]{ max-width: 100%; background-size: 100%; background-image: url(../img/sprite.png); }
 .contents-banner-aids-640x336 { background-position: 0 0%; background-size: 100%; }
@@ -512,16 +512,16 @@ img[class^="contents-banner-"],img[class*=" contents-banner-"]{ max-width: 100%;
 .contents-banner-transcripts-640x336 { background-position: 0 91.666667%; background-size: 100%; }
 .contents-banner-vimeo-640x336 { background-position: 0 95.833333%; background-size: 100%; }
 .contents-banner-vk-640x336 { background-position: 0 100%; background-size: 100%; }
-/*! @import "contents-disqus-thread"; */
-/*!
+/** @import "contents-disqus-thread"; */
+/**
  * disqus
  */
 #disqus_thread.is-active iframe {
 	margin: 0 0 -0.500em 0;
 	padding: 0;
 }
-/*! @import "ui-totop"; */
-/*!
+/** @import "ui-totop"; */
+/**
  * github.com/sksmatt/UItoTop-jQuery-Plugin/
  */
 #ui-totop {
@@ -553,7 +553,7 @@ img[class^="contents-banner-"],img[class*=" contents-banner-"]{ max-width: 100%;
 #ui-totop:hover {
 	background-color: rgba(213,213,213,1);
 }
-/*!
+/**
  * using icon font
  */
 #ui-totop {
@@ -570,8 +570,8 @@ img[class^="contents-banner-"],img[class*=" contents-banner-"]{ max-width: 100%;
 	line-height: 33.000pt;
 	color: rgba(25,25,25,0.5);
 }
-/*! @import "contents-main"; */
-/*!
+/** @import "contents-main"; */
+/**
  * custom
  */
 html,
@@ -580,7 +580,7 @@ body {
 }
 html {
 	font-size: 100%;
-	/*!
+	/**
 	 * set the parent to background transparent
 	 * and position relative to parent, absolute for child
 	 */
@@ -609,7 +609,7 @@ body {
 	margin: 0;
 	padding: 0;
 }
-/*!
+/**
  * englishextra specific rules
  */
 a {
@@ -661,7 +661,7 @@ u,
 	color: rgba(255,255,255,0.9);
 	background: rgba(48,124,202,0.9);
 }
-/*!
+/**
  * clearfix css-tricks.com/snippets/css/clear-fix/
  */
 .cf:after {
@@ -671,13 +671,13 @@ u,
 	content: "";
 	clear: both;
 }
-/*!
+/**
  * fit width
  */
 .fit-width {
 	min-width: 100%;
 }
-/*!
+/**
  * hide and show on mobile
  */
 .show-inline-on-mobile,
@@ -697,12 +697,12 @@ u,
 		display: block !important;
 	}
 }
-/*!
+/**
  * other
  */
 .page {
 	width: 100%;
-	/*!
+	/**
 	 * set the parent to min height 100%, not just height
 	 * and position relative to parent, absolute for child
 	 */
@@ -742,8 +742,8 @@ u,
 	padding: 0;
 	margin: 0 auto;
 }
-/*! @import "nav-menu-light"; */
-/*!
+/** @import "nav-menu-light"; */
+/**
  * nav menu
  */
 .page,
@@ -817,7 +817,7 @@ u,
 .btn-nav-menu:hover {
 	background-color: rgba(213,213,213,1);
 }
-/*!
+/**
  * using icon font
  */
 .btn-nav-menu {
@@ -841,7 +841,7 @@ u,
 	width: 280px;
 }
 .page.is-active .btn-nav-menu {
-	/*!
+	/**
 	 * position absolute
 	 * left: 0;
 	 * position fixed
@@ -849,8 +849,8 @@ u,
 	 */
 	left: 280px;
 }
-/*! @import "menu-more-light"; */
-/*!
+/** @import "menu-more-light"; */
+/**
  * menu more
  */
 .btn-menu-more {
@@ -869,7 +869,7 @@ u,
 .btn-menu-more:hover {
 	background-color: rgba(213,213,213,1);
 }
-/*!
+/**
  * using icon font
  */
 .btn-menu-more {
@@ -925,7 +925,7 @@ u,
 	color: inherit;
 	background-color: rgba(190,212,235,1);
 }
-/*!
+/**
  * search form
  */
 .holder-search-form {
@@ -968,7 +968,7 @@ u,
 		display: none;
 	}
 }
-/*!
+/**
  * using icon font
  */
 .holder-search-text:before,
@@ -989,7 +989,7 @@ u,
 .holder-search-form input[type^=search] {
 	background: none rgba(211,211,211,0.5);
 }
-/*!
+/**
  * fix for yandex search
  * site.yandex.net/v2.0/js/suggest.js
  */
@@ -1003,7 +1003,7 @@ u,
 .ya-site-form__submit {
 	display: none !important;
 }
-/*!
+/**
  * footer
  */
 .footer {
@@ -1029,12 +1029,12 @@ u,
 	font-size: 0.813rem;
 	line-height: 1.500;
 }
-/*!
+/**
  * retina
  */
 @media only screen and (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
 }
-/*!
+/**
  * font for mobile
  * iosfonts.com/
  * google.com/design/spec/style/typography.html#typography-language-categorization
@@ -1050,7 +1050,7 @@ u,
 		font-family: "Segoe UI Light","Segoe WP Light","Source Sans Pro","Open Sans","Exo2","Fira Sans",sans-serif;
 	}
 }
-/*!
+/**
  * media queries
  */
 @media only screen and (max-width: 20em) {
