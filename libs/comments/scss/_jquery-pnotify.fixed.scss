@@ -1,0 +1,102 @@
+/* @import "jquery-pnotify.fixed"; */
+/**
+ * jquery.pnotify.fixed.default.css
+ * http://pastebin.com/Hve9QVhz
+ * Document : jquery.pnotify.default.css
+ * Created on : Nov 23, 2009, 3:14:10 PM
+ * Author : Hunter Perrin
+ * Version : 1.3.0
+ * Link : sciactive.com/pnotify/
+ * Description: Default styling for PNotify jQuery plugin.
+ */
+.ui-pnotify {
+	top: 0.750em;
+	right: 1.250em;
+	position: absolute;
+	height: auto;
+	z-index: 9999;
+	color: #FFFFFF;
+	background: transparent;
+}
+html > body > .ui-pnotify {
+	position: fixed;
+}
+.ui-pnotify .ui-pnotify-shadow {
+	box-shadow: 0.125em 0.125em 0.125em 0 rgba(50,50,50,0.3);
+}
+.ui-pnotify-container {
+	background-position: 0 0;
+	padding: .8em;
+	height: 100%;
+	margin: 0;
+	border-radius: 0;
+}
+.ui-pnotify-sharp {
+	border-radius: 0;
+}
+.ui-pnotify-closer,
+.ui-pnotify-sticker {
+	float: right;
+	margin-left: .2em;
+}
+.ui-pnotify-title {
+	display: block;
+	font-weight: 700;
+	margin-bottom: .4em;
+	margin-top: 0;
+}
+.ui-pnotify-text {
+	display: block;
+	font-weight: 400;
+}
+.ui-pnotify-title,
+.ui-pnotify-text {
+	font-size: 0.875em;
+}
+.ui-pnotify-icon,
+.ui-pnotify-icon span {
+	display: block;
+	float: left;
+	margin-right: .2em;
+}
+.ui-pnotify-history-container {
+	position: absolute;
+	top: 0;
+	right: 1.125em;
+	width: 4.375em;
+	border-top: none;
+	padding: 0;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	z-index: 10000;
+}
+.ui-pnotify-history-container .ui-pnotify-history-header {
+	padding: 0.125em;
+	text-align: center;
+}
+.ui-pnotify-history-container button {
+	cursor: pointer;
+	display: block;
+	width: 100%;
+}
+.ui-pnotify-history-container .ui-pnotify-history-pulldown {
+	display: block;
+	margin: 0 auto;
+}
+.ui-pnotify.stack-topleft, .ui-pnotify.stack-bottomleft {
+	left: 1.563em;
+	right: auto;
+}
+.ui-pnotify.stack-bottomright, .ui-pnotify.stack-bottomleft {
+	bottom: 1.563em;
+	top: auto;
+}
+.ui-pnotify-notice div.ui-pnotify-container {
+	background: none #006BA6;
+}
+.ui-pnotify-success div.ui-pnotify-container {
+	background: none #09814A;
+}
+.ui-pnotify-error div.ui-pnotify-container {
+	background: none #D62839;
+}

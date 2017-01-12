@@ -1,0 +1,325 @@
+/* @import "contents-masonry-grid"; */
+/**
+ * masonry grid
+ */
+.masonry-grid-wrapper {
+	width: 100%;
+	height: 100%;
+	/** stackoverflow.com/questions/14967413/background-color-not-showing-for-a-div
+	Because the content collapses when the children are floated
+	and adding the overflow rule restores the behavior you'd expect. */
+	overflow-x: auto;
+	overflow-y: hidden;
+}
+.masonry-grid-wrapper h1 {
+	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI Light","Segoe WP Light",sans-serif;
+	font-weight: 400;
+	font-size: 1.772rem;
+	line-height: 1.200;
+	text-align: center;
+	margin: 1.500rem 3.000%;
+}
+.masonry-grid-wrapper .holder-contents-select {
+	display: block;
+	width: 100%;
+	text-align: center;
+	margin: 0 0 1.500rem 0;
+}
+.masonry-grid-wrapper .holder-contents-select select {
+	display: inline-block;
+	width: 91%;
+	max-width: 20.375rem;
+	height: 2.000rem;
+	font-family: sans-serif;
+	font-size: 0.875rem;
+	color: inherit;
+	background: #FFFFFF;
+	border: 0.750pt solid #FFFFFF;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	outline: none;
+	margin: 0;
+	padding: 0;
+}
+.masonry-grid-wrapper .holder-contents-select select optgroup {
+	font-style: normal;
+	padding-left: 0.188rem;
+}
+/**
+ * fix select border for electron and nw
+ */
+.masonry-grid-wrapper .holder-contents-select select,
+.masonry-grid-wrapper .holder-contents-select select:hover,
+.masonry-grid-wrapper .holder-contents-select select:active,
+.masonry-grid-wrapper .holder-contents-select select:focus {
+	border: 0.750pt solid #FFFFFF;
+}
+.masonry-grid-wrapper .footer {
+	/** 720px - 24px - 24px */
+	max-width: 672px;
+	font-size: 0.813rem;
+	line-height: 1.500;
+	text-align: center;
+	margin: 1.500rem auto;
+}
+.masonry-grid {
+	display: block;
+	margin: 0 auto;
+}
+.masonry-grid:after {
+	display: block;
+	content: "";
+	clear: both;
+}
+.masonry-grid-row:after {
+	display: block;
+	visibility: hidden;
+	clear: both;
+	height: 0;
+	content: ".";
+	overflow: hidden;
+	width: 0;
+	font-size: 0;
+	line-height: 0;
+}
+.masonry-grid-item {
+	float: left;
+	box-shadow: 0 0.250em 0.250em 0 rgba(150,150,150,0.2);
+	margin: 1.500%;
+}
+.masonry-grid-item a,
+.masonry-grid-item a:hover,
+.masonry-grid-item a:active,
+.masonry-grid-item a:focus {
+	color: inherit;
+}
+.masonry-grid-item img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+.masonry-grid-item-content {
+	/* min-height: 11.750rem; */
+	background: #FFFFFF;
+	padding: 1.000em;
+}
+.masonry-grid-item-content h2 {
+	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI Light","Segoe WP Light",sans-serif;
+	font-weight: 300;
+	font-size: 1.500rem;
+	line-height: 1.200;
+	margin-top: 0;
+	margin-bottom: 0.500rem;
+}
+.masonry-grid-item-content h2 a {
+	color: inherit;
+	border-bottom-color: transparent;
+	border-bottom-style: solid;
+	border-bottom-width: 0.750pt;
+	text-decoration: none;
+}
+.masonry-grid-item-content h2 a:hover,
+.masonry-grid-item-content h2 a:active,
+.masonry-grid-item-content h2 a:focus {
+	color: inherit;
+	border-bottom-color: inherit;
+	border-bottom-style: solid;
+	border-bottom-width: 0.750pt;
+}
+.masonry-grid-item-content p {
+	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI","Segoe WP",sans-serif;
+	font-weight: 400;
+	font-size: 1.000rem;
+	line-height: 1.500;
+	margin: 0;
+}
+.masonry-grid-item-content dl dt {
+	font-weight: bolder;
+	text-decoration: none;
+}
+.masonry-grid-item-content dl dt a {
+	color: inherit;
+	border-bottom-color: inherit;
+	border-bottom-style: solid;
+	border-bottom-width: 0.750pt;
+}
+.masonry-grid-item-content dl dt a:hover,
+.masonry-grid-item-content dl dt a:active,
+.masonry-grid-item-content dl dt a:focus {
+	color: inherit;
+}
+.masonry-grid-item-content li ol,
+.masonry-grid-item-content li ul {
+	margin-top: 0 !important;
+}
+.masonry-grid-item-content li ol,
+.masonry-grid-item-content li ul {
+	margin-top: 0 !important;
+}
+.masonry-grid-item-content table td,
+.masonry-grid-item-content table th {
+	font-size: .875rem;
+	line-height: 1.500;
+}
+.masonry-grid-item-content table {
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+.masonry-grid-item-content caption,
+.masonry-grid-item-content table th,
+.masonry-grid-item-content table td {
+	text-align: left;
+}
+.masonry-grid-item-content table td,
+.masonry-grid-item-content table th {
+	padding: .313rem 1.000rem;
+	vertical-align: top;
+}
+.masonry-grid-item-content table th a:hover,
+.masonry-grid-item-content table th a:active,
+.masonry-grid-item-content table th a:focus {
+	text-decoration: underline;
+}
+.masonry-grid-item-content table td ol,
+.masonry-grid-item-content table td ul,
+.masonry-grid-item-content table td dl {
+	margin: 0;
+}
+.masonry-grid-item-content table {
+	margin-top: 0;
+}
+.masonry-grid-item-content table+address,
+.masonry-grid-item-content table+p.address,
+.masonry-grid-item-content table+p.blockquote {
+	margin-top: 1.500rem;
+}
+.masonry-grid-item-content table+p {
+	margin-top: 1.500rem;
+	margin-bottom: 1.000rem;
+}
+.masonry-grid-item-content table td,
+.masonry-grid-item-content caption {
+	font-weight: normal;
+}
+.masonry-grid-item-content table th {
+	font-weight: bolder;
+}
+.masonry-grid-item-content caption,
+.masonry-grid-item-content table th,
+.masonry-grid-item-content table td {
+	font-family: inherit;
+}
+.masonry-grid-item-content caption,
+.masonry-grid-item-content table td,
+.masonry-grid-item-content table th a {
+	color: inherit;
+}
+.masonry-grid-item-content table tr,
+.masonry-grid-item-content table tr:nth-of-type(odd) {
+	background-color: transparent;
+}
+.masonry-grid-item-content table th {
+	border-bottom-width: 0.750pt;
+	border-bottom-style: solid;
+	border-bottom-color: #E1E1E1;
+	background-color: transparent;
+}
+.masonry-grid-item-content table td {
+	border-bottom-width: 0.750pt;
+	border-bottom-style: solid;
+	border-bottom-color: #E1E1E1;
+}
+.masonry-grid-item-content p+table,
+.masonry-grid-item-content p+ul,
+.masonry-grid-item-content p+ol {
+	margin-top: 1.500rem;
+}
+.masonry-grid-item-content table+p,
+.masonry-grid-item-content ul+p,
+.masonry-grid-item-content ol+p {
+	margin-bottom: 1.000rem;
+}
+.masonry-grid-item-content img {
+	padding: -0.750em;
+}
+.masonry-grid-item-content .highlight {
+	color: #EE6944;
+}
+@media only screen and (max-width: 20em) {
+	.masonry-grid {
+		max-width: 93.8%;
+	}
+	.masonry-grid-sizer {
+		width: 100%;
+	}
+	.masonry-grid-item {
+		float: none;
+		width: 97%;
+	}
+}
+@media only screen and (min-width: 20.063em) {
+	.masonry-grid {
+		max-width: 93.8%;
+	}
+	.masonry-grid-sizer {
+		width: 100%;
+	}
+	.masonry-grid-item {
+		float: none;
+		width: 97%;
+	}
+}
+@media only screen and (min-width: 30.063em) {
+	.masonry-grid {
+		max-width: 75%;
+	}
+}
+@media only screen and (min-width: 40.063em) {
+	.masonry-grid {
+		max-width: 93.8%;
+	}
+	.masonry-grid-sizer {
+		width: 50%;
+	}
+	.masonry-grid-item {
+		float: left;
+		width: 47%;
+	}
+}
+@media only screen and (min-width: 50.063em) {
+	.masonry-grid {
+		max-width: 81.3%;
+	}
+}
+@media only screen and (min-width: 60.063em) {
+	.masonry-grid {
+		max-width: 93.8%;
+	}
+	.masonry-grid-sizer {
+		width: 33.333%;
+	}
+	.masonry-grid-item {
+		width: 30%;
+	}
+}
+@media only screen and (min-width: 74.063em) {
+	.masonry-grid {
+		max-width: 81.3%;
+	}
+}
+@media only screen and (min-width: 80.063em) {
+	.masonry-grid {
+		max-width: 93.8%;
+	}
+	.masonry-grid-sizer {
+		width: 25%;
+	}
+	.masonry-grid-item {
+		width: 22%;
+	}
+}
+@media only screen and (min-width: 90.063em) {
+	.masonry-grid {
+		max-width: 81.3%;
+	}
+}
