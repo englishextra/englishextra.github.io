@@ -3723,7 +3723,7 @@ var initPagesKamil = function () {
 	search_form = BALA.one("#search_form") || "",
 	text_id = "text",
 	text = BALA.one("#" + text_id) || "",
-	jsn = "../../libs/englishextra-ui/json/pages.json",
+	jsn = "../../libs/paper/json/pages.json",
 	q = function (r) {
 		var jpr = safelyParseJSON(r);
 		if (jpr) {
@@ -3838,7 +3838,7 @@ var initPagesKamil = function () {
 	text = BALA.one(id) || "",
 	_ul_id = "kamil-typo-autocomplete",
 	_ul_class = "kamil-autocomplete",
-	jsn = "../../libs/englishextra-ui/json/pages.json",
+	jsn = "../../libs/paper/json/pages.json",
 	cL = "classList",
 	q = function (r) {
 		var jpr = safelyParseJSON(r);

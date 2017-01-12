@@ -21,7 +21,7 @@
 @font-face{font-family:"Open Sans";src:url(../../../fonts/open-sans-fontfacekit/OpenSans-Italic.woff2) format("woff2"),url(../../../fonts/open-sans-fontfacekit/OpenSans-Italic.woff) format("woff"),url(../../../fonts/open-sans-fontfacekit/OpenSans-Italic.ttf) format("truetype");font-weight:400;font-style:italic;}
 @font-face{font-family:"Open Sans";src:url(../../../fonts/open-sans-fontfacekit/OpenSans-Bold.woff2) format("woff2"),url(../../../fonts/open-sans-fontfacekit/OpenSans-Bold.woff) format("woff"),url(../../../fonts/open-sans-fontfacekit/OpenSans-Bold.ttf) format("truetype");font-weight:700;font-style:normal;}
 @font-face{font-family:"Open Sans";src:url(../../../fonts/open-sans-fontfacekit/OpenSans-BoldItalic.woff2) format("woff2"),url(../../../fonts/open-sans-fontfacekit/OpenSans-BoldItalic.woff) format("woff"),url(../../../fonts/open-sans-fontfacekit/OpenSans-BoldItalic.ttf) format("truetype");font-weight:700;font-style:italic;}
-/** @import "simplegrid.fixed"; */
+/* @import "simplegrid.fixed"; */
 /**
  * modified Simple Grid
  * Project Page - http://thisisdallas.github.com/Simple-Grid/
@@ -361,7 +361,7 @@
 .autocomplete-suggestion.selected {
 	background: #f0f0f0;
 }
-/** @import "kamil-autocomplete"; */
+/* @import "kamil-autocomplete"; */
 /**
  * modified Kamil v0.0.1
  * Autocomplete library
@@ -412,7 +412,7 @@
 	background: transparent url(../../../libs/cc_icons/img/by-nd-636466-80x15.png) top left no-repeat;
 	background-size: 60.000pt 11.250pt;
 }
-/** @import "main"; */
+/* @import "main"; */
 /**
  * custom
  */
