@@ -274,6 +274,7 @@ u,
 .module .module-header h4 {
 	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI","Segoe WP",sans-serif;
 	font-weight: 700;
+	font-size: 1.100rem;
 	margin: 0;
 	padding: 0;
 }
@@ -318,8 +319,8 @@ u,
 .module-clean .module-header h4 a:hover,
 .module-clean .module-header h4 a:active,
 .module-clean .module-header h4 a:focus {
-	color: #EA6743;
 	text-decoration: none;
+	color: #EA6743;
 }
 #content-wrapper .main-header {
 	background: #424242;
@@ -568,46 +569,6 @@ form.form-horizontal {
 	text-decoration: none;
 }
 /**
- * fixes to 16pixels
- */
-.col a {
-	font-weight: inherit;
-	color: #307CCA;
-}
-.col a:hover,
-.col a:active,
-.col a:focus {
-	color: #EA6743;
-}
-.col a:visited {
-	color: #8F9BA8;
-}
-.textcenter {
-	text-align: center;
-}
-.phonetic {
-	font-family: "Source Code Pro","Consolas",monospace;
-}
-.larger {
-	font-size: larger !important;
-}
-small,
-.smaller {
-	font-size: smaller !important;
-}
-.italic {
-	font-style: italic;
-}
-.textleft {
-	text-align: left;
-}
-.textright {
-	text-align: right;
-}
-.textcenter {
-	text-align: center;
-}
-/**
  * overrides to jquery-ui-1.10.4.custom.min.css
  */
 .ui-autocomplete {
@@ -660,9 +621,6 @@ small,
 	.sidebar-group li,
 	.main-header h3	{
 		font-family: "Segoe UI Light","Segoe WP Light","Source Sans Pro","Open Sans","Exo2","Fira Sans",sans-serif;
-	}
-	.col .phonetic {
-		font-family: "Consolas","Droid Sans Mono","Menlo","Source Code Pro",monospace;
 	}
 }
 /**
