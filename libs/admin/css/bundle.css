@@ -278,7 +278,7 @@ u,
 	text-indent: 1px;
 	text-transform: uppercase;
 	color: #000000;
-	margin: 16px 0 0 0 !important;
+	margin: 0 !important;
 }
 .col h2 {
 	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI","Segoe WP",sans-serif;
@@ -367,7 +367,7 @@ u,
 		clear: both;
 		margin: 0 auto;
 		width: 100%;
-		padding: 0 0 24px 0;
+		padding: 10px 0;
 	}
 	.row {
 		margin-left: -0px;
@@ -383,7 +383,7 @@ u,
 		clear: both;
 		margin: 0 auto;
 		width: 100%;
-		padding: 0 0 24px 0;
+		padding: 10px 0;
 	}
 	.row {
 		margin-left: -0px;
@@ -408,7 +408,7 @@ u,
 		clear: both;
 		margin: 0 auto;
 		width: 100%;
-		padding: 0 0 24px 0;
+		padding: 10px 0;
 	}
 	.row {
 		margin-left: -0px;
@@ -433,7 +433,7 @@ u,
 		clear: both;
 		margin: 0 auto;
 		width: 100%;
-		padding: 0 0 24px 0;
+		padding: 10px 0;
 	}
 	.row {
 		margin-left: -0px;
@@ -458,7 +458,7 @@ u,
 		clear: both;
 		margin: 0 auto;
 		max-width: 480px;
-		padding: 0 0 24px 0;
+		padding: 10px 0;
 	}
 	.row {
 		margin-left: -0px;
@@ -483,7 +483,7 @@ u,
 		clear: both;
 		margin: 0 auto;
 		max-width: 720px;
-		padding: 24px 24px 48px 24px;
+		padding: 24px 0;
 	}
 	.row {
 		margin-left: -0px;
@@ -508,7 +508,7 @@ u,
 		clear: both;
 		margin: 0 auto;
 		max-width: 720px;
-		padding: 24px 24px 48px 24px;
+		padding: 24px 0;
 	}
 	.row {
 		margin-left: -0px;
@@ -533,7 +533,7 @@ u,
 		clear: both;
 		margin: 0 auto;
 		max-width: 1200px;
-		padding: 24px 24px 48px 24px;
+		padding: 24px 0;
 	}
 	.row {
 		margin-left: -0px;
