@@ -1,0 +1,51 @@
+/* @import "share-buttons-light"; */
+/**
+ * pluso, yashare
+ */
+.ya-share2 {
+	position: fixed !important;
+	right: 41.250pt;
+	bottom: 7.500pt;
+	visibility: hidden;
+	opacity: 0;
+	-webkit-transition: visibility 0s, opacity 0.2s linear;
+	transition: visibility 0s, opacity 0.2s linear;
+}
+.pluso {
+	position: fixed !important;
+	right: 0;
+	bottom: 0;
+	visibility: hidden;
+	opacity: 0;
+	-webkit-transition: visibility 0s, opacity 0.2s linear;
+	transition: visibility 0s, opacity 0.2s linear;
+}
+.share-buttons {
+	display: inline-block;
+	width: 33.000pt;
+	height: 33.000pt;
+	position: fixed;
+	bottom: 0;
+	right: 33.000pt;
+	text-indent: 0;
+	text-align: center;
+	text-decoration: none;
+	background: none rgba(211,211,211,0.5);
+	border: none;
+	overflow: hidden;
+	-webkit-transition: background 0.2s linear;
+	transition: background 0.2s linear;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	outline: none;
+	z-index: 999;
+}
+.share-buttons:hover {
+	background-color: rgba(213,213,213,1);
+}
+.share-buttons:before {
+	font-family: "englishextra-ui-icons";
+	content: "\e91d";
+	font-size: 18.000pt;
+	line-height: 33.000pt;
+	color: rgba(25,25,25,0.5);
+}

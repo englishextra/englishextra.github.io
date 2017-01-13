@@ -5,6 +5,125 @@
 /* @import "normalize"; */
 /** normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */
 button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-block}progress,sub,sup{vertical-align:baseline}html{font-family:sans-serif;line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0} menu,article,aside,details,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figcaption,figure,main{display:block}figure{margin:1em 40px}hr{box-sizing:content-box;height:0}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}a:active,a:hover{outline-width:0}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative}sub{bottom:-.25em}sup{top:-.5em}audio:not([controls]){display:none;height:0}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{font-family:sans-serif;font-size:100%;line-height:1.15;margin:0}button,input{}button,select{text-transform:none}[type=submit], [type=reset],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:ButtonText dotted 1px}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}[hidden],template{display:none}
+/* @import "location-qr-code"; */
+/**
+ * location qr code
+ */
+.location-qr-code {
+	width: 100%;
+	display: block;
+	float: left;
+	text-align: left;
+	background: #FFFFFF;
+}
+.location-qr-code .qr-code-img {
+	display: block;
+	width: 10.000em;
+	height: 10.000em;
+	background: transparent;
+	background-size: 10em 10em;
+	border: 0;
+	vertical-align: bottom;
+	padding: 0;
+	margin: 0;
+}
+/* @import "vk-like-dark"; */
+/**
+ * vk-like
+ */
+.vk-like {
+	display: inline-block;
+	height: 17.250pt;
+	position: absolute !important;
+	top: 7.500pt;
+	left: 75.000pt;
+	line-height: 0;
+	visibility: hidden;
+	opacity: 0;
+	-webkit-transition: visibility 0s, opacity 0.2s linear;
+	transition: visibility 0s, opacity 0.2s linear;
+	z-index: 1000;
+}
+.btn-show-vk-like {
+	display: inline-block;
+	width: 33.000pt;
+	height: 33.000pt;
+	position: absolute;
+	top: 0;
+	left: 66.000pt;
+	text-indent: 0;
+	text-align: center;
+	text-decoration: none;
+	background: none rgba(66,66,66,0.5);
+	border: none;
+	overflow: hidden;
+	-webkit-transition: background 0.2s linear;
+	transition: background 0.2s linear;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	outline: none;
+	z-index: 999;
+}
+.btn-show-vk-like:hover {
+	background-color: rgba(66,66,66,1);
+}
+.btn-show-vk-like:before {
+	font-family: "englishextra-ui-icons";
+	content: "\e925";
+	font-size: 18.000pt;
+	line-height: 33.000pt;
+	color: #FFFFFF;
+}
+/* @import "share-buttons-light"; */
+/**
+ * pluso, yashare
+ */
+.ya-share2 {
+	position: fixed !important;
+	right: 41.250pt;
+	bottom: 7.500pt;
+	visibility: hidden;
+	opacity: 0;
+	-webkit-transition: visibility 0s, opacity 0.2s linear;
+	transition: visibility 0s, opacity 0.2s linear;
+}
+.pluso {
+	position: fixed !important;
+	right: 0;
+	bottom: 0;
+	visibility: hidden;
+	opacity: 0;
+	-webkit-transition: visibility 0s, opacity 0.2s linear;
+	transition: visibility 0s, opacity 0.2s linear;
+}
+.share-buttons {
+	display: inline-block;
+	width: 33.000pt;
+	height: 33.000pt;
+	position: fixed;
+	bottom: 0;
+	right: 33.000pt;
+	text-indent: 0;
+	text-align: center;
+	text-decoration: none;
+	background: none rgba(211,211,211,0.5);
+	border: none;
+	overflow: hidden;
+	-webkit-transition: background 0.2s linear;
+	transition: background 0.2s linear;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	outline: none;
+	z-index: 999;
+}
+.share-buttons:hover {
+	background-color: rgba(213,213,213,1);
+}
+.share-buttons:before {
+	font-family: "englishextra-ui-icons";
+	content: "\e91d";
+	font-size: 18.000pt;
+	line-height: 33.000pt;
+	color: rgba(25,25,25,0.5);
+}
 /* @import "english-for-free-superbox"; */
 /**
  * superbox
@@ -271,125 +390,6 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 .fadeOut {
 	-webkit-animation-name: fadeOut;
 	animation-name: fadeOut;
-}
-/* @import "location-qr-code"; */
-/**
- * location qr code
- */
-.location-qr-code {
-	width: 100%;
-	display: block;
-	float: left;
-	text-align: left;
-	background: #FFFFFF;
-}
-.location-qr-code .qr-code-img {
-	display: block;
-	width: 10.000em;
-	height: 10.000em;
-	background: transparent;
-	background-size: 10em 10em;
-	border: 0;
-	vertical-align: bottom;
-	padding: 0;
-	margin: 0;
-}
-/* @import "vk-like-dark"; */
-/**
- * vk-like
- */
-.vk-like {
-	display: inline-block;
-	height: 17.250pt;
-	position: absolute !important;
-	top: 7.500pt;
-	left: 75.000pt;
-	line-height: 0;
-	visibility: hidden;
-	opacity: 0;
-	-webkit-transition: visibility 0s, opacity 0.2s linear;
-	transition: visibility 0s, opacity 0.2s linear;
-	z-index: 1000;
-}
-.btn-show-vk-like {
-	display: inline-block;
-	width: 33.000pt;
-	height: 33.000pt;
-	position: absolute;
-	top: 0;
-	left: 66.000pt;
-	text-indent: 0;
-	text-align: center;
-	text-decoration: none;
-	background: none rgba(66,66,66,0.5);
-	border: none;
-	overflow: hidden;
-	-webkit-transition: background 0.2s linear;
-	transition: background 0.2s linear;
-	-webkit-tap-highlight-color: rgba(0,0,0,0);
-	outline: none;
-	z-index: 999;
-}
-.btn-show-vk-like:hover {
-	background-color: rgba(66,66,66,1);
-}
-.btn-show-vk-like:before {
-	font-family: "englishextra-ui-icons";
-	content: "\e925";
-	font-size: 18.000pt;
-	line-height: 33.000pt;
-	color: #FFFFFF;
-}
-/* @import "share-buttons-light"; */
-/**
- * pluso, yashare
- */
-.ya-share2 {
-	position: fixed !important;
-	right: 41.250pt;
-	bottom: 7.500pt;
-	visibility: hidden;
-	opacity: 0;
-	-webkit-transition: visibility 0s, opacity 0.2s linear;
-	transition: visibility 0s, opacity 0.2s linear;
-}
-.pluso {
-	position: fixed !important;
-	right: 0;
-	bottom: 0;
-	visibility: hidden;
-	opacity: 0;
-	-webkit-transition: visibility 0s, opacity 0.2s linear;
-	transition: visibility 0s, opacity 0.2s linear;
-}
-.share-buttons {
-	display: inline-block;
-	width: 33.000pt;
-	height: 33.000pt;
-	position: fixed;
-	bottom: 0;
-	right: 33.000pt;
-	text-indent: 0;
-	text-align: center;
-	text-decoration: none;
-	background: none rgba(211,211,211,0.5);
-	border: none;
-	overflow: hidden;
-	-webkit-transition: background 0.2s linear;
-	transition: background 0.2s linear;
-	-webkit-tap-highlight-color: rgba(0,0,0,0);
-	outline: none;
-	z-index: 999;
-}
-.share-buttons:hover {
-	background-color: rgba(213,213,213,1);
-}
-.share-buttons:before {
-	font-family: "englishextra-ui-icons";
-	content: "\e91d";
-	font-size: 18.000pt;
-	line-height: 33.000pt;
-	color: rgba(25,25,25,0.5);
 }
 /* @import "english-for-free-sprites"; */
 /* Generated by http://responsive-css.spritegen.com Responsive CSS Sprite Generator */

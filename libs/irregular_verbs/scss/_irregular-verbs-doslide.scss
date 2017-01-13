@@ -1,0 +1,82 @@
+/* @import "irregular-verbs-doslide"; */
+/**
+ * DoSlide v1.1.3
+ * (c) 2016 MopTym <moptym@163.com>
+ * Released under the MIT License.
+ * Homepage - https://github.com/MopTym/doSlide
+ */
+.ds-parent {
+	overflow: hidden;
+	padding: 0;
+	margin: 0;
+}
+.ds-container {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+	padding: 0;
+	margin: 0 auto;
+}
+.ds-container>* {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	top: 0;
+	left: 0;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+body {
+	width: 100%;
+	position: absolute;
+	overflow-x: hidden;
+	overflow-y: hidden;
+}
+.slider {
+	min-height: 100%;
+	/**
+	 * Maintain the aspect ratio of a div with CSS
+	 * github.com/MopTym/doSlide/issues/19#issuecomment-205791018
+	 * stackoverflow.com/questions/1495407/maintain-the-aspect-ratio-of-a-div-with-css
+	 * aspect ratio | padding-bottom value
+	 * --------------|----------------------
+	 * 16:9 | 56.25%
+	 * 4:3 | 75%
+	 * 3:2 | 66.66%
+	 * 8:5 | 62.5%
+	 */
+	padding-top: 56.25%;
+	/*max-width: 100%;*/
+	margin: 0 auto;
+}
+.slide {
+	min-height: 100%;
+	text-align: center;
+	background-color: #242424;
+	background-position: center center;
+	background-size: cover;
+}
+.slide div {
+	margin: 12.500% 0 0 18.800%;
+}
+.slide h2 {
+	display: block;
+	font-size: 3.375rem;
+	font-weight: 700;
+	line-height: 1.000;
+	text-align: left;
+	color: #FFFFFF;
+	background-color: transparent;
+}
+.slide .explanation {
+	font-weight: 400;
+	font-size: 2.594rem;
+	font-style: italic;
+	line-height: 1.000;
+}
+.slide .phonetic {
+	font-family: "Source Code Pro","Consolas",monospace;
+}

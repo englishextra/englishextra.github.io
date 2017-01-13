@@ -1,0 +1,178 @@
+/* @import "css-progress"; */
+/**
+ * CSS progress
+ * codepen.io/janrubio/pen/DusIE
+ */
+.progress {
+	width: 4.571rem;
+	height: 4.571rem;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	background: transparent;
+	border-color: transparent;
+	box-shadow: none;
+	margin-left: -2.286rem;
+	margin-top: -2.286rem;
+	z-index: 6;
+}
+.progress .progress-ball {
+	position: absolute;
+	width: 4.357rem;
+	height: 4.357rem;
+	opacity: 0;
+	-webkit-transform: rotate(225deg);
+	-ms-transform: rotate(225deg);
+	transform: rotate(225deg);
+	-webkit-animation: orbit 7.15s infinite;
+	animation: orbit 7.15s infinite;
+}
+.progress .progress-ball .progress-inner-ball {
+	width: 0.571rem;
+	height: 0.571rem;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: #FFFFFF;
+	border-radius: 0.571rem;
+}
+.progress #progress-ball-1 {
+	-webkit-animation-delay: 1.56s;
+	animation-delay: 1.56s;
+}
+.progress #progress-ball-2 {
+	-webkit-animation-delay: 0.31s;
+	animation-delay: 0.31s;
+}
+.progress #progress-ball-3 {
+	-webkit-animation-delay: 0.62s;
+	animation-delay: 0.62s;
+}
+.progress #progress-ball-4 {
+	-webkit-animation-delay: 0.94s;
+	animation-delay: 0.94s;
+}
+.progress #progress-ball-5 {
+	-webkit-animation-delay: 1.25s;
+	animation-delay: 1.25s;
+}
+@-webkit-keyframes orbit {
+	0% {
+		opacity: 1;
+		z-index: 99;
+		-webkit-transform: rotate(180deg);
+		transform: rotate(180deg);
+		-webkit-animation-timing-function: ease-out;
+		animation-timing-function: ease-out;
+	}
+	7% {
+		opacity: 1;
+		-webkit-transform: rotate(300deg);
+		transform: rotate(300deg);
+		-webkit-animation-timing-function: linear;
+		animation-timing-function: linear;
+		origin: 0%;
+	}
+	30% {
+		opacity: 1;
+		-webkit-transform: rotate(410deg);
+		transform: rotate(410deg);
+		-webkit-animation-timing-function: ease-in-out;
+		animation-timing-function: ease-in-out;
+		origin: 7%;
+	}
+	39% {
+		opacity: 1;
+		-webkit-transform: rotate(645deg);
+		transform: rotate(645deg);
+		-webkit-animation-timing-function: linear;
+		animation-timing-function: linear;
+		origin: 30%;
+	}
+	70% {
+		opacity: 1;
+		-webkit-transform: rotate(770deg);
+		transform: rotate(770deg);
+		-webkit-animation-timing-function: ease-out;
+		animation-timing-function: ease-out;
+		origin: 39%;
+	}
+	75% {
+		opacity: 1;
+		-webkit-transform: rotate(900deg);
+		transform: rotate(900deg);
+		-webkit-animation-timing-function: ease-out;
+		animation-timing-function: ease-out;
+		origin: 70%;
+	}
+	76% {
+		opacity: 0;
+		-webkit-transform: rotate(900deg);
+		transform: rotate(900deg);
+	}
+	100% {
+		opacity: 0;
+		-webkit-transform: rotate(900deg);
+		transform: rotate(900deg);
+	}
+}
+@keyframes orbit {
+	0% {
+		opacity: 1;
+		z-index: 99;
+		-webkit-transform: rotate(180deg);
+		transform: rotate(180deg);
+		-webkit-animation-timing-function: ease-out;
+		animation-timing-function: ease-out;
+	}
+	7% {
+		opacity: 1;
+		-webkit-transform: rotate(300deg);
+		transform: rotate(300deg);
+		-webkit-animation-timing-function: linear;
+		animation-timing-function: linear;
+		origin: 0%;
+	}
+	30% {
+		opacity: 1;
+		-webkit-transform: rotate(410deg);
+		transform: rotate(410deg);
+		-webkit-animation-timing-function: ease-in-out;
+		animation-timing-function: ease-in-out;
+		origin: 7%;
+	}
+	39% {
+		opacity: 1;
+		-webkit-transform: rotate(645deg);
+		transform: rotate(645deg);
+		-webkit-animation-timing-function: linear;
+		animation-timing-function: linear;
+		origin: 30%;
+	}
+	70% {
+		opacity: 1;
+		-webkit-transform: rotate(770deg);
+		transform: rotate(770deg);
+		-webkit-animation-timing-function: ease-out;
+		animation-timing-function: ease-out;
+		origin: 39%;
+	}
+	75% {
+		opacity: 1;
+		-webkit-transform: rotate(900deg);
+		transform: rotate(900deg);
+		-webkit-animation-timing-function: ease-out;
+		animation-timing-function: ease-out;
+		origin: 70%;
+	}
+	76% {
+		opacity: 0;
+		-webkit-transform: rotate(900deg);
+		transform: rotate(900deg);
+	}
+	100% {
+		opacity: 0;
+		-webkit-transform: rotate(900deg);
+		transform: rotate(900deg);
+	}
+}
