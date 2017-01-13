@@ -1,11 +1,8 @@
 {
-	"ignores": ["css",
-	"node_modules",
+	"ignores": ["scss",
 	"json",
-	"img",
-	"*.css"],
+	"img"],
 	"options": {
 		"autocompile": false
-	},
-	"includePaths": ["scss"]
+	}
 }
