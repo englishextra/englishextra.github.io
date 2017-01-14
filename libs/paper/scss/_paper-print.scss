@@ -1,8 +1,8 @@
-/* @import "print-main"; */
+/* @import "paper-print"; */
 /**
  * gist.github.com/englishextra/cdd503793392281a8a0c
  */
-/* @media print { */
+@media print {
 	html {
 		font-size: 100%;
 		margin: 0;
@@ -221,4 +221,4 @@
 	.phonetic,.col .phonetic {
 		font-family: "Segoe Pro","Segoe UI",sans-serif;
 	}
-/* } */
+}
