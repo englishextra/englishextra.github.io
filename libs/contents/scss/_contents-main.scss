@@ -137,7 +137,8 @@ u,
 	min-height: 100%;
 	position: relative;
 	top: 0;
-	left: 280px;
+	/* left: 280px; */
+	left: 0;
 	/* svgeneration.com/recipes/Granite/ #F3F3F3 0.8 0.2 */
 	background-color: #F3F3F3;
 	background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHhtbG5zOnhsaW5rPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rJyB3aWR0aD0nMjAwJyBoZWlnaHQ9JzMwMCcgdmlld0JveD0nMCAwIDIwMCAzMDAnPgoJPGZpbHRlciBpZD0nZnV6eicgeD0nMCcgeT0nMCc+CgkJPGZlVHVyYnVsZW5jZSB0eXBlPSd0dXJidWxlbmNlJyBiYXNlRnJlcXVlbmN5PScwLjgnIG51bU9jdGF2ZXM9JzEwJyBzdGl0Y2hUaWxlcz0nc3RpdGNoJy8+Cgk8L2ZpbHRlcj4KCTxyZWN0IHdpZHRoPScxMDAlJyBoZWlnaHQ9JzEwMCUnIGZpbHRlcj0ndXJsKCNmdXp6KScgb3BhY2l0eT0nMC4yJy8+Cjwvc3ZnPg==);
@@ -152,10 +153,10 @@ u,
 	background-position: top left;
 	background-repeat: no-repeat;
 } */
-.js .page {
+/* .js .page {
 	position: relative;
 	left: 0;
-}
+} */
 .page.is-active {
 	position: relative;
 	left: 280px;
@@ -190,7 +191,8 @@ u,
 	height: 100%;
 	position: fixed;
 	top: 0;
-	left: 280px;
+	/* left: 280px; */
+	left: 0;
 	bottom: 0;
 	font-size: 0.875em;
 	line-height: 3.143em;
@@ -204,11 +206,11 @@ u,
 	margin-left: -280px;
 	z-index: 998;
 }
-.js .panel-nav-menu {
+/* .js .panel-nav-menu {
 	position: fixed;
 	top: 0;
 	left: 0;
-}
+} */
 .panel-nav-menu li {
 	position: relative;
 	top: 0;
@@ -244,15 +246,16 @@ u,
 	height: 33.000pt;
 	position: fixed;
 	top: 0;
-	left: 280px;
+	/* left: 280px; */
+	left: 0;
 	cursor: pointer;
 	z-index: 999;
 }
-.js .btn-nav-menu {
+/* .js .btn-nav-menu {
 	position: fixed;
 	top: 0;
 	left: 0;
-}
+} */
 .btn-nav-menu:hover {
 	background-color: rgba(213,213,213,1);
 }

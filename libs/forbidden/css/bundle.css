@@ -248,7 +248,8 @@ u,
 	min-height: 100%;
 	position: relative;
 	top: 0;
-	left: 280px;
+	/* left: 280px; */
+	left: 0;
 	opacity: 0;
 	background-color: transparent;
 	/* background-image: url(//c1.staticflickr.com/1/440/18550960875_5d72d17cc9_o.jpg); */
@@ -257,10 +258,10 @@ u,
 	background-repeat: no-repeat;
 	background-size: cover;
 }
-.js .page {
+/* .js .page {
 	position: relative;
 	left: 0;
-}
+} */
 .page.is-active {
 	position: relative;
 	left: 280px;
@@ -288,7 +289,8 @@ u,
 	height: 100%;
 	position: fixed;
 	top: 0;
-	left: 280px;
+	/* left: 280px; */
+	left: 0;
 	bottom: 0;
 	font-size: 0.875em;
 	line-height: 3.143em;
@@ -302,11 +304,11 @@ u,
 	margin-left: -280px;
 	z-index: 998;
 }
-.js .panel-nav-menu {
+/* .js .panel-nav-menu {
 	position: fixed;
 	top: 0;
 	left: 0;
-}
+} */
 .panel-nav-menu li {
 	position: relative;
 	top: 0;
