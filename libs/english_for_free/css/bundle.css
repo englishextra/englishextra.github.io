@@ -603,6 +603,10 @@ u,
 	min-height: 100%;
 	position: relative;
 	top: 0;
+	left: 280px;
+}
+.js .page {
+	position: relative;
 	left: 0;
 }
 .page.is-active {
@@ -630,19 +634,14 @@ u,
 	-webkit-transition: all 0.2s ease-out;
 	transition: all 0.2s ease-out;
 }
-.panel-nav-menu,
-.panel-nav-menu li {
-	position: relative;
-	top: 0;
-	left: 0;
-}
+
 .panel-nav-menu {
 	display: block;
 	width: 280px;
 	height: 100%;
 	position: fixed;
 	top: 0;
-	left: 0;
+	left: 280px;
 	bottom: 0;
 	font-size: 0.875em;
 	line-height: 3.143em;
@@ -656,7 +655,15 @@ u,
 	margin-left: -280px;
 	z-index: 998;
 }
+.js .panel-nav-menu {
+	position: fixed;
+	top: 0;
+	left: 0;
+}
 .panel-nav-menu li {
+	position: relative;
+	top: 0;
+	left: 0;
 	font-weight: 300;
 	padding: 0;
 	margin: 0;

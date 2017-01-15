@@ -25,6 +25,11 @@ if ("undefined" === typeof console) {
 }
 /* jshint ignore:end */
 /*!
+ * add js class to html element
+ */
+;(function setJsClassToDocumentElement(a){if(a){a.classList.add("js");}}(document.documentElement||""));
+/* jshint ignore:end */
+/*!
  * modified MediaHack - (c) 2013 Pomke Nohkan MIT LICENCED.
  * gist.github.com/englishextra/ff8c9dde94abe32a9d7c4a65e0f2ccac
  * jsfiddle.net/englishextra/xg7ce8kc/
