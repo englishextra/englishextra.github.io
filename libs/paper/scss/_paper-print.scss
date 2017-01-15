@@ -1,8 +1,17 @@
 /* @import "paper-print"; */
 /**
  * gist.github.com/englishextra/cdd503793392281a8a0c
+ * jafferhaider.wordpress.com/2007/12/29/fix-for-the-firefoxcss-one-page-printing-bug/
+ * html,body {height: auto;}
+ * body{overflow-x: visible;}
+ * .col .holder-hidden-layer,.js .col .holder-hidden-layer {max-height: 100%;overflow-y: visible;}
+ * .container .content-wrapper,.app-content .content-wrapper {position: relative;}
  */
 @media print {
+	html,
+	body {
+		height: auto;
+	}
 	html {
 		font-size: 100%;
 		margin: 0;
@@ -18,19 +27,23 @@
 		margin: 0;
 		padding: 0;
 	}
-	a,.col a {
+	a,
+	.col a {
 		font-family: "Segoe Pro","Segoe UI",sans-serif;
 		font-weight: normal;
 		text-decoration: none;
 		color: inherit;
 		border-bottom: none;
 	}
-	p a[href^="http"]:after,.col p a[href^="http"]:after,
-	table td a[href^="http"]:after,.col table td a[href^="http"]:after	{
+	p a[href^="http"]:after,
+	.col p a[href^="http"]:after,
+	table td a[href^="http"]:after,
+	.col table td a[href^="http"]:after	{
 		content: " \003c" attr(href) "\003e";
 		color: #307CCA;
 	}
-	h1,.col h1 {
+	h1,
+	.col h1 {
 		font-family: "Cambria",serif;
 		font-weight: normal;
 		font-size: 42.0pt;
@@ -38,19 +51,22 @@
 		color: inherit;
 		margin-top: 0 !important;
 	}
-	h2,.col h2 {
+	h2,
+	.col h2 {
 		font-family: "Segoe Pro SemiLight","Segoe UI SemiLight",sans-serif;
 		font-weight: normal;
 		font-size: 20.0pt;
 		line-height: 1.200;
 	}
-	h3,.col h3 {
+	h3,
+	.col h3 {
 		font-family: "Segoe Pro SemiBold","Segoe UI SemiBold",sans-serif;
 		font-weight: normal;
 		font-size: 13.0pt;
 		line-height: 1.200;
 	}
-	h4,.col h4 {
+	h4,
+	.col h4 {
 		font-family: "Segoe Pro","Segoe UI",sans-serif;
 		font-weight: normal;
 		font-size: 12.0pt;
@@ -58,21 +74,34 @@
 		text-transform: uppercase;
 		letter-spacing: 0.500pt;
 	}
-	p,.col p {
+	p,
+	.col p {
 		font-family: "Segoe Pro SemiLight","Segoe UI SemiLight",sans-serif;
 		font-weight: normal;
 		font-size: 11.0pt;
 	}
-	b,strong,.bolder,.col b,.col strong,.col .bolder {
+	b,strong,
+	.bolder,
+	.col b,
+	.col strong,
+	.col .bolder {
 		font-family: "Segoe Pro SemiBold","Segoe UI SemiBold",sans-serif;
 		font-weight: normal;
 	}
-	i,em,blockquote,.italic,.col i,.col em,.col blockquote,.col .italic {
+	i,
+	em,
+	blockquote,
+	.italic,
+	.col i,
+	.col em,
+	.col blockquote,
+	.col .italic {
 		font-family: "Segoe Pro","Segoe UI",sans-serif;
 		font-weight: normal;
 		font-style: italic;
 	}
-	table,.col table {
+	table,
+	.col table {
 		border-collapse: collapse;
 		border: none;
 		border-top-width: 0.750pt;
@@ -84,23 +113,31 @@
 		border-left-width: 0.750pt;
 		border-left-style: solid;
 		border-left-color: inherit;
+		margin-left: 1.000pt;
 	}
-	table caption,.col table caption {
+	table caption,
+	.col table caption {
 		font-size: 10.0pt;
 	}
-	table tr,.col table tr {
+	table tr,
+	.col table tr {
 		background-color: transparent;
 	}
-	table tr:nth-of-type(odd),.col table tr:nth-of-type(odd) {
+	table tr:nth-of-type(odd),
+	.col table tr:nth-of-type(odd) {
 		background-color: transparent;
 	}
-	table td,table th,.col table td,.col table th {
+	table td,
+	table th,
+	.col table td,
+	.col table th {
 		font-size: 10.0pt;
 		padding: 5.0pt;
 		vertical-align: top;
 		border-collapse: collapse;
 	}
-	table th,.col table th {
+	table th,
+	.col table th {
 		font-family: "Segoe Pro SemiBold","Segoe UI SemiBold",sans-serif;
 		font-weight: normal;
 		text-align: left;
@@ -110,7 +147,8 @@
 		border-bottom-color: inherit;
 		background-color: transparent;
 	}
-	table td,.col table td {
+	table td,
+	.col table td {
 		font-family: "Segoe Pro SemiLight","Segoe UI SemiLight",sans-serif;
 		font-weight: normal;
 		border: none;
@@ -118,7 +156,10 @@
 		border-bottom-style: solid;
 		border-bottom-color: inherit;
 	}
-	table td ol,table td ul,.col table td ol,.col table td ul {
+	table td ol,
+	table td ul,
+	.col table td ol,
+	.col table td ul {
 		margin: 0;
 	}
 	[id^="video"],
@@ -126,11 +167,16 @@
 	[id^="audio"],
 	[id*=" audio"],
 	h2[id^="a0"],
-	form,.col form,
-	select,.col select,
-	textarea,.col textarea,
-	input,.col input,
-	button,.col button,
+	form,
+	.col form,
+	select,
+	.col select,
+	textarea,
+	.col textarea,
+	input,
+	.col input,
+	button,
+	.col button,
 	.header,
 	.footer,
 	.stripe-top,
@@ -167,11 +213,12 @@
 	.btn-download-app,
 	#vkwidget1_tt {
 		display: none !important;
-		opacity:0 !important;
+		opacity: 0 !important;
 	}
-	.col .holder-hidden-layer {
+	.col .holder-hidden-layer,
+	.js .col .holder-hidden-layer {
 		max-height: 100%;
-		overflow-y: auto;
+		overflow-y: visible;
 	}
 	.holder-panel-menu-more {
 		display: block;
@@ -218,7 +265,17 @@
 	a.reflink {
 		color: DimGray;
 	}
-	.phonetic,.col .phonetic {
+	.phonetic,
+	.col .phonetic {
 		font-family: "Segoe Pro","Segoe UI",sans-serif;
+	}
+	/* .page,
+	.container, */
+	.container .content-wrapper,
+	.app-content .content-wrapper {
+		position: relative;
+	}
+	#ui-totop {
+		display: none;
 	}
 }
