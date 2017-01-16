@@ -735,6 +735,7 @@ u,
 	line-height: 2.250rem;
 	text-align: center;
 	text-decoration: none;
+	border: 0.063rem solid #474747;
 	vertical-align: bottom;
 }
 .col .btn-primary,
@@ -768,12 +769,14 @@ u,
 }
 .col .btn-link,
 .col .btn-link:active,
-.col .btn-link:focus {
+.col .btn-link:focus,
+.col a.btn-link,
+.col a.btn-link:active,
+.col a.btn-link:focus {
 	color: inherit;
 	background-color: transparent;
 	border-color: #E9E9E9;
-}
-.col .btn-link:hover {
+}.col .btn-link:hover {
 	color: inherit;
 	background-color: transparent;
 	border-color: #E9E9E9;

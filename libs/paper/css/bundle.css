@@ -871,7 +871,6 @@ u,
 	-webkit-transition: all 0.2s ease-out;
 	transition: all 0.2s ease-out;
 }
-
 .panel-nav-menu {
 	display: block;
 	width: 280px;
@@ -1369,6 +1368,7 @@ u,
 	line-height: 2.250rem;
 	text-align: center;
 	text-decoration: none;
+	border: 0.063rem solid #474747;
 	vertical-align: bottom;
 }
 .col .btn-primary,
@@ -1402,7 +1402,10 @@ u,
 }
 .col .btn-link,
 .col .btn-link:active,
-.col .btn-link:focus {
+.col .btn-link:focus,
+.col a.btn-link,
+.col a.btn-link:active,
+.col a.btn-link:focus {
 	color: inherit;
 	background-color: transparent;
 	border-color: #E9E9E9;
