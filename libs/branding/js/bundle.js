@@ -574,59 +574,6 @@ var manageLocalLinks = function (ctx) {
 };
 evento.add(window, "load", manageLocalLinks.bind(null, ""));
 /*!
- * set click event on data url links,
- * so that they change window url
- * @param {Object} [ctx] context HTML Element
- */
-var manageDataUrlLinks = function (ctx) {
-	"use strict";
-	ctx = ctx || "";
-	var w = window,
-	cls = "[data-url]",
-	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
-	ds = "dataset",
-	g = function (e) {
-		var p = e[ds].url || "",
-		h_e = function (ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			openDeviceBrowser(p);
-		},
-		w_e = function () {
-			/* w.location.href = p; */
-			var win = w.open(p, "_blank");
-			win.focus();
-		};
-		if (p && parseLink(p).isCrossDomain && parseLink(p).hasHTTP) {
-			e.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
-			if ("undefined" !== typeof getHTTP && getHTTP()) {
-				/* evento.add(e, "click", w_e); */
-				e.onclick = w_e;
-			} else {
-				/* evento.add(e, "click", h_e); */
-				e.onclick = h_e;
-			}
-		}
-	},
-	k = function () {
-		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		if (w._) {
-			_.each(a, g);
-		} else if (w.forEach) {
-			forEach(a, g, !1);
-		} else {
-			for (var i = 0, l = a.length; i < l; i += 1) {
-				g(a[i]);
-			}
-		}
-	};
-	if (a) {
-		console.log("triggered function: manageDataUrlLinks");
-		k();
-	}
-};
-evento.add(window, "load", manageDataUrlLinks.bind(null, ""));
-/*!
  * init fastclick
  * github.com/ftlabs/fastclick
  */
