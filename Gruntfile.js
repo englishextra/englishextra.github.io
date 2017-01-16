@@ -8,7 +8,8 @@ module.exports = function (grunt) {
 				"libs/comments/js/vendors.js",
 				"libs/contents/js/bundle.js",
 				"libs/english_for_free/js/bundle.js",
-				"libs/englishextra-ui/js/bundle.js",
+				"libs/paper/js/bundle.js",
+				"libs/forbidden/js/bundle.js",
 				"libs/index/js/bundle.js",
 				"libs/irregular_verbs/js/bundle.js",
 				"libs/irregular_verbs_with_shower/js/bundle.js",
@@ -18,7 +19,8 @@ module.exports = function (grunt) {
 				"libs/products/js/bundle.js",
 				"libs/search/js/bundle.js",
 				"libs/search/js/vendors.js",
-				"libs/serguei/js/bundle.js"
+				"libs/serguei/js/bundle.js",
+				"libs/sitemap/js/bundle.js"
 			]
 		}
 	});

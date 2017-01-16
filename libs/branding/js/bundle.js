@@ -574,43 +574,6 @@ var manageLocalLinks = function (ctx) {
 };
 evento.add(window, "load", manageLocalLinks.bind(null, ""));
 /*!
- * set click event on data path links,
- * so that they change window path
- * @param {Object} [ctx] context HTML Element
- */
-var manageDataPathLinks = function (ctx) {
-	"use strict";
-	ctx = ctx || "";
-	var w = window,
-	cls = "[data-path]",
-	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
-	ds = "dataset",
-	g = function (e) {
-		var p = e[ds].path || "";
-		if (p && parseLink(p).isRelative) {
-			/* evento.add(e, "click", changeLocation.bind(null, p)); */
-			e.onclick = changeLocation.bind(null, p);
-		}
-	},
-	k = function () {
-		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		if (w._) {
-			_.each(a, g);
-		} else if (w.forEach) {
-			forEach(a, g, !1);
-		} else {
-			for (var i = 0, l = a.length; i < l; i += 1) {
-				g(a[i]);
-			}
-		}
-	};
-	if (a) {
-		console.log("triggered function: manageDataPathLinks");
-		k();
-	}
-};
-evento.add(window, "load", manageDataPathLinks.bind(null, ""));
-/*!
  * set click event on data url links,
  * so that they change window url
  * @param {Object} [ctx] context HTML Element
