@@ -177,6 +177,11 @@ u,
 }
 .holder-filter-buttons {
 	/**
+	 * stackoverflow.com/questions/8543859/css-vertical-alignment-text-inside-li
+	 */
+	display: table;
+	width: 100%;
+	/**
 	 * css-tricks.com/fighting-the-space-between-inline-block-elements/
 	 */
 	font-size: 0;
@@ -188,19 +193,21 @@ u,
 .holder-filter-buttons li,
 .holder-filter-buttons li:active,
 .holder-filter-buttons li:focus {
+	display: table-cell;
+	min-width: 7.500rem;
+	height: 2.250rem;
 	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI","Segoe WP",sans-serif;
 	font-weight: 300;
 	font-size: 0.875rem;
-	display: inline-block;
-	min-width: 7.500rem;
-	height: 2.250rem;
-	line-height: 2.250rem;
+	vertical-align: middle;
 	color: #FFFFFF;
 	background-color: #474747;
 	border: 0.750pt solid #474747;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	outline: none;
 	cursor: pointer;
+	padding: 0;
+	margin: 0;
 }
 .holder-filter-buttons li:hover,
 .holder-filter-buttons li.is-active {
