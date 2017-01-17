@@ -547,13 +547,13 @@ var initMasonry = function (ctx) {
 					percentPosition: !0,
 				});
 			console.log("function initMasonry => initialised iso");
-			if (w.imagesLoaded) {
+			/* if (w.imagesLoaded) {
 				imgLoad = imagesLoaded(a);
 				imgLoad.on("progress", function (instance) {
 					iso.layout();
 					console.log("function initMasonry => reinitialised iso");
 				});
-			}
+			} */
 			var h_btns = function (e) {
 				iso.arrange({
 					filter: e.dataset.filter
