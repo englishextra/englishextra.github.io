@@ -749,7 +749,9 @@ var initNavMenu = function () {
 		var h_btn = function (e) {
 			e.preventDefault();
 			e.stopPropagation();
-			holder[cL].remove(is_active);
+			if (holder) {
+				holder[cL].remove(is_active);
+			}
 			page[cL].toggle(is_active);
 			panel[cL].toggle(is_active);
 			btn[cL].toggle(is_active);

@@ -391,6 +391,111 @@ var manageLocalLinks = function (ctx) {
 };
 evento.add(window, "load", manageLocalLinks.bind(null, ""));
 /*!
+ * init nav-menu
+ */
+var initNavMenu = function () {
+	"use strict";
+	var w = window,
+	container = BALA.one("#container") || "",
+	page = BALA.one("#page") || "",
+	btn = BALA.one("#btn-nav-menu") || "",
+	panel = BALA.one("#panel-nav-menu") || "",
+	items = BALA("a", panel) || "",
+	holder = BALA.one("#holder-panel-menu-more") || "",
+	cL = "classList",
+	is_active = "is-active",
+	p = w.location.href || "",
+	r = function () {
+		page[cL].remove(is_active);
+		panel[cL].remove(is_active);
+		btn[cL].remove(is_active);
+	},
+	g = function () {
+		var h_container = function () {
+			if (panel[cL].contains(is_active)) {
+				r();
+			}
+		};
+		evento.add(container, "click", h_container);
+		/* container.onclick = h_container; */
+	},
+	k = function () {
+		var h_btn = function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+			if (holder) {
+				holder[cL].remove(is_active);
+			}
+			page[cL].toggle(is_active);
+			panel[cL].toggle(is_active);
+			btn[cL].toggle(is_active);
+		};
+		evento.add(btn, "click", h_btn);
+		/* btn.onclick = h_btn; */
+	},
+	q = function () {
+		holder[cL].remove(is_active);
+		r();
+	},
+	m = function (e) {
+		e[cL].remove(is_active);
+	},
+	n = function (e) {
+		e[cL].add(is_active);
+	},
+	s = function (a) {
+		if (w._) {
+			_.each(a, m);
+		} else if (w.forEach) {
+			forEach(a, m, !1);
+		} else {
+			for (var j = 0, l = a.length; j < l; j += 1) {
+				m(a[j]);
+			}
+		}
+	},
+	v = function (e) {
+		var h_e = function ()  {
+			if (panel[cL].contains(is_active)) {
+				q();
+			}
+			s(items);
+			n(e);
+		};
+		evento.add(e, "click", h_e);
+		/* e.onclick = h_e; */
+		if (e.href == p) {
+			n(e);
+		} else {
+			m(e);
+		}
+	},
+	z = function () {
+		if (w._) {
+			_.each(items, v);
+		} else if (w.forEach) {
+			forEach(items, v, !1);
+		} else {
+			for (var i = 0, l = items.length; i < l; i += 1) {
+				v(items[i]);
+			}
+		}
+	};
+	if (container && page && btn && panel && items) {
+		console.log("triggered function: initNavMenu");
+		/*!
+		 * open or close nav
+		 */
+		k();
+		g();
+		/*!
+		 * close nav, scroll to top, highlight active nav item
+		 */
+		z();
+	}
+};
+docReady(initNavMenu);
+/*!
  * init ui-totop
  */
 var initUiTotop = function () {
@@ -471,7 +576,7 @@ docReady(initUiTotop);
  */
 var showPageFinishProgress = function () {
 	"use strict";
-	var a = BALA.one("#page") || "";
+	var a = BALA.one("#container") || "";
 	console.log("triggered function: showPageFinishProgress");
 	setStyleOpacity(a, 1);
 	progressBar.complete();
