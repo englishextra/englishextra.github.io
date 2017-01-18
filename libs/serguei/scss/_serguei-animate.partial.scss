@@ -5,25 +5,12 @@
  * daneden.github.io/animate.css/
  */
 /* .animated {
-	-webkit-animation-duration: 1s;
-	animation-duration: 1s;
-	-webkit-animation-fill-mode: both;
+	animation-duration: 2s;
 	animation-fill-mode: both;
 } */
-@-webkit-keyframes zoomIn {
-	from {
-		opacity: 0;
-		-webkit-transform: scale3d(.3, .3, .3);
-		transform: scale3d(.3, .3, .3);
-	}
-	50% {
-		opacity: 1;
-	}
-}
 @keyframes zoomIn {
 	from {
 		opacity: 0;
-		-webkit-transform: scale3d(.3, .3, .3);
 		transform: scale3d(.3, .3, .3);
 	}
 	50% {
@@ -31,16 +18,7 @@
 	}
 }
 .zoomIn {
-	-webkit-animation-name: zoomIn;
 	animation-name: zoomIn;
-}
-@-webkit-keyframes fadeIn {
-	0% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
-	}
 }
 @keyframes fadeIn {
 	0% {
@@ -51,46 +29,20 @@
 	}
 }
 .fadeIn {
-	-webkit-animation-name: fadeIn;
 	animation-name: fadeIn;
-}
-@-webkit-keyframes fadeInUp {
-	0% {
-		opacity: 0;
-		-webkit-transform: translate3d(0, 100%, 0);
-		transform: translate3d(0, 100%, 0);
-	}
-	100% {
-		opacity: 1;
-		-webkit-transform: none;
-		transform: none;
-	}
 }
 @keyframes fadeInUp {
 	0% {
 		opacity: 0;
-		-webkit-transform: translate3d(0, 100%, 0);
-		-ms-transform: translate3d(0, 100%, 0);
 		transform: translate3d(0, 100%, 0);
 	}
 	100% {
 		opacity: 1;
-		-webkit-transform: none;
-		-ms-transform: none;
 		transform: none;
 	}
 }
 .fadeInUp {
-	-webkit-animation-name: fadeInUp;
 	animation-name: fadeInUp;
-}
-@-webkit-keyframes fadeOut {
-	0% {
-		opacity: 1;
-	}
-	100% {
-		opacity: 0;
-	}
 }
 @keyframes fadeOut {
 	0% {
@@ -101,18 +53,7 @@
 	}
 }
 .fadeOut {
-	-webkit-animation-name: fadeOut;
 	animation-name: fadeOut;
-}
-@-webkit-keyframes fadeOutDown {
-	0% {
-		opacity: 1;
-	}
-	100% {
-		opacity: 0;
-		-webkit-transform: translate3d(0, 100%, 0);
-		transform: translate3d(0, 100%, 0);
-	}
 }
 @keyframes fadeOutDown {
 	0% {
@@ -120,12 +61,9 @@
 	}
 	100% {
 		opacity: 0;
-		-webkit-transform: translate3d(0, 100%, 0);
-		-ms-transform: translate3d(0, 100%, 0);
 		transform: translate3d(0, 100%, 0);
 	}
 }
 .fadeOutDown {
-	-webkit-animation-name: fadeOutDown;
 	animation-name: fadeOutDown;
 }

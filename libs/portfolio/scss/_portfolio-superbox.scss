@@ -24,7 +24,6 @@
 	max-width: 100%;
 	background-color: transparent;
 	opacity: 0;
-	-webkit-transition: opacity 0.2s linear;
 	transition: opacity 0.2s linear;
 	margin: 0 auto;
 }
@@ -45,7 +44,6 @@
 	height: auto;
 	box-shadow: 0 0.571em 0.286em -0.286em rgba(50,50,50,0.2);
 	opacity: 0.85;
-	-webkit-transition: all 0.2s ease-in-out;
 	transition: all 0.2s ease-in-out;
 	cursor: pointer;
 	padding: 0;
@@ -144,9 +142,7 @@
  * daneden.github.io/animate.css/
  */
 .superbox-current-desc.animated {
-	-webkit-animation-duration: 0.2s;
 	animation-duration: 0.2s;
-	-webkit-animation-fill-mode: both;
 	animation-fill-mode: both;
 }
 @media only screen and (max-width: 20em) {

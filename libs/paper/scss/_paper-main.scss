@@ -201,7 +201,6 @@ u,
 	width: 100%;
 	height: 100%;
 	opacity: 0;
-	-webkit-transition: opacity 0.2s linear;
 	transition: opacity 0.2s linear;
 	/* padding: 33.000pt 0 0 0; */
 	padding: 0;
@@ -235,7 +234,6 @@ u,
 .page,
 .panel-nav-menu,
 .btn-nav-menu {
-	-webkit-transition: all 0.2s ease-out;
 	transition: all 0.2s ease-out;
 }
 .panel-nav-menu {
@@ -356,7 +354,6 @@ u,
 	top: 0;
 	left: 33.000pt;
 	text-decoration: none;
-	-webkit-transition: background 0.2s linear;
 	transition: background 0.2s linear;
 	cursor: pointer;
 	z-index: 999;
@@ -389,7 +386,6 @@ u,
 	border: 0.750pt solid rgba(45,116,189,1);
 	box-shadow: 0.125em 0.125em 0.125em 0 rgba(50,50,50,0.3);
 	opacity: 0;
-	-webkit-transition: visibility 0s, opacity 0.2s linear;
 	transition: visibility 0s, opacity 0.2s linear;
 	z-index: 999;
 }
@@ -473,9 +469,7 @@ u,
 	left: 0.625em;
 	font-family: "englishextra-ui-icons";
 	content: "\e91c";
-	/* -webkit-transform: scaleX(-1);
-	-ms-transform: scaleX(-1);
-	transform: scaleX(-1); */
+	/* transform: scaleX(-1); */
 	font-size: 12.000pt;
 	line-height: 24.000pt;
 	color: #848484;
@@ -869,7 +863,6 @@ u,
 .col .holder-hidden-layer {
 	max-height: 100%;
 	position: relative;
-	-webkit-transition: all 0.2s ease-out;
 	transition: all 0.2s ease-out;
 	overflow-y: auto;
 }

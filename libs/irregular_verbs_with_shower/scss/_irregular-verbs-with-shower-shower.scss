@@ -21,11 +21,7 @@
 	background: #DBDADA;
 	text-decoration: none;
 	text-align: center;
-	-webkit-transform-origin: 50% 100%;
-	-ms-transform-origin: 50% 100%;
 	transform-origin: 50% 100%;
-	-webkit-transform: rotate(45deg)translateY(-1em);
-	-ms-transform: rotate(45deg)translateY(-1em);
 	transform: rotate(45deg)translateY(-1em);
 }
 .badge a:hover {
@@ -104,11 +100,7 @@
 .list .slide {
 	float: left;
 	margin: 0 -412px -220px 0;
-	-webkit-transform-origin: 0 0;
-	-ms-transform-origin: 0 0;
 	transform-origin: 0 0;
-	-webkit-transform: scale(.5);
-	-ms-transform: scale(.5);
 	transform: scale(.5);
 }
 .list .slide:before {
@@ -121,8 +113,6 @@
 	content: "";
 }
 .list .slide:before,.list .slide:after {
-	-webkit-transform-origin: 0 0;
-	-ms-transform-origin: 0 0;
 	transform-origin: 0 0;
 }
 .list .slide:after {
@@ -200,6 +190,5 @@
 	background: transparent url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMTAzNHB4IiBoZWlnaHQ9IjEwcHgiIHZpZXdCb3g9IjAgMCAxMDM0IDEwIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAxMDM0IDEwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjRjg1RjUzIiBwb2ludHM9IjAsMCAxMDI0LDAgMTAzNCwxMCAwLDEwICIvPjwvc3ZnPg==) 100% 0 no-repeat;
 	background-size: 775.500pt 7.500pt;
 	background-clip: content-box;
-	-webkit-transition: width .2s linear;
 	transition: width .2s linear;
 }

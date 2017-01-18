@@ -189,7 +189,6 @@ u,
 .page,
 .panel-nav-menu,
 .btn-nav-menu {
-	-webkit-transition: all 0.2s ease-out;
 	transition: all 0.2s ease-out;
 }
 .panel-nav-menu {
@@ -304,7 +303,6 @@ u,
 	top: 0;
 	left: 33.000pt;
 	text-decoration: none;
-	-webkit-transition: background 0.2s linear;
 	transition: background 0.2s linear;
 	cursor: pointer;
 	z-index: 999;
@@ -337,7 +335,6 @@ u,
 	border: 0.750pt solid rgba(45,116,189,1);
 	box-shadow: 0.125em 0.125em 0.125em 0 rgba(50,50,50,0.3);
 	opacity: 0;
-	-webkit-transition: visibility 0s, opacity 0.2s linear;
 	transition: visibility 0s, opacity 0.2s linear;
 	z-index: 999;
 }
@@ -382,7 +379,6 @@ u,
 	left: 0;
 	text-align: center;
 	opacity: 0;
-	-webkit-transition: opacity 0.2s linear;
 	transition: opacity 0.2s linear;
 	padding: 0;
 	margin: 0;
@@ -404,7 +400,6 @@ u,
 	background-repeat: no-repeat;
 	background-size: 18.000rem 18.000rem;
 	background-size: 15.000vw 15.000vw;
-	-webkit-transition: all .2s ease-out;
 	transition: all .2s ease-out;
 	margin-top: 0;
 	margin-left: 0;
@@ -413,10 +408,7 @@ u,
 	background-image: url(../img/sitelogo-rounded-BB3F3F-200x200.png);
 }
 /* .site-logo:hover {
-	-webkit-transform: rotate(415deg);
-	-ms-transform: rotate(415deg);
 	transform: rotate(415deg);
-	-webkit-transition: all .4s ease-out;
 	transition: all .4s ease-out;
 } */
 /**
@@ -424,11 +416,8 @@ u,
  * daneden.github.io/animate.css/
  */
 .site-logo.animated {
-	-webkit-animation-duration: 2s;
 	animation-duration: 2s;
-	-webkit-animation-timing-function: linear;
 	animation-timing-function: linear;
-	-webkit-animation-iteration-count: infinite;
 	animation-iteration-count: infinite;
 }
 /**

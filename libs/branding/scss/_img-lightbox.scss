@@ -21,15 +21,11 @@
 	bottom: 0;
 	left: 0;
 	right: 0;
-	cursor: -webkit-zoom-out;
 	cursor: zoom-out;
 	background-color: transparent;
 	border: 0.750pt solid rgba(255,255,255,0.5);
 	border-radius: 0.750pt;
 	opacity: 0;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
 	user-select: none;
 	vertical-align: middle;
 	margin: auto;
@@ -41,8 +37,6 @@
  */
 .img-lightbox-container.animated,
 .img-lightbox-container img.animated {
-	-webkit-animation-duration: 0.4s;
 	animation-duration: 0.4s;
-	-webkit-animation-fill-mode: both;
 	animation-fill-mode: both;
 }

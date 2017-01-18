@@ -48,9 +48,7 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	border-right: 1.1em solid rgba(211,211,211,0.5);
 	border-bottom: 1.1em solid rgba(211,211,211,0.5);
 	border-left: 1.1em solid rgba(25,25,25,0.5);
-	-webkit-transform: translateZ(0);
 	transform: translateZ(0);
-	-webkit-animation: load8 1.1s infinite linear;
 	animation: load8 1.1s infinite linear;
 	z-index: 1003;
 }
@@ -60,23 +58,11 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	width: 10em;
 	height: 10em;
 }
-@-webkit-keyframes load8 {
-	0% {
-		-webkit-transform: rotate(0deg);
-		transform: rotate(0deg);
-	}
-	100% {
-		-webkit-transform: rotate(360deg);
-		transform: rotate(360deg);
-	}
-}
 @keyframes load8 {
 	0% {
-		-webkit-transform: rotate(0deg);
 		transform: rotate(0deg);
 	}
 	100% {
-		-webkit-transform: rotate(360deg);
 		transform: rotate(360deg);
 	}
 }
@@ -118,15 +104,11 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	margin-left: -4.000rem;
 }
 .holder-site-logo.animated {
-	-webkit-animation-duration: 0.5s;
 	animation-duration: 0.5s;
-	-webkit-animation-fill-mode: both;
 	animation-fill-mode: both;
 }
 .site-logo.animated {
-	-webkit-animation-duration: 2s;
 	animation-duration: 2s;
-	-webkit-animation-fill-mode: both;
 	animation-fill-mode: both;
 }
 .site-logo a {
@@ -177,9 +159,7 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
  * daneden.github.io/animate.css/
  */
 .notifier42.animated {
-	-webkit-animation-duration: 0.4s;
 	animation-duration: 0.4s;
-	-webkit-animation-fill-mode: both;
 	animation-fill-mode: both;
 }
 /* @import "img-lightbox"; */
@@ -205,15 +185,11 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	bottom: 0;
 	left: 0;
 	right: 0;
-	cursor: -webkit-zoom-out;
 	cursor: zoom-out;
 	background-color: transparent;
 	border: 0.750pt solid rgba(255,255,255,0.5);
 	border-radius: 0.750pt;
 	opacity: 0;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
 	user-select: none;
 	vertical-align: middle;
 	margin: auto;
@@ -225,9 +201,7 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
  */
 .img-lightbox-container.animated,
 .img-lightbox-container img.animated {
-	-webkit-animation-duration: 0.4s;
 	animation-duration: 0.4s;
-	-webkit-animation-fill-mode: both;
 	animation-fill-mode: both;
 }
 /* @import "serguei-englishextra-animate.partial"; */
@@ -237,25 +211,12 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
  * daneden.github.io/animate.css/
  */
 /* .animated {
-	-webkit-animation-duration: 1s;
-	animation-duration: 1s;
-	-webkit-animation-fill-mode: both;
+	animation-duration: 2s;
 	animation-fill-mode: both;
 } */
-@-webkit-keyframes zoomIn {
-	from {
-		opacity: 0;
-		-webkit-transform: scale3d(.3, .3, .3);
-		transform: scale3d(.3, .3, .3);
-	}
-	50% {
-		opacity: 1;
-	}
-}
 @keyframes zoomIn {
 	from {
 		opacity: 0;
-		-webkit-transform: scale3d(.3, .3, .3);
 		transform: scale3d(.3, .3, .3);
 	}
 	50% {
@@ -263,16 +224,7 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	}
 }
 .zoomIn {
-	-webkit-animation-name: zoomIn;
 	animation-name: zoomIn;
-}
-@-webkit-keyframes fadeIn {
-	0% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
-	}
 }
 @keyframes fadeIn {
 	0% {
@@ -283,46 +235,20 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	}
 }
 .fadeIn {
-	-webkit-animation-name: fadeIn;
 	animation-name: fadeIn;
-}
-@-webkit-keyframes fadeInUp {
-	0% {
-		opacity: 0;
-		-webkit-transform: translate3d(0, 100%, 0);
-		transform: translate3d(0, 100%, 0);
-	}
-	100% {
-		opacity: 1;
-		-webkit-transform: none;
-		transform: none;
-	}
 }
 @keyframes fadeInUp {
 	0% {
 		opacity: 0;
-		-webkit-transform: translate3d(0, 100%, 0);
-		-ms-transform: translate3d(0, 100%, 0);
 		transform: translate3d(0, 100%, 0);
 	}
 	100% {
 		opacity: 1;
-		-webkit-transform: none;
-		-ms-transform: none;
 		transform: none;
 	}
 }
 .fadeInUp {
-	-webkit-animation-name: fadeInUp;
 	animation-name: fadeInUp;
-}
-@-webkit-keyframes fadeOut {
-	0% {
-		opacity: 1;
-	}
-	100% {
-		opacity: 0;
-	}
 }
 @keyframes fadeOut {
 	0% {
@@ -333,18 +259,7 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	}
 }
 .fadeOut {
-	-webkit-animation-name: fadeOut;
 	animation-name: fadeOut;
-}
-@-webkit-keyframes fadeOutDown {
-	0% {
-		opacity: 1;
-	}
-	100% {
-		opacity: 0;
-		-webkit-transform: translate3d(0, 100%, 0);
-		transform: translate3d(0, 100%, 0);
-	}
 }
 @keyframes fadeOutDown {
 	0% {
@@ -352,13 +267,10 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	}
 	100% {
 		opacity: 0;
-		-webkit-transform: translate3d(0, 100%, 0);
-		-ms-transform: translate3d(0, 100%, 0);
 		transform: translate3d(0, 100%, 0);
 	}
 }
 .fadeOutDown {
-	-webkit-animation-name: fadeOutDown;
 	animation-name: fadeOutDown;
 }
 /* @import "location-qr-code"; */
@@ -408,7 +320,6 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	line-height: 0;
 	visibility: hidden;
 	opacity: 0;
-	-webkit-transition: visibility 0s, opacity 0.2s linear;
 	transition: visibility 0s, opacity 0.2s linear;
 	z-index: 1000;
 }
@@ -425,7 +336,6 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	background: none rgba(211,211,211,0.5);
 	border: none;
 	overflow: hidden;
-	-webkit-transition: background 0.2s linear;
 	transition: background 0.2s linear;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	outline: none;
@@ -451,7 +361,6 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	bottom: 7.500pt;
 	visibility: hidden;
 	opacity: 0;
-	-webkit-transition: visibility 0s, opacity 0.2s linear;
 	transition: visibility 0s, opacity 0.2s linear;
 }
 .pluso {
@@ -460,7 +369,6 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	bottom: 0;
 	visibility: hidden;
 	opacity: 0;
-	-webkit-transition: visibility 0s, opacity 0.2s linear;
 	transition: visibility 0s, opacity 0.2s linear;
 }
 .share-buttons {
@@ -476,7 +384,6 @@ button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-bloc
 	background: none rgba(211,211,211,0.5);
 	border: none;
 	overflow: hidden;
-	-webkit-transition: background 0.2s linear;
 	transition: background 0.2s linear;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	outline: none;
@@ -552,7 +459,6 @@ img[class^="books-"],img[class*=" books-"]{ max-width: 100%; background-size: 10
 	visibility: hidden;
 	opacity: 0;
 	overflow: hidden;
-	-webkit-transition: all 0.2s linear;
 	transition: all 0.2s linear;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	outline: none;
@@ -782,7 +688,6 @@ u,
 	width: 100%;
 	height: 100%;
 	opacity: 0;
-	-webkit-transition: opacity 0.2s linear;
 	transition: opacity 0.2s linear;
 	/* padding: 33.000pt 0 0 0; */
 	padding: 0;
@@ -816,10 +721,8 @@ u,
 .page,
 .panel-nav-menu,
 .btn-nav-menu {
-	-webkit-transition: all 0.2s ease-out;
 	transition: all 0.2s ease-out;
 }
-
 .panel-nav-menu {
 	display: block;
 	width: 280px;
@@ -938,7 +841,6 @@ u,
 	top: 0;
 	left: 33.000pt;
 	text-decoration: none;
-	-webkit-transition: background 0.2s linear;
 	transition: background 0.2s linear;
 	cursor: pointer;
 	z-index: 999;
@@ -971,7 +873,6 @@ u,
 	border: 0.750pt solid rgba(45,116,189,1);
 	box-shadow: 0.125em 0.125em 0.125em 0 rgba(50,50,50,0.3);
 	opacity: 0;
-	-webkit-transition: visibility 0s, opacity 0.2s linear;
 	transition: visibility 0s, opacity 0.2s linear;
 	z-index: 999;
 }
