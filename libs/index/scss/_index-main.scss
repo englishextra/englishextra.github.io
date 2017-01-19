@@ -22,14 +22,11 @@ body {
 	width: 100%;
 	color: #363636;
 	background: #F0F0F0;
-	-webkit-text-size-adjust: none;
-	-ms-text-size-adjust: none;
 	text-size-adjust: none;
 	text-rendering: optimizeLegibility;
-	text-rendering: geometricPrecision;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	font-smoothing: antialiased;
+	-moz-font-feature-settings: "liga", "kern";
 	-webkit-touch-callout: none;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	outline: none;

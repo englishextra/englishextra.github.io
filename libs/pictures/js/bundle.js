@@ -631,8 +631,9 @@ var initPhotoswipe = function () {
 							d.title = c[1].innerHTML;
 						}
 					}
-					if (l.getAttribute("data-med"))
+					if (l.getAttribute("data-med")) {
 						g = l.getAttribute("data-med-size").split("x");
+					}
 					d.m = {
 						src: l.getAttribute("data-med"),
 						w: parseInt(g[0], 10),
@@ -661,7 +662,7 @@ var initPhotoswipe = function () {
 					return "A" === a.tagName;
 				});
 			if (a) {
-				for (var b = a.parentNode, e = a.parentNode.childNodes, c = e.length, g = 0, d, f = 0; f < c; f++)
+				for (var b = a.parentNode, e = a.parentNode.childNodes, c = e.length, g = 0, d, f = 0; f < c; f++) {
 					if (1 === e[f].nodeType) {
 						if (e[f] === a) {
 							d = g;
@@ -669,6 +670,7 @@ var initPhotoswipe = function () {
 						}
 						g++;
 					}
+				}
 				if (0 <= d) {
 					n(d, b);
 				}
@@ -693,8 +695,9 @@ var initPhotoswipe = function () {
 					};
 				},
 				addCaptionHTMLFn: function (a, b, c) {
-					if (!a.title)
+					if (!a.title) {
 						return b.children[0].innerText = "", !1;
+					}
 					b.children[0].innerHTML = a.title + "<br/><small>Photo: " + a.author + "</small>";
 					return !0;
 				}
@@ -746,20 +749,23 @@ var initPhotoswipe = function () {
 		h = function () {
 			var a = window.location.hash.substring(1),
 			b = {};
-			if (5 > a.length)
+			if (5 > a.length) {
 				return b;
-			for (var z = z.split("&"), e = 0; e < z.length; e++)
+			}
+			for (var z = z.split("&") || "", e = 0; e < z.length; e++) {
 				if (z[e]) {
 					var c = z[e].split("=");
 					if (2 < c.length) {
 						b[c[0]] = c[1];
 					}
 				}
+			}
 			if (b.gid) {
 				b.gid = parseInt(b.gid, 10);
 			}
-			if (!b.hasOwnProperty("pid"))
+			if (!b.hasOwnProperty("pid")) {
 				return b;
+			}
 			b.pid = parseInt(b.pid, 10);
 			return b;
 		}
@@ -776,7 +782,7 @@ var initPhotoswipe = function () {
 		/*!
 		 * dont use href to read href, use getAttribute, because href adds protocol
 		 */
-		var h = e.getAttribute("href");
+		var h = e.getAttribute("href") || "";
 		if (h && parseLink(h).isCrossDomain && !parseLink(h).hasHTTP) {
 			e.href = h.replace (/^/, getHTTP(!0) + ":");
 		}
@@ -800,7 +806,7 @@ var initPhotoswipe = function () {
 		}
 	},
 	s = function () {
-		var galleries = BALA(c);
+		var galleries = BALA(c) || "";
 		if (w._) {
 			_.each(galleries, q);
 		} else if (w.forEach) {
@@ -841,7 +847,7 @@ loadInitPhotoswipe = function () {
 		}
 	}
 };
-docReady(loadInitPhotoswipe);
+evento.add(window, "load", loadInitPhotoswipe);
 /*!
  * replace img src with data-src
  * @param {Object} [ctx] context HTML Element
