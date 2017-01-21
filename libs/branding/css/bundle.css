@@ -2725,20 +2725,13 @@ u,
 	/* left: 280px; */
 	left: 0;
 	/* svgeneration.com/recipes/Granite/ #F3F3F3 0.8 0.2 */
-	background-color: #F3F3F3;
-	background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHhtbG5zOnhsaW5rPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rJyB3aWR0aD0nMjAwJyBoZWlnaHQ9JzMwMCcgdmlld0JveD0nMCAwIDIwMCAzMDAnPgoJPGZpbHRlciBpZD0nZnV6eicgeD0nMCcgeT0nMCc+CgkJPGZlVHVyYnVsZW5jZSB0eXBlPSd0dXJidWxlbmNlJyBiYXNlRnJlcXVlbmN5PScwLjgnIG51bU9jdGF2ZXM9JzEwJyBzdGl0Y2hUaWxlcz0nc3RpdGNoJy8+Cgk8L2ZpbHRlcj4KCTxyZWN0IHdpZHRoPScxMDAlJyBoZWlnaHQ9JzEwMCUnIGZpbHRlcj0ndXJsKCNmdXp6KScgb3BhY2l0eT0nMC4yJy8+Cjwvc3ZnPg==);
-	background-position: top left;
-	background-repeat: repeat;
-	background-size: 150.000pt 225.000pt;
-}
-
-/* body,
-.page {
-	background-image: linear-gradient(rgba(242,242,242,1), rgba(242,242,242,1));
+	background-color: #FFFFFF;
+	background-image: -webkit-linear-gradient(#f3f3f3, #f3f3f3);
+	background-image: linear-gradient(#f3f3f3, #f3f3f3);
 	background-size: 100% 33.000pt;
 	background-position: top left;
 	background-repeat: no-repeat;
-} */
+}
 
 /* .js .page {
 	position: relative;
@@ -2777,9 +2770,9 @@ u,
 .app-content .content-wrapper {
 	width: 100%;
 	height: 100%;
-	position: absolute;
+	/* position: absolute;
 	top: 33.000pt;
-	left: 0;
+	left: 0; */
 	background-color: #FFFFFF;
 }
 

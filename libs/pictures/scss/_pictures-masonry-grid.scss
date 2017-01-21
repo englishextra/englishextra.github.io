@@ -7,6 +7,7 @@
 .masonry-grid-wrapper {
 	width: 100%;
 	height: 100%;
+	background-color: #383838;
 	/** stackoverflow.com/questions/14967413/background-color-not-showing-for-a-div
 	Because the content collapses when the children are floated
 	and adding the overflow rule restores the behavior you'd expect. */
@@ -25,7 +26,6 @@
 .masonry-grid {
 	display: block;
 	width: 100%;
-	background-color: #383838;
 	opacity: 0;
 	transition: opacity 0.2s linear;
 	margin: 0 auto;
