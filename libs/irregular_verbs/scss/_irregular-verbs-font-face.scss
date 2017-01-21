@@ -1,6 +1,38 @@
-/* @import "irregular-verbs-font-face"; */
-@font-face{font-family:"englishextra-ui-icons";src:url(../../../fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.woff2) format("woff2"),url(../../../fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.woff) format("woff"),url(../../../fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.ttf) format("truetype");font-weight:normal;font-style:normal;}
-@font-face{font-family:"Exo2";src:url(../../../fonts/exo2-fontfacekit/Exo2Regular.woff2) format("woff2"),url(../../../fonts/exo2-fontfacekit/Exo2Regular.woff) format("woff"),url(../../../fonts/exo2-fontfacekit/Exo2Regular.ttf) format("truetype");font-style:normal;font-weight:400;}
-@font-face{font-family:"Exo2";src:url(../../../fonts/exo2-fontfacekit/Exo2Italic.woff2) format("woff2"),url(../../../fonts/exo2-fontfacekit/Exo2Italic.woff) format("woff"),url(../../../fonts/exo2-fontfacekit/Exo2Italic.ttf) format("truetype");font-style:italic;font-weight:400;}
-@font-face{font-family:"Exo2";src:url(../../../fonts/exo2-fontfacekit/Exo2Bold.woff2) format("woff2"),url(../../../fonts/exo2-fontfacekit/Exo2Bold.woff) format("woff"),url(../../../fonts/exo2-fontfacekit/Exo2Bold.ttf) format("truetype");font-style:normal;font-weight:700;}
-@font-face{font-family:"Source Code Pro";src:url(../../../fonts/source-code-pro-fontfacekit/SourceCodePro-Regular.otf.woff2) format("woff2"),url(../../../fonts/source-code-pro-fontfacekit/SourceCodePro-Regular.otf.woff) format("woff"),url(../../../fonts/source-code-pro-fontfacekit/SourceCodePro-Regular.ttf) format("truetype");font-weight:400;font-style:normal;font-stretch:normal;}
+/*! @import "irregular-verbs-font-face"; */
+
+@font-face {
+	font-family: "englishextra-ui-icons";
+	src: url(../../../fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.woff2) format("woff2"), url(../../../fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.woff) format("woff"), url(../../../fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.ttf) format("truetype");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Exo2";
+	src: url(../../../fonts/exo2-fontfacekit/Exo2Regular.woff2) format("woff2"), url(../../../fonts/exo2-fontfacekit/Exo2Regular.woff) format("woff"), url(../../../fonts/exo2-fontfacekit/Exo2Regular.ttf) format("truetype");
+	font-style: normal;
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: "Exo2";
+	src: url(../../../fonts/exo2-fontfacekit/Exo2Italic.woff2) format("woff2"), url(../../../fonts/exo2-fontfacekit/Exo2Italic.woff) format("woff"), url(../../../fonts/exo2-fontfacekit/Exo2Italic.ttf) format("truetype");
+	font-style: italic;
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: "Exo2";
+	src: url(../../../fonts/exo2-fontfacekit/Exo2Bold.woff2) format("woff2"), url(../../../fonts/exo2-fontfacekit/Exo2Bold.woff) format("woff"), url(../../../fonts/exo2-fontfacekit/Exo2Bold.ttf) format("truetype");
+	font-style: normal;
+	font-weight: 700;
+}
+
+@font-face {
+	font-family: "Source Code Pro";
+	src: url(../../../fonts/source-code-pro-fontfacekit/SourceCodePro-Regular.otf.woff2) format("woff2"), url(../../../fonts/source-code-pro-fontfacekit/SourceCodePro-Regular.otf.woff) format("woff"), url(../../../fonts/source-code-pro-fontfacekit/SourceCodePro-Regular.ttf) format("truetype");
+	font-weight: 400;
+	font-style: normal;
+	font-stretch: normal;
+}
+

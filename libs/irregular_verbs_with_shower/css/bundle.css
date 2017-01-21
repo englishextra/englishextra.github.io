@@ -1,8 +1,6 @@
-/*!
- * libs\irregular_verbs_with_shower\scss\bundle.scss
- */
+/*! libs\irregular_verbs_with_shower\scss\bundle.scss */
 
-/* @import "irregular-verbs-with-shower-font-face"; */
+/*! @import "irregular-verbs-with-shower-font-face"; */
 
 @font-face {
 	font-family: "englishextra-ui-icons";
@@ -51,9 +49,9 @@
 	font-stretch: normal;
 }
 
-/* @import "normalize"; */
+/*! @import "normalize"; */
 
-/** normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */
+/*! normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */
 
 button,
 hr,
@@ -278,7 +276,7 @@ template {
 	display: none;
 }
 
-/* @import "share-buttons-light"; */
+/*! @import "share-buttons-light"; */
 
 /**
  * pluso, yashare
@@ -336,23 +334,21 @@ template {
 	color: rgba(25, 25, 25, 0.5);
 }
 
-/* @import "irregular-verbs-with-shower-shower"; */
+/*! @import "irregular-verbs-with-shower-shower"; */
 
 .badge {
 	font-size: 11.250pt;
 	line-height: 2.500;
 	width: 11.000em;
 	height: 11.000em;
-	display: none;
 	position: absolute;
-	top: 0;
+	top: -16px;
 	right: 0;
 	overflow: hidden;
 	visibility: hidden;
 }
 
 .badge a {
-	display: none;
 	position: absolute;
 	bottom: 50%;
 	right: -50%;
@@ -441,18 +437,19 @@ template {
 	font-style: normal;
 }
 
-.list {
+.shower-list {
 	position: absolute;
 	clip: rect(0, auto, auto, 0);
-	padding: 0 0 0 16px;
+	background-color: #F3F3F3;
+	counter-reset: slide;
+	padding: 100px 0 0 16px;
 }
 
-.list .caption,
-.list .badge {
+.shower-list .badge {
 	display: block;
 }
 
-.list .slide {
+.shower-list .slide {
 	float: left;
 	margin: 0 -412px -220px 0;
 	-webkit-transform-origin: 0 0;
@@ -461,7 +458,7 @@ template {
 	transform: scale(0.5);
 }
 
-.list .slide:before {
+.shower-list .slide:before {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -471,13 +468,13 @@ template {
 	content: "";
 }
 
-.list .slide:before,
-.list .slide:after {
+.shower-list .slide:before,
+.shower-list .slide:after {
 	-webkit-transform-origin: 0 0;
 	transform-origin: 0 0;
 }
 
-.list .slide:after {
+.shower-list .slide:after {
 	font-weight: 700;
 	font-size: 2.500em;
 	line-height: 1.340em;
@@ -493,12 +490,12 @@ template {
 	padding: 0.344em 0.5em;
 }
 
-.list .slide:target:after {
+.shower-list .slide:target:after {
 	color: #FFFFFF;
 	background: none #FD9E3C;
 }
 
-.list .slide > div:before {
+.shower-list .slide > div:before {
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -566,7 +563,7 @@ template {
 	transition: width .2s linear;
 }
 
-/* @import "ui-totop"; */
+/*! @import "ui-totop"; */
 
 /**
  * github.com/sksmatt/UItoTop-jQuery-Plugin/
@@ -625,18 +622,20 @@ template {
 	color: rgba(25, 25, 25, 0.5);
 }
 
-/* @import "irregular-verbs-with-shower-main"; */
+/*! @import "irregular-verbs-with-shower-main"; */
 
 /**
  * main
  */
 
-html {
+html,
+body {
 	height: 100%;
 }
 
 html {
 	font-size: 100%;
+	line-height: 1.500;
 	/**
 	 * set the parent to background transparent
 	 * and position relative to parent, absolute for child
@@ -649,14 +648,9 @@ body {
 	font-weight: 400;
 	font-size: 16px;
 	line-height: 1.500;
+	width: 100%;
 	color: #363636;
-	background-color: #F0F0F0;
-	background-image: -webkit-linear-gradient(#f2f2f2, #f2f2f2);
-	background-image: linear-gradient(#f2f2f2, #f2f2f2);
-	background-size: 100% 33.000pt;
-	background-position: top left;
-	background-repeat: no-repeat;
-	counter-reset: slide;
+	background-color: #FFFFFF;
 	-webkit-text-size-adjust: none;
 	-ms-text-size-adjust: none;
 	text-size-adjust: none;
@@ -782,7 +776,21 @@ u,
 	}
 }
 
-/* @import "irregular-verbs-with-shower-nav-menu"; */
+/**
+ * other
+ */
+
+.page {
+	width: 100%;
+	/**
+	 * set the parent to min height 100%, not just height
+	 * and position relative to parent, absolute for child
+	 */
+	min-height: 100%;
+	background-color: #F3F3F3;
+}
+
+/*! @import "irregular-verbs-with-shower-nav-menu"; */
 
 /**
  * nav-menu
@@ -809,10 +817,6 @@ u,
 	background-color: #d5d5d5;
 }
 
-.full .holder-btn-nav-menu {
-	display: none;
-}
-
 /**
  * using icon font
  */
@@ -835,14 +839,16 @@ u,
  */
 
 .caption {
-	display: none;
 	height: 33.000pt;
+	position: absolute;
+	top: 0;
+	left: 33.000pt;
 	font-size: 1.000em;
 	text-align: left;
 	color: inherit;
 	background-color: transparent;
-	margin: 0 0 100px 28px;
 	padding: 0;
+	margin: 0;
 }
 
 .caption h1 {
@@ -850,7 +856,6 @@ u,
 	font-size: 0.938rem;
 	font-weight: 300;
 	line-height: 33.000pt;
-	position: relative;
 	color: inherit;
 	background-color: #FFFFFF;
 	border-radius: 0 0 0.625em 0;
@@ -872,6 +877,9 @@ u,
  * overrides to share-buttons
  */
 
+.full .badge,
+.full .holder-btn-nav-menu,
+.full .caption,
 .full .share-buttons {
 	display: none;
 }
@@ -921,10 +929,12 @@ u,
 /* .full {
 	background: none #3E3E40;
 }
+
 .full .slide:after,
 .full .progress div {
 	display: none;
 }
+
 .full .sitelogo {
 	display: inline-block;
 	width: 142.500pt;

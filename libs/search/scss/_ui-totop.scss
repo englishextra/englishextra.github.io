@@ -1,7 +1,9 @@
-/* @import "ui-totop"; */
+/*! @import "ui-totop"; */
+
 /**
  * github.com/sksmatt/UItoTop-jQuery-Plugin/
  */
+
 #ui-totop {
 	display: inline-block;
 	width: 33.000pt;
@@ -20,6 +22,7 @@
 	outline: none;
 	z-index: 999;
 }
+
 #ui-totop-hover {
 	display: block;
 	float: left;
@@ -27,19 +30,24 @@
 	height: 33.000pt;
 	overflow: hidden;
 }
+
 #ui-totop:hover {
 	background-color: rgba(213,213,213,1);
 }
+
 /**
  * using icon font
  */
+
 #ui-totop {
 	text-indent: 0;
 	text-align: center;
 }
+
 #ui-totop-hover {
 	background: none rgba(211,211,211,0.5);
 }
+
 #ui-totop-hover:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e923";
@@ -47,3 +55,4 @@
 	line-height: 33.000pt;
 	color: rgba(25,25,25,0.5);
 }
+

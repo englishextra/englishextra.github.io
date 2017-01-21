@@ -1,18 +1,18 @@
-/* @import "irregular-verbs-with-shower-shower"; */
+/*! @import "irregular-verbs-with-shower-shower"; */
+
 .badge {
 	font-size: 11.250pt;
 	line-height: 2.500;
 	width: 11.000em;
 	height: 11.000em;
-	display: none;
 	position: absolute;
-	top: 0;
+	top: -16px;
 	right: 0;
 	overflow: hidden;
 	visibility: hidden;
 }
+
 .badge a {
-	display: none;
 	position: absolute;
 	bottom: 50%;
 	right: -50%;
@@ -21,12 +21,16 @@
 	background: #DBDADA;
 	text-decoration: none;
 	text-align: center;
+	-webkit-transform-origin: 50% 100%;
 	transform-origin: 50% 100%;
-	transform: rotate(45deg)translateY(-1em);
+	-webkit-transform: rotate(45deg) translateY(-1em);
+	transform: rotate(45deg) translateY(-1em);
 }
+
 .badge a:hover {
 	background: #DBDADA;
 }
+
 .slide {
 	position: relative;
 	width: 1024px;
@@ -34,8 +38,11 @@
 	background: #242424;
 	color: #000000;
 	-webkit-print-color-adjust: exact;
+	-webkit-text-size-adjust: none;
+	-ms-text-size-adjust: none;
 	text-size-adjust: none;
 }
+
 .slide:after {
 	width: 50px;
 	height: 100px;
@@ -52,7 +59,8 @@
 	content: counter(slide);
 	padding: 20px 0 0;
 }
-.slide>div {
+
+.slide > div {
 	width: 784px;
 	height: 535px;
 	position: absolute;
@@ -61,6 +69,7 @@
 	overflow: hidden;
 	padding: 105px 120px 0;
 }
+
 .slide h2 {
 	font-weight: 700;
 	font-size: 3.000em;
@@ -68,40 +77,52 @@
 	color: #FFFFFF;
 	margin: 0 0 37px;
 }
+
 .slide p {
 	margin: 0 0 50px;
 }
+
 .slide a {
 	border-bottom: .1em solid;
 	color: #EBDAC3;
 }
+
 .slide .explanation {
 	font-weight: 400;
 	font-size: 0.813em;
 	font-style: italic;
 	margin-left: 0.250em;
 }
+
 .slide .phonetic {
 	font-family: "Source Code Pro","Consolas",monospace;
 	font-weight: 400;
 	font-size: 1.000em;
 	font-style: normal;
 }
-.list {
+
+.shower-list {
 	position: absolute;
-	clip: rect(0,auto,auto,0);
-	padding: 0 0 0 16px;
+	clip: rect(0, auto, auto, 0);
+	background-color: #F3F3F3;
+	counter-reset: slide;
+	padding: 100px 0 0 16px;
 }
-.list .caption,.list .badge {
+
+.shower-list .badge {
 	display: block;
 }
-.list .slide {
+
+.shower-list .slide {
 	float: left;
 	margin: 0 -412px -220px 0;
+	-webkit-transform-origin: 0 0;
 	transform-origin: 0 0;
-	transform: scale(.5);
+	-webkit-transform: scale(0.5);
+	transform: scale(0.5);
 }
-.list .slide:before {
+
+.shower-list .slide:before {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -110,10 +131,14 @@
 	height: 320px;
 	content: "";
 }
-.list .slide:before,.list .slide:after {
+
+.shower-list .slide:before,
+.shower-list .slide:after {
+	-webkit-transform-origin: 0 0;
 	transform-origin: 0 0;
 }
-.list .slide:after {
+
+.shower-list .slide:after {
 	font-weight: 700;
 	font-size: 2.500em;
 	line-height: 1.340em;
@@ -128,11 +153,13 @@
 	background: none #F85F53;
 	padding: 0.344em 0.5em;
 }
-.list .slide:target:after {
+
+.shower-list .slide:target:after {
 	color: #FFFFFF;
 	background: none #FD9E3C;
 }
-.list .slide>div:before {
+
+.shower-list .slide > div:before {
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -141,6 +168,7 @@
 	z-index: 2;
 	content: "";
 }
+
 .full {
 	position: absolute;
 	top: 50%;
@@ -150,6 +178,7 @@
 	width: 1024px;
 	height: 640px;
 }
+
 .full.debug:after {
 	position: absolute;
 	top: 0;
@@ -159,21 +188,26 @@
 	z-index: 2;
 	content: "";
 }
+
 .full .slide {
 	position: absolute;
 	top: 0;
 	left: 0;
 	margin-left: 150%;
 }
+
 .full .slide .next {
 	visibility: hidden;
 }
+
 .full .slide .next.active {
 	visibility: visible;
 }
+
 .full .slide:target {
 	margin: 0;
 }
+
 .full .progress {
 	position: absolute;
 	right: 0;
@@ -181,6 +215,7 @@
 	left: -10px;
 	z-index: 1;
 }
+
 .full .progress div {
 	padding-left: 10px;
 	width: 0;
@@ -188,5 +223,7 @@
 	background: transparent url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMTAzNHB4IiBoZWlnaHQ9IjEwcHgiIHZpZXdCb3g9IjAgMCAxMDM0IDEwIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAxMDM0IDEwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjRjg1RjUzIiBwb2ludHM9IjAsMCAxMDI0LDAgMTAzNCwxMCAwLDEwICIvPjwvc3ZnPg==) 100% 0 no-repeat;
 	background-size: 775.500pt 7.500pt;
 	background-clip: content-box;
+	-webkit-transition: width .2s linear;
 	transition: width .2s linear;
 }
+

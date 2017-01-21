@@ -1,20 +1,24 @@
+/*! @import "sitemap-main"; */
 
-/* @import "sitemap-main"; */
 /**
  * main
  */
+
 html,
 body {
 	height: 100%;
 }
+
 html {
 	font-size: 100%;
+	line-height: 1.500;
 	/**
 	 * set the parent to background transparent
-	 * css-tricks.com/just-one-of-those-weird-things-about-css-background-on-body/
+	 * and position relative to parent, absolute for child
 	 */
 	background-color: transparent;
 }
+
 body {
 	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI","Segoe WP",sans-serif;
 	font-weight: 400;
@@ -35,61 +39,75 @@ body {
 	margin: 0;
 	padding: 0;
 }
+
 /**
  * englishextra specific rules
  */
+
 a {
 	color: inherit;
 	text-decoration: none;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	outline: none;
 }
+
 a:hover,
 a:active,
 a:focus {
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	outline: none;
 }
+
 img {
 	border: 0;
 	-ms-interpolation-mode: bicubic;
 	vertical-align: bottom;
 }
+
 p:first-child {
 	margin-top: 0;
 }
+
 p:last-child {
 	margin-bottom: 0;
 }
+
 b,
 strong,
 .bolder {
 	font-weight: bold;
 }
+
 i,
 em,
 .italic {
 	font-style: italic;
 }
+
 u,
 .underline {
 	text-decoration: underline;
 }
+
 *,*:after,
 *::before {
 	box-sizing: border-box;
 }
+
 ::-moz-selection {
 	color: rgba(255,255,255,0.9);
 	background: rgba(48,124,202,0.9);
 }
+
 ::selection {
 	color: rgba(255,255,255,0.9);
 	background: rgba(48,124,202,0.9);
 }
+
 /**
  * clearfix css-tricks.com/snippets/css/clear-fix/
  */
+
 .cf:after {
 	display: block;
 	visibility: hidden;
@@ -97,41 +115,52 @@ u,
 	content: "";
 	clear: both;
 }
+
 /**
  * fit width
  */
+
 .fit-width {
 	min-width: 100%;
 }
+
 /**
  * fit half width
  */
+
 .fit-half-width {
 	min-width: 50%;
 }
+
 /**
  * hide and show on mobile
  */
+
 .show-inline-on-mobile,
 .show-block-on-mobile {
 	display: none !important;
 }
+
 @media handheld,only screen and (max-width:800px) {
 	.hide-on-mobile {
 		display: none !important;
 		width: 0;
 		height: 0;
 	}
+
 	.show-inline-on-mobile {
 		display: inline !important;
 	}
+
 	.show-block-on-mobile {
 		display: block !important;
 	}
 }
+
 /**
  * other
  */
+
 .page {
 	width: 100%;
 	/**
@@ -149,6 +178,7 @@ u,
 	background-repeat: repeat;
 	background-size: 150.000pt 225.000pt;
 }
+
 .container {
 	width: 100%;
 	height: 100%;
@@ -157,9 +187,11 @@ u,
 	padding: 0;
 	margin: 0 auto;
 }
+
 /**
  * filtering controls
  */
+
 .holder-filter-controls {
 	width: 98%;
 	height: 0;
@@ -167,11 +199,13 @@ u,
 	user-select: none;
 	margin: 0 auto -2% auto;
 }
+
 .holder-filter-controls.visible {
 	height: auto;
 	visibility: visible;
 	margin-bottom: 0;
 }
+
 .holder-filter-buttons {
 	/**
 	 * stackoverflow.com/questions/8543859/css-vertical-alignment-text-inside-li
@@ -187,6 +221,7 @@ u,
 	padding: 0;
 	margin: 0;
 }
+
 .holder-filter-buttons li,
 .holder-filter-buttons li:active,
 .holder-filter-buttons li:focus {
@@ -206,22 +241,27 @@ u,
 	padding: 0;
 	margin: 0;
 }
+
 .holder-filter-buttons li:hover,
 .holder-filter-buttons li.is-active {
 	background-color: #606060;
 	border: 0.750pt solid #606060;
 }
+
 /* .holder-filter-buttons li:first-child {
 	border-radius: 0.313rem 0 0 0.313rem;
 }
+
 .holder-filter-buttons li:last-child {
 	border-radius: 0 0.313rem 0.313rem 0;
 } */
+
 .holder-filter-select {
 	display: none;
 	padding: 0;
 	margin: 0;
 }
+
 .filter-select,
 .filter-select:active,
 .filter-select:focus {
@@ -242,50 +282,60 @@ u,
 	padding: 0;
 	margin: 0;
 }
+
 .filter-select option {
 	padding: 0.500rem;
 }
+
 .filter-select option:hover,
 .filter-select option:active,
 .filter-select option:focus,
 .filter-select option:checked {
 	box-shadow: inset 2.250rem 2.250rem #606060;
 }
+
 @media handheld,only screen and (max-width:1080px) {
 	.holder-filter-buttons {
 		display: none;
 	}
+
 	.holder-filter-select {
 		display: block;
 	}
 }
+
 /**
  * colors
  */
+
 /* .pages-aids {
 	background-color: #EF6B52;
 }
+
 .pages-articles {
 	background-color: #E84B53;
 }
+
 .pages-grammar {
 	background-color: #2D7C9A;
 }
+
 .pages-more {
 	background-color: #557678;
 }
+
 .pages-reading {
 	background-color: #0179D7;
 }
+
 .pages-tests {
 	background-color: #744DA9;
 }
+
 .pages-transcripts {
 	background-color: #515C6B;
 } */
-/**
- * footer
- */
+
 .footer {
 	font-size: 0.813rem;
 	font-weight: 400;
@@ -293,10 +343,13 @@ u,
 	/* padding: 0 1.000rem; */
 	padding: 0 1%;
 }
+
 .footer p {
 	margin: 0;
 }
+
 .footer a {
 	color: inherit;
 	text-decoration: underline;
 }
+

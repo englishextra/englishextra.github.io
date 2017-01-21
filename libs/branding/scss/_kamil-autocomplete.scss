@@ -1,4 +1,5 @@
-/* @import "kamil-autocomplete"; */
+/*! @import "kamil-autocomplete"; */
+
 /**
  * modified Kamil v0.0.1
  * Autocomplete library
@@ -6,6 +7,7 @@
  * MIT License
  * by Ossama Edbali
  */
+
 .kamil-autocomplete {
 	display: none;
 	position: absolute;
@@ -23,12 +25,15 @@
 	box-shadow: 0.125em 0.125em 0.125em 0 rgba(50,50,50,0.3);
 	border-radius: 0;
 }
+
 .kamil-autocomplete li {
 	font-weight: 400;
 	padding: 0.375em 0.500em;
 	cursor: pointer;
 }
+
 .kamil-autocomplete li.kamil-active {
 	color: inherit;
 	background-color: rgba(190,212,235,1);
 }
+

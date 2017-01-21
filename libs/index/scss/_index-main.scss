@@ -1,19 +1,24 @@
-/* @import "index-main"; */
+/*! @import "index-main"; */
+
 /**
  * main
  */
+
 html,
 body {
 	height: 100%;
 }
+
 html {
 	font-size: 100%;
+	line-height: 1.500;
 	/**
 	 * set the parent to background transparent
 	 * and position relative to parent, absolute for child
 	 */
 	background-color: transparent;
 }
+
 body {
 	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI","Segoe WP",sans-serif;
 	font-weight: 400;
@@ -21,7 +26,7 @@ body {
 	line-height: 1.500;
 	width: 100%;
 	color: #363636;
-	background: #F0F0F0;
+	background-color: #FFFFFF;
 	text-size-adjust: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
@@ -34,61 +39,75 @@ body {
 	margin: 0;
 	padding: 0;
 }
+
 /**
  * englishextra specific rules
  */
+
 a {
 	color: inherit;
 	text-decoration: none;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	outline: none;
 }
+
 a:hover,
 a:active,
 a:focus {
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	outline: none;
 }
+
 img {
 	border: 0;
 	-ms-interpolation-mode: bicubic;
 	vertical-align: bottom;
 }
+
 p:first-child {
 	margin-top: 0;
 }
+
 p:last-child {
 	margin-bottom: 0;
 }
+
 b,
 strong,
 .bolder {
 	font-weight: bold;
 }
+
 i,
 em,
 .italic {
 	font-style: italic;
 }
+
 u,
 .underline {
 	text-decoration: underline;
 }
+
 *,*:after,
 *::before {
 	box-sizing: border-box;
 }
+
 ::-moz-selection {
 	color: rgba(255,255,255,0.9);
 	background: rgba(48,124,202,0.9);
 }
+
 ::selection {
 	color: rgba(255,255,255,0.9);
 	background: rgba(48,124,202,0.9);
 }
+
 /**
  * clearfix css-tricks.com/snippets/css/clear-fix/
  */
+
 .cf:after {
 	display: block;
 	visibility: hidden;
@@ -96,35 +115,44 @@ u,
 	content: "";
 	clear: both;
 }
+
 /**
  * fit width
  */
+
 .fit-width {
 	min-width: 100%;
 }
+
 /**
  * hide and show on mobile
  */
+
 .show-inline-on-mobile,
 .show-block-on-mobile {
 	display: none !important;
 }
+
 @media handheld,only screen and (max-width:800px) {
 	.hide-on-mobile {
 		display: none !important;
 		width: 0;
 		height: 0;
 	}
+
 	.show-inline-on-mobile {
 		display: inline !important;
 	}
+
 	.show-block-on-mobile {
 		display: block !important;
 	}
 }
+
 /**
  * other
  */
+
 .page {
 	width: 100%;
 	/**
@@ -137,13 +165,14 @@ u,
 	/* left: 280px; */
 	left: 0;
 	opacity: 0;
-	background-color: transparent;
+	background-color: #383838;
 	/* background-image: url(//farm6.staticflickr.com/5539/30578927754_6684bd4693_o.jpg); */
 	background-image: url(../img/header.jpg);
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
 }
+
 .page:before {
 	 content: "";
 	width: 100%;
@@ -165,29 +194,36 @@ u,
 	background-repeat: repeat;
 	background-size: 3.750pt 3.750pt;
 }
+
 /* .js .page {
 	position: relative;
 	left: 0;
 } */
+
 .page.is-active {
 	position: relative;
 	left: 280px;
 }
+
 .container {
 	width: 100%;
 	height: 100%;
 	padding: 0;
 	margin: 0 auto;
 }
-/* @import "nav-menu-dark"; */
+
+/*! @import "nav-menu-dark"; */
+
 /**
  * nav menu
  */
+
 .page,
 .panel-nav-menu,
 .btn-nav-menu {
 	transition: all 0.2s ease-out;
 }
+
 .panel-nav-menu {
 	display: block;
 	width: 280px;
@@ -209,11 +245,13 @@ u,
 	margin-left: -280px;
 	z-index: 998;
 }
+
 /* .js .panel-nav-menu {
 	position: fixed;
 	top: 0;
 	left: 0;
 } */
+
 .panel-nav-menu li {
 	position: relative;
 	top: 0;
@@ -222,6 +260,7 @@ u,
 	padding: 0;
 	margin: 0;
 }
+
 .panel-nav-menu li a {
 	display: block;
 	text-decoration: none;
@@ -231,18 +270,22 @@ u,
 	border: none;
 	padding: 0 1.143em;
 }
+
 .panel-nav-menu li a:hover,
 .panel-nav-menu li a:focus {
 	background: #464646;
 }
+
 .panel-nav-menu li a.is-active {
 	background: rgba(30,77,125,1);
 }
+
 .panel-nav-menu li a:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e918\00a0\00a0";
 	font-size: 0.875em;
 }
+
 .btn-nav-menu {
 	display: inline-block;
 	width: 33.000pt;
@@ -253,16 +296,20 @@ u,
 	cursor: pointer;
 	z-index: 999;
 }
+
 .btn-nav-menu:hover {
 	background-color: rgba(66,66,66,1);
 }
+
 /**
  * using icon font
  */
+
 .btn-nav-menu {
 	text-align: center;
 	background: none rgba(66,66,66,0.5);
 }
+
 .btn-nav-menu:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e914";
@@ -270,15 +317,18 @@ u,
 	line-height: 33.000pt;
 	color: #FFFFFF;
 }
+
 .page.is-active .btn-nav-menu:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e90a";
 	font-size: 15.000pt;
 }
+
 .page.is-active .panel-nav-menu {
 	left: 280px;
 	width: 280px;
 }
+
 .page.is-active .btn-nav-menu {
 	/**
 	 * position absolute
@@ -288,10 +338,13 @@ u,
 	 */
 	left: 0;
 }
-/* @import "menu-more-dark"; */
+
+/*! @import "menu-more-dark"; */
+
 /**
  * menu more
  */
+
 .btn-menu-more {
 	display: inline-block;
 	width: 33.000pt;
@@ -304,16 +357,20 @@ u,
 	cursor: pointer;
 	z-index: 999;
 }
+
 .btn-menu-more:hover {
 	background-color: rgba(66,66,66,1);
 }
+
 /**
  * using icon font
  */
+
 .btn-menu-more {
 	text-align: center;
 	background: none rgba(66,66,66,0.5);
 }
+
 .btn-menu-more:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e915";
@@ -321,6 +378,7 @@ u,
 	line-height: 33.000pt;
 	color: #FFFFFF;
 }
+
 .holder-panel-menu-more {
 	display: block;
 	visibility: hidden;
@@ -335,10 +393,12 @@ u,
 	transition: visibility 0s, opacity 0.2s linear;
 	z-index: 999;
 }
+
 .holder-panel-menu-more.is-active {
 	visibility: visible;
 	opacity: 1;
 }
+
 .panel-menu-more {
 	display: inline-block;
 	min-width: 204.000pt;
@@ -350,11 +410,13 @@ u,
 	padding: 0;
 	margin: 0;
 }
+
 .panel-menu-more li a {
 	display: block;
 	font-weight: 400;
 	padding: 0.625em 0.750em;
 }
+
 .panel-menu-more li a:hover,
 .panel-menu-more li a:active,
 .panel-menu-more li a:focus {
@@ -362,6 +424,7 @@ u,
 	color: inherit;
 	background-color: rgba(190,212,235,1);
 }
+
 /**
  * site-logo
  * landscape 288 / (1920 / 100) = 15vw
@@ -369,6 +432,7 @@ u,
  * caniuse.com/#feat=viewport-units
  * css-tricks.com/viewport-sized-typography/
  */
+
 .holder-site-logo {
 	width: 100%;
 	position: absolute;
@@ -382,6 +446,7 @@ u,
 	margin-top: -9.000rem;
 	margin-top: -7.500vw;
 }
+
 .site-logo {
 	display: inline-block;
 	width: 18.000rem;
@@ -401,22 +466,27 @@ u,
 	margin-top: 0;
 	margin-left: 0;
 }
+
 .no-svg .site-logo {
 	background-image: url(../img/sitelogo-rounded-BB3F3F-200x200.png);
 }
+
 /* .site-logo:hover {
 	transform: rotate(415deg);
 	transition: all .4s ease-out;
 } */
+
 /**
  * reset for animate.css
  * daneden.github.io/animate.css/
  */
+
 .site-logo.animated {
 	animation-duration: 2s;
 	animation-timing-function: linear;
 	animation-iteration-count: infinite;
 }
+
 /**
  * fix size for the logo
  * round to 8-fold
@@ -443,11 +513,13 @@ u,
  * 480 landscape => 320 portrait
  * 320 landscape => 240 portrait
  */
+
 @media only screen and (max-width:1920px) and (orientation:landscape) {
 	.holder-site-logo {
 		margin-top: -9.000rem;
 		margin-top: -7.500vw;
 	}
+
 	.site-logo {
 		width: 18.000rem;
 		height: 18.000rem;
@@ -457,11 +529,13 @@ u,
 		background-size: 15.000vw 15.000vw;
 	}
 }
+
 @media only screen and (max-width:1080px) and (orientation:portrait) {
 	.holder-site-logo {
 		margin-top: -9.000rem;
 		margin-top: -7.500vh;
 	}
+
 	.site-logo {
 		width: 18.000rem;
 		height: 18.000rem;
@@ -471,11 +545,13 @@ u,
 		background-size: 15.000vh 15.000vh;
 	}
 }
+
 @media only screen and (max-width:1366px) and (orientation:landscape) {
 	.holder-site-logo {
 		margin-top: -6.250rem;
 		margin-top: -7.500vw;
 	}
+
 	.site-logo {
 		width: 12.500rem;
 		height: 12.500rem;
@@ -485,11 +561,13 @@ u,
 		background-size: 15.000vw 15.000vw;
 	}
 }
+
 @media only screen and (max-width:1280px) and (orientation:landscape) {
 	.holder-site-logo {
 		margin-top: -6.000rem;
 		margin-top: -7.500vw;
 	}
+
 	.site-logo {
 		width: 12.000rem;
 		height: 12.000rem;
@@ -499,11 +577,13 @@ u,
 		background-size: 15.000vw 15.000vw;
 	}
 }
+
 @media only screen and (max-width:1024px) and (orientation:landscape) {
 	.holder-site-logo {
 		margin-top: -4.750rem;
 		margin-top: -7.500vw;
 	}
+
 	.site-logo {
 		width: 9.500rem;
 		height: 9.500rem;
@@ -513,15 +593,18 @@ u,
 		height: 15.000vw;
 		background-size: 15.000vw 15.000vw;
 	}
+
 	.no-svg .site-logo {
 		background-image: url(../img/sitelogo-rounded-BB3F3F-72x72.png);
 	}
 }
+
 @media only screen and (max-width:980px) and (orientation:portrait) {
 	.holder-site-logo {
 		margin-top: -6.000rem;
 		margin-top: -7.500vh;
 	}
+
 	.site-logo {
 		width: 12.000rem;
 		height: 12.000rem;
@@ -531,11 +614,13 @@ u,
 		background-size: 15.000vh 15.000vh;
 	}
 }
+
 @media only screen and (max-width:900px) and (orientation:portrait) {
 	.holder-site-logo {
 		margin-top: -9.000rem;
 		margin-top: -7.500vh;
 	}
+
 	.site-logo {
 		width: 18.000rem;
 		height: 18.000rem;
@@ -545,11 +630,13 @@ u,
 		background-size: 15.000vh 15.000vh;
 	}
 }
+
 @media only screen and (max-width:800px) and (orientation:portrait) {
 	.holder-site-logo {
 		margin-top: -6.000rem;
 		margin-top: -7.500vh;
 	}
+
 	.site-logo {
 		width: 12.000rem;
 		height: 12.000rem;
@@ -559,11 +646,13 @@ u,
 		background-size: 15.000vh 15.000vh;
 	}
 }
+
 @media only screen and (max-width:768px) and (orientation:portrait) {
 	.holder-site-logo {
 		margin-top: -4.750rem;
 		margin-top: -7.500vh;
 	}
+
 	.site-logo {
 		width: 9.500rem;
 		height: 9.500rem;
@@ -573,15 +662,18 @@ u,
 		height: 15.000vh;
 		background-size: 15.000vh 15.000vh;
 	}
+
 	.no-svg .site-logo {
 		background-image: url(../img/sitelogo-rounded-BB3F3F-72x72.png);
 	}
 }
+
 @media only screen and (max-width:640px) and (orientation:landscape) {
 	.holder-site-logo {
 		margin-top: -3.000rem;
 		margin-top: -7.500vw;
 	}
+
 	.site-logo {
 		width: 6.000rem;
 		height: 6.000rem;
@@ -591,11 +683,13 @@ u,
 		background-size: 15.000vw 15.000vw;
 	}
 }
+
 @media only screen and (max-width:600px) and (orientation:portrait) {
 	.holder-site-logo {
 		margin-top: -6.000rem;
 		margin-top: -7.500vh;
 	}
+
 	.site-logo {
 		width: 12.000rem;
 		height: 12.000rem;
@@ -605,11 +699,13 @@ u,
 		background-size: 15.000vh 15.000vh;
 	}
 }
+
 @media only screen and (max-width:480px) and (orientation:landscape) {
 	.holder-site-logo {
 		margin-top: -2.250rem;
 		margin-top: -7.500vw;
 	}
+
 	.site-logo {
 		width: 4.500rem;
 		height: 4.500rem;
@@ -619,11 +715,13 @@ u,
 		background-size: 15.000vw 15.000vw;
 	}
 }
+
 @media only screen and (max-width:360px) and (orientation:portrait) {
 	.holder-site-logo {
 		margin-top: -3.000rem;
 		margin-top: -7.500vh;
 	}
+
 	.site-logo {
 		width: 6.000rem;
 		height: 6.000rem;
@@ -633,11 +731,13 @@ u,
 		background-size: 15.000vh 15.000vh;
 	}
 }
+
 @media only screen and (max-width:320px) and (orientation:portrait) {
 	.holder-site-logo {
 		margin-top: -2.250rem;
 		margin-top: -7.500vh;
 	}
+
 	.site-logo {
 		width: 4.500rem;
 		height: 4.500rem;
@@ -647,11 +747,13 @@ u,
 		background-size: 15.000vh 15.000vh;
 	}
 }
+
 @media only screen and (max-width:320px) and (orientation:landscape) {
 	.holder-site-logo {
 		margin-top: -1.500rem;
 		margin-top: -7.500vw;
 	}
+
 	.site-logo {
 		width: 3.000rem;
 		height: 3.000rem;
@@ -661,11 +763,13 @@ u,
 		background-size: 15.000vw 15.000vw;
 	}
 }
+
 @media only screen and (max-width:240px) and (orientation:portrait) {
 	.holder-site-logo {
 		margin-top: -1.500rem;
 		margin-top: -7.500vh;
 	}
+
 	.site-logo {
 		width: 3.000rem;
 		height: 3.000rem;
@@ -675,9 +779,11 @@ u,
 		background-size: 15.000vh 15.000vh;
 	}
 }
+
 /**
  * other
  */
+
 .copyright {
 	display: none;
 	position: absolute;
@@ -690,128 +796,156 @@ u,
 	text-shadow: 0 0 0.125rem rgba(0,0,0,0.9);
 	color: #FFFFFF;
 }
+
 .copyright a {
 	font-weight: 400;
 }
+
 /**
  * retina
  */
+
 @media only screen and (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
 }
+
 /**
  * font for mobile
  * iosfonts.com/
  * google.com/design/spec/style/typography.html#typography-language-categorization
  * msdn.microsoft.com/en-us/library/windows/apps/hh202920%28v=vs.105%29.aspx
  */
+
 @media only screen and (max-width: 480px) {
 	body {
 		font-family: "Segoe UI","Segoe WP","Source Sans Pro","Open Sans","Exo2","Fira Sans",sans-serif;
 	}
+
 	.panel-nav-menu li {
 		font-family: "Segoe UI Light","Segoe WP Light","Source Sans Pro","Open Sans","Exo2","Fira Sans",sans-serif;
 	}
 }
+
 /**
  * media queries
  */
+
 @media only screen and (max-width: 20em) {
 	html {
 		font-size: 85.7%;
 	}
 }
+
 @media only screen and (min-width: 20.063em) {
 	html {
 		font-size: 92.2%;
 	}
 }
+
 @media only screen and (min-width: 20.063em) and (max-width: 30em) {
 	html {
 		font-size: 92.2%;
 	}
 }
+
 @media only screen and (min-width: 30.063em) {
 	html {
 		font-size: 107.1%;
 	}
 }
+
 @media only screen and (min-width: 30.063em) and (max-width: 40em) {
 	html {
 		font-size: 107.1%;
 	}
 }
+
 @media only screen and (min-width: 40.063em) {
 	html {
 		font-size: 121.4%;
 	}
 }
+
 @media only screen and (min-width: 40.063em) and (max-width: 50em) {
 	html {
 		font-size: 121.4%;
 	}
 }
+
 @media only screen and (min-width: 50.063em) {
 	html {
 		font-size: 92.2%;
 	}
 }
+
 @media only screen and (min-width: 50.063em) and (max-width: 60em) {
 	html {
 		font-size: 92.2%;
 	}
 }
+
 @media only screen and (min-width: 60.063em) {
 	html {
 		font-size: 92.2%;
 	}
 }
+
 @media only screen and (min-width: 60.063em) and (max-width: 64em) {
 	html {
 		font-size: 92.2%;
 	}
 }
+
 @media only screen and (min-width: 64.063em) {
 	html {
 		font-size: 100%;
 	}
 }
+
 @media only screen and (min-width: 64.063em) and (max-width: 74em) {
 	html {
 		font-size: 100%;
 	}
 }
+
 @media only screen and (min-width: 74.063em) {
 	html {
 		font-size: 100%;
 	}
 }
+
 @media only screen and (min-width: 74.063em) and (max-width: 80em) {
 	html {
 		font-size: 100%;
 	}
 }
+
 @media only screen and (min-width: 80.063em) {
 	html {
 		font-size: 100%;
 	}
 }
+
 @media only screen and (min-width: 80.063em) and (max-width: 90em) {
 	html {
 		font-size: 100%;
 	}
 }
+
 @media only screen and (min-width: 90.063em) {
 	html {
 		font-size: 107.1%;
 	}
 }
+
 @media only screen and (min-width: 90.063em) and (max-width: 120em) {
 	html {
 		font-size: 107.1%;
 	}
 }
+
 @media only screen and (min-width: 120.063em) {
 	html {
 		font-size: 114.3%;
 	}
 }
+

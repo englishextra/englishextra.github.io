@@ -1,0 +1,338 @@
+/*! @import "notfound-parallax-content"; */
+
+/**
+ * desktop parallax content
+ */
+
+.parallax {
+	height: 100%;
+}
+
+.parallax .scene1 {
+	/**
+	 * the height visible block
+	 * of the logo and subhead and button
+	 * and vk like button is 577px
+	 * the height of stripe-top is 9px
+	 * the height of fixed footer is 50px
+	 * so 577px / 2 + 50px - 9px = -329px
+	 * but it is -318 because of some paddings
+	 * or margins like vk like button
+	 */
+	position: relative;
+	top: 50%;
+	margin-top: -265px;
+	/**
+	 * fixes for version parallax 2.1.3
+	 */
+	display: inline-block;
+	width: 720px;
+}
+
+.parallax .subhead {
+	font-weight: 300;
+	display: block;
+	max-width: 720px;
+	font-size: 34px;
+	line-height: 51px;
+	text-align: center;
+	color: #FFFFFF;
+	background: #212328;
+	background-image: linear-gradient(to bottom right, #2B2D32 0%, #212328 100%);
+	opacity: 0.7;
+	border-radius: 5px;
+	margin: 51px auto 0 auto;
+	padding: 21px 28px;
+}
+
+.parallax .getstarted {
+	display: block;
+	max-width: 720px;
+	font-weight: 700;
+	font-size: 18px;
+	line-height: 21px;
+	text-align: center;
+	color: #FFFFFF;
+	margin: 72px auto 0 auto;
+	padding: 0;
+}
+
+.parallax .btn-2c {
+	display: inline-block;
+	position: relative;
+	font-size: inherit;
+	font-weight: inherit;
+	letter-spacing: 0.063em;
+	text-transform: uppercase;
+	color: inherit;
+	background: #7BA389;
+	border-radius: 5px;
+	box-shadow: 0 6px #5D8561;
+	transition: all 0.2s;
+	padding: 21px 28px;
+	margin: 0;
+	outline: none;
+	cursor: pointer;
+}
+
+.parallax .btn-2c:hover {
+	box-shadow: 0 4px #5D8561;
+	top: 2px;
+}
+
+.parallax .btn-2c:active {
+	box-shadow: 0 0 #5D8561;
+	top: 6px;
+}
+
+.parallax .btn-2c:after {
+	content: "";
+	position: absolute;
+	z-index: -1;
+	transition: all 0.2s;
+}
+
+.parallax .btn-2c:before {
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	position: relative;
+	-webkit-font-smoothing: antialiased;
+}
+
+.parallax .sitelogo-holder {
+	width: 100%;
+	margin: 0 auto;
+}
+
+.parallax .sitelogo {
+	display: inline-block;
+	width: 72px;
+	height: 72px;
+}
+
+.parallax .sitetitle-holder {
+	width: 100%;
+	margin: 24px auto 0 auto;
+}
+
+.parallax .sitetitle {
+	display: inline-block;
+	width: 270px;
+	height: 40px;
+}
+
+.parallax .smartphone {
+	display: inline-block;
+	width: 351.750pt;
+	height: 468.750pt;
+	margin-top: 100px;
+	margin-left: -800px;
+	background-color: transparent;
+	background-image: url(/libs/notfound/img/smartphone-469x625.png);
+	background-position: top left;
+	background-repeat: no-repeat;
+	background-size: 351.750pt 468.750pt;
+}
+
+.parallax .smartphone2 {
+	display: inline-block;
+	width: 484.500pt;
+	height: 372.000pt;
+	margin-top: 100px;
+	margin-left: 450px;
+	background-color: transparent;
+	background-image: url(/libs/notfound/img/smartphone2-646x496.png);
+	background-position: top left;
+	background-repeat: no-repeat;
+	background-size: 484.500pt 372.000pt;
+}
+
+/**
+ * mobile parallax content
+ */
+
+.parallax-disabled {
+	display: none;
+	height: 100%;
+}
+
+.parallax-disabled .scene1 {
+	/**
+	 * the height visible block
+	 * of the logo and subhead and button
+	 * (no vk like) is 257px
+	 * the height of stripe-top is 9px
+	 * the height of fixed footer is 50px
+	 * so 257px / 2 + 50px - 9px = ~-170px
+	 * but it is -159 because of some paddings
+	 * or margins
+	 */
+	position: relative;
+	top: 50%;
+	margin-top: -159px;
+}
+
+.parallax-disabled .getstarted {
+	display: block;
+	max-width: 720px;
+	font-weight: 700;
+	font-size: 18px;
+	line-height: 21px;
+	text-align: center;
+	color: #FFFFFF;
+	margin: 40px auto 0 auto;
+	padding: 0;
+}
+
+.parallax-disabled .btn-2c {
+	display: inline-block;
+	position: relative;
+	font-size: inherit;
+	font-weight: inherit;
+	letter-spacing: 0.063em;
+	text-transform: uppercase;
+	color: inherit;
+	background: #7BA389;
+	border-radius: 5px;
+	box-shadow: 0 6px #5D8561;
+	transition: all 0.2s;
+	padding: 21px 28px;
+	margin: 0;
+	outline: none;
+	cursor: pointer;
+}
+
+.parallax-disabled .btn-2c:hover {
+	box-shadow: 0 4px #5D8561;
+	top: 2px;
+}
+
+.parallax-disabled .btn-2c:active {
+	box-shadow: 0 0 #5D8561;
+	top: 6px;
+}
+
+.parallax-disabled .btn-2c:after {
+	content: "";
+	position: absolute;
+	z-index: -1;
+	transition: all 0.2s;
+}
+
+.parallax-disabled .btn-2c:before {
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	position: relative;
+	-webkit-font-smoothing: antialiased;
+}
+
+.parallax-disabled .sitelogo-holder {
+	width: 100%;
+	margin: 0 auto;
+}
+
+.parallax-disabled .sitelogo {
+	display: inline-block;
+	width: 54.000pt;
+	height: 54.000pt;
+}
+
+.parallax .sitelogo,
+.parallax-disabled .sitelogo {
+	background-color: transparent;
+	background-image: url(/libs/notfound/img/sitelogo-D54848-72x72.png);
+	background-position: top left;
+	background-repeat: no-repeat;
+	background-size: 54.000pt 54.000pt;
+}
+
+.parallax-disabled .sitetitle-holder {
+	width: 100%;
+	margin: 24px auto 0 auto;
+}
+
+.parallax-disabled .sitetitle {
+	display: inline-block;
+	width: 202.500pt;
+	height: 30.000pt;
+}
+
+.parallax .sitetitle,
+.parallax-disabled .sitetitle {
+	background-color: transparent;
+	background-image: url(/libs/notfound/img/siteltitle-FFFFFF-270x40.png);
+	background-position: top left;
+	background-repeat: no-repeat;
+	background-size: 202.500pt 30.000pt;
+}
+
+@media (min-height:1px) and (max-height:380px) {
+	.parallax .scene1 {
+		margin-top: -126px;
+	}
+
+	.parallax .getstarted,
+	.parallax .sitetitle-holder {
+		margin: 4px auto 0 auto;
+	}
+
+	.parallax .subhead,
+	.parallax .smartphone,
+	.parallax .smartphone2 {
+		display: none;
+	}
+}
+
+@media (min-height:381px) and (max-height:467px) {
+	.parallax .scene1 {
+		margin-top: -146px;
+	}
+
+	.parallax .getstarted,
+	.parallax .sitetitle-holder {
+		margin: 24px auto 0 auto;
+	}
+
+	.parallax .subhead,
+	.parallax .smartphone,
+	.parallax .smartphone2 {
+		display: none;
+	}
+}
+
+@media (min-height:468px) and (max-height:567px) {
+	.parallax .scene1 {
+		margin-top: -162px;
+	}
+
+	.parallax .getstarted,
+	.parallax .sitetitle-holder {
+		margin: 40px auto 0 auto;
+	}
+
+	.parallax .subhead,
+	.parallax .smartphone,
+	.parallax .smartphone2 {
+		display: none;
+	}
+}
+
+@media screen and (max-height: 380px) {
+	.parallax-disabled .scene1 {
+		margin-top: -105px;
+	}
+
+	.parallax-disabled .getstarted,
+	.parallax-disabled .sitetitle-holder {
+		margin: 4px auto 0 auto;
+	}
+}
+

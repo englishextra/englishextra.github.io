@@ -1,21 +1,27 @@
-/* @import "forbidden-animate.partial"; */
+/*! @import "forbidden-animate.partial"; */
+
 /**
  * some animations from animate.css
  * github.com/daneden/animate.css
  * daneden.github.io/animate.css/
  */
+
 /* .animated {
 	animation-duration: 2s;
 	animation-fill-mode: both;
 } */
+
 @keyframes pulse {
 	25% {
 		transform: scale(1.1);
 	}
+
 	75% {
 		transform: scale(0.9);
 	}
 }
+
 .pulse {
 	animation-name: pulse;
 }
+

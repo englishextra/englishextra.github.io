@@ -1,34 +1,45 @@
-/* @import "branding-masonry-grid"; */
+/*! @import "branding-masonry-grid"; */
+
 /**
  * masonry grid
  */
+
 .masonry-grid {
 	display: block;
 	width: 100%;
 	padding: 0;
 	margin: 0 auto;
 }
+
 .masonry-grid:after {
 	display: block;
 	content: "";
 	clear: both;
 }
+
 .masonry-grid-sizer,
 .masonry-grid-item {
 	width: 50%;
 }
+
 .masonry-grid-item {
 	float: left;
 	font-weight: 300;
 	font-size: 1.000rem;
 	min-height: 5.125rem;
 }
+
 @media handheld,only screen and (max-width:800px) {
 	.masonry-grid-sizer,
 	.masonry-grid-item {
 		width: 50%;
 	}
 }
+
 .masonry-grid-item div {
 	min-height: 5.125rem;
+	font-weight: 300;
+	line-height: 1.000rem;
+	padding: 1.000rem;
 }
+

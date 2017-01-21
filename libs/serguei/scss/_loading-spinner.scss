@@ -1,9 +1,11 @@
-/* @import "loading-spinner"; */
+/*! @import "loading-spinner"; */
+
 /**
  * github.com/lukehaas/css-loaders
  * projects.lukehaas.me/css-loaders/
  * size of a loader dependent on font size
  */
+
 .loading-spinner .loading-spinner {
 	font-size: 8px;
 	position: fixed;
@@ -19,17 +21,21 @@
 	animation: load8 1.1s infinite linear;
 	z-index: 1003;
 }
+
 .loading-spinner .loading-spinner,
 .loading-spinner .loading-spinner:after {
 	border-radius: 50%;
 	width: 10em;
 	height: 10em;
 }
+
 @keyframes load8 {
 	0% {
 		transform: rotate(0deg);
 	}
+
 	100% {
 		transform: rotate(360deg);
 	}
 }
+

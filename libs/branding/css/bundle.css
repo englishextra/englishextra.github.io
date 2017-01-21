@@ -1,8 +1,12 @@
-/*!
- * libs\branding\scss\bundle.scss
+/*! libs\branding\scss\bundle.scss */
+
+/*! @import "englishextra-ui-colors"; */
+
+/**
+ * englishextra-ui colors
  */
 
-/* @import "branding-font-face"; */
+/*! @import "branding-font-face"; */
 
 @font-face {
 	font-family: "englishextra-ui-icons";
@@ -75,9 +79,9 @@
 	font-stretch: normal;
 }
 
-/* @import "normalize"; */
+/*! @import "normalize"; */
 
-/** normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */
+/*! normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */
 
 button,
 hr,
@@ -302,7 +306,7 @@ template {
 	display: none;
 }
 
-/* @import "typeboost-css"; */
+/*! @import "typeboost-css"; */
 
 /**
  * typeboost.css v0.1.7
@@ -457,19 +461,19 @@ template {
 }
 
 .col h2 {
-	font-size: 1.500rem;
+	font-size: 1.611rem;
 	line-height: 1.200;
 	padding: 0;
 }
 
 .col h3 {
-	font-size: 1.100rem;
+	font-size: 1.210rem;
 	line-height: 1.200;
 	padding: 0;
 }
 
 .col h4 {
-	font-size: 1.000rem;
+	font-size: 1.100rem;
 	line-height: 1.200;
 	font-variant: small-caps;
 	letter-spacing: 0.063rem;
@@ -1076,6 +1080,10 @@ template {
 	margin: 1.500rem 0;
 }
 
+/**
+ * font weights
+ */
+
 .col h1,
 .col h2,
 .col h4,
@@ -1124,6 +1132,10 @@ template {
 	font-weight: bolder;
 }
 
+/**
+ * font styles
+ */
+
 .col address,
 .col p.address,
 .col p.blockquote,
@@ -1135,6 +1147,10 @@ template {
 .col .italic {
 	font-style: italic;
 }
+
+/**
+ * font families
+ */
 
 .col h1 {
 	font-family: serif;
@@ -1183,6 +1199,10 @@ template {
 .col .phonetic {
 	font-family: "Source Code Pro","Consolas",monospace;
 }
+
+/**
+ * colors
+ */
 
 .col a {
 	color: #307CCA;
@@ -1438,7 +1458,7 @@ template {
 	color: #EE6944;
 }
 
-/* @import "simplegrid.fixed"; */
+/*! @import "simplegrid.fixed"; */
 
 /**
  * modified Simple Grid
@@ -1760,7 +1780,7 @@ body {
 	}
 }
 
-/* @import "loading-spinner"; */
+/*! @import "loading-spinner"; */
 
 /**
  * github.com/lukehaas/css-loaders
@@ -1817,7 +1837,7 @@ body {
 	}
 }
 
-/* @import "img-lightbox"; */
+/*! @import "img-lightbox"; */
 
 /**
  * img lightbox
@@ -1870,7 +1890,7 @@ body {
 	animation-fill-mode: both;
 }
 
-/* @import "branding-animate.partial"; */
+/*! @import "branding-animate.partial"; */
 
 /**
  * some animations from animate.css
@@ -1995,7 +2015,7 @@ body {
 	animation-name: fadeOutDown;
 }
 
-/* @import "kamil-autocomplete"; */
+/*! @import "kamil-autocomplete"; */
 
 /**
  * modified Kamil v0.0.1
@@ -2034,7 +2054,7 @@ body {
 	background-color: #bed4eb;
 }
 
-/* @import "location-qr-code"; */
+/*! @import "location-qr-code"; */
 
 /**
  * location qr code
@@ -2060,7 +2080,7 @@ body {
 	margin: 0;
 }
 
-/* @import "vk-like-light"; */
+/*! @import "vk-like-light"; */
 
 /**
  * vk-like
@@ -2112,7 +2132,7 @@ body {
 	color: #848484;
 }
 
-/* @import "share-buttons-light"; */
+/*! @import "share-buttons-light"; */
 
 /**
  * pluso, yashare
@@ -2170,7 +2190,7 @@ body {
 	color: rgba(25, 25, 25, 0.5);
 }
 
-/* @import "branding-masonry-grid"; */
+/*! @import "branding-masonry-grid"; */
 
 /**
  * masonry grid
@@ -2210,9 +2230,12 @@ body {
 
 .masonry-grid-item div {
 	min-height: 5.125rem;
+	font-weight: 300;
+	line-height: 1.000rem;
+	padding: 1.000rem;
 }
 
-/* @import "prettyprint.fixed"; */
+/*! @import "prettyprint.fixed"; */
 
 /**
  * a google-code-prettify theme for englishextra.github.io based on
@@ -2413,7 +2436,7 @@ ol.linenums li {
 	}
 }
 
-/* @import "disqus-thread"; */
+/*! @import "disqus-thread"; */
 
 /**
  * disqus
@@ -2434,7 +2457,7 @@ ol.linenums li {
 	padding-left: 1.500em;
 }
 
-/* @import "ui-totop"; */
+/*! @import "ui-totop"; */
 
 /**
  * github.com/sksmatt/UItoTop-jQuery-Plugin/
@@ -2493,7 +2516,7 @@ ol.linenums li {
 	color: rgba(25, 25, 25, 0.5);
 }
 
-/* @import "branding-main"; */
+/*! @import "branding-main"; */
 
 /**
  * main
@@ -2506,6 +2529,7 @@ body {
 
 html {
 	font-size: 100%;
+	line-height: 1.500;
 	/**
 	 * set the parent to background transparent
 	 * and position relative to parent, absolute for child
@@ -2766,7 +2790,7 @@ u,
 	clear: both;
 }
 
-/* @import "nav-menu-light"; */
+/*! @import "nav-menu-light"; */
 
 /**
  * nav menu
@@ -2901,7 +2925,7 @@ u,
 	left: 280px;
 }
 
-/* @import "menu-more-light"; */
+/*! @import "menu-more-light"; */
 
 /**
  * menu more
@@ -3663,6 +3687,166 @@ u,
 }
 
 /**
+ * englishextra ui colors
+ */
+
+.bg-color-accent-color-background {
+	background-color: #2D74BD;
+}
+
+.bg-color-active-form-text-element-background {
+	background-color: #F2F2F2;
+}
+
+.bg-color-aside-background {
+	background-color: #F0F0F0;
+}
+
+.bg-color-body-copy-text {
+	background-color: #363636;
+}
+
+.bg-color-brand-color {
+	background-color: #D54848;
+}
+
+.bg-color-darker-accent-color-background {
+	background-color: #1E4D7D;
+}
+
+.bg-color-darker-hover-navigation-icon-background {
+	background-color: #D5D5D5;
+}
+
+.bg-color-darker-off-canvas-navigation-menu-background {
+	background-color: #242424;
+}
+
+.bg-color-darker-top-navigation-bar-background {
+	background-color: #383838;
+}
+
+.bg-color-disabled-form-text-element-background {
+	background-color: #D6D6D6;
+}
+
+.bg-color-divider-background {
+	background-color: #C3C3C3;
+}
+
+.bg-color-error-background {
+	background-color: #D62839;
+}
+
+.bg-color-gray-text {
+	background-color: #949494;
+}
+
+.bg-color-highlight-color {
+	background-color: #EE6944;
+}
+
+.bg-color-hint-background {
+	background-color: #353535;
+}
+
+.bg-color-hover-form-button-element-background {
+	background-color: #606060;
+}
+
+.bg-color-hover-inverted-navigation-icon-background {
+	background-color: #424242;
+}
+
+.bg-color-hover-link-color-background {
+	background-color: #EA6743;
+}
+
+.bg-color-hover-navigation-icon-background {
+	background-color: #DFDFDF;
+}
+
+.bg-color-hover-off-canvas-navigation-menu-link-background {
+	background-color: #464646;
+}
+
+.bg-color-inverted-navigation-icon-background {
+	background-color: #717171;
+}
+
+.bg-color-lighter-accent-background {
+	background-color: #BED4EB;
+}
+
+.bg-color-lighter-text {
+	background-color: #686868;
+}
+
+.bg-color-link-color-background {
+	background-color: #307CCA;
+}
+
+.bg-color-navigation-icon-font-color {
+	background-color: #848484;
+}
+
+.bg-color-normal-form-button-element-background {
+	background-color: #474747;
+}
+
+.bg-color-notice-background {
+	background-color: #006BA6;
+}
+
+.bg-color-off-canvas-navigation-menu-background {
+	background-color: #2E2E2E;
+}
+
+.bg-color-pre-background {
+	background-color: #E9E9E9;
+}
+
+.bg-color-progress-bar-color {
+	background-color: #FE5F55;
+}
+
+.bg-color-search-results-address-color {
+	background-color: #17AB56;
+}
+
+.bg-color-success-background {
+	background-color: #09814A;
+}
+
+.bg-color-table-cell-background {
+	background-color: #F3F3F3;
+}
+
+.bg-color-table-header-background {
+	background-color: #E8E8E8;
+}
+
+.bg-color-top-navigation-bar-background {
+	background-color: #424242;
+}
+
+.bg-color-visited-link-color {
+	background-color: #8F9BA8;
+}
+
+.bg-color-warning-background {
+	background-color: #F46036;
+}
+
+.color-body-copy-text {
+	color: #363636;
+}
+
+.color-white {
+	color: #FFFFFF;
+}
+
+/**
  * sg specific
  */
 
@@ -4003,15 +4187,19 @@ u,
 	}
 }
 
-/* @import "paper-print"; */
+/*! @import "paper-print"; */
 
 /**
  * gist.github.com/englishextra/cdd503793392281a8a0c
  * jafferhaider.wordpress.com/2007/12/29/fix-for-the-firefoxcss-one-page-printing-bug/
  * html,body {height: auto;}
+
  * body{overflow-x: visible;}
+
  * .col .holder-hidden-layer,.js .col .holder-hidden-layer {max-height: 100%;overflow-y: visible;}
+
  * .container .content-wrapper,.app-content .content-wrapper {position: relative;}
+
  */
 
 @media print {

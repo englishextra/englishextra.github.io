@@ -1,19 +1,24 @@
-/* @import "notfound-main"; */
+/*! @import "notfound-main"; */
+
 /**
  * main
  */
+
 html,
 body {
 	height: 100%;
 }
+
 html {
 	font-size: 100%;
+	line-height: 1.500;
 	/**
 	 * set the parent to background transparent
 	 * and position relative to parent, absolute for child
 	 */
 	background-color: transparent;
 }
+
 body {
 	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI","Segoe WP",sans-serif;
 	font-weight: 400;
@@ -21,7 +26,7 @@ body {
 	line-height: 1.500;
 	width: 100%;
 	color: #363636;
-	background: #3D4045;
+	background-color: #FFFFFF;
 	text-size-adjust: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
@@ -34,61 +39,75 @@ body {
 	margin: 0;
 	padding: 0;
 }
+
 /**
  * englishextra specific rules
  */
+
 a {
 	color: inherit;
 	text-decoration: none;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	outline: none;
 }
+
 a:hover,
 a:active,
 a:focus {
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	outline: none;
 }
+
 img {
 	border: 0;
 	-ms-interpolation-mode: bicubic;
 	vertical-align: bottom;
 }
+
 p:first-child {
 	margin-top: 0;
 }
+
 p:last-child {
 	margin-bottom: 0;
 }
+
 b,
 strong,
 .bolder {
 	font-weight: bold;
 }
+
 i,
 em,
 .italic {
 	font-style: italic;
 }
+
 u,
 .underline {
 	text-decoration: underline;
 }
+
 *,*:after,
 *::before {
 	box-sizing: border-box;
 }
+
 ::-moz-selection {
 	color: rgba(255,255,255,0.9);
 	background: rgba(48,124,202,0.9);
 }
+
 ::selection {
 	color: rgba(255,255,255,0.9);
 	background: rgba(48,124,202,0.9);
 }
+
 /**
  * clearfix css-tricks.com/snippets/css/clear-fix/
  */
+
 .cf:after {
 	display: block;
 	visibility: hidden;
@@ -96,55 +115,66 @@ u,
 	content: "";
 	clear: both;
 }
+
 /**
  * fit width
  */
+
 .fit-width {
 	min-width: 100%;
 }
+
 /**
  * hide and show on mobile
  */
+
 .show-inline-on-mobile,
 .show-block-on-mobile {
 	display: none !important;
 }
+
 @media handheld,only screen and (max-width:800px) {
 	.hide-on-mobile {
 		display: none !important;
 		width: 0;
 		height: 0;
 	}
+
 	.show-inline-on-mobile {
 		display: inline !important;
 	}
+
 	.show-block-on-mobile {
 		display: block !important;
 	}
 }
+
 /**
  * other
  */
+
 .page {
 	width: 100%;
 	/**
 	 * set the parent to min height 100%, not just height
 	 * and position relative to parent, absolute for child
 	 */
-	min-height: 100%;
+	height: 100%;
 	position: relative;
 	top: 0;
 	left: 0;
+	background-color: #3D4045;
+	background-image: url(/libs/notfound/img/bg-417x417.png);
+	background-position: top left;
+	background-repeat: repeat;
+	background-size: 312.750pt 312.750pt;
 }
+
 .container {
 	width: 100%;
 	height: 100%;
 	opacity: 0;
 	transition: opacity 0.2s linear;
-	padding: 0;
-	margin: 0 auto;
-}
-.container {
 	text-align: center;
 	/**
 	 * fix the bug in webkit for stycky footer
@@ -152,19 +182,10 @@ u,
 	overflow: auto;
 	overflow-y: hidden;
 	overflow-x: hidden;
-	margin-bottom: -9px;
+	padding: 0;
+	margin: 0 auto -9px auto;
 }
-#page {
-	height: 100%;
-}
-.background,
-#page {
-	background-color: transparent;
-	background-image: url(/libs/notfound/img/bg-417x417.png);
-	background-position: top left;
-	background-repeat: repeat;
-	background-size: 312.750pt 312.750pt;
-}
+
 .stripe-top {
 	height: 4.500pt;
 	background-color: transparent;
@@ -173,14 +194,7 @@ u,
 	background-repeat: repeat-x;
 	background-size: 360.000pt 45.000pt;
 }
-.background {
-	display: inline-block;
-	width: 2502px;
-	/* height: 1668px; */
-	height: 100%;
-	margin-top: -60px;
-	margin-left: 0;
-}
+
 .footer {
 	width: 100%;
 	height: 50px;
@@ -196,335 +210,69 @@ u,
 	background: none #3A3A3C;
 	margin: 0 auto;
 }
+
 .footer p {
 	position: relative;
 	top: 18px;
 	color: inherit;
 }
+
 .footer a {
 	color: inherit;
 	text-decoration: none;
 }
-/**
- * desktop parallax content
- */
-.parallax {
-	height: 100%;
-}
-.parallax .scene1 {
-	/**
-	 * the height visible block
-	 * of the logo and subhead and button
-	 * and vk like button is 577px
-	 * the height of stripe-top is 9px
-	 * the height of fixed footer is 50px
-	 * so 577px / 2 + 50px - 9px = -329px
-	 * but it is -318 because of some paddings
-	 * or margins like vk like button
-	 */
-	position: relative;
-	top: 50%;
-	margin-top: -265px;
-	/**
-	 * fixes for version parallax 2.1.3
-	 */
-	display: inline-block;
-	width: 720px;
-}
-.parallax .subhead {
-	font-weight: 300;
-	display: block;
-	max-width: 720px;
-	font-size: 34px;
-	line-height: 51px;
-	text-align: center;
-	color: #FFFFFF;
-	background: #212328;
-	background-image: linear-gradient(to bottom right, #2B2D32 0%, #212328 100%);
-	opacity: 0.7;
-	border-radius: 5px;
-	margin: 51px auto 0 auto;
-	padding: 21px 28px;
-}
-.parallax .getstarted {
-	display: block;
-	max-width: 720px;
-	font-weight: 700;
-	font-size: 18px;
-	line-height: 21px;
-	text-align: center;
-	color: #FFFFFF;
-	margin: 72px auto 0 auto;
-	padding: 0;
-}
-.parallax .btn-2c {
-	display: inline-block;
-	position: relative;
-	font-size: inherit;
-	font-weight: inherit;
-	letter-spacing: 0.063em;
-	text-transform: uppercase;
-	color: inherit;
-	background: #7BA389;
-	border-radius: 5px;
-	box-shadow: 0 6px #5D8561;
-	transition: all 0.2s;
-	padding: 21px 28px;
-	margin: 0;
-	outline: none;
-	cursor: pointer;
-}
-.parallax .btn-2c:hover {
-	box-shadow: 0 4px #5D8561;
-	top: 2px;
-}
-.parallax .btn-2c:active {
-	box-shadow: 0 0 #5D8561;
-	top: 6px;
-}
-.parallax .btn-2c:after {
-	content: "";
-	position: absolute;
-	z-index: -1;
-	transition: all 0.2s;
-}
-.parallax .btn-2c:before {
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	line-height: 1;
-	position: relative;
-	-webkit-font-smoothing: antialiased;
-}
-.parallax .sitelogo-holder {
-	width: 100%;
-	margin: 0 auto;
-}
-.parallax .sitelogo {
-	display: inline-block;
-	width: 72px;
-	height: 72px;
-}
-.parallax .sitetitle-holder {
-	width: 100%;
-	margin: 24px auto 0 auto;
-}
-.parallax .sitetitle {
-	display: inline-block;
-	width: 270px;
-	height: 40px;
-}
-.parallax .smartphone {
-	display: inline-block;
-	width: 351.750pt;
-	height: 468.750pt;
-	margin-top: 100px;
-	margin-left: -800px;
-	background-color: transparent;
-	background-image: url(/libs/notfound/img/smartphone-469x625.png);
-	background-position: top left;
-	background-repeat: no-repeat;
-	background-size: 351.750pt 468.750pt;
-}
-.parallax .smartphone2 {
-	display: inline-block;
-	width: 484.500pt;
-	height: 372.000pt;
-	margin-top: 100px;
-	margin-left: 450px;
-	background-color: transparent;
-	background-image: url(/libs/notfound/img/smartphone2-646x496.png);
-	background-position: top left;
-	background-repeat: no-repeat;
-	background-size: 484.500pt 372.000pt;
-}
-/**
- * mobile parallax content
- */
-.parallax-disabled {
-	display: none;
-	height: 100%;
-}
-.parallax-disabled .scene1 {
-	/**
-	 * the height visible block
-	 * of the logo and subhead and button
-	 * (no vk like) is 257px
-	 * the height of stripe-top is 9px
-	 * the height of fixed footer is 50px
-	 * so 257px / 2 + 50px - 9px = ~-170px
-	 * but it is -159 because of some paddings
-	 * or margins
-	 */
-	position: relative;
-	top: 50%;
-	margin-top: -159px;
-}
-.parallax-disabled .getstarted {
-	display: block;
-	max-width: 720px;
-	font-weight: 700;
-	font-size: 18px;
-	line-height: 21px;
-	text-align: center;
-	color: #FFFFFF;
-	margin: 40px auto 0 auto;
-	padding: 0;
-}
-.parallax-disabled .btn-2c {
-	display: inline-block;
-	position: relative;
-	font-size: inherit;
-	font-weight: inherit;
-	letter-spacing: 0.063em;
-	text-transform: uppercase;
-	color: inherit;
-	background: #7BA389;
-	border-radius: 5px;
-	box-shadow: 0 6px #5D8561;
-	transition: all 0.2s;
-	padding: 21px 28px;
-	margin: 0;
-	outline: none;
-	cursor: pointer;
-}
-.parallax-disabled .btn-2c:hover {
-	box-shadow: 0 4px #5D8561;
-	top: 2px;
-}
-.parallax-disabled .btn-2c:active {
-	box-shadow: 0 0 #5D8561;
-	top: 6px;
-}
-.parallax-disabled .btn-2c:after {
-	content: "";
-	position: absolute;
-	z-index: -1;
-	transition: all 0.2s;
-}
-.parallax-disabled .btn-2c:before {
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	line-height: 1;
-	position: relative;
-	-webkit-font-smoothing: antialiased;
-}
-.parallax-disabled .sitelogo-holder {
-	width: 100%;
-	margin: 0 auto;
-}
-.parallax-disabled .sitelogo {
-	display: inline-block;
-	width: 54.000pt;
-	height: 54.000pt;
-}
-.parallax .sitelogo,
-.parallax-disabled .sitelogo {
-	background-color: transparent;
-	background-image: url(/libs/notfound/img/sitelogo-D54848-72x72.png);
-	background-position: top left;
-	background-repeat: no-repeat;
-	background-size: 54.000pt 54.000pt;
-}
-.parallax-disabled .sitetitle-holder {
-	width: 100%;
-	margin: 24px auto 0 auto;
-}
-.parallax-disabled .sitetitle {
-	display: inline-block;
-	width: 202.500pt;
-	height: 30.000pt;
-}
-.parallax .sitetitle,
-.parallax-disabled .sitetitle {
-	background-color: transparent;
-	background-image: url(/libs/notfound/img/siteltitle-FFFFFF-270x40.png);
-	background-position: top left;
-	background-repeat: no-repeat;
-	background-size: 202.500pt 30.000pt;
-}
+
+
 /**
  * retina
  */
+
 @media only screen and (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
 }
+
 /**
  * font for mobile
  * iosfonts.com/
  * google.com/design/spec/style/typography.html#typography-language-categorization
  * msdn.microsoft.com/en-us/library/windows/apps/hh202920%28v=vs.105%29.aspx
  */
+
 @media only screen and (max-width: 480px) {
 	body,
 	.footer {
 		font-family: "Segoe UI","Segoe WP","Source Sans Pro","Open Sans","Exo2","Fira Sans",sans-serif;
 	}
+
 	.parallax .subhead {
 		font-family: "Segoe UI Light","Segoe WP Light","Source Sans Pro","Open Sans","Exo2","Fira Sans",sans-serif;
 	}
 }
+
 /**
  * media queries
  */
+
 @media (min-height:1px) and (max-height:380px) {
-	.parallax .scene1 {
-		margin-top: -126px;
-	}
-	.parallax .getstarted,
-	.parallax .sitetitle-holder {
-		margin: 4px auto 0 auto;
-	}
-	.parallax .subhead,
-	.parallax .smartphone,
-	.parallax .smartphone2,
 	.footer {
 		display: none;
 	}
 }
+
 @media (min-height:381px) and (max-height:467px) {
-	.parallax .scene1 {
-		margin-top: -146px;
-	}
-	.parallax .getstarted,
-	.parallax .sitetitle-holder {
-		margin: 24px auto 0 auto;
-	}
-	.parallax .subhead,
-	.parallax .smartphone,
-	.parallax .smartphone2,
 	.footer {
 		display: none;
 	}
 }
+
 @media (min-height:468px) and (max-height:567px) {
-	.parallax .scene1 {
-		margin-top: -162px;
-	}
-	.parallax .getstarted,
-	.parallax .sitetitle-holder {
-		margin: 40px auto 0 auto;
-	}
-	.parallax .subhead,
-	.parallax .smartphone,
-	.parallax .smartphone2,
 	.footer {
 		display: none;
 	}
 }
+
 @media screen and (max-height: 380px) {
-	.parallax-disabled .scene1 {
-		margin-top: -105px;
-	}
-	.parallax-disabled .getstarted,
-	.parallax-disabled .sitetitle-holder {
-		margin: 4px auto 0 auto;
-	}
 	.footer {
 		display: none;
 	}
 }
+

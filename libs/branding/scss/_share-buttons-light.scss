@@ -1,7 +1,9 @@
-/* @import "share-buttons-light"; */
+/*! @import "share-buttons-light"; */
+
 /**
  * pluso, yashare
  */
+
 .ya-share2 {
 	position: fixed !important;
 	right: 41.250pt;
@@ -10,6 +12,7 @@
 	opacity: 0;
 	transition: visibility 0s, opacity 0.2s linear;
 }
+
 .pluso {
 	position: fixed !important;
 	right: 0;
@@ -18,6 +21,7 @@
 	opacity: 0;
 	transition: visibility 0s, opacity 0.2s linear;
 }
+
 .share-buttons {
 	display: inline-block;
 	width: 33.000pt;
@@ -36,9 +40,11 @@
 	outline: none;
 	z-index: 999;
 }
+
 .share-buttons:hover {
 	background-color: rgba(213,213,213,1);
 }
+
 .share-buttons:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e91d";
@@ -46,3 +52,4 @@
 	line-height: 33.000pt;
 	color: rgba(25,25,25,0.5);
 }
+

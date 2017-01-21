@@ -1,7 +1,9 @@
-/* @import "img-lightbox"; */
+/*! @import "img-lightbox"; */
+
 /**
  * img lightbox
  */
+
 .img-lightbox-container {
 	display: none;
 	width: 100%;
@@ -13,6 +15,7 @@
 	opacity: 0;
 	z-index: 1000;
 }
+
 .img-lightbox-container img {
 	max-width: 90%;
 	max-height: 90%;
@@ -31,12 +34,15 @@
 	margin: auto;
 	z-index: 1001;
 }
+
 /**
  * reset for animate.css
  * daneden.github.io/animate.css/
  */
+
 .img-lightbox-container.animated,
 .img-lightbox-container img.animated {
 	animation-duration: 0.4s;
 	animation-fill-mode: both;
 }
+

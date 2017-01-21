@@ -1,7 +1,9 @@
-/* @import "location-qr-code"; */
+/*! @import "location-qr-code"; */
+
 /**
  * location qr code
  */
+
 .location-qr-code {
 	width: 100%;
 	display: block;
@@ -9,6 +11,7 @@
 	text-align: left;
 	background: #FFFFFF;
 }
+
 .location-qr-code .qr-code-img {
 	display: block;
 	width: 10.000em;
@@ -20,3 +23,4 @@
 	padding: 0;
 	margin: 0;
 }
+

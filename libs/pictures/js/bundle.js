@@ -607,7 +607,7 @@ evento.add(window, "load", loadInitMasonryImagesLoaded);
 var initPhotoswipe = function () {
 	"use strict";
 	var w = window,
-	c = ".masonry-grid",
+	c = ".pswp-gallery",
 	gallery = BALA.one(c) || "",
 	item = ".masonry-grid-item",
 	gallery_item = BALA.one(item) || "",

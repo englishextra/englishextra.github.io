@@ -1,8 +1,6 @@
-/*!
- * libs\irregular_verbs\scss\bundle.scss
- */
+/*! libs\irregular_verbs\scss\bundle.scss */
 
-/* @import "irregular-verbs-font-face"; */
+/*! @import "irregular-verbs-font-face"; */
 
 @font-face {
 	font-family: "englishextra-ui-icons";
@@ -40,9 +38,9 @@
 	font-stretch: normal;
 }
 
-/* @import "normalize"; */
+/*! @import "normalize"; */
 
-/** normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */
+/*! normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */
 
 button,
 hr,
@@ -267,7 +265,7 @@ template {
 	display: none;
 }
 
-/* @import "location-qr-code"; */
+/*! @import "location-qr-code"; */
 
 /**
  * location qr code
@@ -293,7 +291,7 @@ template {
 	margin: 0;
 }
 
-/* @import "vk-like-light"; */
+/*! @import "vk-like-light"; */
 
 /**
  * vk-like
@@ -345,7 +343,7 @@ template {
 	color: rgba(25, 25, 25, 0.5);
 }
 
-/* @import "share-buttons-light"; */
+/*! @import "share-buttons-light"; */
 
 /**
  * pluso, yashare
@@ -403,13 +401,19 @@ template {
 	color: rgba(25, 25, 25, 0.5);
 }
 
-/* @import "irregular-verbs-doslide"; */
+/*! @import "irregular-verbs-doslide"; */
 
 /**
  * DoSlide v1.1.3
  * (c) 2016 MopTym <moptym@163.com>
  * Released under the MIT License.
  * Homepage - https://github.com/MopTym/doSlide
+ */
+
+/**
+ * renamed wrap class
+ * github.com/MopTym/doSlide/issues/19#issuecomment-205791702
+ * github.com/MopTym/doSlide/blob/master/demo/3_1_slider.html
  */
 
 .ds-parent {
@@ -497,7 +501,7 @@ body {
 	font-family: "Source Code Pro","Consolas",monospace;
 }
 
-/* @import "irregular-verbs-main"; */
+/*! @import "irregular-verbs-main"; */
 
 /**
  * main
@@ -510,6 +514,7 @@ body {
 
 html {
 	font-size: 100%;
+	line-height: 1.500;
 	/**
 	 * set the parent to background transparent
 	 * and position relative to parent, absolute for child
@@ -524,7 +529,7 @@ body {
 	line-height: 1.500;
 	width: 100%;
 	color: #363636;
-	background-color: #F0F0F0;
+	background-color: #FFFFFF;
 	-webkit-text-size-adjust: none;
 	-ms-text-size-adjust: none;
 	text-size-adjust: none;
@@ -651,12 +656,6 @@ u,
 }
 
 /**
- * renamed wrap class
- * github.com/MopTym/doSlide/issues/19#issuecomment-205791702
- * github.com/MopTym/doSlide/blob/master/demo/3_1_slider.html
- */
-
-/**
  * other
  */
 
@@ -682,7 +681,7 @@ u,
 	margin: 0 auto;
 }
 
-/* @import "irregular-verbs-nav-menu"; */
+/*! @import "irregular-verbs-nav-menu"; */
 
 /**
  * nav-menu
@@ -725,7 +724,7 @@ u,
 	color: rgba(25, 25, 25, 0.5);
 }
 
-/* @import "menu-more-light"; */
+/*! @import "menu-more-light"; */
 
 /**
  * menu more

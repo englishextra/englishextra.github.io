@@ -1,7 +1,9 @@
-/* @import "sitemap-masonry-grid"; */
+/*! @import "sitemap-masonry-grid"; */
+
 /**
  * masonry grid wrapper
  */
+
 .masonry-grid-wrapper {
 	width: 92%;
 	height: 100%;
@@ -10,6 +12,7 @@
 	padding-bottom: 1.500rem;
 	margin: 0 auto;
 }
+
 .masonry-grid-wrapper h1 {
 	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI Light","Segoe WP Light",sans-serif;
 	font-weight: 300;
@@ -17,13 +20,16 @@
 	text-align: center;
 	margin: 0 1% 1.500rem 1%;
 }
+
 .masonry-grid-wrapper h1 a {
 	text-decoration: none;
 	color: inherit;
 }
+
 .masonry-grid-wrapper h1 a:hover {
 	background-color: #BED4EB;
 }
+
 .masonry-grid {
 	display: block;
 	width: 100%;
@@ -31,11 +37,13 @@
 	padding: 0;
 	margin: 0 auto 1.500rem auto;
 }
+
 .masonry-grid:after {
 	display: block;
 	content: "";
 	clear: both;
 }
+
 .masonry-grid-item {
 	display: block;
 	float: left;
@@ -45,62 +53,78 @@
 	background-color: #FFFFFF;
 	margin: 2% 1% 0 1%;
 }
+
 .masonry-grid-item:hover {
 	opacity: 0.9;
 }
+
 .masonry-grid-sizer {
 	width: 25%;
 }
+
 .masonry-grid-item {
 	width: 23%;
 }
+
 .masonry-grid-item a {
 	display: block;
 	text-decoration: none;
 	color: inherit;
 }
+
 .masonry-grid-item img {
 	display: block;
 	width: 100%;
 }
+
 .masonry-grid-item p {
 	min-height: 6.750rem;
 	color: inherit;
 	padding: 1.000rem;
 	margin: 0;
 }
+
 @media handheld,only screen and (max-width:1080px) {
 	.masonry-grid-wrapper {
 		width: 100%;
 		padding-left: 1.000rem;
 		padding-right: 1.000rem;
 	}
+
 	.masonry-grid-sizer {
 		width: 50%;
 	}
+
 	.masonry-grid-item {
 		width: 48%;
 	}
 }
+
 @media handheld,only screen and (max-width:640px) {
 	.masonry-grid-wrapper {
 		width: 100%;
 	}
+
 	.masonry-grid-wrapper h1 {
 		font-size: 1.772rem;
 	}
 }
+
 @media handheld,only screen and (max-width:360px) {
 	.masonry-grid-wrapper h1 {
 		font-size: 1.464rem;
 	}
+
 	.masonry-grid-item {
 		float: none;
 	}
+
 	.masonry-grid-sizer {
 		width: 100%;
 	}
+
 	.masonry-grid-item {
 		width: 98%;
 	}
 }
+

@@ -1,22 +1,30 @@
-/* @import "paper-print"; */
+/*! @import "paper-print"; */
+
 /**
  * gist.github.com/englishextra/cdd503793392281a8a0c
  * jafferhaider.wordpress.com/2007/12/29/fix-for-the-firefoxcss-one-page-printing-bug/
  * html,body {height: auto;}
+
  * body{overflow-x: visible;}
+
  * .col .holder-hidden-layer,.js .col .holder-hidden-layer {max-height: 100%;overflow-y: visible;}
+
  * .container .content-wrapper,.app-content .content-wrapper {position: relative;}
+
  */
+
 @media print {
 	html,
 	body {
 		height: auto;
 	}
+
 	html {
 		font-size: 100%;
 		margin: 0;
 		padding: 0;
 	}
+
 	body {
 		font-family: "Segoe Pro SemiLight","Segoe UI SemiLight",sans-serif;
 		font-weight: normal;
@@ -27,6 +35,7 @@
 		margin: 0;
 		padding: 0;
 	}
+
 	a,
 	.col a {
 		font-family: "Segoe Pro","Segoe UI",sans-serif;
@@ -35,6 +44,7 @@
 		color: inherit;
 		border-bottom: none;
 	}
+
 	p a[href^="http"]:after,
 	.col p a[href^="http"]:after,
 	table td a[href^="http"]:after,
@@ -42,6 +52,7 @@
 		content: " \003c" attr(href) "\003e";
 		color: #307CCA;
 	}
+
 	h1,
 	.col h1 {
 		font-family: "Cambria",serif;
@@ -51,6 +62,7 @@
 		color: inherit;
 		margin-top: 0 !important;
 	}
+
 	h2,
 	.col h2 {
 		font-family: "Segoe Pro SemiLight","Segoe UI SemiLight",sans-serif;
@@ -58,6 +70,7 @@
 		font-size: 20.0pt;
 		line-height: 1.200;
 	}
+
 	h3,
 	.col h3 {
 		font-family: "Segoe Pro SemiBold","Segoe UI SemiBold",sans-serif;
@@ -65,6 +78,7 @@
 		font-size: 13.0pt;
 		line-height: 1.200;
 	}
+
 	h4,
 	.col h4 {
 		font-family: "Segoe Pro","Segoe UI",sans-serif;
@@ -74,12 +88,14 @@
 		text-transform: uppercase;
 		letter-spacing: 0.500pt;
 	}
+
 	p,
 	.col p {
 		font-family: "Segoe Pro SemiLight","Segoe UI SemiLight",sans-serif;
 		font-weight: normal;
 		font-size: 11.0pt;
 	}
+
 	b,strong,
 	.bolder,
 	.col b,
@@ -88,6 +104,7 @@
 		font-family: "Segoe Pro SemiBold","Segoe UI SemiBold",sans-serif;
 		font-weight: normal;
 	}
+
 	i,
 	em,
 	blockquote,
@@ -100,6 +117,7 @@
 		font-weight: normal;
 		font-style: italic;
 	}
+
 	table,
 	.col table {
 		border-collapse: collapse;
@@ -115,18 +133,22 @@
 		border-left-color: inherit;
 		margin-left: 1.000pt;
 	}
+
 	table caption,
 	.col table caption {
 		font-size: 10.0pt;
 	}
+
 	table tr,
 	.col table tr {
 		background-color: transparent;
 	}
+
 	table tr:nth-of-type(odd),
 	.col table tr:nth-of-type(odd) {
 		background-color: transparent;
 	}
+
 	table td,
 	table th,
 	.col table td,
@@ -136,6 +158,7 @@
 		vertical-align: top;
 		border-collapse: collapse;
 	}
+
 	table th,
 	.col table th {
 		font-family: "Segoe Pro SemiBold","Segoe UI SemiBold",sans-serif;
@@ -147,6 +170,7 @@
 		border-bottom-color: inherit;
 		background-color: transparent;
 	}
+
 	table td,
 	.col table td {
 		font-family: "Segoe Pro SemiLight","Segoe UI SemiLight",sans-serif;
@@ -156,12 +180,14 @@
 		border-bottom-style: solid;
 		border-bottom-color: inherit;
 	}
+
 	table td ol,
 	table td ul,
 	.col table td ol,
 	.col table td ul {
 		margin: 0;
 	}
+
 	[id^="video"],
 	[id*=" video"],
 	[id^="audio"],
@@ -210,16 +236,19 @@
 	#disqus_thread {
 		display: none;
 	}
+
 	.btn-download-app,
 	#vkwidget1_tt {
 		display: none !important;
 		opacity: 0 !important;
 	}
+
 	.col .holder-hidden-layer,
 	.js .col .holder-hidden-layer {
 		max-height: 100%;
 		overflow-y: visible;
 	}
+
 	.holder-panel-menu-more {
 		display: block;
 		position: static;
@@ -230,31 +259,38 @@
 		border: none;
 		box-shadow: none;
 	}
+
 	.panel-menu-more li a {
 		display: none;
 	}
+
 	.location-qr-code {
 		display: block;
 	}
+
 	.masonry-grid {
 		width: 100%;
 	}
+
 	.masonry-grid-item {
 		float: none;
 		width: 100%;
 		box-shadow: none;
 	}
+
 	blockquote,
 	.blockquote,
 	.col .blockquote {
 		margin-left: 16.0pt;
 	}
+
 	address,
 	.address,
 	.col .address {
 		font-size: 10.0pt;
 		text-align: right;
 	}
+
 	.highlight,
 	.col .highlight,
 	.main .col .highlight {
@@ -262,20 +298,25 @@
 		font-weight: normal;
 		color: inherit;
 	}
+
 	a.reflink {
 		color: DimGray;
 	}
+
 	.phonetic,
 	.col .phonetic {
 		font-family: "Segoe Pro","Segoe UI",sans-serif;
 	}
+
 	/* .page,
 	.container, */
 	.container .content-wrapper,
 	.app-content .content-wrapper {
 		position: relative;
 	}
+
 	#ui-totop {
 		display: none;
 	}
 }
+

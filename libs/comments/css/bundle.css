@@ -1,8 +1,6 @@
-/*!
- * libs\comments\scss\bundle.scss
- */
+/*! libs\comments\scss\bundle.scss */
 
-/* @import "comments-font-face"; */
+/*! @import "comments-font-face"; */
 
 @font-face {
 	font-family: "englishextra-ui-icons";
@@ -51,9 +49,9 @@
 	font-stretch: normal;
 }
 
-/* @import "normalize"; */
+/*! @import "normalize"; */
 
-/** normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */
+/*! normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */
 
 button,
 hr,
@@ -278,7 +276,7 @@ template {
 	display: none;
 }
 
-/* @import "typeboost-css"; */
+/*! @import "typeboost-css"; */
 
 /**
  * typeboost.css v0.1.7
@@ -433,19 +431,19 @@ template {
 }
 
 .col h2 {
-	font-size: 1.500rem;
+	font-size: 1.611rem;
 	line-height: 1.200;
 	padding: 0;
 }
 
 .col h3 {
-	font-size: 1.100rem;
+	font-size: 1.210rem;
 	line-height: 1.200;
 	padding: 0;
 }
 
 .col h4 {
-	font-size: 1.000rem;
+	font-size: 1.100rem;
 	line-height: 1.200;
 	font-variant: small-caps;
 	letter-spacing: 0.063rem;
@@ -1052,6 +1050,10 @@ template {
 	margin: 1.500rem 0;
 }
 
+/**
+ * font weights
+ */
+
 .col h1,
 .col h2,
 .col h4,
@@ -1100,6 +1102,10 @@ template {
 	font-weight: bolder;
 }
 
+/**
+ * font styles
+ */
+
 .col address,
 .col p.address,
 .col p.blockquote,
@@ -1111,6 +1117,10 @@ template {
 .col .italic {
 	font-style: italic;
 }
+
+/**
+ * font families
+ */
 
 .col h1 {
 	font-family: serif;
@@ -1159,6 +1169,10 @@ template {
 .col .phonetic {
 	font-family: "Source Code Pro","Consolas",monospace;
 }
+
+/**
+ * colors
+ */
 
 .col a {
 	color: #307CCA;
@@ -1414,7 +1428,7 @@ template {
 	color: #EE6944;
 }
 
-/* @import "simplegrid.fixed"; */
+/*! @import "simplegrid.fixed"; */
 
 /**
  * modified Simple Grid
@@ -1736,7 +1750,7 @@ body {
 	}
 }
 
-/* @import "jquery-pnotify.fixed"; */
+/*! @import "jquery-pnotify.fixed"; */
 
 /**
  * jquery.pnotify.fixed.default.css
@@ -1861,7 +1875,7 @@ html > body > .ui-pnotify {
 	background: none #D62839;
 }
 
-/* @import "ui-totop"; */
+/*! @import "ui-totop"; */
 
 /**
  * github.com/sksmatt/UItoTop-jQuery-Plugin/
@@ -1920,7 +1934,7 @@ html > body > .ui-pnotify {
 	color: rgba(25, 25, 25, 0.5);
 }
 
-/* @import "comments-main"; */
+/*! @import "comments-main"; */
 
 /**
  * main
@@ -1933,6 +1947,7 @@ body {
 
 html {
 	font-size: 100%;
+	line-height: 1.500;
 	/**
 	 * set the parent to background transparent
 	 * and position relative to parent, absolute for child
@@ -2193,7 +2208,7 @@ u,
 	clear: both;
 }
 
-/* @import "nav-menu-light"; */
+/*! @import "nav-menu-light"; */
 
 /**
  * nav menu
@@ -2328,7 +2343,7 @@ u,
 	left: 280px;
 }
 
-/* @import "menu-more-light"; */
+/*! @import "menu-more-light"; */
 
 /**
  * menu more

@@ -1,8 +1,10 @@
-/* @import "css-progress"; */
+/*! @import "css-progress"; */
+
 /**
  * CSS progress
  * codepen.io/janrubio/pen/DusIE
  */
+
 .progress {
 	width: 4.571rem;
 	height: 4.571rem;
@@ -16,6 +18,7 @@
 	margin-top: -2.286rem;
 	z-index: 6;
 }
+
 .progress .progress-ball {
 	position: absolute;
 	width: 4.357rem;
@@ -24,6 +27,7 @@
 	transform: rotate(225deg);
 	animation: orbit 7.15s infinite;
 }
+
 .progress .progress-ball .progress-inner-ball {
 	width: 0.571rem;
 	height: 0.571rem;
@@ -33,21 +37,27 @@
 	background: #FFFFFF;
 	border-radius: 0.571rem;
 }
+
 .progress #progress-ball-1 {
 	animation-delay: 1.56s;
 }
+
 .progress #progress-ball-2 {
 	animation-delay: 0.31s;
 }
+
 .progress #progress-ball-3 {
 	animation-delay: 0.62s;
 }
+
 .progress #progress-ball-4 {
 	animation-delay: 0.94s;
 }
+
 .progress #progress-ball-5 {
 	animation-delay: 1.25s;
 }
+
 @keyframes orbit {
 	0% {
 		opacity: 1;
@@ -55,42 +65,50 @@
 		transform: rotate(180deg);
 		animation-timing-function: ease-out;
 	}
+
 	7% {
 		opacity: 1;
 		transform: rotate(300deg);
 		animation-timing-function: linear;
 		origin: 0%;
 	}
+
 	30% {
 		opacity: 1;
 		transform: rotate(410deg);
 		animation-timing-function: ease-in-out;
 		origin: 7%;
 	}
+
 	39% {
 		opacity: 1;
 		transform: rotate(645deg);
 		animation-timing-function: linear;
 		origin: 30%;
 	}
+
 	70% {
 		opacity: 1;
 		transform: rotate(770deg);
 		animation-timing-function: ease-out;
 		origin: 39%;
 	}
+
 	75% {
 		opacity: 1;
 		transform: rotate(900deg);
 		animation-timing-function: ease-out;
 		origin: 70%;
 	}
+
 	76% {
 		opacity: 0;
 		transform: rotate(900deg);
 	}
+
 	100% {
 		opacity: 0;
 		transform: rotate(900deg);
 	}
 }
+

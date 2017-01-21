@@ -1,7 +1,9 @@
-/* @import "vk-like-light"; */
+/*! @import "vk-like-light"; */
+
 /**
  * vk-like
  */
+
 .vk-like {
 	display: inline-block;
 	height: 17.250pt;
@@ -14,6 +16,7 @@
 	transition: visibility 0s, opacity 0.2s linear;
 	z-index: 1000;
 }
+
 .btn-show-vk-like {
 	display: inline-block;
 	width: 33.000pt;
@@ -32,9 +35,11 @@
 	outline: none;
 	z-index: 999;
 }
+
 .btn-show-vk-like:hover {
 	background-color: rgba(213,213,213,1);
 }
+
 .btn-show-vk-like:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e925";
@@ -42,3 +47,4 @@
 	line-height: 33.000pt;
 	color: #848484;
 }
+
