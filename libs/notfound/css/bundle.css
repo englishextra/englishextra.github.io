@@ -325,8 +325,8 @@ template {
 	font-weight: inherit;
 	letter-spacing: 0.063em;
 	text-transform: uppercase;
-	color: rgba(25, 25, 25, 0.5);
-	background-color: rgba(211, 211, 211, 0.5);
+	color: #FFFFFF;
+	background-color: #2D74BD;
 	border-radius: 5px;
 	-webkit-transition: all 0.2s;
 	transition: all 0.2s;
@@ -455,8 +455,8 @@ template {
 	font-weight: inherit;
 	letter-spacing: 0.063em;
 	text-transform: uppercase;
-	color: inherit;
-	background-color: #09814A;
+	color: #FFFFFF;
+	background-color: #2D74BD;
 	border-radius: 5px;
 	-webkit-transition: all 0.2s;
 	transition: all 0.2s;
@@ -836,7 +836,6 @@ body {
 	-moz-font-feature-settings: "liga", "kern";
 	-webkit-touch-callout: none;
 	-webkit-tap-highlight-color: transparent;
-	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	overflow-x: hidden;
 	margin: 0;
@@ -851,14 +850,12 @@ a {
 	color: inherit;
 	text-decoration: none;
 	-webkit-tap-highlight-color: transparent;
-	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
 
 a:hover,
 a:active,
 a:focus {
-	-webkit-tap-highlight-color: transparent;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }

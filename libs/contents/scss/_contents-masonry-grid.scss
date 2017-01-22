@@ -41,7 +41,6 @@
 	color: inherit;
 	background-color: #FFFFFF;
 	border: 0.750pt solid #FFFFFF;
-	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	margin: 0;
@@ -98,7 +97,7 @@
 
 .masonry-grid-item {
 	float: left;
-	box-shadow: 0.125em 0.125em 0.125em 0 $color-rgba-ui-panel-shadow;
+	box-shadow: 0 0.250em 0.250em 0 $color-rgba-grid-item-shadow;
 	margin: 1.500%;
 }
 
