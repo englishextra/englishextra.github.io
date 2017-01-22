@@ -425,7 +425,6 @@ template {
 .col a {
 	text-decoration: none;
 	-webkit-tap-highlight-color: transparent;
-	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
 
@@ -546,7 +545,6 @@ template {
 .col pre a {
 	text-decoration: none;
 	-webkit-tap-highlight-color: transparent;
-	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
 
@@ -608,7 +606,6 @@ template {
 	vertical-align: baseline;
 	*vertical-align: middle;
 	-webkit-tap-highlight-color: transparent;
-	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	padding: 0 0.625rem;
 }
@@ -656,7 +653,6 @@ template {
 	box-sizing: border-box;
 	vertical-align: baseline;
 	*vertical-align: middle;
-	-webkit-tap-highlight-color: transparent;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	cursor: pointer;
@@ -2046,7 +2042,6 @@ body {
 	-webkit-transition: background 0.2s linear;
 	transition: background 0.2s linear;
 	-webkit-tap-highlight-color: transparent;
-	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	z-index: 999;
 }
@@ -2104,7 +2099,6 @@ body {
 	overflow: hidden;
 	-webkit-transition: background 0.2s linear;
 	transition: background 0.2s linear;
-	-webkit-tap-highlight-color: transparent;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	z-index: 999;
@@ -2706,7 +2700,6 @@ img[class*=" contents-"] {
 	-webkit-transition: all 0.2s linear;
 	transition: all 0.2s linear;
 	-webkit-tap-highlight-color: transparent;
-	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	z-index: 999;
 }
@@ -2782,7 +2775,6 @@ body {
 	-moz-font-feature-settings: "liga", "kern";
 	-webkit-touch-callout: none;
 	-webkit-tap-highlight-color: transparent;
-	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	overflow-x: hidden;
 	margin: 0;
@@ -2797,14 +2789,12 @@ a {
 	color: inherit;
 	text-decoration: none;
 	-webkit-tap-highlight-color: transparent;
-	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
 
 a:hover,
 a:active,
 a:focus {
-	-webkit-tap-highlight-color: transparent;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
@@ -3251,7 +3241,6 @@ u,
 	border-style: solid;
 	border-width: 0.750pt;
 	-webkit-tap-highlight-color: transparent;
-	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	padding-left: 2.000em;
 }
@@ -3262,7 +3251,6 @@ u,
 .holder-search-form input[type^=search]:focus {
 	background-color: #D5D5D5;
 	border-color: transparent;
-	-webkit-tap-highlight-color: transparent;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
@@ -3706,7 +3694,6 @@ u,
 	font-family: sans-serif;
 	font-size: 0.875rem;
 	color: inherit;
-	-webkit-tap-highlight-color: transparent;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	margin: 0;

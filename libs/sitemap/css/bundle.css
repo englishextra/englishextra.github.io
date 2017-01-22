@@ -313,6 +313,7 @@ template {
 	font-weight: 300;
 	color: inherit;
 	background-color: #FFFFFF;
+	box-shadow: 0 0.25em 0.25em 0 rgba(150, 150, 150, 0.2);
 	margin: 2% 1% 0 1%;
 }
 
@@ -553,7 +554,6 @@ img[class*=" image-src-"] {
 	-webkit-transition: all 0.2s linear;
 	transition: all 0.2s linear;
 	-webkit-tap-highlight-color: transparent;
-	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	z-index: 999;
 }
@@ -629,7 +629,6 @@ body {
 	-moz-font-feature-settings: "liga", "kern";
 	-webkit-touch-callout: none;
 	-webkit-tap-highlight-color: transparent;
-	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	overflow-x: hidden;
 	margin: 0;
@@ -644,14 +643,12 @@ a {
 	color: inherit;
 	text-decoration: none;
 	-webkit-tap-highlight-color: transparent;
-	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
 
 a:hover,
 a:active,
 a:focus {
-	-webkit-tap-highlight-color: transparent;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
@@ -833,7 +830,6 @@ u,
 	background-color: #474747;
 	border: 0.75pt solid #474747;
 	-webkit-tap-highlight-color: transparent;
-	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	cursor: pointer;
 	padding: 0;
@@ -874,7 +870,6 @@ u,
 	background-color: #474747;
 	border: 0.75pt solid #474747;
 	box-sizing: border-box;
-	-webkit-tap-highlight-color: transparent;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	cursor: pointer;

@@ -335,7 +335,6 @@ template {
 	-webkit-transition: background 0.2s linear;
 	transition: background 0.2s linear;
 	-webkit-tap-highlight-color: transparent;
-	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	z-index: 999;
 }
@@ -393,7 +392,6 @@ template {
 	overflow: hidden;
 	-webkit-transition: background 0.2s linear;
 	transition: background 0.2s linear;
-	-webkit-tap-highlight-color: transparent;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	z-index: 999;
@@ -549,7 +547,6 @@ body {
 	-moz-font-feature-settings: "liga", "kern";
 	-webkit-touch-callout: none;
 	-webkit-tap-highlight-color: transparent;
-	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	overflow-x: hidden;
 	margin: 0;
@@ -564,14 +561,12 @@ a {
 	color: inherit;
 	text-decoration: none;
 	-webkit-tap-highlight-color: transparent;
-	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
 
 a:hover,
 a:active,
 a:focus {
-	-webkit-tap-highlight-color: transparent;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
