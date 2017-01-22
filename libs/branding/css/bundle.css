@@ -2544,7 +2544,7 @@ body {
 	line-height: 1.500;
 	width: 100%;
 	color: #363636;
-	background-color: #FFFFFF;
+	background-color: #F3F3F3;
 	-webkit-text-size-adjust: none;
 	-ms-text-size-adjust: none;
 	text-size-adjust: none;
@@ -3682,152 +3682,152 @@ u,
  * englishextra ui colors
  */
 
-.bg-color-accent-color-background {
-	background-color: #2D74BD;
-}
-
-.bg-color-active-form-text-element-background {
-	background-color: #F2F2F2;
-}
-
-.bg-color-aside-background {
-	background-color: #F0F0F0;
-}
-
-.bg-color-body-copy-text {
-	background-color: #363636;
-}
-
-.bg-color-brand-color {
+.bg-color-logo-bg {
 	background-color: #D54848;
 }
 
-.bg-color-darker-accent-color-background {
-	background-color: #1E4D7D;
+.bg-color-progress-bar {
+	background-color: #FE5F55;
 }
 
-.bg-color-darker-hover-navigation-icon-background {
-	background-color: #D5D5D5;
-}
-
-.bg-color-darker-off-canvas-navigation-menu-background {
-	background-color: #242424;
-}
-
-.bg-color-darker-top-navigation-bar-background {
-	background-color: #383838;
-}
-
-.bg-color-disabled-form-text-element-background {
-	background-color: #D6D6D6;
-}
-
-.bg-color-divider-background {
-	background-color: #C3C3C3;
-}
-
-.bg-color-error-background {
-	background-color: #D62839;
-}
-
-.bg-color-gray-text {
-	background-color: #949494;
-}
-
-.bg-color-highlight-color {
-	background-color: #EE6944;
-}
-
-.bg-color-hint-background {
-	background-color: #353535;
-}
-
-.bg-color-hover-form-button-element-background {
-	background-color: #606060;
-}
-
-.bg-color-hover-inverted-navigation-icon-background {
-	background-color: #424242;
-}
-
-.bg-color-hover-link-color-background {
-	background-color: #EA6743;
-}
-
-.bg-color-hover-navigation-icon-background {
-	background-color: #DFDFDF;
-}
-
-.bg-color-hover-off-canvas-navigation-menu-link-background {
-	background-color: #464646;
-}
-
-.bg-color-inverted-navigation-icon-background {
-	background-color: #717171;
-}
-
-.bg-color-lighter-accent-background {
-	background-color: #BED4EB;
+.bg-color-body-text {
+	background-color: #363636;
 }
 
 .bg-color-lighter-text {
 	background-color: #686868;
 }
 
-.bg-color-link-color-background {
+.bg-color-gray-text {
+	background-color: #949494;
+}
+
+.bg-color-darker-accent {
+	background-color: #1E4D7D;
+}
+
+.bg-color-accent {
+	background-color: #2D74BD;
+}
+
+.bg-color-lighter-accent {
+	background-color: #BED4EB;
+}
+
+.bg-color-link {
 	background-color: #307CCA;
 }
 
-.bg-color-navigation-icon-font-color {
-	background-color: #848484;
+.bg-color-hover-link {
+	background-color: #EA6743;
 }
 
-.bg-color-normal-form-button-element-background {
-	background-color: #474747;
-}
-
-.bg-color-notice-background {
-	background-color: #006BA6;
-}
-
-.bg-color-off-canvas-navigation-menu-background {
-	background-color: #2E2E2E;
-}
-
-.bg-color-pre-background {
-	background-color: #E9E9E9;
-}
-
-.bg-color-progress-bar-color {
-	background-color: #FE5F55;
-}
-
-.bg-color-search-results-address-color {
-	background-color: #17AB56;
-}
-
-.bg-color-success-background {
-	background-color: #09814A;
-}
-
-.bg-color-table-cell-background {
-	background-color: #F3F3F3;
-}
-
-.bg-color-table-header-background {
-	background-color: #E8E8E8;
-}
-
-.bg-color-top-navigation-bar-background {
-	background-color: #424242;
-}
-
-.bg-color-visited-link-color {
+.bg-color-visited-link {
 	background-color: #8F9BA8;
 }
 
-.bg-color-warning-background {
+.bg-color-url {
+	background-color: #17AB56;
+}
+
+.bg-color-highlight {
+	background-color: #EE6944;
+}
+
+.bg-color-notice {
+	background-color: #006BA6;
+}
+
+.bg-color-success {
+	background-color: #09814A;
+}
+
+.bg-color-warning {
 	background-color: #F46036;
+}
+
+.bg-color-error {
+	background-color: #D62839;
+}
+
+.bg-color-aside-bg {
+	background-color: #F0F0F0;
+}
+
+.bg-color-divider {
+	background-color: #C3C3C3;
+}
+
+.bg-color-hover-ui-icon-bg {
+	background-color: #DFDFDF;
+}
+
+.bg-color-disabled-ui-icon-bg {
+	background-color: #D5D5D5;
+}
+
+.bg-color-dark-ui-icon-bg {
+	background-color: #717171;
+}
+
+.bg-color-ui-icon-text {
+	background-color: #848484;
+}
+
+.bg-color-hover-dark-ui-icon-bg {
+	background-color: #424242;
+}
+
+.bg-color-ui-bar-bg {
+	background-color: #424242;
+}
+
+.bg-color-dark-ui-bar-bg {
+	background-color: #383838;
+}
+
+.bg-color-ui-panel-bg {
+	background-color: #2E2E2E;
+}
+
+.bg-color-darker-ui-panel-bg {
+	background-color: #242424;
+}
+
+.bg-color-hover-ui-panel-item-bg {
+	background-color: #464646;
+}
+
+.bg-color-hint-bg {
+	background-color: #353535;
+}
+
+.bg-color-active-input-bg {
+	background-color: #F2F2F2;
+}
+
+.bg-color-disabled-input-bg {
+	background-color: #D6D6D6;
+}
+
+.bg-color-button-bg {
+	background-color: #474747;
+}
+
+.bg-color-hover-button {
+	background-color: #606060;
+}
+
+.bg-color-table-header-bg {
+	background-color: #E8E8E8;
+}
+
+.bg-color-table-cell {
+	background-color: #F3F3F3;
+}
+
+.bg-color-ui-icon-bg {
+	background-color: #E9E9E9;
 }
 
 .color-body-copy-text {

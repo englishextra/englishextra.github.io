@@ -26,7 +26,7 @@ body {
 	line-height: 1.500;
 	width: 100%;
 	color: #363636;
-	background-color: #FFFFFF;
+	background-color: #F3F3F3;
 	text-size-adjust: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
@@ -1153,156 +1153,156 @@ u,
  * englishextra ui colors
  */
 
- .bg-color-accent-color-background {
-	background-color: $color-accent-color-background;
+.bg-color-logo-bg {
+	background-color: $color-logo-bg;
 }
 
-.bg-color-active-form-text-element-background {
-	background-color: $color-active-form-text-element-background;
+.bg-color-progress-bar {
+	background-color: $color-progress-bar;
 }
 
-.bg-color-aside-background {
-	background-color: $color-aside-background;
-}
-
-.bg-color-body-copy-text {
-	background-color: $color-body-copy-text;
-}
-
-.bg-color-brand-color {
-	background-color: $color-brand-color;
-}
-
-.bg-color-darker-accent-color-background {
-	background-color: $color-darker-accent-color-background;
-}
-
-.bg-color-darker-hover-navigation-icon-background {
-	background-color: $color-darker-hover-navigation-icon-background;
-}
-
-.bg-color-darker-off-canvas-navigation-menu-background {
-	background-color: $color-darker-off-canvas-navigation-menu-background;
-}
-
-.bg-color-darker-top-navigation-bar-background {
-	background-color: $color-darker-top-navigation-bar-background;
-}
-
-.bg-color-disabled-form-text-element-background {
-	background-color: $color-disabled-form-text-element-background;
-}
-
-.bg-color-divider-background {
-	background-color: $color-divider-background;
-}
-
-.bg-color-error-background {
-	background-color: $color-error-background;
-}
-
-.bg-color-gray-text {
-	background-color: $color-gray-text;
-}
-
-.bg-color-highlight-color {
-	background-color: $color-highlight-color;
-}
-
-.bg-color-hint-background {
-	background-color: $color-hint-background;
-}
-
-.bg-color-hover-form-button-element-background {
-	background-color: $color-hover-form-button-element-background;
-}
-
-.bg-color-hover-inverted-navigation-icon-background {
-	background-color: $color-hover-inverted-navigation-icon-background;
-}
-
-.bg-color-hover-link-color-background {
-	background-color: $color-hover-link-color-background;
-}
-
-.bg-color-hover-navigation-icon-background {
-	background-color: $color-hover-navigation-icon-background;
-}
-
-.bg-color-hover-off-canvas-navigation-menu-link-background {
-	background-color: $color-hover-off-canvas-navigation-menu-link-background;
-}
-
-.bg-color-inverted-navigation-icon-background {
-	background-color: $color-inverted-navigation-icon-background;
-}
-
-.bg-color-lighter-accent-background {
-	background-color: $color-lighter-accent-background;
+.bg-color-body-text {
+	background-color: $color-body-text;
 }
 
 .bg-color-lighter-text {
 	background-color: $color-lighter-text;
 }
 
-.bg-color-link-color-background {
-	background-color: $color-link-color-background;
+.bg-color-gray-text {
+	background-color: $color-gray-text;
 }
 
-.bg-color-navigation-icon-font-color {
-	background-color: $color-navigation-icon-font-color;
+.bg-color-darker-accent {
+	background-color: $color-darker-accent;
 }
 
-.bg-color-normal-form-button-element-background {
-	background-color: $color-normal-form-button-element-background;
+.bg-color-accent {
+	background-color: $color-accent;
 }
 
-.bg-color-notice-background {
-	background-color: $color-notice-background;
+.bg-color-lighter-accent {
+	background-color: $color-lighter-accent;
 }
 
-.bg-color-off-canvas-navigation-menu-background {
-	background-color: $color-off-canvas-navigation-menu-background;
+.bg-color-link {
+	background-color: $color-link;
 }
 
-.bg-color-pre-background {
-	background-color: $color-pre-background;
+.bg-color-hover-link {
+	background-color: $color-hover-link;
 }
 
-.bg-color-progress-bar-color {
-	background-color: $color-progress-bar-color;
+.bg-color-visited-link {
+	background-color: $color-visited-link;
 }
 
-.bg-color-search-results-address-color {
-	background-color: $color-search-results-address-color;
+.bg-color-url {
+	background-color: $color-url;
 }
 
-.bg-color-success-background {
-	background-color: $color-success-background;
+.bg-color-highlight {
+	background-color: $color-highlight;
 }
 
-.bg-color-table-cell-background {
-	background-color: $color-table-cell-background;
+.bg-color-notice {
+	background-color: $color-notice;
 }
 
-.bg-color-table-header-background {
-	background-color: $color-table-header-background;
+.bg-color-success {
+	background-color: $color-success;
 }
 
-.bg-color-top-navigation-bar-background {
-	background-color: $color-top-navigation-bar-background;
+.bg-color-warning {
+	background-color: $color-warning;
 }
 
-.bg-color-visited-link-color {
-	background-color: $color-visited-link-color;
+.bg-color-error {
+	background-color: $color-error;
 }
 
-.bg-color-warning-background {
-	background-color: $color-warning-background;
+.bg-color-aside-bg {
+	background-color: $color-aside-bg;
+}
+
+.bg-color-divider {
+	background-color: $color-divider;
+}
+
+.bg-color-hover-ui-icon-bg {
+	background-color: $color-hover-ui-icon-bg;
+}
+
+.bg-color-disabled-ui-icon-bg {
+	background-color: $color-disabled-ui-icon-bg;
+}
+
+.bg-color-dark-ui-icon-bg {
+	background-color: $color-dark-ui-icon-bg;
+}
+
+.bg-color-ui-icon-text {
+	background-color: $color-ui-icon-text;
+}
+
+.bg-color-hover-dark-ui-icon-bg {
+	background-color: $color-hover-dark-ui-icon-bg;
+}
+
+.bg-color-ui-bar-bg {
+	background-color: $color-ui-bar-bg;
+}
+
+.bg-color-dark-ui-bar-bg {
+	background-color: $color-dark-ui-bar-bg;
+}
+
+.bg-color-ui-panel-bg {
+	background-color: $color-ui-panel-bg;
+}
+
+.bg-color-darker-ui-panel-bg {
+	background-color: $color-darker-ui-panel-bg;
+}
+
+.bg-color-hover-ui-panel-item-bg {
+	background-color: $color-hover-ui-panel-item-bg;
+}
+
+.bg-color-hint-bg {
+	background-color: $color-hint-bg;
+}
+
+.bg-color-active-input-bg {
+	background-color: $color-active-input-bg;
+}
+
+.bg-color-disabled-input-bg {
+	background-color: $color-disabled-input-bg;
+}
+
+.bg-color-button-bg {
+	background-color: $color-button-bg;
+}
+
+.bg-color-hover-button {
+	background-color: $color-hover-button;
+}
+
+.bg-color-table-header-bg {
+	background-color: $color-table-header-bg;
+}
+
+.bg-color-table-cell {
+	background-color: $color-table-cell;
+}
+
+.bg-color-ui-icon-bg {
+	background-color: $color-ui-icon-bg;
 }
 
 .color-body-copy-text {
-	color: $color-body-copy-text;
+	color: $color-body-text;
 }
 
 .color-white {
