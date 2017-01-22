@@ -18,7 +18,7 @@
 	right: -50%;
 	left: -50%;
 	visibility: visible;
-	background: #DBDADA;
+	background-color: $color-hex-disabled-input-bg;
 	text-decoration: none;
 	text-align: center;
 	-webkit-transform-origin: 50% 100%;
@@ -28,18 +28,15 @@
 }
 
 .badge a:hover {
-	background: #DBDADA;
+	background-color: $color-hex-disabled-input-bg;
 }
 
 .slide {
 	position: relative;
 	width: 1024px;
 	height: 640px;
-	background: #242424;
-	color: #000000;
-	-webkit-print-color-adjust: exact;
-	-webkit-text-size-adjust: none;
-	-ms-text-size-adjust: none;
+	background: $color-hex-dark-ui-panel-bg;
+	color: $color-hex-body-text;
 	text-size-adjust: none;
 }
 
@@ -53,8 +50,11 @@
 	font-size: 1.500em;
 	text-align: center;
 	color: #FFFFFF;
-	background: transparent url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPScxLjEnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZycgeG1sbnM6eGxpbms9J2h0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsnIHg9JzBweCcgeT0nMHB4JyB3aWR0aD0nNTBweCcgaGVpZ2h0PScxMDBweCcgdmlld0JveD0nMCAwIDUwIDEwMCcgZW5hYmxlLWJhY2tncm91bmQ9J25ldyAwIDAgNTAgMTAwJyB4bWw6c3BhY2U9J3ByZXNlcnZlJz48cG9seWdvbiBmaWxsPScjRjg1RjUzJyBwb2ludHM9JzAsMCA1MCwwIDUwLDEwMCAyNSw4MCAwLDEwMCAnLz48L3N2Zz4=) top left no-repeat;
+	background-color: transparent;
+	background-image: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPScxLjEnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZycgeG1sbnM6eGxpbms9J2h0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsnIHg9JzBweCcgeT0nMHB4JyB3aWR0aD0nNTBweCcgaGVpZ2h0PScxMDBweCcgdmlld0JveD0nMCAwIDUwIDEwMCcgZW5hYmxlLWJhY2tncm91bmQ9J25ldyAwIDAgNTAgMTAwJyB4bWw6c3BhY2U9J3ByZXNlcnZlJz48cG9seWdvbiBmaWxsPScjRjg1RjUzJyBwb2ludHM9JzAsMCA1MCwwIDUwLDEwMCAyNSw4MCAwLDEwMCAnLz48L3N2Zz4=);
 	background-size: 37.500pt 75.000pt;
+	background-position: top left;
+	background-repeat: no-repeat;
 	counter-increment: slide;
 	content: counter(slide);
 	padding: 20px 0 0;
@@ -82,11 +82,6 @@
 	margin: 0 0 50px;
 }
 
-.slide a {
-	border-bottom: .1em solid;
-	color: #EBDAC3;
-}
-
 .slide .explanation {
 	font-weight: 400;
 	font-size: 0.813em;
@@ -104,7 +99,7 @@
 .shower-list {
 	position: absolute;
 	clip: rect(0, auto, auto, 0);
-	background-color: #F3F3F3;
+	background-color: $color-hex-table-cell;
 	counter-reset: slide;
 	padding: 100px 0 0 16px;
 }
@@ -116,9 +111,7 @@
 .shower-list .slide {
 	float: left;
 	margin: 0 -412px -220px 0;
-	-webkit-transform-origin: 0 0;
 	transform-origin: 0 0;
-	-webkit-transform: scale(0.5);
 	transform: scale(0.5);
 }
 
@@ -134,7 +127,6 @@
 
 .shower-list .slide:before,
 .shower-list .slide:after {
-	-webkit-transform-origin: 0 0;
 	transform-origin: 0 0;
 }
 
@@ -150,13 +142,13 @@
 	bottom: -80px;
 	left: 120px;
 	color: #FFFFFF;
-	background: none #F85F53;
+	background: none $color-hex-englishextra-logo-bg;
 	padding: 0.344em 0.5em;
 }
 
 .shower-list .slide:target:after {
 	color: #FFFFFF;
-	background: none #FD9E3C;
+	background-color: $color-hex-highlight;
 }
 
 .shower-list .slide > div:before {
@@ -220,10 +212,12 @@
 	padding-left: 10px;
 	width: 0;
 	height: 10px;
-	background: transparent url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMTAzNHB4IiBoZWlnaHQ9IjEwcHgiIHZpZXdCb3g9IjAgMCAxMDM0IDEwIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAxMDM0IDEwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjRjg1RjUzIiBwb2ludHM9IjAsMCAxMDI0LDAgMTAzNCwxMCAwLDEwICIvPjwvc3ZnPg==) 100% 0 no-repeat;
+	background-color: transparent;
+	background-image: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMTAzNHB4IiBoZWlnaHQ9IjEwcHgiIHZpZXdCb3g9IjAgMCAxMDM0IDEwIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAxMDM0IDEwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjRjg1RjUzIiBwb2ludHM9IjAsMCAxMDI0LDAgMTAzNCwxMCAwLDEwICIvPjwvc3ZnPg==);
 	background-size: 775.500pt 7.500pt;
 	background-clip: content-box;
-	-webkit-transition: width .2s linear;
+	background-position: 100% 0;
+	background-repeat: no-repeat;
 	transition: width .2s linear;
 }
 

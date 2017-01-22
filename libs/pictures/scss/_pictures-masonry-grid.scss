@@ -7,7 +7,7 @@
 .masonry-grid-wrapper {
 	width: 100%;
 	height: 100%;
-	background-color: #383838;
+	background-color: $color-hex-dark-ui-bar-bg;
 	/** stackoverflow.com/questions/14967413/background-color-not-showing-for-a-div
 	Because the content collapses when the children are floated
 	and adding the overflow rule restores the behavior you'd expect. */
@@ -46,13 +46,14 @@
 	display: block;
 	width: 100%;
 	height: auto;
+	background-color: transparent;
 }
 
 .masonry-grid-item figure {
 	display: none;
 	/* font-size: 0.875rem;
 	line-height: 1.200;
-	background-color: #D6D6D6;
+	background-color: $color-hex-disabled-input-bg;
 	margin: 0;
 	padding: 1.000em; */
 

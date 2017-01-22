@@ -91,14 +91,14 @@ li.L0,li.L1,li.L2,li.L3,li.L4,li.L5,li.L6,li.L7,li.L8,li.L9 {
  */
 
 pre.prettyprint,code.prettyprint {
-	background-color: #E9E9E9;
+	background-color: $color-hex-ui-icon-bg;
 	border-radius: 0;
 }
 
 pre.prettyprint {
 	width: 100%;
 	white-space: pre-wrap;
-	background: #E9E9E9;
+	background-color: $color-hex-ui-icon-bg;
 	border: 0 solid transparent;
 	overflow-x: scroll;
 	overflow-y: auto;
@@ -113,8 +113,8 @@ pre.prettyprinted {
 
 ol.linenums {
 	list-style: decimal outside;
-	color: #C5C5C5;
-	border-left: 1px solid #C5C5C5;
+	color: $color-hex-lighter-divider;
+	border-left: 1px solid $color-hex-lighter-divider;
 	margin: 0 0 0 3.000em !important;
 	padding: 0;
 }

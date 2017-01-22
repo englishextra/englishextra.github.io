@@ -123,6 +123,7 @@
 .col a {
 	text-decoration: none;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
 
@@ -243,6 +244,7 @@
 .col pre a {
 	text-decoration: none;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
 
@@ -304,6 +306,7 @@
 	vertical-align: baseline;
 	*vertical-align: middle;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	padding: 0 0.625rem;
 }
@@ -352,6 +355,7 @@
 	vertical-align: baseline;
 	*vertical-align: middle;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	cursor: pointer;
 	padding: 0 0.625rem;
@@ -896,13 +900,13 @@
  */
 
 .col a {
-	color: #307CCA;
+	color: $color-hex-link;
 }
 
 .col a:hover,
 .col a:focus,
 .col a:active {
-	color: #EA6743;
+	color: $color-hex-hover-link;
 }
 
 .col h1,
@@ -975,7 +979,7 @@
 
 .col pre {
 	color: inherit;
-	background: #F1F1F1;
+	background-color: #E9E9E9;
 }
 
 .col pre a:hover,
@@ -985,7 +989,7 @@
 }
 
 .col select {
-	background: #FFFFFF;
+	background-color: #FFFFFF;
 	border: 0.063rem solid #C3C3C3;
 }
 
@@ -1004,7 +1008,7 @@
 .col input[type^="datetime"],
 .col input[type^="datetime-local"],
 .col textarea {
-	background: #FFFFFF;
+	background-color: #FFFFFF;
 	border: 0.063rem solid #C3C3C3;
 }
 
@@ -1021,7 +1025,7 @@
 .col input[type="reset"]:focus,
 .col input[type="submit"]:focus {
 	color: #FFFFFF;
-	background: #606060;
+	background-color: #606060;
 	border: 0.063rem solid #606060;
 }
 
@@ -1030,7 +1034,7 @@
 .col input[type="reset"],
 .col input[type="submit"] {
 	color: #FFFFFF;
-	background: #474747;
+	background-color: #474747;
 	border: 0.063rem solid #474747;
 }
 
@@ -1064,18 +1068,18 @@
 .col input[type^="datetime"]:active,
 .col input[type^="datetime-local"]:active,
 .col textarea:active {
-	background: #F2F2F2;
+	background-color: #F2F2F2;
 	border: 0.063rem solid #C3C3C3;
 }
 
 .col select:hover {
-	background: #F2F2F2;
+	background-color: #F2F2F2;
 	border: 0.063rem solid #C3C3C3;
 }
 
 .col select:active,
 .col select:focus {
-	background: #F2F2F2;
+	background-color: #F2F2F2;
 	border: 0.063rem solid #C3C3C3;
 }
 
@@ -1095,7 +1099,7 @@
 .col input[type^="datetime"]:disabled,
 .col input[type^="datetime-local"]:disabled,
 .col textarea:disabled {
-	background: #D6D6D6;
+	background-color: $color-hex-disabled-input-bg;
 	border-color: #D6D6D6;
 }
 
@@ -1103,7 +1107,7 @@
 .col input[type="button"]:disabled,
 .col input[type="reset"]:disabled,
 .col input[type="submit"]:disabled {
-	background: #D6D6D6;
+	background-color: $color-hex-disabled-input-bg;
 	border-color: #D6D6D6;
 }
 
@@ -1141,11 +1145,11 @@
 
 .col hr,
 .col .hr {
-	background: #C3C3C3;
+	background-color: #C3C3C3;
 	border: 0;
 }
 
 .col .highlight {
-	color: #EE6944;
+	color: $color-hex-highlight;
 }
 

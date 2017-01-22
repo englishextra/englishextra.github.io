@@ -50,7 +50,7 @@
 	table td a[href^="http"]:after,
 	.col table td a[href^="http"]:after	{
 		content: " \003c" attr(href) "\003e";
-		color: #307CCA;
+		color: $color-hex-link;
 	}
 
 	h1,

@@ -69,7 +69,7 @@ body {
 .slide {
 	min-height: 100%;
 	text-align: center;
-	background-color: #242424;
+	background-color: $color-hex-dark-ui-panel-bg;
 	background-position: center center;
 	background-size: cover;
 }

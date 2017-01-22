@@ -26,7 +26,7 @@ html > body > .ui-pnotify {
 }
 
 .ui-pnotify .ui-pnotify-shadow {
-	box-shadow: 0.125em 0.125em 0.125em 0 rgba(50,50,50,0.3);
+	box-shadow: 0.125em 0.125em 0.125em 0 $color-rgba-ui-panel-shadow;
 }
 
 .ui-pnotify-container {
@@ -110,14 +110,14 @@ html > body > .ui-pnotify {
 }
 
 .ui-pnotify-notice div.ui-pnotify-container {
-	background: none #006BA6;
+	background-color: $color-hex-notice;
 }
 
 .ui-pnotify-success div.ui-pnotify-container {
-	background: none #09814A;
+	background-color: $color-hex-success;
 }
 
 .ui-pnotify-error div.ui-pnotify-container {
-	background: none #D62839;
+	background-color: $color-hex-error;
 }
 

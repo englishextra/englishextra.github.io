@@ -25,8 +25,8 @@ body {
 	font-size: 16px;
 	line-height: 1.500;
 	width: 100%;
-	color: #363636;
-	background-color: #F3F3F3;
+	color: $color-hex-body-text;
+	background-color: $color-hex-table-cell;
 	text-size-adjust: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
@@ -34,6 +34,7 @@ body {
 	-moz-font-feature-settings: "liga", "kern";
 	-webkit-touch-callout: none;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	overflow-x: hidden;
 	margin: 0;
@@ -48,6 +49,7 @@ a {
 	color: inherit;
 	text-decoration: none;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
 
@@ -55,6 +57,7 @@ a:hover,
 a:active,
 a:focus {
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
 
@@ -95,13 +98,13 @@ u,
 }
 
 ::-moz-selection {
-	color: rgba(255,255,255,0.9);
-	background: rgba(48,124,202,0.9);
+	color: $color-rgba-selection-text;
+	background-color: $color-rgba-selection-bg;
 }
 
 ::selection {
-	color: rgba(255,255,255,0.9);
-	background: rgba(48,124,202,0.9);
+	color: $color-rgba-selection-text;
+	background-color: $color-rgba-selection-bg;
 }
 
 /**
@@ -109,10 +112,8 @@ u,
  */
 
 .cf:after {
-	display: block;
-	visibility: hidden;
-	height: 0;
 	content: "";
+	display: table;
 	clear: both;
 }
 
@@ -163,7 +164,7 @@ u,
 	position: relative;
 	top: 0;
 	left: 0;
-	background-color: #3D4045;
+	background-color: $color-hex-hover-dark-ui-icon-bg;
 	background-image: url(/libs/notfound/img/bg-417x417.png);
 	background-position: top left;
 	background-repeat: repeat;
@@ -207,7 +208,7 @@ u,
 	line-height: 13px;
 	text-align: center;
 	color: #FFFFFF;
-	background: none #3A3A3C;
+	background-color: $color-hex-hint-bg;
 	margin: 0 auto;
 }
 
@@ -221,7 +222,6 @@ u,
 	color: inherit;
 	text-decoration: none;
 }
-
 
 /**
  * retina

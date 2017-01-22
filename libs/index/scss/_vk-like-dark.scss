@@ -27,17 +27,18 @@
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
-	background: none rgba(66,66,66,0.5);
+	background-color: $color-rgba-dark-ui-icon-bg;
 	border: none;
 	overflow: hidden;
 	transition: background 0.2s linear;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	z-index: 999;
 }
 
 .btn-show-vk-like:hover {
-	background-color: rgba(66,66,66,1);
+	background-color: $color-hex-hover-dark-ui-icon-bg;
 }
 
 .btn-show-vk-like:before {

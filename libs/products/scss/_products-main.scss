@@ -25,8 +25,8 @@ body {
 	font-size: 16px;
 	line-height: 1.500;
 	width: 100%;
-	color: #363636;
-	background-color: #F3F3F3;
+	color: $color-hex-body-text;
+	background-color: $color-hex-table-cell;
 	text-size-adjust: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
@@ -34,6 +34,7 @@ body {
 	-moz-font-feature-settings: "liga", "kern";
 	-webkit-touch-callout: none;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	overflow-x: hidden;
 	margin: 0;
@@ -48,6 +49,7 @@ a {
 	color: inherit;
 	text-decoration: none;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
 
@@ -55,6 +57,7 @@ a:hover,
 a:active,
 a:focus {
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
 
@@ -95,13 +98,13 @@ u,
 }
 
 ::-moz-selection {
-	color: rgba(255,255,255,0.9);
-	background: rgba(48,124,202,0.9);
+	color: $color-rgba-selection-text;
+	background-color: $color-rgba-selection-bg;
 }
 
 ::selection {
-	color: rgba(255,255,255,0.9);
-	background: rgba(48,124,202,0.9);
+	color: $color-rgba-selection-text;
+	background-color: $color-rgba-selection-bg;
 }
 
 /**
@@ -109,10 +112,8 @@ u,
  */
 
 .cf:after {
-	display: block;
-	visibility: hidden;
-	height: 0;
 	content: "";
+	display: table;
 	clear: both;
 }
 
@@ -162,7 +163,9 @@ u,
 	min-height: 100%;
 	position: relative;
 	top: 0;
+	/* left: 280px; */
 	left: 0;
+	background-color: $color-hex-table-cell;
 }
 
 .container {
@@ -196,7 +199,7 @@ u,
 }
 
 .btn-nav-menu:hover {
-	background-color: rgba(213,213,213,1);
+	background-color: $color-rgba-hover-ui-icon-bg;
 }
 
 /**
@@ -205,7 +208,7 @@ u,
 
 .btn-nav-menu {
 	text-align: center;
-	background: none rgba(211,211,211,0.5);
+	background-color: $color-rgba-ui-icon-bg;
 }
 
 .btn-nav-menu:before {
@@ -213,7 +216,7 @@ u,
 	content: "\e90f";
 	font-size: 18.000pt;
 	line-height: 33.000pt;
-	color: rgba(25,25,25,0.5);
+	color: $color-rgba-ui-icon-text;
 }
 
 /*! @import "menu-more-light"; */
@@ -236,7 +239,7 @@ u,
 }
 
 .btn-menu-more:hover {
-	background-color: rgba(213,213,213,1);
+	background-color: $color-rgba-hover-ui-icon-bg;
 }
 
 /**
@@ -245,7 +248,7 @@ u,
 
 .btn-menu-more {
 	text-align: center;
-	background: none rgba(211,211,211,0.5);
+	background-color: $color-rgba-ui-icon-bg;
 }
 
 .btn-menu-more:before {
@@ -253,7 +256,7 @@ u,
 	content: "\e915";
 	font-size: 18.000pt;
 	line-height: 33.000pt;
-	color: rgba(25,25,25,0.5);
+	color: $color-rgba-ui-icon-text;
 }
 
 .holder-panel-menu-more {
@@ -262,10 +265,10 @@ u,
 	position: absolute;
 	top: 33.000pt;
 	left: 33.000pt;
-	color: #363636;
-	background: #F0F0F0;
-	border: 0.750pt solid rgba(45,116,189,1);
-	box-shadow: 0.125em 0.125em 0.125em 0 rgba(50,50,50,0.3);
+	color: $color-hex-body-text;
+	background-color: $color-hex-aside-bg;
+	border: 0.750pt solid $color-hex-accent;
+	box-shadow: 0.125em 0.125em 0.125em 0 $color-rgba-ui-panel-shadow;
 	opacity: 0;
 	transition: visibility 0s, opacity 0.2s linear;
 	z-index: 999;
@@ -299,7 +302,7 @@ u,
 .panel-menu-more li a:focus {
 	text-decoration: none;
 	color: inherit;
-	background-color: rgba(190,212,235,1);
+	background-color: $color-hex-lighter-accent;
 }
 
 /**
@@ -313,8 +316,6 @@ u,
 	height: 33.000pt;
 	text-indent: 100%;
 	white-space: nowrap;
-	/* background: url(data:image/svg+xml;base64,) no-repeat center center rgba(255,255,255,1);
-	background-size: 33.000pt 33.000pt; */
 	overflow: hidden;
 	z-index: 1;
 }
@@ -335,7 +336,7 @@ u,
 
 .cd-prev:hover,
 .cd-next:hover {
-	background-color: rgba(213,213,213,1);
+	background-color: $color-rgba-hover-ui-icon-bg;
 }
 
 /**
@@ -354,8 +355,8 @@ u,
 	font-size: 18.000pt;
 	line-height: 33.000pt;
 	text-indent: 0;
-	color: rgba(25,25,25,0.5);
-	background: none rgba(211,211,211,0.5);
+	color: $color-rgba-ui-icon-text;
+	background-color: $color-rgba-ui-icon-bg;
 }
 
 .cd-next:before {
@@ -365,13 +366,13 @@ u,
 	font-size: 18.000pt;
 	line-height: 33.000pt;
 	text-indent: 0;
-	color: rgba(25,25,25,0.5);
-	background: none rgba(211,211,211,0.5);
+	color: $color-rgba-ui-icon-text;
+	background-color: $color-rgba-ui-icon-bg;
 }
 
 .cd-prev:hover,
 .cd-next:hover {
-	background-color: rgba(213,213,213,1);
+	background-color: $color-rgba-hover-ui-icon-bg;
 }
 
 /**

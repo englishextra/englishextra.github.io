@@ -17,10 +17,10 @@
 	font-weight: 400;
 	text-align : center;
 	word-break : keep-all;
-	color : rgba(255,255,255,0.9);
-	background-color: rgba(24,31,28,0.9);
+	color : $color-rgba-notifier42-text;
+	background-color: $color-rgba-notifier42-bg;
 	border-radius : 1.500pt;
-	box-shadow : 0.188em 0.188em 0.188em 0 rgba(50,50,50,0.3);
+	box-shadow: 0.125em 0.125em 0.125em 0 $color-rgba-ui-panel-shadow;
 	opacity : 0;
 	padding: 1.000rem;
 	margin : 0 auto;
@@ -28,19 +28,19 @@
 }
 
 .notifier42.notice {
-	background-color: rgba(0,107,166,0.9);
+	background-color: $color-rgba-notifier42-notice;
 }
 
 .notifier42.warning {
-	background-color: rgba(244,96,54,0.9);
+	background-color: $color-rgba-notifier42-warning;
 }
 
 .notifier42.error {
-	background-color: rgba(214,40,57,0.9);
+	background-color: $color-rgba-notifier42-error;
 }
 
 .notifier42.success {
-	background-color: rgba(9,129,74,0.9);
+	background-color: $color-rgba-notifier42-success;
 }
 
 /**

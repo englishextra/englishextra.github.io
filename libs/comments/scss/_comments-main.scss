@@ -25,8 +25,8 @@ body {
 	font-size: 16px;
 	line-height: 1.500;
 	width: 100%;
-	color: #363636;
-	background-color: #F3F3F3;
+	color: $color-hex-body-text;
+	background-color: $color-hex-table-cell;
 	text-size-adjust: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
@@ -34,6 +34,7 @@ body {
 	-moz-font-feature-settings: "liga", "kern";
 	-webkit-touch-callout: none;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	overflow-x: hidden;
 	margin: 0;
@@ -48,6 +49,7 @@ a {
 	color: inherit;
 	text-decoration: none;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
 
@@ -55,6 +57,7 @@ a:hover,
 a:active,
 a:focus {
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
 
@@ -95,13 +98,13 @@ u,
 }
 
 ::-moz-selection {
-	color: rgba(255,255,255,0.9);
-	background: rgba(48,124,202,0.9);
+	color: $color-rgba-selection-text;
+	background-color: $color-rgba-selection-bg;
 }
 
 ::selection {
-	color: rgba(255,255,255,0.9);
-	background: rgba(48,124,202,0.9);
+	color: $color-rgba-selection-text;
+	background-color: $color-rgba-selection-bg;
 }
 
 /**
@@ -109,10 +112,8 @@ u,
  */
 
 .cf:after {
-	display: block;
-	visibility: hidden;
-	height: 0;
 	content: "";
+	display: table;
 	clear: both;
 }
 
@@ -203,11 +204,7 @@ u,
 	top: 0;
 	/* left: 280px; */
 	left: 0;
-	background-color: #FFFFFF;
-	background-image: linear-gradient(rgba(243,243,243,1), rgba(243,243,243,1));
-	background-size: 100% 33.000pt;
-	background-position: top left;
-	background-repeat: no-repeat;
+	background-color: $color-hex-table-cell;
 }
 
 /* .js .page {
@@ -221,8 +218,10 @@ u,
 }
 
 .panel-nav-top {
+	display: block;
 	width: 100%;
 	height: 33.000pt;
+	background-color: $color-hex-table-cell;
 }
 
 .container {
@@ -230,7 +229,6 @@ u,
 	height: 100%;
 	opacity: 0;
 	transition: opacity 0.2s linear;
-	/* padding: 33.000pt 0 0 0; */
 	padding: 0;
 	margin: 0 auto;
 }
@@ -246,13 +244,11 @@ u,
 .app-content .content-wrapper {
 	width: 100%;
 	height: 100%;
-	/* position: absolute;
-	top: 33.000pt;
-	left: 0; */
 	background-color: #FFFFFF;
 }
 
 .container .content-wrapper:after,
+.app-content .content-wrapper:after,
 .app-content:after {
 	content: "";
 	display: table;
@@ -286,7 +282,7 @@ u,
 	overflow-y: auto;
 	-webkit-overflow-scrolling: touch;
 	box-sizing: border-box;
-	background: #2E2E2E;
+	background-color: $color-hex-ui-panel-bg;
 	padding: 0;
 	margin: 0;
 	margin-left: -280px;
@@ -320,11 +316,11 @@ u,
 
 .panel-nav-menu li a:hover,
 .panel-nav-menu li a:focus {
-	background: #464646;
+	background-color: $color-hex-hover-ui-panel-item-bg;
 }
 
 .panel-nav-menu li a.is-active {
-	background: rgba(30,77,125,1);
+	background-color: $color-hex-darker-accent;
 }
 
 .panel-nav-menu li a:before {
@@ -352,7 +348,7 @@ u,
 } */
 
 .btn-nav-menu:hover {
-	background-color: rgba(213,213,213,1);
+	background-color: $color-rgba-hover-ui-icon-bg;
 }
 
 /**
@@ -361,7 +357,7 @@ u,
 
 .btn-nav-menu {
 	text-align: center;
-	background: none rgba(211,211,211,0.5);
+	background-color: $color-rgba-ui-icon-bg;
 }
 
 .btn-nav-menu:before {
@@ -369,7 +365,7 @@ u,
 	content: "\e914";
 	font-size: 18.000pt;
 	line-height: 33.000pt;
-	color: #848484;
+	color: $color-hex-ui-icon-text;
 }
 
 .page.is-active .btn-nav-menu:before {
@@ -413,7 +409,7 @@ u,
 }
 
 .btn-menu-more:hover {
-	background-color: rgba(213,213,213,1);
+	background-color: $color-rgba-hover-ui-icon-bg;
 }
 
 /**
@@ -422,7 +418,7 @@ u,
 
 .btn-menu-more {
 	text-align: center;
-	background: none rgba(211,211,211,0.5);
+	background-color: $color-rgba-ui-icon-bg;
 }
 
 .btn-menu-more:before {
@@ -430,7 +426,7 @@ u,
 	content: "\e915";
 	font-size: 18.000pt;
 	line-height: 33.000pt;
-	color: #848484;
+	color: $color-hex-ui-icon-text;
 }
 
 .holder-panel-menu-more {
@@ -439,10 +435,10 @@ u,
 	position: absolute;
 	top: 33.000pt;
 	left: 33.000pt;
-	color: #363636;
-	background: #F0F0F0;
-	border: 0.750pt solid rgba(45,116,189,1);
-	box-shadow: 0.125em 0.125em 0.125em 0 rgba(50,50,50,0.3);
+	color: $color-hex-body-text;
+	background-color: $color-hex-aside-bg;
+	border: 0.750pt solid $color-hex-accent;
+	box-shadow: 0.125em 0.125em 0.125em 0 $color-rgba-ui-panel-shadow;
 	opacity: 0;
 	transition: visibility 0s, opacity 0.2s linear;
 	z-index: 999;
@@ -476,7 +472,7 @@ u,
 .panel-menu-more li a:focus {
 	text-decoration: none;
 	color: inherit;
-	background-color: rgba(190,212,235,1);
+	background-color: $color-hex-lighter-accent;
 }
 
 /**
@@ -514,17 +510,17 @@ u,
 
 .col a {
 	font-weight: inherit;
-	color: #307CCA;
+	color: $color-hex-link;
 }
 
 .col a:hover,
 .col a:active,
 .col a:focus {
-	color: #EA6743;
+	color: $color-hex-hover-link;
 }
 
 .col a:visited {
-	color: #8F9BA8;
+	color: $color-hex-visited-link;
 }
 
 .col h1 {
@@ -553,27 +549,27 @@ u,
 	border: none;
 	border-top-width: 0.750pt;
 	border-top-style: solid;
-	border-top-color: #C3C3C3;
+	border-top-color: $color-hex-divider;
 	border-right-width: 0.750pt;
 	border-right-style: solid;
-	border-right-color: #C3C3C3;
+	border-right-color: $color-hex-divider;
 	border-left-width: 0.750pt;
 	border-left-style: solid;
-	border-left-color: #C3C3C3;
+	border-left-color: $color-hex-divider;
 }
 
 .col table th {
 	border: none;
 	border-bottom-width: 0.750pt;
 	border-bottom-style: solid;
-	border-bottom-color: #C3C3C3;
+	border-bottom-color: $color-hex-divider;
 }
 
 .col table td {
 	border: none;
 	border-bottom-width: 0.750pt;
 	border-bottom-style: solid;
-	border-bottom-color: #C3C3C3;
+	border-bottom-color: $color-hex-divider;
 }
 
 .col table td.with-img-only {
@@ -596,7 +592,7 @@ u,
 		width: 100%;
 		float: left;
 		position: relative;
-		border: 0.750pt solid #C3C3C3;
+		border: 0.750pt solid $color-hex-divider;
 		border-bottom: none;
 		margin-bottom: 1.500rem;
 	}
@@ -622,11 +618,11 @@ u,
 .col hr,
 .col .hr {
 	height: 0.750pt;
-	background: #C3C3C3;
+	background-color: $color-hex-divider;
 }
 
 .col .highlight {
-	color: #EE6944;
+	color: $color-hex-highlight;
 }
 
 .col .bolder {
@@ -649,7 +645,7 @@ u,
  */
 
 .col .footer {
-	border-top: 0.750pt solid #C3C3C3;
+	border-top: 0.750pt solid $color-hex-divider;
 }
 
 .col .footer p {

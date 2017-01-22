@@ -7,6 +7,7 @@
 .superbox-wrapper {
 	width: 100%;
 	height: 100%;
+	background-color: $color-hex-dark-ui-bar-bg;
 	/** stackoverflow.com/questions/14967413/background-color-not-showing-for-a-div
 	Because the content collapses when the children are floated
 	and adding the overflow rule restores the behavior you'd expect. */
@@ -26,7 +27,6 @@
 .superbox {
 	display: block;
 	max-width: 100%;
-	background-color: transparent;
 	opacity: 0;
 	transition: opacity 0.2s linear;
 	margin: 0 auto;
@@ -49,7 +49,7 @@
 	display: block;
 	width: 100%;
 	height: auto;
-	box-shadow: 0 0.571em 0.286em -0.286em rgba(50,50,50,0.2);
+	box-shadow: 0 0.571em 0.286em -0.286em $color-rgba-ui-panel-shadow;
 	opacity: 0.85;
 	transition: all 0.2s ease-in-out;
 	cursor: pointer;
@@ -68,8 +68,8 @@
 	top: 0;
 	left: 0;
 	color: transparent;
-	background: #242424;
-	box-shadow: inset 0 0.063em 0.313em #232323;
+	background: $color-hex-dark-ui-panel-bg;
+	box-shadow: inset 0 0.063em 0.313em $color-rgba-ui-panel-shadow;
 	margin: 0 auto;
 	padding: 2.500em 1.500em 2.750em 1.500em;
 }
