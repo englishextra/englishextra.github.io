@@ -489,6 +489,7 @@ u,
 .holder-search-form input[type^=search] {
 	width: 100%;
 	height: 24.000pt;
+	font-family: inherit;
 	font-size: 1.000em;
 	color: inherit;
 	border-color: transparent;
@@ -1006,7 +1007,7 @@ u,
 	width: 97%;
 	max-width: 20.375rem;
 	height: 2.000rem;
-	font-family: sans-serif;
+	font-family: inherit;
 	font-size: 0.875rem;
 	color: inherit;
 	-webkit-tap-highlight-color: transparent;

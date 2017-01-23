@@ -1,6 +1,6 @@
 /*! @import "typeboost-css"; */
 
-/**
+/*!
  * typeboost.css v0.1.7
  * github.com/englishextra/typeboost.css
  */
@@ -853,7 +853,7 @@
 }
 
 .col select {
-	font-family: sans-serif;
+	font-family: inherit;
 }
 
 .col button,
