@@ -37,8 +37,8 @@
 	line-height: 51px;
 	text-align: center;
 	color: #FFFFFF;
-	background-color: $color-hex-dark-ui-panel-bg;
-	background-image: linear-gradient(to bottom right, $color-hex-dark-ui-panel-bg 0%, $color-hex-dark-ui-panel-bg 100%);
+	background-color: #252525;
+	background-image: linear-gradient(to bottom right, #252525 0%, #252525 100%);
 	opacity: 0.7;
 	border-radius: 5px;
 	padding: 21px 28px;
@@ -65,7 +65,7 @@
 	letter-spacing: 0.063em;
 	text-transform: uppercase;
 	color: #FFFFFF;
-	background-color: $color-hex-accent;
+	background-color: #43AA8B;
 	border-radius: 5px;
 	transition: all 0.2s;
 	outline: none;
@@ -193,8 +193,9 @@
 	letter-spacing: 0.063em;
 	text-transform: uppercase;
 	color: #FFFFFF;
-	background-color: $color-hex-accent;
+	background-color: #43AA8B;
 	border-radius: 5px;
+	-webkit-transition: all 0.2s;
 	transition: all 0.2s;
 	padding: 21px 28px;
 	margin: 0;
@@ -213,6 +214,7 @@
 .parallax-disabled .btn-2c:after {
 	content: "";
 	position: absolute;
+	-webkit-transition: all 0.2s;
 	transition: all 0.2s;
 	z-index: -1;
 }
@@ -268,7 +270,7 @@
 	background-repeat: no-repeat;
 }
 
-@media (min-height:1px) and (max-height:380px) {
+@media (min-height: 1px) and (max-height: 380px) {
 	.parallax .scene1 {
 		margin-top: -126px;
 	}
@@ -285,7 +287,7 @@
 	}
 }
 
-@media (min-height:381px) and (max-height:467px) {
+@media (min-height: 381px) and (max-height: 467px) {
 	.parallax .scene1 {
 		margin-top: -146px;
 	}
@@ -302,7 +304,7 @@
 	}
 }
 
-@media (min-height:468px) and (max-height:567px) {
+@media (min-height: 468px) and (max-height: 567px) {
 	.parallax .scene1 {
 		margin-top: -162px;
 	}

@@ -26,7 +26,7 @@ body {
 	line-height: 1.500;
 	width: 100%;
 	color: $color-hex-body-text;
-	background-color: $color-hex-table-cell;
+	background-color: $color-hex-table-cell-bg;
 	text-size-adjust: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
@@ -162,7 +162,7 @@ u,
 	top: 0;
 	/* left: 280px; */
 	left: 0;
-	background-color: $color-hex-table-cell;
+	background-color: $color-hex-table-cell-bg;
 }
 
 .container {
@@ -196,7 +196,7 @@ u,
 }
 
 .btn-nav-menu:hover {
-	background-color: $color-rgba-hover-ui-icon-bg;
+	background-color: $color-hex-hover-ui-icon-bg;
 }
 
 /**
@@ -236,7 +236,7 @@ u,
 }
 
 .btn-menu-more:hover {
-	background-color: $color-rgba-hover-ui-icon-bg;
+	background-color: $color-hex-hover-ui-icon-bg;
 }
 
 /**
@@ -333,7 +333,7 @@ u,
 
 .cd-prev:hover,
 .cd-next:hover {
-	background-color: $color-rgba-hover-ui-icon-bg;
+	background-color: $color-hex-hover-ui-icon-bg;
 }
 
 /**
@@ -369,7 +369,7 @@ u,
 
 .cd-prev:hover,
 .cd-next:hover {
-	background-color: $color-rgba-hover-ui-icon-bg;
+	background-color: $color-hex-hover-ui-icon-bg;
 }
 
 /**

@@ -8,6 +8,14 @@
  * css3.mikeplate.com
  */
 
+/* \$(.*?)\: (.*?)\;
+<div class="masonry-grid-item"><div class="bg-\1"><span class="color-variable-name">$\1</span></div></div>
+
+\$(.*?)\: (.*?)\;
+.bg-\1 {
+	background-color: $\1;
+} */
+
 /*! @import "products-font-face"; */
 
 @font-face {
@@ -333,7 +341,7 @@ template {
 	content: "\e925";
 	font-size: 18.000pt;
 	line-height: 33.000pt;
-	color: rgba(25, 25, 25, 0.5);
+	color: rgba(10, 10, 10, 0.5);
 }
 
 /*! @import "share-buttons-light"; */
@@ -391,7 +399,7 @@ template {
 	content: "\e91d";
 	font-size: 18.000pt;
 	line-height: 33.000pt;
-	color: rgba(25, 25, 25, 0.5);
+	color: rgba(10, 10, 10, 0.5);
 }
 
 /*! @import "products-doslide"; */
@@ -728,7 +736,7 @@ u,
 	content: "\e90f";
 	font-size: 18.000pt;
 	line-height: 33.000pt;
-	color: rgba(25, 25, 25, 0.5);
+	color: rgba(10, 10, 10, 0.5);
 }
 
 /*! @import "menu-more-light"; */
@@ -769,7 +777,7 @@ u,
 	content: "\e915";
 	font-size: 18.000pt;
 	line-height: 33.000pt;
-	color: rgba(25, 25, 25, 0.5);
+	color: rgba(10, 10, 10, 0.5);
 }
 
 .holder-panel-menu-more {
@@ -869,7 +877,7 @@ u,
 	font-size: 18.000pt;
 	line-height: 33.000pt;
 	text-indent: 0;
-	color: rgba(25, 25, 25, 0.5);
+	color: rgba(10, 10, 10, 0.5);
 	background-color: rgba(211, 211, 211, 0.5);
 }
 
@@ -880,7 +888,7 @@ u,
 	font-size: 18.000pt;
 	line-height: 33.000pt;
 	text-indent: 0;
-	color: rgba(25, 25, 25, 0.5);
+	color: rgba(10, 10, 10, 0.5);
 	background-color: rgba(211, 211, 211, 0.5);
 }
 

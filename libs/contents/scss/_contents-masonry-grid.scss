@@ -7,7 +7,7 @@
 .masonry-grid-wrapper {
 	width: 100%;
 	height: 100%;
-	background-color: $color-hex-table-cell;
+	background-color: $color-hex-table-cell-bg;
 	/** stackoverflow.com/questions/14967413/background-color-not-showing-for-a-div
 	Because the content collapses when the children are floated
 	and adding the overflow rule restores the behavior you'd expect. */

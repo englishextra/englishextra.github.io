@@ -8,6 +8,14 @@
  * css3.mikeplate.com
  */
 
+/* \$(.*?)\: (.*?)\;
+<div class="masonry-grid-item"><div class="bg-\1"><span class="color-variable-name">$\1</span></div></div>
+
+\$(.*?)\: (.*?)\;
+.bg-\1 {
+	background-color: $\1;
+} */
+
 /*! @import "notfound-font-face"; */
 
 @font-face {
@@ -297,9 +305,9 @@ template {
 	line-height: 51px;
 	text-align: center;
 	color: #FFFFFF;
-	background-color: #242424;
-	background-image: -webkit-linear-gradient(top left, #242424 0%, #242424 100%);
-	background-image: linear-gradient(to bottom right, #242424 0%, #242424 100%);
+	background-color: #252525;
+	background-image: -webkit-linear-gradient(top left, #252525 0%, #252525 100%);
+	background-image: linear-gradient(to bottom right, #252525 0%, #252525 100%);
 	opacity: 0.7;
 	border-radius: 5px;
 	padding: 21px 28px;
@@ -326,7 +334,7 @@ template {
 	letter-spacing: 0.063em;
 	text-transform: uppercase;
 	color: #FFFFFF;
-	background-color: #2D74BD;
+	background-color: #43AA8B;
 	border-radius: 5px;
 	-webkit-transition: all 0.2s;
 	transition: all 0.2s;
@@ -456,7 +464,7 @@ template {
 	letter-spacing: 0.063em;
 	text-transform: uppercase;
 	color: #FFFFFF;
-	background-color: #2D74BD;
+	background-color: #43AA8B;
 	border-radius: 5px;
 	-webkit-transition: all 0.2s;
 	transition: all 0.2s;
@@ -633,7 +641,7 @@ template {
 	position: absolute;
 	top: 0;
 	left: 0;
-	background: #FFFFFF;
+	background-color: #FFFFFF;
 	border-radius: 0.571rem;
 }
 
@@ -960,7 +968,7 @@ u,
 	 * set the parent to min height 100%, not just height
 	 * and position relative to parent, absolute for child
 	 */
-	height: 100%;
+	min-height: 100%;
 	position: relative;
 	top: 0;
 	left: 0;
@@ -974,6 +982,9 @@ u,
 .container {
 	width: 100%;
 	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
 	opacity: 0;
 	-webkit-transition: opacity 0.2s linear;
 	transition: opacity 0.2s linear;

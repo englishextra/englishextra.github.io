@@ -8,6 +8,14 @@
  * css3.mikeplate.com
  */
 
+/* \$(.*?)\: (.*?)\;
+<div class="masonry-grid-item"><div class="bg-\1"><span class="color-variable-name">$\1</span></div></div>
+
+\$(.*?)\: (.*?)\;
+.bg-\1 {
+	background-color: $\1;
+} */
+
 /*! @import "branding-font-face"; */
 
 @font-face {
@@ -1800,7 +1808,7 @@ body {
 	border-top: 1.1em solid rgba(211, 211, 211, 0.5);
 	border-right: 1.1em solid rgba(211, 211, 211, 0.5);
 	border-bottom: 1.1em solid rgba(211, 211, 211, 0.5);
-	border-left: 1.1em solid rgba(25, 25, 25, 0.5);
+	border-left: 1.1em solid rgba(10, 10, 10, 0.5);
 	-webkit-transform: translateZ(0);
 	transform: translateZ(0);
 	-webkit-animation: load8 1.1s infinite linear;
@@ -2189,7 +2197,7 @@ body {
 	content: "\e91d";
 	font-size: 18.000pt;
 	line-height: 33.000pt;
-	color: rgba(25, 25, 25, 0.5);
+	color: rgba(10, 10, 10, 0.5);
 }
 
 /*! @import "branding-masonry-grid"; */
@@ -2223,27 +2231,37 @@ body {
 	min-height: 5.125rem;
 }
 
-@media handheld, only screen and (max-width: 800px) {
+@media handheld, only screen and (max-width: 320px) {
 	.masonry-grid-sizer,
 	.masonry-grid-item {
-		width: 50%;
+		width: 100%;
+	}
+
+	.masonry-grid-item {
+		float: none;
 	}
 }
 
-.masonry-grid-item div {
+.masonry-grid-item [class^="bg-color-"],
+.masonry-grid-item [class*=" bg-color-"] {
 	min-height: 5.125rem;
+}
+
+.masonry-grid-item .color-variable-name {
+	display: block;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	font-size: 0.875rem;
 	font-weight: 300;
-	line-height: 1.000rem;
-	padding: 1.000rem;
+	color: #FFFFFF;
+	background-color: rgba(66, 66, 66, 0.5);
+	padding: 0.500rem;
 }
 
 /*! @import "prettyprint.fixed"; */
 
-/**
- * a google-code-prettify theme for englishextra.github.io based on
- * jmblog.github.io/color-themes-for-google-code-prettify/themes/github-v2.min.css
- * Color themes for Google Code Prettify | MIT License | github.com/jmblog/color-themes-for-google-code-prettify
- */
+/*! Color themes for Google Code Prettify | MIT License | github.com/jmblog/color-themes-for-google-code-prettify */
 
 .prettyprint {
 	background: #fff;
@@ -2272,7 +2290,7 @@ li.L7,
 li.L8,
 li.L9 {
 	padding-left: 1em;
-	/* background-color:#fff; */
+	background-color: #fff;
 	list-style-type: decimal;
 }
 
@@ -2336,6 +2354,12 @@ li.L9 {
 
 /**
  * custom fixes for github-v2.min.css
+ * a google-code-prettify theme for englishextra.github.io based on
+ * source: jmblog.github.io/color-themes-for-google-code-prettify/themes/github-v2.min.css
+ */
+
+/**
+ * custom fixes for github-v2.min.css
  */
 
 pre.prettyprint,
@@ -2351,8 +2375,8 @@ pre.prettyprint {
 	border: 0 solid transparent;
 	overflow-x: scroll;
 	overflow-y: auto;
-	margin: 1.000em auto;
 	padding: 1.000em;
+	margin: 1.000em auto;
 }
 
 pre.prettyprinted {
@@ -2364,15 +2388,20 @@ ol.linenums {
 	list-style: decimal outside;
 	color: #C5C5C5;
 	border-left: 1px solid #C5C5C5;
-	margin: 0 0 0 3.000em !important;
 	padding: 0;
+	margin: 0 0 0 3.000em !important;
 }
 
 ol.linenums li {
 	line-height: 1.500;
-	padding-left: 0.800em;
 	background-color: inherit;
+	padding-left: 0.800em;
 }
+
+/**
+ * added media print
+ * source: github.com/google/code-prettify/blob/master/src/prettify.css
+ */
 
 @media print {
 	pre.prettyprinted,
@@ -2515,7 +2544,7 @@ ol.linenums li {
 	content: "\e923";
 	font-size: 18.000pt;
 	line-height: 33.000pt;
-	color: rgba(25, 25, 25, 0.5);
+	color: rgba(10, 10, 10, 0.5);
 }
 
 /*! @import "branding-main"; */
@@ -3676,160 +3705,240 @@ u,
  * englishextra ui colors
  */
 
-.bg-color-logo-bg {
-	background-color: #D54848;
+.bg-color-rgba-selection-text {
+	background-color: rgba(255, 255, 255, 0.9);
 }
 
-.bg-color-progress-bar {
-	background-color: #FE5F55;
+.bg-color-rgba-selection-bg {
+	background-color: rgba(48, 124, 202, 0.9);
 }
 
-.bg-color-body-text {
+.bg-color-hex-body-text {
 	background-color: #363636;
 }
 
-.bg-color-lighter-text {
+.bg-color-hex-lighter-text {
 	background-color: #686868;
 }
 
-.bg-color-gray-text {
+.bg-color-hex-gray-text {
 	background-color: #949494;
 }
 
-.bg-color-darker-accent {
-	background-color: #1E4D7D;
-}
-
-.bg-color-accent {
-	background-color: #2D74BD;
-}
-
-.bg-color-lighter-accent {
-	background-color: #BED4EB;
-}
-
-.bg-color-link {
+.bg-color-hex-link {
 	background-color: #307CCA;
 }
 
-.bg-color-hover-link {
+.bg-color-hex-hover-link {
 	background-color: #EA6743;
 }
 
-.bg-color-visited-link {
+.bg-color-hex-visited-link {
 	background-color: #8F9BA8;
 }
 
-.bg-color-url {
-	background-color: #17AB56;
+.bg-color-hex-progress-bar {
+	background-color: #FE5F55;
 }
 
-.bg-color-highlight {
+.bg-color-hex-accent {
+	background-color: #2D74BD;
+}
+
+.bg-color-hex-darker-accent {
+	background-color: #1E4D7D;
+}
+
+.bg-color-hex-lighter-accent {
+	background-color: #BED4EB;
+}
+
+.bg-color-hex-highlight {
 	background-color: #EE6944;
 }
 
-.bg-color-notice {
-	background-color: #006BA6;
+.bg-color-hex-url {
+	background-color: #17AB56;
 }
 
-.bg-color-success {
-	background-color: #09814A;
-}
-
-.bg-color-warning {
-	background-color: #F46036;
-}
-
-.bg-color-error {
+.bg-color-hex-error {
 	background-color: #D62839;
 }
 
-.bg-color-aside-bg {
-	background-color: #F0F0F0;
+.bg-color-hex-notice {
+	background-color: #006BA6;
 }
 
-.bg-color-divider {
-	background-color: #C3C3C3;
+.bg-color-hex-success {
+	background-color: #09814A;
 }
 
-.bg-color-hover-ui-icon-bg {
-	background-color: #DFDFDF;
+.bg-color-hex-warning {
+	background-color: #F46036;
 }
 
-.bg-color-disabled-ui-icon-bg {
-	background-color: #D5D5D5;
-}
-
-.bg-color-dark-ui-icon-bg {
-	background-color: rgba(66, 66, 66, 0.5);
-}
-
-.bg-color-ui-icon-text {
+.bg-color-hex-ui-icon-text {
 	background-color: #848484;
 }
 
-.bg-color-hover-dark-ui-icon-bg {
-	background-color: #424242;
+.bg-color-rgba-ui-icon-text {
+	background-color: rgba(10, 10, 10, 0.5);
 }
 
-.bg-color-ui-bar-bg {
-	background-color: #424242;
+.bg-color-hex-ui-icon-bg {
+	background-color: #E9E9E9;
 }
 
-.bg-color-dark-ui-bar-bg {
-	background-color: #383838;
-}
-
-.bg-color-ui-panel-bg {
-	background-color: #2E2E2E;
-}
-
-.bg-color-dark-ui-panel-bg {
-	background-color: #242424;
-}
-
-.bg-color-hover-ui-panel-item-bg {
-	background-color: #464646;
-}
-
-.bg-color-hint-bg {
-	background-color: #353535;
-}
-
-.bg-color-active-input-bg {
-	background-color: #F2F2F2;
-}
-
-.bg-color-disabled-input-bg {
-	background-color: #D6D6D6;
-}
-
-.bg-color-button-bg {
-	background-color: #474747;
-}
-
-.bg-color-hover-button {
-	background-color: #606060;
-}
-
-.bg-color-table-header-bg {
-	background-color: #E8E8E8;
-}
-
-.bg-color-table-cell {
-	background-color: #F3F3F3;
-}
-
-.bg-color-ui-icon-bg {
+.bg-color-rgba-ui-icon-bg {
 	background-color: rgba(211, 211, 211, 0.5);
 }
 
-.color-body-copy-text {
-	color: #363636;
+.bg-color-hex-hover-ui-icon-bg {
+	background-color: #D5D5D5;
 }
 
-.color-white {
-	color: #FFFFFF;
+.bg-color-rgba-dark-ui-icon-bg {
+	background-color: rgba(66, 66, 66, 0.5);
+}
+
+.bg-color-hex-hover-dark-ui-icon-bg {
+	background-color: #424242;
+}
+
+.bg-color-hex-button-bg {
+	background-color: #474747;
+}
+
+.bg-color-hex-hover-button-bg {
+	background-color: #606060;
+}
+
+.bg-color-hex-hover-button-secondary-bg {
+	background-color: #DFDFDF;
+}
+
+.bg-color-hex-active-input-bg {
+	background-color: #F2F2F2;
+}
+
+.bg-color-hex-disabled-input-bg {
+	background-color: #D6D6D6;
+}
+
+.bg-color-hex-ui-panel-bg {
+	background-color: #2E2E2E;
+}
+
+.bg-color-rgba-ui-panel-shadow {
+	background-color: rgba(50, 50, 50, 0.3);
+}
+
+.bg-color-hex-hover-ui-panel-item-bg {
+	background-color: #464646;
+}
+
+.bg-color-hex-dark-ui-panel-bg {
+	background-color: #242424;
+}
+
+.bg-color-hex-dark-ui-bar-bg {
+	background-color: #383838;
+}
+
+.bg-color-hex-divider {
+	background-color: #C3C3C3;
+}
+
+.bg-color-hex-lighter-divider {
+	background-color: #C5C5C5;
+}
+
+.bg-color-hex-aside-bg {
+	background-color: #F0F0F0;
+}
+
+.bg-color-hex-table-header-bg {
+	background-color: #E8E8E8;
+}
+
+.bg-color-hex-table-cell-bg {
+	background-color: #F3F3F3;
+}
+
+.bg-color-rgba-grid-item-shadow {
+	background-color: rgba(150, 150, 150, 0.2);
+}
+
+.bg-color-hex-hint-bg {
+	background-color: #353535;
+}
+
+.bg-color-rgba-notifier42-text {
+	background-color: rgba(255, 255, 255, 0.9);
+}
+
+.bg-color-rgba-notifier42-bg {
+	background-color: rgba(24, 31, 28, 0.9);
+}
+
+.bg-color-rgba-notifier42-notice {
+	background-color: rgba(0, 107, 166, 0.9);
+}
+
+.bg-color-rgba-notifier42-warning {
+	background-color: rgba(244, 96, 54, 0.9);
+}
+
+.bg-color-rgba-notifier42-error {
+	background-color: rgba(214, 40, 57, 0.9);
+}
+
+.bg-color-rgba-notifier42-success {
+	background-color: rgba(9, 129, 74, 0.9);
+}
+
+.bg-color-rgba-img-lightbox-bg {
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+.bg-color-rgba-img-lightbox-border {
+	background-color: rgba(255, 255, 255, 0.5);
+}
+
+.bg-color-hex-englishextra-logo-bg {
+	background-color: #D54848;
+}
+
+.bg-color-hex-serguei-logo-bg {
+	background-color: #2D7C9A;
+}
+
+.bg-color-hex-pages-aids {
+	background-color: #EF6B52;
+}
+
+.bg-color-hex-pages-articles {
+	background-color: #E84B53;
+}
+
+.bg-color-hex-pages-grammar {
+	background-color: #2D7C9A;
+}
+
+.bg-color-hex-pages-more {
+	background-color: #557678;
+}
+
+.bg-color-hex-pages-reading {
+	background-color: #0179D7;
+}
+
+.bg-color-hex-pages-tests {
+	background-color: #744DA9;
+}
+
+.bg-color-hex-pages-transcripts {
+	background-color: #515C6B;
 }
 
 /**

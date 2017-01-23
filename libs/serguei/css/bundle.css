@@ -8,6 +8,14 @@
  * css3.mikeplate.com
  */
 
+/* \$(.*?)\: (.*?)\;
+<div class="masonry-grid-item"><div class="bg-\1"><span class="color-variable-name">$\1</span></div></div>
+
+\$(.*?)\: (.*?)\;
+.bg-\1 {
+	background-color: $\1;
+} */
+
 /*! @import "serguei-font-face"; */
 
 @font-face {
@@ -1792,7 +1800,7 @@ body {
 	border-top: 1.1em solid rgba(211, 211, 211, 0.5);
 	border-right: 1.1em solid rgba(211, 211, 211, 0.5);
 	border-bottom: 1.1em solid rgba(211, 211, 211, 0.5);
-	border-left: 1.1em solid rgba(25, 25, 25, 0.5);
+	border-left: 1.1em solid rgba(10, 10, 10, 0.5);
 	-webkit-transform: translateZ(0);
 	transform: translateZ(0);
 	-webkit-animation: load8 1.1s infinite linear;
@@ -2228,7 +2236,7 @@ body {
 	content: "\e91d";
 	font-size: 18.000pt;
 	line-height: 33.000pt;
-	color: rgba(25, 25, 25, 0.5);
+	color: rgba(10, 10, 10, 0.5);
 }
 
 /*! @import "serguei-site-logo"; */
@@ -2482,7 +2490,7 @@ img[class*=" books-"] {
 	content: "\e923";
 	font-size: 18.000pt;
 	line-height: 33.000pt;
-	color: rgba(25, 25, 25, 0.5);
+	color: rgba(10, 10, 10, 0.5);
 }
 
 /*! @import "serguei-main"; */

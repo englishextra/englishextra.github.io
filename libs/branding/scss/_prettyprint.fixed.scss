@@ -1,11 +1,6 @@
 /*! @import "prettyprint.fixed"; */
 
-/**
- * a google-code-prettify theme for englishextra.github.io based on
- * jmblog.github.io/color-themes-for-google-code-prettify/themes/github-v2.min.css
- * Color themes for Google Code Prettify | MIT License | github.com/jmblog/color-themes-for-google-code-prettify
- */
-
+/*! Color themes for Google Code Prettify | MIT License | github.com/jmblog/color-themes-for-google-code-prettify */
 .prettyprint {
 	background: #fff;
 	font-family: Menlo,Bitstream Vera Sans Mono,DejaVu Sans Mono,Monaco,Consolas,monospace;
@@ -22,9 +17,18 @@ ol.linenums {
 	color: #ccc;
 }
 
-li.L0,li.L1,li.L2,li.L3,li.L4,li.L5,li.L6,li.L7,li.L8,li.L9 {
+li.L0,
+li.L1,
+li.L2,
+li.L3,
+li.L4,
+li.L5,
+li.L6,
+li.L7,
+li.L8,
+li.L9 {
 	padding-left: 1em;
-/* background-color:#fff; */
+	background-color: #fff;
 	list-style-type: decimal;
 }
 
@@ -88,9 +92,16 @@ li.L0,li.L1,li.L2,li.L3,li.L4,li.L5,li.L6,li.L7,li.L8,li.L9 {
 
 /**
  * custom fixes for github-v2.min.css
+ * a google-code-prettify theme for englishextra.github.io based on
+ * source: jmblog.github.io/color-themes-for-google-code-prettify/themes/github-v2.min.css
  */
 
-pre.prettyprint,code.prettyprint {
+/**
+ * custom fixes for github-v2.min.css
+ */
+
+pre.prettyprint,
+code.prettyprint {
 	background-color: $color-hex-ui-icon-bg;
 	border-radius: 0;
 }
@@ -102,8 +113,8 @@ pre.prettyprint {
 	border: 0 solid transparent;
 	overflow-x: scroll;
 	overflow-y: auto;
-	margin: 1.000em auto;
 	padding: 1.000em;
+	margin: 1.000em auto;
 }
 
 pre.prettyprinted {
@@ -115,18 +126,25 @@ ol.linenums {
 	list-style: decimal outside;
 	color: $color-hex-lighter-divider;
 	border-left: 1px solid $color-hex-lighter-divider;
-	margin: 0 0 0 3.000em !important;
 	padding: 0;
+	margin: 0 0 0 3.000em !important;
 }
 
 ol.linenums li {
 	line-height: 1.500;
-	padding-left: 0.800em;
 	background-color: inherit;
+	padding-left: 0.800em;
 }
 
+/**
+ * added media print
+ * source: github.com/google/code-prettify/blob/master/src/prettify.css
+ */
+
 @media print {
-	pre.prettyprinted,pre.prettyprint,code.prettyprint {
+	pre.prettyprinted,
+	pre.prettyprint,
+	code.prettyprint {
 		background-color: #FFFFFF;
 		color: #000000;
 		border-radius: 0;

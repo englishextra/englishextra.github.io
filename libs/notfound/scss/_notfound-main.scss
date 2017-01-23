@@ -26,7 +26,7 @@ body {
 	line-height: 1.500;
 	width: 100%;
 	color: $color-hex-body-text;
-	background-color: $color-hex-table-cell;
+	background-color: $color-hex-table-cell-bg;
 	text-size-adjust: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
@@ -157,11 +157,11 @@ u,
 	 * set the parent to min height 100%, not just height
 	 * and position relative to parent, absolute for child
 	 */
-	height: 100%;
+	min-height: 100%;
 	position: relative;
 	top: 0;
 	left: 0;
-	background-color: $color-hex-hover-dark-ui-icon-bg;
+	background-color: #424242;
 	background-image: url(/libs/notfound/img/bg-417x417.png);
 	background-position: top left;
 	background-repeat: repeat;
@@ -171,7 +171,11 @@ u,
 .container {
 	width: 100%;
 	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
 	opacity: 0;
+	-webkit-transition: opacity 0.2s linear;
 	transition: opacity 0.2s linear;
 	text-align: center;
 	/**
@@ -205,7 +209,7 @@ u,
 	line-height: 13px;
 	text-align: center;
 	color: #FFFFFF;
-	background-color: $color-hex-hint-bg;
+	background-color: #353535;
 	margin: 0 auto;
 }
 

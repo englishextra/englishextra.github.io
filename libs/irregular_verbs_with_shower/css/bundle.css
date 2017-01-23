@@ -8,6 +8,14 @@
  * css3.mikeplate.com
  */
 
+/* \$(.*?)\: (.*?)\;
+<div class="masonry-grid-item"><div class="bg-\1"><span class="color-variable-name">$\1</span></div></div>
+
+\$(.*?)\: (.*?)\;
+.bg-\1 {
+	background-color: $\1;
+} */
+
 /*! @import "irregular-verbs-with-shower-font-face"; */
 
 @font-face {
@@ -339,7 +347,7 @@ template {
 	content: "\e91d";
 	font-size: 18.000pt;
 	line-height: 33.000pt;
-	color: rgba(25, 25, 25, 0.5);
+	color: rgba(10, 10, 10, 0.5);
 }
 
 /*! @import "irregular-verbs-with-shower-shower"; */
@@ -627,7 +635,7 @@ template {
 	content: "\e923";
 	font-size: 18.000pt;
 	line-height: 33.000pt;
-	color: rgba(25, 25, 25, 0.5);
+	color: rgba(10, 10, 10, 0.5);
 }
 
 /*! @import "irregular-verbs-with-shower-main"; */

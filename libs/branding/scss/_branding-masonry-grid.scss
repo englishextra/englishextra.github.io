@@ -29,17 +29,31 @@
 	min-height: 5.125rem;
 }
 
-@media handheld,only screen and (max-width:800px) {
+@media handheld,only screen and (max-width:320px) {
 	.masonry-grid-sizer,
 	.masonry-grid-item {
-		width: 50%;
+		width: 100%;
+	}
+	
+	.masonry-grid-item {
+		float: none;
 	}
 }
 
-.masonry-grid-item div {
+.masonry-grid-item [class^="bg-color-"],
+.masonry-grid-item [class*=" bg-color-"] {
 	min-height: 5.125rem;
+}
+
+.masonry-grid-item .color-variable-name {
+	display: block;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	font-size: 0.875rem;
 	font-weight: 300;
-	line-height: 1.000rem;
-	padding: 1.000rem;
+	color: #FFFFFF;
+	background-color: $color-rgba-dark-ui-icon-bg;
+	padding: 0.500rem;
 }
 

@@ -99,7 +99,7 @@
 .shower-list {
 	position: absolute;
 	clip: rect(0, auto, auto, 0);
-	background-color: $color-hex-table-cell;
+	background-color: $color-hex-table-cell-bg;
 	counter-reset: slide;
 	padding: 100px 0 0 16px;
 }

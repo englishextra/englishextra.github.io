@@ -26,7 +26,7 @@ body {
 	line-height: 1.500;
 	width: 100%;
 	color: $color-hex-body-text;
-	background-color: $color-hex-table-cell;
+	background-color: $color-hex-table-cell-bg;
 	text-size-adjust: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
@@ -163,7 +163,7 @@ u,
 	/* left: 280px; */
 	left: 0;
 	opacity: 0;
-	background-color: $color-hex-table-cell;
+	background-color: $color-hex-table-cell-bg;
 	/* background-image: url(//c1.staticflickr.com/1/440/18550960875_5d72d17cc9_o.jpg); */
 	background-image: url(../img/header.jpg);
 	background-position: center center;
