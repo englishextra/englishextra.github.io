@@ -2475,7 +2475,7 @@ ol.linenums li {
 
 #disqus_thread {
 	/* svgeneration.com/recipes/Stucco/ */
-	background-color: #F1F1F1;
+	background-color: #F5F5F5;
 	background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSczMDAnIGhlaWdodD0nMzAwJyB2aWV3Qm94PScwIDAgMTUwIDE1MCc+PGZpbHRlciBpZD0nbicgeD0nMCcgeT0nMCc+PGZlVHVyYnVsZW5jZSB0eXBlPSd0dXJidWxlbmNlJyBiYXNlRnJlcXVlbmN5PScuNycgcmVzdWx0PSdmdXp6JyBudW1PY3RhdmVzPScyJyBzdGl0Y2hUaWxlcz0nc3RpdGNoJy8+PGZlQ29tcG9zaXRlIGluPSdTb3VyY2VHcmFwaGljJyBpbjI9J2Z1enonIG9wZXJhdG9yPSdhcml0aG1ldGljJyBrMT0nMCcgazI9JzEnIGszPSctMC4xNScgazQ9Jy4wMScgLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0nMTAyJScgaGVpZ2h0PScxMDIlJyBmaWxsPScjZTZlNmU2Jy8+PHJlY3QgeD0nLTElJyB5PSctMSUnIHdpZHRoPScxMDIlJyBoZWlnaHQ9JzEwMiUnIGZpbGw9JyNmMGYwZjAnIGZpbHRlcj0ndXJsKCNuKScgb3BhY2l0eT0nMScvPjwvc3ZnPg==);
 	background-size: 225.000pt 225.000pt;
 	background-position: left top;
@@ -3842,10 +3842,6 @@ u,
 	background-color: #2E2E2E;
 }
 
-.bg-color-rgba-ui-bar-shadow {
-	background-color: rgba(50, 50, 50, 0.3);
-}
-
 .bg-color-hex-hover-dark-ui-panel-item-bg {
 	background-color: #464646;
 }
@@ -3854,8 +3850,16 @@ u,
 	background-color: #242424;
 }
 
+.bg-color-rgba-darker-ui-panel-inset-shadow {
+	background-color: rgba(6, 6, 6, 0.5);
+}
+
 .bg-color-hex-ui-bar-bg {
 	background-color: #F1F1F1;
+}
+
+.bg-color-rgba-ui-bar-shadow {
+	background-color: rgba(50, 50, 50, 0.3);
 }
 
 .bg-color-hex-dark-ui-bar-bg {

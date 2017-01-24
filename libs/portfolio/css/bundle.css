@@ -573,7 +573,7 @@ template {
 	left: 0;
 	color: transparent;
 	background-color: #242424;
-	box-shadow: inset 0 0.063em 0.313em rgba(50, 50, 50, 0.3);
+	box-shadow: inset 0 0.063em 0.313em rgba(6, 6, 6, 0.5);
 	margin: 0 auto;
 	padding: 2.500em 1.500em 2.750em 1.500em;
 }

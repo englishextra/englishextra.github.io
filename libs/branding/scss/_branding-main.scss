@@ -1283,10 +1283,6 @@ u,
 	background-color: $color-hex-dark-ui-panel-bg;
 }
 
-.bg-color-rgba-ui-bar-shadow {
-	background-color: $color-rgba-ui-bar-shadow;
-}
-
 .bg-color-hex-hover-dark-ui-panel-item-bg {
 	background-color: $color-hex-hover-dark-ui-panel-item-bg;
 }
@@ -1295,8 +1291,16 @@ u,
 	background-color: $color-hex-darker-ui-panel-bg;
 }
 
+.bg-color-rgba-darker-ui-panel-inset-shadow {
+	background-color: $color-rgba-darker-ui-panel-inset-shadow;
+}
+
 .bg-color-hex-ui-bar-bg {
 	background-color: $color-hex-ui-bar-bg;
+}
+
+.bg-color-rgba-ui-bar-shadow {
+	background-color: $color-rgba-ui-bar-shadow;
 }
 
 .bg-color-hex-dark-ui-bar-bg {
