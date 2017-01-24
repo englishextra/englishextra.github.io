@@ -27,7 +27,7 @@ body {
 	line-height: 1.500;
 	width: 100%;
 	color: $color-hex-body-text;
-	background-color: $color-hex-table-cell-bg;
+	background-color: $color-hex-page-bg;
 	text-size-adjust: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
@@ -159,7 +159,7 @@ u,
 	 * and position relative to parent, absolute for child
 	 */
 	min-height: 100%;
-	background-color: $color-hex-table-cell-bg;
+	background-color: $color-hex-page-bg;
 }
 
 /*! @import "irregular-verbs-with-shower-nav-menu"; */

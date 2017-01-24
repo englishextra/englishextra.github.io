@@ -35,7 +35,7 @@
 	position: relative;
 	width: 1024px;
 	height: 640px;
-	background: $color-hex-dark-ui-panel-bg;
+	background-color: $color-hex-darker-ui-panel-bg;
 	color: $color-hex-body-text;
 	text-size-adjust: none;
 }
@@ -99,7 +99,7 @@
 .shower-list {
 	position: absolute;
 	clip: rect(0, auto, auto, 0);
-	background-color: $color-hex-table-cell-bg;
+	background-color: $color-hex-page-bg;
 	counter-reset: slide;
 	padding: 100px 0 0 16px;
 }

@@ -2421,7 +2421,7 @@ img[class*=" books-"] {
 
 #disqus_thread {
 	/* svgeneration.com/recipes/Stucco/ */
-	background-color: #F0F0F0;
+	background-color: #F1F1F1;
 	background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSczMDAnIGhlaWdodD0nMzAwJyB2aWV3Qm94PScwIDAgMTUwIDE1MCc+PGZpbHRlciBpZD0nbicgeD0nMCcgeT0nMCc+PGZlVHVyYnVsZW5jZSB0eXBlPSd0dXJidWxlbmNlJyBiYXNlRnJlcXVlbmN5PScuNycgcmVzdWx0PSdmdXp6JyBudW1PY3RhdmVzPScyJyBzdGl0Y2hUaWxlcz0nc3RpdGNoJy8+PGZlQ29tcG9zaXRlIGluPSdTb3VyY2VHcmFwaGljJyBpbjI9J2Z1enonIG9wZXJhdG9yPSdhcml0aG1ldGljJyBrMT0nMCcgazI9JzEnIGszPSctMC4xNScgazQ9Jy4wMScgLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0nMTAyJScgaGVpZ2h0PScxMDIlJyBmaWxsPScjZTZlNmU2Jy8+PHJlY3QgeD0nLTElJyB5PSctMSUnIHdpZHRoPScxMDIlJyBoZWlnaHQ9JzEwMiUnIGZpbGw9JyNmMGYwZjAnIGZpbHRlcj0ndXJsKCNuKScgb3BhY2l0eT0nMScvPjwvc3ZnPg==);
 	background-size: 225.000pt 225.000pt;
 	background-position: left top;
@@ -2521,7 +2521,7 @@ body {
 	line-height: 1.500;
 	width: 100%;
 	color: #363636;
-	background-color: #F3F3F3;
+	background-color: #F0F0F0;
 	-webkit-text-size-adjust: none;
 	-ms-text-size-adjust: none;
 	text-size-adjust: none;
@@ -2691,7 +2691,7 @@ u,
 	top: 0;
 	/* left: 280px; */
 	left: 0;
-	background-color: #F3F3F3;
+	background-color: #F0F0F0;
 }
 
 /* .js .page {
@@ -2708,7 +2708,7 @@ u,
 	display: block;
 	width: 100%;
 	height: 33.000pt;
-	background-color: #F3F3F3;
+	background-color: #F0F0F0;
 }
 
 .container {
@@ -2926,7 +2926,7 @@ u,
 	top: 33.000pt;
 	left: 33.000pt;
 	color: #363636;
-	background-color: #F0F0F0;
+	background-color: #F1F1F1;
 	border: 0.75pt solid #2D74BD;
 	box-shadow: 0.125em 0.125em 0.125em 0 rgba(50, 50, 50, 0.3);
 	opacity: 0;
@@ -3254,7 +3254,7 @@ u,
 .col .vcard {
 	display: none;
 	font-size: 0.875rem;
-	background-color: #F0F0F0;
+	background-color: #F1F1F1;
 	padding: 0.500rem 0.750rem;
 }
 
@@ -3268,7 +3268,7 @@ u,
 
 .col .aside {
 	display: block;
-	background-color: #F0F0F0;
+	background-color: #F1F1F1;
 	padding: 1.000rem;
 }
 

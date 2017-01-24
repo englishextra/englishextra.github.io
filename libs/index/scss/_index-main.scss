@@ -26,7 +26,7 @@ body {
 	line-height: 1.500;
 	width: 100%;
 	color: $color-hex-body-text;
-	background-color: $color-hex-table-cell-bg;
+	background-color: $color-hex-page-bg;
 	text-size-adjust: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
@@ -163,7 +163,7 @@ u,
 	/* left: 280px; */
 	left: 0;
 	opacity: 0;
-	background-color: $color-hex-table-cell-bg;
+	background-color: $color-hex-page-bg;
 	/* background-image: url(//farm6.staticflickr.com/5539/30578927754_6684bd4693_o.jpg); */
 	background-image: url(../img/header.jpg);
 	background-position: center center;
@@ -237,7 +237,7 @@ u,
 	overflow-y: auto;
 	-webkit-overflow-scrolling: touch;
 	box-sizing: border-box;
-	background-color: $color-hex-ui-panel-bg;
+	background-color: $color-hex-darker-ui-panel-bg;
 	padding: 0;
 	margin: 0;
 	margin-left: -280px;
@@ -271,7 +271,7 @@ u,
 
 .panel-nav-menu li a:hover,
 .panel-nav-menu li a:focus {
-	background-color: $color-hex-hover-ui-panel-item-bg;
+	background-color: $color-hex-hover-dark-ui-panel-item-bg;
 }
 
 .panel-nav-menu li a.is-active {
@@ -384,9 +384,9 @@ u,
 	top: 33.000pt;
 	left: 33.000pt;
 	color: $color-hex-body-text;
-	background-color: $color-hex-aside-bg;
+	background-color: $color-hex-ui-bar-bg;
 	border: 0.750pt solid $color-hex-accent;
-	box-shadow: 0.125em 0.125em 0.125em 0 $color-rgba-ui-panel-shadow;
+	box-shadow: 0.125em 0.125em 0.125em 0 $color-rgba-dark-ui-panel-shadow;
 	opacity: 0;
 	transition: visibility 0s, opacity 0.2s linear;
 	z-index: 999;

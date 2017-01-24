@@ -15,14 +15,14 @@
 	text-align: left;
 	margin: 0;
 	padding: 0;
-	background-color: $color-hex-aside-bg;
+	background-color: $color-hex-ui-bar-bg;
 	z-index: 999;
 	outline: none;
 	color: inherit;
 	box-sizing: border-box;
 	font-size: 0.875em;
 	border: 0.750pt solid $color-hex-accent;
-	box-shadow: 0.125em 0.125em 0.125em 0 $color-rgba-ui-panel-shadow;
+	box-shadow: 0.125em 0.125em 0.125em 0 $color-rgba-dark-ui-panel-shadow;
 	border-radius: 0;
 }
 

@@ -414,7 +414,7 @@ body {
 	line-height: 1.500;
 	width: 100%;
 	color: #363636;
-	background-color: #F3F3F3;
+	background-color: #F0F0F0;
 	-webkit-text-size-adjust: none;
 	-ms-text-size-adjust: none;
 	text-size-adjust: none;
@@ -554,7 +554,7 @@ u,
 	/* left: 280px; */
 	left: 0;
 	opacity: 0;
-	background-color: #F3F3F3;
+	background-color: #434343;
 	/* background-image: url(//c1.staticflickr.com/1/440/18550960875_5d72d17cc9_o.jpg); */
 	background-image: url(../img/header.jpg);
 	background-position: center center;
@@ -755,7 +755,7 @@ u,
 	top: 33.000pt;
 	left: 33.000pt;
 	color: #363636;
-	background-color: #F0F0F0;
+	background-color: #F1F1F1;
 	border: 0.75pt solid #2D74BD;
 	box-shadow: 0.125em 0.125em 0.125em 0 rgba(50, 50, 50, 0.3);
 	opacity: 0;

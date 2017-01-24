@@ -31,6 +31,11 @@ $color-hex-notice: #006BA6;
 $color-hex-success: #09814A;
 $color-hex-warning: #F46036;
 
+$color-hex-page-bg: #F0F0F0;
+
+$color-hex-divider: #C3C3C3;
+$color-hex-lighter-divider: #C5C5C5;
+
 $color-hex-ui-icon-text: #848484;
 $color-rgba-ui-icon-text: rgba(10,10,10,0.5);
 $color-hex-ui-icon-bg: #E9E9E9;
@@ -47,16 +52,13 @@ $color-hex-hover-button-secondary-bg: #DFDFDF;
 $color-hex-active-input-bg: #F2F2F2;
 $color-hex-disabled-input-bg: #D6D6D6;
 
-$color-hex-ui-panel-bg: #2E2E2E;
-$color-rgba-ui-panel-shadow: rgba(50,50,50,0.3);
-$color-hex-hover-ui-panel-item-bg: #464646;
-$color-hex-dark-ui-panel-bg: #242424;
+$color-hex-dark-ui-panel-bg: #2E2E2E;
+$color-rgba-dark-ui-panel-shadow: rgba(50,50,50,0.3);
+$color-hex-hover-dark-ui-panel-item-bg: #464646;
+$color-hex-darker-ui-panel-bg: #242424;
+
+$color-hex-ui-bar-bg: #F1F1F1;
 $color-hex-dark-ui-bar-bg: #383838;
-
-$color-hex-divider: #C3C3C3;
-$color-hex-lighter-divider: #C5C5C5;
-
-$color-hex-aside-bg: #F0F0F0;
 
 $color-hex-table-header-bg: #E8E8E8;
 $color-hex-table-cell-bg: #F3F3F3;

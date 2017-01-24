@@ -67,8 +67,8 @@
 	top: 0;
 	left: 0;
 	color: transparent;
-	background: $color-hex-dark-ui-panel-bg;
-	box-shadow: inset 0 0.063em 0.313em $color-rgba-ui-panel-shadow;
+	background-color: $color-hex-darker-ui-panel-bg;
+	box-shadow: inset 0 0.063em 0.313em $color-rgba-dark-ui-panel-shadow;
 	margin: 0 auto;
 	padding: 2.500em 1.500em 2.750em 1.500em;
 }
