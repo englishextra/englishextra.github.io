@@ -2042,7 +2042,7 @@ body {
 	text-align: left;
 	margin: 0;
 	padding: 0;
-	background-color: #F0F0F0;
+	background-color: #F1F1F1;
 	z-index: 999;
 	outline: none;
 	color: inherit;
@@ -2475,7 +2475,7 @@ ol.linenums li {
 
 #disqus_thread {
 	/* svgeneration.com/recipes/Stucco/ */
-	background-color: #F0F0F0;
+	background-color: #F1F1F1;
 	background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSczMDAnIGhlaWdodD0nMzAwJyB2aWV3Qm94PScwIDAgMTUwIDE1MCc+PGZpbHRlciBpZD0nbicgeD0nMCcgeT0nMCc+PGZlVHVyYnVsZW5jZSB0eXBlPSd0dXJidWxlbmNlJyBiYXNlRnJlcXVlbmN5PScuNycgcmVzdWx0PSdmdXp6JyBudW1PY3RhdmVzPScyJyBzdGl0Y2hUaWxlcz0nc3RpdGNoJy8+PGZlQ29tcG9zaXRlIGluPSdTb3VyY2VHcmFwaGljJyBpbjI9J2Z1enonIG9wZXJhdG9yPSdhcml0aG1ldGljJyBrMT0nMCcgazI9JzEnIGszPSctMC4xNScgazQ9Jy4wMScgLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0nMTAyJScgaGVpZ2h0PScxMDIlJyBmaWxsPScjZTZlNmU2Jy8+PHJlY3QgeD0nLTElJyB5PSctMSUnIHdpZHRoPScxMDIlJyBoZWlnaHQ9JzEwMiUnIGZpbGw9JyNmMGYwZjAnIGZpbHRlcj0ndXJsKCNuKScgb3BhY2l0eT0nMScvPjwvc3ZnPg==);
 	background-size: 225.000pt 225.000pt;
 	background-position: left top;
@@ -2575,7 +2575,7 @@ body {
 	line-height: 1.500;
 	width: 100%;
 	color: #363636;
-	background-color: #F3F3F3;
+	background-color: #F0F0F0;
 	-webkit-text-size-adjust: none;
 	-ms-text-size-adjust: none;
 	text-size-adjust: none;
@@ -2753,7 +2753,7 @@ u,
 	top: 0;
 	/* left: 280px; */
 	left: 0;
-	background-color: #F3F3F3;
+	background-color: #F0F0F0;
 }
 
 /* .js .page {
@@ -2770,7 +2770,7 @@ u,
 	display: block;
 	width: 100%;
 	height: 33.000pt;
-	background-color: #F3F3F3;
+	background-color: #F0F0F0;
 }
 
 .container {
@@ -2833,7 +2833,7 @@ u,
 	overflow-y: auto;
 	-webkit-overflow-scrolling: touch;
 	box-sizing: border-box;
-	background-color: #2E2E2E;
+	background-color: #242424;
 	padding: 0;
 	margin: 0;
 	margin-left: -280px;
@@ -2988,7 +2988,7 @@ u,
 	top: 33.000pt;
 	left: 33.000pt;
 	color: #363636;
-	background-color: #F0F0F0;
+	background-color: #F1F1F1;
 	border: 0.75pt solid #2D74BD;
 	box-shadow: 0.125em 0.125em 0.125em 0 rgba(50, 50, 50, 0.3);
 	opacity: 0;
@@ -3520,7 +3520,7 @@ u,
 
 .col .aside {
 	display: block;
-	background-color: #F0F0F0;
+	background-color: #F5F5F5;
 	padding: 1.000rem;
 }
 
@@ -3778,6 +3778,18 @@ u,
 	background-color: #F46036;
 }
 
+.bg-color-hex-page-bg {
+	background-color: #F0F0F0;
+}
+
+.bg-color-hex-divider {
+	background-color: #C3C3C3;
+}
+
+.bg-color-hex-lighter-divider {
+	background-color: #C5C5C5;
+}
+
 .bg-color-hex-ui-icon-text {
 	background-color: #848484;
 }
@@ -3826,11 +3838,11 @@ u,
 	background-color: #D6D6D6;
 }
 
-.bg-color-hex-ui-panel-bg {
+.bg-color-hex-dark-ui-panel-bg {
 	background-color: #2E2E2E;
 }
 
-.bg-color-rgba-ui-panel-shadow {
+.bg-color-rgba-ui-bar-shadow {
 	background-color: rgba(50, 50, 50, 0.3);
 }
 
@@ -3838,24 +3850,20 @@ u,
 	background-color: #464646;
 }
 
-.bg-color-hex-dark-ui-panel-bg {
+.bg-color-hex-darker-ui-panel-bg {
 	background-color: #242424;
+}
+
+.bg-color-hex-ui-bar-bg {
+	background-color: #F1F1F1;
 }
 
 .bg-color-hex-dark-ui-bar-bg {
 	background-color: #383838;
 }
 
-.bg-color-hex-divider {
-	background-color: #C3C3C3;
-}
-
-.bg-color-hex-lighter-divider {
-	background-color: #C5C5C5;
-}
-
 .bg-color-hex-aside-bg {
-	background-color: #F0F0F0;
+	background-color: #F5F5F5;
 }
 
 .bg-color-hex-table-header-bg {

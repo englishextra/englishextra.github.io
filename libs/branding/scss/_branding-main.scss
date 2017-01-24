@@ -435,7 +435,7 @@ u,
 	color: $color-hex-body-text;
 	background-color: $color-hex-ui-bar-bg;
 	border: 0.750pt solid $color-hex-accent;
-	box-shadow: 0.125em 0.125em 0.125em 0 $color-rgba-dark-ui-panel-shadow;
+	box-shadow: 0.125em 0.125em 0.125em 0 $color-rgba-ui-bar-shadow;
 	opacity: 0;
 	transition: visibility 0s, opacity 0.2s linear;
 	z-index: 999;
@@ -1283,8 +1283,8 @@ u,
 	background-color: $color-hex-dark-ui-panel-bg;
 }
 
-.bg-color-rgba-dark-ui-panel-shadow {
-	background-color: $color-rgba-dark-ui-panel-shadow;
+.bg-color-rgba-ui-bar-shadow {
+	background-color: $color-rgba-ui-bar-shadow;
 }
 
 .bg-color-hex-hover-dark-ui-panel-item-bg {

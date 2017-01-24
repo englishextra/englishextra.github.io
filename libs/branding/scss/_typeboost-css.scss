@@ -1,10 +1,8 @@
 /*! @import "typeboost-css"; */
-
 /*!
  * typeboost.css v0.1.7
  * github.com/englishextra/typeboost.css
  */
-
 .col div,
 .col span,
 .col applet,
@@ -774,7 +772,6 @@
 /**
  * font weights
  */
-
 .col h1,
 .col h2,
 .col h4,
@@ -826,7 +823,6 @@
 /**
  * font styles
  */
-
 .col address,
 .col p.address,
 .col p.blockquote,
@@ -842,7 +838,6 @@
 /**
  * font families
  */
-
 .col h1 {
 	font-family: serif;
 }
@@ -894,15 +889,14 @@
 /**
  * colors
  */
-
 .col a {
-	color: $color-hex-link;
+	color: #307CCA;
 }
 
 .col a:hover,
 .col a:focus,
 .col a:active {
-	color: $color-hex-hover-link;
+	color: #EA6743;
 }
 
 .col h1,
@@ -1095,7 +1089,7 @@
 .col input[type^="datetime"]:disabled,
 .col input[type^="datetime-local"]:disabled,
 .col textarea:disabled {
-	background-color: $color-hex-disabled-input-bg;
+	background-color: #D6D6D6;
 	border-color: #D6D6D6;
 }
 
@@ -1103,7 +1097,7 @@
 .col input[type="button"]:disabled,
 .col input[type="reset"]:disabled,
 .col input[type="submit"]:disabled {
-	background-color: $color-hex-disabled-input-bg;
+	background-color: #D6D6D6;
 	border-color: #D6D6D6;
 }
 
@@ -1146,6 +1140,6 @@
 }
 
 .col .highlight {
-	color: $color-hex-highlight;
+	color: #EE6944;
 }
 

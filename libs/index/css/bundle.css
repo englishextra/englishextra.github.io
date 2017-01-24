@@ -554,7 +554,7 @@ u,
 	/* left: 280px; */
 	left: 0;
 	opacity: 0;
-	background-color: #434343;
+	background-color: #F0F0F0;
 	/* background-image: url(//farm6.staticflickr.com/5539/30578927754_6684bd4693_o.jpg); */
 	background-image: url(../img/header.jpg);
 	background-position: center center;
@@ -629,7 +629,7 @@ u,
 	overflow-y: auto;
 	-webkit-overflow-scrolling: touch;
 	box-sizing: border-box;
-	background-color: #2E2E2E;
+	background-color: #242424;
 	padding: 0;
 	margin: 0;
 	margin-left: -280px;
