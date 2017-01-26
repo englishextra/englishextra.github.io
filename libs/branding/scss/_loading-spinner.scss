@@ -13,10 +13,10 @@
 	left: 50%;
 	margin: -5em 0 0 -5em;
 	text-indent: -9999em;
-	border-top: 1.1em solid $color-rgba-ui-icon-bg;
-	border-right: 1.1em solid $color-rgba-ui-icon-bg;
-	border-bottom: 1.1em solid $color-rgba-ui-icon-bg;
-	border-left: 1.1em solid $color-rgba-ui-icon-text;
+	border-top: 1.100em solid $color-rgba-loading-spinner-bg;
+	border-right: 1.100em solid $color-rgba-loading-spinner-bg;
+	border-bottom: 1.100em solid $color-rgba-loading-spinner-bg;
+	border-left: 1.100em solid $color-rgba-loading-spinner-text;
 	transform: translateZ(0);
 	animation: load8 1.1s infinite linear;
 	z-index: 1003;
