@@ -20,7 +20,7 @@ html {
 }
 
 body {
-	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI","Segoe WP",sans-serif;
+	font-family: $font-family-webfont-sans-regular;
 	font-weight: 400;
 	font-size: 16px;
 	line-height: 1.500;
@@ -388,11 +388,11 @@ u,
 
 @media only screen and (max-width: 480px) {
 	body {
-		font-family: "Segoe UI","Segoe WP","Source Sans Pro","Open Sans","Exo2","Fira Sans",sans-serif;
+		font-family: $font-family-local-sans-regular;
 	}
 
 	[class^="slide-"] h2 {
-		font-family: "Segoe UI","Segoe WP","Source Sans Pro","Open Sans","Exo2","Fira Sans",sans-serif;
+		font-family: $font-family-local-sans-regular;
 	}
 }
 

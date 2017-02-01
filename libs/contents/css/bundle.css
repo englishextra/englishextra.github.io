@@ -1,6 +1,7 @@
 /*! libs\contents\scss\bundle.scss */
 
-/*! @import "englishextra-ui-colors"; */
+/*! @import "englishextra-ui-colors";
+@import "englishextra-ui-variables"; */
 
 /**
  * englishextra-ui colors
@@ -443,7 +444,7 @@ template {
 }
 
 .masonry-grid-wrapper h1 {
-	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI Light","Segoe WP Light",sans-serif;
+	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI Light", "Segoe WP Light", sans-serif;
 	font-weight: 400;
 	font-size: 1.772rem;
 	line-height: 1.200;
@@ -548,7 +549,7 @@ template {
 }
 
 .masonry-grid-item-content h2 {
-	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI Light","Segoe WP Light",sans-serif;
+	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI Light", "Segoe WP Light", sans-serif;
 	font-weight: 300;
 	font-size: 1.500rem;
 	line-height: 1.200;
@@ -574,7 +575,7 @@ template {
 }
 
 .masonry-grid-item-content p {
-	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI","Segoe WP",sans-serif;
+	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", sans-serif;
 	font-weight: 400;
 	font-size: 1.000rem;
 	line-height: 1.500;
@@ -1044,7 +1045,7 @@ html {
 }
 
 body {
-	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI","Segoe WP",sans-serif;
+	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", sans-serif;
 	font-weight: 400;
 	font-size: 16px;
 	line-height: 1.500;
@@ -1578,12 +1579,12 @@ u,
 @media only screen and (max-width: 480px) {
 	body,
 	.container h1 {
-		font-family: "Segoe UI","Segoe WP","Source Sans Pro","Open Sans","Exo2","Fira Sans",sans-serif;
+		font-family: "Segoe UI", "Segoe WP", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
 	}
 
 	.panel-nav-menu li,
 	.masonry-grid-item-content h2 {
-		font-family: "Segoe UI Light","Segoe WP Light","Source Sans Pro","Open Sans","Exo2","Fira Sans",sans-serif;
+		font-family: "Segoe UI Light", "Segoe WP Light", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
 	}
 }
 

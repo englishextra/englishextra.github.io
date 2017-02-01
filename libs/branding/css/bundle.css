@@ -1,6 +1,7 @@
 /*! libs\branding\scss\bundle.scss */
 
-/*! @import "englishextra-ui-colors"; */
+/*! @import "englishextra-ui-colors";
+@import "englishextra-ui-variables"; */
 
 /**
  * englishextra-ui colors
@@ -1168,7 +1169,7 @@ template {
 
 .col pre,
 .col pre code {
-	font-family: "Source Code Pro","Consolas",monospace;
+	font-family: "Source Code Pro", "Consolas", monospace;
 }
 
 .col select {
@@ -1207,7 +1208,7 @@ template {
 }
 
 .col .phonetic {
-	font-family: "Source Code Pro","Consolas",monospace;
+	font-family: "Source Code Pro", "Consolas", monospace;
 }
 
 /**
@@ -2569,7 +2570,7 @@ html {
 }
 
 body {
-	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI","Segoe WP",sans-serif;
+	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", sans-serif;
 	font-weight: 400;
 	font-size: 16px;
 	line-height: 1.500;
@@ -3167,7 +3168,7 @@ u,
 }
 
 .col h1 {
-	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI Light","Segoe WP Light",sans-serif;
+	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI Light", "Segoe WP Light", sans-serif;
 	font-weight: 300;
 	line-height: 1.200;
 	color: inherit;
@@ -3176,7 +3177,7 @@ u,
 }
 
 .col h2 {
-	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI","Segoe WP",sans-serif;
+	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", sans-serif;
 	font-weight: 400;
 }
 
@@ -3355,7 +3356,7 @@ u,
 
 .col pre,
 .col pre code {
-	font-family: "Source Code Pro","Consolas",monospace;
+	font-family: "Source Code Pro", "Consolas", monospace;
 	font-size: 0.875rem;
 }
 
@@ -3368,7 +3369,7 @@ u,
 }
 
 .col .phonetic {
-	font-family: "Source Code Pro","Consolas",monospace;
+	font-family: "Source Code Pro", "Consolas", monospace;
 }
 
 .col .bolder {
@@ -3525,7 +3526,7 @@ u,
 }
 
 .aside h3 {
-	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI Light","Segoe WP Light",sans-serif;
+	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI Light", "Segoe WP Light", sans-serif;
 	font-weight: 300;
 	font-size: 1.331rem;
 }
@@ -4037,7 +4038,7 @@ u,
 }
 
 .col .sg-font-primary {
-	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI","Segoe WP",sans-serif;
+	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", sans-serif;
 	font-weight: 400;
 	font-size: 1.000rem;
 	line-height: 1.500;
@@ -4046,7 +4047,7 @@ u,
 }
 
 .col .sg-font-secondary {
-	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI Light","Segoe WP Light",sans-serif;
+	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI Light", "Segoe WP Light", sans-serif;
 	font-weight: 300;
 	font-size: 3.375rem;
 	line-height: 1.200;
@@ -4055,7 +4056,7 @@ u,
 }
 
 .col .sg-font-phonetic {
-	font-family: "Source Code Pro","Consolas",monospace;
+	font-family: "Source Code Pro", "Consolas", monospace;
 	font-weight: 400;
 	font-size: 1.000rem;
 	line-height: 1.500;
@@ -4064,7 +4065,7 @@ u,
 }
 
 .col .sg-font-preformatted {
-	font-family: "Source Code Pro","Consolas",monospace;
+	font-family: "Source Code Pro", "Consolas", monospace;
 	font-weight: 400;
 	font-size: 0.938rem;
 	line-height: 1.500;
@@ -4120,19 +4121,19 @@ u,
 @media only screen and (max-width: 480px) {
 	body,
 	.col h2 {
-		font-family: "Segoe UI","Segoe WP","Source Sans Pro","Open Sans","Exo2","Fira Sans",sans-serif;
+		font-family: "Segoe UI", "Segoe WP", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
 	}
 
 	.panel-nav-menu li,
 	.col h1,
 	.aside h3 {
-		font-family: "Segoe UI Light","Segoe WP Light","Source Sans Pro","Open Sans","Exo2","Fira Sans",sans-serif;
+		font-family: "Segoe UI Light", "Segoe WP Light", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
 	}
 
 	.col pre,
 	.col pre code,
 	.col .phonetic {
-		font-family: "Consolas","Droid Sans Mono","Menlo","Source Code Pro",monospace;
+		font-family: "Consolas", "Droid Sans Mono", "Menlo", "Source Code Pro", monospace;
 	}
 }
 

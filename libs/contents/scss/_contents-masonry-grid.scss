@@ -16,7 +16,7 @@
 }
 
 .masonry-grid-wrapper h1 {
-	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI Light","Segoe WP Light",sans-serif;
+	font-family: $font-family-webfont-sans-light;
 	font-weight: 400;
 	font-size: 1.772rem;
 	line-height: 1.200;
@@ -121,7 +121,7 @@
 }
 
 .masonry-grid-item-content h2 {
-	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI Light","Segoe WP Light",sans-serif;
+	font-family: $font-family-webfont-sans-light;
 	font-weight: 300;
 	font-size: 1.500rem;
 	line-height: 1.200;
@@ -147,7 +147,7 @@
 }
 
 .masonry-grid-item-content p {
-	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI","Segoe WP",sans-serif;
+	font-family: $font-family-webfont-sans-regular;
 	font-weight: 400;
 	font-size: 1.000rem;
 	line-height: 1.500;

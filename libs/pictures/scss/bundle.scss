@@ -1,12 +1,13 @@
 /*! libs\pictures\scss\bundle.scss */
 
 @import "englishextra-ui-colors";
+@import "englishextra-ui-variables";
 @import "pictures-font-face";
 @import "normalize";
 @import "location-qr-code";
 @import "vk-like-light";
 @import "share-buttons-light";
-@import "photoswipe.fixed";
+@import "photoswipe.default-skin.fixed";
 @import "pictures-masonry-grid";
 @import "ui-totop";
 @import "pictures-main";

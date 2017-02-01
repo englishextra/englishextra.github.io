@@ -20,7 +20,7 @@ html {
 }
 
 body {
-	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI","Segoe WP",sans-serif;
+	font-family: $font-family-webfont-sans-regular;
 	font-weight: 400;
 	font-size: 16px;
 	line-height: 1.500;
@@ -535,7 +535,7 @@ u,
 }
 
 .col h1 {
-	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI Light","Segoe WP Light",sans-serif;
+	font-family: $font-family-webfont-sans-light;
 	font-weight: 300;
 	line-height: 1.200;
 	color: inherit;
@@ -544,7 +544,7 @@ u,
 }
 
 .col h2 {
-	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI","Segoe WP",sans-serif;
+	font-family: $font-family-webfont-sans-regular;
 	font-weight: 400;
 }
 
@@ -704,7 +704,7 @@ u,
 }
 
 .col .phonetic {
-	font-family: "Source Code Pro","Consolas",monospace;
+	font-family: $font-family-webfont-monospace;
 }
 
 .col .bolder {
@@ -771,7 +771,7 @@ u,
 }
 
 .aside h3 {
-	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI Light","Segoe WP Light",sans-serif;
+	font-family: $font-family-webfont-sans-light;
 	font-weight: 300;
 	font-size: 1.331rem;
 }
@@ -820,17 +820,17 @@ u,
 @media only screen and (max-width: 480px) {
 	body,
 	.col h2 {
-		font-family: "Segoe UI","Segoe WP","Source Sans Pro","Open Sans","Exo2","Fira Sans",sans-serif;
+		font-family: $font-family-local-sans-regular;
 	}
 
 	.panel-nav-menu li,
 	.col h1,
 	.aside h3 {
-		font-family: "Segoe UI Light","Segoe WP Light","Source Sans Pro","Open Sans","Exo2","Fira Sans",sans-serif;
+		font-family: $font-family-local-sans-light;
 	}
 
 	.col .phonetic {
-		font-family: "Consolas","Droid Sans Mono","Menlo","Source Code Pro",monospace;
+		font-family: $font-family-local-monospace;
 	}
 }
 

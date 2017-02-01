@@ -1,6 +1,7 @@
 /*! libs\forbidden\scss\bundle.scss */
 
-/*! @import "englishextra-ui-colors"; */
+/*! @import "englishextra-ui-colors";
+@import "englishextra-ui-variables"; */
 
 /**
  * englishextra-ui colors
@@ -408,7 +409,7 @@ html {
 }
 
 body {
-	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI","Segoe WP",sans-serif;
+	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", sans-serif;
 	font-weight: 400;
 	font-size: 16px;
 	line-height: 1.500;
@@ -1155,11 +1156,11 @@ u,
 
 @media only screen and (max-width: 480px) {
 	body {
-		font-family: "Segoe UI","Segoe WP","Source Sans Pro","Open Sans","Exo2","Fira Sans",sans-serif;
+		font-family: "Segoe UI", "Segoe WP", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
 	}
 
 	.panel-nav-menu li {
-		font-family: "Segoe UI Light","Segoe WP Light","Source Sans Pro","Open Sans","Exo2","Fira Sans",sans-serif;
+		font-family: "Segoe UI Light", "Segoe WP Light", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
 	}
 }
 

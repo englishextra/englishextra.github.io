@@ -20,7 +20,7 @@ html {
 }
 
 body {
-	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI","Segoe WP",sans-serif;
+	font-family: $font-family-webfont-sans-regular;
 	font-weight: 400;
 	font-size: 16px;
 	line-height: 1.500;
@@ -223,7 +223,7 @@ u,
 	display: table-cell;
 	min-width: 7.500rem;
 	height: 2.250rem;
-	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI","Segoe WP",sans-serif;
+	font-family: $font-family-webfont-sans-regular;
 	font-weight: 300;
 	font-size: 0.875rem;
 	vertical-align: middle;
@@ -260,7 +260,7 @@ u,
 .filter-select,
 .filter-select:active,
 .filter-select:focus {
-	font-family: "Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI","Segoe WP",sans-serif;
+	font-family: $font-family-webfont-sans-regular;
 	font-weight: 300;
 	font-size: 0.875rem;
 	display: block;
@@ -298,38 +298,6 @@ u,
 		display: block;
 	}
 }
-
-/**
- * colors
- */
-
-/* .pages-aids {
-	background-color: $color-hex-pages-aids;
-}
-
-.pages-articles {
-	background-color: $color-hex-pages-articles;
-}
-
-.pages-grammar {
-	background-color: $color-hex-pages-grammar;
-}
-
-.pages-more {
-	background-color: $color-hex-pages-more;
-}
-
-.pages-reading {
-	background-color: $color-hex-pages-reading;
-}
-
-.pages-tests {
-	background-color: $color-hex-pages-tests;
-}
-
-.pages-transcripts {
-	background-color: $color-hex-pages-transcripts;
-} */
 
 .footer {
 	font-size: 0.813rem;
