@@ -603,8 +603,12 @@ u,
 	margin-top: 1.500rem;
 }
 
-.col h2+div form p:first-child {
+.col h2 + div form p:first-child {
 	margin-top: 0;
+}
+
+.col select {
+	font-family: sans-serif;
 }
 
 .col select optgroup {
@@ -672,7 +676,8 @@ u,
 		margin-bottom: 0;
 	}
 
-	.col table.respond thead {
+	.col table.respond thead,
+	.col table.respond tfoot {
 		display: none;
 	}
 

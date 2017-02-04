@@ -1149,7 +1149,7 @@ template {
 }
 
 .col select {
-	font-family: inherit;
+	font-family: sans-serif;
 }
 
 .col button,
@@ -2433,7 +2433,8 @@ u,
 		margin-bottom: 0;
 	}
 
-	.col table.respond thead {
+	.col table.respond thead,
+	.col table.respond tfoot {
 		display: none;
 	}
 

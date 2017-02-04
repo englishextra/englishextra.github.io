@@ -20,10 +20,10 @@ toolbox.precache([
 		"/fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.woff",
 		"/fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.woff2",
 		"/fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.ttf",
-		"/fonts/source-sans-pro-fontfacekit/SourceSansPro-Light.otf.woff",
-		"/fonts/source-sans-pro-fontfacekit/SourceSansPro-Light.otf.woff2",
-		"/fonts/source-sans-pro-fontfacekit/SourceSansPro-Light.ttf",
-		"/fonts/source-sans-pro-fontfacekit/SourceSansPro-Regular.otf.woff",
-		"/fonts/source-sans-pro-fontfacekit/SourceSansPro-Regular.otf.woff2",
-		"/fonts/source-sans-pro-fontfacekit/SourceSansPro-Regular.ttf"
+		"/fonts/exo2-fontfacekit/Exo2Light.woff",
+		"/fonts/exo2-fontfacekit/Exo2Light.woff2",
+		"/fonts/exo2-fontfacekit/Exo2Light.ttf",
+		"/fonts/exo2-fontfacekit/Exo2Regular.woff",
+		"/fonts/exo2-fontfacekit/Exo2Regular.woff2",
+		"/fonts/exo2-fontfacekit/Exo2Regular.ttf"
 	]);

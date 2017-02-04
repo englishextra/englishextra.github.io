@@ -1173,7 +1173,7 @@ template {
 }
 
 .col select {
-	font-family: inherit;
+	font-family: sans-serif;
 }
 
 .col button,
@@ -3262,6 +3262,10 @@ u,
 	margin-top: 0;
 }
 
+.col select {
+	font-family: sans-serif;
+}
+
 .col select optgroup {
 	font-style: normal;
 	padding-left: 0.188rem;
@@ -3327,7 +3331,8 @@ u,
 		margin-bottom: 0;
 	}
 
-	.col table.respond thead {
+	.col table.respond thead,
+	.col table.respond tfoot {
 		display: none;
 	}
 
@@ -3566,7 +3571,7 @@ u,
 	width: 97%;
 	max-width: 20.375rem;
 	height: 2.000rem;
-	font-family: inherit;
+	font-family: sans-serif;
 	font-size: 0.875rem;
 	color: inherit;
 	-webkit-tap-highlight-color: transparent;

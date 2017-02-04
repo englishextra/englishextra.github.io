@@ -598,7 +598,8 @@ u,
 		margin-bottom: 0;
 	}
 
-	.col table.respond thead {
+	.col table.respond thead,
+	.col table.respond tfoot {
 		display: none;
 	}
 
