@@ -312,7 +312,7 @@ template {
 /*! @import "typeboost-css"; */
 
 /*!
- * typeboost.css v0.1.7
+ * typeboost.css v0.1.8
  * github.com/englishextra/typeboost.css
  */
 
@@ -448,7 +448,7 @@ template {
 
 .col address,
 .col p.address {
-	font-size: .813rem;
+	font-size: 0.813rem;
 	line-height: 1.500;
 	margin-right: 0;
 }
@@ -476,7 +476,7 @@ template {
 }
 
 .col h4 {
-	font-size: 1.100rem;
+	font-size: 1.125rem;
 	line-height: 1.200;
 	font-variant: small-caps;
 	letter-spacing: 0.063rem;
@@ -488,8 +488,7 @@ template {
 	padding: 0;
 }
 
-.col h6,
-.col dl dt {
+.col h6 {
 	text-decoration: underline;
 	padding: 0;
 }
@@ -504,8 +503,10 @@ template {
 .col label,
 .col p.smaller,
 .col table td,
-.col table th {
-	font-size: .875rem;
+.col table th,
+.col pre,
+.col pre code {
+	font-size: 0.875rem;
 	line-height: 1.500;
 }
 
@@ -534,6 +535,7 @@ template {
 }
 
 .col pre {
+	font-size: 0.875rem;
 	white-space: pre;
 	white-space: pre-wrap;
 	word-wrap: inherit;
@@ -575,12 +577,6 @@ template {
 	vertical-align: top;
 }
 
-.col pre,
-.col pre code {
-	font-size: .875rem;
-	line-height: 1.500;
-}
-
 .col table th a:hover,
 .col table th a:active,
 .col table th a:focus {
@@ -609,7 +605,7 @@ template {
 .col input[type^="datetime-local"],
 .col select,
 .col textarea {
-	font-size: .875rem;
+	font-size: 0.875rem;
 	line-height: 1.500;
 	box-sizing: border-box;
 	vertical-align: baseline;
@@ -625,6 +621,7 @@ template {
 
 .col optgroup {
 	margin: 0.188rem;
+	padding-left: 0.188rem;
 }
 
 .col input[type="color"] {
@@ -657,7 +654,7 @@ template {
 .col input[type="button"],
 .col input[type="reset"],
 .col input[type="submit"] {
-	font-size: .875rem;
+	font-size: 0.875rem;
 	line-height: 1.500;
 	box-sizing: border-box;
 	vertical-align: baseline;
@@ -670,7 +667,7 @@ template {
 
 .col label {
 	display: block;
-	margin-bottom: .125rem;
+	margin-bottom: 0.125rem;
 }
 
 .col textarea {
@@ -785,7 +782,7 @@ template {
 .col h6 + div,
 .col h6 + p,
 .col h6 + table {
-	margin-top: .500rem;
+	margin-top: 0.500rem;
 }
 
 .col address:first-child,
@@ -1124,6 +1121,7 @@ template {
 .col h3,
 .col a,
 .col table th,
+.col dl dt,
 .col button,
 .col input[type="button"],
 .col input[type="reset"],
@@ -1151,6 +1149,10 @@ template {
 	font-style: italic;
 }
 
+.col optgroup {
+	font-style: normal;
+}
+
 /**
  * font families
  */
@@ -1171,10 +1173,7 @@ template {
 .col button,
 .col input[type="button"],
 .col input[type="reset"],
-.col input[type="submit"] {
-	font-family: inherit;
-}
-
+.col input[type="submit"],
 .col input[type^="text"],
 .col input[type^="search"],
 .col input[type^="email"],
@@ -1189,10 +1188,7 @@ template {
 .col input[type^="time"],
 .col input[type^="datetime"],
 .col input[type^="datetime-local"],
-.col textarea {
-	font-family: inherit;
-}
-
+.col textarea,
 .col caption,
 .col table th,
 .col table td {
@@ -1296,11 +1292,7 @@ template {
 	color: inherit;
 }
 
-.col select {
-	background-color: #FFFFFF;
-	border: 0.063rem solid #C3C3C3;
-}
-
+.col select,
 .col input[type^="text"],
 .col input[type^="search"],
 .col input[type^="email"],
@@ -1346,6 +1338,8 @@ template {
 	border: 0.063rem solid #474747;
 }
 
+.col select:hover,
+.col select:focus,
 .col input[type^="text"]:focus,
 .col input[type^="search"]:focus,
 .col input[type^="email"]:focus,
@@ -1361,6 +1355,7 @@ template {
 .col input[type^="datetime"]:focus,
 .col input[type^="datetime-local"]:focus,
 .col textarea:focus,
+.col select:active,
 .col input[type^="text"]:active,
 .col input[type^="search"]:active,
 .col input[type^="email"]:active,
@@ -1376,17 +1371,6 @@ template {
 .col input[type^="datetime"]:active,
 .col input[type^="datetime-local"]:active,
 .col textarea:active {
-	background-color: #F2F2F2;
-	border: 0.063rem solid #C3C3C3;
-}
-
-.col select:hover {
-	background-color: #F2F2F2;
-	border: 0.063rem solid #C3C3C3;
-}
-
-.col select:active,
-.col select:focus {
 	background-color: #F2F2F2;
 	border: 0.063rem solid #C3C3C3;
 }
@@ -1925,8 +1909,8 @@ body {
 	right: 0;
 	cursor: zoom-out;
 	background-color: transparent;
-	border: 0.75pt solid rgba(255, 255, 255, 0.5);
-	border-radius: 0.750pt;
+	border: 0.063rem solid rgba(255, 255, 255, 0.5);
+	border-radius: 0.063rem;
 	opacity: 0;
 	-webkit-user-select: none;
 	-moz-user-select: none;
@@ -2928,7 +2912,7 @@ u,
 	left: 33.000pt;
 	color: #363636;
 	background-color: #F1F1F1;
-	border: 0.75pt solid #2D74BD;
+	border: 0.063rem solid #2D74BD;
 	box-shadow: 0.125em 0.125em 0.125em 0 rgba(50, 50, 50, 0.3);
 	opacity: 0;
 	-webkit-transition: visibility 0s, opacity 0.2s linear;
@@ -3046,32 +3030,17 @@ u,
 	margin-bottom: 0.500rem;
 }
 
-.col h2 {
-	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", sans-serif;
-	font-weight: 400;
-}
-
-.col dl dt {
-	font-weight: bolder;
-	text-decoration: none;
-}
-
 .col dl dt a {
 	color: inherit;
 	border-bottom-color: inherit;
 	border-bottom-style: solid;
-	border-bottom-width: 0.750pt;
+	border-bottom-width: 0.063rem;
 }
 
 .col dl dt a:hover,
 .col dl dt a:active,
 .col dl dt a:focus {
 	color: inherit;
-}
-
-.col li ol,
-.col li ul {
-	margin-top: 0 !important;
 }
 
 .col img,
@@ -3110,42 +3079,33 @@ u,
 	margin-top: 0;
 }
 
-.col select {
-	font-family: sans-serif;
-}
-
-.col select optgroup {
-	font-style: normal;
-	padding-left: 0.188rem;
-}
-
 .col table.respond {
 	width: auto;
 }
 
 .col table {
 	border: none;
-	border-top-width: 0.750pt;
+	border-top-width: 0.063rem;
 	border-top-style: solid;
 	border-top-color: #C3C3C3;
-	border-right-width: 0.750pt;
+	border-right-width: 0.063rem;
 	border-right-style: solid;
 	border-right-color: #C3C3C3;
-	border-left-width: 0.750pt;
+	border-left-width: 0.063rem;
 	border-left-style: solid;
 	border-left-color: #C3C3C3;
 }
 
 .col table th {
 	border: none;
-	border-bottom-width: 0.750pt;
+	border-bottom-width: 0.063rem;
 	border-bottom-style: solid;
 	border-bottom-color: #C3C3C3;
 }
 
 .col table td {
 	border: none;
-	border-bottom-width: 0.750pt;
+	border-bottom-width: 0.063rem;
 	border-bottom-style: solid;
 	border-bottom-color: #C3C3C3;
 }
@@ -3170,7 +3130,7 @@ u,
 		width: 100%;
 		float: left;
 		position: relative;
-		border: 0.75pt solid #C3C3C3;
+		border: 0.063rem solid #C3C3C3;
 		border-bottom: none;
 		margin-bottom: 1.500rem;
 	}
@@ -3196,7 +3156,7 @@ u,
 
 .col hr,
 .col .hr {
-	height: 0.750pt;
+	height: 0.063rem;
 	background-color: #C3C3C3;
 }
 
@@ -3225,7 +3185,7 @@ u,
 
 .col .underline {
 	text-decoration: none;
-	border-bottom-width: 0.750pt;
+	border-bottom-width: 0.063rem;
 	border-bottom-style: solid;
 	border-bottom-color: inherit;
 }
@@ -3299,7 +3259,7 @@ u,
  */
 
 .col .footer {
-	border-top: 0.75pt solid #C3C3C3;
+	border-top: 0.063rem solid #C3C3C3;
 }
 
 .col .footer p {

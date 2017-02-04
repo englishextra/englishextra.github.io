@@ -40,7 +40,7 @@
 	font-size: 0.875rem;
 	color: inherit;
 	background-color: #FFFFFF;
-	border: 0.750pt solid #FFFFFF;
+	border: 0.063rem solid #FFFFFF;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	margin: 0;
@@ -60,7 +60,7 @@
 .masonry-grid-wrapper .holder-contents-select select:hover,
 .masonry-grid-wrapper .holder-contents-select select:active,
 .masonry-grid-wrapper .holder-contents-select select:focus {
-	border: 0.750pt solid #FFFFFF;
+	border: 0.063rem solid #FFFFFF;
 }
 
 .masonry-grid-wrapper .footer {
@@ -133,7 +133,7 @@
 	color: inherit;
 	border-bottom-color: transparent;
 	border-bottom-style: solid;
-	border-bottom-width: 0.750pt;
+	border-bottom-width: 0.063rem;
 	text-decoration: none;
 }
 
@@ -143,7 +143,7 @@
 	color: inherit;
 	border-bottom-color: inherit;
 	border-bottom-style: solid;
-	border-bottom-width: 0.750pt;
+	border-bottom-width: 0.063rem;
 }
 
 .masonry-grid-item-content p {
@@ -163,7 +163,7 @@
 	color: inherit;
 	border-bottom-color: inherit;
 	border-bottom-style: solid;
-	border-bottom-width: 0.750pt;
+	border-bottom-width: 0.063rem;
 }
 
 .masonry-grid-item-content dl dt a:hover,
@@ -184,7 +184,7 @@
 
 .masonry-grid-item-content table td,
 .masonry-grid-item-content table th {
-	font-size: .875rem;
+	font-size: 0.875rem;
 	line-height: 1.500;
 }
 
@@ -260,14 +260,14 @@
 }
 
 .masonry-grid-item-content table th {
-	border-bottom-width: 0.750pt;
+	border-bottom-width: 0.063rem;
 	border-bottom-style: solid;
 	border-bottom-color: $color-hex-divider;
 	background-color: transparent;
 }
 
 .masonry-grid-item-content table td {
-	border-bottom-width: 0.750pt;
+	border-bottom-width: 0.063rem;
 	border-bottom-style: solid;
 	border-bottom-color: $color-hex-divider;
 }

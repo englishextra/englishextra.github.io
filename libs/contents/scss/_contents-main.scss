@@ -373,7 +373,7 @@ u,
 	left: 33.000pt;
 	color: $color-hex-body-text;
 	background-color: $color-hex-ui-bar-bg;
-	border: 0.750pt solid $color-hex-accent;
+	border: 0.063rem solid $color-hex-accent;
 	box-shadow: 0.125em 0.125em 0.125em 0 $color-rgba-ui-bar-shadow;
 	opacity: 0;
 	transition: visibility 0s, opacity 0.2s linear;
@@ -433,7 +433,7 @@ u,
 	color: inherit;
 	border-color: transparent;
 	border-style: solid;
-	border-width: 0.750pt;
+	border-width: 0.063rem;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	padding-left: 2.000em;

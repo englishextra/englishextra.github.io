@@ -779,7 +779,7 @@ u,
 	left: 33.000pt;
 	color: #363636;
 	background-color: #F1F1F1;
-	border: 0.75pt solid #2D74BD;
+	border: 0.063rem solid #2D74BD;
 	box-shadow: 0.125em 0.125em 0.125em 0 rgba(50, 50, 50, 0.3);
 	opacity: 0;
 	-webkit-transition: visibility 0s, opacity 0.2s linear;

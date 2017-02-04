@@ -837,7 +837,7 @@ u,
 	vertical-align: middle;
 	color: #FFFFFF;
 	background-color: #474747;
-	border: 0.75pt solid #474747;
+	border: 0.063rem solid #474747;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	cursor: pointer;
@@ -848,7 +848,7 @@ u,
 .holder-filter-buttons li:hover,
 .holder-filter-buttons li.is-active {
 	background-color: #606060;
-	border: 0.75pt solid #606060;
+	border: 0.063rem solid #606060;
 }
 
 /* .holder-filter-buttons li:first-child {
@@ -877,7 +877,7 @@ u,
 	text-align: center;
 	color: #FFFFFF;
 	background-color: #474747;
-	border: 0.75pt solid #474747;
+	border: 0.063rem solid #474747;
 	box-sizing: border-box;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;

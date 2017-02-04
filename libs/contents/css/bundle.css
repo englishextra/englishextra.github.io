@@ -300,7 +300,7 @@ template {
 	color: inherit;
 	box-sizing: border-box;
 	font-size: 0.875em;
-	border: 0.75pt solid #2D74BD;
+	border: 0.063rem solid #2D74BD;
 	box-shadow: 0.125em 0.125em 0.125em 0 rgba(50, 50, 50, 0.3);
 	border-radius: 0;
 }
@@ -468,7 +468,7 @@ template {
 	font-size: 0.875rem;
 	color: inherit;
 	background-color: #FFFFFF;
-	border: 0.750pt solid #FFFFFF;
+	border: 0.063rem solid #FFFFFF;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	margin: 0;
@@ -488,7 +488,7 @@ template {
 .masonry-grid-wrapper .holder-contents-select select:hover,
 .masonry-grid-wrapper .holder-contents-select select:active,
 .masonry-grid-wrapper .holder-contents-select select:focus {
-	border: 0.750pt solid #FFFFFF;
+	border: 0.063rem solid #FFFFFF;
 }
 
 .masonry-grid-wrapper .footer {
@@ -561,7 +561,7 @@ template {
 	color: inherit;
 	border-bottom-color: transparent;
 	border-bottom-style: solid;
-	border-bottom-width: 0.750pt;
+	border-bottom-width: 0.063rem;
 	text-decoration: none;
 }
 
@@ -571,7 +571,7 @@ template {
 	color: inherit;
 	border-bottom-color: inherit;
 	border-bottom-style: solid;
-	border-bottom-width: 0.750pt;
+	border-bottom-width: 0.063rem;
 }
 
 .masonry-grid-item-content p {
@@ -591,7 +591,7 @@ template {
 	color: inherit;
 	border-bottom-color: inherit;
 	border-bottom-style: solid;
-	border-bottom-width: 0.750pt;
+	border-bottom-width: 0.063rem;
 }
 
 .masonry-grid-item-content dl dt a:hover,
@@ -612,7 +612,7 @@ template {
 
 .masonry-grid-item-content table td,
 .masonry-grid-item-content table th {
-	font-size: .875rem;
+	font-size: 0.875rem;
 	line-height: 1.500;
 }
 
@@ -688,14 +688,14 @@ template {
 }
 
 .masonry-grid-item-content table th {
-	border-bottom-width: 0.750pt;
+	border-bottom-width: 0.063rem;
 	border-bottom-style: solid;
 	border-bottom-color: #C3C3C3;
 	background-color: transparent;
 }
 
 .masonry-grid-item-content table td {
-	border-bottom-width: 0.750pt;
+	border-bottom-width: 0.063rem;
 	border-bottom-style: solid;
 	border-bottom-color: #C3C3C3;
 }
@@ -1404,7 +1404,7 @@ u,
 	left: 33.000pt;
 	color: #363636;
 	background-color: #F1F1F1;
-	border: 0.75pt solid #2D74BD;
+	border: 0.063rem solid #2D74BD;
 	box-shadow: 0.125em 0.125em 0.125em 0 rgba(50, 50, 50, 0.3);
 	opacity: 0;
 	-webkit-transition: visibility 0s, opacity 0.2s linear;
@@ -1465,7 +1465,7 @@ u,
 	color: inherit;
 	border-color: transparent;
 	border-style: solid;
-	border-width: 0.750pt;
+	border-width: 0.063rem;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	padding-left: 2.000em;
