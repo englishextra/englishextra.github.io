@@ -525,15 +525,6 @@ u,
 	margin-left: 0.188em;
 }
 
-.col .footnote:before {
-	position: relative;
-	top: -0.625em;
- 	content: attr(data-footnote);
-	font-size: 0.625em;
-	font-size: 50%;
-	margin-right: 0.188em;
-}
-
 .col h1 {
 	font-family: $font-family-webfont-sans-light;
 	font-weight: 300;
@@ -701,6 +692,15 @@ u,
 	border-bottom-width: 0.063rem;
 	border-bottom-style: solid;
 	border-bottom-color: inherit;
+}
+
+.col .footnote:before {
+	position: relative;
+	top: -0.625rem;
+ 	content: attr(data-footnote);
+	font-size: 0.625rem;
+	font-size: 50%;
+	margin-right: 0.188rem;
 }
 
 /**
