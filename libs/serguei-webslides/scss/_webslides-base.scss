@@ -392,6 +392,7 @@ dd {
 }
 
 /* === Clearing === */
+
 .clear:before,
 .clear:after,
 header:before,
@@ -558,7 +559,6 @@ img.aligncenter {
 }
 
 @media (min-width: 1024px) {
-
 	/* === div.size-60, img.size-50, h1.size-40, p.size-30... === */
 
 	.size-80 {
@@ -684,6 +684,7 @@ https://github.com/daneden/animate.css */
 }
 
 /* Duration */
+
 .slow {
 	animation-duration: 4s;
 }
@@ -814,6 +815,7 @@ Auto-fill & Equal height === */
 	}
 
 	/* Grid (Sidebar + Main) .grid.sm */
+
 	.grid.sm .column:nth-child(1) {
 		width: 30%;
 	}
@@ -823,6 +825,7 @@ Auto-fill & Equal height === */
 	}
 
 	/* Grid (Main + Sidebar) .grid.ms */
+
 	.grid.ms .column:nth-child(1) {
 		width: 70%;
 	}
@@ -832,6 +835,7 @@ Auto-fill & Equal height === */
 	}
 
 	 /* Grid (Sidebar + Main + Sidebar) .grid.sms */
+
 	.grid.sms .column:nth-child(2) {
 		width: 50%;
 	}
@@ -1094,6 +1098,7 @@ padding: .4rem .8rem;
 }
 
 /* -- Serif -- */
+
 .text-serif,
 h1 span {
 	font-family: $font-family-webfont-sans-light;
@@ -1101,6 +1106,7 @@ h1 span {
 }
 
 /* -- h1,h2... Promo/Landings -- */
+
 .text-landing {
 	/* font-weight: 600; */
 	letter-spacing: .4rem;
@@ -1110,8 +1116,7 @@ h1 span {
 @media (min-width: 768px) {
 	.text-landing {
 		letter-spacing: 1.6rem;
- }
-
+	}
 }
 
 /* -- Subtitle (Before h1, h2) --
@@ -1606,6 +1611,7 @@ section,
 
 /* slide no padding (full card,
 .embed> youtube video...) */
+
 .fullscreen {
 	padding: 0;
 	/* Fixed/Visible header?
@@ -1614,11 +1620,13 @@ section,
 }
 
 /* slide alignment - top */
+
 .slide-top {
 	justify-content: flex-start;
 }
 
 /* slide alignment - bottom */
+
 .slide-bottom {
 	justify-content: flex-end;
 }
@@ -3180,7 +3188,8 @@ form {
 	text-align: left;
 }
 
-form + p,input + p,textarea + p {
+form + p,input + p,
+textarea + p {
 	margin-top: .8rem;
 }
 

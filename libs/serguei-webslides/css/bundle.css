@@ -4079,19 +4079,19 @@ Slides - Backgrounds <section class="bg-primary">
 TYPOGRAPHY
 ============================== */
 
-/* -- Horizontal separator	-- */
+/* -- Horizontal separator -- */
 
 .text-separator:before {
 	background-color: rgba(170, 0, 0, 0.8);
 }
 
-/* -- Pull Quote (Right/Left)	-- */
+/* -- Pull Quote (Right/Left) -- */
 
 [class*="text-pull-"] {
 	border-top: 4px solid rgba(0, 0, 0, 0.5);
 }
 
-/* -- Context	-- */
+/* -- Context -- */
 
 [class*="bg-"] .text-context:before {
 	background-color: #fff;
@@ -4102,20 +4102,20 @@ TYPOGRAPHY
 	background-color: rgba(0, 20, 80, 0.2);
 }
 
-/* -- Text shadow	-- */
+/* -- Text shadow -- */
 
 .text-shadow {
 	text-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
 }
 
-/* -- time, ampersands, prepositions (for, of...), symbols...	-- */
+/* -- time, ampersands, prepositions (for, of...), symbols... -- */
 
 [class*="card-"] time,
 h1 span {
 	color: #abd;
 }
 
-/* -- <pre> comment	-- */
+/* -- <pre> comment -- */
 
 .code-comment {
 	color: rgba(70, 170, 130, 0.9);
@@ -4538,7 +4538,7 @@ Cards
 }
 
 @media (min-width: 768px) {
-	/* ===CTA (Call to Action - Numbers, Price, Promo...)	===== */
+	/* === CTA (Call to Action - Numbers, Price, Promo...) ===== */
 
 	.cta .benefit {
 		border-left-width: 1px;
@@ -4767,5 +4767,5 @@ footer[role=contentinfo] {
 }
 
 /* footer:hover {
-background-color:rgba(255,255,255 , 0.3);
+	background-color:rgba(255,255,255 , 0.3);
 } */

@@ -121,9 +121,7 @@ pre {
 }
 
 pre:hover {
-	box-shadow: 0 8px 16px rgba(0,40,160,
-.08),0 8px 24px rgba(0,0,0,
-.08);
+	box-shadow: 0 8px 16px rgba(0,40,160,.08),0 8px 24px rgba(0,0,0,.08);
 }
 
 code,[class*="bg-"] pre {
@@ -208,6 +206,7 @@ Slides - Backgrounds <section class="bg-primary">
 }
 
 /* Font Color */
+
 .bg-trans-dark,
 .bg-trans-gradient,
 .bg-primary,
@@ -227,6 +226,7 @@ Slides - Backgrounds <section class="bg-primary">
 }
 
 /* .bg-white p, */
+
 .bg-brown p {
 	color: #666;
 }
@@ -265,6 +265,7 @@ Slides - Backgrounds <section class="bg-primary">
 }
 
 /* White Gradient (vertical) */
+
 .bg-gradient-white {
 	background: linear-gradient(180deg,#f2f4f6 0,#fff 100%);
 	color: #333;
@@ -272,6 +273,7 @@ Slides - Backgrounds <section class="bg-primary">
 }
 
 /* Gray Gradient (horizontal) */
+
 .bg-gradient-gray {
 	background: linear-gradient(90deg,#f7f9fb 0,#dee2e6 100%);
 	color: #333;
@@ -279,11 +281,13 @@ Slides - Backgrounds <section class="bg-primary">
 }
 
 /* Border/Frame */
+
 .frame {
 	border: .8rem solid #fff;
 }
 
 /* Layer/Box Shadow */
+
 .shadow,
 .pre {
 	position: relative;
@@ -298,19 +302,19 @@ Slides - Backgrounds <section class="bg-primary">
 TYPOGRAPHY
 ============================== */
 
-/* -- Horizontal separator	-- */
+/* -- Horizontal separator -- */
 
 .text-separator:before {
 	background-color: rgba(170, 0, 0, 0.8);
 }
 
-/* -- Pull Quote (Right/Left)	-- */
+/* -- Pull Quote (Right/Left) -- */
 
 [class*="text-pull-"] {
 	border-top: 4px solid rgba(0, 0, 0, 0.5);
 }
 
-/* -- Context	-- */
+/* -- Context -- */
 
 [class*="bg-"] .text-context:before {
 	background-color: #fff;
@@ -321,19 +325,21 @@ TYPOGRAPHY
 	background-color: rgba(0, 20, 80, 0.2);
 }
 
-/* -- Text shadow	-- */
+/* -- Text shadow -- */
+
 .text-shadow {
 	text-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
 }
 
-/* -- time, ampersands, prepositions (for, of...), symbols...	-- */
+/* -- time, ampersands, prepositions (for, of...), symbols... -- */
 
 [class*="card-"] time,
 h1 span {
 	color: #abd;
 }
 
-/* -- <pre> comment	-- */
+/* -- <pre> comment -- */
+
 .code-comment {
 	color: rgba(70, 170, 130, 0.9);
 	text-shadow: none;
@@ -352,13 +358,11 @@ header[role=banner] {
 }
 
 nav[role=navigation] li a {
-	background-color: rgba(50, 50, 50,
-.9);
+	background-color: rgba(50, 50, 50,.9);
 }
 
 nav[role=navigation] li a:hover {
-	background-color: rgba(50, 50, 50,
-.7);
+	background-color: rgba(50, 50, 50,.7);
 }
 
 nav[role=navigation] li a,
@@ -749,7 +753,7 @@ Cards
 }
 
 @media (min-width: 768px) {
-	/* ===CTA (Call to Action - Numbers, Price, Promo...)	===== */
+	/* === CTA (Call to Action - Numbers, Price, Promo...) ===== */
 	.cta .benefit {
 		border-left-width: 1px;
 		border-style: solid;
@@ -854,13 +858,17 @@ input[type="submit"]:hover {
 button[type="submit"],
 input[type="submit"],
 .button,
-.button:hover,button[type="submit"]:hover,input[type="submit"]:hover {
+.button:hover,
+button[type="submit"]:hover,
+input[type="submit"]:hover {
 	color: #fff;
 	background-color: #2D7C9A;
 	text-shadow: 0 1px 0 #123;
 }
 
-.button:active,button[type="submit"]:active,input[type="submit"]:active {
+.button:active,
+button[type="submit"]:active,
+input[type="submit"]:active {
 	background-color: #17d;
 }
 
@@ -950,6 +958,7 @@ Slides (Counter/Arrows)
 /* #navigation:hover {
 	background-color: rgba(0, 0, 0, 0.03);
 } */
+
 #counter,
 #navigation a {
 	color: #5AC0E6;
@@ -969,6 +978,6 @@ footer[role=contentinfo] {
 }
 
 /* footer:hover {
-background-color:rgba(255,255,255 , 0.3);
+	background-color:rgba(255,255,255 , 0.3);
 } */
 
