@@ -4,6 +4,91 @@
  * libs\serguei-webslides\scss\bundle.scss
  */
 
+/*! @import "englishextra-ui-colors";
+@import "englishextra-ui-variables"; */
+
+/**
+ * englishextra-ui colors
+ * use localhost/tools/css3-playground
+ * css3.mikeplate.com
+ */
+
+/* \$(.*?)\: (.*?)\;
+<div class="masonry-grid-item"><div class="bg-\1"><span class="color-variable-name">$\1</span></div></div>
+
+\$(.*?)\: (.*?)\;
+.bg-\1 {
+	background-color: $\1;
+} */
+
+/*! @import "serguei-webslides-font-face"; */
+
+@font-face {
+	font-family: "Source Sans Pro";
+	src: url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Light.otf.woff2) format("woff2"), url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Light.otf.woff) format("woff"), url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Light.ttf) format("truetype");
+	font-weight: 300;
+	font-style: normal;
+	font-stretch: normal;
+}
+
+@font-face {
+	font-family: "Source Sans Pro";
+	src: url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Regular.otf.woff2) format("woff2"), url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Regular.otf.woff) format("woff"), url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Regular.ttf) format("truetype");
+	font-weight: 400;
+	font-style: normal;
+	font-stretch: normal;
+}
+
+@font-face {
+	font-family: "Source Sans Pro";
+	src: url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-It.otf.woff2) format("woff2"), url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-It.otf.woff) format("woff"), url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-It.ttf) format("truetype");
+	font-weight: 400;
+	font-style: italic;
+	font-stretch: normal;
+}
+
+@font-face {
+	font-family: "Source Sans Pro";
+	src: url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Bold.otf.woff2) format("woff2"), url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Bold.otf.woff) format("woff"), url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Bold.ttf) format("truetype");
+	font-weight: 700;
+	font-style: normal;
+	font-stretch: normal;
+}
+
+@font-face {
+	font-family: "Source Sans Pro";
+	src: url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-BoldIt.otf.woff2) format("woff2"), url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-BoldIt.otf.woff) format("woff"), url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-BoldIt.ttf) format("truetype");
+	font-weight: 700;
+	font-style: italic;
+	font-stretch: normal;
+}
+
+@font-face {
+	font-family: "Source Code Pro";
+	src: url(../../../fonts/source-code-pro-fontfacekit/SourceCodePro-Regular.otf.woff2) format("woff2"), url(../../../fonts/source-code-pro-fontfacekit/SourceCodePro-Regular.otf.woff) format("woff"), url(../../../fonts/source-code-pro-fontfacekit/SourceCodePro-Regular.ttf) format("truetype");
+	font-weight: 400;
+	font-style: normal;
+	font-stretch: normal;
+}
+
+@font-face {
+	font-family: "Source Code Pro";
+	src: url(../../../fonts/source-code-pro-fontfacekit/SourceCodePro-It.otf.woff2) format("woff2"), url(../../../fonts/source-code-pro-fontfacekit/SourceCodePro-It.otf.woff) format("woff"), url(../../../fonts/source-code-pro-fontfacekit/SourceCodePro-It.ttf) format("truetype");
+	font-weight: 400;
+	font-style: italic;
+	font-stretch: normal;
+}
+
+@font-face {
+	font-family: "Source Code Pro";
+	src: url(../../../fonts/source-code-pro-fontfacekit/SourceCodePro-Bold.otf.woff2) format("woff2"), url(../../../fonts/source-code-pro-fontfacekit/SourceCodePro-Bold.otf.woff) format("woff"), url(../../../fonts/source-code-pro-fontfacekit/SourceCodePro-Bold.ttf) format("truetype");
+	font-weight: 700;
+	font-style: normal;
+	font-stretch: normal;
+}
+
+/* @import "webslides-base"; */
+
 /*!
  * base.css
  */
@@ -607,7 +692,7 @@ img.aligncenter {
 
 pre,
 code {
-	font-family: 'Cousine', monospace;
+	font-family: "Source Code Pro", "Consolas", monospace;
 }
 
 pre {
@@ -946,7 +1031,7 @@ body,
 input,
 select,
 textarea {
-	font-family: "Roboto", "San Francisco", helvetica, arial, sans-serif;
+	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", sans-serif;
 	font-size: 62.5%;
 }
 
@@ -1188,7 +1273,7 @@ h3 [class*="bg-"] {
 
 .text-serif,
 h1 span {
-	font-family: "Maitree", times, serif;
+	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI Light", "Segoe WP Light", sans-serif;
 }
 
 /* -- h1,h2... Promo/Landings -- */
@@ -1894,8 +1979,8 @@ a#previous {
 	#navigation {
 		background: url("../img/swipe.svg") no-repeat center top;
 		background-size: 4.8rem;
-		-webkit-animation: fadeIn 6s;
-		animation: fadeIn 6s;
+		-webkit-animation: fadeIn 0.2s;
+		animation: fadeIn 0.2s;
 	}
 
 	#navigation a,
@@ -3272,7 +3357,7 @@ blockquote p {
 }
 
 .bg-apple blockquote p {
-	font-family: "San Francisco", "Roboto", helvetica, arial, sans-serif;
+	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", sans-serif;
 	font-weight: 300;
 }
 
@@ -3295,7 +3380,7 @@ blockquote.wall:before {
 	top: -6.4rem;
 	left: -.8rem;
 	content: "\201C";
-	font-family: arial, sans-serif;
+	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", sans-serif;
 	width: 6.4rem;
 	height: 6.4rem;
 	font-size: 16rem;
@@ -3662,6 +3747,8 @@ Solution: stackoverflow.com/questions/34250282/flexbox-safari-bug-flex-wrap
 	}
 }
 
+/* @import "webslides-colors"; */
+
 /*!
  * colors.css
  */
@@ -3741,7 +3828,7 @@ svg {
 
 [class*="bg-"] a,
 [class*="bg-gradient-"] a {
-	color: #bce;
+	color: #5AC0E6;
 }
 
 .bg-brown a {
@@ -3752,11 +3839,11 @@ a,
 .bg-white a,
 .bg-light a,
 .bg-gradient-white a {
-	color: #44d;
+	color: #2D7C9A;
 }
 
 a:hover {
-	color: #3af;
+	color: #7DDCFF;
 }
 
 .flexblock li > a,
@@ -3826,7 +3913,7 @@ Slides - Backgrounds <section class="bg-primary">
 /*3 Corp Colors*/
 
 .bg-primary {
-	background-color: #44d;
+	background-color: #2D7C9A;
 }
 
 .bg-secondary {
@@ -4114,7 +4201,7 @@ ul.tabs li.current {
 }
 
 ul.tabs li:before {
-	background-color: #44d;
+	background-color: #2D7C9A;
 }
 
 /*===================================================
@@ -4129,7 +4216,7 @@ ul.tabs li:before {
 }
 
 /*=========================================
-Features & Clients List 
+Features & Clients List
 =========================================== */
 
 .features li,
@@ -4147,7 +4234,7 @@ Features & Clients List
 	box-shadow: 0 8px 16px rgba(0, 20, 80, 0.02), 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 
-/*.features li span,.features li svg{color: #44d;}*/
+/*.features li span,.features li svg{color: #2D7C9A;}*/
 
 /*============================
 .flexblock with border
@@ -4168,7 +4255,7 @@ Features & Clients List
 }
 
 /*===========================================
-flexblock.steps 
+flexblock.steps
 ============================================= */
 
 .steps li:nth-child(1) {
@@ -4497,7 +4584,7 @@ tr:nth-child(even) > td:hover {
 }
 
 /*============================
-Browser (Screenshots) 
+Browser (Screenshots)
 ============================== */
 
 .browser {
@@ -4561,7 +4648,7 @@ input[type="submit"],
 .button:hover,
 button[type="submit"]:hover,
 input[type="submit"]:hover {
-	border: 1px solid #44d;
+	border: 1px solid #2D7C9A;
 }
 
 button[type="submit"],
@@ -4571,7 +4658,7 @@ input[type="submit"],
 button[type="submit"]:hover,
 input[type="submit"]:hover {
 	color: #fff;
-	background-color: #44d;
+	background-color: #2D7C9A;
 	text-shadow: 0 1px 0 #123;
 }
 
@@ -4606,7 +4693,7 @@ input[type="submit"]:active {
 .bg-white a.button.ghost,
 .bg-gradient-white a.button.ghost {
 	color: #333;
-	border: 1px solid #44d;
+	border: 1px solid #2D7C9A;
 }
 
 :disabled,
@@ -4617,7 +4704,7 @@ button:disabled:hover {
 }
 
 fieldset {
-	border: 1px solid #44d;
+	border: 1px solid #2D7C9A;
 	background-color: rgba(0, 20, 80, 0.2);
 }
 
@@ -4671,7 +4758,7 @@ Slides (Counter/Arrows)
 
 #counter,
 #navigation a {
-	color: #abc;
+	color: #5AC0E6;
 }
 
 #webslides:hover #navigation a:hover {

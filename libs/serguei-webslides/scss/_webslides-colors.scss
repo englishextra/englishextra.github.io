@@ -1,3 +1,4 @@
+/* @import "webslides-colors"; */
 /*!
  * colors.css
  */
@@ -56,7 +57,7 @@ svg {
 
 [class*="bg-"] a,
 [class*="bg-gradient-"] a {
-	color: #bce;
+	color: #5AC0E6;
 }
 
 .bg-brown a {
@@ -66,11 +67,11 @@ svg {
 a,
 .bg-white a,
 .bg-light a,.bg-gradient-white a {
-	color: #44d;
+	color: #2D7C9A;
 }
 
 a:hover {
-	color: #3af;
+	color: #7DDCFF;
 }
 
 .flexblock li>a,[class*="bg-"] li>a,
@@ -136,7 +137,7 @@ Slides - Backgrounds <section class="bg-primary">
 /*3 Corp Colors*/
 
 .bg-primary {
-	background-color: #44d;
+	background-color: #2D7C9A;
 }
 
 .bg-secondary {
@@ -395,7 +396,7 @@ ul.tabs li.current {
 }
 
 ul.tabs li:before {
-	background-color: #44d;
+	background-color: #2D7C9A;
 }
 
 /*===================================================
@@ -409,7 +410,7 @@ ul.tabs li:before {
 }
 
 /*=========================================
-Features & Clients List 
+Features & Clients List
 =========================================== */
 
 .features li,.clients li {
@@ -424,7 +425,7 @@ Features & Clients List
 .features li:hover,.clients li:hover {
 	box-shadow: 0 8px 16px rgba(0,20,80,.02),0 4px 16px rgba(0,0,0,.08);
 }
-/*.features li span,.features li svg{color: #44d;}*/
+/*.features li span,.features li svg{color: #2D7C9A;}*/
 
 /*============================
 .flexblock with border
@@ -445,7 +446,7 @@ Features & Clients List
 }
 
 /*===========================================
-flexblock.steps 
+flexblock.steps
 ============================================= */
 
 .steps li:nth-child(1) {
@@ -765,7 +766,7 @@ tr:nth-child(even)>td:hover {
 }
 
 /*============================
-Browser (Screenshots) 
+Browser (Screenshots)
 ============================== */
 
 .browser {
@@ -827,14 +828,14 @@ input[type="submit"],
 .button,.button:hover,
 button[type="submit"]:hover,
 input[type="submit"]:hover {
-	border: 1px solid #44d;
+	border: 1px solid #2D7C9A;
 }
 
 button[type="submit"],
 input[type="submit"],
 .button,.button:hover,button[type="submit"]:hover,input[type="submit"]:hover {
 	color: #fff;
-	background-color: #44d;
+	background-color: #2D7C9A;
 	text-shadow: 0 1px 0 #123;
 }
 
@@ -863,7 +864,7 @@ input[type="submit"],
 
 .bg-white a.button.ghost,.bg-gradient-white a.button.ghost {
 	color: #333;
-	border: 1px solid #44d;
+	border: 1px solid #2D7C9A;
 }
 
 :disabled,
@@ -874,7 +875,7 @@ button:disabled:hover {
 }
 
 fieldset {
-	border: 1px solid #44d;
+	border: 1px solid #2D7C9A;
 	background-color: rgba(0, 20, 80, 0.2);
 }
 
@@ -927,7 +928,7 @@ Slides (Counter/Arrows)
 */
 #counter,
 #navigation a {
-	color: #abc;
+	color: #5AC0E6;
 }
 
 #webslides:hover #navigation a:hover {

@@ -1,3 +1,4 @@
+/* @import "webslides-base"; */
 /*!
  * base.css
  */
@@ -480,7 +481,7 @@ img.aligncenter {
 
 pre,
 code {
-	font-family: 'Cousine', monospace;
+	font-family: $font-family-webfont-monospace;
 }
 
 pre {
@@ -812,7 +813,7 @@ body,
 input,
 select,
 textarea {
-  font-family: "Roboto", "San Francisco", helvetica, arial, sans-serif;
+  font-family: $font-family-webfont-sans-regular;
   font-size: 62.5%;
 }
 
@@ -976,7 +977,7 @@ padding: .4rem .8rem;
 }
 /* -- Serif -- */
 .text-serif, h1 span {
-  font-family: "Maitree", times, serif;
+  font-family: $font-family-webfont-sans-light;
 
 }
 
@@ -1612,8 +1613,8 @@ a#previous {
 	#navigation {
 		background: url('../img/swipe.svg') no-repeat center top;
 		background-size: 4.8rem;
-		-webkit-animation: fadeIn 6s;
-		animation: fadeIn 6s;
+		-webkit-animation: fadeIn 0.2s;
+		animation: fadeIn 0.2s;
 	}
 
 	#navigation a, #counter {
@@ -2909,7 +2910,7 @@ blockquote p {
 }
 
 .bg-apple blockquote p {
-	font-family: "San Francisco", "Roboto", helvetica, arial, sans-serif;
+	font-family: $font-family-webfont-sans-regular;
 	font-weight: 300;
 }
 
@@ -2932,7 +2933,7 @@ blockquote.wall:before {
 	top: -6.4rem;
 	left: -.8rem;
 	content: "\201C";
-	font-family: arial, sans-serif;
+	font-family: $font-family-webfont-sans-regular;
 	width: 6.4rem;
 	height: 6.4rem;
 	font-size: 16rem;

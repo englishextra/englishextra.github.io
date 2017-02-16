@@ -1,0 +1,105 @@
+/*! @import "englishextra-ui-colors";
+@import "englishextra-ui-variables"; */
+
+/**
+ * englishextra-ui colors
+ * use localhost/tools/css3-playground
+ * css3.mikeplate.com
+ */
+
+$color-rgba-selection-text: rgba(255,255,255,0.9);
+$color-rgba-selection-bg: rgba(48,124,202,0.9);
+
+$color-hex-body-text: #363636;
+$color-hex-lighter-text: #686868;
+$color-hex-gray-text: #949494;
+
+$color-hex-link: #307CCA;
+$color-hex-hover-link: #EA6743;
+$color-hex-visited-link: #8F9BA8;
+
+$color-hex-progress-bar: #FE5F55;
+
+$color-hex-accent: #2D74BD;
+$color-hex-darker-accent: #1E4D7D;
+$color-hex-lighter-accent: #BED4EB;
+
+$color-hex-highlight: #EE6944;
+$color-hex-url: #17AB56;
+
+$color-hex-error: #D62839;
+$color-hex-notice: #006BA6;
+$color-hex-success: #09814A;
+$color-hex-warning: #F46036;
+
+$color-hex-page-bg: #F0F0F0;
+
+$color-hex-divider: #C3C3C3;
+$color-hex-lighter-divider: #C5C5C5;
+
+$color-hex-ui-icon-text: #848484;
+$color-rgba-ui-icon-text: rgba(10,10,10,0.5);
+$color-hex-ui-icon-bg: #E9E9E9;
+$color-rgba-ui-icon-bg: rgba(211,211,211,0.5);
+$color-hex-hover-ui-icon-bg: #D5D5D5;
+
+$color-rgba-dark-ui-icon-bg: rgba(66,66,66,0.5);
+$color-hex-hover-dark-ui-icon-bg: #424242;
+
+$color-hex-button-bg: #474747;
+$color-hex-hover-button-bg: #606060;
+$color-hex-hover-button-secondary-bg: #DFDFDF;
+
+$color-hex-active-input-bg: #F2F2F2;
+$color-hex-disabled-input-bg: #D6D6D6;
+
+$color-hex-dark-ui-panel-bg: #2E2E2E;
+$color-hex-hover-dark-ui-panel-item-bg: #464646;
+$color-hex-darker-ui-panel-bg: #242424;
+$color-rgba-darker-ui-panel-inset-shadow: rgba(6, 6, 6, 0.5);
+
+$color-hex-ui-bar-bg: #F1F1F1;
+$color-rgba-ui-bar-shadow: rgba(50,50,50,0.3);
+$color-hex-dark-ui-bar-bg: #383838;
+
+$color-hex-aside-bg: #F5F5F5;
+
+$color-hex-table-header-bg: #E8E8E8;
+$color-hex-table-cell-bg: #F3F3F3;
+
+$color-rgba-grid-item-shadow: rgba(150,150,150,0.2);
+
+$color-hex-hint-bg: #353535;
+
+$color-rgba-loading-spinner-text: rgba(10,10,10,0.5);
+$color-rgba-loading-spinner-bg: rgba(211,211,211,0.5);
+
+$color-rgba-notifier42-text: rgba(255,255,255,0.9);
+$color-rgba-notifier42-bg: rgba(24,31,28,0.9);
+$color-rgba-notifier42-notice: rgba(0,107,166,0.9);
+$color-rgba-notifier42-warning: rgba(244,96,54,0.9);
+$color-rgba-notifier42-error: rgba(214,40,57,0.9);
+$color-rgba-notifier42-success: rgba(9,129,74,0.9);
+
+$color-rgba-img-lightbox-bg: rgba(0,0,0,0.5);
+$color-rgba-img-lightbox-border: rgba(255,255,255,0.5);
+
+$color-hex-englishextra-logo-bg: #D54848;
+$color-hex-serguei-logo-bg: #2D7C9A;
+
+$color-hex-pages-aids: #EF6B52;
+$color-hex-pages-articles: #E84B53;
+$color-hex-pages-grammar: #2D7C9A;
+$color-hex-pages-more: #557678;
+$color-hex-pages-reading: #0179D7;
+$color-hex-pages-tests: #744DA9;
+$color-hex-pages-transcripts: #515C6B;
+
+/* \$(.*?)\: (.*?)\;
+<div class="masonry-grid-item"><div class="bg-\1"><span class="color-variable-name">$\1</span></div></div>
+
+\$(.*?)\: (.*?)\;
+.bg-\1 {
+	background-color: $\1;
+} */
+
