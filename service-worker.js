@@ -4,7 +4,7 @@
  * mobiforge.com/design-development/caching-with-service-workers-the-easy-way
  * googlechrome.github.io/samples/service-worker/registration/index.html
  */
-importScripts("/cdn/sw-toolbox/3.4.0/js/sw-toolbox.fixed.min.js");
+/* importScripts("/cdn/sw-toolbox/3.4.0/js/sw-toolbox.fixed.min.js");
 toolbox.router.default = toolbox.cacheFirst;
 toolbox.precache([
 		"/index.html",
@@ -26,4 +26,4 @@ toolbox.precache([
 		"/fonts/exo2-fontfacekit/Exo2Regular.woff",
 		"/fonts/exo2-fontfacekit/Exo2Regular.woff2",
 		"/fonts/exo2-fontfacekit/Exo2Regular.ttf"
-	]);
+	]); */
