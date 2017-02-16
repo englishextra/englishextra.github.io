@@ -1,8 +1,8 @@
 /* @import "webslides-colors"; */
-/*!
+/* !
  * colors.css
  */
-/*=========================================
+/* =========================================
 WebSlides - Colors
 =========================================== */
 
@@ -38,7 +38,7 @@ WebSlides - Colors
 /* .bg-trans-light */
 /* .bg-trans-gradient */
 
-/*=========================================
+/* =========================================
 Base
 =========================================== */
 
@@ -66,7 +66,8 @@ svg {
 
 a,
 .bg-white a,
-.bg-light a,.bg-gradient-white a {
+.bg-light a,
+.bg-gradient-white a {
 	color: #2D7C9A;
 }
 
@@ -120,7 +121,9 @@ pre {
 }
 
 pre:hover {
-	box-shadow: 0 8px 16px rgba(0,40,160,.08),0 8px 24px rgba(0,0,0,.08);
+	box-shadow: 0 8px 16px rgba(0,40,160,
+.08),0 8px 24px rgba(0,0,0,
+.08);
 }
 
 code,[class*="bg-"] pre {
@@ -130,11 +133,12 @@ code,[class*="bg-"] pre {
 .bg-white code {
 	background: rgba(0, 20, 80, 0.03);
 }
-/*================================================
+
+/* ================================================
 Slides - Backgrounds <section class="bg-primary">
 ================================================== */
 
-/*3 Corp Colors*/
+/* 3 Corp Colors */
 
 .bg-primary {
 	background-color: #2D7C9A;
@@ -148,7 +152,7 @@ Slides - Backgrounds <section class="bg-primary">
 	background-color: #edf2f7;
 }
 
-/*General Colors*/
+/* General Colors */
 
 .bg-black {
 	background-color: #111;
@@ -191,7 +195,7 @@ Slides - Backgrounds <section class="bg-primary">
 	color: #333;
 }
 
-/* BG Apple Keynote*/
+/* BG Apple Keynote */
 
 .bg-apple {
 	background: linear-gradient(to bottom, #000 0%, #1a2028 50%, #293845 100%);
@@ -203,12 +207,17 @@ Slides - Backgrounds <section class="bg-primary">
 	background: #3b5998;
 }
 
-/*Font Color*/
-.bg-trans-dark,.bg-trans-gradient,
+/* Font Color */
+.bg-trans-dark,
+.bg-trans-gradient,
 .bg-primary,
 .bg-secondary,
 .bg-blue,
-.bg-green,.bg-purple,.bg-red,.bg-facebook,.bg-apple,[class*="bg-black"],[class*="bg-gradient-"] {
+.bg-green,
+.bg-purple,
+.bg-red,
+.bg-facebook,
+.bg-apple,[class*="bg-black"],[class*="bg-gradient-"] {
 	color: #fff;
 	text-shadow: 0 1px 0 #013;
 }
@@ -216,12 +225,13 @@ Slides - Backgrounds <section class="bg-primary">
 .bg-light p {
 	color: #456;
 }
-/*.bg-white p,*/
+
+/* .bg-white p, */
 .bg-brown p {
 	color: #666;
 }
 
-/*Transparent/Opacity*/
+/* Transparent/Opacity */
 
 .bg-trans-dark {
 	background: rgba(0, 0, 0, 0.8);
@@ -231,100 +241,105 @@ Slides - Backgrounds <section class="bg-primary">
 	background: rgba(0, 0, 0, 0.2);
 }
 
-/*Covers/Longforms...*/
+/* Covers/Longforms... */
 .bg-trans-gradient {
 	background: linear-gradient(to top, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0) 100%);
 }
 
-/*Horizontal Gradient*/
+/* Horizontal Gradient */
 
 .bg-gradient-h {
 	background: linear-gradient(134deg,#32b 0,#62b 100%);
 }
 
-/*Vertical Gradient*/
+/* Vertical Gradient */
 
 .bg-gradient-v {
 	background: linear-gradient(to top, #62b 0%, #32b 100%);
 }
 
-/*Radial Gradient*/
+/* Radial Gradient */
 
 .bg-gradient-r {
 	background: radial-gradient(ellipse at center, #62b 0%, #32b 100%);
 }
 
-/*White Gradient (vertical)*/
+/* White Gradient (vertical) */
 .bg-gradient-white {
 	background: linear-gradient(180deg,#f2f4f6 0,#fff 100%);
 	color: #333;
 	text-shadow: none;
 }
 
-/*Gray Gradient (horizontal)*/
+/* Gray Gradient (horizontal) */
 .bg-gradient-gray {
 	background: linear-gradient(90deg,#f7f9fb 0,#dee2e6 100%);
 	color: #333;
 	text-shadow: none;
 }
-/*Border/Frame*/
+
+/* Border/Frame */
 .frame {
 	border: .8rem solid #fff;
 }
 
-/*Layer/Box Shadow*/
-.shadow,.pre {
+/* Layer/Box Shadow */
+.shadow,
+.pre {
 	position: relative;
 }
 
-.shadow:before,.shadow:after {
+.shadow:before,
+.shadow:after {
 	box-shadow: 0 16px 24px rgba(0, 20, 80, 0.3);
 }
 
-/*============================
+/* ============================
 TYPOGRAPHY
 ============================== */
 
-/* -- Horizontal separator  -- */
+/* -- Horizontal separator	-- */
 
 .text-separator:before {
 	background-color: rgba(170, 0, 0, 0.8);
 }
 
-/* -- Pull Quote (Right/Left)  -- */
+/* -- Pull Quote (Right/Left)	-- */
 
 [class*="text-pull-"] {
 	border-top: 4px solid rgba(0, 0, 0, 0.5);
 }
-/* -- Context  -- */
+
+/* -- Context	-- */
 
 [class*="bg-"] .text-context:before {
 	background-color: #fff;
 }
 
-.text-context:before,.bg-white .text-context:before {
+.text-context:before,
+.bg-white .text-context:before {
 	background-color: rgba(0, 20, 80, 0.2);
 }
 
-/* -- Text shadow  -- */
+/* -- Text shadow	-- */
 .text-shadow {
 	text-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
 }
 
-/* -- time, ampersands, prepositions (for, of...), symbols...  -- */
+/* -- time, ampersands, prepositions (for, of...), symbols...	-- */
 
 [class*="card-"] time,
 h1 span {
 	color: #abd;
 }
 
-/* -- <pre> comment  -- */
+/* -- <pre> comment	-- */
 .code-comment {
 	color: rgba(70, 170, 130, 0.9);
 	text-shadow: none;
 }
 
-/*=========================================
+/* =========================================
 Header/Nav
 =========================================== */
 
@@ -337,11 +352,13 @@ header[role=banner] {
 }
 
 nav[role=navigation] li a {
-	background-color: rgba(50, 50, 50, .9);
+	background-color: rgba(50, 50, 50,
+.9);
 }
 
 nav[role=navigation] li a:hover {
-	background-color: rgba(50, 50, 50, .7);
+	background-color: rgba(50, 50, 50,
+.7);
 }
 
 nav[role=navigation] li a,
@@ -378,7 +395,7 @@ nav li.email a:hover {
 	background: #dd4b39;
 }
 
-/*=========================================
+/* =========================================
 Tabs
 =========================================== */
 
@@ -399,21 +416,23 @@ ul.tabs li:before {
 	background-color: #2D7C9A;
 }
 
-/*===================================================
+/* ===================================================
 .flexblock li hover/active
 ===================================================== */
 
 .flexblock li.active a,
 .metrics li:hover,
-.specs li:hover,.reasons li:hover {
+.specs li:hover,
+.reasons li:hover {
 	background-color: rgba(0, 20, 80, 0.03);
 }
 
-/*=========================================
+/* =========================================
 Features & Clients List
 =========================================== */
 
-.features li,.clients li {
+.features li,
+.clients li {
 	background-color: rgba(255, 255, 255, 0.9);
 }
 
@@ -422,12 +441,17 @@ Features & Clients List
 	background-color: rgba(255, 255, 255, 0.1);
 }
 
-.features li:hover,.clients li:hover {
-	box-shadow: 0 8px 16px rgba(0,20,80,.02),0 4px 16px rgba(0,0,0,.08);
+.features li:hover,
+.clients li:hover {
+	box-shadow: 0 8px 16px rgba(0,20,80,
+.02),0 4px 16px rgba(0,0,0,
+.08);
 }
-/*.features li span,.features li svg{color: #2D7C9A;}*/
 
-/*============================
+/* .features li span,
+.features li svg{color: #2D7C9A;} */
+
+/* ============================
 .flexblock with border
 ============================== */
 
@@ -445,7 +469,7 @@ Features & Clients List
 	border: none;
 }
 
-/*===========================================
+/* ===========================================
 flexblock.steps
 ============================================= */
 
@@ -493,7 +517,7 @@ flexblock.steps
 	}
 }
 
-/*=========================================================
+/* =========================================================
 Items: You can use for settings, drag&drop, close/delete...
 =========================================================== */
 
@@ -505,10 +529,10 @@ Items: You can use for settings, drag&drop, close/delete...
 	background: none;
 }
 
-/*.specs li {background: rgba(255,255,255,0.2);}*/
+/* .specs li {background: rgba(255,255,255,0.2);} */
 
-/*=========================================================
-Why/Steps/Motivation/Reasons -  Decimal/Numbers
+/* =========================================================
+Why/Steps/Motivation/Reasons -	Decimal/Numbers
 =========================================================== */
 
 .reasons li:after {
@@ -519,14 +543,14 @@ Why/Steps/Motivation/Reasons -  Decimal/Numbers
 	background: none;
 }
 
-/*=========================================
+/* =========================================
 Overlays
 =========================================== */
 
 .overlay {
 	background-color: rgba(0, 0, 0, 0.2);
-  /*background-color: rgba(255,255,255 , 0.9);*/
-  /*border: 3px double #fff;*/;
+	/* background-color: rgba(255,255,255 , 0.9); */
+	/* border: 3px double #fff; */
 }
 
 li:hover .overlay {
@@ -539,7 +563,7 @@ li:hover .overlay {
 	text-shadow: 0 1px 0 #111;
 }
 
-/*=========================================
+/* =========================================
 Gallery li+.overlay+image
 =========================================== */
 
@@ -568,15 +592,16 @@ Gallery li+.overlay+image
 .flesblock.gallery li a footer {
 	color: #aaa;
 }
-/*Arrow */
+
+/* Arrow */
 
 .gallery li figcaption:before {
 	border: .8rem solid black;
 	border-color: transparent transparent #fff #fff;
-  /*box-shadow: -3px 3px 3px 0 rgba(0, 0, 0, 0.4);*/;
+	/* box-shadow: -3px 3px 3px 0 rgba(0, 0, 0, 0.4); */
 }
 
-/*=========================================
+/* =========================================
 Plans / Pricing
 =========================================== */
 
@@ -616,7 +641,7 @@ Plans / Pricing
 	text-shadow: none;
 }
 
-/*============================
+/* ============================
 Activity/CV/Timeline/News
 ============================== */
 
@@ -628,7 +653,7 @@ Activity/CV/Timeline/News
 	background-color: rgba(0, 20, 80, 0.02);
 }
 
-/*=========================================
+/* =========================================
 Resume/Work/CV/Portfolio
 =========================================== */
 
@@ -645,40 +670,37 @@ Resume/Work/CV/Portfolio
 	background-color: rgba(0, 20, 80, 0.04);
 }
 
-/*===========================================
+/* ===========================================
 Clients / Services / Logos...
 ============================================= */
 
 .clients.border figcaption {
 	border-top: 1px solid rgba(0,20,80,0.1);
 }
-/*.clients>li {
-  background: rgba(255, 255, 255, 0.8);
-}
-*/
 
-/*====================
+/* .clients>li {
+	background: rgba(255, 255, 255, 0.8);
+} */
+
+/* ====================
 LOGOS
 ====================== */
 
 img.blacklogo {
 	background: none;
-  /* --- Images (black logo/image) --- */
-	-webkit-filter: grayscale(100%) brightness(10%) contrast(100%);
+	/* --- Images (black logo/image) --- */
 	filter: grayscale(100%) brightness(10%) contrast(100%);
 }
 
 /* --- Images (gray logo/image) --- */
 
 img.graylogo {
-	-webkit-filter: grayscale(100%) brightness(10%) contrast(10%);
 	filter: grayscale(100%) brightness(10%) contrast(10%);
 }
 
 /* --- Images (white Logo/Image) --- */
 
 img.whitelogo {
-	-webkit-filter: brightness(0) invert(1);
 	filter: brightness(0) invert(1);
 }
 
@@ -688,14 +710,13 @@ li:hover img.blacklogo,
 li:hover img.graylogo,
 img.blacklogo:hover,img.graylogo:hover {
 	background: none;
-  /*Images - Original Color*/
+	/* Images - Original Color */
 	filter: grayscale(0%);
-	-webkit-filter: grayscale(0%);
 	filter: none;
 	transition: all 0.6s ease;
 }
 
-/*=========================================================
+/* =========================================================
 Cards
 =========================================================== */
 
@@ -703,7 +724,7 @@ Cards
 	color: inherit;
 }
 
-/* ---  card ul specs --- */
+/* ---	card ul specs --- */
 
 .description>li {
 	border-bottom: 1px solid rgba(0, 20, 80, 0.1);
@@ -713,13 +734,13 @@ Cards
 	border-bottom: none;
 }
 
-/*== Figure Background === */
+/* == Figure Background === */
 
 [class*="card-"][class*="bg-"] figure {
 	background-color: rgba(0, 20, 80, 0.06);
 }
 
-/*== Ficaption Cards === */
+/* == Ficaption Cards === */
 
 [class*="card-"] figcaption,
 [class*="card-"] figcaption a {
@@ -728,17 +749,15 @@ Cards
 }
 
 @media (min-width: 768px) {
-  /*===CTA (Call to Action - Numbers, Price, Promo...)  ===== */
+	/* ===CTA (Call to Action - Numbers, Price, Promo...)	===== */
 	.cta .benefit {
 		border-left-width: 1px;
 		border-style: solid;
 		border-image: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.4) 50%, transparent) 1 100%;
-		-webkit-border-image: -webkit-linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.4) 50%, transparent) 1 100%;
-		-moz-border-image: -moz-linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.4) 50%, transparent) 1 100%;
 	}
 }
 
-/*=========================================
+/* =========================================
 Tables
 =========================================== */
 
@@ -765,7 +784,7 @@ tr:nth-child(even)>td:hover {
 	background-color: rgba(255, 255, 255, 0.5);
 }
 
-/*============================
+/* ============================
 Browser (Screenshots)
 ============================== */
 
@@ -777,7 +796,7 @@ Browser (Screenshots)
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
-/*=== Topbar === */
+/* === Topbar === */
 
 .browser:before {
 	background-color: rgba(0, 20, 80, 0.1);
@@ -790,7 +809,7 @@ Browser (Screenshots)
 	color: #fff;
 }
 
-/*=========================================
+/* =========================================
 Forms
 =========================================== */
 
@@ -825,7 +844,8 @@ select,
 textarea,
 button[type="submit"],
 input[type="submit"],
-.button,.button:hover,
+.button,
+.button:hover,
 button[type="submit"]:hover,
 input[type="submit"]:hover {
 	border: 1px solid #2D7C9A;
@@ -833,7 +853,8 @@ input[type="submit"]:hover {
 
 button[type="submit"],
 input[type="submit"],
-.button,.button:hover,button[type="submit"]:hover,input[type="submit"]:hover {
+.button,
+.button:hover,button[type="submit"]:hover,input[type="submit"]:hover {
 	color: #fff;
 	background-color: #2D7C9A;
 	text-shadow: 0 1px 0 #123;
@@ -843,7 +864,8 @@ input[type="submit"],
 	background-color: #17d;
 }
 
-.ghost,.ghost:hover {
+.ghost,
+.ghost:hover {
 	background: none;
 	color: inherit;
 	text-shadow: none;
@@ -852,9 +874,11 @@ input[type="submit"],
 .bg-primary select,
 .bg-primary textarea,
 .bg-primary .button,
-.bg-primary button,.bg-primary button:hover,
+.bg-primary button,
+.bg-primary button:hover,
 .bg-primary input,
-[class*="bg-gradient-"] .button,[class*="bg-"] a.button.ghost {
+[class*="bg-gradient-"] .button,
+[class*="bg-"] a.button.ghost {
 	border-color: #fff;
 }
 
@@ -862,7 +886,8 @@ input[type="submit"],
 	color: #fff;
 }
 
-.bg-white a.button.ghost,.bg-gradient-white a.button.ghost {
+.bg-white a.button.ghost,
+.bg-gradient-white a.button.ghost {
 	color: #333;
 	border: 1px solid #2D7C9A;
 }
@@ -896,15 +921,15 @@ select:hover {
 [class*="badge-"] {
 	border: 1px solid #345;
 	background-color: #000;
-  /* Transparent Button */
-  /* background: none;*/;
+	/* Transparent Button */
+	/* background: none; */
 }
 
 form .flexblock li:hover {
 	background-color: rgba(0, 0, 0, 0.05);
 }
 
-/*============================
+/* ============================
 Table of Contents
 ============================== */
 
@@ -918,14 +943,13 @@ Table of Contents
 	border-bottom: 1px dotted rgba(0, 0, 0, 0.9);
 }
 
-/*============================
+/* ============================
 Slides (Counter/Arrows)
 ============================== */
 
-/*#navigation:hover {
-  background-color: rgba(0, 0, 0, 0.03);
-}
-*/
+/* #navigation:hover {
+	background-color: rgba(0, 0, 0, 0.03);
+} */
 #counter,
 #navigation a {
 	color: #5AC0E6;
@@ -936,7 +960,7 @@ Slides (Counter/Arrows)
 	background-color: rgba(0, 0, 0, 0.9);
 }
 
-/*============================
+/* ============================
 Footer
 ============================== */
 
@@ -944,8 +968,7 @@ footer[role=contentinfo] {
 	background-color: #fff;
 }
 
-/*footer:hover {
+/* footer:hover {
 background-color:rgba(255,255,255 , 0.3);
-}
-*/
+} */
 

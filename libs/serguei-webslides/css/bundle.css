@@ -89,11 +89,11 @@
 
 /* @import "webslides-base"; */
 
-/*!
+/* !
  * base.css
  */
 
-/*---------------------------------------------------------------------------------
+/* ---------------------------------------------------------------------------------
 
 	App: WebSlides
 	Version: 0.1
@@ -148,7 +148,7 @@
 
 ----------------------------------------------------------------------------------- */
 
-/*=========================================
+/* =========================================
 0. CSS Reset & Normalize
 =========================================== */
 
@@ -278,8 +278,6 @@ table {
 }
 
 html {
-	-webkit-text-size-adjust: 100%;
-	-ms-text-size-adjust: 100%;
 	box-sizing: border-box;
 }
 
@@ -382,18 +380,17 @@ p + hr {
 	margin-bottom: 4rem;
 }
 
-/*
-hr::after {
-    position: relative;
-    top: -2.4rem;
-    font-size: 2.4rem;
-    content: "\00A7";
-    display: inline-block;
-    border-radius: 50%;
-    width: 4.8rem;
-    height: 4.8rem;
-    line-height: 4.8rem;
-}*/
+/* hr::after {
+	position: relative;
+	top: -2.4rem;
+	font-size: 2.4rem;
+	content: "\00A7";
+	display: inline-block;
+	border-radius: 50%;
+	width: 4.8rem;
+	height: 4.8rem;
+	line-height: 4.8rem;
+} */
 
 dfn,
 cite,
@@ -485,7 +482,7 @@ dd {
 	margin: 0;
 }
 
-/*=== Clearing === */
+/* === Clearing === */
 
 .clear:before,
 .clear:after,
@@ -518,7 +515,7 @@ footer:after {
 	clear: both;
 }
 
-/*=========================================
+/* =========================================
 1. Base --> Baseline: 8px = .8rem
 =========================================== */
 
@@ -529,13 +526,12 @@ body {
 /* == Prototype faster - Vertical rhythm
 To show the grid/baseline.png, press ENTER key on keyboard == */
 
-body.baseline {
-	background: url(../img/baseline.png) left top 0.8rem/0.8rem;
-}
+/* body.baseline {
+	background: url(../img/baseline.png) left top .8rem/.8rem;
+} */
 
 /*
-#webslides.vertical {cursor: s-resize; }
-*/
+#webslides.vertical {cursor: s-resize; } */
 
 li li {
 	margin-left: 1.6rem;
@@ -567,7 +563,7 @@ nav a[rel="external"] em,
 	overflow: hidden;
 }
 
-/*Layer/Box Shadow*/
+/* Layer/Box Shadow */
 
 .shadow {
 	position: relative;
@@ -594,7 +590,7 @@ nav a[rel="external"] em,
 	left: auto;
 }
 
-/*=== 1.1 WRAP/CONTAINER === */
+/* === 1.1 WRAP/CONTAINER === */
 
 .wrap,
 header nav,
@@ -659,7 +655,7 @@ img.aligncenter {
 }
 
 @media (min-width: 1024px) {
-	/*=== div.size-60, img.size-50, h1.size-40, p.size-30... === */
+	/* === div.size-60, img.size-50, h1.size-40, p.size-30... === */
 
 	.size-80 {
 		width: 80%;
@@ -718,10 +714,12 @@ pre code {
 	padding: 0;
 }
 
-/*=== 1.2 Animations ================
+/* === 1.2 Animations ================
 Just 3 basic animations:
-.fadeIn, .fadeInUp, .zoomIn.
-https://github.com/daneden/animate.css*/
+.fadeIn,
+.fadeInUp,
+.zoomIn.
+https://github.com/daneden/animate.css */
 
 @-webkit-keyframes fadeIn {
 	from {
@@ -859,16 +857,16 @@ footer,
 	transition: all 0.4s ease-in-out;
 }
 
-/*=== 1.3 Responsive Media (videos, iframe...) === */
+/* === 1.3 Responsive Media (videos, iframe...) === */
 
 .embed {
 	position: relative;
 	height: 0;
 	overflow: hidden;
-	/*aspect ratio:16:9*/
+	/* aspect ratio:16:9 */
 	padding-bottom: 56.6%;
-	/*aspect ratio: 4:3*/
-	/*padding-bottom: 75%;*/
+	/* aspect ratio: 4:3 */
+	/* padding-bottom: 75%; */
 }
 
 .embed iframe,
@@ -882,7 +880,7 @@ footer,
 	margin: 0;
 }
 
-/*=== Browser (Screenshots) ================ */
+/* === Browser (Screenshots) ================ */
 
 h1 + .browser,
 h2 + .browser,
@@ -907,7 +905,7 @@ li .browser {
 	margin-bottom: 0;
 }
 
-/*=== Topbar === */
+/* === Topbar === */
 
 .browser:before {
 	position: absolute;
@@ -918,7 +916,7 @@ li .browser {
 	padding: 1.6rem;
 	width: 100%;
 	line-height: 0;
-	/*copypastecharacter.com/graphic-shapes */
+	/* copypastecharacter.com/graphic-shapes */
 	content: "● ● ●";
 }
 
@@ -933,7 +931,7 @@ li .browser {
 	margin-top: 3.2rem;
 }
 
-/*=== 1.4. Basic Grid (Flexible blocks)
+/* === 1.4. Basic Grid (Flexible blocks)
 Auto-fill & Equal height === */
 
 .grid {
@@ -1012,16 +1010,16 @@ Auto-fill & Equal height === */
 	}
 }
 
-/*============================
+/* ============================
 2. TYPOGRAPHY & LISTS
 ============================== */
 
 html,
 body {
 	line-height: 1;
-	/*Sometimes fonts don't display optimally on all devices*/
-	/*-moz-osx-font-smoothing: grayscale;*/
-	/*-webkit-font-smoothing: antialiased;*/
+	/* Sometimes fonts don't display optimally on all devices */
+	/* -moz-osx-font-smoothing: grayscale; */
+	/* -webkit-font-smoothing: antialiased; */
 	text-rendering: optimizeLegibility;
 	font-weight: 300;
 }
@@ -1065,7 +1063,7 @@ li li {
 	font-size: 100%;
 }
 
-/*== List .description (Product/Specs) === */
+/* == List .description (Product/Specs) === */
 
 ul.description {
 	padding: 0;
@@ -1236,7 +1234,7 @@ h3 + img {
 	line-height: 4rem;
 }
 
-/*=========================================
+/* =========================================
 2.1. Headings with background
 =========================================== */
 
@@ -1259,7 +1257,7 @@ h3 [class*="bg-"] {
 	padding: .4rem .8rem;
 }
 
-/*=========================================
+/* =========================================
 2.2. Typography Classes = .text-
 =========================================== */
 
@@ -1279,7 +1277,7 @@ h1 span {
 /* -- h1,h2... Promo/Landings -- */
 
 .text-landing {
-	/*font-weight: 600;*/
+	/* font-weight: 600; */
 	letter-spacing: .4rem;
 	text-transform: uppercase;
 }
@@ -1373,7 +1371,7 @@ p.text-subtitle svg {
 
 .text-context {
 	position: relative;
-	/*letter-spacing: .1rem;*/
+	/* letter-spacing: .1rem; */
 }
 
 .text-context.text-uppercase {
@@ -1427,7 +1425,7 @@ p.text-subtitle svg {
 	}
 }
 
-/* -- Pull Quote (Right/Left)  -- */
+/* -- Pull Quote (Right/Left)	-- */
 
 [class*="text-pull"] {
 	position: relative;
@@ -1475,7 +1473,7 @@ p.text-subtitle svg {
 	line-height: 2.4rem;
 }
 
-/*=========================================
+/* =========================================
 2.1. San Francisco Font (Apple's new font)
 =========================================== */
 
@@ -1486,37 +1484,38 @@ p.text-subtitle svg {
 
 /* Ultra Light */
 
-@font-face {
+/* @font-face {
 	font-family: "San Francisco";
 	font-weight: 100;
 	src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-ultralight-webfont.woff2");
-}
+} */
 
 /* Thin */
 
-@font-face {
+/* @font-face {
 	font-family: "San Francisco";
 	font-weight: 200;
 	src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-thin-webfont.woff2");
 }
+ */
 
 /* Regular */
 
-@font-face {
+/* @font-face {
 	font-family: "San Francisco";
 	font-weight: 400;
 	src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff2");
-}
+} */
 
 /* Bold */
 
-@font-face {
+/* @font-face {
 	font-family: "San Francisco";
 	font-weight: bold;
 	src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-bold-webfont.woff2");
-}
+} */
 
-/*=========================================
+/* =========================================
 3. Header & Footer
 =========================================== */
 
@@ -1553,15 +1552,15 @@ section footer {
 	bottom: 0;
 }
 
-/*=== Hide header[role=banner] === */
+/* === Hide header[role=banner] === */
 
-/*desktop only? Add @media (min-width: 1025px)*/
+/* desktop only? Add @media (min-width: 1025px) */
 
 header[role=banner] {
 	opacity: 0;
 }
 
-/*=== Show Header[role=banner] === */
+/* === Show Header[role=banner] === */
 
 header[role=banner]:hover {
 	opacity: 1;
@@ -1575,12 +1574,12 @@ header[role=banner]:hover {
 	}
 }
 
-/*=== 3.1. Logo === */
+/* === 3.1. Logo === */
 
 .logo {
 	text-transform: lowercase;
-	/*float: left;
-  font-size: 4.8rem;*/
+	/* float: left;
+	font-size: 4.8rem; */
 }
 
 .logo a {
@@ -1591,20 +1590,21 @@ header[role=banner]:hover {
 	vertical-align: middle;
 	float: left;
 	text-indent: -4000px;
-	/*If you remove text-indent */
-	/*padding-left: 6rem;*/
+	/* If you remove text-indent */
+	/* padding-left: 6rem; */
 }
 
-/*@media (max-width: 600px){
-.logo a {text-indent: -4000px;
- }
-}*/
+/* @media (max-width: 600px){
+	.logo a {
+		text-indent: -4000px;
+	}
+} */
 
-/*=========================================
+/* =========================================
 4. Navigation
 =========================================== */
 
-/*=== 4.1. Navbars === */
+/* === 4.1. Navbars === */
 
 nav ul {
 	display: -webkit-box;
@@ -1612,18 +1612,18 @@ nav ul {
 	display: flex;
 	-ms-flex-wrap: wrap;
 	flex-wrap: wrap;
-	/*====align left====*/
+	/* ====align left==== */
 	-webkit-box-pack: start;
 	-ms-flex-pack: start;
 	justify-content: flex-start;
-	/* ==== align center ====*/
-	/*justify-content: center; */
-	/*====align right====*/
+	/* ==== align center ==== */
+	/* justify-content: center; */
+	/* ====align right==== */
 	/* justify-content: flex-end; */
-	/*====separated columns li a====*/
+	/* ====separated columns li a==== */
 	/* justify-content: space-between; */
-	/*====separated columns centered li a====*/
-	/*justify-content: space-around;*/
+	/* ====separated columns centered li a==== */
+	/* justify-content: space-around; */
 }
 
 nav ul li {
@@ -1649,7 +1649,7 @@ nav[role=navigation] li a {
 	-ms-flex-pack: center;
 	justify-content: center;
 	max-width: 100%;
-	/*full li>a when you decide*/
+	/* full li>a when you decide */
 }
 
 nav[role=navigation] li a svg {
@@ -1665,14 +1665,14 @@ header nav ul {
 
 nav.aligncenter ul,
 .aligncenter nav ul {
-	/* ==== align center ====*/
+	/* ==== align center ==== */
 	-webkit-box-pack: center;
 	-ms-flex-pack: center;
 	justify-content: center;
 }
 
 nav.navbar ul li {
-	/*====full float li a ====*/
+	/* ====full float li a ==== */
 	-webkit-box-flex: 1;
 	-ms-flex: 1 1 auto;
 	flex: 1 1 auto;
@@ -1692,7 +1692,7 @@ nav.navbar ul li {
 	}
 }
 
-/*=== 4.2. Tabs === */
+/* === 4.2. Tabs === */
 
 ul.tabs {
 	display: inline-block;
@@ -1702,8 +1702,8 @@ ul.tabs {
 ul.tabs li {
 	position: relative;
 	display: table-cell;
-	/*ftext-transform: uppercase;
-	letter-spacing: .1rem;*/
+	/* ftext-transform: uppercase;
+	letter-spacing: .1rem; */
 	padding: .8rem 2.4rem;
 	cursor: pointer;
 }
@@ -1732,19 +1732,17 @@ ul.tabs li.current {
 	font-weight: 600;
 }
 
-/*.tabs li:after{
+/* .tabs li:after{
 	position: relative;
 	right: -2.8rem;
 	font-size:1.6rem;
 	font-weight:300;
 	content: "*";
-
 }
+
 .tabs li:last-child:after {
-  display: none;
-}
-
-*/
+	display: none;
+} */
 
 .tab-content {
 	display: none;
@@ -1764,13 +1762,13 @@ ul.tabs li.current {
 	}
 }
 
-/*============================================
+/* ============================================
 5. SLIDES (Full Screen)
 Vertically and horizontally centered
 ============================================== */
 
 /* Fade transition to all slides.
-* = All HTML elements will have those styles.*/
+* = All HTML elements will have those styles. */
 
 section * {
 	-webkit-animation: fadeIn 0.3s ease-in-out;
@@ -1785,7 +1783,7 @@ section .background-video,
 	animation-duration: 0s;
 }
 
-/*=== Section = Slide === */
+/* === Section = Slide === */
 
 section,
 .slide {
@@ -1800,13 +1798,13 @@ section,
 	-webkit-box-pack: center;
 	-ms-flex-pack: center;
 	justify-content: center;
-	/*Fixed/Visible header? padding-top: 12rem; */
+	/* Fixed/Visible header? padding-top: 12rem; */
 	padding: 2.4rem;
 	word-wrap: break-word;
 	page-break-after: always;
 	min-height: 100vh;
-	/*Fullscreen*/
-	/* Prototyping? min-height: 720px (Baseline: 8px = .8rem)*/
+	/* Fullscreen */
+	/* Prototyping? min-height: 720px (Baseline: 8px = .8rem) */
 }
 
 @media (min-width: 1024px) {
@@ -1817,13 +1815,14 @@ section,
 	}
 }
 
-/*slide no padding (full card, .embed> youtube video...) */
+/* slide no padding (full card,
+.embed> youtube video...) */
 
 .fullscreen {
 	padding: 0;
 	/* Fixed/Visible header?
-padding:8.2rem 0 0 0;
-*/
+		padding:8.2rem 0 0 0;
+	 */
 }
 
 /* slide alignment - top */
@@ -1842,12 +1841,12 @@ padding:8.2rem 0 0 0;
 	justify-content: flex-end;
 }
 
-/*== 5.1. Mini container width:50% (600px)
+/* == 5.1. Mini container width:50% (600px)
 .wrap:1200px; / Aligned items [class*="content-"]=== */
 
 [class*="content-"] {
 	position: relative;
-	/*display: table;*/
+	/* display: table; */
 	text-align: left;
 }
 
@@ -1903,7 +1902,7 @@ padding:8.2rem 0 0 0;
 	}
 }
 
-/* === 5.2 Counter / Navigation Slides  === */
+/* === 5.2 Counter / Navigation Slides	=== */
 
 #navigation {
 	position: fixed;
@@ -1918,14 +1917,14 @@ padding:8.2rem 0 0 0;
 }
 
 #navigation {
-	/*!
- *
- */
+	/* !
+	 *
+	 */
 	-webkit-animation: fadeIn 0.2s;
 	animation: fadeIn 0.2s;
-	/*!
- *
- */
+	/* !
+	 *
+	 */
 	opacity: 0;
 }
 
@@ -1937,9 +1936,8 @@ padding:8.2rem 0 0 0;
 
 /*
 #webslides:hover #navigation {
-opacity: 1;
-}
-*/
+	opacity: 1;
+} */
 
 #counter {
 	position: relative;
@@ -1977,7 +1975,7 @@ a#previous {
 
 @media (max-width: 1024px) {
 	#navigation {
-		background: url("../img/swipe.svg") no-repeat center top;
+		background: url(../img/swipe.svg) no-repeat center top;
 		background-size: 4.8rem;
 		-webkit-animation: fadeIn 0.2s;
 		animation: fadeIn 0.2s;
@@ -1989,7 +1987,7 @@ a#previous {
 	}
 }
 
-/*=== 5.3 Slides - Background Images === */
+/* === 5.3 Slides - Background Images === */
 
 .background,
 [class*="background-"] {
@@ -2016,9 +2014,9 @@ a#previous {
 	background-size: cover;
 }
 
-/*fullscreen video
-  <video class="background-video">
-*/
+/* fullscreen video
+	<video class="background-video">
+ */
 
 .background-video {
 	width: 100%;
@@ -2027,7 +2025,7 @@ a#previous {
 	object-fit: fill;
 }
 
-/*=== BG Positions === */
+/* === BG Positions === */
 
 .background-center {
 	background-position: center;
@@ -2071,7 +2069,7 @@ a#previous {
 	}
 }
 
-/*=== bg image light overlay === */
+/* === bg image light overlay === */
 
 [class*="bg-"] .background.light,
 [class*="bg-"] [class*="background-"].light {
@@ -2105,7 +2103,7 @@ a#previous {
 	}
 }
 
-/*=== Animated Background Image === */
+/* === Animated Background Image === */
 
 .background.anim {
 	height: 200%;
@@ -2116,7 +2114,7 @@ a#previous {
 	animation: anim 80s linear infinite;
 }
 
-/*===============================================================
+/* ===============================================================
 6. Magic blocks with flexbox (Auto-fill & Equal Height)
 Blocks Links li>a = .flexblock.blink (.blink required)
 ================================================================= */
@@ -2148,7 +2146,7 @@ Blocks Links li>a = .flexblock.blink (.blink required)
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
-	/*making paragraphs and linked block*/
+	/* making paragraphs and linked block */
 	-webkit-box-orient: vertical;
 	-webkit-box-direction: normal;
 	-ms-flex-direction: column;
@@ -2162,7 +2160,7 @@ Blocks Links li>a = .flexblock.blink (.blink required)
 	-ms-flex: auto;
 	flex: auto;
 	text-align: left;
-	/*float: left;*/
+	/* float: left; */
 	width: 100%;
 	/* more control */
 	-webkit-transition: .3s;
@@ -2218,7 +2216,7 @@ footer .column h3 {
 	line-height: 3.2rem;
 }
 
-/*====================================================================
+/* ====================================================================
 6.1 Features <ul class="flexblock features">
 ====================================================================== */
 
@@ -2294,7 +2292,7 @@ footer .column h3 {
 	}
 }
 
-/*=====================================================================
+/* =====================================================================
 6.2 Clients Logos <ul class="flexblock clients">
 ======================================================================= */
 
@@ -2335,7 +2333,7 @@ footer .column h3 {
 	z-index: 1;
 }
 
-/*==================================================
+/* ==================================================
 6.3 flexblock.steps <ul class="flexblock steps">
 About, Philosophy...
 =================================================== */
@@ -2363,7 +2361,7 @@ About, Philosophy...
 @media (min-width: 1024px) {
 	.steps li {
 		width: 25%;
-		/*width: 33.3333%;*/
+		/* width: 33.3333%; */
 	}
 
 	.process {
@@ -2377,7 +2375,7 @@ About, Philosophy...
 	}
 }
 
-/*=================================================
+/* =================================================
 6.4 Block Numbers - <ul class="flexblock metrics">
 =================================================== */
 
@@ -2414,7 +2412,7 @@ About, Philosophy...
 	width: 50%;
 }
 
-/*=====================================================
+/* =====================================================
 6.5 Specs/Items: <ul class="flexblock specs">
 ======================================================= */
 
@@ -2465,7 +2463,7 @@ About, Philosophy...
 	}
 }
 
-/*=================================================
+/* =================================================
 6.6 Reasons/Why/Numbers (counter-increment)
 <ul class="flexblock reasons">
 =================================================== */
@@ -2498,8 +2496,8 @@ About, Philosophy...
 @media (min-width: 768px) {
 	.reasons li {
 		padding-left: 8.8rem;
-		/* You need two digits? (1-10)*/
-		/*padding-left: 12rem; */
+		/* You need two digits? (1-10) */
+		/* padding-left: 12rem; */
 	}
 
 	.reasons li:before {
@@ -2508,7 +2506,7 @@ About, Philosophy...
 	}
 }
 
-/*=================================================
+/* =================================================
 6.7 Gallery - <ul class="flexblock gallery">
 Block Thumbnails li+.overlay+image
 img size recommended:800x600px
@@ -2543,7 +2541,7 @@ img size recommended:800x600px
 	padding: 1.6rem;
 }
 
-/*Arrow */
+/* Arrow */
 
 .gallery li figcaption:before {
 	content: "";
@@ -2662,7 +2660,7 @@ li:hover .overlay {
 	cursor: pointer;
 }
 
-/*===============================================
+/* ===============================================
 6.8 Plans / Pricing <ul class="flexblock plans">
 ================================================= */
 
@@ -2714,7 +2712,7 @@ li:hover .overlay {
 	margin-bottom: 2.4rem;
 }
 
-/* Specs  ----------- */
+/* Specs ----------- */
 
 .flexblock.plans li ul li {
 	width: 100%;
@@ -2751,7 +2749,7 @@ li:hover .overlay {
 	}
 }
 
-/*===========================================
+/* ===========================================
 6.9 Block Activity <ul class="activity">
 CV / News
 ============================================= */
@@ -2814,7 +2812,7 @@ CV / News
 	}
 }
 
-/*=========================================
+/* =========================================
 .flexblock sublist
 =========================================== */
 
@@ -2824,16 +2822,15 @@ CV / News
 	width: 100%;
 }
 
-/*.flexblock li li:before {
-  position: absolute;
-  top: 3px;
-  left: 0;
-  content: "*";
-  font-weight: 400;
-}
-*/
+/* .flexblock li li:before {
+	position: absolute;
+	top: 3px;
+	left: 0;
+	content: "*";
+	font-weight: 400;
+} */
 
-/*=== Mini container .flexblock li === */
+/* === Mini container .flexblock li === */
 
 [class*="content-"] .flexblock li p {
 	font-size: 1.8rem;
@@ -2845,7 +2842,7 @@ CV / News
 	width: 46%;
 }
 
-/*=============================================
+/* =============================================
 7. Promos/Offers (pricing, tagline, CTA...)
 =============================================== */
 
@@ -2957,7 +2954,7 @@ CV / News
 	}
 }
 
-/*=========================================
+/* =========================================
 8. Work/Resumé/CV <ul class="work">
 =========================================== */
 
@@ -3078,7 +3075,7 @@ p + .work {
 	}
 }
 
-/*===========================================
+/* ===========================================
 9. Table of contents
 ============================================= */
 
@@ -3089,10 +3086,9 @@ p + .work {
 	z-index: 2;
 }
 
-/*.toc {
-  padding: 2.4rem;
-}
-*/
+/* .toc {
+	padding: 2.4rem;
+} */
 
 .toc ol {
 	position: relative;
@@ -3161,7 +3157,7 @@ p + .work {
 	border-bottom-width: 2px;
 }
 
-/*===========================================
+/* ===========================================
 10. Cards
 ============================================= */
 
@@ -3176,7 +3172,7 @@ p + .work {
 	-ms-flex-direction: row;
 	flex-direction: row;
 	clear: both;
-	/*width: 100%;*/
+	/* width: 100%; */
 }
 
 .fullscreen [class*="card-"],
@@ -3189,8 +3185,8 @@ p + .work {
 	display: block;
 }
 
-/*==  Images inside container:
-object-fit to re-frame images rather than just stretch and resize them  === */
+/* ==	Images inside container:
+object-fit to re-frame images rather than just stretch and resize them	=== */
 
 @media (min-width: 768px) {
 	[class*="card-"][class*="bg-"] figure,
@@ -3235,7 +3231,7 @@ object-fit to re-frame images rather than just stretch and resize them  === */
 }
 
 @media (min-width: 768px) {
-	/*== Cards (Sizes) - Reference: figure img:-70,60,50,40,30... === */
+	/* == Cards (Sizes) - Reference: figure img:-70,60,50,40,30... === */
 
 	.card-50 figure,
 	.card-50 blockquote,
@@ -3290,7 +3286,7 @@ object-fit to re-frame images rather than just stretch and resize them  === */
 	}
 }
 
-/*== Card - Headings === */
+/* == Card - Headings === */
 
 @media (max-width: 767px) {
 	[class*="card-"],
@@ -3305,7 +3301,7 @@ object-fit to re-frame images rather than just stretch and resize them  === */
 	}
 }
 
-/*== Ficaption Cards === */
+/* == Ficaption Cards === */
 
 [class*="card-"] figure figcaption {
 	position: absolute;
@@ -3342,7 +3338,7 @@ object-fit to re-frame images rather than just stretch and resize them  === */
 	font-size: 1rem;
 }
 
-/*=========================================
+/* =========================================
 11. Quotes
 =========================================== */
 
@@ -3404,7 +3400,7 @@ blockquote.wall:before {
 	}
 }
 
-/*=========================================
+/* =========================================
 12. Avatars - uifaces.com
 =========================================== */
 
@@ -3449,7 +3445,7 @@ img.avatar-40 {
 	height: 40px;
 }
 
-/*=========================================
+/* =========================================
 13. Tables
 =========================================== */
 
@@ -3484,11 +3480,11 @@ tr > td {
 	font-weight: 400;
 }
 
-/*.slide tr>td {
-  width: 25%;
-}*/
+/* .slide tr>td {
+	width: 25%;
+} */
 
-/*=========================================
+/* =========================================
 14. Forms
 =========================================== */
 
@@ -3508,12 +3504,10 @@ input[type=tel],
 input[type=url],
 input[type=search],
 input[type=password] {
-	appearance: none;
-	-moz-appearance: none;
 	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
 	border-radius: 0;
-	-moz-border-radius: 0;
-	-webkit-border-radius: 0;
 }
 
 input,
@@ -3544,10 +3538,9 @@ button[type="submit"] {
 	width: 100%;
 }
 
-/*input:hover, textarea:hover, select:hover {
--webkit-transform: translateY(-.2rem);
-transform: translateY(-.2rem);
-}*/
+/* input:hover, textarea:hover, select:hover {
+	transform: translateY(-.2rem);
+} */
 
 input:focus,
 textarea:focus,
@@ -3567,9 +3560,9 @@ button {
 .button {
 	display: inline-block;
 	line-height: 4.8rem;
-	/*border-radius:4.8rem;
-  text-transform: uppercase;
-  letter-spacing: .1rem;*/
+	/* border-radius:4.8rem;
+	text-transform: uppercase;
+	letter-spacing: .1rem; */
 	font-size: 1.8rem;
 	font-weight: 400;
 	text-align: center;
@@ -3621,11 +3614,11 @@ legend {
 	font-weight: 400;
 }
 
-/*=== App Store Badges === */
+/* === App Store Badges === */
 
 /* Change width and height: 216x64px, 162x48px, 135x40... */
 
-[class*="badge-"] {
+/* [class*="badge-"] {
 	width: 135px;
 	height: 40px;
 	line-height: 4rem;
@@ -3636,7 +3629,7 @@ legend {
 	border-radius: .6rem;
 }
 
-@media (min-width: 1024px) {
+@media (min-width:1024px) {
 	[class*="badge-"] {
 		width: 162px;
 		height: 48px;
@@ -3650,7 +3643,7 @@ legend {
 
 .badge-android {
 	background-image: url("../img/bt-playstore.png");
-}
+} */
 
 /* Buttons/Badges - Hover */
 
@@ -3665,7 +3658,7 @@ input[type="submit"]:hover {
 	opacity: 0.7;
 }
 
-/*=== Sign Up/Login Form - Landings === */
+/* === Sign Up/Login Form - Landings === */
 
 .user input {
 	margin-bottom: 0;
@@ -3715,7 +3708,7 @@ button:disabled:hover {
 	cursor: not-allowed;
 }
 
-/*=========================================
+/* =========================================
 15. SAFARI BUGS (flex-wrap)
 Solution: stackoverflow.com/questions/34250282/flexbox-safari-bug-flex-wrap
 =========================================== */
@@ -3729,7 +3722,7 @@ Solution: stackoverflow.com/questions/34250282/flexbox-safari-bug-flex-wrap
 	width: 0;
 }
 
-/*=========================================
+/* =========================================
 16. PRINT
 =========================================== */
 
@@ -3749,11 +3742,11 @@ Solution: stackoverflow.com/questions/34250282/flexbox-safari-bug-flex-wrap
 
 /* @import "webslides-colors"; */
 
-/*!
+/* !
  * colors.css
  */
 
-/*=========================================
+/* =========================================
 WebSlides - Colors
 =========================================== */
 
@@ -3809,7 +3802,7 @@ WebSlides - Colors
 
 /* .bg-trans-gradient */
 
-/*=========================================
+/* =========================================
 Base
 =========================================== */
 
@@ -3906,11 +3899,11 @@ code,
 	background: rgba(0, 20, 80, 0.03);
 }
 
-/*================================================
+/* ================================================
 Slides - Backgrounds <section class="bg-primary">
 ================================================== */
 
-/*3 Corp Colors*/
+/* 3 Corp Colors */
 
 .bg-primary {
 	background-color: #2D7C9A;
@@ -3924,7 +3917,7 @@ Slides - Backgrounds <section class="bg-primary">
 	background-color: #edf2f7;
 }
 
-/*General Colors*/
+/* General Colors */
 
 .bg-black {
 	background-color: #111;
@@ -3967,7 +3960,7 @@ Slides - Backgrounds <section class="bg-primary">
 	color: #333;
 }
 
-/* BG Apple Keynote*/
+/* BG Apple Keynote */
 
 .bg-apple {
 	background: -webkit-linear-gradient(top, #000 0%, #1a2028 50%, #293845 100%);
@@ -3980,7 +3973,7 @@ Slides - Backgrounds <section class="bg-primary">
 	background: #3b5998;
 }
 
-/*Font Color*/
+/* Font Color */
 
 .bg-trans-dark,
 .bg-trans-gradient,
@@ -4002,13 +3995,13 @@ Slides - Backgrounds <section class="bg-primary">
 	color: #456;
 }
 
-/*.bg-white p,*/
+/* .bg-white p, */
 
 .bg-brown p {
 	color: #666;
 }
 
-/*Transparent/Opacity*/
+/* Transparent/Opacity */
 
 .bg-trans-dark {
 	background: rgba(0, 0, 0, 0.8);
@@ -4018,35 +4011,35 @@ Slides - Backgrounds <section class="bg-primary">
 	background: rgba(0, 0, 0, 0.2);
 }
 
-/*Covers/Longforms...*/
+/* Covers/Longforms... */
 
 .bg-trans-gradient {
 	background: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
 	background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
 }
 
-/*Horizontal Gradient*/
+/* Horizontal Gradient */
 
 .bg-gradient-h {
 	background: -webkit-linear-gradient(316deg, #32b 0, #62b 100%);
 	background: linear-gradient(134deg, #32b 0, #62b 100%);
 }
 
-/*Vertical Gradient*/
+/* Vertical Gradient */
 
 .bg-gradient-v {
 	background: -webkit-linear-gradient(bottom, #62b 0%, #32b 100%);
 	background: linear-gradient(to top, #62b 0%, #32b 100%);
 }
 
-/*Radial Gradient*/
+/* Radial Gradient */
 
 .bg-gradient-r {
 	background: -webkit-radial-gradient(center ellipse, #62b 0%, #32b 100%);
 	background: radial-gradient(ellipse at center, #62b 0%, #32b 100%);
 }
 
-/*White Gradient (vertical)*/
+/* White Gradient (vertical) */
 
 .bg-gradient-white {
 	background: -webkit-linear-gradient(top, #f2f4f6 0, #fff 100%);
@@ -4055,7 +4048,7 @@ Slides - Backgrounds <section class="bg-primary">
 	text-shadow: none;
 }
 
-/*Gray Gradient (horizontal)*/
+/* Gray Gradient (horizontal) */
 
 .bg-gradient-gray {
 	background: -webkit-linear-gradient(left, #f7f9fb 0, #dee2e6 100%);
@@ -4064,13 +4057,13 @@ Slides - Backgrounds <section class="bg-primary">
 	text-shadow: none;
 }
 
-/*Border/Frame*/
+/* Border/Frame */
 
 .frame {
 	border: .8rem solid #fff;
 }
 
-/*Layer/Box Shadow*/
+/* Layer/Box Shadow */
 
 .shadow,
 .pre {
@@ -4082,23 +4075,23 @@ Slides - Backgrounds <section class="bg-primary">
 	box-shadow: 0 16px 24px rgba(0, 20, 80, 0.3);
 }
 
-/*============================
+/* ============================
 TYPOGRAPHY
 ============================== */
 
-/* -- Horizontal separator  -- */
+/* -- Horizontal separator	-- */
 
 .text-separator:before {
 	background-color: rgba(170, 0, 0, 0.8);
 }
 
-/* -- Pull Quote (Right/Left)  -- */
+/* -- Pull Quote (Right/Left)	-- */
 
 [class*="text-pull-"] {
 	border-top: 4px solid rgba(0, 0, 0, 0.5);
 }
 
-/* -- Context  -- */
+/* -- Context	-- */
 
 [class*="bg-"] .text-context:before {
 	background-color: #fff;
@@ -4109,27 +4102,27 @@ TYPOGRAPHY
 	background-color: rgba(0, 20, 80, 0.2);
 }
 
-/* -- Text shadow  -- */
+/* -- Text shadow	-- */
 
 .text-shadow {
 	text-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
 }
 
-/* -- time, ampersands, prepositions (for, of...), symbols...  -- */
+/* -- time, ampersands, prepositions (for, of...), symbols...	-- */
 
 [class*="card-"] time,
 h1 span {
 	color: #abd;
 }
 
-/* -- <pre> comment  -- */
+/* -- <pre> comment	-- */
 
 .code-comment {
 	color: rgba(70, 170, 130, 0.9);
 	text-shadow: none;
 }
 
-/*=========================================
+/* =========================================
 Header/Nav
 =========================================== */
 
@@ -4183,7 +4176,7 @@ nav li.email a:hover {
 	background: #dd4b39;
 }
 
-/*=========================================
+/* =========================================
 Tabs
 =========================================== */
 
@@ -4204,7 +4197,7 @@ ul.tabs li:before {
 	background-color: #2D7C9A;
 }
 
-/*===================================================
+/* ===================================================
 .flexblock li hover/active
 ===================================================== */
 
@@ -4215,7 +4208,7 @@ ul.tabs li:before {
 	background-color: rgba(0, 20, 80, 0.03);
 }
 
-/*=========================================
+/* =========================================
 Features & Clients List
 =========================================== */
 
@@ -4234,9 +4227,10 @@ Features & Clients List
 	box-shadow: 0 8px 16px rgba(0, 20, 80, 0.02), 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 
-/*.features li span,.features li svg{color: #2D7C9A;}*/
+/* .features li span,
+.features li svg{color: #2D7C9A;} */
 
-/*============================
+/* ============================
 .flexblock with border
 ============================== */
 
@@ -4254,7 +4248,7 @@ Features & Clients List
 	border: none;
 }
 
-/*===========================================
+/* ===========================================
 flexblock.steps
 ============================================= */
 
@@ -4302,7 +4296,7 @@ flexblock.steps
 	}
 }
 
-/*=========================================================
+/* =========================================================
 Items: You can use for settings, drag&drop, close/delete...
 =========================================================== */
 
@@ -4315,10 +4309,10 @@ Items: You can use for settings, drag&drop, close/delete...
 	background: none;
 }
 
-/*.specs li {background: rgba(255,255,255,0.2);}*/
+/* .specs li {background: rgba(255,255,255,0.2);} */
 
-/*=========================================================
-Why/Steps/Motivation/Reasons -  Decimal/Numbers
+/* =========================================================
+Why/Steps/Motivation/Reasons -	Decimal/Numbers
 =========================================================== */
 
 .reasons li:after {
@@ -4330,14 +4324,14 @@ Why/Steps/Motivation/Reasons -  Decimal/Numbers
 	background: none;
 }
 
-/*=========================================
+/* =========================================
 Overlays
 =========================================== */
 
 .overlay {
 	background-color: rgba(0, 0, 0, 0.2);
-	/*background-color: rgba(255,255,255 , 0.9);*/
-	/*border: 3px double #fff;*/
+	/* background-color: rgba(255,255,255 , 0.9); */
+	/* border: 3px double #fff; */
 }
 
 li:hover .overlay {
@@ -4350,7 +4344,7 @@ li:hover .overlay {
 	text-shadow: 0 1px 0 #111;
 }
 
-/*=========================================
+/* =========================================
 Gallery li+.overlay+image
 =========================================== */
 
@@ -4380,15 +4374,15 @@ Gallery li+.overlay+image
 	color: #aaa;
 }
 
-/*Arrow */
+/* Arrow */
 
 .gallery li figcaption:before {
 	border: .8rem solid black;
 	border-color: transparent transparent #fff #fff;
-	/*box-shadow: -3px 3px 3px 0 rgba(0, 0, 0, 0.4);*/
+	/* box-shadow: -3px 3px 3px 0 rgba(0, 0, 0, 0.4); */
 }
 
-/*=========================================
+/* =========================================
 Plans / Pricing
 =========================================== */
 
@@ -4428,7 +4422,7 @@ Plans / Pricing
 	text-shadow: none;
 }
 
-/*============================
+/* ============================
 Activity/CV/Timeline/News
 ============================== */
 
@@ -4440,7 +4434,7 @@ Activity/CV/Timeline/News
 	background-color: rgba(0, 20, 80, 0.02);
 }
 
-/*=========================================
+/* =========================================
 Resume/Work/CV/Portfolio
 =========================================== */
 
@@ -4457,7 +4451,7 @@ Resume/Work/CV/Portfolio
 	background-color: rgba(0, 20, 80, 0.04);
 }
 
-/*===========================================
+/* ===========================================
 Clients / Services / Logos...
 ============================================= */
 
@@ -4465,12 +4459,11 @@ Clients / Services / Logos...
 	border-top: 1px solid rgba(0, 20, 80, 0.1);
 }
 
-/*.clients>li {
-  background: rgba(255, 255, 255, 0.8);
-}
-*/
+/* .clients>li {
+	background: rgba(255, 255, 255, 0.8);
+} */
 
-/*====================
+/* ====================
 LOGOS
 ====================== */
 
@@ -4502,15 +4495,16 @@ li:hover img.graylogo,
 img.blacklogo:hover,
 img.graylogo:hover {
 	background: none;
-	/*Images - Original Color*/
-	filter: grayscale(0%);
+	/* Images - Original Color */
 	-webkit-filter: grayscale(0%);
+	filter: grayscale(0%);
+	-webkit-filter: none;
 	filter: none;
 	-webkit-transition: all 0.6s ease;
 	transition: all 0.6s ease;
 }
 
-/*=========================================================
+/* =========================================================
 Cards
 =========================================================== */
 
@@ -4518,7 +4512,7 @@ Cards
 	color: inherit;
 }
 
-/* ---  card ul specs --- */
+/* ---	card ul specs --- */
 
 .description > li {
 	border-bottom: 1px solid rgba(0, 20, 80, 0.1);
@@ -4528,13 +4522,13 @@ Cards
 	border-bottom: none;
 }
 
-/*== Figure Background === */
+/* == Figure Background === */
 
 [class*="card-"][class*="bg-"] figure {
 	background-color: rgba(0, 20, 80, 0.06);
 }
 
-/*== Ficaption Cards === */
+/* == Ficaption Cards === */
 
 [class*="card-"] figcaption,
 [class*="card-"] figcaption a {
@@ -4544,19 +4538,18 @@ Cards
 }
 
 @media (min-width: 768px) {
-	/*===CTA (Call to Action - Numbers, Price, Promo...)  ===== */
+	/* ===CTA (Call to Action - Numbers, Price, Promo...)	===== */
 
 	.cta .benefit {
 		border-left-width: 1px;
 		border-style: solid;
 		-o-border-image: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.4) 50%, transparent) 1 100%;
+		border-image: -webkit-linear-gradient(left, transparent, rgba(0, 0, 0, 0.4) 50%, transparent) 1 100%;
 		border-image: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.4) 50%, transparent) 1 100%;
-		-webkit-border-image: -webkit-linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.4) 50%, transparent) 1 100%;
-		-moz-border-image: -moz-linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.4) 50%, transparent) 1 100%;
 	}
 }
 
-/*=========================================
+/* =========================================
 Tables
 =========================================== */
 
@@ -4583,7 +4576,7 @@ tr:nth-child(even) > td:hover {
 	background-color: rgba(255, 255, 255, 0.5);
 }
 
-/*============================
+/* ============================
 Browser (Screenshots)
 ============================== */
 
@@ -4595,7 +4588,7 @@ Browser (Screenshots)
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
-/*=== Topbar === */
+/* === Topbar === */
 
 .browser:before {
 	background-color: rgba(0, 20, 80, 0.1);
@@ -4608,7 +4601,7 @@ Browser (Screenshots)
 	color: #fff;
 }
 
-/*=========================================
+/* =========================================
 Forms
 =========================================== */
 
@@ -4726,14 +4719,14 @@ select:hover {
 	border: 1px solid #345;
 	background-color: #000;
 	/* Transparent Button */
-	/* background: none;*/
+	/* background: none; */
 }
 
 form .flexblock li:hover {
 	background-color: rgba(0, 0, 0, 0.05);
 }
 
-/*============================
+/* ============================
 Table of Contents
 ============================== */
 
@@ -4747,14 +4740,13 @@ Table of Contents
 	border-bottom: 1px dotted rgba(0, 0, 0, 0.9);
 }
 
-/*============================
+/* ============================
 Slides (Counter/Arrows)
 ============================== */
 
-/*#navigation:hover {
-  background-color: rgba(0, 0, 0, 0.03);
-}
-*/
+/* #navigation:hover {
+	background-color: rgba(0, 0, 0, 0.03);
+} */
 
 #counter,
 #navigation a {
@@ -4766,7 +4758,7 @@ Slides (Counter/Arrows)
 	background-color: rgba(0, 0, 0, 0.9);
 }
 
-/*============================
+/* ============================
 Footer
 ============================== */
 
@@ -4774,7 +4766,6 @@ footer[role=contentinfo] {
 	background-color: #fff;
 }
 
-/*footer:hover {
+/* footer:hover {
 background-color:rgba(255,255,255 , 0.3);
-}
-*/
+} */
