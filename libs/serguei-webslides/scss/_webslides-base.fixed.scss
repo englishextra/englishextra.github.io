@@ -430,6 +430,14 @@ footer:after {
 
 body {
 	overflow-x: hidden;
+	/*!
+	 *
+	 */
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+	/*!
+	 *
+	 */
 }
 
 /* == Prototype faster - Vertical rhythm
@@ -454,7 +462,15 @@ input:focus,
 textarea:focus,
 button {
 	text-decoration: none;
-	transition: all .3s ease-out;
+	/*!
+	 *
+	 */
+	transition: all .2s ease-out;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+	/*!
+	 *
+	 */
 }
 
 p a:active {
@@ -1736,11 +1752,11 @@ section,
 	margin-left: auto;
 	text-align: center;
 	/*!
-	 * 
+	 *
 	 */
 	line-height: 4rem;
 	/*!
-	 * 
+	 *
 	 */
 }
 
