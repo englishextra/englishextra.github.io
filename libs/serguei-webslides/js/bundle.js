@@ -385,4 +385,5 @@ var initWebslides = function() {
 		/* jshint +W041 */
 	}
 };
-loadJS("//cdn.jsdelivr.net/jquery/3.1.1/jquery.min.js", initWebslides);
+/* loadJS("//cdn.jsdelivr.net/jquery/3.1.1/jquery.min.js", initWebslides); */
+loadJS("../libs/serguei-webslides/js/vendors.min.js", initWebslides);
