@@ -195,9 +195,9 @@ Slides - Backgrounds <section class="bg-primary">
 
 /* BG Apple Keynote */
 
-.bg-apple {
+/* .bg-apple {
 	background: linear-gradient(to bottom, #000 0%, #1a2028 50%, #293845 100%);
-}
+} */
 
 /* BG Facebook */
 
@@ -216,7 +216,9 @@ Slides - Backgrounds <section class="bg-primary">
 .bg-purple,
 .bg-red,
 .bg-facebook,
-.bg-apple,[class*="bg-black"],[class*="bg-gradient-"] {
+.bg-apple,
+[class*="bg-black"],
+[class*="bg-gradient-"] {
 	color: #fff;
 	text-shadow: 0 1px 0 #013;
 }

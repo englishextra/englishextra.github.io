@@ -1303,10 +1303,10 @@ p.text-subtitle svg {
 2.1. San Francisco Font (Apple's new font)
 =========================================== */
 
-.text-apple,
+/* .text-apple,
 .bg-apple {
 	font-family: "San Francisco", helvetica, arial, sans-serif;
-}
+} */
 
 /* Ultra Light */
 
@@ -3048,10 +3048,10 @@ blockquote p {
 	line-height: 4rem;
 }
 
-.bg-apple blockquote p {
+/* .bg-apple blockquote p {
 	font-family: $font-family-webfont-sans-regular;
 	font-weight: 300;
-}
+} */
 
 cite {
 	display: block;

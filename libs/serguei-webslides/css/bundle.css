@@ -1477,10 +1477,10 @@ p.text-subtitle svg {
 2.1. San Francisco Font (Apple's new font)
 =========================================== */
 
-.text-apple,
+/* .text-apple,
 .bg-apple {
 	font-family: "San Francisco", helvetica, arial, sans-serif;
-}
+} */
 
 /* Ultra Light */
 
@@ -3352,10 +3352,10 @@ blockquote p {
 	line-height: 4rem;
 }
 
-.bg-apple blockquote p {
-	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", sans-serif;
+/* .bg-apple blockquote p {
+	font-family: $font-family-webfont-sans-regular;
 	font-weight: 300;
-}
+} */
 
 cite {
 	display: block;
@@ -3962,10 +3962,9 @@ Slides - Backgrounds <section class="bg-primary">
 
 /* BG Apple Keynote */
 
-.bg-apple {
-	background: -webkit-linear-gradient(top, #000 0%, #1a2028 50%, #293845 100%);
+/* .bg-apple {
 	background: linear-gradient(to bottom, #000 0%, #1a2028 50%, #293845 100%);
-}
+} */
 
 /* BG Facebook */
 
