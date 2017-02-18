@@ -44,7 +44,7 @@ Base
 
 body {
 	color: #333;
-	background-color: #f7f9fb;
+	background-color: #F0F0F0;
 }
 
 /* :focus {
@@ -277,7 +277,7 @@ Slides - Backgrounds <section class="bg-primary">
 /* Gray Gradient (horizontal) */
 
 .bg-gradient-gray {
-	background: linear-gradient(90deg,#f7f9fb 0,#dee2e6 100%);
+	background: linear-gradient(90deg,#F0F0F0 0,#dee2e6 100%);
 	color: #333;
 	text-shadow: none;
 }
@@ -946,7 +946,7 @@ Table of Contents
 .toc,
 .toc ol>li:before,
 .chapter {
-	background-color: #f7f9fb;
+	background-color: #F0F0F0;
 }
 
 .toc li .toc-page:before {
