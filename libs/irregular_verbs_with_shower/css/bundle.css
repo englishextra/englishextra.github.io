@@ -329,7 +329,7 @@ template {
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
-	background-color: rgba(211, 211, 211, 0.5);
+	background-color: rgba(220, 220, 220, 0.5);
 	border: none;
 	overflow: hidden;
 	-webkit-transition: background 0.2s linear;
@@ -348,7 +348,7 @@ template {
 	content: "\e91d";
 	font-size: 18.000pt;
 	line-height: 33.000pt;
-	color: rgba(10, 10, 10, 0.5);
+	color: rgba(15, 15, 15, 0.5);
 }
 
 /*! @import "irregular-verbs-with-shower-shower"; */
@@ -387,7 +387,7 @@ template {
 .shower-list {
 	position: absolute;
 	clip: rect(0, auto, auto, 0);
-	background-color: #F0F0F0;
+	background-color: #F3F3F3;
 	padding: 100px 0 0 16px;
 }
 
@@ -635,7 +635,7 @@ template {
 }
 
 #ui-totop-hover {
-	background-color: rgba(211, 211, 211, 0.5);
+	background-color: rgba(220, 220, 220, 0.5);
 }
 
 #ui-totop-hover:before {
@@ -643,7 +643,7 @@ template {
 	content: "\e923";
 	font-size: 18.000pt;
 	line-height: 33.000pt;
-	color: rgba(10, 10, 10, 0.5);
+	color: rgba(15, 15, 15, 0.5);
 }
 
 /*! @import "irregular-verbs-with-shower-main"; */
@@ -673,8 +673,8 @@ body {
 	font-size: 16px;
 	line-height: 1.500;
 	width: 100%;
-	color: #363636;
-	background-color: #F0F0F0;
+	color: #373737;
+	background-color: #F3F3F3;
 	counter-reset: slide;
 	-webkit-text-size-adjust: none;
 	-ms-text-size-adjust: none;
@@ -748,12 +748,12 @@ u,
 
 ::-moz-selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(48, 124, 202, 0.9);
+	background-color: rgba(72, 128, 213, 0.9);
 }
 
 ::selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(48, 124, 202, 0.9);
+	background-color: rgba(72, 128, 213, 0.9);
 }
 
 /**
@@ -810,7 +810,7 @@ u,
 	 * and position relative to parent, absolute for child
 	 */
 	min-height: 100%;
-	background-color: #F0F0F0;
+	background-color: #F3F3F3;
 }
 
 /*! @import "irregular-verbs-with-shower-nav-menu"; */
@@ -846,7 +846,7 @@ u,
 
 .holder-btn-nav-menu {
 	text-align: center;
-	background-color: rgba(211, 211, 211, 0.5);
+	background-color: rgba(220, 220, 220, 0.5);
 }
 
 .btn-nav-menu:before {
@@ -854,7 +854,7 @@ u,
 	content: "\e90f";
 	font-size: 18.000pt;
 	line-height: 33.000pt;
-	color: #848484;
+	color: #878787;
 }
 
 /**

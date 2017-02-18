@@ -323,7 +323,7 @@ var getHTTP=function(a){return function(f){return"http:"===a?"http":"https:"===a
  */
 var progressBar = new ToProgress({
 		id : "top-progress-bar",
-		color : "#FE5F55",
+		color : "#FF6363",
 		height : "3px",
 		duration : 0.2
 	});
