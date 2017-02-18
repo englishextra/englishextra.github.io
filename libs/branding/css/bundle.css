@@ -2240,7 +2240,7 @@ body {
 	font-size: 0.875rem;
 	font-weight: 300;
 	color: #FFFFFF;
-	background-color: rgba(15, 15, 15, 0.75);
+	background-color: rgba(75, 75, 75, 0.5);
 	padding: 0.500rem;
 }
 
@@ -3765,7 +3765,7 @@ u,
 }
 
 .bg-color-rgba-dark-ui-icon-bg {
-	background-color: rgba(15, 15, 15, 0.75);
+	background-color: rgba(75, 75, 75, 0.5);
 }
 
 .bg-color-hex-hover-dark-ui-icon-bg {

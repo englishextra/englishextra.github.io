@@ -323,7 +323,7 @@ template {
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
-	background-color: rgba(15, 15, 15, 0.75);
+	background-color: rgba(75, 75, 75, 0.5);
 	border: none;
 	overflow: hidden;
 	-webkit-transition: background 0.2s linear;
@@ -1179,7 +1179,7 @@ u,
 
 .btn-nav-menu {
 	text-align: center;
-	background-color: rgba(15, 15, 15, 0.75);
+	background-color: rgba(75, 75, 75, 0.5);
 }
 
 .btn-nav-menu:before {
@@ -1241,7 +1241,7 @@ u,
 
 .btn-menu-more {
 	text-align: center;
-	background-color: rgba(15, 15, 15, 0.75);
+	background-color: rgba(75, 75, 75, 0.5);
 }
 
 .btn-menu-more:before {
