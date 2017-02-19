@@ -14,22 +14,22 @@ $color-hex-body-text: #373737;
 $color-hex-lighter-text: #737373;
 $color-hex-gray-text: #878787;
 
-$color-hex-link: #2868AA;
-$color-hex-hover-link: #2868AA;
+$color-hex-link: #0067BD;
+$color-hex-hover-link: #0067BD;
 $color-hex-visited-link: #878787;
 
 $color-hex-progress-bar: #FF4C4C;
 
-$color-hex-ui-menu-border: #C9C9C9;
+$color-hex-ui-menu-border: #0073D2;
 $color-hex-ui-menu-hover-item-bg: #E1E1E1;
 
-$color-hex-highlight: #D56448;
-$color-hex-url: #48D56B;
+$color-hex-highlight: #DA3216;
+$color-hex-url: #009B4C;
 
-$color-hex-notice: #191919;
-$color-hex-success: #191919;
-$color-hex-warning: #D58048;
-$color-hex-error: #D56448;
+$color-hex-notice: #1A81D7;
+$color-hex-success: #1AB465;
+$color-hex-warning: #F67326;
+$color-hex-error: #D64A4A;
 
 $color-hex-page-bg: #F0F0F0;
 
@@ -47,14 +47,13 @@ $color-hex-hover-dark-ui-icon-bg: #4B4B4B;
 
 $color-hex-button-bg: #4B4B4B;
 $color-hex-hover-button-bg: #737373;
-$color-hex-hover-button-secondary-bg: #DBDBDB;
 
 $color-hex-active-input-bg: #F3F3F3;
 $color-hex-disabled-input-bg: #D5D5D5;
 
 $color-hex-dark-ui-panel-bg: #2D2D2D;
 $color-hex-dark-ui-panel-hover-item-bg: #4B4B4B;
-$color-hex-dark-ui-panel-active-item-bg: #1E5084;
+$color-hex-dark-ui-panel-active-item-bg: #004F93;
 $color-hex-darker-ui-panel-bg: #232323;
 $color-rgba-darker-ui-panel-inset-shadow: rgba(0,0,0,0.9);
 
@@ -69,9 +68,9 @@ $color-hex-text-slide-bg: #F9F9F9;
 $color-hex-table-header-bg: #EDEDED;
 $color-hex-table-cell-bg: #F3F3F3;
 
-$color-rgba-grid-item-shadow: rgba(150,150,150,0.2);
+$color-rgba-card-shadow: rgba(150,150,150,0.2);
 
-$color-hex-hint-bg: #4B4B4B;
+$color-rgba-hint-bg: rgba(25,25,25,0.9);
 
 $color-rgba-loading-spinner-text: rgba(15,15,15,0.5);
 $color-rgba-loading-spinner-bg: rgba(220,220,220,0.5);

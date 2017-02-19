@@ -853,8 +853,8 @@ u,
 
 .col .btn-secondary:hover {
 	color: inherit;
-	background-color: $color-hex-hover-button-secondary-bg;
-	border-color: $color-hex-hover-button-secondary-bg;
+	background-color: $color-hex-hover-ui-icon-bg;
+	border-color: $color-hex-hover-ui-icon-bg;
 }
 
 .col .btn-link,
@@ -866,7 +866,9 @@ u,
 	color: inherit;
 	background-color: transparent;
 	border-color: $color-rgba-ui-icon-bg;
-}.col .btn-link:hover {
+}
+
+.col .btn-link:hover {
 	color: inherit;
 	background-color: transparent;
 	border-color: $color-rgba-ui-icon-bg;
@@ -1236,8 +1238,8 @@ u,
 	background-color: $color-hex-hover-button-bg;
 }
 
-.bg-color-hex-hover-button-secondary-bg {
-	background-color: $color-hex-hover-button-secondary-bg;
+.color-hex-hover-ui-icon-bg {
+	background-color: $color-hex-hover-ui-icon-bg;
 }
 
 .bg-color-hex-active-input-bg {
@@ -1289,11 +1291,11 @@ u,
 }
 
 .bg-color-rgba-grid-item-shadow {
-	background-color: $color-rgba-grid-item-shadow;
+	background-color: $color-rgba-card-shadow;
 }
 
 .bg-color-hex-hint-bg {
-	background-color: $color-hex-hint-bg;
+	background-color: $color-rgba-hint-bg;
 }
 
 .bg-color-rgba-loading-spinner-text {

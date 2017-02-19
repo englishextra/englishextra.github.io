@@ -855,8 +855,8 @@ u,
 
 .col .btn-secondary:hover {
 	color: inherit;
-	background-color: $color-hex-hover-button-secondary-bg;
-	border-color: $color-hex-hover-button-secondary-bg;
+	background-color: $color-hex-hover-ui-icon-bg;
+	border-color: $color-hex-hover-ui-icon-bg;
 }
 
 .col .btn-link,
@@ -868,7 +868,9 @@ u,
 	color: inherit;
 	background-color: transparent;
 	border-color: $color-rgba-ui-icon-bg;
-}.col .btn-link:hover {
+}
+
+.col .btn-link:hover {
 	color: inherit;
 	background-color: transparent;
 	border-color: $color-rgba-ui-icon-bg;

@@ -42,7 +42,7 @@
 
 [data-hint]:after {
 	content: attr(data-hint);
-	background-color: $color-hex-hint-bg;
+	background-color: $color-rgba-hint-bg;
 	color: #FFFFFF;
 	padding: 0.500em 0.625em;
 	font-size: 0.875em;
@@ -57,11 +57,11 @@
 }
 
 .hint--top-left:before,.hint--top-right:before,.hint--top:before {
-	border-top-color: $color-hex-hint-bg;
+	border-top-color: $color-rgba-hint-bg;
 }
 
 .hint--bottom-left:before,.hint--bottom-right:before,.hint--bottom:before {
-	border-bottom-color: $color-hex-hint-bg;
+	border-bottom-color: $color-rgba-hint-bg;
 }
 
 .hint--top:before {
@@ -89,7 +89,7 @@
 }
 
 .hint--right:before {
-	border-right-color: $color-hex-hint-bg;
+	border-right-color: $color-rgba-hint-bg;
 	margin-left: -0.750em;
 	margin-bottom: -0.375em;
 }
@@ -108,7 +108,7 @@
 }
 
 .hint--left:before {
-	border-left-color: $color-hex-hint-bg;
+	border-left-color: $color-rgba-hint-bg;
 	margin-right: -0.750em;
 	margin-bottom: -0.375em;
 }

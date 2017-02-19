@@ -300,7 +300,7 @@ template {
 	color: inherit;
 	box-sizing: border-box;
 	font-size: 0.875em;
-	border: 0.063rem solid #C9C9C9;
+	border: 0.063rem solid #0073D2;
 	box-shadow: 0.125em 0.125em 0.125em 0 rgba(50, 50, 50, 0.3);
 	border-radius: 0;
 }
@@ -435,7 +435,7 @@ template {
 .masonry-grid-wrapper {
 	width: 100%;
 	height: 100%;
-	background-color: #F3F3F3;
+	background-color: #F0F0F0;
 	/** stackoverflow.com/questions/14967413/background-color-not-showing-for-a-div
 	Because the content collapses when the children are floated
 	and adding the overflow rule restores the behavior you'd expect. */
@@ -717,7 +717,7 @@ template {
 }
 
 .masonry-grid-item-content .highlight {
-	color: #D56448;
+	color: #DA3216;
 }
 
 @media only screen and (max-width: 20em) {
@@ -1051,7 +1051,7 @@ body {
 	line-height: 1.500;
 	width: 100%;
 	color: #373737;
-	background-color: #F3F3F3;
+	background-color: #F0F0F0;
 	-webkit-text-size-adjust: none;
 	-ms-text-size-adjust: none;
 	text-size-adjust: none;
@@ -1124,12 +1124,12 @@ u,
 
 ::-moz-selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(72, 128, 213, 0.9);
+	background-color: rgba(45, 116, 189, 0.9);
 }
 
 ::selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(72, 128, 213, 0.9);
+	background-color: rgba(45, 116, 189, 0.9);
 }
 
 /**
@@ -1190,7 +1190,7 @@ u,
 	top: 0;
 	/* left: 280px; */
 	left: 0;
-	background-color: #F3F3F3;
+	background-color: #F0F0F0;
 }
 
 /* .js .page {
@@ -1207,7 +1207,7 @@ u,
 	display: block;
 	width: 100%;
 	height: 33.000pt;
-	background-color: #F3F3F3;
+	background-color: #F0F0F0;
 }
 
 .container {
@@ -1286,7 +1286,7 @@ u,
 }
 
 .panel-nav-menu li a.is-active {
-	background-color: #373737;
+	background-color: #004F93;
 }
 
 .panel-nav-menu li a:before {
@@ -1404,7 +1404,7 @@ u,
 	left: 33.000pt;
 	color: #373737;
 	background-color: #F3F3F3;
-	border: 0.063rem solid #C9C9C9;
+	border: 0.063rem solid #0073D2;
 	box-shadow: 0.125em 0.125em 0.125em 0 rgba(50, 50, 50, 0.3);
 	opacity: 0;
 	-webkit-transition: visibility 0s, opacity 0.2s linear;
@@ -1547,13 +1547,13 @@ u,
 
 .footer a {
 	font-weight: inherit;
-	color: #4880D5;
+	color: #0067BD;
 }
 
 .footer a:hover,
 .footer a:active,
 .footer a:focus {
-	color: #4880D5;
+	color: #0067BD;
 }
 
 .footer a:visited {

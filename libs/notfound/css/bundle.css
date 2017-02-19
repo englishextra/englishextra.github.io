@@ -835,7 +835,7 @@ body {
 	line-height: 1.500;
 	width: 100%;
 	color: #373737;
-	background-color: #F3F3F3;
+	background-color: #F0F0F0;
 	-webkit-text-size-adjust: none;
 	-ms-text-size-adjust: none;
 	text-size-adjust: none;
@@ -908,12 +908,12 @@ u,
 
 ::-moz-selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(72, 128, 213, 0.9);
+	background-color: rgba(45, 116, 189, 0.9);
 }
 
 ::selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(72, 128, 213, 0.9);
+	background-color: rgba(45, 116, 189, 0.9);
 }
 
 /**
@@ -973,7 +973,7 @@ u,
 	position: relative;
 	top: 0;
 	left: 0;
-	background-color: #F3F3F3;
+	background-color: #F0F0F0;
 	background-image: url(/libs/notfound/img/bg-417x417.png);
 	background-position: top left;
 	background-repeat: repeat;

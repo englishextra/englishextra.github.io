@@ -459,7 +459,7 @@ var getHTTP=function(a){return function(f){return"http:"===a?"http":"https:"===a
  */
 var progressBar = new ToProgress({
 		id : "top-progress-bar",
-		color : "#FF6363",
+		color : "#FF5454",
 		height : "3px",
 		duration : 0.2
 	});

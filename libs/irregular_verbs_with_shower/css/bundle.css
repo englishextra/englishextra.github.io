@@ -387,7 +387,7 @@ template {
 .shower-list {
 	position: absolute;
 	clip: rect(0, auto, auto, 0);
-	background-color: #F3F3F3;
+	background-color: #F0F0F0;
 	padding: 100px 0 0 16px;
 }
 
@@ -674,7 +674,7 @@ body {
 	line-height: 1.500;
 	width: 100%;
 	color: #373737;
-	background-color: #F3F3F3;
+	background-color: #F0F0F0;
 	counter-reset: slide;
 	-webkit-text-size-adjust: none;
 	-ms-text-size-adjust: none;
@@ -748,12 +748,12 @@ u,
 
 ::-moz-selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(72, 128, 213, 0.9);
+	background-color: rgba(45, 116, 189, 0.9);
 }
 
 ::selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(72, 128, 213, 0.9);
+	background-color: rgba(45, 116, 189, 0.9);
 }
 
 /**
@@ -810,7 +810,7 @@ u,
 	 * and position relative to parent, absolute for child
 	 */
 	min-height: 100%;
-	background-color: #F3F3F3;
+	background-color: #F0F0F0;
 }
 
 /*! @import "irregular-verbs-with-shower-nav-menu"; */
