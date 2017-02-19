@@ -4261,7 +4261,7 @@ Features & Clients List
 }
 
 /* .features li span,
-.features li svg{color: #2D7C9A;} */
+.features li svg{color: $color-hex-serguei-logo-bg;} */
 
 /* ============================
 .flexblock with border

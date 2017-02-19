@@ -44,7 +44,7 @@ Base
 
 body {
 	color: $color-hex-body-text;
-	background-color: $color-hex-aside-bg;
+	background-color: $color-hex-text-slide-bg;
 }
 
 /* :focus {
@@ -68,7 +68,7 @@ a,
 .bg-white a,
 .bg-light a,
 .bg-gradient-white a {
-	color: #2D7C9A;
+	color: $color-hex-serguei-logo-bg;
 }
 
 a:hover {
@@ -139,7 +139,7 @@ Slides - Backgrounds <section class="bg-primary">
 /* 3 Corp Colors */
 
 .bg-primary {
-	background-color: #2D7C9A;
+	background-color: $color-hex-serguei-logo-bg;
 }
 
 .bg-secondary {
@@ -277,7 +277,7 @@ Slides - Backgrounds <section class="bg-primary">
 /* Gray Gradient (horizontal) */
 
 .bg-gradient-gray {
-	background: linear-gradient(90deg,$color-hex-aside-bg 0,#dee2e6 100%);
+	background: linear-gradient(90deg,$color-hex-text-slide-bg 0,#dee2e6 100%);
 	color: $color-hex-body-text;
 	text-shadow: none;
 }
@@ -419,7 +419,7 @@ ul.tabs li.current {
 }
 
 ul.tabs li:before {
-	background-color: #2D7C9A;
+	background-color: $color-hex-serguei-logo-bg;
 }
 
 /* ===================================================
@@ -455,7 +455,7 @@ Features & Clients List
 }
 
 /* .features li span,
-.features li svg{color: #2D7C9A;} */
+.features li svg{color: $color-hex-serguei-logo-bg;} */
 
 /* ============================
 .flexblock with border
@@ -854,7 +854,7 @@ input[type="submit"],
 .button:hover,
 button[type="submit"]:hover,
 input[type="submit"]:hover {
-	border: 1px solid #2D7C9A;
+	border: 1px solid $color-hex-serguei-logo-bg;
 }
 
 button[type="submit"],
@@ -864,7 +864,7 @@ input[type="submit"],
 button[type="submit"]:hover,
 input[type="submit"]:hover {
 	color: #fff;
-	background-color: #2D7C9A;
+	background-color: $color-hex-serguei-logo-bg;
 	text-shadow: 0 1px 0 #123;
 }
 
@@ -899,7 +899,7 @@ input[type="submit"]:active {
 .bg-white a.button.ghost,
 .bg-gradient-white a.button.ghost {
 	color: $color-hex-body-text;
-	border: 1px solid #2D7C9A;
+	border: 1px solid $color-hex-serguei-logo-bg;
 }
 
 :disabled,
@@ -910,7 +910,7 @@ button:disabled:hover {
 }
 
 fieldset {
-	border: 1px solid #2D7C9A;
+	border: 1px solid $color-hex-serguei-logo-bg;
 	background-color: rgba(0, 20, 80, 0.2);
 }
 
@@ -946,7 +946,7 @@ Table of Contents
 .toc,
 .toc ol>li:before,
 .chapter {
-	background-color: $color-hex-aside-bg;
+	background-color: $color-hex-text-slide-bg;
 }
 
 .toc li .toc-page:before {

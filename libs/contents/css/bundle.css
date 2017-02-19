@@ -313,7 +313,7 @@ template {
 
 .kamil-autocomplete li.kamil-active {
 	color: inherit;
-	background-color: #DBDBDB;
+	background-color: #E1E1E1;
 }
 
 /*! @import "vk-like-light"; */
@@ -1440,7 +1440,7 @@ u,
 .panel-menu-more li a:focus {
 	text-decoration: none;
 	color: inherit;
-	background-color: #DBDBDB;
+	background-color: #E1E1E1;
 }
 
 /**
