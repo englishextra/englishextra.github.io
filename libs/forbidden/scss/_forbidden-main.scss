@@ -249,11 +249,11 @@ u,
 
 .panel-nav-menu li a:hover,
 .panel-nav-menu li a:focus {
-	background-color: $color-hex-hover-dark-ui-panel-item-bg;
+	background-color: $color-hex-dark-ui-panel-hover-item-bg;
 }
 
 .panel-nav-menu li a.is-active {
-	background-color: $color-hex-darker-accent;
+	background-color: $color-hex-dark-ui-panel-active-item-bg;
 }
 
 .panel-nav-menu li a:before {
@@ -363,7 +363,7 @@ u,
 	left: 33.000pt;
 	color: $color-hex-body-text;
 	background-color: $color-hex-ui-bar-bg;
-	border: 0.063rem solid $color-hex-accent;
+	border: 0.063rem solid $color-hex-ui-menu-border;
 	box-shadow: 0.125em 0.125em 0.125em 0 $color-rgba-ui-bar-shadow;
 	opacity: 0;
 	transition: visibility 0s, opacity 0.2s linear;
@@ -398,7 +398,7 @@ u,
 .panel-menu-more li a:focus {
 	text-decoration: none;
 	color: inherit;
-	background-color: $color-hex-lighter-accent;
+	background-color: $color-hex-ui-menu-hover-item-bg;
 }
 
 /**

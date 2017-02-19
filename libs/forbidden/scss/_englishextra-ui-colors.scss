@@ -8,21 +8,20 @@
  */
 
 $color-rgba-selection-text: rgba(255,255,255,0.9);
-$color-rgba-selection-bg: rgba(72,128,213,0.9);
+$color-rgba-selection-bg: rgba(45,116,189,0.9);
 
 $color-hex-body-text: #373737;
 $color-hex-lighter-text: #737373;
 $color-hex-gray-text: #878787;
 
-$color-hex-link: #4880D5;
-$color-hex-hover-link: #4880D5;
+$color-hex-link: #2868AA;
+$color-hex-hover-link: #2868AA;
 $color-hex-visited-link: #878787;
 
 $color-hex-progress-bar: #FF4C4C;
 
-$color-hex-accent: #C9C9C9;
-$color-hex-darker-accent: #373737;
-$color-hex-lighter-accent: #E1E1E1;
+$color-hex-ui-menu-border: #C9C9C9;
+$color-hex-ui-menu-hover-item-bg: #E1E1E1;
 
 $color-hex-highlight: #D56448;
 $color-hex-url: #48D56B;
@@ -32,7 +31,7 @@ $color-hex-success: #191919;
 $color-hex-warning: #D58048;
 $color-hex-error: #D56448;
 
-$color-hex-page-bg: #F3F3F3;
+$color-hex-page-bg: #F0F0F0;
 
 $color-hex-divider: #C3C3C3;
 $color-hex-lighter-divider: #C9C9C9;
@@ -53,8 +52,9 @@ $color-hex-hover-button-secondary-bg: #DBDBDB;
 $color-hex-active-input-bg: #F3F3F3;
 $color-hex-disabled-input-bg: #D5D5D5;
 
-$color-hex-dark-ui-panel-bg: #373737;
-$color-hex-hover-dark-ui-panel-item-bg: #4B4B4B;
+$color-hex-dark-ui-panel-bg: #2D2D2D;
+$color-hex-dark-ui-panel-hover-item-bg: #4B4B4B;
+$color-hex-dark-ui-panel-active-item-bg: #1E5084;
 $color-hex-darker-ui-panel-bg: #232323;
 $color-rgba-darker-ui-panel-inset-shadow: rgba(0,0,0,0.9);
 
