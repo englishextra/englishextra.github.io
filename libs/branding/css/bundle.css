@@ -5,8 +5,12 @@
 
 /**
  * englishextra-ui colors
- * use localhost/tools/css3-playground
- * css3.mikeplate.com
+ * use microsoft.com/en-us/design/color
+ * localhost/tools/Tinter-Shader/index.html
+ * localhost/tools/TinyColor/index.html
+ * localhost/tools/color-palette-generator/index.html#0073D2
+ * localhost/tools/hexcolortool/index.html#dbdbdb,0.5/#ffffff
+ * localhost/tools/css3-playground/
  */
 
 /* \$(.*?)\: (.*?)\;
@@ -3696,15 +3700,11 @@ u,
 	background-color: #FF4C4C;
 }
 
-.bg-color-hex-accent {
+.bg-color-hex-ui-menu-border {
 	background-color: #0073D2;
 }
 
-.bg-color-hex-darker-accent {
-	background-color: #00437E;
-}
-
-.bg-color-hex-lighter-accent {
+.bg-color-hex-ui-menu-hover-item-bg {
 	background-color: #E1E1E1;
 }
 
@@ -3716,12 +3716,8 @@ u,
 	background-color: #009B4C;
 }
 
-.bg-color-hex-error {
-	background-color: #D64A4A;
-}
-
 .bg-color-hex-notice {
-	background-color: #1A81D7;
+	background-color: #584CBE;
 }
 
 .bg-color-hex-success {
@@ -3730,6 +3726,10 @@ u,
 
 .bg-color-hex-warning {
 	background-color: #F67326;
+}
+
+.bg-color-hex-error {
+	background-color: #D64A4A;
 }
 
 .bg-color-hex-page-bg {
@@ -3780,10 +3780,6 @@ u,
 	background-color: #5F5F5F;
 }
 
-.color-hex-hover-ui-icon-bg {
-	background-color: #D5D5D5;
-}
-
 .bg-color-hex-active-input-bg {
 	background-color: #F3F3F3;
 }
@@ -3796,12 +3792,24 @@ u,
 	background-color: #2D2D2D;
 }
 
-.bg-color-hex-hover-dark-ui-panel-item-bg {
-	background-color: #414141;
+.bg-color-hex-dark-ui-panel-hover-item-bg {
+	background-color: #4B4B4B;
+}
+
+.bg-color-hex-dark-ui-panel-active-item-bg {
+	background-color: #004F93;
 }
 
 .bg-color-hex-darker-ui-panel-bg {
 	background-color: #232323;
+}
+
+.bg-color-hex-darker-ui-panel-hover-item-bg {
+	background-color: #414141;
+}
+
+.bg-color-hex-darker-ui-panel-active-item-bg {
+	background-color: #00437E;
 }
 
 .bg-color-rgba-darker-ui-panel-inset-shadow {
@@ -3824,6 +3832,10 @@ u,
 	background-color: #F3F3F3;
 }
 
+.bg-color-hex-text-slide-bg {
+	background-color: #F9F9F9;
+}
+
 .bg-color-hex-table-header-bg {
 	background-color: #EDEDED;
 }
@@ -3832,11 +3844,11 @@ u,
 	background-color: #F3F3F3;
 }
 
-.bg-color-rgba-grid-item-shadow {
+.bg-color-rgba-card-shadow {
 	background-color: rgba(150, 150, 150, 0.2);
 }
 
-.bg-color-hex-hint-bg {
+.bg-color-rgba-hint-bg {
 	background-color: rgba(25, 25, 25, 0.9);
 }
 
@@ -3860,15 +3872,15 @@ u,
 	background-color: rgba(25, 25, 25, 0.9);
 }
 
+.bg-color-rgba-notifier42-success {
+	background-color: rgba(25, 25, 25, 0.9);
+}
+
 .bg-color-rgba-notifier42-warning {
 	background-color: rgba(25, 25, 25, 0.9);
 }
 
 .bg-color-rgba-notifier42-error {
-	background-color: rgba(25, 25, 25, 0.9);
-}
-
-.bg-color-rgba-notifier42-success {
 	background-color: rgba(25, 25, 25, 0.9);
 }
 
@@ -3889,31 +3901,31 @@ u,
 }
 
 .bg-color-hex-pages-aids {
-	background-color: #EF6B52;
+	background-color: #ED6750;
 }
 
 .bg-color-hex-pages-articles {
-	background-color: #E84B53;
+	background-color: #E94658;
 }
 
 .bg-color-hex-pages-grammar {
-	background-color: #2D7C9A;
+	background-color: #009BBA;
 }
 
 .bg-color-hex-pages-more {
-	background-color: #557678;
+	background-color: #547D6E;
 }
 
 .bg-color-hex-pages-reading {
-	background-color: #0179D7;
+	background-color: #5E3093;
 }
 
 .bg-color-hex-pages-tests {
-	background-color: #744DA9;
+	background-color: #861996;
 }
 
 .bg-color-hex-pages-transcripts {
-	background-color: #515C6B;
+	background-color: #736866;
 }
 
 /**
@@ -3928,8 +3940,8 @@ u,
 	line-height: 1.875rem;
 	text-decoration: none;
 	color: inherit;
-	background-color: rgba(220, 220, 220, 0.5);
-	border: 0.063rem solid rgba(220, 220, 220, 0.5);
+	background-color: #EDEDED;
+	border: 0.063rem solid #EDEDED;
 	vertical-align: text-bottom;
 	padding: 0 0.625rem;
 	/**
