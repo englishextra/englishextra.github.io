@@ -1145,11 +1145,11 @@ u,
 
 .panel-nav-menu li a:hover,
 .panel-nav-menu li a:focus {
-	background-color: #4B4B4B;
+	background-color: #414141;
 }
 
 .panel-nav-menu li a.is-active {
-	background-color: #004F93;
+	background-color: #00437E;
 }
 
 .panel-nav-menu li a:before {

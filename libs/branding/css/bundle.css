@@ -2852,11 +2852,11 @@ u,
 
 .panel-nav-menu li a:hover,
 .panel-nav-menu li a:focus {
-	background-color: #4B4B4B;
+	background-color: #414141;
 }
 
 .panel-nav-menu li a.is-active {
-	background-color: #004F93;
+	background-color: #00437E;
 }
 
 .panel-nav-menu li a:before {
@@ -3701,7 +3701,7 @@ u,
 }
 
 .bg-color-hex-darker-accent {
-	background-color: #004F93;
+	background-color: #00437E;
 }
 
 .bg-color-hex-lighter-accent {
@@ -3797,7 +3797,7 @@ u,
 }
 
 .bg-color-hex-hover-dark-ui-panel-item-bg {
-	background-color: #4B4B4B;
+	background-color: #414141;
 }
 
 .bg-color-hex-darker-ui-panel-bg {
