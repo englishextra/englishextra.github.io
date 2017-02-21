@@ -767,27 +767,48 @@ Cards
 Tables
 =========================================== */
 
-table td,
+/* table td,
 th,
 thead {
 	border: 1px solid rgba(0, 0, 0, 0.5);
-}
+} */
 
 thead {
 	background-color: rgba(0, 0, 0, 0.3);
 }
 
-tr:nth-child(even)>td {
+tr:nth-child(even) > td {
 	background: rgba(0, 0, 0, 0.1);
 }
 
-tr>td {
+/* tr > td {
 	border-top: 1px solid rgba(0, 0, 0, 0.5);
 }
 
 td:hover,
-tr:nth-child(even)>td:hover {
+tr:nth-child(even) > td:hover {
 	background-color: rgba(255, 255, 255, 0.5);
+} */
+
+table {
+	border-top-color: rgba(0, 0, 0, 0.5);
+	border-right-color: rgba(0, 0, 0, 0.5);
+	border-left-color: rgba(0, 0, 0, 0.5);
+}
+
+table th {
+	border-bottom-color: rgba(0, 0, 0, 0.5);
+}
+
+table td {
+	border-bottom-color: rgba(0, 0, 0, 0.5);
+}
+
+@media screen and (max-width: 640px) {
+	table tr {
+		border: 0.063rem solid rgba(0, 0, 0, 0.5);
+		border-bottom: none;
+	}
 }
 
 /* ============================

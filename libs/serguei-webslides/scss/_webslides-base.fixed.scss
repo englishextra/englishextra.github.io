@@ -3214,6 +3214,62 @@ tr>td {
 	width: 25%;
 } */
 
+table {
+	border: none;
+	border-top-width: 0.063rem;
+	border-top-style: solid;
+	border-right-width: 0.063rem;
+	border-right-style: solid;
+	border-left-width: 0.063rem;
+	border-left-style: solid;
+}
+
+table th {
+	border: none;
+	border-bottom-width: 0.063rem;
+	border-bottom-style: solid;
+}
+
+table td {
+	border: none;
+	border-bottom-width: 0.063rem;
+	border-bottom-style: solid;
+}
+
+@media screen and (max-width: 640px) {
+	table,
+	table tr,
+	table td {
+		display: block;
+		box-sizing: border-box;
+	}
+
+	table tr {
+		width: 100%;
+		float: left;
+		position: relative;
+		margin-bottom: 2.4rem;
+	}
+
+	table tr:last-child {
+		margin-bottom: 0;
+	}
+
+	table thead,
+	table tfoot {
+		display: none;
+	}
+
+	table td::before {
+		display: block;
+		float: left;
+		content: attr(data-label);
+		font-weight: bold;
+		text-align: right;
+		padding-right: 0.625rem;
+	}
+}
+
 /* =========================================
 14. Forms
 =========================================== */
