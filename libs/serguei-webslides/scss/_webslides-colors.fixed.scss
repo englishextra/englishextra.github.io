@@ -220,7 +220,7 @@ Slides - Backgrounds <section class="bg-primary">
 [class*="bg-black"],
 [class*="bg-gradient-"] {
 	color: #fff;
-	text-shadow: 0 1px 0 #013;
+	/* text-shadow: 0 1px 0 #013; */
 }
 
 .bg-light p {
@@ -566,7 +566,7 @@ li:hover .overlay {
 .overlay,
 .overlay a {
 	color: #fff;
-	text-shadow: 0 1px 0 #111;
+	/* text-shadow: 0 1px 0 #111; */
 }
 
 /* =========================================
@@ -838,8 +838,8 @@ input:focus::-webkit-input-placeholder {
 	color: #ddd;
 }
 
-a.button,[class*="badge-"]
-button[type="submit"],
+a.button,
+[class*="badge-"] button[type="submit"],
 input {
 	box-shadow: 0px 10px 16px -8px rgba(0, 20, 80, 0.3);
 }
@@ -865,13 +865,13 @@ button[type="submit"]:hover,
 input[type="submit"]:hover {
 	color: #fff;
 	background-color: $color-hex-serguei-logo-bg;
-	text-shadow: 0 1px 0 #123;
+	/* text-shadow: 0 1px 0 #123; */
 }
 
 .button:active,
 button[type="submit"]:active,
 input[type="submit"]:active {
-	background-color: #17d;
+	background-color: $color-hex-lighter-serguei-logo-bg;
 }
 
 .ghost,

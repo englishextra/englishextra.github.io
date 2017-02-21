@@ -3373,11 +3373,11 @@ legend {
 
 /* Buttons/Badges - Hover */
 
-a.button:hover,
+/* a.button:hover,
 button[type="submit"]:hover,
 input[type="submit"]:hover {
 	transform: scale(1.01);
-}
+} */
 
 [class*="badge-"]:hover {
 	opacity: 0.7;

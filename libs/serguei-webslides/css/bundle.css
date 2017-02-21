@@ -3685,12 +3685,11 @@ legend {
 
 /* Buttons/Badges - Hover */
 
-a.button:hover,
+/* a.button:hover,
 button[type="submit"]:hover,
 input[type="submit"]:hover {
-	-webkit-transform: scale(1.01);
 	transform: scale(1.01);
-}
+} */
 
 [class*="badge-"]:hover {
 	opacity: 0.7;
@@ -4025,7 +4024,7 @@ Slides - Backgrounds <section class="bg-primary">
 [class*="bg-black"],
 [class*="bg-gradient-"] {
 	color: #fff;
-	text-shadow: 0 1px 0 #013;
+	/* text-shadow: 0 1px 0 #013; */
 }
 
 .bg-light p {
@@ -4378,7 +4377,7 @@ li:hover .overlay {
 .overlay,
 .overlay a {
 	color: #fff;
-	text-shadow: 0 1px 0 #111;
+	/* text-shadow: 0 1px 0 #111; */
 }
 
 /* =========================================
@@ -4662,8 +4661,7 @@ input:focus::-webkit-input-placeholder {
 }
 
 a.button,
-[class*="badge-"]
-button[type="submit"],
+[class*="badge-"] button[type="submit"],
 input {
 	box-shadow: 0px 10px 16px -8px rgba(0, 20, 80, 0.3);
 }
@@ -4689,13 +4687,13 @@ button[type="submit"]:hover,
 input[type="submit"]:hover {
 	color: #fff;
 	background-color: #2D7C9A;
-	text-shadow: 0 1px 0 #123;
+	/* text-shadow: 0 1px 0 #123; */
 }
 
 .button:active,
 button[type="submit"]:active,
 input[type="submit"]:active {
-	background-color: #17d;
+	background-color: #4289A4;
 }
 
 .ghost,
