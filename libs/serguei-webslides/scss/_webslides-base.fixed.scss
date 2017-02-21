@@ -3265,6 +3265,7 @@ table td {
 		float: left;
 		content: attr(data-label);
 		font-weight: bold;
+		text-transform: uppercase;
 		text-align: right;
 		padding-right: 0.625rem;
 	}
