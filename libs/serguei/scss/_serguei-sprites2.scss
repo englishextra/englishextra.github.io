@@ -5,7 +5,8 @@
 /* .books-advanced-grammar-in-use-512x680, .books-collins-cobuild-english-grammar-512x680, .books-essential-grammar-in-use-512x680, .books-golitsynsky-exercises-512x680, .books-macmillan-exam-skills-for-russia-grammar-and-vocabulary-512x680
 { max-width: 100%; background-size: 100%; background-image: url('jpeg.jpg'); } */
 
-img[class^="books-"],img[class*=" books-"] {
+img[class^="books-"],
+img[class*=" books-"] {
 	max-width: 100%;
 	background-size: 100%;
 	background-image: url(../img/sprite2.jpg);
