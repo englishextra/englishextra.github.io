@@ -2637,12 +2637,12 @@ u,
 
 ::-moz-selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(45, 116, 189, 0.9);
+	background-color: rgba(52, 143, 220, 0.9);
 }
 
 ::selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(45, 116, 189, 0.9);
+	background-color: rgba(52, 143, 220, 0.9);
 }
 
 /**
@@ -3669,7 +3669,7 @@ u,
 }
 
 .bg-color-rgba-selection-bg {
-	background-color: rgba(45, 116, 189, 0.9);
+	background-color: rgba(52, 143, 220, 0.9);
 }
 
 .bg-color-hex-body-text {
