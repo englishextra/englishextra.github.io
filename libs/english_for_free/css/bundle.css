@@ -306,7 +306,7 @@ template {
 .vk-like {
 	display: inline-block;
 	height: 17.250pt;
-	position: absolute !important;
+	position: absolute;
 	top: 7.500pt;
 	left: 75.000pt;
 	line-height: 0;
@@ -356,7 +356,7 @@ template {
  */
 
 .ya-share2 {
-	position: fixed !important;
+	position: fixed;
 	right: 41.250pt;
 	bottom: 7.500pt;
 	visibility: hidden;
@@ -366,7 +366,7 @@ template {
 }
 
 .pluso {
-	position: fixed !important;
+	position: fixed;
 	right: 0;
 	bottom: 0;
 	visibility: hidden;
@@ -1026,22 +1026,22 @@ u,
 
 .show-inline-on-mobile,
 .show-block-on-mobile {
-	display: none !important;
+	display: none;
 }
 
 @media handheld, only screen and (max-width: 800px) {
 	.hide-on-mobile {
-		display: none !important;
+		display: none;
 		width: 0;
 		height: 0;
 	}
 
 	.show-inline-on-mobile {
-		display: inline !important;
+		display: inline;
 	}
 
 	.show-block-on-mobile {
-		display: block !important;
+		display: block;
 	}
 }
 

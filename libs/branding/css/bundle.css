@@ -717,21 +717,21 @@ template {
 }
 
 .col td ul {
-	margin-top: 0/* !important */;
+	margin-top: 0;
 }
 
 .col td ul li {
-	font-size: inherit /* !important */;
-	line-height: inherit /* !important */;
+	font-size: inherit;
+	line-height: inherit;
 }
 
 .col td ol {
-	margin-top: 0 /* !important */;
+	margin-top: 0;
 }
 
 .col td ol li {
-	font-size: inherit /* !important */;
-	line-height: inherit /* !important */;
+	font-size: inherit;
+	line-height: inherit;
 }
 
 .col.textcenter address,
@@ -2088,7 +2088,7 @@ body {
 .vk-like {
 	display: inline-block;
 	height: 17.250pt;
-	position: absolute !important;
+	position: absolute;
 	top: 7.500pt;
 	left: 75.000pt;
 	line-height: 0;
@@ -2138,7 +2138,7 @@ body {
  */
 
 .ya-share2 {
-	position: fixed !important;
+	position: fixed;
 	right: 41.250pt;
 	bottom: 7.500pt;
 	visibility: hidden;
@@ -2148,7 +2148,7 @@ body {
 }
 
 .pluso {
-	position: fixed !important;
+	position: fixed;
 	right: 0;
 	bottom: 0;
 	visibility: hidden;
@@ -2255,7 +2255,7 @@ body {
 .prettyprint {
 	background: #fff;
 	font-family: Menlo,Bitstream Vera Sans Mono,DejaVu Sans Mono,Monaco,Consolas,monospace;
-	border: 0 !important;
+	border: 0;
 }
 
 .pln {
@@ -2378,7 +2378,7 @@ ol.linenums {
 	color: #C9C9C9;
 	border-left: 1px solid #C9C9C9;
 	padding: 0;
-	margin: 0 0 0 2.375rem !important;
+	margin: 0 0 0 2.375rem;
 }
 
 ol.linenums li {
@@ -2677,22 +2677,22 @@ u,
 
 .show-inline-on-mobile,
 .show-block-on-mobile {
-	display: none !important;
+	display: none;
 }
 
 @media handheld, only screen and (max-width: 800px) {
 	.hide-on-mobile {
-		display: none !important;
+		display: none;
 		width: 0;
 		height: 0;
 	}
 
 	.show-inline-on-mobile {
-		display: inline !important;
+		display: inline;
 	}
 
 	.show-block-on-mobile {
-		display: block !important;
+		display: block;
 	}
 }
 
@@ -3095,7 +3095,7 @@ u,
  */
 
 .holder-search-form table td {
-	padding: 0 !important;
+	padding: 0;
 }
 
 .ya-site-form.ya-site-form_inited_no {
@@ -3104,7 +3104,7 @@ u,
 
 .ya-page_js_yes .ya-site-form_inited_no,
 .ya-site-form__submit {
-	display: none !important;
+	display: none;
 }
 
 /**
@@ -3160,7 +3160,7 @@ u,
 	font-weight: 300;
 	line-height: 1.200;
 	color: inherit;
-	margin-top: 0 !important;
+	margin-top: 0;
 	margin-bottom: 0.500rem;
 }
 
@@ -3505,7 +3505,7 @@ u,
 
 [class*="hint--"],
 [class*=" hint--"] {
-	display: block !important;
+	display: block;
 }
 
 /**
@@ -4288,7 +4288,7 @@ u,
 		font-size: 42.0pt;
 		line-height: 1.200;
 		color: inherit;
-		margin-top: 0 !important;
+		margin-top: 0;
 	}
 
 	h2,
@@ -4467,8 +4467,8 @@ u,
 
 	.btn-download-app,
 	#vkwidget1_tt {
-		display: none !important;
-		opacity: 0 !important;
+		display: none;
+		opacity: 0;
 	}
 
 	.col .holder-hidden-layer,
