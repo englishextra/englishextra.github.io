@@ -2024,7 +2024,7 @@ body {
 }
 
 #vkwidget1 {
-	display: inline-block;
+	display: block;
 	line-height: 0;
 }
 
