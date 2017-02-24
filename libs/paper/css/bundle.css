@@ -2024,9 +2024,8 @@ body {
 }
 
 #vkwidget1 {
-	position: relative /* !important */;
-	top: 0;
-	left: 0;
+	display: inline-block;
+	line-height: 0;
 }
 
 .btn-show-vk-like {
