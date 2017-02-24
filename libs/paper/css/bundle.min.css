@@ -2025,6 +2025,7 @@ body {
 
 #vkwidget1 {
 	display: block;
+	position: absolute;
 	line-height: 0;
 }
 
