@@ -2011,10 +2011,14 @@ body {
 
 .holder-vk-like {
 	display: inline-block;
-	height: 17.250pt;
-	position: absolute !important;
+	position: absolute;
 	top: 7.500pt;
 	left: 75.000pt;
+}
+
+.vk-like {
+	display: inline-block;
+	height: 17.250pt;
 	line-height: 0;
 	visibility: hidden;
 	opacity: 0;
