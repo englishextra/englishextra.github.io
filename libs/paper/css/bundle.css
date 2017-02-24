@@ -2009,8 +2009,7 @@ body {
  * vk-like
  */
 
-#vkwidget1,
-.vk-like {
+#vkwidget1 {
 	display: inline-block;
 	height: 17.250pt;
 	position: absolute /* !important */;
