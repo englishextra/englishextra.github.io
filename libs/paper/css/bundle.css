@@ -2009,7 +2009,7 @@ body {
  * vk-like
  */
 
-#vkwidget1 {
+.vk-like {
 	display: inline-block;
 	height: 17.250pt;
 	position: fixed /* !important */;
@@ -2021,6 +2021,12 @@ body {
 	-webkit-transition: visibility 0s, opacity 0.2s linear;
 	transition: visibility 0s, opacity 0.2s linear;
 	z-index: 1000;
+}
+
+#vkwidget1 {
+	position: relative /* !important */;
+	top: 0;
+	left: 0;
 }
 
 .btn-show-vk-like {
