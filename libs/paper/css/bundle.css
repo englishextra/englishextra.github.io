@@ -2012,7 +2012,7 @@ body {
 #vkwidget1 {
 	display: inline-block;
 	height: 17.250pt;
-	position: absolute /* !important */;
+	position: fixed /* !important */;
 	top: 7.500pt;
 	left: 75.000pt;
 	line-height: 0;
