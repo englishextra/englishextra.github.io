@@ -2012,7 +2012,7 @@ body {
 .vk-like {
 	display: inline-block;
 	height: 17.250pt;
-	position: absolute /* !important */;
+	position: absolute !important;
 	top: 7.500pt;
 	left: 75.000pt;
 	line-height: 0;
@@ -2021,10 +2021,6 @@ body {
 	-webkit-transition: visibility 0s, opacity 0.2s linear;
 	transition: visibility 0s, opacity 0.2s linear;
 	z-index: 1000;
-}
-
-.vk-like span[style] {
-	position: absolute;
 }
 
 .btn-show-vk-like {
