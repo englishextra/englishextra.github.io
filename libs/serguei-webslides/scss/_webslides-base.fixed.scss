@@ -1435,12 +1435,19 @@ header[role=banner]:hover {
 	/* padding-left: 6rem; */
 }
 
+.no-svg .logo a {
+	background-image: url(../img/logo-96x256.png);
+}
+
 @media handheld, only screen and (max-width: 800px) {
 	.logo a {
 		background: url(../img/logo-96x96.svg) no-repeat 0 0;
 		background-size: 5rem 5rem;
 		width: 5rem;
 		height: 5rem;
+	}
+	.no-svg .logo a {
+		background-image: url(../img/logo-96x96.png);
 	}
 	.logo {
 		position: fixed;
@@ -1813,8 +1820,11 @@ a#previous {
 @media (max-width:1024px) {
 	#navigation {
 		background: url(../img/swipe-96x96.svg) no-repeat center top;
-		background-size: 4.8rem;
+		background-size: 5rem 5rem;
 		animation: fadeIn 0.2s;
+	}
+	.no-svg #navigation {
+		background-image: url(../img/swipe-96x96.png);
 	}
 
 	#navigation a, #counter {
