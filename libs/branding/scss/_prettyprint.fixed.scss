@@ -122,7 +122,7 @@ pre.prettyprinted {
 	border: 0;
 }
 
-ol.linenums {
+.prettyprint ol.linenums {
 	list-style: decimal outside;
 	color: $color-hex-lighter-divider;
 	border-left: 1px solid $color-hex-lighter-divider;
