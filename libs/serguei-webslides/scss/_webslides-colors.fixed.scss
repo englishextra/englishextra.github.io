@@ -102,16 +102,13 @@ ins {
 	color: inherit;
 }
 
-::-moz-selection {
+/* ::selection {
 	background-color: rgba(221,238,255, 0.8);
-}
-
-::-webkit-selection {
-	background-color: rgba(221,238,255, 0.8);
-}
+} */
 
 ::selection {
-	background-color: rgba(221,238,255, 0.8);
+	color: $color-rgba-selection-text;
+	background-color: $color-rgba-selection-bg;
 }
 
 pre {

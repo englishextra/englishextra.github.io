@@ -497,10 +497,6 @@ ins {
 	text-shadow: none;
 }
 
-::-webkit-selection {
-	text-shadow: none;
-}
-
 ::selection {
 	text-shadow: none;
 }
@@ -4092,16 +4088,18 @@ ins {
 	color: inherit;
 }
 
-::-moz-selection {
-	background-color: rgba(221, 238, 255, 0.8);
-}
+/* ::selection {
+	background-color: rgba(221,238,255, 0.8);
+} */
 
-::-webkit-selection {
-	background-color: rgba(221, 238, 255, 0.8);
+::-moz-selection {
+	color: rgba(255, 255, 255, 0.9);
+	background-color: rgba(52, 143, 220, 0.9);
 }
 
 ::selection {
-	background-color: rgba(221, 238, 255, 0.8);
+	color: rgba(255, 255, 255, 0.9);
+	background-color: rgba(52, 143, 220, 0.9);
 }
 
 pre {

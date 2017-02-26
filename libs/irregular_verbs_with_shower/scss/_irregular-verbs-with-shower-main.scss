@@ -96,11 +96,6 @@ u,
 	box-sizing: border-box;
 }
 
-::-moz-selection {
-	color: $color-rgba-selection-text;
-	background-color: $color-rgba-selection-bg;
-}
-
 ::selection {
 	color: $color-rgba-selection-text;
 	background-color: $color-rgba-selection-bg;
