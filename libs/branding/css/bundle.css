@@ -3901,36 +3901,52 @@ u,
 	background-color: #D54848;
 }
 
+.bg-color-hex-darker-englishextra-logo-bg {
+	background-color: #AB3A3A;
+}
+
+.bg-color-hex-lighter-englishextra-logo-bg {
+	background-color: #DD6C6C;
+}
+
 .bg-color-hex-serguei-logo-bg {
 	background-color: #2D7C9A;
 }
 
+.bg-color-hex-darker-serguei-logo-bg {
+	background-color: #23647C;
+}
+
+.bg-color-hex-lighter-serguei-logo-bg {
+	background-color: #5796AE;
+}
+
 .bg-color-hex-pages-aids {
-	background-color: #ED6A53;
+	background-color: #EF6B50;
 }
 
 .bg-color-hex-pages-articles {
-	background-color: #E94A5B;
+	background-color: #EB5262;
 }
 
 .bg-color-hex-pages-grammar {
-	background-color: #797473;
+	background-color: #69797C;
 }
 
 .bg-color-hex-pages-more {
-	background-color: #547D6E;
+	background-color: #60867B;
 }
 
 .bg-color-hex-pages-reading {
-	background-color: #5E3093;
+	background-color: #615FC8;
 }
 
 .bg-color-hex-pages-tests {
-	background-color: #861996;
+	background-color: #744DA5;
 }
 
 .bg-color-hex-pages-transcripts {
-	background-color: #BE0151;
+	background-color: #E4357A;
 }
 
 /**
