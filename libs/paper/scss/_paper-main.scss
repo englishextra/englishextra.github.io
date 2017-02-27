@@ -806,7 +806,7 @@ u,
 
 .col .btn-larger,
 .col a.btn-larger {
-	font-size: 1.000rem;
+	font-size: 0.938rem;
 	font-weight: 400;
 	height: 2.250rem;
 }
@@ -814,11 +814,10 @@ u,
 .col a.btn-larger {
 	display: inline-block;
 	font-family: inherit;
-	line-height: 2.250rem;
+	line-height: 2.125rem;
 	text-align: center;
 	text-decoration: none;
 	border: 0.063rem solid $color-hex-button-bg;
-	vertical-align: bottom;
 }
 
 .col .btn-primary,
@@ -844,8 +843,8 @@ u,
 .col a.btn-secondary:active,
 .col a.btn-secondary:focus {
 	color: inherit;
-	background-color: $color-rgba-ui-icon-bg;
-	border-color: $color-rgba-ui-icon-bg;
+	background-color: $color-hex-ui-icon-bg;
+	border-color: $color-hex-ui-icon-bg;
 }
 
 .col .btn-secondary:hover {
@@ -862,13 +861,13 @@ u,
 .col a.btn-link:focus {
 	color: inherit;
 	background-color: transparent;
-	border-color: $color-rgba-ui-icon-bg;
+	border-color: $color-hex-ui-icon-bg;
 }
 
 .col .btn-link:hover {
 	color: inherit;
 	background-color: transparent;
-	border-color: $color-rgba-ui-icon-bg;
+	border-color: $color-hex-ui-icon-bg;
 }
 
 /**
