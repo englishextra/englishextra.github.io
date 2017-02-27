@@ -562,9 +562,9 @@ var initUiTotop = function () {
 		t = "Наверх",
 		a = crel("a"),
 		s = crel("span"),
-		h_a = function (e) {
-			e.preventDefault();
-			e.stopPropagation();
+		h_a = function (ev) {
+			ev.preventDefault();
+			ev.stopPropagation();
 			if (w.zenscroll) {
 				zenscroll.toY(0);
 			} else {
@@ -639,9 +639,9 @@ var initPlusoYaShare = function () {
 		}
 	},
 	v = function () {
-		var h_a = function (e) {
-			e.preventDefault();
-			e.stopPropagation();
+		var h_a = function (ev) {
+			ev.preventDefault();
+			ev.stopPropagation();
 			evento.remove(a, "click", h_a);
 			/* a.onclick = null; */
 			q();

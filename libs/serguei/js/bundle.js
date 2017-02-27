@@ -1019,9 +1019,9 @@ var manageDataLightboxImgLinks = function (ctx) {
 	k = function (e) {
 		var v = e[ds].lightbox || "",
 		p = e.getAttribute("href") || "",
-		h_e = function (_this, e) {
-			e.stopPropagation();
-			e.preventDefault();
+		h_e = function (_this, ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
 			g(_this);
 		};
 		if ("img" === v && p) {
@@ -1171,9 +1171,9 @@ var initNavMenu = function () {
 		/* container.onclick = h_container; */
 	},
 	k = function () {
-		var h_btn = function (e) {
-			e.preventDefault();
-			e.stopPropagation();
+		var h_btn = function (ev) {
+			ev.preventDefault();
+			ev.stopPropagation();
 			if (holder) {
 				holder[cL].remove(is_active);
 			}
@@ -1306,9 +1306,9 @@ var initMenuMore = function () {
 		/* container.onclick = h_e; */
 	},
 	q = function () {
-		var h_btn = function (e)  {
-			e.preventDefault();
-			e.stopPropagation();
+		var h_btn = function (ev) {
+			ev.preventDefault();
+			ev.stopPropagation();
 			holder[cL].toggle(is_active);
 		};
 		evento.add(btn, "click", h_btn);
@@ -1371,9 +1371,9 @@ var initUiTotop = function () {
 		t = "Наверх",
 		a = crel("a"),
 		s = crel("span"),
-		h_a = function (e) {
-			e.preventDefault();
-			e.stopPropagation();
+		h_a = function (ev) {
+			ev.preventDefault();
+			ev.stopPropagation();
 			if (w.zenscroll) {
 				zenscroll.toY(0);
 			} else {
@@ -1448,9 +1448,9 @@ var initPlusoYaShare = function () {
 		}
 	},
 	v = function () {
-		var h_a = function (e) {
-			e.preventDefault();
-			e.stopPropagation();
+		var h_a = function (ev) {
+			ev.preventDefault();
+			ev.stopPropagation();
 			evento.remove(a, "click", h_a);
 			/* a.onclick = null; */
 			q();
@@ -1506,9 +1506,9 @@ var initVKLike = function () {
 		}
 	},
 	q = function () {
-		var h_a = function (e) {
-			e.preventDefault();
-			e.stopPropagation();
+		var h_a = function (ev) {
+			ev.preventDefault();
+			ev.stopPropagation();
 			evento.remove(a, "click", h_a);
 			/* a.onclick = null; */
 			k();
@@ -1612,9 +1612,9 @@ var manageDataTargetLinks = function (ctx) {
 	g = function (e) {
 		var u = e[ds].include || "",
 		t = e[ds].target || "",
-		h_e = function (_this, e) {
-			e.preventDefault();
-			e.stopPropagation();
+		h_e = function (_this, ev) {
+			ev.preventDefault();
+			ev.stopPropagation();
 			/* evento.remove(_this, "click", h_e); */
 			_this.onclick = null;
 			includeHTMLintoTarget(_this, u, t);

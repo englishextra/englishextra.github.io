@@ -563,16 +563,16 @@ var initDoSlide = function () {
 		} else { */
 			setStyleDisplayBlock(cd_prev);
 			setStyleDisplayBlock(cd_next);
-			var h_cd_prev = function (e) {
-				e.preventDefault();
-				e.stopPropagation();
+			var h_cd_prev = function (ev) {
+				ev.preventDefault();
+				ev.stopPropagation();
 				slide.prev();
 			};
 			evento.add(cd_prev, "click", h_cd_prev);
 			/* cd_prev.onclick = h_cd_prev; */
-			var h_cd_next = function (e) {
-				e.preventDefault();
-				e.stopPropagation();
+			var h_cd_next = function (ev) {
+				ev.preventDefault();
+				ev.stopPropagation();
 				slide.next();
 			};
 			evento.add(cd_next, "click", h_cd_next);
@@ -676,9 +676,9 @@ var initMenuMore = function () {
 		/* container.onclick = h_e; */
 	},
 	q = function () {
-		var h_btn = function (e)  {
-			e.preventDefault();
-			e.stopPropagation();
+		var h_btn = function (ev) {
+			ev.preventDefault();
+			ev.stopPropagation();
 			holder[cL].toggle(is_active);
 		};
 		evento.add(btn, "click", h_btn);
@@ -759,9 +759,9 @@ var initPlusoYaShare = function () {
 		}
 	},
 	v = function () {
-		var h_a = function (e) {
-			e.preventDefault();
-			e.stopPropagation();
+		var h_a = function (ev) {
+			ev.preventDefault();
+			ev.stopPropagation();
 			evento.remove(a, "click", h_a);
 			/* a.onclick = null; */
 			q();
@@ -817,9 +817,9 @@ var initVKLike = function () {
 		}
 	},
 	q = function () {
-		var h_a = function (e) {
-			e.preventDefault();
-			e.stopPropagation();
+		var h_a = function (ev) {
+			ev.preventDefault();
+			ev.stopPropagation();
 			evento.remove(a, "click", h_a);
 			/* a.onclick = null; */
 			k();

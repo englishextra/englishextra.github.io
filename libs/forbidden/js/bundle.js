@@ -536,9 +536,9 @@ var initNavMenu = function () {
 		/* container.onclick = h_container; */
 	},
 	k = function () {
-		var h_btn = function (e) {
-			e.preventDefault();
-			e.stopPropagation();
+		var h_btn = function (ev) {
+			ev.preventDefault();
+			ev.stopPropagation();
 			if (holder) {
 				holder[cL].remove(is_active);
 			}
@@ -686,9 +686,9 @@ var initMenuMore = function () {
 		/* container.onclick = h_e; */
 	},
 	q = function () {
-		var h_btn = function (e)  {
-			e.preventDefault();
-			e.stopPropagation();
+		var h_btn = function (ev) {
+			ev.preventDefault();
+			ev.stopPropagation();
 			holder[cL].toggle(is_active);
 		};
 		evento.add(btn, "click", h_btn);
@@ -760,9 +760,9 @@ var initVKLike = function () {
 		}
 	},
 	q = function () {
-		var h_a = function (e) {
-			e.preventDefault();
-			e.stopPropagation();
+		var h_a = function (ev) {
+			ev.preventDefault();
+			ev.stopPropagation();
 			evento.remove(a, "click", h_a);
 			/* a.onclick = null; */
 			k();

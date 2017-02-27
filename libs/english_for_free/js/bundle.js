@@ -606,9 +606,9 @@ var initSuperBox = function () {
 			},
 			trackClicks = function (e) {
 				var p = e.getAttribute("href") || "",
-				h_n = function (_this, e) {
-					e.preventDefault();
-					e.stopPropagation();
+				h_n = function (_this, ev) {
+					ev.preventDefault();
+					ev.stopPropagation();
 					q(_this);
 					openDeviceBrowser(p);
 				};
@@ -655,9 +655,9 @@ var initSuperBox = function () {
 			setAutoClearedTimeout(s, 200);
 		};
 		if (s_close) {
-			var h_s_close = function (e) {
-				e.preventDefault();
-				e.stopPropagation();
+			var h_s_close = function (ev) {
+				ev.preventDefault();
+				ev.stopPropagation();
 				evento.remove(s_close, "click", h_s_close);
 				/* s_close.onclick = null; */
 				doOnClose();
@@ -667,9 +667,9 @@ var initSuperBox = function () {
 		}
 	},
 	k = function (e) {
-		var h_e = function (_this, e) {
-			e.preventDefault();
-			e.stopPropagation();
+		var h_e = function (_this, ev) {
+			ev.preventDefault();
+			ev.stopPropagation();
 			g(_this);
 		};
 		/* evento.add(e, "click", h_e.bind(null, e)); */
@@ -754,9 +754,9 @@ var initNavMenu = function () {
 		/* container.onclick = h_container; */
 	},
 	k = function () {
-		var h_btn = function (e) {
-			e.preventDefault();
-			e.stopPropagation();
+		var h_btn = function (ev) {
+			ev.preventDefault();
+			ev.stopPropagation();
 			if (holder) {
 				holder[cL].remove(is_active);
 			}
@@ -904,9 +904,9 @@ var initMenuMore = function () {
 		/* container.onclick = h_e; */
 	},
 	q = function () {
-		var h_btn = function (e)  {
-			e.preventDefault();
-			e.stopPropagation();
+		var h_btn = function (ev) {
+			ev.preventDefault();
+			ev.stopPropagation();
 			holder[cL].toggle(is_active);
 		};
 		evento.add(btn, "click", h_btn);
@@ -969,9 +969,9 @@ var initUiTotop = function () {
 		t = "Наверх",
 		a = crel("a"),
 		s = crel("span"),
-		h_a = function (e) {
-			e.preventDefault();
-			e.stopPropagation();
+		h_a = function (ev) {
+			ev.preventDefault();
+			ev.stopPropagation();
 			if (w.zenscroll) {
 				zenscroll.toY(0);
 			} else {
@@ -1046,9 +1046,9 @@ var initPlusoYaShare = function () {
 		}
 	},
 	v = function () {
-		var h_a = function (e) {
-			e.preventDefault();
-			e.stopPropagation();
+		var h_a = function (ev) {
+			ev.preventDefault();
+			ev.stopPropagation();
 			evento.remove(a, "click", h_a);
 			/* a.onclick = null; */
 			q();
@@ -1104,9 +1104,9 @@ var initVKLike = function () {
 		}
 	},
 	q = function () {
-		var h_a = function (e) {
-			e.preventDefault();
-			e.stopPropagation();
+		var h_a = function (ev) {
+			ev.preventDefault();
+			ev.stopPropagation();
 			evento.remove(a, "click", h_a);
 			/* a.onclick = null; */
 			k();
