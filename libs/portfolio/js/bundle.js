@@ -648,10 +648,10 @@ var initSuperBox = function () {
 		};
 		if (s_close) {
 			var h_s_close = function (e) {
-				evento.remove(s_close, "click", h_s_close);
-				/* s_close.onclick = null; */
 				e.preventDefault();
 				e.stopPropagation();
+				evento.remove(s_close, "click", h_s_close);
+				/* s_close.onclick = null; */
 				doOnClose();
 			};
 			evento.add(s_close, "click", h_s_close);
@@ -989,10 +989,10 @@ var initPlusoYaShare = function () {
 	},
 	v = function () {
 		var h_a = function (e) {
-			evento.remove(a, "click", h_a);
-			/* a.onclick = null; */
 			e.preventDefault();
 			e.stopPropagation();
+			evento.remove(a, "click", h_a);
+			/* a.onclick = null; */
 			q();
 		};
 		evento.add(a, "click", h_a);
@@ -1047,10 +1047,10 @@ var initVKLike = function () {
 	},
 	q = function () {
 		var h_a = function (e) {
-			evento.remove(a, "click", h_a);
-			/* a.onclick = null; */
 			e.preventDefault();
 			e.stopPropagation();
+			evento.remove(a, "click", h_a);
+			/* a.onclick = null; */
 			k();
 		};
 		evento.add(a, "click", h_a);

@@ -1511,10 +1511,10 @@ var initPlusoYaShare = function () {
 	},
 	v = function () {
 		var h_a = function (e) {
-			evento.remove(a, "click", h_a);
-			/* a.onclick = null; */
 			e.preventDefault();
 			e.stopPropagation();
+			evento.remove(a, "click", h_a);
+			/* a.onclick = null; */
 			q();
 		};
 		evento.add(a, "click", h_a);
@@ -1653,10 +1653,10 @@ var initVKLike = function () {
 	},
 	q = function () {
 		var h_a = function (e) {
-			evento.remove(a, "click", h_a);
-			/* a.onclick = null; */
 			e.preventDefault();
 			e.stopPropagation();
+			evento.remove(a, "click", h_a);
+			/* a.onclick = null; */
 			k();
 		};
 		evento.add(a, "click", h_a);

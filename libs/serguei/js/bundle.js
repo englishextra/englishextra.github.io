@@ -706,19 +706,19 @@ var Notifier42 = function (m, n, t) {
 		setAutoClearedTimeout(r, 400);
 	},
 	h_b = function () {
-		evento.remove(b, "click", h_b);
-		/* b.onclick = null; */
+		/* evento.remove(b, "click", h_b); */
+		b.onclick = null;
 		g();
 	},
 	h_c = function () {
-		evento.remove(c, "click", h_c);
-		/* c.onclick = null; */
+		/* evento.remove(c, "click", h_c); */
+		c.onclick = null;
 		g();
 	};
-	evento.add(b, "click", h_b);
-	evento.add(c, "click", h_c);
-	/* b.onclick = h_b;
-	c.onclick = h_c; */
+	/* evento.add(b, "click", h_b);
+	evento.add(c, "click", h_c); */
+	b.onclick = h_b;
+	c.onclick = h_c;
 	if (0 !== n) {
 		setAutoClearedTimeout(g, n);
 	}
@@ -813,16 +813,18 @@ var manageDisqusButton = function () {
 	"use strict";
 	var c = BALA.one("#disqus_thread") || "",
 	e = c ? (BALA.one("#btn-show-disqus") || "") : "",
-	h_e = function () {
-		evento.remove(e, "click", h_e);
-		/* e.onclick = null; */
+	h_e = function (ev) {
+		ev.stopPropagation();
+		ev.preventDefault();
+		/* evento.remove(e, "click", h_e); */
+		e.onclick = null;
 		loadRefreshDisqus();
 		return !1;
 	};
 	if (c && e) {
 		console.log("triggered function: manageDisqusButton");
-		evento.add(e, "click", h_e);
-		/* e.onclick = h_e; */
+		/* evento.add(e, "click", h_e); */
+		e.onclick = h_e;
 	}
 };
 evento.add(window, "load", manageDisqusButton);
@@ -874,17 +876,19 @@ var initYandexMap = function (a) {
 		c.removeAttribute("id");
 		setStyleDisplayNone(b_s.parentNode);
 	},
-	h_b_d = function () {
-		evento.remove(b_d, "click", h_b_d);
-		/* b_d.onclick = null; */
+	h_b_d = function (ev) {
+		ev.stopPropagation();
+		ev.preventDefault();
+		/* evento.remove(b_d, "click", h_b_d); */
+		b_d.onclick = null;
 		myMap.destroy();
 	};
 	if (c && f && z && b_s) {
 		console.log("triggered function: initYandexMap");
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			if (b_d) {
-				evento.add(b_d, "click", h_b_d);
-				/* b_d.onclick = h_b_d; */
+				/* evento.add(b_d, "click", h_b_d); */
+				b_d.onclick = h_b_d;
 			}
 			LoadingSpinner.show();
 			if (scriptIsLoaded(js)) {
@@ -905,16 +909,18 @@ var manageYandexMapButton = function (a) {
 	var c = BALA.one(a) || "",
 	ds = "dataset",
 	e = c ? (BALA.one(c[ds].btnShow) || "") : "",
-	h_e = function () {
-		evento.remove(e, "click", h_e);
-		/* e.onclick = null; */
+	h_e = function (ev) {
+		ev.stopPropagation();
+		ev.preventDefault();
+		/* evento.remove(e, "click", h_e); */
+		e.onclick = null;
 		initYandexMap(a);
 		return !1;
 	};
 	if (c && e) {
 		console.log("triggered function: manageYandexMapButton");
-		evento.add(e, "click", h_e);
-		/* e.onclick = h_e; */
+		/* evento.add(e, "click", h_e); */
+		e.onclick = h_e;
 	}
 };
 evento.add(window, "load", manageYandexMapButton.bind(null, "#ymap"));
@@ -1443,10 +1449,10 @@ var initPlusoYaShare = function () {
 	},
 	v = function () {
 		var h_a = function (e) {
-			evento.remove(a, "click", h_a);
-			/* a.onclick = null; */
 			e.preventDefault();
 			e.stopPropagation();
+			evento.remove(a, "click", h_a);
+			/* a.onclick = null; */
 			q();
 		};
 		evento.add(a, "click", h_a);
@@ -1501,10 +1507,10 @@ var initVKLike = function () {
 	},
 	q = function () {
 		var h_a = function (e) {
-			evento.remove(a, "click", h_a);
-			/* a.onclick = null; */
 			e.preventDefault();
 			e.stopPropagation();
+			evento.remove(a, "click", h_a);
+			/* a.onclick = null; */
 			k();
 		};
 		evento.add(a, "click", h_a);
@@ -1607,10 +1613,10 @@ var manageDataTargetLinks = function (ctx) {
 		var u = e[ds].include || "",
 		t = e[ds].target || "",
 		h_e = function (_this, e) {
-			/* evento.remove(_this, "click", h_e); */
-			_this.onclick = null;
 			e.preventDefault();
 			e.stopPropagation();
+			/* evento.remove(_this, "click", h_e); */
+			_this.onclick = null;
 			includeHTMLintoTarget(_this, u, t);
 		};
 		if (u && t) {

@@ -720,19 +720,19 @@ var Notifier42 = function (m, n, t) {
 		setAutoClearedTimeout(r, 400);
 	},
 	h_b = function () {
-		evento.remove(b, "click", h_b);
-		/* b.onclick = null; */
+		/* evento.remove(b, "click", h_b); */
+		b.onclick = null;
 		g();
 	},
 	h_c = function () {
-		evento.remove(c, "click", h_c);
-		/* c.onclick = null; */
+		/* evento.remove(c, "click", h_c); */
+		c.onclick = null;
 		g();
 	};
-	evento.add(b, "click", h_b);
-	evento.add(c, "click", h_c);
-	/* b.onclick = h_b;
-	c.onclick = h_c; */
+	/* evento.add(b, "click", h_b);
+	evento.add(c, "click", h_c); */
+	b.onclick = h_b;
+	c.onclick = h_c;
 	if (0 !== n) {
 		setAutoClearedTimeout(g, n);
 	}
@@ -1525,10 +1525,10 @@ var initPlusoYaShare = function () {
 	},
 	v = function () {
 		var h_a = function (e) {
-			evento.remove(a, "click", h_a);
-			/* a.onclick = null; */
 			e.preventDefault();
 			e.stopPropagation();
+			evento.remove(a, "click", h_a);
+			/* a.onclick = null; */
 			q();
 		};
 		evento.add(a, "click", h_a);
@@ -1739,10 +1739,10 @@ var initVKLike = function () {
 	},
 	q = function () {
 		var h_a = function (e) {
-			evento.remove(a, "click", h_a);
-			/* a.onclick = null; */
 			e.preventDefault();
 			e.stopPropagation();
+			evento.remove(a, "click", h_a);
+			/* a.onclick = null; */
 			k();
 		};
 		evento.add(a, "click", h_a);
