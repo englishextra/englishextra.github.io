@@ -3204,15 +3204,29 @@ u,
  * buttons
  */
 
-.col .btn-larger {
+.col .btn-larger,
+.col a.btn-larger {
 	font-size: 1.000rem;
 	font-weight: 400;
 	height: 2.250rem;
 }
 
+.col a.btn-larger {
+	display: inline-block;
+	font-family: inherit;
+	line-height: 2.250rem;
+	text-align: center;
+	text-decoration: none;
+	border: 0.063rem solid #4B4B4B;
+	vertical-align: bottom;
+}
+
 .col .btn-primary,
 .col .btn-primary:active,
-.col .btn-primary:focus {
+.col .btn-primary:focus,
+.col a.btn-primary,
+.col a.btn-primary:active,
+.col a.btn-primary:focus {
 	color: #FFFFFF;
 	background-color: #4B4B4B;
 	border-color: #4B4B4B;
