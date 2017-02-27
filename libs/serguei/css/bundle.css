@@ -3237,6 +3237,23 @@ u,
 	border-color: #5F5F5F;
 }
 
+.col .btn-secondary,
+.col .btn-secondary:active,
+.col .btn-secondary:focus,
+.col a.btn-secondary,
+.col a.btn-secondary:active,
+.col a.btn-secondary:focus {
+	color: inherit;
+	background-color: rgba(220, 220, 220, 0.5);
+	border-color: rgba(220, 220, 220, 0.5);
+}
+
+.col .btn-secondary:hover {
+	color: inherit;
+	background-color: #D5D5D5;
+	border-color: #D5D5D5;
+}
+
 /**
  * vcard block
  */

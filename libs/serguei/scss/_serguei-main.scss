@@ -735,6 +735,23 @@ u,
 	border-color: $color-hex-hover-button-bg;
 }
 
+.col .btn-secondary,
+.col .btn-secondary:active,
+.col .btn-secondary:focus,
+.col a.btn-secondary,
+.col a.btn-secondary:active,
+.col a.btn-secondary:focus {
+	color: inherit;
+	background-color: $color-rgba-ui-icon-bg;
+	border-color: $color-rgba-ui-icon-bg;
+}
+
+.col .btn-secondary:hover {
+	color: inherit;
+	background-color: $color-hex-hover-ui-icon-bg;
+	border-color: $color-hex-hover-ui-icon-bg;
+}
+
 /**
  * vcard block
  */
