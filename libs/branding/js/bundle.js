@@ -1219,8 +1219,8 @@ var initNavMenu = function () {
 	},
 	k = function () {
 		var h_btn = function (ev) {
-			ev.preventDefault();
 			ev.stopPropagation();
+			ev.preventDefault();
 			if (holder) {
 				holder[cL].remove(is_active);
 			}
@@ -1369,8 +1369,8 @@ var initMenuMore = function () {
 	},
 	q = function () {
 		var h_btn = function (ev) {
-			ev.preventDefault();
 			ev.stopPropagation();
+			ev.preventDefault();
 			holder[cL].toggle(is_active);
 		};
 		evento.add(btn, "click", h_btn);
@@ -1434,8 +1434,8 @@ var initUiTotop = function () {
 		a = crel("a"),
 		s = crel("span"),
 		h_a = function (ev) {
-			ev.preventDefault();
 			ev.stopPropagation();
+			ev.preventDefault();
 			if (w.zenscroll) {
 				zenscroll.toY(0);
 			} else {
@@ -1511,8 +1511,8 @@ var initPlusoYaShare = function () {
 	},
 	v = function () {
 		var h_a = function (ev) {
-			ev.preventDefault();
 			ev.stopPropagation();
+			ev.preventDefault();
 			evento.remove(a, "click", h_a);
 			/* a.onclick = null; */
 			q();
@@ -1653,8 +1653,8 @@ var initVKLike = function () {
 	},
 	q = function () {
 		var h_a = function (ev) {
-			ev.preventDefault();
 			ev.stopPropagation();
+			ev.preventDefault();
 			evento.remove(a, "click", h_a);
 			/* a.onclick = null; */
 			k();

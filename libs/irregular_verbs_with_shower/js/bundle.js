@@ -563,8 +563,8 @@ var initUiTotop = function () {
 		a = crel("a"),
 		s = crel("span"),
 		h_a = function (ev) {
-			ev.preventDefault();
 			ev.stopPropagation();
+			ev.preventDefault();
 			if (w.zenscroll) {
 				zenscroll.toY(0);
 			} else {
@@ -640,8 +640,8 @@ var initPlusoYaShare = function () {
 	},
 	v = function () {
 		var h_a = function (ev) {
-			ev.preventDefault();
 			ev.stopPropagation();
+			ev.preventDefault();
 			evento.remove(a, "click", h_a);
 			/* a.onclick = null; */
 			q();

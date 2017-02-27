@@ -561,8 +561,8 @@ var initNavMenu = function () {
 	},
 	k = function () {
 		var h_btn = function (ev) {
-			ev.preventDefault();
 			ev.stopPropagation();
+			ev.preventDefault();
 			if (holder) {
 				holder[cL].remove(is_active);
 			}
@@ -665,8 +665,8 @@ var initUiTotop = function () {
 		a = crel("a"),
 		s = crel("span"),
 		h_a = function (ev) {
-			ev.preventDefault();
 			ev.stopPropagation();
+			ev.preventDefault();
 			if (w.zenscroll) {
 				zenscroll.toY(0);
 			} else {
