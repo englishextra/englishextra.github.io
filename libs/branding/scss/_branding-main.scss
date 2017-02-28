@@ -464,7 +464,7 @@ u,
 .panel-menu-more li a:focus {
 	text-decoration: none;
 	color: inherit;
-	background-color: $color-hex-ui-menu-hover-item-bg;
+	background-color: $color-hex-hover-ui-menu-item-bg;
 }
 
 /**
@@ -847,8 +847,8 @@ u,
 
 .col .btn-secondary:hover {
 	color: inherit;
-	background-color: $color-hex-hover-ui-icon-bg;
-	border-color: $color-hex-hover-ui-icon-bg;
+	background-color: $color-hex-hover-ui-menu-item-bg;
+	border-color: $color-hex-hover-ui-menu-item-bg;
 }
 
 .col .btn-link,
@@ -866,59 +866,6 @@ u,
 	color: inherit;
 	background-color: transparent;
 	border-color: $color-hex-ui-icon-bg;
-}
-
-/**
- * sg specific
- */
-
-.col p+div,
-.col table+table,
-.col video+video,
-.col pre+pre,
-.col img+img,
-.col details+details,
-.col ol+ol,
-.col ul+ul,
-.col dl+dl,
-.col blockquote+blockquote,
-.col hr {
-	margin-top: 1.000rem;
-}
-
-/* .col p+div > .btn-nav, */
-
-.col address:first-child,
-.col blockquote:first-child,
-.col blockquote p:first-child,
-.col table:first-child,
-.col video:first-child,
-.col img:first-child,
-.col svg:first-child,
-.col pre:first-child,
-.col dl:first-child,
-.col ol:first-child,
-.col ul:first-child,
-.col details:first-child,
-.col figure:first-child {
-	margin-top: 0;
-}
-
-.col hr,
-.col video,
-.col pre,
-.col details,
-.col figure {
-	margin-bottom: 1.000rem;
-}
-
-.col blockquote p:last-child,
-.col hr:last-child,
-.col video:last-child,
-.col pre:last-child,
-.col details:last-child,
-.col figure:last-child {
-	margin-bottom: 0;
 }
 
 /**
@@ -1109,6 +1056,186 @@ u,
 }
 
 /**
+ * sg specific
+ */
+
+.col p+div,
+.col table+table,
+.col video+video,
+.col pre+pre,
+.col img+img,
+.col details+details,
+.col ol+ol,
+.col ul+ul,
+.col dl+dl,
+.col blockquote+blockquote,
+.col hr {
+	margin-top: 1.000rem;
+}
+
+/* .col p+div > .btn-nav, */
+
+.col address:first-child,
+.col blockquote:first-child,
+.col blockquote p:first-child,
+.col table:first-child,
+.col video:first-child,
+.col img:first-child,
+.col svg:first-child,
+.col pre:first-child,
+.col dl:first-child,
+.col ol:first-child,
+.col ul:first-child,
+.col details:first-child,
+.col figure:first-child {
+	margin-top: 0;
+}
+
+.col hr,
+.col video,
+.col pre,
+.col details,
+.col figure {
+	margin-bottom: 1.000rem;
+}
+
+.col blockquote p:last-child,
+.col hr:last-child,
+.col video:last-child,
+.col pre:last-child,
+.col details:last-child,
+.col figure:last-child {
+	margin-bottom: 0;
+}
+
+.col .sg-btn {
+	display: inline-block;
+	height: 2.000rem;
+	font-size: 1.000rem;
+	font-weight: 400;
+	line-height: 1.875rem;
+	text-decoration: none;
+	color: inherit;
+	background-color: $color-hex-ui-icon-bg;
+	border: 0.063rem solid $color-hex-ui-icon-bg;
+	vertical-align: text-bottom;
+	padding: 0 0.625rem;
+	/**
+	 * css-tricks.com/fighting-the-space-between-inline-block-elements/
+	 */
+	margin-bottom: -0.125em;
+	cursor: pointer;
+}
+
+.col .sg-btn:after {
+	font-family: "englishextra-ui-icons";
+	content: "\e901";
+	font-size: 0.438em;
+	position: relative;
+	vertical-align: middle;
+	margin-left: 0.500em;
+}
+
+.col .sg-btn.is-active:after {
+	font-family: "englishextra-ui-icons";
+	content: "\e907";
+	font-size: 0.438em;
+	position: relative;
+	vertical-align: middle;
+	margin-left: 0.500em;
+}
+
+.col .sg-markup-controls {
+	overflow: hidden;
+	padding-top: 1.000rem;
+}
+
+.legacy .col .sg-btn--source {
+	display: none;
+}
+
+.col .sg-source {
+	position: relative;
+}
+
+.col .sg-source pre {
+	margin: 0;
+}
+
+.col .sg-source {
+	max-height: 150.000em;
+	overflow-y: auto;
+}
+
+.js .col .sg-source {
+	max-height: 0;
+	overflow: hidden;
+}
+
+.col .sg-source.is-active,
+.legacy .col .sg-source {
+	max-height: 150.000em;
+	overflow-y: auto;
+}
+
+.col .sg-font-primary {
+	font-family: $font-family-webfont-sans-regular;
+	font-weight: 400;
+	font-size: 1.000rem;
+	line-height: 1.500;
+	padding: 0;
+	margin: 0;
+}
+
+.col .sg-font-secondary {
+	font-family: $font-family-webfont-sans-light;
+	font-weight: 300;
+	font-size: 3.375rem;
+	line-height: 1.200;
+	padding: 0;
+	margin: 0;
+}
+
+.col .sg-font-phonetic {
+	font-family: $font-family-webfont-monospace;
+	font-weight: 400;
+	font-size: 1.000rem;
+	line-height: 1.500;
+	padding: 0;
+	margin: 0;
+}
+
+.col .sg-font-preformatted {
+	font-family: $font-family-webfont-monospace;
+	font-weight: 400;
+	font-size: 0.938rem;
+	line-height: 1.500;
+	padding: 0;
+	margin: 0;
+}
+
+/* .col .sg-panel-ui-btns span, */
+
+.col .sg-panel-ui-btns svg {
+	display: inline-block;
+	width: 31.500pt;
+	height: 31.500pt;
+	background-color: $color-rgba-ui-icon-bg;
+	background-size: 31.500pt 31.500pt;
+	vertical-align: bottom;
+	margin: 0 0 0 0;
+	padding: 0.500em;
+}
+
+/* .col .sg-panel-ui-btns span:hover, */
+
+.col .sg-panel-ui-btns svg:hover {
+	background-color: $color-hex-hover-ui-icon-bg;
+	background-size: 31.500pt 31.500pt;
+	cursor: pointer;
+}
+
+/**
  * englishextra ui colors
  */
 
@@ -1153,7 +1280,7 @@ u,
 }
 
 .bg-color-hex-ui-menu-hover-item-bg {
-	background-color: $color-hex-ui-menu-hover-item-bg;
+	background-color: $color-hex-hover-ui-menu-item-bg;
 }
 
 .bg-color-hex-highlight {
@@ -1390,137 +1517,6 @@ u,
 
 .bg-color-hex-pages-transcripts {
 	background-color: $color-hex-pages-transcripts;
-}
-
-/**
- * sg specific
- */
-
-.col .sg-btn {
-	display: inline-block;
-	height: 2.000rem;
-	font-size: 1.000rem;
-	font-weight: 400;
-	line-height: 1.875rem;
-	text-decoration: none;
-	color: inherit;
-	background-color: $color-hex-ui-icon-bg;
-	border: 0.063rem solid $color-hex-ui-icon-bg;
-	vertical-align: text-bottom;
-	padding: 0 0.625rem;
-	/**
-	 * css-tricks.com/fighting-the-space-between-inline-block-elements/
-	 */
-	margin-bottom: -0.125em;
-	cursor: pointer;
-}
-
-.col .sg-btn:after {
-	font-family: "englishextra-ui-icons";
-	content: "\e901";
-	font-size: 0.438em;
-	position: relative;
-	vertical-align: middle;
-	margin-left: 0.500em;
-}
-
-.col .sg-btn.is-active:after {
-	font-family: "englishextra-ui-icons";
-	content: "\e907";
-	font-size: 0.438em;
-	position: relative;
-	vertical-align: middle;
-	margin-left: 0.500em;
-}
-
-.col .sg-markup-controls {
-	overflow: hidden;
-	padding-top: 1.000rem;
-}
-
-.legacy .col .sg-btn--source {
-	display: none;
-}
-
-.col .sg-source {
-	position: relative;
-}
-
-.col .sg-source pre {
-	margin: 0;
-}
-
-.col .sg-source {
-	max-height: 150.000em;
-	overflow-y: auto;
-}
-
-.js .col .sg-source {
-	max-height: 0;
-	overflow: hidden;
-}
-
-.col .sg-source.is-active,
-.legacy .col .sg-source {
-	max-height: 150.000em;
-	overflow-y: auto;
-}
-
-.col .sg-font-primary {
-	font-family: $font-family-webfont-sans-regular;
-	font-weight: 400;
-	font-size: 1.000rem;
-	line-height: 1.500;
-	padding: 0;
-	margin: 0;
-}
-
-.col .sg-font-secondary {
-	font-family: $font-family-webfont-sans-light;
-	font-weight: 300;
-	font-size: 3.375rem;
-	line-height: 1.200;
-	padding: 0;
-	margin: 0;
-}
-
-.col .sg-font-phonetic {
-	font-family: $font-family-webfont-monospace;
-	font-weight: 400;
-	font-size: 1.000rem;
-	line-height: 1.500;
-	padding: 0;
-	margin: 0;
-}
-
-.col .sg-font-preformatted {
-	font-family: $font-family-webfont-monospace;
-	font-weight: 400;
-	font-size: 0.938rem;
-	line-height: 1.500;
-	padding: 0;
-	margin: 0;
-}
-
-/* .col .sg-panel-ui-btns span, */
-
-.col .sg-panel-ui-btns svg {
-	display: inline-block;
-	width: 31.500pt;
-	height: 31.500pt;
-	background-color: $color-rgba-ui-icon-bg;
-	background-size: 31.500pt 31.500pt;
-	vertical-align: bottom;
-	margin: 0 0 0 0;
-	padding: 0.500em;
-}
-
-/* .col .sg-panel-ui-btns span:hover, */
-
-.col .sg-panel-ui-btns svg:hover {
-	background-color: $color-hex-hover-ui-icon-bg;
-	background-size: 31.500pt 31.500pt;
-	cursor: pointer;
 }
 
 /**
