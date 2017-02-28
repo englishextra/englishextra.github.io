@@ -1216,13 +1216,13 @@ template {
  */
 
 .col a {
-	color: #0067BD;
+	color: #007DD1;
 }
 
 .col a:hover,
 .col a:focus,
 .col a:active {
-	color: #0067BD;
+	color: #007DD1;
 }
 
 .col h1,
@@ -3147,13 +3147,13 @@ u,
 
 .col a {
 	font-weight: inherit;
-	color: #0067BD;
+	color: #007DD1;
 }
 
 .col a:hover,
 .col a:active,
 .col a:focus {
-	color: #0067BD;
+	color: #007DD1;
 }
 
 .col a:visited {
@@ -3689,11 +3689,11 @@ u,
 }
 
 .bg-color-hex-link {
-	background-color: #0067BD;
+	background-color: #007DD1;
 }
 
 .bg-color-hex-hover-link {
-	background-color: #0067BD;
+	background-color: #007DD1;
 }
 
 .bg-color-hex-visited-link {
@@ -4298,7 +4298,7 @@ u,
 	table td a[href^="http"]:after,
 	.col table td a[href^="http"]:after {
 		content: " <" attr(href) ">";
-		color: #0067BD;
+		color: #007DD1;
 	}
 
 	h1,
