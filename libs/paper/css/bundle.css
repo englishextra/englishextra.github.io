@@ -3553,7 +3553,7 @@ u,
  * buttons
  */
 
-.col .holder-bottom-nav-btns {
+.col div + .holder-bottom-nav-btns {
 	margin-top: 1.500rem;
 }
 
