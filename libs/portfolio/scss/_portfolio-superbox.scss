@@ -49,14 +49,14 @@
 	display: block;
 	width: 100%;
 	height: auto;
-	opacity: 0.85;
+	opacity: 1;
 	transition: all 0.2s ease-in-out;
 	cursor: pointer;
 	padding: 0;
 }
 
 .superbox-list img:hover {
-	opacity: 1;
+	opacity: 0.85;
 }
 
 .superbox-show {

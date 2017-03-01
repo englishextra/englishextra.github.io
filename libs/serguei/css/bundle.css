@@ -2788,7 +2788,7 @@ u,
 	font-size: 0.875em;
 	line-height: 3.143em;
 	list-style: none;
-	overflow-y: auto;
+	overflow-y: hidden;
 	-webkit-overflow-scrolling: touch;
 	box-sizing: border-box;
 	background-color: #232323;
@@ -2796,6 +2796,10 @@ u,
 	margin: 0;
 	margin-left: -280px;
 	z-index: 998;
+}
+
+.panel-nav-menu:hover {
+	overflow-y: auto;
 }
 
 /* .js .panel-nav-menu {

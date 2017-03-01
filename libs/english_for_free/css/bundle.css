@@ -489,7 +489,7 @@ template {
 	display: block;
 	width: 100%;
 	height: auto;
-	opacity: 0.85;
+	opacity: 1;
 	-webkit-transition: all 0.2s ease-in-out;
 	transition: all 0.2s ease-in-out;
 	cursor: pointer;
@@ -497,7 +497,7 @@ template {
 }
 
 .superbox-list img:hover {
-	opacity: 1;
+	opacity: 0.85;
 }
 
 .superbox-show {
@@ -794,7 +794,7 @@ img[class*=" english4free-banner-"] {
 	background-size: 100%;
 }
 
-.english4free-banner-fryreadsonegin-640x480 {
+.english4free-banner-english-accents-map-640x480 {
 	background-position: 0 31.578947%;
 	background-size: 100%;
 }
@@ -1142,7 +1142,7 @@ u,
 	font-size: 0.875em;
 	line-height: 3.143em;
 	list-style: none;
-	overflow-y: auto;
+	overflow-y: hidden;
 	-webkit-overflow-scrolling: touch;
 	box-sizing: border-box;
 	background-color: #232323;
@@ -1150,6 +1150,10 @@ u,
 	margin: 0;
 	margin-left: -280px;
 	z-index: 998;
+}
+
+.panel-nav-menu:hover {
+	overflow-y: auto;
 }
 
 /* .js .panel-nav-menu {
