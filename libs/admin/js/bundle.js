@@ -440,9 +440,7 @@ var initNavMenu = function () {
 		}
 	},
 	g = function () {
-		var h_container_left = function (ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
+		var h_container_left = function () {
 			h();
 			if (panel[cL].contains(is_active)) {
 				r();
@@ -474,6 +472,15 @@ var initNavMenu = function () {
 			t();
 		};
 		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
+			evento.add(btn, "touchmove", function (e) {
+				e.preventDefault()
+			});
+			evento.add(btn, "touchstart", function (e) {
+				e.preventDefault()
+			});
+			evento.add(btn, "touchend", function (e) {
+				e.preventDefault()
+			});
 			evento.add(btn, "tap", h_btn);
 			/* btn.ontap = h_btn; */
 		} else {
