@@ -557,12 +557,14 @@ var initNavMenu = function () {
 	},
 	g = function () {
 		var h_container_left = function () {
+			console.log("swipeleft");
 			h();
 			if (panel[cL].contains(is_active)) {
 				r();
 			}
 		},
 		h_container_right = function () {
+			console.log("swiperight");
 			h();
 			if (!panel[cL].contains(is_active)) {
 				f();
