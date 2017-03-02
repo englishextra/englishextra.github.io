@@ -1283,8 +1283,13 @@ var initNavMenu = function () {
 			h();
 			t();
 		};
-		evento.add(btn, "click", h_btn);
-		/* btn.onclick = h_btn; */
+		if (earlyHasTouch) {
+			evento.add(btn, "tap", h_btn);
+			/* btn.ontap = h_btn; */
+		} else {
+			evento.add(btn, "click", h_btn);
+			/* btn.onclick = h_btn; */
+		}
 	},
 	q = function () {
 		h();
@@ -1315,8 +1320,13 @@ var initNavMenu = function () {
 			s(items);
 			n(e);
 		};
-		evento.add(e, "click", h_e);
-		/* e.onclick = h_e; */
+		if (earlyHasTouch) {
+			evento.add(e, "tap", h_e);
+			/* e.ontap = h_e; */
+		} else {
+			evento.add(e, "click", h_e);
+			/* e.onclick = h_e; */
+		}
 		if (e.href == p) {
 			n(e);
 		} else {
