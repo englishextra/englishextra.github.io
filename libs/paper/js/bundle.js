@@ -1252,17 +1252,13 @@ var initNavMenu = function () {
 		}
 	},
 	g = function () {
-		var h_container_left = function (ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
+		var h_container_left = function () {
 			h();
 			if (panel[cL].contains(is_active)) {
 				r();
 			}
 		},
-		h_container_right = function (ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
+		h_container_right = function () {
 			h();
 			if (!panel[cL].contains(is_active)) {
 				f();
@@ -1307,9 +1303,7 @@ var initNavMenu = function () {
 		}
 	},
 	v = function (e) {
-		var h_e = function (ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
+		var h_e = function () {
 			if (panel[cL].contains(is_active)) {
 				q();
 			}
