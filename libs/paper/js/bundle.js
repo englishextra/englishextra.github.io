@@ -1241,13 +1241,29 @@ var initNavMenu = function () {
 		panel[cL].add(is_active);
 		btn[cL].add(is_active);
 	},
+	t = function () {
+		page[cL].toggle(is_active);
+		panel[cL].toggle(is_active);
+		btn[cL].toggle(is_active);
+	},
+	h = function () {
+		if (holder && holder[cL].contains(is_active)) {
+			holder[cL].remove(is_active);
+		}
+	},
 	g = function () {
-		var h_container_left = function () {
+		var h_container_left = function (ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			h();
 			if (panel[cL].contains(is_active)) {
 				r();
 			}
 		},
-		h_container_right = function () {
+		h_container_right = function (ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			h();
 			if (!panel[cL].contains(is_active)) {
 				f();
 			}
@@ -1263,18 +1279,14 @@ var initNavMenu = function () {
 		var h_btn = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			if (holder) {
-				holder[cL].remove(is_active);
-			}
-			page[cL].toggle(is_active);
-			panel[cL].toggle(is_active);
-			btn[cL].toggle(is_active);
+			h();
+			t();
 		};
 		evento.add(btn, "click", h_btn);
 		/* btn.onclick = h_btn; */
 	},
 	q = function () {
-		holder[cL].remove(is_active);
+		h();
 		r();
 	},
 	m = function (e) {
@@ -1295,7 +1307,9 @@ var initNavMenu = function () {
 		}
 	},
 	v = function (e) {
-		var h_e = function ()  {
+		var h_e = function (ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
 			if (panel[cL].contains(is_active)) {
 				q();
 			}
