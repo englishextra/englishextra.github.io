@@ -452,16 +452,13 @@ var initNavMenu = function () {
 				f();
 			}
 		};
+		evento.add(container, "click", h_container_left);
+		/* container.onclick = h_container_left; */
 		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-			evento.add(container, "tap", h_container_left);
-			/* container.ontap = h_container_left; */
 			evento.add(container, "swipeleft", h_container_left);
 			/* container.onswipeleft = h_container_left; */
 			evento.add(container, "swiperight", h_container_right);
 			/* container.onswiperight = h_container_right; */
-		} else {
-			evento.add(container, "click", h_container_left);
-			/* container.onclick = h_container_left; */
 		}
 	},
 	k = function () {
@@ -471,22 +468,8 @@ var initNavMenu = function () {
 			h();
 			t();
 		};
-		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-			evento.add(btn, "touchmove", function (e) {
-				e.preventDefault()
-			});
-			evento.add(btn, "touchstart", function (e) {
-				e.preventDefault()
-			});
-			evento.add(btn, "touchend", function (e) {
-				e.preventDefault()
-			});
-			evento.add(btn, "tap", h_btn);
-			/* btn.ontap = h_btn; */
-		} else {
-			evento.add(btn, "click", h_btn);
-			/* btn.onclick = h_btn; */
-		}
+		evento.add(btn, "click", h_btn);
+		/* btn.onclick = h_btn; */
 	},
 	q = function () {
 		h();
@@ -517,13 +500,8 @@ var initNavMenu = function () {
 			s(items);
 			n(e);
 		};
-		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-			evento.add(e, "tap", h_e);
-			/* e.ontap = h_e; */
-		} else {
-			evento.add(e, "click", h_e);
-			/* e.onclick = h_e; */
-		}
+		evento.add(e, "click", h_e);
+		/* e.onclick = h_e; */
 		if (e.href == p) {
 			n(e);
 		} else {
@@ -598,13 +576,8 @@ var initUiTotop = function () {
 		a.href = "javascript:void(0);";
 		/* jshint +W107 */
 		a.title = t;
-		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-			evento.add(a, "tap", h_a);
-			/* a.ontap = h_e; */
-		} else {
-			evento.add(a, "click", h_a);
-			/* a.onclick = h_e; */
-		}
+		evento.add(a, "click", h_a);
+		/* a.onclick = h_e; */
 		setStyleOpacity(a, 0);
 		s.id = v;
 		appendFragment(crel(a, s, "" + t), b);

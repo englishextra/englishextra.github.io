@@ -739,13 +739,8 @@ var initUiTotop = function () {
 		a.href = "javascript:void(0);";
 		/* jshint +W107 */
 		a.title = t;
-		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-			evento.add(a, "tap", h_a);
-			/* a.ontap = h_e; */
-		} else {
-			evento.add(a, "click", h_a);
-			/* a.onclick = h_e; */
-		}
+		evento.add(a, "click", h_a);
+		/* a.onclick = h_e; */
 		setStyleOpacity(a, 0);
 		s.id = v;
 		appendFragment(crel(a, s, "" + t), b);

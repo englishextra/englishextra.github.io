@@ -778,16 +778,13 @@ var initNavMenu = function () {
 				f();
 			}
 		};
+		evento.add(container, "click", h_container_left);
+		/* container.onclick = h_container_left; */
 		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-			evento.add(container, "tap", h_container_left);
-			/* container.ontap = h_container_left; */
 			evento.add(container, "swipeleft", h_container_left);
 			/* container.onswipeleft = h_container_left; */
 			evento.add(container, "swiperight", h_container_right);
 			/* container.onswiperight = h_container_right; */
-		} else {
-			evento.add(container, "click", h_container_left);
-			/* container.onclick = h_container_left; */
 		}
 	},
 	k = function () {
@@ -797,22 +794,8 @@ var initNavMenu = function () {
 			h();
 			t();
 		};
-		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-			evento.add(btn, "touchmove", function (e) {
-				e.preventDefault()
-			});
-			evento.add(btn, "touchstart", function (e) {
-				e.preventDefault()
-			});
-			evento.add(btn, "touchend", function (e) {
-				e.preventDefault()
-			});
-			evento.add(btn, "tap", h_btn);
-			/* btn.ontap = h_btn; */
-		} else {
-			evento.add(btn, "click", h_btn);
-			/* btn.onclick = h_btn; */
-		}
+		evento.add(btn, "click", h_btn);
+		/* btn.onclick = h_btn; */
 	},
 	q = function () {
 		h();
@@ -843,13 +826,8 @@ var initNavMenu = function () {
 			s(items);
 			n(e);
 		};
-		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-			evento.add(e, "tap", h_e);
-			/* e.ontap = h_e; */
-		} else {
-			evento.add(e, "click", h_e);
-			/* e.onclick = h_e; */
-		}
+		evento.add(e, "click", h_e);
+		/* e.onclick = h_e; */
 		if (e.href == p) {
 			n(e);
 		} else {
@@ -898,22 +876,12 @@ var initMenuMore = function () {
 		holder[cL].remove(is_active);
 	},
 	g = function (e) {
-		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-			evento.add(e, "tap", h_e);
-			/* e.ontap = h_e; */
-		} else {
-			evento.add(e, "click", h_e);
-			/* e.onclick = h_e; */
-		}
+		evento.add(e, "click", h_e);
+		/* e.onclick = h_e; */
 	},
 	k = function () {
-		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-			evento.add(container, "tap", h_e);
-			/* container.ontap = h_e; */
-		} else {
-			evento.add(container, "click", h_e);
-			/* container.onclick = h_e; */
-		}
+		evento.add(container, "click", h_e);
+		/* container.onclick = h_e; */
 	},
 	q = function () {
 		var h_btn = function (ev) {
@@ -921,13 +889,8 @@ var initMenuMore = function () {
 			ev.preventDefault();
 			holder[cL].toggle(is_active);
 		};
-		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-			evento.add(btn, "tap", h_btn);
-			/* btn.ontap = h_e; */
-		} else {
-			evento.add(btn, "click", h_btn);
-			/* btn.onclick = h_e; */
-		}
+		evento.add(btn, "click", h_btn);
+		/* btn.onclick = h_e; */
 	},
 	v = function () {
 		if (w._) {
@@ -1000,13 +963,8 @@ var initUiTotop = function () {
 		a.href = "javascript:void(0);";
 		/* jshint +W107 */
 		a.title = t;
-		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-			evento.add(a, "tap", h_a);
-			/* a.ontap = h_e; */
-		} else {
-			evento.add(a, "click", h_a);
-			/* a.onclick = h_e; */
-		}
+		evento.add(a, "click", h_a);
+		/* a.onclick = h_e; */
 		setStyleOpacity(a, 0);
 		s.id = v;
 		appendFragment(crel(a, s, "" + t), b);
@@ -1071,22 +1029,12 @@ var initPlusoYaShare = function () {
 		var h_a = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-				evento.remove(a, "tap", h_a);
-				/* a.ontap = null; */
-			} else {
-				evento.remove(a, "click", h_a);
-				/* a.onclick = null; */
-			}
+			evento.remove(a, "click", h_a);
+			/* a.onclick = null; */
 			q();
 		};
-		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-			evento.add(a, "tap", h_a);
-			/* a.ontap = h_e; */
-		} else {
-			evento.add(a, "click", h_a);
-			/* a.onclick = h_e; */
-		}
+		evento.add(a, "click", h_a);
+		/* a.onclick = h_e; */
 	};
 	if ((pluso || ya_share2) && a) {
 		console.log("triggered function: initPlusoYaShare");
@@ -1139,22 +1087,12 @@ var initVKLike = function () {
 		var h_a = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-				evento.remove(a, "tap", h_a);
-				/* a.ontap = null; */
-			} else {
-				evento.remove(a, "click", h_a);
-				/* a.onclick = null; */
-			}
+			evento.remove(a, "click", h_a);
+			/* a.onclick = null; */
 			k();
 		};
-		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-			evento.add(a, "tap", h_a);
-			/* a.ontap = h_e; */
-		} else {
-			evento.add(a, "click", h_a);
-			/* a.onclick = h_e; */
-		}
+		evento.add(a, "click", h_a);
+		/* a.onclick = h_e; */
 	};
 	if (c && a) {
 		console.log("triggered function: initVKLike");
