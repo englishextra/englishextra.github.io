@@ -1264,7 +1264,7 @@ var initNavMenu = function () {
 				f();
 			}
 		};
-		if (earlyHasTouch) {
+		if ("touch" === earlyHasTouch) {
 			evento.add(container, "tap", h_container_left);
 			/* container.ontap = h_container_left; */
 			evento.add(container, "swipeleft", h_container_left);
@@ -1283,7 +1283,7 @@ var initNavMenu = function () {
 			h();
 			t();
 		};
-		if (earlyHasTouch) {
+		if ("touch" === earlyHasTouch) {
 			evento.add(btn, "tap", h_btn);
 			/* btn.ontap = h_btn; */
 		} else {
@@ -1320,7 +1320,7 @@ var initNavMenu = function () {
 			s(items);
 			n(e);
 		};
-		if (earlyHasTouch) {
+		if ("touch" === earlyHasTouch) {
 			evento.add(e, "tap", h_e);
 			/* e.ontap = h_e; */
 		} else {
