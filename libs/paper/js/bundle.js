@@ -1264,12 +1264,17 @@ var initNavMenu = function () {
 				f();
 			}
 		};
-		evento.add(container, "click", h_container_left);
-		/* container.onclick = h_container_left; */
-		evento.add(container, "swipeleft", h_container_left);
-		/* container.onswipeleft = h_container_left; */
-		evento.add(container, "swiperight", h_container_right);
-		/* container.onswiperight = h_container_right; */
+		if (earlyHasTouch) {
+			evento.add(container, "tap", h_container_left);
+			/* container.ontap = h_container_left; */
+			evento.add(container, "swipeleft", h_container_left);
+			/* container.onswipeleft = h_container_left; */
+			evento.add(container, "swiperight", h_container_right);
+			/* container.onswiperight = h_container_right; */
+		} else {
+			evento.add(container, "click", h_container_left);
+			/* container.onclick = h_container_left; */
+		}
 	},
 	k = function () {
 		var h_btn = function (ev) {
