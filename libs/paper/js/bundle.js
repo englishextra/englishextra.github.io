@@ -1236,16 +1236,28 @@ var initNavMenu = function () {
 		panel[cL].remove(is_active);
 		btn[cL].remove(is_active);
 	},
+	f = function () {
+		page[cL].add(is_active);
+		panel[cL].add(is_active);
+		btn[cL].add(is_active);
+	},
 	g = function () {
-		var h_container = function () {
+		var h_container_left = function () {
 			if (panel[cL].contains(is_active)) {
 				r();
 			}
+		},
+		h_container_right = function () {
+			if (!panel[cL].contains(is_active)) {
+				f();
+			}
 		};
-		evento.add(container, "click", h_container);
-		/* container.onclick = h_container; */
-		evento.add(container, "swipeleft", h_container);
-		/* container.onswipeleft = h_container; */
+		evento.add(container, "click", h_container_left);
+		/* container.onclick = h_container_left; */
+		evento.add(container, "swipeleft", h_container_left);
+		/* container.onswipeleft = h_container_left; */
+		evento.add(container, "swiperight", h_container_right);
+		/* container.onswiperight = h_container_right; */
 	},
 	k = function () {
 		var h_btn = function (ev) {
@@ -1260,8 +1272,6 @@ var initNavMenu = function () {
 		};
 		evento.add(btn, "click", h_btn);
 		/* btn.onclick = h_btn; */
-		evento.add(container, "swiperight", h_btn);
-		/* container.onswiperight = h_btn; */
 	},
 	q = function () {
 		holder[cL].remove(is_active);
