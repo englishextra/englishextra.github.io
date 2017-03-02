@@ -440,7 +440,9 @@ var initNavMenu = function () {
 		}
 	},
 	g = function () {
-		var h_container_left = function () {
+		var h_container_left = function (ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
 			h();
 			if (panel[cL].contains(is_active)) {
 				r();
