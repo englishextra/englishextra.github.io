@@ -42,6 +42,20 @@ var BALA=(function(){if("undefined"==typeof window||!("document"in window)){retu
  */
 var crel=(function(){if("undefined"==typeof window||!("document"in window)){return console.log("window is undefined or document is not in window"),!1;}var fn="function",obj="object",nodeType="nodeType",textContent="textContent",setAttribute="setAttribute",attrMapString="attrMap",isNodeString="isNode",isElementString="isElement",d=typeof document===obj?document:{},isType=function(a,type){return typeof a===type;},isNode=typeof Node===fn?function(object){return object instanceof Node;}:function(object){return object&&isType(object,obj)&&(nodeType in object)&&isType(object.ownerDocument,obj);},isElement=function(object){return _c[isNodeString](object)&&object[nodeType]===1;},isArray=function(a){return a instanceof Array;},appendChild=function(element,child){if(!_c[isNodeString](child)){child=d.createTextNode(child);}element.appendChild(child);};function _c(){var args=arguments,element=args[0],child,settings=args[1],childIndex=2,argumentsLength=args.length,attributeMap=_c[attrMapString];element=_c[isElementString](element)?element:d.createElement(element);if(argumentsLength===1){return element;}if(!isType(settings,obj)||_c[isNodeString](settings)||isArray(settings)){--childIndex;settings=null;}if((argumentsLength-childIndex)===1&&isType(args[childIndex],"string")&&element[textContent]!==undefined){element[textContent]=args[childIndex];}else{for(;childIndex<argumentsLength;++childIndex){child=args[childIndex];if(child===null){continue;}if(isArray(child)){for(var i=0;i<child.length;++i){appendChild(element,child[i]);}}else{appendChild(element,child);}}}for(var key in settings){if(settings.hasOwnProperty(key)){if(!attributeMap[key]){element[setAttribute](key,settings[key]);}else{var attr=attributeMap[key];if(typeof attr===fn){attr(element,settings[key]);}else{element[setAttribute](attr,settings[key]);}}}}return element;}_c[attrMapString]={};_c[isElementString]=isElement;_c[isNodeString]=isNode;if("undefined"!==typeof Proxy){_c.proxy=new Proxy(_c,{get:function(target,key){if(!(key in _c)){_c[key]=_c.bind(null,key);}return _c[key];}});}return _c;})();
 /*!
+ * Super lightweight script (~1kb) to detect via Javascript events like
+ * 'tap' 'dbltap' 'swipeup' 'swipedown' 'swipeleft' 'swiperight'
+ * on any kind of device.
+ * Version: 2.0.1
+ * Author: Gianluca Guarini
+ * Contact: gianluca.guarini@gmail.com
+ * Website: http://www.gianlucaguarini.com/
+ * Twitter: @gianlucaguarini
+ * Copyright (c) Gianluca Guarini
+ * source: github.com/GianlucaGuarini/Tocca.js/blob/master/Tocca.js
+ * passes jshint
+ */
+;(function(doc,win){'use strict';if(typeof doc.createEvent!=='function')return false;var pointerEventSupport=function(type){var lo=type.toLowerCase(),ms='MS'+type;return navigator.msPointerEnabled?ms:window.PointerEvent?lo:false;},defaults={useJquery:!win.IGNORE_JQUERY&&typeof jQuery!=='undefined',swipeThreshold:win.SWIPE_THRESHOLD||100,tapThreshold:win.TAP_THRESHOLD||150,dbltapThreshold:win.DBL_TAP_THRESHOLD||200,longtapThreshold:win.LONG_TAP_THRESHOLD||1000,tapPrecision:win.TAP_PRECISION/2||60/2,justTouchEvents:win.JUST_ON_TOUCH_DEVICES},wasTouch=false,touchevents={touchstart:pointerEventSupport('PointerDown')||'touchstart',touchend:pointerEventSupport('PointerUp')||'touchend',touchmove:pointerEventSupport('PointerMove')||'touchmove'},isTheSameFingerId=function(e){return!e.pointerId||typeof pointerId==='undefined'||e.pointerId===pointerId;},setListener=function(elm,events,callback){var eventsArray=events.split(' '),i=eventsArray.length;while(i--){elm.addEventListener(eventsArray[i],callback,false);}},getPointerEvent=function(event){return event.targetTouches?event.targetTouches[0]:event;},getTimestamp=function(){return new Date().getTime();},sendEvent=function(elm,eventName,originalEvent,data){var customEvent=doc.createEvent('Event');customEvent.originalEvent=originalEvent;data=data||{};data.x=currX;data.y=currY;data.distance=data.distance;if(defaults.useJquery){customEvent=jQuery.Event(eventName,{originalEvent:originalEvent});jQuery(elm).trigger(customEvent,data);}if(customEvent.initEvent){for(var key in data){if(data.hasOwnProperty(key)){customEvent[key]=data[key];}}customEvent.initEvent(eventName,true,true);elm.dispatchEvent(customEvent);}while(elm){if(elm['on'+eventName])elm['on'+eventName](customEvent);elm=elm.parentNode;}},onTouchStart=function(e){if(!isTheSameFingerId(e))return;pointerId=e.pointerId;if(e.type!=='mousedown')wasTouch=true;if(e.type==='mousedown'&&wasTouch)return;var pointer=getPointerEvent(e);cachedX=currX=pointer.pageX;cachedY=currY=pointer.pageY;longtapTimer=setTimeout(function(){sendEvent(e.target,'longtap',e);target=e.target;},defaults.longtapThreshold);timestamp=getTimestamp();tapNum++;},onTouchEnd=function(e){if(!isTheSameFingerId(e))return;pointerId=undefined;if(e.type==='mouseup'&&wasTouch){wasTouch=false;return;}var eventsArr=[],now=getTimestamp(),deltaY=cachedY-currY,deltaX=cachedX-currX;clearTimeout(dblTapTimer);clearTimeout(longtapTimer);if(deltaX<=-defaults.swipeThreshold)eventsArr.push('swiperight');if(deltaX>=defaults.swipeThreshold)eventsArr.push('swipeleft');if(deltaY<=-defaults.swipeThreshold)eventsArr.push('swipedown');if(deltaY>=defaults.swipeThreshold)eventsArr.push('swipeup');if(eventsArr.length){for(var i=0;i<eventsArr.length;i++){var eventName=eventsArr[i];sendEvent(e.target,eventName,e,{distance:{x:Math.abs(deltaX),y:Math.abs(deltaY)}});}tapNum=0;}else{if(cachedX>=currX-defaults.tapPrecision&&cachedX<=currX+defaults.tapPrecision&&cachedY>=currY-defaults.tapPrecision&&cachedY<=currY+defaults.tapPrecision){if(timestamp+defaults.tapThreshold-now>=0){sendEvent(e.target,tapNum>=2&&target===e.target?'dbltap':'tap',e);target=e.target;}}dblTapTimer=setTimeout(function(){tapNum=0;},defaults.dbltapThreshold);}},onTouchMove=function(e){if(!isTheSameFingerId(e))return;if(e.type==='mousemove'&&wasTouch)return;var pointer=getPointerEvent(e);currX=pointer.pageX;currY=pointer.pageY;},tapNum=0,pointerId,currX,currY,cachedX,cachedY,timestamp,target,dblTapTimer,longtapTimer;setListener(doc,touchevents.touchstart+(defaults.justTouchEvents?'':' mousedown'),onTouchStart);setListener(doc,touchevents.touchend+(defaults.justTouchEvents?'':' mouseup'),onTouchEnd);setListener(doc,touchevents.touchmove+(defaults.justTouchEvents?'':' mousemove'),onTouchMove);win.tocca=function(options){for(var opt in options){if(options.hasOwnProperty(opt)){defaults[opt]=options[opt];}}return defaults;};}(document,window));
+/*!
  * safe way to handle console.log():
  * sitepoint.com/safe-console-log/
  */
@@ -453,7 +467,7 @@ evento.add(window, "load", manageLocalLinks.bind(null, ""));
  * init fastclick
  * github.com/ftlabs/fastclick
  */
-var initFastClick = function () {
+/* var initFastClick = function () {
 	"use strict";
 	var w = window,
 	b = BALA.one("body") || "";
@@ -470,7 +484,7 @@ loadInitFastClick = function () {
 		}
 	}
 };
-docReady(loadInitFastClick);
+docReady(loadInitFastClick); */
 /*!
  * init qr-code
  * stackoverflow.com/questions/12777622/how-to-use-enquire-js
@@ -526,31 +540,63 @@ var initNavMenu = function () {
 		panel[cL].remove(is_active);
 		btn[cL].remove(is_active);
 	},
+	f = function () {
+		page[cL].add(is_active);
+		panel[cL].add(is_active);
+		btn[cL].add(is_active);
+	},
+	t = function () {
+		page[cL].toggle(is_active);
+		panel[cL].toggle(is_active);
+		btn[cL].toggle(is_active);
+	},
+	h = function () {
+		if (holder && holder[cL].contains(is_active)) {
+			holder[cL].remove(is_active);
+		}
+	},
 	g = function () {
-		var h_container = function () {
+		var h_container_left = function () {
+			h();
 			if (panel[cL].contains(is_active)) {
 				r();
 			}
+		},
+		h_container_right = function () {
+			h();
+			if (!panel[cL].contains(is_active)) {
+				f();
+			}
 		};
-		evento.add(container, "click", h_container);
-		/* container.onclick = h_container; */
+		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
+			evento.add(container, "tap", h_container_left);
+			/* container.ontap = h_container_left; */
+			evento.add(container, "swipeleft", h_container_left);
+			/* container.onswipeleft = h_container_left; */
+			evento.add(container, "swiperight", h_container_right);
+			/* container.onswiperight = h_container_right; */
+		} else {
+			evento.add(container, "click", h_container_left);
+			/* container.onclick = h_container_left; */
+		}
 	},
 	k = function () {
 		var h_btn = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			if (holder) {
-				holder[cL].remove(is_active);
-			}
-			page[cL].toggle(is_active);
-			panel[cL].toggle(is_active);
-			btn[cL].toggle(is_active);
+			h();
+			t();
 		};
-		evento.add(btn, "click", h_btn);
-		/* btn.onclick = h_btn; */
+		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
+			evento.add(btn, "tap", h_btn);
+			/* btn.ontap = h_btn; */
+		} else {
+			evento.add(btn, "click", h_btn);
+			/* btn.onclick = h_btn; */
+		}
 	},
 	q = function () {
-		holder[cL].remove(is_active);
+		h();
 		r();
 	},
 	m = function (e) {
@@ -571,15 +617,20 @@ var initNavMenu = function () {
 		}
 	},
 	v = function (e) {
-		var h_e = function ()  {
+		var h_e = function () {
 			if (panel[cL].contains(is_active)) {
 				q();
 			}
 			s(items);
 			n(e);
 		};
-		evento.add(e, "click", h_e);
-		/* e.onclick = h_e; */
+		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
+			evento.add(e, "tap", h_e);
+			/* e.ontap = h_e; */
+		} else {
+			evento.add(e, "click", h_e);
+			/* e.onclick = h_e; */
+		}
 		if (e.href == p) {
 			n(e);
 		} else {
@@ -678,12 +729,22 @@ var initMenuMore = function () {
 		holder[cL].remove(is_active);
 	},
 	g = function (e) {
-		evento.add(e, "click", h_e);
-		/* e.onclick = h_e; */
+		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
+			evento.add(e, "tap", h_e);
+			/* e.ontap = h_e; */
+		} else {
+			evento.add(e, "click", h_e);
+			/* e.onclick = h_e; */
+		}
 	},
 	k = function () {
-		evento.add(container, "click", h_e);
-		/* container.onclick = h_e; */
+		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
+			evento.add(container, "tap", h_e);
+			/* container.ontap = h_e; */
+		} else {
+			evento.add(container, "click", h_e);
+			/* container.onclick = h_e; */
+		}
 	},
 	q = function () {
 		var h_btn = function (ev) {
@@ -691,8 +752,13 @@ var initMenuMore = function () {
 			ev.preventDefault();
 			holder[cL].toggle(is_active);
 		};
-		evento.add(btn, "click", h_btn);
-		/* btn.onclick = h_btn; */
+		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
+			evento.add(btn, "tap", h_btn);
+			/* btn.ontap = h_e; */
+		} else {
+			evento.add(btn, "click", h_btn);
+			/* btn.onclick = h_e; */
+		}
 	},
 	v = function () {
 		if (w._) {
@@ -763,12 +829,22 @@ var initVKLike = function () {
 		var h_a = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			evento.remove(a, "click", h_a);
-			/* a.onclick = null; */
+			if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
+				evento.remove(a, "tap", h_a);
+				/* a.ontap = null; */
+			} else {
+				evento.remove(a, "click", h_a);
+				/* a.onclick = null; */
+			}
 			k();
 		};
-		evento.add(a, "click", h_a);
-		/* a.onclick = h_a; */
+		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
+			evento.add(a, "tap", h_a);
+			/* a.ontap = h_e; */
+		} else {
+			evento.add(a, "click", h_a);
+			/* a.onclick = h_e; */
+		}
 	};
 	if (c && a) {
 		console.log("triggered function: initVKLike");

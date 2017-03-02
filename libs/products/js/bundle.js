@@ -505,7 +505,7 @@ evento.add(window, "load", manageLocalLinks.bind(null, ""));
  * init fastclick
  * github.com/ftlabs/fastclick
  */
-var initFastClick = function () {
+/* var initFastClick = function () {
 	"use strict";
 	var w = window,
 	b = BALA.one("body") || "";
@@ -522,7 +522,7 @@ loadInitFastClick = function () {
 		}
 	}
 };
-docReady(loadInitFastClick);
+docReady(loadInitFastClick); */
 /*!
  * init DoSlide
  * A simple slider.
@@ -860,12 +860,22 @@ var initVKLike = function () {
 		var h_a = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			evento.remove(a, "click", h_a);
-			/* a.onclick = null; */
+			if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
+				evento.remove(a, "tap", h_a);
+				/* a.ontap = null; */
+			} else {
+				evento.remove(a, "click", h_a);
+				/* a.onclick = null; */
+			}
 			k();
 		};
-		evento.add(a, "click", h_a);
-		/* a.onclick = h_a; */
+		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
+			evento.add(a, "tap", h_a);
+			/* a.ontap = h_e; */
+		} else {
+			evento.add(a, "click", h_a);
+			/* a.onclick = h_e; */
+		}
 	};
 	if (c && a) {
 		console.log("triggered function: initVKLike");
