@@ -1,0 +1,43 @@
+/*! @import "ui-totop"; */
+
+/**
+ * github.com/sksmatt/UItoTop-jQuery-Plugin/
+ */
+
+.ui-totop {
+	display: inline-block;
+	visibility: hidden;
+	opacity: 0;
+	width: 3.200rem;
+	height: 3.200rem;
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	font-size: 1.000rem;
+	line-height: 3.200rem;
+	text-align: center;
+	text-decoration: none;
+	color: rgba(15,15,15,0.5);
+	background-color: rgba(220,220,220,0.5);
+	border: none;
+	-webkit-transition: visibility 0s, opacity 0.2s linear, background-color 0.2s ease;
+	transition: visibility 0s, opacity 0.2s linear, background-color 0.2s ease;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+	z-index: 999;
+}
+
+.ui-totop.is-active {
+	visibility: visible;
+	opacity: 1;
+}
+
+.ui-totop:hover {
+	background-color: #D5D5D5;
+}
+
+.ui-totop:focus,
+.ui-totop:active {
+	background-color: rgba(220,220,220,0.5);
+}
+

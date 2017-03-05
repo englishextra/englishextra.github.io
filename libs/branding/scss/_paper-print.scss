@@ -4,13 +4,9 @@
  * gist.github.com/englishextra/cdd503793392281a8a0c
  * jafferhaider.wordpress.com/2007/12/29/fix-for-the-firefoxcss-one-page-printing-bug/
  * html,body {height: auto;}
-
  * body{overflow-x: visible;}
-
  * .col .holder-hidden-layer,.js .col .holder-hidden-layer {max-height: 100%;overflow-y: visible;}
-
  * .container .content-wrapper,.app-content .content-wrapper {position: relative;}
-
  */
 
 @media print {

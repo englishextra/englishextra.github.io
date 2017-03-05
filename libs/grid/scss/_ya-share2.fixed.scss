@@ -1,0 +1,31 @@
+/*! @import "ya-share2.fixed"; */
+
+/*!
+ * ya-share2
+ * yandex.ru/blog/share/kak-uvelichit-shrift-tsifr-sch-tchika#comment-add
+ */
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__icon {
+	height: 3.200rem;
+	width: 3.200rem;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__counter {
+	font-size: 1.333rem;
+	line-height: 3.200rem;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__title {
+	width: 0;
+	height: 0;
+	overflow: hidden;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__item {
+	margin: 0;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__badge {
+	border-radius: 0;
+}
+
