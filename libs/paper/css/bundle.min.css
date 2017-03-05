@@ -2127,7 +2127,7 @@ body {
 .ya-share2 {
 	position: fixed;
 	right: 41.250pt;
-	bottom: 7.500pt;
+	bottom: 0;
 	visibility: hidden;
 	opacity: 0;
 	-webkit-transition: visibility 0s, opacity 0.2s linear;
