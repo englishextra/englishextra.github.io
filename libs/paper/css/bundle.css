@@ -343,6 +343,7 @@ template {
 /*!
  * typeboost.css v0.1.8
  * github.com/englishextra/typeboost.css
+ * set html font to 16px, and body to 1.000rem
  */
 
 .col div,
@@ -478,7 +479,7 @@ template {
 .col address,
 .col p.address {
 	font-size: 0.813rem;
-	line-height: 1.500;
+	line-height: 1.250rem;
 	margin-right: 0;
 }
 
@@ -487,45 +488,43 @@ template {
 }
 
 .col h1 {
-	font-size: 3.375rem;
-	line-height: 1.200;
+	font-size: 2.875rem;
+	line-height: 3.250rem;
 	padding: 0;
 }
 
 .col h2 {
-	font-size: 1.611rem;
-	line-height: 1.200;
+	font-size: 1.500rem;
+	line-height: 1.750rem;
 	padding: 0;
 }
 
 .col h3 {
-	font-size: 1.210rem;
-	line-height: 1.200;
+	font-size: 1.375rem;
+	line-height: 1.500rem;
 	padding: 0;
 }
 
 .col h4 {
-	font-size: 1.125rem;
-	line-height: 1.200;
+	font-size: 1.250rem;
+	line-height: 1.500rem;
 	font-variant: small-caps;
 	letter-spacing: 0.063rem;
 	padding: 0;
 }
 
 .col h5 {
+	font-size: 1.125rem;
+	line-height: 1.250rem;
 	text-transform: uppercase;
 	padding: 0;
 }
 
 .col h6 {
+	font-size: 1.000rem;
+	line-height: 1.250rem;
 	text-decoration: underline;
 	padding: 0;
-}
-
-.col h5,
-.col h6 {
-	font-size: 1.000rem;
-	line-height: 1.200;
 }
 
 .col caption,
@@ -535,14 +534,14 @@ template {
 .col table th,
 .col pre,
 .col pre code {
-	font-size: 0.875rem;
-	line-height: 1.500;
+	font-size: smaller;
+	line-height: inherit;
 }
 
 .col p.larger,
 .col blockquote {
-	font-size: 1.125rem;
-	line-height: 1.500;
+	font-size: larger;
+	line-height: inherit;
 }
 
 .col p,
@@ -552,7 +551,7 @@ template {
 .col ul li,
 .col ol li {
 	font-size: 1.000rem;
-	line-height: 1.500;
+	line-height: 1.500rem;
 }
 
 .col ul {
@@ -635,7 +634,7 @@ template {
 .col select,
 .col textarea {
 	font-size: 0.875rem;
-	line-height: 1.500;
+	line-height: 1.250rem;
 	box-sizing: border-box;
 	vertical-align: baseline;
 	*vertical-align: middle;
@@ -684,7 +683,7 @@ template {
 .col input[type="reset"],
 .col input[type="submit"] {
 	font-size: 0.875rem;
-	line-height: 1.500;
+	line-height: 1.250rem;
 	box-sizing: border-box;
 	vertical-align: baseline;
 	*vertical-align: middle;
@@ -1113,7 +1112,6 @@ template {
  * font weights
  */
 
-.col h1,
 .col h2,
 .col h4,
 .col h5,
@@ -1147,8 +1145,11 @@ template {
 	font-weight: normal;
 }
 
+.col h1 {
+	font-weight: lighter;
+}
+
 .col h3,
-.col a,
 .col table th,
 .col dl dt,
 .col button,
@@ -1187,7 +1188,7 @@ template {
  */
 
 .col h1 {
-	font-family: serif;
+	font-family: inherit;
 }
 
 .col pre,
@@ -2087,6 +2088,37 @@ body {
 
 /*! @import "share-buttons-light"; */
 
+/*! @import "ya-share2.fixed"; */
+
+/*!
+ * ya-share2
+ * yandex.ru/blog/share/kak-uvelichit-shrift-tsifr-sch-tchika#comment-add
+ */
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__icon {
+	height: 2.933rem /* !important */;
+	width: 2.933rem /* !important */;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__counter {
+	font-size: 18px /* !important */;
+	padding: 5px 10px /* !important */;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__title {
+	width: 0;
+	height: 0;
+	overflow: hidden;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__item {
+	margin: 0 /* !important */;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__badge {
+	border-radius: 0 /* !important */;
+}
+
 /**
  * pluso, yashare
  */
@@ -2776,7 +2808,7 @@ body {
 }
 
 html {
-	font-size: 100%;
+	font-size: 16px;
 	line-height: 1.500;
 	/**
 	 * set the parent to background transparent
@@ -2788,7 +2820,7 @@ html {
 body {
 	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", sans-serif;
 	font-weight: 400;
-	font-size: 16px;
+	font-size: 1.000rem;
 	line-height: 1.500;
 	width: 100%;
 	color: #373737;
@@ -2820,8 +2852,8 @@ a {
 }
 
 a:hover,
-a:active,
-a:focus {
+a:focus,
+a:active {
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
@@ -4065,7 +4097,7 @@ u,
 		font-family: "Cambria",serif;
 		font-weight: normal;
 		font-size: 42.0pt;
-		line-height: 1.200;
+		line-height: 1.250;
 		color: inherit;
 		margin-top: 0;
 	}
@@ -4075,7 +4107,7 @@ u,
 		font-family: "Segoe Pro SemiLight","Segoe UI SemiLight",sans-serif;
 		font-weight: normal;
 		font-size: 20.0pt;
-		line-height: 1.200;
+		line-height: 1.250;
 	}
 
 	h3,
@@ -4083,7 +4115,7 @@ u,
 		font-family: "Segoe Pro SemiBold","Segoe UI SemiBold",sans-serif;
 		font-weight: normal;
 		font-size: 13.0pt;
-		line-height: 1.200;
+		line-height: 1.250;
 	}
 
 	h4,
@@ -4091,7 +4123,7 @@ u,
 		font-family: "Segoe Pro","Segoe UI",sans-serif;
 		font-weight: normal;
 		font-size: 12.0pt;
-		line-height: 1.200;
+		line-height: 1.250;
 		text-transform: uppercase;
 		letter-spacing: 0.500pt;
 	}
