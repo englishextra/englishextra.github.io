@@ -1,7 +1,6 @@
 /*! libs\forbidden\scss\bundle.scss */
 
-/*! @import "englishextra-ui-colors";
-@import "englishextra-ui-variables"; */
+/*! @import "englishextra-ui-colors" */
 
 /**
  * englishextra-ui colors
@@ -45,6 +44,8 @@ EB5262
 .bg-\1 {
 	background-color: $\1;
 } */
+
+/*! @import "englishextra-ui-variables"; */
 
 /*! @import "forbidden-font-face"; */
 
@@ -433,7 +434,7 @@ body {
 }
 
 html {
-	font-size: 100%;
+	font-size: 16px;
 	line-height: 1.500;
 	/**
 	 * set the parent to background transparent
@@ -443,9 +444,9 @@ html {
 }
 
 body {
-	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", sans-serif;
+	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", "Helvetica Neue", "Roboto", sans-serif;
 	font-weight: 400;
-	font-size: 16px;
+	font-size: 1.000rem;
 	line-height: 1.500;
 	width: 100%;
 	color: #373737;
@@ -477,8 +478,8 @@ a {
 }
 
 a:hover,
-a:active,
-a:focus {
+a:focus,
+a:active {
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
@@ -1194,11 +1195,11 @@ u,
 
 @media only screen and (max-width: 480px) {
 	body {
-		font-family: "Segoe UI", "Segoe WP", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
+		font-family: "Segoe UI", "Segoe WP", "Helvetica Neue", "Roboto", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
 	}
 
 	.panel-nav-menu li {
-		font-family: "Segoe UI Light", "Segoe WP Light", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
+		font-family: "Segoe UI Light", "Segoe WP Light", "Helvetica Neue", "Roboto", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
 	}
 }
 

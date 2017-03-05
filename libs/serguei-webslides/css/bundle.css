@@ -4,8 +4,7 @@
  * libs\serguei-webslides\scss\bundle.scss
  */
 
-/*! @import "englishextra-ui-colors";
-@import "englishextra-ui-variables"; */
+/*! @import "englishextra-ui-colors" */
 
 /**
  * englishextra-ui colors
@@ -49,6 +48,8 @@ EB5262
 .bg-\1 {
 	background-color: $\1;
 } */
+
+/*! @import "englishextra-ui-variables"; */
 
 /*! @import "serguei-webslides-font-face"; */
 
@@ -832,7 +833,7 @@ img.aligncenter {
 
 pre,
 code {
-	font-family: "Source Code Pro", "Consolas", monospace;
+	font-family: "Source Code Pro", "Consolas", "Monaco", "Droid Sans Mono", "Menlo", monospace;
 }
 
 pre {
@@ -1173,7 +1174,7 @@ body,
 input,
 select,
 textarea {
-	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", sans-serif;
+	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", "Helvetica Neue", "Roboto", sans-serif;
 	font-size: 62.5%;
 }
 
@@ -1415,7 +1416,7 @@ h3 [class*="bg-"] {
 
 .text-serif,
 h1 span {
-	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI Light", "Segoe WP Light", sans-serif;
+	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI Light", "Segoe WP Light", "Helvetica Neue", "Roboto", sans-serif;
 }
 
 /* -- h1,h2... Promo/Landings -- */
@@ -3565,7 +3566,7 @@ blockquote.wall:before {
 	top: -6.4rem;
 	left: -.8rem;
 	content: "\201C";
-	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", sans-serif;
+	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", "Helvetica Neue", "Roboto", sans-serif;
 	width: 6.4rem;
 	height: 6.4rem;
 	font-size: 16rem;

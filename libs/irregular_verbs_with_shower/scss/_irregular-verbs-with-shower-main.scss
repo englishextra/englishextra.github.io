@@ -10,7 +10,7 @@ body {
 }
 
 html {
-	font-size: 100%;
+	font-size: 16px;
 	line-height: 1.500;
 	/**
 	 * set the parent to background transparent
@@ -23,7 +23,7 @@ html {
 body {
 	font-family: $font-family-webfont-sans-regular;
 	font-weight: 400;
-	font-size: 16px;
+	font-size: 1.000rem;
 	line-height: 1.500;
 	width: 100%;
 	color: $color-hex-body-text;
@@ -54,8 +54,8 @@ a {
 }
 
 a:hover,
-a:active,
-a:focus {
+a:focus,
+a:active {
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }

@@ -1,7 +1,6 @@
 /*! libs\serguei\scss\bundle.scss */
 
-/*! @import "englishextra-ui-colors";
-@import "englishextra-ui-variables"; */
+/*! @import "englishextra-ui-colors" */
 
 /**
  * englishextra-ui colors
@@ -45,6 +44,8 @@ EB5262
 .bg-\1 {
 	background-color: $\1;
 } */
+
+/*! @import "englishextra-ui-variables"; */
 
 /*! @import "serguei-font-face"; */
 
@@ -343,6 +344,7 @@ template {
 /*!
  * typeboost.css v0.1.8
  * github.com/englishextra/typeboost.css
+ * set html font to 16px, and body to 1.000rem
  */
 
 .col div,
@@ -478,7 +480,7 @@ template {
 .col address,
 .col p.address {
 	font-size: 0.813rem;
-	line-height: 1.500;
+	line-height: 1.250rem;
 	margin-right: 0;
 }
 
@@ -487,45 +489,43 @@ template {
 }
 
 .col h1 {
-	font-size: 3.375rem;
-	line-height: 1.200;
+	font-size: 3.125rem;
+	line-height: 3.500rem;
 	padding: 0;
 }
 
 .col h2 {
-	font-size: 1.611rem;
-	line-height: 1.200;
+	font-size: 1.625rem;
+	line-height: 2.000rem;
 	padding: 0;
 }
 
 .col h3 {
-	font-size: 1.210rem;
-	line-height: 1.200;
+	font-size: 1.375rem;
+	line-height: 1.500rem;
 	padding: 0;
 }
 
 .col h4 {
-	font-size: 1.125rem;
-	line-height: 1.200;
+	font-size: 1.250rem;
+	line-height: 1.500rem;
 	font-variant: small-caps;
 	letter-spacing: 0.063rem;
 	padding: 0;
 }
 
 .col h5 {
+	font-size: 1.125rem;
+	line-height: 1.250rem;
 	text-transform: uppercase;
 	padding: 0;
 }
 
 .col h6 {
+	font-size: 1.000rem;
+	line-height: 1.250rem;
 	text-decoration: underline;
 	padding: 0;
-}
-
-.col h5,
-.col h6 {
-	font-size: 1.000rem;
-	line-height: 1.200;
 }
 
 .col caption,
@@ -535,14 +535,14 @@ template {
 .col table th,
 .col pre,
 .col pre code {
-	font-size: 0.875rem;
-	line-height: 1.500;
+	font-size: smaller;
+	line-height: inherit;
 }
 
 .col p.larger,
 .col blockquote {
-	font-size: 1.125rem;
-	line-height: 1.500;
+	font-size: larger;
+	line-height: inherit;
 }
 
 .col p,
@@ -552,7 +552,7 @@ template {
 .col ul li,
 .col ol li {
 	font-size: 1.000rem;
-	line-height: 1.500;
+	line-height: 1.500rem;
 }
 
 .col ul {
@@ -635,7 +635,7 @@ template {
 .col select,
 .col textarea {
 	font-size: 0.875rem;
-	line-height: 1.500;
+	line-height: 1.250rem;
 	box-sizing: border-box;
 	vertical-align: baseline;
 	*vertical-align: middle;
@@ -684,7 +684,7 @@ template {
 .col input[type="reset"],
 .col input[type="submit"] {
 	font-size: 0.875rem;
-	line-height: 1.500;
+	line-height: 1.250rem;
 	box-sizing: border-box;
 	vertical-align: baseline;
 	*vertical-align: middle;
@@ -1113,7 +1113,6 @@ template {
  * font weights
  */
 
-.col h1,
 .col h2,
 .col h4,
 .col h5,
@@ -1147,8 +1146,11 @@ template {
 	font-weight: normal;
 }
 
+.col h1 {
+	font-weight: lighter;
+}
+
 .col h3,
-.col a,
 .col table th,
 .col dl dt,
 .col button,
@@ -1187,12 +1189,12 @@ template {
  */
 
 .col h1 {
-	font-family: serif;
+	font-family: inherit;
 }
 
 .col pre,
 .col pre code {
-	font-family: "Source Code Pro", "Consolas", monospace;
+	font-family: "Source Code Pro", "Consolas", "Monaco", "Droid Sans Mono", "Menlo", monospace;
 }
 
 .col select {
@@ -1225,7 +1227,7 @@ template {
 }
 
 .col .phonetic {
-	font-family: "Source Code Pro", "Consolas", monospace;
+	font-family: "Source Code Pro", "Consolas", "Monaco", "Droid Sans Mono", "Menlo", monospace;
 }
 
 /**
@@ -2202,14 +2204,45 @@ body {
 
 /*! @import "share-buttons-light"; */
 
+/*! @import "ya-share2.fixed"; */
+
+/*!
+ * ya-share2
+ * yandex.ru/blog/share/kak-uvelichit-shrift-tsifr-sch-tchika#comment-add
+ */
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__icon {
+	height: 33.000pt;
+	width: 33.000pt;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__counter {
+	font-size: 1.250rem;
+	line-height: 33.000pt;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__title {
+	width: 0;
+	height: 0;
+	overflow: hidden;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__item {
+	margin: 0;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__badge {
+	border-radius: 0;
+}
+
 /**
  * pluso, yashare
  */
 
 .ya-share2 {
 	position: fixed;
-	right: 41.250pt;
-	bottom: 7.500pt;
+	right: 33.000pt;
+	bottom: 0;
 	visibility: hidden;
 	opacity: 0;
 	-webkit-transition: visibility 0s, opacity 0.2s linear;
@@ -2525,7 +2558,7 @@ body {
 }
 
 html {
-	font-size: 100%;
+	font-size: 16px;
 	line-height: 1.500;
 	/**
 	 * set the parent to background transparent
@@ -2535,9 +2568,9 @@ html {
 }
 
 body {
-	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", sans-serif;
+	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", "Helvetica Neue", "Roboto", sans-serif;
 	font-weight: 400;
-	font-size: 16px;
+	font-size: 1.000rem;
 	line-height: 1.500;
 	width: 100%;
 	color: #373737;
@@ -2569,8 +2602,8 @@ a {
 }
 
 a:hover,
-a:active,
-a:focus {
+a:focus,
+a:active {
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
@@ -3052,7 +3085,7 @@ u,
 }
 
 .col h1 {
-	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI Light", "Segoe WP Light", sans-serif;
+	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI Light", "Segoe WP Light", "Helvetica Neue", "Roboto", sans-serif;
 	font-weight: 300;
 	line-height: 1.200;
 	color: inherit;
@@ -3202,7 +3235,7 @@ u,
 }
 
 .col .phonetic {
-	font-family: "Source Code Pro", "Consolas", monospace;
+	font-family: "Source Code Pro", "Consolas", "Monaco", "Droid Sans Mono", "Menlo", monospace;
 }
 
 .col .bolder {
@@ -3308,7 +3341,7 @@ u,
 }
 
 .aside h3 {
-	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI Light", "Segoe WP Light", sans-serif;
+	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI Light", "Segoe WP Light", "Helvetica Neue", "Roboto", sans-serif;
 	font-weight: 300;
 	font-size: 1.331rem;
 }
@@ -3354,17 +3387,17 @@ u,
 @media only screen and (max-width: 480px) {
 	body,
 	.col h2 {
-		font-family: "Segoe UI", "Segoe WP", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
+		font-family: "Segoe UI", "Segoe WP", "Helvetica Neue", "Roboto", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
 	}
 
 	.panel-nav-menu li,
 	.col h1,
 	.aside h3 {
-		font-family: "Segoe UI Light", "Segoe WP Light", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
+		font-family: "Segoe UI Light", "Segoe WP Light", "Helvetica Neue", "Roboto", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
 	}
 
 	.col .phonetic {
-		font-family: "Consolas", "Droid Sans Mono", "Menlo", "Source Code Pro", monospace;
+		font-family: "Consolas", "Monaco", "Droid Sans Mono", "Menlo", "Source Code Pro", monospace;
 	}
 }
 

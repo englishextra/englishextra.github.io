@@ -1,7 +1,6 @@
 /*! libs\products\scss\bundle.scss */
 
-/*! @import "englishextra-ui-colors";
-@import "englishextra-ui-variables"; */
+/*! @import "englishextra-ui-colors" */
 
 /**
  * englishextra-ui colors
@@ -45,6 +44,8 @@ EB5262
 .bg-\1 {
 	background-color: $\1;
 } */
+
+/*! @import "englishextra-ui-variables"; */
 
 /*! @import "products-font-face"; */
 
@@ -381,14 +382,45 @@ template {
 
 /*! @import "share-buttons-light"; */
 
+/*! @import "ya-share2.fixed"; */
+
+/*!
+ * ya-share2
+ * yandex.ru/blog/share/kak-uvelichit-shrift-tsifr-sch-tchika#comment-add
+ */
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__icon {
+	height: 33.000pt;
+	width: 33.000pt;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__counter {
+	font-size: 1.250rem;
+	line-height: 33.000pt;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__title {
+	width: 0;
+	height: 0;
+	overflow: hidden;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__item {
+	margin: 0;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__badge {
+	border-radius: 0;
+}
+
 /**
  * pluso, yashare
  */
 
 .ya-share2 {
 	position: fixed;
-	right: 41.250pt;
-	bottom: 7.500pt;
+	right: 33.000pt;
+	bottom: 0;
 	visibility: hidden;
 	opacity: 0;
 	-webkit-transition: visibility 0s, opacity 0.2s linear;
@@ -563,7 +595,7 @@ body {
 }
 
 html {
-	font-size: 100%;
+	font-size: 16px;
 	line-height: 1.500;
 	/**
 	 * set the parent to background transparent
@@ -573,9 +605,9 @@ html {
 }
 
 body {
-	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", sans-serif;
+	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", "Helvetica Neue", "Roboto", sans-serif;
 	font-weight: 400;
-	font-size: 16px;
+	font-size: 1.000rem;
 	line-height: 1.500;
 	width: 100%;
 	color: #373737;
@@ -607,8 +639,8 @@ a {
 }
 
 a:hover,
-a:active,
-a:focus {
+a:focus,
+a:active {
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
@@ -945,11 +977,11 @@ u,
 
 @media only screen and (max-width: 480px) {
 	body {
-		font-family: "Segoe UI", "Segoe WP", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
+		font-family: "Segoe UI", "Segoe WP", "Helvetica Neue", "Roboto", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
 	}
 
 	[class^="slide-"] h2 {
-		font-family: "Segoe UI", "Segoe WP", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
+		font-family: "Segoe UI", "Segoe WP", "Helvetica Neue", "Roboto", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
 	}
 }
 
