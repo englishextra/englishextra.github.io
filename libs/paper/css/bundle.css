@@ -2096,13 +2096,14 @@ body {
  */
 
 .ya-share2 .ya-share2__container_size_m .ya-share2__icon {
-	height: 2.933rem /* !important */;
-	width: 2.933rem /* !important */;
+	height: 2.933rem;
+	width: 2.933rem;
 }
 
 .ya-share2 .ya-share2__container_size_m .ya-share2__counter {
-	font-size: 18px /* !important */;
-	padding: 5px 10px /* !important */;
+	font-size: 2.933rem;
+	line-height: 2.933rem;
+	/* padding: 5px 10px; */
 }
 
 .ya-share2 .ya-share2__container_size_m .ya-share2__title {
@@ -2112,11 +2113,11 @@ body {
 }
 
 .ya-share2 .ya-share2__container_size_m .ya-share2__item {
-	margin: 0 /* !important */;
+	margin: 0;
 }
 
 .ya-share2 .ya-share2__container_size_m .ya-share2__badge {
-	border-radius: 0 /* !important */;
+	border-radius: 0;
 }
 
 /**
