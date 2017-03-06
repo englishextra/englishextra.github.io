@@ -517,7 +517,7 @@ evento.add(window, "load", manageLocalLinks.bind(null, ""));
 /*!
  * init sidepanel btn
  */
-(function (btn, page, container, item, active_vk_like, active_share, active_sidepanel, active_menumore) {
+(function (btn, page, container, item, active_qrcode, active_vk_like, active_share, active_sidepanel, active_menumore) {
 	"use strict";
 	var b = BALA.one("body") || "",
 	e = BALA.one(btn) || "",
@@ -526,6 +526,9 @@ evento.add(window, "load", manageLocalLinks.bind(null, ""));
 	cL = "classList";
 	if (b && e && p && c) {
 		var g = function () {
+			if (p[cL].contains(active_qrcode)) {
+				p[cL].remove(active_qrcode);
+			}
 			if (p[cL].contains(active_vk_like)) {
 				p[cL].remove(active_vk_like);
 			}
@@ -577,17 +580,20 @@ evento.add(window, "load", manageLocalLinks.bind(null, ""));
 		}
 	}
 }
-	(".btn-toggle-ui-sidepanel", ".page", ".container", ".ui-sidepanel li", "is-active-holder-vk-like", "is-active-holder-share-buttons", "is-active-ui-sidepanel", "is-active-ui-menumore"));
+	(".btn-toggle-ui-sidepanel", ".page", ".container", ".ui-sidepanel li", "is-active-holder-location-qr-code", "is-active-holder-vk-like", "is-active-holder-share-buttons", "is-active-ui-sidepanel", "is-active-ui-menumore"));
 /*!
  * init menumore btn
  */
-(function (btn, page, item, active_vk_like, active_share, active_sidepanel, active_menumore) {
+(function (btn, page, item, active_qrcode, active_vk_like, active_share, active_sidepanel, active_menumore) {
 	"use strict";
 	var e = BALA.one(btn) || "",
 	p = BALA.one(page) || "",
 	cL = "classList";
 	if (e && p) {
 		var g = function () {
+			if (p[cL].contains(active_qrcode)) {
+				p[cL].remove(active_qrcode);
+			}
 			if (p[cL].contains(active_vk_like)) {
 				p[cL].remove(active_vk_like);
 			}
@@ -620,11 +626,11 @@ evento.add(window, "load", manageLocalLinks.bind(null, ""));
 		}
 	}
 }
-	(".btn-toggle-ui-menumore", ".page", ".ui-menumore li", "is-active-holder-vk-like", "is-active-holder-share-buttons", "is-active-ui-sidepanel", "is-active-ui-menumore"));
+	(".btn-toggle-ui-menumore", ".page", ".ui-menumore li", "is-active-holder-location-qr-code", "is-active-holder-vk-like", "is-active-holder-share-buttons", "is-active-ui-sidepanel", "is-active-ui-menumore"));
 /*!
  * init share btn
  */
-(function (btn, page, active_vk_like, active_share, active_sidepanel, active_menumore) {
+(function (btn, page, active_qrcode, active_vk_like, active_share, active_sidepanel, active_menumore) {
 	"use strict";
 	var e = BALA.one(btn) || "",
 	p = BALA.one(page) || "",
@@ -634,6 +640,9 @@ evento.add(window, "load", manageLocalLinks.bind(null, ""));
 			ev.stopPropagation();
 			ev.preventDefault();
 			p[cL].toggle(active_share);
+			if (p[cL].contains(active_qrcode)) {
+				p[cL].remove(active_qrcode);
+			}
 			if (p[cL].contains(active_vk_like)) {
 				p[cL].remove(active_vk_like);
 			}
@@ -658,11 +667,11 @@ evento.add(window, "load", manageLocalLinks.bind(null, ""));
 		e.onclick = h_e;
 	}
 }
-	(".btn-toggle-holder-share-buttons", ".page", "is-active-holder-vk-like", "is-active-holder-share-buttons", "is-active-ui-sidepanel", "is-active-ui-menumore"));
+	(".btn-toggle-holder-share-buttons", ".page", "is-active-holder-location-qr-code", "is-active-holder-vk-like", "is-active-holder-share-buttons", "is-active-ui-sidepanel", "is-active-ui-menumore"));
 /*!
  * init vk-like btn
  */
-(function (btn, page, vk_like, active_vk_like, active_share, active_sidepanel, active_menumore) {
+(function (btn, page, vk_like, active_qrcode, active_vk_like, active_share, active_sidepanel, active_menumore) {
 	"use strict";
 	var w = window,
 	e = BALA.one(btn) || "",
@@ -674,6 +683,9 @@ evento.add(window, "load", manageLocalLinks.bind(null, ""));
 			ev.stopPropagation();
 			ev.preventDefault();
 			p[cL].toggle(active_vk_like);
+			if (p[cL].contains(active_qrcode)) {
+				p[cL].remove(active_qrcode);
+			}
 			if (p[cL].contains(active_share)) {
 				p[cL].remove(active_share);
 			}
@@ -706,46 +718,59 @@ evento.add(window, "load", manageLocalLinks.bind(null, ""));
 		e.onclick = h_e;
 	}
 }
-	(".btn-toggle-holder-vk-like", ".page", ".vk-like", "is-active-holder-vk-like", "is-active-holder-share-buttons", "is-active-ui-sidepanel", "is-active-ui-menumore"));
+	(".btn-toggle-holder-vk-like", ".page", ".vk-like", "is-active-holder-location-qr-code", "is-active-holder-vk-like", "is-active-holder-share-buttons", "is-active-ui-sidepanel", "is-active-ui-menumore"));
 /*!
  * init qr-code
  * stackoverflow.com/questions/12777622/how-to-use-enquire-js
  */
-var showLocationQR = (function (btn, holder, cls, active) {
+var showLocationQR = (function (btn, page, holder, img, active_qrcode, active_vk_like, active_share, active_sidepanel, active_menumore) {
 	"use strict";
 	var w = window,
 	d = document,
-	a = BALA.one(holder) || "",
 	e = BALA.one(btn) || "",
-	p = w.location.href || "",
+	p = BALA.one(page) || "",
+	c = BALA.one(holder) || "",
+	u = w.location.href || "",
 	cL = "classList",
 	g = function () {
-		removeChildren(a);
+		removeChildren(c);
 		var t = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
-		s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(p),
+		s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(u),
 		m = crel("img");
-		m[cL].add(cls);
+		m[cL].add(img);
 		m.src = s;
 		m.title = t;
 		m.alt = t;
-		appendFragment(m, a);
+		appendFragment(m, c);
 	},
-	k = function () {
-		a[cL].toggle(active);
+	h_e = function (ev) {
+		ev.stopPropagation();
+		ev.preventDefault();
+		p[cL].toggle(active_qrcode);
+		if (p[cL].contains(active_vk_like)) {
+			p[cL].remove(active_vk_like);
+		}
+		if (p[cL].contains(active_share)) {
+			p[cL].remove(active_share);
+		}
+		if (p[cL].contains(active_sidepanel)) {
+			p[cL].remove(active_sidepanel);
+		}
+		if (p[cL].contains(active_menumore)) {
+			p[cL].remove(active_menumore);
+		}
 	};
-	if (a && e && p) {
+	if (e && p && c && u) {
 		console.log("triggered function: showLocationQR");
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			g();
-			evento.add(a, "click", k);
-			/* a.onclick = k; */
-			evento.add(e, "click", k);
+			evento.add(e, "click", h_e);
 			/* e.onclick = k; */
-		} else {
-			setStyleDisplayNone(e);
+			evento.add(c, "click", h_e);
+			/* a.onclick = k; */
 		}
 	}
-}(".btn-toggle-holder-location-qr-code", ".holder-location-qr-code", "qr-code-img","is-active"));
+}(".btn-toggle-holder-location-qr-code", ".page", ".holder-location-qr-code", "qr-code-img", "is-active-holder-location-qr-code", "is-active-holder-vk-like", "is-active-holder-share-buttons", "is-active-ui-sidepanel", "is-active-ui-menumore"));
 evento.add(window, "load", showLocationQR);
 evento.add(window, "hashchange", showLocationQR);
 /*!

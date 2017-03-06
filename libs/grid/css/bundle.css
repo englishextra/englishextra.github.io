@@ -6854,8 +6854,8 @@ template {
 	line-height: 3.200rem;
 	text-align: center;
 	text-decoration: none;
-	color: rgba(15,15,15,0.5);
-	background-color: rgba(220,220,220,0.5);
+	color: rgba(15, 15, 15, 0.5);
+	background-color: rgba(220, 220, 220, 0.5);
 	border: none;
 	-webkit-transition: visibility 0s, opacity 0.2s linear, background-color 0.2s ease;
 	transition: visibility 0s, opacity 0.2s linear, background-color 0.2s ease;
@@ -6875,7 +6875,7 @@ template {
 
 .ui-totop:focus,
 .ui-totop:active {
-	background-color: rgba(220,220,220,0.5);
+	background-color: rgba(220, 220, 220, 0.5);
 }
 
 /*! @import "main"; */
@@ -7265,8 +7265,8 @@ u,
 	line-height: 3.200rem;
 	text-align: center;
 	text-decoration: none;
-	color: rgba(15,15,15,0.5);
-	background-color: rgba(220,220,220,0.5);
+	color: rgba(15, 15, 15, 0.5);
+	background-color: rgba(220, 220, 220, 0.5);
 	-webkit-transition: left 0.2s ease, background-color 0.2s ease;
 	transition: left 0.2s ease, background-color 0.2s ease;
 	z-index: 1001;
@@ -7372,8 +7372,8 @@ u,
 	line-height: 3.200rem;
 	text-align: center;
 	text-decoration: none;
-	color: rgba(15,15,15,0.5);
-	background-color: rgba(220,220,220,0.5);
+	color: rgba(15, 15, 15, 0.5);
+	background-color: rgba(220, 220, 220, 0.5);
 	-webkit-transition: left 0.2s ease, background-color 0.2s ease;
 	transition: left 0.2s ease, background-color 0.2s ease;
 	z-index: 998;
@@ -7455,7 +7455,7 @@ u,
 	background-color: #2D2D2D;
 	/* background: #2D2D2D;
 	background: linear-gradient(to bottom, #2D2D2D, #0073D2); */
-	-moz-transition: left 0.2s ease, visibility 0s, opacity 0.2s linear;
+	-webkit-transition: left 0.2s ease, visibility 0s, opacity 0.2s linear;
 	transition: left 0.2s ease, visibility 0s, opacity 0.2s linear;
 	overflow-y: hidden;
 	z-index: 997;
@@ -7530,7 +7530,7 @@ u,
 	left: 9.600rem;
 	line-height: 0;
 	background-color: #5E81A8;
-	-moz-transition: left 0.2s ease, visibility 0s, opacity 0.2s linear;
+	-webkit-transition: left 0.2s ease, visibility 0s, opacity 0.2s linear;
 	transition: left 0.2s ease, visibility 0s, opacity 0.2s linear;
 	z-index: 995;
 }
@@ -7573,14 +7573,32 @@ u,
 	top: 3.200rem;
 	left: 3.200rem;
 	text-align: left;
-	background-color: rgba(0,115,210,0.5);
+	background-color: rgba(0, 115, 210, 0.5);
 	box-shadow: 0.125em 0.125em 0.125em 0 rgba(50, 50, 50, 0.3);
+	-webkit-transition: left 0.2s ease, visibility 0s, opacity 0.2s linear;
+	transition: left 0.2s ease, visibility 0s, opacity 0.2s linear;
 	z-index: 994;
 }
 
-.holder-location-qr-code.is-active {
+.page.is-active-holder-location-qr-code .holder-location-qr-code {
 	visibility: visible;
 	opacity: 1;
+}
+
+.page.is-active-ui-sidepanel .holder-location-qr-code {
+	left: 18.400rem;
+}
+
+@media handheld, only screen and (max-width: 360px) {
+	.holder-location-qr-code {
+		left: 0;
+	}
+}
+
+@media handheld, only screen and (max-width: 800px) {
+	.ui-sidebar .btn-toggle-holder-location-qr-code {
+		display: none;
+	}
 }
 
 .holder-location-qr-code .qr-code-img,
