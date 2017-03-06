@@ -276,14 +276,11 @@ EB5262
 	content: "\EA2A";
 }
 
-.mi-BulletedList:before,
-.mi-BulletedListLegacy:before,
-.mi-ListLegacy:before {
+.mi-BulletedList:before {
 	content: "\EA61";
 }
 
-.mi-Cancel:before,
-.mi-CancelLegacy:before {
+.mi-Cancel:before {
 	content: "\EA80";
 }
 
@@ -291,11 +288,7 @@ EB5262
 	content: "\EB07";
 }
 
-.mi-ArrowHTMLLegacyMirrored:before,
-.mi-BackBttnMirroredArrow20Legacy:before,
-.mi-BackBttnMirroredArrow42Legacy:before,
-.mi-Forward:before,
-.mi-ForwardLegacy:before {
+.mi-Forward:before {
 	content: "\EB3D";
 }
 
@@ -303,14 +296,11 @@ EB5262
 	content: "\EB48";
 }
 
-.mi-Home:before,
-.mi-HomeLegacy:before {
+.mi-Home:before {
 	content: "\EB6F";
 }
 
-.mi-Like:before,
-.mi-LikeInlineLegacy:before,
-.mi-LikeLegacy:before {
+.mi-Like:before {
 	content: "\EBB4";
 }
 
@@ -318,17 +308,35 @@ EB5262
 	content: "\EBB7";
 }
 
-.mi-More:before,
-.mi-MoreLegacy:before {
+.mi-Mail:before {
+	content: "\EBBF";
+}
+
+.mi-Message:before {
+	content: "\EBD6";
+}
+
+.mi-More:before {
 	content: "\EC15";
+}
+
+.mi-Phone:before {
+	content: "\EC64";
+}
+
+.mi-Pinned:before {
+	content: "\EC6C";
+}
+
+.mi-Refresh:before {
+	content: "\ECA6";
 }
 
 .mi-Share:before {
 	content: "\ECF8";
 }
 
-.mi-Up:before,
-.mi-UpLegacy:before {
+.mi-Up:before {
 	content: "\ED7D";
 }
 
@@ -336,133 +344,16 @@ EB5262
  * micon social
  */
 
-.mi-android:before {
-	content: "\EDBE";
-}
-
-.mi-apple:before {
-	content: "\EDC0";
-}
-
-.mi-behance:before {
-	content: "\EDC3";
-}
-
-.mi-bitbucket:before {
-	content: "\EDC4";
-}
-
-.mi-chrome:before {
-	content: "\EDD2";
-}
-
-.mi-codepen:before {
-	content: "\EDD3";
-}
-
-.mi-edge:before {
-	content: "\EDDF";
-}
-
-.mi-facebook-official:before {
-	content: "\EDE4";
-}
-
-.mi-facebook:before,
-.mi-facebook-f:before {
-	content: "\EDE5";
-}
-
-.mi-foursquare:before {
-	content: "\EDEA";
-}
-
-.mi-flickr:before {
-	content: "\EDE8";
-}
-
-.mi-firefox:before {
-	content: "\EDE6";
-}
-
-.mi-github-alt:before {
-	content: "\EDEF";
-}
-
 .mi-github:before {
 	content: "\EDF0";
-}
-
-.mi-gitlab:before {
-	content: "\EDF1";
-}
-
-.mi-google-plus:before {
-	content: "\EDF3";
-}
-
-.mi-google:before {
-	content: "\EDF5";
-}
-
-.mi-instagram:before {
-	content: "\EDFA";
-}
-
-.mi-internet-explorer:before {
-	content: "\EDFB";
-}
-
-.mi-jsfiddle:before {
-	content: "\EDFE";
-}
-
-.mi-linux:before {
-	content: "\EE03";
 }
 
 .mi-odnoklassniki:before {
 	content: "\EE0A";
 }
 
-.mi-opera:before {
-	content: "\EE0D";
-}
-
-.mi-safari:before {
-	content: "\EE1B";
-}
-
-.mi-soundcloud:before {
-	content: "\EE25";
-}
-
-.mi-skype:before {
-	content: "\EE21";
-}
-
-.mi-telegram:before {
-	content: "\EE2C";
-}
-
-.mi-twitter:before {
-	content: "\EE33";
-}
-
-.mi-vimeo:before {
-	content: "\EE36";
-}
-
 .mi-vk:before {
 	content: "\EE38";
-}
-
-.mi-windows:before {
-	content: "\EE3D";
-}
-
-.mi-youtube:before {
-	content: "\EE47";
 }
 
 /*! @import "normalize"; */
