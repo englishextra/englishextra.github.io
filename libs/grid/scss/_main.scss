@@ -649,16 +649,16 @@ u,
 	top: 0;
 	left: 9.600rem;
 	line-height: 0;
-	background-color: #5E81A8;
+	/* background-color: #5E81A8; */
 	-moz-transition: left 0.2s ease, visibility 0s, opacity 0.2s linear;
 	transition: left 0.2s ease, visibility 0s, opacity 0.2s linear;
 	z-index: 995;
 }
 
-.holder-vk-like:hover {
+/* .holder-vk-like:hover {
 	background-color: #6888AD;
 	cursor: pointer;
-}
+} */
 
 .vk-like {
 	display: inline-block;
