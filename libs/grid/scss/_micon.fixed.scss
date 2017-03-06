@@ -231,6 +231,11 @@
 	content: "\EA61";
 }
 
+.mi-Cancel:before, .mi-CancelLegacy:before {
+	content: "\EA80";
+}
+
+
 .mi-Education:before {
 	content: "\EB07";
 }
@@ -241,6 +246,10 @@
 .mi-Forward:before,
 .mi-ForwardLegacy:before {
 	content: "\EB3D";
+}
+
+.mi-GlobalNavButton:before {
+	content: "\EB48";
 }
 
 .mi-Home:before,
@@ -265,6 +274,10 @@
 
 .mi-Share:before {
 	content: "\ECF8";
+}
+
+.mi-Up:before, .mi-UpLegacy:before {
+	content: "\ED7D";
 }
 
 /**
