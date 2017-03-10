@@ -1456,6 +1456,108 @@ var manageDataSrcImg = function (ctx) {
 };
 evento.add(window, "load", manageDataSrcImg.bind(null, ""));
 /*!
+ * add smooth scroll or redirection to static select options
+ * @param {Object} [ctx] context HTML Element
+ */
+var manageStaticSelect = function (ctx) {
+	"use strict";
+	ctx = ctx || "";
+	var w = window,
+	cls = "#pages_select",
+	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	g = function (_this) {
+		var h = _this.options[_this.selectedIndex].value || "",
+		zh = h ? (isValidId(h, !0) ? BALA.one(h) : "") : "";
+		if (h) {
+			if (w.zenscroll) {
+				if (zh) {
+					zenscroll.to(zh);
+				} else {
+					changeLocation(h);
+				}
+			} else {
+				if (zh) {
+					w.scroll(0, findPos(zh));
+				} else {
+					changeLocation(h);
+				}
+			}
+		}
+	},
+	k = function () {
+		/* evento.add(a, "change", g.bind(null, a)); */
+		a.onchange = g.bind(null, a);
+	};
+	if (a) {
+		console.log("triggered function: manageStaticSelect");
+		k();
+	}
+};
+evento.add(window, "load", manageStaticSelect.bind(null, ""));
+/*!
+ * manage search input
+ */
+var manageSearchInput = function () {
+	"use strict";
+	var a = BALA.one("#text") || "",
+	g = function (_this) {
+		_this.value = _this.value.replace(/\\/g, "").replace(/ +(?= )/g, " ").replace(/\/+(?=\/)/g, "/") || "";
+	},
+	k = function (e) {
+		e.focus();
+		evento.add(e, "input", g.bind(null, e));
+		/* e.oninput = g.bind(null, e); */
+	};
+	if (a) {
+		console.log("triggered function: manageSearchInput");
+		k(a);
+	}
+};
+docReady(manageSearchInput);
+/*!
+ * add click event on hidden-layer show btn
+ * @param {Object} [ctx] context HTML Element
+ */
+var manageExpandingLayers = function (ctx) {
+	"use strict";
+	ctx = ctx || "";
+	var w = window,
+	cls = ".btn-expand-hidden-layer",
+	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	cL = "classList",
+	pN = "parentNode",
+	is_active = "is-active",
+	h_e = function (_this) {
+		var s = _this[pN] ? _this[pN].nextElementSibling : "";
+		if (s) {
+			_this[cL].toggle(is_active);
+			s[cL].toggle(is_active);
+		}
+		return !1;
+	},
+	k = function (e) {
+		/* evento.add(e, "click", h_e.bind(null, e)); */
+		e.onclick = h_e.bind(null, e);
+	},
+	q = function () {
+		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
+		if (w._) {
+			_.each(a, k);
+		} else if (w.forEach) {
+			forEach(a, k, !1);
+		} else {
+			for (var i = 0, l = a.length; i < l; i += 1) {
+				k(a[i]);
+			}
+		}
+	};
+	if (a) {
+		console.log("triggered function: manageExpandingLayers");
+		q();
+	}
+};
+evento.add(window, "load", manageExpandingLayers.bind(null, ""));
+/*!
  * init share btn
  */
 var initShareButtons = function () {
@@ -2288,6 +2390,8 @@ var observeMutations = function (ctx) {
 					manageDataTargetLinks(c);
 					manageDataSrcImg(c);
 					manageImgLightboxLinks(c);
+					manageStaticSelect(c);
+					manageExpandingLayers(c);
 				}
 			};
 			/* e.forEach(f); */

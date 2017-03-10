@@ -19,7 +19,8 @@
 	list-style: none;
 	font-size: 0.933rem;
 	text-align: left;
-	overflow-y: hidden;
+	/* overflow-y: hidden; */
+	overflow-y: auto;
 	color: inherit;
 	background-color: $color-hex-ui-bar-bg;
 	border: 0.067rem solid $color-hex-ui-menu-border;
@@ -31,9 +32,9 @@
 	margin: 0;
 }
 
-.kamil-autocomplete:hover {
+/* .kamil-autocomplete:hover {
 	overflow-y: auto;
-}
+} */
 
 .kamil-autocomplete li {
 	height: 3.200rem;

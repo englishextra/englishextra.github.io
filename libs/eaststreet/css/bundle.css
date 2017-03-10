@@ -284,6 +284,14 @@ EB5262
 	content: "\EA80";
 }
 
+.mi-ChevronDown:before {
+	content: "\EA8E";
+}
+
+.mi-ChevronUp:before {
+	content: "\EA97";
+}
+
 .mi-Down:before {
 	content: "\EAFB";
 }
@@ -2861,7 +2869,8 @@ template {
 	list-style: none;
 	font-size: 0.933rem;
 	text-align: left;
-	overflow-y: hidden;
+	/* overflow-y: hidden; */
+	overflow-y: auto;
 	color: inherit;
 	background-color: #F3F3F3;
 	border: 0.067rem solid #0073D2;
@@ -2873,9 +2882,9 @@ template {
 	margin: 0;
 }
 
-.kamil-autocomplete:hover {
+/* .kamil-autocomplete:hover {
 	overflow-y: auto;
-}
+} */
 
 .kamil-autocomplete li {
 	height: 3.200rem;
@@ -3918,10 +3927,10 @@ u,
 .col .holder-contents-select select {
 	display: inline-block;
 	width: 97%;
-	max-width: 20.375rem;
-	height: 2.000rem;
+	max-width: 21.733rem;
+	height: 2.133rem;
 	font-family: sans-serif;
-	font-size: 0.875rem;
+	font-size: 0.933rem;
 	color: inherit;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
@@ -3931,7 +3940,7 @@ u,
 
 .col .holder-contents-select select optgroup {
 	font-style: normal;
-	padding-left: 0.188rem;
+	padding-left: 0.200rem;
 }
 
 /**
@@ -3942,7 +3951,7 @@ u,
 .col .holder-contents-select select:hover,
 .col .holder-contents-select select:active,
 .col .holder-contents-select select:focus {
-	border: 0.063rem solid #C3C3C3;
+	border: 0.067rem solid #C3C3C3;
 }
 
 /**
@@ -3954,21 +3963,21 @@ u,
 }
 
 .col .btn-expand-hidden-layer:after {
-	font-family: "englishextra-ui-icons";
-	content: "\e901";
-	font-size: 0.438em;
+	font-family: "micon";
+	content: "\EA8E";
+	font-size: 0.467em;
 	position: relative;
 	vertical-align: middle;
-	margin-left: 0.500em;
+	margin-left: 0.533em;
 }
 
 .col .btn-expand-hidden-layer.is-active:after {
-	font-family: "englishextra-ui-icons";
-	content: "\e907";
-	font-size: 0.438em;
+	font-family: "micon";
+	content: "\EA97";
+	font-size: 0.467em;
 	position: relative;
 	vertical-align: middle;
-	margin-left: 0.500em;
+	margin-left: 0.533em;
 }
 
 .col .holder-hidden-layer {
@@ -3992,7 +4001,7 @@ u,
 
 .col .holder-btn-expand-hidden-layer + .holder-hidden-layer.is-active,
 .legacy .col .holder-btn-expand-hidden-layer + .holder-hidden-layer {
-	margin-top: 0.500rem;
+	margin-top: 0.533rem;
 }
 
 .col .holder-hidden-layer h3:first-child,
@@ -4034,13 +4043,14 @@ u,
 	background-color: #232323;
 	-webkit-transition: left 0.2s ease, background-color 0.2s ease;
 	transition: left 0.2s ease, background-color 0.2s ease;
-	overflow-y: hidden;
+	/* overflow-y: hidden; */
+	overflow-y: auto;
 	margin: 0;
 }
 
-.ui-sidepanel:hover {
+/* .ui-sidepanel:hover {
 	overflow-y: auto;
-}
+} */
 
 .page.is-active-ui-sidepanel .ui-sidepanel {
 	left: 0;
@@ -4152,7 +4162,8 @@ u,
 	position: fixed;
 	top: 3.200rem;
 	left: 6.400rem;
-	overflow-y: hidden;
+	/* overflow-y: hidden; */
+	overflow-y: auto;
 	background-color: #F3F3F3;
 	border: 0.067rem solid #0073D2;
 	-webkit-transition: left 0.2s ease, visibility 0s, opacity 0.2s linear;
@@ -4160,9 +4171,9 @@ u,
 	margin: 0;
 }
 
-.ui-menumore:hover {
+/* .ui-menumore:hover {
 	overflow-y: auto;
-}
+} */
 
 .page.is-active-ui-menumore .ui-menumore {
 	visibility: visible;
