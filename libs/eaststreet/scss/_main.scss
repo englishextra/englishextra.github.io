@@ -814,6 +814,10 @@ u,
 	transition: background-color 0.2s ease;
 }
 
+.page.is-active-ui-sidepanel .container {
+	left: 0;
+}
+
 .btn-toggle-ui-sidepanel {
 	display: inline-block;
 	width: 3.200rem;

@@ -1142,6 +1142,8 @@ var initSidepanel = function () {
 	p = BALA.one(page) || "",
 	container = ".container",
 	c = BALA.one(container) || "",
+	overlay = ".page-overlay",
+	o = BALA.one(overlay) || "",
 	item = ".ui-sidepanel li",
 	active_qrcode = "is-active-holder-location-qr-code",
 	active_vk_like = "is-active-holder-vk-like",
@@ -1171,13 +1173,13 @@ var initSidepanel = function () {
 			p[cL].toggle(active_sidepanel);
 			f();
 		},
-		h_a = function () {
+		h_o = function () {
 			if (p[cL].contains(active_sidepanel)) {
 				p[cL].remove(active_sidepanel);
 			}
 			f();
 		},
-		h_p_right = function () {
+		h_c = function () {
 			if (!p[cL].contains(active_sidepanel)) {
 				p[cL].add(active_sidepanel);
 			}
@@ -1186,17 +1188,17 @@ var initSidepanel = function () {
 		evento.add(e, "click", h_e);
 		/* e.onclick = h_e; */
 		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-			evento.add(c, "swipeleft", h_a);
-			/* p.onswipeleft = h_a; */
-			evento.add(c, "swiperight", h_p_right);
+			evento.add(o, "swipeleft", h_o);
+			/* p.onswipeleft = h_o; */
+			evento.add(c, "swiperight", h_c);
 			/* p.onswiperight = h_p_right; */
 		}
 		var a = BALA.one(item) || "";
 		if (a) {
 			a = BALA(item) || "";
 			var g = function (e) {
-				evento.add(e, "click", h_a);
-				/* e.onclick = h_a; */
+				evento.add(e, "click", h_o);
+				/* e.onclick = h_o; */
 			};
 			if (w._) {
 				_.each(a, g);
@@ -1208,8 +1210,8 @@ var initSidepanel = function () {
 				}
 			}
 		}
-		evento.add(b, "click", h_a);
-		/* b.onclick = h_a; */
+		evento.add(b, "click", h_o);
+		/* b.onclick = h_o; */
 	}
 };
 docReady(initSidepanel);
