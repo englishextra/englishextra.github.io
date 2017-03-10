@@ -8,8 +8,8 @@
  * localhost/tools/Tinter-Shader/index.html
  * localhost/tools/perfect_colors/
  * localhost/tools/TinyColor/index.html
- * localhost/tools/color-palette-generator/index.html#0073D2
- * localhost/tools/hexcolortool/index.html#dbdbdb,0.5/#ffffff
+ * localhost/tools/color-palette-generator/index.html
+ * localhost/tools/hexcolortool/index.html
  * localhost/tools/css3-playground/
  */
 
@@ -1814,7 +1814,7 @@ body {
  * size of a loader dependent on font size
  */
 
-.loading-spinner .loading-spinner {
+.is-active-loading-spinner .loading-spinner {
 	font-size: 8px;
 	position: fixed;
 	top: 50%;
@@ -1832,8 +1832,8 @@ body {
 	z-index: 1003;
 }
 
-.loading-spinner .loading-spinner,
-.loading-spinner .loading-spinner:after {
+.is-active-loading-spinner .loading-spinner,
+.is-active-loading-spinner .loading-spinner:after {
 	border-radius: 50%;
 	width: 10em;
 	height: 10em;
@@ -3256,6 +3256,32 @@ u,
 	width: auto;
 }
 
+.col img.data-src-img,
+.col img[data-src] {
+	opacity: 0;
+	-webkit-transition: opacity 0.4s ease;
+	transition: opacity 0.4s ease;
+}
+
+.col img.data-src-img.is-active,
+.col img[data-src].is-active {
+	opacity: 1;
+}
+
+.col figcaption,
+.col .row figcaption {
+	font-size: 0.875rem;
+	line-height: 0.875rem;
+	text-align: right;
+}
+
+.col figcaption p,
+.col .row figcaption p {
+	font-size: inherit;
+	line-height: inherit;
+	margin-top: 0.250rem;
+}
+
 .col img,
 .col svg,
 .col canvas {
@@ -3415,7 +3441,8 @@ u,
  * buttons
  */
 
-.col div + .holder-bottom-nav-btns {
+.col div + .holder-bottom-nav-btns,
+.holder-bottom-nav-btns:first-child {
 	margin-top: 1.500rem;
 }
 
@@ -3432,7 +3459,10 @@ u,
 	line-height: 2.125rem;
 	text-align: center;
 	text-decoration: none;
+	/* vertical-align: middle; */
 	border: 0.063rem solid #4B4B4B;
+	padding-right: 1.000rem;
+	padding-left: 1.000rem;
 }
 
 .col .btn-primary,
@@ -3492,7 +3522,15 @@ u,
 .col .aside {
 	display: block;
 	background-color: #F3F3F3;
-	padding: 1.000rem;
+	padding: 1.250rem;
+}
+
+.col .aside *:first-child {
+	margin-top: 0;
+}
+
+.col .aside *:last-child {
+	margin-bottom: 0;
 }
 
 .aside h3 {

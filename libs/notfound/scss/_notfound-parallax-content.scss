@@ -195,7 +195,6 @@
 	color: #FFFFFF;
 	background-color: #43AA8B;
 	border-radius: 5px;
-	-webkit-transition: all 0.2s;
 	transition: all 0.2s;
 	padding: 21px 28px;
 	margin: 0;
@@ -214,7 +213,6 @@
 .parallax-disabled .btn-2c:after {
 	content: "";
 	position: absolute;
-	-webkit-transition: all 0.2s;
 	transition: all 0.2s;
 	z-index: -1;
 }

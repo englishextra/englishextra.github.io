@@ -643,6 +643,31 @@ u,
 	width: auto;
 }
 
+.col img.data-src-img,
+.col img[data-src] {
+	opacity: 0;
+	transition: opacity 0.4s ease;
+}
+
+.col img.data-src-img.is-active,
+.col img[data-src].is-active {
+	opacity: 1;
+}
+
+.col figcaption,
+.col .row figcaption {
+	font-size: 0.875rem;
+	line-height: 0.875rem;
+	text-align: right;
+}
+
+.col figcaption p,
+.col .row figcaption p {
+	font-size: inherit;
+	line-height: inherit;
+	margin-top: 0.250rem;
+}
+
 .col img,
 .col svg,
 .col canvas {
@@ -802,7 +827,8 @@ u,
  * buttons
  */
 
-.col div + .holder-bottom-nav-btns {
+.col div + .holder-bottom-nav-btns,
+.holder-bottom-nav-btns:first-child {
 	margin-top: 1.500rem;
 }
 
@@ -820,6 +846,8 @@ u,
 	text-align: center;
 	text-decoration: none;
 	border: 0.063rem solid $color-hex-button-bg;
+	padding-right: 1.000rem;
+	padding-left: 1.000rem;
 }
 
 .col .btn-primary,
@@ -879,7 +907,15 @@ u,
 .col .aside {
 	display: block;
 	background-color: $color-hex-aside-bg;
-	padding: 1.000rem;
+	padding: 1.250rem;
+}
+
+.col .aside *:first-child {
+	margin-top: 0;
+}
+
+.col .aside *:last-child {
+	margin-bottom: 0;
 }
 
 .aside h3 {

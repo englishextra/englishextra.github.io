@@ -489,8 +489,8 @@ var manageDataSrcImg = function (ctx) {
 			} else {
 				e.src = e[ds].src;
 			}
-			setStyleVisibilityVisible(e[pN]);
-			setStyleOpacity(e[pN], 1);
+			/* setStyleVisibilityVisible(e[pN]);
+			setStyleOpacity(e[pN], 1); */
 		}
 	};
 	if (a) {

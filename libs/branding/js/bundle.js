@@ -620,24 +620,25 @@ docReady(loadInitFastClick); */
  */
 var LoadingSpinner = function () {
 	"use strict";
-	var h = BALA.one("html") || "",
+	var b = BALA.one("body") || "",
 	cls = "loading-spinner",
+	is_active = "is-active-loading-spinner",
 	a = BALA.one("." + cls) || "",
 	cL = "classList";
 	console.log("triggered function: LoadingSpinner");
 	if (!a) {
 		a = crel("div");
 		a[cL].add(cls);
-		appendFragment(a, h);
+		appendFragment(a, b);
 	}
 	return {
 		show: function () {
-			return h[cL].contains(cls) || h[cL].add(cls);
+			return b[cL].contains(is_active) || b[cL].add(is_active);
 		},
 		hide: function (f, n) {
 			n = n || 500;
 			var s = function () {
-				h[cL].remove(cls);
+				b[cL].remove(is_active);
 				if (f && "function" === typeof f) {
 					f();
 				}
@@ -783,7 +784,7 @@ docReady(loadInitPrettyPrint);
 /*!
  * manage data lightbox img links
  */
-var manageDataLightboxImgLinks = function (ctx) {
+var manageImgLightboxLinks = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
 	var w = window,
@@ -889,7 +890,7 @@ var manageDataLightboxImgLinks = function (ctx) {
 		}
 	};
 	if (a) {
-		console.log("triggered function: manageDataLightboxImgLinks");
+		console.log("triggered function: manageImgLightboxLinks");
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
 		if (w._) {
 			_.each(a, k);
@@ -902,7 +903,7 @@ var manageDataLightboxImgLinks = function (ctx) {
 		}
 	}
 };
-evento.add(window, "load", manageDataLightboxImgLinks.bind(null, ""));
+evento.add(window, "load", manageImgLightboxLinks.bind(null, ""));
 /*!
  * replace img src with data-src
  * @param {Object} [ctx] context HTML Element
@@ -926,8 +927,8 @@ var manageDataSrcImg = function (ctx) {
 			} else {
 				e.src = e[ds].src;
 			}
-			setStyleVisibilityVisible(e[pN]);
-			setStyleOpacity(e[pN], 1);
+			/* setStyleVisibilityVisible(e[pN]);
+			setStyleOpacity(e[pN], 1); */
 		}
 	};
 	if (a) {
@@ -967,8 +968,8 @@ var manageDataSrcIframe = function (ctx) {
 			} else {
 				e.src = e[ds].src;
 			}
-			setStyleVisibilityVisible(e[pN]);
-			setStyleOpacity(e[pN], 1);
+			/* setStyleVisibilityVisible(e[pN]);
+			setStyleOpacity(e[pN], 1); */
 			crel(e, {
 				"scrolling" : "no",
 				"frameborder" : "no",
@@ -1171,7 +1172,7 @@ evento.add(window, "load", manageSourceCodeLayers.bind(null, ""));
  * init qr-code
  * stackoverflow.com/questions/12777622/how-to-use-enquire-js
  */
-var showLocationQR = function () {
+var initLocationQRImg = function () {
 	"use strict";
 	var w = window,
 	d = document,
@@ -1191,7 +1192,7 @@ var showLocationQR = function () {
 		appendFragment(m, a);
 	};
 	if (a && p) {
-		console.log("triggered function: showLocationQR");
+		console.log("triggered function: initLocationQRImg");
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
 				g();
@@ -1201,7 +1202,7 @@ var showLocationQR = function () {
 		}
 	}
 };
-evento.add(window, "load", showLocationQR);
+evento.add(window, "load", initLocationQRImg);
 /*!
  * init nav-menu
  */
@@ -1658,7 +1659,7 @@ evento.add(window, "load", initDisqusOnScroll);
 /*!
  * init vk-like on click
  */
-var initVKLike = function () {
+var initVKLikeButton = function () {
 	"use strict";
 	var w = window,
 	c = BALA.one("#vk-like") || "",
@@ -1704,7 +1705,7 @@ var initVKLike = function () {
 		/* a.onclick = h_e; */
 	};
 	if (c && a) {
-		console.log("triggered function: initVKLike");
+		console.log("triggered function: initVKLikeButton");
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			q();
 		} else {
@@ -1712,7 +1713,7 @@ var initVKLike = function () {
 		}
 	}
 };
-docReady(initVKLike);
+docReady(initVKLikeButton);
 /*!
  * init Pages Kamil autocomplete
  * github.com/oss6/kamil/wiki/Example-with-label:link-json-and-typo-correct-suggestion

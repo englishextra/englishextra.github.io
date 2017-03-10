@@ -640,24 +640,25 @@ docReady(loadInitFastClick); */
  */
 var LoadingSpinner = function () {
 	"use strict";
-	var h = BALA.one("html") || "",
+	var b = BALA.one("body") || "",
 	cls = "loading-spinner",
+	is_active = "is-active-loading-spinner",
 	a = BALA.one("." + cls) || "",
 	cL = "classList";
 	console.log("triggered function: LoadingSpinner");
 	if (!a) {
 		a = crel("div");
 		a[cL].add(cls);
-		appendFragment(a, h);
+		appendFragment(a, b);
 	}
 	return {
 		show: function () {
-			return h[cL].contains(cls) || h[cL].add(cls);
+			return b[cL].contains(is_active) || b[cL].add(is_active);
 		},
 		hide: function (f, n) {
 			n = n || 500;
 			var s = function () {
-				h[cL].remove(cls);
+				b[cL].remove(is_active);
 				if (f && "function" === typeof f) {
 					f();
 				}
@@ -749,7 +750,7 @@ var initNotifier42WriteMe = function () {
 	"use strict";
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
 		var w = window,
-		n = "notifier42-write-me",
+		n = "_notifier42_write_me_",
 		m = "Напишите мне, отвечу очень скоро. Регистрироваться не нужно.",
 		p = parseLink(w.location.href).origin,
 		g = function () {
@@ -757,7 +758,7 @@ var initNotifier42WriteMe = function () {
 					"href" : "#/feedback"
 				}, m),
 				8000);
-			Cookies.set(n, encodeURIComponent(m));
+			Cookies.set(n, m);
 		};
 		if (!Cookies.get(n) && p) {
 			console.log("triggered function: initNotifier42WriteMe");
@@ -941,7 +942,7 @@ evento.add(window, "load", manageYandexMapButton.bind(null, "#ymap"));
 /*!
  * manage data lightbox img links
  */
-var manageDataLightboxImgLinks = function (ctx) {
+var manageImgLightboxLinks = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
 	var w = window,
@@ -1047,7 +1048,7 @@ var manageDataLightboxImgLinks = function (ctx) {
 		}
 	};
 	if (a) {
-		console.log("triggered function: manageDataLightboxImgLinks");
+		console.log("triggered function: manageImgLightboxLinks");
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
 		if (w._) {
 			_.each(a, k);
@@ -1060,7 +1061,7 @@ var manageDataLightboxImgLinks = function (ctx) {
 		}
 	}
 };
-evento.add(window, "load", manageDataLightboxImgLinks.bind(null, ""));
+evento.add(window, "load", manageImgLightboxLinks.bind(null, ""));
 /*!
  * replace img src with data-src
  * @param {Object} [ctx] context HTML Element
@@ -1084,8 +1085,8 @@ var manageDataSrcImg = function (ctx) {
 			} else {
 				e.src = e[ds].src;
 			}
-			setStyleVisibilityVisible(e[pN]);
-			setStyleOpacity(e[pN], 1);
+			/* setStyleVisibilityVisible(e[pN]);
+			setStyleOpacity(e[pN], 1); */
 		}
 	};
 	if (a) {
@@ -1123,7 +1124,7 @@ evento.add(window, "load", loadManageDataSrcImg);
  * init qr-code
  * stackoverflow.com/questions/12777622/how-to-use-enquire-js
  */
-var showLocationQR = function () {
+var initLocationQRImg = function () {
 	"use strict";
 	var w = window,
 	d = document,
@@ -1143,7 +1144,7 @@ var showLocationQR = function () {
 		appendFragment(m, a);
 	};
 	if (a && p) {
-		console.log("triggered function: showLocationQR");
+		console.log("triggered function: initLocationQRImg");
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
 				g();
@@ -1153,8 +1154,8 @@ var showLocationQR = function () {
 		}
 	}
 };
-evento.add(window, "load", showLocationQR);
-evento.add(window, "hashchange", showLocationQR);
+evento.add(window, "load", initLocationQRImg);
+evento.add(window, "hashchange", initLocationQRImg);
 /*!
  * init nav-menu
  */
@@ -1511,7 +1512,7 @@ docReady(initPlusoYaShare);
 /*!
  * init vk-like on click
  */
-var initVKLike = function () {
+var initVKLikeButton = function () {
 	"use strict";
 	var w = window,
 	c = BALA.one("#vk-like") || "",
@@ -1557,7 +1558,7 @@ var initVKLike = function () {
 		/* a.onclick = h_e; */
 	};
 	if (c && a) {
-		console.log("triggered function: initVKLike");
+		console.log("triggered function: initVKLikeButton");
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			q();
 		} else {
@@ -1565,7 +1566,7 @@ var initVKLike = function () {
 		}
 	}
 };
-docReady(initVKLike);
+docReady(initVKLikeButton);
 /*!
  * set event on include HTML links
  */
@@ -1590,7 +1591,7 @@ var includeHTMLintoTarget = function (_this, u, t) {
 					manageExternalLinks(c_pn);
 					manageLocalLinks(c_pn);
 					manageDataSrcImg(c_pn);
-					manageDataLightboxImgLinks(c_pn);
+					manageImgLightboxLinks(c_pn);
 				}
 			};
 			insertTextAsFragment(t, c, tf);
@@ -1714,7 +1715,7 @@ var insertExternalHTML = function (a, u, f) {
 			}).then(function (t) {
 				g(t, f);
 			}).catch (function (e) {
-				console.log("Error inserting content", e);
+				console.log("Error inserting content from file " + u, e);
 			});
 		} else if (w.reqwest) {
 			reqwest({
@@ -1722,7 +1723,7 @@ var insertExternalHTML = function (a, u, f) {
 				type : "html",
 				method : "get",
 				error : function (e) {
-					console.log("Error reqwest-ing file", e);
+					console.log("Error reqwest-ing file " + u, e);
 				},
 				success : function (r) {
 					g(r, f);
@@ -1900,7 +1901,7 @@ var observeMutations = function (ctx) {
 					manageLocalLinks(c);
 					manageDataTargetLinks(c);
 					manageDataSrcImg(c);
-					manageDataLightboxImgLinks(c);
+					manageImgLightboxLinks(c);
 				}
 			};
 			/* e.forEach(f); */

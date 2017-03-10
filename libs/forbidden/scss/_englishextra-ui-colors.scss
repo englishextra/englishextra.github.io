@@ -6,8 +6,8 @@
  * localhost/tools/Tinter-Shader/index.html
  * localhost/tools/perfect_colors/
  * localhost/tools/TinyColor/index.html
- * localhost/tools/color-palette-generator/index.html#0073D2
- * localhost/tools/hexcolortool/index.html#dbdbdb,0.5/#ffffff
+ * localhost/tools/color-palette-generator/index.html
+ * localhost/tools/hexcolortool/index.html
  * localhost/tools/css3-playground/
  */
  
@@ -35,8 +35,8 @@ EB5262
 744DA5
 3087CD */
 
-$color-rgba-selection-text: rgba(255,255,255,0.9);
-$color-rgba-selection-bg: rgba(52,143,220,0.9);
+$color-rgba-selection-text: rgba(255, 255, 255, 0.9);
+$color-rgba-selection-bg: rgba(52, 143, 220, 0.9);
 
 $color-hex-body-text: #373737;
 $color-hex-lighter-text: #737373;
@@ -50,27 +50,29 @@ $color-hex-progress-bar: #FF4C4C;
 
 $color-hex-ui-menu-border: #0073D2;
 $color-hex-hover-ui-menu-item-bg: #E1E1E1;
+$color-rgba-hover-ui-menu-item-bg: rgba(0, 115, 210, 0.25);
 
 $color-hex-highlight: #DA3216;
 $color-hex-url: #009B4C;
 
-$color-hex-notice: #584CBE;
+$color-hex-notice: #1A81D7;
 $color-hex-success: #1AB465;
 $color-hex-warning: #F67326;
 $color-hex-error: #D64A4A;
 
 $color-hex-page-bg: #F0F0F0;
+$color-rgba-page-overlay-bg: rgba(0, 115, 210, 0.25);
 
 $color-hex-divider: #C3C3C3;
 $color-hex-lighter-divider: #C9C9C9;
 
 $color-hex-ui-icon-text: #878787;
-$color-rgba-ui-icon-text: rgba(15,15,15,0.5);
+$color-rgba-ui-icon-text: rgba(15, 15, 15, 0.5);
 $color-hex-ui-icon-bg: #EDEDED;
-$color-rgba-ui-icon-bg: rgba(220,220,220,0.5);
+$color-rgba-ui-icon-bg: rgba(220, 220, 220, 0.5);
 $color-hex-hover-ui-icon-bg: #D5D5D5;
 
-$color-rgba-dark-ui-icon-bg: rgba(75,75,75,0.5);
+$color-rgba-dark-ui-icon-bg: rgba(75, 75, 75, 0.5);
 $color-hex-hover-dark-ui-icon-bg: #4B4B4B;
 
 $color-hex-button-bg: #4B4B4B;
@@ -85,10 +87,10 @@ $color-hex-dark-ui-panel-active-item-bg: #004F93;
 $color-hex-darker-ui-panel-bg: #232323;
 $color-hex-darker-ui-panel-hover-item-bg: #414141;
 $color-hex-darker-ui-panel-active-item-bg: #00437E;
-$color-rgba-darker-ui-panel-inset-shadow: rgba(0,0,0,0.9);
+$color-rgba-darker-ui-panel-inset-shadow: rgba(0, 0, 0, 0.9);
 
 $color-hex-ui-bar-bg: #F3F3F3;
-$color-rgba-ui-bar-shadow: rgba(50,50,50,0.3);
+$color-rgba-ui-bar-shadow: rgba(50, 50, 50, 0.3);
 $color-hex-dark-ui-bar-bg: #4B4B4B;
 
 $color-hex-aside-bg: #F3F3F3;
@@ -98,22 +100,22 @@ $color-hex-text-slide-bg: #F9F9F9;
 $color-hex-table-header-bg: #EDEDED;
 $color-hex-table-cell-bg: #F3F3F3;
 
-$color-rgba-card-shadow: rgba(150,150,150,0.2);
+$color-rgba-card-shadow: rgba(150, 150, 150, 0.2);
 
-$color-rgba-hint-bg: rgba(25,25,25,0.9);
+$color-rgba-hint-bg: rgba(25, 25, 25, 0.9);
 
-$color-rgba-loading-spinner-text: rgba(15,15,15,0.5);
-$color-rgba-loading-spinner-bg: rgba(220,220,220,0.5);
+$color-rgba-loading-spinner-text: rgba(0, 115, 210, 0.8);
+$color-rgba-loading-spinner-bg: rgba(0, 115, 210, 0.2);
 
-$color-rgba-notifier42-text: rgba(255,255,255,0.9);
-$color-rgba-notifier42-bg: rgba(25,25,25,0.9);
-$color-rgba-notifier42-notice: rgba(25,25,25,0.9);
-$color-rgba-notifier42-success: rgba(25,25,25,0.9);
-$color-rgba-notifier42-warning: rgba(25,25,25,0.9);
-$color-rgba-notifier42-error: rgba(25,25,25,0.9);
+$color-rgba-notifier42-text: rgba(255, 255, 255, 0.9);
+$color-rgba-notifier42-bg: rgba(25, 25, 25, 0.9);
+$color-rgba-notifier42-notice: rgba(25, 25, 25, 0.9);
+$color-rgba-notifier42-success: rgba(25, 25, 25, 0.9);
+$color-rgba-notifier42-warning: rgba(25, 25, 25, 0.9);
+$color-rgba-notifier42-error: rgba(25, 25, 25, 0.9);
 
-$color-rgba-img-lightbox-bg: rgba(0,0,0,0.5);
-$color-rgba-img-lightbox-border: rgba(255,255,255,0.5);
+$color-rgba-img-lightbox-bg: rgba(0, 0, 0, 0.5);
+$color-rgba-img-lightbox-border: rgba(255, 255, 255, 0.5);
 
 $color-hex-englishextra-logo-bg: #D54848;
 $color-hex-darker-englishextra-logo-bg: #AB3A3A;
