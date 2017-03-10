@@ -1,0 +1,17 @@
+/*! @import "disqus-thread"; */
+
+/**
+ * disqus
+ */
+
+#disqus_thread {
+	/* svgeneration.com/recipes/Stucco/ */
+	background-color: $color-hex-aside-bg;
+}
+
+#disqus_thread.is-active iframe {
+	margin-top: 0.667rem;
+	padding-right: 1.333rem;
+	padding-left: 1.333rem;
+}
+

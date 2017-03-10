@@ -1,0 +1,60 @@
+/*! @import "kamil-autocomplete"; */
+
+/**
+ * modified Kamil v0.0.1
+ * Autocomplete library
+ * oss6.github.io/kamil
+ * MIT License
+ * by Ossama Edbali
+ */
+
+.kamil-autocomplete {
+	display: none;
+	/* width: 18.133rem !important; */
+	max-height: 16.000rem;
+	position: absolute;
+	/* top: 2.133rem !important;
+	right: 0 !important;
+	left: auto !important; */
+	list-style: none;
+	font-size: 0.933rem;
+	text-align: left;
+	overflow-y: hidden;
+	color: inherit;
+	background-color: $color-hex-ui-bar-bg;
+	border: 0.067rem solid $color-hex-ui-menu-border;
+	border-radius: 0;
+	box-sizing: border-box;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+	outline: none;
+	padding: 0;
+	margin: 0;
+}
+
+.kamil-autocomplete:hover {
+	overflow-y: auto;
+}
+
+.kamil-autocomplete li {
+	height: 3.200rem;
+	font-weight: 400;
+	list-style-type: none;
+	line-height: 3.200rem;
+	overflow: hidden;
+	padding-right: 1.333rem;
+	padding-left: 1.333rem;
+	cursor: pointer;
+}
+
+.kamil-autocomplete li.kamil-active,
+.kamil-autocomplete li:hover {
+	color: inherit;
+	background-color: $color-rgba-hover-ui-menu-item-bg;
+}
+
+.kamil-autocomplete li a {
+	color: inherit;
+	text-decoration: none;
+	width: 100%;
+}
+

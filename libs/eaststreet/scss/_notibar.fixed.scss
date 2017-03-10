@@ -1,0 +1,41 @@
+/*! @import "notibar.fixed"; */
+
+/*!
+ * notibar
+ * github.com/duyetdev/notibar.js
+ */
+
+.notibar {
+	display: block;
+	width: 100%;
+	min-height: 3.200rem;
+	position: fixed;
+	top: 0;
+	left: 0;
+	font-size: 1.000rem;
+	line-height: 1.333rem;
+	color: #FFFFFF;
+	background-color: $color-hex-notice;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+	padding: 1.000rem 3.200rem;
+}
+
+.notibar .close {
+	position: absolute;
+	right: 1.000rem;
+	top: 50%;
+	color: inherit;
+	text-decoration: none;
+	cursor: pointer;
+	margin-top: -0.667rem;
+}
+
+.notibar div.message {
+	text-align: center;
+}
+
+.notibar.animated {
+	animation-duration: 0.4s;
+	animation-fill-mode: both;
+}
+

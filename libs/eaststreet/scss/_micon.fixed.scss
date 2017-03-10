@@ -1,0 +1,295 @@
+/*! @import "micon.fixed"; */
+
+/*! Micon v2.2.155 | MIT License | http://xtoolkit.github.io/Micon/ */
+
+@font-face {
+	font-family: "micon";
+	src: url(../fonts/micon-with-webbrand-fontfacekit/micon.woff2?v=2.2.155) format("woff2"),
+	url(../fonts/micon-with-webbrand-fontfacekit/micon.woff?v=2.2.155) format("woff"),
+	url(../fonts/micon-with-webbrand-fontfacekit/micon.ttf?v=2.2.155) format("truetype");
+	font-weight: normal;
+	font-style: normal;
+}
+
+.mi {
+	display: inline-block;
+	font: normal normal normal 14px/1 micon;
+	font-size: inherit;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/*!
+ *
+ */
+
+.mi-sm {
+	font-size: 0.750em;
+	line-height: 1.000em;
+	vertical-align: -10%;
+}
+
+/*!
+ *
+ */
+
+.mi-lg {
+	font-size: 1.33333333em;
+	line-height: 0.75em;
+	vertical-align: -15%;
+}
+
+.mi-2x {
+	font-size: 2em;
+}
+
+.mi-3x {
+	font-size: 3em;
+}
+
+.mi-4x {
+	font-size: 4em;
+}
+
+.mi-5x {
+	font-size: 5em;
+}
+
+.mi-fw {
+	width: 1.28571429em;
+	text-align: center;
+}
+
+.mi-ul {
+	padding-left: 0;
+	margin-left: 2.14285714em;
+	list-style-type: none;
+}
+
+.mi-ul > li {
+	position: relative;
+}
+
+.mi-li {
+	position: absolute;
+	left: -2.14285714em;
+	width: 2.14285714em;
+	top: 0.14285714em;
+	text-align: center;
+}
+
+.mi-li.mi-lg {
+	left: -1.85714286em;
+}
+
+.mi-border {
+	padding: .2em .25em .15em;
+	border: solid 0.08em #EEEEEE;
+	border-radius: .1em;
+}
+
+.mi-pull-left {
+	float: left;
+}
+
+.mi-pull-right {
+	float: right;
+}
+
+.mi.mi-pull-left {
+	margin-right: .3em;
+}
+
+.mi.mi-pull-right {
+	margin-left: .3em;
+}
+
+.pull-right {
+	float: right;
+}
+
+.pull-left {
+	float: left;
+}
+
+.mi.pull-left {
+	margin-right: .3em;
+}
+
+.mi.pull-right {
+	margin-left: .3em;
+}
+
+.mi-spin {
+	animation: mi-spin 2s infinite linear;
+}
+
+.mi-pulse {
+	animation: mi-spin 1s infinite steps(8);
+}
+
+@keyframes mi-spin {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(359deg);
+	}
+}
+
+.mi-rotate-90 {
+	-ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
+	transform: rotate(90deg);
+}
+
+.mi-rotate-180 {
+	-ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
+	transform: rotate(180deg);
+}
+
+.mi-rotate-270 {
+	-ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
+	transform: rotate(270deg);
+}
+
+.mi-flip-horizontal {
+	-ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)";
+	transform: scale(-1, 1);
+}
+
+.mi-flip-vertical {
+	-ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
+	transform: scale(1, -1);
+}
+
+:root .mi-rotate-90,
+:root .mi-rotate-180,
+:root .mi-rotate-270,
+:root .mi-flip-horizontal,
+:root .mi-flip-vertical {
+	filter: none;
+}
+
+.mi-stack {
+	position: relative;
+	display: inline-block;
+	width: 2em;
+	height: 2em;
+	line-height: 2em;
+	vertical-align: middle;
+}
+
+.mi-stack-1x,
+.mi-stack-2x {
+	position: absolute;
+	left: 0;
+	width: 100%;
+	text-align: center;
+}
+
+.mi-stack-1x {
+	line-height: inherit;
+}
+
+.mi-stack-2x {
+	font-size: 2em;
+}
+
+.mi-inverse {
+	color: #FFFFFF;
+}
+
+.mi-BarcodeScanner:before {
+	content: "\EA2A";
+}
+
+.mi-BulletedList:before {
+	content: "\EA61";
+}
+
+.mi-Cancel:before {
+	content: "\EA80";
+}
+
+.mi-Down:before {
+	content: "\EAFB";
+}
+
+.mi-Education:before {
+	content: "\EB07";
+}
+
+.mi-Forward:before {
+	content: "\EB3D";
+}
+
+.mi-GlobalNavButton:before {
+	content: "\EB48";
+}
+
+.mi-Home:before {
+	content: "\EB6F";
+}
+
+.mi-Like:before {
+	content: "\EBB4";
+}
+
+.mi-List:before {
+	content: "\EBB7";
+}
+
+.mi-Mail:before {
+	content: "\EBBF";
+}
+
+.mi-Message:before {
+	content: "\EBD6";
+}
+
+.mi-More:before {
+	content: "\EC15";
+}
+
+.mi-Phone:before {
+	content: "\EC64";
+}
+
+.mi-Pinned:before {
+	content: "\EC6C";
+}
+
+.mi-Refresh:before {
+	content: "\ECA6";
+}
+
+.mi-Share:before {
+	content: "\ECF8";
+}
+
+.mi-Up:before {
+	content: "\ED7D";
+}
+
+.mi-Refresh:before {
+	content: "\ECA6";
+}
+
+/**
+ * micon social
+ */
+
+.mi-github:before {
+	content: "\EDF0";
+}
+
+.mi-odnoklassniki:before {
+	content: "\EE0A";
+}
+
+.mi-vk:before {
+	content: "\EE38";
+}
+

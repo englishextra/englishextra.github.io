@@ -1,0 +1,54 @@
+/*! @import "notifier42"; */
+
+/**
+ * notifier42
+ * inspired by github.com/mlcheng/js-toast
+ */
+
+.notifier42 {
+	display: block;
+	width : 100%;
+	max-width : 60%;
+	position : fixed;
+	right : 0;
+	bottom : 0;
+	left : 0;
+	font-size: 1.000rem;
+	font-weight: 400;
+	text-align : center;
+	word-break : keep-all;
+	color : $color-rgba-notifier42-text;
+	background-color: $color-rgba-notifier42-bg;
+	border-radius : 0.133rem;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+	opacity : 0;
+	padding: 1.000rem;
+	margin : 0 auto;
+}
+
+.notifier42.notice {
+	background-color: $color-rgba-notifier42-notice;
+}
+
+.notifier42.warning {
+	background-color: $color-rgba-notifier42-warning;
+}
+
+.notifier42.error {
+	background-color: $color-rgba-notifier42-error;
+}
+
+.notifier42.success {
+	background-color: $color-rgba-notifier42-success;
+}
+
+/**
+ * reset for animate.css
+ * daneden.github.io/animate.css/
+ */
+
+.notifier42.animated {
+	animation-duration: 0.4s;
+	animation-fill-mode: both;
+}
+
