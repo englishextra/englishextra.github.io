@@ -1152,9 +1152,9 @@ template {
 	vertical-align: top;
 }
 
+.col table th a:focus,
 .col table th a:hover,
-.col table th a:active,
-.col table th a:focus {
+.col table th a:active {
 	text-decoration: underline;
 }
 
@@ -1778,8 +1778,8 @@ template {
 	color: #007DD1;
 }
 
-.col a:hover,
 .col a:focus,
+.col a:hover,
 .col a:active {
 	color: #007DD1;
 }
@@ -1801,7 +1801,6 @@ template {
 .col caption,
 .col table td,
 .col table th a,
-.col select,
 .col input[type^="text"],
 .col input[type^="search"],
 .col input[type^="email"],
@@ -1817,6 +1816,7 @@ template {
 .col input[type^="datetime"],
 .col input[type^="datetime-local"],
 .col textarea,
+.col select,
 .col input[type^="text"]:focus,
 .col input[type^="search"]:focus,
 .col input[type^="email"]:focus,
@@ -1832,6 +1832,7 @@ template {
 .col input[type^="datetime"]:focus,
 .col input[type^="datetime-local"]:focus,
 .col textarea:focus,
+.col select:focus,
 .col input[type^="text"]:active,
 .col input[type^="search"]:active,
 .col input[type^="email"]:active,
@@ -1847,8 +1848,7 @@ template {
 .col input[type^="datetime"]:active,
 .col input[type^="datetime-local"]:active,
 .col textarea:active,
-.col select:active,
-.col select:focus {
+.col select:active {
 	color: inherit;
 }
 
@@ -1857,9 +1857,9 @@ template {
 	background-color: #EDEDED;
 }
 
+.col pre a:focus,
 .col pre a:hover,
-.col pre a:active,
-.col pre a:focus {
+.col pre a:active {
 	color: inherit;
 }
 
@@ -1883,6 +1883,10 @@ template {
 	border: 0.067rem solid #C3C3C3;
 }
 
+.col button:focus,
+.col input[type="button"]:focus,
+.col input[type="reset"]:focus,
+.col input[type="submit"]:focus,
 .col button:hover,
 .col input[type="button"]:hover,
 .col input[type="reset"]:hover,
@@ -1890,11 +1894,7 @@ template {
 .col button:active,
 .col input[type="button"]:active,
 .col input[type="reset"]:active,
-.col input[type="submit"]:active,
-.col button:focus,
-.col input[type="button"]:focus,
-.col input[type="reset"]:focus,
-.col input[type="submit"]:focus {
+.col input[type="submit"]:active {
 	color: #FFFFFF;
 	background-color: #5F5F5F;
 	border: 0.067rem solid #5F5F5F;
@@ -1909,8 +1909,8 @@ template {
 	border: 0.067rem solid #4B4B4B;
 }
 
-.col select:hover,
 .col select:focus,
+.col select:hover,
 .col input[type^="text"]:focus,
 .col input[type^="search"]:focus,
 .col input[type^="email"]:focus,
@@ -3566,8 +3566,8 @@ u,
 	color: #007DD1;
 }
 
-.col a:hover,
 .col a:focus,
+.col a:hover,
 .col a:active {
 	color: #007DD1;
 }
@@ -3588,8 +3588,8 @@ u,
 	border-bottom-width: 0.067rem;
 }
 
-.col dl dt a:hover,
 .col dl dt a:focus,
+.col dl dt a:hover,
 .col dl dt a:active {
 	color: inherit;
 }
@@ -3959,8 +3959,8 @@ u,
  */
 
 .col .holder-contents-select select,
-.col .holder-contents-select select:hover,
 .col .holder-contents-select select:focus,
+.col .holder-contents-select select:hover,
 .col .holder-contents-select select:active {
 	border: 0.067rem solid #C3C3C3;
 }
@@ -4150,8 +4150,8 @@ u,
 	padding-left: 1.333rem;
 }
 
-.ui-sidepanel-list a:hover,
 .ui-sidepanel-list a:focus,
+.ui-sidepanel-list a:hover,
 .ui-sidepanel-list a:active {
 	background-color: #414141;
 }
