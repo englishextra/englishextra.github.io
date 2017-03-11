@@ -56,15 +56,15 @@
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
 	html {
-		font-size: 14px;
+		font-size: 13px;
 	}
 
 	.col {
-		max-width: 100%;
+		max-width: 76.000rem;
 	}
-
+	
 	.padded-content {
-		padding: 0.667rem 0;
+		padding: 1.333rem 0.667rem;
 	}
 }
 
@@ -72,15 +72,15 @@
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
 	html {
-		font-size: 14px;
+		font-size: 13px;
 	}
 
 	.col {
-		max-width: 100%;
+		max-width: 76.000rem;
 	}
-
+	
 	.padded-content {
-		padding: 0.667rem 0;
+		padding: 1.333rem 0.667rem;
 	}
 }
 
@@ -92,11 +92,11 @@
 	}
 
 	.col {
-		max-width: 100%;
+		max-width: 76.000rem;
 	}
-
+	
 	.padded-content {
-		padding: 0.667rem 0;
+		padding: 1.333rem 0.667rem;
 	}
 }
 
@@ -106,15 +106,15 @@ iPad 3
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
 	html {
-		font-size: 14px;
+		font-size: 13px;
 	}
 
 	.col {
-		max-width: 100%;
+		max-width: 76.000rem;
 	}
-
+	
 	.padded-content {
-		padding: 0.667rem 0;
+		padding: 1.333rem 0.667rem;
 	}
 }
 
@@ -124,11 +124,11 @@ iPad 3
 	}
 
 	.col {
-		max-width: 100%;
+		max-width: 76.000rem;
 	}
-
+	
 	.padded-content {
-		padding: 0.667rem 0;
+		padding: 1.333rem 0.667rem;
 	}
 }
 
@@ -139,12 +139,12 @@ iPad 3
 		font-size: 15px;
 	}
 
-	.padded-content {
-		padding: 1.333rem 0.667rem;
-	}
-
 	.col {
 		max-width: 76.000rem;
+	}
+	
+	.padded-content {
+		padding: 1.333rem 0.667rem;
 	}
 }
 
@@ -155,12 +155,12 @@ iPad 3
 		font-size: 18px;
 	}
 
-	.padded-content {
-		padding: 1.333rem 0.667rem;
-	}
-
 	.col {
 		max-width: 76.000rem;
+	}
+	
+	.padded-content {
+		padding: 1.333rem 0.667rem;
 	}
 }
 

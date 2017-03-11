@@ -882,6 +882,16 @@ template {
  * set html font to 15px, and body to 1.000rem
  */
 
+.col html {
+	font-size: 15px;
+	line-height: 1.333;
+}
+
+.col body {
+	font-size: 1.000rem;
+	line-height: 1.333;
+}
+
 .col div,
 .col span,
 .col applet,
@@ -1014,8 +1024,8 @@ template {
 
 .col address,
 .col p.address {
-	font-size: 0.800rem;
-	line-height: 1.333rem;
+	font-size: smaller;
+	line-height: inherit;
 	margin-right: 0;
 }
 
@@ -1099,7 +1109,8 @@ template {
 }
 
 .col pre {
-	font-size: 0.867rem;
+	font-size: inherit;
+	line-height: inherit;
 	white-space: pre;
 	white-space: pre-wrap;
 	word-wrap: inherit;
@@ -1169,8 +1180,8 @@ template {
 .col input[type^="datetime-local"],
 .col select,
 .col textarea {
-	font-size: 0.867rem;
-	line-height: 1.067rem;
+	font-size: smaller;
+	line-height: inherit;
 	box-sizing: border-box;
 	vertical-align: baseline;
 	*vertical-align: middle;
@@ -1211,15 +1222,15 @@ template {
 .col input[type^="datetime"],
 .col input[type^="datetime-local"],
 .col select {
-	height: 2.133rem;
+	height: 2.400rem;
 }
 
 .col button,
 .col input[type="button"],
 .col input[type="reset"],
 .col input[type="submit"] {
-	font-size: 0.867rem;
-	line-height: 1.067rem;
+	font-size: smaller;
+	line-height: inherit;
 	box-sizing: border-box;
 	vertical-align: baseline;
 	*vertical-align: middle;
@@ -1619,22 +1630,12 @@ template {
 }
 
 .col .larger {
-	font-size: 120%;
+	font-size: larger;
 }
 
 .col small,
 .col .smaller {
-	font-size: 80%;
-}
-
-.col .fade {
-	opacity: 1;
-	-webkit-transition: opacity .2s ease-in-out;
-	transition: opacity .2s ease-in-out;
-}
-
-.col .fade:hover {
-	opacity: .5;
+	font-size: smaller;
 }
 
 .col hr,
@@ -1723,13 +1724,17 @@ template {
  * font families
  */
 
+.col body {
+	font-family: "Segoe UI", "Segoe WP", "Helvetica Neue", "Roboto", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
+}
+
 .col h1 {
-	font-family: inherit;
+	font-family: "Segoe UI Light", "Segoe WP Light", "Helvetica Neue", "Roboto", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
 }
 
 .col pre,
 .col pre code {
-	font-family: "Source Code Pro","Consolas",monospace;
+	font-family: "Consolas", "Monaco", "Droid Sans Mono", "Menlo", "Source Code Pro", monospace;
 }
 
 .col select {
@@ -1762,7 +1767,7 @@ template {
 }
 
 .col .phonetic {
-	font-family: "Source Code Pro","Consolas",monospace;
+	font-family: "Consolas", "Monaco", "Droid Sans Mono", "Menlo", "Source Code Pro", monospace;
 }
 
 /**
@@ -2848,7 +2853,7 @@ template {
 	animation-fill-mode: both;
 }
 
-/*! @import "kamil-autocomplete"; */
+/*! @import "kamil-autocomplete.fixed"; */
 
 /**
  * modified Kamil v0.0.1
@@ -2860,6 +2865,8 @@ template {
 
 .kamil-autocomplete {
 	display: none;
+	/* visibility: hidden;
+	opacity: 0; */
 	/* width: 18.133rem !important; */
 	max-height: 16.000rem;
 	position: absolute;
@@ -2877,10 +2884,17 @@ template {
 	border-radius: 0;
 	box-sizing: border-box;
 	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
+	-webkit-transition: visibility 0s, opacity 0.2s linear;
+	transition: visibility 0s, opacity 0.2s linear;
 	outline: none;
 	padding: 0;
 	margin: 0;
 }
+
+/* .kamil-autocomplete.is-active {
+	visibility: visible;
+	opacity: 1;
+} */
 
 /* .kamil-autocomplete:hover {
 	overflow-y: auto;
@@ -3492,6 +3506,10 @@ u,
 	left: 3.200rem;
 }
 
+.page.is-active-ui-sidepanel .container {
+	left: 0;
+}
+
 @media handheld, only screen and (max-width: 360px) {
 	.container {
 		width: 100%;
@@ -3749,7 +3767,7 @@ u,
 }
 
 .col a.reflink {
-	font-size: 0.867rem;
+	font-size: smaller;
 	letter-spacing: 0.067rem;
 	color: #878787;
 	border-bottom: none;
@@ -3760,7 +3778,7 @@ u,
 }
 
 .col .phonetic {
-	font-family: "Source Code Pro", "Consolas", "Monaco", "Droid Sans Mono", "Menlo", monospace;
+	font-family: "Consolas", "Monaco", "Droid Sans Mono", "Menlo", "Source Code Pro", monospace;
 }
 
 .col .bolder {
@@ -3891,7 +3909,7 @@ u,
 
 .aside h3 {
 	font-weight: 300;
-	font-size: 1.331rem;
+	font-size: 1.333rem;
 }
 
 .aside p {
@@ -3901,7 +3919,7 @@ u,
 .aside caption,
 .aside table th,
 .aside table td {
-	font-size: 0.813rem;
+	font-size: 0.867rem;
 }
 
 /**
@@ -3926,9 +3944,9 @@ u,
 
 .col .holder-contents-select select {
 	display: inline-block;
-	width: 97%;
-	max-width: 21.733rem;
-	height: 2.133rem;
+	width: 100%;
+	max-width: 18.400rem;
+	height: 2.400rem;
 	font-family: sans-serif;
 	font-size: 0.933rem;
 	color: inherit;
@@ -3965,7 +3983,7 @@ u,
 .col .btn-expand-hidden-layer:after {
 	font-family: "micon";
 	content: "\EA8E";
-	font-size: 0.467em;
+	font-size: 0.400em;
 	position: relative;
 	vertical-align: middle;
 	margin-left: 0.533em;
@@ -4041,8 +4059,8 @@ u,
 	top: 0;
 	left: -18.133rem;
 	background-color: #232323;
-	-webkit-transition: left 0.2s ease, background-color 0.2s ease;
-	transition: left 0.2s ease, background-color 0.2s ease;
+	-webkit-transition: left 0.2s ease;
+	transition: left 0.2s ease;
 	/* overflow-y: hidden; */
 	overflow-y: auto;
 	margin: 0;
@@ -4071,10 +4089,6 @@ u,
 	transition: background-color 0.2s ease;
 }
 
-.page.is-active-ui-sidepanel .container {
-	left: 0;
-}
-
 .btn-toggle-ui-sidepanel {
 	display: inline-block;
 	width: 3.200rem;
@@ -4098,6 +4112,12 @@ u,
 .btn-toggle-ui-sidepanel:hover,
 .btn-toggle-ui-sidepanel:active {
 	background-color: #D5D5D5;
+}
+
+@media handheld, only screen and (max-width: 360px) {
+	.btn-toggle-ui-sidepanel {
+		left: 0;
+	}
 }
 
 .page.is-active-ui-sidepanel .btn-toggle-ui-sidepanel {
@@ -4145,12 +4165,6 @@ u,
 
 .ui-sidepanel-list a.is-active {
 	background-color: #00437E;
-}
-
-@media handheld, only screen and (max-width: 360px) {
-	.btn-toggle-ui-sidepanel {
-		left: 0;
-	}
 }
 
 /*!
@@ -4269,17 +4283,19 @@ u,
 
 .ui-sidebar {
 	display: inline-block;
-	visibility: visible;
-	opacity: 1;
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 3.200rem;
 	height: 100%;
 	background-color: #2D2D2D;
-	-webkit-transition: left 0.2s ease, visibility 0s, opacity 0.2s linear;
-	transition: left 0.2s ease, visibility 0s, opacity 0.2s linear;
+	-webkit-transition: left 0.2s ease;
+	transition: left 0.2s ease;
 	overflow-y: hidden;
+}
+
+.page.is-active-ui-sidepanel .ui-sidebar {
+	left: -3.200rem;
 }
 
 .ui-sidebar a {
@@ -4385,8 +4401,8 @@ u,
 	display: block;
 	visibility: hidden;
 	opacity: 0;
-	width: 9.600rem;
-	height: 9.600rem;
+	width: 9.867rem;
+	height: 9.867rem;
 	position: fixed;
 	top: 3.200rem;
 	left: 3.200rem;
@@ -4419,10 +4435,10 @@ u,
 .holder-location-qr-code .qr-code-img,
 .holder-location-qr-code img {
 	display: block;
-	width: 9.600rem;
-	height: 9.600rem;
+	width: 9.867rem;
+	height: 9.867rem;
 	background-color: transparent;
-	background-size: 9.600rem 9.600rem;
+	background-size: 9.867rem 9.867rem;
 	border: 0;
 	vertical-align: bottom;
 	padding: 0;
@@ -4437,14 +4453,14 @@ u,
 	display: inline-block;
 	width: 18.133rem;
 	position: fixed;
-	top: 0.533rem;
-	right: 0.533rem;
+	top: 0.400rem;
+	right: 0.400rem;
 }
 
 .holder-search-form input[type^=text],
 .holder-search-form input[type^=search] {
 	width: 100%;
-	height: 2.133rem;
+	height: 2.400rem;
 	font-family: inherit;
 	font-size: 0.933rem;
 	color: inherit;
@@ -4453,7 +4469,7 @@ u,
 	border-width: 0.067rem;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
-	padding-left: 2.133rem;
+	padding-left: 2.400rem;
 }
 
 .holder-search-form input[type^=text]:active,
@@ -4491,7 +4507,7 @@ u,
 	content: "\ECEA";
 	/* transform: scaleX(-1); */
 	font-size: 1.000rem;
-	line-height: 2.133rem;
+	line-height: 2.400rem;
 	color: #878787;
 }
 
@@ -4576,15 +4592,15 @@ u,
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
 	html {
-		font-size: 14px;
+		font-size: 13px;
 	}
 
 	.col {
-		max-width: 100%;
+		max-width: 76.000rem;
 	}
 
 	.padded-content {
-		padding: 0.667rem 0;
+		padding: 1.333rem 0.667rem;
 	}
 }
 
@@ -4592,15 +4608,15 @@ u,
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
 	html {
-		font-size: 14px;
+		font-size: 13px;
 	}
 
 	.col {
-		max-width: 100%;
+		max-width: 76.000rem;
 	}
 
 	.padded-content {
-		padding: 0.667rem 0;
+		padding: 1.333rem 0.667rem;
 	}
 }
 
@@ -4612,11 +4628,11 @@ u,
 	}
 
 	.col {
-		max-width: 100%;
+		max-width: 76.000rem;
 	}
 
 	.padded-content {
-		padding: 0.667rem 0;
+		padding: 1.333rem 0.667rem;
 	}
 }
 
@@ -4626,15 +4642,15 @@ iPad 3
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
 	html {
-		font-size: 14px;
+		font-size: 13px;
 	}
 
 	.col {
-		max-width: 100%;
+		max-width: 76.000rem;
 	}
 
 	.padded-content {
-		padding: 0.667rem 0;
+		padding: 1.333rem 0.667rem;
 	}
 }
 
@@ -4644,11 +4660,11 @@ iPad 3
 	}
 
 	.col {
-		max-width: 100%;
+		max-width: 76.000rem;
 	}
 
 	.padded-content {
-		padding: 0.667rem 0;
+		padding: 1.333rem 0.667rem;
 	}
 }
 
@@ -4659,12 +4675,12 @@ iPad 3
 		font-size: 15px;
 	}
 
-	.padded-content {
-		padding: 1.333rem 0.667rem;
-	}
-
 	.col {
 		max-width: 76.000rem;
+	}
+
+	.padded-content {
+		padding: 1.333rem 0.667rem;
 	}
 }
 
@@ -4675,12 +4691,12 @@ iPad 3
 		font-size: 18px;
 	}
 
-	.padded-content {
-		padding: 1.333rem 0.667rem;
-	}
-
 	.col {
 		max-width: 76.000rem;
+	}
+
+	.padded-content {
+		padding: 1.333rem 0.667rem;
 	}
 }
 

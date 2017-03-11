@@ -354,6 +354,16 @@ template {
  * github.com/englishextra/typeboost.css
  * set html font to 16px, and body to 1.000rem
  */
+ 
+.col html {
+	font-size: 16px;
+	line-height: 1.500;
+}
+
+.col body {
+	font-size: 1.000rem;
+	line-height: 1.500;
+}
 
 .col div,
 .col span,
@@ -487,8 +497,8 @@ template {
 
 .col address,
 .col p.address {
-	font-size: 0.813rem;
-	line-height: 1.250rem;
+	font-size: smaller;
+	line-height: inherit;
 	margin-right: 0;
 }
 
@@ -572,7 +582,8 @@ template {
 }
 
 .col pre {
-	font-size: 0.875rem;
+	font-size: inherit;
+	line-height: inherit;
 	white-space: pre;
 	white-space: pre-wrap;
 	word-wrap: inherit;
@@ -642,8 +653,8 @@ template {
 .col input[type^="datetime-local"],
 .col select,
 .col textarea {
-	font-size: 0.875rem;
-	line-height: 1.250rem;
+	font-size: smaller;
+	line-height: inherit;
 	box-sizing: border-box;
 	vertical-align: baseline;
 	*vertical-align: middle;
@@ -684,15 +695,15 @@ template {
 .col input[type^="datetime"],
 .col input[type^="datetime-local"],
 .col select {
-	height: 2.000rem;
+	height: 2.250rem;
 }
 
 .col button,
 .col input[type="button"],
 .col input[type="reset"],
 .col input[type="submit"] {
-	font-size: 0.875rem;
-	line-height: 1.250rem;
+	font-size: smaller;
+	line-height: inherit;
 	box-sizing: border-box;
 	vertical-align: baseline;
 	*vertical-align: middle;
@@ -1092,22 +1103,12 @@ template {
 }
 
 .col .larger {
-	font-size: 120%;
+	font-size: larger;
 }
 
 .col small,
 .col .smaller {
-	font-size: 80%;
-}
-
-.col .fade {
-	opacity: 1;
-	-webkit-transition: opacity .25s ease-in-out;
-	transition: opacity .25s ease-in-out;
-}
-
-.col .fade:hover {
-	opacity: .5;
+	font-size: smaller;
 }
 
 .col hr,
@@ -1195,9 +1196,13 @@ template {
 /**
  * font families
  */
+ 
+.col body {
+	font-family: "Segoe UI", "Segoe WP", "Helvetica Neue", "Roboto", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
+}
 
 .col h1 {
-	font-family: inherit;
+	font-family: "Segoe UI Light", "Segoe WP Light", "Helvetica Neue", "Roboto", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
 }
 
 .col pre,
@@ -2041,7 +2046,7 @@ body {
 	animation-name: fadeOutDown;
 }
 
-/*! @import "kamil-autocomplete"; */
+/*! @import "kamil-autocomplete.fixed"; */
 
 /**
  * modified Kamil v0.0.1
@@ -3410,7 +3415,7 @@ u,
 }
 
 .col a.reflink {
-	font-size: 0.875rem;
+	font-size: smaller;
 	letter-spacing: 0.063rem;
 	color: #878787;
 	border-bottom: none;

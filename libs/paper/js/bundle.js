@@ -1,5 +1,5 @@
 /*!
- * modified for babel ToProgress v0.1.1
+ * modified ToProgress v0.1.1
  * http://github.com/djyde/ToProgress
  * gist.github.com/englishextra/6a8c79c9efbf1f2f50523d46a918b785
  * jsfiddle.net/englishextra/z5xhjde8/
@@ -7,16 +7,16 @@
  * so that public function name is now customizable;
  * wrapped in curly brackets:
  * else{document.body.appendChild(this.progressBar);};
- * removed AMD, CommonJS support
- * added window object existence check
+ * removed module check
+ * added window check
  * passes jshint
  */
 var ToProgress=(function(){if("undefined"==typeof window||!("document"in window)){return console.log("window is undefined or document is not in window"),!1;}var TP=function(){function t(){var s=document.createElement("fakeelement"),i={transition:"transitionend",OTransition:"oTransitionEnd",MozTransition:"transitionend",WebkitTransition:"webkitTransitionEnd"};for(var j in i){if(i.hasOwnProperty(j)){if(void 0!==s.style[j]){return i[j];}}}}function s(t,a){if(this.progress=0,this.options={id:"top-progress-bar",color:"#F44336",height:"2px",duration:0.2},t&&"object"==typeof t){for(var i in t){if(t.hasOwnProperty(i)){this.options[i]=t[i];}}}if(this.options.opacityDuration=3*this.options.duration,this.progressBar=document.createElement("div"),this.progressBar.id=this.options.id,this.progressBar.setCSS=function(t){for(var a in t){if(t.hasOwnProperty(a)){this.style[a]=t[a];}}},this.progressBar.setCSS({position:a?"relative":"fixed",top:"0",left:"0",right:"0","background-color":this.options.color,height:this.options.height,width:"0%",transition:"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s","-moz-transition":"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s","-webkit-transition":"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s"}),a){var o=document.querySelector(a);if(o){if(o.hasChildNodes()){o.insertBefore(this.progressBar,o.firstChild);}else{o.appendChild(this.progressBar);}}}else{document.body.appendChild(this.progressBar);}}var i=t();return s.prototype.transit=function(){this.progressBar.style.width=this.progress+"%";},s.prototype.getProgress=function(){return this.progress;},s.prototype.setProgress=function(t,s){this.show();this.progress=t>100?100:0>t?0:t;this.transit();if(s){s();}},s.prototype.increase=function(t,s){this.show();this.setProgress(this.progress+t,s);},s.prototype.decrease=function(t,s){this.show();this.setProgress(this.progress-t,s);},s.prototype.finish=function(t){var s=this;this.setProgress(100,t);this.hide();if(i){this.progressBar.addEventListener(i,function(t){s.reset();s.progressBar.removeEventListener(t.type,TP);});}},s.prototype.reset=function(t){this.progress=0;this.transit();if(t){t();}},s.prototype.hide=function(){this.progressBar.style.opacity="0";},s.prototype.show=function(){this.progressBar.style.opacity="1";},s;};return TP();}());
 /*!
- * modified for babel Zenscroll - v3.2.2
+ * modified Zenscroll - v3.2.2
  * github.com/zengabor/zenscroll
  * Copyright 2015-2016 Gabor Lenard
- * removed AMD, CommonJS support
+ * removed module check
  * fixed IIFE enforcing
  * added brackets in if / for
  * source: github.com/zengabor/zenscroll/blob/dist/zenscroll.js
@@ -32,22 +32,22 @@ var zenscroll=(function(){"use strict";if(typeof window==="undefined"||!("docume
  * a=BALA.one("sometag/#someid/.someclass"[,someParent]);
  * global $ becomes var g
  * renamed function $ to g
- * added window object existence check
+ * added window check
  * source: github.com/finom/bala/blob/master/bala.js
  * passes jshint
  */
 var BALA=(function(){if("undefined"==typeof window||!("document"in window)){return console.log("window is undefined or document is not in window"),!1;}var g=(function(document,s_addEventListener,s_querySelectorAll){function g(s,context,bala){bala=Object.create(g.fn);if(s){bala.push.apply(bala,s[s_addEventListener]?[s]:""+s===s?/</.test(s)?((context=document.createElement(context||s_addEventListener)).innerHTML=s,context.children):context?((context=g(context)[0])?context[s_querySelectorAll](s):bala):document[s_querySelectorAll](s):typeof s=='function'?document.readyState[7]?s():document[s_addEventListener]('DOMContentLoaded',s):s);}return bala;}g.fn=[];g.one=function(s,context){return g(s,context)[0]||null;};return g;})(document,'addEventListener','querySelectorAll');return g;}());
 /*!
- * modified for babel crel - a small, simple, and fast DOM creation utility
+ * modified crel - a small, simple, and fast DOM creation utility
  * github.com/KoryNunn/crel
  * crel(tagName/dom element[,attributes,child1,child2,childN...])
  * var element=crel('div',crel('h1','Crello World!'),
  * crel('p','This is crel'),crel('input',{type:'number'}));
- * removed AMD, CommonJS support
+ * removed module check
  * fixed Use '===' to compare with 'null'.
  * fixed The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
  * fixed Expected an assignment or function call and instead saw an expression.
- * added window object existence check
+ * added window check
  * source: github.com/KoryNunn/crel/blob/master/crel.js
  * passes jshint
  */
@@ -67,7 +67,7 @@ var crel=(function(){if("undefined"==typeof window||!("document"in window)){retu
  */
 ;(function(doc,win){'use strict';if(typeof doc.createEvent!=='function')return false;var pointerEventSupport=function(type){var lo=type.toLowerCase(),ms='MS'+type;return navigator.msPointerEnabled?ms:window.PointerEvent?lo:false;},defaults={useJquery:!win.IGNORE_JQUERY&&typeof jQuery!=='undefined',swipeThreshold:win.SWIPE_THRESHOLD||100,tapThreshold:win.TAP_THRESHOLD||150,dbltapThreshold:win.DBL_TAP_THRESHOLD||200,longtapThreshold:win.LONG_TAP_THRESHOLD||1000,tapPrecision:win.TAP_PRECISION/2||60/2,justTouchEvents:win.JUST_ON_TOUCH_DEVICES},wasTouch=false,touchevents={touchstart:pointerEventSupport('PointerDown')||'touchstart',touchend:pointerEventSupport('PointerUp')||'touchend',touchmove:pointerEventSupport('PointerMove')||'touchmove'},isTheSameFingerId=function(e){return!e.pointerId||typeof pointerId==='undefined'||e.pointerId===pointerId;},setListener=function(elm,events,callback){var eventsArray=events.split(' '),i=eventsArray.length;while(i--){elm.addEventListener(eventsArray[i],callback,false);}},getPointerEvent=function(event){return event.targetTouches?event.targetTouches[0]:event;},getTimestamp=function(){return new Date().getTime();},sendEvent=function(elm,eventName,originalEvent,data){var customEvent=doc.createEvent('Event');customEvent.originalEvent=originalEvent;data=data||{};data.x=currX;data.y=currY;data.distance=data.distance;if(defaults.useJquery){customEvent=jQuery.Event(eventName,{originalEvent:originalEvent});jQuery(elm).trigger(customEvent,data);}if(customEvent.initEvent){for(var key in data){if(data.hasOwnProperty(key)){customEvent[key]=data[key];}}customEvent.initEvent(eventName,true,true);elm.dispatchEvent(customEvent);}while(elm){if(elm['on'+eventName])elm['on'+eventName](customEvent);elm=elm.parentNode;}},onTouchStart=function(e){if(!isTheSameFingerId(e))return;pointerId=e.pointerId;if(e.type!=='mousedown')wasTouch=true;if(e.type==='mousedown'&&wasTouch)return;var pointer=getPointerEvent(e);cachedX=currX=pointer.pageX;cachedY=currY=pointer.pageY;longtapTimer=setTimeout(function(){sendEvent(e.target,'longtap',e);target=e.target;},defaults.longtapThreshold);timestamp=getTimestamp();tapNum++;},onTouchEnd=function(e){if(!isTheSameFingerId(e))return;pointerId=undefined;if(e.type==='mouseup'&&wasTouch){wasTouch=false;return;}var eventsArr=[],now=getTimestamp(),deltaY=cachedY-currY,deltaX=cachedX-currX;clearTimeout(dblTapTimer);clearTimeout(longtapTimer);if(deltaX<=-defaults.swipeThreshold)eventsArr.push('swiperight');if(deltaX>=defaults.swipeThreshold)eventsArr.push('swipeleft');if(deltaY<=-defaults.swipeThreshold)eventsArr.push('swipedown');if(deltaY>=defaults.swipeThreshold)eventsArr.push('swipeup');if(eventsArr.length){for(var i=0;i<eventsArr.length;i++){var eventName=eventsArr[i];sendEvent(e.target,eventName,e,{distance:{x:Math.abs(deltaX),y:Math.abs(deltaY)}});}tapNum=0;}else{if(cachedX>=currX-defaults.tapPrecision&&cachedX<=currX+defaults.tapPrecision&&cachedY>=currY-defaults.tapPrecision&&cachedY<=currY+defaults.tapPrecision){if(timestamp+defaults.tapThreshold-now>=0){sendEvent(e.target,tapNum>=2&&target===e.target?'dbltap':'tap',e);target=e.target;}}dblTapTimer=setTimeout(function(){tapNum=0;},defaults.dbltapThreshold);}},onTouchMove=function(e){if(!isTheSameFingerId(e))return;if(e.type==='mousemove'&&wasTouch)return;var pointer=getPointerEvent(e);currX=pointer.pageX;currY=pointer.pageY;},tapNum=0,pointerId,currX,currY,cachedX,cachedY,timestamp,target,dblTapTimer,longtapTimer;setListener(doc,touchevents.touchstart+(defaults.justTouchEvents?'':' mousedown'),onTouchStart);setListener(doc,touchevents.touchend+(defaults.justTouchEvents?'':' mouseup'),onTouchEnd);setListener(doc,touchevents.touchmove+(defaults.justTouchEvents?'':' mousemove'),onTouchMove);win.tocca=function(options){for(var opt in options){if(options.hasOwnProperty(opt)){defaults[opt]=options[opt];}}return defaults;};}(document,window));
 /*!
- * modified for babel JavaScript Cookie - v2.1.3
+ * modified JavaScript Cookie - v2.1.3
  * github.com/js-cookie/js-cookie
  * Copyright 2006, 2015 Klaus Hartl & Fagner Brack
  * Released under the MIT license
@@ -236,14 +236,14 @@ var setAutoClearedTimeout=function(f,n){n=n||200;if(f&&"function"===typeof f){va
  * so code can be scheduled to run when the document is ready
  * github.com/jfriend00/docReady
  * gist.github.com/englishextra/7c22a9a9cae3320318e9c9eab6777c84
- * added window object existence check
+ * added window check
  * docReady(function(){});
  * source: github.com/jfriend00/docReady/blob/master/docready.js
  * passes jshint
  */
 var docReady=(function(){"use strict";if("undefined"==typeof window||!("document"in window)){return console.log("window is undefined or document is not in window"),!1;}var readyList=[];var readyFired=false;var readyEventHandlersInstalled=false;function ready(){if(!readyFired){readyFired=true;for(var i=0;i<readyList.length;i++){readyList[i].fn.call(window,readyList[i].ctx);}readyList=[];}}function readyStateChange(){if(document.readyState==="complete"){ready();}}return function(callback,context){if(readyFired){setTimeout(function(){callback(context);},1);return;}else{readyList.push({fn:callback,ctx:context});}if(document.readyState==="complete"||(!document.attachEvent&&document.readyState==="interactive")){setTimeout(ready,1);}else if(!readyEventHandlersInstalled){if(document.addEventListener){document.addEventListener("DOMContentLoaded",ready,false);window.addEventListener("load",ready,false);}else{document.attachEvent("onreadystatechange",readyStateChange);window.attachEvent("onload",ready);}readyEventHandlersInstalled=true;}};})();
 /*!
- * modified for babel Evento - v1.0.0
+ * modified Evento - v1.0.0
  * by Erik Royall <erikroyalL@hotmail.com> (http://erikroyall.github.io)
  * Dual licensed under MIT and GPL
  * identifier needs binding if its function has arguments
@@ -255,7 +255,7 @@ var docReady=(function(){"use strict";if("undefined"==typeof window||!("document
  * jsbin.com/jilevi/edit?html,js,output
  * jsfiddle.net/englishextra/hLxyvmcm/
  * exposed as window property
- * added window object existence check
+ * added window check
  * source: gist.github.com/erikroyall/6618740
  * source: gist.github.com/englishextra/3a959e4da0fcc268b140
  * passes jshint
@@ -446,9 +446,9 @@ var findPos=function(a){a=a.getBoundingClientRect();var b=document.body,c=docume
  */
 var changeLocation=function(a){return function(){if(a){document.location.href=a;}}();};
 /*!
- * modified for babel Unified URL parsing API in the browser and node
+ * modified Unified URL parsing API in the browser and node
  * github.com/wooorm/parse-link
- * removed AMD, CommonJS support
+ * removed module check
  * gist.github.com/englishextra/4e9a0498772f05fa5d45cfcc0d8be5dd
  * gist.github.com/englishextra/2a7fdabd0b23a8433d5fc148fb788455
  * jsfiddle.net/englishextra/fcdds4v6/
@@ -971,6 +971,8 @@ var manageDataSrcImg = function (ctx) {
 	var w = window,
 	cls = "img[data-src]",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	is_active = "is-active",
+	cL = "classList",
 	ds = "dataset",
 	pN = "parentNode",
 	g = function (e) {
@@ -981,11 +983,11 @@ var manageDataSrcImg = function (ctx) {
 			}
 			if (w.lzld) {
 				lzld(e);
+				e[cL].add(is_active);
 			} else {
 				e.src = e[ds].src;
+				e[cL].add(is_active);
 			}
-			/* setStyleVisibilityVisible(e[pN]);
-			setStyleOpacity(e[pN], 1); */
 		}
 	};
 	if (a) {
@@ -1012,6 +1014,8 @@ var manageDataSrcIframe = function (ctx) {
 	var w = window,
 	cls = "iframe[data-src]",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	is_active = "is-active",
+	cL = "classList",
 	ds = "dataset",
 	pN = "parentNode",
 	g = function (e) {
@@ -1022,11 +1026,11 @@ var manageDataSrcIframe = function (ctx) {
 			}
 			if (w.lzld) {
 				lzld(e);
+				e[cL].add(is_active);
 			} else {
 				e.src = e[ds].src;
+				e[cL].add(is_active);
 			}
-			/* setStyleVisibilityVisible(e[pN]);
-			setStyleOpacity(e[pN], 1); */
 			crel(e, {
 				"scrolling" : "no",
 				"frameborder" : "no",

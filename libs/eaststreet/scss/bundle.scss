@@ -2,17 +2,17 @@
  * bundle.scss
  */
 
-@import "colors";
-@import "variables";
+@import "eaststreet-colors";
+@import "eaststreet-variables";
 @import "micon.fixed";
 @import "normalize";
-@import "typeboost-uwp-css";
+@import "eaststreet-typography";
 @import "grid.fixed";
 @import "loading-spinner";
 @import "notibar.fixed";
 @import "notifier42";
 @import "img-lightbox";
-@import "kamil-autocomplete";
+@import "kamil-autocomplete.fixed";
 @import "ya-share2.fixed";
 @import "ui-totop";
 @import "ymap";

@@ -1,5 +1,5 @@
 /*!
- * modified for babel ToProgress v0.1.1
+ * modified ToProgress v0.1.1
  * http://github.com/djyde/ToProgress
  * gist.github.com/englishextra/6a8c79c9efbf1f2f50523d46a918b785
  * jsfiddle.net/englishextra/z5xhjde8/
@@ -7,16 +7,16 @@
  * so that public function name is now customizable;
  * wrapped in curly brackets:
  * else{document.body.appendChild(this.progressBar);};
- * removed AMD, CommonJS support
- * added window object existence check
+ * removed module check
+ * added window check
  * passes jshint
  */
 var ToProgress=(function(){if("undefined"==typeof window||!("document"in window)){return console.log("window is undefined or document is not in window"),!1;}var TP=function(){function t(){var s=document.createElement("fakeelement"),i={transition:"transitionend",OTransition:"oTransitionEnd",MozTransition:"transitionend",WebkitTransition:"webkitTransitionEnd"};for(var j in i){if(i.hasOwnProperty(j)){if(void 0!==s.style[j]){return i[j];}}}}function s(t,a){if(this.progress=0,this.options={id:"top-progress-bar",color:"#F44336",height:"2px",duration:0.2},t&&"object"==typeof t){for(var i in t){if(t.hasOwnProperty(i)){this.options[i]=t[i];}}}if(this.options.opacityDuration=3*this.options.duration,this.progressBar=document.createElement("div"),this.progressBar.id=this.options.id,this.progressBar.setCSS=function(t){for(var a in t){if(t.hasOwnProperty(a)){this.style[a]=t[a];}}},this.progressBar.setCSS({position:a?"relative":"fixed",top:"0",left:"0",right:"0","background-color":this.options.color,height:this.options.height,width:"0%",transition:"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s","-moz-transition":"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s","-webkit-transition":"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s"}),a){var o=document.querySelector(a);if(o){if(o.hasChildNodes()){o.insertBefore(this.progressBar,o.firstChild);}else{o.appendChild(this.progressBar);}}}else{document.body.appendChild(this.progressBar);}}var i=t();return s.prototype.transit=function(){this.progressBar.style.width=this.progress+"%";},s.prototype.getProgress=function(){return this.progress;},s.prototype.setProgress=function(t,s){this.show();this.progress=t>100?100:0>t?0:t;this.transit();if(s){s();}},s.prototype.increase=function(t,s){this.show();this.setProgress(this.progress+t,s);},s.prototype.decrease=function(t,s){this.show();this.setProgress(this.progress-t,s);},s.prototype.finish=function(t){var s=this;this.setProgress(100,t);this.hide();if(i){this.progressBar.addEventListener(i,function(t){s.reset();s.progressBar.removeEventListener(t.type,TP);});}},s.prototype.reset=function(t){this.progress=0;this.transit();if(t){t();}},s.prototype.hide=function(){this.progressBar.style.opacity="0";},s.prototype.show=function(){this.progressBar.style.opacity="1";},s;};return TP();}());
 /*!
- * modified for babel Zenscroll - v3.2.2
+ * modified Zenscroll - v3.2.2
  * github.com/zengabor/zenscroll
  * Copyright 2015-2016 Gabor Lenard
- * removed AMD, CommonJS support
+ * removed module check
  * fixed IIFE enforcing
  * added brackets in if / for
  * source: github.com/zengabor/zenscroll/blob/dist/zenscroll.js
@@ -32,22 +32,22 @@ var zenscroll=(function(){"use strict";if(typeof window==="undefined"||!("docume
  * a=BALA.one("sometag/#someid/.someclass"[,someParent]);
  * global $ becomes var g
  * renamed function $ to g
- * added window object existence check
+ * added window check
  * source: github.com/finom/bala/blob/master/bala.js
  * passes jshint
  */
 var BALA=(function(){if("undefined"==typeof window||!("document"in window)){return console.log("window is undefined or document is not in window"),!1;}var g=(function(document,s_addEventListener,s_querySelectorAll){function g(s,context,bala){bala=Object.create(g.fn);if(s){bala.push.apply(bala,s[s_addEventListener]?[s]:""+s===s?/</.test(s)?((context=document.createElement(context||s_addEventListener)).innerHTML=s,context.children):context?((context=g(context)[0])?context[s_querySelectorAll](s):bala):document[s_querySelectorAll](s):typeof s=='function'?document.readyState[7]?s():document[s_addEventListener]('DOMContentLoaded',s):s);}return bala;}g.fn=[];g.one=function(s,context){return g(s,context)[0]||null;};return g;})(document,'addEventListener','querySelectorAll');return g;}());
 /*!
- * modified for babel crel - a small, simple, and fast DOM creation utility
+ * modified crel - a small, simple, and fast DOM creation utility
  * github.com/KoryNunn/crel
  * crel(tagName/dom element[,attributes,child1,child2,childN...])
  * var element=crel('div',crel('h1','Crello World!'),
  * crel('p','This is crel'),crel('input',{type:'number'}));
- * removed AMD, CommonJS support
+ * removed module check
  * fixed Use '===' to compare with 'null'.
  * fixed The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
  * fixed Expected an assignment or function call and instead saw an expression.
- * added window object existence check
+ * added window check
  * source: github.com/KoryNunn/crel/blob/master/crel.js
  * passes jshint
  */
@@ -176,14 +176,14 @@ var forEach=(function(){return function(a,b,c){var d=-1,e=a.length>>>0;(function
  * so code can be scheduled to run when the document is ready
  * github.com/jfriend00/docReady
  * gist.github.com/englishextra/7c22a9a9cae3320318e9c9eab6777c84
- * added window object existence check
+ * added window check
  * docReady(function(){});
  * source: github.com/jfriend00/docReady/blob/master/docready.js
  * passes jshint
  */
 var docReady=(function(){"use strict";if("undefined"==typeof window||!("document"in window)){return console.log("window is undefined or document is not in window"),!1;}var readyList=[];var readyFired=false;var readyEventHandlersInstalled=false;function ready(){if(!readyFired){readyFired=true;for(var i=0;i<readyList.length;i++){readyList[i].fn.call(window,readyList[i].ctx);}readyList=[];}}function readyStateChange(){if(document.readyState==="complete"){ready();}}return function(callback,context){if(readyFired){setTimeout(function(){callback(context);},1);return;}else{readyList.push({fn:callback,ctx:context});}if(document.readyState==="complete"||(!document.attachEvent&&document.readyState==="interactive")){setTimeout(ready,1);}else if(!readyEventHandlersInstalled){if(document.addEventListener){document.addEventListener("DOMContentLoaded",ready,false);window.addEventListener("load",ready,false);}else{document.attachEvent("onreadystatechange",readyStateChange);window.attachEvent("onload",ready);}readyEventHandlersInstalled=true;}};})();
 /*!
- * modified for babel Evento - v1.0.0
+ * modified Evento - v1.0.0
  * by Erik Royall <erikroyalL@hotmail.com> (http://erikroyall.github.io)
  * Dual licensed under MIT and GPL
  * identifier needs binding if its function has arguments
@@ -195,7 +195,7 @@ var docReady=(function(){"use strict";if("undefined"==typeof window||!("document
  * jsbin.com/jilevi/edit?html,js,output
  * jsfiddle.net/englishextra/hLxyvmcm/
  * exposed as window property
- * added window object existence check
+ * added window check
  * source: gist.github.com/erikroyall/6618740
  * source: gist.github.com/englishextra/3a959e4da0fcc268b140
  * passes jshint
@@ -281,9 +281,9 @@ var setStyleVisibilityVisible=function(a){return function(){if(a){a.style.visibi
  */
 var setStyleVisibilityHidden=function(a){return function(){if(a){a.style.visibility="hidden";}}();};
 /*!
- * modified for babel Unified URL parsing API in the browser and node
+ * modified Unified URL parsing API in the browser and node
  * github.com/wooorm/parse-link
- * removed AMD, CommonJS support
+ * removed module check
  * gist.github.com/englishextra/4e9a0498772f05fa5d45cfcc0d8be5dd
  * gist.github.com/englishextra/2a7fdabd0b23a8433d5fc148fb788455
  * jsfiddle.net/englishextra/fcdds4v6/

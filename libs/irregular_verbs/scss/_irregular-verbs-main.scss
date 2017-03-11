@@ -123,22 +123,22 @@ u,
 
 .show-inline-on-mobile,
 .show-block-on-mobile {
-	display: none /* !important */;
+	display: none  /* !important */;
 }
 
 @media handheld, only screen and (max-width: 800px) {
 	.hide-on-mobile {
-		display: none /* !important */;
+		display: none  /* !important */;
 		width: 0;
 		height: 0;
 	}
 
 	.show-inline-on-mobile {
-		display: inline /* !important */;
+		display: inline  /* !important */;
 	}
 
 	.show-block-on-mobile {
-		display: block /* !important */;
+		display: block  /* !important */;
 	}
 }
 

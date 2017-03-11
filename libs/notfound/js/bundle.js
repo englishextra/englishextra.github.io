@@ -7,7 +7,7 @@
  * a=BALA.one("sometag/#someid/.someclass"[,someParent]);
  * global $ becomes var g
  * renamed function $ to g
- * added window object existence check
+ * added window check
  * source: github.com/finom/bala/blob/master/bala.js
  * passes jshint
  */
@@ -129,7 +129,7 @@ var requestInterval=function(fn,delay){var requestAnimFrame=(function(){return w
  */
 var clearRequestInterval=function(handle){if(window.cancelAnimationFrame){window.cancelAnimationFrame(handle.value);}else{window.clearInterval(handle);}};
 /*!
- * modified for babel Evento - v1.0.0
+ * modified Evento - v1.0.0
  * by Erik Royall <erikroyalL@hotmail.com> (http://erikroyall.github.io)
  * Dual licensed under MIT and GPL
  * identifier needs binding if its function has arguments
@@ -141,7 +141,7 @@ var clearRequestInterval=function(handle){if(window.cancelAnimationFrame){window
  * jsbin.com/jilevi/edit?html,js,output
  * jsfiddle.net/englishextra/hLxyvmcm/
  * exposed as window property
- * added window object existence check
+ * added window check
  * source: gist.github.com/erikroyall/6618740
  * source: gist.github.com/englishextra/3a959e4da0fcc268b140
  * passes jshint
