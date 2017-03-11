@@ -299,8 +299,8 @@ u,
 }
 
 .col a:hover,
-.col a:active,
-.col a:focus {
+.col a:focus,
+.col a:active {
 	color: $color-hex-hover-link;
 }
 
@@ -309,15 +309,8 @@ u,
 }
 
 .container .col h1 {
-	font-family: inherit;
-	text-align: center;
+	font-family: $font-family-local-sans-light;
 	margin-top: 0;
-}
-
-@media handheld, only screen and (max-width: 1279px) {
-	.container .col h1 {
-		text-align: left;
-	}
 }
 
 .col dl dt a {
@@ -328,8 +321,8 @@ u,
 }
 
 .col dl dt a:hover,
-.col dl dt a:active,
-.col dl dt a:focus {
+.col dl dt a:focus,
+.col dl dt a:active {
 	color: inherit;
 }
 
@@ -509,7 +502,7 @@ u,
 }
 
 .col .phonetic {
-	font-family: "Consolas", "Monaco", "Droid Sans Mono", "Menlo", "Source Code Pro", monospace;
+	font-family: $font-family-local-monospace;
 }
 
 .col .bolder {
@@ -556,11 +549,11 @@ u,
 }
 
 .col .btn-primary,
-.col .btn-primary:active,
 .col .btn-primary:focus,
+.col .btn-primary:active,
 .col a.btn-primary,
-.col a.btn-primary:active,
-.col a.btn-primary:focus {
+.col a.btn-primary:focus,
+.col a.btn-primary:active {
 	color: #FFFFFF;
 	background-color: $color-hex-button-bg;
 	border-color: $color-hex-button-bg;
@@ -572,11 +565,11 @@ u,
 }
 
 .col .btn-secondary,
-.col .btn-secondary:active,
 .col .btn-secondary:focus,
+.col .btn-secondary:active,
 .col a.btn-secondary,
-.col a.btn-secondary:active,
-.col a.btn-secondary:focus {
+.col a.btn-secondary:focus,
+.col a.btn-secondary:active {
 	color: $color-hex-lighter-text;
 	background-color: $color-hex-ui-icon-bg;
 	border-color: $color-hex-ui-icon-bg;
@@ -589,11 +582,11 @@ u,
 }
 
 .col .btn-link,
-.col .btn-link:active,
 .col .btn-link:focus,
+.col .btn-link:active,
 .col a.btn-link,
-.col a.btn-link:active,
-.col a.btn-link:focus {
+.col a.btn-link:focus,
+.col a.btn-link:active {
 	color: $color-hex-lighter-text;
 	background-color: transparent;
 	border-color: $color-hex-ui-icon-bg;
@@ -699,8 +692,8 @@ u,
 
 .col .holder-contents-select select,
 .col .holder-contents-select select:hover,
-.col .holder-contents-select select:active,
-.col .holder-contents-select select:focus {
+.col .holder-contents-select select:focus,
+.col .holder-contents-select select:active {
 	border: 0.067rem solid $color-hex-divider;
 }
 
@@ -1121,8 +1114,8 @@ u,
 	display: block;
 	visibility: hidden;
 	opacity: 0;
-	width: 9.867rem;
-	height: 9.867rem;
+	width: 9.600rem;
+	height: 9.600rem;
 	position: fixed;
 	top: 3.200rem;
 	left: 3.200rem;
@@ -1154,10 +1147,10 @@ u,
 .holder-location-qr-code .qr-code-img,
 .holder-location-qr-code img {
 	display: block;
-	width: 9.867rem;
-	height: 9.867rem;
+	width: 9.600rem;
+	height: 9.600rem;
 	background-color: transparent;
-	background-size: 9.867rem 9.867rem;
+	background-size: 9.600rem 9.600rem;
 	border: 0;
 	vertical-align: bottom;
 	padding: 0;
@@ -1191,10 +1184,10 @@ u,
 	padding-left: 2.400rem;
 }
 
-.holder-search-form input[type^=text]:active,
 .holder-search-form input[type^=text]:focus,
-.holder-search-form input[type^=search]:active,
-.holder-search-form input[type^=search]:focus {
+.holder-search-form input[type^=text]:active,
+.holder-search-form input[type^=search]:focus,
+.holder-search-form input[type^=search]:active {
 	background-color: $color-hex-hover-ui-icon-bg;
 	border-color: transparent;
 	-webkit-tap-highlight-color: transparent;

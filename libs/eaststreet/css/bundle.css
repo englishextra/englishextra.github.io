@@ -1025,7 +1025,7 @@ template {
 .col address,
 .col p.address {
 	font-size: smaller;
-	line-height: inherit;
+	line-height: 1.333;
 	margin-right: 0;
 }
 
@@ -1081,13 +1081,13 @@ template {
 .col pre,
 .col pre code {
 	font-size: smaller;
-	line-height: inherit;
+	line-height: 1.333;
 }
 
 .col p.larger,
 .col blockquote {
 	font-size: larger;
-	line-height: inherit;
+	line-height: 1.333;
 }
 
 .col p,
@@ -1181,7 +1181,7 @@ template {
 .col select,
 .col textarea {
 	font-size: smaller;
-	line-height: inherit;
+	line-height: 1.333;
 	box-sizing: border-box;
 	vertical-align: baseline;
 	*vertical-align: middle;
@@ -1230,7 +1230,7 @@ template {
 .col input[type="reset"],
 .col input[type="submit"] {
 	font-size: smaller;
-	line-height: inherit;
+	line-height: 1.333;
 	box-sizing: border-box;
 	vertical-align: baseline;
 	*vertical-align: middle;
@@ -1729,7 +1729,7 @@ template {
 }
 
 .col h1 {
-	font-family: "Segoe UI Light", "Segoe WP Light", "Helvetica Neue", "Roboto", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
+	font-family: "Segoe UI Light", "Segoe WP Light", "Segoe UI", "Helvetica Neue", "Roboto", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
 }
 
 .col pre,
@@ -3567,8 +3567,8 @@ u,
 }
 
 .col a:hover,
-.col a:active,
-.col a:focus {
+.col a:focus,
+.col a:active {
 	color: #007DD1;
 }
 
@@ -3577,15 +3577,8 @@ u,
 }
 
 .container .col h1 {
-	font-family: inherit;
-	text-align: center;
+	font-family: "Segoe UI Light", "Segoe WP Light", "Segoe UI", "Helvetica Neue", "Roboto", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
 	margin-top: 0;
-}
-
-@media handheld, only screen and (max-width: 1279px) {
-	.container .col h1 {
-		text-align: left;
-	}
 }
 
 .col dl dt a {
@@ -3596,8 +3589,8 @@ u,
 }
 
 .col dl dt a:hover,
-.col dl dt a:active,
-.col dl dt a:focus {
+.col dl dt a:focus,
+.col dl dt a:active {
 	color: inherit;
 }
 
@@ -3825,11 +3818,11 @@ u,
 }
 
 .col .btn-primary,
-.col .btn-primary:active,
 .col .btn-primary:focus,
+.col .btn-primary:active,
 .col a.btn-primary,
-.col a.btn-primary:active,
-.col a.btn-primary:focus {
+.col a.btn-primary:focus,
+.col a.btn-primary:active {
 	color: #FFFFFF;
 	background-color: #4B4B4B;
 	border-color: #4B4B4B;
@@ -3841,11 +3834,11 @@ u,
 }
 
 .col .btn-secondary,
-.col .btn-secondary:active,
 .col .btn-secondary:focus,
+.col .btn-secondary:active,
 .col a.btn-secondary,
-.col a.btn-secondary:active,
-.col a.btn-secondary:focus {
+.col a.btn-secondary:focus,
+.col a.btn-secondary:active {
 	color: #737373;
 	background-color: #EDEDED;
 	border-color: #EDEDED;
@@ -3858,11 +3851,11 @@ u,
 }
 
 .col .btn-link,
-.col .btn-link:active,
 .col .btn-link:focus,
+.col .btn-link:active,
 .col a.btn-link,
-.col a.btn-link:active,
-.col a.btn-link:focus {
+.col a.btn-link:focus,
+.col a.btn-link:active {
 	color: #737373;
 	background-color: transparent;
 	border-color: #EDEDED;
@@ -3967,8 +3960,8 @@ u,
 
 .col .holder-contents-select select,
 .col .holder-contents-select select:hover,
-.col .holder-contents-select select:active,
-.col .holder-contents-select select:focus {
+.col .holder-contents-select select:focus,
+.col .holder-contents-select select:active {
 	border: 0.067rem solid #C3C3C3;
 }
 
@@ -4401,8 +4394,8 @@ u,
 	display: block;
 	visibility: hidden;
 	opacity: 0;
-	width: 9.867rem;
-	height: 9.867rem;
+	width: 9.600rem;
+	height: 9.600rem;
 	position: fixed;
 	top: 3.200rem;
 	left: 3.200rem;
@@ -4435,10 +4428,10 @@ u,
 .holder-location-qr-code .qr-code-img,
 .holder-location-qr-code img {
 	display: block;
-	width: 9.867rem;
-	height: 9.867rem;
+	width: 9.600rem;
+	height: 9.600rem;
 	background-color: transparent;
-	background-size: 9.867rem 9.867rem;
+	background-size: 9.600rem 9.600rem;
 	border: 0;
 	vertical-align: bottom;
 	padding: 0;
@@ -4472,10 +4465,10 @@ u,
 	padding-left: 2.400rem;
 }
 
-.holder-search-form input[type^=text]:active,
 .holder-search-form input[type^=text]:focus,
-.holder-search-form input[type^=search]:active,
-.holder-search-form input[type^=search]:focus {
+.holder-search-form input[type^=text]:active,
+.holder-search-form input[type^=search]:focus,
+.holder-search-form input[type^=search]:active {
 	background-color: #D5D5D5;
 	border-color: transparent;
 	-webkit-tap-highlight-color: transparent;

@@ -149,7 +149,7 @@
 .col address,
 .col p.address {
 	font-size: smaller;
-	line-height: inherit;
+	line-height: 1.333;
 	margin-right: 0;
 }
 
@@ -205,13 +205,13 @@
 .col pre,
 .col pre code {
 	font-size: smaller;
-	line-height: inherit;
+	line-height: 1.333;
 }
 
 .col p.larger,
 .col blockquote {
 	font-size: larger;
-	line-height: inherit;
+	line-height: 1.333;
 }
 
 .col p,
@@ -305,7 +305,7 @@
 .col select,
 .col textarea {
 	font-size: smaller;
-	line-height: inherit;
+	line-height: 1.333;
 	box-sizing: border-box;
 	vertical-align: baseline;
 	*vertical-align: middle;
@@ -354,7 +354,7 @@
 .col input[type="reset"],
 .col input[type="submit"] {
 	font-size: smaller;
-	line-height: inherit;
+	line-height: 1.333;
 	box-sizing: border-box;
 	vertical-align: baseline;
 	*vertical-align: middle;
@@ -853,7 +853,7 @@
 }
 
 .col h1 {
-	font-family: "Segoe UI Light", "Segoe WP Light", "Helvetica Neue", "Roboto", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
+	font-family: "Segoe UI Light", "Segoe WP Light", "Segoe UI", "Helvetica Neue", "Roboto", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
 }
 
 .col pre,
