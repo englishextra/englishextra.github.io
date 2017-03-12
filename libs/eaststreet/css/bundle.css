@@ -344,6 +344,10 @@ EB5262
 	content: "\ECA6";
 }
 
+.mi-Repair:before {
+	content: "\ECAE";
+}
+
 .mi-Share:before {
 	content: "\ECF8";
 }
@@ -882,14 +886,14 @@ template {
  * set html font to 15px, and body to 1.000rem
  */
 
-.col html {
+html {
 	font-size: 15px;
-	line-height: 1.333;
+	line-height: 20px;
 }
 
-.col body {
+body {
 	font-size: 1.000rem;
-	line-height: 1.333;
+	line-height: 1.333rem;
 }
 
 .col div,
@@ -1024,8 +1028,8 @@ template {
 
 .col address,
 .col p.address {
-	font-size: smaller;
-	line-height: 1.333;
+	font-size: 0.867rem;
+	line-height: 1.067rem;
 	margin-right: 0;
 }
 
@@ -1034,35 +1038,35 @@ template {
 }
 
 .col h1 {
-	font-size: 3.333rem;
+	font-size: 3.067rem;
 	line-height: 3.733rem;
 	padding: 0;
 }
 
 .col h2 {
-	font-size: 1.733rem;
+	font-size: 1.600rem;
 	line-height: 2.133rem;
 	padding: 0;
 }
 
 .col h3 {
-	font-size: 1.467rem;
+	font-size: 1.200rem;
 	line-height: 1.600rem;
+	text-transform: uppercase;
 	padding: 0;
 }
 
 .col h4 {
-	font-size: 1.333rem;
-	line-height: 1.600rem;
+	font-size: 1.000rem;
+	line-height: 1.333rem;
 	font-variant: small-caps;
 	letter-spacing: 0.067rem;
 	padding: 0;
 }
 
 .col h5 {
-	font-size: 1.200rem;
+	font-size: 1.000rem;
 	line-height: 1.333rem;
-	text-transform: uppercase;
 	padding: 0;
 }
 
@@ -1080,14 +1084,14 @@ template {
 .col table th,
 .col pre,
 .col pre code {
-	font-size: smaller;
-	line-height: 1.333;
+	font-size: 0.867rem;
+	line-height: 1.067rem;
 }
 
 .col p.larger,
 .col blockquote {
-	font-size: larger;
-	line-height: 1.333;
+	font-size: 1.133rem;
+	line-height: 1.600rem;
 }
 
 .col p,
@@ -1096,8 +1100,8 @@ template {
 .col dl dd,
 .col ul li,
 .col ol li {
-	font-size: 1.000rem;
-	line-height: 1.333rem;
+	font-size: inherit;
+	line-height: inherit;
 }
 
 .col ul {
@@ -1121,7 +1125,7 @@ template {
 	-moz-tab-size: 4;
 	-o-tab-size: 4;
 	tab-size: 4;
-	padding: 0.933rem 1.333rem;
+	padding: 0.533rem 0.800rem;
 }
 
 .col pre code {
@@ -1148,7 +1152,7 @@ template {
 
 .col table td,
 .col table th {
-	padding: 0.267rem 0.667rem;
+	padding: 0.533rem 0.533rem;
 	vertical-align: top;
 }
 
@@ -1180,14 +1184,14 @@ template {
 .col input[type^="datetime-local"],
 .col select,
 .col textarea {
-	font-size: smaller;
-	line-height: 1.333;
+	font-size: 0.867rem;
+	line-height: 1.067rem;
 	box-sizing: border-box;
 	vertical-align: baseline;
 	*vertical-align: middle;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
-	padding: 0 0.667rem;
+	padding: 0 0.533rem;
 }
 
 .col select {
@@ -1195,8 +1199,8 @@ template {
 }
 
 .col optgroup {
-	margin: 0.200rem;
-	padding-left: 0.200rem;
+	margin: 0.267rem;
+	padding-left: 0.267rem;
 }
 
 .col input[type="color"] {
@@ -1229,20 +1233,20 @@ template {
 .col input[type="button"],
 .col input[type="reset"],
 .col input[type="submit"] {
-	font-size: smaller;
-	line-height: 1.333;
+	font-size: 0.867rem;
+	line-height: 1.067rem;
 	box-sizing: border-box;
 	vertical-align: baseline;
 	*vertical-align: middle;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	cursor: pointer;
-	padding: 0 0.667rem;
+	padding: 0 0.533rem;
 }
 
 .col label {
 	display: block;
-	margin-bottom: 0.133rem;
+	margin-bottom: 0.267rem;
 }
 
 .col textarea {
@@ -1614,7 +1618,7 @@ template {
 .col table + p,
 .col ul + p,
 .col details + p {
-	margin-bottom: 0.933rem;
+	margin-bottom: 1.067rem;
 }
 
 .col .textleft {
@@ -1642,7 +1646,7 @@ template {
 .col .hr {
 	height: 0.067rem;
 	padding: 0;
-	margin: 1.333rem 0;
+	margin: 1.333rem 0 1.267rem 0;
 }
 
 /**
@@ -1686,7 +1690,7 @@ template {
 	font-weight: lighter;
 }
 
-.col h3,
+.col h5,
 .col table th,
 .col dl dt,
 .col button,
@@ -1728,9 +1732,9 @@ template {
 	font-family: "Segoe UI", "Segoe WP", "HelveticaNeue", "Roboto", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
 }
 
-.col h1 {
+/* .col h1 {
 	font-family: "Segoe UI", "Segoe WP", "HelveticaNeue-Light", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif-light, sans-serif;
-}
+} */
 
 .col pre,
 .col pre code {
@@ -2732,7 +2736,7 @@ template {
 	color: inherit;
 	text-decoration: none;
 	cursor: pointer;
-	margin-top: -0.667rem;
+	margin-top: -0.533rem;
 }
 
 .notibar div.message {
@@ -3044,7 +3048,7 @@ template {
 }
 
 #disqus_thread.is-active iframe {
-	margin-top: 0.667rem;
+	margin-top: 0.533rem;
 	padding-right: 1.333rem;
 	padding-left: 1.333rem;
 }
@@ -3278,7 +3282,7 @@ body {
 
 html {
 	font-size: 15px;
-	line-height: 1.333;
+	line-height: 20px;
 	/**
 	 * set the parent to background transparent
 	 * and position relative to parent, absolute for child
@@ -3577,7 +3581,6 @@ u,
 }
 
 .container .col h1 {
-	font-family: "Segoe UI", "Segoe WP", "HelveticaNeue-Light", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif-light, sans-serif;
 	margin-top: 0;
 }
 
@@ -3620,8 +3623,8 @@ u,
 
 .col figcaption,
 .col .row figcaption {
-	font-size: 0.933rem;
-	line-height: 0.933rem;
+	font-size: 0.800rem;
+	line-height: 1.067;
 	text-align: right;
 }
 
@@ -3749,7 +3752,7 @@ u,
 		content: attr(data-label);
 		font-weight: bold;
 		text-align: right;
-		padding-right: 0.667rem;
+		padding-right: 0.533rem;
 	}
 }
 
@@ -3875,7 +3878,7 @@ u,
 	display: none;
 	font-size: 0.867rem;
 	background-color: #F3F3F3;
-	padding: 0.667rem 0.800rem;
+	padding: 0.533rem 0.800rem;
 }
 
 .vcard .category {
@@ -3888,8 +3891,10 @@ u,
 
 .col .aside {
 	display: block;
+	font-size: 0.867rem;
+	line-height: 1.067rem;
 	background-color: #F3F3F3;
-	padding: 1.333rem;
+	padding: 0.800rem 1.067rem;
 }
 
 .col .aside *:first-child {
@@ -3900,19 +3905,8 @@ u,
 	margin-bottom: 0;
 }
 
-.aside h3 {
+.col .aside h3 {
 	font-weight: 300;
-	font-size: 1.333rem;
-}
-
-.aside p {
-	font-size: 0.933rem;
-}
-
-.aside caption,
-.aside table th,
-.aside table td {
-	font-size: 0.867rem;
 }
 
 /**
@@ -3951,7 +3945,7 @@ u,
 
 .col .holder-contents-select select optgroup {
 	font-style: normal;
-	padding-left: 0.200rem;
+	padding-left: 0.267rem;
 }
 
 /**
@@ -4495,7 +4489,7 @@ u,
 .ya-site-form:before {
 	position: absolute;
 	top: 0.067rem;
-	left: 0.667rem;
+	left: 0.533rem;
 	font-family: "micon";
 	content: "\ECEA";
 	/* transform: scaleX(-1); */
@@ -4525,6 +4519,18 @@ u,
 .ya-page_js_yes .ya-site-form_inited_no,
 .ya-site-form__submit {
 	display: none;
+}
+
+/*!
+ * debug grid
+ */
+
+.col.debug {
+	background-color: transparent;
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTExIDc5LjE1ODMyNSwgMjAxNS8wOS8xMC0wMToxMDoyMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MTRDOTY4N0U2N0VFMTFFNjg2MzZDQjkwNkQ4MjgwMEIiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MTRDOTY4N0Q2N0VFMTFFNjg2MzZDQjkwNkQ4MjgwMEIiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKE1hY2ludG9zaCkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo3NjcyQkQ3NjY3QzUxMUU2QjJCQ0UyNDA4MTAwMjE3MSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo3NjcyQkQ3NzY3QzUxMUU2QjJCQ0UyNDA4MTAwMjE3MSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsBS+GMAAAAjSURBVHjaYvz//z8DLsD4gcGXiYEAGBIKGBne//fFpwAgwAB98AaF2pjlUQAAAABJRU5ErkJggg==);
+	background-size: 8px 8px;
+	background-position: top left;
+	background-repeat: repeat;
 }
 
 /*! @import "media-queries"; */

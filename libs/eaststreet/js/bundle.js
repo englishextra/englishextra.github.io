@@ -1502,6 +1502,36 @@ var manageExpandingLayers = function (ctx) {
 };
 evento.add(window, "load", manageExpandingLayers.bind(null, ""));
 /*!
+ * init col debug btn
+ */
+var manageColDebugButton = function (ctx) {
+	"use strict";
+	ctx = ctx || "";
+	var w = window,
+	btn = ".btn-toggle-col-debug",
+	e = BALA.one(btn) || "",
+	cls = ".col",
+	c = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	debug = "debug",
+	cL = "classList";
+	if (e && c) {
+		console.log("triggered function: manageColDebugButton");
+		var p = w.location.href || "";
+		if (p && parseLink(p).hasHTTP && /^(localhost|127.0.0.1)/.test(parseLink(p).hostname)) {
+			var h_e = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				c[cL].toggle(debug);
+			};
+			/* evento.add(e, "click", h_e); */
+			e.onclick = h_e;
+		} else {
+			setStyleDisplayNone(e);
+		}
+	}
+};
+evento.add(window, "load", manageColDebugButton.bind(null, ""));
+/*!
  * init qr-code
  * stackoverflow.com/questions/12777622/how-to-use-enquire-js
  */
@@ -2446,6 +2476,8 @@ var observeMutations = function (ctx) {
 					manageImgLightboxLinks(c);
 					manageStaticSelect(c);
 					manageExpandingLayers(c);
+					manageColDebugButton(c);
+
 				}
 			};
 			/* e.forEach(f); */

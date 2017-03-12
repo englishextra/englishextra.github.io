@@ -6,14 +6,14 @@
  * set html font to 15px, and body to 1.000rem
  */
 
-.col html {
+html {
 	font-size: 15px;
-	line-height: 1.333;
+	line-height: 20px;
 }
 
-.col body {
+body {
 	font-size: 1.000rem;
-	line-height: 1.333;
+	line-height: 1.333rem;
 }
 
 .col div,
@@ -148,8 +148,8 @@
 
 .col address,
 .col p.address {
-	font-size: smaller;
-	line-height: 1.333;
+	font-size: 0.867rem;
+	line-height: 1.067rem;
 	margin-right: 0;
 }
 
@@ -158,35 +158,35 @@
 }
 
 .col h1 {
-	font-size: 3.333rem;
+	font-size: 3.067rem;
 	line-height: 3.733rem;
 	padding: 0;
 }
 
 .col h2 {
-	font-size: 1.733rem;
+	font-size: 1.600rem;
 	line-height: 2.133rem;
 	padding: 0;
 }
 
 .col h3 {
-	font-size: 1.467rem;
+	font-size: 1.200rem;
 	line-height: 1.600rem;
+	text-transform: uppercase;
 	padding: 0;
 }
 
 .col h4 {
-	font-size: 1.333rem;
-	line-height: 1.600rem;
+	font-size: 1.000rem;
+	line-height: 1.333rem;
 	font-variant: small-caps;
 	letter-spacing: 0.067rem;
 	padding: 0;
 }
 
 .col h5 {
-	font-size: 1.200rem;
+	font-size: 1.000rem;
 	line-height: 1.333rem;
-	text-transform: uppercase;
 	padding: 0;
 }
 
@@ -204,14 +204,14 @@
 .col table th,
 .col pre,
 .col pre code {
-	font-size: smaller;
-	line-height: 1.333;
+	font-size: 0.867rem;
+	line-height: 1.067rem;
 }
 
 .col p.larger,
 .col blockquote {
-	font-size: larger;
-	line-height: 1.333;
+	font-size: 1.133rem;
+	line-height: 1.600rem;
 }
 
 .col p,
@@ -220,8 +220,8 @@
 .col dl dd,
 .col ul li,
 .col ol li {
-	font-size: 1.000rem;
-	line-height: 1.333rem;
+	font-size: inherit;
+	line-height: inherit;
 }
 
 .col ul {
@@ -245,7 +245,7 @@
 	-moz-tab-size: 4;
 	-o-tab-size: 4;
 	tab-size: 4;
-	padding: 0.933rem 1.333rem;
+	padding: 0.533rem 0.800rem;
 }
 
 .col pre code {
@@ -272,7 +272,7 @@
 
 .col table td,
 .col table th {
-	padding: 0.267rem 0.667rem;
+	padding: 0.533rem 0.533rem;
 	vertical-align: top;
 }
 
@@ -304,14 +304,14 @@
 .col input[type^="datetime-local"],
 .col select,
 .col textarea {
-	font-size: smaller;
-	line-height: 1.333;
+	font-size: 0.867rem;
+	line-height: 1.067rem;
 	box-sizing: border-box;
 	vertical-align: baseline;
 	*vertical-align: middle;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
-	padding: 0 0.667rem;
+	padding: 0 0.533rem;
 }
 
 .col select {
@@ -319,8 +319,8 @@
 }
 
 .col optgroup {
-	margin: 0.200rem;
-	padding-left: 0.200rem;
+	margin: 0.267rem;
+	padding-left: 0.267rem;
 }
 
 .col input[type="color"] {
@@ -353,20 +353,20 @@
 .col input[type="button"],
 .col input[type="reset"],
 .col input[type="submit"] {
-	font-size: smaller;
-	line-height: 1.333;
+	font-size: 0.867rem;
+	line-height: 1.067rem;
 	box-sizing: border-box;
 	vertical-align: baseline;
 	*vertical-align: middle;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	cursor: pointer;
-	padding: 0 0.667rem;
+	padding: 0 0.533rem;
 }
 
 .col label {
 	display: block;
-	margin-bottom: 0.133rem;
+	margin-bottom: 0.267rem;
 }
 
 .col textarea {
@@ -738,7 +738,7 @@
 .col table+p,
 .col ul+p,
 .col details+p {
-	margin-bottom: 0.933rem;
+	margin-bottom: 1.067rem;
 }
 
 .col .textleft {
@@ -766,7 +766,7 @@
 .col .hr {
 	height: 0.067rem;
 	padding: 0;
-	margin: 1.333rem 0;
+	margin: 1.333rem 0 1.267rem 0;
 }
 
 /**
@@ -810,7 +810,7 @@
 	font-weight: lighter;
 }
 
-.col h3,
+.col h5,
 .col table th,
 .col dl dt,
 .col button,
@@ -852,9 +852,9 @@
 	font-family: "Segoe UI", "Segoe WP", "HelveticaNeue", "Roboto", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
 }
 
-.col h1 {
+/* .col h1 {
 	font-family: "Segoe UI", "Segoe WP", "HelveticaNeue-Light", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif-light, sans-serif;
-}
+} */
 
 .col pre,
 .col pre code {
