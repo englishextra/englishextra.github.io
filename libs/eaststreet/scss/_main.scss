@@ -20,7 +20,7 @@ html {
 }
 
 body {
-	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", sans-serif;
+	font-family: $font-family-local-sans-regular;
 	font-weight: 400;
 	font-size: 1.000rem;
 	line-height: 1.333rem;
