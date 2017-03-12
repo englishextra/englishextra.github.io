@@ -606,7 +606,7 @@ u,
 	display: none;
 	font-size: 0.867rem;
 	background-color: $color-hex-ui-bar-bg;
-	padding: 0.533rem 0.800rem;
+	padding: 0.800rem 1.067rem;
 }
 
 .vcard .category {
@@ -633,8 +633,8 @@ u,
 	margin-bottom: 0;
 }
 
-.col .aside h3 {
-	font-weight: 300;
+.col p + .aside {
+	margin-top: 1.333rem;
 }
 
 /**

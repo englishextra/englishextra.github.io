@@ -1052,7 +1052,7 @@ body {
 .col h3 {
 	font-size: 1.200rem;
 	line-height: 1.600rem;
-	text-transform: uppercase;
+	/* text-transform: uppercase; */
 	padding: 0;
 }
 
@@ -1125,7 +1125,7 @@ body {
 	-moz-tab-size: 4;
 	-o-tab-size: 4;
 	tab-size: 4;
-	padding: 0.533rem 0.800rem;
+	padding: 0.800rem 1.067rem;
 }
 
 .col pre code {
@@ -1152,7 +1152,7 @@ body {
 
 .col table td,
 .col table th {
-	padding: 0.533rem 0.533rem;
+	padding: 0.800rem 1.067rem;
 	vertical-align: top;
 }
 
@@ -1618,7 +1618,7 @@ body {
 .col table + p,
 .col ul + p,
 .col details + p {
-	margin-bottom: 1.067rem;
+	margin-bottom: 0.800rem;
 }
 
 .col .textleft {
@@ -3878,7 +3878,7 @@ u,
 	display: none;
 	font-size: 0.867rem;
 	background-color: #F3F3F3;
-	padding: 0.533rem 0.800rem;
+	padding: 0.800rem 1.067rem;
 }
 
 .vcard .category {
@@ -3905,8 +3905,8 @@ u,
 	margin-bottom: 0;
 }
 
-.col .aside h3 {
-	font-weight: 300;
+.col p + .aside {
+	margin-top: 1.333rem;
 }
 
 /**
