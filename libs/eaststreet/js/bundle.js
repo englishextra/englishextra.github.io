@@ -1406,10 +1406,11 @@ var manageDataQrcodeImg = function (ctx) {
 	ds = "dataset",
 	g = function (e) {
 		var u = e[ds].qrcode || "";
+		u = decodeURIComponent(u);
 		if (u) {
 			var s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(u);
-			e.alt = u;
 			e.title = u;
+			e.alt = u;
 			if (w.QRCode) {
 				/* s = QRCode.generatePNG(u, {
 						ecclevel: "M",
@@ -1427,11 +1428,17 @@ var manageDataQrcodeImg = function (ctx) {
 						margin: 4,
 						modulesize: 8
 					});
-				var n = e.parentNode || "";
+				var n = e.parentNode || "",
+				k = e.getAttribute("class") || "",
+				m = crel("span", {
+						"class": k,
+						"title": u
+					});
 				if (n) {
-					n.replaceChild(s, e);
+					crel(m, crel(s));
+					n.replaceChild(m, e);
 				}
-			} else if (w.imagePromise) {
+			}/*  else if (w.imagePromise) {
 				imagePromise(s).then(function (r) {
 					e.src = s;
 					console.log("function manageDataSrcImg => imagePromise: image loaded", r.src);
@@ -1440,7 +1447,7 @@ var manageDataQrcodeImg = function (ctx) {
 				});
 			} else {
 				e.src = s;
-			}
+			} */
 		}
 	};
 	if (a) {
@@ -1637,6 +1644,9 @@ var initLocationQrCodeImg = function () {
 		var m = crel("img"),
 		t = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
 		s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(u);
+		m[cL].add(cls);
+		m.title = t;
+		m.alt = t;
 		if (w.QRCode) {
 			/* s = QRCode.generatePNG(u, {
 					ecclevel: "M",
@@ -1647,6 +1657,7 @@ var initLocationQrCodeImg = function () {
 					modulesize: 8
 				});
 			m.src = s; */
+			m = crel("span"),
 			s = QRCode.generateSVG(u, {
 					ecclevel: "M",
 					fillcolor: "#FFFFFF",
@@ -1654,8 +1665,8 @@ var initLocationQrCodeImg = function () {
 					margin: 4,
 					modulesize: 8
 				});
-			m = s;
-		} else if (w.imagePromise) {
+			crel(m, crel(s));
+		}/*  else if (w.imagePromise) {
 			imagePromise(s).then(function (r) {
 				m.src = s;
 				console.log("function manageDataSrcImg => imagePromise: image loaded", r.src);
@@ -1664,10 +1675,7 @@ var initLocationQrCodeImg = function () {
 			});
 		} else {
 			m.src = s;
-		}
-		m[cL].add(cls);
-		m.title = t;
-		m.alt = t;
+		} */
 		removeChildren(c);
 		appendFragment(m, c);
 	},
@@ -2425,7 +2433,7 @@ var initRoutie = function (ctx) {
 					}, crel("div", {
 							"class": "column"
 						}, crel("p", "Нет такой страницы. ", crel("a", {
-									"href": "#/contents"
+									"href": "#/home"
 								}, "Исправить?"))))));
 		if (c) {
 			LoadingSpinner.show();
@@ -2455,10 +2463,10 @@ var initRoutie = function (ctx) {
 		console.log("triggered function: routie");
 		routie({
 			"": function () {
-				redirectToDefaultPage("/contents");
+				redirectToDefaultPage("/home");
 			},
-			"/contents": function () {
-				loadVirtualPage(ctx, "./includes/contents.html", function () {
+			"/home": function () {
+				loadVirtualPage(ctx, "./includes/home.html", function () {
 					reinitVirtualPage(" - Содержание");
 					manageYandexMapButton("#ymap");
 					/* try {

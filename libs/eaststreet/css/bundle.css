@@ -69,20 +69,6 @@ EB5262
 	-moz-osx-font-smoothing: grayscale;
 }
 
-/*!
- *
- */
-
-.mi-sm {
-	font-size: 0.750em;
-	line-height: 1.000em;
-	vertical-align: -10%;
-}
-
-/*!
- *
- */
-
 .mi-lg {
 	font-size: 1.33333333em;
 	line-height: 0.75em;
@@ -3604,7 +3590,6 @@ u,
 .col .row figcaption {
 	font-size: 0.800rem;
 	line-height: 1.067;
-	text-align: right;
 }
 
 .col figcaption p,
@@ -4436,12 +4421,12 @@ u,
 .ya-site-form:before {
 	position: absolute;
 	top: 0.067rem;
-	left: 0.533rem;
+	left: 0.667rem;
 	font-family: "micon";
 	content: "\ECEA";
 	/* transform: scaleX(-1); */
-	font-size: 1.000rem;
-	line-height: 2.133rem;
+	font-size: 0.800rem;
+	line-height: 2.000rem;
 	color: #878787;
 }
 

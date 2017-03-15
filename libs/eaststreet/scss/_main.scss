@@ -343,7 +343,6 @@ u,
 .col .row figcaption {
 	font-size: 0.800rem;
 	line-height: 1.067;
-	text-align: right;
 }
 
 .col figcaption p,
@@ -1161,12 +1160,12 @@ u,
 .ya-site-form:before {
 	position: absolute;
 	top: 0.067rem;
-	left: 0.533rem;
+	left: 0.667rem;
 	font-family: "micon";
 	content: "\ECEA";
 	/* transform: scaleX(-1); */
-	font-size: 1.000rem;
-	line-height: 2.133rem;
+	font-size: 0.800rem;
+	line-height: 2.000rem;
 	color: $color-hex-ui-icon-text;
 }
 
