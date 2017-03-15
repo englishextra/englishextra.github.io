@@ -7,22 +7,20 @@
 
 .notifier42 {
 	display: block;
-	width : 100%;
-	max-width : 60%;
+	opacity : 0;
+	width: 100%;
+	min-height: 3.200rem;
 	position : fixed;
-	right : 0;
 	bottom : 0;
 	left : 0;
-	font-size: 1.000rem;
-	font-weight: 400;
+	font-size: 0.933rem;
+	line-height: 1.333rem;
 	text-align : center;
 	word-break : keep-all;
 	color : $color-rgba-notifier42-text;
 	background-color: $color-rgba-notifier42-bg;
-	border-radius : 0.133rem;
 	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
-	opacity : 0;
-	padding: 1.000rem;
+	padding: 0.933rem 3.200rem;
 	margin : 0 auto;
 }
 

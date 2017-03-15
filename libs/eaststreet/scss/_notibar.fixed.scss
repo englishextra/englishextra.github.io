@@ -7,27 +7,36 @@
 
 .notibar {
 	display: block;
+	opacity : 0;
 	width: 100%;
 	min-height: 3.200rem;
 	position: fixed;
 	top: 0;
 	left: 0;
-	font-size: 1.000rem;
+	font-size: 0.933rem;
 	line-height: 1.333rem;
+	text-align : center;
+	word-break : keep-all;
 	color: #FFFFFF;
 	background-color: $color-hex-notice;
 	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
-	padding: 1.000rem 3.200rem;
+	padding: 0.933rem 3.200rem;
+	margin : 0 auto;
 }
 
 .notibar .close {
+	width: 3.200rem;
+	height: 3.200rem;
 	position: absolute;
-	right: 1.000rem;
 	top: 50%;
-	color: inherit;
+	right: 0;
+	font-size: 0.800rem;
+	line-height: 3.200rem;
+	text-align: center;
 	text-decoration: none;
+	color: inherit;
 	cursor: pointer;
-	margin-top: -0.533rem;
+	margin-top: -1.600rem;
 }
 
 .notibar div.message {

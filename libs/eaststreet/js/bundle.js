@@ -552,7 +552,7 @@ var changeLocation=function(a){return function(){if(a){document.location.href=a;
  * jsfiddle.net/englishextra/fcdds4v6/
  * @param {String} url URL string
  * @param {Boolean} [true|false] if true, returns protocol:, :port, /pathname, ?search, ?query, #hash
- * if set to  false, returns protocol, port, pathname, search, query, hash
+ * if set to false, returns protocol, port, pathname, search, query, hash
  * alert(parseLink("http://localhost/search?s=t&v=z#dev").href|
  * origin|host|port|hash|hostname|pathname|protocol|search|query|isAbsolute|isRelative|isCrossDomain);
  */
@@ -633,299 +633,6 @@ var LoadingSpinner = function () {
 }
 ();
 /*!
- * Open external links in default browser out of Electron / nwjs
- * gist.github.com/englishextra/b9a8140e1c1b8aa01772375aeacbf49b
- * stackoverflow.com/questions/32402327/how-can-i-force-external-links-from-browser-window-to-open-in-a-default-browser
- * github.com/nwjs/nw.js/wiki/shell
- * electron - file: | nwjs - chrome-extension: | http: Intel XDK
- * @param {String} a URL/path string
- * openDeviceBrowser(a)
- */
-var openDeviceBrowser = function (a) {
-	"use strict";
-	var w = window,
-	g = function () {
-		var es = "undefined" !== typeof isElectron && isElectron ? require("electron").shell : "";
-		return es ? es.openExternal(a) : "";
-	},
-	k = function () {
-		var ns = "undefined" !== typeof isNwjs && isNwjs ? require("nw.gui").Shell : "";
-		return ns ? ns.openExternal(a) : "";
-	},
-	q = function () {
-		/*!
-		 * wont do in electron and nw,
-		 * so manageExternalLinks will set target blank to links
-		 */
-		/* var win = w.open(a, "_blank");
-		win.focus(); */
-		return !0;
-	},
-	v = function () {
-		return w.open(a, "_system", "scrollbars=1,location=no");
-	};
-	console.log("triggered function: openDeviceBrowser");
-	if ("undefined" !== typeof isElectron && isElectron) {
-		g();
-	} else if ("undefined" !== typeof isNwjs && isNwjs) {
-		k();
-	} else {
-		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			q();
-		} else {
-			v();
-		}
-	}
-};
-/*!
- * set click event on external links,
- * so that they open in new browser tab
- * @param {Object} [ctx] context HTML Element
- */
-var manageExternalLinks = function (ctx) {
-	"use strict";
-	ctx = ctx || "";
-	var w = window,
-	cls = "a",
-	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
-	g = function (e) {
-		var p = e.getAttribute("href") || "",
-		h_e = function (ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			openDeviceBrowser(p);
-		};
-		if (p && parseLink(p).isCrossDomain && parseLink(p).hasHTTP) {
-			e.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
-			if ("undefined" !== typeof getHTTP && getHTTP()) {
-				e.target = "_blank";
-			} else {
-				/* evento.add(e, "click", h_e); */
-				e.onclick = h_e;
-			}
-		}
-	},
-	k = function () {
-		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		if (w._) {
-			_.each(a, g);
-		} else if (w.forEach) {
-			forEach(a, g, !1);
-		} else {
-			for (var i = 0, l = a.length; i < l; i += 1) {
-				g(a[i]);
-			}
-		}
-	};
-	if (a) {
-		console.log("triggered function: manageExternalLinks");
-		k();
-	}
-};
-evento.add(window, "load", manageExternalLinks.bind(null, ""));
-/*!
- * set title on local links,
- * so that they inform that they open in currnet tab
- * @param {Object} [ctx] context HTML Element
- */
-var manageLocalLinks = function (ctx) {
-	"use strict";
-	ctx = ctx || "";
-	var w = window,
-	cls = "a",
-	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
-	g = function (e) {
-		var p = e.getAttribute("href") || "";
-		if (p && parseLink(p).isRelative && !e.getAttribute("title")) {
-			e.title = "Откроется здесь же";
-		}
-	},
-	k = function () {
-		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		if (w._) {
-			_.each(a, g);
-		} else if (w.forEach) {
-			forEach(a, g, !1);
-		} else {
-			for (var i = 0, l = a.length; i < l; i += 1) {
-				g(a[i]);
-			}
-		}
-	};
-	if (a) {
-		console.log("triggered function: manageLocalLinks");
-		k();
-	}
-};
-evento.add(window, "load", manageLocalLinks.bind(null, ""));
-/*!
- * manage data target links
- */
-var manageDataTargetLinks = function (ctx) {
-	"use strict";
-	ctx = ctx || "";
-	var w = window,
-	cls = "[data-target]",
-	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
-	ds = "dataset",
-	g = function (e) {
-		var u = e[ds].include || "",
-		t = e[ds].target || "",
-		h_e = function (_this, ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			/* evento.remove(_this, "click", h_e); */
-			_this.onclick = null;
-			includeHTMLintoTarget(_this, u, t);
-		};
-		if (u && t) {
-			e.title = "Появится здесь же";
-			/* evento.add(e, "click", h_e.bind(null, e)); */
-			e.onclick = h_e.bind(null, e);
-		}
-	},
-	k = function () {
-		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		if (w._) {
-			_.each(a, g);
-		} else if (w.forEach) {
-			forEach(a, g, !1);
-		} else {
-			for (var i = 0, l = a.length; i < l; i += 1) {
-				g(a[i]);
-			}
-		}
-	};
-	if (a) {
-		console.log("triggered function: manageDataTargetLinks");
-		k();
-	}
-};
-evento.add(window, "load", manageDataTargetLinks.bind(null, ""));
-/*!
- * manage data lightbox img links
- */
-var manageImgLightboxLinks = function (ctx) {
-	"use strict";
-	ctx = ctx || "";
-	var w = window,
-	b = BALA.one("body") || "",
-	cls = "[data-lightbox]",
-	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
-	ilc = "img-lightbox-container",
-	c = BALA.one("." + ilc) || "",
-	m = BALA.one("img", c) || "",
-	cL = "classList",
-	ds = "dataset",
-	an = "animated",
-	an1 = "fadeIn",
-	an2 = "fadeInUp",
-	an3 = "fadeOut",
-	an4 = "fadeOutDown";
-	if (!c) {
-		c = crel("div");
-		m = crel("img");
-		c[cL].add(ilc);
-		m.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
-		m.alt = "";
-		crel(c, m);
-		appendFragment(c, b);
-	}
-	var g = function (_this) {
-		LoadingSpinner.show();
-		c[cL].add(an, an1);
-		m[cL].add(an, an2);
-		var _href = _this.getAttribute("href") || "",
-		r = function () {
-			m[cL].remove(an2);
-			m[cL].add(an4);
-			var st1 = function ()  {
-				c[cL].remove(an, an3);
-				m[cL].remove(an, an4);
-				setStyleDisplayNone(c);
-			},
-			st2 = function () {
-				c[cL].remove(an1);
-				c[cL].add(an3);
-				setAutoClearedTimeout(st1, 400);
-			};
-			setAutoClearedTimeout(st2, 400);
-		},
-		v = function (e) {
-			if (27 === (e.which || e.keyCode)) {
-				r();
-			}
-		},
-		z = function () {
-			var h_c = function () {
-				/* evento.remove(c, "click", h_c); */
-				c.onclick = null;
-				r();
-			},
-			h_w = function (e) {
-				/* evento.remove(w, "keyup", h_w); */
-				w.onkeyup =  null;
-				v(e);
-			};
-			/* evento.add(c, "click", h_c);
-			evento.add(w, "keyup",  h_w); */
-			c.onclick = h_c;
-			w.onkeyup =  h_w;
-			setStyleDisplayBlock(c);
-			LoadingSpinner.hide();
-		},
-		pr = function (u) {
-			return new Promise(function (y, n) {
-				var a = new Image();
-				a.onload = function () {
-					y(u);
-				};
-				a.onerror = function () {
-					n(u);
-				};
-				a.src = u;
-			});
-		};
-		pr(_href).then(function (u) {
-			m.src = u;
-			z();
-		}).catch (function (e) {
-			r();
-			console.log("Error loading image", e);
-		});
-	},
-	k = function (e) {
-		var v = e[ds].lightbox || "",
-		p = e.getAttribute("href") || "",
-		h_e = function (_this, ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			g(_this);
-		};
-		if ("img" === v && p) {
-			if (parseLink(p).isAbsolute && !parseLink(p).hasHTTP) {
-				e.setAttribute("href", p.replace(/^/, getHTTP(!0) + ":"));
-			}
-			/* evento.add(e, "click", h_e.bind(null, e)); */
-			e.onclick = h_e.bind(null, e);
-		}
-	};
-	if (a) {
-		console.log("triggered function: manageImgLightboxLinks");
-		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		if (w._) {
-			_.each(a, k);
-		} else if (w.forEach) {
-			forEach(a, k, !1);
-		} else {
-			for (var j = 0, l = a.length; j < l; j += 1) {
-				k(a[j]);
-			}
-		}
-	}
-};
-evento.add(window, "load", manageImgLightboxLinks.bind(null, ""));
-/*!
  * modified Notibar.js v1.0
  * Lightweight notification bar, no dependency.
  * github.com/englishextra/notibar.js
@@ -942,7 +649,6 @@ var notiBar = function (opt) {
 	s_val = "ok",
 	s_m1 = "mi",
 	s_m2 = "mi-Cancel",
-	s_m3 = "mi-fw",
 	s_an = "animated",
 	s_an1 = "fadeInDown",
 	s_an2 = "fadeOutUp",
@@ -985,13 +691,10 @@ var notiBar = function (opt) {
 		}
 		appendFragment(s, m);
 		appendFragment(m, c);
-		var x_i = crel("i"),
-		x_a = crel("a");
+		var x_a = crel("a");
 		x_a[cL].add(s_close);
-		x_i[cL].add(s_m1);
-		x_i[cL].add(s_m2);
-		x_i[cL].add(s_m3);
-		appendFragment(x_i, x_a);
+		x_a[cL].add(s_m1);
+		x_a[cL].add(s_m2);
 		var set_cookie = function () {
 			if (settings.days) {
 				Cookies.set(settings.key, settings.value, { expires: settings.days });
@@ -1085,7 +788,7 @@ var Notifier42 = function (m, n, t) {
 	var g = function (f) {
 		c[cL].remove(an2);
 		c[cL].add(an4);
-		var r = function  ()  {
+		var r = function () {
 			c[cL].remove(an);
 			c[cL].remove(an4);
 			if (t) {
@@ -1335,6 +1038,299 @@ var initMenumore = function () {
 };
 docReady(initMenumore);
 /*!
+ * Open external links in default browser out of Electron / nwjs
+ * gist.github.com/englishextra/b9a8140e1c1b8aa01772375aeacbf49b
+ * stackoverflow.com/questions/32402327/how-can-i-force-external-links-from-browser-window-to-open-in-a-default-browser
+ * github.com/nwjs/nw.js/wiki/shell
+ * electron - file: | nwjs - chrome-extension: | http: Intel XDK
+ * @param {String} a URL/path string
+ * openDeviceBrowser(a)
+ */
+var openDeviceBrowser = function (a) {
+	"use strict";
+	var w = window,
+	g = function () {
+		var es = "undefined" !== typeof isElectron && isElectron ? require("electron").shell : "";
+		return es ? es.openExternal(a) : "";
+	},
+	k = function () {
+		var ns = "undefined" !== typeof isNwjs && isNwjs ? require("nw.gui").Shell : "";
+		return ns ? ns.openExternal(a) : "";
+	},
+	q = function () {
+		/*!
+		 * wont do in electron and nw,
+		 * so manageExternalLinks will set target blank to links
+		 */
+		/* var win = w.open(a, "_blank");
+		win.focus(); */
+		return !0;
+	},
+	v = function () {
+		return w.open(a, "_system", "scrollbars=1,location=no");
+	};
+	console.log("triggered function: openDeviceBrowser");
+	if ("undefined" !== typeof isElectron && isElectron) {
+		g();
+	} else if ("undefined" !== typeof isNwjs && isNwjs) {
+		k();
+	} else {
+		if ("undefined" !== typeof getHTTP && getHTTP()) {
+			q();
+		} else {
+			v();
+		}
+	}
+};
+/*!
+ * set click event on external links,
+ * so that they open in new browser tab
+ * @param {Object} [ctx] context HTML Element
+ */
+var manageExternalLinks = function (ctx) {
+	"use strict";
+	ctx = ctx || "";
+	var w = window,
+	cls = "a",
+	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	g = function (e) {
+		var p = e.getAttribute("href") || "",
+		h_e = function (ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			openDeviceBrowser(p);
+		};
+		if (p && parseLink(p).isCrossDomain && parseLink(p).hasHTTP) {
+			e.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
+			if ("undefined" !== typeof getHTTP && getHTTP()) {
+				e.target = "_blank";
+			} else {
+				/* evento.add(e, "click", h_e); */
+				e.onclick = h_e;
+			}
+		}
+	},
+	k = function () {
+		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
+		if (w._) {
+			_.each(a, g);
+		} else if (w.forEach) {
+			forEach(a, g, !1);
+		} else {
+			for (var i = 0, l = a.length; i < l; i += 1) {
+				g(a[i]);
+			}
+		}
+	};
+	if (a) {
+		console.log("triggered function: manageExternalLinks");
+		k();
+	}
+};
+evento.add(window, "load", manageExternalLinks.bind(null, ""));
+/*!
+ * set title on local links,
+ * so that they inform that they open in currnet tab
+ * @param {Object} [ctx] context HTML Element
+ */
+var manageLocalLinks = function (ctx) {
+	"use strict";
+	ctx = ctx || "";
+	var w = window,
+	cls = "a",
+	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	g = function (e) {
+		var p = e.getAttribute("href") || "";
+		if (p && parseLink(p).isRelative && !e.getAttribute("title")) {
+			e.title = "Откроется здесь же";
+		}
+	},
+	k = function () {
+		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
+		if (w._) {
+			_.each(a, g);
+		} else if (w.forEach) {
+			forEach(a, g, !1);
+		} else {
+			for (var i = 0, l = a.length; i < l; i += 1) {
+				g(a[i]);
+			}
+		}
+	};
+	if (a) {
+		console.log("triggered function: manageLocalLinks");
+		k();
+	}
+};
+evento.add(window, "load", manageLocalLinks.bind(null, ""));
+/*!
+ * manage data target links
+ */
+var manageDataTargetLinks = function (ctx) {
+	"use strict";
+	ctx = ctx || "";
+	var w = window,
+	cls = "[data-target]",
+	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	ds = "dataset",
+	g = function (e) {
+		var u = e[ds].include || "",
+		t = e[ds].target || "",
+		h_e = function (_this, ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			/* evento.remove(_this, "click", h_e); */
+			_this.onclick = null;
+			includeHTMLintoTarget(_this, u, t);
+		};
+		if (u && t) {
+			e.title = "Появится здесь же";
+			/* evento.add(e, "click", h_e.bind(null, e)); */
+			e.onclick = h_e.bind(null, e);
+		}
+	},
+	k = function () {
+		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
+		if (w._) {
+			_.each(a, g);
+		} else if (w.forEach) {
+			forEach(a, g, !1);
+		} else {
+			for (var i = 0, l = a.length; i < l; i += 1) {
+				g(a[i]);
+			}
+		}
+	};
+	if (a) {
+		console.log("triggered function: manageDataTargetLinks");
+		k();
+	}
+};
+evento.add(window, "load", manageDataTargetLinks.bind(null, ""));
+/*!
+ * manage data lightbox img links
+ */
+var manageImgLightboxLinks = function (ctx) {
+	"use strict";
+	ctx = ctx || "";
+	var w = window,
+	b = BALA.one("body") || "",
+	cls = "[data-lightbox]",
+	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	ilc = "img-lightbox-container",
+	c = BALA.one("." + ilc) || "",
+	m = BALA.one("img", c) || "",
+	cL = "classList",
+	ds = "dataset",
+	an = "animated",
+	an1 = "fadeIn",
+	an2 = "fadeInUp",
+	an3 = "fadeOut",
+	an4 = "fadeOutDown";
+	if (!c) {
+		c = crel("div");
+		m = crel("img");
+		c[cL].add(ilc);
+		m.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
+		m.alt = "";
+		crel(c, m);
+		appendFragment(c, b);
+	}
+	var g = function (_this) {
+		LoadingSpinner.show();
+		c[cL].add(an, an1);
+		m[cL].add(an, an2);
+		var _href = _this.getAttribute("href") || "",
+		r = function () {
+			m[cL].remove(an2);
+			m[cL].add(an4);
+			var st1 = function () {
+				c[cL].remove(an, an3);
+				m[cL].remove(an, an4);
+				setStyleDisplayNone(c);
+			},
+			st2 = function () {
+				c[cL].remove(an1);
+				c[cL].add(an3);
+				setAutoClearedTimeout(st1, 400);
+			};
+			setAutoClearedTimeout(st2, 400);
+		},
+		v = function (e) {
+			if (27 === (e.which || e.keyCode)) {
+				r();
+			}
+		},
+		z = function () {
+			var h_c = function () {
+				/* evento.remove(c, "click", h_c); */
+				c.onclick = null;
+				r();
+			},
+			h_w = function (e) {
+				/* evento.remove(w, "keyup", h_w); */
+				w.onkeyup = null;
+				v(e);
+			};
+			/* evento.add(c, "click", h_c);
+			evento.add(w, "keyup", h_w); */
+			c.onclick = h_c;
+			w.onkeyup = h_w;
+			setStyleDisplayBlock(c);
+			LoadingSpinner.hide();
+		},
+		pr = function (u) {
+			return new Promise(function (y, n) {
+				var a = new Image();
+				a.onload = function () {
+					y(u);
+				};
+				a.onerror = function () {
+					n(u);
+				};
+				a.src = u;
+			});
+		};
+		pr(_href).then(function (u) {
+			m.src = u;
+			z();
+		}).catch (function (e) {
+			r();
+			console.log("Error loading image", e);
+		});
+	},
+	k = function (e) {
+		var v = e[ds].lightbox || "",
+		p = e.getAttribute("href") || "",
+		h_e = function (_this, ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			g(_this);
+		};
+		if ("img" === v && p) {
+			if (parseLink(p).isAbsolute && !parseLink(p).hasHTTP) {
+				e.setAttribute("href", p.replace(/^/, getHTTP(!0) + ":"));
+			}
+			/* evento.add(e, "click", h_e.bind(null, e)); */
+			e.onclick = h_e.bind(null, e);
+		}
+	};
+	if (a) {
+		console.log("triggered function: manageImgLightboxLinks");
+		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
+		if (w._) {
+			_.each(a, k);
+		} else if (w.forEach) {
+			forEach(a, k, !1);
+		} else {
+			for (var j = 0, l = a.length; j < l; j += 1) {
+				k(a[j]);
+			}
+		}
+	}
+};
+evento.add(window, "load", manageImgLightboxLinks.bind(null, ""));
+/*!
  * replace img src with data-src
  * @param {Object} [ctx] context HTML Element
  */
@@ -1347,18 +1343,16 @@ var manageDataSrcImg = function (ctx) {
 	is_active = "is-active",
 	cL = "classList",
 	ds = "dataset",
-	pN = "parentNode",
 	k = function (e) {
-		var p = e[ds].src || "";
-		if (p) {
-			if (parseLink(p).isAbsolute && !parseLink(p).hasHTTP) {
-				e[ds].src = p.replace(/^/, getHTTP(!0) + ":");
+		var u = e[ds].src || "";
+		if (u) {
+			if (parseLink(u).isAbsolute && !parseLink(u).hasHTTP) {
+				e[ds].src = u.replace(/^/, getHTTP(!0) + ":");
 			}
 			if (!e[cL].contains(is_active)) {
 				if (w.imagePromise) {
-					imagePromise(p).then(function (r) {
+					imagePromise(u).then(function (r) {
 						e.src = e[ds].src;
-						/* setStyleOpacity(e, 1); */
 						e[cL].add(is_active);
 						console.log("function manageDataSrcImg => imagePromise: image loaded", r.src);
 					}).catch (function (err) {
@@ -1373,7 +1367,7 @@ var manageDataSrcImg = function (ctx) {
 	},
 	g = function (e) {
 		var s = function () {
-			if (verge.inY(e)/*  && 0 !== e.offsetHeight */) {
+			if (verge.inY(e)/* && 0 !== e.offsetHeight */) {
 				k(e);
 			}
 		};
@@ -1399,6 +1393,81 @@ var manageDataSrcImg = function (ctx) {
 	}
 };
 evento.add(window, "load", manageDataSrcImg.bind(null, ""));
+/*!
+ * replace img src with data-src
+ * @param {Object} [ctx] context HTML Element
+ */
+var manageDataQrcodeImg = function (ctx) {
+	"use strict";
+	ctx = ctx || "";
+	var w = window,
+	cls = "img[data-qrcode]",
+	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	ds = "dataset",
+	g = function (e) {
+		var u = e[ds].qrcode || "";
+		if (u) {
+			var s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(u);
+			e.alt = u;
+			e.title = u;
+			if (w.QRCode) {
+				/* s = QRCode.generatePNG(u, {
+						ecclevel: "M",
+						format: "html",
+						fillcolor: "#F3F3F3",
+						textcolor: "#373737",
+						margin: 4,
+						modulesize: 8
+					});
+				e.src = s; */
+				s = QRCode.generateSVG(u, {
+						ecclevel: "M",
+						fillcolor: "#F3F3F3",
+						textcolor: "#373737",
+						margin: 4,
+						modulesize: 8
+					});
+				var n = e.parentNode || "";
+				if (n) {
+					n.replaceChild(s, e);
+				}
+			} else if (w.imagePromise) {
+				imagePromise(s).then(function (r) {
+					e.src = s;
+					console.log("function manageDataSrcImg => imagePromise: image loaded", r.src);
+				}).catch (function (err) {
+					console.error("function manageDataSrcImg => imagePromise: image failed to load", err.src);
+				});
+			} else {
+				e.src = s;
+			}
+		}
+	};
+	if (a) {
+		console.log("triggered function: manageDataQrcodeImg");
+		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
+		if (w._) {
+			_.each(a, g);
+		} else if (w.forEach) {
+			forEach(a, g, !1);
+		} else {
+			for (var i = 0, l = a.length; i < l; i += 1) {
+				g(a[i]);
+			}
+		}
+	}
+},
+loadManageDataQrcodeImg = function () {
+	"use strict";
+	var w = window,
+	js = "./cdn/qr.js/0.0.20110119/js/qr.fixed.min.js";
+	if (!scriptIsLoaded(js)) {
+		loadJS(js, manageDataQrcodeImg.bind(null, ""));
+	} else {
+		manageDataQrcodeImg();
+	}
+};
+evento.add(window, "load", loadManageDataQrcodeImg);
 /*!
  * add smooth scroll or redirection to static select options
  * @param {Object} [ctx] context HTML Element
@@ -1504,24 +1573,35 @@ evento.add(window, "load", manageExpandingLayers.bind(null, ""));
 /*!
  * init col debug btn
  */
-var manageColDebugButton = function (ctx) {
+var manageDebugGridButton = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
 	var w = window,
-	btn = ".btn-toggle-col-debug",
-	e = BALA.one(btn) || "",
 	cls = ".col",
 	c = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	btn = ".btn-toggle-col-debug",
+	e = BALA.one(btn) || "",
 	debug = "debug",
 	cL = "classList";
 	if (e && c) {
-		console.log("triggered function: manageColDebugButton");
-		var p = w.location.href || "";
-		if (p && parseLink(p).hasHTTP && /^(localhost|127.0.0.1)/.test(parseLink(p).hostname)) {
-			var h_e = function (ev) {
+		console.log("triggered function: manageDebugGridButton");
+		var u = w.location.href || "";
+		if (u && parseLink(u).hasHTTP && /^(localhost|127.0.0.1)/.test(parseLink(u).hostname)) {
+			var h_c = function () {
+				evento.remove(c, "click", h_c);
+				/* c.onclick = null; */
+				c[cL].remove(debug);
+			},
+			h_e = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				c[cL].toggle(debug);
+				if (c[cL].contains(debug)) {
+					evento.add(c, "click", h_c);
+				} else {
+					evento.remove(c, "click", h_c);
+				}
+				/* c.onclick = h_c; */
 			};
 			/* evento.add(e, "click", h_e); */
 			e.onclick = h_e;
@@ -1530,12 +1610,12 @@ var manageColDebugButton = function (ctx) {
 		}
 	}
 };
-evento.add(window, "load", manageColDebugButton.bind(null, ""));
+evento.add(window, "load", manageDebugGridButton.bind(null, ""));
 /*!
  * init qr-code
  * stackoverflow.com/questions/12777622/how-to-use-enquire-js
  */
-var initLocationQRImg = function () {
+var initLocationQrCodeImg = function () {
 	"use strict";
 	var w = window,
 	d = document,
@@ -1554,28 +1634,38 @@ var initLocationQRImg = function () {
 	u = w.location.href || "",
 	cL = "classList",
 	k = function () {
-		var t = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
-		/* s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(u), */
-		s = QRCode.generatePNG(u, {
-				ecclevel: "M",
-				format: "html",
-				margin: 4,
-				modulesize: 8
-			}),
-		m = crel("img");
-		m[cL].add(cls);
-		/* if (w.imagePromise) {
+		var m = crel("img"),
+		t = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
+		s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(u);
+		if (w.QRCode) {
+			/* s = QRCode.generatePNG(u, {
+					ecclevel: "M",
+					format: "html",
+					fillcolor: "#FFFFFF",
+					textcolor: "#373737",
+					margin: 4,
+					modulesize: 8
+				});
+			m.src = s; */
+			s = QRCode.generateSVG(u, {
+					ecclevel: "M",
+					fillcolor: "#FFFFFF",
+					textcolor: "#373737",
+					margin: 4,
+					modulesize: 8
+				});
+			m = s;
+		} else if (w.imagePromise) {
 			imagePromise(s).then(function (r) {
 				m.src = s;
 				console.log("function manageDataSrcImg => imagePromise: image loaded", r.src);
 			}).catch (function (err) {
-				m.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
 				console.error("function manageDataSrcImg => imagePromise: image failed to load", err.src);
 			});
 		} else {
 			m.src = s;
-		} */
-		m.src = s;
+		}
+		m[cL].add(cls);
 		m.title = t;
 		m.alt = t;
 		removeChildren(c);
@@ -1612,7 +1702,7 @@ var initLocationQRImg = function () {
 		f();
 	};
 	if (e && p && c && u) {
-		console.log("triggered function: initLocationQRImg");
+		console.log("triggered function: initLocationQrCodeImg");
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			q();
 			/* evento.add(e, "click", h_e); */
@@ -1622,24 +1712,18 @@ var initLocationQRImg = function () {
 		}
 	}
 },
-loadInitLocationQRImg = function () {
+loadInitLocationQrCodeImg = function () {
 	"use strict";
 	var w = window,
 	js = "./cdn/qr.js/0.0.20110119/js/qr.fixed.min.js";
-	if (w.XMLHttpRequest || w.ActiveXObject) {
-		if (w.Promise) {
-			promiseLoadJS(js).then(initLocationQRImg);
-		} else {
-			ajaxLoadTriggerJS(js, initLocationQRImg);
-		}
+	if (!scriptIsLoaded(js)) {
+		loadJS(js, initLocationQrCodeImg);
 	} else {
-		if (!scriptIsLoaded(js)) {
-			loadJS(js, initLocationQRImg);
-		}
+		initLocationQrCodeImg();
 	}
 };
-evento.add(window, "load", loadInitLocationQRImg);
-evento.add(window, "hashchange", initLocationQRImg);
+evento.add(window, "load", loadInitLocationQrCodeImg);
+evento.add(window, "hashchange", initLocationQrCodeImg);
 /*!
  * init share btn
  */
@@ -2119,7 +2203,6 @@ var initUiTotop = function () {
 	t = "Наверх",
 	mi1 = "mi",
 	mi2 = "mi-Up",
-	mi3 = "mi-lg",
 	cL = "classList",
 	k = function (_this) {
 		var a = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
@@ -2158,18 +2241,15 @@ var initUiTotop = function () {
 				z(50);
 			}
 		},
-		a = crel("a"),
-		m = crel("i");
+		a = crel("a");
 		a[cL].add(u);
 		/* jshint -W107 */
 		a.href = "javascript:void(0);";
 		/* jshint +W107 */
 		a.title = t;
 		a[cL].add(u);
-		m[cL].add(mi1);
-		m[cL].add(mi2);
-		m[cL].add(mi3);
-		appendFragment(m, a);
+		a[cL].add(mi1);
+		a[cL].add(mi2);
 		evento.add(a, "click", h_a);
 		/* a.onclick = h_a; */
 		crel(b, crel(a));
@@ -2190,7 +2270,7 @@ var includeHTMLintoTarget = function (_this, u, t) {
 	var w = window,
 	c = BALA.one(t) || "",
 	pN = "parentNode",
-	c_pn = c[pN]  || "",
+	c_pn = c[pN] || "",
 	g = function () {
 		var s = function () {
 			if (_this[pN]) {
@@ -2472,12 +2552,12 @@ var observeMutations = function (ctx) {
 					manageExternalLinks(c);
 					manageLocalLinks(c);
 					manageDataTargetLinks(c);
-					manageDataSrcImg(c);
 					manageImgLightboxLinks(c);
+					manageDataSrcImg(c);
+					manageDataQrcodeImg(c);
 					manageStaticSelect(c);
 					manageExpandingLayers(c);
-					manageColDebugButton(c);
-
+					manageDebugGridButton(c);
 				}
 			};
 			/* e.forEach(f); */

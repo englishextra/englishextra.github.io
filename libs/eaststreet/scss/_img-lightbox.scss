@@ -6,16 +6,17 @@
 
 .img-lightbox-container {
 	display: none;
+	opacity: 0;
 	width: 100%;
 	height: 100%;
 	position: fixed;
 	top: 0;
 	left: 0;
 	background-color: $color-rgba-img-lightbox-bg;
-	opacity: 0;
 }
 
 .img-lightbox-container img {
+	opacity: 0;
 	max-width: 90%;
 	max-height: 90%;
 	position: absolute;
@@ -23,13 +24,12 @@
 	bottom: 0;
 	left: 0;
 	right: 0;
-	cursor: zoom-out;
 	background-color: transparent;
 	border: 0.067rem solid $color-rgba-img-lightbox-border;
 	border-radius: 0.067rem;
-	opacity: 0;
-	user-select: none;
 	vertical-align: middle;
+	user-select: none;
+	cursor: zoom-out;
 	margin: auto;
 }
 

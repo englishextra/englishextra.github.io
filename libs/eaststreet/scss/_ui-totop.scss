@@ -13,7 +13,7 @@
 	position: fixed;
 	right: 0;
 	bottom: 0;
-	font-size: 1.000rem;
+	font-size: 1.333rem;
 	line-height: 3.200rem;
 	text-align: center;
 	text-decoration: none;
@@ -34,8 +34,8 @@
 	background-color: $color-hex-hover-ui-icon-bg;
 }
 
-.ui-totop:focus,
 .ui-totop:active {
-	background-color: $color-rgba-ui-icon-bg;
+	color: #FFFFFF;
+	background-color: $color-hex-ui-menu-border;
 }
 
