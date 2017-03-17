@@ -1350,7 +1350,7 @@ var manageDataSrcImg = function (ctx) {
 				e[ds].src = u.replace(/^/, getHTTP(!0) + ":");
 			}
 			if (!e[cL].contains(is_active)) {
-				if (w.imagePromise) {
+				/* if (w.imagePromise) {
 					imagePromise(u).then(function (r) {
 						e.src = e[ds].src;
 						e[cL].add(is_active);
@@ -1358,10 +1358,10 @@ var manageDataSrcImg = function (ctx) {
 					}).catch (function (err) {
 						console.error("function manageDataSrcImg => imagePromise: image failed to load", err.src);
 					});
-				} else {
+				} else { */
 					e.src = e[ds].src;
 					e[cL].add(is_active);
-				}
+				/* } */
 			}
 		}
 	},
@@ -1412,16 +1412,7 @@ var manageDataQrcodeImg = function (ctx) {
 			e.title = u;
 			e.alt = u;
 			if (w.QRCode) {
-				/* s = QRCode.generatePNG(u, {
-						ecclevel: "M",
-						format: "html",
-						fillcolor: "#F3F3F3",
-						textcolor: "#373737",
-						margin: 4,
-						modulesize: 8
-					});
-				e.src = s; */
-				s = QRCode.generateSVG(u, {
+				/* s = QRCode.generateSVG(u, {
 						ecclevel: "M",
 						fillcolor: "#F3F3F3",
 						textcolor: "#373737",
@@ -1437,6 +1428,40 @@ var manageDataQrcodeImg = function (ctx) {
 				if (n) {
 					crel(m, crel(s));
 					n.replaceChild(m, e);
+				} */
+				/* s = QRCode.generateSVG(u, {
+						ecclevel: "M",
+						fillcolor: "#F3F3F3",
+						textcolor: "#373737",
+						margin: 4,
+						modulesize: 8
+					});
+				var XMLS = new XMLSerializer();
+				s = XMLS.serializeToString(s);
+				s = "data:image/svg+xml;base64," + w.btoa(unescape(encodeURIComponent(s)));
+				crel(e, {"style": "width:100%;height:auto;background-image:url(" + s + ");background-size: 100% auto;"}); */
+				if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
+					s = QRCode.generateSVG(u, {
+							ecclevel: "M",
+							fillcolor: "#F3F3F3",
+							textcolor: "#373737",
+							margin: 4,
+							modulesize: 8
+						});
+					var XMLS = new XMLSerializer();
+					s = XMLS.serializeToString(s);
+					s = "data:image/svg+xml;base64," + w.btoa(unescape(encodeURIComponent(s)));
+					e.src = s;
+				} else {
+					s = QRCode.generatePNG(u, {
+							ecclevel: "M",
+							format: "html",
+							fillcolor: "#F3F3F3",
+							textcolor: "#373737",
+							margin: 4,
+							modulesize: 8
+						});
+					e.src = s;
 				}
 			}/*  else if (w.imagePromise) {
 				imagePromise(s).then(function (r) {
@@ -1467,7 +1492,7 @@ var manageDataQrcodeImg = function (ctx) {
 loadManageDataQrcodeImg = function () {
 	"use strict";
 	var w = window,
-	js = "./cdn/qr.js/0.0.20110119/js/qr.fixed.min.js";
+	js = "./cdn/qrjs.js/0.1.0/js/qrjs.fixed.min.js";
 	if (!scriptIsLoaded(js)) {
 		loadJS(js, manageDataQrcodeImg.bind(null, ""));
 	} else {
@@ -1584,7 +1609,10 @@ var manageDebugGridButton = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
 	var w = window,
-	cls = ".col",
+	b = BALA.one("body") || "",
+	page = BALA.one(".page") || "",
+	container = BALA.one(".container") || "",
+	cls = ".container",
 	c = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	btn = ".btn-toggle-col-debug",
 	e = BALA.one(btn) || "",
@@ -1605,6 +1633,17 @@ var manageDebugGridButton = function (ctx) {
 				c[cL].toggle(debug);
 				if (c[cL].contains(debug)) {
 					evento.add(c, "click", h_c);
+					var m = b.tagName + ": " + b.offsetHeight + " | "
+						 + page.className + ": " + page.offsetHeight + " | "
+						 + container.className + ": " + container.offsetHeight + " | "
+						+ c.className + ": " + c.offsetHeight;
+					notiBar({
+						"message": m,
+						"timeout": 10000,
+						/* "key": n,
+						"value": m, */
+						"days": 0
+					});
 				} else {
 					evento.remove(c, "click", h_c);
 				}
@@ -1644,20 +1683,9 @@ var initLocationQrCodeImg = function () {
 		var m = crel("img"),
 		t = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
 		s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(u);
-		m[cL].add(cls);
-		m.title = t;
 		m.alt = t;
 		if (w.QRCode) {
-			/* s = QRCode.generatePNG(u, {
-					ecclevel: "M",
-					format: "html",
-					fillcolor: "#FFFFFF",
-					textcolor: "#373737",
-					margin: 4,
-					modulesize: 8
-				});
-			m.src = s; */
-			m = crel("span"),
+			/* m = crel("span"),
 			s = QRCode.generateSVG(u, {
 					ecclevel: "M",
 					fillcolor: "#FFFFFF",
@@ -1665,7 +1693,30 @@ var initLocationQrCodeImg = function () {
 					margin: 4,
 					modulesize: 8
 				});
-			crel(m, crel(s));
+			crel(m, crel(s)); */
+			if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
+				s = QRCode.generateSVG(u, {
+						ecclevel: "M",
+						fillcolor: "#FFFFFF",
+						textcolor: "#373737",
+						margin: 4,
+						modulesize: 8
+					});
+				var XMLS = new XMLSerializer();
+				s = XMLS.serializeToString(s);
+				s = "data:image/svg+xml;base64," + w.btoa(unescape(encodeURIComponent(s)));
+				m.src = s;
+			} else {
+				s = QRCode.generatePNG(u, {
+						ecclevel: "M",
+						format: "html",
+						fillcolor: "#FFFFFF",
+						textcolor: "#373737",
+						margin: 4,
+						modulesize: 8
+					});
+				m.src = s;
+			}
 		}/*  else if (w.imagePromise) {
 			imagePromise(s).then(function (r) {
 				m.src = s;
@@ -1676,6 +1727,8 @@ var initLocationQrCodeImg = function () {
 		} else {
 			m.src = s;
 		} */
+		m[cL].add(cls);
+		m.title = t;
 		removeChildren(c);
 		appendFragment(m, c);
 	},
@@ -1723,7 +1776,7 @@ var initLocationQrCodeImg = function () {
 loadInitLocationQrCodeImg = function () {
 	"use strict";
 	var w = window,
-	js = "./cdn/qr.js/0.0.20110119/js/qr.fixed.min.js";
+	js = "./cdn/qrjs.js/0.1.0/js/qrjs.fixed.min.js";
 	if (!scriptIsLoaded(js)) {
 		loadJS(js, initLocationQrCodeImg);
 	} else {

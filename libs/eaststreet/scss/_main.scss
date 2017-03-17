@@ -1196,12 +1196,12 @@ u,
  * debug grid
  */
 
-.col.debug:before {
+.debug:before {
 	content: " ";
 	width: 100%;
 	height: 100%;
 	position: absolute;
-	z-index: 999;
+	z-index: 1;
 	top: 0;
 	left: 0;
 	background-color: transparent;
