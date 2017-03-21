@@ -1612,8 +1612,9 @@ var manageDebugGridButton = function (ctx) {
 	b = BALA.one("body") || "",
 	page = BALA.one(".page") || "",
 	container = BALA.one(".container") || "",
-	cls = ".container",
-	c = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	cls = ".col",
+	col = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	c = container,
 	btn = ".btn-toggle-col-debug",
 	e = BALA.one(btn) || "",
 	debug = "debug",
@@ -1633,10 +1634,13 @@ var manageDebugGridButton = function (ctx) {
 				c[cL].toggle(debug);
 				if (c[cL].contains(debug)) {
 					evento.add(c, "click", h_c);
-					var m = b.tagName + ": " + b.offsetHeight + " | "
-						 + page.className + ": " + page.offsetHeight + " | "
-						 + container.className + ": " + container.offsetHeight + " | "
-						+ c.className + ": " + c.offsetHeight;
+					var a = [b, page, container, col],
+					m = [];
+					for (var i = 0, l = a.length; i < l; i += 1) {
+						m.push((a[i].className ? "." + a[i].className : a[i].id ? "#" + a[i].id : a[i].tagName), " ", w.getComputedStyle(a[i]).getPropertyValue("font-size"), " ", w.getComputedStyle(a[i]).getPropertyValue("line-height"), " ", a[i].offsetWidth, "x", a[i].offsetHeight, " \u003e ");
+					}
+					m = m.join("");
+					m = m.slice(0, m.lastIndexOf(" \u003e "));
 					notiBar({
 						"message": m,
 						"timeout": 10000,

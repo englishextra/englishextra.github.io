@@ -22,7 +22,7 @@
 	}
 
 	body {
-		font-family: "Segoe Pro SemiLight","Segoe UI SemiLight",sans-serif;
+		font-family: "Segoe Pro SemiLight", "Segoe UI SemiLight", sans-serif;
 		font-weight: normal;
 		font-size: 11.0pt;
 		line-height: 1.400;
@@ -34,7 +34,7 @@
 
 	a,
 	.col a {
-		font-family: "Segoe Pro","Segoe UI",sans-serif;
+		font-family: "Segoe Pro", "Segoe UI", sans-serif;
 		font-weight: normal;
 		text-decoration: none;
 		color: inherit;
@@ -54,40 +54,40 @@
 		font-family: "Cambria",serif;
 		font-weight: normal;
 		font-size: 42.0pt;
-		line-height: 1.200;
+		line-height: 1.25;
 		color: inherit;
 		margin-top: 0 /* !important */;
 	}
 
 	h2,
 	.col h2 {
-		font-family: "Segoe Pro SemiLight","Segoe UI SemiLight",sans-serif;
+		font-family: "Segoe Pro SemiLight", "Segoe UI SemiLight", sans-serif;
 		font-weight: normal;
 		font-size: 20.0pt;
-		line-height: 1.200;
+		line-height: 1.25;
 	}
 
 	h3,
 	.col h3 {
-		font-family: "Segoe Pro SemiBold","Segoe UI SemiBold",sans-serif;
+		font-family: "Segoe Pro SemiBold", "Segoe UI SemiBold", sans-serif;
 		font-weight: normal;
 		font-size: 13.0pt;
-		line-height: 1.200;
+		line-height: 1.25;
 	}
 
 	h4,
 	.col h4 {
-		font-family: "Segoe Pro","Segoe UI",sans-serif;
+		font-family: "Segoe Pro", "Segoe UI", sans-serif;
 		font-weight: normal;
 		font-size: 12.0pt;
-		line-height: 1.200;
+		line-height: 1.25;
 		text-transform: uppercase;
 		letter-spacing: 0.500pt;
 	}
 
 	p,
 	.col p {
-		font-family: "Segoe Pro SemiLight","Segoe UI SemiLight",sans-serif;
+		font-family: "Segoe Pro SemiLight", "Segoe UI SemiLight", sans-serif;
 		font-weight: normal;
 		font-size: 11.0pt;
 	}
@@ -97,7 +97,7 @@
 	.col b,
 	.col strong,
 	.col .bolder {
-		font-family: "Segoe Pro SemiBold","Segoe UI SemiBold",sans-serif;
+		font-family: "Segoe Pro SemiBold", "Segoe UI SemiBold", sans-serif;
 		font-weight: normal;
 	}
 
@@ -109,7 +109,7 @@
 	.col em,
 	.col blockquote,
 	.col .italic {
-		font-family: "Segoe Pro","Segoe UI",sans-serif;
+		font-family: "Segoe Pro", "Segoe UI", sans-serif;
 		font-weight: normal;
 		font-style: italic;
 	}
@@ -157,7 +157,7 @@
 
 	table th,
 	.col table th {
-		font-family: "Segoe Pro SemiBold","Segoe UI SemiBold",sans-serif;
+		font-family: "Segoe Pro SemiBold", "Segoe UI SemiBold", sans-serif;
 		font-weight: normal;
 		text-align: left;
 		border: none;
@@ -169,7 +169,7 @@
 
 	table td,
 	.col table td {
-		font-family: "Segoe Pro SemiLight","Segoe UI SemiLight",sans-serif;
+		font-family: "Segoe Pro SemiLight", "Segoe UI SemiLight", sans-serif;
 		font-weight: normal;
 		border: none;
 		border-bottom-width: 0.75pt;
@@ -202,6 +202,12 @@
 	.header,
 	.footer,
 	.stripe-top,
+	.ui-sidepanel,
+	.btn-toggle-ui-sidepanel,
+	.ui-sidebar,
+	.ui-menumore,
+	.btn-toggle-ui-menumore,
+	.ui-panel-top,
 	.holder-btn-nav-menu,
 	.btn-nav-menu,
 	.panel-nav-menu,
@@ -209,6 +215,7 @@
 	/* .holder-panel-menu-more, */
 	.holder-contents-select,
 	.holder-search-form,
+	.col a.btn-larger,
 	.btn-expand-hidden-layer:after,
 	.btn-show-disqus,
 	.btn-show-disqus:after,
@@ -217,7 +224,8 @@
 	.data-src-iframe,
 	.holder-data-src-img,
 	.data-src-img,
-	.sponsored,
+	.holder-data-qrcode-img,
+	.data-qrcode-img,
 	.vk-like,
 	.btn-cc-by-nd-88x31,
 	.pswp,
@@ -225,10 +233,8 @@
 	.pluso,
 	.ya-share2,
 	.ui-pnotify,
-	.humane,
-	.humane-libnotify,
+	.ui-totop,
 	#progress,
-	#gallery,
 	#disqus_thread {
 		display: none;
 	}
@@ -290,7 +296,7 @@
 	.highlight,
 	.col .highlight,
 	.main .col .highlight {
-		font-family: "Segoe Pro SemiBold","Segoe UI SemiBold",sans-serif;
+		font-family: "Segoe Pro SemiBold", "Segoe UI SemiBold", sans-serif;
 		font-weight: normal;
 		color: inherit;
 	}
@@ -301,7 +307,7 @@
 
 	.phonetic,
 	.col .phonetic {
-		font-family: "Segoe Pro","Segoe UI",sans-serif;
+		font-family: "Segoe Pro", "Segoe UI", sans-serif;
 	}
 
 	/* .page,
