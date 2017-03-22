@@ -301,6 +301,11 @@ u,
 	margin-top: 0;
 }
 
+.col p.subhead {
+	font-size: 1.200rem;
+	line-height: 1.600rem;
+}
+
 .col dl dt a {
 	color: inherit;
 	border-bottom-color: inherit;
@@ -1115,58 +1120,94 @@ u,
 
 .holder-search-form {
 	display: inline-block;
-	width: 18.133rem;
+	/* width: 18.133rem; */
 	position: fixed;
-	top: 0.533rem;
-	right: 0.533rem;
+	top: 0.400rem;
+	right: 0.400rem;
 }
 
 .holder-search-form input[type^=text],
 .holder-search-form input[type^=search] {
-	width: 100%;
-	height: 2.133rem;
+	width: 9.600rem;
+	/* height: 2.400rem; */
 	font-family: inherit;
 	font-size: 0.933rem;
+	line-height: 1.200rem;
 	color: inherit;
 	border-color: transparent;
 	border-style: solid;
 	border-width: 0.067rem;
+	transition: width 0.2s linear;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
-	padding-left: 2.133rem;
+	padding-top: 0.533rem;
+	padding-right: 2.400rem;
+	padding-bottom: 0.533rem;
+	padding-left: 0.533rem;
 }
 
 .holder-search-form input[type^=text]:focus,
 .holder-search-form input[type^=text]:active,
 .holder-search-form input[type^=search]:focus,
 .holder-search-form input[type^=search]:active {
+	width: 18.133rem;
 	background-color: $color-hex-hover-ui-icon-bg;
 	border-color: transparent;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
 
-@media only screen and (max-width: 479px) {
-	.holder-search-form {
-		display: none;
+@media only screen and (max-width: 480px) {
+	.holder-search-form input[type^=text]:focus,
+	.holder-search-form input[type^=text]:active,
+	.holder-search-form input[type^=search]:focus,
+	.holder-search-form input[type^=search]:active {
+		width: 14.933rem;
 	}
 }
 
-/**
- * using icon font
- */
+.holder-search-form button[type^=submit] {
+	width: 2.400rem;
+	/* height: 2.400rem; */
+	position: fixed;
+	top: 0.400rem;
+	right: 0.400rem;
+	font-size: 0;
+	line-height: 0;
+	color: $color-hex-ui-icon-text;
+	background-color: transparent;
+	border: 0.067rem solid transparent;
+	padding: 1.133rem;
+}
+
+.holder-search-form button[type^=submit]:after {
+	position: absolute;
+	top: 0;
+	right: 0.600rem;
+	font-family: "micon";
+	content: "\ECEA";
+	font-size: 1.067rem;
+	line-height: 2.267rem;
+}
+
+.holder-search-form button[type^=submit]:focus,
+.holder-search-form button[type^=submit]:active {
+	color: #FFFFFF;
+	background-color: $color-hex-ui-menu-border;
+	border: 0.067rem solid $color-hex-ui-menu-border;
+}
 
 .holder-search-text:before,
 .ya-site-form:before {
+	width: 2.400rem;
 	position: absolute;
-	top: 0.067rem;
-	left: 0.667rem;
+	top: 0;
+	right: 0;
 	font-family: "micon";
 	content: "\ECEA";
-	/* transform: scaleX(-1); */
-	font-size: 0.800rem;
-	line-height: 2.000rem;
+	font-size: 1.067rem;
 	color: $color-hex-ui-icon-text;
+	padding: 0.533rem 0.667rem;
 }
 
 .holder-search-form input[type^=text],

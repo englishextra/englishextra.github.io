@@ -8,11 +8,11 @@
 .notifier42 {
 	display: block;
 	opacity : 0;
-	width: 100%;
+	width: calc(100% - 6.400rem);
 	min-height: 3.200rem;
 	position : fixed;
 	bottom : 0;
-	left : 0;
+	left: 3.200rem;
 	font-size: 0.933rem;
 	line-height: 1.333rem;
 	text-align : center;
