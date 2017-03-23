@@ -10,15 +10,15 @@
  * http://brajeshwar.me
  * ---------------------------------------------- *
  */
+
 *,
 *:after,
 *:before {
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
 
 /* Grid HTML Classes */
+
 .row {
 	margin-left: auto;
 	margin-right: auto;
@@ -32,29 +32,34 @@
 	display: table;
 	clear: both;
 }
+
 .row.collapse .column,
 .row.collapse .columns {
 	padding-left: 0;
 	padding-right: 0;
 	float: left;
 }
+
 .row .row {
 	margin-left: -0.75em;
 	margin-right: -0.75em;
 	max-width: none;
 	width: auto;
 }
+
 .row .row:after {
 	content: "";
 	display: table;
 	clear: both;
 }
+
 .row .row.collapse {
 	margin-left: 0;
 	margin-right: 0;
 	max-width: none;
 	width: auto;
 }
+
 .row .row.collapse:after {
 	content: "";
 	display: table;
@@ -119,7 +124,7 @@
 		width: 100%;
 	}
 
-	.small-offset-0 {
+	/* .small-offset-0 {
 		margin-left: 0%;
 	}
 
@@ -161,7 +166,7 @@
 
 	.small-offset-10 {
 		margin-left: 83.33333%;
-	}
+	} */
 
 	[class*="column"] + [class*="column"]:last-child {
 		float: right;
@@ -171,12 +176,12 @@
 		float: left;
 	}
 
-	.column.small-centered,
+	/* .column.small-centered,
 	.columns.small-centered {
 		margin-left: auto;
 		margin-right: auto;
-		float: none /* !important */;
-	}
+		float: none;
+	} */
 }
 
 @media only screen and (min-width: 768px) {
@@ -228,7 +233,7 @@
 		width: 100%;
 	}
 
-	.medium-offset-0 {
+	/* .medium-offset-0 {
 		margin-left: 0%;
 	}
 
@@ -390,15 +395,15 @@
 	.columns.medium-centered {
 		margin-left: auto;
 		margin-right: auto;
-		float: none /* !important */;
+		float: none;
 	}
 
 	.column.medium-uncentered,
 	.columns.medium-uncentered {
 		margin-left: 0;
 		margin-right: 0;
-		float: left /* !important */;
-	}
+		float: left;
+	} */
 }
 
 @media only screen and (min-width: 1024px) {
@@ -450,7 +455,7 @@
 		width: 100%;
 	}
 
-	.large-offset-0 {
+	/* .large-offset-0 {
 		margin-left: 0%;
 	}
 
@@ -612,14 +617,14 @@
 	.columns.large-centered {
 		margin-left: auto;
 		margin-right: auto;
-		float: none /* !important */;
+		float: none;
 	}
 
 	.column.large-uncentered,
 	.columns.large-uncentered {
 		margin-left: 0;
 		margin-right: 0;
-		float: left /* !important */;
-	}
+		float: left;
+	} */
 }
 

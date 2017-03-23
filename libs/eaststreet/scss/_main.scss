@@ -50,13 +50,14 @@ body {
 a {
 	color: inherit;
 	text-decoration: none;
-	-webkit-tap-highlight-color: transparent;
-	outline: none;
 }
 
 a:focus,
-a:hover,
-a:active {
+a:active,
+button:focus,
+button:active,
+select:focus,
+select:active {
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
@@ -173,6 +174,12 @@ u,
 }
 
 .ui-sidebar .mi-BarcodeScanner:before {
+	display: inline-block;
+	content: "";
+	height: 1.333rem;
+	width: 1.333rem;
+	font-size: 1.333rem;
+	line-height: 3.200rem;
 	color: transparent;
 	background-image: url(../img/fa-qrcode-96x96.svg);
 	background-size: 100% 100%;
@@ -185,13 +192,16 @@ u,
 }
 
 .ui-sidebar .mi-Home:before {
+	content: "";
+}
+
+.ui-sidebar .mi-Home {
 	display: block;
 	height: 3.200rem;
 	width: 3.200rem;
-	line-height: 3.200rem;
 	color: transparent;
 	background-image: url(../img/logo-96x96.svg);
-	background-size: 3.200rem 3.200rem;
+	background-size: 100% 100%;
 	background-repeat: no-repeat;
 	background-position: center center;
 }
@@ -1253,4 +1263,27 @@ u,
 	background-position: 0 0;
 	background-repeat: repeat;
 }
+
+/* .debug .row:before {
+	content: " ";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background-color: rgba(255, 65, 65, 0.05);
+} */
+
+.debug .column:before {
+	content: " ";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background-color: rgba(255, 65, 65, 0.1);
+}
+
 
