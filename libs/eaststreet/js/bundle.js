@@ -1492,7 +1492,7 @@ var manageDataQrcodeImg = function (ctx) {
 loadManageDataQrcodeImg = function () {
 	"use strict";
 	var w = window,
-	js = "./cdn/qrjs.js/0.1.0/js/qrjs.fixed.min.js";
+	js = "./cdn/qrjs2/0.1.2/js/qrjs2.fixed.min.js";
 	if (!scriptIsLoaded(js)) {
 		loadJS(js, manageDataQrcodeImg.bind(null, ""));
 	} else {
@@ -1780,7 +1780,7 @@ var initLocationQrCodeImg = function () {
 loadInitLocationQrCodeImg = function () {
 	"use strict";
 	var w = window,
-	js = "./cdn/qrjs.js/0.1.0/js/qrjs.fixed.min.js";
+	js = "./cdn/qrjs2/0.1.2/js/qrjs2.fixed.min.js";
 	if (!scriptIsLoaded(js)) {
 		loadJS(js, initLocationQrCodeImg);
 	} else {
@@ -2557,7 +2557,7 @@ var initRoutie = function (ctx) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					if ("undefined" !== typeof isOldOpera && !isOldOpera) {
 						loadVirtualPage(ctx, "./includes/map.html", function () {
-							reinitVirtualPage(" - Смотреть на карте");
+							reinitVirtualPage(" - Карта");
 						});
 					}
 				}
