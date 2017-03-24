@@ -3230,13 +3230,15 @@ EB5262
 
 .mi-ScrollUpDown:before {
 	content: "\ECE9";
-}
+} */
 
-.mi-FindLegacy:before, .mi-Search:before, .mi-SearchboxLegacy:before {
+.mi-FindLegacy:before,
+.mi-Search:before,
+.mi-SearchboxLegacy:before {
 	content: "\ECEA";
 }
 
-.mi-SearchAndApps:before {
+/* .mi-SearchAndApps:before {
 	content: "\ECEB";
 }
 
