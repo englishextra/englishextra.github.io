@@ -1,26 +1,24 @@
-/*! @import "micon.fixed"; */
-
 /*! Micon v2.2.155 | MIT License | http://xtoolkit.github.io/Micon/ */
 
 @font-face {
-	font-family: "micon";
-	src: url(../fonts/micon-with-webbrand-fontfacekit/micon.woff2?v=2.2.155) format("woff2"),
-	url(../fonts/micon-with-webbrand-fontfacekit/micon.woff?v=2.2.155) format("woff"),
-	url(../fonts/micon-with-webbrand-fontfacekit/micon.ttf?v=2.2.155) format("truetype");
+	font-family: 'micon_nb';
+	src: url('./micon_nb.woff2?v=2.2.155') format('woff2'),
+	url('./micon_nb.woff?v=2.2.155') format('woff'),
+	url('./micon_nb.ttf?v=2.2.155') format('truetype');
 	font-weight: normal;
 	font-style: normal;
 }
 
 .mi {
 	display: inline-block;
-	font: normal normal normal 14px/1 micon;
+	font: normal normal normal 14px/1 micon_nb;
 	font-size: inherit;
 	text-rendering: auto;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
 
-/* .mi-lg {
+.mi-lg {
 	font-size: 1.33333333em;
 	line-height: 0.75em;
 	vertical-align: -15%;
@@ -108,44 +106,71 @@
 }
 
 .mi-spin {
+	-webkit-animation: mi-spin 2s infinite linear;
 	animation: mi-spin 2s infinite linear;
 }
 
 .mi-pulse {
+	-webkit-animation: mi-spin 1s infinite steps(8);
 	animation: mi-spin 1s infinite steps(8);
+}
+
+@-webkit-keyframes mi-spin {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+
+	100% {
+		-webkit-transform: rotate(359deg);
+		transform: rotate(359deg);
+	}
 }
 
 @keyframes mi-spin {
 	0% {
+		-webkit-transform: rotate(0deg);
 		transform: rotate(0deg);
 	}
+
 	100% {
+		-webkit-transform: rotate(359deg);
 		transform: rotate(359deg);
 	}
 }
 
 .mi-rotate-90 {
 	-ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
+	-webkit-transform: rotate(90deg);
+	-ms-transform: rotate(90deg);
 	transform: rotate(90deg);
 }
 
 .mi-rotate-180 {
 	-ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
+	-webkit-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
 	transform: rotate(180deg);
 }
 
 .mi-rotate-270 {
 	-ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
+	-webkit-transform: rotate(270deg);
+	-ms-transform: rotate(270deg);
 	transform: rotate(270deg);
 }
 
 .mi-flip-horizontal {
 	-ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)";
+	-webkit-transform: scale(-1, 1);
+	-ms-transform: scale(-1, 1);
 	transform: scale(-1, 1);
 }
 
 .mi-flip-vertical {
 	-ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
+	-webkit-transform: scale(1, -1);
+	-ms-transform: scale(1, -1);
 	transform: scale(1, -1);
 }
 
@@ -179,9 +204,9 @@
 
 .mi-inverse {
 	color: #fff;
-} */
+}
 
-/* .mi-Accept:before, .mi-AcceptLegacy:before, .mi-CheckmarkListviewLegacy:before, .mi-CheckmarkMenuLegacy:before {
+.mi-Accept:before, .mi-AcceptLegacy:before, .mi-CheckmarkListviewLegacy:before, .mi-CheckmarkMenuLegacy:before {
 	content: "\EA01";
 }
 
@@ -687,13 +712,13 @@
 
 .mi-Camera:before, .mi-CameraLegacy:before {
 	content: "\EA7F";
-} */
+}
 
 .mi-Cancel:before, .mi-CancelLegacy:before {
 	content: "\EA80";
 }
 
-/* .mi-Caption:before, .mi-CaptionLegacy:before {
+.mi-Caption:before, .mi-CaptionLegacy:before {
 	content: "\EA81";
 }
 
@@ -743,13 +768,13 @@
 
 .mi-CheckboxIndeterminate:before, .mi-CheckboxIndeterminateLegacy:before {
 	content: "\EA8D";
-} */
+}
 
 .mi-ChevronDown:before, .mi-ChevronDown1Legacy:before, .mi-ChevronDown2Legacy:before, .mi-ChevronDown3Legacy:before, .mi-ChevronDown4Legacy:before, .mi-ChevronFlipDownLegacy:before, .mi-ScrollChevronDownBoldLegacy:before, .mi-ScrollChevronDownLegacy:before {
 	content: "\EA8E";
 }
 
-/* .mi-ChevronDownMed:before {
+.mi-ChevronDownMed:before {
 	content: "\EA8F";
 }
 
@@ -779,13 +804,13 @@
 
 .mi-ChevronRightSmLegacy:before, .mi-ChevronRightSmall:before {
 	content: "\EA96";
-} */
+}
 
 .mi-ChevronFlipUpLegacy:before, .mi-ChevronUp:before, .mi-ChevronUp1Legacy:before, .mi-ChevronUp2Legacy:before, .mi-ChevronUp3Legacy:before, .mi-ChevronUp4Legacy:before, .mi-ScrollChevronUpBoldLegacy:before, .mi-ScrollChevronUpLegacy:before {
 	content: "\EA97";
 }
 
-/* .mi-ChevronUpMed:before {
+.mi-ChevronUpMed:before {
 	content: "\EA98";
 }
 
@@ -1487,13 +1512,13 @@
 
 .mi-GameConsole:before {
 	content: "\EB47";
-} */
+}
 
 .mi-GlobalNavButton:before {
 	content: "\EB48";
 }
 
-/* .mi-Globe:before, .mi-GlobeLegacy:before {
+.mi-Globe:before, .mi-GlobeLegacy:before {
 	content: "\EB49";
 }
 
@@ -1919,13 +1944,13 @@
 
 .mi-LightningBolt:before {
 	content: "\EBB3";
-} */
+}
 
 .mi-Like:before, .mi-LikeInlineLegacy:before, .mi-LikeLegacy:before {
 	content: "\EBB4";
 }
 
-/* .mi-LikeDislike:before, .mi-LikeDislikeLegacy:before {
+.mi-LikeDislike:before, .mi-LikeDislikeLegacy:before {
 	content: "\EBB5";
 }
 
@@ -2307,13 +2332,13 @@
 
 .mi-MobileTablet:before {
 	content: "\EC14";
-} */
+}
 
 .mi-More:before, .mi-MoreLegacy:before {
 	content: "\EC15";
 }
 
-/* .mi-Mouse:before {
+.mi-Mouse:before {
 	content: "\EC16";
 }
 
@@ -2919,13 +2944,13 @@
 
 .mi-Rename:before, .mi-RenameLegacy:before {
 	content: "\ECAD";
-} */
+}
 
 .mi-Repair:before, .mi-RepairLegacy:before {
 	content: "\ECAE";
 }
 
-/* .mi-RepeatOne:before, .mi-RepeatOneLegacy:before {
+.mi-RepeatOne:before, .mi-RepeatOneLegacy:before {
 	content: "\ECAF";
 }
 
@@ -3215,13 +3240,13 @@
 
 .mi-SettingsDisplaySound:before {
 	content: "\ECF7";
-} */
+}
 
 .mi-Share:before {
 	content: "\ECF8";
 }
 
-/* .mi-ShareBroadband:before {
+.mi-ShareBroadband:before {
 	content: "\ECF9";
 }
 
@@ -3747,13 +3772,13 @@
 
 .mi-UnsyncFolder:before, .mi-UnsyncFolderLegacy:before {
 	content: "\ED7C";
-} */
+}
 
 .mi-Up:before, .mi-UpLegacy:before {
 	content: "\ED7D";
 }
 
-/* .mi-UpArrowShiftKey:before {
+.mi-UpArrowShiftKey:before {
 	content: "\ED7E";
 }
 
@@ -3995,569 +4020,5 @@
 
 .mi-eSIMNoProfile:before {
 	content: "\EDBA";
-} */
-
-/* .mi-500px:before {
-	content: "\EDBB";
 }
-
-.mi-adn:before {
-	content: "\EDBC";
-}
-
-.mi-amazon:before {
-	content: "\EDBD";
-}
-
-.mi-android:before {
-	content: "\EDBE";
-}
-
-.mi-angellist:before {
-	content: "\EDBF";
-}
-
-.mi-apple:before {
-	content: "\EDC0";
-}
-
-.mi-bandcamp:before {
-	content: "\EDC1";
-}
-
-.mi-behance-square:before {
-	content: "\EDC2";
-}
-
-.mi-behance:before {
-	content: "\EDC3";
-}
-
-.mi-bitbucket:before {
-	content: "\EDC4";
-}
-
-.mi-black-tie:before {
-	content: "\EDC5";
-}
-
-.mi-bluetooth-b:before {
-	content: "\EDC6";
-}
-
-.mi-bluetooth:before {
-	content: "\EDC7";
-}
-
-.mi-btc:before, .mi-bitcoin:before {
-	content: "\EDC8";
-}
-
-.mi-buysellads:before {
-	content: "\EDC9";
-}
-
-.mi-cc-amex:before {
-	content: "\EDCA";
-}
-
-.mi-cc-diners-club:before {
-	content: "\EDCB";
-}
-
-.mi-cc-discover:before {
-	content: "\EDCC";
-}
-
-.mi-cc-jcb:before {
-	content: "\EDCD";
-}
-
-.mi-cc-mastercard:before {
-	content: "\EDCE";
-}
-
-.mi-cc-paypal:before {
-	content: "\EDCF";
-}
-
-.mi-cc-stripe:before {
-	content: "\EDD0";
-}
-
-.mi-cc-visa:before {
-	content: "\EDD1";
-}
-
-.mi-chrome:before {
-	content: "\EDD2";
-}
-
-.mi-codepen:before {
-	content: "\EDD3";
-}
-
-.mi-codiepie:before {
-	content: "\EDD4";
-}
-
-.mi-connectdevelop:before {
-	content: "\EDD5";
-}
-
-.mi-contao:before {
-	content: "\EDD6";
-}
-
-.mi-css3:before {
-	content: "\EDD7";
-}
-
-.mi-dashcube:before {
-	content: "\EDD8";
-}
-
-.mi-delicious:before {
-	content: "\EDD9";
-}
-
-.mi-deviantart:before {
-	content: "\EDDA";
-}
-
-.mi-digg:before {
-	content: "\EDDB";
-}
-
-.mi-dribbble:before {
-	content: "\EDDC";
-}
-
-.mi-dropbox:before {
-	content: "\EDDD";
-}
-
-.mi-drupal:before {
-	content: "\EDDE";
-}
-
-.mi-edge:before {
-	content: "\EDDF";
-}
-
-.mi-eercast:before {
-	content: "\EDE0";
-}
-
-.mi-empire:before, .mi-ge:before {
-	content: "\EDE1";
-}
-
-.mi-envira:before {
-	content: "\EDE2";
-}
-
-.mi-expeditedssl:before {
-	content: "\EDE3";
-}
-
-.mi-facebook-official:before {
-	content: "\EDE4";
-}
-
-.mi-facebook:before, .mi-facebook-f:before {
-	content: "\EDE5";
-}
-
-.mi-firefox:before {
-	content: "\EDE6";
-}
-
-.mi-first-order:before {
-	content: "\EDE7";
-}
-
-.mi-flickr:before {
-	content: "\EDE8";
-}
-
-.mi-forumbee:before {
-	content: "\EDE9";
-}
-
-.mi-foursquare:before {
-	content: "\EDEA";
-}
-
-.mi-free-code-camp:before {
-	content: "\EDEB";
-}
-
-.mi-get-pocket:before {
-	content: "\EDEC";
-}
-
-.mi-gg:before {
-	content: "\EDED";
-}
-
-.mi-git:before {
-	content: "\EDEE";
-}
-
-.mi-github-alt:before {
-	content: "\EDEF";
-}
-
-.mi-github:before {
-	content: "\EDF0";
-}
-
-.mi-gitlab:before {
-	content: "\EDF1";
-}
-
-.mi-glide-g:before {
-	content: "\EDF2";
-}
-
-.mi-google-plus:before {
-	content: "\EDF3";
-}
-
-.mi-google-wallet:before {
-	content: "\EDF4";
-}
-
-.mi-google:before {
-	content: "\EDF5";
-}
-
-.mi-gratipay:before, .mi-gittip:before {
-	content: "\EDF6";
-}
-
-.mi-hacker-news:before {
-	content: "\EDF7";
-}
-
-.mi-houzz:before {
-	content: "\EDF8";
-}
-
-.mi-html5:before {
-	content: "\EDF9";
-}
-
-.mi-instagram:before {
-	content: "\EDFA";
-}
-
-.mi-internet-explorer:before {
-	content: "\EDFB";
-}
-
-.mi-ioxhost:before {
-	content: "\EDFC";
-}
-
-.mi-joomla:before {
-	content: "\EDFD";
-}
-
-.mi-jsfiddle:before {
-	content: "\EDFE";
-}
-
-.mi-lastfm:before {
-	content: "\EDFF";
-}
-
-.mi-leanpub:before {
-	content: "\EE00";
-}
-
-.mi-linkedin:before {
-	content: "\EE01";
-}
-
-.mi-linode:before {
-	content: "\EE02";
-}
-
-.mi-linux:before {
-	content: "\EE03";
-}
-
-.mi-maxcdn:before {
-	content: "\EE04";
-}
-
-.mi-meanpath:before {
-	content: "\EE05";
-}
-
-.mi-medium:before {
-	content: "\EE06";
-}
-
-.mi-meetup:before {
-	content: "\EE07";
-}
-
-.mi-mixcloud:before {
-	content: "\EE08";
-}
-
-.mi-modx:before {
-	content: "\EE09";
-}
-
-.mi-odnoklassniki:before {
-	content: "\EE0A";
-}
-
-.mi-opencart:before {
-	content: "\EE0B";
-}
-
-.mi-openid:before {
-	content: "\EE0C";
-}
-
-.mi-opera:before {
-	content: "\EE0D";
-}
-
-.mi-optin-monster:before {
-	content: "\EE0E";
-}
-
-.mi-pagelines:before {
-	content: "\EE0F";
-}
-
-.mi-paypal:before {
-	content: "\EE10";
-}
-
-.mi-pied-piper-alt:before {
-	content: "\EE11";
-}
-
-.mi-pied-piper:before {
-	content: "\EE12";
-}
-
-.mi-pinterest-p:before {
-	content: "\EE13";
-}
-
-.mi-product-hunt:before {
-	content: "\EE14";
-}
-
-.mi-qq:before {
-	content: "\EE15";
-}
-
-.mi-quora:before {
-	content: "\EE16";
-}
-
-.mi-ravelry:before {
-	content: "\EE17";
-}
-
-.mi-rebel:before, .mi-ra:before, .mi-resistance:before {
-	content: "\EE18";
-}
-
-.mi-reddit-alien:before {
-	content: "\EE19";
-}
-
-.mi-renren:before {
-	content: "\EE1A";
-}
-
-.mi-safari:before {
-	content: "\EE1B";
-}
-
-.mi-scribd:before {
-	content: "\EE1C";
-}
-
-.mi-sellsy:before {
-	content: "\EE1D";
-}
-
-.mi-shirtsinbulk:before {
-	content: "\EE1E";
-}
-
-.mi-simplybuilt:before {
-	content: "\EE1F";
-}
-
-.mi-skyatlas:before {
-	content: "\EE20";
-}
-
-.mi-skype:before {
-	content: "\EE21";
-}
-
-.mi-slack:before {
-	content: "\EE22";
-}
-
-.mi-slideshare:before {
-	content: "\EE23";
-}
-
-.mi-snapchat-ghost:before {
-	content: "\EE24";
-}
-
-.mi-soundcloud:before {
-	content: "\EE25";
-}
-
-.mi-spotify:before {
-	content: "\EE26";
-}
-
-.mi-stack-exchange:before {
-	content: "\EE27";
-}
-
-.mi-stack-overflow:before {
-	content: "\EE28";
-}
-
-.mi-steam:before {
-	content: "\EE29";
-}
-
-.mi-stumbleupon:before {
-	content: "\EE2A";
-}
-
-.mi-superpowers:before {
-	content: "\EE2B";
-}
-
-.mi-telegram:before {
-	content: "\EE2C";
-}
-
-.mi-tencent-weibo:before {
-	content: "\EE2D";
-}
-
-.mi-themeisle:before {
-	content: "\EE2E";
-}
-
-.mi-trello:before {
-	content: "\EE2F";
-}
-
-.mi-tripadvisor:before {
-	content: "\EE30";
-}
-
-.mi-tumblr:before {
-	content: "\EE31";
-}
-
-.mi-twitch:before {
-	content: "\EE32";
-}
-
-.mi-twitter:before {
-	content: "\EE33";
-}
-
-.mi-viacoin:before {
-	content: "\EE34";
-}
-
-.mi-viadeo:before {
-	content: "\EE35";
-}
-
-.mi-vimeo:before {
-	content: "\EE36";
-}
-
-.mi-vine:before {
-	content: "\EE37";
-}
-
-.mi-vk:before {
-	content: "\EE38";
-}
-
-.mi-weibo:before {
-	content: "\EE39";
-}
-
-.mi-weixin:before, .mi-wechat:before {
-	content: "\EE3A";
-}
-
-.mi-whatsapp:before {
-	content: "\EE3B";
-}
-
-.mi-wikipedia-w:before {
-	content: "\EE3C";
-}
-
-.mi-windows:before {
-	content: "\EE3D";
-}
-
-.mi-wordpress:before {
-	content: "\EE3E";
-}
-
-.mi-wpbeginner:before {
-	content: "\EE3F";
-}
-
-.mi-wpexplorer:before {
-	content: "\EE40";
-}
-
-.mi-wpform:before {
-	content: "\EE41";
-}
-
-.mi-xing:before {
-	content: "\EE42";
-}
-
-.mi-yahoo:before {
-	content: "\EE43";
-}
-
-.mi-yelp:before {
-	content: "\EE44";
-}
-
-.mi-yoast:before {
-	content: "\EE45";
-}
-
-.mi-youtube-play:before {
-	content: "\EE46";
-}
-
-.mi-youtube:before {
-	content: "\EE47";
-} */
 
