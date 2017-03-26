@@ -289,7 +289,7 @@ var setStyleVisibilityHidden=function(a){return function(){if(a){a.style.visibil
  * jsfiddle.net/englishextra/fcdds4v6/
  * @param {String} url URL string
  * @param {Boolean} [true|false] if true, returns protocol:, :port, /pathname, ?search, ?query, #hash
- * if set to  false, returns protocol, port, pathname, search, query, hash
+ * if set to false, returns protocol, port, pathname, search, query, hash
  * alert(parseLink("http://localhost/search?s=t&v=z#dev").href|
  * origin|host|port|hash|hostname|pathname|protocol|search|query|isAbsolute|isRelative|isCrossDomain);
  */
@@ -527,7 +527,7 @@ var hideUiBtnsInFullScreen = function () {
 		 */
 		var args = [cd_prev, cd_next, btn_nav_menu, btn_menu_more, btn_block_social_buttons, ui_totop, holder_search_form];
 		if ((w.navigator.standalone) || (screen.height === w.outerHeight) || (w.fullScreen) || (w.innerWidth == screen.width && w.innerHeight == screen.height)) {
-			for (var i = 0, l = args.length; i < l; i  += 1) {
+			for (var i = 0, l = args.length; i < l; i += 1) {
 				setStyleDisplayNone(args[i]);
 			}
 			setStyleDisplayNone(btn_show_vk_like);

@@ -440,7 +440,7 @@ var changeHash=function(a){return function(){if(a){window.location.hash="#"+("#"
  * jsfiddle.net/englishextra/fcdds4v6/
  * @param {String} url URL string
  * @param {Boolean} [true|false] if true, returns protocol:, :port, /pathname, ?search, ?query, #hash
- * if set to  false, returns protocol, port, pathname, search, query, hash
+ * if set to false, returns protocol, port, pathname, search, query, hash
  * alert(parseLink("http://localhost/search?s=t&v=z#dev").href|
  * origin|host|port|hash|hostname|pathname|protocol|search|query|isAbsolute|isRelative|isCrossDomain);
  */
@@ -707,7 +707,7 @@ var Notifier42 = function (m, n, t) {
 	var g = function (f) {
 		c[cL].remove(an2);
 		c[cL].add(an4);
-		var r = function  ()  {
+		var r = function () {
 			c[cL].remove(an);
 			c[cL].remove(an4);
 			if (t) {
@@ -976,7 +976,7 @@ var manageImgLightboxLinks = function (ctx) {
 		r = function () {
 			m[cL].remove(an2);
 			m[cL].add(an4);
-			var st1 = function ()  {
+			var st1 = function () {
 				c[cL].remove(an, an3);
 				m[cL].remove(an, an4);
 				setStyleDisplayNone(c);
@@ -1001,13 +1001,13 @@ var manageImgLightboxLinks = function (ctx) {
 			},
 			h_w = function (e) {
 				/* evento.remove(w, "keyup", h_w); */
-				w.onkeyup =  null;
+				w.onkeyup = null;
 				v(e);
 			};
 			/* evento.add(c, "click", h_c);
-			evento.add(w, "keyup",  h_w); */
+			evento.add(w, "keyup", h_w); */
 			c.onclick = h_c;
-			w.onkeyup =  h_w;
+			w.onkeyup = h_w;
 			setStyleDisplayBlock(c);
 			LoadingSpinner.hide();
 		},
@@ -1126,7 +1126,7 @@ evento.add(window, "load", loadManageDataSrcImg);
  * init qr-code
  * stackoverflow.com/questions/12777622/how-to-use-enquire-js
  */
-var initLocationQRImg = function () {
+var initLocationQrCodeImg = function () {
 	"use strict";
 	var w = window,
 	d = document,
@@ -1146,7 +1146,7 @@ var initLocationQRImg = function () {
 		appendFragment(m, a);
 	};
 	if (a && p) {
-		console.log("triggered function: initLocationQRImg");
+		console.log("triggered function: initLocationQrCodeImg");
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
 				g();
@@ -1156,8 +1156,8 @@ var initLocationQRImg = function () {
 		}
 	}
 };
-evento.add(window, "load", initLocationQRImg);
-evento.add(window, "hashchange", initLocationQRImg);
+evento.add(window, "load", initLocationQrCodeImg);
+evento.add(window, "hashchange", initLocationQrCodeImg);
 /*!
  * init nav-menu
  */
@@ -1577,7 +1577,7 @@ var includeHTMLintoTarget = function (_this, u, t) {
 	var w = window,
 	c = BALA.one(t) || "",
 	pN = "parentNode",
-	c_pn = c[pN]  || "",
+	c_pn = c[pN] || "",
 	g = function () {
 		var s = function () {
 			if (_this[pN]) {
@@ -1812,22 +1812,12 @@ var initRoutie = function (ctx) {
 				loadVirtualPage(ctx, "./includes/contents.html", function () {
 					reinitVirtualPage(" - Содержание");
 					manageYandexMapButton("#ymap");
-					/* try {
-						if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
-							initYandexMap("#ymap");
-						}
-					} catch (e) {
-						console.log(e);
-					} */
 				});
 			},
 			"/feedback": function () {
 				loadVirtualPage(ctx, "./includes/feedback.html", function () {
 					reinitVirtualPage(" - Напишите мне");
 					manageDisqusButton();
-					/* if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
-						loadRefreshDisqus();
-					} */
 				});
 			},
 			"/schedule": function () {

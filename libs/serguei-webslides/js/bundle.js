@@ -419,7 +419,7 @@ var initWebslides = function() {
 				}
 			});
 			/**
-			 *  Bind the event HashChange when the prev/next history button was clicked
+			 * Bind the event HashChange when the prev/next history button was clicked
 			 */
 			jQuery(window).bind("hashchange", function () {
 				if (hasHash()) {

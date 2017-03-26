@@ -443,7 +443,7 @@ var changeLocation=function(a){return function(){if(a){document.location.href=a;
  * jsfiddle.net/englishextra/fcdds4v6/
  * @param {String} url URL string
  * @param {Boolean} [true|false] if true, returns protocol:, :port, /pathname, ?search, ?query, #hash
- * if set to  false, returns protocol, port, pathname, search, query, hash
+ * if set to false, returns protocol, port, pathname, search, query, hash
  * alert(parseLink("http://localhost/search?s=t&v=z#dev").href|
  * origin|host|port|hash|hostname|pathname|protocol|search|query|isAbsolute|isRelative|isCrossDomain);
  */
@@ -913,7 +913,7 @@ docReady(manageSearchInput);
  * init qr-code
  * stackoverflow.com/questions/12777622/how-to-use-enquire-js
  */
-var initLocationQRImg = function () {
+var initLocationQrCodeImg = function () {
 	"use strict";
 	var w = window,
 	d = document,
@@ -933,7 +933,7 @@ var initLocationQRImg = function () {
 		appendFragment(m, a);
 	};
 	if (a && p) {
-		console.log("triggered function: initLocationQRImg");
+		console.log("triggered function: initLocationQrCodeImg");
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
 				g();
@@ -943,7 +943,7 @@ var initLocationQRImg = function () {
 		}
 	}
 };
-evento.add(window, "load", initLocationQRImg);
+evento.add(window, "load", initLocationQrCodeImg);
 /*!
  * init nav-menu
  */
@@ -1106,7 +1106,7 @@ var addAppUpdatesLink = function () {
 			a.target = "_blank";
 		} else {
 			/*!
-			 * no prevent default and  void .href above
+			 * no prevent default and void .href above
 			 */
 			/* jshint -W107 */
 			a.href = "javascript:void(0);";

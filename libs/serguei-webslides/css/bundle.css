@@ -833,7 +833,7 @@ img.aligncenter {
 
 pre,
 code {
-	font-family: "Source Code Pro", "Consolas", "Monaco", "Droid Sans Mono", "Menlo", monospace;
+	font-family: "Source Code Pro", "Consolas", "Monaco", "Droid Sans Mono", "Inconsolata", monospace;
 }
 
 pre {
@@ -1174,7 +1174,7 @@ body,
 input,
 select,
 textarea {
-	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", "Helvetica Neue", "Roboto", sans-serif;
+	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", "HelveticaNeue", "Roboto", sans-serif;
 	font-size: 62.5%;
 }
 
@@ -1416,7 +1416,7 @@ h3 [class*="bg-"] {
 
 .text-serif,
 h1 span {
-	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI Light", "Segoe WP Light", "Helvetica Neue", "Roboto", sans-serif;
+	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", "HelveticaNeue-Light", sans-serif-light, sans-serif;
 }
 
 /* -- h1,h2... Promo/Landings -- */
@@ -3566,7 +3566,7 @@ blockquote.wall:before {
 	top: -6.4rem;
 	left: -.8rem;
 	content: "\201C";
-	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", "Helvetica Neue", "Roboto", sans-serif;
+	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", "HelveticaNeue", "Roboto", sans-serif;
 	width: 6.4rem;
 	height: 6.4rem;
 	font-size: 16rem;

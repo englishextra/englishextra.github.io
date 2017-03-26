@@ -271,7 +271,7 @@ var changeLocation=function(a){return function(){if(a){document.location.href=a;
  * jsfiddle.net/englishextra/fcdds4v6/
  * @param {String} url URL string
  * @param {Boolean} [true|false] if true, returns protocol:, :port, /pathname, ?search, ?query, #hash
- * if set to  false, returns protocol, port, pathname, search, query, hash
+ * if set to false, returns protocol, port, pathname, search, query, hash
  * alert(parseLink("http://localhost/search?s=t&v=z#dev").href|
  * origin|host|port|hash|hostname|pathname|protocol|search|query|isAbsolute|isRelative|isCrossDomain);
  */

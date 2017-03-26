@@ -373,7 +373,7 @@
 			rbuggyMatches,
 			matches,
 			contains,
-			expando = "sizzle" +  - (new Date()),
+			expando = "sizzle" + - (new Date()),
 			preferredDoc = window.document,
 			dirruns = 0,
 			done = 0,
@@ -930,8 +930,8 @@
 							if (!match[3]) {
 								Sizzle.error(match[0]);
 							}
-							match[4] =  + (match[4] ? match[5] + (match[6] || 1) : 2 * (match[3] === "even" || match[3] === "odd"));
-							match[5] =  + ((match[7] + match[8]) || match[3] === "odd");
+							match[4] = + (match[4] ? match[5] + (match[6] || 1) : 2 * (match[3] === "even" || match[3] === "odd"));
+							match[5] = + ((match[7] + match[8]) || match[3] === "odd");
 						} else if (match[3]) {
 							Sizzle.error(match[0]);
 						}

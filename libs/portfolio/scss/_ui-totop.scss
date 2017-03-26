@@ -35,10 +35,6 @@
 	background-color: $color-hex-hover-ui-icon-bg;
 }
 
-/**
- * using icon font
- */
-
 #ui-totop {
 	text-indent: 0;
 	text-align: center;
@@ -53,6 +49,6 @@
 	content: "\e923";
 	font-size: 18.000pt;
 	line-height: 33.000pt;
-	color: $color-rgba-ui-icon-text;
+	color: $color-hex-ui-icon-text;
 }
 

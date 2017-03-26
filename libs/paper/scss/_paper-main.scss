@@ -47,13 +47,14 @@ body {
 a {
 	color: inherit;
 	text-decoration: none;
-	-webkit-tap-highlight-color: transparent;
-	outline: none;
 }
 
-a:hover,
 a:focus,
-a:active {
+a:active,
+button:focus,
+button:active,
+select:focus,
+select:active {
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
@@ -131,22 +132,22 @@ u,
 
 .show-inline-on-mobile,
 .show-block-on-mobile {
-	display: none  /* !important */;
+	display: none /* !important */;
 }
 
 @media handheld, only screen and (max-width: 800px) {
 	.hide-on-mobile {
-		display: none  /* !important */;
+		display: none /* !important */;
 		width: 0;
 		height: 0;
 	}
 
 	.show-inline-on-mobile {
-		display: inline  /* !important */;
+		display: inline /* !important */;
 	}
 
 	.show-block-on-mobile {
-		display: block  /* !important */;
+		display: block /* !important */;
 	}
 }
 
@@ -310,8 +311,9 @@ u,
 	padding: 0 1.143em;
 }
 
+.panel-nav-menu li a:focus,
 .panel-nav-menu li a:hover,
-.panel-nav-menu li a:focus {
+.panel-nav-menu li a:active {
 	background-color: $color-hex-darker-ui-panel-hover-item-bg;
 }
 
@@ -346,10 +348,6 @@ u,
 .btn-nav-menu:hover {
 	background-color: $color-hex-hover-ui-icon-bg;
 }
-
-/**
- * using icon font
- */
 
 .btn-nav-menu {
 	text-align: center;
@@ -408,10 +406,6 @@ u,
 	background-color: $color-hex-hover-ui-icon-bg;
 }
 
-/**
- * using icon font
- */
-
 .btn-menu-more {
 	text-align: center;
 	background-color: $color-rgba-ui-icon-bg;
@@ -433,7 +427,7 @@ u,
 	left: 33.000pt;
 	color: $color-hex-body-text;
 	background-color: $color-hex-ui-bar-bg;
-	border: 0.063rem solid $color-hex-ui-menu-border;
+	border: 0.063rem solid $color-hex-ui-accent;
 	box-shadow: 0.125em 0.125em 0.125em 0 $color-rgba-ui-bar-shadow;
 	opacity: 0;
 	transition: visibility 0s, opacity 0.2s linear;
@@ -463,9 +457,9 @@ u,
 	padding: 0.625em 0.750em;
 }
 
+.panel-menu-more li a:focus,
 .panel-menu-more li a:hover,
-.panel-menu-more li a:active,
-.panel-menu-more li a:focus {
+.panel-menu-more li a:active {
 	text-decoration: none;
 	color: inherit;
 	background-color: $color-hex-hover-ui-menu-item-bg;
@@ -499,31 +493,21 @@ u,
 	padding-left: 2.000em;
 }
 
-.holder-search-form input[type^=text]:active,
 .holder-search-form input[type^=text]:focus,
-.holder-search-form input[type^=search]:active,
-.holder-search-form input[type^=search]:focus {
+.holder-search-form input[type^=text]:active,
+.holder-search-form input[type^=search]:focus,
+.holder-search-form input[type^=search]:active {
 	background-color: $color-hex-hover-ui-icon-bg;
 	border-color: transparent;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
 
-/* @media only screen and (max-width: 570px) {
-	.holder-search-form {
-		width: 5.500em;
-	}
-} */
-
 @media only screen and (max-width: 479px) {
 	.holder-search-form {
 		display: none;
 	}
 }
-
-/**
- * using icon font
- */
 
 .holder-search-text:before,
 .ya-site-form:before {
@@ -532,7 +516,6 @@ u,
 	left: 0.625em;
 	font-family: "englishextra-ui-icons";
 	content: "\e91c";
-	/* transform: scaleX(-1); */
 	font-size: 12.000pt;
 	line-height: 24.000pt;
 	color: $color-hex-ui-icon-text;
@@ -549,7 +532,7 @@ u,
  */
 
 .holder-search-form table td {
-	padding: 0  /* !important */;
+	padding: 0 /* !important */;
 }
 
 .ya-site-form.ya-site-form_inited_no {
@@ -558,7 +541,7 @@ u,
 
 .ya-page_js_yes .ya-site-form_inited_no,
 .ya-site-form__submit {
-	display: none  /* !important */;
+	display: none /* !important */;
 }
 
 /**
@@ -599,9 +582,9 @@ u,
 	color: $color-hex-link;
 }
 
+.col a:focus,
 .col a:hover,
-.col a:active,
-.col a:focus {
+.col a:active {
 	color: $color-hex-hover-link;
 }
 
@@ -609,13 +592,14 @@ u,
 	color: $color-hex-visited-link;
 }
 
-.col h1 {
-	font-family: $font-family-webfont-sans-light;
-	font-weight: 300;
-	line-height: 1.200;
-	color: inherit;
-	margin-top: 0  /* !important */;
+.container .col h1 {
+	margin-top: 0;
 	margin-bottom: 0.500rem;
+}
+
+.col p.subhead {
+	font-size: 1.188rem;
+	line-height: 1.750rem;
 }
 
 .col dl dt a {
@@ -625,9 +609,9 @@ u,
 	border-bottom-width: 0.063rem;
 }
 
+.col dl dt a:focus,
 .col dl dt a:hover,
-.col dl dt a:active,
-.col dl dt a:focus {
+.col dl dt a:active {
 	color: inherit;
 }
 
@@ -644,21 +628,22 @@ u,
 }
 
 .col img.data-src-img,
+.col img.data-src-iframe,
 .col img[data-src] {
 	opacity: 0;
 	transition: opacity 0.4s ease;
 }
 
 .col img.data-src-img.is-active,
+.col img.data-src-iframe.is-active,
 .col img[data-src].is-active {
 	opacity: 1;
 }
 
 .col figcaption,
 .col .row figcaption {
-	font-size: 0.875rem;
-	line-height: 0.875rem;
-	text-align: right;
+	font-size: 0.813rem;
+	line-height: 1.250;
 }
 
 .col figcaption p,
@@ -807,15 +792,7 @@ u,
 }
 
 .col .phonetic {
-	font-family: "Consolas", "Monaco", "Droid Sans Mono", "Menlo", "Source Code Pro", monospace;
-}
-
-.col .bolder {
-	font-weight: 700;
-}
-
-.col .italic {
-	font-style: italic;
+	font-family: $font-family-webfont-monospace;
 }
 
 .col .underline {
@@ -836,9 +813,11 @@ u,
 
 .col .btn-larger,
 .col a.btn-larger {
-	font-size: 0.938rem;
-	font-weight: 400;
 	height: 2.250rem;
+	font-size: 0.875rem;
+	font-weight: 700;
+	padding-right: 0.688rem;
+	padding-left: 0.688rem;
 }
 
 .col a.btn-larger {
@@ -848,16 +827,22 @@ u,
 	text-align: center;
 	text-decoration: none;
 	border: 0.063rem solid $color-hex-button-bg;
-	padding-right: 1.000rem;
-	padding-left: 1.000rem;
+}
+
+.col a.btn-larger i.fa,
+.col a.btn-larger i.mi,
+.col a.btn-larger i.mdi,
+.col a.btn-larger i.material-icons {
+	font-size: 0.750rem;
+	line-height: 2.250rem;
 }
 
 .col .btn-primary,
-.col .btn-primary:active,
 .col .btn-primary:focus,
+.col .btn-primary:active,
 .col a.btn-primary,
-.col a.btn-primary:active,
-.col a.btn-primary:focus {
+.col a.btn-primary:focus,
+.col a.btn-primary:active {
 	color: #FFFFFF;
 	background-color: $color-hex-button-bg;
 	border-color: $color-hex-button-bg;
@@ -869,11 +854,11 @@ u,
 }
 
 .col .btn-secondary,
-.col .btn-secondary:active,
 .col .btn-secondary:focus,
+.col .btn-secondary:active,
 .col a.btn-secondary,
-.col a.btn-secondary:active,
-.col a.btn-secondary:focus {
+.col a.btn-secondary:focus,
+.col a.btn-secondary:active {
 	color: inherit;
 	background-color: $color-hex-ui-icon-bg;
 	border-color: $color-hex-ui-icon-bg;
@@ -886,11 +871,11 @@ u,
 }
 
 .col .btn-link,
-.col .btn-link:active,
 .col .btn-link:focus,
+.col .btn-link:active,
 .col a.btn-link,
-.col a.btn-link:active,
-.col a.btn-link:focus {
+.col a.btn-link:focus,
+.col a.btn-link:active {
 	color: inherit;
 	background-color: transparent;
 	border-color: $color-hex-ui-icon-bg;
@@ -908,8 +893,10 @@ u,
 
 .col .aside {
 	display: block;
+	font-size: 0.875rem;
+	line-height: 1.250rem;
 	background-color: $color-hex-aside-bg;
-	padding: 1.250rem;
+	padding: 1.000rem 1.250rem;
 }
 
 .col .aside *:first-child {
@@ -920,20 +907,8 @@ u,
 	margin-bottom: 0;
 }
 
-.aside h3 {
-	font-family: $font-family-webfont-sans-light;
-	font-weight: 300;
-	font-size: 1.331rem;
-}
-
-.aside p {
-	font-size: 0.875rem;
-}
-
-.aside caption,
-.aside table th,
-.aside table td {
-	font-size: 0.813rem;
+.col p + .aside {
+	margin-top: 1.500rem;
 }
 
 /**
@@ -941,9 +916,9 @@ u,
  * where hint class sets display inline block
  */
 
-[class*="hint--"],
+[class^="hint--"],
 [class*=" hint--"] {
-	display: block  /* !important */;
+	display: block /* !important */;
 }
 
 /**
@@ -959,8 +934,8 @@ u,
 .col .holder-contents-select select {
 	display: inline-block;
 	width: 97%;
-	max-width: 20.375rem;
-	height: 2.000rem;
+	max-width: 17.000rem;
+	height: 2.250rem;
 	font-family: sans-serif;
 	font-size: 0.875rem;
 	color: inherit;
@@ -980,9 +955,9 @@ u,
  */
 
 .col .holder-contents-select select,
+.col .holder-contents-select select:focus,
 .col .holder-contents-select select:hover,
-.col .holder-contents-select select:active,
-.col .holder-contents-select select:focus {
+.col .holder-contents-select select:active {
 	border: 0.063rem solid $color-hex-divider;
 }
 
@@ -1125,17 +1100,13 @@ u,
  */
 
 @media only screen and (max-width: 480px) {
-	body,
-	.col h2 {
+	body {
 		font-family: $font-family-local-sans-regular;
 	}
 
-	.panel-nav-menu li,
-	.col h1,
-	.aside h3 {
+	.panel-nav-menu li {
 		font-family: $font-family-local-sans-light;
 	}
-
 	.col .phonetic {
 		font-family: $font-family-local-monospace;
 	}
