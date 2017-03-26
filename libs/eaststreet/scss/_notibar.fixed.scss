@@ -39,6 +39,12 @@
 	margin-top: -1.600rem;
 }
 
+.notibar .close:before {
+	font-family: "micon";
+	font-family: "eaststreet";
+	content: "\ea80";
+}
+
 .notibar div.message {
 	text-align: center;
 }

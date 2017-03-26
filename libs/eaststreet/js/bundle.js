@@ -647,8 +647,6 @@ var notiBar = function (opt) {
 	s_close = "close",
 	s_key = "_notibar_dismiss_",
 	s_val = "ok",
-	s_m1 = "mi",
-	s_m2 = "mi-Cancel",
 	s_an = "animated",
 	s_an1 = "fadeInDown",
 	s_an2 = "fadeOutUp",
@@ -693,8 +691,6 @@ var notiBar = function (opt) {
 		appendFragment(m, c);
 		var x_a = crel("a");
 		x_a[cL].add(s_close);
-		x_a[cL].add(s_m1);
-		x_a[cL].add(s_m2);
 		var set_cookie = function () {
 			if (settings.days) {
 				Cookies.set(settings.key, settings.value, { expires: settings.days });
@@ -2266,8 +2262,6 @@ var initUiTotop = function () {
 	u = "ui-totop",
 	active = "is-active",
 	t = "Наверх",
-	mi1 = "mi",
-	mi2 = "mi-Up",
 	cL = "classList",
 	k = function (_this) {
 		var a = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
@@ -2313,8 +2307,6 @@ var initUiTotop = function () {
 		/* jshint +W107 */
 		a.title = t;
 		a[cL].add(u);
-		a[cL].add(mi1);
-		a[cL].add(mi2);
 		evento.add(a, "click", h_a);
 		/* a.onclick = h_a; */
 		crel(b, crel(a));
@@ -2524,26 +2516,16 @@ var initRoutie = function (ctx) {
 			},
 			"/home": function () {
 				loadVirtualPage(ctx, "./includes/home.html", function () {
-					reinitVirtualPage(" - Содержание");
+					reinitVirtualPage(" - Начало");
 					manageYandexMapButton("#ymap");
-					/* try {
-						if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
-							initYandexMap("#ymap");
-						}
-					} catch (e) {
-						console.log(e);
-					} */
 				});
 			},
-			"/feedback": function () {
+			/* "/feedback": function () {
 				loadVirtualPage(ctx, "./includes/feedback.html", function () {
 					reinitVirtualPage(" - Напишите мне");
 					manageDisqusButton();
-					/* if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
-						loadRefreshDisqus();
-					} */
 				});
-			},
+			}, */
 			"/schedule": function () {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					if ("undefined" !== typeof isOldOpera && !isOldOpera) {
@@ -2584,7 +2566,7 @@ var initRoutie = function (ctx) {
 			},
 			"/previous_ege_analysis": function () {
 				loadVirtualPage(ctx, "./includes/previous_ege_analysis.html", function () {
-					reinitVirtualPage(" - ЕГЭ 2015: разбор ошибок");
+					reinitVirtualPage(" - ЕГЭ: разбор ошибок");
 				});
 			},
 			"/*": function () {

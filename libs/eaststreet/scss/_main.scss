@@ -164,16 +164,27 @@ u,
  * fix for micon icon font
  */
 
-.col [class^="mi"],
-.col [class*=" mi"] {
+.col [class^="mi-"],
+.col [class*=" mi-"] {
 	font-family: "micon";
+}
+
+.col [class^="fa-"],
+.col [class*=" fa-"] {
+	font-family: "fontAwesome";
+}
+
+.col [class^="mi-"],
+.col [class*=" mi-"],
+.col [class^="fa-"],
+.col [class*=" fa-"] {
 	font-size: inherit;
 	font-weight: normal;
 	font-style: normal;
 	line-height: inherit;
 }
 
-.ui-sidebar .mi-BarcodeScanner:before {
+/* .ui-sidebar .mi-CellPhone:before {
 	display: inline-block;
 	content: "";
 	height: 1.333rem;
@@ -187,19 +198,26 @@ u,
 	background-position: center center;
 }
 
-.no-svg .ui-sidebar .mi-BarcodeScanner:before {
+.no-svg .ui-sidebar .mi-CellPhone:before {
 	background-image: url(../img/fa-qrcode-96x96.png);
-}
+} */
 
-.ui-sidebar .mi-Home:before {
+/*!
+ * remove this to get default home icon
+ */
+
+/* .ui-sidebar .mi-Home:before,
+.ui-sidebar .es-mi-Home:before {
 	content: "";
 }
 
-.ui-sidebar .mi-Home {
+.ui-sidebar .mi-Home,
+.ui-sidebar .es-mi-Home {
 	display: block;
 	height: 3.200rem;
 	width: 3.200rem;
 	color: transparent;
+	background-color: $color-hex-ui-accent;
 	background-image: url(../img/logo-96x96.svg);
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
@@ -208,6 +226,15 @@ u,
 
 .no-svg .ui-sidebar .mi-Home:before {
 	background-image: url(../img/logo-96x96.png);
+} */
+
+.ui-sidebar .mi-Home:before,
+.ui-sidebar .es-mi-Home:before {
+	font-family: "micon";
+	font-family: "eaststreet";
+	content: "\E900";
+	font-size: 3.200rem;
+	background-color: $color-hex-ui-accent;
 }
 
 .col .btn-larger .mi {
@@ -643,8 +670,8 @@ u,
 .col .holder-contents-select select {
 	display: inline-block;
 	width: 100%;
-	max-width: 18.400rem;
-	height: 2.133rem;
+	max-width: 18.133rem;
+	height: 2.400rem;
 	font-family: sans-serif;
 	font-size: 0.933rem;
 	color: inherit;
@@ -680,6 +707,7 @@ u,
 
 .col .btn-expand-hidden-layer:after {
 	font-family: "micon";
+	font-family: "eaststreet";
 	content: "\EA8E";
 	font-size: 0.400em;
 	position: relative;
@@ -689,11 +717,13 @@ u,
 
 /* .col .btn-expand-hidden-layer.is-active:after {
 	font-family: "micon";
+	font-family: "eaststreet";
 	content: "\EA97";
 } */
 
 .col .btn-expand-hidden-layer.is-active:after {
 	font-family: "micon";
+	font-family: "eaststreet";
 	content: "\EA97";
 	transform: rotate(180deg);
 }
@@ -792,7 +822,7 @@ u,
 	line-height: 3.200rem;
 	text-align: center;
 	text-decoration: none;
-	color: $color-rgba-ui-icon-text;
+	color: $color-hex-ui-icon-text;
 	background-color: $color-rgba-ui-icon-bg;
 	transition: left 0.2s ease, background-color 0.2s ease;
 }
@@ -814,10 +844,13 @@ u,
 .btn-toggle-ui-sidepanel:active,
 .page.is-active-ui-sidepanel .btn-toggle-ui-sidepanel {
 	color: #FFFFFF;
-	background-color: $color-hex-ui-menu-border;
+	background-color: $color-hex-ui-accent;
 }
 
-.page.is-active-ui-sidepanel .btn-toggle-ui-sidepanel.mi-GlobalNavButton:before {
+.page.is-active-ui-sidepanel .btn-toggle-ui-sidepanel.mi-GlobalNavButton:before,
+.page.is-active-ui-sidepanel .btn-toggle-ui-sidepanel.es-mi-GlobalNavButton:before {
+	font-family: "micon";
+	font-family: "eaststreet";
 	content: "\EA80";
 }
 
@@ -858,7 +891,7 @@ u,
 
 .ui-sidepanel-list a:active {
 	color: #FFFFFF;
-	background-color: $color-hex-ui-menu-border;
+	background-color: $color-hex-ui-accent;
 }
 
 /*!
@@ -876,7 +909,7 @@ u,
 	left: 6.400rem;
 	overflow-y: auto;
 	background-color: $color-hex-ui-bar-bg;
-	border: 0.067rem solid $color-hex-ui-menu-border;
+	border: 0.067rem solid $color-hex-ui-accent;
 	transition: left 0.2s ease, visibility 0s, opacity 0.2s linear;
 	margin: 0;
 }
@@ -897,7 +930,7 @@ u,
 	line-height: 3.200rem;
 	text-align: center;
 	text-decoration: none;
-	color: $color-rgba-ui-icon-text;
+	color: $color-hex-ui-icon-text;
 	background-color: $color-rgba-ui-icon-bg;
 	transition: left 0.2s ease, background-color 0.2s ease;
 }
@@ -919,7 +952,7 @@ u,
 .btn-toggle-ui-menumore:active,
 .page.is-active-ui-menumore .btn-toggle-ui-menumore {
 	color: #FFFFFF;
-	background-color: $color-hex-ui-menu-border;
+	background-color: $color-hex-ui-accent;
 }
 
 .page.is-active-ui-sidepanel .btn-toggle-ui-menumore {
@@ -956,7 +989,7 @@ u,
 
 .ui-menumore-list a:active {
 	color: #FFFFFF;
-	background-color: $color-hex-ui-menu-border;
+	background-color: $color-hex-ui-accent;
 }
 
 /*!
@@ -1004,7 +1037,19 @@ u,
 }
 
 .ui-sidebar a:active {
-	background-color: $color-hex-ui-menu-border;
+	background-color: $color-hex-ui-accent;
+}
+
+.ui-sidebar a.mi {
+	font-size: 1.333rem;
+}
+
+.ui-sidebar a.fa {
+	font-size: 1.667rem;
+}
+
+.ui-sidebar a.es {
+	font-size: 1.333rem;
 }
 
 /*!
@@ -1107,7 +1152,9 @@ u,
 	.holder-location-qr-code {
 		left: 0;
 	}
+}
 
+@media handheld, only screen and (max-width: 1024px) {
 	.ui-sidebar .btn-toggle-holder-location-qr-code {
 		display: none;
 	}
@@ -1174,7 +1221,7 @@ u,
 	.holder-search-form input[type^=text]:active,
 	.holder-search-form input[type^=search]:focus,
 	.holder-search-form input[type^=search]:active {
-		width: 14.933rem;
+		width: 14.133rem;
 	}
 }
 
@@ -1197,6 +1244,7 @@ u,
 	top: 0;
 	right: 0.600rem;
 	font-family: "micon";
+	font-family: "eaststreet";
 	content: "\ECEA";
 	font-size: 1.067rem;
 	line-height: 2.267rem;
@@ -1205,8 +1253,8 @@ u,
 .holder-search-form button[type^=submit]:focus,
 .holder-search-form button[type^=submit]:active {
 	color: #FFFFFF;
-	background-color: $color-hex-ui-menu-border;
-	border: 0.067rem solid $color-hex-ui-menu-border;
+	background-color: $color-hex-ui-accent;
+	border: 0.067rem solid $color-hex-ui-accent;
 }
 
 .holder-search-text:before,
@@ -1216,6 +1264,7 @@ u,
 	top: 0;
 	right: 0;
 	font-family: "micon";
+	font-family: "eaststreet";
 	content: "\ECEA";
 	font-size: 1.067rem;
 	color: $color-hex-ui-icon-text;

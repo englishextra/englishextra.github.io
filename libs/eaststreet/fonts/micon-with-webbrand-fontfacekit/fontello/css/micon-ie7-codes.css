@@ -1,0 +1,13 @@
+
+.mi-Cancel { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xea80;&nbsp;'); }
+.mi-CellPhone { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xea84;&nbsp;'); }
+.mi-ChevronDown { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xea8e;&nbsp;'); }
+.mi-ChevronUp { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xea97;&nbsp;'); }
+.mi-GlobalNavButton { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xeb48;&nbsp;'); }
+.mi-Home { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xeb6f;&nbsp;'); }
+.mi-Like { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xebb4;&nbsp;'); }
+.mi-More { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xec15;&nbsp;'); }
+.mi-Repair { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xecae;&nbsp;'); }
+.mi-Search { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xecea;&nbsp;'); }
+.mi-Share { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xecf8;&nbsp;'); }
+.mi-Up { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xed7d;&nbsp;'); }

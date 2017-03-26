@@ -4,9 +4,9 @@
 
 @font-face {
 	font-family: "micon";
-	src: url(../fonts/micon-with-webbrand-fontfacekit/micon.woff2?v=2.2.155) format("woff2"),
-	url(../fonts/micon-with-webbrand-fontfacekit/micon.woff?v=2.2.155) format("woff"),
-	url(../fonts/micon-with-webbrand-fontfacekit/micon.ttf?v=2.2.155) format("truetype");
+	src: url(../fonts/micon-with-webbrand-fontfacekit/fontello/font/micon.woff2?v=2.2.155) format("woff2"),
+	url(../fonts/micon-with-webbrand-fontfacekit/fontello/font/micon.woff?v=2.2.155) format("woff"),
+	url(../fonts/micon-with-webbrand-fontfacekit/fontello/font/micon.ttf?v=2.2.155) format("truetype");
 	font-weight: normal;
 	font-style: normal;
 }
@@ -703,13 +703,13 @@
 
 .mi-CashDrawer:before {
 	content: "\EA83";
-}
+} */
 
 .mi-CellPhone:before, .mi-CellPhoneLegacy:before, .mi-MobileContactLegacy:before {
 	content: "\EA84";
 }
 
-.mi-Certificate:before {
+/* .mi-Certificate:before {
 	content: "\EA85";
 }
 
@@ -1643,13 +1643,13 @@
 
 .mi-History:before {
 	content: "\EB6E";
-}
+} */
 
 .mi-Home:before, .mi-HomeLegacy:before {
 	content: "\EB6F";
 }
 
-.mi-HomeGroup:before {
+/* .mi-HomeGroup:before {
 	content: "\EB70";
 }
 

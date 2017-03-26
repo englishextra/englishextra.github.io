@@ -8,8 +8,10 @@
 .notifier42 {
 	display: block;
 	opacity : 0;
-	width: calc(100% - 6.400rem);
-	min-height: 3.200rem;
+	/* width: calc(100% - 6.400rem); */
+	width: 100%;
+	/* min-height: 3.200rem; */
+	height: 0;
 	position : fixed;
 	bottom : 0;
 	left: 3.200rem;
@@ -22,6 +24,10 @@
 	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
 	padding: 0.933rem 3.200rem;
 	margin : 0 auto;
+}
+
+.notifier42.animated {
+	min-height: 3.200rem;
 }
 
 .notifier42.notice {

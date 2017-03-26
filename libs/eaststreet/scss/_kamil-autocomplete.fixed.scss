@@ -18,7 +18,7 @@
 	overflow-y: auto;
 	color: inherit;
 	background-color: $color-hex-ui-bar-bg;
-	border: 0.067rem solid $color-hex-ui-menu-border;
+	border: 0.067rem solid $color-hex-ui-accent;
 	border-radius: 0;
 	box-sizing: border-box;
 	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
@@ -47,7 +47,7 @@
 
 .kamil-autocomplete li:active {
 	color: #FFFFFF;
-	background-color: $color-hex-ui-menu-border;
+	background-color: $color-hex-ui-accent;
 }
 
 .kamil-autocomplete li a {

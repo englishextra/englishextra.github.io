@@ -17,12 +17,18 @@
 	line-height: 3.200rem;
 	text-align: center;
 	text-decoration: none;
-	color: $color-rgba-ui-icon-text;
+	color: $color-hex-ui-icon-text;
 	background-color: $color-rgba-ui-icon-bg;
 	border: none;
 	transition: visibility 0s, opacity 0.2s linear, background-color 0.2s ease;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
+}
+
+.ui-totop:before {
+	font-family: "micon";
+	font-family: "eaststreet";
+	content: "\ed7d";
 }
 
 .ui-totop.is-active {
@@ -36,6 +42,6 @@
 
 .ui-totop:active {
 	color: #FFFFFF;
-	background-color: $color-hex-ui-menu-border;
+	background-color: $color-hex-ui-accent;
 }
 
