@@ -113,6 +113,25 @@ var routie=(function(){if("undefined"==typeof window||!("document"in window)){re
  */
 var Cookies=(function(){function extend(){var i=0;var result={};for(;i<arguments.length;i++){var attributes=arguments[i];for(var key in attributes){if(attributes.hasOwnProperty(key)){result[key]=attributes[key];}}}return result;}function init(converter){function api(key,value,attributes){var result;if(typeof document==='undefined'){return;}if(arguments.length>1){attributes=extend({path:'/'},api.defaults,attributes);if(typeof attributes.expires==='number'){var expires=new Date();expires.setMilliseconds(expires.getMilliseconds()+attributes.expires*864e+5);attributes.expires=expires;}try{result=JSON.stringify(value);if(/^[\{\[]/.test(result)){value=result;}}catch(e){}if(!converter.write){value=encodeURIComponent(String(value)).replace(/%(23|24|26|2B|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g,decodeURIComponent);}else{value=converter.write(value,key);}key=encodeURIComponent(String(key));key=key.replace(/%(23|24|26|2B|5E|60|7C)/g,decodeURIComponent);key=key.replace(/[\(\)]/g,escape);var ret=(document.cookie=[key,'=',value,attributes.expires?'; expires='+attributes.expires.toUTCString():'',attributes.path?'; path='+attributes.path:'',attributes.domain?'; domain='+attributes.domain:'',attributes.secure?'; secure':''].join(''));return ret;}if(!key){result={};}var cookies=document.cookie?document.cookie.split('; '):[];var rdecode=/(%[0-9A-Z]{2})+/g;var i=0;for(;i<cookies.length;i++){var parts=cookies[i].split('=');var cookie=parts.slice(1).join('=');if(cookie.charAt(0)==='"'){cookie=cookie.slice(1,-1);}try{var name=parts[0].replace(rdecode,decodeURIComponent);cookie=converter.read?converter.read(cookie,name):converter(cookie,name)||cookie.replace(rdecode,decodeURIComponent);if(this.json){try{cookie=JSON.parse(cookie);}catch(e){}}if(key===name){result=cookie;break;}if(!key){result[name]=cookie;}}catch(e){}}return result;}api.set=api;api.get=function(key){return api.call(api,key);};api.getJSON=function(){return api.apply({json:true},[].slice.call(arguments));};api.defaults={};api.remove=function(key,attributes){api(key,'',extend(attributes,{expires:-1}));};api.withConverter=init;return api;}return init(function(){});}());
 /*!
+ * modified verge 1.9.1+201402130803
+ * github.com/ryanve/verge
+ * MIT License 2013 Ryan Van Etten
+ * removed module
+ * converted to dot notation
+ * added &&r.left<=viewportW()&&(0!==el.offsetHeight);
+ * added &&r.left<=viewportW()&&(0!==el.offsetHeight);
+ * added &&r.top<=viewportH()&&(0!==el.offsetHeight);
+ * Substitute inViewport with: inY on vertical sites, inX on horizontal ones.
+ * On pages without horizontal scroll, inX is always true.
+ * On pages without vertical scroll, inY is always true.
+ * If the viewport width is >= the document width, then inX is always true.
+ * bug: inViewport returns true if element is hidden
+ * github.com/ryanve/verge/issues/19
+ * source: github.com/ryanve/verge/blob/master/verge.js
+ * passes jshint
+ */
+;(function(root,name,make){root[name]=make();}("undefined"!==typeof window?window:this,"verge",function(){var xports={},win=typeof window!="undefined"&&window,doc=typeof document!="undefined"&&document,docElem=doc&&doc.documentElement,matchMedia=win.matchMedia||win.msMatchMedia,mq=matchMedia?function(q){return!!matchMedia.call(win,q).matches;}:function(){return false;},viewportW=xports.viewportW=function(){var a=docElem.clientWidth,b=win.innerWidth;return a<b?b:a;},viewportH=xports.viewportH=function(){var a=docElem.clientHeight,b=win.innerHeight;return a<b?b:a;};xports.mq=mq;xports.matchMedia=matchMedia?function(){return matchMedia.apply(win,arguments);}:function(){return{};};function viewport(){return{"width":viewportW(),"height":viewportH()};}xports.viewport=viewport;xports.scrollX=function(){return win.pageXOffset||docElem.scrollLeft;};xports.scrollY=function(){return win.pageYOffset||docElem.scrollTop;};function calibrate(coords,cushion){var o={};cushion=+cushion||0;o.width=(o.right=coords.right+cushion)-(o.left=coords.left-cushion);o.height=(o.bottom=coords.bottom+cushion)-(o.top=coords.top-cushion);return o;}function rectangle(el,cushion){el=el&&!el.nodeType?el[0]:el;if(!el||1!==el.nodeType)return false;return calibrate(el.getBoundingClientRect(),cushion);}xports.rectangle=rectangle;function aspect(o){o=null===o?viewport():1===o.nodeType?rectangle(o):o;var h=o.height,w=o.width;h=typeof h=="function"?h.call(o):h;w=typeof w=="function"?w.call(o):w;return w/h;}xports.aspect=aspect;xports.inX=function(el,cushion){var r=rectangle(el,cushion);return!!r&&r.right>=0&&r.left<=viewportW()&&(0!==el.offsetHeight);};xports.inY=function(el,cushion){var r=rectangle(el,cushion);return!!r&&r.bottom>=0&&r.top<=viewportH()&&(0!==el.offsetHeight);};xports.inViewport=function(el,cushion){var r=rectangle(el,cushion);return!!r&&r.bottom>=0&&r.right>=0&&r.top<=viewportH()&&r.left<=viewportW()&&(0!==el.offsetHeight);};return xports;}));
+/*!
  * safe way to handle console.log():
  * sitepoint.com/safe-console-log/
  */
@@ -696,7 +715,9 @@ var Notifier42 = function (m, n, t) {
 		c = crel("div");
 		appendFragment(c, b);
 	}
-	c[cL].add(cls, an, an2);
+	c[cL].add(cls);
+	c[cL].add(an);
+	c[cL].add(an2);
 	if (t) {
 		c[cL].add(t);
 	}
@@ -958,27 +979,28 @@ var manageImgLightboxLinks = function (ctx) {
 	an1 = "fadeIn",
 	an2 = "fadeInUp",
 	an3 = "fadeOut",
-	an4 = "fadeOutDown";
+	an4 = "fadeOutDown",
+	dm = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
 	if (!c) {
 		c = crel("div");
 		m = crel("img");
 		c[cL].add(ilc);
-		m.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
+		m.src = dm;
 		m.alt = "";
 		crel(c, m);
 		appendFragment(c, b);
 	}
 	var g = function (_this) {
-		LoadingSpinner.show();
-		c[cL].add(an, an1);
-		m[cL].add(an, an2);
 		var _href = _this.getAttribute("href") || "",
 		r = function () {
 			m[cL].remove(an2);
 			m[cL].add(an4);
 			var st1 = function () {
-				c[cL].remove(an, an3);
-				m[cL].remove(an, an4);
+				c[cL].remove(an);
+				c[cL].remove(an3);
+				m[cL].remove(an);
+				m[cL].remove(an4);
+				m.src = dm;
 				setStyleDisplayNone(c);
 			},
 			st2 = function () {
@@ -1010,26 +1032,19 @@ var manageImgLightboxLinks = function (ctx) {
 			w.onkeyup = h_w;
 			setStyleDisplayBlock(c);
 			LoadingSpinner.hide();
-		},
-		pr = function (u) {
-			return new Promise(function (y, n) {
-				var a = new Image();
-				a.onload = function () {
-					y(u);
-				};
-				a.onerror = function () {
-					n(u);
-				};
-				a.src = u;
-			});
 		};
-		pr(_href).then(function (u) {
-			m.src = u;
+		if (_href) {
+			LoadingSpinner.show();
+			c[cL].add(an);
+			c[cL].add(an1);
+			m[cL].add(an);
+			m[cL].add(an2);
+			if (parseLink(_href).isAbsolute && !parseLink(_href).hasHTTP) {
+				_href = _href.replace(/^/, getHTTP(!0) + ":");
+			}
+			m.src = _href;
 			z();
-		}).catch (function (e) {
-			r();
-			console.log("Error loading image", e);
-		});
+		}
 	},
 	k = function (e) {
 		var v = e[ds].lightbox || "",
@@ -1075,53 +1090,44 @@ var manageDataSrcImg = function (ctx) {
 	is_active = "is-active",
 	cL = "classList",
 	ds = "dataset",
-	pN = "parentNode",
+	k = function (e) {
+		var _src = e[ds].src || "";
+		if (_src) {
+			if (parseLink(_src).isAbsolute && !parseLink(_src).hasHTTP) {
+				e[ds].src = _src.replace(/^/, getHTTP(!0) + ":");
+				_src = e[ds].src;
+			}
+			if (!e[cL].contains(is_active)) {
+				e.src = _src;
+				e[cL].add(is_active);
+			}
+		}
+	},
 	g = function (e) {
-		var p = e[ds].src || "";
-		if (p) {
-			if (parseLink(p).isAbsolute && !parseLink(p).hasHTTP) {
-				e[ds].src = p.replace(/^/, getHTTP(!0) + ":");
-			}
-			if (w.lzld) {
-				lzld(e);
-				e[cL].add(is_active);
-			} else {
-				e.src = e[ds].src;
-				e[cL].add(is_active);
-			}
+		if (verge.inY(e)/* && 0 !== e.offsetHeight */) {
+			k(e);
 		}
 	};
 	if (a) {
 		console.log("triggered function: manageDataSrcImg");
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		if (w._) {
-			_.each(a, g);
-		} else if (w.forEach) {
-			forEach(a, g, !1);
-		} else {
-			for (var i = 0, l = a.length; i < l; i += 1) {
-				g(a[i]);
+		var h_w = function () {
+			if (w._) {
+				_.each(a, g);
+			} else if (w.forEach) {
+				forEach(a, g, !1);
+			} else {
+				for (var i = 0, l = a.length; i < l; i += 1) {
+					g(a[i]);
+				}
 			}
-		}
-	}
-},
-loadManageDataSrcImg = function () {
-	"use strict";
-	var w = window,
-	js = "../cdn/lazyload/3.2.2/js/lazyload.fixed.min.js";
-	if (w.XMLHttpRequest || w.ActiveXObject) {
-		if (w.Promise) {
-			promiseLoadJS(js).then(manageDataSrcImg.bind(null, ""));
-		} else {
-			ajaxLoadTriggerJS(js, manageDataSrcImg.bind(null, ""));
-		}
-	} else {
-		if (!scriptIsLoaded(js)) {
-			loadJS(js, manageDataSrcImg.bind(null, ""));
-		}
+		};
+		h_w();
+		evento.add(window, "scroll", h_w);
+		evento.add(window, "resize", h_w);
 	}
 };
-evento.add(window, "load", loadManageDataSrcImg);
+evento.add(window, "load", manageDataSrcImg.bind(null, ""));
 /*!
  * init qr-code
  * stackoverflow.com/questions/12777622/how-to-use-enquire-js

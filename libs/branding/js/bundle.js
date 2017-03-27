@@ -67,6 +67,25 @@ var crel=(function(){if("undefined"==typeof window||!("document"in window)){retu
  */
 ;(function(doc,win){'use strict';if(typeof doc.createEvent!=='function')return false;var pointerEventSupport=function(type){var lo=type.toLowerCase(),ms='MS'+type;return navigator.msPointerEnabled?ms:window.PointerEvent?lo:false;},defaults={useJquery:!win.IGNORE_JQUERY&&typeof jQuery!=='undefined',swipeThreshold:win.SWIPE_THRESHOLD||100,tapThreshold:win.TAP_THRESHOLD||150,dbltapThreshold:win.DBL_TAP_THRESHOLD||200,longtapThreshold:win.LONG_TAP_THRESHOLD||1000,tapPrecision:win.TAP_PRECISION/2||60/2,justTouchEvents:win.JUST_ON_TOUCH_DEVICES},wasTouch=false,touchevents={touchstart:pointerEventSupport('PointerDown')||'touchstart',touchend:pointerEventSupport('PointerUp')||'touchend',touchmove:pointerEventSupport('PointerMove')||'touchmove'},isTheSameFingerId=function(e){return!e.pointerId||typeof pointerId==='undefined'||e.pointerId===pointerId;},setListener=function(elm,events,callback){var eventsArray=events.split(' '),i=eventsArray.length;while(i--){elm.addEventListener(eventsArray[i],callback,false);}},getPointerEvent=function(event){return event.targetTouches?event.targetTouches[0]:event;},getTimestamp=function(){return new Date().getTime();},sendEvent=function(elm,eventName,originalEvent,data){var customEvent=doc.createEvent('Event');customEvent.originalEvent=originalEvent;data=data||{};data.x=currX;data.y=currY;data.distance=data.distance;if(defaults.useJquery){customEvent=jQuery.Event(eventName,{originalEvent:originalEvent});jQuery(elm).trigger(customEvent,data);}if(customEvent.initEvent){for(var key in data){if(data.hasOwnProperty(key)){customEvent[key]=data[key];}}customEvent.initEvent(eventName,true,true);elm.dispatchEvent(customEvent);}while(elm){if(elm['on'+eventName])elm['on'+eventName](customEvent);elm=elm.parentNode;}},onTouchStart=function(e){if(!isTheSameFingerId(e))return;pointerId=e.pointerId;if(e.type!=='mousedown')wasTouch=true;if(e.type==='mousedown'&&wasTouch)return;var pointer=getPointerEvent(e);cachedX=currX=pointer.pageX;cachedY=currY=pointer.pageY;longtapTimer=setTimeout(function(){sendEvent(e.target,'longtap',e);target=e.target;},defaults.longtapThreshold);timestamp=getTimestamp();tapNum++;},onTouchEnd=function(e){if(!isTheSameFingerId(e))return;pointerId=undefined;if(e.type==='mouseup'&&wasTouch){wasTouch=false;return;}var eventsArr=[],now=getTimestamp(),deltaY=cachedY-currY,deltaX=cachedX-currX;clearTimeout(dblTapTimer);clearTimeout(longtapTimer);if(deltaX<=-defaults.swipeThreshold)eventsArr.push('swiperight');if(deltaX>=defaults.swipeThreshold)eventsArr.push('swipeleft');if(deltaY<=-defaults.swipeThreshold)eventsArr.push('swipedown');if(deltaY>=defaults.swipeThreshold)eventsArr.push('swipeup');if(eventsArr.length){for(var i=0;i<eventsArr.length;i++){var eventName=eventsArr[i];sendEvent(e.target,eventName,e,{distance:{x:Math.abs(deltaX),y:Math.abs(deltaY)}});}tapNum=0;}else{if(cachedX>=currX-defaults.tapPrecision&&cachedX<=currX+defaults.tapPrecision&&cachedY>=currY-defaults.tapPrecision&&cachedY<=currY+defaults.tapPrecision){if(timestamp+defaults.tapThreshold-now>=0){sendEvent(e.target,tapNum>=2&&target===e.target?'dbltap':'tap',e);target=e.target;}}dblTapTimer=setTimeout(function(){tapNum=0;},defaults.dbltapThreshold);}},onTouchMove=function(e){if(!isTheSameFingerId(e))return;if(e.type==='mousemove'&&wasTouch)return;var pointer=getPointerEvent(e);currX=pointer.pageX;currY=pointer.pageY;},tapNum=0,pointerId,currX,currY,cachedX,cachedY,timestamp,target,dblTapTimer,longtapTimer;setListener(doc,touchevents.touchstart+(defaults.justTouchEvents?'':' mousedown'),onTouchStart);setListener(doc,touchevents.touchend+(defaults.justTouchEvents?'':' mouseup'),onTouchEnd);setListener(doc,touchevents.touchmove+(defaults.justTouchEvents?'':' mousemove'),onTouchMove);win.tocca=function(options){for(var opt in options){if(options.hasOwnProperty(opt)){defaults[opt]=options[opt];}}return defaults;};}(document,window));
 /*!
+ * modified verge 1.9.1+201402130803
+ * github.com/ryanve/verge
+ * MIT License 2013 Ryan Van Etten
+ * removed module
+ * converted to dot notation
+ * added &&r.left<=viewportW()&&(0!==el.offsetHeight);
+ * added &&r.left<=viewportW()&&(0!==el.offsetHeight);
+ * added &&r.top<=viewportH()&&(0!==el.offsetHeight);
+ * Substitute inViewport with: inY on vertical sites, inX on horizontal ones.
+ * On pages without horizontal scroll, inX is always true.
+ * On pages without vertical scroll, inY is always true.
+ * If the viewport width is >= the document width, then inX is always true.
+ * bug: inViewport returns true if element is hidden
+ * github.com/ryanve/verge/issues/19
+ * source: github.com/ryanve/verge/blob/master/verge.js
+ * passes jshint
+ */
+;(function(root,name,make){root[name]=make();}("undefined"!==typeof window?window:this,"verge",function(){var xports={},win=typeof window!="undefined"&&window,doc=typeof document!="undefined"&&document,docElem=doc&&doc.documentElement,matchMedia=win.matchMedia||win.msMatchMedia,mq=matchMedia?function(q){return!!matchMedia.call(win,q).matches;}:function(){return false;},viewportW=xports.viewportW=function(){var a=docElem.clientWidth,b=win.innerWidth;return a<b?b:a;},viewportH=xports.viewportH=function(){var a=docElem.clientHeight,b=win.innerHeight;return a<b?b:a;};xports.mq=mq;xports.matchMedia=matchMedia?function(){return matchMedia.apply(win,arguments);}:function(){return{};};function viewport(){return{"width":viewportW(),"height":viewportH()};}xports.viewport=viewport;xports.scrollX=function(){return win.pageXOffset||docElem.scrollLeft;};xports.scrollY=function(){return win.pageYOffset||docElem.scrollTop;};function calibrate(coords,cushion){var o={};cushion=+cushion||0;o.width=(o.right=coords.right+cushion)-(o.left=coords.left-cushion);o.height=(o.bottom=coords.bottom+cushion)-(o.top=coords.top-cushion);return o;}function rectangle(el,cushion){el=el&&!el.nodeType?el[0]:el;if(!el||1!==el.nodeType)return false;return calibrate(el.getBoundingClientRect(),cushion);}xports.rectangle=rectangle;function aspect(o){o=null===o?viewport():1===o.nodeType?rectangle(o):o;var h=o.height,w=o.width;h=typeof h=="function"?h.call(o):h;w=typeof w=="function"?w.call(o):w;return w/h;}xports.aspect=aspect;xports.inX=function(el,cushion){var r=rectangle(el,cushion);return!!r&&r.right>=0&&r.left<=viewportW()&&(0!==el.offsetHeight);};xports.inY=function(el,cushion){var r=rectangle(el,cushion);return!!r&&r.bottom>=0&&r.top<=viewportH()&&(0!==el.offsetHeight);};xports.inViewport=function(el,cushion){var r=rectangle(el,cushion);return!!r&&r.bottom>=0&&r.right>=0&&r.top<=viewportH()&&r.left<=viewportW()&&(0!==el.offsetHeight);};return xports;}));
+/*!
  * safe way to handle console.log():
  * sitepoint.com/safe-console-log/
  */
@@ -327,6 +346,18 @@ var truncString=function(str,max,add){add=add||"\u2026";return("string"===typeof
  * fixEnRuTypo(e,a,b)
  */
 var fixEnRuTypo=function(e,a,b){var c="";if("ru"==a&&"en"==b){a='\u0430\u0431\u0432\u0433\u0434\u0435\u0451\u0436\u0437\u0438\u0439\u043a\u043b\u043c\u043d\u043e\u043f\u0440\u0441\u0442\u0443\u0444\u0445\u0446\u0447\u0448\u0449\u044a\u044c\u044b\u044d\u044e\u044f\u0410\u0411\u0412\u0413\u0414\u0415\u0401\u0416\u0417\u0418\u0419\u041a\u041b\u041c\u041d\u041e\u041f\u0420\u0421\u0422\u0423\u0424\u0425\u0426\u0427\u0428\u0429\u042a\u042c\u042b\u042d\u042e\u042f"\u2116;:?/.,';b="f,dult`;pbqrkvyjghcnea[wxio]ms'.zF<DULT~:PBQRKVYJGHCNEA{WXIO}MS'>Z@#$^&|/?";}else{a="f,dult`;pbqrkvyjghcnea[wxio]ms'.zF<DULT~:PBQRKVYJGHCNEA{WXIO}MS'>Z@#$^&|/?";b='\u0430\u0431\u0432\u0433\u0434\u0435\u0451\u0436\u0437\u0438\u0439\u043a\u043b\u043c\u043d\u043e\u043f\u0440\u0441\u0442\u0443\u0444\u0445\u0446\u0447\u0448\u0449\u044a\u044c\u044b\u044d\u044e\u044f\u0410\u0411\u0412\u0413\u0414\u0415\u0401\u0416\u0417\u0418\u0419\u041a\u041b\u041c\u041d\u041e\u041f\u0420\u0421\u0422\u0423\u0424\u0425\u0426\u0427\u0428\u0429\u042a\u042c\u042b\u042d\u042e\u042f"\u2116;:?/.,';}for(var d=0;d<e.length;d++){var f=a.indexOf(e.charAt(d));if(c>f){c+=e.charAt(d);}else{c+=b.charAt(f);}}return c;};
+/*!
+ * if element is in viewport
+ * gist.github.com/englishextra/2e9322e5eea9412f5086f7427009b903
+ * stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport
+ * jsfiddle.net/englishextra/9mwdxgez/
+ * @param e an HTML element
+ * var p = document.getElementById("h1") || "";
+ * if(p){var g=function(_that){if(isInViewport(p))
+ * {window.removeEventListener("scroll",_that);alert(1);}};
+ * window.addEventListener("scroll",function h_w(){g(h_w);});}
+ */
+var fitsIntoViewport=function(w,d){return function(e){return(e=e?e.getBoundingClientRect()||"":"")?0<=e.top&&0<=e.left&&e.bottom<=(w.innerHeight||d.clientHeight)&&e.right<=(w.innerWidth||d.clientWidth)&&(0!==e.offsetHeight):!0;};}(window,document.documentElement||"");
 /*!
  * remove all children of parent element
  * gist.github.com/englishextra/da26bf39bc90fd29435e8ae0b409ddc3
@@ -800,27 +831,28 @@ var manageImgLightboxLinks = function (ctx) {
 	an1 = "fadeIn",
 	an2 = "fadeInUp",
 	an3 = "fadeOut",
-	an4 = "fadeOutDown";
+	an4 = "fadeOutDown",
+	dm = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
 	if (!c) {
 		c = crel("div");
 		m = crel("img");
 		c[cL].add(ilc);
-		m.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
+		m.src = dm;
 		m.alt = "";
 		crel(c, m);
 		appendFragment(c, b);
 	}
 	var g = function (_this) {
-		LoadingSpinner.show();
-		c[cL].add(an, an1);
-		m[cL].add(an, an2);
 		var _href = _this.getAttribute("href") || "",
 		r = function () {
 			m[cL].remove(an2);
 			m[cL].add(an4);
 			var st1 = function () {
-				c[cL].remove(an, an3);
-				m[cL].remove(an, an4);
+				c[cL].remove(an);
+				c[cL].remove(an3);
+				m[cL].remove(an);
+				m[cL].remove(an4);
+				m.src = dm;
 				setStyleDisplayNone(c);
 			},
 			st2 = function () {
@@ -852,26 +884,19 @@ var manageImgLightboxLinks = function (ctx) {
 			w.onkeyup = h_w;
 			setStyleDisplayBlock(c);
 			LoadingSpinner.hide();
-		},
-		pr = function (u) {
-			return new Promise(function (y, n) {
-				var a = new Image();
-				a.onload = function () {
-					y(u);
-				};
-				a.onerror = function () {
-					n(u);
-				};
-				a.src = u;
-			});
 		};
-		pr(_href).then(function (u) {
-			m.src = u;
+		if (_href) {
+			LoadingSpinner.show();
+			c[cL].add(an);
+			c[cL].add(an1);
+			m[cL].add(an);
+			m[cL].add(an2);
+			if (parseLink(_href).isAbsolute && !parseLink(_href).hasHTTP) {
+				_href = _href.replace(/^/, getHTTP(!0) + ":");
+			}
+			m.src = _href;
 			z();
-		}).catch (function (e) {
-			r();
-			console.log("Error loading image", e);
-		});
+		}
 	},
 	k = function (e) {
 		var v = e[ds].lightbox || "",
@@ -917,36 +942,44 @@ var manageDataSrcImg = function (ctx) {
 	is_active = "is-active",
 	cL = "classList",
 	ds = "dataset",
-	pN = "parentNode",
+	k = function (e) {
+		var _src = e[ds].src || "";
+		if (_src) {
+			if (parseLink(_src).isAbsolute && !parseLink(_src).hasHTTP) {
+				e[ds].src = _src.replace(/^/, getHTTP(!0) + ":");
+				_src = e[ds].src;
+			}
+			if (!e[cL].contains(is_active)) {
+				e.src = _src;
+				e[cL].add(is_active);
+			}
+		}
+	},
 	g = function (e) {
-		var p = e[ds].src || "";
-		if (p) {
-			if (parseLink(p).isAbsolute && !parseLink(p).hasHTTP) {
-				e[ds].src = p.replace(/^/, getHTTP(!0) + ":");
-			}
-			if (w.lzld) {
-				lzld(e);
-				e[cL].add(is_active);
-			} else {
-				e.src = e[ds].src;
-				e[cL].add(is_active);
-			}
+		if (verge.inY(e)/* && 0 !== e.offsetHeight */) {
+			k(e);
 		}
 	};
 	if (a) {
 		console.log("triggered function: manageDataSrcImg");
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		if (w._) {
-			_.each(a, g);
-		} else if (w.forEach) {
-			forEach(a, g, !1);
-		} else {
-			for (var i = 0, l = a.length; i < l; i += 1) {
-				g(a[i]);
+		var h_w = function () {
+			if (w._) {
+				_.each(a, g);
+			} else if (w.forEach) {
+				forEach(a, g, !1);
+			} else {
+				for (var i = 0, l = a.length; i < l; i += 1) {
+					g(a[i]);
+				}
 			}
-		}
+		};
+		h_w();
+		evento.add(window, "scroll", h_w);
+		evento.add(window, "resize", h_w);
 	}
 };
+evento.add(window, "load", manageDataSrcImg.bind(null, ""));
 /*!
  * append media-iframe
  * @param {Object} [ctx] context HTML Element
@@ -961,72 +994,52 @@ var manageDataSrcIframe = function (ctx) {
 	cL = "classList",
 	ds = "dataset",
 	pN = "parentNode",
+	k = function (e) {
+		var _src = e[ds].src || "";
+		if (_src) {
+			if (parseLink(_src).isAbsolute && !parseLink(_src).hasHTTP) {
+				e[ds].src = _src.replace(/^/, getHTTP(!0) + ":");
+				_src = e[ds].src;
+			}
+			if (!e[cL].contains(is_active)) {
+				e.src = _src;
+				e[cL].add(is_active);
+				crel(e, {
+					"scrolling" : "no",
+					"frameborder" : "no",
+					"style" : "border:none;",
+					"webkitallowfullscreen" : "true",
+					"mozallowfullscreen" : "true",
+					"allowfullscreen" : "true"
+				});
+			}
+		}
+	},
 	g = function (e) {
-		var p = e[ds].src || "";
-		if (p) {
-			if (parseLink(p).isAbsolute && !parseLink(p).hasHTTP) {
-				e[ds].src = p.replace(/^/, getHTTP(!0) + ":");
-			}
-			if (w.lzld) {
-				lzld(e);
-				e[cL].add(is_active);
-			} else {
-				e.src = e[ds].src;
-				e[cL].add(is_active);
-			}
-			crel(e, {
-				"scrolling" : "no",
-				"frameborder" : "no",
-				"style" : "border:none;",
-				"webkitallowfullscreen" : "true",
-				"mozallowfullscreen" : "true",
-				"allowfullscreen" : "true"
-			});
+		if (verge.inY(e)/* && 0 !== e.offsetHeight */) {
+			k(e);
 		}
 	};
 	if (a) {
-		console.log("triggered function: manageDataSrcIframe");
+		console.log("triggered function: manageDataSrcImg");
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		if (w._) {
-			_.each(a, g);
-		} else if (w.forEach) {
-			forEach(a, g, !1);
-		} else {
-			for (var i = 0, l = a.length; i < l; i += 1) {
-				g(a[i]);
-			}
-		}
-	}
-},
-loadManageDataSrcImgIframe = function () {
-	"use strict";
-	var w = window,
-	a = BALA.one("img[data-src]") || "",
-	c = BALA.one("iframe[data-src]") || "",
-	js = "../../cdn/lazyload/3.2.2/js/lazyload.fixed.min.js",
-	f = function () {
-		if (a) {
-			manageDataSrcImg();
-		}
-		if (c) {
-			manageDataSrcIframe();
-		}
-	};
-	if (a || c) {
-		if (w.XMLHttpRequest || w.ActiveXObject) {
-			if (w.Promise) {
-				promiseLoadJS(js).then(f);
+		var h_w = function () {
+			if (w._) {
+				_.each(a, g);
+			} else if (w.forEach) {
+				forEach(a, g, !1);
 			} else {
-				ajaxLoadTriggerJS(js, f);
+				for (var i = 0, l = a.length; i < l; i += 1) {
+					g(a[i]);
+				}
 			}
-		} else {
-			if (!scriptIsLoaded(js)) {
-				loadJS(js, f);
-			}
-		}
+		};
+		h_w();
+		evento.add(window, "scroll", h_w);
+		evento.add(window, "resize", h_w);
 	}
 };
-evento.add(window, "load", loadManageDataSrcImgIframe);
+evento.add(window, "load", manageDataSrcIframe.bind(null, ""));
 /*!
  * add smooth scroll or redirection to static select options
  * @param {Object} [ctx] context HTML Element
@@ -1627,31 +1640,15 @@ var initDisqusOnScroll = function () {
 			if ("undefined" !== typeof getHTTP && getHTTP()) {
 				q();
 				if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
-					if (w.Waypoint) {
-						try {
-							var waypoint = new Waypoint({
-									element : disqus_thread,
-									handler : function (direction) {
-										k();
-									}
-								});
-						} catch (e) {
-							console.log(e);
+					var h_w = function () {
+						if (fitsIntoViewport(disqus_thread)) {
+							evento.remove(w, "scroll", h_w);
+							/* w.onscroll = null; */
+							k();
 						}
-						q();
-					} else if (w.isInViewport) {
-						var h_w = function () {
-							if (isInViewport(disqus_thread)) {
-								evento.remove(w, "scroll", h_w);
-								/* w.onscroll = null; */
-								k();
-							}
-						};
-						evento.add(w, "scroll", h_w);
-						/* w.onscroll = h_w; */
-					} else {
-						q();
-					}
+					};
+					evento.add(w, "scroll", h_w);
+					/* w.onscroll = h_w; */
 				}
 			} else {
 				v();

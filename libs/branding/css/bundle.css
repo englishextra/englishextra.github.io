@@ -2521,7 +2521,7 @@ body {
 	content: "\e91d";
 	font-size: 18.000pt;
 	line-height: 33.000pt;
-	color: rgba(15, 15, 15, 0.5);
+	color: #878787;
 }
 
 /*! @import "branding-masonry-grid"; */
@@ -2859,7 +2859,7 @@ ol.linenums li {
 	content: "\e923";
 	font-size: 18.000pt;
 	line-height: 33.000pt;
-	color: rgba(15, 15, 15, 0.5);
+	color: #878787;
 }
 
 /*! @import "branding-main"; */
@@ -3810,7 +3810,7 @@ u,
 	display: inline-block;
 	width: 97%;
 	max-width: 17.000rem;
-	height: 2.000rem;
+	height: 2.250rem;
 	font-family: sans-serif;
 	font-size: 0.875rem;
 	color: inherit;
@@ -4217,7 +4217,7 @@ u,
 }
 
 .bg-color-rgba-ui-icon-text {
-	background-color: rgba(15, 15, 15, 0.5);
+	background-color: #878787;
 }
 
 .bg-color-hex-ui-icon-bg {
@@ -4658,7 +4658,7 @@ u,
 		font-family: "Segoe Pro", "Segoe UI", sans-serif;
 		font-weight: normal;
 		font-size: 12.0pt;
-		line-height: 1.250;
+		line-height: 1.25;
 		text-transform: uppercase;
 		letter-spacing: 0.500pt;
 	}
@@ -4697,13 +4697,13 @@ u,
 	.col table {
 		border-collapse: collapse;
 		border: none;
-		border-top-width: 0.063rem;
+		border-top-width: 0.067rem;
 		border-top-style: solid;
 		border-top-color: inherit;
-		border-right-width: 0.063rem;
+		border-right-width: 0.067rem;
 		border-right-style: solid;
 		border-right-color: inherit;
-		border-left-width: 0.063rem;
+		border-left-width: 0.067rem;
 		border-left-style: solid;
 		border-left-color: inherit;
 		margin-left: 1.000pt;

@@ -968,16 +968,14 @@ var manageDataSrcImg = function (ctx) {
 	ds = "dataset",
 	pN = "parentNode",
 	g = function (e) {
-		var p = e[ds].src || "";
-		if (p) {
-			if (parseLink(p).isAbsolute && !parseLink(p).hasHTTP) {
-				e[ds].src = p.replace(/^/, getHTTP(!0) + ":");
+		var _src = e[ds].src || "";
+		if (_src) {
+			if (parseLink(_src).isAbsolute && !parseLink(_src).hasHTTP) {
+				e[ds].src = _src.replace(/^/, getHTTP(!0) + ":");
+				_src = e[ds].src;
 			}
-			if (w.lzld) {
-				lzld(e);
-				e[cL].add(is_active);
-			} else {
-				e.src = e[ds].src;
+			if (!e[cL].contains(is_active)) {
+				e.src = _src;
 				e[cL].add(is_active);
 			}
 		}

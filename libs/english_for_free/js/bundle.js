@@ -597,7 +597,8 @@ var initSuperBox = function () {
 		};
 		/* setImmediate(si1); */
 		setAutoClearedTimeout(si1, 100);
-		s_cur_desc[cL].add(an, an1);
+		s_cur_desc[cL].add(an);
+		s_cur_desc[cL].add(an1);
 		/*!
 		 * track clicks on external links
 		 */
@@ -664,7 +665,8 @@ var initSuperBox = function () {
 			var s = function () {
 				setStyleDisplayNone(s_cur_desc);
 				setStyleDisplayNone(s_show);
-				s_cur_desc[cL].remove(an, an2);
+				s_cur_desc[cL].remove(an);
+				s_cur_desc[cL].remove(an2);	
 			};
 			setAutoClearedTimeout(s, 200);
 		};

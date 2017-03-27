@@ -132,22 +132,6 @@ var Cookies=(function(){function extend(){var i=0;var result={};for(;i<arguments
  */
 ;(function(root,name,make){root[name]=make();}("undefined"!==typeof window?window:this,"verge",function(){var xports={},win=typeof window!="undefined"&&window,doc=typeof document!="undefined"&&document,docElem=doc&&doc.documentElement,matchMedia=win.matchMedia||win.msMatchMedia,mq=matchMedia?function(q){return!!matchMedia.call(win,q).matches;}:function(){return false;},viewportW=xports.viewportW=function(){var a=docElem.clientWidth,b=win.innerWidth;return a<b?b:a;},viewportH=xports.viewportH=function(){var a=docElem.clientHeight,b=win.innerHeight;return a<b?b:a;};xports.mq=mq;xports.matchMedia=matchMedia?function(){return matchMedia.apply(win,arguments);}:function(){return{};};function viewport(){return{"width":viewportW(),"height":viewportH()};}xports.viewport=viewport;xports.scrollX=function(){return win.pageXOffset||docElem.scrollLeft;};xports.scrollY=function(){return win.pageYOffset||docElem.scrollTop;};function calibrate(coords,cushion){var o={};cushion=+cushion||0;o.width=(o.right=coords.right+cushion)-(o.left=coords.left-cushion);o.height=(o.bottom=coords.bottom+cushion)-(o.top=coords.top-cushion);return o;}function rectangle(el,cushion){el=el&&!el.nodeType?el[0]:el;if(!el||1!==el.nodeType)return false;return calibrate(el.getBoundingClientRect(),cushion);}xports.rectangle=rectangle;function aspect(o){o=null===o?viewport():1===o.nodeType?rectangle(o):o;var h=o.height,w=o.width;h=typeof h=="function"?h.call(o):h;w=typeof w=="function"?w.call(o):w;return w/h;}xports.aspect=aspect;xports.inX=function(el,cushion){var r=rectangle(el,cushion);return!!r&&r.right>=0&&r.left<=viewportW()&&(0!==el.offsetHeight);};xports.inY=function(el,cushion){var r=rectangle(el,cushion);return!!r&&r.bottom>=0&&r.top<=viewportH()&&(0!==el.offsetHeight);};xports.inViewport=function(el,cushion){var r=rectangle(el,cushion);return!!r&&r.bottom>=0&&r.right>=0&&r.top<=viewportH()&&r.left<=viewportW()&&(0!==el.offsetHeight);};return xports;}));
 /*!
- * npm.im/image-promise 5.0.0
- * github.com/bfred-it/image-promise
- * var images = ["cat.jpg", "dog.jpg"];
- * imagePromise(images).then(function (allImgs) {
- * console.log(allImgs.length, "images loaded!", allImgs);
- * }).catch (function (err) {
- * console.error("One or more images have failed to load :(");
- * console.error(err.errored);
- * console.info("But these loaded fine:");
- * console.info(err.loaded);
- * });
- * source: github.com/bfred-it/image-promise/blob/master/dist/image-promise.min.js
- * passes jshint
- */
-var imagePromise=(function(){"use strict";function e(r){if(!r)return Promise.reject();if("string"==typeof r){var t=r;r=new Image();r.src=t;}else{if(void 0!==r.length){var n=[].map.call(r,function(r){return e(r).catch(function(e){return e;});});return Promise.all(n).then(function(e){var r=e.filter(function(e){return e.naturalWidth;});return r.length===e.length?r:Promise.reject({loaded:r,errored:e.filter(function(e){return!e.naturalWidth;})});});}if("IMG"!==r.tagName){return Promise.reject();}}var i=new Promise(function(e,t){function n(){if(r.naturalWidth){e(r);}else{t(r);}r.removeEventListener("load",n);r.removeEventListener("error",n);}if(r.naturalWidth){e(r);}else{if(r.complete){t(r);}else{r.addEventListener("load",n);r.addEventListener("error",n);}}});return i.image=r,i;}return e;}());
-/*!
  * safe way to handle console.log():
  * sitepoint.com/safe-console-log/
  */
@@ -773,7 +757,9 @@ var Notifier42 = function (m, n, t) {
 		c = crel("div");
 		appendFragment(c, b);
 	}
-	c[cL].add(cls, an, an2);
+	c[cL].add(cls);
+	c[cL].add(an);
+	c[cL].add(an2);
 	if (t) {
 		c[cL].add(t);
 	}
@@ -1222,27 +1208,28 @@ var manageImgLightboxLinks = function (ctx) {
 	an1 = "fadeIn",
 	an2 = "fadeInUp",
 	an3 = "fadeOut",
-	an4 = "fadeOutDown";
+	an4 = "fadeOutDown",
+	dm = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
 	if (!c) {
 		c = crel("div");
 		m = crel("img");
 		c[cL].add(ilc);
-		m.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
+		m.src = dm;
 		m.alt = "";
 		crel(c, m);
 		appendFragment(c, b);
 	}
 	var g = function (_this) {
-		LoadingSpinner.show();
-		c[cL].add(an, an1);
-		m[cL].add(an, an2);
 		var _href = _this.getAttribute("href") || "",
 		r = function () {
 			m[cL].remove(an2);
 			m[cL].add(an4);
 			var st1 = function () {
-				c[cL].remove(an, an3);
-				m[cL].remove(an, an4);
+				c[cL].remove(an);
+				c[cL].remove(an3);
+				m[cL].remove(an);
+				m[cL].remove(an4);
+				m.src = dm;
 				setStyleDisplayNone(c);
 			},
 			st2 = function () {
@@ -1274,26 +1261,19 @@ var manageImgLightboxLinks = function (ctx) {
 			w.onkeyup = h_w;
 			setStyleDisplayBlock(c);
 			LoadingSpinner.hide();
-		},
-		pr = function (u) {
-			return new Promise(function (y, n) {
-				var a = new Image();
-				a.onload = function () {
-					y(u);
-				};
-				a.onerror = function () {
-					n(u);
-				};
-				a.src = u;
-			});
 		};
-		pr(_href).then(function (u) {
-			m.src = u;
+		if (_href) {
+			LoadingSpinner.show();
+			c[cL].add(an);
+			c[cL].add(an1);
+			m[cL].add(an);
+			m[cL].add(an2);
+			if (parseLink(_href).isAbsolute && !parseLink(_href).hasHTTP) {
+				_href = _href.replace(/^/, getHTTP(!0) + ":");
+			}
+			m.src = _href;
 			z();
-		}).catch (function (e) {
-			r();
-			console.log("Error loading image", e);
-		});
+		}
 	},
 	k = function (e) {
 		var v = e[ds].lightbox || "",
@@ -1340,34 +1320,22 @@ var manageDataSrcImg = function (ctx) {
 	cL = "classList",
 	ds = "dataset",
 	k = function (e) {
-		var u = e[ds].src || "";
-		if (u) {
-			if (parseLink(u).isAbsolute && !parseLink(u).hasHTTP) {
-				e[ds].src = u.replace(/^/, getHTTP(!0) + ":");
+		var _src = e[ds].src || "";
+		if (_src) {
+			if (parseLink(_src).isAbsolute && !parseLink(_src).hasHTTP) {
+				e[ds].src = _src.replace(/^/, getHTTP(!0) + ":");
+				_src = e[ds].src;
 			}
 			if (!e[cL].contains(is_active)) {
-				/* if (w.imagePromise) {
-					imagePromise(u).then(function (r) {
-						e.src = e[ds].src;
-						e[cL].add(is_active);
-						console.log("function manageDataSrcImg => imagePromise: image loaded", r.src);
-					}).catch (function (err) {
-						console.error("function manageDataSrcImg => imagePromise: image failed to load", err.src);
-					});
-				} else { */
-					e.src = e[ds].src;
-					e[cL].add(is_active);
-				/* } */
+				e.src = _src;
+				e[cL].add(is_active);
 			}
 		}
 	},
 	g = function (e) {
-		var s = function () {
-			if (verge.inY(e)/* && 0 !== e.offsetHeight */) {
-				k(e);
-			}
-		};
-		s();
+		if (verge.inY(e)/* && 0 !== e.offsetHeight */) {
+			k(e);
+		}
 	};
 	if (a) {
 		console.log("triggered function: manageDataSrcImg");
@@ -1408,34 +1376,6 @@ var manageDataQrcodeImg = function (ctx) {
 			e.title = u;
 			e.alt = u;
 			if (w.QRCode) {
-				/* s = QRCode.generateSVG(u, {
-						ecclevel: "M",
-						fillcolor: "#F3F3F3",
-						textcolor: "#373737",
-						margin: 4,
-						modulesize: 8
-					});
-				var n = e.parentNode || "",
-				k = e.getAttribute("class") || "",
-				m = crel("span", {
-						"class": k,
-						"title": u
-					});
-				if (n) {
-					crel(m, crel(s));
-					n.replaceChild(m, e);
-				} */
-				/* s = QRCode.generateSVG(u, {
-						ecclevel: "M",
-						fillcolor: "#F3F3F3",
-						textcolor: "#373737",
-						margin: 4,
-						modulesize: 8
-					});
-				var XMLS = new XMLSerializer();
-				s = XMLS.serializeToString(s);
-				s = "data:image/svg+xml;base64," + w.btoa(unescape(encodeURIComponent(s)));
-				crel(e, {"style": "width:100%;height:auto;background-image:url(" + s + ");background-size: 100% auto;"}); */
 				if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
 					s = QRCode.generateSVG(u, {
 							ecclevel: "M",
@@ -1459,16 +1399,9 @@ var manageDataQrcodeImg = function (ctx) {
 						});
 					e.src = s;
 				}
-			}/*  else if (w.imagePromise) {
-				imagePromise(s).then(function (r) {
-					e.src = s;
-					console.log("function manageDataSrcImg => imagePromise: image loaded", r.src);
-				}).catch (function (err) {
-					console.error("function manageDataSrcImg => imagePromise: image failed to load", err.src);
-				});
 			} else {
 				e.src = s;
-			} */
+			}
 		}
 	};
 	if (a) {
@@ -1685,15 +1618,6 @@ var initLocationQrCodeImg = function () {
 		s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(u);
 		m.alt = t;
 		if (w.QRCode) {
-			/* m = crel("span"),
-			s = QRCode.generateSVG(u, {
-					ecclevel: "M",
-					fillcolor: "#FFFFFF",
-					textcolor: "#373737",
-					margin: 4,
-					modulesize: 8
-				});
-			crel(m, crel(s)); */
 			if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
 				s = QRCode.generateSVG(u, {
 						ecclevel: "M",
@@ -1717,16 +1641,9 @@ var initLocationQrCodeImg = function () {
 					});
 				m.src = s;
 			}
-		}/*  else if (w.imagePromise) {
-			imagePromise(s).then(function (r) {
-				m.src = s;
-				console.log("function manageDataSrcImg => imagePromise: image loaded", r.src);
-			}).catch (function (err) {
-				console.error("function manageDataSrcImg => imagePromise: image failed to load", err.src);
-			});
 		} else {
 			m.src = s;
-		} */
+		}
 		m[cL].add(cls);
 		m.title = t;
 		removeChildren(c);

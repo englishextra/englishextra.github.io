@@ -3325,7 +3325,7 @@ html > body > .ui-pnotify {
 	content: "\e923";
 	font-size: 18.000pt;
 	line-height: 33.000pt;
-	color: rgba(15, 15, 15, 0.5);
+	color: #878787;
 }
 
 /*! @import "search-main"; */
