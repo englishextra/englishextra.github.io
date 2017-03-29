@@ -665,7 +665,7 @@ template {
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
-	background-color: #E7E7E7;
+	background-color: #F0F0F0;
 	border: none;
 	overflow: hidden;
 	-webkit-transition: background 0.2s linear;
@@ -723,7 +723,7 @@ template {
 .shower-list {
 	position: absolute;
 	clip: rect(0, auto, auto, 0);
-	background-color: #E7E7E7;
+	background-color: #F0F0F0;
 	padding: 100px 0 0 16px;
 }
 
@@ -967,7 +967,7 @@ template {
 }
 
 #ui-totop-hover {
-	background-color: #E7E7E7;
+	background-color: #F0F0F0;
 }
 
 #ui-totop-hover:before {
@@ -1006,7 +1006,7 @@ body {
 	line-height: 1.500;
 	width: 100%;
 	color: #191919;
-	background-color: #E7E7E7;
+	background-color: #F0F0F0;
 	counter-reset: slide;
 	-webkit-text-size-adjust: none;
 	-ms-text-size-adjust: none;
@@ -1143,7 +1143,7 @@ u,
 	 * and position relative to parent, absolute for child
 	 */
 	min-height: 100%;
-	background-color: #E7E7E7;
+	background-color: #F0F0F0;
 }
 
 /*! @import "irregular-verbs-with-shower-nav-menu"; */
@@ -1175,7 +1175,7 @@ u,
 
 .holder-btn-nav-menu {
 	text-align: center;
-	background-color: #E7E7E7;
+	background-color: #F0F0F0;
 }
 
 .btn-nav-menu:before {

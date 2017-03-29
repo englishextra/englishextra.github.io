@@ -351,7 +351,7 @@ u,
 	content: "\e914";
 	font-size: 18.000pt;
 	line-height: 33.000pt;
-	color: $color-hex-ui-icon-text;
+	color: $color-hex-lighter-text;
 }
 
 .page.is-active .btn-nav-menu:before {
@@ -408,7 +408,7 @@ u,
 	content: "\e915";
 	font-size: 18.000pt;
 	line-height: 33.000pt;
-	color: $color-hex-ui-icon-text;
+	color: $color-hex-lighter-text;
 }
 
 .holder-panel-menu-more {
@@ -682,13 +682,6 @@ u,
 .col .hr {
 	height: 0.063rem;
 	background-color: $color-hex-divider;
-}
-
-.col a.reflink {
-	font-size: smaller;
-	letter-spacing: 0.063rem;
-	color: $color-hex-gray-text;
-	border-bottom: none;
 }
 
 .col .highlight {

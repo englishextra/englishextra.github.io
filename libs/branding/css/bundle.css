@@ -2413,7 +2413,7 @@ body {
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
-	background-color: #E7E7E7;
+	background-color: #F0F0F0;
 	border: none;
 	overflow: hidden;
 	-webkit-transition: background 0.2s linear;
@@ -2502,7 +2502,7 @@ body {
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
-	background-color: #E7E7E7;
+	background-color: #F0F0F0;
 	border: none;
 	overflow: hidden;
 	-webkit-transition: background 0.2s linear;
@@ -2688,14 +2688,14 @@ li.L9 {
 
 pre.prettyprint,
 code.prettyprint {
-	background-color: #E7E7E7;
+	background-color: #F0F0F0;
 	border-radius: 0;
 }
 
 pre.prettyprint {
 	width: 100%;
 	white-space: pre-wrap;
-	background-color: #E7E7E7;
+	background-color: #F0F0F0;
 	border: 0 solid transparent;
 	overflow-x: scroll;
 	overflow-y: auto;
@@ -2851,7 +2851,7 @@ ol.linenums li {
 }
 
 #ui-totop-hover {
-	background-color: #E7E7E7;
+	background-color: #F0F0F0;
 }
 
 #ui-totop-hover:before {
@@ -2890,7 +2890,7 @@ body {
 	line-height: 1.500;
 	width: 100%;
 	color: #191919;
-	background-color: #E7E7E7;
+	background-color: #F0F0F0;
 	-webkit-text-size-adjust: none;
 	-ms-text-size-adjust: none;
 	text-size-adjust: none;
@@ -3069,7 +3069,7 @@ u,
 	top: 0;
 	/* left: 280px; */
 	left: 0;
-	background-color: #E7E7E7;
+	background-color: #F0F0F0;
 }
 
 /* .js .page {
@@ -3086,7 +3086,7 @@ u,
 	display: block;
 	width: 100%;
 	height: 33.000pt;
-	background-color: #E7E7E7;
+	background-color: #F0F0F0;
 }
 
 .container {
@@ -3225,7 +3225,7 @@ u,
 
 .btn-nav-menu {
 	text-align: center;
-	background-color: #E7E7E7;
+	background-color: #F0F0F0;
 }
 
 .btn-nav-menu:before {
@@ -3283,7 +3283,7 @@ u,
 
 .btn-menu-more {
 	text-align: center;
-	background-color: #E7E7E7;
+	background-color: #F0F0F0;
 }
 
 .btn-menu-more:before {
@@ -3399,7 +3399,7 @@ u,
 
 .holder-search-form input[type^=text],
 .holder-search-form input[type^=search] {
-	background-color: #E7E7E7;
+	background-color: #F0F0F0;
 }
 
 /**
@@ -3465,7 +3465,7 @@ u,
 }
 
 .col a:visited {
-	color: #959595;
+	color: #9B9B9B;
 }
 
 .container .col h1 {
@@ -3657,13 +3657,6 @@ u,
 	background-color: #C3C3C3;
 }
 
-.col a.reflink {
-	font-size: smaller;
-	letter-spacing: 0.063rem;
-	color: #878787;
-	border-bottom: none;
-}
-
 .col pre,
 .col pre code,
 .col .phonetic {
@@ -3733,7 +3726,7 @@ u,
 .col .btn-secondary:focus,
 .col a.btn-secondary,
 .col a.btn-secondary:focus {
-	color: #737373;
+	color: #878787;
 	background-color: #EDEDED;
 	border-color: #EDEDED;
 }
@@ -3742,7 +3735,7 @@ u,
 .col .btn-secondary:active,
 .col a.btn-secondary:hover,
 .col a.btn-secondary:active {
-	color: #737373;
+	color: #878787;
 	background-color: #DBDBDB;
 	border-color: #DBDBDB;
 }
@@ -3751,7 +3744,7 @@ u,
 .col .btn-link:focus,
 .col a.btn-link,
 .col a.btn-link:focus {
-	color: #737373;
+	color: #878787;
 	background-color: transparent;
 	border-color: #EDEDED;
 }
@@ -3760,7 +3753,7 @@ u,
 .col .btn-link:active,
 .col a.btn-link:hover,
 .col a.btn-link:active {
-	color: #737373;
+	color: #878787;
 	background-color: #EDEDED;
 	border-color: #EDEDED;
 }
@@ -4012,8 +4005,8 @@ u,
 	line-height: 1.875rem;
 	text-decoration: none;
 	color: inherit;
-	background-color: #E7E7E7;
-	border: 0.063rem solid #E7E7E7;
+	background-color: #F0F0F0;
+	border: 0.063rem solid #F0F0F0;
 	vertical-align: text-bottom;
 	padding: 0 0.625rem;
 	/**
@@ -4116,7 +4109,7 @@ u,
 	display: inline-block;
 	width: 31.500pt;
 	height: 31.500pt;
-	background-color: #E7E7E7;
+	background-color: #F0F0F0;
 	background-size: 31.500pt 31.500pt;
 	vertical-align: bottom;
 	margin: 0 0 0 0;
@@ -4147,10 +4140,6 @@ u,
 	background-color: #191919;
 }
 
-.bg-color-hex-lighter-text {
-	background-color: #737373;
-}
-
 .bg-color-hex-gray-text {
 	background-color: #878787;
 }
@@ -4164,7 +4153,7 @@ u,
 }
 
 .bg-color-hex-visited-link {
-	background-color: #959595;
+	background-color: #9B9B9B;
 }
 
 .bg-color-hex-progress-bar {
@@ -4192,7 +4181,7 @@ u,
 }
 
 .bg-color-hex-page-bg {
-	background-color: #E7E7E7;
+	background-color: #F0F0F0;
 }
 
 .bg-color-rgba-page-overlay-bg {
@@ -4212,7 +4201,7 @@ u,
 }
 
 .bg-color-hex-ui-icon-bg {
-	background-color: #E7E7E7;
+	background-color: #F0F0F0;
 }
 
 .bg-color-hex-hover-ui-icon-bg {
@@ -4280,7 +4269,7 @@ u,
 }
 
 .bg-color-hex-ui-bar-bg {
-	background-color: #E7E7E7;
+	background-color: #F0F0F0;
 }
 
 .bg-color-rgba-ui-bar-shadow {

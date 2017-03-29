@@ -633,7 +633,7 @@ template {
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
-	background-color: #E7E7E7;
+	background-color: #F0F0F0;
 	border: none;
 	overflow: hidden;
 	-webkit-transition: background 0.2s linear;
@@ -722,7 +722,7 @@ template {
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
-	background-color: #E7E7E7;
+	background-color: #F0F0F0;
 	border: none;
 	overflow: hidden;
 	-webkit-transition: background 0.2s linear;
@@ -1624,7 +1624,7 @@ a.pswp__share--download:hover {
 }
 
 #ui-totop-hover {
-	background-color: #E7E7E7;
+	background-color: #F0F0F0;
 }
 
 #ui-totop-hover:before {
@@ -1663,7 +1663,7 @@ body {
 	line-height: 1.500;
 	width: 100%;
 	color: #191919;
-	background-color: #E7E7E7;
+	background-color: #F0F0F0;
 	-webkit-text-size-adjust: none;
 	-ms-text-size-adjust: none;
 	text-size-adjust: none;
@@ -1803,7 +1803,7 @@ u,
 	top: 0;
 	/* left: 280px; */
 	left: 0;
-	background-color: #E7E7E7;
+	background-color: #F0F0F0;
 }
 
 /* .js .page {
@@ -1820,7 +1820,7 @@ u,
 	display: block;
 	width: 100%;
 	height: 33.000pt;
-	background-color: #E7E7E7;
+	background-color: #F0F0F0;
 }
 
 .container {
@@ -1925,7 +1925,7 @@ u,
 
 .btn-nav-menu {
 	text-align: center;
-	background-color: #E7E7E7;
+	background-color: #F0F0F0;
 }
 
 .btn-nav-menu:before {
@@ -1983,7 +1983,7 @@ u,
 
 .btn-menu-more {
 	text-align: center;
-	background-color: #E7E7E7;
+	background-color: #F0F0F0;
 }
 
 .btn-menu-more:before {
