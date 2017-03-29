@@ -2337,7 +2337,7 @@ body {
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
-	background-color: #F0F0F0;
+	background-color: #E7E7E7;
 	border: none;
 	overflow: hidden;
 	-webkit-transition: background 0.2s linear;
@@ -2426,7 +2426,7 @@ body {
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
-	background-color: #F0F0F0;
+	background-color: #E7E7E7;
 	border: none;
 	overflow: hidden;
 	-webkit-transition: background 0.2s linear;
@@ -3049,7 +3049,7 @@ img[class*=" contents-"] {
 }
 
 #ui-totop-hover {
-	background-color: #F0F0F0;
+	background-color: #E7E7E7;
 }
 
 #ui-totop-hover:before {
@@ -3284,7 +3284,7 @@ u,
 	display: block;
 	width: 100%;
 	height: 33.000pt;
-	background-color: #F0F0F0;
+	background-color: #E7E7E7;
 }
 
 .container {
@@ -3423,7 +3423,7 @@ u,
 
 .btn-nav-menu {
 	text-align: center;
-	background-color: #F0F0F0;
+	background-color: #E7E7E7;
 }
 
 .btn-nav-menu:before {
@@ -3481,7 +3481,7 @@ u,
 
 .btn-menu-more {
 	text-align: center;
-	background-color: #F0F0F0;
+	background-color: #E7E7E7;
 }
 
 .btn-menu-more:before {
@@ -3597,7 +3597,7 @@ u,
 
 .holder-search-form input[type^=text],
 .holder-search-form input[type^=search] {
-	background-color: #F0F0F0;
+	background-color: #E7E7E7;
 }
 
 /**

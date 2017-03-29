@@ -3317,7 +3317,7 @@ html > body > .ui-pnotify {
 }
 
 #ui-totop-hover {
-	background-color: #F0F0F0;
+	background-color: #E7E7E7;
 }
 
 #ui-totop-hover:before {
@@ -3552,7 +3552,7 @@ u,
 	display: block;
 	width: 100%;
 	height: 33.000pt;
-	background-color: #F0F0F0;
+	background-color: #E7E7E7;
 }
 
 .container {
@@ -3691,7 +3691,7 @@ u,
 
 .btn-nav-menu {
 	text-align: center;
-	background-color: #F0F0F0;
+	background-color: #E7E7E7;
 }
 
 .btn-nav-menu:before {
@@ -3749,7 +3749,7 @@ u,
 
 .btn-menu-more {
 	text-align: center;
-	background-color: #F0F0F0;
+	background-color: #E7E7E7;
 }
 
 .btn-menu-more:before {

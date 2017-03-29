@@ -2413,7 +2413,7 @@ body {
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
-	background-color: #F0F0F0;
+	background-color: #E7E7E7;
 	border: none;
 	overflow: hidden;
 	-webkit-transition: background 0.2s linear;
@@ -2502,7 +2502,7 @@ body {
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
-	background-color: #F0F0F0;
+	background-color: #E7E7E7;
 	border: none;
 	overflow: hidden;
 	-webkit-transition: background 0.2s linear;
@@ -2688,14 +2688,14 @@ li.L9 {
 
 pre.prettyprint,
 code.prettyprint {
-	background-color: #F0F0F0;
+	background-color: #E7E7E7;
 	border-radius: 0;
 }
 
 pre.prettyprint {
 	width: 100%;
 	white-space: pre-wrap;
-	background-color: #F0F0F0;
+	background-color: #E7E7E7;
 	border: 0 solid transparent;
 	overflow-x: scroll;
 	overflow-y: auto;
@@ -2851,7 +2851,7 @@ ol.linenums li {
 }
 
 #ui-totop-hover {
-	background-color: #F0F0F0;
+	background-color: #E7E7E7;
 }
 
 #ui-totop-hover:before {
@@ -3086,7 +3086,7 @@ u,
 	display: block;
 	width: 100%;
 	height: 33.000pt;
-	background-color: #F0F0F0;
+	background-color: #E7E7E7;
 }
 
 .container {
@@ -3225,7 +3225,7 @@ u,
 
 .btn-nav-menu {
 	text-align: center;
-	background-color: #F0F0F0;
+	background-color: #E7E7E7;
 }
 
 .btn-nav-menu:before {
@@ -3283,7 +3283,7 @@ u,
 
 .btn-menu-more {
 	text-align: center;
-	background-color: #F0F0F0;
+	background-color: #E7E7E7;
 }
 
 .btn-menu-more:before {
@@ -3399,7 +3399,7 @@ u,
 
 .holder-search-form input[type^=text],
 .holder-search-form input[type^=search] {
-	background-color: #F0F0F0;
+	background-color: #E7E7E7;
 }
 
 /**
@@ -4005,8 +4005,8 @@ u,
 	line-height: 1.875rem;
 	text-decoration: none;
 	color: inherit;
-	background-color: #F0F0F0;
-	border: 0.063rem solid #F0F0F0;
+	background-color: #E7E7E7;
+	border: 0.063rem solid #E7E7E7;
 	vertical-align: text-bottom;
 	padding: 0 0.625rem;
 	/**
@@ -4109,7 +4109,7 @@ u,
 	display: inline-block;
 	width: 31.500pt;
 	height: 31.500pt;
-	background-color: #F0F0F0;
+	background-color: #E7E7E7;
 	background-size: 31.500pt 31.500pt;
 	vertical-align: bottom;
 	margin: 0 0 0 0;
@@ -4201,7 +4201,7 @@ u,
 }
 
 .bg-color-hex-ui-icon-bg {
-	background-color: #F0F0F0;
+	background-color: #E7E7E7;
 }
 
 .bg-color-hex-hover-ui-icon-bg {
@@ -4269,7 +4269,7 @@ u,
 }
 
 .bg-color-hex-ui-bar-bg {
-	background-color: #F0F0F0;
+	background-color: #E7E7E7;
 }
 
 .bg-color-rgba-ui-bar-shadow {

@@ -665,7 +665,7 @@ template {
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
-	background-color: #F0F0F0;
+	background-color: #E7E7E7;
 	border: none;
 	overflow: hidden;
 	-webkit-transition: background 0.2s linear;
@@ -967,7 +967,7 @@ template {
 }
 
 #ui-totop-hover {
-	background-color: #F0F0F0;
+	background-color: #E7E7E7;
 }
 
 #ui-totop-hover:before {
@@ -1175,7 +1175,7 @@ u,
 
 .holder-btn-nav-menu {
 	text-align: center;
-	background-color: #F0F0F0;
+	background-color: #E7E7E7;
 }
 
 .btn-nav-menu:before {

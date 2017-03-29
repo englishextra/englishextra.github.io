@@ -648,7 +648,7 @@ template {
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
-	background-color: #F0F0F0;
+	background-color: #E7E7E7;
 	border: none;
 	overflow: hidden;
 	-webkit-transition: background 0.2s linear;
@@ -737,7 +737,7 @@ template {
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
-	background-color: #F0F0F0;
+	background-color: #E7E7E7;
 	border: none;
 	overflow: hidden;
 	-webkit-transition: background 0.2s linear;
@@ -1068,7 +1068,7 @@ u,
 
 .btn-nav-menu {
 	text-align: center;
-	background-color: #F0F0F0;
+	background-color: #E7E7E7;
 }
 
 .btn-nav-menu:before {
@@ -1105,7 +1105,7 @@ u,
 
 .btn-menu-more {
 	text-align: center;
-	background-color: #F0F0F0;
+	background-color: #E7E7E7;
 }
 
 .btn-menu-more:before {
@@ -1210,7 +1210,7 @@ u,
 	line-height: 33.000pt;
 	text-indent: 0;
 	color: #878787;
-	background-color: #F0F0F0;
+	background-color: #E7E7E7;
 }
 
 .cd-next:before {
@@ -1221,7 +1221,7 @@ u,
 	line-height: 33.000pt;
 	text-indent: 0;
 	color: #878787;
-	background-color: #F0F0F0;
+	background-color: #E7E7E7;
 }
 
 .cd-prev:hover,
