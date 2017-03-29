@@ -36,59 +36,57 @@ EB5262
 3087CD */
 
 $color-rgba-selection-text: rgba(255, 255, 255, 0.9);
-$color-rgba-selection-bg: rgba(52, 143, 220, 0.9);
+$color-rgba-selection-bg: rgba(147, 156, 158, 0.9);
 
-$color-hex-body-text: #373737;
+$color-hex-body-text: #191919;
 $color-hex-lighter-text: #737373;
 $color-hex-gray-text: #878787;
 
-$color-hex-link: #007DD1;
-$color-hex-hover-link: #007DD1;
-$color-hex-visited-link: #878787;
+$color-hex-link: #3585D8;
+$color-hex-hover-link: #3585D8;
+$color-hex-visited-link: #959595;
 
-$color-hex-progress-bar: #FF4C4C;
+$color-hex-progress-bar: #FF2C40;
 
-$color-hex-ui-accent: #0073D2;
+$color-hex-ui-accent: #F03B4C;
+
+$color-hex-ui-menu-item-bg: #F3F3F3;
 $color-hex-hover-ui-menu-item-bg: #E1E1E1;
-$color-rgba-hover-ui-menu-item-bg: rgba(0, 115, 210, 0.25);
 
-$color-hex-highlight: #DA3216;
+$color-hex-highlight: #D93D3D;
 $color-hex-url: #009B4C;
 
-$color-hex-notice: #1A81D7;
-$color-hex-success: #1AB465;
-$color-hex-warning: #F67326;
-$color-hex-error: #D64A4A;
-
 $color-hex-page-bg: #F0F0F0;
-$color-rgba-page-overlay-bg: rgba(0, 115, 210, 0.25);
+$color-rgba-page-overlay-bg: rgba(0, 0, 0, 0.5);
 
 $color-hex-divider: #C3C3C3;
 $color-hex-lighter-divider: #C9C9C9;
 
 $color-hex-ui-icon-text: #878787;
-$color-hex-ui-icon-bg: #EDEDED;
-$color-rgba-ui-icon-bg: rgba(220, 220, 220, 0.5);
+$color-hex-ui-icon-bg: #E7E7E7;
 $color-hex-hover-ui-icon-bg: #D5D5D5;
 
 $color-rgba-dark-ui-icon-bg: rgba(75, 75, 75, 0.5);
 $color-hex-hover-dark-ui-icon-bg: #4B4B4B;
 
-$color-hex-button-bg: #4B4B4B;
-$color-hex-hover-button-bg: #5F5F5F;
+$color-hex-ui-button-bg: #373737;
+$color-hex-hover-ui-button-bg: #5F5F5F;
+
+$color-hex-ui-button-secondary-bg: #EDEDED;
+$color-hex-hover-ui-button-secondary-bg: #DBDBDB;
 
 $color-hex-active-input-bg: #F3F3F3;
 $color-hex-disabled-input-bg: #D5D5D5;
 
 $color-hex-dark-ui-panel-bg: #2D2D2D;
 $color-hex-dark-ui-panel-hover-item-bg: #4B4B4B;
-$color-hex-dark-ui-panel-active-item-bg: #004F93;
+$color-hex-dark-ui-panel-active-item-bg: #A82933;
 $color-hex-darker-ui-panel-bg: #232323;
 $color-hex-darker-ui-panel-hover-item-bg: #414141;
-$color-hex-darker-ui-panel-active-item-bg: #00437E;
+$color-hex-darker-ui-panel-active-item-bg: #801E26;
 $color-rgba-darker-ui-panel-inset-shadow: rgba(0, 0, 0, 0.9);
 
-$color-hex-ui-bar-bg: #F3F3F3;
+$color-hex-ui-bar-bg: #E7E7E7;
 $color-rgba-ui-bar-shadow: rgba(50, 50, 50, 0.3);
 $color-hex-dark-ui-bar-bg: #4B4B4B;
 
@@ -96,15 +94,14 @@ $color-hex-aside-bg: #F3F3F3;
 
 $color-hex-text-slide-bg: #F9F9F9;
 
-$color-hex-table-header-bg: #EDEDED;
 $color-hex-table-cell-bg: #F3F3F3;
 
 $color-rgba-card-shadow: rgba(150, 150, 150, 0.2);
 
 $color-rgba-hint-bg: rgba(25, 25, 25, 0.9);
 
-$color-rgba-loading-spinner-text: rgba(0, 115, 210, 0.8);
-$color-rgba-loading-spinner-bg: rgba(0, 115, 210, 0.2);
+$color-rgba-loading-spinner-text: rgba(240, 59, 76, 0.8);
+$color-rgba-loading-spinner-bg: rgba(220, 220, 220, 0.5);
 
 $color-rgba-notifier42-text: rgba(255, 255, 255, 0.9);
 $color-rgba-notifier42-bg: rgba(25, 25, 25, 0.9);

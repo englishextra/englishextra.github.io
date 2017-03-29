@@ -4,48 +4,6 @@
     {
       "icon": {
         "paths": [
-          "M758.571 397.486c0 35.714-13.371 63.714-40.171 84-26.743 20.343-62.857 30.514-108.229 30.514-35.886 0-68.629-5.886-98.171-17.6v-86.743c33.943 21.029 66.229 31.486 96.8 31.486 33.029 0 49.6-10.514 49.6-31.486 0-6.971-1.6-12.514-4.8-16.457-3.143-3.943-8.8-8.057-16.8-12.343-8.057-4.286-22.114-10.4-42.171-18.286-29.086-10.857-50.114-24.114-63.086-39.829s-19.543-36.457-19.543-62.171c0-33.429 12.971-60.171 39.029-80.286 26-20.114 60.4-30.171 103.086-30.171 27.543 0 55.543 4.629 83.943 13.886v82.686c-26-15.829-53.543-23.714-82.629-23.714-27.543 0-41.314 9.714-41.314 29.143 0 7.429 1.429 13.314 4.286 17.6s8 8.514 15.371 12.686c7.429 4.171 18.457 8.971 33.257 14.4 33.029 12.4 56.571 26.571 70.571 42.343 14 15.829 20.971 35.943 20.971 60.343z",
-          "M1024 499.486c-15.429 8.343-38.686 12.514-69.771 12.514-73.6 0-110.4-39.2-110.4-117.6v-158.857h-54.857v-78.971h54.857v-74.857l104.171-30.514v105.371h76v78.971h-76v140.286c0 36.114 14 54.229 42 54.229 11.029 0 22.4-3.257 34.057-9.829v79.257z",
-          "M153.714 870.286v-358.286h204.571v-153.714h-204.571v-204.571h256v-153.714h-409.714v1024h460.571v-153.714z"
-        ],
-        "attrs": [
-          {},
-          {},
-          {}
-        ],
-        "isMulticolor": false,
-        "isMulticolor2": false,
-        "grid": 0,
-        "tags": [
-          "eaststreet"
-        ],
-        "colorPermutations": {
-          "2552552551521432201": [
-            {},
-            {},
-            {}
-          ]
-        }
-      },
-      "attrs": [
-        {},
-        {},
-        {}
-      ],
-      "properties": {
-        "order": 48,
-        "id": 13,
-        "name": "eaststreet",
-        "prevSize": 20,
-        "code": 59648
-      },
-      "setIdx": 0,
-      "setId": 2,
-      "iconIdx": 0
-    },
-    {
-      "icon": {
-        "paths": [
           "M512 82.5l470.5 471-45 45-41.5-41v402.5h-320v-320h-128v320h-320v-402.5l-41.5 41-45-45zM832 896v-402.5l-320-320-320 320v402.5h192v-320h256v320h192z"
         ],
         "attrs": [
@@ -67,7 +25,7 @@
         {}
       ],
       "properties": {
-        "order": 49,
+        "order": 62,
         "id": 12,
         "name": "mi-Home",
         "prevSize": 20,
@@ -75,7 +33,7 @@
       },
       "setIdx": 0,
       "setId": 2,
-      "iconIdx": 1
+      "iconIdx": 0
     },
     {
       "icon": {
@@ -96,7 +54,7 @@
       },
       "attrs": [],
       "properties": {
-        "order": 50,
+        "order": 63,
         "name": "fa-qrcode",
         "prevSize": 20,
         "id": 0,
@@ -104,7 +62,7 @@
       },
       "setIdx": 0,
       "setId": 2,
-      "iconIdx": 2
+      "iconIdx": 1
     },
     {
       "icon": {
@@ -125,7 +83,7 @@
       },
       "attrs": [],
       "properties": {
-        "order": 51,
+        "order": 64,
         "name": "mi-Cancel",
         "prevSize": 20,
         "id": 1,
@@ -133,7 +91,7 @@
       },
       "setIdx": 0,
       "setId": 2,
-      "iconIdx": 3
+      "iconIdx": 2
     },
     {
       "icon": {
@@ -154,7 +112,7 @@
       },
       "attrs": [],
       "properties": {
-        "order": 52,
+        "order": 65,
         "name": "mi-CellPhone",
         "prevSize": 20,
         "id": 2,
@@ -162,7 +120,7 @@
       },
       "setIdx": 0,
       "setId": 2,
-      "iconIdx": 4
+      "iconIdx": 3
     },
     {
       "icon": {
@@ -183,7 +141,7 @@
       },
       "attrs": [],
       "properties": {
-        "order": 53,
+        "order": 66,
         "name": "mi-ChevronDown",
         "prevSize": 20,
         "id": 3,
@@ -191,7 +149,7 @@
       },
       "setIdx": 0,
       "setId": 2,
-      "iconIdx": 5
+      "iconIdx": 4
     },
     {
       "icon": {
@@ -212,7 +170,7 @@
       },
       "attrs": [],
       "properties": {
-        "order": 54,
+        "order": 67,
         "name": "mi-ChevronUp",
         "prevSize": 20,
         "id": 4,
@@ -220,7 +178,7 @@
       },
       "setIdx": 0,
       "setId": 2,
-      "iconIdx": 6
+      "iconIdx": 5
     },
     {
       "icon": {
@@ -241,7 +199,7 @@
       },
       "attrs": [],
       "properties": {
-        "order": 55,
+        "order": 68,
         "name": "mi-GlobalNavButton",
         "prevSize": 20,
         "id": 5,
@@ -249,7 +207,7 @@
       },
       "setIdx": 0,
       "setId": 2,
-      "iconIdx": 7
+      "iconIdx": 6
     },
     {
       "icon": {
@@ -270,7 +228,7 @@
       },
       "attrs": [],
       "properties": {
-        "order": 56,
+        "order": 69,
         "name": "mi-Like",
         "prevSize": 20,
         "id": 6,
@@ -278,7 +236,7 @@
       },
       "setIdx": 0,
       "setId": 2,
-      "iconIdx": 8
+      "iconIdx": 7
     },
     {
       "icon": {
@@ -299,7 +257,7 @@
       },
       "attrs": [],
       "properties": {
-        "order": 57,
+        "order": 70,
         "name": "mi-More",
         "prevSize": 20,
         "id": 7,
@@ -307,7 +265,7 @@
       },
       "setIdx": 0,
       "setId": 2,
-      "iconIdx": 9
+      "iconIdx": 8
     },
     {
       "icon": {
@@ -328,7 +286,7 @@
       },
       "attrs": [],
       "properties": {
-        "order": 58,
+        "order": 71,
         "name": "mi-Repair",
         "prevSize": 20,
         "id": 8,
@@ -336,7 +294,7 @@
       },
       "setIdx": 0,
       "setId": 2,
-      "iconIdx": 10
+      "iconIdx": 9
     },
     {
       "icon": {
@@ -357,7 +315,7 @@
       },
       "attrs": [],
       "properties": {
-        "order": 59,
+        "order": 72,
         "name": "mi-Search",
         "prevSize": 20,
         "id": 9,
@@ -365,7 +323,7 @@
       },
       "setIdx": 0,
       "setId": 2,
-      "iconIdx": 11
+      "iconIdx": 10
     },
     {
       "icon": {
@@ -386,7 +344,7 @@
       },
       "attrs": [],
       "properties": {
-        "order": 60,
+        "order": 73,
         "name": "mi-Share",
         "prevSize": 20,
         "id": 10,
@@ -394,7 +352,7 @@
       },
       "setIdx": 0,
       "setId": 2,
-      "iconIdx": 12
+      "iconIdx": 11
     },
     {
       "icon": {
@@ -415,7 +373,7 @@
       },
       "attrs": [],
       "properties": {
-        "order": 61,
+        "order": 74,
         "name": "mi-Up",
         "prevSize": 20,
         "id": 11,
@@ -423,7 +381,7 @@
       },
       "setIdx": 0,
       "setId": 2,
-      "iconIdx": 13
+      "iconIdx": 12
     }
   ],
   "height": 1024,

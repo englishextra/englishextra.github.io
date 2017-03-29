@@ -197,7 +197,7 @@ u,
 
 .btn-nav-menu {
 	text-align: center;
-	background-color: $color-rgba-ui-icon-bg;
+	background-color: $color-hex-ui-icon-bg;
 }
 
 .btn-nav-menu:before {
@@ -233,7 +233,7 @@ u,
 
 .btn-menu-more {
 	text-align: center;
-	background-color: $color-rgba-ui-icon-bg;
+	background-color: $color-hex-ui-icon-bg;
 }
 
 .btn-menu-more:before {
@@ -251,7 +251,7 @@ u,
 	top: 33.000pt;
 	left: 33.000pt;
 	color: $color-hex-body-text;
-	background-color: $color-hex-ui-bar-bg;
+	background-color: $color-hex-ui-menu-item-bg;
 	border: 0.063rem solid $color-hex-ui-accent;
 	box-shadow: 0.125em 0.125em 0.125em 0 $color-rgba-ui-bar-shadow;
 	opacity: 0;
@@ -337,7 +337,7 @@ u,
 	line-height: 33.000pt;
 	text-indent: 0;
 	color: $color-hex-ui-icon-text;
-	background-color: $color-rgba-ui-icon-bg;
+	background-color: $color-hex-ui-icon-bg;
 }
 
 .cd-next:before {
@@ -348,7 +348,7 @@ u,
 	line-height: 33.000pt;
 	text-indent: 0;
 	color: $color-hex-ui-icon-text;
-	background-color: $color-rgba-ui-icon-bg;
+	background-color: $color-hex-ui-icon-bg;
 }
 
 .cd-prev:hover,

@@ -633,7 +633,7 @@ template {
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
-	background-color: rgba(220, 220, 220, 0.5);
+	background-color: #E7E7E7;
 	border: none;
 	overflow: hidden;
 	-webkit-transition: background 0.2s linear;
@@ -722,7 +722,7 @@ template {
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
-	background-color: rgba(220, 220, 220, 0.5);
+	background-color: #E7E7E7;
 	border: none;
 	overflow: hidden;
 	-webkit-transition: background 0.2s linear;
@@ -885,7 +885,7 @@ body {
 	font-size: 1.000rem;
 	line-height: 1.500;
 	width: 100%;
-	color: #373737;
+	color: #191919;
 	background-color: #F0F0F0;
 	-webkit-text-size-adjust: none;
 	-ms-text-size-adjust: none;
@@ -960,12 +960,12 @@ u,
 
 ::-moz-selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(52, 143, 220, 0.9);
+	background-color: rgba(147, 156, 158, 0.9);
 }
 
 ::selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(52, 143, 220, 0.9);
+	background-color: rgba(147, 156, 158, 0.9);
 }
 
 /**
@@ -1067,7 +1067,7 @@ u,
 
 .btn-nav-menu {
 	text-align: center;
-	background-color: rgba(220, 220, 220, 0.5);
+	background-color: #E7E7E7;
 }
 
 .btn-nav-menu:before {
@@ -1104,7 +1104,7 @@ u,
 
 .btn-menu-more {
 	text-align: center;
-	background-color: rgba(220, 220, 220, 0.5);
+	background-color: #E7E7E7;
 }
 
 .btn-menu-more:before {
@@ -1121,9 +1121,9 @@ u,
 	position: absolute;
 	top: 33.000pt;
 	left: 33.000pt;
-	color: #373737;
+	color: #191919;
 	background-color: #F3F3F3;
-	border: 0.063rem solid #0073D2;
+	border: 0.063rem solid #F03B4C;
 	box-shadow: 0.125em 0.125em 0.125em 0 rgba(50, 50, 50, 0.3);
 	opacity: 0;
 	-webkit-transition: visibility 0s, opacity 0.2s linear;
@@ -1209,7 +1209,7 @@ u,
 	line-height: 33.000pt;
 	text-indent: 0;
 	color: #878787;
-	background-color: rgba(220, 220, 220, 0.5);
+	background-color: #E7E7E7;
 }
 
 .cd-next:before {
@@ -1220,7 +1220,7 @@ u,
 	line-height: 33.000pt;
 	text-indent: 0;
 	color: #878787;
-	background-color: rgba(220, 220, 220, 0.5);
+	background-color: #E7E7E7;
 }
 
 .cd-prev:hover,

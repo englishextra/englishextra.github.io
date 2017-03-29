@@ -665,7 +665,7 @@ template {
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
-	background-color: rgba(220, 220, 220, 0.5);
+	background-color: #E7E7E7;
 	border: none;
 	overflow: hidden;
 	-webkit-transition: background 0.2s linear;
@@ -967,7 +967,7 @@ template {
 }
 
 #ui-totop-hover {
-	background-color: rgba(220, 220, 220, 0.5);
+	background-color: #E7E7E7;
 }
 
 #ui-totop-hover:before {
@@ -1005,7 +1005,7 @@ body {
 	font-size: 1.000rem;
 	line-height: 1.500;
 	width: 100%;
-	color: #373737;
+	color: #191919;
 	background-color: #F0F0F0;
 	counter-reset: slide;
 	-webkit-text-size-adjust: none;
@@ -1081,12 +1081,12 @@ u,
 
 ::-moz-selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(52, 143, 220, 0.9);
+	background-color: rgba(147, 156, 158, 0.9);
 }
 
 ::selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(52, 143, 220, 0.9);
+	background-color: rgba(147, 156, 158, 0.9);
 }
 
 /**
@@ -1175,7 +1175,7 @@ u,
 
 .holder-btn-nav-menu {
 	text-align: center;
-	background-color: rgba(220, 220, 220, 0.5);
+	background-color: #E7E7E7;
 }
 
 .btn-nav-menu:before {

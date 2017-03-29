@@ -2,7 +2,9 @@
 
 @font-face {
 	font-family: "eaststreet";
-	src: url(../fonts/eaststreet-fontfacekit/icomoon/fonts/eaststreet.woff?81tzjh) format("woff"),
+	src: /* woff2 particularly with everythingfonts.com/ttf-to-woff2 */
+	url(../fonts/eaststreet-fontfacekit/everythingfonts/eaststreet.woff2?81tzjh) format("woff2"),
+	url(../fonts/eaststreet-fontfacekit/icomoon/fonts/eaststreet.woff?81tzjh) format("woff"),
 	url(../fonts/eaststreet-fontfacekit/icomoon/fonts/eaststreet.ttf?81tzjh) format("truetype");
 	font-weight: normal;
 	font-style: normal;

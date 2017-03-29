@@ -17,7 +17,7 @@
 	text-align: left;
 	overflow-y: auto;
 	color: inherit;
-	background-color: $color-hex-ui-bar-bg;
+	background-color: $color-hex-ui-menu-item-bg;
 	border: 0.067rem solid $color-hex-ui-accent;
 	border-radius: 0;
 	box-sizing: border-box;
@@ -34,6 +34,7 @@
 	list-style-type: none;
 	line-height: 3.200rem;
 	overflow: hidden;
+	transition: background-color 0.2s linear;
 	padding-right: 1.333rem;
 	padding-left: 1.333rem;
 	cursor: pointer;
@@ -42,7 +43,7 @@
 .kamil-autocomplete li.kamil-active,
 .kamil-autocomplete li:hover {
 	color: inherit;
-	background-color: $color-rgba-hover-ui-menu-item-bg;
+	background-color: $color-hex-hover-ui-menu-item-bg;
 }
 
 .kamil-autocomplete li:active {

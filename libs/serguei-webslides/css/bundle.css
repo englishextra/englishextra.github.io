@@ -4053,7 +4053,7 @@ Base
 =========================================== */
 
 body {
-	color: #373737;
+	color: #191919;
 	background-color: #F9F9F9;
 }
 
@@ -4100,12 +4100,12 @@ hr {
 
 hr:after {
 	background-color: rgba(255, 255, 255, 0.8);
-	color: #373737;
+	color: #191919;
 }
 
 bbbr,
 acronym {
-	border-bottom: 1px dotted #373737;
+	border-bottom: 1px dotted #191919;
 }
 
 mark,
@@ -4120,12 +4120,12 @@ ins {
 
 ::-moz-selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(52, 143, 220, 0.9);
+	background-color: rgba(147, 156, 158, 0.9);
 }
 
 ::selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(52, 143, 220, 0.9);
+	background-color: rgba(147, 156, 158, 0.9);
 }
 
 pre {
@@ -4205,7 +4205,7 @@ Slides - Backgrounds <section class="bg-primary">
 
 [class*="bg-"] .bg-white {
 	text-shadow: none;
-	color: #373737;
+	color: #191919;
 }
 
 /* BG Apple Keynote */
@@ -4291,7 +4291,7 @@ Slides - Backgrounds <section class="bg-primary">
 .bg-gradient-white {
 	background: -webkit-linear-gradient(top, #f2f4f6 0, #fff 100%);
 	background: linear-gradient(180deg, #f2f4f6 0, #fff 100%);
-	color: #373737;
+	color: #191919;
 	text-shadow: none;
 }
 
@@ -4300,7 +4300,7 @@ Slides - Backgrounds <section class="bg-primary">
 .bg-gradient-gray {
 	background: -webkit-linear-gradient(left, #F9F9F9 0, #dee2e6 100%);
 	background: linear-gradient(90deg, #F9F9F9 0, #dee2e6 100%);
-	color: #373737;
+	color: #191919;
 	text-shadow: none;
 }
 
@@ -4613,7 +4613,7 @@ Gallery li+.overlay+image
 }
 
 .gallery li a {
-	color: #373737;
+	color: #191919;
 	text-shadow: none;
 }
 
@@ -4665,7 +4665,7 @@ Plans / Pricing
 }
 
 .plans > li > a {
-	color: #373737;
+	color: #191919;
 	text-shadow: none;
 }
 
@@ -4956,7 +4956,7 @@ input[type="submit"]:active {
 
 .bg-white a.button.ghost,
 .bg-gradient-white a.button.ghost {
-	color: #373737;
+	color: #191919;
 	border: 1px solid #2D7C9A;
 }
 

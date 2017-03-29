@@ -724,7 +724,7 @@ body {
 	font-size: 1.000rem;
 	line-height: 1.500;
 	width: 100%;
-	color: #373737;
+	color: #191919;
 	background-color: #F0F0F0;
 	-webkit-text-size-adjust: none;
 	-ms-text-size-adjust: none;
@@ -799,12 +799,12 @@ u,
 
 ::-moz-selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(52, 143, 220, 0.9);
+	background-color: rgba(147, 156, 158, 0.9);
 }
 
 ::selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(52, 143, 220, 0.9);
+	background-color: rgba(147, 156, 158, 0.9);
 }
 
 /**
@@ -962,7 +962,7 @@ u,
 }
 
 .panel-nav-menu li a.is-active {
-	background-color: #00437E;
+	background-color: #801E26;
 }
 
 .panel-nav-menu li a:before {
@@ -1063,9 +1063,9 @@ u,
 	position: absolute;
 	top: 33.000pt;
 	left: 33.000pt;
-	color: #373737;
+	color: #191919;
 	background-color: #F3F3F3;
-	border: 0.063rem solid #0073D2;
+	border: 0.063rem solid #F03B4C;
 	box-shadow: 0.125em 0.125em 0.125em 0 rgba(50, 50, 50, 0.3);
 	opacity: 0;
 	-webkit-transition: visibility 0s, opacity 0.2s linear;

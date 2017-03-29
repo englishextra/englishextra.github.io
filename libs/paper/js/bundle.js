@@ -374,6 +374,26 @@ var fixEnRuTypo=function(e,a,b){var c="";if("ru"==a&&"en"==b){a='\u0430\u0431\u0
  */
 var fitsIntoViewport=function(w,d){return function(e){return(e=e?e.getBoundingClientRect()||"":"")?0<=e.top&&0<=e.left&&e.bottom<=(w.innerHeight||d.clientHeight)&&e.right<=(w.innerWidth||d.clientWidth)&&(0!==e.offsetHeight):!0;};}(window,document.documentElement||"");
 /*!
+ * return image is loaded promise
+ * jsfiddle.net/englishextra/56pavv7d/
+ * @param {String|Object} s image path string or HTML DOM Image Object
+ * var m = document.querySelector("img") || "";
+ * var s = m.src || "";
+ * imagePromise(m).then(function (r) {
+ * alert(r);
+ * }).catch (function (err) {
+ * alert(err);
+ * });
+ * imagePromise(s).then(function (r) {
+ * alert(r);
+ * }).catch (function (err) {
+ * alert(err);
+ * });
+ * source: gist.github.com/englishextra/3e95d301d1d47fe6e26e3be198f0675e
+ * passes jshint
+ */
+var imagePromise=function(s){if(window.Promise){return new Promise(function(y,n){var f=function(e,p){e.onload=function(){y(p);};e.onerror=function(){n(p);};e.src=p;};if("string"===typeof s){var a=new Image();f(a,s);}else{if("IMG"!==s.tagName){return Promise.reject();}else{if(s.src){f(s,s.src);}}}});}else{throw new Error("Promise is not in window");}};
+/*!
  * remove element from DOM
  * gist.github.com/englishextra/d2a286f64d404052fbbdac1e416ab808
  * @param {Object} e an Element to remove
@@ -492,7 +512,7 @@ var getHTTP=function(a){return function(f){return"http:"===a?"http":"https:"===a
  */
 var progressBar = new ToProgress({
 		id : "top-progress-bar",
-		color : "#FF5454",
+		color : "#FF2C40",
 		height : "3px",
 		duration : 0.2
 	});
@@ -997,7 +1017,16 @@ var manageDataSrcImg = function (ctx) {
 				_src = e[ds].src;
 			}
 			if (!e[cL].contains(is_active)) {
-				e.src = _src;
+				if (w.Promise) {
+					imagePromise(_src).then(function (r) {
+						e.src = _src;
+						console.log("manageDataSrcImg => imagePromise: loaded image:", r);
+					}).catch (function (err) {
+						console.log("manageDataSrcImg => imagePromise: cannot load image:", err);
+					});
+				} else {
+					e.src = _src;
+				}
 				e[cL].add(is_active);
 			}
 		}
@@ -1193,7 +1222,7 @@ evento.add(window, "load", manageExpandingLayers.bind(null, ""));
  * init qr-code
  * stackoverflow.com/questions/12777622/how-to-use-enquire-js
  */
-var initLocationQrCodeImg = function () {
+var manageLocationQrCodeImg = function () {
 	"use strict";
 	var w = window,
 	d = document,
@@ -1213,7 +1242,7 @@ var initLocationQrCodeImg = function () {
 		appendFragment(m, a);
 	};
 	if (a && p) {
-		console.log("triggered function: initLocationQrCodeImg");
+		console.log("triggered function: manageLocationQrCodeImg");
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
 				g();
@@ -1223,7 +1252,7 @@ var initLocationQrCodeImg = function () {
 		}
 	}
 };
-evento.add(window, "load", initLocationQrCodeImg);
+evento.add(window, "load", manageLocationQrCodeImg);
 /*!
  * init nav-menu
  */
@@ -1735,7 +1764,7 @@ evento.add(window, "load", initDisqusOnScroll);
 /*!
  * init vk-like on click
  */
-var initVKLikeButton = function () {
+var manageVKLikeButton = function () {
 	"use strict";
 	var w = window,
 	c = BALA.one("#vk-like") || "",
@@ -1781,7 +1810,7 @@ var initVKLikeButton = function () {
 		/* a.onclick = h_e; */
 	};
 	if (c && a) {
-		console.log("triggered function: initVKLikeButton");
+		console.log("triggered function: manageVKLikeButton");
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			q();
 		} else {
@@ -1789,7 +1818,7 @@ var initVKLikeButton = function () {
 		}
 	}
 };
-docReady(initVKLikeButton);
+docReady(manageVKLikeButton);
 /*!
  * init Pages Kamil autocomplete
  * github.com/oss6/kamil/wiki/Example-with-label:link-json-and-typo-correct-suggestion

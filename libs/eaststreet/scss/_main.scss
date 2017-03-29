@@ -206,7 +206,7 @@ u,
  * remove this to get default home icon
  */
 
-/* .ui-sidebar .mi-Home:before,
+.ui-sidebar .mi-Home:before,
 .ui-sidebar .es-mi-Home:before {
 	content: "";
 }
@@ -217,7 +217,7 @@ u,
 	height: 3.200rem;
 	width: 3.200rem;
 	color: transparent;
-	background-color: $color-hex-ui-accent;
+	background-color: transparent;
 	background-image: url(../img/logo-96x96.svg);
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
@@ -226,16 +226,16 @@ u,
 
 .no-svg .ui-sidebar .mi-Home:before {
 	background-image: url(../img/logo-96x96.png);
-} */
+}
 
-.ui-sidebar .mi-Home:before,
+/* .ui-sidebar .mi-Home:before,
 .ui-sidebar .es-mi-Home:before {
 	font-family: "micon";
 	font-family: "eaststreet";
 	content: "\E900";
 	font-size: 3.200rem;
 	background-color: $color-hex-ui-accent;
-}
+} */
 
 .col .btn-larger .mi {
 	vertical-align: top;
@@ -258,7 +258,7 @@ u,
 .page {
 	width: 100%;
 	height: 100%;
-	background-color: $color-hex-page-bg;
+	background-color: $color-hex-ui-bar-bg;
 	position: relative;
 	top: 0;
 	left: 0;
@@ -547,7 +547,7 @@ u,
 	line-height: 2.267rem;
 	text-align: center;
 	text-decoration: none;
-	border: 0.067rem solid $color-hex-button-bg;
+	border: 0.067rem solid $color-hex-ui-button-bg;
 }
 
 .col a.btn-larger i.fa,
@@ -560,52 +560,55 @@ u,
 
 .col .btn-primary,
 .col .btn-primary:focus,
-.col .btn-primary:active,
 .col a.btn-primary,
-.col a.btn-primary:focus,
-.col a.btn-primary:active {
+.col a.btn-primary:focus {
 	color: #FFFFFF;
-	background-color: $color-hex-button-bg;
-	border-color: $color-hex-button-bg;
+	background-color: $color-hex-ui-button-bg;
+	border-color: $color-hex-ui-button-bg;
 }
 
-.col .btn-primary:hover {
-	background-color: $color-hex-hover-button-bg;
-	border-color: $color-hex-hover-button-bg;
+.col .btn-primary:hover,
+.col .btn-primary:active,
+.col a.btn-primary:hover,
+.col a.btn-primary:active {
+	background-color: $color-hex-hover-ui-button-bg;
+	border-color: $color-hex-hover-ui-button-bg;
 }
 
 .col .btn-secondary,
 .col .btn-secondary:focus,
-.col .btn-secondary:active,
 .col a.btn-secondary,
-.col a.btn-secondary:focus,
-.col a.btn-secondary:active {
+.col a.btn-secondary:focus {
 	color: $color-hex-lighter-text;
-	background-color: $color-hex-ui-icon-bg;
-	border-color: $color-hex-ui-icon-bg;
+	background-color: $color-hex-ui-button-secondary-bg;
+	border-color: $color-hex-ui-button-secondary-bg;
 }
 
-.col .btn-secondary:hover {
+.col .btn-secondary:hover,
+.col .btn-secondary:active,
+.col a.btn-secondary:hover,
+.col a.btn-secondary:active  {
 	color: $color-hex-lighter-text;
-	background-color: $color-hex-hover-ui-menu-item-bg;
-	border-color: $color-hex-hover-ui-menu-item-bg;
+	background-color: $color-hex-hover-ui-button-secondary-bg;
+	border-color: $color-hex-hover-ui-button-secondary-bg;
 }
 
 .col .btn-link,
 .col .btn-link:focus,
-.col .btn-link:active,
 .col a.btn-link,
-.col a.btn-link:focus,
-.col a.btn-link:active {
+.col a.btn-link:focus {
 	color: $color-hex-lighter-text;
 	background-color: transparent;
-	border-color: $color-hex-ui-icon-bg;
+	border-color: $color-hex-ui-button-secondary-bg;
 }
 
-.col .btn-link:hover {
+.col .btn-link:hover,
+.col .btn-link:active,
+.col a.btn-link:hover,
+.col a.btn-link:active {
 	color: $color-hex-lighter-text;
-	background-color: transparent;
-	border-color: $color-hex-ui-icon-bg;
+	background-color: $color-hex-ui-button-secondary-bg;
+	border-color: $color-hex-ui-button-secondary-bg;
 }
 
 /**
@@ -615,7 +618,7 @@ u,
 .col .vcard {
 	display: none;
 	font-size: 0.867rem;
-	background-color: $color-hex-ui-bar-bg;
+	background-color: $color-hex-aside-bg;
 	padding: 0.533rem 0.800rem;
 }
 
@@ -773,7 +776,7 @@ u,
 .ui-panel-top {
 	width: 100%;
 	height: 3.200rem;
-	background-color: $color-hex-page-bg;
+	background-color: $color-hex-ui-bar-bg;
 }
 
 /*!
@@ -823,7 +826,7 @@ u,
 	text-align: center;
 	text-decoration: none;
 	color: $color-hex-ui-icon-text;
-	background-color: $color-rgba-ui-icon-bg;
+	background-color: $color-hex-ui-icon-bg;
 	transition: left 0.2s ease, background-color 0.2s ease;
 }
 
@@ -908,7 +911,7 @@ u,
 	top: 3.200rem;
 	left: 6.400rem;
 	overflow-y: auto;
-	background-color: $color-hex-ui-bar-bg;
+	background-color: $color-hex-ui-menu-item-bg;
 	border: 0.067rem solid $color-hex-ui-accent;
 	transition: left 0.2s ease, visibility 0s, opacity 0.2s linear;
 	margin: 0;
@@ -931,7 +934,7 @@ u,
 	text-align: center;
 	text-decoration: none;
 	color: $color-hex-ui-icon-text;
-	background-color: $color-rgba-ui-icon-bg;
+	background-color: $color-hex-ui-icon-bg;
 	transition: left 0.2s ease, background-color 0.2s ease;
 }
 
@@ -984,7 +987,7 @@ u,
 }
 
 .ui-menumore-list a:hover {
-	background-color: $color-rgba-hover-ui-menu-item-bg;
+	background-color: $color-hex-hover-ui-menu-item-bg;
 }
 
 .ui-menumore-list a:active {
@@ -1273,7 +1276,7 @@ u,
 
 .holder-search-form input[type^=text],
 .holder-search-form input[type^=search] {
-	background-color: $color-rgba-ui-icon-bg;
+	background-color: $color-hex-ui-icon-bg;
 }
 
 /**
@@ -1309,7 +1312,7 @@ u,
 	background-color: transparent;
 	/* background-image: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgNCA0IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA0IDQiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxyZWN0IGZpbGw9Im5vbmUiIHdpZHRoPSI0IiBoZWlnaHQ9IjQiLz48cG9seWdvbiBvcGFjaXR5PSIwLjUiIGZpbGw9IiNGRjQxNDEiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgICIgcG9pbnRzPSIzLDAgMywzIDAsMyAwLDQgNCw0IDQsMyA0LDAgIi8+PC9zdmc+); */
 	/* background-image: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgOCA4IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA4IDgiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxyZWN0IGZpbGw9Im5vbmUiIHdpZHRoPSI4IiBoZWlnaHQ9IjgiLz48cG9seWdvbiBvcGFjaXR5PSIwLjUiIGZpbGw9IiNGRjgxODEiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgICIgcG9pbnRzPSI3LDAgNyw3IDAsNyAwLDggOCw4IDgsNyA4LDAgIi8+PC9zdmc+); */
-	background-image: repeating-linear-gradient(to bottom, transparent 0px, transparent 7px, rgba(255, 65, 65, 0.5) 7px, rgba(255, 65, 65, 0.5) 8px);
+	background-image: repeating-linear-gradient(to bottom, transparent 0px, transparent 7px, rgba(241, 68, 68, 0.5) 7px, rgba(241, 68, 68, 0.5) 8px);
 	background-size: 8px 8px;
 	background-position: 0 0;
 	background-repeat: repeat;
@@ -1323,7 +1326,7 @@ u,
 	z-index: 1;
 	top: 0;
 	left: 0;
-	background-color: rgba(255, 65, 65, 0.05);
+	background-color: rgba(241, 68, 68, 0.05);
 } */
 
 .debug .column:before {
@@ -1334,7 +1337,7 @@ u,
 	z-index: 1;
 	top: 0;
 	left: 0;
-	background-color: rgba(255, 65, 65, 0.1);
+	background-color: rgba(241, 68, 68, 0.1);
 }
 
 

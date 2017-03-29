@@ -892,7 +892,7 @@ img[class*=" contents-banner-"] {
 }
 
 #ui-totop-hover {
-	background-color: rgba(220, 220, 220, 0.5);
+	background-color: #E7E7E7;
 }
 
 #ui-totop-hover:before {
@@ -930,7 +930,7 @@ body {
 	font-size: 1.000rem;
 	line-height: 1.500;
 	width: 100%;
-	color: #373737;
+	color: #191919;
 	background-color: #F0F0F0;
 	-webkit-text-size-adjust: none;
 	-ms-text-size-adjust: none;
@@ -1005,12 +1005,12 @@ u,
 
 ::-moz-selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(52, 143, 220, 0.9);
+	background-color: rgba(147, 156, 158, 0.9);
 }
 
 ::selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(52, 143, 220, 0.9);
+	background-color: rgba(147, 156, 158, 0.9);
 }
 
 /**
@@ -1124,7 +1124,7 @@ u,
 	 */
 	font-size: 0;
 	text-align: center;
-	background-color: #4B4B4B;
+	background-color: #373737;
 	padding: 0;
 	margin: 0;
 }
@@ -1140,8 +1140,8 @@ u,
 	font-size: 0.875rem;
 	vertical-align: middle;
 	color: #FFFFFF;
-	background-color: #4B4B4B;
-	border: 0.063rem solid #4B4B4B;
+	background-color: #373737;
+	border: 0.063rem solid #373737;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	cursor: pointer;
@@ -1180,8 +1180,8 @@ u,
 	height: 2.250rem;
 	text-align: center;
 	color: #FFFFFF;
-	background-color: #4B4B4B;
-	border: 0.063rem solid #4B4B4B;
+	background-color: #373737;
+	border: 0.063rem solid #373737;
 	box-sizing: border-box;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;

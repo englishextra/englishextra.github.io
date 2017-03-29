@@ -110,14 +110,14 @@ html > body > .ui-pnotify {
 }
 
 .ui-pnotify-notice div.ui-pnotify-container {
-	background-color: $color-hex-notice;
+	background-color: $color-rgba-notifier42-notice;
 }
 
 .ui-pnotify-success div.ui-pnotify-container {
-	background-color: $color-hex-success;
+	background-color: $color-rgba-notifier42-success;
 }
 
 .ui-pnotify-error div.ui-pnotify-container {
-	background-color: $color-hex-error;
+	background-color: $color-rgba-notifier42-error;
 }
 

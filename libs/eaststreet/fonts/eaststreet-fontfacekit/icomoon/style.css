@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'eaststreet';
-  src:  url('fonts/eaststreet.eot?ha33ql');
-  src:  url('fonts/eaststreet.eot?ha33ql#iefix') format('embedded-opentype'),
-    url('fonts/eaststreet.ttf?ha33ql') format('truetype'),
-    url('fonts/eaststreet.woff?ha33ql') format('woff'),
-    url('fonts/eaststreet.svg?ha33ql#eaststreet') format('svg');
+  src:  url('fonts/eaststreet.eot?c9thye');
+  src:  url('fonts/eaststreet.eot?c9thye#iefix') format('embedded-opentype'),
+    url('fonts/eaststreet.ttf?c9thye') format('truetype'),
+    url('fonts/eaststreet.woff?c9thye') format('woff'),
+    url('fonts/eaststreet.svg?c9thye#eaststreet') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,9 +24,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.es-eaststreet:before {
-  content: "\e900";
-}
 .es-mi-Home:before {
   content: "\eb6f";
 }

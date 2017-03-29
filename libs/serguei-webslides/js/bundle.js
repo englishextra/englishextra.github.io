@@ -113,7 +113,7 @@ var setStyleOpacity=function(a,n){n=n||1;return function(){if(a){a.style.opacity
  */
 var progressBar = new ToProgress({
 		id : "top-progress-bar",
-		color : "#FF5454",
+		color : "#FF2C40",
 		height : "3px",
 		duration : 0.2
 	});

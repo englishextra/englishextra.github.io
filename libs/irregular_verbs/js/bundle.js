@@ -323,7 +323,7 @@ var getHTTP=function(a){return function(f){return"http:"===a?"http":"https:"===a
  */
 var progressBar = new ToProgress({
 		id : "top-progress-bar",
-		color : "#FF5454",
+		color : "#FF2C40",
 		height : "3px",
 		duration : 0.2
 	});
@@ -620,7 +620,7 @@ docReady(loadInitDoSlide);
  * init qr-code
  * stackoverflow.com/questions/12777622/how-to-use-enquire-js
  */
-var initLocationQrCodeImg = function () {
+var manageLocationQrCodeImg = function () {
 	"use strict";
 	var w = window,
 	d = document,
@@ -640,7 +640,7 @@ var initLocationQrCodeImg = function () {
 		appendFragment(m, a);
 	};
 	if (a && p) {
-		console.log("triggered function: initLocationQrCodeImg");
+		console.log("triggered function: manageLocationQrCodeImg");
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
 				g();
@@ -650,7 +650,7 @@ var initLocationQrCodeImg = function () {
 		}
 	}
 };
-evento.add(window, "load", initLocationQrCodeImg);
+evento.add(window, "load", manageLocationQrCodeImg);
 /*!
  * init menu-more
  */
@@ -782,7 +782,7 @@ docReady(initPlusoYaShare);
 /*!
  * init vk-like on click
  */
-var initVKLikeButton = function () {
+var manageVKLikeButton = function () {
 	"use strict";
 	var w = window,
 	c = BALA.one("#vk-like") || "",
@@ -828,7 +828,7 @@ var initVKLikeButton = function () {
 		/* a.onclick = h_e; */
 	};
 	if (c && a) {
-		console.log("triggered function: initVKLikeButton");
+		console.log("triggered function: manageVKLikeButton");
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			q();
 		} else {
@@ -836,7 +836,7 @@ var initVKLikeButton = function () {
 		}
 	}
 };
-docReady(initVKLikeButton);
+docReady(manageVKLikeButton);
 /*!
  * init manUP.js
  */
