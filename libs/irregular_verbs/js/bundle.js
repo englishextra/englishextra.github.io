@@ -500,7 +500,7 @@ var hideUiBtnsInFullScreen = function () {
 	btn_menu_more = BALA.one(".btn-menu-more") || "",
 	btn_show_vk_like = BALA.one(".btn-show-vk-like") || "",
 	openapi_js_src = getHTTP(!0) + "://vk.com/js/api/openapi.js?122",
-	btn_block_social_buttons = BALA.one(".share-buttons") || "",
+	btn_block_social_buttons = BALA.one(".btn-share-buttons") || "",
 	ui_totop = BALA.one("#ui-totop") || "",
 	holder_search_form = BALA.one(".holder-search-form") || "",
 	f = !1;
@@ -734,7 +734,7 @@ docReady(showMenuMore.bind(null, 2000));
  */
 var initPlusoYaShare = function () {
 	"use strict";
-	var a = BALA.one("#share-buttons") || "",
+	var a = BALA.one(".btn-share-buttons") || "",
 	pluso = BALA.one(".pluso") || "",
 	ya_share2 = BALA.one(".ya-share2") || "",
 	pluso_like_js_src = getHTTP(!0) + "://share.pluso.ru/pluso-like.js",

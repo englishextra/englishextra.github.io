@@ -8,13 +8,13 @@
  */
 
 .ya-share2 .ya-share2__container_size_m .ya-share2__icon {
-	height: 33.000pt;
-	width: 33.000pt;
+	height: 3.000rem;
+	width: 3.000rem;
 }
 
 .ya-share2 .ya-share2__container_size_m .ya-share2__counter {
 	font-size: 1.250rem;
-	line-height: 33.000pt;
+	line-height: 3.000rem;
 }
 
 .ya-share2 .ya-share2__container_size_m .ya-share2__title {
@@ -37,7 +37,7 @@
 
 .ya-share2 {
 	position: fixed /* !important */;
-	right: 33.000pt;
+	right: 3.000rem;
 	bottom: 0;
 	visibility: hidden;
 	opacity: 0;
@@ -53,34 +53,38 @@
 	transition: visibility 0s, opacity 0.2s linear;
 }
 
-.share-buttons {
+.btn-share-buttons {
 	display: inline-block;
-	width: 33.000pt;
-	height: 33.000pt;
+	width: 3.000rem;
+	height: 3.000rem;
 	position: fixed;
 	bottom: 0;
-	right: 33.000pt;
+	right: 3.000rem;
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
+	color: $color-hex-lighter-text;
 	background-color: $color-hex-ui-icon-bg;
 	border: none;
 	overflow: hidden;
-	transition: background 0.2s linear;
+	transition: background-color 0.2s linear;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
-	z-index: 999;
 }
 
-.share-buttons:hover {
+.btn-share-buttons:hover {
 	background-color: $color-hex-hover-ui-icon-bg;
 }
 
-.share-buttons:before {
+.btn-share-buttons:active {
+	color: #FFFFFF;
+	background-color: $color-hex-ui-accent;
+}
+
+.btn-share-buttons:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e91d";
-	font-size: 18.000pt;
-	line-height: 33.000pt;
-	color: $color-hex-lighter-text;
+	font-size: 1.250rem;
+	line-height: 3.000rem;
 }
 

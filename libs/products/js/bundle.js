@@ -774,7 +774,7 @@ docReady(showMenuMore.bind(null, 2000));
  */
 var initPlusoYaShare = function () {
 	"use strict";
-	var a = BALA.one("#share-buttons") || "",
+	var a = BALA.one(".btn-share-buttons") || "",
 	pluso = BALA.one(".pluso") || "",
 	ya_share2 = BALA.one(".ya-share2") || "",
 	pluso_like_js_src = getHTTP(!0) + "://share.pluso.ru/pluso-like.js",

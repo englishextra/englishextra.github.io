@@ -868,10 +868,6 @@ u,
 	list-style-type: none;
 }
 
-.ui-sidepanel-list li:last-child {
-	border-bottom-color: transparent;
-}
-
 .ui-sidepanel-list a {
 	display: block;
 	width: 100%;
@@ -982,6 +978,8 @@ u,
 	color: inherit;
 	background-color: transparent;
 	transition: background-color 0.2s ease;
+	overflow-x: hidden;
+	white-space: nowrap;
 	padding-right: 1.333rem;
 	padding-left: 1.333rem;
 }
@@ -1182,7 +1180,6 @@ u,
 
 .holder-search-form {
 	display: inline-block;
-	/* width: 18.133rem; */
 	position: fixed;
 	top: 0.400rem;
 	right: 0.400rem;
@@ -1191,7 +1188,6 @@ u,
 .holder-search-form input[type^=text],
 .holder-search-form input[type^=search] {
 	width: 9.600rem;
-	/* height: 2.400rem; */
 	font-family: inherit;
 	font-size: 0.933rem;
 	line-height: 1.200rem;
@@ -1230,7 +1226,6 @@ u,
 
 .holder-search-form button[type^=submit] {
 	width: 2.400rem;
-	/* height: 2.400rem; */
 	position: fixed;
 	top: 0.400rem;
 	right: 0.400rem;
@@ -1276,7 +1271,7 @@ u,
 
 .holder-search-form input[type^=text],
 .holder-search-form input[type^=search] {
-	background-color: $color-hex-ui-icon-bg;
+	background-color: $color-hex-ui-bar-bg;
 }
 
 /**
@@ -1285,7 +1280,7 @@ u,
  */
 
 .holder-search-form table td {
-	padding: 0 /* !important */;
+	padding: 0;
 }
 
 .ya-site-form.ya-site-form_inited_no {
@@ -1294,7 +1289,7 @@ u,
 
 .ya-page_js_yes .ya-site-form_inited_no,
 .ya-site-form__submit {
-	display: none /* !important */;
+	display: none;
 }
 
 /*!

@@ -7,38 +7,37 @@
 .holder-vk-like {
 	display: inline-block;
 	position: absolute;
-	top: 7.500pt;
-	left: 75.000pt;
+	top: 0.750rem;
+	left: 6.750rem;
 	line-height: 0;
 }
 
 .vk-like {
 	display: inline-block;
-	height: 17.250pt;
+	height: 1.500rem;
 	line-height: 0;
 	visibility: hidden;
 	opacity: 0;
 	transition: visibility 0s, opacity 0.2s linear;
-	z-index: 1000;
 }
 
 .btn-show-vk-like {
 	display: inline-block;
-	width: 33.000pt;
-	height: 33.000pt;
+	width: 3.000rem;
+	height: 3.000rem;
 	position: absolute;
 	top: 0;
-	left: 66.000pt;
+	left: 6.000rem;
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
+	color: $color-hex-lighter-text;
 	background-color: $color-rgba-dark-ui-icon-bg;
 	border: none;
 	overflow: hidden;
 	transition: background 0.2s linear;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
-	z-index: 999;
 }
 
 .btn-show-vk-like:hover {
@@ -48,8 +47,8 @@
 .btn-show-vk-like:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e925";
-	font-size: 18.000pt;
-	line-height: 33.000pt;
+	font-size: 1.250rem;
+	line-height: 3.000rem;
 	color: #FFFFFF;
 }
 

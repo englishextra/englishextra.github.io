@@ -607,52 +607,55 @@ template {
 .holder-vk-like {
 	display: inline-block;
 	position: absolute;
-	top: 7.500pt;
-	left: 75.000pt;
+	top: 0.750rem;
+	left: 6.750rem;
 	line-height: 0;
 }
 
 .vk-like {
 	display: inline-block;
-	height: 17.250pt;
+	height: 1.500rem;
 	line-height: 0;
 	visibility: hidden;
 	opacity: 0;
 	-webkit-transition: visibility 0s, opacity 0.2s linear;
 	transition: visibility 0s, opacity 0.2s linear;
-	z-index: 1000;
 }
 
 .btn-show-vk-like {
 	display: inline-block;
-	width: 33.000pt;
-	height: 33.000pt;
+	width: 3.000rem;
+	height: 3.000rem;
 	position: absolute;
 	top: 0;
-	left: 66.000pt;
+	left: 6.000rem;
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
+	color: #878787;
 	background-color: #E7E7E7;
 	border: none;
 	overflow: hidden;
-	-webkit-transition: background 0.2s linear;
-	transition: background 0.2s linear;
+	-webkit-transition: background-color 0.2s linear;
+	transition: background-color 0.2s linear;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
-	z-index: 999;
 }
 
 .btn-show-vk-like:hover {
 	background-color: #D5D5D5;
 }
 
+.btn-show-vk-like:active {
+	color: #FFFFFF;
+	background-color: #F03B4C;
+}
+
 .btn-show-vk-like:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e925";
-	font-size: 18.000pt;
-	line-height: 33.000pt;
-	color: #878787;
+	font-size: 1.250rem;
+	line-height: 3.000rem;
 }
 
 /*! @import "share-buttons-light"; */
@@ -665,13 +668,13 @@ template {
  */
 
 .ya-share2 .ya-share2__container_size_m .ya-share2__icon {
-	height: 33.000pt;
-	width: 33.000pt;
+	height: 3.000rem;
+	width: 3.000rem;
 }
 
 .ya-share2 .ya-share2__container_size_m .ya-share2__counter {
 	font-size: 1.250rem;
-	line-height: 33.000pt;
+	line-height: 3.000rem;
 }
 
 .ya-share2 .ya-share2__container_size_m .ya-share2__title {
@@ -694,7 +697,7 @@ template {
 
 .ya-share2 {
 	position: fixed;
-	right: 33.000pt;
+	right: 3.000rem;
 	bottom: 0;
 	visibility: hidden;
 	opacity: 0;
@@ -712,36 +715,40 @@ template {
 	transition: visibility 0s, opacity 0.2s linear;
 }
 
-.share-buttons {
+.btn-share-buttons {
 	display: inline-block;
-	width: 33.000pt;
-	height: 33.000pt;
+	width: 3.000rem;
+	height: 3.000rem;
 	position: fixed;
 	bottom: 0;
-	right: 33.000pt;
+	right: 3.000rem;
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
+	color: #878787;
 	background-color: #E7E7E7;
 	border: none;
 	overflow: hidden;
-	-webkit-transition: background 0.2s linear;
-	transition: background 0.2s linear;
+	-webkit-transition: background-color 0.2s linear;
+	transition: background-color 0.2s linear;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
-	z-index: 999;
 }
 
-.share-buttons:hover {
+.btn-share-buttons:hover {
 	background-color: #D5D5D5;
 }
 
-.share-buttons:before {
+.btn-share-buttons:active {
+	color: #FFFFFF;
+	background-color: #F03B4C;
+}
+
+.btn-share-buttons:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e91d";
-	font-size: 18.000pt;
-	line-height: 33.000pt;
-	color: #878787;
+	font-size: 1.250rem;
+	line-height: 3.000rem;
 }
 
 /*! @import "products-doslide"; */
@@ -1024,7 +1031,7 @@ u,
 	min-height: 100%;
 	position: relative;
 	top: 0;
-	/* left: 280px; */
+	/* left: 17.000rem; */
 	left: 0;
 	background-color: #F0F0F0;
 }
@@ -1052,17 +1059,22 @@ u,
 
 .btn-nav-menu {
 	display: inline-block;
-	width: 33.000pt;
-	height: 33.000pt;
+	width: 3.000rem;
+	height: 3.000rem;
 	position: absolute;
 	top: 0;
 	left: 0;
 	cursor: pointer;
-	z-index: 999;
 }
 
 .btn-nav-menu:hover {
 	background-color: #D5D5D5;
+}
+
+.page.is-active .btn-nav-menu,
+.btn-nav-menu:active {
+	color: #FFFFFF;
+	background-color: #F03B4C;
 }
 
 .btn-nav-menu {
@@ -1073,8 +1085,8 @@ u,
 .btn-nav-menu:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e90f";
-	font-size: 18.000pt;
-	line-height: 33.000pt;
+	font-size: 1.250rem;
+	line-height: 3.000rem;
 	color: #878787;
 }
 
@@ -1086,20 +1098,25 @@ u,
 
 .btn-menu-more {
 	display: inline-block;
-	width: 33.000pt;
-	height: 33.000pt;
+	width: 3.000rem;
+	height: 3.000rem;
 	position: absolute;
 	top: 0;
-	left: 33.000pt;
+	left: 3.000rem;
+	color: #878787;
 	text-decoration: none;
-	-webkit-transition: background 0.2s linear;
-	transition: background 0.2s linear;
+	-webkit-transition: background-color 0.2s linear;
+	transition: background-color 0.2s linear;
 	cursor: pointer;
-	z-index: 999;
 }
 
 .btn-menu-more:hover {
 	background-color: #D5D5D5;
+}
+
+.btn-menu-more:active {
+	color: #FFFFFF;
+	background-color: #F03B4C;
 }
 
 .btn-menu-more {
@@ -1110,17 +1127,16 @@ u,
 .btn-menu-more:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e915";
-	font-size: 18.000pt;
-	line-height: 33.000pt;
-	color: #878787;
+	font-size: 1.250rem;
+	line-height: 3.000rem;
 }
 
 .holder-panel-menu-more {
 	display: block;
 	visibility: hidden;
 	position: absolute;
-	top: 33.000pt;
-	left: 33.000pt;
+	top: 3.000rem;
+	left: 3.000rem;
 	color: #191919;
 	background-color: #F3F3F3;
 	border: 0.063rem solid #F03B4C;
@@ -1128,7 +1144,6 @@ u,
 	opacity: 0;
 	-webkit-transition: visibility 0s, opacity 0.2s linear;
 	transition: visibility 0s, opacity 0.2s linear;
-	z-index: 999;
 }
 
 .holder-panel-menu-more.is-active {
@@ -1137,12 +1152,11 @@ u,
 }
 
 .panel-menu-more {
-	display: inline-block;
-	min-width: 204.000pt;
-	width: 100%;
+	display: block;
+	width: 17.000rem;
 	height: 100%;
-	font-size: 0.857em;
-	line-height: 1.500;
+	font-size: 0.875em;
+	line-height: 3.000rem;
 	list-style-type: none;
 	padding: 0;
 	margin: 0;
@@ -1151,15 +1165,24 @@ u,
 .panel-menu-more li a {
 	display: block;
 	font-weight: 400;
-	padding: 0.625em 0.750em;
-}
-
-.panel-menu-more li a:focus,
-.panel-menu-more li a:hover,
-.panel-menu-more li a:active {
 	text-decoration: none;
 	color: inherit;
+	-webkit-transition: background-color 0.2s linear;
+	transition: background-color 0.2s linear;
+	overflow-x: hidden;
+	white-space: nowrap;
+	padding-right: 1.250rem;
+	padding-left: 1.250rem;
+}
+
+.panel-menu-more li a:hover {
+	color: inherit;
 	background-color: #E1E1E1;
+}
+
+.panel-menu-more li a:active {
+	color: #FFFFFF;
+	background-color: #F03B4C;
 }
 
 /**
@@ -1169,8 +1192,8 @@ u,
 .cd-prev,
 .cd-next {
 	display: none;
-	width: 33.000pt;
-	height: 33.000pt;
+	width: 3.000rem;
+	height: 3.000rem;
 	text-indent: 100%;
 	white-space: nowrap;
 	overflow: hidden;
@@ -1205,8 +1228,8 @@ u,
 	display: block;
 	font-family: "englishextra-ui-icons";
 	content: "\e904";
-	font-size: 18.000pt;
-	line-height: 33.000pt;
+	font-size: 1.500rem;
+	line-height: 3.000rem;
 	text-indent: 0;
 	color: #878787;
 	background-color: #E7E7E7;
@@ -1216,8 +1239,8 @@ u,
 	display: block;
 	font-family: "englishextra-ui-icons";
 	content: "\e906";
-	font-size: 18.000pt;
-	line-height: 33.000pt;
+	font-size: 1.500rem;
+	line-height: 3.000rem;
 	text-indent: 0;
 	color: #878787;
 	background-color: #E7E7E7;

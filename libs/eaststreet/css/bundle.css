@@ -1523,13 +1523,13 @@ body {
  */
 
 .col a {
-	color: #007DD1;
+	color: #3585D8;
 }
 
 .col a:focus,
 .col a:hover,
 .col a:active {
-	color: #007DD1;
+	color: #3585D8;
 }
 
 .col h1,
@@ -1602,7 +1602,7 @@ body {
 
 .col pre {
 	color: inherit;
-	background-color: #EDEDED;
+	background-color: #F3F3F3;
 }
 
 .col pre a:focus,
@@ -2657,6 +2657,7 @@ body {
 	list-style-type: none;
 	line-height: 3.200rem;
 	overflow: hidden;
+	white-space: nowrap;
 	-webkit-transition: background-color 0.2s linear;
 	transition: background-color 0.2s linear;
 	padding-right: 1.333rem;
@@ -2673,12 +2674,6 @@ body {
 .kamil-autocomplete li:active {
 	color: #FFFFFF;
 	background-color: #F03B4C;
-}
-
-.kamil-autocomplete li a {
-	color: inherit;
-	text-decoration: none;
-	width: 100%;
 }
 
 /*! @import "ya-share2.fixed"; */
@@ -3905,10 +3900,6 @@ u,
 	list-style-type: none;
 }
 
-.ui-sidepanel-list li:last-child {
-	border-bottom-color: transparent;
-}
-
 .ui-sidepanel-list a {
 	display: block;
 	width: 100%;
@@ -4023,6 +4014,8 @@ u,
 	background-color: transparent;
 	-webkit-transition: background-color 0.2s ease;
 	transition: background-color 0.2s ease;
+	overflow-x: hidden;
+	white-space: nowrap;
 	padding-right: 1.333rem;
 	padding-left: 1.333rem;
 }
@@ -4228,7 +4221,6 @@ u,
 
 .holder-search-form {
 	display: inline-block;
-	/* width: 18.133rem; */
 	position: fixed;
 	top: 0.400rem;
 	right: 0.400rem;
@@ -4237,7 +4229,6 @@ u,
 .holder-search-form input[type^=text],
 .holder-search-form input[type^=search] {
 	width: 9.600rem;
-	/* height: 2.400rem; */
 	font-family: inherit;
 	font-size: 0.933rem;
 	line-height: 1.200rem;
@@ -4277,7 +4268,6 @@ u,
 
 .holder-search-form button[type^=submit] {
 	width: 2.400rem;
-	/* height: 2.400rem; */
 	position: fixed;
 	top: 0.400rem;
 	right: 0.400rem;

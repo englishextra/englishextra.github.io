@@ -167,8 +167,8 @@ u,
 
 .holder-btn-nav-menu {
 	display: inline-block;
-	width: 33.000pt;
-	height: 33.000pt;
+	width: 3.000rem;
+	height: 3.000rem;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -194,8 +194,8 @@ u,
 .btn-nav-menu:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e90f";
-	font-size: 18.000pt;
-	line-height: 33.000pt;
+	font-size: 1.250rem;
+	line-height: 3.000rem;
 	color: $color-hex-lighter-text;
 }
 
@@ -207,7 +207,7 @@ u,
 	height: 33.000pt;
 	position: absolute;
 	top: 0;
-	left: 33.000pt;
+	left: 3.000rem;
 	font-size: 1.000em;
 	text-align: left;
 	color: inherit;
@@ -245,7 +245,7 @@ u,
 .full .badge,
 .full .holder-btn-nav-menu,
 .full .caption,
-.full .share-buttons {
+.full .btn-share-buttons {
 	display: none;
 }
 

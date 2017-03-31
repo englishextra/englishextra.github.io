@@ -13,7 +13,6 @@
 	left: 0;
 	background-color: $color-rgba-img-lightbox-bg;
 	opacity: 0;
-	z-index: 1000;
 }
 
 .img-lightbox-container img {
@@ -32,7 +31,6 @@
 	user-select: none;
 	vertical-align: middle;
 	margin: auto;
-	z-index: 1001;
 }
 
 /**

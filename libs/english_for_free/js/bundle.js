@@ -991,26 +991,37 @@ var initUiTotop = function () {
 	b = BALA.one("body") || "",
 	h = BALA.one("html") || "",
 	u = "ui-totop",
-	v = "ui-totop-hover",
+	active = "is-active",
+	t = "Наверх",
+	cL = "classList",
+	k = function (_this) {
+		var a = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
+		c = _this.innerHeight || h.clientHeight || b.clientHeight || "",
+		e = BALA.one("." + u) || "";
+		if (a && c && e) {
+			if (a > c) {
+				e[cL].add(active);
+			} else {
+				e[cL].remove(active);
+			}
+		}
+	},
 	g = function (f) {
 		var z = function (n) {
 			var o = w.pageYOffset,
 			i = 0,
 			x = function (o, l) {
-					return function () {
-						l -= o * n;
-						w.scrollTo(0, l);
-						i += 1;
-						if (150 < i || 0 > l) {
-							clearInterval(si);
-						}
-					};
-				},
+				return function () {
+					l -= o * n;
+					w.scrollTo(0, l);
+					i += 1;
+					if (150 < i || 0 > l) {
+						clearInterval(si);
+					}
+				};
+			},
 			si = setInterval(x.bind(null, n, o--), 50);
 		},
-		t = "Наверх",
-		a = crel("a"),
-		s = crel("span"),
 		h_a = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
@@ -1019,42 +1030,23 @@ var initUiTotop = function () {
 			} else {
 				z(50);
 			}
-		};
-		a.id = u;
+		},
+		a = crel("a");
+		a[cL].add(u);
 		/* jshint -W107 */
 		a.href = "javascript:void(0);";
 		/* jshint +W107 */
 		a.title = t;
+		a[cL].add(u);
 		evento.add(a, "click", h_a);
-		/* a.onclick = h_e; */
-		setStyleOpacity(a, 0);
-		s.id = v;
-		appendFragment(crel(a, s, "" + t), b);
-		if (f && "function" === typeof f) {
-			f();
-		}
-	},
-	k = function (_this) {
-		var a = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
-		c = _this.innerHeight || h.clientHeight || b.clientHeight || "",
-		e = BALA.one("#" + u) || "";
-		if (a && c && e) {
-			if (a > c) {
-				setStyleVisibilityVisible(e);
-				setStyleOpacity(e, 1);
-			} else {
-				setStyleVisibilityHidden(e);
-				setStyleOpacity(e, 0);
-			}
-		}
-	},
-	q = function () {
+		/* a.onclick = h_a; */
+		crel(b, crel(a));
 		evento.add(w, "scroll", k.bind(null, w));
 		/* w.onscroll = k.bind(null, w); */
 	};
 	if (b) {
 		console.log("triggered function: initUiTotop");
-		g(q);
+		g();
 	}
 };
 docReady(initUiTotop);
@@ -1063,7 +1055,7 @@ docReady(initUiTotop);
  */
 var initPlusoYaShare = function () {
 	"use strict";
-	var a = BALA.one("#share-buttons") || "",
+	var a = BALA.one(".btn-share-buttons") || "",
 	pluso = BALA.one(".pluso") || "",
 	ya_share2 = BALA.one(".ya-share2") || "",
 	pluso_like_js_src = getHTTP(!0) + "://share.pluso.ru/pluso-like.js",

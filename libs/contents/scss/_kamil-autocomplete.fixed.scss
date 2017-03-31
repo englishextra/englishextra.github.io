@@ -1,5 +1,4 @@
 /*! @import "kamil-autocomplete.fixed"; */
-
 /**
  * modified Kamil v0.0.1
  * Autocomplete library
@@ -7,7 +6,6 @@
  * MIT License
  * by Ossama Edbali
  */
-
 .kamil-autocomplete {
 	display: none;
 	position: absolute;
@@ -16,7 +14,6 @@
 	margin: 0;
 	padding: 0;
 	background-color: $color-hex-ui-menu-item-bg;
-	z-index: 999;
 	outline: none;
 	color: inherit;
 	box-sizing: border-box;
@@ -25,15 +22,22 @@
 	box-shadow: 0.125em 0.125em 0.125em 0 $color-rgba-ui-bar-shadow;
 	border-radius: 0;
 }
-
 .kamil-autocomplete li {
 	font-weight: 400;
-	padding: 0.375em 0.500em;
+	line-height: 3.000rem;
+	overflow-x: hidden;
+	white-space: nowrap;
+	padding-right: 1.250rem;
+	padding-left: 1.250rem;
 	cursor: pointer;
 }
-
-.kamil-autocomplete li.kamil-active {
+.kamil-autocomplete li.kamil-active,
+.kamil-autocomplete li:hover {
 	color: inherit;
 	background-color: $color-hex-hover-ui-menu-item-bg;
+}
+.kamil-autocomplete li:active {
+	color: #FFFFFF;
+	background-color: $color-hex-ui-accent;
 }
 

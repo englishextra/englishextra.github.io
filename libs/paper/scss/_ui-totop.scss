@@ -1,54 +1,40 @@
 /*! @import "ui-totop"; */
-
 /**
  * github.com/sksmatt/UItoTop-jQuery-Plugin/
  */
-
-#ui-totop {
+.ui-totop {
 	display: inline-block;
-	width: 33.000pt;
-	height: 33.000pt;
-	position: fixed;
-	bottom: 0;
-	right: 0;
-	text-indent: 100%;
-	text-decoration: none;
-	border: none;
 	visibility: hidden;
 	opacity: 0;
-	overflow: hidden;
-	transition: all 0.2s linear;
+	width: 3.000rem;
+	height: 3.000rem;
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	font-size: 1.250rem;
+	line-height: 3.000rem;
+	text-align: center;
+	text-decoration: none;
+	color: $color-hex-lighter-text;
+	background-color: $color-hex-ui-icon-bg;
+	border: none;
+	transition: visibility 0s, opacity 0.2s linear, background-color 0.2s ease;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
-	z-index: 999;
 }
-
-#ui-totop-hover {
-	display: block;
-	float: left;
-	width: 33.000pt;
-	height: 33.000pt;
-	overflow: hidden;
-}
-
-#ui-totop:hover {
-	background-color: $color-hex-hover-ui-icon-bg;
-}
-
-#ui-totop {
-	text-indent: 0;
-	text-align: center;
-}
-
-#ui-totop-hover {
-	background-color: $color-hex-ui-icon-bg;
-}
-
-#ui-totop-hover:before {
+.ui-totop:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e923";
-	font-size: 18.000pt;
-	line-height: 33.000pt;
-	color: $color-hex-lighter-text;
+}
+.ui-totop.is-active {
+	visibility: visible;
+	opacity: 1;
+}
+.ui-totop:hover {
+	background-color: $color-hex-hover-ui-icon-bg;
+}
+.ui-totop:active {
+	color: #FFFFFF;
+	background-color: $color-hex-ui-accent;
 }
 

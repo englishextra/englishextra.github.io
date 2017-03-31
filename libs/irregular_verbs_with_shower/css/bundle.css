@@ -608,13 +608,13 @@ template {
  */
 
 .ya-share2 .ya-share2__container_size_m .ya-share2__icon {
-	height: 33.000pt;
-	width: 33.000pt;
+	height: 3.000rem;
+	width: 3.000rem;
 }
 
 .ya-share2 .ya-share2__container_size_m .ya-share2__counter {
 	font-size: 1.250rem;
-	line-height: 33.000pt;
+	line-height: 3.000rem;
 }
 
 .ya-share2 .ya-share2__container_size_m .ya-share2__title {
@@ -637,7 +637,7 @@ template {
 
 .ya-share2 {
 	position: fixed;
-	right: 33.000pt;
+	right: 3.000rem;
 	bottom: 0;
 	visibility: hidden;
 	opacity: 0;
@@ -655,36 +655,40 @@ template {
 	transition: visibility 0s, opacity 0.2s linear;
 }
 
-.share-buttons {
+.btn-share-buttons {
 	display: inline-block;
-	width: 33.000pt;
-	height: 33.000pt;
+	width: 3.000rem;
+	height: 3.000rem;
 	position: fixed;
 	bottom: 0;
-	right: 33.000pt;
+	right: 3.000rem;
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
+	color: #878787;
 	background-color: #E7E7E7;
 	border: none;
 	overflow: hidden;
-	-webkit-transition: background 0.2s linear;
-	transition: background 0.2s linear;
+	-webkit-transition: background-color 0.2s linear;
+	transition: background-color 0.2s linear;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
-	z-index: 999;
 }
 
-.share-buttons:hover {
+.btn-share-buttons:hover {
 	background-color: #D5D5D5;
 }
 
-.share-buttons:before {
+.btn-share-buttons:active {
+	color: #FFFFFF;
+	background-color: #F03B4C;
+}
+
+.btn-share-buttons:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e91d";
-	font-size: 18.000pt;
-	line-height: 33.000pt;
-	color: #878787;
+	font-size: 1.250rem;
+	line-height: 3.000rem;
 }
 
 /*! @import "irregular-verbs-with-shower-shower"; */
@@ -929,53 +933,45 @@ template {
  * github.com/sksmatt/UItoTop-jQuery-Plugin/
  */
 
-#ui-totop {
+.ui-totop {
 	display: inline-block;
-	width: 33.000pt;
-	height: 33.000pt;
-	position: fixed;
-	bottom: 0;
-	right: 0;
-	text-indent: 100%;
-	text-decoration: none;
-	border: none;
 	visibility: hidden;
 	opacity: 0;
-	overflow: hidden;
-	-webkit-transition: all 0.2s linear;
-	transition: all 0.2s linear;
+	width: 3.000rem;
+	height: 3.000rem;
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	font-size: 1.250rem;
+	line-height: 3.000rem;
+	text-align: center;
+	text-decoration: none;
+	color: #878787;
+	background-color: #E7E7E7;
+	border: none;
+	-webkit-transition: visibility 0s, opacity 0.2s linear, background-color 0.2s ease;
+	transition: visibility 0s, opacity 0.2s linear, background-color 0.2s ease;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
-	z-index: 999;
 }
 
-#ui-totop-hover {
-	display: block;
-	float: left;
-	width: 33.000pt;
-	height: 33.000pt;
-	overflow: hidden;
+.ui-totop:before {
+	font-family: "englishextra-ui-icons";
+	content: "\e923";
 }
 
-#ui-totop:hover {
+.ui-totop.is-active {
+	visibility: visible;
+	opacity: 1;
+}
+
+.ui-totop:hover {
 	background-color: #D5D5D5;
 }
 
-#ui-totop {
-	text-indent: 0;
-	text-align: center;
-}
-
-#ui-totop-hover {
-	background-color: #E7E7E7;
-}
-
-#ui-totop-hover:before {
-	font-family: "englishextra-ui-icons";
-	content: "\e923";
-	font-size: 18.000pt;
-	line-height: 33.000pt;
-	color: #878787;
+.ui-totop:active {
+	color: #FFFFFF;
+	background-color: #F03B4C;
 }
 
 /*! @import "irregular-verbs-with-shower-main"; */
@@ -1154,8 +1150,8 @@ u,
 
 .holder-btn-nav-menu {
 	display: inline-block;
-	width: 33.000pt;
-	height: 33.000pt;
+	width: 3.000rem;
+	height: 3.000rem;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -1181,8 +1177,8 @@ u,
 .btn-nav-menu:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e90f";
-	font-size: 18.000pt;
-	line-height: 33.000pt;
+	font-size: 1.250rem;
+	line-height: 3.000rem;
 	color: #878787;
 }
 
@@ -1194,7 +1190,7 @@ u,
 	height: 33.000pt;
 	position: absolute;
 	top: 0;
-	left: 33.000pt;
+	left: 3.000rem;
 	font-size: 1.000em;
 	text-align: left;
 	color: inherit;
@@ -1232,7 +1228,7 @@ u,
 .full .badge,
 .full .holder-btn-nav-menu,
 .full .caption,
-.full .share-buttons {
+.full .btn-share-buttons {
 	display: none;
 }
 
