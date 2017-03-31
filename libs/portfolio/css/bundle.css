@@ -998,15 +998,15 @@ template {
 
 .superbox-close {
 	text-align: center;
+	color: inherit;
 	background: none transparent;
 }
 
 .superbox-close:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e90a";
-	font-size: 15.000pt;
-	line-height: 33.000pt;
-	color: inherit;
+	font-size: 1.250rem;
+	line-height: 3.000rem;
 }
 
 .superbox-desc {

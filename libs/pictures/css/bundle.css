@@ -1908,9 +1908,19 @@ u,
 	height: 3.000rem;
 	position: absolute;
 	top: 0;
+	/* left: 17.000rem; */
 	left: 0;
+	color: #878787;
+	-webkit-transition: all 0.2s linear;
+	transition: all 0.2s linear;
 	cursor: pointer;
 }
+
+/* .js .btn-nav-menu {
+	position: fixed;
+	top: 0;
+	left: 0;
+} */
 
 .btn-nav-menu:hover {
 	background-color: #D5D5D5;

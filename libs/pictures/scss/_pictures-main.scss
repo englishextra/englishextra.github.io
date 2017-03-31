@@ -261,9 +261,18 @@ u,
 	height: 3.000rem;
 	position: absolute;
 	top: 0;
+	/* left: 17.000rem; */
 	left: 0;
+	color: $color-hex-lighter-text;
+	transition: all 0.2s linear;
 	cursor: pointer;
 }
+
+/* .js .btn-nav-menu {
+	position: fixed;
+	top: 0;
+	left: 0;
+} */
 
 .btn-nav-menu:hover {
 	background-color: $color-hex-hover-ui-icon-bg;
