@@ -187,11 +187,13 @@ u,
 	position: absolute;
 	top: 0;
 	left: 0;
+	color: #FFFFFF;
+	transition: background-color 0.2s linear;
 	cursor: pointer;
 }
 
 .btn-nav-menu:hover {
-	background-color: $color-hex-hover-ui-icon-bg;
+	background-color: $color-hex-hover-dark-ui-icon-bg;
 }
 
 .page.is-active .btn-nav-menu,
@@ -202,7 +204,7 @@ u,
 
 .btn-nav-menu {
 	text-align: center;
-	background-color: $color-hex-ui-icon-bg;
+	background-color: $color-rgba-dark-ui-icon-bg;
 }
 
 .btn-nav-menu:before {
@@ -210,7 +212,6 @@ u,
 	content: "\e90f";
 	font-size: 1.250rem;
 	line-height: 3.000rem;
-	color: $color-hex-lighter-text;
 }
 
 /*! @import "menu-more-light"; */
@@ -226,14 +227,14 @@ u,
 	position: absolute;
 	top: 0;
 	left: 3.000rem;
-	color: $color-hex-lighter-text;
+	color: #FFFFFF;
 	text-decoration: none;
 	transition: background-color 0.2s linear;
 	cursor: pointer;
 }
 
 .btn-menu-more:hover {
-	background-color: $color-hex-hover-ui-icon-bg;
+	background-color: $color-hex-hover-dark-ui-icon-bg;
 }
 
 .btn-menu-more:active {
@@ -243,7 +244,7 @@ u,
 
 .btn-menu-more {
 	text-align: center;
-	background-color: $color-hex-ui-icon-bg;
+	background-color: $color-rgba-dark-ui-icon-bg;
 }
 
 .btn-menu-more:before {
@@ -336,12 +337,14 @@ u,
 
 .cd-prev:hover,
 .cd-next:hover {
-	background-color: $color-hex-hover-ui-icon-bg;
+	background-color: $color-hex-hover-dark-ui-icon-bg;
 }
 
 .cd-prev,
 .cd-next {
 	text-align: center;
+	color: #FFFFFF;
+	transition: background-color 0.2s linear;
 }
 
 .cd-prev:before {
@@ -351,8 +354,7 @@ u,
 	font-size: 1.500rem;
 	line-height: 3.000rem;
 	text-indent: 0;
-	color: $color-hex-lighter-text;
-	background-color: $color-hex-ui-icon-bg;
+	background-color: $color-rgba-dark-ui-icon-bg;
 }
 
 .cd-next:before {
@@ -362,13 +364,12 @@ u,
 	font-size: 1.500rem;
 	line-height: 3.000rem;
 	text-indent: 0;
-	color: $color-hex-lighter-text;
-	background-color: $color-hex-ui-icon-bg;
+	background-color: $color-rgba-dark-ui-icon-bg;
 }
 
 .cd-prev:hover,
 .cd-next:hover {
-	background-color: $color-hex-hover-ui-icon-bg;
+	background-color: $color-hex-hover-dark-ui-icon-bg;
 }
 
 /**

@@ -633,7 +633,7 @@ template {
 	text-align: center;
 	text-decoration: none;
 	color: #878787;
-	background-color: #E7E7E7;
+	background-color: rgba(75, 75, 75, 0.5);
 	border: none;
 	overflow: hidden;
 	-webkit-transition: background-color 0.2s linear;
@@ -726,7 +726,7 @@ template {
 	text-align: center;
 	text-decoration: none;
 	color: #878787;
-	background-color: #E7E7E7;
+	background-color: rgba(75, 75, 75, 0.5);
 	border: none;
 	overflow: hidden;
 	-webkit-transition: background-color 0.2s linear;
@@ -1064,11 +1064,14 @@ u,
 	position: absolute;
 	top: 0;
 	left: 0;
+	color: #FFFFFF;
+	-webkit-transition: background-color 0.2s linear;
+	transition: background-color 0.2s linear;
 	cursor: pointer;
 }
 
 .btn-nav-menu:hover {
-	background-color: #D5D5D5;
+	background-color: #4B4B4B;
 }
 
 .page.is-active .btn-nav-menu,
@@ -1079,7 +1082,7 @@ u,
 
 .btn-nav-menu {
 	text-align: center;
-	background-color: #E7E7E7;
+	background-color: rgba(75, 75, 75, 0.5);
 }
 
 .btn-nav-menu:before {
@@ -1087,7 +1090,6 @@ u,
 	content: "\e90f";
 	font-size: 1.250rem;
 	line-height: 3.000rem;
-	color: #878787;
 }
 
 /*! @import "menu-more-light"; */
@@ -1103,7 +1105,7 @@ u,
 	position: absolute;
 	top: 0;
 	left: 3.000rem;
-	color: #878787;
+	color: #FFFFFF;
 	text-decoration: none;
 	-webkit-transition: background-color 0.2s linear;
 	transition: background-color 0.2s linear;
@@ -1111,7 +1113,7 @@ u,
 }
 
 .btn-menu-more:hover {
-	background-color: #D5D5D5;
+	background-color: #4B4B4B;
 }
 
 .btn-menu-more:active {
@@ -1121,7 +1123,7 @@ u,
 
 .btn-menu-more {
 	text-align: center;
-	background-color: #E7E7E7;
+	background-color: rgba(75, 75, 75, 0.5);
 }
 
 .btn-menu-more:before {
@@ -1216,12 +1218,15 @@ u,
 
 .cd-prev:hover,
 .cd-next:hover {
-	background-color: #D5D5D5;
+	background-color: #4B4B4B;
 }
 
 .cd-prev,
 .cd-next {
 	text-align: center;
+	color: #FFFFFF;
+	-webkit-transition: background-color 0.2s linear;
+	transition: background-color 0.2s linear;
 }
 
 .cd-prev:before {
@@ -1231,8 +1236,7 @@ u,
 	font-size: 1.500rem;
 	line-height: 3.000rem;
 	text-indent: 0;
-	color: #878787;
-	background-color: #E7E7E7;
+	background-color: rgba(75, 75, 75, 0.5);
 }
 
 .cd-next:before {
@@ -1242,13 +1246,12 @@ u,
 	font-size: 1.500rem;
 	line-height: 3.000rem;
 	text-indent: 0;
-	color: #878787;
-	background-color: #E7E7E7;
+	background-color: rgba(75, 75, 75, 0.5);
 }
 
 .cd-prev:hover,
 .cd-next:hover {
-	background-color: #D5D5D5;
+	background-color: #4B4B4B;
 }
 
 /**
