@@ -632,7 +632,7 @@ template {
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
-	color: #878787;
+	color: #FFFFFF;
 	background-color: rgba(75, 75, 75, 0.5);
 	border: none;
 	overflow: hidden;
@@ -643,7 +643,7 @@ template {
 }
 
 .btn-show-vk-like:hover {
-	background-color: #D5D5D5;
+	background-color: #4B4B4B;
 }
 
 .btn-show-vk-like:active {
@@ -725,7 +725,7 @@ template {
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
-	color: #878787;
+	color: #FFFFFF;
 	background-color: rgba(75, 75, 75, 0.5);
 	border: none;
 	overflow: hidden;
@@ -736,7 +736,7 @@ template {
 }
 
 .btn-share-buttons:hover {
-	background-color: #D5D5D5;
+	background-color: #4B4B4B;
 }
 
 .btn-share-buttons:active {

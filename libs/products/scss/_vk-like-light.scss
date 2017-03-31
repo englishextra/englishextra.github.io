@@ -31,7 +31,7 @@
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
-	color: $color-hex-lighter-text;
+	color: #FFFFFF;
 	background-color: $color-rgba-dark-ui-icon-bg;
 	border: none;
 	overflow: hidden;
@@ -41,7 +41,7 @@
 }
 
 .btn-show-vk-like:hover {
-	background-color: $color-hex-hover-ui-icon-bg;
+	background-color: $color-hex-hover-dark-ui-icon-bg;
 }
 
 .btn-show-vk-like:active {
