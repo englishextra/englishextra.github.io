@@ -423,7 +423,7 @@ u,
 	color: $color-hex-body-text;
 	background-color: $color-hex-ui-menu-item-bg;
 	border: 0.063rem solid $color-hex-ui-accent;
-	box-shadow: 0.125em 0.125em 0.125em 0 $color-rgba-ui-bar-shadow;
+	box-shadow: 0.125rem 0.125rem 0.125rem 0 $color-rgba-ui-bar-shadow;
 	opacity: 0;
 	transition: visibility 0s, opacity 0.2s linear;
 }

@@ -2334,7 +2334,7 @@ body {
 	box-sizing: border-box;
 	font-size: 0.875em;
 	border: 0.063rem solid #F03B4C;
-	box-shadow: 0.125em 0.125em 0.125em 0 rgba(50, 50, 50, 0.3);
+	box-shadow: 0.125rem 0.125rem 0.125rem 0 rgba(50, 50, 50, 0.3);
 	border-radius: 0;
 }
 
@@ -3315,7 +3315,7 @@ u,
 	color: #191919;
 	background-color: #F3F3F3;
 	border: 0.063rem solid #F03B4C;
-	box-shadow: 0.125em 0.125em 0.125em 0 rgba(50, 50, 50, 0.3);
+	box-shadow: 0.125rem 0.125rem 0.125rem 0 rgba(50, 50, 50, 0.3);
 	opacity: 0;
 	-webkit-transition: visibility 0s, opacity 0.2s linear;
 	transition: visibility 0s, opacity 0.2s linear;
