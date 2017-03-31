@@ -335,21 +335,11 @@ u,
 	bottom: auto;
 }
 
-.cd-prev:hover,
-.cd-next:hover {
-	background-color: $color-hex-hover-dark-ui-icon-bg;
-}
-
-.cd-prev:active,
-.cd-next:active {
-	color: #FFFFFF;
-	background-color: $color-hex-ui-accent;
-}
-
 .cd-prev,
 .cd-next {
 	text-align: center;
 	color: #FFFFFF;
+	background-color: $color-rgba-dark-ui-icon-bg;
 	transition: background-color 0.2s linear;
 }
 
@@ -360,7 +350,6 @@ u,
 	font-size: 1.500rem;
 	line-height: 3.000rem;
 	text-indent: 0;
-	background-color: $color-rgba-dark-ui-icon-bg;
 }
 
 .cd-next:before {
@@ -370,7 +359,6 @@ u,
 	font-size: 1.500rem;
 	line-height: 3.000rem;
 	text-indent: 0;
-	background-color: $color-rgba-dark-ui-icon-bg;
 }
 
 .cd-prev:hover,

@@ -1216,21 +1216,11 @@ u,
 	bottom: auto;
 }
 
-.cd-prev:hover,
-.cd-next:hover {
-	background-color: #4B4B4B;
-}
-
-.cd-prev:active,
-.cd-next:active {
-	color: #FFFFFF;
-	background-color: #F03B4C;
-}
-
 .cd-prev,
 .cd-next {
 	text-align: center;
 	color: #FFFFFF;
+	background-color: rgba(75, 75, 75, 0.5);
 	-webkit-transition: background-color 0.2s linear;
 	transition: background-color 0.2s linear;
 }
@@ -1242,7 +1232,6 @@ u,
 	font-size: 1.500rem;
 	line-height: 3.000rem;
 	text-indent: 0;
-	background-color: rgba(75, 75, 75, 0.5);
 }
 
 .cd-next:before {
@@ -1252,7 +1241,6 @@ u,
 	font-size: 1.500rem;
 	line-height: 3.000rem;
 	text-indent: 0;
-	background-color: rgba(75, 75, 75, 0.5);
 }
 
 .cd-prev:hover,
