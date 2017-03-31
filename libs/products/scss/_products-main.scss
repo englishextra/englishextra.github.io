@@ -340,6 +340,12 @@ u,
 	background-color: $color-hex-hover-dark-ui-icon-bg;
 }
 
+.cd-prev:active,
+.cd-next:active {
+	color: #FFFFFF;
+	background-color: $color-hex-ui-accent;
+}
+
 .cd-prev,
 .cd-next {
 	text-align: center;
@@ -370,6 +376,12 @@ u,
 .cd-prev:hover,
 .cd-next:hover {
 	background-color: $color-hex-hover-dark-ui-icon-bg;
+}
+
+.cd-prev:active,
+.cd-next:active {
+	color: #FFFFFF;
+	background-color: $color-hex-ui-accent;
 }
 
 /**

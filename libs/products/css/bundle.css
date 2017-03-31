@@ -1221,6 +1221,12 @@ u,
 	background-color: #4B4B4B;
 }
 
+.cd-prev:active,
+.cd-next:active {
+	color: #FFFFFF;
+	background-color: #F03B4C;
+}
+
 .cd-prev,
 .cd-next {
 	text-align: center;
@@ -1252,6 +1258,12 @@ u,
 .cd-prev:hover,
 .cd-next:hover {
 	background-color: #4B4B4B;
+}
+
+.cd-prev:active,
+.cd-next:active {
+	color: #FFFFFF;
+	background-color: #F03B4C;
 }
 
 /**
