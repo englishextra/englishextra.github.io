@@ -871,6 +871,7 @@ u,
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
+	-webkit-transition: all 0.2s linear;
 	transition: all 0.2s linear;
 }
 
