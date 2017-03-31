@@ -598,7 +598,7 @@ template {
 	margin: 0;
 }
 
-/*! @import "vk-like-dark"; */
+/*! @import "vk-like-light"; */
 
 /**
  * vk-like
@@ -632,12 +632,12 @@ template {
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
-	color: #878787;
+	color: #FFFFFF;
 	background-color: rgba(75, 75, 75, 0.5);
 	border: none;
 	overflow: hidden;
-	-webkit-transition: background 0.2s linear;
-	transition: background 0.2s linear;
+	-webkit-transition: background-color 0.2s linear;
+	transition: background-color 0.2s linear;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
@@ -646,12 +646,114 @@ template {
 	background-color: #4B4B4B;
 }
 
+.btn-show-vk-like:active {
+	color: #FFFFFF;
+	background-color: #F03B4C;
+}
+
+.btn-show-vk-like:active {
+	color: #FFFFFF;
+	background-color: #F03B4C;
+}
+
 .btn-show-vk-like:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e925";
 	font-size: 1.250rem;
 	line-height: 3.000rem;
+}
+
+/*! @import "share-buttons-light"; */
+
+/*! @import "ya-share2.fixed"; */
+
+/*!
+ * ya-share2
+ * yandex.ru/blog/share/kak-uvelichit-shrift-tsifr-sch-tchika#comment-add
+ */
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__icon {
+	height: 3.000rem;
+	width: 3.000rem;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__counter {
+	font-size: 1.250rem;
+	line-height: 3.000rem;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__title {
+	width: 0;
+	height: 0;
+	overflow: hidden;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__item {
+	margin: 0;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__badge {
+	border-radius: 0;
+}
+
+/**
+ * pluso, yashare
+ */
+
+.ya-share2 {
+	position: fixed;
+	right: 3.000rem;
+	bottom: 0;
+	visibility: hidden;
+	opacity: 0;
+	-webkit-transition: visibility 0s, opacity 0.2s linear;
+	transition: visibility 0s, opacity 0.2s linear;
+}
+
+.pluso {
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	visibility: hidden;
+	opacity: 0;
+	-webkit-transition: visibility 0s, opacity 0.2s linear;
+	transition: visibility 0s, opacity 0.2s linear;
+}
+
+.btn-share-buttons {
+	display: inline-block;
+	width: 3.000rem;
+	height: 3.000rem;
+	position: fixed;
+	bottom: 0;
+	right: 3.000rem;
+	text-indent: 0;
+	text-align: center;
+	text-decoration: none;
 	color: #FFFFFF;
+	background-color: rgba(75, 75, 75, 0.5);
+	border: none;
+	overflow: hidden;
+	-webkit-transition: background-color 0.2s linear;
+	transition: background-color 0.2s linear;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+}
+
+.btn-share-buttons:hover {
+	background-color: #4B4B4B;
+}
+
+.btn-share-buttons:active {
+	color: #FFFFFF;
+	background-color: #F03B4C;
+}
+
+.btn-share-buttons:before {
+	font-family: "englishextra-ui-icons";
+	content: "\e91d";
+	font-size: 1.250rem;
+	line-height: 3.000rem;
 }
 
 /*! @import "index-animate.partial"; */
@@ -996,11 +1098,20 @@ u,
 	position: absolute;
 	top: 0;
 	left: 0;
+	color: #FFFFFF;
+	-webkit-transition: background-color 0.2s linear;
+	transition: background-color 0.2s linear;
 	cursor: pointer;
 }
 
 .btn-nav-menu:hover {
 	background-color: #4B4B4B;
+}
+
+.page.is-active .btn-nav-menu,
+.btn-nav-menu:active {
+	color: #FFFFFF;
+	background-color: #F03B4C;
 }
 
 .btn-nav-menu {
@@ -1013,7 +1124,6 @@ u,
 	content: "\e914";
 	font-size: 1.250rem;
 	line-height: 3.000rem;
-	color: #FFFFFF;
 }
 
 .page.is-active .btn-nav-menu:before {
@@ -1050,8 +1160,8 @@ u,
 	position: absolute;
 	top: 0;
 	left: 3.000rem;
-	color: #878787;
 	text-decoration: none;
+	color: #FFFFFF;
 	-webkit-transition: background-color 0.2s linear;
 	transition: background-color 0.2s linear;
 	cursor: pointer;
@@ -1059,6 +1169,11 @@ u,
 
 .btn-menu-more:hover {
 	background-color: #4B4B4B;
+}
+
+.btn-menu-more:active {
+	color: #FFFFFF;
+	background-color: #F03B4C;
 }
 
 .btn-menu-more {
@@ -1071,7 +1186,6 @@ u,
 	content: "\e915";
 	font-size: 1.250rem;
 	line-height: 3.000rem;
-	color: #FFFFFF;
 }
 
 .holder-panel-menu-more {

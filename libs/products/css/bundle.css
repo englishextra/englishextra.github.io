@@ -651,6 +651,11 @@ template {
 	background-color: #F03B4C;
 }
 
+.btn-show-vk-like:active {
+	color: #FFFFFF;
+	background-color: #F03B4C;
+}
+
 .btn-show-vk-like:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e925";

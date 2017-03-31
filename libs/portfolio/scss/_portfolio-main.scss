@@ -264,11 +264,19 @@ u,
 	position: absolute;
 	top: 0;
 	left: 0;
+	color: #FFFFFF;
+	transition: background-color 0.2s linear;
 	cursor: pointer;
 }
 
 .btn-nav-menu:hover {
 	background-color: $color-hex-hover-dark-ui-icon-bg;
+}
+
+.page.is-active .btn-nav-menu,
+.btn-nav-menu:active {
+	color: #FFFFFF;
+	background-color: $color-hex-ui-accent;
 }
 
 .btn-nav-menu {
@@ -281,7 +289,6 @@ u,
 	content: "\e914";
 	font-size: 1.250rem;
 	line-height: 3.000rem;
-	color: #FFFFFF;
 }
 
 .page.is-active .btn-nav-menu:before {
@@ -318,14 +325,19 @@ u,
 	position: absolute;
 	top: 0;
 	left: 3.000rem;
-	color: $color-hex-lighter-text;
 	text-decoration: none;
+	color: #FFFFFF;
 	transition: background-color 0.2s linear;
 	cursor: pointer;
 }
 
 .btn-menu-more:hover {
 	background-color: $color-hex-hover-dark-ui-icon-bg;
+}
+
+.btn-menu-more:active {
+	color: #FFFFFF;
+	background-color: $color-hex-ui-accent;
 }
 
 .btn-menu-more {
@@ -338,7 +350,6 @@ u,
 	content: "\e915";
 	font-size: 1.250rem;
 	line-height: 3.000rem;
-	color: #FFFFFF;
 }
 
 .holder-panel-menu-more {

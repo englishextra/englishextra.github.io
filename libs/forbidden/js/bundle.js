@@ -763,6 +763,56 @@ var initMenuMore = function () {
 };
 docReady(initMenuMore);
 /*!
+ * init pluso-engine or ya-share on click
+ */
+var initPlusoYaShare = function () {
+	"use strict";
+	var a = BALA.one(".btn-share-buttons") || "",
+	pluso = BALA.one(".pluso") || "",
+	ya_share2 = BALA.one(".ya-share2") || "",
+	pluso_like_js_src = getHTTP(!0) + "://share.pluso.ru/pluso-like.js",
+	share_js_src = getHTTP(!0) + "://yastatic.net/share2/share.js",
+	g = function (s, b) {
+		setStyleVisibilityVisible(s);
+		setStyleOpacity(s, 1);
+		setStyleDisplayNone(b);
+	},
+	k = function (js, s, b) {
+		if (!scriptIsLoaded(js)) {
+			loadJS(js, g.bind(null, s, b));
+		}
+	},
+	q = function () {
+		if (pluso) {
+			k(pluso_like_js_src, pluso, a);
+		} else {
+			if (ya_share2) {
+				k(share_js_src, ya_share2, a);
+			}
+		}
+	},
+	v = function () {
+		var h_a = function (ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			evento.remove(a, "click", h_a);
+			/* a.onclick = null; */
+			q();
+		};
+		evento.add(a, "click", h_a);
+		/* a.onclick = h_a; */
+	};
+	if ((pluso || ya_share2) && a) {
+		console.log("triggered function: initPlusoYaShare");
+		if ("undefined" !== typeof getHTTP && getHTTP()) {
+			v();
+		} else {
+			setStyleDisplayNone(a);
+		}
+	}
+};
+docReady(initPlusoYaShare);
+/*!
  * init vk-like on click
  */
 var manageVKLikeButton = function () {

@@ -1,4 +1,4 @@
-/*! @import "vk-like-dark"; */
+/*! @import "vk-like-light"; */
 
 /**
  * vk-like
@@ -31,11 +31,11 @@
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
-	color: $color-hex-lighter-text;
+	color: #FFFFFF;
 	background-color: $color-rgba-dark-ui-icon-bg;
 	border: none;
 	overflow: hidden;
-	transition: background 0.2s linear;
+	transition: background-color 0.2s linear;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
@@ -44,11 +44,20 @@
 	background-color: $color-hex-hover-dark-ui-icon-bg;
 }
 
+.btn-show-vk-like:active {
+	color: #FFFFFF;
+	background-color: $color-hex-ui-accent;
+}
+
+.btn-show-vk-like:active {
+	color: #FFFFFF;
+	background-color: $color-hex-ui-accent;
+}
+
 .btn-show-vk-like:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e925";
 	font-size: 1.250rem;
 	line-height: 3.000rem;
-	color: #FFFFFF;
 }
 

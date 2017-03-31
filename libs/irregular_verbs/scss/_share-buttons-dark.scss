@@ -63,8 +63,8 @@
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
-	color: $color-hex-lighter-text;
-	background-color: $color-hex-ui-icon-bg;
+	color: #FFFFFF;
+	background-color: $color-rgba-dark-ui-icon-bg;
 	border: none;
 	overflow: hidden;
 	transition: background-color 0.2s linear;
@@ -73,7 +73,7 @@
 }
 
 .btn-share-buttons:hover {
-	background-color: $color-hex-hover-ui-icon-bg;
+	background-color: $color-hex-hover-dark-ui-icon-bg;
 }
 
 .btn-share-buttons:active {

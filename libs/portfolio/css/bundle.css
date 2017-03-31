@@ -598,7 +598,7 @@ template {
 	margin: 0;
 }
 
-/*! @import "vk-like-dark"; */
+/*! @import "vk-like-light"; */
 
 /**
  * vk-like
@@ -632,12 +632,12 @@ template {
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
-	color: #878787;
+	color: #FFFFFF;
 	background-color: rgba(75, 75, 75, 0.5);
 	border: none;
 	overflow: hidden;
-	-webkit-transition: background 0.2s linear;
-	transition: background 0.2s linear;
+	-webkit-transition: background-color 0.2s linear;
+	transition: background-color 0.2s linear;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
@@ -646,12 +646,21 @@ template {
 	background-color: #4B4B4B;
 }
 
+.btn-show-vk-like:active {
+	color: #FFFFFF;
+	background-color: #F03B4C;
+}
+
+.btn-show-vk-like:active {
+	color: #FFFFFF;
+	background-color: #F03B4C;
+}
+
 .btn-show-vk-like:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e925";
 	font-size: 1.250rem;
 	line-height: 3.000rem;
-	color: #FFFFFF;
 }
 
 /*! @import "share-buttons-light"; */
@@ -721,8 +730,8 @@ template {
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
-	color: #878787;
-	background-color: #E7E7E7;
+	color: #FFFFFF;
+	background-color: rgba(75, 75, 75, 0.5);
 	border: none;
 	overflow: hidden;
 	-webkit-transition: background-color 0.2s linear;
@@ -732,7 +741,7 @@ template {
 }
 
 .btn-share-buttons:hover {
-	background-color: #D5D5D5;
+	background-color: #4B4B4B;
 }
 
 .btn-share-buttons:active {
@@ -1553,11 +1562,20 @@ u,
 	position: absolute;
 	top: 0;
 	left: 0;
+	color: #FFFFFF;
+	-webkit-transition: background-color 0.2s linear;
+	transition: background-color 0.2s linear;
 	cursor: pointer;
 }
 
 .btn-nav-menu:hover {
 	background-color: #4B4B4B;
+}
+
+.page.is-active .btn-nav-menu,
+.btn-nav-menu:active {
+	color: #FFFFFF;
+	background-color: #F03B4C;
 }
 
 .btn-nav-menu {
@@ -1570,7 +1588,6 @@ u,
 	content: "\e914";
 	font-size: 1.250rem;
 	line-height: 3.000rem;
-	color: #FFFFFF;
 }
 
 .page.is-active .btn-nav-menu:before {
@@ -1607,8 +1624,8 @@ u,
 	position: absolute;
 	top: 0;
 	left: 3.000rem;
-	color: #878787;
 	text-decoration: none;
+	color: #FFFFFF;
 	-webkit-transition: background-color 0.2s linear;
 	transition: background-color 0.2s linear;
 	cursor: pointer;
@@ -1616,6 +1633,11 @@ u,
 
 .btn-menu-more:hover {
 	background-color: #4B4B4B;
+}
+
+.btn-menu-more:active {
+	color: #FFFFFF;
+	background-color: #F03B4C;
 }
 
 .btn-menu-more {
@@ -1628,7 +1650,6 @@ u,
 	content: "\e915";
 	font-size: 1.250rem;
 	line-height: 3.000rem;
-	color: #FFFFFF;
 }
 
 .holder-panel-menu-more {
