@@ -1293,8 +1293,8 @@ u,
 	top: 0;
 	left: 0;
 	opacity: 0;
-	-webkit-transition: opacity 0.2s linear;
-	transition: opacity 0.2s linear;
+	-webkit-transition: opacity 0.2s ease;
+	transition: opacity 0.2s ease;
 	text-align: center;
 	/**
 	 * fix the bug in webkit for stycky footer

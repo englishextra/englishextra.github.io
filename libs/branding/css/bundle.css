@@ -2405,8 +2405,8 @@ body {
 	line-height: 0;
 	visibility: hidden;
 	opacity: 0;
-	-webkit-transition: visibility 0s, opacity 0.2s linear;
-	transition: visibility 0s, opacity 0.2s linear;
+	-webkit-transition: visibility 0s, opacity 0.2s ease;
+	transition: visibility 0s, opacity 0.2s ease;
 }
 
 .btn-show-vk-like {
@@ -2423,8 +2423,8 @@ body {
 	background-color: #E7E7E7;
 	border: none;
 	overflow: hidden;
-	-webkit-transition: background-color 0.2s linear;
-	transition: background-color 0.2s linear;
+	-webkit-transition: background-color 0.2s ease;
+	transition: background-color 0.2s ease;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
@@ -2488,8 +2488,8 @@ body {
 	bottom: 0;
 	visibility: hidden;
 	opacity: 0;
-	-webkit-transition: visibility 0s, opacity 0.2s linear;
-	transition: visibility 0s, opacity 0.2s linear;
+	-webkit-transition: visibility 0s, opacity 0.2s ease;
+	transition: visibility 0s, opacity 0.2s ease;
 }
 
 .pluso {
@@ -2498,8 +2498,8 @@ body {
 	bottom: 0;
 	visibility: hidden;
 	opacity: 0;
-	-webkit-transition: visibility 0s, opacity 0.2s linear;
-	transition: visibility 0s, opacity 0.2s linear;
+	-webkit-transition: visibility 0s, opacity 0.2s ease;
+	transition: visibility 0s, opacity 0.2s ease;
 }
 
 .btn-share-buttons {
@@ -2516,8 +2516,8 @@ body {
 	background-color: #E7E7E7;
 	border: none;
 	overflow: hidden;
-	-webkit-transition: background-color 0.2s linear;
-	transition: background-color 0.2s linear;
+	-webkit-transition: background-color 0.2s ease;
+	transition: background-color 0.2s ease;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
@@ -2843,8 +2843,8 @@ ol.linenums li {
 	color: #878787;
 	background-color: #E7E7E7;
 	border: none;
-	-webkit-transition: visibility 0s, opacity 0.2s linear, background-color 0.2s ease;
-	transition: visibility 0s, opacity 0.2s linear, background-color 0.2s ease;
+	-webkit-transition: visibility 0s, opacity 0.2s ease, background-color 0.2s ease;
+	transition: visibility 0s, opacity 0.2s ease, background-color 0.2s ease;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
@@ -3077,7 +3077,7 @@ u,
 	left: 0;
 	background-color: #F0F0F0;
 	-webkit-transition: all 0.2s linear;
-	transition: all 0.2s linear;
+	transition: left 0.2s linear;
 }
 
 /* .js .page {
@@ -3101,8 +3101,8 @@ u,
 	width: 100%;
 	height: 100%;
 	opacity: 0;
-	-webkit-transition: opacity 0.2s linear;
-	transition: opacity 0.2s linear;
+	-webkit-transition: opacity 0.2s ease;
+	transition: opacity 0.2s ease;
 	padding: 0;
 	margin: 0 auto;
 }
@@ -3150,8 +3150,8 @@ u,
 	overflow-y: hidden;
 	-webkit-overflow-scrolling: touch;
 	background-color: #232323;
-	-webkit-transition: all 0.2s linear;
-	transition: all 0.2s linear;
+	-webkit-transition: left 0.2s linear;
+	transition: left 0.2s linear;
 	padding: 0;
 	margin: 0;
 	margin-left: -17.000rem;
@@ -3184,8 +3184,8 @@ u,
 	font-size: 0.875rem;
 	color: #FFFFFF;
 	border: none;
-	-webkit-transition: background-color 0.2s linear;
-	transition: background-color 0.2s linear;
+	-webkit-transition: background-color 0.2s ease;
+	transition: background-color 0.2s ease;
 	padding-right: 1.250rem;
 	padding-left: 1.250rem;
 }
@@ -3212,7 +3212,7 @@ u,
 	left: 0;
 	color: #878787;
 	-webkit-transition: all 0.2s linear;
-	transition: all 0.2s linear;
+	transition: left 0.2s linear, background-color 0.2s ease;
 	cursor: pointer;
 }
 
@@ -3280,8 +3280,8 @@ u,
 	left: 3.000rem;
 	color: #878787;
 	text-decoration: none;
-	-webkit-transition: background-color 0.2s linear;
-	transition: background-color 0.2s linear;
+	-webkit-transition: background-color 0.2s ease;
+	transition: background-color 0.2s ease;
 	cursor: pointer;
 }
 
@@ -3317,8 +3317,8 @@ u,
 	border: 0.063rem solid #F03B4C;
 	box-shadow: 0.125rem 0.125rem 0.125rem 0 rgba(50, 50, 50, 0.3);
 	opacity: 0;
-	-webkit-transition: visibility 0s, opacity 0.2s linear;
-	transition: visibility 0s, opacity 0.2s linear;
+	-webkit-transition: visibility 0s, opacity 0.2s ease;
+	transition: visibility 0s, opacity 0.2s ease;
 }
 
 .holder-panel-menu-more.is-active {
@@ -3342,8 +3342,8 @@ u,
 	font-weight: 400;
 	text-decoration: none;
 	color: inherit;
-	-webkit-transition: background-color 0.2s linear;
-	transition: background-color 0.2s linear;
+	-webkit-transition: background-color 0.2s ease;
+	transition: background-color 0.2s ease;
 	overflow-x: hidden;
 	white-space: nowrap;
 	padding-right: 1.250rem;

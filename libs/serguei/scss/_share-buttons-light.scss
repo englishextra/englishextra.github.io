@@ -41,7 +41,7 @@
 	bottom: 0;
 	visibility: hidden;
 	opacity: 0;
-	transition: visibility 0s, opacity 0.2s linear;
+	transition: visibility 0s, opacity 0.2s ease;
 }
 
 .pluso {
@@ -50,7 +50,7 @@
 	bottom: 0;
 	visibility: hidden;
 	opacity: 0;
-	transition: visibility 0s, opacity 0.2s linear;
+	transition: visibility 0s, opacity 0.2s ease;
 }
 
 .btn-share-buttons {
@@ -67,7 +67,7 @@
 	background-color: $color-hex-ui-icon-bg;
 	border: none;
 	overflow: hidden;
-	transition: background-color 0.2s linear;
+	transition: background-color 0.2s ease;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }

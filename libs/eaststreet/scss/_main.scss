@@ -263,7 +263,7 @@ u,
 	top: 0;
 	left: 0;
 	opacity: 0;
-	transition: left 0.2s ease, opacity 0.2s ease;
+	transition: left 0.2s linear, opacity 0.2s ease;
 }
 
 .container {
@@ -273,10 +273,7 @@ u,
 	position: relative;
 	top: 0;
 	left: 3.200rem;
-}
-
-.page.is-active-ui-sidepanel .container {
-	left: 0;
+	transition: left 0.2s linear;
 }
 
 @media handheld, only screen and (max-width: 360px) {
@@ -284,6 +281,10 @@ u,
 		width: 100%;
 		left: 0;
 	}
+}
+
+.page.is-active-ui-sidepanel .container {
+	left: 0;
 }
 
 .app-content {
@@ -789,11 +790,17 @@ u,
 	height: 100%;
 	position: fixed;
 	top: 0;
-	left: -18.133rem;
+	left: -14.933rem;
 	background-color: $color-hex-darker-ui-panel-bg;
-	transition: left 0.2s ease;
+	transition: left 0.2s linear;
 	overflow-y: auto;
 	margin: 0;
+}
+
+@media handheld, only screen and (max-width: 360px) {
+	.ui-sidepanel {
+		left: -18.133rem;
+	}
 }
 
 .page.is-active-ui-sidepanel .ui-sidepanel {
@@ -827,7 +834,7 @@ u,
 	text-decoration: none;
 	color: $color-hex-lighter-text;
 	background-color: $color-hex-ui-icon-bg;
-	transition: left 0.2s ease, background-color 0.2s ease;
+	transition: left 0.2s linear, background-color 0.2s ease;
 }
 
 @media handheld, only screen and (max-width: 360px) {
@@ -909,8 +916,14 @@ u,
 	overflow-y: auto;
 	background-color: $color-hex-ui-menu-item-bg;
 	border: 0.067rem solid $color-hex-ui-accent;
-	transition: left 0.2s ease, visibility 0s, opacity 0.2s linear;
+	transition: left 0.2s linear, visibility 0s, opacity 0.2s ease;
 	margin: 0;
+}
+
+@media handheld, only screen and (max-width: 360px) {
+	.ui-menumore {
+		left: 3.200rem;
+	}
 }
 
 .page.is-active-ui-menumore .ui-menumore {
@@ -931,14 +944,10 @@ u,
 	text-decoration: none;
 	color: $color-hex-lighter-text;
 	background-color: $color-hex-ui-icon-bg;
-	transition: left 0.2s ease, background-color 0.2s ease;
+	transition: left 0.2s linear, background-color 0.2s ease;
 }
 
 @media handheld, only screen and (max-width: 360px) {
-	.ui-menumore {
-		left: 3.200rem;
-	}
-
 	.btn-toggle-ui-menumore {
 		left: 3.200rem;
 	}
@@ -998,21 +1007,20 @@ u,
  */
 
 .ui-sidebar {
-	display: inline-block;
+	display: block;
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 3.200rem;
 	height: 100%;
 	background-color: $color-hex-dark-ui-panel-bg;
-	transition: left 0.2s ease;
+	transition: left 0.2s linear;
 	overflow-y: hidden;
 }
 
 @media handheld, only screen and (max-width: 360px) {
 	.ui-sidebar {
-		visibility: hidden;
-		opacity: 0;
+		left: -3.200rem;
 	}
 }
 
@@ -1067,18 +1075,18 @@ u,
 	left: 3.200rem;
 	line-height: 3.200rem;
 	background-color: #FFFFFF;
-	transition: left 0.2s ease, visibility 0s, opacity 0.2s linear;
-}
-
-.page.is-active-holder-share-buttons .holder-share-buttons {
-	visibility: visible;
-	opacity: 1;
+	transition: left 0.2s linear, visibility 0s, opacity 0.2s ease;
 }
 
 @media handheld, only screen and (max-width: 360px) {
 	.holder-share-buttons {
 		left: 0;
 	}
+}
+
+.page.is-active-holder-share-buttons .holder-share-buttons {
+	visibility: visible;
+	opacity: 1;
 }
 
 /**
@@ -1094,7 +1102,13 @@ u,
 	top: 3.200rem;
 	left: 3.200rem;
 	line-height: 0;
-	transition: left 0.2s ease, visibility 0s, opacity 0.2s linear;
+	transition: left 0.2s linear, visibility 0s, opacity 0.2s ease;
+}
+
+@media handheld, only screen and (max-width: 360px) {
+	.holder-vk-like {
+		left: 0;
+	}
 }
 
 .vk-like {
@@ -1115,12 +1129,6 @@ u,
 	left: 24.800rem;
 }
 
-@media handheld, only screen and (max-width: 360px) {
-	.holder-vk-like {
-		left: 0;
-	}
-}
-
 /**
  * location qr code
  */
@@ -1137,7 +1145,13 @@ u,
 	text-align: left;
 	background-color: #FFFFFF;
 	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
-	transition: left 0.2s ease, visibility 0s, opacity 0.2s linear;
+	transition: left 0.2s linear, visibility 0s, opacity 0.2s ease;
+}
+
+@media handheld, only screen and (max-width: 360px) {
+	.holder-location-qr-code {
+		left: 0;
+	}
 }
 
 .page.is-active-holder-location-qr-code .holder-location-qr-code {
@@ -1147,12 +1161,6 @@ u,
 
 .page.is-active-ui-sidepanel .holder-location-qr-code {
 	left: 18.133rem;
-}
-
-@media handheld, only screen and (max-width: 360px) {
-	.holder-location-qr-code {
-		left: 0;
-	}
 }
 
 @media handheld, only screen and (max-width: 1024px) {

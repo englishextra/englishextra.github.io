@@ -165,7 +165,7 @@ u,
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
-	transition: all 0.2s linear;
+	transition: left 0.2s linear, opacity 0.2s ease;
 }
 
 .page:before {
@@ -188,7 +188,7 @@ u,
 	background-position: top left;
 	background-repeat: repeat;
 	background-size: 5px 5px;
-	transition: all 0.2s linear;
+	transition: left 0.2s linear;
 }
 
 /* .js .page {
@@ -230,7 +230,7 @@ u,
 	overflow-y: hidden;
 	-webkit-overflow-scrolling: touch;
 	background-color: $color-hex-darker-ui-panel-bg;
-	transition: all 0.2s linear;
+	transition: left 0.2s linear;
 	padding: 0;
 	margin: 0;
 	margin-left: -17.000rem;
@@ -263,7 +263,7 @@ u,
 	font-size: 0.875rem;
 	color: #FFFFFF;
 	border: none;
-	transition: background-color 0.2s linear;
+	transition: background-color 0.2s ease;
 	padding-right: 1.250rem;
 	padding-left: 1.250rem;
 }
@@ -288,7 +288,7 @@ u,
 	top: 0;
 	left: 0;
 	color: #FFFFFF;
-	transition: background-color 0.2s linear;
+	transition: background-color 0.2s ease;
 	cursor: pointer;
 }
 
@@ -350,7 +350,7 @@ u,
 	left: 3.000rem;
 	text-decoration: none;
 	color: #FFFFFF;
-	transition: background-color 0.2s linear;
+	transition: background-color 0.2s ease;
 	cursor: pointer;
 }
 
@@ -386,7 +386,7 @@ u,
 	border: 0.063rem solid $color-hex-ui-accent;
 	box-shadow: 0.125rem 0.125rem 0.125rem 0 $color-rgba-ui-bar-shadow;
 	opacity: 0;
-	transition: visibility 0s, opacity 0.2s linear;
+	transition: visibility 0s, opacity 0.2s ease;
 }
 
 .holder-panel-menu-more.is-active {
@@ -410,7 +410,7 @@ u,
 	font-weight: 400;
 	text-decoration: none;
 	color: inherit;
-	transition: background-color 0.2s linear;
+	transition: background-color 0.2s ease;
 	overflow-x: hidden;
 	white-space: nowrap;
 	padding-right: 1.250rem;
@@ -442,7 +442,7 @@ u,
 	left: 0;
 	text-align: center;
 	opacity: 0;
-	transition: opacity 0.2s linear;
+	transition: opacity 0.2s ease;
 	padding: 0;
 	margin: 0;
 	margin-top: -9.000rem;

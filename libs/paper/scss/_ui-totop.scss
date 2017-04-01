@@ -18,7 +18,7 @@
 	color: $color-hex-lighter-text;
 	background-color: $color-hex-ui-icon-bg;
 	border: none;
-	transition: visibility 0s, opacity 0.2s linear, background-color 0.2s ease;
+	transition: visibility 0s, opacity 0.2s ease, background-color 0.2s ease;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
