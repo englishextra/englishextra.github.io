@@ -2533,11 +2533,12 @@ body {
 	color: rgba(255, 255, 255, 0.9);
 	background-color: rgba(25, 25, 25, 0.9);
 	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
-	padding: 0.933rem 3.200rem;
-	margin: 0 auto;
+	padding: 0;
+	margin : 0 auto;
 }
 
 .notifier42.animated {
+	padding: 0.933rem 3.200rem;
 	min-height: 3.200rem;
 }
 

@@ -22,11 +22,12 @@
 	color : $color-rgba-notifier42-text;
 	background-color: $color-rgba-notifier42-bg;
 	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
-	padding: 0.933rem 3.200rem;
+	padding: 0;
 	margin : 0 auto;
 }
 
 .notifier42.animated {
+	padding: 0.933rem 3.200rem;
 	min-height: 3.200rem;
 }
 
