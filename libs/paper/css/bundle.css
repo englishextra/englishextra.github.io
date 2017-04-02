@@ -2984,25 +2984,25 @@ img[class^="contents-"],
 img[class*=" contents-"] {
 	max-width: 100%;
 	background-size: 100%;
-	background-image: url(../img/sprite.jpg);
+	background-image: url(../img/sprite.png);
 }
 
-.contents-banner-englishextra-app-640x336 {
+.contents-banner-englishextra-app-640x360 {
 	background-position: 0 0%;
 	background-size: 100%;
 }
 
-.contents-banner-irrverbsscr-640x336 {
+.contents-banner-irrverbsscr-640x360 {
 	background-position: 0 33.333333%;
 	background-size: 100%;
 }
 
-.contents-banner-vimeo-640x336 {
+.contents-banner-vimeo-640x360 {
 	background-position: 0 66.666667%;
 	background-size: 100%;
 }
 
-.contents-banner-vk-640x336 {
+.contents-banner-vk-640x360 {
 	background-position: 0 100%;
 	background-size: 100%;
 }
