@@ -432,26 +432,6 @@ var fixEnRuTypo=function(e,a,b){var c="";if("ru"==a&&"en"==b){a='\u0430\u0431\u0
  */
 var ajaxLoadHTML=function(u,f,e){var w=window,x=w.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");x.overrideMimeType("text/html;charset=utf-8");x.open("GET",u,!0);x.withCredentials=!1;x.onreadystatechange=function(){if(x.status=="404"){if(e&&"function"===typeof e){e();}console.log("Error XMLHttpRequest-ing file",x.status);return!1;}else if(x.readyState==4&&x.status==200&&x.responseText){if(f&&"function"===typeof f){f(x.responseText);}}};x.send(null);};
 /*!
- * return image is loaded promise
- * jsfiddle.net/englishextra/56pavv7d/
- * @param {String|Object} s image path string or HTML DOM Image Object
- * var m = document.querySelector("img") || "";
- * var s = m.src || "";
- * imagePromise(m).then(function (r) {
- * alert(r);
- * }).catch (function (err) {
- * alert(err);
- * });
- * imagePromise(s).then(function (r) {
- * alert(r);
- * }).catch (function (err) {
- * alert(err);
- * });
- * source: gist.github.com/englishextra/3e95d301d1d47fe6e26e3be198f0675e
- * passes jshint
- */
-var imagePromise=function(s){if(window.Promise){return new Promise(function(y,n){var f=function(e,p){e.onload=function(){y(p);};e.onerror=function(){n(p);};e.src=p;};if("string"===typeof s){var a=new Image();f(a,s);}else{if("IMG"!==s.tagName){return Promise.reject();}else{if(s.src){f(s,s.src);}}}});}else{throw new Error("Promise is not in window");}};
-/*!
  * remove all children of parent element
  * gist.github.com/englishextra/da26bf39bc90fd29435e8ae0b409ddc3
  * @param {Object} e parent HTML Element
@@ -1347,16 +1327,16 @@ var manageDataSrcImg = function (ctx) {
 				_src = e[ds].src;
 			}
 			if (!e[cL].contains(is_active)) {
-				if (w.Promise) {
+				/* if (w.Promise) {
 					imagePromise(_src).then(function (r) {
 						e.src = _src;
 						console.log("manageDataSrcImg => imagePromise: loaded image:", r);
 					}).catch (function (err) {
 						console.log("manageDataSrcImg => imagePromise: cannot load image:", err);
 					});
-				} else {
+				} else { */
 					e.src = _src;
-				}
+				/* } */
 				e[cL].add(is_active);
 			}
 		}
