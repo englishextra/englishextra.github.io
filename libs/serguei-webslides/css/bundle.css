@@ -4123,6 +4123,26 @@ ins {
 	background-color: rgba(147, 156, 158, 0.9);
 }
 
+::-webkit-input-placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
+::-moz-placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
+:-ms-input-placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
+::placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
 pre {
 	border: 1px solid rgba(0, 20, 80, 0.1);
 	box-shadow: 0 8px 16px rgba(0, 20, 80, 0.04), 0 4px 16px rgba(0, 0, 0, 0.08);

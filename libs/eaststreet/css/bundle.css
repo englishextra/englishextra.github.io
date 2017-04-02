@@ -2493,7 +2493,7 @@ body {
 }
 
 .notibar .close:before {
-	font-family: "micon";
+	/* font-family: "micon"; */
 	font-family: "eaststreet";
 	content: "\ea80";
 }
@@ -2740,7 +2740,7 @@ body {
 }
 
 .ui-totop:before {
-	font-family: "micon";
+	/* font-family: "micon"; */
 	font-family: "eaststreet";
 	content: "\ed7d";
 }
@@ -3132,6 +3132,26 @@ u,
 ::selection {
 	color: rgba(255, 255, 255, 0.9);
 	background-color: rgba(147, 156, 158, 0.9);
+}
+
+::-webkit-input-placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
+::-moz-placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
+:-ms-input-placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
+::placeholder {
+	color: #878787 !important;
+	opacity: 1;
 }
 
 /**
@@ -3738,7 +3758,7 @@ u,
 }
 
 .col .btn-expand-hidden-layer:after {
-	font-family: "micon";
+	/* font-family: "micon"; */
 	font-family: "eaststreet";
 	content: "\EA8E";
 	font-size: 0.400em;
@@ -3748,13 +3768,13 @@ u,
 }
 
 /* .col .btn-expand-hidden-layer.is-active:after {
-	font-family: "micon";
+	/* font-family: "micon"; */
 	font-family: "eaststreet";
 	content: "\EA97";
 } */
 
 .col .btn-expand-hidden-layer.is-active:after {
-	font-family: "micon";
+	/* font-family: "micon"; */
 	font-family: "eaststreet";
 	content: "\EA97";
 	-webkit-transform: rotate(180deg);
@@ -3892,7 +3912,7 @@ u,
 
 .page.is-active-ui-sidepanel .btn-toggle-ui-sidepanel.mi-GlobalNavButton:before,
 .page.is-active-ui-sidepanel .btn-toggle-ui-sidepanel.es-mi-GlobalNavButton:before {
-	font-family: "micon";
+	/* font-family: "micon"; */
 	font-family: "eaststreet";
 	content: "\EA80";
 }
@@ -4292,7 +4312,7 @@ u,
 	position: absolute;
 	top: 0;
 	right: 0.600rem;
-	font-family: "micon";
+	/* font-family: "micon"; */
 	font-family: "eaststreet";
 	content: "\ECEA";
 	font-size: 1.067rem;
@@ -4312,11 +4332,10 @@ u,
 	position: absolute;
 	top: 0;
 	right: 0;
-	font-family: "micon";
+	/* font-family: "micon"; */
 	font-family: "eaststreet";
 	content: "\ECEA";
 	font-size: 1.067rem;
-	color: #878787;
 	padding: 0.533rem 0.667rem;
 }
 

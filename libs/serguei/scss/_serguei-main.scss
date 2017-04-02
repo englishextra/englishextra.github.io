@@ -100,6 +100,11 @@ u,
 	background-color: $color-rgba-selection-bg;
 }
 
+::placeholder {
+	color: $color-hex-gray-text !important;
+	opacity: 1;
+}
+
 /**
  * clearfix css-tricks.com/snippets/css/clear-fix/
  */
@@ -320,7 +325,7 @@ u,
 	top: 0;
 	/* left: 17.000rem; */
 	left: 0;
-	color: $color-hex-lighter-text;
+	color: $color-hex-gray-text;
 	transition: left 0.2s linear, background-color 0.2s ease;
 	cursor: pointer;
 }
@@ -356,7 +361,6 @@ u,
 .page.is-active .btn-nav-menu:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e90a";
-	font-size: 1.250rem;
 }
 
 .page.is-active .panel-nav-menu {
@@ -387,7 +391,7 @@ u,
 	position: absolute;
 	top: 0;
 	left: 3.000rem;
-	color: $color-hex-lighter-text;
+	color: $color-hex-gray-text;
 	text-decoration: none;
 	transition: background-color 0.2s ease;
 	cursor: pointer;
@@ -768,7 +772,7 @@ u,
 .col .btn-secondary:focus,
 .col a.btn-secondary,
 .col a.btn-secondary:focus {
-	color: $color-hex-lighter-text;
+	color: $color-hex-gray-text;
 	background-color: $color-hex-ui-button-secondary-bg;
 	border-color: $color-hex-ui-button-secondary-bg;
 }
@@ -777,7 +781,7 @@ u,
 .col .btn-secondary:active,
 .col a.btn-secondary:hover,
 .col a.btn-secondary:active  {
-	color: $color-hex-lighter-text;
+	color: $color-hex-gray-text;
 	background-color: $color-hex-hover-ui-button-secondary-bg;
 	border-color: $color-hex-hover-ui-button-secondary-bg;
 }

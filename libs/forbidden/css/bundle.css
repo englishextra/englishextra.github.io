@@ -908,6 +908,26 @@ u,
 	background-color: rgba(147, 156, 158, 0.9);
 }
 
+::-webkit-input-placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
+::-moz-placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
+:-ms-input-placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
+::placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
 /**
  * clearfix css-tricks.com/snippets/css/clear-fix/
  */
@@ -973,7 +993,7 @@ u,
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
-	-webkit-transition: all 0.2s linear;
+	-webkit-transition: left 0.2s linear;
 	transition: left 0.2s linear;
 }
 
@@ -1106,7 +1126,6 @@ u,
 .page.is-active .btn-nav-menu:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e90a";
-	font-size: 1.250rem;
 }
 
 .page.is-active .panel-nav-menu {

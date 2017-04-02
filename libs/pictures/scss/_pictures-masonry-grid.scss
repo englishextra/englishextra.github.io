@@ -49,6 +49,17 @@
 	background-color: transparent;
 }
 
+.masonry-grid-item img.data-src-img,
+.masonry-grid-item img[data-src] {
+	opacity: 0;
+	transition: opacity 0.4s ease;
+}
+
+.masonry-grid-item img.data-src-img.is-active,
+.masonry-grid-item img[data-src].is-active {
+	opacity: 1;
+}
+
 .masonry-grid-item figure {
 	display: none;
 	/* font-size: 0.875rem;

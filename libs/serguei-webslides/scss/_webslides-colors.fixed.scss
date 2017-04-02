@@ -111,6 +111,11 @@ ins {
 	background-color: $color-rgba-selection-bg;
 }
 
+::placeholder {
+	color: $color-hex-gray-text !important;
+	opacity: 1;
+}
+
 pre {
 	border: 1px solid rgba(0, 20, 80, 0.1);
 	box-shadow: 0 8px 16px rgba(0,20,80,.04),0 4px 16px rgba(0,0,0,.08);

@@ -1501,6 +1501,18 @@ a.pswp__share--download:hover {
 	background-color: transparent;
 }
 
+.masonry-grid-item img.data-src-img,
+.masonry-grid-item img[data-src] {
+	opacity: 0;
+	-webkit-transition: opacity 0.4s ease;
+	transition: opacity 0.4s ease;
+}
+
+.masonry-grid-item img.data-src-img.is-active,
+.masonry-grid-item img[data-src].is-active {
+	opacity: 1;
+}
+
 .masonry-grid-item figure {
 	display: none;
 	/* font-size: 0.875rem;
@@ -1744,6 +1756,26 @@ u,
 	background-color: rgba(147, 156, 158, 0.9);
 }
 
+::-webkit-input-placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
+::-moz-placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
+:-ms-input-placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
+::placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
 /**
  * clearfix css-tricks.com/snippets/css/clear-fix/
  */
@@ -1803,7 +1835,7 @@ u,
 	/* left: 17.000rem; */
 	left: 0;
 	background-color: #F0F0F0;
-	-webkit-transition: all 0.2s linear;
+	-webkit-transition: left 0.2s linear;
 	transition: left 0.2s linear;
 }
 
@@ -1911,7 +1943,7 @@ u,
 	/* left: 17.000rem; */
 	left: 0;
 	color: #878787;
-	-webkit-transition: all 0.2s linear;
+	-webkit-transition: left 0.2s linear, background-color 0.2s ease;
 	transition: left 0.2s linear, background-color 0.2s ease;
 	cursor: pointer;
 }
@@ -1947,7 +1979,6 @@ u,
 .page.is-active .btn-nav-menu:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e90a";
-	font-size: 1.250rem;
 }
 
 .page.is-active .panel-nav-menu {

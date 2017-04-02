@@ -980,6 +980,26 @@ u,
 	background-color: rgba(147, 156, 158, 0.9);
 }
 
+::-webkit-input-placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
+::-moz-placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
+:-ms-input-placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
+::placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
 /**
  * clearfix css-tricks.com/snippets/css/clear-fix/
  */

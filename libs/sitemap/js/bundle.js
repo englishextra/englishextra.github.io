@@ -467,64 +467,6 @@ var manageLocalLinks = function (ctx) {
 };
 evento.add(window, "load", manageLocalLinks.bind(null, ""));
 /*!
- * replace img src with data-src
- * @param {Object} [ctx] context HTML Element
- */
-var manageDataSrcImg = function (ctx) {
-	"use strict";
-	ctx = ctx || "";
-	var w = window,
-	cls = "img[data-src]",
-	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
-	is_active = "is-active",
-	cL = "classList",
-	ds = "dataset",
-	pN = "parentNode",
-	g = function (e) {
-		var _src = e[ds].src || "";
-		if (_src) {
-			if (parseLink(_src).isAbsolute && !parseLink(_src).hasHTTP) {
-				e[ds].src = _src.replace(/^/, getHTTP(!0) + ":");
-				_src = e[ds].src;
-			}
-			if (!e[cL].contains(is_active)) {
-				e.src = _src;
-				e[cL].add(is_active);
-			}
-		}
-	};
-	if (a) {
-		console.log("triggered function: manageDataSrcImg");
-		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		if (w._) {
-			_.each(a, g);
-		} else if (w.forEach) {
-			forEach(a, g, !1);
-		} else {
-			for (var i = 0, l = a.length; i < l; i += 1) {
-				g(a[i]);
-			}
-		}
-	}
-},
-loadManageDataSrcImg = function () {
-	"use strict";
-	var w = window,
-	js = "./cdn/lazyload/3.2.2/js/lazyload.fixed.min.js";
-	if (w.XMLHttpRequest || w.ActiveXObject) {
-		if (w.Promise) {
-			promiseLoadJS(js).then(manageDataSrcImg.bind(null, ""));
-		} else {
-			ajaxLoadTriggerJS(js, manageDataSrcImg.bind(null, ""));
-		}
-	} else {
-		if (!scriptIsLoaded(js)) {
-			loadJS(js, manageDataSrcImg.bind(null, ""));
-		}
-	}
-};
-/* evento.add(window, "load", loadManageDataSrcImg); */
-/*!
  * init masonry
  */
 var initMasonry = function (ctx) {

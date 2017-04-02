@@ -99,14 +99,14 @@ u,
 	box-sizing: border-box;
 }
 
-::-moz-selection {
+::selection {
 	color: $color-rgba-selection-text;
 	background-color: $color-rgba-selection-bg;
 }
 
-::selection {
-	color: $color-rgba-selection-text;
-	background-color: $color-rgba-selection-bg;
+::placeholder {
+	color: $color-hex-gray-text !important;
+	opacity: 1;
 }
 
 /**
@@ -580,7 +580,7 @@ u,
 .col .btn-secondary:focus,
 .col a.btn-secondary,
 .col a.btn-secondary:focus {
-	color: $color-hex-lighter-text;
+	color: $color-hex-gray-text;
 	background-color: $color-hex-ui-button-secondary-bg;
 	border-color: $color-hex-ui-button-secondary-bg;
 }
@@ -589,7 +589,7 @@ u,
 .col .btn-secondary:active,
 .col a.btn-secondary:hover,
 .col a.btn-secondary:active  {
-	color: $color-hex-lighter-text;
+	color: $color-hex-gray-text;
 	background-color: $color-hex-hover-ui-button-secondary-bg;
 	border-color: $color-hex-hover-ui-button-secondary-bg;
 }
@@ -598,7 +598,7 @@ u,
 .col .btn-link:focus,
 .col a.btn-link,
 .col a.btn-link:focus {
-	color: $color-hex-lighter-text;
+	color: $color-hex-gray-text;
 	background-color: transparent;
 	border-color: $color-hex-ui-button-secondary-bg;
 }
@@ -607,7 +607,7 @@ u,
 .col .btn-link:active,
 .col a.btn-link:hover,
 .col a.btn-link:active {
-	color: $color-hex-lighter-text;
+	color: $color-hex-gray-text;
 	background-color: $color-hex-ui-button-secondary-bg;
 	border-color: $color-hex-ui-button-secondary-bg;
 }
@@ -710,7 +710,7 @@ u,
 }
 
 .col .btn-expand-hidden-layer:after {
-	font-family: "micon";
+	/* font-family: "micon"; */
 	font-family: "eaststreet";
 	content: "\EA8E";
 	font-size: 0.400em;
@@ -720,13 +720,13 @@ u,
 }
 
 /* .col .btn-expand-hidden-layer.is-active:after {
-	font-family: "micon";
+	/* font-family: "micon"; */
 	font-family: "eaststreet";
 	content: "\EA97";
 } */
 
 .col .btn-expand-hidden-layer.is-active:after {
-	font-family: "micon";
+	/* font-family: "micon"; */
 	font-family: "eaststreet";
 	content: "\EA97";
 	transform: rotate(180deg);
@@ -832,7 +832,7 @@ u,
 	line-height: 3.200rem;
 	text-align: center;
 	text-decoration: none;
-	color: $color-hex-lighter-text;
+	color: $color-hex-gray-text;
 	background-color: $color-hex-ui-icon-bg;
 	transition: left 0.2s linear, background-color 0.2s ease;
 }
@@ -859,7 +859,7 @@ u,
 
 .page.is-active-ui-sidepanel .btn-toggle-ui-sidepanel.mi-GlobalNavButton:before,
 .page.is-active-ui-sidepanel .btn-toggle-ui-sidepanel.es-mi-GlobalNavButton:before {
-	font-family: "micon";
+	/* font-family: "micon"; */
 	font-family: "eaststreet";
 	content: "\EA80";
 }
@@ -942,7 +942,7 @@ u,
 	line-height: 3.200rem;
 	text-align: center;
 	text-decoration: none;
-	color: $color-hex-lighter-text;
+	color: $color-hex-gray-text;
 	background-color: $color-hex-ui-icon-bg;
 	transition: left 0.2s linear, background-color 0.2s ease;
 }
@@ -1239,7 +1239,7 @@ u,
 	right: 0.400rem;
 	font-size: 0;
 	line-height: 0;
-	color: $color-hex-lighter-text;
+	color: $color-hex-gray-text;
 	background-color: transparent;
 	border: 0.067rem solid transparent;
 	padding: 1.133rem;
@@ -1249,7 +1249,7 @@ u,
 	position: absolute;
 	top: 0;
 	right: 0.600rem;
-	font-family: "micon";
+	/* font-family: "micon"; */
 	font-family: "eaststreet";
 	content: "\ECEA";
 	font-size: 1.067rem;
@@ -1269,11 +1269,10 @@ u,
 	position: absolute;
 	top: 0;
 	right: 0;
-	font-family: "micon";
+	/* font-family: "micon"; */
 	font-family: "eaststreet";
 	content: "\ECEA";
 	font-size: 1.067rem;
-	color: $color-hex-lighter-text;
 	padding: 0.533rem 0.667rem;
 }
 

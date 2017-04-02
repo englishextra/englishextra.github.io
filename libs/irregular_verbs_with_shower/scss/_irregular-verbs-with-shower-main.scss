@@ -102,6 +102,11 @@ u,
 	background-color: $color-rgba-selection-bg;
 }
 
+::placeholder {
+	color: $color-hex-gray-text !important;
+	opacity: 1;
+}
+
 /**
  * clearfix css-tricks.com/snippets/css/clear-fix/
  */
@@ -196,7 +201,7 @@ u,
 	content: "\e90f";
 	font-size: 1.250rem;
 	line-height: 3.000rem;
-	color: $color-hex-lighter-text;
+	color: $color-hex-gray-text;
 }
 
 /**
