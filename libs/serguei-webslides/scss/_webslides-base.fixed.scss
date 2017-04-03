@@ -625,7 +625,7 @@ img.aligncenter {
 
 pre,
 code {
-	font-family: $font-family-webfont-monospace;
+	font-family: $font-family-local-monospace;
 }
 
 pre {
@@ -893,7 +893,7 @@ body,
 input,
 select,
 textarea {
-	font-family: $font-family-webfont-sans-regular;
+	font-family: $font-family-local-sans-regular;
 	font-size: 62.5%;
 }
 
@@ -1134,7 +1134,7 @@ padding: .4rem .8rem;
 
 .text-serif,
 h1 span {
-	font-family: $font-family-webfont-sans-light;
+	font-family: $font-family-local-sans-light;
 
 }
 
@@ -1441,7 +1441,7 @@ header[role=banner]:hover {
 }
 
 .logo a {
-	background: url(../img/logo-96x256.svg) no-repeat 0 0;
+	background: url(../img/logo-256x96.svg) no-repeat 0 0;
 	background-size: 16rem 6rem;
 	width: 16rem;
 	height: 6rem;
@@ -1453,7 +1453,7 @@ header[role=banner]:hover {
 }
 
 .no-svg .logo a {
-	background-image: url(../img/logo-96x256.png);
+	background-image: url(../img/logo-256x96.png);
 }
 
 @media handheld, only screen and (max-width: 800px) {
@@ -3124,7 +3124,7 @@ blockquote p {
 }
 
 /* .bg-apple blockquote p {
-	font-family: $font-family-webfont-sans-regular;
+	font-family: $font-family-local-sans-regular;
 	font-weight: 300;
 } */
 
@@ -3147,7 +3147,7 @@ blockquote.wall:before {
 	top: -6.4rem;
 	left: -.8rem;
 	content: "\201C";
-	font-family: $font-family-webfont-sans-regular;
+	font-family: $font-family-local-sans-regular;
 	width: 6.4rem;
 	height: 6.4rem;
 	font-size: 16rem;
