@@ -4321,7 +4321,7 @@ u,
 	line-height: 2.267rem;
 }
 
-.holder-search-form button[type^=submit]:focus,
+/* .holder-search-form button[type^=submit]:focus, */
 .holder-search-form button[type^=submit]:active {
 	color: #191919;
 	background-color: #F03B4C;

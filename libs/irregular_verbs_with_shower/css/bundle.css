@@ -679,7 +679,8 @@ template {
 	background-color: #D5D5D5;
 }
 
-.btn-share-buttons:focus,
+/* .btn-share-buttons:focus, */
+
 .btn-share-buttons:active {
 	color: #191919;
 	background-color: #F03B4C;
@@ -970,7 +971,8 @@ template {
 	background-color: #D5D5D5;
 }
 
-.ui-totop:focus,
+/* .ui-totop:focus, */
+
 .ui-totop:active {
 	color: #191919;
 	background-color: #F03B4C;
@@ -1192,7 +1194,8 @@ u,
 	background-color: #D5D5D5;
 }
 
-.btn-nav-menu:focus,
+/* .btn-nav-menu:focus, */
+
 .btn-nav-menu:active {
 	color: #191919;
 	background-color: #F03B4C;

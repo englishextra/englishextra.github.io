@@ -646,13 +646,8 @@ template {
 	background-color: #4B4B4B;
 }
 
-.btn-show-vk-like:focus,
-.btn-show-vk-like:active {
-	color: #191919;
-	background-color: #F03B4C;
-}
+/* .btn-show-vk-like:focus, */
 
-.btn-show-vk-like:focus,
 .btn-show-vk-like:active {
 	color: #191919;
 	background-color: #F03B4C;
@@ -746,7 +741,8 @@ template {
 	background-color: #4B4B4B;
 }
 
-.btn-share-buttons:focus,
+/* .btn-share-buttons:focus, */
+
 .btn-share-buttons:active {
 	color: #191919;
 	background-color: #F03B4C;
@@ -1248,7 +1244,8 @@ img[class*=" portfolio-banner-"] {
 	background-color: #D5D5D5;
 }
 
-.ui-totop:focus,
+/* .ui-totop:focus, */
+
 .ui-totop:active {
 	color: #191919;
 	background-color: #F03B4C;
@@ -1536,7 +1533,8 @@ u,
 	background-color: #414141;
 }
 
-.panel-nav-menu li a:focus,
+/* .panel-nav-menu li a:focus, */
+
 .panel-nav-menu li a:active {
 	color: #191919;
 	background-color: #F03B4C;
@@ -1564,7 +1562,6 @@ u,
 }
 
 .page.is-active .btn-nav-menu,
-.btn-nav-menu:focus,
 .btn-nav-menu:active {
 	color: #191919;
 	background-color: #F03B4C;
@@ -1626,7 +1623,8 @@ u,
 	background-color: #4B4B4B;
 }
 
-.btn-menu-more:focus,
+/* .btn-menu-more:focus, */
+
 .btn-menu-more:active {
 	color: #191919;
 	background-color: #F03B4C;
@@ -1693,7 +1691,8 @@ u,
 	background-color: #E1E1E1;
 }
 
-.panel-menu-more li a:focus,
+/* .panel-menu-more li a:focus, */
+
 .panel-menu-more li a:active {
 	color: #191919;
 	background-color: #F03B4C;
