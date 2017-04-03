@@ -720,7 +720,7 @@ u,
 }
 
 /* .col .btn-expand-hidden-layer.is-active:after {
-	/* font-family: "micon"; */
+	font-family: "micon";
 	font-family: "eaststreet";
 	content: "\EA97";
 } */
@@ -851,8 +851,9 @@ u,
 	background-color: $color-hex-hover-ui-icon-bg;
 }
 
-.btn-toggle-ui-sidepanel:active,
-.page.is-active-ui-sidepanel .btn-toggle-ui-sidepanel {
+.page.is-active-ui-sidepanel .btn-toggle-ui-sidepanel,
+.btn-toggle-ui-sidepanel:focus,
+.btn-toggle-ui-sidepanel:active {
 	color: $color-hex-body-text;
 	background-color: $color-hex-ui-accent;
 }
@@ -895,6 +896,7 @@ u,
 	background-color: $color-hex-darker-ui-panel-active-item-bg;
 }
 
+.ui-sidepanel-list a:focus,
 .ui-sidepanel-list a:active {
 	color: $color-hex-body-text;
 	background-color: $color-hex-ui-accent;
@@ -957,8 +959,9 @@ u,
 	background-color: $color-hex-hover-ui-icon-bg;
 }
 
-.btn-toggle-ui-menumore:active,
-.page.is-active-ui-menumore .btn-toggle-ui-menumore {
+.page.is-active-ui-menumore .btn-toggle-ui-menumore,
+.btn-toggle-ui-menumore:focus,
+.btn-toggle-ui-menumore:active {
 	color: $color-hex-body-text;
 	background-color: $color-hex-ui-accent;
 }
@@ -997,6 +1000,7 @@ u,
 	background-color: $color-hex-hover-ui-menu-item-bg;
 }
 
+.ui-menumore-list a:focus,
 .ui-menumore-list a:active {
 	color: $color-hex-body-text;
 	background-color: $color-hex-ui-accent;
@@ -1045,7 +1049,9 @@ u,
 	background-color: $color-hex-dark-ui-panel-active-item-bg;
 }
 
+.ui-sidebar a:focus,
 .ui-sidebar a:active {
+	color: $color-hex-body-text;
 	background-color: $color-hex-ui-accent;
 }
 

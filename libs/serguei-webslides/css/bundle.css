@@ -4887,7 +4887,7 @@ input[type="submit"],
 .button:hover,
 button[type="submit"]:hover,
 input[type="submit"]:hover {
-	color: #fff;
+	color: #191919;
 	background-color: #F03B4C;
 	/* text-shadow: 0 1px 0 #123; */
 }
@@ -4895,6 +4895,7 @@ input[type="submit"]:hover {
 .button:active,
 button[type="submit"]:active,
 input[type="submit"]:active {
+	color: #191919;
 	background-color: #F03B4C;
 }
 

@@ -33,6 +33,7 @@
 .ui-totop:hover {
 	background-color: $color-hex-hover-ui-icon-bg;
 }
+.ui-totop:focus,
 .ui-totop:active {
 	color: $color-hex-body-text;
 	background-color: $color-hex-ui-accent;

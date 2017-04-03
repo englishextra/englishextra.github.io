@@ -2534,7 +2534,7 @@ body {
 	background-color: rgba(25, 25, 25, 0.9);
 	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
 	padding: 0;
-	margin : 0 auto;
+	margin: 0 auto;
 }
 
 .notifier42.animated {
@@ -3769,7 +3769,7 @@ u,
 }
 
 /* .col .btn-expand-hidden-layer.is-active:after {
-	/* font-family: "micon"; */
+	font-family: "micon";
 	font-family: "eaststreet";
 	content: "\EA97";
 } */
@@ -3950,6 +3950,7 @@ u,
 	background-color: #801E26;
 }
 
+.ui-sidepanel-list a:focus,
 .ui-sidepanel-list a:active {
 	color: #191919;
 	background-color: #F03B4C;

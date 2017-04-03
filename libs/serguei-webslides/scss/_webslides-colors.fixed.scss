@@ -890,7 +890,7 @@ input[type="submit"],
 .button:hover,
 button[type="submit"]:hover,
 input[type="submit"]:hover {
-	color: #fff;
+	color: $color-hex-body-text;
 	background-color: $color-hex-ui-accent;
 	/* text-shadow: 0 1px 0 #123; */
 }
@@ -898,6 +898,7 @@ input[type="submit"]:hover {
 .button:active,
 button[type="submit"]:active,
 input[type="submit"]:active {
+	color: $color-hex-body-text;
 	background-color: $color-hex-ui-accent;
 }
 

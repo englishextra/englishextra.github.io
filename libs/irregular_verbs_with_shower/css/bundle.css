@@ -679,6 +679,7 @@ template {
 	background-color: #D5D5D5;
 }
 
+.btn-share-buttons:focus,
 .btn-share-buttons:active {
 	color: #191919;
 	background-color: #F03B4C;
@@ -969,6 +970,7 @@ template {
 	background-color: #D5D5D5;
 }
 
+.ui-totop:focus,
 .ui-totop:active {
 	color: #191919;
 	background-color: #F03B4C;
@@ -1182,11 +1184,18 @@ u,
 	display: inline-block;
 	width: 100%;
 	height: 100%;
+	color: #878787;
 	cursor: pointer;
 }
 
 .btn-nav-menu:hover {
 	background-color: #D5D5D5;
+}
+
+.btn-nav-menu:focus,
+.btn-nav-menu:active {
+	color: #191919;
+	background-color: #F03B4C;
 }
 
 .holder-btn-nav-menu {
@@ -1199,7 +1208,6 @@ u,
 	content: "\e90f";
 	font-size: 1.250rem;
 	line-height: 3.000rem;
-	color: #878787;
 }
 
 /**
@@ -1207,7 +1215,7 @@ u,
  */
 
 .caption {
-	height: 33.000pt;
+	height: 3.000rem;
 	position: absolute;
 	top: 0;
 	left: 3.000rem;
@@ -1223,7 +1231,7 @@ u,
 	display: inline-block;
 	font-size: 0.938rem;
 	font-weight: 300;
-	line-height: 33.000pt;
+	line-height: 3.000rem;
 	color: inherit;
 	background-color: #FFFFFF;
 	border-radius: 0 0 0.625em 0;

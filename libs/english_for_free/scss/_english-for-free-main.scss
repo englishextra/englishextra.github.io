@@ -254,7 +254,9 @@ u,
 	background-color: $color-hex-darker-ui-panel-hover-item-bg;
 }
 
+.panel-nav-menu li a:focus,
 .panel-nav-menu li a:active {
+	color: $color-hex-body-text;
 	background-color: $color-hex-ui-accent;
 }
 
@@ -279,6 +281,7 @@ u,
 }
 
 .page.is-active .btn-nav-menu,
+.btn-nav-menu:focus,
 .btn-nav-menu:active {
 	color: $color-hex-body-text;
 	background-color: $color-hex-ui-accent;
@@ -339,6 +342,7 @@ u,
 	background-color: $color-hex-hover-dark-ui-icon-bg;
 }
 
+.btn-menu-more:focus,
 .btn-menu-more:active {
 	color: $color-hex-body-text;
 	background-color: $color-hex-ui-accent;
@@ -403,6 +407,7 @@ u,
 	background-color: $color-hex-hover-ui-menu-item-bg;
 }
 
+.panel-menu-more li a:focus,
 .panel-menu-more li a:active {
 	color: $color-hex-body-text;
 	background-color: $color-hex-ui-accent;

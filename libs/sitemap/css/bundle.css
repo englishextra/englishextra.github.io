@@ -890,6 +890,7 @@ img[class*=" contents-banner-"] {
 	background-color: #D5D5D5;
 }
 
+.ui-totop:focus,
 .ui-totop:active {
 	color: #191919;
 	background-color: #F03B4C;

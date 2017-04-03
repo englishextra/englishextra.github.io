@@ -76,6 +76,7 @@
 	background-color: $color-hex-hover-dark-ui-icon-bg;
 }
 
+.btn-share-buttons:focus,
 .btn-share-buttons:active {
 	color: $color-hex-body-text;
 	background-color: $color-hex-ui-accent;

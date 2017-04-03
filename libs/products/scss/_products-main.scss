@@ -202,6 +202,7 @@ u,
 }
 
 .page.is-active .btn-nav-menu,
+.btn-nav-menu:focus,
 .btn-nav-menu:active {
 	color: $color-hex-body-text;
 	background-color: $color-hex-ui-accent;
@@ -242,6 +243,7 @@ u,
 	background-color: $color-hex-hover-dark-ui-icon-bg;
 }
 
+.btn-menu-more:focus,
 .btn-menu-more:active {
 	color: $color-hex-body-text;
 	background-color: $color-hex-ui-accent;
@@ -306,6 +308,7 @@ u,
 	background-color: $color-hex-hover-ui-menu-item-bg;
 }
 
+.panel-menu-more li a:focus,
 .panel-menu-more li a:active {
 	color: $color-hex-body-text;
 	background-color: $color-hex-ui-accent;
@@ -371,12 +374,13 @@ u,
 	background-color: $color-hex-hover-dark-ui-icon-bg;
 }
 
+.cd-prev:focus,
+.cd-next:focus,
 .cd-prev:active,
 .cd-next:active {
 	color: $color-hex-body-text;
 	background-color: $color-hex-ui-accent;
 }
-
 /**
  * retina
  */

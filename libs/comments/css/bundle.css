@@ -2222,6 +2222,7 @@ html > body > .ui-pnotify {
 	background-color: #D5D5D5;
 }
 
+.ui-totop:focus,
 .ui-totop:active {
 	color: #191919;
 	background-color: #F03B4C;
@@ -2573,7 +2574,9 @@ u,
 	background-color: #414141;
 }
 
+.panel-nav-menu li a:focus,
 .panel-nav-menu li a:active {
+	color: #191919;
 	background-color: #F03B4C;
 }
 
@@ -2606,6 +2609,7 @@ u,
 }
 
 .page.is-active .btn-nav-menu,
+.btn-nav-menu:focus,
 .btn-nav-menu:active {
 	color: #191919;
 	background-color: #F03B4C;
@@ -2667,6 +2671,7 @@ u,
 	background-color: #D5D5D5;
 }
 
+.btn-menu-more:focus,
 .btn-menu-more:active {
 	color: #191919;
 	background-color: #F03B4C;
@@ -2733,6 +2738,7 @@ u,
 	background-color: #E1E1E1;
 }
 
+.panel-menu-more li a:focus,
 .panel-menu-more li a:active {
 	color: #191919;
 	background-color: #F03B4C;
