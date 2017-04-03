@@ -1670,65 +1670,62 @@ evento.add(window, "load", loadInitDownloadAppBtn);
  */
 var initDisqusOnScroll = function () {
 	"use strict";
-	var h1 = BALA.one("#h1") || "";
-	if (h1) {
-		var w = window,
-		disqus_thread = BALA.one("#disqus_thread") || "",
-		is_active = "is-active",
-		btn = BALA.one("#btn-show-disqus") || "",
-		p = w.location.href || "",
-		cL = "classList",
-		ds = "dataset",
-		pN = "parentNode",
-		disqus_shortname = disqus_thread ? (disqus_thread[ds].shortname || "") : "",
-		embed_js_src = getHTTP(!0) + "://" + disqus_shortname + ".disqus.com/embed.js",
-		g = function () {
-			setStyleDisplayNone(btn);
-			disqus_thread[cL].add(is_active);
-			if ("undefined" !== typeof waypoint && waypoint) {
-				waypoint.destroy();
-			}
-		},
-		k = function () {
-			if (!scriptIsLoaded(embed_js_src)) {
-				loadJS(embed_js_src, g);
-			}
-		},
-		q = function () {
-			var h_btn = function (ev) {
-				ev.preventDefault();
-				ev.stopPropagation();
-				evento.remove(btn, "click", h_btn);
-				/* btn.onclick = null; */
-				k();
-			};
-			evento.add(btn, "click", h_btn);
-			/* btn.onclick = h_btn; */
-		},
-		v = function () {
-			removeChildren(disqus_thread);
-			appendFragment(crel("p", "Комментарии доступны только в веб версии этой страницы."), disqus_thread);
-			disqus_thread.removeAttribute("id");
-			setStyleDisplayNone(btn[pN]);
+	var w = window,
+	disqus_thread = BALA.one("#disqus_thread") || "",
+	is_active = "is-active",
+	btn = BALA.one("#btn-show-disqus") || "",
+	p = w.location.href || "",
+	cL = "classList",
+	ds = "dataset",
+	pN = "parentNode",
+	disqus_shortname = disqus_thread ? (disqus_thread[ds].shortname || "") : "",
+	embed_js_src = getHTTP(!0) + "://" + disqus_shortname + ".disqus.com/embed.js",
+	g = function () {
+		setStyleDisplayNone(btn);
+		disqus_thread[cL].add(is_active);
+		if ("undefined" !== typeof waypoint && waypoint) {
+			waypoint.destroy();
+		}
+	},
+	k = function () {
+		if (!scriptIsLoaded(embed_js_src)) {
+			loadJS(embed_js_src, g);
+		}
+	},
+	q = function () {
+		var h_btn = function (ev) {
+			ev.preventDefault();
+			ev.stopPropagation();
+			evento.remove(btn, "click", h_btn);
+			/* btn.onclick = null; */
+			k();
 		};
-		if (disqus_thread && btn && disqus_shortname && p) {
-			console.log("triggered function: initDisqusOnScroll");
-			if ("undefined" !== typeof getHTTP && getHTTP()) {
-				q();
-				if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
-					var h_w = function () {
-						if (fitsIntoViewport(disqus_thread)) {
-							evento.remove(w, "scroll", h_w);
-							/* w.onscroll = null; */
-							k();
-						}
-					};
-					evento.add(w, "scroll", h_w);
-					/* w.onscroll = h_w; */
-				}
-			} else {
-				v();
+		evento.add(btn, "click", h_btn);
+		/* btn.onclick = h_btn; */
+	},
+	v = function () {
+		removeChildren(disqus_thread);
+		appendFragment(crel("p", "Комментарии доступны только в веб версии этой страницы."), disqus_thread);
+		disqus_thread.removeAttribute("id");
+		setStyleDisplayNone(btn[pN]);
+	};
+	if (disqus_thread && btn && disqus_shortname && p) {
+		console.log("triggered function: initDisqusOnScroll");
+		if ("undefined" !== typeof getHTTP && getHTTP()) {
+			q();
+			if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
+				var h_w = function () {
+					if (fitsIntoViewport(disqus_thread)) {
+						evento.remove(w, "scroll", h_w);
+						/* w.onscroll = null; */
+						k();
+					}
+				};
+				evento.add(w, "scroll", h_w);
+				/* w.onscroll = h_w; */
 			}
+		} else {
+			v();
 		}
 	}
 };
