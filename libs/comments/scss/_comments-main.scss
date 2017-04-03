@@ -350,7 +350,7 @@ u,
 
 .page.is-active .btn-nav-menu,
 .btn-nav-menu:active {
-	color: #FFFFFF;
+	color: $color-hex-body-text;
 	background-color: $color-hex-ui-accent;
 }
 
@@ -410,7 +410,7 @@ u,
 }
 
 .btn-menu-more:active {
-	color: #FFFFFF;
+	color: $color-hex-body-text;
 	background-color: $color-hex-ui-accent;
 }
 
@@ -474,7 +474,7 @@ u,
 }
 
 .panel-menu-more li a:active {
-	color: #FFFFFF;
+	color: $color-hex-body-text;
 	background-color: $color-hex-ui-accent;
 }
 

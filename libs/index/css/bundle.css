@@ -647,12 +647,12 @@ template {
 }
 
 .btn-show-vk-like:active {
-	color: #FFFFFF;
+	color: #191919;
 	background-color: #F03B4C;
 }
 
 .btn-show-vk-like:active {
-	color: #FFFFFF;
+	color: #191919;
 	background-color: #F03B4C;
 }
 
@@ -745,7 +745,7 @@ template {
 }
 
 .btn-share-buttons:active {
-	color: #FFFFFF;
+	color: #191919;
 	background-color: #F03B4C;
 }
 
@@ -1131,7 +1131,7 @@ u,
 
 .page.is-active .btn-nav-menu,
 .btn-nav-menu:active {
-	color: #FFFFFF;
+	color: #191919;
 	background-color: #F03B4C;
 }
 
@@ -1192,7 +1192,7 @@ u,
 }
 
 .btn-menu-more:active {
-	color: #FFFFFF;
+	color: #191919;
 	background-color: #F03B4C;
 }
 
@@ -1258,7 +1258,7 @@ u,
 }
 
 .panel-menu-more li a:active {
-	color: #FFFFFF;
+	color: #191919;
 	background-color: #F03B4C;
 }
 

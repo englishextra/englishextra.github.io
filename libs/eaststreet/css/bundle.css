@@ -2673,7 +2673,7 @@ body {
 }
 
 .kamil-autocomplete li:active {
-	color: #FFFFFF;
+	color: #191919;
 	background-color: #F03B4C;
 }
 
@@ -2756,7 +2756,7 @@ body {
 }
 
 .ui-totop:active {
-	color: #FFFFFF;
+	color: #191919;
 	background-color: #F03B4C;
 }
 
@@ -3907,7 +3907,7 @@ u,
 
 .btn-toggle-ui-sidepanel:active,
 .page.is-active-ui-sidepanel .btn-toggle-ui-sidepanel {
-	color: #FFFFFF;
+	color: #191919;
 	background-color: #F03B4C;
 }
 
@@ -3951,7 +3951,7 @@ u,
 }
 
 .ui-sidepanel-list a:active {
-	color: #FFFFFF;
+	color: #191919;
 	background-color: #F03B4C;
 }
 
@@ -4016,7 +4016,7 @@ u,
 
 .btn-toggle-ui-menumore:active,
 .page.is-active-ui-menumore .btn-toggle-ui-menumore {
-	color: #FFFFFF;
+	color: #191919;
 	background-color: #F03B4C;
 }
 
@@ -4056,7 +4056,7 @@ u,
 }
 
 .ui-menumore-list a:active {
-	color: #FFFFFF;
+	color: #191919;
 	background-color: #F03B4C;
 }
 
@@ -4322,7 +4322,7 @@ u,
 
 .holder-search-form button[type^=submit]:focus,
 .holder-search-form button[type^=submit]:active {
-	color: #FFFFFF;
+	color: #191919;
 	background-color: #F03B4C;
 	border: 0.067rem solid #F03B4C;
 }

@@ -2223,7 +2223,7 @@ html > body > .ui-pnotify {
 }
 
 .ui-totop:active {
-	color: #FFFFFF;
+	color: #191919;
 	background-color: #F03B4C;
 }
 
@@ -2607,7 +2607,7 @@ u,
 
 .page.is-active .btn-nav-menu,
 .btn-nav-menu:active {
-	color: #FFFFFF;
+	color: #191919;
 	background-color: #F03B4C;
 }
 
@@ -2668,7 +2668,7 @@ u,
 }
 
 .btn-menu-more:active {
-	color: #FFFFFF;
+	color: #191919;
 	background-color: #F03B4C;
 }
 
@@ -2734,7 +2734,7 @@ u,
 }
 
 .panel-menu-more li a:active {
-	color: #FFFFFF;
+	color: #191919;
 	background-color: #F03B4C;
 }
 

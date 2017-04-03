@@ -2355,7 +2355,7 @@ body {
 }
 
 .kamil-autocomplete li:active {
-	color: #FFFFFF;
+	color: #191919;
 	background-color: #F03B4C;
 }
 
@@ -2434,7 +2434,7 @@ body {
 }
 
 .btn-show-vk-like:active {
-	color: #FFFFFF;
+	color: #191919;
 	background-color: #F03B4C;
 }
 
@@ -2527,7 +2527,7 @@ body {
 }
 
 .btn-share-buttons:active {
-	color: #FFFFFF;
+	color: #191919;
 	background-color: #F03B4C;
 }
 
@@ -2864,7 +2864,7 @@ ol.linenums li {
 }
 
 .ui-totop:active {
-	color: #FFFFFF;
+	color: #191919;
 	background-color: #F03B4C;
 }
 
@@ -3248,7 +3248,7 @@ u,
 
 .page.is-active .btn-nav-menu,
 .btn-nav-menu:active {
-	color: #FFFFFF;
+	color: #191919;
 	background-color: #F03B4C;
 }
 
@@ -3309,7 +3309,7 @@ u,
 }
 
 .btn-menu-more:active {
-	color: #FFFFFF;
+	color: #191919;
 	background-color: #F03B4C;
 }
 
@@ -3375,7 +3375,7 @@ u,
 }
 
 .panel-menu-more li a:active {
-	color: #FFFFFF;
+	color: #191919;
 	background-color: #F03B4C;
 }
 
@@ -3455,7 +3455,7 @@ u,
 
 .holder-search-form button[type^=submit]:focus,
 .holder-search-form button[type^=submit]:active {
-	color: #FFFFFF;
+	color: #191919;
 	background-color: #F03B4C;
 	border: 0.063rem solid #F03B4C;
 }

@@ -853,7 +853,7 @@ u,
 
 .btn-toggle-ui-sidepanel:active,
 .page.is-active-ui-sidepanel .btn-toggle-ui-sidepanel {
-	color: #FFFFFF;
+	color: $color-hex-body-text;
 	background-color: $color-hex-ui-accent;
 }
 
@@ -896,7 +896,7 @@ u,
 }
 
 .ui-sidepanel-list a:active {
-	color: #FFFFFF;
+	color: $color-hex-body-text;
 	background-color: $color-hex-ui-accent;
 }
 
@@ -959,7 +959,7 @@ u,
 
 .btn-toggle-ui-menumore:active,
 .page.is-active-ui-menumore .btn-toggle-ui-menumore {
-	color: #FFFFFF;
+	color: $color-hex-body-text;
 	background-color: $color-hex-ui-accent;
 }
 
@@ -998,7 +998,7 @@ u,
 }
 
 .ui-menumore-list a:active {
-	color: #FFFFFF;
+	color: $color-hex-body-text;
 	background-color: $color-hex-ui-accent;
 }
 
@@ -1258,7 +1258,7 @@ u,
 
 .holder-search-form button[type^=submit]:focus,
 .holder-search-form button[type^=submit]:active {
-	color: #FFFFFF;
+	color: $color-hex-body-text;
 	background-color: $color-hex-ui-accent;
 	border: 0.067rem solid $color-hex-ui-accent;
 }
