@@ -102,12 +102,27 @@ if (document.title) {
  */
 var evento=(function(){return function(){if("undefined"==typeof window||!("document"in window)){return console.log("window is undefined or document is not in window"),!1;}var win=window,doc=win.document,_handlers={},addEvent,removeEvent,triggerEvent;addEvent=(function(){if(typeof doc.addEventListener==="function"){return function(el,evt,fn){el.addEventListener(evt,fn,false);_handlers[el]=_handlers[el]||{};_handlers[el][evt]=_handlers[el][evt]||[];_handlers[el][evt].push(fn);};}else if(typeof doc.attachEvent==="function"){return function(el,evt,fn){el.attachEvent(evt,fn);_handlers[el]=_handlers[el]||{};_handlers[el][evt]=_handlers[el][evt]||[];_handlers[el][evt].push(fn);};}else{return function(el,evt,fn){el["on"+evt]=fn;_handlers[el]=_handlers[el]||{};_handlers[el][evt]=_handlers[el][evt]||[];_handlers[el][evt].push(fn);};}}());removeEvent=(function(){if(typeof doc.removeEventListener==="function"){return function(el,evt,fn){el.removeEventListener(evt,fn,false);};}else if(typeof doc.detachEvent==="function"){return function(el,evt,fn){el.detachEvent(evt,fn);};}else{return function(el,evt,fn){el["on"+evt]=undefined;};}}());triggerEvent=function(el,evt){_handlers[el]=_handlers[el]||{};_handlers[el][evt]=_handlers[el][evt]||[];for(var _i=0,_l=_handlers[el][evt].length;_i<_l;_i+=1){_handlers[el][evt][_i]();}};return{add:addEvent,remove:removeEvent,trigger:triggerEvent,_handlers:_handlers};}();}());
 /*!
+ * How can I check if a JS file has been included already?
+ * gist.github.com/englishextra/403a0ca44fc5f495400ed0e20bc51d47
+ * stackoverflow.com/questions/18155347/how-can-i-check-if-a-js-file-has-been-included-already
+ * @param {String} s path string
+ * scriptIsLoaded(s)
+ */
+var scriptIsLoaded=function(s){for(var b=document.getElementsByTagName("script")||"",a=0;a<b.length;a++)if(b[a].getAttribute("src")==s)return!0;return!1;};
+/*!
  * set style opacity of an element
  * @param {Object} a an HTML Element
  * @param {Number} n any positive decimal number 0.00-1.00
  * setStyleOpacity(a,n)
  */
 var setStyleOpacity=function(a,n){n=n||1;return function(){if(a){a.style.opacity=n;}}();};
+/*!
+ * get current protocol - "http" or "https", else return ""
+ * @param {Boolean} [a] When set to "true", and the result is empty,
+ * the function will return "http"
+ * getHTTP(a)
+ */
+var getHTTP=function(a){return function(f){return"http:"===a?"http":"https:"===a?"https":f?"http":"";};}(window.location.protocol||"");
 /*!
  * init ToProgress and extend methods
  */
@@ -524,6 +539,78 @@ var initWebslides = function() {
 };
 /* loadJS("//cdn.jsdelivr.net/jquery/3.1.1/jquery.min.js", initWebslides); */
 loadJS("../libs/serguei-webslides/js/vendors.min.js", initWebslides);
+/*!
+ * replace img src with data-src
+ * @param {Object} [ctx] context HTML Element
+ */
+var manageDataQrcodeImg = function (ctx) {
+	"use strict";
+	ctx = ctx || "";
+	var w = window,
+	cls = "img[data-qrcode]",
+	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	ds = "dataset",
+	g = function (e) {
+		var u = e[ds].qrcode || "";
+		u = decodeURIComponent(u);
+		if (u) {
+			var s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(u);
+			e.title = u;
+			e.alt = u;
+			if (w.QRCode) {
+				if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
+					s = QRCode.generateSVG(u, {
+							ecclevel: "M",
+							fillcolor: "#F3F3F3",
+							textcolor: "#373737",
+							margin: 4,
+							modulesize: 8
+						});
+					var XMLS = new XMLSerializer();
+					s = XMLS.serializeToString(s);
+					s = "data:image/svg+xml;base64," + w.btoa(unescape(encodeURIComponent(s)));
+					e.src = s;
+				} else {
+					s = QRCode.generatePNG(u, {
+							ecclevel: "M",
+							format: "html",
+							fillcolor: "#F3F3F3",
+							textcolor: "#373737",
+							margin: 4,
+							modulesize: 8
+						});
+					e.src = s;
+				}
+			} else {
+				e.src = s;
+			}
+		}
+	};
+	if (a) {
+		console.log("triggered function: manageDataQrcodeImg");
+		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
+		if (w._) {
+			_.each(a, g);
+		} else if (w.forEach) {
+			forEach(a, g, !1);
+		} else {
+			for (var i = 0, l = a.length; i < l; i += 1) {
+				g(a[i]);
+			}
+		}
+	}
+},
+loadManageDataQrcodeImg = function () {
+	"use strict";
+	var w = window,
+	js = "../cdn/qrjs2/0.1.2/js/qrjs2.fixed.min.js";
+	if (!scriptIsLoaded(js)) {
+		loadJS(js, manageDataQrcodeImg.bind(null, ""));
+	} else {
+		manageDataQrcodeImg();
+	}
+};
+evento.add(window, "load", loadManageDataQrcodeImg);
 /*!
  * show page, finish ToProgress
  */
