@@ -15,14 +15,6 @@
 	overflow-y: hidden;
 }
 
-.masonry-grid-wrapper h1 {
-	font-weight: 300;
-	line-height: 3.000rem;
-	text-align: center;
-	white-space: nowrap;
-	margin: 0;
-}
-
 .masonry-grid {
 	display: block;
 	width: 100%;
@@ -70,10 +62,6 @@
 }
 
 @media only screen and (max-width: 20em) {
-	.masonry-grid-wrapper h1 {
-		font-size: 0.938rem;
-	}
-
 	.masonry-grid-item {
 		float: none;
 	}
@@ -85,10 +73,6 @@
 }
 
 @media only screen and (min-width: 20.063em) {
-	.masonry-grid-wrapper h1 {
-		font-size: 1.100rem;
-	}
-
 	.masonry-grid-item {
 		float: none;
 	}
@@ -96,18 +80,6 @@
 	.masonry-grid-sizer,
 	.masonry-grid-item {
 		width: 100%;
-	}
-}
-
-@media only screen and (min-width: 30.063em) {
-	.masonry-grid-wrapper h1 {
-		font-size: 1.210rem;
-	}
-}
-
-@media only screen and (min-width: 40.063em) {
-	.masonry-grid-wrapper h1 {
-		font-size: 1.500rem;
 	}
 }
 
@@ -119,16 +91,6 @@
 
 	.masonry-grid-item {
 		float: left;
-	}
-}
-
-@media only screen and (min-width: 60.063em) {
-	.masonry-grid-wrapper h1 {
-		width: 100%;
-		position: absolute;
-		top: 0;
-		left: 99.000pt;
-		padding-right: 198.000pt;
 	}
 }
 

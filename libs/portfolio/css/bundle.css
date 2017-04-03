@@ -875,15 +875,6 @@ template {
 	overflow-y: hidden;
 }
 
-.superbox-wrapper h1 {
-	font-weight: 300;
-	line-height: 3.000rem;
-	text-align: center;
-	white-space: nowrap;
-	color: #FFFFFF;
-	margin: 0;
-}
-
 .superbox {
 	display: block;
 	max-width: 100%;
@@ -988,7 +979,7 @@ template {
 	top: 0;
 	right: 0;
 	/* background: transparent url(data:image/svg+xml;base64,) no-repeat center center;
-	background-size: 33.000pt 33.000pt; */
+	background-size: 3.000rem 3.000rem; */
 	opacity: 0.85;
 	cursor: pointer;
 }
@@ -1029,10 +1020,6 @@ template {
 }
 
 @media only screen and (max-width: 20em) {
-	.superbox-wrapper h1 {
-		font-size: 0.938rem;
-	}
-
 	.superbox-float {
 		float: none;
 	}
@@ -1048,10 +1035,6 @@ template {
 }
 
 @media only screen and (min-width: 20.063em) {
-	.superbox-wrapper h1 {
-		font-size: 1.100rem;
-	}
-
 	.superbox-float {
 		float: none;
 	}
@@ -1066,17 +1049,7 @@ template {
 	}
 }
 
-@media only screen and (min-width: 30.063em) {
-	.superbox-wrapper h1 {
-		font-size: 1.210rem;
-	}
-}
-
 @media only screen and (min-width: 40.063em) {
-	.superbox-wrapper h1 {
-		font-size: 1.500rem;
-	}
-
 	.superbox-list {
 		width: 50%;
 	}
@@ -1088,14 +1061,6 @@ template {
 }
 
 @media only screen and (min-width: 60.063em) {
-	.superbox-wrapper h1 {
-		width: 100%;
-		position: absolute;
-		top: 0;
-		left: 99.000pt;
-		padding-right: 198.000pt;
-	}
-
 	.superbox-list {
 		width: 33.333%;
 	}
@@ -1734,6 +1699,54 @@ u,
 	background-color: #F03B4C;
 }
 
+/*!
+ * other
+ */
+
+.container h1 {
+	font-weight: 300;
+	line-height: 3.000rem;
+	text-align: center;
+	white-space: nowrap;
+	color: #FFFFFF;
+	background-color: #4B4B4B;
+	margin: 0;
+}
+
+@media only screen and (max-width: 20em) {
+	.container h1 {
+		font-size: 0.938rem;
+	}
+}
+
+@media only screen and (min-width: 20.063em) {
+	.container h1 {
+		font-size: 1.100rem;
+	}
+}
+
+@media only screen and (min-width: 30.063em) {
+	.container h1 {
+		font-size: 1.210rem;
+	}
+}
+
+@media only screen and (min-width: 40.063em) {
+	.container h1 {
+		font-size: 1.500rem;
+	}
+}
+
+@media only screen and (min-width: 60.063em) {
+	.container h1 {
+		width: 100%;
+		position: absolute;
+		top: 0;
+		left: 8.250rem;
+		padding-right: 16.500rem;
+	}
+}
+
 /**
  * retina
  */
@@ -1751,7 +1764,7 @@ u,
 	}
 
 	.panel-nav-menu li,
-	.superbox-wrapper h1,
+	.container h1,
 	.superbox-current-desc h2 {
 		font-family: "Segoe UI", "Segoe WP", "HelveticaNeue-Light", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif-light, sans-serif;
 	}

@@ -4190,10 +4190,10 @@ u,
 
 .col .sg-panel-ui-btns svg {
 	display: inline-block;
-	width: 31.500pt;
-	height: 31.500pt;
+	width: 42px;
+	height: 42px;
 	background-color: #E7E7E7;
-	background-size: 31.500pt 31.500pt;
+	background-size: 42px 42px;
 	vertical-align: bottom;
 	margin: 0 0 0 0;
 	padding: 0.500em;
@@ -4203,7 +4203,7 @@ u,
 
 .col .sg-panel-ui-btns svg:hover {
 	background-color: #D5D5D5;
-	background-size: 31.500pt 31.500pt;
+	background-size: 42px 42px;
 	cursor: pointer;
 }
 

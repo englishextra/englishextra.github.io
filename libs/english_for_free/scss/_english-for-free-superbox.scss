@@ -1,4 +1,4 @@
-/*! @import "english-for-free-superbox"; */
+/*! @import "portfolio-superbox"; */
 
 /**
  * superbox
@@ -13,15 +13,6 @@
 	and adding the overflow rule restores the behavior you'd expect. */
 	overflow-x: auto;
 	overflow-y: hidden;
-}
-
-.superbox-wrapper h1 {
-	font-weight: 300;
-	line-height: 3.000rem;
-	text-align: center;
-	white-space: nowrap;
-	color: #FFFFFF;
-	margin: 0;
 }
 
 .superbox {
@@ -126,7 +117,7 @@
 	top: 0;
 	right: 0;
 	/* background: transparent url(data:image/svg+xml;base64,) no-repeat center center;
-	background-size: 33.000pt 33.000pt; */
+	background-size: 3.000rem 3.000rem; */
 	opacity: 0.85;
 	cursor: pointer;
 }
@@ -165,10 +156,6 @@
 }
 
 @media only screen and (max-width: 20em) {
-	.superbox-wrapper h1 {
-		font-size: 0.938rem;
-	}
-
 	.superbox-float {
 		float: none;
 	}
@@ -184,10 +171,6 @@
 }
 
 @media only screen and (min-width: 20.063em) {
-	.superbox-wrapper h1 {
-		font-size: 1.100rem;
-	}
-
 	.superbox-float {
 		float: none;
 	}
@@ -202,17 +185,7 @@
 	}
 }
 
-@media only screen and (min-width: 30.063em) {
-	.superbox-wrapper h1 {
-		font-size: 1.210rem;
-	}
-}
-
 @media only screen and (min-width: 40.063em) {
-	.superbox-wrapper h1 {
-		font-size: 1.500rem;
-	}
-
 	.superbox-list {
 		width: 50%;
 	}
@@ -224,14 +197,6 @@
 }
 
 @media only screen and (min-width: 60.063em) {
-	.superbox-wrapper h1 {
-		width: 100%;
-		position: absolute;
-		top: 0;
-		left: 99.000pt;
-		padding-right: 198.000pt;
-	}
-
 	.superbox-list {
 		width: 33.333%;
 	}

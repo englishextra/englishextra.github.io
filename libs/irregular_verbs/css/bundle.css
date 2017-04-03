@@ -1237,14 +1237,14 @@ u,
 .cd-prev {
 	position: fixed;
 	left: 0;
-	top: calc(50% - 16.500pt);
+	top: calc(50% - 22px);
 	bottom: auto;
 }
 
 .cd-next {
 	position: fixed;
 	right: 0;
-	top: calc(50% - 16.500pt);
+	top: calc(50% - 22px);
 	bottom: auto;
 }
 

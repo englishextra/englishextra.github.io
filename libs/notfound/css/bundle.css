@@ -701,26 +701,26 @@ template {
 
 .parallax .smartphone {
 	display: inline-block;
-	width: 351.750pt;
-	height: 468.750pt;
+	width: 469px;
+	height: 625px;
 	margin-top: 100px;
 	margin-left: -800px;
 	background-color: transparent;
 	background-image: url(/libs/notfound/img/smartphone-469x625.png);
-	background-size: 351.750pt 468.750pt;
+	background-size: 469px 625px;
 	background-position: top left;
 	background-repeat: no-repeat;
 }
 
 .parallax .smartphone2 {
 	display: inline-block;
-	width: 484.500pt;
-	height: 372.000pt;
+	width: 646px;
+	height: 496px;
 	margin-top: 100px;
 	margin-left: 450px;
 	background-color: transparent;
 	background-image: url(/libs/notfound/img/smartphone2-646x496.png);
-	background-size: 484.500pt 372.000pt;
+	background-size: 646px 496px;
 	background-position: top left;
 	background-repeat: no-repeat;
 }
@@ -814,15 +814,15 @@ template {
 
 .parallax-disabled .sitelogo {
 	display: inline-block;
-	width: 54.000pt;
-	height: 54.000pt;
+	width: 72px;
+	height: 72px;
 }
 
 .parallax .sitelogo,
 .parallax-disabled .sitelogo {
 	background-color: transparent;
 	background-image: url(/libs/notfound/img/sitelogo-D54848-72x72.png);
-	background-size: 54.000pt 54.000pt;
+	background-size: 72px 72px;
 	background-position: top left;
 	background-repeat: no-repeat;
 }
@@ -834,15 +834,15 @@ template {
 
 .parallax-disabled .sitetitle {
 	display: inline-block;
-	width: 202.500pt;
-	height: 30.000pt;
+	width: 270px;
+	height: 40px;
 }
 
 .parallax .sitetitle,
 .parallax-disabled .sitetitle {
 	background-color: transparent;
 	background-image: url(/libs/notfound/img/siteltitle-FFFFFF-270x40.png);
-	background-size: 202.500pt 30.000pt;
+	background-size: 270px 40px;
 	background-position: top left;
 	background-repeat: no-repeat;
 }
@@ -1303,7 +1303,7 @@ u,
 	background-image: url(/libs/notfound/img/bg-417x417.png);
 	background-position: top left;
 	background-repeat: repeat;
-	background-size: 312.750pt 312.750pt;
+	background-size: 417px 417px;
 }
 
 .container {
@@ -1327,12 +1327,12 @@ u,
 }
 
 .stripe-top {
-	height: 4.500pt;
+	height: 0.375rem;
 	background-color: transparent;
 	background-image: url(/libs/notfound/img/stripe-top-480x60.png);
 	background-position: top left;
 	background-repeat: repeat-x;
-	background-size: 360.000pt 45.000pt;
+	background-size: 480px 60px;
 }
 
 .footer {

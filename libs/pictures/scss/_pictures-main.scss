@@ -418,6 +418,53 @@ u,
 	background-color: $color-hex-ui-accent;
 }
 
+/*!
+ * other
+ */
+
+.container h1 {
+	font-weight: 300;
+	line-height: 3.000rem;
+	text-align: center;
+	white-space: nowrap;
+	background-color: $color-hex-ui-bar-bg;
+	margin: 0;
+}
+
+@media only screen and (max-width: 20em) {
+	.container h1 {
+		font-size: 0.938rem;
+	}
+}
+
+@media only screen and (min-width: 20.063em) {
+	.container h1 {
+		font-size: 1.100rem;
+	}
+}
+
+@media only screen and (min-width: 30.063em) {
+	.container h1 {
+		font-size: 1.210rem;
+	}
+}
+
+@media only screen and (min-width: 40.063em) {
+	.container h1 {
+		font-size: 1.500rem;
+	}
+}
+
+@media only screen and (min-width: 60.063em) {
+	.container h1 {
+		width: 100%;
+		position: absolute;
+		top: 0;
+		left: 8.250rem;
+		padding-right: 16.500rem;
+	}
+}
+
 /**
  * retina
  */
