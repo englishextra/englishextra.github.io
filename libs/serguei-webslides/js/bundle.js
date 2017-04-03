@@ -117,6 +117,21 @@ var scriptIsLoaded=function(s){for(var b=document.getElementsByTagName("script")
  */
 var setStyleOpacity=function(a,n){n=n||1;return function(){if(a){a.style.opacity=n;}}();};
 /*!
+ * modified Unified URL parsing API in the browser and node
+ * github.com/wooorm/parse-link
+ * removed module check
+ * gist.github.com/englishextra/4e9a0498772f05fa5d45cfcc0d8be5dd
+ * gist.github.com/englishextra/2a7fdabd0b23a8433d5fc148fb788455
+ * jsfiddle.net/englishextra/fcdds4v6/
+ * @param {String} url URL string
+ * @param {Boolean} [true|false] if true, returns protocol:, :port, /pathname, ?search, ?query, #hash
+ * if set to false, returns protocol, port, pathname, search, query, hash
+ * alert(parseLink("http://localhost/search?s=t&v=z#dev").href|
+ * origin|host|port|hash|hostname|pathname|protocol|search|query|isAbsolute|isRelative|isCrossDomain);
+ */
+/*jslint bitwise: true */
+var parseLink=function(url,full){full=full||!1;return function(){var _r=function(s){return s.replace(/^(#|\?)/,"").replace(/\:$/,"");},l=location||"",_p=function(protocol){switch(protocol){case"http:":return full?":"+80:80;case"https:":return full?":"+443:443;default:return full?":"+l.port:l.port;}},_s=(0===url.indexOf("//")||!!~url.indexOf("://")),w=window.location||"",_o=function(){var o=w.protocol+"//"+w.hostname+(w.port?":"+w.port:"");return o||"";},_c=function(){var c=document.createElement("a");c.href=url;var v=c.protocol+"//"+c.hostname+(c.port?":"+c.port:"");return v!==_o();},a=document.createElement("a");a.href=url;return{href:a.href,origin:_o(),host:a.host||l.host,port:("0"===a.port||""===a.port)?_p(a.protocol):(full?a.port:_r(a.port)),hash:full?a.hash:_r(a.hash),hostname:a.hostname||l.hostname,pathname:a.pathname.charAt(0)!="/"?(full?"/"+a.pathname:a.pathname):(full?a.pathname:a.pathname.slice(1)),protocol:!a.protocol||":"==a.protocol?(full?l.protocol:_r(l.protocol)):(full?a.protocol:_r(a.protocol)),search:full?a.search:_r(a.search),query:full?a.search:_r(a.search),isAbsolute:_s,isRelative:!_s,isCrossDomain:_c(),hasHTTP:/^(http|https):\/\//i.test(url)?!0:!1};}();};
+/*!
  * get current protocol - "http" or "https", else return ""
  * @param {Boolean} [a] When set to "true", and the result is empty,
  * the function will return "http"
@@ -150,6 +165,132 @@ progressBar.complete = function () {
 	this.hide();
 };
 progressBar.init();
+/*!
+ * Open external links in default browser out of Electron / nwjs
+ * gist.github.com/englishextra/b9a8140e1c1b8aa01772375aeacbf49b
+ * stackoverflow.com/questions/32402327/how-can-i-force-external-links-from-browser-window-to-open-in-a-default-browser
+ * github.com/nwjs/nw.js/wiki/shell
+ * electron - file: | nwjs - chrome-extension: | http: Intel XDK
+ * @param {String} a URL/path string
+ * openDeviceBrowser(a)
+ */
+var openDeviceBrowser = function (a) {
+	"use strict";
+	var w = window,
+	g = function () {
+		var es = "undefined" !== typeof isElectron && isElectron ? require("electron").shell : "";
+		return es ? es.openExternal(a) : "";
+	},
+	k = function () {
+		var ns = "undefined" !== typeof isNwjs && isNwjs ? require("nw.gui").Shell : "";
+		return ns ? ns.openExternal(a) : "";
+	},
+	q = function () {
+		/*!
+		 * wont do in electron and nw,
+		 * so manageExternalLinks will set target blank to links
+		 */
+		/* var win = w.open(a, "_blank");
+		win.focus(); */
+		return !0;
+	},
+	v = function () {
+		return w.open(a, "_system", "scrollbars=1,location=no");
+	};
+	console.log("triggered function: openDeviceBrowser");
+	if ("undefined" !== typeof isElectron && isElectron) {
+		g();
+	} else if ("undefined" !== typeof isNwjs && isNwjs) {
+		k();
+	} else {
+		if ("undefined" !== typeof getHTTP && getHTTP()) {
+			q();
+		} else {
+			v();
+		}
+	}
+};
+/*!
+ * set click event on external links,
+ * so that they open in new browser tab
+ * @param {Object} [ctx] context HTML Element
+ */
+var manageExternalLinks = function (ctx) {
+	"use strict";
+	ctx = ctx || "";
+	var w = window,
+	cls = "a",
+	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	g = function (e) {
+		var p = e.getAttribute("href") || "",
+		h_e = function (ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			openDeviceBrowser(p);
+		};
+		if (p && parseLink(p).isCrossDomain && parseLink(p).hasHTTP) {
+			e.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
+			if ("undefined" !== typeof getHTTP && getHTTP()) {
+				e.target = "_blank";
+			} else {
+				/* evento.add(e, "click", h_e); */
+				e.onclick = h_e;
+			}
+		}
+	},
+	k = function () {
+		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
+		if (w._) {
+			_.each(a, g);
+		} else if (w.forEach) {
+			forEach(a, g, !1);
+		} else {
+			for (var i = 0, l = a.length; i < l; i += 1) {
+				g(a[i]);
+			}
+		}
+	};
+	if (a) {
+		console.log("triggered function: manageExternalLinks");
+		k();
+	}
+};
+evento.add(window, "load", manageExternalLinks.bind(null, ""));
+/*!
+ * set title on local links,
+ * so that they inform that they open in currnet tab
+ * @param {Object} [ctx] context HTML Element
+ */
+var manageLocalLinks = function (ctx) {
+	"use strict";
+	ctx = ctx || "";
+	var w = window,
+	cls = "a",
+	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	g = function (e) {
+		var p = e.getAttribute("href") || "";
+		if (p && parseLink(p).isRelative && !e.getAttribute("title")) {
+			e.title = "Откроется здесь же";
+		}
+	},
+	k = function () {
+		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
+		if (w._) {
+			_.each(a, g);
+		} else if (w.forEach) {
+			forEach(a, g, !1);
+		} else {
+			for (var i = 0, l = a.length; i < l; i += 1) {
+				g(a[i]);
+			}
+		}
+	};
+	if (a) {
+		console.log("triggered function: manageLocalLinks");
+		k();
+	}
+};
+evento.add(window, "load", manageLocalLinks.bind(null, ""));
 /*!
  * init webslides
  */

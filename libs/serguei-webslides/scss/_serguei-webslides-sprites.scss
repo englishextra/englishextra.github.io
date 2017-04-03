@@ -71,3 +71,20 @@ img[class*=" tile-"] {
 	}
 }
 
+/*!
+ * custom fixes
+ */
+
+@media handheld, only screen and (max-width: 800px) {
+	.gallery .data-qrcode-img {
+		display: none;
+	}
+}
+
+@media handheld, only screen and (min-width: 801px) {
+	.gallery .tile-tel-512x512,
+	.gallery .tile-mailto-512x512 {
+		display: none;
+	}
+}
+
