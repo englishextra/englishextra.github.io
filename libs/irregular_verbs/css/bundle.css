@@ -1078,11 +1078,6 @@ u,
  */
 
 .btn-nav-menu {
-	-webkit-transition: all 0.2s ease-out;
-	transition: all 0.2s ease-out;
-}
-
-.btn-nav-menu {
 	display: inline-block;
 	width: 3.000rem;
 	height: 3.000rem;
