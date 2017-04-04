@@ -633,7 +633,7 @@ template {
 	text-align: center;
 	text-decoration: none;
 	color: #FFFFFF;
-	background-color: rgba(75, 75, 75, 0.5);
+	background-color: rgba(45, 45, 45, 0.5);
 	border: none;
 	overflow: hidden;
 	-webkit-transition: background-color 0.2s ease;
@@ -643,7 +643,7 @@ template {
 }
 
 .btn-show-vk-like:hover {
-	background-color: #4B4B4B;
+	background-color: #2D2D2D;
 }
 
 /* .btn-show-vk-like:focus, */
@@ -728,7 +728,7 @@ template {
 	text-align: center;
 	text-decoration: none;
 	color: #FFFFFF;
-	background-color: rgba(75, 75, 75, 0.5);
+	background-color: rgba(45, 45, 45, 0.5);
 	border: none;
 	overflow: hidden;
 	-webkit-transition: background-color 0.2s ease;
@@ -738,7 +738,7 @@ template {
 }
 
 .btn-share-buttons:hover {
-	background-color: #4B4B4B;
+	background-color: #2D2D2D;
 }
 
 /* .btn-share-buttons:focus, */
@@ -863,7 +863,7 @@ template {
 .superbox-wrapper {
 	width: 100%;
 	height: 100%;
-	background-color: #4B4B4B;
+	background-color: #2D2D2D;
 	/** stackoverflow.com/questions/14967413/background-color-not-showing-for-a-div
 	Because the content collapses when the children are floated
 	and adding the overflow rule restores the behavior you'd expect. */
@@ -1458,7 +1458,7 @@ u,
 	display: block;
 	width: 100%;
 	height: 3.000rem;
-	background-color: #4B4B4B;
+	background-color: #2D2D2D;
 }
 
 .container {
@@ -1558,7 +1558,7 @@ u,
 }
 
 .btn-nav-menu:hover {
-	background-color: #4B4B4B;
+	background-color: #2D2D2D;
 }
 
 .page.is-active .btn-nav-menu,
@@ -1569,7 +1569,7 @@ u,
 
 .btn-nav-menu {
 	text-align: center;
-	background-color: rgba(75, 75, 75, 0.5);
+	background-color: rgba(45, 45, 45, 0.5);
 }
 
 .btn-nav-menu:before {
@@ -1620,7 +1620,7 @@ u,
 }
 
 .btn-menu-more:hover {
-	background-color: #4B4B4B;
+	background-color: #2D2D2D;
 }
 
 /* .btn-menu-more:focus, */
@@ -1632,7 +1632,7 @@ u,
 
 .btn-menu-more {
 	text-align: center;
-	background-color: rgba(75, 75, 75, 0.5);
+	background-color: rgba(45, 45, 45, 0.5);
 }
 
 .btn-menu-more:before {
@@ -1708,7 +1708,7 @@ u,
 	text-align: center;
 	white-space: nowrap;
 	color: #FFFFFF;
-	background-color: #4B4B4B;
+	background-color: #2D2D2D;
 	margin: 0;
 }
 

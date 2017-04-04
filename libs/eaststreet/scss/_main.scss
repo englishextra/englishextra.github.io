@@ -791,7 +791,7 @@ u,
 	position: fixed;
 	top: 0;
 	left: -14.933rem;
-	background-color: $color-hex-darker-ui-panel-bg;
+	background-color: $color-hex-darker-ui-bar-bg;
 	transition: left 0.2s linear;
 	overflow-y: auto;
 	margin: 0;
@@ -889,11 +889,11 @@ u,
 }
 
 .ui-sidepanel-list a:hover {
-	background-color: $color-hex-darker-ui-panel-hover-item-bg;
+	background-color: $color-hex-darker-ui-bar-hover-item-bg;
 }
 
 .ui-sidepanel-list a.is-active {
-	background-color: $color-hex-darker-ui-panel-active-item-bg;
+	background-color: $color-hex-darker-ui-bar-active-item-bg;
 }
 
 /* .ui-sidepanel-list a:focus, */
@@ -1017,7 +1017,7 @@ u,
 	left: 0;
 	width: 3.200rem;
 	height: 100%;
-	background-color: $color-hex-dark-ui-panel-bg;
+	background-color: $color-hex-dark-ui-bar-bg;
 	transition: left 0.2s linear;
 	overflow-y: hidden;
 }
@@ -1046,7 +1046,7 @@ u,
 }
 
 .ui-sidebar a:hover {
-	background-color: $color-hex-dark-ui-panel-active-item-bg;
+	background-color: $color-hex-dark-ui-bar-active-item-bg;
 }
 
 /* .ui-sidebar a:focus, */

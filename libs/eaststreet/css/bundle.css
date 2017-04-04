@@ -2672,6 +2672,8 @@ body {
 	background-color: #E1E1E1;
 }
 
+/* .kamil-autocomplete li:focus, */
+
 .kamil-autocomplete li:active {
 	color: #191919;
 	background-color: #F03B4C;
@@ -2754,6 +2756,8 @@ body {
 .ui-totop:hover {
 	background-color: #D5D5D5;
 }
+
+/* .ui-totop:focus, */
 
 .ui-totop:active {
 	color: #191919;
@@ -3905,8 +3909,8 @@ u,
 	background-color: #D5D5D5;
 }
 
-.btn-toggle-ui-sidepanel:active,
-.page.is-active-ui-sidepanel .btn-toggle-ui-sidepanel {
+.page.is-active-ui-sidepanel .btn-toggle-ui-sidepanel,
+.btn-toggle-ui-sidepanel:active {
 	color: #191919;
 	background-color: #F03B4C;
 }
@@ -3950,7 +3954,8 @@ u,
 	background-color: #801E26;
 }
 
-.ui-sidepanel-list a:focus,
+/* .ui-sidepanel-list a:focus, */
+
 .ui-sidepanel-list a:active {
 	color: #191919;
 	background-color: #F03B4C;
@@ -4015,8 +4020,8 @@ u,
 	background-color: #D5D5D5;
 }
 
-.btn-toggle-ui-menumore:active,
-.page.is-active-ui-menumore .btn-toggle-ui-menumore {
+.page.is-active-ui-menumore .btn-toggle-ui-menumore,
+.btn-toggle-ui-menumore:active {
 	color: #191919;
 	background-color: #F03B4C;
 }
@@ -4055,6 +4060,8 @@ u,
 .ui-menumore-list a:hover {
 	background-color: #E1E1E1;
 }
+
+/* .ui-menumore-list a:focus, */
 
 .ui-menumore-list a:active {
 	color: #191919;
@@ -4106,7 +4113,10 @@ u,
 	background-color: #A82933;
 }
 
+/* .ui-sidebar a:focus, */
+
 .ui-sidebar a:active {
+	color: #191919;
 	background-color: #F03B4C;
 }
 
@@ -4322,6 +4332,7 @@ u,
 }
 
 /* .holder-search-form button[type^=submit]:focus, */
+
 .holder-search-form button[type^=submit]:active {
 	color: #191919;
 	background-color: #F03B4C;

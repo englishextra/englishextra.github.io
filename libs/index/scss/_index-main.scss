@@ -234,7 +234,7 @@ u,
 	list-style: none;
 	overflow-y: hidden;
 	-webkit-overflow-scrolling: touch;
-	background-color: $color-hex-darker-ui-panel-bg;
+	background-color: $color-hex-darker-ui-bar-bg;
 	transition: left 0.2s linear;
 	padding: 0;
 	margin: 0;
@@ -274,7 +274,7 @@ u,
 }
 
 .panel-nav-menu li a:hover {
-	background-color: $color-hex-darker-ui-panel-hover-item-bg;
+	background-color: $color-hex-darker-ui-bar-hover-item-bg;
 }
 
 /* .panel-nav-menu li a:focus, */
@@ -284,7 +284,7 @@ u,
 }
 
 .panel-nav-menu li a.is-active {
-	background-color: $color-hex-darker-ui-panel-active-item-bg;
+	background-color: $color-hex-darker-ui-bar-active-item-bg;
 }
 
 .btn-nav-menu {

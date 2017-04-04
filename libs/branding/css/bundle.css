@@ -2599,7 +2599,7 @@ body {
 	font-size: 0.875rem;
 	font-weight: 300;
 	color: #FFFFFF;
-	background-color: rgba(75, 75, 75, 0.5);
+	background-color: rgba(45, 45, 45, 0.5);
 	padding: 0.500rem;
 }
 
@@ -4295,11 +4295,11 @@ u,
 }
 
 .bg-color-rgba-dark-ui-icon-bg {
-	background-color: rgba(75, 75, 75, 0.5);
+	background-color: rgba(45, 45, 45, 0.5);
 }
 
 .bg-color-hex-hover-dark-ui-icon-bg {
-	background-color: #4B4B4B;
+	background-color: #2D2D2D;
 }
 
 .bg-color-hex-ui-button-bg {
@@ -4363,7 +4363,7 @@ u,
 }
 
 .bg-color-hex-dark-ui-bar-bg {
-	background-color: #4B4B4B;
+	background-color: #2D2D2D;
 }
 
 .bg-color-hex-aside-bg {
