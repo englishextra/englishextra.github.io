@@ -3131,12 +3131,12 @@ u,
 
 ::-moz-selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(147, 156, 158, 0.9);
+	background-color: rgba(99, 170, 244, 0.9);
 }
 
 ::selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(147, 156, 158, 0.9);
+	background-color: rgba(99, 170, 244, 0.9);
 }
 
 ::-webkit-input-placeholder {
@@ -4020,7 +4020,9 @@ u,
 	background-color: #D5D5D5;
 }
 
-.page.is-active-ui-menumore .btn-toggle-ui-menumore,
+/* .page.is-active-ui-menumore .btn-toggle-ui-menumore,
+.btn-toggle-ui-menumore:focus, */
+
 .btn-toggle-ui-menumore:active {
 	color: #191919;
 	background-color: #F03B4C;

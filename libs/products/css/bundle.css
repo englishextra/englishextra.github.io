@@ -830,17 +830,17 @@ body {
 }
 
 .slide-1 {
-	background-color: #585578;
+	background-color: #52796F;
 	background-image: url(../img/bg-img-1.png);
 }
 
 .slide-2 {
-	background-color: #557678;
+	background-color: #364156;
 	background-image: url(../img/bg-img-2.png);
 }
 
 .slide-3 {
-	background-color: #745785;
+	background-color: #A23E48;
 	background-image: url(../img/bg-img-3.png);
 }
 
@@ -971,12 +971,12 @@ u,
 
 ::-moz-selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(147, 156, 158, 0.9);
+	background-color: rgba(99, 170, 244, 0.9);
 }
 
 ::selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(147, 156, 158, 0.9);
+	background-color: rgba(99, 170, 244, 0.9);
 }
 
 ::-webkit-input-placeholder {

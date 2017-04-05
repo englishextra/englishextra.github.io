@@ -2206,12 +2206,12 @@ u,
 
 ::-moz-selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(147, 156, 158, 0.9);
+	background-color: rgba(99, 170, 244, 0.9);
 }
 
 ::selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(147, 156, 158, 0.9);
+	background-color: rgba(99, 170, 244, 0.9);
 }
 
 ::-webkit-input-placeholder {
