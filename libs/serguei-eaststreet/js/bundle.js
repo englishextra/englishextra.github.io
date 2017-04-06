@@ -67,6 +67,25 @@ var crel=(function(){if("undefined"==typeof window||!("document"in window)){retu
  */
 ;(function(doc,win){'use strict';if(typeof doc.createEvent!=='function')return false;var pointerEventSupport=function(type){var lo=type.toLowerCase(),ms='MS'+type;return navigator.msPointerEnabled?ms:window.PointerEvent?lo:false;},defaults={useJquery:!win.IGNORE_JQUERY&&typeof jQuery!=='undefined',swipeThreshold:win.SWIPE_THRESHOLD||100,tapThreshold:win.TAP_THRESHOLD||150,dbltapThreshold:win.DBL_TAP_THRESHOLD||200,longtapThreshold:win.LONG_TAP_THRESHOLD||1000,tapPrecision:win.TAP_PRECISION/2||60/2,justTouchEvents:win.JUST_ON_TOUCH_DEVICES},wasTouch=false,touchevents={touchstart:pointerEventSupport('PointerDown')||'touchstart',touchend:pointerEventSupport('PointerUp')||'touchend',touchmove:pointerEventSupport('PointerMove')||'touchmove'},isTheSameFingerId=function(e){return!e.pointerId||typeof pointerId==='undefined'||e.pointerId===pointerId;},setListener=function(elm,events,callback){var eventsArray=events.split(' '),i=eventsArray.length;while(i--){elm.addEventListener(eventsArray[i],callback,false);}},getPointerEvent=function(event){return event.targetTouches?event.targetTouches[0]:event;},getTimestamp=function(){return new Date().getTime();},sendEvent=function(elm,eventName,originalEvent,data){var customEvent=doc.createEvent('Event');customEvent.originalEvent=originalEvent;data=data||{};data.x=currX;data.y=currY;data.distance=data.distance;if(defaults.useJquery){customEvent=jQuery.Event(eventName,{originalEvent:originalEvent});jQuery(elm).trigger(customEvent,data);}if(customEvent.initEvent){for(var key in data){if(data.hasOwnProperty(key)){customEvent[key]=data[key];}}customEvent.initEvent(eventName,true,true);elm.dispatchEvent(customEvent);}while(elm){if(elm['on'+eventName])elm['on'+eventName](customEvent);elm=elm.parentNode;}},onTouchStart=function(e){if(!isTheSameFingerId(e))return;pointerId=e.pointerId;if(e.type!=='mousedown')wasTouch=true;if(e.type==='mousedown'&&wasTouch)return;var pointer=getPointerEvent(e);cachedX=currX=pointer.pageX;cachedY=currY=pointer.pageY;longtapTimer=setTimeout(function(){sendEvent(e.target,'longtap',e);target=e.target;},defaults.longtapThreshold);timestamp=getTimestamp();tapNum++;},onTouchEnd=function(e){if(!isTheSameFingerId(e))return;pointerId=undefined;if(e.type==='mouseup'&&wasTouch){wasTouch=false;return;}var eventsArr=[],now=getTimestamp(),deltaY=cachedY-currY,deltaX=cachedX-currX;clearTimeout(dblTapTimer);clearTimeout(longtapTimer);if(deltaX<=-defaults.swipeThreshold)eventsArr.push('swiperight');if(deltaX>=defaults.swipeThreshold)eventsArr.push('swipeleft');if(deltaY<=-defaults.swipeThreshold)eventsArr.push('swipedown');if(deltaY>=defaults.swipeThreshold)eventsArr.push('swipeup');if(eventsArr.length){for(var i=0;i<eventsArr.length;i++){var eventName=eventsArr[i];sendEvent(e.target,eventName,e,{distance:{x:Math.abs(deltaX),y:Math.abs(deltaY)}});}tapNum=0;}else{if(cachedX>=currX-defaults.tapPrecision&&cachedX<=currX+defaults.tapPrecision&&cachedY>=currY-defaults.tapPrecision&&cachedY<=currY+defaults.tapPrecision){if(timestamp+defaults.tapThreshold-now>=0){sendEvent(e.target,tapNum>=2&&target===e.target?'dbltap':'tap',e);target=e.target;}}dblTapTimer=setTimeout(function(){tapNum=0;},defaults.dbltapThreshold);}},onTouchMove=function(e){if(!isTheSameFingerId(e))return;if(e.type==='mousemove'&&wasTouch)return;var pointer=getPointerEvent(e);currX=pointer.pageX;currY=pointer.pageY;},tapNum=0,pointerId,currX,currY,cachedX,cachedY,timestamp,target,dblTapTimer,longtapTimer;setListener(doc,touchevents.touchstart+(defaults.justTouchEvents?'':' mousedown'),onTouchStart);setListener(doc,touchevents.touchend+(defaults.justTouchEvents?'':' mouseup'),onTouchEnd);setListener(doc,touchevents.touchmove+(defaults.justTouchEvents?'':' mousemove'),onTouchMove);win.tocca=function(options){for(var opt in options){if(options.hasOwnProperty(opt)){defaults[opt]=options[opt];}}return defaults;};}(document,window));
 /*!
+ * modified routie - a tiny hash router - v0.3.2
+ * github.com/jgallen23/routie/blob/master/dist/routie.js
+ * projects.jga.me/routie
+ * copyright Greg Allen 2013
+ * MIT License
+ * @requires setImmediate {@link https://github.com/YuzuJS/setImmediate YuzuJS/setImmediate}
+ * "#" => ""
+ * "#/" => "/" wont trigger anything? {@link https://github.com/jgallen23/routie/issues/49}
+ * "#/home" => "/home"
+ * routie({"/contents": function () {},"/feedback": function () {};};
+ * routie.navigate("/somepage");
+ * in navigate method setImmediate with setTimeout fallback
+ * added window check
+ * fixed The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+ * source: github.com/jgallen23/routie/blob/master/dist/routie.js
+ * passes jshint
+ */
+var routie=(function(){if("undefined"==typeof window||!("document"in window)){return console.log("window is undefined or document is not in window"),!1;}var w=window;var routes=[];var map={};var reference="routie";var oldReference=w[reference];var Route=function(path,name){this.name=name;this.path=path;this.keys=[];this.fns=[];this.params={};this.regex=pathToRegexp(this.path,this.keys,false,false);};Route.prototype.addHandler=function(fn){this.fns.push(fn);};Route.prototype.removeHandler=function(fn){for(var i=0,c=this.fns.length;i<c;i++){var f=this.fns[i];if(fn==f){this.fns.splice(i,1);return;}}};Route.prototype.run=function(params){for(var i=0,c=this.fns.length;i<c;i++){this.fns[i].apply(this,params);}};Route.prototype.match=function(path,params){var m=this.regex.exec(path);if(!m){return false;}for(var i=1,len=m.length;i<len;++i){var key=this.keys[i-1];var val=('string'==typeof m[i])?decodeURIComponent(m[i]):m[i];if(key){this.params[key.name]=val;}params.push(val);}return true;};Route.prototype.toURL=function(params){var path=this.path;for(var param in params){if(params.hasOwnProperty(param)){path=path.replace('/:'+param,'/'+params[param]);}}path=path.replace(/\/:.*\?/g,'/').replace(/\?/g,'');if(path.indexOf(':')!=-1){throw new Error('missing parameters for url: '+path);}return path;};var pathToRegexp=function(path,keys,sensitive,strict){if(path instanceof RegExp){return path;}if(path instanceof Array){path='('+path.join('|')+')';}path=path.concat(strict?'':'/?').replace(/\/\(/g,'(?:/').replace(/\+/g,'__plus__').replace(/(\/)?(\.)?:(\w+)(?:(\(.*?\)))?(\?)?/g,function(_,slash,format,key,capture,optional){keys.push({name:key,optional:!!optional});slash=slash||'';return''+(optional?'':slash)+'(?:'+(optional?slash:'')+(format||'')+(capture||(format&&'([^/.]+?)'||'([^/]+?)'))+')'+(optional||'');}).replace(/([\/.])/g,'\\$1').replace(/__plus__/g,'(.+)').replace(/\*/g,'(.*)');return new RegExp('^'+path+'$',sensitive?'':'i');};var addHandler=function(path,fn){var s=path.split(' ');var name=(s.length==2)?s[0]:null;path=(s.length==2)?s[1]:s[0];if(!map[path]){map[path]=new Route(path,name);routes.push(map[path]);}map[path].addHandler(fn);};var _r=function(path,fn){if(typeof fn=='function'){addHandler(path,fn);_r.reload();}else if(typeof path=='object'){for(var p in path){if(path.hasOwnProperty(p)){addHandler(p,path[p]);}}_r.reload();}else if(typeof fn==='undefined'){_r.navigate(path);}};_r.lookup=function(name,obj){for(var i=0,c=routes.length;i<c;i++){var route=routes[i];if(route.name==name){return route.toURL(obj);}}};_r.remove=function(path,fn){var route=map[path];if(!route){return;}route.removeHandler(fn);};_r.removeAll=function(){map={};routes=[];};_r.navigate=function(path,options){options=options||{};var silent=options.silent||false;if(silent){removeListener();}setTimeout(function(){window.location.hash=path;if(silent){setTimeout(function(){addListener();},1);}},1);if(window.setImmediate){setImmediate(function(){window.location.hash=path;if(silent){setImmediate(function(){addListener();});}});}else{setTimeout(function(){window.location.hash=path;if(silent){setTimeout(function(){addListener();},1);}},1);}};_r.noConflict=function(){w[reference]=oldReference;return _r;};var getHash=function(){return window.location.hash.substring(1);};var checkRoute=function(hash,route){var params=[];if(route.match(hash,params)){route.run(params);return true;}return false;};var hashChanged=_r.reload=function(){var hash=getHash();for(var i=0,c=routes.length;i<c;i++){var route=routes[i];if(checkRoute(hash,route)){return;}}};var addListener=function(){if(w.addEventListener){w.addEventListener('hashchange',hashChanged,false);}else{w.attachEvent('onhashchange',hashChanged);}};var removeListener=function(){if(w.removeEventListener){w.removeEventListener('hashchange',hashChanged);}else{w.detachEvent('onhashchange',hashChanged);}};addListener();return _r;}());
+/*!
  * modified JavaScript Cookie - v2.1.3
  * github.com/js-cookie/js-cookie
  * Copyright 2006, 2015 Klaus Hartl & Fagner Brack
@@ -158,6 +177,11 @@ var isNwjs = function () {
 	return !1;
 }
 ();
+/*!
+ * detect Old Opera
+ * @returns {Boolean} true or false
+ */
+var isOldOpera = !!window.opera || !1;
 /*!
  * modified MediaHack - (c) 2013 Pomke Nohkan MIT LICENCED.
  * gist.github.com/englishextra/ff8c9dde94abe32a9d7c4a65e0f2ccac
@@ -251,6 +275,28 @@ var clearRequestTimeout=function(handle){if(window.cancelAnimationFrame){window.
  */
 var setAutoClearedTimeout=function(f,n){n=n||200;if(f&&"function"===typeof f){var st=requestTimeout(function(){clearRequestTimeout(st);f();},n);}};
 /*!
+ * Behaves the same as setInterval except uses requestAnimationFrame() where possible for better performance
+ * modified gist.github.com/joelambert/1002116
+ * the fallback function requestAnimFrame is incorporated
+ * gist.github.com/joelambert/1002116
+ * gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b
+ * jsfiddle.net/englishextra/sxrzktkz/
+ * @param {Object} fn The callback function
+ * @param {Int} delay The delay in milliseconds
+ * requestInterval(fn, delay);
+ */
+var requestInterval=function(fn,delay){var requestAnimFrame=(function(){return window.requestAnimationFrame||function(callback,element){window.setTimeout(callback,1000/60);};})(),start=new Date().getTime(),handle={};function loop(){handle.value=requestAnimFrame(loop);var current=new Date().getTime(),delta=current-start;if(delta>=delay){fn.call();start=new Date().getTime();}}handle.value=requestAnimFrame(loop);return handle;};
+/*!
+ * Behaves the same as clearInterval except uses cancelRequestAnimationFrame()
+ * where possible for better performance
+ * gist.github.com/joelambert/1002116
+ * gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b
+ * jsfiddle.net/englishextra/sxrzktkz/
+ * @param {Int|Object} handle function handle, or function
+ * clearRequestInterval(handle);
+ */
+var clearRequestInterval=function(handle){if(window.cancelAnimationFrame){window.cancelAnimationFrame(handle.value);}else{window.clearInterval(handle);}};
+/*!
  * Plain javascript replacement for jQuery's .ready()
  * so code can be scheduled to run when the document is ready
  * github.com/jfriend00/docReady
@@ -340,6 +386,19 @@ var ajaxLoadUnparsedJSON=function(u,f,e){var w=window,x=w.XMLHttpRequest?new XML
  */
 var safelyParseJSON=function(a){var w=window;try{return"string"===typeof a?w.json_parse?json_parse(a):JSON.parse(a):a;}catch(e){console.log(e.name+": "+e.message);}};
 /*!
+ * return an array of values that match on a certain key
+ * techslides.com/how-to-parse-and-search-json-in-javascript
+ * gist.github.com/englishextra/872269c30d7cb2d10e3c3babdefc37b4
+ * var jpr = JSON.parse(response);
+ * for(var i=0,l=jpr.length;i<l;i+=1)
+ * {var t=getKeyValuesFromJSON(jpr[i],"label"),
+ * p=getKeyValuesFromJSON(jpr[i],"link");};
+ * @param {String} b JSON entry
+ * @param {String} d JSON key to match
+ * getKeyValuesFromJSON(b,d)
+ */
+var getKeyValuesFromJSON=function(b,d){var c=[];for(var a in b){if(b.hasOwnProperty(a)){if("object"===typeof b[a]){c=c.concat(getKeyValuesFromJSON(b[a],d));}else{if(a==d){c.push(b[a]);}}}}return c;};
+/*!
  * loop over the Array
  * stackoverflow.com/questions/18238173/javascript-loop-through-json-array
  * gist.github.com/englishextra/b4939b3430da4b55d731201460d3decb
@@ -362,24 +421,16 @@ var truncString=function(str,max,add){add=add||"\u2026";return("string"===typeof
  */
 var fixEnRuTypo=function(e,a,b){var c="";if("ru"==a&&"en"==b){a='\u0430\u0431\u0432\u0433\u0434\u0435\u0451\u0436\u0437\u0438\u0439\u043a\u043b\u043c\u043d\u043e\u043f\u0440\u0441\u0442\u0443\u0444\u0445\u0446\u0447\u0448\u0449\u044a\u044c\u044b\u044d\u044e\u044f\u0410\u0411\u0412\u0413\u0414\u0415\u0401\u0416\u0417\u0418\u0419\u041a\u041b\u041c\u041d\u041e\u041f\u0420\u0421\u0422\u0423\u0424\u0425\u0426\u0427\u0428\u0429\u042a\u042c\u042b\u042d\u042e\u042f"\u2116;:?/.,';b="f,dult`;pbqrkvyjghcnea[wxio]ms'.zF<DULT~:PBQRKVYJGHCNEA{WXIO}MS'>Z@#$^&|/?";}else{a="f,dult`;pbqrkvyjghcnea[wxio]ms'.zF<DULT~:PBQRKVYJGHCNEA{WXIO}MS'>Z@#$^&|/?";b='\u0430\u0431\u0432\u0433\u0434\u0435\u0451\u0436\u0437\u0438\u0439\u043a\u043b\u043c\u043d\u043e\u043f\u0440\u0441\u0442\u0443\u0444\u0445\u0446\u0447\u0448\u0449\u044a\u044c\u044b\u044d\u044e\u044f\u0410\u0411\u0412\u0413\u0414\u0415\u0401\u0416\u0417\u0418\u0419\u041a\u041b\u041c\u041d\u041e\u041f\u0420\u0421\u0422\u0423\u0424\u0425\u0426\u0427\u0428\u0429\u042a\u042c\u042b\u042d\u042e\u042f"\u2116;:?/.,';}for(var d=0;d<e.length;d++){var f=a.indexOf(e.charAt(d));if(c>f){c+=e.charAt(d);}else{c+=b.charAt(f);}}return c;};
 /*!
- * if element is in viewport
- * gist.github.com/englishextra/2e9322e5eea9412f5086f7427009b903
- * stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport
- * jsfiddle.net/englishextra/9mwdxgez/
- * @param e an HTML element
- * var p = document.getElementById("h1") || "";
- * if(p){var g=function(_that){if(isInViewport(p))
- * {window.removeEventListener("scroll",_that);alert(1);}};
- * window.addEventListener("scroll",function h_w(){g(h_w);});}
+ * Load .html file
+ * modified JSON with JS.md
+ * gist.github.com/thiagodebastos/08ea551b97892d585f17
+ * gist.github.com/englishextra/d5ce0257afcdd9a7387d3eb26e9fdff5
+ * @param {String} u path string
+ * @param {Object} [f] callback function
+ * @param {Object} [e] on error callback function
+ * ajaxLoadHTML(u,f,e)
  */
-var fitsIntoViewport=function(w,d){return function(e){return(e=e?e.getBoundingClientRect()||"":"")?0<=e.top&&0<=e.left&&e.bottom<=(w.innerHeight||d.clientHeight)&&e.right<=(w.innerWidth||d.clientWidth)&&(0!==e.offsetHeight):!0;};}(window,document.documentElement||"");
-/*!
- * remove element from DOM
- * gist.github.com/englishextra/d2a286f64d404052fbbdac1e416ab808
- * @param {Object} e an Element to remove
- * removeElement(e)
- */
-var removeElement=function(e){var r="remove",pN="parentNode";if(e){if("undefined"!==typeof e[r]){return e[r]();}else{return e[pN]&&e[pN].removeChild(e);}}};
+var ajaxLoadHTML=function(u,f,e){var w=window,x=w.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");x.overrideMimeType("text/html;charset=utf-8");x.open("GET",u,!0);x.withCredentials=!1;x.onreadystatechange=function(){if(x.status=="404"){if(e&&"function"===typeof e){e();}console.log("Error XMLHttpRequest-ing file",x.status);return!1;}else if(x.readyState==4&&x.status==200&&x.responseText){if(f&&"function"===typeof f){f(x.responseText);}}};x.send(null);};
 /*!
  * remove all children of parent element
  * gist.github.com/englishextra/da26bf39bc90fd29435e8ae0b409ddc3
@@ -387,6 +438,15 @@ var removeElement=function(e){var r="remove",pN="parentNode";if(e){if("undefined
  * removeChildren(e)
  */
 var removeChildren=function(e){return function(){if(e&&e.firstChild){for(;e.firstChild;){e.removeChild(e.firstChild);}}}();};
+/*!
+ * insert text response as fragment into element
+ * gist.github.com/englishextra/4e13afb8ce184ad28d77f6b5eed71d1f
+ * @param {String} t text/response to insert
+ * @param {Object} c target HTML Element
+ * @param {Object} [f] callback function
+ * insertTextAsFragment(t,c,f)
+ */
+var insertTextAsFragment=function(t,c,f){"use strict";var d=document,b=d.getElementsByTagName("body")[0]||"",cN="cloneNode",aC="appendChild",pN="parentNode",iH="innerHTML",rC="replaceChild",cR="createRange",cCF="createContextualFragment",cDF="createDocumentFragment",g=function(){return f&&"function"===typeof f&&f();};try{var n=c[cN](!1);if(d[cR]){var rg=d[cR]();rg.selectNode(b);var df=rg[cCF](t);n[aC](df);return c[pN]?c[pN][rC](n,c):c[iH]=t,g();}else{n[iH]=t;return c[pN]?c[pN][rC](d[cDF][aC](n),c):c[iH]=t,g();}}catch(e){console.log(e);}return!1;};
 /*!
  * append node into other with fragment
  * gist.github.com/englishextra/0ff3204d5fb285ef058d72f31e3af766
@@ -403,14 +463,6 @@ var appendFragment=function(e,a){"use strict";var d=document;a=a||d.getElementsB
  * appendFragmentAfter(e,a)
  */
 var appendFragmentAfter=function(e,a){if("string"===typeof e){e=document.createTextNode(e);}var p=a.parentNode||"",s=a.nextSibling||"",df=document.createDocumentFragment();return function(){if(p&&s){df.appendChild(e);p.insertBefore(df,s);}}();};
-/*!
- * Adds Element as fragment BEFORE NeighborElement
- * gist.github.com/englishextra/fa19e39ce84982b17fc76485db9d1bea
- * @param {String|object} e HTML Element to prepend before before
- * @param {Object} a target HTML Element
- * prependFragmentBefore(e,a)
- */
-var prependFragmentBefore=function(e,a){if("string"===typeof e){e=document.createTextNode(e);}var p=a.parentNode||"",df=document.createDocumentFragment();return function(){if(p){df.appendChild(e);p.insertBefore(df,a);}}();};
 /*!
  * set style display block of an element
  * @param {Object} a an HTML Element
@@ -467,6 +519,18 @@ var findPos=function(a){a=a.getBoundingClientRect();var b=document.body,c=docume
  */
 var scrollToElement=function(a){if(a){if(window.zenscroll){zenscroll.to(a);}else{window.scroll(0,findPos(a).top);}}return!1;};
 /*!
+ * Scroll to top with Zenscroll, or fallback
+ * @requires zenscroll
+ * scrollToTop()
+ */
+var scrollToTop=function(){var w=window;return w.zenscroll?zenscroll.toY(0):w.scrollTo(0,0);};
+/*!
+ * change window hash
+ * @param {String} a hash string without hash sign
+ * changeHash(a)
+ */
+var changeHash=function(a){return function(){if(a){window.location.hash="#"+("#"===a[0]?a.substr(1):a);}}();};
+/*!
  * change document location
  * @param {String} a URL / path string
  * changeLocation(a)
@@ -522,6 +586,451 @@ progressBar.complete = function () {
 	this.hide();
 };
 progressBar.init();
+/*!
+ * loading spinner
+ * dependent on setAutoClearedTimeout
+ * gist.github.com/englishextra/24ef040fbda405f7468da70e4f3b69e7
+ * @param {Object} [f] callback function
+ * @param {Int} [n] any positive whole number, default: 500
+ * LoadingSpinner.show();
+ * LoadingSpinner.hide(f,n);
+ */
+var LoadingSpinner = function () {
+	"use strict";
+	var b = BALA.one("body") || "",
+	cls = "loading-spinner",
+	is_active = "is-active-loading-spinner",
+	a = BALA.one("." + cls) || "",
+	cL = "classList";
+	console.log("triggered function: LoadingSpinner");
+	if (!a) {
+		a = crel("div");
+		a[cL].add(cls);
+		appendFragment(a, b);
+	}
+	return {
+		show: function () {
+			return b[cL].contains(is_active) || b[cL].add(is_active);
+		},
+		hide: function (f, n) {
+			n = n || 500;
+			var s = function () {
+				b[cL].remove(is_active);
+				if (f && "function" === typeof f) {
+					f();
+				}
+			};
+			return setAutoClearedTimeout(s, n);
+		}
+	};
+}
+();
+/*!
+ * modified Notibar.js v1.0
+ * Lightweight notification bar, no dependency.
+ * github.com/englishextra/notibar.js
+ * passes jshint
+ */
+var notiBar = function (opt) {
+	var d = document,
+	b = BALA.one("body") || "",
+	s_bar = "notibar",
+	c = BALA.one("." + s_bar) || "",
+	s_msg = "message",
+	s_close = "close",
+	s_key = "_notibar_dismiss_",
+	s_val = "ok",
+	s_an = "animated",
+	s_an1 = "fadeInDown",
+	s_an2 = "fadeOutUp",
+	cL = "classList";
+	if (b) {
+		console.log("triggered function: notiBar");
+		if ("string" === typeof opt) {
+			opt = {
+				"message": opt
+			};
+		}
+		var settings = {
+			"message": "",
+			"timeout": 10000,
+			"key": s_key,
+			"value": s_val,
+			"days": 0,
+		};
+		for (var i in opt) {
+			if (opt.hasOwnProperty(i)) {
+				settings[i] = opt[i];
+			}
+		}
+		var c_k = Cookies.get(settings.key) || "";
+		if (c_k && c_k === decodeURIComponent(settings.value)) {
+			return !1;
+		}
+		if (c) {
+			removeChildren(c);
+		} else {
+			c = crel("div");
+			c[cL].add(s_bar);
+			c[cL].add(s_an);
+		}
+		var m = crel("div");
+		m[cL].add(s_msg);
+		var s = settings.message || "";
+		if ("string" === typeof s) {
+			s = d.createTextNode(s);
+		}
+		appendFragment(s, m);
+		appendFragment(m, c);
+		var x_a = crel("a");
+		x_a[cL].add(s_close);
+		var set_cookie = function () {
+			if (settings.days) {
+				Cookies.set(settings.key, settings.value, { expires: settings.days });
+			} else {
+				Cookies.set(settings.key, settings.value);
+			}
+		},
+		hide_message = function () {
+			var notibar = BALA.one("." + s_bar) || "";
+			if (notibar) {
+				c[cL].remove(s_an1);
+				c[cL].add(s_an2);
+				removeChildren(c);
+			}
+		},
+		h_x = function () {
+			hide_message();
+			set_cookie();
+		};
+		evento.add(x_a, "click", h_x);
+		/* x_a.onclick = h_x; */
+		appendFragment(x_a, c);
+		appendFragment(c, b);
+		c[cL].remove(s_an2);
+		c[cL].add(s_an1);
+		setAutoClearedTimeout(hide_message, settings.timeout);
+	}
+};
+/*!
+ * init notibar
+ */
+var initNotibarMsg = function () {
+	"use strict";
+	if ("undefined" !== typeof getHTTP && getHTTP()) {
+		var w = window,
+		n = "_notibar_dismiss_",
+		m = "Напишите мне, отвечу очень скоро. Регистрироваться не нужно.",
+		p = parseLink(w.location.href).origin,
+		g = function () {
+			notiBar({
+				"message": crel("a", {
+					"href": "javascript:void(0);",
+					"onclick": "scrollToElement(document.getElementById('disqus_thread'));"
+				}, m),
+				"timeout": 10000,
+				"key": n,
+				"value": m,
+				"days": 0
+			});
+		};
+		if (p) {
+			console.log("triggered function: initNotibarMsg");
+			setAutoClearedTimeout(g, 3000);
+		}
+	}
+};
+evento.add(window, "load", initNotibarMsg);
+/*!
+ * notifier42
+ * Toast messages with pure JS
+ * gist.github.com/englishextra/5500a860c26d5e262ef3700d822ff698
+ * inspired by github.com/mlcheng/js-toast
+ * @param {String|Object} m text string or HTML ELement
+ * @param {Int} [n] any positive whole number, default: 0
+ * @param {String} t [additioal css class name]
+ * var nf=notifier42("message",8000);setTimeout(function(){nf.destroy()},2000);
+ */
+var Notifier42 = function (m, n, t) {
+	"use strict";
+	m = m || "No message passed as argument";
+	n = n || 0;
+	t = t || "";
+	var d = document,
+	b = BALA.one("body") || "",
+	cls = "notifier42",
+	c = BALA.one("." + cls) || "",
+	cL = "classList",
+	an = "animated",
+	an2 = "fadeInUp",
+	an4 = "fadeOutDown";
+	console.log("triggered function: Notifier42");
+	if (!c) {
+		c = crel("div");
+		appendFragment(c, b);
+	}
+	c[cL].add(cls);
+	c[cL].add(an);
+	c[cL].add(an2);
+	if (t) {
+		c[cL].add(t);
+	}
+	if ("string" === typeof m) {
+		m = d.createTextNode(m);
+	}
+	appendFragment(m, c);
+	var g = function (f) {
+		c[cL].remove(an2);
+		c[cL].add(an4);
+		var r = function () {
+			c[cL].remove(an);
+			c[cL].remove(an4);
+			if (t) {
+				c[cL].remove(t);
+			}
+			removeChildren(c);
+			if (f && "function" === typeof f) {
+				f();
+			}
+		};
+		setAutoClearedTimeout(r, 400);
+	},
+	h_b = function () {
+		/* evento.remove(b, "click", h_b); */
+		b.onclick = null;
+		g();
+	},
+	h_c = function () {
+		/* evento.remove(c, "click", h_c); */
+		c.onclick = null;
+		g();
+	};
+	/* evento.add(b, "click", h_b);
+	evento.add(c, "click", h_c); */
+	b.onclick = h_b;
+	c.onclick = h_c;
+	if (0 !== n) {
+		setAutoClearedTimeout(g, n);
+	}
+	return {
+		destroy : function () {
+			return g(removeElement.bind(null, c));
+		}
+	};
+};
+/*!
+ * notifier42-write-me
+ */
+var initNotifier42WriteMe = function () {
+	"use strict";
+	if ("undefined" !== typeof getHTTP && getHTTP()) {
+		var w = window,
+		n = "_notifier42_write_me_",
+		m = "Напишите мне, отвечу очень скоро. Регистрироваться не нужно.",
+		p = parseLink(w.location.href).origin,
+		g = function () {
+			var ntfr = new Notifier42(crel("a", {
+						"href": "#/feedback"
+					}, m),
+					8000);
+			Cookies.set(n, m);
+		};
+		if (!Cookies.get(n) && p) {
+			console.log("triggered function: initNotifier42WriteMe");
+			setAutoClearedTimeout(g, 8000);
+		}
+	}
+};
+/* docReady(initNotifier42WriteMe); */
+/*!
+ * init sidepanel btn
+ */
+var initSidepanel = function () {
+	"use strict";
+	var w = window,
+	b = BALA.one("body") || "",
+	btn = ".btn-toggle-ui-sidepanel",
+	e = BALA.one(btn) || "",
+	page = ".page",
+	p = BALA.one(page) || "",
+	container = ".container",
+	c = BALA.one(container) || "",
+	overlay = ".page-overlay",
+	o = BALA.one(overlay) || "",
+	item = ".ui-sidepanel li",
+	active_qrcode = "is-active-holder-location-qr-code",
+	active_vk_like = "is-active-holder-vk-like",
+	active_share = "is-active-holder-share-buttons",
+	active_sidepanel = "is-active-ui-sidepanel",
+	active_menumore = "is-active-ui-menumore",
+	cL = "classList";
+	if (b && e && p && c) {
+		console.log("triggered function: initSidepanel");
+		var f = function () {
+			if (p[cL].contains(active_qrcode)) {
+				p[cL].remove(active_qrcode);
+			}
+			if (p[cL].contains(active_vk_like)) {
+				p[cL].remove(active_vk_like);
+			}
+			if (p[cL].contains(active_share)) {
+				p[cL].remove(active_share);
+			}
+			if (p[cL].contains(active_menumore)) {
+				p[cL].remove(active_menumore);
+			}
+		},
+		h_e = function (ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			p[cL].toggle(active_sidepanel);
+			f();
+		},
+		h_o = function () {
+			if (p[cL].contains(active_sidepanel)) {
+				p[cL].remove(active_sidepanel);
+			}
+			f();
+		},
+		h_c = function () {
+			if (!p[cL].contains(active_sidepanel)) {
+				p[cL].add(active_sidepanel);
+			}
+			f();
+		};
+		evento.add(e, "click", h_e);
+		/* e.onclick = h_e; */
+		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
+			evento.add(o, "swipeleft", h_o);
+			/* p.onswipeleft = h_o; */
+			evento.add(c, "swiperight", h_c);
+			/* p.onswiperight = h_p_right; */
+		}
+		var a = BALA.one(item) || "";
+		if (a) {
+			a = BALA(item) || "";
+			var g = function (e) {
+				evento.add(e, "click", h_o);
+				/* e.onclick = h_o; */
+			};
+			if (w._) {
+				_.each(a, g);
+			} else if (w.forEach) {
+				forEach(a, g, !1);
+			} else {
+				for (var i = 0, l = a.length; i < l; i += 1) {
+					g(a[i]);
+				}
+			}
+		}
+		evento.add(b, "click", h_o);
+		/* b.onclick = h_o; */
+	}
+};
+docReady(initSidepanel);
+/*!
+ * highlight current sidepanel item
+ */
+var highlightSidepanelItem = function () {
+	"use strict";
+	var w = window,
+	c = BALA.one(".ui-sidepanel-list") || "",
+	a = BALA("a", c) || "",
+	is_active = "is-active",
+	p = w.location.href || "",
+	cL = "classList",
+	g = function (e) {
+		if (e.href == p) {
+			e[cL].add(is_active);
+		} else {
+			e[cL].remove(is_active);
+		}
+	},
+	k = function () {
+		if (w._) {
+			_.each(a, g);
+		} else if (w.forEach) {
+			forEach(a, g, !1);
+		} else {
+			for (var i = 0, l = a.length; i < l; i += 1) {
+				g(a[i]);
+			}
+		}
+	};
+	if (c && a && p) {
+		console.log("triggered function: highlightNavMenuItem");
+		k();
+	}
+};
+evento.add(window, "load", highlightSidepanelItem);
+evento.add(window, "hashchange", highlightSidepanelItem);
+/*!
+ * init menumore btn
+ */
+var initMenumore = function () {
+	"use strict";
+	var w = window,
+	btn = ".btn-toggle-ui-menumore",
+	e = BALA.one(btn) || "",
+	page = ".page",
+	p = BALA.one(page) || "",
+	item = ".ui-menumore li",
+	active_qrcode = "is-active-holder-location-qr-code",
+	active_vk_like = "is-active-holder-vk-like",
+	active_share = "is-active-holder-share-buttons",
+	active_sidepanel = "is-active-ui-sidepanel",
+	active_menumore = "is-active-ui-menumore",
+	cL = "classList";
+	if (e && p) {
+		console.log("triggered function: initMenumore");
+		var f = function () {
+			if (p[cL].contains(active_qrcode)) {
+				p[cL].remove(active_qrcode);
+			}
+			if (p[cL].contains(active_vk_like)) {
+				p[cL].remove(active_vk_like);
+			}
+			if (p[cL].contains(active_share)) {
+				p[cL].remove(active_share);
+			}
+			if (p[cL].contains(active_sidepanel)) {
+				p[cL].remove(active_sidepanel);
+			}
+		},
+		h_e = function (ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			p[cL].toggle(active_menumore);
+			f();
+		};
+		evento.add(e, "click", h_e);
+		/* e.onclick = h_e; */
+		var h_a = function () {
+			if (p[cL].contains(active_menumore)) {
+				p[cL].remove(active_menumore);
+			}
+			f();
+		},
+		a = BALA.one(item) || "";
+		if (a) {
+			a = BALA(item) || "";
+			var g = function (e) {
+				evento.add(e, "click", h_a);
+				/* e.onclick = h_a; */
+			};
+			if (w._) {
+				_.each(a, g);
+			} else if (w.forEach) {
+				forEach(a, g, !1);
+			} else {
+				for (var i = 0, l = a.length; i < l; i += 1) {
+					g(a[i]);
+				}
+			}
+		}
+	}
+};
+docReady(initMenumore);
 /*!
  * Open external links in default browser out of Electron / nwjs
  * gist.github.com/englishextra/b9a8140e1c1b8aa01772375aeacbf49b
@@ -649,188 +1158,29 @@ var manageLocalLinks = function (ctx) {
 };
 evento.add(window, "load", manageLocalLinks.bind(null, ""));
 /*!
- * init fastclick
- * github.com/ftlabs/fastclick
+ * manage data target links
  */
-/* var initFastClick = function () {
-	"use strict";
-	var w = window,
-	b = BALA.one("body") || "";
-	if (w.FastClick) {
-		console.log("triggered function: initFastClick");
-		FastClick.attach(b);
-	}
-},
-loadInitFastClick = function () {
-	"use strict";
-	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-			ajaxLoadTriggerJS("/cdn/fastclick/1.0.6/js/fastclick.fixed.min.js", initFastClick);
-		}
-	}
-};
-docReady(loadInitFastClick); */
-/*!
- * loading spinner
- * dependent on setAutoClearedTimeout
- * gist.github.com/englishextra/24ef040fbda405f7468da70e4f3b69e7
- * @param {Object} [f] callback function
- * @param {Int} [n] any positive whole number, default: 500
- * LoadingSpinner.show();
- * LoadingSpinner.hide(f,n);
- */
-var LoadingSpinner = function () {
-	"use strict";
-	var b = BALA.one("body") || "",
-	cls = "loading-spinner",
-	is_active = "is-active-loading-spinner",
-	a = BALA.one("." + cls) || "",
-	cL = "classList";
-	console.log("triggered function: LoadingSpinner");
-	if (!a) {
-		a = crel("div");
-		a[cL].add(cls);
-		appendFragment(a, b);
-	}
-	return {
-		show: function () {
-			return b[cL].contains(is_active) || b[cL].add(is_active);
-		},
-		hide: function (f, n) {
-			n = n || 500;
-			var s = function () {
-				b[cL].remove(is_active);
-				if (f && "function" === typeof f) {
-					f();
-				}
-			};
-			return setAutoClearedTimeout(s, n);
-		}
-	};
-}
-();
-/*!
- * notifier42
- * Toast messages with pure JS
- * gist.github.com/englishextra/5500a860c26d5e262ef3700d822ff698
- * inspired by github.com/mlcheng/js-toast
- * @param {String|Object} m text string or HTML ELement
- * @param {Int} [n] any positive whole number, default: 0
- * @param {String} t [additioal css class name]
- * var nf=notifier42("message",8000);setTimeout(function(){nf.destroy()},2000);
- */
-var Notifier42 = function (m, n, t) {
-	"use strict";
-	m = m || "No message passed as argument";
-	n = n || 0;
-	t = t || "";
-	var d = document,
-	b = BALA.one("body") || "",
-	cls = "notifier42",
-	c = BALA.one("." + cls) || "",
-	cL = "classList",
-	an = "animated",
-	an2 = "fadeInUp",
-	an4 = "fadeOutDown";
-	console.log("triggered function: Notifier42");
-	if (!c) {
-		c = crel("div");
-		appendFragment(c, b);
-	}
-	c[cL].add(cls);
-	c[cL].add(an);
-	c[cL].add(an2);
-	if (t) {
-		c[cL].add(t);
-	}
-	if ("string" === typeof m) {
-		m = d.createTextNode(m);
-	}
-	appendFragment(m, c);
-	var g = function (f) {
-		c[cL].remove(an2);
-		c[cL].add(an4);
-		var r = function () {
-			c[cL].remove(an);
-			c[cL].remove(an4);
-			if (t) {
-				c[cL].remove(t);
-			}
-			removeChildren(c);
-			if (f && "function" === typeof f) {
-				f();
-			}
-		};
-		setAutoClearedTimeout(r, 400);
-	},
-	h_b = function () {
-		/* evento.remove(b, "click", h_b); */
-		b.onclick = null;
-		g();
-	},
-	h_c = function () {
-		/* evento.remove(c, "click", h_c); */
-		c.onclick = null;
-		g();
-	};
-	/* evento.add(b, "click", h_b);
-	evento.add(c, "click", h_c); */
-	b.onclick = h_b;
-	c.onclick = h_c;
-	if (0 !== n) {
-		setAutoClearedTimeout(g, n);
-	}
-	return {
-		destroy : function () {
-			return g(removeElement.bind(null, c));
-		}
-	};
-};
-/*!
- * notifier42-write-a-comment-on-content
- */
-var initNotifier42WriteComment = function () {
-	"use strict";
-	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		var w = window,
-		n = "_notifier42_write_comment_",
-		m = "Напишите, что понравилось, а что нет. Регистрироваться не нужно.",
-		p = parseLink(w.location.href).origin,
-		g = function () {
-			var ntfr = new Notifier42(crel("a", {
-					"href" : "#disqus_thread"
-				}, m),
-				8000);
-			Cookies.set(n, m);
-		};
-		if (!Cookies.get(n) && p) {
-			console.log("triggered function: initNotifier42WriteComment");
-			setAutoClearedTimeout(g, 16000);
-		}
-	}
-};
-docReady(initNotifier42WriteComment);
-/*!
- * init tablesort
- * github.com/tristen/tablesort
- */
-var initTablesort = function (ctx) {
+var manageDataTargetLinks = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
 	var w = window,
-	cls = "table.sort",
+	cls = "[data-target]",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	ds = "dataset",
 	g = function (e) {
-		var s = e.id || "";
-		if (s && w.Tablesort) {
-			var t = BALA.one("#" + s),
-			c = BALA.one("#" + s + " caption") || "";
-			if (!c) {
-				prependFragmentBefore(crel("caption"), t.firstChild);
-				c = t.firstChild;
-			}
-			appendFragment("Сортируемая таблица", c);
-			var tablesort = new Tablesort(t);
+		var u = e[ds].include || "",
+		t = e[ds].target || "",
+		h_e = function (_this, ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			/* evento.remove(_this, "click", h_e); */
+			_this.onclick = null;
+			includeHTMLintoTarget(_this, u, t);
+		};
+		if (u && t) {
+			e.title = "Появится здесь же";
+			/* evento.add(e, "click", h_e.bind(null, e)); */
+			e.onclick = h_e.bind(null, e);
 		}
 	},
 	k = function () {
@@ -846,27 +1196,11 @@ var initTablesort = function (ctx) {
 		}
 	};
 	if (a) {
-		console.log("triggered function: initTablesort");
+		console.log("triggered function: manageDataTargetLinks");
 		k();
 	}
-},
-loadInitTablesort = function () {
-	"use strict";
-	var w = window,
-	js = "../../cdn/tablesort/4.0.1/js/tablesort.fixed.min.js";
-	if (w.XMLHttpRequest || w.ActiveXObject) {
-		if (w.Promise) {
-			promiseLoadJS(js).then(initTablesort.bind(null, ""));
-		} else {
-			ajaxLoadTriggerJS(js, initTablesort.bind(null, ""));
-		}
-	} else {
-		if (!scriptIsLoaded(js)) {
-			loadJS(js, initTablesort.bind(null, ""));
-		}
-	}
 };
-docReady(loadInitTablesort);
+evento.add(window, "load", manageDataTargetLinks.bind(null, ""));
 /*!
  * manage data lightbox img links
  */
@@ -1045,65 +1379,77 @@ var manageDataSrcImg = function (ctx) {
 };
 evento.add(window, "load", manageDataSrcImg.bind(null, ""));
 /*!
- * append media-iframe
+ * replace img src with data-src
  * @param {Object} [ctx] context HTML Element
  */
-var manageDataSrcIframe = function (ctx) {
+var manageDataQrcodeImg = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
 	var w = window,
-	cls = "iframe[data-src]",
+	cls = "img[data-qrcode]",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
-	is_active = "is-active",
-	cL = "classList",
 	ds = "dataset",
-	pN = "parentNode",
-	k = function (e) {
-		var _src = e[ds].src || "";
-		if (_src) {
-			if (parseLink(_src).isAbsolute && !parseLink(_src).hasHTTP) {
-				e[ds].src = _src.replace(/^/, getHTTP(!0) + ":");
-				_src = e[ds].src;
-			}
-			if (!e[cL].contains(is_active)) {
-				e.src = _src;
-				e[cL].add(is_active);
-				crel(e, {
-					"scrolling" : "no",
-					"frameborder" : "no",
-					"style" : "border:none;",
-					"webkitallowfullscreen" : "true",
-					"mozallowfullscreen" : "true",
-					"allowfullscreen" : "true"
-				});
-			}
-		}
-	},
 	g = function (e) {
-		if (verge.inY(e)/* && 0 !== e.offsetHeight */) {
-			k(e);
+		var u = e[ds].qrcode || "";
+		u = decodeURIComponent(u);
+		if (u) {
+			var s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(u);
+			e.title = u;
+			e.alt = u;
+			if (w.QRCode) {
+				if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
+					s = QRCode.generateSVG(u, {
+							ecclevel: "M",
+							fillcolor: "#F3F3F3",
+							textcolor: "#373737",
+							margin: 4,
+							modulesize: 8
+						});
+					var XMLS = new XMLSerializer();
+					s = XMLS.serializeToString(s);
+					s = "data:image/svg+xml;base64," + w.btoa(unescape(encodeURIComponent(s)));
+					e.src = s;
+				} else {
+					s = QRCode.generatePNG(u, {
+							ecclevel: "M",
+							format: "html",
+							fillcolor: "#F3F3F3",
+							textcolor: "#373737",
+							margin: 4,
+							modulesize: 8
+						});
+					e.src = s;
+				}
+			} else {
+				e.src = s;
+			}
 		}
 	};
 	if (a) {
-		console.log("triggered function: manageDataSrcImg");
+		console.log("triggered function: manageDataQrcodeImg");
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		var h_w = function () {
-			if (w._) {
-				_.each(a, g);
-			} else if (w.forEach) {
-				forEach(a, g, !1);
-			} else {
-				for (var i = 0, l = a.length; i < l; i += 1) {
-					g(a[i]);
-				}
+		if (w._) {
+			_.each(a, g);
+		} else if (w.forEach) {
+			forEach(a, g, !1);
+		} else {
+			for (var i = 0, l = a.length; i < l; i += 1) {
+				g(a[i]);
 			}
-		};
-		h_w();
-		evento.add(window, "scroll", h_w);
-		evento.add(window, "resize", h_w);
+		}
+	}
+},
+loadManageDataQrcodeImg = function () {
+	"use strict";
+	var w = window,
+	js = "../cdn/qrjs2/0.1.2/js/qrjs2.fixed.min.js";
+	if (!scriptIsLoaded(js)) {
+		loadJS(js, manageDataQrcodeImg.bind(null, ""));
+	} else {
+		manageDataQrcodeImg();
 	}
 };
-evento.add(window, "load", manageDataSrcIframe.bind(null, ""));
+evento.add(window, "load", loadManageDataQrcodeImg);
 /*!
  * add smooth scroll or redirection to static select options
  * @param {Object} [ctx] context HTML Element
@@ -1199,6 +1545,65 @@ var manageExpandingLayers = function (ctx) {
 };
 evento.add(window, "load", manageExpandingLayers.bind(null, ""));
 /*!
+ * init col debug btn
+ */
+var manageDebugGridButton = function (ctx) {
+	"use strict";
+	ctx = ctx || "";
+	var w = window,
+	b = BALA.one("body") || "",
+	page = BALA.one(".page") || "",
+	container = BALA.one(".container") || "",
+	cls = ".col",
+	col = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	c = container,
+	btn = ".btn-toggle-col-debug",
+	e = BALA.one(btn) || "",
+	debug = "debug",
+	cL = "classList";
+	if (e && c) {
+		console.log("triggered function: manageDebugGridButton");
+		var u = w.location.href || "";
+		if (u && parseLink(u).hasHTTP && /^(localhost|127.0.0.1)/.test(parseLink(u).hostname)) {
+			var h_c = function () {
+				evento.remove(c, "click", h_c);
+				/* c.onclick = null; */
+				c[cL].remove(debug);
+			},
+			h_e = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				c[cL].toggle(debug);
+				if (c[cL].contains(debug)) {
+					evento.add(c, "click", h_c);
+					var a = [b, page, container, col],
+					m = [];
+					for (var i = 0, l = a.length; i < l; i += 1) {
+						m.push((a[i].className ? "." + a[i].className : a[i].id ? "#" + a[i].id : a[i].tagName), " ", w.getComputedStyle(a[i]).getPropertyValue("font-size"), " ", w.getComputedStyle(a[i]).getPropertyValue("line-height"), " ", a[i].offsetWidth, "x", a[i].offsetHeight, " \u003e ");
+					}
+					m = m.join("");
+					m = m.slice(0, m.lastIndexOf(" \u003e "));
+					notiBar({
+						"message": m,
+						"timeout": 10000,
+						/* "key": n,
+						"value": m, */
+						"days": 0
+					});
+				} else {
+					evento.remove(c, "click", h_c);
+				}
+				/* c.onclick = h_c; */
+			};
+			/* evento.add(e, "click", h_e); */
+			e.onclick = h_e;
+		} else {
+			setStyleDisplayNone(e);
+		}
+	}
+};
+evento.add(window, "load", manageDebugGridButton.bind(null, ""));
+/*!
  * init qr-code
  * stackoverflow.com/questions/12777622/how-to-use-enquire-js
  */
@@ -1206,593 +1611,399 @@ var manageLocationQrCodeImg = function () {
 	"use strict";
 	var w = window,
 	d = document,
-	a = BALA.one("#location-qr-code") || "",
-	p = w.location.href || "",
+	btn = ".btn-toggle-holder-location-qr-code",
+	e = BALA.one(btn) || "",
+	page = ".page",
+	p = BALA.one(page) || "",
+	holder = ".holder-location-qr-code",
+	c = BALA.one(holder) || "",
 	cls = "qr-code-img",
+	active_qrcode = "is-active-holder-location-qr-code",
+	active_vk_like = "is-active-holder-vk-like",
+	active_share = "is-active-holder-share-buttons",
+	active_sidepanel = "is-active-ui-sidepanel",
+	active_menumore = "is-active-ui-menumore",
+	u = w.location.href || "",
 	cL = "classList",
-	g = function () {
-		removeChildren(a);
-		var t = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
-		s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(p),
-		m = crel("img");
-		m[cL].add(cls);
-		m.src = s;
-		m.title = t;
+	k = function () {
+		var m = crel("img"),
+		t = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
+		s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(u);
 		m.alt = t;
-		appendFragment(m, a);
-	};
-	if (a && p) {
-		console.log("triggered function: manageLocationQrCodeImg");
-		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
-				g();
+		if (w.QRCode) {
+			if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
+				s = QRCode.generateSVG(u, {
+						ecclevel: "M",
+						fillcolor: "#FFFFFF",
+						textcolor: "#373737",
+						margin: 4,
+						modulesize: 8
+					});
+				var XMLS = new XMLSerializer();
+				s = XMLS.serializeToString(s);
+				s = "data:image/svg+xml;base64," + w.btoa(unescape(encodeURIComponent(s)));
+				m.src = s;
+			} else {
+				s = QRCode.generatePNG(u, {
+						ecclevel: "M",
+						format: "html",
+						fillcolor: "#FFFFFF",
+						textcolor: "#373737",
+						margin: 4,
+						modulesize: 8
+					});
+				m.src = s;
 			}
 		} else {
-			setStyleDisplayNone(a);
+			m.src = s;
 		}
-	}
-};
-evento.add(window, "load", manageLocationQrCodeImg);
-/*!
- * init nav-menu
- */
-var initNavMenu = function () {
-	"use strict";
-	var w = window,
-	container = BALA.one("#container") || "",
-	page = BALA.one("#page") || "",
-	btn = BALA.one("#btn-nav-menu") || "",
-	panel = BALA.one("#panel-nav-menu") || "",
-	items = BALA("a", panel) || "",
-	holder = BALA.one("#holder-panel-menu-more") || "",
-	cL = "classList",
-	is_active = "is-active",
-	p = w.location.href || "",
-	r = function () {
-		page[cL].remove(is_active);
-		panel[cL].remove(is_active);
-		btn[cL].remove(is_active);
+		m[cL].add(cls);
+		m.title = t;
+		removeChildren(c);
+		appendFragment(m, c);
 	},
 	f = function () {
-		page[cL].add(is_active);
-		panel[cL].add(is_active);
-		btn[cL].add(is_active);
-	},
-	t = function () {
-		page[cL].toggle(is_active);
-		panel[cL].toggle(is_active);
-		btn[cL].toggle(is_active);
-	},
-	h = function () {
-		if (holder && holder[cL].contains(is_active)) {
-			holder[cL].remove(is_active);
+		if (p[cL].contains(active_vk_like)) {
+			p[cL].remove(active_vk_like);
+		}
+		if (p[cL].contains(active_share)) {
+			p[cL].remove(active_share);
+		}
+		if (p[cL].contains(active_sidepanel)) {
+			p[cL].remove(active_sidepanel);
+		}
+		if (p[cL].contains(active_menumore)) {
+			p[cL].remove(active_menumore);
 		}
 	},
-	g = function () {
-		var h_container_left = function () {
-			console.log("swipeleft");
-			h();
-			if (panel[cL].contains(is_active)) {
-				r();
-			}
-		},
-		h_container_right = function () {
-			console.log("swiperight");
-			h();
-			if (!panel[cL].contains(is_active)) {
-				f();
-			}
-		};
-		evento.add(container, "click", h_container_left);
-		/* container.onclick = h_container_left; */
-		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-			evento.add(container, "swipeleft", h_container_left);
-			/* container.onswipeleft = h_container_left; */
-			evento.add(container, "swiperight", h_container_right);
-			/* container.onswiperight = h_container_right; */
-		}
-	},
-	k = function () {
-		var h_btn = function (ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			h();
-			t();
-		};
-		evento.add(btn, "click", h_btn);
-		/* btn.onclick = h_btn; */
+	h_e = function (ev) {
+		ev.stopPropagation();
+		ev.preventDefault();
+		p[cL].toggle(active_qrcode);
+		f();
+		k();
 	},
 	q = function () {
-		h();
-		r();
-	},
-	m = function (e) {
-		e[cL].remove(is_active);
-	},
-	n = function (e) {
-		e[cL].add(is_active);
-	},
-	s = function (a) {
-		if (w._) {
-			_.each(a, m);
-		} else if (w.forEach) {
-			forEach(a, m, !1);
-		} else {
-			for (var j = 0, l = a.length; j < l; j += 1) {
-				m(a[j]);
-			}
+		if (p[cL].contains(active_qrcode)) {
+			p[cL].remove(active_qrcode);
 		}
 	},
-	v = function (e) {
-		var h_e = function () {
-			if (panel[cL].contains(is_active)) {
-				q();
-			}
-			s(items);
-			n(e);
-		};
-		evento.add(e, "click", h_e);
-		/* e.onclick = h_e; */
-		if (e.href == p) {
-			n(e);
-		} else {
-			m(e);
-		}
-	},
-	z = function () {
-		if (w._) {
-			_.each(items, v);
-		} else if (w.forEach) {
-			forEach(items, v, !1);
-		} else {
-			for (var i = 0, l = items.length; i < l; i += 1) {
-				v(items[i]);
-			}
-		}
-	};
-	if (container && page && btn && panel && items) {
-		console.log("triggered function: initNavMenu");
-		/*!
-		 * open or close nav
-		 */
-		k();
-		g();
-		/*!
-		 * close nav, scroll to top, highlight active nav item
-		 */
-		z();
-	}
-};
-docReady(initNavMenu);
-/*!
- * add updates link to menu more
- * place that above init menu more
- */
-var addAppUpdatesLink = function () {
-	"use strict";
-	var panel = BALA.one("#panel-menu-more") || "",
-	items = BALA("li", panel) || "",
-	s = navigator.userAgent || "",
-	p;
-	if (/Windows/i.test(s) && /(WOW64|Win64)/i.test(s)) {
-		p = "https://englishextraapp.codeplex.com/downloads/get/1539373";
-	} else if (/(x86_64|x86-64|x64;|amd64|AMD64|x64_64)/i.test(s) && /(Linux|X11)/i.test(s)) {
-		p = "https://englishextraapp.codeplex.com/downloads/get/1540156";
-	} else if (/IEMobile/i.test(s)) {
-		p = "https://englishextraapp.codeplex.com/downloads/get/1536102";
-	} else if (/Android/i.test(s)) {
-		p = "https://englishextraapp.codeplex.com/downloads/get/1528911";
-	} else {
-		p = "";
-	}
-	var	g = function () {
-		var li = crel("li"),
-		a = crel("a"),
-		t = "Скачать приложение сайта";
-		a.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
-		a.href = p;
-		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			a.target = "_blank";
-		} else {
-			/*!
-			 * no prevent default and void .href above
-			 */
-			/* jshint -W107 */
-			a.href = "javascript:void(0);";
-			/* jshint +W107 */
-			evento.add(a, "click", openDeviceBrowser.bind(null, p));
-			/* a.onclick = openDeviceBrowser.bind(null, p); */
-		}
-		crel(li, crel(a, "" + t));
-		if (!!panel.firstChild) {
-			prependFragmentBefore(li, panel.firstChild);
-		}
-	};
-	if (panel && items && p) {
-		console.log("triggered function: addAppUpdatesLink");
-		g();
-	}
-};
-docReady(addAppUpdatesLink);
-/*!
- * init menu-more
- */
-var initMenuMore = function () {
-	"use strict";
-	var w = window,
-	container = BALA.one("#container") || "",
-	holder = BALA.one("#holder-panel-menu-more") || "",
-	btn = BALA.one("#btn-menu-more") || "",
-	panel = BALA.one("#panel-menu-more") || "",
-	items = BALA("li", panel) || "",
-	cL = "classList",
-	is_active = "is-active",
-	h_e = function () {
-		holder[cL].remove(is_active);
-	},
-	g = function (e) {
-		evento.add(e, "click", h_e);
-		/* e.onclick = h_e; */
-	},
-	k = function () {
-		evento.add(container, "click", h_e);
-		/* container.onclick = h_e; */
-	},
-	q = function () {
-		var h_btn = function (ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			holder[cL].toggle(is_active);
-		};
-		evento.add(btn, "click", h_btn);
-		/* btn.onclick = h_e; */
-	},
-	v = function () {
-		if (w._) {
-			_.each(items, g);
-		} else if (w.forEach) {
-			forEach(items, g, !1);
-		} else {
-			for (var i = 0, l = items.length; i < l; i += 1) {
-				g(items[i]);
-			}
-		}
-	};
-	if (container && holder && btn && panel && items) {
-		console.log("triggered function: initMenuMore");
-		/*!
-		 * hide menu more on outside click
-		 */
-		k();
-		/*!
-		 * show or hide menu more
-		 */
+	h_c = function () {
 		q();
-		/*!
-		 * hide menu more on item clicked
-		 */
-		v();
-	}
-};
-docReady(initMenuMore);
-/*!
- * init ui-totop
- */
-var initUiTotop = function () {
-	"use strict";
-	var w = window,
-	b = BALA.one("body") || "",
-	h = BALA.one("html") || "",
-	u = "ui-totop",
-	active = "is-active",
-	t = "Наверх",
-	cL = "classList",
-	k = function (_this) {
-		var a = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
-		c = _this.innerHeight || h.clientHeight || b.clientHeight || "",
-		e = BALA.one("." + u) || "";
-		if (a && c && e) {
-			if (a > c) {
-				e[cL].add(active);
-			} else {
-				e[cL].remove(active);
-			}
-		}
-	},
-	g = function (f) {
-		var z = function (n) {
-			var o = w.pageYOffset,
-			i = 0,
-			x = function (o, l) {
-				return function () {
-					l -= o * n;
-					w.scrollTo(0, l);
-					i += 1;
-					if (150 < i || 0 > l) {
-						clearInterval(si);
-					}
-				};
-			},
-			si = setInterval(x.bind(null, n, o--), 50);
-		},
-		h_a = function (ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			if (w.zenscroll) {
-				zenscroll.toY(0);
-			} else {
-				z(50);
-			}
-		},
-		a = crel("a");
-		a[cL].add(u);
-		/* jshint -W107 */
-		a.href = "javascript:void(0);";
-		/* jshint +W107 */
-		a.title = t;
-		a[cL].add(u);
-		evento.add(a, "click", h_a);
-		/* a.onclick = h_a; */
-		crel(b, crel(a));
-		evento.add(w, "scroll", k.bind(null, w));
-		/* w.onscroll = k.bind(null, w); */
+		f();
 	};
-	if (b) {
-		console.log("triggered function: initUiTotop");
-		g();
-	}
-};
-docReady(initUiTotop);
-/*!
- * init pluso-engine or ya-share on click
- */
-var initPlusoYaShare = function () {
-	"use strict";
-	var a = BALA.one(".btn-share-buttons") || "",
-	pluso = BALA.one(".pluso") || "",
-	ya_share2 = BALA.one(".ya-share2") || "",
-	pluso_like_js_src = getHTTP(!0) + "://share.pluso.ru/pluso-like.js",
-	share_js_src = getHTTP(!0) + "://yastatic.net/share2/share.js",
-	g = function (s, b) {
-		setStyleVisibilityVisible(s);
-		setStyleOpacity(s, 1);
-		setStyleDisplayNone(b);
-	},
-	k = function (js, s, b) {
-		if (!scriptIsLoaded(js)) {
-			loadJS(js, g.bind(null, s, b));
-		}
-	},
-	q = function () {
-		if (pluso) {
-			k(pluso_like_js_src, pluso, a);
-		} else {
-			if (ya_share2) {
-				k(share_js_src, ya_share2, a);
-			}
-		}
-	},
-	v = function () {
-		var h_a = function (ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			evento.remove(a, "click", h_a);
-			/* a.onclick = null; */
+	if (e && p && c && u) {
+		console.log("triggered function: manageLocationQrCodeImg");
+		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			q();
-		};
-		evento.add(a, "click", h_a);
-		/* a.onclick = h_e; */
-	};
-	if ((pluso || ya_share2) && a) {
-		console.log("triggered function: initPlusoYaShare");
-		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			v();
-		} else {
-			setStyleDisplayNone(a);
+			/* evento.add(e, "click", h_e); */
+			e.onclick = h_e;
+			/* evento.add(c, "click", h_c); */
+			c.onclick = h_c;
 		}
-	}
-};
-docReady(initPlusoYaShare);
-/*!
- * init download app btn
- */
-var initDownloadAppBtn = function (n) {
-	"use strict";
-	n = n || 2000;
-	var b = BALA.one("body") || "",
-	s = navigator.userAgent || "",
-	cls = "btn-download-app",
-	cL = "classList",
-	an = "animated",
-	an2 = "bounceInRight",
-	an4 = "bounceOutRight",
-	m,
-	p;
-	if (/Windows/i.test(s) && /(WOW64|Win64)/i.test(s)) {
-		m = "url(../../libs/products/img/download_windows_app_144x52.png)";
-		p = "https://englishextraapp.codeplex.com/downloads/get/1539373";
-	} else if (/(x86_64|x86-64|x64;|amd64|AMD64|x64_64)/i.test(s) && /(Linux|X11)/i.test(s)) {
-		m = "url(../../libs/products/img/download_linux_app_144x52.png)";
-		p = "https://englishextraapp.codeplex.com/downloads/get/1540156";
-	} else if (/IEMobile/i.test(s)) {
-		m = "url(../../libs/products/img/download_wp_app_144x52.png)";
-		p = "https://englishextraapp.codeplex.com/downloads/get/1536102";
-	} else if (/Android/i.test(s)) {
-		m = "url(../../libs/products/img/download_android_app_144x52.png)";
-		p = "https://englishextraapp.codeplex.com/downloads/get/1528911";
-	} else {
-		m = "";
-		p = "";
-	}
-	var g = function () {
-		var h_a = function (ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			openDeviceBrowser(p);
-		},
-		a = crel("a");
-		a.style.backgroundImage = m;
-		a[cL].add(cls, an, an2);
-		a.href = p;
-		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			a.target = "_blank";
-		} else {
-			evento.add(a, "click", h_a);
-			/* a.onclick = h_a; */
-		}
-		appendFragment(a, b);
-		var s1 = function () {
-			evento.remove(a, "click", h_a);
-			/* a.onclick = null; */
-			removeElement(a);
-		},
-		s2 = function () {
-			a[cL].remove(an2);
-			a[cL].add(an4);
-			setAutoClearedTimeout(s1, 750);
-		};
-		setAutoClearedTimeout(s2, n);
-	};
-	if (b && s && p) {
-		console.log("triggered function: initDownloadAppBtn");
-		g();
 	}
 },
-loadInitDownloadAppBtn = function () {
-	var s = function () {
-		initDownloadAppBtn(8000);
-	};
-	setAutoClearedTimeout(s, 3000);
-};
-evento.add(window, "load", loadInitDownloadAppBtn);
-/*!
- * init disqus_thread on scroll
- */
-var initDisqusOnScroll = function () {
+loadManageLocationQrCodeImg = function () {
 	"use strict";
 	var w = window,
-	disqus_thread = BALA.one("#disqus_thread") || "",
+	js = "../cdn/qrjs2/0.1.2/js/qrjs2.fixed.min.js";
+	if (!scriptIsLoaded(js)) {
+		loadJS(js, manageLocationQrCodeImg);
+	} else {
+		manageLocationQrCodeImg();
+	}
+};
+evento.add(window, "load", loadManageLocationQrCodeImg);
+evento.add(window, "hashchange", manageLocationQrCodeImg);
+/*!
+ * init share btn
+ */
+var manageShareButtons = function () {
+	"use strict";
+	var btn = ".btn-toggle-holder-share-buttons",
+	e = BALA.one(btn) || "",
+	page = ".page",
+	p = BALA.one(page) || "",
+	active_qrcode = "is-active-holder-location-qr-code",
+	active_vk_like = "is-active-holder-vk-like",
+	active_share = "is-active-holder-share-buttons",
+	active_sidepanel = "is-active-ui-sidepanel",
+	active_menumore = "is-active-ui-menumore",
+	cL = "classList";
+	if (e && p) {
+		console.log("triggered function: manageShareButtons");
+		var h_e = function (ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			p[cL].toggle(active_share);
+			if (p[cL].contains(active_qrcode)) {
+				p[cL].remove(active_qrcode);
+			}
+			if (p[cL].contains(active_vk_like)) {
+				p[cL].remove(active_vk_like);
+			}
+			if (p[cL].contains(active_sidepanel)) {
+				p[cL].remove(active_sidepanel);
+			}
+			if (p[cL].contains(active_menumore)) {
+				p[cL].remove(active_menumore);
+			}
+			var js = getHTTP(!0) + "://yastatic.net/es5-shims/0.0.2/es5-shims.min.js",
+			js2 = getHTTP(!0) + "://yastatic.net/share2/share.js";
+			if (p[cL].contains(active_share)) {
+				if (!scriptIsLoaded(js)) {
+					loadJS(js, function () {
+						if (!scriptIsLoaded(js2)) {
+							loadJS(js2);
+						}
+					});
+				}
+			}
+		};
+		evento.add(e, "click", h_e);
+		/* e.onclick = h_e; */
+	}
+};
+docReady(manageShareButtons);
+/*!
+ * init vk-like btn
+ */
+var manageVKLikeButton = function () {
+	"use strict";
+	var w = window,
+	btn = ".btn-toggle-holder-vk-like",
+	e = BALA.one(btn) || "",
+	page = ".page",
+	p = BALA.one(page) || "",
+	vk_like = ".vk-like",
+	c = BALA.one(vk_like) || "",
+	active_qrcode = "is-active-holder-location-qr-code",
+	active_vk_like = "is-active-holder-vk-like",
+	active_share = "is-active-holder-share-buttons",
+	active_sidepanel = "is-active-ui-sidepanel",
+	active_menumore = "is-active-ui-menumore",
+	cL = "classList";
+	if (e && p && c) {
+		console.log("triggered function: manageVKLikeButton");
+		var h_e = function (ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			p[cL].toggle(active_vk_like);
+			if (p[cL].contains(active_qrcode)) {
+				p[cL].remove(active_qrcode);
+			}
+			if (p[cL].contains(active_share)) {
+				p[cL].remove(active_share);
+			}
+			if (p[cL].contains(active_sidepanel)) {
+				p[cL].remove(active_sidepanel);
+			}
+			if (p[cL].contains(active_menumore)) {
+				p[cL].remove(active_menumore);
+			}
+			var js = getHTTP(!0) + "://vk.com/js/api/openapi.js?122",
+			f = function () {
+				if (w.VK) {
+					VK.init({
+						apiId: (c.dataset.apiid || ""),
+						nameTransportPath: "/xd_receiver.htm",
+						onlyWidgets: !0
+					});
+					VK.Widgets.Like("vk-like", {
+						type: "button",
+						height: 24
+					});
+				}
+			};
+			if (p[cL].contains(active_vk_like)) {
+				if (!scriptIsLoaded(js)) {
+					loadJS(js, f);
+				}
+			}
+		};
+		evento.add(e, "click", h_e);
+		/* e.onclick = h_e; */
+	}
+};
+docReady(manageVKLikeButton);
+/*!
+ * load or refresh disqus_thread on click
+ */
+var loadRefreshDisqus = function () {
+	"use strict";
+	var w = window,
+	c = BALA.one("#disqus_thread") || "",
 	is_active = "is-active",
 	btn = BALA.one("#btn-show-disqus") || "",
 	p = w.location.href || "",
 	cL = "classList",
 	ds = "dataset",
-	pN = "parentNode",
-	disqus_shortname = disqus_thread ? (disqus_thread[ds].shortname || "") : "",
-	embed_js_src = getHTTP(!0) + "://" + disqus_shortname + ".disqus.com/embed.js",
+	n = c ? (c[ds].shortname || "") : "",
+	js = getHTTP(!0) + "://" + n + ".disqus.com/embed.js",
 	g = function () {
 		setStyleDisplayNone(btn);
-		disqus_thread[cL].add(is_active);
-		if ("undefined" !== typeof waypoint && waypoint) {
-			waypoint.destroy();
-		}
+		c[cL].add(is_active);
 	},
 	k = function () {
-		if (!scriptIsLoaded(embed_js_src)) {
-			loadJS(embed_js_src, g);
+		try {
+			DISQUS.reset({
+				reload : !0,
+				config : function () {
+					this.page.identifier = n;
+					this.page.url = p;
+				}
+			});
+			g();
+		} catch(e) {
+			setStyleDisplayBlock(btn);
 		}
-	},
-	q = function () {
-		var h_btn = function (ev) {
-			ev.preventDefault();
-			ev.stopPropagation();
-			evento.remove(btn, "click", h_btn);
-			/* btn.onclick = null; */
-			k();
-		};
-		evento.add(btn, "click", h_btn);
-		/* btn.onclick = h_btn; */
 	},
 	v = function () {
-		removeChildren(disqus_thread);
-		appendFragment(crel("p", "Комментарии доступны только в веб версии этой страницы."), disqus_thread);
-		disqus_thread.removeAttribute("id");
-		setStyleDisplayNone(btn[pN]);
+		loadJS(js, g);
+	},
+	z = function () {
+		removeChildren(c);
+		appendFragment(crel("p", "Комментарии доступны только в веб версии этой страницы."), c);
+		c.removeAttribute("id");
+		setStyleDisplayNone(btn.parentNode);
 	};
-	if (disqus_thread && btn && disqus_shortname && p) {
-		console.log("triggered function: initDisqusOnScroll");
+	if (c && btn && n && p) {
+		console.log("triggered function: loadRefreshDisqus");
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			q();
-			if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
-				var h_w = function () {
-					if (fitsIntoViewport(disqus_thread)) {
-						evento.remove(w, "scroll", h_w);
-						/* w.onscroll = null; */
-						k();
-					}
-				};
-				evento.add(w, "scroll", h_w);
-				/* w.onscroll = h_w; */
+			if (scriptIsLoaded(js)) {
+				k();
+			} else {
+				v();
 			}
 		} else {
-			v();
+			z();
 		}
 	}
 };
-evento.add(window, "load", initDisqusOnScroll);
 /*!
- * init vk-like on click
+ * manage Disqus Button
  */
-var manageVKLikeButton = function () {
+var manageDisqusButton = function () {
 	"use strict";
-	var w = window,
-	c = BALA.one("#vk-like") || "",
-	a = BALA.one("#btn-show-vk-like") || "",
-	js = getHTTP(!0) + "://vk.com/js/api/openapi.js?122",
+	var c = BALA.one("#disqus_thread") || "",
+	e = c ? (BALA.one("#btn-show-disqus") || "") : "",
+	h_e = function (ev) {
+		ev.stopPropagation();
+		ev.preventDefault();
+		/* evento.remove(e, "click", h_e); */
+		e.onclick = null;
+		loadRefreshDisqus();
+		return !1;
+	};
+	if (c && e) {
+		console.log("triggered function: manageDisqusButton");
+		/* evento.add(e, "click", h_e); */
+		e.onclick = h_e;
+	}
+};
+evento.add(window, "load", manageDisqusButton);
+/*!
+ * load Yandex map
+ * tech.yandex.ru/maps/jsbox/2.1/mapbasics
+ */
+var initYandexMap = function (a) {
+	"use strict";
+	var c = BALA.one(a) || "",
+	is_active = "is-active",
 	ds = "dataset",
-	g = function () {
+	cL = "classList",
+	pN = "parentNode",
+	f = c ? (c[ds].center || "") : "",
+	z = c ? (c[ds].zoom || "") : "",
+	b_s = c ? (BALA.one(c[ds].btnShow) || "") : "",
+	b_d = c ? (BALA.one(c[ds].btnDestroy) || "") : "",
+	js = getHTTP(!0) + "://api-maps.yandex.ru/2.1/?lang=ru_RU",
+	myMap,
+	init = function () {
 		try {
-			if (w.VK) {
-				VK.init({
-					apiId: (c[ds].apiid || ""),
-					nameTransportPath: "/xd_receiver.htm",
-					onlyWidgets: !0
+			myMap = new ymaps.Map(c.id, {
+					center : JSON.parse(f),
+					zoom : z
 				});
-				VK.Widgets.Like("vk-like", {
-					type: "button",
-					height: 24
-				});
-			}
-			setStyleVisibilityVisible(c);
-			setStyleOpacity(c, 1);
-			setStyleDisplayNone(a);
-		} catch(e) {
-			setStyleVisibilityHidden(c);
-			setStyleOpacity(c, 0);
-			setStyleDisplayBlock(a);
+			LoadingSpinner.hide();
+		} catch (e) {
+			setStyleDisplayBlock(b_s);
 		}
+	},
+	g = function () {
+		ymaps.ready(init);
+		c[pN][cL].add(is_active);
+		setStyleDisplayNone(b_s);
 	},
 	k = function () {
-		if (!scriptIsLoaded(js)) {
-			loadJS(js, g);
+		try {
+			g();
+		} catch(e) {
+			setStyleDisplayBlock(b_s);
 		}
 	},
+	v = function () {
+		loadJS(js, k);
+	},
 	q = function () {
-		var h_a = function (ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			evento.remove(a, "click", h_a);
-			/* a.onclick = null; */
-			k();
-		};
-		evento.add(a, "click", h_a);
-		/* a.onclick = h_e; */
+		removeChildren(c);
+		appendFragment(crel("p", "Карты доступны только в веб версии этой страницы."), c);
+		c.removeAttribute("id");
+		setStyleDisplayNone(b_s.parentNode);
+	},
+	h_b_d = function (ev) {
+		ev.stopPropagation();
+		ev.preventDefault();
+		/* evento.remove(b_d, "click", h_b_d); */
+		b_d.onclick = null;
+		myMap.destroy();
 	};
-	if (c && a) {
-		console.log("triggered function: manageVKLikeButton");
+	if (c && f && z && b_s) {
+		console.log("triggered function: initYandexMap");
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			q();
+			if (b_d) {
+				/* evento.add(b_d, "click", h_b_d); */
+				b_d.onclick = h_b_d;
+			}
+			LoadingSpinner.show();
+			if (scriptIsLoaded(js)) {
+				k();
+			} else {
+				v();
+			}
 		} else {
-			setStyleDisplayNone(a);
+			q();
 		}
 	}
 };
-docReady(manageVKLikeButton);
+/*!
+ * manage Yandex Map Button
+ */
+var manageYandexMapButton = function (a) {
+	"use strict";
+	var c = BALA.one(a) || "",
+	ds = "dataset",
+	e = c ? (BALA.one(c[ds].btnShow) || "") : "",
+	h_e = function (ev) {
+		ev.stopPropagation();
+		ev.preventDefault();
+		/* evento.remove(e, "click", h_e); */
+		e.onclick = null;
+		initYandexMap(a);
+		return !1;
+	};
+	if (c && e) {
+		console.log("triggered function: manageYandexMapButton");
+		/* evento.add(e, "click", h_e); */
+		e.onclick = h_e;
+	}
+};
+evento.add(window, "load", manageYandexMapButton.bind(null, "#ymap"));
 /*!
  * init Pages Kamil autocomplete
  * github.com/oss6/kamil/wiki/Example-with-label:link-json-and-typo-correct-suggestion
  */
-var initPagesKamil = function () {
+var initContentsKamil = function () {
 	"use strict";
 	var w = window,
 	d = document,
@@ -1801,7 +2012,7 @@ var initPagesKamil = function () {
 	text = BALA.one(id) || "",
 	_ul_id = "kamil-typo-autocomplete",
 	_ul_class = "kamil-autocomplete",
-	jsn = "../../libs/paper/json/pages.json",
+	jsn = "../libs/serguei-eaststreet/json/contents.json",
 	cL = "classList",
 	q = function (r) {
 		var jpr = safelyParseJSON(r);
@@ -1949,87 +2160,419 @@ var initPagesKamil = function () {
 		}
 	};
 	if (search_form && text) {
-		console.log("triggered function: initPagesKamil");
+		console.log("triggered function: initContentsKamil");
 		v();
 	}
 },
-loadInitPagesKamil = function () {
+loadInitContentsKamil = function () {
 	"use strict";
 	var w = window,
-	js = "../../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
+	js = "../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
 	if (w.XMLHttpRequest || w.ActiveXObject) {
 		if (w.Promise) {
-			promiseLoadJS(js).then(initPagesKamil);
+			promiseLoadJS(js).then(initContentsKamil);
 		} else {
-			ajaxLoadTriggerJS(js, initPagesKamil);
+			ajaxLoadTriggerJS(js, initContentsKamil);
 		}
 	} else {
 		if (!scriptIsLoaded(js)) {
-			loadJS(js, initPagesKamil);
+			loadJS(js, initContentsKamil);
 		}
 	}
 };
-docReady(loadInitPagesKamil);
+docReady(loadInitContentsKamil);
 /*!
- * init search form and ya-site-form
+ * init ui-totop
  */
-var initSearchForm = function () {
+var initUiTotop = function () {
 	"use strict";
 	var w = window,
+	b = BALA.one("body") || "",
 	h = BALA.one("html") || "",
-	search_form = BALA.one("#search_form") || "",
-	ya_site_form = BALA.one(".ya-site-form.ya-site-form_inited_no") || "",
-	all_js_src = getHTTP(!0) + "://site.yandex.net/v2.0/js/all.js",
+	u = "ui-totop",
+	active = "is-active",
+	t = "Наверх",
 	cL = "classList",
-	g = function () {
-		search_form.action = getHTTP(!0) + "://yandex.ru/sitesearch";
-		search_form.target = "_blank";
-	},
-	k = function () {
-		if (h && !h[cL].contains("ya-page_js_yes")) {
-			h[cL].add("ya-page_js_yes");
-		}
-		/*!
-		 * should be onclick attribute
-		 */
-		crel(ya_site_form, {
-			"onclick" : "return {'action':'https://yandex.com/search/site/','arrow':false,'bg':'transparent','fontsize':16,'fg':'#000000','language':'auto','logo':'rb','publicname':'\u041f\u043e\u0438\u0441\u043a \u043f\u043e \u0441\u0430\u0439\u0442\u0443 englishextra.github.io','suggest':true,'target':'_blank','tld':'com','type':3,'usebigdictionary':true,'searchid':2192588,'input_fg':'#363636','input_bg':'#E9E9E9','input_fontStyle':'normal','input_fontWeight':'normal','input_placeholder':'\u041F\u043E\u0438\u0441\u043A','input_placeholderColor':'#686868','input_borderColor':'#E9E9E9'};"
-		});
-		var f = function () {
-			/*!
-			 * yandex will load its own css making form visible
-			 */
-			if (w.Ya) {
-				Ya.Site.Form.init();
+	k = function (_this) {
+		var a = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
+		c = _this.innerHeight || h.clientHeight || b.clientHeight || "",
+		e = BALA.one("." + u) || "";
+		if (a && c && e) {
+			if (a > c) {
+				e[cL].add(active);
+			} else {
+				e[cL].remove(active);
 			}
-		};
-		if (!scriptIsLoaded(all_js_src)) {
-			loadJS(all_js_src, f);
 		}
 	},
-	q = function () {
-		search_form.action = "#";
-		search_form.target = "_self";
-		var h_search_form = function () {
-			return !1;
-		};
-		evento.add(search_form, "submit", h_search_form);
-		/* search_form.onsubmit = h_search_form; */
-		setStyleDisplayNone(ya_site_form);
+	g = function (f) {
+		var z = function (n) {
+			var o = w.pageYOffset,
+			i = 0,
+			x = function (o, l) {
+				return function () {
+					l -= o * n;
+					w.scrollTo(0, l);
+					i += 1;
+					if (150 < i || 0 > l) {
+						clearInterval(si);
+					}
+				};
+			},
+			si = setInterval(x.bind(null, n, o--), 50);
+		},
+		h_a = function (ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			if (w.zenscroll) {
+				zenscroll.toY(0);
+			} else {
+				z(50);
+			}
+		},
+		a = crel("a");
+		a[cL].add(u);
+		/* jshint -W107 */
+		a.href = "javascript:void(0);";
+		/* jshint +W107 */
+		a.title = t;
+		a[cL].add(u);
+		evento.add(a, "click", h_a);
+		/* a.onclick = h_a; */
+		crel(b, crel(a));
+		evento.add(w, "scroll", k.bind(null, w));
+		/* w.onscroll = k.bind(null, w); */
 	};
-	console.log("triggered function: initSearchForm");
-	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		if (search_form) {
-			g();
-		}
-		if (ya_site_form) {
-			k();
-		}
-	} else {
-		q();
+	if (b) {
+		console.log("triggered function: initUiTotop");
+		g();
 	}
 };
-evento.add(window, "load", initSearchForm);
+docReady(initUiTotop);
+/*!
+ * set event on include HTML links
+ */
+var includeHTMLintoTarget = function (_this, u, t) {
+	"use strict";
+	var w = window,
+	c = BALA.one(t) || "",
+	pN = "parentNode",
+	c_pn = c[pN] || "",
+	g = function () {
+		var s = function () {
+			if (_this[pN]) {
+				setStyleDisplayNone(_this[pN]);
+			} else {
+				setStyleDisplayNone(_this);
+			}
+		},
+		k = function (t) {
+			var tf = function () {
+				s();
+				if (c_pn) {
+					manageExternalLinks(c_pn);
+					manageLocalLinks(c_pn);
+					manageDataSrcImg(c_pn);
+					manageImgLightboxLinks(c_pn);
+				}
+			};
+			insertTextAsFragment(t, c, tf);
+		},
+		q = function () {
+			s();
+			setStyleDisplayNone(c);
+		};
+		if (w.Promise && w.fetch && !isElectron) {
+			fetch(u).then(function (r) {
+				if (!r.ok) {
+					q();
+					throw new Error(r.statusText);
+				}
+				return r;
+			}).then(function (r) {
+				return r.text();
+			}).then(function (b) {
+				k(b);
+			}).catch (function (e) {
+				console.log("Error inserting content", e);
+			});
+		} else if (w.reqwest) {
+			reqwest({
+				url : u,
+				type : "html",
+				method : "get",
+				error : function (e) {
+					q();
+					console.log("Error reqwest-ing file", e);
+				},
+				success : function (r) {
+					k(r);
+				}
+			});
+		} else {
+			ajaxLoadHTML(u, function (r) {
+				k(r);
+			}, function (r) {
+				q();
+			});
+		}
+	};
+	if (c) {
+		console.log("triggered function: includeHTMLintoTarget");
+		g();
+	}
+};
+/*!
+ * insert External HTML
+ * @param {String} a Target Element id/class
+ * @param {String} u path string
+ * @param {Object} [f] callback function
+ * insertExternalHTML(a, u, f)
+ */
+var insertExternalHTML = function (a, u, f) {
+	"use strict";
+	var w = window,
+	c = BALA.one(a) || "",
+	g = function (t, s) {
+		var q = function () {
+			if (s && "function" === typeof s) {
+				s();
+			}
+		};
+		insertTextAsFragment(t, c, q);
+	},
+	k = function () {
+		if (w.Promise && w.fetch && !isElectron) {
+			fetch(u).then(function (r) {
+				if (!r.ok) {
+					throw new Error(r.statusText);
+				}
+				return r;
+			}).then(function (r) {
+				return r.text();
+			}).then(function (t) {
+				g(t, f);
+			}).catch (function (e) {
+				console.log("Error inserting content from file " + u, e);
+			});
+		} else if (w.reqwest) {
+			reqwest({
+				url : u,
+				type : "html",
+				method : "get",
+				error : function (e) {
+					console.log("Error reqwest-ing file " + u, e);
+				},
+				success : function (r) {
+					g(r, f);
+				}
+			});
+		} else {
+			ajaxLoadHTML(u, function (r) {
+				g(r, f);
+			});
+		}
+	};
+	if (c) {
+		console.log("triggered function: insertExternalHTML");
+		k();
+	}
+};
+/*!
+ * init routie
+ * @param {String} ctx HTML id string
+ */
+var initRoutie = function (ctx) {
+	"use strict";
+	ctx = ctx || "";
+	var appContent = BALA.one(ctx) || "",
+	loadVirtualPage = function (c, h, f) {
+		if (c && h) {
+			LoadingSpinner.show();
+			insertExternalHTML(c, h, f);
+		}
+	},
+	reinitVirtualPage = function (t) {
+		t = t || "";
+		var d = document;
+		/*!
+		 * hide loading spinner before scrolling
+		 */
+		LoadingSpinner.hide(scrollToTop);
+		d.title = initialDocumentTitle + "" + t + userBrowsingDetails;
+	},
+	loadNotFoundPage = function (a) {
+		var c = BALA.one(a) || "",
+		s = crel("div", {
+				"class": "padded-content"
+			}, crel("div", {
+					"class": "col"
+				}, crel("div", {
+						"class": "row"
+					}, crel("div", {
+							"class": "column"
+						}, crel("p", "Нет такой страницы. ", crel("a", {
+									"href": "#/home"
+								}, "Исправить?"))))));
+		if (c) {
+			LoadingSpinner.show();
+			removeChildren(c);
+			appendFragment(s, c);
+			reinitVirtualPage(" - Нет такой страницы");
+		}
+	},
+	redirectToDefaultPage = function (h, t) {
+		t = t || "";
+		if (h) {
+			reinitVirtualPage("" + t);
+			changeHash(h);
+			console.log("function routie.redirectToDefaultPage => changed window hash: #" + h);
+			/* if (history.pushState) {
+				history.replaceState(null, null, "#" + h);
+			} */
+		}
+	};
+	/*!
+	 * init routie
+	 * "#" => ""
+	 * "#/" => "/"
+	 * "#/home" => "/home"
+	 */
+	if (appContent) {
+		console.log("triggered function: routie");
+		routie({
+			"": function () {
+				redirectToDefaultPage("/home");
+			},
+			"/home": function () {
+				loadVirtualPage(ctx, "./includes/home.html", function () {
+					reinitVirtualPage(" - Начало");
+					manageYandexMapButton("#ymap");
+				});
+			},
+			/* "/feedback": function () {
+				loadVirtualPage(ctx, "./includes/feedback.html", function () {
+					reinitVirtualPage(" - Напишите мне");
+					manageDisqusButton();
+				});
+			}, */
+			"/schedule": function () {
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					if ("undefined" !== typeof isOldOpera && !isOldOpera) {
+						loadVirtualPage(ctx, "./includes/schedule.html", function () {
+							reinitVirtualPage(" - Расписание");
+						});
+					}
+				}
+			},
+			"/map": function () {
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					if ("undefined" !== typeof isOldOpera && !isOldOpera) {
+						loadVirtualPage(ctx, "./includes/map.html", function () {
+							reinitVirtualPage(" - Карта");
+						});
+					}
+				}
+			},
+			"/level_test": function () {
+				loadVirtualPage(ctx, "./includes/level_test.html", function () {
+					reinitVirtualPage(" - Уровневый тест");
+				});
+			},
+			"/common_mistakes": function () {
+				loadVirtualPage(ctx, "./includes/common_mistakes.html", function () {
+					reinitVirtualPage(" - Распространенные ошибки");
+				});
+			},
+			"/demo_ege": function () {
+				loadVirtualPage(ctx, "./includes/demo_ege.html", function () {
+					reinitVirtualPage(" - Демо-вариант ЕГЭ-11 АЯ (ПЧ)");
+				});
+			},
+			"/demo_ege_speaking": function () {
+				loadVirtualPage(ctx, "./includes/demo_ege_speaking.html", function () {
+					reinitVirtualPage(" - Демо-вариант ЕГЭ-11 АЯ (УЧ)");
+				});
+			},
+			"/previous_ege_analysis": function () {
+				loadVirtualPage(ctx, "./includes/previous_ege_analysis.html", function () {
+					reinitVirtualPage(" - ЕГЭ: разбор ошибок");
+				});
+			},
+			"/*": function () {
+				loadNotFoundPage(ctx);
+			}
+		});
+	}
+};
+docReady(initRoutie.bind(null, "#app-content"));
+/*!
+ * observe mutations
+ * bind functions only for inserted DOM
+ * @param {String} ctx HTML Element class or id string
+ */
+var observeMutations = function (ctx) {
+	"use strict";
+	ctx = ctx || "";
+	var w = window,
+	c = BALA.one(ctx) || "";
+	if (c) {
+		var g = function (e) {
+			var f = function (m) {
+				console.log("mutations observer: " + m.type);
+				console.log(m.type, "added: " + m.addedNodes.length + " nodes");
+				console.log(m.type, "removed: " + m.removedNodes.length + " nodes");
+				if ("childList" === m.type || "subtree" === m.type) {
+					mo.disconnect();
+					manageYandexMapButton("#ymap");
+					manageDisqusButton();
+					manageExternalLinks(c);
+					manageLocalLinks(c);
+					manageDataTargetLinks(c);
+					manageImgLightboxLinks(c);
+					manageDataSrcImg(c);
+					manageDataQrcodeImg(c);
+					manageStaticSelect(c);
+					manageExpandingLayers(c);
+					manageDebugGridButton(c);
+				}
+			};
+			/* e.forEach(f); */
+			if (w._) {
+				_.each(e, f);
+			} else if (w.forEach) {
+				forEach(e, f, !1);
+			} else {
+				for (var i = 0, l = e.length; i < l; i += 1) {
+					f(e[i]);
+				}
+			}
+		},
+		mo = new MutationObserver(g);
+		mo.observe(c, {
+			childList: !0,
+			subtree: !0,
+			attributes: !1,
+			characterData: !1
+		});
+	}
+};
+/*!
+ * apply changes to inserted DOM
+ */
+var updateInsertedDom = function () {
+	"use strict";
+	var w = window,
+	h = w.location.hash || "",
+	pN = "parentNode",
+	c = BALA.one("#app-content")[pN] || "";
+	if (c && h) {
+		console.log("triggered function: updateInsertedDom");
+		observeMutations(c);
+	}
+};
+evento.add(window, "load", updateInsertedDom);
+evento.add(window, "hashchange", updateInsertedDom);
 /*!
  * init manUP.js
  */
@@ -2047,9 +2590,28 @@ docReady(loadInitManUp);
  */
 var showPageFinishProgress = function () {
 	"use strict";
-	var a = BALA.one("#container") || "";
-	console.log("triggered function: showPageFinishProgress");
-	setStyleOpacity(a, 1);
-	progressBar.complete();
+	var a = BALA.one("#page") || "",
+	g = function () {
+		setStyleOpacity(a, 1);
+		progressBar.complete();
+	},
+	k = function () {
+		var si = requestInterval(function () {
+				console.log("function showPageFinishProgress => started Interval");
+				if (imagesPreloaded) {
+					clearRequestInterval(si);
+					console.log("function showPageFinishProgress => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
+					g();
+				}
+			}, 100);
+	};
+	if (a) {
+		console.log("triggered function: showPageFinishProgress");
+		if ("undefined" !== typeof imagesPreloaded) {
+			k();
+		} else {
+			g();
+		}
+	}
 };
 evento.add(window, "load", showPageFinishProgress);

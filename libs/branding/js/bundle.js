@@ -433,9 +433,17 @@ var isValidId=function(a,full){return full?/^\#[A-Za-z][-A-Za-z0-9_:.]*$/.test(a
  * find element's position
  * stackoverflow.com/questions/5598743/finding-elements-position-relative-to-the-document
  * @param {Object} a an HTML element
- * findPos(a)
+ * findPos(a).top
  */
 var findPos=function(a){a=a.getBoundingClientRect();var b=document.body,c=document.documentElement;return{top:Math.round(a.top+(window.pageYOffset||c.scrollTop||b.scrollTop)-(c.clientTop||b.clientTop||0)),left:Math.round(a.left+(window.pageXOffset||c.scrollLeft||b.scrollLeft)-(c.clientLeft||b.clientLeft||0))};};
+/*!
+ * scroll to element using zenscroll with fallback
+ * @requires zenscroll
+ * @requires findPos
+ * @param {Object} a an HTML element
+ * scrollToElement(a)
+ */
+var scrollToElement=function(a){if(a){if(window.zenscroll){zenscroll.to(a);}else{window.scroll(0,findPos(a).top);}}return!1;};
 /*!
  * change document location
  * @param {String} a URL / path string
@@ -1063,18 +1071,10 @@ var manageStaticSelect = function (ctx) {
 		var h = _this.options[_this.selectedIndex].value || "",
 		zh = h ? (isValidId(h, !0) ? BALA.one(h) : "") : "";
 		if (h) {
-			if (w.zenscroll) {
-				if (zh) {
-					zenscroll.to(zh);
-				} else {
-					changeLocation(h);
-				}
+			if (zh) {
+				scrollToElement(zh);
 			} else {
-				if (zh) {
-					w.scroll(0, findPos(zh));
-				} else {
-					changeLocation(h);
-				}
+				changeLocation(h);
 			}
 		}
 	},
