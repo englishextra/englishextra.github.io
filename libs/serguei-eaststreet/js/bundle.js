@@ -1375,12 +1375,12 @@ var manageDataSrcImg = function (ctx) {
 			}
 		};
 		h_w();
-		evento.add(window, "scroll", h_w);
-		evento.add(window, "resize", h_w);
-		evento.add(window, "hashchange", function h_r() {
-			evento.remove(window, "scroll", h_w);
-			evento.remove(window, "resize", h_w);
-			evento.remove(window, "hashchange", h_r);
+		evento.add(w, "scroll", h_w);
+		evento.add(w, "resize", h_w);
+		evento.add(w, "hashchange", function h_r() {
+			evento.remove(w, "scroll", h_w);
+			evento.remove(w, "resize", h_w);
+			evento.remove(w, "hashchange", h_r);
 		});
 	}
 };
