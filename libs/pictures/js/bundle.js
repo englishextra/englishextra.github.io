@@ -1029,6 +1029,11 @@ var manageDataSrcImg = function (ctx) {
 		h_w();
 		evento.add(window, "scroll", h_w);
 		evento.add(window, "resize", h_w);
+		evento.add(window, "hashchange", function h_r() {
+			evento.remove(window, "scroll", h_w);
+			evento.remove(window, "resize", h_w);
+			evento.remove(window, "hashchange", h_r);
+		});
 	}
 };
 evento.add(window, "load", manageDataSrcImg.bind(null, ""));
@@ -1268,7 +1273,7 @@ var initUiTotop = function () {
 	b = BALA.one("body") || "",
 	h = BALA.one("html") || "",
 	u = "ui-totop",
-	active = "is-active",
+	is_active = "is-active",
 	t = "Наверх",
 	cL = "classList",
 	k = function (_this) {
@@ -1277,9 +1282,9 @@ var initUiTotop = function () {
 		e = BALA.one("." + u) || "";
 		if (a && c && e) {
 			if (a > c) {
-				e[cL].add(active);
+				e[cL].add(is_active);
 			} else {
-				e[cL].remove(active);
+				e[cL].remove(is_active);
 			}
 		}
 	},
