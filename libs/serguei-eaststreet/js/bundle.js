@@ -725,7 +725,9 @@ var initNotibarMsg = function () {
 		g = function () {
 			notiBar({
 				"message": crel("a", {
+					/* jshint -W107 */
 					"href": "javascript:void(0);",
+					/* jshint +W107 */
 					"onclick": "scrollToElement(document.getElementById('disqus_thread'));"
 				}, m),
 				"timeout": 10000,
