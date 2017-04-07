@@ -1441,7 +1441,7 @@ header[role=banner]:hover {
 }
 
 .logo a {
-	background: url(../img/logo-256x96.svg) no-repeat 0 0;
+	background: url(../img/logo-256x96.png) no-repeat 0 0;
 	background-size: 16rem 6rem;
 	width: 16rem;
 	height: 6rem;
@@ -1836,7 +1836,7 @@ a#previous {
 
 @media (max-width:1024px) {
 	#navigation {
-		background: url(../img/swipe-96x96.svg) no-repeat center top;
+		background: url(../img/swipe-96x96.png) no-repeat center top;
 		background-size: 5rem 5rem;
 		animation: fadeIn 0.2s;
 	}
