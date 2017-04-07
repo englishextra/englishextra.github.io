@@ -700,6 +700,8 @@ var notiBar = function (opt) {
 			}
 		},
 		h_x = function () {
+			evento.remove(x_a, "click", h_x);
+			/* x_a.onclick = null; */
 			hide_message();
 			set_cookie();
 		};
@@ -832,7 +834,10 @@ var initNotifier42WriteMe = function () {
 		p = parseLink(w.location.href).origin,
 		g = function () {
 			var ntfr = new Notifier42(crel("a", {
-						"href": "#/feedback"
+						/* jshint -W107 */
+						"href": "javascript:void(0);",
+						/* jshint +W107 */
+						"onclick": "scrollToElement(document.getElementById('disqus_thread'));"
 					}, m),
 					8000);
 			Cookies.set(n, m);
@@ -1083,26 +1088,33 @@ var openDeviceBrowser = function (a) {
  * so that they open in new browser tab
  * @param {Object} [ctx] context HTML Element
  */
-var manageExternalLinks = function (ctx) {
+var handleExternalLinkOnClick = function (p, ev) {
+	"use strict";
+	ev.stopPropagation();
+	ev.preventDefault();
+	openDeviceBrowser(p);
+},
+manageExternalLinks = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
 	var w = window,
 	cls = "a",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	g = function (e) {
-		var p = e.getAttribute("href") || "",
+		var p = e.getAttribute("href") || ""/* ,
 		h_e = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
 			openDeviceBrowser(p);
-		};
+		} */;
 		if (p && parseLink(p).isCrossDomain && parseLink(p).hasHTTP) {
 			e.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
 			if ("undefined" !== typeof getHTTP && getHTTP()) {
 				e.target = "_blank";
 			} else {
 				/* evento.add(e, "click", h_e); */
-				e.onclick = h_e;
+				/* e.onclick = h_e; */
+				evento.add(e, "click", handleExternalLinkOnClick.bind(null, p));
 			}
 		}
 	},
@@ -1206,7 +1218,84 @@ evento.add(window, "load", manageDataTargetLinks.bind(null, ""));
 /*!
  * manage data lightbox img links
  */
-var manageImgLightboxLinks = function (ctx) {
+var handleImgLightboxLinks = function (_this, ev) {
+	"use strict";
+	ev.stopPropagation();
+	ev.preventDefault();
+	var w = window,
+	ilc = "img-lightbox-container",
+	c = BALA.one("." + ilc) || "",
+	m = BALA.one("img", c) || "",
+	cL = "classList",
+	an = "animated",
+	an1 = "fadeIn",
+	an2 = "fadeInUp",
+	_href = _this.getAttribute("href") || "";
+	if (c && m && _href) {
+		LoadingSpinner.show();
+		c[cL].add(an);
+		c[cL].add(an1);
+		m[cL].add(an);
+		m[cL].add(an2);
+		if (parseLink(_href).isAbsolute && !parseLink(_href).hasHTTP) {
+			_href = _href.replace(/^/, getHTTP(!0) + ":");
+		}
+		m.src = _href;
+		evento.add(c, "click", handleImgLightboxContainer);
+		evento.add(w, "keyup", handleImgLightboxWindow);
+		setStyleDisplayBlock(c);
+		LoadingSpinner.hide();
+	}
+},
+hideImgLightbox = function () {
+	"use strict";
+	var ilc = "img-lightbox-container",
+	c = BALA.one("." + ilc) || "",
+	m = BALA.one("img", c) || "",
+	cL = "classList",
+	an = "animated",
+	an1 = "fadeIn",
+	an2 = "fadeInUp",
+	an3 = "fadeOut",
+	an4 = "fadeOutDown",
+	dm = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
+	if (c && m) {
+		m[cL].remove(an2);
+		m[cL].add(an4);
+		var st1 = function () {
+			c[cL].remove(an);
+			c[cL].remove(an3);
+			m[cL].remove(an);
+			m[cL].remove(an4);
+			m.src = dm;
+			setStyleDisplayNone(c);
+		},
+		st2 = function () {
+			c[cL].remove(an1);
+			c[cL].add(an3);
+			setAutoClearedTimeout(st1, 400);
+		};
+		setAutoClearedTimeout(st2, 400);
+	}
+},
+handleImgLightboxContainer = function () {
+	"use strict";
+	var ilc = "img-lightbox-container",
+	c = BALA.one("." + ilc) || "";
+	if (c) {
+		evento.remove(c, "click", handleImgLightboxContainer);
+		hideImgLightbox();
+	}
+},
+handleImgLightboxWindow = function (ev) {
+	"use strict";
+	var w = window;
+	evento.remove(w, "keyup", handleImgLightboxWindow);
+	if (27 === (ev.which || ev.keyCode)) {
+		hideImgLightbox();
+	}
+},
+manageImgLightboxLinks = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
 	var w = window,
@@ -1218,11 +1307,6 @@ var manageImgLightboxLinks = function (ctx) {
 	m = BALA.one("img", c) || "",
 	cL = "classList",
 	ds = "dataset",
-	an = "animated",
-	an1 = "fadeIn",
-	an2 = "fadeInUp",
-	an3 = "fadeOut",
-	an4 = "fadeOutDown",
 	dm = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
 	if (!c) {
 		c = crel("div");
@@ -1233,76 +1317,14 @@ var manageImgLightboxLinks = function (ctx) {
 		crel(c, m);
 		appendFragment(c, b);
 	}
-	var g = function (_this) {
-		var _href = _this.getAttribute("href") || "",
-		r = function () {
-			m[cL].remove(an2);
-			m[cL].add(an4);
-			var st1 = function () {
-				c[cL].remove(an);
-				c[cL].remove(an3);
-				m[cL].remove(an);
-				m[cL].remove(an4);
-				m.src = dm;
-				setStyleDisplayNone(c);
-			},
-			st2 = function () {
-				c[cL].remove(an1);
-				c[cL].add(an3);
-				setAutoClearedTimeout(st1, 400);
-			};
-			setAutoClearedTimeout(st2, 400);
-		},
-		v = function (e) {
-			if (27 === (e.which || e.keyCode)) {
-				r();
-			}
-		},
-		z = function () {
-			var h_c = function () {
-				/* evento.remove(c, "click", h_c); */
-				c.onclick = null;
-				r();
-			},
-			h_w = function (e) {
-				/* evento.remove(w, "keyup", h_w); */
-				w.onkeyup = null;
-				v(e);
-			};
-			/* evento.add(c, "click", h_c);
-			evento.add(w, "keyup", h_w); */
-			c.onclick = h_c;
-			w.onkeyup = h_w;
-			setStyleDisplayBlock(c);
-			LoadingSpinner.hide();
-		};
-		if (_href) {
-			LoadingSpinner.show();
-			c[cL].add(an);
-			c[cL].add(an1);
-			m[cL].add(an);
-			m[cL].add(an2);
-			if (parseLink(_href).isAbsolute && !parseLink(_href).hasHTTP) {
-				_href = _href.replace(/^/, getHTTP(!0) + ":");
-			}
-			m.src = _href;
-			z();
-		}
-	},
-	k = function (e) {
+	var k = function (e) {
 		var v = e[ds].lightbox || "",
-		p = e.getAttribute("href") || "",
-		h_e = function (_this, ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			g(_this);
-		};
+		p = e.getAttribute("href") || "";
 		if ("img" === v && p) {
 			if (parseLink(p).isAbsolute && !parseLink(p).hasHTTP) {
 				e.setAttribute("href", p.replace(/^/, getHTTP(!0) + ":"));
 			}
-			/* evento.add(e, "click", h_e.bind(null, e)); */
-			e.onclick = h_e.bind(null, e);
+			evento.add(e, "click", handleImgLightboxLinks.bind(null, e));
 		}
 	};
 	if (a) {

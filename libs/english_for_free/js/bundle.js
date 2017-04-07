@@ -439,26 +439,33 @@ var openDeviceBrowser = function (a) {
  * so that they open in new browser tab
  * @param {Object} [ctx] context HTML Element
  */
-var manageExternalLinks = function (ctx) {
+var handleExternalLinkOnClick = function (p, ev) {
+	"use strict";
+	ev.stopPropagation();
+	ev.preventDefault();
+	openDeviceBrowser(p);
+},
+manageExternalLinks = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
 	var w = window,
 	cls = "a",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	g = function (e) {
-		var p = e.getAttribute("href") || "",
+		var p = e.getAttribute("href") || ""/* ,
 		h_e = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
 			openDeviceBrowser(p);
-		};
+		} */;
 		if (p && parseLink(p).isCrossDomain && parseLink(p).hasHTTP) {
 			e.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
 			if ("undefined" !== typeof getHTTP && getHTTP()) {
 				e.target = "_blank";
 			} else {
 				/* evento.add(e, "click", h_e); */
-				e.onclick = h_e;
+				/* e.onclick = h_e; */
+				evento.add(e, "click", handleExternalLinkOnClick.bind(null, p));
 			}
 		}
 	},
@@ -911,7 +918,7 @@ var addAppUpdatesLink = function () {
 			/* a.onclick = openDeviceBrowser.bind(null, p); */
 		}
 		crel(li, crel(a, "" + t));
-		if (!!panel.firstChild) {
+		if (panel.hasChildNodes()) {
 			prependFragmentBefore(li, panel.firstChild);
 		}
 	};
