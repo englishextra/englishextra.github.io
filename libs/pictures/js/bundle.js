@@ -461,7 +461,7 @@ var openDeviceBrowser = function (a) {
  * so that they open in new browser tab
  * @param {Object} [ctx] context HTML Element
  */
-var handleExternalLinkOnClick = function (p, ev) {
+var handleExternalLink = function (p, ev) {
 	"use strict";
 	ev.stopPropagation();
 	ev.preventDefault();
@@ -474,20 +474,13 @@ manageExternalLinks = function (ctx) {
 	cls = "a",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	g = function (e) {
-		var p = e.getAttribute("href") || ""/* ,
-		h_e = function (ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			openDeviceBrowser(p);
-		} */;
+		var p = e.getAttribute("href") || "";
 		if (p && parseLink(p).isCrossDomain && parseLink(p).hasHTTP) {
 			e.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
 			if ("undefined" !== typeof getHTTP && getHTTP()) {
 				e.target = "_blank";
 			} else {
-				/* evento.add(e, "click", h_e); */
-				/* e.onclick = h_e; */
-				evento.add(e, "click", handleExternalLinkOnClick.bind(null, p));
+				evento.add(e, "click", handleExternalLink.bind(null, p));
 			}
 		}
 	},
@@ -1007,9 +1000,10 @@ var manageDataSrcImg = function (ctx) {
 					}).catch (function (err) {
 						console.log("manageDataSrcImg => imagePromise: cannot load image:", err);
 					});
-				} else { */
+				} else {
 					e.src = _src;
-				/* } */
+				} */
+				e.src = _src;
 				e[cL].add(is_active);
 			}
 		}

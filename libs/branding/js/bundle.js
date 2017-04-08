@@ -550,7 +550,7 @@ var openDeviceBrowser = function (a) {
  * so that they open in new browser tab
  * @param {Object} [ctx] context HTML Element
  */
-var handleExternalLinkOnClick = function (p, ev) {
+var handleExternalLink = function (p, ev) {
 	"use strict";
 	ev.stopPropagation();
 	ev.preventDefault();
@@ -563,20 +563,13 @@ manageExternalLinks = function (ctx) {
 	cls = "a",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	g = function (e) {
-		var p = e.getAttribute("href") || ""/* ,
-		h_e = function (ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			openDeviceBrowser(p);
-		} */;
+		var p = e.getAttribute("href") || "";
 		if (p && parseLink(p).isCrossDomain && parseLink(p).hasHTTP) {
 			e.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
 			if ("undefined" !== typeof getHTTP && getHTTP()) {
 				e.target = "_blank";
 			} else {
-				/* evento.add(e, "click", h_e); */
-				/* e.onclick = h_e; */
-				evento.add(e, "click", handleExternalLinkOnClick.bind(null, p));
+				evento.add(e, "click", handleExternalLink.bind(null, p));
 			}
 		}
 	},
@@ -982,9 +975,10 @@ var manageDataSrcImg = function (ctx) {
 					}).catch (function (err) {
 						console.log("manageDataSrcImg => imagePromise: cannot load image:", err);
 					});
-				} else { */
+				} else {
 					e.src = _src;
-				/* } */
+				} */
+				e.src = _src;
 				e[cL].add(is_active);
 			}
 		}
@@ -1088,26 +1082,26 @@ evento.add(window, "load", manageDataSrcIframe.bind(null, ""));
  * add smooth scroll or redirection to static select options
  * @param {Object} [ctx] context HTML Element
  */
-var manageStaticSelect = function (ctx) {
+var handleStaticSelect = function (_this) {
+	"use strict";
+	var h = _this.options[_this.selectedIndex].value || "",
+	zh = h ? (isValidId(h, !0) ? BALA.one(h) : "") : "";
+	if (h) {
+		if (zh) {
+			scrollToElement(zh);
+		} else {
+			changeLocation(h);
+		}
+	}
+},
+manageStaticSelect = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
-	var w = window,
-	cls = "#pages_select",
+	var cls = "#pages_select",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
-	g = function (_this) {
-		var h = _this.options[_this.selectedIndex].value || "",
-		zh = h ? (isValidId(h, !0) ? BALA.one(h) : "") : "";
-		if (h) {
-			if (zh) {
-				scrollToElement(zh);
-			} else {
-				changeLocation(h);
-			}
-		}
-	},
 	k = function () {
-		/* evento.add(a, "change", g.bind(null, a)); */
-		a.onchange = g.bind(null, a);
+		evento.add(a, "change", handleStaticSelect.bind(null, a));
+		/* a.onchange = handleStaticSelect.bind(null, a); */
 	};
 	if (a) {
 		console.log("triggered function: manageStaticSelect");
@@ -1139,26 +1133,27 @@ docReady(manageSearchInput);
  * add click event on hidden-layer show btn
  * @param {Object} [ctx] context HTML Element
  */
-var manageExpandingLayers = function (ctx) {
+var handleExpandingLayers = function (_this) {
+	"use strict";
+	var cL = "classList",
+	pN = "parentNode",
+	is_active = "is-active",
+	s = _this[pN] ? _this[pN].nextElementSibling : "";
+	if (s) {
+		_this[cL].toggle(is_active);
+		s[cL].toggle(is_active);
+	}
+	return !1;
+},
+manageExpandingLayers = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
 	var w = window,
 	cls = ".btn-expand-hidden-layer",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
-	cL = "classList",
-	pN = "parentNode",
-	is_active = "is-active",
-	h_e = function (_this) {
-		var s = _this[pN] ? _this[pN].nextElementSibling : "";
-		if (s) {
-			_this[cL].toggle(is_active);
-			s[cL].toggle(is_active);
-		}
-		return !1;
-	},
 	k = function (e) {
-		/* evento.add(e, "click", h_e.bind(null, e)); */
-		e.onclick = h_e.bind(null, e);
+		evento.add(e, "click", handleExpandingLayers.bind(null, e));
+		/* e.onclick = handleExpandingLayers.bind(null, e); */
 	},
 	q = function () {
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
@@ -1182,26 +1177,27 @@ evento.add(window, "load", manageExpandingLayers.bind(null, ""));
  * add click event on source code show btn
  * @param {Object} [ctx] context HTML Element
  */
-var manageSourceCodeLayers = function (ctx) {
+var handleSourceCodeLayers = function (_this) {
+	"use strict";
+	var cL = "classList",
+	pN = "parentNode",
+	is_active = "is-active",
+	s = _this[pN] ? _this[pN].nextElementSibling : "";
+	if (s) {
+		_this[cL].toggle(is_active);
+		s[cL].toggle(is_active);
+	}
+	return !1;
+},
+manageSourceCodeLayers = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
 	var w = window,
 	cls = ".sg-btn--source",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
-	cL = "classList",
-	pN = "parentNode",
-	is_active = "is-active",
-	h_e = function (_this) {
-		var s = _this[pN] ? _this[pN].nextElementSibling : "";
-		if (s) {
-			_this[cL].toggle(is_active);
-			s[cL].toggle(is_active);
-		}
-		return !1;
-	},
 	k = function (e) {
-		/* evento.add(e, "click", h_e.bind(null, e)); */
-		e.onclick = h_e.bind(null, e);
+		evento.add(e, "click", handleSourceCodeLayers.bind(null, e));
+		/* e.onclick = handleSourceCodeLayers.bind(null, e); */
 	},
 	q = function () {
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
@@ -1225,37 +1221,75 @@ evento.add(window, "load", manageSourceCodeLayers.bind(null, ""));
  * init qr-code
  * stackoverflow.com/questions/12777622/how-to-use-enquire-js
  */
-var manageLocationQrCodeImg = function () {
+var generateLocationQrCodeImg = function () {
 	"use strict";
 	var w = window,
 	d = document,
-	a = BALA.one("#location-qr-code") || "",
-	p = w.location.href || "",
+	holder = ".holder-location-qr-code",
+	c = BALA.one(holder) || "",
 	cls = "qr-code-img",
+	u = w.location.href || "",
 	cL = "classList",
-	g = function () {
-		removeChildren(a);
-		var t = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
-		s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(p),
-		m = crel("img");
-		m[cL].add(cls);
+	m = crel("img"),
+	t = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
+	s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(u);
+	m.alt = t;
+	if (w.QRCode) {
+		if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
+			s = QRCode.generateSVG(u, {
+					ecclevel: "M",
+					fillcolor: "#FFFFFF",
+					textcolor: "#373737",
+					margin: 4,
+					modulesize: 8
+				});
+			var XMLS = new XMLSerializer();
+			s = XMLS.serializeToString(s);
+			s = "data:image/svg+xml;base64," + w.btoa(unescape(encodeURIComponent(s)));
+			m.src = s;
+		} else {
+			s = QRCode.generatePNG(u, {
+					ecclevel: "M",
+					format: "html",
+					fillcolor: "#FFFFFF",
+					textcolor: "#373737",
+					margin: 4,
+					modulesize: 8
+				});
+			m.src = s;
+		}
+	} else {
 		m.src = s;
-		m.title = t;
-		m.alt = t;
-		appendFragment(m, a);
-	};
-	if (a && p) {
+	}
+	m[cL].add(cls);
+	m.title = t;
+	removeChildren(c);
+	appendFragment(m, c);
+},
+manageLocationQrCodeImg = function () {
+	"use strict";
+	var w = window,
+	holder = ".holder-location-qr-code",
+	c = BALA.one(holder) || "",
+	u = w.location.href || "";
+	if (c && u) {
 		console.log("triggered function: manageLocationQrCodeImg");
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
-				g();
-			}
-		} else {
-			setStyleDisplayNone(a);
+			generateLocationQrCodeImg();
 		}
 	}
+},
+loadManageLocationQrCodeImg = function () {
+	"use strict";
+	var w = window,
+	js = "../../cdn/qrjs2/0.1.2/js/qrjs2.fixed.min.js";
+	if (!scriptIsLoaded(js)) {
+		loadJS(js, manageLocationQrCodeImg);
+	} else {
+		manageLocationQrCodeImg();
+	}
 };
-evento.add(window, "load", manageLocationQrCodeImg);
+evento.add(window, "load", loadManageLocationQrCodeImg);
 /*!
  * init nav-menu
  */

@@ -593,20 +593,21 @@ template {
  * location qr code
  */
 
-.location-qr-code {
-	width: 100%;
+.holder-location-qr-code {
 	display: block;
+	width: 100%;
 	float: left;
 	text-align: left;
 	background-color: #FFFFFF;
 }
 
-.location-qr-code .qr-code-img {
+.holder-location-qr-code .qr-code-img,
+.holder-location-qr-code img {
 	display: block;
-	width: 10.000em;
-	height: 10.000em;
+	width: 9.000rem;
+	height: 9.000rem;
 	background-color: transparent;
-	background-size: 10em 10em;
+	background-size: 9.000rem 9.000rem;
 	border: 0;
 	vertical-align: bottom;
 	padding: 0;

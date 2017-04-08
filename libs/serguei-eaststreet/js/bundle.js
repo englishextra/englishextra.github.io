@@ -682,8 +682,8 @@ var notiBar = function (opt) {
 		}
 		appendFragment(s, m);
 		appendFragment(m, c);
-		var x_a = crel("a");
-		x_a[cL].add(s_close);
+		var btn = crel("a");
+		btn[cL].add(s_close);
 		var set_cookie = function () {
 			if (settings.days) {
 				Cookies.set(settings.key, settings.value, { expires: settings.days });
@@ -698,16 +698,13 @@ var notiBar = function (opt) {
 				c[cL].add(s_an2);
 				removeChildren(c);
 			}
-		},
-		h_x = function () {
-			evento.remove(x_a, "click", h_x);
-			/* x_a.onclick = null; */
+		};
+		evento.add(btn, "click", function h_btn() {
+			evento.remove(this, "click", h_btn);
 			hide_message();
 			set_cookie();
-		};
-		evento.add(x_a, "click", h_x);
-		/* x_a.onclick = h_x; */
-		appendFragment(x_a, c);
+		});
+		appendFragment(btn, c);
 		appendFragment(c, b);
 		c[cL].remove(s_an2);
 		c[cL].add(s_an1);
@@ -798,21 +795,11 @@ var Notifier42 = function (m, n, t) {
 			}
 		};
 		setAutoClearedTimeout(r, 400);
-	},
-	h_b = function () {
-		/* evento.remove(b, "click", h_b); */
-		b.onclick = null;
-		g();
-	},
-	h_c = function () {
-		/* evento.remove(c, "click", h_c); */
-		c.onclick = null;
-		g();
 	};
-	/* evento.add(b, "click", h_b);
-	evento.add(c, "click", h_c); */
-	b.onclick = h_b;
-	c.onclick = h_c;
+	evento.add(c, "click", function h_c() {
+		evento.remove(this, "click", h_c);
+		g();
+	});
 	if (0 !== n) {
 		setAutoClearedTimeout(g, n);
 	}
@@ -1088,7 +1075,7 @@ var openDeviceBrowser = function (a) {
  * so that they open in new browser tab
  * @param {Object} [ctx] context HTML Element
  */
-var handleExternalLinkOnClick = function (p, ev) {
+var handleExternalLink = function (p, ev) {
 	"use strict";
 	ev.stopPropagation();
 	ev.preventDefault();
@@ -1101,20 +1088,13 @@ manageExternalLinks = function (ctx) {
 	cls = "a",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	g = function (e) {
-		var p = e.getAttribute("href") || ""/* ,
-		h_e = function (ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			openDeviceBrowser(p);
-		} */;
+		var p = e.getAttribute("href") || "";
 		if (p && parseLink(p).isCrossDomain && parseLink(p).hasHTTP) {
 			e.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
 			if ("undefined" !== typeof getHTTP && getHTTP()) {
 				e.target = "_blank";
 			} else {
-				/* evento.add(e, "click", h_e); */
-				/* e.onclick = h_e; */
-				evento.add(e, "click", handleExternalLinkOnClick.bind(null, p));
+				evento.add(e, "click", handleExternalLink.bind(null, p));
 			}
 		}
 	},
@@ -1183,18 +1163,16 @@ var manageDataTargetLinks = function (ctx) {
 	ds = "dataset",
 	g = function (e) {
 		var u = e[ds].include || "",
-		t = e[ds].target || "",
-		h_e = function (_this, ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			/* evento.remove(_this, "click", h_e); */
-			_this.onclick = null;
-			includeHTMLintoTarget(_this, u, t);
-		};
+		t = e[ds].target || "";
 		if (u && t) {
 			e.title = "Появится здесь же";
-			/* evento.add(e, "click", h_e.bind(null, e)); */
-			e.onclick = h_e.bind(null, e);
+			evento.add(e, "click", function h_e(ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var _this = this;
+				evento.remove(_this, "click", h_e);
+				includeHTMLintoTarget(_this, u, t);
+			});
 		}
 	},
 	k = function () {
@@ -1370,9 +1348,10 @@ var manageDataSrcImg = function (ctx) {
 					}).catch (function (err) {
 						console.log("manageDataSrcImg => imagePromise: cannot load image:", err);
 					});
-				} else { */
+				} else {
 					e.src = _src;
-				/* } */
+				} */
+				e.src = _src;
 				e[cL].add(is_active);
 			}
 		}
@@ -1483,26 +1462,26 @@ evento.add(window, "load", loadManageDataQrcodeImg);
  * add smooth scroll or redirection to static select options
  * @param {Object} [ctx] context HTML Element
  */
-var manageStaticSelect = function (ctx) {
+var handleStaticSelect = function (_this) {
+	"use strict";
+	var h = _this.options[_this.selectedIndex].value || "",
+	zh = h ? (isValidId(h, !0) ? BALA.one(h) : "") : "";
+	if (h) {
+		if (zh) {
+			scrollToElement(zh);
+		} else {
+			changeLocation(h);
+		}
+	}
+},
+manageStaticSelect = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
-	var w = window,
-	cls = "#pages_select",
+	var cls = "#pages_select",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
-	g = function (_this) {
-		var h = _this.options[_this.selectedIndex].value || "",
-		zh = h ? (isValidId(h, !0) ? BALA.one(h) : "") : "";
-		if (h) {
-			if (zh) {
-				scrollToElement(zh);
-			} else {
-				changeLocation(h);
-			}
-		}
-	},
 	k = function () {
-		/* evento.add(a, "change", g.bind(null, a)); */
-		a.onchange = g.bind(null, a);
+		evento.add(a, "change", handleStaticSelect.bind(null, a));
+		/* a.onchange = handleStaticSelect.bind(null, a); */
 	};
 	if (a) {
 		console.log("triggered function: manageStaticSelect");
@@ -1534,26 +1513,27 @@ docReady(manageSearchInput);
  * add click event on hidden-layer show btn
  * @param {Object} [ctx] context HTML Element
  */
-var manageExpandingLayers = function (ctx) {
+var handleExpandingLayers = function (_this) {
+	"use strict";
+	var cL = "classList",
+	pN = "parentNode",
+	is_active = "is-active",
+	s = _this[pN] ? _this[pN].nextElementSibling : "";
+	if (s) {
+		_this[cL].toggle(is_active);
+		s[cL].toggle(is_active);
+	}
+	return !1;
+},
+manageExpandingLayers = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
 	var w = window,
 	cls = ".btn-expand-hidden-layer",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
-	cL = "classList",
-	pN = "parentNode",
-	is_active = "is-active",
-	h_e = function (_this) {
-		var s = _this[pN] ? _this[pN].nextElementSibling : "";
-		if (s) {
-			_this[cL].toggle(is_active);
-			s[cL].toggle(is_active);
-		}
-		return !1;
-	},
 	k = function (e) {
-		/* evento.add(e, "click", h_e.bind(null, e)); */
-		e.onclick = h_e.bind(null, e);
+		evento.add(e, "click", handleExpandingLayers.bind(null, e));
+		/* e.onclick = handleExpandingLayers.bind(null, e); */
 	},
 	q = function () {
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
@@ -1576,16 +1556,45 @@ evento.add(window, "load", manageExpandingLayers.bind(null, ""));
 /*!
  * init col debug btn
  */
-var manageDebugGridButton = function (ctx) {
+var hideDebugGrid = function () {
 	"use strict";
-	ctx = ctx || "";
+	var c = BALA.one(".container") || "",
+	debug = "debug",
+	cL = "classList";
+	if (c) {
+		c[cL].remove(debug);
+		evento.remove(c, "click", hideDebugGrid);
+	}
+},
+showDebugGridMesage = function () {
+	"use strict";
 	var w = window,
 	b = BALA.one("body") || "",
 	page = BALA.one(".page") || "",
 	container = BALA.one(".container") || "",
-	cls = ".col",
-	col = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
-	c = container,
+	col = BALA.one(".col") || "",
+	a = [b, page, container, col],
+	m = [];
+	for (var i = 0, l = a.length; i < l; i += 1) {
+		if (a[i]) {
+			m.push((a[i].className ? "." + a[i].className : a[i].id ? "#" + a[i].id : a[i].tagName), " ", w.getComputedStyle(a[i]).getPropertyValue("font-size"), " ", w.getComputedStyle(a[i]).getPropertyValue("line-height"), " ", a[i].offsetWidth, "x", a[i].offsetHeight, " \u003e ");		
+		}
+	}
+	m = m.join("");
+	m = m.slice(0, m.lastIndexOf(" \u003e "));
+	notiBar({
+		"message": m,
+		"timeout": 10000,
+		/* "key": n,
+		"value": m, */
+		"days": 0
+	});
+},
+manageDebugGridButton = function (ctx) {
+	"use strict";
+	ctx = ctx || "";
+	var w = window,
+	c = BALA.one(".container") || "",
 	btn = ".btn-toggle-col-debug",
 	e = BALA.one(btn) || "",
 	debug = "debug",
@@ -1594,38 +1603,18 @@ var manageDebugGridButton = function (ctx) {
 		console.log("triggered function: manageDebugGridButton");
 		var u = w.location.href || "";
 		if (u && parseLink(u).hasHTTP && /^(localhost|127.0.0.1)/.test(parseLink(u).hostname)) {
-			var h_c = function () {
-				evento.remove(c, "click", h_c);
-				/* c.onclick = null; */
-				c[cL].remove(debug);
-			},
-			h_e = function (ev) {
+			var h_e = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				c[cL].toggle(debug);
 				if (c[cL].contains(debug)) {
-					evento.add(c, "click", h_c);
-					var a = [b, page, container, col],
-					m = [];
-					for (var i = 0, l = a.length; i < l; i += 1) {
-						m.push((a[i].className ? "." + a[i].className : a[i].id ? "#" + a[i].id : a[i].tagName), " ", w.getComputedStyle(a[i]).getPropertyValue("font-size"), " ", w.getComputedStyle(a[i]).getPropertyValue("line-height"), " ", a[i].offsetWidth, "x", a[i].offsetHeight, " \u003e ");
-					}
-					m = m.join("");
-					m = m.slice(0, m.lastIndexOf(" \u003e "));
-					notiBar({
-						"message": m,
-						"timeout": 10000,
-						/* "key": n,
-						"value": m, */
-						"days": 0
-					});
+					evento.add(c, "click", hideDebugGrid);
+					showDebugGridMesage();
 				} else {
-					evento.remove(c, "click", h_c);
+					evento.remove(c, "click", hideDebugGrid);
 				}
-				/* c.onclick = h_c; */
 			};
-			/* evento.add(e, "click", h_e); */
-			e.onclick = h_e;
+			evento.add(e, "click", h_e);
 		} else {
 			setStyleDisplayNone(e);
 		}
@@ -1636,17 +1625,60 @@ evento.add(window, "load", manageDebugGridButton.bind(null, ""));
  * init qr-code
  * stackoverflow.com/questions/12777622/how-to-use-enquire-js
  */
-var manageLocationQrCodeImg = function () {
+var generateLocationQrCodeImg = function () {
 	"use strict";
 	var w = window,
 	d = document,
+	holder = ".holder-location-qr-code",
+	c = BALA.one(holder) || "",
+	cls = "qr-code-img",
+	u = w.location.href || "",
+	cL = "classList",
+	m = crel("img"),
+	t = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
+	s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(u);
+	m.alt = t;
+	if (w.QRCode) {
+		if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
+			s = QRCode.generateSVG(u, {
+					ecclevel: "M",
+					fillcolor: "#FFFFFF",
+					textcolor: "#373737",
+					margin: 4,
+					modulesize: 8
+				});
+			var XMLS = new XMLSerializer();
+			s = XMLS.serializeToString(s);
+			s = "data:image/svg+xml;base64," + w.btoa(unescape(encodeURIComponent(s)));
+			m.src = s;
+		} else {
+			s = QRCode.generatePNG(u, {
+					ecclevel: "M",
+					format: "html",
+					fillcolor: "#FFFFFF",
+					textcolor: "#373737",
+					margin: 4,
+					modulesize: 8
+				});
+			m.src = s;
+		}
+	} else {
+		m.src = s;
+	}
+	m[cL].add(cls);
+	m.title = t;
+	removeChildren(c);
+	appendFragment(m, c);
+},
+manageLocationQrCodeImg = function () {
+	"use strict";
+	var w = window,
 	btn = ".btn-toggle-holder-location-qr-code",
 	e = BALA.one(btn) || "",
 	page = ".page",
 	p = BALA.one(page) || "",
 	holder = ".holder-location-qr-code",
 	c = BALA.one(holder) || "",
-	cls = "qr-code-img",
 	active_qrcode = "is-active-holder-location-qr-code",
 	active_vk_like = "is-active-holder-vk-like",
 	active_share = "is-active-holder-share-buttons",
@@ -1654,43 +1686,6 @@ var manageLocationQrCodeImg = function () {
 	active_menumore = "is-active-ui-menumore",
 	u = w.location.href || "",
 	cL = "classList",
-	k = function () {
-		var m = crel("img"),
-		t = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
-		s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(u);
-		m.alt = t;
-		if (w.QRCode) {
-			if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
-				s = QRCode.generateSVG(u, {
-						ecclevel: "M",
-						fillcolor: "#FFFFFF",
-						textcolor: "#373737",
-						margin: 4,
-						modulesize: 8
-					});
-				var XMLS = new XMLSerializer();
-				s = XMLS.serializeToString(s);
-				s = "data:image/svg+xml;base64," + w.btoa(unescape(encodeURIComponent(s)));
-				m.src = s;
-			} else {
-				s = QRCode.generatePNG(u, {
-						ecclevel: "M",
-						format: "html",
-						fillcolor: "#FFFFFF",
-						textcolor: "#373737",
-						margin: 4,
-						modulesize: 8
-					});
-				m.src = s;
-			}
-		} else {
-			m.src = s;
-		}
-		m[cL].add(cls);
-		m.title = t;
-		removeChildren(c);
-		appendFragment(m, c);
-	},
 	f = function () {
 		if (p[cL].contains(active_vk_like)) {
 			p[cL].remove(active_vk_like);
@@ -1710,7 +1705,6 @@ var manageLocationQrCodeImg = function () {
 		ev.preventDefault();
 		p[cL].toggle(active_qrcode);
 		f();
-		k();
 	},
 	q = function () {
 		if (p[cL].contains(active_qrcode)) {
@@ -1725,10 +1719,10 @@ var manageLocationQrCodeImg = function () {
 		console.log("triggered function: manageLocationQrCodeImg");
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			q();
-			/* evento.add(e, "click", h_e); */
-			e.onclick = h_e;
-			/* evento.add(c, "click", h_c); */
-			c.onclick = h_c;
+			evento.add(e, "click", generateLocationQrCodeImg);
+			evento.add(e, "click", h_e);
+			evento.add(w, "hashchange", generateLocationQrCodeImg);
+			evento.add(c, "click", h_c);
 		}
 	}
 },
@@ -1743,7 +1737,6 @@ loadManageLocationQrCodeImg = function () {
 	}
 };
 evento.add(window, "load", loadManageLocationQrCodeImg);
-evento.add(window, "hashchange", manageLocationQrCodeImg);
 /*!
  * init share btn
  */
@@ -1919,15 +1912,13 @@ var manageDisqusButton = function () {
 	h_e = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
-		/* evento.remove(e, "click", h_e); */
-		e.onclick = null;
+		evento.remove(e, "click", h_e);
 		loadRefreshDisqus();
 		return !1;
 	};
 	if (c && e) {
 		console.log("triggered function: manageDisqusButton");
-		/* evento.add(e, "click", h_e); */
-		e.onclick = h_e;
+		evento.add(e, "click", h_e);
 	}
 };
 evento.add(window, "load", manageDisqusButton);
@@ -1983,16 +1974,14 @@ var initYandexMap = function (a) {
 	h_b_d = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
-		/* evento.remove(b_d, "click", h_b_d); */
-		b_d.onclick = null;
+		evento.remove(b_d, "click", h_b_d);
 		myMap.destroy();
 	};
 	if (c && f && z && b_s) {
 		console.log("triggered function: initYandexMap");
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			if (b_d) {
-				/* evento.add(b_d, "click", h_b_d); */
-				b_d.onclick = h_b_d;
+				evento.add(b_d, "click", h_b_d);
 			}
 			LoadingSpinner.show();
 			if (scriptIsLoaded(js)) {
@@ -2016,15 +2005,13 @@ var manageYandexMapButton = function (a) {
 	h_e = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
-		/* evento.remove(e, "click", h_e); */
-		e.onclick = null;
+		evento.remove(e, "click", h_e);
 		initYandexMap(a);
 		return !1;
 	};
 	if (c && e) {
 		console.log("triggered function: manageYandexMapButton");
-		/* evento.add(e, "click", h_e); */
-		e.onclick = h_e;
+		evento.add(e, "click", h_e);
 	}
 };
 evento.add(window, "load", manageYandexMapButton.bind(null, "#ymap"));
@@ -2476,13 +2463,11 @@ var initRoutie = function (ctx) {
 			"/home": function () {
 				loadVirtualPage(ctx, "./includes/home.html", function () {
 					reinitVirtualPage(" - Начало");
-					manageYandexMapButton("#ymap");
 				});
 			},
 			/* "/feedback": function () {
 				loadVirtualPage(ctx, "./includes/feedback.html", function () {
 					reinitVirtualPage(" - Напишите мне");
-					manageDisqusButton();
 				});
 			}, */
 			"/schedule": function () {
@@ -2563,7 +2548,6 @@ var observeMutations = function (ctx) {
 					manageDataQrcodeImg(c);
 					manageStaticSelect(c);
 					manageExpandingLayers(c);
-					manageDebugGridButton(c);
 				}
 			};
 			/* e.forEach(f); */

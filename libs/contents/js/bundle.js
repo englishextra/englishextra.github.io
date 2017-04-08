@@ -542,7 +542,7 @@ var openDeviceBrowser = function (a) {
  * so that they open in new browser tab
  * @param {Object} [ctx] context HTML Element
  */
-var handleExternalLinkOnClick = function (p, ev) {
+var handleExternalLink = function (p, ev) {
 	"use strict";
 	ev.stopPropagation();
 	ev.preventDefault();
@@ -555,20 +555,13 @@ manageExternalLinks = function (ctx) {
 	cls = "a",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	g = function (e) {
-		var p = e.getAttribute("href") || ""/* ,
-		h_e = function (ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			openDeviceBrowser(p);
-		} */;
+		var p = e.getAttribute("href") || "";
 		if (p && parseLink(p).isCrossDomain && parseLink(p).hasHTTP) {
 			e.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
 			if ("undefined" !== typeof getHTTP && getHTTP()) {
 				e.target = "_blank";
 			} else {
-				/* evento.add(e, "click", h_e); */
-				/* e.onclick = h_e; */
-				evento.add(e, "click", handleExternalLinkOnClick.bind(null, p));
+				evento.add(e, "click", handleExternalLink.bind(null, p));
 			}
 		}
 	},
@@ -818,7 +811,19 @@ evento.add(window, "load", loadInitMasonryDisqus);
  * add smooth scroll or redirection to static select options
  * @param {Object} [ctx] context HTML Element
  */
-var manageContentsSelect = function (ctx) {
+var handleContentsSelect = function (_this) {
+	"use strict";
+	var h = _this.options[_this.selectedIndex].value || "",
+	zh = h ? (isValidId(h, !0) ? BALA.one(h) : "") : "";
+	if (h) {
+		if (zh) {
+			scrollToElement(zh);
+		} else {
+			changeLocation(h);
+		}
+	}
+},
+manageContentsSelect = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
 	var w = window,
@@ -835,17 +840,6 @@ var manageContentsSelect = function (ctx) {
 					"value" : p,
 					"title" : "" + t
 				}, truncString("" + t, 33)));
-		}
-	},
-	k = function (_this) {
-		var h = _this.options[_this.selectedIndex].value || "",
-		zh = h ? (isValidId(h, !0) ? BALA.one(h) : "") : "";
-		if (h) {
-			if (zh) {
-				scrollToElement(zh);
-			} else {
-				changeLocation(h);
-			}
 		}
 	},
 	q = function (r) {
@@ -865,8 +859,8 @@ var manageContentsSelect = function (ctx) {
 				}
 			}
 			a[aC](df);
-			/* evento.add(a, "change", k.bind(null, a)); */
-			a.onchange = k.bind(null, a);
+			evento.add(a, "change", handleContentsSelect.bind(null, a));
+			/* a.onchange = handleContentsSelect.bind(null, a); */
 		}
 	},
 	v = function () {
@@ -920,37 +914,75 @@ docReady(manageSearchInput);
  * init qr-code
  * stackoverflow.com/questions/12777622/how-to-use-enquire-js
  */
-var manageLocationQrCodeImg = function () {
+var generateLocationQrCodeImg = function () {
 	"use strict";
 	var w = window,
 	d = document,
-	a = BALA.one("#location-qr-code") || "",
-	p = w.location.href || "",
+	holder = ".holder-location-qr-code",
+	c = BALA.one(holder) || "",
 	cls = "qr-code-img",
+	u = w.location.href || "",
 	cL = "classList",
-	g = function () {
-		removeChildren(a);
-		var t = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
-		s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(p),
-		m = crel("img");
-		m[cL].add(cls);
+	m = crel("img"),
+	t = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
+	s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(u);
+	m.alt = t;
+	if (w.QRCode) {
+		if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
+			s = QRCode.generateSVG(u, {
+					ecclevel: "M",
+					fillcolor: "#FFFFFF",
+					textcolor: "#373737",
+					margin: 4,
+					modulesize: 8
+				});
+			var XMLS = new XMLSerializer();
+			s = XMLS.serializeToString(s);
+			s = "data:image/svg+xml;base64," + w.btoa(unescape(encodeURIComponent(s)));
+			m.src = s;
+		} else {
+			s = QRCode.generatePNG(u, {
+					ecclevel: "M",
+					format: "html",
+					fillcolor: "#FFFFFF",
+					textcolor: "#373737",
+					margin: 4,
+					modulesize: 8
+				});
+			m.src = s;
+		}
+	} else {
 		m.src = s;
-		m.title = t;
-		m.alt = t;
-		appendFragment(m, a);
-	};
-	if (a && p) {
+	}
+	m[cL].add(cls);
+	m.title = t;
+	removeChildren(c);
+	appendFragment(m, c);
+},
+manageLocationQrCodeImg = function () {
+	"use strict";
+	var w = window,
+	holder = ".holder-location-qr-code",
+	c = BALA.one(holder) || "",
+	u = w.location.href || "";
+	if (c && u) {
 		console.log("triggered function: manageLocationQrCodeImg");
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
-				g();
-			}
-		} else {
-			setStyleDisplayNone(a);
+			generateLocationQrCodeImg();
 		}
 	}
+},
+loadManageLocationQrCodeImg = function () {
+	"use strict";
+	var w = window,
+	js = "../cdn/qrjs2/0.1.2/js/qrjs2.fixed.min.js";
+	if (!scriptIsLoaded(js)) {
+		loadJS(js, manageLocationQrCodeImg);
+	} else {
+		manageLocationQrCodeImg();
+	}
 };
-evento.add(window, "load", manageLocationQrCodeImg);
+evento.add(window, "load", loadManageLocationQrCodeImg);
 /*!
  * init nav-menu
  */
