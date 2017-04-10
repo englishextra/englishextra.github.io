@@ -346,6 +346,14 @@ var setStyleVisibilityHidden=function(a){return function(){if(a){a.style.visibil
  */
 var scrollToTop=function(){var w=window;return w.zenscroll?zenscroll.toY(0):w.scroll2Top?scroll2Top(w,400):w.scroll(0,0);};
 /*!
+ * scroll to element using zenscroll with fallback
+ * @requires zenscroll
+ * @param {Number} p an HTML element top position
+ * @param {Number} t animation duration
+ * scrollToPos(p,t)
+ */
+var scrollToPos=function(p,t){t=t||200;if(p){if(window.zenscroll){zenscroll.toY(p,t);}else{window.scroll(0,p);}}return!1;};
+/*!
  * modified Unified URL parsing API in the browser and node
  * github.com/wooorm/parse-link
  * removed module check
@@ -594,13 +602,7 @@ var initSuperBox = function () {
 		var reveal_pos = _this.offsetTop,
 		hide_pos = w.pageYOffset || d.documentElement.scrollTop;
 		/* crel(s_cur_desc, crel("p", "" + reveal_pos + " / " + hide_pos)); */
-		var si1 = function () {
-			if (w.zenscroll) {
-				zenscroll.toY(reveal_pos, 200);
-			} else {
-				w.scroll(0, reveal_pos);
-			}
-		};
+		var si1 = scrollToPos.bind(null, reveal_pos, 200);
 		/* setImmediate(si1); */
 		setAutoClearedTimeout(si1, 100);
 		s_cur_desc[cL].add(an);
@@ -657,13 +659,7 @@ var initSuperBox = function () {
 		 */
 		var s_close = BALA.one("." + s4, s_cur_desc) || "",
 		doOnClose = function () {
-			var si2 = function () {
-				if (w.zenscroll) {
-					zenscroll.toY(hide_pos, 200);
-				} else {
-					w.scroll(0, hide_pos);
-				}
-			};
+			var si2 = scrollToPos.bind(null, hide_pos, 200);
 			/* setImmediate(si2); */
 			setAutoClearedTimeout(si2, 100);
 			s_cur_desc[cL].remove(an1);
