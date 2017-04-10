@@ -489,37 +489,75 @@ docReady(loadInitFastClick); */
  * init qr-code
  * stackoverflow.com/questions/12777622/how-to-use-enquire-js
  */
-var manageLocationQrCodeImg = function () {
+var generateLocationQrCodeImg = function () {
 	"use strict";
 	var w = window,
 	d = document,
-	a = BALA.one("#location-qr-code") || "",
-	p = w.location.href || "",
+	holder = ".holder-location-qr-code",
+	c = BALA.one(holder) || "",
 	cls = "qr-code-img",
+	u = w.location.href || "",
 	cL = "classList",
-	g = function () {
-		removeChildren(a);
-		var t = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
-		s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(p),
-		m = crel("img");
-		m[cL].add(cls);
+	m = crel("img"),
+	t = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
+	s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(u);
+	m.alt = t;
+	if (w.QRCode) {
+		if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
+			s = QRCode.generateSVG(u, {
+					ecclevel: "M",
+					fillcolor: "#FFFFFF",
+					textcolor: "#373737",
+					margin: 4,
+					modulesize: 8
+				});
+			var XMLS = new XMLSerializer();
+			s = XMLS.serializeToString(s);
+			s = "data:image/svg+xml;base64," + w.btoa(unescape(encodeURIComponent(s)));
+			m.src = s;
+		} else {
+			s = QRCode.generatePNG(u, {
+					ecclevel: "M",
+					format: "html",
+					fillcolor: "#FFFFFF",
+					textcolor: "#373737",
+					margin: 4,
+					modulesize: 8
+				});
+			m.src = s;
+		}
+	} else {
 		m.src = s;
-		m.title = t;
-		m.alt = t;
-		appendFragment(m, a);
-	};
-	if (a && p) {
+	}
+	m[cL].add(cls);
+	m.title = t;
+	removeChildren(c);
+	appendFragment(m, c);
+},
+manageLocationQrCodeImg = function () {
+	"use strict";
+	var w = window,
+	holder = ".holder-location-qr-code",
+	c = BALA.one(holder) || "",
+	u = w.location.href || "";
+	if (c && u) {
 		console.log("triggered function: manageLocationQrCodeImg");
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
-				g();
-			}
-		} else {
-			setStyleDisplayNone(a);
+			generateLocationQrCodeImg();
 		}
 	}
+},
+loadManageLocationQrCodeImg = function () {
+	"use strict";
+	var w = window,
+	js = "./cdn/qrjs2/0.1.2/js/qrjs2.fixed.min.js";
+	if (!scriptIsLoaded(js)) {
+		loadJS(js, manageLocationQrCodeImg);
+	} else {
+		manageLocationQrCodeImg();
+	}
 };
-evento.add(window, "load", manageLocationQrCodeImg);
+evento.add(window, "load", loadManageLocationQrCodeImg);
 /*!
  * init nav-menu
  */
