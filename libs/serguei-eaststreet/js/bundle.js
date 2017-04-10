@@ -523,7 +523,7 @@ var scrollToElement=function(a){if(a){if(window.zenscroll){zenscroll.to(a);}else
  * @requires zenscroll
  * scrollToTop()
  */
-var scrollToTop=function(){var w=window;return w.zenscroll?zenscroll.toY(0):w.scrollTo(0,0);};
+var scrollToTop=function(){var w=window;return w.zenscroll?zenscroll.toY(0):w.scroll2Top?scroll2Top(w,400):w.scroll(0,0);};
 /*!
  * change window hash
  * @param {String} a hash string without hash sign
@@ -893,7 +893,6 @@ var initSidepanel = function () {
 			f();
 		};
 		evento.add(e, "click", h_e);
-		/* e.onclick = h_e; */
 		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
 			evento.add(o, "swipeleft", h_o);
 			/* p.onswipeleft = h_o; */
@@ -998,7 +997,6 @@ var initMenumore = function () {
 			f();
 		};
 		evento.add(e, "click", h_e);
-		/* e.onclick = h_e; */
 		var h_a = function () {
 			if (p[cL].contains(active_menumore)) {
 				p[cL].remove(active_menumore);
@@ -1010,7 +1008,6 @@ var initMenumore = function () {
 			a = BALA(item) || "";
 			var g = function (e) {
 				evento.add(e, "click", h_a);
-				/* e.onclick = h_a; */
 			};
 			if (w._) {
 				_.each(a, g);
@@ -1481,7 +1478,6 @@ manageStaticSelect = function (ctx) {
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	k = function () {
 		evento.add(a, "change", handleStaticSelect.bind(null, a));
-		/* a.onchange = handleStaticSelect.bind(null, a); */
 	};
 	if (a) {
 		console.log("triggered function: manageStaticSelect");
@@ -1533,7 +1529,6 @@ manageExpandingLayers = function (ctx) {
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	k = function (e) {
 		evento.add(e, "click", handleExpandingLayers.bind(null, e));
-		/* e.onclick = handleExpandingLayers.bind(null, e); */
 	},
 	q = function () {
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
@@ -1783,7 +1778,6 @@ var manageShareButtons = function () {
 			}
 		};
 		evento.add(e, "click", h_e);
-		/* e.onclick = h_e; */
 	}
 };
 docReady(manageShareButtons);
@@ -1844,7 +1838,6 @@ var manageVKLikeButton = function () {
 			}
 		};
 		evento.add(e, "click", h_e);
-		/* e.onclick = h_e; */
 	}
 };
 docReady(manageVKLikeButton);
@@ -2100,13 +2093,11 @@ var initContentsKamil = function () {
 					removeChildren(_li);
 					crel(_li, "" + v);
 					evento.add(_li, "click", h_li.bind(null, v));
-					/* _li.onclick = h_li.bind(null, v); */
 					if (v.match(/^\s*$/)) {
 						setStyleDisplayNone(_ul);
 						setStyleDisplayNone(_li);
 					}
 					evento.add(text, "input", h_text);
-					/* text.oninput = h_text; */
 					l += 1;
 				}
 				/*!
@@ -2222,29 +2213,10 @@ var initUiTotop = function () {
 		}
 	},
 	g = function (f) {
-		var z = function (n) {
-			var o = w.pageYOffset,
-			i = 0,
-			x = function (o, l) {
-				return function () {
-					l -= o * n;
-					w.scrollTo(0, l);
-					i += 1;
-					if (150 < i || 0 > l) {
-						clearInterval(si);
-					}
-				};
-			},
-			si = setInterval(x.bind(null, n, o--), 50);
-		},
-		h_a = function (ev) {
+		var h_a = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			if (w.zenscroll) {
-				zenscroll.toY(0);
-			} else {
-				z(50);
-			}
+			scrollToTop();
 		},
 		a = crel("a");
 		a[cL].add(u);
@@ -2254,10 +2226,8 @@ var initUiTotop = function () {
 		a.title = t;
 		a[cL].add(u);
 		evento.add(a, "click", h_a);
-		/* a.onclick = h_a; */
 		crel(b, crel(a));
 		evento.add(w, "scroll", k.bind(null, w));
-		/* w.onscroll = k.bind(null, w); */
 	};
 	if (b) {
 		console.log("triggered function: initUiTotop");

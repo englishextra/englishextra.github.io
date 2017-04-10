@@ -459,6 +459,12 @@ var isValidId=function(a,full){return full?/^\#[A-Za-z][-A-Za-z0-9_:.]*$/.test(a
  */
 var findPos=function(a){a=a.getBoundingClientRect();var b=document.body,c=document.documentElement;return{top:Math.round(a.top+(window.pageYOffset||c.scrollTop||b.scrollTop)-(c.clientTop||b.clientTop||0)),left:Math.round(a.left+(window.pageXOffset||c.scrollLeft||b.scrollLeft)-(c.clientLeft||b.clientLeft||0))};};
 /*!
+ * Scroll to top with Zenscroll, or fallback
+ * @requires zenscroll
+ * scrollToTop()
+ */
+var scrollToTop=function(){var w=window;return w.zenscroll?zenscroll.toY(0):w.scroll2Top?scroll2Top(w,400):w.scroll(0,0);};
+/*!
  * scroll to element using zenscroll with fallback
  * @requires zenscroll
  * @requires findPos
@@ -1138,7 +1144,6 @@ manageStaticSelect = function (ctx) {
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	k = function () {
 		evento.add(a, "change", handleStaticSelect.bind(null, a));
-		/* a.onchange = handleStaticSelect.bind(null, a); */
 	};
 	if (a) {
 		console.log("triggered function: manageStaticSelect");
@@ -1190,7 +1195,6 @@ manageExpandingLayers = function (ctx) {
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	k = function (e) {
 		evento.add(e, "click", handleExpandingLayers.bind(null, e));
-		/* e.onclick = handleExpandingLayers.bind(null, e); */
 	},
 	q = function () {
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
@@ -1382,7 +1386,6 @@ var initNavMenu = function () {
 			n(e);
 		};
 		evento.add(e, "click", h_e);
-		/* e.onclick = h_e; */
 		if (e.href == p) {
 			n(e);
 		} else {
@@ -1482,11 +1485,9 @@ var initMenuMore = function () {
 	},
 	g = function (e) {
 		evento.add(e, "click", h_e);
-		/* e.onclick = h_e; */
 	},
 	k = function () {
 		evento.add(container, "click", h_e);
-		/* container.onclick = h_e; */
 	},
 	q = function () {
 		var h_btn = function (ev) {
@@ -1495,7 +1496,6 @@ var initMenuMore = function () {
 			holder[cL].toggle(is_active);
 		};
 		evento.add(btn, "click", h_btn);
-		/* btn.onclick = h_e; */
 	},
 	v = function () {
 		if (w._) {
@@ -1550,29 +1550,10 @@ var initUiTotop = function () {
 		}
 	},
 	g = function (f) {
-		var z = function (n) {
-			var o = w.pageYOffset,
-			i = 0,
-			x = function (o, l) {
-				return function () {
-					l -= o * n;
-					w.scrollTo(0, l);
-					i += 1;
-					if (150 < i || 0 > l) {
-						clearInterval(si);
-					}
-				};
-			},
-			si = setInterval(x.bind(null, n, o--), 50);
-		},
-		h_a = function (ev) {
+		var h_a = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			if (w.zenscroll) {
-				zenscroll.toY(0);
-			} else {
-				z(50);
-			}
+			scrollToTop();
 		},
 		a = crel("a");
 		a[cL].add(u);
@@ -1582,10 +1563,8 @@ var initUiTotop = function () {
 		a.title = t;
 		a[cL].add(u);
 		evento.add(a, "click", h_a);
-		/* a.onclick = h_a; */
 		crel(b, crel(a));
 		evento.add(w, "scroll", k.bind(null, w));
-		/* w.onscroll = k.bind(null, w); */
 	};
 	if (b) {
 		console.log("triggered function: initUiTotop");
@@ -1627,11 +1606,9 @@ var initPlusoYaShare = function () {
 			ev.stopPropagation();
 			ev.preventDefault();
 			evento.remove(a, "click", h_a);
-			/* a.onclick = null; */
 			q();
 		};
 		evento.add(a, "click", h_a);
-		/* a.onclick = h_e; */
 	};
 	if ((pluso || ya_share2) && a) {
 		console.log("triggered function: initPlusoYaShare");
@@ -1688,12 +1665,10 @@ var initDownloadAppBtn = function (n) {
 			a.target = "_blank";
 		} else {
 			evento.add(a, "click", h_a);
-			/* a.onclick = h_a; */
-		}
+			}
 		appendFragment(a, b);
 		var s1 = function () {
 			evento.remove(a, "click", h_a);
-			/* a.onclick = null; */
 			removeElement(a);
 		},
 		s2 = function () {
@@ -1822,11 +1797,9 @@ var manageVKLikeButton = function () {
 			ev.stopPropagation();
 			ev.preventDefault();
 			evento.remove(a, "click", h_a);
-			/* a.onclick = null; */
 			k();
 		};
 		evento.add(a, "click", h_a);
-		/* a.onclick = h_e; */
 	};
 	if (c && a) {
 		console.log("triggered function: manageVKLikeButton");
@@ -1923,13 +1896,11 @@ var initPagesKamil = function () {
 					removeChildren(_li);
 					crel(_li, "" + v);
 					evento.add(_li, "click", h_li.bind(null, v));
-					/* _li.onclick = h_li.bind(null, v); */
 					if (v.match(/^\s*$/)) {
 						setStyleDisplayNone(_ul);
 						setStyleDisplayNone(_li);
 					}
 					evento.add(text, "input", h_text);
-					/* text.oninput = h_text; */
 					l += 1;
 				}
 				/*!
@@ -2064,7 +2035,6 @@ var initSearchForm = function () {
 			return !1;
 		};
 		evento.add(search_form, "submit", h_search_form);
-		/* search_form.onsubmit = h_search_form; */
 		setStyleDisplayNone(ya_site_form);
 	};
 	console.log("triggered function: initSearchForm");

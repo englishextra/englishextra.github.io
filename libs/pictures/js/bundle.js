@@ -362,6 +362,12 @@ var setStyleVisibilityVisible=function(a){return function(){if(a){a.style.visibi
  */
 var setStyleVisibilityHidden=function(a){return function(){if(a){a.style.visibility="hidden";}}();};
 /*!
+ * Scroll to top with Zenscroll, or fallback
+ * @requires zenscroll
+ * scrollToTop()
+ */
+var scrollToTop=function(){var w=window;return w.zenscroll?zenscroll.toY(0):w.scroll2Top?scroll2Top(w,400):w.scroll(0,0);};
+/*!
  * modified Unified URL parsing API in the browser and node
  * github.com/wooorm/parse-link
  * removed module check
@@ -1172,7 +1178,6 @@ var initNavMenu = function () {
 			n(e);
 		};
 		evento.add(e, "click", h_e);
-		/* e.onclick = h_e; */
 		if (e.href == p) {
 			n(e);
 		} else {
@@ -1222,11 +1227,9 @@ var initMenuMore = function () {
 	},
 	g = function (e) {
 		evento.add(e, "click", h_e);
-		/* e.onclick = h_e; */
 	},
 	k = function () {
 		evento.add(container, "click", h_e);
-		/* container.onclick = h_e; */
 	},
 	q = function () {
 		var h_btn = function (ev) {
@@ -1235,7 +1238,6 @@ var initMenuMore = function () {
 			holder[cL].toggle(is_active);
 		};
 		evento.add(btn, "click", h_btn);
-		/* btn.onclick = h_e; */
 	},
 	v = function () {
 		if (w._) {
@@ -1290,29 +1292,10 @@ var initUiTotop = function () {
 		}
 	},
 	g = function (f) {
-		var z = function (n) {
-			var o = w.pageYOffset,
-			i = 0,
-			x = function (o, l) {
-				return function () {
-					l -= o * n;
-					w.scrollTo(0, l);
-					i += 1;
-					if (150 < i || 0 > l) {
-						clearInterval(si);
-					}
-				};
-			},
-			si = setInterval(x.bind(null, n, o--), 50);
-		},
-		h_a = function (ev) {
+		var h_a = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			if (w.zenscroll) {
-				zenscroll.toY(0);
-			} else {
-				z(50);
-			}
+			scrollToTop();
 		},
 		a = crel("a");
 		a[cL].add(u);
@@ -1322,10 +1305,8 @@ var initUiTotop = function () {
 		a.title = t;
 		a[cL].add(u);
 		evento.add(a, "click", h_a);
-		/* a.onclick = h_a; */
 		crel(b, crel(a));
 		evento.add(w, "scroll", k.bind(null, w));
-		/* w.onscroll = k.bind(null, w); */
 	};
 	if (b) {
 		console.log("triggered function: initUiTotop");
@@ -1367,11 +1348,9 @@ var initPlusoYaShare = function () {
 			ev.stopPropagation();
 			ev.preventDefault();
 			evento.remove(a, "click", h_a);
-			/* a.onclick = null; */
 			q();
 		};
 		evento.add(a, "click", h_a);
-		/* a.onclick = h_e; */
 	};
 	if ((pluso || ya_share2) && a) {
 		console.log("triggered function: initPlusoYaShare");
@@ -1425,11 +1404,9 @@ var manageVKLikeButton = function () {
 			ev.stopPropagation();
 			ev.preventDefault();
 			evento.remove(a, "click", h_a);
-			/* a.onclick = null; */
 			k();
 		};
 		evento.add(a, "click", h_a);
-		/* a.onclick = h_e; */
 	};
 	if (c && a) {
 		console.log("triggered function: manageVKLikeButton");

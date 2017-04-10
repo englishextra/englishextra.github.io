@@ -257,6 +257,12 @@ var setStyleVisibilityVisible=function(a){return function(){if(a){a.style.visibi
  */
 var setStyleVisibilityHidden=function(a){return function(){if(a){a.style.visibility="hidden";}}();};
 /*!
+ * Scroll to top with Zenscroll, or fallback
+ * @requires zenscroll
+ * scrollToTop()
+ */
+var scrollToTop=function(){var w=window;return w.zenscroll?zenscroll.toY(0):w.scroll2Top?scroll2Top(w,400):w.scroll(0,0);};
+/*!
  * change document location
  * @param {String} a URL / path string
  * changeLocation(a)
@@ -660,7 +666,6 @@ var initNavMenu = function () {
 			n(e);
 		};
 		evento.add(e, "click", h_e);
-		/* e.onclick = h_e; */
 		if (e.href == p) {
 			n(e);
 		} else {
@@ -717,29 +722,10 @@ var initUiTotop = function () {
 		}
 	},
 	g = function (f) {
-		var z = function (n) {
-			var o = w.pageYOffset,
-			i = 0,
-			x = function (o, l) {
-				return function () {
-					l -= o * n;
-					w.scrollTo(0, l);
-					i += 1;
-					if (150 < i || 0 > l) {
-						clearInterval(si);
-					}
-				};
-			},
-			si = setInterval(x.bind(null, n, o--), 50);
-		},
-		h_a = function (ev) {
+		var h_a = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			if (w.zenscroll) {
-				zenscroll.toY(0);
-			} else {
-				z(50);
-			}
+			scrollToTop();
 		},
 		a = crel("a");
 		a[cL].add(u);
@@ -749,10 +735,8 @@ var initUiTotop = function () {
 		a.title = t;
 		a[cL].add(u);
 		evento.add(a, "click", h_a);
-		/* a.onclick = h_a; */
 		crel(b, crel(a));
 		evento.add(w, "scroll", k.bind(null, w));
-		/* w.onscroll = k.bind(null, w); */
 	};
 	if (b) {
 		console.log("triggered function: initUiTotop");

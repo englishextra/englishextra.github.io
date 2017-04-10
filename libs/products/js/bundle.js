@@ -709,11 +709,9 @@ var initMenuMore = function () {
 	},
 	g = function (e) {
 		evento.add(e, "click", h_e);
-		/* e.onclick = h_e; */
 	},
 	k = function () {
 		evento.add(container, "click", h_e);
-		/* container.onclick = h_e; */
 	},
 	q = function () {
 		var h_btn = function (ev) {
@@ -803,11 +801,9 @@ var initPlusoYaShare = function () {
 			ev.stopPropagation();
 			ev.preventDefault();
 			evento.remove(a, "click", h_a);
-			/* a.onclick = null; */
 			q();
 		};
 		evento.add(a, "click", h_a);
-		/* a.onclick = h_a; */
 	};
 	if ((pluso || ya_share2) && a) {
 		console.log("triggered function: initPlusoYaShare");
@@ -861,11 +857,9 @@ var manageVKLikeButton = function () {
 			ev.stopPropagation();
 			ev.preventDefault();
 			evento.remove(a, "click", h_a);
-			/* a.onclick = null; */
 			k();
 		};
 		evento.add(a, "click", h_a);
-		/* a.onclick = h_e; */
 	};
 	if (c && a) {
 		console.log("triggered function: manageVKLikeButton");
