@@ -690,12 +690,13 @@ var notiBar = function (opt) {
 				c[cL].add(s_an2);
 				removeChildren(c);
 			}
-		};
-		evento.add(btn, "click", function h_btn() {
-			evento.remove(this, "click", h_btn);
+		},
+		h_btn = function () {
+			evento.remove(btn, "click", h_btn);
 			hide_message();
 			set_cookie();
-		});
+		};
+		evento.add(btn, "click", h_btn);
 		appendFragment(btn, c);
 		appendFragment(c, b);
 		c[cL].remove(s_an2);
@@ -1158,9 +1159,8 @@ var manageDataTargetLinks = function (ctx) {
 			var h_e = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				var _this = this;
-				evento.remove(_this, "click", h_e);
-				includeHTMLintoTarget(_this, u, t);
+				evento.remove(e, "click", h_e);
+				includeHTMLintoTarget(e, u, t);
 			};
 			evento.add(e, "click", h_e);
 		}
