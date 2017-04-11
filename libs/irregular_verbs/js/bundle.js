@@ -638,7 +638,7 @@ var generateLocationQrCodeImg = function () {
 			s = QRCode.generateSVG(u, {
 					ecclevel: "M",
 					fillcolor: "#FFFFFF",
-					textcolor: "#373737",
+					textcolor: "#191919",
 					margin: 4,
 					modulesize: 8
 				});
@@ -651,7 +651,7 @@ var generateLocationQrCodeImg = function () {
 					ecclevel: "M",
 					format: "html",
 					fillcolor: "#FFFFFF",
-					textcolor: "#373737",
+					textcolor: "#191919",
 					margin: 4,
 					modulesize: 8
 				});
@@ -718,7 +718,6 @@ var initMenuMore = function () {
 			holder[cL].toggle(is_active);
 		};
 		evento.add(btn, "click", h_btn);
-		/* btn.onclick = h_btn; */
 	},
 	v = function () {
 		if (w._) {

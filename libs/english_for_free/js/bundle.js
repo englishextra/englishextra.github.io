@@ -293,14 +293,6 @@ var removeChildren=function(e){return function(){if(e&&e.firstChild){for(;e.firs
  */
 var appendFragment=function(e,a){"use strict";var d=document;a=a||d.getElementsByTagNames("body")[0]||"";return function(){if(e){var d=document,df=d.createDocumentFragment()||"",aC="appendChild";if("string"===typeof e){e=d.createTextNode(e);}df[aC](e);a[aC](df);}}();};
 /*!
- * Adds Element as fragment AFTER NeighborElement
- * gist.github.com/englishextra/75020c8ba3b389b19d501d8ec88e3121
- * @param {String|object} e HTML Element to append after
- * @param {Object} a target HTML Element
- * appendFragmentAfter(e,a)
- */
-var appendFragmentAfter=function(e,a){if("string"===typeof e){e=document.createTextNode(e);}var p=a.parentNode||"",s=a.nextSibling||"",df=document.createDocumentFragment();return function(){if(p&&s){df.appendChild(e);p.insertBefore(df,s);}}();};
-/*!
  * Adds Element as fragment BEFORE NeighborElement
  * gist.github.com/englishextra/fa19e39ce84982b17fc76485db9d1bea
  * @param {String|object} e HTML Element to prepend before before
@@ -590,7 +582,7 @@ var initSuperBox = function () {
 	g = function (_this) {
 		var s_desc = BALA.one("." + s5, _this) || "",
 		s_desc_html = s_desc.innerHTML;
-		appendFragmentAfter(s_show_div, _this);
+		_this.parentNode.insertBefore(s_show_div, _this.nextElementSibling);
 		var s_show = BALA.one("." + s2) || "";
 		setStyleDisplayBlock(s_show);
 		var s_cur_desc = BALA.one("." + s3) || "";
@@ -638,10 +630,8 @@ var initSuperBox = function () {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					e.target = "_blank";
 					evento.add(e, "click", q.bind(null, e));
-					/* e.onclick = q.bind(null, e); */
 				} else {
 					evento.add(e, "click", h_n.bind(null, e));
-					/* e.onclick = h_n.bind(null, e); */
 				}
 			};
 			if (w._) {
@@ -668,7 +658,7 @@ var initSuperBox = function () {
 				setStyleDisplayNone(s_cur_desc);
 				setStyleDisplayNone(s_show);
 				s_cur_desc[cL].remove(an);
-				s_cur_desc[cL].remove(an2);	
+				s_cur_desc[cL].remove(an2);
 			};
 			setAutoClearedTimeout(s, 200);
 		};
@@ -677,21 +667,18 @@ var initSuperBox = function () {
 				ev.preventDefault();
 				ev.stopPropagation();
 				evento.remove(s_close, "click", h_s_close);
-				/* s_close.onclick = null; */
 				doOnClose();
 			};
 			evento.add(s_close, "click", h_s_close);
-			/* s_close.onclick = h_s_close; */
 		}
 	},
 	k = function (e) {
-		var h_e = function (_this, ev) {
+		var h_e = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			g(_this);
+			g(e);
 		};
-		/* evento.add(e, "click", h_e.bind(null, e)); */
-		e.onclick = h_e.bind(null, e);
+		evento.add(e, "click", h_e);
 	};
 	if (lists) {
 		console.log("triggered function: initSuperBox");
@@ -729,7 +716,7 @@ var generateLocationQrCodeImg = function () {
 			s = QRCode.generateSVG(u, {
 					ecclevel: "M",
 					fillcolor: "#FFFFFF",
-					textcolor: "#373737",
+					textcolor: "#191919",
 					margin: 4,
 					modulesize: 8
 				});
@@ -742,7 +729,7 @@ var generateLocationQrCodeImg = function () {
 					ecclevel: "M",
 					format: "html",
 					fillcolor: "#FFFFFF",
-					textcolor: "#373737",
+					textcolor: "#191919",
 					margin: 4,
 					modulesize: 8
 				});
@@ -847,7 +834,6 @@ var initNavMenu = function () {
 			t();
 		};
 		evento.add(btn, "click", h_btn);
-		/* btn.onclick = h_btn; */
 	},
 	q = function () {
 		h();

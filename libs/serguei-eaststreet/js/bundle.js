@@ -456,14 +456,6 @@ var insertTextAsFragment=function(t,c,f){"use strict";var d=document,b=d.getElem
  */
 var appendFragment=function(e,a){"use strict";var d=document;a=a||d.getElementsByTagNames("body")[0]||"";return function(){if(e){var d=document,df=d.createDocumentFragment()||"",aC="appendChild";if("string"===typeof e){e=d.createTextNode(e);}df[aC](e);a[aC](df);}}();};
 /*!
- * Adds Element as fragment AFTER NeighborElement
- * gist.github.com/englishextra/75020c8ba3b389b19d501d8ec88e3121
- * @param {String|object} e HTML Element to append after
- * @param {Object} a target HTML Element
- * appendFragmentAfter(e,a)
- */
-var appendFragmentAfter=function(e,a){if("string"===typeof e){e=document.createTextNode(e);}var p=a.parentNode||"",s=a.nextSibling||"",df=document.createDocumentFragment();return function(){if(p&&s){df.appendChild(e);p.insertBefore(df,s);}}();};
-/*!
  * set style display block of an element
  * @param {Object} a an HTML Element
  * setStyleDisplayBlock(a)
@@ -1163,13 +1155,14 @@ var manageDataTargetLinks = function (ctx) {
 		t = e[ds].target || "";
 		if (u && t) {
 			e.title = "Появится здесь же";
-			evento.add(e, "click", function h_e(ev) {
+			var h_e = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				var _this = this;
 				evento.remove(_this, "click", h_e);
 				includeHTMLintoTarget(_this, u, t);
-			});
+			};
+			evento.add(e, "click", h_e);
 		}
 	},
 	k = function () {
@@ -1406,7 +1399,7 @@ var manageDataQrcodeImg = function (ctx) {
 					s = QRCode.generateSVG(u, {
 							ecclevel: "M",
 							fillcolor: "#F3F3F3",
-							textcolor: "#373737",
+							textcolor: "#191919",
 							margin: 4,
 							modulesize: 8
 						});
@@ -1419,7 +1412,7 @@ var manageDataQrcodeImg = function (ctx) {
 							ecclevel: "M",
 							format: "html",
 							fillcolor: "#F3F3F3",
-							textcolor: "#373737",
+							textcolor: "#191919",
 							margin: 4,
 							modulesize: 8
 						});
@@ -1572,7 +1565,7 @@ showDebugGridMesage = function () {
 	m = [];
 	for (var i = 0, l = a.length; i < l; i += 1) {
 		if (a[i]) {
-			m.push((a[i].className ? "." + a[i].className : a[i].id ? "#" + a[i].id : a[i].tagName), " ", w.getComputedStyle(a[i]).getPropertyValue("font-size"), " ", w.getComputedStyle(a[i]).getPropertyValue("line-height"), " ", a[i].offsetWidth, "x", a[i].offsetHeight, " \u003e ");		
+			m.push((a[i].className ? "." + a[i].className : a[i].id ? "#" + a[i].id : a[i].tagName), " ", w.getComputedStyle(a[i]).getPropertyValue("font-size"), " ", w.getComputedStyle(a[i]).getPropertyValue("line-height"), " ", a[i].offsetWidth, "x", a[i].offsetHeight, " \u003e ");
 		}
 	}
 	m = m.join("");
@@ -1638,7 +1631,7 @@ var generateLocationQrCodeImg = function () {
 			s = QRCode.generateSVG(u, {
 					ecclevel: "M",
 					fillcolor: "#FFFFFF",
-					textcolor: "#373737",
+					textcolor: "#191919",
 					margin: 4,
 					modulesize: 8
 				});
@@ -1651,7 +1644,7 @@ var generateLocationQrCodeImg = function () {
 					ecclevel: "M",
 					format: "html",
 					fillcolor: "#FFFFFF",
-					textcolor: "#373737",
+					textcolor: "#191919",
 					margin: 4,
 					modulesize: 8
 				});
@@ -2040,7 +2033,7 @@ var initContentsKamil = function () {
 			setStyleDisplayNone(_ul);
 			setStyleDisplayNone(_li);
 			crel(_ul, _li);
-			appendFragmentAfter(_ul, text);
+			text.parentNode.insertBefore(_ul, text.nextElementSibling);
 			/*!
 			 * show suggestions
 			 */

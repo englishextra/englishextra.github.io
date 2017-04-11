@@ -703,7 +703,7 @@ var manageDataQrcodeImg = function (ctx) {
 					s = QRCode.generateSVG(u, {
 							ecclevel: "M",
 							fillcolor: "#F3F3F3",
-							textcolor: "#373737",
+							textcolor: "#191919",
 							margin: 4,
 							modulesize: 8
 						});
@@ -716,7 +716,7 @@ var manageDataQrcodeImg = function (ctx) {
 							ecclevel: "M",
 							format: "html",
 							fillcolor: "#F3F3F3",
-							textcolor: "#373737",
+							textcolor: "#191919",
 							margin: 4,
 							modulesize: 8
 						});

@@ -617,7 +617,6 @@ var initNavMenu = function () {
 			t();
 		};
 		evento.add(btn, "click", h_btn);
-		/* btn.onclick = h_btn; */
 	},
 	q = function () {
 		h();

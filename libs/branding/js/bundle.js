@@ -374,14 +374,6 @@ var removeChildren=function(e){return function(){if(e&&e.firstChild){for(;e.firs
  */
 var appendFragment=function(e,a){"use strict";var d=document;a=a||d.getElementsByTagNames("body")[0]||"";return function(){if(e){var d=document,df=d.createDocumentFragment()||"",aC="appendChild";if("string"===typeof e){e=d.createTextNode(e);}df[aC](e);a[aC](df);}}();};
 /*!
- * Adds Element as fragment AFTER NeighborElement
- * gist.github.com/englishextra/75020c8ba3b389b19d501d8ec88e3121
- * @param {String|object} e HTML Element to append after
- * @param {Object} a target HTML Element
- * appendFragmentAfter(e,a)
- */
-var appendFragmentAfter=function(e,a){if("string"===typeof e){e=document.createTextNode(e);}var p=a.parentNode||"",s=a.nextSibling||"",df=document.createDocumentFragment();return function(){if(p&&s){df.appendChild(e);p.insertBefore(df,s);}}();};
-/*!
  * Adds Element as fragment BEFORE NeighborElement
  * gist.github.com/englishextra/fa19e39ce84982b17fc76485db9d1bea
  * @param {String|object} e HTML Element to prepend before before
@@ -1243,7 +1235,7 @@ var generateLocationQrCodeImg = function () {
 			s = QRCode.generateSVG(u, {
 					ecclevel: "M",
 					fillcolor: "#FFFFFF",
-					textcolor: "#373737",
+					textcolor: "#191919",
 					margin: 4,
 					modulesize: 8
 				});
@@ -1256,7 +1248,7 @@ var generateLocationQrCodeImg = function () {
 					ecclevel: "M",
 					format: "html",
 					fillcolor: "#FFFFFF",
-					textcolor: "#373737",
+					textcolor: "#191919",
 					margin: 4,
 					modulesize: 8
 				});
@@ -1361,7 +1353,6 @@ var initNavMenu = function () {
 			t();
 		};
 		evento.add(btn, "click", h_btn);
-		/* btn.onclick = h_btn; */
 	},
 	q = function () {
 		h();
@@ -1659,11 +1650,9 @@ var initDisqusOnScroll = function () {
 			ev.preventDefault();
 			ev.stopPropagation();
 			evento.remove(btn, "click", h_btn);
-			/* btn.onclick = null; */
 			k();
 		};
 		evento.add(btn, "click", h_btn);
-		/* btn.onclick = h_btn; */
 	},
 	v = function () {
 		removeChildren(disqus_thread);
@@ -1679,12 +1668,10 @@ var initDisqusOnScroll = function () {
 				var h_w = function () {
 					if (fitsIntoViewport(disqus_thread)) {
 						evento.remove(w, "scroll", h_w);
-						/* w.onscroll = null; */
 						k();
 					}
 				};
 				evento.add(w, "scroll", h_w);
-				/* w.onscroll = h_w; */
 			}
 		} else {
 			v();
@@ -1780,7 +1767,7 @@ var initPagesKamil = function () {
 			setStyleDisplayNone(_ul);
 			setStyleDisplayNone(_li);
 			crel(_ul, _li);
-			appendFragmentAfter(_ul, text);
+			text.parentNode.insertBefore(_ul, text.nextElementSibling);
 			/*!
 			 * show suggestions
 			 */

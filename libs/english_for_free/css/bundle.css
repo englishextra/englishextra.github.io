@@ -728,8 +728,8 @@ template {
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
-	color: #FFFFFF;
-	background-color: rgba(45, 45, 45, 0.5);
+	color: #878787;
+	background-color: #E7E7E7;
 	border: none;
 	overflow: hidden;
 	-webkit-transition: background-color 0.2s ease;
@@ -739,7 +739,7 @@ template {
 }
 
 .btn-share-buttons:hover {
-	background-color: #2D2D2D;
+	background-color: #D5D5D5;
 }
 
 /* .btn-share-buttons:focus, */
