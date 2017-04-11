@@ -1,8 +1,8 @@
 # englishextra.github.io
 
-[![Join the chat at https://gitter.im/englishextra/englishextra.github.io](https://badges.gitter.im/englishextra/englishextra.github.io.svg)](https://gitter.im/englishextra/englishextra.github.io?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 *English Grammar for Russian-Speakers*
+
+[![Join the chat at https://gitter.im/englishextra/englishextra.github.io](https://badges.gitter.im/englishextra/englishextra.github.io.svg)](https://gitter.im/englishextra/englishextra.github.io?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 [![Travis](https://img.shields.io/travis/englishextra/englishextra.github.io.svg)](https://github.com/englishextra/englishextra.github.io)
 
