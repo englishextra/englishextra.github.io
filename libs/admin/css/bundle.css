@@ -2789,22 +2789,22 @@ u,
  */
 
 .col .DarkSlateGray {
-	color: inherit;
+	color: #2F4F4F;
 }
 
 .col .FireBrick,
 .col .IndianRed {
 	font-weight: 700;
-	color: rgba(25, 25, 25, 0.9);
+	color: #B22222;
 }
 
 .col .SeaGreen {
 	font-weight: 400;
-	color: #009B4C;
+	color: #2E8B57;
 }
 
 .col .SlateGray {
-	color: #878787;
+	color: #708090;
 }
 
 /**
