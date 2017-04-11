@@ -1,0 +1,228 @@
+/*! @import "irregular-verbs-with-shower-shower"; */
+
+.badge {
+	font-size: 0.938rem;
+	line-height: 2.500;
+	width: 11.000em;
+	height: 11.000em;
+	position: absolute;
+	top: -16px;
+	right: 0;
+	overflow: hidden;
+	visibility: hidden;
+}
+
+.badge a {
+	position: absolute;
+	bottom: 50%;
+	right: -50%;
+	left: -50%;
+	visibility: visible;
+	background-color: #E6E6EA;
+	text-decoration: none;
+	text-align: center;
+	transform-origin: 50% 100%;
+	transform: rotate(45deg) translateY(-1em);
+}
+
+.badge a:hover {
+	background-color: #E6E6EA;
+}
+
+.shower-list {
+	position: absolute;
+	clip: rect(0, auto, auto, 0);
+	background-color: $color-hex-page-bg;
+	padding: 100px 0 0 16px;
+}
+
+.slide {
+	position: relative;
+	width: 1024px;
+	height: 640px;
+	background-color: #252525;
+	text-size-adjust: none;
+}
+
+.slide:after {
+	counter-increment: slide;
+	content: counter(slide);
+	width: 50px;
+	height: 100px;
+	position: absolute;
+	top: 0;
+	right: 119px;
+	font-weight: 700;
+	font-size: 1.500em;
+	text-align: center;
+	color: #FFFFFF;
+	background-color: transparent;
+	background-image: url(../img/slide-50x100.png);
+	background-size: 50px 100px;
+	background-position: top left;
+	background-repeat: no-repeat;
+	padding: 20px 0 0;
+}
+
+.no-svg .slide:after {
+	background-image: url(../img/slide-50x100.png);
+}
+
+.slide > div {
+	width: 784px;
+	height: 535px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+	padding: 105px 120px 0;
+}
+
+.slide h2 {
+	font-weight: 700;
+	font-size: 3.000em;
+	line-height: 1.200;
+	color: #FFFFFF;
+	margin: 0 0 37px;
+}
+
+.slide p {
+	margin: 0 0 50px;
+}
+
+.slide .explanation {
+	font-weight: 400;
+	font-size: 0.813em;
+	font-style: italic;
+	margin-left: 0.250em;
+}
+
+.slide .phonetic {
+	font-family: $font-family-webfont-monospace;
+	font-weight: 400;
+	font-size: 1.000em;
+	font-style: normal;
+}
+
+.shower-list .badge {
+	display: block;
+}
+
+.shower-list .slide {
+	float: left;
+	margin: 0 -412px -220px 0;
+	transform-origin: 0 0;
+	transform: scale(0.5);
+}
+
+.shower-list .slide:before {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+	width: 512px;
+	height: 320px;
+	content: "";
+}
+
+.shower-list .slide:before,
+.shower-list .slide:after {
+	transform-origin: 0 0;
+}
+
+.shower-list .slide:after {
+	font-weight: 700;
+	font-size: 2.500em;
+	line-height: 1.340em;
+	width: auto;
+	height: auto;
+	position: relative;
+	top: 0.344em;
+	right: auto;
+	bottom: -80px;
+	left: 120px;
+	color: #FFFFFF;
+	background-color: #FF6978;
+	background-image: none;
+	padding: 0.344em 0.5em;
+}
+
+.shower-list .slide:target:after {
+	color: #FFFFFF;
+	background-color: #FED766;
+}
+
+.shower-list .slide > div:before {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 2;
+	content: "";
+}
+
+.full {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	overflow: hidden;
+	margin: -320px 0 0 -512px;
+	width: 1024px;
+	height: 640px;
+}
+
+.full.debug:after {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 2;
+	content: "";
+}
+
+.full .slide {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin-left: 150%;
+}
+
+.full .slide .next {
+	visibility: hidden;
+}
+
+.full .slide .next.active {
+	visibility: visible;
+}
+
+.full .slide:target {
+	margin: 0;
+}
+
+.full .progress {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: -10px;
+	z-index: 1;
+}
+
+.full .progress div {
+	padding-left: 10px;
+	width: 0;
+	height: 10px;
+	background-color: transparent;
+	background-image: url(../img/progress-1034x10.png);
+	background-size: 1034px 10px;
+	background-clip: content-box;
+	background-position: 100% 0;
+	background-repeat: no-repeat;
+	transition: width .2s linear;
+}
+
+.no-svg .full .progress div {
+	background-image: url(../img/progress-1034x10.png);
+}
+

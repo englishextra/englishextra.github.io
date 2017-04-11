@@ -1,0 +1,1413 @@
+/*! libs\notfound\scss\bundle.scss */
+
+/*! @import "englishextra-ui-colors" */
+
+/**
+ * englishextra-ui colors
+ * use microsoft.com/en-us/design/color
+ * localhost/tools/Tinter-Shader/index.html
+ * localhost/tools/perfect_colors/
+ * localhost/tools/TinyColor/index.html
+ * localhost/tools/color-palette-generator/index.html
+ * localhost/tools/hexcolortool/index.html
+ * localhost/tools/css3-playground/
+ */
+
+/* 0073D2
+007DD1
+5E308F
+9C0087
+D13636
+F23819
+FF4141
+00AC54
+547E71
+8C582C
+F5630E
+FDE000
+C3C3C3
+D54848
+2D7C9A
+2F79B6
+EF6B50
+EB5262
+706D6A
+60867B
+615FC8
+744DA5
+3087CD */
+
+/* \$(.*?)\: (.*?)\;
+<div class="masonry-grid-item"><div class="bg-\1"><span class="color-variable-name">$\1</span></div></div>
+
+\$(.*?)\: (.*?)\;
+.bg-\1 {
+	background-color: $\1;
+} */
+
+/*! @import "englishextra-ui-variables"; */
+
+/*! @import "notfound-font-face"; */
+
+@font-face {
+	font-family: "Exo2";
+	src: url(../../../fonts/exo2-fontfacekit/Exo2Light.woff2) format("woff2"), url(../../../fonts/exo2-fontfacekit/Exo2Light.woff) format("woff"), url(../../../fonts/exo2-fontfacekit/Exo2Light.ttf) format("truetype");
+	font-style: normal;
+	font-weight: 300;
+}
+
+@font-face {
+	font-family: "Exo2";
+	src: url(../../../fonts/exo2-fontfacekit/Exo2Regular.woff2) format("woff2"), url(../../../fonts/exo2-fontfacekit/Exo2Regular.woff) format("woff"), url(../../../fonts/exo2-fontfacekit/Exo2Regular.ttf) format("truetype");
+	font-style: normal;
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: "Exo2";
+	src: url(../../../fonts/exo2-fontfacekit/Exo2Bold.woff2) format("woff2"), url(../../../fonts/exo2-fontfacekit/Exo2Bold.woff) format("woff"), url(../../../fonts/exo2-fontfacekit/Exo2Bold.ttf) format("truetype");
+	font-style: normal;
+	font-weight: 700;
+}
+
+/*! @import "normalize"; */
+
+/*! normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */
+
+/**
+ * 1. Change the default font family in all browsers (opinionated).
+ * 2. Correct the line height in all browsers.
+ * 3. Prevent adjustments of font size after orientation changes in
+ *		IE on Windows Phone and in iOS.
+ */
+
+/* Document
+	========================================================================== */
+
+html {
+	font-family: sans-serif;
+	/* 1 */
+	line-height: 1.15;
+	/* 2 */
+	-ms-text-size-adjust: 100%;
+	/* 3 */
+	-webkit-text-size-adjust: 100%;
+	/* 3 */
+}
+
+/* Sections
+	========================================================================== */
+
+/**
+ * Remove the margin in all browsers (opinionated).
+ */
+
+body {
+	margin: 0;
+}
+
+/**
+ * Add the correct display in IE 9-.
+ */
+
+article,
+aside,
+footer,
+header,
+nav,
+section {
+	display: block;
+}
+
+/**
+ * Correct the font size and margin on `h1` elements within `section` and
+ * `article` contexts in Chrome, Firefox, and Safari.
+ */
+
+h1 {
+	font-size: 2em;
+	margin: 0.67em 0;
+}
+
+/* Grouping content
+	========================================================================== */
+
+/**
+ * Add the correct display in IE 9-.
+ * 1. Add the correct display in IE.
+ */
+
+figcaption,
+figure,
+main {
+	/* 1 */
+	display: block;
+}
+
+/**
+ * Add the correct margin in IE 8.
+ */
+
+figure {
+	margin: 1em 40px;
+}
+
+/**
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+
+hr {
+	box-sizing: content-box;
+	/* 1 */
+	height: 0;
+	/* 1 */
+	overflow: visible;
+	/* 2 */
+}
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+
+pre {
+	font-family: monospace, monospace;
+	/* 1 */
+	font-size: 1em;
+	/* 2 */
+}
+
+/* Text-level semantics
+	========================================================================== */
+
+/**
+ * 1. Remove the gray background on active links in IE 10.
+ * 2. Remove gaps in links underline in iOS 8+ and Safari 8+.
+ */
+
+a {
+	background-color: transparent;
+	/* 1 */
+	-webkit-text-decoration-skip: objects;
+	/* 2 */
+}
+
+/**
+ * Remove the outline on focused links when they are also active or hovered
+ * in all browsers (opinionated).
+ */
+
+a:active,
+a:hover {
+	outline-width: 0;
+}
+
+/**
+ * 1. Remove the bottom border in Firefox 39-.
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ */
+
+abbr[title] {
+	border-bottom: none;
+	/* 1 */
+	text-decoration: underline;
+	/* 2 */
+	text-decoration: underline dotted;
+	/* 2 */
+}
+
+/**
+ * Prevent the duplicate application of `bolder` by the next rule in Safari 6.
+ */
+
+b,
+strong {
+	font-weight: inherit;
+}
+
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+
+b,
+strong {
+	font-weight: bolder;
+}
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+
+code,
+kbd,
+samp {
+	font-family: monospace, monospace;
+	/* 1 */
+	font-size: 1em;
+	/* 2 */
+}
+
+/**
+ * Add the correct font style in Android 4.3-.
+ */
+
+dfn {
+	font-style: italic;
+}
+
+/**
+ * Add the correct background and color in IE 9-.
+ */
+
+mark {
+	background-color: #ff0;
+	color: #000;
+}
+
+/**
+ * Add the correct font size in all browsers.
+ */
+
+small {
+	font-size: 80%;
+}
+
+/**
+ * Prevent `sub` and `sup` elements from affecting the line height in
+ * all browsers.
+ */
+
+sub,
+sup {
+	font-size: 75%;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
+}
+
+sub {
+	bottom: -0.25em;
+}
+
+sup {
+	top: -0.5em;
+}
+
+/* Embedded content
+	========================================================================== */
+
+/**
+ * Add the correct display in IE 9-.
+ */
+
+audio,
+video {
+	display: inline-block;
+}
+
+/**
+ * Add the correct display in iOS 4-7.
+ */
+
+audio:not([controls]) {
+	display: none;
+	height: 0;
+}
+
+/**
+ * Remove the border on images inside links in IE 10-.
+ */
+
+img {
+	border-style: none;
+}
+
+/**
+ * Hide the overflow in IE.
+ */
+
+svg:not(:root) {
+	overflow: hidden;
+}
+
+/* Forms
+	========================================================================== */
+
+/**
+ * 1. Change the font styles in all browsers (opinionated).
+ * 2. Remove the margin in Firefox and Safari.
+ */
+
+button,
+input,
+optgroup,
+select,
+textarea {
+	font-family: sans-serif;
+	/* 1 */
+	font-size: 100%;
+	/* 1 */
+	line-height: 1.15;
+	/* 1 */
+	margin: 0;
+	/* 2 */
+}
+
+/**
+ * Show the overflow in IE.
+ * 1. Show the overflow in Edge.
+ */
+
+button,
+input {
+	/* 1 */
+	overflow: visible;
+}
+
+/**
+ * Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 1. Remove the inheritance of text transform in Firefox.
+ */
+
+button,
+select {
+	/* 1 */
+	text-transform: none;
+}
+
+/**
+ * 1. Prevent a WebKit bug where (2) destroys native `audio` and `video`
+ *		controls in Android 4.
+ * 2. Correct the inability to style clickable types in iOS and Safari.
+ */
+
+button,
+html [type="button"],
+[type="reset"],
+[type="submit"] {
+	-webkit-appearance: button;
+	/* 2 */
+}
+
+/**
+ * Remove the inner border and padding in Firefox.
+ */
+
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+	border-style: none;
+	padding: 0;
+}
+
+/**
+ * Restore the focus styles unset by the previous rule.
+ */
+
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+	outline: 1px dotted ButtonText;
+}
+
+/**
+ * Change the border, margin, and padding in all browsers (opinionated).
+ */
+
+fieldset {
+	border: 1px solid #c0c0c0;
+	margin: 0 2px;
+	padding: 0.35em 0.625em 0.75em;
+}
+
+/**
+ * 1. Correct the text wrapping in Edge and IE.
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
+ * 3. Remove the padding so developers are not caught out when they zero out
+ *		`fieldset` elements in all browsers.
+ */
+
+legend {
+	box-sizing: border-box;
+	/* 1 */
+	color: inherit;
+	/* 2 */
+	display: table;
+	/* 1 */
+	max-width: 100%;
+	/* 1 */
+	padding: 0;
+	/* 3 */
+	white-space: normal;
+	/* 1 */
+}
+
+/**
+ * 1. Add the correct display in IE 9-.
+ * 2. Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ */
+
+progress {
+	display: inline-block;
+	/* 1 */
+	vertical-align: baseline;
+	/* 2 */
+}
+
+/**
+ * Remove the default vertical scrollbar in IE.
+ */
+
+textarea {
+	overflow: auto;
+}
+
+/**
+ * 1. Add the correct box sizing in IE 10-.
+ * 2. Remove the padding in IE 10-.
+ */
+
+[type="checkbox"],
+[type="radio"] {
+	box-sizing: border-box;
+	/* 1 */
+	padding: 0;
+	/* 2 */
+}
+
+/**
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+	height: auto;
+}
+
+/**
+ * 1. Correct the odd appearance in Chrome and Safari.
+ * 2. Correct the outline style in Safari.
+ */
+
+[type="search"] {
+	-webkit-appearance: textfield;
+	/* 1 */
+	outline-offset: -2px;
+	/* 2 */
+}
+
+/**
+ * Remove the inner padding and cancel buttons in Chrome and Safari on macOS.
+ */
+
+[type="search"]::-webkit-search-cancel-button,
+[type="search"]::-webkit-search-decoration {
+	-webkit-appearance: none;
+}
+
+/**
+ * 1. Correct the inability to style clickable types in iOS and Safari.
+ * 2. Change font properties to `inherit` in Safari.
+ */
+
+::-webkit-file-upload-button {
+	-webkit-appearance: button;
+	/* 1 */
+	font: inherit;
+	/* 2 */
+}
+
+/* Interactive
+	========================================================================== */
+
+/*
+ * Add the correct display in IE 9-.
+ * 1. Add the correct display in Edge, IE, and Firefox.
+ */
+
+details,
+menu {
+	display: block;
+}
+
+/*
+ * Add the correct display in all browsers.
+ */
+
+summary {
+	display: list-item;
+}
+
+/* Scripting
+	========================================================================== */
+
+/**
+ * Add the correct display in IE 9-.
+ */
+
+canvas {
+	display: inline-block;
+}
+
+/**
+ * Add the correct display in IE.
+ */
+
+template {
+	display: none;
+}
+
+/* Hidden
+	========================================================================== */
+
+/**
+ * Add the correct display in IE 10-.
+ */
+
+[hidden] {
+	display: none;
+}
+
+/*! @import "notfound-parallax-content"; */
+
+/**
+ * desktop parallax content
+ */
+
+.parallax {
+	height: 100%;
+}
+
+.parallax .scene1 {
+	/**
+	 * fixes for version parallax 2.1.3
+	 */
+	display: inline-block;
+	width: 720px;
+	/**
+	 * the height visible block
+	 * of the logo and subhead and button
+	 * and vk like button is 577px
+	 * the height of stripe-top is 9px
+	 * the height of fixed footer is 50px
+	 * so 577px / 2 + 50px - 9px = -329px
+	 * but it is -318 because of some paddings
+	 * or margins like vk like button
+	 */
+	position: relative;
+	top: 50%;
+	margin-top: -265px;
+}
+
+.parallax .subhead {
+	font-weight: 300;
+	display: block;
+	max-width: 720px;
+	font-size: 34px;
+	line-height: 51px;
+	text-align: center;
+	color: #FFFFFF;
+	background-color: #252525;
+	background-image: -webkit-linear-gradient(top left, #252525 0%, #252525 100%);
+	background-image: linear-gradient(to bottom right, #252525 0%, #252525 100%);
+	opacity: 0.7;
+	border-radius: 5px;
+	padding: 21px 28px;
+	margin: 51px auto 0 auto;
+}
+
+.parallax .getstarted {
+	display: block;
+	max-width: 720px;
+	font-weight: 700;
+	font-size: 18px;
+	line-height: 21px;
+	text-align: center;
+	color: #FFFFFF;
+	padding: 0;
+	margin: 72px auto 0 auto;
+}
+
+.parallax .btn-2c {
+	display: inline-block;
+	position: relative;
+	font-size: inherit;
+	font-weight: inherit;
+	letter-spacing: 0.063em;
+	text-transform: uppercase;
+	color: #FFFFFF;
+	background-color: #43AA8B;
+	border-radius: 5px;
+	-webkit-transition: all 0.2s;
+	transition: all 0.2s;
+	outline: none;
+	cursor: pointer;
+	padding: 21px 28px;
+	margin: 0;
+}
+
+.parallax .btn-2c:hover {
+	top: 2px;
+}
+
+.parallax .btn-2c:active {
+	top: 6px;
+}
+
+.parallax .btn-2c:after {
+	content: "";
+	position: absolute;
+	-webkit-transition: all 0.2s;
+	transition: all 0.2s;
+	z-index: -1;
+}
+
+.parallax .btn-2c:before {
+	position: relative;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	text-transform: none;
+	speak: none;
+}
+
+.parallax .sitelogo-holder {
+	width: 100%;
+	margin: 0 auto;
+}
+
+.parallax .sitelogo {
+	display: inline-block;
+	width: 72px;
+	height: 72px;
+}
+
+.parallax .sitetitle-holder {
+	width: 100%;
+	margin: 24px auto 0 auto;
+}
+
+.parallax .sitetitle {
+	display: inline-block;
+	width: 270px;
+	height: 40px;
+}
+
+.parallax .smartphone {
+	display: inline-block;
+	width: 469px;
+	height: 625px;
+	margin-top: 100px;
+	margin-left: -800px;
+	background-color: transparent;
+	background-image: url(/libs/notfound/img/smartphone-469x625.png);
+	background-size: 469px 625px;
+	background-position: top left;
+	background-repeat: no-repeat;
+}
+
+.parallax .smartphone2 {
+	display: inline-block;
+	width: 646px;
+	height: 496px;
+	margin-top: 100px;
+	margin-left: 450px;
+	background-color: transparent;
+	background-image: url(/libs/notfound/img/smartphone2-646x496.png);
+	background-size: 646px 496px;
+	background-position: top left;
+	background-repeat: no-repeat;
+}
+
+/**
+ * mobile parallax content
+ */
+
+.parallax-disabled {
+	display: none;
+	height: 100%;
+}
+
+.parallax-disabled .scene1 {
+	/**
+	 * the height visible block
+	 * of the logo and subhead and button
+	 * (no vk like) is 257px
+	 * the height of stripe-top is 9px
+	 * the height of fixed footer is 50px
+	 * so 257px / 2 + 50px - 9px = ~-170px
+	 * but it is -159 because of some paddings
+	 * or margins
+	 */
+	position: relative;
+	top: 50%;
+	margin-top: -159px;
+}
+
+.parallax-disabled .getstarted {
+	display: block;
+	max-width: 720px;
+	font-weight: 700;
+	font-size: 18px;
+	line-height: 21px;
+	text-align: center;
+	color: #FFFFFF;
+	margin: 40px auto 0 auto;
+	padding: 0;
+}
+
+.parallax-disabled .btn-2c {
+	display: inline-block;
+	position: relative;
+	font-size: inherit;
+	font-weight: inherit;
+	letter-spacing: 0.063em;
+	text-transform: uppercase;
+	color: #FFFFFF;
+	background-color: #43AA8B;
+	border-radius: 5px;
+	-webkit-transition: all 0.2s;
+	transition: all 0.2s;
+	padding: 21px 28px;
+	margin: 0;
+	outline: none;
+	cursor: pointer;
+}
+
+.parallax-disabled .btn-2c:hover {
+	top: 2px;
+}
+
+.parallax-disabled .btn-2c:active {
+	top: 6px;
+}
+
+.parallax-disabled .btn-2c:after {
+	content: "";
+	position: absolute;
+	-webkit-transition: all 0.2s;
+	transition: all 0.2s;
+	z-index: -1;
+}
+
+.parallax-disabled .btn-2c:before {
+	position: relative;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	text-transform: none;
+	speak: none;
+}
+
+.parallax-disabled .sitelogo-holder {
+	width: 100%;
+	margin: 0 auto;
+}
+
+.parallax-disabled .sitelogo {
+	display: inline-block;
+	width: 72px;
+	height: 72px;
+}
+
+.parallax .sitelogo,
+.parallax-disabled .sitelogo {
+	background-color: transparent;
+	background-image: url(/libs/notfound/img/sitelogo-72x72.png);
+	background-size: 72px 72px;
+	background-position: top left;
+	background-repeat: no-repeat;
+}
+
+.parallax-disabled .sitetitle-holder {
+	width: 100%;
+	margin: 24px auto 0 auto;
+}
+
+.parallax-disabled .sitetitle {
+	display: inline-block;
+	width: 270px;
+	height: 40px;
+}
+
+.parallax .sitetitle,
+.parallax-disabled .sitetitle {
+	background-color: transparent;
+	background-image: url(/libs/notfound/img/siteltitle-270x40.png);
+	background-size: 270px 40px;
+	background-position: top left;
+	background-repeat: no-repeat;
+}
+
+@media (min-height: 1px) and (max-height: 380px) {
+	.parallax .scene1 {
+		margin-top: -126px;
+	}
+
+	.parallax .getstarted,
+	.parallax .sitetitle-holder {
+		margin: 4px auto 0 auto;
+	}
+
+	.parallax .subhead,
+	.parallax .smartphone,
+	.parallax .smartphone2 {
+		display: none;
+	}
+}
+
+@media (min-height: 381px) and (max-height: 467px) {
+	.parallax .scene1 {
+		margin-top: -146px;
+	}
+
+	.parallax .getstarted,
+	.parallax .sitetitle-holder {
+		margin: 24px auto 0 auto;
+	}
+
+	.parallax .subhead,
+	.parallax .smartphone,
+	.parallax .smartphone2 {
+		display: none;
+	}
+}
+
+@media (min-height: 468px) and (max-height: 567px) {
+	.parallax .scene1 {
+		margin-top: -162px;
+	}
+
+	.parallax .getstarted,
+	.parallax .sitetitle-holder {
+		margin: 40px auto 0 auto;
+	}
+
+	.parallax .subhead,
+	.parallax .smartphone,
+	.parallax .smartphone2 {
+		display: none;
+	}
+}
+
+@media screen and (max-height: 380px) {
+	.parallax-disabled .scene1 {
+		margin-top: -105px;
+	}
+
+	.parallax-disabled .getstarted,
+	.parallax-disabled .sitetitle-holder {
+		margin: 4px auto 0 auto;
+	}
+}
+
+/*! @import "css-progress"; */
+
+/**
+ * CSS progress
+ * codepen.io/janrubio/pen/DusIE
+ */
+
+.progress {
+	width: 4.571rem;
+	height: 4.571rem;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	background: transparent;
+	border-color: transparent;
+	box-shadow: none;
+	margin-left: -2.286rem;
+	margin-top: -2.286rem;
+	z-index: 6;
+}
+
+.progress .progress-ball {
+	position: absolute;
+	width: 4.357rem;
+	height: 4.357rem;
+	opacity: 0;
+	-webkit-transform: rotate(225deg);
+	transform: rotate(225deg);
+	-webkit-animation: orbit 7.15s infinite;
+	animation: orbit 7.15s infinite;
+}
+
+.progress .progress-ball .progress-inner-ball {
+	width: 0.571rem;
+	height: 0.571rem;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: #FFFFFF;
+	border-radius: 0.571rem;
+}
+
+.progress #progress-ball-1 {
+	-webkit-animation-delay: 1.56s;
+	animation-delay: 1.56s;
+}
+
+.progress #progress-ball-2 {
+	-webkit-animation-delay: 0.31s;
+	animation-delay: 0.31s;
+}
+
+.progress #progress-ball-3 {
+	-webkit-animation-delay: 0.62s;
+	animation-delay: 0.62s;
+}
+
+.progress #progress-ball-4 {
+	-webkit-animation-delay: 0.94s;
+	animation-delay: 0.94s;
+}
+
+.progress #progress-ball-5 {
+	-webkit-animation-delay: 1.25s;
+	animation-delay: 1.25s;
+}
+
+@-webkit-keyframes orbit {
+	0% {
+		opacity: 1;
+		z-index: 99;
+		-webkit-transform: rotate(180deg);
+		transform: rotate(180deg);
+		-webkit-animation-timing-function: ease-out;
+		animation-timing-function: ease-out;
+	}
+
+	7% {
+		opacity: 1;
+		-webkit-transform: rotate(300deg);
+		transform: rotate(300deg);
+		-webkit-animation-timing-function: linear;
+		animation-timing-function: linear;
+		origin: 0%;
+	}
+
+	30% {
+		opacity: 1;
+		-webkit-transform: rotate(410deg);
+		transform: rotate(410deg);
+		-webkit-animation-timing-function: ease-in-out;
+		animation-timing-function: ease-in-out;
+		origin: 7%;
+	}
+
+	39% {
+		opacity: 1;
+		-webkit-transform: rotate(645deg);
+		transform: rotate(645deg);
+		-webkit-animation-timing-function: linear;
+		animation-timing-function: linear;
+		origin: 30%;
+	}
+
+	70% {
+		opacity: 1;
+		-webkit-transform: rotate(770deg);
+		transform: rotate(770deg);
+		-webkit-animation-timing-function: ease-out;
+		animation-timing-function: ease-out;
+		origin: 39%;
+	}
+
+	75% {
+		opacity: 1;
+		-webkit-transform: rotate(900deg);
+		transform: rotate(900deg);
+		-webkit-animation-timing-function: ease-out;
+		animation-timing-function: ease-out;
+		origin: 70%;
+	}
+
+	76% {
+		opacity: 0;
+		-webkit-transform: rotate(900deg);
+		transform: rotate(900deg);
+	}
+
+	100% {
+		opacity: 0;
+		-webkit-transform: rotate(900deg);
+		transform: rotate(900deg);
+	}
+}
+
+@keyframes orbit {
+	0% {
+		opacity: 1;
+		z-index: 99;
+		-webkit-transform: rotate(180deg);
+		transform: rotate(180deg);
+		-webkit-animation-timing-function: ease-out;
+		animation-timing-function: ease-out;
+	}
+
+	7% {
+		opacity: 1;
+		-webkit-transform: rotate(300deg);
+		transform: rotate(300deg);
+		-webkit-animation-timing-function: linear;
+		animation-timing-function: linear;
+		origin: 0%;
+	}
+
+	30% {
+		opacity: 1;
+		-webkit-transform: rotate(410deg);
+		transform: rotate(410deg);
+		-webkit-animation-timing-function: ease-in-out;
+		animation-timing-function: ease-in-out;
+		origin: 7%;
+	}
+
+	39% {
+		opacity: 1;
+		-webkit-transform: rotate(645deg);
+		transform: rotate(645deg);
+		-webkit-animation-timing-function: linear;
+		animation-timing-function: linear;
+		origin: 30%;
+	}
+
+	70% {
+		opacity: 1;
+		-webkit-transform: rotate(770deg);
+		transform: rotate(770deg);
+		-webkit-animation-timing-function: ease-out;
+		animation-timing-function: ease-out;
+		origin: 39%;
+	}
+
+	75% {
+		opacity: 1;
+		-webkit-transform: rotate(900deg);
+		transform: rotate(900deg);
+		-webkit-animation-timing-function: ease-out;
+		animation-timing-function: ease-out;
+		origin: 70%;
+	}
+
+	76% {
+		opacity: 0;
+		-webkit-transform: rotate(900deg);
+		transform: rotate(900deg);
+	}
+
+	100% {
+		opacity: 0;
+		-webkit-transform: rotate(900deg);
+		transform: rotate(900deg);
+	}
+}
+
+/*! @import "notfound-main"; */
+
+/**
+ * main
+ */
+
+html,
+body {
+	height: 100%;
+}
+
+html {
+	font-size: 16px;
+	line-height: 1.500;
+	/**
+	 * set the parent to background transparent
+	 * and position relative to parent, absolute for child
+	 */
+	background-color: transparent;
+}
+
+body {
+	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", "HelveticaNeue", "Roboto", sans-serif;
+	font-weight: 400;
+	font-size: 1.000rem;
+	line-height: 1.500;
+	width: 100%;
+	color: #191919;
+	background-color: #F0F0F0;
+	-webkit-text-size-adjust: none;
+	-ms-text-size-adjust: none;
+	text-size-adjust: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-moz-font-feature-settings: "liga", "kern";
+	-webkit-touch-callout: none;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+	overflow-x: hidden;
+	margin: 0;
+	padding: 0;
+}
+
+/**
+ * englishextra specific rules
+ */
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+a:focus,
+a:active,
+button:focus,
+button:active,
+select:focus,
+select:active {
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+}
+
+img {
+	border: 0;
+	-ms-interpolation-mode: bicubic;
+	vertical-align: bottom;
+}
+
+p:first-child {
+	margin-top: 0;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+
+b,
+strong,
+.bolder {
+	font-weight: bold;
+}
+
+i,
+em,
+.italic {
+	font-style: italic;
+}
+
+u,
+.underline {
+	text-decoration: underline;
+}
+
+*,
+*:after,
+*::before {
+	box-sizing: border-box;
+}
+
+::-moz-selection {
+	color: rgba(255, 255, 255, 0.9);
+	background-color: rgba(99, 170, 244, 0.9);
+}
+
+::selection {
+	color: rgba(255, 255, 255, 0.9);
+	background-color: rgba(99, 170, 244, 0.9);
+}
+
+::-webkit-input-placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
+::-moz-placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
+:-ms-input-placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
+::placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
+/**
+ * clearfix css-tricks.com/snippets/css/clear-fix/
+ */
+
+.cf:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+/**
+ * fit width
+ */
+
+.fit-width {
+	min-width: 100%;
+}
+
+/**
+ * hide and show on mobile
+ */
+
+.show-inline-on-mobile,
+.show-block-on-mobile {
+	display: none;
+}
+
+@media handheld, only screen and (max-width: 800px) {
+	.hide-on-mobile {
+		display: none;
+		width: 0;
+		height: 0;
+	}
+
+	.show-inline-on-mobile {
+		display: inline;
+	}
+
+	.show-block-on-mobile {
+		display: block;
+	}
+}
+
+/**
+ * other
+ */
+
+.page {
+	width: 100%;
+	/**
+	 * set the parent to min height 100%, not just height
+	 * and position relative to parent, absolute for child
+	 */
+	min-height: 100%;
+	position: relative;
+	top: 0;
+	left: 0;
+	background-color: #F0F0F0;
+	background-image: url(/libs/notfound/img/bg-417x417.png);
+	background-position: top left;
+	background-repeat: repeat;
+	background-size: 417px 417px;
+}
+
+.container {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	-webkit-transition: opacity 0.2s ease;
+	transition: opacity 0.2s ease;
+	text-align: center;
+	/**
+	 * fix the bug in webkit for stycky footer
+	 */
+	overflow: auto;
+	overflow-y: hidden;
+	overflow-x: hidden;
+	padding: 0;
+	margin: 0 auto -9px auto;
+}
+
+.stripe-top {
+	height: 0.375rem;
+	background-color: transparent;
+	background-image: url(/libs/notfound/img/stripe-top-480x60.png);
+	background-position: top left;
+	background-repeat: repeat-x;
+	background-size: 480px 60px;
+}
+
+.footer {
+	width: 100%;
+	height: 50px;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	font-size: 13px;
+	font-weight: 400;
+	line-height: 13px;
+	text-align: center;
+	color: #FFFFFF;
+	background-color: #2D2D2D;
+	margin: 0 auto;
+}
+
+.footer p {
+	position: relative;
+	top: 18px;
+	color: inherit;
+}
+
+.footer a {
+	color: inherit;
+	text-decoration: none;
+}
+
+/**
+ * retina
+ */
+
+/**
+ * font for mobile
+ * iosfonts.com/
+ * google.com/design/spec/style/typography.html#typography-language-categorization
+ * msdn.microsoft.com/en-us/library/windows/apps/hh202920%28v=vs.105%29.aspx
+ */
+
+@media only screen and (max-width: 480px) {
+	body,
+	.footer {
+		font-family: "Segoe UI", "Segoe WP", "HelveticaNeue", "Roboto", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
+	}
+
+	.parallax .subhead {
+		font-family: "Segoe UI", "Segoe WP", "HelveticaNeue-Light", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif-light, sans-serif;
+	}
+}
+
+/**
+ * media queries
+ */
+
+@media (min-height: 1px) and (max-height: 380px) {
+	.footer {
+		display: none;
+	}
+}
+
+@media (min-height: 381px) and (max-height: 467px) {
+	.footer {
+		display: none;
+	}
+}
+
+@media (min-height: 468px) and (max-height: 567px) {
+	.footer {
+		display: none;
+	}
+}
+
+@media screen and (max-height: 380px) {
+	.footer {
+		display: none;
+	}
+}

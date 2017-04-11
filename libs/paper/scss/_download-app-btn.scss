@@ -1,0 +1,29 @@
+/*! @import "download-app-btn"; */
+
+/**
+ * download app btn
+ */
+
+.btn-download-app {
+	display: block;
+	width: 9.000rem;
+	height: 3.250rem;
+	position: fixed;
+	top: 3.375rem;
+	right: 0.375rem;
+	background-position: left top;
+	background-repeat: no-repeat;
+	background-size: 9.000rem 3.250rem;
+	box-shadow: 0.125rem 0.125rem 0.125rem 0 $color-rgba-ui-bar-shadow;
+}
+
+/**
+ * reset for animate.css
+ * daneden.github.io/animate.css/
+ */
+
+.btn-download-app.animated {
+	animation-duration: 0.2s;
+	animation-fill-mode: both;
+}
+

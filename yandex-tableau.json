@@ -1,0 +1,9 @@
+{
+	"version": "1.0",
+	"api_version": 1,
+	"layout": {
+		"logo": "http://englishextra.github.io/yandex-tableau-50x50.png",
+		"color": "#F03B4C",
+		"show_title": false
+	}
+}

@@ -1,0 +1,120 @@
+/*! @import "paper-animate.partial"; */
+
+/**
+ * some animations from animate.css
+ * github.com/daneden/animate.css
+ * daneden.github.io/animate.css/
+ */
+
+/* .animated {
+	animation-duration: 2s;
+	animation-fill-mode: both;
+} */
+
+@keyframes bounceInRight {
+	from, 60%, 75%, 90%, to {
+		animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+	}
+
+	from {
+		opacity: 0;
+		transform: translate3d(3000px, 0, 0);
+	}
+
+	60% {
+		opacity: 1;
+		transform: translate3d(-25px, 0, 0);
+	}
+
+	75% {
+		transform: translate3d(10px, 0, 0);
+	}
+
+	90% {
+		transform: translate3d(-5px, 0, 0);
+	}
+
+	to {
+		transform: none;
+	}
+}
+
+.bounceInRight {
+	animation-name: bounceInRight;
+}
+
+@keyframes bounceOutRight {
+	20% {
+		opacity: 1;
+		transform: translate3d(-20px, 0, 0);
+	}
+
+	to {
+		opacity: 0;
+		transform: translate3d(2000px, 0, 0);
+	}
+}
+
+.bounceOutRight {
+	animation-name: bounceOutRight;
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+.fadeIn {
+	animation-name: fadeIn;
+}
+
+@keyframes fadeInUp {
+	0% {
+		opacity: 0;
+		transform: translate3d(0, 100%, 0);
+	}
+
+	100% {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+.fadeInUp {
+	animation-name: fadeInUp;
+}
+
+@keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+	}
+}
+
+.fadeOut {
+	animation-name: fadeOut;
+}
+
+@keyframes fadeOutDown {
+	0% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+		transform: translate3d(0, 100%, 0);
+	}
+}
+
+.fadeOutDown {
+	animation-name: fadeOutDown;
+}
+

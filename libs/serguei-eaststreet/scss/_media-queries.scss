@@ -1,0 +1,376 @@
+/*! @import "media-queries"; */
+
+/*!
+ * responsivedesign.is/develop/browser-feature-support/media-queries-for-common-device-breakpoints/
+ */
+
+/* Smartphones (portrait and landscape) ----------- */
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+	html {
+		font-size: 12px;
+	}
+
+	.col {
+		max-width: 100%;
+	}
+
+	.padded-content {
+		padding: 1.067rem 0;
+	}
+}
+
+/* Smartphones (landscape) ----------- */
+
+@media only screen and (min-width: 321px) {
+	html {
+		font-size: 12px;
+	}
+
+	.col {
+		max-width: 100%;
+	}
+
+	.padded-content {
+		padding: 1.067rem 0;
+	}
+}
+
+/* Smartphones (portrait) ----------- */
+
+@media only screen and (max-width: 320px) {
+	html {
+		font-size: 12px;
+	}
+
+	.col {
+		max-width: 100%;
+	}
+
+	.padded-content {
+		padding: 1.067rem 0;
+	}
+}
+
+/* iPads (portrait and landscape) ----------- */
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+	html {
+		font-size: 12px;
+	}
+
+	.col {
+		max-width: 76.800rem;
+	}
+	
+	.padded-content {
+		padding: 1.600rem 0.667rem;
+	}
+}
+
+/* iPads (landscape) ----------- */
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+	html {
+		font-size: 12px;
+	}
+
+	.col {
+		max-width: 76.800rem;
+	}
+	
+	.padded-content {
+		padding: 1.600rem 0.667rem;
+	}
+}
+
+/* iPads (portrait) ----------- */
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
+	html {
+		font-size: 19px;
+	}
+
+	.col {
+		max-width: 76.800rem;
+	}
+	
+	.padded-content {
+		padding: 1.600rem 0.667rem;
+	}
+}
+
+/**********
+iPad 3
+**********/
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
+	html {
+		font-size: 12px;
+	}
+
+	.col {
+		max-width: 76.800rem;
+	}
+	
+	.padded-content {
+		padding: 1.600rem 0.667rem;
+	}
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+	html {
+		font-size: 19px;
+	}
+
+	.col {
+		max-width: 76.800rem;
+	}
+	
+	.padded-content {
+		padding: 1.600rem 0.667rem;
+	}
+}
+
+/* Desktops and laptops ----------- */
+
+@media only screen and (min-width: 1224px) {
+	html {
+		font-size: 15px;
+	}
+
+	.col {
+		max-width: 76.800rem;
+	}
+	
+	.padded-content {
+		padding: 1.600rem 0.667rem;
+	}
+}
+
+/* Large screens ----------- */
+
+@media only screen and (min-width: 1824px) {
+	html {
+		font-size: 19px;
+	}
+
+	.col {
+		max-width: 76.800rem;
+	}
+	
+	.padded-content {
+		padding: 1.600rem 0.667rem;
+	}
+}
+
+/* iPhone 4 ----------- */
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
+	html {
+		font-size: 12px;
+	}
+
+	.col {
+		max-width: 100%;
+	}
+
+	.padded-content {
+		padding: 1.067rem 0;
+	}
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+	html {
+		font-size: 12px;
+	}
+
+	.col {
+		max-width: 100%;
+	}
+
+	.padded-content {
+		padding: 1.067rem 0;
+	}
+}
+
+/* iPhone 5 ----------- */
+
+@media only screen and (min-device-width: 320px) and (max-device-height: 568px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2) {
+	html {
+		font-size: 12px;
+	}
+
+	.col {
+		max-width: 100%;
+	}
+
+	.padded-content {
+		padding: 1.067rem 0;
+	}
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-height: 568px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2) {
+	html {
+		font-size: 12px;
+	}
+
+	.col {
+		max-width: 100%;
+	}
+
+	.padded-content {
+		padding: 1.067rem 0;
+	}
+}
+
+/* iPhone 6 ----------- */
+
+@media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2) {
+	html {
+		font-size: 15px;
+	}
+
+	.col {
+		max-width: 100%;
+	}
+
+	.padded-content {
+		padding: 1.067rem 0;
+	}
+}
+
+@media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2) {
+	html {
+		font-size: 12px;
+	}
+
+	.col {
+		max-width: 100%;
+	}
+
+	.padded-content {
+		padding: 1.067rem 0;
+	}
+}
+
+/* iPhone 6+ ----------- */
+
+@media only screen and (min-device-width: 415px) and (max-device-height: 736px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2) {
+	html {
+		font-size: 15px;
+	}
+
+	.col {
+		max-width: 100%;
+	}
+
+	.padded-content {
+		padding: 1.067rem 0;
+	}
+}
+
+@media only screen and (min-device-width: 415px) and (max-device-height: 736px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2) {
+	html {
+		font-size: 12px;
+	}
+
+	.col {
+		max-width: 100%;
+	}
+
+	.padded-content {
+		padding: 1.067rem 0;
+	}
+}
+
+/* Samsung Galaxy S3 ----------- */
+
+@media only screen and (min-device-width: 320px) and (max-device-height: 640px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2) {
+	html {
+		font-size: 15px;
+	}
+
+	.col {
+		max-width: 100%;
+	}
+
+	.padded-content {
+		padding: 1.067rem 0;
+	}
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-height: 640px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2) {
+	html {
+		font-size: 12px;
+	}
+
+	.col {
+		max-width: 100%;
+	}
+
+	.padded-content {
+		padding: 1.067rem 0;
+	}
+}
+
+/* Samsung Galaxy S4 ----------- */
+
+@media only screen and (min-device-width: 320px) and (max-device-height: 640px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 3) {
+	html {
+		font-size: 15px;
+	}
+
+	.col {
+		max-width: 100%;
+	}
+
+	.padded-content {
+		padding: 1.067rem 0;
+	}
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-height: 640px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 3) {
+	html {
+		font-size: 12px;
+	}
+
+	.col {
+		max-width: 100%;
+	}
+
+	.padded-content {
+		padding: 1.067rem 0;
+	}
+}
+
+/* Samsung Galaxy S5 ----------- */
+
+@media only screen and (min-device-width: 360px) and (max-device-height: 640px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 3) {
+	html {
+		font-size: 15px;
+	}
+
+	.col {
+		max-width: 100%;
+	}
+
+	.padded-content {
+		padding: 1.067rem 0;
+	}
+}
+
+@media only screen and (min-device-width: 360px) and (max-device-height: 640px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 3) {
+	html {
+		font-size: 12px;
+	}
+
+	.col {
+		max-width: 100%;
+	}
+
+	.padded-content {
+		padding: 1.067rem 0;
+	}
+}
+

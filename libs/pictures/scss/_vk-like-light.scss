@@ -1,0 +1,59 @@
+/*! @import "vk-like-light"; */
+
+/**
+ * vk-like
+ */
+
+.holder-vk-like {
+	display: inline-block;
+	position: absolute;
+	top: 0.750rem;
+	left: 6.750rem;
+	line-height: 0;
+}
+
+.vk-like {
+	display: inline-block;
+	height: 1.500rem;
+	line-height: 0;
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility 0s, opacity 0.2s ease;
+}
+
+.btn-show-vk-like {
+	display: inline-block;
+	width: 3.000rem;
+	height: 3.000rem;
+	position: absolute;
+	top: 0;
+	left: 6.000rem;
+	text-indent: 0;
+	text-align: center;
+	text-decoration: none;
+	color: $color-hex-gray-text;
+	background-color: $color-hex-ui-icon-bg;
+	border: none;
+	overflow: hidden;
+	transition: background-color 0.2s ease;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+}
+
+.btn-show-vk-like:hover {
+	background-color: $color-hex-hover-ui-icon-bg;
+}
+
+/* .btn-show-vk-like:focus, */
+.btn-show-vk-like:active {
+	color: $color-hex-body-text;
+	background-color: $color-hex-ui-accent;
+}
+
+.btn-show-vk-like:before {
+	font-family: "englishextra-ui-icons";
+	content: "\e925";
+	font-size: 1.250rem;
+	line-height: 3.000rem;
+}
+

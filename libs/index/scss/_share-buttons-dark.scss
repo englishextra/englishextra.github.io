@@ -1,0 +1,91 @@
+/*! @import "share-buttons-light"; */
+
+/*! @import "ya-share2.fixed"; */
+
+/*!
+ * ya-share2
+ * yandex.ru/blog/share/kak-uvelichit-shrift-tsifr-sch-tchika#comment-add
+ */
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__icon {
+	height: 3.000rem;
+	width: 3.000rem;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__counter {
+	font-size: 1.250rem;
+	line-height: 3.000rem;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__title {
+	width: 0;
+	height: 0;
+	overflow: hidden;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__item {
+	margin: 0;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__badge {
+	border-radius: 0;
+}
+
+/**
+ * pluso, yashare
+ */
+
+.ya-share2 {
+	position: fixed /* !important */;
+	right: 3.000rem;
+	bottom: 0;
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility 0s, opacity 0.2s ease;
+}
+
+.pluso {
+	position: fixed /* !important */;
+	right: 0;
+	bottom: 0;
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility 0s, opacity 0.2s ease;
+}
+
+.btn-share-buttons {
+	display: inline-block;
+	width: 3.000rem;
+	height: 3.000rem;
+	position: fixed;
+	bottom: 0;
+	right: 3.000rem;
+	text-indent: 0;
+	text-align: center;
+	text-decoration: none;
+	color: #FFFFFF;
+	background-color: $color-rgba-dark-ui-icon-bg;
+	border: none;
+	overflow: hidden;
+	transition: background-color 0.2s ease;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+}
+
+.btn-share-buttons:hover {
+	background-color: $color-hex-hover-dark-ui-icon-bg;
+}
+
+/* .btn-share-buttons:focus, */
+.btn-share-buttons:active {
+	color: $color-hex-body-text;
+	background-color: $color-hex-ui-accent;
+}
+
+.btn-share-buttons:before {
+	font-family: "englishextra-ui-icons";
+	content: "\e91d";
+	font-size: 1.250rem;
+	line-height: 3.000rem;
+}
+

@@ -1,0 +1,210 @@
+/*! @import "portfolio-superbox"; */
+
+/**
+ * superbox
+ */
+
+.superbox-wrapper {
+	width: 100%;
+	height: 100%;
+	background-color: $color-hex-dark-ui-bar-bg;
+	/** stackoverflow.com/questions/14967413/background-color-not-showing-for-a-div
+	Because the content collapses when the children are floated
+	and adding the overflow rule restores the behavior you'd expect. */
+	overflow-x: auto;
+	overflow-y: hidden;
+}
+
+.superbox {
+	display: block;
+	max-width: 100%;
+	opacity: 0;
+	transition: opacity 0.2s ease;
+	margin: 0 auto;
+}
+
+.superbox:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.superbox-list {
+	display: inline-block;
+	*display: inline;
+	zoom: 1;
+	vertical-align: top;
+}
+
+.superbox-list img {
+	display: block;
+	width: 100%;
+	height: auto;
+	opacity: 1;
+	transition: all 0.2s ease-in-out;
+	cursor: pointer;
+	padding: 0;
+}
+
+.superbox-list img:hover {
+	opacity: 0.85;
+}
+
+.superbox-show {
+	display: none;
+	width: 100%;
+	float: left;
+	position: relative;
+	top: 0;
+	left: 0;
+	color: transparent;
+	background-color: $color-hex-darker-ui-bar-bg;
+	box-shadow: inset 0 0.063em 0.313em $color-rgba-darker-ui-bar-inset-shadow;
+	margin: 0 auto;
+	padding: 2.500em 1.500em 2.750em 1.500em;
+}
+
+.superbox-current-desc {
+	display: none;
+	max-width: 37.500rem;
+	color: #FFFFFF;
+	margin: 0 auto;
+}
+
+.superbox-current-desc h2 {
+	font-weight: 300;
+	display: block;
+	font-size: 1.772rem;
+	line-height: 1.200;
+	color: inherit;
+	clear: both;
+	margin: 0 !important;
+}
+
+.superbox-current-desc h2 a {
+	font-weight: inherit;
+	text-decoration: none;
+	color: inherit;
+}
+
+.superbox-current-desc p {
+	display: block;
+	font-weight: 400;
+	font-size: 1.000rem;
+	line-height: 1.500;
+	color: inherit;
+}
+
+.superbox-current-desc h2 a:hover,
+.superbox-current-desc h2 a:focus,
+.superbox-current-desc h2 a:active,
+.superbox-current-desc p a:hover,
+.superbox-current-desc p a:focus,
+.superbox-current-desc p a:active {
+	border-bottom-color: inherit;
+	border-bottom-style: solid;
+	border-bottom-width: 0.063rem;
+}
+
+.superbox-float {
+	float: left;
+}
+
+.superbox-close {
+	width: 3.000rem;
+	height: 3.000rem;
+	position: absolute;
+	top: 0;
+	right: 0;
+	/* background: transparent url(data:image/svg+xml;base64,) no-repeat center center;
+	background-size: 3.000rem 3.000rem; */
+	opacity: 0.85;
+	cursor: pointer;
+}
+
+.superbox-close:hover,
+.superbox-close:active,
+.superbox-close:focus {
+	opacity: 1;
+}
+
+.superbox-close {
+	text-align: center;
+	color: inherit;
+	background: none transparent;
+}
+
+.superbox-close:before {
+	font-family: "englishextra-ui-icons";
+	content: "\e90a";
+	font-size: 1.250rem;
+	line-height: 3.000rem;
+}
+
+.superbox-desc {
+	display: none;
+}
+
+/**
+ * reset for animate.css
+ * daneden.github.io/animate.css/
+ */
+
+.superbox-current-desc.animated {
+	animation-duration: 0.2s;
+	animation-fill-mode: both;
+}
+
+@media only screen and (max-width: 20em) {
+	.superbox-float {
+		float: none;
+	}
+
+	.superbox-list {
+		width: 100%;
+	}
+
+	.superbox-current-desc h2,
+	.superbox-current-desc p {
+		text-align: left;
+	}
+}
+
+@media only screen and (min-width: 20.063em) {
+	.superbox-float {
+		float: none;
+	}
+
+	.superbox-list {
+		width: 100%;
+	}
+
+	.superbox-current-desc h2,
+	.superbox-current-desc p {
+		text-align: left;
+	}
+}
+
+@media only screen and (min-width: 40.063em) {
+	.superbox-list {
+		width: 50%;
+	}
+
+	.superbox-current-desc h2,
+	.superbox-current-desc p {
+		text-align: center;
+	}
+}
+
+@media only screen and (min-width: 60.063em) {
+	.superbox-list {
+		width: 33.333%;
+	}
+}
+
+@media only screen and (min-width: 74.063em) {
+	.superbox-list {
+		width: 25%;
+	}
+}
+
