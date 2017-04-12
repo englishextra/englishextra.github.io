@@ -951,27 +951,27 @@ template {
 	border-radius: 0.571rem;
 }
 
-.progress #progress-ball-1 {
+.progress .progress-ball-1 {
 	-webkit-animation-delay: 1.56s;
 	animation-delay: 1.56s;
 }
 
-.progress #progress-ball-2 {
+.progress .progress-ball-2 {
 	-webkit-animation-delay: 0.31s;
 	animation-delay: 0.31s;
 }
 
-.progress #progress-ball-3 {
+.progress .progress-ball-3 {
 	-webkit-animation-delay: 0.62s;
 	animation-delay: 0.62s;
 }
 
-.progress #progress-ball-4 {
+.progress .progress-ball-4 {
 	-webkit-animation-delay: 0.94s;
 	animation-delay: 0.94s;
 }
 
-.progress #progress-ball-5 {
+.progress .progress-ball-5 {
 	-webkit-animation-delay: 1.25s;
 	animation-delay: 1.25s;
 }

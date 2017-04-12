@@ -685,7 +685,7 @@ evento.add(window, "load", loadManageLocationQrCodeImg);
  */
 var addAppUpdatesLink = function () {
 	"use strict";
-	var panel = BALA.one("#panel-menu-more") || "",
+	var panel = BALA.one(".panel-menu-more") || "",
 	items = BALA("li", panel) || "",
 	s = navigator.userAgent || "",
 	p;
@@ -736,9 +736,9 @@ var initMenuMore = function () {
 	"use strict";
 	var w = window,
 	container = BALA.one("#container") || "",
-	holder = BALA.one("#holder-panel-menu-more") || "",
-	btn = BALA.one("#btn-menu-more") || "",
-	panel = BALA.one("#panel-menu-more") || "",
+	holder = BALA.one(".holder-panel-menu-more") || "",
+	btn = BALA.one(".btn-menu-more") || "",
+	panel = BALA.one(".panel-menu-more") || "",
 	items = BALA("li", panel) || "",
 	cL = "classList",
 	is_active = "is-active",
@@ -793,7 +793,7 @@ docReady(initMenuMore);
 var showMenuMore = function (n) {
 	"use strict";
 	n = n || 2000;
-	var a = BALA.one("#holder-panel-menu-more") || "",
+	var a = BALA.one(".holder-panel-menu-more") || "",
 	is_active = "is-active",
 	cL = "classList",
 	s = function () {
@@ -858,8 +858,9 @@ docReady(initPlusoYaShare);
 var manageVKLikeButton = function () {
 	"use strict";
 	var w = window,
-	c = BALA.one("#vk-like") || "",
-	a = BALA.one("#btn-show-vk-like") || "",
+	vk_like = "vk-like",
+	c = BALA.one("#" + vk_like) || "",
+	a = BALA.one(".btn-show-vk-like") || "",
 	js = getHTTP(!0) + "://vk.com/js/api/openapi.js?122",
 	ds = "dataset",
 	g = function () {
@@ -870,7 +871,7 @@ var manageVKLikeButton = function () {
 					nameTransportPath: "/xd_receiver.htm",
 					onlyWidgets: !0
 				});
-				VK.Widgets.Like("vk-like", {
+				VK.Widgets.Like(vk_like, {
 					type: "button",
 					height: 24
 				});

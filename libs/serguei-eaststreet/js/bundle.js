@@ -1784,8 +1784,8 @@ var manageVKLikeButton = function () {
 	e = BALA.one(btn) || "",
 	page = ".page",
 	p = BALA.one(page) || "",
-	vk_like = ".vk-like",
-	c = BALA.one(vk_like) || "",
+	vk_like = "vk-like",
+	c = BALA.one("#" + vk_like) || "",
 	active_qrcode = "is-active-holder-location-qr-code",
 	active_vk_like = "is-active-holder-vk-like",
 	active_share = "is-active-holder-share-buttons",
@@ -1818,7 +1818,7 @@ var manageVKLikeButton = function () {
 						nameTransportPath: "/xd_receiver.htm",
 						onlyWidgets: !0
 					});
-					VK.Widgets.Like("vk-like", {
+					VK.Widgets.Like(vk_like, {
 						type: "button",
 						height: 24
 					});
@@ -1842,7 +1842,7 @@ var loadRefreshDisqus = function () {
 	var w = window,
 	c = BALA.one("#disqus_thread") || "",
 	is_active = "is-active",
-	btn = BALA.one("#btn-show-disqus") || "",
+	btn = BALA.one(".btn-show-disqus") || "",
 	p = w.location.href || "",
 	cL = "classList",
 	ds = "dataset",
@@ -1894,7 +1894,7 @@ var loadRefreshDisqus = function () {
 var manageDisqusButton = function () {
 	"use strict";
 	var c = BALA.one("#disqus_thread") || "",
-	e = c ? (BALA.one("#btn-show-disqus") || "") : "",
+	e = c ? (BALA.one(".btn-show-disqus") || "") : "",
 	h_e = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
@@ -2009,7 +2009,7 @@ var initContentsKamil = function () {
 	"use strict";
 	var w = window,
 	d = document,
-	search_form = BALA.one("#search_form") || "",
+	search_form = BALA.one(".search-form") || "",
 	id = "#text",
 	text = BALA.one(id) || "",
 	_ul_id = "kamil-typo-autocomplete",

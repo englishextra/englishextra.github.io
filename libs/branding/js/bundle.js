@@ -1294,10 +1294,10 @@ var initNavMenu = function () {
 	var w = window,
 	container = BALA.one("#container") || "",
 	page = BALA.one("#page") || "",
-	btn = BALA.one("#btn-nav-menu") || "",
-	panel = BALA.one("#panel-nav-menu") || "",
+	btn = BALA.one(".btn-nav-menu") || "",
+	panel = BALA.one(".panel-nav-menu") || "",
 	items = BALA("a", panel) || "",
-	holder = BALA.one("#holder-panel-menu-more") || "",
+	holder = BALA.one(".holder-panel-menu-more") || "",
 	cL = "classList",
 	is_active = "is-active",
 	p = w.location.href || "",
@@ -1421,7 +1421,7 @@ docReady(initNavMenu);
  */
 var addAppUpdatesLink = function () {
 	"use strict";
-	var panel = BALA.one("#panel-menu-more") || "",
+	var panel = BALA.one(".panel-menu-more") || "",
 	items = BALA("li", panel) || "",
 	s = navigator.userAgent || "",
 	p;
@@ -1472,9 +1472,9 @@ var initMenuMore = function () {
 	"use strict";
 	var w = window,
 	container = BALA.one("#container") || "",
-	holder = BALA.one("#holder-panel-menu-more") || "",
-	btn = BALA.one("#btn-menu-more") || "",
-	panel = BALA.one("#panel-menu-more") || "",
+	holder = BALA.one(".holder-panel-menu-more") || "",
+	btn = BALA.one(".btn-menu-more") || "",
+	panel = BALA.one(".panel-menu-more") || "",
 	items = BALA("li", panel) || "",
 	cL = "classList",
 	is_active = "is-active",
@@ -1626,7 +1626,7 @@ var initDisqusOnScroll = function () {
 	var w = window,
 	disqus_thread = BALA.one("#disqus_thread") || "",
 	is_active = "is-active",
-	btn = BALA.one("#btn-show-disqus") || "",
+	btn = BALA.one(".btn-show-disqus") || "",
 	p = w.location.href || "",
 	cL = "classList",
 	ds = "dataset",
@@ -1685,8 +1685,9 @@ evento.add(window, "load", initDisqusOnScroll);
 var manageVKLikeButton = function () {
 	"use strict";
 	var w = window,
-	c = BALA.one("#vk-like") || "",
-	a = BALA.one("#btn-show-vk-like") || "",
+	vk_like = "vk-like",
+	c = BALA.one("#" + vk_like) || "",
+	a = BALA.one(".btn-show-vk-like") || "",
 	js = getHTTP(!0) + "://vk.com/js/api/openapi.js?122",
 	ds = "dataset",
 	g = function () {
@@ -1697,7 +1698,7 @@ var manageVKLikeButton = function () {
 					nameTransportPath: "/xd_receiver.htm",
 					onlyWidgets: !0
 				});
-				VK.Widgets.Like("vk-like", {
+				VK.Widgets.Like(vk_like, {
 					type: "button",
 					height: 24
 				});
@@ -1743,7 +1744,7 @@ var initPagesKamil = function () {
 	"use strict";
 	var w = window,
 	d = document,
-	search_form = BALA.one("#search_form") || "",
+	search_form = BALA.one(".search-form") || "",
 	id = "#text",
 	text = BALA.one(id) || "",
 	_ul_id = "kamil-typo-autocomplete",
@@ -1922,7 +1923,7 @@ var initSearchForm = function () {
 	"use strict";
 	var w = window,
 	h = BALA.one("html") || "",
-	search_form = BALA.one("#search_form") || "",
+	search_form = BALA.one(".search-form") || "",
 	ya_site_form = BALA.one(".ya-site-form.ya-site-form_inited_no") || "",
 	all_js_src = getHTTP(!0) + "://site.yandex.net/v2.0/js/all.js",
 	cL = "classList",

@@ -521,7 +521,7 @@ var hideUiBtnsInFullScreen = function () {
 	btn_show_vk_like = BALA.one(".btn-show-vk-like") || "",
 	openapi_js_src = getHTTP(!0) + "://vk.com/js/api/openapi.js?122",
 	btn_block_social_buttons = BALA.one(".btn-share-buttons") || "",
-	ui_totop = BALA.one("#ui-totop") || "",
+	ui_totop = BALA.one(".ui-totop") || "",
 	holder_search_form = BALA.one(".holder-search-form") || "",
 	f = !1;
 	if (!f) {

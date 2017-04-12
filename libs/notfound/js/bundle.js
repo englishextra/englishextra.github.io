@@ -200,9 +200,9 @@ var initParallax = function () {
 	"use strict";
 	var w = window,
 	mq = w.matchMedia("(min-width: 768px)"),
-	s = BALA.one("#scene1") || "",
-	p = BALA.one("#parallax") || "",
-	m = BALA.one("#parallax-disabled") || "";
+	s = BALA.one(".scene1") || "",
+	p = BALA.one(".parallax") || "",
+	m = BALA.one(".parallax-disabled") || "";
 	if (mq.matches) {
 		setStyleDisplayBlock(p);
 		setStyleDisplayNone(m);
@@ -239,7 +239,7 @@ evento.add(window, "load", loadInitParallax);
 var showPageFinishProgress = function () {
 	"use strict";
 	var a = BALA.one("#container") || "",
-	c = BALA.one("#progress") || "",
+	c = BALA.one(".progress") || "",
 	g = function () {
 		setStyleOpacity(a, 1);
 		setAutoClearedTimeout(setStyleDisplayNone.bind(null, c), 100);
