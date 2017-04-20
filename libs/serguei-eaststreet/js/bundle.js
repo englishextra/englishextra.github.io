@@ -1347,7 +1347,11 @@ var manageDataSrcImg = function (ctx) {
 		}
 	},
 	g = function (e) {
-		if (verge.inY(e)/* && 0 !== e.offsetHeight */) {
+		/*!
+		 * true if elem is in same y-axis as the viewport or within 100px of it
+		 * github.com/ryanve/verge
+		 */
+		if (verge.inY(e, 100) /* && 0 !== e.offsetHeight */) {
 			k(e);
 		}
 	};
@@ -1846,11 +1850,13 @@ var loadRefreshDisqus = function () {
 	p = w.location.href || "",
 	cL = "classList",
 	ds = "dataset",
+	pN = "parentNode",
 	n = c ? (c[ds].shortname || "") : "",
 	js = getHTTP(!0) + "://" + n + ".disqus.com/embed.js",
 	g = function () {
-		setStyleDisplayNone(btn);
 		c[cL].add(is_active);
+		setStyleDisplayNone(btn);
+		LoadingSpinner.hide();
 	},
 	k = function () {
 		try {
@@ -1873,11 +1879,12 @@ var loadRefreshDisqus = function () {
 		removeChildren(c);
 		appendFragment(crel("p", "Комментарии доступны только в веб версии этой страницы."), c);
 		c.removeAttribute("id");
-		setStyleDisplayNone(btn.parentNode);
+		setStyleDisplayNone(btn[pN]);
 	};
 	if (c && btn && n && p) {
 		console.log("triggered function: loadRefreshDisqus");
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
+			LoadingSpinner.show();
 			if (scriptIsLoaded(js)) {
 				k();
 			} else {
@@ -1931,18 +1938,18 @@ var initYandexMap = function (a) {
 					center : JSON.parse(f),
 					zoom : z
 				});
-			LoadingSpinner.hide();
 		} catch (e) {
 			setStyleDisplayBlock(b_s);
 		}
 	},
 	g = function () {
-		ymaps.ready(init);
 		c[pN][cL].add(is_active);
 		setStyleDisplayNone(b_s);
+		LoadingSpinner.hide();
 	},
 	k = function () {
 		try {
+			ymaps.ready(init);
 			g();
 		} catch(e) {
 			setStyleDisplayBlock(b_s);
@@ -2122,7 +2129,7 @@ var initContentsKamil = function () {
 			 */
 			ac.on("kamilselect", function (e) {
 				var p = e.item.link || "",
-				si = function () {
+				sm = function () {
 					e.inputElement.value = "";
 					changeLocation(p);
 				};
@@ -2130,8 +2137,8 @@ var initContentsKamil = function () {
 					/*!
 					 * nwjs wont like setImmediate here
 					 */
-					/* setImmediate(si); */
-					si();
+					/* setImmediate(sm); */
+					sm();
 				}
 			});
 		}
@@ -2314,9 +2321,7 @@ var insertExternalHTML = function (a, u, f) {
 	c = BALA.one(a) || "",
 	g = function (t, s) {
 		var q = function () {
-			if (s && "function" === typeof s) {
-				s();
-			}
+			return s && "function" === typeof s && s();
 		};
 		insertTextAsFragment(t, c, q);
 	},
@@ -2497,6 +2502,7 @@ var observeMutations = function (ctx) {
 		var g = function (e) {
 			var f = function (m) {
 				console.log("mutations observer: " + m.type);
+				console.log(m.type, "target: " + m.target.tagName + ("." + m.target.className || "#" + m.target.id || ""));
 				console.log(m.type, "added: " + m.addedNodes.length + " nodes");
 				console.log(m.type, "removed: " + m.removedNodes.length + " nodes");
 				if ("childList" === m.type || "subtree" === m.type) {
@@ -2541,6 +2547,13 @@ var updateInsertedDom = function () {
 	var w = window,
 	h = w.location.hash || "",
 	pN = "parentNode",
+	/*!
+	 * because replace child is used in the first place
+	 * to insert new content, and if parent node doesnt exist
+	 * inner html method is applied,
+	 * the parent node should be observed, not the target
+	 * node for the insertion
+	 */
 	c = BALA.one("#app-content")[pN] || "";
 	if (c && h) {
 		console.log("triggered function: updateInsertedDom");
@@ -2576,7 +2589,7 @@ var showPageFinishProgress = function () {
 				console.log("function showPageFinishProgress => started Interval");
 				if (imagesPreloaded) {
 					clearRequestInterval(si);
-					console.log("function showPageFinishProgress => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
+					console.log("function showPageFinishProgress => si=" + si.value + "; imagesPreloaded=" + imagesPreloaded);
 					g();
 				}
 			}, 100);

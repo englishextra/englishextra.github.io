@@ -1491,7 +1491,7 @@ var initContentsKamil = function () {
 			 */
 			ac.on("kamilselect", function (e) {
 				var p = e.item.link || "",
-				si = function () {
+				sm = function () {
 					e.inputElement.value = "";
 					changeLocation(p);
 				};
@@ -1499,8 +1499,8 @@ var initContentsKamil = function () {
 					/*!
 					 * nwjs wont like setImmediate here
 					 */
-					/* setImmediate(si); */
-					si();
+					/* setImmediate(sm); */
+					sm();
 				}
 			});
 		}
@@ -1636,7 +1636,7 @@ var showPageFinishProgress = function () {
 				console.log("function showPageFinishProgress => started Interval");
 				if (imagesPreloaded) {
 					clearRequestInterval(si);
-					console.log("function showPageFinishProgress => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
+					console.log("function showPageFinishProgress => si=" + si.value + "; imagesPreloaded=" + imagesPreloaded);
 					g();
 				}
 			}, 100);

@@ -1015,7 +1015,11 @@ var manageDataSrcImg = function (ctx) {
 		}
 	},
 	g = function (e) {
-		if (verge.inY(e)/* && 0 !== e.offsetHeight */) {
+		/*!
+		 * true if elem is in same y-axis as the viewport or within 100px of it
+		 * github.com/ryanve/verge
+		 */
+		if (verge.inY(e, 100) /* && 0 !== e.offsetHeight */) {
 			k(e);
 		}
 	};
@@ -1483,7 +1487,7 @@ var showPageFinishProgress = function () {
 				console.log("function showPageFinishProgress => started Interval");
 				if (imagesPreloaded) {
 					clearRequestInterval(si);
-					console.log("function showPageFinishProgress => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
+					console.log("function showPageFinishProgress => si=" + si.value + "; imagesPreloaded=" + imagesPreloaded);
 					g();
 				}
 			}, 100);

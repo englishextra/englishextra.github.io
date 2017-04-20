@@ -982,7 +982,11 @@ var manageDataSrcImg = function (ctx) {
 		}
 	},
 	g = function (e) {
-		if (verge.inY(e)/* && 0 !== e.offsetHeight */) {
+		/*!
+		 * true if elem is in same y-axis as the viewport or within 100px of it
+		 * github.com/ryanve/verge
+		 */
+		if (verge.inY(e, 100) /* && 0 !== e.offsetHeight */) {
 			k(e);
 		}
 	};
@@ -1047,7 +1051,11 @@ var manageDataSrcIframe = function (ctx) {
 		}
 	},
 	g = function (e) {
-		if (verge.inY(e)/* && 0 !== e.offsetHeight */) {
+		/*!
+		 * true if elem is in same y-axis as the viewport or within 100px of it
+		 * github.com/ryanve/verge
+		 */
+		if (verge.inY(e, 100) /* && 0 !== e.offsetHeight */) {
 			k(e);
 		}
 	};
@@ -1624,25 +1632,24 @@ docReady(initPlusoYaShare);
 var initDisqusOnScroll = function () {
 	"use strict";
 	var w = window,
-	disqus_thread = BALA.one("#disqus_thread") || "",
+	c = BALA.one("#disqus_thread") || "",
 	is_active = "is-active",
 	btn = BALA.one(".btn-show-disqus") || "",
 	p = w.location.href || "",
 	cL = "classList",
 	ds = "dataset",
 	pN = "parentNode",
-	disqus_shortname = disqus_thread ? (disqus_thread[ds].shortname || "") : "",
-	embed_js_src = getHTTP(!0) + "://" + disqus_shortname + ".disqus.com/embed.js",
+	n = c ? (c[ds].shortname || "") : "",
+	js = getHTTP(!0) + "://" + n + ".disqus.com/embed.js",
 	g = function () {
 		setStyleDisplayNone(btn);
-		disqus_thread[cL].add(is_active);
-		if ("undefined" !== typeof waypoint && waypoint) {
-			waypoint.destroy();
-		}
+		c[cL].add(is_active);
+		LoadingSpinner.hide();
 	},
 	k = function () {
-		if (!scriptIsLoaded(embed_js_src)) {
-			loadJS(embed_js_src, g);
+		LoadingSpinner.show();
+		if (!scriptIsLoaded(js)) {
+			loadJS(js, g);
 		}
 	},
 	q = function () {
@@ -1655,18 +1662,18 @@ var initDisqusOnScroll = function () {
 		evento.add(btn, "click", h_btn);
 	},
 	v = function () {
-		removeChildren(disqus_thread);
-		appendFragment(crel("p", "Комментарии доступны только в веб версии этой страницы."), disqus_thread);
-		disqus_thread.removeAttribute("id");
+		removeChildren(c);
+		appendFragment(crel("p", "Комментарии доступны только в веб версии этой страницы."), c);
+		c.removeAttribute("id");
 		setStyleDisplayNone(btn[pN]);
 	};
-	if (disqus_thread && btn && disqus_shortname && p) {
+	if (c && btn && n && p) {
 		console.log("triggered function: initDisqusOnScroll");
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			q();
 			if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
 				var h_w = function () {
-					if (fitsIntoViewport(disqus_thread)) {
+					if (fitsIntoViewport(c)) {
 						evento.remove(w, "scroll", h_w);
 						k();
 					}
@@ -1857,7 +1864,7 @@ var initPagesKamil = function () {
 			 */
 			ac.on("kamilselect", function (e) {
 				var p = e.item.link || "",
-				si = function () {
+				sm = function () {
 					e.inputElement.value = "";
 					changeLocation(p);
 				};
@@ -1865,8 +1872,8 @@ var initPagesKamil = function () {
 					/*!
 					 * nwjs wont like setImmediate here
 					 */
-					/* setImmediate(si); */
-					si();
+					/* setImmediate(sm); */
+					sm();
 				}
 			});
 		}

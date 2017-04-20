@@ -249,7 +249,7 @@ var showPageFinishProgress = function () {
 				console.log("function showPageFinishProgress => started Interval");
 				if (imagesPreloaded) {
 					clearRequestInterval(si);
-					console.log("function showPageFinishProgress => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
+					console.log("function showPageFinishProgress => si=" + si.value + "; imagesPreloaded=" + imagesPreloaded);
 					g();
 				}
 			}, 100);
