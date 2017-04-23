@@ -1,0 +1,157 @@
+/*! @import "navbar.fixed"; */
+
+/*!
+ * @see {@link https://github.com/thednp/navbar.js/issues/2}
+ */
+
+.navbar,
+.navbar ul {
+	list-style: none;
+	padding: 0;
+}
+
+.navbar,
+.navbar ol,
+.navbar ul {
+	margin: 0;
+}
+
+.navbar li {
+	position: relative;
+	vertical-align: middle;
+}
+
+.navbar li > ul {
+	width: 200px;
+	position: absolute;
+	background-color: #000000;
+	opacity: 0;
+}
+
+@media (max-width: 768px) {
+	.navbar li > ul {
+		width: auto;
+	}
+}
+
+.navbar li a {
+	display: block;
+	font-size: 15px;
+	line-height: 48px;
+	text-decoration: none;
+	color: #FFFFFF;
+	background-color: #1F1F1F;
+	padding: 0 20px;
+}
+
+.navbar li a .navbar__icon {
+	float: right;
+	width: 8px;
+	height: 8px;
+	margin-top: 20px;
+}
+
+.navbar li a .navbar__icon--social {
+	float: right;
+	width: 20px;
+	height: 20px;
+	margin-top: 14px;
+}
+
+.navbar li li a {
+	color: #FFFFFF;
+	background-color: #1F1F1F;
+}
+
+.navbar li li a .navbar__icon > *,
+.navbar li li a .navbar__icon--social > * {
+	fill: #FFFFFF;
+}
+
+.navbar li a .navbar__icon > *,
+.navbar li li.navbar--open > a .navbar__icon > *,
+.navbar li li:hover > a .navbar__icon > *,
+.navbar li li.navbar--active > a .navbar__icon > *,
+.navbar li li.navbar--active:hover > a .navbar__icon > *,
+.navbar li a .navbar__icon--social > *,
+.navbar li li.navbar--open > a .navbar__icon--social > *,
+.navbar li li:hover > a .navbar__icon--social > *,
+.navbar li li.navbar--active > a .navbar__icon--social > *,
+.navbar li li.navbar--active:hover > a .navbar__icon--social > * {
+	fill: #FFFFFF;
+}
+
+.navbar li li.navbar--open > a,
+.navbar li li:hover > a {
+	color: #FFFFFF;
+	background-color: #0060AC;
+}
+
+.navbar li li.navbar--active > a,
+.navbar li li.navbar--active:hover > a {
+	color: #FFFFFF;
+	background-color: #000000;
+}
+
+.navbar li.navbar--open > ul {
+	opacity: 1;
+}
+
+.navbar > li.navbar--open > a,
+.navbar > li:hover > a,
+.navbar > li.navbar--active > a,
+.navbar > li.navbar--active:hover > a {
+	color: #FFFFFF;
+	background-color: #000000;
+}
+
+.navbar > li > a {
+	float: left;
+}
+
+@media (max-width: 768px) {
+	.navbar > li > a {
+		float: none;
+	}
+}
+
+.navbar > li {
+	position: relative;
+	float: left;
+}
+
+@media (max-width: 768px) {
+	.navbar > li {
+		float: none;
+	}
+}
+
+.navbar li > ul,
+.navbar li li > ul {
+	top: -999em;
+	left: 85%;
+	transition: top .2s linear, opacity .2s ease;
+}
+
+.navbar li li.navbar--open > ul {
+	left: 100%;
+}
+
+.navbar li li.navbar--openposition > ul {
+	top: 0;
+}
+
+.navbar li.navbar--open > ul {
+	top: 100%;
+}
+
+.navbar li.navbar--openposition > ul {
+	left: 0;
+}
+
+@media (max-width: 768px) {
+	.navbar li.navbar--openposition > ul {
+		position: static;
+	}
+}
+
