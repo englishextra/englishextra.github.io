@@ -153,7 +153,6 @@ var insertExternalHTML = function (a, u, f) {
 	on = function (element, eventName, handler) {
 		element.addEventListener(eventName, handler, false);
 	},
-	mouseClick = ("ontouchstart" in document) ? ["tap"] : ["click"],
 	openClass = "navbar--open",
 	openPositionClass = "navbar--openposition",
 	close = function (element) {
@@ -192,7 +191,7 @@ var insertExternalHTML = function (a, u, f) {
 		};
 		for (var i = 0, itemsLength = items.length; i < itemsLength; i++) {
 			if (items[i].getElementsByTagName("ul").length) {
-				on(items[i], mouseClick[0], enterHandler);
+				on(items[i], "click", enterHandler);
 			}
 		}
 		window.addEventListener("hashchange", closeHandler);
