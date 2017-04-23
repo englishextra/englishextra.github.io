@@ -166,7 +166,7 @@ var insertExternalHTML = function (a, u, f) {
 	},
 	Navbar = function (el, outside) {
 		var menu = (typeof el === "object") ? el : document.querySelector(el),
-		items = menu.getElementsByTagName("LI"),
+		items = menu.getElementsByTagName("li"),
 		enterHandler = function () {
 			var that = this;
 			clearTimeout(that.timer);
@@ -174,7 +174,7 @@ var insertExternalHTML = function (a, u, f) {
 				that.timer = setTimeout(function () {
 						that.classList.add(openClass);
 						that.classList.add(openPositionClass);
-						var siblings = that.parentNode.getElementsByTagName("LI");
+						var siblings = that.parentNode.getElementsByTagName("li");
 						for (var h = 0; h < siblings.length; h++) {
 							if (siblings[h] !== that) {
 								close(siblings[h]);
@@ -185,13 +185,13 @@ var insertExternalHTML = function (a, u, f) {
 		},
 		closeHandler = function () {
 			for (var i = 0, itemsLength = items.length; i < itemsLength; i++) {
-				if (items[i].getElementsByTagName("UL").length) {
+				if (items[i].getElementsByTagName("ul").length) {
 					close(items[i]);
 				}
 			}
 		};
 		for (var i = 0, itemsLength = items.length; i < itemsLength; i++) {
-			if (items[i].getElementsByTagName("UL").length) {
+			if (items[i].getElementsByTagName("ul").length) {
 				on(items[i], mouseClick[0], enterHandler);
 			}
 		}
