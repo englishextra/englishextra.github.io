@@ -184,17 +184,158 @@ u,
 	line-height: inherit;
 }
 
-/* navigation */
+/*!
+ * fixes to grid
+ */
 
-.navbar__holder {
+.col .column,
+.col .columns {
+	padding-right: 0.667rem;
+	padding-left: 0.667rem;
+}
+
+/*!
+ * layout
+ */
+
+.page {
 	width: 100%;
-	min-height: 48px;
+	height: 100%;
+	background-color: #F0F0F0;
+	position: relative;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	transition: left 0.2s linear, opacity 0.2s ease;
+}
+
+.container {
+	width: 100%;
+	min-height: calc(100% - 6.400rem);
+	background-color: #FFFFFF;
+	position: relative;
+	top: 0;
+	left: 0;
+}
+
+@media handheld, only screen and (max-width: 360px) {
+	.container {
+		width: 100%;
+	}
+}
+
+.app-content {
+	width: 100%;
+	height: 100%;
+}
+
+.col {
+	margin: 0 auto;
+}
+
+/*!
+ * ui-panel-top
+ */
+
+.ui-panel-top {
+	width: 100%;
+	height: 3.200rem;
+	background-color: #E6E6E6;
+}
+
+/*!
+ * navigation
+ */
+
+.ui-panel-navigation {
+	width: 100%;
+	height: 3.200rem;
 	background-color: #1F1F1F;
 }
 
-.navbar {
-	font-size: 18px;
-	color: inherit;
+@media (max-width: 768px) {
+	.ui-panel-navigation {
+		display: none;
+	}
+}
+
+.navbar-container {
+	width: 100%;
+	position: absolute;
+	top: 3.200rem;
+	left: 0;
+	background-color: #1F1F1F;
+	z-index: 1;
+}
+
+@media (max-width: 768px) {
+	.navbar-container {
+		position: relative;
+		top: 0;
+	}
+}
+
+.navbar-holder {
+	width: 100%;
+	background-color: #1F1F1F;
+	margin: 0 auto;
+}
+
+/*!
+ * hero
+ */
+
+.hero {
+	width: 100%;
+	min-height: 100%;
+	background-color: #2B2B2B;
+	background-image: url(../img/hero-1920x1080.jpg);
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.hero:before {
+	content: "";
+	width: 100%;
+	min-height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0.9;
+	/*!
+	 * @see {@link https://philiprogers.com/svgpatterns/#thinstripes}
+	 * @see {@link https://jsbin.com/ruvunix/edit?html,output}
+	 */
+	background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSJ0cmFuc3BhcmVudCI+PC9yZWN0Pgo8cGF0aCBkPSJNMCA1TDUgMFpNNiA0TDQgNlpNLTEgMUwxIC0xWiIgc3Ryb2tlPSIjNEI0QjRCIiBzdHJva2Utd2lkdGg9IjEiPjwvcGF0aD4KPC9zdmc+);
+	background-position: top left;
+	background-repeat: repeat;
+	background-size: 5px 5px;
+}
+
+.holder-hero {
+	position: relative;
+}
+
+@media (max-width: 768px) {
+	.holder-hero {
+		display: none;
+	}
+}
+
+.holder-hero:before {
+	display: block;
+	content: "";
+	width: 100%;
+	padding-top: 56.25%;
+}
+
+.holder-hero > .hero {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
 }
 
 /*!
@@ -212,8 +353,8 @@ u,
 	background-color: transparent;
 	/* background-image: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgNCA0IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA0IDQiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxyZWN0IGZpbGw9Im5vbmUiIHdpZHRoPSI0IiBoZWlnaHQ9IjQiLz48cG9seWdvbiBvcGFjaXR5PSIwLjUiIGZpbGw9IiNGRjQxNDEiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgICIgcG9pbnRzPSIzLDAgMywzIDAsMyAwLDQgNCw0IDQsMyA0LDAgIi8+PC9zdmc+); */
 	/* background-image: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgOCA4IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA4IDgiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxyZWN0IGZpbGw9Im5vbmUiIHdpZHRoPSI4IiBoZWlnaHQ9IjgiLz48cG9seWdvbiBvcGFjaXR5PSIwLjUiIGZpbGw9IiNGRjgxODEiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgICIgcG9pbnRzPSI3LDAgNyw3IDAsNyAwLDggOCw4IDgsNyA4LDAgIi8+PC9zdmc+); */
-	background-image: repeating-linear-gradient(to bottom, transparent 0px, transparent 7px, rgba(241, 68, 68, 0.5) 7px, rgba(241, 68, 68, 0.5) 8px);
-	background-size: 8px 8px;
+	background-image: repeating-linear-gradient(to bottom, transparent 0px, transparent 7px, rgba(241, 68, 68, 0.5) 7px, rgba(241, 68, 68, 0.5) 0.533rem);
+	background-size: 0.533rem 0.533rem;
 	background-position: 0 0;
 	background-repeat: repeat;
 	pointer-events: none;

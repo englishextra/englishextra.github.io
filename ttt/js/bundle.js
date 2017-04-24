@@ -96,13 +96,13 @@ var insertExternalHTML = function (a, u, f) {
  */
 (function () {
 	"use strict";
-	var menuTemplate = document.querySelector("#template-navbarLinksLocal") || "",
-	menuList = document.querySelector("#links--navigation") || "";
+	var menuTemplate = document.querySelector("#template-navbar_links_local") || "",
+	menuList = document.querySelector("#navbar_links_local") || "";
 	if (menuTemplate && menuList) {
 		var menuTemplateHtml = menuTemplate.innerHTML || "",
 		menuHtml = new t(menuTemplateHtml),
 		menuJson = {
-			navbarLinksLocal: [{
+			navbar_links_local: [{
 					"url": "#/home",
 					"text": "home"
 				}, {
@@ -144,7 +144,7 @@ var insertExternalHTML = function (a, u, f) {
 (function () {
 	"use strict";
 	var bar = '[data-function="navbar"]',
-	container = ".container",
+	containerClass = ".container",
 	rootStyle = document.documentElement.style || "",
 	supportTransitions = function () {
 		return "WebkitTransition" in rootStyle || "transition" in rootStyle || "OTransition" in rootStyle || "MsTransition" in rootStyle || "MozTransition" in rootStyle ? !0 : !1;
@@ -153,50 +153,87 @@ var insertExternalHTML = function (a, u, f) {
 	on = function (element, eventName, handler) {
 		element.addEventListener(eventName, handler, false);
 	},
-	openClass = "navbar--open",
-	openPositionClass = "navbar--openposition",
+	openClass = "is-open",
+	isPositioned = "is-repositioned",
 	close = function (element) {
 		if (element.classList.contains(openClass)) {
 			element.classList.remove(openClass);
 			setTimeout(function () {
-				element.classList.remove(openPositionClass);
+				element.classList.remove(isPositioned);
 			}, (supportTransitions ? 200 : 0));
 		}
 	},
-	Navbar = function (el, outside) {
-		var menu = (typeof el === "object") ? el : document.querySelector(el),
-		items = menu.getElementsByTagName("li"),
-		enterHandler = function () {
-			var that = this;
-			clearTimeout(that.timer);
-			if (!that.classList.contains(openClass)) {
-				that.timer = setTimeout(function () {
-						that.classList.add(openClass);
-						that.classList.add(openPositionClass);
-						var siblings = that.parentNode.getElementsByTagName("li");
-						for (var h = 0; h < siblings.length; h++) {
-							if (siblings[h] !== that) {
-								close(siblings[h]);
-							}
+	Navbar = function (el, outsideClass) {
+		var menu = (typeof el === "object") ? el : document.querySelector(el);
+		if (menu) {
+			var items = menu.getElementsByTagName("li") || "";
+			if (items) {
+				var enterHandler = function () {
+					var that = this;
+					clearTimeout(that.timer);
+					if (!that.classList.contains(openClass)) {
+						that.timer = setTimeout(function () {
+								that.classList.add(openClass);
+								that.classList.add(isPositioned);
+								var siblings = that.parentNode.getElementsByTagName("li");
+								for (var h = 0; h < siblings.length; h++) {
+									if (siblings[h] !== that) {
+										close(siblings[h]);
+									}
+								}
+							}, 100);
+					}
+				},
+				closeHandler = function () {
+					for (var i = 0, itemsLength = items.length; i < itemsLength; i++) {
+						if (items[i].getElementsByTagName("ul").length) {
+							close(items[i]);
 						}
-					}, 100);
-			}
-		},
-		closeHandler = function () {
-			for (var i = 0, itemsLength = items.length; i < itemsLength; i++) {
-				if (items[i].getElementsByTagName("ul").length) {
-					close(items[i]);
+					}
+				};
+				for (var i = 0, itemsLength = items.length; i < itemsLength; i++) {
+					if (items[i].getElementsByTagName("ul").length) {
+						on(items[i], "click", enterHandler);
+					}
+				}
+				window.addEventListener("hashchange", closeHandler);
+				var outside = document.querySelector(outsideClass) || "";
+				if (outside) {
+					outside.addEventListener("click", closeHandler);
 				}
 			}
-		};
-		for (var i = 0, itemsLength = items.length; i < itemsLength; i++) {
-			if (items[i].getElementsByTagName("ul").length) {
-				on(items[i], "click", enterHandler);
-			}
 		}
-		window.addEventListener("hashchange", closeHandler);
-		document.querySelector(outside).addEventListener("click", closeHandler);
 	};
-	return Navbar(bar, container);
+	return Navbar(bar, containerClass);
 }
 	());
+/*!
+ * show page, finish ToProgress
+ */
+var showPageFinishProgress = function () {
+	"use strict";
+	var a = document.querySelector("#page") || "",
+	g = function () {
+		a.style.opacity = 1;
+		/* progressBar.complete(); */
+	},
+	k = function () {
+		var si = setInterval(function () {
+				console.log("function showPageFinishProgress => started Interval");
+				if (imagesPreloaded) {
+					clearInterval(si);
+					console.log("function showPageFinishProgress => si=" + si.value + "; imagesPreloaded=" + imagesPreloaded);
+					g();
+				}
+			}, 100);
+	};
+	if (a) {
+		console.log("triggered function: showPageFinishProgress");
+		if ("undefined" !== typeof imagesPreloaded) {
+			k();
+		} else {
+			g();
+		}
+	}
+};
+window.addEventListener("load", showPageFinishProgress);
