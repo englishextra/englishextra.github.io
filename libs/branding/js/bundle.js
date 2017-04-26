@@ -1671,7 +1671,7 @@ var initDisqusOnScroll = function () {
 		console.log("triggered function: initDisqusOnScroll");
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			q();
-			if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
+			/* if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
 				var h_w = function () {
 					if (fitsIntoViewport(c)) {
 						evento.remove(w, "scroll", h_w);
@@ -1679,7 +1679,7 @@ var initDisqusOnScroll = function () {
 					}
 				};
 				evento.add(w, "scroll", h_w);
-			}
+			} */
 		} else {
 			v();
 		}
