@@ -11,13 +11,18 @@
 		font-size: 12px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 
@@ -28,13 +33,18 @@
 		font-size: 12px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 
@@ -45,13 +55,23 @@
 		font-size: 12px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 
@@ -62,13 +82,23 @@
 		font-size: 12px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer	{
 		max-width: 76.800rem;
 	}
-	
+
+	.col .textcenter,
+	.footer {
+		text-align: center;
+	}
+
 	.padded-content {
-		padding: 1.600rem 0.667rem;
+		padding: 1.600rem 0.667rem 2.667rem 0.667rem;
+	}
+
+	.holder-b-carousel {
+		display: block;
 	}
 }
 
@@ -79,13 +109,23 @@
 		font-size: 12px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer	{
 		max-width: 76.800rem;
 	}
-	
+
+	.col .textcenter,
+	.footer {
+		text-align: center;
+	}
+
 	.padded-content {
-		padding: 1.600rem 0.667rem;
+		padding: 1.600rem 0.667rem 2.667rem 0.667rem;
+	}
+
+	.holder-b-carousel {
+		display: block;
 	}
 }
 
@@ -96,13 +136,23 @@
 		font-size: 19px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer	{
 		max-width: 76.800rem;
 	}
-	
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
+	}
+
 	.padded-content {
-		padding: 1.600rem 0.667rem;
+		padding: 1.600rem 0.667rem 2.667rem 0.667rem;
+	}
+
+	.holder-b-carousel {
+		display: block;
 	}
 }
 
@@ -115,13 +165,23 @@ iPad 3
 		font-size: 12px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer	{
 		max-width: 76.800rem;
 	}
-	
+
+	.col .textcenter,
+	.footer {
+		text-align: center;
+	}
+
 	.padded-content {
-		padding: 1.600rem 0.667rem;
+		padding: 1.600rem 0.667rem 2.667rem 0.667rem;
+	}
+
+	.holder-b-carousel {
+		display: block;
 	}
 }
 
@@ -130,13 +190,23 @@ iPad 3
 		font-size: 19px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer	{
 		max-width: 76.800rem;
 	}
-	
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
+	}
+
 	.padded-content {
-		padding: 1.600rem 0.667rem;
+		padding: 1.600rem 0.667rem 2.667rem 0.667rem;
+	}
+
+	.holder-b-carousel {
+		display: block;
 	}
 }
 
@@ -147,13 +217,23 @@ iPad 3
 		font-size: 15px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer	{
 		max-width: 76.800rem;
 	}
-	
+
+	.col .textcenter,
+	.footer {
+		text-align: center;
+	}
+
 	.padded-content {
-		padding: 1.600rem 0.667rem;
+		padding: 1.600rem 0.667rem 2.667rem 0.667rem;
+	}
+
+	.holder-b-carousel {
+		display: block;
 	}
 }
 
@@ -164,13 +244,23 @@ iPad 3
 		font-size: 19px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer	{
 		max-width: 76.800rem;
 	}
-	
+
+	.col .textcenter,
+	.footer {
+		text-align: center;
+	}
+
 	.padded-content {
-		padding: 1.600rem 0.667rem;
+		padding: 1.600rem 0.667rem 2.667rem 0.667rem;
+	}
+
+	.holder-b-carousel {
+		display: block;
 	}
 }
 
@@ -181,13 +271,18 @@ iPad 3
 		font-size: 12px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 
@@ -196,13 +291,23 @@ iPad 3
 		font-size: 12px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 
@@ -213,13 +318,18 @@ iPad 3
 		font-size: 12px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 
@@ -228,13 +338,23 @@ iPad 3
 		font-size: 12px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 
@@ -245,13 +365,18 @@ iPad 3
 		font-size: 15px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 
@@ -260,13 +385,23 @@ iPad 3
 		font-size: 12px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 
@@ -277,13 +412,18 @@ iPad 3
 		font-size: 15px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 
@@ -292,13 +432,23 @@ iPad 3
 		font-size: 12px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 
@@ -309,13 +459,18 @@ iPad 3
 		font-size: 15px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 
@@ -324,13 +479,23 @@ iPad 3
 		font-size: 12px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 
@@ -341,13 +506,18 @@ iPad 3
 		font-size: 15px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 
@@ -356,13 +526,23 @@ iPad 3
 		font-size: 12px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 
@@ -373,13 +553,18 @@ iPad 3
 		font-size: 15px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 
@@ -388,13 +573,23 @@ iPad 3
 		font-size: 12px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 

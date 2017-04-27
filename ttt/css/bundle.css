@@ -553,7 +553,7 @@ template {
 	display: none;
 }
 
-/*! @import "typeboost-uwp-css"; */
+/*! @import "major-third"; */
 
 /*!
  * typeboost-uwp.css v0.1.8
@@ -2343,7 +2343,7 @@ body {
 }
 
 .navbar li > ul {
-	width: 13.333rem;
+	width: 18.133rem;
 	position: absolute;
 	background-color: #000000;
 	opacity: 0;
@@ -2357,7 +2357,8 @@ body {
 
 .navbar li a {
 	display: block;
-	font-size: 1.000rem;
+	height: 3.200rem;
+	font-size: 0.933rem;
 	line-height: 3.200rem;
 	text-decoration: none;
 	color: #FFFFFF;
@@ -2365,18 +2366,36 @@ body {
 	padding: 0 1.333rem;
 }
 
-.navbar li a .navbar-icon-smaller {
+.navbar li a .navbar-icon.pointer {
 	float: right;
 	width: 0.533rem;
 	height: 0.533rem;
 	margin-top: 1.333rem;
 }
 
-.navbar li a .navbar-icon-normal {
+.navbar li a .navbar-icon.action {
 	float: right;
 	width: 1.333rem;
 	height: 1.333rem;
 	margin-top: 0.933rem;
+}
+
+.navbar li a .navbar-icon.logo {
+	float: right;
+	width: 1.333rem;
+	height: 1.333rem;
+	margin-top: 0.933rem;
+}
+
+@media (max-width: 768px) {
+	.navbar li a .navbar-icon.logo {
+		float: left;
+	}
+}
+
+.navbar a svg {
+	display: block;
+	padding: 0;
 }
 
 .navbar li li a {
@@ -2384,21 +2403,25 @@ body {
 	background-color: #1F1F1F;
 }
 
-.navbar li li a .navbar-icon-smaller > *,
-.navbar li li a .navbar-icon-normal > * {
+.navbar li li a .navbar-icon.pointer > *,
+.navbar li li a .navbar-icon.action > * {
 	fill: #FFFFFF;
 }
 
-.navbar li a .navbar-icon-smaller > *,
-.navbar li li.is-open > a .navbar-icon-smaller > *,
-.navbar li li:hover > a .navbar-icon-smaller > *,
-.navbar li li.is-active > a .navbar-icon-smaller > *,
-.navbar li li.is-active:hover > a .navbar-icon-smaller > *,
-.navbar li a .navbar-icon-normal > *,
-.navbar li li.is-open > a .navbar-icon-normal > *,
-.navbar li li:hover > a .navbar-icon-normal > *,
-.navbar li li.is-active > a .navbar-icon-normal > *,
-.navbar li li.is-active:hover > a .navbar-icon-normal > * {
+.navbar li a .navbar-icon.pointer > *,
+.navbar li li.is-open > a .navbar-icon.pointer > *,
+.navbar li li:hover > a .navbar-icon.pointer > *,
+.navbar li li.is-active > a .navbar-icon.pointer > *,
+.navbar li li.is-active:hover > a .navbar-icon.pointer > *,
+.navbar li a .navbar-icon.action > *,
+.navbar li li.is-open > a .navbar-icon.action > *,
+.navbar li li:hover > a .navbar-icon.action > *,
+.navbar li li.is-active > a .navbar-icon.action > *,
+.navbar li li.is-active:hover > a .navbar-icon.action > * {
+	fill: #FFFFFF;
+}
+
+.navbar li a .navbar-icon.logo > * {
 	fill: #FFFFFF;
 }
 
@@ -2477,7 +2500,193 @@ body {
 	}
 }
 
-/* @import "bulma"; */
+/*! @import "b-carousel.fixed"; */
+
+/*!
+ * Carousel v1.0
+ * @see {@link https://habrahabr.ru/post/327246/}
+ * @see {@link https://codepen.io/iGetPass/pen/apZPMo}
+ */
+
+.holder-b-carousel {
+	width: 100%;
+	/* max-width: 700px; */
+	/*!
+	 * for centering inner element vertically
+	 * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
+	 */
+	position: relative;
+	margin: 0 auto;
+}
+
+/* MAIN STYLES */
+
+.b-carousel {
+	width: 100%;
+	/*!
+	 * for centering inner element vertically
+	 * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
+	 */
+	position: relative;
+	box-sizing: border-box;
+	overflow: hidden;
+	/* border: 1px solid; */
+}
+
+.holder-b-carousel:before {
+	display: block;
+	content: "";
+	width: 100%;
+	padding-top: 56.25%;
+}
+
+.holder-b-carousel > .b-carousel {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.b-carousel__prev,
+.b-carousel__next {
+	width: 3.200rem;
+	height: 3.200rem;
+	position: absolute;
+	top: 50%;
+	-webkit-transform: translateY(-50%) translateZ(0);
+	transform: translateY(-50%) translateZ(0);
+	font-size: 0.933rem;
+	line-height: 3.200rem;
+	text-decoration: none;
+	color: #FFFFFF;
+	background-color: rgba(31, 31, 31, 0.8);
+	cursor: pointer;
+}
+
+.b-carousel__prev {
+	left: 1.333rem;
+}
+
+.b-carousel__next {
+	right: 1.333rem;
+}
+
+.b-carousel .b-carousel-icon {
+	/*!
+	 * Centering things
+	 * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
+	 */
+	display: block;
+	width: 1.333rem;
+	height: 1.333rem;
+	margin-top: 0.933rem;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.b-carousel .b-carousel-icon > * {
+	fill: #FFFFFF;
+}
+
+.b-carousel__wrap {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	height: 100%;
+	position: relative;
+	-webkit-transition: -webkit-transform .4s;
+	transition: -webkit-transform .4s;
+	transition: transform .4s;
+	transition: transform .4s, -webkit-transform .4s;
+	/* will-change: transform; */
+	/* z-index: 1; */
+}
+
+.b-carousel__item {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-flex: 0;
+	-ms-flex: 0 0 100%;
+	flex: 0 0 100%;
+	overflow: hidden;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+}
+
+/* .b-carousel__img,
+	.b-carousel__a {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+} */
+
+.b-carousel__img,
+.b-carousel__a {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+/*! @import "ui-totop"; */
+
+/**
+ * github.com/sksmatt/UItoTop-jQuery-Plugin/
+ */
+
+.ui-totop {
+	display: inline-block;
+	visibility: hidden;
+	opacity: 0;
+	width: 3.200rem;
+	height: 3.200rem;
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	font-size: 1.333rem;
+	line-height: 3.200rem;
+	text-align: center;
+	text-decoration: none;
+	color: #FFFFFF;
+	background-color: rgba(31, 31, 31, 0.8);
+	border: none;
+	-webkit-transition: visibility 0s, opacity 0.2s ease, background-color 0.2s ease;
+	transition: visibility 0s, opacity 0.2s ease, background-color 0.2s ease;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+}
+
+.ui-totop .ui-icon {
+	/*!
+	 * Centering things
+	 * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
+	 */
+	display: block;
+	width: 1.333rem;
+	height: 1.333rem;
+	margin-top: 0.933rem;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.ui-totop .ui-icon > * {
+	fill: #FFFFFF;
+}
+
+.ui-totop.is-active {
+	visibility: visible;
+	opacity: 1;
+}
+
+.ui-totop:hover {
+	background-color: #1F1F1F;
+}
 
 /*! @import "main"; */
 
@@ -2662,37 +2871,33 @@ u,
 }
 
 /*!
- * fix for micon icon font
+ * overrides to major-third
  */
 
-.col [class^="mi-"],
-.col [class*=" mi-"] {
-	font-family: "micon";
-}
-
-.col [class^="fa-"],
-.col [class*=" fa-"] {
-	font-family: "fontAwesome";
-}
-
-.col [class^="mi-"],
-.col [class*=" mi-"],
-.col [class^="fa-"],
-.col [class*=" fa-"] {
-	font-size: inherit;
-	font-weight: normal;
-	font-style: normal;
-	line-height: inherit;
+.container .col h1 {
+	margin-top: 0;
 }
 
 /*!
- * fixes to grid
+ * overrides to to grid
  */
 
 .col .column,
 .col .columns {
 	padding-right: 0.667rem;
 	padding-left: 0.667rem;
+}
+
+/*!
+ * overrides to b-carousel
+ */
+
+.holder-b-carousel {
+	margin-bottom: 0.933rem;
+}
+
+.holder-b-carousel:before {
+	padding-top: 14.0625%;
 }
 
 /*!
@@ -2713,7 +2918,8 @@ u,
 
 .container {
 	width: 100%;
-	min-height: calc(100% - 6.400rem);
+	/* min-height: calc(100% - 6.400rem); */
+	min-height: calc(100% - 3.200rem);
 	background-color: #FFFFFF;
 	position: relative;
 	top: 0;
@@ -2740,6 +2946,7 @@ u,
  */
 
 .ui-panel-top {
+	display: none;
 	width: 100%;
 	height: 3.200rem;
 	background-color: #E6E6E6;
@@ -2761,35 +2968,94 @@ u,
 	}
 }
 
-.navbar-container {
+.container-navbar {
 	width: 100%;
 	position: absolute;
-	top: 3.200rem;
+	/* top: 3.200rem; */
+	top: 0;
 	left: 0;
 	background-color: #1F1F1F;
 	z-index: 1;
 }
 
 @media (max-width: 768px) {
-	.navbar-container {
+	.container-navbar {
 		position: relative;
 		top: 0;
 	}
 }
 
-.navbar-holder {
+.holder-navbar {
 	width: 100%;
 	background-color: #1F1F1F;
 	margin: 0 auto;
 }
 
 /*!
+ * navbar container select
+ */
+
+.container-navbar select {
+	display: block;
+	float: right;
+	width: 18.133rem;
+	height: 3.200rem;
+	font-family: inherit;
+	font-size: 0.933rem;
+	line-height: 3.200rem;
+	color: #FFFFFF;
+	background-color: #1F1F1F;
+	border: none;
+}
+
+@media (max-width: 768px) {
+	.container-navbar select {
+		width: 100%;
+		padding: 0 1.067rem;
+	}
+}
+
+/*!
  * hero
  */
+
+.holder-hero {
+	/*!
+	 * for centering inner element vertically
+	 * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
+	 */
+	position: relative;
+}
+
+@media (max-width: 768px) {
+	.holder-hero {
+		display: none;
+	}
+}
+
+.holder-hero:before {
+	display: block;
+	content: "";
+	width: 100%;
+	padding-top: 28.125%;
+}
+
+.holder-hero > .hero {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
 
 .hero {
 	width: 100%;
 	min-height: 100%;
+	/*!
+	 * for centering inner element vertically
+	 * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
+	 */
+	position: relative;
 	background-color: #2B2B2B;
 	background-image: url(../img/hero-1920x1080.jpg);
 	background-position: center center;
@@ -2809,35 +3075,113 @@ u,
 	 * @see {@link https://philiprogers.com/svgpatterns/#thinstripes}
 	 * @see {@link https://jsbin.com/ruvunix/edit?html,output}
 	 */
-	background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSJ0cmFuc3BhcmVudCI+PC9yZWN0Pgo8cGF0aCBkPSJNMCA1TDUgMFpNNiA0TDQgNlpNLTEgMUwxIC0xWiIgc3Ryb2tlPSIjNEI0QjRCIiBzdHJva2Utd2lkdGg9IjEiPjwvcGF0aD4KPC9zdmc+);
+	background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSJ0cmFuc3BhcmVudCI+PC9yZWN0Pgo8cGF0aCBkPSJNMCA1TDUgMFpNNiA0TDQgNlpNLTEgMUwxIC0xWiIgc3Ryb2tlPSIjNUY1RjVGIiBzdHJva2Utd2lkdGg9IjEiPjwvcGF0aD4KPC9zdmc+);
 	background-position: top left;
 	background-repeat: repeat;
 	background-size: 5px 5px;
 }
 
-.holder-hero {
-	position: relative;
-}
-
-@media (max-width: 768px) {
-	.holder-hero {
-		display: none;
-	}
-}
-
-.holder-hero:before {
-	display: block;
-	content: "";
-	width: 100%;
-	padding-top: 56.25%;
-}
-
-.holder-hero > .hero {
+.hero-heading {
+	display: none;
+	/*!
+	 * for centering inner element vertically
+	 * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
+	 */
 	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
+	top: 50%;
+	left: 50%;
+	margin-right: -50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	font-size: 2.441rem;
+	line-height: 2.441rem;
+	font-weight: 400;
+	color: #191919;
+	background-color: rgba(240, 59, 76, 0.9);
+	padding: 1.333rem;
+}
+
+.hero-figcaption {
+	/*!
+	 * for centering inner element horizontally
+	 * @see {@link https://css-tricks.com/forums/topic/horizontal-centering-of-an-absolute-element/}
+	 */
+	/* position: absolute;
 	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%); */
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	font-size: 0.733rem;
+	line-height: 0.733rem;
+	font-weight: 400;
+	color: #FFFFFF;
+	/* background-color: rgba(0, 0, 0, 0.8); */
+	padding: 0.533rem;
+}
+
+/*!
+ * display font sizes
+ * line height multiple 20 pixels except normal
+ */
+
+.col .display-small {
+	font-size: 0.889rem;
+	line-height: 1.333rem;
+}
+
+.col .display-normal {
+	font-size: 1.125rem;
+	line-height: 1.600rem;
+}
+
+.col .display-medium {
+	font-size: 1.266rem;
+	line-height: 2.667rem;
+}
+
+.col .display-large {
+	font-size: 1.602rem;
+	line-height: 2.667rem;
+}
+
+.col .display-immense {
+	font-size: 2.566rem;
+	line-height: 4.000rem;
+}
+
+/*!
+ * footer
+ */
+
+.container-footer {
+	width: 100%;
+	min-height: 3.200rem;
+	/*!
+	 * for centering inner element vertically
+	 * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
+	 */
+	/* position: relative; */
+	color: #FFFFFF;
+	background-color: #1F1F1F;
+}
+
+.footer {
+	/*!
+	 * for centering inner element vertically
+	 * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
+	 */
+	/* position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-right: -50%;
+	transform: translate(-50%, -50%); */
+	font-size: 0.933rem;
+	line-height: 1.333rem;
+	text-align: center;
+	padding: 0.933rem 0.667rem;
+	margin: 0 auto;
 }
 
 /*!
@@ -2899,13 +3243,18 @@ u,
 		font-size: 12px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 
@@ -2916,13 +3265,18 @@ u,
 		font-size: 12px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 
@@ -2933,13 +3287,23 @@ u,
 		font-size: 12px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 
@@ -2950,13 +3314,23 @@ u,
 		font-size: 12px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 76.800rem;
 	}
 
+	.col .textcenter,
+	.footer {
+		text-align: center;
+	}
+
 	.padded-content {
-		padding: 1.600rem 0.667rem;
+		padding: 1.600rem 0.667rem 2.667rem 0.667rem;
+	}
+
+	.holder-b-carousel {
+		display: block;
 	}
 }
 
@@ -2967,13 +3341,23 @@ u,
 		font-size: 12px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 76.800rem;
 	}
 
+	.col .textcenter,
+	.footer {
+		text-align: center;
+	}
+
 	.padded-content {
-		padding: 1.600rem 0.667rem;
+		padding: 1.600rem 0.667rem 2.667rem 0.667rem;
+	}
+
+	.holder-b-carousel {
+		display: block;
 	}
 }
 
@@ -2984,13 +3368,23 @@ u,
 		font-size: 19px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 76.800rem;
 	}
 
+	.col .textcenter,
+	.footer {
+		text-align: left;
+	}
+
 	.padded-content {
-		padding: 1.600rem 0.667rem;
+		padding: 1.600rem 0.667rem 2.667rem 0.667rem;
+	}
+
+	.holder-b-carousel {
+		display: block;
 	}
 }
 
@@ -3003,13 +3397,23 @@ iPad 3
 		font-size: 12px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 76.800rem;
 	}
 
+	.col .textcenter,
+	.footer {
+		text-align: center;
+	}
+
 	.padded-content {
-		padding: 1.600rem 0.667rem;
+		padding: 1.600rem 0.667rem 2.667rem 0.667rem;
+	}
+
+	.holder-b-carousel {
+		display: block;
 	}
 }
 
@@ -3018,13 +3422,23 @@ iPad 3
 		font-size: 19px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 76.800rem;
 	}
 
+	.col .textcenter,
+	.footer {
+		text-align: left;
+	}
+
 	.padded-content {
-		padding: 1.600rem 0.667rem;
+		padding: 1.600rem 0.667rem 2.667rem 0.667rem;
+	}
+
+	.holder-b-carousel {
+		display: block;
 	}
 }
 
@@ -3035,13 +3449,23 @@ iPad 3
 		font-size: 15px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 76.800rem;
 	}
 
+	.col .textcenter,
+	.footer {
+		text-align: center;
+	}
+
 	.padded-content {
-		padding: 1.600rem 0.667rem;
+		padding: 1.600rem 0.667rem 2.667rem 0.667rem;
+	}
+
+	.holder-b-carousel {
+		display: block;
 	}
 }
 
@@ -3052,13 +3476,23 @@ iPad 3
 		font-size: 19px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 76.800rem;
 	}
 
+	.col .textcenter,
+	.footer {
+		text-align: center;
+	}
+
 	.padded-content {
-		padding: 1.600rem 0.667rem;
+		padding: 1.600rem 0.667rem 2.667rem 0.667rem;
+	}
+
+	.holder-b-carousel {
+		display: block;
 	}
 }
 
@@ -3069,13 +3503,18 @@ iPad 3
 		font-size: 12px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 
@@ -3084,13 +3523,23 @@ iPad 3
 		font-size: 12px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 
@@ -3101,13 +3550,18 @@ iPad 3
 		font-size: 12px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 
@@ -3116,13 +3570,23 @@ iPad 3
 		font-size: 12px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 
@@ -3133,13 +3597,18 @@ iPad 3
 		font-size: 15px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 
@@ -3148,13 +3617,23 @@ iPad 3
 		font-size: 12px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 
@@ -3165,13 +3644,18 @@ iPad 3
 		font-size: 15px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 
@@ -3180,13 +3664,23 @@ iPad 3
 		font-size: 12px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 
@@ -3197,13 +3691,18 @@ iPad 3
 		font-size: 15px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 
@@ -3212,13 +3711,23 @@ iPad 3
 		font-size: 12px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 
@@ -3229,13 +3738,18 @@ iPad 3
 		font-size: 15px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 
@@ -3244,13 +3758,23 @@ iPad 3
 		font-size: 12px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 
@@ -3261,13 +3785,18 @@ iPad 3
 		font-size: 15px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 
@@ -3276,13 +3805,23 @@ iPad 3
 		font-size: 12px;
 	}
 
-	.navbar-holder,
-	.col {
+	.holder-navbar,
+	.col,
+	.footer {
 		max-width: 100%;
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
 	}
 
 	.padded-content {
 		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
 	}
 }
 

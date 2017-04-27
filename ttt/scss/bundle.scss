@@ -6,10 +6,11 @@
 @import "variables";
 /* @import "fontfacekit"; */
 @import "normalize";
-@import "typography";
+@import "major-third";
 @import "grid.fixed";
 @import "navbar.fixed";
-/* @import "bulma"; */
+@import "b-carousel.fixed";
+@import "ui-totop";
 @import "main";
 @import "media-queries";
 /* @import "print"; */

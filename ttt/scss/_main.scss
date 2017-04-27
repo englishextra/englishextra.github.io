@@ -161,37 +161,33 @@ u,
 }
 
 /*!
- * fix for micon icon font
+ * overrides to major-third
  */
 
-.col [class^="mi-"],
-.col [class*=" mi-"] {
-	font-family: "micon";
-}
-
-.col [class^="fa-"],
-.col [class*=" fa-"] {
-	font-family: "fontAwesome";
-}
-
-.col [class^="mi-"],
-.col [class*=" mi-"],
-.col [class^="fa-"],
-.col [class*=" fa-"] {
-	font-size: inherit;
-	font-weight: normal;
-	font-style: normal;
-	line-height: inherit;
+.container .col h1 {
+	margin-top: 0;
 }
 
 /*!
- * fixes to grid
+ * overrides to to grid
  */
 
 .col .column,
 .col .columns {
 	padding-right: 0.667rem;
 	padding-left: 0.667rem;
+}
+
+/*!
+ * overrides to b-carousel
+ */
+
+.holder-b-carousel {
+	margin-bottom: 0.933rem;
+}
+
+.holder-b-carousel:before {
+	padding-top: 14.0625%;
 }
 
 /*!
@@ -211,7 +207,8 @@ u,
 
 .container {
 	width: 100%;
-	min-height: calc(100% - 6.400rem);
+	/* min-height: calc(100% - 6.400rem); */
+	min-height: calc(100% - 3.200rem);
 	background-color: #FFFFFF;
 	position: relative;
 	top: 0;
@@ -238,6 +235,7 @@ u,
  */
 
 .ui-panel-top {
+	display: none;
 	width: 100%;
 	height: 3.200rem;
 	background-color: #E6E6E6;
@@ -259,35 +257,94 @@ u,
 	}
 }
 
-.navbar-container {
+.container-navbar {
 	width: 100%;
 	position: absolute;
-	top: 3.200rem;
+	/* top: 3.200rem; */
+	top: 0;
 	left: 0;
 	background-color: #1F1F1F;
 	z-index: 1;
 }
 
 @media (max-width: 768px) {
-	.navbar-container {
+	.container-navbar {
 		position: relative;
 		top: 0;
 	}
 }
 
-.navbar-holder {
+.holder-navbar {
 	width: 100%;
 	background-color: #1F1F1F;
 	margin: 0 auto;
 }
 
 /*!
+ * navbar container select
+ */
+
+.container-navbar select {
+	display: block;
+	float: right;
+	width: 18.133rem;
+	height: 3.200rem;
+	font-family: inherit;
+	font-size: 0.933rem;
+	line-height: 3.200rem;
+	color: #FFFFFF;
+	background-color: #1F1F1F;
+	border: none;
+}
+
+@media (max-width: 768px) {
+	.container-navbar select {
+		width: 100%;
+		padding: 0 1.067rem;
+	}
+}
+
+/*!
  * hero
  */
+
+.holder-hero {
+	/*!
+	 * for centering inner element vertically
+	 * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
+	 */
+	position: relative;
+}
+
+@media (max-width: 768px) {
+	.holder-hero {
+		display: none;
+	}
+}
+
+.holder-hero:before {
+	display: block;
+	content: "";
+	width: 100%;
+	padding-top: 28.125%;
+}
+
+.holder-hero > .hero {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
 
 .hero {
 	width: 100%;
 	min-height: 100%;
+	/*!
+	 * for centering inner element vertically
+	 * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
+	 */
+	position: relative;
 	background-color: #2B2B2B;
 	background-image: url(../img/hero-1920x1080.jpg);
 	background-position: center center;
@@ -307,35 +364,112 @@ u,
 	 * @see {@link https://philiprogers.com/svgpatterns/#thinstripes}
 	 * @see {@link https://jsbin.com/ruvunix/edit?html,output}
 	 */
-	background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSJ0cmFuc3BhcmVudCI+PC9yZWN0Pgo8cGF0aCBkPSJNMCA1TDUgMFpNNiA0TDQgNlpNLTEgMUwxIC0xWiIgc3Ryb2tlPSIjNEI0QjRCIiBzdHJva2Utd2lkdGg9IjEiPjwvcGF0aD4KPC9zdmc+);
+	background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSJ0cmFuc3BhcmVudCI+PC9yZWN0Pgo8cGF0aCBkPSJNMCA1TDUgMFpNNiA0TDQgNlpNLTEgMUwxIC0xWiIgc3Ryb2tlPSIjNUY1RjVGIiBzdHJva2Utd2lkdGg9IjEiPjwvcGF0aD4KPC9zdmc+);
 	background-position: top left;
 	background-repeat: repeat;
 	background-size: 5px 5px;
 }
 
-.holder-hero {
-	position: relative;
-}
-
-@media (max-width: 768px) {
-	.holder-hero {
-		display: none;
-	}
-}
-
-.holder-hero:before {
-	display: block;
-	content: "";
-	width: 100%;
-	padding-top: 56.25%;
-}
-
-.holder-hero > .hero {
+.hero-heading {
+	display: none;
+	/*!
+	 * for centering inner element vertically
+	 * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
+	 */
 	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+	font-size: 2.441rem;
+	line-height: 2.441rem;
+	font-weight: 400;
+	color: #191919;
+	background-color: rgba(240, 59, 76, 0.9);
+	padding: 1.333rem;
+}
+
+.hero-figcaption {
+	/*!
+	 * for centering inner element horizontally
+	 * @see {@link https://css-tricks.com/forums/topic/horizontal-centering-of-an-absolute-element/}
+	 */
+	/* position: absolute;
 	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%); */
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	font-size: 0.733rem;
+	line-height: 0.733rem;
+	font-weight: 400;
+	color: #FFFFFF;
+	/* background-color: rgba(0, 0, 0, 0.8); */
+	padding: 0.533rem;
+}
+
+/*!
+ * display font sizes
+ * line height multiple 20 pixels except normal
+ */
+
+.col .display-small {
+	font-size: 0.889rem;
+	line-height: 1.333rem;
+}
+
+.col .display-normal {
+	font-size: 1.125rem;
+	line-height: 1.600rem;
+}
+
+.col .display-medium {
+	font-size: 1.266rem;
+	line-height: 2.667rem;
+}
+
+.col .display-large {
+	font-size: 1.602rem;
+	line-height: 2.667rem;
+}
+
+.col .display-immense {
+	font-size: 2.566rem;
+	line-height: 4.000rem;
+}
+
+/*!
+ * footer
+ */
+
+.container-footer {
+	width: 100%;
+	min-height: 3.200rem;
+	/*!
+	 * for centering inner element vertically
+	 * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
+	 */
+	/* position: relative; */
+	color: #FFFFFF;
+	background-color: #1F1F1F;
+}
+
+.footer {
+	/*!
+	 * for centering inner element vertically
+	 * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
+	 */
+	/* position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-right: -50%;
+	transform: translate(-50%, -50%); */
+	font-size: 0.933rem;
+	line-height: 1.333rem;
+	text-align: center;
+	padding: 0.933rem 0.667rem;
+	margin: 0 auto;
 }
 
 /*!
