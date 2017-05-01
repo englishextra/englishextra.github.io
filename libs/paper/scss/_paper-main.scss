@@ -984,7 +984,7 @@ u,
 
 .col .holder-pages-select select {
 	display: inline-block;
-	width: 97%;
+	width: 100%;
 	max-width: 17.000rem;
 	height: 2.250rem;
 	font-family: sans-serif;
@@ -993,10 +993,20 @@ u,
 	white-space: nowrap; 
 	text-overflow: ellipsis;
 	color: inherit;
-	-webkit-tap-highlight-color: transparent;
+	background-color: #F2F2F2;
+	appearance: none;
 	outline: none;
 	margin: 0;
 	padding: 0;
+}
+
+.col .holder-pages-select select::-ms-expand {
+	display: none;
+}
+
+.col .holder-pages-select select::-ms-value {
+    background: none;
+	color: inherit;
 }
 
 .col .holder-pages-select select optgroup {
@@ -1012,7 +1022,7 @@ u,
 .col .holder-pages-select select:focus,
 .col .holder-pages-select select:hover,
 .col .holder-pages-select select:active {
-	border: 0.063rem solid $color-hex-divider;
+	border: 0.063rem solid #F2F2F2;
 }
 
 /*!

@@ -3319,7 +3319,7 @@ html > body > .ui-pnotify {
 
 .ui-totop:active {
 	color: #191919;
-	background-color: #F03B4C;
+	background-color: #DA353C;
 }
 
 /*! @import "search-main"; */
@@ -3672,7 +3672,7 @@ u,
 
 .panel-nav-menu li a:active {
 	color: #191919;
-	background-color: #F03B4C;
+	background-color: #DA353C;
 }
 
 .panel-nav-menu li a.is-active {
@@ -3706,7 +3706,7 @@ u,
 .page.is-active .btn-nav-menu,
 .btn-nav-menu:active {
 	color: #191919;
-	background-color: #F03B4C;
+	background-color: #DA353C;
 }
 
 .btn-nav-menu {
@@ -3769,7 +3769,7 @@ u,
 
 .btn-menu-more:active {
 	color: #191919;
-	background-color: #F03B4C;
+	background-color: #DA353C;
 }
 
 .btn-menu-more {
@@ -3792,7 +3792,7 @@ u,
 	left: 3.000rem;
 	color: #191919;
 	background-color: #F3F3F3;
-	border: 0.063rem solid #F03B4C;
+	border: 0.063rem solid #DA353C;
 	box-shadow: 0.125rem 0.125rem 0.125rem 0 rgba(50, 50, 50, 0.3);
 	opacity: 0;
 	-webkit-transition: visibility 0s, opacity 0.2s ease;
@@ -3837,7 +3837,7 @@ u,
 
 .panel-menu-more li a:active {
 	color: #191919;
-	background-color: #F03B4C;
+	background-color: #DA353C;
 }
 
 /**

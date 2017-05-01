@@ -4024,7 +4024,7 @@ a,
 .bg-white a,
 .bg-light a,
 .bg-gradient-white a {
-	color: #F03B4C;
+	color: #DA353C;
 }
 
 a:hover {
@@ -4120,7 +4120,7 @@ Slides - Backgrounds <section class="bg-primary">
 /* 3 Corp Colors */
 
 .bg-primary {
-	background-color: #F03B4C;
+	background-color: #DA353C;
 }
 
 .bg-secondary {
@@ -4407,7 +4407,7 @@ ul.tabs li.current {
 }
 
 ul.tabs li:before {
-	background-color: #F03B4C;
+	background-color: #DA353C;
 }
 
 /* ===================================================
@@ -4441,7 +4441,7 @@ Features & Clients List
 }
 
 /* .features li span,
-.features li svg{color: $color-hex-ui-accent;} */
+.features li svg{color: $AccentColor;} */
 
 /* ============================
 .flexblock with border
@@ -4878,7 +4878,7 @@ input[type="submit"],
 .button:hover,
 button[type="submit"]:hover,
 input[type="submit"]:hover {
-	border: 1px solid #F03B4C;
+	border: 1px solid #DA353C;
 }
 
 button[type="submit"],
@@ -4888,7 +4888,7 @@ input[type="submit"],
 button[type="submit"]:hover,
 input[type="submit"]:hover {
 	color: #191919;
-	background-color: #F03B4C;
+	background-color: #DA353C;
 	/* text-shadow: 0 1px 0 #123; */
 }
 
@@ -4896,7 +4896,7 @@ input[type="submit"]:hover {
 button[type="submit"]:active,
 input[type="submit"]:active {
 	color: #191919;
-	background-color: #F03B4C;
+	background-color: #DA353C;
 }
 
 .ghost,
@@ -4924,7 +4924,7 @@ input[type="submit"]:active {
 .bg-white a.button.ghost,
 .bg-gradient-white a.button.ghost {
 	color: #191919;
-	border: 1px solid #F03B4C;
+	border: 1px solid #DA353C;
 }
 
 :disabled,
@@ -4935,7 +4935,7 @@ button:disabled:hover {
 }
 
 fieldset {
-	border: 1px solid #F03B4C;
+	border: 1px solid #DA353C;
 	background-color: rgba(0, 20, 80, 0.2);
 }
 
