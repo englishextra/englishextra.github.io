@@ -68,7 +68,7 @@ a,
 .bg-white a,
 .bg-light a,
 .bg-gradient-white a {
-	color: $color-hex-ui-accent;
+	color: $AccentColor;
 }
 
 a:hover {
@@ -141,7 +141,7 @@ Slides - Backgrounds <section class="bg-primary">
 /* 3 Corp Colors */
 
 .bg-primary {
-	background-color: $color-hex-ui-accent;
+	background-color: $AccentColor;
 }
 
 .bg-secondary {
@@ -421,7 +421,7 @@ ul.tabs li.current {
 }
 
 ul.tabs li:before {
-	background-color: $color-hex-ui-accent;
+	background-color: $AccentColor;
 }
 
 /* ===================================================
@@ -457,7 +457,7 @@ Features & Clients List
 }
 
 /* .features li span,
-.features li svg{color: $color-hex-ui-accent;} */
+.features li svg{color: $AccentColor;} */
 
 /* ============================
 .flexblock with border
@@ -881,7 +881,7 @@ input[type="submit"],
 .button:hover,
 button[type="submit"]:hover,
 input[type="submit"]:hover {
-	border: 1px solid $color-hex-ui-accent;
+	border: 1px solid $AccentColor;
 }
 
 button[type="submit"],
@@ -891,7 +891,7 @@ input[type="submit"],
 button[type="submit"]:hover,
 input[type="submit"]:hover {
 	color: $color-hex-body-text;
-	background-color: $color-hex-ui-accent;
+	background-color: $AccentColor;
 	/* text-shadow: 0 1px 0 #123; */
 }
 
@@ -899,7 +899,7 @@ input[type="submit"]:hover {
 button[type="submit"]:active,
 input[type="submit"]:active {
 	color: $color-hex-body-text;
-	background-color: $color-hex-ui-accent;
+	background-color: $AccentColor;
 }
 
 .ghost,
@@ -927,7 +927,7 @@ input[type="submit"]:active {
 .bg-white a.button.ghost,
 .bg-gradient-white a.button.ghost {
 	color: $color-hex-body-text;
-	border: 1px solid $color-hex-ui-accent;
+	border: 1px solid $AccentColor;
 }
 
 :disabled,
@@ -938,7 +938,7 @@ button:disabled:hover {
 }
 
 fieldset {
-	border: 1px solid $color-hex-ui-accent;
+	border: 1px solid $AccentColor;
 	background-color: rgba(0, 20, 80, 0.2);
 }
 

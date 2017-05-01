@@ -35,8 +35,20 @@ EB5262
 744DA5
 3087CD */
 
+$AccentColor: #DA353C;
+
+$LeftNavBarDark: #171717;
+$TitleBarAndAppBarDark: #1F1F1F;
+
+$LeftNavBarLight: #F2F2F2;
+$TitleBarAndAppBarLight: #E6E6E6;
+
+$ButtonBackground: #CCCCCC;
+$ButtonText: #191919;
+$ButtonOutline: #7A7A7A;
+
 $color-rgba-selection-text: rgba(255, 255, 255, 0.9);
-$color-rgba-selection-bg: rgba(99, 170, 244, 0.9);
+$color-rgba-selection-bg: rgba(0, 99, 177, 0.9);
 
 $color-hex-body-text: #191919;
 $color-hex-gray-text: #878787;
@@ -46,8 +58,6 @@ $color-hex-hover-link: #3585D8;
 $color-hex-visited-link: #9B9B9B;
 
 $color-hex-progress-bar: #FF2C40;
-
-$color-hex-ui-accent: #F03B4C;
 
 $color-hex-ui-menu-item-bg: #F3F3F3;
 $color-hex-hover-ui-menu-item-bg: #E1E1E1;
@@ -96,7 +106,7 @@ $color-rgba-card-shadow: rgba(150, 150, 150, 0.2);
 
 $color-rgba-hint-bg: rgba(25, 25, 25, 0.9);
 
-$color-rgba-loading-spinner-text: rgba(240, 59, 76, 0.8);
+$color-rgba-loading-spinner-text: rgba(218, 53, 60, 0.8);
 $color-rgba-loading-spinner-bg: rgba(220, 220, 220, 0.5);
 
 $color-rgba-notifier42-text: rgba(255, 255, 255, 0.9);

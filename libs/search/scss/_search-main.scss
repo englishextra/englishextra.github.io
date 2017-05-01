@@ -320,7 +320,7 @@ u,
 /* .panel-nav-menu li a:focus, */
 .panel-nav-menu li a:active {
 	color: $color-hex-body-text;
-	background-color: $color-hex-ui-accent;
+	background-color: $AccentColor;
 }
 
 .panel-nav-menu li a.is-active {
@@ -354,7 +354,7 @@ u,
 /* .btn-nav-menu:focus, */
 .btn-nav-menu:active {
 	color: $color-hex-body-text;
-	background-color: $color-hex-ui-accent;
+	background-color: $AccentColor;
 }
 
 .btn-nav-menu {
@@ -415,7 +415,7 @@ u,
 /* .btn-menu-more:focus, */
 .btn-menu-more:active {
 	color: $color-hex-body-text;
-	background-color: $color-hex-ui-accent;
+	background-color: $AccentColor;
 }
 
 .btn-menu-more {
@@ -438,7 +438,7 @@ u,
 	left: 3.000rem;
 	color: $color-hex-body-text;
 	background-color: $color-hex-ui-menu-item-bg;
-	border: 0.063rem solid $color-hex-ui-accent;
+	border: 0.063rem solid $AccentColor;
 	box-shadow: 0.125rem 0.125rem 0.125rem 0 $color-rgba-ui-bar-shadow;
 	opacity: 0;
 	transition: visibility 0s, opacity 0.2s ease;
@@ -480,7 +480,7 @@ u,
 /* .panel-menu-more li a:focus, */
 .panel-menu-more li a:active {
 	color: $color-hex-body-text;
-	background-color: $color-hex-ui-accent;
+	background-color: $AccentColor;
 }
 
 /**

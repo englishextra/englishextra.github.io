@@ -60,7 +60,7 @@ if(this.Element&&Element.prototype.attachEvent&&!Element.prototype.addEventListe
  * modified classList.js: Cross-browser full element.classList implementation.
  * 1.1.20150312
  * https://github.com/eligrey/classList.js/pull/57
- * @see {@link https://github.com/beck/classlist-polyfill/commit/d94a623c25bc69caf09f7089c0066fd65e760e82}
+ * @see {@link https://github.com/beck/classlist-polyfill/commit/1.1.20150312}
  * will work in IE11 jsfiddle.net/englishextra/hru3Lt77/
  * wont work in IE11 jsfiddle.net/englishextra/fhsjpsdt/
  * compiler.appspot.com/code/jsccfd159eea1dcee81ce663f071f4a30ad/default.js

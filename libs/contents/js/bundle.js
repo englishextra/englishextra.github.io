@@ -81,8 +81,7 @@ if ("undefined" === typeof console) {
 /*!
  * add js class to html element
  */
-;(function setJsClassToDocumentElement(a){if(a){a.classList.add("js");}}(document.documentElement||""));
-/* jshint ignore:end */
+(function setJsClassToDocumentElement(a){if(a){a.classList.add("js");}}(document.documentElement||""));
 /*!
  * detect Node.js
  * github.com/lyrictenor/node-is-nwjs/blob/master/is-nodejs.js
@@ -674,7 +673,7 @@ var initMasonryDisqus = function () {
 				console.log("function initMasonryDisqus => initialised msnry");
 				var si = requestInterval(function () {
 						console.log("function initMasonryDisqus => started Interval");
-						if (imagesPreloaded) {
+						if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
 							clearRequestInterval(si);
 							console.log("function initMasonryDisqus => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
 							msnry.layout();
@@ -702,7 +701,7 @@ var initMasonryDisqus = function () {
 				console.log("function initMasonryDisqus => initialised pckry");
 				var si = requestInterval(function () {
 						console.log("function initMasonryDisqus => started Interval");
-						if (imagesPreloaded) {
+						if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
 							clearRequestInterval(si);
 							console.log("function initMasonryDisqus => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
 							pckry.layout();
@@ -826,7 +825,7 @@ manageContentsSelect = function (ctx) {
 	ctx = ctx || "";
 	var w = window,
 	d = document,
-	cls = "#contents_select",
+	cls = "#contents-select",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	jsn = "../libs/contents/json/contents.json",
 	aC = "appendChild",
@@ -858,7 +857,6 @@ manageContentsSelect = function (ctx) {
 			}
 			a[aC](df);
 			evento.add(a, "change", handleContentsSelect.bind(null, a));
-			/* a.onchange = handleContentsSelect.bind(null, a); */
 		}
 	},
 	v = function () {
@@ -1634,7 +1632,7 @@ var showPageFinishProgress = function () {
 	k = function () {
 		var si = requestInterval(function () {
 				console.log("function showPageFinishProgress => started Interval");
-				if (imagesPreloaded) {
+				if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
 					clearRequestInterval(si);
 					console.log("function showPageFinishProgress => si=" + si.value + "; imagesPreloaded=" + imagesPreloaded);
 					g();

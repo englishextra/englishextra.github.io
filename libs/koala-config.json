@@ -1,8 +1,8 @@
 {
-	"ignores": ["scss",
-	"json",
-	"img"],
-	"options": {
-		"autocompile": false
-	}
+  "ignores": ["scss",
+  "json",
+  "img"],
+  "options": {
+    "autocompile": false
+  }
 }

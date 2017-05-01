@@ -27,8 +27,7 @@ if ("undefined" === typeof console) {
 /*!
  * add js class to html element
  */
-;(function setJsClassToDocumentElement(a){if(a){a.classList.add("js");}}(document.documentElement||""));
-/* jshint ignore:end */
+(function setJsClassToDocumentElement(a){if(a){a.classList.add("js");}}(document.documentElement||""));
 /*!
  * modified MediaHack - (c) 2013 Pomke Nohkan MIT LICENCED.
  * gist.github.com/englishextra/ff8c9dde94abe32a9d7c4a65e0f2ccac
@@ -247,7 +246,7 @@ var showPageFinishProgress = function () {
 	k = function () {
 		var si = requestInterval(function () {
 				console.log("function showPageFinishProgress => started Interval");
-				if (imagesPreloaded) {
+				if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
 					clearRequestInterval(si);
 					console.log("function showPageFinishProgress => si=" + si.value + "; imagesPreloaded=" + imagesPreloaded);
 					g();

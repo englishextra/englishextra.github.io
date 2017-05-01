@@ -70,8 +70,7 @@ if ("undefined" === typeof console) {
 /*!
  * add js class to html element
  */
-;(function setJsClassToDocumentElement(a){if(a){a.classList.add("js");}}(document.documentElement||""));
-/* jshint ignore:end */
+(function setJsClassToDocumentElement(a){if(a){a.classList.add("js");}}(document.documentElement||""));
 /*!
  * detect Node.js
  * github.com/lyrictenor/node-is-nwjs/blob/master/is-nodejs.js
@@ -927,7 +926,7 @@ var showPageFinishProgress = function () {
 	k = function () {
 		var si = requestInterval(function () {
 				console.log("function showPageFinishProgress => started Interval");
-				if (imagesPreloaded) {
+				if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
 					clearRequestInterval(si);
 					console.log("function showPageFinishProgress => si=" + si.value + "; imagesPreloaded=" + imagesPreloaded);
 					g();

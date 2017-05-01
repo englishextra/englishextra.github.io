@@ -1,14 +1,4 @@
 /*!
- * modified routie - a tiny hash router
- * v0.3.2
- * http://projects.jga.me/routie
- * copyright Greg Allen 2016
- * MIT License
- * source: github.com/jgallen23/routie/blob/master/dist/routie.js
- * passes jshint
- */
-(function(root){var Routie=function(w,isModule){var routes=[];var map={};var reference="routie";var oldReference=w[reference];var Route=function(path,name){this.name=name;this.path=path;this.keys=[];this.fns=[];this.params={};this.regex=pathToRegexp(this.path,this.keys,false,false);};Route.prototype.addHandler=function(fn){this.fns.push(fn);};Route.prototype.removeHandler=function(fn){for(var i=0,c=this.fns.length;i<c;i++){var f=this.fns[i];if(fn==f){this.fns.splice(i,1);return;}}};Route.prototype.run=function(params){for(var i=0,c=this.fns.length;i<c;i++){this.fns[i].apply(this,params);}};Route.prototype.match=function(path,params){var m=this.regex.exec(path);if(!m)return false;for(var i=1,len=m.length;i<len;++i){var key=this.keys[i-1];var val=('string'==typeof m[i])?decodeURIComponent(m[i]):m[i];if(key){this.params[key.name]=val;}params.push(val);}return true;};Route.prototype.toURL=function(params){var path=this.path;for(var param in params){if(params.hasOwnProperty(param)){path=path.replace('/:'+param,'/'+params[param]);}}path=path.replace(/\/:.*\?/g,'/').replace(/\?/g,'');if(path.indexOf(':')!=-1){throw new Error('missing parameters for url: '+path);}return path;};var pathToRegexp=function(path,keys,sensitive,strict){if(path instanceof RegExp)return path;if(path instanceof Array)path='('+path.join('|')+')';path=path.concat(strict?'':'/?').replace(/\/\(/g,'(?:/').replace(/\+/g,'__plus__').replace(/(\/)?(\.)?:(\w+)(?:(\(.*?\)))?(\?)?/g,function(_,slash,format,key,capture,optional){keys.push({name:key,optional:!!optional});slash=slash||'';return''+(optional?'':slash)+'(?:'+(optional?slash:'')+(format||'')+(capture||(format&&'([^/.]+?)'||'([^/]+?)'))+')'+(optional||'');}).replace(/([\/.])/g,'\\$1').replace(/__plus__/g,'(.+)').replace(/\*/g,'(.*)');return new RegExp('^'+path+'$',sensitive?'':'i');};var addHandler=function(path,fn){var s=path.split(' ');var name=(s.length==2)?s[0]:null;path=(s.length==2)?s[1]:s[0];if(!map[path]){map[path]=new Route(path,name);routes.push(map[path]);}map[path].addHandler(fn);};var routie=function(path,fn){if(typeof fn=='function'){addHandler(path,fn);routie.reload();}else if(typeof path=='object'){for(var p in path){if(path.hasOwnProperty(p)){addHandler(p,path[p]);}}routie.reload();}else if(typeof fn==='undefined'){routie.navbarigate(path);}};routie.lookup=function(name,obj){for(var i=0,c=routes.length;i<c;i++){var route=routes[i];if(route.name==name){return route.toURL(obj);}}};routie.remove=function(path,fn){var route=map[path];if(!route)return;route.removeHandler(fn);};routie.removeAll=function(){map={};routes=[];};routie.navbarigate=function(path,options){options=options||{};var silent=options.silent||false;if(silent){removeListener();}setTimeout(function(){window.location.hash=path;if(silent){setTimeout(function(){addListener();},1);}},1);};routie.noConflict=function(){w[reference]=oldReference;return routie;};var getHash=function(){return window.location.hash.substring(1);};var checkRoute=function(hash,route){var params=[];if(route.match(hash,params)){route.run(params);return true;}return false;};var hashChanged=routie.reload=function(){var hash=getHash();for(var i=0,c=routes.length;i<c;i++){var route=routes[i];if(checkRoute(hash,route)){return;}}};var addListener=function(){if(w.addEventListener){w.addEventListener('hashchange',hashChanged,false);}else{w.attachEvent('onhashchange',hashChanged);}};var removeListener=function(){if(w.removeEventListener){w.removeEventListener('hashchange',hashChanged);}else{w.detachEvent('onhashchange',hashChanged);}};addListener();if(isModule){return routie;}else{w[reference]=routie;}};if(typeof module=='undefined'){Routie(root);}else{module.exports=Routie(root);}})("undefined"===typeof window?"undefined"===typeof self?"undefined"===typeof global?this:global:self:window);
-/*!
  * t.js
  * a micro-templating framework in ~400 bytes gzipped
  * @author  Jason Mooberry <jasonmoo@me.com>
@@ -28,12 +18,83 @@
  */
 (function(){var blockregex=/\{\{(([@!]?)(.+?))\}\}(([\s\S]+?)(\{\{:\1\}\}([\s\S]+?))?)\{\{\/\1\}\}/g,valregex=/\{\{([=%])(.+?)\}\}/g;function t(template){this.t=template;}function scrub(val){return new Option(val).text.replace(/"/g,"&quot;");}function get_value(vars,key){var parts=key.split('.');while(parts.length){if(!(parts[0]in vars)){return false;}vars=vars[parts.shift()];}return vars;}function render(fragment,vars){return fragment.replace(blockregex,function(_,__,meta,key,inner,if_true,has_else,if_false){var val=get_value(vars,key),temp="",i;if(!val){if(meta=='!'){return render(inner,vars);}if(has_else){return render(if_false,vars);}return"";}if(!meta){return render(if_true,vars);}if(meta=='@'){_=vars._key;__=vars._val;for(i in val){if(val.hasOwnProperty(i)){vars._key=i;vars._val=val[i];temp+=render(inner,vars);}}vars._key=_;vars._val=__;return temp;}}).replace(valregex,function(_,meta,key){var val=get_value(vars,key);if(val||val===0){return meta=='%'?scrub(val):val;}return"";});}t.prototype.render=function(vars){return render(this.t,vars);};("undefined"===typeof window?"undefined"===typeof self?"undefined"===typeof global?this:global:self:window).t=t;})();
 /*!
- * modified Animated Scroll to Top Control In Vanilla JS
- * jsfiddle.net/englishextra/ssgqhuk5/
- * @see {@link http://cssscript.com/animated-scroll-to-top-control-in-vanilla-js-scroll2top/} 
+ * modified verge 1.9.1+201402130803
+ * github.com/ryanve/verge
+ * MIT License 2013 Ryan Van Etten
+ * removed module
+ * converted to dot notation
+ * added &&r.left<=viewportW()&&(0!==el.offsetHeight);
+ * added &&r.left<=viewportW()&&(0!==el.offsetHeight);
+ * added &&r.top<=viewportH()&&(0!==el.offsetHeight);
+ * Substitute inViewport with: inY on vertical sites, inX on horizontal ones.
+ * On pages without horizontal scroll, inX is always true.
+ * On pages without vertical scroll, inY is always true.
+ * If the viewport width is >= the document width, then inX is always true.
+ * bug: inViewport returns true if element is hidden
+ * github.com/ryanve/verge/issues/19
+ * source: github.com/ryanve/verge/blob/master/verge.js
  * passes jshint
  */
-var scroll2Top=function(){var animate=(function(){var action=window.requestAnimationFrame||function(callback){window.setTimeout(callback,1000/60);};return function(runner){action.call(window,runner);};})();var scrollTop=function(el,nextStep){if(nextStep===null||nextStep===undefined){return(el.scrollY!==null&&el.scrollY!==undefined)?el.scrollY:el.scrollTop;}else if(nextStep<=0){if(el.scrollTo){el.scrollTo(0,0);}else{el.scrollTop=0;}return 0;}else{if(el.scrollTo){el.scrollTo(0,nextStep);}else{el.scrollTop=nextStep;}return nextStep;}},speedConduct=function(originSpeed,time,cur,total){if(total===0){return 0;}var method=Math.sin;var PI=Math.PI;var INIT_SPEED=2;return originSpeed*method(PI*(total-cur)/total)+INIT_SPEED;};return function(el,time){var DEFAULT_TIME=1000;if(el===null||el===undefined){throw new Error('You must assign a dom node object or window object as the first param.');}if(time===null||time===undefined){time=DEFAULT_TIME;}var originY=scrollTop(el),currentY=originY,originSpeed=originY/(time/60),currentSpeed;(function operate(){currentSpeed=speedConduct(originSpeed,time,currentY,originY);currentY-=currentSpeed;if(scrollTop(el,currentY)!==0){animate(operate);}})();};}();
+(function(root,name,make){root[name]=make();}("undefined"!==typeof window?window:this,"verge",function(){var xports={},win=typeof window!="undefined"&&window,doc=typeof document!="undefined"&&document,docElem=doc&&doc.documentElement,matchMedia=win.matchMedia||win.msMatchMedia,mq=matchMedia?function(q){return!!matchMedia.call(win,q).matches;}:function(){return false;},viewportW=xports.viewportW=function(){var a=docElem.clientWidth,b=win.innerWidth;return a<b?b:a;},viewportH=xports.viewportH=function(){var a=docElem.clientHeight,b=win.innerHeight;return a<b?b:a;};xports.mq=mq;xports.matchMedia=matchMedia?function(){return matchMedia.apply(win,arguments);}:function(){return{};};function viewport(){return{"width":viewportW(),"height":viewportH()};}xports.viewport=viewport;xports.scrollX=function(){return win.pageXOffset||docElem.scrollLeft;};xports.scrollY=function(){return win.pageYOffset||docElem.scrollTop;};function calibrate(coords,cushion){var o={};cushion=+cushion||0;o.width=(o.right=coords.right+cushion)-(o.left=coords.left-cushion);o.height=(o.bottom=coords.bottom+cushion)-(o.top=coords.top-cushion);return o;}function rectangle(el,cushion){el=el&&!el.nodeType?el[0]:el;if(!el||1!==el.nodeType)return false;return calibrate(el.getBoundingClientRect(),cushion);}xports.rectangle=rectangle;function aspect(o){o=null===o?viewport():1===o.nodeType?rectangle(o):o;var h=o.height,w=o.width;h=typeof h=="function"?h.call(o):h;w=typeof w=="function"?w.call(o):w;return w/h;}xports.aspect=aspect;xports.inX=function(el,cushion){var r=rectangle(el,cushion);return!!r&&r.right>=0&&r.left<=viewportW()&&(0!==el.offsetHeight);};xports.inY=function(el,cushion){var r=rectangle(el,cushion);return!!r&&r.bottom>=0&&r.top<=viewportH()&&(0!==el.offsetHeight);};xports.inViewport=function(el,cushion){var r=rectangle(el,cushion);return!!r&&r.bottom>=0&&r.right>=0&&r.top<=viewportH()&&r.left<=viewportW()&&(0!==el.offsetHeight);};return xports;}));
+/*!
+ * modified navbar.js - Minimal navigation script
+ * by dnp_theme
+ * Licensed under MIT-License
+ * @see {@link https://gist.github.com/englishextra/76206ce67897113f5520e31a766fc5ce}
+ * @see {@link https://github.com/thednp/navbar.js/blob/master/navbar.js}
+ * passes jshint
+ */
+(function(){"use strict";var w=window,d=document,qS="querySelector",gEBTN="getElementsByTagName",aEL="addEventListener",cL="classList",rootStyle=d.documentElement.style||"",supportTransitions=function(){return"WebkitTransition"in rootStyle||"transition"in rootStyle||"OTransition"in rootStyle||"MsTransition"in rootStyle||"MozTransition"in rootStyle?!0:!1;}(),on=function(element,eventName,handler){element[aEL](eventName,handler,false);},openClass="is-open",isPositioned="is-repositioned",close=function(element){if(element[cL].contains(openClass)){element[cL].remove(openClass);setTimeout(function(){element[cL].remove(isPositioned);},(supportTransitions?200:0));}},Navbar=function(el,outsideClass){var menu=(typeof el==="object")?el:d[qS](el);if(menu){var items=menu[gEBTN]("li")||"";if(items){var enterHandler=function(){var that=this;clearTimeout(that.timer);if(!that[cL].contains(openClass)){that.timer=setTimeout(function(){that[cL].add(openClass);that[cL].add(isPositioned);var siblings=that.parentNode[gEBTN]("li");for(var h=0;h<siblings.length;h++){if(siblings[h]!==that){close(siblings[h]);}}},100);}},closeHandler=function(){for(var i=0,itemsLength=items.length;i<itemsLength;i++){if(items[i][gEBTN]("ul").length){close(items[i]);}}};for(var i=0,itemsLength=items.length;i<itemsLength;i++){if(items[i][gEBTN]("ul").length){on(items[i],"click",enterHandler);}}w[aEL]("hashchange",closeHandler);var outside=d[qS](outsideClass)||"";if(outside){outside[aEL]("click",closeHandler);}}}};("undefined"===typeof window?"undefined"===typeof self?"undefined"===typeof global?this:global:self:window).Navbar=Navbar;}());
+/*!
+ * Carousel v1.0
+ * @see {@link https://habrahabr.ru/post/327246/}
+ * @see {@link https://codepen.io/iGetPass/pen/apZPMo}
+ */
+(function(){"use strict";var d=document,qS="querySelector",aEL="addEventListener";var Carousel=function(setting){var _this=this;if(d[qS](setting.wrap)===null){console.error("Carousel not fount selector "+setting.wrap);return;}var privates={};this.prev_slide=function(){--privates.opt.position;if(privates.opt.position<0){privates.opt.position=privates.opt.max_position-1;}privates.sel.wrap.style.transform="translateX(-"+privates.opt.position+"00%)";};this.next_slide=function(){++privates.opt.position;if(privates.opt.position>=privates.opt.max_position){privates.opt.position=0;}privates.sel.wrap.style.transform="translateX(-"+privates.opt.position+"00%)";};privates.setting=setting;privates.sel={"main":d[qS](privates.setting.main),"wrap":d[qS](privates.setting.wrap),"children":d[qS](privates.setting.wrap).children,"prev":d[qS](privates.setting.prev),"next":d[qS](privates.setting.next)};privates.opt={"position":0,"max_position":d[qS](privates.setting.wrap).children.length};if(privates.sel.prev!==null){privates.sel.prev[aEL]("click",function(){_this.prev_slide();});}if(privates.sel.next!==null){privates.sel.next[aEL]("click",function(){_this.next_slide();});}};("undefined"===typeof window?"undefined"===typeof self?"undefined"===typeof global?this:global:self:window).Carousel=Carousel;}());
+/*!
+ * modified scrollToY
+ * @see {@link http://stackoverflow.com/questions/8917921/cross-browser-javascript-not-jquery-scroll-to-top-animation}
+ * passes jshint
+ */
+(function(){"use strict";var scroll2Top=function(scrollTargetY,speed,easing){var scrollY=window.scrollY||document.documentElement.scrollTop;scrollTargetY=scrollTargetY||0;speed=speed||2000;easing=easing||'easeOutSine';var currentTime=0;var time=Math.max(0.1,Math.min(Math.abs(scrollY-scrollTargetY)/speed,0.8));var easingEquations={easeOutSine:function(pos){return Math.sin(pos*(Math.PI/2));},easeInOutSine:function(pos){return(-0.5*(Math.cos(Math.PI*pos)-1));},easeInOutQuint:function(pos){if((pos/=0.5)<1){return 0.5*Math.pow(pos,5);}return 0.5*(Math.pow((pos-2),5)+2);}};function tick(){currentTime+=1/60;var p=currentTime/time;var t=easingEquations[easing](p);if(p<1){requestAnimationFrame(tick);window.scrollTo(0,scrollY+((scrollTargetY-scrollY)*t));}else{console.log('scroll done');window.scrollTo(0,scrollTargetY);}}tick();};("undefined"===typeof window?"undefined"===typeof self?"undefined"===typeof global?this:global:self:window).scroll2Top=scroll2Top;}());
+/*!
+ * return image is loaded promise
+ * jsfiddle.net/englishextra/56pavv7d/
+ * @param {String|Object} s image path string or HTML DOM Image Object
+ * var m = document.querySelector("img") || "";
+ * var s = m.src || "";
+ * imagePromise(m).then(function (r) {
+ * alert(r);
+ * }).catch (function (err) {
+ * alert(err);
+ * });
+ * imagePromise(s).then(function (r) {
+ * alert(r);
+ * }).catch (function (err) {
+ * alert(err);
+ * });
+ * @see {@link https://gist.github.com/englishextra/3e95d301d1d47fe6e26e3be198f0675e}
+ * passes jshint
+ */
+(function(){"use strict";var imagePromise=function(s){if(window.Promise){return new Promise(function(y,n){var f=function(e,p){e.onload=function(){y(p);};e.onerror=function(){n(p);};e.src=p;};if("string"===typeof s){var a=new Image();f(a,s);}else{if("IMG"!==s.tagName){return Promise.reject();}else{if(s.src){f(s,s.src);}}}});}else{throw new Error("Promise is not in window");}};("undefined"===typeof window?"undefined"===typeof self?"undefined"===typeof global?this:global:self:window).imagePromise=imagePromise;}());
+/*!
+ * A simple promise-compatible "document ready" event handler with a few extra treats.
+ * With browserify/webpack:
+ * const ready = require('document-ready-promise')
+ * ready().then(function(){})
+ * If in a non-commonjs environment, just include the script. It will attach document.ready for you.
+ * document.ready().then(function() {})
+ * The document.ready promise will preserve any values that you may be passing through the promise chain.
+ * Using ES2015 and window.fetch
+ * fetch(new Request('kitten.jpg'))
+ * .then(response => response.blob())
+ * .then(document.ready)
+ * .then(blob => document.querySelector('img').src = URL.createObjectURL(blob))
+ * @see {@link https://github.com/michealparks/document-ready-promise}
+ * @see {@link https://github.com/michealparks/document-ready-promise/blob/master/document-ready-promise.js}
+ * passes jshint
+ */
+(function(document,promise){if(typeof module!=="undefined")module.exports=promise;else document.ready=promise;})(window.document,function(chainVal){"use strict";var d=document,w=window,loaded=/^loaded|^i|^c/.test(d.readyState),DOMContentLoaded="DOMContentLoaded",load="load";return new Promise(function(resolve){if(loaded)return resolve(chainVal);function onReady(){resolve(chainVal);d.removeEventListener(DOMContentLoaded,onReady);w.removeEventListener(load,onReady);}d.addEventListener(DOMContentLoaded,onReady);w.addEventListener(load,onReady);});});
 /*!
  * safe way to handle console.log():
  * sitepoint.com/safe-console-log/
@@ -49,8 +110,36 @@ if ("undefined" === typeof console) {
 /*!
  * add js class to html element
  */
-;(function setJsClassToDocumentElement(a){if(a){a.classList.add("js");}}(document.documentElement||""));
-/* jshint ignore:end */
+(function setJsClassToDocumentElement(a){if(a){a.classList.add("js");}}(document.documentElement||""));
+/*!
+ * detect Node.js
+ * github.com/lyrictenor/node-is-nwjs/blob/master/is-nodejs.js
+ * @returns {Boolean} true or false
+ */
+var isNodejs = "undefined" !== typeof process && "undefined" !== typeof require || "";
+/*!
+ * detect Electron
+ * @returns {Boolean} true or false
+ */
+var isElectron = "undefined" !== typeof window && window.process && "renderer" === window.process.type || "";
+/*!
+ * detect NW.js
+ * github.com/lyrictenor/node-is-nwjs/blob/master/index.js
+ * @returns {Boolean} true or false
+ */
+var isNwjs = function () {
+	if ("undefined" !== typeof isNodejs && isNodejs) {
+		try {
+			if ("undefined" !== typeof require("nw.gui")) {
+				return !0;
+			}
+		} catch (e) {
+			return !1;
+		}
+	}
+	return !1;
+}
+();
 /*!
  * modified MediaHack - (c) 2013 Pomke Nohkan MIT LICENCED.
  * gist.github.com/englishextra/ff8c9dde94abe32a9d7c4a65e0f2ccac
@@ -96,12 +185,440 @@ if (document.title) {
 	document.title = document.title + userBrowsingDetails;
 }
 /*!
+ * How can I check if a JS file has been included already?
+ * gist.github.com/englishextra/403a0ca44fc5f495400ed0e20bc51d47
+ * stackoverflow.com/questions/18155347/how-can-i-check-if-a-js-file-has-been-included-already
+ * @param {String} s path string
+ * scriptIsLoaded(s)
+ */
+var scriptIsLoaded=function(s){for(var b=document.getElementsByTagName("script")||"",a=0;a<b.length;a++)if(b[a].getAttribute("src")==s)return!0;return!1;};
+/*!
+ * loop over the Array
+ * stackoverflow.com/questions/18238173/javascript-loop-through-json-array
+ * gist.github.com/englishextra/b4939b3430da4b55d731201460d3decb
+ * @param {String} str any text string
+ * @param {Int} max a whole positive number
+ * @param {String} add any text string
+ * truncString(str,max,add)
+ */
+var truncString=function(str,max,add){add=add||"\u2026";return("string"===typeof str&&str.length>max?str.substring(0,max)+add:str);};
+/*!
+ * Check if string represents a valid HTML id
+ * gist.github.com/englishextra/b5aaef8b555a3ba84c68a6e251db149d
+ * jsfiddle.net/englishextra/z19tznau/
+ * @param {String} a text string
+ * @param {Int} [full] if true, returns with leading hash/number sign
+ * isValidId(a,full)
+ */
+var isValidId=function(a,full){return full?/^\#[A-Za-z][-A-Za-z0-9_:.]*$/.test(a)?!0:!1:/^[A-Za-z][-A-Za-z0-9_:.]*$/.test(a)?!0:!1;};
+/*!
+ * find element's position
+ * stackoverflow.com/questions/5598743/finding-elements-position-relative-to-the-document
+ * @param {Object} a an HTML element
+ * findPos(a).top
+ */
+var findPos=function(a){a=a.getBoundingClientRect();var b=document.body,c=document.documentElement;return{top:Math.round(a.top+(window.pageYOffset||c.scrollTop||b.scrollTop)-(c.clientTop||b.clientTop||0)),left:Math.round(a.left+(window.pageXOffset||c.scrollLeft||b.scrollLeft)-(c.clientLeft||b.clientLeft||0))};};
+/*!
+ * modified Unified URL parsing API in the browser and node
+ * github.com/wooorm/parse-link
+ * removed module check
+ * gist.github.com/englishextra/4e9a0498772f05fa5d45cfcc0d8be5dd
+ * gist.github.com/englishextra/2a7fdabd0b23a8433d5fc148fb788455
+ * jsfiddle.net/englishextra/fcdds4v6/
+ * @param {String} url URL string
+ * @param {Boolean} [true|false] if true, returns protocol:, :port, /pathname, ?search, ?query, #hash
+ * if set to false, returns protocol, port, pathname, search, query, hash
+ * alert(parseLink("http://localhost/search?s=t&v=z#dev").href|
+ * origin|host|port|hash|hostname|pathname|protocol|search|query|isAbsolute|isRelative|isCrossDomain);
+ */
+/*jslint bitwise: true */
+var parseLink=function(url,full){full=full||!1;return function(){var _r=function(s){return s.replace(/^(#|\?)/,"").replace(/\:$/,"");},l=location||"",_p=function(protocol){switch(protocol){case"http:":return full?":"+80:80;case"https:":return full?":"+443:443;default:return full?":"+l.port:l.port;}},_s=(0===url.indexOf("//")||!!~url.indexOf("://")),w=window.location||"",_o=function(){var o=w.protocol+"//"+w.hostname+(w.port?":"+w.port:"");return o||"";},_c=function(){var c=document.createElement("a");c.href=url;var v=c.protocol+"//"+c.hostname+(c.port?":"+c.port:"");return v!==_o();},a=document.createElement("a");a.href=url;return{href:a.href,origin:_o(),host:a.host||l.host,port:("0"===a.port||""===a.port)?_p(a.protocol):(full?a.port:_r(a.port)),hash:full?a.hash:_r(a.hash),hostname:a.hostname||l.hostname,pathname:a.pathname.charAt(0)!="/"?(full?"/"+a.pathname:a.pathname):(full?a.pathname:a.pathname.slice(1)),protocol:!a.protocol||":"==a.protocol?(full?l.protocol:_r(l.protocol)):(full?a.protocol:_r(a.protocol)),search:full?a.search:_r(a.search),query:full?a.search:_r(a.search),isAbsolute:_s,isRelative:!_s,isCrossDomain:_c(),hasHTTP:/^(http|https):\/\//i.test(url)?!0:!1};}();};
+/*jslint bitwise: false */
+/*!
+ * get current protocol - "http" or "https", else return ""
+ * @param {Boolean} [a] When set to "true", and the result is empty,
+ * the function will return "http"
+ * getHTTP(a)
+ */
+var getHTTP=function(a){return function(f){return"http:"===a?"http":"https:"===a?"https":f?"http":"";};}(window.location.protocol||"");
+/*!
+ * loading spinner
+ * dependent on setAutoClearedTimeout
+ * gist.github.com/englishextra/24ef040fbda405f7468da70e4f3b69e7
+ * @param {Object} [f] callback function
+ * @param {Int} [n] any positive whole number, default: 500
+ * LoadingSpinner.show();
+ * LoadingSpinner.hide(f,n);
+ */
+var LoadingSpinner = function () {
+	"use strict";
+	var d = document,
+	b = d.body || "",
+	cls = "loading-spinner",
+	a = d.querySelector("." + cls) || "",
+	is_active = "is-active-loading-spinner",
+	cL = "classList";
+	console.log("triggered function: LoadingSpinner");
+	if (!a) {
+		a = d.createElement("div");
+		a[cL].add(cls);
+		b.appendChild(a);
+	}
+	return {
+		show: function () {
+			return b[cL].contains(is_active) || b[cL].add(is_active);
+		},
+		hide: function (f, n) {
+			n = n || 500;
+			return function () {
+				var st = setTimeout(function () {
+						clearTimeout(st);
+						b[cL].remove(is_active);
+						if (f && "function" === typeof f) {
+							f();
+						}
+					}, n);
+			}
+			();
+		}
+	};
+}
+();
+/*!
+ * Open external links in default browser out of Electron / nwjs
+ * gist.github.com/englishextra/b9a8140e1c1b8aa01772375aeacbf49b
+ * stackoverflow.com/questions/32402327/how-can-i-force-external-links-from-browser-window-to-open-in-a-default-browser
+ * github.com/nwjs/nw.js/wiki/shell
+ * electron - file: | nwjs - chrome-extension: | http: Intel XDK
+ * @param {String} a URL/path string
+ * openDeviceBrowser(a)
+ */
+var openDeviceBrowser = function (a) {
+	"use strict";
+	var w = window,
+	g = function () {
+		var es = "undefined" !== typeof isElectron && isElectron ? require("electron").shell : "";
+		return es ? es.openExternal(a) : "";
+	},
+	k = function () {
+		var ns = "undefined" !== typeof isNwjs && isNwjs ? require("nw.gui").Shell : "";
+		return ns ? ns.openExternal(a) : "";
+	},
+	q = function () {
+		/*!
+		 * wont do in electron and nw,
+		 * so manageExternalLinks will set target blank to links
+		 */
+		/* var win = w.open(a, "_blank");
+		win.focus(); */
+		return !0;
+	},
+	v = function () {
+		return w.open(a, "_system", "scrollbars=1,location=no");
+	};
+	console.log("triggered function: openDeviceBrowser");
+	if ("undefined" !== typeof isElectron && isElectron) {
+		g();
+	} else if ("undefined" !== typeof isNwjs && isNwjs) {
+		k();
+	} else {
+		if ("undefined" !== typeof getHTTP && getHTTP()) {
+			q();
+		} else {
+			v();
+		}
+	}
+};
+/*!
+ * set click event on external links,
+ * so that they open in new browser tab
+ * @param {Object} [ctx] context HTML Element
+ */
+var manageExternalLinks = function (ctx) {
+	"use strict";
+	ctx = ctx || "";
+	var d = document,
+	cls = "a",
+	qS = "querySelector",
+	qSA = "querySelectorAll",
+	a = ctx ? ctx[qS](cls) || "" : d[qS](cls) || "",
+	handleExternalLink = function (p, ev) {
+		ev.stopPropagation();
+		ev.preventDefault();
+		openDeviceBrowser(p);
+	},
+	g = function (e) {
+		var p = e.getAttribute("href") || "";
+		if (p && parseLink(p).isCrossDomain && parseLink(p).hasHTTP) {
+			e.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
+			if ("undefined" !== typeof getHTTP && getHTTP()) {
+				e.target = "_blank";
+			} else {
+				e.addEventListener("click", handleExternalLink.bind(null, p));
+			}
+		}
+	},
+	k = function () {
+		a = ctx ? ctx[qSA](cls) || "" : d[qSA](cls) || "";
+		for (var i = 0, l = a.length; i < l; i += 1) {
+			g(a[i]);
+		}
+	};
+	if (a) {
+		console.log("triggered function: manageExternalLinks");
+		k();
+	}
+};
+/* window.addEventListener("load", manageExternalLinks.bind(null, "")); */
+/* document.ready().then(manageExternalLinks.bind(null, "")); */
+/*!
+ * replace img src with data-src
+ * @param {Object} [ctx] context HTML Element
+ */
+var manageDataSrcImg = function (ctx) {
+	"use strict";
+	ctx = ctx || "";
+	var w = window,
+	d = document,
+	cls = "img[data-src]",
+	qS = "querySelector",
+	qSA = "querySelectorAll",
+	a = ctx ? ctx[qS](cls) || "" : d[qS](cls) || "",
+	is_active = "is-active",
+	cL = "classList",
+	ds = "dataset",
+	aEL = "addEventListener",
+	rEL = "removeEventListener",
+	k = function (e) {
+		var _src = e[ds].src || "";
+		if (_src) {
+			if (parseLink(_src).isAbsolute && !parseLink(_src).hasHTTP) {
+				e[ds].src = _src.replace(/^/, getHTTP(!0) + ":");
+				_src = e[ds].src;
+			}
+			if (!e[cL].contains(is_active)) {
+				if (w.Promise) {
+					imagePromise(_src).then(function (r) {
+						e.src = _src;
+						console.log("manageDataSrcImg => imagePromise: loaded image:", r);
+					}).catch (function (err) {
+						console.log("manageDataSrcImg => imagePromise: cannot load image:", err);
+					});
+				} else {
+					e.src = _src;
+				}
+				e[cL].add(is_active);
+			}
+		}
+	},
+	g = function (e) {
+		/*!
+		 * true if elem is in same y-axis as the viewport or within 100px of it
+		 * github.com/ryanve/verge
+		 */
+		if (verge.inY(e, 100) /* && 0 !== e.offsetHeight */) {
+			k(e);
+		}
+	};
+	if (a) {
+		console.log("triggered function: manageDataSrcImg");
+		a = ctx ? ctx[qSA](cls) || "" : d[qSA](cls) || "";
+		var h_w = function () {
+			for (var i = 0, l = a.length; i < l; i += 1) {
+				g(a[i]);
+			}
+		};
+		h_w();
+		w[aEL]("scroll", h_w);
+		w[aEL]("resize", h_w);
+		w[aEL]("hashchange", function h_r() {
+			w[rEL]("scroll", h_w);
+			w[rEL]("resize", h_w);
+			w[rEL]("hashchange", h_r);
+		});
+	}
+};
+/* window.addEventListener("load", manageDataSrcImg.bind(null, "")); */
+/* document.ready().then(manageDataSrcImg.bind(null, "")); */
+/*!
+ * add smooth scroll or redirection to static select options
+ * @param {Object} [ctx] context HTML Element
+ */
+var manageStaticSelect = function (ctx) {
+	"use strict";
+	ctx = ctx || "";
+	var w = window,
+	d = document,
+	cls = "#pages-select",
+	qS = "querySelector",
+	a = ctx ? ctx[qS](cls) || "" : d[qS](cls) || "",
+	uiPanelContentsSelect = d[qS](".ui-panel-contents-select") || "",
+	cL = "classList",
+	is_active = "is-active",
+	aEL = "addEventListener",
+	handleStaticSelect = function (_this) {
+		var h = _this.options[_this.selectedIndex].value || "",
+		zh = h ? (isValidId(h, !0) ? d[qS](h) : "") : "",
+		uiPanelContentsSelectHeight = uiPanelContentsSelect ? (uiPanelContentsSelect[cL].contains(is_active) ? uiPanelContentsSelect.offsetHeight : uiPanelContentsSelect.offsetHeight * 2) : 0;
+		if (h) {
+			if (zh) {
+				scroll2Top(findPos(d[qS](h)).top - uiPanelContentsSelectHeight, 10000);
+			} else {
+				w.location.hash = h;
+			}
+		}
+	},
+	k = function () {
+		a[aEL]("change", handleStaticSelect.bind(null, a));
+	};
+	if (a) {
+		console.log("triggered function: manageStaticSelect");
+		k();
+	}
+};
+/* window.addEventListener("load", manageStaticSelect.bind(null, "")); */
+/* document.ready().then(manageStaticSelect.bind(null, "")); */
+/*!
+ * add click event on hidden-layer show btn
+ * @param {Object} [ctx] context HTML Element
+ */
+var manageExpandingLayers = function (ctx) {
+	"use strict";
+	ctx = ctx || "";
+	var d = document,
+	cls = ".btn-expand-hidden-layer",
+	qS = "querySelector",
+	qSA = "querySelectorAll",
+	a = ctx ? ctx[qS](cls) || "" : d[qS](cls) || "",
+	aEL = "addEventListener",
+	handleExpandingLayers = function (_this) {
+		var cL = "classList",
+		pN = "parentNode",
+		is_active = "is-active",
+		s = _this[pN] ? _this[pN].nextElementSibling : "";
+		if (s) {
+			_this[cL].toggle(is_active);
+			s[cL].toggle(is_active);
+		}
+		return !1;
+	},
+	k = function (e) {
+		e[aEL]("click", handleExpandingLayers.bind(null, e));
+	},
+	q = function () {
+		a = ctx ? ctx[qSA](cls) || "" : d[qSA](cls) || "";
+		for (var i = 0, l = a.length; i < l; i += 1) {
+			k(a[i]);
+		}
+	};
+	if (a) {
+		console.log("triggered function: manageExpandingLayers");
+		q();
+	}
+};
+/* window.addEventListener("load", manageExpandingLayers.bind(null, "")); */
+/* document.ready().then(manageExpandingLayers.bind(null, "")); */
+/*!
+ * init Masonry grid
+ * stackoverflow.com/questions/15160010/jquery-masonry-collapsing-on-initial-page-load-works-fine-after-clicking-home
+ * percentPosition: !0 works well with percent-width items,
+ * as items will not transition their position on resize.
+ * masonry.desandro.com/options.html
+ */
+var msnry,
+pckry,
+initMasonry = function (ctx) {
+	"use strict";
+	ctx = ctx || "";
+	var w = window,
+	d = document,
+	qS = "querySelector",
+	cls = ".masonry-grid",
+	h = ".masonry-grid-item",
+	k = ".masonry-grid-sizer",
+	a = ctx ? ctx[qS](cls) || "" : d[qS](cls) || "",
+	c = ctx ? ctx[qS](h) || "" : d[qS](h) || "",
+	g = function () {
+		var si;
+		if (w.Masonry) {
+			if (msnry) {
+				msnry.destroy();
+			}
+			msnry = new Masonry(a, {
+					itemSelector: h,
+					columnWidth: k,
+					gutter: 0,
+					percentPosition: !0
+				});
+			console.log("function initMasonry => initialised msnry");
+			si = setInterval(function () {
+					console.log("function initMasonry => started Interval");
+					if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
+						clearInterval(si);
+						console.log("function initMasonry => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
+						msnry.layout();
+						console.log("function initMasonry => reinitialised msnry");
+					}
+				}, 100);
+		} else if (w.Packery) {
+			if (pckry) {
+				pckry.destroy();
+			}
+			pckry = new Packery(a, {
+					itemSelector: h,
+					columnWidth: k,
+					gutter: 0,
+					percentPosition: !0
+				});
+			console.log("function initMasonry => initialised pckry");
+			si = setInterval(function () {
+					console.log("function initMasonry => started Interval");
+					if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
+						clearInterval(si);
+						console.log("function initMasonry => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
+						pckry.layout();
+						console.log("function initMasonry => reinitialised pckry");
+					}
+				}, 100);
+		} else {
+			console.log("function initMasonry => no library is loaded");
+		}
+	};
+	if (a && c) {
+		console.log("triggered function: initMasonryGrid");
+		if ("undefined" !== typeof imagesPreloaded) {
+			var st = setTimeout(function () {
+					clearTimeout(st);
+					g();
+				}, 100);
+		} else {
+			console.log("function initMasonry => undefined: imagesPreloaded");
+		}
+	}
+},
+loadInitMasonry = function (ctx) {
+	"use strict";
+	ctx = ctx || "";
+	/* var js = "./cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
+	var js = "./cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
+	if (!scriptIsLoaded(js)) {
+		loadJS(js, initMasonry.bind(null, ctx));
+	} else {
+		initMasonry(ctx);
+	}
+};
+/* window.addEventListener("load", loadInitMasonry.bind(null, "")); */
+/* document.ready().then(loadInitMasonry.bind(null, "")); */
+/*!
  * replacement for inner html
  */
 var insertTextAsFragment = function (t, c, f) {
 	"use strict";
 	var d = document,
 	b = d.getElementsByTagName("body")[0] || "",
+	aC = "appendChild",
+	iH = "innerHTML",
+	pN = "parentNode",
 	g = function () {
 		return f && "function" === typeof f && f();
 	};
@@ -112,12 +629,12 @@ var insertTextAsFragment = function (t, c, f) {
 			var rg = d.createRange();
 			rg.selectNode(b);
 			var df = rg.createContextualFragment(t);
-			n.appendChild(df);
-			return c.parentNode ? c.parentNode.replaceChild(n, c) : c.innerHTML = t,
+			n[aC](df);
+			return c[pN] ? c[pN].replaceChild(n, c) : c[iH] = t,
 			g();
 		} else {
-			n.innerHTML = t;
-			return c.parentNode ? c.parentNode.replaceChild(d.createDocumentFragment.appendChild(n), c) : c.innerHTML = t,
+			n[iH] = t;
+			return c[pN] ? c[pN].replaceChild(d.createDocumentFragment[aC](n), c) : c[iH] = t,
 			g();
 		}
 	} catch (e) {
@@ -130,8 +647,7 @@ var insertTextAsFragment = function (t, c, f) {
  */
 var insertExternalHTML = function (a, u, f) {
 	"use strict";
-	var w = window,
-	c = document.querySelector(a) || "",
+	var c = document.querySelector(a) || "",
 	g = function (t, s) {
 		var q = function () {
 			return s && "function" === typeof s && s();
@@ -139,20 +655,18 @@ var insertExternalHTML = function (a, u, f) {
 		insertTextAsFragment(t, c, q);
 	},
 	k = function () {
-		if (w.Promise && w.fetch) {
-			fetch(u).then(function (r) {
-				if (!r.ok) {
-					throw new Error(r.statusText);
-				}
-				return r;
-			}).then(function (r) {
-				return r.text();
-			}).then(function (t) {
-				g(t, f);
-			}).catch (function (e) {
-				console.log("Error inserting content from file " + u, e);
-			});
-		}
+		fetch(u).then(function (r) {
+			if (!r.ok) {
+				throw new Error(r.statusText);
+			}
+			return r;
+		}).then(function (r) {
+			return r.text();
+		}).then(function (t) {
+			g(t, f);
+		}).catch (function (e) {
+			console.log("Error inserting content from file " + u, e);
+		});
 	};
 	if (c) {
 		console.log("triggered function: insertExternalHTML");
@@ -160,189 +674,306 @@ var insertExternalHTML = function (a, u, f) {
 	}
 };
 /*!
- * render navigation
+ * render navigation templates
  */
-(function () {
+var renderNavigation = function () {
 	"use strict";
-	var menuTemplate = document.querySelector("#template-navbar_links_local") || "",
-	menuList = document.querySelector("#navbar_links_local") || "";
-	if (menuTemplate && menuList) {
-		var menuTemplateHtml = menuTemplate.innerHTML || "",
-		menuHtml = new t(menuTemplateHtml),
-		menuJson = {
-			navbar_links_local: [{
-					"url": "#/home",
-					"text": "home"
-				}, {
-					"url": "#/about",
-					"text": "about"
-				}
-			]
-		};
-		var menuRendered = menuHtml.render(menuJson);
-		insertTextAsFragment(menuRendered, menuList);
-	}
-	var appContentId = "#app-content",
-	appContent = document.querySelector(appContentId) || "";
-	if (appContent) {
-		routie({
-			"": function () {
-				/* window.location.hash = "#/home"; */
-				insertExternalHTML(appContentId, "./includes/home.html");
-			},
-			"/home": function () {
-				insertExternalHTML(appContentId, "./includes/home.html");
-			},
-			"/about": function () {
-				insertExternalHTML(appContentId, "./includes/about.html");
-			},
-			"/*": function () {}
-		});
-	}
-}
-	());
-/*!
- * modified navbar.js - Minimal navigation script
- * by dnp_theme
- * Licensed under MIT-License
- * @see {@link https://gist.github.com/englishextra/76206ce67897113f5520e31a766fc5ce}
- * @see {@link https://github.com/thednp/navbar.js/blob/master/navbar.js}
- * passes jshint
- */
-(function () {
-	"use strict";
-	var bar = '[data-function="navbar"]',
-	containerClass = ".container",
-	rootStyle = document.documentElement.style || "",
-	supportTransitions = function () {
-		return "WebkitTransition" in rootStyle || "transition" in rootStyle || "OTransition" in rootStyle || "MsTransition" in rootStyle || "MozTransition" in rootStyle ? !0 : !1;
-	}
-	(),
-	on = function (element, eventName, handler) {
-		element.addEventListener(eventName, handler, false);
-	},
-	openClass = "is-open",
-	isPositioned = "is-repositioned",
-	close = function (element) {
-		if (element.classList.contains(openClass)) {
-			element.classList.remove(openClass);
-			setTimeout(function () {
-				element.classList.remove(isPositioned);
-			}, (supportTransitions ? 200 : 0));
-		}
-	},
-	Navbar = function (el, outsideClass) {
-		var menu = (typeof el === "object") ? el : document.querySelector(el);
-		if (menu) {
-			var items = menu.getElementsByTagName("li") || "";
-			if (items) {
-				var enterHandler = function () {
-					var that = this;
-					clearTimeout(that.timer);
-					if (!that.classList.contains(openClass)) {
-						that.timer = setTimeout(function () {
-								that.classList.add(openClass);
-								that.classList.add(isPositioned);
-								var siblings = that.parentNode.getElementsByTagName("li");
-								for (var h = 0; h < siblings.length; h++) {
-									if (siblings[h] !== that) {
-										close(siblings[h]);
-									}
-								}
-							}, 100);
+	var d = document,
+	qS = "querySelector",
+	qSA = "querySelectorAll",
+	navbarClass = '[data-function="navbar"]',
+	navbar = d[qS](navbarClass) || "",
+	outsideContainerClass = ".container",
+	is_active = "is-active",
+	cL = "classList",
+	navigationJsonUrl = "./json/navigation.json";
+	if (navbar) {
+		fetch(navigationJsonUrl).then(function (navigationJson) {
+			if (!navigationJson.ok) {
+				throw new Error(navigationJson.statusText);
+			}
+			return navigationJson;
+		}).then(function (navigationJson) {
+			return navigationJson.text();
+		}).then(function (navigationJson) {
+			var popularTemplate = d[qS]("#template_navbar_popular_pages") || "",
+			popularRender = d[qS]("#render_navbar_popular_pages") || "";
+			if (popularTemplate && popularRender) {
+				var popularHtml = popularTemplate.innerHTML || "",
+				renderPopularTemplate = new t(popularHtml);
+				var popularRendered = renderPopularTemplate.render(JSON.parse(navigationJson));
+				insertTextAsFragment(popularRendered, popularRender, function () {
+					var moreTemplate = d[qS]("#template_navbar_more_info") || "",
+					moreRender = d[qS]("#render_navbar_more_info") || "";
+					if (moreTemplate && moreRender) {
+						var moreHtml = moreTemplate.innerHTML || "",
+						renderMoreTemplate = new t(moreHtml);
+						var moreRendered = renderMoreTemplate.render(JSON.parse(navigationJson));
+						insertTextAsFragment(moreRendered, moreRender, function () {
+							Navbar(navbarClass, outsideContainerClass);
+							manageExternalLinks(navbar);
+						});
 					}
-				},
-				closeHandler = function () {
-					for (var i = 0, itemsLength = items.length; i < itemsLength; i++) {
-						if (items[i].getElementsByTagName("ul").length) {
-							close(items[i]);
+				});
+			}
+			var carouselTemplate = d[qS]("#template_b_carousel_items") || "",
+			carouselRender = d[qS]("#render_b_carousel_items") || "";
+			if (carouselTemplate && carouselRender) {
+				var carouselHtml = carouselTemplate.innerHTML || "",
+				renderCarouselTemplate = new t(carouselHtml),
+				carouselRendered = renderCarouselTemplate.render(JSON.parse(navigationJson));
+				insertTextAsFragment(carouselRendered, carouselRender, function () {
+					var imgs = d[qSA]("img[data-src]") || "",
+					setNewSrc = function (e) {
+						var _src = e.dataset.src || "";
+						if (_src) {
+							e.src = _src;
+						}
+						e[cL].add(is_active);
+					};
+					if (imgs) {
+						for (var i = 0, l = imgs.length; i < l; i += 1) {
+							setNewSrc(imgs[i]);
 						}
 					}
-				};
-				for (var i = 0, itemsLength = items.length; i < itemsLength; i++) {
-					if (items[i].getElementsByTagName("ul").length) {
-						on(items[i], "click", enterHandler);
-					}
-				}
-				window.addEventListener("hashchange", closeHandler);
-				var outside = document.querySelector(outsideClass) || "";
-				if (outside) {
-					outside.addEventListener("click", closeHandler);
-				}
+					var carousel = new Carousel({
+							"main": ".js-carousel",
+							"wrap": ".js-carousel__wrap",
+							"prev": ".js-carousel__prev",
+							"next": ".js-carousel__next"
+						});
+				});
 			}
-		}
-	};
-	return Navbar(bar, containerClass);
-}
-	());
-/*!
- * Carousel v1.0
- * @see {@link https://habrahabr.ru/post/327246/}
- * @see {@link https://codepen.io/iGetPass/pen/apZPMo}
- */
-(function () {
-	"use strict";
-	function Carousel(setting) {
-		var _this = this;
-		if (document.querySelector(setting.wrap) === null) {
-			console.error("Carousel not fount selector " + setting.wrap);
-			return;
-		}
-		var privates = {};
-		this.prev_slide = function () {
-			--privates.opt.position;
-			if (privates.opt.position < 0) {
-				privates.sel.wrap.classList.add('s-notransition');
-				privates.opt.position = privates.opt.max_position - 1;
-			}
-			privates.sel.wrap.style.transform = "translateX(-" + privates.opt.position + "00%)";
-		};
-		this.next_slide = function () {
-			++privates.opt.position;
-			if (privates.opt.position >= privates.opt.max_position) {
-				privates.opt.position = 0;
-			}
-			privates.sel.wrap.style.transform = "translateX(-" + privates.opt.position + "00%)";
-		};
-		privates.setting = setting;
-		privates.sel = {
-			"main": document.querySelector(privates.setting.main),
-			"wrap": document.querySelector(privates.setting.wrap),
-			"children": document.querySelector(privates.setting.wrap).children,
-			"prev": document.querySelector(privates.setting.prev),
-			"next": document.querySelector(privates.setting.next)
-		};
-		privates.opt = {
-			"position": 0,
-			"max_position": document.querySelector(privates.setting.wrap).children.length
-		};
-		if (privates.sel.prev !== null) {
-			privates.sel.prev.addEventListener('click', function () {
-				_this.prev_slide();
-			});
-		}
-		if (privates.sel.next !== null) {
-			privates.sel.next.addEventListener('click', function () {
-				_this.next_slide();
-			});
-		}
+		}).catch (function (err) {
+			console.log("Error inserting content from file " + navigationJsonUrl, err);
+		});
 	}
-	new Carousel({
-		"main": ".js-carousel",
-		"wrap": ".js-carousel__wrap",
-		"prev": ".js-carousel__prev",
-		"next": ".js-carousel__next"
-	});
-})();
+};
+/* window.addEventListener("load", renderNavigation); */
+document.ready().then(renderNavigation);
 /*!
- * init ui-totop
+ * fix panel with contents select on scroll
  */
-(function () {
+var nailUiPanelContentsSelect = function () {
 	"use strict";
 	var w = window,
 	d = document,
-	b = d.querySelector("body") || "",
-	h = d.querySelector("html") || "",
+	qS = "querySelector",
+	cL = "classList",
+	uiPanelNavigation = d[qS](".ui-panel-navigation") || "",
+	holderHero = d[qS](".holder-hero") || "",
+	criticalHeight = (uiPanelNavigation ? uiPanelNavigation.offsetHeight : 0) + (holderHero ? holderHero.offsetHeight : 0),
+	uiPanelContentsSelect = d[qS](".ui-panel-contents-select") || "",
+	is_active = "is-active",
+	handleUiPanelContentsSelect = function () {
+		if ((document.body.scrollTop || document.documentElement.scrollTop || 0) > criticalHeight) {
+			uiPanelContentsSelect[cL].add(is_active);
+		} else {
+			uiPanelContentsSelect[cL].remove(is_active);
+		}
+	};
+	if (uiPanelContentsSelect) {
+		w.addEventListener("scroll", handleUiPanelContentsSelect);
+	}
+};
+document.ready().then(nailUiPanelContentsSelect);
+/*!
+ * process routes, render contents select
+ */
+var processRoutes = function () {
+	"use strict";
+	var w = window,
+	d = document,
+	qS = "querySelector",
+	aC = "appendChild",
+	aEL = "addEventListener",
+	pN = "parentNode",
+	appContentId = "#app-content",
+	appContent = d[qS](appContentId) || "",
+	contentsTemplate = d[qS]("#template_contents_select") || "",
+	contentsSelect = d[qS]("#render_contents_select") || "",
+	routesJsonUrl = "./json/routes.json";
+	if (appContent) {
+		fetch(routesJsonUrl).then(function (routesJson) {
+			if (!routesJson.ok) {
+				throw new Error(routesJson.statusText);
+			}
+			return routesJson;
+		}).then(function (routesJson) {
+			return routesJson.text();
+		}).then(function (routesJson) {
+			var routesData = JSON.parse(routesJson),
+			onInsertion = function (text) {
+				LoadingSpinner.hide();
+				/* var h1 = contentsSelect || d[qS]("#h1") || "",
+				h1Pos = findPos(h1).top || 0;
+				if (h1) {
+					scroll2Top(h1Pos, 20000);
+				} else {
+					scroll2Top(0, 20000);
+				} */
+				scroll2Top(0, 20000);
+				document.title = text + (initialDocumentTitle ? " - " + initialDocumentTitle : "") + userBrowsingDetails;
+				for (var i = 0, l = contentsSelect.options.length; i < l; i += 1) {
+					if (contentsSelect.options[i].value === w.location.hash) {
+						contentsSelect.selectedIndex = i;
+						break;
+					}
+				}
+				manageExternalLinks(appContent[pN]);
+				manageDataSrcImg(appContent[pN]);
+				manageStaticSelect(appContent[pN]);
+				manageExpandingLayers(appContent[pN]);
+				loadInitMasonry(appContent[pN]);
+			};
+			if (routesData) {
+				var navigateOnHashChange = function () {
+					if (w.location.hash) {
+						var notfound = false;
+						for (var key in routesData.hashes) {
+							if (routesData.hashes.hasOwnProperty(key)) {
+								if (w.location.hash === routesData.hashes[key].href) {
+									notfound = true;
+									LoadingSpinner.show();
+									insertExternalHTML(appContentId, routesData.hashes[key].url, onInsertion.bind(null, routesData.hashes[key].text));
+									break;
+								}
+							}
+						}
+						if (false === notfound) {
+							var notfoundUrl = routesData.notfound.url,
+							notfoundText = routesData.notfound.text;
+							if (notfoundUrl && notfoundText) {
+								LoadingSpinner.show();
+								insertExternalHTML(appContentId, notfoundUrl, onInsertion.bind(null, notfoundText));
+							}
+						}
+					} else {
+						var homeUrl = routesData.home.url,
+						homeText = routesData.home.text;
+						if (homeUrl && homeText) {
+							LoadingSpinner.show();
+							insertExternalHTML(appContentId, homeUrl, onInsertion.bind(null, homeText));
+						}
+					}
+				};
+				navigateOnHashChange();
+				w[aEL]("hashchange", navigateOnHashChange);
+				var handleContentsSelect = function (_this) {
+					var h = _this.options[_this.selectedIndex].value || "";
+					if (h) {
+						w.location.hash = h;
+					}
+				};
+				/*!
+				 * insertTextAsFragment will remove event listener from select element,
+				 * so you will have to use inner html method
+				 */
+				if (contentsTemplate && contentsSelect) {
+					/* var contentsHtml = contentsTemplate.innerHTML || "",
+					renderContentsTemplate = new t(contentsHtml);
+					var contentsRendered = renderContentsTemplate.render(routesData);
+					contentsSelect.innerHTML = contentsRendered;
+					contentsSelect[aEL]("change", handleContentsSelect.bind(null, contentsSelect)); */
+				}
+				/*!
+				 * alternative way to generate select options
+				 * with document fragment
+				 */
+				var df = d.createDocumentFragment();
+				for (var key in routesData.hashes) {
+					if (routesData.hashes.hasOwnProperty(key)) {
+						var contentsOption = d.createElement("option");
+						contentsOption.value = routesData.hashes[key].href;
+						var contentsOptionText = routesData.hashes[key].text;
+						contentsOption.title = contentsOptionText;
+						var contentsOptionTextTruncated = truncString("" + contentsOptionText, 48);
+						contentsOption[aC](d.createTextNode(contentsOptionTextTruncated));
+						df[aC](contentsOption);
+					}
+				}
+				contentsSelect[aC](df);
+				contentsSelect[aEL]("change", handleContentsSelect.bind(null, contentsSelect));
+			}
+		}).catch (function (err) {
+			console.log("Error inserting content from file " + routesJsonUrl, err);
+		});
+	}
+};
+/* window.addEventListener("load", processRoutes); */
+document.ready().then(processRoutes);
+/*!
+ * observe mutations
+ * bind functions only for inserted DOM
+ * @param {String} ctx HTML Element class or id string
+ */
+var observeMutations = function (ctx) {
+	"use strict";
+	ctx = ctx || "";
+	if (ctx) {
+		var g = function (e) {
+			var f = function (m) {
+				console.log("mutations observer: " + m.type);
+				console.log(m.type, "target: " + m.target.tagName + ("." + m.target.className || "#" + m.target.id || ""));
+				console.log(m.type, "added: " + m.addedNodes.length + " nodes");
+				console.log(m.type, "removed: " + m.removedNodes.length + " nodes");
+				if ("childList" === m.type || "subtree" === m.type) {
+					mo.disconnect();
+					/* manageExternalLinks(ctx);
+					manageDataSrcImg(ctx);
+					manageStaticSelect(ctx);
+					manageExpandingLayers(ctx);
+					loadInitMasonry(ctx); */
+				}
+			};
+			for (var i = 0, l = e.length; i < l; i += 1) {
+				f(e[i]);
+			}
+		},
+		mo = new MutationObserver(g);
+		mo.observe(ctx, {
+			childList: !0,
+			subtree: !0,
+			attributes: !1,
+			characterData: !1
+		});
+	}
+};
+/*!
+ * apply changes to inserted DOM
+ */
+var updateInsertedDom = function () {
+	"use strict";
+	var w = window,
+	d = document,
+	qS = "querySelector",
+	h = w.location.hash || "",
+	pN = "parentNode",
+	/*!
+	 * because replace child is used in the first place
+	 * to insert new content, and if parent node doesnt exist
+	 * inner html method is applied,
+	 * the parent node should be observed, not the target
+	 * node for the insertion
+	 */
+	ctx = d[qS]("#app-content")[pN] || "";
+	if (ctx && h) {
+		console.log("triggered function: updateInsertedDom");
+		observeMutations(ctx);
+	}
+};
+window.addEventListener("load", updateInsertedDom);
+window.addEventListener("hashchange", updateInsertedDom);
+/*!
+ * init ui-totop
+ */
+var initUiTotop = function () {
+	"use strict";
+	var w = window,
+	d = document,
+	qS = "querySelector",
+	b = d[qS]("body") || "",
+	h = d[qS]("html") || "",
 	u = "ui-totop",
 	is_active = "is-active",
 	t = "Наверх",
@@ -351,10 +982,11 @@ var insertExternalHTML = function (a, u, f) {
 	aC = "appendChild",
 	cENS = "createElementNS",
 	sANS = "setAttributeNS",
+	aEL = "addEventListener",
 	k = function (_this) {
 		var a = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
 		c = _this.innerHeight || h.clientHeight || b.clientHeight || "",
-		e = d.querySelector("." + u) || "";
+		e = d[qS]("." + u) || "";
 		if (a && c && e) {
 			if (a > c) {
 				e[cL].add(is_active);
@@ -367,7 +999,7 @@ var insertExternalHTML = function (a, u, f) {
 		var h_a = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			scroll2Top(w, 400);
+			scroll2Top(0, 20000);
 		},
 		a = d[cE]("a"),
 		svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
@@ -378,19 +1010,20 @@ var insertExternalHTML = function (a, u, f) {
 		/* jshint +W107 */
 		a.title = t;
 		a[cL].add(u);
-		a.addEventListener("click", h_a);
+		a[aEL]("click", h_a);
 		svg[cL].add("ui-icon");
 		use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
 		svg[aC](use);
 		a[aC](svg);
 		b[aC](a);
-		w.addEventListener("scroll", k.bind(null, w));
+		w[aEL]("scroll", k.bind(null, w));
 	};
 	if (b) {
 		console.log("triggered function: initUiTotop");
 		g();
 	}
-}());
+};
+document.ready().then(initUiTotop);
 /*!
  * show page, finish ToProgress
  */
@@ -404,7 +1037,7 @@ var showPageFinishProgress = function () {
 	k = function () {
 		var si = setInterval(function () {
 				console.log("function showPageFinishProgress => started Interval");
-				if (imagesPreloaded) {
+				if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
 					clearInterval(si);
 					console.log("function showPageFinishProgress => si=" + si.value + "; imagesPreloaded=" + imagesPreloaded);
 					g();

@@ -18,7 +18,7 @@
 	color: inherit;
 	box-sizing: border-box;
 	font-size: 0.875em;
-	border: 0.063rem solid $color-hex-ui-accent;
+	border: 0.063rem solid $AccentColor;
 	box-shadow: 0.125rem 0.125rem 0.125rem 0 $color-rgba-ui-bar-shadow;
 	border-radius: 0;
 }
@@ -39,6 +39,6 @@
 /* .kamil-autocomplete li:focus, */
 .kamil-autocomplete li:active {
 	color: $color-hex-body-text;
-	background-color: $color-hex-ui-accent;
+	background-color: $AccentColor;
 }
 

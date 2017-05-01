@@ -2080,7 +2080,7 @@ body {
  */
 
 .is-active-loading-spinner .loading-spinner {
-	font-size: 0.500rem;
+	font-size: 0.500em;
 	position: fixed;
 	top: 50%;
 	left: 50%;
@@ -2089,7 +2089,7 @@ body {
 	border-top: 1em solid rgba(220, 220, 220, 0.5);
 	border-right: 1em solid rgba(220, 220, 220, 0.5);
 	border-bottom: 1em solid rgba(220, 220, 220, 0.5);
-	border-left: 1em solid rgba(240, 59, 76, 0.8);
+	border-left: 1em solid rgba(218, 53, 60, 0.8);
 	-webkit-transform: translateZ(0);
 	transform: translateZ(0);
 	-webkit-animation: load8 1.1s infinite linear;
@@ -3181,12 +3181,12 @@ u,
 
 ::-moz-selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(99, 170, 244, 0.9);
+	background-color: rgba(0, 99, 177, 0.9);
 }
 
 ::selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(99, 170, 244, 0.9);
+	background-color: rgba(0, 99, 177, 0.9);
 }
 
 ::-webkit-input-placeholder {
@@ -3862,7 +3862,7 @@ u,
 	height: 166px;
 }
 
-.col .holder-contents-select + canvas {
+.col .holder-pages-select + canvas {
 	margin-top: 1.500rem;
 }
 
@@ -3966,7 +3966,7 @@ u,
 	border-bottom-color: inherit;
 }
 
-/**
+/*!
  * buttons
  */
 
@@ -3979,7 +3979,7 @@ u,
 .col a.btn-larger {
 	height: 2.250rem;
 	font-size: 0.875rem;
-	font-weight: 700;
+	font-weight: 400;
 	padding-right: 0.688rem;
 	padding-left: 0.688rem;
 }
@@ -4088,23 +4088,26 @@ u,
 	display: block;
 }
 
-/**
- * contents selector
+/*!
+ * pages selecto
  */
 
-.col .holder-contents-select {
+.col .holder-pages-select {
 	display: block;
 	width: 100%;
 	text-align: left;
 }
 
-.col .holder-contents-select select {
+.col .holder-pages-select select {
 	display: inline-block;
 	width: 97%;
 	max-width: 17.000rem;
 	height: 2.250rem;
 	font-family: sans-serif;
 	font-size: 0.875rem;
+	overflow: hidden; 
+	white-space: nowrap; 
+	text-overflow: ellipsis;
 	color: inherit;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
@@ -4112,27 +4115,29 @@ u,
 	padding: 0;
 }
 
-.col .holder-contents-select select optgroup {
+.col .holder-pages-select select optgroup {
 	font-style: normal;
 	padding-left: 0.188rem;
 }
 
-/**
+/*!
  * fix select border for electron and nw
  */
 
-.col .holder-contents-select select,
-.col .holder-contents-select select:focus,
-.col .holder-contents-select select:hover,
-.col .holder-contents-select select:active {
+.col .holder-pages-select select,
+.col .holder-pages-select select:focus,
+.col .holder-pages-select select:hover,
+.col .holder-pages-select select:active {
 	border: 0.063rem solid #C3C3C3;
 }
 
-/**
+/*!
  * expanding layer
  */
 
 .col .btn-expand-hidden-layer {
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
 	cursor: pointer;
 }
 
@@ -4616,7 +4621,7 @@ u,
 	.btn-nav-menu,
 	.panel-nav-menu,
 	.btn-menu-more,
-	.holder-contents-select,
+	.holder-select,
 	.holder-search-form,
 	.col a.btn-larger,
 	.btn-expand-hidden-layer:after,

@@ -44,16 +44,16 @@
 						<div class="col col-1-1">
 							<div class="content">
 								<h2 id="a0">Содержание</h2>
-<div class="holder-contents-select">
-	<form method="get" action="#">
-		<p>
-			<span class="wrapper-contents-select"><select id="pages_select" tabindex="2">
-									<option value="#a0">Быстрый переход к&#160;главам&#8230;</option>
-									<option value="#a1">Процедура</option>
-			</select></span>
-		</p>
-	</form>
-</div>
+								<div class="holder-pages-select">
+									<form method="get" action="#">
+										<p>
+											<select id="pages-select" tabindex="2">
+												<option value="#a0" disabled="" selected="">Быстрый переход к&#160;главам&#8230;</option>
+												<option value="#a1">Процедура</option>
+											</select>
+										</p>
+									</form>
+								</div>
 								<div class="holder-btn-expand-hidden-layer"><h2 class="btn-expand-hidden-layer" id="a1">Процедура</h2></div><div class="holder-hidden-layer"><p>Придаточные предложения выделяются запятыми в&#160;том случае, когда оборот содержит дополнительную информацию о&#160;субъекте&#160;/ объекте:</p><p class="blockquote">Anna told me about her new job, which she&#8217;s enjoying a&#160;lot.</p><p>В данном примере объект <span class="bolder">a new job</span> уже самодостаточен и&#160;дополняется информацией <span class="bolder">which she&#8217;s enjoying a lot</span>.</p><p>А теперь сравните со&#160;следующим примером:</p><p class="blockquote">Grace works for a company that makes furniture.</p><p>Здесь <span class="bolder">a company</span> уточняется придаточным <span class="bolder">that makes furniture</span>, которое не&#160;несет дополнительной информации.</p><p>Сравните еще два примера:</p><p class="blockquote">1) We stayed at the Park Hotel, which a friend of ours recommended.</p><p class="blockquote">2) We stayed at the hotel (that) you recommended.</p></div>
 								<p class="address" role="contentinfo">(Raymond Murphy. English Grammar in Use Extra: Relative clauses 1: clauses with who/that/which. Fourth Edition. &#169;&#160;Cambridge University Press 2012, P. 190)</p>
 								<h2>Еще!</h2>
@@ -124,8 +124,8 @@
 		</div>
 		<a href="javascript:void(0);" class="btn-share-buttons" title="Поделиться"></a><!-- <div class="pluso" data-background="#ebebeb" data-options="big,square,line,vertical,counter,theme=06" data-services="vkontakte,odnoklassniki,moimir,facebook,pocket"></div> --><div class="ya-share2" data-services="vkontakte,odnoklassniki,moimir,facebook,pocket" data-counter=""></div>
 		<script>
-			;(function(){var loadJS=function(_src,callback){"use strict";var ref=document.getElementsByTagName("script")[0];var script=document.createElement("script");script.src=_src;script.async=true;ref.parentNode.insertBefore(script,ref);if(callback&&"function"===typeof callback){script.onload=callback;}return script;};("undefined"!==typeof window?window:this).loadJS=loadJS;}());
-			;(function(){var loadCSS=function(_href,callback,media,before){"use strict";var doc=document;var ss=doc.createElement("link");var ref;if(before){ref=before;}else{var refs=(doc.body||doc.getElementsByTagName("head")[0]).childNodes;ref=refs[refs.length-1];}var sheets=doc.styleSheets;ss.rel="stylesheet";ss.href=_href;ss.media="only x";if(callback&&"function"===typeof callback){ss.onload=callback;}function ready(cb){if(doc.body){return cb();}setTimeout(function(){ready(cb);});}ready(function(){ref.parentNode.insertBefore(ss,(before?ref:ref.nextSibling));});var onloadcssdefined=function(cb){var resolvedHref=ss.href;var i=sheets.length;while(i--){if(sheets[i].href===resolvedHref){return cb();}}setTimeout(function(){onloadcssdefined(cb);});};function loadCB(){if(ss.addEventListener){ss.removeEventListener("load",loadCB);}ss.media=media||"all";}if(ss.addEventListener){ss.addEventListener("load",loadCB);}ss.onloadcssdefined=onloadcssdefined;onloadcssdefined(loadCB);return ss;};("undefined"!==typeof window?window:this).loadCSS=loadCSS;}());
+			(function(){var loadJS=function(_src,callback){"use strict";var ref=document.getElementsByTagName("script")[0];var script=document.createElement("script");script.src=_src;script.async=true;ref.parentNode.insertBefore(script,ref);if(callback&&"function"===typeof callback){script.onload=callback;}return script;};("undefined"!==typeof window?window:this).loadJS=loadJS;}());
+			(function(){var loadCSS=function(_href,callback,media,before){"use strict";var doc=document;var ss=doc.createElement("link");var ref;if(before){ref=before;}else{var refs=(doc.body||doc.getElementsByTagName("head")[0]).childNodes;ref=refs[refs.length-1];}var sheets=doc.styleSheets;ss.rel="stylesheet";ss.href=_href;ss.media="only x";if(callback&&"function"===typeof callback){ss.onload=callback;}function ready(cb){if(doc.body){return cb();}setTimeout(function(){ready(cb);});}ready(function(){ref.parentNode.insertBefore(ss,(before?ref:ref.nextSibling));});var onloadcssdefined=function(cb){var resolvedHref=ss.href;var i=sheets.length;while(i--){if(sheets[i].href===resolvedHref){return cb();}}setTimeout(function(){onloadcssdefined(cb);});};function loadCB(){if(ss.addEventListener){ss.removeEventListener("load",loadCB);}ss.media=media||"all";}if(ss.addEventListener){ss.addEventListener("load",loadCB);}ss.onloadcssdefined=onloadcssdefined;onloadcssdefined(loadCB);return ss;};("undefined"!==typeof window?window:this).loadCSS=loadCSS;}());
 			if(/^(localhost|127.0.0.1)/.test(window.location.hostname||"")){loadCSS("../../libs/paper/css/bundle.css");}else{loadCSS("../../libs/paper/css/bundle.min.css");}
 		</script>
 		<script>
@@ -133,7 +133,7 @@
 				if(!window.requestAnimationFrame){loadJS("../../cdn/paulirish/js/rAF.fixed.min.js");}
 				if(!window.matchMedia){loadJS("../../cdn/paulirish/js/matchMedia.fixed.min.js");}
 				if("undefined"===typeof window.Element&&!("dataset"in document.documentElement)){loadJS("../../cdn/polyfills/0.1/js/dataset.fixed.min.js");}
-				if("undefined"===typeof window.Element&&!("classList"in document.documentElement)){if(navigator.userAgent.match(/Trident\/7\./)){loadJS("../../cdn/classlist-polyfill/d94a623c25bc69caf09f7089c0066fd65e760e82/classList.fixed.min.js");}}
+				if("undefined"===typeof window.Element&&!("classList"in document.documentElement)){if(navigator.userAgent.match(/Trident\/7\./)){loadJS("../../cdn/classlist-polyfill/1.1.20150312/js/classList.fixed.min.js");}}
 				if(!window.Promise){loadJS("../../cdn/promise-polyfill/2.0.2/js/promise.fixed.min.js");}
 				if(!window.fetch){loadJS("../../cdn/fetch/1.0.0/js/fetch.fixed.min.js");}
 				if(!self.WeakMap){loadJS("../../cdn/weakmap-polyfill/2.0.0/js/weakmap-polyfill.fixed.min.js");}

@@ -234,7 +234,7 @@ u,
 	font-family: "eaststreet";
 	content: "\E900";
 	font-size: 3.200rem;
-	background-color: $color-hex-ui-accent;
+	background-color: $AccentColor;
 } */
 
 .col .btn-larger .mi {
@@ -296,8 +296,8 @@ u,
 	margin: 0 auto;
 }
 
-/**
- * fixes to typeboost-uwp.css
+/*!
+ * fixes to typeboost1520.css
  * pxtoem.com
  * 6px	0.400em	40.0%	5pt
  * 7px	0.467em	46.7%	5pt
@@ -433,7 +433,7 @@ u,
 	height: 166px;
 }
 
-.col .holder-contents-select + canvas {
+.col .holder-pages-select + canvas {
 	margin-top: 1.333rem;
 }
 
@@ -524,7 +524,7 @@ u,
 	font-family: $font-family-local-monospace;
 }
 
-/**
+/*!
  * buttons
  */
 
@@ -537,7 +537,7 @@ u,
 .col a.btn-larger {
 	height: 2.400rem;
 	font-size: 0.933rem;
-	font-weight: 700;
+	font-weight: 400;
 	padding-right: 0.733rem;
 	padding-left: 0.733rem;
 }
@@ -661,23 +661,26 @@ u,
 	display: block /* !important */;
 }
 
-/**
- * contents selector
+/*!
+ * pages selecto
  */
 
-.col .holder-contents-select {
+.col .holder-pages-select {
 	display: block;
 	width: 100%;
 	text-align: left;
 }
 
-.col .holder-contents-select select {
+.col .holder-pages-select select {
 	display: inline-block;
 	width: 100%;
 	max-width: 18.133rem;
 	height: 2.400rem;
 	font-family: sans-serif;
 	font-size: 0.933rem;
+	overflow: hidden; 
+	white-space: nowrap; 
+	text-overflow: ellipsis;
 	color: inherit;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
@@ -685,27 +688,29 @@ u,
 	padding: 0;
 }
 
-.col .holder-contents-select select optgroup {
+.col .holder-pages-select select optgroup {
 	font-style: normal;
 	padding-left: 0.267rem;
 }
 
-/**
+/*!
  * fix select border for electron and nw
  */
 
-.col .holder-contents-select select,
-.col .holder-contents-select select:focus,
-.col .holder-contents-select select:hover,
-.col .holder-contents-select select:active {
+.col .holder-pages-select select,
+.col .holder-pages-select select:focus,
+.col .holder-pages-select select:hover,
+.col .holder-pages-select select:active {
 	border: 0.067rem solid $color-hex-divider;
 }
 
-/**
+/*!
  * expanding layer
  */
 
 .col .btn-expand-hidden-layer {
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
 	cursor: pointer;
 }
 
@@ -855,7 +860,7 @@ u,
 /* .btn-toggle-ui-sidepanel:focus, */
 .btn-toggle-ui-sidepanel:active {
 	color: $color-hex-body-text;
-	background-color: $color-hex-ui-accent;
+	background-color: $AccentColor;
 }
 
 .page.is-active-ui-sidepanel .btn-toggle-ui-sidepanel.mi-GlobalNavButton:before,
@@ -899,7 +904,7 @@ u,
 /* .ui-sidepanel-list a:focus, */
 .ui-sidepanel-list a:active {
 	color: $color-hex-body-text;
-	background-color: $color-hex-ui-accent;
+	background-color: $AccentColor;
 }
 
 /*!
@@ -917,7 +922,7 @@ u,
 	left: 6.400rem;
 	overflow-y: auto;
 	background-color: $color-hex-ui-menu-item-bg;
-	border: 0.067rem solid $color-hex-ui-accent;
+	border: 0.067rem solid $AccentColor;
 	transition: left 0.2s linear, visibility 0s, opacity 0.2s ease;
 	margin: 0;
 }
@@ -963,7 +968,7 @@ u,
 .btn-toggle-ui-menumore:focus, */
 .btn-toggle-ui-menumore:active {
 	color: $color-hex-body-text;
-	background-color: $color-hex-ui-accent;
+	background-color: $AccentColor;
 }
 
 .page.is-active-ui-sidepanel .btn-toggle-ui-menumore {
@@ -1003,7 +1008,7 @@ u,
 /* .ui-menumore-list a:focus, */
 .ui-menumore-list a:active {
 	color: $color-hex-body-text;
-	background-color: $color-hex-ui-accent;
+	background-color: $AccentColor;
 }
 
 /*!
@@ -1052,7 +1057,7 @@ u,
 /* .ui-sidebar a:focus, */
 .ui-sidebar a:active {
 	color: $color-hex-body-text;
-	background-color: $color-hex-ui-accent;
+	background-color: $AccentColor;
 }
 
 .ui-sidebar a.mi {
@@ -1265,8 +1270,8 @@ u,
 /* .holder-search-form button[type^=submit]:focus, */
 .holder-search-form button[type^=submit]:active {
 	color: $color-hex-body-text;
-	background-color: $color-hex-ui-accent;
-	border: 0.067rem solid $color-hex-ui-accent;
+	background-color: $AccentColor;
+	border: 0.067rem solid $AccentColor;
 }
 
 .holder-search-text:before,

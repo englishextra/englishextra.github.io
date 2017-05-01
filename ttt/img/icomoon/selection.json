@@ -4,6 +4,72 @@
     {
       "icon": {
         "paths": [
+          "M512 699.2l466.171-466.057 45.829 45.829-512 511.886-512-511.886 45.829-45.829 466.171 466.057z"
+        ],
+        "attrs": [
+          {}
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "grid": 0,
+        "tags": [
+          "ChevronDown"
+        ],
+        "colorPermutations": {
+          "240597612525251": [
+            {}
+          ]
+        }
+      },
+      "attrs": [
+        {}
+      ],
+      "properties": {
+        "order": 141,
+        "id": 10,
+        "name": "ChevronDown",
+        "prevSize": 32
+      },
+      "setIdx": 0,
+      "setId": 3,
+      "iconIdx": 0
+    },
+    {
+      "icon": {
+        "paths": [
+          "M902.114 195.429l121.886 121.314-512 511.829-512-511.829 121.886-121.314 390.114 390.057 390.114-390.057z"
+        ],
+        "attrs": [
+          {}
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "grid": 0,
+        "tags": [
+          "ChevronDownSmall"
+        ],
+        "colorPermutations": {
+          "240597612525251": [
+            {}
+          ]
+        }
+      },
+      "attrs": [
+        {}
+      ],
+      "properties": {
+        "order": 131,
+        "id": 9,
+        "name": "ChevronDownSmall",
+        "prevSize": 32
+      },
+      "setIdx": 0,
+      "setId": 3,
+      "iconIdx": 1
+    },
+    {
+      "icon": {
+        "paths": [
           "M766.5 977.5l-45 45-511-510.5 511-510.5 45 45-465 465.5 465 465.5z"
         ],
         "attrs": [
@@ -25,14 +91,14 @@
         {}
       ],
       "properties": {
-        "order": 101,
-        "id": 7,
+        "order": 132,
+        "id": 8,
         "name": "ChevronLeft",
         "prevSize": 32
       },
       "setIdx": 0,
       "setId": 3,
-      "iconIdx": 0
+      "iconIdx": 2
     },
     {
       "icon": {
@@ -58,75 +124,9 @@
         {}
       ],
       "properties": {
-        "order": 102,
-        "id": 6,
+        "order": 133,
+        "id": 7,
         "name": "ChevronRight",
-        "prevSize": 32
-      },
-      "setIdx": 0,
-      "setId": 3,
-      "iconIdx": 1
-    },
-    {
-      "icon": {
-        "paths": [
-          "M982.514 471.771l-45.029 45.029-393.486-393.486v898.971h-64v-898.971l-393.486 393.486-45.029-45.029 470.514-470.457 470.514 470.457z"
-        ],
-        "attrs": [
-          {}
-        ],
-        "isMulticolor": false,
-        "isMulticolor2": false,
-        "grid": 0,
-        "tags": [
-          "Up"
-        ],
-        "colorPermutations": {
-          "240597612525251": [
-            {}
-          ]
-        }
-      },
-      "attrs": [
-        {}
-      ],
-      "properties": {
-        "order": 103,
-        "id": 5,
-        "name": "Up",
-        "prevSize": 32
-      },
-      "setIdx": 0,
-      "setId": 3,
-      "iconIdx": 2
-    },
-    {
-      "icon": {
-        "paths": [
-          "M899.486 197.486l121.029 120.514-508.514 508.514-508.514-508.514 121.029-120.514 387.486 387.543 387.486-387.543z"
-        ],
-        "attrs": [
-          {}
-        ],
-        "isMulticolor": false,
-        "isMulticolor2": false,
-        "grid": 0,
-        "tags": [
-          "ChevronDownSmall"
-        ],
-        "colorPermutations": {
-          "240597612525251": [
-            {}
-          ]
-        }
-      },
-      "attrs": [
-        {}
-      ],
-      "properties": {
-        "order": 104,
-        "id": 4,
-        "name": "ChevronDownSmall",
         "prevSize": 32
       },
       "setIdx": 0,
@@ -157,8 +157,8 @@
         {}
       ],
       "properties": {
-        "order": 105,
-        "id": 3,
+        "order": 134,
+        "id": 6,
         "name": "ChevronRightSmall",
         "prevSize": 32
       },
@@ -190,14 +190,80 @@
         {}
       ],
       "properties": {
-        "order": 106,
-        "id": 2,
+        "order": 135,
+        "id": 5,
         "name": "englishextra",
         "prevSize": 32
       },
       "setIdx": 0,
       "setId": 3,
       "iconIdx": 5
+    },
+    {
+      "icon": {
+        "paths": [
+          "M1024 320h-1024v-64h1024v64zM1024 832h-1024v-64h1024v64zM1024 575.5h-1024v-63.5h1024v63.5z"
+        ],
+        "attrs": [
+          {}
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "grid": 0,
+        "tags": [
+          "GlobalNavButton"
+        ],
+        "colorPermutations": {
+          "240597612525251": [
+            {}
+          ]
+        }
+      },
+      "attrs": [
+        {}
+      ],
+      "properties": {
+        "order": 136,
+        "id": 4,
+        "name": "GlobalNavButton",
+        "prevSize": 32
+      },
+      "setIdx": 0,
+      "setId": 3,
+      "iconIdx": 6
+    },
+    {
+      "icon": {
+        "paths": [
+          "M128 448c9.029 0 17.314 1.657 25.029 5.029 7.657 3.314 14.4 7.943 20.229 13.771s10.4 12.571 13.771 20.229 5.029 16 5.029 25.029-1.657 17.314-5.029 25.029-7.943 14.4-13.771 20.229-12.571 10.4-20.229 13.771c-7.657 3.314-16 5.029-25.029 5.029s-17.314-1.657-25.029-5.029-14.4-7.943-20.229-13.771-10.4-12.571-13.771-20.229-5.029-16-5.029-25.029 1.657-17.314 5.029-25.029 7.943-14.4 13.771-20.229 12.571-10.4 20.229-13.771 16.057-5.029 25.029-5.029zM512 448c9.029 0 17.314 1.657 25.029 5.029s14.4 7.943 20.229 13.771 10.4 12.571 13.771 20.229 5.029 16 5.029 25.029-1.657 17.314-5.029 25.029-7.943 14.4-13.771 20.229-12.571 10.4-20.229 13.771-16 5.029-25.029 5.029-17.314-1.657-25.029-5.029-14.4-7.943-20.229-13.771-10.4-12.571-13.771-20.229-5.029-16-5.029-25.029 1.657-17.314 5.029-25.029 7.943-14.4 13.771-20.229 12.571-10.4 20.229-13.771 16.057-5.029 25.029-5.029zM896 448c9.029 0 17.314 1.657 25.029 5.029s14.4 7.943 20.229 13.771 10.4 12.571 13.771 20.229 5.029 16 5.029 25.029-1.657 17.314-5.029 25.029-7.943 14.4-13.771 20.229-12.571 10.4-20.229 13.771-16 5.029-25.029 5.029-17.314-1.657-25.029-5.029-14.4-7.943-20.229-13.771-10.4-12.571-13.771-20.229-5.029-16-5.029-25.029 1.657-17.314 5.029-25.029 7.943-14.4 13.771-20.229 12.571-10.4 20.229-13.771 16.057-5.029 25.029-5.029z"
+        ],
+        "attrs": [
+          {}
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "grid": 0,
+        "tags": [
+          "More"
+        ],
+        "colorPermutations": {
+          "240597612525251": [
+            {}
+          ]
+        }
+      },
+      "attrs": [
+        {}
+      ],
+      "properties": {
+        "order": 137,
+        "id": 3,
+        "name": "More",
+        "prevSize": 32
+      },
+      "setIdx": 0,
+      "setId": 3,
+      "iconIdx": 7
     },
     {
       "icon": {
@@ -223,14 +289,47 @@
         {}
       ],
       "properties": {
-        "order": 107,
-        "id": 1,
+        "order": 138,
+        "id": 2,
         "name": "odnoklassniki",
         "prevSize": 32
       },
       "setIdx": 0,
       "setId": 3,
-      "iconIdx": 6
+      "iconIdx": 8
+    },
+    {
+      "icon": {
+        "paths": [
+          "M982.514 471.771l-45.029 45.029-393.486-393.486v898.971h-64v-898.971l-393.486 393.486-45.029-45.029 470.514-470.457 470.514 470.457z"
+        ],
+        "attrs": [
+          {}
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "grid": 0,
+        "tags": [
+          "Up"
+        ],
+        "colorPermutations": {
+          "240597612525251": [
+            {}
+          ]
+        }
+      },
+      "attrs": [
+        {}
+      ],
+      "properties": {
+        "order": 139,
+        "id": 1,
+        "name": "Up",
+        "prevSize": 32
+      },
+      "setIdx": 0,
+      "setId": 3,
+      "iconIdx": 9
     },
     {
       "icon": {
@@ -256,14 +355,14 @@
         {}
       ],
       "properties": {
-        "order": 108,
+        "order": 140,
         "id": 0,
         "name": "vkontakte",
         "prevSize": 32
       },
       "setIdx": 0,
       "setId": 3,
-      "iconIdx": 7
+      "iconIdx": 10
     }
   ],
   "height": 1024,

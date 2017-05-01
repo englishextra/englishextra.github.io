@@ -132,6 +132,26 @@ var Cookies=(function(){function extend(){var i=0;var result={};for(;i<arguments
  */
 (function(root,name,make){root[name]=make();}("undefined"!==typeof window?window:this,"verge",function(){var xports={},win=typeof window!="undefined"&&window,doc=typeof document!="undefined"&&document,docElem=doc&&doc.documentElement,matchMedia=win.matchMedia||win.msMatchMedia,mq=matchMedia?function(q){return!!matchMedia.call(win,q).matches;}:function(){return false;},viewportW=xports.viewportW=function(){var a=docElem.clientWidth,b=win.innerWidth;return a<b?b:a;},viewportH=xports.viewportH=function(){var a=docElem.clientHeight,b=win.innerHeight;return a<b?b:a;};xports.mq=mq;xports.matchMedia=matchMedia?function(){return matchMedia.apply(win,arguments);}:function(){return{};};function viewport(){return{"width":viewportW(),"height":viewportH()};}xports.viewport=viewport;xports.scrollX=function(){return win.pageXOffset||docElem.scrollLeft;};xports.scrollY=function(){return win.pageYOffset||docElem.scrollTop;};function calibrate(coords,cushion){var o={};cushion=+cushion||0;o.width=(o.right=coords.right+cushion)-(o.left=coords.left-cushion);o.height=(o.bottom=coords.bottom+cushion)-(o.top=coords.top-cushion);return o;}function rectangle(el,cushion){el=el&&!el.nodeType?el[0]:el;if(!el||1!==el.nodeType)return false;return calibrate(el.getBoundingClientRect(),cushion);}xports.rectangle=rectangle;function aspect(o){o=null===o?viewport():1===o.nodeType?rectangle(o):o;var h=o.height,w=o.width;h=typeof h=="function"?h.call(o):h;w=typeof w=="function"?w.call(o):w;return w/h;}xports.aspect=aspect;xports.inX=function(el,cushion){var r=rectangle(el,cushion);return!!r&&r.right>=0&&r.left<=viewportW()&&(0!==el.offsetHeight);};xports.inY=function(el,cushion){var r=rectangle(el,cushion);return!!r&&r.bottom>=0&&r.top<=viewportH()&&(0!==el.offsetHeight);};xports.inViewport=function(el,cushion){var r=rectangle(el,cushion);return!!r&&r.bottom>=0&&r.right>=0&&r.top<=viewportH()&&r.left<=viewportW()&&(0!==el.offsetHeight);};return xports;}));
 /*!
+ * return image is loaded promise
+ * jsfiddle.net/englishextra/56pavv7d/
+ * @param {String|Object} s image path string or HTML DOM Image Object
+ * var m = document.querySelector("img") || "";
+ * var s = m.src || "";
+ * imagePromise(m).then(function (r) {
+ * alert(r);
+ * }).catch (function (err) {
+ * alert(err);
+ * });
+ * imagePromise(s).then(function (r) {
+ * alert(r);
+ * }).catch (function (err) {
+ * alert(err);
+ * });
+ * @see {@link https://gist.github.com/englishextra/3e95d301d1d47fe6e26e3be198f0675e}
+ * passes jshint
+ */
+(function(){"use strict";var imagePromise=function(s){if(window.Promise){return new Promise(function(y,n){var f=function(e,p){e.onload=function(){y(p);};e.onerror=function(){n(p);};e.src=p;};if("string"===typeof s){var a=new Image();f(a,s);}else{if("IMG"!==s.tagName){return Promise.reject();}else{if(s.src){f(s,s.src);}}}});}else{throw new Error("Promise is not in window");}};("undefined"===typeof window?"undefined"===typeof self?"undefined"===typeof global?this:global:self:window).imagePromise=imagePromise;}());
+/*!
  * safe way to handle console.log():
  * sitepoint.com/safe-console-log/
  */
@@ -146,8 +166,7 @@ if ("undefined" === typeof console) {
 /*!
  * add js class to html element
  */
-;(function setJsClassToDocumentElement(a){if(a){a.classList.add("js");}}(document.documentElement||""));
-/* jshint ignore:end */
+(function setJsClassToDocumentElement(a){if(a){a.classList.add("js");}}(document.documentElement||""));
 /*!
  * detect Node.js
  * github.com/lyrictenor/node-is-nwjs/blob/master/is-nodejs.js
@@ -1208,7 +1227,16 @@ var handleImgLightboxLinks = function (_this, ev) {
 		if (parseLink(_href).isAbsolute && !parseLink(_href).hasHTTP) {
 			_href = _href.replace(/^/, getHTTP(!0) + ":");
 		}
-		m.src = _href;
+		if (w.Promise) {
+			imagePromise(_href).then(function (r) {
+				m.src = _href;
+				console.log("manageDataSrcImg => imagePromise: loaded image:", r);
+			}).catch (function (err) {
+				console.log("manageDataSrcImg => imagePromise: cannot load image:", err);
+			});
+		} else {
+			m.src = _href;
+		}
 		evento.add(c, "click", handleImgLightboxContainer);
 		evento.add(w, "keyup", handleImgLightboxWindow);
 		setStyleDisplayBlock(c);
@@ -1331,7 +1359,7 @@ var manageDataSrcImg = function (ctx) {
 				_src = e[ds].src;
 			}
 			if (!e[cL].contains(is_active)) {
-				/* if (w.Promise) {
+				if (w.Promise) {
 					imagePromise(_src).then(function (r) {
 						e.src = _src;
 						console.log("manageDataSrcImg => imagePromise: loaded image:", r);
@@ -1340,8 +1368,7 @@ var manageDataSrcImg = function (ctx) {
 					});
 				} else {
 					e.src = _src;
-				} */
-				e.src = _src;
+				}
 				e[cL].add(is_active);
 			}
 		}
@@ -1471,7 +1498,7 @@ var handleStaticSelect = function (_this) {
 manageStaticSelect = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
-	var cls = "#pages_select",
+	var cls = "#pages-select",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	k = function () {
 		evento.add(a, "change", handleStaticSelect.bind(null, a));
@@ -2496,9 +2523,8 @@ docReady(initRoutie.bind(null, "#app-content"));
 var observeMutations = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
-	var w = window,
-	c = BALA.one(ctx) || "";
-	if (c) {
+	var w = window;
+	if (ctx) {
 		var g = function (e) {
 			var f = function (m) {
 				console.log("mutations observer: " + m.type);
@@ -2509,14 +2535,14 @@ var observeMutations = function (ctx) {
 					mo.disconnect();
 					manageYandexMapButton("#ymap");
 					manageDisqusButton();
-					manageExternalLinks(c);
-					manageLocalLinks(c);
-					manageDataTargetLinks(c);
-					manageImgLightboxLinks(c);
-					manageDataSrcImg(c);
-					manageDataQrcodeImg(c);
-					manageStaticSelect(c);
-					manageExpandingLayers(c);
+					manageExternalLinks(ctx);
+					manageLocalLinks(ctx);
+					manageDataTargetLinks(ctx);
+					manageImgLightboxLinks(ctx);
+					manageDataSrcImg(ctx);
+					manageDataQrcodeImg(ctx);
+					manageStaticSelect(ctx);
+					manageExpandingLayers(ctx);
 				}
 			};
 			/* e.forEach(f); */
@@ -2531,7 +2557,7 @@ var observeMutations = function (ctx) {
 			}
 		},
 		mo = new MutationObserver(g);
-		mo.observe(c, {
+		mo.observe(ctx, {
 			childList: !0,
 			subtree: !0,
 			attributes: !1,
@@ -2554,10 +2580,10 @@ var updateInsertedDom = function () {
 	 * the parent node should be observed, not the target
 	 * node for the insertion
 	 */
-	c = BALA.one("#app-content")[pN] || "";
-	if (c && h) {
+	ctx = BALA.one("#app-content")[pN] || "";
+	if (ctx && h) {
 		console.log("triggered function: updateInsertedDom");
-		observeMutations(c);
+		observeMutations(ctx);
 	}
 };
 evento.add(window, "load", updateInsertedDom);
@@ -2587,7 +2613,7 @@ var showPageFinishProgress = function () {
 	k = function () {
 		var si = requestInterval(function () {
 				console.log("function showPageFinishProgress => started Interval");
-				if (imagesPreloaded) {
+				if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
 					clearRequestInterval(si);
 					console.log("function showPageFinishProgress => si=" + si.value + "; imagesPreloaded=" + imagesPreloaded);
 					g();
