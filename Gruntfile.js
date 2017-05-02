@@ -19,7 +19,8 @@ module.exports = function (grunt) {
 				"libs/products/js/bundle.js",
 				"libs/search/js/bundle.js",
 				"libs/search/js/vendors.js",
-				"libs/serguei/js/bundle.js",
+				"libs/serguei-eaststreet/js/bundle.js",
+				"libs/serguei-webslides/js/bundle.js",
 				"libs/sitemap/js/bundle.js"
 			]
 		}
