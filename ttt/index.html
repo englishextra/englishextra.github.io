@@ -87,7 +87,7 @@
 						</li>
 						<li>
 							<a href="javascript:void(0);" title="Популярные">Popular&#160;
-							<svg class="navbar-icon pointer">
+							<svg class="navbar-icon pointer baseline">
 								<use xlink:href="#ui-icon-ChevronDownSmall"></use>
 							</svg> </a>
 							<ul id="render_navbar_popular_pages"></ul>
@@ -113,7 +113,7 @@
 								</li>
 								<li>
 									<a href="javascript:void(0);">Соцсети&#160;
-									<svg class="navbar-icon pointer">
+									<svg class="navbar-icon pointer baseline">
 										<use xlink:href="#ui-icon-ChevronRightSmall"></use>
 									</svg> </a>
 									<ul>
@@ -222,7 +222,9 @@
 					 || !window.Promise
 					 || !window.fetch
 					 || !document.querySelectorAll
-					 || !document.querySelector) {
+					 || !document.querySelector
+					 || !Function.prototype.bind
+					 ) {
 					if(/^(localhost|127.0.0.1)/.test(window.location.hostname||"")){loadJS("./js/polyfills.js");}else{loadJS("./js/polyfills.min.js");}
 				}
 		</script>

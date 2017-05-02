@@ -97,3 +97,9 @@ if(!window.matchMedia){window.matchMedia=function(){"use strict";var styleMedia=
  * passes jshint
  */
 (function(){for(var e=0,b=["ms","moz","webkit","o"],a=0;a<b.length&&!window.requestAnimationFrame;++a){window.requestAnimationFrame=window[b[a]+"RequestAnimationFrame"];window.cancelAnimationFrame=window[b[a]+"CancelAnimationFrame"]||window[b[a]+"CancelRequestAnimationFrame"];}if(!window.requestAnimationFrame){window.requestAnimationFrame=function(a,b){var c=(new Date()).getTime(),d=Math.max(0,16-(c-e)),f=window.setTimeout(function(){a(c+d);},d);e=c+d;return f;};}if(!window.cancelAnimationFrame){window.cancelAnimationFrame=function(a){clearTimeout(a);};}})();
+/*!
+ * Polyfill for Function.prototype.bind
+ * @see {@link https://gist.github.com/Daniel-Hug/5682738}
+ * @see {@link https://gist.github.com/englishextra/db0f22a60e59de86c19f174938c09529}
+ */
+if(!Function.prototype.bind){Function.prototype.bind=(function(){}).bind||function(b){if(typeof this!=="function"){throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");}function c(){}var a=[].slice,f=a.call(arguments,1),e=this,d=function(){return e.apply(this instanceof c?this:b||window,f.concat(a.call(arguments)));};c.prototype=this.prototype;d.prototype=new c();return d;};}

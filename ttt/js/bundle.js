@@ -96,6 +96,108 @@
  */
 (function(document,promise){if(typeof module!=="undefined")module.exports=promise;else document.ready=promise;})(window.document,function(chainVal){"use strict";var d=document,w=window,loaded=/^loaded|^i|^c/.test(d.readyState),DOMContentLoaded="DOMContentLoaded",load="load";return new Promise(function(resolve){if(loaded)return resolve(chainVal);function onReady(){resolve(chainVal);d.removeEventListener(DOMContentLoaded,onReady);w.removeEventListener(load,onReady);}d.addEventListener(DOMContentLoaded,onReady);w.addEventListener(load,onReady);});});
 /*!
+ * Behaves the same as setTimeout except uses requestAnimationFrame()
+ * where possible for better performance
+ * modified gist.github.com/joelambert/1002116
+ * the fallback function requestAnimFrame is incorporated
+ * gist.github.com/joelambert/1002116
+ * gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b
+ * jsfiddle.net/englishextra/dnyomc4j/
+ * @param {Object} fn The callback function
+ * @param {Int} delay The delay in milliseconds
+ * requestTimeout(fn,delay)
+ */
+var requestTimeout=function(fn,delay){var requestAnimFrame=(function(){return window.requestAnimationFrame||function(callback,element){window.setTimeout(callback,1000/60);};})(),start=new Date().getTime(),handle={};function loop(){var current=new Date().getTime(),delta=current-start;if(delta>=delay){fn.call();}else{handle.value=requestAnimFrame(loop);}}handle.value=requestAnimFrame(loop);return handle;};
+/*!
+ * Behaves the same as clearTimeout except uses cancelRequestAnimationFrame()
+ * where possible for better performance
+ * gist.github.com/joelambert/1002116
+ * gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b
+ * jsfiddle.net/englishextra/dnyomc4j/
+ * @param {Int|Object} handle The callback function
+ * clearRequestTimeout(handle)
+ */
+var clearRequestTimeout=function(handle){if(window.cancelAnimationFrame){window.cancelAnimationFrame(handle.value);}else{window.clearTimeout(handle);}};
+/*!
+ * Behaves the same as setInterval except uses requestAnimationFrame() where possible for better performance
+ * modified gist.github.com/joelambert/1002116
+ * the fallback function requestAnimFrame is incorporated
+ * gist.github.com/joelambert/1002116
+ * gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b
+ * jsfiddle.net/englishextra/sxrzktkz/
+ * @param {Object} fn The callback function
+ * @param {Int} delay The delay in milliseconds
+ * requestInterval(fn, delay);
+ */
+var requestInterval=function(fn,delay){var requestAnimFrame=(function(){return window.requestAnimationFrame||function(callback,element){window.setTimeout(callback,1000/60);};})(),start=new Date().getTime(),handle={};function loop(){handle.value=requestAnimFrame(loop);var current=new Date().getTime(),delta=current-start;if(delta>=delay){fn.call();start=new Date().getTime();}}handle.value=requestAnimFrame(loop);return handle;};
+/*!
+ * Behaves the same as clearInterval except uses cancelRequestAnimationFrame()
+ * where possible for better performance
+ * gist.github.com/joelambert/1002116
+ * gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b
+ * jsfiddle.net/englishextra/sxrzktkz/
+ * @param {Int|Object} handle function handle, or function
+ * clearRequestInterval(handle);
+ */
+var clearRequestInterval=function(handle){if(window.cancelAnimationFrame){window.cancelAnimationFrame(handle.value);}else{window.clearInterval(handle);}};
+/*!
+ * How can I check if a JS file has been included already?
+ * gist.github.com/englishextra/403a0ca44fc5f495400ed0e20bc51d47
+ * stackoverflow.com/questions/18155347/how-can-i-check-if-a-js-file-has-been-included-already
+ * @param {String} s path string
+ * scriptIsLoaded(s)
+ */
+var scriptIsLoaded=function(s){for(var b=document.getElementsByTagName("script")||"",a=0;a<b.length;a++)if(b[a].getAttribute("src")==s)return!0;return!1;};
+/*!
+ * loop over the Array
+ * stackoverflow.com/questions/18238173/javascript-loop-through-json-array
+ * gist.github.com/englishextra/b4939b3430da4b55d731201460d3decb
+ * @param {String} str any text string
+ * @param {Int} max a whole positive number
+ * @param {String} add any text string
+ * truncString(str,max,add)
+ */
+var truncString=function(str,max,add){add=add||"\u2026";return("string"===typeof str&&str.length>max?str.substring(0,max)+add:str);};
+/*!
+ * Check if string represents a valid HTML id
+ * gist.github.com/englishextra/b5aaef8b555a3ba84c68a6e251db149d
+ * jsfiddle.net/englishextra/z19tznau/
+ * @param {String} a text string
+ * @param {Int} [full] if true, returns with leading hash/number sign
+ * isValidId(a,full)
+ */
+var isValidId=function(a,full){return full?/^\#[A-Za-z][-A-Za-z0-9_:.]*$/.test(a)?!0:!1:/^[A-Za-z][-A-Za-z0-9_:.]*$/.test(a)?!0:!1;};
+/*!
+ * find element's position
+ * stackoverflow.com/questions/5598743/finding-elements-position-relative-to-the-document
+ * @param {Object} a an HTML element
+ * findPos(a).top
+ */
+var findPos=function(a){a=a.getBoundingClientRect();var b=document.body,c=document.documentElement;return{top:Math.round(a.top+(window.pageYOffset||c.scrollTop||b.scrollTop)-(c.clientTop||b.clientTop||0)),left:Math.round(a.left+(window.pageXOffset||c.scrollLeft||b.scrollLeft)-(c.clientLeft||b.clientLeft||0))};};
+/*!
+ * modified Unified URL parsing API in the browser and node
+ * github.com/wooorm/parse-link
+ * removed module check
+ * gist.github.com/englishextra/4e9a0498772f05fa5d45cfcc0d8be5dd
+ * gist.github.com/englishextra/2a7fdabd0b23a8433d5fc148fb788455
+ * jsfiddle.net/englishextra/fcdds4v6/
+ * @param {String} url URL string
+ * @param {Boolean} [true|false] if true, returns protocol:, :port, /pathname, ?search, ?query, #hash
+ * if set to false, returns protocol, port, pathname, search, query, hash
+ * alert(parseLink("http://localhost/search?s=t&v=z#dev").href|
+ * origin|host|port|hash|hostname|pathname|protocol|search|query|isAbsolute|isRelative|isCrossDomain);
+ */
+/*jslint bitwise: true */
+var parseLink=function(url,full){full=full||!1;return function(){var _r=function(s){return s.replace(/^(#|\?)/,"").replace(/\:$/,"");},l=location||"",_p=function(protocol){switch(protocol){case"http:":return full?":"+80:80;case"https:":return full?":"+443:443;default:return full?":"+l.port:l.port;}},_s=(0===url.indexOf("//")||!!~url.indexOf("://")),w=window.location||"",_o=function(){var o=w.protocol+"//"+w.hostname+(w.port?":"+w.port:"");return o||"";},_c=function(){var c=document.createElement("a");c.href=url;var v=c.protocol+"//"+c.hostname+(c.port?":"+c.port:"");return v!==_o();},a=document.createElement("a");a.href=url;return{href:a.href,origin:_o(),host:a.host||l.host,port:("0"===a.port||""===a.port)?_p(a.protocol):(full?a.port:_r(a.port)),hash:full?a.hash:_r(a.hash),hostname:a.hostname||l.hostname,pathname:a.pathname.charAt(0)!="/"?(full?"/"+a.pathname:a.pathname):(full?a.pathname:a.pathname.slice(1)),protocol:!a.protocol||":"==a.protocol?(full?l.protocol:_r(l.protocol)):(full?a.protocol:_r(a.protocol)),search:full?a.search:_r(a.search),query:full?a.search:_r(a.search),isAbsolute:_s,isRelative:!_s,isCrossDomain:_c(),hasHTTP:/^(http|https):\/\//i.test(url)?!0:!1};}();};
+/*jslint bitwise: false */
+/*!
+ * get current protocol - "http" or "https", else return ""
+ * @param {Boolean} [a] When set to "true", and the result is empty,
+ * the function will return "http"
+ * getHTTP(a)
+ */
+var getHTTP=function(a){return function(f){return"http:"===a?"http":"https:"===a?"https":f?"http":"";};}(window.location.protocol||"");
+/*!
  * safe way to handle console.log():
  * sitepoint.com/safe-console-log/
  */
@@ -185,63 +287,6 @@ if (document.title) {
 	document.title = document.title + userBrowsingDetails;
 }
 /*!
- * How can I check if a JS file has been included already?
- * gist.github.com/englishextra/403a0ca44fc5f495400ed0e20bc51d47
- * stackoverflow.com/questions/18155347/how-can-i-check-if-a-js-file-has-been-included-already
- * @param {String} s path string
- * scriptIsLoaded(s)
- */
-var scriptIsLoaded=function(s){for(var b=document.getElementsByTagName("script")||"",a=0;a<b.length;a++)if(b[a].getAttribute("src")==s)return!0;return!1;};
-/*!
- * loop over the Array
- * stackoverflow.com/questions/18238173/javascript-loop-through-json-array
- * gist.github.com/englishextra/b4939b3430da4b55d731201460d3decb
- * @param {String} str any text string
- * @param {Int} max a whole positive number
- * @param {String} add any text string
- * truncString(str,max,add)
- */
-var truncString=function(str,max,add){add=add||"\u2026";return("string"===typeof str&&str.length>max?str.substring(0,max)+add:str);};
-/*!
- * Check if string represents a valid HTML id
- * gist.github.com/englishextra/b5aaef8b555a3ba84c68a6e251db149d
- * jsfiddle.net/englishextra/z19tznau/
- * @param {String} a text string
- * @param {Int} [full] if true, returns with leading hash/number sign
- * isValidId(a,full)
- */
-var isValidId=function(a,full){return full?/^\#[A-Za-z][-A-Za-z0-9_:.]*$/.test(a)?!0:!1:/^[A-Za-z][-A-Za-z0-9_:.]*$/.test(a)?!0:!1;};
-/*!
- * find element's position
- * stackoverflow.com/questions/5598743/finding-elements-position-relative-to-the-document
- * @param {Object} a an HTML element
- * findPos(a).top
- */
-var findPos=function(a){a=a.getBoundingClientRect();var b=document.body,c=document.documentElement;return{top:Math.round(a.top+(window.pageYOffset||c.scrollTop||b.scrollTop)-(c.clientTop||b.clientTop||0)),left:Math.round(a.left+(window.pageXOffset||c.scrollLeft||b.scrollLeft)-(c.clientLeft||b.clientLeft||0))};};
-/*!
- * modified Unified URL parsing API in the browser and node
- * github.com/wooorm/parse-link
- * removed module check
- * gist.github.com/englishextra/4e9a0498772f05fa5d45cfcc0d8be5dd
- * gist.github.com/englishextra/2a7fdabd0b23a8433d5fc148fb788455
- * jsfiddle.net/englishextra/fcdds4v6/
- * @param {String} url URL string
- * @param {Boolean} [true|false] if true, returns protocol:, :port, /pathname, ?search, ?query, #hash
- * if set to false, returns protocol, port, pathname, search, query, hash
- * alert(parseLink("http://localhost/search?s=t&v=z#dev").href|
- * origin|host|port|hash|hostname|pathname|protocol|search|query|isAbsolute|isRelative|isCrossDomain);
- */
-/*jslint bitwise: true */
-var parseLink=function(url,full){full=full||!1;return function(){var _r=function(s){return s.replace(/^(#|\?)/,"").replace(/\:$/,"");},l=location||"",_p=function(protocol){switch(protocol){case"http:":return full?":"+80:80;case"https:":return full?":"+443:443;default:return full?":"+l.port:l.port;}},_s=(0===url.indexOf("//")||!!~url.indexOf("://")),w=window.location||"",_o=function(){var o=w.protocol+"//"+w.hostname+(w.port?":"+w.port:"");return o||"";},_c=function(){var c=document.createElement("a");c.href=url;var v=c.protocol+"//"+c.hostname+(c.port?":"+c.port:"");return v!==_o();},a=document.createElement("a");a.href=url;return{href:a.href,origin:_o(),host:a.host||l.host,port:("0"===a.port||""===a.port)?_p(a.protocol):(full?a.port:_r(a.port)),hash:full?a.hash:_r(a.hash),hostname:a.hostname||l.hostname,pathname:a.pathname.charAt(0)!="/"?(full?"/"+a.pathname:a.pathname):(full?a.pathname:a.pathname.slice(1)),protocol:!a.protocol||":"==a.protocol?(full?l.protocol:_r(l.protocol)):(full?a.protocol:_r(a.protocol)),search:full?a.search:_r(a.search),query:full?a.search:_r(a.search),isAbsolute:_s,isRelative:!_s,isCrossDomain:_c(),hasHTTP:/^(http|https):\/\//i.test(url)?!0:!1};}();};
-/*jslint bitwise: false */
-/*!
- * get current protocol - "http" or "https", else return ""
- * @param {Boolean} [a] When set to "true", and the result is empty,
- * the function will return "http"
- * getHTTP(a)
- */
-var getHTTP=function(a){return function(f){return"http:"===a?"http":"https:"===a?"https":f?"http":"";};}(window.location.protocol||"");
-/*!
  * loading spinner
  * dependent on setAutoClearedTimeout
  * gist.github.com/englishextra/24ef040fbda405f7468da70e4f3b69e7
@@ -271,8 +316,8 @@ var LoadingSpinner = function () {
 		hide: function (f, n) {
 			n = n || 500;
 			return function () {
-				var st = setTimeout(function () {
-						clearTimeout(st);
+				var st = requestTimeout(function () {
+						clearRequestTimeout(st);
 						b[cL].remove(is_active);
 						if (f && "function" === typeof f) {
 							f();
@@ -369,8 +414,7 @@ var manageExternalLinks = function (ctx) {
 		k();
 	}
 };
-/* window.addEventListener("load", manageExternalLinks.bind(null, "")); */
-/* document.ready().then(manageExternalLinks.bind(null, "")); */
+document.ready().then(manageExternalLinks.bind(null, ""));
 /*!
  * replace img src with data-src
  * @param {Object} [ctx] context HTML Element
@@ -438,8 +482,6 @@ var manageDataSrcImg = function (ctx) {
 		});
 	}
 };
-/* window.addEventListener("load", manageDataSrcImg.bind(null, "")); */
-/* document.ready().then(manageDataSrcImg.bind(null, "")); */
 /*!
  * add smooth scroll or redirection to static select options
  * @param {Object} [ctx] context HTML Element
@@ -476,8 +518,6 @@ var manageStaticSelect = function (ctx) {
 		k();
 	}
 };
-/* window.addEventListener("load", manageStaticSelect.bind(null, "")); */
-/* document.ready().then(manageStaticSelect.bind(null, "")); */
 /*!
  * add click event on hidden-layer show btn
  * @param {Object} [ctx] context HTML Element
@@ -516,8 +556,6 @@ var manageExpandingLayers = function (ctx) {
 		q();
 	}
 };
-/* window.addEventListener("load", manageExpandingLayers.bind(null, "")); */
-/* document.ready().then(manageExpandingLayers.bind(null, "")); */
 /*!
  * init Masonry grid
  * stackoverflow.com/questions/15160010/jquery-masonry-collapsing-on-initial-page-load-works-fine-after-clicking-home
@@ -551,10 +589,10 @@ initMasonry = function (ctx) {
 					percentPosition: !0
 				});
 			console.log("function initMasonry => initialised msnry");
-			si = setInterval(function () {
+			si = requestInterval(function () {
 					console.log("function initMasonry => started Interval");
 					if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
-						clearInterval(si);
+						clearRequestInterval(si);
 						console.log("function initMasonry => si=" + si.value + "; imagesPreloaded=" + imagesPreloaded);
 						msnry.layout();
 						console.log("function initMasonry => reinitialised msnry");
@@ -571,10 +609,10 @@ initMasonry = function (ctx) {
 					percentPosition: !0
 				});
 			console.log("function initMasonry => initialised pckry");
-			si = setInterval(function () {
+			si = requestInterval(function () {
 					console.log("function initMasonry => started Interval");
 					if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
-						clearInterval(si);
+						clearRequestInterval(si);
 						console.log("function initMasonry => si=" + si.value + "; imagesPreloaded=" + imagesPreloaded);
 						pckry.layout();
 						console.log("function initMasonry => reinitialised pckry");
@@ -587,8 +625,8 @@ initMasonry = function (ctx) {
 	if (a && c) {
 		console.log("triggered function: initMasonryGrid");
 		if ("undefined" !== typeof imagesPreloaded) {
-			var st = setTimeout(function () {
-					clearTimeout(st);
+			var st = requestTimeout(function () {
+					clearRequestTimeout(st);
 					g();
 				}, 100);
 		} else {
@@ -607,8 +645,6 @@ loadInitMasonry = function (ctx) {
 		initMasonry(ctx);
 	}
 };
-/* window.addEventListener("load", loadInitMasonry.bind(null, "")); */
-/* document.ready().then(loadInitMasonry.bind(null, "")); */
 /*!
  * replacement for inner html
  */
@@ -790,8 +826,10 @@ var processRoutes = function () {
 	pN = "parentNode",
 	appContentId = "#app-content",
 	appContent = d[qS](appContentId) || "",
+	appContentParent = appContent[pN] || "",
 	contentsTemplate = d[qS]("#template_contents_select") || "",
-	contentsSelect = d[qS]("#render_contents_select") || "",
+	contentsRender = d[qS]("#render_contents_select") || "",
+	contentsSelect = d[qS](".contents-select") || "",
 	routesJsonUrl = "./json/routes.json";
 	if (appContent) {
 		fetch(routesJsonUrl).then(function (routesJson) {
@@ -820,11 +858,14 @@ var processRoutes = function () {
 						break;
 					}
 				}
-				manageExternalLinks(appContent[pN]);
-				manageDataSrcImg(appContent[pN]);
-				manageStaticSelect(appContent[pN]);
-				manageExpandingLayers(appContent[pN]);
-				loadInitMasonry(appContent[pN]);
+				/*!
+				 * cache parent node beforehand
+				 */
+				manageExternalLinks(appContentParent);
+				manageDataSrcImg(appContentParent);
+				manageStaticSelect(appContentParent);
+				manageExpandingLayers(appContentParent);
+				loadInitMasonry(appContentParent);
 			};
 			if (routesData) {
 				var navigateOnHashChange = function () {
@@ -865,35 +906,34 @@ var processRoutes = function () {
 						w.location.hash = h;
 					}
 				};
-				/*!
-				 * insertTextAsFragment will remove event listener from select element,
-				 * so you will have to use inner html method
-				 */
-				if (contentsTemplate && contentsSelect) {
+				if (contentsTemplate && contentsRender) {
+					/*!
+					 * insertTextAsFragment will remove event listener from select element,
+					 * so you will have to use inner html method
+					 */
 					/* var contentsHtml = contentsTemplate.innerHTML || "",
 					renderContentsTemplate = new t(contentsHtml);
 					var contentsRendered = renderContentsTemplate.render(routesData);
-					contentsSelect.innerHTML = contentsRendered;
-					contentsSelect[aEL]("change", handleContentsSelect.bind(null, contentsSelect)); */
-				}
-				/*!
-				 * alternative way to generate select options
-				 * with document fragment
-				 */
-				var df = d.createDocumentFragment();
-				for (var key in routesData.hashes) {
-					if (routesData.hashes.hasOwnProperty(key)) {
-						var contentsOption = d.createElement("option");
-						contentsOption.value = routesData.hashes[key].href;
-						var contentsOptionText = routesData.hashes[key].text;
-						contentsOption.title = contentsOptionText;
-						var contentsOptionTextTruncated = truncString("" + contentsOptionText, 48);
-						contentsOption[aC](d.createTextNode(contentsOptionTextTruncated));
-						df[aC](contentsOption);
+					contentsRender.innerHTML = contentsRendered; */
+					/*!
+					 * alternative way to generate select options
+					 * with document fragment
+					 */
+					var df = d.createDocumentFragment();
+					for (var key in routesData.hashes) {
+						if (routesData.hashes.hasOwnProperty(key)) {
+							var contentsOption = d.createElement("option");
+							contentsOption.value = routesData.hashes[key].href;
+							var contentsOptionText = routesData.hashes[key].text;
+							contentsOption.title = contentsOptionText;
+							var contentsOptionTextTruncated = truncString("" + contentsOptionText, 48);
+							contentsOption[aC](d.createTextNode(contentsOptionTextTruncated));
+							df[aC](contentsOption);
+						}
 					}
+					contentsRender[aC](df);
+					contentsSelect[aEL]("change", handleContentsSelect.bind(null, contentsSelect));
 				}
-				contentsSelect[aC](df);
-				contentsSelect[aEL]("change", handleContentsSelect.bind(null, contentsSelect));
 			}
 		}).catch (function (err) {
 			console.log("Error inserting content from file " + routesJsonUrl, err);
@@ -1035,10 +1075,10 @@ var showPageFinishProgress = function () {
 		/* progressBar.complete(); */
 	},
 	k = function () {
-		var si = setInterval(function () {
+		var si = requestInterval(function () {
 				console.log("function showPageFinishProgress => started Interval");
 				if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
-					clearInterval(si);
+					clearRequestInterval(si);
 					console.log("function showPageFinishProgress => si=" + si.value + "; imagesPreloaded=" + imagesPreloaded);
 					g();
 				}

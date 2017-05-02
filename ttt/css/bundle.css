@@ -2429,6 +2429,10 @@ body {
 	margin-top: 1.333rem;
 }
 
+.navbar li a .navbar-icon.pointer.baseline {
+	margin-top: 1.400rem;
+}
+
 .navbar li a .navbar-icon.action {
 	float: right;
 	width: 1.333rem;
@@ -2706,54 +2710,6 @@ body {
 	overflow-x: auto;
 	overflow-y: hidden;
 }
-
-/* .masonry-grid-wrapper h1 {
-	font-family: $font-family-local-sans-regular;
-	font-weight: 400;
-	font-size: 2.400rem;
-	line-height: 3.200rem;
-	text-align: center;
-	margin: 1.333rem 3.000%;
-}
-
-.masonry-grid-wrapper .holder-contents-select {
-	display: block;
-	width: 100%;
-	text-align: center;
-	margin: 0 0 1.500rem 0;
-}
-
-.masonry-grid-wrapper .holder-contents-select select {
-	display: inline-block;
-	width: 91%;
-	max-width: 18.133rem;
-	height: 2.400rem;
-	font-family: sans-serif;
-	font-size: 0.875rem;
-	color: inherit;
-	background-color: #FFFFFF;
-	border: 0.067rem solid #FFFFFF;
-	-webkit-tap-highlight-color: transparent;
-	outline: none;
-	margin: 0;
-	padding: 0;
-}
-
-.masonry-grid-wrapper .holder-contents-select select optgroup {
-	font-style: normal;
-	padding-left: 0.200rem;
-} */
-
-/*!
- * fix select border for electron and nw
- */
-
-/* .masonry-grid-wrapper .holder-contents-select select,
-.masonry-grid-wrapper .holder-contents-select select:hover,
-.masonry-grid-wrapper .holder-contents-select select:active,
-.masonry-grid-wrapper .holder-contents-select select:focus {
-	border: 0.067rem solid #FFFFFF;
-} */
 
 .masonry-grid {
 	display: block;
@@ -3839,11 +3795,13 @@ u,
 	text-overflow: ellipsis;
 	color: inherit;
 	background-color: #F2F2F2;
+	-webkit-appearance: none;
+	-moz-appearance: none;
 	appearance: none;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	margin: 0;
-	padding: 0 0 0 0.250rem;
+	padding: 0 0 0 0.267rem;
 }
 
 .col .holder-pages-select select::-ms-expand {
@@ -3851,8 +3809,8 @@ u,
 }
 
 .col .holder-pages-select select::-ms-value {
-    background: none;
-	color: inherit;
+	background: none;
+	color: #191919;
 }
 
 .col .holder-pages-select select optgroup {
@@ -3891,7 +3849,7 @@ u,
 	background-position: 0 0;
 	background-repeat: no-repeat;
 	background-size: 0.400em 0.400em;
-	margin-bottom: 0.200em;
+	margin-bottom: 0.167em;
 	margin-left: 0.200em;
 }
 

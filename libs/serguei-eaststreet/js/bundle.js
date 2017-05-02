@@ -451,6 +451,13 @@ var fixEnRuTypo=function(e,a,b){var c="";if("ru"==a&&"en"==b){a='\u0430\u0431\u0
  */
 var ajaxLoadHTML=function(u,f,e){var w=window,x=w.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");x.overrideMimeType("text/html;charset=utf-8");x.open("GET",u,!0);x.withCredentials=!1;x.onreadystatechange=function(){if(x.status=="404"){if(e&&"function"===typeof e){e();}console.log("Error XMLHttpRequest-ing file",x.status);return!1;}else if(x.readyState==4&&x.status==200&&x.responseText){if(f&&"function"===typeof f){f(x.responseText);}}};x.send(null);};
 /*!
+ * remove element from DOM
+ * gist.github.com/englishextra/d2a286f64d404052fbbdac1e416ab808
+ * @param {Object} e an Element to remove
+ * removeElement(e)
+ */
+var removeElement=function(e){var r="remove",pN="parentNode";if(e){if("undefined"!==typeof e[r]){return e[r]();}else{return e[pN]&&e[pN].removeChild(e);}}};
+/*!
  * remove all children of parent element
  * gist.github.com/englishextra/da26bf39bc90fd29435e8ae0b409ddc3
  * @param {Object} e parent HTML Element
@@ -494,18 +501,6 @@ var setStyleDisplayNone=function(a){return function(){if(a){a.style.display="non
  */
 var setStyleOpacity=function(a,n){n=n||1;return function(){if(a){a.style.opacity=n;}}();};
 /*!
- * set style visibility visible of an element
- * @param {Object} a an HTML Element
- * setStyleVisibilityVisible(a)
- */
-var setStyleVisibilityVisible=function(a){return function(){if(a){a.style.visibility="visible";}}();};
-/*!
- * set style visibility hidden of an element
- * @param {Object} a an HTML Element
- * setStyleVisibilityHidden(a)
- */
-var setStyleVisibilityHidden=function(a){return function(){if(a){a.style.visibility="hidden";}}();};
-/*!
  * Check if string represents a valid HTML id
  * gist.github.com/englishextra/b5aaef8b555a3ba84c68a6e251db149d
  * jsfiddle.net/englishextra/z19tznau/
@@ -535,12 +530,6 @@ var scrollToElement=function(a){if(a){if(window.zenscroll){zenscroll.to(a);}else
  * scrollToTop()
  */
 var scrollToTop=function(){var w=window;return w.zenscroll?zenscroll.toY(0):w.scroll2Top?scroll2Top(w,400):w.scroll(0,0);};
-/*!
- * change window hash
- * @param {String} a hash string without hash sign
- * changeHash(a)
- */
-var changeHash=function(a){return function(){if(a){window.location.hash="#"+("#"===a[0]?a.substr(1):a);}}();};
 /*!
  * change document location
  * @param {String} a URL / path string
@@ -1468,10 +1457,9 @@ var manageDataQrcodeImg = function (ctx) {
 loadManageDataQrcodeImg = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
-	var w = window,
-	js = "../cdn/qrjs2/0.1.2/js/qrjs2.fixed.min.js";
+	var js = "../cdn/qrjs2/0.1.2/js/qrjs2.fixed.min.js";
 	if (!scriptIsLoaded(js)) {
-		loadJS(js, manageDataQrcodeImg.bind(null, ""));
+		loadJS(js, manageDataQrcodeImg.bind(null, ctx));
 	} else {
 		manageDataQrcodeImg(ctx);
 	}
@@ -1741,8 +1729,7 @@ manageLocationQrCodeImg = function () {
 },
 loadManageLocationQrCodeImg = function () {
 	"use strict";
-	var w = window,
-	js = "../cdn/qrjs2/0.1.2/js/qrjs2.fixed.min.js";
+	var js = "../cdn/qrjs2/0.1.2/js/qrjs2.fixed.min.js";
 	if (!scriptIsLoaded(js)) {
 		loadJS(js, manageLocationQrCodeImg);
 	} else {
@@ -2389,6 +2376,7 @@ var initRoutie = function () {
 	var appContentId = "#app-content",
 	appContent = BALA.one(appContentId) || "",
 	pN = "parentNode",
+	appContentParent = appContent[pN] || "",
 	loadVirtualPage = function (c, h, f) {
 		if (c && h) {
 			LoadingSpinner.show();
@@ -2404,15 +2392,15 @@ var initRoutie = function () {
 		LoadingSpinner.hide(scrollToTop);
 		d.title = initialDocumentTitle + "" + t + userBrowsingDetails;
 		manageYandexMapButton("#ymap");
-		manageDisqusButton(appContent[pN]);
-		manageExternalLinks(appContent[pN]);
-		manageLocalLinks(appContent[pN]);
-		manageDataTargetLinks(appContent[pN]);
-		manageImgLightboxLinks(appContent[pN]);
-		manageDataSrcImg(appContent[pN]);
-		manageDataQrcodeImg(appContent[pN]);
-		manageStaticSelect(appContent[pN]);
-		manageExpandingLayers(appContent[pN]);
+		manageDisqusButton(appContentParent);
+		manageExternalLinks(appContentParent);
+		manageLocalLinks(appContentParent);
+		manageDataTargetLinks(appContentParent);
+		manageImgLightboxLinks(appContentParent);
+		manageDataSrcImg(appContentParent);
+		loadManageDataQrcodeImg(appContentParent);
+		manageStaticSelect(appContentParent);
+		manageExpandingLayers(appContentParent);
 	},
 	loadNotFoundPage = function (a) {
 		var c = BALA.one(a) || "",
@@ -2433,17 +2421,6 @@ var initRoutie = function () {
 			appendFragment(s, c);
 			reinitVirtualPage(" - Нет такой страницы");
 		}
-	},
-	redirectToDefaultPage = function (h, t) {
-		t = t || "";
-		if (h) {
-			reinitVirtualPage("" + t);
-			changeHash(h);
-			console.log("function routie.redirectToDefaultPage => changed window hash: #" + h);
-			/* if (history.pushState) {
-				history.replaceState(null, null, "#" + h);
-			} */
-		}
 	};
 	/*!
 	 * init routie
@@ -2455,7 +2432,9 @@ var initRoutie = function () {
 		console.log("triggered function: routie");
 		routie({
 			"": function () {
-				redirectToDefaultPage("/home");
+				loadVirtualPage(appContentId, "./includes/home.html", function () {
+					reinitVirtualPage(" - Начало");
+				});
 			},
 			"/home": function () {
 				loadVirtualPage(appContentId, "./includes/home.html", function () {
@@ -2537,7 +2516,7 @@ var observeMutations = function (ctx) {
 					manageDataTargetLinks(ctx);
 					manageImgLightboxLinks(ctx);
 					manageDataSrcImg(ctx);
-					manageDataQrcodeImg(ctx);
+					loadManageDataQrcodeImg(ctx);
 					manageStaticSelect(ctx);
 					manageExpandingLayers(ctx); */
 				}
