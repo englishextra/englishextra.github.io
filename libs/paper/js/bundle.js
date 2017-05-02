@@ -666,28 +666,6 @@ var manageLocalLinks = function (ctx) {
 };
 evento.add(window, "load", manageLocalLinks.bind(null, ""));
 /*!
- * init fastclick
- * github.com/ftlabs/fastclick
- */
-/* var initFastClick = function () {
-	"use strict";
-	var w = window,
-	b = BALA.one("body") || "";
-	if (w.FastClick) {
-		console.log("triggered function: initFastClick");
-		FastClick.attach(b);
-	}
-},
-loadInitFastClick = function () {
-	"use strict";
-	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-			ajaxLoadTriggerJS("/cdn/fastclick/1.0.6/js/fastclick.fixed.min.js", initFastClick);
-		}
-	}
-};
-docReady(loadInitFastClick); */
-/*!
  * loading spinner
  * dependent on setAutoClearedTimeout
  * gist.github.com/englishextra/24ef040fbda405f7468da70e4f3b69e7

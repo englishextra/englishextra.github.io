@@ -463,28 +463,6 @@ var manageLocalLinks = function (ctx) {
 };
 evento.add(window, "load", manageLocalLinks.bind(null, ""));
 /*!
- * init fastclick
- * github.com/ftlabs/fastclick
- */
-/* var initFastClick = function () {
-	"use strict";
-	var w = window,
-	b = BALA.one("body") || "";
-	if (w.FastClick) {
-		console.log("triggered function: initFastClick");
-		FastClick.attach(b);
-	}
-},
-loadInitFastClick = function () {
-	"use strict";
-	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-			ajaxLoadTriggerJS("/cdn/fastclick/1.0.6/js/fastclick.fixed.min.js", initFastClick);
-		}
-	}
-};
-docReady(loadInitFastClick); */
-/*!
  * init qr-code
  * stackoverflow.com/questions/12777622/how-to-use-enquire-js
  */

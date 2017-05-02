@@ -3843,7 +3843,7 @@ u,
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	margin: 0;
-	padding: 0;
+	padding: 0 0 0 0.250rem;
 }
 
 .col .holder-pages-select select::-ms-expand {

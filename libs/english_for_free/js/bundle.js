@@ -521,28 +521,6 @@ var manageLocalLinks = function (ctx) {
 };
 evento.add(window, "load", manageLocalLinks.bind(null, ""));
 /*!
- * init fastclick
- * github.com/ftlabs/fastclick
- */
-/* var initFastClick = function () {
-	"use strict";
-	var w = window,
-	b = BALA.one("body") || "";
-	if (w.FastClick) {
-		console.log("triggered function: initFastClick");
-		FastClick.attach(b);
-	}
-},
-loadInitFastClick = function () {
-	"use strict";
-	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-			ajaxLoadTriggerJS("/cdn/fastclick/1.0.6/js/fastclick.fixed.min.js", initFastClick);
-		}
-	}
-};
-docReady(loadInitFastClick); */
-/*!
  * init superbox
  * If you want coords relative to the parent node, use element.offsetTop.
  * Add element.scrollTop if you want to take the parent scrolling into account.

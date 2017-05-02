@@ -555,7 +555,7 @@ initMasonry = function (ctx) {
 					console.log("function initMasonry => started Interval");
 					if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
 						clearInterval(si);
-						console.log("function initMasonry => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
+						console.log("function initMasonry => si=" + si.value + "; imagesPreloaded=" + imagesPreloaded);
 						msnry.layout();
 						console.log("function initMasonry => reinitialised msnry");
 					}
@@ -575,7 +575,7 @@ initMasonry = function (ctx) {
 					console.log("function initMasonry => started Interval");
 					if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
 						clearInterval(si);
-						console.log("function initMasonry => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
+						console.log("function initMasonry => si=" + si.value + "; imagesPreloaded=" + imagesPreloaded);
 						pckry.layout();
 						console.log("function initMasonry => reinitialised pckry");
 					}

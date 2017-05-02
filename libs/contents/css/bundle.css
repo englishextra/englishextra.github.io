@@ -864,7 +864,7 @@ template {
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	margin: 0;
-	padding: 0;
+	padding: 0 0 0 0.250rem;
 }
 
 .masonry-grid-wrapper .holder-contents-select select::-ms-expand {
@@ -878,7 +878,7 @@ template {
 
 .masonry-grid-wrapper .holder-contents-select select optgroup {
 	font-style: normal;
-	padding-left: 0.188rem;
+	padding-left: 0.250rem;
 }
 
 /*!

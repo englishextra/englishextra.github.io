@@ -616,28 +616,6 @@ var manageLocalLinks = function (ctx) {
 };
 evento.add(window, "load", manageLocalLinks.bind(null, ""));
 /*!
- * init fastclick
- * github.com/ftlabs/fastclick
- */
-/* var initFastClick = function () {
-	"use strict";
-	var w = window,
-	b = BALA.one("body") || "";
-	if (w.FastClick) {
-		console.log("triggered function: initFastClick");
-		FastClick.attach(b);
-	}
-},
-loadInitFastClick = function () {
-	"use strict";
-	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-			ajaxLoadTriggerJS("/cdn/fastclick/1.0.6/js/fastclick.fixed.min.js", initFastClick);
-		}
-	}
-};
-docReady(loadInitFastClick); */
-/*!
  * init disqus_thread and Masonry / Packery
  * add Draggabilly to Packarey
  * gist.github.com/englishextra/5e423ff34f67982f017b
@@ -675,7 +653,7 @@ var initMasonryDisqus = function () {
 						console.log("function initMasonryDisqus => started Interval");
 						if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
 							clearRequestInterval(si);
-							console.log("function initMasonryDisqus => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
+							console.log("function initMasonryDisqus => si=" + si.value + "; imagesPreloaded=" + imagesPreloaded);
 							msnry.layout();
 							console.log("function initMasonryDisqus => reinitialised msnry");
 						}
@@ -703,7 +681,7 @@ var initMasonryDisqus = function () {
 						console.log("function initMasonryDisqus => started Interval");
 						if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
 							clearRequestInterval(si);
-							console.log("function initMasonryDisqus => si=" + si + "; imagesPreloaded=" + imagesPreloaded);
+							console.log("function initMasonryDisqus => si=" + si.value + "; imagesPreloaded=" + imagesPreloaded);
 							pckry.layout();
 							console.log("function initMasonryDisqus => reinitialised pckry");
 						}
@@ -748,7 +726,7 @@ var initMasonryDisqus = function () {
 					var disqus_thread_height = disqus_thread.clientHeight || disqus_thread.offsetHeight || "";
 					if (108 < disqus_thread_height) {
 						clearRequestInterval(si);
-						console.log("function initMasonryDisqus => si=" + si + "; disqus_thread_height=" + disqus_thread_height);
+						console.log("function initMasonryDisqus => si=" + si.value + "; disqus_thread_height=" + disqus_thread_height);
 						if ("undefined" !== typeof msnry && msnry) {
 							msnry.layout();
 							console.log("function initMasonryDisqus => reinitialised msnry");

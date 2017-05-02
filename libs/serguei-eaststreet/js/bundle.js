@@ -967,7 +967,7 @@ var highlightSidepanelItem = function () {
 		k();
 	}
 };
-evento.add(window, "load", highlightSidepanelItem);
+docReady(highlightSidepanelItem);
 evento.add(window, "hashchange", highlightSidepanelItem);
 /*!
  * init menumore btn
@@ -1201,7 +1201,6 @@ var manageDataTargetLinks = function (ctx) {
 		k();
 	}
 };
-evento.add(window, "load", manageDataTargetLinks.bind(null, ""));
 /*!
  * manage data lightbox img links
  */
@@ -1337,7 +1336,6 @@ manageImgLightboxLinks = function (ctx) {
 		}
 	}
 };
-evento.add(window, "load", manageImgLightboxLinks.bind(null, ""));
 /*!
  * replace img src with data-src
  * @param {Object} [ctx] context HTML Element
@@ -1406,7 +1404,6 @@ var manageDataSrcImg = function (ctx) {
 		});
 	}
 };
-evento.add(window, "load", manageDataSrcImg.bind(null, ""));
 /*!
  * replace img src with data-src
  * @param {Object} [ctx] context HTML Element
@@ -1468,17 +1465,17 @@ var manageDataQrcodeImg = function (ctx) {
 		}
 	}
 },
-loadManageDataQrcodeImg = function () {
+loadManageDataQrcodeImg = function (ctx) {
 	"use strict";
+	ctx = ctx || "";
 	var w = window,
 	js = "../cdn/qrjs2/0.1.2/js/qrjs2.fixed.min.js";
 	if (!scriptIsLoaded(js)) {
 		loadJS(js, manageDataQrcodeImg.bind(null, ""));
 	} else {
-		manageDataQrcodeImg();
+		manageDataQrcodeImg(ctx);
 	}
 };
-evento.add(window, "load", loadManageDataQrcodeImg);
 /*!
  * add smooth scroll or redirection to static select options
  * @param {Object} [ctx] context HTML Element
@@ -1508,7 +1505,6 @@ manageStaticSelect = function (ctx) {
 		k();
 	}
 };
-evento.add(window, "load", manageStaticSelect.bind(null, ""));
 /*!
  * manage search input
  */
@@ -1571,7 +1567,6 @@ manageExpandingLayers = function (ctx) {
 		q();
 	}
 };
-evento.add(window, "load", manageExpandingLayers.bind(null, ""));
 /*!
  * init col debug btn
  */
@@ -1609,9 +1604,8 @@ showDebugGridMesage = function () {
 		"days": 0
 	});
 },
-manageDebugGridButton = function (ctx) {
+manageDebugGridButton = function () {
 	"use strict";
-	ctx = ctx || "";
 	var w = window,
 	c = BALA.one(".container") || "",
 	btn = ".btn-toggle-col-debug",
@@ -1639,7 +1633,7 @@ manageDebugGridButton = function (ctx) {
 		}
 	}
 };
-evento.add(window, "load", manageDebugGridButton.bind(null, ""));
+evento.add(window, "load", manageDebugGridButton);
 /*!
  * init qr-code
  * stackoverflow.com/questions/12777622/how-to-use-enquire-js
@@ -1921,11 +1915,8 @@ var loadRefreshDisqus = function () {
 			z();
 		}
 	}
-};
-/*!
- * manage Disqus Button
- */
-var manageDisqusButton = function () {
+},
+manageDisqusButton = function () {
 	"use strict";
 	var c = BALA.one("#disqus_thread") || "",
 	e = c ? (BALA.one(".btn-show-disqus") || "") : "",
@@ -1941,12 +1932,12 @@ var manageDisqusButton = function () {
 		evento.add(e, "click", h_e);
 	}
 };
-evento.add(window, "load", manageDisqusButton);
 /*!
  * load Yandex map
  * tech.yandex.ru/maps/jsbox/2.1/mapbasics
  */
-var initYandexMap = function (a) {
+var myMap,
+initYandexMap = function (a) {
 	"use strict";
 	var c = BALA.one(a) || "",
 	is_active = "is-active",
@@ -1957,9 +1948,11 @@ var initYandexMap = function (a) {
 	z = c ? (c[ds].zoom || "") : "",
 	b_s = c ? (BALA.one(c[ds].btnShow) || "") : "",
 	b_d = c ? (BALA.one(c[ds].btnDestroy) || "") : "",
-	js = getHTTP(!0) + "://api-maps.yandex.ru/2.1/?lang=ru_RU",
-	myMap,
+	js = getHTTP(!0) + "://api-maps.yandex.ru/2.1/?lang=ru_RU",	
 	init = function () {
+		if (myMap) {
+			myMap.destroy();
+		}
 		try {
 			myMap = new ymaps.Map(c.id, {
 					center : JSON.parse(f),
@@ -1995,7 +1988,9 @@ var initYandexMap = function (a) {
 		ev.stopPropagation();
 		ev.preventDefault();
 		evento.remove(b_d, "click", h_b_d);
-		myMap.destroy();
+		if (myMap) {
+			myMap.destroy();
+		}
 	};
 	if (c && f && z && b_s) {
 		console.log("triggered function: initYandexMap");
@@ -2013,11 +2008,8 @@ var initYandexMap = function (a) {
 			q();
 		}
 	}
-};
-/*!
- * manage Yandex Map Button
- */
-var manageYandexMapButton = function (a) {
+},
+manageYandexMapButton = function (a) {
 	"use strict";
 	var c = BALA.one(a) || "",
 	ds = "dataset",
@@ -2034,7 +2026,6 @@ var manageYandexMapButton = function (a) {
 		evento.add(e, "click", h_e);
 	}
 };
-evento.add(window, "load", manageYandexMapButton.bind(null, "#ymap"));
 /*!
  * init Pages Kamil autocomplete
  * github.com/oss6/kamil/wiki/Example-with-label:link-json-and-typo-correct-suggestion
@@ -2393,10 +2384,11 @@ var insertExternalHTML = function (a, u, f) {
  * init routie
  * @param {String} ctx HTML id string
  */
-var initRoutie = function (ctx) {
+var initRoutie = function () {
 	"use strict";
-	ctx = ctx || "";
-	var appContent = BALA.one(ctx) || "",
+	var appContentId = "#app-content",
+	appContent = BALA.one(appContentId) || "",
+	pN = "parentNode",
 	loadVirtualPage = function (c, h, f) {
 		if (c && h) {
 			LoadingSpinner.show();
@@ -2411,6 +2403,16 @@ var initRoutie = function (ctx) {
 		 */
 		LoadingSpinner.hide(scrollToTop);
 		d.title = initialDocumentTitle + "" + t + userBrowsingDetails;
+		manageYandexMapButton("#ymap");
+		manageDisqusButton(appContent[pN]);
+		manageExternalLinks(appContent[pN]);
+		manageLocalLinks(appContent[pN]);
+		manageDataTargetLinks(appContent[pN]);
+		manageImgLightboxLinks(appContent[pN]);
+		manageDataSrcImg(appContent[pN]);
+		manageDataQrcodeImg(appContent[pN]);
+		manageStaticSelect(appContent[pN]);
+		manageExpandingLayers(appContent[pN]);
 	},
 	loadNotFoundPage = function (a) {
 		var c = BALA.one(a) || "",
@@ -2456,19 +2458,14 @@ var initRoutie = function (ctx) {
 				redirectToDefaultPage("/home");
 			},
 			"/home": function () {
-				loadVirtualPage(ctx, "./includes/home.html", function () {
+				loadVirtualPage(appContentId, "./includes/home.html", function () {
 					reinitVirtualPage(" - Начало");
 				});
 			},
-			/* "/feedback": function () {
-				loadVirtualPage(ctx, "./includes/feedback.html", function () {
-					reinitVirtualPage(" - Напишите мне");
-				});
-			}, */
 			"/schedule": function () {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					if ("undefined" !== typeof isOldOpera && !isOldOpera) {
-						loadVirtualPage(ctx, "./includes/schedule.html", function () {
+						loadVirtualPage(appContentId, "./includes/schedule.html", function () {
 							reinitVirtualPage(" - Расписание");
 						});
 					}
@@ -2477,44 +2474,44 @@ var initRoutie = function (ctx) {
 			"/map": function () {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					if ("undefined" !== typeof isOldOpera && !isOldOpera) {
-						loadVirtualPage(ctx, "./includes/map.html", function () {
+						loadVirtualPage(appContentId, "./includes/map.html", function () {
 							reinitVirtualPage(" - Карта");
 						});
 					}
 				}
 			},
 			"/level_test": function () {
-				loadVirtualPage(ctx, "./includes/level_test.html", function () {
+				loadVirtualPage(appContentId, "./includes/level_test.html", function () {
 					reinitVirtualPage(" - Уровневый тест");
 				});
 			},
 			"/common_mistakes": function () {
-				loadVirtualPage(ctx, "./includes/common_mistakes.html", function () {
+				loadVirtualPage(appContentId, "./includes/common_mistakes.html", function () {
 					reinitVirtualPage(" - Распространенные ошибки");
 				});
 			},
 			"/demo_ege": function () {
-				loadVirtualPage(ctx, "./includes/demo_ege.html", function () {
+				loadVirtualPage(appContentId, "./includes/demo_ege.html", function () {
 					reinitVirtualPage(" - Демо-вариант ЕГЭ-11 АЯ (ПЧ)");
 				});
 			},
 			"/demo_ege_speaking": function () {
-				loadVirtualPage(ctx, "./includes/demo_ege_speaking.html", function () {
+				loadVirtualPage(appContentId, "./includes/demo_ege_speaking.html", function () {
 					reinitVirtualPage(" - Демо-вариант ЕГЭ-11 АЯ (УЧ)");
 				});
 			},
 			"/previous_ege_analysis": function () {
-				loadVirtualPage(ctx, "./includes/previous_ege_analysis.html", function () {
+				loadVirtualPage(appContentId, "./includes/previous_ege_analysis.html", function () {
 					reinitVirtualPage(" - ЕГЭ: разбор ошибок");
 				});
 			},
 			"/*": function () {
-				loadNotFoundPage(ctx);
+				loadNotFoundPage(appContentId);
 			}
 		});
 	}
 };
-docReady(initRoutie.bind(null, "#app-content"));
+docReady(initRoutie);
 /*!
  * observe mutations
  * bind functions only for inserted DOM
@@ -2533,8 +2530,8 @@ var observeMutations = function (ctx) {
 				console.log(m.type, "removed: " + m.removedNodes.length + " nodes");
 				if ("childList" === m.type || "subtree" === m.type) {
 					mo.disconnect();
-					manageYandexMapButton("#ymap");
-					manageDisqusButton();
+					/* manageYandexMapButton("#ymap");
+					manageDisqusButton(ctx);
 					manageExternalLinks(ctx);
 					manageLocalLinks(ctx);
 					manageDataTargetLinks(ctx);
@@ -2542,7 +2539,7 @@ var observeMutations = function (ctx) {
 					manageDataSrcImg(ctx);
 					manageDataQrcodeImg(ctx);
 					manageStaticSelect(ctx);
-					manageExpandingLayers(ctx);
+					manageExpandingLayers(ctx); */
 				}
 			};
 			/* e.forEach(f); */
@@ -2586,7 +2583,6 @@ var updateInsertedDom = function () {
 		observeMutations(ctx);
 	}
 };
-evento.add(window, "load", updateInsertedDom);
 evento.add(window, "hashchange", updateInsertedDom);
 /*!
  * init manUP.js

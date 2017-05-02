@@ -687,7 +687,7 @@ u,
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	margin: 0;
-	padding: 0;
+	padding: 0 0 0 0.267rem;
 }
 
 .col .holder-pages-select select::-ms-expand {
@@ -731,21 +731,14 @@ u,
 	content: "\EA8E";
 	font-size: 0.400em;
 	position: relative;
-	vertical-align: middle;
-	margin-left: 0.533em;
+	bottom: 0.467em;
+	margin-left: 0.467em;
 }
 
-/* .col .btn-expand-hidden-layer.is-active:after {
+.col .btn-expand-hidden-layer.is-active:after {
 	font-family: "micon";
 	font-family: "eaststreet";
 	content: "\EA97";
-} */
-
-.col .btn-expand-hidden-layer.is-active:after {
-	/* font-family: "micon"; */
-	font-family: "eaststreet";
-	content: "\EA97";
-	transform: rotate(180deg);
 }
 
 .col .holder-hidden-layer {

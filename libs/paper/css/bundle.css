@@ -4116,7 +4116,7 @@ u,
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	margin: 0;
-	padding: 0;
+	padding: 0 0 0 0.250rem;
 }
 
 .col .holder-pages-select select::-ms-expand {
@@ -4130,7 +4130,7 @@ u,
 
 .col .holder-pages-select select optgroup {
 	font-style: normal;
-	padding-left: 0.188rem;
+	padding-left: 0.250rem;
 }
 
 /*!
@@ -4159,17 +4159,13 @@ u,
 	content: "\e901";
 	font-size: 0.438em;
 	position: relative;
-	vertical-align: middle;
-	margin-left: 0.500em;
+	bottom: 0.438em;
+	margin-left: 0.438em;
 }
 
 .col .btn-expand-hidden-layer.is-active:after {
 	font-family: "englishextra-ui-icons";
 	content: "\e907";
-	font-size: 0.438em;
-	position: relative;
-	vertical-align: middle;
-	margin-left: 0.500em;
 }
 
 .col .holder-hidden-layer {
