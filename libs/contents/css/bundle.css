@@ -854,7 +854,7 @@ template {
 	width: 100%;
 	max-width: 17.000rem;
 	height: 2.250rem;
-	font-family: sans-serif;
+	font-family: inherit;
 	font-size: 0.875rem;
 	color: inherit;
 	background-color: #FFFFFF;

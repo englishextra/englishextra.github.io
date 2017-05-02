@@ -3788,7 +3788,7 @@ u,
 	width: 100%;
 	max-width: 18.133rem;
 	height: 2.400rem;
-	font-family: sans-serif;
+	font-family: inherit;
 	font-size: 0.933rem;
 	overflow: hidden;
 	white-space: nowrap;
