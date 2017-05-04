@@ -883,7 +883,7 @@ body {
 
 html {
 	font-size: 16px;
-	line-height: 1.500;
+	line-height: 24px;
 	/**
 	 * set the parent to background transparent
 	 * and position relative to parent, absolute for child

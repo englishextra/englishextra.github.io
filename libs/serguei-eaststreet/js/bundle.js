@@ -397,13 +397,12 @@ var scriptIsLoaded=function(s){for(var b=document.getElementsByTagName("script")
  */
 var ajaxLoadUnparsedJSON=function(u,f,e){var w=window,x=w.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");x.overrideMimeType("application/json;charset=utf-8");x.open("GET",u,!0);x.withCredentials=!1;x.onreadystatechange=function(){if(x.status=="404"){if(e&&"function"===typeof e){e();}console.log("Error XMLHttpRequest-ing file",x.status);return!1;}else if(x.readyState==4&&x.status==200&&x.responseText){if(f&&"function"===typeof f){f(x.responseText);}}};x.send(null);};
 /*!
- * parse JSON with no eval using JSON-js/json_parse.js
- * with fallback to native JSON.parse
- * gist.github.com/englishextra/4c0c2dec65953cae0d3b909ee64650f7
+ * parse JSON without try / catch
  * @param {String} a JSON string
+ * @see {@link http://stackoverflow.com/questions/11182924/how-to-check-if-javascript-object-is-json}
  * safelyParseJSON(a)
  */
-var safelyParseJSON=function(a){var w=window;try{return"string"===typeof a?w.json_parse?json_parse(a):JSON.parse(a):a;}catch(e){console.log(e.name+": "+e.message);}};
+var safelyParseJSON=function(a){var isJson=function(obj){var t=typeof obj;return['boolean','number','string','symbol','function'].indexOf(t)==-1;};if(!isJson(a)){return JSON.parse(a);}else{return a;}};
 /*!
  * return an array of values that match on a certain key
  * techslides.com/how-to-parse-and-search-json-in-javascript
@@ -1114,41 +1113,6 @@ manageExternalLinks = function (ctx) {
 	}
 };
 evento.add(window, "load", manageExternalLinks.bind(null, ""));
-/*!
- * set title on local links,
- * so that they inform that they open in currnet tab
- * @param {Object} [ctx] context HTML Element
- */
-var manageLocalLinks = function (ctx) {
-	"use strict";
-	ctx = ctx || "";
-	var w = window,
-	cls = "a",
-	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
-	g = function (e) {
-		var p = e.getAttribute("href") || "";
-		if (p && parseLink(p).isRelative && !e.getAttribute("title")) {
-			e.title = "Откроется здесь же";
-		}
-	},
-	k = function () {
-		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		if (w._) {
-			_.each(a, g);
-		} else if (w.forEach) {
-			forEach(a, g, !1);
-		} else {
-			for (var i = 0, l = a.length; i < l; i += 1) {
-				g(a[i]);
-			}
-		}
-	};
-	if (a) {
-		console.log("triggered function: manageLocalLinks");
-		k();
-	}
-};
-evento.add(window, "load", manageLocalLinks.bind(null, ""));
 /*!
  * manage data target links
  */
@@ -1912,7 +1876,6 @@ manageDisqusButton = function () {
 		ev.preventDefault();
 		evento.remove(e, "click", h_e);
 		loadRefreshDisqus();
-		return !1;
 	};
 	if (c && e) {
 		console.log("triggered function: manageDisqusButton");
@@ -2394,7 +2357,6 @@ var initRoutie = function () {
 		manageYandexMapButton("#ymap");
 		manageDisqusButton(appContentParent);
 		manageExternalLinks(appContentParent);
-		manageLocalLinks(appContentParent);
 		manageDataTargetLinks(appContentParent);
 		manageImgLightboxLinks(appContentParent);
 		manageDataSrcImg(appContentParent);
@@ -2512,7 +2474,6 @@ var observeMutations = function (ctx) {
 					/* manageYandexMapButton("#ymap");
 					manageDisqusButton(ctx);
 					manageExternalLinks(ctx);
-					manageLocalLinks(ctx);
 					manageDataTargetLinks(ctx);
 					manageImgLightboxLinks(ctx);
 					manageDataSrcImg(ctx);

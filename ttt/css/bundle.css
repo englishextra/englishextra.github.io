@@ -3229,17 +3229,15 @@ u,
 	opacity: 1;
 }
 
-.col figcaption,
-.col .row figcaption {
+.col figcaption {
 	font-size: 0.800rem;
 	line-height: 1.067;
+	margin-top: 0.267rem;
 }
 
-.col figcaption p,
-.col .row figcaption p {
+.col figcaption p {
 	font-size: inherit;
 	line-height: inherit;
-	margin-top: 0.267rem;
 }
 
 .col img,
@@ -3379,6 +3377,10 @@ u,
 .col .columns {
 	padding-right: 0.667rem;
 	padding-left: 0.667rem;
+}
+
+.column h2:first-child {
+	margin-top: 0;
 }
 
 /*!

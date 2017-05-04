@@ -161,18 +161,6 @@ u,
 }
 
 /*!
- * overrides to typeboost1520
- */
-
-.container .col h1 {
-	margin-top: 0;
-}
-
-.col h2 + div form p:first-child {
-	margin-top: 0;
-}
-
-/*!
  * fixes to typeboost1520.css
  * pxtoem.com
  * 6px	0.400em	40.0%	5pt
@@ -196,6 +184,11 @@ u,
  * 24px	1.600em	160.0%	18pt
  */
 
+.container h1:first-child,
+.col h2 + div form p:first-child {
+	margin-top: 0;
+}
+
 .col a {
 	font-weight: inherit;
 	color: $color-hex-link;
@@ -209,10 +202,6 @@ u,
 
 .col a:visited {
 	color: $color-hex-visited-link;
-}
-
-.container .col h1 {
-	margin-top: 0;
 }
 
 .col p.subhead {
@@ -258,17 +247,15 @@ u,
 	opacity: 1;
 }
 
-.col figcaption,
-.col .row figcaption {
+.col figcaption {
 	font-size: 0.800rem;
 	line-height: 1.067;
+	margin-top: 0.267rem;
 }
 
-.col figcaption p,
-.col .row figcaption p {
+.col figcaption p {
 	font-size: inherit;
 	line-height: inherit;
-	margin-top: 0.267rem;
 }
 
 .col img,
@@ -311,10 +298,6 @@ u,
 
 .col .holder-pages-select + canvas {
 	margin-top: 1.333rem;
-}
-
-.col h2 + div form p:first-child {
-	margin-top: 0;
 }
 
 .col table.respond {

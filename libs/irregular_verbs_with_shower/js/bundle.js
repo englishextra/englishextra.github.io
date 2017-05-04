@@ -427,41 +427,6 @@ manageExternalLinks = function (ctx) {
 };
 evento.add(window, "load", manageExternalLinks.bind(null, ""));
 /*!
- * set title on local links,
- * so that they inform that they open in currnet tab
- * @param {Object} [ctx] context HTML Element
- */
-var manageLocalLinks = function (ctx) {
-	"use strict";
-	ctx = ctx || "";
-	var w = window,
-	cls = "a",
-	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
-	g = function (e) {
-		var p = e.getAttribute("href") || "";
-		if (p && parseLink(p).isRelative && !e.getAttribute("title")) {
-			e.title = "Откроется здесь же";
-		}
-	},
-	k = function () {
-		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		if (w._) {
-			_.each(a, g);
-		} else if (w.forEach) {
-			forEach(a, g, !1);
-		} else {
-			for (var i = 0, l = a.length; i < l; i += 1) {
-				g(a[i]);
-			}
-		}
-	};
-	if (a) {
-		console.log("triggered function: manageLocalLinks");
-		k();
-	}
-};
-evento.add(window, "load", manageLocalLinks.bind(null, ""));
-/*!
  * init Shower
  */
 var initShower = function () {

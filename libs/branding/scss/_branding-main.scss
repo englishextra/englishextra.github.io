@@ -11,7 +11,7 @@ body {
 
 html {
 	font-size: 16px;
-	line-height: 1.500;
+	line-height: 24px;
 	/**
 	 * set the parent to background transparent
 	 * and position relative to parent, absolute for child
@@ -632,6 +632,15 @@ u,
  * ms(-6) / 0.621em
  */
 
+.container .container h1:first-child {
+	margin-top: 0;
+	margin-bottom: 0.500rem;
+}
+
+.col h2 + div form p:first-child {
+	margin-top: 0;
+}
+
 .col a {
 	font-weight: inherit;
 	color: $color-hex-link;
@@ -647,13 +656,7 @@ u,
 	color: $color-hex-visited-link;
 }
 
-.container .col h1 {
-	margin-top: 0;
-	margin-bottom: 0.500rem;
-}
-
 .col p.subhead {
-	font-size: 1.188rem;
 	line-height: 1.750rem;
 }
 
@@ -695,17 +698,15 @@ u,
 	opacity: 1;
 }
 
-.col figcaption,
-.col .row figcaption {
+.col figcaption {
 	font-size: 0.813rem;
 	line-height: 1.250;
+	margin-top: 0.250rem;
 }
 
-.col figcaption p,
-.col .row figcaption p {
+.col figcaption p {
 	font-size: inherit;
 	line-height: inherit;
-	margin-top: 0.250rem;
 }
 
 .col img,
@@ -748,10 +749,6 @@ u,
 
 .col .holder-pages-select + canvas {
 	margin-top: 1.500rem;
-}
-
-.col h2 + div form p:first-child {
-	margin-top: 0;
 }
 
 .col table.respond {
@@ -936,16 +933,14 @@ u,
 	border-color: $color-hex-ui-button-secondary-bg;
 }
 
-/**
+/*!
  * aside block
  */
 
 .col .aside {
 	display: block;
-	font-size: 0.875rem;
-	line-height: 1.250rem;
-	background-color: $color-hex-aside-bg;
-	padding: 1.000rem 1.250rem;
+	background-color: $LeftNavBarLight;
+	padding: 1.250rem 1.250rem;
 }
 
 .col .aside *:first-child {
@@ -954,6 +949,22 @@ u,
 
 .col .aside *:last-child {
 	margin-bottom: 0;
+}
+
+.col .aside p {	
+	font-size: 0.813rem;
+	line-height: 1.250rem;
+}
+
+.col .aside h2 {
+	font-size: 1.125rem;
+	line-height: 1.500rem;
+}
+
+.col .aside h2 a,
+.col .aside p a {
+	color: inherit;
+	text-decoration: none;
 }
 
 .col p + .aside {
@@ -987,8 +998,8 @@ u,
 	height: 2.250rem;
 	font-family: inherit;
 	font-size: 0.875rem;
-	overflow: hidden; 
-	white-space: nowrap; 
+	overflow: hidden;
+	white-space: nowrap;
 	text-overflow: ellipsis;
 	color: inherit;
 	background-color: #F2F2F2;
@@ -1193,8 +1204,8 @@ u,
 	line-height: 1.875rem;
 	text-decoration: none;
 	color: inherit;
-	background-color: $color-hex-aside-bg;
-	border: 0.063rem solid $color-hex-aside-bg;
+	background-color: $LeftNavBarLight;
+	border: 0.063rem solid $LeftNavBarLight;
 	vertical-align: text-bottom;
 	padding: 0 0.625rem;
 	/**
@@ -1465,7 +1476,7 @@ u,
 }
 
 .bg-color-hex-aside-bg {
-	background-color: $color-hex-aside-bg;
+	background-color: $LeftNavBarLight;
 }
 
 .bg-color-hex-lighter-page-bg {

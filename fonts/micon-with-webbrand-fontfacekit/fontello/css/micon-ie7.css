@@ -2,14 +2,14 @@
   font-family: 'micon';
   font-style: normal;
   font-weight: normal;
- 
+
   /* fix buttons height */
   line-height: 1em;
- 
+
   /* you can be more comfortable with increased icons size */
   /* font-size: 120%; */
 }
- 
+
 .mi-Cancel { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xea80;&nbsp;'); }
 .mi-CellPhone { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xea84;&nbsp;'); }
 .mi-ChevronDown { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xea8e;&nbsp;'); }

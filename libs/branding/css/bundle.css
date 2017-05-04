@@ -2709,14 +2709,14 @@ li.L9 {
 
 pre.prettyprint,
 code.prettyprint {
-	background-color: #F3F3F3;
+	background-color: #F2F2F2;
 	border-radius: 0;
 }
 
 pre.prettyprint {
 	width: 100%;
 	white-space: pre-wrap;
-	background-color: #F3F3F3;
+	background-color: #F2F2F2;
 	border: 0 solid transparent;
 	overflow-x: scroll;
 	overflow-y: auto;
@@ -2819,7 +2819,7 @@ ol.linenums li {
  */
 
 #disqus_thread {
-	background-color: #F3F3F3;
+	background-color: #F2F2F2;
 }
 
 #disqus_thread.is-active iframe {
@@ -2890,7 +2890,7 @@ body {
 
 html {
 	font-size: 16px;
-	line-height: 1.500;
+	line-height: 24px;
 	/**
 	 * set the parent to background transparent
 	 * and position relative to parent, absolute for child
@@ -3545,6 +3545,15 @@ u,
  * ms(-6) / 0.621em
  */
 
+.container .container h1:first-child {
+	margin-top: 0;
+	margin-bottom: 0.500rem;
+}
+
+.col h2 + div form p:first-child {
+	margin-top: 0;
+}
+
 .col a {
 	font-weight: inherit;
 	color: #3585D8;
@@ -3560,13 +3569,7 @@ u,
 	color: #9B9B9B;
 }
 
-.container .col h1 {
-	margin-top: 0;
-	margin-bottom: 0.500rem;
-}
-
 .col p.subhead {
-	font-size: 1.188rem;
 	line-height: 1.750rem;
 }
 
@@ -3609,17 +3612,15 @@ u,
 	opacity: 1;
 }
 
-.col figcaption,
-.col .row figcaption {
+.col figcaption {
 	font-size: 0.813rem;
 	line-height: 1.250;
+	margin-top: 0.250rem;
 }
 
-.col figcaption p,
-.col .row figcaption p {
+.col figcaption p {
 	font-size: inherit;
 	line-height: inherit;
-	margin-top: 0.250rem;
 }
 
 .col img,
@@ -3662,10 +3663,6 @@ u,
 
 .col .holder-pages-select + canvas {
 	margin-top: 1.500rem;
-}
-
-.col h2 + div form p:first-child {
-	margin-top: 0;
 }
 
 .col table.respond {
@@ -3850,16 +3847,14 @@ u,
 	border-color: #EDEDED;
 }
 
-/**
+/*!
  * aside block
  */
 
 .col .aside {
 	display: block;
-	font-size: 0.875rem;
-	line-height: 1.250rem;
-	background-color: #F3F3F3;
-	padding: 1.000rem 1.250rem;
+	background-color: #F2F2F2;
+	padding: 1.250rem 1.250rem;
 }
 
 .col .aside *:first-child {
@@ -3868,6 +3863,22 @@ u,
 
 .col .aside *:last-child {
 	margin-bottom: 0;
+}
+
+.col .aside p {
+	font-size: 0.813rem;
+	line-height: 1.250rem;
+}
+
+.col .aside h2 {
+	font-size: 1.125rem;
+	line-height: 1.500rem;
+}
+
+.col .aside h2 a,
+.col .aside p a {
+	color: inherit;
+	text-decoration: none;
 }
 
 .col p + .aside {
@@ -4110,8 +4121,8 @@ u,
 	line-height: 1.875rem;
 	text-decoration: none;
 	color: inherit;
-	background-color: #F3F3F3;
-	border: 0.063rem solid #F3F3F3;
+	background-color: #F2F2F2;
+	border: 0.063rem solid #F2F2F2;
 	vertical-align: text-bottom;
 	padding: 0 0.625rem;
 	/**
@@ -4382,7 +4393,7 @@ u,
 }
 
 .bg-color-hex-aside-bg {
-	background-color: #F3F3F3;
+	background-color: #F2F2F2;
 }
 
 .bg-color-hex-lighter-page-bg {

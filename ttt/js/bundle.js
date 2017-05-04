@@ -1002,7 +1002,6 @@ var updateInsertedDom = function () {
 		observeMutations(ctx);
 	}
 };
-window.addEventListener("load", updateInsertedDom);
 window.addEventListener("hashchange", updateInsertedDom);
 /*!
  * init ui-totop
