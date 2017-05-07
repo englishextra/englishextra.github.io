@@ -17,7 +17,7 @@
 	text-align: left;
 	overflow-y: auto;
 	color: inherit;
-	background-color: $color-hex-ui-menu-item-bg;
+	background-color: $LeftNavBarLight;
 	border: 0.067rem solid $AccentColor;
 	border-radius: 0;
 	box-sizing: border-box;
@@ -44,7 +44,7 @@
 .kamil-autocomplete li.kamil-active,
 .kamil-autocomplete li:hover {
 	color: inherit;
-	background-color: $color-hex-hover-ui-menu-item-bg;
+	background-color: $LeftNavBarLight;
 }
 
 /* .kamil-autocomplete li:focus, */

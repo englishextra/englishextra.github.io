@@ -4024,7 +4024,7 @@ a,
 .bg-white a,
 .bg-light a,
 .bg-gradient-white a {
-	color: #DA353C;
+	color: #D83544;
 }
 
 a:hover {
@@ -4066,12 +4066,12 @@ ins {
 
 ::-moz-selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(0, 99, 177, 0.9);
+	background-color: rgba(58, 150, 221, 0.9);
 }
 
 ::selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(0, 99, 177, 0.9);
+	background-color: rgba(58, 150, 221, 0.9);
 }
 
 ::-webkit-input-placeholder {
@@ -4120,7 +4120,7 @@ Slides - Backgrounds <section class="bg-primary">
 /* 3 Corp Colors */
 
 .bg-primary {
-	background-color: #DA353C;
+	background-color: #D83544;
 }
 
 .bg-secondary {
@@ -4407,7 +4407,7 @@ ul.tabs li.current {
 }
 
 ul.tabs li:before {
-	background-color: #DA353C;
+	background-color: #D83544;
 }
 
 /* ===================================================
@@ -4878,7 +4878,7 @@ input[type="submit"],
 .button:hover,
 button[type="submit"]:hover,
 input[type="submit"]:hover {
-	border: 1px solid #DA353C;
+	border: 1px solid #D83544;
 }
 
 button[type="submit"],
@@ -4888,7 +4888,7 @@ input[type="submit"],
 button[type="submit"]:hover,
 input[type="submit"]:hover {
 	color: #191919;
-	background-color: #DA353C;
+	background-color: #D83544;
 	/* text-shadow: 0 1px 0 #123; */
 }
 
@@ -4896,7 +4896,7 @@ input[type="submit"]:hover {
 button[type="submit"]:active,
 input[type="submit"]:active {
 	color: #191919;
-	background-color: #DA353C;
+	background-color: #D83544;
 }
 
 .ghost,
@@ -4924,7 +4924,7 @@ input[type="submit"]:active {
 .bg-white a.button.ghost,
 .bg-gradient-white a.button.ghost {
 	color: #191919;
-	border: 1px solid #DA353C;
+	border: 1px solid #D83544;
 }
 
 :disabled,
@@ -4935,7 +4935,7 @@ button:disabled:hover {
 }
 
 fieldset {
-	border: 1px solid #DA353C;
+	border: 1px solid #D83544;
 	background-color: rgba(0, 20, 80, 0.2);
 }
 

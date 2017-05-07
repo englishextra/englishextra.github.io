@@ -1323,6 +1323,7 @@ var initContentsKamil = function () {
 	text = BALA.one(id) || "",
 	_ul_id = "kamil-typo-autocomplete",
 	_ul_class = "kamil-autocomplete",
+	outsideContainer = BALA.one(".container") || "",
 	jsn = "../libs/contents/json/contents.json",
 	cL = "classList",
 	q = function (r) {
@@ -1330,17 +1331,25 @@ var initContentsKamil = function () {
 		if (jpr) {
 			var ac = new Kamil(id, {
 					source: jpr,
+					property: "label",
 					minChars: 2
 				});
 			/*!
 			 * create typo suggestion list
 			 */
 			var _ul = crel("ul"),
-			_li = crel("li");
+			_li = crel("li"),
+			hideTypoSuggestions = function () {
+				setStyleDisplayNone(_ul);
+				setStyleDisplayNone(_li);
+			},
+			showTypoSuggestions = function () {
+				setStyleDisplayBlock(_ul);
+				setStyleDisplayBlock(_li);
+			};
 			_ul[cL].add(_ul_class);
 			_ul.id = _ul_id;
-			setStyleDisplayNone(_ul);
-			setStyleDisplayNone(_li);
+			hideTypoSuggestions();
 			crel(_ul, _li);
 			text.parentNode.insertBefore(_ul, text.nextElementSibling);
 			/*!
@@ -1379,10 +1388,12 @@ var initContentsKamil = function () {
 				},
 				h_text = function () {
 					if (text.value.length < 3 || text.value.match(/^\s*$/)) {
-						setStyleDisplayNone(_ul);
-						setStyleDisplayNone(_li);
+						hideTypoSuggestions();
 					}
 				};
+				if (outsideContainer) {
+					evento.add(outsideContainer, "click", hideTypoSuggestions);
+				}
 				while (l < 1) {
 					var v = text.value;
 					if (/[^\u0000-\u007f]/.test(v)) {
@@ -1390,14 +1401,12 @@ var initContentsKamil = function () {
 					} else {
 						v = fixEnRuTypo(v, "en", "ru");
 					}
-					setStyleDisplayBlock(_ul);
-					setStyleDisplayBlock(_li);
+					showTypoSuggestions();
 					removeChildren(_li);
 					crel(_li, "" + v);
 					evento.add(_li, "click", h_li.bind(null, v));
 					if (v.match(/^\s*$/)) {
-						setStyleDisplayNone(_ul);
-						setStyleDisplayNone(_li);
+						hideTypoSuggestions();
 					}
 					evento.add(text, "input", h_text);
 					l += 1;
@@ -1425,6 +1434,7 @@ var initContentsKamil = function () {
 				}
 			};
 			/*!
+			 * unless you specify property option in new Kamil
 			 * use kamil built-in word label as search key in JSON file
 			 * [{"link":"/","label":"some text to match"},
 			 * {"link":"/pages/contents.html","label":"some text to match"}]
@@ -1433,6 +1443,7 @@ var initContentsKamil = function () {
 				var p = e.item.link || "",
 				sm = function () {
 					e.inputElement.value = "";
+					hideTypoSuggestions();
 					changeLocation(p);
 				};
 				if (p) {

@@ -13,7 +13,7 @@
 	text-align: left;
 	margin: 0;
 	padding: 0;
-	background-color: $color-hex-ui-menu-item-bg;
+	background-color: $LeftNavBarLight;
 	outline: none;
 	color: inherit;
 	box-sizing: border-box;
@@ -34,7 +34,7 @@
 .kamil-autocomplete li.kamil-active,
 .kamil-autocomplete li:hover {
 	color: inherit;
-	background-color: $color-hex-hover-ui-menu-item-bg;
+	background-color: $LeftNavBarLight;
 }
 /* .kamil-autocomplete li:focus, */
 .kamil-autocomplete li:active {

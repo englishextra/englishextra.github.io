@@ -35,7 +35,7 @@ EB5262
 744DA5
 3087CD */
 
-$AccentColor: #DA353C;
+$AccentColor: #D83544;
 
 $LeftNavBarDark: #171717;
 $TitleBarAndAppBarDark: #1F1F1F;
@@ -45,10 +45,12 @@ $TitleBarAndAppBarLight: #E6E6E6;
 
 $ButtonBackground: #CCCCCC;
 $ButtonText: #191919;
-$ButtonOutline: #7A7A7A;
+$ButtonOutline: #767676;
+
+$PlaceholderText: #878787;
 
 $color-rgba-selection-text: rgba(255, 255, 255, 0.9);
-$color-rgba-selection-bg: rgba(0, 99, 177, 0.9);
+$color-rgba-selection-bg: rgba(58, 150, 221, 0.9);
 
 $color-hex-body-text: #191919;
 $color-hex-gray-text: #878787;
@@ -59,8 +61,6 @@ $color-hex-visited-link: #9B9B9B;
 
 $color-hex-progress-bar: #FF2C40;
 
-$color-hex-ui-menu-item-bg: #F3F3F3;
-$color-hex-hover-ui-menu-item-bg: #E1E1E1;
 
 $color-hex-highlight: #D93D3D;
 $color-hex-url: #009B4C;
@@ -118,14 +118,6 @@ $color-rgba-img-lightbox-bg: rgba(0, 0, 0, 0.5);
 $color-rgba-img-lightbox-border: rgba(255, 255, 255, 0.5);
 
 $color-hex-englishextra-logo-bg: #F03B4C;
-
-$color-hex-pages-aids: #EF6B50;
-$color-hex-pages-articles: #EB5262;
-$color-hex-pages-grammar: #706D6A;
-$color-hex-pages-more: #60867B;
-$color-hex-pages-reading: #615FC8;
-$color-hex-pages-tests: #744DA5;
-$color-hex-pages-transcripts: #3087CD;
 
 /* \$(.*?)\: (.*?)\;
 <div class="masonry-grid-item"><div class="bg-\1"><span class="color-variable-name">$\1</span></div></div>

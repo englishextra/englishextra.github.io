@@ -437,7 +437,7 @@ u,
 	top: 3.000rem;
 	left: 3.000rem;
 	color: $color-hex-body-text;
-	background-color: $color-hex-ui-menu-item-bg;
+	background-color: $LeftNavBarLight;
 	border: 0.063rem solid $AccentColor;
 	box-shadow: 0.125rem 0.125rem 0.125rem 0 $color-rgba-ui-bar-shadow;
 	opacity: 0;
@@ -474,7 +474,7 @@ u,
 
 .panel-menu-more li a:hover {
 	color: inherit;
-	background-color: $color-hex-hover-ui-menu-item-bg;
+	background-color: $LeftNavBarLight;
 }
 
 /* .panel-menu-more li a:focus, */
@@ -483,7 +483,7 @@ u,
 	background-color: $AccentColor;
 }
 
-/**
+/*!
  * search form
  */
 
@@ -504,7 +504,6 @@ u,
 	border-color: transparent;
 	border-style: solid;
 	border-width: 0.063rem;
-	-webkit-transition: width 0.2s linear;
 	transition: width 0.2s linear;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
@@ -544,6 +543,7 @@ u,
 	color: $color-hex-gray-text;
 	background-color: transparent;
 	border: 0.063rem solid transparent;
+	cursor: pointer;
 	padding: 1.063rem;
 }
 
@@ -632,9 +632,17 @@ u,
  * ms(-6) / 0.621em
  */
 
-.container .container h1:first-child {
+.container #h1 {
 	margin-top: 0;
 	margin-bottom: 0.500rem;
+}
+
+.col h2 a,
+.col h2 a:focus,
+.col h2 a:hover,
+.col h2 a:active,
+.col h2 a:visited {
+	color: inherit;
 }
 
 .col h2 + div form p:first-child {
@@ -686,14 +694,12 @@ u,
 }
 
 .col img.data-src-img,
-.col img.data-src-iframe,
 .col img[data-src] {
 	opacity: 0;
 	transition: opacity 0.4s ease;
 }
 
 .col img.data-src-img.is-active,
-.col img.data-src-iframe.is-active,
 .col img[data-src].is-active {
 	opacity: 1;
 }
@@ -702,6 +708,14 @@ u,
 	font-size: 0.813rem;
 	line-height: 1.250;
 	margin-top: 0.250rem;
+}
+
+.col figcaption a,
+.col figcaption a:focus,
+.col figcaption a:hover,
+.col figcaption a:active,
+.col figcaption a:visited {
+	color: inherit;
 }
 
 .col figcaption p {
@@ -747,7 +761,7 @@ u,
 	height: 166px;
 }
 
-.col .holder-pages-select + canvas {
+.holder-pages-select + canvas {
 	margin-top: 1.500rem;
 }
 
@@ -985,13 +999,13 @@ u,
  * pages selecto
  */
 
-.col .holder-pages-select {
+.holder-pages-select {
 	display: block;
 	width: 100%;
 	text-align: left;
 }
 
-.col .holder-pages-select select {
+.holder-pages-select .pages-select {
 	display: inline-block;
 	width: 100%;
 	max-width: 17.000rem;
@@ -1010,16 +1024,16 @@ u,
 	padding: 0 0 0 0.250rem;
 }
 
-.col .holder-pages-select select::-ms-expand {
+.holder-pages-select .pages-select::-ms-expand {
 	display: none;
 }
 
-.col .holder-pages-select select::-ms-value {
+.holder-pages-select .pages-select::-ms-value {
     background: none;
 	color: inherit;
 }
 
-.col .holder-pages-select select optgroup {
+.holder-pages-select .pages-select optgroup {
 	font-style: normal;
 	padding-left: 0.250rem;
 }
@@ -1028,10 +1042,10 @@ u,
  * fix select border for electron and nw
  */
 
-.col .holder-pages-select select,
-.col .holder-pages-select select:focus,
-.col .holder-pages-select select:hover,
-.col .holder-pages-select select:active {
+.holder-pages-select .pages-select,
+.holder-pages-select .pages-select:focus,
+.holder-pages-select .pages-select:hover,
+.holder-pages-select .pages-select:active {
 	border: 0.063rem solid #F2F2F2;
 }
 
@@ -1063,7 +1077,7 @@ u,
 	max-height: 100%;
 	position: relative;
 	transition: all 0.2s ease-out;
-	overflow-y: auto;
+	overflow-y: hidden;
 }
 
 .js .col .holder-hidden-layer {
@@ -1074,7 +1088,7 @@ u,
 .col .holder-hidden-layer.is-active,
 .legacy .col .holder-hidden-layer {
 	max-height: 100%;
-	overflow-y: auto;
+	overflow-y: hidden;
 }
 
 .col .holder-btn-expand-hidden-layer + .holder-hidden-layer.is-active,
@@ -1364,11 +1378,11 @@ u,
 }
 
 .bg-color-hex-ui-menu-item-bg {
-	background-color: $color-hex-ui-menu-item-bg;
+	background-color: $LeftNavBarLight;
 }
 
 .bg-color-hex-hover-ui-menu-item-bg {
-	background-color: $color-hex-hover-ui-menu-item-bg;
+	background-color: $LeftNavBarLight;
 }
 
 .bg-color-hex-highlight {
@@ -1533,34 +1547,6 @@ u,
 
 .bg-color-hex-englishextra-logo-bg {
 	background-color: $color-hex-englishextra-logo-bg;
-}
-
-.bg-color-hex-pages-aids {
-	background-color: $color-hex-pages-aids;
-}
-
-.bg-color-hex-pages-articles {
-	background-color: $color-hex-pages-articles;
-}
-
-.bg-color-hex-pages-grammar {
-	background-color: $color-hex-pages-grammar;
-}
-
-.bg-color-hex-pages-more {
-	background-color: $color-hex-pages-more;
-}
-
-.bg-color-hex-pages-reading {
-	background-color: $color-hex-pages-reading;
-}
-
-.bg-color-hex-pages-tests {
-	background-color: $color-hex-pages-tests;
-}
-
-.bg-color-hex-pages-transcripts {
-	background-color: $color-hex-pages-transcripts;
 }
 
 /**

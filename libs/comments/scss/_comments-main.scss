@@ -437,7 +437,7 @@ u,
 	top: 3.000rem;
 	left: 3.000rem;
 	color: $color-hex-body-text;
-	background-color: $color-hex-ui-menu-item-bg;
+	background-color: $LeftNavBarLight;
 	border: 0.063rem solid $AccentColor;
 	box-shadow: 0.125rem 0.125rem 0.125rem 0 $color-rgba-ui-bar-shadow;
 	opacity: 0;
@@ -474,7 +474,7 @@ u,
 
 .panel-menu-more li a:hover {
 	color: inherit;
-	background-color: $color-hex-hover-ui-menu-item-bg;
+	background-color: $LeftNavBarLight;
 }
 
 /* .panel-menu-more li a:focus, */
@@ -516,9 +516,17 @@ u,
  * ms(-6) / 0.621em
  */
 
-.container .container h1:first-child {
+.container #h1 {
 	margin-top: 0;
 	margin-bottom: 0.500rem;
+}
+
+.col h2 a,
+.col h2 a:focus,
+.col h2 a:hover,
+.col h2 a:active,
+.col h2 a:visited {
+	color: inherit;
 }
 
 .col h2 + div form p:first-child {

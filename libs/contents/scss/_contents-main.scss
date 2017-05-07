@@ -376,7 +376,7 @@ u,
 	top: 3.000rem;
 	left: 3.000rem;
 	color: $color-hex-body-text;
-	background-color: $color-hex-ui-menu-item-bg;
+	background-color: $LeftNavBarLight;
 	border: 0.063rem solid $AccentColor;
 	box-shadow: 0.125rem 0.125rem 0.125rem 0 $color-rgba-ui-bar-shadow;
 	opacity: 0;
@@ -413,7 +413,7 @@ u,
 
 .panel-menu-more li a:hover {
 	color: inherit;
-	background-color: $color-hex-hover-ui-menu-item-bg;
+	background-color: $LeftNavBarLight;
 }
 
 /* .panel-menu-more li a:focus, */
@@ -422,7 +422,7 @@ u,
 	background-color: $AccentColor;
 }
 
-/**
+/*!
  * search form
  */
 
@@ -443,7 +443,6 @@ u,
 	border-color: transparent;
 	border-style: solid;
 	border-width: 0.063rem;
-	-webkit-transition: width 0.2s linear;
 	transition: width 0.2s linear;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
@@ -483,6 +482,7 @@ u,
 	color: $color-hex-gray-text;
 	background-color: transparent;
 	border: 0.063rem solid transparent;
+	cursor: pointer;
 	padding: 1.063rem;
 }
 

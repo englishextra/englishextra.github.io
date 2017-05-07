@@ -24,14 +24,14 @@
 	margin: 1.500rem 3.000%;
 }
 
-.masonry-grid-wrapper .holder-contents-select {
+.holder-contents-select {
 	display: block;
 	width: 100%;
 	text-align: center;
 	margin: 0 0 1.500rem 0;
 }
 
-.masonry-grid-wrapper .holder-contents-select select {
+.holder-contents-select .contents-select {
 	display: inline-block;
 	width: 100%;
 	max-width: 17.000rem;
@@ -47,16 +47,16 @@
 	padding: 0 0 0 0.250rem;
 }
 
-.masonry-grid-wrapper .holder-contents-select select::-ms-expand {
+.holder-contents-select .contents-select::-ms-expand {
 	display: none;
 }
 
-.masonry-grid-wrapper .holder-contents-select select::-ms-value {
+.holder-contents-select .contents-select::-ms-value {
     background: none;
 	color: inherit;
 }
 
-.masonry-grid-wrapper .holder-contents-select select optgroup {
+.holder-contents-select .contents-select optgroup {
 	font-style: normal;
 	padding-left: 0.250rem;
 }
@@ -65,10 +65,10 @@
  * fix select border for electron and nw
  */
 
-.masonry-grid-wrapper .holder-contents-select select,
-.masonry-grid-wrapper .holder-contents-select select:hover,
-.masonry-grid-wrapper .holder-contents-select select:active,
-.masonry-grid-wrapper .holder-contents-select select:focus {
+.holder-contents-select .contents-select,
+.holder-contents-select .contents-select:hover,
+.holder-contents-select .contents-select:active,
+.holder-contents-select .contents-select:focus {
 	border: 0.063rem solid #FFFFFF;
 }
 

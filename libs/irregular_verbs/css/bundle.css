@@ -666,7 +666,7 @@ template {
 
 .btn-show-vk-like:active {
 	color: #191919;
-	background-color: #DA353C;
+	background-color: #D83544;
 }
 
 .btn-show-vk-like:before {
@@ -761,7 +761,7 @@ template {
 
 .btn-share-buttons:active {
 	color: #191919;
-	background-color: #DA353C;
+	background-color: #D83544;
 }
 
 .btn-share-buttons:before {
@@ -973,12 +973,12 @@ u,
 
 ::-moz-selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(0, 99, 177, 0.9);
+	background-color: rgba(58, 150, 221, 0.9);
 }
 
 ::selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(0, 99, 177, 0.9);
+	background-color: rgba(58, 150, 221, 0.9);
 }
 
 ::-webkit-input-placeholder {
@@ -1098,7 +1098,7 @@ u,
 .page.is-active .btn-nav-menu,
 .btn-nav-menu:active {
 	color: #191919;
-	background-color: #DA353C;
+	background-color: #D83544;
 }
 
 .btn-nav-menu {
@@ -1141,7 +1141,7 @@ u,
 
 .btn-menu-more:active {
 	color: #191919;
-	background-color: #DA353C;
+	background-color: #D83544;
 }
 
 .btn-menu-more {
@@ -1163,8 +1163,8 @@ u,
 	top: 3.000rem;
 	left: 3.000rem;
 	color: #191919;
-	background-color: #F3F3F3;
-	border: 0.063rem solid #DA353C;
+	background-color: #F2F2F2;
+	border: 0.063rem solid #D83544;
 	box-shadow: 0.125rem 0.125rem 0.125rem 0 rgba(50, 50, 50, 0.3);
 	opacity: 0;
 	-webkit-transition: visibility 0s, opacity 0.2s ease;
@@ -1202,14 +1202,14 @@ u,
 
 .panel-menu-more li a:hover {
 	color: inherit;
-	background-color: #E1E1E1;
+	background-color: #F2F2F2;
 }
 
 /* .panel-menu-more li a:focus, */
 
 .panel-menu-more li a:active {
 	color: #191919;
-	background-color: #DA353C;
+	background-color: #D83544;
 }
 
 /**
@@ -1279,7 +1279,7 @@ u,
 .cd-prev:active,
 .cd-next:active {
 	color: #191919;
-	background-color: #DA353C;
+	background-color: #D83544;
 }
 
 /**

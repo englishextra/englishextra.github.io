@@ -651,7 +651,7 @@ template {
 
 .btn-show-vk-like:active {
 	color: #191919;
-	background-color: #DA353C;
+	background-color: #D83544;
 }
 
 .btn-show-vk-like:before {
@@ -746,7 +746,7 @@ template {
 
 .btn-share-buttons:active {
 	color: #191919;
-	background-color: #DA353C;
+	background-color: #D83544;
 }
 
 .btn-share-buttons:before {
@@ -1050,92 +1050,112 @@ img[class*=" english4free-banner-"] {
 }
 
 .english4free-banner-bbc-640x480 {
-	background-position: 0 5.263158%;
+	background-position: 0 4.347826%;
+	background-size: 100%;
+}
+
+.english4free-banner-cambridge-dictionary-640x480 {
+	background-position: 0 8.695652%;
+	background-size: 100%;
+}
+
+.english4free-banner-cambridge-english-640x480 {
+	background-position: 0 13.043478%;
 	background-size: 100%;
 }
 
 .english4free-banner-duolingo-640x480 {
-	background-position: 0 10.526316%;
+	background-position: 0 17.391304%;
 	background-size: 100%;
 }
 
 .english4free-banner-ege-640x480 {
-	background-position: 0 15.789474%;
+	background-position: 0 21.73913%;
 	background-size: 100%;
 }
 
 .english4free-banner-ege-trener-640x480 {
-	background-position: 0 21.052632%;
+	background-position: 0 26.086957%;
 	background-size: 100%;
 }
 
 .english4free-banner-egu-640x480 {
-	background-position: 0 26.315789%;
+	background-position: 0 30.434783%;
 	background-size: 100%;
 }
 
 .english4free-banner-english-accents-map-640x480 {
-	background-position: 0 31.578947%;
+	background-position: 0 34.782609%;
 	background-size: 100%;
 }
 
 .english4free-banner-gg-640x480 {
-	background-position: 0 36.842105%;
+	background-position: 0 39.130435%;
 	background-size: 100%;
 }
 
 .english4free-banner-grammargremlins-640x480 {
-	background-position: 0 42.105263%;
+	background-position: 0 43.478261%;
+	background-size: 100%;
+}
+
+.english4free-banner-ielts-640x480 {
+	background-position: 0 47.826087%;
 	background-size: 100%;
 }
 
 .english4free-banner-interurok-640x480 {
-	background-position: 0 47.368421%;
+	background-position: 0 52.173913%;
 	background-size: 100%;
 }
 
 .english4free-banner-kino35mm-640x480 {
-	background-position: 0 52.631579%;
+	background-position: 0 56.521739%;
 	background-size: 100%;
 }
 
 .english4free-banner-languagelink-640x480 {
-	background-position: 0 57.894737%;
+	background-position: 0 60.869565%;
 	background-size: 100%;
 }
 
 .english4free-banner-linguaspectrum-640x480 {
-	background-position: 0 63.157895%;
+	background-position: 0 65.217391%;
 	background-size: 100%;
 }
 
 .english4free-banner-multitran-640x480 {
-	background-position: 0 68.421053%;
+	background-position: 0 69.565217%;
 	background-size: 100%;
 }
 
 .english4free-banner-oup-640x480 {
-	background-position: 0 73.684211%;
+	background-position: 0 73.913043%;
 	background-size: 100%;
 }
 
 .english4free-banner-phrasal-verbs-machine-640x480 {
-	background-position: 0 78.947368%;
+	background-position: 0 78.26087%;
+	background-size: 100%;
+}
+
+.english4free-banner-rosolymp-640x480 {
+	background-position: 0 82.608696%;
 	background-size: 100%;
 }
 
 .english4free-banner-telegraph-640x480 {
-	background-position: 0 84.210526%;
+	background-position: 0 86.956522%;
 	background-size: 100%;
 }
 
 .english4free-banner-visualdictionary-640x480 {
-	background-position: 0 89.473684%;
+	background-position: 0 91.304348%;
 	background-size: 100%;
 }
 
 .english4free-banner-vv-640x480 {
-	background-position: 0 94.736842%;
+	background-position: 0 95.652174%;
 	background-size: 100%;
 }
 
@@ -1190,7 +1210,7 @@ img[class*=" english4free-banner-"] {
 
 .ui-totop:active {
 	color: #191919;
-	background-color: #DA353C;
+	background-color: #D83544;
 }
 
 /*! @import "english-for-free-main"; */
@@ -1295,12 +1315,12 @@ u,
 
 ::-moz-selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(0, 99, 177, 0.9);
+	background-color: rgba(58, 150, 221, 0.9);
 }
 
 ::selection {
 	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(0, 99, 177, 0.9);
+	background-color: rgba(58, 150, 221, 0.9);
 }
 
 ::-webkit-input-placeholder {
@@ -1479,7 +1499,7 @@ u,
 
 .panel-nav-menu li a:active {
 	color: #191919;
-	background-color: #DA353C;
+	background-color: #D83544;
 }
 
 .panel-nav-menu li a.is-active {
@@ -1506,7 +1526,7 @@ u,
 .page.is-active .btn-nav-menu,
 .btn-nav-menu:active {
 	color: #191919;
-	background-color: #DA353C;
+	background-color: #D83544;
 }
 
 .btn-nav-menu {
@@ -1569,7 +1589,7 @@ u,
 
 .btn-menu-more:active {
 	color: #191919;
-	background-color: #DA353C;
+	background-color: #D83544;
 }
 
 .btn-menu-more {
@@ -1591,8 +1611,8 @@ u,
 	top: 3.000rem;
 	left: 3.000rem;
 	color: #191919;
-	background-color: #F3F3F3;
-	border: 0.063rem solid #DA353C;
+	background-color: #F2F2F2;
+	border: 0.063rem solid #D83544;
 	box-shadow: 0.125rem 0.125rem 0.125rem 0 rgba(50, 50, 50, 0.3);
 	opacity: 0;
 	-webkit-transition: visibility 0s, opacity 0.2s ease;
@@ -1630,14 +1650,14 @@ u,
 
 .panel-menu-more li a:hover {
 	color: inherit;
-	background-color: #E1E1E1;
+	background-color: #F2F2F2;
 }
 
 /* .panel-menu-more li a:focus, */
 
 .panel-menu-more li a:active {
 	color: #191919;
-	background-color: #DA353C;
+	background-color: #D83544;
 }
 
 /*!
