@@ -4,3 +4,4 @@ node_js:
 notifications:
   email:
     on_failure: always # default: always
+
