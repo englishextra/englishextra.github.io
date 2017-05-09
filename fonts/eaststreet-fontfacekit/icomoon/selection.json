@@ -4,6 +4,52 @@
     {
       "icon": {
         "paths": [
+          "M118.171 187.543c0-17.086 12.857-29.943 29.943-29.943h166.971v-118.171h-164.514c-82.343 0-150.571 65.771-150.571 148.114v166.971h118.171v-166.971z",
+          "M875.257 39.429h-166.343v118.171h165.486c17.086 0 31.486 12.857 31.486 29.943v166.971h118.114v-166.971c0-82.343-66.4-148.114-148.743-148.114z",
+          "M905.829 834c0 17.086-12.857 29.943-29.943 29.943h-166.971v120.629h166.971c82.343 0 148.114-68.229 148.114-150.571v-164.514h-118.171v164.514z",
+          "M148.114 863.943c-17.086 0-29.943-12.857-29.943-29.943v-164.514h-118.171v164.514c0 82.343 68.229 150.571 150.571 150.571h164.514v-120.629h-166.971z"
+        ],
+        "attrs": [
+          {},
+          {},
+          {},
+          {}
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "grid": 0,
+        "tags": [
+          "qr-scanner"
+        ],
+        "colorPermutations": {
+          "2552552551521432201": [
+            {},
+            {},
+            {},
+            {}
+          ]
+        }
+      },
+      "attrs": [
+        {},
+        {},
+        {},
+        {}
+      ],
+      "properties": {
+        "order": 240,
+        "id": 13,
+        "name": "ion-qr-scanner",
+        "prevSize": 20,
+        "code": 62278
+      },
+      "setIdx": 1,
+      "setId": 2,
+      "iconIdx": 0
+    },
+    {
+      "icon": {
+        "paths": [
           "M512 82.5l470.5 471-45 45-41.5-41v402.5h-320v-320h-128v320h-320v-402.5l-41.5 41-45-45zM832 896v-402.5l-320-320-320 320v402.5h192v-320h256v320h192z"
         ],
         "attrs": [
@@ -25,42 +71,13 @@
         {}
       ],
       "properties": {
-        "order": 62,
+        "order": 241,
         "id": 12,
         "name": "mi-Home",
         "prevSize": 20,
         "code": 60271
       },
-      "setIdx": 0,
-      "setId": 2,
-      "iconIdx": 0
-    },
-    {
-      "icon": {
-        "paths": [
-          "M279.257 744.743v93.086h-93.086v-93.086h93.086zM279.257 186.171v93.086h-93.086v-93.086h93.086zM837.829 186.171v93.086h-93.086v-93.086h93.086zM93.086 930.171h279.257v-278.571h-279.257v278.571zM93.086 372.343h279.257v-279.257h-279.257v279.257zM651.657 372.343h279.257v-279.257h-279.257v279.257zM465.429 558.571v465.429h-465.429v-465.429h465.429zM837.829 930.914v93.086h-93.086v-93.086h93.086zM1024 930.914v93.086h-93.086v-93.086h93.086zM1024 558.571v279.257h-279.257v-93.086h-93.086v279.257h-93.086v-465.429h279.257v93.086h93.086v-93.086h93.086zM465.429 0v465.429h-465.429v-465.429h465.429zM1024 0v465.429h-465.429v-465.429h465.429z"
-        ],
-        "attrs": [],
-        "isMulticolor": false,
-        "isMulticolor2": false,
-        "tags": [
-          "fa-qrcode"
-        ],
-        "defaultCode": 61481,
-        "grid": 0,
-        "colorPermutations": {
-          "2552552551521432201": []
-        }
-      },
-      "attrs": [],
-      "properties": {
-        "order": 63,
-        "name": "fa-qrcode",
-        "prevSize": 20,
-        "id": 0,
-        "code": 61481
-      },
-      "setIdx": 0,
+      "setIdx": 1,
       "setId": 2,
       "iconIdx": 1
     },
@@ -83,13 +100,13 @@
       },
       "attrs": [],
       "properties": {
-        "order": 64,
+        "order": 242,
         "name": "mi-Cancel",
         "prevSize": 20,
         "id": 1,
         "code": 60032
       },
-      "setIdx": 0,
+      "setIdx": 1,
       "setId": 2,
       "iconIdx": 2
     },
@@ -112,13 +129,13 @@
       },
       "attrs": [],
       "properties": {
-        "order": 65,
+        "order": 243,
         "name": "mi-CellPhone",
         "prevSize": 20,
         "id": 2,
         "code": 60036
       },
-      "setIdx": 0,
+      "setIdx": 1,
       "setId": 2,
       "iconIdx": 3
     },
@@ -141,13 +158,13 @@
       },
       "attrs": [],
       "properties": {
-        "order": 66,
+        "order": 244,
         "name": "mi-ChevronDown",
         "prevSize": 20,
         "id": 3,
         "code": 60046
       },
-      "setIdx": 0,
+      "setIdx": 1,
       "setId": 2,
       "iconIdx": 4
     },
@@ -170,13 +187,13 @@
       },
       "attrs": [],
       "properties": {
-        "order": 67,
+        "order": 245,
         "name": "mi-ChevronUp",
         "prevSize": 20,
         "id": 4,
         "code": 60055
       },
-      "setIdx": 0,
+      "setIdx": 1,
       "setId": 2,
       "iconIdx": 5
     },
@@ -199,13 +216,13 @@
       },
       "attrs": [],
       "properties": {
-        "order": 68,
+        "order": 246,
         "name": "mi-GlobalNavButton",
         "prevSize": 20,
         "id": 5,
         "code": 60232
       },
-      "setIdx": 0,
+      "setIdx": 1,
       "setId": 2,
       "iconIdx": 6
     },
@@ -228,13 +245,13 @@
       },
       "attrs": [],
       "properties": {
-        "order": 69,
+        "order": 247,
         "name": "mi-Like",
         "prevSize": 20,
         "id": 6,
         "code": 60340
       },
-      "setIdx": 0,
+      "setIdx": 1,
       "setId": 2,
       "iconIdx": 7
     },
@@ -257,13 +274,13 @@
       },
       "attrs": [],
       "properties": {
-        "order": 70,
+        "order": 248,
         "name": "mi-More",
         "prevSize": 20,
         "id": 7,
         "code": 60437
       },
-      "setIdx": 0,
+      "setIdx": 1,
       "setId": 2,
       "iconIdx": 8
     },
@@ -286,13 +303,13 @@
       },
       "attrs": [],
       "properties": {
-        "order": 71,
+        "order": 249,
         "name": "mi-Repair",
         "prevSize": 20,
         "id": 8,
         "code": 60590
       },
-      "setIdx": 0,
+      "setIdx": 1,
       "setId": 2,
       "iconIdx": 9
     },
@@ -315,13 +332,13 @@
       },
       "attrs": [],
       "properties": {
-        "order": 72,
+        "order": 250,
         "name": "mi-Search",
         "prevSize": 20,
         "id": 9,
         "code": 60650
       },
-      "setIdx": 0,
+      "setIdx": 1,
       "setId": 2,
       "iconIdx": 10
     },
@@ -344,13 +361,13 @@
       },
       "attrs": [],
       "properties": {
-        "order": 73,
+        "order": 251,
         "name": "mi-Share",
         "prevSize": 20,
         "id": 10,
         "code": 60664
       },
-      "setIdx": 0,
+      "setIdx": 1,
       "setId": 2,
       "iconIdx": 11
     },
@@ -373,13 +390,13 @@
       },
       "attrs": [],
       "properties": {
-        "order": 74,
+        "order": 252,
         "name": "mi-Up",
         "prevSize": 20,
         "id": 11,
         "code": 60797
       },
-      "setIdx": 0,
+      "setIdx": 1,
       "setId": 2,
       "iconIdx": 12
     }
@@ -423,12 +440,15 @@
       "showMetadata": true
     },
     "imagePref": {
-      "prefix": "icon-",
-      "png": true,
+      "prefix": "ui-icon-",
+      "png": false,
       "useClassSelector": true,
       "color": 0,
       "bgColor": 16777215,
-      "classSelector": ".icon"
+      "classSelector": ".ui-icon",
+      "height": 32,
+      "columns": 16,
+      "margin": 16
     },
     "historySize": 50,
     "showCodes": true,

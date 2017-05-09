@@ -2363,7 +2363,7 @@ body {
 
 /*! @import "location-qr-code"; */
 
-/**
+/*!
  * location qr code
  */
 
@@ -3495,7 +3495,7 @@ u,
 	background-color: #E7E7E7;
 }
 
-/**
+/*!
  * fix for yandex search
  * site.yandex.net/v2.0/js/suggest.js
  */

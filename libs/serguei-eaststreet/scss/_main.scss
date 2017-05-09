@@ -319,17 +319,17 @@ u,
  * 23px	1.533em	153.3%	17pt
  * 24px	1.600em	160.0%	18pt
  */
- 
+
 #h1 {
 	margin-top: 0;
 }
 
-.column.small-12.medium-12.large-3 h2:first-child {
+.col h2.aside-heading {
 	margin-top: 1.333rem;
 }
 
 @media only screen and (min-width:1024px) {
-	.column.small-12.medium-12.large-3 h2:first-child {
+	.col h2.aside-heading {
 		margin-top: 0;
 	}
 }
@@ -1113,7 +1113,7 @@ u,
 }
 
 /*!
- * holder-social-buttons
+ * social buttons
  */
 
 .holder-share-buttons {
@@ -1140,7 +1140,7 @@ u,
 	opacity: 1;
 }
 
-/**
+/*!
  * holder-vk-like
  */
 
@@ -1180,7 +1180,7 @@ u,
 	left: 24.800rem;
 }
 
-/**
+/*!
  * location qr code
  */
 
@@ -1334,7 +1334,7 @@ u,
 	background-color: $color-hex-ui-bar-bg;
 }
 
-/**
+/*!
  * fix for yandex search
  * site.yandex.net/v2.0/js/suggest.js
  */

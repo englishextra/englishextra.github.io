@@ -79,8 +79,8 @@ EB5262
 	content: "\eb6f";
 }
 
-.es-fa-qrcode:before {
-	content: "\f029";
+.es-ion-qr-scanner:before {
+	content: "\f346";
 }
 
 .es-mi-Cancel:before {
@@ -3376,12 +3376,12 @@ u,
 	margin-top: 0;
 }
 
-.column.small-12.medium-12.large-3 h2:first-child {
+.col h2.aside-heading {
 	margin-top: 1.333rem;
 }
 
 @media only screen and (min-width: 1024px) {
-	.column.small-12.medium-12.large-3 h2:first-child {
+	.col h2.aside-heading {
 		margin-top: 0;
 	}
 }
@@ -4181,7 +4181,7 @@ u,
 }
 
 /*!
- * holder-social-buttons
+ * social buttons
  */
 
 .holder-share-buttons {
@@ -4209,7 +4209,7 @@ u,
 	opacity: 1;
 }
 
-/**
+/*!
  * holder-vk-like
  */
 
@@ -4250,7 +4250,7 @@ u,
 	left: 24.800rem;
 }
 
-/**
+/*!
  * location qr code
  */
 
@@ -4407,7 +4407,7 @@ u,
 	background-color: #E7E7E7;
 }
 
-/**
+/*!
  * fix for yandex search
  * site.yandex.net/v2.0/js/suggest.js
  */

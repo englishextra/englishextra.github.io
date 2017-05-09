@@ -1705,7 +1705,7 @@ evento.add(window, "load", loadManageLocationQrCodeImg);
 /*!
  * init share btn
  */
-var manageShareButtons = function () {
+var manageShareButton = function () {
 	"use strict";
 	var btn = ".btn-toggle-holder-share-buttons",
 	e = BALA.one(btn) || "",
@@ -1718,7 +1718,7 @@ var manageShareButtons = function () {
 	active_menumore = "is-active-ui-menumore",
 	cL = "classList";
 	if (e && p) {
-		console.log("triggered function: manageShareButtons");
+		console.log("triggered function: manageShareButton");
 		var h_e = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
@@ -1750,7 +1750,7 @@ var manageShareButtons = function () {
 		evento.add(e, "click", h_e);
 	}
 };
-docReady(manageShareButtons);
+docReady(manageShareButton);
 /*!
  * init vk-like btn
  */

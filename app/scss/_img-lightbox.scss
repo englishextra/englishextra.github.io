@@ -1,0 +1,47 @@
+/*! @import "img-lightbox"; */
+
+/**
+ * img lightbox
+ */
+
+.img-lightbox-container {
+	display: none;
+	opacity: 0;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: $color-rgba-img-lightbox-bg;
+	z-index: 1;
+}
+
+.img-lightbox-container img {
+	opacity: 0;
+	max-width: 90%;
+	max-height: 90%;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: transparent;
+	border: 0.067rem solid $color-rgba-img-lightbox-border;
+	border-radius: 0.067rem;
+	vertical-align: middle;
+	user-select: none;
+	cursor: zoom-out;
+	margin: auto;
+}
+
+/**
+ * reset for animate.css
+ * daneden.github.io/animate.css/
+ */
+
+.img-lightbox-container.animated,
+.img-lightbox-container img.animated {
+	animation-duration: 0.4s;
+	animation-fill-mode: both;
+}
+

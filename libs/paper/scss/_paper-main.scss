@@ -581,7 +581,7 @@ u,
 	background-color: $color-hex-ui-bar-bg;
 }
 
-/**
+/*!
  * fix for yandex search
  * site.yandex.net/v2.0/js/suggest.js
  */
@@ -631,7 +631,7 @@ u,
  * ms(-5) / 0.667em
  * ms(-6) / 0.621em
  */
- 
+
 #h1 {
 	margin-top: 0;
 	margin-bottom: 0.500rem;
