@@ -540,7 +540,7 @@ template {
 
 /*!
  * typeboost-uwp.css v0.1.8
- * github.com/englishextra/typeboost-uwp.css
+ * @see {@link https://github.com/englishextra/typeboost-uwp.css}
  * set html font to 15px, and body to 1.000rem
  * line height should be the closest multiple of 4
  */
@@ -1676,11 +1676,11 @@ body {
 /*!
  * ---------------------------------------------- *
  * Grid
- * http://brajeshwar.github.io/grid/
- * https://github.com/brajeshwar/grid
+ * @see {@link http://brajeshwar.github.io/grid/}
+ * @see {@link https://github.com/brajeshwar/grid}
  *
  * Brajeshwar
- * http://brajeshwar.me
+ * @see {@link http://brajeshwar.me}
  * ---------------------------------------------- *
  */
 
@@ -2305,7 +2305,7 @@ body {
 /*! @import "loading-spinner"; */
 
 /**
- * github.com/lukehaas/css-loaders
+ * @see {@link https://github.com/lukehaas/css-loaders}
  * projects.lukehaas.me/css-loaders/
  * size of a loader dependent on font size
  */
@@ -2362,7 +2362,7 @@ body {
 
 /*!
  * notibar
- * github.com/duyetdev/notibar.js
+ * @see {@link https://github.com/duyetdev/notibar.js}
  */
 
 .notibar {
@@ -2491,6 +2491,7 @@ body {
 .navbar,
 .navbar ol,
 .navbar ul {
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
 	margin: 0;
 }
 
@@ -2520,7 +2521,7 @@ body {
 	text-decoration: none;
 	color: #FFFFFF;
 	background-color: #1F1F1F;
-	padding: 0 1.333rem;
+	padding: 0 0.933rem;
 }
 
 .navbar li a .navbar-icon.pointer {
@@ -2684,7 +2685,7 @@ body {
 	border: none;
 	border-radius: 0;
 	box-sizing: border-box;
-	/* box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow; */
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
 	-webkit-transition: visibility 0s, opacity 0.2s ease;
 	transition: visibility 0s, opacity 0.2s ease;
 	outline: none;
@@ -3107,7 +3108,7 @@ body {
 /*! @import "ui-totop"; */
 
 /**
- * github.com/sksmatt/UItoTop-jQuery-Plugin/
+ * @see {@link https://github.com/sksmatt/UItoTop-jQuery-Plugin/}
  */
 
 .ui-totop {
@@ -3162,7 +3163,7 @@ body {
 
 /**
  * some animations from animate.css
- * github.com/daneden/animate.css
+ * @see {@link https://github.com/daneden/animate.css}
  * daneden.github.io/animate.css/
  */
 
@@ -3658,6 +3659,13 @@ u,
 	transition: opacity 0.4s ease;
 }
 
+.col img.data-src-img,
+.col img[data-src],
+.col iframe.data-src-iframe,
+.col iframe[data-src] {
+	background-color: #F2F2F2;
+}
+
 .col img.data-src-img.is-active,
 .col img[data-src].is-active {
 	opacity: 1;
@@ -4061,9 +4069,8 @@ u,
 	margin: 0 auto;
 }
 
-.ui-panel-contents-select .contents-select {
-	display: block;
-	/* max-width: 18.133rem; */
+.holder-contents-select .contents-select {
+	display: inline-block;
 	width: 100%;
 	height: 3.200rem;
 	font-family: inherit;
@@ -4082,13 +4089,119 @@ u,
 	outline: none;
 }
 
-.ui-panel-contents-select .contents-select::-ms-expand {
+.holder-contents-select .contents-select::-ms-expand {
 	display: none;
 }
 
-.ui-panel-contents-select .contents-select::-ms-value {
+.holder-contents-select .contents-select::-ms-value {
 	background: none;
 	color: #191919;
+}
+
+.holder-contents-select .ui-icon {
+	display: inline-block;
+	width: 0.400em;
+	height: 0.400em;
+	position: absolute;
+	margin-top: 1.433em;
+	margin-left: -1.767em;
+	pointer-events: none;
+}
+
+.holder-contents-select .ui-icon > * {
+	fill: #191919;
+}
+
+/*!
+ * fix select border for electron and nw
+ */
+
+.holder-contents-select .contents-select,
+.holder-contents-select .contents-select:focus,
+.holder-contents-select .contents-select:hover,
+.holder-contents-select .contents-select:active {
+	border: 0.067rem solid #E6E6E6;
+}
+
+/*!
+ * contents select replacement with list
+ */
+
+.holder-contents-select .contents-list {
+	max-height: 0;
+	position: absolute;
+	list-style: none;
+	font-size: 0.933rem;
+	overflow-x: hidden;
+	overflow-y: auto;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
+	-webkit-transition: max-height 0.2s linear;
+	transition: max-height 0.2s linear;
+	padding: 0;
+	margin: 0;
+	z-index: 1;
+}
+
+.holder-contents-select .contents-list.is-active {
+	max-height: 16.000rem;
+}
+
+.holder-contents-select .contents-list li {
+	height: 3.200rem;
+	line-height: 3.200rem;
+	background-color: #E6E6E6;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding: 0 0.933rem;
+}
+
+.holder-contents-select .contents-list li:hover {
+	background-color: #CCCCCC;
+	cursor: default;
+}
+
+/* .holder-contents-select .contents-list li:first-child {
+	display: none;
+} */
+
+.holder-contents-select a {
+	display: block;
+	height: 3.200rem;
+	font-size: 0.933rem;
+	line-height: 3.200rem;
+	color: #878787;
+	background-color: #E6E6E6;
+	cursor: default;
+	padding: 0 3.200rem 0 0.933rem;
+}
+
+.holder-contents-select a:focus,
+.holder-contents-select a:hover,
+.holder-contents-select a:active,
+.holder-contents-select a:visited {
+	color: #878787;
+	text-decoration: none;
+}
+
+/*!
+ * reset for svg icon
+ */
+
+.holder-contents-select a .ui-icon {
+	display: inline-block;
+	width: 0.429em;
+	height: 0.429em;
+	float: right;
+	position: relative;
+	bottom: -1.500em;
+	right: -1.964em;
+	margin: 0;
+	pointer-events: none;
+}
+
+.holder-contents-select a .ui-icon > * {
+	fill: #191919;
 }
 
 /*!
@@ -4163,8 +4276,8 @@ u,
  * buttons
  */
 
-.col div + .holder-bottom-nav-btns,
-.holder-bottom-nav-btns:first-child {
+.col div + .holder-bottom-navigation,
+.holder-bottom-navigation:first-child {
 	margin-top: 1.333rem;
 }
 
@@ -4274,7 +4387,7 @@ u,
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	margin: 0;
-	padding: 0 0 0 0.267rem;
+	padding: 0 2.133rem 0 0.267rem;
 }
 
 .holder-pages-select .pages-select::-ms-expand {
@@ -4291,6 +4404,20 @@ u,
 	padding-left: 0.267rem;
 }
 
+.holder-pages-select .ui-icon {
+	display: inline-block;
+	width: 0.400em;
+	height: 0.400em;
+	position: absolute;
+	margin-top: 1.033em;
+	margin-left: -1.367em;
+	pointer-events: none;
+}
+
+.holder-pages-select .ui-icon > * {
+	fill: #191919;
+}
+
 /*!
  * fix select border for electron and nw
  */
@@ -4300,6 +4427,87 @@ u,
 .holder-pages-select .pages-select:hover,
 .holder-pages-select .pages-select:active {
 	border: 0.067rem solid #F2F2F2;
+}
+
+/*!
+ * pages select replacement with list
+ */
+
+.holder-pages-select .pages-list {
+	max-height: 0;
+	position: absolute;
+	list-style: none;
+	font-size: 0.933rem;
+	overflow-x: hidden;
+	overflow-y: auto;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
+	-webkit-transition: max-height 0.2s linear;
+	transition: max-height 0.2s linear;
+	padding: 0;
+	margin: 0;
+	z-index: 1;
+}
+
+.holder-pages-select .pages-list.is-active {
+	max-height: 12.000rem;
+}
+
+.holder-pages-select .pages-list li {
+	height: 2.400rem;
+	line-height: 2.400rem;
+	background-color: #F2F2F2;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding: 0 0.533rem;
+}
+
+.holder-pages-select .pages-list li:hover {
+	background-color: #E6E6E6;
+	cursor: default;
+}
+
+.holder-pages-select .pages-list li:first-child {
+	display: none;
+}
+
+.holder-pages-select a {
+	display: block;
+	height: 2.400rem;
+	font-size: 0.933rem;
+	line-height: 2.400rem;
+	color: #878787;
+	background-color: #F2F2F2;
+	cursor: default;
+	padding: 0 2.400rem 0 0.533rem;
+}
+
+.holder-pages-select a:focus,
+.holder-pages-select a:hover,
+.holder-pages-select a:active,
+.holder-pages-select a:visited {
+	color: #878787;
+	text-decoration: none;
+}
+
+/*!
+ * reset for svg icon
+ */
+
+.holder-pages-select a .ui-icon {
+	display: inline-block;
+	width: 0.429em;
+	height: 0.429em;
+	float: right;
+	position: relative;
+	bottom: -1.071em;
+	right: -1.536em;
+	margin: 0;
+	pointer-events: none;
+}
+
+.holder-pages-select a .ui-icon > * {
+	fill: #191919;
 }
 
 /*!
@@ -4582,7 +4790,7 @@ u,
 	display: block;
 	visibility: hidden;
 	opacity: 0;
-	width: 3.200rem;
+	height: 3.200rem;
 	position: fixed;
 	top: 9.600rem;
 	right: 3.200rem;
@@ -4729,9 +4937,17 @@ u,
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
@@ -4760,9 +4976,17 @@ u,
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
@@ -4791,9 +5015,17 @@ u,
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
@@ -4826,8 +5058,16 @@ u,
 		max-width: 76.800rem;
 	}
 
-	.holder-pages-select .pages-select {
-		max-width: 100%;
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
+	.holder-pages-select .pages-select,
+	.holder-pages-select a {
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
@@ -4860,8 +5100,16 @@ u,
 		max-width: 76.800rem;
 	}
 
-	.holder-pages-select .pages-select {
-		max-width: 18.133rem;
+	.holder-contents-select .contents-select,
+	.holder-contents-select .contents-list,
+	.holder-contents-select a {
+		width: calc(76.800rem - 1.333rem);
+	}
+
+	.holder-pages-select .pages-select,
+	.holder-pages-select .pages-list,
+	.holder-pages-select a {
+		width: 18.133rem;
 	}
 
 	.col .textcenter,
@@ -4894,8 +5142,16 @@ u,
 		max-width: 76.800rem;
 	}
 
-	.holder-pages-select .pages-select {
-		max-width: 100%;
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
+	.holder-pages-select .pages-select,
+	.holder-pages-select a {
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
@@ -4930,8 +5186,16 @@ iPad 3
 		max-width: 76.800rem;
 	}
 
-	.holder-pages-select .pages-select {
-		max-width: 18.133rem;
+	.holder-contents-select .contents-select,
+	.holder-contents-select .contents-list,
+	.holder-contents-select a {
+		width: calc(76.800rem - 1.333rem);
+	}
+
+	.holder-pages-select .pages-select,
+	.holder-pages-select .pages-list,
+	.holder-pages-select a {
+		width: 18.133rem;
 	}
 
 	.col .textcenter,
@@ -4962,8 +5226,16 @@ iPad 3
 		max-width: 76.800rem;
 	}
 
-	.holder-pages-select .pages-select {
-		max-width: 100%;
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
+	.holder-pages-select .pages-select,
+	.holder-pages-select a {
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
@@ -4996,8 +5268,16 @@ iPad 3
 		max-width: 76.800rem;
 	}
 
-	.holder-pages-select .pages-select {
-		max-width: 18.133rem;
+	.holder-contents-select .contents-select,
+	.holder-contents-select .contents-list,
+	.holder-contents-select a {
+		width: calc(76.800rem - 1.333rem);
+	}
+
+	.holder-pages-select .pages-select,
+	.holder-pages-select .pages-list,
+	.holder-pages-select a {
+		width: 18.133rem;
 	}
 
 	.col .textcenter,
@@ -5030,8 +5310,16 @@ iPad 3
 		max-width: 76.800rem;
 	}
 
-	.holder-pages-select .pages-select {
-		max-width: 18.133rem;
+	.holder-contents-select .contents-select,
+	.holder-contents-select .contents-list,
+	.holder-contents-select a {
+		width: calc(76.800rem - 1.333rem);
+	}
+
+	.holder-pages-select .pages-select,
+	.holder-pages-select .pages-list,
+	.holder-pages-select a {
+		width: 18.133rem;
 	}
 
 	.col .textcenter,
@@ -5060,18 +5348,22 @@ iPad 3
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
 	.footer {
 		text-align: left;
-	}
-
-	.holder-pages-select .pages-select {
-		max-width: 18.133rem;
 	}
 
 	.padded-content,
@@ -5093,18 +5385,22 @@ iPad 3
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
 	.footer {
 		text-align: left;
-	}
-
-	.holder-pages-select .pages-select {
-		max-width: 18.133rem;
 	}
 
 	.padded-content,
@@ -5128,18 +5424,22 @@ iPad 3
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
 	.footer {
 		text-align: left;
-	}
-
-	.holder-pages-select .pages-select {
-		max-width: 18.133rem;
 	}
 
 	.padded-content,
@@ -5161,18 +5461,22 @@ iPad 3
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
 	.footer {
 		text-align: left;
-	}
-
-	.holder-pages-select .pages-select {
-		max-width: 18.133rem;
 	}
 
 	.padded-content,
@@ -5196,18 +5500,22 @@ iPad 3
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
 	.footer {
 		text-align: left;
-	}
-
-	.holder-pages-select .pages-select {
-		max-width: 18.133rem;
 	}
 
 	.padded-content,
@@ -5229,9 +5537,17 @@ iPad 3
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
@@ -5239,8 +5555,9 @@ iPad 3
 		text-align: left;
 	}
 
-	.holder-pages-select .pages-select {
-		max-width: 18.133rem;
+	.holder-pages-select .pages-select,
+	.holder-pages-select a {
+		width: 18.133rem;
 	}
 
 	.padded-content,
@@ -5264,9 +5581,17 @@ iPad 3
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
@@ -5293,9 +5618,17 @@ iPad 3
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
@@ -5324,9 +5657,17 @@ iPad 3
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
@@ -5353,9 +5694,17 @@ iPad 3
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
@@ -5384,9 +5733,17 @@ iPad 3
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
@@ -5413,9 +5770,17 @@ iPad 3
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
@@ -5444,9 +5809,17 @@ iPad 3
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
@@ -5473,9 +5846,17 @@ iPad 3
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,

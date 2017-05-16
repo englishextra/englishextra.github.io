@@ -13,6 +13,7 @@
 .navbar,
 .navbar ol,
 .navbar ul {
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
 	margin: 0;
 }
 
@@ -42,7 +43,7 @@
 	text-decoration: none;
 	color: #FFFFFF;
 	background-color: $TitleBarAndAppBarDark;
-	padding: 0 1.333rem;
+	padding: 0 0.933rem;
 }
 
 .navbar li a .navbar-icon.pointer {

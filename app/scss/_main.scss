@@ -261,6 +261,13 @@ u,
 	transition: opacity 0.4s ease;
 }
 
+.col img.data-src-img,
+.col img[data-src],
+.col iframe.data-src-iframe,
+.col iframe[data-src] {
+	background-color: $LeftNavBarLight;
+}
+
 .col img.data-src-img.is-active,
 .col img[data-src].is-active {
 	opacity: 1;
@@ -662,9 +669,8 @@ u,
 	margin: 0 auto;
 }
 
-.ui-panel-contents-select .contents-select {
-	display: block;
-	/* max-width: 18.133rem; */
+.holder-contents-select .contents-select {
+	display: inline-block;
 	width: 100%;
 	height: 3.200rem;
 	font-family: inherit;
@@ -681,13 +687,118 @@ u,
 	outline: none;
 }
 
-.ui-panel-contents-select .contents-select::-ms-expand {
+.holder-contents-select .contents-select::-ms-expand {
 	display: none;
 }
 
-.ui-panel-contents-select .contents-select::-ms-value {
+.holder-contents-select .contents-select::-ms-value {
     background: none;
 	color: $color-hex-body-text;
+}
+
+.holder-contents-select .ui-icon {
+	display: inline-block;
+	width: 0.400em;
+	height: 0.400em;
+	position: absolute;
+	margin-top: 1.433em;
+	margin-left: -1.767em;
+	pointer-events: none;
+}
+
+.holder-contents-select .ui-icon > * {
+	fill: $ButtonText;
+}
+
+/*!
+ * fix select border for electron and nw
+ */
+
+.holder-contents-select .contents-select,
+.holder-contents-select .contents-select:focus,
+.holder-contents-select .contents-select:hover,
+.holder-contents-select .contents-select:active {
+	border: 0.067rem solid $TitleBarAndAppBarLight;
+}
+
+/*!
+ * contents select replacement with list
+ */
+
+.holder-contents-select .contents-list {
+	max-height: 0;
+	position: absolute;
+	list-style: none;
+	font-size: 0.933rem;
+	overflow-x: hidden;
+	overflow-y: auto;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+	transition: max-height 0.2s linear;
+	padding: 0;
+	margin: 0;
+	z-index: 1;
+}
+
+.holder-contents-select .contents-list.is-active {
+	max-height: 16.000rem;
+}
+
+.holder-contents-select .contents-list li {
+	height: 3.200rem;
+	line-height: 3.200rem;
+	background-color: $TitleBarAndAppBarLight;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding: 0 0.933rem;
+}
+
+.holder-contents-select .contents-list li:hover {
+	background-color: $ButtonBackground;
+	cursor: default;
+}
+
+/* .holder-contents-select .contents-list li:first-child {
+	display: none;
+} */
+
+.holder-contents-select a {
+	display: block;
+	height: 3.200rem;
+	font-size: 0.933rem;
+	line-height: 3.200rem;
+	color: $PlaceholderText;
+	background-color: $TitleBarAndAppBarLight;
+	cursor: default;
+	padding: 0 3.200rem 0 0.933rem;
+}
+
+.holder-contents-select a:focus,
+.holder-contents-select a:hover,
+.holder-contents-select a:active,
+.holder-contents-select a:visited {
+	color: $PlaceholderText;
+	text-decoration: none;
+}
+
+/*!
+ * reset for svg icon
+ */
+
+.holder-contents-select a .ui-icon {
+	display: inline-block;
+	width: 0.429em;
+	height: 0.429em;
+	float: right;
+	position: relative;
+	bottom: -1.500em;
+	right: -1.964em;
+	margin: 0;
+	pointer-events: none;
+}
+
+.holder-contents-select a .ui-icon > * {
+	fill: $ButtonText;
 }
 
 /*!
@@ -762,8 +873,8 @@ u,
  * buttons
  */
 
-.col div + .holder-bottom-nav-btns,
-.holder-bottom-nav-btns:first-child {
+.col div + .holder-bottom-navigation,
+.holder-bottom-navigation:first-child {
 	margin-top: 1.333rem;
 }
 
@@ -871,7 +982,7 @@ u,
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	margin: 0;
-	padding: 0 0 0 0.267rem;
+	padding: 0 2.133rem 0 0.267rem;
 }
 
 .holder-pages-select .pages-select::-ms-expand {
@@ -888,6 +999,20 @@ u,
 	padding-left: 0.267rem;
 }
 
+.holder-pages-select .ui-icon {
+	display: inline-block;
+	width: 0.400em;
+	height: 0.400em;
+	position: absolute;
+	margin-top: 1.033em;
+	margin-left: -1.367em;
+	pointer-events: none;
+}
+
+.holder-pages-select .ui-icon > * {
+	fill: $ButtonText;
+}
+
 /*!
  * fix select border for electron and nw
  */
@@ -897,6 +1022,86 @@ u,
 .holder-pages-select .pages-select:hover,
 .holder-pages-select .pages-select:active {
 	border: 0.067rem solid $LeftNavBarLight;
+}
+
+/*!
+ * pages select replacement with list
+ */
+
+.holder-pages-select .pages-list {
+	max-height: 0;
+	position: absolute;
+	list-style: none;
+	font-size: 0.933rem;
+	overflow-x: hidden;
+	overflow-y: auto;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+	transition: max-height 0.2s linear;
+	padding: 0;
+	margin: 0;
+	z-index: 1;
+}
+
+.holder-pages-select .pages-list.is-active {
+	max-height: 12.000rem;
+}
+
+.holder-pages-select .pages-list li {
+	height: 2.400rem;
+	line-height: 2.400rem;
+	background-color: $LeftNavBarLight;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding: 0 0.533rem;
+}
+
+.holder-pages-select .pages-list li:hover {
+	background-color: $TitleBarAndAppBarLight;
+	cursor: default;
+}
+
+.holder-pages-select .pages-list li:first-child {
+	display: none;
+}
+
+.holder-pages-select a {
+	display: block;
+	height: 2.400rem;
+	font-size: 0.933rem;
+	line-height: 2.400rem;
+	color: $PlaceholderText;
+	background-color: $LeftNavBarLight;
+	cursor: default;
+	padding: 0 2.400rem 0 0.533rem;
+}
+
+.holder-pages-select a:focus,
+.holder-pages-select a:hover,
+.holder-pages-select a:active,
+.holder-pages-select a:visited {
+	color: $PlaceholderText;
+	text-decoration: none;
+}
+
+/*!
+ * reset for svg icon
+ */
+
+.holder-pages-select a .ui-icon {
+	display: inline-block;
+	width: 0.429em;
+	height: 0.429em;
+	float: right;
+	position: relative;
+	bottom: -1.071em;
+	right: -1.536em;
+	margin: 0;
+	pointer-events: none;
+}
+
+.holder-pages-select a .ui-icon > * {
+	fill: $ButtonText;
 }
 
 /*!
@@ -1174,7 +1379,7 @@ u,
 	display: block;
 	visibility: hidden;
 	opacity: 0;
-	width: 3.200rem;
+	height: 3.200rem;
 	position: fixed;
 	top: 9.600rem;
 	right: 3.200rem;

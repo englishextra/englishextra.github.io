@@ -15,9 +15,17 @@
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
@@ -46,9 +54,17 @@
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
@@ -77,9 +93,17 @@
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
@@ -111,9 +135,17 @@
 	.footer {
 		max-width: 76.800rem;
 	}
-	
-	.holder-pages-select .pages-select {
-		max-width: 100%;
+
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
+	.holder-pages-select .pages-select,
+	.holder-pages-select a {
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
@@ -145,9 +177,17 @@
 	.footer {
 		max-width: 76.800rem;
 	}
-	
-	.holder-pages-select .pages-select {
-		max-width: 18.133rem;
+
+	.holder-contents-select .contents-select,
+	.holder-contents-select .contents-list,
+	.holder-contents-select a {
+		width: calc(76.800rem - 1.333rem);
+	}
+
+	.holder-pages-select .pages-select,
+	.holder-pages-select .pages-list,
+	.holder-pages-select a {
+		width: 18.133rem;
 	}
 
 	.col .textcenter,
@@ -179,9 +219,17 @@
 	.footer {
 		max-width: 76.800rem;
 	}
-	
-	.holder-pages-select .pages-select {
-		max-width: 100%;
+
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
+	.holder-pages-select .pages-select,
+	.holder-pages-select a {
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
@@ -215,9 +263,17 @@ iPad 3
 	.footer {
 		max-width: 76.800rem;
 	}
-	
-	.holder-pages-select .pages-select {
-		max-width: 18.133rem;
+
+	.holder-contents-select .contents-select,
+	.holder-contents-select .contents-list,
+	.holder-contents-select a {
+		width: calc(76.800rem - 1.333rem);
+	}
+
+	.holder-pages-select .pages-select,
+	.holder-pages-select .pages-list,
+	.holder-pages-select a {
+		width: 18.133rem;
 	}
 
 	.col .textcenter,
@@ -247,9 +303,17 @@ iPad 3
 	.footer {
 		max-width: 76.800rem;
 	}
-	
-	.holder-pages-select .pages-select {
-		max-width: 100%;
+
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
+	.holder-pages-select .pages-select,
+	.holder-pages-select a {
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
@@ -281,9 +345,17 @@ iPad 3
 	.footer {
 		max-width: 76.800rem;
 	}
-	
-	.holder-pages-select .pages-select {
-		max-width: 18.133rem;
+
+	.holder-contents-select .contents-select,
+	.holder-contents-select .contents-list,
+	.holder-contents-select a {
+		width: calc(76.800rem - 1.333rem);
+	}
+
+	.holder-pages-select .pages-select,
+	.holder-pages-select .pages-list,
+	.holder-pages-select a {
+		width: 18.133rem;
 	}
 
 	.col .textcenter,
@@ -315,9 +387,17 @@ iPad 3
 	.footer {
 		max-width: 76.800rem;
 	}
-	
-	.holder-pages-select .pages-select {
-		max-width: 18.133rem;
+
+	.holder-contents-select .contents-select,
+	.holder-contents-select .contents-list,
+	.holder-contents-select a {
+		width: calc(76.800rem - 1.333rem);
+	}
+
+	.holder-pages-select .pages-select,
+	.holder-pages-select .pages-list,
+	.holder-pages-select a {
+		width: 18.133rem;
 	}
 
 	.col .textcenter,
@@ -346,18 +426,22 @@ iPad 3
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
 	.footer {
 		text-align: left;
-	}
-	
-	.holder-pages-select .pages-select {
-		max-width: 18.133rem;
 	}
 
 	.padded-content,
@@ -379,18 +463,22 @@ iPad 3
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
 	.footer {
 		text-align: left;
-	}
-	
-	.holder-pages-select .pages-select {
-		max-width: 18.133rem;
 	}
 
 	.padded-content,
@@ -414,18 +502,22 @@ iPad 3
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
 	.footer {
 		text-align: left;
-	}
-	
-	.holder-pages-select .pages-select {
-		max-width: 18.133rem;
 	}
 
 	.padded-content,
@@ -447,18 +539,22 @@ iPad 3
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
 	.footer {
 		text-align: left;
-	}
-	
-	.holder-pages-select .pages-select {
-		max-width: 18.133rem;
 	}
 
 	.padded-content,
@@ -482,18 +578,22 @@ iPad 3
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
 	.footer {
 		text-align: left;
-	}
-	
-	.holder-pages-select .pages-select {
-		max-width: 18.133rem;
 	}
 
 	.padded-content,
@@ -515,18 +615,27 @@ iPad 3
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
 	.footer {
 		text-align: left;
 	}
-	
-	.holder-pages-select .pages-select {
-		max-width: 18.133rem;
+
+	.holder-pages-select .pages-select,
+	.holder-pages-select a {
+		width: 18.133rem;
 	}
 
 	.padded-content,
@@ -550,9 +659,17 @@ iPad 3
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
@@ -579,9 +696,17 @@ iPad 3
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
@@ -610,9 +735,17 @@ iPad 3
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
@@ -639,9 +772,17 @@ iPad 3
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
@@ -670,9 +811,17 @@ iPad 3
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
@@ -699,9 +848,17 @@ iPad 3
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
@@ -730,9 +887,17 @@ iPad 3
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
@@ -759,9 +924,17 @@ iPad 3
 	.holder-contents-select,
 	.col,
 	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
 	.holder-pages-select .pages-select,
+	.holder-pages-select a,
 	.footer {
-		max-width: 100%;
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-pages-select .pages-list {
+		width: calc(100% - 1.333rem);
 	}
 
 	.col .textcenter,
