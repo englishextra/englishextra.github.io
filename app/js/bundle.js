@@ -834,14 +834,20 @@ var handleOtherDropdownLists = function (_this) {
 	isActiveClass = "is-active",
 	isDropdownClass = "is-dropdown",
 	isDropdownSelector = "." + isDropdownClass,
-	list = d[qS](isDropdownSelector) || "";
+	list = d[qS](isDropdownSelector) || "",
+	removeActiveClass = function (e) {
+		if (_this !== e) {
+			e[cL].remove(isActiveClass);
+		}
+	};
 	if (list) {
 		list = d[qSA](isDropdownSelector) || "";
-		for (var i = 0, l = list.length; i < l; i += 1) {
+		/* for (var i = 0, l = list.length; i < l; i += 1) {
 			if (_this !== list[i]) {
-				list[i][cL].remove(isActiveClass);
+				removeActiveClass(list[i]);
 			}
-		}
+		} */
+		forEach(list, removeActiveClass);
 	}
 },
 manageOtherDropdownLists = function () {
@@ -912,9 +918,9 @@ var managePagesSelect = function (ctx) {
 			}
 		},
 		options = pagesSelect.getElementsByTagName("option") || "";
-		for (var i = 0, l = options.length; i < l; i += 1) {
+		/* for (var i = 0, l = options.length; i < l; i += 1) {
 			rerenderOption(options[i]);
-		}
+		} */
 		forEach(options, rerenderOption);
 	},
 	rerenderPagesList = function () {
@@ -942,19 +948,25 @@ var managePagesSelect = function (ctx) {
 		pagesList = d[cE]("ul"),
 		pagesListItems = pagesSelect.getElementsByTagName("option") || "",
 		pagesListButtonDefaultText = "",
-		df = d.createDocumentFragment();
-		for (var i = 0, l = pagesListItems.length; i < l; i += 1) {
-			pagesListButtonDefaultText = pagesListItems[0].firstChild.textContent;
+		df = d.createDocumentFragment(),
+		generatePagesListItems = function (_this, i) {
+			if (0 === i) {
+				pagesListButtonDefaultText = _this.firstChild.textContent;
+			}
 			var pagesListItem = d[cE]("li"),
-			pagesListItemText = pagesListItems[i].firstChild.textContent || "",
-			pagesListItemValue = pagesListItems[i].value,
+			pagesListItemText = _this.firstChild.textContent || "",
+			pagesListItemValue = _this.value,
 			pagesListItemTextTruncated = truncString("" + pagesListItemText, 28);
 			pagesListItem[aC](d[cTN](pagesListItemTextTruncated));
 			pagesListItem.title = pagesListItemText;
 			pagesListItem.addEventListener("click", handlePagesListItem.bind(null, pagesList, pagesListItemValue));
 			df[aC](pagesListItem);
 			df[aC](d.createTextNode("\n"));
-		}
+		};
+		/* for (var i = 0, l = pagesListItems.length; i < l; i += 1) {
+			generatePagesListItems(pagesListItems[i], i);
+		} */
+		forEach(pagesListItems, generatePagesListItems);
 		appendFragment(df, pagesList);
 		pagesList[cL].add(pagesListClass);
 		pagesList[cL].add(isDropdownClass);
@@ -1406,24 +1418,24 @@ var initContentsKamil = function (jsonObj) {
 				/*!
 				 * limit output
 				 */
-				f = function (e, i) {
+				limitKamilOutput = function (e, i) {
 					if (i < 10) {
 						_this._renderItemData(ul, e, i);
 					}
 				};
 				if (items) {
 					/* for (var i = 0; i < l; i += 1) {
-						f(items[i], i);
+						limitKamilOutput(items[i], i);
 					} */
 					forEach(items, function (e, i) {
-						f(e, i);
+						limitKamilOutput(e, i);
 					});
 				}
 				/*!
 				 * fix typo - non latin characters found
 				 */
-				var handleTypoAutcompleteListItem = function (v) {
-					textInput.value = v;
+				var handleTypoAutcompleteListItem = function (val) {
+					textInput.value = val;
 					textInput.focus();
 					hideTypoSuggestions();
 				},
@@ -1436,17 +1448,17 @@ var initContentsKamil = function (jsonObj) {
 					outsideContainer[aEL]("click", hideTypoSuggestions);
 				}
 				while (l < 1) {
-					var v = textInput.value;
-					if (/[^\u0000-\u007f]/.test(v)) {
-						v = fixEnRuTypo(v, "ru", "en");
+					var textInputValue = textInput.value;
+					if (/[^\u0000-\u007f]/.test(textInputValue)) {
+						textInputValue = fixEnRuTypo(textInputValue, "ru", "en");
 					} else {
-						v = fixEnRuTypo(v, "en", "ru");
+						textInputValue = fixEnRuTypo(textInputValue, "en", "ru");
 					}
 					showTypoSuggestions();
 					removeChildren(typoAutcompleteListItem);
-					appendFragment(d[cTN]("" + v), typoAutcompleteListItem);
-					typoAutcompleteListItem[aEL]("click", handleTypoAutcompleteListItem.bind(null, v));
-					if (v.match(/^\s*$/)) {
+					appendFragment(d[cTN]("" + textInputValue), typoAutcompleteListItem);
+					typoAutcompleteListItem[aEL]("click", handleTypoAutcompleteListItem.bind(null, textInputValue));
+					if (textInputValue.match(/^\s*$/)) {
 						hideTypoSuggestions();
 					}
 					textInput[aEL]("input", handleTypoAutcompleteTextInput);
@@ -1456,7 +1468,7 @@ var initContentsKamil = function (jsonObj) {
 				 * truncate text
 				 */
 				var lis = ul[qSA]("li") || "",
-				g = function (e) {
+				truncateKamilText = function (e) {
 					var t = e.firstChild.textContent || "",
 					n = d[cTN](truncString(t, 24));
 					e.replaceChild(n, e.firstChild);
@@ -1464,9 +1476,9 @@ var initContentsKamil = function (jsonObj) {
 				};
 				if (lis) {
 					/* for (var j = 0, m = lis.length; j < m; j += 1) {
-						g(lis[j]);
+						truncateKamilText(lis[j]);
 					} */
-					forEach(lis, g);
+					forEach(lis, truncateKamilText);
 				}
 			};
 			/*!
@@ -1476,18 +1488,18 @@ var initContentsKamil = function (jsonObj) {
 			 * {"link":"/pages/contents.html","label":"some text to match"}]
 			 */
 			ac.on("kamilselect", function (e) {
-				var p = e.item.href || "",
-				sm = function () {
+				var kamilPath = e.item.href || "",
+				triggerOnKamilSelect = function () {
 					e.inputElement.value = "";
 					hideTypoSuggestions();
-					w.location.href = p;
+					w.location.href = kamilPath;
 				};
-				if (p) {
+				if (kamilPath) {
 					/*!
 					 * nwjs wont like setImmediate here
 					 */
-					/* setImmediate(sm); */
-					sm();
+					/* setImmediate(triggerOnKamilSelect); */
+					triggerOnKamilSelect();
 				}
 			});
 		}
@@ -1820,6 +1832,8 @@ var manageDebugGridButton = function () {
 	btnSelector = ".btn-toggle-col-debug",
 	btn = d[qS](btnSelector) || "",
 	debugClass = "debug",
+	cookieKey = "_manageDebugGridButton_",
+	cookieDatum = "ok", 
 	hideDebugGrid = function () {
 		if (container) {
 			container[cL].remove(debugClass);
@@ -1832,24 +1846,23 @@ var manageDebugGridButton = function () {
 		container = d[qS](".container") || "",
 		col = d[qS](".col") || "",
 		blocks = [b, page, container, col],
-		debugMsg = [];
-		/* for (var i = 0, l = blocks.length; i < l; i += 1) {
-			if (blocks[i]) {
-				debugMsg.push((blocks[i].className ? "." + blocks[i].className : blocks[i].id ? "#" + blocks[i].id : blocks[i].tagName), " ", w.getComputedStyle(blocks[i]).getPropertyValue("font-size"), " ", w.getComputedStyle(blocks[i]).getPropertyValue("line-height"), " ", blocks[i].offsetWidth, "x", blocks[i].offsetHeight, " \u003e ");
-			}
-		} */
-		forEach(blocks, function (e) {
+		debugMsg = [],
+		renderBlockInfo = function (e) {
 			if (e) {
 				debugMsg.push((e.className ? "." + e.className : e.id ? "#" + e.id : e.tagName), " ", w.getComputedStyle(e).getPropertyValue("font-size"), " ", w.getComputedStyle(e).getPropertyValue("line-height"), " ", e.offsetWidth, "x", e.offsetHeight, " \u003e ");
 			}
-		});
+		};
+		/* for (var i = 0, l = blocks.length; i < l; i += 1) {
+			renderBlockInfo(blocks[i]);
+		} */
+		forEach(blocks, renderBlockInfo);
 		debugMsg = debugMsg.join("");
 		debugMsg = debugMsg.slice(0, debugMsg.lastIndexOf(" \u003e "));
 		notiBar({
 			"message": debugMsg,
 			"timeout": 5000,
-			/* "key": cookieKey,
-			"datum": cookieDatum, */
+			"key": cookieKey,
+			"datum": cookieDatum,
 			"days": 0
 		});
 	};
@@ -1900,6 +1913,8 @@ var handleRoutes = function () {
 	contentsSelect = d[qS](".contents-select") || "",
 	holderContentsSelect = d[qS](".holder-contents-select") || "",
 	contentsListClass = "contents-list",
+	contentsListSelector = "." + contentsListClass,
+	searchTextInput = d[qS]("#text") || "",
 	asideTemplateSelector = "#template_aside",
 	asideRenderSelector = "#render_aside",
 	commentsTemplateSelector = "#template_comments",
@@ -1937,38 +1952,54 @@ var handleRoutes = function () {
 				if (titleString) {
 					d.title = titleString + (initialDocumentTitle ? " - " + initialDocumentTitle : "") + userBrowsingDetails;
 				}
+				var locationHash = w.location.hash || "";
 				if (contentsSelect) {
 					var optionMatched = false;
-					for (var i = 0, l = contentsSelect.options.length; i < l; i += 1) {
-						if (contentsSelect.options[i].value === w.location.hash) {
+					/* for (var i = 0, l = contentsSelect.options.length; i < l; i += 1) {
+						if (locationHash === contentsSelect.options[i].value) {
 							optionMatched = true;
 							contentsSelect.selectedIndex = i;
 							break;
+						}
+					} */
+					for (var key in contentsSelect.options) {
+						if (contentsSelect.options.hasOwnProperty(key)) {
+							if (locationHash === contentsSelect.options[key].value) {
+								optionMatched = true;
+								contentsSelect.selectedIndex = key;
+								break;
+							}
 						}
 					}
 					if (!optionMatched) {
 						contentsSelect.selectedIndex = 0;
 					}
 				}
-				var contentsList = d[qS]("." + contentsListClass) || "";
+				var contentsList = d[qS](contentsListSelector) || "";
 				if (contentsList) {
 					var contentsListButton = holderContentsSelect[qS]("a") || "";
 					if (contentsListButton) {
 						var itemMatched = false,
 						contentsListItems = contentsList[gEBTN]("li") || "";
-						for (var j = 0, m = contentsListItems.length; j < m; j += 1) {
-							if (contentsListItems[j].dataset.href === w.location.hash) {
+						/* for (var j = 0, m = contentsListItems.length; j < m; j += 1) {
+							if (locationHash === contentsListItems[j].dataset.href) {
 								itemMatched = true;
-								/* contentsListButton.textContent = contentsListItems[j].firstChild.textContent; */
 								contentsListButton.replaceChild(d[cTN](contentsListItems[j].firstChild.textContent), contentsListButton.firstChild);
 								break;
 							}
+						} */
+						for (var key2 in contentsListItems) {
+							if (contentsListItems.hasOwnProperty(key2)) {
+								if (locationHash === contentsListItems[key2].dataset.href) {
+									itemMatched = true;
+									contentsListButton.replaceChild(d[cTN](contentsListItems[key2].firstChild.textContent), contentsListButton.firstChild);
+									break;
+								}
+							}
 						}
 						if (!itemMatched) {
-							/* contentsListButton.firstChild.textContent = contentsListButtonDefaultText; */
 							contentsListButton.replaceChild(d[cTN](contentsListButtonDefaultText), contentsListButton.firstChild);
 						}
-						/* insertChevronDownSmallSvg(contentsListButton); */
 					}
 				}
 				if (asideObj) {
@@ -2035,7 +2066,11 @@ var handleRoutes = function () {
 			if (routesParsedJson) {
 				initContentsKamil(routesParsedJson.hashes);
 				var navigateOnHashChange = function () {
-					if (w.location.hash) {
+					if (searchTextInput) {
+						searchTextInput.blur();
+					}
+					var locationHash = w.location.hash || "";
+					if (locationHash) {
 						var notfound = false;
 						for (var key in routesParsedJson.hashes) {
 							if (routesParsedJson.hashes.hasOwnProperty(key)) {
@@ -2084,19 +2119,21 @@ var handleRoutes = function () {
 						renderContentsTemplate = new t(contentsHtml);
 						var contentsRendered = renderContentsTemplate.render(routesParsedJson);
 						contentsRender[iH] = contentsRendered; */
-						df = d.createDocumentFragment();
-						for (var key in routesParsedJson.hashes) {
-							if (routesParsedJson.hashes.hasOwnProperty(key)) {
-								var contentsOption = d.createElement("option");
-								contentsOption.value = routesParsedJson.hashes[key].href;
-								var contentsOptionText = routesParsedJson.hashes[key].title;
-								contentsOption.title = contentsOptionText;
-								var contentsOptionTextTruncated = truncString("" + contentsOptionText, 44);
-								contentsOption[aC](d.createTextNode(contentsOptionTextTruncated));
-								df[aC](contentsOption);
-								df[aC](d.createTextNode("\n"));
-							}
-						}
+						df = d.createDocumentFragment(),
+						generateContentsOptions = function (e) {
+							var contentsOption = d.createElement("option");
+							contentsOption.value = e.href;
+							var contentsOptionText = e.title;
+							contentsOption.title = contentsOptionText;
+							var contentsOptionTextTruncated = truncString("" + contentsOptionText, 44);
+							contentsOption[aC](d.createTextNode(contentsOptionTextTruncated));
+							df[aC](contentsOption);
+							df[aC](d.createTextNode("\n"));
+						};
+						/* for (var i = 0, l = routesParsedJson.hashes.length; i < l; i += 1) {
+							generateContentsOptions(routesParsedJson.hashes[i]);
+						} */
+						forEach(routesParsedJson.hashes, generateContentsOptions);
 						appendFragment(df, contentsRender);
 						contentsSelect[aEL]("change", handleContentsSelect.bind(null, contentsSelect));
 					};
@@ -2109,21 +2146,23 @@ var handleRoutes = function () {
 						},
 						contentsList = d[cE]("ul"),
 						contentsListButtonText = contentsSelect.options[0].textContent || "",
-						df = d.createDocumentFragment();
-						for (var key in routesParsedJson.hashes) {
-							if (routesParsedJson.hashes.hasOwnProperty(key)) {
-								var contentsListItem = d.createElement("li"),
-								contentsListItemHref = routesParsedJson.hashes[key].href,
-								contentsListItemText = routesParsedJson.hashes[key].title;
-								contentsListItem.title = contentsListItemText;
-								contentsListItem.dataset.href = contentsListItemHref;
-								var contentsListItemTextTruncated = truncString("" + contentsListItemText, 44);
-								contentsListItem[aC](d.createTextNode(contentsListItemTextTruncated));
-								contentsListItem.addEventListener("click", handleContentsListItem.bind(null, contentsList, contentsListItemHref));
-								df[aC](contentsListItem);
-								df[aC](d.createTextNode("\n"));
-							}
-						}
+						df = d.createDocumentFragment(),
+						generateContentsListItems = function (e) {
+							var contentsListItem = d.createElement("li"),
+							contentsListItemHref = e.href,
+							contentsListItemText = e.title;
+							contentsListItem.title = contentsListItemText;
+							contentsListItem.dataset.href = contentsListItemHref;
+							var contentsListItemTextTruncated = truncString("" + contentsListItemText, 44);
+							contentsListItem[aC](d.createTextNode(contentsListItemTextTruncated));
+							contentsListItem.addEventListener("click", handleContentsListItem.bind(null, contentsList, contentsListItemHref));
+							df[aC](contentsListItem);
+							df[aC](d.createTextNode("\n"));
+						};
+						/* for (var j = 0, m = routesParsedJson.hashes.length; j < m; j += 1) {
+							generateContentsListItems(routesParsedJson.hashes[j]);
+						} */
+						forEach(routesParsedJson.hashes, generateContentsListItems);
 						appendFragment(df, contentsList);
 						contentsList[cL].add(contentsListClass);
 						contentsList[cL].add(isDropdownClass);
@@ -2163,8 +2202,8 @@ var observeMutations = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
 	if (ctx) {
-		var g = function (e) {
-			var f = function (m) {
+		var getMutations = function (e) {
+			var triggerOnMutation = function (m) {
 				console.log("mutations observer: " + m.type);
 				console.log(m.type, "target: " + m.target.tagName + ("." + m.target.className || "#" + m.target.id || ""));
 				console.log(m.type, "added: " + m.addedNodes.length + " nodes");
@@ -2173,12 +2212,12 @@ var observeMutations = function (ctx) {
 					mo.disconnect();
 				}
 			};
-			for (var i = 0, l = e.length; i < l; i += 1) {
-				f(e[i]);
-			}
-			forEach(e, f);
+			/* for (var i = 0, l = e.length; i < l; i += 1) {
+				triggerOnMutation(e[i]);
+			} */
+			forEach(e, triggerOnMutation);
 		},
-		mo = new MutationObserver(g);
+		mo = new MutationObserver(getMutations);
 		mo.observe(ctx, {
 			childList: !0,
 			subtree: !0,
