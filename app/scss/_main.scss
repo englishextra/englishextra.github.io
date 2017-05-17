@@ -1353,7 +1353,7 @@ u,
 	z-index: 1;
 }
 
-.page.is-active-holder-location-qr-code .holder-location-qr-code {
+.holder-location-qr-code.is-active {
 	visibility: visible;
 	opacity: 1;
 }
@@ -1390,7 +1390,7 @@ u,
 	z-index: 1;
 }
 
-.page.is-active-holder-share-buttons .holder-share-buttons {
+.holder-share-buttons.is-active {
 	visibility: visible;
 	opacity: 1;
 }
@@ -1414,6 +1414,11 @@ u,
 	z-index: 1;
 }
 
+.holder-vk-like.is-active {
+	visibility: visible;
+	opacity: 1;
+}
+
 .vk-like {
 	display: inline-block;
 	height: 1.533rem;
@@ -1421,11 +1426,6 @@ u,
 	top: 0.800rem;
 	left: 0.800rem;
 	line-height: 0;
-}
-
-.page.is-active-holder-vk-like .holder-vk-like {
-	visibility: visible;
-	opacity: 1;
 }
 
 /*!

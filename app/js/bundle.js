@@ -56,7 +56,7 @@ if ("undefined" === typeof console) {
  * @see {@link https://github.com/thednp/navbar.js/blob/master/navbar.js}
  * passes jshint
  */
-(function(root){"use strict";var w=root,d=document,qS="querySelector",gEBTN="getElementsByTagName",aEL="addEventListener",cL="classList",rootStyle=d.documentElement.style||"",supportTransitions=function(){return"WebkitTransition"in rootStyle||"transition"in rootStyle||"OTransition"in rootStyle||"MsTransition"in rootStyle||"MozTransition"in rootStyle?!0:!1;}(),on=function(element,eventName,handler){element[aEL](eventName,handler,false);},openClass="is-open",isPositioned="is-repositioned",close=function(element){if(element[cL].contains(openClass)){element[cL].remove(openClass);setTimeout(function(){element[cL].remove(isPositioned);},(supportTransitions?200:0));}},Navbar=function(el,outsideClass){var menu=(typeof el==="object")?el:d[qS](el);if(menu){var items=menu[gEBTN]("li")||"";if(items){var enterHandler=function(){var that=this;clearTimeout(that.timer);if(!that[cL].contains(openClass)){that.timer=setTimeout(function(){that[cL].add(openClass);that[cL].add(isPositioned);var siblings=that.parentNode[gEBTN]("li");for(var h=0;h<siblings.length;h++){if(siblings[h]!==that){close(siblings[h]);}}},100);}},closeHandler=function(){for(var i=0,itemsLength=items.length;i<itemsLength;i++){if(items[i][gEBTN]("ul").length){close(items[i]);}}};for(var i=0,itemsLength=items.length;i<itemsLength;i++){if(items[i][gEBTN]("ul").length){on(items[i],"click",enterHandler);}}w[aEL]("hashchange",closeHandler);var outside=d[qS](outsideClass)||"";if(outside){outside[aEL]("click",closeHandler);}}}};root.Navbar=Navbar;})("undefined" !== typeof window ? window : this);
+(function(root){"use strict";var w=root,d=document,qS="querySelector",gEBTN="getElementsByTagName",aEL="addEventListener",cL="classList",rootStyle=d.documentElement.style||"",supportTransitions=function(){return"WebkitTransition"in rootStyle||"transition"in rootStyle||"OTransition"in rootStyle||"MsTransition"in rootStyle||"MozTransition"in rootStyle?!0:!1;}(),on=function(element,eventName,handler){element[aEL](eventName,handler,false);},openClass="is-open",isPositioned="is-repositioned",close=function(element){if(element[cL].contains(openClass)){element[cL].remove(openClass);setTimeout(function(){element[cL].remove(isPositioned);},(supportTransitions?200:0));}},Navbar=function(el,outsideClass){var menu=(typeof el==="object")?el:d[qS](el);if(menu){var items=menu[gEBTN]("li")||"";if(items){var enterHandler=function(){var that=this;clearTimeout(that.timer);if(!that[cL].contains(openClass)){that.timer=setTimeout(function(){that[cL].add(openClass);that[cL].add(isPositioned);var siblings=that.parentNode[gEBTN]("li");for(var h=0;h<siblings.length;h++){if(siblings[h]!==that){close(siblings[h]);}}},100);}},handleHideNavbarItems=function(){for(var i=0,itemsLength=items.length;i<itemsLength;i++){if(items[i][gEBTN]("ul").length){close(items[i]);}}};for(var i=0,itemsLength=items.length;i<itemsLength;i++){if(items[i][gEBTN]("ul").length){on(items[i],"click",enterHandler);}}w[aEL]("hashchange",handleHideNavbarItems);var outside=d[qS](outsideClass)||"";if(outside){outside[aEL]("click",handleHideNavbarItems);}}}};root.Navbar=Navbar;})("undefined" !== typeof window ? window : this);
 /*!
  * Carousel v1.0
  * @see {@link https://habrahabr.ru/post/327246/}
@@ -535,10 +535,10 @@ var handleDataSrcImages = function () {
 	},
 	rerenderDataSrcImages = function () {
 		img = d[qSA](imgSelector) || "";
-		/* for (var i = 0, l = img.length; i < l; i += 1) {
+		for (var i = 0, l = img.length; i < l; i += 1) {
 			arrangeDataSrcImage(img[i]);
-		} */
-		forEach(img, arrangeDataSrcImage);
+		}
+		/* forEach(img, arrangeDataSrcImage); */
 	};
 	if (img) {
 		console.log("triggered function: manageDataSrcImages");
@@ -602,10 +602,10 @@ var handleDataSrcIframes = function () {
 	},
 	rerenderDataSrcIframes = function () {
 		iframe = d[qSA](iframeSelector) || "";
-		/* for (var i = 0, l = iframe.length; i < l; i += 1) {
+		for (var i = 0, l = iframe.length; i < l; i += 1) {
 			arrangeDataSrcIframe(iframe[i]);
-		} */
-		forEach(iframe, arrangeDataSrcIframe);
+		}
+		/* forEach(iframe, arrangeDataSrcIframe); */
 	};
 	if (iframe) {
 		console.log("triggered function: manageDataSrcIframes");
@@ -663,10 +663,10 @@ manageExternalLinks = function (ctx) {
 	},
 	rerenderExternalLinks = function () {
 		link = ctx ? ctx[qSA](linkSelector) || "" : d[qSA](linkSelector) || "";
-		/* for (var i = 0, l = link.length; i < l; i += 1) {
+		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrangeExternalLink(link[i]);
-		} */
-		forEach(link, arrangeExternalLink);
+		}
+		/* forEach(link, arrangeExternalLink); */
 	};
 	if (link) {
 		console.log("triggered function: manageExternalLinks");
@@ -808,10 +808,10 @@ manageImgLightboxLinks = function (ctx) {
 	},
 	rerenderImgLightboxLinks = function () {
 		link = ctx ? ctx[qSA](linkSelector) || "" : d[qSA](linkSelector) || "";
-		/* for (var j = 0, l = link.length; j < l; j += 1) {
+		for (var j = 0, l = link.length; j < l; j += 1) {
 			arrangeImgLightboxLink(link[j]);
-		} */
-		forEach(link, arrangeImgLightboxLink);
+		}
+		/* forEach(link, arrangeImgLightboxLink); */
 	};
 	if (link) {
 		console.log("triggered function: manageImgLightboxLinks");
@@ -820,7 +820,7 @@ manageImgLightboxLinks = function (ctx) {
 };
 document.ready().then(manageImgLightboxLinks);
 /*!
- * hide pseudo dropdown other lists
+ * hide other dropdown lists
  * use ev.stopPropagation(); ev.preventDefault();
  * in click event handlers of dropdown openers
  */
@@ -842,12 +842,10 @@ var handleOtherDropdownLists = function (_this) {
 	};
 	if (list) {
 		list = d[qSA](isDropdownSelector) || "";
-		/* for (var i = 0, l = list.length; i < l; i += 1) {
-			if (_this !== list[i]) {
-				removeActiveClass(list[i]);
-			}
-		} */
-		forEach(list, removeActiveClass);
+		for (var i = 0, l = list.length; i < l; i += 1) {
+			removeActiveClass(list[i]);
+		}
+		/* forEach(list, removeActiveClass); */
 	}
 },
 manageOtherDropdownLists = function () {
@@ -918,10 +916,10 @@ var managePagesSelect = function (ctx) {
 			}
 		},
 		options = pagesSelect.getElementsByTagName("option") || "";
-		/* for (var i = 0, l = options.length; i < l; i += 1) {
+		for (var i = 0, l = options.length; i < l; i += 1) {
 			rerenderOption(options[i]);
-		} */
-		forEach(options, rerenderOption);
+		}
+		/* forEach(options, rerenderOption); */
 	},
 	rerenderPagesList = function () {
 		var handlePagesListItem = function (listObj, hashOrUrl) {
@@ -963,10 +961,10 @@ var managePagesSelect = function (ctx) {
 			df[aC](pagesListItem);
 			df[aC](d.createTextNode("\n"));
 		};
-		/* for (var i = 0, l = pagesListItems.length; i < l; i += 1) {
+		for (var i = 0, l = pagesListItems.length; i < l; i += 1) {
 			generatePagesListItems(pagesListItems[i], i);
-		} */
-		forEach(pagesListItems, generatePagesListItems);
+		}
+		/* forEach(pagesListItems, generatePagesListItems); */
 		appendFragment(df, pagesList);
 		pagesList[cL].add(pagesListClass);
 		pagesList[cL].add(isDropdownClass);
@@ -1025,10 +1023,10 @@ var manageExpandingLayers = function (ctx) {
 	},
 	rerenderExpandingLayers = function () {
 		btn = ctx ? ctx[qSA](btnSelector) || "" : d[qSA](btnSelector) || "";
-		/* for (var i = 0, l = btn.length; i < l; i += 1) {
+		for (var i = 0, l = btn.length; i < l; i += 1) {
 			arrangeExpandingLayers(btn[i]);
-		} */
-		forEach(btn, arrangeExpandingLayers);
+		}
+		/* forEach(btn, arrangeExpandingLayers); */
 	};
 	if (btn) {
 		console.log("triggered function: manageExpandingLayers");
@@ -1424,12 +1422,12 @@ var initContentsKamil = function (jsonObj) {
 					}
 				};
 				if (items) {
-					/* for (var i = 0; i < l; i += 1) {
+					for (var i = 0; i < l; i += 1) {
 						limitKamilOutput(items[i], i);
-					} */
-					forEach(items, function (e, i) {
+					}
+					/* forEach(items, function (e, i) {
 						limitKamilOutput(e, i);
-					});
+					}); */
 				}
 				/*!
 				 * fix typo - non latin characters found
@@ -1475,10 +1473,10 @@ var initContentsKamil = function (jsonObj) {
 					/* e.title = "" + t; */
 				};
 				if (lis) {
-					/* for (var j = 0, m = lis.length; j < m; j += 1) {
+					for (var j = 0, m = lis.length; j < m; j += 1) {
 						truncateKamilText(lis[j]);
-					} */
-					forEach(lis, truncateKamilText);
+					}
+					/* forEach(lis, truncateKamilText); */
 				}
 			};
 			/*!
@@ -1612,19 +1610,15 @@ var manageLocationQrCodeImage = function () {
 	cL = "classList",
 	aEL = "addEventListener",
 	btn = d[qS](".btn-toggle-holder-location-qr-code") || "",
-	page = d[qS](".page") || "",
 	holder = d[qS](".holder-location-qr-code") || "",
-	activeLocationQrCodeClass = "is-active-holder-location-qr-code",
-	activeVkLikeClass = "is-active-holder-vk-like",
-	activeShareClass = "is-active-holder-share-buttons",
+	isActiveClass = "is-active",
+	isSocialClass = "is-social",
 	locationHash = w.location.href || "";
-	if (btn && page && holder && locationHash) {
+	if (btn && holder && locationHash) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			console.log("triggered function: manageLocationQrCodeImage");
-			var removeActiveLocationQrCodeClass = function () {
-				if (page[cL].contains(activeLocationQrCodeClass)) {
-					page[cL].remove(activeLocationQrCodeClass);
-				}
+			var handleLocationQrCodeIsActiveClass = function () {
+				holder[cL].remove(isActiveClass);
 			},
 			generateLocationQrCodeImg = function () {
 				var newText = w.location.href || "",
@@ -1675,18 +1669,14 @@ var manageLocationQrCodeImage = function () {
 			handleLocationQrCodeButton = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				page[cL].toggle(activeLocationQrCodeClass);
-				if (page[cL].contains(activeVkLikeClass)) {
-					page[cL].remove(activeVkLikeClass);
-				}
-				if (page[cL].contains(activeShareClass)) {
-					page[cL].remove(activeShareClass);
-				}
+				holder[cL].toggle(isActiveClass);
+				holder[cL].add(isSocialClass);
+				handleOtherSocialButtons(holder);
 			};
 			btn[aEL]("click", generateLocationQrCodeImg);
 			btn[aEL]("click", handleLocationQrCodeButton);
 			/* w[aEL]("hashchange", generateLocationQrCodeImg); */
-			w[aEL]("hashchange", removeActiveLocationQrCodeClass);
+			w[aEL]("hashchange", handleLocationQrCodeIsActiveClass);
 		}
 	}
 };
@@ -1701,24 +1691,19 @@ var manageShareButton = function () {
 	cL = "classList",
 	aEL = "addEventListener",
 	btn = d[qS](".btn-toggle-holder-share-buttons") || "",
-	page = d[qS](".page") || "",
 	yaShare2 =  d[qS](".ya-share2") || "",
-	activeLocationQrCodeClass = "is-active-holder-location-qr-code",
-	activeVkLikeClass = "is-active-holder-vk-like",
-	activeShareClass = "is-active-holder-share-buttons";
-	if (btn && page && yaShare2) {
+	holder = d[qS](".holder-share-buttons") || "",
+	isActiveClass = "is-active",
+	isSocialClass = "is-social";
+	if (btn && holder && yaShare2) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			console.log("triggered function: manageShareButton");
 			var handleShareButton = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				page[cL].toggle(activeShareClass);
-				if (page[cL].contains(activeLocationQrCodeClass)) {
-					page[cL].remove(activeLocationQrCodeClass);
-				}
-				if (page[cL].contains(activeVkLikeClass)) {
-					page[cL].remove(activeVkLikeClass);
-				}
+				holder[cL].toggle(isActiveClass);
+				holder[cL].add(isSocialClass);
+				handleOtherSocialButtons(holder);
 				var es5ShimsJsUrl = getHTTP(!0) + "://yastatic.net/es5-shims/0.0.2/es5-shims.min.js",
 				shareJsUrl = getHTTP(!0) + "://yastatic.net/share2/share.js";
 				if (!scriptIsLoaded(es5ShimsJsUrl)) {
@@ -1745,25 +1730,20 @@ var manageVKLikeButton = function () {
 	cL = "classList",
 	aEL = "addEventListener",
 	btn = d[qS](".btn-toggle-holder-vk-like") || "",
-	page = d[qS](".page") || "",
-	vkLikeSelector = "vk-like",
-	vkLike = d[qS]("#" + vkLikeSelector) || "",
-	activeLocationQrCodeClass = "is-active-holder-location-qr-code",
-	activeVkLikeClass = "is-active-holder-vk-like",
-	activeShareClass = "is-active-holder-share-buttons";
-	if (btn && page && vkLike) {
+	holder = d[qS](".holder-vk-like") || "",
+	vkLikeId = "vk-like",
+	vkLike = d[qS]("#" + vkLikeId) || "",
+	isActiveClass = "is-active",
+	isSocialClass = "is-social";
+	if (btn && holder && vkLike) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			console.log("triggered function: manageVKLikeButton");
 			var handleVKLikeButton = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				page[cL].toggle(activeVkLikeClass);
-				if (page[cL].contains(activeLocationQrCodeClass)) {
-					page[cL].remove(activeLocationQrCodeClass);
-				}
-				if (page[cL].contains(activeShareClass)) {
-					page[cL].remove(activeShareClass);
-				}
+				holder[cL].toggle(isActiveClass);
+				holder[cL].add(isSocialClass);
+				handleOtherSocialButtons(holder);
 				var openapiJsUrl = getHTTP(!0) + "://vk.com/js/api/openapi.js?122";
 				if (!scriptIsLoaded(openapiJsUrl)) {
 					loadJS(openapiJsUrl, function () {
@@ -1773,7 +1753,7 @@ var manageVKLikeButton = function () {
 								nameTransportPath: "/xd_receiver.htm",
 								onlyWidgets: !0
 							});
-							VK.Widgets.Like(vkLikeSelector, {
+							VK.Widgets.Like(vkLikeId, {
 								type: "button",
 								height: 24
 							});
@@ -1787,33 +1767,42 @@ var manageVKLikeButton = function () {
 };
 document.ready().then(manageVKLikeButton);
 /*!
- * init qr-code
- * @see {@link https://stackoverflow.com/questions/12777622/how-to-use-enquire-js}
+ * hide other social holders
+ * use ev.stopPropagation(); ev.preventDefault();
+ * in click event handlers of dropdown openers
  */
-var manageOtherSocialButtons = function () {
+var handleOtherSocialButtons = function (_this) {
+	"use strict";
+	_this = _this || this;
+	var d = document,
+	qS = "querySelector",
+	qSA = "querySelectorAll",
+	cL = "classList",
+	isActiveClass = "is-active",
+	isSocialClass = "is-social",
+	isSocialSelector = "." + isSocialClass,
+	list = d[qS](isSocialSelector) || "",
+	removeActiveClass = function (e) {
+		if (_this !== e) {
+			e[cL].remove(isActiveClass);
+		}
+	};
+	if (list) {
+		list = d[qSA](isSocialSelector) || "";
+		for (var i = 0, l = list.length; i < l; i += 1) {
+			removeActiveClass(list[i]);
+		}
+		/* forEach(list, removeActiveClass); */
+	}
+},
+manageOtherSocialButtons = function () {
 	"use strict";
 	var d = document,
 	qS = "querySelector",
-	cL = "classList",
 	aEL = "addEventListener",
-	page = d[qS](".page") || "",
-	container = d[qS](".container") || "",
-	activeLocationQrCodeClass = "is-active-holder-location-qr-code",
-	activeVkLikeClass = "is-active-holder-vk-like",
-	activeShareClass = "is-active-holder-share-buttons",
-	handleButtons = function () {
-		if (page[cL].contains(activeVkLikeClass)) {
-			page[cL].remove(activeVkLikeClass);
-		}
-		if (page[cL].contains(activeShareClass)) {
-			page[cL].remove(activeShareClass);
-		}
-		if (page[cL].contains(activeLocationQrCodeClass)) {
-			page[cL].remove(activeLocationQrCodeClass);
-		}
-	};
-	if (page && container) {
-		container[aEL]("click", handleButtons);
+	container = d[qS](".container") || "";
+	if (container) {
+		container[aEL]("click", handleOtherSocialButtons);
 	}
 };
 document.ready().then(manageOtherSocialButtons);
@@ -1833,7 +1822,7 @@ var manageDebugGridButton = function () {
 	btn = d[qS](btnSelector) || "",
 	debugClass = "debug",
 	cookieKey = "_manageDebugGridButton_",
-	cookieDatum = "ok", 
+	cookieDatum = "ok",
 	hideDebugGrid = function () {
 		if (container) {
 			container[cL].remove(debugClass);
@@ -1852,10 +1841,10 @@ var manageDebugGridButton = function () {
 				debugMsg.push((e.className ? "." + e.className : e.id ? "#" + e.id : e.tagName), " ", w.getComputedStyle(e).getPropertyValue("font-size"), " ", w.getComputedStyle(e).getPropertyValue("line-height"), " ", e.offsetWidth, "x", e.offsetHeight, " \u003e ");
 			}
 		};
-		/* for (var i = 0, l = blocks.length; i < l; i += 1) {
+		for (var i = 0, l = blocks.length; i < l; i += 1) {
 			renderBlockInfo(blocks[i]);
-		} */
-		forEach(blocks, renderBlockInfo);
+		}
+		/* forEach(blocks, renderBlockInfo); */
 		debugMsg = debugMsg.join("");
 		debugMsg = debugMsg.slice(0, debugMsg.lastIndexOf(" \u003e "));
 		notiBar({
@@ -1868,8 +1857,8 @@ var manageDebugGridButton = function () {
 	};
 	if (btn && container) {
 		console.log("triggered function: manageDebugGridButton");
-		var u = w.location.href || "";
-		if (u && parseLink(u).hasHTTP && (/^(localhost|127.0.0.1)/).test(parseLink(u).hostname)) {
+		var locationHref = w.location.href || "";
+		if (locationHref && parseLink(locationHref).hasHTTP && (/^(localhost|127.0.0.1)/).test(parseLink(locationHref).hostname)) {
 			var handleDebugGridButton = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
@@ -1955,14 +1944,14 @@ var handleRoutes = function () {
 				var locationHash = w.location.hash || "";
 				if (contentsSelect) {
 					var optionMatched = false;
-					/* for (var i = 0, l = contentsSelect.options.length; i < l; i += 1) {
+					for (var i = 0, l = contentsSelect.options.length; i < l; i += 1) {
 						if (locationHash === contentsSelect.options[i].value) {
 							optionMatched = true;
 							contentsSelect.selectedIndex = i;
 							break;
 						}
-					} */
-					for (var key in contentsSelect.options) {
+					}
+					/* for (var key in contentsSelect.options) {
 						if (contentsSelect.options.hasOwnProperty(key)) {
 							if (locationHash === contentsSelect.options[key].value) {
 								optionMatched = true;
@@ -1970,7 +1959,7 @@ var handleRoutes = function () {
 								break;
 							}
 						}
-					}
+					} */
 					if (!optionMatched) {
 						contentsSelect.selectedIndex = 0;
 					}
@@ -1981,14 +1970,14 @@ var handleRoutes = function () {
 					if (contentsListButton) {
 						var itemMatched = false,
 						contentsListItems = contentsList[gEBTN]("li") || "";
-						/* for (var j = 0, m = contentsListItems.length; j < m; j += 1) {
+						for (var j = 0, m = contentsListItems.length; j < m; j += 1) {
 							if (locationHash === contentsListItems[j].dataset.href) {
 								itemMatched = true;
 								contentsListButton.replaceChild(d[cTN](contentsListItems[j].firstChild.textContent), contentsListButton.firstChild);
 								break;
 							}
-						} */
-						for (var key2 in contentsListItems) {
+						}
+						/* for (var key2 in contentsListItems) {
 							if (contentsListItems.hasOwnProperty(key2)) {
 								if (locationHash === contentsListItems[key2].dataset.href) {
 									itemMatched = true;
@@ -1996,7 +1985,7 @@ var handleRoutes = function () {
 									break;
 								}
 							}
-						}
+						} */
 						if (!itemMatched) {
 							contentsListButton.replaceChild(d[cTN](contentsListButtonDefaultText), contentsListButton.firstChild);
 						}
@@ -2072,16 +2061,24 @@ var handleRoutes = function () {
 					var locationHash = w.location.hash || "";
 					if (locationHash) {
 						var notfound = false;
-						for (var key in routesParsedJson.hashes) {
+						for (var i = 0, l = routesParsedJson.hashes.length; i < l; i += 1) {
+							if (locationHash === routesParsedJson.hashes[i].href) {
+								notfound = true;
+								LoadingSpinner.show();
+								insertExternalHTML(appContentSelector, routesParsedJson.hashes[i].url, triggerOnContentInserted.bind(null, routesParsedJson.hashes[i].title, routesParsedJson.hashes[i].next_href, routesParsedJson.hashes[i].aside, routesParsedJson));
+								break;
+							}
+						}
+						/* for (var key in routesParsedJson.hashes) {
 							if (routesParsedJson.hashes.hasOwnProperty(key)) {
-								if (w.location.hash === routesParsedJson.hashes[key].href) {
+								if (locationHash === routesParsedJson.hashes[key].href) {
 									notfound = true;
 									LoadingSpinner.show();
 									insertExternalHTML(appContentSelector, routesParsedJson.hashes[key].url, triggerOnContentInserted.bind(null, routesParsedJson.hashes[key].title, routesParsedJson.hashes[key].next_href, routesParsedJson.hashes[key].aside, routesParsedJson));
 									break;
 								}
 							}
-						}
+						} */
 						if (false === notfound) {
 							var notfoundUrl = routesParsedJson.notfound.url,
 							notfoundText = routesParsedJson.notfound.title;
@@ -2130,10 +2127,10 @@ var handleRoutes = function () {
 							df[aC](contentsOption);
 							df[aC](d.createTextNode("\n"));
 						};
-						/* for (var i = 0, l = routesParsedJson.hashes.length; i < l; i += 1) {
+						for (var i = 0, l = routesParsedJson.hashes.length; i < l; i += 1) {
 							generateContentsOptions(routesParsedJson.hashes[i]);
-						} */
-						forEach(routesParsedJson.hashes, generateContentsOptions);
+						}
+						/* forEach(routesParsedJson.hashes, generateContentsOptions); */
 						appendFragment(df, contentsRender);
 						contentsSelect[aEL]("change", handleContentsSelect.bind(null, contentsSelect));
 					};
@@ -2159,10 +2156,10 @@ var handleRoutes = function () {
 							df[aC](contentsListItem);
 							df[aC](d.createTextNode("\n"));
 						};
-						/* for (var j = 0, m = routesParsedJson.hashes.length; j < m; j += 1) {
+						for (var j = 0, m = routesParsedJson.hashes.length; j < m; j += 1) {
 							generateContentsListItems(routesParsedJson.hashes[j]);
-						} */
-						forEach(routesParsedJson.hashes, generateContentsListItems);
+						}
+						/* forEach(routesParsedJson.hashes, generateContentsListItems); */
 						appendFragment(df, contentsList);
 						contentsList[cL].add(contentsListClass);
 						contentsList[cL].add(isDropdownClass);
