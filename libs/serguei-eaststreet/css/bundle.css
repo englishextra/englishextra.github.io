@@ -633,7 +633,7 @@ template {
 
 /*!
  * typeboost-uwp.css v0.1.8
- * github.com/englishextra/typeboost-uwp.css
+ * @see {@link https://github.com/englishextra/typeboost-uwp.css}
  * set html font to 15px, and body to 1.000rem
  * line height should be the closest multiple of 4
  */
@@ -1769,11 +1769,11 @@ body {
 /*!
  * ---------------------------------------------- *
  * Grid
- * http://brajeshwar.github.io/grid/
- * https://github.com/brajeshwar/grid
+ * @see {@link http://brajeshwar.github.io/grid/}
+ * @see {@link https://github.com/brajeshwar/grid}
  *
  * Brajeshwar
- * http://brajeshwar.me
+ * @see {@link http://brajeshwar.me}
  * ---------------------------------------------- *
  */
 
@@ -2398,7 +2398,7 @@ body {
 /*! @import "loading-spinner"; */
 
 /**
- * github.com/lukehaas/css-loaders
+ * @see {@link https://github.com/lukehaas/css-loaders}
  * projects.lukehaas.me/css-loaders/
  * size of a loader dependent on font size
  */
@@ -2455,7 +2455,7 @@ body {
 
 /*!
  * notibar
- * github.com/duyetdev/notibar.js
+ * @see {@link https://github.com/duyetdev/notibar.js}
  */
 
 .notibar {
@@ -2717,7 +2717,7 @@ body {
 /*! @import "ui-totop"; */
 
 /**
- * github.com/sksmatt/UItoTop-jQuery-Plugin/
+ * @see {@link https://github.com/sksmatt/UItoTop-jQuery-Plugin/}
  */
 
 .ui-totop {
@@ -2768,8 +2768,8 @@ body {
 
 /**
  * Yandex map container
- * css-tricks.com/snippets/sass/maintain-aspect-ratio-mixin/
- * stackoverflow.com/questions/1495407/maintain-the-aspect-ratio-of-a-div-with-css
+ * @see {@link https://css-tricks.com/snippets/sass/maintain-aspect-ratio-mixin/}
+ * @see {@link https://stackoverflow.com/questions/1495407/maintain-the-aspect-ratio-of-a-div-with-css}
  */
 
 .ymap {
@@ -2816,7 +2816,7 @@ body {
 
 /**
  * some animations from animate.css
- * github.com/daneden/animate.css
+ * @see {@link https://github.com/daneden/animate.css}
  * daneden.github.io/animate.css/
  */
 
@@ -3603,8 +3603,8 @@ u,
  * buttons
  */
 
-.col div + .holder-bottom-nav-btns,
-.holder-bottom-nav-btns:first-child {
+.col div + .holder-bottom-navigation,
+.holder-bottom-navigation:first-child {
 	margin-top: 1.333rem;
 }
 
@@ -4850,7 +4850,7 @@ iPad 3
 /*! @import "print"; */
 
 /**
- * gist.github.com/englishextra/cdd503793392281a8a0c
+ * @see {@link https://gist.github.com/englishextra/cdd503793392281a8a0c}
  * jafferhaider.wordpress.com/2007/12/29/fix-for-the-firefoxcss-one-page-printing-bug/
  * html,body {height: auto;}
  * body{overflow-x: visible;}

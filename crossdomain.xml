@@ -10,13 +10,13 @@
 	<allow-access-from domain="yandex.ru"/>
 	<allow-access-from domain="*.yandex.ru"/>
 	<allow-access-from domain="soundcloud.com"/>
-	<allow-access-from domain="*.soundcloud.com"/> 
+	<allow-access-from domain="*.soundcloud.com"/>
 	<allow-access-from domain="soundcloud.dev"/>
 	<allow-access-from domain="*.soundcloud.dev"/>
 	<allow-access-from domain="a248.e.akamai.net"/>
 	<allow-access-from domain="www.quirksmode.org"/>
 	<allow-access-from domain="techslides.com"/>
- 
+
 	<allow-access-from domain="*" to-ports="*" secure="false"/>
 	<allow-http-request-headers-from domain="*" headers="*" secure="false"/>
 <!--

@@ -602,7 +602,7 @@ template {
 
 /*!
  * typeboost.css v0.1.8
- * github.com/englishextra/typeboost.css
+ * @see {@link https://github.com/englishextra/typeboost.css}
  * set html font to 16px, and body to 1.000rem
  * line height should be the closest multiple of 4
  */
@@ -2058,7 +2058,7 @@ body {
 /*! @import "ui-totop"; */
 
 /**
- * github.com/sksmatt/UItoTop-jQuery-Plugin/
+ * @see {@link https://github.com/sksmatt/UItoTop-jQuery-Plugin/}
  */
 
 .ui-totop {
@@ -2625,7 +2625,7 @@ u,
 /**
  * fixes to typeboost.css
  * modularscale.com
- * github.com/modularscale/modularscale-sass
+ * @see {@link https://github.com/modularscale/modularscale-sass}
  * ----------------
  * $ms-base: 1em;
  * $ms-ratio: 1.5,1.1;

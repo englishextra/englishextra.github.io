@@ -474,7 +474,7 @@ u,
 
 .panel-menu-more li a:hover {
 	color: inherit;
-	background-color: $LeftNavBarLight;
+	background-color: $TitleBarAndAppBarLight;
 }
 
 /* .panel-menu-more li a:focus, */
@@ -602,7 +602,7 @@ u,
 /**
  * fixes to typeboost.css
  * modularscale.com
- * github.com/modularscale/modularscale-sass
+ * @see {@link https://github.com/modularscale/modularscale-sass}
  * ----------------
  * $ms-base: 1em;
  * $ms-ratio: 1.5,1.1;
@@ -698,6 +698,13 @@ u,
 .col img[data-src] {
 	opacity: 0;
 	transition: opacity 0.4s ease;
+}
+
+.col img.data-src-img,
+.col img[data-src],
+.col iframe.data-src-iframe,
+.col iframe[data-src] {
+	background-color: $LeftNavBarLight;
 }
 
 .col img.data-src-img.is-active,
@@ -866,8 +873,8 @@ u,
  * buttons
  */
 
-.col div + .holder-bottom-nav-btns,
-.holder-bottom-nav-btns:first-child {
+.col div + .holder-bottom-navigation,
+.holder-bottom-navigation:first-child {
 	margin-top: 1.500rem;
 }
 

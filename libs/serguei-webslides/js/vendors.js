@@ -1,13 +1,13 @@
 /*!
  * jQuery JavaScript Library v3.1.1
- * https://jquery.com/
+ * @see {@link https://jquery.com/}
  *
  * Includes Sizzle.js
- * https://sizzlejs.com/
+ * @see {@link https://sizzlejs.com/}
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license
- * https://jquery.org/license
+ * @see {@link https://jquery.org/license}
  *
  * Date: 2016-09-22T22:30Z
  * source: cdn.jsdelivr.net/jquery/3.1.1/jquery.js
@@ -15,14 +15,14 @@
 /* jshint ignore: start */
 /*!
  * jQuery JavaScript Library v2.1.1 -ajax,-ajax/jsonp,-ajax/load,-ajax/parseJSON,-ajax/parseXML,-ajax/script,-ajax/var/nonce,-ajax/var/rquery,-ajax/xhr,-manipulation/_evalUrl,-deprecated,-dimensions,-event-alias,-offset,-wrap
- * http://jquery.com/
+ * @see {@link http://jquery.com/}
  *
  * Includes Sizzle.js
- * http://sizzlejs.com/
+ * @see {@link http://sizzlejs.com/}
  *
  * Copyright 2005, 2014 jQuery Foundation, Inc. and other contributors
  * Released under the MIT license
- * http://jquery.org/license
+ * @see {@link http://jquery.org/license}
  *
  * Date: 2014-09-28T03:22Z
  */

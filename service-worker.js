@@ -1,5 +1,5 @@
 /*!
- * github.com/GoogleChrome/sw-toolbox
+ * @see {@link https://github.com/GoogleChrome/sw-toolbox}
  * googlechrome.github.io/sw-toolbox/docs/master/tutorial-usage
  * mobiforge.com/design-development/caching-with-service-workers-the-easy-way
  * googlechrome.github.io/samples/service-worker/registration/index.html

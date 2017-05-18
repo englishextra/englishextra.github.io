@@ -162,6 +162,8 @@ u,
 	position: relative;
 	top: 0;
 	left: 0;
+	opacity: 0;
+	transition: opacity 0.2s ease;
 	background-color: $color-hex-page-bg;
 	background-image: url(/libs/notfound/img/bg-417x417.png);
 	background-position: top left;
@@ -175,8 +177,6 @@ u,
 	position: absolute;
 	top: 0;
 	left: 0;
-	opacity: 0;
-	transition: opacity 0.2s ease;
 	text-align: center;
 	/**
 	 * fix the bug in webkit for stycky footer

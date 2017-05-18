@@ -760,7 +760,7 @@ template {
 
 /**
  * "Fork me on GitHub" CSS ribbon v0.1.1 | MIT License
- * https://github.com/simonwhitaker/github-fork-ribbon-css
+ * @see {@link https://github.com/simonwhitaker/github-fork-ribbon-css}
 */
 
 .github-fork-ribbon {
@@ -1073,7 +1073,7 @@ template {
 
 /**
  * some animations from animate.css
- * github.com/daneden/animate.css
+ * @see {@link https://github.com/daneden/animate.css}
  * daneden.github.io/animate.css/
  */
 
@@ -1206,7 +1206,7 @@ img[class*=" portfolio-banner-"] {
 /*! @import "ui-totop"; */
 
 /**
- * github.com/sksmatt/UItoTop-jQuery-Plugin/
+ * @see {@link https://github.com/sksmatt/UItoTop-jQuery-Plugin/}
  */
 
 .ui-totop {

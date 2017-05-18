@@ -427,7 +427,7 @@ u,
 
 .panel-menu-more li a:hover {
 	color: inherit;
-	background-color: $LeftNavBarLight;
+	background-color: $TitleBarAndAppBarLight;
 }
 
 /* .panel-menu-more li a:focus, */
@@ -441,7 +441,7 @@ u,
  * landscape 288 / (1920 / 100) = 15vw
  * portrait 288 / (1920 / 100) = 15vh
  * caniuse.com/#feat=viewport-units
- * css-tricks.com/viewport-sized-typography/
+ * @see {@link https://css-tricks.com/viewport-sized-typography/}
  */
 
 .holder-site-logo {

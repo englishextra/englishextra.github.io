@@ -851,7 +851,7 @@ img[class*=" contents-banner-"] {
 /*! @import "ui-totop"; */
 
 /**
- * github.com/sksmatt/UItoTop-jQuery-Plugin/
+ * @see {@link https://github.com/sksmatt/UItoTop-jQuery-Plugin/}
  */
 
 .ui-totop {
@@ -1129,12 +1129,12 @@ u,
 
 .holder-filter-buttons {
 	/**
-	 * stackoverflow.com/questions/8543859/css-vertical-alignment-text-inside-li
+	 * @see {@link https://stackoverflow.com/questions/8543859/css-vertical-alignment-text-inside-li}
 	 */
 	display: table;
 	width: 100%;
 	/**
-	 * css-tricks.com/fighting-the-space-between-inline-block-elements/
+	 * @see {@link https://css-tricks.com/fighting-the-space-between-inline-block-elements/}
 	 */
 	font-size: 0;
 	text-align: center;

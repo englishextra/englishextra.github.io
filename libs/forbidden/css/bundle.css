@@ -760,7 +760,7 @@ template {
 
 /**
  * some animations from animate.css
- * github.com/daneden/animate.css
+ * @see {@link https://github.com/daneden/animate.css}
  * daneden.github.io/animate.css/
  */
 
@@ -1250,7 +1250,7 @@ u,
  * landscape 104 / (1920 / 100) = 5.416 ~ 5.416vw
  * portrait 104 / (1080 / 100) = 9.629 ~ 9.620vh
  * caniuse.com/#feat=viewport-units
- * css-tricks.com/viewport-sized-typography/
+ * @see {@link https://css-tricks.com/viewport-sized-typography/}
  */
 
 .holder-site-logo {

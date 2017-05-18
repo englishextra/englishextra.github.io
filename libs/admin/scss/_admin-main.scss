@@ -474,7 +474,7 @@ u,
 
 .panel-menu-more li a:hover {
 	color: inherit;
-	background-color: $LeftNavBarLight;
+	background-color: $TitleBarAndAppBarLight;
 }
 
 /* .panel-menu-more li a:focus, */
@@ -486,7 +486,7 @@ u,
 /**
  * fixes to typeboost.css
  * modularscale.com
- * github.com/modularscale/modularscale-sass
+ * @see {@link https://github.com/modularscale/modularscale-sass}
  * ----------------
  * $ms-base: 1em;
  * $ms-ratio: 1.5,1.1;
