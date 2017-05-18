@@ -422,10 +422,11 @@ var LoadingSpinner = function () {
 	spinnerClass = "loading-spinner",
 	spinner = d[qS]("." + spinnerClass) || "",
 	cL = "classList",
+	cE = "createElement",
 	isActiveClass = "is-active-loading-spinner";
 	console.log("triggered function: LoadingSpinner");
 	if (!spinner) {
-		spinner = d.createElement("div");
+		spinner = d[cE]("div");
 		spinner[cL].add(spinnerClass);
 		appendFragment(spinner, b);
 	}
@@ -646,10 +647,11 @@ manageExternalLinks = function (ctx) {
 	link = ctx ? ctx[qS](linkSelector) || "" : d[qS](linkSelector) || "",
 	cL = "classList",
 	aEL = "addEventListener",
+	gA = "getAttribute",
 	isBindedClass = "is-binded",
 	arrangeExternalLink = function (e) {
 		if (!e[cL].contains(isBindedClass)) {
-			var url = e.getAttribute("href") || "";
+			var url = e[gA]("href") || "";
 			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
 				e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
@@ -745,6 +747,8 @@ manageImgLightboxLinks = function (ctx) {
 	ds = "dataset",
 	aEL = "addEventListener",
 	aC = "appendChild",
+	cE = "createElement",
+	gA = "getAttribute",
 	linkSelector = "[data-lightbox]",
 	link = ctx ? ctx[qS](linkSelector) || "" : d[qS](linkSelector) || "",
 	containerClass = "img-lightbox-container",
@@ -756,18 +760,18 @@ manageImgLightboxLinks = function (ctx) {
 	isBindedClass = "is-binded",
 	dummySrc = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
 	if (!container) {
-		container = d.createElement("div");
-		img = d.createElement("img");
-		container[cL].add(containerClass);
+		container = d[cE]("div");
+		img = d[cE]("img");
 		img.src = dummySrc;
 		img.alt = "";
 		container[aC](img);
+		container[cL].add(containerClass);
 		appendFragment(container, b);
 	}
 	var handleImgLightboxLink = function (_this, ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
-		var _href = _this.getAttribute("href") || "";
+		var _href = _this[gA]("href") || "";
 		if (container && img && _href) {
 			LoadingSpinner.show();
 			container[cL].add(an);
@@ -796,7 +800,7 @@ manageImgLightboxLinks = function (ctx) {
 	arrangeImgLightboxLink = function (e) {
 		if (!e[cL].contains(isBindedClass)) {
 			var dataValue = e[ds].lightbox || "",
-			_href = e.getAttribute("href") || "";
+			_href = e[gA]("href") || "";
 			if ("img" === dataValue && _href) {
 				if (parseLink(_href).isAbsolute && !parseLink(_href).hasHTTP) {
 					e.setAttribute("href", _href.replace(/^/, getHTTP(!0) + ":"));
@@ -869,8 +873,10 @@ var managePagesSelect = function (ctx) {
 	var w = globalRoot,
 	d = document,
 	qS = "querySelector",
+	gEBTN = "getElementsByTagName",
 	cL = "classList",
 	pN = "parentNode",
+	cDF = "createDocumentFragment",
 	cE = "createElement",
 	cENS = "createElementNS",
 	sANS = "setAttributeNS",
@@ -915,11 +921,11 @@ var managePagesSelect = function (ctx) {
 				appendFragment(d.createTextNode(optionTextTruncated), option);
 			}
 		},
-		options = pagesSelect.getElementsByTagName("option") || "";
-		for (var i = 0, l = options.length; i < l; i += 1) {
-			rerenderOption(options[i]);
+		pagesSelectOptions = pagesSelect[gEBTN]("option") || "";
+		for (var i = 0, l = pagesSelectOptions.length; i < l; i += 1) {
+			rerenderOption(pagesSelectOptions[i]);
 		}
-		/* forEach(options, rerenderOption); */
+		/* forEach(pagesSelectOptions, rerenderOption); */
 	},
 	rerenderPagesList = function () {
 		var handlePagesListItem = function (listObj, hashOrUrl) {
@@ -944,9 +950,9 @@ var managePagesSelect = function (ctx) {
 			targetObj[aC](svg);
 		},
 		pagesList = d[cE]("ul"),
-		pagesListItems = pagesSelect.getElementsByTagName("option") || "",
+		pagesListItems = pagesSelect[gEBTN]("option") || "",
 		pagesListButtonDefaultText = "",
-		df = d.createDocumentFragment(),
+		df = d[cDF](),
 		generatePagesListItems = function (_this, i) {
 			if (0 === i) {
 				pagesListButtonDefaultText = _this.firstChild.textContent;
@@ -1131,6 +1137,7 @@ var manageDisqusButton = function (ctx) {
 	aC = "appendChild",
 	aEL = "addEventListener",
 	rEL = "removeEventListener",
+	cE = "createElement",
 	btnSelector = ".btn-show-disqus",
 	btn = ctx ? ctx[qS](btnSelector) || "" : d[qS](btnSelector) || "",
 	disqusThread = d[qS]("#disqus_thread") || "",
@@ -1148,7 +1155,7 @@ var manageDisqusButton = function (ctx) {
 		},
 		hideDisqusThread = function () {
 			removeChildren(disqusThread);
-			var replacementText = d.createElement("p");
+			var replacementText = d[cE]("p");
 			replacementText[aC](d.createTextNode("Комментарии доступны только в веб версии этой страницы."));
 			appendFragment(replacementText, disqusThread);
 			disqusThread.removeAttribute("id");
@@ -1310,12 +1317,13 @@ var initNotibarMsg = function () {
 	aC = "appendChild",
 	aEL = "addEventListener",
 	rEL = "removeEventListener",
+	cE = "createElement",
 	uiPanelContentsSelect = d[qS]("#render_contents_select") || "",
 	cookieKey = "_notibar_dismiss_",
 	cookieDatum = "Выбрать статью можно щелкнув по самофиксирующейся планке с заголовком текущей страницы.",
 	locationOrigin = parseLink(w.location.href).origin,
 	renderMsg = function () {
-		var msgObj = d.createElement("a");
+		var msgObj = d[cE]("a");
 		/* jshint -W107 */
 		msgObj.href = "javascript:void(0);";
 		/* jshint +W107 */
@@ -1609,6 +1617,7 @@ var manageLocationQrCodeImage = function () {
 	qS = "querySelector",
 	cL = "classList",
 	aEL = "addEventListener",
+	cE = "createElement",
 	btn = d[qS](".btn-toggle-holder-location-qr-code") || "",
 	holder = d[qS](".holder-location-qr-code") || "",
 	isActiveClass = "is-active",
@@ -1622,7 +1631,7 @@ var manageLocationQrCodeImage = function () {
 			},
 			generateLocationQrCodeImg = function () {
 				var newText = w.location.href || "",
-				newImg = d.createElement("img"),
+				newImg = d[cE]("img"),
 				newTitle = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
 				newSrc = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(newText);
 				newImg.alt = newTitle;
@@ -1781,18 +1790,18 @@ var handleOtherSocialButtons = function (_this) {
 	isActiveClass = "is-active",
 	isSocialClass = "is-social",
 	isSocialSelector = "." + isSocialClass,
-	list = d[qS](isSocialSelector) || "",
+	btn = d[qS](isSocialSelector) || "",
 	removeActiveClass = function (e) {
 		if (_this !== e) {
 			e[cL].remove(isActiveClass);
 		}
 	};
-	if (list) {
-		list = d[qSA](isSocialSelector) || "";
-		for (var i = 0, l = list.length; i < l; i += 1) {
-			removeActiveClass(list[i]);
+	if (btn) {
+		btn = d[qSA](isSocialSelector) || "";
+		for (var i = 0, l = btn.length; i < l; i += 1) {
+			removeActiveClass(btn[i]);
 		}
-		/* forEach(list, removeActiveClass); */
+		/* forEach(btn, removeActiveClass); */
 	}
 },
 manageOtherSocialButtons = function () {
@@ -1829,26 +1838,26 @@ var manageDebugGridButton = function () {
 			container[rEL]("click", hideDebugGrid);
 		}
 	},
-	showDebugGridMesage = function () {
+	showDebugGridMessage = function () {
 		var b = d.body || "",
 		page = d[qS](".page") || "",
 		container = d[qS](".container") || "",
 		col = d[qS](".col") || "",
-		blocks = [b, page, container, col],
-		debugMsg = [],
-		renderBlockInfo = function (e) {
+		elements = [b, page, container, col],
+		debugMessage = [],
+		renderElementsInfo = function (e) {
 			if (e) {
-				debugMsg.push((e.className ? "." + e.className : e.id ? "#" + e.id : e.tagName), " ", w.getComputedStyle(e).getPropertyValue("font-size"), " ", w.getComputedStyle(e).getPropertyValue("line-height"), " ", e.offsetWidth, "x", e.offsetHeight, " \u003e ");
+				debugMessage.push((e.className ? "." + e.className : e.id ? "#" + e.id : e.tagName), " ", w.getComputedStyle(e).getPropertyValue("font-size"), " ", w.getComputedStyle(e).getPropertyValue("line-height"), " ", e.offsetWidth, "x", e.offsetHeight, " \u003e ");
 			}
 		};
-		for (var i = 0, l = blocks.length; i < l; i += 1) {
-			renderBlockInfo(blocks[i]);
+		for (var i = 0, l = elements.length; i < l; i += 1) {
+			renderElementsInfo(elements[i]);
 		}
-		/* forEach(blocks, renderBlockInfo); */
-		debugMsg = debugMsg.join("");
-		debugMsg = debugMsg.slice(0, debugMsg.lastIndexOf(" \u003e "));
+		/* forEach(elements, renderElementsInfo); */
+		debugMessage = debugMessage.join("");
+		debugMessage = debugMessage.slice(0, debugMessage.lastIndexOf(" \u003e "));
 		notiBar({
-			"message": debugMsg,
+			"message": debugMessage,
 			"timeout": 5000,
 			"key": cookieKey,
 			"datum": cookieDatum,
@@ -1865,7 +1874,7 @@ var manageDebugGridButton = function () {
 				container[cL].toggle(debugClass);
 				if (container[cL].contains(debugClass)) {
 					container[aEL]("click", hideDebugGrid);
-					showDebugGridMesage();
+					showDebugGridMessage();
 				} else {
 					container[rEL]("click", hideDebugGrid);
 				}
@@ -1887,6 +1896,7 @@ var handleRoutes = function () {
 	qS = "querySelector",
 	gEBTN = "getElementsByTagName",
 	aC = "appendChild",
+	cDF = "createDocumentFragment",
 	cE = "createElement",
 	cTN = "createTextNode",
 	cENS = "createElementNS",
@@ -1910,8 +1920,9 @@ var handleRoutes = function () {
 	commentsRenderSelector = "#render_comments",
 	nextHrefTemplateSelector = "#template_bottom_navigation",
 	nextHrefRenderSelector = "#render_bottom_navigation",
-	masonryTemplateSelector = "#template_masonry_grid",
-	masonryRenderSelector = "#render_contents_cards",
+	contentsTemplateSelector = "#template_contents_grid",
+	contentsRenderSelector = "#render_contents_grid",
+	masonryGridSelector = ".masonry-grid",
 	isActiveClass = "is-active",
 	isDropdownClass = "is-dropdown",
 	routesJsonUrl = "./json/routes.json";
@@ -2021,21 +2032,27 @@ var handleRoutes = function () {
 					}
 					insertTextAsFragment(renderComments, commentsRender);
 				}
-				if (routesObj) {
-					var masonryTemplate = d[qS](masonryTemplateSelector) || "",
-					masonryRender = d[qS](masonryRenderSelector) || "",
-					masonryRenderParent = masonryRender[pN] || "";
-					if (masonryTemplate && masonryRender) {
-						if (masonryRenderParent) {
-							if (!renderMasonry) {
-								renderMasonry = renderTemplate(routesObj, masonryTemplateSelector, masonryRenderSelector);
+				var masonryGrid = d[qS](masonryGridSelector) || "",
+				masonryGridParent = masonryGrid[pN] || "";
+				if (masonryGrid && masonryGridParent) {
+					var contentsTemplate = d[qS](contentsTemplateSelector) || "",
+					contentsRender = d[qS](contentsRenderSelector) || "",
+					contentsRenderParent = contentsRender[pN] || "";
+					if (contentsTemplate && contentsRender) {
+						if (!renderMasonry) {
+							if (routesObj) {
+								renderMasonry = renderTemplate(routesObj, contentsTemplateSelector, contentsRenderSelector);
 							}
-							insertTextAsFragment(renderMasonry, masonryRender, function () {
-								initMasonry(masonryRenderParent);
-								manageExternalLinks(masonryRenderParent);
-								manageDataSrcImages();
-							});
 						}
+						insertTextAsFragment(renderMasonry, contentsRender, function () {
+							if (contentsRenderParent) {
+								initMasonry(contentsRenderParent);
+								manageExternalLinks(contentsRenderParent);
+								manageDataSrcImages();
+							}
+						});
+					} else {
+						initMasonry(masonryGridParent);
 					}
 				}
 				/*!
@@ -2116,9 +2133,9 @@ var handleRoutes = function () {
 						renderContentsTemplate = new t(contentsHtml);
 						var contentsRendered = renderContentsTemplate.render(routesParsedJson);
 						contentsRender[iH] = contentsRendered; */
-						df = d.createDocumentFragment(),
+						df = d[cDF](),
 						generateContentsOptions = function (e) {
-							var contentsOption = d.createElement("option");
+							var contentsOption = d[cE]("option");
 							contentsOption.value = e.href;
 							var contentsOptionText = e.title;
 							contentsOption.title = contentsOptionText;
@@ -2143,9 +2160,9 @@ var handleRoutes = function () {
 						},
 						contentsList = d[cE]("ul"),
 						contentsListButtonText = contentsSelect.options[0].textContent || "",
-						df = d.createDocumentFragment(),
+						df = d[cDF](),
 						generateContentsListItems = function (e) {
-							var contentsListItem = d.createElement("li"),
+							var contentsListItem = d[cE]("li"),
 							contentsListItemHref = e.href,
 							contentsListItemText = e.title;
 							contentsListItem.title = contentsListItemText;

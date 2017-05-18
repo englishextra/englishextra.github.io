@@ -29,15 +29,15 @@
   }],
   "navbar_more": [{
     "href": "#/about",
-    "title": "About / О сайте"
+    "title": "О сайте (приложении)"
   },
   {
     "href": "https://vk.com/englishextragithubio",
-    "title": "VK Group / Паблик ВК"
+    "title": "Паблик ВК"
   },
   {
     "href": "https://englishextra.github.io/serguei/",
-    "title": "The tutor / Репетитор"
+    "title": "Репетитор"
   }],
   "b_carousel": [{
     "href": "https://englishextra.github.io/pages/more/more_irregular_verbs.html",
