@@ -622,7 +622,7 @@ template {
 .kamil-autocomplete li.kamil-active,
 .kamil-autocomplete li:hover {
 	color: inherit;
-	background-color: #F2F2F2;
+	background-color: #E6E6E6;
 }
 
 /* .kamil-autocomplete li:focus, */
@@ -1868,7 +1868,7 @@ u,
 
 .panel-menu-more li a:hover {
 	color: inherit;
-	background-color: #F2F2F2;
+	background-color: #E6E6E6;
 }
 
 /* .panel-menu-more li a:focus, */

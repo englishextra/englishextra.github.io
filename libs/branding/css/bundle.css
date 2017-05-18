@@ -2351,7 +2351,7 @@ body {
 .kamil-autocomplete li.kamil-active,
 .kamil-autocomplete li:hover {
 	color: inherit;
-	background-color: #F2F2F2;
+	background-color: #E6E6E6;
 }
 
 /* .kamil-autocomplete li:focus, */
@@ -3385,7 +3385,7 @@ u,
 
 .panel-menu-more li a:hover {
 	color: inherit;
-	background-color: #F2F2F2;
+	background-color: #E6E6E6;
 }
 
 /* .panel-menu-more li a:focus, */
@@ -3612,6 +3612,13 @@ u,
 	opacity: 0;
 	-webkit-transition: opacity 0.4s ease;
 	transition: opacity 0.4s ease;
+}
+
+.col img.data-src-img,
+.col img[data-src],
+.col iframe.data-src-iframe,
+.col iframe[data-src] {
+	background-color: #F2F2F2;
 }
 
 .col img.data-src-img.is-active,
