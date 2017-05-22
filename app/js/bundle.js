@@ -353,6 +353,15 @@ if ("undefined" === typeof console) {
  */
 (function(root){"use strict";var isNodejs="undefined"!==typeof process&&"undefined"!==typeof require||"",isElectron="undefined"!==typeof window&&window.process&&"renderer"===window.process.type||"",isNwjs=function(){if("undefined"!==typeof isNodejs&&isNodejs){try{if("undefined"!==typeof require("nw.gui")){return!0;}}catch(e){return!1;}}return!1;}(),openDeviceBrowser=function(url){var triggerForElectron=function(){var es=isElectron?require("electron").shell:"";return es?es.openExternal(url):"";},triggerForNwjs=function(){var ns=isNwjs?require("nw.gui").Shell:"";return ns?ns.openExternal(url):"";},triggerForHTTP=function(){return!0;},triggerForLocal=function(){return root.open(url,"_system","scrollbars=1,location=no");};console.log("triggered function: openDeviceBrowser");if(isElectron){triggerForElectron();}else if(isNwjs){triggerForNwjs();}else{var locationProtocol=root.location.protocol||"",hasHTTP=locationProtocol?"http:"===locationProtocol?"http":"https:"===locationProtocol?"https":"":"";if(hasHTTP){triggerForHTTP();}else{triggerForLocal();}}};root.openDeviceBrowser=openDeviceBrowser;})("undefined" !== typeof window ? window : this);
 /*!
+ * js-throttle-debounce v0.1.1
+ * @see {@link https://github.com/emn178/js-throttle-debounce}
+ * Copyright 2015, emn178@gmail.com
+ * Licensed under the MIT license:
+ * @see {@link http://www.opensource.org/licenses/MIT}
+ * passes jshint
+ */
+(function(root,undefined){"use strict";Function.prototype.throttle=function(delay,ignoreLast){var func=this;var lastTime=0;var timer;if(delay===undefined){delay=100;}return function(){var self=this,args=arguments;var exec=function(){lastTime=new Date();func.apply(self,args);};if(timer){clearTimeout(timer);timer=null;}var diff=new Date()-lastTime;if(diff>delay){exec();}else if(!ignoreLast){timer=setTimeout(exec,delay-diff);}};};Function.prototype.debounce=function(delay){var func=this;var timer;if(delay===undefined){delay=100;}return function(){var self=this,args=arguments;if(timer){clearTimeout(timer);timer=null;}timer=setTimeout(function(){func.apply(self,args);},delay);};};})("undefined" !== typeof window ? window : this);
+/*!
  * add js class to html element
  */
 (function(classes){"use strict";if(classes){classes.add("js");}}(document.documentElement.classList||""));
@@ -546,16 +555,17 @@ var handleDataSrcImages = function () {
 		rerenderDataSrcImages();
 	}
 },
+throttleHandleDataSrcImages = handleDataSrcImages.throttle(100),
 manageDataSrcImages = function () {
 	"use strict";
 	var w = globalRoot,
 	aEL = "addEventListener",
 	rEL = "removeEventListener";
-	w[rEL]("scroll", handleDataSrcImages);
-	w[rEL]("resize", handleDataSrcImages);
-	w[aEL]("scroll", handleDataSrcImages);
-	w[aEL]("resize", handleDataSrcImages);
-	handleDataSrcImages();
+	w[rEL]("scroll", throttleHandleDataSrcImages);
+	w[rEL]("resize", throttleHandleDataSrcImages);
+	w[aEL]("scroll", throttleHandleDataSrcImages);
+	w[aEL]("resize", throttleHandleDataSrcImages);
+	throttleHandleDataSrcImages();
 };
 document.ready().then(manageDataSrcImages);
 /*!
@@ -613,17 +623,18 @@ var handleDataSrcIframes = function () {
 		rerenderDataSrcIframes();
 	}
 },
+throttleHandleDataSrcIframes = handleDataSrcIframes.throttle(100),
 manageDataSrcIframes = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
 	var w = globalRoot,
 	aEL = "addEventListener",
 	rEL = "removeEventListener";
-	w[rEL]("scroll", handleDataSrcIframes);
-	w[rEL]("resize", handleDataSrcIframes);
-	w[aEL]("scroll", handleDataSrcIframes);
-	w[aEL]("resize", handleDataSrcIframes);
-	handleDataSrcIframes();
+	w[rEL]("scroll", throttleHandleDataSrcIframes);
+	w[rEL]("resize", throttleHandleDataSrcIframes);
+	w[aEL]("scroll", throttleHandleDataSrcIframes);
+	w[aEL]("resize", throttleHandleDataSrcIframes);
+	throttleHandleDataSrcIframes();
 };
 document.ready().then(manageDataSrcIframes);
 /*!
@@ -1314,25 +1325,29 @@ var initNotibarMsg = function () {
 	var w = globalRoot,
 	d = document,
 	qS = "querySelector",
+	cL = "classList",
 	aC = "appendChild",
 	aEL = "addEventListener",
 	rEL = "removeEventListener",
 	cE = "createElement",
-	uiPanelContentsSelect = d[qS]("#render_contents_select") || "",
+	uiPanelContentsSelect = d[qS](".ui-panel-contents-select") || "",
 	cookieKey = "_notibar_dismiss_",
 	cookieDatum = "Выбрать статью можно щелкнув по самофиксирующейся планке с заголовком текущей страницы.",
 	locationOrigin = parseLink(w.location.href).origin,
+	isFixedClass = "is-fixed",
 	renderMsg = function () {
 		var msgObj = d[cE]("a");
 		/* jshint -W107 */
 		msgObj.href = "javascript:void(0);";
 		/* jshint +W107 */
-		var handlerMsgObj = function () {
-			msgObj[rEL]("click", handlerMsgObj);
-			var uiPanelContentsSelectPos = findPos(uiPanelContentsSelect).top || 0;
-			scroll2Top(uiPanelContentsSelectPos, 2000);
+		var handleMsgObj = function (ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			msgObj[rEL]("click", handleMsgObj);
+			var uiPanelContentsSelectHeight = uiPanelContentsSelect ? (uiPanelContentsSelect[cL].contains(isFixedClass) ? uiPanelContentsSelect.offsetHeight : uiPanelContentsSelect.offsetHeight) : 0;
+			scroll2Top(findPos(uiPanelContentsSelect).top - uiPanelContentsSelectHeight, 2000);
 		};
-		msgObj[aEL]("click", handlerMsgObj);
+		msgObj[aEL]("click", handleMsgObj);
 		msgObj[aC](d.createTextNode(cookieDatum));
 		notiBar({
 			"message": msgObj,
@@ -1440,16 +1455,6 @@ var initContentsKamil = function (jsonObj) {
 				/*!
 				 * fix typo - non latin characters found
 				 */
-				var handleTypoAutcompleteListItem = function (val) {
-					textInput.value = val;
-					textInput.focus();
-					hideTypoSuggestions();
-				},
-				handleTypoAutcompleteTextInput = function () {
-					if (textInput.value.length < 3 || textInput.value.match(/^\s*$/)) {
-						hideTypoSuggestions();
-					}
-				};
 				if (outsideContainer) {
 					outsideContainer[aEL]("click", hideTypoSuggestions);
 				}
@@ -1463,11 +1468,9 @@ var initContentsKamil = function (jsonObj) {
 					showTypoSuggestions();
 					removeChildren(typoAutcompleteListItem);
 					appendFragment(d[cTN]("" + textInputValue), typoAutcompleteListItem);
-					typoAutcompleteListItem[aEL]("click", handleTypoAutcompleteListItem.bind(null, textInputValue));
 					if (textInputValue.match(/^\s*$/)) {
 						hideTypoSuggestions();
 					}
-					textInput[aEL]("input", handleTypoAutcompleteTextInput);
 					l += 1;
 				}
 				/*!
@@ -1487,6 +1490,24 @@ var initContentsKamil = function (jsonObj) {
 					/* forEach(lis, truncateKamilText); */
 				}
 			};
+			/*!
+			 * set text input value from typo suggestion
+			 */
+			var handleTypoAutcompleteListItem = function () {
+				textInput.value = typoAutcompleteListItem.textContent;
+				textInput.focus();
+				hideTypoSuggestions();
+			}.debounce(100);
+			typoAutcompleteListItem[aEL]("click", handleTypoAutcompleteListItem);
+			/*!
+			 * hide typo suggestion
+			 */
+			var handleTypoAutcompleteTextInput = function () {
+				if (textInput.value.length < 3 || textInput.value.match(/^\s*$/)) {
+					hideTypoSuggestions();
+				}
+			}.debounce(100);
+			textInput[aEL]("input", handleTypoAutcompleteTextInput);
 			/*!
 			 * unless you specify property option in new Kamil
 			 * use kamil built-in word label as search key in JSON file
@@ -1600,7 +1621,7 @@ var fixUiPanelContentsSelect = function () {
 		} else {
 			uiPanelContentsSelect[cL].remove(isFixedClass);
 		}
-	};
+	}.throttle(100);
 	if (uiPanelContentsSelect) {
 		w[aEL]("scroll", handleUiPanelContentsSelect);
 	}
@@ -2292,7 +2313,7 @@ var initUiTotop = function () {
 				el[cL].remove(isActiveClass);
 			}
 		}
-	},
+	}.throttle(100),
 	renderUiTotop = function () {
 		var handleUiTotopAnchor = function (ev) {
 			ev.stopPropagation();
