@@ -68,7 +68,7 @@ if ("undefined" === typeof console) {
  * @see {@link http://stackoverflow.com/questions/8917921/cross-browser-javascript-not-jquery-scroll-to-top-animation}
  * passes jshint
  */
-(function(root){"use strict";var scroll2Top=function(scrollTargetY,speed,easing){var scrollY=root.scrollY||document.documentElement.scrollTop;scrollTargetY=scrollTargetY||0;speed=speed||2000;easing=easing||'easeOutSine';var currentTime=0;var time=Math.max(0.1,Math.min(Math.abs(scrollY-scrollTargetY)/speed,0.8));var easingEquations={easeOutSine:function(pos){return Math.sin(pos*(Math.PI/2));},easeInOutSine:function(pos){return(-0.5*(Math.cos(Math.PI*pos)-1));},easeInOutQuint:function(pos){if((pos/=0.5)<1){return 0.5*Math.pow(pos,5);}return 0.5*(Math.pow((pos-2),5)+2);}};function tick(){currentTime+=1/60;var p=currentTime/time;var t=easingEquations[easing](p);if(p<1){requestAnimationFrame(tick);root.scrollTo(0,scrollY+((scrollTargetY-scrollY)*t));}else{console.log('scroll done');root.scrollTo(0,scrollTargetY);}}tick();};root.scroll2Top=scroll2Top;})("undefined" !== typeof window ? window : this);
+(function(root){"use strict";var scroll2Top=function(scrollTargetY,speed,easing){var scrollY=root.scrollY||document.documentElement.scrollTop;scrollTargetY=scrollTargetY||0;speed=speed||2000;easing=easing||'easeOutSine';var currentTime=0;var time=Math.max(0.1,Math.min(Math.abs(scrollY-scrollTargetY)/speed,0.8));var easingEquations={easeOutSine:function(pos){return Math.sin(pos*(Math.PI/2));},easeInOutSine:function(pos){return(-0.5*(Math.cos(Math.PI*pos)-1));},easeInOutQuint:function(pos){if((pos/=0.5)<1){return 0.5*Math.pow(pos,5);}return 0.5*(Math.pow((pos-2),5)+2);}};function tick(){currentTime+=1/60;var p=currentTime/time;var t=easingEquations[easing](p);if(p<1){requestAnimationFrame(tick);root.scrollTo(0,scrollY+((scrollTargetY-scrollY)*t));}else{root.scrollTo(0,scrollTargetY);}}tick();};root.scroll2Top=scroll2Top;})("undefined" !== typeof window ? window : this);
 /*!
  * modified JavaScript Cookie - v2.1.3
  * @see {@link https://github.com/js-cookie/js-cookie}
@@ -160,6 +160,35 @@ if ("undefined" === typeof console) {
  * clearRequestInterval(handle);
  */
 (function(root){"use strict";var clearRequestInterval=function(handle){if(root.cancelAnimationFrame){root.cancelAnimationFrame(handle.value);}else{root.clearInterval(handle);}};root.clearRequestInterval=clearRequestInterval;})("undefined" !== typeof window ? window : this);
+/*!
+ * modified Returns a function, that, as long as it continues to be invoked, will not
+ * be triggered. The function will be called after it stops being called for
+ * N milliseconds. If `immediate` is passed, trigger the function on the
+ * leading edge, instead of the trailing. The function also has a property 'clear'
+ * that is a function which will clear the timer to prevent previously scheduled executions.
+ * @source underscore.js
+ * @see http://unscriptable.com/2009/03/20/debouncing-javascript-methods/
+ * @param {Function} function to wrap
+ * @param {Number} timeout in ms (`100`)
+ * @param {Boolean} whether to execute at the beginning (`false`)
+ * @api public
+ * @see {@link https://github.com/component/debounce/blob/master/index.js}
+ * passes jshint
+ */
+(function(root,undefined){var debounce=function(func,wait,immediate){var timeout,args,context,timestamp,result;if(undefined===wait||null===wait)wait=100;function later(){var last=Date.now()-timestamp;if(last<wait&&last>=0){timeout=setTimeout(later,wait-last);}else{timeout=null;if(!immediate){result=func.apply(context,args);context=args=null;}}}var debounced=function(){context=this;args=arguments;timestamp=Date.now();var callNow=immediate&&!timeout;if(!timeout)timeout=setTimeout(later,wait);if(callNow){result=func.apply(context,args);context=args=null;}return result;};debounced.clear=function(){if(timeout){clearTimeout(timeout);timeout=null;}};debounced.flush=function(){if(timeout){result=func.apply(context,args);context=args=null;clearTimeout(timeout);timeout=null;}};return debounced;};root.debounce=debounce;})("undefined" !== typeof window ? window : this);
+/*!
+ * Throttle a function by requestAnimationFrame
+ * raf-throttle let you create a throttled function,
+ * which only invokes the passed function at most once per animation frame
+ * on a browser or per 1000/60 ms on Node.
+ * throttled = throttle(callback)
+ * callback is the function to be throttled by requestAnimationFrame.
+ * throttled.cancel()
+ * Cancel the trailing throttled invocation.
+ * @see {@link https://github.com/wuct/raf-throttle}
+ * passes jshint
+ */
+(function(root,undefined){var rafThrottle=function rafThrottle(callback){"use strict";var _toConsumableArray=function(arr){if(Array.isArray(arr)){for(var i=0,arr2=Array(arr.length);i<arr.length;i++){arr2[i]=arr[i];}return arr2;}else{return Array.from(arr);}};var requestId=void 0;var later=function later(args){return function(){requestId=null;callback.apply(undefined,_toConsumableArray(args));};};var throttled=function throttled(){for(var _len=arguments.length,args=Array(_len),_key=0;_key<_len;_key++){args[_key]=arguments[_key];}if(requestId===null||requestId===undefined){requestId=requestAnimationFrame(later(args));}};throttled.cancel=function(){return cancelAnimationFrame(requestId);};return throttled;};root.rafThrottle=rafThrottle;})("undefined" !== typeof window ? window : this);
 /*!
  * parse JSON without try / catch
  * @param {String} a JSON string
@@ -329,7 +358,7 @@ if ("undefined" === typeof console) {
  * @param {Object} [onerror] on error callback function
  * insertExternalHTML(selector,url,callback,onerror)
  */
-(function(root){"use strict";var insertExternalHTML=function(selector,url,callback,onerror){var d=document,b=d.body||"",qS="querySelector",cN="cloneNode",aC="appendChild",pN="parentNode",iH="innerHTML",rC="replaceChild",cR="createRange",cCF="createContextualFragment",cDF="createDocumentFragment",container=d[qS](selector)||"",cb=function(){return callback&&"function"===typeof callback&&callback();},arrange=function(frag){try{var n=container[cN](!1);if(d[cR]){var rg=d[cR]();rg.selectNode(b);var df=rg[cCF](frag);n[aC](df);return container[pN]?container[pN][rC](n,container):container[iH]=frag,cb();}else{n[iH]=frag;return container[pN]?container[pN][rC](d[cDF][aC](n),container):container[iH]=frag,cb();}}catch(e){console.log(e);}return!1;},init=function(){if(root.Promise&&root.fetch&&!("undefined"!==typeof window&&window.process&&"renderer"===window.process.type)){fetch(url).then(function(response){if(!response.ok){if(onerror&&"function"===typeof onerror){onerror();}else{throw new Error(response.statusText);}}return response;}).then(function(response){return response.text();}).then(function(text){arrange(text);}).catch(function(err){console.log("Error fetch-ing file "+url,err);});}else{var x=root.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");x.overrideMimeType("text/html;charset=utf-8");x.open("GET",url,!0);x.withCredentials=!1;x.onreadystatechange=function(){if(x.status=="404"){console.log("Error XMLHttpRequest-ing file",x.status);return onerror&&"function"===typeof onerror&&onerror();}else if(x.readyState==4&&x.status==200&&x.responseText){arrange(x.responseText);}};x.send(null);}};if(container){console.log("triggered function: insertExternalHTML");init();}};root.insertExternalHTML=insertExternalHTML;})("undefined" !== typeof window ? window : this);
+(function(root){"use strict";var insertExternalHTML=function(selector,url,callback,onerror){var d=document,b=d.body||"",qS="querySelector",cN="cloneNode",aC="appendChild",pN="parentNode",iH="innerHTML",rC="replaceChild",cR="createRange",cCF="createContextualFragment",cDF="createDocumentFragment",container=d[qS](selector)||"",cb=function(){return callback&&"function"===typeof callback&&callback();},arrange=function(frag){try{var n=container[cN](!1);if(d[cR]){var rg=d[cR]();rg.selectNode(b);var df=rg[cCF](frag);n[aC](df);return container[pN]?container[pN][rC](n,container):container[iH]=frag,cb();}else{n[iH]=frag;return container[pN]?container[pN][rC](d[cDF][aC](n),container):container[iH]=frag,cb();}}catch(e){console.log(e);}return!1;},init=function(){if(root.Promise&&root.fetch&&!("undefined"!==typeof window&&window.process&&"renderer"===window.process.type)){fetch(url).then(function(response){if(!response.ok){if(onerror&&"function"===typeof onerror){onerror();}else{throw new Error(response.statusText);}}return response;}).then(function(response){return response.text();}).then(function(text){arrange(text);}).catch(function(err){console.log("Error fetch-ing file "+url,err);});}else{var x=root.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");x.overrideMimeType("text/html;charset=utf-8");x.open("GET",url,!0);x.withCredentials=!1;x.onreadystatechange=function(){if(x.status=="404"){console.log("Error XMLHttpRequest-ing file",x.status);return onerror&&"function"===typeof onerror&&onerror();}else if(x.readyState==4&&x.status==200&&x.responseText){arrange(x.responseText);}};x.send(null);}};if(container){init();}};root.insertExternalHTML=insertExternalHTML;})("undefined" !== typeof window ? window : this);
 /*!
  * Open external links in default browser out of Electron / nwjs
  * @see {@link https://gist.github.com/englishextra/b9a8140e1c1b8aa01772375aeacbf49b}
@@ -351,16 +380,7 @@ if ("undefined" === typeof console) {
  * @see {@link https://github.com/lyrictenor/node-is-nwjs/blob/master/index.js}
  * @returns {Boolean} true or false
  */
-(function(root){"use strict";var isNodejs="undefined"!==typeof process&&"undefined"!==typeof require||"",isElectron="undefined"!==typeof window&&window.process&&"renderer"===window.process.type||"",isNwjs=function(){if("undefined"!==typeof isNodejs&&isNodejs){try{if("undefined"!==typeof require("nw.gui")){return!0;}}catch(e){return!1;}}return!1;}(),openDeviceBrowser=function(url){var triggerForElectron=function(){var es=isElectron?require("electron").shell:"";return es?es.openExternal(url):"";},triggerForNwjs=function(){var ns=isNwjs?require("nw.gui").Shell:"";return ns?ns.openExternal(url):"";},triggerForHTTP=function(){return!0;},triggerForLocal=function(){return root.open(url,"_system","scrollbars=1,location=no");};console.log("triggered function: openDeviceBrowser");if(isElectron){triggerForElectron();}else if(isNwjs){triggerForNwjs();}else{var locationProtocol=root.location.protocol||"",hasHTTP=locationProtocol?"http:"===locationProtocol?"http":"https:"===locationProtocol?"https":"":"";if(hasHTTP){triggerForHTTP();}else{triggerForLocal();}}};root.openDeviceBrowser=openDeviceBrowser;})("undefined" !== typeof window ? window : this);
-/*!
- * js-throttle-debounce v0.1.1
- * @see {@link https://github.com/emn178/js-throttle-debounce}
- * Copyright 2015, emn178@gmail.com
- * Licensed under the MIT license:
- * @see {@link http://www.opensource.org/licenses/MIT}
- * passes jshint
- */
-(function(root,undefined){"use strict";Function.prototype.throttle=function(delay,ignoreLast){var func=this;var lastTime=0;var timer;if(delay===undefined){delay=100;}return function(){var self=this,args=arguments;var exec=function(){lastTime=new Date();func.apply(self,args);};if(timer){clearTimeout(timer);timer=null;}var diff=new Date()-lastTime;if(diff>delay){exec();}else if(!ignoreLast){timer=setTimeout(exec,delay-diff);}};};Function.prototype.debounce=function(delay){var func=this;var timer;if(delay===undefined){delay=100;}return function(){var self=this,args=arguments;if(timer){clearTimeout(timer);timer=null;}timer=setTimeout(function(){func.apply(self,args);},delay);};};})("undefined" !== typeof window ? window : this);
+(function(root){"use strict";var isNodejs="undefined"!==typeof process&&"undefined"!==typeof require||"",isElectron="undefined"!==typeof window&&window.process&&"renderer"===window.process.type||"",isNwjs=function(){if("undefined"!==typeof isNodejs&&isNodejs){try{if("undefined"!==typeof require("nw.gui")){return!0;}}catch(e){return!1;}}return!1;}(),openDeviceBrowser=function(url){var triggerForElectron=function(){var es=isElectron?require("electron").shell:"";return es?es.openExternal(url):"";},triggerForNwjs=function(){var ns=isNwjs?require("nw.gui").Shell:"";return ns?ns.openExternal(url):"";},triggerForHTTP=function(){return!0;},triggerForLocal=function(){return root.open(url,"_system","scrollbars=1,location=no");};if(isElectron){triggerForElectron();}else if(isNwjs){triggerForNwjs();}else{var locationProtocol=root.location.protocol||"",hasHTTP=locationProtocol?"http:"===locationProtocol?"http":"https:"===locationProtocol?"https":"":"";if(hasHTTP){triggerForHTTP();}else{triggerForLocal();}}};root.openDeviceBrowser=openDeviceBrowser;})("undefined" !== typeof window ? window : this);
 /*!
  * add js class to html element
  */
@@ -433,7 +453,7 @@ var LoadingSpinner = function () {
 	cL = "classList",
 	cE = "createElement",
 	isActiveClass = "is-active-loading-spinner";
-	console.log("triggered function: LoadingSpinner");
+	/* console.log("triggered function: LoadingSpinner"); */
 	if (!spinner) {
 		spinner = d[cE]("div");
 		spinner[cL].add(spinnerClass);
@@ -522,9 +542,9 @@ var handleDataSrcImages = function () {
 				if (w.Promise) {
 					imagePromise(_src).then(function (r) {
 						e.src = _src;
-						console.log("manageDataSrcImages => imagePromise: loaded image:", r);
+						/* console.log("manageDataSrcImages => imagePromise: loaded image:", r); */
 					}).catch (function (err) {
-						console.log("manageDataSrcImages => imagePromise: cannot load image:", err);
+						/* console.log("manageDataSrcImages => imagePromise: cannot load image:", err); */
 					});
 				} else {
 					e.src = _src;
@@ -551,11 +571,11 @@ var handleDataSrcImages = function () {
 		/* forEach(img, arrangeDataSrcImage); */
 	};
 	if (img) {
-		console.log("triggered function: manageDataSrcImages");
+		/* console.log("triggered function: manageDataSrcImages"); */
 		rerenderDataSrcImages();
 	}
 },
-throttleHandleDataSrcImages = handleDataSrcImages.throttle(100),
+throttleHandleDataSrcImages = rafThrottle(handleDataSrcImages),
 manageDataSrcImages = function () {
 	"use strict";
 	var w = globalRoot,
@@ -619,11 +639,11 @@ var handleDataSrcIframes = function () {
 		/* forEach(iframe, arrangeDataSrcIframe); */
 	};
 	if (iframe) {
-		console.log("triggered function: manageDataSrcIframes");
+		/* console.log("triggered function: manageDataSrcIframes"); */
 		rerenderDataSrcIframes();
 	}
 },
-throttleHandleDataSrcIframes = handleDataSrcIframes.throttle(100),
+throttleHandleDataSrcIframes = rafThrottle(handleDataSrcIframes),
 manageDataSrcIframes = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
@@ -682,7 +702,7 @@ manageExternalLinks = function (ctx) {
 		/* forEach(link, arrangeExternalLink); */
 	};
 	if (link) {
-		console.log("triggered function: manageExternalLinks");
+		/* console.log("triggered function: manageExternalLinks"); */
 		rerenderExternalLinks();
 	}
 };
@@ -795,9 +815,9 @@ manageImgLightboxLinks = function (ctx) {
 			if (w.Promise) {
 				imagePromise(_href).then(function (r) {
 					img.src = _href;
-					console.log("manageImgLightboxLinks => imagePromise: loaded image:", r);
+					/* console.log("manageImgLightboxLinks => imagePromise: loaded image:", r); */
 				}).catch (function (err) {
-					console.log("manageImgLightboxLinks => imagePromise: cannot load image:", err);
+					/* console.log("manageImgLightboxLinks => imagePromise: cannot load image:", err); */
 				});
 			} else {
 				img.src = _href;
@@ -829,7 +849,7 @@ manageImgLightboxLinks = function (ctx) {
 		/* forEach(link, arrangeImgLightboxLink); */
 	};
 	if (link) {
-		console.log("triggered function: manageImgLightboxLinks");
+		/* console.log("triggered function: manageImgLightboxLinks"); */
 		rerenderImgLightboxLinks();
 	}
 };
@@ -1002,7 +1022,7 @@ var managePagesSelect = function (ctx) {
 		pagesListButton[aEL]("click", showHidePagesListItems);
 	};
 	if (holderPagesSelect && pagesSelect) {
-		console.log("triggered function: managePagesSelect");
+		/* console.log("triggered function: managePagesSelect"); */
 		/* rerenderPagesSelect(); */
 		rerenderPagesList();
 	}
@@ -1046,7 +1066,7 @@ var manageExpandingLayers = function (ctx) {
 		/* forEach(btn, arrangeExpandingLayers); */
 	};
 	if (btn) {
-		console.log("triggered function: manageExpandingLayers");
+		/* console.log("triggered function: manageExpandingLayers"); */
 		rerenderExpandingLayers();
 	}
 };
@@ -1082,14 +1102,14 @@ initMasonry = function (ctx) {
 					gutter: 0,
 					percentPosition: !0
 				});
-			console.log("function initMasonry.arrangeItems => initialised msnry");
+			/* console.log("function initMasonry.arrangeItems => initialised msnry"); */
 			si = requestInterval(function () {
-					console.log("function initMasonry.arrangeItems => started Interval");
+					/* console.log("function initMasonry.arrangeItems => started Interval"); */
 					if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
 						clearRequestInterval(si);
-						console.log("function initMasonry.arrangeItems => si=" + si.value + "; imagesPreloaded=" + imagesPreloaded);
+						/* console.log("function initMasonry.arrangeItems => si=" + si.value + "; imagesPreloaded=" + imagesPreloaded); */
 						msnry.layout();
-						console.log("function initMasonry.arrangeItems => reinitialised msnry");
+						/* console.log("function initMasonry.arrangeItems => reinitialised msnry"); */
 					}
 				}, 100);
 		} else if (w.Packery) {
@@ -1102,23 +1122,23 @@ initMasonry = function (ctx) {
 					gutter: 0,
 					percentPosition: !0
 				});
-			console.log("function initMasonry.arrangeItems => initialised pckry");
+			/* console.log("function initMasonry.arrangeItems => initialised pckry"); */
 			si = requestInterval(function () {
-					console.log("function initMasonry.arrangeItems => started Interval");
+					/* console.log("function initMasonry.arrangeItems => started Interval"); */
 					if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
 						clearRequestInterval(si);
-						console.log("function initMasonry.arrangeItems => si=" + si.value + "; imagesPreloaded=" + imagesPreloaded);
+						/* console.log("function initMasonry.arrangeItems => si=" + si.value + "; imagesPreloaded=" + imagesPreloaded); */
 						pckry.layout();
-						console.log("function initMasonry.arrangeItems => reinitialised pckry");
+						/* console.log("function initMasonry.arrangeItems => reinitialised pckry"); */
 					}
 				}, 100);
 		} else {
-			console.log("function initMasonry.arrangeItems => no library is loaded");
+			/* console.log("function initMasonry.arrangeItems => no library is loaded"); */
 		}
 	};
 	if (grid && item) {
 		if ("undefined" !== typeof imagesPreloaded) {
-			console.log("triggered function: initMasonryGrid");
+			/* console.log("triggered function: initMasonryGrid"); */
 			var st = requestTimeout(function () {
 					clearRequestTimeout(st);
 					/* var js = "./cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
@@ -1130,7 +1150,7 @@ initMasonry = function (ctx) {
 					}
 				}, 100);
 		} else {
-			console.log("function initMasonry => undefined: imagesPreloaded");
+			/* console.log("function initMasonry => undefined: imagesPreloaded"); */
 		}
 	}
 };
@@ -1158,7 +1178,7 @@ var manageDisqusButton = function (ctx) {
 	disqusShortname = disqusThread ? (disqusThread[ds].shortname || "") : "",
 	embedJsUrl = getHTTP(!0) + "://" + disqusShortname + ".disqus.com/embed.js";
 	if (disqusThread && btn && disqusShortname && locationHref) {
-		console.log("triggered function: manageDisqusButton");
+		/* console.log("triggered function: manageDisqusButton"); */
 		var hideButton = function () {
 			disqusThread[cL].add(isActiveClass);
 			btn.style.display = "none";
@@ -1236,7 +1256,7 @@ var notiBar = function (opt) {
 	fadeInDownClass = "fadeInDown",
 	fadeOutUpClass = "fadeOutUp";
 	if (b) {
-		console.log("triggered function: notiBar");
+		/* console.log("triggered function: notiBar"); */
 		if ("string" === typeof opt) {
 			opt = {
 				"message": opt
@@ -1359,7 +1379,7 @@ var initNotibarMsg = function () {
 	};
 	if (locationOrigin && uiPanelContentsSelect) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			console.log("triggered function: initNotibarMsg");
+			/* console.log("triggered function: initNotibarMsg"); */
 			var st = requestTimeout(function () {
 					clearRequestTimeout(st);
 					renderMsg();
@@ -1402,19 +1422,19 @@ var initContentsKamil = function (jsonObj) {
 			 * create typo suggestion list
 			 */
 			var typoAutcompleteList = d[cE]("ul"),
-			typoAutcompleteListItem = d[cE]("li"),
+			typoListItem = d[cE]("li"),
 			hideTypoSuggestions = function () {
 				typoAutcompleteList.style.display = "none";
-				typoAutcompleteListItem.style.display = "none";
+				typoListItem.style.display = "none";
 			},
 			showTypoSuggestions = function () {
 				typoAutcompleteList.style.display = "block";
-				typoAutcompleteListItem.style.display = "block";
+				typoListItem.style.display = "block";
 			};
 			typoAutcompleteList[cL].add(typoAutcompleteListClass);
 			typoAutcompleteList.id = typoAutcompleteListSelector;
 			hideTypoSuggestions();
-			typoAutcompleteList[aC](typoAutcompleteListItem);
+			typoAutcompleteList[aC](typoListItem);
 			textInput[pN].insertBefore(typoAutcompleteList, textInput.nextElementSibling);
 			/*!
 			 * this is an optional setup of every li
@@ -1466,8 +1486,8 @@ var initContentsKamil = function (jsonObj) {
 						textInputValue = fixEnRuTypo(textInputValue, "en", "ru");
 					}
 					showTypoSuggestions();
-					removeChildren(typoAutcompleteListItem);
-					appendFragment(d[cTN]("" + textInputValue), typoAutcompleteListItem);
+					removeChildren(typoListItem);
+					appendFragment(d[cTN]("" + textInputValue), typoListItem);
 					if (textInputValue.match(/^\s*$/)) {
 						hideTypoSuggestions();
 					}
@@ -1493,21 +1513,23 @@ var initContentsKamil = function (jsonObj) {
 			/*!
 			 * set text input value from typo suggestion
 			 */
-			var handleTypoAutcompleteListItem = function () {
-				textInput.value = typoAutcompleteListItem.textContent;
+			var handleTypoListItem = function () {
+				textInput.value = typoListItem.textContent || "";
 				textInput.focus();
 				hideTypoSuggestions();
-			}.debounce(100);
-			typoAutcompleteListItem[aEL]("click", handleTypoAutcompleteListItem);
+			},
+			debounceHandleTypoListItem = debounce(handleTypoListItem, 200);
+			typoListItem[aEL]("click", debounceHandleTypoListItem);
 			/*!
 			 * hide typo suggestion
 			 */
-			var handleTypoAutcompleteTextInput = function () {
+			var handleTypoTextInput = function () {
 				if (textInput.value.length < 3 || textInput.value.match(/^\s*$/)) {
 					hideTypoSuggestions();
 				}
-			}.debounce(100);
-			textInput[aEL]("input", handleTypoAutcompleteTextInput);
+			},
+			debounceHandleTypoTextInput = debounce(handleTypoTextInput, 200);
+			textInput[aEL]("input", debounceHandleTypoTextInput);
 			/*!
 			 * unless you specify property option in new Kamil
 			 * use kamil built-in word label as search key in JSON file
@@ -1532,7 +1554,7 @@ var initContentsKamil = function (jsonObj) {
 		}
 	};
 	if (searchForm && textInput) {
-		console.log("triggered function: initContentsKamil");
+		/* console.log("triggered function: initContentsKamil"); */
 		var kamilJsUrl = "./cdn/kamil/0.1.1/js/kamil.fixed.min.js";
 		if (!scriptIsLoaded(kamilJsUrl)) {
 			loadJS(kamilJsUrl, generateMenu.bind(null, jsonObj));
@@ -1621,9 +1643,10 @@ var fixUiPanelContentsSelect = function () {
 		} else {
 			uiPanelContentsSelect[cL].remove(isFixedClass);
 		}
-	}.throttle(100);
+	},
+	throttleHandleUiPanelContentsSelect = rafThrottle(handleUiPanelContentsSelect);
 	if (uiPanelContentsSelect) {
-		w[aEL]("scroll", handleUiPanelContentsSelect);
+		w[aEL]("scroll", throttleHandleUiPanelContentsSelect);
 	}
 };
 document.ready().then(fixUiPanelContentsSelect);
@@ -1646,7 +1669,7 @@ var manageLocationQrCodeImage = function () {
 	locationHash = w.location.href || "";
 	if (btn && holder && locationHash) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			console.log("triggered function: manageLocationQrCodeImage");
+			/* console.log("triggered function: manageLocationQrCodeImage"); */
 			var handleLocationQrCodeIsActiveClass = function () {
 				holder[cL].remove(isActiveClass);
 			},
@@ -1727,7 +1750,7 @@ var manageShareButton = function () {
 	isSocialClass = "is-social";
 	if (btn && holder && yaShare2) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			console.log("triggered function: manageShareButton");
+			/* console.log("triggered function: manageShareButton"); */
 			var handleShareButton = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
@@ -1767,7 +1790,7 @@ var manageVKLikeButton = function () {
 	isSocialClass = "is-social";
 	if (btn && holder && vkLike) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			console.log("triggered function: manageVKLikeButton");
+			/* console.log("triggered function: manageVKLikeButton"); */
 			var handleVKLikeButton = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
@@ -1886,7 +1909,7 @@ var manageDebugGridButton = function () {
 		});
 	};
 	if (btn && container) {
-		console.log("triggered function: manageDebugGridButton");
+		/* console.log("triggered function: manageDebugGridButton"); */
 		var locationHref = w.location.href || "";
 		if (locationHref && parseLink(locationHref).hasHTTP && (/^(localhost|127.0.0.1)/).test(parseLink(locationHref).hostname)) {
 			var handleDebugGridButton = function (ev) {
@@ -2278,7 +2301,7 @@ var updateInsertedDom = function () {
 	ctx = d[qS]("#app-content")[pN] || "",
 	locationHash = w.location.hash || "";
 	if (ctx && locationHash) {
-		console.log("triggered function: updateInsertedDom");
+		/* console.log("triggered function: updateInsertedDom"); */
 		observeMutations(ctx);
 	}
 };
@@ -2286,24 +2309,16 @@ var updateInsertedDom = function () {
 /*!
  * init ui-totop
  */
-var initUiTotop = function () {
-	"use strict";
-	var w = globalRoot,
-	d = document,
-	h = d.documentElement || "",
-	b = d.body || "",
-	btnClass = "ui-totop",
-	btnTitle = "Наверх",
-	qS = "querySelector",
-	cL = "classList",
-	cE = "createElement",
-	aC = "appendChild",
-	cENS = "createElementNS",
-	sANS = "setAttributeNS",
-	aEL = "addEventListener",
-	isActiveClass = "is-active",
-	handleUiTotopWindow = function (_this) {
-		var scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
+var handleUiTotopWindow = function (_this) {
+		"use strict";
+		var d = document,
+		h = d.documentElement || "",
+		b = d.body || "",
+		qS = "querySelector",
+		cL = "classList",
+		btnClass = "ui-totop",
+		isActiveClass = "is-active",
+		scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
 		windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "",
 		el = d[qS]("." + btnClass) || "";
 		if (scrollPosition && windowHeight && el) {
@@ -2313,7 +2328,21 @@ var initUiTotop = function () {
 				el[cL].remove(isActiveClass);
 			}
 		}
-	}.throttle(100),
+	},
+	throttleHandleUiTotopWindow = rafThrottle(handleUiTotopWindow);
+initUiTotop = function () {
+	"use strict";
+	var w = globalRoot,
+	d = document,
+	b = d.body || "",
+	cL = "classList",
+	cE = "createElement",
+	aC = "appendChild",
+	cENS = "createElementNS",
+	sANS = "setAttributeNS",
+	aEL = "addEventListener",
+	btnClass = "ui-totop",
+	btnTitle = "Наверх",
 	renderUiTotop = function () {
 		var handleUiTotopAnchor = function (ev) {
 			ev.stopPropagation();
@@ -2337,10 +2366,10 @@ var initUiTotop = function () {
 		anchor[aEL]("click", handleUiTotopAnchor);
 		insertUpSvg(anchor);
 		b[aC](anchor);
-		w[aEL]("scroll", handleUiTotopWindow.bind(null, w));
+		w[aEL]("scroll", throttleHandleUiTotopWindow);
 	};
 	if (b) {
-		console.log("triggered function: initUiTotop");
+		/* console.log("triggered function: initUiTotop"); */
 		renderUiTotop();
 	}
 };
@@ -2359,16 +2388,16 @@ var showPageFinishProgress = function () {
 	},
 	triggerOnImagesLoaded = function () {
 		var si = requestInterval(function () {
-				console.log("function showPageFinishProgress => started Interval");
+				/* console.log("function showPageFinishProgress => started Interval"); */
 				if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
 					clearRequestInterval(si);
-					console.log("function showPageFinishProgress => si=" + si.value + "; imagesPreloaded=" + imagesPreloaded);
+					/* console.log("function showPageFinishProgress => si=" + si.value + "; imagesPreloaded=" + imagesPreloaded); */
 					rerenderPage();
 				}
 			}, 100);
 	};
 	if (page) {
-		console.log("triggered function: showPageFinishProgress");
+		/* console.log("triggered function: showPageFinishProgress"); */
 		if ("undefined" !== typeof imagesPreloaded) {
 			triggerOnImagesLoaded();
 		} else {
@@ -2376,4 +2405,4 @@ var showPageFinishProgress = function () {
 		}
 	}
 };
-globalRoot.addEventListener("load", showPageFinishProgress);
+document.ready().then(showPageFinishProgress);
