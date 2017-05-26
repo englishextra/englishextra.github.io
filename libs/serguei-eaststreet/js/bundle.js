@@ -1920,18 +1920,20 @@ manageYandexMapButton = function (a) {
  * init Pages Kamil autocomplete
  * @see {@link https://github.com/oss6/kamil/wiki/Example-with-label:link-json-and-typo-correct-suggestion}
  */
-var initContentsKamil = function () {
+var initKamilAutocomplete = function () {
 	"use strict";
 	var w = window,
 	d = document,
+	gEBI = "getElementById",
 	search_form = BALA.one(".search-form") || "",
 	id = "#text",
 	text = BALA.one(id) || "",
+	outsideContainer = d[gEBI]("container") || "",
 	_ul_id = "kamil-typo-autocomplete",
 	_ul_class = "kamil-autocomplete",
-	outsideContainer = BALA.one(".container") || "",
 	jsn = "../libs/contents/json/contents.json",
 	cL = "classList",
+	aEL = "addEventListener",
 	q = function (r) {
 		var jpr = safelyParseJSON(r);
 		if (jpr) {
@@ -1987,19 +1989,6 @@ var initContentsKamil = function () {
 				/*!
 				 * fix typo - non latin characters found
 				 */
-				var h_li = function (v) {
-					text.value = v;
-					text.focus();
-					setStyleDisplayNone(_ul);
-				},
-				h_text = function () {
-					if (text.value.length < 3 || text.value.match(/^\s*$/)) {
-						hideTypoSuggestions();
-					}
-				};
-				if (outsideContainer) {
-					evento.add(outsideContainer, "click", hideTypoSuggestions);
-				}
 				while (l < 1) {
 					var v = text.value;
 					if (/[^\u0000-\u007f]/.test(v)) {
@@ -2010,11 +1999,12 @@ var initContentsKamil = function () {
 					showTypoSuggestions();
 					removeChildren(_li);
 					crel(_li, "" + v);
-					evento.add(_li, "click", h_li.bind(null, v));
 					if (v.match(/^\s*$/)) {
 						hideTypoSuggestions();
 					}
-					evento.add(text, "input", h_text);
+					if (text.value.length < 3 || text.value.match(/^\s*$/)) {
+						hideTypoSuggestions();
+					}
 					l += 1;
 				}
 				/*!
@@ -2039,6 +2029,21 @@ var initContentsKamil = function () {
 					}
 				}
 			};
+			/*!
+			 * set text input value from typo suggestion
+			 */
+			var h_li = function () {
+				text.value = _li.firstChild.textContent || "",
+				text.focus();
+				setStyleDisplayNone(_ul);
+			};
+			evento.add(_li, "click", h_li);
+			/*!
+			 * hide suggestions on outside click
+			 */
+			if (outsideContainer) {
+				outsideContainer[aEL]("click", hideTypoSuggestions);
+			}
 			/*!
 			 * unless you specify property option in new Kamil
 			 * use kamil built-in word label as search key in JSON file
@@ -2066,27 +2071,27 @@ var initContentsKamil = function () {
 		loadUnparsedJSON(jsn, q);
 	};
 	if (search_form && text) {
-		console.log("triggered function: initContentsKamil");
+		console.log("triggered function: initKamilAutocomplete");
 		v();
 	}
 },
-loadInitContentsKamil = function () {
+loadInitKamilAutocomplete = function () {
 	"use strict";
 	var w = window,
 	js = "../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
 	if (w.XMLHttpRequest || w.ActiveXObject) {
 		if (w.Promise) {
-			promiseLoadJS(js).then(initContentsKamil);
+			promiseLoadJS(js).then(initKamilAutocomplete);
 		} else {
-			ajaxLoadTriggerJS(js, initContentsKamil);
+			ajaxLoadTriggerJS(js, initKamilAutocomplete);
 		}
 	} else {
 		if (!scriptIsLoaded(js)) {
-			loadJS(js, initContentsKamil);
+			loadJS(js, initKamilAutocomplete);
 		}
 	}
 };
-docReady(loadInitContentsKamil);
+docReady(loadInitKamilAutocomplete);
 /*!
  * init ui-totop
  */

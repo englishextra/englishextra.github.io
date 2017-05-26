@@ -1393,7 +1393,7 @@ document.ready().then(initNotibarMsg);
  * @see {@link https://oss6.github.io/kamil/}
  * @see {@link https://github.com/oss6/kamil/wiki/Example-with-label:link-json-and-typo-correct-suggestion}
  */
-var initContentsKamil = function (jsonObj) {
+var initKamilAutocomplete = function (jsonObj) {
 	"use strict";
 	var w = globalRoot,
 	d = document,
@@ -1554,7 +1554,7 @@ var initContentsKamil = function (jsonObj) {
 		}
 	};
 	if (searchForm && textInput) {
-		/* console.log("triggered function: initContentsKamil"); */
+		/* console.log("triggered function: initKamilAutocomplete"); */
 		var kamilJsUrl = "./cdn/kamil/0.1.1/js/kamil.fixed.min.js";
 		if (!scriptIsLoaded(kamilJsUrl)) {
 			loadJS(kamilJsUrl, generateMenu.bind(null, jsonObj));
@@ -2114,7 +2114,7 @@ var handleRoutes = function () {
 				}
 			};
 			if (routesParsedJson) {
-				initContentsKamil(routesParsedJson.hashes);
+				initKamilAutocomplete(routesParsedJson.hashes);
 				var navigateOnHashChange = function () {
 					if (searchTextInput) {
 						searchTextInput.blur();
