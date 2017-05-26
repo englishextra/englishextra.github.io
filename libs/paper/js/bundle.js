@@ -1,4 +1,9 @@
 /*!
+ * define global root
+ */
+/* var globalRoot = "object" === typeof window && window || "object" === typeof self && self || "object" === typeof global && global || {}; */
+var globalRoot = "undefined" !== typeof window ? window : this;
+/*!
  * modified ToProgress v0.1.1
  * @see {@link https://github.com/djyde/ToProgress}
  * @see {@link https://gist.github.com/englishextra/6a8c79c9efbf1f2f50523d46a918b785}
@@ -130,6 +135,15 @@
  * passes jshint
  */
 (function(){"use strict";var imagePromise=function(s){if(window.Promise){return new Promise(function(y,n){var f=function(e,p){e.onload=function(){y(p);};e.onerror=function(){n(p);};e.src=p;};if("string"===typeof s){var a=new Image();f(a,s);}else{if("IMG"!==s.tagName){return Promise.reject();}else{if(s.src){f(s,s.src);}}}});}else{throw new Error("Promise is not in window");}};("undefined" !== typeof window ? window : this).imagePromise=imagePromise;}());
+/*!
+ * modified Simple lightbox effect in pure JS
+ * @see {@link https://github.com/squeral/lightbox}
+ * @see {@link https://github.com/squeral/lightbox/blob/master/lightbox.js}
+ * @params {Object} elem Node element
+ * new HDLightbox(elem)
+ * passes jshint
+ */
+(function(root){"use strict";var HDLightbox=function(elem){this.trigger=elem;this.el=document.querySelector(".iframe-lightbox");this.body=document.querySelector(".iframe-lightbox .body");this.content=document.querySelector(".iframe-lightbox .content");this.href=elem.dataset.src||"";this.paddingBottom=elem.dataset.paddingBottom||"";this.image=null;this.video=null;this.init();};HDLightbox.prototype.init=function(){var _this=this;if(!this.el)this.create();this.trigger.addEventListener("click",function(e){e.preventDefault();_this.open();});};HDLightbox.prototype.create=function(){var _this=this,bd=document.createElement("div");this.el=document.createElement("div");this.content=document.createElement("div");this.body=document.createElement("div");this.el.classList.add("iframe-lightbox");bd.classList.add("backdrop");this.content.classList.add("content");this.body.classList.add("body");this.el.appendChild(bd);this.content.appendChild(this.body);this.content_holder=document.createElement("div");this.content_holder.classList.add("content-holder");this.content_holder.appendChild(this.content);this.el.appendChild(this.content_holder);document.body.appendChild(this.el);bd.addEventListener("click",function(){_this.close();});var f=function(e){if(_this.isOpen())return;_this.el.classList.remove("show");_this.body.innerHTML="";};this.el.addEventListener("transitionend",f,false);this.el.addEventListener("webkitTransitionEnd",f,false);this.el.addEventListener("mozTransitionEnd",f,false);this.el.addEventListener("msTransitionEnd",f,false);};HDLightbox.prototype.loadIframe=function(){this.body.innerHTML='<iframe src="'+this.href+'" name="iframe-lightbox-'+Date.now()+'" onload="this.style.opacity=1;" style="opacity:0;border:none;" scrolling="no" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true" height="166" frameborder="no"></iframe>';};HDLightbox.prototype.open=function(){this.loadIframe();if(this.paddingBottom){this.content.style.paddingBottom=this.paddingBottom;}else{this.content.removeAttribute("style");}this.el.classList.add("show");this.el.classList.add("open");};HDLightbox.prototype.close=function(){this.el.classList.remove("open");};HDLightbox.prototype.isOpen=function(){return this.el.classList.contains("open");};root.HDLightbox=HDLightbox;})(globalRoot);
 /*!
  * safe way to handle console.log():
  * sitepoint.com/safe-console-log/
@@ -1036,6 +1050,38 @@ var manageDataSrcIframes = function (ctx) {
 	}
 };
 evento.add(window, "load", manageDataSrcIframes.bind(null, ""));
+/*!
+ * replace iframe src with data-src
+ * @param {Object} [ctx] context HTML Element
+ */
+var manageIframeLightboxLinks = function (ctx) {
+	"use strict";
+	ctx = ctx || "";
+	var d = document,
+	gEBCN = "getElementsByClassName",
+	cL = "classList",
+	linkClass = "iframe-lightbox-link",
+	link = d[gEBCN](linkClass) || "",
+	link = ctx ? ctx[gEBCN](linkClass) || "" : d[gEBCN](linkClass) || "",
+	isBindedClass = "is-binded",
+	arrangeDataSrcIframe = function (e) {
+		if (!e[cL].contains(isBindedClass)) {
+			e.lightbox = new HDLightbox(e);
+			e[cL].add(isBindedClass);
+		}
+	},
+	rerenderDataSrcIframes = function () {
+		for (var i = 0, l = link.length; i < l; i += 1) {
+			arrangeDataSrcIframe(link[i]);
+		}
+		/* forEach(link, arrangeDataSrcIframe); */
+	};
+	if (link) {
+		/* console.log("triggered function: manageIframeLightboxLibks"); */
+		rerenderDataSrcIframes();
+	}
+};
+docReady(manageIframeLightboxLinks);
 /*!
  * add smooth scroll or redirection to static select options
  * @param {Object} [ctx] context HTML Element
