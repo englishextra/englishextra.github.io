@@ -1669,8 +1669,8 @@ var renderNavigation = function () {
 					if (moreTemplate && moreRender) {
 						insertFromTemplate(navigationJsonResponse, moreTemplateId, moreRenderId, function () {
 							alignNavbarLists();
-		handleListItems(renderNavbarPopular);
-		handleListItems(renderNavbarMore);
+							handleListItems(renderNavbarPopular);
+							handleListItems(renderNavbarMore);
 							showRenderNavbarPopular[aEL]("click", handleShowRenderNavbarPopularButton);
 							showRenderNavbarMore[aEL]("click", handleShowRenderNavbarMoreButton);
 							w[aEL]("resize", throttlehandleShowNavbarListsWindow);
