@@ -1061,7 +1061,6 @@ var manageIframeLightboxLinks = function (ctx) {
 	gEBCN = "getElementsByClassName",
 	cL = "classList",
 	linkClass = "iframe-lightbox-link",
-	link = d[gEBCN](linkClass) || "",
 	link = ctx ? ctx[gEBCN](linkClass) || "" : d[gEBCN](linkClass) || "",
 	isBindedClass = "is-binded",
 	arrangeDataSrcIframe = function (e) {
