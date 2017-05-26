@@ -26,8 +26,8 @@
 	left: 0;
 	right: 0;
 	background-color: transparent;
-	border: 0.067rem solid $color-rgba-img-lightbox-border;
-	border-radius: 0.067rem;
+	border: 0;
+	box-shadow: 0.267rem 0.267rem 0.267rem 0 $color-rgba-lightbox-shadow;
 	vertical-align: middle;
 	user-select: none;
 	cursor: zoom-out;
