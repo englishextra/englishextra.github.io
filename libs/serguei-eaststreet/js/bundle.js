@@ -1,4 +1,30 @@
 /*!
+ * define global root
+ */
+/* var globalRoot = "object" === typeof window && window || "object" === typeof self && self || "object" === typeof global && global || {}; */
+var globalRoot = "undefined" !== typeof window ? window : this;
+/*!
+ * safe way to handle console.log():
+ * sitepoint.com/safe-console-log/
+ */
+/* jshint ignore:start */
+if ("undefined" === typeof console) {
+	console = {};
+	console.log = function () {
+		return;
+	};
+}
+/* jshint ignore:end */
+/*!
+ * insert External HTML
+ * @param {String} id Target Element id
+ * @param {String} url path string
+ * @param {Object} [callback] callback function
+ * @param {Object} [onerror] on error callback function
+ * insertExternalHTML(selector,url,callback,onerror)
+ */
+(function(root){"use strict";var insertExternalHTML=function(id,url,callback,onerror){var d=document,b=d.body||"",gEBI="getElementById",cN="cloneNode",aC="appendChild",pN="parentNode",iH="innerHTML",rC="replaceChild",cR="createRange",cCF="createContextualFragment",cDF="createDocumentFragment",container=d[gEBI](id.replace(/^#/,""))||"",cb=function(){return callback&&"function"===typeof callback&&callback();},arrange=function(frag){try{var clonedContainer=container[cN](!1);if(d[cR]){var rg=d[cR]();rg.selectNode(b);var df=rg[cCF](frag);clonedContainer[aC](df);return container[pN]?container[pN][rC](clonedContainer,container):container[iH]=frag,cb();}else{clonedContainer[iH]=frag;return container[pN]?container[pN][rC](d[cDF][aC](clonedContainer),container):container[iH]=frag,cb();}}catch(e){console.log(e);}return!1;},init=function(){if(root.Promise&&root.fetch&&!("undefined"!==typeof root&&root.process&&"renderer"===root.process.type)){fetch(url).then(function(response){if(!response.ok){if(onerror&&"function"===typeof onerror){onerror();}else{throw new Error(response.statusText);}}return response;}).then(function(response){return response.text();}).then(function(text){arrange(text);}).catch(function(err){console.log("Error fetch-ing file "+url,err);});}else{var x=root.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");x.overrideMimeType("text/html;charset=utf-8");x.open("GET",url,!0);x.withCredentials=!1;x.onreadystatechange=function(){if(x.status=="404"){console.log("Error XMLHttpRequest-ing file",x.status);return onerror&&"function"===typeof onerror&&onerror();}else if(x.readyState==4&&x.status==200&&x.responseText){arrange(x.responseText);}};x.send(null);}};if(container){init();}};root.insertExternalHTML=insertExternalHTML;})(globalRoot);
+/*!
  * modified ToProgress v0.1.1
  * @see {@link https://github.com/djyde/ToProgress}
  * @see {@link https://gist.github.com/englishextra/6a8c79c9efbf1f2f50523d46a918b785}
@@ -152,14 +178,6 @@
  * safe way to handle console.log():
  * sitepoint.com/safe-console-log/
  */
-/* jshint ignore:start */
-if ("undefined" === typeof console) {
-	console = {};
-	console.log = function () {
-		return;
-	};
-}
-/* jshint ignore:end */
 /*!
  * add js class to html element
  */
@@ -2033,7 +2051,7 @@ var initKamilAutocomplete = function () {
 			 * set text input value from typo suggestion
 			 */
 			var h_li = function () {
-				text.value = _li.firstChild.textContent || "",
+				text.value = _li.firstChild.textContent || "";
 				text.focus();
 				setStyleDisplayNone(_ul);
 			};
@@ -2181,15 +2199,6 @@ var includeHTMLintoTarget = function (_this, u, t) {
 		g();
 	}
 };
-/*!
- * insert External HTML
- * @param {String} selector Target Element id/class
- * @param {String} url path string
- * @param {Object} [callback] callback function
- * @param {Object} [onerror] on error callback function
- * insertExternalHTML(selector,url,callback,onerror)
- */
-(function(root){"use strict";var insertExternalHTML=function(selector,url,callback,onerror){var d=document,b=d.body||"",qS="querySelector",cN="cloneNode",aC="appendChild",pN="parentNode",iH="innerHTML",rC="replaceChild",cR="createRange",cCF="createContextualFragment",cDF="createDocumentFragment",container=d[qS](selector)||"",cb=function(){return callback&&"function"===typeof callback&&callback();},arrange=function(frag){try{var n=container[cN](!1);if(d[cR]){var rg=d[cR]();rg.selectNode(b);var df=rg[cCF](frag);n[aC](df);return container[pN]?container[pN][rC](n,container):container[iH]=frag,cb();}else{n[iH]=frag;return container[pN]?container[pN][rC](d[cDF][aC](n),container):container[iH]=frag,cb();}}catch(e){console.log(e);}return!1;},init=function(){if(root.Promise&&root.fetch&&!("undefined"!==typeof window&&window.process&&"renderer"===window.process.type)){fetch(url).then(function(response){if(!response.ok){if(onerror&&"function"===typeof onerror){onerror();}else{throw new Error(response.statusText);}}return response;}).then(function(response){return response.text();}).then(function(text){arrange(text);}).catch(function(err){console.log("Error fetch-ing file "+url,err);});}else{var x=root.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");x.overrideMimeType("text/html;charset=utf-8");x.open("GET",url,!0);x.withCredentials=!1;x.onreadystatechange=function(){if(x.status=="404"){console.log("Error XMLHttpRequest-ing file",x.status);return onerror&&"function"===typeof onerror&&onerror();}else if(x.readyState==4&&x.status==200&&x.responseText){arrange(x.responseText);}};x.send(null);}};if(container){init();}};root.insertExternalHTML=insertExternalHTML;})("undefined" !== typeof window ? window : this);
 /*!
  * init routie
  * @param {String} ctx HTML id string

@@ -67,14 +67,6 @@
  * safe way to handle console.log():
  * sitepoint.com/safe-console-log/
  */
-/* jshint ignore:start */
-if ("undefined" === typeof console) {
-	console = {};
-	console.log = function () {
-		return;
-	};
-}
-/* jshint ignore:end */
 /*!
  * add js class to html element
  */
@@ -1372,7 +1364,7 @@ var initKamilAutocomplete = function () {
 			 * set text input value from typo suggestion
 			 */
 			var h_li = function () {
-				text.value = _li.firstChild.textContent || "",
+				text.value = _li.firstChild.textContent || "";
 				text.focus();
 				setStyleDisplayNone(_ul);
 			};
