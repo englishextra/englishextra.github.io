@@ -20,6 +20,14 @@
 	<body>
 		<svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg">
 			<defs>
+				<symbol id="ui-icon-FavoriteList" viewBox="0 0 32 32">
+					<title>FavoriteList</title>
+					<path d="M32 12v2h-13.72c-0.375-1.229-0.752-2.445-1.132-3.648s-0.762-2.42-1.148-3.648c-0.386 1.229-0.768 2.445-1.148 3.648s-0.757 2.42-1.132 3.648h-7.845c1.063 0.813 2.114 1.625 3.157 2.438 1.041 0.813 2.098 1.62 3.171 2.421-0.416 1.291-0.823 2.575-1.22 3.852s-0.791 2.561-1.188 3.852c1.041-0.802 2.075-1.598 3.102-2.391s2.061-1.589 3.102-2.391v2.532l-10 7.688 3.875-12.407-9.875-7.593h12.25l3.75-12 3.75 12h12.25zM18 18h14v2h-14v-2zM18 24h14v2h-14v-2zM18 30h14v2h-14v-2z"></path>
+				</symbol>
+				<symbol id="ui-icon-List" viewBox="0 0 32 32">
+					<title>List</title>
+					<path d="M0 25v-2h20v2h-20zM0 15h32v2h-32v-2zM26 7v2h-26v-2h26z"></path>
+				</symbol>
 				<symbol id="ui-icon-Repair" viewBox="0 0 32 32">
 					<title>Repair</title>
 					<path d="M30.156 3.438q0.406 0.703 0.742 1.344t0.586 1.297 0.383 1.367 0.133 1.555q0 1.234-0.32 2.383t-0.906 2.148-1.414 1.828-1.828 1.414-2.148 0.906-2.383 0.32q-0.359 0-0.727-0.031t-0.727-0.094l-12.594 12.594q-0.75 0.75-1.711 1.141t-2.008 0.391q-1.078 0-2.031-0.414t-1.664-1.125-1.125-1.664-0.414-2.031q0-1.047 0.391-2.008t1.141-1.711l12.594-12.594q-0.063-0.359-0.094-0.727t-0.031-0.727q0-1.234 0.32-2.383t0.906-2.148 1.414-1.828 1.828-1.414 2.148-0.906 2.383-0.32q0.844 0 1.555 0.133t1.367 0.383 1.297 0.586 1.344 0.742l-6.156 6.156 1.594 1.594zM23 16q1.453 0 2.727-0.555t2.219-1.5 1.5-2.219 0.555-2.727q0-1.141-0.375-2.203l-5.625 5.609-4.406-4.406 5.609-5.625q-1.063-0.375-2.203-0.375-1.453 0-2.727 0.555t-2.219 1.5-1.5 2.219-0.555 2.727q0 0.547 0.094 1.063t0.219 1.031l-13.359 13.375q-0.453 0.453-0.703 1.047t-0.25 1.25 0.258 1.25 0.695 1.031 1.031 0.695 1.25 0.258 1.25-0.25 1.047-0.703l13.375-13.359q0.516 0.125 1.031 0.219t1.063 0.094z"></path>
@@ -98,90 +106,62 @@
 			</defs>
 		</svg>
 		<div class="page" id="page" role="document">
-			<!-- <div class="ui-panel-top"></div> -->
-			<div class="ui-panel-navigation"></div>
 			<div class="container-navbar">
 				<div class="holder-navbar">
-					<ul class="navbar" data-function="navbar">
-						<li>
-							<a href="#/home" title="Начало">
-							<svg class="navbar-icon logo">
-								<use xlink:href="#ui-icon-englishextra"></use>
-							</svg> </a>
-						</li>
-						<li>
-							<a href="#/contents">Содержание</a>
-							<!-- <a href="#/contents">
-							<svg class="navbar-icon logo">
-								<use xlink:href="#ui-icon-GlobalNavButton"></use>
-							</svg> </a> -->
-						</li>
-						<li>
-							<a href="javascript:void(0);">Популярные&#160;
-							<svg class="navbar-icon pointer baseline">
+					<div class="navbar" id="navbar">
+						<a href="#/home" class="navbar-button" title="Начало">
+						<svg class="navbar-icon">
+							<use xlink:href="#ui-icon-englishextra"></use>
+						</svg> </a>
+						<a href="#/contents" class="navbar-button" title="Содержание">
+							<span class="hide-on-mobile">Содержание</span>
+							<span class="show-inline-on-mobile"><svg class="navbar-icon">
+								<use xlink:href="#ui-icon-List"></use>
+							</svg></span>
+						</a>
+						<a href="javascript:void(0);" class="navbar-button hide-on-mobile" id="show_render_navbar_popular" title="Популярные">
+							<span class="hide-on-mobile">Популярные&#160;
+							<svg class="navbar-icon small inline">
 								<use xlink:href="#ui-icon-ChevronDownSmall"></use>
-							</svg> </a>
-							<ul id="render_navbar_popular"></ul>
-						</li>
-						<li>
-							<a href="javascript:void(0);" title="Еще">
-							<svg class="navbar-icon logo">
-								<use xlink:href="#ui-icon-More"></use>
-							</svg> </a>
-							<ul id="render_navbar_more"></ul>
-							<!-- <ul>
-								<li>
-									<a href="https://vk.com/englishextragithubio" target="_blank">Паблик ВКонтакте&#160;
-									<svg class="navbar-icon action">
-										<use xlink:href="#ui-icon-vkontakte"></use>
-									</svg> </a>
-								</li>
-								<li>
-									<a href="https://ok.ru/sergueishimanski" target="_blank">Редактор на Одноклассниках&#160;
-									<svg class="navbar-icon action">
-										<use xlink:href="#ui-icon-odnoklassniki"></use>
-									</svg> </a>
-								</li>
-								<li>
-									<a href="javascript:void(0);">Соцсети&#160;
-									<svg class="navbar-icon pointer baseline">
-										<use xlink:href="#ui-icon-ChevronRightSmall"></use>
-									</svg> </a>
-									<ul>
-										<li></li>
-										<li></li>
-									</ul>
-								</li>
-							</ul> -->
-						</li>
-					</ul>
-					<div class="holder-search-form">
-						<!-- <form action="javascript:void(0);" class="search-form" id="search-form" onsubmit="return!1" method="get" enctype="application/x-www-form-urlencoded">
-							<div>
-								<span class="holder-search-text"><input type="text" name="text" id="text" autocomplete="off" placeholder="Поиск" /></span>
-							</div>
-						</form> -->
-						<form action="//yandex.ru/sitesearch" class="search-form" id="search-form" target="_blank" method="get" enctype="application/x-www-form-urlencoded">
-							<div>
-								<span class="holder-search-text"><input type="text" name="text" id="text" autocomplete="off" placeholder="Поиск" /><button type="submit" />
-								<svg class="ui-icon">
-									<use xlink:href="#ui-icon-Search"></use>
-								</svg></button></span>
-								<input name="searchid" id="searchid" value="2192588" type="hidden" />
-								<input name="web" id="web" value="1" type="hidden" />
-							</div>
-						</form>
-						<!-- <div class="ya-site-form ya-site-form_inited_no"><form action="https://yandex.com/search/site/" method="get" target="_blank"><input type="hidden" name="searchid" value="2192588"/><input type="hidden" name="l10n" value="en"/><input type="hidden" name="reqenc" value=""/><input type="search" name="text" id="text" value=""/><input type="submit" value="Search"/></form></div> -->
+							</svg></span>
+							<span class="show-inline-on-mobile"><svg class="navbar-icon">
+								<use xlink:href="#ui-icon-FavoriteList"></use>
+							</svg></span>
+						</a>
+						<a href="javascript:void(0);" class="navbar-button hide-on-mobile" id="show_render_navbar_more" title="Еще">
+						<svg class="navbar-icon">
+							<use xlink:href="#ui-icon-More"></use>
+						</svg> </a>
+						<ul class="navbar-list is-dropdown" id="render_navbar_popular"></ul>
+						<ul class="navbar-list is-dropdown" id="render_navbar_more"></ul>
+						<div class="holder-search-form">
+							<!-- <form action="javascript:void(0);" class="search-form" id="search-form" onsubmit="return!1" method="get" enctype="application/x-www-form-urlencoded">
+								<div>
+									<span class="holder-search-text"><input type="text" name="text" id="text" autocomplete="off" placeholder="Поиск" /></span>
+								</div>
+							</form> -->
+							<form action="//yandex.ru/sitesearch" class="search-form" id="search-form" target="_blank" method="get" enctype="application/x-www-form-urlencoded">
+								<div>
+									<span class="holder-search-text"><input type="text" name="text" id="text" autocomplete="off" placeholder="Поиск" /><button type="submit" />
+									<svg class="ui-icon">
+										<use xlink:href="#ui-icon-Search"></use>
+									</svg></button></span>
+									<input name="searchid" id="searchid" value="2192588" type="hidden" />
+									<input name="web" id="web" value="1" type="hidden" />
+								</div>
+							</form>
+							<!-- <div class="ya-site-form ya-site-form_inited_no"><form action="https://yandex.com/search/site/" method="get" target="_blank"><input type="hidden" name="searchid" value="2192588"/><input type="hidden" name="l10n" value="en"/><input type="hidden" name="reqenc" value=""/><input type="search" name="text" id="text" value=""/><input type="submit" value="Search"/></form></div> -->
+						</div>
 					</div>
 				</div>
 			</div>
 			<div class="container" id="container" role="main">
-				<div class="holder-hero">
+				<!-- <div class="holder-hero">
 					<div class="hero">
 						<div class="hero-heading">Английский без регистрации</div>
 						<div class="hero-figcaption"><a href="https://unsplash.com/photos/2yB0ilQgkxs" target="_blank">Leake Street, London, United Kingdom, by Clem Onojeghuo</a></div>
 					</div>
-				</div>
+				</div> -->
 				<div class="ui-panel-contents-select">
 					<div class="holder-contents-select">
 						<form method="get" action="javascript:void(0);">
@@ -265,14 +245,14 @@
 		<template id="template_b_carousel">
 			{{@b_carousel}}
 			<div class="b-carousel__item">
-				<a href="{{%_val.href}}" class="b-carousel__a"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="{{%_val.src}}" class="b-carousel__img" alt="" /></a>
+				<a href="{{%_val.href}}" class="b-carousel__a"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="{{%_val.src}}" class="data-src-img b-carousel__img" alt="" /></a>
 			</div>
 			{{/@b_carousel}}
 		</template>
 		<template id="template_contents_grid">
 			<div class="masonry-grid-sizer"></div>
 			{{@hashes}}
-			<div class="masonry-grid-item"><a href="{{%_val.href}}"><div class="masonry-grid-item-image"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAFQAQMAAAAV1V3SAAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAADFJREFUeNrtwTEBAAAAwqD1T20MH6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHgaalAAAe08I/8AAAAASUVORK5CYII=" data-src="{{%_val.src}}" alt=""></div><div class="masonry-grid-item-content"><h2>{{=_val.title}}</h2><p>{{=_val.text}}</p></div></a></div>
+			<div class="masonry-grid-item"><a href="{{%_val.href}}"><div class="masonry-grid-item-image"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAFQAQMAAAAV1V3SAAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAADFJREFUeNrtwTEBAAAAwqD1T20MH6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHgaalAAAe08I/8AAAAASUVORK5CYII=" data-src="{{%_val.src}}" class="data-src-img" alt=""></div><div class="masonry-grid-item-content"><h2>{{=_val.title}}</h2><p>{{=_val.text}}</p></div></a></div>
 			{{/@hashes}}
 		</template>
 		<template id="template_aside">
@@ -280,7 +260,7 @@
 			<div class="aside">
 				{{@items}}
 				<h2><a href="{{%_val.href}}">{{=_val.title}}</a></h2>
-				<p><a href="{{%_val.href}}"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgAQMAAAAPH06nAAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAAD1JREFUeNrtwQENAAAAwqD3T20ON6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4M8Al+AAAUvMG0oAAAAASUVORK5CYII=" data-src="{{%_val.src}}" alt="{{%_val.title}}" /></a></p>
+				<p><a href="{{%_val.href}}"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgAQMAAAAPH06nAAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAAD1JREFUeNrtwQENAAAAwqD3T20ON6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4M8Al+AAAUvMG0oAAAAASUVORK5CYII=" data-src="{{%_val.src}}" class="data-src-img" alt="{{%_val.title}}" /></a></p>
 				<p><a href="{{%_val.href}}">{{=_val.text}}</a></p>
 				{{/@items}}
 			</div>

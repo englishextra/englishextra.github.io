@@ -484,52 +484,98 @@ u,
 }
 
 /*!
- * ui-panel-top
- */
-
-.ui-panel-top {
-	width: 100%;
-	height: 3.200rem;
-	background-color: $ButtonBackground;
-}
-
-/*!
  * navigation
  */
 
-.ui-panel-navigation {
-	width: 100%;
-	height: 3.200rem;
-	background-color: $TitleBarAndAppBarDark;
-}
-
-@media (max-width: 768px) {
-	.ui-panel-navigation {
-		display: none;
-	}
-}
-
 .container-navbar {
 	width: 100%;
-	position: absolute;
+	height: 3.200rem;
+	position: relative;
 	/* top: 3.200rem; */
 	top: 0;
 	left: 0;
 	background-color: $TitleBarAndAppBarDark;
-	z-index: 1;
-}
-
-@media (max-width: 768px) {
-	.container-navbar {
-		position: relative;
-		top: 0;
-	}
+	z-index: 2;
 }
 
 .holder-navbar {
 	width: 100%;
-	background-color: $TitleBarAndAppBarDark;
 	margin: 0 auto;
+}
+
+.navbar .navbar-button {
+	display: block;
+	float: left;
+	height: 3.200rem;
+	min-width: 3.200rem;
+	font-size: 0.933rem;
+	line-height: 3.200rem;
+	text-decoration: none;
+	color: #FFFFFF;
+	background-color: inherit;
+	padding: 0 0.933rem;
+}
+
+.navbar-button .navbar-icon {
+	width: 1.333rem;
+	height: 1.333rem;
+	margin-top: 0.933rem;
+}
+
+.navbar-button .navbar-icon.small.inline {
+	width: 0.533rem;
+	height: 0.533rem;
+	margin-top: 1.400rem;
+}
+
+.navbar-button .navbar-icon > * {
+	fill: #FFFFFF;
+}
+
+.navbar-list {
+	visibility: hidden;
+	opacity: 0;
+	width: 18.133rem;
+	max-height: 16.000rem;
+	overflow-y: auto;
+	position: absolute;
+	list-style: none;
+	color: #FFFFFF;
+	background-color: $TitleBarAndAppBarDark;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+	transition: visibility 0s, opacity .2s ease;
+	padding: 0;
+	margin: 0;
+}
+
+.navbar-list.is-active {
+	visibility: visible;
+	opacity: 1;
+}
+
+.navbar-list li {
+	height: 3.200rem;
+	font-size: 0.933rem;
+	line-height: 3.200rem;
+}
+
+.navbar-list li:hover {
+	background-color: $TitleBarAndAppBarDarkItemHighlight;
+}
+
+.navbar-list li a {
+	display: block;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding: 0 0.933rem;
+}
+
+.navbar-list li a:active {
+	color: #191919;
+	background-color: $AccentColor;
 }
 
 /*!
@@ -1196,7 +1242,7 @@ u,
 	border-color: $PlaceholderText;
 	border-style: solid;
 	border-width: 0.067rem;
-	background-color: inherit;
+	background-color: $TitleBarAndAppBarDark;
 	transition: width 0.2s linear;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;

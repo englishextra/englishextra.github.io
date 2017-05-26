@@ -2476,190 +2476,85 @@ body {
 	animation-fill-mode: both;
 }
 
-/*! @import "navbar.fixed"; */
+/*! @import "iframe-lightbox"; */
 
 /*!
- * @see {@link https://github.com/thednp/navbar.js/issues/2}
+ * modified Simple lightbox effect in pure JS
+ * @see {@link https://github.com/squeral/lightbox}
+ * @see {@link https://github.com/squeral/lightbox/blob/master/lightbox.js}
+ * passes jshint
  */
 
-.navbar,
-.navbar ul {
-	list-style: none;
-	padding: 0;
-}
-
-.navbar,
-.navbar ol,
-.navbar ul {
-	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
-	margin: 0;
-}
-
-.navbar li {
-	position: relative;
-	vertical-align: middle;
-}
-
-.navbar li > ul {
-	width: 18.133rem;
-	position: absolute;
-	background-color: #000000;
-	opacity: 0;
-}
-
-@media (max-width: 768px) {
-	.navbar li > ul {
-		width: auto;
-	}
-}
-
-.navbar li a {
-	display: block;
-	height: 3.200rem;
-	font-size: 0.933rem;
-	line-height: 3.200rem;
-	text-decoration: none;
-	color: #FFFFFF;
-	background-color: #1F1F1F;
-	padding: 0 0.933rem;
-}
-
-.navbar li a .navbar-icon.pointer {
-	float: right;
-	width: 0.533rem;
-	height: 0.533rem;
-	margin-top: 1.333rem;
-}
-
-.navbar li a .navbar-icon.pointer.baseline {
-	margin-top: 1.400rem;
-}
-
-.navbar li a .navbar-icon.action {
-	float: right;
-	width: 1.333rem;
-	height: 1.333rem;
-	margin-top: 0.933rem;
-}
-
-.navbar li a .navbar-icon.logo {
-	float: right;
-	width: 1.333rem;
-	height: 1.333rem;
-	margin-top: 0.933rem;
-}
-
-@media (max-width: 768px) {
-	.navbar li a .navbar-icon.logo {
-		float: left;
-	}
-}
-
-.navbar a svg {
-	display: block;
-	padding: 0;
-}
-
-.navbar li li a {
-	color: #FFFFFF;
-	background-color: #1F1F1F;
-}
-
-.navbar li li a .navbar-icon.pointer > *,
-.navbar li li a .navbar-icon.action > * {
-	fill: #FFFFFF;
-}
-
-.navbar li a .navbar-icon.pointer > *,
-.navbar li li.is-open > a .navbar-icon.pointer > *,
-.navbar li li:hover > a .navbar-icon.pointer > *,
-.navbar li li.is-active > a .navbar-icon.pointer > *,
-.navbar li li.is-active:hover > a .navbar-icon.pointer > *,
-.navbar li a .navbar-icon.action > *,
-.navbar li li.is-open > a .navbar-icon.action > *,
-.navbar li li:hover > a .navbar-icon.action > *,
-.navbar li li.is-active > a .navbar-icon.action > *,
-.navbar li li.is-active:hover > a .navbar-icon.action > * {
-	fill: #FFFFFF;
-}
-
-.navbar li a .navbar-icon.logo > * {
-	fill: #FFFFFF;
-}
-
-.navbar li li.is-open > a,
-.navbar li li:hover > a {
-	color: #FFFFFF;
-	background-color: #D83544;
-}
-
-.navbar li li.is-active > a,
-.navbar li li.is-active:hover > a {
-	color: #FFFFFF;
-	background-color: #000000;
-}
-
-.navbar li.is-open > ul {
-	opacity: 1;
-}
-
-.navbar > li.is-open > a,
-.navbar > li:hover > a,
-.navbar > li.is-active > a,
-.navbar > li.is-active:hover > a {
-	color: #FFFFFF;
-	background-color: #000000;
-}
-
-.navbar > li > a {
-	float: left;
-}
-
-@media (max-width: 768px) {
-	.navbar > li > a {
-		float: none;
-	}
-}
-
-.navbar > li {
-	position: relative;
-	float: left;
-}
-
-@media (max-width: 768px) {
-	.navbar > li {
-		float: none;
-	}
-}
-
-.navbar li > ul,
-.navbar li li > ul {
-	top: -999em;
-	left: 85%;
-	-webkit-transition: top 0s, opacity .2s ease;
-	transition: top 0s, opacity .2s ease;
-}
-
-.navbar li li.is-open > ul {
-	left: 100%;
-}
-
-.navbar li li.is-repositioned > ul {
+.iframe-lightbox,
+.iframe-lightbox .backdrop {
+	width: 100%;
+	height: 100%;
 	top: 0;
-}
-
-.navbar li.is-open > ul {
-	top: 100%;
-}
-
-.navbar li.is-repositioned > ul {
 	left: 0;
 }
 
-@media (max-width: 768px) {
-	.navbar li.is-repositioned > ul {
-		position: static;
-	}
+.iframe-lightbox {
+	display: none;
+	position: fixed;
+	opacity: 0;
+	-webkit-transition: opacity 0.2s ease;
+	transition: opacity 0.2s ease;
+	z-index: 1;
+}
+
+.iframe-lightbox .backdrop {
+	position: absolute;
+	background-color: rgba(0, 0, 0, 0.5);
+	cursor: default;
+	z-index: 1;
+}
+
+.iframe-lightbox .content-holder {
+	width: 80%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	margin-right: -50%;
+	z-index: 2;
+}
+
+.iframe-lightbox .content {
+	height: 0;
+	position: relative;
+	/* background-color: #000000; */
+	padding-bottom: 56.25%;
+}
+
+.iframe-lightbox .content > .body {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.iframe-lightbox iframe {
+	display: block;
+	width: 100%;
+	height: 100%;
+	border: 0;
+	box-shadow: 0.267rem 0.267rem 0.267rem 0 rgba(3, 3, 3, 0.3);
+	/*!
+	 * in js: iframe onload="this.style.opacity=1;" style="opacity:0;border:none;"
+	 */
+	/* opacity: 0; */
+	-webkit-transition: opacity 0.2s ease;
+	transition: opacity 0.2s ease;
+}
+
+.iframe-lightbox.show {
+	display: block;
+}
+
+.iframe-lightbox.open {
+	opacity: 1;
 }
 
 /*! @import "kamil-autocomplete.fixed"; */
@@ -3883,52 +3778,99 @@ u,
 }
 
 /*!
- * ui-panel-top
- */
-
-.ui-panel-top {
-	width: 100%;
-	height: 3.200rem;
-	background-color: #CCCCCC;
-}
-
-/*!
  * navigation
  */
 
-.ui-panel-navigation {
-	width: 100%;
-	height: 3.200rem;
-	background-color: #1F1F1F;
-}
-
-@media (max-width: 768px) {
-	.ui-panel-navigation {
-		display: none;
-	}
-}
-
 .container-navbar {
 	width: 100%;
-	position: absolute;
+	height: 3.200rem;
+	position: relative;
 	/* top: 3.200rem; */
 	top: 0;
 	left: 0;
 	background-color: #1F1F1F;
-	z-index: 1;
-}
-
-@media (max-width: 768px) {
-	.container-navbar {
-		position: relative;
-		top: 0;
-	}
+	z-index: 2;
 }
 
 .holder-navbar {
 	width: 100%;
-	background-color: #1F1F1F;
 	margin: 0 auto;
+}
+
+.navbar .navbar-button {
+	display: block;
+	float: left;
+	height: 3.200rem;
+	min-width: 3.200rem;
+	font-size: 0.933rem;
+	line-height: 3.200rem;
+	text-decoration: none;
+	color: #FFFFFF;
+	background-color: inherit;
+	padding: 0 0.933rem;
+}
+
+.navbar-button .navbar-icon {
+	width: 1.333rem;
+	height: 1.333rem;
+	margin-top: 0.933rem;
+}
+
+.navbar-button .navbar-icon.small.inline {
+	width: 0.533rem;
+	height: 0.533rem;
+	margin-top: 1.400rem;
+}
+
+.navbar-button .navbar-icon > * {
+	fill: #FFFFFF;
+}
+
+.navbar-list {
+	visibility: hidden;
+	opacity: 0;
+	width: 18.133rem;
+	max-height: 16.000rem;
+	overflow-y: auto;
+	position: absolute;
+	list-style: none;
+	color: #FFFFFF;
+	background-color: #1F1F1F;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
+	-webkit-transition: visibility 0s, opacity .2s ease;
+	transition: visibility 0s, opacity .2s ease;
+	padding: 0;
+	margin: 0;
+}
+
+.navbar-list.is-active {
+	visibility: visible;
+	opacity: 1;
+}
+
+.navbar-list li {
+	height: 3.200rem;
+	font-size: 0.933rem;
+	line-height: 3.200rem;
+}
+
+.navbar-list li:hover {
+	background-color: #393939;
+}
+
+.navbar-list li a {
+	display: block;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding: 0 0.933rem;
+}
+
+.navbar-list li a:active {
+	color: #191919;
+	background-color: #D83544;
 }
 
 /*!
@@ -4604,7 +4546,7 @@ u,
 	border-color: #878787;
 	border-style: solid;
 	border-width: 0.067rem;
-	background-color: inherit;
+	background-color: #1F1F1F;
 	-webkit-transition: width 0.2s linear;
 	transition: width 0.2s linear;
 	-webkit-tap-highlight-color: transparent;
