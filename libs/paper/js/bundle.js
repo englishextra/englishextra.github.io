@@ -862,7 +862,7 @@ manageImgLightboxLinks = function (ctx) {
 	ctx = ctx || "";
 	var w = window,
 	b = BALA.one("body") || "",
-	cls = "[data-lightbox]",
+	cls = ".img-lightbox-link",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	ilc = "img-lightbox-container",
 	c = BALA.one("." + ilc) || "",
@@ -880,9 +880,8 @@ manageImgLightboxLinks = function (ctx) {
 		appendFragment(c, b);
 	}
 	var k = function (e) {
-		var v = e[ds].lightbox || "",
-		p = e.getAttribute("href") || "";
-		if ("img" === v && p) {
+		var p = e.getAttribute("href") || "";
+		if (p) {
 			if (parseLink(p).isAbsolute && !parseLink(p).hasHTTP) {
 				e.setAttribute("href", p.replace(/^/, getHTTP(!0) + ":"));
 			}
@@ -1874,9 +1873,14 @@ var initKamilAutocomplete = function () {
 			/*!
 			 * set text input value from typo suggestion
 			 */
-			var h_li = function () {
-				text.value = _li.firstChild.textContent || "";
+			var h_li = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				/*!
+				 * set focus first, then set text
+				 */
 				text.focus();
+				text.value = _li.firstChild.textContent || "";
 				setStyleDisplayNone(_ul);
 			};
 			evento.add(_li, "click", h_li);

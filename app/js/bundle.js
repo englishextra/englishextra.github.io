@@ -819,7 +819,7 @@ manageImgLightboxLinks = function (ctx) {
 	aC = "appendChild",
 	cE = "createElement",
 	gA = "getAttribute",
-	linkClass = "data-lightbox-link",
+	linkClass = "img-lightbox-link",
 	link = ctx ? ctx[gEBCN](linkClass) || "" : d[gEBCN](linkClass) || "",
 	containerClass = "img-lightbox-container",
 	container = d[qS]("." + containerClass) || "",
@@ -869,9 +869,8 @@ manageImgLightboxLinks = function (ctx) {
 	},
 	arrangeImgLightboxLink = function (e) {
 		if (!e[cL].contains(isBindedClass)) {
-			var dataValue = e[ds].lightbox || "",
-			_href = e[gA]("href") || "";
-			if ("img" === dataValue && _href) {
+			var _href = e[gA]("href") || "";
+			if (_href) {
 				if (parseLink(_href).isAbsolute && !parseLink(_href).hasHTTP) {
 					e.setAttribute("href", _href.replace(/^/, getHTTP(!0) + ":"));
 				}
@@ -1423,6 +1422,26 @@ var initNotibarMsg = function () {
 };
 document.ready().then(initNotibarMsg);
 /*!
+ * manage search input
+ */
+var manageSearchInput = function () {
+	"use strict";
+	var d = document,
+	gEBI = "getElementById",
+	aEL = "addEventListener",
+	searchInput = d[gEBI]("text") || "",
+	handleSearchInputValue = function (_this) {
+		_this.value = _this.value.replace(/\\/g, "").replace(/ +(?= )/g, " ").replace(/\/+(?=\/)/g, "/") || "";
+	},
+	throttleHandleSearchInputValue = debounce(handleSearchInputValue.bind(null, searchInput), 500);
+	if (searchInput) {
+		/* console.log("triggered function: manageSearchInput"); */
+		searchInput.focus();
+		searchInput[aEL]("input", throttleHandleSearchInputValue);
+	}
+};
+document.ready().then(manageSearchInput);
+/*!
  * init Pages Kamil autocomplete
  * @see {@link https://oss6.github.io/kamil/}
  * @see {@link https://github.com/oss6/kamil/wiki/Example-with-label:link-json-and-typo-correct-suggestion}
@@ -1554,9 +1573,14 @@ var initKamilAutocomplete = function (jsonObj) {
 			/*!
 			 * set text input value from typo suggestion
 			 */
-			var handleTypoListItem = function () {
-				textInput.value = typoListItem.textContent || "";
+			var handleTypoListItem = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				/*!
+				 * set focus first, then set text
+				 */
 				textInput.focus();
+				textInput.value = typoListItem.textContent || "";
 				hideTypoSuggestions();
 			};
 			typoListItem[aEL]("click", handleTypoListItem);

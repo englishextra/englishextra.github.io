@@ -1363,9 +1363,14 @@ var initKamilAutocomplete = function () {
 			/*!
 			 * set text input value from typo suggestion
 			 */
-			var h_li = function () {
-				text.value = _li.firstChild.textContent || "";
+			var h_li = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				/*!
+				 * set focus first, then set text
+				 */
 				text.focus();
+				text.value = _li.firstChild.textContent || "";
 				setStyleDisplayNone(_ul);
 			};
 			evento.add(_li, "click", h_li);
