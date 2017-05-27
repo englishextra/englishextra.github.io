@@ -2325,6 +2325,7 @@ body {
 	transform: translateZ(0);
 	-webkit-animation: load8 1.1s infinite linear;
 	animation: load8 1.1s infinite linear;
+	z-index: 3;
 }
 
 .is-active-loading-spinner .loading-spinner,
@@ -2533,10 +2534,14 @@ body {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-image: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjRTZFNkU2IiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4gIDxwYXRoIGQ9Ik02IDJ2NmguMDFMNiA4LjAxIDEwIDEybC00IDQgLjAxLjAxSDZWMjJoMTJ2LTUuOTloLS4wMUwxOCAxNmwtNC00IDQtMy45OS0uMDEtLjAxSDE4VjJINnptMTAgMTQuNVYyMEg4di0zLjVsNC00IDQgNHptLTQtNWwtNC00VjRoOHYzLjVsLTQgNHoiLz48cGF0aCBkPSJNMCAwaDI0djI0SDBWMHoiIGZpbGw9Im5vbmUiLz48L3N2Zz4=);
+	background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nNDgnIGhlaWdodD0nNDgnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDEwMCAxMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89InhNaWRZTWlkIiBjbGFzcz0idWlsLXJpbmciPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSJub25lIiBjbGFzcz0iYmsiPjwvcmVjdD48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0NiIgc3Ryb2tlLWRhc2hhcnJheT0iMTg3Ljg2NzI0MDY4NDY2OTY0IDEwMS4xNTkyODM0NDU1OTEzMSIgc3Ryb2tlPSIjRTZFNkU2IiBvcGFjaXR5PSIxIiBmaWxsPSJub25lIiBzdHJva2Utd2lkdGg9IjgiPjxhbmltYXRlVHJhbnNmb3JtIGF0dHJpYnV0ZU5hbWU9InRyYW5zZm9ybSIgdHlwZT0icm90YXRlIiB2YWx1ZXM9IjAgNTAgNTA7MTgwIDUwIDUwOzM2MCA1MCA1MDsiIGtleVRpbWVzPSIwOzAuNTsxIiBkdXI9IjFzIiByZXBlYXRDb3VudD0iaW5kZWZpbml0ZSIgYmVnaW49IjBzIj48L2FuaW1hdGVUcmFuc2Zvcm0+PC9jaXJjbGU+PC9zdmc+);
 	background-repeat: no-repeat;
 	background-size: 3.000em 3.000em;
 	background-position: center center;
+}
+
+.iframe-lightbox .content > .body.is-loaded {
+	background-image: none;
 }
 
 .iframe-lightbox iframe {
@@ -2553,11 +2558,11 @@ body {
 	transition: opacity 0.2s ease;
 }
 
-.iframe-lightbox.show {
+.iframe-lightbox.is-showing {
 	display: block;
 }
 
-.iframe-lightbox.open {
+.iframe-lightbox.is-opened {
 	opacity: 1;
 }
 
