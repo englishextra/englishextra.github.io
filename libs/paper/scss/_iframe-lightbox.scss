@@ -76,11 +76,11 @@
 	transition: opacity 0.2s ease;
 }
 
-.iframe-lightbox.show {
+.iframe-lightbox.is-showing {
 	display: block;
 }
 
-.iframe-lightbox.open {
+.iframe-lightbox.is-opened {
 	opacity: 1;
 }
 

@@ -1016,7 +1016,7 @@ var handleStaticSelect = function (_this) {
 manageStaticSelect = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
-	var cls = "#pages-select",
+	var cls = "#chapters-select",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	k = function () {
 		evento.add(a, "change", handleStaticSelect.bind(null, a));
@@ -1687,7 +1687,7 @@ var initKamilAutocomplete = function () {
 			 */
 			var _ul = crel("ul"),
 			_li = crel("li"),
-			hideTypoSuggestions = function () {
+			handleTypoSuggestions = function () {
 				setStyleDisplayNone(_ul);
 				setStyleDisplayNone(_li);
 			},
@@ -1697,7 +1697,7 @@ var initKamilAutocomplete = function () {
 			};
 			_ul[cL].add(_ul_class);
 			_ul.id = _ul_id;
-			hideTypoSuggestions();
+			handleTypoSuggestions();
 			crel(_ul, _li);
 			text.parentNode.insertBefore(_ul, text.nextElementSibling);
 			/*!
@@ -1740,10 +1740,10 @@ var initKamilAutocomplete = function () {
 					removeChildren(_li);
 					crel(_li, "" + v);
 					if (v.match(/^\s*$/)) {
-						hideTypoSuggestions();
+						handleTypoSuggestions();
 					}
 					if (text.value.length < 3 || text.value.match(/^\s*$/)) {
-						hideTypoSuggestions();
+						handleTypoSuggestions();
 					}
 					l += 1;
 				}
@@ -1787,7 +1787,7 @@ var initKamilAutocomplete = function () {
 			 * hide suggestions on outside click
 			 */
 			if (outsideContainer) {
-				outsideContainer[aEL]("click", hideTypoSuggestions);
+				outsideContainer[aEL]("click", handleTypoSuggestions);
 			}
 			/*!
 			 * unless you specify property option in new Kamil
@@ -1799,7 +1799,7 @@ var initKamilAutocomplete = function () {
 				var p = e.item.link || "",
 				sm = function () {
 					e.inputElement.value = "";
-					hideTypoSuggestions();
+					handleTypoSuggestions();
 					changeLocation(p);
 				};
 				if (p) {

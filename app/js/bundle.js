@@ -64,10 +64,11 @@ if ("undefined" === typeof console) {
  * @see {@link https://github.com/squeral/lightbox}
  * @see {@link https://github.com/squeral/lightbox/blob/master/lightbox.js}
  * @params {Object} elem Node element
+ * @params {Object} [rate] debounce rate, default 500ms
  * new IframeLightbox(elem)
  * passes jshint
  */
-(function(root){"use strict";var d=document,aEL="addEventListener",gEBI="getElementById",gEBCN="getElementsByClassName",cE="createElement",cL="classList",aC="appendChild",dS="dataset",containerClass="iframe-lightbox",isLoadedClass="is-loaded",isOpenedClass="is-opened",isShowingClass="is-showing";var IframeLightbox=function(elem){this.trigger=elem;this.el=d[gEBCN](containerClass)[0]||"";this.body=this.el?this.el[gEBCN]("body")[0]:"";this.content=this.el?this.el[gEBCN]("content")[0]:"";this.href=elem[dS].src||"";this.paddingBottom=elem[dS].paddingBottom||"";this.init();};IframeLightbox.prototype.init=function(){var _this=this;if(!this.el)this.create();this.trigger[aEL]("click",function(e){e.preventDefault();_this.open();});};IframeLightbox.prototype.create=function(){var _this=this,bd=d[cE]("div");this.el=d[cE]("div");this.content=d[cE]("div");this.body=d[cE]("div");this.el[cL].add(containerClass);bd[cL].add("backdrop");this.content[cL].add("content");this.body[cL].add("body");this.el[aC](bd);this.content[aC](this.body);this.content_holder=d[cE]("div");this.content_holder[cL].add("content-holder");this.content_holder[aC](this.content);this.el[aC](this.content_holder);d.body[aC](this.el);bd[aEL]("click",function(){_this.close();});var f=function(e){if(_this.isOpen())return;_this.el[cL].remove(isShowingClass);_this.body.innerHTML="";};this.el[aEL]("transitionend",f,false);this.el[aEL]("webkitTransitionEnd",f,false);this.el[aEL]("mozTransitionEnd",f,false);this.el[aEL]("msTransitionEnd",f,false);};IframeLightbox.prototype.loadIframe=function(){this.iframeId=containerClass+Date.now();this.body.innerHTML='<iframe src="'+this.href+'" name="'+this.iframeId+'" id="'+this.iframeId+'" onload="this.style.opacity=1;" style="opacity:0;border:none;" scrolling="no" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true" height="166" frameborder="no"></iframe>';(function(iframeId,body){d[gEBI](iframeId).onload=function(){this.style.opacity=1;body[cL].add(isLoadedClass);};})(this.iframeId,this.body);};IframeLightbox.prototype.open=function(){this.loadIframe();if(this.paddingBottom){this.content.style.paddingBottom=this.paddingBottom;}else{this.content.removeAttribute("style");}this.el[cL].add(isShowingClass);this.el[cL].add(isOpenedClass);};IframeLightbox.prototype.close=function(){this.el[cL].remove(isOpenedClass);this.body[cL].remove(isLoadedClass);};IframeLightbox.prototype.isOpen=function(){return this.el[cL].contains(isOpenedClass);};root.IframeLightbox=IframeLightbox;})(globalRoot);
+(function(root){"use strict";var d=document,aEL="addEventListener",gEBI="getElementById",gEBCN="getElementsByClassName",cE="createElement",cL="classList",aC="appendChild",dS="dataset",containerClass="iframe-lightbox",isLoadedClass="is-loaded",isOpenedClass="is-opened",isShowingClass="is-showing";var IframeLightbox=function(elem,rate){this.trigger=elem;this.rate=rate||500;this.el=d[gEBCN](containerClass)[0]||"";this.body=this.el?this.el[gEBCN]("body")[0]:"";this.content=this.el?this.el[gEBCN]("content")[0]:"";this.href=elem[dS].src||"";this.paddingBottom=elem[dS].paddingBottom||"";this.init();};IframeLightbox.prototype.init=function(){var _this=this;if(!this.el){this.create();}var debounce=function(func,wait){var timeout,args,context,timestamp;return function(){context=this;args=[].slice.call(arguments,0);timestamp=new Date();var later=function(){var last=(new Date())-timestamp;if(last<wait){timeout=setTimeout(later,wait-last);}else{timeout=null;func.apply(context,args);}};if(!timeout){timeout=setTimeout(later,wait);}};};var handleOpenIframeLightbox=function(e){e.preventDefault();_this.open();};var debounceHandleOpenIframeLightbox=debounce(handleOpenIframeLightbox,this.rate);this.trigger[aEL]("click",debounceHandleOpenIframeLightbox);};IframeLightbox.prototype.create=function(){var _this=this,bd=d[cE]("div");this.el=d[cE]("div");this.content=d[cE]("div");this.body=d[cE]("div");this.el[cL].add(containerClass);bd[cL].add("backdrop");this.content[cL].add("content");this.body[cL].add("body");this.el[aC](bd);this.content[aC](this.body);this.content_holder=d[cE]("div");this.content_holder[cL].add("content-holder");this.content_holder[aC](this.content);this.el[aC](this.content_holder);d.body[aC](this.el);bd[aEL]("click",function(){_this.close();});var clearBody=function(e){if(_this.isOpen()){return;}_this.el[cL].remove(isShowingClass);_this.body.innerHTML="";};this.el[aEL]("transitionend",clearBody,false);this.el[aEL]("webkitTransitionEnd",clearBody,false);this.el[aEL]("mozTransitionEnd",clearBody,false);this.el[aEL]("msTransitionEnd",clearBody,false);};IframeLightbox.prototype.loadIframe=function(){this.iframeId=containerClass+Date.now();this.body.innerHTML='<iframe src="'+this.href+'" name="'+this.iframeId+'" id="'+this.iframeId+'" onload="this.style.opacity=1;" style="opacity:0;border:none;" scrolling="no" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true" height="166" frameborder="no"></iframe>';(function(iframeId,body){d[gEBI](iframeId).onload=function(){this.style.opacity=1;body[cL].add(isLoadedClass);};})(this.iframeId,this.body);};IframeLightbox.prototype.open=function(){this.loadIframe();if(this.paddingBottom){this.content.style.paddingBottom=this.paddingBottom;}else{this.content.removeAttribute("style");}this.el[cL].add(isShowingClass);this.el[cL].add(isOpenedClass);};IframeLightbox.prototype.close=function(){this.el[cL].remove(isOpenedClass);this.body[cL].remove(isLoadedClass);};IframeLightbox.prototype.isOpen=function(){return this.el[cL].contains(isOpenedClass);};root.IframeLightbox=IframeLightbox;})(globalRoot);
 /*!
  * modified scrollToY
  * @see {@link http://stackoverflow.com/questions/8917921/cross-browser-javascript-not-jquery-scroll-to-top-animation}
@@ -535,68 +536,71 @@ var insertFromTemplate = function (parsedJson, templateId, targetId, callback, u
  */
 var handleDataSrcImages = function () {
 	"use strict";
-	var w = globalRoot,
-	d = document,
-	gEBCN = "getElementsByClassName",
-	cL = "classList",
-	ds = "dataset",
-	imgClass = "data-src-img",
-	img = d[gEBCN](imgClass) || "",
-	isActiveClass = "is-active",
-	isBindedClass = "is-binded",
-	rerenderDataSrcImage = function (e) {
-		if (!e[cL].contains(isBindedClass)) {
-			var _src = e[ds].src || "";
-			if (_src) {
-				if (parseLink(_src).isAbsolute && !parseLink(_src).hasHTTP) {
-					e[ds].src = _src.replace(/^/, getHTTP(!0) + ":");
-					_src = e[ds].src;
-				}
-				if (w.Promise) {
-					imagePromise(_src).then(function (r) {
+	var logicHandleDataSrcImages = function () {
+		var w = globalRoot,
+		d = document,
+		gEBCN = "getElementsByClassName",
+		cL = "classList",
+		ds = "dataset",
+		imgClass = "data-src-img",
+		img = d[gEBCN](imgClass) || "",
+		isActiveClass = "is-active",
+		isBindedClass = "is-binded",
+		rerenderDataSrcImage = function (e) {
+			if (!e[cL].contains(isBindedClass)) {
+				var _src = e[ds].src || "";
+				if (_src) {
+					if (parseLink(_src).isAbsolute && !parseLink(_src).hasHTTP) {
+						e[ds].src = _src.replace(/^/, getHTTP(!0) + ":");
+						_src = e[ds].src;
+					}
+					if (w.Promise) {
+						imagePromise(_src).then(function (r) {
+							e.src = _src;
+							/* console.log("manageDataSrcImages => imagePromise: loaded image:", r); */
+						}).catch (function (err) {
+							/* console.log("manageDataSrcImages => imagePromise: cannot load image:", err); */
+						});
+					} else {
 						e.src = _src;
-						/* console.log("manageDataSrcImages => imagePromise: loaded image:", r); */
-					}).catch (function (err) {
-						/* console.log("manageDataSrcImages => imagePromise: cannot load image:", err); */
-					});
-				} else {
-					e.src = _src;
+					}
+					e[cL].add(isActiveClass);
+					e[cL].add(isBindedClass);
 				}
-				e[cL].add(isActiveClass);
-				e[cL].add(isBindedClass);
 			}
+		},
+		arrangeDataSrcImage = function (e) {
+			/*!
+			 * true if elem is in same y-axis as the viewport or within 100px of it
+			 * @see {@link https://github.com/ryanve/verge}
+			 */
+			if (verge.inY(e, 100) /*  && 0 !== e.offsetHeight */) {
+				rerenderDataSrcImage(e);
+			}
+		},
+		rerenderDataSrcImages = function () {
+			for (var i = 0, l = img.length; i < l; i += 1) {
+				arrangeDataSrcImage(img[i]);
+			}
+			/* forEach(img, arrangeDataSrcImage); */
+		};
+		if (img) {
+			/* console.log("triggered function: manageDataSrcImages"); */
+			rerenderDataSrcImages();
 		}
 	},
-	arrangeDataSrcImage = function (e) {
-		/*!
-		 * true if elem is in same y-axis as the viewport or within 100px of it
-		 * @see {@link https://github.com/ryanve/verge}
-		 */
-		if (verge.inY(e, 100)/*  && 0 !== e.offsetHeight */) {
-			rerenderDataSrcImage(e);
-		}
-	},
-	rerenderDataSrcImages = function () {
-		for (var i = 0, l = img.length; i < l; i += 1) {
-			arrangeDataSrcImage(img[i]);
-		}
-		/* forEach(img, arrangeDataSrcImage); */
-	};
-	if (img) {
-		/* console.log("triggered function: manageDataSrcImages"); */
-		rerenderDataSrcImages();
-	}
+	throttleLogicHandleDataSrcImages = rafThrottle(logicHandleDataSrcImages);
+	throttleLogicHandleDataSrcImages();
 },
-throttleHandleDataSrcImages = rafThrottle(handleDataSrcImages),
 manageDataSrcImages = function () {
 	"use strict";
 	var w = globalRoot,
 	aEL = "addEventListener",
 	rEL = "removeEventListener";
-	w[rEL]("scroll", throttleHandleDataSrcImages);
-	w[rEL]("resize", throttleHandleDataSrcImages);
-	w[aEL]("scroll", throttleHandleDataSrcImages);
-	w[aEL]("resize", throttleHandleDataSrcImages);
+	w[rEL]("scroll", handleDataSrcImages);
+	w[rEL]("resize", handleDataSrcImages);
+	w[aEL]("scroll", handleDataSrcImages);
+	w[aEL]("resize", handleDataSrcImages);
 	handleDataSrcImages();
 };
 document.ready().then(manageDataSrcImages);
@@ -605,64 +609,67 @@ document.ready().then(manageDataSrcImages);
  */
 var handleDataSrcIframes = function () {
 	"use strict";
-	var d = document,
-	gEBCN = "getElementsByClassName",
-	cL = "classList",
-	ds = "dataset",
-	sA = "setAttribute",
-	iframeClass = "data-src-iframe",
-	iframe = d[gEBCN](iframeClass) || "",
-	isBindedClass = "is-binded",
-	rerenderDataSrcIframe = function (e) {
-		if (!e[cL].contains(isBindedClass)) {
-			var _src = e[ds].src || "";
-			if (_src) {
-				if (parseLink(_src).isAbsolute && !parseLink(_src).hasHTTP) {
-					e[ds].src = _src.replace(/^/, getHTTP(!0) + ":");
-					_src = e[ds].src;
+	var logicHandleDataSrcIframes = function () {
+		var d = document,
+		gEBCN = "getElementsByClassName",
+		cL = "classList",
+		ds = "dataset",
+		sA = "setAttribute",
+		iframeClass = "data-src-iframe",
+		iframe = d[gEBCN](iframeClass) || "",
+		isBindedClass = "is-binded",
+		rerenderDataSrcIframe = function (e) {
+			if (!e[cL].contains(isBindedClass)) {
+				var _src = e[ds].src || "";
+				if (_src) {
+					if (parseLink(_src).isAbsolute && !parseLink(_src).hasHTTP) {
+						e[ds].src = _src.replace(/^/, getHTTP(!0) + ":");
+						_src = e[ds].src;
+					}
+					e.src = _src;
+					e[cL].add(isBindedClass);
+					e[sA]("frameborder", "no");
+					e[sA]("style", "border:none;");
+					e[sA]("webkitallowfullscreen", "true");
+					e[sA]("mozallowfullscreen", "true");
+					e[sA]("scrolling", "no");
+					e[sA]("allowfullscreen", "true");
 				}
-				e.src = _src;
-				e[cL].add(isBindedClass);
-				e[sA]("frameborder", "no");
-				e[sA]("style", "border:none;");
-				e[sA]("webkitallowfullscreen", "true");
-				e[sA]("mozallowfullscreen", "true");
-				e[sA]("scrolling", "no");
-				e[sA]("allowfullscreen", "true");
 			}
+		},
+		arrangeDataSrcIframe = function (e) {
+			/*!
+			 * true if elem is in same y-axis as the viewport or within 100px of it
+			 * @see {@link https://github.com/ryanve/verge}
+			 */
+			if (verge.inY(e, 100) /* && 0 !== e.offsetHeight */) {
+				rerenderDataSrcIframe(e);
+			}
+		},
+		rerenderDataSrcIframes = function () {
+			for (var i = 0, l = iframe.length; i < l; i += 1) {
+				arrangeDataSrcIframe(iframe[i]);
+			}
+			/* forEach(iframe, arrangeDataSrcIframe); */
+		};
+		if (iframe) {
+			/* console.log("triggered function: manageDataSrcIframes"); */
+			rerenderDataSrcIframes();
 		}
 	},
-	arrangeDataSrcIframe = function (e) {
-		/*!
-		 * true if elem is in same y-axis as the viewport or within 100px of it
-		 * @see {@link https://github.com/ryanve/verge}
-		 */
-		if (verge.inY(e, 100) /* && 0 !== e.offsetHeight */) {
-			rerenderDataSrcIframe(e);
-		}
-	},
-	rerenderDataSrcIframes = function () {
-		for (var i = 0, l = iframe.length; i < l; i += 1) {
-			arrangeDataSrcIframe(iframe[i]);
-		}
-		/* forEach(iframe, arrangeDataSrcIframe); */
-	};
-	if (iframe) {
-		/* console.log("triggered function: manageDataSrcIframes"); */
-		rerenderDataSrcIframes();
-	}
+	throttleLogicHandleDataSrcIframes = rafThrottle(logicHandleDataSrcIframes);
+	throttleLogicHandleDataSrcIframes();
 },
-throttleHandleDataSrcIframes = rafThrottle(handleDataSrcIframes),
 manageDataSrcIframes = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
 	var w = globalRoot,
 	aEL = "addEventListener",
 	rEL = "removeEventListener";
-	w[rEL]("scroll", throttleHandleDataSrcIframes);
-	w[rEL]("resize", throttleHandleDataSrcIframes);
-	w[aEL]("scroll", throttleHandleDataSrcIframes);
-	w[aEL]("resize", throttleHandleDataSrcIframes);
+	w[rEL]("scroll", handleDataSrcIframes);
+	w[rEL]("resize", handleDataSrcIframes);
+	w[aEL]("scroll", handleDataSrcIframes);
+	w[aEL]("resize", handleDataSrcIframes);
 	handleDataSrcIframes();
 };
 document.ready().then(manageDataSrcIframes);
@@ -706,7 +713,9 @@ var handleExternalLink = function (url, ev) {
 	"use strict";
 	ev.stopPropagation();
 	ev.preventDefault();
-	openDeviceBrowser(url);
+	var logicHandleExternalLink = openDeviceBrowser.bind(null, url),
+	debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 500);
+	debounceLogicHandleExternalLink();
 },
 manageExternalLinks = function (ctx) {
 	"use strict";
@@ -841,31 +850,35 @@ manageImgLightboxLinks = function (ctx) {
 	var handleImgLightboxLink = function (_this, ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
-		var _href = _this[gA]("href") || "";
-		if (container && img && _href) {
-			LoadingSpinner.show();
-			container[cL].add(an);
-			container[cL].add(an1);
-			img[cL].add(an);
-			img[cL].add(an2);
-			if (parseLink(_href).isAbsolute && !parseLink(_href).hasHTTP) {
-				_href = _href.replace(/^/, getHTTP(!0) + ":");
-			}
-			if (w.Promise) {
-				imagePromise(_href).then(function (r) {
+		var logicHandleImgLightboxLink = function () {
+			var _href = _this[gA]("href") || "";
+			if (container && img && _href) {
+				LoadingSpinner.show();
+				container[cL].add(an);
+				container[cL].add(an1);
+				img[cL].add(an);
+				img[cL].add(an2);
+				if (parseLink(_href).isAbsolute && !parseLink(_href).hasHTTP) {
+					_href = _href.replace(/^/, getHTTP(!0) + ":");
+				}
+				if (w.Promise) {
+					imagePromise(_href).then(function (r) {
+						img.src = _href;
+						/* console.log("manageImgLightboxLinks => imagePromise: loaded image:", r); */
+					}).catch (function (err) {
+						/* console.log("manageImgLightboxLinks => imagePromise: cannot load image:", err); */
+					});
+				} else {
 					img.src = _href;
-					/* console.log("manageImgLightboxLinks => imagePromise: loaded image:", r); */
-				}).catch (function (err) {
-					/* console.log("manageImgLightboxLinks => imagePromise: cannot load image:", err); */
-				});
-			} else {
-				img.src = _href;
+				}
+				w[aEL]("keyup", handleImgLightboxWindow);
+				container[aEL]("click", handleImgLightboxContainer);
+				container.style.display = "block";
+				LoadingSpinner.hide();
 			}
-			w[aEL]("keyup", handleImgLightboxWindow);
-			container[aEL]("click", handleImgLightboxContainer);
-			container.style.display = "block";
-			LoadingSpinner.hide();
-		}
+		},
+		debounceLogicHandleImgLightboxLink = debounce(logicHandleImgLightboxLink, 500);
+		debounceLogicHandleImgLightboxLink();
 	},
 	arrangeImgLightboxLink = function (e) {
 		if (!e[cL].contains(isBindedClass)) {
@@ -934,7 +947,7 @@ globalRoot.addEventListener("hashchange", handleOtherDropdownLists);
  * add smooth scroll or redirection to static select options
  * @param {Object} [ctx] context HTML Element
  */
-var managePagesSelect = function () {
+var manageChaptersSelect = function () {
 	"use strict";
 	var w = globalRoot,
 	d = document,
@@ -950,16 +963,16 @@ var managePagesSelect = function () {
 	cTN = "createTextNode",
 	aC = "appendChild",
 	aEL = "addEventListener",
-	pagesSelect = d[gEBI]("pages-select") || "",
-	holderPagesSelect = d[qS](".holder-pages-select") || "",
+	chaptersSelect = d[gEBI]("chapters-select") || "",
+	holderChaptersSelect = d[qS](".holder-chapters-select") || "",
 	uiPanelContentsSelect = d[qS](".ui-panel-contents-select") || "",
-	pagesListClass = "pages-list",
+	chaptersListClass = "chapters-list",
 	isBindedClass = "is-binded",
 	isFixedClass = "is-fixed",
 	isActiveClass = "is-active",
 	isDropdownClass = "is-dropdown",
 	arrangePagesSelect = function () {
-		var handlePagesSelect = function (selectObj) {
+		var handleChaptersSelect = function (selectObj) {
 			var _hash = selectObj.options[selectObj.selectedIndex].value || "",
 			_id = _hash ? (isValidId(_hash, !0) ? d[qS](_hash) : "") : "",
 			uiPanelContentsSelectHeight = uiPanelContentsSelect ? (uiPanelContentsSelect[cL].contains(isFixedClass) ? uiPanelContentsSelect.offsetHeight : uiPanelContentsSelect.offsetHeight * 2) : 0;
@@ -971,12 +984,12 @@ var managePagesSelect = function () {
 				}
 			}
 		};
-		if (!pagesSelect[cL].contains(isBindedClass)) {
-			pagesSelect[aEL]("change", handlePagesSelect.bind(null, pagesSelect));
-			pagesSelect[cL].add(isBindedClass);
+		if (!chaptersSelect[cL].contains(isBindedClass)) {
+			chaptersSelect[aEL]("change", handleChaptersSelect.bind(null, chaptersSelect));
+			chaptersSelect[cL].add(isBindedClass);
 		}
 	},
-	rerenderPagesSelect = function () {
+	rerenderChaptersSelect = function () {
 		arrangePagesSelect();
 		var rerenderOption = function (option) {
 			if (option) {
@@ -987,14 +1000,14 @@ var managePagesSelect = function () {
 				appendFragment(d.createTextNode(optionTextTruncated), option);
 			}
 		},
-		pagesSelectOptions = pagesSelect ? pagesSelect[gEBTN]("option") || "" : "";
-		for (var i = 0, l = pagesSelectOptions.length; i < l; i += 1) {
-			rerenderOption(pagesSelectOptions[i]);
+		chaptersSelectOptions = chaptersSelect ? chaptersSelect[gEBTN]("option") || "" : "";
+		for (var i = 0, l = chaptersSelectOptions.length; i < l; i += 1) {
+			rerenderOption(chaptersSelectOptions[i]);
 		}
-		/* forEach(pagesSelectOptions, rerenderOption); */
+		/* forEach(chaptersSelectOptions, rerenderOption); */
 	},
-	rerenderPagesList = function () {
-		var handlePagesListItem = function (listObj, hashOrUrl) {
+	rerenderChaptersList = function () {
+		var handleChaptersListItem = function (listObj, hashOrUrl) {
 			var _hash = hashOrUrl || "",
 			_id = _hash ? (isValidId(_hash, !0) ? d[qS](_hash) : "") : "",
 			uiPanelContentsSelectHeight = uiPanelContentsSelect ? (uiPanelContentsSelect[cL].contains(isFixedClass) ? uiPanelContentsSelect.offsetHeight : uiPanelContentsSelect.offsetHeight * 2) : 0;
@@ -1015,51 +1028,51 @@ var managePagesSelect = function () {
 			svg[aC](use);
 			targetObj[aC](svg);
 		},
-		pagesList = d[cE]("ul"),
-		pagesListItems = pagesSelect ? pagesSelect[gEBTN]("option") || "" : "",
-		pagesListButtonDefaultText = "",
+		chaptersList = d[cE]("ul"),
+		chaptersListItems = chaptersSelect ? chaptersSelect[gEBTN]("option") || "" : "",
+		chaptersListButtonDefaultText = "",
 		df = d[cDF](),
-		generatePagesListItems = function (_this, i) {
+		generateChaptersListItems = function (_this, i) {
 			if (0 === i) {
-				pagesListButtonDefaultText = _this.firstChild.textContent;
+				chaptersListButtonDefaultText = _this.firstChild.textContent;
 			}
-			var pagesListItem = d[cE]("li"),
-			pagesListItemText = _this.firstChild.textContent || "",
-			pagesListItemValue = _this.value,
-			pagesListItemTextTruncated = truncString("" + pagesListItemText, 28);
-			pagesListItem[aC](d[cTN](pagesListItemTextTruncated));
-			pagesListItem.title = pagesListItemText;
-			pagesListItem[aEL]("click", handlePagesListItem.bind(null, pagesList, pagesListItemValue));
-			df[aC](pagesListItem);
+			var chaptersListItem = d[cE]("li"),
+			chaptersListItemText = _this.firstChild.textContent || "",
+			chaptersListItemValue = _this.value,
+			chaptersListItemTextTruncated = truncString("" + chaptersListItemText, 28);
+			chaptersListItem[aC](d[cTN](chaptersListItemTextTruncated));
+			chaptersListItem.title = chaptersListItemText;
+			chaptersListItem[aEL]("click", handleChaptersListItem.bind(null, chaptersList, chaptersListItemValue));
+			df[aC](chaptersListItem);
 			df[aC](d.createTextNode("\n"));
 		};
-		for (var i = 0, l = pagesListItems.length; i < l; i += 1) {
-			generatePagesListItems(pagesListItems[i], i);
+		for (var i = 0, l = chaptersListItems.length; i < l; i += 1) {
+			generateChaptersListItems(chaptersListItems[i], i);
 		}
-		/* forEach(pagesListItems, generatePagesListItems); */
-		appendFragment(df, pagesList);
-		pagesList[cL].add(pagesListClass);
-		pagesList[cL].add(isDropdownClass);
-		holderPagesSelect.replaceChild(pagesList, pagesSelect[pN][pN]);
-		var pagesListButton = d[cE]("a");
-		pagesListButton[aC](d[cTN](pagesListButtonDefaultText));
-		pagesList[pN].insertBefore(pagesListButton, pagesList);
+		/* forEach(chaptersListItems, generateChaptersListItems); */
+		appendFragment(df, chaptersList);
+		chaptersList[cL].add(chaptersListClass);
+		chaptersList[cL].add(isDropdownClass);
+		holderChaptersSelect.replaceChild(chaptersList, chaptersSelect[pN][pN]);
+		var chaptersListButton = d[cE]("a");
+		chaptersListButton[aC](d[cTN](chaptersListButtonDefaultText));
+		chaptersList[pN].insertBefore(chaptersListButton, chaptersList);
 		/* jshint -W107 */
-		pagesListButton.href = "javascript:void(0);";
+		chaptersListButton.href = "javascript:void(0);";
 		/* jshint +W107 */
-		insertChevronDownSmallSvg(pagesListButton);
-		var showHidePagesListItems = function (ev) {
+		insertChevronDownSmallSvg(chaptersListButton);
+		var handleChaptersListItemsButton = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			pagesList[cL].toggle(isActiveClass);
-			handleOtherDropdownLists(pagesList);
+			chaptersList[cL].toggle(isActiveClass);
+			handleOtherDropdownLists(chaptersList);
 		};
-		pagesListButton[aEL]("click", showHidePagesListItems);
+		chaptersListButton[aEL]("click", handleChaptersListItemsButton);
 	};
-	if (holderPagesSelect && pagesSelect) {
-		/* console.log("triggered function: managePagesSelect"); */
-		/* rerenderPagesSelect(); */
-		rerenderPagesList();
+	if (holderChaptersSelect && chaptersSelect) {
+		/* console.log("triggered function: manageChaptersSelect"); */
+		/* rerenderChaptersSelect(); */
+		rerenderChaptersList();
 	}
 };
 /*!
@@ -1243,13 +1256,17 @@ var manageDisqusButton = function (ctx) {
 		handleDisqusButton = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			btn[rEL]("click", handleDisqusButton);
-			LoadingSpinner.show();
-			if (!scriptIsLoaded(embedJsUrl)) {
-				loadJS(embedJsUrl, renderDisqusThread);
-			} else {
-				renderDisqusThread();
-			}
+			var logicHandleDisqusButton = function () {
+				btn[rEL]("click", handleDisqusButton);
+				LoadingSpinner.show();
+				if (!scriptIsLoaded(embedJsUrl)) {
+					loadJS(embedJsUrl, renderDisqusThread);
+				} else {
+					renderDisqusThread();
+				}
+			},
+			debounceLogicHandleDisqusButton = debounce(logicHandleDisqusButton, 500);
+			debounceLogicHandleDisqusButton();
 		};
 		if (disqusThread && btn) {
 			if ("undefined" !== typeof getHTTP && getHTTP()) {
@@ -1432,13 +1449,16 @@ var manageSearchInput = function () {
 	aEL = "addEventListener",
 	searchInput = d[gEBI]("text") || "",
 	handleSearchInputValue = function (_this) {
-		_this.value = _this.value.replace(/\\/g, "").replace(/ +(?= )/g, " ").replace(/\/+(?=\/)/g, "/") || "";
-	},
-	throttleHandleSearchInputValue = debounce(handleSearchInputValue.bind(null, searchInput), 500);
+		var logicHandleSearchInputValue = function () {
+			_this.value = _this.value.replace(/\\/g, "").replace(/ +(?= )/g, " ").replace(/\/+(?=\/)/g, "/") || "";
+		},
+		debounceLogicHandleSearchInputValue = debounce(logicHandleSearchInputValue, 500);
+		debounceLogicHandleSearchInputValue();
+	};
 	if (searchInput) {
 		/* console.log("triggered function: manageSearchInput"); */
 		searchInput.focus();
-		searchInput[aEL]("input", throttleHandleSearchInputValue);
+		searchInput[aEL]("input", handleSearchInputValue.bind(null, searchInput));
 	}
 };
 document.ready().then(manageSearchInput);
@@ -1478,7 +1498,7 @@ var initKamilAutocomplete = function (jsonObj) {
 			 */
 			var typoAutcompleteList = d[cE]("ul"),
 			typoListItem = d[cE]("li"),
-			hideTypoSuggestions = function () {
+			handleTypoSuggestions = function () {
 				typoAutcompleteList.style.display = "none";
 				typoListItem.style.display = "none";
 			},
@@ -1488,7 +1508,7 @@ var initKamilAutocomplete = function (jsonObj) {
 			};
 			typoAutcompleteList[cL].add(typoAutcompleteListClass);
 			typoAutcompleteList.id = typoAutcompleteListSelector;
-			hideTypoSuggestions();
+			handleTypoSuggestions();
 			typoAutcompleteList[aC](typoListItem);
 			textInput[pN].insertBefore(typoAutcompleteList, textInput.nextElementSibling);
 			/*!
@@ -1530,7 +1550,7 @@ var initKamilAutocomplete = function (jsonObj) {
 				/*!
 				 * fix typo - non latin characters found
 				 */
-				var replaceTypo = function () {
+				var logicReplaceTypo = function () {
 					while (itemsLength < 1) {
 						var textInputValue = textInput.value || "";
 						if (/[^\u0000-\u007f]/.test(textInputValue)) {
@@ -1542,18 +1562,19 @@ var initKamilAutocomplete = function (jsonObj) {
 						removeChildren(typoListItem);
 						appendFragment(d[cTN]("" + textInputValue), typoListItem);
 						if (textInputValue.match(/^\s*$/)) {
-							hideTypoSuggestions();
+							handleTypoSuggestions();
 						}
 						/*!
 						 * hide typo suggestion
 						 */
 						if (textInput.value.length < 3 || textInput.value.match(/^\s*$/)) {
-							hideTypoSuggestions();
+							handleTypoSuggestions();
 						}
 						itemsLength += 1;
 					}
-				};
-				debounce(replaceTypo, 500).call(globalRoot);
+				},
+				debounceLogicReplaceTypo = debounce(logicReplaceTypo, 500);
+				debounceLogicReplaceTypo();
 				/*!
 				 * truncate text
 				 */
@@ -1582,14 +1603,14 @@ var initKamilAutocomplete = function (jsonObj) {
 				 */
 				textInput.focus();
 				textInput.value = typoListItem.textContent || "";
-				hideTypoSuggestions();
+				handleTypoSuggestions();
 			};
 			typoListItem[aEL]("click", handleTypoListItem);
 			/*!
 			 * hide suggestions on outside click
 			 */
 			if (outsideContainer) {
-				outsideContainer[aEL]("click", hideTypoSuggestions);
+				outsideContainer[aEL]("click", handleTypoSuggestions);
 			}
 			/*!
 			 * unless you specify property option in new Kamil
@@ -1601,7 +1622,7 @@ var initKamilAutocomplete = function (jsonObj) {
 				var kamilPath = e.item.href || "",
 				triggerOnKamilSelect = function () {
 					e.inputElement.value = "";
-					hideTypoSuggestions();
+					handleTypoSuggestions();
 					w.location.href = kamilPath;
 				};
 				if (kamilPath) {
@@ -1684,9 +1705,10 @@ var renderNavigation = function () {
 		handleOtherDropdownLists(renderNavbarMore);
 	},
 	handleShowNavbarListsWindow = function () {
-		alignNavbarLists();
-	},
-	throttlehandleShowNavbarListsWindow = rafThrottle(handleShowNavbarListsWindow);
+		var logicHandleShowNavbarListsWindow = alignNavbarLists,
+		throttleLogicHandleShowNavbarListsWindow = rafThrottle(logicHandleShowNavbarListsWindow);
+		throttleLogicHandleShowNavbarListsWindow();
+	};
 	if (navbar) {
 		var processNavigationJsonResponse = function (navigationJsonResponse) {
 			if (popularTemplate && popularRender) {
@@ -1698,7 +1720,7 @@ var renderNavigation = function () {
 							handleListItems(renderNavbarMore);
 							showRenderNavbarPopular[aEL]("click", handleShowRenderNavbarPopularButton);
 							showRenderNavbarMore[aEL]("click", handleShowRenderNavbarMoreButton);
-							w[aEL]("resize", throttlehandleShowNavbarListsWindow);
+							w[aEL]("resize", handleShowNavbarListsWindow);
 							if (navbarParent) {
 								manageExternalLinks(navbarParent);
 							}
@@ -1741,15 +1763,18 @@ var fixUiPanelContentsSelect = function () {
 	uiPanelContentsSelect = d[qS](".ui-panel-contents-select") || "",
 	isFixedClass = "is-fixed",
 	handleUiPanelContentsSelect = function () {
-		if ((d.body.scrollTop || d.documentElement.scrollTop || 0) > criticalHeight) {
-			uiPanelContentsSelect[cL].add(isFixedClass);
-		} else {
-			uiPanelContentsSelect[cL].remove(isFixedClass);
-		}
-	},
-	throttleHandleUiPanelContentsSelect = rafThrottle(handleUiPanelContentsSelect);
+		var logicHandleUiPanelContentsSelect = function () {
+			if ((d.body.scrollTop || d.documentElement.scrollTop || 0) > criticalHeight) {
+				uiPanelContentsSelect[cL].add(isFixedClass);
+			} else {
+				uiPanelContentsSelect[cL].remove(isFixedClass);
+			}
+		},
+		throttleLogicHandleUiPanelContentsSelect = rafThrottle(logicHandleUiPanelContentsSelect);
+		throttleLogicHandleUiPanelContentsSelect();
+	};
 	if (uiPanelContentsSelect) {
-		w[aEL]("scroll", throttleHandleUiPanelContentsSelect);
+		w[aEL]("scroll", handleUiPanelContentsSelect);
 	}
 };
 document.ready().then(fixUiPanelContentsSelect);
@@ -1822,11 +1847,15 @@ var manageLocationQrCodeImage = function () {
 			handleLocationQrCodeButton = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				holder[cL].toggle(isActiveClass);
-				holder[cL].add(isSocialClass);
-				handleOtherSocialButtons(holder);
+				var logicHandleLocationQrCodeButton = function () {
+					holder[cL].toggle(isActiveClass);
+					holder[cL].add(isSocialClass);
+					handleOtherSocialButtons(holder);
+					generateLocationQrCodeImg();
+				},
+				debounceLogicHandleLocationQrCodeButton = debounce(logicHandleLocationQrCodeButton, 500);
+				debounceLogicHandleLocationQrCodeButton();
 			};
-			btn[aEL]("click", generateLocationQrCodeImg);
 			btn[aEL]("click", handleLocationQrCodeButton);
 		}
 	}
@@ -1852,18 +1881,22 @@ var manageShareButton = function () {
 			var handleShareButton = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				holder[cL].toggle(isActiveClass);
-				holder[cL].add(isSocialClass);
-				handleOtherSocialButtons(holder);
-				var es5ShimsJsUrl = getHTTP(!0) + "://yastatic.net/es5-shims/0.0.2/es5-shims.min.js",
-				shareJsUrl = getHTTP(!0) + "://yastatic.net/share2/share.js";
-				if (!scriptIsLoaded(es5ShimsJsUrl)) {
-					loadJS(es5ShimsJsUrl, function () {
-						if (!scriptIsLoaded(shareJsUrl)) {
-							loadJS(shareJsUrl);
-						}
-					});
-				}
+				var logicHandleShareButton = function () {
+					holder[cL].toggle(isActiveClass);
+					holder[cL].add(isSocialClass);
+					handleOtherSocialButtons(holder);
+					var es5ShimsJsUrl = getHTTP(!0) + "://yastatic.net/es5-shims/0.0.2/es5-shims.min.js",
+					shareJsUrl = getHTTP(!0) + "://yastatic.net/share2/share.js";
+					if (!scriptIsLoaded(es5ShimsJsUrl)) {
+						loadJS(es5ShimsJsUrl, function () {
+							if (!scriptIsLoaded(shareJsUrl)) {
+								loadJS(shareJsUrl);
+							}
+						});
+					}
+				},
+				debounceLogicHandleShareButton = debounce(logicHandleShareButton, 500);
+				debounceLogicHandleShareButton();
 			};
 			btn[aEL]("click", handleShareButton);
 		}
@@ -1893,25 +1926,29 @@ var manageVKLikeButton = function () {
 			var handleVKLikeButton = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				holder[cL].toggle(isActiveClass);
-				holder[cL].add(isSocialClass);
-				handleOtherSocialButtons(holder);
-				var openapiJsUrl = getHTTP(!0) + "://vk.com/js/api/openapi.js?122";
-				if (!scriptIsLoaded(openapiJsUrl)) {
-					loadJS(openapiJsUrl, function () {
-						if (w.VK) {
-							VK.init({
-								apiId: (vkLike.dataset.apiid || ""),
-								nameTransportPath: "/xd_receiver.htm",
-								onlyWidgets: !0
-							});
-							VK.Widgets.Like(vkLikeId, {
-								type: "button",
-								height: 24
-							});
-						}
-					});
-				}
+				var logicHandleVKLikeButton = function () {
+					holder[cL].toggle(isActiveClass);
+					holder[cL].add(isSocialClass);
+					handleOtherSocialButtons(holder);
+					var openapiJsUrl = getHTTP(!0) + "://vk.com/js/api/openapi.js?122";
+					if (!scriptIsLoaded(openapiJsUrl)) {
+						loadJS(openapiJsUrl, function () {
+							if (w.VK) {
+								VK.init({
+									apiId: (vkLike.dataset.apiid || ""),
+									nameTransportPath: "/xd_receiver.htm",
+									onlyWidgets: !0
+								});
+								VK.Widgets.Like(vkLikeId, {
+									type: "button",
+									height: 24
+								});
+							}
+						});
+					}
+				},
+				debounceLogicHandleVKLikeButton = debounce(logicHandleVKLikeButton, 500);
+				debounceLogicHandleVKLikeButton();
 			};
 			btn[aEL]("click", handleVKLikeButton);
 		}
@@ -1977,10 +2014,10 @@ var manageDebugGridButton = function () {
 	debugClass = "debug",
 	cookieKey = "_manageDebugGridButton_",
 	cookieDatum = "ok",
-	hideDebugGrid = function () {
+	handleDebugGridButton = function () {
 		if (container) {
 			container[cL].remove(debugClass);
-			container[rEL]("click", hideDebugGrid);
+			container[rEL]("click", handleDebugGridButton);
 		}
 	},
 	showDebugGridMessage = function () {
@@ -2015,10 +2052,10 @@ var manageDebugGridButton = function () {
 				ev.preventDefault();
 				container[cL].toggle(debugClass);
 				if (container[cL].contains(debugClass)) {
-					container[aEL]("click", hideDebugGrid);
+					container[aEL]("click", handleDebugGridButton);
 					showDebugGridMessage();
 				} else {
-					container[rEL]("click", hideDebugGrid);
+					container[rEL]("click", handleDebugGridButton);
 				}
 			};
 			btn[aEL]("click", handleDebugGridButton);
@@ -2208,7 +2245,7 @@ var handleRoutes = function () {
 					manageExternalLinks(appContentParent);
 					manageImgLightboxLinks(appContentParent);
 					manageIframeLightboxLinks(appContentParent);
-					managePagesSelect(appContentParent);
+					manageChaptersSelect(appContentParent);
 					manageExpandingLayers(appContentParent);
 					manageDisqusButton(appContentParent);
 					LoadingSpinner.hide();
@@ -2336,13 +2373,13 @@ var handleRoutes = function () {
 						contentsListButton.href = "javascript:void(0);";
 						/* jshint +W107 */
 						insertChevronDownSmallSvg(contentsListButton);
-						var showHideContentsListItems = function (ev) {
+						var handleContentsListItemsButton = function (ev) {
 							ev.stopPropagation();
 							ev.preventDefault();
 							contentsList[cL].toggle(isActiveClass);
 							handleOtherDropdownLists(contentsList);
 						};
-						contentsListButton[aEL]("click", showHideContentsListItems);
+						contentsListButton[aEL]("click", handleContentsListItemsButton);
 					};
 					if (holderContentsSelect && contentsSelect) {
 						/* rerenderContentsSelect(); */
@@ -2430,18 +2467,21 @@ var initUiTotop = function () {
 	btnTitle = "Наверх",
 	isActiveClass = "is-active",
 	handleUiTotopWindow = function (_this) {
-		var btn = d[qS]("." + btnClass) || "",
-		scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
-		windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
-		if (scrollPosition && windowHeight && btn) {
-			if (scrollPosition > windowHeight) {
-				btn[cL].add(isActiveClass);
-			} else {
-				btn[cL].remove(isActiveClass);
+		var logicHandleUiTotopWindow = function () {
+			var btn = d[qS]("." + btnClass) || "",
+			scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
+			windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
+			if (scrollPosition && windowHeight && btn) {
+				if (scrollPosition > windowHeight) {
+					btn[cL].add(isActiveClass);
+				} else {
+					btn[cL].remove(isActiveClass);
+				}
 			}
-		}
+		},
+		throttleLogicHandleUiTotopWindow = rafThrottle(logicHandleUiTotopWindow);
+		throttleLogicHandleUiTotopWindow();
 	},
-	throttleHandleUiTotopWindow = rafThrottle(handleUiTotopWindow),
 	renderUiTotop = function () {
 		var handleUiTotopAnchor = function (ev) {
 			ev.stopPropagation();
@@ -2465,7 +2505,7 @@ var initUiTotop = function () {
 		anchor[aEL]("click", handleUiTotopAnchor);
 		insertUpSvg(anchor);
 		b[aC](anchor);
-		w[aEL]("scroll", throttleHandleUiTotopWindow);
+		w[aEL]("scroll", handleUiTotopWindow);
 	};
 	if (b) {
 		/* console.log("triggered function: initUiTotop"); */

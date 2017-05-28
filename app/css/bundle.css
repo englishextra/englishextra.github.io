@@ -3632,7 +3632,7 @@ u,
 	height: 166px;
 }
 
-.holder-pages-select + canvas {
+.holder-chapters-select + canvas {
 	margin-top: 1.333rem;
 }
 
@@ -4315,13 +4315,13 @@ u,
  * pages selecto
  */
 
-.holder-pages-select {
+.holder-chapters-select {
 	display: block;
 	width: 100%;
 	text-align: left;
 }
 
-.holder-pages-select .pages-select {
+.holder-chapters-select .chapters-select {
 	display: inline-block;
 	width: 100%;
 	height: 2.400rem;
@@ -4341,21 +4341,21 @@ u,
 	padding: 0 2.133rem 0 0.267rem;
 }
 
-.holder-pages-select .pages-select::-ms-expand {
+.holder-chapters-select .chapters-select::-ms-expand {
 	display: none;
 }
 
-.holder-pages-select .pages-select::-ms-value {
+.holder-chapters-select .chapters-select::-ms-value {
 	background: none;
 	color: #191919;
 }
 
-.holder-pages-select .pages-select optgroup {
+.holder-chapters-select .chapters-select optgroup {
 	font-style: normal;
 	padding-left: 0.267rem;
 }
 
-.holder-pages-select .ui-icon {
+.holder-chapters-select .ui-icon {
 	display: inline-block;
 	width: 0.400em;
 	height: 0.400em;
@@ -4365,7 +4365,7 @@ u,
 	pointer-events: none;
 }
 
-.holder-pages-select .ui-icon > * {
+.holder-chapters-select .ui-icon > * {
 	fill: #191919;
 }
 
@@ -4373,10 +4373,10 @@ u,
  * fix select border for electron and nw
  */
 
-.holder-pages-select .pages-select,
-.holder-pages-select .pages-select:focus,
-.holder-pages-select .pages-select:hover,
-.holder-pages-select .pages-select:active {
+.holder-chapters-select .chapters-select,
+.holder-chapters-select .chapters-select:focus,
+.holder-chapters-select .chapters-select:hover,
+.holder-chapters-select .chapters-select:active {
 	border: 0.067rem solid #F2F2F2;
 }
 
@@ -4384,7 +4384,7 @@ u,
  * pages select replacement with list
  */
 
-.holder-pages-select .pages-list {
+.holder-chapters-select .chapters-list {
 	max-height: 0;
 	position: absolute;
 	list-style: none;
@@ -4399,11 +4399,11 @@ u,
 	z-index: 1;
 }
 
-.holder-pages-select .pages-list.is-active {
+.holder-chapters-select .chapters-list.is-active {
 	max-height: 12.000rem;
 }
 
-.holder-pages-select .pages-list li {
+.holder-chapters-select .chapters-list li {
 	height: 2.400rem;
 	line-height: 2.400rem;
 	background-color: #F2F2F2;
@@ -4413,16 +4413,16 @@ u,
 	padding: 0 0.533rem;
 }
 
-.holder-pages-select .pages-list li:hover {
+.holder-chapters-select .chapters-list li:hover {
 	background-color: #E6E6E6;
 	cursor: default;
 }
 
-.holder-pages-select .pages-list li:first-child {
+.holder-chapters-select .chapters-list li:first-child {
 	display: none;
 }
 
-.holder-pages-select a {
+.holder-chapters-select a {
 	display: block;
 	height: 2.400rem;
 	font-size: 0.933rem;
@@ -4433,10 +4433,10 @@ u,
 	padding: 0 2.400rem 0 0.533rem;
 }
 
-.holder-pages-select a:focus,
-.holder-pages-select a:hover,
-.holder-pages-select a:active,
-.holder-pages-select a:visited {
+.holder-chapters-select a:focus,
+.holder-chapters-select a:hover,
+.holder-chapters-select a:active,
+.holder-chapters-select a:visited {
 	color: #878787;
 	text-decoration: none;
 }
@@ -4445,7 +4445,7 @@ u,
  * reset for svg icon
  */
 
-.holder-pages-select a .ui-icon {
+.holder-chapters-select a .ui-icon {
 	display: inline-block;
 	width: 0.429em;
 	height: 0.429em;
@@ -4457,7 +4457,7 @@ u,
 	pointer-events: none;
 }
 
-.holder-pages-select a .ui-icon > * {
+.holder-chapters-select a .ui-icon > * {
 	fill: #191919;
 }
 
@@ -4892,14 +4892,14 @@ u,
 	.masonry-grid,
 	.holder-contents-select .contents-select,
 	.holder-contents-select a,
-	.holder-pages-select .pages-select,
-	.holder-pages-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
 	.footer {
 		width: 100%;
 	}
 
 	.holder-contents-select .contents-list,
-	.holder-pages-select .pages-list {
+	.holder-chapters-select .chapters-list {
 		width: calc(100% - 1.333rem);
 	}
 
@@ -4931,14 +4931,14 @@ u,
 	.masonry-grid,
 	.holder-contents-select .contents-select,
 	.holder-contents-select a,
-	.holder-pages-select .pages-select,
-	.holder-pages-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
 	.footer {
 		width: 100%;
 	}
 
 	.holder-contents-select .contents-list,
-	.holder-pages-select .pages-list {
+	.holder-chapters-select .chapters-list {
 		width: calc(100% - 1.333rem);
 	}
 
@@ -4970,14 +4970,14 @@ u,
 	.masonry-grid,
 	.holder-contents-select .contents-select,
 	.holder-contents-select a,
-	.holder-pages-select .pages-select,
-	.holder-pages-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
 	.footer {
 		width: 100%;
 	}
 
 	.holder-contents-select .contents-list,
-	.holder-pages-select .pages-list {
+	.holder-chapters-select .chapters-list {
 		width: calc(100% - 1.333rem);
 	}
 
@@ -5013,13 +5013,13 @@ u,
 
 	.holder-contents-select .contents-select,
 	.holder-contents-select a,
-	.holder-pages-select .pages-select,
-	.holder-pages-select a {
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a {
 		width: 100%;
 	}
 
 	.holder-contents-select .contents-list,
-	.holder-pages-select .pages-list {
+	.holder-chapters-select .chapters-list {
 		width: calc(100% - 1.333rem);
 	}
 
@@ -5059,9 +5059,9 @@ u,
 		width: calc(76.800rem - 1.333rem);
 	}
 
-	.holder-pages-select .pages-select,
-	.holder-pages-select .pages-list,
-	.holder-pages-select a {
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select .chapters-list,
+	.holder-chapters-select a {
 		width: 18.133rem;
 	}
 
@@ -5097,13 +5097,13 @@ u,
 
 	.holder-contents-select .contents-select,
 	.holder-contents-select a,
-	.holder-pages-select .pages-select,
-	.holder-pages-select a {
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a {
 		width: 100%;
 	}
 
 	.holder-contents-select .contents-list,
-	.holder-pages-select .pages-list {
+	.holder-chapters-select .chapters-list {
 		width: calc(100% - 1.333rem);
 	}
 
@@ -5145,9 +5145,9 @@ iPad 3
 		width: calc(76.800rem - 1.333rem);
 	}
 
-	.holder-pages-select .pages-select,
-	.holder-pages-select .pages-list,
-	.holder-pages-select a {
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select .chapters-list,
+	.holder-chapters-select a {
 		width: 18.133rem;
 	}
 
@@ -5181,13 +5181,13 @@ iPad 3
 
 	.holder-contents-select .contents-select,
 	.holder-contents-select a,
-	.holder-pages-select .pages-select,
-	.holder-pages-select a {
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a {
 		width: 100%;
 	}
 
 	.holder-contents-select .contents-list,
-	.holder-pages-select .pages-list {
+	.holder-chapters-select .chapters-list {
 		width: calc(100% - 1.333rem);
 	}
 
@@ -5227,9 +5227,9 @@ iPad 3
 		width: calc(76.800rem - 1.333rem);
 	}
 
-	.holder-pages-select .pages-select,
-	.holder-pages-select .pages-list,
-	.holder-pages-select a {
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select .chapters-list,
+	.holder-chapters-select a {
 		width: 18.133rem;
 	}
 
@@ -5269,9 +5269,9 @@ iPad 3
 		width: calc(76.800rem - 1.333rem);
 	}
 
-	.holder-pages-select .pages-select,
-	.holder-pages-select .pages-list,
-	.holder-pages-select a {
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select .chapters-list,
+	.holder-chapters-select a {
 		width: 18.133rem;
 	}
 
@@ -5303,14 +5303,14 @@ iPad 3
 	.masonry-grid,
 	.holder-contents-select .contents-select,
 	.holder-contents-select a,
-	.holder-pages-select .pages-select,
-	.holder-pages-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
 	.footer {
 		width: 100%;
 	}
 
 	.holder-contents-select .contents-list,
-	.holder-pages-select .pages-list {
+	.holder-chapters-select .chapters-list {
 		width: calc(100% - 1.333rem);
 	}
 
@@ -5340,14 +5340,14 @@ iPad 3
 	.masonry-grid,
 	.holder-contents-select .contents-select,
 	.holder-contents-select a,
-	.holder-pages-select .pages-select,
-	.holder-pages-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
 	.footer {
 		width: 100%;
 	}
 
 	.holder-contents-select .contents-list,
-	.holder-pages-select .pages-list {
+	.holder-chapters-select .chapters-list {
 		width: calc(100% - 1.333rem);
 	}
 
@@ -5379,14 +5379,14 @@ iPad 3
 	.masonry-grid,
 	.holder-contents-select .contents-select,
 	.holder-contents-select a,
-	.holder-pages-select .pages-select,
-	.holder-pages-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
 	.footer {
 		width: 100%;
 	}
 
 	.holder-contents-select .contents-list,
-	.holder-pages-select .pages-list {
+	.holder-chapters-select .chapters-list {
 		width: calc(100% - 1.333rem);
 	}
 
@@ -5416,14 +5416,14 @@ iPad 3
 	.masonry-grid,
 	.holder-contents-select .contents-select,
 	.holder-contents-select a,
-	.holder-pages-select .pages-select,
-	.holder-pages-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
 	.footer {
 		width: 100%;
 	}
 
 	.holder-contents-select .contents-list,
-	.holder-pages-select .pages-list {
+	.holder-chapters-select .chapters-list {
 		width: calc(100% - 1.333rem);
 	}
 
@@ -5455,14 +5455,14 @@ iPad 3
 	.masonry-grid,
 	.holder-contents-select .contents-select,
 	.holder-contents-select a,
-	.holder-pages-select .pages-select,
-	.holder-pages-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
 	.footer {
 		width: 100%;
 	}
 
 	.holder-contents-select .contents-list,
-	.holder-pages-select .pages-list {
+	.holder-chapters-select .chapters-list {
 		width: calc(100% - 1.333rem);
 	}
 
@@ -5492,14 +5492,14 @@ iPad 3
 	.masonry-grid,
 	.holder-contents-select .contents-select,
 	.holder-contents-select a,
-	.holder-pages-select .pages-select,
-	.holder-pages-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
 	.footer {
 		width: 100%;
 	}
 
 	.holder-contents-select .contents-list,
-	.holder-pages-select .pages-list {
+	.holder-chapters-select .chapters-list {
 		width: calc(100% - 1.333rem);
 	}
 
@@ -5508,8 +5508,8 @@ iPad 3
 		text-align: left;
 	}
 
-	.holder-pages-select .pages-select,
-	.holder-pages-select a {
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a {
 		width: 18.133rem;
 	}
 
@@ -5536,14 +5536,14 @@ iPad 3
 	.masonry-grid,
 	.holder-contents-select .contents-select,
 	.holder-contents-select a,
-	.holder-pages-select .pages-select,
-	.holder-pages-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
 	.footer {
 		width: 100%;
 	}
 
 	.holder-contents-select .contents-list,
-	.holder-pages-select .pages-list {
+	.holder-chapters-select .chapters-list {
 		width: calc(100% - 1.333rem);
 	}
 
@@ -5573,14 +5573,14 @@ iPad 3
 	.masonry-grid,
 	.holder-contents-select .contents-select,
 	.holder-contents-select a,
-	.holder-pages-select .pages-select,
-	.holder-pages-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
 	.footer {
 		width: 100%;
 	}
 
 	.holder-contents-select .contents-list,
-	.holder-pages-select .pages-list {
+	.holder-chapters-select .chapters-list {
 		width: calc(100% - 1.333rem);
 	}
 
@@ -5612,14 +5612,14 @@ iPad 3
 	.masonry-grid,
 	.holder-contents-select .contents-select,
 	.holder-contents-select a,
-	.holder-pages-select .pages-select,
-	.holder-pages-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
 	.footer {
 		width: 100%;
 	}
 
 	.holder-contents-select .contents-list,
-	.holder-pages-select .pages-list {
+	.holder-chapters-select .chapters-list {
 		width: calc(100% - 1.333rem);
 	}
 
@@ -5649,14 +5649,14 @@ iPad 3
 	.masonry-grid,
 	.holder-contents-select .contents-select,
 	.holder-contents-select a,
-	.holder-pages-select .pages-select,
-	.holder-pages-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
 	.footer {
 		width: 100%;
 	}
 
 	.holder-contents-select .contents-list,
-	.holder-pages-select .pages-list {
+	.holder-chapters-select .chapters-list {
 		width: calc(100% - 1.333rem);
 	}
 
@@ -5688,14 +5688,14 @@ iPad 3
 	.masonry-grid,
 	.holder-contents-select .contents-select,
 	.holder-contents-select a,
-	.holder-pages-select .pages-select,
-	.holder-pages-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
 	.footer {
 		width: 100%;
 	}
 
 	.holder-contents-select .contents-list,
-	.holder-pages-select .pages-list {
+	.holder-chapters-select .chapters-list {
 		width: calc(100% - 1.333rem);
 	}
 
@@ -5725,14 +5725,14 @@ iPad 3
 	.masonry-grid,
 	.holder-contents-select .contents-select,
 	.holder-contents-select a,
-	.holder-pages-select .pages-select,
-	.holder-pages-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
 	.footer {
 		width: 100%;
 	}
 
 	.holder-contents-select .contents-list,
-	.holder-pages-select .pages-list {
+	.holder-chapters-select .chapters-list {
 		width: calc(100% - 1.333rem);
 	}
 
@@ -5764,14 +5764,14 @@ iPad 3
 	.masonry-grid,
 	.holder-contents-select .contents-select,
 	.holder-contents-select a,
-	.holder-pages-select .pages-select,
-	.holder-pages-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
 	.footer {
 		width: 100%;
 	}
 
 	.holder-contents-select .contents-list,
-	.holder-pages-select .pages-list {
+	.holder-chapters-select .chapters-list {
 		width: calc(100% - 1.333rem);
 	}
 
@@ -5801,14 +5801,14 @@ iPad 3
 	.masonry-grid,
 	.holder-contents-select .contents-select,
 	.holder-contents-select a,
-	.holder-pages-select .pages-select,
-	.holder-pages-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
 	.footer {
 		width: 100%;
 	}
 
 	.holder-contents-select .contents-list,
-	.holder-pages-select .pages-list {
+	.holder-chapters-select .chapters-list {
 		width: calc(100% - 1.333rem);
 	}
 
