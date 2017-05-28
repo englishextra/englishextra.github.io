@@ -584,20 +584,22 @@ var handleDataSrcImages = function () {
 			/* console.log("triggered function: manageDataSrcImages"); */
 			rerenderDataSrcImages();
 		}
-	},
+	}/* ,
 	throttleLogicHandleDataSrcImages = throttle(logicHandleDataSrcImages, 100);
-	throttleLogicHandleDataSrcImages();
+	throttleLogicHandleDataSrcImages() */;
+	logicHandleDataSrcImages();
 },
 manageDataSrcImages = function () {
 	"use strict";
 	var w = globalRoot,
 	aEL = "addEventListener",
-	rEL = "removeEventListener";
-	w[rEL]("scroll", handleDataSrcImages);
-	w[rEL]("resize", handleDataSrcImages);
-	w[aEL]("scroll", handleDataSrcImages);
-	w[aEL]("resize", handleDataSrcImages);
+	rEL = "removeEventListener",
+	throttleHandleDataSrcImages = throttle(handleDataSrcImages, 100);
 	handleDataSrcImages();
+	w[rEL]("scroll", throttleHandleDataSrcImages);
+	w[rEL]("resize", throttleHandleDataSrcImages);
+	w[aEL]("scroll", throttleHandleDataSrcImages);
+	w[aEL]("resize", throttleHandleDataSrcImages);
 };
 document.ready().then(manageDataSrcImages);
 /*!
@@ -652,21 +654,23 @@ var handleDataSrcIframes = function () {
 			/* console.log("triggered function: manageDataSrcIframes"); */
 			rerenderDataSrcIframes();
 		}
-	},
+	}/* ,
 	throttleLogicHandleDataSrcIframes = throttle(logicHandleDataSrcIframes, 100);
-	throttleLogicHandleDataSrcIframes();
+	throttleLogicHandleDataSrcIframes() */;
+	logicHandleDataSrcIframes();
 },
 manageDataSrcIframes = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
 	var w = globalRoot,
 	aEL = "addEventListener",
-	rEL = "removeEventListener";
-	w[rEL]("scroll", handleDataSrcIframes);
-	w[rEL]("resize", handleDataSrcIframes);
-	w[aEL]("scroll", handleDataSrcIframes);
-	w[aEL]("resize", handleDataSrcIframes);
+	rEL = "removeEventListener",
+	throttleHandleDataSrcIframes = throttle(handleDataSrcIframes, 100);
 	handleDataSrcIframes();
+	w[rEL]("scroll", throttleHandleDataSrcIframes);
+	w[rEL]("resize", throttleHandleDataSrcIframes);
+	w[aEL]("scroll", throttleHandleDataSrcIframes);
+	w[aEL]("resize", throttleHandleDataSrcIframes);
 };
 document.ready().then(manageDataSrcIframes);
 /*!
