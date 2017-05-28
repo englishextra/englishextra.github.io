@@ -183,18 +183,14 @@ if ("undefined" === typeof console) {
  */
 (function(root,undefined){var debounce=function(func,wait,immediate){var timeout,args,context,timestamp,result;if(undefined===wait||null===wait)wait=100;function later(){var last=Date.now()-timestamp;if(last<wait&&last>=0){timeout=setTimeout(later,wait-last);}else{timeout=null;if(!immediate){result=func.apply(context,args);context=args=null;}}}var debounced=function(){context=this;args=arguments;timestamp=Date.now();var callNow=immediate&&!timeout;if(!timeout)timeout=setTimeout(later,wait);if(callNow){result=func.apply(context,args);context=args=null;}return result;};debounced.clear=function(){if(timeout){clearTimeout(timeout);timeout=null;}};debounced.flush=function(){if(timeout){result=func.apply(context,args);context=args=null;clearTimeout(timeout);timeout=null;}};return debounced;};root.debounce=debounce;})(globalRoot);
 /*!
- * Throttle a function by requestAnimationFrame
- * raf-throttle let you create a throttled function,
- * which only invokes the passed function at most once per animation frame
- * on a browser or per 1000/60 ms on Node.
- * throttled = throttle(callback)
- * callback is the function to be throttled by requestAnimationFrame.
- * throttled.cancel()
- * Cancel the trailing throttled invocation.
- * @see {@link https://github.com/wuct/raf-throttle}
+ * modified Returns a new function that, when invoked, invokes `func` at most once per `wait` milliseconds.
+ * @param {Function} func Function to wrap.
+ * @param {Number} wait Number of milliseconds that must elapse between `func` invocations.
+ * @return {Function} A new function that wraps the `func` function passed in.
+ * @see {@link https://github.com/component/throttle/blob/master/index.js}
  * passes jshint
  */
-(function(root,undefined){var rafThrottle=function rafThrottle(callback){"use strict";var _toConsumableArray=function(arr){if(Array.isArray(arr)){for(var i=0,arr2=Array(arr.length);i<arr.length;i++){arr2[i]=arr[i];}return arr2;}else{return Array.from(arr);}};var requestId=void 0;var later=function later(args){return function(){requestId=null;callback.apply(undefined,_toConsumableArray(args));};};var throttled=function throttled(){for(var _len=arguments.length,args=Array(_len),_key=0;_key<_len;_key++){args[_key]=arguments[_key];}if(requestId===null||requestId===undefined){requestId=requestAnimationFrame(later(args));}};throttled.cancel=function(){return cancelAnimationFrame(requestId);};return throttled;};root.rafThrottle=rafThrottle;})(globalRoot);
+(function(root,undefined){var throttle=function(func,wait){var ctx,args,rtn,timeoutID;var last=0;return function throttled(){ctx=this;args=arguments;var delta=new Date()-last;if(!timeoutID)if(delta>=wait)call();else timeoutID=setTimeout(call,wait-delta);return rtn;};function call(){timeoutID=0;last=+new Date();rtn=func.apply(ctx,args);ctx=null;args=null;}};root.throttle=throttle;})(globalRoot);
 /*!
  * parse JSON without try / catch
  * @param {String} a JSON string
@@ -589,7 +585,7 @@ var handleDataSrcImages = function () {
 			rerenderDataSrcImages();
 		}
 	},
-	throttleLogicHandleDataSrcImages = rafThrottle(logicHandleDataSrcImages);
+	throttleLogicHandleDataSrcImages = throttle(logicHandleDataSrcImages, 100);
 	throttleLogicHandleDataSrcImages();
 },
 manageDataSrcImages = function () {
@@ -657,7 +653,7 @@ var handleDataSrcIframes = function () {
 			rerenderDataSrcIframes();
 		}
 	},
-	throttleLogicHandleDataSrcIframes = rafThrottle(logicHandleDataSrcIframes);
+	throttleLogicHandleDataSrcIframes = throttle(logicHandleDataSrcIframes, 100);
 	throttleLogicHandleDataSrcIframes();
 },
 manageDataSrcIframes = function (ctx) {
@@ -1706,7 +1702,7 @@ var renderNavigation = function () {
 	},
 	handleShowNavbarListsWindow = function () {
 		var logicHandleShowNavbarListsWindow = alignNavbarLists,
-		throttleLogicHandleShowNavbarListsWindow = rafThrottle(logicHandleShowNavbarListsWindow);
+		throttleLogicHandleShowNavbarListsWindow = throttle(logicHandleShowNavbarListsWindow, 100);
 		throttleLogicHandleShowNavbarListsWindow();
 	};
 	if (navbar) {
@@ -1770,7 +1766,7 @@ var fixUiPanelContentsSelect = function () {
 				uiPanelContentsSelect[cL].remove(isFixedClass);
 			}
 		},
-		throttleLogicHandleUiPanelContentsSelect = rafThrottle(logicHandleUiPanelContentsSelect);
+		throttleLogicHandleUiPanelContentsSelect = throttle(logicHandleUiPanelContentsSelect, 100);
 		throttleLogicHandleUiPanelContentsSelect();
 	};
 	if (uiPanelContentsSelect) {
@@ -2479,7 +2475,7 @@ var initUiTotop = function () {
 				}
 			}
 		},
-		throttleLogicHandleUiTotopWindow = rafThrottle(logicHandleUiTotopWindow);
+		throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
 		throttleLogicHandleUiTotopWindow();
 	},
 	renderUiTotop = function () {
