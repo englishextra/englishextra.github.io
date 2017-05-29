@@ -5,16 +5,9 @@
 var globalRoot = "undefined" !== typeof window ? window : this;
 /*!
  * safe way to handle console.log():
- * sitepoint.com/safe-console-log/
+ * @see {@link https://github.com/paulmillr/console-polyfill}
  */
-/* jshint ignore:start */
-if ("undefined" === typeof console) {
-	console = {};
-	console.log = function () {
-		return;
-	};
-}
-/* jshint ignore:end */
+(function(global){"use strict";if(!global.console){global.console={};}var con=global.console;var prop,method;var dummy=function(){};var properties=["memory"];var methods=("assert,clear,count,debug,dir,dirxml,error,exception,group,"+"groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd,"+"show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn").split(",");while((prop=properties.pop())){if(!con[prop]){con[prop]={};}}while((method=methods.pop())){if(!con[method]){con[method]=dummy;}}})(globalRoot);
 /*!
  * modified t.js
  * a micro-templating framework in ~400 bytes gzipped
@@ -413,7 +406,7 @@ if (document.title) {
 }
 /*!
  * loading spinner
- * dependent on setAutoClearedTimeout
+ * @requires Timers
  * @see {@link https://gist.github.com/englishextra/24ef040fbda405f7468da70e4f3b69e7}
  * @param {Object} [callback] callback function
  * @param {Int} [delay] any positive whole number, default: 500
@@ -453,8 +446,8 @@ var LoadingSpinner = function () {
 			}, delay);
 		}
 	};
-	}
-	();
+}
+();
 /*!
  * render template
  * @requires t.js
@@ -1131,7 +1124,7 @@ initMasonry = function (ctx) {
 				if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
 				timers.clear();
 				timers = null;
-					/* console.log("function initMasonry.arrangeItems => si=" + si.value + "; imagesPreloaded=" + imagesPreloaded); */
+					/* console.log("function initMasonry.arrangeItems; imagesPreloaded=" + imagesPreloaded); */
 					msnry.layout();
 					/* console.log("function initMasonry.arrangeItems => reinitialised msnry"); */
 				}
@@ -1153,7 +1146,7 @@ initMasonry = function (ctx) {
 				if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
 				timers.clear();
 				timers = null;
-						/* console.log("function initMasonry.arrangeItems => si=" + si.value + "; imagesPreloaded=" + imagesPreloaded); */
+						/* console.log("function initMasonry.arrangeItems; imagesPreloaded=" + imagesPreloaded); */
 						pckry.layout();
 						/* console.log("function initMasonry.arrangeItems => reinitialised pckry"); */
 				}
@@ -2518,7 +2511,7 @@ var showPageFinishProgress = function () {
 			if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
 				timers.clear();
 				timers = null;
-				/* console.log("function showPageFinishProgress => si=" + si.value + "; imagesPreloaded=" + imagesPreloaded); */
+				/* console.log("function showPageFinishProgress; imagesPreloaded=" + imagesPreloaded); */
 				rerenderPage();
 			}
 		}, 100);

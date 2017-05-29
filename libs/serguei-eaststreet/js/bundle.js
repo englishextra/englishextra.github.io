@@ -5,25 +5,9 @@
 var globalRoot = "undefined" !== typeof window ? window : this;
 /*!
  * safe way to handle console.log():
- * sitepoint.com/safe-console-log/
+ * @see {@link https://github.com/paulmillr/console-polyfill}
  */
-/* jshint ignore:start */
-if ("undefined" === typeof console) {
-	console = {};
-	console.log = function () {
-		return;
-	};
-}
-/* jshint ignore:end */
-/*!
- * insert External HTML
- * @param {String} id Target Element id
- * @param {String} url path string
- * @param {Object} [callback] callback function
- * @param {Object} [onerror] on error callback function
- * insertExternalHTML(selector,url,callback,onerror)
- */
-(function(root){"use strict";var insertExternalHTML=function(id,url,callback,onerror){var d=document,b=d.body||"",gEBI="getElementById",cN="cloneNode",aC="appendChild",pN="parentNode",iH="innerHTML",rC="replaceChild",cR="createRange",cCF="createContextualFragment",cDF="createDocumentFragment",container=d[gEBI](id.replace(/^#/,""))||"",cb=function(){return callback&&"function"===typeof callback&&callback();},arrange=function(frag){try{var clonedContainer=container[cN](!1);if(d[cR]){var rg=d[cR]();rg.selectNode(b);var df=rg[cCF](frag);clonedContainer[aC](df);return container[pN]?container[pN][rC](clonedContainer,container):container[iH]=frag,cb();}else{clonedContainer[iH]=frag;return container[pN]?container[pN][rC](d[cDF][aC](clonedContainer),container):container[iH]=frag,cb();}}catch(e){console.log(e);}return!1;},init=function(){if(root.Promise&&root.fetch&&!("undefined"!==typeof root&&root.process&&"renderer"===root.process.type)){fetch(url).then(function(response){if(!response.ok){if(onerror&&"function"===typeof onerror){onerror();}else{throw new Error(response.statusText);}}return response;}).then(function(response){return response.text();}).then(function(text){arrange(text);}).catch(function(err){console.log("Error fetch-ing file "+url,err);});}else{var x=root.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");x.overrideMimeType("text/html;charset=utf-8");x.open("GET",url,!0);x.withCredentials=!1;x.onreadystatechange=function(){if(x.status=="404"){console.log("Error XMLHttpRequest-ing file",x.status);return onerror&&"function"===typeof onerror&&onerror();}else if(x.readyState==4&&x.status==200&&x.responseText){arrange(x.responseText);}};x.send(null);}};if(container){init();}};root.insertExternalHTML=insertExternalHTML;})(globalRoot);
+(function(global){"use strict";if(!global.console){global.console={};}var con=global.console;var prop,method;var dummy=function(){};var properties=["memory"];var methods=("assert,clear,count,debug,dir,dirxml,error,exception,group,"+"groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd,"+"show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn").split(",");while((prop=properties.pop())){if(!con[prop]){con[prop]={};}}while((method=methods.pop())){if(!con[method]){con[method]=dummy;}}})(globalRoot);
 /*!
  * modified ToProgress v0.1.1
  * @see {@link https://github.com/djyde/ToProgress}
@@ -175,9 +159,14 @@ if ("undefined" === typeof console) {
  */
 (function(){"use strict";var imagePromise=function(s){if(window.Promise){return new Promise(function(y,n){var f=function(e,p){e.onload=function(){y(p);};e.onerror=function(){n(p);};e.src=p;};if("string"===typeof s){var a=new Image();f(a,s);}else{if("IMG"!==s.tagName){return Promise.reject();}else{if(s.src){f(s,s.src);}}}});}else{throw new Error("Promise is not in window");}};("undefined" !== typeof window ? window : this).imagePromise=imagePromise;}());
 /*!
- * safe way to handle console.log():
- * sitepoint.com/safe-console-log/
+ * insert External HTML
+ * @param {String} id Target Element id
+ * @param {String} url path string
+ * @param {Object} [callback] callback function
+ * @param {Object} [onerror] on error callback function
+ * insertExternalHTML(selector,url,callback,onerror)
  */
+(function(root){"use strict";var insertExternalHTML=function(id,url,callback,onerror){var d=document,b=d.body||"",gEBI="getElementById",cN="cloneNode",aC="appendChild",pN="parentNode",iH="innerHTML",rC="replaceChild",cR="createRange",cCF="createContextualFragment",cDF="createDocumentFragment",container=d[gEBI](id.replace(/^#/,""))||"",cb=function(){return callback&&"function"===typeof callback&&callback();},arrange=function(frag){try{var clonedContainer=container[cN](!1);if(d[cR]){var rg=d[cR]();rg.selectNode(b);var df=rg[cCF](frag);clonedContainer[aC](df);return container[pN]?container[pN][rC](clonedContainer,container):container[iH]=frag,cb();}else{clonedContainer[iH]=frag;return container[pN]?container[pN][rC](d[cDF][aC](clonedContainer),container):container[iH]=frag,cb();}}catch(e){console.log(e);}return!1;},init=function(){if(root.Promise&&root.fetch&&!("undefined"!==typeof root&&root.process&&"renderer"===root.process.type)){fetch(url).then(function(response){if(!response.ok){if(onerror&&"function"===typeof onerror){onerror();}else{throw new Error(response.statusText);}}return response;}).then(function(response){return response.text();}).then(function(text){arrange(text);}).catch(function(err){console.log("Error fetch-ing file "+url,err);});}else{var x=root.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");x.overrideMimeType("text/html;charset=utf-8");x.open("GET",url,!0);x.withCredentials=!1;x.onreadystatechange=function(){if(x.status=="404"){console.log("Error XMLHttpRequest-ing file",x.status);return onerror&&"function"===typeof onerror&&onerror();}else if(x.readyState==4&&x.status==200&&x.responseText){arrange(x.responseText);}};x.send(null);}};if(container){init();}};root.insertExternalHTML=insertExternalHTML;})(globalRoot);
 /*!
  * add js class to html element
  */
@@ -244,60 +233,22 @@ if (document.title) {
  */
 (function(root){root.forEach=function(arr,eachFn,doneFn){var i=-1;var len=function(val){val=+val;if(!isFinite(val)||!val){return 0;}return function(left,right){return left-right*Math.floor(left/right);}(Math.floor(val),Math.pow(2,32));}(arr.length);(function next(result){var async;var abort=result===false;do{++i;}while(!(i in arr)&&i!==len);if(abort||i===len){if(doneFn){doneFn(!abort,arr);}return;}result=eachFn.call({async:function(){async=true;return next;}},arr[i],i,arr);if(!async){next(result);}}());};})("undefined" !== typeof window ? window : this);
 /*!
- * Behaves the same as setTimeout except uses requestAnimationFrame()
- * where possible for better performance
- * @see {@link https://gist.github.com/joelambert/1002116}
- * the fallback function requestAnimFrame is incorporated
- * @see {@link https://gist.github.com/joelambert/1002116}
- * @see {@link https://gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b}
- * @see {@link https://jsfiddle.net/englishextra/dnyomc4j/}
- * @param {Object} fn The callback function
- * @param {Int} delay The delay in milliseconds
- * requestTimeout(fn,delay)
+ * Timer management (setInterval / setTimeout)
+ * @param {Function} fn
+ * @param {Number} ms
+ * var timers = new Timers();
+ * timers.timeout(function () {
+ * console.log("before:", timers);
+ * timers.clear();
+ * timers = null;
+ * doSomething();
+ * console.log("after:", timers);
+ * }, 3000);
+ * @see {@link https://github.com/component/timers}
+ * @see {@link https://github.com/component/timers/blob/master/index.js}
+ * passes jshint
  */
-(function(root){"use strict";var requestTimeout=function(fn,delay){var requestAnimFrame=(function(){return root.requestAnimationFrame||function(callback,element){root.setTimeout(callback,1000/60);};})(),start=new Date().getTime(),handle={};function loop(){var current=new Date().getTime(),delta=current-start;if(delta>=delay){fn.call();}else{handle.value=requestAnimFrame(loop);}}handle.value=requestAnimFrame(loop);return handle;};root.requestTimeout=requestTimeout;})("undefined" !== typeof window ? window : this);
-/*!
- * Behaves the same as clearTimeout except uses cancelRequestAnimationFrame()
- * where possible for better performance
- * @see {@link https://gist.github.com/joelambert/1002116}
- * @see {@link https://gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b}
- * @see {@link https://jsfiddle.net/englishextra/dnyomc4j/}
- * @param {Int|Object} handle The callback function
- * clearRequestTimeout(handle)
- */
-(function(root){"use strict";var clearRequestTimeout=function(handle){if(root.cancelAnimationFrame){root.cancelAnimationFrame(handle.value);}else{root.clearTimeout(handle);}};root.clearRequestTimeout=clearRequestTimeout;})("undefined" !== typeof window ? window : this);
-/*!
- * set and clear timeout
- * based on requestTimeout and clearRequestTimeout
- * @see {@link https://gist.github.com/joelambert/1002116}
- * @see {@link https://gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b}
- * @param {Object} f handle/function
- * @param {Int} [n] a whole positive number
- * setAutoClearedTimeout(f,n)
- */
-var setAutoClearedTimeout=function(f,n){n=n||200;if(f&&"function"===typeof f){var st=requestTimeout(function(){clearRequestTimeout(st);f();},n);}};
-/*!
- * Behaves the same as setInterval except uses requestAnimationFrame() where possible for better performance
- * @see {@link https://gist.github.com/joelambert/1002116}
- * the fallback function requestAnimFrame is incorporated
- * @see {@link https://gist.github.com/joelambert/1002116}
- * @see {@link https://gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b}
- * @see {@link https://jsfiddle.net/englishextra/sxrzktkz/}
- * @param {Object} fn The callback function
- * @param {Int} delay The delay in milliseconds
- * requestInterval(fn, delay);
- */
-(function(root){"use strict";var requestInterval=function(fn,delay){var requestAnimFrame=(function(){return root.requestAnimationFrame||function(callback,element){root.setTimeout(callback,1000/60);};})(),start=new Date().getTime(),handle={};function loop(){handle.value=requestAnimFrame(loop);var current=new Date().getTime(),delta=current-start;if(delta>=delay){fn.call();start=new Date().getTime();}}handle.value=requestAnimFrame(loop);return handle;};root.requestInterval=requestInterval;})("undefined" !== typeof window ? window : this);
-/*!
- * Behaves the same as clearInterval except uses cancelRequestAnimationFrame()
- * where possible for better performance
- * @see {@link https://gist.github.com/joelambert/1002116}
- * @see {@link https://gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b}
- * @see {@link https://jsfiddle.net/englishextra/sxrzktkz/}
- * @param {Int|Object} handle function handle, or function
- * clearRequestInterval(handle);
- */
-(function(root){"use strict";var clearRequestInterval=function(handle){if(root.cancelAnimationFrame){root.cancelAnimationFrame(handle.value);}else{root.clearInterval(handle);}};root.clearRequestInterval=clearRequestInterval;})("undefined" !== typeof window ? window : this);
+(function(root){var Timers=function(ids){this.ids=ids||[];};Timers.prototype.timeout=function(fn,ms){var id=setTimeout(fn,ms);this.ids.push(id);return id;};Timers.prototype.interval=function(fn,ms){var id=setInterval(fn,ms);this.ids.push(id);return id;};Timers.prototype.clear=function(){this.ids.forEach(clearTimeout);this.ids=[];};root.Timers=Timers;})(globalRoot);
 /*!
  * Plain javascript replacement for jQuery's .ready()
  * so code can be scheduled to run when the document is ready
@@ -568,39 +519,44 @@ progressBar.complete = function () {
 progressBar.init();
 /*!
  * loading spinner
- * dependent on setAutoClearedTimeout
+ * @requires Timers
  * @see {@link https://gist.github.com/englishextra/24ef040fbda405f7468da70e4f3b69e7}
- * @param {Object} [f] callback function
- * @param {Int} [n] any positive whole number, default: 500
+ * @param {Object} [callback] callback function
+ * @param {Int} [delay] any positive whole number, default: 500
  * LoadingSpinner.show();
  * LoadingSpinner.hide(f,n);
  */
 var LoadingSpinner = function () {
 	"use strict";
-	var b = BALA.one("body") || "",
-	cls = "loading-spinner",
-	is_active = "is-active-loading-spinner",
-	a = BALA.one("." + cls) || "",
-	cL = "classList";
-	console.log("triggered function: LoadingSpinner");
-	if (!a) {
-		a = crel("div");
-		a[cL].add(cls);
-		appendFragment(a, b);
+	var d = document,
+	b = d.body || "",
+	qS = "querySelector",
+	spinnerClass = "loading-spinner",
+	spinner = d[qS]("." + spinnerClass) || "",
+	cL = "classList",
+	cE = "createElement",
+	isActiveClass = "is-active-loading-spinner";
+	/* console.log("triggered function: LoadingSpinner"); */
+	if (!spinner) {
+		spinner = d[cE]("div");
+		spinner[cL].add(spinnerClass);
+		appendFragment(spinner, b);
 	}
 	return {
 		show: function () {
-			return b[cL].contains(is_active) || b[cL].add(is_active);
+			return b[cL].contains(isActiveClass) || b[cL].add(isActiveClass);
 		},
-		hide: function (f, n) {
-			n = n || 500;
-			var s = function () {
-				b[cL].remove(is_active);
-				if (f && "function" === typeof f) {
-					f();
+		hide: function (callback, delay) {
+			delay = delay || 500;
+			var timers = new Timers();
+			timers.timeout(function () {
+				timers.clear();
+				timers = null;
+				b[cL].remove(isActiveClass);
+				if (callback && "function" === typeof callback) {
+					callback();
 				}
-			};
-			return setAutoClearedTimeout(s, n);
+			}, delay);
 		}
 	};
 }
@@ -625,7 +581,7 @@ var notiBar = function (opt) {
 	s_an2 = "fadeOutUp",
 	cL = "classList";
 	if (b) {
-		console.log("triggered function: notiBar");
+		/* console.log("triggered function: notiBar"); */
 		if ("string" === typeof opt) {
 			opt = {
 				"message": opt
@@ -689,7 +645,12 @@ var notiBar = function (opt) {
 		appendFragment(c, b);
 		c[cL].remove(s_an2);
 		c[cL].add(s_an1);
-		setAutoClearedTimeout(hide_message, settings.timeout);
+		var timers = new Timers();
+		timers.timeout(function () {
+			timers.clear();
+			timers = null;
+			hide_message();
+		}, settings.timeout);
 	}
 };
 /*!
@@ -717,8 +678,13 @@ var initNotibarMsg = function () {
 			});
 		};
 		if (p) {
-			console.log("triggered function: initNotibarMsg");
-			setAutoClearedTimeout(g, 3000);
+			/* console.log("triggered function: initNotibarMsg"); */
+			var timers = new Timers();
+			timers.timeout(function () {
+				timers.clear();
+				timers = null;
+				g();
+			}, 3000);
 		}
 	}
 };
@@ -746,7 +712,7 @@ var Notifier42 = function (m, n, t) {
 	an = "animated",
 	an2 = "fadeInUp",
 	an4 = "fadeOutDown";
-	console.log("triggered function: Notifier42");
+	/* console.log("triggered function: Notifier42"); */
 	if (!c) {
 		c = crel("div");
 		appendFragment(c, b);
@@ -775,14 +741,24 @@ var Notifier42 = function (m, n, t) {
 				f();
 			}
 		};
-		setAutoClearedTimeout(r, 400);
+		var timers = new Timers();
+		timers.timeout(function () {
+			timers.clear();
+			timers = null;
+			r();
+		}, 400);
 	};
 	evento.add(c, "click", function h_c() {
 		evento.remove(this, "click", h_c);
 		g();
 	});
 	if (0 !== n) {
-		setAutoClearedTimeout(g, n);
+		var timers = new Timers();
+		timers.timeout(function () {
+			timers.clear();
+			timers = null;
+			g();
+		}, n);
 	}
 	return {
 		destroy : function () {
@@ -811,8 +787,13 @@ var initNotifier42WriteMe = function () {
 			Cookies.set(n, m);
 		};
 		if (!Cookies.get(n) && p) {
-			console.log("triggered function: initNotifier42WriteMe");
-			setAutoClearedTimeout(g, 8000);
+			/* console.log("triggered function: initNotifier42WriteMe"); */
+			var timers = new Timers();
+			timers.timeout(function () {
+				timers.clear();
+				timers = null;
+				g();
+			}, 8000);
 		}
 	}
 };
@@ -840,7 +821,7 @@ var initSidepanel = function () {
 	active_menumore = "is-active-ui-menumore",
 	cL = "classList";
 	if (b && e && p && c) {
-		console.log("triggered function: initSidepanel");
+		/* console.log("triggered function: initSidepanel"); */
 		var f = function () {
 			if (p[cL].contains(active_qrcode)) {
 				p[cL].remove(active_qrcode);
@@ -932,7 +913,7 @@ var highlightSidepanelItem = function () {
 		}
 	};
 	if (c && a && p) {
-		console.log("triggered function: highlightNavMenuItem");
+		/* console.log("triggered function: highlightNavMenuItem"); */
 		k();
 	}
 };
@@ -956,7 +937,7 @@ var initMenumore = function () {
 	active_menumore = "is-active-ui-menumore",
 	cL = "classList";
 	if (e && p) {
-		console.log("triggered function: initMenumore");
+		/* console.log("triggered function: initMenumore"); */
 		var f = function () {
 			if (p[cL].contains(active_qrcode)) {
 				p[cL].remove(active_qrcode);
@@ -1066,7 +1047,7 @@ manageExternalLinks = function (ctx) {
 		}
 	};
 	if (a) {
-		console.log("triggered function: manageExternalLinks");
+		/* console.log("triggered function: manageExternalLinks"); */
 		k();
 	}
 };
@@ -1108,7 +1089,7 @@ var manageDataTargetLinks = function (ctx) {
 		}
 	};
 	if (a) {
-		console.log("triggered function: manageDataTargetLinks");
+		/* console.log("triggered function: manageDataTargetLinks"); */
 		k();
 	}
 };
@@ -1140,9 +1121,9 @@ var handleImgLightboxLink = function (_this, ev) {
 		if (w.Promise) {
 			imagePromise(_href).then(function (r) {
 				m.src = _href;
-				console.log("manageDataSrcImages => imagePromise: loaded image:", r);
+				/* console.log("manageDataSrcImages => imagePromise: loaded image:", r); */
 			}).catch (function (err) {
-				console.log("manageDataSrcImages => imagePromise: cannot load image:", err);
+				/* console.log("manageDataSrcImages => imagePromise: cannot load image:", err); */
 			});
 		} else {
 			m.src = _href;
@@ -1179,9 +1160,19 @@ hideImgLightbox = function () {
 		st2 = function () {
 			c[cL].remove(an1);
 			c[cL].add(an3);
-			setAutoClearedTimeout(st1, 400);
+			var timers = new Timers();
+			timers.timeout(function () {
+				timers.clear();
+				timers = null;
+				st1();
+			}, 400);
 		};
-		setAutoClearedTimeout(st2, 400);
+		var timers = new Timers();
+		timers.timeout(function () {
+			timers.clear();
+			timers = null;
+			st2();
+		}, 400);
 	}
 },
 handleImgLightboxContainer = function () {
@@ -1212,7 +1203,6 @@ manageImgLightboxLinks = function (ctx) {
 	c = BALA.one("." + ilc) || "",
 	m = BALA.one("img", c) || "",
 	cL = "classList",
-	ds = "dataset",
 	dm = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
 	if (!c) {
 		c = crel("div");
@@ -1233,7 +1223,7 @@ manageImgLightboxLinks = function (ctx) {
 		}
 	};
 	if (a) {
-		console.log("triggered function: manageImgLightboxLinks");
+		/* console.log("triggered function: manageImgLightboxLinks"); */
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
 		if (w._) {
 			_.each(a, k);
@@ -1270,9 +1260,9 @@ var manageDataSrcImages = function (ctx) {
 				if (w.Promise) {
 					imagePromise(_src).then(function (r) {
 						e.src = _src;
-						console.log("manageDataSrcImages => imagePromise: loaded image:", r);
+						/* console.log("manageDataSrcImages => imagePromise: loaded image:", r); */
 					}).catch (function (err) {
-						console.log("manageDataSrcImages => imagePromise: cannot load image:", err);
+						/* console.log("manageDataSrcImages => imagePromise: cannot load image:", err); */
 					});
 				} else {
 					e.src = _src;
@@ -1291,7 +1281,7 @@ var manageDataSrcImages = function (ctx) {
 		}
 	};
 	if (a) {
-		console.log("triggered function: manageDataSrcImages");
+		/* console.log("triggered function: manageDataSrcImages"); */
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
 		var h_w = function () {
 			if (w._) {
@@ -1362,7 +1352,7 @@ var manageDataQrcodeImg = function (ctx) {
 		}
 	};
 	if (a) {
-		console.log("triggered function: manageDataQrcodeImg");
+		/* console.log("triggered function: manageDataQrcodeImg"); */
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
 		if (w._) {
 			_.each(a, g);
@@ -1410,7 +1400,7 @@ manageStaticSelect = function (ctx) {
 		evento.add(a, "change", handleStaticSelect.bind(null, a));
 	};
 	if (a) {
-		console.log("triggered function: manageStaticSelect");
+		/* console.log("triggered function: manageStaticSelect"); */
 		k();
 	}
 };
@@ -1429,7 +1419,7 @@ var manageSearchInput = function () {
 		/* e.oninput = g.bind(null, e); */
 	};
 	if (a) {
-		console.log("triggered function: manageSearchInput");
+		/* console.log("triggered function: manageSearchInput"); */
 		k(a);
 	}
 };
@@ -1472,7 +1462,7 @@ manageExpandingLayers = function (ctx) {
 		}
 	};
 	if (a) {
-		console.log("triggered function: manageExpandingLayers");
+		/* console.log("triggered function: manageExpandingLayers"); */
 		q();
 	}
 };
@@ -1522,7 +1512,7 @@ manageDebugGridButton = function () {
 	debug = "debug",
 	cL = "classList";
 	if (e && c) {
-		console.log("triggered function: manageDebugGridButton");
+		/* console.log("triggered function: manageDebugGridButton"); */
 		var u = w.location.href || "";
 		if (u && parseLink(u).hasHTTP && (/^(localhost|127.0.0.1)/).test(parseLink(u).hostname)) {
 			var h_e = function (ev) {
@@ -1638,7 +1628,7 @@ manageLocationQrCodeImage = function () {
 		f();
 	};
 	if (e && p && c && u) {
-		console.log("triggered function: manageLocationQrCodeImage");
+		/* console.log("triggered function: manageLocationQrCodeImage"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			q();
 			evento.add(e, "click", generateLocationQrCodeImg);
@@ -1674,7 +1664,7 @@ var manageShareButton = function () {
 	active_menumore = "is-active-ui-menumore",
 	cL = "classList";
 	if (e && p) {
-		console.log("triggered function: manageShareButton");
+		/* console.log("triggered function: manageShareButton"); */
 		var h_e = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
@@ -1726,7 +1716,7 @@ var manageVKLikeButton = function () {
 	active_menumore = "is-active-ui-menumore",
 	cL = "classList";
 	if (e && p && c) {
-		console.log("triggered function: manageVKLikeButton");
+		/* console.log("triggered function: manageVKLikeButton"); */
 		var h_e = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
@@ -1811,7 +1801,7 @@ var loadRefreshDisqus = function () {
 		setStyleDisplayNone(btn[pN]);
 	};
 	if (c && btn && n && p) {
-		console.log("triggered function: loadRefreshDisqus");
+		/* console.log("triggered function: loadRefreshDisqus"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			LoadingSpinner.show();
 			if (scriptIsLoaded(js)) {
@@ -1835,7 +1825,7 @@ manageDisqusButton = function () {
 		loadRefreshDisqus();
 	};
 	if (c && e) {
-		console.log("triggered function: manageDisqusButton");
+		/* console.log("triggered function: manageDisqusButton"); */
 		evento.add(e, "click", h_e);
 	}
 };
@@ -1900,7 +1890,7 @@ initYandexMap = function (a) {
 		}
 	};
 	if (c && f && z && b_s) {
-		console.log("triggered function: initYandexMap");
+		/* console.log("triggered function: initYandexMap"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			if (b_d) {
 				evento.add(b_d, "click", h_b_d);
@@ -1929,7 +1919,7 @@ manageYandexMapButton = function (a) {
 		return !1;
 	};
 	if (c && e) {
-		console.log("triggered function: manageYandexMapButton");
+		/* console.log("triggered function: manageYandexMapButton"); */
 		evento.add(e, "click", h_e);
 	}
 };
@@ -2093,7 +2083,7 @@ var initKamilAutocomplete = function () {
 		loadUnparsedJSON(jsn, q);
 	};
 	if (search_form && text) {
-		console.log("triggered function: initKamilAutocomplete");
+		/* console.log("triggered function: initKamilAutocomplete"); */
 		v();
 	}
 },
@@ -2156,7 +2146,7 @@ var initUiTotop = function () {
 		evento.add(w, "scroll", k.bind(null, w));
 	};
 	if (b) {
-		console.log("triggered function: initUiTotop");
+		/* console.log("triggered function: initUiTotop"); */
 		g();
 	}
 };
@@ -2199,7 +2189,7 @@ var includeHTMLintoTarget = function (_this, u, t) {
 		});
 	};
 	if (c) {
-		console.log("triggered function: includeHTMLintoTarget");
+		/* console.log("triggered function: includeHTMLintoTarget"); */
 		g();
 	}
 };
@@ -2264,7 +2254,7 @@ var initRoutie = function () {
 	 * "#/home" => "/home"
 	 */
 	if (appContent) {
-		console.log("triggered function: routie");
+		/* console.log("triggered function: routie"); */
 		routie({
 			"": function () {
 				loadVirtualPage(appContentSelector, "./includes/home.html", function () {
@@ -2389,7 +2379,7 @@ evento.add(window, "hashchange", updateInsertedDom); */
  * init manUP.js
  */
 var initManUp = function () {
-	console.log("triggered function: initManUp");
+	/* console.log("triggered function: initManUp"); */
 },
 loadInitManUp = function () {
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
@@ -2408,17 +2398,19 @@ var showPageFinishProgress = function () {
 		progressBar.complete();
 	},
 	k = function () {
-		var si = requestInterval(function () {
-				console.log("function showPageFinishProgress => started Interval");
-				if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
-					clearRequestInterval(si);
-					console.log("function showPageFinishProgress => si=" + si.value + "; imagesPreloaded=" + imagesPreloaded);
-					g();
-				}
-			}, 100);
+		var timers = new Timers();
+		timers.interval(function () {
+			/* console.log("function showPageFinishProgress => started Interval"); */
+			if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
+				timers.clear();
+				timers = null;
+				/* console.log("function showPageFinishProgress; imagesPreloaded=" + imagesPreloaded); */
+				g();
+			}
+		}, 500);
 	};
 	if (a) {
-		console.log("triggered function: showPageFinishProgress");
+		/* console.log("triggered function: showPageFinishProgress"); */
 		if ("undefined" !== typeof imagesPreloaded) {
 			k();
 		} else {
