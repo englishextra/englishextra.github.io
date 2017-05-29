@@ -4,6 +4,11 @@
 /* var globalRoot = "object" === typeof window && window || "object" === typeof self && self || "object" === typeof global && global || {}; */
 var globalRoot = "undefined" !== typeof window ? window : this;
 /*!
+ * safe way to handle console.log():
+ * @see {@link https://github.com/paulmillr/console-polyfill}
+ */
+(function(global){"use strict";if(!global.console){global.console={};}var con=global.console;var prop,method;var dummy=function(){};var properties=["memory"];var methods=("assert,clear,count,debug,dir,dirxml,error,exception,group,"+"groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd,"+"show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn").split(",");while((prop=properties.pop())){if(!con[prop]){con[prop]={};}}while((method=methods.pop())){if(!con[method]){con[method]=dummy;}}})(globalRoot);
+/*!
  * modified ToProgress v0.1.1
  * @see {@link https://github.com/djyde/ToProgress}
  * @see {@link https://gist.github.com/englishextra/6a8c79c9efbf1f2f50523d46a918b785}
@@ -211,38 +216,22 @@ if (document.title) {
  */
 (function(root){root.forEach=function(arr,eachFn,doneFn){var i=-1;var len=function(val){val=+val;if(!isFinite(val)||!val){return 0;}return function(left,right){return left-right*Math.floor(left/right);}(Math.floor(val),Math.pow(2,32));}(arr.length);(function next(result){var async;var abort=result===false;do{++i;}while(!(i in arr)&&i!==len);if(abort||i===len){if(doneFn){doneFn(!abort,arr);}return;}result=eachFn.call({async:function(){async=true;return next;}},arr[i],i,arr);if(!async){next(result);}}());};})("undefined" !== typeof window ? window : this);
 /*!
- * Behaves the same as setTimeout except uses requestAnimationFrame()
- * where possible for better performance
- * @see {@link https://gist.github.com/joelambert/1002116}
- * the fallback function requestAnimFrame is incorporated
- * @see {@link https://gist.github.com/joelambert/1002116}
- * @see {@link https://gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b}
- * @see {@link https://jsfiddle.net/englishextra/dnyomc4j/}
- * @param {Object} fn The callback function
- * @param {Int} delay The delay in milliseconds
- * requestTimeout(fn,delay)
+ * Timer management (setInterval / setTimeout)
+ * @param {Function} fn
+ * @param {Number} ms
+ * var timers = new Timers();
+ * timers.timeout(function () {
+ * console.log("before:", timers);
+ * timers.clear();
+ * timers = null;
+ * doSomething();
+ * console.log("after:", timers);
+ * }, 3000);
+ * @see {@link https://github.com/component/timers}
+ * @see {@link https://github.com/component/timers/blob/master/index.js}
+ * passes jshint
  */
-(function(root){"use strict";var requestTimeout=function(fn,delay){var requestAnimFrame=(function(){return root.requestAnimationFrame||function(callback,element){root.setTimeout(callback,1000/60);};})(),start=new Date().getTime(),handle={};function loop(){var current=new Date().getTime(),delta=current-start;if(delta>=delay){fn.call();}else{handle.value=requestAnimFrame(loop);}}handle.value=requestAnimFrame(loop);return handle;};root.requestTimeout=requestTimeout;})("undefined" !== typeof window ? window : this);
-/*!
- * Behaves the same as clearTimeout except uses cancelRequestAnimationFrame()
- * where possible for better performance
- * @see {@link https://gist.github.com/joelambert/1002116}
- * @see {@link https://gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b}
- * @see {@link https://jsfiddle.net/englishextra/dnyomc4j/}
- * @param {Int|Object} handle The callback function
- * clearRequestTimeout(handle)
- */
-(function(root){"use strict";var clearRequestTimeout=function(handle){if(root.cancelAnimationFrame){root.cancelAnimationFrame(handle.value);}else{root.clearTimeout(handle);}};root.clearRequestTimeout=clearRequestTimeout;})("undefined" !== typeof window ? window : this);
-/*!
- * set and clear timeout
- * based on requestTimeout and clearRequestTimeout
- * @see {@link https://gist.github.com/joelambert/1002116}
- * @see {@link https://gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b}
- * @param {Object} f handle/function
- * @param {Int} [n] a whole positive number
- * setAutoClearedTimeout(f,n)
- */
-var setAutoClearedTimeout=function(f,n){n=n||200;if(f&&"function"===typeof f){var st=requestTimeout(function(){clearRequestTimeout(st);f();},n);}};
+(function(root){var Timers=function(ids){this.ids=ids||[];};Timers.prototype.timeout=function(fn,ms){var id=setTimeout(fn,ms);this.ids.push(id);return id;};Timers.prototype.interval=function(fn,ms){var id=setInterval(fn,ms);this.ids.push(id);return id;};Timers.prototype.clear=function(){this.ids.forEach(clearTimeout);this.ids=[];};root.Timers=Timers;})(globalRoot);
 /*!
  * Plain javascript replacement for jQuery's .ready()
  * so code can be scheduled to run when the document is ready
@@ -351,18 +340,6 @@ var setAutoClearedTimeout=function(f,n){n=n||200;if(f&&"function"===typeof f){va
  * fixEnRuTypo(e,a,b)
  */
 (function(root){"use strict";var fixEnRuTypo=function(e,a,b){var c="";if("ru"==a&&"en"==b){a='\u0430\u0431\u0432\u0433\u0434\u0435\u0451\u0436\u0437\u0438\u0439\u043a\u043b\u043c\u043d\u043e\u043f\u0440\u0441\u0442\u0443\u0444\u0445\u0446\u0447\u0448\u0449\u044a\u044c\u044b\u044d\u044e\u044f\u0410\u0411\u0412\u0413\u0414\u0415\u0401\u0416\u0417\u0418\u0419\u041a\u041b\u041c\u041d\u041e\u041f\u0420\u0421\u0422\u0423\u0424\u0425\u0426\u0427\u0428\u0429\u042a\u042c\u042b\u042d\u042e\u042f"\u2116;:?/.,';b="f,dult`;pbqrkvyjghcnea[wxio]ms'.zF<DULT~:PBQRKVYJGHCNEA{WXIO}MS'>Z@#$^&|/?";}else{a="f,dult`;pbqrkvyjghcnea[wxio]ms'.zF<DULT~:PBQRKVYJGHCNEA{WXIO}MS'>Z@#$^&|/?";b='\u0430\u0431\u0432\u0433\u0434\u0435\u0451\u0436\u0437\u0438\u0439\u043a\u043b\u043c\u043d\u043e\u043f\u0440\u0441\u0442\u0443\u0444\u0445\u0446\u0447\u0448\u0449\u044a\u044c\u044b\u044d\u044e\u044f\u0410\u0411\u0412\u0413\u0414\u0415\u0401\u0416\u0417\u0418\u0419\u041a\u041b\u041c\u041d\u041e\u041f\u0420\u0421\u0422\u0423\u0424\u0425\u0426\u0427\u0428\u0429\u042a\u042c\u042b\u042d\u042e\u042f"\u2116;:?/.,';}for(var d=0;d<e.length;d++){var f=a.indexOf(e.charAt(d));if(c>f){c+=e.charAt(d);}else{c+=b.charAt(f);}}return c;};root.fixEnRuTypo=fixEnRuTypo;})("undefined" !== typeof window ? window : this);
-/*!
- * if element is in viewport
- * @see {@link https://gist.github.com/englishextra/2e9322e5eea9412f5086f7427009b903}
- * @see {@link https://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport}
- * @see {@link https://jsfiddle.net/englishextra/9mwdxgez/}
- * @param e an HTML element
- * var p = document.getElementById("h1") || "";
- * if(p){var g=function(_that){if(isInViewport(p))
- * {window.removeEventListener("scroll",_that);alert(1);}};
- * window.addEventListener("scroll",function h_w(){g(h_w);});}
- */
-var fitsIntoViewport=function(w,d){return function(e){return(e=e?e.getBoundingClientRect()||"":"")?0<=e.top&&0<=e.left&&e.bottom<=(w.innerHeight||d.clientHeight)&&e.right<=(w.innerWidth||d.clientWidth)&&(0!==e.offsetHeight):!0;};}(window,document.documentElement||"");
 /*!
  * remove element from DOM
  * @see {@link https://gist.github.com/englishextra/d2a286f64d404052fbbdac1e416ab808}
@@ -573,46 +550,51 @@ manageExternalLinks = function (ctx) {
 		}
 	};
 	if (a) {
-		console.log("triggered function: manageExternalLinks");
+		/* console.log("triggered function: manageExternalLinks"); */
 		k();
 	}
 };
 evento.add(window, "load", manageExternalLinks.bind(null, ""));
 /*!
  * loading spinner
- * dependent on setAutoClearedTimeout
+ * @requires Timers
  * @see {@link https://gist.github.com/englishextra/24ef040fbda405f7468da70e4f3b69e7}
- * @param {Object} [f] callback function
- * @param {Int} [n] any positive whole number, default: 500
+ * @param {Object} [callback] callback function
+ * @param {Int} [delay] any positive whole number, default: 500
  * LoadingSpinner.show();
  * LoadingSpinner.hide(f,n);
  */
 var LoadingSpinner = function () {
 	"use strict";
-	var b = BALA.one("body") || "",
-	cls = "loading-spinner",
-	is_active = "is-active-loading-spinner",
-	a = BALA.one("." + cls) || "",
-	cL = "classList";
-	console.log("triggered function: LoadingSpinner");
-	if (!a) {
-		a = crel("div");
-		a[cL].add(cls);
-		appendFragment(a, b);
+	var d = document,
+	b = d.body || "",
+	qS = "querySelector",
+	spinnerClass = "loading-spinner",
+	spinner = d[qS]("." + spinnerClass) || "",
+	cL = "classList",
+	cE = "createElement",
+	isActiveClass = "is-active-loading-spinner";
+	/* console.log("triggered function: LoadingSpinner"); */
+	if (!spinner) {
+		spinner = d[cE]("div");
+		spinner[cL].add(spinnerClass);
+		appendFragment(spinner, b);
 	}
 	return {
 		show: function () {
-			return b[cL].contains(is_active) || b[cL].add(is_active);
+			return b[cL].contains(isActiveClass) || b[cL].add(isActiveClass);
 		},
-		hide: function (f, n) {
-			n = n || 500;
-			var s = function () {
-				b[cL].remove(is_active);
-				if (f && "function" === typeof f) {
-					f();
+		hide: function (callback, delay) {
+			delay = delay || 500;
+			var timers = new Timers();
+			timers.timeout(function () {
+				timers.clear();
+				timers = null;
+				b[cL].remove(isActiveClass);
+				if (callback && "function" === typeof callback) {
+					callback();
 				}
-			};
-			return setAutoClearedTimeout(s, n);
+			}, delay);
 		}
 	};
 }
@@ -640,7 +622,7 @@ var Notifier42 = function (m, n, t) {
 	an = "animated",
 	an2 = "fadeInUp",
 	an4 = "fadeOutDown";
-	console.log("triggered function: Notifier42");
+	/* console.log("triggered function: Notifier42"); */
 	if (!c) {
 		c = crel("div");
 		appendFragment(c, b);
@@ -669,14 +651,29 @@ var Notifier42 = function (m, n, t) {
 				f();
 			}
 		};
-		setAutoClearedTimeout(r, 400);
+		var timers = new Timers();
+		timers.timeout(function () {
+			timers.clear();
+			timers = null;
+			r();
+		}, 400);
+
+
 	};
 	evento.add(c, "click", function h_c() {
 		evento.remove(this, "click", h_c);
 		g();
 	});
 	if (0 !== n) {
-		setAutoClearedTimeout(g, n);
+
+		var timers = new Timers();
+		timers.timeout(function () {
+			timers.clear();
+			timers = null;
+			g();
+		}, n);
+
+
 	}
 	return {
 		destroy : function () {
@@ -702,8 +699,17 @@ var initNotifier42WriteComment = function () {
 			Cookies.set(n, m);
 		};
 		if (!Cookies.get(n) && p) {
-			console.log("triggered function: initNotifier42WriteComment");
-			setAutoClearedTimeout(g, 16000);
+			/* console.log("triggered function: initNotifier42WriteComment"); */
+
+			var timers = new Timers();
+			timers.timeout(function () {
+				timers.clear();
+				timers = null;
+				g();
+			}, 1600);
+
+
+
 		}
 	}
 };
@@ -744,7 +750,7 @@ var initTablesort = function (ctx) {
 		}
 	};
 	if (a) {
-		console.log("triggered function: initTablesort");
+		/* console.log("triggered function: initTablesort"); */
 		k();
 	}
 },
@@ -793,9 +799,9 @@ var handleImgLightboxLink = function (_this, ev) {
 		if (w.Promise) {
 			imagePromise(_href).then(function (r) {
 				m.src = _href;
-				console.log("manageDataSrcImages => imagePromise: loaded image:", r);
+				/* console.log("manageDataSrcImages => imagePromise: loaded image:", r); */
 			}).catch (function (err) {
-				console.log("manageDataSrcImages => imagePromise: cannot load image:", err);
+				/* console.log("manageDataSrcImages => imagePromise: cannot load image:", err); */
 			});
 		} else {
 			m.src = _href;
@@ -832,9 +838,19 @@ hideImgLightbox = function () {
 		st2 = function () {
 			c[cL].remove(an1);
 			c[cL].add(an3);
-			setAutoClearedTimeout(st1, 400);
+			var timers = new Timers();
+			timers.timeout(function () {
+				timers.clear();
+				timers = null;
+				st1();
+			}, 400);
 		};
-		setAutoClearedTimeout(st2, 400);
+		var timers = new Timers();
+		timers.timeout(function () {
+			timers.clear();
+			timers = null;
+			st2();
+		}, 400);
 	}
 },
 handleImgLightboxContainer = function () {
@@ -865,7 +881,6 @@ manageImgLightboxLinks = function (ctx) {
 	c = BALA.one("." + ilc) || "",
 	m = BALA.one("img", c) || "",
 	cL = "classList",
-	ds = "dataset",
 	dm = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
 	if (!c) {
 		c = crel("div");
@@ -886,7 +901,7 @@ manageImgLightboxLinks = function (ctx) {
 		}
 	};
 	if (a) {
-		console.log("triggered function: manageImgLightboxLinks");
+		/* console.log("triggered function: manageImgLightboxLinks"); */
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
 		if (w._) {
 			_.each(a, k);
@@ -924,9 +939,9 @@ var manageDataSrcImages = function (ctx) {
 				if (w.Promise) {
 					imagePromise(_src).then(function (r) {
 						e.src = _src;
-						console.log("manageDataSrcImages => imagePromise: loaded image:", r);
+						/* console.log("manageDataSrcImages => imagePromise: loaded image:", r); */
 					}).catch (function (err) {
-						console.log("manageDataSrcImages => imagePromise: cannot load image:", err);
+						/* console.log("manageDataSrcImages => imagePromise: cannot load image:", err); */
 					});
 				} else {
 					e.src = _src;
@@ -945,7 +960,7 @@ var manageDataSrcImages = function (ctx) {
 		}
 	};
 	if (a) {
-		console.log("triggered function: manageDataSrcImages");
+		/* console.log("triggered function: manageDataSrcImages"); */
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
 		var h_w = function () {
 			if (w._) {
@@ -982,7 +997,6 @@ var manageDataSrcIframes = function (ctx) {
 	is_active = "is-active",
 	cL = "classList",
 	ds = "dataset",
-	pN = "parentNode",
 	k = function (e) {
 		var _src = e[ds].src || "";
 		if (_src) {
@@ -1014,7 +1028,7 @@ var manageDataSrcIframes = function (ctx) {
 		}
 	};
 	if (a) {
-		console.log("triggered function: manageDataSrcImages");
+		/* console.log("triggered function: manageDataSrcImages"); */
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
 		var h_w = function () {
 			if (w._) {
@@ -1094,7 +1108,7 @@ manageStaticSelect = function (ctx) {
 		evento.add(a, "change", handleStaticSelect.bind(null, a));
 	};
 	if (a) {
-		console.log("triggered function: manageStaticSelect");
+		/* console.log("triggered function: manageStaticSelect"); */
 		k();
 	}
 };
@@ -1114,7 +1128,7 @@ var manageSearchInput = function () {
 		/* e.oninput = g.bind(null, e); */
 	};
 	if (a) {
-		console.log("triggered function: manageSearchInput");
+		/* console.log("triggered function: manageSearchInput"); */
 		k(a);
 	}
 };
@@ -1157,7 +1171,7 @@ manageExpandingLayers = function (ctx) {
 		}
 	};
 	if (a) {
-		console.log("triggered function: manageExpandingLayers");
+		/* console.log("triggered function: manageExpandingLayers"); */
 		q();
 	}
 };
@@ -1218,7 +1232,7 @@ manageLocationQrCodeImage = function () {
 	c = BALA.one(holder) || "",
 	u = w.location.href || "";
 	if (c && u) {
-		console.log("triggered function: manageLocationQrCodeImage");
+		/* console.log("triggered function: manageLocationQrCodeImage"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			generateLocationQrCodeImg();
 		}
@@ -1226,8 +1240,7 @@ manageLocationQrCodeImage = function () {
 },
 loadManageLocationQrCodeImg = function () {
 	"use strict";
-	var w = window,
-	js = "../../cdn/qrjs2/0.1.2/js/qrjs2.fixed.min.js";
+	var js = "../../cdn/qrjs2/0.1.2/js/qrjs2.fixed.min.js";
 	if (!scriptIsLoaded(js)) {
 		loadJS(js, manageLocationQrCodeImage);
 	} else {
@@ -1272,14 +1285,14 @@ var initNavMenu = function () {
 	},
 	g = function () {
 		var h_container_left = function () {
-			console.log("swipeleft");
+			/* console.log("swipeleft"); */
 			h();
 			if (panel[cL].contains(is_active)) {
 				r();
 			}
 		},
 		h_container_right = function () {
-			console.log("swiperight");
+			/* console.log("swiperight"); */
 			h();
 			if (!panel[cL].contains(is_active)) {
 				f();
@@ -1351,7 +1364,7 @@ var initNavMenu = function () {
 		}
 	};
 	if (container && page && btn && panel && items) {
-		console.log("triggered function: initNavMenu");
+		/* console.log("triggered function: initNavMenu"); */
 		/*!
 		 * open or close nav
 		 */
@@ -1409,7 +1422,7 @@ var addAppUpdatesLink = function () {
 		}
 	};
 	if (panel && items && p) {
-		console.log("triggered function: addAppUpdatesLink");
+		/* console.log("triggered function: addAppUpdatesLink"); */
 		g();
 	}
 };
@@ -1456,7 +1469,7 @@ var initMenuMore = function () {
 		}
 	};
 	if (container && holder && btn && panel && items) {
-		console.log("triggered function: initMenuMore");
+		/* console.log("triggered function: initMenuMore"); */
 		/*!
 		 * hide menu more on outside click
 		 */
@@ -1514,7 +1527,7 @@ var initUiTotop = function () {
 		evento.add(w, "scroll", k.bind(null, w));
 	};
 	if (b) {
-		console.log("triggered function: initUiTotop");
+		/* console.log("triggered function: initUiTotop"); */
 		g();
 	}
 };
@@ -1558,7 +1571,7 @@ var initPlusoYaShare = function () {
 		evento.add(a, "click", h_a);
 	};
 	if ((pluso || ya_share2) && a) {
-		console.log("triggered function: initPlusoYaShare");
+		/* console.log("triggered function: initPlusoYaShare"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			v();
 		} else {
@@ -1621,12 +1634,22 @@ var initDownloadAppBtn = function (n) {
 		s2 = function () {
 			a[cL].remove(an2);
 			a[cL].add(an4);
-			setAutoClearedTimeout(s1, 750);
+			var timers = new Timers();
+			timers.timeout(function () {
+				timers.clear();
+				timers = null;
+				s1();
+			}, 750);
 		};
-		setAutoClearedTimeout(s2, n);
+		var timers = new Timers();
+		timers.timeout(function () {
+			timers.clear();
+			timers = null;
+			s2();
+		}, n);
 	};
 	if (b && s && p) {
-		console.log("triggered function: initDownloadAppBtn");
+		/* console.log("triggered function: initDownloadAppBtn"); */
 		g();
 	}
 },
@@ -1634,7 +1657,17 @@ loadInitDownloadAppBtn = function () {
 	var s = function () {
 		initDownloadAppBtn(8000);
 	};
-	setAutoClearedTimeout(s, 3000);
+
+	var timers = new Timers();
+	timers.timeout(function () {
+		timers.clear();
+		timers = null;
+		s();
+	}, 3000);
+
+
+
+
 };
 evento.add(window, "load", loadInitDownloadAppBtn);
 /*!
@@ -1679,7 +1712,7 @@ var initDisqusOnScroll = function () {
 		setStyleDisplayNone(btn[pN]);
 	};
 	if (c && btn && n && p) {
-		console.log("triggered function: initDisqusOnScroll");
+		/* console.log("triggered function: initDisqusOnScroll"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			q();
 			/* if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
@@ -1745,7 +1778,7 @@ var manageVKLikeButton = function () {
 		evento.add(a, "click", h_a);
 	};
 	if (c && a) {
-		console.log("triggered function: manageVKLikeButton");
+		/* console.log("triggered function: manageVKLikeButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			q();
 		} else {
@@ -1914,7 +1947,7 @@ var initKamilAutocomplete = function () {
 		loadUnparsedJSON(jsn, q);
 	};
 	if (search_form && text) {
-		console.log("triggered function: initKamilAutocomplete");
+		/* console.log("triggered function: initKamilAutocomplete"); */
 		v();
 	}
 },
@@ -1981,7 +2014,7 @@ var initSearchForm = function () {
 		evento.add(search_form, "submit", h_search_form);
 		setStyleDisplayNone(ya_site_form);
 	};
-	console.log("triggered function: initSearchForm");
+	/* console.log("triggered function: initSearchForm"); */
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
 		if (search_form) {
 			g();
@@ -1998,7 +2031,7 @@ evento.add(window, "load", initSearchForm);
  * init manUP.js
  */
 var initManUp = function () {
-	console.log("triggered function: initManUp");
+	/* console.log("triggered function: initManUp"); */
 },
 loadInitManUp = function () {
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
@@ -2012,7 +2045,7 @@ docReady(loadInitManUp);
 var showPageFinishProgress = function () {
 	"use strict";
 	var a = BALA.one("#container") || "";
-	console.log("triggered function: showPageFinishProgress");
+	/* console.log("triggered function: showPageFinishProgress"); */
 	setStyleOpacity(a, 1);
 	progressBar.complete();
 };

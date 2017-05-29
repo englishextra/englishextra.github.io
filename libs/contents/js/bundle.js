@@ -1,4 +1,14 @@
 /*!
+ * define global root
+ */
+/* var globalRoot = "object" === typeof window && window || "object" === typeof self && self || "object" === typeof global && global || {}; */
+var globalRoot = "undefined" !== typeof window ? window : this;
+/*!
+ * safe way to handle console.log():
+ * @see {@link https://github.com/paulmillr/console-polyfill}
+ */
+(function(global){"use strict";if(!global.console){global.console={};}var con=global.console;var prop,method;var dummy=function(){};var properties=["memory"];var methods=("assert,clear,count,debug,dir,dirxml,error,exception,group,"+"groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd,"+"show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn").split(",");while((prop=properties.pop())){if(!con[prop]){con[prop]={};}}while((method=methods.pop())){if(!con[method]){con[method]=dummy;}}})(globalRoot);
+/*!
  * modified ToProgress v0.1.1
  * @see {@link https://github.com/djyde/ToProgress}
  * @see {@link https://gist.github.com/englishextra/6a8c79c9efbf1f2f50523d46a918b785}
@@ -129,60 +139,22 @@ if (document.title) {
  */
 (function(root){root.forEach=function(arr,eachFn,doneFn){var i=-1;var len=function(val){val=+val;if(!isFinite(val)||!val){return 0;}return function(left,right){return left-right*Math.floor(left/right);}(Math.floor(val),Math.pow(2,32));}(arr.length);(function next(result){var async;var abort=result===false;do{++i;}while(!(i in arr)&&i!==len);if(abort||i===len){if(doneFn){doneFn(!abort,arr);}return;}result=eachFn.call({async:function(){async=true;return next;}},arr[i],i,arr);if(!async){next(result);}}());};})("undefined" !== typeof window ? window : this);
 /*!
- * Behaves the same as setTimeout except uses requestAnimationFrame()
- * where possible for better performance
- * @see {@link https://gist.github.com/joelambert/1002116}
- * the fallback function requestAnimFrame is incorporated
- * @see {@link https://gist.github.com/joelambert/1002116}
- * @see {@link https://gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b}
- * @see {@link https://jsfiddle.net/englishextra/dnyomc4j/}
- * @param {Object} fn The callback function
- * @param {Int} delay The delay in milliseconds
- * requestTimeout(fn,delay)
+ * Timer management (setInterval / setTimeout)
+ * @param {Function} fn
+ * @param {Number} ms
+ * var timers = new Timers();
+ * timers.timeout(function () {
+ * console.log("before:", timers);
+ * timers.clear();
+ * timers = null;
+ * doSomething();
+ * console.log("after:", timers);
+ * }, 3000);
+ * @see {@link https://github.com/component/timers}
+ * @see {@link https://github.com/component/timers/blob/master/index.js}
+ * passes jshint
  */
-(function(root){"use strict";var requestTimeout=function(fn,delay){var requestAnimFrame=(function(){return root.requestAnimationFrame||function(callback,element){root.setTimeout(callback,1000/60);};})(),start=new Date().getTime(),handle={};function loop(){var current=new Date().getTime(),delta=current-start;if(delta>=delay){fn.call();}else{handle.value=requestAnimFrame(loop);}}handle.value=requestAnimFrame(loop);return handle;};root.requestTimeout=requestTimeout;})("undefined" !== typeof window ? window : this);
-/*!
- * Behaves the same as clearTimeout except uses cancelRequestAnimationFrame()
- * where possible for better performance
- * @see {@link https://gist.github.com/joelambert/1002116}
- * @see {@link https://gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b}
- * @see {@link https://jsfiddle.net/englishextra/dnyomc4j/}
- * @param {Int|Object} handle The callback function
- * clearRequestTimeout(handle)
- */
-(function(root){"use strict";var clearRequestTimeout=function(handle){if(root.cancelAnimationFrame){root.cancelAnimationFrame(handle.value);}else{root.clearTimeout(handle);}};root.clearRequestTimeout=clearRequestTimeout;})("undefined" !== typeof window ? window : this);
-/*!
- * set and clear timeout
- * based on requestTimeout and clearRequestTimeout
- * @see {@link https://gist.github.com/joelambert/1002116}
- * @see {@link https://gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b}
- * @param {Object} f handle/function
- * @param {Int} [n] a whole positive number
- * setAutoClearedTimeout(f,n)
- */
-var setAutoClearedTimeout=function(f,n){n=n||200;if(f&&"function"===typeof f){var st=requestTimeout(function(){clearRequestTimeout(st);f();},n);}};
-/*!
- * Behaves the same as setInterval except uses requestAnimationFrame() where possible for better performance
- * @see {@link https://gist.github.com/joelambert/1002116}
- * the fallback function requestAnimFrame is incorporated
- * @see {@link https://gist.github.com/joelambert/1002116}
- * @see {@link https://gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b}
- * @see {@link https://jsfiddle.net/englishextra/sxrzktkz/}
- * @param {Object} fn The callback function
- * @param {Int} delay The delay in milliseconds
- * requestInterval(fn, delay);
- */
-(function(root){"use strict";var requestInterval=function(fn,delay){var requestAnimFrame=(function(){return root.requestAnimationFrame||function(callback,element){root.setTimeout(callback,1000/60);};})(),start=new Date().getTime(),handle={};function loop(){handle.value=requestAnimFrame(loop);var current=new Date().getTime(),delta=current-start;if(delta>=delay){fn.call();start=new Date().getTime();}}handle.value=requestAnimFrame(loop);return handle;};root.requestInterval=requestInterval;})("undefined" !== typeof window ? window : this);
-/*!
- * Behaves the same as clearInterval except uses cancelRequestAnimationFrame()
- * where possible for better performance
- * @see {@link https://gist.github.com/joelambert/1002116}
- * @see {@link https://gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b}
- * @see {@link https://jsfiddle.net/englishextra/sxrzktkz/}
- * @param {Int|Object} handle function handle, or function
- * clearRequestInterval(handle);
- */
-(function(root){"use strict";var clearRequestInterval=function(handle){if(root.cancelAnimationFrame){root.cancelAnimationFrame(handle.value);}else{root.clearInterval(handle);}};root.clearRequestInterval=clearRequestInterval;})("undefined" !== typeof window ? window : this);
+(function(root){var Timers=function(ids){this.ids=ids||[];};Timers.prototype.timeout=function(fn,ms){var id=setTimeout(fn,ms);this.ids.push(id);return id;};Timers.prototype.interval=function(fn,ms){var id=setInterval(fn,ms);this.ids.push(id);return id;};Timers.prototype.clear=function(){this.ids.forEach(clearTimeout);this.ids=[];};root.Timers=Timers;})(globalRoot);
 /*!
  * Plain javascript replacement for jQuery's .ready()
  * so code can be scheduled to run when the document is ready
@@ -507,7 +479,7 @@ manageExternalLinks = function (ctx) {
 		}
 	};
 	if (a) {
-		console.log("triggered function: manageExternalLinks");
+		/* console.log("triggered function: manageExternalLinks"); */
 		k();
 	}
 };
@@ -545,22 +517,29 @@ var initMasonryDisqus = function () {
 						gutter: 0,
 						percentPosition: !0
 					});
-				console.log("function initMasonryDisqus => initialised msnry");
-				var si = requestInterval(function () {
-						console.log("function initMasonryDisqus => started Interval");
-						if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
-							clearRequestInterval(si);
-							console.log("function initMasonryDisqus; imagesPreloaded=" + imagesPreloaded);
-							msnry.layout();
-							console.log("function initMasonryDisqus => reinitialised msnry");
-						}
-					}, 100);
+				/* console.log("function initMasonryDisqus => initialised msnry"); */
+				var timers = new Timers();
+				timers.interval(function () {
+					/* console.log("function initMasonry => started Interval"); */
+					if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
+						timers.clear();
+						timers = null;
+						/* console.log("function initMasonry; imagesPreloaded=" + imagesPreloaded); */
+						msnry.layout();
+						/* console.log("function initMasonry => reinitialised msnry"); */
+					}
+				}, 100);
 			}
 		};
 		if ("undefined" !== typeof imagesPreloaded) {
-			setAutoClearedTimeout(t, 100);
+			var timers = new Timers();
+			timers.timeout(function () {
+				timers.clear();
+				timers = null;
+				t();
+			}, 100);
 		} else {
-			console.log("function initMasonryDisqus => undefined: imagesPreloaded");
+			/* console.log("function initMasonryDisqus => undefined: imagesPreloaded"); */
 		}
 	},
 	/*! or Packery */
@@ -573,16 +552,18 @@ var initMasonryDisqus = function () {
 						gutter: 0,
 						percentPosition: !0
 					});
-				console.log("function initMasonryDisqus => initialised pckry");
-				var si = requestInterval(function () {
-						console.log("function initMasonryDisqus => started Interval");
-						if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
-							clearRequestInterval(si);
-							console.log("function initMasonryDisqus; imagesPreloaded=" + imagesPreloaded);
-							pckry.layout();
-							console.log("function initMasonryDisqus => reinitialised pckry");
-						}
-					}, 100);
+				/* console.log("function initMasonryDisqus => initialised pckry"); */
+				var timers = new Timers();
+				timers.interval(function () {
+					/* console.log("function initMasonry => started Interval"); */
+					if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
+						timers.clear();
+						timers = null;
+						/* console.log("function initMasonry; imagesPreloaded=" + imagesPreloaded); */
+						pckry.layout();
+						/* console.log("function initMasonry => reinitialised pckry"); */
+					}
+				}, 100);
 				if (c) {
 					if (w.Draggabilly) {
 						var draggie,
@@ -590,7 +571,7 @@ var initMasonryDisqus = function () {
 							var draggableElem = e;
 							draggie = new Draggabilly(draggableElem, {});
 							draggies.push(draggie);
-							console.log("function initMasonryDisqus => initialised draggie");
+							/* console.log("function initMasonryDisqus => initialised draggie"); */
 						},
 						draggies = [];
 						if (w._) {
@@ -604,33 +585,38 @@ var initMasonryDisqus = function () {
 						}
 						if (pckry && draggie) {
 							pckry.bindDraggabillyEvents(draggie);
-							console.log("function initMasonryDisqus => binded draggie to pckry");
+							/* console.log("function initMasonryDisqus => binded draggie to pckry"); */
 						}
 					}
 				}
 			}
 		};
 		if ("undefined" !== typeof imagesPreloaded) {
-			setAutoClearedTimeout(x, 100);
+			var timers = new Timers();
+			timers.timeout(function () {
+				timers.clear();
+				timers = null;
+				x();
+			}, 100);
 		} else {
-			console.log("function initMasonryDisqus => undefined: imagesPreloaded");
+			/* console.log("function initMasonryDisqus => undefined: imagesPreloaded"); */
 		}
 	},
 	z = function () {
 		var s = function () {
 			var si = requestInterval(function () {
-					console.log("function initMasonryDisqus => started Interval");
+					/* console.log("function initMasonryDisqus => started Interval"); */
 					var disqus_thread_height = disqus_thread.clientHeight || disqus_thread.offsetHeight || "";
 					if (108 < disqus_thread_height) {
 						clearRequestInterval(si);
-						console.log("function initMasonryDisqus; disqus_thread_height=" + disqus_thread_height);
+						/* console.log("function initMasonryDisqus; disqus_thread_height=" + disqus_thread_height); */
 						if ("undefined" !== typeof msnry && msnry) {
 							msnry.layout();
-							console.log("function initMasonryDisqus => reinitialised msnry");
+							/* console.log("function initMasonryDisqus => reinitialised msnry"); */
 						} else {
 							if ("undefined" !== typeof pckry && pckry) {
 								pckry.layout();
-								console.log("function initMasonryDisqus => reinitialised pckry");
+								/* console.log("function initMasonryDisqus => reinitialised pckry"); */
 							}
 						}
 					}
@@ -642,7 +628,7 @@ var initMasonryDisqus = function () {
 		}
 	};
 	if (grid && grid_item) {
-		console.log("triggered function: initMasonryDisqus");
+		/* console.log("triggered function: initMasonryDisqus"); */
 		var msnry,
 		pckry;
 		/*! Masonry */
@@ -746,17 +732,14 @@ manageContentsSelect = function (ctx) {
 			}).then(function (t) {
 				q(t);
 			}).catch (function (e) {
-				console.log("Error parsing file", e);
+				/* console.log("Error parsing file", e); */
 			});
 		} else {
-			var f = function (r) {
-				q(r);
-			};
 			loadUnparsedJSON(jsn, q);
 		}
 	};
 	if (a) {
-		console.log("triggered function: manageContentsSelect");
+		/* console.log("triggered function: manageContentsSelect"); */
 		v();
 	}
 };
@@ -776,7 +759,7 @@ var manageSearchInput = function () {
 		/* e.oninput = g.bind(null, e); */
 	};
 	if (a) {
-		console.log("triggered function: manageSearchInput");
+		/* console.log("triggered function: manageSearchInput"); */
 		k(a);
 	}
 };
@@ -837,7 +820,7 @@ manageLocationQrCodeImage = function () {
 	c = BALA.one(holder) || "",
 	u = w.location.href || "";
 	if (c && u) {
-		console.log("triggered function: manageLocationQrCodeImage");
+		/* console.log("triggered function: manageLocationQrCodeImage"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			generateLocationQrCodeImg();
 		}
@@ -845,8 +828,7 @@ manageLocationQrCodeImage = function () {
 },
 loadManageLocationQrCodeImg = function () {
 	"use strict";
-	var w = window,
-	js = "../cdn/qrjs2/0.1.2/js/qrjs2.fixed.min.js";
+	var js = "../cdn/qrjs2/0.1.2/js/qrjs2.fixed.min.js";
 	if (!scriptIsLoaded(js)) {
 		loadJS(js, manageLocationQrCodeImage);
 	} else {
@@ -891,14 +873,14 @@ var initNavMenu = function () {
 	},
 	g = function () {
 		var h_container_left = function () {
-			console.log("swipeleft");
+			/* console.log("swipeleft"); */
 			h();
 			if (panel[cL].contains(is_active)) {
 				r();
 			}
 		},
 		h_container_right = function () {
-			console.log("swiperight");
+			/* console.log("swiperight"); */
 			h();
 			if (!panel[cL].contains(is_active)) {
 				f();
@@ -970,7 +952,7 @@ var initNavMenu = function () {
 		}
 	};
 	if (container && page && btn && panel && items) {
-		console.log("triggered function: initNavMenu");
+		/* console.log("triggered function: initNavMenu"); */
 		/*!
 		 * open or close nav
 		 */
@@ -1028,7 +1010,7 @@ var addAppUpdatesLink = function () {
 		}
 	};
 	if (panel && items && p) {
-		console.log("triggered function: addAppUpdatesLink");
+		/* console.log("triggered function: addAppUpdatesLink"); */
 		g();
 	}
 };
@@ -1075,7 +1057,7 @@ var initMenuMore = function () {
 		}
 	};
 	if (container && holder && btn && panel && items) {
-		console.log("triggered function: initMenuMore");
+		/* console.log("triggered function: initMenuMore"); */
 		/*!
 		 * hide menu more on outside click
 		 */
@@ -1133,7 +1115,7 @@ var initUiTotop = function () {
 		evento.add(w, "scroll", k.bind(null, w));
 	};
 	if (b) {
-		console.log("triggered function: initUiTotop");
+		/* console.log("triggered function: initUiTotop"); */
 		g();
 	}
 };
@@ -1177,7 +1159,7 @@ var initPlusoYaShare = function () {
 		evento.add(a, "click", h_a);
 	};
 	if ((pluso || ya_share2) && a) {
-		console.log("triggered function: initPlusoYaShare");
+		/* console.log("triggered function: initPlusoYaShare"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			v();
 		} else {
@@ -1234,7 +1216,7 @@ var manageVKLikeButton = function () {
 		evento.add(a, "click", h_a);
 	};
 	if (c && a) {
-		console.log("triggered function: manageVKLikeButton");
+		/* console.log("triggered function: manageVKLikeButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			q();
 		} else {
@@ -1403,7 +1385,7 @@ var initKamilAutocomplete = function () {
 		loadUnparsedJSON(jsn, q);
 	};
 	if (search_form && text) {
-		console.log("triggered function: initKamilAutocomplete");
+		/* console.log("triggered function: initKamilAutocomplete"); */
 		v();
 	}
 },
@@ -1470,7 +1452,7 @@ var initSearchForm = function () {
 		evento.add(search_form, "submit", h_search_form);
 		setStyleDisplayNone(ya_site_form);
 	};
-	console.log("triggered function: initSearchForm");
+	/* console.log("triggered function: initSearchForm"); */
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
 		if (search_form) {
 			g();
@@ -1487,7 +1469,7 @@ evento.add(window, "load", initSearchForm);
  * init manUP.js
  */
 var initManUp = function () {
-	console.log("triggered function: initManUp");
+	/* console.log("triggered function: initManUp"); */
 },
 loadInitManUp = function () {
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
@@ -1506,17 +1488,19 @@ var showPageFinishProgress = function () {
 		progressBar.complete();
 	},
 	k = function () {
-		var si = requestInterval(function () {
-				console.log("function showPageFinishProgress => started Interval");
-				if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
-					clearRequestInterval(si);
-					console.log("function showPageFinishProgress; imagesPreloaded=" + imagesPreloaded);
-					g();
-				}
-			}, 100);
+		var timers = new Timers();
+		timers.interval(function () {
+			/* console.log("function showPageFinishProgress => started Interval"); */
+			if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
+				timers.clear();
+				timers = null;
+				/* console.log("function showPageFinishProgress; imagesPreloaded=" + imagesPreloaded); */
+				g();
+			}
+		}, 500);
 	};
 	if (a) {
-		console.log("triggered function: showPageFinishProgress");
+		/* console.log("triggered function: showPageFinishProgress"); */
 		if ("undefined" !== typeof imagesPreloaded) {
 			k();
 		} else {
