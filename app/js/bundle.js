@@ -122,50 +122,22 @@ if ("undefined" === typeof console) {
  */
 (function(document,promise){document.ready=promise;})(globalRoot.document,function(chainVal){"use strict";var d=document,w=globalRoot,loaded=(/^loaded|^i|^c/).test(d.readyState),DOMContentLoaded="DOMContentLoaded",load="load";return new Promise(function(resolve){if(loaded)return resolve(chainVal);function onReady(){resolve(chainVal);d.removeEventListener(DOMContentLoaded,onReady);w.removeEventListener(load,onReady);}d.addEventListener(DOMContentLoaded,onReady);w.addEventListener(load,onReady);});});
 /*!
- * Behaves the same as setTimeout except uses requestAnimationFrame()
- * where possible for better performance
- * @see {@link https://gist.github.com/joelambert/1002116}
- * the fallback function requestAnimFrame is incorporated
- * @see {@link https://gist.github.com/joelambert/1002116}
- * @see {@link https://gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b}
- * @see {@link https://jsfiddle.net/englishextra/dnyomc4j/}
- * @param {Object} fn The callback function
- * @param {Int} delay The delay in milliseconds
- * requestTimeout(fn,delay)
+ * Timer management (setInterval / setTimeout)
+ * @param {Function} fn
+ * @param {Number} ms
+ * var timers = new Timers();
+ * timers.timeout(function () {
+ * console.log("before:", timers);
+ * timers.clear();
+ * timers = null;
+ * doSomething();
+ * console.log("after:", timers);
+ * }, 3000);
+ * @see {@link https://github.com/component/timers}
+ * @see {@link https://github.com/component/timers/blob/master/index.js}
+ * passes jshint
  */
-(function(root){"use strict";var requestTimeout=function(fn,delay){var requestAnimFrame=(function(){return root.requestAnimationFrame||function(callback,element){root.setTimeout(callback,1000/60);};})(),start=new Date().getTime(),handle={};function loop(){var current=new Date().getTime(),delta=current-start;if(delta>=delay){fn.call();}else{handle.value=requestAnimFrame(loop);}}handle.value=requestAnimFrame(loop);return handle;};root.requestTimeout=requestTimeout;})(globalRoot);
-/*!
- * Behaves the same as clearTimeout except uses cancelRequestAnimationFrame()
- * where possible for better performance
- * @see {@link https://gist.github.com/joelambert/1002116}
- * @see {@link https://gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b}
- * @see {@link https://jsfiddle.net/englishextra/dnyomc4j/}
- * @param {Int|Object} handle The callback function
- * clearRequestTimeout(handle)
- */
-(function(root){"use strict";var clearRequestTimeout=function(handle){if(root.cancelAnimationFrame){root.cancelAnimationFrame(handle.value);}else{root.clearTimeout(handle);}};root.clearRequestTimeout=clearRequestTimeout;})(globalRoot);
-/*!
- * Behaves the same as setInterval except uses requestAnimationFrame() where possible for better performance
- * @see {@link https://gist.github.com/joelambert/1002116}
- * the fallback function requestAnimFrame is incorporated
- * @see {@link https://gist.github.com/joelambert/1002116}
- * @see {@link https://gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b}
- * @see {@link https://jsfiddle.net/englishextra/sxrzktkz/}
- * @param {Object} fn The callback function
- * @param {Int} delay The delay in milliseconds
- * requestInterval(fn, delay);
- */
-(function(root){"use strict";var requestInterval=function(fn,delay){var requestAnimFrame=(function(){return root.requestAnimationFrame||function(callback,element){root.setTimeout(callback,1000/60);};})(),start=new Date().getTime(),handle={};function loop(){handle.value=requestAnimFrame(loop);var current=new Date().getTime(),delta=current-start;if(delta>=delay){fn.call();start=new Date().getTime();}}handle.value=requestAnimFrame(loop);return handle;};root.requestInterval=requestInterval;})(globalRoot);
-/*!
- * Behaves the same as clearInterval except uses cancelRequestAnimationFrame()
- * where possible for better performance
- * @see {@link https://gist.github.com/joelambert/1002116}
- * @see {@link https://gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b}
- * @see {@link https://jsfiddle.net/englishextra/sxrzktkz/}
- * @param {Int|Object} handle function handle, or function
- * clearRequestInterval(handle);
- */
-(function(root){"use strict";var clearRequestInterval=function(handle){if(root.cancelAnimationFrame){root.cancelAnimationFrame(handle.value);}else{root.clearInterval(handle);}};root.clearRequestInterval=clearRequestInterval;})(globalRoot);
+(function(root){var Timers=function(ids){this.ids=ids||[];};Timers.prototype.timeout=function(fn,ms){var id=setTimeout(fn,ms);this.ids.push(id);return id;};Timers.prototype.interval=function(fn,ms){var id=setInterval(fn,ms);this.ids.push(id);return id;};Timers.prototype.clear=function(){this.ids.forEach(clearTimeout);this.ids=[];};root.Timers=Timers;})(globalRoot);
 /*!
  * modified Returns a function, that, as long as it continues to be invoked, will not
  * be triggered. The function will be called after it stops being called for
@@ -470,17 +442,19 @@ var LoadingSpinner = function () {
 		},
 		hide: function (callback, delay) {
 			delay = delay || 500;
-			var st = requestTimeout(function () {
-					clearRequestTimeout(st);
-					b[cL].remove(isActiveClass);
-					if (callback && "function" === typeof callback) {
-						callback();
-					}
-				}, delay);
+			var timers = new Timers();
+			timers.timeout(function () {
+				timers.clear();
+				timers = null;
+				b[cL].remove(isActiveClass);
+				if (callback && "function" === typeof callback) {
+					callback();
+				}
+			}, delay);
 		}
 	};
-}
-();
+	}
+	();
 /*!
  * render template
  * @requires t.js
@@ -532,74 +506,73 @@ var insertFromTemplate = function (parsedJson, templateId, targetId, callback, u
  */
 var handleDataSrcImages = function () {
 	"use strict";
-	var logicHandleDataSrcImages = function () {
-		var w = globalRoot,
-		d = document,
-		gEBCN = "getElementsByClassName",
-		cL = "classList",
-		ds = "dataset",
-		imgClass = "data-src-img",
-		img = d[gEBCN](imgClass) || "",
-		isActiveClass = "is-active",
-		isBindedClass = "is-binded",
-		rerenderDataSrcImage = function (e) {
-			if (!e[cL].contains(isBindedClass)) {
-				var _src = e[ds].src || "";
-				if (_src) {
-					if (parseLink(_src).isAbsolute && !parseLink(_src).hasHTTP) {
-						e[ds].src = _src.replace(/^/, getHTTP(!0) + ":");
-						_src = e[ds].src;
-					}
-					if (w.Promise) {
-						imagePromise(_src).then(function (r) {
-							e.src = _src;
-							/* console.log("manageDataSrcImages => imagePromise: loaded image:", r); */
-						}).catch (function (err) {
-							/* console.log("manageDataSrcImages => imagePromise: cannot load image:", err); */
-						});
-					} else {
-						e.src = _src;
-					}
-					e[cL].add(isActiveClass);
-					e[cL].add(isBindedClass);
+	var d = document,
+	gEBCN = "getElementsByClassName",
+	cL = "classList",
+	ds = "dataset",
+	imgClass = "data-src-img",
+	img = d[gEBCN](imgClass) || "",
+	isActiveClass = "is-active",
+	isBindedClass = "is-binded",
+	rerenderDataSrcImage = function (e) {
+		if (!e[cL].contains(isBindedClass)) {
+			var _src = e[ds].src || "";
+			if (_src) {
+				if (parseLink(_src).isAbsolute && !parseLink(_src).hasHTTP) {
+					e[ds].src = _src.replace(/^/, getHTTP(!0) + ":");
+					_src = e[ds].src;
 				}
+				imagePromise(_src).then(function (r) {
+					e.src = _src;
+					console.log("manageDataSrcImages => imagePromise: loaded image:", r);
+				}).catch (function (err) {
+					console.log("manageDataSrcImages => imagePromise: cannot load image:", err);
+				});
+				/* e.src = _src; */
+				e[cL].add(isActiveClass);
+				e[cL].add(isBindedClass);
 			}
-		},
-		arrangeDataSrcImage = function (e) {
-			/*!
-			 * true if elem is in same y-axis as the viewport or within 100px of it
-			 * @see {@link https://github.com/ryanve/verge}
-			 */
-			if (verge.inY(e, 100) /*  && 0 !== e.offsetHeight */) {
-				rerenderDataSrcImage(e);
-			}
-		},
-		rerenderDataSrcImages = function () {
-			for (var i = 0, l = img.length; i < l; i += 1) {
-				arrangeDataSrcImage(img[i]);
-			}
-			/* forEach(img, arrangeDataSrcImage); */
-		};
-		if (img) {
-			/* console.log("triggered function: manageDataSrcImages"); */
-			rerenderDataSrcImages();
 		}
-	}/* ,
-	throttleLogicHandleDataSrcImages = throttle(logicHandleDataSrcImages, 100);
-	throttleLogicHandleDataSrcImages() */;
-	logicHandleDataSrcImages();
+	},
+	arrangeDataSrcImage = function (e) {
+		/*!
+		 * true if elem is in same y-axis as the viewport or within 100px of it
+		 * @see {@link https://github.com/ryanve/verge}
+		 */
+		if (verge.inY(e, 100) /*  && 0 !== e.offsetHeight */) {
+			rerenderDataSrcImage(e);
+		}
+	},
+	rerenderDataSrcImages = function () {
+		for (var i = 0, l = img.length; i < l; i += 1) {
+			arrangeDataSrcImage(img[i]);
+		}
+		/* forEach(img, arrangeDataSrcImage); */
+	};
+	if (img) {
+		/* console.log("triggered function: manageDataSrcImages"); */
+		rerenderDataSrcImages();
+	}
+},
+handleDataSrcImagesWindow = function () {
+	var throttleHandleDataSrcImages = throttle(handleDataSrcImages, 100);
+	throttleHandleDataSrcImages();
 },
 manageDataSrcImages = function () {
 	"use strict";
 	var w = globalRoot,
 	aEL = "addEventListener",
-	rEL = "removeEventListener",
-	throttleHandleDataSrcImages = throttle(handleDataSrcImages, 100);
-	handleDataSrcImages();
-	w[rEL]("scroll", throttleHandleDataSrcImages);
-	w[rEL]("resize", throttleHandleDataSrcImages);
-	w[aEL]("scroll", throttleHandleDataSrcImages);
-	w[aEL]("resize", throttleHandleDataSrcImages);
+	rEL = "removeEventListener";
+	w[rEL]("scroll", handleDataSrcImagesWindow);
+	w[rEL]("resize", handleDataSrcImagesWindow);
+	w[aEL]("scroll", handleDataSrcImagesWindow);
+	w[aEL]("resize", handleDataSrcImagesWindow);
+	var timers = new Timers();
+	timers.timeout(function () {
+		timers.clear();
+		timers = null;
+		handleDataSrcImages();
+	}, 100);
 };
 document.ready().then(manageDataSrcImages);
 /*!
@@ -607,70 +580,73 @@ document.ready().then(manageDataSrcImages);
  */
 var handleDataSrcIframes = function () {
 	"use strict";
-	var logicHandleDataSrcIframes = function () {
-		var d = document,
-		gEBCN = "getElementsByClassName",
-		cL = "classList",
-		ds = "dataset",
-		sA = "setAttribute",
-		iframeClass = "data-src-iframe",
-		iframe = d[gEBCN](iframeClass) || "",
-		isBindedClass = "is-binded",
-		rerenderDataSrcIframe = function (e) {
-			if (!e[cL].contains(isBindedClass)) {
-				var _src = e[ds].src || "";
-				if (_src) {
-					if (parseLink(_src).isAbsolute && !parseLink(_src).hasHTTP) {
-						e[ds].src = _src.replace(/^/, getHTTP(!0) + ":");
-						_src = e[ds].src;
-					}
-					e.src = _src;
-					e[cL].add(isBindedClass);
-					e[sA]("frameborder", "no");
-					e[sA]("style", "border:none;");
-					e[sA]("webkitallowfullscreen", "true");
-					e[sA]("mozallowfullscreen", "true");
-					e[sA]("scrolling", "no");
-					e[sA]("allowfullscreen", "true");
+	var d = document,
+	gEBCN = "getElementsByClassName",
+	cL = "classList",
+	ds = "dataset",
+	sA = "setAttribute",
+	iframeClass = "data-src-iframe",
+	iframe = d[gEBCN](iframeClass) || "",
+	isBindedClass = "is-binded",
+	rerenderDataSrcIframe = function (e) {
+		if (!e[cL].contains(isBindedClass)) {
+			var _src = e[ds].src || "";
+			if (_src) {
+				if (parseLink(_src).isAbsolute && !parseLink(_src).hasHTTP) {
+					e[ds].src = _src.replace(/^/, getHTTP(!0) + ":");
+					_src = e[ds].src;
 				}
+				e.src = _src;
+				e[cL].add(isBindedClass);
+				e[sA]("frameborder", "no");
+				e[sA]("style", "border:none;");
+				e[sA]("webkitallowfullscreen", "true");
+				e[sA]("mozallowfullscreen", "true");
+				e[sA]("scrolling", "no");
+				e[sA]("allowfullscreen", "true");
 			}
-		},
-		arrangeDataSrcIframe = function (e) {
-			/*!
-			 * true if elem is in same y-axis as the viewport or within 100px of it
-			 * @see {@link https://github.com/ryanve/verge}
-			 */
-			if (verge.inY(e, 100) /* && 0 !== e.offsetHeight */) {
-				rerenderDataSrcIframe(e);
-			}
-		},
-		rerenderDataSrcIframes = function () {
-			for (var i = 0, l = iframe.length; i < l; i += 1) {
-				arrangeDataSrcIframe(iframe[i]);
-			}
-			/* forEach(iframe, arrangeDataSrcIframe); */
-		};
-		if (iframe) {
-			/* console.log("triggered function: manageDataSrcIframes"); */
-			rerenderDataSrcIframes();
 		}
-	}/* ,
-	throttleLogicHandleDataSrcIframes = throttle(logicHandleDataSrcIframes, 100);
-	throttleLogicHandleDataSrcIframes() */;
-	logicHandleDataSrcIframes();
+	},
+	arrangeDataSrcIframe = function (e) {
+		/*!
+		 * true if elem is in same y-axis as the viewport or within 100px of it
+		 * @see {@link https://github.com/ryanve/verge}
+		 */
+		if (verge.inY(e, 100) /* && 0 !== e.offsetHeight */) {
+			rerenderDataSrcIframe(e);
+		}
+	},
+	rerenderDataSrcIframes = function () {
+		for (var i = 0, l = iframe.length; i < l; i += 1) {
+			arrangeDataSrcIframe(iframe[i]);
+		}
+		/* forEach(iframe, arrangeDataSrcIframe); */
+	};
+	if (iframe) {
+		/* console.log("triggered function: manageDataSrcIframes"); */
+		rerenderDataSrcIframes();
+	}
+},
+handleDataSrcIframesWindow = function () {
+	var throttleHandleDataSrcIframes = throttle(handleDataSrcIframes, 100);
+	throttleHandleDataSrcIframes();
 },
 manageDataSrcIframes = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
 	var w = globalRoot,
 	aEL = "addEventListener",
-	rEL = "removeEventListener",
-	throttleHandleDataSrcIframes = throttle(handleDataSrcIframes, 100);
-	handleDataSrcIframes();
-	w[rEL]("scroll", throttleHandleDataSrcIframes);
-	w[rEL]("resize", throttleHandleDataSrcIframes);
-	w[aEL]("scroll", throttleHandleDataSrcIframes);
-	w[aEL]("resize", throttleHandleDataSrcIframes);
+	rEL = "removeEventListener";
+	w[rEL]("scroll", handleDataSrcIframesWindow);
+	w[rEL]("resize", handleDataSrcIframesWindow);
+	w[aEL]("scroll", handleDataSrcIframesWindow);
+	w[aEL]("resize", handleDataSrcIframesWindow);
+	var timers = new Timers();
+	timers.timeout(function () {
+		timers.clear();
+		timers = null;
+		handleDataSrcIframes();
+	}, 100);
 };
 document.ready().then(manageDataSrcIframes);
 /*!
@@ -692,7 +668,7 @@ var manageIframeLightboxLinks = function (ctx) {
 			e[cL].add(isBindedClass);
 		}
 	},
-	rerenderDataSrcIframes = function () {
+	rerenderIframeLightboxLinks = function () {
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrangeDataSrcIframe(link[i]);
 		}
@@ -700,7 +676,7 @@ var manageIframeLightboxLinks = function (ctx) {
 	};
 	if (link) {
 		/* console.log("triggered function: manageIframeLightboxLibks"); */
-		rerenderDataSrcIframes();
+		rerenderIframeLightboxLinks();
 	}
 };
 document.ready().then(manageIframeLightboxLinks);
@@ -785,15 +761,19 @@ var hideImgLightbox = function () {
 		hideContainer = function () {
 			container[cL].remove(an1);
 			container[cL].add(an3);
-			var st1 = requestTimeout(function () {
-					clearRequestTimeout(st1);
-					hideImg();
-				}, 400);
-		};
-		var st2 = requestTimeout(function () {
-				clearRequestTimeout(st2);
-				hideContainer();
+			var timers = new Timers();
+			timers.timeout(function () {
+				timers.clear();
+				timers = null;
+				hideImg();
 			}, 400);
+		};
+		var timers = new Timers();
+		timers.timeout(function () {
+			timers.clear();
+			timers = null;
+			hideContainer();
+		}, 400);
 	}
 },
 handleImgLightboxContainer = function () {
@@ -823,7 +803,6 @@ manageImgLightboxLinks = function (ctx) {
 	gEBCN = "getElementsByClassName",
 	gEBTN = "getElementsByTagName",
 	cL = "classList",
-	ds = "dataset",
 	aEL = "addEventListener",
 	aC = "appendChild",
 	cE = "createElement",
@@ -861,16 +840,13 @@ manageImgLightboxLinks = function (ctx) {
 				if (parseLink(_href).isAbsolute && !parseLink(_href).hasHTTP) {
 					_href = _href.replace(/^/, getHTTP(!0) + ":");
 				}
-				if (w.Promise) {
-					imagePromise(_href).then(function (r) {
-						img.src = _href;
-						/* console.log("manageImgLightboxLinks => imagePromise: loaded image:", r); */
-					}).catch (function (err) {
-						/* console.log("manageImgLightboxLinks => imagePromise: cannot load image:", err); */
-					});
-				} else {
+				imagePromise(_href).then(function (r) {
 					img.src = _href;
-				}
+					/* console.log("manageImgLightboxLinks => imagePromise: loaded image:", r); */
+				}).catch (function (err) {
+					/* console.log("manageImgLightboxLinks => imagePromise: cannot load image:", err); */
+				});
+				/* img.src = _href; */
 				w[aEL]("keyup", handleImgLightboxWindow);
 				container[aEL]("click", handleImgLightboxContainer);
 				container.style.display = "block";
@@ -1137,7 +1113,7 @@ initMasonry = function (ctx) {
 	masonryGrid = ctx ? ctx[gEBCN](masonryGridClass)[0] || "" : d[gEBCN](masonryGridClass)[0] || "",
 	masonryItem = ctx ? ctx[gEBCN](masonryItemClass)[0] || "" : d[gEBCN](masonryItemClass)[0] || "",
 	arrangeMasonryItems = function () {
-		var si;
+		var timers;
 		if (w.Masonry) {
 			if (msnry) {
 				msnry.destroy();
@@ -1149,15 +1125,17 @@ initMasonry = function (ctx) {
 					percentPosition: !0
 				});
 			/* console.log("function initMasonry.arrangeItems => initialised msnry"); */
-			si = requestInterval(function () {
-					/* console.log("function initMasonry.arrangeItems => started Interval"); */
-					if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
-						clearRequestInterval(si);
-						/* console.log("function initMasonry.arrangeItems => si=" + si.value + "; imagesPreloaded=" + imagesPreloaded); */
-						msnry.layout();
-						/* console.log("function initMasonry.arrangeItems => reinitialised msnry"); */
-					}
-				}, 100);
+			timers = new Timers();
+			timers.interval(function () {
+				/* console.log("function initMasonry.arrangeItems => started Interval"); */
+				if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
+				timers.clear();
+				timers = null;
+					/* console.log("function initMasonry.arrangeItems => si=" + si.value + "; imagesPreloaded=" + imagesPreloaded); */
+					msnry.layout();
+					/* console.log("function initMasonry.arrangeItems => reinitialised msnry"); */
+				}
+			}, 100);
 		} else if (w.Packery) {
 			if (pckry) {
 				pckry.destroy();
@@ -1169,15 +1147,17 @@ initMasonry = function (ctx) {
 					percentPosition: !0
 				});
 			/* console.log("function initMasonry.arrangeItems => initialised pckry"); */
-			si = requestInterval(function () {
-					/* console.log("function initMasonry.arrangeItems => started Interval"); */
-					if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
-						clearRequestInterval(si);
+			timers = new Timers();
+			timers.interval(function () {
+				/* console.log("function initMasonry.arrangeItems => started Interval"); */
+				if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
+				timers.clear();
+				timers = null;
 						/* console.log("function initMasonry.arrangeItems => si=" + si.value + "; imagesPreloaded=" + imagesPreloaded); */
 						pckry.layout();
 						/* console.log("function initMasonry.arrangeItems => reinitialised pckry"); */
-					}
-				}, 100);
+				}
+			}, 100);
 		} else {
 			/* console.log("function initMasonry.arrangeItems => no library is loaded"); */
 		}
@@ -1185,16 +1165,18 @@ initMasonry = function (ctx) {
 	if (masonryGrid && masonryItem) {
 		if ("undefined" !== typeof imagesPreloaded) {
 			/* console.log("triggered function: initMasonryGrid"); */
-			var st = requestTimeout(function () {
-					clearRequestTimeout(st);
-					/* var js = "./cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
-					var js = "./cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
-					if (!scriptIsLoaded(js)) {
-						loadJS(js, arrangeMasonryItems);
-					} else {
-						arrangeMasonryItems();
-					}
-				}, 100);
+			var timers = new Timers();
+			timers.timeout(function () {
+				timers.clear();
+				timers = null;
+				/* var js = "./cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
+				var js = "./cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
+				if (!scriptIsLoaded(js)) {
+					loadJS(js, arrangeMasonryItems);
+				} else {
+					arrangeMasonryItems();
+				}
+			}, 100);
 		} else {
 			/* console.log("function initMasonry => undefined: imagesPreloaded"); */
 		}
@@ -1382,10 +1364,12 @@ var notiBar = function (opt) {
 		appendFragment(notibarContainer, b);
 		notibarContainer[cL].remove(fadeOutUpClass);
 		notibarContainer[cL].add(fadeInDownClass);
-		var st = requestTimeout(function () {
-				clearRequestTimeout(st);
-				hideMessage();
-			}, settings.timeout);
+		var timers = new Timers();
+		timers.timeout(function () {
+			timers.clear();
+			timers = null;
+			hideMessage();
+		}, settings.timeout);
 	}
 };
 /*!
@@ -1431,10 +1415,12 @@ var initNotibarMsg = function () {
 	if (locationOrigin && uiPanelContentsSelect) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			/* console.log("triggered function: initNotibarMsg"); */
-			var st = requestTimeout(function () {
-					clearRequestTimeout(st);
-					renderMsg();
-				}, 3000);
+			var timers = new Timers();
+			timers.timeout(function () {
+				timers.clear();
+				timers = null;
+				renderMsg();
+			}, 3000);
 		}
 	}
 };
@@ -2014,10 +2000,10 @@ var manageDebugGridButton = function () {
 	debugClass = "debug",
 	cookieKey = "_manageDebugGridButton_",
 	cookieDatum = "ok",
-	handleDebugGridButton = function () {
+	handleDebugGridContainer = function () {
 		if (container) {
 			container[cL].remove(debugClass);
-			container[rEL]("click", handleDebugGridButton);
+			container[rEL]("click", handleDebugGridContainer);
 		}
 	},
 	showDebugGridMessage = function () {
@@ -2055,7 +2041,7 @@ var manageDebugGridButton = function () {
 					container[aEL]("click", handleDebugGridButton);
 					showDebugGridMessage();
 				} else {
-					container[rEL]("click", handleDebugGridButton);
+					container[rEL]("click", handleDebugGridContainer);
 				}
 			};
 			btn[aEL]("click", handleDebugGridButton);
@@ -2068,7 +2054,7 @@ document.ready().then(manageDebugGridButton);
 /*!
  * process routes, render contents select
  */
-var handleRoutes = function () {
+var processPoutes = function () {
 	"use strict";
 	var w = globalRoot,
 	d = document,
@@ -2133,6 +2119,19 @@ var handleRoutes = function () {
 				if (titleString) {
 					d.title = titleString + (initialDocumentTitle ? " - " + initialDocumentTitle : "") + userBrowsingDetails;
 				}
+				/*!
+				 * cache parent node beforehand
+				 */
+				if (appContentParent) {
+					manageDataSrcImages();
+					manageDataSrcIframes();
+					manageExternalLinks(appContentParent);
+					manageImgLightboxLinks(appContentParent);
+					manageIframeLightboxLinks(appContentParent);
+					manageChaptersSelect(appContentParent);
+					manageExpandingLayers(appContentParent);
+					manageDisqusButton(appContentParent);
+				}
 				var locationHash = w.location.hash || "";
 				if (contentsSelect) {
 					var optionMatched = false;
@@ -2190,8 +2189,8 @@ var handleRoutes = function () {
 					if (asideTemplate && asideRender) {
 						insertFromTemplate(asideObj, asideTemplateId, asideRenderId, function () {
 							if (asideRenderParent) {
-								manageExternalLinks(asideRenderParent);
 								manageDataSrcImages();
+								manageExternalLinks(asideRenderParent);
 							}
 						});
 					}
@@ -2227,33 +2226,20 @@ var handleRoutes = function () {
 						}
 						insertTextAsFragment(renderMasonry, contentsRender, function () {
 							if (contentsRenderParent) {
+								manageDataSrcImages();
 								initMasonry(contentsRenderParent);
 								manageExternalLinks(contentsRenderParent);
-								manageDataSrcImages();
 							}
 						});
 					} else {
 						initMasonry(masonryGridParent);
 					}
 				}
-				/*!
-				 * cache parent node beforehand
-				 */
-				if (appContentParent) {
-					manageDataSrcImages();
-					manageDataSrcIframes();
-					manageExternalLinks(appContentParent);
-					manageImgLightboxLinks(appContentParent);
-					manageIframeLightboxLinks(appContentParent);
-					manageChaptersSelect(appContentParent);
-					manageExpandingLayers(appContentParent);
-					manageDisqusButton(appContentParent);
-					LoadingSpinner.hide();
-				}
+				LoadingSpinner.hide();
 			};
 			if (routesParsedJson) {
 				initKamilAutocomplete(routesParsedJson.hashes);
-				var navigateOnHashChange = function () {
+				var handleRoutesWindow = function () {
 					if (searchTextInput) {
 						searchTextInput.blur();
 					}
@@ -2295,8 +2281,8 @@ var handleRoutes = function () {
 						}
 					}
 				};
-				navigateOnHashChange();
-				w[aEL]("hashchange", navigateOnHashChange);
+				handleRoutesWindow();
+				w[aEL]("hashchange", handleRoutesWindow);
 				if (contentsTemplate && contentsRender) {
 					/*!
 					 * insertFromTemplate used in renderTemplate
@@ -2391,7 +2377,7 @@ var handleRoutes = function () {
 		loadUnparsedJSON(routesJsonUrl, processRoutesJsonResponse);
 	}
 };
-document.ready().then(handleRoutes);
+document.ready().then(processPoutes);
 /*!
  * observe mutations
  * bind functions only for inserted DOM
@@ -2526,14 +2512,16 @@ var showPageFinishProgress = function () {
 		/* progressBar.complete(); */
 	},
 	triggerOnImagesLoaded = function () {
-		var si = requestInterval(function () {
-				/* console.log("function showPageFinishProgress => started Interval"); */
-				if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
-					clearRequestInterval(si);
-					/* console.log("function showPageFinishProgress => si=" + si.value + "; imagesPreloaded=" + imagesPreloaded); */
-					rerenderPage();
-				}
-			}, 100);
+		var timers = new Timers();
+		timers.interval(function () {
+			/* console.log("function showPageFinishProgress => started Interval"); */
+			if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
+				timers.clear();
+				timers = null;
+				/* console.log("function showPageFinishProgress => si=" + si.value + "; imagesPreloaded=" + imagesPreloaded); */
+				rerenderPage();
+			}
+		}, 100);
 	};
 	if (page) {
 		/* console.log("triggered function: showPageFinishProgress"); */
