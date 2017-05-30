@@ -2192,6 +2192,7 @@ var processPoutes = function () {
 						renderComments = renderTemplate({}, commentsTemplateId, commentsRenderId);
 					}
 					insertTextAsFragment(renderComments, commentsRender, function () {
+						if (commentsRenderParent) {
 							manageDisqusButton(commentsRenderParent);
 						}
 					});
