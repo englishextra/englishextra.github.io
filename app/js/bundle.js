@@ -2112,19 +2112,6 @@ var processPoutes = function () {
 				if (titleString) {
 					d.title = titleString + (initialDocumentTitle ? " - " + initialDocumentTitle : "") + userBrowsingDetails;
 				}
-				/*!
-				 * cache parent node beforehand
-				 */
-				if (appContentParent) {
-					manageDataSrcImages();
-					manageDataSrcIframes();
-					manageExternalLinks(appContentParent);
-					manageImgLightboxLinks(appContentParent);
-					manageIframeLightboxLinks(appContentParent);
-					manageChaptersSelect(appContentParent);
-					manageExpandingLayers(appContentParent);
-					manageDisqusButton(appContentParent);
-				}
 				var locationHash = w.location.hash || "";
 				if (contentsSelect) {
 					var optionMatched = false;
@@ -2198,12 +2185,16 @@ var processPoutes = function () {
 					}
 				}
 				var commentsTemplate = d[gEBI](commentsTemplateId) || "",
-				commentsRender = d[gEBI](commentsRenderId) || "";
+				commentsRender = d[gEBI](commentsRenderId) || "",
+				commentsRenderParent = commentsRender[pN] || "";
 				if (commentsTemplate && commentsRender) {
 					if (!renderComments) {
 						renderComments = renderTemplate({}, commentsTemplateId, commentsRenderId);
 					}
-					insertTextAsFragment(renderComments, commentsRender);
+					insertTextAsFragment(renderComments, commentsRender, function () {
+							manageDisqusButton(commentsRenderParent);
+						}
+					});
 				}
 				var masonryGrid = d[gEBCN](masonryGridClass)[0] || "",
 				masonryGridParent = masonryGrid[pN] || "";
@@ -2227,6 +2218,19 @@ var processPoutes = function () {
 					} else {
 						initMasonry(masonryGridParent);
 					}
+				}
+				/*!
+				 * cache parent node beforehand
+				 * put when templates rendered
+				 */
+				if (appContentParent) {
+					manageDataSrcImages();
+					manageDataSrcIframes();
+					manageExternalLinks(appContentParent);
+					manageImgLightboxLinks(appContentParent);
+					manageIframeLightboxLinks(appContentParent);
+					manageChaptersSelect(appContentParent);
+					manageExpandingLayers(appContentParent);
 				}
 				LoadingSpinner.hide();
 			};
