@@ -4,7 +4,7 @@
 /* var globalRoot = "object" === typeof window && window || "object" === typeof self && self || "object" === typeof global && global || {}; */
 var globalRoot = "undefined" !== typeof window ? window : this;
 /*!
- * safe way to handle console.log():
+ * safe way to handle console.log
  * @see {@link https://github.com/paulmillr/console-polyfill}
  */
 (function(global){"use strict";if(!global.console){global.console={};}var con=global.console;var prop,method;var dummy=function(){};var properties=["memory"];var methods=("assert,clear,count,debug,dir,dirxml,error,exception,group,"+"groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd,"+"show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn").split(",");while((prop=properties.pop())){if(!con[prop]){con[prop]={};}}while((method=methods.pop())){if(!con[method]){con[method]=dummy;}}})(globalRoot);
@@ -517,9 +517,9 @@ var handleDataSrcImages = function () {
 				}
 				imagePromise(_src).then(function (r) {
 					e.src = _src;
-					console.log("manageDataSrcImages => imagePromise: loaded image:", r);
+					/* console.log("manageDataSrcImages => imagePromise: loaded image:", r); */
 				}).catch (function (err) {
-					console.log("manageDataSrcImages => imagePromise: cannot load image:", err);
+					/* console.log("manageDataSrcImages => imagePromise: cannot load image:", err); */
 				});
 				/* e.src = _src; */
 				e[cL].add(isActiveClass);

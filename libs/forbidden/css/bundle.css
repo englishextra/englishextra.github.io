@@ -1033,7 +1033,7 @@ u,
 	font-size: 0.875em;
 	line-height: 3.000rem;
 	list-style: none;
-	overflow-y: hidden;
+	overflow-y: auto;
 	-webkit-overflow-scrolling: touch;
 	background-color: #232323;
 	-webkit-transition: left 0.2s linear;
@@ -1041,10 +1041,6 @@ u,
 	padding: 0;
 	margin: 0;
 	margin-left: -17.000rem;
-}
-
-.panel-nav-menu:hover {
-	overflow-y: auto;
 }
 
 /* .js .panel-nav-menu {
