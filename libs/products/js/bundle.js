@@ -1,4 +1,14 @@
 /*!
+ * define global root
+ */
+/* var globalRoot = "object" === typeof window && window || "object" === typeof self && self || "object" === typeof global && global || {}; */
+var globalRoot = "undefined" !== typeof window ? window : this;
+/*!
+ * safe way to handle console.log():
+ * @see {@link https://github.com/paulmillr/console-polyfill}
+ */
+(function(global){"use strict";if(!global.console){global.console={};}var con=global.console;var prop,method;var dummy=function(){};var properties=["memory"];var methods=("assert,clear,count,debug,dir,dirxml,error,exception,group,"+"groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd,"+"show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn").split(",");while((prop=properties.pop())){if(!con[prop]){con[prop]={};}}while((method=methods.pop())){if(!con[method]){con[method]=dummy;}}})(globalRoot);
+/*!
  * modified ToProgress v0.1.1
  * @see {@link https://github.com/djyde/ToProgress}
  * @see {@link https://gist.github.com/englishextra/6a8c79c9efbf1f2f50523d46a918b785}
@@ -109,60 +119,22 @@ if (document.title) {
  */
 (function(root){root.forEach=function(arr,eachFn,doneFn){var i=-1;var len=function(val){val=+val;if(!isFinite(val)||!val){return 0;}return function(left,right){return left-right*Math.floor(left/right);}(Math.floor(val),Math.pow(2,32));}(arr.length);(function next(result){var async;var abort=result===false;do{++i;}while(!(i in arr)&&i!==len);if(abort||i===len){if(doneFn){doneFn(!abort,arr);}return;}result=eachFn.call({async:function(){async=true;return next;}},arr[i],i,arr);if(!async){next(result);}}());};})("undefined" !== typeof window ? window : this);
 /*!
- * Behaves the same as setTimeout except uses requestAnimationFrame()
- * where possible for better performance
- * @see {@link https://gist.github.com/joelambert/1002116}
- * the fallback function requestAnimFrame is incorporated
- * @see {@link https://gist.github.com/joelambert/1002116}
- * @see {@link https://gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b}
- * @see {@link https://jsfiddle.net/englishextra/dnyomc4j/}
- * @param {Object} fn The callback function
- * @param {Int} delay The delay in milliseconds
- * requestTimeout(fn,delay)
+ * Timer management (setInterval / setTimeout)
+ * @param {Function} fn
+ * @param {Number} ms
+ * var timers = new Timers();
+ * timers.timeout(function () {
+ * console.log("before:", timers);
+ * timers.clear();
+ * timers = null;
+ * doSomething();
+ * console.log("after:", timers);
+ * }, 3000);
+ * @see {@link https://github.com/component/timers}
+ * @see {@link https://github.com/component/timers/blob/master/index.js}
+ * passes jshint
  */
-(function(root){"use strict";var requestTimeout=function(fn,delay){var requestAnimFrame=(function(){return root.requestAnimationFrame||function(callback,element){root.setTimeout(callback,1000/60);};})(),start=new Date().getTime(),handle={};function loop(){var current=new Date().getTime(),delta=current-start;if(delta>=delay){fn.call();}else{handle.value=requestAnimFrame(loop);}}handle.value=requestAnimFrame(loop);return handle;};root.requestTimeout=requestTimeout;})("undefined" !== typeof window ? window : this);
-/*!
- * Behaves the same as clearTimeout except uses cancelRequestAnimationFrame()
- * where possible for better performance
- * @see {@link https://gist.github.com/joelambert/1002116}
- * @see {@link https://gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b}
- * @see {@link https://jsfiddle.net/englishextra/dnyomc4j/}
- * @param {Int|Object} handle The callback function
- * clearRequestTimeout(handle)
- */
-(function(root){"use strict";var clearRequestTimeout=function(handle){if(root.cancelAnimationFrame){root.cancelAnimationFrame(handle.value);}else{root.clearTimeout(handle);}};root.clearRequestTimeout=clearRequestTimeout;})("undefined" !== typeof window ? window : this);
-/*!
- * Behaves the same as setInterval except uses requestAnimationFrame() where possible for better performance
- * @see {@link https://gist.github.com/joelambert/1002116}
- * the fallback function requestAnimFrame is incorporated
- * @see {@link https://gist.github.com/joelambert/1002116}
- * @see {@link https://gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b}
- * @see {@link https://jsfiddle.net/englishextra/sxrzktkz/}
- * @param {Object} fn The callback function
- * @param {Int} delay The delay in milliseconds
- * requestInterval(fn, delay);
- */
-(function(root){"use strict";var requestInterval=function(fn,delay){var requestAnimFrame=(function(){return root.requestAnimationFrame||function(callback,element){root.setTimeout(callback,1000/60);};})(),start=new Date().getTime(),handle={};function loop(){handle.value=requestAnimFrame(loop);var current=new Date().getTime(),delta=current-start;if(delta>=delay){fn.call();start=new Date().getTime();}}handle.value=requestAnimFrame(loop);return handle;};root.requestInterval=requestInterval;})("undefined" !== typeof window ? window : this);
-/*!
- * Behaves the same as clearInterval except uses cancelRequestAnimationFrame()
- * where possible for better performance
- * @see {@link https://gist.github.com/joelambert/1002116}
- * @see {@link https://gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b}
- * @see {@link https://jsfiddle.net/englishextra/sxrzktkz/}
- * @param {Int|Object} handle function handle, or function
- * clearRequestInterval(handle);
- */
-(function(root){"use strict";var clearRequestInterval=function(handle){if(root.cancelAnimationFrame){root.cancelAnimationFrame(handle.value);}else{root.clearInterval(handle);}};root.clearRequestInterval=clearRequestInterval;})("undefined" !== typeof window ? window : this);
-/*!
- * set and clear timeout
- * based on requestTimeout and clearRequestTimeout
- * @see {@link https://gist.github.com/joelambert/1002116}
- * @see {@link https://gist.github.com/englishextra/873c8f78bfda7cafc905f48a963df07b}
- * @param {Object} f handle/function
- * @param {Int} [n] a whole positive number
- * setAutoClearedTimeout(f,n)
- */
-var setAutoClearedTimeout=function(f,n){n=n||200;if(f&&"function"===typeof f){var st=requestTimeout(function(){clearRequestTimeout(st);f();},n);}};
+(function(root){var Timers=function(ids){this.ids=ids||[];};Timers.prototype.timeout=function(fn,ms){var id=setTimeout(fn,ms);this.ids.push(id);return id;};Timers.prototype.interval=function(fn,ms){var id=setInterval(fn,ms);this.ids.push(id);return id;};Timers.prototype.clear=function(){this.ids.forEach(clearTimeout);this.ids=[];};root.Timers=Timers;})(globalRoot);
 /*!
  * Plain javascript replacement for jQuery's .ready()
  * so code can be scheduled to run when the document is ready
@@ -550,8 +522,7 @@ manageLocationQrCodeImage = function () {
 },
 loadManageLocationQrCodeImg = function () {
 	"use strict";
-	var w = window,
-	js = "../../cdn/qrjs2/0.1.2/js/qrjs2.fixed.min.js";
+	var js = "../../cdn/qrjs2/0.1.2/js/qrjs2.fixed.min.js";
 	if (!scriptIsLoaded(js)) {
 		loadJS(js, manageLocationQrCodeImage);
 	} else {
@@ -680,7 +651,12 @@ var showMenuMore = function (n) {
 		a[cL].add(is_active);
 	};
 	if (a) {
-		setAutoClearedTimeout(s, n);
+		var timers = new Timers();
+		timers.timeout(function () {
+			timers.clear();
+			timers = null;
+			s();
+		}, n);
 	}
 };
 docReady(showMenuMore.bind(null, 2000));
@@ -812,14 +788,16 @@ var showPageFinishProgress = function () {
 		progressBar.complete();
 	},
 	k = function () {
-		var si = requestInterval(function () {
-				console.log("function showPageFinishProgress => started Interval");
-				if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
-					clearRequestInterval(si);
-					console.log("function showPageFinishProgress; imagesPreloaded=" + imagesPreloaded);
-					g();
-				}
-			}, 100);
+		var timers = new Timers();
+		timers.interval(function () {
+			/* console.log("function showPageFinishProgress => started Interval"); */
+			if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
+				timers.clear();
+				timers = null;
+				/* console.log("function showPageFinishProgress; imagesPreloaded=" + imagesPreloaded); */
+				g();
+			}
+		}, 100);
 	};
 	if (a) {
 		console.log("triggered function: showPageFinishProgress");

@@ -604,11 +604,13 @@ var initMasonryDisqus = function () {
 	},
 	z = function () {
 		var s = function () {
-			var si = requestInterval(function () {
+				var timers = new Timers();
+				timers.interval(function () {
 					/* console.log("function initMasonryDisqus => started Interval"); */
 					var disqus_thread_height = disqus_thread.clientHeight || disqus_thread.offsetHeight || "";
 					if (108 < disqus_thread_height) {
-						clearRequestInterval(si);
+						timers.clear();
+						timers = null;
 						/* console.log("function initMasonryDisqus; disqus_thread_height=" + disqus_thread_height); */
 						if ("undefined" !== typeof msnry && msnry) {
 							msnry.layout();
@@ -1497,7 +1499,7 @@ var showPageFinishProgress = function () {
 				/* console.log("function showPageFinishProgress; imagesPreloaded=" + imagesPreloaded); */
 				g();
 			}
-		}, 500);
+		}, 100);
 	};
 	if (a) {
 		/* console.log("triggered function: showPageFinishProgress"); */
