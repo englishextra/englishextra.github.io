@@ -297,8 +297,11 @@
 					 || !document.querySelector
 					 || !Function.prototype.bind
 					 || (Object.defineProperty && Object.getOwnPropertyDescriptor && Object.getOwnPropertyDescriptor(Element.prototype, "textContent") && !Object.getOwnPropertyDescriptor(Element.prototype, "textContent").get)
+					 || !("undefined" !== typeof window.localStorage && "undefined" !== typeof window.sessionStorage)
+					 || !self.WeakMap
+					 || !self.MutationObserver
 					 ) {
-					if((/^(localhost|127.0.0.1)/).test(window.location.hostname||"")){loadJS("./js/polyfills.js");}else{loadJS("./js/polyfills.min.js");}
+					if((/^(localhost|127.0.0.1)/).test(window.location.hostname||"")){loadJS("./cdn/polyfills/js/polyfills.js");}else{loadJS("./cdn/polyfills/js/polyfills.min.js");}
 				}
 		</script>
 		<script>
