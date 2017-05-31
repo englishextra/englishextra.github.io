@@ -201,7 +201,7 @@ var handleExternalLink = function (p, ev) {
 manageExternalLinks = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
-	var w = window,
+	var w = globalRoot,
 	aEL = "addEventListener",
 	cls = "a",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
@@ -630,7 +630,7 @@ loadJS("../libs/serguei-webslides/js/vendors.min.js", initWebslides);
 var manageDataQrcodeImg = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
-	var w = window,
+	var w = globalRoot,
 	cls = "img[data-qrcode]",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	ds = "dataset",

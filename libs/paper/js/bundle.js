@@ -100,7 +100,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
  * @see {@link https://github.com/js-cookie/js-cookie/blob/master/src/js.cookie.js}
  * passes jshint
  */
-(function(){"use strict";var Cookies=function(){function extend(){var i=0;var result={};for(;i<arguments.length;i++){var attributes=arguments[i];for(var key in attributes){if(attributes.hasOwnProperty(key)){result[key]=attributes[key];}}}return result;}function init(converter){var api=function(key,value,attributes){var _this=this;var result;if(typeof document==='undefined'){return;}if(arguments.length>1){attributes=extend({path:'/'},api.defaults,attributes);if(typeof attributes.expires==='number'){var expires=new Date();expires.setMilliseconds(expires.getMilliseconds()+attributes.expires*864e+5);attributes.expires=expires;}try{result=JSON.stringify(value);if(/^[\{\[]/.test(result)){value=result;}}catch(e){}if(!converter.write){value=encodeURIComponent(String(value)).replace(/%(23|24|26|2B|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g,decodeURIComponent);}else{value=converter.write(value,key);}key=encodeURIComponent(String(key));key=key.replace(/%(23|24|26|2B|5E|60|7C)/g,decodeURIComponent);key=key.replace(/[\(\)]/g,escape);var ret=(document.cookie=[key,'=',value,attributes.expires?'; expires='+attributes.expires.toUTCString():'',attributes.path?'; path='+attributes.path:'',attributes.domain?'; domain='+attributes.domain:'',attributes.secure?'; secure':''].join(''));return ret;}if(!key){result={};}var cookies=document.cookie?document.cookie.split('; '):[];var rdecode=/(%[0-9A-Z]{2})+/g;var i=0;for(;i<cookies.length;i++){var parts=cookies[i].split('=');var cookie=parts.slice(1).join('=');if(cookie.charAt(0)==='"'){cookie=cookie.slice(1,-1);}try{var name=parts[0].replace(rdecode,decodeURIComponent);cookie=converter.read?converter.read(cookie,name):converter(cookie,name)||cookie.replace(rdecode,decodeURIComponent);if(_this.json){try{cookie=JSON.parse(cookie);}catch(e){}}if(key===name){result=cookie;break;}if(!key){result[name]=cookie;}}catch(e){}}return result;};api.set=api;api.get=function(key){return api.call(api,key);};api.getJSON=function(){return api.apply({json:true},[].slice.call(arguments));};api.defaults={};api.remove=function(key,attributes){api(key,'',extend(attributes,{expires:-1}));};api.withConverter=init;return api;}return init(function(){});}();(globalRoot).Cookies=Cookies;}());
+(function(root){"use strict";var Cookies=function(){function extend(){var i=0;var result={};for(;i<arguments.length;i++){var attributes=arguments[i];for(var key in attributes){if(attributes.hasOwnProperty(key)){result[key]=attributes[key];}}}return result;}function init(converter){var api=function(key,value,attributes){var _this=this;var result;if(typeof document==='undefined'){return;}if(arguments.length>1){attributes=extend({path:'/'},api.defaults,attributes);if(typeof attributes.expires==='number'){var expires=new Date();expires.setMilliseconds(expires.getMilliseconds()+attributes.expires*864e+5);attributes.expires=expires;}try{result=JSON.stringify(value);if(/^[\{\[]/.test(result)){value=result;}}catch(e){}if(!converter.write){value=encodeURIComponent(String(value)).replace(/%(23|24|26|2B|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g,decodeURIComponent);}else{value=converter.write(value,key);}key=encodeURIComponent(String(key));key=key.replace(/%(23|24|26|2B|5E|60|7C)/g,decodeURIComponent);key=key.replace(/[\(\)]/g,escape);var ret=(document.cookie=[key,'=',value,attributes.expires?'; expires='+attributes.expires.toUTCString():'',attributes.path?'; path='+attributes.path:'',attributes.domain?'; domain='+attributes.domain:'',attributes.secure?'; secure':''].join(''));return ret;}if(!key){result={};}var cookies=document.cookie?document.cookie.split('; '):[];var rdecode=/(%[0-9A-Z]{2})+/g;var i=0;for(;i<cookies.length;i++){var parts=cookies[i].split('=');var cookie=parts.slice(1).join('=');if(cookie.charAt(0)==='"'){cookie=cookie.slice(1,-1);}try{var name=parts[0].replace(rdecode,decodeURIComponent);cookie=converter.read?converter.read(cookie,name):converter(cookie,name)||cookie.replace(rdecode,decodeURIComponent);if(_this.json){try{cookie=JSON.parse(cookie);}catch(e){}}if(key===name){result=cookie;break;}if(!key){result[name]=cookie;}}catch(e){}}return result;};api.set=api;api.get=function(key){return api.call(api,key);};api.getJSON=function(){return api.apply({json:true},[].slice.call(arguments));};api.defaults={};api.remove=function(key,attributes){api(key,'',extend(attributes,{expires:-1}));};api.withConverter=init;return api;}return init(function(){});}();root.Cookies=Cookies;})(globalRoot);
 /*!
  * modified verge 1.9.1+201402130803
  * @see {@link https://github.com/ryanve/verge}
@@ -250,25 +250,6 @@ if (document.title) {
  * passes jshint
  */
 (function(document,promise){document.ready=promise;})(globalRoot.document,function(chainVal){"use strict";var d=document,w=globalRoot,loaded=(/^loaded|^i|^c/).test(d.readyState),DOMContentLoaded="DOMContentLoaded",load="load";return new Promise(function(resolve){if(loaded)return resolve(chainVal);function onReady(){resolve(chainVal);d.removeEventListener(DOMContentLoaded,onReady);w.removeEventListener(load,onReady);}d.addEventListener(DOMContentLoaded,onReady);w.addEventListener(load,onReady);});});
-/*!
- * Promise based script loader for the browser using script tags
- * @see {@link https://github.com/MiguelCastillo/load-js}
- * type: defaults to text/javascript
- * async: defaults to false
- * charset: defaults to utf-8
- * id: no default value
- * url: required if no text is provided
- * text: required if no url is provided
- * promiseLoadJS(["https://code.jquery.com/jquery-2.2.1.js",
- * "https://unpkg.com/react@15.3.1/dist/react.min.js"])
- * .then(function(){console.log("jQuery and react are loaded");});
- * promiseLoadJS([{async:true,url:"https://code.jquery.com/jquery-2.2.1.js"},
- * {async:true,url:"https://unpkg.com/react@15.3.1/dist/react.min.js"}])
- * .then(()=>{/* console.log("all done!");});
- * @see {@link https://gist.github.com/pranksinatra/a4e57e586249dc3833e4}
- * passes jshint
- */
-(function(root){"use strict";function exec(options){if("string"===typeof options){options={url:options};}if(!options.url&&!options.text){throw new Error("must provide a url or text to load");}var head=document.getElementsByTagName("head")[0]||document.documentElement;var script=document.createElement("script");script.charset=options.charset||"utf-8";script.type=options.type||"text/javascript";script.async=!!options.async;if(options.hasOwnProperty("id")){script.id=options.id;}if(options.url){script.src=options.url;return loadScript(head,script);}else{script.text=options.text;return runScript(head,script);}}function runScript(head,script){head.appendChild(script);return Promise.resolve(script);}function loadScript(head,script){return new Promise(function(resolve){var done=false;script.onload=script.onreadystatechange=function(){if(!done&&(!this.readyState||this.readyState==="loaded"||this.readyState==="complete")){done=true;script.onload=script.onreadystatechange=null;if(head&&script.parentNode){head.removeChild(script);}resolve(script);}};head.appendChild(script);});}var promiseLoadJS=function(items){return items instanceof Array?Promise.all(items.map(exec)):exec(items);};root.promiseLoadJS=promiseLoadJS;})(globalRoot);
 /*!
  * How can I check if a JS file has been included already?
  * @see {@link https://gist.github.com/englishextra/403a0ca44fc5f495400ed0e20bc51d47}
@@ -513,7 +494,7 @@ var handleExternalLink = function (p, ev) {
 manageExternalLinks = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
-	var w = window,
+	var w = globalRoot,
 	aEL = "addEventListener",
 	cls = "a",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
@@ -675,7 +656,7 @@ var Notifier42 = function (m, n, t) {
 var initNotifier42WriteComment = function () {
 	"use strict";
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		var w = window,
+		var w = globalRoot,
 		n = "_notifier42_write_comment_",
 		m = "Напишите, что понравилось, а что нет. Регистрироваться не нужно.",
 		p = parseLink(w.location.href).origin,
@@ -705,7 +686,7 @@ document.ready().then(initNotifier42WriteComment);
 var initTablesort = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
-	var w = window,
+	var w = globalRoot,
 	cls = "table.sort",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	g = function (e) {
@@ -740,18 +721,9 @@ var initTablesort = function (ctx) {
 },
 loadInitTablesort = function () {
 	"use strict";
-	var w = window,
-	js = "../../cdn/tablesort/4.0.1/js/tablesort.fixed.min.js";
-	if (w.XMLHttpRequest || w.ActiveXObject) {
-		if (w.Promise) {
-			promiseLoadJS(js).then(initTablesort.bind(null, ""));
-		} else {
-			ajaxLoadTriggerJS(js, initTablesort.bind(null, ""));
-		}
-	} else {
-		if (!scriptIsLoaded(js)) {
-			loadJS(js, initTablesort.bind(null, ""));
-		}
+	var js = "../../cdn/tablesort/4.0.1/js/tablesort.fixed.min.js";
+	if (!scriptIsLoaded(js)) {
+		loadJS(js, initTablesort.bind(null, ""));
 	}
 };
 document.ready().then(loadInitTablesort);
@@ -762,7 +734,7 @@ var handleImgLightboxLink = function (_this, ev) {
 	"use strict";
 	ev.stopPropagation();
 	ev.preventDefault();
-	var w = window,
+	var w = globalRoot,
 	ilc = "img-lightbox-container",
 	c = BALA.one("." + ilc) || "",
 	m = BALA.one("img", c) || "",
@@ -850,7 +822,7 @@ handleImgLightboxContainer = function () {
 },
 handleImgLightboxWindow = function (ev) {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	rEL = "removeEventListener";
 	w[rEL]("keyup", handleImgLightboxWindow);
 	if (27 === (ev.which || ev.keyCode)) {
@@ -860,7 +832,7 @@ handleImgLightboxWindow = function (ev) {
 manageImgLightboxLinks = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
-	var w = window,
+	var w = globalRoot,
 	b = BALA.one("body") || "",
 	cls = ".img-lightbox-link",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
@@ -910,7 +882,7 @@ document.ready().then(manageImgLightboxLinks.bind(null, ""));
 var manageDataSrcImages = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
-	var w = window,
+	var w = globalRoot,
 	cls = "img[data-src]",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	is_active = "is-active",
@@ -981,7 +953,7 @@ document.ready().then(manageDataSrcImages.bind(null, ""));
 var manageDataSrcIframes = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
-	var w = window,
+	var w = globalRoot,
 	cls = "iframe[data-src]",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	is_active = "is-active",
@@ -1146,7 +1118,7 @@ var handleExpandingLayers = function (_this) {
 manageExpandingLayers = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
-	var w = window,
+	var w = globalRoot,
 	cls = ".btn-expand-hidden-layer",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	aEL = "addEventListener",
@@ -1177,7 +1149,7 @@ document.ready().then(manageExpandingLayers.bind(null, ""));
  */
 var generateLocationQrCodeImg = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	d = document,
 	holder = ".holder-location-qr-code",
 	c = BALA.one(holder) || "",
@@ -1222,7 +1194,7 @@ var generateLocationQrCodeImg = function () {
 },
 manageLocationQrCodeImage = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	holder = ".holder-location-qr-code",
 	c = BALA.one(holder) || "",
 	aEL = "addEventListener",
@@ -1249,7 +1221,7 @@ document.ready().then(loadManageLocationQrCodeImg);
  */
 var initNavMenu = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	container = BALA.one("#container") || "",
 	page = BALA.one("#page") || "",
 	btn = BALA.one(".btn-nav-menu") || "",
@@ -1430,7 +1402,7 @@ document.ready().then(addAppUpdatesLink);
  */
 var initMenuMore = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	container = BALA.one("#container") || "",
 	holder = BALA.one(".holder-panel-menu-more") || "",
 	btn = BALA.one(".btn-menu-more") || "",
@@ -1489,7 +1461,7 @@ document.ready().then(initMenuMore);
  */
 var initUiTotop = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	b = BALA.one("body") || "",
 	h = BALA.one("html") || "",
 	u = "ui-totop",
@@ -1674,7 +1646,7 @@ document.ready().then(loadInitDownloadAppBtn);
  */
 var initDisqusOnScroll = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	c = BALA.one("#disqus_thread") || "",
 	is_active = "is-active",
 	btn = BALA.one(".btn-show-disqus") || "",
@@ -1736,7 +1708,7 @@ document.ready().then(initDisqusOnScroll);
  */
 var manageVKLikeButton = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	vk_like = "vk-like",
 	c = BALA.one("#" + vk_like) || "",
 	a = BALA.one(".btn-show-vk-like") || "",
@@ -1796,7 +1768,7 @@ document.ready().then(manageVKLikeButton);
  */
 var initKamilAutocomplete = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	d = document,
 	gEBI = "getElementById",
 	search_form = BALA.one(".search-form") || "",
@@ -1956,18 +1928,9 @@ var initKamilAutocomplete = function () {
 },
 loadInitKamilAutocomplete = function () {
 	"use strict";
-	var w = window,
-	js = "../../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
-	if (w.XMLHttpRequest || w.ActiveXObject) {
-		if (w.Promise) {
-			promiseLoadJS(js).then(initKamilAutocomplete);
-		} else {
-			ajaxLoadTriggerJS(js, initKamilAutocomplete);
-		}
-	} else {
-		if (!scriptIsLoaded(js)) {
-			loadJS(js, initKamilAutocomplete);
-		}
+	var js = "../../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
+	if (!scriptIsLoaded(js)) {
+		loadJS(js, initKamilAutocomplete);
 	}
 };
 document.ready().then(loadInitKamilAutocomplete);
@@ -1976,7 +1939,7 @@ document.ready().then(loadInitKamilAutocomplete);
  */
 var initSearchForm = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	h = BALA.one("html") || "",
 	search_form = BALA.one(".search-form") || "",
 	ya_site_form = BALA.one(".ya-site-form.ya-site-form_inited_no") || "",

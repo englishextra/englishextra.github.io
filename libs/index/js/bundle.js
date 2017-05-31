@@ -328,7 +328,7 @@ var handleExternalLink = function (p, ev) {
 manageExternalLinks = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
-	var w = window,
+	var w = globalRoot,
 	aEL = "addEventListener",
 	cls = "a",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
@@ -367,7 +367,7 @@ document.ready().then(manageExternalLinks.bind(null, ""));
  */
 var generateLocationQrCodeImg = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	d = document,
 	holder = ".holder-location-qr-code",
 	c = BALA.one(holder) || "",
@@ -412,7 +412,7 @@ var generateLocationQrCodeImg = function () {
 },
 manageLocationQrCodeImage = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	holder = ".holder-location-qr-code",
 	c = BALA.one(holder) || "",
 	aEL = "addEventListener",
@@ -439,7 +439,7 @@ document.ready().then(loadManageLocationQrCodeImg);
  */
 var initNavMenu = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	container = BALA.one("#container") || "",
 	page = BALA.one("#page") || "",
 	btn = BALA.one(".btn-nav-menu") || "",
@@ -620,7 +620,7 @@ document.ready().then(addAppUpdatesLink);
  */
 var initMenuMore = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	container = BALA.one("#container") || "",
 	holder = BALA.one(".holder-panel-menu-more") || "",
 	btn = BALA.one(".btn-menu-more") || "",
@@ -729,7 +729,7 @@ document.ready().then(initPlusoYaShare);
  */
 var manageVKLikeButton = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	vk_like = "vk-like",
 	c = BALA.one("#" + vk_like) || "",
 	a = BALA.one(".btn-show-vk-like") || "",

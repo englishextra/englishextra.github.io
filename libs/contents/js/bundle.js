@@ -174,25 +174,6 @@ if (document.title) {
  */
 (function(document,promise){document.ready=promise;})(globalRoot.document,function(chainVal){"use strict";var d=document,w=globalRoot,loaded=(/^loaded|^i|^c/).test(d.readyState),DOMContentLoaded="DOMContentLoaded",load="load";return new Promise(function(resolve){if(loaded)return resolve(chainVal);function onReady(){resolve(chainVal);d.removeEventListener(DOMContentLoaded,onReady);w.removeEventListener(load,onReady);}d.addEventListener(DOMContentLoaded,onReady);w.addEventListener(load,onReady);});});
 /*!
- * Promise based script loader for the browser using script tags
- * @see {@link https://github.com/MiguelCastillo/load-js}
- * type: defaults to text/javascript
- * async: defaults to false
- * charset: defaults to utf-8
- * id: no default value
- * url: required if no text is provided
- * text: required if no url is provided
- * promiseLoadJS(["https://code.jquery.com/jquery-2.2.1.js",
- * "https://unpkg.com/react@15.3.1/dist/react.min.js"])
- * .then(function(){console.log("jQuery and react are loaded");});
- * promiseLoadJS([{async:true,url:"https://code.jquery.com/jquery-2.2.1.js"},
- * {async:true,url:"https://unpkg.com/react@15.3.1/dist/react.min.js"}])
- * .then(()=>{/* console.log("all done!");});
- * @see {@link https://gist.github.com/pranksinatra/a4e57e586249dc3833e4}
- * passes jshint
- */
-(function(root){"use strict";function exec(options){if("string"===typeof options){options={url:options};}if(!options.url&&!options.text){throw new Error("must provide a url or text to load");}var head=document.getElementsByTagName("head")[0]||document.documentElement;var script=document.createElement("script");script.charset=options.charset||"utf-8";script.type=options.type||"text/javascript";script.async=!!options.async;if(options.hasOwnProperty("id")){script.id=options.id;}if(options.url){script.src=options.url;return loadScript(head,script);}else{script.text=options.text;return runScript(head,script);}}function runScript(head,script){head.appendChild(script);return Promise.resolve(script);}function loadScript(head,script){return new Promise(function(resolve){var done=false;script.onload=script.onreadystatechange=function(){if(!done&&(!this.readyState||this.readyState==="loaded"||this.readyState==="complete")){done=true;script.onload=script.onreadystatechange=null;if(head&&script.parentNode){head.removeChild(script);}resolve(script);}};head.appendChild(script);});}var promiseLoadJS=function(items){return items instanceof Array?Promise.all(items.map(exec)):exec(items);};root.promiseLoadJS=promiseLoadJS;})(globalRoot);
-/*!
  * How can I check if a JS file has been included already?
  * @see {@link https://gist.github.com/englishextra/403a0ca44fc5f495400ed0e20bc51d47}
  * @see {@link https://stackoverflow.com/questions/18155347/how-can-i-check-if-a-js-file-has-been-included-already}
@@ -442,7 +423,7 @@ var handleExternalLink = function (p, ev) {
 manageExternalLinks = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
-	var w = window,
+	var w = globalRoot,
 	aEL = "addEventListener",
 	cls = "a",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
@@ -485,7 +466,7 @@ document.ready().then(manageExternalLinks.bind(null, ""));
  */
 var initMasonryDisqus = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	disqus_thread = BALA.one("#disqus_thread") || "",
 	is_active = "is-active",
 	ds = "dataset",
@@ -640,20 +621,11 @@ var initMasonryDisqus = function () {
 },
 loadInitMasonryDisqus = function () {
 	"use strict";
-	var w = window,
-	/* js = "../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
-	/* js = "../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js"; */
-	js = "../cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
-	if (w.XMLHttpRequest || w.ActiveXObject) {
-		if (w.Promise) {
-			promiseLoadJS(js).then(initMasonryDisqus);
-		} else {
-			ajaxLoadTriggerJS(js, initMasonryDisqus);
-		}
-	} else {
-		if (!scriptIsLoaded(js)) {
-			loadJS(js, initMasonryDisqus);
-		}
+	/* var js = "../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
+	/* var js = "../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js"; */
+	var js = "../cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
+	if (!scriptIsLoaded(js)) {
+		loadJS(js, initMasonryDisqus);
 	}
 };
 document.ready().then(loadInitMasonryDisqus);
@@ -677,7 +649,7 @@ var handleContentsSelect = function (_this) {
 manageContentsSelect = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
-	var w = window,
+	var w = globalRoot,
 	d = document,
 	cls = "#contents-select",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
@@ -765,7 +737,7 @@ document.ready().then(manageSearchInput);
  */
 var generateLocationQrCodeImg = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	d = document,
 	holder = ".holder-location-qr-code",
 	c = BALA.one(holder) || "",
@@ -810,7 +782,7 @@ var generateLocationQrCodeImg = function () {
 },
 manageLocationQrCodeImage = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	holder = ".holder-location-qr-code",
 	c = BALA.one(holder) || "",
 	aEL = "addEventListener",
@@ -837,7 +809,7 @@ document.ready().then(loadManageLocationQrCodeImg);
  */
 var initNavMenu = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	container = BALA.one("#container") || "",
 	page = BALA.one("#page") || "",
 	btn = BALA.one(".btn-nav-menu") || "",
@@ -1018,7 +990,7 @@ document.ready().then(addAppUpdatesLink);
  */
 var initMenuMore = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	container = BALA.one("#container") || "",
 	holder = BALA.one(".holder-panel-menu-more") || "",
 	btn = BALA.one(".btn-menu-more") || "",
@@ -1077,7 +1049,7 @@ document.ready().then(initMenuMore);
  */
 var initUiTotop = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	b = BALA.one("body") || "",
 	h = BALA.one("html") || "",
 	u = "ui-totop",
@@ -1175,7 +1147,7 @@ document.ready().then(initPlusoYaShare);
  */
 var manageVKLikeButton = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	vk_like = "vk-like",
 	c = BALA.one("#" + vk_like) || "",
 	a = BALA.one(".btn-show-vk-like") || "",
@@ -1235,7 +1207,7 @@ document.ready().then(manageVKLikeButton);
  */
 var initKamilAutocomplete = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	d = document,
 	gEBI = "getElementById",
 	search_form = BALA.one(".search-form") || "",
@@ -1395,18 +1367,9 @@ var initKamilAutocomplete = function () {
 },
 loadInitKamilAutocomplete = function () {
 	"use strict";
-	var w = window,
-	js = "../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
-	if (w.XMLHttpRequest || w.ActiveXObject) {
-		if (w.Promise) {
-			promiseLoadJS(js).then(initKamilAutocomplete);
-		} else {
-			ajaxLoadTriggerJS(js, initKamilAutocomplete);
-		}
-	} else {
-		if (!scriptIsLoaded(js)) {
-			loadJS(js, initKamilAutocomplete);
-		}
+	var js = "../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
+	if (!scriptIsLoaded(js)) {
+		loadJS(js, initKamilAutocomplete);
 	}
 };
 document.ready().then(loadInitKamilAutocomplete);
@@ -1415,7 +1378,7 @@ document.ready().then(loadInitKamilAutocomplete);
  */
 var initSearchForm = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	h = BALA.one("html") || "",
 	search_form = BALA.one(".search-form") || "",
 	ya_site_form = BALA.one(".ya-site-form.ya-site-form_inited_no") || "",

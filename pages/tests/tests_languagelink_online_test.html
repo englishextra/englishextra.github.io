@@ -132,16 +132,28 @@
 			if((/^(localhost|127.0.0.1)/).test(window.location.hostname||"")){loadCSS("../../libs/paper/css/bundle.css");}else{loadCSS("../../libs/paper/css/bundle.min.css");}
 		</script>
 		<script>
-				;(function(){var a=document.createElement("div");a.innerHTML="\x3c!--[if lt IE 9]><i></i><![endif]--\x3e";if(1==a.getElementsByTagName("i").length){loadJS("../../cdn/es5-shim/4.5.9/js/es5-shim.fixed.min.js");}})();
-				if(!window.requestAnimationFrame){loadJS("../../cdn/paulirish/js/rAF.fixed.min.js");}
-				if(!window.matchMedia){loadJS("../../cdn/paulirish/js/matchMedia.fixed.min.js");}
-				if("undefined"===typeof window.Element&&!("dataset"in document.documentElement)){loadJS("../../cdn/polyfills/0.1/js/dataset.fixed.min.js");}
-				if("undefined"===typeof window.Element&&!("classList"in document.documentElement)){if(navigator.userAgent.match(/Trident\/7\./)){loadJS("../../cdn/classlist-polyfill/1.1.20150312/js/classList.fixed.min.js");}}
-				if(!window.Promise){loadJS("../../cdn/promise-polyfill/2.0.2/js/promise.fixed.min.js");}
-				if(!window.fetch){loadJS("../../cdn/fetch/1.0.0/js/fetch.fixed.min.js");}
-				if(!self.WeakMap){loadJS("../../cdn/weakmap-polyfill/2.0.0/js/weakmap-polyfill.fixed.min.js");}
-				if(!self.MutationObserver){loadJS("../../cdn/webcomponentsjs/0.7.22/MutationObserver/js/MutationObserver.fixed.min.js");}
-				if(!("undefined"!==typeof window.localStorage&&"undefined"!==typeof window.sessionStorage)){loadJS("../../cdn/polyfills/0.1/js/Storage.fixed.min.js");}
+				if (!window.requestAnimationFrame
+					 || !window.matchMedia
+					 || ("undefined" === typeof window.Element && !("dataset" in document.documentElement))
+					 || !("classList" in document.createElement("_"))
+					 || document.createElementNS && !("classList" in document.createElementNS("http://www.w3.org/2000/svg", "g"))
+					/* ||!document.importNode */
+					/* ||!("content"in document.createElement("template")) */
+					 || (window.attachEvent && !window.addEventListener)
+					 || !("onhashchange" in window)
+					 || !Array.prototype.indexOf
+					 || !window.Promise
+					 || !window.fetch
+					 || !document.querySelectorAll
+					 || !document.querySelector
+					 || !Function.prototype.bind
+					 || (Object.defineProperty && Object.getOwnPropertyDescriptor && Object.getOwnPropertyDescriptor(Element.prototype, "textContent") && !Object.getOwnPropertyDescriptor(Element.prototype, "textContent").get)
+					 || !("undefined" !== typeof window.localStorage && "undefined" !== typeof window.sessionStorage)
+					 || !self.WeakMap
+					 || !self.MutationObserver
+					 ) {
+					if((/^(localhost|127.0.0.1)/).test(window.location.hostname||"")){loadJS("../../cdn/polyfills/js/polyfills.js");}else{loadJS("../../cdn/polyfills/js/polyfills.min.js");}
+				}
 		</script>
 		<script>
 				if((/^(localhost|127.0.0.1)/).test(window.location.hostname||"")){loadJS("../../libs/paper/js/bundle.js");}else{loadJS("../../libs/paper/js/bundle.min.js");}

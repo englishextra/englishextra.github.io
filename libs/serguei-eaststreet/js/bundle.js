@@ -118,7 +118,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
  * @see {@link https://github.com/js-cookie/js-cookie/blob/master/src/js.cookie.js}
  * passes jshint
  */
-(function(){"use strict";var Cookies=function(){function extend(){var i=0;var result={};for(;i<arguments.length;i++){var attributes=arguments[i];for(var key in attributes){if(attributes.hasOwnProperty(key)){result[key]=attributes[key];}}}return result;}function init(converter){var api=function(key,value,attributes){var _this=this;var result;if(typeof document==='undefined'){return;}if(arguments.length>1){attributes=extend({path:'/'},api.defaults,attributes);if(typeof attributes.expires==='number'){var expires=new Date();expires.setMilliseconds(expires.getMilliseconds()+attributes.expires*864e+5);attributes.expires=expires;}try{result=JSON.stringify(value);if(/^[\{\[]/.test(result)){value=result;}}catch(e){}if(!converter.write){value=encodeURIComponent(String(value)).replace(/%(23|24|26|2B|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g,decodeURIComponent);}else{value=converter.write(value,key);}key=encodeURIComponent(String(key));key=key.replace(/%(23|24|26|2B|5E|60|7C)/g,decodeURIComponent);key=key.replace(/[\(\)]/g,escape);var ret=(document.cookie=[key,'=',value,attributes.expires?'; expires='+attributes.expires.toUTCString():'',attributes.path?'; path='+attributes.path:'',attributes.domain?'; domain='+attributes.domain:'',attributes.secure?'; secure':''].join(''));return ret;}if(!key){result={};}var cookies=document.cookie?document.cookie.split('; '):[];var rdecode=/(%[0-9A-Z]{2})+/g;var i=0;for(;i<cookies.length;i++){var parts=cookies[i].split('=');var cookie=parts.slice(1).join('=');if(cookie.charAt(0)==='"'){cookie=cookie.slice(1,-1);}try{var name=parts[0].replace(rdecode,decodeURIComponent);cookie=converter.read?converter.read(cookie,name):converter(cookie,name)||cookie.replace(rdecode,decodeURIComponent);if(_this.json){try{cookie=JSON.parse(cookie);}catch(e){}}if(key===name){result=cookie;break;}if(!key){result[name]=cookie;}}catch(e){}}return result;};api.set=api;api.get=function(key){return api.call(api,key);};api.getJSON=function(){return api.apply({json:true},[].slice.call(arguments));};api.defaults={};api.remove=function(key,attributes){api(key,'',extend(attributes,{expires:-1}));};api.withConverter=init;return api;}return init(function(){});}();(globalRoot).Cookies=Cookies;}());
+(function(root){"use strict";var Cookies=function(){function extend(){var i=0;var result={};for(;i<arguments.length;i++){var attributes=arguments[i];for(var key in attributes){if(attributes.hasOwnProperty(key)){result[key]=attributes[key];}}}return result;}function init(converter){var api=function(key,value,attributes){var _this=this;var result;if(typeof document==='undefined'){return;}if(arguments.length>1){attributes=extend({path:'/'},api.defaults,attributes);if(typeof attributes.expires==='number'){var expires=new Date();expires.setMilliseconds(expires.getMilliseconds()+attributes.expires*864e+5);attributes.expires=expires;}try{result=JSON.stringify(value);if(/^[\{\[]/.test(result)){value=result;}}catch(e){}if(!converter.write){value=encodeURIComponent(String(value)).replace(/%(23|24|26|2B|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g,decodeURIComponent);}else{value=converter.write(value,key);}key=encodeURIComponent(String(key));key=key.replace(/%(23|24|26|2B|5E|60|7C)/g,decodeURIComponent);key=key.replace(/[\(\)]/g,escape);var ret=(document.cookie=[key,'=',value,attributes.expires?'; expires='+attributes.expires.toUTCString():'',attributes.path?'; path='+attributes.path:'',attributes.domain?'; domain='+attributes.domain:'',attributes.secure?'; secure':''].join(''));return ret;}if(!key){result={};}var cookies=document.cookie?document.cookie.split('; '):[];var rdecode=/(%[0-9A-Z]{2})+/g;var i=0;for(;i<cookies.length;i++){var parts=cookies[i].split('=');var cookie=parts.slice(1).join('=');if(cookie.charAt(0)==='"'){cookie=cookie.slice(1,-1);}try{var name=parts[0].replace(rdecode,decodeURIComponent);cookie=converter.read?converter.read(cookie,name):converter(cookie,name)||cookie.replace(rdecode,decodeURIComponent);if(_this.json){try{cookie=JSON.parse(cookie);}catch(e){}}if(key===name){result=cookie;break;}if(!key){result[name]=cookie;}}catch(e){}}return result;};api.set=api;api.get=function(key){return api.call(api,key);};api.getJSON=function(){return api.apply({json:true},[].slice.call(arguments));};api.defaults={};api.remove=function(key,attributes){api(key,'',extend(attributes,{expires:-1}));};api.withConverter=init;return api;}return init(function(){});}();root.Cookies=Cookies;})(globalRoot);
 /*!
  * modified verge 1.9.1+201402130803
  * @see {@link https://github.com/ryanve/verge}
@@ -267,25 +267,6 @@ if (document.title) {
  * insertExternalHTML(selector,url,callback,onerror)
  */
 (function(root){"use strict";var insertExternalHTML=function(id,url,callback,onerror){var d=document,b=d.body||"",gEBI="getElementById",cN="cloneNode",aC="appendChild",pN="parentNode",iH="innerHTML",rC="replaceChild",cR="createRange",cCF="createContextualFragment",cDF="createDocumentFragment",container=d[gEBI](id.replace(/^#/,""))||"",cb=function(){return callback&&"function"===typeof callback&&callback();},arrange=function(frag){try{var clonedContainer=container[cN](!1);if(d[cR]){var rg=d[cR]();rg.selectNode(b);var df=rg[cCF](frag);clonedContainer[aC](df);return container[pN]?container[pN][rC](clonedContainer,container):container[iH]=frag,cb();}else{clonedContainer[iH]=frag;return container[pN]?container[pN][rC](d[cDF][aC](clonedContainer),container):container[iH]=frag,cb();}}catch(e){console.log(e);}return!1;},init=function(){if(root.Promise&&root.fetch&&!("undefined"!==typeof root&&root.process&&"renderer"===root.process.type)){fetch(url).then(function(response){if(!response.ok){if(onerror&&"function"===typeof onerror){onerror();}else{throw new Error(response.statusText);}}return response;}).then(function(response){return response.text();}).then(function(text){arrange(text);}).catch(function(err){console.log("Error fetch-ing file "+url,err);});}else{var x=root.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");x.overrideMimeType("text/html;charset=utf-8");x.open("GET",url,!0);x.withCredentials=!1;x.onreadystatechange=function(){if(x.status=="404"){console.log("Error XMLHttpRequest-ing file",x.status);return onerror&&"function"===typeof onerror&&onerror();}else if(x.readyState==4&&x.status==200&&x.responseText){arrange(x.responseText);}};x.send(null);}};if(container){init();}};root.insertExternalHTML=insertExternalHTML;})(globalRoot);
-/*!
- * Promise based script loader for the browser using script tags
- * @see {@link https://github.com/MiguelCastillo/load-js}
- * type: defaults to text/javascript
- * async: defaults to false
- * charset: defaults to utf-8
- * id: no default value
- * url: required if no text is provided
- * text: required if no url is provided
- * promiseLoadJS(["https://code.jquery.com/jquery-2.2.1.js",
- * "https://unpkg.com/react@15.3.1/dist/react.min.js"])
- * .then(function(){console.log("jQuery and react are loaded");});
- * promiseLoadJS([{async:true,url:"https://code.jquery.com/jquery-2.2.1.js"},
- * {async:true,url:"https://unpkg.com/react@15.3.1/dist/react.min.js"}])
- * .then(()=>{/* console.log("all done!");});
- * @see {@link https://gist.github.com/pranksinatra/a4e57e586249dc3833e4}
- * passes jshint
- */
-(function(root){"use strict";function exec(options){if("string"===typeof options){options={url:options};}if(!options.url&&!options.text){throw new Error("must provide a url or text to load");}var head=document.getElementsByTagName("head")[0]||document.documentElement;var script=document.createElement("script");script.charset=options.charset||"utf-8";script.type=options.type||"text/javascript";script.async=!!options.async;if(options.hasOwnProperty("id")){script.id=options.id;}if(options.url){script.src=options.url;return loadScript(head,script);}else{script.text=options.text;return runScript(head,script);}}function runScript(head,script){head.appendChild(script);return Promise.resolve(script);}function loadScript(head,script){return new Promise(function(resolve){var done=false;script.onload=script.onreadystatechange=function(){if(!done&&(!this.readyState||this.readyState==="loaded"||this.readyState==="complete")){done=true;script.onload=script.onreadystatechange=null;if(head&&script.parentNode){head.removeChild(script);}resolve(script);}};head.appendChild(script);});}var promiseLoadJS=function(items){return items instanceof Array?Promise.all(items.map(exec)):exec(items);};root.promiseLoadJS=promiseLoadJS;})(globalRoot);
 /*!
  * How can I check if a JS file has been included already?
  * @see {@link https://gist.github.com/englishextra/403a0ca44fc5f495400ed0e20bc51d47}
@@ -651,7 +632,7 @@ var notiBar = function (opt) {
 var initNotibarMsg = function () {
 	"use strict";
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		var w = window,
+		var w = globalRoot,
 		n = "_notibar_dismiss_",
 		m = "Напишите мне, отвечу очень скоро. Регистрироваться не нужно.",
 		p = parseLink(w.location.href).origin,
@@ -766,7 +747,7 @@ var Notifier42 = function (m, n, t) {
 var initNotifier42WriteMe = function () {
 	"use strict";
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		var w = window,
+		var w = globalRoot,
 		n = "_notifier42_write_me_",
 		m = "Напишите мне, отвечу очень скоро. Регистрироваться не нужно.",
 		p = parseLink(w.location.href).origin,
@@ -797,7 +778,7 @@ var initNotifier42WriteMe = function () {
  */
 var initSidepanel = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	b = BALA.one("body") || "",
 	btn = ".btn-toggle-ui-sidepanel",
 	e = BALA.one(btn) || "",
@@ -883,7 +864,7 @@ document.ready().then(initSidepanel);
  */
 var highlightSidepanelItem = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	c = BALA.one(".ui-sidepanel-list") || "",
 	a = BALA("a", c) || "",
 	is_active = "is-active",
@@ -919,7 +900,7 @@ globalRoot.addEventListener("hashchange", highlightSidepanelItem);
  */
 var initMenumore = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	btn = ".btn-toggle-ui-menumore",
 	e = BALA.one(btn) || "",
 	page = ".page",
@@ -1016,7 +997,7 @@ var handleExternalLink = function (p, ev) {
 manageExternalLinks = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
-	var w = window,
+	var w = globalRoot,
 	aEL = "addEventListener",
 	cls = "a",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
@@ -1055,7 +1036,7 @@ document.ready().then(manageExternalLinks.bind(null, ""));
 var manageDataTargetLinks = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
-	var w = window,
+	var w = globalRoot,
 	cls = "[data-target]",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	ds = "dataset",
@@ -1099,7 +1080,7 @@ var handleImgLightboxLink = function (_this, ev) {
 	"use strict";
 	ev.stopPropagation();
 	ev.preventDefault();
-	var w = window,
+	var w = globalRoot,
 	ilc = "img-lightbox-container",
 	c = BALA.one("." + ilc) || "",
 	m = BALA.one("img", c) || "",
@@ -1187,7 +1168,7 @@ handleImgLightboxContainer = function () {
 },
 handleImgLightboxWindow = function (ev) {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	rEL = "removeEventListener";
 	w[rEL]("keyup", handleImgLightboxWindow);
 	if (27 === (ev.which || ev.keyCode)) {
@@ -1197,7 +1178,7 @@ handleImgLightboxWindow = function (ev) {
 manageImgLightboxLinks = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
-	var w = window,
+	var w = globalRoot,
 	b = BALA.one("body") || "",
 	cls = ".img-lightbox-link",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
@@ -1246,7 +1227,7 @@ manageImgLightboxLinks = function (ctx) {
 var manageDataSrcImages = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
-	var w = window,
+	var w = globalRoot,
 	cls = "img[data-src]",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	is_active = "is-active",
@@ -1316,7 +1297,7 @@ var manageDataSrcImages = function (ctx) {
 var manageDataQrcodeImg = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
-	var w = window,
+	var w = globalRoot,
 	cls = "img[data-qrcode]",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	ds = "dataset",
@@ -1450,7 +1431,7 @@ var handleExpandingLayers = function (_this) {
 manageExpandingLayers = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
-	var w = window,
+	var w = globalRoot,
 	cls = ".btn-expand-hidden-layer",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	aEL = "addEventListener",
@@ -1490,7 +1471,7 @@ var hideDebugGrid = function () {
 },
 showDebugGridMesage = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	b = BALA.one("body") || "",
 	page = BALA.one(".page") || "",
 	container = BALA.one(".container") || "",
@@ -1514,7 +1495,7 @@ showDebugGridMesage = function () {
 },
 manageDebugGridButton = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	c = BALA.one(".container") || "",
 	btn = ".btn-toggle-col-debug",
 	e = BALA.one(btn) || "",
@@ -1550,7 +1531,7 @@ document.ready().then(manageDebugGridButton);
  */
 var generateLocationQrCodeImg = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	d = document,
 	holder = ".holder-location-qr-code",
 	c = BALA.one(holder) || "",
@@ -1595,7 +1576,7 @@ var generateLocationQrCodeImg = function () {
 },
 manageLocationQrCodeImage = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	btn = ".btn-toggle-holder-location-qr-code",
 	e = BALA.one(btn) || "",
 	page = ".page",
@@ -1715,7 +1696,7 @@ document.ready().then(manageShareButton);
  */
 var manageVKLikeButton = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	btn = ".btn-toggle-holder-vk-like",
 	e = BALA.one(btn) || "",
 	page = ".page",
@@ -1776,7 +1757,7 @@ document.ready().then(manageVKLikeButton);
  */
 var loadRefreshDisqus = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	c = BALA.one("#disqus_thread") || "",
 	is_active = "is-active",
 	btn = BALA.one(".btn-show-disqus") || "",
@@ -1949,7 +1930,7 @@ manageYandexMapButton = function (a) {
  */
 var initKamilAutocomplete = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	d = document,
 	gEBI = "getElementById",
 	search_form = BALA.one(".search-form") || "",
@@ -2109,18 +2090,9 @@ var initKamilAutocomplete = function () {
 },
 loadInitKamilAutocomplete = function () {
 	"use strict";
-	var w = window,
-	js = "../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
-	if (w.XMLHttpRequest || w.ActiveXObject) {
-		if (w.Promise) {
-			promiseLoadJS(js).then(initKamilAutocomplete);
-		} else {
-			ajaxLoadTriggerJS(js, initKamilAutocomplete);
-		}
-	} else {
-		if (!scriptIsLoaded(js)) {
-			loadJS(js, initKamilAutocomplete);
-		}
+	var js = "../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
+	if (!scriptIsLoaded(js)) {
+		loadJS(js, initKamilAutocomplete);
 	}
 };
 document.ready().then(loadInitKamilAutocomplete);
@@ -2129,7 +2101,7 @@ document.ready().then(loadInitKamilAutocomplete);
  */
 var initUiTotop = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	b = BALA.one("body") || "",
 	h = BALA.one("html") || "",
 	u = "ui-totop",
@@ -2345,7 +2317,7 @@ document.ready().then(initRoutie);
 var observeMutations = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
-	var w = window;
+	var w = globalRoot;
 	if (ctx) {
 		var g = function (e) {
 			var f = function (m) {
@@ -2386,7 +2358,7 @@ var observeMutations = function (ctx) {
  */
 var updateInsertedDom = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	h = w.location.hash || "",
 	pN = "parentNode",
 	ctx = BALA.one("#app-content")[pN] || "";

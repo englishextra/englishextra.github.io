@@ -268,7 +268,7 @@ var handleExternalLink = function (p, ev) {
 manageExternalLinks = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
-	var w = window,
+	var w = globalRoot,
 	cls = "a",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	g = function (e) {
@@ -305,7 +305,7 @@ document.ready().then(manageExternalLinks.bind(null, ""));
  */
 var initNavMenu = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	container = BALA.one("#container") || "",
 	page = BALA.one("#page") || "",
 	btn = BALA.one(".btn-nav-menu") || "",
@@ -435,7 +435,7 @@ document.ready().then(initNavMenu);
  */
 var initUiTotop = function () {
 	"use strict";
-	var w = window,
+	var w = globalRoot,
 	b = BALA.one("body") || "",
 	h = BALA.one("html") || "",
 	u = "ui-totop",
