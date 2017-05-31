@@ -4,6 +4,10 @@
 /* var globalRoot = "object" === typeof window && window || "object" === typeof self && self || "object" === typeof global && global || {}; */
 var globalRoot = "undefined" !== typeof window ? window : this;
 /*!
+ * is Electron, that has proplems with fetch
+ */
+var isElectron = "undefined" !== typeof globalRoot && globalRoot.process && "renderer" === globalRoot.process.type || "";
+/*!
  * safe way to handle console.log
  * @see {@link https://github.com/paulmillr/console-polyfill}
  */
@@ -279,6 +283,7 @@ manageExternalLinks = function (ctx) {
 	var w = globalRoot,
 	cls = "a",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	aEL = "addEventListener",
 	g = function (e) {
 		var p = e.getAttribute("href") || "";
 		if (p && parseLink(p).isCrossDomain && parseLink(p).hasHTTP) {

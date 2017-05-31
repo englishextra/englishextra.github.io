@@ -8,19 +8,21 @@
  */
 .kamil-autocomplete {
 	display: none;
+	max-height: 15.000rem;
 	position: absolute;
 	list-style: none;
-	text-align: left;
-	margin: 0;
-	padding: 0;
-	background-color: $LeftNavBarLight;
-	outline: none;
-	color: inherit;
-	box-sizing: border-box;
 	font-size: 0.875em;
+	text-align: left;
+	overflow-y: auto;
+	color: inherit;
+	background-color: $LeftNavBarLight;
 	border: 0.063rem solid $AccentColor;
-	box-shadow: 0.125rem 0.125rem 0.125rem 0 $color-rgba-ui-bar-shadow;
 	border-radius: 0;
+	box-sizing: border-box;
+	box-shadow: 0.125rem 0.125rem 0.125rem 0 $color-rgba-ui-bar-shadow;
+	outline: none;
+	padding: 0;
+	margin: 0;
 }
 .kamil-autocomplete li {
 	font-weight: 400;

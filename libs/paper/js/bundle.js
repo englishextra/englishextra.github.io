@@ -4,6 +4,10 @@
 /* var globalRoot = "object" === typeof window && window || "object" === typeof self && self || "object" === typeof global && global || {}; */
 var globalRoot = "undefined" !== typeof window ? window : this;
 /*!
+ * is Electron, that has proplems with fetch
+ */
+var isElectron = "undefined" !== typeof globalRoot && globalRoot.process && "renderer" === globalRoot.process.type || "";
+/*!
  * safe way to handle console.log
  * @see {@link https://github.com/paulmillr/console-polyfill}
  */
@@ -1197,7 +1201,6 @@ manageLocationQrCodeImage = function () {
 	var w = globalRoot,
 	holder = ".holder-location-qr-code",
 	c = BALA.one(holder) || "",
-	aEL = "addEventListener",
 	u = w.location.href || "";
 	if (c && u) {
 		/* console.log("triggered function: manageLocationQrCodeImage"); */
@@ -1358,13 +1361,13 @@ var addAppUpdatesLink = function () {
 	aEL = "addEventListener",
 	p;
 	if (/Windows/i.test(s) && /(WOW64|Win64)/i.test(s)) {
-		p = "https://englishextraapp.codeplex.com/downloads/get/1539373";
+		p = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-app-win32-x64-setup.exe";
 	} else if (/(x86_64|x86-64|x64;|amd64|AMD64|x64_64)/i.test(s) && /(Linux|X11)/i.test(s)) {
-		p = "https://englishextraapp.codeplex.com/downloads/get/1540156";
+		p = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-app-linux-x64.tar.gz";
 	} else if (/IEMobile/i.test(s)) {
-		p = "https://englishextraapp.codeplex.com/downloads/get/1536102";
+		p = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra_app.Windows10_1.0.0.0_x86_debug.appx";
 	} else if (/Android/i.test(s)) {
-		p = "https://englishextraapp.codeplex.com/downloads/get/1528911";
+		p = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra_app-debug.apk";
 	} else {
 		p = "";
 	}
@@ -1573,16 +1576,16 @@ var initDownloadAppBtn = function (n) {
 	p;
 	if (/Windows/i.test(s) && /(WOW64|Win64)/i.test(s)) {
 		m = "url(../../libs/products/img/download_windows_app_144x52.png)";
-		p = "https://englishextraapp.codeplex.com/downloads/get/1539373";
+		p = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-app-win32-x64-setup.exe";
 	} else if (/(x86_64|x86-64|x64;|amd64|AMD64|x64_64)/i.test(s) && /(Linux|X11)/i.test(s)) {
 		m = "url(../../libs/products/img/download_linux_app_144x52.png)";
-		p = "https://englishextraapp.codeplex.com/downloads/get/1540156";
+		p = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-app-linux-x64.tar.gz";
 	} else if (/IEMobile/i.test(s)) {
 		m = "url(../../libs/products/img/download_wp_app_144x52.png)";
-		p = "https://englishextraapp.codeplex.com/downloads/get/1536102";
+		p = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra_app.Windows10_1.0.0.0_x86_debug.appx";
 	} else if (/Android/i.test(s)) {
 		m = "url(../../libs/products/img/download_android_app_144x52.png)";
-		p = "https://englishextraapp.codeplex.com/downloads/get/1528911";
+		p = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra_app-debug.apk";
 	} else {
 		m = "";
 		p = "";

@@ -4,6 +4,10 @@
 /* var globalRoot = "object" === typeof window && window || "object" === typeof self && self || "object" === typeof global && global || {}; */
 var globalRoot = "undefined" !== typeof window ? window : this;
 /*!
+ * is Electron, that has proplems with fetch
+ */
+var isElectron = "undefined" !== typeof globalRoot && globalRoot.process && "renderer" === globalRoot.process.type || "";
+/*!
  * safe way to handle console.log
  * @see {@link https://github.com/paulmillr/console-polyfill}
  */
@@ -602,7 +606,6 @@ manageLocationQrCodeImage = function () {
 	var w = globalRoot,
 	holder = ".holder-location-qr-code",
 	c = BALA.one(holder) || "",
-	aEL = "addEventListener",
 	u = w.location.href || "";
 	if (c && u) {
 		/* console.log("triggered function: manageLocationQrCodeImage"); */
