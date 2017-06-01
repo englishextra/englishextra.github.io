@@ -1,0 +1,78 @@
+{
+  "name": "englishextra",
+  "short_name": "englishextra",
+  "manifest_version": 2,
+  "icons": [{
+    "src": "/favicon-16x16.png",
+    "sizes": "16x16",
+    "type": "image/png"
+  },
+  {
+    "src": "/favicon-32x32.png",
+    "sizes": "32x32",
+    "type": "image/png"
+  },
+  {
+    "src": "/favicon-96x96.png",
+    "sizes": "96x96",
+    "type": "image/png"
+  },
+  {
+    "src": "/icon.png",
+    "sizes": "128x128",
+    "type": "image/png"
+  },
+  {
+    "src": "/apple-touch-icon-144x144.png",
+    "sizes": "144x144",
+    "type": "image/png"
+  },
+  {
+    "src": "/mstile-150x150.png",
+    "sizes": "150x150",
+    "type": "image/png",
+    "density": 1.8
+  },
+  {
+    "src": "/apple-touch-icon.png",
+    "sizes": "180x180",
+    "type": "image/png"
+  },
+  {
+    "src": "/mstile-310x150.png",
+    "sizes": "310x150",
+    "type": "image/png",
+    "density": 1.8
+  },
+  {
+    "src": "/android-chrome-192x192.png",
+    "sizes": "192x192",
+    "type": "image/png"
+  },
+  {
+    "src": "/android-chrome-512x512.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }],
+  "scope": "/",
+  "mjs_access_whitelist": [{
+    "url": "https://englishextra.github.io/"
+  }],
+  "start_url": "https://englishextra.github.io/",
+  "display": "standalone",
+  "orientation": "landscape",
+  "theme_color": "#d54848",
+  "background_color": "#d54848",
+  "related_applications": [{
+    "platform": "web"
+  },
+  {
+    "platform": "android",
+    "location": "https://build.phonegap.com/apps/1824701/share"
+  },
+  {
+    "platform": "windowsphone",
+    "location": "https://build.phonegap.com/apps/1824701/share"
+  }],
+  "prefer_related_applications": "false"
+}

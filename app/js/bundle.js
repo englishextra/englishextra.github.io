@@ -315,6 +315,19 @@ var globalRoot = "undefined" !== typeof window ? window : this;
  */
 (function(root){"use strict";var scriptIsLoaded=function(s){for(var b=document.getElementsByTagName("script")||"",a=0;a<b.length;a++)if(b[a].getAttribute("src")==s)return!0;return!1;};root.scriptIsLoaded=scriptIsLoaded;})(globalRoot);
 /*!
+ * Load and execute JS via AJAX
+ * @see {@link https://gist.github.com/englishextra/8dc9fe7b6ff8bdf5f9b483bf772b9e1c}
+ * IE 5.5+, Firefox, Opera, Chrome, Safari XHR object
+ * @see {@link https://gist.github.com/Xeoncross/7663273}
+ * modified callback(x.responseText,x); to callback(eval(x.responseText),x);
+ * @see {@link https://stackoverflow.com/questions/3728798/running-javascript-downloaded-with-xmlhttprequest}
+ * @param {String} url path string
+ * @param {Object} [callback] callback function
+ * @param {Object} [onerror] on error callback function
+ * ajaxLoadTriggerJS(url,callback,onerror)
+ */
+(function(root){"use strict";var ajaxLoadTriggerJS=function(url,callback,onerror){var w=window,x=w.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");x.overrideMimeType("application/javascript;charset=utf-8");x.open("GET",url,!0);x.withCredentials=!1;x.onreadystatechange=function(){if(x.status=="404"){console.log("Error XMLHttpRequest-ing file "+url,x.status);return onerror&&"function"===typeof onerror&&onerror();}else if(x.readyState==4&&x.status==200&&x.responseText){try{var Fn=Function;new Fn(""+x.responseText).call(root);}catch(err){throw new Error("Error evaluating file "+url,err);}if(callback&&"function"===typeof callback){callback(x.responseText);}}};x.send(null);};root.ajaxLoadTriggerJS=ajaxLoadTriggerJS;})(globalRoot);
+/*!
  * Load .json file, but don't JSON.parse it
  * modified JSON with JS.md
  * @see {@link https://gist.github.com/thiagodebastos/08ea551b97892d585f17}
@@ -2497,6 +2510,18 @@ var initUiTotop = function () {
 	}
 };
 document.ready().then(initUiTotop);
+/*!
+ * init manUP.js
+ */
+var initManUp = function () {
+	/* console.log("triggered function: initManUp"); */
+},
+loadInitManUp = function () {
+	if ("undefined" !== typeof getHTTP && getHTTP()) {
+		ajaxLoadTriggerJS("/cdn/ManUp.js/0.7/js/manup.fixed.min.js", initManUp);
+	}
+};
+document.ready().then(loadInitManUp);
 /*!
  * show page, finish ToProgress
  */

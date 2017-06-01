@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:ror="http://rorweb.com/0.1/" >
+	<channel>
+		<title>ROR Sitemap for https://englishextra.github.io/</title>
+		<link>https://englishextra.github.io/</link>
+		<item>
+			<link>https://englishextra.github.io/</link>
+			<title>Английский без регистрации</title>
+			<description>Английский без регистрации</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>0</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/contents.html</link>
+			<title>Содержание</title>
+			<description>Содержание</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>1</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/aids/aids_most_commonly_used_idioms.html</link>
+			<title>Пособия - Most Commonly Used Idioms</title>
+			<description>Пособия - Most Commonly Used Idioms</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/aids/aids_teaching_pronunciation.html</link>
+			<title>Пособия - Teaching Pronunciation</title>
+			<description>Пособия - Teaching Pronunciation</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/aids/aids_topics.html</link>
+			<title>Пособия - Топики на английском</title>
+			<description>Пособия - Топики на английском</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>1</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/articles/articles_reading_rules_utf.html</link>
+			<title>Статьи - Правила чтения</title>
+			<description>Статьи - Правила чтения в английском языке</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>1</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/grammar/grammar_usage_of_articles_a_the.html</link>
+			<title>Грамматика - Артикли a / an и the</title>
+			<description>Грамматика - Артикли a / an и the</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>1</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/grammar/grammar_usage_of_tenses.html</link>
+			<title>Грамматика - Употребление времен</title>
+			<description>Грамматика - Употребление английских времен</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>1</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/grammar/grammar_phrasal_verbs.html</link>
+			<title>Грамматика - Фразовые глаголы</title>
+			<description>Грамматика - Фразовые глаголы</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>1</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/grammar/grammar_ex_former.html</link>
+			<title>Грамматика - «Ex-» и «former», или Осторожно: морпехи</title>
+			<description>Грамматика - «Ex-» и «former», или Осторожно: морпехи</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/grammar/grammar_grammar_girl_s_quick_and_dirty_grammar_at_a_glance.html</link>
+			<title>Грамматика - Quick and Dirty Grammar</title>
+			<description>Грамматика - Quick and Dirty Grammar</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/grammar/grammar_all_whole_entire.html</link>
+			<title>Грамматика - All / the whole / the entire</title>
+			<description>Грамматика - All / the whole / the entire</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/grammar/grammar_alone_by_myself_and_on_my_own.html</link>
+			<title>Грамматика - Alone / by myself / on my own</title>
+			<description>Грамматика - Alone / by myself / on my own</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/grammar/grammar_attributes_order.html</link>
+			<title>Грамматика - Порядок определений</title>
+			<description>Грамматика - Порядок определений</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/grammar/grammar_can_could_be_able_to.html</link>
+			<title>Грамматика - Can / could / be able to</title>
+			<description>Грамматика - Can / could / be able to</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/grammar/grammar_capital_letters.html</link>
+			<title>Грамматика - С большой или с маленькой</title>
+			<description>Грамматика - С большой или с маленькой</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/grammar/grammar_comma_before_who_which_that.html</link>
+			<title>Грамматика - Who / which / that и запятые</title>
+			<description>Грамматика - Who / which / that и запятые</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/grammar/grammar_common_and_proper_nouns.html</link>
+			<title>Грамматика - Нарицательное / собственное</title>
+			<description>Грамматика - Нарицательное / собственное</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/grammar/grammar_conditionals.html</link>
+			<title>Грамматика - Согласование времен</title>
+			<description>Грамматика - Согласование времен</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/grammar/grammar_degrees_of_comparison.html</link>
+			<title>Грамматика - Степени сравнения</title>
+			<description>Грамматика - Степени сравнения</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/grammar/grammar_foreign_words.html</link>
+			<title>Грамматика - Заимствованные слова</title>
+			<description>Грамматика - Заимствованные слова</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/grammar/grammar_glossary_of_grammatical_terms.html</link>
+			<title>Грамматика - Glossary of Grammatical Terms</title>
+			<description>Грамматика - Glossary of Grammatical Terms</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/grammar/grammar_in_at_on.html</link>
+			<title>Грамматика - In / at / on</title>
+			<description>Грамматика - In / at / on</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/grammar/grammar_in_hospital_at_work.html</link>
+			<title>Грамматика - In hospital / at work etc.</title>
+			<description>Грамматика - In hospital / at work etc.</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/grammar/grammar_may_might_be_allowed_to.html</link>
+			<title>Грамматика - May / might / be allowed to</title>
+			<description>Грамматика - May / might / be allowed to</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/grammar/grammar_modal_verbs.html</link>
+			<title>Грамматика - Модальные глаголы</title>
+			<description>Грамматика - Модальные глаголы</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/grammar/grammar_much_many_little_few.html</link>
+			<title>Грамматика - Much / many / little / few</title>
+			<description>Грамматика - Much / many / little / few</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/grammar/grammar_or_nor_neither.html</link>
+			<title>Грамматика - Or / nor / neither</title>
+			<description>Грамматика - Or / nor / neither</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/grammar/grammar_reported_speech.html</link>
+			<title>Грамматика - Косвенная речь</title>
+			<description>Грамматика - Косвенная речь</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/grammar/grammar_saying_numbers.html</link>
+			<title>Грамматика - Числа по-английски</title>
+			<description>Грамматика - Числа по-английски</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/grammar/grammar_stative_and_action_verbs.html</link>
+			<title>Грамматика - Неконтиниусные глаголы</title>
+			<description>Грамматика - Неконтиниусные глаголы</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/grammar/grammar_the_listing_comma.html</link>
+			<title>Грамматика - Серийная запятая</title>
+			<description>Грамматика - Серийная запятая</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/grammar/grammar_to_me_for_me.html</link>
+			<title>Грамматика - To me / for me, или Надуманная проблема</title>
+			<description>Грамматика - To me / for me, или Надуманная проблема</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/grammar/grammar_too_enough_so_such.html</link>
+			<title>Грамматика - Too / enough и so / such</title>
+			<description>Грамматика - Too / enough и so / such</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/grammar/grammar_translating_participles.html</link>
+			<title>Грамматика - Перевод причастий и деепричастий</title>
+			<description>Грамматика - Перевод причастий и деепричастий</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/grammar/grammar_usage_of_hyphens.html</link>
+			<title>Грамматика - Расстановка дефисов</title>
+			<description>Грамматика - Расстановка дефисов</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/grammar/grammar_when_must_means_probably.html</link>
+			<title>Грамматика - Когда must = «должно быть»</title>
+			<description>Грамматика - Когда must = «должно быть»</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/grammar/grammar_word_order.html</link>
+			<title>Грамматика - Порядок слов в предложении</title>
+			<description>Грамматика - Порядок слов в предложении</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/more/more_irregular_verbs.html</link>
+			<title>Еще! - Неправильные глаголы</title>
+			<description>Еще! - Неправильные глаголы</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/more/more_newsletter_can_get_english_for_free.html</link>
+			<title>Еще! - Бесплатный английский в сети</title>
+			<description>Еще! - Бесплатный английский в сети</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/more/more_products.html</link>
+			<title>Еще! - Скачать e-book, приложение, заставку</title>
+			<description>Еще! - Скачать e-book, приложение, заставку</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/reading/reading_country_language_person_capital.html</link>
+			<title>Чтение - Country, Language, People, Person, Capital</title>
+			<description>Чтение - Country, Language, People, Person, Capital</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/reading/reading_russia_ukraine_war_conflict_vocabulary.html</link>
+			<title>Чтение - Russia-Ukraine War Conflict</title>
+			<description>Чтение - Russia-Ukraine War Conflict</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/reading/reading_the_man_with_the_scar.html</link>
+			<title>Чтение - The Man with the Scar</title>
+			<description>Чтение - The Man with the Scar</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/tests/tests_advanced_grammar_in_use_level_test.html</link>
+			<title>Тесты - Advanced Grammar in Use Level Test</title>
+			<description>Тесты - Advanced Grammar in Use Level Test</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/tests/tests_english_grammar_in_use_level_test.html</link>
+			<title>Тесты - English Grammar in Use Level Test</title>
+			<description>Тесты - English Grammar in Use Level Test</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/tests/tests_essential_grammar_in_use_level_test.html</link>
+			<title>Тесты - Essential Grammar in Use Level Test</title>
+			<description>Тесты - Essential Grammar in Use Level Test</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/tests/tests_ege_english_test_sample.html</link>
+			<title>Тесты - Демо-вариант ЕГЭ-11 АЯ (ПЧ)</title>
+			<description>Тесты - Демо-вариант ЕГЭ-11 АЯ (ПЧ)</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/tests/tests_ege_english_test_sample_speaking.html</link>
+			<title>Тесты - Демо-вариант ЕГЭ-11 АЯ (УЧ)</title>
+			<description>Тесты - Демо-вариант ЕГЭ-11 АЯ (УЧ)</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/tests/tests_gia_english_test_sample.html</link>
+			<title>Тесты - Демо-вариант ГИА-9 (ОГЭ) АЯ (ПЧ)</title>
+			<description>Тесты - Демо-вариант ГИА-9 (ОГЭ) АЯ (ПЧ)</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/tests/tests_gia_english_test_sample_speaking.html</link>
+			<title>Тесты - Демо-вариант ГИА-9 (ОГЭ) АЯ (УЧ)</title>
+			<description>Тесты - Демо-вариант ГИА-9 (ОГЭ) АЯ (УЧ)</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/tests/tests_languagelink_online_test.html</link>
+			<title>Тесты - Уровневый тест</title>
+			<description>Тесты - Уровневый тест</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/tests/tests_macmillan_practice_tests_for_the_russian_state_exam_2nd_test_20.html</link>
+			<title>Тесты - Macmillan Practice Tests. Test 20</title>
+			<description>Тесты - Macmillan Practice Tests. Test 20</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/tests/tests_macmillan_practice_tests_for_the_russian_state_exam_keys.html</link>
+			<title>Тесты - Ответы к Macmillan Practice Tests (1-е изд.)</title>
+			<description>Тесты - Ответы к Macmillan Practice Tests (1-е изд.)</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/tests/tests_macmillan_practice_tests_for_the_russian_state_exam_keys_2nd.html</link>
+			<title>Тесты - Ответы к Macmillan Practice Tests (2-е изд.)</title>
+			<description>Тесты - Ответы к Macmillan Practice Tests (2-е изд.)</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/tests/tests_common_mistakes_test_advanced.html</link>
+			<title>Тесты - Common Mistakes Test Advanced</title>
+			<description>Тесты - Common Mistakes Test Advanced</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/tests/tests_english_allrussian_olympiad_regional_stage_2013.html</link>
+			<title>Тесты - XIV Олимпиада по английскому</title>
+			<description>Тесты - XIV Олимпиада по английскому</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/tests/tests_previous_ege_analysis.html</link>
+			<title>Тесты - ЕГЭ 2015: разбор ошибок</title>
+			<description>Тесты - ЕГЭ 2015: разбор ошибок</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/transcripts/transcripts_episode_all_train_compartments_smell_vaguely_of_shit.html</link>
+			<title>Транскрипты - All train compartments smell vaguely of shit</title>
+			<description>Транскрипты - All train compartments smell vaguely of shit</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/transcripts/transcripts_episode_cousins_question_mark.html</link>
+			<title>Транскрипты - Cousins?</title>
+			<description>Транскрипты - Cousins?</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/transcripts/transcripts_episode_stop_swinging_the_bat.html</link>
+			<title>Транскрипты - Stop swinging the bat</title>
+			<description>Транскрипты - Stop swinging the bat</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/transcripts/transcripts_linguaspectrum_essential_british_english_expressions.html</link>
+			<title>Транскрипты - Essential British English Expressions</title>
+			<description>Транскрипты - Essential British English Expressions</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/transcripts/transcripts_linguaspectrum_spell.html</link>
+			<title>Транскрипты - 44 Most Often Misspelled Words</title>
+			<description>Транскрипты - 44 Most Often Misspelled Words</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/transcripts/transcripts_video_vocab_transcripts.html</link>
+			<title>Транскрипты - English Vocabulary for Business</title>
+			<description>Транскрипты - English Vocabulary for Business</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/tests/tests_grammar_tests_with_answers.html</link>
+			<title>Тесты - Тесты по грамматике</title>
+			<description>Тесты - Тесты по грамматике английского</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>1</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/tests/tests_gia_ege_letter_sample.html</link>
+			<title>Тесты - ГИА / ЕГЭ: Задания 33, 39, 40</title>
+			<description>Тесты - ГИА / ЕГЭ: Задания 33, 39, 40</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>1</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/tests/tests_ege_essay_sample.html</link>
+			<title>Тесты - ЕГЭ: Задание 40</title>
+			<description>Тесты - ЕГЭ: Задание 40</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>1</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/webdev/webdev_about.html</link>
+			<title>О сайте «Английский без регистрации»</title>
+			<description>О сайте «Английский без регистрации»</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>1</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/pages/webdev/webdev_brief_for_website.html</link>
+			<title>Портфолио Сергея Шиманского - Бриф на сайт</title>
+			<description>Портфолио Сергея Шиманского - Бриф на сайт</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>3</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/portfolio/index.html</link>
+			<title>Портфолио Сергея Шиманского</title>
+			<description>Портфолио Сергея Шиманского</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/portfolio/pictures.html</link>
+			<title>Портфолио Сергея Шиманского</title>
+			<description>Портфолио Сергея Шиманского</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+		<item>
+			<link>https://englishextra.github.io/serguei/index.html</link>
+			<title>Репетитор английского в Тушино</title>
+			<description>Репетитор английского в Тушино</description>
+			<ror:updatePeriod>weekly</ror:updatePeriod>
+			<ror:sortOrder>2</ror:sortOrder>
+			<ror:resourceOf>sitemap</ror:resourceOf>
+		</item>
+	</channel>
+</rss>

@@ -848,6 +848,56 @@ u,
 }
 
 /*!
+ * home page specific
+ */
+ 
+.home-holder {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: $TitleBarAndAppBarDark;
+	background-image: url(../img/home-1920x1080.jpg);
+	background-size: cover;
+	background-position: center;
+}
+
+.home-holder .home-header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 0;
+}
+
+.home-holder .home-title {
+	font-size: 1.802rem;
+	line-height: 2.887rem;
+	font-weight: 400;
+	text-align: center;
+	white-space: nowrap;
+	overflow: hidden;
+	color: $color-hex-body-text;
+	background-color: rgba(216,53,68,0.8);
+	padding: 0.933rem;
+	margin: 0;
+}
+
+.home-holder .home-caption {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	font-size: 0.867rem;
+	line-height: 0.867rem;
+	text-align: center;
+	white-space: nowrap;
+	overflow: hidden;
+	color: #FFFFFF;
+	padding: 0.533rem;
+	margin: 0;
+}
+
+/*!
  * display font sizes
  * line height multiple 20 pixels except normal
  */

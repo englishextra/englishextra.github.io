@@ -12,9 +12,9 @@
   "email": "englishextra@mail.ru",
   "url": "https://github.com/englishextra/englishextra.github.io/issues",
   "main_file": "index.js",
-  "electronVersion": "1.4.15",
+  "electronVersion": "1.6.10",
   "dependencies": {
-    "electron": "^1.4.15",
+    "electron": "^1.6.10",
     "electron-packager": "^8.5.1"
   },
   "devDependencies": {
@@ -43,10 +43,8 @@
   },
   "xo": {
     "esnext": true,
-    "envs": [
-      "node",
-      "browser"
-    ]
+    "envs": ["node",
+    "browser"]
   },
   "main": "index.html",
   "window": {
@@ -63,25 +61,19 @@
     "plugin": true
   },
   "babel": {
-    "presets": [
-      "es2015"
-    ],
-    "plugins": [
-      "transform-es2015-arrow-functions"
-    ]
+    "presets": ["es2015"],
+    "plugins": ["transform-es2015-arrow-functions"]
   },
   "_aerobatic": {
     "clientConfigVar": "_global",
     "omitClientConfigVar": false,
-    "router": [
-      {
-        "module": "webpage",
-        "options": {
-          "pushState": false,
-          "canonicalRedirects": false
-        }
+    "router": [{
+      "module": "webpage",
+      "options": {
+        "pushState": false,
+        "canonicalRedirects": false
       }
-    ]
+    }]
   },
   "maintainers": {
     "name": "Serguei Shimansky",
