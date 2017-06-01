@@ -4,10 +4,6 @@
 /* var globalRoot = "object" === typeof window && window || "object" === typeof self && self || "object" === typeof global && global || {}; */
 var globalRoot = "undefined" !== typeof window ? window : this;
 /*!
- * is Electron, that has proplems with fetch
- */
-var isElectron = "undefined" !== typeof globalRoot && globalRoot.process && "renderer" === globalRoot.process.type || "";
-/*!
  * safe way to handle console.log
  * @see {@link https://github.com/paulmillr/console-polyfill}
  */
@@ -466,6 +462,28 @@ var changeLocation=function(a){return function(){if(a){document.location.href=a;
  */
 (function(root){"use strict";var getHTTP=function(type){return function(force){force=force||"";return"http:"===type?"http":"https:"===type?"https":force?"http":"";};}(root.location.protocol||"");root.getHTTP=getHTTP;})(globalRoot);
 /*!
+ * Open external links in default browser out of Electron / nwjs
+ * @see {@link https://gist.github.com/englishextra/b9a8140e1c1b8aa01772375aeacbf49b}
+ * @see {@link https://stackoverflow.com/questions/32402327/how-can-i-force-external-links-from-browser-window-to-open-in-a-default-browser}
+ * @see {@link https://github.com/nwjs/nw.js/wiki/shell}
+ * electron - file: | nwjs - chrome-extension: | http: Intel XDK
+ * wont do in electron and nw,
+ * so manageExternalLinks will set target blank to links
+ * var win = w.open(url, "_blank");
+ * win.focus();
+ * @param {String} url URL/path string
+ * openDeviceBrowser(url)
+ * detect Node.js
+ * @see {@link https://github.com/lyrictenor/node-is-nwjs/blob/master/is-nodejs.js}
+ * @returns {Boolean} true or false
+ * detect Electron
+ * @returns {Boolean} true or false
+ * detect NW.js
+ * @see {@link https://github.com/lyrictenor/node-is-nwjs/blob/master/index.js}
+ * @returns {Boolean} true or false
+ */
+(function(root){"use strict";var isNodejs="undefined"!==typeof process&&"undefined"!==typeof require||"",isElectron="undefined"!==typeof window&&window.process&&"renderer"===window.process.type||"",isNwjs=function(){if("undefined"!==typeof isNodejs&&isNodejs){try{if("undefined"!==typeof require("nw.gui")){return!0;}}catch(e){return!1;}}return!1;}(),openDeviceBrowser=function(url){var triggerForElectron=function(){var es=isElectron?require("electron").shell:"";return es?es.openExternal(url):"";},triggerForNwjs=function(){var ns=isNwjs?require("nw.gui").Shell:"";return ns?ns.openExternal(url):"";},triggerForHTTP=function(){return!0;},triggerForLocal=function(){return root.open(url,"_system","scrollbars=1,location=no");};if(isElectron){triggerForElectron();}else if(isNwjs){triggerForNwjs();}else{var locationProtocol=root.location.protocol||"",hasHTTP=locationProtocol?"http:"===locationProtocol?"http":"https:"===locationProtocol?"https":"":"";if(hasHTTP){triggerForHTTP();}else{triggerForLocal();}}};root.openDeviceBrowser=openDeviceBrowser;})(globalRoot);
+/*!
  * init ToProgress and extend methods
  */
 var progressBar = new ToProgress({
@@ -756,7 +774,7 @@ var initNotifier42WriteMe = function () {
 		m = "Напишите мне, отвечу очень скоро. Регистрироваться не нужно.",
 		p = parseLink(w.location.href).origin,
 		g = function () {
-			var ntfr = new Notifier42(crel("a", {
+			Notifier42(crel("a", {
 						/* jshint -W107 */
 						"href": "javascript:void(0);",
 						/* jshint +W107 */
@@ -776,7 +794,7 @@ var initNotifier42WriteMe = function () {
 		}
 	}
 };
-/* document.ready().then(initNotifier42WriteMe); */
+document.ready().then(initNotifier42WriteMe);
 /*!
  * init sidepanel btn
  */
@@ -965,28 +983,6 @@ var initMenumore = function () {
 	}
 };
 document.ready().then(initMenumore);
-/*!
- * Open external links in default browser out of Electron / nwjs
- * @see {@link https://gist.github.com/englishextra/b9a8140e1c1b8aa01772375aeacbf49b}
- * @see {@link https://stackoverflow.com/questions/32402327/how-can-i-force-external-links-from-browser-window-to-open-in-a-default-browser}
- * @see {@link https://github.com/nwjs/nw.js/wiki/shell}
- * electron - file: | nwjs - chrome-extension: | http: Intel XDK
- * wont do in electron and nw,
- * so manageExternalLinks will set target blank to links
- * var win = w.open(url, "_blank");
- * win.focus();
- * @param {String} url URL/path string
- * openDeviceBrowser(url)
- * detect Node.js
- * @see {@link https://github.com/lyrictenor/node-is-nwjs/blob/master/is-nodejs.js}
- * @returns {Boolean} true or false
- * detect Electron
- * @returns {Boolean} true or false
- * detect NW.js
- * @see {@link https://github.com/lyrictenor/node-is-nwjs/blob/master/index.js}
- * @returns {Boolean} true or false
- */
-(function(root){"use strict";var isNodejs="undefined"!==typeof process&&"undefined"!==typeof require||"",isElectron="undefined"!==typeof window&&window.process&&"renderer"===window.process.type||"",isNwjs=function(){if("undefined"!==typeof isNodejs&&isNodejs){try{if("undefined"!==typeof require("nw.gui")){return!0;}}catch(e){return!1;}}return!1;}(),openDeviceBrowser=function(url){var triggerForElectron=function(){var es=isElectron?require("electron").shell:"";return es?es.openExternal(url):"";},triggerForNwjs=function(){var ns=isNwjs?require("nw.gui").Shell:"";return ns?ns.openExternal(url):"";},triggerForHTTP=function(){return!0;},triggerForLocal=function(){return root.open(url,"_system","scrollbars=1,location=no");};if(isElectron){triggerForElectron();}else if(isNwjs){triggerForNwjs();}else{var locationProtocol=root.location.protocol||"",hasHTTP=locationProtocol?"http:"===locationProtocol?"http":"https:"===locationProtocol?"https":"":"";if(hasHTTP){triggerForHTTP();}else{triggerForLocal();}}};root.openDeviceBrowser=openDeviceBrowser;})(globalRoot);
 /*!
  * set click event on external links,
  * so that they open in new browser tab
@@ -2318,7 +2314,7 @@ document.ready().then(initRoutie);
  * bind functions only for inserted DOM
  * @param {String} ctx HTML Element class or id string
  */
-var observeMutations = function (ctx) {
+/* var observeMutations = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
 	var w = globalRoot;
@@ -2351,7 +2347,7 @@ var observeMutations = function (ctx) {
 			characterData: !1
 		});
 	}
-};
+}; */
 /*!
  * apply changes to inserted DOM
  * because replace child is used in the first place
@@ -2360,18 +2356,18 @@ var observeMutations = function (ctx) {
  * the parent node should be observed, not the target
  * node for the insertion
  */
-var updateInsertedDom = function () {
+/* var updateInsertedDom = function () {
 	"use strict";
 	var w = globalRoot,
 	h = w.location.hash || "",
 	pN = "parentNode",
 	ctx = BALA.one("#app-content")[pN] || "";
 	if (ctx && h) {
-		/* console.log("triggered function: updateInsertedDom"); */
+		console.log("triggered function: updateInsertedDom");
 		observeMutations(ctx);
 	}
 };
-/* globalRoot.addEventListener("hashchange", updateInsertedDom); */
+globalRoot.addEventListener("hashchange", updateInsertedDom); */
 /*!
  * init manUP.js
  */

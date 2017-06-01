@@ -2323,19 +2323,21 @@ body {
 
 .kamil-autocomplete {
 	display: none;
+	max-height: 15.000rem;
 	position: absolute;
 	list-style: none;
-	text-align: left;
-	margin: 0;
-	padding: 0;
-	background-color: #F2F2F2;
-	outline: none;
-	color: inherit;
-	box-sizing: border-box;
 	font-size: 0.875em;
+	text-align: left;
+	overflow-y: auto;
+	color: inherit;
+	background-color: #F2F2F2;
 	border: 0.063rem solid #D83544;
-	box-shadow: 0.125rem 0.125rem 0.125rem 0 rgba(50, 50, 50, 0.3);
 	border-radius: 0;
+	box-sizing: border-box;
+	box-shadow: 0.125rem 0.125rem 0.125rem 0 rgba(50, 50, 50, 0.3);
+	outline: none;
+	padding: 0;
+	margin: 0;
 }
 
 .kamil-autocomplete li {

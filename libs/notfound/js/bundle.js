@@ -4,10 +4,6 @@
 /* var globalRoot = "object" === typeof window && window || "object" === typeof self && self || "object" === typeof global && global || {}; */
 var globalRoot = "undefined" !== typeof window ? window : this;
 /*!
- * is Electron, that has proplems with fetch
- */
-var isElectron = "undefined" !== typeof globalRoot && globalRoot.process && "renderer" === globalRoot.process.type || "";
-/*!
  * safe way to handle console.log
  * @see {@link https://github.com/paulmillr/console-polyfill}
  */
@@ -73,8 +69,7 @@ var isElectron = "undefined" !== typeof globalRoot && globalRoot.process && "ren
 /*!
  * append details to title
  */
-var initialDocumentTitle = document.title || "",
-userBrowsingDetails = " [" + (earlyFnGetYyyymmdd ? earlyFnGetYyyymmdd : "") + (earlyDeviceType ? " " + earlyDeviceType : "") + (earlyDeviceSize ? " " + earlyDeviceSize : "") + (earlyDeviceOrientation ? " " + earlyDeviceOrientation : "") + (earlySvgSupport ? " " + earlySvgSupport : "") + (earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") + (earlyHasTouch ? " " + earlyHasTouch : "") + "]";
+var userBrowsingDetails = " [" + (earlyFnGetYyyymmdd ? earlyFnGetYyyymmdd : "") + (earlyDeviceType ? " " + earlyDeviceType : "") + (earlyDeviceSize ? " " + earlyDeviceSize : "") + (earlyDeviceOrientation ? " " + earlyDeviceOrientation : "") + (earlySvgSupport ? " " + earlySvgSupport : "") + (earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") + (earlyHasTouch ? " " + earlyHasTouch : "") + "]";
 if (document.title) {
 	document.title = document.title + userBrowsingDetails;
 }
@@ -155,7 +150,8 @@ var initParallax = function () {
 		setStyleDisplayNone(m);
 		if (s) {
 			if (w.Parallax) {
-				var prlx = new Parallax(s);
+				var prlx;
+				prlx= new Parallax(s);
 			}
 		}
 	} else {

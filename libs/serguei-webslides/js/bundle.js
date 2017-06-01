@@ -4,10 +4,6 @@
 /* var globalRoot = "object" === typeof window && window || "object" === typeof self && self || "object" === typeof global && global || {}; */
 var globalRoot = "undefined" !== typeof window ? window : this;
 /*!
- * is Electron, that has proplems with fetch
- */
-var isElectron = "undefined" !== typeof globalRoot && globalRoot.process && "renderer" === globalRoot.process.type || "";
-/*!
  * safe way to handle console.log
  * @see {@link https://github.com/paulmillr/console-polyfill}
  */
@@ -82,8 +78,7 @@ var isElectron = "undefined" !== typeof globalRoot && globalRoot.process && "ren
 /*!
  * append details to title
  */
-var initialDocumentTitle = document.title || "",
-userBrowsingDetails = " [" + (earlyFnGetYyyymmdd ? earlyFnGetYyyymmdd : "") + (earlyDeviceType ? " " + earlyDeviceType : "") + (earlyDeviceSize ? " " + earlyDeviceSize : "") + (earlyDeviceOrientation ? " " + earlyDeviceOrientation : "") + (earlySvgSupport ? " " + earlySvgSupport : "") + (earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") + (earlyHasTouch ? " " + earlyHasTouch : "") + "]";
+var userBrowsingDetails = " [" + (earlyFnGetYyyymmdd ? earlyFnGetYyyymmdd : "") + (earlyDeviceType ? " " + earlyDeviceType : "") + (earlyDeviceSize ? " " + earlyDeviceSize : "") + (earlyDeviceOrientation ? " " + earlyDeviceOrientation : "") + (earlySvgSupport ? " " + earlySvgSupport : "") + (earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") + (earlyHasTouch ? " " + earlyHasTouch : "") + "]";
 if (document.title) {
 	document.title = document.title + userBrowsingDetails;
 }
@@ -143,6 +138,28 @@ var setStyleOpacity=function(a,n){n=n||1;return function(){if(a){a.style.opacity
  */
 (function(root){"use strict";var getHTTP=function(type){return function(force){force=force||"";return"http:"===type?"http":"https:"===type?"https":force?"http":"";};}(root.location.protocol||"");root.getHTTP=getHTTP;})(globalRoot);
 /*!
+ * Open external links in default browser out of Electron / nwjs
+ * @see {@link https://gist.github.com/englishextra/b9a8140e1c1b8aa01772375aeacbf49b}
+ * @see {@link https://stackoverflow.com/questions/32402327/how-can-i-force-external-links-from-browser-window-to-open-in-a-default-browser}
+ * @see {@link https://github.com/nwjs/nw.js/wiki/shell}
+ * electron - file: | nwjs - chrome-extension: | http: Intel XDK
+ * wont do in electron and nw,
+ * so manageExternalLinks will set target blank to links
+ * var win = w.open(url, "_blank");
+ * win.focus();
+ * @param {String} url URL/path string
+ * openDeviceBrowser(url)
+ * detect Node.js
+ * @see {@link https://github.com/lyrictenor/node-is-nwjs/blob/master/is-nodejs.js}
+ * @returns {Boolean} true or false
+ * detect Electron
+ * @returns {Boolean} true or false
+ * detect NW.js
+ * @see {@link https://github.com/lyrictenor/node-is-nwjs/blob/master/index.js}
+ * @returns {Boolean} true or false
+ */
+(function(root){"use strict";var isNodejs="undefined"!==typeof process&&"undefined"!==typeof require||"",isElectron="undefined"!==typeof window&&window.process&&"renderer"===window.process.type||"",isNwjs=function(){if("undefined"!==typeof isNodejs&&isNodejs){try{if("undefined"!==typeof require("nw.gui")){return!0;}}catch(e){return!1;}}return!1;}(),openDeviceBrowser=function(url){var triggerForElectron=function(){var es=isElectron?require("electron").shell:"";return es?es.openExternal(url):"";},triggerForNwjs=function(){var ns=isNwjs?require("nw.gui").Shell:"";return ns?ns.openExternal(url):"";},triggerForHTTP=function(){return!0;},triggerForLocal=function(){return root.open(url,"_system","scrollbars=1,location=no");};if(isElectron){triggerForElectron();}else if(isNwjs){triggerForNwjs();}else{var locationProtocol=root.location.protocol||"",hasHTTP=locationProtocol?"http:"===locationProtocol?"http":"https:"===locationProtocol?"https":"":"";if(hasHTTP){triggerForHTTP();}else{triggerForLocal();}}};root.openDeviceBrowser=openDeviceBrowser;})(globalRoot);
+/*!
  * init ToProgress and extend methods
  */
 var progressBar = new ToProgress({
@@ -169,28 +186,6 @@ progressBar.complete = function () {
 	this.hide();
 };
 progressBar.init();
-/*!
- * Open external links in default browser out of Electron / nwjs
- * @see {@link https://gist.github.com/englishextra/b9a8140e1c1b8aa01772375aeacbf49b}
- * @see {@link https://stackoverflow.com/questions/32402327/how-can-i-force-external-links-from-browser-window-to-open-in-a-default-browser}
- * @see {@link https://github.com/nwjs/nw.js/wiki/shell}
- * electron - file: | nwjs - chrome-extension: | http: Intel XDK
- * wont do in electron and nw,
- * so manageExternalLinks will set target blank to links
- * var win = w.open(url, "_blank");
- * win.focus();
- * @param {String} url URL/path string
- * openDeviceBrowser(url)
- * detect Node.js
- * @see {@link https://github.com/lyrictenor/node-is-nwjs/blob/master/is-nodejs.js}
- * @returns {Boolean} true or false
- * detect Electron
- * @returns {Boolean} true or false
- * detect NW.js
- * @see {@link https://github.com/lyrictenor/node-is-nwjs/blob/master/index.js}
- * @returns {Boolean} true or false
- */
-(function(root){"use strict";var isNodejs="undefined"!==typeof process&&"undefined"!==typeof require||"",isElectron="undefined"!==typeof window&&window.process&&"renderer"===window.process.type||"",isNwjs=function(){if("undefined"!==typeof isNodejs&&isNodejs){try{if("undefined"!==typeof require("nw.gui")){return!0;}}catch(e){return!1;}}return!1;}(),openDeviceBrowser=function(url){var triggerForElectron=function(){var es=isElectron?require("electron").shell:"";return es?es.openExternal(url):"";},triggerForNwjs=function(){var ns=isNwjs?require("nw.gui").Shell:"";return ns?ns.openExternal(url):"";},triggerForHTTP=function(){return!0;},triggerForLocal=function(){return root.open(url,"_system","scrollbars=1,location=no");};if(isElectron){triggerForElectron();}else if(isNwjs){triggerForNwjs();}else{var locationProtocol=root.location.protocol||"",hasHTTP=locationProtocol?"http:"===locationProtocol?"http":"https:"===locationProtocol?"https":"":"";if(hasHTTP){triggerForHTTP();}else{triggerForLocal();}}};root.openDeviceBrowser=openDeviceBrowser;})(globalRoot);
 /*!
  * set click event on external links,
  * so that they open in new browser tab
@@ -276,9 +271,9 @@ var initWebslides = function() {
 			$navigation = jQuery('<div>').attr('id', 'navigation'),
 			$slides = $slideshow.children('section').addClass(ID.slide),
 			$currentSlide,
-			$firstSlide = $slides.first(),
+			$firstSlide = $slides.first()/* ,
 			$lastSlide = $slides.last(),
-			$auxSlide = null;
+			$auxSlide = null */;
 			var total = $slides.length;
 			var labels = {
 				next: $slideshow.hasClass(ID.verticalClass) ? '&darr;' : '&rarr;',
@@ -444,7 +439,7 @@ var initWebslides = function() {
 			var goToSlide = function (slideNumber) {
 				// hide current slide
 				hideCurrentSlide();
-				moveToSlide = slideNumber - 1;
+				var moveToSlide = slideNumber - 1;
 				$currentSlide = $slides.eq(moveToSlide);
 				$currentSlide.show().addClass(ID.current);
 				jQuery('.slide:lt(' + $currentSlide.index() + ')').each(function () {
@@ -583,7 +578,7 @@ var initWebslides = function() {
 			});
 			jQuery(window).on("touchend", function (ev) {
 				$slideshow.data('iswheel', false);
-				var e = ev.originalEvent;
+				/* var e = ev.originalEvent; */
 				var diffX = $slideshow.data('touchXStart') - $slideshow.data('touchXEnd');
 				var diffY = $slideshow.data('touchYStart') - $slideshow.data('touchYEnd');
 				if ((!$slideshow.hasClass(ID.verticalClass) || isMobile) && Math.abs(diffX) > Math.abs(diffY)) {

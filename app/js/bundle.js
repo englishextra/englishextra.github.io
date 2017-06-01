@@ -4,10 +4,6 @@
 /* var globalRoot = "object" === typeof window && window || "object" === typeof self && self || "object" === typeof global && global || {}; */
 var globalRoot = "undefined" !== typeof window ? window : this;
 /*!
- * is Electron, that has proplems with fetch
- */
-var isElectron = "undefined" !== typeof globalRoot && globalRoot.process && "renderer" === globalRoot.process.type || "";
-/*!
  * safe way to handle console.log
  * @see {@link https://github.com/paulmillr/console-polyfill}
  */
@@ -2385,7 +2381,7 @@ document.ready().then(processPoutes);
  * bind functions only for inserted DOM
  * @param {String} ctx HTML Element class or id string
  */
-var observeMutations = function (ctx) {
+/* var observeMutations = function (ctx) {
 	"use strict";
 	ctx = ctx || "";
 	if (ctx) {
@@ -2399,9 +2395,9 @@ var observeMutations = function (ctx) {
 					mo.disconnect();
 				}
 			};
-			/* for (var i = 0, l = e.length; i < l; i += 1) {
+			for (var i = 0, l = e.length; i < l; i += 1) {
 				triggerOnMutation(e[i]);
-			} */
+			}
 			forEach(e, triggerOnMutation);
 		},
 		mo = new MutationObserver(getMutations);
@@ -2412,7 +2408,7 @@ var observeMutations = function (ctx) {
 			characterData: !1
 		});
 	}
-};
+}; */
 /*!
  * apply changes to inserted DOM
  * because replace child is used in the first place
@@ -2421,7 +2417,7 @@ var observeMutations = function (ctx) {
  * the parent node should be observed, not the target
  * node for the insertion
  */
-var updateInsertedDom = function () {
+/* var updateInsertedDom = function () {
 	"use strict";
 	var w = globalRoot,
 	d = document,
@@ -2430,11 +2426,11 @@ var updateInsertedDom = function () {
 	ctx = d[gEBI]("app-content")[pN] || "",
 	locationHash = w.location.hash || "";
 	if (ctx && locationHash) {
-		/* console.log("triggered function: updateInsertedDom"); */
+		console.log("triggered function: updateInsertedDom");
 		observeMutations(ctx);
 	}
 };
-/* globalRoot.addEventListener("hashchange", updateInsertedDom); */
+globalRoot.addEventListener("hashchange", updateInsertedDom); */
 /*!
  * init ui-totop
  */
