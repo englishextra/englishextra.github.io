@@ -696,7 +696,7 @@ var handleExternalLink = function (url, ev) {
 	ev.stopPropagation();
 	ev.preventDefault();
 	var logicHandleExternalLink = openDeviceBrowser.bind(null, url),
-	debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 500);
+	debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
 	debounceLogicHandleExternalLink();
 },
 manageExternalLinks = function (ctx) {
@@ -859,7 +859,7 @@ manageImgLightboxLinks = function (ctx) {
 				LoadingSpinner.hide();
 			}
 		},
-		debounceLogicHandleImgLightboxLink = debounce(logicHandleImgLightboxLink, 500);
+		debounceLogicHandleImgLightboxLink = debounce(logicHandleImgLightboxLink, 200);
 		debounceLogicHandleImgLightboxLink();
 	},
 	arrangeImgLightboxLink = function (e) {
@@ -1253,7 +1253,7 @@ var manageDisqusButton = function (ctx) {
 					renderDisqusThread();
 				}
 			},
-			debounceLogicHandleDisqusButton = debounce(logicHandleDisqusButton, 500);
+			debounceLogicHandleDisqusButton = debounce(logicHandleDisqusButton, 200);
 			debounceLogicHandleDisqusButton();
 		};
 		if (disqusThread && btn) {
@@ -1444,7 +1444,7 @@ var manageSearchInput = function () {
 		var logicHandleSearchInputValue = function () {
 			_this.value = _this.value.replace(/\\/g, "").replace(/ +(?= )/g, " ").replace(/\/+(?=\/)/g, "/") || "";
 		},
-		debounceLogicHandleSearchInputValue = debounce(logicHandleSearchInputValue, 500);
+		debounceLogicHandleSearchInputValue = debounce(logicHandleSearchInputValue, 200);
 		debounceLogicHandleSearchInputValue();
 	};
 	if (searchInput) {
@@ -1565,7 +1565,7 @@ var initKamilAutocomplete = function (jsonObj) {
 						itemsLength += 1;
 					}
 				},
-				debounceLogicReplaceTypo = debounce(logicReplaceTypo, 500);
+				debounceLogicReplaceTypo = debounce(logicReplaceTypo, 200);
 				debounceLogicReplaceTypo();
 				/*!
 				 * truncate text
@@ -1845,7 +1845,7 @@ var manageLocationQrCodeImage = function () {
 					handleOtherSocialButtons(holder);
 					generateLocationQrCodeImg();
 				},
-				debounceLogicHandleLocationQrCodeButton = debounce(logicHandleLocationQrCodeButton, 500);
+				debounceLogicHandleLocationQrCodeButton = debounce(logicHandleLocationQrCodeButton, 200);
 				debounceLogicHandleLocationQrCodeButton();
 			};
 			btn[aEL]("click", handleLocationQrCodeButton);
@@ -1887,7 +1887,7 @@ var manageShareButton = function () {
 						});
 					}
 				},
-				debounceLogicHandleShareButton = debounce(logicHandleShareButton, 500);
+				debounceLogicHandleShareButton = debounce(logicHandleShareButton, 200);
 				debounceLogicHandleShareButton();
 			};
 			btn[aEL]("click", handleShareButton);
@@ -1939,7 +1939,7 @@ var manageVKLikeButton = function () {
 						});
 					}
 				},
-				debounceLogicHandleVKLikeButton = debounce(logicHandleVKLikeButton, 500);
+				debounceLogicHandleVKLikeButton = debounce(logicHandleVKLikeButton, 200);
 				debounceLogicHandleVKLikeButton();
 			};
 			btn[aEL]("click", handleVKLikeButton);
