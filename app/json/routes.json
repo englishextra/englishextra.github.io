@@ -1,7 +1,7 @@
 {
   "home": {
     "url": "./pages/home.html",
-    "title": "Начало"
+    "title": ""
   },
   "notfound": {
     "url": "./pages/notfound.html",
@@ -12,7 +12,7 @@
     "next_href": "#/contents",
     "url": "./pages/home.html",
     "src": "./img/sprite-contents-banner/contents-banner-home-640x336.png",
-    "title": "Начало",
+    "title": "",
     "text": "Обычно на ней размещаются анонсы чего-нибудь новенького. Самая бесполезная страница, на которой вы побываете максимум один раз, ну или два, по ошибке."
   },
   {

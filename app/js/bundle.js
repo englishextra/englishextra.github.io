@@ -2122,9 +2122,9 @@ var processPoutes = function () {
 					scroll2Top(0, 20000);
 				} */
 				scroll2Top(0, 20000);
-				if (titleString) {
-					d.title = titleString + (initialDocumentTitle ? " - " + initialDocumentTitle : "") + userBrowsingDetails;
-				}
+				/* if (titleString) { */
+					d.title = (titleString ? titleString +  " - "  : "" ) + (initialDocumentTitle ? initialDocumentTitle + userBrowsingDetails : "");
+				/* } */
 				var locationHash = w.location.hash || "";
 				if (contentsSelect) {
 					var optionMatched = false;
@@ -2278,7 +2278,7 @@ var processPoutes = function () {
 						if (false === isNotfound) {
 							var notfoundUrl = routesParsedJson.notfound.url,
 							notfoundText = routesParsedJson.notfound.title;
-							if (notfoundUrl && notfoundText) {
+							if (notfoundUrl/*  && notfoundText */) {
 								LoadingSpinner.show();
 								insertExternalHTML(appContentId, notfoundUrl, triggerOnContentInserted.bind(null, notfoundText));
 							}
@@ -2286,7 +2286,7 @@ var processPoutes = function () {
 					} else {
 						var homeUrl = routesParsedJson.home.url,
 						homeText = routesParsedJson.home.title;
-						if (homeUrl && homeText) {
+						if (homeUrl/*  && homeText */) {
 							LoadingSpinner.show();
 							insertExternalHTML(appContentId, homeUrl, triggerOnContentInserted.bind(null, homeText));
 						}
@@ -2317,14 +2317,16 @@ var processPoutes = function () {
 						},
 						df = d[cDF](),
 						generateContentsOptions = function (e) {
-							var contentsOption = d[cE]("option");
-							contentsOption.value = e.href;
-							var contentsOptionText = e.title;
-							contentsOption.title = contentsOptionText;
-							var contentsOptionTextTruncated = truncString("" + contentsOptionText, 44);
-							contentsOption[aC](d.createTextNode(contentsOptionTextTruncated));
-							df[aC](contentsOption);
-							df[aC](d.createTextNode("\n"));
+							if (e.title) {
+								var contentsOption = d[cE]("option");
+								contentsOption.value = e.href;
+								var contentsOptionText = e.title;
+								contentsOption.title = contentsOptionText;
+								var contentsOptionTextTruncated = truncString("" + contentsOptionText, 44);
+								contentsOption[aC](d.createTextNode(contentsOptionTextTruncated));
+								df[aC](contentsOption);
+								df[aC](d.createTextNode("\n"));
+							}
 						};
 						for (var i = 0, l = routesParsedJson.hashes.length; i < l; i += 1) {
 							generateContentsOptions(routesParsedJson.hashes[i]);
@@ -2344,16 +2346,18 @@ var processPoutes = function () {
 						contentsListButtonText = contentsSelect.options[0].textContent || "",
 						df = d[cDF](),
 						generateContentsListItems = function (e) {
-							var contentsListItem = d[cE]("li"),
-							contentsListItemHref = e.href,
-							contentsListItemText = e.title;
-							contentsListItem.title = contentsListItemText;
-							contentsListItem.dataset.href = contentsListItemHref;
-							var contentsListItemTextTruncated = truncString("" + contentsListItemText, 44);
-							contentsListItem[aC](d.createTextNode(contentsListItemTextTruncated));
-							contentsListItem[aEL]("click", handleContentsListItem.bind(null, contentsList, contentsListItemHref));
-							df[aC](contentsListItem);
-							df[aC](d.createTextNode("\n"));
+							if (e.title) {
+								var contentsListItem = d[cE]("li"),
+								contentsListItemHref = e.href,
+								contentsListItemText = e.title;
+								contentsListItem.title = contentsListItemText;
+								contentsListItem.dataset.href = contentsListItemHref;
+								var contentsListItemTextTruncated = truncString("" + contentsListItemText, 44);
+								contentsListItem[aC](d.createTextNode(contentsListItemTextTruncated));
+								contentsListItem[aEL]("click", handleContentsListItem.bind(null, contentsList, contentsListItemHref));
+								df[aC](contentsListItem);
+								df[aC](d.createTextNode("\n"));
+							}
 						};
 						for (var j = 0, m = routesParsedJson.hashes.length; j < m; j += 1) {
 							generateContentsListItems(routesParsedJson.hashes[j]);
