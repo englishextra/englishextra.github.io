@@ -61,8 +61,9 @@
   "start_url": "https://englishextra.github.io/",
   "display": "standalone",
   "orientation": "landscape",
-  "theme_color": "#d54848",
-  "background_color": "#d54848",
+  "ms_TileColor": "#F03B4C",
+  "theme_color": "#F03B4C",
+  "background_color": "#F03B4C",
   "related_applications": [{
     "platform": "web"
   },

@@ -635,8 +635,8 @@ document.ready().then(loadInitMasonryDisqus);
  */
 var handleContentsSelect = function (_this) {
 	"use strict";
-	var _this = _this.target,
-	h = _this.options[_this.selectedIndex].value || "",
+	_this = _this ? _this.target : "";
+	var h = _this.options[_this.selectedIndex].value || "",
 	zh = h ? (isValidId(h, !0) ? BALA.one(h) : "") : "";
 	if (_this && h) {
 		if (zh) {
