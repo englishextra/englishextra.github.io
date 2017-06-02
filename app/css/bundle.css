@@ -4179,15 +4179,15 @@ u,
 }
 
 .home-holder .home-title {
-	font-size: 1.802rem;
-	line-height: 2.887rem;
+	font-size: 1.733rem;
+	line-height: 1.733rem;
 	font-weight: 400;
 	text-align: center;
 	white-space: nowrap;
 	overflow: hidden;
 	color: #191919;
 	background-color: rgba(216, 53, 68, 0.8);
-	padding: 0.533rem 0.800rem;
+	padding: 0.733rem 0.933rem;
 	margin: 0;
 }
 
