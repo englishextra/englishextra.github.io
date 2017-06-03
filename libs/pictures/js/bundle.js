@@ -234,9 +234,9 @@ if (document.title) {
  * @param {String} url path string
  * @param {Object} [callback] callback function
  * @param {Object} [onerror] on error callback function
- * ajaxLoadTriggerJS(url,callback,onerror)
+ * loadTriggerJS(url,callback,onerror)
  */
-(function(root){"use strict";var ajaxLoadTriggerJS=function(url,callback,onerror){var cb=function(string){return callback&&"function"===typeof callback&&callback(string);},fn=function(string){try{var Fn=Function;new Fn(""+string).call(root);}catch(err){throw new Error("Error evaluating file "+url,err);}};if(root.Promise&&root.fetch&&!("undefined"!==typeof root&&root.process&&"renderer"===root.process.type)){fetch(url).then(function(response){if(!response.ok){if(onerror&&"function"===typeof onerror){onerror();}else{throw new Error(response.statusText);}}return response;}).then(function(response){return response.text();}).then(function(text){fn(text);cb(text);}).catch(function(err){console.log("Error fetch-ing file "+url,err);});}else{var x=root.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");x.overrideMimeType("application/javascript;charset=utf-8");x.open("GET",url,!0);x.withCredentials=!1;x.onreadystatechange=function(){if(x.status=="404"){console.log("Error XMLHttpRequest-ing file "+url,x.status);return onerror&&"function"===typeof onerror&&onerror();}else if(x.readyState==4&&x.status==200&&x.responseText){fn(x.responseText);cb(x.responseText);}};x.send(null);}};root.ajaxLoadTriggerJS=ajaxLoadTriggerJS;})(globalRoot);
+(function(root){"use strict";var loadTriggerJS=function(url,callback,onerror){var cb=function(string){return callback&&"function"===typeof callback&&callback(string);},fn=function(string){try{var Fn=Function;new Fn(""+string).call(root);}catch(err){throw new Error("Error evaluating file "+url,err);}};if(root.Promise&&root.fetch&&!root.chrome&&!("undefined"!==typeof root&&root.process&&"renderer"===root.process.type)){fetch(url).then(function(response){if(!response.ok){if(onerror&&"function"===typeof onerror){onerror();}else{throw new Error(response.statusText);}}return response;}).then(function(response){return response.text();}).then(function(text){fn(text);cb(text);}).catch(function(err){console.log("Error fetch-ing file "+url,err);});}else{var x=root.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");x.overrideMimeType("application/javascript;charset=utf-8");x.open("GET",url,!0);x.withCredentials=!1;x.onreadystatechange=function(){if(x.status=="404"||x.status==0){console.log("Error XMLHttpRequest-ing file "+url,x.status);return onerror&&"function"===typeof onerror&&onerror();}else if(x.readyState==4&&x.status==200&&x.responseText){fn(x.responseText);cb(x.responseText);}};x.send(null);}};root.loadTriggerJS=loadTriggerJS;})(globalRoot);
 /*!
  * remove all children of parent element
  * @see {@link https://gist.github.com/englishextra/da26bf39bc90fd29435e8ae0b409ddc3}
@@ -792,7 +792,7 @@ var initPhotoswipe = function () {
 			s();
 			pswp(c);
 		};
-		ajaxLoadTriggerJS(photoswipe_js_src, f); */
+		loadTriggerJS(photoswipe_js_src, f); */
 		s();
 		pswp(c);
 	};
@@ -1306,7 +1306,7 @@ var initManUp = function () {
 },
 loadInitManUp = function () {
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		ajaxLoadTriggerJS("/cdn/ManUp.js/0.7/js/manup.fixed.min.js", initManUp);
+		loadTriggerJS("/cdn/ManUp.js/0.7/js/manup.fixed.min.js", initManUp);
 	}
 };
 document.ready().then(loadInitManUp);

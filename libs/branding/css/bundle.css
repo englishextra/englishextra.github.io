@@ -3416,6 +3416,8 @@ u,
 	border-width: 0.063rem;
 	-webkit-transition: width 0.2s linear;
 	transition: width 0.2s linear;
+	-webkit-transition-delay: 0.2s;
+	transition-delay: 0.2s;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	padding-top: 0.500rem;

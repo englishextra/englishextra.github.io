@@ -63,17 +63,5 @@
   "orientation": "landscape",
   "ms_TileColor": "#F03B4C",
   "theme_color": "#F03B4C",
-  "background_color": "#F03B4C",
-  "related_applications": [{
-    "platform": "web"
-  },
-  {
-    "platform": "android",
-    "location": "https://build.phonegap.com/apps/1824701/share"
-  },
-  {
-    "platform": "windowsphone",
-    "location": "https://build.phonegap.com/apps/1824701/share"
-  }],
-  "prefer_related_applications": "false"
+  "background_color": "#F03B4C"
 }
