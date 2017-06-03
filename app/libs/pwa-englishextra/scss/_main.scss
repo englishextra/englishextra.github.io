@@ -1,0 +1,1607 @@
+/*! @import "main"; */
+
+/**
+ * main
+ */
+
+html,
+body {
+	height: 100%;
+}
+
+html {
+	font-size: 15px;
+	line-height: 20px;
+	/**
+	 * set the parent to background transparent
+	 * and position relative to parent, absolute for child
+	 */
+	background-color: transparent;
+}
+
+body {
+	font-family: $font-family-local-sans-regular;
+	font-weight: 400;
+	font-size: 1.000rem;
+	line-height: 1.333rem;
+	width: 100%;
+	color: $color-hex-body-text;
+	background-color: $color-hex-page-bg;
+	-webkit-text-size-adjust: none;
+	-ms-text-size-adjust: none;
+	text-size-adjust: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-moz-font-feature-settings: "liga", "kern";
+	-webkit-touch-callout: none;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+	overflow-x: hidden;
+	/* user-select: none; */
+	margin: 0;
+	padding: 0;
+}
+
+/**
+ * englishextra specific rules
+ */
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+a:focus,
+a:active,
+button:focus,
+button:active,
+select:focus,
+select:active {
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+}
+
+img {
+	border: 0;
+	-ms-interpolation-mode: bicubic;
+	vertical-align: bottom;
+}
+
+p:first-child {
+	margin-top: 0;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+
+b,
+strong,
+.bolder {
+	font-weight: bold;
+}
+
+i,
+em,
+.italic {
+	font-style: italic;
+}
+
+u,
+.underline {
+	text-decoration: underline;
+}
+
+*,
+*:after,
+*::before {
+	box-sizing: border-box;
+}
+
+::selection {
+	color: $color-rgba-selection-text;
+	background-color: $color-rgba-selection-bg;
+}
+
+::placeholder {
+	color: $color-hex-gray-text !important;
+	opacity: 1;
+}
+
+/**
+ * clearfix css-tricks.com/snippets/css/clear-fix/
+ */
+
+.cf:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+/**
+ * fit width
+ */
+
+.fit-width {
+	min-width: 100%;
+}
+
+/**
+ * fit half width
+ */
+
+.fit-half-width {
+	min-width: 50%;
+}
+
+/**
+ * hide and show on mobile
+ */
+
+.show-inline-on-mobile,
+.show-block-on-mobile {
+	display: none;
+}
+
+@media handheld, only screen and (max-width: 800px) {
+	.hide-on-mobile {
+		display: none;
+		width: 0;
+		height: 0;
+	}
+
+	.show-inline-on-mobile {
+		display: inline;
+	}
+
+	.show-block-on-mobile {
+		display: block;
+	}
+}
+
+/*!
+ * fixes to typeboost1520.css
+ * pxtoem.com
+ * 6px	0.400em	40.0%	5pt
+ * 7px	0.467em	46.7%	5pt
+ * 8px	0.533em	53.3%	6pt
+ * 9px	0.600em	60.0%	7pt
+ * 10px	0.667em	66.7%	8pt
+ * 11px	0.733em	73.3%	8pt
+ * 12px	0.800em	80.0%	9pt
+ * 13px	0.867em	86.7%	10pt
+ * 14px	0.933em	93.3%	11pt
+ * 15px	1.000em	100.0%	11pt
+ * 16px	1.067em	106.7%	12pt
+ * 17px	1.133em	113.3%	13pt
+ * 18px	1.200em	120.0%	14pt
+ * 19px	1.267em	126.7%	14pt
+ * 20px	1.333em	133.3%	15pt
+ * 21px	1.400em	140.0%	16pt
+ * 22px	1.467em	146.7%	17pt
+ * 23px	1.533em	153.3%	17pt
+ * 24px	1.600em	160.0%	18pt
+ */
+
+#h1 {
+	margin-top: 0;
+}
+
+.col h2.aside-heading {
+	margin-top: 1.333rem;
+}
+
+@media only screen and (min-width:1024px) {
+	.col h2.aside-heading {
+		margin-top: 0;
+	}
+}
+
+.col h2 a,
+.col h2 a:focus,
+.col h2 a:hover,
+.col h2 a:active,
+.col h2 a:visited {
+	color: inherit;
+}
+
+.col h2 + div form p:first-child {
+	margin-top: 0;
+}
+
+.col a {
+	font-weight: inherit;
+	color: $color-hex-link;
+}
+
+.col a:focus,
+.col a:hover,
+.col a:active {
+	color: $color-hex-hover-link;
+}
+
+.col a:visited {
+	color: $color-hex-visited-link;
+}
+
+.col p.subhead {
+	font-size: 1.200rem;
+	line-height: 1.600rem;
+}
+
+.col dl dt a {
+	color: inherit;
+	border-bottom-color: inherit;
+	border-bottom-style: solid;
+	border-bottom-width: 0.067rem;
+}
+
+.col dl dt a:focus,
+.col dl dt a:hover,
+.col dl dt a:active {
+	color: inherit;
+}
+
+.col img,
+.col svg,
+.col canvas,
+.col video,
+.col textarea {
+	width: 100%;
+}
+
+.col img.inline {
+	width: auto;
+}
+
+.col img.data-src-img,
+.col img[data-src] {
+	opacity: 0;
+	transition: opacity 0.4s ease;
+}
+
+.col img.data-src-img,
+.col img[data-src],
+.col iframe.data-src-iframe,
+.col iframe[data-src] {
+	background-color: $LeftNavBarLight;
+}
+
+.col img.data-src-img.is-active,
+.col img[data-src].is-active {
+	opacity: 1;
+}
+
+.col figcaption {
+	font-size: 0.800rem;
+	line-height: 1.067;
+	margin-top: 0.267rem;
+}
+
+.col figcaption a,
+.col figcaption a:focus,
+.col figcaption a:hover,
+.col figcaption a:active,
+.col figcaption a:visited {
+	color: inherit;
+}
+
+.col figcaption p {
+	font-size: inherit;
+	line-height: inherit;
+}
+
+.col img,
+.col svg,
+.col canvas {
+	height: auto;
+}
+
+.col video,
+.col svg {
+	display: block;
+	padding: 0;
+}
+
+.col canvas {
+	vertical-align: bottom;
+}
+
+.col .video-wrapper {
+	float: none;
+	clear: both;
+	width: 100%;
+	position: relative;
+	padding-bottom: 56.25%;
+	height: 0;
+}
+
+.col .video-wrapper iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.col .soundcloud-wrapper iframe {
+	width: 100%;
+	height: 166px;
+}
+
+.holder-chapters-select + canvas {
+	margin-top: 1.333rem;
+}
+
+.col table.respond {
+	width: auto;
+}
+
+.col table {
+	border: none;
+	border-top-width: 0.067rem;
+	border-top-style: solid;
+	border-top-color: $color-hex-divider;
+	border-right-width: 0.067rem;
+	border-right-style: solid;
+	border-right-color: $color-hex-divider;
+	border-left-width: 0.067rem;
+	border-left-style: solid;
+	border-left-color: $color-hex-divider;
+}
+
+.col table th {
+	border: none;
+	border-bottom-width: 0.067rem;
+	border-bottom-style: solid;
+	border-bottom-color: $color-hex-divider;
+}
+
+.col table td {
+	border: none;
+	border-bottom-width: 0.067rem;
+	border-bottom-style: solid;
+	border-bottom-color: $color-hex-divider;
+}
+
+.col table td.with-img-only {
+	padding: 0.533rem;
+}
+
+@media screen and (max-width: 640px) {
+	.col table.respond {
+		border: none;
+	}
+
+	.col table.respond,
+	.col table.respond tr,
+	.col table.respond td {
+		display: block;
+		box-sizing: border-box;
+	}
+
+	.col table.respond tr {
+		width: 100%;
+		float: left;
+		position: relative;
+		border: 0.067rem solid $color-hex-divider;
+		border-bottom: none;
+		margin-bottom: 1.333rem;
+	}
+
+	.col table.respond tr:last-child {
+		margin-bottom: 0;
+	}
+
+	.col table.respond thead,
+	.col table.respond tfoot {
+		display: none;
+	}
+
+	.col table.respond td::before {
+		display: block;
+		float: left;
+		content: attr(data-label);
+		font-weight: bold;
+		text-align: right;
+		padding-right: 0.533rem;
+	}
+}
+
+.col .highlight {
+	color: $color-hex-highlight;
+}
+
+.col .phonetic {
+	font-family: $font-family-local-monospace;
+}
+
+/*!
+ * overrides to to grid
+ */
+
+.col .column,
+.col .columns {
+	padding-right: 0.667rem;
+	padding-left: 0.667rem;
+}
+
+/*!
+ * overrides to b-carousel
+ */
+
+.holder-b-carousel {
+	margin-bottom: 0.933rem;
+}
+
+.holder-b-carousel:before {
+	/*!
+	 * e.g. 9/16*100=56.25
+	 * then you can 56.25/4=14.0625
+	 */
+	padding-top: 14.0625%;
+}
+
+/*!
+ * layout
+ */
+
+.page {
+	width: 100%;
+	height: 100%;
+	background-color: $color-hex-page-bg;
+	position: relative;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	transition: left 0.2s linear, opacity 0.2s ease;
+}
+
+.container {
+	width: 100%;
+	/* min-height: calc(100% - 6.400rem); */
+	min-height: calc(100% - 3.200rem);
+	background-color: #FFFFFF;
+	position: relative;
+	top: 0;
+	left: 0;
+}
+
+@media handheld, only screen and (max-width: 360px) {
+	.container {
+		width: 100%;
+	}
+}
+
+.app-content {
+	width: 100%;
+	height: 100%;
+}
+
+.col {
+	margin: 0 auto;
+}
+
+/*!
+ * navigation
+ */
+
+.container-navbar {
+	width: 100%;
+	height: 3.200rem;
+	position: relative;
+	/* top: 3.200rem; */
+	top: 0;
+	left: 0;
+	background-color: $TitleBarAndAppBarDark;
+	z-index: 2;
+}
+
+.holder-navbar {
+	width: 100%;
+	margin: 0 auto;
+}
+
+.navbar .navbar-button {
+	display: block;
+	float: left;
+	height: 3.200rem;
+	min-width: 3.200rem;
+	font-size: 0.933rem;
+	line-height: 3.200rem;
+	text-decoration: none;
+	color: #FFFFFF;
+	background-color: inherit;
+	padding: 0 0.933rem;
+}
+
+.navbar-button .navbar-icon {
+	width: 1.333rem;
+	height: 1.333rem;
+	margin-top: 0.933rem;
+}
+
+.navbar-button .navbar-icon.small.inline {
+	width: 0.533rem;
+	height: 0.533rem;
+	margin-top: 1.400rem;
+}
+
+.navbar-button .navbar-icon > * {
+	fill: #FFFFFF;
+}
+
+.navbar-list {
+	visibility: hidden;
+	opacity: 0;
+	width: 18.133rem;
+	max-height: 16.000rem;
+	overflow-y: auto;
+	position: absolute;
+	list-style: none;
+	color: #FFFFFF;
+	background-color: $TitleBarAndAppBarDark;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+	transition: visibility 0s, opacity .2s ease;
+	padding: 0;
+	margin: 0;
+}
+
+.navbar-list.is-active {
+	visibility: visible;
+	opacity: 1;
+}
+
+.navbar-list li {
+	height: 3.200rem;
+	font-size: 0.933rem;
+	line-height: 3.200rem;
+}
+
+.navbar-list li:hover {
+	background-color: $TitleBarAndAppBarDarkItemHighlight;
+}
+
+.navbar-list li a {
+	display: block;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding: 0 0.933rem;
+}
+
+.navbar-list li a:active {
+	color: $color-hex-body-text;
+	background-color: $AccentColor;
+}
+
+/*!
+ * hero
+ */
+
+.holder-hero {
+	/*!
+	 * for centering inner element vertically
+	 * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
+	 */
+	position: relative;
+}
+
+@media (max-width: 768px) {
+	.holder-hero {
+		display: none;
+	}
+}
+
+.holder-hero:before {
+	display: block;
+	content: "";
+	width: 100%;
+	/*!
+	 * e.g. 9/16*100=56.25
+	 * then you can 56.25/2=28.125
+	 */
+	padding-top: 28.125%;
+}
+
+.holder-hero > .hero {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.hero {
+	width: 100%;
+	min-height: 100%;
+	/*!
+	 * for centering inner element vertically
+	 * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
+	 */
+	position: relative;
+	background-color: transparent;
+	background-image: url(../img/hero-1920x1080.jpg);
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.hero:before {
+	content: "";
+	width: 100%;
+	min-height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0.9;
+	/*!
+	 * @see {@link https://philiprogers.com/svgpatterns/#thinstripes}
+	 * @see {@link https://jsbin.com/ruvunix/edit?html,output}
+	 */
+	background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSJ0cmFuc3BhcmVudCI+PC9yZWN0Pgo8cGF0aCBkPSJNMCA1TDUgMFpNNiA0TDQgNlpNLTEgMUwxIC0xWiIgc3Ryb2tlPSIjNUY1RjVGIiBzdHJva2Utd2lkdGg9IjEiPjwvcGF0aD4KPC9zdmc+);
+	background-position: top left;
+	background-repeat: repeat;
+	background-size: 5px 5px;
+}
+
+.hero-heading {
+	display: none;
+	/*!
+	 * for centering inner element vertically
+	 * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
+	 */
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+	font-size: 2.441rem;
+	line-height: 2.441rem;
+	font-weight: 400;
+	color: $color-hex-body-text;
+	background-color: rgba(240, 59, 76, 0.9);
+	padding: 1.333rem;
+}
+
+.hero-figcaption {
+	/*!
+	 * for centering inner element horizontally
+	 * @see {@link https://css-tricks.com/forums/topic/horizontal-centering-of-an-absolute-element/}
+	 */
+	/* position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%); */
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	font-size: 0.733rem;
+	line-height: 0.733rem;
+	font-weight: 400;
+	color: #FFFFFF;
+	/* background-color: rgba(0, 0, 0, 0.8); */
+	padding: 0.533rem;
+}
+
+/*!
+ * contents select
+ */
+
+.ui-panel-contents-select {
+	width: 100%;
+	height: 3.200rem;
+	background-color: $TitleBarAndAppBarLight;
+}
+
+.ui-panel-contents-select.is-fixed {
+	position: fixed;
+	top: 0;
+	left: 0;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+	z-index: 1;
+}
+
+.ui-panel-contents-select .holder-contents-select {
+	display: block;
+	width: 100%;
+	height: 3.200rem;
+	overflow: hidden;
+	padding-right: 0.667rem;
+	padding-left: 0.667rem;
+	margin: 0 auto;
+}
+
+.holder-contents-select .contents-select {
+	display: inline-block;
+	width: 100%;
+	height: 3.200rem;
+	font-family: inherit;
+	font-size: 0.933rem;
+	line-height: 3.200rem;
+	/* overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis; */
+	color: $color-hex-body-text;
+	background-color: $TitleBarAndAppBarLight;
+	border: none;
+	appearance: none;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+}
+
+.holder-contents-select .contents-select::-ms-expand {
+	display: none;
+}
+
+.holder-contents-select .contents-select::-ms-value {
+    background: none;
+	color: $color-hex-body-text;
+}
+
+.holder-contents-select .ui-icon {
+	display: inline-block;
+	width: 0.400em;
+	height: 0.400em;
+	position: absolute;
+	margin-top: 1.433em;
+	margin-left: -1.767em;
+	pointer-events: none;
+}
+
+.holder-contents-select .ui-icon > * {
+	fill: $ButtonText;
+}
+
+/*!
+ * fix select border for electron and nw
+ */
+
+.holder-contents-select .contents-select,
+.holder-contents-select .contents-select:focus,
+.holder-contents-select .contents-select:hover,
+.holder-contents-select .contents-select:active {
+	border: 0.067rem solid $TitleBarAndAppBarLight;
+}
+
+/*!
+ * contents select replacement with list
+ */
+
+.holder-contents-select .contents-list {
+	max-height: 0;
+	position: absolute;
+	list-style: none;
+	font-size: 0.933rem;
+	overflow-x: hidden;
+	overflow-y: auto;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+	transition: max-height 0.2s linear;
+	padding: 0;
+	margin: 0;
+	z-index: 1;
+}
+
+.holder-contents-select .contents-list.is-active {
+	max-height: 16.000rem;
+}
+
+.holder-contents-select .contents-list li {
+	height: 3.200rem;
+	line-height: 3.200rem;
+	background-color: $TitleBarAndAppBarLight;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding: 0 0.933rem;
+}
+
+.holder-contents-select .contents-list li:hover {
+	background-color: $ButtonBackground;
+	cursor: default;
+}
+
+/* .holder-contents-select .contents-list li:first-child {
+	display: none;
+} */
+
+.holder-contents-select a {
+	display: block;
+	height: 3.200rem;
+	font-size: 0.933rem;
+	line-height: 3.200rem;
+	color: $PlaceholderText;
+	background-color: $TitleBarAndAppBarLight;
+	cursor: default;
+	padding: 0 3.200rem 0 0.933rem;
+}
+
+.holder-contents-select a:focus,
+.holder-contents-select a:hover,
+.holder-contents-select a:active,
+.holder-contents-select a:visited {
+	color: $PlaceholderText;
+	text-decoration: none;
+}
+
+/*!
+ * reset for svg icon
+ */
+
+.holder-contents-select a .ui-icon {
+	display: inline-block;
+	width: 0.429em;
+	height: 0.429em;
+	float: right;
+	position: relative;
+	bottom: -1.500em;
+	right: -1.964em;
+	margin: 0;
+	pointer-events: none;
+}
+
+.holder-contents-select a .ui-icon > * {
+	fill: $ButtonText;
+}
+
+/*!
+ * home page specific
+ */
+ 
+.home-holder {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: $TitleBarAndAppBarDark;
+	background-image: url(../img/home-1920x1080.jpg);
+	background-size: cover;
+	background-position: center;
+}
+
+.home-holder .home-header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 0;
+}
+
+.home-holder .home-title {
+	font-size: 1.733rem;
+	line-height: 1.733rem;
+	font-weight: 400;
+	text-align: center;
+	white-space: nowrap;
+	overflow: hidden;
+	color: $color-hex-body-text;
+	background-color: rgba(216,53,68,0.8);
+	padding: 0.733rem 0.933rem;
+	margin: 0;
+}
+
+.home-holder .home-caption {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	font-size: 0.867rem;
+	line-height: 0.867rem;
+	text-align: center;
+	white-space: nowrap;
+	overflow: hidden;
+	color: #FFFFFF;
+	padding: 0.533rem;
+	margin: 0;
+}
+
+/*!
+ * display font sizes
+ * line height multiple 20 pixels except normal
+ */
+
+.col .display-small {
+	font-size: 0.889rem;
+	line-height: 1.333rem;
+}
+
+.col .display-normal {
+	font-size: 1.125rem;
+	line-height: 1.600rem;
+}
+
+.col .display-medium {
+	font-size: 1.266rem;
+	line-height: 1.600rem;
+}
+
+.col .display-large {
+	font-size: 1.602rem;
+	line-height: 2.133rem;
+}
+
+.col .display-immense {
+	font-size: 2.566rem;
+	line-height: 3.200rem;
+}
+
+/*!
+ * aside block
+ */
+
+.col .aside {
+	display: block;
+	background-color: $LeftNavBarLight;
+	padding: 1.333rem 1.333rem;
+}
+
+.col .aside *:first-child {
+	margin-top: 0;
+}
+
+.col .aside *:last-child {
+	margin-bottom: 0;
+}
+
+.col .aside p {
+	font-size: 0.867rem;
+	line-height: 1.333rem;
+}
+
+.col .aside h2 {
+	font-size: 1.133rem;
+	line-height: 1.600rem;
+}
+
+.col .aside h2 a,
+.col .aside p a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.col p + .aside {
+	margin-top: 1.333rem;
+}
+
+/*!
+ * buttons
+ */
+
+.col div + .holder-bottom-navigation,
+.holder-bottom-navigation:first-child {
+	margin-top: 1.333rem;
+}
+
+.col .btn-larger,
+.col a.btn-larger {
+	height: 2.400rem;
+	font-size: 0.933rem;
+	font-weight: 400;
+	padding-right: 0.733rem;
+	padding-left: 0.733rem;
+}
+
+.col a.btn-larger {
+	display: inline-block;
+	font-family: inherit;
+	line-height: 2.267rem;
+	text-align: center;
+	text-decoration: none;
+	border: 0.067rem solid $TitleBarAndAppBarDark;
+}
+
+.col a.btn-larger i.fa,
+.col a.btn-larger i.mi,
+.col a.btn-larger i.mdi,
+.col a.btn-larger i.material-icons {
+	font-size: 0.800rem;
+	line-height: 2.400rem;
+}
+
+.col .btn-primary,
+.col .btn-primary:focus,
+.col a.btn-primary,
+.col a.btn-primary:focus {
+	color: #FFFFFF;
+	background-color: $TitleBarAndAppBarDark;
+	border-color: $TitleBarAndAppBarDark;
+}
+
+.col .btn-primary:hover,
+.col .btn-primary:active,
+.col a.btn-primary:hover,
+.col a.btn-primary:active {
+	background-color: #000000;
+	border-color: #000000;
+}
+
+.col .btn-secondary,
+.col .btn-secondary:focus,
+.col a.btn-secondary,
+.col a.btn-secondary:focus {
+	color: $ButtonText;
+	background-color: $ButtonBackground;
+	border-color: $ButtonBackground;
+}
+
+.col .btn-secondary:hover,
+.col .btn-secondary:active,
+.col a.btn-secondary:hover,
+.col a.btn-secondary:active {
+	color: $ButtonText;
+	background-color: $ButtonBackground;
+	border-color: $ButtonOutline;
+}
+
+.col .btn-link,
+.col .btn-link:focus,
+.col a.btn-link,
+.col a.btn-link:focus {
+	color: $ButtonText;
+	background-color: transparent;
+	border-color: $ButtonBackground;
+}
+
+.col .btn-link:hover,
+.col .btn-link:active,
+.col a.btn-link:hover,
+.col a.btn-link:active {
+	color: $ButtonText;
+	background-color: $ButtonBackground;
+	border-color: $ButtonOutline;
+}
+
+/*!
+ * pages selecto
+ */
+
+.holder-chapters-select {
+	display: block;
+	width: 100%;
+	text-align: left;
+}
+
+.holder-chapters-select .chapters-select {
+	display: inline-block;
+	width: 100%;
+	height: 2.400rem;
+	font-family: inherit;
+	font-size: 0.933rem;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	color: inherit;
+	background-color: $LeftNavBarLight;
+	appearance: none;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+	margin: 0;
+	padding: 0 2.133rem 0 0.267rem;
+}
+
+.holder-chapters-select .chapters-select::-ms-expand {
+	display: none;
+}
+
+.holder-chapters-select .chapters-select::-ms-value {
+    background: none;
+	color: $color-hex-body-text;
+}
+
+.holder-chapters-select .chapters-select optgroup {
+	font-style: normal;
+	padding-left: 0.267rem;
+}
+
+.holder-chapters-select .ui-icon {
+	display: inline-block;
+	width: 0.400em;
+	height: 0.400em;
+	position: absolute;
+	margin-top: 1.033em;
+	margin-left: -1.367em;
+	pointer-events: none;
+}
+
+.holder-chapters-select .ui-icon > * {
+	fill: $ButtonText;
+}
+
+/*!
+ * fix select border for electron and nw
+ */
+
+.holder-chapters-select .chapters-select,
+.holder-chapters-select .chapters-select:focus,
+.holder-chapters-select .chapters-select:hover,
+.holder-chapters-select .chapters-select:active {
+	border: 0.067rem solid $LeftNavBarLight;
+}
+
+/*!
+ * pages select replacement with list
+ */
+
+.holder-chapters-select .chapters-list {
+	max-height: 0;
+	position: absolute;
+	list-style: none;
+	font-size: 0.933rem;
+	overflow-x: hidden;
+	overflow-y: auto;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+	transition: max-height 0.2s linear;
+	padding: 0;
+	margin: 0;
+	z-index: 1;
+}
+
+.holder-chapters-select .chapters-list.is-active {
+	max-height: 12.000rem;
+}
+
+.holder-chapters-select .chapters-list li {
+	height: 2.400rem;
+	line-height: 2.400rem;
+	background-color: $LeftNavBarLight;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding: 0 0.533rem;
+}
+
+.holder-chapters-select .chapters-list li:hover {
+	background-color: $TitleBarAndAppBarLight;
+	cursor: default;
+}
+
+.holder-chapters-select .chapters-list li:first-child {
+	display: none;
+}
+
+.holder-chapters-select a {
+	display: block;
+	height: 2.400rem;
+	font-size: 0.933rem;
+	line-height: 2.400rem;
+	color: $PlaceholderText;
+	background-color: $LeftNavBarLight;
+	cursor: default;
+	padding: 0 2.400rem 0 0.533rem;
+}
+
+.holder-chapters-select a:focus,
+.holder-chapters-select a:hover,
+.holder-chapters-select a:active,
+.holder-chapters-select a:visited {
+	color: $PlaceholderText;
+	text-decoration: none;
+}
+
+/*!
+ * reset for svg icon
+ */
+
+.holder-chapters-select a .ui-icon {
+	display: inline-block;
+	width: 0.429em;
+	height: 0.429em;
+	float: right;
+	position: relative;
+	bottom: -1.071em;
+	right: -1.536em;
+	margin: 0;
+	pointer-events: none;
+}
+
+.holder-chapters-select a .ui-icon > * {
+	fill: $ButtonText;
+}
+
+/*!
+ * expanding layer
+ */
+
+.col .btn-expand-hidden-layer {
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+	cursor: pointer;
+}
+
+.col .btn-expand-hidden-layer .ui-icon {
+	display: inline-block;
+	width: 0.400em;
+	height: 0.400em;
+	margin-bottom: 0.167em;
+}
+
+.col .btn-expand-hidden-layer.is-active .ui-icon {
+	content: "";
+	transform: rotate(180deg);
+}
+
+.col .btn-expand-hidden-layer .ui-icon > * {
+	fill: $color-hex-body-text;
+}
+
+.col .holder-hidden-layer {
+	max-height: 100%;
+	position: relative;
+	transition: all 0.2s ease-out;
+	overflow-y: hidden;
+}
+
+.js .col .holder-hidden-layer {
+	max-height: 0;
+	overflow: hidden;
+}
+
+.col .holder-hidden-layer.is-active,
+.legacy .col .holder-hidden-layer {
+	max-height: 100%;
+	overflow-y: hidden;
+}
+
+.col .holder-btn-expand-hidden-layer + .holder-hidden-layer.is-active,
+.legacy .col .holder-btn-expand-hidden-layer + .holder-hidden-layer {
+	margin-top: 0.533rem;
+}
+
+.col .holder-hidden-layer h3:first-child,
+.col .holder-hidden-layer p:first-child,
+.col .holder-hidden-layer table:first-child,
+.col .holder-hidden-layer ol:first-child,
+.col .holder-hidden-layer ul:first-child {
+	margin-top: 0;
+}
+
+.col .holder-hidden-layer p:last-child,
+.col .holder-hidden-layer table:last-child,
+.col .holder-hidden-layer ol:last-child,
+.col .holder-hidden-layer ul:last-child {
+	margin-bottom: 0;
+}
+
+/*!
+ * search form
+ */
+
+.holder-search-form {
+	display: inline-block;
+	float: right;
+	position: absolute;
+	top: 0.400rem;
+	right: 0.667rem;
+}
+
+@media only screen and (min-width: 1024px) {
+	.holder-search-form {
+		position: relative;
+	}
+}
+
+.holder-search-form input[type^=text],
+.holder-search-form input[type^=search] {
+	width: 9.600rem;
+	font-family: inherit;
+	font-size: 0.933rem;
+	line-height: 1.200rem;
+	color: $PlaceholderText;
+	border-color: $PlaceholderText;
+	border-style: solid;
+	border-width: 0.067rem;
+	background-color: $TitleBarAndAppBarDark;
+	transition: width 0.2s linear;
+    transition-delay: 0.2s;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+	padding-top: 0.533rem;
+	padding-right: 2.400rem;
+	padding-bottom: 0.533rem;
+	padding-left: 0.533rem;
+}
+
+.holder-search-form input[type^=text]:focus,
+.holder-search-form input[type^=text]:active,
+.holder-search-form input[type^=search]:focus,
+.holder-search-form input[type^=search]:active {
+	width: 18.133rem;
+	color: inherit;
+	background-color: $LeftNavBarLight;
+	border-color: $LeftNavBarLight;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+}
+
+@media only screen and (max-width: 480px) {
+	.holder-search-form input[type^=text]:focus,
+	.holder-search-form input[type^=text]:active,
+	.holder-search-form input[type^=search]:focus,
+	.holder-search-form input[type^=search]:active {
+		width: 14.133rem;
+	}
+}
+
+.holder-search-form button[type^=submit] {
+	width: 2.400rem;
+	height: 2.400rem;
+	position: absolute;
+	top: 0;
+	right: 0;
+	font-size: 0;
+	line-height: 0;
+	color: $PlaceholderText;
+	background-color: transparent;
+	border: 0.067rem solid transparent;
+	cursor: pointer;
+	padding: 1.133rem;
+}
+
+/* .holder-search-form button[type^=submit]:focus, */
+.holder-search-form button[type^=submit]:active {
+	color: $AccentColor;
+}
+
+.holder-search-form button[type^=submit] .ui-icon {
+	display: block;
+	width: 1.067rem;
+	height: 1.067rem;
+	position: relative;
+	right: 0.533rem;
+	bottom: 0.533rem;
+}
+
+.holder-search-form button[type^=submit] .ui-icon > * {
+	fill: $PlaceholderText;
+}
+
+.holder-search-form button[type^=submit]:active .ui-icon > * {
+	fill: $AccentColor;
+}
+
+/*!
+ * fix for yandex search
+ * site.yandex.net/v2.0/js/suggest.js
+ */
+
+.holder-search-form table td {
+	padding: 0;
+}
+
+.ya-site-form.ya-site-form_inited_no {
+	visibility: hidden;
+}
+
+.ya-page_js_yes .ya-site-form_inited_no,
+.ya-site-form__submit {
+	display: none;
+}
+
+/*!
+ * share buttons
+ */
+
+.global-button {
+	display: inline-block;
+	width: 3.200rem;
+	height: 3.200rem;
+	color: inherit;
+	background-color: $color-rgba-ui-icon-bg;
+	z-index: 1;
+}
+
+.btn-toggle-holder-location-qr-code {
+	position: fixed;
+	top: 6.400rem;
+	right: 0;
+}
+
+.btn-toggle-holder-share-buttons {
+	position: fixed;
+	top: 9.600rem;
+	right: 0;
+}
+
+.btn-toggle-holder-vk-like {
+	position: fixed;
+	top: 12.800rem;
+	right: 0;
+}
+
+.btn-toggle-col-debug {
+	position: fixed;
+	top: 16.000rem;
+	right: 0;
+}
+
+.global-button-icon {
+	display: inline-block;
+	width: 1.333rem;
+	height: 1.333rem;
+	position: relative;
+	top: 0.933rem;
+	left: 0.933rem;
+	color: inherit;
+}
+
+.global-button-icon > * {
+	fill: $ButtonText;
+}
+
+/*!
+ * location qr code
+ */
+
+.holder-location-qr-code {
+	display: block;
+	visibility: hidden;
+	opacity: 0;
+	width: 9.600rem;
+	height: 9.600rem;
+	position: fixed;
+	top: 6.400rem;
+	right: 3.200rem;
+	text-align: left;
+	background-color: #FFFFFF;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+	transition: left 0.2s linear, visibility 0s, opacity 0.2s ease;
+	z-index: 1;
+}
+
+.holder-location-qr-code.is-active {
+	visibility: visible;
+	opacity: 1;
+}
+
+.holder-location-qr-code .qr-code-img,
+.holder-location-qr-code img {
+	display: block;
+	width: 9.600rem;
+	height: 9.600rem;
+	background-color: transparent;
+	background-size: 9.600rem 9.600rem;
+	border: 0;
+	vertical-align: bottom;
+	padding: 0;
+	margin: 0;
+}
+
+/*!
+ * social buttons
+ */
+
+.holder-share-buttons {
+	display: block;
+	visibility: hidden;
+	opacity: 0;
+	height: 3.200rem;
+	position: fixed;
+	top: 9.600rem;
+	right: 3.200rem;
+	line-height: 3.200rem;
+	background-color: #FFFFFF;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+	transition: visibility 0s, opacity 0.2s ease;
+	z-index: 1;
+}
+
+.holder-share-buttons.is-active {
+	visibility: visible;
+	opacity: 1;
+}
+
+/*!
+ * holder-vk-like
+ */
+
+.holder-vk-like {
+	display: inline-block;
+	visibility: hidden;
+	opacity: 0;
+	height: 3.200rem;
+	position: fixed;
+	top: 12.800rem;
+	right: 3.200rem;
+	line-height: 0;
+	background-color: $color-hex-vk-like-bg;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+	transition: visibility 0s, opacity 0.2s ease;
+	z-index: 1;
+}
+
+.holder-vk-like.is-active {
+	visibility: visible;
+	opacity: 1;
+}
+
+.vk-like {
+	display: inline-block;
+	height: 24px;
+	position: absolute;
+	top: 50%;
+	-webkit-transform: translate(0, -50%);
+	transform: translate(0, -50%);
+	margin: 0 0 0 0.667rem;
+	line-height: 0;
+}
+
+/*!
+ * footer
+ */
+
+.container-footer {
+	width: 100%;
+	min-height: 3.200rem;
+	/*!
+	 * for centering inner element vertically
+	 * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
+	 */
+	/* position: relative; */
+	color: #FFFFFF;
+	background-color: $TitleBarAndAppBarDark;
+}
+
+.footer {
+	/*!
+	 * for centering inner element vertically
+	 * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
+	 */
+	/* position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-right: -50%;
+	transform: translate(-50%, -50%); */
+	font-size: 0.933rem;
+	line-height: 1.333rem;
+	text-align: center;
+	padding: 0.933rem 0.667rem;
+	margin: 0 auto;
+}
+
+/*!
+ * debug grid
+ */
+
+.debug:before {
+	content: " ";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background-color: transparent;
+	/* background-image: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgNCA0IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA0IDQiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxyZWN0IGZpbGw9Im5vbmUiIHdpZHRoPSI0IiBoZWlnaHQ9IjQiLz48cG9seWdvbiBvcGFjaXR5PSIwLjUiIGZpbGw9IiNGRjQxNDEiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgICIgcG9pbnRzPSIzLDAgMywzIDAsMyAwLDQgNCw0IDQsMyA0LDAgIi8+PC9zdmc+); */
+	/* background-image: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgOCA4IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA4IDgiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxyZWN0IGZpbGw9Im5vbmUiIHdpZHRoPSI4IiBoZWlnaHQ9IjgiLz48cG9seWdvbiBvcGFjaXR5PSIwLjUiIGZpbGw9IiNGRjgxODEiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgICIgcG9pbnRzPSI3LDAgNyw3IDAsNyAwLDggOCw4IDgsNyA4LDAgIi8+PC9zdmc+); */
+	background-image: repeating-linear-gradient(to bottom, transparent 0px, transparent 7px, rgba(241, 68, 68, 0.5) 7px, rgba(241, 68, 68, 0.5) 0.533rem);
+	background-size: 0.533rem 0.533rem;
+	background-position: 0 0;
+	background-repeat: repeat;
+	pointer-events: none;
+}
+
+/* .debug .row:before {
+	content: " ";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background-color: rgba(241, 68, 68, 0.05);
+} */
+
+.debug .column:before {
+	content: " ";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background-color: rgba(241, 68, 68, 0.1);
+	pointer-events: none;
+}
+

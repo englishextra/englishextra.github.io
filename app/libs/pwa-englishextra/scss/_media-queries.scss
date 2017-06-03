@@ -1,0 +1,954 @@
+/*! @import "media-queries"; */
+
+/*!
+ * responsivedesign.is/develop/browser-feature-support/media-queries-for-common-device-breakpoints/
+ */
+
+/* Smartphones (portrait and landscape) ----------- */
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+	html {
+		font-size: 12px;
+	}
+
+	.holder-navbar,
+	.holder-contents-select,
+	.col,
+	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
+	.footer {
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-chapters-select .chapters-list {
+		width: calc(100% - 1.333rem);
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
+	}
+
+	.padded-content,
+	.masonry-grid {
+		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
+	}
+}
+
+/* Smartphones (landscape) ----------- */
+
+@media only screen and (min-width: 321px) {
+	html {
+		font-size: 12px;
+	}
+
+	.holder-navbar,
+	.holder-contents-select,
+	.col,
+	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
+	.footer {
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-chapters-select .chapters-list {
+		width: calc(100% - 1.333rem);
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
+	}
+
+	.padded-content,
+	.masonry-grid {
+		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
+	}
+}
+
+/* Smartphones (portrait) ----------- */
+
+@media only screen and (max-width: 320px) {
+	html {
+		font-size: 12px;
+	}
+
+	.holder-navbar,
+	.holder-contents-select,
+	.col,
+	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
+	.footer {
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-chapters-select .chapters-list {
+		width: calc(100% - 1.333rem);
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
+	}
+
+	.padded-content,
+	.masonry-grid {
+		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
+	}
+}
+
+/* iPads (portrait and landscape) ----------- */
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+	html {
+		font-size: 12px;
+	}
+
+	.holder-navbar,
+	.holder-contents-select,
+	.col,
+	.masonry-grid,
+	.footer {
+		max-width: 76.800rem;
+	}
+
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a {
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-chapters-select .chapters-list {
+		width: calc(100% - 1.333rem);
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
+	}
+
+	.padded-content,
+	.masonry-grid {
+		padding: 1.600rem 0 3.200rem 0;
+	}
+
+	.holder-b-carousel {
+		display: block;
+	}
+}
+
+/* iPads (landscape) ----------- */
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+	html {
+		font-size: 12px;
+	}
+
+	.holder-navbar,
+	.holder-contents-select,
+	.col,
+	.masonry-grid,
+	.footer {
+		max-width: 76.800rem;
+	}
+
+	.holder-contents-select .contents-select,
+	.holder-contents-select .contents-list,
+	.holder-contents-select a {
+		width: calc(76.800rem - 1.333rem);
+	}
+
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select .chapters-list,
+	.holder-chapters-select a {
+		width: 18.133rem;
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: center;
+	}
+
+	.padded-content,
+	.masonry-grid {
+		padding: 1.600rem 0 3.200rem 0;
+	}
+
+	.holder-b-carousel {
+		display: block;
+	}
+}
+
+/* iPads (portrait) ----------- */
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
+	html {
+		font-size: 19px;
+	}
+
+	.holder-navbar,
+	.holder-contents-select,
+	.col,
+	.masonry-grid,
+	.footer {
+		max-width: 76.800rem;
+	}
+
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a {
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-chapters-select .chapters-list {
+		width: calc(100% - 1.333rem);
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
+	}
+
+	.padded-content,
+	.masonry-grid {
+		padding: 1.600rem 0 3.200rem 0;
+	}
+
+	.holder-b-carousel {
+		display: block;
+	}
+}
+
+/**********
+iPad 3
+**********/
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
+	html {
+		font-size: 12px;
+	}
+
+	.holder-navbar,
+	.holder-contents-select,
+	.col,
+	.masonry-grid,
+	.footer {
+		max-width: 76.800rem;
+	}
+
+	.holder-contents-select .contents-select,
+	.holder-contents-select .contents-list,
+	.holder-contents-select a {
+		width: calc(76.800rem - 1.333rem);
+	}
+
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select .chapters-list,
+	.holder-chapters-select a {
+		width: 18.133rem;
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: center;
+	}
+
+	.padded-content,
+	.masonry-grid {
+		padding: 1.600rem 0 3.200rem 0;
+	}
+
+	.holder-b-carousel {
+		display: block;
+	}
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+	html {
+		font-size: 19px;
+	}
+
+	.holder-navbar,
+	.holder-contents-select,
+	.col,
+	.masonry-grid,
+	.footer {
+		max-width: 76.800rem;
+	}
+
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a {
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-chapters-select .chapters-list {
+		width: calc(100% - 1.333rem);
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
+	}
+
+	.padded-content,
+	.masonry-grid {
+		padding: 1.600rem 0 3.200rem 0;
+	}
+
+	.holder-b-carousel {
+		display: block;
+	}
+}
+
+/* Desktops and laptops ----------- */
+
+@media only screen and (min-width: 1224px) {
+	html {
+		font-size: 15px;
+	}
+
+	.holder-navbar,
+	.holder-contents-select,
+	.col,
+	.masonry-grid,
+	.footer {
+		max-width: 76.800rem;
+	}
+
+	.holder-contents-select .contents-select,
+	.holder-contents-select .contents-list,
+	.holder-contents-select a {
+		width: calc(76.800rem - 1.333rem);
+	}
+
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select .chapters-list,
+	.holder-chapters-select a {
+		width: 18.133rem;
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: center;
+	}
+
+	.padded-content,
+	.masonry-grid {
+		padding: 1.600rem 0 3.200rem 0;
+	}
+
+	.holder-b-carousel {
+		display: block;
+	}
+}
+
+/* Large screens ----------- */
+
+@media only screen and (min-width: 1824px) {
+	html {
+		font-size: 19px;
+	}
+
+	.holder-navbar,
+	.holder-contents-select,
+	.col,
+	.masonry-grid,
+	.footer {
+		max-width: 76.800rem;
+	}
+
+	.holder-contents-select .contents-select,
+	.holder-contents-select .contents-list,
+	.holder-contents-select a {
+		width: calc(76.800rem - 1.333rem);
+	}
+
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select .chapters-list,
+	.holder-chapters-select a {
+		width: 18.133rem;
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: center;
+	}
+
+	.padded-content,
+	.masonry-grid {
+		padding: 1.600rem 0 3.200rem 0;
+	}
+
+	.holder-b-carousel {
+		display: block;
+	}
+}
+
+/* iPhone 4 ----------- */
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
+	html {
+		font-size: 12px;
+	}
+
+	.holder-navbar,
+	.holder-contents-select,
+	.col,
+	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
+	.footer {
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-chapters-select .chapters-list {
+		width: calc(100% - 1.333rem);
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
+	}
+
+	.padded-content,
+	.masonry-grid {
+		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
+	}
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+	html {
+		font-size: 12px;
+	}
+
+	.holder-navbar,
+	.holder-contents-select,
+	.col,
+	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
+	.footer {
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-chapters-select .chapters-list {
+		width: calc(100% - 1.333rem);
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
+	}
+
+	.padded-content,
+	.masonry-grid {
+		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
+	}
+}
+
+/* iPhone 5 ----------- */
+
+@media only screen and (min-device-width: 320px) and (max-device-height: 568px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2) {
+	html {
+		font-size: 12px;
+	}
+
+	.holder-navbar,
+	.holder-contents-select,
+	.col,
+	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
+	.footer {
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-chapters-select .chapters-list {
+		width: calc(100% - 1.333rem);
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
+	}
+
+	.padded-content,
+	.masonry-grid {
+		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
+	}
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-height: 568px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2) {
+	html {
+		font-size: 12px;
+	}
+
+	.holder-navbar,
+	.holder-contents-select,
+	.col,
+	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
+	.footer {
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-chapters-select .chapters-list {
+		width: calc(100% - 1.333rem);
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
+	}
+
+	.padded-content,
+	.masonry-grid {
+		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
+	}
+}
+
+/* iPhone 6 ----------- */
+
+@media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2) {
+	html {
+		font-size: 15px;
+	}
+
+	.holder-navbar,
+	.holder-contents-select,
+	.col,
+	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
+	.footer {
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-chapters-select .chapters-list {
+		width: calc(100% - 1.333rem);
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
+	}
+
+	.padded-content,
+	.masonry-grid {
+		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
+	}
+}
+
+@media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2) {
+	html {
+		font-size: 12px;
+	}
+
+	.holder-navbar,
+	.holder-contents-select,
+	.col,
+	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
+	.footer {
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-chapters-select .chapters-list {
+		width: calc(100% - 1.333rem);
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
+	}
+
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a {
+		width: 18.133rem;
+	}
+
+	.padded-content,
+	.masonry-grid {
+		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
+	}
+}
+
+/* iPhone 6+ ----------- */
+
+@media only screen and (min-device-width: 415px) and (max-device-height: 736px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2) {
+	html {
+		font-size: 15px;
+	}
+
+	.holder-navbar,
+	.holder-contents-select,
+	.col,
+	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
+	.footer {
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-chapters-select .chapters-list {
+		width: calc(100% - 1.333rem);
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
+	}
+
+	.padded-content,
+	.masonry-grid {
+		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
+	}
+}
+
+@media only screen and (min-device-width: 415px) and (max-device-height: 736px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2) {
+	html {
+		font-size: 12px;
+	}
+
+	.holder-navbar,
+	.holder-contents-select,
+	.col,
+	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
+	.footer {
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-chapters-select .chapters-list {
+		width: calc(100% - 1.333rem);
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
+	}
+
+	.padded-content,
+	.masonry-grid {
+		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
+	}
+}
+
+/* Samsung Galaxy S3 ----------- */
+
+@media only screen and (min-device-width: 320px) and (max-device-height: 640px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2) {
+	html {
+		font-size: 15px;
+	}
+
+	.holder-navbar,
+	.holder-contents-select,
+	.col,
+	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
+	.footer {
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-chapters-select .chapters-list {
+		width: calc(100% - 1.333rem);
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
+	}
+
+	.padded-content,
+	.masonry-grid {
+		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
+	}
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-height: 640px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2) {
+	html {
+		font-size: 12px;
+	}
+
+	.holder-navbar,
+	.holder-contents-select,
+	.col,
+	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
+	.footer {
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-chapters-select .chapters-list {
+		width: calc(100% - 1.333rem);
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
+	}
+
+	.padded-content,
+	.masonry-grid {
+		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
+	}
+}
+
+/* Samsung Galaxy S4 ----------- */
+
+@media only screen and (min-device-width: 320px) and (max-device-height: 640px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 3) {
+	html {
+		font-size: 15px;
+	}
+
+	.holder-navbar,
+	.holder-contents-select,
+	.col,
+	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
+	.footer {
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-chapters-select .chapters-list {
+		width: calc(100% - 1.333rem);
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
+	}
+
+	.padded-content,
+	.masonry-grid {
+		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
+	}
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-height: 640px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 3) {
+	html {
+		font-size: 12px;
+	}
+
+	.holder-navbar,
+	.holder-contents-select,
+	.col,
+	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
+	.footer {
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-chapters-select .chapters-list {
+		width: calc(100% - 1.333rem);
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
+	}
+
+	.padded-content,
+	.masonry-grid {
+		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
+	}
+}
+
+/* Samsung Galaxy S5 ----------- */
+
+@media only screen and (min-device-width: 360px) and (max-device-height: 640px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 3) {
+	html {
+		font-size: 15px;
+	}
+
+	.holder-navbar,
+	.holder-contents-select,
+	.col,
+	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
+	.footer {
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-chapters-select .chapters-list {
+		width: calc(100% - 1.333rem);
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
+	}
+
+	.padded-content,
+	.masonry-grid {
+		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
+	}
+}
+
+@media only screen and (min-device-width: 360px) and (max-device-height: 640px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 3) {
+	html {
+		font-size: 12px;
+	}
+
+	.holder-navbar,
+	.holder-contents-select,
+	.col,
+	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
+	.footer {
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-chapters-select .chapters-list {
+		width: calc(100% - 1.333rem);
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
+	}
+
+	.padded-content,
+	.masonry-grid {
+		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
+	}
+}
+
