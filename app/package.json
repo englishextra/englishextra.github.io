@@ -43,8 +43,10 @@
   },
   "xo": {
     "esnext": true,
-    "envs": ["node",
-    "browser"]
+    "envs": [
+      "node",
+      "browser"
+    ]
   },
   "main": "index.html",
   "window": {
@@ -61,19 +63,25 @@
     "plugin": true
   },
   "babel": {
-    "presets": ["es2015"],
-    "plugins": ["transform-es2015-arrow-functions"]
+    "presets": [
+      "es2015"
+    ],
+    "plugins": [
+      "transform-es2015-arrow-functions"
+    ]
   },
   "_aerobatic": {
     "clientConfigVar": "_global",
     "omitClientConfigVar": false,
-    "router": [{
-      "module": "webpage",
-      "options": {
-        "pushState": false,
-        "canonicalRedirects": false
+    "router": [
+      {
+        "module": "webpage",
+        "options": {
+          "pushState": false,
+          "canonicalRedirects": false
+        }
       }
-    }]
+    ]
   },
   "maintainers": {
     "name": "Serguei Shimansky",
@@ -87,4 +95,3 @@
   },
   "license": "(MIT)"
 }
-

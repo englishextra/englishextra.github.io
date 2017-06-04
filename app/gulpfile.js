@@ -37,8 +37,8 @@ gulp.task('sass', function (done) {
 	.pipe(autoprefixer())
 	.on('error', sass.logError)
 	/* .pipe(rename({
-			suffix: '-compiled'
-		})) */
+	suffix: '-compiled'
+	})) */
 	.pipe(gulp.dest('./libs/pwa-englishextra/css/'))
 	.pipe(cleancss({
 			keepSpecialComments: 0
@@ -57,8 +57,8 @@ gulp.task('babel', function (done) {
 			presets: ['es2015']
 		}))
 	/* .pipe(rename({
-			suffix: '-compiled'
-		})) */
+	suffix: '-compiled'
+	})) */
 	.pipe(gulp.dest('./libs/pwa-englishextra/js/'))
 	.pipe(uglify())
 	.pipe(rename({
@@ -86,4 +86,23 @@ gulp.task('git-check', function (done) {
 		process.exit(1);
 	}
 	done();
+});
+gulp.task('generate-service-worker', function (callback) {
+	var path = require('path');
+	var swPrecache = require('sw-precache');
+	var rootDir = './';
+	swPrecache.write(`${rootDir}/service-worker.js`, {
+		/*!
+		 * @see {@link https://github.com/GoogleChrome/sw-precache/issues/97}
+		 */
+		staticFileGlobs: [rootDir + 'index.html',
+			rootDir + 'manifest.json',
+			rootDir + 'yandex-tableau.json',
+			rootDir + '/**.{png,ico,svg}',
+			rootDir + '/{cdn,libs,pages}/**/*.{png,jpg,html,js,json,css}'],
+		stripPrefix: rootDir,
+		stripPrefixMulti: {
+			"node_modules/": 'scripts/'
+		},
+	}, callback);
 });
