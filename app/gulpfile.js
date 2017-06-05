@@ -87,22 +87,42 @@ gulp.task('git-check', function (done) {
 	}
 	done();
 });
+/*!
+ * @see {@link https://github.com/GoogleChrome/sw-precache/issues/97}
+ * @see {@link https://github.com/GoogleChrome/sw-precache#runtime-caching}
+ */
 gulp.task('generate-service-worker', function (callback) {
 	var path = require('path');
 	var swPrecache = require('sw-precache');
-	var rootDir = './';
-	swPrecache.write(`${rootDir}/service-worker.js`, {
-		/*!
-		 * @see {@link https://github.com/GoogleChrome/sw-precache/issues/97}
-		 */
-		staticFileGlobs: [rootDir + 'index.html',
-			rootDir + 'manifest.json',
-			rootDir + 'yandex-tableau.json',
-			rootDir + '/**.{png,ico,svg}',
-			rootDir + '/{cdn,libs,pages}/**/*.{png,jpg,html,js,json,css}'],
-		stripPrefix: rootDir,
-		stripPrefixMulti: {
-			"node_modules/": 'scripts/'
-		},
+	swPrecache.write(`service-worker.js`, {
+	staticFileGlobs: ['index.html',
+		'manifest.json',
+		'yandex-tableau.json',
+		'**.{png,ico,svg}',
+		'cdn/**/*.{png,jpg,js,json,css}',
+		'fonts/**/*.{eot,ttf,woff,woff2}',
+		'libs/**/img/**/*.{png,jpg}',
+		'pages/**/*.html'],
+	stripPrefix: './',
+	runtimeCaching: [{
+			urlPattern: /\/libs\/(.*?)\/css\//,
+			handler: 'fastest',
+			options: {
+				debug: true
+			}
+		}, {
+			urlPattern: /\/libs\/(.*?)\/js\//,
+			handler: 'fastest',
+			options: {
+				debug: true
+			}
+		}, {
+			urlPattern: /\/libs\/(.*?)\/json\//,
+			handler: 'fastest',
+			options: {
+				debug: true
+			}
+		}
+	]
 	}, callback);
 });
