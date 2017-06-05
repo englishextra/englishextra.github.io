@@ -285,9 +285,13 @@ self.addEventListener('fetch', function(event) {
 
 // Runtime cache configuration, using the sw-toolbox library.
 
-toolbox.router.get(/\.(?:yandex)\.ru$/, toolbox.networkOnly, {"debug":true});
-toolbox.router.get(/\.(?:youtube|vimeo|disqus|soundcloud)\.com$/, toolbox.networkOnly, {"debug":true});
-toolbox.router.get(/\.googleapis\.com$/, toolbox.cacheFirst, {"debug":true});
+toolbox.router.get(/^https:\/\/mc\.yandex\.ru/, toolbox.fastest, {});
+toolbox.router.get(/^https:\/\/www\.google-analytics\.com/, toolbox.fastest, {});
+toolbox.router.get(/^https:\/\/ssl\.google-analytics\.com/, toolbox.networkOnly, {});
+toolbox.router.get(/^https:\/\/(.*?)\.disqus\.com/, toolbox.networkOnly, {});
+toolbox.router.get(/^https:\/\/w\.soundcloud\.com/, toolbox.networkOnly, {});
+toolbox.router.get(/^https:\/\/player\.vimeo\.com/, toolbox.networkOnly, {});
+toolbox.router.get(/^https:\/\/www\.youtube\.com/, toolbox.networkOnly, {});
 toolbox.router.get(/\/libs\/(.*?)\/css\//, toolbox.fastest, {"debug":true});
 toolbox.router.get(/\/libs\/(.*?)\/js\//, toolbox.fastest, {"debug":true});
 toolbox.router.get(/\/libs\/(.*?)\/json\//, toolbox.fastest, {"debug":true});

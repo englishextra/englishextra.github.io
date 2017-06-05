@@ -106,23 +106,47 @@ gulp.task('generate-service-worker', function (callback) {
 		"pages/**/*.html"],
 	stripPrefix: "./",
 	runtimeCaching: [{
-			urlPattern: /\.(?:yandex)\.ru$/,
-			handler: "networkOnly",
+			urlPattern: /^https:\/\/mc\.yandex\.ru/,
+			handler: "fastest"/* ,
 			options: {
 				debug: true
-			}
+			} */
 		}, {
-			urlPattern: /\.(?:youtube|vimeo|disqus|soundcloud)\.com$/,
-			handler: "networkOnly",
+			urlPattern: /^https:\/\/www\.google-analytics\.com/,
+			handler: "fastest"/* ,
 			options: {
 				debug: true
-			}
+			} */
 		}, {
-			urlPattern: /\.googleapis\.com$/,
-			handler: "cacheFirst",
+			urlPattern: /^https:\/\/ssl\.google-analytics\.com/,
+			handler: "networkOnly"/* ,
 			options: {
 				debug: true
-			}
+			} */
+		}, {
+			urlPattern: /^https:\/\/(.*?)\.disqus\.com/,
+			handler: "networkOnly"/* ,
+			options: {
+				debug: true
+			} */
+		}, {
+			urlPattern: /^https:\/\/w\.soundcloud\.com/,
+			handler: "networkOnly"/* ,
+			options: {
+				debug: true
+			} */
+		}, {
+			urlPattern: /^https:\/\/player\.vimeo\.com/,
+			handler: "networkOnly"/* ,
+			options: {
+				debug: true
+			} */
+		}, {
+			urlPattern: /^https:\/\/www\.youtube\.com/,
+			handler: "networkOnly"/* ,
+			options: {
+				debug: true
+			} */
 		}, {
 			urlPattern: /\/libs\/(.*?)\/css\//,
 			handler: "fastest",
