@@ -94,7 +94,7 @@ gulp.task('git-check', function (done) {
 gulp.task('generate-service-worker', function (callback) {
 	var path = require('path');
 	var swPrecache = require('sw-precache');
-	swPrecache.write(`service-worker.js`, {
+	swPrecache.write(`./service-worker.js`, {
 	staticFileGlobs: ['index.html',
 		'manifest.json',
 		'yandex-tableau.json',
@@ -105,6 +105,48 @@ gulp.task('generate-service-worker', function (callback) {
 		'pages/**/*.html'],
 	stripPrefix: './',
 	runtimeCaching: [{
+			urlPattern: /^https:\/\/mc\.yandex\.ru/,
+			handler: 'networkOnly',
+			options: {
+				debug: true
+			}
+		}, {
+			urlPattern: /^https:\/\/www\.google-analytics\.com/,
+			handler: 'networkOnly',
+			options: {
+				debug: true
+			}
+		}, {
+			urlPattern: /^https:\/\/ssl\.google-analytics\.com/,
+			handler: 'networkOnly',
+			options: {
+				debug: true
+			}
+		}, {
+			urlPattern: /^https:\/\/(.*?)\.disqus\.com/,
+			handler: 'networkOnly',
+			options: {
+				debug: true
+			}
+		}, {
+			urlPattern: /^https:\/\/w\.soundcloud\.com/,
+			handler: 'networkOnly',
+			options: {
+				debug: true
+			}
+		}, {
+			urlPattern: /^https:\/\/player\.vimeo\.com/,
+			handler: 'networkOnly',
+			options: {
+				debug: true
+			}
+		}, {
+			urlPattern: /^https:\/\/www\.youtube\.com/,
+			handler: 'networkOnly',
+			options: {
+				debug: true
+			}
+		}, {
 			urlPattern: /\/libs\/(.*?)\/css\//,
 			handler: 'fastest',
 			options: {

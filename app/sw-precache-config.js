@@ -13,6 +13,48 @@ module.exports = {
 		'pages/**/*.html'],
 	stripPrefix: './',
 	runtimeCaching: [{
+			urlPattern: /^https:\/\/mc\.yandex\.ru/,
+			handler: 'networkOnly',
+			options: {
+				debug: true
+			}
+		}, {
+			urlPattern: /^https:\/\/www\.google-analytics\.com/,
+			handler: 'networkOnly',
+			options: {
+				debug: true
+			}
+		}, {
+			urlPattern: /^https:\/\/ssl\.google-analytics\.com/,
+			handler: 'networkOnly',
+			options: {
+				debug: true
+			}
+		}, {
+			urlPattern: /^https:\/\/(.*?)\.disqus\.com/,
+			handler: 'networkOnly',
+			options: {
+				debug: true
+			}
+		}, {
+			urlPattern: /^https:\/\/w\.soundcloud\.com/,
+			handler: 'networkOnly',
+			options: {
+				debug: true
+			}
+		}, {
+			urlPattern: /^https:\/\/player\.vimeo\.com/,
+			handler: 'networkOnly',
+			options: {
+				debug: true
+			}
+		}, {
+			urlPattern: /^https:\/\/www\.youtube\.com/,
+			handler: 'networkOnly',
+			options: {
+				debug: true
+			}
+		}, {
 			urlPattern: /\/libs\/(.*?)\/css\//,
 			handler: 'fastest',
 			options: {
