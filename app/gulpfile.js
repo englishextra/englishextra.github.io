@@ -107,13 +107,13 @@ gulp.task('generate-service-worker', function (callback) {
 	stripPrefix: "./",
 	runtimeCaching: [{
 			urlPattern: /^https:\/\/mc\.yandex\.ru/,
-			handler: "fastest",
+			handler: "networkOnly",
 			options: {
 				debug: true
 			}
 		}, {
 			urlPattern: /^https:\/\/www\.google-analytics\.com/,
-			handler: "fastest",
+			handler: "networkOnly",
 			options: {
 				debug: true
 			}
