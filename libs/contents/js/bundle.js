@@ -637,13 +637,15 @@ document.ready().then(loadInitMasonryDisqus);
 var handleContentsSelect = function () {
 	"use strict";
 	var _this = this;
-	var h = _this.options[_this.selectedIndex].value || "",
-	zh = h ? (isValidId(h, !0) ? BALA.one(h) : "") : "";
-	if (_this && h) {
-		if (zh) {
-			scrollToElement(zh);
+	var d = document,
+	gEBI = "getElementById",
+	_hash = _this.options[_this.selectedIndex].value || "",
+	tragetObject = _hash ? (isValidId(_hash, true) ? d[gEBI](_hash.replace(/^#/,"")) || "" : "") : "";
+	if (_hash) {
+		if (tragetObject) {
+			scrollToElement(tragetObject);
 		} else {
-			changeLocation(h);
+			changeLocation(_hash);
 		}
 	}
 },
