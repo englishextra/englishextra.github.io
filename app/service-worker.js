@@ -285,12 +285,12 @@ self.addEventListener('fetch', function(event) {
 
 // Runtime cache configuration, using the sw-toolbox library.
 
-toolbox.router.get(/\.(?:yandex)\.ru$/, toolbox.networkOnly, {});
-toolbox.router.get(/\.(?:youtube|vimeo|disqus|soundcloud)\.com$/, toolbox.networkOnly, {});
-toolbox.router.get(/\.googleapis\.com$/, toolbox.cacheFirst, {});
-toolbox.router.get(/\/libs\/(.*?)\/css\//, toolbox.fastest, {});
-toolbox.router.get(/\/libs\/(.*?)\/js\//, toolbox.fastest, {});
-toolbox.router.get(/\/libs\/(.*?)\/json\//, toolbox.fastest, {});
+toolbox.router.get(/\.(?:yandex)\.ru$/, toolbox.networkOnly, {"debug":true});
+toolbox.router.get(/\.(?:youtube|vimeo|disqus|soundcloud)\.com$/, toolbox.networkOnly, {"debug":true});
+toolbox.router.get(/\.googleapis\.com$/, toolbox.cacheFirst, {"debug":true});
+toolbox.router.get(/\/libs\/(.*?)\/css\//, toolbox.fastest, {"debug":true});
+toolbox.router.get(/\/libs\/(.*?)\/js\//, toolbox.fastest, {"debug":true});
+toolbox.router.get(/\/libs\/(.*?)\/json\//, toolbox.fastest, {"debug":true});
 
 
 

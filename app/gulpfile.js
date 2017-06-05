@@ -107,40 +107,40 @@ gulp.task('generate-service-worker', function (callback) {
 	stripPrefix: "./",
 	runtimeCaching: [{
 			urlPattern: /\.(?:yandex)\.ru$/,
-			handler: "networkOnly"/* ,
+			handler: "networkOnly",
 			options: {
 				debug: true
-			} */
+			}
 		}, {
 			urlPattern: /\.(?:youtube|vimeo|disqus|soundcloud)\.com$/,
-			handler: "networkOnly"/* ,
+			handler: "networkOnly",
 			options: {
 				debug: true
-			} */
+			}
 		}, {
 			urlPattern: /\.googleapis\.com$/,
-			handler: "cacheFirst"/* ,
+			handler: "cacheFirst",
 			options: {
 				debug: true
-			} */
+			}
 		}, {
 			urlPattern: /\/libs\/(.*?)\/css\//,
-			handler: "fastest"/* ,
+			handler: "fastest",
 			options: {
 				debug: true
-			} */
+			}
 		}, {
 			urlPattern: /\/libs\/(.*?)\/js\//,
-			handler: "fastest"/* ,
+			handler: "fastest",
 			options: {
 				debug: true
-			} */
+			}
 		}, {
 			urlPattern: /\/libs\/(.*?)\/json\//,
-			handler: "fastest"/* ,
+			handler: "fastest",
 			options: {
 				debug: true
-			} */
+			}
 		}
 	]
 	}, callback);
