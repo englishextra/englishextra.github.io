@@ -304,7 +304,7 @@ var handleExternalLink = function (p, ev) {
 },
 manageExternalLinks = function (ctx) {
 	"use strict";
-	ctx = ctx || "";
+	ctx = ctx && ctx.nodeName ? ctx : "";
 	var w = globalRoot,
 	aEL = "addEventListener",
 	cls = "a",
@@ -315,6 +315,7 @@ manageExternalLinks = function (ctx) {
 			e.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
 			if ("undefined" !== typeof getHTTP && getHTTP()) {
 				e.target = "_blank";
+				e.rel = "noopener";
 			} else {
 				e[aEL]("click", handleExternalLink.bind(null, p));
 			}
@@ -337,13 +338,13 @@ manageExternalLinks = function (ctx) {
 		k();
 	}
 };
-document.ready().then(manageExternalLinks.bind(null, ""));
+document.ready().then(manageExternalLinks);
 /*!
  * init masonry
  */
 var initMasonry = function (ctx) {
 	"use strict";
-	ctx = ctx || "";
+	ctx = ctx && ctx.nodeName ? ctx : "";
 	var w = globalRoot,
 	cls = ".masonry-grid",
 	h = ".masonry-grid-item",
@@ -362,7 +363,6 @@ var initMasonry = function (ctx) {
 	cls5 = ".holder-filter-controls",
 	holder_controls = ctx ? BALA.one(cls5, ctx) || "" : BALA.one(cls5) || "",
 	g = function () {
-		clearTimeout(st);
 		var imgLoad;
 		if (w.Masonry && w.Isotope) {
 			var iso = new Isotope(a, {
@@ -382,16 +382,17 @@ var initMasonry = function (ctx) {
 					/* console.log("function initMasonry => reinitialised iso"); */
 				});
 			}
-			var h_btns = function (e) {
+			var h_btns = function () {
+				var _this = this;
 				iso.arrange({
-					filter: e.dataset.filter
+					filter: _this.dataset.filter
 				});
 				for (var i = 0, l = btns.length; i < l; i += 1) {
 					btns[i].classList.remove("is-active");
 				}
-				e.classList.add("is-active");
+				_this.classList.add("is-active");
 				for (var j = 0, m = sel.options.length; j < m; j += 1) {
-					if (sel.options[j].value === e.dataset.filter) {
+					if (sel.options[j].value === _this.dataset.filter) {
 						sel.selectedIndex = j;
 						break;
 					}
@@ -399,25 +400,26 @@ var initMasonry = function (ctx) {
 			};
 			if (btn) {
 				for (var i = 0, l = btns.length; i < l; i += 1) {
-					btns[i].onclick = h_btns.bind(null, btns[i]);
+					btns[i].onclick = h_btns;
 				}
 			}
-			var h_sel = function (e) {
+			var h_sel = function () {
+				var _this = this;
 				iso.arrange({
-					filter: e.options[e.selectedIndex].value
+					filter: _this.options[_this.selectedIndex].value
 				});
 				for (var i = 0, l = btns.length; i < l; i += 1) {
 					btns[i].classList.remove("is-active");
 				}
 				for (var j = 0, m = btns.length; j < m; j += 1) {
-					if (btns[j].dataset.filter === e.options[e.selectedIndex].value) {
+					if (btns[j].dataset.filter === _this.options[_this.selectedIndex].value) {
 						btns[j].classList.add("is-active");
 						break;
 					}
 				}
 			};
 			if (sel) {
-				sel.onchange = h_sel.bind(null, sel);
+				sel.onchange = h_sel;
 			}
 			if (holder_controls) {
 				holder_controls.classList.add("visible");
@@ -488,7 +490,12 @@ var initMasonry = function (ctx) {
 			/* console.log("function initMasonry => no lib included"); */
 		}
 	};
-	var st = setTimeout(g, 100);
+	var timers = new Timers();
+	timers.timeout(function () {
+		timers.clear();
+		timers = null;
+		g();
+	}, 100);
 },
 loadInitMasonry = function () {
 	"use strict";
@@ -497,7 +504,7 @@ loadInitMasonry = function () {
 	/* var js = "./cdn/packery/2.1.1/js/packery.imagesloaded.draggabilly.pkgd.fixed.min.js"; */
 	var js = "./cdn/isotope/3.0.1/js/isotope.imagesloaded.pkgd.fixed.min.js";
 	if (!scriptIsLoaded(js)) {
-		loadJS(js, initMasonry.bind(null, ""));
+		loadJS(js, initMasonry);
 	}
 };
 document.ready().then(loadInitMasonry);
@@ -514,7 +521,8 @@ var initUiTotop = function () {
 	t = "Наверх",
 	cL = "classList",
 	aEL = "addEventListener",
-	k = function (_this) {
+	k = function () {
+		var _this = this;
 		var a = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
 		c = _this.innerHeight || h.clientHeight || b.clientHeight || "",
 		e = BALA.one("." + u) || "";
@@ -541,7 +549,7 @@ var initUiTotop = function () {
 		a[cL].add(u);
 		a[aEL]("click", h_a);
 		crel(b, crel(a));
-		w[aEL]("scroll", k.bind(null, w));
+		w[aEL]("scroll", k);
 	};
 	if (b) {
 		/* console.log("triggered function: initUiTotop"); */

@@ -280,7 +280,7 @@ var handleExternalLink = function (p, ev) {
 },
 manageExternalLinks = function (ctx) {
 	"use strict";
-	ctx = ctx || "";
+	ctx = ctx && ctx.nodeName ? ctx : "";
 	var w = globalRoot,
 	aEL = "addEventListener",
 	cls = "a",
@@ -291,6 +291,7 @@ manageExternalLinks = function (ctx) {
 			e.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
 			if ("undefined" !== typeof getHTTP && getHTTP()) {
 				e.target = "_blank";
+				e.rel = "noopener";
 			} else {
 				e[aEL]("click", handleExternalLink.bind(null, p));
 			}
@@ -313,7 +314,7 @@ manageExternalLinks = function (ctx) {
 		k();
 	}
 };
-document.ready().then(manageExternalLinks.bind(null, ""));
+document.ready().then(manageExternalLinks);
 /*!
  * init search and autocomplete logic
  */
@@ -417,13 +418,13 @@ var manageSearchInput = function () {
 	"use strict";
 	var a = BALA.one("#text") || "",
 	aEL = "addEventListener",
-	g = function (_this) {
+	g = function () {
+		var _this = this;
 		_this.value = _this.value.replace(/\\/g, "").replace(/ +(?= )/g, " ").replace(/\/+(?=\/)/g, "/") || "";
 	},
 	k = function (e) {
 		e.focus();
-		e[aEL]("input", g.bind(null, e));
-		/* e.oninput = g.bind(null, e); */
+		e[aEL]("input", g);
 	};
 	if (a) {
 		/* console.log("triggered function: manageSearchInput"); */
@@ -574,7 +575,8 @@ var initUiTotop = function () {
 	t = "Наверх",
 	cL = "classList",
 	aEL = "addEventListener",
-	k = function (_this) {
+	k = function () {
+		var _this = this;
 		var a = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
 		c = _this.innerHeight || h.clientHeight || b.clientHeight || "",
 		e = BALA.one("." + u) || "";
@@ -601,7 +603,7 @@ var initUiTotop = function () {
 		a[cL].add(u);
 		a[aEL]("click", h_a);
 		crel(b, crel(a));
-		w[aEL]("scroll", k.bind(null, w));
+		w[aEL]("scroll", k);
 	};
 	if (b) {
 		/* console.log("triggered function: initUiTotop"); */

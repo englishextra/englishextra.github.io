@@ -299,7 +299,7 @@ var handleExternalLink = function (p, ev) {
 },
 manageExternalLinks = function (ctx) {
 	"use strict";
-	ctx = ctx || "";
+	ctx = ctx && ctx.nodeName ? ctx : "";
 	var w = globalRoot,
 	cls = "a",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
@@ -310,6 +310,7 @@ manageExternalLinks = function (ctx) {
 			e.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
 			if ("undefined" !== typeof getHTTP && getHTTP()) {
 				e.target = "_blank";
+				e.rel = "noopener";
 			} else {
 				e[aEL]("click", handleExternalLink.bind(null, p));
 			}
@@ -332,7 +333,7 @@ manageExternalLinks = function (ctx) {
 		k();
 	}
 };
-document.ready().then(manageExternalLinks.bind(null, ""));
+document.ready().then(manageExternalLinks);
 /*!
  * init Shower
  */
@@ -361,7 +362,8 @@ var initUiTotop = function () {
 	t = "Наверх",
 	cL = "classList",
 	aEL = "addEventListener",
-	k = function (_this) {
+	k = function () {
+		var _this = this;
 		var a = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
 		c = _this.innerHeight || h.clientHeight || b.clientHeight || "",
 		e = BALA.one("." + u) || "";
@@ -388,7 +390,7 @@ var initUiTotop = function () {
 		a[cL].add(u);
 		a[aEL]("click", h_a);
 		crel(b, crel(a));
-		w[aEL]("scroll", k.bind(null, w));
+		w[aEL]("scroll", k);
 	};
 	if (b) {
 		/* console.log("triggered function: initUiTotop"); */

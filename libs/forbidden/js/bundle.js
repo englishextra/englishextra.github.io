@@ -326,7 +326,7 @@ var handleExternalLink = function (p, ev) {
 },
 manageExternalLinks = function (ctx) {
 	"use strict";
-	ctx = ctx || "";
+	ctx = ctx && ctx.nodeName ? ctx : "";
 	var w = globalRoot,
 	aEL = "addEventListener",
 	cls = "a",
@@ -337,6 +337,7 @@ manageExternalLinks = function (ctx) {
 			e.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
 			if ("undefined" !== typeof getHTTP && getHTTP()) {
 				e.target = "_blank";
+				e.rel = "noopener";
 			} else {
 				e[aEL]("click", handleExternalLink.bind(null, p));
 			}
@@ -359,7 +360,7 @@ manageExternalLinks = function (ctx) {
 		k();
 	}
 };
-document.ready().then(manageExternalLinks.bind(null, ""));
+document.ready().then(manageExternalLinks);
 /*!
  * init qr-code
  * @see {@link https://stackoverflow.com/questions/12777622/how-to-use-enquire-js}
@@ -600,7 +601,6 @@ var addAppUpdatesLink = function () {
 			a.href = "javascript:void(0);";
 			/* jshint +W107 */
 			a[aEL]("click", openDeviceBrowser.bind(null, p));
-			/* a.onclick = openDeviceBrowser.bind(null, p); */
 		}
 		crel(li, crel(a, "" + t));
 		if (panel.hasChildNodes()) {

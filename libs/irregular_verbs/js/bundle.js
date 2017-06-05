@@ -304,7 +304,7 @@ var handleExternalLink = function (p, ev) {
 },
 manageExternalLinks = function (ctx) {
 	"use strict";
-	ctx = ctx || "";
+	ctx = ctx && ctx.nodeName ? ctx : "";
 	var w = globalRoot,
 	cls = "a",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
@@ -315,6 +315,7 @@ manageExternalLinks = function (ctx) {
 			e.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
 			if ("undefined" !== typeof getHTTP && getHTTP()) {
 				e.target = "_blank";
+				e.rel = "noopener";
 			} else {
 				e[aEL]("click", handleExternalLink.bind(null, p));
 			}
@@ -337,7 +338,7 @@ manageExternalLinks = function (ctx) {
 		k();
 	}
 };
-document.ready().then(manageExternalLinks.bind(null, ""));
+document.ready().then(manageExternalLinks);
 /*!
  * set title on local links,
  * so that they inform that they open in currnet tab
@@ -345,7 +346,7 @@ document.ready().then(manageExternalLinks.bind(null, ""));
  */
 var manageLocalLinks = function (ctx) {
 	"use strict";
-	ctx = ctx || "";
+	ctx = ctx && ctx.nodeName ? ctx : "";
 	var w = globalRoot,
 	a = ctx ? BALA.one("a", ctx) || "" : BALA.one("a") || "",
 	g = function (e) {
@@ -367,7 +368,7 @@ var manageLocalLinks = function (ctx) {
 		}
 	}
 };
-document.ready().then(manageLocalLinks.bind(null, ""));
+document.ready().then(manageLocalLinks);
 /*!
  * hide ui buttons in fullscreen mode
  */

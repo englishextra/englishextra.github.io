@@ -199,7 +199,7 @@ var handleExternalLink = function (p, ev) {
 },
 manageExternalLinks = function (ctx) {
 	"use strict";
-	ctx = ctx || "";
+	ctx = ctx && ctx.nodeName ? ctx : "";
 	var w = globalRoot,
 	aEL = "addEventListener",
 	cls = "a",
@@ -210,6 +210,7 @@ manageExternalLinks = function (ctx) {
 			e.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
 			if ("undefined" !== typeof getHTTP && getHTTP()) {
 				e.target = "_blank";
+				e.rel = "noopener";
 			} else {
 				e[aEL]("click", handleExternalLink.bind(null, p));
 			}
@@ -232,7 +233,7 @@ manageExternalLinks = function (ctx) {
 		k();
 	}
 };
-document.ready().then(manageExternalLinks.bind(null, ""));
+document.ready().then(manageExternalLinks);
 /*!
  * init webslides
  */
@@ -630,7 +631,7 @@ loadJS("../libs/serguei-webslides/js/vendors.min.js", initWebslides);
  */
 var manageDataQrcodeImg = function (ctx) {
 	"use strict";
-	ctx = ctx || "";
+	ctx = ctx && ctx.nodeName ? ctx : "";
 	var w = globalRoot,
 	cls = "img[data-qrcode]",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
@@ -689,7 +690,7 @@ loadManageDataQrcodeImg = function () {
 	"use strict";
 	var js = "../cdn/qrjs2/0.1.2/js/qrjs2.fixed.min.js";
 	if (!scriptIsLoaded(js)) {
-		loadJS(js, manageDataQrcodeImg.bind(null, ""));
+		loadJS(js, manageDataQrcodeImg);
 	} else {
 		manageDataQrcodeImg();
 	}

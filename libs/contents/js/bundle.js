@@ -305,7 +305,7 @@ var setStyleVisibilityHidden=function(a){return function(){if(a){a.style.visibil
  * @see {@link https://gist.github.com/englishextra/b5aaef8b555a3ba84c68a6e251db149d}
  * @see {@link https://jsfiddle.net/englishextra/z19tznau/}
  * @param {String} a text string
- * @param {Int} [full] if true, returns with leading hash/number sign
+ * @param {Int} [full] if true, checks with leading hash/number sign
  * isValidId(a,full)
  */
 (function(root){"use strict";var isValidId=function(a,full){return full?/^\#[A-Za-z][-A-Za-z0-9_:.]*$/.test(a)?!0:!1:/^[A-Za-z][-A-Za-z0-9_:.]*$/.test(a)?!0:!1;};root.isValidId=isValidId;})(globalRoot);
@@ -421,7 +421,7 @@ var handleExternalLink = function (p, ev) {
 },
 manageExternalLinks = function (ctx) {
 	"use strict";
-	ctx = ctx || "";
+	ctx = ctx && ctx.nodeName ? ctx : "";
 	var w = globalRoot,
 	aEL = "addEventListener",
 	cls = "a",
@@ -432,6 +432,7 @@ manageExternalLinks = function (ctx) {
 			e.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
 			if ("undefined" !== typeof getHTTP && getHTTP()) {
 				e.target = "_blank";
+				e.rel = "noopener";
 			} else {
 				e[aEL]("click", handleExternalLink.bind(null, p));
 			}
@@ -454,7 +455,7 @@ manageExternalLinks = function (ctx) {
 		k();
 	}
 };
-document.ready().then(manageExternalLinks.bind(null, ""));
+document.ready().then(manageExternalLinks);
 /*!
  * init disqus_thread and Masonry / Packery
  * add Draggabilly to Packarey
@@ -633,9 +634,9 @@ document.ready().then(loadInitMasonryDisqus);
  * add smooth scroll or redirection to static select options
  * @param {Object} [ctx] context HTML Element
  */
-var handleContentsSelect = function (_this) {
+var handleContentsSelect = function () {
 	"use strict";
-	_this = _this ? _this.target : "";
+	var _this = this;
 	var h = _this.options[_this.selectedIndex].value || "",
 	zh = h ? (isValidId(h, !0) ? BALA.one(h) : "") : "";
 	if (_this && h) {
@@ -648,7 +649,7 @@ var handleContentsSelect = function (_this) {
 },
 manageContentsSelect = function (ctx) {
 	"use strict";
-	ctx = ctx || "";
+	ctx = ctx && ctx.nodeName ? ctx : "";
 	var w = globalRoot,
 	d = document,
 	cls = "#contents-select",
@@ -694,7 +695,7 @@ manageContentsSelect = function (ctx) {
 		v();
 	}
 };
-document.ready().then(manageContentsSelect.bind(null, ""));
+document.ready().then(manageContentsSelect);
 /*!
  * manage search input
  */
@@ -702,13 +703,13 @@ var manageSearchInput = function () {
 	"use strict";
 	var a = BALA.one("#text") || "",
 	aEL = "addEventListener",
-	g = function (_this) {
+	g = function () {
+		var _this = this;
 		_this.value = _this.value.replace(/\\/g, "").replace(/ +(?= )/g, " ").replace(/\/+(?=\/)/g, "/") || "";
 	},
 	k = function (e) {
 		e.focus();
-		e[aEL]("input", g.bind(null, e));
-		/* e.oninput = g.bind(null, e); */
+		e[aEL]("input", g);
 	};
 	if (a) {
 		/* console.log("triggered function: manageSearchInput"); */
@@ -956,7 +957,6 @@ var addAppUpdatesLink = function () {
 			a.href = "javascript:void(0);";
 			/* jshint +W107 */
 			a[aEL]("click", openDeviceBrowser.bind(null, p));
-			/* a.onclick = openDeviceBrowser.bind(null, p); */
 		}
 		crel(li, crel(a, "" + t));
 		if (panel.hasChildNodes()) {
@@ -1041,7 +1041,8 @@ var initUiTotop = function () {
 	t = "Наверх",
 	cL = "classList",
 	aEL = "addEventListener",
-	k = function (_this) {
+	k = function () {
+		var _this = this;
 		var a = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
 		c = _this.innerHeight || h.clientHeight || b.clientHeight || "",
 		e = BALA.one("." + u) || "";
@@ -1068,7 +1069,7 @@ var initUiTotop = function () {
 		a[cL].add(u);
 		a[aEL]("click", h_a);
 		crel(b, crel(a));
-		w[aEL]("scroll", k.bind(null, w));
+		w[aEL]("scroll", k);
 	};
 	if (b) {
 		/* console.log("triggered function: initUiTotop"); */

@@ -336,7 +336,7 @@ var setStyleVisibilityHidden=function(a){return function(){if(a){a.style.visibil
  * @see {@link https://gist.github.com/englishextra/b5aaef8b555a3ba84c68a6e251db149d}
  * @see {@link https://jsfiddle.net/englishextra/z19tznau/}
  * @param {String} a text string
- * @param {Int} [full] if true, returns with leading hash/number sign
+ * @param {Int} [full] if true, checks with leading hash/number sign
  * isValidId(a,full)
  */
 (function(root){"use strict";var isValidId=function(a,full){return full?/^\#[A-Za-z][-A-Za-z0-9_:.]*$/.test(a)?!0:!1:/^[A-Za-z][-A-Za-z0-9_:.]*$/.test(a)?!0:!1;};root.isValidId=isValidId;})(globalRoot);
@@ -452,7 +452,7 @@ var handleExternalLink = function (p, ev) {
 },
 manageExternalLinks = function (ctx) {
 	"use strict";
-	ctx = ctx || "";
+	ctx = ctx && ctx.nodeName ? ctx : "";
 	var w = globalRoot,
 	aEL = "addEventListener",
 	cls = "a",
@@ -463,6 +463,7 @@ manageExternalLinks = function (ctx) {
 			e.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
 			if ("undefined" !== typeof getHTTP && getHTTP()) {
 				e.target = "_blank";
+				e.rel = "noopener";
 			} else {
 				e[aEL]("click", handleExternalLink.bind(null, p));
 			}
@@ -485,7 +486,7 @@ manageExternalLinks = function (ctx) {
 		k();
 	}
 };
-document.ready().then(manageExternalLinks.bind(null, ""));
+document.ready().then(manageExternalLinks);
 /*!
  * loading spinner
  * @requires Timers
@@ -649,10 +650,11 @@ document.ready().then(loadInitPrettyPrint);
 /*!
  * manage data lightbox img links
  */
-var handleImgLightboxLink = function (_this, ev) {
+var handleImgLightboxLink = function (ev) {
 	"use strict";
 	ev.stopPropagation();
 	ev.preventDefault();
+	var _this = this;
 	var w = globalRoot,
 	ilc = "img-lightbox-container",
 	c = BALA.one("." + ilc) || "",
@@ -750,7 +752,7 @@ handleImgLightboxWindow = function (ev) {
 },
 manageImgLightboxLinks = function (ctx) {
 	"use strict";
-	ctx = ctx || "";
+	ctx = ctx && ctx.nodeName ? ctx : "";
 	var w = globalRoot,
 	b = BALA.one("body") || "",
 	cls = ".img-lightbox-link",
@@ -776,7 +778,7 @@ manageImgLightboxLinks = function (ctx) {
 			if (parseLink(p).isAbsolute && !parseLink(p).hasHTTP) {
 				e.setAttribute("href", p.replace(/^/, getHTTP(!0) + ":"));
 			}
-			e[aEL]("click", handleImgLightboxLink.bind(null, e));
+			e[aEL]("click", handleImgLightboxLink);
 		}
 	};
 	if (a) {
@@ -793,14 +795,14 @@ manageImgLightboxLinks = function (ctx) {
 		}
 	}
 };
-document.ready().then(manageImgLightboxLinks.bind(null, ""));
+document.ready().then(manageImgLightboxLinks);
 /*!
  * replace img src with data-src
  * @param {Object} [ctx] context HTML Element
  */
 var manageDataSrcImages = function (ctx) {
 	"use strict";
-	ctx = ctx || "";
+	ctx = ctx && ctx.nodeName ? ctx : "";
 	var w = globalRoot,
 	cls = "img[data-src]",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
@@ -864,14 +866,14 @@ var manageDataSrcImages = function (ctx) {
 		});
 	}
 };
-document.ready().then(manageDataSrcImages.bind(null, ""));
+document.ready().then(manageDataSrcImages);
 /*!
  * append media-iframe
  * @param {Object} [ctx] context HTML Element
  */
 var manageDataSrcIframes = function (ctx) {
 	"use strict";
-	ctx = ctx || "";
+	ctx = ctx && ctx.nodeName ? ctx : "";
 	var w = globalRoot,
 	cls = "iframe[data-src]",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
@@ -934,38 +936,41 @@ var manageDataSrcIframes = function (ctx) {
 		});
 	}
 };
-document.ready().then(manageDataSrcIframes.bind(null, ""));
+document.ready().then(manageDataSrcIframes);
 /*!
  * add smooth scroll or redirection to static select options
  * @param {Object} [ctx] context HTML Element
  */
-var handleStaticSelect = function (_this) {
+var handleChaptersSelect = function () {
 	"use strict";
-	var h = _this.options[_this.selectedIndex].value || "",
-	zh = h ? (isValidId(h, !0) ? BALA.one(h) : "") : "";
-	if (h) {
-		if (zh) {
-			scrollToElement(zh);
+	var _this = this;
+	var d = document,
+	gEBI = "getElementById",
+	_hash = _this.options[_this.selectedIndex].value || "",
+	tragetObject = _hash ? (isValidId(_hash, true) ? d[gEBI](_hash.replace(/^#/,"")) || "" : "") : "";
+	if (_hash) {
+		if (tragetObject) {
+			scrollToElement(tragetObject);
 		} else {
-			changeLocation(h);
+			changeLocation(_hash);
 		}
 	}
 },
-manageStaticSelect = function (ctx) {
+manageChaptersSelect = function (ctx) {
 	"use strict";
-	ctx = ctx || "";
+	ctx = ctx && ctx.nodeName ? ctx : "";
 	var cls = "#chapters-select",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	aEL = "addEventListener",
 	k = function () {
-		a[aEL]("change", handleStaticSelect.bind(null, a));
+		a[aEL]("change", handleChaptersSelect);
 	};
 	if (a) {
-		/* console.log("triggered function: manageStaticSelect"); */
+		/* console.log("triggered function: manageChaptersSelect"); */
 		k();
 	}
 };
-document.ready().then(manageStaticSelect.bind(null, ""));
+document.ready().then(manageChaptersSelect);
 /*!
  * manage search input
  */
@@ -973,13 +978,13 @@ var manageSearchInput = function () {
 	"use strict";
 	var a = BALA.one("#text") || "",
 	aEL = "addEventListener",
-	g = function (_this) {
+	g = function () {
+		var _this = this;
 		_this.value = _this.value.replace(/\\/g, "").replace(/ +(?= )/g, " ").replace(/\/+(?=\/)/g, "/") || "";
 	},
 	k = function (e) {
 		e.focus();
-		e[aEL]("input", g.bind(null, e));
-		/* e.oninput = g.bind(null, e); */
+		e[aEL]("input", g);
 	};
 	if (a) {
 		/* console.log("triggered function: manageSearchInput"); */
@@ -991,8 +996,9 @@ document.ready().then(manageSearchInput);
  * add click event on hidden-layer show btn
  * @param {Object} [ctx] context HTML Element
  */
-var handleExpandingLayers = function (_this) {
+var handleExpandingLayers = function () {
 	"use strict";
+	var _this = this;
 	var cL = "classList",
 	pN = "parentNode",
 	is_active = "is-active",
@@ -1005,13 +1011,13 @@ var handleExpandingLayers = function (_this) {
 },
 manageExpandingLayers = function (ctx) {
 	"use strict";
-	ctx = ctx || "";
+	ctx = ctx && ctx.nodeName ? ctx : "";
 	var w = globalRoot,
 	cls = ".btn-expand-hidden-layer",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	aEL = "addEventListener",
 	k = function (e) {
-		e[aEL]("click", handleExpandingLayers.bind(null, e));
+		e[aEL]("click", handleExpandingLayers);
 	},
 	q = function () {
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
@@ -1030,13 +1036,14 @@ manageExpandingLayers = function (ctx) {
 		q();
 	}
 };
-document.ready().then(manageExpandingLayers.bind(null, ""));
+document.ready().then(manageExpandingLayers);
 /*!
  * add click event on source code show btn
  * @param {Object} [ctx] context HTML Element
  */
-var handleSourceCodeLayers = function (_this) {
+var handleSourceCodeLayers = function () {
 	"use strict";
+	var _this = this;
 	var cL = "classList",
 	pN = "parentNode",
 	is_active = "is-active",
@@ -1049,14 +1056,13 @@ var handleSourceCodeLayers = function (_this) {
 },
 manageSourceCodeLayers = function (ctx) {
 	"use strict";
-	ctx = ctx || "";
+	ctx = ctx && ctx.nodeName ? ctx : "";
 	var w = globalRoot,
 	cls = ".sg-btn--source",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	aEL = "addEventListener",
 	k = function (e) {
-		e[aEL]("click", handleSourceCodeLayers.bind(null, e));
-		/* e.onclick = handleSourceCodeLayers.bind(null, e); */
+		e[aEL]("click", handleSourceCodeLayers);
 	},
 	q = function () {
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
@@ -1075,7 +1081,7 @@ manageSourceCodeLayers = function (ctx) {
 		q();
 	}
 };
-document.ready().then(manageSourceCodeLayers.bind(null, ""));
+document.ready().then(manageSourceCodeLayers);
 /*!
  * init qr-code
  * @see {@link https://stackoverflow.com/questions/12777622/how-to-use-enquire-js}
@@ -1316,7 +1322,6 @@ var addAppUpdatesLink = function () {
 			a.href = "javascript:void(0);";
 			/* jshint +W107 */
 			a[aEL]("click", openDeviceBrowser.bind(null, p));
-			/* a.onclick = openDeviceBrowser.bind(null, p); */
 		}
 		crel(li, crel(a, "" + t));
 		if (panel.hasChildNodes()) {
@@ -1401,7 +1406,8 @@ var initUiTotop = function () {
 	t = "Наверх",
 	cL = "classList",
 	aEL = "addEventListener",
-	k = function (_this) {
+	k = function () {
+		var _this = this;
 		var a = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
 		c = _this.innerHeight || h.clientHeight || b.clientHeight || "",
 		e = BALA.one("." + u) || "";
@@ -1428,7 +1434,7 @@ var initUiTotop = function () {
 		a[cL].add(u);
 		a[aEL]("click", h_a);
 		crel(b, crel(a));
-		w[aEL]("scroll", k.bind(null, w));
+		w[aEL]("scroll", k);
 	};
 	if (b) {
 		/* console.log("triggered function: initUiTotop"); */

@@ -351,7 +351,7 @@ var handleExternalLink = function (p, ev) {
 },
 manageExternalLinks = function (ctx) {
 	"use strict";
-	ctx = ctx || "";
+	ctx = ctx && ctx.nodeName ? ctx : "";
 	var w = globalRoot,
 	aEL = "addEventListener",
 	cls = "a",
@@ -362,6 +362,7 @@ manageExternalLinks = function (ctx) {
 			e.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
 			if ("undefined" !== typeof getHTTP && getHTTP()) {
 				e.target = "_blank";
+				e.rel = "noopener";
 			} else {
 				e[aEL]("click", handleExternalLink.bind(null, p));
 			}
@@ -384,7 +385,7 @@ manageExternalLinks = function (ctx) {
 		k();
 	}
 };
-document.ready().then(manageExternalLinks.bind(null, ""));
+document.ready().then(manageExternalLinks);
 /*!
  * init superbox
  * If you want coords relative to the parent node, use element.offsetTop.
@@ -457,7 +458,8 @@ var initSuperBox = function () {
 		var link = BALA.one("a", s_cur_desc) || "";
 		if (link) {
 			var links = BALA("a", s_cur_desc),
-			q = function (_this) {
+			q = function () {
+				var _this = this;
 				var b = BALA.one("body") || "",
 				rfrr = encodeURIComponent(d.location.href || ""),
 				ttl = encodeURIComponent(d.title || "").replace("\x27", "&#39;"),
@@ -473,17 +475,18 @@ var initSuperBox = function () {
 			},
 			trackClicks = function (e) {
 				var p = e.getAttribute("href") || "",
-				h_n = function (_this, ev) {
+				h_n = function (ev) {
 					ev.preventDefault();
 					ev.stopPropagation();
+					var _this = this;
 					q(_this);
 					openDeviceBrowser(p);
 				};
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					e.target = "_blank";
-					e[aEL]("click", q.bind(null, e));
+					e[aEL]("click", q);
 				} else {
-					e[aEL]("click", h_n.bind(null, e));
+					e[aEL]("click", h_n);
 				}
 			};
 			if (w._) {
@@ -795,7 +798,6 @@ var addAppUpdatesLink = function () {
 			a.href = "javascript:void(0);";
 			/* jshint +W107 */
 			a[aEL]("click", openDeviceBrowser.bind(null, p));
-			/* a.onclick = openDeviceBrowser.bind(null, p); */
 		}
 		crel(li, crel(a, "" + t));
 		if (panel.hasChildNodes()) {
@@ -880,7 +882,8 @@ var initUiTotop = function () {
 	t = "Наверх",
 	cL = "classList",
 	aEL = "addEventListener",
-	k = function (_this) {
+	k = function () {
+		var _this = this;
 		var a = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
 		c = _this.innerHeight || h.clientHeight || b.clientHeight || "",
 		e = BALA.one("." + u) || "";
@@ -907,7 +910,7 @@ var initUiTotop = function () {
 		a[cL].add(u);
 		a[aEL]("click", h_a);
 		crel(b, crel(a));
-		w[aEL]("scroll", k.bind(null, w));
+		w[aEL]("scroll", k);
 	};
 	if (b) {
 		/* console.log("triggered function: initUiTotop"); */
