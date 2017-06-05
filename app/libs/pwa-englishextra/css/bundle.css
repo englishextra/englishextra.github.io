@@ -4263,11 +4263,11 @@ u,
 	line-height: 1.600rem;
 }
 
-.col .aside h2 a,
+/* .col .aside h2 a,
 .col .aside p a {
 	color: inherit;
 	text-decoration: none;
-}
+} */
 
 .col p + .aside {
 	margin-top: 1.333rem;

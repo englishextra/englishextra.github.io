@@ -890,7 +890,7 @@ u,
 	line-height: 2.125rem;
 	text-align: center;
 	text-decoration: none;
-	border: 0.063rem solid $color-hex-ui-button-bg;
+	border: 0.063rem solid $TitleBarAndAppBarDark;
 }
 
 .col a.btn-larger i.fa,
@@ -906,52 +906,52 @@ u,
 .col a.btn-primary,
 .col a.btn-primary:focus {
 	color: #FFFFFF;
-	background-color: $color-hex-ui-button-bg;
-	border-color: $color-hex-ui-button-bg;
+	background-color: $TitleBarAndAppBarDark;
+	border-color: $TitleBarAndAppBarDark;
 }
 
 .col .btn-primary:hover,
 .col .btn-primary:active,
 .col a.btn-primary:hover,
 .col a.btn-primary:active {
-	background-color: $color-hex-hover-ui-button-bg;
-	border-color: $color-hex-hover-ui-button-bg;
+	background-color: #000000;
+	border-color: #000000;
 }
 
 .col .btn-secondary,
 .col .btn-secondary:focus,
 .col a.btn-secondary,
 .col a.btn-secondary:focus {
-	color: $color-hex-gray-text;
-	background-color: $color-hex-ui-button-secondary-bg;
-	border-color: $color-hex-ui-button-secondary-bg;
+	color: $ButtonText;
+	background-color: $ButtonBackground;
+	border-color: $ButtonBackground;
 }
 
 .col .btn-secondary:hover,
 .col .btn-secondary:active,
 .col a.btn-secondary:hover,
-.col a.btn-secondary:active  {
-	color: $color-hex-gray-text;
-	background-color: $color-hex-hover-ui-button-secondary-bg;
-	border-color: $color-hex-hover-ui-button-secondary-bg;
+.col a.btn-secondary:active {
+	color: $ButtonText;
+	background-color: $ButtonBackground;
+	border-color: $ButtonOutline;
 }
 
 .col .btn-link,
 .col .btn-link:focus,
 .col a.btn-link,
 .col a.btn-link:focus {
-	color: $color-hex-gray-text;
+	color: $ButtonText;
 	background-color: transparent;
-	border-color: $color-hex-ui-button-secondary-bg;
+	border-color: $ButtonBackground;
 }
 
 .col .btn-link:hover,
 .col .btn-link:active,
 .col a.btn-link:hover,
 .col a.btn-link:active {
-	color: $color-hex-gray-text;
-	background-color: $color-hex-ui-button-secondary-bg;
-	border-color: $color-hex-ui-button-secondary-bg;
+	color: $ButtonText;
+	background-color: $ButtonBackground;
+	border-color: $ButtonOutline;
 }
 
 /*!
@@ -982,11 +982,11 @@ u,
 	line-height: 1.500rem;
 }
 
-.col .aside h2 a,
+/* .col .aside h2 a,
 .col .aside p a {
 	color: inherit;
 	text-decoration: none;
-}
+} */
 
 .col p + .aside {
 	margin-top: 1.500rem;

@@ -3400,7 +3400,7 @@ u,
 
 .col a {
 	font-weight: inherit;
-	color: #3585D8;
+	color: #2F76C0;
 }
 
 .col a:focus,
@@ -3630,7 +3630,7 @@ u,
 	line-height: 2.267rem;
 	text-align: center;
 	text-decoration: none;
-	border: 0.067rem solid #373737;
+	border: 0.067rem solid #1F1F1F;
 }
 
 .col a.btn-larger i.fa,
@@ -3646,52 +3646,52 @@ u,
 .col a.btn-primary,
 .col a.btn-primary:focus {
 	color: #FFFFFF;
-	background-color: #373737;
-	border-color: #373737;
+	background-color: #1F1F1F;
+	border-color: #1F1F1F;
 }
 
 .col .btn-primary:hover,
 .col .btn-primary:active,
 .col a.btn-primary:hover,
 .col a.btn-primary:active {
-	background-color: #5F5F5F;
-	border-color: #5F5F5F;
+	background-color: #000000;
+	border-color: #000000;
 }
 
 .col .btn-secondary,
 .col .btn-secondary:focus,
 .col a.btn-secondary,
 .col a.btn-secondary:focus {
-	color: #878787;
-	background-color: #EDEDED;
-	border-color: #EDEDED;
+	color: #191919;
+	background-color: #CCCCCC;
+	border-color: #CCCCCC;
 }
 
 .col .btn-secondary:hover,
 .col .btn-secondary:active,
 .col a.btn-secondary:hover,
 .col a.btn-secondary:active {
-	color: #878787;
-	background-color: #DBDBDB;
-	border-color: #DBDBDB;
+	color: #191919;
+	background-color: #CCCCCC;
+	border-color: #767676;
 }
 
 .col .btn-link,
 .col .btn-link:focus,
 .col a.btn-link,
 .col a.btn-link:focus {
-	color: #878787;
+	color: #191919;
 	background-color: transparent;
-	border-color: #EDEDED;
+	border-color: #CCCCCC;
 }
 
 .col .btn-link:hover,
 .col .btn-link:active,
 .col a.btn-link:hover,
 .col a.btn-link:active {
-	color: #878787;
-	background-color: #EDEDED;
-	border-color: #EDEDED;
+	color: #191919;
+	background-color: #CCCCCC;
+	border-color: #767676;
 }
 
 /*!
@@ -3737,11 +3737,11 @@ u,
 	line-height: 1.600rem;
 }
 
-.col .aside h2 a,
+/* .col .aside h2 a,
 .col .aside p a {
 	color: inherit;
 	text-decoration: none;
-}
+} */
 
 .col p + .aside {
 	margin-top: 1.333rem;
@@ -4902,7 +4902,7 @@ iPad 3
 	table td a[href^="http"]:after,
 	.col table td a[href^="http"]:after {
 		content: " <" attr(href) ">";
-		color: #3585D8;
+		color: #2F76C0;
 	}
 
 	h1,
