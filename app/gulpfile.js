@@ -107,46 +107,46 @@ gulp.task('generate-service-worker', function (callback) {
 	stripPrefix: "./",
 	runtimeCaching: [{
 			urlPattern: /^https:\/\/mc\.yandex\.ru/,
-			handler: "fastest"/* ,
+			handler: "fastest",
 			options: {
 				debug: true
-			} */
+			}
 		}, {
 			urlPattern: /^https:\/\/www\.google-analytics\.com/,
-			handler: "fastest"/* ,
+			handler: "fastest",
 			options: {
 				debug: true
-			} */
+			}
 		}, {
 			urlPattern: /^https:\/\/ssl\.google-analytics\.com/,
-			handler: "networkOnly"/* ,
+			handler: "networkOnly",
 			options: {
 				debug: true
-			} */
+			}
 		}, {
 			urlPattern: /^https:\/\/(.*?)\.disqus\.com/,
-			handler: "networkOnly"/* ,
+			handler: "networkOnly",
 			options: {
 				debug: true
-			} */
+			}
 		}, {
 			urlPattern: /^https:\/\/w\.soundcloud\.com/,
-			handler: "networkOnly"/* ,
+			handler: "networkOnly",
 			options: {
 				debug: true
-			} */
+			}
 		}, {
 			urlPattern: /^https:\/\/player\.vimeo\.com/,
-			handler: "networkOnly"/* ,
+			handler: "networkOnly",
 			options: {
 				debug: true
-			} */
+			}
 		}, {
 			urlPattern: /^https:\/\/www\.youtube\.com/,
-			handler: "networkOnly"/* ,
+			handler: "networkOnly",
 			options: {
 				debug: true
-			} */
+			}
 		}, {
 			urlPattern: /\/libs\/(.*?)\/css\//,
 			handler: "fastest",
