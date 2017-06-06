@@ -14,26 +14,38 @@ module.exports = {
 		"pages/**/*.html"],
 	stripPrefix: "./",
 	runtimeCaching: [{
+			urlPattern: /^https:\/\/yastatic\.net/,
+			handler: "networkFirst",
+			options: {
+				debug: true
+			}
+		}, {
+			urlPattern: /^https:\/\/vk\.com/,
+			handler: "networkFirst",
+			options: {
+				debug: true
+			}
+		}, {
 			urlPattern: /^https:\/\/mc\.yandex\.ru/,
-			handler: "networkOnly",
+			handler: "networkFirst",
 			options: {
 				debug: true
 			}
 		}, {
 			urlPattern: /^https:\/\/www\.google-analytics\.com/,
-			handler: "networkOnly",
+			handler: "networkFirst",
 			options: {
 				debug: true
 			}
 		}, {
 			urlPattern: /^https:\/\/ssl\.google-analytics\.com/,
-			handler: "networkOnly",
+			handler: "networkFirst",
 			options: {
 				debug: true
 			}
 		}, {
 			urlPattern: /^https:\/\/(.*?)\.disqus\.com/,
-			handler: "networkOnly",
+			handler: "networkFirst",
 			options: {
 				debug: true
 			}
@@ -52,6 +64,12 @@ module.exports = {
 		}, {
 			urlPattern: /^https:\/\/www\.youtube\.com/,
 			handler: "networkOnly",
+			options: {
+				debug: true
+			}
+		}, {
+			urlPattern: /^https:\/\/(.*?)\.staticflickr\.com/,
+			handler: "networkFirst",
 			options: {
 				debug: true
 			}

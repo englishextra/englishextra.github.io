@@ -285,13 +285,16 @@ self.addEventListener('fetch', function(event) {
 
 // Runtime cache configuration, using the sw-toolbox library.
 
-toolbox.router.get(/^https:\/\/mc\.yandex\.ru/, toolbox.networkOnly, {"debug":true});
-toolbox.router.get(/^https:\/\/www\.google-analytics\.com/, toolbox.networkOnly, {"debug":true});
-toolbox.router.get(/^https:\/\/ssl\.google-analytics\.com/, toolbox.networkOnly, {"debug":true});
-toolbox.router.get(/^https:\/\/(.*?)\.disqus\.com/, toolbox.networkOnly, {"debug":true});
+toolbox.router.get(/^https:\/\/yastatic\.net/, toolbox.networkFirst, {"debug":true});
+toolbox.router.get(/^https:\/\/vk\.com/, toolbox.networkFirst, {"debug":true});
+toolbox.router.get(/^https:\/\/mc\.yandex\.ru/, toolbox.networkFirst, {"debug":true});
+toolbox.router.get(/^https:\/\/www\.google-analytics\.com/, toolbox.networkFirst, {"debug":true});
+toolbox.router.get(/^https:\/\/ssl\.google-analytics\.com/, toolbox.networkFirst, {"debug":true});
+toolbox.router.get(/^https:\/\/(.*?)\.disqus\.com/, toolbox.networkFirst, {"debug":true});
 toolbox.router.get(/^https:\/\/w\.soundcloud\.com/, toolbox.networkOnly, {"debug":true});
 toolbox.router.get(/^https:\/\/player\.vimeo\.com/, toolbox.networkOnly, {"debug":true});
 toolbox.router.get(/^https:\/\/www\.youtube\.com/, toolbox.networkOnly, {"debug":true});
+toolbox.router.get(/^https:\/\/(.*?)\.staticflickr\.com/, toolbox.networkFirst, {"debug":true});
 toolbox.router.get(/\/cdn\/(.*?)/, toolbox.networkFirst, {"debug":true});
 toolbox.router.get(/\/libs\/(.*?)\/css\//, toolbox.networkFirst, {"debug":true});
 toolbox.router.get(/\/libs\/(.*?)\/js\//, toolbox.networkFirst, {"debug":true});
