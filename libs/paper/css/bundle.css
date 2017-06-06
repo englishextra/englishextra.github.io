@@ -3856,7 +3856,7 @@ u,
 
 .col a {
 	font-weight: inherit;
-	color: #2F76C0;
+	color: #1467BD;
 }
 
 .col a:focus,
@@ -4586,7 +4586,7 @@ u,
 	table td a[href^="http"]:after,
 	.col table td a[href^="http"]:after {
 		content: " <" attr(href) ">";
-		color: #2F76C0;
+		color: #1467BD;
 	}
 
 	h1,

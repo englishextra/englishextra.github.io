@@ -3565,7 +3565,7 @@ u,
 
 .col a {
 	font-weight: inherit;
-	color: #2F76C0;
+	color: #1467BD;
 }
 
 .col a:focus,
@@ -4283,7 +4283,7 @@ u,
 }
 
 .bg-color-hex-link {
-	background-color: #2F76C0;
+	background-color: #1467BD;
 }
 
 .bg-color-hex-hover-link {
@@ -4686,7 +4686,7 @@ u,
 	table td a[href^="http"]:after,
 	.col table td a[href^="http"]:after {
 		content: " <" attr(href) ">";
-		color: #2F76C0;
+		color: #1467BD;
 	}
 
 	h1,

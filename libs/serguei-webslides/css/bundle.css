@@ -4013,7 +4013,7 @@ svg {
 
 [class*="bg-"] a,
 [class*="bg-gradient-"] a {
-	color: #2F76C0;
+	color: #1467BD;
 }
 
 .bg-brown a {
@@ -4988,7 +4988,7 @@ Slides (Counter/Arrows)
 
 #counter,
 #navigation a {
-	color: #2F76C0;
+	color: #1467BD;
 }
 
 #webslides:hover #navigation a:hover {

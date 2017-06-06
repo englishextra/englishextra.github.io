@@ -100,7 +100,7 @@ gulp.task('generate-service-worker', function (callback) {
 		"manifest.json",
 		"yandex-tableau.json",
 		"**.{png,ico,svg}",
-		"cdn/**/*.{png,jpg,js,json,css}",
+		// "cdn/**/*.{png,jpg,js,json,css}",
 		"fonts/**/*.{eot,ttf,woff,woff2}",
 		"libs/**/img/**/*.{png,jpg}",
 		"pages/**/*.html"],
@@ -144,6 +144,12 @@ gulp.task('generate-service-worker', function (callback) {
 		}, {
 			urlPattern: /^https:\/\/www\.youtube\.com/,
 			handler: "networkOnly",
+			options: {
+				debug: true
+			}
+		}, {
+			urlPattern: /\/cdn\/(.*?)/,
+			handler: "networkFirst",
 			options: {
 				debug: true
 			}
