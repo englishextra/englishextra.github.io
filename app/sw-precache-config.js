@@ -83,12 +83,6 @@ module.exports = {
 				debug: true
 			} */
 		}, {
-			urlPattern: /^\/([^/]+\.html)$/,
-			handler: "networkFirst"/* ,
-			options: {
-				debug: true
-			} */
-		}, {
 			urlPattern: /^\/([^/]+\.js)$/,
 			handler: "networkOnly"/* ,
 			options: {

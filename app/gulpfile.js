@@ -175,12 +175,6 @@ gulp.task('generate-service-worker', function (callback) {
 				debug: true
 			} */
 		}, {
-			urlPattern: /^\/([^/]+\.html)$/,
-			handler: "networkFirst"/* ,
-			options: {
-				debug: true
-			} */
-		}, {
 			urlPattern: /^\/([^/]+\.js)$/,
 			handler: "networkOnly"/* ,
 			options: {
