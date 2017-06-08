@@ -12,7 +12,7 @@ module.exports = {
 		"./": "index.html"
 	}, */
 	staticFileGlobs: [
-		"index.html",
+		// "index.html",
 		// "manifest.json",
 		// "yandex-tableau.json",
 		// "**.{png,ico,svg}",
