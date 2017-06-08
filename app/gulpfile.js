@@ -104,6 +104,7 @@ gulp.task('generate-service-worker', function (callback) {
 		"./": "index.html"
 	}, */
 	staticFileGlobs: [
+		"index.html",
 		// "manifest.json",
 		// "yandex-tableau.json",
 		// "**.{png,ico,svg}",

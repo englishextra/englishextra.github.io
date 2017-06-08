@@ -12,15 +12,16 @@ module.exports = {
 		"./": "index.html"
 	}, */
 	staticFileGlobs: [
-		// "www/manifest.json",
-		// "www/yandex-tableau.json",
-		// "www/**.{png,ico,svg}",
-		// "www/cdn/**/*.{png,jpg,js,json,css}",
-		// "www/fonts/**/*.{eot,ttf,woff,woff2}",
-		// "www/libs/**/img/**/*.{png,jpg}",
-		// "www/pages/**/*.html"
+		"index.html",
+		// "manifest.json",
+		// "yandex-tableau.json",
+		// "**.{png,ico,svg}",
+		// "cdn/**/*.{png,jpg,js,json,css}",
+		// "fonts/**/*.{eot,ttf,woff,woff2}",
+		// "libs/**/img/**/*.{png,jpg}",
+		// "pages/**/*.html"
 		],
-	stripPrefix: "www/",
+	stripPrefix: "",
 	runtimeCaching: [{
 			urlPattern: /^https:\/\/yastatic\.net/,
 			handler: "networkFirst"/* ,
