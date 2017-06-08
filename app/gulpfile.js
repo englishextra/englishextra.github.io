@@ -100,115 +100,115 @@ gulp.task('generate-service-worker', function (callback) {
 	swPrecache.write(`./service-worker.js`, {
 	cacheId: "englishextra",
 	navigateFallback: "./",
-	dynamicUrlToDependencies: {
+	/* dynamicUrlToDependencies: {
 		"./": "index.html"
-	},
+	}, */
 	staticFileGlobs: [
 		// "manifest.json",
 		// "yandex-tableau.json",
-		"**.{png,ico,svg}",
+		// "**.{png,ico,svg}",
 		// "cdn/**/*.{png,jpg,js,json,css}",
-		"fonts/**/*.{eot,ttf,woff,woff2}",
+		// "fonts/**/*.{eot,ttf,woff,woff2}",
 		// "libs/**/img/**/*.{png,jpg}",
 		// "pages/**/*.html"
 		],
 	stripPrefix: "",
 	runtimeCaching: [{
 			urlPattern: /^https:\/\/yastatic\.net/,
-			handler: "networkFirst",
+			handler: "networkFirst"/* ,
 			options: {
 				debug: true
-			}
+			} */
 		}, {
 			urlPattern: /^https:\/\/vk\.com/,
-			handler: "networkFirst",
+			handler: "networkFirst"/* ,
 			options: {
 				debug: true
-			}
+			} */
 		}, {
 			urlPattern: /^https:\/\/mc\.yandex\.ru/,
-			handler: "networkFirst",
+			handler: "networkFirst"/* ,
 			options: {
 				debug: true
-			}
+			} */
 		}, {
 			urlPattern: /^https:\/\/www\.google-analytics\.com/,
-			handler: "networkFirst",
+			handler: "networkFirst"/* ,
 			options: {
 				debug: true
-			}
+			} */
 		}, {
 			urlPattern: /^https:\/\/ssl\.google-analytics\.com/,
-			handler: "networkFirst",
+			handler: "networkFirst"/* ,
 			options: {
 				debug: true
-			}
+			} */
 		}, {
 			urlPattern: /^https:\/\/(.*?)\.disqus\.com/,
-			handler: "networkOnly",
+			handler: "networkOnly"/* ,
 			options: {
 				debug: true
-			}
+			} */
 		}, {
 			urlPattern: /^https:\/\/w\.soundcloud\.com/,
-			handler: "networkOnly",
+			handler: "networkOnly"/* ,
 			options: {
 				debug: true
-			}
+			} */
 		}, {
 			urlPattern: /^https:\/\/player\.vimeo\.com/,
-			handler: "networkOnly",
+			handler: "networkOnly"/* ,
 			options: {
 				debug: true
-			}
+			} */
 		}, {
 			urlPattern: /^https:\/\/www\.youtube\.com/,
-			handler: "networkOnly",
+			handler: "networkOnly"/* ,
 			options: {
 				debug: true
-			}
+			} */
 		}, {
 			urlPattern: /^https:\/\/(.*?)\.staticflickr\.com/,
-			handler: "networkFirst",
+			handler: "networkFirst"/* ,
 			options: {
 				debug: true
-			}
+			} */
 		}, {
 			urlPattern: /^\/([^/]+\.html)$/,
-			handler: "networkFirst",
+			handler: "networkFirst"/* ,
 			options: {
 				debug: true
-			}
+			} */
 		}, {
 			urlPattern: /^\/([^/]+\.js)$/,
-			handler: "networkOnly",
+			handler: "networkOnly"/* ,
 			options: {
 				debug: true
-			}
+			} */
 		}, {
 			urlPattern: /^\/([^/]+\.json)$/,
-			handler: "networkOnly",
+			handler: "networkOnly"/* ,
 			options: {
 				debug: true
-			}
+			} */
 		}, {
 			urlPattern: /\/cdn\//,
-			handler: "networkFirst",
+			handler: "networkFirst"/* ,
 			options: {
 				debug: true
-			}
+			} */
 		}, {
 			urlPattern: /\/pages\//,
-			handler: "networkFirst",
+			handler: "networkFirst"/* ,
 			options: {
 				debug: true
-			}
+			} */
 		}, {
 			urlPattern: /\/libs\//,
-			handler: "networkFirst",
+			handler: "networkFirst"/* ,
 			options: {
 				debug: true
-			}
+			} */
 		}
 	]
 	}, callback);

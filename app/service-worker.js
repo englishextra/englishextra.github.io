@@ -37,7 +37,7 @@
 /* eslint-disable indent, no-unused-vars, no-multiple-empty-lines, max-nested-callbacks, space-before-function-paren, quotes, comma-spacing */
 'use strict';
 
-var precacheConfig = [["./","eacf331f0ffc35d4b482f1d15a887d3b"],["android-chrome-192x192.png","9f6956c64973ce276b9f4020e417749c"],["android-chrome-512x512.png","19849567e9dcd11efbe535c6037a5272"],["apple-touch-icon-144x144.png","a92779796533f78680eb67cdffb4c05d"],["apple-touch-icon.png","9d10b566af96d1db3bbaa394413b2710"],["favicon-16x16.png","fa5aeeb56378b9004adbdc29072e92bd"],["favicon-32x32.png","947c5bb31c93798e725131de25b868ea"],["favicon-96x96.png","b727d03c6138b44a736d10ab6c92177a"],["favicon.ico","75c4603265a2d4a3480803ce75774695"],["icon.png","bfc826488f7c35068a619ee9561b8964"],["mstile-150x150.png","9c13a38d01c28b47d0b76798b17d51e3"],["mstile-310x150.png","ed9469c37a0d228098d1a3e885f99678"],["safari-pinned-tab.svg","440f6c5ffa07ec0cdcdd618c51362ff1"],["yandex-tableau-50x50.png","666b17e38a4d2f8bfb9a1e3e70e77cff"]];
+var precacheConfig = [];
 var cacheName = 'sw-precache-v3-englishextra-' + (self.registration ? self.registration.scope : '');
 
 
@@ -285,22 +285,22 @@ self.addEventListener('fetch', function(event) {
 
 // Runtime cache configuration, using the sw-toolbox library.
 
-toolbox.router.get(/^https:\/\/yastatic\.net/, toolbox.networkFirst, {"debug":true});
-toolbox.router.get(/^https:\/\/vk\.com/, toolbox.networkFirst, {"debug":true});
-toolbox.router.get(/^https:\/\/mc\.yandex\.ru/, toolbox.networkFirst, {"debug":true});
-toolbox.router.get(/^https:\/\/www\.google-analytics\.com/, toolbox.networkFirst, {"debug":true});
-toolbox.router.get(/^https:\/\/ssl\.google-analytics\.com/, toolbox.networkFirst, {"debug":true});
-toolbox.router.get(/^https:\/\/(.*?)\.disqus\.com/, toolbox.networkOnly, {"debug":true});
-toolbox.router.get(/^https:\/\/w\.soundcloud\.com/, toolbox.networkOnly, {"debug":true});
-toolbox.router.get(/^https:\/\/player\.vimeo\.com/, toolbox.networkOnly, {"debug":true});
-toolbox.router.get(/^https:\/\/www\.youtube\.com/, toolbox.networkOnly, {"debug":true});
-toolbox.router.get(/^https:\/\/(.*?)\.staticflickr\.com/, toolbox.networkFirst, {"debug":true});
-toolbox.router.get(/^\/([^\/]+\.html)$/, toolbox.networkFirst, {"debug":true});
-toolbox.router.get(/^\/([^\/]+\.js)$/, toolbox.networkOnly, {"debug":true});
-toolbox.router.get(/^\/([^\/]+\.json)$/, toolbox.networkOnly, {"debug":true});
-toolbox.router.get(/\/cdn\//, toolbox.networkFirst, {"debug":true});
-toolbox.router.get(/\/pages\//, toolbox.networkFirst, {"debug":true});
-toolbox.router.get(/\/libs\//, toolbox.networkFirst, {"debug":true});
+toolbox.router.get(/^https:\/\/yastatic\.net/, toolbox.networkFirst, {});
+toolbox.router.get(/^https:\/\/vk\.com/, toolbox.networkFirst, {});
+toolbox.router.get(/^https:\/\/mc\.yandex\.ru/, toolbox.networkFirst, {});
+toolbox.router.get(/^https:\/\/www\.google-analytics\.com/, toolbox.networkFirst, {});
+toolbox.router.get(/^https:\/\/ssl\.google-analytics\.com/, toolbox.networkFirst, {});
+toolbox.router.get(/^https:\/\/(.*?)\.disqus\.com/, toolbox.networkOnly, {});
+toolbox.router.get(/^https:\/\/w\.soundcloud\.com/, toolbox.networkOnly, {});
+toolbox.router.get(/^https:\/\/player\.vimeo\.com/, toolbox.networkOnly, {});
+toolbox.router.get(/^https:\/\/www\.youtube\.com/, toolbox.networkOnly, {});
+toolbox.router.get(/^https:\/\/(.*?)\.staticflickr\.com/, toolbox.networkFirst, {});
+toolbox.router.get(/^\/([^\/]+\.html)$/, toolbox.networkFirst, {});
+toolbox.router.get(/^\/([^\/]+\.js)$/, toolbox.networkOnly, {});
+toolbox.router.get(/^\/([^\/]+\.json)$/, toolbox.networkOnly, {});
+toolbox.router.get(/\/cdn\//, toolbox.networkFirst, {});
+toolbox.router.get(/\/pages\//, toolbox.networkFirst, {});
+toolbox.router.get(/\/libs\//, toolbox.networkFirst, {});
 
 
 
