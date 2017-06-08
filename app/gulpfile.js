@@ -91,20 +91,28 @@ gulp.task('git-check', function (done) {
  * @see {@link https://github.com/GoogleChrome/sw-precache/issues/97}
  * @see {@link https://github.com/GoogleChrome/sw-precache#runtime-caching}
  * @see {@link https://developers.google.com/web/ilt/pwa/using-sw-precache-and-sw-toolbox}
+ * @see {@link https://github.com/deanhume/Service-Worker-Toolbox/blob/master/sw.js}
+ * @see {@link https://github.com/GoogleChrome/ioweb2016/blob/master/gulp_scripts/service-worker.js}
  */
 gulp.task('generate-service-worker', function (callback) {
 	var path = require('path');
 	var swPrecache = require('sw-precache');
 	swPrecache.write(`./service-worker.js`, {
-	staticFileGlobs: ["index.html",
-		"manifest.json",
-		"yandex-tableau.json",
+	cacheId: "englishextra",
+	navigateFallback: "./",
+	dynamicUrlToDependencies: {
+		"./": "index.html"
+	},
+	staticFileGlobs: [
+		// "manifest.json",
+		// "yandex-tableau.json",
 		"**.{png,ico,svg}",
 		// "cdn/**/*.{png,jpg,js,json,css}",
 		"fonts/**/*.{eot,ttf,woff,woff2}",
-		"libs/**/img/**/*.{png,jpg}",
-		"pages/**/*.html"],
-	stripPrefix: "./",
+		// "libs/**/img/**/*.{png,jpg}",
+		// "pages/**/*.html"
+		],
+	stripPrefix: "",
 	runtimeCaching: [{
 			urlPattern: /^https:\/\/yastatic\.net/,
 			handler: "networkFirst",
@@ -137,7 +145,7 @@ gulp.task('generate-service-worker', function (callback) {
 			}
 		}, {
 			urlPattern: /^https:\/\/(.*?)\.disqus\.com/,
-			handler: "networkFirst",
+			handler: "networkOnly",
 			options: {
 				debug: true
 			}
@@ -166,25 +174,37 @@ gulp.task('generate-service-worker', function (callback) {
 				debug: true
 			}
 		}, {
-			urlPattern: /\/cdn\/(.*?)/,
+			urlPattern: /^\/([^/]+\.html)$/,
 			handler: "networkFirst",
 			options: {
 				debug: true
 			}
 		}, {
-			urlPattern: /\/libs\/(.*?)\/css\//,
+			urlPattern: /^\/([^/]+\.js)$/,
+			handler: "networkOnly",
+			options: {
+				debug: true
+			}
+		}, {
+			urlPattern: /^\/([^/]+\.json)$/,
+			handler: "networkOnly",
+			options: {
+				debug: true
+			}
+		}, {
+			urlPattern: /\/cdn\//,
 			handler: "networkFirst",
 			options: {
 				debug: true
 			}
 		}, {
-			urlPattern: /\/libs\/(.*?)\/js\//,
+			urlPattern: /\/pages\//,
 			handler: "networkFirst",
 			options: {
 				debug: true
 			}
 		}, {
-			urlPattern: /\/libs\/(.*?)\/json\//,
+			urlPattern: /\/libs\//,
 			handler: "networkFirst",
 			options: {
 				debug: true

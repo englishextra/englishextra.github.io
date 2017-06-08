@@ -4121,7 +4121,7 @@ u,
 	height: 3.200rem;
 	font-size: 0.933rem;
 	line-height: 3.200rem;
-	color: #878787;
+	color: #191919;
 	background-color: #E6E6E6;
 	cursor: default;
 	padding: 0 3.200rem 0 0.933rem;
@@ -4131,7 +4131,7 @@ u,
 .holder-contents-select a:hover,
 .holder-contents-select a:active,
 .holder-contents-select a:visited {
-	color: #878787;
+	color: #191919;
 	text-decoration: none;
 }
 
@@ -4477,7 +4477,7 @@ u,
 	height: 2.400rem;
 	font-size: 0.933rem;
 	line-height: 2.400rem;
-	color: #878787;
+	color: #191919;
 	background-color: #F2F2F2;
 	cursor: default;
 	padding: 0 2.400rem 0 0.533rem;
@@ -4487,7 +4487,7 @@ u,
 .holder-chapters-select a:hover,
 .holder-chapters-select a:active,
 .holder-chapters-select a:visited {
-	color: #878787;
+	color: #191919;
 	text-decoration: none;
 }
 

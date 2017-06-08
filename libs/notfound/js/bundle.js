@@ -151,7 +151,7 @@ var initParallax = function () {
 		if (s) {
 			if (w.Parallax) {
 				var prlx;
-				prlx= new Parallax(s);
+				prlx = new Parallax(s);
 			}
 		}
 	} else {
