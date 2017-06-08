@@ -12,7 +12,7 @@ module.exports = {
 		"./": "index.html"
 	}, */
 	staticFileGlobs: [
-		// "index.html",
+		"index.html",
 		// "manifest.json",
 		// "yandex-tableau.json",
 		// "**.{png,ico,svg}",
@@ -84,16 +84,16 @@ module.exports = {
 			} */
 		}, {
 			urlPattern: /^\/([^/]+\.js)$/,
-			handler: "networkOnly"/* ,
+			handler: "networkOnly",
 			options: {
 				debug: true
-			} */
+			}
 		}, {
 			urlPattern: /^\/([^/]+\.json)$/,
-			handler: "networkOnly"/* ,
+			handler: "networkOnly",
 			options: {
 				debug: true
-			} */
+			}
 		}, {
 			urlPattern: /\/cdn\//,
 			handler: "networkFirst"/* ,

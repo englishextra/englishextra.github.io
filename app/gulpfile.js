@@ -104,7 +104,7 @@ gulp.task('generate-service-worker', function (callback) {
 		"./": "index.html"
 	}, */
 	staticFileGlobs: [
-		// "index.html",
+		"index.html",
 		// "manifest.json",
 		// "yandex-tableau.json",
 		// "**.{png,ico,svg}",
@@ -176,16 +176,16 @@ gulp.task('generate-service-worker', function (callback) {
 			} */
 		}, {
 			urlPattern: /^\/([^/]+\.js)$/,
-			handler: "networkOnly"/* ,
+			handler: "networkOnly",
 			options: {
 				debug: true
-			} */
+			}
 		}, {
 			urlPattern: /^\/([^/]+\.json)$/,
-			handler: "networkOnly"/* ,
+			handler: "networkOnly",
 			options: {
 				debug: true
-			} */
+			}
 		}, {
 			urlPattern: /\/cdn\//,
 			handler: "networkFirst"/* ,
