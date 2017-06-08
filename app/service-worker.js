@@ -37,7 +37,7 @@
 /* eslint-disable indent, no-unused-vars, no-multiple-empty-lines, max-nested-callbacks, space-before-function-paren, quotes, comma-spacing */
 'use strict';
 
-var precacheConfig = [["index.html","ceb572b99d7aabd0bd30706930f882e8"]];
+var precacheConfig = [["index.html","36829e15b3ca1f4f473e9bfcbec21846"]];
 var cacheName = 'sw-precache-v3-englishextra-' + (self.registration ? self.registration.scope : '');
 
 
@@ -295,7 +295,6 @@ toolbox.router.get(/^https:\/\/w\.soundcloud\.com/, toolbox.networkOnly, {});
 toolbox.router.get(/^https:\/\/player\.vimeo\.com/, toolbox.networkOnly, {});
 toolbox.router.get(/^https:\/\/www\.youtube\.com/, toolbox.networkOnly, {});
 toolbox.router.get(/^https:\/\/(.*?)\.staticflickr\.com/, toolbox.networkFirst, {});
-toolbox.router.get(/^\/([^\/]+\.html)$/, toolbox.networkFirst, {});
 toolbox.router.get(/^\/([^\/]+\.js)$/, toolbox.networkOnly, {});
 toolbox.router.get(/^\/([^\/]+\.json)$/, toolbox.networkOnly, {});
 toolbox.router.get(/\/cdn\//, toolbox.networkFirst, {});

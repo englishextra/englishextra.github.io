@@ -295,7 +295,6 @@ toolbox.router.get(/^https:\/\/w\.soundcloud\.com/, toolbox.networkOnly, {});
 toolbox.router.get(/^https:\/\/player\.vimeo\.com/, toolbox.networkOnly, {});
 toolbox.router.get(/^https:\/\/www\.youtube\.com/, toolbox.networkOnly, {});
 toolbox.router.get(/^https:\/\/(.*?)\.staticflickr\.com/, toolbox.networkFirst, {});
-toolbox.router.get(/^\/([^\/]+\.html)$/, toolbox.networkFirst, {});
 toolbox.router.get(/^\/([^\/]+\.js)$/, toolbox.networkOnly, {});
 toolbox.router.get(/^\/([^\/]+\.json)$/, toolbox.networkOnly, {});
 toolbox.router.get(/\/cdn\//, toolbox.networkFirst, {});
