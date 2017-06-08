@@ -174,7 +174,7 @@ if (document.title) {
  * @param {Number} n any positive decimal number 0.00-1.00
  * setStyleOpacity(a,n)
  */
-var setStyleOpacity=function(a,n){n=n||1;return function(){if(a){a.style.opacity=n;}}();};
+(function(root){var setStyleOpacity=function(a,n){n=n||1;return function(){if(a){a.style.opacity=n;}}();};root.setStyleOpacity=setStyleOpacity;})(globalRoot);
 /*!
  * Scroll to top with Zenscroll, or fallback
  * @requires zenscroll

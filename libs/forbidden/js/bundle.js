@@ -209,38 +209,38 @@ if (document.title) {
  * @param {Object} a target HTML Element
  * prependFragmentBefore(e,a)
  */
-var prependFragmentBefore=function(e,a){if("string"===typeof e){e=document.createTextNode(e);}var p=a.parentNode||"",df=document.createDocumentFragment();return function(){if(p){df.appendChild(e);p.insertBefore(df,a);}}();};
+(function(root){var prependFragmentBefore=function(e,a){if("string"===typeof e){e=document.createTextNode(e);}var p=a.parentNode||"",df=document.createDocumentFragment();return function(){if(p){df.appendChild(e);p.insertBefore(df,a);}}();};root.prependFragmentBefore=prependFragmentBefore;})(globalRoot);
 /*!
  * set style display block of an element
  * @param {Object} a an HTML Element
  * setStyleDisplayBlock(a)
  */
-var setStyleDisplayBlock=function(a){return function(){if(a){a.style.display="block";}}();};
+(function(root){var setStyleDisplayBlock=function(a){return function(){if(a){a.style.display="block";}}();};root.setStyleDisplayBlock=setStyleDisplayBlock;})(globalRoot);
 /*!
  * set style display none of an element
  * @param {Object} a an HTML Element
  * setStyleDisplayNone(a)
  */
-var setStyleDisplayNone=function(a){return function(){if(a){a.style.display="none";}}();};
+(function(root){var setStyleDisplayNone=function(a){return function(){if(a){a.style.display="none";}}();};root.setStyleDisplayNone=setStyleDisplayNone;})(globalRoot);
 /*!
  * set style opacity of an element
  * @param {Object} a an HTML Element
  * @param {Number} n any positive decimal number 0.00-1.00
  * setStyleOpacity(a,n)
  */
-var setStyleOpacity=function(a,n){n=n||1;return function(){if(a){a.style.opacity=n;}}();};
+(function(root){var setStyleOpacity=function(a,n){n=n||1;return function(){if(a){a.style.opacity=n;}}();};root.setStyleOpacity=setStyleOpacity;})(globalRoot);
 /*!
  * set style visibility visible of an element
  * @param {Object} a an HTML Element
  * setStyleVisibilityVisible(a)
  */
-var setStyleVisibilityVisible=function(a){return function(){if(a){a.style.visibility="visible";}}();};
+(function(root){var setStyleVisibilityVisible=function(a){return function(){if(a){a.style.visibility="visible";}}();};root.setStyleVisibilityVisible=setStyleVisibilityVisible;})(globalRoot);
 /*!
  * set style visibility hidden of an element
  * @param {Object} a an HTML Element
  * setStyleVisibilityHidden(a)
  */
-var setStyleVisibilityHidden=function(a){return function(){if(a){a.style.visibility="hidden";}}();};
+(function(root){var setStyleVisibilityHidden=function(a){return function(){if(a){a.style.visibility="hidden";}}();};root.setStyleVisibilityHidden=setStyleVisibilityHidden;})(globalRoot);
 /*!
  * modified Unified URL parsing API in the browser and node
  * @see {@link https://github.com/wooorm/parse-link}
@@ -415,6 +415,7 @@ manageLocationQrCodeImage = function () {
 	var w = globalRoot,
 	holder = ".holder-location-qr-code",
 	c = BALA.one(holder) || "",
+	aEL = "addEventListener",
 	u = w.location.href || "";
 	if (c && u) {
 		/* console.log("triggered function: manageLocationQrCodeImage"); */

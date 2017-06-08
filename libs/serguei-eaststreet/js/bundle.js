@@ -413,20 +413,20 @@ if (document.title) {
  * @param {Object} a an HTML Element
  * setStyleDisplayBlock(a)
  */
-var setStyleDisplayBlock=function(a){return function(){if(a){a.style.display="block";}}();};
+(function(root){var setStyleDisplayBlock=function(a){return function(){if(a){a.style.display="block";}}();};root.setStyleDisplayBlock=setStyleDisplayBlock;})(globalRoot);
 /*!
  * set style display none of an element
  * @param {Object} a an HTML Element
  * setStyleDisplayNone(a)
  */
-var setStyleDisplayNone=function(a){return function(){if(a){a.style.display="none";}}();};
+(function(root){var setStyleDisplayNone=function(a){return function(){if(a){a.style.display="none";}}();};root.setStyleDisplayNone=setStyleDisplayNone;})(globalRoot);
 /*!
  * set style opacity of an element
  * @param {Object} a an HTML Element
  * @param {Number} n any positive decimal number 0.00-1.00
  * setStyleOpacity(a,n)
  */
-var setStyleOpacity=function(a,n){n=n||1;return function(){if(a){a.style.opacity=n;}}();};
+(function(root){var setStyleOpacity=function(a,n){n=n||1;return function(){if(a){a.style.opacity=n;}}();};root.setStyleOpacity=setStyleOpacity;})(globalRoot);
 /*!
  * Check if string represents a valid HTML id
  * @see {@link https://gist.github.com/englishextra/b5aaef8b555a3ba84c68a6e251db149d}
@@ -462,7 +462,7 @@ var setStyleOpacity=function(a,n){n=n||1;return function(){if(a){a.style.opacity
  * @param {String} a URL / path string
  * changeLocation(a)
  */
-var changeLocation=function(a){return function(){if(a){document.location.href=a;}}();};
+(function(root){var changeLocation=function(a){return function(){if(a){document.location.href=a;}}();};root.changeLocation=changeLocation;})(globalRoot);
 /*!
  * modified Unified URL parsing API in the browser and node
  * @see {@link https://github.com/wooorm/parse-link}

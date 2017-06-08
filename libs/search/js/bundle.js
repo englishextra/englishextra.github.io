@@ -182,7 +182,7 @@ if (document.title) {
  * @param {Number} n any positive decimal number 0.00-1.00
  * setStyleOpacity(a,n)
  */
-var setStyleOpacity=function(a,n){n=n||1;return function(){if(a){a.style.opacity=n;}}();};
+(function(root){var setStyleOpacity=function(a,n){n=n||1;return function(){if(a){a.style.opacity=n;}}();};root.setStyleOpacity=setStyleOpacity;})(globalRoot);
 /*!
  * Scroll to top with Zenscroll, or fallback
  * @requires zenscroll
@@ -194,7 +194,7 @@ var setStyleOpacity=function(a,n){n=n||1;return function(){if(a){a.style.opacity
  * @param {String} a URL / path string
  * changeLocation(a)
  */
-var changeLocation=function(a){return function(){if(a){document.location.href=a;}}();};
+(function(root){var changeLocation=function(a){return function(){if(a){document.location.href=a;}}();};root.changeLocation=changeLocation;})(globalRoot);
 /*!
  * modified Unified URL parsing API in the browser and node
  * @see {@link https://github.com/wooorm/parse-link}
