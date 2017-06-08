@@ -97,8 +97,9 @@ gulp.task('git-check', function (done) {
 gulp.task('generate-service-worker', function (callback) {
 	var path = require('path');
 	var swPrecache = require('sw-precache');
-	swPrecache.write(`./service-worker.js`, {
+	swPrecache.write(`service-worker.min.js`, {
 	cacheId: "englishextra",
+	directoryIndex: "/",
 	navigateFallback: "./",
 	/* dynamicUrlToDependencies: {
 		"./": "index.html"

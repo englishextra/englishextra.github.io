@@ -7,6 +7,7 @@
  */
 module.exports = {
 	cacheId: "englishextra",
+	directoryIndex: "/",
 	navigateFallback: "./",
 	/* dynamicUrlToDependencies: {
 		"./": "index.html"
