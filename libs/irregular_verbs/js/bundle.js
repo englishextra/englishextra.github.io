@@ -547,7 +547,6 @@ manageLocationQrCodeImage = function () {
 	var w = globalRoot,
 	holder = ".holder-location-qr-code",
 	c = BALA.one(holder) || "",
-	aEL = "addEventListener",
 	u = w.location.href || "";
 	if (c && u) {
 		/* console.log("triggered function: manageLocationQrCodeImage"); */

@@ -484,6 +484,7 @@ var initSuperBox = function () {
 				};
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					e.target = "_blank";
+					e.rel = "noopener";
 					e[aEL]("click", q);
 				} else {
 					e[aEL]("click", h_n);
@@ -612,7 +613,6 @@ manageLocationQrCodeImage = function () {
 	var w = globalRoot,
 	holder = ".holder-location-qr-code",
 	c = BALA.one(holder) || "",
-	aEL = "addEventListener",
 	u = w.location.href || "";
 	if (c && u) {
 		/* console.log("triggered function: manageLocationQrCodeImage"); */
@@ -791,6 +791,7 @@ var addAppUpdatesLink = function () {
 		a.href = p;
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			a.target = "_blank";
+			e.rel = "noopener";
 		} else {
 			/*!
 			 * no prevent default and void .href above
