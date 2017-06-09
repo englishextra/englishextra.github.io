@@ -589,6 +589,7 @@ template {
 	margin: 0 auto;
 }
 
+.masonry-grid-wrapper #h1,
 .masonry-grid-wrapper h1 {
 	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", "HelveticaNeue-Light", sans-serif-light, sans-serif;
 	font-weight: 300;
@@ -682,12 +683,14 @@ template {
 		width: 100%;
 	}
 
+	.masonry-grid-wrapper #h1,
 	.masonry-grid-wrapper h1 {
 		font-size: 1.772rem;
 	}
 }
 
 @media handheld, only screen and (max-width: 360px) {
+	.masonry-grid-wrapper #h1,
 	.masonry-grid-wrapper h1 {
 		font-size: 1.464rem;
 	}

@@ -481,7 +481,8 @@ u,
 	}
 
 	.panel-nav-menu li,
-	.masonry-grid-wrapper h1 {
+	.masonry-grid-wrapper #h1,
+.masonry-grid-wrapper h1 {
 		font-family: $font-family-local-sans-light;
 	}
 }

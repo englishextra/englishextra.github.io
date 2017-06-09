@@ -2298,20 +2298,16 @@ var initRoutie = function () {
 			},
 			"/schedule": function () {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					if ("undefined" !== typeof isOldOpera) {
-						loadVirtualPage(appContentSelector, "./includes/schedule.html", function () {
-							reinitVirtualPage(" - Расписание");
-						});
-					}
+					loadVirtualPage(appContentSelector, "./includes/schedule.html", function () {
+						reinitVirtualPage(" - Расписание");
+					});
 				}
 			},
 			"/map": function () {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					if ("undefined" !== typeof isOldOpera) {
-						loadVirtualPage(appContentSelector, "./includes/map.html", function () {
-							reinitVirtualPage(" - Карта");
-						});
-					}
+					loadVirtualPage(appContentSelector, "./includes/map.html", function () {
+						reinitVirtualPage(" - Карта");
+					});
 				}
 			},
 			"/level_test": function () {

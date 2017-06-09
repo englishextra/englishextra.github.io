@@ -1406,23 +1406,23 @@ var addAppUpdatesLink = function () {
 	}
 	var	g = function () {
 		var li = crel("li"),
-		a = crel("a"),
+		e = crel("a"),
 		t = "Скачать приложение сайта";
-		a.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
-		a.href = p;
+		e.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
+		e.href = p;
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			a.target = "_blank";
+			e.target = "_blank";
 			e.rel = "noopener";
 		} else {
 			/*!
 			 * no prevent default and void .href above
 			 */
 			/* jshint -W107 */
-			a.href = "javascript:void(0);";
+			e.href = "javascript:void(0);";
 			/* jshint +W107 */
-			a[aEL]("click", openDeviceBrowser.bind(null, p));
+			e[aEL]("click", openDeviceBrowser.bind(null, p));
 		}
-		crel(li, crel(a, "" + t));
+		crel(li, crel(e, "" + t));
 		if (panel.hasChildNodes()) {
 			prependFragmentBefore(li, panel.firstChild);
 		}
@@ -1630,24 +1630,24 @@ var initDownloadAppBtn = function (n) {
 			ev.preventDefault();
 			openDeviceBrowser(p);
 		},
-		a = crel("a");
-		a.style.backgroundImage = m;
-		a[cL].add(cls, an, an2);
-		a.href = p;
+		e = crel("a");
+		e.style.backgroundImage = m;
+		e[cL].add(cls, an, an2);
+		e.href = p;
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			a.target = "_blank";
+			e.target = "_blank";
 			e.rel = "noopener";
 		} else {
-			a[aEL]("click", h_a);
-			}
-		appendFragment(a, b);
+			e[aEL]("click", h_a);
+		}
+		appendFragment(e, b);
 		var s1 = function () {
-			a[rEL]("click", h_a);
-			removeElement(a);
+			e[rEL]("click", h_a);
+			removeElement(e);
 		},
 		s2 = function () {
-			a[cL].remove(an2);
-			a[cL].add(an4);
+			e[cL].remove(an2);
+			e[cL].add(an4);
 			var timers = new Timers();
 			timers.timeout(function () {
 				timers.clear();
