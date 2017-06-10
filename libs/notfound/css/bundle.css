@@ -1223,22 +1223,22 @@ u,
 }
 
 ::-webkit-input-placeholder {
-	color: #878787 !important;
+	color: #616161 !important;
 	opacity: 1;
 }
 
 ::-moz-placeholder {
-	color: #878787 !important;
+	color: #616161 !important;
 	opacity: 1;
 }
 
 :-ms-input-placeholder {
-	color: #878787 !important;
+	color: #616161 !important;
 	opacity: 1;
 }
 
 ::placeholder {
-	color: #878787 !important;
+	color: #616161 !important;
 	opacity: 1;
 }
 

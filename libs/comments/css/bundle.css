@@ -2199,7 +2199,7 @@ html > body > .ui-pnotify {
 	line-height: 3.000rem;
 	text-align: center;
 	text-decoration: none;
-	color: #878787;
+	color: #616161;
 	background-color: #E7E7E7;
 	border: none;
 	-webkit-transition: visibility 0s, opacity 0.2s ease, background-color 0.2s ease;
@@ -2340,22 +2340,22 @@ u,
 }
 
 ::-webkit-input-placeholder {
-	color: #878787 !important;
+	color: #616161 !important;
 	opacity: 1;
 }
 
 ::-moz-placeholder {
-	color: #878787 !important;
+	color: #616161 !important;
 	opacity: 1;
 }
 
 :-ms-input-placeholder {
-	color: #878787 !important;
+	color: #616161 !important;
 	opacity: 1;
 }
 
 ::placeholder {
-	color: #878787 !important;
+	color: #616161 !important;
 	opacity: 1;
 }
 
@@ -2590,7 +2590,7 @@ u,
 	top: 0;
 	/* left: 17.000rem; */
 	left: 0;
-	color: #878787;
+	color: #616161;
 	-webkit-transition: left 0.2s linear, background-color 0.2s ease;
 	transition: left 0.2s linear, background-color 0.2s ease;
 	cursor: pointer;
@@ -2657,7 +2657,7 @@ u,
 	position: absolute;
 	top: 0;
 	left: 3.000rem;
-	color: #878787;
+	color: #616161;
 	text-decoration: none;
 	-webkit-transition: background-color 0.2s ease;
 	transition: background-color 0.2s ease;
@@ -2918,16 +2918,16 @@ u,
 }
 
 .col .footer a {
-	color: #878787;
+	color: #616161;
 	border-bottom-width: 0.063rem;
 	border-bottom-style: solid;
-	border-bottom-color: #878787;
+	border-bottom-color: #616161;
 }
 
 .col .footer a:hover,
 .col .footer a:active,
 .col .footer a:focus {
-	color: #878787;
+	color: #616161;
 }
 
 /**

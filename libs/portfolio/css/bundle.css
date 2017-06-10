@@ -728,7 +728,7 @@ template {
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
-	color: #878787;
+	color: #616161;
 	background-color: #E7E7E7;
 	border: none;
 	overflow: hidden;
@@ -1222,7 +1222,7 @@ img[class*=" portfolio-banner-"] {
 	line-height: 3.000rem;
 	text-align: center;
 	text-decoration: none;
-	color: #878787;
+	color: #616161;
 	background-color: #E7E7E7;
 	border: none;
 	-webkit-transition: visibility 0s, opacity 0.2s ease, background-color 0.2s ease;
@@ -1363,22 +1363,22 @@ u,
 }
 
 ::-webkit-input-placeholder {
-	color: #878787 !important;
+	color: #616161 !important;
 	opacity: 1;
 }
 
 ::-moz-placeholder {
-	color: #878787 !important;
+	color: #616161 !important;
 	opacity: 1;
 }
 
 :-ms-input-placeholder {
-	color: #878787 !important;
+	color: #616161 !important;
 	opacity: 1;
 }
 
 ::placeholder {
-	color: #878787 !important;
+	color: #616161 !important;
 	opacity: 1;
 }
 
