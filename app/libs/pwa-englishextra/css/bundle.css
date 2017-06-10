@@ -2383,7 +2383,7 @@ body {
 	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
 	padding: 0.933rem 3.200rem;
 	margin: 0 auto;
-	z-index: 1;
+	z-index: 2;
 }
 
 .notibar .close {

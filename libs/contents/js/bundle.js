@@ -732,7 +732,8 @@ var generateLocationQrCodeImg = function () {
 	cls = "qr-code-img",
 	u = w.location.href || "",
 	cL = "classList",
-	m = crel("img"),
+	cE = "createElement",
+	m = d[cE]("img"),
 	t = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
 	s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(u);
 	m.alt = t;
@@ -1424,12 +1425,18 @@ document.ready().then(initSearchForm);
 /*!
  * init manUP.js
  */
-var initManUp = function () {
-	/* console.log("triggered function: initManUp"); */
-},
-loadInitManUp = function () {
+var loadInitManUp = function () {
+	"use strict";
+	var manUpJsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js",
+	initManUp = function () {
+		/* console.log("triggered function: initManUp"); */
+	};
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		loadTriggerJS("/cdn/ManUp.js/0.7/js/manup.fixed.min.js", initManUp);
+		if (!scriptIsLoaded(manUpJsUrl)) {
+			loadJS(manUpJsUrl, initManUp);
+		} else {
+			initManUp();
+		}
 	}
 };
 document.ready().then(loadInitManUp);

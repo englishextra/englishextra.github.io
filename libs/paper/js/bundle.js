@@ -119,7 +119,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
  * @see {@link https://github.com/ryanve/verge/blob/master/verge.js}
  * passes jshint
  */
-(function(root,name,make){"use strict";root[name]=make();}(globalRoot,"verge",function(root){var xports={},win=typeof globalRoot!="undefined"&&globalRoot,doc=typeof document!="undefined"&&document,docElem=doc&&doc.documentElement,matchMedia=win.matchMedia||win.msMatchMedia,mq=matchMedia?function(q){return!!matchMedia.call(win,q).matches;}:function(){return false;},viewportW=xports.viewportW=function(){var a=docElem.clientWidth,b=win.innerWidth;return a<b?b:a;},viewportH=xports.viewportH=function(){var a=docElem.clientHeight,b=win.innerHeight;return a<b?b:a;};xports.mq=mq;xports.matchMedia=matchMedia?function(){return matchMedia.apply(win,arguments);}:function(){return{};};function viewport(){return{"width":viewportW(),"height":viewportH()};}xports.viewport=viewport;xports.scrollX=function(){return win.pageXOffset||docElem.scrollLeft;};xports.scrollY=function(){return win.pageYOffset||docElem.scrollTop;};function calibrate(coords,cushion){var o={};cushion=+cushion||0;o.width=(o.right=coords.right+cushion)-(o.left=coords.left-cushion);o.height=(o.bottom=coords.bottom+cushion)-(o.top=coords.top-cushion);return o;}function rectangle(el,cushion){el=el&&!el.nodeType?el[0]:el;if(!el||1!==el.nodeType)return false;return calibrate(el.getBoundingClientRect(),cushion);}xports.rectangle=rectangle;function aspect(o){o=null===o?viewport():1===o.nodeType?rectangle(o):o;var h=o.height,w=o.width;h=typeof h=="function"?h.call(o):h;w=typeof w=="function"?w.call(o):w;return w/h;}xports.aspect=aspect;xports.inX=function(el,cushion){var r=rectangle(el,cushion);return!!r&&r.right>=0&&r.left<=viewportW()&&(0!==el.offsetHeight);};xports.inY=function(el,cushion){var r=rectangle(el,cushion);return!!r&&r.bottom>=0&&r.top<=viewportH()&&(0!==el.offsetHeight);};xports.inViewport=function(el,cushion){var r=rectangle(el,cushion);return!!r&&r.bottom>=0&&r.right>=0&&r.top<=viewportH()&&r.left<=viewportW()&&(0!==el.offsetHeight);};return xports;}));
+(function(root,name,make){"use strict";root[name]=make();}(globalRoot,"verge",function(){var xports={},win=typeof globalRoot!="undefined"&&globalRoot,doc=typeof document!="undefined"&&document,docElem=doc&&doc.documentElement,matchMedia=win.matchMedia||win.msMatchMedia,mq=matchMedia?function(q){return!!matchMedia.call(win,q).matches;}:function(){return false;},viewportW=xports.viewportW=function(){var a=docElem.clientWidth,b=win.innerWidth;return a<b?b:a;},viewportH=xports.viewportH=function(){var a=docElem.clientHeight,b=win.innerHeight;return a<b?b:a;};xports.mq=mq;xports.matchMedia=matchMedia?function(){return matchMedia.apply(win,arguments);}:function(){return{};};function viewport(){return{"width":viewportW(),"height":viewportH()};}xports.viewport=viewport;xports.scrollX=function(){return win.pageXOffset||docElem.scrollLeft;};xports.scrollY=function(){return win.pageYOffset||docElem.scrollTop;};function calibrate(coords,cushion){var o={};cushion=+cushion||0;o.width=(o.right=coords.right+cushion)-(o.left=coords.left-cushion);o.height=(o.bottom=coords.bottom+cushion)-(o.top=coords.top-cushion);return o;}function rectangle(el,cushion){el=el&&!el.nodeType?el[0]:el;if(!el||1!==el.nodeType)return false;return calibrate(el.getBoundingClientRect(),cushion);}xports.rectangle=rectangle;function aspect(o){o=null===o?viewport():1===o.nodeType?rectangle(o):o;var h=o.height,w=o.width;h=typeof h=="function"?h.call(o):h;w=typeof w=="function"?w.call(o):w;return w/h;}xports.aspect=aspect;xports.inX=function(el,cushion){var r=rectangle(el,cushion);return!!r&&r.right>=0&&r.left<=viewportW()&&(0!==el.offsetHeight);};xports.inY=function(el,cushion){var r=rectangle(el,cushion);return!!r&&r.bottom>=0&&r.top<=viewportH()&&(0!==el.offsetHeight);};xports.inViewport=function(el,cushion){var r=rectangle(el,cushion);return!!r&&r.bottom>=0&&r.right>=0&&r.top<=viewportH()&&r.left<=viewportW()&&(0!==el.offsetHeight);};return xports;}));
 /*!
  * return image is loaded promise
  * @see {@link https://jsfiddle.net/englishextra/56pavv7d/}
@@ -616,6 +616,7 @@ var Notifier42 = function (m, n, t) {
 	cls = "notifier42",
 	c = BALA.one("." + cls) || "",
 	cL = "classList",
+	cE = "createElement",
 	aEL = "addEventListener",
 	rEL = "removeEventListener",
 	an = "animated",
@@ -623,7 +624,7 @@ var Notifier42 = function (m, n, t) {
 	an4 = "fadeOutDown";
 	/* console.log("triggered function: Notifier42"); */
 	if (!c) {
-		c = crel("div");
+		c = d[cE]("div");
 		appendFragment(c, b);
 	}
 	c[cL].add(cls);
@@ -682,27 +683,31 @@ var initNotifier42WriteComment = function () {
 	"use strict";
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
 		var w = globalRoot,
+		d = document,
+		gEBI = "getElementById",
+		cE = "createElement",
+		aEL = "addEventListener",
 		n = "_notifier42_write_comment_",
 		m = "Напишите, что понравилось, а что нет. Регистрироваться не нужно.",
 		p = parseLink(w.location.href).origin,
 		g = function () {
-			Notifier42(crel("a", {
-						/* jshint -W107 */
-						"href": "javascript:void(0);",
-						/* jshint +W107 */
-						"onclick": "scrollToElement(document.getElementById('disqus_thread'));"
-				}, m),
-				8000);
+			var msgObj = d[cE]("a");
+			/* jshint -W107 */
+			msgObj.href = "javascript:void(0);";
+			appendFragment(m, msgObj);
+			/* jshint +W107 */
+			msgObj[aEL]("click", scrollToElement.bind(null, d[gEBI]('disqus_thread') || ""));
+			Notifier42(msgObj, 8000);
 			Cookies.set(n, m);
 		};
 		if (!Cookies.get(n) && p) {
-			/* console.log("triggered function: initNotifier42WriteComment"); */
+			/* console.log("triggered function: initNotifier42WriteMe"); */
 			var timers = new Timers();
 			timers.timeout(function () {
 				timers.clear();
 				timers = null;
 				g();
-			}, 1600);
+			}, 16000);
 		}
 	}
 };
@@ -1193,7 +1198,8 @@ var generateLocationQrCodeImg = function () {
 	cls = "qr-code-img",
 	u = w.location.href || "",
 	cL = "classList",
-	m = crel("img"),
+	cE = "createElement",
+	m = d[cE]("img"),
 	t = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
 	s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(u);
 	m.alt = t;
@@ -2035,12 +2041,18 @@ document.ready().then(initSearchForm);
 /*!
  * init manUP.js
  */
-var initManUp = function () {
-	/* console.log("triggered function: initManUp"); */
-},
-loadInitManUp = function () {
+var loadInitManUp = function () {
+	"use strict";
+	var manUpJsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js",
+	initManUp = function () {
+		/* console.log("triggered function: initManUp"); */
+	};
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		loadTriggerJS("/cdn/ManUp.js/0.7/js/manup.fixed.min.js", initManUp);
+		if (!scriptIsLoaded(manUpJsUrl)) {
+			loadJS(manUpJsUrl, initManUp);
+		} else {
+			initManUp();
+		}
 	}
 };
 document.ready().then(loadInitManUp);

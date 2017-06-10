@@ -465,7 +465,7 @@ var initSuperBox = function () {
 				ttl = encodeURIComponent(d.title || "").replace("\x27", "&#39;"),
 				p = _this.getAttribute("href") || "",
 				dmn = p ? encodeURIComponent(p) : "",
-				s = /localhost/.test(self.location.host) ? "http://localhost/externalcounters/" : "";
+				s = /localhost/.test(w.location.host) ? "http://localhost/externalcounters/" : "";
 				if (s) {
 					var a = crel("div", {
 							"style" : "position:absolute;left:-9999px;width:1px;height:1px;border:0;background:transparent url(" + s + "?dmn=" + dmn + "&rfrr=" + rfrr + "&ttl=" + ttl + "&encoding=utf-8) top left no-repeat;"
@@ -572,7 +572,8 @@ var generateLocationQrCodeImg = function () {
 	cls = "qr-code-img",
 	u = w.location.href || "",
 	cL = "classList",
-	m = crel("img"),
+	cE = "createElement",
+	m = d[cE]("img"),
 	t = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
 	s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(u);
 	m.alt = t;
@@ -1032,12 +1033,18 @@ document.ready().then(manageVKLikeButton);
 /*!
  * init manUP.js
  */
-var initManUp = function () {
-	/* console.log("triggered function: initManUp"); */
-},
-loadInitManUp = function () {
+var loadInitManUp = function () {
+	"use strict";
+	var manUpJsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js",
+	initManUp = function () {
+		/* console.log("triggered function: initManUp"); */
+	};
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		loadTriggerJS("/cdn/ManUp.js/0.7/js/manup.fixed.min.js", initManUp);
+		if (!scriptIsLoaded(manUpJsUrl)) {
+			loadJS(manUpJsUrl, initManUp);
+		} else {
+			initManUp();
+		}
 	}
 };
 document.ready().then(loadInitManUp);

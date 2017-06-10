@@ -451,12 +451,18 @@ document.ready().then(initPlusoYaShare);
 /*!
  * init manUP.js
  */
-var initManUp = function () {
-	/* console.log("triggered function: initManUp"); */
-},
-loadInitManUp = function () {
+var loadInitManUp = function () {
+	"use strict";
+	var manUpJsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js",
+	initManUp = function () {
+		/* console.log("triggered function: initManUp"); */
+	};
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		loadTriggerJS("/cdn/ManUp.js/0.7/js/manup.fixed.min.js", initManUp);
+		if (!scriptIsLoaded(manUpJsUrl)) {
+			loadJS(manUpJsUrl, initManUp);
+		} else {
+			initManUp();
+		}
 	}
 };
 document.ready().then(loadInitManUp);

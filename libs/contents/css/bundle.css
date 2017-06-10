@@ -897,7 +897,7 @@ template {
 
 .masonry-grid-wrapper .footer {
 	/** 720px - 24px - 24px */
-	max-width: 672px;
+	max-width: 42.000em;
 	font-size: 0.813rem;
 	line-height: 1.500;
 	text-align: center;
@@ -984,136 +984,6 @@ template {
 	font-size: 1.000rem;
 	line-height: 1.500;
 	margin: 0;
-}
-
-.masonry-grid-item-content dl dt {
-	font-weight: bolder;
-	text-decoration: none;
-}
-
-.masonry-grid-item-content dl dt a {
-	color: inherit;
-	border-bottom-color: inherit;
-	border-bottom-style: solid;
-	border-bottom-width: 0.063rem;
-}
-
-.masonry-grid-item-content dl dt a:hover,
-.masonry-grid-item-content dl dt a:active,
-.masonry-grid-item-content dl dt a:focus {
-	color: inherit;
-}
-
-.masonry-grid-item-content li ol,
-.masonry-grid-item-content li ul {
-	margin-top: 0;
-}
-
-.masonry-grid-item-content li ol,
-.masonry-grid-item-content li ul {
-	margin-top: 0;
-}
-
-.masonry-grid-item-content table td,
-.masonry-grid-item-content table th {
-	font-size: 0.875rem;
-	line-height: 1.500;
-}
-
-.masonry-grid-item-content table {
-	width: 100%;
-	border-collapse: collapse;
-	border-spacing: 0;
-}
-
-.masonry-grid-item-content caption,
-.masonry-grid-item-content table th,
-.masonry-grid-item-content table td {
-	text-align: left;
-}
-
-.masonry-grid-item-content table td,
-.masonry-grid-item-content table th {
-	padding: .313rem 1.000rem;
-	vertical-align: top;
-}
-
-.masonry-grid-item-content table th a:hover,
-.masonry-grid-item-content table th a:active,
-.masonry-grid-item-content table th a:focus {
-	text-decoration: underline;
-}
-
-.masonry-grid-item-content table td ol,
-.masonry-grid-item-content table td ul,
-.masonry-grid-item-content table td dl {
-	margin: 0;
-}
-
-.masonry-grid-item-content table {
-	margin-top: 0;
-}
-
-.masonry-grid-item-content table + address,
-.masonry-grid-item-content table + p.address,
-.masonry-grid-item-content table + p.blockquote {
-	margin-top: 1.500rem;
-}
-
-.masonry-grid-item-content table + p {
-	margin-top: 1.500rem;
-	margin-bottom: 1.000rem;
-}
-
-.masonry-grid-item-content table td,
-.masonry-grid-item-content caption {
-	font-weight: normal;
-}
-
-.masonry-grid-item-content table th {
-	font-weight: bolder;
-}
-
-.masonry-grid-item-content caption,
-.masonry-grid-item-content table th,
-.masonry-grid-item-content table td {
-	font-family: inherit;
-}
-
-.masonry-grid-item-content caption,
-.masonry-grid-item-content table td,
-.masonry-grid-item-content table th a {
-	color: inherit;
-}
-
-.masonry-grid-item-content table tr,
-.masonry-grid-item-content table tr:nth-of-type(odd) {
-	background-color: transparent;
-}
-
-.masonry-grid-item-content table th {
-	border-bottom-width: 0.063rem;
-	border-bottom-style: solid;
-	border-bottom-color: #C3C3C3;
-	background-color: transparent;
-}
-
-.masonry-grid-item-content table td {
-	border-bottom-width: 0.063rem;
-	border-bottom-style: solid;
-	border-bottom-color: #C3C3C3;
-}
-
-.masonry-grid-item-content p + table,
-.masonry-grid-item-content p + ul,
-.masonry-grid-item-content p + ol {
-	margin-top: 1.500rem;
-}
-
-.masonry-grid-item-content table + p,
-.masonry-grid-item-content ul + p,
-.masonry-grid-item-content ol + p {
-	margin-bottom: 1.000rem;
 }
 
 .masonry-grid-item-content img {
@@ -2001,32 +1871,22 @@ u,
  * footer
  */
 
-.footer {
-	max-width: 39.000rem;
-	font-size: 0.875rem;
+.footer p {
+	font-size: 0.813rem;
 	line-height: 1.500;
-	text-align: center;
-	margin: 1.500rem auto 0 auto;
 }
 
 .footer a {
-	font-weight: inherit;
-	color: #1467BD;
+	color: #878787;
+	border-bottom-width: 0.063rem;
+	border-bottom-style: solid;
+	border-bottom-color: #878787;
 }
 
 .footer a:hover,
 .footer a:active,
 .footer a:focus {
-	color: #3585D8;
-}
-
-.footer a:visited {
-	color: #9B9B9B;
-}
-
-.footer p {
-	font-size: 0.813rem;
-	line-height: 1.500;
+	color: #878787;
 }
 
 /**

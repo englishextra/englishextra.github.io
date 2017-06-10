@@ -79,7 +79,6 @@ var globalRoot = "undefined" !== typeof window ? window : this;
  * projects.jga.me/routie
  * copyright Greg Allen 2013
  * MIT License
- * @requires setImmediate {@link https://github.com/YuzuJS/setImmediate YuzuJS/setImmediate}
  * "#" => ""
  * "#/" => "/" wont trigger anything? {@link https://github.com/jgallen23/routie/issues/49}
  * "#/home" => "/home"
@@ -137,7 +136,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
  * @see {@link https://github.com/ryanve/verge/blob/master/verge.js}
  * passes jshint
  */
-(function(root,name,make){"use strict";root[name]=make();}(globalRoot,"verge",function(root){var xports={},win=typeof globalRoot!="undefined"&&globalRoot,doc=typeof document!="undefined"&&document,docElem=doc&&doc.documentElement,matchMedia=win.matchMedia||win.msMatchMedia,mq=matchMedia?function(q){return!!matchMedia.call(win,q).matches;}:function(){return false;},viewportW=xports.viewportW=function(){var a=docElem.clientWidth,b=win.innerWidth;return a<b?b:a;},viewportH=xports.viewportH=function(){var a=docElem.clientHeight,b=win.innerHeight;return a<b?b:a;};xports.mq=mq;xports.matchMedia=matchMedia?function(){return matchMedia.apply(win,arguments);}:function(){return{};};function viewport(){return{"width":viewportW(),"height":viewportH()};}xports.viewport=viewport;xports.scrollX=function(){return win.pageXOffset||docElem.scrollLeft;};xports.scrollY=function(){return win.pageYOffset||docElem.scrollTop;};function calibrate(coords,cushion){var o={};cushion=+cushion||0;o.width=(o.right=coords.right+cushion)-(o.left=coords.left-cushion);o.height=(o.bottom=coords.bottom+cushion)-(o.top=coords.top-cushion);return o;}function rectangle(el,cushion){el=el&&!el.nodeType?el[0]:el;if(!el||1!==el.nodeType)return false;return calibrate(el.getBoundingClientRect(),cushion);}xports.rectangle=rectangle;function aspect(o){o=null===o?viewport():1===o.nodeType?rectangle(o):o;var h=o.height,w=o.width;h=typeof h=="function"?h.call(o):h;w=typeof w=="function"?w.call(o):w;return w/h;}xports.aspect=aspect;xports.inX=function(el,cushion){var r=rectangle(el,cushion);return!!r&&r.right>=0&&r.left<=viewportW()&&(0!==el.offsetHeight);};xports.inY=function(el,cushion){var r=rectangle(el,cushion);return!!r&&r.bottom>=0&&r.top<=viewportH()&&(0!==el.offsetHeight);};xports.inViewport=function(el,cushion){var r=rectangle(el,cushion);return!!r&&r.bottom>=0&&r.right>=0&&r.top<=viewportH()&&r.left<=viewportW()&&(0!==el.offsetHeight);};return xports;}));
+(function(root,name,make){"use strict";root[name]=make();}(globalRoot,"verge",function(){var xports={},win=typeof globalRoot!="undefined"&&globalRoot,doc=typeof document!="undefined"&&document,docElem=doc&&doc.documentElement,matchMedia=win.matchMedia||win.msMatchMedia,mq=matchMedia?function(q){return!!matchMedia.call(win,q).matches;}:function(){return false;},viewportW=xports.viewportW=function(){var a=docElem.clientWidth,b=win.innerWidth;return a<b?b:a;},viewportH=xports.viewportH=function(){var a=docElem.clientHeight,b=win.innerHeight;return a<b?b:a;};xports.mq=mq;xports.matchMedia=matchMedia?function(){return matchMedia.apply(win,arguments);}:function(){return{};};function viewport(){return{"width":viewportW(),"height":viewportH()};}xports.viewport=viewport;xports.scrollX=function(){return win.pageXOffset||docElem.scrollLeft;};xports.scrollY=function(){return win.pageYOffset||docElem.scrollTop;};function calibrate(coords,cushion){var o={};cushion=+cushion||0;o.width=(o.right=coords.right+cushion)-(o.left=coords.left-cushion);o.height=(o.bottom=coords.bottom+cushion)-(o.top=coords.top-cushion);return o;}function rectangle(el,cushion){el=el&&!el.nodeType?el[0]:el;if(!el||1!==el.nodeType)return false;return calibrate(el.getBoundingClientRect(),cushion);}xports.rectangle=rectangle;function aspect(o){o=null===o?viewport():1===o.nodeType?rectangle(o):o;var h=o.height,w=o.width;h=typeof h=="function"?h.call(o):h;w=typeof w=="function"?w.call(o):w;return w/h;}xports.aspect=aspect;xports.inX=function(el,cushion){var r=rectangle(el,cushion);return!!r&&r.right>=0&&r.left<=viewportW()&&(0!==el.offsetHeight);};xports.inY=function(el,cushion){var r=rectangle(el,cushion);return!!r&&r.bottom>=0&&r.top<=viewportH()&&(0!==el.offsetHeight);};xports.inViewport=function(el,cushion){var r=rectangle(el,cushion);return!!r&&r.bottom>=0&&r.right>=0&&r.top<=viewportH()&&r.left<=viewportW()&&(0!==el.offsetHeight);};return xports;}));
 /*!
  * return image is loaded promise
  * @see {@link https://jsfiddle.net/englishextra/56pavv7d/}
@@ -587,19 +586,24 @@ var LoadingSpinner = function () {
  */
 var notiBar = function (opt) {
 	var d = document,
-	b = BALA.one("body") || "",
-	s_bar = "notibar",
-	c = BALA.one("." + s_bar) || "",
-	s_msg = "message",
-	s_close = "close",
-	s_key = "_notibar_dismiss_",
-	s_val = "ok",
-	s_an = "animated",
-	s_an1 = "fadeInDown",
-	s_an2 = "fadeOutUp",
+	b = d.body || "",
+	qS = "querySelector",
 	cL = "classList",
+	aC = "appendChild",
+	cE = "createElement",
+	cENS = "createElementNS",
+	sANS = "setAttributeNS",
 	aEL = "addEventListener",
-	rEL = "removeEventListener";
+	rEL = "removeEventListener",
+	notibarClass = "notibar",
+	notibarContainer = d[qS]("." + notibarClass) || "",
+	messageClass = "message",
+	closeButtonClass = "close",
+	defaultKey = "_notibar_dismiss_",
+	defaultDatum = "ok",
+	animatedClass = "animated",
+	fadeInDownClass = "fadeInDown",
+	fadeOutUpClass = "fadeOutUp";
 	if (b) {
 		/* console.log("triggered function: notiBar"); */
 		if ("string" === typeof opt) {
@@ -610,8 +614,8 @@ var notiBar = function (opt) {
 		var settings = {
 			"message": "",
 			"timeout": 10000,
-			"key": s_key,
-			"datum": s_val,
+			"key": defaultKey,
+			"datum": defaultDatum,
 			"days": 0,
 		};
 		for (var i in opt) {
@@ -619,57 +623,68 @@ var notiBar = function (opt) {
 				settings[i] = opt[i];
 			}
 		}
-		var c_k = Cookies.get(settings.key) || "";
-		if (c_k && c_k === decodeURIComponent(settings.datum)) {
+		var cookieKey = Cookies.get(settings.key) || "";
+		if (cookieKey && cookieKey === decodeURIComponent(settings.datum)) {
 			return !1;
 		}
-		if (c) {
-			removeChildren(c);
+		if (notibarContainer) {
+			removeChildren(notibarContainer);
 		} else {
-			c = crel("div");
-			c[cL].add(s_bar);
-			c[cL].add(s_an);
+			notibarContainer = d[cE]("div");
+			notibarContainer[cL].add(notibarClass);
+			notibarContainer[cL].add(animatedClass);
 		}
-		var m = crel("div");
-		m[cL].add(s_msg);
-		var s = settings.message || "";
-		if ("string" === typeof s) {
-			s = d.createTextNode(s);
+		var msgContainer = d[cE]("div");
+		msgContainer[cL].add(messageClass);
+		var msgContent = settings.message || "";
+		if ("string" === typeof msgContent) {
+			msgContent = d.createTextNode(msgContent);
 		}
-		appendFragment(s, m);
-		appendFragment(m, c);
-		var btn = crel("a");
-		btn[cL].add(s_close);
+		msgContainer[aC](msgContent);
+		notibarContainer[aC](msgContainer);
+		var insertCancelSvg = function (targetObj) {
+			var svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
+			use = d[cENS]("http://www.w3.org/2000/svg", "use");
+			svg[cL].add("ui-icon");
+			use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Cancel");
+			svg[aC](use);
+			targetObj[aC](svg);
+		},
+		closeButton = d[cE]("a");
+		closeButton[cL].add(closeButtonClass);
+		insertCancelSvg(closeButton);
 		var set_cookie = function () {
 			if (settings.days) {
-				Cookies.set(settings.key, settings.datum, { expires: settings.days });
+				Cookies.set(settings.key, settings.datum, {
+					expires: settings.days
+				});
 			} else {
 				Cookies.set(settings.key, settings.datum);
 			}
 		},
-		hide_message = function () {
-			var notibar = BALA.one("." + s_bar) || "";
-			if (notibar) {
-				c[cL].remove(s_an1);
-				c[cL].add(s_an2);
-				removeChildren(c);
+		hideMessage = function () {
+			var notibarContainer = d[qS]("." + notibarClass) || "";
+			if (notibarContainer) {
+				notibarContainer[cL].remove(fadeInDownClass);
+				notibarContainer[cL].add(fadeOutUpClass);
+				removeChildren(notibarContainer);
 			}
 		},
-		h_btn = function () {
-			btn[rEL]("click", h_btn);
-			hide_message();
+		handleCloseButton = function () {
+			closeButton[rEL]("click", handleCloseButton);
+			hideMessage();
 			set_cookie();
 		};
-		btn[aEL]("click", h_btn);
-		appendFragment(btn, c);
-		appendFragment(c, b);
-		c[cL].remove(s_an2);
-		c[cL].add(s_an1);
+		closeButton[aEL]("click", handleCloseButton);
+		notibarContainer[aC](closeButton);
+		appendFragment(notibarContainer, b);
+		notibarContainer[cL].remove(fadeOutUpClass);
+		notibarContainer[cL].add(fadeInDownClass);
 		var timers = new Timers();
 		timers.timeout(function () {
 			timers.clear();
 			timers = null;
-			hide_message();
+			hideMessage();
 		}, settings.timeout);
 	}
 };
@@ -678,32 +693,45 @@ var notiBar = function (opt) {
  */
 var initNotibarMsg = function () {
 	"use strict";
-	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		var w = globalRoot,
-		n = "_notibar_dismiss_",
-		m = "Напишите мне, отвечу очень скоро. Регистрироваться не нужно.",
-		p = parseLink(w.location.href).origin,
-		g = function () {
-			notiBar({
-				"message": crel("a", {
-					/* jshint -W107 */
-					"href": "javascript:void(0);",
-					/* jshint +W107 */
-					"onclick": "scrollToElement(document.getElementById('disqus_thread'));"
-				}, m),
-				"timeout": 5000,
-				"key": n,
-				"datum": m,
-				"days": 0
-			});
+	var w = globalRoot,
+	d = document,
+	gEBI = "getElementById",
+	aC = "appendChild",
+	aEL = "addEventListener",
+	rEL = "removeEventListener",
+	cE = "createElement",
+	cookieKey = "_notibar_dismiss_",
+	cookieDatum = "Напишите мне, отвечу очень скоро. Регистрироваться не нужно.",
+	locationOrigin = parseLink(w.location.href).origin,
+	renderMsg = function () {
+		var msgObj = d[cE]("a");
+		/* jshint -W107 */
+		msgObj.href = "javascript:void(0);";
+		/* jshint +W107 */
+		var handleMsgObj = function (ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			msgObj[rEL]("click", handleMsgObj);
+			scrollToElement(d[gEBI]('disqus_thread') || "");
 		};
-		if (p) {
+		msgObj[aEL]("click", handleMsgObj);
+		msgObj[aC](d.createTextNode(cookieDatum));
+		notiBar({
+			"message": msgObj,
+			"timeout": 5000,
+			"key": cookieKey,
+			"datum": cookieDatum,
+			"days": 0
+		});
+	};
+	if (locationOrigin) {
+		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			/* console.log("triggered function: initNotibarMsg"); */
 			var timers = new Timers();
 			timers.timeout(function () {
 				timers.clear();
 				timers = null;
-				g();
+				renderMsg();
 			}, 3000);
 		}
 	}
@@ -729,6 +757,7 @@ var Notifier42 = function (m, n, t) {
 	cls = "notifier42",
 	c = BALA.one("." + cls) || "",
 	cL = "classList",
+	cE = "createElement",
 	aEL = "addEventListener",
 	rEL = "removeEventListener",
 	an = "animated",
@@ -736,7 +765,7 @@ var Notifier42 = function (m, n, t) {
 	an4 = "fadeOutDown";
 	/* console.log("triggered function: Notifier42"); */
 	if (!c) {
-		c = crel("div");
+		c = d[cE]("div");
 		appendFragment(c, b);
 	}
 	c[cL].add(cls);
@@ -795,17 +824,21 @@ var initNotifier42WriteMe = function () {
 	"use strict";
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
 		var w = globalRoot,
+		d = document,
+		gEBI = "getElementById",
+		cE = "createElement",
+		aEL = "addEventListener",
 		n = "_notifier42_write_me_",
 		m = "Напишите мне, отвечу очень скоро. Регистрироваться не нужно.",
 		p = parseLink(w.location.href).origin,
 		g = function () {
-			Notifier42(crel("a", {
-						/* jshint -W107 */
-						"href": "javascript:void(0);",
-						/* jshint +W107 */
-						"onclick": "scrollToElement(document.getElementById('disqus_thread'));"
-					}, m),
-					5000);
+			var msgObj = d[cE]("a");
+			/* jshint -W107 */
+			msgObj.href = "javascript:void(0);";
+			appendFragment(m, msgObj);
+			/* jshint +W107 */
+			msgObj[aEL]("click", scrollToElement.bind(null, d[gEBI]('disqus_thread') || ""));
+			Notifier42(msgObj, 5000);
 			Cookies.set(n, m);
 		};
 		if (!Cookies.get(n) && p) {
@@ -1574,7 +1607,8 @@ var generateLocationQrCodeImg = function () {
 	cls = "qr-code-img",
 	u = w.location.href || "",
 	cL = "classList",
-	m = crel("img"),
+	cE = "createElement",
+	m = d[cE]("img"),
 	t = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
 	s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(u);
 	m.alt = t;
@@ -2404,12 +2438,18 @@ globalRoot.addEventListener("hashchange", updateInsertedDom); */
 /*!
  * init manUP.js
  */
-var initManUp = function () {
-	/* console.log("triggered function: initManUp"); */
-},
-loadInitManUp = function () {
+var loadInitManUp = function () {
+	"use strict";
+	var manUpJsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js",
+	initManUp = function () {
+		/* console.log("triggered function: initManUp"); */
+	};
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		loadTriggerJS("/cdn/ManUp.js/0.7/js/manup.fixed.min.js", initManUp);
+		if (!scriptIsLoaded(manUpJsUrl)) {
+			loadJS(manUpJsUrl, initManUp);
+		} else {
+			initManUp();
+		}
 	}
 };
 document.ready().then(loadInitManUp);

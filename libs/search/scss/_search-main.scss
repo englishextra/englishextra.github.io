@@ -692,6 +692,19 @@ u,
 	line-height: 1.500;
 }
 
+.col .footer a {
+	color: $color-hex-gray-text;
+	border-bottom-width: 0.063rem;
+	border-bottom-style: solid;
+	border-bottom-color: $color-hex-gray-text;
+}
+
+.col .footer a:hover,
+.col .footer a:active,
+.col .footer a:focus {
+	color: $color-hex-gray-text;
+}
+
 /**
  * specific
  */

@@ -4487,6 +4487,19 @@ u,
 	line-height: 1.500;
 }
 
+.col .footer a {
+	color: #878787;
+	border-bottom-width: 0.063rem;
+	border-bottom-style: solid;
+	border-bottom-color: #878787;
+}
+
+.col .footer a:hover,
+.col .footer a:active,
+.col .footer a:focus {
+	color: #878787;
+}
+
 /**
  * retina
  */
