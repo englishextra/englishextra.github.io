@@ -875,7 +875,8 @@ u,
 	/* border: 0.067rem solid #FFFFFF; */
 	/* border-radius: 5.533rem; */
 	border-radius: 0.200rem;
-	padding: 1.400rem 3.200rem 2.267rem 3.200rem;
+	/* padding: 1.400rem 3.200rem 2.267rem 3.200rem; */
+	padding: 1.400rem 3.200rem 1.800rem 3.200rem;
 }
 
 @media (max-width: 768px) {
@@ -884,7 +885,8 @@ u,
 		line-height: 3.200rem;
 		/* border-radius: 4.733rem; */
 		border-radius: 0.200rem;
-		padding: 1.067rem 2.400rem 1.867rem 2.400rem;
+		/* padding: 1.067rem 2.400rem 1.867rem 2.400rem; */
+		padding: 1.067rem 2.400rem 1.333rem 2.400rem;
 	}
 }
 
