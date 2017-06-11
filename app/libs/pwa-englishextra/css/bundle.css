@@ -4173,8 +4173,7 @@ u,
 
 .home-header {
 	position: absolute;
-	top: 50%;
-	left: 50%;
+	top: calc(50% - 1.600rem);
 	margin-right: -50%;
 	-webkit-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
