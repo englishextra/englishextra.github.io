@@ -2524,7 +2524,6 @@ body {
 .iframe-lightbox .content {
 	height: 0;
 	position: relative;
-	/* background-color: #000000; */
 	padding-bottom: 56.25%;
 }
 
@@ -4183,20 +4182,12 @@ u,
 	font-size: 3.200rem;
 	line-height: 4.000rem;
 	background-color: rgba(240, 59, 76, 0.8);
-	border-radius: 0.200rem;
-	padding: 1.600rem 3.200rem 1.600rem 3.200rem;
-}
-
-@media (max-width: 768px) {
-	.home-header {
-		font-size: 2.400rem;
-		line-height: 3.200rem;
-		border-radius: 0.200rem;
-		padding: 1.200rem 2.400rem 1.200rem 2.400rem;
-	}
+	border-radius: 0.133rem;
+	padding: 1.600rem 2.400rem;
 }
 
 .home-title {
+	max-height: 8.000rem;
 	font-size: inherit;
 	line-height: inherit;
 	font-weight: 700;
@@ -4207,6 +4198,19 @@ u,
 	color: #2B2B2B;
 	padding: 0;
 	margin: 0;
+}
+
+@media (max-width: 768px) {
+	.home-header {
+		font-size: 2.400rem;
+		line-height: 3.200rem;
+		border-radius: 0.133rem;
+		padding: 1.200rem 1.800rem;
+	}
+
+	.home-title {
+		max-height: 6.400rem;
+	}
 }
 
 .home-caption {
