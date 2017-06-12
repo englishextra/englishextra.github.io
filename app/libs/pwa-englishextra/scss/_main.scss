@@ -853,9 +853,11 @@ u,
 
 .home-holder {
 	width: 100%;
-	height: calc(100% - 3.200rem);
+	/* height: calc(100% - 3.200rem); */
+	height: 100%;
 	position: absolute;
-	top: 3.200rem;
+	/* top: 3.200rem; */
+	top: 0;
 	left: 0;
 	background-color: $TitleBarAndAppBarDark;
 	background-image: url(../img/home-1920x1080.jpg);
