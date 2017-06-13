@@ -11,7 +11,7 @@
 (function (root, factory) {
 	root.PhotoSwipe = factory();
 })( "undefined" !== typeof window ? window : this, function () {
-	'use strict';
+	"use strict";
 	var PhotoSwipe = function (template, UiClass, items, options) {
 		var framework = {
 			features: null,
@@ -385,7 +385,7 @@
 		_mouseMoveTimeout = null,
 		_onFirstMouseMove = function () {
 			if (_mouseMoveTimeout) {
-				framework.unbind(document, 'mousemove', _onFirstMouseMove);
+				framework.unbind(document, "mousemove", _onFirstMouseMove);
 				framework.addClass(template, 'pswp--has_mouse');
 				_options.mouseUsed = true;
 				_shout('mouseUsed');
@@ -400,7 +400,7 @@
 				framework.bind(self.scrollWrap, 'click', self);
 			}
 			if (!_options.mouseUsed) {
-				framework.bind(document, 'mousemove', _onFirstMouseMove);
+				framework.bind(document, "mousemove", _onFirstMouseMove);
 			}
 			framework.bind(window, 'resize scroll', self);
 			_shout('bindEvents');
@@ -409,7 +409,7 @@
 			framework.unbind(window, 'resize', self);
 			framework.unbind(window, 'scroll', _globalEventHandlers.scroll);
 			framework.unbind(document, 'keydown', self);
-			framework.unbind(document, 'mousemove', _onFirstMouseMove);
+			framework.unbind(document, "mousemove", _onFirstMouseMove);
 			if (_features.transform) {
 				framework.unbind(self.scrollWrap, 'click', self);
 			}
@@ -1182,20 +1182,20 @@
 			}
 		},
 		_onDragStart = function (e) {
-			if (e.type === 'mousedown' && e.button > 0) {
+			if (e.type === "mousedown" && e.button > 0) {
 				return;
 			}
 			if (_initialZoomRunning) {
 				e.preventDefault();
 				return;
 			}
-			if (_oldAndroidTouchEndTimeout && e.type === 'mousedown') {
+			if (_oldAndroidTouchEndTimeout && e.type === "mousedown") {
 				return;
 			}
 			if (_preventDefaultEventBehaviour(e, true)) {
 				e.preventDefault();
 			}
-			_shout('pointerDown');
+			_shout("PointerDown");
 			if (_pointerEventEnabled) {
 				var pointerIndex = framework.arraySearch(_currPointers, e.pointerId, 'id');
 				if (pointerIndex < 0) {
@@ -1380,7 +1380,7 @@
 		},
 		_onDragRelease = function (e) {
 			if (_features.isOldAndroid) {
-				if (_oldAndroidTouchEndTimeout && e.type === 'mouseup') {
+				if (_oldAndroidTouchEndTimeout && e.type === "mouseup") {
 					return;
 				}
 				if (e.type.indexOf('touch') > -1) {
@@ -1390,7 +1390,7 @@
 						}, 600);
 				}
 			}
-			_shout('pointerUp');
+			_shout("PointerUp");
 			if (_preventDefaultEventBehaviour(e, false)) {
 				e.preventDefault();
 			}
@@ -1417,7 +1417,7 @@
 			var touchList = _getTouchPoints(e),
 			gestureType,
 			numPoints = touchList.length;
-			if (e.type === 'mouseup') {
+			if (e.type === "mouseup") {
 				numPoints = 0;
 			}
 			if (numPoints === 2) {
@@ -1429,7 +1429,7 @@
 			}
 			if (numPoints === 0 && !_direction && !_mainScrollAnimating) {
 				if (!releasePoint) {
-					if (e.type === 'mouseup') {
+					if (e.type === "mouseup") {
 						releasePoint = {
 							x: e.pageX,
 							y: e.pageY,
@@ -2347,13 +2347,13 @@
 					};
 					_listen('resize', updateZoomable);
 					_listen('afterChange', updateZoomable);
-					_listen('pointerDown', function () {
+					_listen("PointerDown", function () {
 						if (self.mouseZoomedIn) {
 							hasDraggingClass = true;
 							framework.addClass(template, 'pswp--dragging');
 						}
 					});
-					_listen('pointerUp', removeDraggingClass);
+					_listen("PointerUp", removeDraggingClass);
 					if (!onInit) {
 						updateZoomable();
 					}
@@ -2625,7 +2625,7 @@
 (function (root, factory) {
 	root.PhotoSwipeUI_Default = factory();
 })( "undefined" !== typeof window ? window : this, function () {
-	'use strict';
+	"use strict";
 	var PhotoSwipeUI_Default = function (pswp, framework) {
 		var ui = this;
 		var _overlayUIUpdated = false,
@@ -2909,7 +2909,7 @@
 		_setupIdle = function () {
 			if (_options.timeToIdle) {
 				_listen('mouseUsed', function () {
-					framework.bind(document, 'mousemove', _onIdleMouseMove);
+					framework.bind(document, "mousemove", _onIdleMouseMove);
 					framework.bind(document, 'mouseout', _onMouseLeaveWindow);
 					_idleInterval = setInterval(function () {
 							_idleIncrement++;
@@ -3077,7 +3077,7 @@
 					clearInterval(_idleInterval);
 				}
 				framework.unbind(document, 'mouseout', _onMouseLeaveWindow);
-				framework.unbind(document, 'mousemove', _onIdleMouseMove);
+				framework.unbind(document, "mousemove", _onIdleMouseMove);
 				framework.unbind(_controls, 'pswpTap click', _onControlsTap);
 				framework.unbind(pswp.scrollWrap, 'pswpTap', ui.onGlobalTap);
 				framework.unbind(pswp.scrollWrap, 'mouseover', ui.onMouseOver);
