@@ -3,7 +3,6 @@
   "productName": "englishextra",
   "companyName": "englishextra.github.io",
   "version": "0.1.0",
-  "identifier": "com.englishextra.app",
   "description": "English Grammar for Russian-Speakers",
   "repository": {
     "type": "git",
