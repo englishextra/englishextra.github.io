@@ -6,8 +6,6 @@
 [![Travis](https://img.shields.io/travis/englishextra/englishextra.github.io.svg)](https://github.com/englishextra/englishextra.github.io)
 [![bitHound Overall Score](https://www.bithound.io/github/englishextra/englishextra.github.io/badges/score.svg)](https://www.bithound.io/github/englishextra/englishextra.github.io)
 
-[![englishextra.github.io](https://farm3.staticflickr.com/2845/33493749130_a31948e76e_o.jpg)](https://englishextra.github.io/)
-
 ## On-line
 
  - [the website](https://englishextra.github.io/)
