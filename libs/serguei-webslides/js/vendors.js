@@ -2532,7 +2532,7 @@
 			support.checkClone = div.cloneNode(true).cloneNode(true).lastChild.checked;
 			div.innerHTML = "<textarea>x</textarea>";
 			support.noCloneChecked = !!div.cloneNode(true).lastChild.defaultValue;
-		})();
+		}());
 		var strundefined = typeof undefined;
 		support.focusinBubbles = "onfocusin" in window;
 		var
@@ -3671,7 +3671,7 @@
 					}
 				});
 			}
-		})();
+		}());
 		jQuery.swap = function (elem, options, callback, args) {
 			var ret,
 			name,
@@ -4558,7 +4558,7 @@
 			input.value = "t";
 			input.type = "radio";
 			support.radioValue = input.value === "t";
-		})();
+		}());
 		var nodeHook,
 		boolHook,
 		attrHandle = jQuery.expr.attrHandle;
