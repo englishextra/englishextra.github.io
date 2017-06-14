@@ -146,7 +146,7 @@ if (document.title) {
  * fetch(new Request('kitten.jpg'))
  * .then(response => response.blob())
  * .then(document.ready)
- * .then(blob => document.querySelector('img').src = URL.createObjectURL(blob))
+ * .then(blob => document.querySelector("img").src = URL.createObjectURL(blob))
  * @see {@link https://github.com/michealparks/document-ready-promise}
  * @see {@link https://github.com/michealparks/document-ready-promise/blob/master/document-ready-promise.js}
  * passes jshint

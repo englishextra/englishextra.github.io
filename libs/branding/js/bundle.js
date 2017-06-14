@@ -111,7 +111,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
  * @see {@link https://gist.github.com/englishextra/3e95d301d1d47fe6e26e3be198f0675e}
  * passes jshint
  */
-(function(root){"use strict";var imagePromise=function(s){if(root.Promise){return new Promise(function(y,n){var f=function(e,p){e.onload=function(){y(p);};e.onerror=function(){n(p);};e.src=p;};if("string"===typeof s){var a=new Image();f(a,s);}else{if("IMG"!==s.tagName){return Promise.reject();}else{if(s.src){f(s,s.src);}}}});}else{throw new Error("Promise is not in global object");}};(globalRoot).imagePromise=imagePromise;}(globalRoot));
+(function(root){"use strict";var imagePromise=function(s){if(root.Promise){return new Promise(function(y,n){var f=function(e,p){e.onload=function(){y(p);};e.onerror=function(){n(p);};e.src=p;};if("string"===typeof s){var a=new Image();f(a,s);}else{if("img"!==s.tagName){return Promise.reject();}else{if(s.src){f(s,s.src);}}}});}else{throw new Error("Promise is not in global object");}};(globalRoot).imagePromise=imagePromise;}(globalRoot));
 /*!
  * safe way to handle console.log
  * @see {@link https://github.com/paulmillr/console-polyfill}
@@ -235,7 +235,7 @@ if (document.title) {
  * fetch(new Request('kitten.jpg'))
  * .then(response => response.blob())
  * .then(document.ready)
- * .then(blob => document.querySelector('img').src = URL.createObjectURL(blob))
+ * .then(blob => document.querySelector("img").src = URL.createObjectURL(blob))
  * @see {@link https://github.com/michealparks/document-ready-promise}
  * @see {@link https://github.com/michealparks/document-ready-promise/blob/master/document-ready-promise.js}
  * passes jshint
