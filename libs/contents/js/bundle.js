@@ -210,7 +210,7 @@ if (document.title) {
  * @see {@link http://stackoverflow.com/questions/11182924/how-to-check-if-javascript-object-is-json}
  * safelyParseJSON(a)
  */
-(function(root){"use strict";var safelyParseJSON=function(a){var isJson=function(obj){var t=typeof obj;return['boolean','number','string','symbol',"function"].indexOf(t)==-1;};if(!isJson(a)){return JSON.parse(a);}else{return a;}};root.safelyParseJSON=safelyParseJSON;}(globalRoot));
+(function(root){"use strict";var safelyParseJSON=function(a){var isJson=function(obj){var t=typeof obj;return['boolean','number',"string",'symbol',"function"].indexOf(t)==-1;};if(!isJson(a)){return JSON.parse(a);}else{return a;}};root.safelyParseJSON=safelyParseJSON;}(globalRoot));
 /*!
  * return an array of values that match on a certain key
  * techslides.com/how-to-parse-and-search-json-in-javascript
@@ -784,7 +784,7 @@ manageLocationQrCodeImage = function () {
 },
 loadManageLocationQrCodeImg = function () {
 	"use strict";
-	var js = "../cdn/qrjs2/0.1.2/js/qrjs2.fixed.min.js";
+	var js = "../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
 	if (!scriptIsLoaded(js)) {
 		loadJS(js, manageLocationQrCodeImage);
 	} else {
