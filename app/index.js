@@ -1,3 +1,5 @@
+/*jslint node: true */
+/*jslint es6 */
 const electron = require("electron");
 const app = electron.app; // a life cycle module
 const BrowserWindow = electron.BrowserWindow; // a browser window module

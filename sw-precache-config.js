@@ -1,3 +1,5 @@
+/*jslint node: true */
+/*jslint es6 */
 /*!
  * @see {@link https://github.com/GoogleChrome/sw-precache/issues/97}
  * @see {@link https://github.com/GoogleChrome/sw-precache#runtime-caching}
@@ -13,7 +15,7 @@ module.exports = {
 		"./": "index.html"
 	}, */
 	staticFileGlobs: [
-		"index.html",
+		"index.html"// ,
 		// "manifest.json",
 		// "yandex-tableau.json",
 		// "**.{png,ico,svg}",
@@ -84,13 +86,13 @@ module.exports = {
 				debug: true
 			} */
 		}, {
-			urlPattern: /^\/([^/]+\.js)$/,
+			urlPattern: /^\/([^\/]+\.js)$/,
 			handler: "networkOnly",
 			options: {
 				debug: true
 			}
 		}, {
-			urlPattern: /^\/([^/]+\.json)$/,
+			urlPattern: /^\/([^\/]+\.json)$/,
 			handler: "networkOnly",
 			options: {
 				debug: true

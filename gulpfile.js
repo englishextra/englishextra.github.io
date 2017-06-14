@@ -1,10 +1,13 @@
-gulp.task('git-check', function (done) {
-	if (!sh.which('git')) {
+/*jslint node: true */
+/*jslint es6 */
+gulp.task("git-check", function (done) {
+	"use strict";
+	if (!sh.which("git")) {
 		console.log(
-			' ' + gutil.colors.red('Git is not installed.'),
-			'\n Git, the version control system, is required to download Ionic.',
-			'\n Download git here:', gutil.colors.cyan('http://git-scm.com/downloads') + '.',
-			'\n Once git is installed, run \'' + gutil.colors.cyan('gulp install') + '\' again.');
+			" " + gutil.colors.red("Git is not installed."),
+			"\n Git, the version control system, is required to download Ionic.",
+			"\n Download git here:", gutil.colors.cyan("http://git-scm.com/downloads") + ".",
+			"\n Once git is installed, run \"" + gutil.colors.cyan("gulp install") + "\" again.");
 		process.exit(1);
 	}
 	done();
@@ -16,9 +19,10 @@ gulp.task('git-check', function (done) {
  * @see {@link https://github.com/deanhume/Service-Worker-Toolbox/blob/master/sw.js}
  * @see {@link https://github.com/GoogleChrome/ioweb2016/blob/master/gulp_scripts/service-worker.js}
  */
-gulp.task('generate-service-worker', function (callback) {
-	var path = require('path');
-	var swPrecache = require('sw-precache');
+gulp.task("generate-service-worker", function (callback) {
+	"use strict";
+	var path = require("path");
+	var swPrecache = require("sw-precache");
 	swPrecache.write(`service-worker.min.js`, {
 	cacheId: "englishextra",
 	directoryIndex: "/",
@@ -27,7 +31,7 @@ gulp.task('generate-service-worker', function (callback) {
 		"./": "index.html"
 	}, */
 	staticFileGlobs: [
-		"index.html",
+		"index.html"// ,
 		// "manifest.json",
 		// "yandex-tableau.json",
 		// "**.{png,ico,svg}",
@@ -98,13 +102,13 @@ gulp.task('generate-service-worker', function (callback) {
 				debug: true
 			} */
 		}, {
-			urlPattern: /^\/([^/]+\.js)$/,
+			urlPattern: /^\/([^\/]+\.js)$/,
 			handler: "networkOnly",
 			options: {
 				debug: true
 			}
 		}, {
-			urlPattern: /^\/([^/]+\.json)$/,
+			urlPattern: /^\/([^\/]+\.json)$/,
 			handler: "networkOnly",
 			options: {
 				debug: true
