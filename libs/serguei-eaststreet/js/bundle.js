@@ -1090,6 +1090,48 @@ manageExternalLinks = function (ctx) {
 };
 document.ready().then(manageExternalLinks);
 /*!
+ * set event on include HTML links
+ */
+var includeHTMLintoTarget = function (_this, u, t) {
+	"use strict";
+	var c = BALA.one(t) || "",
+	pN = "parentNode",
+	c_pn = c[pN] || "",
+	g = function () {
+		var s = function () {
+			if (_this[pN]) {
+				setStyleDisplayNone(_this[pN]);
+			} else {
+				setStyleDisplayNone(_this);
+			}
+		},
+		k = function (t) {
+			var tf = function () {
+				s();
+				if (c_pn) {
+					manageExternalLinks(c_pn);
+					manageDataSrcImages(c_pn);
+					manageImgLightboxLinks(c_pn);
+				}
+			};
+			insertTextAsFragment(t, c, tf);
+		},
+		q = function () {
+			s();
+			setStyleDisplayNone(c);
+		};
+		loadExternalHTML(u, function (r) {
+			k(r);
+		}, function (r) {
+			q();
+		});
+	};
+	if (c) {
+		/* console.log("triggered function: includeHTMLintoTarget"); */
+		g();
+	}
+};
+/*!
  * manage data target links
  */
 var manageDataTargetLinks = function (ctx) {
@@ -2215,48 +2257,6 @@ var initUiTotop = function () {
 	}
 };
 document.ready().then(initUiTotop);
-/*!
- * set event on include HTML links
- */
-var includeHTMLintoTarget = function (_this, u, t) {
-	"use strict";
-	var c = BALA.one(t) || "",
-	pN = "parentNode",
-	c_pn = c[pN] || "",
-	g = function () {
-		var s = function () {
-			if (_this[pN]) {
-				setStyleDisplayNone(_this[pN]);
-			} else {
-				setStyleDisplayNone(_this);
-			}
-		},
-		k = function (t) {
-			var tf = function () {
-				s();
-				if (c_pn) {
-					manageExternalLinks(c_pn);
-					manageDataSrcImages(c_pn);
-					manageImgLightboxLinks(c_pn);
-				}
-			};
-			insertTextAsFragment(t, c, tf);
-		},
-		q = function () {
-			s();
-			setStyleDisplayNone(c);
-		};
-		loadExternalHTML(u, function (r) {
-			k(r);
-		}, function (r) {
-			q();
-		});
-	};
-	if (c) {
-		/* console.log("triggered function: includeHTMLintoTarget"); */
-		g();
-	}
-};
 /*!
  * init routie
  * @param {String} ctx HTML id string
