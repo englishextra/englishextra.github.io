@@ -16,7 +16,7 @@ var mainWindow = null;
 // check if all the app’s windows are closed and shut down the app
 app.on("window-all-closed", function () {
 	// in OS X stay active until Cmd + Q is pressed
-	if (process.platform != "darwin") {
+	if (process.platform !== "darwin") {
 		app.quit();
 	}
 });

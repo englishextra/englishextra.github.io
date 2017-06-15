@@ -1693,10 +1693,7 @@ body {
 /* Grid HTML Classes */
 
 .row {
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 0;
-	margin-bottom: 0;
+	margin: 0 auto;
 	/* max-width: 71.25em; */
 	width: 100%;
 }
@@ -4634,10 +4631,7 @@ u,
 	transition-delay: 0.2s;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
-	padding-top: 0.533rem;
-	padding-right: 2.400rem;
-	padding-bottom: 0.533rem;
-	padding-left: 0.533rem;
+	padding: 0.533rem 2.400rem 0.533rem 0.533rem;
 }
 
 .holder-search-form input[type^=text]:focus,

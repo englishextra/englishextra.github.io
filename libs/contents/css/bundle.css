@@ -1774,10 +1774,7 @@ u,
 	transition-delay: 0.2s;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
-	padding-top: 0.500rem;
-	padding-right: 2.250rem;
-	padding-bottom: 0.500rem;
-	padding-left: 0.500rem;
+	padding: 0.500rem 2.250rem 0.500rem 0.500rem;
 }
 
 .holder-search-form input[type^=text]:focus,

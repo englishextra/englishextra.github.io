@@ -2241,7 +2241,7 @@
 		var tapTimer,
 		tapReleasePoint = {},
 		_dispatchTapEvent = function (origEvent, releasePoint, pointerType) {
-			var e = document.createEvent('CustomEvent'),
+			var e = document.createEvent("CustomEvent"),
 			eDetail = {
 				origEvent: origEvent,
 				target: origEvent.target,
