@@ -11,12 +11,12 @@
  * source: raw.githubusercontent.com/jgallen23/jquery-builder/0.7.0/dist/2.1.1/jquery-deprecated-wrap.js
  * passes jshint with suppressing comments
  */
-/* jshint -W018 */
-/* jshint -W030 */
-/* jshint -W041 */
-/* jshint forin: false */
-/* jshint sub: true */
-/* jslint bitwise: true */
+/*jshint -W018 */
+/*jshint -W030 */
+/*jshint -W041 */
+/*jshint forin: false */
+/*jshint sub: true */
+/*jslint bitwise: true */
 (function(global,factory){if(typeof module==="object"&&typeof module.exports==="object"){module.exports=global.document?factory(global,true):function(w){if(!w.document){throw new Error("jQuery requires a window with a document");}
 return factory(w);};}else{factory(global);}}
 (typeof window!=="undefined"?window:this,function(window,noGlobal){var arr=[];var slice=arr.slice;var concat=arr.concat;var push=arr.push;var indexOf=arr.indexOf;var class2type={};var toString=class2type.toString;var hasOwn=class2type.hasOwnProperty;var support={};var
@@ -573,12 +573,12 @@ _jQuery=window.jQuery,_$=window.$;jQuery.noConflict=function(deep){if(window.$==
 if(deep&&window.jQuery===jQuery){window.jQuery=_jQuery;}
 return jQuery;};if(typeof noGlobal===strundefined){window.jQuery=window.$=jQuery;}
 return jQuery;}));
-/* jshint +W018 */
-/* jshint +W030 */
-/* jshint +W041 */
-/* jshint forin: true */
-/* jshint sub: false */
-/* jslint bitwise: false */
+/*jshint +W018 */
+/*jshint +W030 */
+/*jshint +W041 */
+/*jshint forin: true */
+/*jshint sub: false */
+/*jslint bitwise: false */
 /*!
  * modified jQuery PNotify Plugin 1.3.1
  * @see {@link http://sciactive.com/pnotify/}

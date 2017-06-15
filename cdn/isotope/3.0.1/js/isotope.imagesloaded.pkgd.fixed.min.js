@@ -8,7 +8,7 @@
  * @see {@link https://github.com/metafizzy/isotope/blob/master/dist/isotope.pkgd.js}
  * passes jshint with suppressing comments
  */
-/* jshint forin: false */
+/*jshint forin: false */
 (function (root, factory) {
 	root.EvEmitter = factory();
 }
@@ -1846,7 +1846,7 @@
 		};
 		return Isotope;
 	}));
-/* jshint forin: true */
+/*jshint forin: true */
 /*!
  * modified imagesLoaded PACKAGED v4.1.1
  * JavaScript is all like "You images are done yet or what?"

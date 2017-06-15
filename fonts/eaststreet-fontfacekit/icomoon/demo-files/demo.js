@@ -1,7 +1,6 @@
 if (!('boxShadow' in document.body.style)) {
     document.body.setAttribute('class', 'noBoxShadow');
 }
-
 document.body.addEventListener("click", function(e) {
     var target = e.target;
     if (target.tagName === "INPUT" &&
@@ -9,7 +8,6 @@ document.body.addEventListener("click", function(e) {
         target.select();
     }
 });
-
 (function() {
     var fontSize = document.getElementById('fontSize'),
         testDrive = document.getElementById('testDrive'),
