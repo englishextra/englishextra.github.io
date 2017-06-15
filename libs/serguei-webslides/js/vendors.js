@@ -12,7 +12,7 @@
  * Date: 2016-09-22T22:30Z
  * source: cdn.jsdelivr.net/jquery/3.1.1/jquery.js
  */
-/*jshint ignore: start */
+/*jshint ignore:start */
 /*!
  * jQuery JavaScript Library v2.1.1 -ajax,-ajax/jsonp,-ajax/load,-ajax/parseJSON,-ajax/parseXML,-ajax/script,-ajax/var/nonce,-ajax/var/rquery,-ajax/xhr,-manipulation/_evalUrl,-deprecated,-dimensions,-event-alias,-offset,-wrap
  * @see {@link http://jquery.com/}
@@ -5084,4 +5084,4 @@
 		}
 		return jQuery;
 	}));
-/*jshint ignore: end */
+/*jshint ignore:end */

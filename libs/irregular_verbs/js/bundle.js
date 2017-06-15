@@ -1,3 +1,19 @@
+/*jshint browser: true */
+/*jshint node: true */
+/*jslint browser: true */
+/*jslint node: true */
+/*global ActiveXObject, alignToMasterBottomLeft, appendFragment,
+ Carousel, container, Cookies, debounce, DISQUS,
+ earlyDeviceOrientation, earlyDeviceSize, earlyDeviceType,
+ earlyFnGetYyyymmdd, earlyHasTouch, earlySvgasimgSupport,
+ earlySvgSupport, escape, findPos, fixEnRuTypo, getHTTP, IframeLightbox,
+ imagePromise, imagesPreloaded,
+ insertExternalHTML, insertTextAsFragment, isValidId, Kamil, loadJS,
+ loadUnparsedJSON, Masonry, openDeviceBrowser,
+ Packery, parseLink, Promise, QRCode, removeChildren, require,
+ safelyParseJSON, scriptIsLoaded, scroll2Top, t, throttle, Timers,
+ truncString, unescape, verge, VK */
+/*property console, split */
 /*!
  * define global root
  */
@@ -218,9 +234,9 @@ if (document.title) {
  * alert(parseLink("http://localhost/search?s=t&v=z#dev").href|
  * origin|host|port|hash|hostname|pathname|protocol|search|query|isAbsolute|isRelative|isCrossDomain);
  */
-/*jslint bitwise: true */
+/*jshint bitwise: false */
 (function(root){"use strict";var parseLink=function(url,full){full=full||!1;return (function(){var _r=function(s){return s.replace(/^(#|\?)/,"").replace(/\:$/,"");},l=location||"",_p=function(protocol){switch(protocol){case"http:":return full?":"+80:80;case"https:":return full?":"+443:443;default:return full?":"+l.port:l.port;}},_s=(0===url.indexOf("//")||!!~url.indexOf("://")),w=root.location||"",_o=function(){var o=w.protocol+"//"+w.hostname+(w.port?":"+w.port:"");return o||"";},_c=function(){var c=document.createElement("a");c.href=url;var v=c.protocol+"//"+c.hostname+(c.port?":"+c.port:"");return v!==_o();},a=document.createElement("a");a.href=url;return{href:a.href,origin:_o(),host:a.host||l.host,port:("0"===a.port||""===a.port)?_p(a.protocol):(full?a.port:_r(a.port)),hash:full?a.hash:_r(a.hash),hostname:a.hostname||l.hostname,pathname:a.pathname.charAt(0)!=="/"?(full?"/"+a.pathname:a.pathname):(full?a.pathname:a.pathname.slice(1)),protocol:!a.protocol||":"===a.protocol?(full?l.protocol:_r(l.protocol)):(full?a.protocol:_r(a.protocol)),search:full?a.search:_r(a.search),query:full?a.search:_r(a.search),isAbsolute:_s,isRelative:!_s,isCrossDomain:_c(),hasHTTP:/^(http|https):\/\//i.test(url)?!0:!1};}());};root.parseLink=parseLink;}(globalRoot));
-/*jslint bitwise: false */
+/*jshint bitwise: true */
 /*!
  * get current protocol - "http" or "https", else return ""
  * @param {Boolean} [force] When set to "true", and the result is empty,

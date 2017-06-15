@@ -17,7 +17,7 @@
 			features: null,
 			bind: function (target, type, listener, unbind) {
 				var methodName = (unbind ? 'remove' : 'add') + 'EventListener';
-				type = type.split(' ');
+				type = type.split(" ");
 				for (var i = 0; i < type.length; i++) {
 					if (type[i]) {
 						target[methodName](type[i], listener, false);
@@ -177,7 +177,7 @@
 		framework.detectFeatures();
 		if (framework.features.oldIE) {
 			framework.bind = function (target, type, listener, unbind) {
-				type = type.split(' ');
+				type = type.split(" ");
 				var methodName = (unbind ? 'detach' : 'attach') + 'Event',
 				evName,
 				_handleEv = function () {

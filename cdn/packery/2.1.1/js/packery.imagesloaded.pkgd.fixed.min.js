@@ -1834,7 +1834,7 @@
 			var _this = this;
 			function onDragEndLayoutComplete() {
 				completeCount++;
-				if (completeCount != 2) {
+				if (completeCount !== 2) {
 					return;
 				}
 				item.element.classList.remove('is-positioning-post-drag');

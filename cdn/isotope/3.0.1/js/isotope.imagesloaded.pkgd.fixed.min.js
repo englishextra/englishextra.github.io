@@ -1391,7 +1391,7 @@
 		Masonry.prototype.needsResizeLayout = function () {
 			var previousWidth = this.containerWidth;
 			this.getContainerWidth();
-			return previousWidth != this.containerWidth;
+			return previousWidth !== this.containerWidth;
 		};
 		return Masonry;
 	}));
@@ -1676,7 +1676,7 @@
 				if (typeof sorter != "string") {
 					return sorter;
 				}
-				var args = trim(sorter).split(' ');
+				var args = trim(sorter).split(" ");
 				var query = args[0];
 				var attrMatch = query.match(/^\[(.+)\]$/);
 				var attr = attrMatch && attrMatch[1];

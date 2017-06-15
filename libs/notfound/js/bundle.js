@@ -1,3 +1,19 @@
+/*jshint browser: true */
+/*jshint node: true */
+/*jslint browser: true */
+/*jslint node: true */
+/*global ActiveXObject, alignToMasterBottomLeft, appendFragment,
+ Carousel, container, Cookies, debounce, DISQUS,
+ earlyDeviceOrientation, earlyDeviceSize, earlyDeviceType,
+ earlyFnGetYyyymmdd, earlyHasTouch, earlySvgasimgSupport,
+ earlySvgSupport, escape, findPos, fixEnRuTypo, getHTTP, IframeLightbox,
+ imagePromise, imagesPreloaded,
+ insertExternalHTML, insertTextAsFragment, isValidId, Kamil, loadJS,
+ loadUnparsedJSON, Masonry, openDeviceBrowser,
+ Packery, parseLink, Promise, QRCode, removeChildren, require,
+ safelyParseJSON, scriptIsLoaded, scroll2Top, t, throttle, Timers,
+ truncString, unescape, verge, VK */
+/*property console, split */
 /*!
  * define global root
  */
