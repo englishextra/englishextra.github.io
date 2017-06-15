@@ -753,7 +753,7 @@
 								}
 							}
 							function canChangeNow(doSlide, index) {
-								return !doSlide.isChanging && index != doSlide.currentIndex;
+								return !doSlide.isChanging && index !== doSlide.currentIndex;
 							}
 							function isOverRange(doSlide, index) {
 								return index < 0 || index >= doSlide.sections.length;

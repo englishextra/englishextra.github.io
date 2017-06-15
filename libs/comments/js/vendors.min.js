@@ -16,7 +16,7 @@
 /*jshint -W041 */
 /*jshint forin: false */
 /*jshint sub: true */
-/*jshint bitwise: true */
+/*jshint bitwise: false */
 (function(global,factory){if(typeof module==="object"&&typeof module.exports==="object"){module.exports=global.document?factory(global,true):function(w){if(!w.document){throw new Error("jQuery requires a window with a document");}
 return factory(w);};}else{factory(global);}}
 (typeof window!=="undefined"?window:this,function(window,noGlobal){var arr=[];var slice=arr.slice;var concat=arr.concat;var push=arr.push;var indexOf=arr.indexOf;var class2type={};var toString=class2type.toString;var hasOwn=class2type.hasOwnProperty;var support={};var
@@ -578,7 +578,7 @@ return jQuery;}));
 /*jshint +W041 */
 /*jshint forin: true */
 /*jshint sub: false */
-/*jshint bitwise: false */
+/*jshint bitwise: true */
 /*!
  * modified jQuery PNotify Plugin 1.3.1
  * @see {@link http://sciactive.com/pnotify/}
