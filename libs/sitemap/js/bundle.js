@@ -2,16 +2,18 @@
 /*jshint node: true */
 /*jslint browser: true */
 /*jslint node: true */
-/*global ActiveXObject, alignToMasterBottomLeft, appendFragment,
- Carousel, container, Cookies, debounce, DISQUS,
- earlyDeviceOrientation, earlyDeviceSize, earlyDeviceType,
- earlyFnGetYyyymmdd, earlyHasTouch, earlySvgasimgSupport,
- earlySvgSupport, escape, findPos, fixEnRuTypo, getHTTP, IframeLightbox,
- imagePromise, insertExternalHTML, insertTextAsFragment, isValidId, Kamil, loadJS,
- loadUnparsedJSON, Masonry, openDeviceBrowser,
- Packery, parseLink, Promise, QRCode, removeChildren, require,
- safelyParseJSON, scriptIsLoaded, scroll2Top, t, throttle, Timers,
- truncString, unescape, verge, VK */
+/*global  _, ActiveXObject, alignToMasterBottomLeft, appendFragment, BALA,
+ Carousel, changeLocation, container, Cookies, crel, debounce, DISQUS,
+ earlyDeviceOrientation, earlyDeviceSize, earlyDeviceType, earlyFnGetYyyymmdd,
+ earlyHasTouch, earlySvgasimgSupport, earlySvgSupport, escape, findPos,
+ fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox,
+ imagePromise, imagesPreloaded, insertExternalHTML, insertTextAsFragment,
+ isValidId, jQuery, Kamil, loadJS, loadUnparsedJSON, manageDataSrcImages,
+ Masonry, openDeviceBrowser, Packery, parseLink, Promise, Proxy, QRCode,
+ removeChildren, require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top,
+ scrollToElement, scrollToTop, setStyleDisplayBlock, setStyleDisplayNone,
+ setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t,
+ throttle, Timers, ToProgress, truncString, unescape, verge, VK, zenscroll */
 /*property console, split */
 /*!
  * define global root
