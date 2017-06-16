@@ -2,20 +2,24 @@
 /*jshint node: true */
 /*jslint browser: true */
 /*jslint node: true */
-/*global  _, ActiveXObject, alignToMasterBottomLeft, appendFragment, BALA,
- Carousel, changeLocation, container, Cookies, crel, debounce, DISQUS, Draggabilly,
- earlyDeviceOrientation, earlyDeviceSize, earlyDeviceType, earlyFnGetYyyymmdd,
- earlyHasTouch, earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos,
- fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox,
- imagePromise, imagesLoaded, imagesPreloaded, insertExternalHTML, insertTextAsFragment,
- isValidId, jQuery, Kamil, loadExternalHTML, loadJS, loadUnparsedJSON,
- manageDataSrcImages, manageImgLightboxLinks, Masonry, openDeviceBrowser, Packery,
- parseLink, PhotoSwipe, PhotoSwipeUI_Default, prependFragmentBefore, Promise, Proxy,
- QRCode, removeChildren, removeElement, require, routie, safelyParseJSON,
- scriptIsLoaded, scroll2Top, scrollToElement, scrollToPos, scrollToTop, setImmediate,
- setStyleDisplayBlock, setStyleDisplayNone, setStyleOpacity, setStyleVisibilityHidden,
- setStyleVisibilityVisible, t, Tablesort, throttle, Timers, ToProgress, truncString,
- unescape, verge, VK, Ya, ymaps, zenscroll */
+/*global _, ActiveXObject, alignToMasterBottomLeft, appendFragment,
+BALA, Carousel, changeLocation, container, Cookies, crel, debounce,
+DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation, earlyDeviceSize,
+earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch,
+earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos,
+fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox,
+imagePromise, imagesLoaded, imagesPreloaded, insertExternalHTML,
+insertTextAsFragment, Isotope, isValidId, jQuery, Kamil,
+loadExternalHTML, loadJS, loadUnparsedJSON, manageDataSrcImages,
+manageImgLightboxLinks, Masonry, openDeviceBrowser, Packery, Parallax,
+parseLink, PhotoSwipe, PhotoSwipeUI_Default, prependFragmentBefore,
+prettyPrint, Promise, Proxy, QRCode, removeChildren, removeElement,
+require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top,
+scrollToElement, scrollToPos, scrollToTop, setImmediate,
+setStyleDisplayBlock, setStyleDisplayNone, setStyleOpacity,
+setStyleVisibilityHidden, setStyleVisibilityVisible, t, Tablesort,
+throttle, Timers, ToProgress, truncString, unescape, verge, VK, Ya,
+ymaps, zenscroll */
 /*!
  * define global root
  */
@@ -167,7 +171,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
  * new IframeLightbox(elem)
  * passes jshint
  */
-(function(root){"use strict";var d=document,aEL="addEventListener",gEBI="getElementById",gEBCN="getElementsByClassName",cE="createElement",cL="classList",aC="appendChild",dS="dataset",containerClass="iframe-lightbox",isLoadedClass="is-loaded",isOpenedClass="is-opened",isShowingClass="is-showing";var IframeLightbox=function(elem,rate){if(elem.nodeName){this.trigger=elem;this.rate=rate||500;this.el=d[gEBCN](containerClass)[0]||"";this.body=this.el?this.el[gEBCN]("body")[0]:"";this.content=this.el?this.el[gEBCN]("content")[0]:"";this.href=elem[dS].src||"";this.paddingBottom=elem[dS].paddingBottom||"";this.init();}else{return;}};IframeLightbox.prototype.init=function(){var _this=this;if(!this.el){this.create();}var debounce=function(func,wait){var timeout,args,context,timestamp;return function(){context=this;args=[].slice.call(arguments,0);timestamp=new Date();var later=function(){var last=(new Date())-timestamp;if(last<wait){timeout=setTimeout(later,wait-last);}else{timeout=null;func.apply(context,args);}};if(!timeout){timeout=setTimeout(later,wait);}};};var handleOpenIframeLightbox=function(e){e.preventDefault();_this.open();};var debounceHandleOpenIframeLightbox=debounce(handleOpenIframeLightbox,this.rate);this.trigger[aEL]("click",debounceHandleOpenIframeLightbox);};IframeLightbox.prototype.create=function(){var _this=this,bd=d[cE]("div");this.el=d[cE]("div");this.content=d[cE]("div");this.body=d[cE]("div");this.el[cL].add(containerClass);bd[cL].add("backdrop");this.content[cL].add("content");this.body[cL].add("body");this.el[aC](bd);this.content[aC](this.body);this.contentHolder=d[cE]("div");this.contentHolder[cL].add("content-holder");this.contentHolder[aC](this.content);this.el[aC](this.contentHolder);d.body[aC](this.el);bd[aEL]("click",function(){_this.close();});var clearBody=function(e){if(_this.isOpen()){return;}_this.el[cL].remove(isShowingClass);_this.body.innerHTML="";};this.el[aEL]("transitionend",clearBody,false);this.el[aEL]("webkitTransitionEnd",clearBody,false);this.el[aEL]("mozTransitionEnd",clearBody,false);this.el[aEL]("msTransitionEnd",clearBody,false);};IframeLightbox.prototype.loadIframe=function(){this.iframeId=containerClass+Date.now();this.body.innerHTML='<iframe src="'+this.href+'" name="'+this.iframeId+'" id="'+this.iframeId+'" onload="this.style.opacity=1;" style="opacity:0;border:none;" scrolling="no" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true" frameborder="no" title="Embedded Content"></iframe>';(function(iframeId,body){d[gEBI](iframeId).onload=function(){this.style.opacity=1;body[cL].add(isLoadedClass);};}(this.iframeId,this.body));};IframeLightbox.prototype.open=function(){this.loadIframe();if(this.paddingBottom){this.content.style.paddingBottom=this.paddingBottom;}else{this.content.removeAttribute("style");}this.el[cL].add(isShowingClass);this.el[cL].add(isOpenedClass);};IframeLightbox.prototype.close=function(){this.el[cL].remove(isOpenedClass);this.body[cL].remove(isLoadedClass);};IframeLightbox.prototype.isOpen=function(){return this.el[cL].contains(isOpenedClass);};root.IframeLightbox=IframeLightbox;}("undefined"!==typeof window?window:this));
+(function(root){"use strict";var d=document,aEL="addEventListener",gEBI="getElementById",gEBCN="getElementsByClassName",cE="createElement",cL="classList",aC="appendChild",dS="dataset",containerClass="iframe-lightbox",isLoadedClass="is-loaded",isOpenedClass="is-opened",isShowingClass="is-showing";var IframeLightbox=function(elem,rate){if(elem.nodeName){this.trigger=elem;this.rate=rate||500;this.el=d[gEBCN](containerClass)[0]||"";this.body=this.el?this.el[gEBCN]("body")[0]:"";this.content=this.el?this.el[gEBCN]("content")[0]:"";this.href=elem[dS].src||"";this.paddingBottom=elem[dS].paddingBottom||"";this.init();}else{return;}};IframeLightbox.prototype.init=function(){var _this=this;if(!this.el){this.create();}var debounce=function(func,wait){var timeout,args,context,timestamp;return function(){context=this;args=[].slice.call(arguments,0);timestamp=new Date();var later=function(){var last=(new Date())-timestamp;if(last<wait){timeout=setTimeout(later,wait-last);}else{timeout=null;func.apply(context,args);}};if(!timeout){timeout=setTimeout(later,wait);}};};var handleOpenIframeLightbox=function(e){e.preventDefault();_this.open();};var debounceHandleOpenIframeLightbox=debounce(handleOpenIframeLightbox,this.rate);this.trigger[aEL]("click",debounceHandleOpenIframeLightbox);};IframeLightbox.prototype.create=function(){var _this=this,bd=d[cE]("div");this.el=d[cE]("div");this.content=d[cE]("div");this.body=d[cE]("div");this.el[cL].add(containerClass);bd[cL].add("backdrop");this.content[cL].add("content");this.body[cL].add("body");this.el[aC](bd);this.content[aC](this.body);this.contentHolder=d[cE]("div");this.contentHolder[cL].add("content-holder");this.contentHolder[aC](this.content);this.el[aC](this.contentHolder);d.body[aC](this.el);bd[aEL]("click",function(){_this.close();});var clearBody=function(e){if(_this.isOpen()){return;}_this.el[cL].remove(isShowingClass);_this.body.innerHTML="";};this.el[aEL]("transitionend",clearBody,false);this.el[aEL]("webkitTransitionEnd",clearBody,false);this.el[aEL]("mozTransitionEnd",clearBody,false);this.el[aEL]("msTransitionEnd",clearBody,false);};IframeLightbox.prototype.loadIframe=function(){this.iframeId=containerClass+Date.now();this.body.innerHTML='<iframe src="'+this.href+'" name="'+this.iframeId+'" id="'+this.iframeId+'" onload="this.style.opacity=1;" style="opacity:0;border:none;" scrolling="no" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true" frameborder="no" title="Embedded Content"></iframe>';(function(iframeId,body){d[gEBI](iframeId).onload=function(){this.style.opacity=1;body[cL].add(isLoadedClass);};}(this.iframeId,this.body));};IframeLightbox.prototype.open=function(){this.loadIframe();if(this.paddingBottom){this.content.style.paddingBottom=this.paddingBottom;}else{this.content.removeAttribute("style");}this.el[cL].add(isShowingClass);this.el[cL].add(isOpenedClass);};IframeLightbox.prototype.close=function(){this.el[cL].remove(isOpenedClass);this.body[cL].remove(isLoadedClass);};IframeLightbox.prototype.isOpen=function(){return this.el[cL].contains(isOpenedClass);};root.IframeLightbox=IframeLightbox;}("undefined" !== typeof window ? window : this));
 /*!
  * add js class to html element
  */

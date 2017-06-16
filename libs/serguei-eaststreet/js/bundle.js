@@ -2,20 +2,24 @@
 /*jshint node: true */
 /*jslint browser: true */
 /*jslint node: true */
-/*global  _, ActiveXObject, alignToMasterBottomLeft, appendFragment, BALA,
- Carousel, changeLocation, container, Cookies, crel, debounce, DISQUS, Draggabilly,
- earlyDeviceOrientation, earlyDeviceSize, earlyDeviceType, earlyFnGetYyyymmdd,
- earlyHasTouch, earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos,
- fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox,
- imagePromise, imagesLoaded, imagesPreloaded, insertExternalHTML, insertTextAsFragment,
- isValidId, jQuery, Kamil, loadExternalHTML, loadJS, loadUnparsedJSON,
- manageDataSrcImages, manageImgLightboxLinks, Masonry, openDeviceBrowser, Packery,
- parseLink, PhotoSwipe, PhotoSwipeUI_Default, prependFragmentBefore, Promise, Proxy,
- QRCode, removeChildren, removeElement, require, routie, safelyParseJSON,
- scriptIsLoaded, scroll2Top, scrollToElement, scrollToPos, scrollToTop, setImmediate,
- setStyleDisplayBlock, setStyleDisplayNone, setStyleOpacity, setStyleVisibilityHidden,
- setStyleVisibilityVisible, t, Tablesort, throttle, Timers, ToProgress, truncString,
- unescape, verge, VK, Ya, ymaps, zenscroll */
+/*global _, ActiveXObject, alignToMasterBottomLeft, appendFragment,
+BALA, Carousel, changeLocation, container, Cookies, crel, debounce,
+DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation, earlyDeviceSize,
+earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch,
+earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos,
+fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox,
+imagePromise, imagesLoaded, imagesPreloaded, insertExternalHTML,
+insertTextAsFragment, Isotope, isValidId, jQuery, Kamil,
+loadExternalHTML, loadJS, loadUnparsedJSON, manageDataSrcImages,
+manageImgLightboxLinks, Masonry, openDeviceBrowser, Packery, Parallax,
+parseLink, PhotoSwipe, PhotoSwipeUI_Default, prependFragmentBefore,
+prettyPrint, Promise, Proxy, QRCode, removeChildren, removeElement,
+require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top,
+scrollToElement, scrollToPos, scrollToTop, setImmediate,
+setStyleDisplayBlock, setStyleDisplayNone, setStyleOpacity,
+setStyleVisibilityHidden, setStyleVisibilityVisible, t, Tablesort,
+throttle, Timers, ToProgress, truncString, unescape, verge, VK, Ya,
+ymaps, zenscroll */
 /*!
  * define global root
  */
@@ -1097,44 +1101,6 @@ manageExternalLinks = function (ctx) {
 };
 document.ready().then(manageExternalLinks);
 /*!
- * manage data target links
- */
-var manageDataTargetLinks = function (ctx) {
-	"use strict";
-	ctx = ctx && ctx.nodeName ? ctx : "";
-	var w = globalRoot,
-	cls = "[data-target]",
-	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
-	ds = "dataset",
-	aEL = "addEventListener",
-	rEL = "removeEventListener",
-	g = function (e) {
-		var u = e[ds].include || "",
-		t = e[ds].target || "";
-		if (u && t) {
-			e.title = "Появится здесь же";
-			var h_e = function (ev) {
-				ev.stopPropagation();
-				ev.preventDefault();
-				e[rEL]("click", h_e);
-				includeHTMLintoTarget(e, u, t);
-			};
-			e[aEL]("click", h_e);
-		}
-	},
-	k = function () {
-		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		for (var i = 0, l = a.length; i < l; i += 1) {
-			g(a[i]);
-		}
-		/* forEach(a, g, !1); */
-	};
-	if (a) {
-		/* console.log("triggered function: manageDataTargetLinks"); */
-		k();
-	}
-};
-/*!
  * manage data lightbox img links
  */
 var hideImgLightbox = function () {
@@ -1562,6 +1528,44 @@ var includeHTMLintoTarget = function (_this, u, t) {
 	if (c) {
 		/* console.log("triggered function: includeHTMLintoTarget"); */
 		g();
+	}
+};
+/*!
+ * manage data target links
+ */
+var manageDataTargetLinks = function (ctx) {
+	"use strict";
+	ctx = ctx && ctx.nodeName ? ctx : "";
+	var w = globalRoot,
+	cls = "[data-target]",
+	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	ds = "dataset",
+	aEL = "addEventListener",
+	rEL = "removeEventListener",
+	g = function (e) {
+		var u = e[ds].include || "",
+		t = e[ds].target || "";
+		if (u && t) {
+			e.title = "Появится здесь же";
+			var h_e = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				e[rEL]("click", h_e);
+				includeHTMLintoTarget(e, u, t);
+			};
+			e[aEL]("click", h_e);
+		}
+	},
+	k = function () {
+		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
+		for (var i = 0, l = a.length; i < l; i += 1) {
+			g(a[i]);
+		}
+		/* forEach(a, g, !1); */
+	};
+	if (a) {
+		/* console.log("triggered function: manageDataTargetLinks"); */
+		k();
 	}
 };
 /*!

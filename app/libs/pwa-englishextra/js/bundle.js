@@ -2,20 +2,25 @@
 /*jshint node: true */
 /*jslint browser: true */
 /*jslint node: true */
-/*global  _, ActiveXObject, alignToMasterBottomLeft, appendFragment, BALA,
- Carousel, changeLocation, container, Cookies, crel, debounce, DISQUS, Draggabilly,
- earlyDeviceOrientation, earlyDeviceSize, earlyDeviceType, earlyFnGetYyyymmdd,
- earlyHasTouch, earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos,
- fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox,
- imagePromise, imagesLoaded, imagesPreloaded, insertExternalHTML, insertTextAsFragment,
- isValidId, jQuery, Kamil, loadExternalHTML, loadJS, loadUnparsedJSON,
- manageDataSrcImages, manageImgLightboxLinks, Masonry, openDeviceBrowser, Packery,
- parseLink, PhotoSwipe, PhotoSwipeUI_Default, prependFragmentBefore, Promise, Proxy,
- QRCode, removeChildren, removeElement, require, routie, safelyParseJSON,
- scriptIsLoaded, scroll2Top, scrollToElement, scrollToPos, scrollToTop, setImmediate,
- setStyleDisplayBlock, setStyleDisplayNone, setStyleOpacity, setStyleVisibilityHidden,
- setStyleVisibilityVisible, t, Tablesort, throttle, Timers, ToProgress, truncString,
- unescape, verge, VK, Ya, ymaps, zenscroll */
+/*global _, ActiveXObject, alignToMasterBottomLeft, appendFragment,
+BALA, Carousel, changeLocation, container, Cookies, crel, debounce,
+DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation, earlyDeviceSize,
+earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch,
+earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos,
+fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox,
+imagePromise, imagesLoaded, imagesPreloaded, insertExternalHTML,
+insertTextAsFragment, Isotope, isValidId, jQuery, Kamil,
+loadExternalHTML, loadJS, loadUnparsedJSON, manageDataSrcImages,
+manageImgLightboxLinks, Masonry, openDeviceBrowser, Packery, Parallax,
+parseLink, PhotoSwipe, PhotoSwipeUI_Default, prependFragmentBefore,
+prettyPrint, Promise, Proxy, QRCode, removeChildren, removeElement,
+require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top,
+scrollToElement, scrollToPos, scrollToTop, setImmediate,
+setStyleDisplayBlock, setStyleDisplayNone, setStyleOpacity,
+setStyleVisibilityHidden, setStyleVisibilityVisible, t, Tablesort,
+throttle, Timers, ToProgress, truncString, unescape, verge, VK, Ya,
+ymaps, zenscroll */
+/*property console, split */
 /*!
  * define global root
  */
@@ -44,7 +49,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
  * @see {@link https://github.com/loele/t.js/blob/2b3ab7039353cc365fb3463f6df08fd00eb3eb3d/t.js}
  * passes jshint
  */
-(function(root){"use strict";var blockregex=/\{\{(([@!]?)(.+?))\}\}(([\s\S]+?)(\{\{:\1\}\}([\s\S]+?))?)\{\{\/\1\}\}/g,valregex=/\{\{([=%])(.+?)\}\}/g;var t=function(template){this.t=template;};function scrub(val){return new Option(val).text.replace(/"/g,"&quot;");}function get_value(vars,key){var parts=key.split(".");while(parts.length){if(!(parts[0]in vars)){return false;}vars=vars[parts.shift()];}return vars;}function render(fragment,vars){return fragment.replace(blockregex,function(_,__,meta,key,inner,if_true,has_else,if_false){var val=get_value(vars,key),temp="",i;if(!val){if(meta=='!'){return render(inner,vars);}if(has_else){return render(if_false,vars);}return"";}if(!meta){return render(if_true,vars);}if(meta=='@'){_=vars._key;__=vars._val;for(i in val){if(val.hasOwnProperty(i)){vars._key=i;vars._val=val[i];temp+=render(inner,vars);}}vars._key=_;vars._val=__;return temp;}}).replace(valregex,function(_,meta,key){var val=get_value(vars,key);if(val||val===0){return meta=='%'?scrub(val):val;}return"";});}t.prototype.render=function(vars){return render(this.t,vars);};root.t=t;}(globalRoot));
+(function(root){"use strict";var blockregex=/\{\{(([@!]?)(.+?))\}\}(([\s\S]+?)(\{\{:\1\}\}([\s\S]+?))?)\{\{\/\1\}\}/g,valregex=/\{\{([=%])(.+?)\}\}/g;var t=function(template){this.t=template;};function scrub(val){return new Option(val).text.replace(/"/g,"&quot;");}function get_value(vars,key){var parts=key.split(".");while(parts.length){if(!(parts[0]in vars)){return false;}vars=vars[parts.shift()];}return vars;}function render(fragment,vars){return fragment.replace(blockregex,function(_,__,meta,key,inner,if_true,has_else,if_false){var val=get_value(vars,key),temp="",i;if(!val){if(meta==="!"){return render(inner,vars);}if(has_else){return render(if_false,vars);}return"";}if(!meta){return render(if_true,vars);}if(meta==="@"){_=vars._key;__=vars._val;for(i in val){if(val.hasOwnProperty(i)){vars._key=i;vars._val=val[i];temp+=render(inner,vars);}}vars._key=_;vars._val=__;return temp;}}).replace(valregex,function(_,meta,key){var val=get_value(vars,key);if(val||val===0){return meta==="%"?scrub(val):val;}return"";});}t.prototype.render=function(vars){return render(this.t,vars);};root.t=t;}(globalRoot));
 /*!
  * modified verge 1.9.1+201402130803
  * @see {@link https://github.com/ryanve/verge}
@@ -79,7 +84,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
  * new IframeLightbox(elem)
  * passes jshint
  */
-(function(root){"use strict";var d=document,aEL="addEventListener",gEBI="getElementById",gEBCN="getElementsByClassName",cE="createElement",cL="classList",aC="appendChild",dS="dataset",containerClass="iframe-lightbox",isLoadedClass="is-loaded",isOpenedClass="is-opened",isShowingClass="is-showing";var IframeLightbox=function(elem,rate){if(elem.nodeName){this.trigger=elem;this.rate=rate||500;this.el=d[gEBCN](containerClass)[0]||"";this.body=this.el?this.el[gEBCN]("body")[0]:"";this.content=this.el?this.el[gEBCN]("content")[0]:"";this.href=elem[dS].src||"";this.paddingBottom=elem[dS].paddingBottom||"";this.init();}else{return;}};IframeLightbox.prototype.init=function(){var _this=this;if(!this.el){this.create();}var debounce=function(func,wait){var timeout,args,context,timestamp;return function(){context=this;args=[].slice.call(arguments,0);timestamp=new Date();var later=function(){var last=(new Date())-timestamp;if(last<wait){timeout=setTimeout(later,wait-last);}else{timeout=null;func.apply(context,args);}};if(!timeout){timeout=setTimeout(later,wait);}};};var handleOpenIframeLightbox=function(e){e.preventDefault();_this.open();};var debounceHandleOpenIframeLightbox=debounce(handleOpenIframeLightbox,this.rate);this.trigger[aEL]("click",debounceHandleOpenIframeLightbox);};IframeLightbox.prototype.create=function(){var _this=this,bd=d[cE]("div");this.el=d[cE]("div");this.content=d[cE]("div");this.body=d[cE]("div");this.el[cL].add(containerClass);bd[cL].add("backdrop");this.content[cL].add("content");this.body[cL].add("body");this.el[aC](bd);this.content[aC](this.body);this.contentHolder=d[cE]("div");this.contentHolder[cL].add("content-holder");this.contentHolder[aC](this.content);this.el[aC](this.contentHolder);d.body[aC](this.el);bd[aEL]("click",function(){_this.close();});var clearBody=function(e){if(_this.isOpen()){return;}_this.el[cL].remove(isShowingClass);_this.body.innerHTML="";};this.el[aEL]("transitionend",clearBody,false);this.el[aEL]("webkitTransitionEnd",clearBody,false);this.el[aEL]("mozTransitionEnd",clearBody,false);this.el[aEL]("msTransitionEnd",clearBody,false);};IframeLightbox.prototype.loadIframe=function(){this.iframeId=containerClass+Date.now();this.body.innerHTML='<iframe src="'+this.href+'" name="'+this.iframeId+'" id="'+this.iframeId+'" onload="this.style.opacity=1;" style="opacity:0;border:none;" scrolling="no" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true" frameborder="no" title="Embedded Content"></iframe>';(function(iframeId,body){d[gEBI](iframeId).onload=function(){this.style.opacity=1;body[cL].add(isLoadedClass);};}(this.iframeId,this.body));};IframeLightbox.prototype.open=function(){this.loadIframe();if(this.paddingBottom){this.content.style.paddingBottom=this.paddingBottom;}else{this.content.removeAttribute("style");}this.el[cL].add(isShowingClass);this.el[cL].add(isOpenedClass);};IframeLightbox.prototype.close=function(){this.el[cL].remove(isOpenedClass);this.body[cL].remove(isLoadedClass);};IframeLightbox.prototype.isOpen=function(){return this.el[cL].contains(isOpenedClass);};root.IframeLightbox=IframeLightbox;}("undefined"!==typeof window?window:this));
+(function(root){"use strict";var d=document,aEL="addEventListener",gEBI="getElementById",gEBCN="getElementsByClassName",cE="createElement",cL="classList",aC="appendChild",dS="dataset",containerClass="iframe-lightbox",isLoadedClass="is-loaded",isOpenedClass="is-opened",isShowingClass="is-showing";var IframeLightbox=function(elem,rate){if(elem.nodeName){this.trigger=elem;this.rate=rate||500;this.el=d[gEBCN](containerClass)[0]||"";this.body=this.el?this.el[gEBCN]("body")[0]:"";this.content=this.el?this.el[gEBCN]("content")[0]:"";this.href=elem[dS].src||"";this.paddingBottom=elem[dS].paddingBottom||"";this.init();}else{return;}};IframeLightbox.prototype.init=function(){var _this=this;if(!this.el){this.create();}var debounce=function(func,wait){var timeout,args,context,timestamp;return function(){context=this;args=[].slice.call(arguments,0);timestamp=new Date();var later=function(){var last=(new Date())-timestamp;if(last<wait){timeout=setTimeout(later,wait-last);}else{timeout=null;func.apply(context,args);}};if(!timeout){timeout=setTimeout(later,wait);}};};var handleOpenIframeLightbox=function(e){e.preventDefault();_this.open();};var debounceHandleOpenIframeLightbox=debounce(handleOpenIframeLightbox,this.rate);this.trigger[aEL]("click",debounceHandleOpenIframeLightbox);};IframeLightbox.prototype.create=function(){var _this=this,bd=d[cE]("div");this.el=d[cE]("div");this.content=d[cE]("div");this.body=d[cE]("div");this.el[cL].add(containerClass);bd[cL].add("backdrop");this.content[cL].add("content");this.body[cL].add("body");this.el[aC](bd);this.content[aC](this.body);this.contentHolder=d[cE]("div");this.contentHolder[cL].add("content-holder");this.contentHolder[aC](this.content);this.el[aC](this.contentHolder);d.body[aC](this.el);bd[aEL]("click",function(){_this.close();});var clearBody=function(e){if(_this.isOpen()){return;}_this.el[cL].remove(isShowingClass);_this.body.innerHTML="";};this.el[aEL]("transitionend",clearBody,false);this.el[aEL]("webkitTransitionEnd",clearBody,false);this.el[aEL]("mozTransitionEnd",clearBody,false);this.el[aEL]("msTransitionEnd",clearBody,false);};IframeLightbox.prototype.loadIframe=function(){this.iframeId=containerClass+Date.now();this.body.innerHTML='<iframe src="'+this.href+'" name="'+this.iframeId+'" id="'+this.iframeId+'" onload="this.style.opacity=1;" style="opacity:0;border:none;" scrolling="no" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true" frameborder="no" title="Embedded Content"></iframe>';(function(iframeId,body){d[gEBI](iframeId).onload=function(){this.style.opacity=1;body[cL].add(isLoadedClass);};}(this.iframeId,this.body));};IframeLightbox.prototype.open=function(){this.loadIframe();if(this.paddingBottom){this.content.style.paddingBottom=this.paddingBottom;}else{this.content.removeAttribute("style");}this.el[cL].add(isShowingClass);this.el[cL].add(isOpenedClass);};IframeLightbox.prototype.close=function(){this.el[cL].remove(isOpenedClass);this.body[cL].remove(isLoadedClass);};IframeLightbox.prototype.isOpen=function(){return this.el[cL].contains(isOpenedClass);};root.IframeLightbox=IframeLightbox;}("undefined" !== typeof window ? window : this));
 /*!
  * modified scrollToY
  * @see {@link http://stackoverflow.com/questions/8917921/cross-browser-javascript-not-jquery-scroll-to-top-animation}
@@ -1780,6 +1785,45 @@ var fixUiPanelContentsSelect = function () {
 };
 document.ready().then(fixUiPanelContentsSelect);
 /*!
+ * hide other social holders
+ * use ev.stopPropagation(); ev.preventDefault();
+ * in click event handlers of social openers
+ * @param {Object} [_this] node element, if empty will affect everyone
+ */
+var handleOtherSocialButtons = function (_this) {
+	"use strict";
+	_this = _this || this;
+	var d = document,
+	gEBCN = "getElementsByClassName",
+	cL = "classList",
+	isActiveClass = "is-active",
+	isSocialClass = "is-social",
+	btn = d[gEBCN](isSocialClass) || "",
+	removeActiveClass = function (e) {
+		if (_this !== e) {
+			e[cL].remove(isActiveClass);
+		}
+	};
+	if (btn) {
+		for (var i = 0, l = btn.length; i < l; i += 1) {
+			removeActiveClass(btn[i]);
+		}
+		/* forEach(btn, removeActiveClass); */
+	}
+},
+manageOtherSocialButtons = function () {
+	"use strict";
+	var d = document,
+	gEBI = "getElementById",
+	aEL = "addEventListener",
+	container = d[gEBI]("container") || "";
+	if (container) {
+		container[aEL]("click", handleOtherSocialButtons);
+	}
+};
+document.ready().then(manageOtherSocialButtons);
+globalRoot.addEventListener("hashchange", handleOtherSocialButtons);
+/*!
  * init qr-code
  * @see {@link https://stackoverflow.com/questions/12777622/how-to-use-enquire-js}
  */
@@ -1956,45 +2000,6 @@ var manageVKLikeButton = function () {
 	}
 };
 document.ready().then(manageVKLikeButton);
-/*!
- * hide other social holders
- * use ev.stopPropagation(); ev.preventDefault();
- * in click event handlers of social openers
- * @param {Object} [_this] node element, if empty will affect everyone
- */
-var handleOtherSocialButtons = function (_this) {
-	"use strict";
-	_this = _this || this;
-	var d = document,
-	gEBCN = "getElementsByClassName",
-	cL = "classList",
-	isActiveClass = "is-active",
-	isSocialClass = "is-social",
-	btn = d[gEBCN](isSocialClass) || "",
-	removeActiveClass = function (e) {
-		if (_this !== e) {
-			e[cL].remove(isActiveClass);
-		}
-	};
-	if (btn) {
-		for (var i = 0, l = btn.length; i < l; i += 1) {
-			removeActiveClass(btn[i]);
-		}
-		/* forEach(btn, removeActiveClass); */
-	}
-},
-manageOtherSocialButtons = function () {
-	"use strict";
-	var d = document,
-	gEBI = "getElementById",
-	aEL = "addEventListener",
-	container = d[gEBI]("container") || "";
-	if (container) {
-		container[aEL]("click", handleOtherSocialButtons);
-	}
-};
-document.ready().then(manageOtherSocialButtons);
-globalRoot.addEventListener("hashchange", handleOtherSocialButtons);
 /*!
  * init col debug btn
  */
