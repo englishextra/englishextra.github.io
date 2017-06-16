@@ -77,13 +77,13 @@
 			return;
 		}
 		var style = getStyle(elem);
-		if (style.display == 'none') {
+		if (style.display === "none") {
 			return getZeroSize();
 		}
 		var size = {};
 		size.width = elem.offsetWidth;
 		size.height = elem.offsetHeight;
-		var isBorderBox = size.isBorderBox = style.boxSizing == 'border-box';
+		var isBorderBox = size.isBorderBox = style.boxSizing === "border-box";
 		for (var i = 0; i < measurementsLength; i++) {
 			var measurement = measurements[i];
 			var value = style[measurement];
@@ -294,7 +294,7 @@
 			};
 		};
 		utils.docReady = function (callback) {
-			if (document.readyState == 'complete') {
+			if (document.readyState === "complete") {
 				callback();
 			} else {
 				document.addEventListener('DOMContentLoaded', callback);
@@ -414,7 +414,7 @@
 			var xValue = style[isOriginLeft ? 'left' : 'right'];
 			var yValue = style[isOriginTop ? 'top' : 'bottom'];
 			var layoutSize = this.layout.size;
-			var x = xValue.indexOf('%') != -1 ? (parseFloat(xValue) / 100) * layoutSize.width : parseInt(xValue, 10);
+			var x = xValue.indexOf('%') !== -1 ? (parseFloat(xValue) / 100) * layoutSize.width : parseInt(xValue, 10);
 			var y = yValue.indexOf('%') !== -1 ? (parseFloat(yValue) / 100) * layoutSize.height : parseInt(yValue, 10);
 			x = isNaN(x) ? 0 : x;
 			y = isNaN(y) ? 0 : y;
@@ -1641,7 +1641,7 @@
 			var ticks = 0;
 			function onLayout() {
 				ticks++;
-				if (ticks != 2) {
+				if (ticks !== 2) {
 					return;
 				}
 				_this.dispatchEvent('fitComplete', null, [item]);
@@ -1662,7 +1662,7 @@
 		proto.needsResizeLayout = function () {
 			var size = getSize(this.element);
 			var innerSize = this._getOption('horizontal') ? 'innerHeight' : 'innerWidth';
-			return size[innerSize] != this.size[innerSize];
+			return size[innerSize] !== this.size[innerSize];
 		};
 		proto.resizeShiftPercentLayout = function () {
 			var items = this._getItemsForLayout(this.items);
@@ -1986,7 +1986,7 @@
 		}
 		this.elements = makeArray(elem);
 		this.options = extend({}, this.options);
-		if (typeof options == "function") {
+		if (typeof options === "function") {
 			onAlways = options;
 		} else {
 			extend(this.options, options);

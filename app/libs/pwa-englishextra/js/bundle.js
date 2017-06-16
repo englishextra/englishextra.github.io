@@ -2,24 +2,24 @@
 /*jshint node: true */
 /*jslint browser: true */
 /*jslint node: true */
-/*global _, ActiveXObject, alignToMasterBottomLeft, appendFragment,
-BALA, Carousel, changeLocation, container, Cookies, crel, debounce,
-DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation, earlyDeviceSize,
-earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch,
-earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos,
-fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox,
-imagePromise, imagesLoaded, imagesPreloaded, insertExternalHTML,
-insertTextAsFragment, Isotope, isValidId, jQuery, Kamil,
-loadExternalHTML, loadJS, loadUnparsedJSON, manageDataSrcImages,
-manageImgLightboxLinks, Masonry, openDeviceBrowser, Packery, Parallax,
-parseLink, PhotoSwipe, PhotoSwipeUI_Default, prependFragmentBefore,
-prettyPrint, Promise, Proxy, QRCode, removeChildren, removeElement,
-require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top,
-scrollToElement, scrollToPos, scrollToTop, setImmediate,
-setStyleDisplayBlock, setStyleDisplayNone, setStyleOpacity,
-setStyleVisibilityHidden, setStyleVisibilityVisible, t, Tablesort,
-throttle, Timers, ToProgress, truncString, unescape, verge, VK, Ya,
-ymaps, zenscroll */
+/*global _, ActiveXObject, alignToMasterBottomLeft, appendFragment, BALA, 
+Carousel, changeLocation, container, Cookies, crel, debounce, define, 
+DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation, earlyDeviceSize, 
+earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch, 
+earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos, 
+fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox, 
+imagePromise, imagesLoaded, imagesPreloaded, insertExternalHTML, 
+insertTextAsFragment, Isotope, isValidId, jQuery, Kamil, 
+loadExternalHTML, loadJS, loadUnparsedJSON, manageDataSrcImages, 
+manageImgLightboxLinks, Masonry, module, openDeviceBrowser, Packery, 
+Parallax, parseLink, PhotoSwipe, PhotoSwipeUI_Default, pnotify, 
+prependFragmentBefore, prettyPrint, Promise, Proxy, QRCode, 
+removeChildren, removeElement, require, routie, safelyParseJSON, 
+scriptIsLoaded, scroll2Top, scrollToElement, scrollToPos, scrollToTop, 
+setImmediate, setStyleDisplayBlock, setStyleDisplayNone, 
+setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t, 
+Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge, 
+VK, Ya, ymaps, zenscroll */
 /*property console, split */
 /*!
  * define global root

@@ -69,7 +69,7 @@
 						return Constructor;
 					};
 				}
-				());
+					());
 				var _config = __webpack_require__(1);
 				var _util = __webpack_require__(2);
 				var _util2 = _interopRequireDefault(_util);
@@ -294,8 +294,9 @@
 							if (!selector) {
 								return this;
 							}
-							if (selector instanceof util)
+							if (selector instanceof util) {
 								return selector;
+							}
 							if (selector.nodeType) {
 								this[0] = selector;
 								this.length = 1;
@@ -452,6 +453,25 @@
 							return !!(elem && name) && new RegExp("\\b" + name + "\\b").test(this.attr(elem, "class"));
 						}
 					});
+					function forEach(array, fn, context, breakValue) {
+						if (array && fn) {
+							for (var i = 0, len = array.length, val; i < len; i++) {
+								val = context ? fn.call(context, array[i], i, array) : fn(array[i], i, array);
+								if (val === false) {
+									return breakValue;
+								}
+							}
+						}
+					}
+					function keys(obj, fn) {
+						var keys = [];
+						for (var key in obj) {
+							if (obj.hasOwnProperty(key)) {
+								keys.push(fn ? fn(key) : key);
+							}
+						}
+						return keys;
+					}
 					_extends(util, {
 						getSupportedCSS: (function () {
 							var prefixes = ["", "-webkit-", "-moz-", "-o-", "-ms-"];
@@ -589,25 +609,6 @@
 					}
 					function isSet(tar) {
 						return typeof tar !== "undefined";
-					}
-					function forEach(array, fn, context, breakValue) {
-						if (array && fn) {
-							for (var i = 0, len = array.length, val; i < len; i++) {
-								val = context ? fn.call(context, array[i], i, array) : fn(array[i], i, array);
-								if (val === false) {
-									return breakValue;
-								}
-							}
-						}
-					}
-					function keys(obj, fn) {
-						var keys = [];
-						for (var key in obj) {
-							if (obj.hasOwnProperty(key)) {
-								keys.push(fn ? fn(key) : key);
-							}
-						}
-						return keys;
 					}
 					exports.default = util;
 				}), (function (module, exports, __webpack_require__) {
