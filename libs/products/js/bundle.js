@@ -11,7 +11,7 @@
  isValidId, jQuery, Kamil, loadJS, loadUnparsedJSON, manageDataSrcImages,
  Masonry, openDeviceBrowser, Packery, parseLink, Promise, Proxy, QRCode,
  removeChildren, require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top,
- scrollToElement, scrollToTop, setStyleDisplayBlock, setStyleDisplayNone,
+ scrollToElement, scrollToTop, setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
  setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t,
  throttle, Timers, ToProgress, truncString, unescape, verge, VK, zenscroll */
 /*property console, split */
