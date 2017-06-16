@@ -1,3 +1,4 @@
+/*global ActiveXObject, ActiveXObject, define, escape, module, pnotify, Proxy, require, setImmediate */
 /*!
  * modified Direct port of svn into git from http://google-code-prettify.googlecode.com/svn/trunk/
  * @see {@link https://github.com/spencewood/google-code-prettify/}

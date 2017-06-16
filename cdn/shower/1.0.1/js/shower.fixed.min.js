@@ -1,3 +1,4 @@
+/*global ActiveXObject, define, escape, module, pnotify, Proxy, require, setImmediate */
 /*!
  * modified fo babel Shower HTML presentation engine v1.0.1
  * @see {@link https://github.com/shower/shower}
@@ -83,7 +84,7 @@
 					c = c || "div.progress div";
 					i = b.querySelectorAll(a);
 					j = b.querySelector(c);
-					for (var g = 0; g < i.length; g++)
+					for (var g = 0; g < i.length; g++) {
 						if (!i[g].id) {
 							i[g].id = g + 1;
 							e = f._getData(i[g], "timing");
@@ -109,6 +110,7 @@
 									innerComplete: 0
 								}));
 						}
+					}
 					return f;
 				},
 				f._getTransform = function () {
