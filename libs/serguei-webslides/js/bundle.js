@@ -7,14 +7,15 @@
  earlyDeviceOrientation, earlyDeviceSize, earlyDeviceType, earlyFnGetYyyymmdd,
  earlyHasTouch, earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos,
  fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox,
- imagePromise, insertExternalHTML, insertTextAsFragment,
+ imagePromise, imagesPreloaded, insertExternalHTML, insertTextAsFragment,
  isValidId, jQuery, Kamil, loadExternalHTML, loadJS, loadUnparsedJSON,
- manageDataSrcImages, Masonry, openDeviceBrowser, Packery, parseLink, Promise,
- Proxy, QRCode, removeChildren, removeElement, require, routie,
- safelyParseJSON, scriptIsLoaded, scroll2Top, scrollToElement, scrollToTop,
- setImmediate, setStyleDisplayBlock, setStyleDisplayNone, setStyleOpacity,
- setStyleVisibilityHidden, setStyleVisibilityVisible, t, throttle, Timers,
- ToProgress, truncString, unescape, verge, VK, ymaps, zenscroll */
+ manageDataSrcImages, Masonry, openDeviceBrowser, Packery, parseLink,
+ prependFragmentBefore, Promise, Proxy, QRCode, removeChildren, removeElement,
+ require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top, scrollToElement,
+ scrollToTop, setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
+ setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t,
+ Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge,
+ VK, Ya, ymaps, zenscroll */
 /*!
  * define global root
  */
