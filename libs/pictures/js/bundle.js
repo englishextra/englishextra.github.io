@@ -5,16 +5,16 @@
 /*global  _, ActiveXObject, alignToMasterBottomLeft, appendFragment, BALA,
  Carousel, changeLocation, container, Cookies, crel, debounce, DISQUS,
  earlyDeviceOrientation, earlyDeviceSize, earlyDeviceType, earlyFnGetYyyymmdd,
- earlyHasTouch, earlySvgasimgSupport, earlySvgSupport, escape, findPos,
+ earlyHasTouch, earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos,
  fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox,
  imagePromise, insertExternalHTML, insertTextAsFragment,
- isValidId, jQuery, Kamil, loadJS, loadUnparsedJSON, manageDataSrcImages,
- Masonry, openDeviceBrowser, Packery, parseLink, Promise, Proxy, QRCode,
- removeChildren, require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top,
- scrollToElement, scrollToTop, setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
- setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t,
- throttle, Timers, ToProgress, truncString, unescape, verge, VK, zenscroll */
-/*property console, split */
+ isValidId, jQuery, Kamil, loadExternalHTML, loadJS, loadUnparsedJSON,
+ manageDataSrcImages, Masonry, openDeviceBrowser, Packery, parseLink, Promise,
+ Proxy, QRCode, removeChildren, removeElement, require, routie,
+ safelyParseJSON, scriptIsLoaded, scroll2Top, scrollToElement, scrollToTop,
+ setImmediate, setStyleDisplayBlock, setStyleDisplayNone, setStyleOpacity,
+ setStyleVisibilityHidden, setStyleVisibilityVisible, t, throttle, Timers,
+ ToProgress, truncString, unescape, verge, VK, ymaps, zenscroll */
 /*!
  * define global root
  */
@@ -230,7 +230,7 @@ if (document.title) {
  * @see {@link https://github.com/component/debounce/blob/master/index.js}
  * passes jshint
  */
-(function(root,undefined){var debounce=function(func,wait,immediate){var timeout,args,context,timestamp,result;if(undefined===wait||null===wait){wait=100;}function later(){var last=Date.now()-timestamp;if(last<wait&&last>=0){timeout=setTimeout(later,wait-last);}else{timeout=null;if(!immediate){result=func.apply(context,args);context=args=null;}}}var debounced=function(){context=this;args=arguments;timestamp=Date.now();var callNow=immediate&&!timeout;if(!timeout)timeout=setTimeout(later,wait);if(callNow){result=func.apply(context,args);context=args=null;}return result;};debounced.clear=function(){if(timeout){clearTimeout(timeout);timeout=null;}};debounced.flush=function(){if(timeout){result=func.apply(context,args);context=args=null;clearTimeout(timeout);timeout=null;}};return debounced;};root.debounce=debounce;}(globalRoot));
+(function(root,undefined){var debounce=function(func,wait,immediate){var timeout,args,context,timestamp,result;if(undefined===wait||null===wait){wait=100;}function later(){var last=Date.now()-timestamp;if(last<wait&&last>=0){timeout=setTimeout(later,wait-last);}else{timeout=null;if(!immediate){result=func.apply(context,args);context=args=null;}}}var debounced=function(){context=this;args=arguments;timestamp=Date.now();var callNow=immediate&&!timeout;if(!timeout){timeout=setTimeout(later,wait);}if(callNow){result=func.apply(context,args);context=args=null;}return result;};debounced.clear=function(){if(timeout){clearTimeout(timeout);timeout=null;}};debounced.flush=function(){if(timeout){result=func.apply(context,args);context=args=null;clearTimeout(timeout);timeout=null;}};return debounced;};root.debounce=debounce;}(globalRoot));
 /*!
  * modified Returns a new function that, when invoked, invokes `func` at most once per `wait` milliseconds.
  * @param {Function} func Function to wrap.
@@ -239,7 +239,7 @@ if (document.title) {
  * @see {@link https://github.com/component/throttle/blob/master/index.js}
  * passes jshint
  */
-(function(root,undefined){var throttle=function(func,wait){var ctx,args,rtn,timeoutID;var last=0;return function throttled(){ctx=this;args=arguments;var delta=new Date()-last;if(!timeoutID)if(delta>=wait)call();else timeoutID=setTimeout(call,wait-delta);return rtn;};function call(){timeoutID=0;last=+new Date();rtn=func.apply(ctx,args);ctx=null;args=null;}};root.throttle=throttle;}(globalRoot));
+(function(root,undefined){var throttle=function(func,wait){var ctx,args,rtn,timeoutID;var last=0;return function throttled(){ctx=this;args=arguments;var delta=new Date()-last;if(!timeoutID){if(delta>=wait){call();}else{timeoutID=setTimeout(call,wait-delta);}}return rtn;};function call(){timeoutID=0;last=+new Date();rtn=func.apply(ctx,args);ctx=null;args=null;}};root.throttle=throttle;}(globalRoot));
 /*!
  * A simple promise-compatible "document ready" event handler with a few extra treats.
  * With browserify/webpack:

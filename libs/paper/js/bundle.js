@@ -5,16 +5,16 @@
 /*global  _, ActiveXObject, alignToMasterBottomLeft, appendFragment, BALA,
  Carousel, changeLocation, container, Cookies, crel, debounce, DISQUS,
  earlyDeviceOrientation, earlyDeviceSize, earlyDeviceType, earlyFnGetYyyymmdd,
- earlyHasTouch, earlySvgasimgSupport, earlySvgSupport, escape, findPos,
+ earlyHasTouch, earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos,
  fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox,
  imagePromise, insertExternalHTML, insertTextAsFragment,
- isValidId, jQuery, Kamil, loadJS, loadUnparsedJSON, manageDataSrcImages,
- Masonry, openDeviceBrowser, Packery, parseLink, Promise, Proxy, QRCode,
- removeChildren, require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top,
- scrollToElement, scrollToTop, setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
- setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t,
- throttle, Timers, ToProgress, truncString, unescape, verge, VK, zenscroll */
-/*property console, split */
+ isValidId, jQuery, Kamil, loadExternalHTML, loadJS, loadUnparsedJSON,
+ manageDataSrcImages, Masonry, openDeviceBrowser, Packery, parseLink, Promise,
+ Proxy, QRCode, removeChildren, removeElement, require, routie,
+ safelyParseJSON, scriptIsLoaded, scroll2Top, scrollToElement, scrollToTop,
+ setImmediate, setStyleDisplayBlock, setStyleDisplayNone, setStyleOpacity,
+ setStyleVisibilityHidden, setStyleVisibilityVisible, t, throttle, Timers,
+ ToProgress, truncString, unescape, verge, VK, ymaps, zenscroll */
 /*!
  * define global root
  */
@@ -263,7 +263,7 @@ if (document.title) {
  * @see {@link https://github.com/component/debounce/blob/master/index.js}
  * passes jshint
  */
-(function(root,undefined){var debounce=function(func,wait,immediate){var timeout,args,context,timestamp,result;if(undefined===wait||null===wait){wait=100;}function later(){var last=Date.now()-timestamp;if(last<wait&&last>=0){timeout=setTimeout(later,wait-last);}else{timeout=null;if(!immediate){result=func.apply(context,args);context=args=null;}}}var debounced=function(){context=this;args=arguments;timestamp=Date.now();var callNow=immediate&&!timeout;if(!timeout)timeout=setTimeout(later,wait);if(callNow){result=func.apply(context,args);context=args=null;}return result;};debounced.clear=function(){if(timeout){clearTimeout(timeout);timeout=null;}};debounced.flush=function(){if(timeout){result=func.apply(context,args);context=args=null;clearTimeout(timeout);timeout=null;}};return debounced;};root.debounce=debounce;}(globalRoot));
+(function(root,undefined){var debounce=function(func,wait,immediate){var timeout,args,context,timestamp,result;if(undefined===wait||null===wait){wait=100;}function later(){var last=Date.now()-timestamp;if(last<wait&&last>=0){timeout=setTimeout(later,wait-last);}else{timeout=null;if(!immediate){result=func.apply(context,args);context=args=null;}}}var debounced=function(){context=this;args=arguments;timestamp=Date.now();var callNow=immediate&&!timeout;if(!timeout){timeout=setTimeout(later,wait);}if(callNow){result=func.apply(context,args);context=args=null;}return result;};debounced.clear=function(){if(timeout){clearTimeout(timeout);timeout=null;}};debounced.flush=function(){if(timeout){result=func.apply(context,args);context=args=null;clearTimeout(timeout);timeout=null;}};return debounced;};root.debounce=debounce;}(globalRoot));
 /*!
  * modified Returns a new function that, when invoked, invokes `func` at most once per `wait` milliseconds.
  * @param {Function} func Function to wrap.
@@ -272,7 +272,7 @@ if (document.title) {
  * @see {@link https://github.com/component/throttle/blob/master/index.js}
  * passes jshint
  */
-(function(root,undefined){var throttle=function(func,wait){var ctx,args,rtn,timeoutID;var last=0;return function throttled(){ctx=this;args=arguments;var delta=new Date()-last;if(!timeoutID)if(delta>=wait)call();else timeoutID=setTimeout(call,wait-delta);return rtn;};function call(){timeoutID=0;last=+new Date();rtn=func.apply(ctx,args);ctx=null;args=null;}};root.throttle=throttle;}(globalRoot));
+(function(root,undefined){var throttle=function(func,wait){var ctx,args,rtn,timeoutID;var last=0;return function throttled(){ctx=this;args=arguments;var delta=new Date()-last;if(!timeoutID){if(delta>=wait){call();}else{timeoutID=setTimeout(call,wait-delta);}}return rtn;};function call(){timeoutID=0;last=+new Date();rtn=func.apply(ctx,args);ctx=null;args=null;}};root.throttle=throttle;}(globalRoot));
 /*!
  * A simple promise-compatible "document ready" event handler with a few extra treats.
  * With browserify/webpack:
@@ -329,7 +329,7 @@ if (document.title) {
  * @see {@link http://stackoverflow.com/questions/11182924/how-to-check-if-javascript-object-is-json}
  * safelyParseJSON(a)
  */
-(function(root){"use strict";var safelyParseJSON=function(a){var isJson=function(obj){var t=typeof obj;return['boolean','number',"string",'symbol',"function"].indexOf(t)==-1;};if(!isJson(a)){return JSON.parse(a);}else{return a;}};root.safelyParseJSON=safelyParseJSON;}(globalRoot));
+(function(root){"use strict";var safelyParseJSON=function(a){var isJson=function(obj){var t=typeof obj;return['boolean','number',"string",'symbol',"function"].indexOf(t)===-1;};if(!isJson(a)){return JSON.parse(a);}else{return a;}};root.safelyParseJSON=safelyParseJSON;}(globalRoot));
 /*!
  * loop over the Array
  * @see {@link https://stackoverflow.com/questions/18238173/javascript-loop-through-json-array}
@@ -448,7 +448,7 @@ if (document.title) {
  * @param {String} a URL / path string
  * changeLocation(a)
  */
-(function(root){var changeLocation=function(a){return function(){if(a){document.location.href=a;}}();};root.changeLocation=changeLocation;}(globalRoot));
+(function(root){var changeLocation=function(a){return (function(){if(a){document.location.href=a;}}());};root.changeLocation=changeLocation;}(globalRoot));
 /*!
  * modified Unified URL parsing API in the browser and node
  * @see {@link https://github.com/wooorm/parse-link}
@@ -780,94 +780,54 @@ document.ready().then(loadInitTablesort);
 /*!
  * manage data lightbox img links
  */
-var handleImgLightboxLink = function (ev) {
+var hideImgLightbox = function () {
 	"use strict";
-	ev.stopPropagation();
-	ev.preventDefault();
-	var _this = this;
-	var w = globalRoot,
-	ilc = "img-lightbox-container",
-	c = BALA.one("." + ilc) || "",
-	m = BALA.one("img", c) || "",
+	var d = document,
+	qS = "querySelector",
+	gEBTN = "getElementsByTagName",
 	cL = "classList",
-	aEL = "addEventListener",
-	an = "animated",
-	an1 = "fadeIn",
-	an2 = "fadeInUp",
-	_href = _this.getAttribute("href") || "";
-	if (c && m && _href) {
-		LoadingSpinner.show();
-		c[cL].add(an);
-		c[cL].add(an1);
-		m[cL].add(an);
-		m[cL].add(an2);
-		if (parseLink(_href).isAbsolute && !parseLink(_href).hasHTTP) {
-			_href = _href.replace(/^/, getHTTP(!0) + ":");
-		}
-		if (w.Promise) {
-			imagePromise(_href).then(function (r) {
-				m.src = _href;
-				/* console.log("manageDataSrcImages => imagePromise: loaded image:", r); */
-			}).catch (function (err) {
-				/* console.log("manageDataSrcImages => imagePromise: cannot load image:", err); */
-			});
-		} else {
-			m.src = _href;
-		}
-		c[aEL]("click", handleImgLightboxContainer);
-		w[aEL]("keyup", handleImgLightboxWindow);
-		setStyleDisplayBlock(c);
-		LoadingSpinner.hide();
-	}
-},
-hideImgLightbox = function () {
-	"use strict";
-	var ilc = "img-lightbox-container",
-	c = BALA.one("." + ilc) || "",
-	m = BALA.one("img", c) || "",
-	cL = "classList",
+	container = d[qS](".img-lightbox-container") || "",
+	img = container ? container[gEBTN]("img")[0] || "" : "",
 	an = "animated",
 	an1 = "fadeIn",
 	an2 = "fadeInUp",
 	an3 = "fadeOut",
 	an4 = "fadeOutDown",
-	dm = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
-	if (c && m) {
-		m[cL].remove(an2);
-		m[cL].add(an4);
-		var st1 = function () {
-			c[cL].remove(an);
-			c[cL].remove(an3);
-			m[cL].remove(an);
-			m[cL].remove(an4);
-			m.src = dm;
-			setStyleDisplayNone(c);
+	dummySrc = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
+	if (container && img) {
+		img[cL].remove(an2);
+		img[cL].add(an4);
+		var hideImg = function () {
+			container[cL].remove(an);
+			container[cL].remove(an3);
+			img[cL].remove(an);
+			img[cL].remove(an4);
+			img.src = dummySrc;
+			container.style.display = "none";
 		},
-		st2 = function () {
-			c[cL].remove(an1);
-			c[cL].add(an3);
+		hideContainer = function () {
+			container[cL].remove(an1);
+			container[cL].add(an3);
 			var timers = new Timers();
 			timers.timeout(function () {
 				timers.clear();
 				timers = null;
-				st1();
+				hideImg();
 			}, 400);
 		};
 		var timers = new Timers();
 		timers.timeout(function () {
 			timers.clear();
 			timers = null;
-			st2();
+			hideContainer();
 		}, 400);
 	}
 },
 handleImgLightboxContainer = function () {
 	"use strict";
-	var ilc = "img-lightbox-container",
-	rEL = "removeEventListener",
-	c = BALA.one("." + ilc) || "";
-	if (c) {
-		c[rEL]("click", handleImgLightboxContainer);
+	var rEL = "removeEventListener";
+	if (container) {
+		container[rEL]("click", handleImgLightboxContainer);
 		hideImgLightbox();
 	}
 },
@@ -884,45 +844,86 @@ manageImgLightboxLinks = function (ctx) {
 	"use strict";
 	ctx = ctx && ctx.nodeName ? ctx : "";
 	var w = globalRoot,
-	b = BALA.one("body") || "",
-	cls = ".img-lightbox-link",
-	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
-	ilc = "img-lightbox-container",
-	c = BALA.one("." + ilc) || "",
-	m = BALA.one("img", c) || "",
+	d = document,
+	b = d.body || "",
+	gEBCN = "getElementsByClassName",
+	gEBTN = "getElementsByTagName",
 	cL = "classList",
 	aEL = "addEventListener",
-	dm = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
-	if (!c) {
-		c = crel("div");
-		m = crel("img");
-		c[cL].add(ilc);
-		m.src = dm;
-		m.alt = "";
-		crel(c, m);
-		appendFragment(c, b);
+	aC = "appendChild",
+	cE = "createElement",
+	gA = "getAttribute",
+	linkClass = "img-lightbox-link",
+	link = ctx ? ctx[gEBCN](linkClass) || "" : d[gEBCN](linkClass) || "",
+	containerClass = "img-lightbox-container",
+	container = d[gEBCN](containerClass)[0] || "",
+	img = container ? container[gEBTN]("img")[0] || "" : "",
+	an = "animated",
+	an1 = "fadeIn",
+	an2 = "fadeInUp",
+	isBindedClass = "is-binded",
+	dummySrc = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
+	if (!container) {
+		container = d[cE]("div");
+		img = d[cE]("img");
+		img.src = dummySrc;
+		img.alt = "";
+		container[aC](img);
+		container[cL].add(containerClass);
+		appendFragment(container, b);
 	}
-	var k = function (e) {
-		var p = e.getAttribute("href") || "";
-		if (p) {
-			if (parseLink(p).isAbsolute && !parseLink(p).hasHTTP) {
-				e.setAttribute("href", p.replace(/^/, getHTTP(!0) + ":"));
+	var handleImgLightboxLink = function (ev) {
+		ev.stopPropagation();
+		ev.preventDefault();
+		var _this = this;
+		var logicHandleImgLightboxLink = function () {
+			var _href = _this[gA]("href") || "";
+			if (container && img && _href) {
+				LoadingSpinner.show();
+				container[cL].add(an);
+				container[cL].add(an1);
+				img[cL].add(an);
+				img[cL].add(an2);
+				if (parseLink(_href).isAbsolute && !parseLink(_href).hasHTTP) {
+					_href = _href.replace(/^/, getHTTP(!0) + ":");
+				}
+				imagePromise(_href).then(function (r) {
+					img.src = _href;
+					/* console.log("manageImgLightboxLinks => imagePromise: loaded image:", r); */
+				}).catch (function (err) {
+					/* console.log("manageImgLightboxLinks => imagePromise: cannot load image:", err); */
+				});
+				/* img.src = _href; */
+				w[aEL]("keyup", handleImgLightboxWindow);
+				container[aEL]("click", handleImgLightboxContainer);
+				container.style.display = "block";
+				LoadingSpinner.hide();
 			}
-			e[aEL]("click", handleImgLightboxLink);
+		},
+		debounceLogicHandleImgLightboxLink = debounce(logicHandleImgLightboxLink, 200);
+		debounceLogicHandleImgLightboxLink();
+	},
+	arrangeImgLightboxLink = function (e) {
+		if (!e[cL].contains(isBindedClass)) {
+			var _href = e[gA]("href") || "";
+			if (_href) {
+				if (parseLink(_href).isAbsolute && !parseLink(_href).hasHTTP) {
+					e.setAttribute("href", _href.replace(/^/, getHTTP(!0) + ":"));
+				}
+				e[aEL]("click", handleImgLightboxLink);
+				e[cL].add(isBindedClass);
+			}
 		}
+	},
+	rerenderImgLightboxLinks = function () {
+		for (var j = 0, l = link.length; j < l; j += 1) {
+			arrangeImgLightboxLink(link[j]);
+		}
+		/* forEach(link, arrangeImgLightboxLink); */
 	};
-	if (a) {
+	if (link) {
 		/* console.log("triggered function: manageImgLightboxLinks"); */
-		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		if (w._) {
-			_.each(a, k);
-		} else if (w.forEach) {
-			forEach(a, k, !1);
-		} else {
-			for (var j = 0, l = a.length; j < l; j += 1) {
-				k(a[j]);
-			}
-		}
+		rerenderImgLightboxLinks();
 	}
 };
 document.ready().then(manageImgLightboxLinks);

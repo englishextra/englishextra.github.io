@@ -5,16 +5,16 @@
 /*global  _, ActiveXObject, alignToMasterBottomLeft, appendFragment, BALA,
  Carousel, changeLocation, container, Cookies, crel, debounce, DISQUS,
  earlyDeviceOrientation, earlyDeviceSize, earlyDeviceType, earlyFnGetYyyymmdd,
- earlyHasTouch, earlySvgasimgSupport, earlySvgSupport, escape, findPos,
+ earlyHasTouch, earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos,
  fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox,
  imagePromise, insertExternalHTML, insertTextAsFragment,
- isValidId, jQuery, Kamil, loadJS, loadUnparsedJSON, manageDataSrcImages,
- Masonry, openDeviceBrowser, Packery, parseLink, Promise, Proxy, QRCode,
- removeChildren, require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top,
- scrollToElement, scrollToTop, setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
- setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t,
- throttle, Timers, ToProgress, truncString, unescape, verge, VK, zenscroll */
-/*property console, split */
+ isValidId, jQuery, Kamil, loadExternalHTML, loadJS, loadUnparsedJSON,
+ manageDataSrcImages, Masonry, openDeviceBrowser, Packery, parseLink, Promise,
+ Proxy, QRCode, removeChildren, removeElement, require, routie,
+ safelyParseJSON, scriptIsLoaded, scroll2Top, scrollToElement, scrollToTop,
+ setImmediate, setStyleDisplayBlock, setStyleDisplayNone, setStyleOpacity,
+ setStyleVisibilityHidden, setStyleVisibilityVisible, t, throttle, Timers,
+ ToProgress, truncString, unescape, verge, VK, ymaps, zenscroll */
 /*!
  * define global root
  */
@@ -211,7 +211,7 @@ if (document.title) {
  * @param {String} a URL / path string
  * changeLocation(a)
  */
-(function(root){var changeLocation=function(a){return function(){if(a){document.location.href=a;}}();};root.changeLocation=changeLocation;}(globalRoot));
+(function(root){var changeLocation=function(a){return (function(){if(a){document.location.href=a;}}());};root.changeLocation=changeLocation;}(globalRoot));
 /*!
  * modified Unified URL parsing API in the browser and node
  * @see {@link https://github.com/wooorm/parse-link}
