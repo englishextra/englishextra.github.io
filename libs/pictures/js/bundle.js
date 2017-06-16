@@ -3,19 +3,19 @@
 /*jslint browser: true */
 /*jslint node: true */
 /*global  _, ActiveXObject, alignToMasterBottomLeft, appendFragment, BALA,
- Carousel, changeLocation, container, Cookies, crel, debounce, DISQUS,
+ Carousel, changeLocation, container, Cookies, crel, debounce, DISQUS, Draggabilly,
  earlyDeviceOrientation, earlyDeviceSize, earlyDeviceType, earlyFnGetYyyymmdd,
  earlyHasTouch, earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos,
  fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox,
- imagePromise, imagesPreloaded, insertExternalHTML, insertTextAsFragment,
+ imagePromise, imagesLoaded, imagesPreloaded, insertExternalHTML, insertTextAsFragment,
  isValidId, jQuery, Kamil, loadExternalHTML, loadJS, loadUnparsedJSON,
- manageDataSrcImages, Masonry, openDeviceBrowser, Packery, parseLink,
- prependFragmentBefore, Promise, Proxy, QRCode, removeChildren, removeElement,
- require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top, scrollToElement,
- scrollToTop, setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
- setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t,
- Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge,
- VK, Ya, ymaps, zenscroll */
+ manageDataSrcImages, manageImgLightboxLinks, Masonry, openDeviceBrowser, Packery,
+ parseLink, PhotoSwipe, PhotoSwipeUI_Default, prependFragmentBefore, Promise, Proxy,
+ QRCode, removeChildren, removeElement, require, routie, safelyParseJSON,
+ scriptIsLoaded, scroll2Top, scrollToElement, scrollToPos, scrollToTop, setImmediate,
+ setStyleDisplayBlock, setStyleDisplayNone, setStyleOpacity, setStyleVisibilityHidden,
+ setStyleVisibilityVisible, t, Tablesort, throttle, Timers, ToProgress, truncString,
+ unescape, verge, VK, Ya, ymaps, zenscroll */
 /*!
  * define global root
  */
@@ -418,8 +418,7 @@ var handleExternalLink = function (p, ev) {
 manageExternalLinks = function (ctx) {
 	"use strict";
 	ctx = ctx && ctx.nodeName ? ctx : "";
-	var w = globalRoot,
-	aEL = "addEventListener",
+	var aEL = "addEventListener",
 	cls = "a",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	g = function (e) {
@@ -436,15 +435,10 @@ manageExternalLinks = function (ctx) {
 	},
 	k = function () {
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		if (w._) {
-			_.each(a, g);
-		} else if (w.forEach) {
-			forEach(a, g, !1);
-		} else {
-			for (var i = 0, l = a.length; i < l; i += 1) {
-				g(a[i]);
-			}
+		for (var i = 0, l = a.length; i < l; i += 1) {
+			g(a[i]);
 		}
+		/* forEach(a, g, !1); */
 	};
 	if (a) {
 		/* console.log("triggered function: manageExternalLinks"); */
@@ -455,7 +449,8 @@ document.ready().then(manageExternalLinks);
 /*!
  * init Masonry grid and rerender on imagesLoaded progress
  */
-var initMasonryImagesLoaded = function () {
+var localImagesPreloaded,
+initMasonryImagesLoaded = function () {
 	"use strict";
 	var w = globalRoot,
 	g = ".masonry-grid",
@@ -481,7 +476,7 @@ var initMasonryImagesLoaded = function () {
 				});
 			}
 			if ("undefined" !== typeof imagesPreloaded) {
-				imagesPreloaded = !0;
+				localImagesPreloaded = true;
 			}
 		} else if (w.Packery) {
 			var pckry = new Packery(c, {
@@ -499,7 +494,7 @@ var initMasonryImagesLoaded = function () {
 				});
 			}
 			if ("undefined" !== typeof imagesPreloaded) {
-				imagesPreloaded = !0;
+				localImagesPreloaded = true;
 			}
 		} else {
 			/* console.log("function initMasonry => no library is loaded"); */
@@ -528,8 +523,7 @@ document.ready().then(loadInitMasonryImagesLoaded);
  */
 var initPhotoswipe = function () {
 	"use strict";
-	var w = globalRoot,
-	c = ".pswp-gallery",
+	var c = ".pswp-gallery",
 	gallery = BALA.one(c) || "",
 	item = ".masonry-grid-item",
 	gallery_item = BALA.one(item) || "",
@@ -713,7 +707,7 @@ var initPhotoswipe = function () {
 			var radios = document.getElementsByName("gallery-style");
 			for (var i = 0, length = radios.length; i < length; i++) {
 				if (radios[i].checked) {
-					if (radios[i].id == "radio-all-controls") {}
+					if (radios[i].id === "radio-all-controls") {}
 					else if (radios[i].id === "radio-minimal-black") {
 						options.mainClass = "pswp--minimal--dark";
 						options.barsSize = {
@@ -802,15 +796,10 @@ var initPhotoswipe = function () {
 		}
 	},
 	k = function (a) {
-		if (w._) {
-			_.each(a, g);
-		} else if (w.forEach) {
-			forEach(a, g, !1);
-		} else {
-			for (var i = 0, l = a.length; i < l; i += 1) {
-				g(a[i]);
-			}
+		for (var i = 0, l = a.length; i < l; i += 1) {
+			g(a[i]);
 		}
+		/* forEach(a, g, !1); */
 	},
 	q = function (e) {
 		setStyleDisplayBlock(e);
@@ -821,15 +810,10 @@ var initPhotoswipe = function () {
 	},
 	s = function () {
 		var galleries = BALA(c) || "";
-		if (w._) {
-			_.each(galleries, q);
-		} else if (w.forEach) {
-			forEach(galleries, q, !1);
-		} else {
-			for (var i = 0, l = galleries.length; i < l; i += 1) {
-				q(galleries[i]);
-			}
+		for (var i = 0, l = galleries.length; i < l; i += 1) {
+			q(galleries[i]);
 		}
+		/* forEach(galleries, q, !1); */
 	},
 	v = function () {
 		/* var f = function () {

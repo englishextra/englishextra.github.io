@@ -3,19 +3,19 @@
 /*jslint browser: true */
 /*jslint node: true */
 /*global  _, ActiveXObject, alignToMasterBottomLeft, appendFragment, BALA,
- Carousel, changeLocation, container, Cookies, crel, debounce, DISQUS,
+ Carousel, changeLocation, container, Cookies, crel, debounce, DISQUS, Draggabilly,
  earlyDeviceOrientation, earlyDeviceSize, earlyDeviceType, earlyFnGetYyyymmdd,
  earlyHasTouch, earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos,
  fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox,
- imagePromise, imagesPreloaded, insertExternalHTML, insertTextAsFragment,
+ imagePromise, imagesLoaded, imagesPreloaded, insertExternalHTML, insertTextAsFragment,
  isValidId, jQuery, Kamil, loadExternalHTML, loadJS, loadUnparsedJSON,
- manageDataSrcImages, Masonry, openDeviceBrowser, Packery, parseLink,
- prependFragmentBefore, Promise, Proxy, QRCode, removeChildren, removeElement,
- require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top, scrollToElement,
- scrollToTop, setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
- setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t,
- Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge,
- VK, Ya, ymaps, zenscroll */
+ manageDataSrcImages, manageImgLightboxLinks, Masonry, openDeviceBrowser, Packery,
+ parseLink, PhotoSwipe, PhotoSwipeUI_Default, prependFragmentBefore, Promise, Proxy,
+ QRCode, removeChildren, removeElement, require, routie, safelyParseJSON,
+ scriptIsLoaded, scroll2Top, scrollToElement, scrollToPos, scrollToTop, setImmediate,
+ setStyleDisplayBlock, setStyleDisplayNone, setStyleOpacity, setStyleVisibilityHidden,
+ setStyleVisibilityVisible, t, Tablesort, throttle, Timers, ToProgress, truncString,
+ unescape, verge, VK, Ya, ymaps, zenscroll */
 /*!
  * define global root
  */
@@ -976,15 +976,10 @@ var highlightSidepanelItem = function () {
 		}
 	},
 	k = function () {
-		if (w._) {
-			_.each(a, g);
-		} else if (w.forEach) {
-			forEach(a, g, !1);
-		} else {
-			for (var i = 0, l = a.length; i < l; i += 1) {
-				g(a[i]);
-			}
+		for (var i = 0, l = a.length; i < l; i += 1) {
+			g(a[i]);
 		}
+		/* forEach(a, g, !1); */
 	};
 	if (c && a && p) {
 		/* console.log("triggered function: highlightNavMenuItem"); */
@@ -1073,8 +1068,7 @@ var handleExternalLink = function (p, ev) {
 manageExternalLinks = function (ctx) {
 	"use strict";
 	ctx = ctx && ctx.nodeName ? ctx : "";
-	var w = globalRoot,
-	aEL = "addEventListener",
+	var aEL = "addEventListener",
 	cls = "a",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	g = function (e) {
@@ -1091,15 +1085,10 @@ manageExternalLinks = function (ctx) {
 	},
 	k = function () {
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		if (w._) {
-			_.each(a, g);
-		} else if (w.forEach) {
-			forEach(a, g, !1);
-		} else {
-			for (var i = 0, l = a.length; i < l; i += 1) {
-				g(a[i]);
-			}
+		for (var i = 0, l = a.length; i < l; i += 1) {
+			g(a[i]);
 		}
+		/* forEach(a, g, !1); */
 	};
 	if (a) {
 		/* console.log("triggered function: manageExternalLinks"); */
@@ -1107,48 +1096,6 @@ manageExternalLinks = function (ctx) {
 	}
 };
 document.ready().then(manageExternalLinks);
-/*!
- * set event on include HTML links
- */
-var includeHTMLintoTarget = function (_this, u, t) {
-	"use strict";
-	var c = BALA.one(t) || "",
-	pN = "parentNode",
-	c_pn = c[pN] || "",
-	g = function () {
-		var s = function () {
-			if (_this[pN]) {
-				setStyleDisplayNone(_this[pN]);
-			} else {
-				setStyleDisplayNone(_this);
-			}
-		},
-		k = function (t) {
-			var tf = function () {
-				s();
-				if (c_pn) {
-					manageExternalLinks(c_pn);
-					manageDataSrcImages(c_pn);
-					manageImgLightboxLinks(c_pn);
-				}
-			};
-			insertTextAsFragment(t, c, tf);
-		},
-		q = function () {
-			s();
-			setStyleDisplayNone(c);
-		};
-		loadExternalHTML(u, function (r) {
-			k(r);
-		}, function (r) {
-			q();
-		});
-	};
-	if (c) {
-		/* console.log("triggered function: includeHTMLintoTarget"); */
-		g();
-	}
-};
 /*!
  * manage data target links
  */
@@ -1177,15 +1124,10 @@ var manageDataTargetLinks = function (ctx) {
 	},
 	k = function () {
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		if (w._) {
-			_.each(a, g);
-		} else if (w.forEach) {
-			forEach(a, g, !1);
-		} else {
-			for (var i = 0, l = a.length; i < l; i += 1) {
-				g(a[i]);
-			}
+		for (var i = 0, l = a.length; i < l; i += 1) {
+			g(a[i]);
 		}
+		/* forEach(a, g, !1); */
 	};
 	if (a) {
 		/* console.log("triggered function: manageDataTargetLinks"); */
@@ -1466,15 +1408,10 @@ var manageDataQrcodeImg = function (ctx) {
 	if (a) {
 		/* console.log("triggered function: manageDataQrcodeImg"); */
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		if (w._) {
-			_.each(a, g);
-		} else if (w.forEach) {
-			forEach(a, g, !1);
-		} else {
-			for (var i = 0, l = a.length; i < l; i += 1) {
-				g(a[i]);
-			}
+		for (var i = 0, l = a.length; i < l; i += 1) {
+			g(a[i]);
 		}
+		/* forEach(a, g, !1); */
 	}
 },
 loadManageDataQrcodeImg = function (ctx) {
@@ -1583,6 +1520,48 @@ manageExpandingLayers = function (ctx) {
 	if (a) {
 		/* console.log("triggered function: manageExpandingLayers"); */
 		q();
+	}
+};
+/*!
+ * set event on include HTML links
+ */
+var includeHTMLintoTarget = function (_this, u, t) {
+	"use strict";
+	var c = BALA.one(t) || "",
+	pN = "parentNode",
+	c_pn = c[pN] || "",
+	g = function () {
+		var s = function () {
+			if (_this[pN]) {
+				setStyleDisplayNone(_this[pN]);
+			} else {
+				setStyleDisplayNone(_this);
+			}
+		},
+		k = function (t) {
+			var tf = function () {
+				s();
+				if (c_pn) {
+					manageExternalLinks(c_pn);
+					manageDataSrcImages(c_pn);
+					manageImgLightboxLinks(c_pn);
+				}
+			};
+			insertTextAsFragment(t, c, tf);
+		},
+		q = function () {
+			s();
+			setStyleDisplayNone(c);
+		};
+		loadExternalHTML(u, function (r) {
+			k(r);
+		}, function (r) {
+			q();
+		});
+	};
+	if (c) {
+		/* console.log("triggered function: includeHTMLintoTarget"); */
+		g();
 	}
 };
 /*!

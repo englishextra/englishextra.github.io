@@ -3,19 +3,19 @@
 /*jslint browser: true */
 /*jslint node: true */
 /*global  _, ActiveXObject, alignToMasterBottomLeft, appendFragment, BALA,
- Carousel, changeLocation, container, Cookies, crel, debounce, DISQUS,
+ Carousel, changeLocation, container, Cookies, crel, debounce, DISQUS, Draggabilly,
  earlyDeviceOrientation, earlyDeviceSize, earlyDeviceType, earlyFnGetYyyymmdd,
  earlyHasTouch, earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos,
  fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox,
- imagePromise, imagesPreloaded, insertExternalHTML, insertTextAsFragment,
+ imagePromise, imagesLoaded, imagesPreloaded, insertExternalHTML, insertTextAsFragment,
  isValidId, jQuery, Kamil, loadExternalHTML, loadJS, loadUnparsedJSON,
- manageDataSrcImages, Masonry, openDeviceBrowser, Packery, parseLink,
- prependFragmentBefore, Promise, Proxy, QRCode, removeChildren, removeElement,
- require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top, scrollToElement,
- scrollToTop, setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
- setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t,
- Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge,
- VK, Ya, ymaps, zenscroll */
+ manageDataSrcImages, manageImgLightboxLinks, Masonry, openDeviceBrowser, Packery,
+ parseLink, PhotoSwipe, PhotoSwipeUI_Default, prependFragmentBefore, Promise, Proxy,
+ QRCode, removeChildren, removeElement, require, routie, safelyParseJSON,
+ scriptIsLoaded, scroll2Top, scrollToElement, scrollToPos, scrollToTop, setImmediate,
+ setStyleDisplayBlock, setStyleDisplayNone, setStyleOpacity, setStyleVisibilityHidden,
+ setStyleVisibilityVisible, t, Tablesort, throttle, Timers, ToProgress, truncString,
+ unescape, verge, VK, Ya, ymaps, zenscroll */
 /*!
  * define global root
  */
