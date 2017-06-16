@@ -1368,7 +1368,7 @@ var showPageFinishProgress = function () {
 		var timers = new Timers();
 		timers.interval(function () {
 			/* console.log("function showPageFinishProgress => started Interval"); */
-			if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
+			if ("undefined" !== typeof imagesPreloaded && localImagesPreloaded) {
 				timers.clear();
 				timers = null;
 				/* console.log("function showPageFinishProgress; imagesPreloaded=" + imagesPreloaded); */
