@@ -7,7 +7,7 @@
  earlyDeviceOrientation, earlyDeviceSize, earlyDeviceType, earlyFnGetYyyymmdd,
  earlyHasTouch, earlySvgasimgSupport, earlySvgSupport, escape, findPos,
  fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox,
- imagePromise, imagesPreloaded, insertExternalHTML, insertTextAsFragment,
+ imagePromise, insertExternalHTML, insertTextAsFragment,
  isValidId, jQuery, Kamil, loadJS, loadUnparsedJSON, manageDataSrcImages,
  Masonry, openDeviceBrowser, Packery, parseLink, Promise, Proxy, QRCode,
  removeChildren, require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top,

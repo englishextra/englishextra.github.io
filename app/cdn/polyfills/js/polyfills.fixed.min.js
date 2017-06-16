@@ -51,7 +51,7 @@ if(this.Element&&Element.prototype.attachEvent&&!Element.prototype.addEventListe
  * @see {@link https://github.com/Financial-Times/polyfill-service/blob/master/polyfills/Event/hashchange/polyfill.js}
  * Chrome4 needs that
  */
-(function(global){var hash=global.location.hash;function poll(){if(hash!==global.location.hash){hash=global.location.hash;global.dispatchEvent(new Event('hashchange'));}setTimeout(poll,500);}global.onhashchange=function(){};poll();}("object" === typeof window && window || "object" === typeof self && self || "object" === typeof global && global || {}));
+(function(global){var hash=global.location.hash;function poll(){if(hash!==global.location.hash){hash=global.location.hash;global.dispatchEvent(new Event("hashchange"));}setTimeout(poll,500);}global.onhashchange=function(){};poll();}("object" === typeof window && window || "object" === typeof self && self || "object" === typeof global && global || {}));
 /*!
  * importNode() polyfill for IE8
  * @see {@link https://gist.github.com/dchambers/0abcec9eaf529f993b9d}
