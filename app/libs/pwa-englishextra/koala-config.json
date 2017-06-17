@@ -1,5 +1,7 @@
 {
-  "ignores": ["css","js","json",
+  "ignores": ["css",
+  "js",
+  "json",
   "img"],
   "mappings": [{
     "src": "scss",
@@ -10,7 +12,7 @@
     "dest": "js"
   }],
   "options": {
-    "autocompile": false,
+    "autocompile": true,
     "outputStyle": "normal",
     "lineComments": false,
     "debugInfo": false,

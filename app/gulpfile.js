@@ -28,48 +28,93 @@ var rename = require("gulp-rename");
 var sh = require("shelljs");
 var babel = require("gulp-babel");
 var uglify = require("gulp-uglify");
+var rootDir = "./libs/pwa-englishextra/";
 var paths = {
-	sass: ["./libs/pwa-englishextra/scss/**/*.scss"]
+	sass: [rootDir + "scss/**/*.scss"]
 };
 gulp.task("default", ["sass", "babel"]);
 gulp.task("sass", function (done) {
 	"use strict";
-	gulp.src("./libs/pwa-englishextra/scss/bundle.scss")
+	gulp.src(rootDir + "scss/*.scss")
 	.pipe(sass())
-	.pipe(sourcemaps.init())
-	.pipe(autoprefixer())
 	.on("error", sass.logError)
-	/* .pipe(rename({
-	suffix: "-compiled"
-	})) */
-	.pipe(gulp.dest("./libs/pwa-englishextra/css/"))
 	.pipe(cleancss({
-			keepSpecialComments: 0
+			format: {
+				breaks: { // controls where to insert breaks
+					afterAtRule: true, // controls if a line break comes after an at-rule; e.g. `@charset`; defaults to `false`
+					afterBlockBegins: true, // controls if a line break comes after a block begins; e.g. `@media`; defaults to `false`
+					afterBlockEnds: true, // controls if a line break comes after a block ends, defaults to `false`
+					afterComment: true, // controls if a line break comes after a comment; defaults to `false`
+					afterProperty: true, // controls if a line break comes after a property; defaults to `false`
+					afterRuleBegins: true, // controls if a line break comes after a rule begins; defaults to `false`
+					afterRuleEnds: true, // controls if a line break comes after a rule ends; defaults to `false`
+					beforeBlockEnds: true, // controls if a line break comes before a block ends; defaults to `false`
+					betweenSelectors: true // controls if a line break comes between selectors; defaults to `false`
+				},
+				indentBy: 1, // controls number of characters to indent with; defaults to `0`
+				indentWith: "tab", // controls a character to indent with, can be `'space'` or `'tab'`; defaults to `'space'`
+				spaces: { // controls where to insert spaces
+					aroundSelectorRelation: true, // controls if spaces come around selector relations; e.g. `div > a`; defaults to `false`
+					beforeBlockBegins: true, // controls if a space comes before a block begins; e.g. `.block {`; defaults to `false`
+					beforeValue: true // controls if a space comes before a value; e.g. `width: 1rem`; defaults to `false`
+				},
+				wrapAt: false // controls maximum line length; defaults to `false`
+			}
 		}))
+	.pipe(gulp.dest(rootDir + "css/"))
 	.pipe(rename({
 			extname: ".min.css"
 		}))
+	.pipe(sourcemaps.init())
+	.pipe(autoprefixer())
+	.pipe(cleancss({
+			level: {
+				1: {
+					cleanupCharsets: true, // controls `@charset` moving to the front of a stylesheet; defaults to `true`
+					normalizeUrls: false, // controls URL normalization; defaults to `true`
+					optimizeBackground: true, // controls `background` property optimizations; defaults to `true`
+					optimizeBorderRadius: true, // controls `border-radius` property optimizations; defaults to `true`
+					optimizeFilter: true, // controls `filter` property optimizations; defaults to `true`
+					optimizeFont: true, // controls `font` property optimizations; defaults to `true`
+					optimizeFontWeight: true, // controls `font-weight` property optimizations; defaults to `true`
+					optimizeOutline: true, // controls `outline` property optimizations; defaults to `true`
+					removeEmpty: true, // controls removing empty rules and nested blocks; defaults to `true`
+					removeNegativePaddings: false, // controls removing negative paddings; defaults to `true`
+					removeQuotes: true, // controls removing quotes when unnecessary; defaults to `true`
+					removeWhitespace: true, // controls removing unused whitespace; defaults to `true`
+					replaceMultipleZeros: true, // contols removing redundant zeros; defaults to `true`
+					replaceTimeUnits: true, // controls replacing time units with shorter values; defaults to `true`
+					replaceZeroUnits: true, // controls replacing zero values with units; defaults to `true`
+					roundingPrecision: false, // rounds pixel values to `N` decimal places; `false` disables rounding; defaults to `false`
+					selectorsSortingMethod: "none", // denotes selector sorting method; can be `'natural'` or `'standard'`, `'none'`, or false (the last two since 4.1.0); defaults to `'standard'`
+					specialComments: 0, // denotes a number of /*! ... */ comments preserved; defaults to `all`
+					tidyAtRules: true, // controls at-rules (e.g. `@charset`, `@import`) optimizing; defaults to `true`
+					tidyBlockScopes: true, // controls block scopes (e.g. `@media`) optimizing; defaults to `true`
+					tidySelectors: true, // controls selectors optimizing; defaults to `true`,
+					transform: function () {}
+					// defines a callback for fine-grained property optimization; defaults to no-op
+				}
+			}
+		}))
 	.pipe(sourcemaps.write("."))
-	.pipe(gulp.dest("./libs/pwa-englishextra/css/"))
+	.pipe(gulp.dest(rootDir + "css/"))
 	.on("end", done);
 });
-gulp.task("babel", function () {
+gulp.task("babel", function (done) {
 	"use strict";
-	return gulp.src("./libs/pwa-englishextra/js/bundle.js")
+	gulp.src(rootDir + "src/*.js")
+	.pipe(gulp.dest(rootDir + "js/"))
+	.pipe(rename({
+			extname: ".min.js"
+		}))
 	.pipe(sourcemaps.init())
 	.pipe(babel({
 			presets: ["es2015"]
 		}))
-	/* .pipe(rename({
-	suffix: "-compiled"
-	})) */
-	.pipe(gulp.dest("./libs/pwa-englishextra/js/"))
 	.pipe(uglify())
-	.pipe(rename({
-			extname: ".min.js"
-		}))
 	.pipe(sourcemaps.write("."))
-	.pipe(gulp.dest("./libs/pwa-englishextra/js/"));
+	.pipe(gulp.dest(rootDir + "js/"))
+	.on("end", done);
 });
 gulp.task("watch", function () {
 	"use strict";

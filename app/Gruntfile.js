@@ -4,7 +4,10 @@ module.exports = function (grunt) {
 	"use strict";
 	grunt.initConfig({
 		jshint: {
-			all: ["libs/pwa-englishextra/js/bundle.js"]
+			all: [
+				"**/libs/**/js/bundle.js",
+				"**/libs/**/js/vendors.js"
+			]
 		}
 	});
 	grunt.loadNpmTasks("grunt-contrib-jshint");
