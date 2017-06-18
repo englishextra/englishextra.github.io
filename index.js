@@ -3,6 +3,7 @@
 const electron = require("electron");
 const app = electron.app; // a life cycle module
 const BrowserWindow = electron.BrowserWindow; // a browser window module
+const path = require("path");
 // sending bugs to Electron project.
 electron.crashReporter.start({
 	productName : "englishextra",
@@ -30,7 +31,8 @@ app.on("ready", function () {
 			title : "Английский без регистрации"
 		});
 	// load index.html
-	mainWindow.loadURL("file://" + __dirname + "/index.html");
+	/* mainWindow.loadURL("file://" + __dirname + "/index.html"); */
+	mainWindow.loadURL(path.join("file://", __dirname, "/index.html"));
 	// open DevTools.
 	// mainWindow.webContents.openDevTools();
 	// gets executed when window close event is generated

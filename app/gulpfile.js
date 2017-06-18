@@ -1,5 +1,5 @@
-/*jslint node: true */
-/*jslint es6 */
+/*jshint node: true */
+/*jshint esversion: 6 */
 /*!
  * npmjs.com/package/gulp-autoprefixer
  * const gulp = require("gulp");
@@ -19,7 +19,6 @@
 var gulp = require("gulp");
 var gutil = require("gulp-util");
 var bower = require("bower");
-var concat = require("gulp-concat");
 var sass = require("gulp-sass");
 var sourcemaps = require("gulp-sourcemaps");
 var autoprefixer = require("gulp-autoprefixer");
@@ -148,7 +147,6 @@ gulp.task("git-check", function (done) {
  */
 gulp.task("generate-service-worker", function (callback) {
 	"use strict";
-	var path = require("path");
 	var swPrecache = require("sw-precache");
 	swPrecache.write(`service-worker.min.js`, {
 	cacheId: "englishextra",
