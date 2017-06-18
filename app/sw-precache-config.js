@@ -1,5 +1,5 @@
 /*jslint node: true */
-/*jslint es6 */
+/*jslint esversion: 6 */
 /*!
  * @see {@link https://github.com/GoogleChrome/sw-precache/issues/97}
  * @see {@link https://github.com/GoogleChrome/sw-precache#runtime-caching}

@@ -579,7 +579,9 @@ return jQuery;}));
 /*jshint forin: true */
 /*jshint sub: false */
 /*jshint bitwise: true */
-/*global global, ActiveXObject, define, escape, module, pnotify, Proxy, jQuery, require, self, setImmediate */
+/*jslint browser: true */
+/*jslint node: true */
+/*global global, ActiveXObject, define, escape, module, pnotify, Proxy, jQuery, require, self, setImmediate, window */
 /*!
  * modified jQuery PNotify Plugin 1.3.1
  * @see {@link http://sciactive.com/pnotify/}

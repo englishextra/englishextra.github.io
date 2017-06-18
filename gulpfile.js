@@ -1,5 +1,5 @@
 /*jslint node: true */
-/*jslint es6 */
+/*jslint esversion: 6 */
 gulp.task("git-check", function (done) {
 	"use strict";
 	if (!sh.which("git")) {
