@@ -35,7 +35,12 @@ gulp.task("default", ["sass", "babel"]);
 gulp.task("sass", function (done) {
 	"use strict";
 	gulp.src(rootDir + "scss/*.scss")
-	.pipe(sass())
+	.pipe(sass({
+			outputStyle: "nested",
+			indentType: "tab",
+			indentWidth: 1,
+			linefeed: "lf"
+		}))
 	.on("error", sass.logError)
 	.pipe(cleancss({
 			format: {
@@ -108,7 +113,8 @@ gulp.task("babel", function (done) {
 		}))
 	.pipe(sourcemaps.init())
 	.pipe(babel({
-			presets: ["es2015"]
+			presets: ["es2015"],
+			compact: false
 		}))
 	.pipe(uglify())
 	.pipe(sourcemaps.write("."))

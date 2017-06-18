@@ -63,6 +63,7 @@
     "plugin": true
   },
   "babel": {
+    "sourceMap": true,
     "presets": [
       "es2015"
     ],

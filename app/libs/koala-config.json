@@ -4,7 +4,7 @@
   "json",
   "img"],
   "options": {
-    "autocompile": false,
+    "autocompile": true,
     "sourceMap": false
   }
 }
