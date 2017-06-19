@@ -9,10 +9,6 @@
 /.pma
 /.settings
 /.url
-/inc/regional_localhost.inc
-/inc/regional_shimansky.biz.inc
-/sql
-/sqlite
 intelxdk.config.additions.xml
 koala-config.json
 project-info.json
