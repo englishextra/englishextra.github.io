@@ -627,14 +627,18 @@ var initWebslides = function () {
 				var nextSlide;
 				if ($slideshow.hasClass(ID.verticalClass) && !isMobile) {
 					// Is vertical
-					if ($slideshow.data('moving')) return;
+					if ($slideshow.data('moving')) {
+						return;
+					}
 					$slideshow.data('moving', true);
 					jQuery('html').css({
 						overflow: 'hidden'
 					});
 					nextSlide = $currentSlide.next();
 					slidePointer.current = (slidePointer.current + 1) % total;
-					if (slidePointer.current === 0) slidePointer.current = total;
+					if (slidePointer.current === 0) {
+						slidePointer.current = total;
+					}
 					// show next slide
 					nextSlide.show().addClass(ID.current);
 					// scroll to next slide
@@ -674,7 +678,9 @@ var initWebslides = function () {
 					$currentSlide.siblings('.slide').last().after($currentSlide);
 					$currentSlide = nextSlide;
 					slidePointer.current = (slidePointer.current + 1) % total;
-					if (slidePointer.current === 0) slidePointer.current = total;
+					if (slidePointer.current === 0) {
+						slidePointer.current = total;
+					}
 					// update counter
 					updateCounter();
 					// update url
@@ -687,14 +693,18 @@ var initWebslides = function () {
 				var prevSlide;
 				if ($slideshow.hasClass(ID.verticalClass) && !isMobile) {
 					// Is vertical
-					if ($slideshow.data('moving')) return;
+					if ($slideshow.data('moving')) {
+						return;
+					}
 					$slideshow.data('moving', true);
 					jQuery('html').css({
 						overflow: 'hidden'
 					});
 					$currentSlide.before($currentSlide.siblings('.slide').last());
 					prevSlide = $currentSlide.prev();
-					if (prevSlide.length === 0) return false;
+					if (prevSlide.length === 0) {
+						return false;
+					}
 					// show next slide
 					prevSlide.show().addClass(ID.current);
 					// scroll to next slide
@@ -841,7 +851,7 @@ var initWebslides = function () {
 			function goToSlideIfSlideHashChange() {
 				var paramsArr = getArrayOfHashParams();
 				var slideObj = $.grep(paramsArr, function (e) {
-					return e.key == "slide";
+					return e.key === "slide";
 				});
 				if (slideObj.length === 1) {
 					goToSlide(slideObj[0].value);
