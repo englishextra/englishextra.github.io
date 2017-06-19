@@ -1,0 +1,1 @@
+start "" "D:\server\nwjs-win-x64\nw.exe" "./"

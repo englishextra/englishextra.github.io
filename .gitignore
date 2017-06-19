@@ -1,16 +1,12 @@
-*.bat
 *.fw.png
 *.map
 *.npp
-*.sh
 *.URL
 *.xdk
 *.xdke
 /.idea
-/.pma
 /.settings
 /.url
 intelxdk.config.additions.xml
-koala-config.json
 project-info.json
 xdk-publish-meta-data.json

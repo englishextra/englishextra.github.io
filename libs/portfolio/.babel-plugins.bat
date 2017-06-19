@@ -1,0 +1,1 @@
+babel --plugins transform-async-to-generator "%~dp0js/bundle.js" -o "%~dp0js/bundle.min.js"

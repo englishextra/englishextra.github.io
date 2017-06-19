@@ -1,0 +1,1 @@
+cleancss --source-map --s0 --skip-import --skip-advanced --skip-aggressive-merging --skip-import-from --skip-media-merging --skip-rebase --skip-restructuring --skip-shorthand-compacting -o "%~dp0css/bundle.min.css" "%~dp0css/bundle.css"
