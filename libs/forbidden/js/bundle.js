@@ -1,6 +1,6 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global global, _, ActiveXObject, alignToMasterBottomLeft, appendFragment, BALA, 
+/*global global, _, $, ActiveXObject, alignToMasterBottomLeft, appendFragment, BALA, 
 Carousel, changeLocation, container, Cookies, crel, debounce, define, 
 DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation, earlyDeviceSize, 
 earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch, 
