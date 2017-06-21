@@ -231,6 +231,31 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 	}();root.zenscroll = zenscroll;
 })(globalRoot);
 /*!
+ * modified scrollToY
+ * @see {@link http://stackoverflow.com/questions/8917921/cross-browser-javascript-not-jquery-scroll-to-top-animation}
+ * passes jshint
+ */
+(function (root) {
+	"use strict";
+	var scroll2Top = function (scrollTargetY, speed, easing) {
+		var scrollY = root.scrollY || document.documentElement.scrollTop;scrollTargetY = scrollTargetY || 0;speed = speed || 2000;easing = easing || 'easeOutSine';var currentTime = 0;var time = Math.max(0.1, Math.min(Math.abs(scrollY - scrollTargetY) / speed, 0.8));var easingEquations = { easeOutSine: function (pos) {
+				return Math.sin(pos * (Math.PI / 2));
+			}, easeInOutSine: function (pos) {
+				return -0.5 * (Math.cos(Math.PI * pos) - 1);
+			}, easeInOutQuint: function (pos) {
+				if ((pos /= 0.5) < 1) {
+					return 0.5 * Math.pow(pos, 5);
+				}return 0.5 * (Math.pow(pos - 2, 5) + 2);
+			} };function tick() {
+			currentTime += 1 / 60;var p = currentTime / time;var t = easingEquations[easing](p);if (p < 1) {
+				requestAnimationFrame(tick);root.scrollTo(0, scrollY + (scrollTargetY - scrollY) * t);
+			} else {
+				root.scrollTo(0, scrollTargetY);
+			}
+		}tick();
+	};root.scroll2Top = scroll2Top;
+})(globalRoot);
+/*!
  * A function for elements selection - v0.1.9
  * @see {@link https://github.com/finom/bala}
  * @param {String} a id, class or tag string
@@ -1900,15 +1925,10 @@ var initNavMenu = function () {
 		e[cL].add(is_active);
 	},
 	    s = function (a) {
-		if (w._) {
-			_.each(a, m);
-		} else if (w.forEach) {
-			forEach(a, m, !1);
-		} else {
-			for (var j = 0, l = a.length; j < l; j += 1) {
-				m(a[j]);
-			}
+		for (var j = 0, l = a.length; j < l; j += 1) {
+			m(a[j]);
 		}
+		/* forEach(a, m, !1); */
 	},
 	    v = function (e) {
 		var h_e = function () {
@@ -1926,15 +1946,10 @@ var initNavMenu = function () {
 		}
 	},
 	    z = function () {
-		if (w._) {
-			_.each(items, v);
-		} else if (w.forEach) {
-			forEach(items, v, !1);
-		} else {
-			for (var i = 0, l = items.length; i < l; i += 1) {
-				v(items[i]);
-			}
+		for (var i = 0, l = items.length; i < l; i += 1) {
+			v(items[i]);
 		}
+		/* forEach(items, v, !1); */
 	};
 	if (container && page && btn && panel && items) {
 		/* console.log("triggered function: initNavMenu"); */
@@ -1983,15 +1998,10 @@ var initMenuMore = function () {
 		btn[aEL]("click", h_btn);
 	},
 	    v = function () {
-		if (w._) {
-			_.each(items, g);
-		} else if (w.forEach) {
-			forEach(items, g, !1);
-		} else {
-			for (var i = 0, l = items.length; i < l; i += 1) {
-				g(items[i]);
-			}
+		for (var i = 0, l = items.length; i < l; i += 1) {
+			g(items[i]);
 		}
+		/* forEach(items, g, !1); */
 	};
 	if (container && holder && btn && panel && items) {
 		/* console.log("triggered function: initMenuMore"); */
@@ -2017,46 +2027,63 @@ var initUiTotop = function () {
 	"use strict";
 
 	var w = globalRoot,
-	    b = BALA.one("body") || "",
-	    h = BALA.one("html") || "",
-	    u = "ui-totop",
-	    is_active = "is-active",
-	    t = "Наверх",
+	    d = document,
+	    h = d.documentElement || "",
+	    b = d.body || "",
+	    qS = "querySelector",
 	    cL = "classList",
+	    cE = "createElement",
+	    aC = "appendChild",
+	    cENS = "createElementNS",
+	    sANS = "setAttributeNS",
 	    aEL = "addEventListener",
-	    k = function () {
-		var _this = this;
-		var a = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
-		    c = _this.innerHeight || h.clientHeight || b.clientHeight || "",
-		    e = BALA.one("." + u) || "";
-		if (a && c && e) {
-			if (a > c) {
-				e[cL].add(is_active);
-			} else {
-				e[cL].remove(is_active);
+	    btnClass = "ui-totop",
+	    btnTitle = "Наверх",
+	    isActiveClass = "is-active",
+	    handleUiTotopWindow = function (_this) {
+		var logicHandleUiTotopWindow = function () {
+			var btn = d[qS]("." + btnClass) || "",
+			    scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
+			    windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
+			if (scrollPosition && windowHeight && btn) {
+				if (scrollPosition > windowHeight) {
+					btn[cL].add(isActiveClass);
+				} else {
+					btn[cL].remove(isActiveClass);
+				}
 			}
-		}
+		},
+		    throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
+		throttleLogicHandleUiTotopWindow();
 	},
-	    g = function (f) {
-		var h_a = function (ev) {
+	    renderUiTotop = function () {
+		var handleUiTotopAnchor = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			scrollToTop();
+			scroll2Top(0, 20000);
 		},
-		    a = crel("a");
-		a[cL].add(u);
+		    insertUpSvg = function (targetObj) {
+			var svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
+			    use = d[cENS]("http://www.w3.org/2000/svg", "use");
+			svg[cL].add("ui-icon");
+			use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
+			svg[aC](use);
+			targetObj[aC](svg);
+		},
+		    anchor = d[cE]("a");
+		anchor[cL].add(btnClass);
 		/*jshint -W107 */
-		a.href = "javascript:void(0);";
+		anchor.href = "javascript:void(0);";
 		/*jshint +W107 */
-		a.title = t;
-		a[cL].add(u);
-		a[aEL]("click", h_a);
-		crel(b, crel(a));
-		w[aEL]("scroll", k);
+		anchor.title = btnTitle;
+		anchor[aEL]("click", handleUiTotopAnchor);
+		insertUpSvg(anchor);
+		b[aC](anchor);
+		w[aEL]("scroll", handleUiTotopWindow);
 	};
 	if (b) {
 		/* console.log("triggered function: initUiTotop"); */
-		g();
+		renderUiTotop();
 	}
 };
 document.ready().then(initUiTotop);

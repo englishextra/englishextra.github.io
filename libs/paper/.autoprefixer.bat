@@ -1,1 +1,1 @@
-postcss --use autoprefixer "%~dp0css/bundle.css" -o "%~dp0css/bundle.css"
+postcss --use autoprefixer -o "%~dp0css/bundle.css" "%~dp0css/bundle.css"

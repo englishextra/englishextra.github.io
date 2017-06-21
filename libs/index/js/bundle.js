@@ -1147,15 +1147,10 @@ var initNavMenu = function () {
 		e[cL].add(is_active);
 	},
 	    s = function (a) {
-		if (w._) {
-			_.each(a, m);
-		} else if (w.forEach) {
-			forEach(a, m, !1);
-		} else {
-			for (var j = 0, l = a.length; j < l; j += 1) {
-				m(a[j]);
-			}
+		for (var j = 0, l = a.length; j < l; j += 1) {
+			m(a[j]);
 		}
+		/* forEach(a, m, !1); */
 	},
 	    v = function (e) {
 		var h_e = function () {
@@ -1173,15 +1168,10 @@ var initNavMenu = function () {
 		}
 	},
 	    z = function () {
-		if (w._) {
-			_.each(items, v);
-		} else if (w.forEach) {
-			forEach(items, v, !1);
-		} else {
-			for (var i = 0, l = items.length; i < l; i += 1) {
-				v(items[i]);
-			}
+		for (var i = 0, l = items.length; i < l; i += 1) {
+			v(items[i]);
 		}
+		/* forEach(items, v, !1); */
 	};
 	if (container && page && btn && panel && items) {
 		/* console.log("triggered function: initNavMenu"); */
@@ -1282,15 +1272,10 @@ var initMenuMore = function () {
 		btn[aEL]("click", h_btn);
 	},
 	    v = function () {
-		if (w._) {
-			_.each(items, g);
-		} else if (w.forEach) {
-			forEach(items, g, !1);
-		} else {
-			for (var i = 0, l = items.length; i < l; i += 1) {
-				g(items[i]);
-			}
+		for (var i = 0, l = items.length; i < l; i += 1) {
+			g(items[i]);
 		}
+		/* forEach(items, g, !1); */
 	};
 	if (container && holder && btn && panel && items) {
 		/* console.log("triggered function: initMenuMore"); */

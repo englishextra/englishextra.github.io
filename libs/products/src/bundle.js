@@ -592,15 +592,10 @@ var initMenuMore = function () {
 		btn[aEL]("click", h_btn);
 	},
 	v = function () {
-		if (w._) {
-			_.each(items, g);
-		} else if (w.forEach) {
-			forEach(items, g, !1);
-		} else {
-			for (var i = 0, l = items.length; i < l; i += 1) {
-				g(items[i]);
-			}
+		for (var i = 0, l = items.length; i < l; i += 1) {
+			g(items[i]);
 		}
+		/* forEach(items, g, !1); */
 	};
 	if (container && holder && btn && panel && items) {
 		/* console.log("triggered function: initMenuMore"); */

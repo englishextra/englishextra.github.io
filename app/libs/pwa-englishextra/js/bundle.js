@@ -1,22 +1,22 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global global, _, $, ActiveXObject, alignToMasterBottomLeft, appendFragment, BALA, 
-Carousel, changeLocation, container, Cookies, crel, debounce, define, 
-DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation, earlyDeviceSize, 
-earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch, 
-earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos, 
-fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox, 
-imagePromise, imagesLoaded, imagesPreloaded, insertExternalHTML, 
-insertTextAsFragment, Isotope, isValidId, jQuery, Kamil, 
-loadExternalHTML, loadJS, loadUnparsedJSON, manageDataSrcImages, 
-manageImgLightboxLinks, Masonry, module, openDeviceBrowser, Packery, 
-Parallax, parseLink, PhotoSwipe, PhotoSwipeUI_Default, pnotify, 
-prependFragmentBefore, prettyPrint, Promise, Proxy, QRCode, 
-removeChildren, removeElement, require, routie, safelyParseJSON, 
-scriptIsLoaded, scroll2Top, scrollToElement, scrollToPos, scrollToTop, 
-setImmediate, setStyleDisplayBlock, setStyleDisplayNone, 
-setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t, 
-Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge, 
+/*global global, _, $, ActiveXObject, alignToMasterBottomLeft, appendFragment, BALA,
+Carousel, changeLocation, container, Cookies, crel, debounce, define,
+DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation, earlyDeviceSize,
+earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch,
+earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos,
+fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox,
+imagePromise, imagesLoaded, imagesPreloaded, insertExternalHTML,
+insertTextAsFragment, Isotope, isValidId, jQuery, Kamil,
+loadExternalHTML, loadJS, loadUnparsedJSON, manageDataSrcImages,
+manageImgLightboxLinks, Masonry, module, openDeviceBrowser, Packery,
+Parallax, parseLink, PhotoSwipe, PhotoSwipeUI_Default, pnotify,
+prependFragmentBefore, prettyPrint, Promise, Proxy, QRCode,
+removeChildren, removeElement, require, routie, safelyParseJSON,
+scriptIsLoaded, scroll2Top, scrollToElement, scrollToPos, scrollToTop,
+setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
+setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t,
+Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge,
 VK, Ya, ymaps, zenscroll */
 /*property console, split */
 /*!
@@ -2501,15 +2501,13 @@ var renderNavigation = function () {
 			}
 			if (carouselTemplate && carouselRender) {
 				insertFromTemplate(navigationJsonResponse, carouselTemplateId, carouselRenderId, function () {
-					var newCarousel = function () {
-						return new Carousel({
-							"main": ".js-carousel",
-							"wrap": ".js-carousel__wrap",
-							"prev": ".js-carousel__prev",
-							"next": ".js-carousel__next"
-						});
-					};
-					newCarousel();
+					var carousel;
+					carousel = new Carousel({
+						"main": ".js-carousel",
+						"wrap": ".js-carousel__wrap",
+						"prev": ".js-carousel__prev",
+						"next": ".js-carousel__next"
+					});
 					if (carouselRenderParent) {
 						manageDataSrcImages();
 						manageExternalLinks(carouselRenderParent);
