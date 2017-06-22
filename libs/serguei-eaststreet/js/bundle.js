@@ -1,23 +1,23 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global global, _, $, ActiveXObject, alignToMasterBottomLeft, appendFragment, BALA, 
-Carousel, changeLocation, container, Cookies, crel, debounce, define, 
-DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation, earlyDeviceSize, 
-earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch, 
-earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos, 
-fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox, 
-imagePromise, imagesLoaded, imagesPreloaded, insertExternalHTML, 
-insertTextAsFragment, Isotope, isValidId, jQuery, Kamil, 
-loadExternalHTML, loadJS, loadUnparsedJSON, manageDataSrcImages, 
-manageImgLightboxLinks, Masonry, module, openDeviceBrowser, Packery, 
-Parallax, parseLink, PhotoSwipe, PhotoSwipeUI_Default, pnotify, 
-prependFragmentBefore, prettyPrint, Promise, Proxy, QRCode, 
-removeChildren, removeElement, require, routie, safelyParseJSON, 
-scriptIsLoaded, scroll2Top, scrollToElement, scrollToPos, scrollToTop, 
-setImmediate, setStyleDisplayBlock, setStyleDisplayNone, 
-setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t, 
-Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge, 
-VK, Ya, ymaps, zenscroll */
+/*global global, $, ActiveXObject, alignToMasterBottomLeft, appendFragment, BALA,
+Carousel, changeLocation, container, Cookies, crel, debounce, define,
+DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation, earlyDeviceSize,
+earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch,
+earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos,
+fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox,
+imagePromise, imagesLoaded, imagesPreloaded, insertExternalHTML,
+insertTextAsFragment, Isotope, isValidId, jQuery, Kamil,
+loadExternalHTML, loadJS, loadUnparsedJSON, manageDataSrcImages,
+manageImgLightboxLinks, Masonry, module, openDeviceBrowser, Packery,
+Parallax, parseLink, PhotoSwipe, PhotoSwipeUI_Default, pnotify,
+prependFragmentBefore, prettyPrint, Promise, Proxy, QRCode,
+removeChildren, removeElement, require, routie, safelyParseJSON,
+scriptIsLoaded, scroll2Top, scrollToTop,
+setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
+setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t,
+Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge,
+VK, Ya, ymaps */
 /*!
  * define global root
  */
@@ -121,114 +121,6 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 			}, s;
 		};return TP();
 	}();root.ToProgress = ToProgress;
-})(globalRoot);
-/*!
- * modified Zenscroll - v3.2.2
- * @see {@link https://github.com/zengabor/zenscroll}
- * Copyright 2015-2016 Gabor Lenard
- * removed module check
- * fixed IIFE enforcing
- * added brackets in if / for
- * @see {@link https://github.com/zengabor/zenscroll/blob/dist/zenscroll.js}
- * passes jshint
- */
-(function (root) {
-	"use strict";
-	var zenscroll = function () {
-		if (typeof root === "undefined" || !("document" in root)) {
-			return {};
-		}var createScroller = function (scrollContainer, defaultDuration, edgeOffset) {
-			defaultDuration = defaultDuration || 999;if (!edgeOffset && edgeOffset !== 0) {
-				edgeOffset = 9;
-			}var scrollTimeoutId;var setScrollTimeoutId = function (newValue) {
-				scrollTimeoutId = newValue;
-			};var docElem = document.documentElement;var nativeSmoothScrollEnabled = function () {
-				return "getComputedStyle" in root && root.getComputedStyle(scrollContainer ? scrollContainer : document.body)["scroll-behavior"] === "smooth";
-			};var getScrollTop = function () {
-				if (scrollContainer) {
-					return scrollContainer.scrollTop;
-				} else {
-					return root.scrollY || docElem.scrollTop;
-				}
-			};var getViewHeight = function () {
-				if (scrollContainer) {
-					return Math.min(scrollContainer.offsetHeight, root.innerHeight);
-				} else {
-					return root.innerHeight || docElem.clientHeight;
-				}
-			};var getRelativeTopOf = function (elem) {
-				if (scrollContainer) {
-					return elem.offsetTop;
-				} else {
-					return elem.getBoundingClientRect().top + getScrollTop() - docElem.offsetTop;
-				}
-			};var stopScroll = function () {
-				clearTimeout(scrollTimeoutId);setScrollTimeoutId(0);
-			};var scrollToY = function (endY, duration, onDone) {
-				stopScroll();if (nativeSmoothScrollEnabled()) {
-					(scrollContainer || root).scrollTo(0, endY);if (onDone) {
-						onDone();
-					}
-				} else {
-					var startY = getScrollTop();var distance = Math.max(endY, 0) - startY;duration = duration || Math.min(Math.abs(distance), defaultDuration);var startTime = new Date().getTime();(function loopScroll() {
-						setScrollTimeoutId(setTimeout(function () {
-							var p = Math.min((new Date().getTime() - startTime) / duration, 1);var y = Math.max(Math.floor(startY + distance * (p < 0.5 ? 2 * p * p : p * (4 - p * 2) - 1)), 0);if (scrollContainer) {
-								scrollContainer.scrollTop = y;
-							} else {
-								root.scrollTo(0, y);
-							}if (p < 1 && getViewHeight() + y < (scrollContainer || docElem).scrollHeight) {
-								loopScroll();
-							} else {
-								setTimeout(stopScroll, 99);if (onDone) {
-									onDone();
-								}
-							}
-						}, 9));
-					})();
-				}
-			};var scrollToElem = function (elem, duration, onDone) {
-				scrollToY(getRelativeTopOf(elem) - edgeOffset, duration, onDone);
-			};var scrollIntoView = function (elem, duration, onDone) {
-				var elemHeight = elem.getBoundingClientRect().height;var elemTop = getRelativeTopOf(elem);var elemBottom = elemTop + elemHeight;var containerHeight = getViewHeight();var containerTop = getScrollTop();var containerBottom = containerTop + containerHeight;if (elemTop - edgeOffset < containerTop || elemHeight + edgeOffset > containerHeight) {
-					scrollToElem(elem, duration, onDone);
-				} else if (elemBottom + edgeOffset > containerBottom) {
-					scrollToY(elemBottom - containerHeight + edgeOffset, duration, onDone);
-				} else if (onDone) {
-					onDone();
-				}
-			};var scrollToCenterOf = function (elem, duration, offset, onDone) {
-				scrollToY(Math.max(getRelativeTopOf(elem) - getViewHeight() / 2 + (offset || elem.getBoundingClientRect().height / 2), 0), duration, onDone);
-			};var setup = function (newDefaultDuration, newEdgeOffset) {
-				if (newDefaultDuration) {
-					defaultDuration = newDefaultDuration;
-				}if (newEdgeOffset === 0 || newEdgeOffset) {
-					edgeOffset = newEdgeOffset;
-				}
-			};return { setup: setup, to: scrollToElem, toY: scrollToY, intoView: scrollIntoView, center: scrollToCenterOf, stop: stopScroll, moving: function () {
-					return !!scrollTimeoutId;
-				} };
-		};var defaultScroller = createScroller();if ("addEventListener" in root && document.body.style.scrollBehavior !== "smooth" && !root.noZensmooth) {
-			var replaceUrl = function (hash) {
-				try {
-					history.replaceState({}, "", root.location.href.split("#")[0] + hash);
-				} catch (e) {}
-			};root.addEventListener("click", function (event) {
-				var anchor = event.target;while (anchor && anchor.tagName !== "A") {
-					anchor = anchor.parentNode;
-				}if (!anchor || event.which !== 1 || event.shiftKey || event.metaKey || event.ctrlKey || event.altKey) {
-					return;
-				}var href = anchor.getAttribute("href") || "";if (href.indexOf("#") === 0) {
-					if (href === "#") {
-						event.preventDefault();defaultScroller.toY(0);replaceUrl("");
-					} else {
-						var targetId = anchor.hash.substring(1);var targetElem = document.getElementById(targetId);if (targetElem) {
-							event.preventDefault();defaultScroller.to(targetElem);replaceUrl("#" + targetId);
-						}
-					}
-				}
-			}, false);
-		}return { createScroller: createScroller, setup: defaultScroller.setup, to: defaultScroller.to, toY: defaultScroller.toY, intoView: defaultScroller.intoView, center: defaultScroller.stop, moving: defaultScroller.moving };
-	}();root.zenscroll = zenscroll;
 })(globalRoot);
 /*!
  * modified scrollToY
@@ -1589,34 +1481,6 @@ if (document.title) {
 	};root.findPos = findPos;
 })(globalRoot);
 /*!
- * scroll to element using zenscroll with fallback
- * @requires zenscroll
- * @requires findPos
- * @param {Object} a an HTML element
- * scrollToElement(a)
- */
-(function (root) {
-	var scrollToElement = function (a) {
-		if (a) {
-			if (root.zenscroll) {
-				zenscroll.to(a);
-			} else {
-				root.scroll(0, findPos(a).top);
-			}
-		}return !1;
-	};root.scrollToElement = scrollToElement;
-})(globalRoot);
-/*!
- * Scroll to top with Zenscroll, or fallback
- * @requires zenscroll
- * scrollToTop()
- */
-(function (root) {
-	var scrollToTop = function () {
-		var w = root;return w.zenscroll ? zenscroll.toY(0) : w.scroll2Top ? scroll2Top(w, 400) : w.scroll(0, 0);
-	};root.scrollToTop = scrollToTop;
-})(globalRoot);
-/*!
  * change document location
  * @param {String} a URL / path string
  * changeLocation(a)
@@ -1952,7 +1816,7 @@ var initNotibarMsg = function () {
 			ev.stopPropagation();
 			ev.preventDefault();
 			msgObj[rEL]("click", handleMsgObj);
-			scrollToElement(d[gEBI]('disqus_thread') || "");
+			scroll2Top(findPos(d[gEBI]("disqus_thread")).top, 20000);
 		};
 		msgObj[aEL]("click", handleMsgObj);
 		msgObj[aC](d.createTextNode(cookieDatum));
@@ -2070,6 +1934,7 @@ var initNotifier42WriteMe = function () {
 		    gEBI = "getElementById",
 		    cE = "createElement",
 		    aEL = "addEventListener",
+		    rEL = "removeEventListener",
 		    n = "_notifier42_write_me_",
 		    m = "Напишите мне, отвечу очень скоро. Регистрироваться не нужно.",
 		    p = parseLink(w.location.href).origin,
@@ -2079,7 +1944,13 @@ var initNotifier42WriteMe = function () {
 			msgObj.href = "javascript:void(0);";
 			appendFragment(m, msgObj);
 			/*jshint +W107 */
-			msgObj[aEL]("click", scrollToElement.bind(null, d[gEBI]('disqus_thread') || ""));
+			var handleMsgObj = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				msgObj[rEL]("click", handleMsgObj);
+				scroll2Top(findPos(d[gEBI]("disqus_thread")).top, 20000);
+			};
+			msgObj[aEL]("click", handleMsgObj);
 			Notifier42(msgObj, 5000);
 			Cookies.set(n, m);
 		};
@@ -2168,15 +2039,10 @@ var initSidepanel = function () {
 				e[aEL]("click", h_o);
 				/* e.onclick = h_o; */
 			};
-			if (w._) {
-				_.each(a, g);
-			} else if (w.forEach) {
-				forEach(a, g, !1);
-			} else {
-				for (var i = 0, l = a.length; i < l; i += 1) {
-					g(a[i]);
-				}
+			for (var i = 0, l = a.length; i < l; i += 1) {
+				g(a[i]);
 			}
+			/* forEach(a, g, !1); */
 		}
 		b[aEL]("click", h_o);
 		/* b.onclick = h_o; */
@@ -2269,15 +2135,10 @@ var initMenumore = function () {
 			var g = function (e) {
 				e[aEL]("click", h_a);
 			};
-			if (w._) {
-				_.each(a, g);
-			} else if (w.forEach) {
-				forEach(a, g, !1);
-			} else {
-				for (var i = 0, l = a.length; i < l; i += 1) {
-					g(a[i]);
-				}
+			for (var i = 0, l = a.length; i < l; i += 1) {
+				g(a[i]);
 			}
+			/* forEach(a, g, !1); */
 		}
 	}
 };
@@ -2638,7 +2499,7 @@ var handleChaptersSelect = function () {
 	    tragetObject = _hash ? isValidId(_hash, true) ? d[gEBI](_hash.replace(/^#/, "")) || "" : "" : "";
 	if (_hash) {
 		if (tragetObject) {
-			scrollToElement(tragetObject);
+			scroll2Top(findPos(tragetObject).top, 20000);
 		} else {
 			changeLocation(_hash);
 		}
@@ -3349,15 +3210,10 @@ var initKamilAutocomplete = function () {
 					}
 				};
 				if (items) {
-					if (w._) {
-						_.each(items, f);
-					} else if (w.forEach) {
-						forEach(items, f, !1);
-					} else {
-						for (var i = 0; i < l; i += 1) {
-							f(items[i], i);
-						}
+					for (var i = 0; i < l; i += 1) {
+						f(items[i], i);
 					}
+					/* forEach(items, f, !1); */
 				}
 				/*!
      * fix typo - non latin characters found
@@ -3391,15 +3247,10 @@ var initKamilAutocomplete = function () {
 					e.title = "" + t;
 				};
 				if (lis) {
-					if (w._) {
-						_.each(lis, g);
-					} else if (w.forEach) {
-						forEach(lis, g, !1);
-					} else {
-						for (var j = 0, m = lis.length; j < m; j += 1) {
-							g(lis[j]);
-						}
+					for (var j = 0, m = lis.length; j < m; j += 1) {
+						g(lis[j]);
 					}
+					/* forEach(lis, g, !1); */
 				}
 			};
 			/*!
@@ -3552,7 +3403,7 @@ var initRoutie = function () {
 		/*!
    * hide loading spinner before scrolling
    */
-		LoadingSpinner.hide(scrollToTop);
+		LoadingSpinner.hide(scroll2Top.bind(null, 0, 20000));
 		d.title = initialDocumentTitle + "" + t + userBrowsingDetails;
 		manageYandexMapButton("#ymap");
 		manageDisqusButton(appContentParent);
@@ -3565,18 +3416,9 @@ var initRoutie = function () {
 		manageExpandingLayers(appContentParent);
 	},
 	    loadNotFoundPage = function (a) {
-		var c = BALA.one(a) || "",
-		    s = crel("div", {
-			"class": "padded-content"
-		}, crel("div", {
-			"class": "col"
-		}, crel("div", {
-			"class": "row"
-		}, crel("div", {
-			"class": "column"
-		}, crel("p", "Нет такой страницы. ", crel("a", {
-			"href": "#/home"
-		}, "Исправить?"))))));
+		var d = document,
+		    c = BALA.one(a) || "",
+		    s = d.createRange().createContextualFragment('<div class="col"><div class="row"><div class="column"><p>Нет такой страницы. <a href="#/home">Исправить?</a></p></div></div></div>');
 		if (c) {
 			LoadingSpinner.show();
 			removeChildren(c);

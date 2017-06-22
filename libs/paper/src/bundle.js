@@ -1,23 +1,23 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global global, _, $, ActiveXObject, alignToMasterBottomLeft, appendFragment, BALA, 
-Carousel, changeLocation, container, Cookies, crel, debounce, define, 
-DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation, earlyDeviceSize, 
-earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch, 
-earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos, 
-fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox, 
-imagePromise, imagesLoaded, imagesPreloaded, insertExternalHTML, 
-insertTextAsFragment, Isotope, isValidId, jQuery, Kamil, 
-loadExternalHTML, loadJS, loadUnparsedJSON, manageDataSrcImages, 
-manageImgLightboxLinks, Masonry, module, openDeviceBrowser, Packery, 
-Parallax, parseLink, PhotoSwipe, PhotoSwipeUI_Default, pnotify, 
-prependFragmentBefore, prettyPrint, Promise, Proxy, QRCode, 
-removeChildren, removeElement, require, routie, safelyParseJSON, 
-scriptIsLoaded, scroll2Top, scrollToElement, scrollToPos, scrollToTop, 
-setImmediate, setStyleDisplayBlock, setStyleDisplayNone, 
-setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t, 
-Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge, 
-VK, Ya, ymaps, zenscroll */
+/*global global, $, ActiveXObject, alignToMasterBottomLeft, appendFragment, BALA,
+Carousel, changeLocation, container, Cookies, crel, debounce, define,
+DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation, earlyDeviceSize,
+earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch,
+earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos,
+fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox,
+imagePromise, imagesLoaded, imagesPreloaded, insertExternalHTML,
+insertTextAsFragment, Isotope, isValidId, jQuery, Kamil,
+loadExternalHTML, loadJS, loadUnparsedJSON, manageDataSrcImages,
+manageImgLightboxLinks, Masonry, module, openDeviceBrowser, Packery,
+Parallax, parseLink, PhotoSwipe, PhotoSwipeUI_Default, pnotify,
+prependFragmentBefore, prettyPrint, Promise, Proxy, QRCode,
+removeChildren, removeElement, require, routie, safelyParseJSON,
+scriptIsLoaded, scroll2Top, scrollToTop,
+setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
+setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t,
+Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge,
+VK, Ya, ymaps */
 /*!
  * define global root
  */
@@ -41,17 +41,6 @@ var globalRoot = "undefined" !== typeof window ? window : this;
  * passes jshint
  */
 (function(root){"use strict";var ToProgress=(function(){var TP=function(){var t=function(){var s=document.createElement("fakeelement"),i={transition:"transitionend",OTransition:"oTransitionEnd",MozTransition:"transitionend",WebkitTransition:"webkitTransitionEnd"};for(var j in i){if(i.hasOwnProperty(j)){if(void 0!==s.style[j]){return i[j];}}}},s=function(t,a){if(this.progress=0,this.options={id:"top-progress-bar",color:"#F44336",height:"2px",duration:0.2},t&&"object"===typeof t){for(var i in t){if(t.hasOwnProperty(i)){this.options[i]=t[i];}}}if(this.options.opacityDuration=3*this.options.duration,this.progressBar=document.createElement("div"),this.progressBar.id=this.options.id,this.progressBar.setCSS=function(t){for(var a in t){if(t.hasOwnProperty(a)){this.style[a]=t[a];}}},this.progressBar.setCSS({position:a?"relative":"fixed",top:"0",left:"0",right:"0","background-color":this.options.color,height:this.options.height,width:"0%",transition:"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s","-moz-transition":"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s","-webkit-transition":"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s"}),a){var o=document.querySelector(a);if(o){if(o.hasChildNodes()){o.insertBefore(this.progressBar,o.firstChild);}else{o.appendChild(this.progressBar);}}}else{document.body.appendChild(this.progressBar);}},i=t();return s.prototype.transit=function(){this.progressBar.style.width=this.progress+"%";},s.prototype.getProgress=function(){return this.progress;},s.prototype.setProgress=function(t,s){this.show();this.progress=t>100?100:0>t?0:t;this.transit();if(s){s();}},s.prototype.increase=function(t,s){this.show();this.setProgress(this.progress+t,s);},s.prototype.decrease=function(t,s){this.show();this.setProgress(this.progress-t,s);},s.prototype.finish=function(t){var s=this;this.setProgress(100,t);this.hide();if(i){this.progressBar.addEventListener(i,function(t){s.reset();s.progressBar.removeEventListener(t.type,TP);});}},s.prototype.reset=function(t){this.progress=0;this.transit();if(t){t();}},s.prototype.hide=function(){this.progressBar.style.opacity="0";},s.prototype.show=function(){this.progressBar.style.opacity="1";},s;};return TP();}());root.ToProgress=ToProgress;}(globalRoot));
-/*!
- * modified Zenscroll - v3.2.2
- * @see {@link https://github.com/zengabor/zenscroll}
- * Copyright 2015-2016 Gabor Lenard
- * removed module check
- * fixed IIFE enforcing
- * added brackets in if / for
- * @see {@link https://github.com/zengabor/zenscroll/blob/dist/zenscroll.js}
- * passes jshint
- */
-(function(root){"use strict";var zenscroll=(function(){if(typeof root==="undefined"||!("document"in root)){return{};}var createScroller=function(scrollContainer,defaultDuration,edgeOffset){defaultDuration=defaultDuration||999;if(!edgeOffset&&edgeOffset!==0){edgeOffset=9;}var scrollTimeoutId;var setScrollTimeoutId=function(newValue){scrollTimeoutId=newValue;};var docElem=document.documentElement;var nativeSmoothScrollEnabled=function(){return("getComputedStyle"in root)&&root.getComputedStyle(scrollContainer?scrollContainer:document.body)["scroll-behavior"]==="smooth";};var getScrollTop=function(){if(scrollContainer){return scrollContainer.scrollTop;}else{return root.scrollY||docElem.scrollTop;}};var getViewHeight=function(){if(scrollContainer){return Math.min(scrollContainer.offsetHeight,root.innerHeight);}else{return root.innerHeight||docElem.clientHeight;}};var getRelativeTopOf=function(elem){if(scrollContainer){return elem.offsetTop;}else{return elem.getBoundingClientRect().top+getScrollTop()-docElem.offsetTop;}};var stopScroll=function(){clearTimeout(scrollTimeoutId);setScrollTimeoutId(0);};var scrollToY=function(endY,duration,onDone){stopScroll();if(nativeSmoothScrollEnabled()){(scrollContainer||root).scrollTo(0,endY);if(onDone){onDone();}}else{var startY=getScrollTop();var distance=Math.max(endY,0)-startY;duration=duration||Math.min(Math.abs(distance),defaultDuration);var startTime=new Date().getTime();(function loopScroll(){setScrollTimeoutId(setTimeout(function(){var p=Math.min((new Date().getTime()-startTime)/duration,1);var y=Math.max(Math.floor(startY+distance*(p<0.5?2*p*p:p*(4-p*2)-1)),0);if(scrollContainer){scrollContainer.scrollTop=y;}else{root.scrollTo(0,y);}if(p<1&&(getViewHeight()+y)<(scrollContainer||docElem).scrollHeight){loopScroll();}else{setTimeout(stopScroll,99);if(onDone){onDone();}}},9));})();}};var scrollToElem=function(elem,duration,onDone){scrollToY(getRelativeTopOf(elem)-edgeOffset,duration,onDone);};var scrollIntoView=function(elem,duration,onDone){var elemHeight=elem.getBoundingClientRect().height;var elemTop=getRelativeTopOf(elem);var elemBottom=elemTop+elemHeight;var containerHeight=getViewHeight();var containerTop=getScrollTop();var containerBottom=containerTop+containerHeight;if((elemTop-edgeOffset)<containerTop||(elemHeight+edgeOffset)>containerHeight){scrollToElem(elem,duration,onDone);}else if((elemBottom+edgeOffset)>containerBottom){scrollToY(elemBottom-containerHeight+edgeOffset,duration,onDone);}else if(onDone){onDone();}};var scrollToCenterOf=function(elem,duration,offset,onDone){scrollToY(Math.max(getRelativeTopOf(elem)-getViewHeight()/2+(offset||elem.getBoundingClientRect().height/2),0),duration,onDone);};var setup=function(newDefaultDuration,newEdgeOffset){if(newDefaultDuration){defaultDuration=newDefaultDuration;}if(newEdgeOffset===0||newEdgeOffset){edgeOffset=newEdgeOffset;}};return{setup:setup,to:scrollToElem,toY:scrollToY,intoView:scrollIntoView,center:scrollToCenterOf,stop:stopScroll,moving:function(){return!!scrollTimeoutId;}};};var defaultScroller=createScroller();if("addEventListener"in root&&document.body.style.scrollBehavior!=="smooth"&&!root.noZensmooth){var replaceUrl=function(hash){try{history.replaceState({},"",root.location.href.split("#")[0]+hash);}catch(e){}};root.addEventListener("click",function(event){var anchor=event.target;while(anchor&&anchor.tagName!=="A"){anchor=anchor.parentNode;}if(!anchor||event.which!==1||event.shiftKey||event.metaKey||event.ctrlKey||event.altKey){return;}var href=anchor.getAttribute("href")||"";if(href.indexOf("#")===0){if(href==="#"){event.preventDefault();defaultScroller.toY(0);replaceUrl("");}else{var targetId=anchor.hash.substring(1);var targetElem=document.getElementById(targetId);if(targetElem){event.preventDefault();defaultScroller.to(targetElem);replaceUrl("#"+targetId);}}}},false);}return{createScroller:createScroller,setup:defaultScroller.setup,to:defaultScroller.to,toY:defaultScroller.toY,intoView:defaultScroller.intoView,center:defaultScroller.stop,moving:defaultScroller.moving};}());root.zenscroll=zenscroll;}(globalRoot));
 /*!
  * modified scrollToY
  * @see {@link http://stackoverflow.com/questions/8917921/cross-browser-javascript-not-jquery-scroll-to-top-animation}
@@ -439,20 +428,6 @@ if (document.title) {
  */
 (function(root){"use strict";var findPos=function(a){a=a.getBoundingClientRect();var b=document.body,c=document.documentElement;return{top:Math.round(a.top+(root.pageYOffset||c.scrollTop||b.scrollTop)-(c.clientTop||b.clientTop||0)),left:Math.round(a.left+(root.pageXOffset||c.scrollLeft||b.scrollLeft)-(c.clientLeft||b.clientLeft||0))};};root.findPos=findPos;}(globalRoot));
 /*!
- * Scroll to top with Zenscroll, or fallback
- * @requires zenscroll
- * scrollToTop()
- */
-(function(root){var scrollToTop=function(){var w=root;return w.zenscroll?zenscroll.toY(0):w.scroll2Top?scroll2Top(w,400):w.scroll(0,0);};root.scrollToTop=scrollToTop;}(globalRoot));
-/*!
- * scroll to element using zenscroll with fallback
- * @requires zenscroll
- * @requires findPos
- * @param {Object} a an HTML element
- * scrollToElement(a)
- */
-(function(root){var scrollToElement=function(a){if(a){if(root.zenscroll){zenscroll.to(a);}else{root.scroll(0,findPos(a).top);}}return!1;};root.scrollToElement=scrollToElement;}(globalRoot));
-/*!
  * change document location
  * @param {String} a URL / path string
  * changeLocation(a)
@@ -707,6 +682,7 @@ var initNotifier42WriteComment = function () {
 		gEBI = "getElementById",
 		cE = "createElement",
 		aEL = "addEventListener",
+		rEL = "removeEventListener",
 		n = "_notifier42_write_comment_",
 		m = "Напишите, что понравилось, а что нет. Регистрироваться не нужно.",
 		p = parseLink(w.location.href).origin,
@@ -716,7 +692,13 @@ var initNotifier42WriteComment = function () {
 			msgObj.href = "javascript:void(0);";
 			appendFragment(m, msgObj);
 			/*jshint +W107 */
-			msgObj[aEL]("click", scrollToElement.bind(null, d[gEBI]('disqus_thread') || ""));
+			var handleMsgObj = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				msgObj[rEL]("click", handleMsgObj);
+				scroll2Top(findPos(d[gEBI]("disqus_thread")).top, 20000);
+			};
+			msgObj[aEL]("click", handleMsgObj);
 			Notifier42(msgObj, 8000);
 			Cookies.set(n, m);
 		};
@@ -1049,15 +1031,10 @@ var manageDataSrcIframes = function (ctx) {
 		/* console.log("triggered function: manageDataSrcImages"); */
 		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
 		var h_w = function () {
-			if (w._) {
-				_.each(a, g);
-			} else if (w.forEach) {
-				forEach(a, g, !1);
-			} else {
-				for (var i = 0, l = a.length; i < l; i += 1) {
-					g(a[i]);
-				}
+			for (var i = 0, l = a.length; i < l; i += 1) {
+				g(a[i]);
 			}
+			/* forEach(a, g, !1); */
 		};
 		h_w();
 		w[aEL]("scroll", h_w);
@@ -1114,7 +1091,7 @@ var handleChaptersSelect = function () {
 	tragetObject = _hash ? (isValidId(_hash, true) ? d[gEBI](_hash.replace(/^#/,"")) || "" : "") : "";
 	if (_hash) {
 		if (tragetObject) {
-			scrollToElement(tragetObject);
+			scroll2Top(findPos(tragetObject).top, 20000);
 		} else {
 			changeLocation(_hash);
 		}
@@ -1395,48 +1372,58 @@ document.ready().then(initNavMenu);
  */
 var addAppUpdatesLink = function () {
 	"use strict";
-	var panel = BALA.one(".panel-menu-more") || "",
-	items = BALA("li", panel) || "",
-	s = navigator.userAgent || "",
+	var d = document,
+	gEBCN = "getElementsByClassName",
+	gEBTN = "getElementsByTagName",
+	cE = "createElement",
+	cTN = "createTextNode",
+	aC = "appendChild",
 	aEL = "addEventListener",
-	p;
-	if (/Windows/i.test(s) && /(WOW64|Win64)/i.test(s)) {
-		p = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-app-win32-x64-setup.exe";
-	} else if (/(x86_64|x86-64|x64;|amd64|AMD64|x64_64)/i.test(s) && /(Linux|X11)/i.test(s)) {
-		p = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-app-linux-x64.tar.gz";
-	} else if (/IEMobile/i.test(s)) {
-		p = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra_app.Windows10_1.0.0.0_x86_debug.appx";
-	} else if (/Android/i.test(s)) {
-		p = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra_app-debug.apk";
+	panel = d[gEBCN]("panel-menu-more")[0] || "",
+	items = panel ? panel[gEBTN]("li") || "" : "",
+	navigatorUserAgent = navigator.userAgent || "",
+	linkHref;
+	if (/Windows/i.test(navigatorUserAgent) && /(WOW64|Win64)/i.test(navigatorUserAgent)) {
+		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-app-win32-x64-setup.exe";
+	} else if (/(x86_64|x86-64|x64;|amd64|AMD64|x64_64)/i.test(navigatorUserAgent) && /(Linux|X11)/i.test(navigatorUserAgent)) {
+		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-app-linux-x64.tar.gz";
+	} else if (/IEMobile/i.test(navigatorUserAgent)) {
+		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra_app.Windows10_1.0.0.0_x86_debug.appx";
+	} else if (/Android/i.test(navigatorUserAgent)) {
+		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra_app-debug.apk";
 	} else {
-		p = "";
+		linkHref = "";
 	}
-	var	g = function () {
-		var li = crel("li"),
-		e = crel("a"),
-		t = "Скачать приложение сайта";
-		e.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
-		e.href = p;
+	var	arrangeAppUpdatesLink = function () {
+		var listItem = d[cE]("li"),
+		link = d[cE]("a"),
+		linkText = "Скачать приложение сайта";
+		link.title = "" + (parseLink(linkHref).hostname || "") + " откроется в новой вкладке";
+		link.href = linkHref;
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			e.target = "_blank";
-			e.rel = "noopener";
+			link.target = "_blank";
+			link.rel = "noopener";
 		} else {
 			/*!
 			 * no prevent default and void .href above
 			 */
 			/*jshint -W107 */
-			e.href = "javascript:void(0);";
+			link.href = "javascript:void(0);";
 			/*jshint +W107 */
-			e[aEL]("click", openDeviceBrowser.bind(null, p));
+			var handleAppUpdatesLink = function () {
+				openDeviceBrowser(linkHref);
+			};
+			link[aEL]("click", handleAppUpdatesLink);
 		}
-		crel(li, crel(e, "" + t));
+		link[aC](d[cTN]("" + linkText));
+		listItem[aC](link);
 		if (panel.hasChildNodes()) {
-			prependFragmentBefore(li, panel.firstChild);
+			prependFragmentBefore(listItem, panel.firstChild);
 		}
 	};
-	if (panel && items && p) {
+	if (panel && items && linkHref) {
 		/* console.log("triggered function: addAppUpdatesLink"); */
-		g();
+		arrangeAppUpdatesLink();
 	}
 };
 document.ready().then(addAppUpdatesLink);
@@ -1880,15 +1867,10 @@ var initKamilAutocomplete = function () {
 					}
 				};
 				if (items) {
-					if (w._) {
-						_.each(items, f);
-					} else if (w.forEach) {
-						forEach(items, f, !1);
-					} else {
-						for (var i = 0; i < l; i += 1) {
-							f(items[i], i);
-						}
+					for (var i = 0; i < l; i += 1) {
+						f(items[i], i);
 					}
+					/* forEach(items, f, !1); */
 				}
 				/*!
 				 * fix typo - non latin characters found
@@ -1922,15 +1904,10 @@ var initKamilAutocomplete = function () {
 					e.title = "" + t;
 				};
 				if (lis) {
-					if (w._) {
-						_.each(lis, g);
-					} else if (w.forEach) {
-						forEach(lis, g, !1);
-					} else {
-						for (var j = 0, m = lis.length; j < m; j += 1) {
-							g(lis[j]);
-						}
+					for (var j = 0, m = lis.length; j < m; j += 1) {
+						g(lis[j]);
 					}
+					/* forEach(lis, g, !1); */
 				}
 			};
 			/*!

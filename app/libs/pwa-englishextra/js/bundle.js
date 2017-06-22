@@ -1,6 +1,6 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global global, _, $, ActiveXObject, alignToMasterBottomLeft, appendFragment, BALA,
+/*global global, $, ActiveXObject, alignToMasterBottomLeft, appendFragment, BALA,
 Carousel, changeLocation, container, Cookies, crel, debounce, define,
 DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation, earlyDeviceSize,
 earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch,
@@ -13,11 +13,11 @@ manageImgLightboxLinks, Masonry, module, openDeviceBrowser, Packery,
 Parallax, parseLink, PhotoSwipe, PhotoSwipeUI_Default, pnotify,
 prependFragmentBefore, prettyPrint, Promise, Proxy, QRCode,
 removeChildren, removeElement, require, routie, safelyParseJSON,
-scriptIsLoaded, scroll2Top, scrollToElement, scrollToPos, scrollToTop,
+scriptIsLoaded, scroll2Top, scrollToTop,
 setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
 setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t,
 Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge,
-VK, Ya, ymaps, zenscroll */
+VK, Ya, ymaps */
 /*property console, split */
 /*!
  * define global root
@@ -1843,8 +1843,8 @@ var manageExpandingLayers = function (ctx) {
 	    btn = ctx ? ctx[gEBCN](btnClass) || "" : d[gEBCN](btnClass) || "",
 	    isBindedClass = "is-binded",
 	    isActiveClass = "is-active",
-	    handleExpandingLayers = function (_this) {
-		_this = _this ? _this.target || "" : "";
+	    handleExpandingLayers = function () {
+		var _this = this;
 		var s = _this[pN] ? _this[pN].nextElementSibling : "";
 		if (s) {
 			_this[cL].toggle(isActiveClass);
@@ -3097,8 +3097,8 @@ var processPoutes = function () {
      var contentsRendered = renderContentsTemplate.render(routesParsedJson);
      contentsRender[iH] = contentsRendered; */
 					var rerenderContentsSelect = function () {
-						var handleContentsSelect = function (_this) {
-							_this = _this ? _this.target || "" : "";
+						var handleContentsSelect = function () {
+							var _this = this;
 							var _hash = _this.options[_this.selectedIndex].value || "";
 							if (_hash) {
 								var tragetObject = isValidId(_hash, true) ? d[gEBI](_hash.replace(/^#/, "")) || "" : "";
