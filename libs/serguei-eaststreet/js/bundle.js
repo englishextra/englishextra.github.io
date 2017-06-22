@@ -1,7 +1,7 @@
 /*jslint browser: true */
 /*jslint node: true */
 /*global global, $, ActiveXObject, alignToMasterBottomLeft, appendFragment, BALA,
-Carousel, changeLocation, container, Cookies, crel, debounce, define,
+Carousel, changeLocation, container, Cookies, debounce, define,
 DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation, earlyDeviceSize,
 earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch,
 earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos,
@@ -172,96 +172,6 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 			};return g;
 		}(document, 'addEventListener', 'querySelectorAll');return g;
 	}();root.BALA = BALA;
-})(globalRoot);
-/*!
- * modified crel - a small, simple, and fast DOM creation utility
- * @see {@link https://github.com/KoryNunn/crel}
- * crel(tagName/dom element[,attributes,child1,child2,childN...])
- * var element=crel('div',crel('h1','Crello World!'),
- * crel('p','This is crel'),crel('input',{type:'number'}));
- * removed module check
- * fixed Use '===' to compare with 'null'.
- * fixed The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
- * fixed Expected an assignment or function call and instead saw an expression.
- * @see {@link https://github.com/KoryNunn/crel/blob/master/crel.js}
- * passes jshint
- */
-(function (root) {
-	"use strict";
-	var crel = function () {
-		var fn = "function",
-		    obj = "object",
-		    nodeType = "nodeType",
-		    textContent = "textContent",
-		    setAttribute = "setAttribute",
-		    attrMapString = "attrMap",
-		    isNodeString = "isNode",
-		    isElementString = "isElement",
-		    d = typeof document === obj ? document : {},
-		    isType = function (a, type) {
-			return typeof a === type;
-		},
-		    isNode = typeof Node === fn ? function (object) {
-			return object instanceof Node;
-		} : function (object) {
-			return object && isType(object, obj) && nodeType in object && isType(object.ownerDocument, obj);
-		},
-		    isElement = function (object) {
-			return _c[isNodeString](object) && object[nodeType] === 1;
-		},
-		    isArray = function (a) {
-			return a instanceof Array;
-		},
-		    appendChild = function (element, child) {
-			if (!_c[isNodeString](child)) {
-				child = d.createTextNode(child);
-			}element.appendChild(child);
-		};function _c() {
-			var args = arguments,
-			    element = args[0],
-			    child,
-			    settings = args[1],
-			    childIndex = 2,
-			    argumentsLength = args.length,
-			    attributeMap = _c[attrMapString];element = _c[isElementString](element) ? element : d.createElement(element);if (argumentsLength === 1) {
-				return element;
-			}if (!isType(settings, obj) || _c[isNodeString](settings) || isArray(settings)) {
-				--childIndex;settings = null;
-			}if (argumentsLength - childIndex === 1 && isType(args[childIndex], "string") && element[textContent] !== undefined) {
-				element[textContent] = args[childIndex];
-			} else {
-				for (; childIndex < argumentsLength; ++childIndex) {
-					child = args[childIndex];if (child === null) {
-						continue;
-					}if (isArray(child)) {
-						for (var i = 0; i < child.length; ++i) {
-							appendChild(element, child[i]);
-						}
-					} else {
-						appendChild(element, child);
-					}
-				}
-			}for (var key in settings) {
-				if (settings.hasOwnProperty(key)) {
-					if (!attributeMap[key]) {
-						element[setAttribute](key, settings[key]);
-					} else {
-						var attr = attributeMap[key];if (typeof attr === fn) {
-							attr(element, settings[key]);
-						} else {
-							element[setAttribute](attr, settings[key]);
-						}
-					}
-				}
-			}return element;
-		}_c[attrMapString] = {};_c[isElementString] = isElement;_c[isNodeString] = isNode;if ("undefined" !== typeof Proxy) {
-			_c.proxy = new Proxy(_c, { get: function (target, key) {
-					if (!(key in _c)) {
-						_c[key] = _c.bind(null, key);
-					}return _c[key];
-				} });
-		}return _c;
-	}();root.crel = crel;
 })(globalRoot);
 /*!
  * Super lightweight script (~1kb) to detect via Javascript events like
@@ -3012,7 +2922,8 @@ var loadRefreshDisqus = function () {
 	},
 	    z = function () {
 		removeChildren(c);
-		appendFragment(crel("p", "Комментарии доступны только в веб версии этой страницы."), c);
+		var s = d.createRange().createContextualFragment('<p>Комментарии доступны только в веб версии этой страницы.</p>');
+		appendFragment(s, c);
 		c.removeAttribute("id");
 		setStyleDisplayNone(btn[pN]);
 	};
@@ -3099,7 +3010,8 @@ var myMap,
 	},
 	    q = function () {
 		removeChildren(c);
-		appendFragment(crel("p", "Карты доступны только в веб версии этой страницы."), c);
+		var s = d.createRange().createContextualFragment('<p>Карты доступны только в веб версии этой страницы.</p>');
+		appendFragment(s, c);
 		c.removeAttribute("id");
 		setStyleDisplayNone(b_s.parentNode);
 	},
@@ -3166,9 +3078,13 @@ var initKamilAutocomplete = function () {
 	    _ul_class = "kamil-autocomplete",
 	    jsn = "../libs/contents/json/contents.json",
 	    cL = "classList",
+	    cE = "createElement",
+	    cTN = "createTextNode",
+	    pN = "parentNode",
+	    aC = "appendChild",
 	    aEL = "addEventListener",
-	    q = function (r) {
-		var jpr = safelyParseJSON(r);
+	    q = function (jsonResponse) {
+		var jpr = safelyParseJSON(jsonResponse);
 		if (jpr) {
 			var ac = new Kamil(id, {
 				source: jpr,
@@ -3178,8 +3094,8 @@ var initKamilAutocomplete = function () {
 			/*!
     * create typo suggestion list
     */
-			var _ul = crel("ul"),
-			    _li = crel("li"),
+			var _ul = d[cE]("ul"),
+			    _li = d[cE]("li"),
 			    handleTypoSuggestions = function () {
 				setStyleDisplayNone(_ul);
 				setStyleDisplayNone(_li);
@@ -3191,8 +3107,8 @@ var initKamilAutocomplete = function () {
 			_ul[cL].add(_ul_class);
 			_ul.id = _ul_id;
 			handleTypoSuggestions();
-			crel(_ul, _li);
-			text.parentNode.insertBefore(_ul, text.nextElementSibling);
+			_ul[aC](_li);
+			text[pN].insertBefore(_ul, text.nextElementSibling);
 			/*!
     * show suggestions
     */
@@ -3227,7 +3143,7 @@ var initKamilAutocomplete = function () {
 					}
 					showTypoSuggestions();
 					removeChildren(_li);
-					crel(_li, "" + v);
+					_li[aC](d[cTN]("" + v));
 					if (v.match(/^\s*$/)) {
 						handleTypoSuggestions();
 					}

@@ -1,7 +1,7 @@
 /*jslint browser: true */
 /*jslint node: true */
 /*global global, $, ActiveXObject, alignToMasterBottomLeft, appendFragment, BALA,
-Carousel, changeLocation, container, Cookies, crel, debounce, define,
+Carousel, changeLocation, container, Cookies, debounce, define,
 DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation, earlyDeviceSize,
 earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch,
 earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos,
@@ -60,20 +60,6 @@ var globalRoot = "undefined" !== typeof window ? window : this;
  * passes jshint
  */
 (function(root){"use strict";var BALA=(function(){var g=(function(document,s_addEventListener,s_querySelectorAll){function g(s,context,bala){bala=Object.create(g.fn);if(s){bala.push.apply(bala,s[s_addEventListener]?[s]:""+s===s?/</.test(s)?((context=document.createElement(context||s_addEventListener)).innerHTML=s,context.children):context?((context=g(context)[0])?context[s_querySelectorAll](s):bala):document[s_querySelectorAll](s):typeof s==="function"?document.readyState[7]?s():document[s_addEventListener]('DOMContentLoaded',s):s);}return bala;}g.fn=[];g.one=function(s,context){return g(s,context)[0]||null;};return g;})(document,'addEventListener','querySelectorAll');return g;}());root.BALA=BALA;}(globalRoot));
-/*!
- * modified crel - a small, simple, and fast DOM creation utility
- * @see {@link https://github.com/KoryNunn/crel}
- * crel(tagName/dom element[,attributes,child1,child2,childN...])
- * var element=crel('div',crel('h1','Crello World!'),
- * crel('p','This is crel'),crel('input',{type:'number'}));
- * removed module check
- * fixed Use '===' to compare with 'null'.
- * fixed The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
- * fixed Expected an assignment or function call and instead saw an expression.
- * @see {@link https://github.com/KoryNunn/crel/blob/master/crel.js}
- * passes jshint
- */
-(function(root){"use strict";var crel=(function(){var fn="function",obj="object",nodeType="nodeType",textContent="textContent",setAttribute="setAttribute",attrMapString="attrMap",isNodeString="isNode",isElementString="isElement",d=typeof document===obj?document:{},isType=function(a,type){return typeof a===type;},isNode=typeof Node===fn?function(object){return object instanceof Node;}:function(object){return object&&isType(object,obj)&&(nodeType in object)&&isType(object.ownerDocument,obj);},isElement=function(object){return _c[isNodeString](object)&&object[nodeType]===1;},isArray=function(a){return a instanceof Array;},appendChild=function(element,child){if(!_c[isNodeString](child)){child=d.createTextNode(child);}element.appendChild(child);};function _c(){var args=arguments,element=args[0],child,settings=args[1],childIndex=2,argumentsLength=args.length,attributeMap=_c[attrMapString];element=_c[isElementString](element)?element:d.createElement(element);if(argumentsLength===1){return element;}if(!isType(settings,obj)||_c[isNodeString](settings)||isArray(settings)){--childIndex;settings=null;}if((argumentsLength-childIndex)===1&&isType(args[childIndex],"string")&&element[textContent]!==undefined){element[textContent]=args[childIndex];}else{for(;childIndex<argumentsLength;++childIndex){child=args[childIndex];if(child===null){continue;}if(isArray(child)){for(var i=0;i<child.length;++i){appendChild(element,child[i]);}}else{appendChild(element,child);}}}for(var key in settings){if(settings.hasOwnProperty(key)){if(!attributeMap[key]){element[setAttribute](key,settings[key]);}else{var attr=attributeMap[key];if(typeof attr===fn){attr(element,settings[key]);}else{element[setAttribute](attr,settings[key]);}}}}return element;}_c[attrMapString]={};_c[isElementString]=isElement;_c[isNodeString]=isNode;if("undefined"!==typeof Proxy){_c.proxy=new Proxy(_c,{get:function(target,key){if(!(key in _c)){_c[key]=_c.bind(null,key);}return _c[key];}});}return _c;})();root.crel=crel;}(globalRoot));
 /*!
  * Super lightweight script (~1kb) to detect via Javascript events like
  * 'tap' 'dbltap' "swipeup" "swipedown" "swipeleft" "swiperight"
@@ -722,6 +708,7 @@ var initTablesort = function (ctx) {
 	"use strict";
 	ctx = ctx && ctx.nodeName ? ctx : "";
 	var w = globalRoot,
+	cE = "createElement",
 	cls = "table.sort",
 	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
 	g = function (e) {
@@ -730,7 +717,8 @@ var initTablesort = function (ctx) {
 			var t = BALA.one("#" + s),
 			c = BALA.one("#" + s + " caption") || "";
 			if (!c) {
-				prependFragmentBefore(crel("caption"), t.firstChild);
+				var tableCaption = d[cE]("caption");
+				prependFragmentBefore(tableCaption, t.firstChild);
 				c = t.firstChild;
 			}
 			appendFragment("Сортируемая таблица", c);
@@ -995,6 +983,7 @@ var manageDataSrcIframes = function (ctx) {
 	is_active = "is-active",
 	cL = "classList",
 	ds = "dataset",
+	sA = "setAttribute",
 	aEL = "addEventListener",
 	rEL = "removeEventListener",
 	k = function (e) {
@@ -1007,14 +996,12 @@ var manageDataSrcIframes = function (ctx) {
 			if (!e[cL].contains(is_active)) {
 				e.src = _src;
 				e[cL].add(is_active);
-				crel(e, {
-					"scrolling" : "no",
-					"frameborder" : "no",
-					"style" : "border:none;",
-					"webkitallowfullscreen" : "true",
-					"mozallowfullscreen" : "true",
-					"allowfullscreen" : "true"
-				});
+				e[sA]("frameborder", "no");
+				e[sA]("style", "border:none;");
+				e[sA]("webkitallowfullscreen", "true");
+				e[sA]("mozallowfullscreen", "true");
+				e[sA]("scrolling", "no");
+				e[sA]("allowfullscreen", "true");
 			}
 		}
 	},
@@ -1605,84 +1592,87 @@ var initDownloadAppBtn = function (n) {
 	n = n || 2000;
 	var d = document,
 	b = d.body || "",
-	s = navigator.userAgent || "",
+	navigatorUserAgent = navigator.userAgent || "",
 	cls = "btn-download-app",
+	cE = "createElement",
 	cL = "classList",
 	aEL = "addEventListener",
 	rEL = "removeEventListener",
 	an = "animated",
 	an2 = "bounceInRight",
 	an4 = "bounceOutRight",
-	m,
-	p;
-	if (/Windows/i.test(s) && /(WOW64|Win64)/i.test(s)) {
-		m = "url(../../libs/products/img/download_windows_app_144x52.png)";
-		p = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-app-win32-x64-setup.exe";
-	} else if (/(x86_64|x86-64|x64;|amd64|AMD64|x64_64)/i.test(s) && /(Linux|X11)/i.test(s)) {
-		m = "url(../../libs/products/img/download_linux_app_144x52.png)";
-		p = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-app-linux-x64.tar.gz";
-	} else if (/IEMobile/i.test(s)) {
-		m = "url(../../libs/products/img/download_wp_app_144x52.png)";
-		p = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra_app.Windows10_1.0.0.0_x86_debug.appx";
-	} else if (/Android/i.test(s)) {
-		m = "url(../../libs/products/img/download_android_app_144x52.png)";
-		p = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra_app-debug.apk";
+	bgUrl,
+	linkHref;
+	if (/Windows/i.test(navigatorUserAgent) && /(WOW64|Win64)/i.test(navigatorUserAgent)) {
+		bgUrl = "url(../../libs/products/img/download_windows_app_144x52.png)";
+		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-app-win32-x64-setup.exe";
+	} else if (/(x86_64|x86-64|x64;|amd64|AMD64|x64_64)/i.test(navigatorUserAgent) && /(Linux|X11)/i.test(navigatorUserAgent)) {
+		bgUrl = "url(../../libs/products/img/download_linux_app_144x52.png)";
+		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-app-linux-x64.tar.gz";
+	} else if (/IEMobile/i.test(navigatorUserAgent)) {
+		bgUrl = "url(../../libs/products/img/download_wp_app_144x52.png)";
+		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra_app.Windows10_1.0.0.0_x86_debug.appx";
+	} else if (/Android/i.test(navigatorUserAgent)) {
+		bgUrl = "url(../../libs/products/img/download_android_app_144x52.png)";
+		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra_app-debug.apk";
 	} else {
-		m = "";
-		p = "";
+		bgUrl = "";
+		linkHref = "";
 	}
-	var g = function () {
-		var h_a = function (ev) {
+	var arrangeDownloadAppBtn = function () {
+		var handleDownloadAppBtn = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			openDeviceBrowser(p);
+			openDeviceBrowser(linkHref);
 		},
-		e = crel("a");
-		e.style.backgroundImage = m;
-		e[cL].add(cls, an, an2);
-		e.href = p;
+		link = d[cE]("a");
+		link.style.backgroundImage = bgUrl;
+		link[cL].add(cls);
+		link[cL].add(an);
+		link[cL].add(an2);
+		link.href = linkHref;
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			e.target = "_blank";
-			e.rel = "noopener";
+			link.target = "_blank";
+			link.rel = "noopener";
 		} else {
-			e[aEL]("click", h_a);
+			link[aEL]("click", handleDownloadAppBtn);
 		}
-		appendFragment(e, b);
-		var s1 = function () {
-			e[rEL]("click", h_a);
-			removeElement(e);
+		appendFragment(link, b);
+		var st1 = function () {
+			link[rEL]("click", handleDownloadAppBtn);
+			removeElement(link);
 		},
-		s2 = function () {
-			e[cL].remove(an2);
-			e[cL].add(an4);
+		st2 = function () {
+			link[cL].remove(an2);
+			link[cL].add(an4);
 			var timers = new Timers();
 			timers.timeout(function () {
 				timers.clear();
 				timers = null;
-				s1();
+				st1();
 			}, 750);
 		};
 		var timers = new Timers();
 		timers.timeout(function () {
 			timers.clear();
 			timers = null;
-			s2();
+			st2();
 		}, n);
 	};
-	if (b && s && p) {
+	if (b && navigatorUserAgent && linkHref) {
 		/* console.log("triggered function: initDownloadAppBtn"); */
-		g();
+		arrangeDownloadAppBtn();
 	}
 },
 loadInitDownloadAppBtn = function () {
-	var s = function () {
+	var st1 = function () {
 		initDownloadAppBtn(8000);
 	};
 	var timers = new Timers();
 	timers.timeout(function () {
 		timers.clear();
 		timers = null;
-		s();
+		st1();
 	}, 3000);
 };
 document.ready().then(loadInitDownloadAppBtn);
@@ -1691,7 +1681,8 @@ document.ready().then(loadInitDownloadAppBtn);
  */
 var initDisqusOnScroll = function () {
 	"use strict";
-	var w = globalRoot,
+	var d = document,
+	w = globalRoot,
 	c = BALA.one("#disqus_thread") || "",
 	is_active = "is-active",
 	btn = BALA.one(".btn-show-disqus") || "",
@@ -1725,7 +1716,8 @@ var initDisqusOnScroll = function () {
 	},
 	v = function () {
 		removeChildren(c);
-		appendFragment(crel("p", "Комментарии доступны только в веб версии этой страницы."), c);
+		var s = d.createRange().createContextualFragment('<p>Комментарии доступны только в веб версии этой страницы.</p>');
+		appendFragment(s, c);
 		c.removeAttribute("id");
 		setStyleDisplayNone(btn[pN]);
 	};
@@ -1824,9 +1816,13 @@ var initKamilAutocomplete = function () {
 	_ul_class = "kamil-autocomplete",
 	jsn = "../../libs/paper/json/pages.json",
 	cL = "classList",
+	cE = "createElement",
+	cTN = "createTextNode",
+	pN = "parentNode",
+	aC = "appendChild",
 	aEL = "addEventListener",
-	q = function (r) {
-		var jpr = safelyParseJSON(r);
+	q = function (jsonResponse) {
+		var jpr = safelyParseJSON(jsonResponse);
 		if (jpr) {
 			var ac = new Kamil(id, {
 					source: jpr,
@@ -1836,8 +1832,8 @@ var initKamilAutocomplete = function () {
 			/*!
 			 * create typo suggestion list
 			 */
-			var _ul = crel("ul"),
-			_li = crel("li"),
+			var _ul = d[cE]("ul"),
+			_li = d[cE]("li"),
 			handleTypoSuggestions = function () {
 				setStyleDisplayNone(_ul);
 				setStyleDisplayNone(_li);
@@ -1849,8 +1845,8 @@ var initKamilAutocomplete = function () {
 			_ul[cL].add(_ul_class);
 			_ul.id = _ul_id;
 			handleTypoSuggestions();
-			crel(_ul, _li);
-			text.parentNode.insertBefore(_ul, text.nextElementSibling);
+			_ul[aC](_li);
+			text[pN].insertBefore(_ul, text.nextElementSibling);
 			/*!
 			 * show suggestions
 			 */
@@ -1884,7 +1880,7 @@ var initKamilAutocomplete = function () {
 					}
 					showTypoSuggestions();
 					removeChildren(_li);
-					crel(_li, "" + v);
+					_li[aC](d[cTN]("" + v));
 					if (v.match(/^\s*$/)) {
 						handleTypoSuggestions();
 					}
@@ -1980,6 +1976,7 @@ var initSearchForm = function () {
 	ya_site_form = BALA.one(".ya-site-form.ya-site-form_inited_no") || "",
 	all_js_src = getHTTP(!0) + "://site.yandex.net/v2.0/js/all.js",
 	cL = "classList",
+	sA = "setAttribute",
 	aEL = "addEventListener",
 	g = function () {
 		search_form.action = getHTTP(!0) + "://yandex.ru/sitesearch";
@@ -1992,9 +1989,7 @@ var initSearchForm = function () {
 		/*!
 		 * should be onclick attribute
 		 */
-		crel(ya_site_form, {
-			"onclick" : "return {'action':'https://yandex.com/search/site/','arrow':false,'bg':'transparent','fontsize':16,'fg':'#000000','language':'auto','logo':'rb','publicname':'\u041f\u043e\u0438\u0441\u043a \u043f\u043e \u0441\u0430\u0439\u0442\u0443 englishextra.github.io','suggest':true,'target':'_blank','tld':'com','type':3,'usebigdictionary':true,'searchid':2192588,'input_fg':'#363636','input_bg':'#E9E9E9','input_fontStyle':'normal','input_fontWeight':'normal','input_placeholder':'\u041F\u043E\u0438\u0441\u043A','input_placeholderColor':'#686868','input_borderColor':'#E9E9E9'};"
-		});
+		ya_site_form[sA]("onclick", "return {'action':'https://yandex.com/search/site/','arrow':false,'bg':'transparent','fontsize':16,'fg':'#000000','language':'auto','logo':'rb','publicname':'\u041f\u043e\u0438\u0441\u043a \u043f\u043e \u0441\u0430\u0439\u0442\u0443 englishextra.github.io','suggest':true,'target':'_blank','tld':'com','type':3,'usebigdictionary':true,'searchid':2192588,'input_fg':'#363636','input_bg':'#E9E9E9','input_fontStyle':'normal','input_fontWeight':'normal','input_placeholder':'\u041F\u043E\u0438\u0441\u043A','input_placeholderColor':'#686868','input_borderColor':'#E9E9E9'};");
 		var f = function () {
 			/*!
 			 * yandex will load its own css making form visible

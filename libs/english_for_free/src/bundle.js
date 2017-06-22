@@ -1,7 +1,7 @@
 /*jslint browser: true */
 /*jslint node: true */
 /*global global, $, ActiveXObject, alignToMasterBottomLeft, appendFragment, BALA,
-Carousel, changeLocation, container, Cookies, crel, debounce, define,
+Carousel, changeLocation, container, Cookies, debounce, define,
 DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation, earlyDeviceSize,
 earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch,
 earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos,
@@ -60,20 +60,6 @@ var globalRoot = "undefined" !== typeof window ? window : this;
  * passes jshint
  */
 (function(root){"use strict";var BALA=(function(){var g=(function(document,s_addEventListener,s_querySelectorAll){function g(s,context,bala){bala=Object.create(g.fn);if(s){bala.push.apply(bala,s[s_addEventListener]?[s]:""+s===s?/</.test(s)?((context=document.createElement(context||s_addEventListener)).innerHTML=s,context.children):context?((context=g(context)[0])?context[s_querySelectorAll](s):bala):document[s_querySelectorAll](s):typeof s==="function"?document.readyState[7]?s():document[s_addEventListener]('DOMContentLoaded',s):s);}return bala;}g.fn=[];g.one=function(s,context){return g(s,context)[0]||null;};return g;})(document,'addEventListener','querySelectorAll');return g;}());root.BALA=BALA;}(globalRoot));
-/*!
- * modified crel - a small, simple, and fast DOM creation utility
- * @see {@link https://github.com/KoryNunn/crel}
- * crel(tagName/dom element[,attributes,child1,child2,childN...])
- * var element=crel('div',crel('h1','Crello World!'),
- * crel('p','This is crel'),crel('input',{type:'number'}));
- * removed module check
- * fixed Use '===' to compare with 'null'.
- * fixed The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
- * fixed Expected an assignment or function call and instead saw an expression.
- * @see {@link https://github.com/KoryNunn/crel/blob/master/crel.js}
- * passes jshint
- */
-(function(root){"use strict";var crel=(function(){var fn="function",obj="object",nodeType="nodeType",textContent="textContent",setAttribute="setAttribute",attrMapString="attrMap",isNodeString="isNode",isElementString="isElement",d=typeof document===obj?document:{},isType=function(a,type){return typeof a===type;},isNode=typeof Node===fn?function(object){return object instanceof Node;}:function(object){return object&&isType(object,obj)&&(nodeType in object)&&isType(object.ownerDocument,obj);},isElement=function(object){return _c[isNodeString](object)&&object[nodeType]===1;},isArray=function(a){return a instanceof Array;},appendChild=function(element,child){if(!_c[isNodeString](child)){child=d.createTextNode(child);}element.appendChild(child);};function _c(){var args=arguments,element=args[0],child,settings=args[1],childIndex=2,argumentsLength=args.length,attributeMap=_c[attrMapString];element=_c[isElementString](element)?element:d.createElement(element);if(argumentsLength===1){return element;}if(!isType(settings,obj)||_c[isNodeString](settings)||isArray(settings)){--childIndex;settings=null;}if((argumentsLength-childIndex)===1&&isType(args[childIndex],"string")&&element[textContent]!==undefined){element[textContent]=args[childIndex];}else{for(;childIndex<argumentsLength;++childIndex){child=args[childIndex];if(child===null){continue;}if(isArray(child)){for(var i=0;i<child.length;++i){appendChild(element,child[i]);}}else{appendChild(element,child);}}}for(var key in settings){if(settings.hasOwnProperty(key)){if(!attributeMap[key]){element[setAttribute](key,settings[key]);}else{var attr=attributeMap[key];if(typeof attr===fn){attr(element,settings[key]);}else{element[setAttribute](attr,settings[key]);}}}}return element;}_c[attrMapString]={};_c[isElementString]=isElement;_c[isNodeString]=isNode;if("undefined"!==typeof Proxy){_c.proxy=new Proxy(_c,{get:function(target,key){if(!(key in _c)){_c[key]=_c.bind(null,key);}return _c[key];}});}return _c;})();root.crel=crel;}(globalRoot));
 /*!
  * Super lightweight script (~1kb) to detect via Javascript events like
  * 'tap' 'dbltap' "swipeup" "swipedown" "swipeleft" "swiperight"
@@ -430,6 +416,7 @@ var initSuperBox = function () {
 	cE = "createElement",
 	sA = "setAttribute",
 	gA = "getAttribute",
+	aC = "appendChild",
 	aEL = "addEventListener",
 	rEL = "removeEventListener",
 	s1 = "superbox-list",
@@ -441,17 +428,24 @@ var initSuperBox = function () {
 	an1 = "fadeIn",
 	an2 = "fadeOut",
 	lists = d[gEBCN](s1) || "",
-	s_show_div = crel("div", {
-			"class" : s2
-		}, crel("div", {
-				"class" : s3
-			})),
-	s_close_div = crel("div", {
-			"class" : s4
-		}),
+	s_show_div = d[cE]("div"),
+	s_close_div = d[cE]("div"),
 	g = function (_this) {
 		var s_desc = _this ? _this[gEBCN](s5)[0] || "" : "",
 		s_desc_html = s_desc.innerHTML;
+		s_show_div[cL].add(s2);
+		var s_show_div_child = d[cE]("div");
+		s_show_div_child[cL].add(s3);
+		s_show_div[aC](s_show_div_child);
+		s_close_div[cL].add(s4);
+		/*!
+		 * dont use appendAfter
+		 */
+		_this.parentNode.insertBefore(s_show_div, _this.nextElementSibling);		s_show_div[cL].add(s2);
+		var s_show_div_child = d[cE]("div");
+		s_show_div_child[cL].add(s3);
+		s_show_div[aC](s_show_div_child);
+		s_close_div[cL].add(s4);
 		/*!
 		 * dont use appendAfter
 		 */
@@ -461,12 +455,11 @@ var initSuperBox = function () {
 		var s_cur_desc = d[gEBCN](s3)[0] || "";
 		removeChildren(s_cur_desc);
 		s_cur_desc.insertAdjacentHTML("beforeend", s_desc_html);
-		crel(s_cur_desc, s_close_div);
+		s_cur_desc[aC](s_close_div);
 		setStyleOpacity(s_cur_desc, 0);
 		setStyleDisplayBlock(s_cur_desc);
 		var reveal_pos = _this.offsetTop,
 		hide_pos = w.pageYOffset || d.documentElement.scrollTop;
-		/* crel(s_cur_desc, crel("p", "" + reveal_pos + " / " + hide_pos)); */
 		var si1 = scroll2Top.bind(null, reveal_pos, 20000);
 		/* setImmediate(si1); */
 		var timers = new Timers();
