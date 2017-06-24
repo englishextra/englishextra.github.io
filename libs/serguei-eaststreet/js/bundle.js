@@ -3062,8 +3062,7 @@ var myMap,
 var initKamilAutocomplete = function () {
 	"use strict";
 
-	var w = globalRoot,
-	    d = document,
+	var d = document,
 	    gEBI = "getElementById",
 	    gEBCN = "getElementsByClassName",
 	    gEBTN = "getElementsByTagName",
@@ -3318,7 +3317,7 @@ var initRoutie = function () {
    * hide loading spinner before scrolling
    */
 		LoadingSpinner.hide(scroll2Top.bind(null, 0, 20000));
-		d.title = (titleString ? titleString + " - " : "") + (initialDocumentTitle ? initialDocumentTitle + userBrowsingDetails : "");
+		d.title = (titleString ? titleString + " - " : "") + (initialDocumentTitle ? initialDocumentTitle + (userBrowsingDetails ? userBrowsingDetails : "") : "");
 		manageYandexMapButton("#ymap");
 		manageDisqusButton(appContentParent);
 		manageExternalLinks(appContentParent);

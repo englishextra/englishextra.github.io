@@ -1153,8 +1153,7 @@ document.ready().then(addAppUpdatesLink);
 var initMenuMore = function () {
 	"use strict";
 
-	var w = globalRoot,
-	    d = document,
+	var d = document,
 	    gEBI = "getElementById",
 	    gEBCN = "getElementsByClassName",
 	    gEBTN = "getElementsByTagName",

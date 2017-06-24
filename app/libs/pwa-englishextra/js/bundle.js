@@ -2911,7 +2911,7 @@ var processPoutes = function () {
     } */
 				scroll2Top(0, 20000);
 				/* if (titleString) { */
-				d.title = (titleString ? titleString + " - " : "") + (initialDocumentTitle ? initialDocumentTitle + userBrowsingDetails : "");
+				d.title = (titleString ? titleString + " - " : "") + (initialDocumentTitle ? initialDocumentTitle + (userBrowsingDetails ? userBrowsingDetails : "") : "");
 				/* } */
 				var locationHash = w.location.hash || "";
 				if (contentsSelect) {
