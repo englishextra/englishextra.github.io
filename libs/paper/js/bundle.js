@@ -1,6 +1,6 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global global, $, ActiveXObject, alignToMasterBottomLeft, appendFragment, BALA,
+/*global global, $, ActiveXObject, alignToMasterBottomLeft, appendFragment,
 Carousel, changeLocation, container, Cookies, debounce, define,
 DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation, earlyDeviceSize,
 earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch,
@@ -146,32 +146,6 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 			}
 		}tick();
 	};root.scroll2Top = scroll2Top;
-})(globalRoot);
-/*!
- * A function for elements selection - v0.1.9
- * @see {@link https://github.com/finom/bala}
- * @param {String} a id, class or tag string
- * @param {String|Object} [b] context tag string or HTML Element object
- * a=BALA("sometag/#someid/.someclass"[,someParent]);
- * a=BALA.one("sometag/#someid/.someclass"[,someParent]);
- * global $ becomes var g
- * renamed function $ to g
- * @see {@link https://github.com/finom/bala/blob/master/bala.js}
- * passes jshint
- */
-(function (root) {
-	"use strict";
-	var BALA = function () {
-		var g = function (document, s_addEventListener, s_querySelectorAll) {
-			function g(s, context, bala) {
-				bala = Object.create(g.fn);if (s) {
-					bala.push.apply(bala, s[s_addEventListener] ? [s] : "" + s === s ? /</.test(s) ? ((context = document.createElement(context || s_addEventListener)).innerHTML = s, context.children) : context ? (context = g(context)[0]) ? context[s_querySelectorAll](s) : bala : document[s_querySelectorAll](s) : typeof s === "function" ? document.readyState[7] ? s() : document[s_addEventListener]('DOMContentLoaded', s) : s);
-				}return bala;
-			}g.fn = [];g.one = function (s, context) {
-				return g(s, context)[0] || null;
-			};return g;
-		}(document, 'addEventListener', 'querySelectorAll');return g;
-	}();root.BALA = BALA;
 })(globalRoot);
 /*!
  * Super lightweight script (~1kb) to detect via Javascript events like
@@ -504,13 +478,13 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 	    cE = "createElement",
 	    cL = "classList",
 	    aC = "appendChild",
-	    dS = "dataset",
+	    ds = "dataset",
 	    containerClass = "iframe-lightbox",
 	    isLoadedClass = "is-loaded",
 	    isOpenedClass = "is-opened",
 	    isShowingClass = "is-showing";var IframeLightbox = function (elem, rate) {
 		if (elem.nodeName) {
-			this.trigger = elem;this.rate = rate || 500;this.el = d[gEBCN](containerClass)[0] || "";this.body = this.el ? this.el[gEBCN]("body")[0] : "";this.content = this.el ? this.el[gEBCN]("content")[0] : "";this.href = elem[dS].src || "";this.paddingBottom = elem[dS].paddingBottom || "";this.init();
+			this.trigger = elem;this.rate = rate || 500;this.el = d[gEBCN](containerClass)[0] || "";this.body = this.el ? this.el[gEBCN]("body")[0] : "";this.content = this.el ? this.el[gEBCN]("content")[0] : "";this.href = elem[ds].src || "";this.paddingBottom = elem[ds].paddingBottom || "";this.init();
 		} else {
 			return;
 		}
@@ -1364,42 +1338,51 @@ progressBar.init();
  * so that they open in new browser tab
  * @param {Object} [ctx] context HTML Element
  */
-var handleExternalLink = function (p, ev) {
+var handleExternalLink = function (url, ev) {
 	"use strict";
 
 	ev.stopPropagation();
 	ev.preventDefault();
-	openDeviceBrowser(p);
+	var logicHandleExternalLink = openDeviceBrowser.bind(null, url),
+	    debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
+	debounceLogicHandleExternalLink();
 },
     manageExternalLinks = function (ctx) {
 	"use strict";
 
 	ctx = ctx && ctx.nodeName ? ctx : "";
-	var aEL = "addEventListener",
-	    cls = "a",
-	    a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
-	    g = function (e) {
-		var p = e.getAttribute("href") || "";
-		if (p && parseLink(p).isCrossDomain && parseLink(p).hasHTTP) {
-			e.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
-			if ("undefined" !== typeof getHTTP && getHTTP()) {
-				e.target = "_blank";
-				e.rel = "noopener";
-			} else {
-				e[aEL]("click", handleExternalLink.bind(null, p));
+	var d = document,
+	    gEBTN = "getElementsByTagName",
+	    linkTag = "a",
+	    link = ctx ? ctx[gEBTN](linkTag) || "" : d[gEBTN](linkTag) || "",
+	    cL = "classList",
+	    aEL = "addEventListener",
+	    gA = "getAttribute",
+	    isBindedClass = "is-binded",
+	    arrangeExternalLink = function (e) {
+		if (!e[cL].contains(isBindedClass)) {
+			var url = e[gA]("href") || "";
+			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+				e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					e.target = "_blank";
+					e.rel = "noopener";
+				} else {
+					e[aEL]("click", handleExternalLink.bind(null, url));
+				}
+				e[cL].add(isBindedClass);
 			}
 		}
 	},
-	    k = function () {
-		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		for (var i = 0, l = a.length; i < l; i += 1) {
-			g(a[i]);
+	    rerenderExternalLinks = function () {
+		for (var i = 0, l = link.length; i < l; i += 1) {
+			arrangeExternalLink(link[i]);
 		}
-		/* forEach(a, g, !1); */
+		/* forEach(link, arrangeExternalLink); */
 	};
-	if (a) {
+	if (link) {
 		/* console.log("triggered function: manageExternalLinks"); */
-		k();
+		rerenderExternalLinks();
 	}
 };
 document.ready().then(manageExternalLinks);
@@ -1465,12 +1448,13 @@ var Notifier42 = function (m, n, t) {
 	t = t || "";
 	var d = document,
 	    b = d.body || "",
-	    cls = "notifier42",
-	    c = BALA.one("." + cls) || "",
+	    gEBCN = "getElementsByClassName",
 	    cL = "classList",
 	    cE = "createElement",
 	    aEL = "addEventListener",
 	    rEL = "removeEventListener",
+	    cls = "notifier42",
+	    c = d[gEBCN](cls)[0] || "",
 	    an = "animated",
 	    an2 = "fadeInUp",
 	    an4 = "fadeOutDown";
@@ -1581,14 +1565,19 @@ var initTablesort = function (ctx) {
 
 	ctx = ctx && ctx.nodeName ? ctx : "";
 	var w = globalRoot,
+	    d = document,
+	    qS = "querySelector",
+	    qSA = "querySelectorAll",
+	    gEBI = "getElementById",
+	    gEBTN = "getElementsByTagName",
 	    cE = "createElement",
 	    cls = "table.sort",
-	    a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	    a = ctx ? ctx[qS](cls) || "" : d[qS](cls) || "",
 	    g = function (e) {
 		var s = e.id || "";
 		if (s && w.Tablesort) {
-			var t = BALA.one("#" + s),
-			    c = BALA.one("#" + s + " caption") || "";
+			var t = d[gEBI](s),
+			    c = t ? t[gEBTN]("caption")[0] || "" : "";
 			if (!c) {
 				var tableCaption = d[cE]("caption");
 				prependFragmentBefore(tableCaption, t.firstChild);
@@ -1599,7 +1588,7 @@ var initTablesort = function (ctx) {
 		}
 	},
 	    k = function () {
-		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
+		a = ctx ? ctx[qSA](cls) || "" : d[qSA](cls) || "";
 		for (var i = 0, l = a.length; i < l; i += 1) {
 			g(a[i]);
 		}
@@ -1854,65 +1843,78 @@ document.ready().then(manageDataSrcImages);
  * append media-iframe
  * @param {Object} [ctx] context HTML Element
  */
-var manageDataSrcIframes = function (ctx) {
+var handleDataSrcIframes = function () {
 	"use strict";
 
-	ctx = ctx && ctx.nodeName ? ctx : "";
-	var w = globalRoot,
-	    cls = "iframe[data-src]",
-	    a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
-	    is_active = "is-active",
+	var d = document,
+	    gEBCN = "getElementsByClassName",
 	    cL = "classList",
 	    ds = "dataset",
 	    sA = "setAttribute",
-	    aEL = "addEventListener",
-	    rEL = "removeEventListener",
-	    k = function (e) {
-		var _src = e[ds].src || "";
-		if (_src) {
-			if (parseLink(_src).isAbsolute && !parseLink(_src).hasHTTP) {
-				e[ds].src = _src.replace(/^/, getHTTP(!0) + ":");
-				_src = e[ds].src;
-			}
-			if (!e[cL].contains(is_active)) {
+	    imgClass = "data-src-iframe",
+	    ifrm = d[gEBCN](imgClass) || "",
+	    isActiveClass = "is-active",
+	    isBindedClass = "is-binded",
+	    rerenderDataSrcIframe = function (e) {
+		if (!e[cL].contains(isBindedClass)) {
+			var _src = e[ds].src || "";
+			if (_src) {
+				if (parseLink(_src).isAbsolute && !parseLink(_src).hasHTTP) {
+					e[ds].src = _src.replace(/^/, getHTTP(!0) + ":");
+					_src = e[ds].src;
+				}
 				e.src = _src;
-				e[cL].add(is_active);
 				e[sA]("frameborder", "no");
 				e[sA]("style", "border:none;");
 				e[sA]("webkitallowfullscreen", "true");
 				e[sA]("mozallowfullscreen", "true");
 				e[sA]("scrolling", "no");
 				e[sA]("allowfullscreen", "true");
+				e[cL].add(isActiveClass);
+				e[cL].add(isBindedClass);
 			}
 		}
 	},
-	    g = function (e) {
+	    arrangeDataSrcIframe = function (e) {
 		/*!
    * true if elem is in same y-axis as the viewport or within 100px of it
    * @see {@link https://github.com/ryanve/verge}
    */
-		if (verge.inY(e, 100) /* && 0 !== e.offsetHeight */) {
-				k(e);
+		if (verge.inY(e, 100) /*  && 0 !== e.offsetHeight */) {
+				rerenderDataSrcIframe(e);
 			}
+	},
+	    rerenderDataSrcIframes = function () {
+		for (var i = 0, l = ifrm.length; i < l; i += 1) {
+			arrangeDataSrcIframe(ifrm[i]);
+		}
+		/* forEach(ifrm, arrangeDataSrcIframe); */
 	};
-	if (a) {
-		/* console.log("triggered function: manageDataSrcImages"); */
-		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		var h_w = function () {
-			for (var i = 0, l = a.length; i < l; i += 1) {
-				g(a[i]);
-			}
-			/* forEach(a, g, !1); */
-		};
-		h_w();
-		w[aEL]("scroll", h_w);
-		w[aEL]("resize", h_w);
-		w[aEL]("hashchange", function h_r() {
-			w[rEL]("scroll", h_w);
-			w[rEL]("resize", h_w);
-			w[rEL]("hashchange", h_r);
-		});
+	if (ifrm) {
+		/* console.log("triggered function: manageDataSrcIframes"); */
+		rerenderDataSrcIframes();
 	}
+},
+    handleDataSrcIframesWindow = function () {
+	var throttleHandleDataSrcIframes = throttle(handleDataSrcIframes, 100);
+	throttleHandleDataSrcIframes();
+},
+    manageDataSrcIframes = function () {
+	"use strict";
+
+	var w = globalRoot,
+	    aEL = "addEventListener",
+	    rEL = "removeEventListener";
+	w[rEL]("scroll", handleDataSrcIframesWindow);
+	w[rEL]("resize", handleDataSrcIframesWindow);
+	w[aEL]("scroll", handleDataSrcIframesWindow);
+	w[aEL]("resize", handleDataSrcIframesWindow);
+	var timers = new Timers();
+	timers.timeout(function () {
+		timers.clear();
+		timers = null;
+		handleDataSrcIframes();
+	}, 100);
 };
 document.ready().then(manageDataSrcIframes);
 /*!
@@ -1967,19 +1969,16 @@ var handleChaptersSelect = function () {
 		}
 	}
 },
-    manageChaptersSelect = function (ctx) {
+    manageChaptersSelect = function () {
 	"use strict";
 
-	ctx = ctx && ctx.nodeName ? ctx : "";
-	var cls = "#chapters-select",
-	    a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	var d = document,
+	    gEBI = "getElementById",
 	    aEL = "addEventListener",
-	    k = function () {
-		a[aEL]("change", handleChaptersSelect);
-	};
-	if (a) {
+	    chaptersSelect = d[gEBI]("chapters-select") || "";
+	if (chaptersSelect) {
 		/* console.log("triggered function: manageChaptersSelect"); */
-		k();
+		chaptersSelect[aEL]("change", handleChaptersSelect);
 	}
 };
 document.ready().then(manageChaptersSelect);
@@ -1989,19 +1988,22 @@ document.ready().then(manageChaptersSelect);
 var manageSearchInput = function () {
 	"use strict";
 
-	var a = BALA.one("#text") || "",
+	var d = document,
+	    gEBI = "getElementById",
 	    aEL = "addEventListener",
-	    g = function () {
+	    searchInput = d[gEBI]("text") || "",
+	    handleSearchInputValue = function () {
 		var _this = this;
-		_this.value = _this.value.replace(/\\/g, "").replace(/ +(?= )/g, " ").replace(/\/+(?=\/)/g, "/") || "";
-	},
-	    k = function (e) {
-		e.focus();
-		e[aEL]("input", g);
+		var logicHandleSearchInputValue = function () {
+			_this.value = _this.value.replace(/\\/g, "").replace(/ +(?= )/g, " ").replace(/\/+(?=\/)/g, "/") || "";
+		},
+		    debounceLogicHandleSearchInputValue = debounce(logicHandleSearchInputValue, 200);
+		debounceLogicHandleSearchInputValue();
 	};
-	if (a) {
+	if (searchInput) {
 		/* console.log("triggered function: manageSearchInput"); */
-		k(a);
+		searchInput.focus();
+		searchInput[aEL]("input", handleSearchInputValue);
 	}
 };
 document.ready().then(manageSearchInput);
@@ -2027,23 +2029,23 @@ var handleExpandingLayers = function () {
 	"use strict";
 
 	ctx = ctx && ctx.nodeName ? ctx : "";
-	var w = globalRoot,
-	    cls = ".btn-expand-hidden-layer",
-	    a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	var d = document,
+	    gEBCN = "getElementsByClassName",
 	    aEL = "addEventListener",
-	    k = function (e) {
+	    btnClass = "btn-expand-hidden-layer",
+	    btn = ctx ? ctx[gEBCN](btnClass) || "" : d[gEBCN](btnClass) || "",
+	    arrangeBtn = function (e) {
 		e[aEL]("click", handleExpandingLayers);
 	},
-	    q = function () {
-		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		for (var i = 0, l = a.length; i < l; i += 1) {
-			k(a[i]);
+	    arrangeAllBtn = function () {
+		for (var i = 0, l = btn.length; i < l; i += 1) {
+			arrangeBtn(btn[i]);
 		}
-		/* forEach(a, k, !1); */
+		/* forEach(btn, k, !1); */
 	};
-	if (a) {
+	if (btn) {
 		/* console.log("triggered function: manageExpandingLayers"); */
-		q();
+		arrangeAllBtn();
 	}
 };
 document.ready().then(manageExpandingLayers);
@@ -2056,19 +2058,19 @@ var generateLocationQrCodeImg = function () {
 
 	var w = globalRoot,
 	    d = document,
-	    holder = ".holder-location-qr-code",
-	    c = BALA.one(holder) || "",
-	    cls = "qr-code-img",
-	    u = w.location.href || "",
+	    gEBCN = "getElementsByClassName",
 	    cL = "classList",
 	    cE = "createElement",
-	    m = d[cE]("img"),
-	    t = d.title ? "Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»" : "",
-	    s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(u);
-	m.alt = t;
+	    holder = d[gEBCN]("holder-location-qr-code")[0] || "",
+	    cls = "qr-code-img",
+	    locationHref = w.location.href || "",
+	    img = d[cE]("img"),
+	    imgTitle = d.title ? "Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»" : "",
+	    imgSrc = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
+	img.alt = imgTitle;
 	if (w.QRCode) {
 		if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
-			s = QRCode.generateSVG(u, {
+			imgSrc = QRCode.generateSVG(locationHref, {
 				ecclevel: "M",
 				fillcolor: "#FFFFFF",
 				textcolor: "#191919",
@@ -2076,11 +2078,11 @@ var generateLocationQrCodeImg = function () {
 				modulesize: 8
 			});
 			var XMLS = new XMLSerializer();
-			s = XMLS.serializeToString(s);
-			s = "data:image/svg+xml;base64," + w.btoa(unescape(encodeURIComponent(s)));
-			m.src = s;
+			imgSrc = XMLS.serializeToString(imgSrc);
+			imgSrc = "data:image/svg+xml;base64," + w.btoa(unescape(encodeURIComponent(imgSrc)));
+			img.src = imgSrc;
 		} else {
-			s = QRCode.generatePNG(u, {
+			imgSrc = QRCode.generatePNG(locationHref, {
 				ecclevel: "M",
 				format: "html",
 				fillcolor: "#FFFFFF",
@@ -2088,27 +2090,30 @@ var generateLocationQrCodeImg = function () {
 				margin: 4,
 				modulesize: 8
 			});
-			m.src = s;
+			img.src = imgSrc;
 		}
 	} else {
-		m.src = s;
+		img.src = imgSrc;
 	}
-	m[cL].add(cls);
-	m.title = t;
-	removeChildren(c);
-	appendFragment(m, c);
+	img[cL].add(cls);
+	img.title = imgTitle;
+	removeChildren(holder);
+	appendFragment(img, holder);
 },
     manageLocationQrCodeImage = function () {
 	"use strict";
 
 	var w = globalRoot,
-	    holder = ".holder-location-qr-code",
-	    c = BALA.one(holder) || "",
-	    u = w.location.href || "";
-	if (c && u) {
+	    d = document,
+	    gEBCN = "getElementsByClassName",
+	    aEL = "addEventListener",
+	    holder = d[gEBCN]("holder-location-qr-code")[0] || "",
+	    locationHref = w.location.href || "";
+	if (holder && locationHref) {
 		/* console.log("triggered function: manageLocationQrCodeImage"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			generateLocationQrCodeImg();
+			w[aEL]("hashchange", generateLocationQrCodeImg);
 		}
 	}
 },
@@ -2118,8 +2123,6 @@ var generateLocationQrCodeImg = function () {
 	var js = "../../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
 	if (!scriptIsLoaded(js)) {
 		loadJS(js, manageLocationQrCodeImage);
-	} else {
-		manageLocationQrCodeImage();
 	}
 };
 document.ready().then(loadManageLocationQrCodeImg);
@@ -2130,14 +2133,18 @@ var initNavMenu = function () {
 	"use strict";
 
 	var w = globalRoot,
-	    container = BALA.one("#container") || "",
-	    page = BALA.one("#page") || "",
-	    btn = BALA.one(".btn-nav-menu") || "",
-	    panel = BALA.one(".panel-nav-menu") || "",
-	    items = BALA("a", panel) || "",
-	    holder = BALA.one(".holder-panel-menu-more") || "",
+	    d = document,
+	    gEBI = "getElementById",
+	    gEBCN = "getElementsByClassName",
+	    gEBTN = "getElementsByTagName",
 	    cL = "classList",
 	    aEL = "addEventListener",
+	    container = d[gEBI]("container") || "",
+	    page = d[gEBI]("page") || "",
+	    btn = d[gEBCN]("btn-nav-menu")[0] || "",
+	    panel = d[gEBCN]("panel-nav-menu")[0] || "",
+	    items = panel ? panel[gEBTN]("a") || "" : "",
+	    holder = d[gEBCN]("holder-panel-menu-more")[0] || "",
 	    is_active = "is-active",
 	    p = w.location.href || "",
 	    r = function () {
@@ -2313,13 +2320,17 @@ var initMenuMore = function () {
 	"use strict";
 
 	var w = globalRoot,
-	    container = BALA.one("#container") || "",
-	    holder = BALA.one(".holder-panel-menu-more") || "",
-	    btn = BALA.one(".btn-menu-more") || "",
-	    panel = BALA.one(".panel-menu-more") || "",
-	    items = BALA("li", panel) || "",
+	    d = document,
+	    gEBI = "getElementById",
+	    gEBCN = "getElementsByClassName",
+	    gEBTN = "getElementsByTagName",
 	    cL = "classList",
 	    aEL = "addEventListener",
+	    container = d[gEBI]("container") || "",
+	    holder = d[gEBCN]("holder-panel-menu-more")[0] || "",
+	    btn = d[gEBCN]("btn-menu-more")[0] || "",
+	    panel = d[gEBCN]("panel-menu-more")[0] || "",
+	    items = panel ? panel[gEBTN]("li") || "" : "",
 	    is_active = "is-active",
 	    h_e = function () {
 		holder[cL].remove(is_active);
@@ -2371,7 +2382,7 @@ var initUiTotop = function () {
 	    d = document,
 	    h = d.documentElement || "",
 	    b = d.body || "",
-	    qS = "querySelector",
+	    gEBCN = "getElementsByClassName",
 	    cL = "classList",
 	    cE = "createElement",
 	    aC = "appendChild",
@@ -2383,7 +2394,7 @@ var initUiTotop = function () {
 	    isActiveClass = "is-active",
 	    handleUiTotopWindow = function (_this) {
 		var logicHandleUiTotopWindow = function () {
-			var btn = d[qS]("." + btnClass) || "",
+			var btn = d[gEBCN](btnClass)[0] || "",
 			    scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
 			    windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
 			if (scrollPosition && windowHeight && btn) {
@@ -2434,11 +2445,13 @@ document.ready().then(initUiTotop);
 var initPlusoYaShare = function () {
 	"use strict";
 
-	var a = BALA.one(".btn-share-buttons") || "",
-	    pluso = BALA.one(".pluso") || "",
-	    ya_share2 = BALA.one(".ya-share2") || "",
+	var d = document,
+	    gEBCN = "getElementsByClassName",
 	    aEL = "addEventListener",
 	    rEL = "removeEventListener",
+	    a = d[gEBCN]("btn-share-buttons")[0] || "",
+	    pluso = d[gEBCN]("pluso")[0] || "",
+	    ya_share2 = d[gEBCN]("ya-share2")[0] || "",
 	    pluso_like_js_src = getHTTP(!0) + "://share.pluso.ru/pluso-like.js",
 	    share_js_src = getHTTP(!0) + "://yastatic.net/share2/share.js",
 	    g = function (s, b) {
@@ -2578,17 +2591,19 @@ document.ready().then(loadInitDownloadAppBtn);
 var initDisqusOnScroll = function () {
 	"use strict";
 
-	var d = document,
-	    w = globalRoot,
-	    c = BALA.one("#disqus_thread") || "",
-	    is_active = "is-active",
-	    btn = BALA.one(".btn-show-disqus") || "",
-	    p = w.location.href || "",
+	var w = globalRoot,
+	    d = document,
+	    gEBI = "getElementById",
+	    gEBCN = "getElementsByClassName",
 	    cL = "classList",
 	    ds = "dataset",
 	    pN = "parentNode",
 	    aEL = "addEventListener",
 	    rEL = "removeEventListener",
+	    c = d[gEBI]("disqus_thread") || "",
+	    is_active = "is-active",
+	    btn = d[gEBCN]("btn-show-disqus")[0] || "",
+	    p = w.location.href || "",
 	    n = c ? c[ds].shortname || "" : "",
 	    js = getHTTP(!0) + "://" + n + ".disqus.com/embed.js",
 	    g = function () {
@@ -2644,13 +2659,16 @@ var manageVKLikeButton = function () {
 	"use strict";
 
 	var w = globalRoot,
-	    vk_like = "vk-like",
-	    c = BALA.one("#" + vk_like) || "",
-	    a = BALA.one(".btn-show-vk-like") || "",
-	    js = getHTTP(!0) + "://vk.com/js/api/openapi.js?122",
+	    d = document,
+	    gEBI = "getElementById",
+	    gEBCN = "getElementsByClassName",
 	    ds = "dataset",
 	    aEL = "addEventListener",
 	    rEL = "removeEventListener",
+	    vk_like = "vk-like",
+	    c = d[gEBI](vk_like) || "",
+	    a = d[gEBCN]("btn-show-vk-like")[0] || "",
+	    js = getHTTP(!0) + "://vk.com/js/api/openapi.js?122",
 	    g = function () {
 		try {
 			if (w.VK) {
@@ -2707,9 +2725,11 @@ var initKamilAutocomplete = function () {
 	var w = globalRoot,
 	    d = document,
 	    gEBI = "getElementById",
-	    search_form = BALA.one(".search-form") || "",
-	    id = "#text",
-	    text = BALA.one(id) || "",
+	    gEBCN = "getElementsByClassName",
+	    gEBTN = "getElementsByTagName",
+	    search_form = d[gEBCN]("search-form")[0] || "",
+	    id = "text",
+	    text = d[gEBI](id) || "",
 	    outsideContainer = d[gEBI]("container") || "",
 	    _ul_id = "kamil-typo-autocomplete",
 	    _ul_class = "kamil-autocomplete",
@@ -2723,7 +2743,7 @@ var initKamilAutocomplete = function () {
 	    q = function (jsonResponse) {
 		var jpr = safelyParseJSON(jsonResponse);
 		if (jpr) {
-			var ac = new Kamil(id, {
+			var ac = new Kamil("#" + id, {
 				source: jpr,
 				property: "label",
 				minChars: 2
@@ -2792,7 +2812,7 @@ var initKamilAutocomplete = function () {
 				/*!
      * truncate text
      */
-				var lis = BALA("li", ul) || "",
+				var lis = ul ? ul[gEBTN]("li") || "" : "",
 				    g = function (e) {
 					var t = e.firstChild.textContent || "",
 					    n = d.createTextNode(truncString(t, 24));
@@ -2867,66 +2887,6 @@ var initKamilAutocomplete = function () {
 };
 document.ready().then(loadInitKamilAutocomplete);
 /*!
- * init search form and ya-site-form
- */
-var initSearchForm = function () {
-	"use strict";
-
-	var w = globalRoot,
-	    h = BALA.one("html") || "",
-	    search_form = BALA.one(".search-form") || "",
-	    ya_site_form = BALA.one(".ya-site-form.ya-site-form_inited_no") || "",
-	    all_js_src = getHTTP(!0) + "://site.yandex.net/v2.0/js/all.js",
-	    cL = "classList",
-	    sA = "setAttribute",
-	    aEL = "addEventListener",
-	    g = function () {
-		search_form.action = getHTTP(!0) + "://yandex.ru/sitesearch";
-		search_form.target = "_blank";
-	},
-	    k = function () {
-		if (h && !h[cL].contains("ya-page_js_yes")) {
-			h[cL].add("ya-page_js_yes");
-		}
-		/*!
-   * should be onclick attribute
-   */
-		ya_site_form[sA]("onclick", "return {'action':'https://yandex.com/search/site/','arrow':false,'bg':'transparent','fontsize':16,'fg':'#000000','language':'auto','logo':'rb','publicname':'\u041f\u043e\u0438\u0441\u043a \u043f\u043e \u0441\u0430\u0439\u0442\u0443 englishextra.github.io','suggest':true,'target':'_blank','tld':'com','type':3,'usebigdictionary':true,'searchid':2192588,'input_fg':'#363636','input_bg':'#E9E9E9','input_fontStyle':'normal','input_fontWeight':'normal','input_placeholder':'\u041F\u043E\u0438\u0441\u043A','input_placeholderColor':'#686868','input_borderColor':'#E9E9E9'};");
-		var f = function () {
-			/*!
-    * yandex will load its own css making form visible
-    */
-			if (w.Ya) {
-				Ya.Site.Form.init();
-			}
-		};
-		if (!scriptIsLoaded(all_js_src)) {
-			loadJS(all_js_src, f);
-		}
-	},
-	    q = function () {
-		search_form.action = "#";
-		search_form.target = "_self";
-		var h_search_form = function () {
-			return !1;
-		};
-		search_form[aEL]("submit", h_search_form);
-		setStyleDisplayNone(ya_site_form);
-	};
-	/* console.log("triggered function: initSearchForm"); */
-	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		if (search_form) {
-			g();
-		}
-		if (ya_site_form) {
-			k();
-		}
-	} else {
-		q();
-	}
-};
-document.ready().then(initSearchForm);
-/*!
  * init manUP.js
  */
 var loadInitManUp = function () {
@@ -2951,9 +2911,11 @@ document.ready().then(loadInitManUp);
 var showPageFinishProgress = function () {
 	"use strict";
 
-	var a = BALA.one("#container") || "";
+	var d = document,
+	    gEBI = "getElementById",
+	    container = d[gEBI]("container") || "";
 	/* console.log("triggered function: showPageFinishProgress"); */
-	setStyleOpacity(a, 1);
+	setStyleOpacity(container, 1);
 	progressBar.complete();
 };
 document.ready().then(showPageFinishProgress);

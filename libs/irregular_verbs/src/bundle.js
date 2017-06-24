@@ -1,22 +1,22 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global global, $, ActiveXObject, alignToMasterBottomLeft, appendFragment, BALA, 
-Carousel, changeLocation, container, Cookies, debounce, define, 
-DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation, earlyDeviceSize, 
-earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch, 
-earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos, 
-fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox, 
-imagePromise, imagesLoaded, imagesPreloaded, insertExternalHTML, 
-insertTextAsFragment, Isotope, isValidId, jQuery, Kamil, 
-loadExternalHTML, loadJS, loadUnparsedJSON, manageDataSrcImages, 
-manageImgLightboxLinks, Masonry, module, openDeviceBrowser, Packery, 
-Parallax, parseLink, PhotoSwipe, PhotoSwipeUI_Default, pnotify, 
-prependFragmentBefore, prettyPrint, Promise, Proxy, QRCode, 
-removeChildren, removeElement, require, routie, safelyParseJSON, 
-scriptIsLoaded, scroll2Top, scrollToTop, 
-setImmediate, setStyleDisplayBlock, setStyleDisplayNone, 
-setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t, 
-Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge, 
+/*global global, $, ActiveXObject, alignToMasterBottomLeft, appendFragment,
+Carousel, changeLocation, container, Cookies, debounce, define,
+DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation, earlyDeviceSize,
+earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch,
+earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos,
+fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox,
+imagePromise, imagesLoaded, imagesPreloaded, insertExternalHTML,
+insertTextAsFragment, Isotope, isValidId, jQuery, Kamil,
+loadExternalHTML, loadJS, loadUnparsedJSON, manageDataSrcImages,
+manageImgLightboxLinks, Masonry, module, openDeviceBrowser, Packery,
+Parallax, parseLink, PhotoSwipe, PhotoSwipeUI_Default, pnotify,
+prependFragmentBefore, prettyPrint, Promise, Proxy, QRCode,
+removeChildren, removeElement, require, routie, safelyParseJSON,
+scriptIsLoaded, scroll2Top, scrollToTop,
+setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
+setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t,
+Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge,
 VK, Ya, ymaps */
 /*!
  * define global root
@@ -41,19 +41,6 @@ var globalRoot = "undefined" !== typeof window ? window : this;
  * passes jshint
  */
 (function(root){"use strict";var ToProgress=(function(){var TP=function(){var t=function(){var s=document.createElement("fakeelement"),i={transition:"transitionend",OTransition:"oTransitionEnd",MozTransition:"transitionend",WebkitTransition:"webkitTransitionEnd"};for(var j in i){if(i.hasOwnProperty(j)){if(void 0!==s.style[j]){return i[j];}}}},s=function(t,a){if(this.progress=0,this.options={id:"top-progress-bar",color:"#F44336",height:"2px",duration:0.2},t&&"object"===typeof t){for(var i in t){if(t.hasOwnProperty(i)){this.options[i]=t[i];}}}if(this.options.opacityDuration=3*this.options.duration,this.progressBar=document.createElement("div"),this.progressBar.id=this.options.id,this.progressBar.setCSS=function(t){for(var a in t){if(t.hasOwnProperty(a)){this.style[a]=t[a];}}},this.progressBar.setCSS({position:a?"relative":"fixed",top:"0",left:"0",right:"0","background-color":this.options.color,height:this.options.height,width:"0%",transition:"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s","-moz-transition":"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s","-webkit-transition":"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s"}),a){var o=document.querySelector(a);if(o){if(o.hasChildNodes()){o.insertBefore(this.progressBar,o.firstChild);}else{o.appendChild(this.progressBar);}}}else{document.body.appendChild(this.progressBar);}},i=t();return s.prototype.transit=function(){this.progressBar.style.width=this.progress+"%";},s.prototype.getProgress=function(){return this.progress;},s.prototype.setProgress=function(t,s){this.show();this.progress=t>100?100:0>t?0:t;this.transit();if(s){s();}},s.prototype.increase=function(t,s){this.show();this.setProgress(this.progress+t,s);},s.prototype.decrease=function(t,s){this.show();this.setProgress(this.progress-t,s);},s.prototype.finish=function(t){var s=this;this.setProgress(100,t);this.hide();if(i){this.progressBar.addEventListener(i,function(t){s.reset();s.progressBar.removeEventListener(t.type,TP);});}},s.prototype.reset=function(t){this.progress=0;this.transit();if(t){t();}},s.prototype.hide=function(){this.progressBar.style.opacity="0";},s.prototype.show=function(){this.progressBar.style.opacity="1";},s;};return TP();}());root.ToProgress=ToProgress;}(globalRoot));
-/*!
- * A function for elements selection - v0.1.9
- * @see {@link https://github.com/finom/bala}
- * @param {String} a id, class or tag string
- * @param {String|Object} [b] context tag string or HTML Element object
- * a=BALA("sometag/#someid/.someclass"[,someParent]);
- * a=BALA.one("sometag/#someid/.someclass"[,someParent]);
- * global $ becomes var g
- * renamed function $ to g
- * @see {@link https://github.com/finom/bala/blob/master/bala.js}
- * passes jshint
- */
-(function(root){"use strict";var BALA=(function(){var g=(function(document,s_addEventListener,s_querySelectorAll){function g(s,context,bala){bala=Object.create(g.fn);if(s){bala.push.apply(bala,s[s_addEventListener]?[s]:""+s===s?/</.test(s)?((context=document.createElement(context||s_addEventListener)).innerHTML=s,context.children):context?((context=g(context)[0])?context[s_querySelectorAll](s):bala):document[s_querySelectorAll](s):typeof s==="function"?document.readyState[7]?s():document[s_addEventListener]('DOMContentLoaded',s):s);}return bala;}g.fn=[];g.one=function(s,context){return g(s,context)[0]||null;};return g;})(document,'addEventListener','querySelectorAll');return g;}());root.BALA=BALA;}(globalRoot));
 /*!
  * safe way to handle console.log
  * @see {@link https://github.com/paulmillr/console-polyfill}
@@ -302,84 +289,69 @@ progressBar.init();
  * so that they open in new browser tab
  * @param {Object} [ctx] context HTML Element
  */
-var handleExternalLink = function (p, ev) {
+var handleExternalLink = function (url, ev) {
 	"use strict";
 	ev.stopPropagation();
 	ev.preventDefault();
-	openDeviceBrowser(p);
+	var logicHandleExternalLink = openDeviceBrowser.bind(null, url),
+	debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
+	debounceLogicHandleExternalLink();
 },
 manageExternalLinks = function (ctx) {
 	"use strict";
 	ctx = ctx && ctx.nodeName ? ctx : "";
-	var w = globalRoot,
-	cls = "a",
-	a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	var d = document,
+	gEBTN = "getElementsByTagName",
+	linkTag = "a",
+	link = ctx ? ctx[gEBTN](linkTag) || "" : d[gEBTN](linkTag) || "",
+	cL = "classList",
 	aEL = "addEventListener",
-	g = function (e) {
-		var p = e.getAttribute("href") || "";
-		if (p && parseLink(p).isCrossDomain && parseLink(p).hasHTTP) {
-			e.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
-			if ("undefined" !== typeof getHTTP && getHTTP()) {
-				e.target = "_blank";
-				e.rel = "noopener";
-			} else {
-				e[aEL]("click", handleExternalLink.bind(null, p));
+	gA = "getAttribute",
+	isBindedClass = "is-binded",
+	arrangeExternalLink = function (e) {
+		if (!e[cL].contains(isBindedClass)) {
+			var url = e[gA]("href") || "";
+			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+				e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					e.target = "_blank";
+					e.rel = "noopener";
+				} else {
+					e[aEL]("click", handleExternalLink.bind(null, url));
+				}
+				e[cL].add(isBindedClass);
 			}
 		}
 	},
-	k = function () {
-		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		for (var i = 0, l = a.length; i < l; i += 1) {
-			g(a[i]);
+	rerenderExternalLinks = function () {
+		for (var i = 0, l = link.length; i < l; i += 1) {
+			arrangeExternalLink(link[i]);
 		}
-		/* forEach(a, g, !1); */
+		/* forEach(link, arrangeExternalLink); */
 	};
-	if (a) {
+	if (link) {
 		/* console.log("triggered function: manageExternalLinks"); */
-		k();
+		rerenderExternalLinks();
 	}
 };
 document.ready().then(manageExternalLinks);
-/*!
- * set title on local links,
- * so that they inform that they open in currnet tab
- * @param {Object} [ctx] context HTML Element
- */
-var manageLocalLinks = function (ctx) {
-	"use strict";
-	ctx = ctx && ctx.nodeName ? ctx : "";
-	var w = globalRoot,
-	a = ctx ? BALA.one("a", ctx) || "" : BALA.one("a") || "",
-	g = function (e) {
-		var p = e.getAttribute("href") || "";
-		if (p && parseLink(p).isRelative && !e.getAttribute("title")) {
-			e.title = "ќткроетс¤ здесь же";
-		}
-	};
-	if (a) {
-		a = ctx ? BALA("a", ctx) || "" : BALA("a") || "";
-		for (var i = 0, l = a.length; i < l; i += 1) {
-			g(a[i]);
-		}
-		/* forEach(a, g, !1); */
-	}
-};
-document.ready().then(manageLocalLinks);
 /*!
  * hide ui buttons in fullscreen mode
  */
 var hideUiBtnsInFullScreen = function () {
 	"use strict";
 	var w = globalRoot,
-	cd_prev = BALA.one(".cd-prev") || "",
-	cd_next = BALA.one(".cd-next") || "",
-	btn_nav_menu = BALA.one(".btn-nav-menu") || "",
-	btn_menu_more = BALA.one(".btn-menu-more") || "",
-	btn_show_vk_like = BALA.one(".btn-show-vk-like") || "",
+	d = document,
+	gEBCN = "getElementsByClassName",
+	cd_prev = d[gEBCN]("cd-prev")[0] || "",
+	cd_next = d[gEBCN]("cd-next")[0] || "",
+	btn_nav_menu = d[gEBCN]("btn-nav-menu")[0] || "",
+	btn_menu_more = d[gEBCN]("btn-menu-more")[0] || "",
+	btn_show_vk_like = d[gEBCN]("btn-show-vk-like")[0] || "",
+	btn_block_social_buttons = d[gEBCN]("btn-share-buttons")[0] || "",
+	ui_totop = d[gEBCN]("ui-totop")[0] || "",
+	holder_search_form = d[gEBCN]("holder-search-form")[0] || "",
 	openapi_js_src = getHTTP(!0) + "://vk.com/js/api/openapi.js?122",
-	btn_block_social_buttons = BALA.one(".btn-share-buttons") || "",
-	ui_totop = BALA.one(".ui-totop") || "",
-	holder_search_form = BALA.one(".holder-search-form") || "",
 	f = !1;
 	if (!f) {
 		f = !0;
@@ -408,10 +380,10 @@ resizeHideUiBtnsInFullScreen = function () {
 	"use strict";
 	var w = globalRoot,
 	aEL = "addEventListener";
-	if (!("undefined" !== typeof earlyDeviceSize && "medium" === earlyDeviceSize)) {
+	if ("undefined" !== typeof earlyDeviceType && "desktop" === earlyDeviceType) {
 		hideUiBtnsInFullScreen();
+		w[aEL]("resize", hideUiBtnsInFullScreen);
 	}
-	w[aEL]("resize", hideUiBtnsInFullScreen);
 };
 document.ready().then(resizeHideUiBtnsInFullScreen);
 /*!
@@ -423,9 +395,10 @@ var initDoSlide = function () {
 	"use strict";
 	var w = globalRoot,
 	d = document,
-	cd_prev = BALA.one(".cd-prev") || "",
-	cd_next = BALA.one(".cd-next") || "",
+	gEBCN = "getElementsByClassName",
 	aEL = "addEventListener",
+	cd_prev = d[gEBCN]("cd-prev")[0] || "",
+	cd_next = d[gEBCN]("cd-next")[0] || "",
 	timer = function (slide, interval, token) {
 		var next = function () {
 			token = setTimeout(next, interval);
@@ -497,19 +470,19 @@ var generateLocationQrCodeImg = function () {
 	"use strict";
 	var w = globalRoot,
 	d = document,
-	holder = ".holder-location-qr-code",
-	c = BALA.one(holder) || "",
-	cls = "qr-code-img",
-	u = w.location.href || "",
+	gEBCN = "getElementsByClassName",
 	cL = "classList",
 	cE = "createElement",
-	m = d[cE]("img"),
-	t = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
-	s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(u);
-	m.alt = t;
+	holder = d[gEBCN]("holder-location-qr-code")[0] || "",
+	cls = "qr-code-img",
+	locationHref = w.location.href || "",
+	img = d[cE]("img"),
+	imgTitle = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
+	imgSrc = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
+	img.alt = imgTitle;
 	if (w.QRCode) {
 		if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
-			s = QRCode.generateSVG(u, {
+			imgSrc = QRCode.generateSVG(locationHref, {
 					ecclevel: "M",
 					fillcolor: "#FFFFFF",
 					textcolor: "#191919",
@@ -517,11 +490,11 @@ var generateLocationQrCodeImg = function () {
 					modulesize: 8
 				});
 			var XMLS = new XMLSerializer();
-			s = XMLS.serializeToString(s);
-			s = "data:image/svg+xml;base64," + w.btoa(unescape(encodeURIComponent(s)));
-			m.src = s;
+			imgSrc = XMLS.serializeToString(imgSrc);
+			imgSrc = "data:image/svg+xml;base64," + w.btoa(unescape(encodeURIComponent(imgSrc)));
+			img.src = imgSrc;
 		} else {
-			s = QRCode.generatePNG(u, {
+			imgSrc = QRCode.generatePNG(locationHref, {
 					ecclevel: "M",
 					format: "html",
 					fillcolor: "#FFFFFF",
@@ -529,26 +502,29 @@ var generateLocationQrCodeImg = function () {
 					margin: 4,
 					modulesize: 8
 				});
-			m.src = s;
+			img.src = imgSrc;
 		}
 	} else {
-		m.src = s;
+		img.src = imgSrc;
 	}
-	m[cL].add(cls);
-	m.title = t;
-	removeChildren(c);
-	appendFragment(m, c);
+	img[cL].add(cls);
+	img.title = imgTitle;
+	removeChildren(holder);
+	appendFragment(img, holder);
 },
 manageLocationQrCodeImage = function () {
 	"use strict";
 	var w = globalRoot,
-	holder = ".holder-location-qr-code",
-	c = BALA.one(holder) || "",
-	u = w.location.href || "";
-	if (c && u) {
+	d = document,
+	gEBCN = "getElementsByClassName",
+	aEL = "addEventListener",
+	holder = d[gEBCN]("holder-location-qr-code")[0] || "",
+	locationHref = w.location.href || "";
+	if (holder && locationHref) {
 		/* console.log("triggered function: manageLocationQrCodeImage"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			generateLocationQrCodeImg();
+			w[aEL]("hashchange", generateLocationQrCodeImg);
 		}
 	}
 },
@@ -557,8 +533,6 @@ loadManageLocationQrCodeImg = function () {
 	var js = "../../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
 	if (!scriptIsLoaded(js)) {
 		loadJS(js, manageLocationQrCodeImage);
-	} else {
-		manageLocationQrCodeImage();
 	}
 };
 document.ready().then(loadManageLocationQrCodeImg);
@@ -568,13 +542,17 @@ document.ready().then(loadManageLocationQrCodeImg);
 var initMenuMore = function () {
 	"use strict";
 	var w = globalRoot,
-	container = BALA.one("#container") || "",
-	holder = BALA.one(".holder-panel-menu-more") || "",
-	btn = BALA.one(".btn-menu-more") || "",
-	panel = BALA.one(".panel-menu-more") || "",
-	items = BALA("li", panel) || "",
+	d = document,
+	gEBI = "getElementById",
+	gEBCN = "getElementsByClassName",
+	gEBTN = "getElementsByTagName",
 	cL = "classList",
 	aEL = "addEventListener",
+	container = d[gEBI]("container") || "",
+	holder = d[gEBCN]("holder-panel-menu-more")[0] || "",
+	btn = d[gEBCN]("btn-menu-more")[0] || "",
+	panel = d[gEBCN]("panel-menu-more")[0] || "",
+	items = panel ? panel[gEBTN]("li") || "" : "",
 	is_active = "is-active",
 	h_e = function () {
 		holder[cL].remove(is_active);
@@ -622,18 +600,20 @@ document.ready().then(initMenuMore);
 var showMenuMore = function (n) {
 	"use strict";
 	n = n || 2000;
-	var a = BALA.one(".holder-panel-menu-more") || "",
-	is_active = "is-active",
+	var d = document,
+	gEBCN = "getElementsByClassName",
 	cL = "classList",
-	s = function () {
-		a[cL].add(is_active);
+	panel = d[gEBCN]("holder-panel-menu-more")[0] || "",
+	is_active = "is-active",
+	st1 = function () {
+		panel[cL].add(is_active);
 	};
-	if (a) {
+	if (panel) {
 		var timers = new Timers();
 		timers.timeout(function () {
 			timers.clear();
 			timers = null;
-			s();
+			st1();
 		}, n);
 	}
 };
@@ -643,11 +623,13 @@ document.ready().then(showMenuMore.bind(null, 2000));
  */
 var initPlusoYaShare = function () {
 	"use strict";
-	var a = BALA.one(".btn-share-buttons") || "",
-	pluso = BALA.one(".pluso") || "",
-	ya_share2 = BALA.one(".ya-share2") || "",
+	var d = document,
+	gEBCN = "getElementsByClassName",
 	aEL = "addEventListener",
 	rEL = "removeEventListener",
+	a = d[gEBCN]("btn-share-buttons")[0] || "",
+	pluso = d[gEBCN]("pluso")[0] || "",
+	ya_share2 = d[gEBCN]("ya-share2")[0] || "",
 	pluso_like_js_src = getHTTP(!0) + "://share.pluso.ru/pluso-like.js",
 	share_js_src = getHTTP(!0) + "://yastatic.net/share2/share.js",
 	g = function (s, b) {
@@ -694,13 +676,16 @@ document.ready().then(initPlusoYaShare);
 var manageVKLikeButton = function () {
 	"use strict";
 	var w = globalRoot,
-	vk_like = "vk-like",
-	c = BALA.one("#" + vk_like) || "",
-	a = BALA.one(".btn-show-vk-like") || "",
-	js = getHTTP(!0) + "://vk.com/js/api/openapi.js?122",
+	d = document,
+	gEBI = "getElementById",
+	gEBCN = "getElementsByClassName",
 	ds = "dataset",
 	aEL = "addEventListener",
 	rEL = "removeEventListener",
+	vk_like = "vk-like",
+	c = d[gEBI](vk_like) || "",
+	a = d[gEBCN]("btn-show-vk-like")[0] || "",
+	js = getHTTP(!0) + "://vk.com/js/api/openapi.js?122",
 	g = function () {
 		try {
 			if (w.VK) {
@@ -770,7 +755,9 @@ document.ready().then(loadInitManUp);
  */
 var showPageFinishProgress = function () {
 	"use strict";
-	var a = BALA.one("#container") || "";
+	var d = document,
+	gEBI = "getElementById",
+	a = d[gEBI]("container") || "";
 	/* console.log("triggered function: showPageFinishProgress"); */
 	setStyleOpacity(a, 1);
 	progressBar.complete();

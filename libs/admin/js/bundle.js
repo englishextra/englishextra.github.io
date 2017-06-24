@@ -1,6 +1,6 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global global, $, ActiveXObject, alignToMasterBottomLeft, appendFragment, BALA, 
+/*global global, $, ActiveXObject, alignToMasterBottomLeft, appendFragment, 
 Carousel, changeLocation, container, Cookies, debounce, define, 
 DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation, earlyDeviceSize, 
 earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch, 
@@ -146,32 +146,6 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 			}
 		}tick();
 	};root.scroll2Top = scroll2Top;
-})(globalRoot);
-/*!
- * A function for elements selection - v0.1.9
- * @see {@link https://github.com/finom/bala}
- * @param {String} a id, class or tag string
- * @param {String|Object} [b] context tag string or HTML Element object
- * a=BALA("sometag/#someid/.someclass"[,someParent]);
- * a=BALA.one("sometag/#someid/.someclass"[,someParent]);
- * global $ becomes var g
- * renamed function $ to g
- * @see {@link https://github.com/finom/bala/blob/master/bala.js}
- * passes jshint
- */
-(function (root) {
-	"use strict";
-	var BALA = function () {
-		var g = function (document, s_addEventListener, s_querySelectorAll) {
-			function g(s, context, bala) {
-				bala = Object.create(g.fn);if (s) {
-					bala.push.apply(bala, s[s_addEventListener] ? [s] : "" + s === s ? /</.test(s) ? ((context = document.createElement(context || s_addEventListener)).innerHTML = s, context.children) : context ? (context = g(context)[0]) ? context[s_querySelectorAll](s) : bala : document[s_querySelectorAll](s) : typeof s === "function" ? document.readyState[7] ? s() : document[s_addEventListener]('DOMContentLoaded', s) : s);
-				}return bala;
-			}g.fn = [];g.one = function (s, context) {
-				return g(s, context)[0] || null;
-			};return g;
-		}(document, 'addEventListener', 'querySelectorAll');return g;
-	}();root.BALA = BALA;
 })(globalRoot);
 /*!
  * Super lightweight script (~1kb) to detect via Javascript events like
@@ -765,43 +739,51 @@ progressBar.init();
  * so that they open in new browser tab
  * @param {Object} [ctx] context HTML Element
  */
-var handleExternalLink = function (p, ev) {
+var handleExternalLink = function (url, ev) {
 	"use strict";
 
 	ev.stopPropagation();
 	ev.preventDefault();
-	openDeviceBrowser(p);
+	var logicHandleExternalLink = openDeviceBrowser.bind(null, url),
+	    debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
+	debounceLogicHandleExternalLink();
 },
     manageExternalLinks = function (ctx) {
 	"use strict";
 
 	ctx = ctx && ctx.nodeName ? ctx : "";
-	var w = globalRoot,
-	    cls = "a",
-	    a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	var d = document,
+	    gEBTN = "getElementsByTagName",
+	    linkTag = "a",
+	    link = ctx ? ctx[gEBTN](linkTag) || "" : d[gEBTN](linkTag) || "",
+	    cL = "classList",
 	    aEL = "addEventListener",
-	    g = function (e) {
-		var p = e.getAttribute("href") || "";
-		if (p && parseLink(p).isCrossDomain && parseLink(p).hasHTTP) {
-			e.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
-			if ("undefined" !== typeof getHTTP && getHTTP()) {
-				e.target = "_blank";
-				e.rel = "noopener";
-			} else {
-				e[aEL]("click", handleExternalLink.bind(null, p));
+	    gA = "getAttribute",
+	    isBindedClass = "is-binded",
+	    arrangeExternalLink = function (e) {
+		if (!e[cL].contains(isBindedClass)) {
+			var url = e[gA]("href") || "";
+			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+				e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					e.target = "_blank";
+					e.rel = "noopener";
+				} else {
+					e[aEL]("click", handleExternalLink.bind(null, url));
+				}
+				e[cL].add(isBindedClass);
 			}
 		}
 	},
-	    k = function () {
-		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		for (var i = 0, l = a.length; i < l; i += 1) {
-			g(a[i]);
+	    rerenderExternalLinks = function () {
+		for (var i = 0, l = link.length; i < l; i += 1) {
+			arrangeExternalLink(link[i]);
 		}
-		/* forEach(a, g, !1); */
+		/* forEach(link, arrangeExternalLink); */
 	};
-	if (a) {
+	if (link) {
 		/* console.log("triggered function: manageExternalLinks"); */
-		k();
+		rerenderExternalLinks();
 	}
 };
 document.ready().then(manageExternalLinks);
@@ -812,14 +794,18 @@ var initNavMenu = function () {
 	"use strict";
 
 	var w = globalRoot,
-	    container = BALA.one("#container") || "",
-	    page = BALA.one("#page") || "",
-	    btn = BALA.one(".btn-nav-menu") || "",
-	    panel = BALA.one(".panel-nav-menu") || "",
-	    items = BALA("a", panel) || "",
-	    holder = BALA.one(".holder-panel-menu-more") || "",
+	    d = document,
+	    gEBI = "getElementById",
+	    gEBCN = "getElementsByClassName",
+	    gEBTN = "getElementsByTagName",
 	    cL = "classList",
 	    aEL = "addEventListener",
+	    container = d[gEBI]("container") || "",
+	    page = d[gEBI]("page") || "",
+	    btn = d[gEBCN]("btn-nav-menu")[0] || "",
+	    panel = d[gEBCN]("panel-nav-menu")[0] || "",
+	    items = panel ? panel[gEBTN]("a") || "" : "",
+	    holder = d[gEBCN]("holder-panel-menu-more")[0] || "",
 	    is_active = "is-active",
 	    p = w.location.href || "",
 	    r = function () {
@@ -936,7 +922,7 @@ var initUiTotop = function () {
 	    d = document,
 	    h = d.documentElement || "",
 	    b = d.body || "",
-	    qS = "querySelector",
+	    gEBCN = "getElementsByClassName",
 	    cL = "classList",
 	    cE = "createElement",
 	    aC = "appendChild",
@@ -948,7 +934,7 @@ var initUiTotop = function () {
 	    isActiveClass = "is-active",
 	    handleUiTotopWindow = function (_this) {
 		var logicHandleUiTotopWindow = function () {
-			var btn = d[qS]("." + btnClass) || "",
+			var btn = d[gEBCN](btnClass)[0] || "",
 			    scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
 			    windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
 			if (scrollPosition && windowHeight && btn) {
@@ -999,9 +985,11 @@ document.ready().then(initUiTotop);
 var showPageFinishProgress = function () {
 	"use strict";
 
-	var a = BALA.one("#container") || "";
+	var d = document,
+	    gEBI = "getElementById",
+	    container = d[gEBI]("container") || "";
 	/* console.log("triggered function: showPageFinishProgress"); */
-	setStyleOpacity(a, 1);
+	setStyleOpacity(container, 1);
 	progressBar.complete();
 };
 document.ready().then(showPageFinishProgress);

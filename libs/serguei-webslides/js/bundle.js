@@ -1,6 +1,6 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global global, $, ActiveXObject, alignToMasterBottomLeft, appendFragment, BALA,
+/*global global, $, ActiveXObject, alignToMasterBottomLeft, appendFragment,
 Carousel, changeLocation, container, Cookies, debounce, define,
 DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation, earlyDeviceSize,
 earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch,
@@ -121,32 +121,6 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 			}, s;
 		};return TP();
 	}();root.ToProgress = ToProgress;
-})(globalRoot);
-/*!
- * A function for elements selection - v0.1.9
- * @see {@link https://github.com/finom/bala}
- * @param {String} a id, class or tag string
- * @param {String|Object} [b] context tag string or HTML Element object
- * a=BALA("sometag/#someid/.someclass"[,someParent]);
- * a=BALA.one("sometag/#someid/.someclass"[,someParent]);
- * global $ becomes var g
- * renamed function $ to g
- * @see {@link https://github.com/finom/bala/blob/master/bala.js}
- * passes jshint
- */
-(function (root) {
-	"use strict";
-	var BALA = function () {
-		var g = function (document, s_addEventListener, s_querySelectorAll) {
-			function g(s, context, bala) {
-				bala = Object.create(g.fn);if (s) {
-					bala.push.apply(bala, s[s_addEventListener] ? [s] : "" + s === s ? /</.test(s) ? ((context = document.createElement(context || s_addEventListener)).innerHTML = s, context.children) : context ? (context = g(context)[0]) ? context[s_querySelectorAll](s) : bala : document[s_querySelectorAll](s) : typeof s === "function" ? document.readyState[7] ? s() : document[s_addEventListener]('DOMContentLoaded', s) : s);
-				}return bala;
-			}g.fn = [];g.one = function (s, context) {
-				return g(s, context)[0] || null;
-			};return g;
-		}(document, 'addEventListener', 'querySelectorAll');return g;
-	}();root.BALA = BALA;
 })(globalRoot);
 /*!
  * safe way to handle console.log
@@ -501,42 +475,51 @@ progressBar.init();
  * so that they open in new browser tab
  * @param {Object} [ctx] context HTML Element
  */
-var handleExternalLink = function (p, ev) {
+var handleExternalLink = function (url, ev) {
 	"use strict";
 
 	ev.stopPropagation();
 	ev.preventDefault();
-	openDeviceBrowser(p);
+	var logicHandleExternalLink = openDeviceBrowser.bind(null, url),
+	    debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
+	debounceLogicHandleExternalLink();
 },
     manageExternalLinks = function (ctx) {
 	"use strict";
 
 	ctx = ctx && ctx.nodeName ? ctx : "";
-	var aEL = "addEventListener",
-	    cls = "a",
-	    a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
-	    g = function (e) {
-		var p = e.getAttribute("href") || "";
-		if (p && parseLink(p).isCrossDomain && parseLink(p).hasHTTP) {
-			e.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
-			if ("undefined" !== typeof getHTTP && getHTTP()) {
-				e.target = "_blank";
-				e.rel = "noopener";
-			} else {
-				e[aEL]("click", handleExternalLink.bind(null, p));
+	var d = document,
+	    gEBTN = "getElementsByTagName",
+	    linkTag = "a",
+	    link = ctx ? ctx[gEBTN](linkTag) || "" : d[gEBTN](linkTag) || "",
+	    cL = "classList",
+	    aEL = "addEventListener",
+	    gA = "getAttribute",
+	    isBindedClass = "is-binded",
+	    arrangeExternalLink = function (e) {
+		if (!e[cL].contains(isBindedClass)) {
+			var url = e[gA]("href") || "";
+			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+				e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					e.target = "_blank";
+					e.rel = "noopener";
+				} else {
+					e[aEL]("click", handleExternalLink.bind(null, url));
+				}
+				e[cL].add(isBindedClass);
 			}
 		}
 	},
-	    k = function () {
-		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		for (var i = 0, l = a.length; i < l; i += 1) {
-			g(a[i]);
+	    rerenderExternalLinks = function () {
+		for (var i = 0, l = link.length; i < l; i += 1) {
+			arrangeExternalLink(link[i]);
 		}
-		/* forEach(a, g, !1); */
+		/* forEach(link, arrangeExternalLink); */
 	};
-	if (a) {
+	if (link) {
 		/* console.log("triggered function: manageExternalLinks"); */
-		k();
+		rerenderExternalLinks();
 	}
 };
 document.ready().then(manageExternalLinks);
@@ -950,19 +933,22 @@ var manageDataQrcodeImg = function (ctx) {
 
 	ctx = ctx && ctx.nodeName ? ctx : "";
 	var w = globalRoot,
-	    cls = "img[data-qrcode]",
-	    a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
+	    d = document,
+	    qS = "querySelector",
+	    qSA = "querySelectorAll",
 	    ds = "dataset",
-	    g = function (e) {
-		var u = e[ds].qrcode || "";
-		u = decodeURIComponent(u);
-		if (u) {
-			var s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(u);
-			e.title = u;
-			e.alt = u;
+	    cls = "img[data-qrcode]",
+	    img = ctx ? ctx[qS](cls) || "" : d[qS](cls) || "",
+	    generateImg = function (e) {
+		var qrcode = e[ds].qrcode || "";
+		qrcode = decodeURIComponent(qrcode);
+		if (qrcode) {
+			var imgSrc = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(qrcode);
+			e.title = qrcode;
+			e.alt = qrcode;
 			if (w.QRCode) {
 				if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
-					s = QRCode.generateSVG(u, {
+					imgSrc = QRCode.generateSVG(qrcode, {
 						ecclevel: "M",
 						fillcolor: "#F3F3F3",
 						textcolor: "#191919",
@@ -970,11 +956,11 @@ var manageDataQrcodeImg = function (ctx) {
 						modulesize: 8
 					});
 					var XMLS = new XMLSerializer();
-					s = XMLS.serializeToString(s);
-					s = "data:image/svg+xml;base64," + w.btoa(unescape(encodeURIComponent(s)));
-					e.src = s;
+					imgSrc = XMLS.serializeToString(imgSrc);
+					imgSrc = "data:image/svg+xml;base64," + w.btoa(unescape(encodeURIComponent(imgSrc)));
+					e.src = imgSrc;
 				} else {
-					s = QRCode.generatePNG(u, {
+					imgSrc = QRCode.generatePNG(qrcode, {
 						ecclevel: "M",
 						format: "html",
 						fillcolor: "#F3F3F3",
@@ -982,20 +968,20 @@ var manageDataQrcodeImg = function (ctx) {
 						margin: 4,
 						modulesize: 8
 					});
-					e.src = s;
+					e.src = imgSrc;
 				}
 			} else {
-				e.src = s;
+				e.src = imgSrc;
 			}
 		}
 	};
-	if (a) {
+	if (img) {
 		/* console.log("triggered function: manageDataQrcodeImg"); */
-		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		for (var i = 0, l = a.length; i < l; i += 1) {
-			g(a[i]);
+		img = ctx ? ctx[qSA](cls) || "" : d[qSA](cls) || "";
+		for (var i = 0, l = img.length; i < l; i += 1) {
+			generateImg(img[i]);
 		}
-		/* forEach(a, g, !1); */
+		/* forEach(img, generateImg, !1); */
 	}
 },
     loadManageDataQrcodeImg = function () {
@@ -1004,8 +990,6 @@ var manageDataQrcodeImg = function (ctx) {
 	var js = "../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
 	if (!scriptIsLoaded(js)) {
 		loadJS(js, manageDataQrcodeImg);
-	} else {
-		manageDataQrcodeImg();
 	}
 };
 document.ready().then(loadManageDataQrcodeImg);
@@ -1015,9 +999,11 @@ document.ready().then(loadManageDataQrcodeImg);
 var showPageFinishProgress = function () {
 	"use strict";
 
-	var a = BALA.one("#page") || "";
+	var d = document,
+	    gEBI = "getElementById",
+	    page = d[gEBI]("page") || "";
 	/* console.log("triggered function: showPageFinishProgress"); */
-	setStyleOpacity(a, 1);
+	setStyleOpacity(page, 1);
 	progressBar.complete();
 };
 document.ready().then(showPageFinishProgress);

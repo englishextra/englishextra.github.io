@@ -1,6 +1,6 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global global, $, ActiveXObject, alignToMasterBottomLeft, appendFragment, BALA, 
+/*global global, $, ActiveXObject, alignToMasterBottomLeft, appendFragment, 
 Carousel, changeLocation, container, Cookies, debounce, define, 
 DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation, earlyDeviceSize, 
 earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch, 
@@ -121,122 +121,6 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 			}, s;
 		};return TP();
 	}();root.ToProgress = ToProgress;
-})(globalRoot);
-/*!
- * A function for elements selection - v0.1.9
- * @see {@link https://github.com/finom/bala}
- * @param {String} a id, class or tag string
- * @param {String|Object} [b] context tag string or HTML Element object
- * a=BALA("sometag/#someid/.someclass"[,someParent]);
- * a=BALA.one("sometag/#someid/.someclass"[,someParent]);
- * global $ becomes var g
- * renamed function $ to g
- * @see {@link https://github.com/finom/bala/blob/master/bala.js}
- * passes jshint
- */
-(function (root) {
-	"use strict";
-	var BALA = function () {
-		var g = function (document, s_addEventListener, s_querySelectorAll) {
-			function g(s, context, bala) {
-				bala = Object.create(g.fn);if (s) {
-					bala.push.apply(bala, s[s_addEventListener] ? [s] : "" + s === s ? /</.test(s) ? ((context = document.createElement(context || s_addEventListener)).innerHTML = s, context.children) : context ? (context = g(context)[0]) ? context[s_querySelectorAll](s) : bala : document[s_querySelectorAll](s) : typeof s === "function" ? document.readyState[7] ? s() : document[s_addEventListener]('DOMContentLoaded', s) : s);
-				}return bala;
-			}g.fn = [];g.one = function (s, context) {
-				return g(s, context)[0] || null;
-			};return g;
-		}(document, 'addEventListener', 'querySelectorAll');return g;
-	}();root.BALA = BALA;
-})(globalRoot);
-/*!
- * modified crel - a small, simple, and fast DOM creation utility
- * @see {@link https://github.com/KoryNunn/crel}
- * crel(tagName/dom element[,attributes,child1,child2,childN...])
- * var element=crel('div',crel('h1','Crello World!'),
- * crel('p','This is crel'),crel('input',{type:'number'}));
- * removed module check
- * fixed Use '===' to compare with 'null'.
- * fixed The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
- * fixed Expected an assignment or function call and instead saw an expression.
- * @see {@link https://github.com/KoryNunn/crel/blob/master/crel.js}
- * passes jshint
- */
-(function (root) {
-	"use strict";
-	var crel = function () {
-		var fn = "function",
-		    obj = "object",
-		    nodeType = "nodeType",
-		    textContent = "textContent",
-		    setAttribute = "setAttribute",
-		    attrMapString = "attrMap",
-		    isNodeString = "isNode",
-		    isElementString = "isElement",
-		    d = typeof document === obj ? document : {},
-		    isType = function (a, type) {
-			return typeof a === type;
-		},
-		    isNode = typeof Node === fn ? function (object) {
-			return object instanceof Node;
-		} : function (object) {
-			return object && isType(object, obj) && nodeType in object && isType(object.ownerDocument, obj);
-		},
-		    isElement = function (object) {
-			return _c[isNodeString](object) && object[nodeType] === 1;
-		},
-		    isArray = function (a) {
-			return a instanceof Array;
-		},
-		    appendChild = function (element, child) {
-			if (!_c[isNodeString](child)) {
-				child = d.createTextNode(child);
-			}element.appendChild(child);
-		};function _c() {
-			var args = arguments,
-			    element = args[0],
-			    child,
-			    settings = args[1],
-			    childIndex = 2,
-			    argumentsLength = args.length,
-			    attributeMap = _c[attrMapString];element = _c[isElementString](element) ? element : d.createElement(element);if (argumentsLength === 1) {
-				return element;
-			}if (!isType(settings, obj) || _c[isNodeString](settings) || isArray(settings)) {
-				--childIndex;settings = null;
-			}if (argumentsLength - childIndex === 1 && isType(args[childIndex], "string") && element[textContent] !== undefined) {
-				element[textContent] = args[childIndex];
-			} else {
-				for (; childIndex < argumentsLength; ++childIndex) {
-					child = args[childIndex];if (child === null) {
-						continue;
-					}if (isArray(child)) {
-						for (var i = 0; i < child.length; ++i) {
-							appendChild(element, child[i]);
-						}
-					} else {
-						appendChild(element, child);
-					}
-				}
-			}for (var key in settings) {
-				if (settings.hasOwnProperty(key)) {
-					if (!attributeMap[key]) {
-						element[setAttribute](key, settings[key]);
-					} else {
-						var attr = attributeMap[key];if (typeof attr === fn) {
-							attr(element, settings[key]);
-						} else {
-							element[setAttribute](attr, settings[key]);
-						}
-					}
-				}
-			}return element;
-		}_c[attrMapString] = {};_c[isElementString] = isElement;_c[isNodeString] = isNode;if ("undefined" !== typeof Proxy) {
-			_c.proxy = new Proxy(_c, { get: function (target, key) {
-					if (!(key in _c)) {
-						_c[key] = _c.bind(null, key);
-					}return _c[key];
-				} });
-		}return _c;
-	}();root.crel = crel;
 })(globalRoot);
 /*!
  * Super lightweight script (~1kb) to detect via Javascript events like
@@ -951,42 +835,51 @@ progressBar.init();
  * so that they open in new browser tab
  * @param {Object} [ctx] context HTML Element
  */
-var handleExternalLink = function (p, ev) {
+var handleExternalLink = function (url, ev) {
 	"use strict";
 
 	ev.stopPropagation();
 	ev.preventDefault();
-	openDeviceBrowser(p);
+	var logicHandleExternalLink = openDeviceBrowser.bind(null, url),
+	    debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
+	debounceLogicHandleExternalLink();
 },
     manageExternalLinks = function (ctx) {
 	"use strict";
 
 	ctx = ctx && ctx.nodeName ? ctx : "";
-	var aEL = "addEventListener",
-	    cls = "a",
-	    a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
-	    g = function (e) {
-		var p = e.getAttribute("href") || "";
-		if (p && parseLink(p).isCrossDomain && parseLink(p).hasHTTP) {
-			e.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
-			if ("undefined" !== typeof getHTTP && getHTTP()) {
-				e.target = "_blank";
-				e.rel = "noopener";
-			} else {
-				e[aEL]("click", handleExternalLink.bind(null, p));
+	var d = document,
+	    gEBTN = "getElementsByTagName",
+	    linkTag = "a",
+	    link = ctx ? ctx[gEBTN](linkTag) || "" : d[gEBTN](linkTag) || "",
+	    cL = "classList",
+	    aEL = "addEventListener",
+	    gA = "getAttribute",
+	    isBindedClass = "is-binded",
+	    arrangeExternalLink = function (e) {
+		if (!e[cL].contains(isBindedClass)) {
+			var url = e[gA]("href") || "";
+			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+				e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					e.target = "_blank";
+					e.rel = "noopener";
+				} else {
+					e[aEL]("click", handleExternalLink.bind(null, url));
+				}
+				e[cL].add(isBindedClass);
 			}
 		}
 	},
-	    k = function () {
-		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		for (var i = 0, l = a.length; i < l; i += 1) {
-			g(a[i]);
+	    rerenderExternalLinks = function () {
+		for (var i = 0, l = link.length; i < l; i += 1) {
+			arrangeExternalLink(link[i]);
 		}
-		/* forEach(a, g, !1); */
+		/* forEach(link, arrangeExternalLink); */
 	};
-	if (a) {
+	if (link) {
 		/* console.log("triggered function: manageExternalLinks"); */
-		k();
+		rerenderExternalLinks();
 	}
 };
 document.ready().then(manageExternalLinks);
@@ -999,19 +892,19 @@ var generateLocationQrCodeImg = function () {
 
 	var w = globalRoot,
 	    d = document,
-	    holder = ".holder-location-qr-code",
-	    c = BALA.one(holder) || "",
-	    cls = "qr-code-img",
-	    u = w.location.href || "",
+	    gEBCN = "getElementsByClassName",
 	    cL = "classList",
 	    cE = "createElement",
-	    m = d[cE]("img"),
-	    t = d.title ? "Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»" : "",
-	    s = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(u);
-	m.alt = t;
+	    holder = d[gEBCN]("holder-location-qr-code")[0] || "",
+	    cls = "qr-code-img",
+	    locationHref = w.location.href || "",
+	    img = d[cE]("img"),
+	    imgTitle = d.title ? "Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»" : "",
+	    imgSrc = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
+	img.alt = imgTitle;
 	if (w.QRCode) {
 		if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
-			s = QRCode.generateSVG(u, {
+			imgSrc = QRCode.generateSVG(locationHref, {
 				ecclevel: "M",
 				fillcolor: "#FFFFFF",
 				textcolor: "#191919",
@@ -1019,11 +912,11 @@ var generateLocationQrCodeImg = function () {
 				modulesize: 8
 			});
 			var XMLS = new XMLSerializer();
-			s = XMLS.serializeToString(s);
-			s = "data:image/svg+xml;base64," + w.btoa(unescape(encodeURIComponent(s)));
-			m.src = s;
+			imgSrc = XMLS.serializeToString(imgSrc);
+			imgSrc = "data:image/svg+xml;base64," + w.btoa(unescape(encodeURIComponent(imgSrc)));
+			img.src = imgSrc;
 		} else {
-			s = QRCode.generatePNG(u, {
+			imgSrc = QRCode.generatePNG(locationHref, {
 				ecclevel: "M",
 				format: "html",
 				fillcolor: "#FFFFFF",
@@ -1031,27 +924,30 @@ var generateLocationQrCodeImg = function () {
 				margin: 4,
 				modulesize: 8
 			});
-			m.src = s;
+			img.src = imgSrc;
 		}
 	} else {
-		m.src = s;
+		img.src = imgSrc;
 	}
-	m[cL].add(cls);
-	m.title = t;
-	removeChildren(c);
-	appendFragment(m, c);
+	img[cL].add(cls);
+	img.title = imgTitle;
+	removeChildren(holder);
+	appendFragment(img, holder);
 },
     manageLocationQrCodeImage = function () {
 	"use strict";
 
 	var w = globalRoot,
-	    holder = ".holder-location-qr-code",
-	    c = BALA.one(holder) || "",
-	    u = w.location.href || "";
-	if (c && u) {
+	    d = document,
+	    gEBCN = "getElementsByClassName",
+	    aEL = "addEventListener",
+	    holder = d[gEBCN]("holder-location-qr-code")[0] || "",
+	    locationHref = w.location.href || "";
+	if (holder && locationHref) {
 		/* console.log("triggered function: manageLocationQrCodeImage"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			generateLocationQrCodeImg();
+			w[aEL]("hashchange", generateLocationQrCodeImg);
 		}
 	}
 },
@@ -1061,8 +957,6 @@ var generateLocationQrCodeImg = function () {
 	var js = "./cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
 	if (!scriptIsLoaded(js)) {
 		loadJS(js, manageLocationQrCodeImage);
-	} else {
-		manageLocationQrCodeImage();
 	}
 };
 document.ready().then(loadManageLocationQrCodeImg);
@@ -1073,14 +967,18 @@ var initNavMenu = function () {
 	"use strict";
 
 	var w = globalRoot,
-	    container = BALA.one("#container") || "",
-	    page = BALA.one("#page") || "",
-	    btn = BALA.one(".btn-nav-menu") || "",
-	    panel = BALA.one(".panel-nav-menu") || "",
-	    items = BALA("a", panel) || "",
-	    holder = BALA.one(".holder-panel-menu-more") || "",
+	    d = document,
+	    gEBI = "getElementById",
+	    gEBCN = "getElementsByClassName",
+	    gEBTN = "getElementsByTagName",
 	    cL = "classList",
 	    aEL = "addEventListener",
+	    container = d[gEBI]("container") || "",
+	    page = d[gEBI]("page") || "",
+	    btn = d[gEBCN]("btn-nav-menu")[0] || "",
+	    panel = d[gEBCN]("panel-nav-menu")[0] || "",
+	    items = panel ? panel[gEBTN]("a") || "" : "",
+	    holder = d[gEBCN]("holder-panel-menu-more")[0] || "",
 	    is_active = "is-active",
 	    p = w.location.href || "",
 	    r = function () {
@@ -1194,48 +1092,58 @@ document.ready().then(initNavMenu);
 var addAppUpdatesLink = function () {
 	"use strict";
 
-	var panel = BALA.one(".panel-menu-more") || "",
-	    items = BALA("li", panel) || "",
-	    s = navigator.userAgent || "",
+	var d = document,
+	    gEBCN = "getElementsByClassName",
+	    gEBTN = "getElementsByTagName",
+	    cE = "createElement",
+	    cTN = "createTextNode",
+	    aC = "appendChild",
 	    aEL = "addEventListener",
-	    p;
-	if (/Windows/i.test(s) && /(WOW64|Win64)/i.test(s)) {
-		p = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-app-win32-x64-setup.exe";
-	} else if (/(x86_64|x86-64|x64;|amd64|AMD64|x64_64)/i.test(s) && /(Linux|X11)/i.test(s)) {
-		p = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-app-linux-x64.tar.gz";
-	} else if (/IEMobile/i.test(s)) {
-		p = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra_app.Windows10_1.0.0.0_x86_debug.appx";
-	} else if (/Android/i.test(s)) {
-		p = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra_app-debug.apk";
+	    panel = d[gEBCN]("panel-menu-more")[0] || "",
+	    items = panel ? panel[gEBTN]("li") || "" : "",
+	    navigatorUserAgent = navigator.userAgent || "",
+	    linkHref;
+	if (/Windows/i.test(navigatorUserAgent) && /(WOW64|Win64)/i.test(navigatorUserAgent)) {
+		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-app-win32-x64-setup.exe";
+	} else if (/(x86_64|x86-64|x64;|amd64|AMD64|x64_64)/i.test(navigatorUserAgent) && /(Linux|X11)/i.test(navigatorUserAgent)) {
+		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-app-linux-x64.tar.gz";
+	} else if (/IEMobile/i.test(navigatorUserAgent)) {
+		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra_app.Windows10_1.0.0.0_x86_debug.appx";
+	} else if (/Android/i.test(navigatorUserAgent)) {
+		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra_app-debug.apk";
 	} else {
-		p = "";
+		linkHref = "";
 	}
-	var g = function () {
-		var li = crel("li"),
-		    e = crel("a"),
-		    t = "Скачать приложение сайта";
-		e.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
-		e.href = p;
+	var arrangeAppUpdatesLink = function () {
+		var listItem = d[cE]("li"),
+		    link = d[cE]("a"),
+		    linkText = "Скачать приложение сайта";
+		link.title = "" + (parseLink(linkHref).hostname || "") + " откроется в новой вкладке";
+		link.href = linkHref;
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			e.target = "_blank";
-			e.rel = "noopener";
+			link.target = "_blank";
+			link.rel = "noopener";
 		} else {
 			/*!
     * no prevent default and void .href above
     */
 			/*jshint -W107 */
-			e.href = "javascript:void(0);";
+			link.href = "javascript:void(0);";
 			/*jshint +W107 */
-			e[aEL]("click", openDeviceBrowser.bind(null, p));
+			var handleAppUpdatesLink = function () {
+				openDeviceBrowser(linkHref);
+			};
+			link[aEL]("click", handleAppUpdatesLink);
 		}
-		crel(li, crel(e, "" + t));
+		link[aC](d[cTN]("" + linkText));
+		listItem[aC](link);
 		if (panel.hasChildNodes()) {
-			prependFragmentBefore(li, panel.firstChild);
+			prependFragmentBefore(listItem, panel.firstChild);
 		}
 	};
-	if (panel && items && p) {
+	if (panel && items && linkHref) {
 		/* console.log("triggered function: addAppUpdatesLink"); */
-		g();
+		arrangeAppUpdatesLink();
 	}
 };
 document.ready().then(addAppUpdatesLink);
@@ -1246,13 +1154,17 @@ var initMenuMore = function () {
 	"use strict";
 
 	var w = globalRoot,
-	    container = BALA.one("#container") || "",
-	    holder = BALA.one(".holder-panel-menu-more") || "",
-	    btn = BALA.one(".btn-menu-more") || "",
-	    panel = BALA.one(".panel-menu-more") || "",
-	    items = BALA("li", panel) || "",
+	    d = document,
+	    gEBI = "getElementById",
+	    gEBCN = "getElementsByClassName",
+	    gEBTN = "getElementsByTagName",
 	    cL = "classList",
 	    aEL = "addEventListener",
+	    container = d[gEBI]("container") || "",
+	    holder = d[gEBCN]("holder-panel-menu-more")[0] || "",
+	    btn = d[gEBCN]("btn-menu-more")[0] || "",
+	    panel = d[gEBCN]("panel-menu-more")[0] || "",
+	    items = panel ? panel[gEBTN]("li") || "" : "",
 	    is_active = "is-active",
 	    h_e = function () {
 		holder[cL].remove(is_active);
@@ -1300,11 +1212,13 @@ document.ready().then(initMenuMore);
 var initPlusoYaShare = function () {
 	"use strict";
 
-	var a = BALA.one(".btn-share-buttons") || "",
-	    pluso = BALA.one(".pluso") || "",
-	    ya_share2 = BALA.one(".ya-share2") || "",
+	var d = document,
+	    gEBCN = "getElementsByClassName",
 	    aEL = "addEventListener",
 	    rEL = "removeEventListener",
+	    a = d[gEBCN]("btn-share-buttons")[0] || "",
+	    pluso = d[gEBCN]("pluso")[0] || "",
+	    ya_share2 = d[gEBCN]("ya-share2")[0] || "",
 	    pluso_like_js_src = getHTTP(!0) + "://share.pluso.ru/pluso-like.js",
 	    share_js_src = getHTTP(!0) + "://yastatic.net/share2/share.js",
 	    g = function (s, b) {
@@ -1352,13 +1266,16 @@ var manageVKLikeButton = function () {
 	"use strict";
 
 	var w = globalRoot,
-	    vk_like = "vk-like",
-	    c = BALA.one("#" + vk_like) || "",
-	    a = BALA.one(".btn-show-vk-like") || "",
-	    js = getHTTP(!0) + "://vk.com/js/api/openapi.js?122",
+	    d = document,
+	    gEBI = "getElementById",
+	    gEBCN = "getElementsByClassName",
 	    ds = "dataset",
 	    aEL = "addEventListener",
 	    rEL = "removeEventListener",
+	    vk_like = "vk-like",
+	    c = d[gEBI](vk_like) || "",
+	    a = d[gEBCN]("btn-show-vk-like")[0] || "",
+	    js = getHTTP(!0) + "://vk.com/js/api/openapi.js?122",
 	    g = function () {
 		try {
 			if (w.VK) {
@@ -1430,8 +1347,11 @@ document.ready().then(loadInitManUp);
 var showPageFinishProgress = function () {
 	"use strict";
 
-	var a = BALA.one("#page") || "",
-	    c = BALA.one(".holder-site-logo") || "",
+	var d = document,
+	    gEBI = "getElementById",
+	    gEBCN = "getElementsByClassName",
+	    a = d[gEBI]("page") || "",
+	    c = d[gEBCN]("holder-site-logo")[0] || "",
 	    g = function () {
 		setStyleOpacity(a, 1);
 		setStyleOpacity(c, 1);

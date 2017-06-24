@@ -1,6 +1,6 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global global, $, ActiveXObject, alignToMasterBottomLeft, appendFragment, BALA, 
+/*global global, $, ActiveXObject, alignToMasterBottomLeft, appendFragment, 
 Carousel, changeLocation, container, Cookies, debounce, define, 
 DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation, earlyDeviceSize, 
 earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch, 
@@ -146,32 +146,6 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 			}
 		}tick();
 	};root.scroll2Top = scroll2Top;
-})(globalRoot);
-/*!
- * A function for elements selection - v0.1.9
- * @see {@link https://github.com/finom/bala}
- * @param {String} a id, class or tag string
- * @param {String|Object} [b] context tag string or HTML Element object
- * a=BALA("sometag/#someid/.someclass"[,someParent]);
- * a=BALA.one("sometag/#someid/.someclass"[,someParent]);
- * global $ becomes var g
- * renamed function $ to g
- * @see {@link https://github.com/finom/bala/blob/master/bala.js}
- * passes jshint
- */
-(function (root) {
-	"use strict";
-	var BALA = function () {
-		var g = function (document, s_addEventListener, s_querySelectorAll) {
-			function g(s, context, bala) {
-				bala = Object.create(g.fn);if (s) {
-					bala.push.apply(bala, s[s_addEventListener] ? [s] : "" + s === s ? /</.test(s) ? ((context = document.createElement(context || s_addEventListener)).innerHTML = s, context.children) : context ? (context = g(context)[0]) ? context[s_querySelectorAll](s) : bala : document[s_querySelectorAll](s) : typeof s === "function" ? document.readyState[7] ? s() : document[s_addEventListener]('DOMContentLoaded', s) : s);
-				}return bala;
-			}g.fn = [];g.one = function (s, context) {
-				return g(s, context)[0] || null;
-			};return g;
-		}(document, 'addEventListener', 'querySelectorAll');return g;
-	}();root.BALA = BALA;
 })(globalRoot);
 /*!
  * Super lightweight script (~1kb) to detect via Javascript events like
@@ -860,42 +834,51 @@ progressBar.init();
  * so that they open in new browser tab
  * @param {Object} [ctx] context HTML Element
  */
-var handleExternalLink = function (p, ev) {
+var handleExternalLink = function (url, ev) {
 	"use strict";
 
 	ev.stopPropagation();
 	ev.preventDefault();
-	openDeviceBrowser(p);
+	var logicHandleExternalLink = openDeviceBrowser.bind(null, url),
+	    debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
+	debounceLogicHandleExternalLink();
 },
     manageExternalLinks = function (ctx) {
 	"use strict";
 
 	ctx = ctx && ctx.nodeName ? ctx : "";
-	var aEL = "addEventListener",
-	    cls = "a",
-	    a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
-	    g = function (e) {
-		var p = e.getAttribute("href") || "";
-		if (p && parseLink(p).isCrossDomain && parseLink(p).hasHTTP) {
-			e.title = "" + (parseLink(p).hostname || "") + " откроется в новой вкладке";
-			if ("undefined" !== typeof getHTTP && getHTTP()) {
-				e.target = "_blank";
-				e.rel = "noopener";
-			} else {
-				e[aEL]("click", handleExternalLink.bind(null, p));
+	var d = document,
+	    gEBTN = "getElementsByTagName",
+	    linkTag = "a",
+	    link = ctx ? ctx[gEBTN](linkTag) || "" : d[gEBTN](linkTag) || "",
+	    cL = "classList",
+	    aEL = "addEventListener",
+	    gA = "getAttribute",
+	    isBindedClass = "is-binded",
+	    arrangeExternalLink = function (e) {
+		if (!e[cL].contains(isBindedClass)) {
+			var url = e[gA]("href") || "";
+			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+				e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					e.target = "_blank";
+					e.rel = "noopener";
+				} else {
+					e[aEL]("click", handleExternalLink.bind(null, url));
+				}
+				e[cL].add(isBindedClass);
 			}
 		}
 	},
-	    k = function () {
-		a = ctx ? BALA(cls, ctx) || "" : BALA(cls) || "";
-		for (var i = 0, l = a.length; i < l; i += 1) {
-			g(a[i]);
+	    rerenderExternalLinks = function () {
+		for (var i = 0, l = link.length; i < l; i += 1) {
+			arrangeExternalLink(link[i]);
 		}
-		/* forEach(a, g, !1); */
+		/* forEach(link, arrangeExternalLink); */
 	};
-	if (a) {
+	if (link) {
 		/* console.log("triggered function: manageExternalLinks"); */
-		k();
+		rerenderExternalLinks();
 	}
 };
 document.ready().then(manageExternalLinks);
@@ -907,39 +890,33 @@ var initMasonry = function (ctx) {
 
 	ctx = ctx && ctx.nodeName ? ctx : "";
 	var w = globalRoot,
-	    cls = ".masonry-grid",
-	    h = ".masonry-grid-item",
-	    k = ".masonry-grid-sizer",
-	    a = ctx ? BALA.one(cls, ctx) || "" : BALA.one(cls) || "",
-	    c = ctx ? BALA.one(h, ctx) || "" : BALA.one(h) || "",
-
-	/* cls1 = ".holder-filter-buttons",
- holder_btns = ctx ? BALA.one(cls1, ctx) || "" : BALA.one(cls1) || "", */
-	cls2 = ".holder-filter-buttons li[data-filter]",
-	    btn = ctx ? BALA.one(cls2, ctx) || "" : BALA.one(cls2) || "",
-	    btns = ctx ? BALA(cls2, ctx) || "" : BALA(cls2) || "",
-
-	/* cls3 = ".holder-filter-select",
- holder_sel = ctx ? BALA.one(cls3, ctx) || "" : BALA.one(cls3) || "", */
-	cls4 = ".filter-select",
-	    sel = ctx ? BALA.one(cls4, ctx) || "" : BALA.one(cls4) || "",
-	    cls5 = ".holder-filter-controls",
-	    holder_controls = ctx ? BALA.one(cls5, ctx) || "" : BALA.one(cls5) || "",
+	    d = document,
+	    qS = "querySelector",
+	    qSA = "querySelectorAll",
+	    gEBCN = "getElementsByClassName",
+	    gridItemClass = ".masonry-grid-item",
+	    griidSizerClass = ".masonry-grid-sizer",
+	    masonryGrid = ctx ? ctx[gEBCN]("masonry-grid")[0] || "" : d[gEBCN]("masonry-grid")[0] || "",
+	    masonryGridItem = ctx ? ctx[qS](gridItemClass) || "" : d[qS](gridItemClass) || "",
+	    btn = ctx ? ctx[qS](".holder-filter-buttons li[data-filter]") || "" : d[qS](".holder-filter-buttons li[data-filter]") || "",
+	    btns = ctx ? ctx[qSA](".holder-filter-buttons li[data-filter]") || "" : d[qSA](".holder-filter-buttons li[data-filter]") || "",
+	    sel = ctx ? ctx[gEBCN]("filter-select")[0] || "" : d[gEBCN]("filter-select")[0] || "",
+	    holder_controls = ctx ? ctx[gEBCN]("holder-filter-controls")[0] || "" : d[gEBCN]("holder-filter-controls")[0] || "",
 	    g = function () {
 		var imgLoad;
 		if (w.Masonry && w.Isotope) {
-			var iso = new Isotope(a, {
-				itemSelector: h,
+			var iso = new Isotope(masonryGrid, {
+				itemSelector: gridItemClass,
 				layoutMode: "masonry",
 				masonry: {
-					columnWidth: k,
+					columnWidth: griidSizerClass,
 					gutter: 0
 				},
 				percentPosition: !0
 			});
 			/* console.log("function initMasonry => initialised iso"); */
 			if (w.imagesLoaded) {
-				imgLoad = imagesLoaded(a);
+				imgLoad = imagesLoaded(masonryGrid);
 				imgLoad.on("progress", function (instance) {
 					iso.layout();
 					/* console.log("function initMasonry => reinitialised iso"); */
@@ -988,15 +965,15 @@ var initMasonry = function (ctx) {
 				holder_controls.classList.add("visible");
 			}
 		} else if (w.Masonry) {
-			var msnry = new Masonry(a, {
-				itemSelector: h,
-				columnWidth: k,
+			var msnry = new Masonry(masonryGrid, {
+				itemSelector: gridItemClass,
+				columnWidth: griidSizerClass,
 				gutter: 0,
 				percentPosition: !0
 			});
 			/* console.log("function initMasonry => initialised msnry"); */
 			if (w.imagesLoaded) {
-				imgLoad = imagesLoaded(a);
+				imgLoad = imagesLoaded(masonryGrid);
 				imgLoad.on("progress", function (instance) {
 					msnry.layout();
 					/* console.log("function initMasonry => reinitialised msnry"); */
@@ -1006,22 +983,22 @@ var initMasonry = function (ctx) {
 				holder_controls.classList.remove("visible");
 			}
 		} else if (w.Packery) {
-			var pckry = new Packery(a, {
-				itemSelector: h,
-				columnWidth: k,
+			var pckry = new Packery(masonryGrid, {
+				itemSelector: gridItemClass,
+				columnWidth: griidSizerClass,
 				gutter: 0,
 				percentPosition: !0
 			});
 			/* console.log("function initMasonry => initialised pckry"); */
 			if (w.imagesLoaded) {
-				imgLoad = imagesLoaded(a);
+				imgLoad = imagesLoaded(masonryGrid);
 				imgLoad.on("progress", function (instance) {
 					pckry.layout();
 					/* console.log("function initMasonry => reinitialised pckry"); */
 				});
 			}
-			if (c) {
-				c = ctx ? BALA(h, ctx) || "" : BALA(h) || "";
+			if (masonryGridItem) {
+				masonryGridItem = ctx ? ctx[qSA](gridItemClass) || "" : d[qSA](gridItemClass) || "";
 				if (w.Draggabilly) {
 					var draggie,
 					    f = function (e) {
@@ -1031,10 +1008,10 @@ var initMasonry = function (ctx) {
 						/* console.log("function initMasonry => initialised draggie"); */
 					},
 					    draggies = [];
-					for (var j = 0, m = c.length; j < m; j += 1) {
-						f(c[j]);
+					for (var j = 0, m = masonryGridItem.length; j < m; j += 1) {
+						f(masonryGridItem[j]);
 					}
-					/* forEach(c, f, !1); */
+					/* forEach(masonryGridItem, f, !1); */
 					if (pckry && draggie) {
 						pckry.bindDraggabillyEvents(draggie);
 						/* console.log("function initMasonry => binded draggie to pckry"); */
@@ -1077,7 +1054,7 @@ var initUiTotop = function () {
 	    d = document,
 	    h = d.documentElement || "",
 	    b = d.body || "",
-	    qS = "querySelector",
+	    gEBCN = "getElementsByClassName",
 	    cL = "classList",
 	    cE = "createElement",
 	    aC = "appendChild",
@@ -1089,7 +1066,7 @@ var initUiTotop = function () {
 	    isActiveClass = "is-active",
 	    handleUiTotopWindow = function (_this) {
 		var logicHandleUiTotopWindow = function () {
-			var btn = d[qS]("." + btnClass) || "",
+			var btn = d[gEBCN](btnClass)[0] || "",
 			    scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
 			    windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
 			if (scrollPosition && windowHeight && btn) {
@@ -1140,7 +1117,9 @@ document.ready().then(initUiTotop);
 var showPageFinishProgress = function () {
 	"use strict";
 
-	var a = BALA.one("#container") || "",
+	var d = document,
+	    gEBI = "getElementById",
+	    a = d[gEBI]("container") || "",
 	    g = function () {
 		setStyleOpacity(a, 1);
 		progressBar.complete();

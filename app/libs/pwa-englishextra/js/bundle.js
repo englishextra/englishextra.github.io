@@ -1,6 +1,6 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global global, $, ActiveXObject, alignToMasterBottomLeft, appendFragment, BALA,
+/*global global, $, ActiveXObject, alignToMasterBottomLeft, appendFragment,
 Carousel, changeLocation, container, Cookies, debounce, define,
 DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation, earlyDeviceSize,
 earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch,
@@ -216,13 +216,13 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 	    cE = "createElement",
 	    cL = "classList",
 	    aC = "appendChild",
-	    dS = "dataset",
+	    ds = "dataset",
 	    containerClass = "iframe-lightbox",
 	    isLoadedClass = "is-loaded",
 	    isOpenedClass = "is-opened",
 	    isShowingClass = "is-showing";var IframeLightbox = function (elem, rate) {
 		if (elem.nodeName) {
-			this.trigger = elem;this.rate = rate || 500;this.el = d[gEBCN](containerClass)[0] || "";this.body = this.el ? this.el[gEBCN]("body")[0] : "";this.content = this.el ? this.el[gEBCN]("content")[0] : "";this.href = elem[dS].src || "";this.paddingBottom = elem[dS].paddingBottom || "";this.init();
+			this.trigger = elem;this.rate = rate || 500;this.el = d[gEBCN](containerClass)[0] || "";this.body = this.el ? this.el[gEBCN]("body")[0] : "";this.content = this.el ? this.el[gEBCN]("content")[0] : "";this.href = elem[ds].src || "";this.paddingBottom = elem[ds].paddingBottom || "";this.init();
 		} else {
 			return;
 		}
@@ -3257,7 +3257,7 @@ var initUiTotop = function () {
 	    d = document,
 	    h = d.documentElement || "",
 	    b = d.body || "",
-	    qS = "querySelector",
+	    gEBCN = "getElementsByClassName",
 	    cL = "classList",
 	    cE = "createElement",
 	    aC = "appendChild",
@@ -3269,7 +3269,7 @@ var initUiTotop = function () {
 	    isActiveClass = "is-active",
 	    handleUiTotopWindow = function (_this) {
 		var logicHandleUiTotopWindow = function () {
-			var btn = d[qS]("." + btnClass) || "",
+			var btn = d[gEBCN](btnClass)[0] || "",
 			    scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
 			    windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
 			if (scrollPosition && windowHeight && btn) {
