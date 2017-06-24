@@ -653,8 +653,7 @@ var handleContentsSelect = function () {
 },
 manageContentsSelect = function () {
 	"use strict";
-	var w = globalRoot,
-	d = document,
+	var d = document,
 	gEBI = "getElementById",
 	contentsSelect = d[gEBI]("contents-select") || "",
 	cE = "createElement",
@@ -982,8 +981,7 @@ document.ready().then(addAppUpdatesLink);
  */
 var initMenuMore = function () {
 	"use strict";
-	var w = globalRoot,
-	d = document,
+	var d = document,
 	gEBI = "getElementById",
 	gEBCN = "getElementsByClassName",
 	gEBTN = "getElementsByTagName",
@@ -1221,8 +1219,7 @@ document.ready().then(manageVKLikeButton);
  */
 var initKamilAutocomplete = function () {
 	"use strict";
-	var w = globalRoot,
-	d = document,
+	var d = document,
 	gEBI = "getElementById",
 	gEBCN = "getElementsByClassName",
 	gEBTN = "getElementsByTagName",
