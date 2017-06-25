@@ -521,11 +521,11 @@ var LoadingSpinner = (function () {
 	"use strict";
 	var d = document,
 	b = d.body || "",
-	qS = "querySelector",
-	spinnerClass = "loading-spinner",
-	spinner = d[qS]("." + spinnerClass) || "",
+	gEBCN = "getElementsByClassName",
 	cL = "classList",
 	cE = "createElement",
+	spinnerClass = "loading-spinner",
+	spinner = d[gEBCN](spinnerClass)[0] || "",
 	isActiveClass = "is-active-loading-spinner";
 	/* console.log("triggered function: LoadingSpinner"); */
 	if (!spinner) {
@@ -559,18 +559,19 @@ var LoadingSpinner = (function () {
  * passes jshint
  */
 var notiBar = function (opt) {
+	"use strict";
 	var d = document,
 	b = d.body || "",
-	qS = "querySelector",
+	gEBCN = "getElementsByClassName",
 	cL = "classList",
-	aC = "appendChild",
 	cE = "createElement",
 	cENS = "createElementNS",
 	sANS = "setAttributeNS",
+	aC = "appendChild",
 	aEL = "addEventListener",
 	rEL = "removeEventListener",
 	notibarClass = "notibar",
-	notibarContainer = d[qS]("." + notibarClass) || "",
+	notibarContainer = d[gEBCN](notibarClass)[0] || "",
 	messageClass = "message",
 	closeButtonClass = "close",
 	defaultKey = "_notibar_dismiss_",
@@ -637,7 +638,7 @@ var notiBar = function (opt) {
 			}
 		},
 		hideMessage = function () {
-			var notibarContainer = d[qS]("." + notibarClass) || "";
+			var notibarContainer = d[gEBCN](notibarClass)[0] || "";
 			if (notibarContainer) {
 				notibarContainer[cL].remove(fadeInDownClass);
 				notibarContainer[cL].add(fadeOutUpClass);
@@ -1064,10 +1065,10 @@ document.ready().then(manageExternalLinks);
 var hideImgLightbox = function () {
 	"use strict";
 	var d = document,
-	qS = "querySelector",
+	gEBCN = "getElementsByClassName",
 	gEBTN = "getElementsByTagName",
 	cL = "classList",
-	container = d[qS](".img-lightbox-container") || "",
+	container = d[gEBCN]("img-lightbox-container")[0] || "",
 	img = container ? container[gEBTN]("img")[0] || "" : "",
 	an = "animated",
 	an1 = "fadeIn",
@@ -1130,10 +1131,10 @@ manageImgLightboxLinks = function (ctx) {
 	gEBCN = "getElementsByClassName",
 	gEBTN = "getElementsByTagName",
 	cL = "classList",
-	aEL = "addEventListener",
-	aC = "appendChild",
 	cE = "createElement",
 	gA = "getAttribute",
+	aC = "appendChild",
+	aEL = "addEventListener",
 	linkClass = "img-lightbox-link",
 	link = ctx ? ctx[gEBCN](linkClass) || "" : d[gEBCN](linkClass) || "",
 	containerClass = "img-lightbox-container",
@@ -1291,11 +1292,10 @@ var manageDataQrcodeImg = function (ctx) {
 	ctx = ctx && ctx.nodeName ? ctx : "";
 	var w = globalRoot,
 	d = document,
-	qS = "querySelector",
-	qSA = "querySelectorAll",
+	gEBCN = "getElementsByClassName",
 	ds = "dataset",
-	cls = "img[data-qrcode]",
-	img = ctx ? ctx[qS](cls) || "" : d[qS](cls) || "",
+	imgClass = "data-qrcode-img",
+	img = ctx ? ctx[gEBCN](imgClass) || "" : d[gEBCN](imgClass) || "",
 	generateImg = function (e) {
 		var qrcode = e[ds].qrcode || "";
 		qrcode = decodeURIComponent(qrcode);
@@ -1334,7 +1334,6 @@ var manageDataQrcodeImg = function (ctx) {
 	};
 	if (img) {
 		/* console.log("triggered function: manageDataQrcodeImg"); */
-		img = ctx ? ctx[qSA](cls) || "" : d[qSA](cls) || "";
 		for (var i = 0, l = img.length; i < l; i += 1) {
 			generateImg(img[i]);
 		}
@@ -1495,37 +1494,35 @@ var manageDataTargetLinks = function (ctx) {
 	"use strict";
 	ctx = ctx && ctx.nodeName ? ctx : "";
 	var d = document,
-	qS = "querySelector",
-	qSA = "querySelectorAll",
+	gEBCN = "getElementsByClassName",
 	ds = "dataset",
 	aEL = "addEventListener",
 	rEL = "removeEventListener",
-	cls = "[data-target]",
-	a = ctx ? ctx[qS](cls) || "" : d[qS](cls) || "",
-	g = function (e) {
-		var u = e[ds].include || "",
-		t = e[ds].target || "";
-		if (u && t) {
+	linkClass = "data-target-link",
+	link = ctx ? ctx[gEBCN](linkClass) || "" : d[gEBCN](linkClass) || "",
+	arrangeLink = function (e) {
+		var includeUrl = e[ds].include || "",
+		targetElement = e[ds].target || "";
+		if (includeUrl && targetElement) {
 			e.title = "Появится здесь же";
 			var h_e = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				e[rEL]("click", h_e);
-				includeHTMLintoTarget(e, u, t);
+				includeHTMLintoTarget(e, includeUrl, targetElement);
 			};
 			e[aEL]("click", h_e);
 		}
 	},
-	k = function () {
-		a = ctx ? ctx[qSA](cls) || "" : d[qSA](cls) || "";
-		for (var i = 0, l = a.length; i < l; i += 1) {
-			g(a[i]);
+	arrangeAllLinks = function () {
+		for (var i = 0, l = link.length; i < l; i += 1) {
+			arrangeLink(link[i]);
 		}
-		/* forEach(a, g, !1); */
+		/* forEach(a, arrangeLink, !1); */
 	};
-	if (a) {
+	if (link) {
 		/* console.log("triggered function: manageDataTargetLinks"); */
-		k();
+		arrangeAllLinks();
 	}
 };
 /*!
@@ -1536,7 +1533,6 @@ var manageDebugGridButton = function () {
 	var w = globalRoot,
 	d = document,
 	b = d.body || "",
-	qS = "querySelector",
 	gEBI = "getElementById",
 	gEBCN = "getElementsByClassName",
 	cL = "classList",
@@ -1555,7 +1551,7 @@ var manageDebugGridButton = function () {
 		}
 	},
 	showDebugGridMessage = function () {
-		var col = d[qS](".col") || "",
+		var col = d[gEBCN]("col")[0] || "",
 		elements = [b, page, container, col],
 		debugMessage = [],
 		renderElementsInfo = function (e) {
@@ -1716,7 +1712,8 @@ document.ready().then(loadManageLocationQrCodeImg);
 /*!
  * init share btn
  */
-var manageShareButton = function () {
+var Ya,
+manageShareButton = function () {
 	"use strict";
 	var d = document,
 	gEBCN = "getElementsByClassName",
@@ -1766,7 +1763,8 @@ document.ready().then(manageShareButton);
 /*!
  * init vk-like btn
  */
-var manageVKLikeButton = function () {
+var VK,
+manageVKLikeButton = function () {
 	"use strict";
 	var w = globalRoot,
 	d = document,
@@ -1911,28 +1909,29 @@ manageDisqusButton = function () {
  * tech.yandex.ru/maps/jsbox/2.1/mapbasics
  */
 var myMap,
+ymaps,
 initYandexMap = function (yandexMapId) {
 	"use strict";
 	var d = document,
-	qS = "querySelector",
+	gEBI = "getElementById",
 	cL = "classList",
 	ds = "dataset",
 	pN = "parentNode",
 	aEL = "addEventListener",
 	rEL = "removeEventListener",
-	yandexMap = d[qS](yandexMapId) || "",
-	isActiveClass = "is-active",
+	yandexMap = d[gEBI](yandexMapId) || "",
+	btnShow = yandexMap ? (d[gEBI](yandexMap[ds].btnShow) || "") : "",
+	btnDestroy = yandexMap ? (d[gEBI](yandexMap[ds].btnDestroy) || "") : "",
 	yandexMapCenter = yandexMap ? (yandexMap[ds].center || "") : "",
 	yandexMapZoom = yandexMap ? (yandexMap[ds].zoom || "") : "",
-	btnShow = yandexMap ? (d[qS](yandexMap[ds].btnShow) || "") : "",
-	btnDestroy = yandexMap ? (d[qS](yandexMap[ds].btnDestroy) || "") : "",
+	isActiveClass = "is-active",
 	js = getHTTP(!0) + "://api-maps.yandex.ru/2.1/?lang=ru_RU",
 	initMyMap = function () {
 		if (myMap) {
 			myMap.destroy();
 		}
 		try {
-			myMap = new ymaps.Map(yandexMap.id, {
+			myMap = new ymaps.Map(yandexMapId, {
 					center: JSON.parse(yandexMapCenter),
 					zoom: yandexMapZoom
 				});
@@ -1945,16 +1944,15 @@ initYandexMap = function (yandexMapId) {
 		setStyleDisplayNone(btnShow);
 		LoadingSpinner.hide();
 	},
-	initYandexMap = function () {
-		try {
-			ymaps.ready(initMyMap);
-			showYandexMap();
-		} catch (e) {
-			setStyleDisplayBlock(btnShow);
+	initYmaps = function () {
+		if ("undefined" !== ymaps && ymaps) {
+			try {
+				ymaps.ready(initMyMap);
+				showYandexMap();
+			} catch (e) {
+				setStyleDisplayBlock(btnShow);
+			}
 		}
-	},
-	loadInitYandexMap = function () {
-		loadJS(js, initYandexMap);
 	},
 	hideYandexMap = function () {
 		removeChildren(yandexMap);
@@ -1978,10 +1976,10 @@ initYandexMap = function (yandexMapId) {
 				btnDestroy[aEL]("click", handleYandexMapBtnDestroy);
 			}
 			LoadingSpinner.show();
-			if (scriptIsLoaded(js)) {
-				initYandexMap();
+			if (!scriptIsLoaded(js)) {
+				loadJS(js, initYmaps);
 			} else {
-				loadInitYandexMap();
+				initYmaps();
 			}
 		} else {
 			hideYandexMap();
@@ -1991,22 +1989,22 @@ initYandexMap = function (yandexMapId) {
 manageYandexMapButton = function (yandexMapId) {
 	"use strict";
 	var d = document,
-	qS = "querySelector",
+	gEBI = "getElementById",
 	ds = "dataset",
 	aEL = "addEventListener",
 	rEL = "removeEventListener",
-	yandexMap = d[qS](yandexMapId) || "",
-	e = yandexMap ? (d[qS](yandexMap[ds].btnShow) || "") : "",
-	h_e = function (ev) {
+	yandexMap = d[gEBI](yandexMapId) || "",
+	btnShow = yandexMap ? (d[gEBI](yandexMap[ds].btnShow) || "") : "",
+	handleBtnShow = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
-		e[rEL]("click", h_e);
+		btnShow[rEL]("click", handleBtnShow);
 		initYandexMap(yandexMapId);
 		return !1;
 	};
-	if (yandexMap && e) {
+	if (yandexMap && btnShow) {
 		/* console.log("triggered function: manageYandexMapButton"); */
-		e[aEL]("click", h_e);
+		btnShow[aEL]("click", handleBtnShow);
 	}
 };
 /*!
@@ -2267,7 +2265,7 @@ var initRoutie = function () {
 		 */
 		LoadingSpinner.hide(scroll2Top.bind(null, 0, 20000));
 		d.title = (titleString ? titleString +  " - "  : "" ) + (initialDocumentTitle ? initialDocumentTitle + (userBrowsingDetails ? userBrowsingDetails : "") : "");
-		manageYandexMapButton("#ymap");
+		manageYandexMapButton("ymap");
 		manageDisqusButton(appContentParent);
 		manageExternalLinks(appContentParent);
 		manageDataTargetLinks(appContentParent);

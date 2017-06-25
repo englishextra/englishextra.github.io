@@ -175,9 +175,9 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 (function (root) {
 	"use strict";
 	var d = document,
-	    qS = "querySelector",
+	    gEBCN = "getElementsByClassName",
 	    aEL = "addEventListener";var Carousel = function (setting) {
-		var _this = this;if (d[qS](setting.wrap) === null) {
+		var _this = this;if (d[gEBCN](setting.wrap)[0] === null) {
 			console.error("Carousel not fount selector " + setting.wrap);return;
 		}var privates = {};this.prev_slide = function () {
 			--privates.opt.position;if (privates.opt.position < 0) {
@@ -187,7 +187,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 			++privates.opt.position;if (privates.opt.position >= privates.opt.max_position) {
 				privates.opt.position = 0;
 			}privates.sel.wrap.style.transform = "translateX(-" + privates.opt.position + "00%)";
-		};privates.setting = setting;privates.sel = { "main": d[qS](privates.setting.main), "wrap": d[qS](privates.setting.wrap), "children": d[qS](privates.setting.wrap).children, "prev": d[qS](privates.setting.prev), "next": d[qS](privates.setting.next) };privates.opt = { "position": 0, "max_position": d[qS](privates.setting.wrap).children.length };if (privates.sel.prev !== null) {
+		};privates.setting = setting;privates.sel = { "main": d[gEBCN](privates.setting.main)[0], "wrap": d[gEBCN](privates.setting.wrap)[0], "children": d[gEBCN](privates.setting.wrap)[0].children, "prev": d[gEBCN](privates.setting.prev)[0], "next": d[gEBCN](privates.setting.next)[0] };privates.opt = { "position": 0, "max_position": d[gEBCN](privates.setting.wrap)[0].children.length };if (privates.sel.prev !== null) {
 			privates.sel.prev[aEL]("click", function () {
 				_this.prev_slide();
 			});
@@ -1185,11 +1185,11 @@ var LoadingSpinner = function () {
 
 	var d = document,
 	    b = d.body || "",
-	    qS = "querySelector",
-	    spinnerClass = "loading-spinner",
-	    spinner = d[qS]("." + spinnerClass) || "",
+	    gEBCN = "getElementsByClassName",
 	    cL = "classList",
 	    cE = "createElement",
+	    spinnerClass = "loading-spinner",
+	    spinner = d[gEBCN](spinnerClass)[0] || "",
 	    isActiveClass = "is-active-loading-spinner";
 	/* console.log("triggered function: LoadingSpinner"); */
 	if (!spinner) {
@@ -1505,10 +1505,10 @@ var hideImgLightbox = function () {
 	"use strict";
 
 	var d = document,
-	    qS = "querySelector",
+	    gEBCN = "getElementsByClassName",
 	    gEBTN = "getElementsByTagName",
 	    cL = "classList",
-	    container = d[qS](".img-lightbox-container") || "",
+	    container = d[gEBCN]("img-lightbox-container")[0] || "",
 	    img = container ? container[gEBTN]("img")[0] || "" : "",
 	    an = "animated",
 	    an1 = "fadeIn",
@@ -1574,10 +1574,10 @@ var hideImgLightbox = function () {
 	    gEBCN = "getElementsByClassName",
 	    gEBTN = "getElementsByTagName",
 	    cL = "classList",
-	    aEL = "addEventListener",
-	    aC = "appendChild",
 	    cE = "createElement",
 	    gA = "getAttribute",
+	    aC = "appendChild",
+	    aEL = "addEventListener",
 	    linkClass = "img-lightbox-link",
 	    link = ctx ? ctx[gEBCN](linkClass) || "" : d[gEBCN](linkClass) || "",
 	    containerClass = "img-lightbox-container",
@@ -1651,7 +1651,6 @@ var hideImgLightbox = function () {
 		rerenderImgLightboxLinks();
 	}
 };
-document.ready().then(manageImgLightboxLinks);
 /*!
  * hide other dropdown lists
  * use ev.stopPropagation(); ev.preventDefault();
@@ -1885,20 +1884,21 @@ var msnry,
 	var w = globalRoot,
 	    d = document,
 	    gEBCN = "getElementsByClassName",
-	    masonryGridClass = "masonry-grid",
-	    masonryItemClass = "masonry-grid-item",
-	    sizerSelector = ".masonry-grid-sizer",
-	    masonryGrid = ctx ? ctx[gEBCN](masonryGridClass)[0] || "" : d[gEBCN](masonryGridClass)[0] || "",
-	    masonryItem = ctx ? ctx[gEBCN](masonryItemClass)[0] || "" : d[gEBCN](masonryItemClass)[0] || "",
-	    arrangeMasonryItems = function () {
+	    gridClass = "masonry-grid",
+	    gridItemClass = "masonry-grid-item",
+	    gridItemSelector = ".masonry-grid-item",
+	    gridSizerSelector = ".masonry-grid-sizer",
+	    grid = ctx ? ctx[gEBCN](gridClass)[0] || "" : d[gEBCN](gridClass)[0] || "",
+	    gridItem = ctx ? ctx[gEBCN](gridItemClass)[0] || "" : d[gEBCN](gridItemClass)[0] || "",
+	    initGrid = function () {
 		var timers;
 		if (w.Masonry) {
 			if (msnry) {
 				msnry.destroy();
 			}
-			msnry = new Masonry("." + masonryGridClass, {
-				itemSelector: "." + masonryItemClass,
-				columnWidth: sizerSelector,
+			msnry = new Masonry(grid, {
+				itemSelector: gridItemSelector,
+				columnWidth: gridSizerSelector,
 				gutter: 0,
 				percentPosition: !0
 			});
@@ -1918,9 +1918,9 @@ var msnry,
 			if (pckry) {
 				pckry.destroy();
 			}
-			pckry = new Packery("." + masonryGridClass, {
-				itemSelector: "." + masonryItemClass,
-				columnWidth: sizerSelector,
+			pckry = new Packery(grid, {
+				itemSelector: gridItemSelector,
+				columnWidth: gridSizerSelector,
 				gutter: 0,
 				percentPosition: !0
 			});
@@ -1940,7 +1940,7 @@ var msnry,
 			/* console.log("function initMasonry.arrangeItems => no library is loaded"); */
 		}
 	};
-	if (masonryGrid && masonryItem) {
+	if (grid && gridItem) {
 		if ("undefined" !== typeof imagesPreloaded) {
 			/* console.log("triggered function: initMasonryGrid"); */
 			var timers = new Timers();
@@ -1950,9 +1950,9 @@ var msnry,
 				/* var js = "./cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
 				var js = "./cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
 				if (!scriptIsLoaded(js)) {
-					loadJS(js, arrangeMasonryItems);
+					loadJS(js, initGrid);
 				} else {
-					arrangeMasonryItems();
+					initGrid();
 				}
 			}, 100);
 		} else {
@@ -2048,18 +2048,20 @@ var manageDisqusButton = function (ctx) {
  * passes jshint
  */
 var notiBar = function (opt) {
+	"use strict";
+
 	var d = document,
 	    b = d.body || "",
-	    qS = "querySelector",
+	    gEBCN = "getElementsByClassName",
 	    cL = "classList",
-	    aC = "appendChild",
 	    cE = "createElement",
 	    cENS = "createElementNS",
 	    sANS = "setAttributeNS",
+	    aC = "appendChild",
 	    aEL = "addEventListener",
 	    rEL = "removeEventListener",
 	    notibarClass = "notibar",
-	    notibarContainer = d[qS]("." + notibarClass) || "",
+	    notibarContainer = d[gEBCN](notibarClass)[0] || "",
 	    messageClass = "message",
 	    closeButtonClass = "close",
 	    defaultKey = "_notibar_dismiss_",
@@ -2126,7 +2128,7 @@ var notiBar = function (opt) {
 			}
 		},
 		    hideMessage = function () {
-			var notibarContainer = d[qS]("." + notibarClass) || "";
+			var notibarContainer = d[gEBCN](notibarClass)[0] || "";
 			if (notibarContainer) {
 				notibarContainer[cL].remove(fadeInDownClass);
 				notibarContainer[cL].add(fadeOutUpClass);
@@ -2240,8 +2242,8 @@ var initKamilAutocomplete = function (jsonObj) {
 
 	var w = globalRoot,
 	    d = document,
-	    qS = "querySelector",
 	    gEBI = "getElementById",
+	    gEBCN = "getElementsByClassName",
 	    gEBTN = "getElementsByTagName",
 	    cL = "classList",
 	    cE = "createElement",
@@ -2249,7 +2251,7 @@ var initKamilAutocomplete = function (jsonObj) {
 	    aC = "appendChild",
 	    pN = "parentNode",
 	    aEL = "addEventListener",
-	    searchForm = d[qS](".search-form") || "",
+	    searchForm = d[gEBCN]("search-form")[0] || "",
 	    textInputId = "text",
 	    textInput = d[gEBI](textInputId) || "",
 	    outsideContainer = d[gEBI]("container") || "",
@@ -2503,10 +2505,10 @@ var renderNavigation = function () {
 				insertFromTemplate(navigationJsonResponse, carouselTemplateId, carouselRenderId, function () {
 					var carousel;
 					carousel = new Carousel({
-						"main": ".js-carousel",
-						"wrap": ".js-carousel__wrap",
-						"prev": ".js-carousel__prev",
-						"next": ".js-carousel__next"
+						"main": "js-carousel",
+						"wrap": "js-carousel__wrap",
+						"prev": "js-carousel__prev",
+						"next": "js-carousel__next"
 					});
 					if (carouselRenderParent) {
 						manageDataSrcImages();
@@ -2527,13 +2529,13 @@ var fixUiPanelContentsSelect = function () {
 
 	var w = globalRoot,
 	    d = document,
-	    qS = "querySelector",
+	    gEBCN = "getElementsByClassName",
 	    cL = "classList",
 	    aEL = "addEventListener",
-	    uiPanelNavigation = d[qS](".ui-panel-navigation") || "",
-	    holderHero = d[qS](".holder-hero") || "",
+	    uiPanelNavigation = d[gEBCN]("ui-panel-navigation")[0] || "",
+	    holderHero = d[gEBCN]("holder-hero")[0] || "",
+	    uiPanelContentsSelect = d[gEBCN]("ui-panel-contents-select")[0] || "",
 	    criticalHeight = (uiPanelNavigation ? uiPanelNavigation.offsetHeight : 0) + (holderHero ? holderHero.offsetHeight : 0),
-	    uiPanelContentsSelect = d[qS](".ui-panel-contents-select") || "",
 	    isFixedClass = "is-fixed",
 	    handleUiPanelContentsSelect = function () {
 		var logicHandleUiPanelContentsSelect = function () {
@@ -2601,12 +2603,12 @@ var manageLocationQrCodeImage = function () {
 
 	var w = globalRoot,
 	    d = document,
-	    qS = "querySelector",
+	    gEBCN = "getElementsByClassName",
 	    cL = "classList",
-	    aEL = "addEventListener",
 	    cE = "createElement",
-	    btn = d[qS](".btn-toggle-holder-location-qr-code") || "",
-	    holder = d[qS](".holder-location-qr-code") || "",
+	    aEL = "addEventListener",
+	    btn = d[gEBCN]("btn-toggle-holder-location-qr-code")[0] || "",
+	    holder = d[gEBCN]("holder-location-qr-code")[0] || "",
 	    isActiveClass = "is-active",
 	    isSocialClass = "is-social",
 	    locationHash = w.location.href || "";
@@ -2679,16 +2681,17 @@ document.ready().then(manageLocationQrCodeImage);
 /*!
  * init share btn
  */
-var manageShareButton = function () {
+var Ya,
+    manageShareButton = function () {
 	"use strict";
 
 	var d = document,
-	    qS = "querySelector",
+	    gEBCN = "getElementsByClassName",
 	    cL = "classList",
 	    aEL = "addEventListener",
-	    btn = d[qS](".btn-toggle-holder-share-buttons") || "",
-	    yaShare2 = d[qS](".ya-share2") || "",
-	    holder = d[qS](".holder-share-buttons") || "",
+	    btn = d[gEBCN]("btn-toggle-holder-share-buttons")[0] || "",
+	    yaShare2 = d[gEBCN]("ya-share2")[0] || "",
+	    holder = d[gEBCN]("holder-share-buttons")[0] || "",
 	    isActiveClass = "is-active",
 	    isSocialClass = "is-social";
 	if (btn && holder && yaShare2) {
@@ -2722,17 +2725,18 @@ document.ready().then(manageShareButton);
 /*!
  * init vk-like btn
  */
-var manageVKLikeButton = function () {
+var VK,
+    manageVKLikeButton = function () {
 	"use strict";
 
 	var w = globalRoot,
 	    d = document,
-	    qS = "querySelector",
 	    gEBI = "getElementById",
+	    gEBCN = "getElementsByClassName",
 	    cL = "classList",
 	    aEL = "addEventListener",
-	    btn = d[qS](".btn-toggle-holder-vk-like") || "",
-	    holder = d[qS](".holder-vk-like") || "",
+	    btn = d[gEBCN]("btn-toggle-holder-vk-like")[0] || "",
+	    holder = d[gEBCN]("holder-vk-like")[0] || "",
 	    vkLikeId = "vk-like",
 	    vkLike = d[gEBI](vkLikeId) || "",
 	    isActiveClass = "is-active",
@@ -2781,7 +2785,6 @@ var manageDebugGridButton = function () {
 	var w = globalRoot,
 	    d = document,
 	    b = d.body || "",
-	    qS = "querySelector",
 	    gEBI = "getElementById",
 	    gEBCN = "getElementsByClassName",
 	    cL = "classList",
@@ -2800,7 +2803,7 @@ var manageDebugGridButton = function () {
 		}
 	},
 	    showDebugGridMessage = function () {
-		var col = d[qS](".col") || "",
+		var col = d[gEBCN]("col")[0] || "",
 		    elements = [b, page, container, col],
 		    debugMessage = [],
 		    renderElementsInfo = function (e) {
@@ -2852,28 +2855,26 @@ var processPoutes = function () {
 
 	var w = globalRoot,
 	    d = document,
-	    qS = "querySelector",
 	    gEBI = "getElementById",
-	    gEBTN = "getElementsByTagName",
 	    gEBCN = "getElementsByClassName",
-	    aC = "appendChild",
-	    cDF = "createDocumentFragment",
+	    gEBTN = "getElementsByTagName",
+	    cL = "classList",
 	    cE = "createElement",
 	    cTN = "createTextNode",
+	    cDF = "createDocumentFragment",
 	    cENS = "createElementNS",
 	    sANS = "setAttributeNS",
-	    aEL = "addEventListener",
-	    cL = "classList",
+	    aC = "appendChild",
 	    pN = "parentNode",
+	    aEL = "addEventListener",
 	    appContentId = "app-content",
 	    appContent = d[gEBI](appContentId) || "",
 	    appContentParent = appContent[pN] || "",
 	    contentsTemplate = d[gEBI]("template_contents_select") || "",
 	    contentsRender = d[gEBI]("render_contents_select") || "",
-	    contentsSelect = d[qS](".contents-select") || "",
-	    holderContentsSelect = d[qS](".holder-contents-select") || "",
+	    contentsSelect = d[gEBCN]("contents-select")[0] || "",
+	    holderContentsSelect = d[gEBCN]("holder-contents-select")[0] || "",
 	    contentsListClass = "contents-list",
-	    contentsListSelector = "." + contentsListClass,
 	    searchTextInput = d[gEBI]("text") || "",
 	    asideTemplateId = "template_aside",
 	    asideRenderId = "render_aside",
@@ -2909,7 +2910,7 @@ var processPoutes = function () {
     } else {
     	scroll2Top(0, 20000);
     } */
-				scroll2Top(0, 20000);
+				/* scroll2Top(0, 20000); */
 				/* if (titleString) { */
 				d.title = (titleString ? titleString + " - " : "") + (initialDocumentTitle ? initialDocumentTitle + (userBrowsingDetails ? userBrowsingDetails : "") : "");
 				/* } */
@@ -2936,7 +2937,7 @@ var processPoutes = function () {
 						contentsSelect.selectedIndex = 0;
 					}
 				}
-				var contentsList = d[qS](contentsListSelector) || "";
+				var contentsList = d[gEBCN](contentsListClass)[0] || "";
 				if (contentsList) {
 					var contentsListButton = holderContentsSelect ? holderContentsSelect[gEBTN]("a")[0] || "" : "";
 					if (contentsListButton) {
@@ -3034,7 +3035,7 @@ var processPoutes = function () {
 					manageChaptersSelect(appContentParent);
 					manageExpandingLayers(appContentParent);
 				}
-				LoadingSpinner.hide();
+				LoadingSpinner.hide(scroll2Top.bind(null, 0, 20000));
 			};
 			if (routesParsedJson) {
 				initKamilAutocomplete(routesParsedJson.hashes);

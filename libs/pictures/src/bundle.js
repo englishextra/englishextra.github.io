@@ -427,18 +427,18 @@ initMasonryImagesLoaded = function () {
 	"use strict";
 	var w = globalRoot,
 	d = document,
-	qS = "querySelector",
-	gridClass = ".masonry-grid",
-	gridItemClass = ".masonry-grid-item",
-	gridSizerClass = ".masonry-grid-sizer",
-	grid = d[qS](gridClass) || "",
-	gridItem = d[qS](gridItemClass) || "",
+	gEBCN = "getElementsByClassName",
+	gridItemClass = "masonry-grid-item",
+	gridItemSelector = ".masonry-grid-item",
+	gridSizerSelector = ".masonry-grid-sizer",
+	grid = d[gEBCN]("masonry-grid")[0] || "",
+	gridItem = d[gEBCN](gridItemClass)[0] || "",
 	arrangeGrid = function () {
 		var imgLoad;
 		if (w.Masonry) {
 			var msnry = new Masonry(grid, {
-					itemSelector: gridItemClass,
-					columnWidth: gridSizerClass,
+					itemSelector: gridItemSelector,
+					columnWidth: gridSizerSelector,
 					gutter: 0,
 					percentPosition: !0
 				});
@@ -455,8 +455,8 @@ initMasonryImagesLoaded = function () {
 			}
 		} else if (w.Packery) {
 			var pckry = new Packery(grid, {
-					itemSelector: gridItemClass,
-					columnWidth: gridSizerClass,
+					itemSelector: gridItemSelector,
+					columnWidth: gridSizerSelector,
 					gutter: 0,
 					percentPosition: !0
 				});
@@ -504,9 +504,10 @@ var initPhotoswipe = function () {
 	gEBCN = "getElementsByClassName",
 	gEBTN = "getElementsByTagName",
 	ds = "dataset",
+	pswpGalleryClass = "pswp-gallery",
 	pswpGallerySelector = ".pswp-gallery",
-	pswpGallery = d[qS](pswpGallerySelector) || "",
-	galleryItems = d[gEBCN]("masonry-grid-item") || "",
+	pswpGallery = d[gEBCN](pswpGalleryClass)[0] || "",
+	pswpGalleryItems = d[gEBCN]("masonry-grid-item") || "",
 	/*!
 	 * modified PhotoSwipe v4.1.1 init code
 	 * fixed: 7 'el' is already defined.
@@ -794,7 +795,7 @@ var initPhotoswipe = function () {
 		}
 		/* forEach(galleries, arrangeImgLinks, !1); */
 	};
-	if (pswpGallery && galleryItems) {
+	if (pswpGallery && pswpGalleryItems) {
 		/* console.log("triggered function: initPhotoswipe"); */
 		arrangeAllImgLinks();
 		pswp(pswpGallerySelector);
@@ -1207,7 +1208,8 @@ document.ready().then(initUiTotop);
 /*!
  * init pluso-engine or ya-share on click
  */
-var initPlusoYaShare = function () {
+var Ya,
+manageShareButton = function () {
 	"use strict";
 	var d = document,
 	gEBCN = "getElementsByClassName",
@@ -1247,7 +1249,7 @@ var initPlusoYaShare = function () {
 		a[aEL]("click", h_a);
 	};
 	if ((pluso || ya_share2) && a) {
-		/* console.log("triggered function: initPlusoYaShare"); */
+		/* console.log("triggered function: manageShareButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			v();
 		} else {
@@ -1255,11 +1257,12 @@ var initPlusoYaShare = function () {
 		}
 	}
 };
-document.ready().then(initPlusoYaShare);
+document.ready().then(manageShareButton);
 /*!
  * init vk-like on click
  */
-var manageVKLikeButton = function () {
+var VK,
+manageVKLikeButton = function () {
 	"use strict";
 	var w = globalRoot,
 	d = document,

@@ -542,11 +542,11 @@ var LoadingSpinner = (function () {
 	"use strict";
 	var d = document,
 	b = d.body || "",
-	qS = "querySelector",
-	spinnerClass = "loading-spinner",
-	spinner = d[qS]("." + spinnerClass) || "",
+	gEBCN = "getElementsByClassName",
 	cL = "classList",
 	cE = "createElement",
+	spinnerClass = "loading-spinner",
+	spinner = d[gEBCN](spinnerClass)[0] || "",
 	isActiveClass = "is-active-loading-spinner";
 	/* console.log("triggered function: LoadingSpinner"); */
 	if (!spinner) {
@@ -706,37 +706,35 @@ var initTablesort = function (ctx) {
 	ctx = ctx && ctx.nodeName ? ctx : "";
 	var w = globalRoot,
 	d = document,
-	qS = "querySelector",
-	qSA = "querySelectorAll",
 	gEBI = "getElementById",
+	gEBCN = "getElementsByClassName",
 	gEBTN = "getElementsByTagName",
 	cE = "createElement",
-	cls = "table.sort",
-	a = ctx ? ctx[qS](cls) || "" : d[qS](cls) || "",
-	g = function (e) {
-		var s = e.id || "";
-		if (s && w.Tablesort) {
-			var t = d[gEBI](s),
-			c = t ? t[gEBTN]("caption")[0] || "" : "";
-			if (!c) {
+	tableSortClass = "table-sort",
+	tableSort = ctx ? ctx[gEBCN](tableSortClass) || "" : d[gEBCN](tableSortClass) || "",
+	arrangeTableSort = function (e) {
+		var tableId = e.id || "";
+		if (tableId && w.Tablesort) {
+			var table = d[gEBI](tableId) || "",
+			caption = table ? table[gEBTN]("caption")[0] || "" : "";
+			if (!caption) {
 				var tableCaption = d[cE]("caption");
-				prependFragmentBefore(tableCaption, t.firstChild);
-				c = t.firstChild;
+				prependFragmentBefore(tableCaption, table.firstChild);
+				caption = table.firstChild;
 			}
-			appendFragment("Сортируемая таблица", c);
-			Tablesort(t);
+			appendFragment("Сортируемая таблица", caption);
+			Tablesort(table);
 		}
 	},
-	k = function () {
-		a = ctx ? ctx[qSA](cls) || "" : d[qSA](cls) || "";
-		for (var i = 0, l = a.length; i < l; i += 1) {
-			g(a[i]);
+	arrangeAllTableSort = function () {
+		for (var i = 0, l = tableSort.length; i < l; i += 1) {
+			arrangeTableSort(tableSort[i]);
 		}
-		/* forEach(a, g, !1); */
+		/* forEach(tableSort, arrangeTableSort, !1); */
 	};
-	if (a) {
+	if (tableSort) {
 		/* console.log("triggered function: initTablesort"); */
-		k();
+		arrangeAllTableSort();
 	}
 },
 loadInitTablesort = function () {
@@ -753,10 +751,10 @@ document.ready().then(loadInitTablesort);
 var hideImgLightbox = function () {
 	"use strict";
 	var d = document,
-	qS = "querySelector",
+	gEBCN = "getElementsByClassName",
 	gEBTN = "getElementsByTagName",
 	cL = "classList",
-	container = d[qS](".img-lightbox-container") || "",
+	container = d[gEBCN]("img-lightbox-container")[0] || "",
 	img = container ? container[gEBTN]("img")[0] || "" : "",
 	an = "animated",
 	an1 = "fadeIn",
@@ -819,10 +817,10 @@ manageImgLightboxLinks = function (ctx) {
 	gEBCN = "getElementsByClassName",
 	gEBTN = "getElementsByTagName",
 	cL = "classList",
-	aEL = "addEventListener",
-	aC = "appendChild",
 	cE = "createElement",
 	gA = "getAttribute",
+	aC = "appendChild",
+	aEL = "addEventListener",
 	linkClass = "img-lightbox-link",
 	link = ctx ? ctx[gEBCN](linkClass) || "" : d[gEBCN](linkClass) || "",
 	containerClass = "img-lightbox-container",
@@ -1390,13 +1388,13 @@ var addAppUpdatesLink = function () {
 	navigatorUserAgent = navigator.userAgent || "",
 	linkHref;
 	if (/Windows/i.test(navigatorUserAgent) && /(WOW64|Win64)/i.test(navigatorUserAgent)) {
-		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-app-win32-x64-setup.exe";
+		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-win32-x64-setup.exe";
 	} else if (/(x86_64|x86-64|x64;|amd64|AMD64|x64_64)/i.test(navigatorUserAgent) && /(Linux|X11)/i.test(navigatorUserAgent)) {
-		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-app-linux-x64.tar.gz";
+		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-linux-x64.tar.gz";
 	} else if (/IEMobile/i.test(navigatorUserAgent)) {
-		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra_app.Windows10_1.0.0.0_x86_debug.appx";
+		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra.Windows10_1.0.0.0_x86_debug.appx";
 	} else if (/Android/i.test(navigatorUserAgent)) {
-		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra_app-debug.apk";
+		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-debug.apk";
 	} else {
 		linkHref = "";
 	}
@@ -1559,7 +1557,8 @@ document.ready().then(initUiTotop);
 /*!
  * init pluso-engine or ya-share on click
  */
-var initPlusoYaShare = function () {
+var Ya,
+manageShareButton = function () {
 	"use strict";
 	var d = document,
 	gEBCN = "getElementsByClassName",
@@ -1599,7 +1598,7 @@ var initPlusoYaShare = function () {
 		a[aEL]("click", h_a);
 	};
 	if ((pluso || ya_share2) && a) {
-		/* console.log("triggered function: initPlusoYaShare"); */
+		/* console.log("triggered function: manageShareButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			v();
 		} else {
@@ -1607,7 +1606,7 @@ var initPlusoYaShare = function () {
 		}
 	}
 };
-document.ready().then(initPlusoYaShare);
+document.ready().then(manageShareButton);
 /*!
  * init download app btn
  */
@@ -1629,16 +1628,16 @@ var initDownloadAppBtn = function (n) {
 	linkHref;
 	if (/Windows/i.test(navigatorUserAgent) && /(WOW64|Win64)/i.test(navigatorUserAgent)) {
 		bgUrl = "url(../../libs/products/img/download_windows_app_144x52.png)";
-		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-app-win32-x64-setup.exe";
+		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-win32-x64-setup.exe";
 	} else if (/(x86_64|x86-64|x64;|amd64|AMD64|x64_64)/i.test(navigatorUserAgent) && /(Linux|X11)/i.test(navigatorUserAgent)) {
 		bgUrl = "url(../../libs/products/img/download_linux_app_144x52.png)";
-		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-app-linux-x64.tar.gz";
+		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-linux-x64.tar.gz";
 	} else if (/IEMobile/i.test(navigatorUserAgent)) {
 		bgUrl = "url(../../libs/products/img/download_wp_app_144x52.png)";
-		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra_app.Windows10_1.0.0.0_x86_debug.appx";
+		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra.Windows10_1.0.0.0_x86_debug.appx";
 	} else if (/Android/i.test(navigatorUserAgent)) {
 		bgUrl = "url(../../libs/products/img/download_android_app_144x52.png)";
-		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra_app-debug.apk";
+		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-debug.apk";
 	} else {
 		bgUrl = "";
 		linkHref = "";
@@ -1769,7 +1768,8 @@ document.ready().then(initDisqusOnScroll);
 /*!
  * init vk-like on click
  */
-var manageVKLikeButton = function () {
+var VK,
+manageVKLikeButton = function () {
 	"use strict";
 	var w = globalRoot,
 	d = document,

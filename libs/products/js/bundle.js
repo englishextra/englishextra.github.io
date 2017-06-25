@@ -938,13 +938,13 @@ var addAppUpdatesLink = function () {
 	    navigatorUserAgent = navigator.userAgent || "",
 	    linkHref;
 	if (/Windows/i.test(navigatorUserAgent) && /(WOW64|Win64)/i.test(navigatorUserAgent)) {
-		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-app-win32-x64-setup.exe";
+		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-win32-x64-setup.exe";
 	} else if (/(x86_64|x86-64|x64;|amd64|AMD64|x64_64)/i.test(navigatorUserAgent) && /(Linux|X11)/i.test(navigatorUserAgent)) {
-		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-app-linux-x64.tar.gz";
+		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-linux-x64.tar.gz";
 	} else if (/IEMobile/i.test(navigatorUserAgent)) {
-		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra_app.Windows10_1.0.0.0_x86_debug.appx";
+		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra.Windows10_1.0.0.0_x86_debug.appx";
 	} else if (/Android/i.test(navigatorUserAgent)) {
-		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra_app-debug.apk";
+		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-debug.apk";
 	} else {
 		linkHref = "";
 	}
@@ -1067,7 +1067,8 @@ document.ready().then(showMenuMore.bind(null, 2000));
 /*!
  * init pluso-engine or ya-share on click
  */
-var initPlusoYaShare = function () {
+var Ya,
+    manageShareButton = function () {
 	"use strict";
 
 	var d = document,
@@ -1108,7 +1109,7 @@ var initPlusoYaShare = function () {
 		a[aEL]("click", h_a);
 	};
 	if ((pluso || ya_share2) && a) {
-		/* console.log("triggered function: initPlusoYaShare"); */
+		/* console.log("triggered function: manageShareButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			v();
 		} else {
@@ -1116,11 +1117,12 @@ var initPlusoYaShare = function () {
 		}
 	}
 };
-document.ready().then(initPlusoYaShare);
+document.ready().then(manageShareButton);
 /*!
  * init vk-like on click
  */
-var manageVKLikeButton = function () {
+var VK,
+    manageVKLikeButton = function () {
 	"use strict";
 
 	var w = globalRoot,

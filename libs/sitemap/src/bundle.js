@@ -1,22 +1,22 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global global, $, ActiveXObject, alignToMasterBottomLeft, appendFragment, 
-Carousel, changeLocation, container, Cookies, debounce, define, 
-DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation, earlyDeviceSize, 
-earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch, 
-earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos, 
-fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox, 
-imagePromise, imagesLoaded, imagesPreloaded, insertExternalHTML, 
-insertTextAsFragment, Isotope, isValidId, jQuery, Kamil, 
-loadExternalHTML, loadJS, loadUnparsedJSON, manageDataSrcImages, 
-manageImgLightboxLinks, Masonry, module, openDeviceBrowser, Packery, 
-Parallax, parseLink, PhotoSwipe, PhotoSwipeUI_Default, pnotify, 
-prependFragmentBefore, prettyPrint, Promise, Proxy, QRCode, 
-removeChildren, removeElement, require, routie, safelyParseJSON, 
-scriptIsLoaded, scroll2Top, scrollToTop, 
-setImmediate, setStyleDisplayBlock, setStyleDisplayNone, 
-setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t, 
-Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge, 
+/*global global, $, ActiveXObject, alignToMasterBottomLeft, appendFragment,
+Carousel, changeLocation, container, Cookies, debounce, define,
+DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation, earlyDeviceSize,
+earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch,
+earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos,
+fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox,
+imagePromise, imagesLoaded, imagesPreloaded, insertExternalHTML,
+insertTextAsFragment, Isotope, isValidId, jQuery, Kamil,
+loadExternalHTML, loadJS, loadUnparsedJSON, manageDataSrcImages,
+manageImgLightboxLinks, Masonry, module, openDeviceBrowser, Packery,
+Parallax, parseLink, PhotoSwipe, PhotoSwipeUI_Default, pnotify,
+prependFragmentBefore, prettyPrint, Promise, Proxy, QRCode,
+removeChildren, removeElement, require, routie, safelyParseJSON,
+scriptIsLoaded, scroll2Top, scrollToTop,
+setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
+setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t,
+Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge,
 VK, Ya, ymaps */
 /*!
  * define global root
@@ -352,49 +352,48 @@ document.ready().then(manageExternalLinks);
 /*!
  * init masonry
  */
-var initMasonry = function (ctx) {
+var initMasonry = function () {
 	"use strict";
-	ctx = ctx && ctx.nodeName ? ctx : "";
 	var w = globalRoot,
 	d = document,
-	qS = "querySelector",
-	qSA = "querySelectorAll",
 	gEBCN = "getElementsByClassName",
-	gridItemClass = ".masonry-grid-item",
-	griidSizerClass = ".masonry-grid-sizer",
-	masonryGrid = ctx ? ctx[gEBCN]("masonry-grid")[0] || "" : d[gEBCN]("masonry-grid")[0] || "",
-	masonryGridItem = ctx ? ctx[qS](gridItemClass) || "" : d[qS](gridItemClass) || "",
-	btn = ctx ? ctx[qS](".holder-filter-buttons li[data-filter]") || "" : d[qS](".holder-filter-buttons li[data-filter]") || "",
-	btns = ctx ? ctx[qSA](".holder-filter-buttons li[data-filter]") || "" : d[qSA](".holder-filter-buttons li[data-filter]") || "",
-	sel = ctx ? ctx[gEBCN]("filter-select")[0] || "" : d[gEBCN]("filter-select")[0] || "",
-	holder_controls = ctx ? ctx[gEBCN]("holder-filter-controls")[0] || "" : d[gEBCN]("holder-filter-controls")[0] || "",
+	gEBTN = "getElementsByTagName",
+	gridItemClass = "masonry-grid-item",
+	gridItemSelector = ".masonry-grid-item",
+	gridSizerSelector = ".masonry-grid-sizer",
+	grid = d[gEBCN]("masonry-grid")[0] || "",
+	gridItem = d[gEBCN](gridItemClass) || "",
+	holder = d[gEBCN]("holder-filter-buttons")[0] || "",
+	btn = holder ? holder[gEBTN]("li") || "" : "",
+	sel = d[gEBCN]("filter-select")[0] || "",
+	controls = d[gEBCN]("holder-filter-controls")[0] || "",
 	g = function () {
 		var imgLoad;
 		if (w.Masonry && w.Isotope) {
-			var iso = new Isotope(masonryGrid, {
-					itemSelector: gridItemClass,
+			var iso = new Isotope(grid, {
+					itemSelector: gridItemSelector,
 					layoutMode: "masonry",
 					masonry: {
-						columnWidth: griidSizerClass,
+						columnWidth: gridSizerSelector,
 						gutter: 0
 					},
 					percentPosition: !0,
 				});
 			/* console.log("function initMasonry => initialised iso"); */
 			if (w.imagesLoaded) {
-				imgLoad = imagesLoaded(masonryGrid);
+				imgLoad = imagesLoaded(grid);
 				imgLoad.on("progress", function (instance) {
 					iso.layout();
 					/* console.log("function initMasonry => reinitialised iso"); */
 				});
 			}
-			var h_btns = function () {
+			var handleFilterButtons = function () {
 				var _this = this;
 				iso.arrange({
 					filter: _this.dataset.filter
 				});
-				for (var i = 0, l = btns.length; i < l; i += 1) {
-					btns[i].classList.remove("is-active");
+				for (var i = 0, l = btn.length; i < l; i += 1) {
+					btn[i].classList.remove("is-active");
 				}
 				_this.classList.add("is-active");
 				for (var j = 0, m = sel.options.length; j < m; j += 1) {
@@ -405,66 +404,65 @@ var initMasonry = function (ctx) {
 				}
 			};
 			if (btn) {
-				for (var i = 0, l = btns.length; i < l; i += 1) {
-					btns[i].onclick = h_btns;
+				for (var i = 0, l = btn.length; i < l; i += 1) {
+					btn[i].onclick = handleFilterButtons;
 				}
 			}
-			var h_sel = function () {
+			var handleFilterSelect = function () {
 				var _this = this;
 				iso.arrange({
 					filter: _this.options[_this.selectedIndex].value
 				});
-				for (var i = 0, l = btns.length; i < l; i += 1) {
-					btns[i].classList.remove("is-active");
+				for (var i = 0, l = btn.length; i < l; i += 1) {
+					btn[i].classList.remove("is-active");
 				}
-				for (var j = 0, m = btns.length; j < m; j += 1) {
-					if (btns[j].dataset.filter === _this.options[_this.selectedIndex].value) {
-						btns[j].classList.add("is-active");
+				for (var j = 0, m = btn.length; j < m; j += 1) {
+					if (btn[j].dataset.filter === _this.options[_this.selectedIndex].value) {
+						btn[j].classList.add("is-active");
 						break;
 					}
 				}
 			};
 			if (sel) {
-				sel.onchange = h_sel;
+				sel.onchange = handleFilterSelect;
 			}
-			if (holder_controls) {
-				holder_controls.classList.add("visible");
+			if (controls) {
+				controls.classList.add("visible");
 			}
 		} else if (w.Masonry) {
-			var msnry = new Masonry(masonryGrid, {
-					itemSelector: gridItemClass,
-					columnWidth: griidSizerClass,
+			var msnry = new Masonry(grid, {
+					itemSelector: gridItemSelector,
+					columnWidth: gridSizerSelector,
 					gutter: 0,
 					percentPosition: !0
 				});
 			/* console.log("function initMasonry => initialised msnry"); */
 			if (w.imagesLoaded) {
-				imgLoad = imagesLoaded(masonryGrid);
+				imgLoad = imagesLoaded(grid);
 				imgLoad.on("progress", function (instance) {
 					msnry.layout();
 					/* console.log("function initMasonry => reinitialised msnry"); */
 				});
 			}
-			if (holder_controls) {
-				holder_controls.classList.remove("visible");
+			if (controls) {
+				controls.classList.remove("visible");
 			}
 		} else if (w.Packery) {
-			var pckry = new Packery(masonryGrid, {
-					itemSelector: gridItemClass,
-					columnWidth: griidSizerClass,
+			var pckry = new Packery(grid, {
+					itemSelector: gridItemSelector,
+					columnWidth: gridSizerSelector,
 					gutter: 0,
 					percentPosition: !0
 				});
 			/* console.log("function initMasonry => initialised pckry"); */
 			if (w.imagesLoaded) {
-				imgLoad = imagesLoaded(masonryGrid);
+				imgLoad = imagesLoaded(grid);
 				imgLoad.on("progress", function (instance) {
 					pckry.layout();
 					/* console.log("function initMasonry => reinitialised pckry"); */
 				});
 			}
-			if (masonryGridItem) {
-				masonryGridItem = ctx ? ctx[qSA](gridItemClass) || "" : d[qSA](gridItemClass) || "";
+			if (gridItem) {
 				if (w.Draggabilly) {
 					var draggie,
 					f = function (e) {
@@ -474,18 +472,18 @@ var initMasonry = function (ctx) {
 						/* console.log("function initMasonry => initialised draggie"); */
 					},
 					draggies = [];
-					for (var j = 0, m = masonryGridItem.length; j < m; j += 1) {
-						f(masonryGridItem[j]);
+					for (var j = 0, m = gridItem.length; j < m; j += 1) {
+						f(gridItem[j]);
 					}
-					/* forEach(masonryGridItem, f, !1); */
+					/* forEach(gridItem, f, !1); */
 					if (pckry && draggie) {
 						pckry.bindDraggabillyEvents(draggie);
 						/* console.log("function initMasonry => binded draggie to pckry"); */
 					}
 				}
 			}
-			if (holder_controls) {
-				holder_controls.classList.remove("visible");
+			if (controls) {
+				controls.classList.remove("visible");
 			}
 		} else {
 			/* console.log("function initMasonry => no lib included"); */

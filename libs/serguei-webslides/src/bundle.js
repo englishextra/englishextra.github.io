@@ -650,11 +650,10 @@ var manageDataQrcodeImg = function (ctx) {
 	ctx = ctx && ctx.nodeName ? ctx : "";
 	var w = globalRoot,
 	d = document,
-	qS = "querySelector",
-	qSA = "querySelectorAll",
+	gEBCN = "getElementsByClassName",
 	ds = "dataset",
-	cls = "img[data-qrcode]",
-	img = ctx ? ctx[qS](cls) || "" : d[qS](cls) || "",
+	imgClass = "data-qrcode-img",
+	img = ctx ? ctx[gEBCN](imgClass) || "" : d[gEBCN](imgClass) || "",
 	generateImg = function (e) {
 		var qrcode = e[ds].qrcode || "";
 		qrcode = decodeURIComponent(qrcode);
@@ -693,7 +692,6 @@ var manageDataQrcodeImg = function (ctx) {
 	};
 	if (img) {
 		/* console.log("triggered function: manageDataQrcodeImg"); */
-		img = ctx ? ctx[qSA](cls) || "" : d[qSA](cls) || "";
 		for (var i = 0, l = img.length; i < l; i += 1) {
 			generateImg(img[i]);
 		}

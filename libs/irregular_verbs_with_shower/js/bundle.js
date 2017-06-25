@@ -969,7 +969,8 @@ document.ready().then(initUiTotop);
 /*!
  * init pluso-engine or ya-share on click
  */
-var initPlusoYaShare = function () {
+var Ya,
+    manageShareButton = function () {
   "use strict";
 
   var d = document,
@@ -1010,7 +1011,7 @@ var initPlusoYaShare = function () {
     a[aEL]("click", h_a);
   };
   if ((pluso || ya_share2) && a) {
-    /* console.log("triggered function: initPlusoYaShare"); */
+    /* console.log("triggered function: manageShareButton"); */
     if ("undefined" !== typeof getHTTP && getHTTP()) {
       v();
     } else {
@@ -1018,7 +1019,7 @@ var initPlusoYaShare = function () {
     }
   }
 };
-document.ready().then(initPlusoYaShare);
+document.ready().then(manageShareButton);
 /*!
  * init manUP.js
  */

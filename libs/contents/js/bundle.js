@@ -1141,27 +1141,26 @@ var initMasonryDisqus = function () {
 
 	var w = globalRoot,
 	    d = document,
-	    qS = "querySelector",
-	    qSA = "querySelectorAll",
 	    gEBI = "getElementById",
 	    gEBCN = "getElementsByClassName",
 	    cL = "classList",
 	    ds = "dataset",
 	    pN = "parentNode",
-	    disqusThread = d[gEBI]("disqus_thread") || "",
-	    disqusShortname = disqusThread ? disqusThread[ds].shortname || "" : "",
-	    jsUrl = getHTTP(!0) + "://" + disqusShortname + ".disqus.com/embed.js",
+	    gridItemClass = "masonry-grid-item",
 	    gridItemSelector = ".masonry-grid-item",
 	    gridSizerSelector = ".masonry-grid-sizer",
 	    grid = d[gEBCN]("masonry-grid")[0] || "",
-	    gridItem = d[qS](gridItemSelector) || "",
+	    gridItem = d[gEBCN](gridItemClass) || "",
+	    disqusThread = d[gEBI]("disqus_thread") || "",
+	    disqusShortname = disqusThread ? disqusThread[ds].shortname || "" : "",
+	    jsUrl = getHTTP(!0) + "://" + disqusShortname + ".disqus.com/embed.js",
 	    is_active = "is-active",
 
 	/*! Masonry */
-	initMasonryGrid = function (a) {
+	initMasonryGrid = function () {
 		var initMsnry = function () {
 			if (w.Masonry) {
-				msnry = new Masonry(a, {
+				msnry = new Masonry(grid, {
 					itemSelector: gridItemSelector,
 					columnWidth: gridSizerSelector,
 					gutter: 0,
@@ -1194,10 +1193,10 @@ var initMasonryDisqus = function () {
 	},
 
 	/*! or Packery */
-	initPackeryGrid = function (a, c) {
+	initPackeryGrid = function (c) {
 		var initPckry = function () {
 			if (w.Packery) {
-				pckry = new Packery(a, {
+				pckry = new Packery(grid, {
 					itemSelector: gridItemSelector,
 					columnWidth: gridSizerSelector,
 					gutter: 0,
@@ -1215,7 +1214,7 @@ var initMasonryDisqus = function () {
 						/* console.log("function initMasonry => reinitialised pckry"); */
 					}
 				}, 100);
-				if (c) {
+				if (gridItem) {
 					if (w.Draggabilly) {
 						var draggie,
 						    initDraggie = function (e) {
@@ -1225,10 +1224,10 @@ var initMasonryDisqus = function () {
 							/* console.log("function initMasonryDisqus => initialised draggie"); */
 						},
 						    draggies = [];
-						for (var i = 0, l = c.length; i < l; i += 1) {
-							initDraggie(c[i]);
+						for (var i = 0, l = gridItem.length; i < l; i += 1) {
+							initDraggie(gridItem[i]);
 						}
-						/* forEach(c, initDraggie, !1); */
+						/* forEach(gridItem, initDraggie, !1); */
 						if (pckry && draggie) {
 							pckry.bindDraggabillyEvents(draggie);
 							/* console.log("function initMasonryDisqus => binded draggie to pckry"); */
@@ -1279,10 +1278,9 @@ var initMasonryDisqus = function () {
 		/* console.log("triggered function: initMasonryDisqus"); */
 		var msnry, pckry;
 		/*! Masonry */
-		initMasonryGrid(grid);
+		initMasonryGrid();
 		/*! or Packery */
-		var c = d[qSA](gridItemSelector) || "";
-		initPackeryGrid(grid, c);
+		initPackeryGrid();
 		if (disqusThread && disqusShortname) {
 			if ("undefined" !== typeof getHTTP && getHTTP()) {
 				showDisqusThread();
@@ -1614,13 +1612,13 @@ var addAppUpdatesLink = function () {
 	    navigatorUserAgent = navigator.userAgent || "",
 	    linkHref;
 	if (/Windows/i.test(navigatorUserAgent) && /(WOW64|Win64)/i.test(navigatorUserAgent)) {
-		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-app-win32-x64-setup.exe";
+		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-win32-x64-setup.exe";
 	} else if (/(x86_64|x86-64|x64;|amd64|AMD64|x64_64)/i.test(navigatorUserAgent) && /(Linux|X11)/i.test(navigatorUserAgent)) {
-		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-app-linux-x64.tar.gz";
+		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-linux-x64.tar.gz";
 	} else if (/IEMobile/i.test(navigatorUserAgent)) {
-		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra_app.Windows10_1.0.0.0_x86_debug.appx";
+		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra.Windows10_1.0.0.0_x86_debug.appx";
 	} else if (/Android/i.test(navigatorUserAgent)) {
-		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra_app-debug.apk";
+		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-debug.apk";
 	} else {
 		linkHref = "";
 	}
@@ -1785,7 +1783,8 @@ document.ready().then(initUiTotop);
 /*!
  * init pluso-engine or ya-share on click
  */
-var initPlusoYaShare = function () {
+var Ya,
+    manageShareButton = function () {
 	"use strict";
 
 	var d = document,
@@ -1826,7 +1825,7 @@ var initPlusoYaShare = function () {
 		a[aEL]("click", h_a);
 	};
 	if ((pluso || ya_share2) && a) {
-		/* console.log("triggered function: initPlusoYaShare"); */
+		/* console.log("triggered function: manageShareButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			v();
 		} else {
@@ -1834,11 +1833,12 @@ var initPlusoYaShare = function () {
 		}
 	}
 };
-document.ready().then(initPlusoYaShare);
+document.ready().then(manageShareButton);
 /*!
  * init vk-like on click
  */
-var manageVKLikeButton = function () {
+var VK,
+    manageVKLikeButton = function () {
 	"use strict";
 
 	var w = globalRoot,
