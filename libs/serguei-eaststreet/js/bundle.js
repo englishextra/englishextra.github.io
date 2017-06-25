@@ -1579,9 +1579,10 @@ var notiBar = function (opt) {
 	    gEBCN = "getElementsByClassName",
 	    cL = "classList",
 	    cE = "createElement",
-	    cENS = "createElementNS",
-	    sANS = "setAttributeNS",
-	    aC = "appendChild",
+
+	/* cENS = "createElementNS",
+ sANS = "setAttributeNS", */
+	aC = "appendChild",
 	    aEL = "addEventListener",
 	    rEL = "removeEventListener",
 	    notibarClass = "notibar",
@@ -1631,17 +1632,17 @@ var notiBar = function (opt) {
 		}
 		msgContainer[aC](msgContent);
 		notibarContainer[aC](msgContainer);
-		var insertCancelSvg = function (targetObj) {
-			var svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
-			    use = d[cENS]("http://www.w3.org/2000/svg", "use");
-			svg[cL].add("ui-icon");
-			use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Cancel");
-			svg[aC](use);
-			targetObj[aC](svg);
-		},
-		    closeButton = d[cE]("a");
+		var /* insertCancelSvg = function (targetObj) {
+      var svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
+      use = d[cENS]("http://www.w3.org/2000/svg", "use");
+      svg[cL].add("ui-icon");
+      use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Cancel");
+      svg[aC](use);
+      targetObj[aC](svg);
+      }, */
+		closeButton = d[cE]("a");
 		closeButton[cL].add(closeButtonClass);
-		insertCancelSvg(closeButton);
+		/* insertCancelSvg(closeButton); */
 		var set_cookie = function () {
 			if (settings.days) {
 				Cookies.set(settings.key, settings.datum, {
