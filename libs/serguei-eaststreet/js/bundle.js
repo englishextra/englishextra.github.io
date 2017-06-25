@@ -1679,56 +1679,6 @@ var notiBar = function (opt) {
 	}
 };
 /*!
- * init notibar
- */
-var initNotibarMsg = function () {
-	"use strict";
-
-	var w = globalRoot,
-	    d = document,
-	    gEBI = "getElementById",
-	    aC = "appendChild",
-	    aEL = "addEventListener",
-	    rEL = "removeEventListener",
-	    cE = "createElement",
-	    cookieKey = "_notibar_dismiss_",
-	    cookieDatum = "Напишите мне, отвечу очень скоро. Регистрироваться не нужно.",
-	    locationOrigin = parseLink(w.location.href).origin,
-	    renderMsg = function () {
-		var msgObj = d[cE]("a");
-		/*jshint -W107 */
-		msgObj.href = "javascript:void(0);";
-		/*jshint +W107 */
-		var handleMsgObj = function (ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			msgObj[rEL]("click", handleMsgObj);
-			scroll2Top(findPos(d[gEBI]("disqus_thread")).top, 20000);
-		};
-		msgObj[aEL]("click", handleMsgObj);
-		msgObj[aC](d.createTextNode(cookieDatum));
-		notiBar({
-			"message": msgObj,
-			"timeout": 5000,
-			"key": cookieKey,
-			"datum": cookieDatum,
-			"days": 0
-		});
-	};
-	if (locationOrigin) {
-		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			/* console.log("triggered function: initNotibarMsg"); */
-			var timers = new Timers();
-			timers.timeout(function () {
-				timers.clear();
-				timers = null;
-				renderMsg();
-			}, 3000);
-		}
-	}
-};
-document.ready().then(initNotibarMsg);
-/*!
  * notifier42
  * Toast messages with pure JS
  * @see {@link https://gist.github.com/englishextra/5500a860c26d5e262ef3700d822ff698}
