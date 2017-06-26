@@ -1278,68 +1278,71 @@ var LoadingSpinner = function () {
 /*!
  * init all Masonry grids
  */
-var initAllMasonry = function () {
+var msnry,
+    pckry,
+    initAllMasonry = function () {
 	"use strict";
 
 	var w = globalRoot,
 	    d = document,
-	    qSA = "querySelectorAll",
 	    gEBCN = "getElementsByClassName",
-	    gridItemClass = ".masonry-grid-item",
-	    gridSizerClass = ".masonry-grid-sizer",
-	    grids = d[gEBCN]("masonry-grid") || "",
-	    gridItems = d[qSA](gridItemClass) || "",
-	    arrangeGrids = function (a, c) {
-		var initGrids = function (e) {
-			if (w.Masonry) {
-				var msnry;
+	    gridItemSelector = ".masonry-grid-item",
+	    gridSizerSelector = ".masonry-grid-sizer",
+	    grid = d[gEBCN]("masonry-grid") || "",
+	    gridItem = d[gEBCN]("masonry-grid-item") || "",
+	    initGrid = function () {
+		if (w.Masonry) {
+			if (msnry) {
+				msnry.destroy();
+			}
+			var initMsnry = function (e) {
 				msnry = new Masonry(e, {
-					itemSelector: gridItemClass,
-					columnWidth: gridSizerClass,
+					itemSelector: gridItemSelector,
+					columnWidth: gridSizerSelector,
 					gutter: 0
 				});
-			} else if (w.Packery) {
-				var pckry,
-				    initGrids = function (e) {
-					pckry = new Packery(e, {
-						itemSelector: gridItemClass,
-						columnWidth: gridSizerClass,
-						gutter: 0,
-						percentPosition: !0
-					});
-				};
-				for (var j = 0, m = a.length; j < m; j += 1) {
-					initGrids(a[j]);
+			};
+			for (var i = 0, l = grid.length; i < l; i += 1) {
+				initMsnry(grid[i]);
+			}
+			/* forEach(grid, initMsnry, !1); */
+		} else if (w.Packery) {
+			if (pckry) {
+				pckry.destroy();
+			}
+			var initPckry = function (e) {
+				pckry = new Packery(e, {
+					itemSelector: gridItemSelector,
+					columnWidth: gridSizerSelector,
+					gutter: 0,
+					percentPosition: !0
+				});
+			};
+			for (var j = 0, m = grid.length; j < m; j += 1) {
+				initPckry(grid[j]);
+			}
+			/* forEach(grid, initPckry, !1); */
+			if (w.Draggabilly) {
+				var draggie,
+				    initDraggie = function (e) {
+					var draggableElem = e;
+					draggie = new Draggabilly(draggableElem, {});
+					draggies.push(draggie);
+				},
+				    draggies = [];
+				for (var k = 0, n = gridItem.length; k < n; k += 1) {
+					initDraggie(gridItem[k]);
 				}
-				/* forEach(a, initGrids, !1); */
-				if (w.Draggabilly) {
-					var draggie,
-					    initDraggie = function (e) {
-						var draggableElem = e;
-						draggie = new Draggabilly(draggableElem, {});
-						draggies.push(draggie);
-					},
-					    draggies = [];
-					for (var i = 0, l = c.length; i < l; i += 1) {
-						initDraggie(c[i]);
-					}
-					/* forEach(c, initDraggie, !1); */
-					if (pckry) {
-						pckry.bindDraggabillyEvents(draggie);
-					}
+				/* forEach(gridItem, initDraggie, !1); */
+				if (pckry) {
+					pckry.bindDraggabillyEvents(draggie);
 				}
 			}
-		};
-		for (var i = 0, l = a.length; i < l; i += 1) {
-			initGrids(a[i]);
 		}
-		/* forEach(a, initGrids, !1); */
 	};
-	if (grids && gridItems) {
+	if (grid && gridItem) {
 		/* console.log("triggered function: initAllMasonry"); */
-		if (grids && gridItems) {
-			arrangeGrids(grids, gridItems);
-		}
+		initGrid();
 	}
 },
     loadInitAllMasonry = function () {

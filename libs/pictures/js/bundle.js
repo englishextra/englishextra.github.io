@@ -1152,14 +1152,12 @@ var initPhotoswipe = function () {
 	"use strict";
 
 	var d = document,
-	    qS = "querySelector",
-	    qSA = "querySelectorAll",
 	    gEBCN = "getElementsByClassName",
 	    gEBTN = "getElementsByTagName",
 	    ds = "dataset",
 	    pswpGalleryClass = "pswp-gallery",
 	    pswpGallerySelector = ".pswp-gallery",
-	    pswpGallery = d[gEBCN](pswpGalleryClass)[0] || "",
+	    pswpGallery = d[gEBCN](pswpGalleryClass) || "",
 	    pswpGalleryItems = d[gEBCN]("masonry-grid-item") || "",
 
 	/*!
@@ -1444,9 +1442,8 @@ var initPhotoswipe = function () {
 		}
 	},
 	    arrangeAllImgLinks = function () {
-		var galleries = d[qSA](pswpGallerySelector) || "";
-		for (var i = 0, l = galleries.length; i < l; i += 1) {
-			arrangeImgLinks(galleries[i]);
+		for (var i = 0, l = pswpGallery.length; i < l; i += 1) {
+			arrangeImgLinks(pswpGallery[i]);
 		}
 		/* forEach(galleries, arrangeImgLinks, !1); */
 	};
