@@ -319,16 +319,16 @@ var initParallax = function () {
     setStyleDisplayNone(p);
     setStyleDisplayBlock(m);
   }
-},
-    loadInitParallax = function () {
+} /* ,
+  loadInitParallax = function () {
   "use strict";
-
   var js = "/cdn/parallax/2.1.3/js/parallax.fixed.min.js";
   if (!scriptIsLoaded(js)) {
-    loadJS(js, initParallax);
+  	loadJS(js, initParallax);
   }
-};
-document.ready().then(loadInitParallax);
+  } */;
+/* document.ready().then(loadInitParallax); */
+document.ready().then(initParallax);
 /*!
  * show page, finish ToProgress
  */
