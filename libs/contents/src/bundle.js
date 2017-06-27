@@ -1,23 +1,24 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global global, $, ActiveXObject, alignToMasterBottomLeft, appendFragment,
-Carousel, changeLocation, container, Cookies, debounce, define,
-DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation, earlyDeviceSize,
-earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch,
-earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos,
-fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox,
-imagePromise, imagesLoaded, imagesPreloaded, insertExternalHTML,
-insertTextAsFragment, Isotope, isValidId, jQuery, Kamil,
-loadExternalHTML, loadJS, loadUnparsedJSON, manageDataSrcImages,
-manageImgLightboxLinks, Masonry, module, openDeviceBrowser, Packery,
-Parallax, parseLink, PhotoSwipe, PhotoSwipeUI_Default, pnotify,
-prependFragmentBefore, prettyPrint, Promise, Proxy, QRCode,
-removeChildren, removeElement, require, routie, safelyParseJSON,
-scriptIsLoaded, scroll2Top, scrollToTop,
-setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
+/*global global, $, ActiveXObject, alignToMasterBottomLeft,
+appendFragment, Carousel, changeLocation, container, Cookies, debounce,
+define, DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation,
+earlyDeviceSize, earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch,
+earlySvgasimgSupport, earlySvgSupport, escape, FastClick, fetch,
+findPos, isInViewport, fixEnRuTypo, forEach, getHTTP,
+getKeyValuesFromJSON, IframeLightbox, imagePromise, imagesLoaded,
+imagesPreloaded, insertExternalHTML, insertTextAsFragment, Isotope,
+isValidId, jQuery, Kamil, loadExternalHTML, loadJS, loadTriggerJS,
+loadUnparsedJSON, manageDataSrcImages, manageImgLightboxLinks, Masonry,
+module, myMap, openDeviceBrowser, Packery, Parallax, parseLink,
+PhotoSwipe, PhotoSwipeUI_Default, pnotify, prependFragmentBefore,
+prettyPrint, Promise, Proxy, QRCode, removeChildren, removeElement,
+require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top,
+scrollToTop, setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
 setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t,
 Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge,
-VK, Ya, ymaps */
+VK, ymaps, zenscroll */
+/*property console, split */
 /*!
  * define global root
  */
@@ -450,7 +451,7 @@ manageExternalLinks = function (ctx) {
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrangeExternalLink(link[i]);
 		}
-		/* forEach(link, arrangeExternalLink); */
+		/* forEach(link, arrangeExternalLink, false); */
 	};
 	if (link) {
 		/* console.log("triggered function: manageExternalLinks"); */
@@ -482,7 +483,7 @@ var initMasonryDisqus = function () {
 	gridItem = d[gEBCN](gridItemClass) || "",
 	disqusThread = d[gEBI]("disqus_thread") || "",
 	disqusShortname = disqusThread ? (disqusThread[ds].shortname || "") : "",
-	jsUrl = getHTTP(!0) + "://" + disqusShortname + ".disqus.com/embed.js",
+	jsUrl = getHTTP(true) + "://" + disqusShortname + ".disqus.com/embed.js",
 	is_active = "is-active",
 	/*! Masonry */
 	initMasonryGrid = function () {
@@ -554,7 +555,7 @@ var initMasonryDisqus = function () {
 						for (var i = 0, l = gridItem.length; i < l; i += 1) {
 							initDraggie(gridItem[i]);
 						}
-						/* forEach(gridItem, initDraggie, !1); */
+						/* forEach(gridItem, initDraggie, false); */
 						if (pckry && draggie) {
 							pckry.bindDraggabillyEvents(draggie);
 							/* console.log("function initMasonryDisqus => binded draggie to pckry"); */
@@ -653,11 +654,11 @@ manageContentsSelect = function () {
 	"use strict";
 	var d = document,
 	gEBI = "getElementById",
-	contentsSelect = d[gEBI]("contents-select") || "",
 	cE = "createElement",
 	cTN = "createTextNode",
 	aC = "appendChild",
 	aEL = "addEventListener",
+	contentsSelect = d[gEBI]("contents-select") || "",
 	jsonUrl = "../libs/contents/json/contents.json",
 	initContentsSelect = function (jsonResponse) {
 		var df = d.createDocumentFragment(),
@@ -677,7 +678,7 @@ manageContentsSelect = function () {
 			for (var i = 0, l = jpr.length; i < l; i += 1) {
 				generateContentsOptions(jpr[i]);
 			}
-			/* forEach(jpr, generateContentsOptions, !1); */
+			/* forEach(jpr, generateContentsOptions, false); */
 			contentsSelect[aC](df);
 			contentsSelect[aEL]("change", handleContentsSelect);
 		}
@@ -731,7 +732,7 @@ var generateLocationQrCodeImg = function () {
 	locationHref = w.location.href || "",
 	img = d[cE]("img"),
 	imgTitle = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
-	imgSrc = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
+	imgSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
 	img.alt = imgTitle;
 	if (w.QRCode) {
 		if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
@@ -876,7 +877,7 @@ var initNavMenu = function () {
 		for (var j = 0, l = a.length; j < l; j += 1) {
 			m(a[j]);
 		}
-		/* forEach(a, m, !1); */
+		/* forEach(a, m, false); */
 	},
 	v = function (e) {
 		var h_e = function () {
@@ -897,7 +898,7 @@ var initNavMenu = function () {
 		for (var i = 0, l = items.length; i < l; i += 1) {
 			v(items[i]);
 		}
-		/* forEach(items, v, !1); */
+		/* forEach(items, v, false); */
 	};
 	if (container && page && btn && panel && items) {
 		/* console.log("triggered function: initNavMenu"); */
@@ -1012,7 +1013,7 @@ var initMenuMore = function () {
 		for (var i = 0, l = items.length; i < l; i += 1) {
 			g(items[i]);
 		}
-		/* forEach(items, g, !1); */
+		/* forEach(items, g, false); */
 	};
 	if (container && holder && btn && panel && items) {
 		/* console.log("triggered function: initMenuMore"); */
@@ -1072,14 +1073,14 @@ var initUiTotop = function () {
 			ev.preventDefault();
 			scroll2Top(0, 20000);
 		},
-		insertUpSvg = function (targetObj) {
+		/* insertUpSvg = function (targetObj) {
 			var svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
 			use = d[cENS]("http://www.w3.org/2000/svg", "use");
 			svg[cL].add("ui-icon");
 			use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
 			svg[aC](use);
 			targetObj[aC](svg);
-		},
+		}, */
 		anchor = d[cE]("a");
 		anchor[cL].add(btnClass);
 		/*jshint -W107 */
@@ -1087,7 +1088,7 @@ var initUiTotop = function () {
 		/*jshint +W107 */
 		anchor.title = btnTitle;
 		anchor[aEL]("click", handleUiTotopAnchor);
-		insertUpSvg(anchor);
+		/* insertUpSvg(anchor); */
 		b[aC](anchor);
 		w[aEL]("scroll", handleUiTotopWindow);
 	};
@@ -1100,8 +1101,7 @@ document.ready().then(initUiTotop);
 /*!
  * init pluso-engine or ya-share on click
  */
-var Ya,
-manageShareButton = function () {
+var manageShareButton = function () {
 	"use strict";
 	var d = document,
 	gEBCN = "getElementsByClassName",
@@ -1110,8 +1110,8 @@ manageShareButton = function () {
 	a = d[gEBCN]("btn-share-buttons")[0] || "",
 	pluso = d[gEBCN]("pluso")[0] || "",
 	ya_share2 = d[gEBCN]("ya-share2")[0] || "",
-	pluso_like_js_src = getHTTP(!0) + "://share.pluso.ru/pluso-like.js",
-	share_js_src = getHTTP(!0) + "://yastatic.net/share2/share.js",
+	pluso_like_js_src = getHTTP(true) + "://share.pluso.ru/pluso-like.js",
+	share_js_src = getHTTP(true) + "://yastatic.net/share2/share.js",
 	g = function (s, b) {
 		setStyleVisibilityVisible(s);
 		setStyleOpacity(s, 1);
@@ -1166,7 +1166,7 @@ manageVKLikeButton = function () {
 	vk_like = "vk-like",
 	c = d[gEBI](vk_like) || "",
 	a = d[gEBCN]("btn-show-vk-like")[0] || "",
-	js = getHTTP(!0) + "://vk.com/js/api/openapi.js?122",
+	js = getHTTP(true) + "://vk.com/js/api/openapi.js?122",
 	g = function () {
 		try {
 			if (w.VK) {
@@ -1281,7 +1281,7 @@ var initKamilAutocomplete = function () {
 					for (var i = 0; i < l; i += 1) {
 						f(items[i], i);
 					}
-					/* forEach(items, f, !1); */
+					/* forEach(items, f, false); */
 				}
 				/*!
 				 * fix typo - non latin characters found
@@ -1318,7 +1318,7 @@ var initKamilAutocomplete = function () {
 					for (var j = 0, m = lis.length; j < m; j += 1) {
 						g(lis[j]);
 					}
-					/* forEach(lis, g, !1); */
+					/* forEach(lis, g, false); */
 				}
 			};
 			/*!
@@ -1348,18 +1348,18 @@ var initKamilAutocomplete = function () {
 			 * {"link":"/pages/contents.html","label":"some text to match"}]
 			 */
 			ac.on("kamilselect", function (e) {
-				var p = e.item.link || "",
-				sm = function () {
+				var lkamilItemLink = e.item.link || "",
+				handleKamilItem = function () {
 					e.inputElement.value = "";
 					handleTypoSuggestions();
-					changeLocation(p);
+					changeLocation(lkamilItemLink);
 				};
-				if (p) {
+				if (lkamilItemLink) {
 					/*!
 					 * nwjs wont like setImmediate here
 					 */
-					/* setImmediate(sm); */
-					sm();
+					/* setImmediate(handleKamilItem); */
+					handleKamilItem();
 				}
 			});
 		}

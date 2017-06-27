@@ -1,23 +1,24 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global global, $, ActiveXObject, alignToMasterBottomLeft, appendFragment,
-Carousel, changeLocation, container, Cookies, debounce, define,
-DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation, earlyDeviceSize,
-earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch,
-earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos,
-fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox,
-imagePromise, imagesLoaded, imagesPreloaded, insertExternalHTML,
-insertTextAsFragment, Isotope, isValidId, jQuery, Kamil,
-loadExternalHTML, loadJS, loadUnparsedJSON, manageDataSrcImages,
-manageImgLightboxLinks, Masonry, module, openDeviceBrowser, Packery,
-Parallax, parseLink, PhotoSwipe, PhotoSwipeUI_Default, pnotify,
-prependFragmentBefore, prettyPrint, Promise, Proxy, QRCode,
-removeChildren, removeElement, require, routie, safelyParseJSON,
-scriptIsLoaded, scroll2Top, scrollToTop,
-setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
+/*global global, $, ActiveXObject, alignToMasterBottomLeft,
+appendFragment, Carousel, changeLocation, container, Cookies, debounce,
+define, DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation,
+earlyDeviceSize, earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch,
+earlySvgasimgSupport, earlySvgSupport, escape, FastClick, fetch,
+findPos, isInViewport, fixEnRuTypo, forEach, getHTTP,
+getKeyValuesFromJSON, IframeLightbox, imagePromise, imagesLoaded,
+imagesPreloaded, insertExternalHTML, insertTextAsFragment, Isotope,
+isValidId, jQuery, Kamil, loadExternalHTML, loadJS, loadTriggerJS,
+loadUnparsedJSON, manageDataSrcImages, manageImgLightboxLinks, Masonry,
+module, myMap, openDeviceBrowser, Packery, Parallax, parseLink,
+PhotoSwipe, PhotoSwipeUI_Default, pnotify, prependFragmentBefore,
+prettyPrint, Promise, Proxy, QRCode, removeChildren, removeElement,
+require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top,
+scrollToTop, setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
 setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t,
 Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge,
-VK, Ya, ymaps */
+VK, ymaps, zenscroll */
+/*property console, split */
 /*!
  * define global root
  */
@@ -41,11 +42,6 @@ var globalRoot = "undefined" !== typeof window ? window : this;
  * passes jshint
  */
 (function(root){"use strict";var ToProgress=(function(){var TP=function(){var t=function(){var s=document.createElement("fakeelement"),i={transition:"transitionend",OTransition:"oTransitionEnd",MozTransition:"transitionend",WebkitTransition:"webkitTransitionEnd"};for(var j in i){if(i.hasOwnProperty(j)){if(void 0!==s.style[j]){return i[j];}}}},s=function(t,a){if(this.progress=0,this.options={id:"top-progress-bar",color:"#F44336",height:"2px",duration:0.2},t&&"object"===typeof t){for(var i in t){if(t.hasOwnProperty(i)){this.options[i]=t[i];}}}if(this.options.opacityDuration=3*this.options.duration,this.progressBar=document.createElement("div"),this.progressBar.id=this.options.id,this.progressBar.setCSS=function(t){for(var a in t){if(t.hasOwnProperty(a)){this.style[a]=t[a];}}},this.progressBar.setCSS({position:a?"relative":"fixed",top:"0",left:"0",right:"0","background-color":this.options.color,height:this.options.height,width:"0%",transition:"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s","-moz-transition":"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s","-webkit-transition":"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s"}),a){var o=document.querySelector(a);if(o){if(o.hasChildNodes()){o.insertBefore(this.progressBar,o.firstChild);}else{o.appendChild(this.progressBar);}}}else{document.body.appendChild(this.progressBar);}},i=t();return s.prototype.transit=function(){this.progressBar.style.width=this.progress+"%";},s.prototype.getProgress=function(){return this.progress;},s.prototype.setProgress=function(t,s){this.show();this.progress=t>100?100:0>t?0:t;this.transit();if(s){s();}},s.prototype.increase=function(t,s){this.show();this.setProgress(this.progress+t,s);},s.prototype.decrease=function(t,s){this.show();this.setProgress(this.progress-t,s);},s.prototype.finish=function(t){var s=this;this.setProgress(100,t);this.hide();if(i){this.progressBar.addEventListener(i,function(t){s.reset();s.progressBar.removeEventListener(t.type,TP);});}},s.prototype.reset=function(t){this.progress=0;this.transit();if(t){t();}},s.prototype.hide=function(){this.progressBar.style.opacity="0";},s.prototype.show=function(){this.progressBar.style.opacity="1";},s;};return TP();}());root.ToProgress=ToProgress;}(globalRoot));
-/*!
- * safe way to handle console.log
- * @see {@link https://github.com/paulmillr/console-polyfill}
- */
-(function(root){"use strict";if(!root.console){root.console={};}var con=root.console;var prop,method;var dummy=function(){};var properties=["memory"];var methods=("assert,clear,count,debug,dir,dirxml,error,exception,group,"+"groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd,"+"show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn").split(",");while((prop=properties.pop())){if(!con[prop]){con[prop]={};}}while((method=methods.pop())){if(!con[method]){con[method]=dummy;}}}(globalRoot));
 /*!
  * modified MediaHack - (c) 2013 Pomke Nohkan MIT LICENCED.
  * @see {@link https://gist.github.com/englishextra/ff8c9dde94abe32a9d7c4a65e0f2ccac}
@@ -237,7 +233,7 @@ manageExternalLinks = function (ctx) {
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrangeExternalLink(link[i]);
 		}
-		/* forEach(link, arrangeExternalLink); */
+		/* forEach(link, arrangeExternalLink, false); */
 	};
 	if (link) {
 		/* console.log("triggered function: manageExternalLinks"); */
@@ -658,7 +654,7 @@ var manageDataQrcodeImg = function (ctx) {
 		var qrcode = e[ds].qrcode || "";
 		qrcode = decodeURIComponent(qrcode);
 		if (qrcode) {
-			var imgSrc = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(qrcode);
+			var imgSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(qrcode);
 			e.title = qrcode;
 			e.alt = qrcode;
 			if (w.QRCode) {
@@ -695,7 +691,7 @@ var manageDataQrcodeImg = function (ctx) {
 		for (var i = 0, l = img.length; i < l; i += 1) {
 			generateImg(img[i]);
 		}
-		/* forEach(img, generateImg, !1); */
+		/* forEach(img, generateImg, false); */
 	}
 },
 loadManageDataQrcodeImg = function () {

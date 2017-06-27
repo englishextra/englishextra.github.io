@@ -29,7 +29,7 @@
     "http-server": "^0.10.0",
     "node-sass": "^4.5.3",
     "npm": "^4.0.5",
-    "nw": "^0.22.3-sdk",
+    "nw": "^0.23.4-sdk",
     "postcss-cli": "^4.1.0",
     "surge": "^0.19.0",
     "sw-precache": "^5.2.0",

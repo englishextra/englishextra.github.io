@@ -1,23 +1,24 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global global, $, ActiveXObject, alignToMasterBottomLeft, appendFragment,
-Carousel, changeLocation, container, Cookies, debounce, define,
-DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation, earlyDeviceSize,
-earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch,
-earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos,
-fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox,
-imagePromise, imagesLoaded, imagesPreloaded, insertExternalHTML,
-insertTextAsFragment, Isotope, isValidId, jQuery, Kamil,
-loadExternalHTML, loadJS, loadUnparsedJSON, manageDataSrcImages,
-manageImgLightboxLinks, Masonry, module, openDeviceBrowser, Packery,
-Parallax, parseLink, PhotoSwipe, PhotoSwipeUI_Default, pnotify,
-prependFragmentBefore, prettyPrint, Promise, Proxy, QRCode,
-removeChildren, removeElement, require, routie, safelyParseJSON,
-scriptIsLoaded, scroll2Top, scrollToTop,
-setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
+/*global global, $, ActiveXObject, alignToMasterBottomLeft,
+appendFragment, Carousel, changeLocation, container, Cookies, debounce,
+define, DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation,
+earlyDeviceSize, earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch,
+earlySvgasimgSupport, earlySvgSupport, escape, FastClick, fetch,
+findPos, isInViewport, fixEnRuTypo, forEach, getHTTP,
+getKeyValuesFromJSON, IframeLightbox, imagePromise, imagesLoaded,
+imagesPreloaded, insertExternalHTML, insertTextAsFragment, Isotope,
+isValidId, jQuery, Kamil, loadExternalHTML, loadJS, loadTriggerJS,
+loadUnparsedJSON, manageDataSrcImages, manageImgLightboxLinks, Masonry,
+module, myMap, openDeviceBrowser, Packery, Parallax, parseLink,
+PhotoSwipe, PhotoSwipeUI_Default, pnotify, prependFragmentBefore,
+prettyPrint, Promise, Proxy, QRCode, removeChildren, removeElement,
+require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top,
+scrollToTop, setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
 setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t,
 Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge,
-VK, Ya, ymaps */
+VK, ymaps, zenscroll */
+/*property console, split */
 /*!
  * define global root
  */
@@ -1876,7 +1877,7 @@ var initSidepanel = function () {
 			for (var i = 0, l = items.length; i < l; i += 1) {
 				g(items[i]);
 			}
-			/* forEach(items, g, !1); */
+			/* forEach(items, g, false); */
 		}
 		b[aEL]("click", handleOverlaySidepanel);
 		/* b.onclick = handleOverlaySidepanel; */
@@ -1909,7 +1910,7 @@ var highlightSidepanelItem = function () {
 		for (var i = 0, l = items.length; i < l; i += 1) {
 			g(items[i]);
 		}
-		/* forEach(items, g, !1); */
+		/* forEach(items, g, false); */
 	};
 	if (panel && items && locationHref) {
 		/* console.log("triggered function: highlightNavMenuItem"); */
@@ -1974,7 +1975,7 @@ var initMenuMore = function () {
 			for (var i = 0, l = items.length; i < l; i += 1) {
 				g(items[i]);
 			}
-			/* forEach(items, g, !1); */
+			/* forEach(items, g, false); */
 		}
 	}
 };
@@ -2024,7 +2025,7 @@ var handleExternalLink = function (url, ev) {
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrangeExternalLink(link[i]);
 		}
-		/* forEach(link, arrangeExternalLink); */
+		/* forEach(link, arrangeExternalLink, false); */
 	};
 	if (link) {
 		/* console.log("triggered function: manageExternalLinks"); */
@@ -2144,7 +2145,7 @@ var hideImgLightbox = function () {
 				img[cL].add(an);
 				img[cL].add(an2);
 				if (parseLink(_href).isAbsolute && !parseLink(_href).hasHTTP) {
-					_href = _href.replace(/^/, getHTTP(!0) + ":");
+					_href = _href.replace(/^/, getHTTP(true) + ":");
 				}
 				imagePromise(_href).then(function (r) {
 					img.src = _href;
@@ -2167,7 +2168,7 @@ var hideImgLightbox = function () {
 			var _href = e[gA]("href") || "";
 			if (_href) {
 				if (parseLink(_href).isAbsolute && !parseLink(_href).hasHTTP) {
-					e.setAttribute("href", _href.replace(/^/, getHTTP(!0) + ":"));
+					e.setAttribute("href", _href.replace(/^/, getHTTP(true) + ":"));
 				}
 				e[aEL]("click", handleImgLightboxLink);
 				e[cL].add(isBindedClass);
@@ -2178,7 +2179,7 @@ var hideImgLightbox = function () {
 		for (var j = 0, l = link.length; j < l; j += 1) {
 			arrangeImgLightboxLink(link[j]);
 		}
-		/* forEach(link, arrangeImgLightboxLink); */
+		/* forEach(link, arrangeImgLightboxLink, false); */
 	};
 	if (link) {
 		/* console.log("triggered function: manageImgLightboxLinks"); */
@@ -2205,7 +2206,7 @@ var handleDataSrcImages = function () {
 			var _src = e[ds].src || "";
 			if (_src) {
 				if (parseLink(_src).isAbsolute && !parseLink(_src).hasHTTP) {
-					e[ds].src = _src.replace(/^/, getHTTP(!0) + ":");
+					e[ds].src = _src.replace(/^/, getHTTP(true) + ":");
 					_src = e[ds].src;
 				}
 				imagePromise(_src).then(function (r) {
@@ -2233,7 +2234,7 @@ var handleDataSrcImages = function () {
 		for (var i = 0, l = img.length; i < l; i += 1) {
 			arrangeDataSrcImage(img[i]);
 		}
-		/* forEach(img, arrangeDataSrcImage); */
+		/* forEach(img, arrangeDataSrcImage, false); */
 	};
 	if (img) {
 		/* console.log("triggered function: manageDataSrcImages"); */
@@ -2280,7 +2281,7 @@ var manageDataQrcodeImg = function (ctx) {
 		var qrcode = e[ds].qrcode || "";
 		qrcode = decodeURIComponent(qrcode);
 		if (qrcode) {
-			var imgSrc = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(qrcode);
+			var imgSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(qrcode);
 			e.title = qrcode;
 			e.alt = qrcode;
 			if (w.QRCode) {
@@ -2317,7 +2318,7 @@ var manageDataQrcodeImg = function (ctx) {
 		for (var i = 0, l = img.length; i < l; i += 1) {
 			generateImg(img[i]);
 		}
-		/* forEach(img, generateImg, !1); */
+		/* forEach(img, generateImg, false); */
 	}
 },
     loadManageDataQrcodeImg = function (ctx) {
@@ -2422,7 +2423,7 @@ var handleExpandingLayers = function () {
 		for (var i = 0, l = btn.length; i < l; i += 1) {
 			arrangeBtn(btn[i]);
 		}
-		/* forEach(btn, k, !1); */
+		/* forEach(btn, k, false); */
 	};
 	if (btn) {
 		/* console.log("triggered function: manageExpandingLayers"); */
@@ -2506,7 +2507,7 @@ var manageDataTargetLinks = function (ctx) {
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrangeLink(link[i]);
 		}
-		/* forEach(a, arrangeLink, !1); */
+		/* forEach(a, arrangeLink, false); */
 	};
 	if (link) {
 		/* console.log("triggered function: manageDataTargetLinks"); */
@@ -2551,7 +2552,7 @@ var manageDebugGridButton = function () {
 		for (var i = 0, l = elements.length; i < l; i += 1) {
 			renderElementsInfo(elements[i]);
 		}
-		/* forEach(elements, renderElementsInfo); */
+		/* forEach(elements, renderElementsInfo, false); */
 		debugMessage = debugMessage.join("");
 		debugMessage = debugMessage.slice(0, debugMessage.lastIndexOf(" \u003e "));
 		notiBar({
@@ -2601,7 +2602,7 @@ var generateLocationQrCodeImg = function () {
 	    locationHref = w.location.href || "",
 	    img = d[cE]("img"),
 	    imgTitle = d.title ? "Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»" : "",
-	    imgSrc = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
+	    imgSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
 	img.alt = imgTitle;
 	if (w.QRCode) {
 		if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
@@ -2704,8 +2705,7 @@ document.ready().then(loadManageLocationQrCodeImg);
 /*!
  * init share btn
  */
-var Ya,
-    manageShareButton = function () {
+var manageShareButton = function () {
 	"use strict";
 
 	var d = document,
@@ -2737,8 +2737,8 @@ var Ya,
 			if (page[cL].contains(active_menumore)) {
 				page[cL].remove(active_menumore);
 			}
-			var js = getHTTP(!0) + "://yastatic.net/es5-shims/0.0.2/es5-shims.min.js",
-			    js2 = getHTTP(!0) + "://yastatic.net/share2/share.js";
+			var js = getHTTP(true) + "://yastatic.net/es5-shims/0.0.2/es5-shims.min.js",
+			    js2 = getHTTP(true) + "://yastatic.net/share2/share.js";
 			if (page[cL].contains(active_share)) {
 				if (!scriptIsLoaded(js)) {
 					loadJS(js, function () {
@@ -2793,7 +2793,7 @@ var VK,
 			if (page[cL].contains(active_menumore)) {
 				page[cL].remove(active_menumore);
 			}
-			var js = getHTTP(!0) + "://vk.com/js/api/openapi.js?122",
+			var js = getHTTP(true) + "://vk.com/js/api/openapi.js?122",
 			    initVKLike = function () {
 				if (w.VK) {
 					VK.init({
@@ -2835,7 +2835,7 @@ var loadRefreshDisqus = function () {
 	    btn = d[gEBCN]("btn-show-disqus")[0] || "",
 	    locationHref = w.location.href || "",
 	    disqusThreadShortName = disqusThread ? disqusThread[ds].shortname || "" : "",
-	    js = getHTTP(!0) + "://" + disqusThreadShortName + ".disqus.com/embed.js",
+	    js = getHTTP(true) + "://" + disqusThreadShortName + ".disqus.com/embed.js",
 	    showDisqus = function () {
 		disqusThread[cL].add(is_active);
 		setStyleDisplayNone(btn);
@@ -2922,7 +2922,7 @@ var myMap,
 	    yandexMapCenter = yandexMap ? yandexMap[ds].center || "" : "",
 	    yandexMapZoom = yandexMap ? yandexMap[ds].zoom || "" : "",
 	    isActiveClass = "is-active",
-	    js = getHTTP(!0) + "://api-maps.yandex.ru/2.1/?lang=ru_RU",
+	    js = getHTTP(true) + "://api-maps.yandex.ru/2.1/?lang=ru_RU",
 	    initMyMap = function () {
 		if (myMap) {
 			myMap.destroy();
@@ -3075,7 +3075,7 @@ var initKamilAutocomplete = function () {
 					for (var i = 0; i < l; i += 1) {
 						f(items[i], i);
 					}
-					/* forEach(items, f, !1); */
+					/* forEach(items, f, false); */
 				}
 				/*!
      * fix typo - non latin characters found
@@ -3112,7 +3112,7 @@ var initKamilAutocomplete = function () {
 					for (var j = 0, m = lis.length; j < m; j += 1) {
 						g(lis[j]);
 					}
-					/* forEach(lis, g, !1); */
+					/* forEach(lis, g, false); */
 				}
 			};
 			/*!
@@ -3142,18 +3142,18 @@ var initKamilAutocomplete = function () {
     * {"link":"/pages/contents.html","label":"some text to match"}]
     */
 			ac.on("kamilselect", function (e) {
-				var p = e.item.link || "",
-				    sm = function () {
+				var lkamilItemLink = e.item.link || "",
+				    handleKamilItem = function () {
 					e.inputElement.value = "";
 					handleTypoSuggestions();
-					changeLocation(p);
+					changeLocation(lkamilItemLink);
 				};
-				if (p) {
+				if (lkamilItemLink) {
 					/*!
       * nwjs wont like setImmediate here
       */
-					/* setImmediate(sm); */
-					sm();
+					/* setImmediate(handleKamilItem); */
+					handleKamilItem();
 				}
 			});
 		}
@@ -3217,22 +3217,23 @@ var initUiTotop = function () {
 			ev.preventDefault();
 			scroll2Top(0, 20000);
 		},
-		    insertUpSvg = function (targetObj) {
-			var svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
-			    use = d[cENS]("http://www.w3.org/2000/svg", "use");
-			svg[cL].add("ui-icon");
-			use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
-			svg[aC](use);
-			targetObj[aC](svg);
-		},
-		    anchor = d[cE]("a");
+
+		/* insertUpSvg = function (targetObj) {
+  	var svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
+  	use = d[cENS]("http://www.w3.org/2000/svg", "use");
+  	svg[cL].add("ui-icon");
+  	use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
+  	svg[aC](use);
+  	targetObj[aC](svg);
+  }, */
+		anchor = d[cE]("a");
 		anchor[cL].add(btnClass);
 		/*jshint -W107 */
 		anchor.href = "javascript:void(0);";
 		/*jshint +W107 */
 		anchor.title = btnTitle;
 		anchor[aEL]("click", handleUiTotopAnchor);
-		insertUpSvg(anchor);
+		/* insertUpSvg(anchor); */
 		b[aC](anchor);
 		w[aEL]("scroll", handleUiTotopWindow);
 	};

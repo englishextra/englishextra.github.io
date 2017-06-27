@@ -1,23 +1,24 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global global, $, ActiveXObject, alignToMasterBottomLeft, appendFragment,
-Carousel, changeLocation, container, Cookies, debounce, define,
-DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation, earlyDeviceSize,
-earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch,
-earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos,
-fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox,
-imagePromise, imagesLoaded, imagesPreloaded, insertExternalHTML,
-insertTextAsFragment, Isotope, isValidId, jQuery, Kamil,
-loadExternalHTML, loadJS, loadUnparsedJSON, manageDataSrcImages,
-manageImgLightboxLinks, Masonry, module, openDeviceBrowser, Packery,
-Parallax, parseLink, PhotoSwipe, PhotoSwipeUI_Default, pnotify,
-prependFragmentBefore, prettyPrint, Promise, Proxy, QRCode,
-removeChildren, removeElement, require, routie, safelyParseJSON,
-scriptIsLoaded, scroll2Top, scrollToTop,
-setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
+/*global global, $, ActiveXObject, alignToMasterBottomLeft,
+appendFragment, Carousel, changeLocation, container, Cookies, debounce,
+define, DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation,
+earlyDeviceSize, earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch,
+earlySvgasimgSupport, earlySvgSupport, escape, FastClick, fetch,
+findPos, isInViewport, fixEnRuTypo, forEach, getHTTP,
+getKeyValuesFromJSON, IframeLightbox, imagePromise, imagesLoaded,
+imagesPreloaded, insertExternalHTML, insertTextAsFragment, Isotope,
+isValidId, jQuery, Kamil, loadExternalHTML, loadJS, loadTriggerJS,
+loadUnparsedJSON, manageDataSrcImages, manageImgLightboxLinks, Masonry,
+module, myMap, openDeviceBrowser, Packery, Parallax, parseLink,
+PhotoSwipe, PhotoSwipeUI_Default, pnotify, prependFragmentBefore,
+prettyPrint, Promise, Proxy, QRCode, removeChildren, removeElement,
+require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top,
+scrollToTop, setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
 setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t,
 Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge,
-VK, Ya, ymaps */
+VK, ymaps, zenscroll */
+/*property console, split */
 /*!
  * define global root
  */
@@ -61,11 +62,6 @@ var globalRoot = "undefined" !== typeof window ? window : this;
  * passes jshint
  */
 (function(doc,win){"use strict";if(typeof doc.createEvent!=="function"){return false;}var pointerEventSupport=function(type){var lo=type.toLowerCase(),ms="MS"+type;return navigator.msPointerEnabled?ms:win.PointerEvent?lo:false;},defaults={useJquery:!win.IGNORE_JQUERY&&typeof jQuery!=="undefined",swipeThreshold:win.SWIPE_THRESHOLD||100,tapThreshold:win.TAP_THRESHOLD||150,dbltapThreshold:win.DBL_TAP_THRESHOLD||200,longtapThreshold:win.LONG_TAP_THRESHOLD||1000,tapPrecision:win.TAP_PRECISION/2||60/2,justTouchEvents:win.JUST_ON_TOUCH_DEVICES},wasTouch=false,touchevents={touchstart:pointerEventSupport("PointerDown")||"touchstart",touchend:pointerEventSupport("PointerUp")||"touchend",touchmove:pointerEventSupport("PointerMove")||"touchmove"},isTheSameFingerId=function(e){return!e.pointerId||typeof pointerId==="undefined"||e.pointerId===pointerId;},setListener=function(elm,events,callback){var eventsArray=events.split(" "),i=eventsArray.length;while(i--){elm.addEventListener(eventsArray[i],callback,false);}},getPointerEvent=function(event){return event.targetTouches?event.targetTouches[0]:event;},getTimestamp=function(){return new Date().getTime();},sendEvent=function(elm,eventName,originalEvent,data){var customEvent=doc.createEvent("Event");customEvent.originalEvent=originalEvent;data=data||{};data.x=currX;data.y=currY;data.distance=data.distance;if(defaults.useJquery){customEvent=jQuery.Event(eventName,{originalEvent:originalEvent});jQuery(elm).trigger(customEvent,data);}if(customEvent.initEvent){for(var key in data){if(data.hasOwnProperty(key)){customEvent[key]=data[key];}}customEvent.initEvent(eventName,true,true);elm.dispatchEvent(customEvent);}while(elm){if(elm["on"+eventName]){elm["on"+eventName](customEvent);}elm=elm.parentNode;}},onTouchStart=function(e){if(!isTheSameFingerId(e)){return;}pointerId=e.pointerId;if(e.type!=="mousedown"){wasTouch=true;}if(e.type==="mousedown"&&wasTouch){return;}var pointer=getPointerEvent(e);cachedX=currX=pointer.pageX;cachedY=currY=pointer.pageY;longtapTimer=setTimeout(function(){sendEvent(e.target,"longtap",e);target=e.target;},defaults.longtapThreshold);timestamp=getTimestamp();tapNum++;},onTouchEnd=function(e){if(!isTheSameFingerId(e)){return;}pointerId=undefined;if(e.type==="mouseup"&&wasTouch){wasTouch=false;return;}var eventsArr=[],now=getTimestamp(),deltaY=cachedY-currY,deltaX=cachedX-currX;clearTimeout(dblTapTimer);clearTimeout(longtapTimer);if(deltaX<=-defaults.swipeThreshold){eventsArr.push("swiperight");}if(deltaX>=defaults.swipeThreshold){eventsArr.push("swipeleft");}if(deltaY<=-defaults.swipeThreshold){eventsArr.push("swipedown");}if(deltaY>=defaults.swipeThreshold){eventsArr.push("swipeup");}if(eventsArr.length){for(var i=0;i<eventsArr.length;i++){var eventName=eventsArr[i];sendEvent(e.target,eventName,e,{distance:{x:Math.abs(deltaX),y:Math.abs(deltaY)}});}tapNum=0;}else{if(cachedX>=currX-defaults.tapPrecision&&cachedX<=currX+defaults.tapPrecision&&cachedY>=currY-defaults.tapPrecision&&cachedY<=currY+defaults.tapPrecision){if(timestamp+defaults.tapThreshold-now>=0){sendEvent(e.target,tapNum>=2&&target===e.target?"dbltap":"tap",e);target=e.target;}}dblTapTimer=setTimeout(function(){tapNum=0;},defaults.dbltapThreshold);}},onTouchMove=function(e){if(!isTheSameFingerId(e)){return;}if(e.type==="mousemove"&&wasTouch){return;}var pointer=getPointerEvent(e);currX=pointer.pageX;currY=pointer.pageY;},tapNum=0,pointerId,currX,currY,cachedX,cachedY,timestamp,target,dblTapTimer,longtapTimer;setListener(doc,touchevents.touchstart+(defaults.justTouchEvents?"":" mousedown"),onTouchStart);setListener(doc,touchevents.touchend+(defaults.justTouchEvents?"":" mouseup"),onTouchEnd);setListener(doc,touchevents.touchmove+(defaults.justTouchEvents?"":" mousemove"),onTouchMove);win.tocca=function(options){for(var opt in options){if(options.hasOwnProperty(opt)){defaults[opt]=options[opt];}}return defaults;};}(document,globalRoot));
-/*!
- * safe way to handle console.log
- * @see {@link https://github.com/paulmillr/console-polyfill}
- */
-(function(root){"use strict";if(!root.console){root.console={};}var con=root.console;var prop,method;var dummy=function(){};var properties=["memory"];var methods=("assert,clear,count,debug,dir,dirxml,error,exception,group,"+"groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd,"+"show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn").split(",");while((prop=properties.pop())){if(!con[prop]){con[prop]={};}}while((method=methods.pop())){if(!con[method]){con[method]=dummy;}}}(globalRoot));
 /*!
  * add js class to html element
  */
@@ -341,7 +337,7 @@ manageExternalLinks = function (ctx) {
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrangeExternalLink(link[i]);
 		}
-		/* forEach(link, arrangeExternalLink); */
+		/* forEach(link, arrangeExternalLink, false); */
 	};
 	if (link) {
 		/* console.log("triggered function: manageExternalLinks"); */
@@ -475,7 +471,7 @@ var initMasonry = function () {
 					for (var j = 0, m = gridItem.length; j < m; j += 1) {
 						f(gridItem[j]);
 					}
-					/* forEach(gridItem, f, !1); */
+					/* forEach(gridItem, f, false); */
 					if (pckry && draggie) {
 						pckry.bindDraggabillyEvents(draggie);
 						/* console.log("function initMasonry => binded draggie to pckry"); */
@@ -548,14 +544,14 @@ var initUiTotop = function () {
 			ev.preventDefault();
 			scroll2Top(0, 20000);
 		},
-		insertUpSvg = function (targetObj) {
+		/* insertUpSvg = function (targetObj) {
 			var svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
 			use = d[cENS]("http://www.w3.org/2000/svg", "use");
 			svg[cL].add("ui-icon");
 			use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
 			svg[aC](use);
 			targetObj[aC](svg);
-		},
+		}, */
 		anchor = d[cE]("a");
 		anchor[cL].add(btnClass);
 		/*jshint -W107 */
@@ -563,7 +559,7 @@ var initUiTotop = function () {
 		/*jshint +W107 */
 		anchor.title = btnTitle;
 		anchor[aEL]("click", handleUiTotopAnchor);
-		insertUpSvg(anchor);
+		/* insertUpSvg(anchor); */
 		b[aC](anchor);
 		w[aEL]("scroll", handleUiTotopWindow);
 	};

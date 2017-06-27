@@ -1,23 +1,24 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global global, $, ActiveXObject, alignToMasterBottomLeft, appendFragment, 
-Carousel, changeLocation, container, Cookies, debounce, define, 
-DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation, earlyDeviceSize, 
-earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch, 
-earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos, 
-fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox, 
-imagePromise, imagesLoaded, imagesPreloaded, insertExternalHTML, 
-insertTextAsFragment, Isotope, isValidId, jQuery, Kamil, 
-loadExternalHTML, loadJS, loadUnparsedJSON, manageDataSrcImages, 
-manageImgLightboxLinks, Masonry, module, openDeviceBrowser, Packery, 
-Parallax, parseLink, PhotoSwipe, PhotoSwipeUI_Default, pnotify, 
-prependFragmentBefore, prettyPrint, Promise, Proxy, QRCode, 
-removeChildren, removeElement, require, routie, safelyParseJSON, 
-scriptIsLoaded, scroll2Top, scrollToTop, 
-setImmediate, setStyleDisplayBlock, setStyleDisplayNone, 
-setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t, 
-Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge, 
-VK, Ya, ymaps */
+/*global global, $, ActiveXObject, alignToMasterBottomLeft,
+appendFragment, Carousel, changeLocation, container, Cookies, debounce,
+define, DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation,
+earlyDeviceSize, earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch,
+earlySvgasimgSupport, earlySvgSupport, escape, FastClick, fetch,
+findPos, isInViewport, fixEnRuTypo, forEach, getHTTP,
+getKeyValuesFromJSON, IframeLightbox, imagePromise, imagesLoaded,
+imagesPreloaded, insertExternalHTML, insertTextAsFragment, Isotope,
+isValidId, jQuery, Kamil, loadExternalHTML, loadJS, loadTriggerJS,
+loadUnparsedJSON, manageDataSrcImages, manageImgLightboxLinks, Masonry,
+module, myMap, openDeviceBrowser, Packery, Parallax, parseLink,
+PhotoSwipe, PhotoSwipeUI_Default, pnotify, prependFragmentBefore,
+prettyPrint, Promise, Proxy, QRCode, removeChildren, removeElement,
+require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top,
+scrollToTop, setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
+setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t,
+Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge,
+VK, ymaps, zenscroll */
+/*property console, split */
 /*!
  * define global root
  */
@@ -266,24 +267,6 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 		}return defaults;
 	};
 })(document, globalRoot);
-/*!
- * safe way to handle console.log
- * @see {@link https://github.com/paulmillr/console-polyfill}
- */
-(function (root) {
-	"use strict";
-	if (!root.console) {
-		root.console = {};
-	}var con = root.console;var prop, method;var dummy = function () {};var properties = ["memory"];var methods = ("assert,clear,count,debug,dir,dirxml,error,exception,group," + "groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd," + "show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn").split(",");while (prop = properties.pop()) {
-		if (!con[prop]) {
-			con[prop] = {};
-		}
-	}while (method = methods.pop()) {
-		if (!con[method]) {
-			con[method] = dummy;
-		}
-	}
-})(globalRoot);
 /*!
  * add js class to html element
  */
@@ -779,7 +762,7 @@ var handleExternalLink = function (url, ev) {
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrangeExternalLink(link[i]);
 		}
-		/* forEach(link, arrangeExternalLink); */
+		/* forEach(link, arrangeExternalLink, false); */
 	};
 	if (link) {
 		/* console.log("triggered function: manageExternalLinks"); */
@@ -875,7 +858,7 @@ var initNavMenu = function () {
 		for (var j = 0, l = a.length; j < l; j += 1) {
 			m(a[j]);
 		}
-		/* forEach(a, m, !1); */
+		/* forEach(a, m, false); */
 	},
 	    v = function (e) {
 		var h_e = function () {
@@ -896,7 +879,7 @@ var initNavMenu = function () {
 		for (var i = 0, l = items.length; i < l; i += 1) {
 			v(items[i]);
 		}
-		/* forEach(items, v, !1); */
+		/* forEach(items, v, false); */
 	};
 	if (container && page && btn && panel && items) {
 		/* console.log("triggered function: initNavMenu"); */
@@ -954,22 +937,23 @@ var initUiTotop = function () {
 			ev.preventDefault();
 			scroll2Top(0, 20000);
 		},
-		    insertUpSvg = function (targetObj) {
-			var svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
-			    use = d[cENS]("http://www.w3.org/2000/svg", "use");
-			svg[cL].add("ui-icon");
-			use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
-			svg[aC](use);
-			targetObj[aC](svg);
-		},
-		    anchor = d[cE]("a");
+
+		/* insertUpSvg = function (targetObj) {
+  	var svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
+  	use = d[cENS]("http://www.w3.org/2000/svg", "use");
+  	svg[cL].add("ui-icon");
+  	use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
+  	svg[aC](use);
+  	targetObj[aC](svg);
+  }, */
+		anchor = d[cE]("a");
 		anchor[cL].add(btnClass);
 		/*jshint -W107 */
 		anchor.href = "javascript:void(0);";
 		/*jshint +W107 */
 		anchor.title = btnTitle;
 		anchor[aEL]("click", handleUiTotopAnchor);
-		insertUpSvg(anchor);
+		/* insertUpSvg(anchor); */
 		b[aC](anchor);
 		w[aEL]("scroll", handleUiTotopWindow);
 	};

@@ -1,23 +1,23 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global global, $, ActiveXObject, alignToMasterBottomLeft, appendFragment,
-Carousel, changeLocation, container, Cookies, debounce, define,
-DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation, earlyDeviceSize,
-earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch,
-earlySvgasimgSupport, earlySvgSupport, escape, fetch, findPos,
-fixEnRuTypo, forEach, getHTTP, getKeyValuesFromJSON, IframeLightbox,
-imagePromise, imagesLoaded, imagesPreloaded, insertExternalHTML,
-insertTextAsFragment, Isotope, isValidId, jQuery, Kamil,
-loadExternalHTML, loadJS, loadUnparsedJSON, manageDataSrcImages,
-manageImgLightboxLinks, Masonry, module, openDeviceBrowser, Packery,
-Parallax, parseLink, PhotoSwipe, PhotoSwipeUI_Default, pnotify,
-prependFragmentBefore, prettyPrint, Promise, Proxy, QRCode,
-removeChildren, removeElement, require, routie, safelyParseJSON,
-scriptIsLoaded, scroll2Top, scrollToTop,
-setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
+/*global global, $, ActiveXObject, alignToMasterBottomLeft,
+appendFragment, Carousel, changeLocation, container, Cookies, debounce,
+define, DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation,
+earlyDeviceSize, earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch,
+earlySvgasimgSupport, earlySvgSupport, escape, FastClick, fetch,
+findPos, isInViewport, fixEnRuTypo, forEach, getHTTP,
+getKeyValuesFromJSON, IframeLightbox, imagePromise, imagesLoaded,
+imagesPreloaded, insertExternalHTML, insertTextAsFragment, Isotope,
+isValidId, jQuery, Kamil, loadExternalHTML, loadJS, loadTriggerJS,
+loadUnparsedJSON, manageDataSrcImages, manageImgLightboxLinks, Masonry,
+module, myMap, openDeviceBrowser, Packery, Parallax, parseLink,
+PhotoSwipe, PhotoSwipeUI_Default, pnotify, prependFragmentBefore,
+prettyPrint, Promise, Proxy, QRCode, removeChildren, removeElement,
+require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top,
+scrollToTop, setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
 setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t,
 Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge,
-VK, Ya, ymaps */
+VK, ymaps, zenscroll */
 /*property console, split */
 /*!
  * define global root
@@ -1280,7 +1280,7 @@ var handleDataSrcImages = function () {
 			var _src = e[ds].src || "";
 			if (_src) {
 				if (parseLink(_src).isAbsolute && !parseLink(_src).hasHTTP) {
-					e[ds].src = _src.replace(/^/, getHTTP(!0) + ":");
+					e[ds].src = _src.replace(/^/, getHTTP(true) + ":");
 					_src = e[ds].src;
 				}
 				imagePromise(_src).then(function (r) {
@@ -1308,7 +1308,7 @@ var handleDataSrcImages = function () {
 		for (var i = 0, l = img.length; i < l; i += 1) {
 			arrangeDataSrcImage(img[i]);
 		}
-		/* forEach(img, arrangeDataSrcImage); */
+		/* forEach(img, arrangeDataSrcImage, false); */
 	};
 	if (img) {
 		/* console.log("triggered function: manageDataSrcImages"); */
@@ -1356,7 +1356,7 @@ var handleDataSrcIframes = function () {
 			var _src = e[ds].src || "";
 			if (_src) {
 				if (parseLink(_src).isAbsolute && !parseLink(_src).hasHTTP) {
-					e[ds].src = _src.replace(/^/, getHTTP(!0) + ":");
+					e[ds].src = _src.replace(/^/, getHTTP(true) + ":");
 					_src = e[ds].src;
 				}
 				e.src = _src;
@@ -1383,7 +1383,7 @@ var handleDataSrcIframes = function () {
 		for (var i = 0, l = iframe.length; i < l; i += 1) {
 			arrangeDataSrcIframe(iframe[i]);
 		}
-		/* forEach(iframe, arrangeDataSrcIframe); */
+		/* forEach(iframe, arrangeDataSrcIframe, false); */
 	};
 	if (iframe) {
 		/* console.log("triggered function: manageDataSrcIframes"); */
@@ -1437,7 +1437,7 @@ var manageIframeLightboxLinks = function (ctx) {
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrangeDataSrcIframe(link[i]);
 		}
-		/* forEach(link, arrangeDataSrcIframe); */
+		/* forEach(link, arrangeDataSrcIframe, false); */
 	};
 	if (link) {
 		/* console.log("triggered function: manageIframeLightboxLibks"); */
@@ -1490,7 +1490,7 @@ var handleExternalLink = function (url, ev) {
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrangeExternalLink(link[i]);
 		}
-		/* forEach(link, arrangeExternalLink); */
+		/* forEach(link, arrangeExternalLink, false); */
 	};
 	if (link) {
 		/* console.log("triggered function: manageExternalLinks"); */
@@ -1610,7 +1610,7 @@ var hideImgLightbox = function () {
 				img[cL].add(an);
 				img[cL].add(an2);
 				if (parseLink(_href).isAbsolute && !parseLink(_href).hasHTTP) {
-					_href = _href.replace(/^/, getHTTP(!0) + ":");
+					_href = _href.replace(/^/, getHTTP(true) + ":");
 				}
 				imagePromise(_href).then(function (r) {
 					img.src = _href;
@@ -1633,7 +1633,7 @@ var hideImgLightbox = function () {
 			var _href = e[gA]("href") || "";
 			if (_href) {
 				if (parseLink(_href).isAbsolute && !parseLink(_href).hasHTTP) {
-					e.setAttribute("href", _href.replace(/^/, getHTTP(!0) + ":"));
+					e.setAttribute("href", _href.replace(/^/, getHTTP(true) + ":"));
 				}
 				e[aEL]("click", handleImgLightboxLink);
 				e[cL].add(isBindedClass);
@@ -1644,7 +1644,7 @@ var hideImgLightbox = function () {
 		for (var j = 0, l = link.length; j < l; j += 1) {
 			arrangeImgLightboxLink(link[j]);
 		}
-		/* forEach(link, arrangeImgLightboxLink); */
+		/* forEach(link, arrangeImgLightboxLink, false); */
 	};
 	if (link) {
 		/* console.log("triggered function: manageImgLightboxLinks"); */
@@ -1676,7 +1676,7 @@ var handleOtherDropdownLists = function (_this) {
 		for (var i = 0, l = list.length; i < l; i += 1) {
 			removeActiveClass(list[i]);
 		}
-		/* forEach(list, removeActiveClass); */
+		/* forEach(list, removeActiveClass, false); */
 	}
 },
     manageOtherDropdownLists = function () {
@@ -1755,7 +1755,7 @@ var manageChaptersSelect = function () {
 		for (var i = 0, l = chaptersSelectOptions.length; i < l; i += 1) {
 			rerenderOption(chaptersSelectOptions[i]);
 		}
-		/* forEach(chaptersSelectOptions, rerenderOption); */
+		/* forEach(chaptersSelectOptions, rerenderOption, false); */
 	},
 	    rerenderChaptersList = function () {
 		var handleChaptersListItem = function (listObj, _hash) {
@@ -1799,7 +1799,7 @@ var manageChaptersSelect = function () {
 		for (var i = 0, l = chaptersListItems.length; i < l; i += 1) {
 			generateChaptersListItems(chaptersListItems[i], i);
 		}
-		/* forEach(chaptersListItems, generateChaptersListItems); */
+		/* forEach(chaptersListItems, generateChaptersListItems, false); */
 		appendFragment(df, chaptersList);
 		chaptersList[cL].add(chaptersListClass);
 		chaptersList[cL].add(isDropdownClass);
@@ -1861,7 +1861,7 @@ var manageExpandingLayers = function (ctx) {
 		for (var i = 0, l = btn.length; i < l; i += 1) {
 			arrangeExpandingLayers(btn[i]);
 		}
-		/* forEach(btn, arrangeExpandingLayers); */
+		/* forEach(btn, arrangeExpandingLayers, false); */
 	};
 	if (btn) {
 		/* console.log("triggered function: manageExpandingLayers"); */
@@ -1984,7 +1984,7 @@ var manageDisqusButton = function (ctx) {
 	    isActiveClass = "is-active",
 	    locationHref = w.location.href || "",
 	    disqusShortname = disqusThread ? disqusThread[ds].shortname || "" : "",
-	    embedJsUrl = getHTTP(!0) + "://" + disqusShortname + ".disqus.com/embed.js";
+	    embedJsUrl = getHTTP(true) + "://" + disqusShortname + ".disqus.com/embed.js";
 	if (disqusThread && btn && disqusShortname && locationHref) {
 		/* console.log("triggered function: manageDisqusButton"); */
 		var hideDisqusButton = function () {
@@ -2317,7 +2317,7 @@ var initKamilAutocomplete = function (jsonObj) {
 					}
 					/* forEach(items, function (e, i) {
      	limitKamilOutput(e, i);
-     }); */
+     }, false); */
 				}
 				/*!
      * fix typo - non latin characters found
@@ -2361,7 +2361,7 @@ var initKamilAutocomplete = function (jsonObj) {
 					for (var j = 0, m = lis.length; j < m; j += 1) {
 						truncateKamilText(lis[j]);
 					}
-					/* forEach(lis, truncateKamilText); */
+					/* forEach(lis, truncateKamilText, false); */
 				}
 			};
 			/*!
@@ -2391,18 +2391,18 @@ var initKamilAutocomplete = function (jsonObj) {
     * {"link":"/pages/contents.html","label":"some text to match"}]
     */
 			ac.on("kamilselect", function (e) {
-				var kamilPath = e.item.href || "",
-				    triggerOnKamilSelect = function () {
+				var kamilItemLink = e.item.href || "",
+				    handleKamilItem = function () {
 					e.inputElement.value = "";
 					handleTypoSuggestions();
-					w.location.href = kamilPath;
+					w.location.href = kamilItemLink;
 				};
-				if (kamilPath) {
+				if (kamilItemLink) {
 					/*!
       * nwjs wont like setImmediate here
       */
-					/* setImmediate(triggerOnKamilSelect); */
-					triggerOnKamilSelect();
+					/* setImmediate(handleKamilItem); */
+					handleKamilItem();
 				}
 			});
 		}
@@ -2578,7 +2578,7 @@ var handleOtherSocialButtons = function (_this) {
 		for (var i = 0, l = btn.length; i < l; i += 1) {
 			removeActiveClass(btn[i]);
 		}
-		/* forEach(btn, removeActiveClass); */
+		/* forEach(btn, removeActiveClass, false); */
 	}
 },
     manageOtherSocialButtons = function () {
@@ -2619,7 +2619,7 @@ var manageLocationQrCodeImage = function () {
 				var newText = w.location.href || "",
 				    newImg = d[cE]("img"),
 				    newTitle = d.title ? "Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»" : "",
-				    newSrc = getHTTP(!0) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(newText);
+				    newSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(newText);
 				newImg.alt = newTitle;
 				var renderNewQrCode = function () {
 					if (w.QRCode) {
@@ -2681,8 +2681,7 @@ document.ready().then(manageLocationQrCodeImage);
 /*!
  * init share btn
  */
-var Ya,
-    manageShareButton = function () {
+var manageShareButton = function () {
 	"use strict";
 
 	var d = document,
@@ -2704,8 +2703,8 @@ var Ya,
 					holder[cL].toggle(isActiveClass);
 					holder[cL].add(isSocialClass);
 					handleOtherSocialButtons(holder);
-					var es5ShimsJsUrl = getHTTP(!0) + "://yastatic.net/es5-shims/0.0.2/es5-shims.min.js",
-					    shareJsUrl = getHTTP(!0) + "://yastatic.net/share2/share.js";
+					var es5ShimsJsUrl = getHTTP(true) + "://yastatic.net/es5-shims/0.0.2/es5-shims.min.js",
+					    shareJsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
 					if (!scriptIsLoaded(es5ShimsJsUrl)) {
 						loadJS(es5ShimsJsUrl, function () {
 							if (!scriptIsLoaded(shareJsUrl)) {
@@ -2751,7 +2750,7 @@ var VK,
 					holder[cL].toggle(isActiveClass);
 					holder[cL].add(isSocialClass);
 					handleOtherSocialButtons(holder);
-					var openapiJsUrl = getHTTP(!0) + "://vk.com/js/api/openapi.js?122";
+					var openapiJsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122";
 					if (!scriptIsLoaded(openapiJsUrl)) {
 						loadJS(openapiJsUrl, function () {
 							if (w.VK) {
@@ -2814,7 +2813,7 @@ var manageDebugGridButton = function () {
 		for (var i = 0, l = elements.length; i < l; i += 1) {
 			renderElementsInfo(elements[i]);
 		}
-		/* forEach(elements, renderElementsInfo); */
+		/* forEach(elements, renderElementsInfo, false); */
 		debugMessage = debugMessage.join("");
 		debugMessage = debugMessage.slice(0, debugMessage.lastIndexOf(" \u003e "));
 		notiBar({
@@ -3126,7 +3125,7 @@ var processPoutes = function () {
 						for (var i = 0, l = routesParsedJson.hashes.length; i < l; i += 1) {
 							generateContentsOptions(routesParsedJson.hashes[i]);
 						}
-						/* forEach(routesParsedJson.hashes, generateContentsOptions); */
+						/* forEach(routesParsedJson.hashes, generateContentsOptions, false); */
 						appendFragment(df, contentsRender);
 						contentsSelect[aEL]("change", handleContentsSelect);
 					};
@@ -3162,7 +3161,7 @@ var processPoutes = function () {
 						for (var j = 0, m = routesParsedJson.hashes.length; j < m; j += 1) {
 							generateContentsListItems(routesParsedJson.hashes[j]);
 						}
-						/* forEach(routesParsedJson.hashes, generateContentsListItems); */
+						/* forEach(routesParsedJson.hashes, generateContentsListItems, false); */
 						appendFragment(df, contentsList);
 						contentsList[cL].add(contentsListClass);
 						contentsList[cL].add(isDropdownClass);

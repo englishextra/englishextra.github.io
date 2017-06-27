@@ -142,12 +142,7 @@
 						<ul class="navbar-list is-dropdown" id="render_navbar_popular"></ul>
 						<ul class="navbar-list is-dropdown" id="render_navbar_more"></ul>
 						<div class="holder-search-form">
-							<!-- <form action="javascript:void(0);" id="search-form" class="search-form" id="search-form" onsubmit="return!1" method="get" enctype="application/x-www-form-urlencoded">
-								<div>
-									<span class="holder-search-text"><input type="text" name="text" id="text" autocomplete="off" placeholder="Поиск" aria-label="Keywords / Ключевые слова" /></span>
-								</div>
-							</form> -->
-							<form action="https://yandex.ru/sitesearch" id="search-form" class="search-form" id="search-form" target="_blank" method="get" enctype="application/x-www-form-urlencoded">
+							<form action="https://yandex.ru/sitesearch" class="search-form" id="search-form" target="_blank" onsubmit="return false;" method="get" enctype="application/x-www-form-urlencoded">
 								<div>
 									<span class="holder-search-text"><input type="text" name="text" id="text" autocomplete="off" placeholder="Поиск" aria-label="Keywords / Ключевые слова" /><button type="submit" aria-label="Submit / Отправить">
 									<svg class="ui-icon">
@@ -157,7 +152,7 @@
 									<input name="web" id="web" value="1" type="hidden" />
 								</div>
 							</form>
-									</div>
+						</div>
 					</div>
 				</div>
 			</div>

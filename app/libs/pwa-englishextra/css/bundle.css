@@ -40,7 +40,7 @@ EB5262
 3087CD */
 
 /* \$(.*?)\: (.*?)\;
-<div class="masonry-grid-item"><div class="bg-\1"><span class="color-variable-name">$\1</span></div></div>
+\t\t\t\t\t\t\t\t\t\t<div class="masonry-grid-item"><div class="bg-\1"><span class="color-variable-name">$\1</span></div></div>
 
 \$(.*?)\: (.*?)\;
 .bg-\1 {
