@@ -312,9 +312,9 @@ var progressBar = new ToProgress({
  * @param {Int} [n] a whole positive number
  * progressBar.init(n)
  */
-progressBar.init = function (n) {
-	n = n || 20;
-	return this.increase(n);
+progressBar.init = function (state) {
+	state = state || 20;
+	return this.increase(state);
 };
 /*!
  * @memberof progressBar
@@ -394,6 +394,7 @@ var initSuperBox = function () {
 	"use strict";
 	var w = globalRoot,
 	d = document,
+	b = d.body || "",
 	cL = "classList",
 	gEBCN = "getElementsByClassName",
 	gEBTN = "getElementsByTagName",
@@ -412,31 +413,31 @@ var initSuperBox = function () {
 	an1 = "fadeIn",
 	an2 = "fadeOut",
 	lists = d[gEBCN](s1) || "",
-	s_show_div = d[cE]("div"),
-	s_close_div = d[cE]("div"),
-	g = function (_this) {
-		var s_desc = _this ? _this[gEBCN](s5)[0] || "" : "",
-		s_desc_html = s_desc.innerHTML;
-		s_show_div[cL].add(s2);
-		var s_show_div_child = d[cE]("div");
-		s_show_div_child[cL].add(s3);
-		s_show_div[aC](s_show_div_child);
-		s_close_div[cL].add(s4);
+	sShowDiv = d[cE]("div"),
+	sCloseDiv = d[cE]("div"),
+	handleItem = function (_this) {
+		var sDesc = _this ? _this[gEBCN](s5)[0] || "" : "",
+		sDescHtml = sDesc.innerHTML;
+		sShowDiv[cL].add(s2);
+		var sShowDivChild = d[cE]("div");
+		sShowDivChild[cL].add(s3);
+		sShowDiv[aC](sShowDivChild);
+		sCloseDiv[cL].add(s4);
 		/*!
 		 * dont use appendAfter
 		 */
-		_this.parentNode.insertBefore(s_show_div, _this.nextElementSibling);
-		var s_show = d[gEBCN](s2)[0] || "";
-		setStyleDisplayBlock(s_show);
-		var s_cur_desc = d[gEBCN](s3)[0] || "";
-		removeChildren(s_cur_desc);
-		s_cur_desc.insertAdjacentHTML("beforeend", s_desc_html);
-		s_cur_desc[aC](s_close_div);
-		setStyleOpacity(s_cur_desc, 0);
-		setStyleDisplayBlock(s_cur_desc);
-		var reveal_pos = _this.offsetTop,
-		hide_pos = w.pageYOffset || d.documentElement.scrollTop;
-		var si1 = scroll2Top.bind(null, reveal_pos, 20000);
+		_this.parentNode.insertBefore(sShowDiv, _this.nextElementSibling);
+		var sShow = d[gEBCN](s2)[0] || "";
+		setStyleDisplayBlock(sShow);
+		var sCurDesc = d[gEBCN](s3)[0] || "";
+		removeChildren(sCurDesc);
+		sCurDesc.insertAdjacentHTML("beforeend", sDescHtml);
+		sCurDesc[aC](sCloseDiv);
+		setStyleOpacity(sCurDesc, 0);
+		setStyleDisplayBlock(sCurDesc);
+		var sRevealPos = _this.offsetTop,
+		sHidePos = w.pageYOffset || d.documentElement.scrollTop;
+		var si1 = scroll2Top.bind(null, sRevealPos, 20000);
 		/* setImmediate(si1); */
 		var timers = new Timers();
 		timers.timeout(function () {
@@ -444,43 +445,41 @@ var initSuperBox = function () {
 			timers = null;
 			si1();
 		}, 100);
-		s_cur_desc[cL].add(an);
-		s_cur_desc[cL].add(an1);
+		sCurDesc[cL].add(an);
+		sCurDesc[cL].add(an1);
 		/*!
 		 * track clicks on external links
 		 */
-		var link = s_cur_desc ? s_cur_desc[gEBTN]("a") || "" : "";
+		var link = sCurDesc ? sCurDesc[gEBTN]("a") || "" : "";
 		if (link) {
-			var q = function () {
+			var createCounterImg = function () {
 				var _this = this;
-				var d = document,
-				b = d.body || "",
-				rfrr = encodeURIComponent(d.location.href || ""),
+				var rfrr = encodeURIComponent(d.location.href || ""),
 				ttl = encodeURIComponent(d.title || "").replace("\x27", "&#39;"),
-				p = _this[gA]("href") || "",
-				dmn = p ? encodeURIComponent(p) : "",
-				s = /localhost/.test(w.location.host) ? "http://localhost/externalcounters/" : "";
-				if (s) {
-					var a = d[cE]("div");
-					a[sA]("style", "position:absolute;left:-9999px;width:1px;height:1px;border:0;background:transparent url(" + s + "?dmn=" + dmn + "&rfrr=" + rfrr + "&ttl=" + ttl + "&encoding=utf-8) top left no-repeat;");
-					appendFragment(a, b);
+				hrefString = _this[gA]("href") || "",
+				dmn = hrefString ? encodeURIComponent(hrefString) : "",
+				counterHost = (/^(localhost|127.0.0.1)/).test(w.location.host) ? "http://localhost/externalcounters/" : "";
+				if (counterHost) {
+					var counterElement = d[cE]("div");
+					counterElement[sA]("style", "position:absolute;left:-9999px;width:1px;height:1px;border:0;background:transparent url(" + counterHost + "?dmn=" + dmn + "&rfrr=" + rfrr + "&ttl=" + ttl + "&encoding=utf-8) top left no-repeat;");
+					appendFragment(counterElement, b);
 				}
 			},
 			trackClicks = function (e) {
-				var p = e[gA]("href") || "",
-				h_n = function (ev) {
+				var hrefString = e[gA]("href") || "",
+				handleSuperboxExternalLink = function (ev) {
 					ev.preventDefault();
 					ev.stopPropagation();
 					var _this = this;
-					q(_this);
-					openDeviceBrowser(p);
+					createCounterImg(_this);
+					openDeviceBrowser(hrefString);
 				};
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					e.target = "_blank";
 					e.rel = "noopener";
-					e[aEL]("click", q);
+					e[aEL]("click", createCounterImg);
 				} else {
-					e[aEL]("click", h_n);
+					e[aEL]("click", handleSuperboxExternalLink);
 				}
 			};
 			for (var j = 0, l = link.length; j < l; j += 1) {
@@ -491,54 +490,56 @@ var initSuperBox = function () {
 		/*!
 		 * hide description
 		 */
-		var s_close = s_cur_desc ? s_cur_desc[gEBCN](s4)[0] || "" : "",
+		var sClose = sCurDesc ? sCurDesc[gEBCN](s4)[0] || "" : "",
 		doOnClose = function () {
-			var si2 = scroll2Top.bind(null, hide_pos, 20000);
+			var st1 = scroll2Top.bind(null, sHidePos, 20000);
 			var timers = new Timers();
 			timers.timeout(function () {
 				timers.clear();
 				timers = null;
-				si2();
+				st1();
 			}, 100);
-			s_cur_desc[cL].remove(an1);
-			s_cur_desc[cL].add(an2);
-			var s = function () {
-				setStyleDisplayNone(s_cur_desc);
-				setStyleDisplayNone(s_show);
-				s_cur_desc[cL].remove(an);
-				s_cur_desc[cL].remove(an2);
+			sCurDesc[cL].remove(an1);
+			sCurDesc[cL].add(an2);
+			var st2 = function () {
+				setStyleDisplayNone(sCurDesc);
+				setStyleDisplayNone(sShow);
+				sCurDesc[cL].remove(an);
+				sCurDesc[cL].remove(an2);
 			};
 			var timers2 = new Timers();
 			timers2.timeout(function () {
 				timers2.clear();
 				timers2 = null;
-				s();
+				st2();
 			}, 200);
 		};
-		if (s_close) {
-			var h_s_close = function (ev) {
+		if (sClose) {
+			var handleSuperboxClose = function (ev) {
 				ev.preventDefault();
 				ev.stopPropagation();
-				s_close[rEL]("click", h_s_close);
+				sClose[rEL]("click", handleSuperboxClose);
 				doOnClose();
 			};
-			s_close[aEL]("click", h_s_close);
+			sClose[aEL]("click", handleSuperboxClose);
 		}
 	},
-	k = function (e) {
-		var h_e = function (ev) {
+	addItemHandler = function (e) {
+		var handleSuperboxListItem = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			g(e);
+			handleItem(e);
 		};
-		e[aEL]("click", h_e);
+		e[aEL]("click", handleSuperboxListItem);
 	};
 	if (lists) {
 		/* console.log("triggered function: initSuperBox"); */
 		for (var i = 0, l = lists.length; i < l; i += 1) {
-			k(lists[i]);
+			addItemHandler(lists[i]);
 		}
-		/* forEach(lists, k, false); */
+		/* forEach(lists, addItemHandler(lists[i]);
+		}
+		/* forEach(lists, addAllItemsHandlers, false); */
 	}
 };
 document.ready().then(initSuperBox);
@@ -554,7 +555,7 @@ var generateLocationQrCodeImg = function () {
 	cL = "classList",
 	cE = "createElement",
 	holder = d[gEBCN]("holder-location-qr-code")[0] || "",
-	cls = "qr-code-img",
+	imgClass = "qr-code-img",
 	locationHref = w.location.href || "",
 	img = d[cE]("img"),
 	imgTitle = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
@@ -587,7 +588,7 @@ var generateLocationQrCodeImg = function () {
 	} else {
 		img.src = imgSrc;
 	}
-	img[cL].add(cls);
+	img[cL].add(imgClass);
 	img.title = imgTitle;
 	removeChildren(holder);
 	appendFragment(img, holder);

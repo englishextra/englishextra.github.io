@@ -267,9 +267,9 @@ var progressBar = new ToProgress({
  * @param {Int} [n] a whole positive number
  * progressBar.init(n)
  */
-progressBar.init = function (n) {
-	n = n || 20;
-	return this.increase(n);
+progressBar.init = function (state) {
+	state = state || 20;
+	return this.increase(state);
 };
 /*!
  * @memberof progressBar
@@ -470,7 +470,7 @@ var generateLocationQrCodeImg = function () {
 	cL = "classList",
 	cE = "createElement",
 	holder = d[gEBCN]("holder-location-qr-code")[0] || "",
-	cls = "qr-code-img",
+	imgClass = "qr-code-img",
 	locationHref = w.location.href || "",
 	img = d[cE]("img"),
 	imgTitle = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
@@ -503,7 +503,7 @@ var generateLocationQrCodeImg = function () {
 	} else {
 		img.src = imgSrc;
 	}
-	img[cL].add(cls);
+	img[cL].add(imgClass);
 	img.title = imgTitle;
 	removeChildren(holder);
 	appendFragment(img, holder);

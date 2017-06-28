@@ -1366,20 +1366,6 @@ if (document.title) {
 	};root.findPos = findPos;
 })(globalRoot);
 /*!
- * change document location
- * @param {String} a URL / path string
- * changeLocation(a)
- */
-(function (root) {
-	var changeLocation = function (a) {
-		return function () {
-			if (a) {
-				document.location.href = a;
-			}
-		}();
-	};root.changeLocation = changeLocation;
-})(globalRoot);
-/*!
  * modified Unified URL parsing API in the browser and node
  * @see {@link https://github.com/wooorm/parse-link}
  * removed module check
@@ -1510,9 +1496,9 @@ var progressBar = new ToProgress({
  * @param {Int} [n] a whole positive number
  * progressBar.init(n)
  */
-progressBar.init = function (n) {
-	n = n || 20;
-	return this.increase(n);
+progressBar.init = function (state) {
+	state = state || 20;
+	return this.increase(state);
 };
 /*!
  * @memberof progressBar
@@ -2341,7 +2327,8 @@ var handleChaptersSelect = function () {
 	"use strict";
 
 	var _this = this;
-	var d = document,
+	var w = globalRoot,
+	    d = document,
 	    gEBI = "getElementById",
 	    hashString = _this.options[_this.selectedIndex].value || "";
 	if (hashString) {
@@ -2349,7 +2336,7 @@ var handleChaptersSelect = function () {
 		if (tragetObject) {
 			scroll2Top(findPos(tragetObject).top, 20000);
 		} else {
-			changeLocation(hashString);
+			w.location.href = hashString;
 		}
 	}
 },
@@ -2599,7 +2586,7 @@ var generateLocationQrCodeImg = function () {
 	    cL = "classList",
 	    cE = "createElement",
 	    holder = d[gEBCN]("holder-location-qr-code")[0] || "",
-	    cls = "qr-code-img",
+	    imgClass = "qr-code-img",
 	    locationHref = w.location.href || "",
 	    img = d[cE]("img"),
 	    imgTitle = d.title ? "Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»" : "",
@@ -2632,7 +2619,7 @@ var generateLocationQrCodeImg = function () {
 	} else {
 		img.src = imgSrc;
 	}
-	img[cL].add(cls);
+	img[cL].add(imgClass);
 	img.title = imgTitle;
 	removeChildren(holder);
 	appendFragment(img, holder);
@@ -3013,7 +3000,8 @@ var myMap,
 var initKamilAutocomplete = function () {
 	"use strict";
 
-	var d = document,
+	var w = globalRoot,
+	    d = document,
 	    gEBI = "getElementById",
 	    gEBCN = "getElementsByClassName",
 	    gEBTN = "getElementsByTagName",
@@ -3029,13 +3017,13 @@ var initKamilAutocomplete = function () {
 	    container = d[gEBI]("container") || "",
 	    suggestionUlId = "kamil-typo-autocomplete",
 	    suggestionUlClass = "kamil-autocomplete",
-	    jsn = "../libs/contents/json/contents.json",
+	    jsonUrl = "../app/libs/pwa-englishextra/json/routes.json",
 	    processResponse = function (jsonResponse) {
 		var jpr = safelyParseJSON(jsonResponse);
 		if (jpr) {
 			var ac = new Kamil(textInputSelector, {
-				source: jpr,
-				property: "label",
+				source: jpr.hashes,
+				property: "title",
 				minChars: 2
 			});
 			/*!
@@ -3143,11 +3131,11 @@ var initKamilAutocomplete = function () {
     * {"link":"/pages/contents.html","label":"some text to match"}]
     */
 			ac.on("kamilselect", function (e) {
-				var kamilItemLink = e.item.link || "",
+				var kamilItemLink = e.item.href || "",
 				    handleKamilItem = function () {
 					e.inputElement.value = "";
 					handleTypoSuggestions();
-					changeLocation(kamilItemLink);
+					w.location.href = "../app/" + kamilItemLink;
 				};
 				if (kamilItemLink) {
 					/*!
@@ -3160,7 +3148,7 @@ var initKamilAutocomplete = function () {
 		}
 	},
 	    arrangeSearchInput = function () {
-		loadUnparsedJSON(jsn, processResponse);
+		loadUnparsedJSON(jsonUrl, processResponse);
 	};
 	if (searchForm && textInput) {
 		/* console.log("triggered function: initKamilAutocomplete"); */

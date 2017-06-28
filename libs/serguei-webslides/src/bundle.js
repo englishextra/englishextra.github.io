@@ -177,9 +177,9 @@ var progressBar = new ToProgress({
  * @param {Int} [n] a whole positive number
  * progressBar.init(n)
  */
-progressBar.init = function (n) {
-	n = n || 20;
-	return this.increase(n);
+progressBar.init = function (state) {
+	state = state || 20;
+	return this.increase(state);
 };
 /*!
  * @memberof progressBar

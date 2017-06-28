@@ -193,12 +193,6 @@ if (document.title) {
  */
 (function(root){var setStyleOpacity=function(a,n){n=n||1;return (function(){if(a){a.style.opacity=n;}}());};root.setStyleOpacity=setStyleOpacity;}(globalRoot));
 /*!
- * change document location
- * @param {String} a URL / path string
- * changeLocation(a)
- */
-(function(root){var changeLocation=function(a){return (function(){if(a){document.location.href=a;}}());};root.changeLocation=changeLocation;}(globalRoot));
-/*!
  * modified Unified URL parsing API in the browser and node
  * @see {@link https://github.com/wooorm/parse-link}
  * removed module check
@@ -257,9 +251,9 @@ var progressBar = new ToProgress({
  * @param {Int} [n] a whole positive number
  * progressBar.init(n)
  */
-progressBar.init = function (n) {
-	n = n || 20;
-	return this.increase(n);
+progressBar.init = function (state) {
+	state = state || 20;
+	return this.increase(state);
 };
 /*!
  * @memberof progressBar
@@ -398,8 +392,8 @@ var initSearch = function () {
 						if (a.item.value && (a.item.value.match(/^http\:\/\//) || a.item.value.match(/^https\:\/\//) || a.item.value.match(/^\/search\//) || a.item.value.match(/^\//))) {
 							$(b.target).val(text.val());
 							searchForm.submit();
-							return changeLocation(a.item.value),
-							!1;
+							return w.location.href = a.item.value,
+							false;
 						}
 					},
 					open: function () {},

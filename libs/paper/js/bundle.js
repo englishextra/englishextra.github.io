@@ -1178,20 +1178,6 @@ if (document.title) {
 	};root.findPos = findPos;
 })(globalRoot);
 /*!
- * change document location
- * @param {String} a URL / path string
- * changeLocation(a)
- */
-(function (root) {
-	var changeLocation = function (a) {
-		return function () {
-			if (a) {
-				document.location.href = a;
-			}
-		}();
-	};root.changeLocation = changeLocation;
-})(globalRoot);
-/*!
  * modified Unified URL parsing API in the browser and node
  * @see {@link https://github.com/wooorm/parse-link}
  * removed module check
@@ -1322,9 +1308,9 @@ var progressBar = new ToProgress({
  * @param {Int} [n] a whole positive number
  * progressBar.init(n)
  */
-progressBar.init = function (n) {
-	n = n || 20;
-	return this.increase(n);
+progressBar.init = function (state) {
+	state = state || 20;
+	return this.increase(state);
 };
 /*!
  * @memberof progressBar
@@ -1957,7 +1943,8 @@ var handleChaptersSelect = function () {
 	"use strict";
 
 	var _this = this;
-	var d = document,
+	var w = globalRoot,
+	    d = document,
 	    gEBI = "getElementById",
 	    hashString = _this.options[_this.selectedIndex].value || "";
 	if (hashString) {
@@ -1965,7 +1952,7 @@ var handleChaptersSelect = function () {
 		if (tragetObject) {
 			scroll2Top(findPos(tragetObject).top, 20000);
 		} else {
-			changeLocation(hashString);
+			w.location.href = hashString;
 		}
 	}
 },
@@ -2062,7 +2049,7 @@ var generateLocationQrCodeImg = function () {
 	    cL = "classList",
 	    cE = "createElement",
 	    holder = d[gEBCN]("holder-location-qr-code")[0] || "",
-	    cls = "qr-code-img",
+	    imgClass = "qr-code-img",
 	    locationHref = w.location.href || "",
 	    img = d[cE]("img"),
 	    imgTitle = d.title ? "Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»" : "",
@@ -2095,7 +2082,7 @@ var generateLocationQrCodeImg = function () {
 	} else {
 		img.src = imgSrc;
 	}
-	img[cL].add(cls);
+	img[cL].add(imgClass);
 	img.title = imgTitle;
 	removeChildren(holder);
 	appendFragment(img, holder);
@@ -2724,7 +2711,8 @@ document.ready().then(manageVKLikeButton);
 var initKamilAutocomplete = function () {
 	"use strict";
 
-	var d = document,
+	var w = globalRoot,
+	    d = document,
 	    gEBI = "getElementById",
 	    gEBCN = "getElementsByClassName",
 	    gEBTN = "getElementsByTagName",
@@ -2740,7 +2728,7 @@ var initKamilAutocomplete = function () {
 	    container = d[gEBI]("container") || "",
 	    suggestionUlId = "kamil-typo-autocomplete",
 	    suggestionUlClass = "kamil-autocomplete",
-	    jsn = "../../libs/paper/json/pages.json",
+	    jsonUrl = "../../libs/paper/json/pages.json",
 	    processResponse = function (jsonResponse) {
 		var jpr = safelyParseJSON(jsonResponse);
 		if (jpr) {
@@ -2858,7 +2846,7 @@ var initKamilAutocomplete = function () {
 				    handleKamilItem = function () {
 					e.inputElement.value = "";
 					handleTypoSuggestions();
-					changeLocation(kamilItemLink);
+					w.location.href = kamilItemLink;
 				};
 				if (kamilItemLink) {
 					/*!
@@ -2871,7 +2859,7 @@ var initKamilAutocomplete = function () {
 		}
 	},
 	    arrangeSearchInput = function () {
-		loadUnparsedJSON(jsn, processResponse);
+		loadUnparsedJSON(jsonUrl, processResponse);
 	};
 	if (searchForm && textInput) {
 		/* console.log("triggered function: initKamilAutocomplete"); */
