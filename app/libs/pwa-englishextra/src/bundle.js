@@ -1183,10 +1183,10 @@ initMasonry = function (ctx) {
 			timers.timeout(function () {
 				timers.clear();
 				timers = null;
-				/* var js = "./cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
-				var js = "./cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
-				if (!scriptIsLoaded(js)) {
-					loadJS(js, initGrid);
+				/* var jsUrl = "./cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
+				var jsUrl = "./cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
+				if (!scriptIsLoaded(jsUrl)) {
+					loadJS(jsUrl, initGrid);
 				} else {
 					initGrid();
 				}

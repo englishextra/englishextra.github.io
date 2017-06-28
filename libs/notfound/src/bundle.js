@@ -166,9 +166,9 @@ var initParallax = function () {
 }/* ,
 loadInitParallax = function () {
 	"use strict";
-	var js = "/cdn/parallax/2.1.3/js/parallax.fixed.min.js";
-	if (!scriptIsLoaded(js)) {
-		loadJS(js, initParallax);
+	var jsUrl = "/cdn/parallax/2.1.3/js/parallax.fixed.min.js";
+	if (!scriptIsLoaded(jsUrl)) {
+		loadJS(jsUrl, initParallax);
 	}
 } */;
 /* document.ready().then(loadInitParallax); */

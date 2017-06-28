@@ -876,9 +876,9 @@ var initComments = function () {
     loadInitComments = function () {
 	"use strict";
 
-	var js = "../libs/comments/js/vendors.min.js";
-	if (!scriptIsLoaded(js)) {
-		loadJS(js, initComments);
+	var jsUrl = "../libs/comments/js/vendors.min.js";
+	if (!scriptIsLoaded(jsUrl)) {
+		loadJS(jsUrl, initComments);
 	}
 };
 document.ready().then(loadInitComments);

@@ -735,9 +735,9 @@ var initTablesort = function (ctx) {
 },
 loadInitTablesort = function () {
 	"use strict";
-	var js = "../../cdn/tablesort/4.0.1/js/tablesort.fixed.min.js";
-	if (!scriptIsLoaded(js)) {
-		loadJS(js, initTablesort);
+	var jsUrl = "../../cdn/tablesort/4.0.1/js/tablesort.fixed.min.js";
+	if (!scriptIsLoaded(jsUrl)) {
+		loadJS(jsUrl, initTablesort);
 	}
 };
 document.ready().then(loadInitTablesort);
@@ -1237,9 +1237,9 @@ manageLocationQrCodeImage = function () {
 },
 loadManageLocationQrCodeImg = function () {
 	"use strict";
-	var js = "../../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
-	if (!scriptIsLoaded(js)) {
-		loadJS(js, manageLocationQrCodeImage);
+	var jsUrl = "../../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
+	if (!scriptIsLoaded(jsUrl)) {
+		loadJS(jsUrl, manageLocationQrCodeImage);
 	}
 };
 document.ready().then(loadManageLocationQrCodeImg);
@@ -1777,7 +1777,7 @@ manageVKLikeButton = function () {
 	VKLikeId = "vk-like",
 	VKLike = d[gEBI](VKLikeId) || "",
 	btn = d[gEBCN]("btn-show-vk-like")[0] || "",
-	js = getHTTP(true) + "://vk.com/js/api/openapi.js?122",
+	jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122",
 	showVK = function () {
 		try {
 			if (w.VK) {
@@ -1802,7 +1802,7 @@ manageVKLikeButton = function () {
 	},
 	addBtnHandlers = function () {
 		if (!scriptIsLoaded(js)) {
-			loadJS(js, showVK);
+			loadJS(jsUrl, showVK);
 		}
 	},
 	initVk = function () {
@@ -1986,9 +1986,9 @@ var initKamilAutocomplete = function () {
 },
 loadInitKamilAutocomplete = function () {
 	"use strict";
-	var js = "../../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
-	if (!scriptIsLoaded(js)) {
-		loadJS(js, initKamilAutocomplete);
+	var jsUrl = "../../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
+	if (!scriptIsLoaded(jsUrl)) {
+		loadJS(jsUrl, initKamilAutocomplete);
 	}
 };
 document.ready().then(loadInitKamilAutocomplete);
@@ -1997,13 +1997,13 @@ document.ready().then(loadInitKamilAutocomplete);
  */
 var loadInitManUp = function () {
 	"use strict";
-	var manUpJsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js",
+	var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js",
 	initManUp = function () {
 		/* console.log("triggered function: initManUp"); */
 	};
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		if (!scriptIsLoaded(manUpJsUrl)) {
-			loadJS(manUpJsUrl, initManUp);
+		if (!scriptIsLoaded(jsUrl)) {
+			loadJS(jsUrl, initManUp);
 		} else {
 			initManUp();
 		}

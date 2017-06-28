@@ -350,8 +350,8 @@ var initDoSlide = function () {
 	d = document,
 	gEBCN = "getElementsByClassName",
 	aEL = "addEventListener",
-	cd_prev = d[gEBCN]("cd-prev")[0] || "",
-	cd_next = d[gEBCN]("cd-next")[0] || "",
+	cdPrev = d[gEBCN]("cd-prev")[0] || "",
+	cdNext = d[gEBCN]("cd-next")[0] || "",
 	timer = function (slide, interval, token) {
 		var next = function () {
 			token = setTimeout(next, interval);
@@ -366,25 +366,25 @@ var initDoSlide = function () {
 	},
 	g = function () {
 		if ("undefined" !== typeof slideTimer) {
-			/* setStyleDisplayNone(cd_prev);
-			setStyleDisplayNone(cd_next);
+			/* setStyleDisplayNone(cdPrev);
+			setStyleDisplayNone(cdNext);
 		} else { */
-			setStyleDisplayBlock(cd_prev);
-			setStyleDisplayBlock(cd_next);
+			setStyleDisplayBlock(cdPrev);
+			setStyleDisplayBlock(cdNext);
 			var h_cd_prev = function (ev) {
 				ev.preventDefault();
 				ev.stopPropagation();
 				slide.prev();
 			};
-			cd_prev[aEL]("click", h_cd_prev);
-			/* cd_prev.onclick = h_cd_prev; */
+			cdPrev[aEL]("click", h_cd_prev);
+			/* cdPrev.onclick = h_cd_prev; */
 			var h_cd_next = function (ev) {
 				ev.preventDefault();
 				ev.stopPropagation();
 				slide.next();
 			};
-			cd_next[aEL]("click", h_cd_next);
-			/* cd_next.onclick = h_cd_next; */
+			cdNext[aEL]("click", h_cd_next);
+			/* cdNext.onclick = h_cd_next; */
 		}
 	};
 	/*!
@@ -402,16 +402,16 @@ var initDoSlide = function () {
 		/*!
 		 * init next button if no slide autorotation
 		 */
-		if (cd_next || cd_prev) {
+		if (cdNext || cdPrev) {
 			g();
 		}
 	}
 },
 loadInitDoSlide = function () {
 	"use strict";
-	var js = "../../cdn/doSlide/1.1.4/js/do-slide.fixed.min.js";
-	if (!scriptIsLoaded(js)) {
-		loadJS(js, initDoSlide);
+	var jsUrl = "../../cdn/doSlide/1.1.4/js/do-slide.fixed.min.js";
+	if (!scriptIsLoaded(jsUrl)) {
+		loadJS(jsUrl, initDoSlide);
 	}
 };
 document.ready().then(loadInitDoSlide);
@@ -483,9 +483,9 @@ manageLocationQrCodeImage = function () {
 },
 loadManageLocationQrCodeImg = function () {
 	"use strict";
-	var js = "../../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
-	if (!scriptIsLoaded(js)) {
-		loadJS(js, manageLocationQrCodeImage);
+	var jsUrl = "../../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
+	if (!scriptIsLoaded(jsUrl)) {
+		loadJS(jsUrl, manageLocationQrCodeImage);
 	}
 };
 document.ready().then(loadManageLocationQrCodeImg);
@@ -699,7 +699,7 @@ manageVKLikeButton = function () {
 	VKLikeId = "vk-like",
 	VKLike = d[gEBI](VKLikeId) || "",
 	btn = d[gEBCN]("btn-show-vk-like")[0] || "",
-	js = getHTTP(true) + "://vk.com/js/api/openapi.js?122",
+	jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122",
 	showVK = function () {
 		try {
 			if (w.VK) {
@@ -724,7 +724,7 @@ manageVKLikeButton = function () {
 	},
 	addBtnHandlers = function () {
 		if (!scriptIsLoaded(js)) {
-			loadJS(js, showVK);
+			loadJS(jsUrl, showVK);
 		}
 	},
 	initVk = function () {
@@ -751,13 +751,13 @@ document.ready().then(manageVKLikeButton);
  */
 var loadInitManUp = function () {
 	"use strict";
-	var manUpJsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js",
+	var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js",
 	initManUp = function () {
 		/* console.log("triggered function: initManUp"); */
 	};
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		if (!scriptIsLoaded(manUpJsUrl)) {
-			loadJS(manUpJsUrl, initManUp);
+		if (!scriptIsLoaded(jsUrl)) {
+			loadJS(jsUrl, initManUp);
 		} else {
 			initManUp();
 		}

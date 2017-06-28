@@ -482,10 +482,10 @@ initMasonryImagesLoaded = function () {
 },
 loadInitMasonryImagesLoaded = function () {
 	"use strict";
-	/* var js = "../cdn/masonry/4.1.1/js/masonry.imagesloaded.pkgd.fixed.min.js"; */
-	var js = "../cdn/packery/2.1.1/js/packery.imagesloaded.pkgd.fixed.min.js";
-	if (!scriptIsLoaded(js)) {
-		loadJS(js, initMasonryImagesLoaded);
+	/* var jsUrl = "../cdn/masonry/4.1.1/js/masonry.imagesloaded.pkgd.fixed.min.js"; */
+	var jsUrl = "../cdn/packery/2.1.1/js/packery.imagesloaded.pkgd.fixed.min.js";
+	if (!scriptIsLoaded(jsUrl)) {
+		loadJS(jsUrl, initMasonryImagesLoaded);
 	}
 };
 document.ready().then(loadInitMasonryImagesLoaded);
@@ -796,9 +796,9 @@ var initPhotoswipe = function () {
 },
 loadInitPhotoswipe = function () {
 	"use strict";
-	var js = "../cdn/photoswipe/4.1.0/js/photoswipe.photoswipe-ui-default.fixed.min.js";
-	if (!scriptIsLoaded(js)) {
-		loadJS(js, initPhotoswipe);
+	var jsUrl = "../cdn/photoswipe/4.1.0/js/photoswipe.photoswipe-ui-default.fixed.min.js";
+	if (!scriptIsLoaded(jsUrl)) {
+		loadJS(jsUrl, initPhotoswipe);
 	}
 };
 document.ready().then(loadInitPhotoswipe);
@@ -945,9 +945,9 @@ manageLocationQrCodeImage = function () {
 },
 loadManageLocationQrCodeImg = function () {
 	"use strict";
-	var js = "../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
-	if (!scriptIsLoaded(js)) {
-		loadJS(js, manageLocationQrCodeImage);
+	var jsUrl = "../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
+	if (!scriptIsLoaded(jsUrl)) {
+		loadJS(jsUrl, manageLocationQrCodeImage);
 	}
 };
 document.ready().then(loadManageLocationQrCodeImg);
@@ -1266,7 +1266,7 @@ manageVKLikeButton = function () {
 	VKLikeId = "vk-like",
 	VKLike = d[gEBI](VKLikeId) || "",
 	btn = d[gEBCN]("btn-show-vk-like")[0] || "",
-	js = getHTTP(true) + "://vk.com/js/api/openapi.js?122",
+	jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122",
 	showVK = function () {
 		try {
 			if (w.VK) {
@@ -1291,7 +1291,7 @@ manageVKLikeButton = function () {
 	},
 	addBtnHandlers = function () {
 		if (!scriptIsLoaded(js)) {
-			loadJS(js, showVK);
+			loadJS(jsUrl, showVK);
 		}
 	},
 	initVk = function () {
@@ -1318,13 +1318,13 @@ document.ready().then(manageVKLikeButton);
  */
 var loadInitManUp = function () {
 	"use strict";
-	var manUpJsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js",
+	var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js",
 	initManUp = function () {
 		/* console.log("triggered function: initManUp"); */
 	};
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		if (!scriptIsLoaded(manUpJsUrl)) {
-			loadJS(manUpJsUrl, initManUp);
+		if (!scriptIsLoaded(jsUrl)) {
+			loadJS(jsUrl, initManUp);
 		} else {
 			initManUp();
 		}

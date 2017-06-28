@@ -737,15 +737,15 @@ var hideUiBtnsInFullScreen = function () {
 	var w = globalRoot,
 	    d = document,
 	    gEBCN = "getElementsByClassName",
-	    cd_prev = d[gEBCN]("cd-prev")[0] || "",
-	    cd_next = d[gEBCN]("cd-next")[0] || "",
-	    btn_nav_menu = d[gEBCN]("btn-nav-menu")[0] || "",
-	    btn_menu_more = d[gEBCN]("btn-menu-more")[0] || "",
-	    btn_show_vk_like = d[gEBCN]("btn-show-vk-like")[0] || "",
-	    btn_block_social_buttons = d[gEBCN]("btn-share-buttons")[0] || "",
-	    ui_totop = d[gEBCN]("ui-totop")[0] || "",
-	    holder_search_form = d[gEBCN]("holder-search-form")[0] || "",
-	    openapi_js_src = getHTTP(true) + "://vk.com/js/api/openapi.js?122",
+	    cdPrev = d[gEBCN]("cd-prev")[0] || "",
+	    cdNext = d[gEBCN]("cd-next")[0] || "",
+	    btnNavMenu = d[gEBCN]("btn-nav-menu")[0] || "",
+	    btnMenuMore = d[gEBCN]("btn-menu-more")[0] || "",
+	    btnShowVKLike = d[gEBCN]("btn-show-vk-like")[0] || "",
+	    btnShareButtons = d[gEBCN]("btn-share-buttons")[0] || "",
+	    btnUiTotop = d[gEBCN]("ui-totop")[0] || "",
+	    holderSearchForm = d[gEBCN]("holder-search-form")[0] || "",
+	    openapiJsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122",
 	    f = !1;
 	if (!f) {
 		f = !0;
@@ -754,18 +754,18 @@ var hideUiBtnsInFullScreen = function () {
    * @see {@link https://stackoverflow.com/questions/2863351/checking-if-browser-is-in-fullscreen}
    * @see {@link https://stackoverflow.com/questions/1047319/detecting-if-a-browser-is-in-full-screen-mode}
    */
-		var args = [cd_prev, cd_next, btn_nav_menu, btn_menu_more, btn_block_social_buttons, ui_totop, holder_search_form];
+		var args = [cdPrev, cdNext, btnNavMenu, btnMenuMore, btnShareButtons, btnUiTotop, holderSearchForm];
 		if (w.navigator.standalone || screen.height === w.outerHeight || w.fullScreen || w.innerWidth === screen.width && w.innerHeight === screen.height) {
 			for (var i = 0, l = args.length; i < l; i += 1) {
 				setStyleDisplayNone(args[i]);
 			}
-			setStyleDisplayNone(btn_show_vk_like);
+			setStyleDisplayNone(btnShowVKLike);
 		} else {
 			for (var j = 0, m = args.length; j < m; j += 1) {
 				setStyleDisplayBlock(args[j]);
 			}
-			if (!scriptIsLoaded(openapi_js_src)) {
-				setStyleDisplayBlock(btn_show_vk_like);
+			if (!scriptIsLoaded(openapiJsUrl)) {
+				setStyleDisplayBlock(btnShowVKLike);
 			}
 		}
 	}
@@ -793,8 +793,8 @@ var initDoSlide = function () {
 	    d = document,
 	    gEBCN = "getElementsByClassName",
 	    aEL = "addEventListener",
-	    cd_prev = d[gEBCN]("cd-prev")[0] || "",
-	    cd_next = d[gEBCN]("cd-next")[0] || "",
+	    cdPrev = d[gEBCN]("cd-prev")[0] || "",
+	    cdNext = d[gEBCN]("cd-next")[0] || "",
 	    timer = function (slide, interval, token) {
 		var next = function () {
 			token = setTimeout(next, interval);
@@ -809,25 +809,25 @@ var initDoSlide = function () {
 	},
 	    g = function () {
 		if ("undefined" !== typeof slideTimer) {
-			/* setStyleDisplayNone(cd_prev);
-   setStyleDisplayNone(cd_next);
+			/* setStyleDisplayNone(cdPrev);
+   setStyleDisplayNone(cdNext);
    } else { */
-			setStyleDisplayBlock(cd_prev);
-			setStyleDisplayBlock(cd_next);
+			setStyleDisplayBlock(cdPrev);
+			setStyleDisplayBlock(cdNext);
 			var h_cd_prev = function (ev) {
 				ev.preventDefault();
 				ev.stopPropagation();
 				slide.prev();
 			};
-			cd_prev[aEL]("click", h_cd_prev);
-			/* cd_prev.onclick = h_cd_prev; */
+			cdPrev[aEL]("click", h_cd_prev);
+			/* cdPrev.onclick = h_cd_prev; */
 			var h_cd_next = function (ev) {
 				ev.preventDefault();
 				ev.stopPropagation();
 				slide.next();
 			};
-			cd_next[aEL]("click", h_cd_next);
-			/* cd_next.onclick = h_cd_next; */
+			cdNext[aEL]("click", h_cd_next);
+			/* cdNext.onclick = h_cd_next; */
 		}
 	};
 	/*!
@@ -845,7 +845,7 @@ var initDoSlide = function () {
 		/*!
    * init next button if no slide autorotation
    */
-		if (cd_next || cd_prev) {
+		if (cdNext || cdPrev) {
 			g();
 		}
 	}
@@ -853,9 +853,9 @@ var initDoSlide = function () {
     loadInitDoSlide = function () {
 	"use strict";
 
-	var js = "../../cdn/doSlide/1.1.4/js/do-slide.fixed.min.js";
-	if (!scriptIsLoaded(js)) {
-		loadJS(js, initDoSlide);
+	var jsUrl = "../../cdn/doSlide/1.1.4/js/do-slide.fixed.min.js";
+	if (!scriptIsLoaded(jsUrl)) {
+		loadJS(jsUrl, initDoSlide);
 	}
 };
 document.ready().then(loadInitDoSlide);
@@ -930,9 +930,9 @@ var generateLocationQrCodeImg = function () {
     loadManageLocationQrCodeImg = function () {
 	"use strict";
 
-	var js = "../../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
-	if (!scriptIsLoaded(js)) {
-		loadJS(js, manageLocationQrCodeImage);
+	var jsUrl = "../../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
+	if (!scriptIsLoaded(jsUrl)) {
+		loadJS(jsUrl, manageLocationQrCodeImage);
 	}
 };
 document.ready().then(loadManageLocationQrCodeImg);
@@ -1089,7 +1089,7 @@ var VK,
 	    VKLikeId = "vk-like",
 	    VKLike = d[gEBI](VKLikeId) || "",
 	    btn = d[gEBCN]("btn-show-vk-like")[0] || "",
-	    js = getHTTP(true) + "://vk.com/js/api/openapi.js?122",
+	    jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122",
 	    showVK = function () {
 		try {
 			if (w.VK) {
@@ -1114,7 +1114,7 @@ var VK,
 	},
 	    addBtnHandlers = function () {
 		if (!scriptIsLoaded(js)) {
-			loadJS(js, showVK);
+			loadJS(jsUrl, showVK);
 		}
 	},
 	    initVk = function () {
@@ -1142,13 +1142,13 @@ document.ready().then(manageVKLikeButton);
 var loadInitManUp = function () {
 	"use strict";
 
-	var manUpJsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js",
+	var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js",
 	    initManUp = function () {
 		/* console.log("triggered function: initManUp"); */
 	};
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		if (!scriptIsLoaded(manUpJsUrl)) {
-			loadJS(manUpJsUrl, initManUp);
+		if (!scriptIsLoaded(jsUrl)) {
+			loadJS(jsUrl, initManUp);
 		} else {
 			initManUp();
 		}

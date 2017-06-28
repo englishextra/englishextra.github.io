@@ -1290,9 +1290,9 @@ var manageDataQrcodeImg = function (ctx) {
 loadManageDataQrcodeImg = function (ctx) {
 	"use strict";
 	ctx = ctx && ctx.nodeName ? ctx : "";
-	var js = "../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
-	if (!scriptIsLoaded(js)) {
-		loadJS(js, manageDataQrcodeImg.bind(null, ctx));
+	var jsUrl = "../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
+	if (!scriptIsLoaded(jsUrl)) {
+		loadJS(jsUrl, manageDataQrcodeImg.bind(null, ctx));
 	} else {
 		manageDataQrcodeImg(ctx);
 	}
@@ -1651,9 +1651,9 @@ manageLocationQrCodeImage = function () {
 },
 loadManageLocationQrCodeImg = function () {
 	"use strict";
-	var js = "../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
-	if (!scriptIsLoaded(js)) {
-		loadJS(js, manageLocationQrCodeImage);
+	var jsUrl = "../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
+	if (!scriptIsLoaded(jsUrl)) {
+		loadJS(jsUrl, manageLocationQrCodeImage);
 	}
 };
 document.ready().then(loadManageLocationQrCodeImg);
@@ -1691,13 +1691,13 @@ var manageShareButton = function () {
 			if (page[cL].contains(isActiveMenumoreClass)) {
 				page[cL].remove(isActiveMenumoreClass);
 			}
-			var js = getHTTP(true) + "://yastatic.net/es5-shims/0.0.2/es5-shims.min.js",
-			js2 = getHTTP(true) + "://yastatic.net/share2/share.js";
+			var jsUrl = getHTTP(true) + "://yastatic.net/es5-shims/0.0.2/es5-shims.min.js",
+			jsUrl2 = getHTTP(true) + "://yastatic.net/share2/share.js";
 			if (page[cL].contains(isActiveShareClass)) {
-				if (!scriptIsLoaded(js)) {
-					loadJS(js, function () {
-						if (!scriptIsLoaded(js2)) {
-							loadJS(js2);
+				if (!scriptIsLoaded(jsUrl)) {
+					loadJS(jsUrl, function () {
+						if (!scriptIsLoaded(jsUrl2)) {
+							loadJS(jsUrl2);
 						}
 					});
 				}
@@ -1746,7 +1746,7 @@ manageVKLikeButton = function () {
 			if (page[cL].contains(isActiveMenumoreClass)) {
 				page[cL].remove(isActiveMenumoreClass);
 			}
-			var js = getHTTP(true) + "://vk.com/js/api/openapi.js?122",
+			var jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122",
 			initVKLike = function () {
 				if (w.VK) {
 					VK.init({
@@ -1761,8 +1761,8 @@ manageVKLikeButton = function () {
 				}
 			};
 			if (page[cL].contains(isActiveVKLikeClass)) {
-				if (!scriptIsLoaded(js)) {
-					loadJS(js, initVKLike);
+				if (!scriptIsLoaded(jsUrl)) {
+					loadJS(jsUrl, initVKLike);
 				}
 			}
 		};
@@ -2116,9 +2116,9 @@ var initKamilAutocomplete = function () {
 },
 loadInitKamilAutocomplete = function () {
 	"use strict";
-	var js = "../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
-	if (!scriptIsLoaded(js)) {
-		loadJS(js, initKamilAutocomplete);
+	var jsUrl = "../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
+	if (!scriptIsLoaded(jsUrl)) {
+		loadJS(jsUrl, initKamilAutocomplete);
 	}
 };
 document.ready().then(loadInitKamilAutocomplete);
@@ -2358,13 +2358,13 @@ globalRoot.addEventListener("hashchange", updateInsertedDom); */
  */
 var loadInitManUp = function () {
 	"use strict";
-	var manUpJsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js",
+	var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js",
 	initManUp = function () {
 		/* console.log("triggered function: initManUp"); */
 	};
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		if (!scriptIsLoaded(manUpJsUrl)) {
-			loadJS(manUpJsUrl, initManUp);
+		if (!scriptIsLoaded(jsUrl)) {
+			loadJS(jsUrl, initManUp);
 		} else {
 			initManUp();
 		}

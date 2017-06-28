@@ -968,9 +968,9 @@ var manageDataQrcodeImg = function (ctx) {
     loadManageDataQrcodeImg = function () {
 	"use strict";
 
-	var js = "../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
-	if (!scriptIsLoaded(js)) {
-		loadJS(js, manageDataQrcodeImg);
+	var jsUrl = "../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
+	if (!scriptIsLoaded(jsUrl)) {
+		loadJS(jsUrl, manageDataQrcodeImg);
 	}
 };
 document.ready().then(loadManageDataQrcodeImg);

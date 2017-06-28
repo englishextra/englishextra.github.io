@@ -878,9 +878,9 @@ var initSearch = function () {
     loadInitSearch = function () {
 	"use strict";
 
-	var js = "../libs/search/js/vendors.min.js";
-	if (!scriptIsLoaded(js)) {
-		loadJS(js, initSearch);
+	var jsUrl = "../libs/search/js/vendors.min.js";
+	if (!scriptIsLoaded(jsUrl)) {
+		loadJS(jsUrl, initSearch);
 	}
 };
 document.ready().then(loadInitSearch);
