@@ -2402,13 +2402,13 @@ var initKamilAutocomplete = function () {
 	    container = d[gEBI]("container") || "",
 	    suggestionUlId = "kamil-typo-autocomplete",
 	    suggestionUlClass = "kamil-autocomplete",
-	    jsonUrl = "../../libs/paper/json/pages.json",
+	    jsonUrl = "../../app/libs/pwa-englishextra/json/routes.json",
 	    processResponse = function (jsonResponse) {
 		var jpr = safelyParseJSON(jsonResponse);
 		if (jpr) {
 			var ac = new Kamil(textInputSelector, {
-				source: jpr,
-				property: "label",
+				source: jpr.hashes,
+				property: "title",
 				minChars: 2
 			});
 			/*!
@@ -2516,11 +2516,11 @@ var initKamilAutocomplete = function () {
     * {"link":"/pages/contents.html","label":"some text to match"}]
     */
 			ac.on("kamilselect", function (e) {
-				var kamilItemLink = e.item.link || "",
+				var kamilItemLink = e.item.href || "",
 				    handleKamilItem = function () {
 					e.inputElement.value = "";
 					handleTypoSuggestions();
-					w.location.href = kamilItemLink;
+					w.location.href = "../../app/" + kamilItemLink;
 				};
 				if (kamilItemLink) {
 					/*!
