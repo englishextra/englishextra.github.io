@@ -229,7 +229,7 @@ manageExternalLinks = function (ctx) {
 			}
 		}
 	},
-	rerenderExternalLinks = function () {
+	arrangeAllExternalLinks = function () {
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrangeExternalLink(link[i]);
 		}
@@ -237,7 +237,7 @@ manageExternalLinks = function (ctx) {
 	};
 	if (link) {
 		/* console.log("triggered function: manageExternalLinks"); */
-		rerenderExternalLinks();
+		arrangeAllExternalLinks();
 	}
 };
 document.ready().then(manageExternalLinks);

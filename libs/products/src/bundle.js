@@ -327,7 +327,7 @@ manageExternalLinks = function (ctx) {
 			}
 		}
 	},
-	rerenderExternalLinks = function () {
+	arrangeAllExternalLinks = function () {
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrangeExternalLink(link[i]);
 		}
@@ -335,7 +335,7 @@ manageExternalLinks = function (ctx) {
 	};
 	if (link) {
 		/* console.log("triggered function: manageExternalLinks"); */
-		rerenderExternalLinks();
+		arrangeAllExternalLinks();
 	}
 };
 document.ready().then(manageExternalLinks);
@@ -566,44 +566,44 @@ var initMenuMore = function () {
 	btn = d[gEBCN]("btn-menu-more")[0] || "",
 	panel = d[gEBCN]("panel-menu-more")[0] || "",
 	items = panel ? panel[gEBTN]("li") || "" : "",
-	is_active = "is-active",
-	h_e = function () {
-		holder[cL].remove(is_active);
+	isActiveClass = "is-active",
+	handleItem = function () {
+		holder[cL].remove(isActiveClass);
 	},
-	g = function (e) {
-		e[aEL]("click", h_e);
+	addItemHandler = function (e) {
+		e[aEL]("click", handleItem);
 	},
-	k = function () {
-		container[aEL]("click", h_e);
+	addContainerHandlers = function () {
+		container[aEL]("click", handleItem);
 	},
-	q = function () {
+	addBtnHandlers = function () {
 		var h_btn = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			holder[cL].toggle(is_active);
+			holder[cL].toggle(isActiveClass);
 		};
 		btn[aEL]("click", h_btn);
 	},
-	v = function () {
+	addAllItemHandlers = function () {
 		for (var i = 0, l = items.length; i < l; i += 1) {
-			g(items[i]);
+			addItemHandler(items[i]);
 		}
-		/* forEach(items, g, false); */
+		/* forEach(items, addItemHandler, false); */
 	};
 	if (container && holder && btn && panel && items) {
 		/* console.log("triggered function: initMenuMore"); */
 		/*!
 		 * hide menu more on outside click
 		 */
-		k();
+		addContainerHandlers();
 		/*!
 		 * show or hide menu more
 		 */
-		q();
+		addBtnHandlers();
 		/*!
 		 * hide menu more on item clicked
 		 */
-		v();
+		addAllItemHandlers();
 	}
 };
 document.ready().then(initMenuMore);
@@ -617,9 +617,9 @@ var showMenuMore = function (n) {
 	gEBCN = "getElementsByClassName",
 	cL = "classList",
 	panel = d[gEBCN]("holder-panel-menu-more")[0] || "",
-	is_active = "is-active",
+	isActiveClass = "is-active",
 	st1 = function () {
-		panel[cL].add(is_active);
+		panel[cL].add(isActiveClass);
 	};
 	if (panel) {
 		var timers = new Timers();
@@ -640,45 +640,45 @@ var manageShareButton = function () {
 	gEBCN = "getElementsByClassName",
 	aEL = "addEventListener",
 	rEL = "removeEventListener",
-	a = d[gEBCN]("btn-share-buttons")[0] || "",
+	btn = d[gEBCN]("btn-share-buttons")[0] || "",
 	pluso = d[gEBCN]("pluso")[0] || "",
 	ya_share2 = d[gEBCN]("ya-share2")[0] || "",
 	pluso_like_js_src = getHTTP(true) + "://share.pluso.ru/pluso-like.js",
 	share_js_src = getHTTP(true) + "://yastatic.net/share2/share.js",
-	g = function (s, b) {
+	showShare = function (s, b) {
 		setStyleVisibilityVisible(s);
 		setStyleOpacity(s, 1);
 		setStyleDisplayNone(b);
 	},
-	k = function (js, s, b) {
+	loadShare = function (js, s, b) {
 		if (!scriptIsLoaded(js)) {
-			loadJS(js, g.bind(null, s, b));
+			loadJS(js, showShare.bind(null, s, b));
 		}
 	},
-	q = function () {
+	chooseProvider = function () {
 		if (pluso) {
-			k(pluso_like_js_src, pluso, a);
+			loadShare(pluso_like_js_src, pluso, btn);
 		} else {
 			if (ya_share2) {
-				k(share_js_src, ya_share2, a);
+				loadShare(share_js_src, ya_share2, btn);
 			}
 		}
 	},
-	v = function () {
-		var h_a = function (ev) {
+	addBtnHandlers = function () {
+		var handleShareBtn = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			a[rEL]("click", h_a);
-			q();
+			btn[rEL]("click", handleShareBtn);
+			chooseProvider();
 		};
-		a[aEL]("click", h_a);
+		btn[aEL]("click", handleShareBtn);
 	};
-	if ((pluso || ya_share2) && a) {
+	if ((pluso || ya_share2) && btn) {
 		/* console.log("triggered function: manageShareButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			v();
+			addBtnHandlers();
 		} else {
-			setStyleDisplayNone(a);
+			setStyleDisplayNone(btn);
 		}
 	}
 };
@@ -696,52 +696,52 @@ manageVKLikeButton = function () {
 	ds = "dataset",
 	aEL = "addEventListener",
 	rEL = "removeEventListener",
-	vk_like = "vk-like",
-	c = d[gEBI](vk_like) || "",
-	a = d[gEBCN]("btn-show-vk-like")[0] || "",
+	VKLikeId = "vk-like",
+	VKLike = d[gEBI](VKLikeId) || "",
+	btn = d[gEBCN]("btn-show-vk-like")[0] || "",
 	js = getHTTP(true) + "://vk.com/js/api/openapi.js?122",
-	g = function () {
+	showVK = function () {
 		try {
 			if (w.VK) {
 				VK.init({
-					apiId: (c[ds].apiid || ""),
+					apiId: (VKLike[ds].apiid || ""),
 					nameTransportPath: "/xd_receiver.htm",
 					onlyWidgets: !0
 				});
-				VK.Widgets.Like(vk_like, {
+				VK.Widgets.Like(VKLikeId, {
 					type: "button",
 					height: 24
 				});
 			}
-			setStyleVisibilityVisible(c);
-			setStyleOpacity(c, 1);
-			setStyleDisplayNone(a);
+			setStyleVisibilityVisible(VKLike);
+			setStyleOpacity(VKLike, 1);
+			setStyleDisplayNone(btn);
 		} catch(e) {
-			setStyleVisibilityHidden(c);
-			setStyleOpacity(c, 0);
-			setStyleDisplayBlock(a);
+			setStyleVisibilityHidden(VKLike);
+			setStyleOpacity(VKLike, 0);
+			setStyleDisplayBlock(btn);
 		}
 	},
-	k = function () {
+	addBtnHandlers = function () {
 		if (!scriptIsLoaded(js)) {
-			loadJS(js, g);
+			loadJS(js, showVK);
 		}
 	},
-	q = function () {
+	initVk = function () {
 		var h_a = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			a[rEL]("click", h_a);
-			k();
+			btn[rEL]("click", h_a);
+			addBtnHandlers();
 		};
-		a[aEL]("click", h_a);
+		btn[aEL]("click", h_a);
 	};
-	if (c && a) {
+	if (VKLike && btn) {
 		/* console.log("triggered function: manageVKLikeButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			q();
+			initVk();
 		} else {
-			setStyleDisplayNone(a);
+			setStyleDisplayNone(btn);
 		}
 	}
 };
@@ -771,12 +771,12 @@ var showPageFinishProgress = function () {
 	"use strict";
 	var d = document,
 	gEBI = "getElementById",
-	a = d[gEBI]("container") || "",
-	g = function () {
-		setStyleOpacity(a, 1);
+	container = d[gEBI]("container") || "",
+	showContainer = function () {
+		setStyleOpacity(container, 1);
 		progressBar.complete();
 	},
-	k = function () {
+	showContainerOnImagesPreloaded = function () {
 		var timers = new Timers();
 		timers.interval(function () {
 			/* console.log("function showPageFinishProgress => started Interval"); */
@@ -784,16 +784,16 @@ var showPageFinishProgress = function () {
 				timers.clear();
 				timers = null;
 				/* console.log("function showPageFinishProgress; imagesPreloaded=" + imagesPreloaded); */
-				g();
+				showContainer();
 			}
 		}, 100);
 	};
-	if (a) {
+	if (container) {
 		/* console.log("triggered function: showPageFinishProgress"); */
 		if ("undefined" !== typeof imagesPreloaded) {
-			k();
+			showContainerOnImagesPreloaded();
 		} else {
-			g();
+			showContainer();
 		}
 	}
 };

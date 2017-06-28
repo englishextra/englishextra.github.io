@@ -494,7 +494,7 @@ var handleExternalLink = function (url, ev) {
 			}
 		}
 	},
-	    rerenderExternalLinks = function () {
+	    arrangeAllExternalLinks = function () {
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrangeExternalLink(link[i]);
 		}
@@ -502,7 +502,7 @@ var handleExternalLink = function (url, ev) {
 	};
 	if (link) {
 		/* console.log("triggered function: manageExternalLinks"); */
-		rerenderExternalLinks();
+		arrangeAllExternalLinks();
 	}
 };
 document.ready().then(manageExternalLinks);

@@ -435,57 +435,6 @@ progressBar.complete = function () {
 };
 progressBar.init();
 /*!
- * set click event on external links,
- * so that they open in new browser tab
- * @param {Object} [ctx] context HTML Element
- */
-var handleExternalLink = function (url, ev) {
-	"use strict";
-	ev.stopPropagation();
-	ev.preventDefault();
-	var logicHandleExternalLink = openDeviceBrowser.bind(null, url),
-	debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
-	debounceLogicHandleExternalLink();
-},
-manageExternalLinks = function (ctx) {
-	"use strict";
-	ctx = ctx && ctx.nodeName ? ctx : "";
-	var d = document,
-	gEBTN = "getElementsByTagName",
-	linkTag = "a",
-	link = ctx ? ctx[gEBTN](linkTag) || "" : d[gEBTN](linkTag) || "",
-	cL = "classList",
-	aEL = "addEventListener",
-	gA = "getAttribute",
-	isBindedClass = "is-binded",
-	arrangeExternalLink = function (e) {
-		if (!e[cL].contains(isBindedClass)) {
-			var url = e[gA]("href") || "";
-			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-				e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
-				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					e.target = "_blank";
-					e.rel = "noopener";
-				} else {
-					e[aEL]("click", handleExternalLink.bind(null, url));
-				}
-				e[cL].add(isBindedClass);
-			}
-		}
-	},
-	rerenderExternalLinks = function () {
-		for (var i = 0, l = link.length; i < l; i += 1) {
-			arrangeExternalLink(link[i]);
-		}
-		/* forEach(link, arrangeExternalLink, false); */
-	};
-	if (link) {
-		/* console.log("triggered function: manageExternalLinks"); */
-		rerenderExternalLinks();
-	}
-};
-document.ready().then(manageExternalLinks);
-/*!
  * loading spinner
  * @requires Timers
  * @see {@link https://gist.github.com/englishextra/24ef040fbda405f7468da70e4f3b69e7}
@@ -529,6 +478,57 @@ var LoadingSpinner = (function () {
 	};
 }
 ());
+/*!
+ * set click event on external links,
+ * so that they open in new browser tab
+ * @param {Object} [ctx] context HTML Element
+ */
+var handleExternalLink = function (url, ev) {
+	"use strict";
+	ev.stopPropagation();
+	ev.preventDefault();
+	var logicHandleExternalLink = openDeviceBrowser.bind(null, url),
+	debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
+	debounceLogicHandleExternalLink();
+},
+manageExternalLinks = function (ctx) {
+	"use strict";
+	ctx = ctx && ctx.nodeName ? ctx : "";
+	var d = document,
+	gEBTN = "getElementsByTagName",
+	linkTag = "a",
+	link = ctx ? ctx[gEBTN](linkTag) || "" : d[gEBTN](linkTag) || "",
+	cL = "classList",
+	aEL = "addEventListener",
+	gA = "getAttribute",
+	isBindedClass = "is-binded",
+	arrangeExternalLink = function (e) {
+		if (!e[cL].contains(isBindedClass)) {
+			var url = e[gA]("href") || "";
+			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+				e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					e.target = "_blank";
+					e.rel = "noopener";
+				} else {
+					e[aEL]("click", handleExternalLink.bind(null, url));
+				}
+				e[cL].add(isBindedClass);
+			}
+		}
+	},
+	arrangeAllExternalLinks = function () {
+		for (var i = 0, l = link.length; i < l; i += 1) {
+			arrangeExternalLink(link[i]);
+		}
+		/* forEach(link, arrangeExternalLink, false); */
+	};
+	if (link) {
+		/* console.log("triggered function: manageExternalLinks"); */
+		arrangeAllExternalLinks();
+	}
+};
+document.ready().then(manageExternalLinks);
 /*!
  * init all Masonry grids
  */
@@ -732,23 +732,23 @@ manageImgLightboxLinks = function (ctx) {
 		ev.preventDefault();
 		var _this = this;
 		var logicHandleImgLightboxLink = function () {
-			var _href = _this[gA]("href") || "";
-			if (container && img && _href) {
+			var hrefString = _this[gA]("href") || "";
+			if (container && img && hrefString) {
 				LoadingSpinner.show();
 				container[cL].add(an);
 				container[cL].add(an1);
 				img[cL].add(an);
 				img[cL].add(an2);
-				if (parseLink(_href).isAbsolute && !parseLink(_href).hasHTTP) {
-					_href = _href.replace(/^/, getHTTP(true) + ":");
+				if (parseLink(hrefString).isAbsolute && !parseLink(hrefString).hasHTTP) {
+					hrefString = hrefString.replace(/^/, getHTTP(true) + ":");
 				}
-				imagePromise(_href).then(function (r) {
-					img.src = _href;
+				imagePromise(hrefString).then(function (r) {
+					img.src = hrefString;
 					/* console.log("manageImgLightboxLinks => imagePromise: loaded image:", r); */
 				}).catch (function (err) {
 					/* console.log("manageImgLightboxLinks => imagePromise: cannot load image:", err); */
 				});
-				/* img.src = _href; */
+				/* img.src = hrefString; */
 				w[aEL]("keyup", handleImgLightboxWindow);
 				container[aEL]("click", handleImgLightboxContainer);
 				container.style.display = "block";
@@ -760,17 +760,17 @@ manageImgLightboxLinks = function (ctx) {
 	},
 	arrangeImgLightboxLink = function (e) {
 		if (!e[cL].contains(isBindedClass)) {
-			var _href = e[gA]("href") || "";
-			if (_href) {
-				if (parseLink(_href).isAbsolute && !parseLink(_href).hasHTTP) {
-					e.setAttribute("href", _href.replace(/^/, getHTTP(true) + ":"));
+			var hrefString = e[gA]("href") || "";
+			if (hrefString) {
+				if (parseLink(hrefString).isAbsolute && !parseLink(hrefString).hasHTTP) {
+					e.setAttribute("href", hrefString.replace(/^/, getHTTP(true) + ":"));
 				}
 				e[aEL]("click", handleImgLightboxLink);
 				e[cL].add(isBindedClass);
 			}
 		}
 	},
-	rerenderImgLightboxLinks = function () {
+	arrangeAllImgLightboxLinks = function () {
 		for (var j = 0, l = link.length; j < l; j += 1) {
 			arrangeImgLightboxLink(link[j]);
 		}
@@ -778,7 +778,7 @@ manageImgLightboxLinks = function (ctx) {
 	};
 	if (link) {
 		/* console.log("triggered function: manageImgLightboxLinks"); */
-		rerenderImgLightboxLinks();
+		arrangeAllImgLightboxLinks();
 	}
 };
 document.ready().then(manageImgLightboxLinks);
@@ -798,19 +798,19 @@ var handleDataSrcImages = function () {
 	isBindedClass = "is-binded",
 	rerenderDataSrcImage = function (e) {
 		if (!e[cL].contains(isBindedClass)) {
-			var _src = e[ds].src || "";
-			if (_src) {
-				if (parseLink(_src).isAbsolute && !parseLink(_src).hasHTTP) {
-					e[ds].src = _src.replace(/^/, getHTTP(true) + ":");
-					_src = e[ds].src;
+			var srcString = e[ds].src || "";
+			if (srcString) {
+				if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
+					e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
+					srcString = e[ds].src;
 				}
-				imagePromise(_src).then(function (r) {
-					e.src = _src;
+				imagePromise(srcString).then(function (r) {
+					e.src = srcString;
 					/* console.log("manageDataSrcImages => imagePromise: loaded image:", r); */
 				}).catch (function (err) {
 					/* console.log("manageDataSrcImages => imagePromise: cannot load image:", err); */
 				});
-				/* e.src = _src; */
+				/* e.src = srcString; */
 				e[cL].add(isActiveClass);
 				e[cL].add(isBindedClass);
 			}
@@ -825,7 +825,7 @@ var handleDataSrcImages = function () {
 			rerenderDataSrcImage(e);
 		}
 	},
-	rerenderDataSrcImages = function () {
+	arrangeAllDataSrcImages = function () {
 		for (var i = 0, l = img.length; i < l; i += 1) {
 			arrangeDataSrcImage(img[i]);
 		}
@@ -833,7 +833,7 @@ var handleDataSrcImages = function () {
 	};
 	if (img) {
 		/* console.log("triggered function: manageDataSrcImages"); */
-		rerenderDataSrcImages();
+		arrangeAllDataSrcImages();
 	}
 },
 handleDataSrcImagesWindow = function () {
@@ -874,13 +874,13 @@ var handleDataSrcIframes = function () {
 	isBindedClass = "is-binded",
 	rerenderDataSrcIframe = function (e) {
 		if (!e[cL].contains(isBindedClass)) {
-			var _src = e[ds].src || "";
-			if (_src) {
-				if (parseLink(_src).isAbsolute && !parseLink(_src).hasHTTP) {
-					e[ds].src = _src.replace(/^/, getHTTP(true) + ":");
-					_src = e[ds].src;
+			var srcString = e[ds].src || "";
+			if (srcString) {
+				if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
+					e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
+					srcString = e[ds].src;
 				}
-				e.src = _src;
+				e.src = srcString;
 				e[sA]("frameborder", "no");
 				e[sA]("style", "border:none;");
 				e[sA]("webkitallowfullscreen", "true");
@@ -942,13 +942,13 @@ var handleChaptersSelect = function () {
 	var _this = this;
 	var d = document,
 	gEBI = "getElementById",
-	_hash = _this.options[_this.selectedIndex].value || "",
-	tragetObject = _hash ? (isValidId(_hash, true) ? d[gEBI](_hash.replace(/^#/,"")) || "" : "") : "";
-	if (_hash) {
+	hashString = _this.options[_this.selectedIndex].value || "";
+	if (hashString) {
+		var tragetObject = hashString ? (isValidId(hashString, true) ? d[gEBI](hashString.replace(/^#/,"")) || "" : "") : "";
 		if (tragetObject) {
 			scroll2Top(findPos(tragetObject).top, 20000);
 		} else {
-			changeLocation(_hash);
+			changeLocation(hashString);
 		}
 	}
 },
@@ -997,11 +997,11 @@ var handleExpandingLayers = function () {
 	var _this = this;
 	var cL = "classList",
 	pN = "parentNode",
-	is_active = "is-active",
-	s = _this[pN] ? _this[pN].nextElementSibling : "";
-	if (s) {
-		_this[cL].toggle(is_active);
-		s[cL].toggle(is_active);
+	isActiveClass = "is-active",
+	layer = _this[pN] ? _this[pN].nextElementSibling : "";
+	if (layer) {
+		_this[cL].toggle(isActiveClass);
+		layer[cL].toggle(isActiveClass);
 	}
 	return !1;
 },
@@ -1016,7 +1016,7 @@ manageExpandingLayers = function (ctx) {
 	arrangeBtn = function (e) {
 		e[aEL]("click", handleExpandingLayers);
 	},
-	arrangeAllBtn = function () {
+	arrangeAllBtns = function () {
 		for (var i = 0, l = btn.length; i < l; i += 1) {
 			arrangeBtn(btn[i]);
 		}
@@ -1024,7 +1024,7 @@ manageExpandingLayers = function (ctx) {
 	};
 	if (btn) {
 		/* console.log("triggered function: manageExpandingLayers"); */
-		arrangeAllBtn();
+		arrangeAllBtns();
 	}
 };
 document.ready().then(manageExpandingLayers);
@@ -1037,11 +1037,11 @@ var handleSourceCodeLayers = function () {
 	var _this = this;
 	var cL = "classList",
 	pN = "parentNode",
-	is_active = "is-active",
-	s = _this[pN] ? _this[pN].nextElementSibling : "";
-	if (s) {
-		_this[cL].toggle(is_active);
-		s[cL].toggle(is_active);
+	isActiveClass = "is-active",
+	layer = _this[pN] ? _this[pN].nextElementSibling : "";
+	if (layer) {
+		_this[cL].toggle(isActiveClass);
+		layer[cL].toggle(isActiveClass);
 	}
 	return !1;
 },
@@ -1056,7 +1056,7 @@ manageSourceCodeLayers = function (ctx) {
 	arrangeBtn = function (e) {
 		e[aEL]("click", handleSourceCodeLayers);
 	},
-	arrangeAllBtn = function () {
+	arrangeAllBtns = function () {
 		for (var i = 0, l = btn.length; i < l; i += 1) {
 			arrangeBtn(btn[i]);
 		}
@@ -1064,7 +1064,7 @@ manageSourceCodeLayers = function (ctx) {
 	};
 	if (btn) {
 		/* console.log("triggered function: manageExpandingLayers"); */
-		arrangeAllBtn();
+		arrangeAllBtns();
 	}
 };
 document.ready().then(manageSourceCodeLayers);
@@ -1160,109 +1160,109 @@ var initNavMenu = function () {
 	panel = d[gEBCN]("panel-nav-menu")[0] || "",
 	items = panel ? panel[gEBTN]("a") || "" : "",
 	holder = d[gEBCN]("holder-panel-menu-more")[0] || "",
-	is_active = "is-active",
-	p = w.location.href || "",
-	r = function () {
-		page[cL].remove(is_active);
-		panel[cL].remove(is_active);
-		btn[cL].remove(is_active);
+	isActiveClass = "is-active",
+	locationHref = w.location.href || "",
+	removeAllActiveClass = function () {
+		page[cL].remove(isActiveClass);
+		panel[cL].remove(isActiveClass);
+		btn[cL].remove(isActiveClass);
 	},
-	f = function () {
-		page[cL].add(is_active);
-		panel[cL].add(is_active);
-		btn[cL].add(is_active);
+	addAllActiveClass = function () {
+		page[cL].add(isActiveClass);
+		panel[cL].add(isActiveClass);
+		btn[cL].add(isActiveClass);
 	},
-	t = function () {
-		page[cL].toggle(is_active);
-		panel[cL].toggle(is_active);
-		btn[cL].toggle(is_active);
+	toggleAllActiveClass = function () {
+		page[cL].toggle(isActiveClass);
+		panel[cL].toggle(isActiveClass);
+		btn[cL].toggle(isActiveClass);
 	},
-	h = function () {
-		if (holder && holder[cL].contains(is_active)) {
-			holder[cL].remove(is_active);
+	removeHolderActiveClass = function () {
+		if (holder && holder[cL].contains(isActiveClass)) {
+			holder[cL].remove(isActiveClass);
 		}
 	},
-	g = function () {
-		var h_container_left = function () {
+	addContainerHandlers = function () {
+		var handleContainerLeft = function () {
 			/* console.log("swipeleft"); */
-			h();
-			if (panel[cL].contains(is_active)) {
-				r();
+			removeHolderActiveClass();
+			if (panel[cL].contains(isActiveClass)) {
+				removeAllActiveClass();
 			}
 		},
-		h_container_right = function () {
+		handleContainerRight = function () {
 			/* console.log("swiperight"); */
-			h();
-			if (!panel[cL].contains(is_active)) {
-				f();
+			removeHolderActiveClass();
+			if (!panel[cL].contains(isActiveClass)) {
+				addAllActiveClass();
 			}
 		};
-		container[aEL]("click", h_container_left);
-		/* container.onclick = h_container_left; */
+		container[aEL]("click", handleContainerLeft);
+		/* container.onclick = handleContainerLeft; */
 		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-			container[aEL]("swipeleft", h_container_left);
-			/* container.onswipeleft = h_container_left; */
-			container[aEL]("swiperight", h_container_right);
-			/* container.onswiperight = h_container_right; */
+			container[aEL]("swipeleft", handleContainerLeft);
+			/* container.onswipeleft = handleContainerLeft; */
+			container[aEL]("swiperight", handleContainerRight);
+			/* container.onswiperight = handleContainerRight; */
 		}
 	},
-	k = function () {
+	addBtnHandlers = function () {
 		var h_btn = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			h();
-			t();
+			removeHolderActiveClass();
+			toggleAllActiveClass();
 		};
 		btn[aEL]("click", h_btn);
 	},
-	q = function () {
-		h();
-		r();
+	removeHoldeAndAllActiveClass = function () {
+		removeHolderActiveClass();
+		removeAllActiveClass();
 	},
-	m = function (e) {
-		e[cL].remove(is_active);
+	removeActiveClass = function (e) {
+		e[cL].remove(isActiveClass);
 	},
-	n = function (e) {
-		e[cL].add(is_active);
+	addActiveClass = function (e) {
+		e[cL].add(isActiveClass);
 	},
-	s = function (a) {
+	removeItemsActiveClass = function (a) {
 		for (var j = 0, l = a.length; j < l; j += 1) {
-			m(a[j]);
+			removeActiveClass(a[j]);
 		}
-		/* forEach(a, m, false); */
+		/* forEach(a, removeActiveClass, false); */
 	},
-	v = function (e) {
-		var h_e = function () {
-			if (panel[cL].contains(is_active)) {
-				q();
+	addItemHandler = function (e) {
+		var handleItem = function () {
+			if (panel[cL].contains(isActiveClass)) {
+				removeHoldeAndAllActiveClass();
 			}
-			s(items);
-			n(e);
+			removeItemsActiveClass(items);
+			addActiveClass(e);
 		};
-		e[aEL]("click", h_e);
-		if (e.href === p) {
-			n(e);
+		e[aEL]("click", handleItem);
+		if (locationHref === e.href) {
+			addActiveClass(e);
 		} else {
-			m(e);
+			removeActiveClass(e);
 		}
 	},
-	z = function () {
+	addAllItemHandlers = function () {
 		for (var i = 0, l = items.length; i < l; i += 1) {
-			v(items[i]);
+			addItemHandler(items[i]);
 		}
-		/* forEach(items, v, false); */
+		/* forEach(items, addItemHandler, false); */
 	};
 	if (container && page && btn && panel && items) {
 		/* console.log("triggered function: initNavMenu"); */
 		/*!
 		 * open or close nav
 		 */
-		k();
-		g();
+		addBtnHandlers();
+		addContainerHandlers();
 		/*!
 		 * close nav, scroll to top, highlight active nav item
 		 */
-		z();
+		addAllItemHandlers();
 	}
 };
 document.ready().then(initNavMenu);
@@ -1343,44 +1343,44 @@ var initMenuMore = function () {
 	btn = d[gEBCN]("btn-menu-more")[0] || "",
 	panel = d[gEBCN]("panel-menu-more")[0] || "",
 	items = panel ? panel[gEBTN]("li") || "" : "",
-	is_active = "is-active",
-	h_e = function () {
-		holder[cL].remove(is_active);
+	isActiveClass = "is-active",
+	handleItem = function () {
+		holder[cL].remove(isActiveClass);
 	},
-	g = function (e) {
-		e[aEL]("click", h_e);
+	addItemHandler = function (e) {
+		e[aEL]("click", handleItem);
 	},
-	k = function () {
-		container[aEL]("click", h_e);
+	addContainerHandlers = function () {
+		container[aEL]("click", handleItem);
 	},
-	q = function () {
+	addBtnHandlers = function () {
 		var h_btn = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			holder[cL].toggle(is_active);
+			holder[cL].toggle(isActiveClass);
 		};
 		btn[aEL]("click", h_btn);
 	},
-	v = function () {
+	addAllItemHandlers = function () {
 		for (var i = 0, l = items.length; i < l; i += 1) {
-			g(items[i]);
+			addItemHandler(items[i]);
 		}
-		/* forEach(items, g, false); */
+		/* forEach(items, addItemHandler, false); */
 	};
 	if (container && holder && btn && panel && items) {
 		/* console.log("triggered function: initMenuMore"); */
 		/*!
 		 * hide menu more on outside click
 		 */
-		k();
+		addContainerHandlers();
 		/*!
 		 * show or hide menu more
 		 */
-		q();
+		addBtnHandlers();
 		/*!
 		 * hide menu more on item clicked
 		 */
-		v();
+		addAllItemHandlers();
 	}
 };
 document.ready().then(initMenuMore);
@@ -1397,8 +1397,8 @@ var initUiTotop = function () {
 	cL = "classList",
 	cE = "createElement",
 	aC = "appendChild",
-	cENS = "createElementNS",
-	sANS = "setAttributeNS",
+	/* cENS = "createElementNS",
+	sANS = "setAttributeNS", */
 	aEL = "addEventListener",
 	btnClass = "ui-totop",
 	btnTitle = "Наверх",
@@ -1459,45 +1459,45 @@ var manageShareButton = function () {
 	gEBCN = "getElementsByClassName",
 	aEL = "addEventListener",
 	rEL = "removeEventListener",
-	a = d[gEBCN]("btn-share-buttons")[0] || "",
+	btn = d[gEBCN]("btn-share-buttons")[0] || "",
 	pluso = d[gEBCN]("pluso")[0] || "",
 	ya_share2 = d[gEBCN]("ya-share2")[0] || "",
 	pluso_like_js_src = getHTTP(true) + "://share.pluso.ru/pluso-like.js",
 	share_js_src = getHTTP(true) + "://yastatic.net/share2/share.js",
-	g = function (s, b) {
+	showShare = function (s, b) {
 		setStyleVisibilityVisible(s);
 		setStyleOpacity(s, 1);
 		setStyleDisplayNone(b);
 	},
-	k = function (js, s, b) {
+	loadShare = function (js, s, b) {
 		if (!scriptIsLoaded(js)) {
-			loadJS(js, g.bind(null, s, b));
+			loadJS(js, showShare.bind(null, s, b));
 		}
 	},
-	q = function () {
+	chooseProvider = function () {
 		if (pluso) {
-			k(pluso_like_js_src, pluso, a);
+			loadShare(pluso_like_js_src, pluso, btn);
 		} else {
 			if (ya_share2) {
-				k(share_js_src, ya_share2, a);
+				loadShare(share_js_src, ya_share2, btn);
 			}
 		}
 	},
-	v = function () {
-		var h_a = function (ev) {
+	addBtnHandlers = function () {
+		var handleShareBtn = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			a[rEL]("click", h_a);
-			q();
+			btn[rEL]("click", handleShareBtn);
+			chooseProvider();
 		};
-		a[aEL]("click", h_a);
+		btn[aEL]("click", handleShareBtn);
 	};
-	if ((pluso || ya_share2) && a) {
+	if ((pluso || ya_share2) && btn) {
 		/* console.log("triggered function: manageShareButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			v();
+			addBtnHandlers();
 		} else {
-			setStyleDisplayNone(a);
+			setStyleDisplayNone(btn);
 		}
 	}
 };
@@ -1516,54 +1516,54 @@ var initDisqusOnScroll = function () {
 	pN = "parentNode",
 	aEL = "addEventListener",
 	rEL = "removeEventListener",
-	c = d[gEBI]("disqus_thread") || "",
-	is_active = "is-active",
+	disqusThread = d[gEBI]("disqus_thread") || "",
+	isActiveClass = "is-active",
 	btn = d[gEBCN]("btn-show-disqus")[0] || "",
-	p = w.location.href || "",
-	n = c ? (c[ds].shortname || "") : "",
-	js = getHTTP(true) + "://" + n + ".disqus.com/embed.js",
-	g = function () {
+	locationHref = w.location.href || "",
+	disqusThreadShortname = disqusThread ? (disqusThread[ds].shortname || "") : "",
+	js = getHTTP(true) + "://" + disqusThreadShortname + ".disqus.com/embed.js",
+	showDisqus = function () {
 		setStyleDisplayNone(btn);
-		c[cL].add(is_active);
+		disqusThread[cL].add(isActiveClass);
 		LoadingSpinner.hide();
 	},
-	k = function () {
+	loadDisqus = function () {
 		LoadingSpinner.show();
 		if (!scriptIsLoaded(js)) {
-			loadJS(js, g);
+			loadJS(js, showDisqus);
 		}
 	},
-	q = function () {
+	addBtnHandlers = function () {
 		var h_btn = function (ev) {
 			ev.preventDefault();
 			ev.stopPropagation();
 			btn[rEL]("click", h_btn);
-			k();
+			loadDisqus();
 		};
 		btn[aEL]("click", h_btn);
 	},
-	v = function () {
-		removeChildren(c);
-		var s = d.createRange().createContextualFragment('<p>Комментарии доступны только в веб версии этой страницы.</p>');
-		appendFragment(s, c);
-		c.removeAttribute("id");
+	hideDisqus = function () {
+		removeChildren(disqusThread);
+		var msgText = d.createRange().createContextualFragment("<p>Комментарии доступны только в веб версии этой страницы.</p>");
+		appendFragment(msgText, disqusThread);
+		disqusThread.removeAttribute("id");
 		setStyleDisplayNone(btn[pN]);
 	};
-	if (c && btn && n && p) {
+	if (disqusThread && btn && disqusThreadShortname && locationHref) {
 		/* console.log("triggered function: initDisqusOnScroll"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			q();
+			addBtnHandlers();
 			/* if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
 				var h_w = function () {
-					if (fitsIntoViewport(c)) {
+					if (fitsIntoViewport(disqusThread)) {
 						w[rEL]("scroll", h_w);
-						k();
+						loadDisqus();
 					}
 				};
 				w[aEL]("scroll", h_w);
 			} */
 		} else {
-			v();
+			hideDisqus();
 		}
 	}
 };
@@ -1581,52 +1581,52 @@ manageVKLikeButton = function () {
 	ds = "dataset",
 	aEL = "addEventListener",
 	rEL = "removeEventListener",
-	vk_like = "vk-like",
-	c = d[gEBI](vk_like) || "",
-	a = d[gEBCN]("btn-show-vk-like")[0] || "",
+	VKLikeId = "vk-like",
+	VKLike = d[gEBI](VKLikeId) || "",
+	btn = d[gEBCN]("btn-show-vk-like")[0] || "",
 	js = getHTTP(true) + "://vk.com/js/api/openapi.js?122",
-	g = function () {
+	showVK = function () {
 		try {
 			if (w.VK) {
 				VK.init({
-					apiId: (c[ds].apiid || ""),
+					apiId: (VKLike[ds].apiid || ""),
 					nameTransportPath: "/xd_receiver.htm",
 					onlyWidgets: !0
 				});
-				VK.Widgets.Like(vk_like, {
+				VK.Widgets.Like(VKLikeId, {
 					type: "button",
 					height: 24
 				});
 			}
-			setStyleVisibilityVisible(c);
-			setStyleOpacity(c, 1);
-			setStyleDisplayNone(a);
+			setStyleVisibilityVisible(VKLike);
+			setStyleOpacity(VKLike, 1);
+			setStyleDisplayNone(btn);
 		} catch(e) {
-			setStyleVisibilityHidden(c);
-			setStyleOpacity(c, 0);
-			setStyleDisplayBlock(a);
+			setStyleVisibilityHidden(VKLike);
+			setStyleOpacity(VKLike, 0);
+			setStyleDisplayBlock(btn);
 		}
 	},
-	k = function () {
+	addBtnHandlers = function () {
 		if (!scriptIsLoaded(js)) {
-			loadJS(js, g);
+			loadJS(js, showVK);
 		}
 	},
-	q = function () {
+	initVk = function () {
 		var h_a = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			a[rEL]("click", h_a);
-			k();
+			btn[rEL]("click", h_a);
+			addBtnHandlers();
 		};
-		a[aEL]("click", h_a);
+		btn[aEL]("click", h_a);
 	};
-	if (c && a) {
+	if (VKLike && btn) {
 		/* console.log("triggered function: manageVKLikeButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			q();
+			initVk();
 		} else {
-			setStyleDisplayNone(a);
+			setStyleDisplayNone(btn);
 		}
 	}
 };
@@ -1641,23 +1641,23 @@ var initKamilAutocomplete = function () {
 	gEBI = "getElementById",
 	gEBCN = "getElementsByClassName",
 	gEBTN = "getElementsByTagName",
-	search_form = d[gEBCN]("search-form")[0] || "",
-	id = "text",
-	text = d[gEBI](id) || "",
-	outsideContainer = d[gEBI]("container") || "",
-	_ul_id = "kamil-typo-autocomplete",
-	_ul_class = "kamil-autocomplete",
-	jsn = "../../libs/paper/json/pages.json",
 	cL = "classList",
 	cE = "createElement",
 	cTN = "createTextNode",
 	pN = "parentNode",
 	aC = "appendChild",
 	aEL = "addEventListener",
-	q = function (jsonResponse) {
+	searchForm = d[gEBCN]("search-form")[0] || "",
+	textInputSelector = "#text",
+	textInput = d[gEBI]("text") || "",
+	container = d[gEBI]("container") || "",
+	suggestionUlId = "kamil-typo-autocomplete",
+	suggestionUlClass = "kamil-autocomplete",
+	jsn = "../../libs/paper/json/pages.json",
+	processResponse = function (jsonResponse) {
 		var jpr = safelyParseJSON(jsonResponse);
 		if (jpr) {
-			var ac = new Kamil("#" + id, {
+			var ac = new Kamil(textInputSelector, {
 					source: jpr,
 					property: "label",
 					minChars: 2
@@ -1665,68 +1665,68 @@ var initKamilAutocomplete = function () {
 			/*!
 			 * create typo suggestion list
 			 */
-			var _ul = d[cE]("ul"),
-			_li = d[cE]("li"),
+			var suggestionUl = d[cE]("ul"),
+			suggestionLi = d[cE]("li"),
 			handleTypoSuggestions = function () {
-				setStyleDisplayNone(_ul);
-				setStyleDisplayNone(_li);
+				setStyleDisplayNone(suggestionUl);
+				setStyleDisplayNone(suggestionLi);
 			},
 			showTypoSuggestions = function () {
-				setStyleDisplayBlock(_ul);
-				setStyleDisplayBlock(_li);
+				setStyleDisplayBlock(suggestionUl);
+				setStyleDisplayBlock(suggestionLi);
 			};
-			_ul[cL].add(_ul_class);
-			_ul.id = _ul_id;
+			suggestionUl[cL].add(suggestionUlClass);
+			suggestionUl.id = suggestionUlId;
 			handleTypoSuggestions();
-			_ul[aC](_li);
-			text[pN].insertBefore(_ul, text.nextElementSibling);
+			suggestionUl[aC](suggestionLi);
+			textInput[pN].insertBefore(suggestionUl, textInput.nextElementSibling);
 			/*!
 			 * show suggestions
 			 */
 			ac.renderMenu = function (ul, items) {
 				items = items || "";
-				var l = items.length,
+				var itemsLength = items.length,
 				_this = this,
 				/*!
 				 * limit output
 				 */
-				f = function (e, i) {
+				arrangeAllItems = function (e, i) {
 					if (i < 10) {
 						_this._renderItemData(ul, e, i);
 					}
 				};
 				if (items) {
-					for (var i = 0; i < l; i += 1) {
-						f(items[i], i);
+					for (var i = 0; i < itemsLength; i += 1) {
+						arrangeAllItems(items[i], i);
 					}
-					/* forEach(items, f, false); */
+					/* forEach(items, arrangeAllItems, false); */
 				}
 				/*!
 				 * fix typo - non latin characters found
 				 */
-				while (l < 1) {
-					var v = text.value;
-					if (/[^\u0000-\u007f]/.test(v)) {
-						v = fixEnRuTypo(v, "ru", "en");
+				while (itemsLength < 1) {
+					var textValue = textInput.value;
+					if (/[^\u0000-\u007f]/.test(textValue)) {
+						textValue = fixEnRuTypo(textValue, "ru", "en");
 					} else {
-						v = fixEnRuTypo(v, "en", "ru");
+						textValue = fixEnRuTypo(textValue, "en", "ru");
 					}
 					showTypoSuggestions();
-					removeChildren(_li);
-					_li[aC](d[cTN]("" + v));
-					if (v.match(/^\s*$/)) {
+					removeChildren(suggestionLi);
+					suggestionLi[aC](d[cTN]("" + textValue));
+					if (textValue.match(/^\s*$/)) {
 						handleTypoSuggestions();
 					}
-					if (text.value.length < 3 || text.value.match(/^\s*$/)) {
+					if (textInput.value.length < 3 || textInput.value.match(/^\s*$/)) {
 						handleTypoSuggestions();
 					}
-					l += 1;
+					itemsLength += 1;
 				}
 				/*!
 				 * truncate text
 				 */
 				var lis = ul ? ul[gEBTN]("li") || "" : "",
-				g = function (e) {
+				truncateText = function (e) {
 					var t = e.firstChild.textContent || "",
 					n = d.createTextNode(truncString(t, 24));
 					e.replaceChild(n, e.firstChild);
@@ -1734,30 +1734,30 @@ var initKamilAutocomplete = function () {
 				};
 				if (lis) {
 					for (var j = 0, m = lis.length; j < m; j += 1) {
-						g(lis[j]);
+						truncateText(lis[j]);
 					}
-					/* forEach(lis, g, false); */
+					/* forEach(lis, truncateText, false); */
 				}
 			};
 			/*!
 			 * set text input value from typo suggestion
 			 */
-			var h_li = function (ev) {
+			var handleSuggestionLi = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				/*!
 				 * set focus first, then set text
 				 */
-				text.focus();
-				text.value = _li.firstChild.textContent || "";
-				setStyleDisplayNone(_ul);
+				textInput.focus();
+				textInput.value = suggestionLi.firstChild.textContent || "";
+				setStyleDisplayNone(suggestionUl);
 			};
-			_li[aEL]("click", h_li);
+			suggestionLi[aEL]("click", handleSuggestionLi);
 			/*!
 			 * hide suggestions on outside click
 			 */
-			if (outsideContainer) {
-				outsideContainer[aEL]("click", handleTypoSuggestions);
+			if (container) {
+				container[aEL]("click", handleTypoSuggestions);
 			}
 			/*!
 			 * unless you specify property option in new Kamil
@@ -1766,13 +1766,13 @@ var initKamilAutocomplete = function () {
 			 * {"link":"/pages/contents.html","label":"some text to match"}]
 			 */
 			ac.on("kamilselect", function (e) {
-				var lkamilItemLink = e.item.link || "",
+				var kamilItemLink = e.item.link || "",
 				handleKamilItem = function () {
 					e.inputElement.value = "";
 					handleTypoSuggestions();
-					changeLocation(lkamilItemLink);
+					changeLocation(kamilItemLink);
 				};
-				if (lkamilItemLink) {
+				if (kamilItemLink) {
 					/*!
 					 * nwjs wont like setImmediate here
 					 */
@@ -1782,12 +1782,12 @@ var initKamilAutocomplete = function () {
 			});
 		}
 	},
-	v = function () {
-		loadUnparsedJSON(jsn, q);
+	arrangeSearchInput = function () {
+		loadUnparsedJSON(jsn, processResponse);
 	};
-	if (search_form && text) {
+	if (searchForm && textInput) {
 		/* console.log("triggered function: initKamilAutocomplete"); */
-		v();
+		arrangeSearchInput();
 	}
 },
 loadInitKamilAutocomplete = function () {

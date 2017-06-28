@@ -303,21 +303,21 @@ var initParallax = function () {
       d = document,
       gEBCN = "getElementsByClassName",
       mq = w.matchMedia("(min-width: 768px)"),
-      s = d[gEBCN]("scene1")[0] || "",
-      p = d[gEBCN]("parallax")[0] || "",
-      m = d[gEBCN]("parallax-disabled")[0] || "";
+      scene1 = d[gEBCN]("scene1")[0] || "",
+      parallax = d[gEBCN]("parallax")[0] || "",
+      parallaxDisabled = d[gEBCN]("parallax-disabled")[0] || "";
   if (mq.matches) {
-    setStyleDisplayBlock(p);
-    setStyleDisplayNone(m);
-    if (s) {
+    setStyleDisplayBlock(parallax);
+    setStyleDisplayNone(parallaxDisabled);
+    if (scene1) {
       if (w.Parallax) {
         var prlx;
-        prlx = new Parallax(s);
+        prlx = new Parallax(scene1);
       }
     }
   } else {
-    setStyleDisplayNone(p);
-    setStyleDisplayBlock(m);
+    setStyleDisplayNone(parallax);
+    setStyleDisplayBlock(parallaxDisabled);
   }
 } /* ,
   loadInitParallax = function () {
@@ -338,18 +338,18 @@ var showPageFinishProgress = function () {
   var d = document,
       gEBI = "getElementById",
       gEBCN = "getElementsByClassName",
-      a = d[gEBI]("page") || "",
-      c = d[gEBCN]("progress")[0] || "",
-      g = function () {
-    setStyleOpacity(a, 1);
+      page = d[gEBI]("page") || "",
+      progress = d[gEBCN]("progress")[0] || "",
+      showPage = function () {
+    setStyleOpacity(page, 1);
     var timers = new Timers();
     timers.timeout(function () {
       timers.clear();
       timers = null;
-      setStyleDisplayNone(c);
+      setStyleDisplayNone(progress);
     }, 100);
   },
-      k = function () {
+      showPageOnImagesPreloaded = function () {
     var timers = new Timers();
     timers.interval(function () {
       /* console.log("function showPageFinishProgress => started Interval"); */
@@ -357,16 +357,16 @@ var showPageFinishProgress = function () {
         timers.clear();
         timers = null;
         /* console.log("function showPageFinishProgress; imagesPreloaded=" + imagesPreloaded); */
-        g();
+        showPage();
       }
     }, 100);
   };
-  if (a) {
+  if (page) {
     /* console.log("triggered function: showPageFinishProgress"); */
     if ("undefined" !== typeof imagesPreloaded) {
-      k();
+      showPageOnImagesPreloaded();
     } else {
-      g();
+      showPage();
     }
   }
 };

@@ -328,7 +328,7 @@ manageExternalLinks = function (ctx) {
 			}
 		}
 	},
-	rerenderExternalLinks = function () {
+	arrangeAllExternalLinks = function () {
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrangeExternalLink(link[i]);
 		}
@@ -336,7 +336,7 @@ manageExternalLinks = function (ctx) {
 	};
 	if (link) {
 		/* console.log("triggered function: manageExternalLinks"); */
-		rerenderExternalLinks();
+		arrangeAllExternalLinks();
 	}
 };
 document.ready().then(manageExternalLinks);
@@ -368,8 +368,8 @@ var initUiTotop = function () {
 	cL = "classList",
 	cE = "createElement",
 	aC = "appendChild",
-	cENS = "createElementNS",
-	sANS = "setAttributeNS",
+	/* cENS = "createElementNS",
+	sANS = "setAttributeNS", */
 	aEL = "addEventListener",
 	btnClass = "ui-totop",
 	btnTitle = "Наверх",
@@ -430,45 +430,45 @@ var manageShareButton = function () {
 	gEBCN = "getElementsByClassName",
 	aEL = "addEventListener",
 	rEL = "removeEventListener",
-	a = d[gEBCN]("btn-share-buttons")[0] || "",
+	btn = d[gEBCN]("btn-share-buttons")[0] || "",
 	pluso = d[gEBCN]("pluso")[0] || "",
 	ya_share2 = d[gEBCN]("ya-share2")[0] || "",
 	pluso_like_js_src = getHTTP(true) + "://share.pluso.ru/pluso-like.js",
 	share_js_src = getHTTP(true) + "://yastatic.net/share2/share.js",
-	g = function (s, b) {
+	showShare = function (s, b) {
 		setStyleVisibilityVisible(s);
 		setStyleOpacity(s, 1);
 		setStyleDisplayNone(b);
 	},
-	k = function (js, s, b) {
+	loadShare = function (js, s, b) {
 		if (!scriptIsLoaded(js)) {
-			loadJS(js, g.bind(null, s, b));
+			loadJS(js, showShare.bind(null, s, b));
 		}
 	},
-	q = function () {
+	chooseProvider = function () {
 		if (pluso) {
-			k(pluso_like_js_src, pluso, a);
+			loadShare(pluso_like_js_src, pluso, btn);
 		} else {
 			if (ya_share2) {
-				k(share_js_src, ya_share2, a);
+				loadShare(share_js_src, ya_share2, btn);
 			}
 		}
 	},
-	v = function () {
-		var h_a = function (ev) {
+	addBtnHandlers = function () {
+		var handleShareBtn = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			a[rEL]("click", h_a);
-			q();
+			btn[rEL]("click", handleShareBtn);
+			chooseProvider();
 		};
-		a[aEL]("click", h_a);
+		btn[aEL]("click", handleShareBtn);
 	};
-	if ((pluso || ya_share2) && a) {
+	if ((pluso || ya_share2) && btn) {
 		/* console.log("triggered function: manageShareButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			v();
+			addBtnHandlers();
 		} else {
-			setStyleDisplayNone(a);
+			setStyleDisplayNone(btn);
 		}
 	}
 };

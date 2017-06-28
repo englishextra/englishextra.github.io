@@ -333,7 +333,7 @@ manageExternalLinks = function (ctx) {
 			}
 		}
 	},
-	rerenderExternalLinks = function () {
+	arrangeAllExternalLinks = function () {
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrangeExternalLink(link[i]);
 		}
@@ -341,7 +341,7 @@ manageExternalLinks = function (ctx) {
 	};
 	if (link) {
 		/* console.log("triggered function: manageExternalLinks"); */
-		rerenderExternalLinks();
+		arrangeAllExternalLinks();
 	}
 };
 document.ready().then(manageExternalLinks);
@@ -516,8 +516,8 @@ var initUiTotop = function () {
 	cL = "classList",
 	cE = "createElement",
 	aC = "appendChild",
-	cENS = "createElementNS",
-	sANS = "setAttributeNS",
+	/* cENS = "createElementNS",
+	sANS = "setAttributeNS", */
 	aEL = "addEventListener",
 	btnClass = "ui-totop",
 	btnTitle = "Наверх",
@@ -576,12 +576,12 @@ var showPageFinishProgress = function () {
 	"use strict";
 	var d = document,
 	gEBI = "getElementById",
-	a = d[gEBI]("container") || "",
-	g = function () {
-		setStyleOpacity(a, 1);
+	container = d[gEBI]("container") || "",
+	showContainer = function () {
+		setStyleOpacity(container, 1);
 		progressBar.complete();
 	},
-	k = function () {
+	showContainerOnImagesPreloaded = function () {
 		var timers = new Timers();
 		timers.interval(function () {
 			/* console.log("function showPageFinishProgress => started Interval"); */
@@ -589,16 +589,16 @@ var showPageFinishProgress = function () {
 				timers.clear();
 				timers = null;
 				/* console.log("function showPageFinishProgress; imagesPreloaded=" + imagesPreloaded); */
-				g();
+				showContainer();
 			}
 		}, 100);
 	};
-	if (a) {
+	if (container) {
 		/* console.log("triggered function: showPageFinishProgress"); */
 		if ("undefined" !== typeof imagesPreloaded) {
-			k();
+			showContainerOnImagesPreloaded();
 		} else {
-			g();
+			showContainer();
 		}
 	}
 };
