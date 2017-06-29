@@ -1787,7 +1787,7 @@ var loadRefreshDisqus = function () {
 	btn = d[gEBCN]("btn-show-disqus")[0] || "",
 	locationHref = w.location.href || "",
 	disqusThreadShortName = disqusThread ? (disqusThread[ds].shortname || "") : "",
-	js = getHTTP(true) + "://" + disqusThreadShortName + ".disqus.com/embed.js",
+	jsUrl = getHTTP(true) + "://" + disqusThreadShortName + ".disqus.com/embed.js",
 	showDisqus = function () {
 		disqusThread[cL].add(isActiveClass);
 		setStyleDisplayNone(btn);
@@ -1807,9 +1807,6 @@ var loadRefreshDisqus = function () {
 			setStyleDisplayBlock(btn);
 		}
 	},
-	loadInitDisqus = function () {
-		loadJS(js, showDisqus);
-	},
 	hideDisqus = function () {
 		removeChildren(disqusThread);
 		var msgText = d.createRange().createContextualFragment("<p>Комментарии доступны только в веб версии этой страницы.</p>");
@@ -1821,10 +1818,10 @@ var loadRefreshDisqus = function () {
 		/* console.log("triggered function: loadRefreshDisqus"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			LoadingSpinner.show();
-			if (scriptIsLoaded(js)) {
-				initDisqus();
+			if (!scriptIsLoaded(jsUrl)) {
+				loadJS(jsUrl, initDisqus);
 			} else {
-				loadInitDisqus();
+				initDisqus();
 			}
 		} else {
 			hideDisqus();
@@ -1872,7 +1869,7 @@ initYandexMap = function (yandexMapId) {
 	yandexMapCenter = yandexMap ? (yandexMap[ds].center || "") : "",
 	yandexMapZoom = yandexMap ? (yandexMap[ds].zoom || "") : "",
 	isActiveClass = "is-active",
-	js = getHTTP(true) + "://api-maps.yandex.ru/2.1/?lang=ru_RU",
+	jsUrl = getHTTP(true) + "://api-maps.yandex.ru/2.1/?lang=ru_RU",
 	initMyMap = function () {
 		if (myMap) {
 			myMap.destroy();
@@ -1923,8 +1920,8 @@ initYandexMap = function (yandexMapId) {
 				btnDestroy[aEL]("click", handleYandexMapBtnDestroy);
 			}
 			LoadingSpinner.show();
-			if (!scriptIsLoaded(js)) {
-				loadJS(js, initYmaps);
+			if (!scriptIsLoaded(jsUrl)) {
+				loadJS(jsUrl, initYmaps);
 			} else {
 				initYmaps();
 			}

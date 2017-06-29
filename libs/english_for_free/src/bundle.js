@@ -943,8 +943,8 @@ var manageShareButton = function () {
 	btn = d[gEBCN]("btn-share-buttons")[0] || "",
 	pluso = d[gEBCN]("pluso")[0] || "",
 	ya_share2 = d[gEBCN]("ya-share2")[0] || "",
-	pluso_like_js_src = getHTTP(true) + "://share.pluso.ru/pluso-like.js",
-	share_js_src = getHTTP(true) + "://yastatic.net/share2/share.js",
+	plusoJsUrl = getHTTP(true) + "://share.pluso.ru/pluso-like.js",
+	shareJsUrl = getHTTP(true) + "://yastatic.net/share2/share.js",
 	showShare = function (s, b) {
 		setStyleVisibilityVisible(s);
 		setStyleOpacity(s, 1);
@@ -957,10 +957,10 @@ var manageShareButton = function () {
 	},
 	chooseProvider = function () {
 		if (pluso) {
-			loadShare(pluso_like_js_src, pluso, btn);
+			loadShare(plusoJsUrl, pluso, btn);
 		} else {
 			if (ya_share2) {
-				loadShare(share_js_src, ya_share2, btn);
+				loadShare(shareJsUrl, ya_share2, btn);
 			}
 		}
 	},
@@ -1023,7 +1023,7 @@ manageVKLikeButton = function () {
 		}
 	},
 	addBtnHandlers = function () {
-		if (!scriptIsLoaded(js)) {
+		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, showVK);
 		}
 	},

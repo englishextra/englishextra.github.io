@@ -2207,8 +2207,8 @@ var manageShareButton = function () {
 	    btn = d[gEBCN]("btn-share-buttons")[0] || "",
 	    pluso = d[gEBCN]("pluso")[0] || "",
 	    ya_share2 = d[gEBCN]("ya-share2")[0] || "",
-	    pluso_like_js_src = getHTTP(true) + "://share.pluso.ru/pluso-like.js",
-	    share_js_src = getHTTP(true) + "://yastatic.net/share2/share.js",
+	    plusoJsUrl = getHTTP(true) + "://share.pluso.ru/pluso-like.js",
+	    shareJsUrl = getHTTP(true) + "://yastatic.net/share2/share.js",
 	    showShare = function (s, b) {
 		setStyleVisibilityVisible(s);
 		setStyleOpacity(s, 1);
@@ -2221,10 +2221,10 @@ var manageShareButton = function () {
 	},
 	    chooseProvider = function () {
 		if (pluso) {
-			loadShare(pluso_like_js_src, pluso, btn);
+			loadShare(plusoJsUrl, pluso, btn);
 		} else {
 			if (ya_share2) {
-				loadShare(share_js_src, ya_share2, btn);
+				loadShare(shareJsUrl, ya_share2, btn);
 			}
 		}
 	},
@@ -2267,7 +2267,7 @@ var initDisqusOnScroll = function () {
 	    btn = d[gEBCN]("btn-show-disqus")[0] || "",
 	    locationHref = w.location.href || "",
 	    disqusThreadShortname = disqusThread ? disqusThread[ds].shortname || "" : "",
-	    js = getHTTP(true) + "://" + disqusThreadShortname + ".disqus.com/embed.js",
+	    jsUrl = getHTTP(true) + "://" + disqusThreadShortname + ".disqus.com/embed.js",
 	    showDisqus = function () {
 		setStyleDisplayNone(btn);
 		disqusThread[cL].add(isActiveClass);
@@ -2275,8 +2275,8 @@ var initDisqusOnScroll = function () {
 	},
 	    loadDisqus = function () {
 		LoadingSpinner.show();
-		if (!scriptIsLoaded(js)) {
-			loadJS(js, showDisqus);
+		if (!scriptIsLoaded(jsUrl)) {
+			loadJS(jsUrl, showDisqus);
 		}
 	},
 	    addBtnHandlers = function () {
@@ -2355,7 +2355,7 @@ var VK,
 		}
 	},
 	    addBtnHandlers = function () {
-		if (!scriptIsLoaded(js)) {
+		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, showVK);
 		}
 	},
