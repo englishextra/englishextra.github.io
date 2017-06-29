@@ -440,9 +440,9 @@ var manageShareButton = function () {
 		setStyleOpacity(s, 1);
 		setStyleDisplayNone(b);
 	},
-	loadShare = function (js, s, b) {
-		if (!scriptIsLoaded(js)) {
-			loadJS(js, showShare.bind(null, s, b));
+	loadShare = function (jsUrl, block, btn) {
+		if (!scriptIsLoaded(jsUrl)) {
+			loadJS(jsUrl, showShare.bind(null, block, btn));
 		}
 	},
 	chooseProvider = function () {
