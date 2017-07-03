@@ -2540,13 +2540,13 @@ document.ready().then(initUiTotop);
  */
 var loadInitManUp = function () {
 	"use strict";
-	var manUpJsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js",
+	var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js",
 	initManUp = function () {
 		/* console.log("triggered function: initManUp"); */
 	};
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		if (!scriptIsLoaded(manUpJsUrl)) {
-			loadJS(manUpJsUrl, initManUp);
+		if (!scriptIsLoaded(jsUrl)) {
+			loadJS(jsUrl, initManUp);
 		} else {
 			initManUp();
 		}

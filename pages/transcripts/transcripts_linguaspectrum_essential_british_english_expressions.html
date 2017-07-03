@@ -160,26 +160,28 @@
 			if((/^(localhost|127.0.0.1)/).test(window.location.hostname||"")){loadCSS("../../libs/paper/css/bundle.css");}else{loadCSS("../../libs/paper/css/bundle.min.css");}
 		</script>
 		<script>
-				if (!window.requestAnimationFrame
-					 || !window.matchMedia
-					 || ("undefined" === typeof window.Element && !("dataset" in document.documentElement))
-					 || !("classList" in document.createElement("_"))
-					 || document.createElementNS && !("classList" in document.createElementNS("http://www.w3.org/2000/svg", "g"))
-					/* ||!document.importNode */
-					/* ||!("content"in document.createElement("template")) */
-					 || (window.attachEvent && !window.addEventListener)
-					 || !("onhashchange" in window)
-					 || !Array.prototype.indexOf
-					 || !window.Promise
-					 || !window.fetch
-					 || !document.querySelectorAll
-					 || !document.querySelector
-					 || !Function.prototype.bind
-					 || (Object.defineProperty && Object.getOwnPropertyDescriptor && Object.getOwnPropertyDescriptor(Element.prototype, "textContent") && !Object.getOwnPropertyDescriptor(Element.prototype, "textContent").get)
-					 || !("undefined" !== typeof window.localStorage && "undefined" !== typeof window.sessionStorage)
-					 || !self.WeakMap
-					 || !self.MutationObserver
-					 ) {
+				var needsPolyfills = (function () {
+					return !window.requestAnimationFrame ||
+					!window.matchMedia ||
+					("undefined" === typeof window.Element && !("dataset" in document.documentElement)) ||
+					!("classList" in document.createElement("_")) ||
+					document.createElementNS && !("classList" in document.createElementNS("http://www.w3.org/2000/svg", "g")) ||
+					/* !document.importNode || */
+					/* !("content" in document.createElement("template")) || */
+					(window.attachEvent && !window.addEventListener) ||
+					!("onhashchange" in window) ||
+					!Array.prototype.indexOf ||
+					!window.Promise ||
+					!window.fetch ||
+					!document.querySelectorAll ||
+					!document.querySelector ||
+					!Function.prototype.bind ||
+					(Object.defineProperty && Object.getOwnPropertyDescriptor && Object.getOwnPropertyDescriptor(Element.prototype, "textContent") && !Object.getOwnPropertyDescriptor(Element.prototype, "textContent").get) ||
+					!("undefined" !== typeof window.localStorage && "undefined" !== typeof window.sessionStorage) ||
+					!window.WeakMap ||
+					!window.MutationObserver;
+				}());
+				if (needsPolyfills) {
 					if((/^(localhost|127.0.0.1)/).test(window.location.hostname||"")){loadJS("../../cdn/polyfills/js/polyfills.fixed.js");}else{loadJS("../../cdn/polyfills/js/polyfills.fixed.min.js");}
 				}
 		</script>
