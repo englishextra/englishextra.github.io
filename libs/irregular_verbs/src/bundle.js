@@ -544,13 +544,19 @@ var initMenuMore = function () {
 	cL = "classList",
 	aEL = "addEventListener",
 	container = d[gEBI]("container") || "",
-	holder = d[gEBCN]("holder-panel-menu-more")[0] || "",
-	btn = d[gEBCN]("btn-menu-more")[0] || "",
-	panel = d[gEBCN]("panel-menu-more")[0] || "",
-	items = panel ? panel[gEBTN]("li") || "" : "",
+	page = d[gEBI]("page") || "",
+	holderPanelMenuMore = d[gEBCN]("holder-panel-menu-more")[0] || "",
+	btnMenuMore = d[gEBCN]("btn-menu-more")[0] || "",
+	panelMenuMore = d[gEBCN]("panel-menu-more")[0] || "",
+	panelMenuMoreItems = panelMenuMore ? panelMenuMore[gEBTN]("li") || "" : "",
+	panelNavMenu = d[gEBCN]("panel-nav-menu")[0] || "",
 	isActiveClass = "is-active",
 	handleItem = function () {
-		holder[cL].remove(isActiveClass);
+		page[cL].remove(isActiveClass);
+		holderPanelMenuMore[cL].remove(isActiveClass);
+		if (panelNavMenu && panelNavMenu[cL].contains(isActiveClass)) {
+			panelNavMenu[cL].remove(isActiveClass);
+		}
 	},
 	addItemHandler = function (e) {
 		e[aEL]("click", handleItem);
@@ -562,17 +568,17 @@ var initMenuMore = function () {
 		var h_btn = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			holder[cL].toggle(isActiveClass);
+			holderPanelMenuMore[cL].toggle(isActiveClass);
 		};
-		btn[aEL]("click", h_btn);
+		btnMenuMore[aEL]("click", h_btn);
 	},
 	addAllItemHandlers = function () {
-		for (var i = 0, l = items.length; i < l; i += 1) {
-			addItemHandler(items[i]);
+		for (var i = 0, l = panelMenuMoreItems.length; i < l; i += 1) {
+			addItemHandler(panelMenuMoreItems[i]);
 		}
-		/* forEach(items, addItemHandler, false); */
+		/* forEach(panelMenuMoreItems, addItemHandler, false); */
 	};
-	if (container && holder && btn && panel && items) {
+	if (page && container && holderPanelMenuMore && btnMenuMore && panelMenuMore && panelMenuMoreItems) {
 		/* console.log("triggered function: initMenuMore"); */
 		/*!
 		 * hide menu more on outside click

@@ -1151,44 +1151,44 @@ var initNavMenu = function () {
 	aEL = "addEventListener",
 	container = d[gEBI]("container") || "",
 	page = d[gEBI]("page") || "",
-	btn = d[gEBCN]("btn-nav-menu")[0] || "",
-	panel = d[gEBCN]("panel-nav-menu")[0] || "",
-	items = panel ? panel[gEBTN]("a") || "" : "",
-	holder = d[gEBCN]("holder-panel-menu-more")[0] || "",
+	btnNavMenu = d[gEBCN]("btn-nav-menu")[0] || "",
+	panelNavMenu = d[gEBCN]("panel-nav-menu")[0] || "",
+	panelNavMenuItems = panelNavMenu ? panelNavMenu[gEBTN]("a") || "" : "",
+	holderPanelMenuMore = d[gEBCN]("holder-panel-menu-more")[0] || "",
 	isActiveClass = "is-active",
 	locationHref = w.location.href || "",
 	removeAllActiveClass = function () {
 		page[cL].remove(isActiveClass);
-		panel[cL].remove(isActiveClass);
-		btn[cL].remove(isActiveClass);
+		panelNavMenu[cL].remove(isActiveClass);
+		btnNavMenu[cL].remove(isActiveClass);
 	},
 	addAllActiveClass = function () {
 		page[cL].add(isActiveClass);
-		panel[cL].add(isActiveClass);
-		btn[cL].add(isActiveClass);
+		panelNavMenu[cL].add(isActiveClass);
+		btnNavMenu[cL].add(isActiveClass);
 	},
 	toggleAllActiveClass = function () {
 		page[cL].toggle(isActiveClass);
-		panel[cL].toggle(isActiveClass);
-		btn[cL].toggle(isActiveClass);
+		panelNavMenu[cL].toggle(isActiveClass);
+		btnNavMenu[cL].toggle(isActiveClass);
 	},
 	removeHolderActiveClass = function () {
-		if (holder && holder[cL].contains(isActiveClass)) {
-			holder[cL].remove(isActiveClass);
+		if (holderPanelMenuMore && holderPanelMenuMore[cL].contains(isActiveClass)) {
+			holderPanelMenuMore[cL].remove(isActiveClass);
 		}
 	},
 	addContainerHandlers = function () {
 		var handleContainerLeft = function () {
 			/* console.log("swipeleft"); */
 			removeHolderActiveClass();
-			if (panel[cL].contains(isActiveClass)) {
+			if (panelNavMenu[cL].contains(isActiveClass)) {
 				removeAllActiveClass();
 			}
 		},
 		handleContainerRight = function () {
 			/* console.log("swiperight"); */
 			removeHolderActiveClass();
-			if (!panel[cL].contains(isActiveClass)) {
+			if (!panelNavMenu[cL].contains(isActiveClass)) {
 				addAllActiveClass();
 			}
 		};
@@ -1208,7 +1208,7 @@ var initNavMenu = function () {
 			removeHolderActiveClass();
 			toggleAllActiveClass();
 		};
-		btn[aEL]("click", h_btn);
+		btnNavMenu[aEL]("click", h_btn);
 	},
 	removeHoldeAndAllActiveClass = function () {
 		removeHolderActiveClass();
@@ -1228,10 +1228,10 @@ var initNavMenu = function () {
 	},
 	addItemHandler = function (e) {
 		var handleItem = function () {
-			if (panel[cL].contains(isActiveClass)) {
+			if (panelNavMenu[cL].contains(isActiveClass)) {
 				removeHoldeAndAllActiveClass();
 			}
-			removeItemsActiveClass(items);
+			removeItemsActiveClass(panelNavMenuItems);
 			addActiveClass(e);
 		};
 		e[aEL]("click", handleItem);
@@ -1242,12 +1242,12 @@ var initNavMenu = function () {
 		}
 	},
 	addAllItemHandlers = function () {
-		for (var i = 0, l = items.length; i < l; i += 1) {
-			addItemHandler(items[i]);
+		for (var i = 0, l = panelNavMenuItems.length; i < l; i += 1) {
+			addItemHandler(panelNavMenuItems[i]);
 		}
-		/* forEach(items, addItemHandler, false); */
+		/* forEach(panelNavMenuItems, addItemHandler, false); */
 	};
-	if (container && page && btn && panel && items) {
+	if (page && container && btnNavMenu && panelNavMenu && panelNavMenuItems) {
 		/* console.log("triggered function: initNavMenu"); */
 		/*!
 		 * open or close nav
@@ -1334,13 +1334,19 @@ var initMenuMore = function () {
 	cL = "classList",
 	aEL = "addEventListener",
 	container = d[gEBI]("container") || "",
-	holder = d[gEBCN]("holder-panel-menu-more")[0] || "",
-	btn = d[gEBCN]("btn-menu-more")[0] || "",
-	panel = d[gEBCN]("panel-menu-more")[0] || "",
-	items = panel ? panel[gEBTN]("li") || "" : "",
+	page = d[gEBI]("page") || "",
+	holderPanelMenuMore = d[gEBCN]("holder-panel-menu-more")[0] || "",
+	btnMenuMore = d[gEBCN]("btn-menu-more")[0] || "",
+	panelMenuMore = d[gEBCN]("panel-menu-more")[0] || "",
+	panelMenuMoreItems = panelMenuMore ? panelMenuMore[gEBTN]("li") || "" : "",
+	panelNavMenu = d[gEBCN]("panel-nav-menu")[0] || "",
 	isActiveClass = "is-active",
 	handleItem = function () {
-		holder[cL].remove(isActiveClass);
+		page[cL].remove(isActiveClass);
+		holderPanelMenuMore[cL].remove(isActiveClass);
+		if (panelNavMenu && panelNavMenu[cL].contains(isActiveClass)) {
+			panelNavMenu[cL].remove(isActiveClass);
+		}
 	},
 	addItemHandler = function (e) {
 		e[aEL]("click", handleItem);
@@ -1352,17 +1358,17 @@ var initMenuMore = function () {
 		var h_btn = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			holder[cL].toggle(isActiveClass);
+			holderPanelMenuMore[cL].toggle(isActiveClass);
 		};
-		btn[aEL]("click", h_btn);
+		btnMenuMore[aEL]("click", h_btn);
 	},
 	addAllItemHandlers = function () {
-		for (var i = 0, l = items.length; i < l; i += 1) {
-			addItemHandler(items[i]);
+		for (var i = 0, l = panelMenuMoreItems.length; i < l; i += 1) {
+			addItemHandler(panelMenuMoreItems[i]);
 		}
-		/* forEach(items, addItemHandler, false); */
+		/* forEach(panelMenuMoreItems, addItemHandler, false); */
 	};
-	if (container && holder && btn && panel && items) {
+	if (page && container && holderPanelMenuMore && btnMenuMore && panelMenuMore && panelMenuMoreItems) {
 		/* console.log("triggered function: initMenuMore"); */
 		/*!
 		 * hide menu more on outside click

@@ -309,26 +309,25 @@ var initParallax = function () {
   if (mq.matches) {
     setStyleDisplayBlock(parallax);
     setStyleDisplayNone(parallaxDisabled);
-    if (scene1) {
-      if (w.Parallax) {
-        var prlx;
-        prlx = new Parallax(scene1);
-      }
+    if (scene1 && w.Parallax) {
+      var prlx;
+      prlx = new Parallax(scene1);
     }
   } else {
     setStyleDisplayNone(parallax);
     setStyleDisplayBlock(parallaxDisabled);
   }
-} /* ,
-  loadInitParallax = function () {
+},
+    loadInitParallax = function () {
   "use strict";
+
   var jsUrl = "/cdn/parallax/2.1.3/js/parallax.fixed.min.js";
   if (!scriptIsLoaded(jsUrl)) {
-  	loadJS(jsUrl, initParallax);
+    loadJS(jsUrl, initParallax);
   }
-  } */;
-/* document.ready().then(loadInitParallax); */
-document.ready().then(initParallax);
+};
+/* document.ready().then(loadInitParallax);
+document.ready().then(initParallax); */
 /*!
  * show page, finish ToProgress
  */
@@ -338,7 +337,7 @@ var showPageFinishProgress = function () {
   var d = document,
       gEBI = "getElementById",
       gEBCN = "getElementsByClassName",
-      page = d[gEBI]("page") || "",
+      page = d[gEBI]("container") || "",
       progress = d[gEBCN]("progress")[0] || "",
       showPage = function () {
     setStyleOpacity(page, 1);
@@ -347,6 +346,7 @@ var showPageFinishProgress = function () {
       timers.clear();
       timers = null;
       setStyleDisplayNone(progress);
+      loadInitParallax();
     }, 100);
   },
       showPageOnImagesPreloaded = function () {
