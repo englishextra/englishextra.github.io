@@ -622,12 +622,12 @@ var showMenuMore = function (n) {
 	var d = document,
 	gEBCN = "getElementsByClassName",
 	cL = "classList",
-	panel = d[gEBCN]("holder-panel-menu-more")[0] || "",
+	holderPanelMenuMore = d[gEBCN]("holder-panel-menu-more")[0] || "",
 	isActiveClass = "is-active",
 	st1 = function () {
-		panel[cL].add(isActiveClass);
+		holderPanelMenuMore[cL].add(isActiveClass);
 	};
-	if (panel) {
+	if (holderPanelMenuMore) {
 		var timers = new Timers();
 		timers.timeout(function () {
 			timers.clear();
