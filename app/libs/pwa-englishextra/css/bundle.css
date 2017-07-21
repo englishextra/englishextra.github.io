@@ -4671,7 +4671,7 @@ u,
 	.holder-search-form input[type^=text]:active,
 	.holder-search-form input[type^=search]:focus,
 	.holder-search-form input[type^=search]:active {
-		width: 14.133rem;
+		width: 12.800rem;
 	}
 }
 
