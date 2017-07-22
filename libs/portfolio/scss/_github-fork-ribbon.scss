@@ -1,8 +1,10 @@
 /*! @import "github-fork-ribbon"; */
+
 /*!
  * "Fork me on GitHub" CSS ribbon v0.2.0 | MIT License
  * @see {@link https://github.com/simonwhitaker/github-fork-ribbon-css}
  */
+
 .github-fork-ribbon {
 	width: 12.1em;
 	height: 12.1em;
@@ -21,7 +23,8 @@
 	position: fixed;
 }
 
-.github-fork-ribbon:before, .github-fork-ribbon:after {
+.github-fork-ribbon:before,
+.github-fork-ribbon:after {
 	/* The right and left classes determine the side we attach our banner to */
 	position: absolute;
 	display: block;
@@ -40,11 +43,6 @@
 	/* Set the base colour */
 	background-color: #a00;
 	/* Set a gradient: transparent black at the top to almost-transparent black at the bottom */
-	background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0.15)));
-	background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
-	background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
-	background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
-	background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
 	background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
 	/* Add a drop shadow */
 	box-shadow: 0 .15em .23em 0 rgba(0, 0, 0, 0.5);
@@ -73,27 +71,37 @@
 	border-color: rgba(255, 255, 255, 0.7);
 }
 
-.github-fork-ribbon.left-top, .github-fork-ribbon.left-bottom {
+.github-fork-ribbon.left-top,
+.github-fork-ribbon.left-bottom {
 	right: auto;
 	left: 0;
 }
 
-.github-fork-ribbon.left-bottom, .github-fork-ribbon.right-bottom {
+.github-fork-ribbon.left-bottom,
+.github-fork-ribbon.right-bottom {
 	top: auto;
 	bottom: 0;
 }
 
-.github-fork-ribbon.left-top:before, .github-fork-ribbon.left-top:after, .github-fork-ribbon.left-bottom:before, .github-fork-ribbon.left-bottom:after {
+.github-fork-ribbon.left-top:before,
+.github-fork-ribbon.left-top:after,
+.github-fork-ribbon.left-bottom:before,
+.github-fork-ribbon.left-bottom:after {
 	right: auto;
 	left: -3.23em;
 }
 
-.github-fork-ribbon.left-bottom:before, .github-fork-ribbon.left-bottom:after, .github-fork-ribbon.right-bottom:before, .github-fork-ribbon.right-bottom:after {
+.github-fork-ribbon.left-bottom:before,
+.github-fork-ribbon.left-bottom:after,
+.github-fork-ribbon.right-bottom:before,
+.github-fork-ribbon.right-bottom:after {
 	top: auto;
 	bottom: 3.23em;
 }
 
-.github-fork-ribbon.left-top:before, .github-fork-ribbon.left-top:after, .github-fork-ribbon.right-bottom:before, .github-fork-ribbon.right-bottom:after {
+.github-fork-ribbon.left-top:before,
+.github-fork-ribbon.left-top:after,
+.github-fork-ribbon.right-bottom:before,
+.github-fork-ribbon.right-bottom:after {
 	transform: rotate(-45deg);
 }
-
