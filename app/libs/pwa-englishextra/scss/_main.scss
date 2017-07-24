@@ -1231,6 +1231,7 @@ u,
 .col .btn-expand-hidden-layer {
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
+	user-select: none;
 	cursor: pointer;
 }
 
