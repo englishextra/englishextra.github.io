@@ -1737,7 +1737,7 @@
   },
   {
     "href": "#/grammar_word_order",
-    "next_href": "#/reading_russia_ukraine_war_conflict_vocabulary",
+    "next_href": "#/reading_country_language_person_capital",
     "url": "./pages/grammar/grammar_word_order.html",
     "src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-grammar-640x336.png",
     "title": "Грамматика - Порядок слов в предложении",
@@ -1760,6 +1760,34 @@
         "href": "http://elt.oup.com/student/headway",
         "title": "Headway онлайн",
         "text": "Практикуйте свой ​​английский с интерактивными упражнениями, головоломками и играми. Вы можете сами сконструировать тесты под себя, пройти их онлайн или распечатать для дальнейшей практики оффлайн. В Вашем распоряжении шесть уровней."
+      }]
+    }
+  },
+  {
+    "href": "#/reading_country_language_person_capital",
+    "next_href": "#/reading_russia_ukraine_war_conflict_vocabulary",
+    "url": "./pages/reading/reading_country_language_person_capital.html",
+    "src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-reading-640x336.png",
+    "title": "Чтение - Country, Language, People, Person, Capital",
+    "text": "“«Russians» или «the Russians», «Italian» или «Italians», а как будет «испанец» — «a Spanish» или как-то иначе?",
+    "aside": {
+      "items": [{
+        "src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-visualdictionary-640x480.png",
+        "href": "http://www.ikonet.com/en/visualdictionary/",
+        "title": "Словарь в картинках",
+        "text": "Тематический онлайн-словарь в картинках, не требующий регистрации для работы с ним, содержит около полутора десятка основных тем с детализированными иллюстрированными подтемами. Найдется любая мелочь. Для тренировки используйте раздел игр."
+      },
+      {
+        "src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-multitran-640x480.png",
+        "href": "http://www.multitran.ru/",
+        "title": "Словарь Мультитран",
+        "text": "В настоящее время это один из наиболее полных и самых популярных автоматических онлайновых словарей Рунета."
+      },
+      {
+        "src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-cambridge-dictionary-640x480.png",
+        "href": "http://dictionary.cambridge.org/dictionary/english-russian/",
+        "title": "English–Russian Dictionary",
+        "text": "Hear the words spoken in British and American English. More than 20,000 clear definitions in English with Russian translations. More than 25,000 real examples show how words are used. Ideal for intermediate learners of English."
       }]
     }
   },
