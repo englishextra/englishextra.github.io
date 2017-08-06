@@ -2,7 +2,7 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
 <svg xmlns="http://www.w3.org/2000/svg">
 <defs>
-  <font id="micon" horiz-adv-x="2620">
+  <font horiz-adv-x="2620">
     <font-face font-family="micon"
       units-per-em="1792" ascent="1792"
       descent="0" />

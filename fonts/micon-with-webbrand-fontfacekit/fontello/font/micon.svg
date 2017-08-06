@@ -3,7 +3,7 @@
 <svg xmlns="http://www.w3.org/2000/svg">
 <metadata>Copyright (C) 2017 by original authors @ fontello.com</metadata>
 <defs>
-<font id="micon" horiz-adv-x="1000" >
+<font horiz-adv-x="1000" >
 <font-face font-family="micon" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
 <missing-glyph horiz-adv-x="1000" />
 <glyph glyph-name="Cancel" unicode="&#xea80;" d="M881 687l-337-337 337-337-44-44-337 337-337-337-44 44 337 337-337 337 44 44 337-337 337 337 44-44z" horiz-adv-x="1000" />
