@@ -522,6 +522,18 @@
         "href": "https://brians.wsu.edu/common-errors/",
         "title": "Common Errors in English Usage",
         "text": "Dictionaries differ among themselves on how much guidance to usage they provide, but the goal of a usage guide like this is substantially different: to protect you against patterns which are regarded by substantial numbers of well-educated people as nonstandard."
+      },
+      {
+        "src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-cambridge-english-640x480.png",
+        "href": "http://www.cambridgeenglish.org.ru/test-your-english/",
+        "title": "Проверьте ваш английский",
+        "text": "Это быстрый бесплатный онлайн-тест. Он покажет, какой экзамен Cambridge English будет оптимальным для вас."
+      },
+      {
+        "src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-ielts-640x480.png",
+        "href": "https://www.ielts.org/about-the-test/sample-test-questions",
+        "title": "Пробные задания IELTS",
+        "text": "Есть два типа тестов IELTS: Academic или General Training. Задания по аудированию общие для обоих типов, но чтение и письмо для каждого типа свои. Уточните, какой именно тип IELTS тестов вам сдавать."
       }]
     }
   },
@@ -544,6 +556,24 @@
         "href": "https://vimeo.com/album/3325167",
         "title": "Киноэпизоды",
         "text": "Киноэпизоды художественных фильмов, специально подобранных для тренировки по аудированию. Имейте в виду, что реальная речь необязательно исключительно правильная и грамотная."
+      },
+      {
+        "src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-rosolymp-640x480.png",
+        "href": "http://www.rosolymp.ru/",
+        "title": "Всероссийская олимпиада школьников",
+        "text": "Информационный портал Всероссийской олимпиады школьников. Задания и решения."
+      },
+      {
+        "src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-cambridge-english-640x480.png",
+        "href": "http://www.cambridgeenglish.org.ru/test-your-english/",
+        "title": "Проверьте ваш английский",
+        "text": "Это быстрый бесплатный онлайн-тест. Он покажет, какой экзамен Cambridge English будет оптимальным для вас."
+      },
+      {
+        "src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-ielts-640x480.png",
+        "href": "https://www.ielts.org/about-the-test/sample-test-questions",
+        "title": "Пробные задания IELTS",
+        "text": "Есть два типа тестов IELTS: Academic или General Training. Задания по аудированию общие для обоих типов, но чтение и письмо для каждого типа свои. Уточните, какой именно тип IELTS тестов вам сдавать."
       }]
     }
   },
