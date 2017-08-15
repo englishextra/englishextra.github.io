@@ -1143,8 +1143,8 @@ initMasonry = function (ctx) {
 			timers.interval(function () {
 				/* console.log("function initMasonry.arrangeItems => started Interval"); */
 				if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
-				timers.clear();
-				timers = null;
+					timers.clear();
+					timers = null;
 					/* console.log("function initMasonry.arrangeItems; imagesPreloaded=" + imagesPreloaded); */
 					msnry.layout();
 					/* console.log("function initMasonry.arrangeItems => reinitialised msnry"); */
