@@ -1414,8 +1414,8 @@ var includeHTMLintoTarget = function (_this, u, t) {
 				hideBtn();
 				if (containerParent) {
 					manageExternalLinks(containerParent);
-					manageDataSrcImages();
 					manageImgLightboxLinks(containerParent);
+					handleDataSrcImages();
 				}
 			};
 			insertTextAsFragment(t, container, cb);
