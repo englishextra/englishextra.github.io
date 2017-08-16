@@ -1177,13 +1177,11 @@ var handleDataSrcImages = function () {
 					e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
 					srcString = e[ds].src;
 				}
-				imagePromise(srcString).then(function (r) {
+				/* imagePromise(srcString).then(function (r) {
 					e.src = srcString;
-					/* console.log("manageDataSrcImages => imagePromise: loaded image:", r); */
 				}).catch (function (err) {
-					/* console.log("manageDataSrcImages => imagePromise: cannot load image:", err); */
-				});
-				/* e.src = srcString; */
+				}); */
+				e.src = srcString;
 				e[cL].add(isActiveClass);
 				e[cL].add(isBindedClass);
 			}
@@ -1227,7 +1225,7 @@ manageDataSrcImages = function () {
 		timers.clear();
 		timers = null;
 		handleDataSrcImages();
-	}, 100);
+	}, 500);
 };
 document.ready().then(manageDataSrcImages);
 /*!
@@ -1414,7 +1412,7 @@ var includeHTMLintoTarget = function (_this, u, t) {
 				hideBtn();
 				if (containerParent) {
 					manageExternalLinks(containerParent);
-					manageDataSrcImages(containerParent);
+					manageDataSrcImages();
 					manageImgLightboxLinks(containerParent);
 				}
 			};
@@ -2208,17 +2206,17 @@ var initRoutie = function () {
 		/*!
 		 * hide loading spinner before scrolling
 		 */
-		LoadingSpinner.hide(scroll2Top.bind(null, 0, 20000));
 		d.title = (titleString ? titleString +  " - "  : "" ) + (initialDocumentTitle ? initialDocumentTitle + (userBrowsingDetails ? userBrowsingDetails : "") : "");
 		manageYandexMapButton("ymap");
 		manageDisqusButton(appContentParent);
 		manageExternalLinks(appContentParent);
 		manageDataTargetLinks(appContentParent);
 		manageImgLightboxLinks(appContentParent);
-		manageDataSrcImages(appContentParent);
 		loadManageDataQrcodeImg(appContentParent);
 		manageChaptersSelect(appContentParent);
 		manageExpandingLayers(appContentParent);
+		handleDataSrcImages();
+		LoadingSpinner.hide(scroll2Top.bind(null, 0, 20000));
 	},
 	loadNotFoundPage = function (containerClass) {
 		var container = d[gEBI](containerClass) || "",

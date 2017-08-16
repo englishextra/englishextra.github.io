@@ -1251,13 +1251,11 @@ var handleDataSrcImages = function () {
 					e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
 					srcString = e[ds].src;
 				}
-				imagePromise(srcString).then(function (r) {
-					e.src = srcString;
-					/* console.log("manageDataSrcImages => imagePromise: loaded image:", r); */
-				}).catch(function (err) {
-					/* console.log("manageDataSrcImages => imagePromise: cannot load image:", err); */
-				});
-				/* e.src = srcString; */
+				/* imagePromise(srcString).then(function (r) {
+    	e.src = srcString;
+    }).catch (function (err) {
+    }); */
+				e.src = srcString;
 				e[cL].add(isActiveClass);
 				e[cL].add(isBindedClass);
 			}
@@ -1302,7 +1300,7 @@ var handleDataSrcImages = function () {
 		timers.clear();
 		timers = null;
 		handleDataSrcImages();
-	}, 100);
+	}, 500);
 };
 document.ready().then(manageDataSrcImages);
 /*!

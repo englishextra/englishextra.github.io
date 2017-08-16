@@ -534,13 +534,11 @@ var handleDataSrcImages = function () {
 					e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
 					srcString = e[ds].src;
 				}
-				imagePromise(srcString).then(function (r) {
+				/* imagePromise(srcString).then(function (r) {
 					e.src = srcString;
-					/* console.log("manageDataSrcImages => imagePromise: loaded image:", r); */
 				}).catch (function (err) {
-					/* console.log("manageDataSrcImages => imagePromise: cannot load image:", err); */
-				});
-				/* e.src = srcString; */
+				}); */
+				e.src = srcString;
 				e[cL].add(isActiveClass);
 				e[cL].add(isBindedClass);
 			}
@@ -584,7 +582,7 @@ manageDataSrcImages = function () {
 		timers.clear();
 		timers = null;
 		handleDataSrcImages();
-	}, 100);
+	}, 500);
 };
 document.ready().then(manageDataSrcImages);
 /*!
@@ -658,7 +656,7 @@ manageDataSrcIframes = function (ctx) {
 		timers.clear();
 		timers = null;
 		handleDataSrcIframes();
-	}, 100);
+	}, 500);
 };
 document.ready().then(manageDataSrcIframes);
 /*!
@@ -1741,7 +1739,7 @@ var renderNavigation = function () {
 							"next": "js-carousel__next"
 						});
 					if (carouselRenderParent) {
-						manageDataSrcImages();
+						handleDataSrcImages();
 						manageExternalLinks(carouselRenderParent);
 					}
 				});
@@ -2192,7 +2190,7 @@ var processPoutes = function () {
 					if (asideTemplate && asideRender) {
 						insertFromTemplate(asideObj, asideTemplateId, asideRenderId, function () {
 							if (asideRenderParent) {
-								manageDataSrcImages();
+								handleDataSrcImages();
 								manageExternalLinks(asideRenderParent);
 							}
 						});
@@ -2234,7 +2232,7 @@ var processPoutes = function () {
 						}
 						insertTextAsFragment(renderMasonry, contentsRender, function () {
 							if (contentsRenderParent) {
-								manageDataSrcImages();
+								handleDataSrcImages();
 								initMasonry(contentsRenderParent);
 								manageExternalLinks(contentsRenderParent);
 							}
@@ -2248,8 +2246,8 @@ var processPoutes = function () {
 				 * put when templates rendered
 				 */
 				if (appContentParent) {
-					manageDataSrcImages();
-					manageDataSrcIframes();
+					handleDataSrcImages();
+					handleDataSrcIframes();
 					manageExternalLinks(appContentParent);
 					manageImgLightboxLinks(appContentParent);
 					manageIframeLightboxLinks(appContentParent);
