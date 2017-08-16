@@ -909,6 +909,7 @@ var initWebslides = function () {
 loadJS("../libs/serguei-webslides/js/vendors.min.js", initWebslides);
 /*!
  * replace img src with data-src
+ * initiate on load, not on ready
  * @param {Object} [ctx] context HTML Element
  */
 var manageDataQrcodeImg = function (ctx) {

@@ -2175,6 +2175,7 @@ var hideImgLightbox = function () {
 };
 /*!
  * replace img src with data-src
+ * initiate on load, not on ready
  * @param {Object} [ctx] context HTML Element
  */
 var handleDataSrcImages = function () {
@@ -2196,11 +2197,11 @@ var handleDataSrcImages = function () {
 					e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
 					srcString = e[ds].src;
 				}
-				/* imagePromise(srcString).then(function (r) {
-    	e.src = srcString;
-    }).catch (function (err) {
-    }); */
-				e.src = srcString;
+				imagePromise(srcString).then(function (r) {
+					e.src = srcString;
+				}).catch(function (err) {
+					console.log("cannot load image with imagePromise:", srcString);
+				});
 				e[cL].add(isActiveClass);
 				e[cL].add(isBindedClass);
 			}
@@ -2250,6 +2251,7 @@ var handleDataSrcImages = function () {
 globalRoot.addEventListener("load", manageDataSrcImages);
 /*!
  * replace img src with data-src
+ * initiate on load, not on ready
  * @param {Object} [ctx] context HTML Element
  */
 var manageDataQrcodeImg = function (ctx) {

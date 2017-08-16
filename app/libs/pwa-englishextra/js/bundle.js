@@ -1263,6 +1263,7 @@ var insertFromTemplate = function (parsedJson, templateId, targetId, callback, u
 };
 /*!
  * replace img src with data-src
+ * initiate on load, not on ready
  */
 var handleDataSrcImages = function () {
 	"use strict";
@@ -1283,11 +1284,11 @@ var handleDataSrcImages = function () {
 					e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
 					srcString = e[ds].src;
 				}
-				/* imagePromise(srcString).then(function (r) {
-    	e.src = srcString;
-    }).catch (function (err) {
-    }); */
-				e.src = srcString;
+				imagePromise(srcString).then(function (r) {
+					e.src = srcString;
+				}).catch(function (err) {
+					console.log("cannot load image with imagePromise:", srcString);
+				});
 				e[cL].add(isActiveClass);
 				e[cL].add(isBindedClass);
 			}
