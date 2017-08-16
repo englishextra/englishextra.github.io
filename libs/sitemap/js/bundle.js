@@ -1073,7 +1073,7 @@ var initMasonry = function () {
 	    btn = holder ? holder[gEBTN]("li") || "" : "",
 	    sel = d[gEBCN]("filter-select")[0] || "",
 	    controls = d[gEBCN]("holder-filter-controls")[0] || "",
-	    g = function () {
+	    handleGrid = function () {
 		var imgLoad;
 		if (w.Masonry && w.Isotope) {
 			var iso = new Isotope(grid, {
@@ -1108,10 +1108,19 @@ var initMasonry = function () {
 						break;
 					}
 				}
+				var timers = new Timers();
+				timers.timeout(function () {
+					timers.clear();
+					timers = null;
+					handleDataSrcImages();
+				}, 500);
 			};
 			if (btn) {
 				for (var i = 0, l = btn.length; i < l; i += 1) {
-					btn[i].onclick = handleFilterButtons;
+					if (!btn[i].classList.contains("is-binded")) {
+						btn[i].addEventListener("click", handleFilterButtons);
+						btn[i].classList.add("is-binded");
+					}
 				}
 			}
 			var handleFilterSelect = function () {
@@ -1128,9 +1137,18 @@ var initMasonry = function () {
 						break;
 					}
 				}
+				var timers = new Timers();
+				timers.timeout(function () {
+					timers.clear();
+					timers = null;
+					handleDataSrcImages();
+				}, 500);
 			};
 			if (sel) {
-				sel.onchange = handleFilterSelect;
+				if (!sel.classList.contains("is-binded")) {
+					sel.addEventListener("change", handleFilterSelect);
+					sel.classList.add("is-binded");
+				}
 			}
 			if (controls) {
 				controls.classList.add("visible");
@@ -1199,7 +1217,7 @@ var initMasonry = function () {
 	timers.timeout(function () {
 		timers.clear();
 		timers = null;
-		g();
+		handleGrid();
 	}, 100);
 },
     loadInitMasonry = function () {
