@@ -456,7 +456,7 @@ manageDataSrcImages = function () {
 		handleDataSrcImages();
 	}, 500);
 };
-document.ready().then(manageDataSrcImages);
+globalRoot.addEventListener("load", manageDataSrcImages);
 /*!
  * init masonry
  */

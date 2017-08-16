@@ -1302,7 +1302,7 @@ var handleDataSrcImages = function () {
 		handleDataSrcImages();
 	}, 500);
 };
-document.ready().then(manageDataSrcImages);
+globalRoot.addEventListener("load", manageDataSrcImages);
 /*!
  * init disqus_thread and Masonry / Packery
  * add Draggabilly to Packarey

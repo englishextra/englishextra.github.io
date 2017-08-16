@@ -1227,7 +1227,7 @@ manageDataSrcImages = function () {
 		handleDataSrcImages();
 	}, 500);
 };
-document.ready().then(manageDataSrcImages);
+globalRoot.addEventListener("load", manageDataSrcImages);
 /*!
  * replace img src with data-src
  * @param {Object} [ctx] context HTML Element

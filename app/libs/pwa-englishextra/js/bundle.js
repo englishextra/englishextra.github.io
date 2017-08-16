@@ -1334,7 +1334,7 @@ var handleDataSrcImages = function () {
 		handleDataSrcImages();
 	}, 500);
 };
-document.ready().then(manageDataSrcImages);
+globalRoot.addEventListener("load", manageDataSrcImages);
 /*!
  * replace iframe src with data-src
  */
@@ -1410,7 +1410,7 @@ var handleDataSrcIframes = function () {
 		handleDataSrcIframes();
 	}, 500);
 };
-document.ready().then(manageDataSrcIframes);
+globalRoot.addEventListener("load", manageDataSrcIframes);
 /*!
  * replace iframe src with data-src
  * @param {Object} [ctx] context HTML Element
