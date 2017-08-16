@@ -394,22 +394,20 @@ var globalRoot = "undefined" !== typeof window ? window : this;
  * @see {@link https://github.com/michealparks/document-ready-promise/blob/master/document-ready-promise.js}
  * passes jshint
  */
-(function (document, promise) {
-	document.ready = promise;
-})(globalRoot.document, function (chainVal) {
+(function (root) {
 	"use strict";
-	var d = document,
-	    w = globalRoot,
-	    loaded = /^loaded|^i|^c/.test(d.readyState),
-	    DOMContentLoaded = "DOMContentLoaded",
-	    load = "load";return new Promise(function (resolve) {
-		if (loaded) {
-			return resolve(chainVal);
-		}function onReady() {
-			resolve(chainVal);d.removeEventListener(DOMContentLoaded, onReady);w.removeEventListener(load, onReady);
-		}d.addEventListener(DOMContentLoaded, onReady);w.addEventListener(load, onReady);
-	});
-});
+	var d = root.document;d.ready = function (chainVal) {
+		var loaded = /^loaded|^i|^c/.test(d.readyState),
+		    DOMContentLoaded = "DOMContentLoaded",
+		    load = "load";return new Promise(function (resolve) {
+			if (loaded) {
+				return resolve(chainVal);
+			}function onReady() {
+				resolve(chainVal);d.removeEventListener(DOMContentLoaded, onReady);root.removeEventListener(load, onReady);
+			}d.addEventListener(DOMContentLoaded, onReady);root.addEventListener(load, onReady);
+		});
+	};
+})(globalRoot);
 /*!
  * Timer management (setInterval / setTimeout)
  * @param {Function} fn
@@ -1335,6 +1333,9 @@ var handleDataSrcImages = function () {
 		handleDataSrcImages();
 	}, 500);
 };
+/*!
+ * on load, not on ready
+ */
 globalRoot.addEventListener("load", manageDataSrcImages);
 /*!
  * replace iframe src with data-src
@@ -1411,6 +1412,9 @@ var handleDataSrcIframes = function () {
 		handleDataSrcIframes();
 	}, 500);
 };
+/*!
+ * on load, not on ready
+ */
 globalRoot.addEventListener("load", manageDataSrcIframes);
 /*!
  * replace iframe src with data-src
