@@ -36,19 +36,19 @@
     "title": "Паблик ВК"
   },
   {
-    "href": "https://englishextra.github.io/serguei/",
+    "href": "../serguei/",
     "title": "Репетитор"
   }],
   "b_carousel": [{
-    "href": "https://englishextra.github.io/pages/more/more_irregular_verbs.html",
+    "href": "../pages/more/more_irregular_verbs.html",
     "src": "./libs/pwa-englishextra/img/sprite-more-banner/more-banner-irrverbsscr-1920x270.png"
   },
   {
-    "href": "https://englishextra.github.io/pages/more/more_products.html",
+    "href": "../pages/more/more_products.html",
     "src": "./libs/pwa-englishextra/img/sprite-more-banner/more-banner-englishextra-app-1920x270.png"
   },
   {
-    "href": "https://englishextra.github.io/pages/more/more_newsletter_can_get_english_for_free.html",
+    "href": "../pages/more/more_newsletter_can_get_english_for_free.html",
     "src": "./libs/pwa-englishextra/img/sprite-more-banner/more-banner-english4free-1920x270.png"
   }]
 }
