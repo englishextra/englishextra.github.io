@@ -1539,4 +1539,4 @@ var showPageFinishProgress = function () {
 		/* } */
 	}
 };
-document.ready().then(showPageFinishProgress);
+globalRoot.addEventListener("load", showPageFinishProgress);

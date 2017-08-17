@@ -975,6 +975,6 @@ var showPageFinishProgress = function () {
 	setStyleOpacity(container, 1);
 	progressBar.complete();
 };
-document.ready().then(showPageFinishProgress);
+globalRoot.addEventListener("load", showPageFinishProgress);
 
 //# sourceMappingURL=bundle.js.map
