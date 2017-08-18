@@ -573,7 +573,7 @@ globalRoot.addEventListener("load", manageDataSrcImages);
  * init disqus_thread and Masonry / Packery
  * add Draggabilly to Packarey
  * @see {@link https://gist.github.com/englishextra/5e423ff34f67982f017b}
- * percentPosition: !0 works well with percent-width items,
+ * percentPosition: true works well with percent-width items,
  * as items will not transition their position on resize.
  * masonry.desandro.com/options.html
  */
@@ -595,89 +595,64 @@ var initMasonryDisqus = function () {
 	disqusShortname = disqusThread ? (disqusThread[ds].shortname || "") : "",
 	jsUrl = getHTTP(true) + "://" + disqusShortname + ".disqus.com/embed.js",
 	isActiveClass = "is-active",
-	/*! Masonry */
-	initMasonryGrid = function () {
-		var initMsnry = function () {
-			if (w.Masonry) {
-				msnry = new Masonry(grid, {
-						itemSelector: gridItemSelector,
-						columnWidth: gridSizerSelector,
-						gutter: 0,
-						percentPosition: !0
-					});
-				/* console.log("function initMasonryDisqus => initialised msnry"); */
-				/* var timers = new Timers();
-				timers.interval(function () {
-					if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
-						timers.clear();
-						timers = null;
-						msnry.layout();
+	msnry,
+	pckry,
+	initGrid = function () {
+		if (w.Masonry) {
+			msnry = new Masonry(grid, {
+					itemSelector: gridItemSelector,
+					columnWidth: gridSizerSelector,
+					gutter: 0,
+					percentPosition: true
+				});
+			/* console.log("function initMasonryDisqus => initialised msnry"); */
+			/* var timers = new Timers();
+			timers.interval(function () {
+				if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
+					timers.clear();
+					timers = null;
+					msnry.layout();
+				}
+			}, 100); */
+		} else if (w.Packery) {
+			pckry = new Packery(grid, {
+					itemSelector: gridItemSelector,
+					columnWidth: gridSizerSelector,
+					gutter: 0,
+					percentPosition: true
+				});
+			/* console.log("function initMasonryDisqus => initialised pckry"); */
+			/* var timers = new Timers();
+			timers.interval(function () {
+				if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
+					timers.clear();
+					timers = null;
+					pckry.layout();
+				}
+			}, 100); */
+			if (gridItem) {
+				if (w.Draggabilly) {
+					var draggie,
+					initDraggie = function (e) {
+						var draggableElem = e;
+						draggie = new Draggabilly(draggableElem, {});
+						draggies.push(draggie);
+						/* console.log("function initMasonryDisqus => initialised draggie"); */
+					},
+					draggies = [];
+					for (var i = 0, l = gridItem.length; i < l; i += 1) {
+						initDraggie(gridItem[i]);
 					}
-				}, 100); */
-			}
-		};
-		/* if ("undefined" !== typeof imagesPreloaded) { */
-			var timers = new Timers();
-			timers.timeout(function () {
-				timers.clear();
-				timers = null;
-				initMsnry();
-			}, 100);
-		/* } else { */
-			/* console.log("function initMasonryDisqus => undefined: imagesPreloaded"); */
-		/* } */
-	},
-	/*! or Packery */
-	initPackeryGrid = function (c) {
-		var initPckry = function () {
-			if (w.Packery) {
-				pckry = new Packery(grid, {
-						itemSelector: gridItemSelector,
-						columnWidth: gridSizerSelector,
-						gutter: 0,
-						percentPosition: !0
-					});
-				/* console.log("function initMasonryDisqus => initialised pckry"); */
-				/* var timers = new Timers();
-				timers.interval(function () {
-					if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
-						timers.clear();
-						timers = null;
-						pckry.layout();
-					}
-				}, 100); */
-				if (gridItem) {
-					if (w.Draggabilly) {
-						var draggie,
-						initDraggie = function (e) {
-							var draggableElem = e;
-							draggie = new Draggabilly(draggableElem, {});
-							draggies.push(draggie);
-							/* console.log("function initMasonryDisqus => initialised draggie"); */
-						},
-						draggies = [];
-						for (var i = 0, l = gridItem.length; i < l; i += 1) {
-							initDraggie(gridItem[i]);
-						}
-						/* forEach(gridItem, initDraggie, false); */
-						if (pckry && draggie) {
-							pckry.bindDraggabillyEvents(draggie);
-							/* console.log("function initMasonryDisqus => binded draggie to pckry"); */
-						}
+					/* forEach(gridItem, initDraggie, false); */
+					if (pckry && draggie) {
+						pckry.bindDraggabillyEvents(draggie);
+						/* console.log("function initMasonryDisqus => binded draggie to pckry"); */
 					}
 				}
 			}
-		};
-		/* if ("undefined" !== typeof imagesPreloaded) { */
-			var timers = new Timers();
-			timers.timeout(function () {
-				timers.clear();
-				timers = null;
-				initPckry();
-			}, 100);
-		/* } else { */
-			/* console.log("function initMasonryDisqus => undefined: imagesPreloaded"); */
-		/* } */
+		} else {
+			/* console.log("function initMasonryDisqus => no library is loaded"); */
+		}
 	},
 	showDisqusThread = function () {
 		var loadInitMasonryDisqus = function () {
@@ -708,12 +683,16 @@ var initMasonryDisqus = function () {
 	};
 	if (grid && gridItem) {
 		/* console.log("triggered function: initMasonryDisqus"); */
-		var msnry,
-		pckry;
-		/*! Masonry */
-		initMasonryGrid();
-		/*! or Packery */
-		initPackeryGrid();
+		/* if ("undefined" !== typeof imagesPreloaded) { */
+			var timers = new Timers();
+			timers.timeout(function () {
+				timers.clear();
+				timers = null;
+				initGrid();
+			}, 100);
+		/* } else { */
+			/* console.log("function initMasonryDisqus => undefined: imagesPreloaded"); */
+		/* } */
 		if (disqusThread && disqusShortname) {
 			if ("undefined" !== typeof getHTTP && getHTTP()) {
 				showDisqusThread();

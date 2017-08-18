@@ -436,7 +436,7 @@ initMasonryImagesLoaded = function () {
 					itemSelector: gridItemSelector,
 					columnWidth: gridSizerSelector,
 					gutter: 0,
-					percentPosition: !0
+					percentPosition: true
 				});
 			/* console.log("function initMasonryImagesLoaded => initialised msnry"); */
 			if (w.imagesLoaded) {
@@ -454,7 +454,7 @@ initMasonryImagesLoaded = function () {
 					itemSelector: gridItemSelector,
 					columnWidth: gridSizerSelector,
 					gutter: 0,
-					percentPosition: !0
+					percentPosition: true
 				});
 			/* console.log("function initMasonryImagesLoaded => initialised pckry"); */
 			if (w.imagesLoaded) {

@@ -489,7 +489,7 @@ var initMasonry = function () {
 						columnWidth: gridSizerSelector,
 						gutter: 0
 					},
-					percentPosition: !0,
+					percentPosition: true,
 				});
 			/* console.log("function initMasonry => initialised iso"); */
 			if (w.imagesLoaded) {
@@ -564,7 +564,7 @@ var initMasonry = function () {
 					itemSelector: gridItemSelector,
 					columnWidth: gridSizerSelector,
 					gutter: 0,
-					percentPosition: !0
+					percentPosition: true
 				});
 			/* console.log("function initMasonry => initialised msnry"); */
 			if (w.imagesLoaded) {
@@ -582,7 +582,7 @@ var initMasonry = function () {
 					itemSelector: gridItemSelector,
 					columnWidth: gridSizerSelector,
 					gutter: 0,
-					percentPosition: !0
+					percentPosition: true
 				});
 			/* console.log("function initMasonry => initialised pckry"); */
 			if (w.imagesLoaded) {

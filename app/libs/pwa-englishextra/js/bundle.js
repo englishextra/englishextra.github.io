@@ -1874,7 +1874,7 @@ var manageExpandingLayers = function (ctx) {
 /*!
  * init Masonry grid
  * @see {@link https://stackoverflow.com/questions/15160010/jquery-masonry-collapsing-on-initial-page-load-works-fine-after-clicking-home}
- * percentPosition: !0 works well with percent-width items,
+ * percentPosition: true works well with percent-width items,
  * as items will not transition their position on resize.
  * masonry.desandro.com/options.html
  */
@@ -1903,7 +1903,7 @@ var msnry,
 				itemSelector: gridItemSelector,
 				columnWidth: gridSizerSelector,
 				gutter: 0,
-				percentPosition: !0
+				percentPosition: true
 			});
 			/* console.log("function initMasonry.arrangeItems => initialised msnry"); */
 			timers = new Timers();
@@ -1925,7 +1925,7 @@ var msnry,
 				itemSelector: gridItemSelector,
 				columnWidth: gridSizerSelector,
 				gutter: 0,
-				percentPosition: !0
+				percentPosition: true
 			});
 			/* console.log("function initMasonry.arrangeItems => initialised pckry"); */
 			timers = new Timers();
@@ -1940,7 +1940,7 @@ var msnry,
 				}
 			}, 100);
 		} else {
-			/* console.log("function initMasonry.arrangeItems => no library is loaded"); */
+			/* console.log("function initMasonry => no library is loaded"); */
 		}
 	};
 	if (grid && gridItem) {

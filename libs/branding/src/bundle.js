@@ -562,7 +562,7 @@ initAllMasonry = function () {
 						itemSelector: gridItemSelector,
 						columnWidth: gridSizerSelector,
 						gutter: 0,
-						percentPosition: !0
+						percentPosition: true
 					});
 			};
 			for (var j = 0, m = grid.length; j < m; j += 1) {
