@@ -1054,7 +1054,7 @@ document.ready().then(manageExternalLinks);
  * init Masonry grid and rerender on imagesLoaded progress
  */
 var localImagesPreloaded,
-    initMasonryImagesLoaded = function () {
+    initMasonry = function () {
 	"use strict";
 
 	var w = globalRoot,
@@ -1065,55 +1065,65 @@ var localImagesPreloaded,
 	    gridSizerSelector = ".masonry-grid-sizer",
 	    grid = d[gEBCN]("masonry-grid")[0] || "",
 	    gridItem = d[gEBCN](gridItemClass)[0] || "",
-	    arrangeGrid = function () {
+	    msnry,
+	    pckry,
+	    initGrid = function () {
 		var imgLoad;
 		if (w.Masonry) {
-			var msnry = new Masonry(grid, {
+			/* console.log("function initMasonry => initialised msnry"); */
+			msnry = new Masonry(grid, {
 				itemSelector: gridItemSelector,
 				columnWidth: gridSizerSelector,
 				gutter: 0,
 				percentPosition: true
 			});
-			/* console.log("function initMasonryImagesLoaded => initialised msnry"); */
 			if (w.imagesLoaded) {
 				imgLoad = imagesLoaded(grid);
 				imgLoad.on("progress", function (instance) {
+					/* console.log("function initMasonry => reinitialised msnry"); */
 					msnry.layout();
-					/* console.log("function initMasonryImagesLoaded => reinitialised msnry"); */
-				});
-			}
-			if ("undefined" !== typeof imagesPreloaded) {
-				localImagesPreloaded = true;
-			}
-		} else if (w.Packery) {
-			var pckry = new Packery(grid, {
-				itemSelector: gridItemSelector,
-				columnWidth: gridSizerSelector,
-				gutter: 0,
-				percentPosition: true
-			});
-			/* console.log("function initMasonryImagesLoaded => initialised pckry"); */
-			if (w.imagesLoaded) {
-				imgLoad = imagesLoaded(grid);
-				imgLoad.on("progress", function (instance) {
-					pckry.layout();
-					/* console.log("function initMasonryImagesLoaded => reinitialised pckry"); */
 				});
 			}
 			if ("undefined" !== typeof imagesPreloaded) {
 				localImagesPreloaded = true;
 			}
 		} else {
-			/* console.log("function initMasonry => no library is loaded"); */
+			if (w.Packery) {
+				/* console.log("function initMasonry => initialised pckry"); */
+				pckry = new Packery(grid, {
+					itemSelector: gridItemSelector,
+					columnWidth: gridSizerSelector,
+					gutter: 0,
+					percentPosition: true
+				});
+				if (w.imagesLoaded) {
+					imgLoad = imagesLoaded(grid);
+					imgLoad.on("progress", function (instance) {
+						/* console.log("function initMasonry => reinitialised pckry"); */
+						pckry.layout();
+					});
+				}
+				if ("undefined" !== typeof imagesPreloaded) {
+					localImagesPreloaded = true;
+				}
+			}
 		}
 	};
 	if (grid && gridItem) {
+		/* console.log("triggered function: initMasonryDisqus"); */
+		initGrid();
 		var timers = new Timers();
 		timers.timeout(function () {
 			timers.clear();
 			timers = null;
-			arrangeGrid();
-		}, 100);
+			if ("undefined" !== typeof msnry && msnry) {
+				msnry.layout();
+			} else {
+				if ("undefined" !== typeof pckry && pckry) {
+					pckry.layout();
+				}
+			}
+		}, 500);
 	}
 },
     loadInitMasonryImagesLoaded = function () {
@@ -1122,7 +1132,7 @@ var localImagesPreloaded,
 
 	var jsUrl = "../cdn/packery/2.1.1/js/packery.imagesloaded.pkgd.fixed.min.js";
 	if (!scriptIsLoaded(jsUrl)) {
-		loadJS(jsUrl, initMasonryImagesLoaded);
+		loadJS(jsUrl, initMasonry);
 	}
 };
 document.ready().then(loadInitMasonryImagesLoaded);
@@ -1987,8 +1997,6 @@ var loadInitManUp = function () {
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initManUp);
-		} else {
-			initManUp();
 		}
 	}
 };

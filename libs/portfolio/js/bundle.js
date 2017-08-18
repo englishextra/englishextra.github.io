@@ -1762,8 +1762,6 @@ var loadInitManUp = function () {
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initManUp);
-		} else {
-			initManUp();
 		}
 	}
 };
