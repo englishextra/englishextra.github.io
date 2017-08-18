@@ -1408,20 +1408,6 @@ var initMasonryDisqus = function () {
 	if (grid && gridItem) {
 		/* console.log("triggered function: initMasonryDisqus"); */
 		initGrid();
-		/* var timers = new Timers();
-  timers.interval(function () {
-  	if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
-  		timers.clear();
-  		timers = null;
-  		if ("undefined" !== typeof msnry && msnry) {
-  			msnry.layout();
-  		} else {
-  			if ("undefined" !== typeof pckry && pckry) {
-  				pckry.layout();
-  			}
-  		}
-  	}
-  }, 100); */
 		var timers = new Timers();
 		timers.timeout(function () {
 			timers.clear();
