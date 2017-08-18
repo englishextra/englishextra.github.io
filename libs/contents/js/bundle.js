@@ -1312,6 +1312,8 @@ globalRoot.addEventListener("load", manageDataSrcImages);
  * percentPosition: true works well with percent-width items,
  * as items will not transition their position on resize.
  * masonry.desandro.com/options.html
+ * use timed out layout property after initialising
+ * to level the horizontal gaps
  */
 var initMasonryDisqus = function () {
 	"use strict";
