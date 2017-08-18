@@ -1244,10 +1244,15 @@ var handleExternalLink = function (url, ev) {
 document.ready().then(manageExternalLinks);
 /*!
  * init all Masonry grids
+ * @see {@link https://stackoverflow.com/questions/15160010/jquery-masonry-collapsing-on-initial-page-load-works-fine-after-clicking-home}
+ * @see {@link https://gist.github.com/englishextra/5e423ff34f67982f017b}
+ * percentPosition: true works well with percent-width items,
+ * as items will not transition their position on resize.
+ * masonry.desandro.com/options.html
+ * use timed out layout property after initialising
+ * to level the horizontal gaps
  */
-var msnry,
-    pckry,
-    initAllMasonry = function () {
+var initAllMasonry = function () {
 	"use strict";
 
 	var w = globalRoot,
@@ -1257,8 +1262,11 @@ var msnry,
 	    gridSizerSelector = ".masonry-grid-sizer",
 	    grid = d[gEBCN]("masonry-grid") || "",
 	    gridItem = d[gEBCN]("masonry-grid-item") || "",
+	    msnry,
+	    pckry,
 	    initGrid = function () {
 		if (w.Masonry) {
+			/* console.log("function initMasonryDisqus => initialised msnry"); */
 			if (msnry) {
 				msnry.destroy();
 			}
@@ -1273,36 +1281,39 @@ var msnry,
 				initMsnry(grid[i]);
 			}
 			/* forEach(grid, initMsnry, false); */
-		} else if (w.Packery) {
-			if (pckry) {
-				pckry.destroy();
-			}
-			var initPckry = function (e) {
-				pckry = new Packery(e, {
-					itemSelector: gridItemSelector,
-					columnWidth: gridSizerSelector,
-					gutter: 0,
-					percentPosition: true
-				});
-			};
-			for (var j = 0, m = grid.length; j < m; j += 1) {
-				initPckry(grid[j]);
-			}
-			/* forEach(grid, initPckry, false); */
-			if (w.Draggabilly) {
-				var draggie,
-				    initDraggie = function (e) {
-					var draggableElem = e;
-					draggie = new Draggabilly(draggableElem, {});
-					draggies.push(draggie);
-				},
-				    draggies = [];
-				for (var k = 0, n = gridItem.length; k < n; k += 1) {
-					initDraggie(gridItem[k]);
-				}
-				/* forEach(gridItem, initDraggie, false); */
+		} else {
+			if (w.Packery) {
+				/* console.log("function initMasonryDisqus => initialised pckry"); */
 				if (pckry) {
-					pckry.bindDraggabillyEvents(draggie);
+					pckry.destroy();
+				}
+				var initPckry = function (e) {
+					pckry = new Packery(e, {
+						itemSelector: gridItemSelector,
+						columnWidth: gridSizerSelector,
+						gutter: 0,
+						percentPosition: true
+					});
+				};
+				for (var j = 0, m = grid.length; j < m; j += 1) {
+					initPckry(grid[j]);
+				}
+				/* forEach(grid, initPckry, false); */
+				if (w.Draggabilly) {
+					var draggie,
+					    initDraggie = function (e) {
+						var draggableElem = e;
+						draggie = new Draggabilly(draggableElem, {});
+						draggies.push(draggie);
+					},
+					    draggies = [];
+					for (var k = 0, n = gridItem.length; k < n; k += 1) {
+						initDraggie(gridItem[k]);
+					}
+					/* forEach(gridItem, initDraggie, false); */
+					if (pckry) {
+						pckry.bindDraggabillyEvents(draggie);
+					}
 				}
 			}
 		}
@@ -1310,6 +1321,18 @@ var msnry,
 	if (grid && gridItem) {
 		/* console.log("triggered function: initAllMasonry"); */
 		initGrid();
+		var timers = new Timers();
+		timers.timeout(function () {
+			timers.clear();
+			timers = null;
+			if ("undefined" !== typeof msnry && msnry) {
+				msnry.layout();
+			} else {
+				if ("undefined" !== typeof pckry && pckry) {
+					pckry.layout();
+				}
+			}
+		}, 500);
 	}
 },
     loadInitAllMasonry = function () {

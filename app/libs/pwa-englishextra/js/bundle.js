@@ -1874,6 +1874,7 @@ var manageExpandingLayers = function (ctx) {
 /*!
  * init Masonry grid
  * @see {@link https://stackoverflow.com/questions/15160010/jquery-masonry-collapsing-on-initial-page-load-works-fine-after-clicking-home}
+ * @see {@link https://gist.github.com/englishextra/5e423ff34f67982f017b}
  * percentPosition: true works well with percent-width items,
  * as items will not transition their position on resize.
  * masonry.desandro.com/options.html
@@ -1896,8 +1897,8 @@ var msnry,
 	    grid = ctx ? ctx[gEBCN](gridClass)[0] || "" : d[gEBCN](gridClass)[0] || "",
 	    gridItem = ctx ? ctx[gEBCN](gridItemClass)[0] || "" : d[gEBCN](gridItemClass)[0] || "",
 	    initGrid = function () {
-		var timers;
 		if (w.Masonry) {
+			/* console.log("function initMasonry.arrangeItems => initialised msnry"); */
 			if (msnry) {
 				msnry.destroy();
 			}
@@ -1907,61 +1908,44 @@ var msnry,
 				gutter: 0,
 				percentPosition: true
 			});
-			/* console.log("function initMasonry.arrangeItems => initialised msnry"); */
-			timers = new Timers();
-			timers.interval(function () {
-				/* console.log("function initMasonry.arrangeItems => started Interval"); */
-				if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
-					timers.clear();
-					timers = null;
-					/* console.log("function initMasonry.arrangeItems; imagesPreloaded=" + imagesPreloaded); */
-					msnry.layout();
-					/* console.log("function initMasonry.arrangeItems => reinitialised msnry"); */
-				}
-			}, 100);
-		} else if (w.Packery) {
-			if (pckry) {
-				pckry.destroy();
-			}
-			pckry = new Packery(grid, {
-				itemSelector: gridItemSelector,
-				columnWidth: gridSizerSelector,
-				gutter: 0,
-				percentPosition: true
-			});
-			/* console.log("function initMasonry.arrangeItems => initialised pckry"); */
-			timers = new Timers();
-			timers.interval(function () {
-				/* console.log("function initMasonry.arrangeItems => started Interval"); */
-				if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
-					timers.clear();
-					timers = null;
-					/* console.log("function initMasonry.arrangeItems; imagesPreloaded=" + imagesPreloaded); */
-					pckry.layout();
-					/* console.log("function initMasonry.arrangeItems => reinitialised pckry"); */
-				}
-			}, 100);
 		} else {
-			/* console.log("function initMasonry => no library is loaded"); */
+			if (w.Packery) {
+				/* console.log("function initMasonry.arrangeItems => initialised pckry"); */
+				if (pckry) {
+					pckry.destroy();
+				}
+				pckry = new Packery(grid, {
+					itemSelector: gridItemSelector,
+					columnWidth: gridSizerSelector,
+					gutter: 0,
+					percentPosition: true
+				});
+			}
 		}
 	};
 	if (grid && gridItem) {
-		if ("undefined" !== typeof imagesPreloaded) {
-			/* console.log("triggered function: initMasonryGrid"); */
+		/* console.log("triggered function: initMasonryGrid"); */
+		var initRerenderGrid = function () {
+			initGrid();
 			var timers = new Timers();
 			timers.timeout(function () {
 				timers.clear();
 				timers = null;
-				/* var jsUrl = "./cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
-				var jsUrl = "./cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
-				if (!scriptIsLoaded(jsUrl)) {
-					loadJS(jsUrl, initGrid);
+				if ("undefined" !== typeof msnry && msnry) {
+					msnry.layout();
 				} else {
-					initGrid();
+					if ("undefined" !== typeof pckry && pckry) {
+						pckry.layout();
+					}
 				}
-			}, 100);
+			}, 500);
+		};
+		/* var jsUrl = "./cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
+		var jsUrl = "./cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
+		if (!scriptIsLoaded(jsUrl)) {
+			loadJS(jsUrl, initRerenderGrid);
 		} else {
-			/* console.log("function initMasonry => undefined: imagesPreloaded"); */
+			initRerenderGrid();
 		}
 	}
 };

@@ -1308,6 +1308,7 @@ globalRoot.addEventListener("load", manageDataSrcImages);
 /*!
  * init disqus_thread and Masonry / Packery
  * add Draggabilly to Packarey
+ * @see {@link https://stackoverflow.com/questions/15160010/jquery-masonry-collapsing-on-initial-page-load-works-fine-after-clicking-home}
  * @see {@link https://gist.github.com/englishextra/5e423ff34f67982f017b}
  * percentPosition: true works well with percent-width items,
  * as items will not transition their position on resize.
