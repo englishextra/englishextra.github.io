@@ -684,11 +684,20 @@ var initMasonryDisqus = function () {
 	if (grid && gridItem) {
 		/* console.log("triggered function: initMasonryDisqus"); */
 		/* if ("undefined" !== typeof imagesPreloaded) { */
+			initGrid();
 			var timers = new Timers();
 			timers.timeout(function () {
 				timers.clear();
 				timers = null;
-				initGrid();
+				if ("undefined" !== typeof msnry && msnry) {
+					msnry.layout();
+					/* console.log("function initMasonryDisqus => reinitialised msnry"); */
+				} else {
+					if ("undefined" !== typeof pckry && pckry) {
+						pckry.layout();
+						/* console.log("function initMasonryDisqus => reinitialised pckry"); */
+					}
+				}
 			}, 100);
 		/* } else { */
 			/* console.log("function initMasonryDisqus => undefined: imagesPreloaded"); */
