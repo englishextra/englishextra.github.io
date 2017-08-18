@@ -1338,60 +1338,44 @@ var initMasonryDisqus = function () {
 	    pckry,
 	    initGrid = function () {
 		if (w.Masonry) {
+			/* console.log("function initMasonryDisqus => initialised msnry"); */
 			msnry = new Masonry(grid, {
 				itemSelector: gridItemSelector,
 				columnWidth: gridSizerSelector,
 				gutter: 0,
 				percentPosition: true
 			});
-			/* console.log("function initMasonryDisqus => initialised msnry"); */
-			/* var timers = new Timers();
-   timers.interval(function () {
-   	if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
-   		timers.clear();
-   		timers = null;
-   		msnry.layout();
-   	}
-   }, 100); */
-		} else if (w.Packery) {
-			pckry = new Packery(grid, {
-				itemSelector: gridItemSelector,
-				columnWidth: gridSizerSelector,
-				gutter: 0,
-				percentPosition: true
-			});
-			/* console.log("function initMasonryDisqus => initialised pckry"); */
-			/* var timers = new Timers();
-   timers.interval(function () {
-   	if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
-   		timers.clear();
-   		timers = null;
-   		pckry.layout();
-   	}
-   }, 100); */
-			if (gridItem) {
-				if (w.Draggabilly) {
-					var draggie,
-					    initDraggie = function (e) {
-						var draggableElem = e;
-						draggie = new Draggabilly(draggableElem, {});
-						draggies.push(draggie);
+		} else {
+			if (w.Packery) {
+				/* console.log("function initMasonryDisqus => initialised pckry"); */
+				pckry = new Packery(grid, {
+					itemSelector: gridItemSelector,
+					columnWidth: gridSizerSelector,
+					gutter: 0,
+					percentPosition: true
+				});
+				if (gridItem) {
+					if (w.Draggabilly) {
 						/* console.log("function initMasonryDisqus => initialised draggie"); */
-					},
-					    draggies = [];
-					for (var i = 0, l = gridItem.length; i < l; i += 1) {
-						initDraggie(gridItem[i]);
-					}
-					/* forEach(gridItem, initDraggie, false); */
-					if (pckry && draggie) {
-						pckry.bindDraggabillyEvents(draggie);
-						/* console.log("function initMasonryDisqus => binded draggie to pckry"); */
+						var draggie,
+						    initDraggie = function (e) {
+							var draggableElem = e;
+							draggie = new Draggabilly(draggableElem, {});
+							draggies.push(draggie);
+						},
+						    draggies = [];
+						for (var i = 0, l = gridItem.length; i < l; i += 1) {
+							initDraggie(gridItem[i]);
+						}
+						/* forEach(gridItem, initDraggie, false); */
+						if (pckry && draggie) {
+							/* console.log("function initMasonryDisqus => binded draggie to pckry"); */
+							pckry.bindDraggabillyEvents(draggie);
+						}
 					}
 				}
 			}
-		} else {
-				/* console.log("function initMasonryDisqus => no library is loaded"); */
-			}
+		}
 	},
 	    showDisqusThread = function () {
 		var loadInitMasonryDisqus = function () {
@@ -1404,12 +1388,12 @@ var initMasonryDisqus = function () {
 					timers = null;
 					/* console.log("function initMasonryDisqus; disqusThreadHeight=" + disqusThreadHeight); */
 					if ("undefined" !== typeof msnry && msnry) {
-						msnry.layout();
 						/* console.log("function initMasonryDisqus => reinitialised msnry"); */
+						msnry.layout();
 					} else {
 						if ("undefined" !== typeof pckry && pckry) {
-							pckry.layout();
 							/* console.log("function initMasonryDisqus => reinitialised pckry"); */
+							pckry.layout();
 						}
 					}
 				}
@@ -1422,25 +1406,33 @@ var initMasonryDisqus = function () {
 	};
 	if (grid && gridItem) {
 		/* console.log("triggered function: initMasonryDisqus"); */
-		/* if ("undefined" !== typeof imagesPreloaded) { */
 		initGrid();
+		/* var timers = new Timers();
+  timers.interval(function () {
+  	if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
+  		timers.clear();
+  		timers = null;
+  		if ("undefined" !== typeof msnry && msnry) {
+  			msnry.layout();
+  		} else {
+  			if ("undefined" !== typeof pckry && pckry) {
+  				pckry.layout();
+  			}
+  		}
+  	}
+  }, 100); */
 		var timers = new Timers();
 		timers.timeout(function () {
 			timers.clear();
 			timers = null;
 			if ("undefined" !== typeof msnry && msnry) {
 				msnry.layout();
-				/* console.log("function initMasonryDisqus => reinitialised msnry"); */
 			} else {
 				if ("undefined" !== typeof pckry && pckry) {
 					pckry.layout();
-					/* console.log("function initMasonryDisqus => reinitialised pckry"); */
 				}
 			}
-		}, 100);
-		/* } else { */
-		/* console.log("function initMasonryDisqus => undefined: imagesPreloaded"); */
-		/* } */
+		}, 500);
 		if (disqusThread && disqusShortname) {
 			if ("undefined" !== typeof getHTTP && getHTTP()) {
 				showDisqusThread();
