@@ -599,7 +599,7 @@ var initAllMasonry = function () {
 		}
 	};
 	if (grid && gridItem) {
-		/* console.log("triggered function: initMasonryDisqus"); */
+		/* console.log("triggered function: initAllMasonry"); */
 		var initRerenderGrid = function () {
 			initGrid();
 			var timers = new Timers();
