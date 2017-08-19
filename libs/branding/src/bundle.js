@@ -599,32 +599,31 @@ var initAllMasonry = function () {
 		}
 	};
 	if (grid && gridItem) {
-		/* console.log("triggered function: initAllMasonry"); */
-		initGrid();
-		var timers = new Timers();
-		timers.timeout(function () {
-			timers.clear();
-			timers = null;
-			if ("undefined" !== typeof msnry && msnry) {
-				msnry.layout();
-			} else {
-				if ("undefined" !== typeof pckry && pckry) {
-					pckry.layout();
+		/* console.log("triggered function: initMasonryDisqus"); */
+		var initRerenderGrid = function () {
+			initGrid();
+			var timers = new Timers();
+			timers.timeout(function () {
+				timers.clear();
+				timers = null;
+				if ("undefined" !== typeof msnry && msnry) {
+					msnry.layout();
+				} else {
+					if ("undefined" !== typeof pckry && pckry) {
+						pckry.layout();
+					}
 				}
-			}
-		}, 500);
-	}
-},
-loadInitAllMasonry = function () {
-	"use strict";
-	/* var jsUrl = "../../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
-	/* var jsUrl = "../../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js"; */
-	var jsUrl = "../../cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
-	if (!scriptIsLoaded(jsUrl)) {
-		loadJS(jsUrl, initAllMasonry);
+			}, 500);
+		};
+		/* var jsUrl = "../../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
+		/* var jsUrl = "../../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js"; */
+		var jsUrl = "../../cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
+		if (!scriptIsLoaded(jsUrl)) {
+			loadJS(jsUrl, initRerenderGrid);
+		}
 	}
 };
-document.ready().then(loadInitAllMasonry);
+document.ready().then(initAllMasonry);
 /*!
  * init prettyPrint
  */

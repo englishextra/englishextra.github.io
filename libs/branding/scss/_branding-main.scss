@@ -1322,21 +1322,20 @@ u,
 /* .col .sg-panel-ui-btns span, */
 
 .col .sg-panel-ui-btns svg {
-	display: inline-block;
-	width: 42px;
-	height: 42px;
+	display: block;
+	float: left;
+	width: 3.000rem;
+	height: 3.000rem;
 	background-color: $color-hex-ui-icon-bg;
-	background-size: 42px 42px;
 	vertical-align: bottom;
-	margin: 0 0 0 0;
-	padding: 0.500em;
+	margin: 0;
+	padding: 0.875rem;
 }
 
 /* .col .sg-panel-ui-btns span:hover, */
 
 .col .sg-panel-ui-btns svg:hover {
 	background-color: $color-hex-hover-ui-icon-bg;
-	background-size: 42px 42px;
 	cursor: pointer;
 }
 

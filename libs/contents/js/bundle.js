@@ -1333,7 +1333,7 @@ var initMasonryDisqus = function () {
 	    gridItem = d[gEBCN](gridItemClass) || "",
 	    disqusThread = d[gEBI]("disqus_thread") || "",
 	    disqusShortname = disqusThread ? disqusThread[ds].shortname || "" : "",
-	    jsUrl = getHTTP(true) + "://" + disqusShortname + ".disqus.com/embed.js",
+	    embedJsUrl = getHTTP(true) + "://" + disqusShortname + ".disqus.com/embed.js",
 	    isActiveClass = "is-active",
 	    msnry,
 	    pckry,
@@ -1379,7 +1379,7 @@ var initMasonryDisqus = function () {
 		}
 	},
 	    showDisqusThread = function () {
-		var loadInitMasonryDisqus = function () {
+		var initDisqus = function () {
 			var timers = new Timers();
 			timers.interval(function () {
 				/* console.log("function initMasonryDisqus => started Interval"); */
@@ -1401,45 +1401,43 @@ var initMasonryDisqus = function () {
 			}, 100);
 			disqusThread[cL].add(isActiveClass);
 		};
-		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl, loadInitMasonryDisqus);
+		if (!scriptIsLoaded(embedJsUrl)) {
+			loadJS(embedJsUrl, initDisqus);
 		}
 	};
 	if (grid && gridItem) {
 		/* console.log("triggered function: initMasonryDisqus"); */
-		initGrid();
-		var timers = new Timers();
-		timers.timeout(function () {
-			timers.clear();
-			timers = null;
-			if ("undefined" !== typeof msnry && msnry) {
-				msnry.layout();
-			} else {
-				if ("undefined" !== typeof pckry && pckry) {
-					pckry.layout();
+		var initRerenderGrid = function () {
+			initGrid();
+			var timers = new Timers();
+			timers.timeout(function () {
+				timers.clear();
+				timers = null;
+				if ("undefined" !== typeof msnry && msnry) {
+					msnry.layout();
+				} else {
+					if ("undefined" !== typeof pckry && pckry) {
+						pckry.layout();
+					}
+				}
+			}, 500);
+			if (disqusThread && disqusShortname) {
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					showDisqusThread();
+				} else {
+					setStyleDisplayNone(disqusThread[pN][pN]);
 				}
 			}
-		}, 500);
-		if (disqusThread && disqusShortname) {
-			if ("undefined" !== typeof getHTTP && getHTTP()) {
-				showDisqusThread();
-			} else {
-				setStyleDisplayNone(disqusThread[pN][pN]);
-			}
+		};
+		/* var jsUrl = "../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
+		/* var jsUrl = "../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js"; */
+		var jsUrl = "../cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
+		if (!scriptIsLoaded(jsUrl)) {
+			loadJS(jsUrl, initRerenderGrid);
 		}
 	}
-},
-    loadInitMasonryDisqus = function () {
-	"use strict";
-	/* var jsUrl = "../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
-	/* var jsUrl = "../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js"; */
-
-	var jsUrl = "../cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
-	if (!scriptIsLoaded(jsUrl)) {
-		loadJS(jsUrl, initMasonryDisqus);
-	}
 };
-document.ready().then(loadInitMasonryDisqus);
+document.ready().then(initMasonryDisqus);
 /*!
  * load json and tronsform into select options
  * add smooth scroll or redirection to static select options
