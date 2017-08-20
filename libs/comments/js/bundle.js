@@ -871,8 +871,8 @@ var initComments = function () {
 				load_pt_comments.load("/scripts/comments/?load=posts&limit=100");
 			});
 		}
-	};
-	var jsUrl = "../libs/comments/js/vendors.min.js";
+	},
+	    jsUrl = "../libs/comments/js/vendors.min.js";
 	if (!scriptIsLoaded(jsUrl)) {
 		loadJS(jsUrl, initScript);
 	}

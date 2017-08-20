@@ -1407,7 +1407,7 @@ var initMasonryDisqus = function () {
 	};
 	if (grid && gridItem) {
 		/* console.log("triggered function: initMasonryDisqus"); */
-		var initRerenderGrid = function () {
+		var initScript = function () {
 			initGrid();
 			var timers = new Timers();
 			timers.timeout(function () {
@@ -1428,12 +1428,13 @@ var initMasonryDisqus = function () {
 					setStyleDisplayNone(disqusThread[pN][pN]);
 				}
 			}
-		};
-		/* var jsUrl = "../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
-		/* var jsUrl = "../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js"; */
-		var jsUrl = "../cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
+		},
+
+		/* jsUrl = "../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
+		/* jsUrl = "../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js"; */
+		jsUrl = "../cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl, initRerenderGrid);
+			loadJS(jsUrl, initScript);
 		}
 	}
 };

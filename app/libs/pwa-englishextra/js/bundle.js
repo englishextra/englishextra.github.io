@@ -1939,9 +1939,10 @@ var msnry,
 					}
 				}
 			}, 500);
-		};
-		/* var jsUrl = "./cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
-		var jsUrl = "./cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
+		},
+
+		/* jsUrl = "./cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
+		jsUrl = "./cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initRerenderGrid);
 		} else {
@@ -1972,8 +1973,7 @@ var manageDisqusButton = function (ctx) {
 	    isBindedClass = "is-binded",
 	    isActiveClass = "is-active",
 	    locationHref = w.location.href || "",
-	    disqusShortname = disqusThread ? disqusThread[ds].shortname || "" : "",
-	    embedJsUrl = getHTTP(true) + "://" + disqusShortname + ".disqus.com/embed.js";
+	    disqusShortname = disqusThread ? disqusThread[ds].shortname || "" : "";
 	if (disqusThread && btn && disqusShortname && locationHref) {
 		/* console.log("triggered function: manageDisqusButton"); */
 		var hideDisqusButton = function () {
@@ -2009,8 +2009,9 @@ var manageDisqusButton = function (ctx) {
 			var logicHandleDisqusButton = function () {
 				btn[rEL]("click", handleDisqusButton);
 				LoadingSpinner.show();
-				if (!scriptIsLoaded(embedJsUrl)) {
-					loadJS(embedJsUrl, renderDisqusThread);
+				var jsUrl = getHTTP(true) + "://" + disqusShortname + ".disqus.com/embed.js";
+				if (!scriptIsLoaded(jsUrl)) {
+					loadJS(jsUrl, renderDisqusThread);
 				} else {
 					renderDisqusThread();
 				}
@@ -2647,8 +2648,6 @@ var manageLocationQrCodeImage = function () {
 				    jsUrl = "./cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
 				if (!scriptIsLoaded(jsUrl)) {
 					loadJS(jsUrl, renderNewQrCode);
-				} else {
-					renderNewQrCode();
 				}
 			},
 			    handleLocationQrCodeButton = function (ev) {
@@ -3316,8 +3315,6 @@ var initManUp = function () {
 		var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
-		} else {
-			initScript();
 		}
 	}
 };

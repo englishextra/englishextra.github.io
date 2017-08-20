@@ -2255,7 +2255,7 @@ globalRoot.addEventListener("load", manageDataSrcImages);
  * initiate on load, not on ready
  * @param {Object} [ctx] context HTML Element
  */
-var manageDataQrcodeImg = function (ctx) {
+var manageDataQrcodeImages = function (ctx) {
 	"use strict";
 
 	ctx = ctx && ctx.nodeName ? ctx : "";
@@ -2302,22 +2302,22 @@ var manageDataQrcodeImg = function (ctx) {
 		}
 	};
 	if (img) {
-		/* console.log("triggered function: manageDataQrcodeImg"); */
+		/* console.log("triggered function: manageDataQrcodeImages"); */
 		for (var i = 0, l = img.length; i < l; i += 1) {
 			generateImg(img[i]);
 		}
 		/* forEach(img, generateImg, false); */
 	}
 },
-    loadManageDataQrcodeImg = function (ctx) {
+    loadmanageDataQrcodeImages = function (ctx) {
 	"use strict";
 
 	ctx = ctx && ctx.nodeName ? ctx : "";
 	var jsUrl = "../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
 	if (!scriptIsLoaded(jsUrl)) {
-		loadJS(jsUrl, manageDataQrcodeImg.bind(null, ctx));
+		loadJS(jsUrl, manageDataQrcodeImages.bind(null, ctx));
 	} else {
-		manageDataQrcodeImg(ctx);
+		manageDataQrcodeImages(ctx);
 	}
 };
 /*!
@@ -3246,7 +3246,7 @@ var initRoutie = function () {
 		manageExternalLinks(appContentParent);
 		manageDataTargetLinks(appContentParent);
 		manageImgLightboxLinks(appContentParent);
-		loadManageDataQrcodeImg(appContentParent);
+		loadmanageDataQrcodeImages(appContentParent);
 		manageChaptersSelect(appContentParent);
 		manageExpandingLayers(appContentParent);
 		handleDataSrcImages();

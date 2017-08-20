@@ -403,8 +403,8 @@ var initSearch = function () {
 				}
 			});
 		}
-	};
-	var jsUrl = "../libs/search/js/vendors.min.js";
+	},
+	jsUrl = "../libs/search/js/vendors.min.js";
 	if (!scriptIsLoaded(jsUrl)) {
 		loadJS(jsUrl, initScript);
 	}
