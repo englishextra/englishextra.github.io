@@ -343,18 +343,16 @@ document.ready().then(manageExternalLinks);
 /*!
  * init Shower
  */
-var initShower = function () {
+initShower = function () {
 	"use strict";
 	/* console.log("triggered function: initShower"); */
-},
-loadInitShower = function () {
-	"use strict";
-	var jsUrl = "../../cdn/shower/1.0.1/js/shower.fixed.min.js";
+	var initScript = function () {},
+	jsUrl = "../../cdn/shower/1.0.1/js/shower.fixed.min.js";
 	if (!scriptIsLoaded(jsUrl)) {
-		loadJS(jsUrl, initShower);
+		loadJS(jsUrl, initScript);
 	}
 };
-document.ready().then(loadInitShower);
+document.ready().then(initShower);
 /*!
  * init ui-totop
  */
@@ -476,19 +474,18 @@ document.ready().then(manageShareButton);
 /*!
  * init manUP.js
  */
-var loadInitManUp = function () {
+var initManUp = function () {
 	"use strict";
-	var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js",
-	initManUp = function () {
-		/* console.log("triggered function: initManUp"); */
-	};
+	var initScript = function () {};
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
+		/* console.log("triggered function: initManUp"); */
+		var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl, initManUp);
+			loadJS(jsUrl, initScript);
 		}
 	}
 };
-document.ready().then(loadInitManUp);
+document.ready().then(initManUp);
 /*!
  * show page, finish ToProgress
  */

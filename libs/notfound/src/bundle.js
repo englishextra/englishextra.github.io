@@ -147,30 +147,30 @@ var initParallax = function () {
 	d = document,
 	gEBCN = "getElementsByClassName",
 	mq = w.matchMedia("(min-width: 768px)"),
-	scene1 = d[gEBCN]("scene1")[0] || "",
-	parallax = d[gEBCN]("parallax")[0] || "",
-	parallaxDisabled = d[gEBCN]("parallax-disabled")[0] || "";
-	if (scene1 && parallax && parallaxDisabled) {
+	s = d[gEBCN]("scene1")[0] || "",
+	p = d[gEBCN]("parallax")[0] || "",
+	m = d[gEBCN]("parallax-disabled")[0] || "",
+	initScript = function () {
 		if (mq.matches) {
-			setStyleDisplayBlock(parallax);
-			setStyleDisplayNone(parallaxDisabled);
-			if (w.Parallax) {
-				var prlx;
-				prlx = new Parallax(scene1);
+			setStyleDisplayBlock(p);
+			setStyleDisplayNone(m);
+			if (s) {
+				if (w.Parallax) {
+					var prlx;
+					prlx = new Parallax(s);
+				}
 			}
 		} else {
-			setStyleDisplayNone(parallax);
-			setStyleDisplayBlock(parallaxDisabled);
+			setStyleDisplayNone(p);
+			setStyleDisplayBlock(m);
 		}
-	}
-},
-loadInitParallax = function () {
-	"use strict";
-	var jsUrl = "/cdn/parallax/2.1.3/js/parallax.fixed.min.js";
+	},
+	jsUrl = "/cdn/parallax/2.1.3/js/parallax.fixed.min.js";
 	if (!scriptIsLoaded(jsUrl)) {
-		loadJS(jsUrl, initParallax);
+		loadJS(jsUrl, initScript);
 	}
 };
+document.ready().then(initParallax);
 /*!
  * show page, finish ToProgress
  */
@@ -188,7 +188,6 @@ var showPageFinishProgress = function () {
 			timers.clear();
 			timers = null;
 			setStyleDisplayNone(progress);
-			loadInitParallax();
 		}, 100);
 	},
 	showPageOnImagesPreloaded = function () {

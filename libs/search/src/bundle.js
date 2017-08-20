@@ -320,97 +320,96 @@ document.ready().then(manageExternalLinks);
  */
 var initSearch = function () {
 	"use strict";
-	var w = globalRoot;
-	if ("undefined" !== typeof w.jQuery) {
-		$(document).ready(function () {
-			/*!
-			 * init comments
-			 */
-			var text = $("#text") || "",
-			searchForm = $("#searchForm") || "";
-			/*!
-			 * init search submit
-			 */
-			if (jQuery.pnotify) {
-				var search_form_submit_button = $("#search_form_submit_button") || "",
-				error_msg = {
-					history: !1,
-					stack: !1,
-					title: "Неуспешно",
-					text: " Введите Ваш запрос! ",
-					opacity: 1,
-					width: "280px",
-					remove: !0,
-					pnotify_addclass: "ui-pnotify-error",
-					delay: 3E3
-				},
-				search_form_reset_button = $("#search_form_reset_button") || "",
-				notify = jQuery.pnotify || "";
-				if (text) {
-					var h_search_form_submit_button = function (event) {
-						if (text.val()) {
-							searchForm.submit();
-						} else {
-							event.preventDefault();
-							notify(error_msg);
-						}
-					};
-					search_form_submit_button.click(h_search_form_submit_button);
-					var h_search_form_reset_button = function () {
-						text.focus();
-					};
-					search_form_reset_button.click(h_search_form_reset_button);
-				}
-			}
-			/*!
-			 * init autocomplete
-			 * results are cached cache.sqlite > cache_search_autocomplete
-			 */
-			if ($.fn.autocomplete) {
-				var action = "/scripts/autocomplete/";
-				text.autocomplete({
-					source: function (b, a) {
-						$.ajax({
-							url: action,
-							dataType: "json",
-							data: {
-								q: b.term,
-								limit: 5
-							},
-							success: function (b) {
-								a($.map(b, function (a) {
-										return {
-											label: a.value,
-											value: a.name
-										};
-									}));
+	var w = globalRoot,
+	initScript = function () {
+		if ("undefined" !== typeof w.jQuery) {
+			$(document).ready(function () {
+				/*!
+				 * init comments
+				 */
+				var text = $("#text") || "",
+				searchForm = $("#searchForm") || "";
+				/*!
+				 * init search submit
+				 */
+				if (jQuery.pnotify) {
+					var search_form_submit_button = $("#search_form_submit_button") || "",
+					error_msg = {
+						history: !1,
+						stack: !1,
+						title: "Неуспешно",
+						text: " Введите Ваш запрос! ",
+						opacity: 1,
+						width: "280px",
+						remove: !0,
+						pnotify_addclass: "ui-pnotify-error",
+						delay: 3E3
+					},
+					search_form_reset_button = $("#search_form_reset_button") || "",
+					notify = jQuery.pnotify || "";
+					if (text) {
+						var h_search_form_submit_button = function (event) {
+							if (text.val()) {
+								searchForm.submit();
+							} else {
+								event.preventDefault();
+								notify(error_msg);
 							}
-						});
-					},
-					minLength: 1,
-					select: function (b, a) {
-						if (a.item.value && (a.item.value.match(/^http\:\/\//) || a.item.value.match(/^https\:\/\//) || a.item.value.match(/^\/search\//) || a.item.value.match(/^\//))) {
-							$(b.target).val(text.val());
-							searchForm.submit();
-							return w.location.href = a.item.value,
-							false;
-						}
-					},
-					open: function () {},
-					close: function () {}
-				});
-			}
-		});
-	}
-},
-loadInitSearch = function () {
-	"use strict";
+						};
+						search_form_submit_button.click(h_search_form_submit_button);
+						var h_search_form_reset_button = function () {
+							text.focus();
+						};
+						search_form_reset_button.click(h_search_form_reset_button);
+					}
+				}
+				/*!
+				 * init autocomplete
+				 * results are cached cache.sqlite > cache_search_autocomplete
+				 */
+				if ($.fn.autocomplete) {
+					var action = "/scripts/autocomplete/";
+					text.autocomplete({
+						source: function (b, a) {
+							$.ajax({
+								url: action,
+								dataType: "json",
+								data: {
+									q: b.term,
+									limit: 5
+								},
+								success: function (b) {
+									a($.map(b, function (a) {
+											return {
+												label: a.value,
+												value: a.name
+											};
+										}));
+								}
+							});
+						},
+						minLength: 1,
+						select: function (b, a) {
+							if (a.item.value && (a.item.value.match(/^http\:\/\//) || a.item.value.match(/^https\:\/\//) || a.item.value.match(/^\/search\//) || a.item.value.match(/^\//))) {
+								$(b.target).val(text.val());
+								searchForm.submit();
+								return w.location.href = a.item.value,
+								false;
+							}
+						},
+						open: function () {},
+						close: function () {}
+					});
+				}
+			});
+		}
+	};
 	var jsUrl = "../libs/search/js/vendors.min.js";
 	if (!scriptIsLoaded(jsUrl)) {
-		loadJS(jsUrl, initSearch);
+		loadJS(jsUrl, initScript);
 	}
 };
-document.ready().then(loadInitSearch);
+document.ready().then(initSearch);
 /*!
  * init search text focus
  */
@@ -637,5 +636,4 @@ var showPageFinishProgress = function () {
 	setStyleOpacity(container, 1);
 	progressBar.complete();
 };
-
 document.ready().then(showPageFinishProgress);

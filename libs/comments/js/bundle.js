@@ -791,95 +791,93 @@ document.ready().then(manageExternalLinks);
 var initComments = function () {
 	"use strict";
 
-	var w = globalRoot;
-	if ("undefined" !== typeof w.jQuery) {
-		$(document).ready(function () {
-			/*!
-    * init comments
-    */
-			var d = document,
-			    comments_textarea = $("#comments_textarea") || "",
+	var w = globalRoot,
+	    initScript = function () {
+		if ("undefined" !== typeof w.jQuery) {
+			$(document).ready(function () {
+				/*!
+     * init comments
+     */
+				var d = document,
+				    comments_textarea = $("#comments_textarea") || "",
 
-			/* comments_check = $("#comments_check") || "", */
-			comments_form_submit_button = $("#comments_form_submit_button") || "",
-			    comments_form = $("#comments_form") || "",
-			    comments_form_reset_button = $("#comments_form_reset_button") || "",
-			    load_pt_comments = $("#load_pt_comments") || "",
-			    error_msg = {
-				history: !1,
-				stack: !1,
-				title: "Неуспешно",
-				text: " Введите Ваш комментарий! ",
-				opacity: 1,
-				width: "280px",
-				remove: !0,
-				pnotify_addclass: "ui-pnotify-error",
-				delay: 3E3
-			},
-			    notify = jQuery.pnotify || "",
-			    success_msg = {
-				history: !1,
-				stack: !1,
-				title: "Успех",
-				text: "Ваш комментарий добавлен!",
-				opacity: 1,
-				width: "280px",
-				remove: !0,
-				pnotify_addclass: "ui-pnotify-success",
-				delay: 3E3
-			};
-			if (comments_textarea) {
-				var h_comments_form_submit_button = function () {
-					var comments_textarea_value = comments_textarea.val(),
-					    self_href = encodeURIComponent(w.location.href.split("#")[0]),
-					    fixed_title = encodeURIComponent(d.title.replace("'", "&#39;")),
-					    ajax_data = "comments_textarea=" + comments_textarea_value + "&self_href=" + self_href + "&self_title=" + fixed_title;
-					if (comments_textarea_value) {
-						localStorage.setItem("comments_textarea", JSON.stringify(comments_textarea_value));
-					}
-					if (!comments_textarea_value || !self_href || !fixed_title) {
-						return notify(error_msg), !1;
-					}
-					comments_form_submit_button.hide();
-					$.ajax({
-						type: "POST",
-						url: "/scripts/comments/add.php",
-						data: ajax_data,
-						success: function () {
-							localStorage.removeItem("comments_textarea");
-							comments_form[0].reset();
-							load_pt_comments.load("/scripts/comments/?load=posts&limit=100");
-							notify(success_msg);
+				/* comments_check = $("#comments_check") || "", */
+				comments_form_submit_button = $("#comments_form_submit_button") || "",
+				    comments_form = $("#comments_form") || "",
+				    comments_form_reset_button = $("#comments_form_reset_button") || "",
+				    load_pt_comments = $("#load_pt_comments") || "",
+				    error_msg = {
+					history: !1,
+					stack: !1,
+					title: "Неуспешно",
+					text: " Введите Ваш комментарий! ",
+					opacity: 1,
+					width: "280px",
+					remove: !0,
+					pnotify_addclass: "ui-pnotify-error",
+					delay: 3E3
+				},
+				    notify = jQuery.pnotify || "",
+				    success_msg = {
+					history: !1,
+					stack: !1,
+					title: "Успех",
+					text: "Ваш комментарий добавлен!",
+					opacity: 1,
+					width: "280px",
+					remove: !0,
+					pnotify_addclass: "ui-pnotify-success",
+					delay: 3E3
+				};
+				if (comments_textarea) {
+					var h_comments_form_submit_button = function () {
+						var comments_textarea_value = comments_textarea.val(),
+						    self_href = encodeURIComponent(w.location.href.split("#")[0]),
+						    fixed_title = encodeURIComponent(d.title.replace("'", "&#39;")),
+						    ajax_data = "comments_textarea=" + comments_textarea_value + "&self_href=" + self_href + "&self_title=" + fixed_title;
+						if (comments_textarea_value) {
+							localStorage.setItem("comments_textarea", JSON.stringify(comments_textarea_value));
 						}
-					});
-					return !1;
-				};
-				comments_form_submit_button.click(h_comments_form_submit_button);
-				var comments_textarea_current_value = comments_textarea.val(),
-				    self_href = localStorage.getItem("comments_textarea");
-				if (!comments_textarea_current_value && self_href) {
-					comments_textarea.val($.parseJSON(self_href));
+						if (!comments_textarea_value || !self_href || !fixed_title) {
+							return notify(error_msg), !1;
+						}
+						comments_form_submit_button.hide();
+						$.ajax({
+							type: "POST",
+							url: "/scripts/comments/add.php",
+							data: ajax_data,
+							success: function () {
+								localStorage.removeItem("comments_textarea");
+								comments_form[0].reset();
+								load_pt_comments.load("/scripts/comments/?load=posts&limit=100");
+								notify(success_msg);
+							}
+						});
+						return !1;
+					};
+					comments_form_submit_button.click(h_comments_form_submit_button);
+					var comments_textarea_current_value = comments_textarea.val(),
+					    self_href = localStorage.getItem("comments_textarea");
+					if (!comments_textarea_current_value && self_href) {
+						comments_textarea.val($.parseJSON(self_href));
+					}
+					var h_comments_form_reset_button = function () {
+						localStorage.removeItem("comments_textarea");
+						comments_textarea.val("");
+						comments_textarea.focus();
+					};
+					comments_form_reset_button.click(h_comments_form_reset_button);
 				}
-				var h_comments_form_reset_button = function () {
-					localStorage.removeItem("comments_textarea");
-					comments_textarea.val("");
-					comments_textarea.focus();
-				};
-				comments_form_reset_button.click(h_comments_form_reset_button);
-			}
-			load_pt_comments.load("/scripts/comments/?load=posts&limit=100");
-		});
-	}
-},
-    loadInitComments = function () {
-	"use strict";
-
+				load_pt_comments.load("/scripts/comments/?load=posts&limit=100");
+			});
+		}
+	};
 	var jsUrl = "../libs/comments/js/vendors.min.js";
 	if (!scriptIsLoaded(jsUrl)) {
-		loadJS(jsUrl, initComments);
+		loadJS(jsUrl, initScript);
 	}
 };
-document.ready().then(loadInitComments);
+document.ready().then(initComments);
 /*!
  * init comments textarea focus
  */

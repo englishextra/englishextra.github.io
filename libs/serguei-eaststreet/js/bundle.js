@@ -2672,25 +2672,23 @@ var generateLocationQrCodeImg = function () {
 		handleOtherUIElements();
 	};
 	if (btn && page && holder && locationHref) {
-		/* console.log("triggered function: manageLocationQrCodeImage"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			removePageIsActiveClass();
-			btn[aEL]("click", generateLocationQrCodeImg);
-			btn[aEL]("click", handleGenerateLocationQrCodeImgBtn);
-			w[aEL]("hashchange", generateLocationQrCodeImg);
-			holder[aEL]("click", handleGenerateLocationQrCodeImgHolder);
+			/* console.log("triggered function: manageLocationQrCodeImage"); */
+			var initScript = function () {
+				removePageIsActiveClass();
+				btn[aEL]("click", generateLocationQrCodeImg);
+				btn[aEL]("click", handleGenerateLocationQrCodeImgBtn);
+				w[aEL]("hashchange", generateLocationQrCodeImg);
+				holder[aEL]("click", handleGenerateLocationQrCodeImgHolder);
+			},
+			    jsUrl = "../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
+			if (!scriptIsLoaded(jsUrl)) {
+				loadJS(jsUrl, initScript);
+			}
 		}
 	}
-},
-    loadManageLocationQrCodeImg = function () {
-	"use strict";
-
-	var jsUrl = "../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
-	if (!scriptIsLoaded(jsUrl)) {
-		loadJS(jsUrl, manageLocationQrCodeImage);
-	}
 };
-document.ready().then(loadManageLocationQrCodeImg);
+document.ready().then(manageLocationQrCodeImage);
 /*!
  * init share btn
  */
@@ -2726,13 +2724,13 @@ var manageShareButton = function () {
 			if (page[cL].contains(isActiveMenumoreClass)) {
 				page[cL].remove(isActiveMenumoreClass);
 			}
-			var jsUrl = getHTTP(true) + "://yastatic.net/es5-shims/0.0.2/es5-shims.min.js",
-			    jsUrl2 = getHTTP(true) + "://yastatic.net/share2/share.js";
+			var es5ShimsJsUrl = getHTTP(true) + "://yastatic.net/es5-shims/0.0.2/es5-shims.min.js",
+			    shareJsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
 			if (page[cL].contains(isActiveShareClass)) {
-				if (!scriptIsLoaded(jsUrl)) {
-					loadJS(jsUrl, function () {
-						if (!scriptIsLoaded(jsUrl2)) {
-							loadJS(jsUrl2);
+				if (!scriptIsLoaded(es5ShimsJsUrl)) {
+					loadJS(es5ShimsJsUrl, function () {
+						if (!scriptIsLoaded(shareJsUrl)) {
+							loadJS(shareJsUrl);
 						}
 					});
 				}
@@ -3150,18 +3148,13 @@ var initKamilAutocomplete = function () {
 	};
 	if (searchForm && textInput) {
 		/* console.log("triggered function: initKamilAutocomplete"); */
-		arrangeSearchInput();
-	}
-},
-    loadInitKamilAutocomplete = function () {
-	"use strict";
-
-	var jsUrl = "../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
-	if (!scriptIsLoaded(jsUrl)) {
-		loadJS(jsUrl, initKamilAutocomplete);
+		var jsUrl = "../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
+		if (!scriptIsLoaded(jsUrl)) {
+			loadJS(jsUrl, arrangeSearchInput);
+		}
 	}
 };
-document.ready().then(loadInitKamilAutocomplete);
+document.ready().then(initKamilAutocomplete);
 /*!
  * init ui-totop
  */
@@ -3400,20 +3393,19 @@ globalRoot.addEventListener("hashchange", updateInsertedDom); */
 /*!
  * init manUP.js
  */
-var loadInitManUp = function () {
+var initManUp = function () {
 	"use strict";
 
-	var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js",
-	    initManUp = function () {
-		/* console.log("triggered function: initManUp"); */
-	};
+	var initScript = function () {};
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
+		/* console.log("triggered function: initManUp"); */
+		var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl, initManUp);
+			loadJS(jsUrl, initScript);
 		}
 	}
 };
-document.ready().then(loadInitManUp);
+document.ready().then(initManUp);
 /*!
  * show page, finish ToProgress
  */

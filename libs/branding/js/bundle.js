@@ -1319,7 +1319,7 @@ var initAllMasonry = function () {
 		}
 	};
 	if (grid && gridItem) {
-		/* console.log("triggered function: initMasonryDisqus"); */
+		/* console.log("triggered function: initAllMasonry"); */
 		var initRerenderGrid = function () {
 			initGrid();
 			var timers = new Timers();
@@ -1356,20 +1356,18 @@ var initPrettyPrint = function () {
 	    pre = d[gEBCN]("prettyprint")[0] || "";
 	if (pre) {
 		/* console.log("triggered function: initPrettyPrint"); */
-		if (w.prettyPrint) {
-			prettyPrint();
+		var initScript = function () {
+			if (w.prettyPrint) {
+				prettyPrint();
+			}
+		},
+		    jsUrl = "../../cdn/google-code-prettify/0.1/js/prettify.bundled.fixed.min.js";
+		if (!scriptIsLoaded(jsUrl)) {
+			loadJS(jsUrl, initScript);
 		}
 	}
-},
-    loadInitPrettyPrint = function () {
-	"use strict";
-
-	var jsUrl = "../../cdn/google-code-prettify/0.1/js/prettify.bundled.fixed.min.js";
-	if (!scriptIsLoaded(jsUrl)) {
-		loadJS(jsUrl, initPrettyPrint);
-	}
 };
-document.ready().then(loadInitPrettyPrint);
+document.ready().then(initPrettyPrint);
 /*!
  * manage data lightbox img links
  */
@@ -1831,7 +1829,7 @@ document.ready().then(manageSourceCodeLayers);
  * init qr-code
  * @see {@link https://stackoverflow.com/questions/12777622/how-to-use-enquire-js}
  */
-var generateLocationQrCodeImg = function () {
+var manageLocationQrCodeImage = function () {
 	"use strict";
 
 	var w = globalRoot,
@@ -1839,71 +1837,62 @@ var generateLocationQrCodeImg = function () {
 	    gEBCN = "getElementsByClassName",
 	    cL = "classList",
 	    cE = "createElement",
-	    holder = d[gEBCN]("holder-location-qr-code")[0] || "",
-	    imgClass = "qr-code-img",
-	    locationHref = w.location.href || "",
-	    img = d[cE]("img"),
-	    imgTitle = d.title ? "Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»" : "",
-	    imgSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
-	img.alt = imgTitle;
-	if (w.QRCode) {
-		if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
-			imgSrc = QRCode.generateSVG(locationHref, {
-				ecclevel: "M",
-				fillcolor: "#FFFFFF",
-				textcolor: "#191919",
-				margin: 4,
-				modulesize: 8
-			});
-			var XMLS = new XMLSerializer();
-			imgSrc = XMLS.serializeToString(imgSrc);
-			imgSrc = "data:image/svg+xml;base64," + w.btoa(unescape(encodeURIComponent(imgSrc)));
-			img.src = imgSrc;
-		} else {
-			imgSrc = QRCode.generatePNG(locationHref, {
-				ecclevel: "M",
-				format: "html",
-				fillcolor: "#FFFFFF",
-				textcolor: "#191919",
-				margin: 4,
-				modulesize: 8
-			});
-			img.src = imgSrc;
-		}
-	} else {
-		img.src = imgSrc;
-	}
-	img[cL].add(imgClass);
-	img.title = imgTitle;
-	removeChildren(holder);
-	appendFragment(img, holder);
-},
-    manageLocationQrCodeImage = function () {
-	"use strict";
-
-	var w = globalRoot,
-	    d = document,
-	    gEBCN = "getElementsByClassName",
 	    aEL = "addEventListener",
 	    holder = d[gEBCN]("holder-location-qr-code")[0] || "",
 	    locationHref = w.location.href || "";
 	if (holder && locationHref) {
-		/* console.log("triggered function: manageLocationQrCodeImage"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			generateLocationQrCodeImg();
-			w[aEL]("hashchange", generateLocationQrCodeImg);
+			/* console.log("triggered function: manageLocationQrCodeImage"); */
+			var generateLocationQrCodeImg = function () {
+				var locationHref = w.location.href || "",
+				    img = d[cE]("img"),
+				    imgTitle = d.title ? "Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»" : "",
+				    imgSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
+				img.alt = imgTitle;
+				if (w.QRCode) {
+					if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
+						imgSrc = QRCode.generateSVG(locationHref, {
+							ecclevel: "M",
+							fillcolor: "#FFFFFF",
+							textcolor: "#191919",
+							margin: 4,
+							modulesize: 8
+						});
+						var XMLS = new XMLSerializer();
+						imgSrc = XMLS.serializeToString(imgSrc);
+						imgSrc = "data:image/svg+xml;base64," + w.btoa(unescape(encodeURIComponent(imgSrc)));
+						img.src = imgSrc;
+					} else {
+						imgSrc = QRCode.generatePNG(locationHref, {
+							ecclevel: "M",
+							format: "html",
+							fillcolor: "#FFFFFF",
+							textcolor: "#191919",
+							margin: 4,
+							modulesize: 8
+						});
+						img.src = imgSrc;
+					}
+				} else {
+					img.src = imgSrc;
+				}
+				img[cL].add("qr-code-img");
+				img.title = imgTitle;
+				removeChildren(holder);
+				appendFragment(img, holder);
+			},
+			    initScript = function () {
+				generateLocationQrCodeImg();
+				w[aEL]("hashchange", generateLocationQrCodeImg);
+			},
+			    jsUrl = "../../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
+			if (!scriptIsLoaded(jsUrl)) {
+				loadJS(jsUrl, initScript);
+			}
 		}
 	}
-},
-    loadManageLocationQrCodeImg = function () {
-	"use strict";
-
-	var jsUrl = "../../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
-	if (!scriptIsLoaded(jsUrl)) {
-		loadJS(jsUrl, manageLocationQrCodeImage);
-	}
 };
-document.ready().then(loadManageLocationQrCodeImg);
+document.ready().then(manageLocationQrCodeImage);
 /*!
  * init nav-menu
  */
@@ -2567,35 +2556,29 @@ var initKamilAutocomplete = function () {
 	};
 	if (searchForm && textInput) {
 		/* console.log("triggered function: initKamilAutocomplete"); */
-		arrangeSearchInput();
-	}
-},
-    loadInitKamilAutocomplete = function () {
-	"use strict";
-
-	var jsUrl = "../../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
-	if (!scriptIsLoaded(jsUrl)) {
-		loadJS(jsUrl, initKamilAutocomplete);
-	}
-};
-document.ready().then(loadInitKamilAutocomplete);
-/*!
- * init manUP.js
- */
-var loadInitManUp = function () {
-	"use strict";
-
-	var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js",
-	    initManUp = function () {
-		/* console.log("triggered function: initManUp"); */
-	};
-	if ("undefined" !== typeof getHTTP && getHTTP()) {
+		var jsUrl = "../../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl, initManUp);
+			loadJS(jsUrl, arrangeSearchInput);
 		}
 	}
 };
-document.ready().then(loadInitManUp);
+document.ready().then(initKamilAutocomplete);
+/*!
+ * init manUP.js
+ */
+var initManUp = function () {
+	"use strict";
+
+	var initScript = function () {};
+	if ("undefined" !== typeof getHTTP && getHTTP()) {
+		/* console.log("triggered function: initManUp"); */
+		var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
+		if (!scriptIsLoaded(jsUrl)) {
+			loadJS(jsUrl, initScript);
+		}
+	}
+};
+document.ready().then(initManUp);
 /*!
  * show page, finish ToProgress
  */

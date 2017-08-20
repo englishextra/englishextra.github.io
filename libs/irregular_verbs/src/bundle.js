@@ -347,7 +347,7 @@ var hideUiBtnsInFullScreen = function () {
 	btnShareButtons = d[gEBCN]("btn-share-buttons")[0] || "",
 	btnUiTotop = d[gEBCN]("ui-totop")[0] || "",
 	holderSearchForm = d[gEBCN]("holder-search-form")[0] || "",
-	openapiJsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122",
+	jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122",
 	f = !1;
 	if (!f) {
 		f = !0;
@@ -366,7 +366,7 @@ var hideUiBtnsInFullScreen = function () {
 			for (var j = 0, m = args.length; j < m; j += 1) {
 				setStyleDisplayBlock(args[j]);
 			}
-			if (!scriptIsLoaded(openapiJsUrl)) {
+			if (!scriptIsLoaded(jsUrl)) {
 				setStyleDisplayBlock(btnShowVKLike);
 			}
 		}
@@ -393,6 +393,8 @@ var initDoSlide = function () {
 	d = document,
 	gEBCN = "getElementsByClassName",
 	aEL = "addEventListener",
+	dsContainerSelector = ".ds-container",
+	dsContainer = d[gEBCN]("ds-container")[0] || "",
 	cdPrev = d[gEBCN]("cd-prev")[0] || "",
 	cdNext = d[gEBCN]("cd-next")[0] || "",
 	timer = function (slide, interval, token) {
@@ -406,132 +408,114 @@ var initDoSlide = function () {
 			clearTimeout(token);
 			token = setTimeout(next, interval);
 		};
-	},
-	g = function () {
-		if ("undefined" !== typeof slideTimer) {
-			/* setStyleDisplayNone(cdPrev);
-			setStyleDisplayNone(cdNext);
-		} else { */
-			setStyleDisplayBlock(cdPrev);
-			setStyleDisplayBlock(cdNext);
-			var h_cd_prev = function (ev) {
-				ev.preventDefault();
-				ev.stopPropagation();
-				slide.prev();
-			};
-			cdPrev[aEL]("click", h_cd_prev);
-			/* cdPrev.onclick = h_cd_prev; */
-			var h_cd_next = function (ev) {
-				ev.preventDefault();
-				ev.stopPropagation();
-				slide.next();
-			};
-			cdNext[aEL]("click", h_cd_next);
-			/* cdNext.onclick = h_cd_next; */
-		}
 	};
-	/*!
-	 * dont JSMin line below: Notepad++ will freeze
-	 * comment out if you dont want slide autorotation
-	 */
-	if (w.DoSlide) {
-		var slide = new DoSlide(".ds-container", {
-			duration : 2000,
-			horizontal : true,
-			infinite : true
-		}),
-		slideTimer = timer(slide, 5000);
-		slide.onChanged(slideTimer).do(slideTimer);
-		/*!
-		 * init next button if no slide autorotation
-		 */
-		if (cdNext || cdPrev) {
-			g();
+	if (dsContainer && cdPrev && cdNext) {
+		var initScript = function () {
+			if (w.DoSlide) {
+				var slide = new DoSlide(dsContainerSelector, {
+					duration : 2000,
+					horizontal : true,
+					infinite : true
+				}),
+				slideTimer = timer(slide, 5000);
+				/*!
+				 * dont JSMin line below: Notepad++ will freeze
+				 * comment out if you dont want slide autorotation
+				 */
+				slide.onChanged(slideTimer).do(slideTimer);
+				/*!
+				 * init next button if no slide autorotation
+				 */
+				setStyleDisplayBlock(cdPrev);
+				setStyleDisplayBlock(cdNext);
+				var handleCdPrev = function (ev) {
+					ev.preventDefault();
+					ev.stopPropagation();
+					slide.prev();
+				};
+				cdPrev[aEL]("click", handleCdPrev);
+				var handleCdNext = function (ev) {
+					ev.preventDefault();
+					ev.stopPropagation();
+					slide.next();
+				};
+				cdNext[aEL]("click", handleCdNext);
+			}
+		},
+		jsUrl = "../../cdn/doSlide/1.1.4/js/do-slide.fixed.min.js";
+		if (!scriptIsLoaded(jsUrl)) {
+			loadJS(jsUrl, initScript);
 		}
-	}
-},
-loadInitDoSlide = function () {
-	"use strict";
-	var jsUrl = "../../cdn/doSlide/1.1.4/js/do-slide.fixed.min.js";
-	if (!scriptIsLoaded(jsUrl)) {
-		loadJS(jsUrl, initDoSlide);
 	}
 };
-document.ready().then(loadInitDoSlide);
+document.ready().then(initDoSlide);
 /*!
  * init qr-code
  * @see {@link https://stackoverflow.com/questions/12777622/how-to-use-enquire-js}
  */
-var generateLocationQrCodeImg = function () {
+var manageLocationQrCodeImage = function () {
 	"use strict";
 	var w = globalRoot,
 	d = document,
 	gEBCN = "getElementsByClassName",
 	cL = "classList",
 	cE = "createElement",
-	holder = d[gEBCN]("holder-location-qr-code")[0] || "",
-	imgClass = "qr-code-img",
-	locationHref = w.location.href || "",
-	img = d[cE]("img"),
-	imgTitle = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
-	imgSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
-	img.alt = imgTitle;
-	if (w.QRCode) {
-		if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
-			imgSrc = QRCode.generateSVG(locationHref, {
-					ecclevel: "M",
-					fillcolor: "#FFFFFF",
-					textcolor: "#191919",
-					margin: 4,
-					modulesize: 8
-				});
-			var XMLS = new XMLSerializer();
-			imgSrc = XMLS.serializeToString(imgSrc);
-			imgSrc = "data:image/svg+xml;base64," + w.btoa(unescape(encodeURIComponent(imgSrc)));
-			img.src = imgSrc;
-		} else {
-			imgSrc = QRCode.generatePNG(locationHref, {
-					ecclevel: "M",
-					format: "html",
-					fillcolor: "#FFFFFF",
-					textcolor: "#191919",
-					margin: 4,
-					modulesize: 8
-				});
-			img.src = imgSrc;
-		}
-	} else {
-		img.src = imgSrc;
-	}
-	img[cL].add(imgClass);
-	img.title = imgTitle;
-	removeChildren(holder);
-	appendFragment(img, holder);
-},
-manageLocationQrCodeImage = function () {
-	"use strict";
-	var w = globalRoot,
-	d = document,
-	gEBCN = "getElementsByClassName",
 	aEL = "addEventListener",
 	holder = d[gEBCN]("holder-location-qr-code")[0] || "",
 	locationHref = w.location.href || "";
 	if (holder && locationHref) {
-		/* console.log("triggered function: manageLocationQrCodeImage"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			generateLocationQrCodeImg();
-			w[aEL]("hashchange", generateLocationQrCodeImg);
+			/* console.log("triggered function: manageLocationQrCodeImage"); */
+			var generateLocationQrCodeImg = function () {
+				var locationHref = w.location.href || "",
+				img = d[cE]("img"),
+				imgTitle = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
+				imgSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
+				img.alt = imgTitle;
+				if (w.QRCode) {
+					if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
+						imgSrc = QRCode.generateSVG(locationHref, {
+								ecclevel: "M",
+								fillcolor: "#FFFFFF",
+								textcolor: "#191919",
+								margin: 4,
+								modulesize: 8
+							});
+						var XMLS = new XMLSerializer();
+						imgSrc = XMLS.serializeToString(imgSrc);
+						imgSrc = "data:image/svg+xml;base64," + w.btoa(unescape(encodeURIComponent(imgSrc)));
+						img.src = imgSrc;
+					} else {
+						imgSrc = QRCode.generatePNG(locationHref, {
+								ecclevel: "M",
+								format: "html",
+								fillcolor: "#FFFFFF",
+								textcolor: "#191919",
+								margin: 4,
+								modulesize: 8
+							});
+						img.src = imgSrc;
+					}
+				} else {
+					img.src = imgSrc;
+				}
+				img[cL].add("qr-code-img");
+				img.title = imgTitle;
+				removeChildren(holder);
+				appendFragment(img, holder);
+			},
+			initScript = function () {
+				generateLocationQrCodeImg();
+				w[aEL]("hashchange", generateLocationQrCodeImg);
+			},
+			jsUrl = "../../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
+			if (!scriptIsLoaded(jsUrl)) {
+				loadJS(jsUrl, initScript);
+			}
 		}
 	}
-},
-loadManageLocationQrCodeImg = function () {
-	"use strict";
-	var jsUrl = "../../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
-	if (!scriptIsLoaded(jsUrl)) {
-		loadJS(jsUrl, manageLocationQrCodeImage);
-	}
 };
-document.ready().then(loadManageLocationQrCodeImg);
+document.ready().then(manageLocationQrCodeImage);
 /*!
  * init menu-more
  */
@@ -737,19 +721,18 @@ document.ready().then(manageVKLikeButton);
 /*!
  * init manUP.js
  */
-var loadInitManUp = function () {
+var initManUp = function () {
 	"use strict";
-	var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js",
-	initManUp = function () {
-		/* console.log("triggered function: initManUp"); */
-	};
+	var initScript = function () {};
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
+		/* console.log("triggered function: initManUp"); */
+		var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl, initManUp);
+			loadJS(jsUrl, initScript);
 		}
 	}
 };
-document.ready().then(loadInitManUp);
+document.ready().then(initManUp);
 /*!
  * show page, finish ToProgress
  */

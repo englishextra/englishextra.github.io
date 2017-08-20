@@ -1631,9 +1631,9 @@ var initKamilAutocomplete = function (jsonObj) {
 	};
 	if (searchForm && textInput) {
 		/* console.log("triggered function: initKamilAutocomplete"); */
-		var kamilJsUrl = "./cdn/kamil/0.1.1/js/kamil.fixed.min.js";
-		if (!scriptIsLoaded(kamilJsUrl)) {
-			loadJS(kamilJsUrl, generateMenu.bind(null, jsonObj));
+		var jsUrl = "./cdn/kamil/0.1.1/js/kamil.fixed.min.js";
+		if (!scriptIsLoaded(jsUrl)) {
+			loadJS(jsUrl, generateMenu.bind(null, jsonObj));
 		}
 	}
 };
@@ -1828,20 +1828,20 @@ var manageLocationQrCodeImage = function () {
 	holder = d[gEBCN]("holder-location-qr-code")[0] || "",
 	isActiveClass = "is-active",
 	isSocialClass = "is-social",
-	locationHash = w.location.href || "";
-	if (btn && holder && locationHash) {
+	locationHref = w.location.href || "";
+	if (btn && holder && locationHref) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			/* console.log("triggered function: manageLocationQrCodeImage"); */
 			var generateLocationQrCodeImg = function () {
-				var newText = w.location.href || "",
+				var locationHref = w.location.href || "",
 				newImg = d[cE]("img"),
 				newTitle = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
-				newSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(newText);
+				newSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
 				newImg.alt = newTitle;
 				var renderNewQrCode = function () {
 					if (w.QRCode) {
 						if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
-							newSrc = QRCode.generateSVG(newText, {
+							newSrc = QRCode.generateSVG(locationHref, {
 									ecclevel: "M",
 									fillcolor: "#FFFFFF",
 									textcolor: "#191919",
@@ -1853,7 +1853,7 @@ var manageLocationQrCodeImage = function () {
 							newSrc = "data:image/svg+xml;base64," + w.btoa(unescape(encodeURIComponent(newSrc)));
 							newImg.src = newSrc;
 						} else {
-							newSrc = QRCode.generatePNG(newText, {
+							newSrc = QRCode.generatePNG(locationHref, {
 									ecclevel: "M",
 									format: "html",
 									fillcolor: "#FFFFFF",
@@ -1871,9 +1871,9 @@ var manageLocationQrCodeImage = function () {
 					removeChildren(holder);
 					appendFragment(newImg, holder);
 				},
-				qrjs2JsUrl = "./cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
-				if (!scriptIsLoaded(qrjs2JsUrl)) {
-					loadJS(qrjs2JsUrl, renderNewQrCode);
+				jsUrl = "./cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
+				if (!scriptIsLoaded(jsUrl)) {
+					loadJS(jsUrl, renderNewQrCode);
 				} else {
 					renderNewQrCode();
 				}
@@ -1965,9 +1965,9 @@ manageVKLikeButton = function () {
 					holder[cL].toggle(isActiveClass);
 					holder[cL].add(isSocialClass);
 					handleOtherSocialButtons(holder);
-					var openapiJsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122";
-					if (!scriptIsLoaded(openapiJsUrl)) {
-						loadJS(openapiJsUrl, function () {
+					var jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122";
+					if (!scriptIsLoaded(jsUrl)) {
+						loadJS(jsUrl, function () {
 							if (w.VK) {
 								VK.init({
 									apiId: (vkLike.dataset.apiid || ""),
@@ -2529,21 +2529,20 @@ document.ready().then(initUiTotop);
 /*!
  * init manUP.js
  */
-var loadInitManUp = function () {
+var initManUp = function () {
 	"use strict";
-	var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js",
-	initManUp = function () {
-		/* console.log("triggered function: initManUp"); */
-	};
+	var initScript = function () {};
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
+		/* console.log("triggered function: initManUp"); */
+		var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl, initManUp);
+			loadJS(jsUrl, initScript);
 		} else {
-			initManUp();
+			initScript();
 		}
 	}
 };
-document.ready().then(loadInitManUp);
+document.ready().then(initManUp);
 /*!
  * show page, finish ToProgress
  */
