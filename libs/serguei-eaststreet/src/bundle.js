@@ -1289,13 +1289,13 @@ var manageDataQrcodeImages = function (ctx) {
 				generateImg(img[i]);
 			}
 			/* forEach(img, generateImg, false); */
+		},
+		jsUrl = "../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
+		if (!scriptIsLoaded(jsUrl)) {
+			loadJS(jsUrl, initScript);
+		} else {
+			initScript();
 		}
-	},
-	jsUrl = "./cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
-	if (!scriptIsLoaded(jsUrl)) {
-		loadJS(jsUrl, initScript);
-	} else {
-		initScript();
 	}
 };
 /*!
@@ -2203,7 +2203,7 @@ var initRoutie = function () {
 		manageExternalLinks(appContentParent);
 		manageDataTargetLinks(appContentParent);
 		manageImgLightboxLinks(appContentParent);
-		loadmanageDataQrcodeImages(appContentParent);
+		manageDataQrcodeImages(appContentParent);
 		manageChaptersSelect(appContentParent);
 		manageExpandingLayers(appContentParent);
 		handleDataSrcImages();
