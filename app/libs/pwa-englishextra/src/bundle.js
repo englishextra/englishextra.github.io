@@ -1840,8 +1840,8 @@ var manageLocationQrCodeImage = function () {
 				newImg = d[cE]("img"),
 				newTitle = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
 				newSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
-				newImg.alt = newTitle,
-				initScript = function () {
+				newImg.alt = newTitle;
+				var initScript = function () {
 					if (w.QRCode) {
 						if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
 							newSrc = QRCode.generateSVG(locationHref, {

@@ -2614,7 +2614,8 @@ var manageLocationQrCodeImage = function () {
 				    newImg = d[cE]("img"),
 				    newTitle = d.title ? "Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»" : "",
 				    newSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
-				newImg.alt = newTitle, initScript = function () {
+				newImg.alt = newTitle;
+				var initScript = function () {
 					if (w.QRCode) {
 						if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
 							newSrc = QRCode.generateSVG(locationHref, {
@@ -2646,7 +2647,8 @@ var manageLocationQrCodeImage = function () {
 					newImg.title = newTitle;
 					removeChildren(holder);
 					appendFragment(newImg, holder);
-				}, jsUrl = "./cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
+				},
+				    jsUrl = "./cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
 				if (!scriptIsLoaded(jsUrl)) {
 					loadJS(jsUrl, initScript);
 				}
