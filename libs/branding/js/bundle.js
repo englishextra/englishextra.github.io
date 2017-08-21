@@ -1320,7 +1320,7 @@ var initAllMasonry = function () {
 	};
 	if (grid && gridItem) {
 		/* console.log("triggered function: initAllMasonry"); */
-		var initRerenderGrid = function () {
+		var initScript = function () {
 			initGrid();
 			var timers = new Timers();
 			timers.timeout(function () {
@@ -1340,7 +1340,7 @@ var initAllMasonry = function () {
 		/* jsUrl = "../../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js"; */
 		jsUrl = "../../cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl, initRerenderGrid);
+			loadJS(jsUrl, initScript);
 		}
 	}
 };
@@ -2227,19 +2227,22 @@ var manageShareButton = function () {
 	    btn = d[gEBCN]("btn-share-buttons")[0] || "",
 	    pluso = d[gEBCN]("pluso")[0] || "",
 	    ya_share2 = d[gEBCN]("ya-share2")[0] || "",
-	    plusoJsUrl = getHTTP(true) + "://share.pluso.ru/pluso-like.js",
-	    shareJsUrl = getHTTP(true) + "://yastatic.net/share2/share.js",
-	    showShare = function (s, b) {
-		setStyleVisibilityVisible(s);
-		setStyleOpacity(s, 1);
-		setStyleDisplayNone(b);
+	    showShare = function (block, btn) {
+		setStyleVisibilityVisible(block);
+		setStyleOpacity(block, 1);
+		setStyleDisplayNone(btn);
 	},
 	    loadShare = function (jsUrl, block, btn) {
+		var initScript = function () {
+			showShare(block, btn);
+		};
 		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl, showShare.bind(null, block, btn));
+			loadJS(jsUrl, initScript);
 		}
 	},
 	    chooseProvider = function () {
+		var plusoJsUrl = getHTTP(true) + "://share.pluso.ru/pluso-like.js",
+		    shareJsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
 		if (pluso) {
 			loadShare(plusoJsUrl, pluso, btn);
 		} else {
@@ -2288,7 +2291,7 @@ var initDisqusOnScroll = function () {
 	    locationHref = w.location.href || "",
 	    disqusThreadShortname = disqusThread ? disqusThread[ds].shortname || "" : "",
 	    jsUrl = getHTTP(true) + "://" + disqusThreadShortname + ".disqus.com/embed.js",
-	    showDisqus = function () {
+	    initScript = function () {
 		setStyleDisplayNone(btn);
 		disqusThread[cL].add(isActiveClass);
 		LoadingSpinner.hide();
@@ -2296,7 +2299,7 @@ var initDisqusOnScroll = function () {
 	    loadDisqus = function () {
 		LoadingSpinner.show();
 		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl, showDisqus);
+			loadJS(jsUrl, initScript);
 		}
 	},
 	    addBtnHandlers = function () {
@@ -2352,7 +2355,7 @@ var VK,
 	    VKLike = d[gEBI](VKLikeId) || "",
 	    btn = d[gEBCN]("btn-show-vk-like")[0] || "",
 	    jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122",
-	    showVK = function () {
+	    initScript = function () {
 		try {
 			if (w.VK) {
 				VK.init({
@@ -2376,7 +2379,7 @@ var VK,
 	},
 	    addBtnHandlers = function () {
 		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl, showVK);
+			loadJS(jsUrl, initScript);
 		}
 	},
 	    initVk = function () {
@@ -2552,14 +2555,14 @@ var initKamilAutocomplete = function () {
 			});
 		}
 	},
-	    arrangeSearchInput = function () {
+	    initScript = function () {
 		loadUnparsedJSON(jsonUrl, processResponse);
 	};
 	if (searchForm && textInput) {
 		/* console.log("triggered function: initKamilAutocomplete"); */
 		var jsUrl = "../../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl, arrangeSearchInput);
+			loadJS(jsUrl, initScript);
 		}
 	}
 };
@@ -2570,10 +2573,10 @@ document.ready().then(initKamilAutocomplete);
 var initManUp = function () {
 	"use strict";
 
-	var initScript = function () {};
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
 		/* console.log("triggered function: initManUp"); */
-		var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
+		var initScript = function () {},
+		    jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
 		}

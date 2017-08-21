@@ -582,27 +582,26 @@ document.ready().then(initMenuMore);
 /*!
  * show menu-more on document ready
  */
-var showMenuMore = function (n) {
+var showMenuMore = function () {
 	"use strict";
-	n = n || 2000;
 	var d = document,
 	gEBCN = "getElementsByClassName",
 	cL = "classList",
 	holderPanelMenuMore = d[gEBCN]("holder-panel-menu-more")[0] || "",
-	isActiveClass = "is-active",
-	st1 = function () {
-		holderPanelMenuMore[cL].add(isActiveClass);
-	};
+	isActiveClass = "is-active";
 	if (holderPanelMenuMore) {
+		var st1 = function () {
+			holderPanelMenuMore[cL].add(isActiveClass);
+		};
 		var timers = new Timers();
 		timers.timeout(function () {
 			timers.clear();
 			timers = null;
 			st1();
-		}, n);
+		}, 2000);
 	}
 };
-document.ready().then(showMenuMore.bind(null, 2000));
+document.ready().then(showMenuMore);
 /*!
  * init pluso-engine or ya-share on click
  */
@@ -615,19 +614,22 @@ var manageShareButton = function () {
 	btn = d[gEBCN]("btn-share-buttons")[0] || "",
 	pluso = d[gEBCN]("pluso")[0] || "",
 	ya_share2 = d[gEBCN]("ya-share2")[0] || "",
-	plusoJsUrl = getHTTP(true) + "://share.pluso.ru/pluso-like.js",
-	shareJsUrl = getHTTP(true) + "://yastatic.net/share2/share.js",
-	showShare = function (s, b) {
-		setStyleVisibilityVisible(s);
-		setStyleOpacity(s, 1);
-		setStyleDisplayNone(b);
+	showShare = function (block, btn) {
+		setStyleVisibilityVisible(block);
+		setStyleOpacity(block, 1);
+		setStyleDisplayNone(btn);
 	},
 	loadShare = function (jsUrl, block, btn) {
+		var initScript = function () {
+			showShare(block, btn);
+		};
 		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl, showShare.bind(null, block, btn));
+			loadJS(jsUrl, initScript);
 		}
 	},
 	chooseProvider = function () {
+		var plusoJsUrl = getHTTP(true) + "://share.pluso.ru/pluso-like.js",
+		shareJsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
 		if (pluso) {
 			loadShare(plusoJsUrl, pluso, btn);
 		} else {
@@ -672,7 +674,7 @@ manageVKLikeButton = function () {
 	VKLike = d[gEBI](VKLikeId) || "",
 	btn = d[gEBCN]("btn-show-vk-like")[0] || "",
 	jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122",
-	showVK = function () {
+	initScript = function () {
 		try {
 			if (w.VK) {
 				VK.init({
@@ -696,7 +698,7 @@ manageVKLikeButton = function () {
 	},
 	addBtnHandlers = function () {
 		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl, showVK);
+			loadJS(jsUrl, initScript);
 		}
 	},
 	initVk = function () {
@@ -723,10 +725,10 @@ document.ready().then(manageVKLikeButton);
  */
 var initManUp = function () {
 	"use strict";
-	var initScript = function () {};
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
 		/* console.log("triggered function: initManUp"); */
-		var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
+		var initScript = function () {},
+		jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
 		}

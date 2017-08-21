@@ -1163,7 +1163,7 @@ initMasonry = function (ctx) {
 	};
 	if (grid && gridItem) {
 		/* console.log("triggered function: initMasonryGrid"); */
-		var initRerenderGrid = function () {
+		var initScript = function () {
 			initGrid();
 			var timers = new Timers();
 			timers.timeout(function () {
@@ -1181,9 +1181,9 @@ initMasonry = function (ctx) {
 		/* jsUrl = "./cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
 		jsUrl = "./cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl, initRerenderGrid);
+			loadJS(jsUrl, initScript);
 		} else {
-			initRerenderGrid();
+			initScript();
 		}
 	}
 };
@@ -1225,7 +1225,7 @@ var manageDisqusButton = function (ctx) {
 			disqusThread.removeAttribute("id");
 			hideDisqusButton();
 		},
-		renderDisqusThread = function () {
+		initScript = function () {
 			try {
 				DISQUS.reset({
 					reload: !0,
@@ -1247,9 +1247,9 @@ var manageDisqusButton = function (ctx) {
 				LoadingSpinner.show();
 				var jsUrl = getHTTP(true) + "://" + disqusShortname + ".disqus.com/embed.js";
 				if (!scriptIsLoaded(jsUrl)) {
-					loadJS(jsUrl, renderDisqusThread);
+					loadJS(jsUrl, initScript);
 				} else {
-					renderDisqusThread();
+					initScript();
 				}
 			},
 			debounceLogicHandleDisqusButton = debounce(logicHandleDisqusButton, 200);
@@ -1631,9 +1631,12 @@ var initKamilAutocomplete = function (jsonObj) {
 	};
 	if (searchForm && textInput) {
 		/* console.log("triggered function: initKamilAutocomplete"); */
-		var jsUrl = "./cdn/kamil/0.1.1/js/kamil.fixed.min.js";
+		var initScript = function () {
+			generateMenu(jsonObj);
+		},
+		jsUrl = "./cdn/kamil/0.1.1/js/kamil.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl, generateMenu.bind(null, jsonObj));
+			loadJS(jsUrl, initScript);
 		}
 	}
 };
@@ -1837,8 +1840,8 @@ var manageLocationQrCodeImage = function () {
 				newImg = d[cE]("img"),
 				newTitle = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
 				newSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
-				newImg.alt = newTitle;
-				var renderNewQrCode = function () {
+				newImg.alt = newTitle,
+				initScript = function () {
 					if (w.QRCode) {
 						if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
 							newSrc = QRCode.generateSVG(locationHref, {
@@ -1873,7 +1876,7 @@ var manageLocationQrCodeImage = function () {
 				},
 				jsUrl = "./cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
 				if (!scriptIsLoaded(jsUrl)) {
-					loadJS(jsUrl, renderNewQrCode);
+					loadJS(jsUrl, initScript);
 				}
 			},
 			handleLocationQrCodeButton = function (ev) {
@@ -1917,14 +1920,15 @@ var manageShareButton = function () {
 					holder[cL].toggle(isActiveClass);
 					holder[cL].add(isSocialClass);
 					handleOtherSocialButtons(holder);
-					var es5ShimsJsUrl = getHTTP(true) + "://yastatic.net/es5-shims/0.0.2/es5-shims.min.js",
-					shareJsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
-					if (!scriptIsLoaded(es5ShimsJsUrl)) {
-						loadJS(es5ShimsJsUrl, function () {
-							if (!scriptIsLoaded(shareJsUrl)) {
-								loadJS(shareJsUrl);
-							}
-						});
+					var initScript = function () {
+						var jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
+						if (!scriptIsLoaded(jsUrl)) {
+							loadJS(jsUrl);
+						}
+					},
+					jsUrl = getHTTP(true) + "://yastatic.net/es5-shims/0.0.2/es5-shims.min.js";
+					if (!scriptIsLoaded(jsUrl)) {
+						loadJS(jsUrl, initScript);
 					}
 				},
 				debounceLogicHandleShareButton = debounce(logicHandleShareButton, 200);
@@ -1963,21 +1967,22 @@ manageVKLikeButton = function () {
 					holder[cL].toggle(isActiveClass);
 					holder[cL].add(isSocialClass);
 					handleOtherSocialButtons(holder);
-					var jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122";
+					var initScript = function () {
+						if (w.VK) {
+							VK.init({
+								apiId: (vkLike.dataset.apiid || ""),
+								nameTransportPath: "/xd_receiver.htm",
+								onlyWidgets: !0
+							});
+							VK.Widgets.Like(vkLikeId, {
+								type: "button",
+								height: 24
+							});
+						}
+					},
+					jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122";
 					if (!scriptIsLoaded(jsUrl)) {
-						loadJS(jsUrl, function () {
-							if (w.VK) {
-								VK.init({
-									apiId: (vkLike.dataset.apiid || ""),
-									nameTransportPath: "/xd_receiver.htm",
-									onlyWidgets: !0
-								});
-								VK.Widgets.Like(vkLikeId, {
-									type: "button",
-									height: 24
-								});
-							}
-						});
+						loadJS(jsUrl, initScript);
 					}
 				},
 				debounceLogicHandleVKLikeButton = debounce(logicHandleVKLikeButton, 200);
@@ -2529,10 +2534,10 @@ document.ready().then(initUiTotop);
  */
 var initManUp = function () {
 	"use strict";
-	var initScript = function () {};
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
 		/* console.log("triggered function: initManUp"); */
-		var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
+		var initScript = function () {},
+		jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
 		}

@@ -1226,7 +1226,7 @@ var initMasonry = function () {
 	};
 	if (grid && gridItem) {
 		/* console.log("triggered function: initMasonry"); */
-		var initRerenderGrid = function () {
+		var initScript = function () {
 			initGrid();
 			var timers = new Timers();
 			timers.timeout(function () {
@@ -1249,7 +1249,7 @@ var initMasonry = function () {
 		/* jsUrl = "./cdn/packery/2.1.1/js/packery.imagesloaded.draggabilly.pkgd.fixed.min.js"; */
 		jsUrl = "./cdn/isotope/3.0.1/js/isotope.imagesloaded.pkgd.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl, initRerenderGrid);
+			loadJS(jsUrl, initScript);
 		}
 	}
 };

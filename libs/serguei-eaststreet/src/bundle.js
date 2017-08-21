@@ -1780,25 +1780,10 @@ var loadRefreshDisqus = function () {
 	btn = d[gEBCN]("btn-show-disqus")[0] || "",
 	locationHref = w.location.href || "",
 	disqusThreadShortName = disqusThread ? (disqusThread[ds].shortname || "") : "",
-	jsUrl = getHTTP(true) + "://" + disqusThreadShortName + ".disqus.com/embed.js",
 	showDisqus = function () {
 		disqusThread[cL].add(isActiveClass);
 		setStyleDisplayNone(btn);
 		LoadingSpinner.hide();
-	},
-	initDisqus = function () {
-		try {
-			DISQUS.reset({
-				reload : !0,
-				config : function () {
-					this.page.identifier = disqusThreadShortName;
-					this.page.url = locationHref;
-				}
-			});
-			showDisqus();
-		} catch(e) {
-			setStyleDisplayBlock(btn);
-		}
 	},
 	hideDisqus = function () {
 		removeChildren(disqusThread);
@@ -1811,10 +1796,25 @@ var loadRefreshDisqus = function () {
 		/* console.log("triggered function: loadRefreshDisqus"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			LoadingSpinner.show();
+			var initScript = function () {
+				try {
+					DISQUS.reset({
+						reload : !0,
+						config : function () {
+							this.page.identifier = disqusThreadShortName;
+							this.page.url = locationHref;
+						}
+					});
+					showDisqus();
+				} catch(e) {
+					setStyleDisplayBlock(btn);
+				}
+			},
+			jsUrl = getHTTP(true) + "://" + disqusThreadShortName + ".disqus.com/embed.js";
 			if (!scriptIsLoaded(jsUrl)) {
-				loadJS(jsUrl, initDisqus);
+				loadJS(jsUrl, initScript);
 			} else {
-				initDisqus();
+				initScript();
 			}
 		} else {
 			hideDisqus();
@@ -1862,7 +1862,6 @@ initYandexMap = function (yandexMapId) {
 	yandexMapCenter = yandexMap ? (yandexMap[ds].center || "") : "",
 	yandexMapZoom = yandexMap ? (yandexMap[ds].zoom || "") : "",
 	isActiveClass = "is-active",
-	jsUrl = getHTTP(true) + "://api-maps.yandex.ru/2.1/?lang=ru_RU",
 	initMyMap = function () {
 		if (myMap) {
 			myMap.destroy();
@@ -1880,16 +1879,6 @@ initYandexMap = function (yandexMapId) {
 		yandexMap[pN][cL].add(isActiveClass);
 		setStyleDisplayNone(btnShow);
 		LoadingSpinner.hide();
-	},
-	initYmaps = function () {
-		if ("undefined" !== ymaps && ymaps) {
-			try {
-				ymaps.ready(initMyMap);
-				showYandexMap();
-			} catch (e) {
-				setStyleDisplayBlock(btnShow);
-			}
-		}
 	},
 	hideYandexMap = function () {
 		removeChildren(yandexMap);
@@ -1913,10 +1902,21 @@ initYandexMap = function (yandexMapId) {
 				btnDestroy[aEL]("click", handleYandexMapBtnDestroy);
 			}
 			LoadingSpinner.show();
+			var initScript = function () {
+				if ("undefined" !== ymaps && ymaps) {
+					try {
+						ymaps.ready(initMyMap);
+						showYandexMap();
+					} catch (e) {
+						setStyleDisplayBlock(btnShow);
+					}
+				}
+			},
+			jsUrl = getHTTP(true) + "://api-maps.yandex.ru/2.1/?lang=ru_RU";
 			if (!scriptIsLoaded(jsUrl)) {
-				loadJS(jsUrl, initYmaps);
+				loadJS(jsUrl, initScript);
 			} else {
-				initYmaps();
+				initScript();
 			}
 		} else {
 			hideYandexMap();
@@ -2095,15 +2095,15 @@ var initKamilAutocomplete = function () {
 				}
 			});
 		}
-	},
-	arrangeSearchInput = function () {
-		loadUnparsedJSON(jsonUrl, processResponse);
 	};
 	if (searchForm && textInput) {
 		/* console.log("triggered function: initKamilAutocomplete"); */
-		var jsUrl = "../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
+		var initScript = function () {
+			loadUnparsedJSON(jsonUrl, processResponse);
+		},
+		jsUrl = "../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl, arrangeSearchInput);
+			loadJS(jsUrl, initScript);
 		}
 	}
 };
@@ -2344,10 +2344,10 @@ globalRoot.addEventListener("hashchange", updateInsertedDom); */
  */
 var initManUp = function () {
 	"use strict";
-	var initScript = function () {};
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
 		/* console.log("triggered function: initManUp"); */
-		var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
+		var initScript = function () {},
+		jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
 		}
