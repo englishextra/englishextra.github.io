@@ -17,7 +17,7 @@ require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top,
 scrollToTop, setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
 setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t,
 Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge,
-VK, ymaps, zenscroll */
+VK, Ya, ymaps, yShare, zenscroll */
 /*property console, split */
 /*!
  * define global root

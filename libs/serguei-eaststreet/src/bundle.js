@@ -17,7 +17,7 @@ require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top,
 scrollToTop, setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
 setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t,
 Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge,
-VK, ymaps, zenscroll */
+VK, Ya, ymaps, yShare, zenscroll */
 /*property console, split */
 /*!
  * define global root
@@ -2344,10 +2344,10 @@ globalRoot.addEventListener("hashchange", updateInsertedDom); */
  */
 var initManUp = function () {
 	"use strict";
+	/* console.log("triggered function: initManUp"); */
+	var initScript = function () {};
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		/* console.log("triggered function: initManUp"); */
-		var initScript = function () {},
-		jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
+		var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
 		}
