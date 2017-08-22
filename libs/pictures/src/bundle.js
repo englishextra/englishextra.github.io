@@ -803,26 +803,26 @@ initMasonry = function () {
 				}
 			}
 		}
+	},
+	initScript = function () {
+		initGrid();
+		var timers = new Timers();
+		timers.timeout(function () {
+			timers.clear();
+			timers = null;
+			if ("undefined" !== typeof msnry && msnry) {
+				msnry.layout();
+			} else {
+				if ("undefined" !== typeof pckry && pckry) {
+					pckry.layout();
+				}
+			}
+		}, 500);
 	};
 	if (grid && gridItem) {
 		/* console.log("triggered function: initMasonry"); */
-		var initScript = function () {
-			initGrid();
-			var timers = new Timers();
-			timers.timeout(function () {
-				timers.clear();
-				timers = null;
-				if ("undefined" !== typeof msnry && msnry) {
-					msnry.layout();
-				} else {
-					if ("undefined" !== typeof pckry && pckry) {
-						pckry.layout();
-					}
-				}
-			}, 500);
-		},
-		/* jsUrl = "../cdn/masonry/4.1.1/js/masonry.imagesloaded.pkgd.fixed.min.js"; */
-		jsUrl = "../cdn/packery/2.1.1/js/packery.imagesloaded.pkgd.fixed.min.js";
+		/* var jsUrl = "../cdn/masonry/4.1.1/js/masonry.imagesloaded.pkgd.fixed.min.js"; */
+		var jsUrl = "../cdn/packery/2.1.1/js/packery.imagesloaded.pkgd.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
 		}
@@ -1127,14 +1127,14 @@ var initPhotoswipe = function () {
 			arrangeImgLinks(pswpGallery[i]);
 		}
 		/* forEach(galleries, arrangeImgLinks, false); */
+	},
+	initScript = function () {
+		arrangeAllImgLinks();
+		pswp(pswpGallerySelector);
 	};
 	if (pswpGallery && pswpGalleryItems) {
 		/* console.log("triggered function: initPhotoswipe"); */
-		var initScript = function () {
-			arrangeAllImgLinks();
-			pswp(pswpGallerySelector);
-		},
-		jsUrl = "../cdn/photoswipe/4.1.0/js/photoswipe.photoswipe-ui-default.fixed.min.js";
+		var jsUrl = "../cdn/photoswipe/4.1.0/js/photoswipe.photoswipe-ui-default.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
 		}
@@ -1256,8 +1256,6 @@ manageShareButton = function () {
 		jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
-		} else {
-			initScript();
 		}
 	},
 	addBtnHandler = function () {
@@ -1345,9 +1343,9 @@ document.ready().then(manageVKLikeButton);
  */
 var initManUp = function () {
 	"use strict";
-	/* console.log("triggered function: initManUp"); */
 	var initScript = function () {};
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
+		/* console.log("triggered function: initManUp"); */
 		var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);

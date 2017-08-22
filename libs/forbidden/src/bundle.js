@@ -717,8 +717,6 @@ manageShareButton = function () {
 		jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
-		} else {
-			initScript();
 		}
 	},
 	addBtnHandler = function () {

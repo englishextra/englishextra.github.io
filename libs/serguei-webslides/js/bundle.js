@@ -955,16 +955,16 @@ var manageDataQrcodeImages = function (ctx) {
 				e.src = imgSrc;
 			}
 		}
+	},
+	    initScript = function () {
+		for (var i = 0, l = img.length; i < l; i += 1) {
+			generateImg(img[i]);
+		}
+		/* forEach(img, generateImg, false); */
 	};
 	if (img) {
 		/* console.log("triggered function: manageDataQrcodeImages"); */
-		var initScript = function () {
-			for (var i = 0, l = img.length; i < l; i += 1) {
-				generateImg(img[i]);
-			}
-			/* forEach(img, generateImg, false); */
-		},
-		    jsUrl = "../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
+		var jsUrl = "../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
 		}

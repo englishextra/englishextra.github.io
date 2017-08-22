@@ -1281,16 +1281,16 @@ var manageDataQrcodeImages = function (ctx) {
 				e.src = imgSrc;
 			}
 		}
+	},
+	initScript = function () {
+		for (var i = 0, l = img.length; i < l; i += 1) {
+			generateImg(img[i]);
+		}
+		/* forEach(img, generateImg, false); */
 	};
 	if (img) {
 		/* console.log("triggered function: manageDataQrcodeImages"); */
-		var initScript = function () {
-			for (var i = 0, l = img.length; i < l; i += 1) {
-				generateImg(img[i]);
-			}
-			/* forEach(img, generateImg, false); */
-		},
-		jsUrl = "../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
+		var jsUrl = "../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
 		} else {
@@ -1823,26 +1823,28 @@ var loadRefreshDisqus = function () {
 		appendFragment(msgText, disqusThread);
 		disqusThread.removeAttribute("id");
 		setStyleDisplayNone(btn[pN]);
+	},
+	initScript = function () {
+		if (w.DISQUS) {
+			try {
+				DISQUS.reset({
+					reload : !0,
+					config : function () {
+						this.page.identifier = disqusThreadShortName;
+						this.page.url = locationHref;
+					}
+				});
+				showDisqus();
+			} catch(e) {
+				setStyleDisplayBlock(btn);
+			}
+		}
 	};
 	if (disqusThread && btn && disqusThreadShortName && locationHref) {
 		/* console.log("triggered function: loadRefreshDisqus"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			LoadingSpinner.show();
-			var initScript = function () {
-				try {
-					DISQUS.reset({
-						reload : !0,
-						config : function () {
-							this.page.identifier = disqusThreadShortName;
-							this.page.url = locationHref;
-						}
-					});
-					showDisqus();
-				} catch(e) {
-					setStyleDisplayBlock(btn);
-				}
-			},
-			jsUrl = getHTTP(true) + "://" + disqusThreadShortName + ".disqus.com/embed.js";
+			var jsUrl = getHTTP(true) + "://" + disqusThreadShortName + ".disqus.com/embed.js";
 			if (!scriptIsLoaded(jsUrl)) {
 				loadJS(jsUrl, initScript);
 			} else {
@@ -1926,6 +1928,16 @@ initYandexMap = function (yandexMapId) {
 		if (myMap) {
 			myMap.destroy();
 		}
+	},
+	initScript = function () {
+		if ("undefined" !== ymaps && ymaps) {
+			try {
+				ymaps.ready(initMyMap);
+				showYandexMap();
+			} catch (e) {
+				setStyleDisplayBlock(btnShow);
+			}
+		}
 	};
 	if (yandexMap && yandexMapCenter && yandexMapZoom && btnShow) {
 		/* console.log("triggered function: initYandexMap"); */
@@ -1934,17 +1946,7 @@ initYandexMap = function (yandexMapId) {
 				btnDestroy[aEL]("click", handleYandexMapBtnDestroy);
 			}
 			LoadingSpinner.show();
-			var initScript = function () {
-				if ("undefined" !== ymaps && ymaps) {
-					try {
-						ymaps.ready(initMyMap);
-						showYandexMap();
-					} catch (e) {
-						setStyleDisplayBlock(btnShow);
-					}
-				}
-			},
-			jsUrl = getHTTP(true) + "://api-maps.yandex.ru/2.1/?lang=ru_RU";
+			var jsUrl = getHTTP(true) + "://api-maps.yandex.ru/2.1/?lang=ru_RU";
 			if (!scriptIsLoaded(jsUrl)) {
 				loadJS(jsUrl, initScript);
 			} else {
@@ -2127,13 +2129,13 @@ var initKamilAutocomplete = function () {
 				}
 			});
 		}
+	},
+	initScript = function () {
+		loadUnparsedJSON(jsonUrl, processResponse);
 	};
 	if (searchForm && textInput) {
 		/* console.log("triggered function: initKamilAutocomplete"); */
-		var initScript = function () {
-			loadUnparsedJSON(jsonUrl, processResponse);
-		},
-		jsUrl = "../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
+		var jsUrl = "../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
 		}
@@ -2376,9 +2378,9 @@ globalRoot.addEventListener("hashchange", updateInsertedDom); */
  */
 var initManUp = function () {
 	"use strict";
-	/* console.log("triggered function: initManUp"); */
 	var initScript = function () {};
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
+		/* console.log("triggered function: initManUp"); */
 		var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);

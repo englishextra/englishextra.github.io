@@ -1571,16 +1571,16 @@ var initTablesort = function (ctx) {
 			appendFragment("Сортируемая таблица", caption);
 			Tablesort(table);
 		}
+	},
+	    initScript = function () {
+		for (var i = 0, l = tableSort.length; i < l; i += 1) {
+			arrangeTableSort(tableSort[i]);
+		}
+		/* forEach(tableSort, arrangeTableSort, false); */
 	};
 	if (tableSort) {
 		/* console.log("triggered function: initTablesort"); */
-		var initScript = function () {
-			for (var i = 0, l = tableSort.length; i < l; i += 1) {
-				arrangeTableSort(tableSort[i]);
-			}
-			/* forEach(tableSort, arrangeTableSort, false); */
-		},
-		    jsUrl = "../../cdn/tablesort/4.0.1/js/tablesort.fixed.min.js";
+		var jsUrl = "../../cdn/tablesort/4.0.1/js/tablesort.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
 		}
@@ -2472,8 +2472,6 @@ var yShare,
 		    jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
-		} else {
-			initScript();
 		}
 	},
 	    addBtnHandler = function () {
@@ -2613,13 +2611,13 @@ var initDisqusOnScroll = function () {
 		}
 	},
 	    addBtnHandlers = function () {
-		var h_btn = function (ev) {
+		var handleDisqusButton = function (ev) {
 			ev.preventDefault();
 			ev.stopPropagation();
-			btn[rEL]("click", h_btn);
+			btn[rEL]("click", handleDisqusButton);
 			loadDisqus();
 		};
-		btn[aEL]("click", h_btn);
+		btn[aEL]("click", handleDisqusButton);
 	},
 	    hideDisqus = function () {
 		removeChildren(disqusThread);
@@ -2633,13 +2631,13 @@ var initDisqusOnScroll = function () {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			addBtnHandlers();
 			/* if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
-   	var h_w = function () {
+   	var handleDisqusWindow = function () {
    		if (fitsIntoViewport(disqusThread)) {
-   			w[rEL]("scroll", h_w);
+   			w[rEL]("scroll", handleDisqusWindow);
    			loadDisqus();
    		}
    	};
-   	w[aEL]("scroll", h_w);
+   	w[aEL]("scroll", handleDisqusWindow);
    } */
 		} else {
 			hideDisqus();
@@ -2881,10 +2879,10 @@ document.ready().then(initKamilAutocomplete);
  */
 var initManUp = function () {
 	"use strict";
-	/* console.log("triggered function: initManUp"); */
 
 	var initScript = function () {};
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
+		/* console.log("triggered function: initManUp"); */
 		var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);

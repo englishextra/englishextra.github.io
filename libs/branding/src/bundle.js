@@ -597,27 +597,27 @@ var initAllMasonry = function () {
 				}
 			}
 		}
+	},
+	initScript = function () {
+		initGrid();
+		var timers = new Timers();
+		timers.timeout(function () {
+			timers.clear();
+			timers = null;
+			if ("undefined" !== typeof msnry && msnry) {
+				msnry.layout();
+			} else {
+				if ("undefined" !== typeof pckry && pckry) {
+					pckry.layout();
+				}
+			}
+		}, 500);
 	};
 	if (grid && gridItem) {
 		/* console.log("triggered function: initAllMasonry"); */
-		var initScript = function () {
-			initGrid();
-			var timers = new Timers();
-			timers.timeout(function () {
-				timers.clear();
-				timers = null;
-				if ("undefined" !== typeof msnry && msnry) {
-					msnry.layout();
-				} else {
-					if ("undefined" !== typeof pckry && pckry) {
-						pckry.layout();
-					}
-				}
-			}, 500);
-		},
-		/* jsUrl = "../../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
-		/* jsUrl = "../../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js"; */
-		jsUrl = "../../cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
+		/* var jsUrl = "../../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
+		/* var jsUrl = "../../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js"; */
+		var jsUrl = "../../cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
 		}
@@ -632,15 +632,15 @@ var initPrettyPrint = function () {
 	var w = globalRoot,
 	d = document,
 	gEBCN = "getElementsByClassName",
-	pre = d[gEBCN]("prettyprint")[0] || "";
+	pre = d[gEBCN]("prettyprint")[0] || "",
+	initScript = function () {
+		if (w.prettyPrint) {
+			prettyPrint();
+		}
+	};
 	if (pre) {
 		/* console.log("triggered function: initPrettyPrint"); */
-		var initScript = function () {
-			if (w.prettyPrint) {
-				prettyPrint();
-			}
-		},
-		jsUrl = "../../cdn/google-code-prettify/0.1/js/prettify.bundled.fixed.min.js";
+		var jsUrl = "../../cdn/google-code-prettify/0.1/js/prettify.bundled.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
 		}
@@ -1519,8 +1519,6 @@ manageShareButton = function () {
 		jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
-		} else {
-			initScript();
 		}
 	},
 	addBtnHandler = function () {
@@ -1573,13 +1571,13 @@ var initDisqusOnScroll = function () {
 		}
 	},
 	addBtnHandlers = function () {
-		var h_btn = function (ev) {
+		var handleDisqusButton = function (ev) {
 			ev.preventDefault();
 			ev.stopPropagation();
-			btn[rEL]("click", h_btn);
+			btn[rEL]("click", handleDisqusButton);
 			loadDisqus();
 		};
-		btn[aEL]("click", h_btn);
+		btn[aEL]("click", handleDisqusButton);
 	},
 	hideDisqus = function () {
 		removeChildren(disqusThread);
@@ -1593,13 +1591,13 @@ var initDisqusOnScroll = function () {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			addBtnHandlers();
 			/* if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
-				var h_w = function () {
+				var handleDisqusWindow = function () {
 					if (fitsIntoViewport(disqusThread)) {
-						w[rEL]("scroll", h_w);
+						w[rEL]("scroll", handleDisqusWindow);
 						loadDisqus();
 					}
 				};
-				w[aEL]("scroll", h_w);
+				w[aEL]("scroll", handleDisqusWindow);
 			} */
 		} else {
 			hideDisqus();
@@ -1838,9 +1836,9 @@ document.ready().then(initKamilAutocomplete);
  */
 var initManUp = function () {
 	"use strict";
-	/* console.log("triggered function: initManUp"); */
 	var initScript = function () {};
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
+		/* console.log("triggered function: initManUp"); */
 		var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);

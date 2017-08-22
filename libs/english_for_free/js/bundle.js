@@ -1752,8 +1752,6 @@ var yShare,
 		    jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
-		} else {
-			initScript();
 		}
 	},
 	    addBtnHandler = function () {
@@ -1842,10 +1840,10 @@ document.ready().then(manageVKLikeButton);
  */
 var initManUp = function () {
 	"use strict";
-	/* console.log("triggered function: initManUp"); */
 
 	var initScript = function () {};
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
+		/* console.log("triggered function: initManUp"); */
 		var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);

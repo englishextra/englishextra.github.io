@@ -1972,61 +1972,61 @@ var manageDisqusButton = function (ctx) {
 	    isBindedClass = "is-binded",
 	    isActiveClass = "is-active",
 	    locationHref = w.location.href || "",
-	    disqusShortname = disqusThread ? disqusThread[ds].shortname || "" : "";
-	if (disqusThread && btn && disqusShortname && locationHref) {
-		/* console.log("triggered function: manageDisqusButton"); */
-		var hideDisqusButton = function () {
-			disqusThread[cL].add(isActiveClass);
-			btn.style.display = "none";
-			LoadingSpinner.hide();
-		},
-		    hideDisqusThread = function () {
-			removeChildren(disqusThread);
-			var replacementText = d[cE]("p");
-			replacementText[aC](d.createTextNode("Комментарии доступны только в веб версии этой страницы."));
-			appendFragment(replacementText, disqusThread);
-			disqusThread.removeAttribute("id");
-			hideDisqusButton();
-		},
-		    initScript = function () {
-			try {
-				DISQUS.reset({
-					reload: !0,
-					config: function () {
-						this.page.identifier = disqusShortname;
-						this.page.url = locationHref;
+	    disqusShortname = disqusThread ? disqusThread[ds].shortname || "" : "",
+	    hideDisqusButton = function () {
+		disqusThread[cL].add(isActiveClass);
+		btn.style.display = "none";
+		LoadingSpinner.hide();
+	},
+	    hideDisqusThread = function () {
+		removeChildren(disqusThread);
+		var replacementText = d[cE]("p");
+		replacementText[aC](d.createTextNode("Комментарии доступны только в веб версии этой страницы."));
+		appendFragment(replacementText, disqusThread);
+		disqusThread.removeAttribute("id");
+		hideDisqusButton();
+	},
+	    handleDisqusButton = function (ev) {
+		ev.stopPropagation();
+		ev.preventDefault();
+		var logicHandleDisqusButton = function () {
+			btn[rEL]("click", handleDisqusButton);
+			LoadingSpinner.show();
+			var initScript = function () {
+				if (w.DISQUS) {
+					try {
+						DISQUS.reset({
+							reload: !0,
+							config: function () {
+								this.page.identifier = disqusShortname;
+								this.page.url = locationHref;
+							}
+						});
+					} catch (e) {
+						console.log("cannot reset DISQUS");
 					}
-				});
-				hideDisqusButton();
-			} catch (e) {
-				hideDisqusButton();
-			}
-		},
-		    handleDisqusButton = function (ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			var logicHandleDisqusButton = function () {
-				btn[rEL]("click", handleDisqusButton);
-				LoadingSpinner.show();
-				var jsUrl = getHTTP(true) + "://" + disqusShortname + ".disqus.com/embed.js";
-				if (!scriptIsLoaded(jsUrl)) {
-					loadJS(jsUrl, initScript);
-				} else {
-					initScript();
+					hideDisqusButton();
 				}
 			},
-			    debounceLogicHandleDisqusButton = debounce(logicHandleDisqusButton, 200);
-			debounceLogicHandleDisqusButton();
-		};
-		if (disqusThread && btn) {
-			if ("undefined" !== typeof getHTTP && getHTTP()) {
-				if (!btn[cL].contains(isBindedClass)) {
-					btn[aEL]("click", handleDisqusButton);
-					btn[cL].add(isBindedClass);
-				}
+			    jsUrl = getHTTP(true) + "://" + disqusShortname + ".disqus.com/embed.js";
+			if (!scriptIsLoaded(jsUrl)) {
+				loadJS(jsUrl, initScript);
 			} else {
-				hideDisqusThread();
+				initScript();
 			}
+		},
+		    debounceLogicHandleDisqusButton = debounce(logicHandleDisqusButton, 200);
+		debounceLogicHandleDisqusButton();
+	};
+	if (disqusThread && btn && disqusShortname && locationHref) {
+		/* console.log("triggered function: manageDisqusButton"); */
+		if ("undefined" !== typeof getHTTP && getHTTP()) {
+			if (!btn[cL].contains(isBindedClass)) {
+				btn[aEL]("click", handleDisqusButton);
+				btn[cL].add(isBindedClass);
+			}
+		} else {
+			hideDisqusThread();
 		}
 	}
 };
@@ -2396,13 +2396,13 @@ var initKamilAutocomplete = function (jsonObj) {
 				}
 			});
 		}
+	},
+	    initScript = function () {
+		generateMenu(jsonObj);
 	};
 	if (searchForm && textInput) {
 		/* console.log("triggered function: initKamilAutocomplete"); */
-		var initScript = function () {
-			generateMenu(jsonObj);
-		},
-		    jsUrl = "./cdn/kamil/0.1.1/js/kamil.fixed.min.js";
+		var jsUrl = "./cdn/kamil/0.1.1/js/kamil.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
 		}
@@ -2746,8 +2746,7 @@ document.ready().then(manageShareButton);
 /*!
  * init vk-like btn
  */
-var VK,
-    manageVKLikeButton = function () {
+var manageVKLikeButton = function () {
 	"use strict";
 
 	var w = globalRoot,
@@ -3342,10 +3341,10 @@ document.ready().then(initUiTotop);
  */
 var initManUp = function () {
 	"use strict";
-	/* console.log("triggered function: initManUp"); */
 
 	var initScript = function () {};
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
+		/* console.log("triggered function: initManUp"); */
 		var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);

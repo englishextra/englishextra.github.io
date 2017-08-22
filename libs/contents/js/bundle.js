@@ -1404,35 +1404,34 @@ var initMasonryDisqus = function () {
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initDisqus);
 		}
+	},
+	    initScript = function () {
+		initGrid();
+		var timers = new Timers();
+		timers.timeout(function () {
+			timers.clear();
+			timers = null;
+			if ("undefined" !== typeof msnry && msnry) {
+				msnry.layout();
+			} else {
+				if ("undefined" !== typeof pckry && pckry) {
+					pckry.layout();
+				}
+			}
+		}, 500);
+		if (disqusThread && disqusShortname) {
+			if ("undefined" !== typeof getHTTP && getHTTP()) {
+				showDisqusThread();
+			} else {
+				setStyleDisplayNone(disqusThread[pN][pN]);
+			}
+		}
 	};
 	if (grid && gridItem) {
 		/* console.log("triggered function: initMasonryDisqus"); */
-		var initScript = function () {
-			initGrid();
-			var timers = new Timers();
-			timers.timeout(function () {
-				timers.clear();
-				timers = null;
-				if ("undefined" !== typeof msnry && msnry) {
-					msnry.layout();
-				} else {
-					if ("undefined" !== typeof pckry && pckry) {
-						pckry.layout();
-					}
-				}
-			}, 500);
-			if (disqusThread && disqusShortname) {
-				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					showDisqusThread();
-				} else {
-					setStyleDisplayNone(disqusThread[pN][pN]);
-				}
-			}
-		},
-
-		/* jsUrl = "../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
-		/* jsUrl = "../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js"; */
-		jsUrl = "../cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
+		/* var jsUrl = "../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
+		/* var jsUrl = "../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js"; */
+		var jsUrl = "../cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
 		}
@@ -1967,8 +1966,6 @@ var yShare,
 		    jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
-		} else {
-			initScript();
 		}
 	},
 	    addBtnHandler = function () {
@@ -2205,13 +2202,13 @@ var initKamilAutocomplete = function () {
 				}
 			});
 		}
+	},
+	    initScript = function () {
+		loadUnparsedJSON(jsonUrl, processResponse);
 	};
 	if (searchForm && textInput) {
 		/* console.log("triggered function: initKamilAutocomplete"); */
-		var initScript = function () {
-			loadUnparsedJSON(jsonUrl, processResponse);
-		},
-		    jsUrl = "../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
+		var jsUrl = "../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
 		}
@@ -2223,10 +2220,10 @@ document.ready().then(initKamilAutocomplete);
  */
 var initManUp = function () {
 	"use strict";
-	/* console.log("triggered function: initManUp"); */
 
 	var initScript = function () {};
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
+		/* console.log("triggered function: initManUp"); */
 		var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);

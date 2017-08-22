@@ -772,41 +772,41 @@ var initDoSlide = function () {
 			clearTimeout(token);
 			token = setTimeout(next, interval);
 		};
+	},
+	    initScript = function () {
+		if (w.DoSlide) {
+			var slide = new DoSlide(dsContainerSelector, {
+				duration: 2000,
+				horizontal: true,
+				infinite: true
+			}),
+			    slideTimer = timer(slide, 5000);
+			/*!
+    * dont JSMin line below: Notepad++ will freeze
+    * comment out if you dont want slide autorotation
+    */
+			slide.onChanged(slideTimer).do(slideTimer);
+			/*!
+    * init next button if no slide autorotation
+    */
+			setStyleDisplayBlock(cdPrev);
+			setStyleDisplayBlock(cdNext);
+			var handleCdPrev = function (ev) {
+				ev.preventDefault();
+				ev.stopPropagation();
+				slide.prev();
+			};
+			cdPrev[aEL]("click", handleCdPrev);
+			var handleCdNext = function (ev) {
+				ev.preventDefault();
+				ev.stopPropagation();
+				slide.next();
+			};
+			cdNext[aEL]("click", handleCdNext);
+		}
 	};
 	if (dsContainer && cdPrev && cdNext) {
-		var initScript = function () {
-			if (w.DoSlide) {
-				var slide = new DoSlide(dsContainerSelector, {
-					duration: 2000,
-					horizontal: true,
-					infinite: true
-				}),
-				    slideTimer = timer(slide, 5000);
-				/*!
-     * dont JSMin line below: Notepad++ will freeze
-     * comment out if you dont want slide autorotation
-     */
-				slide.onChanged(slideTimer).do(slideTimer);
-				/*!
-     * init next button if no slide autorotation
-     */
-				setStyleDisplayBlock(cdPrev);
-				setStyleDisplayBlock(cdNext);
-				var handleCdPrev = function (ev) {
-					ev.preventDefault();
-					ev.stopPropagation();
-					slide.prev();
-				};
-				cdPrev[aEL]("click", handleCdPrev);
-				var handleCdNext = function (ev) {
-					ev.preventDefault();
-					ev.stopPropagation();
-					slide.next();
-				};
-				cdNext[aEL]("click", handleCdNext);
-			}
-		},
-		    jsUrl = "../../cdn/doSlide/1.1.4/js/do-slide.fixed.min.js";
+		var jsUrl = "../../cdn/doSlide/1.1.4/js/do-slide.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
 		}
@@ -1081,8 +1081,6 @@ var yShare,
 		    jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
-		} else {
-			initScript();
 		}
 	},
 	    addBtnHandler = function () {
@@ -1171,10 +1169,10 @@ document.ready().then(manageVKLikeButton);
  */
 var initManUp = function () {
 	"use strict";
-	/* console.log("triggered function: initManUp"); */
 
 	var initScript = function () {};
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
+		/* console.log("triggered function: initManUp"); */
 		var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);

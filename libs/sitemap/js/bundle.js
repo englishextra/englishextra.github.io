@@ -1223,31 +1223,30 @@ var initMasonry = function () {
 				}
 			}
 		}
+	},
+	    initScript = function () {
+		initGrid();
+		var timers = new Timers();
+		timers.timeout(function () {
+			timers.clear();
+			timers = null;
+			if ("undefined" !== typeof iso && iso) {
+				iso.layout();
+			} else if ("undefined" !== typeof msnry && msnry) {
+				msnry.layout();
+			} else {
+				if ("undefined" !== typeof pckry && pckry) {
+					pckry.layout();
+				}
+			}
+		}, 500);
 	};
 	if (grid && gridItem) {
 		/* console.log("triggered function: initMasonry"); */
-		var initScript = function () {
-			initGrid();
-			var timers = new Timers();
-			timers.timeout(function () {
-				timers.clear();
-				timers = null;
-				if ("undefined" !== typeof iso && iso) {
-					iso.layout();
-				} else if ("undefined" !== typeof msnry && msnry) {
-					msnry.layout();
-				} else {
-					if ("undefined" !== typeof pckry && pckry) {
-						pckry.layout();
-					}
-				}
-			}, 500);
-		},
-
-		/* jsUrl = "./cdn/masonry/4.1.1/js/masonry.imagesloaded.pkgd.fixed.min.js"; */
-		/* jsUrl = "./cdn/packery/2.1.1/js/packery.imagesloaded.pkgd.fixed.min.js"; */
-		/* jsUrl = "./cdn/packery/2.1.1/js/packery.imagesloaded.draggabilly.pkgd.fixed.min.js"; */
-		jsUrl = "./cdn/isotope/3.0.1/js/isotope.imagesloaded.pkgd.fixed.min.js";
+		/* var jsUrl = "./cdn/masonry/4.1.1/js/masonry.imagesloaded.pkgd.fixed.min.js"; */
+		/* var jsUrl = "./cdn/packery/2.1.1/js/packery.imagesloaded.pkgd.fixed.min.js"; */
+		/* var jsUrl = "./cdn/packery/2.1.1/js/packery.imagesloaded.draggabilly.pkgd.fixed.min.js"; */
+		var jsUrl = "./cdn/isotope/3.0.1/js/isotope.imagesloaded.pkgd.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
 		}
