@@ -2012,8 +2012,6 @@ manageVKLikeButton = function () {
 			jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122";
 			if (!scriptIsLoaded(jsUrl)) {
 				loadJS(jsUrl, initScript);
-			} else {
-				initScript();
 			}
 		},
 		debounceLogicHandleVKLikeButton = debounce(logicHandleVKLikeButton, 200);
