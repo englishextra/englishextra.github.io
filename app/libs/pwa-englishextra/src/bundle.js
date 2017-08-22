@@ -1972,8 +1972,7 @@ document.ready().then(manageShareButton);
 /*!
  * init vk-like btn
  */
-var VK,
-manageVKLikeButton = function () {
+var manageVKLikeButton = function () {
 	"use strict";
 	var w = globalRoot,
 	d = document,
@@ -2003,9 +2002,7 @@ manageVKLikeButton = function () {
 					});
 					VK.Widgets.Like(vkLikeId, {
 						type: "button",
-						height: 24,
-						pageTitle: d.title || "",
-						pageUrl: w.location.href || ""
+						height: 24
 					});
 				}
 			},

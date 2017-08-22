@@ -678,53 +678,53 @@ var manageLocationQrCodeImage = function () {
 	cE = "createElement",
 	aEL = "addEventListener",
 	holder = d[gEBCN]("holder-location-qr-code")[0] || "",
-	locationHref = w.location.href || "";
+	locationHref = w.location.href || "",
+	generateLocationQrCodeImg = function () {
+		var locationHref = w.location.href || "",
+		img = d[cE]("img"),
+		imgTitle = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
+		imgSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
+		img.alt = imgTitle;
+		if (w.QRCode) {
+			if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
+				imgSrc = QRCode.generateSVG(locationHref, {
+						ecclevel: "M",
+						fillcolor: "#FFFFFF",
+						textcolor: "#191919",
+						margin: 4,
+						modulesize: 8
+					});
+				var XMLS = new XMLSerializer();
+				imgSrc = XMLS.serializeToString(imgSrc);
+				imgSrc = "data:image/svg+xml;base64," + w.btoa(unescape(encodeURIComponent(imgSrc)));
+				img.src = imgSrc;
+			} else {
+				imgSrc = QRCode.generatePNG(locationHref, {
+						ecclevel: "M",
+						format: "html",
+						fillcolor: "#FFFFFF",
+						textcolor: "#191919",
+						margin: 4,
+						modulesize: 8
+					});
+				img.src = imgSrc;
+			}
+		} else {
+			img.src = imgSrc;
+		}
+		img[cL].add("qr-code-img");
+		img.title = imgTitle;
+		removeChildren(holder);
+		appendFragment(img, holder);
+	},
+	initScript = function () {
+		generateLocationQrCodeImg();
+		w[aEL]("hashchange", generateLocationQrCodeImg);
+	};
 	if (holder && locationHref) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			/* console.log("triggered function: manageLocationQrCodeImage"); */
-			var generateLocationQrCodeImg = function () {
-				var locationHref = w.location.href || "",
-				img = d[cE]("img"),
-				imgTitle = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
-				imgSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
-				img.alt = imgTitle;
-				if (w.QRCode) {
-					if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
-						imgSrc = QRCode.generateSVG(locationHref, {
-								ecclevel: "M",
-								fillcolor: "#FFFFFF",
-								textcolor: "#191919",
-								margin: 4,
-								modulesize: 8
-							});
-						var XMLS = new XMLSerializer();
-						imgSrc = XMLS.serializeToString(imgSrc);
-						imgSrc = "data:image/svg+xml;base64," + w.btoa(unescape(encodeURIComponent(imgSrc)));
-						img.src = imgSrc;
-					} else {
-						imgSrc = QRCode.generatePNG(locationHref, {
-								ecclevel: "M",
-								format: "html",
-								fillcolor: "#FFFFFF",
-								textcolor: "#191919",
-								margin: 4,
-								modulesize: 8
-							});
-						img.src = imgSrc;
-					}
-				} else {
-					img.src = imgSrc;
-				}
-				img[cL].add("qr-code-img");
-				img.title = imgTitle;
-				removeChildren(holder);
-				appendFragment(img, holder);
-			},
-			initScript = function () {
-				generateLocationQrCodeImg();
-				w[aEL]("hashchange", generateLocationQrCodeImg);
-			},
-			jsUrl = "../../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
+			var jsUrl = "../../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
 			if (!scriptIsLoaded(jsUrl)) {
 				loadJS(jsUrl, initScript);
 			}
@@ -1047,54 +1047,70 @@ var initUiTotop = function () {
 };
 document.ready().then(initUiTotop);
 /*!
- * init pluso-engine or ya-share on click
+ * init share btn
+ * class ya-share2 automatically triggers Ya.share2,
+ * so use either default class ya-share2 or custom id
+ * ya-share2 class will be added if you init share block
+ * via  ya-share2 api
+ * @see {@link https://tech.yandex.ru/share/doc/dg/api-docpage/}
  */
-var manageShareButton = function () {
+var yShare,
+manageShareButton = function () {
 	"use strict";
-	var d = document,
+	var w = globalRoot,
+	d = document,
+	gEBI = "getElementById",
 	gEBCN = "getElementsByClassName",
 	aEL = "addEventListener",
-	rEL = "removeEventListener",
 	btn = d[gEBCN]("btn-share-buttons")[0] || "",
-	pluso = d[gEBCN]("pluso")[0] || "",
-	ya_share2 = d[gEBCN]("ya-share2")[0] || "",
-	showShare = function (block, btn) {
-		setStyleVisibilityVisible(block);
-		setStyleOpacity(block, 1);
+	yaShare2Id = "ya-share2",
+	yaShare2 =  d[gEBI](yaShare2Id) || "",
+	loadShare = function () {
+		setStyleVisibilityVisible(yaShare2);
+		setStyleOpacity(yaShare2, 1);
 		setStyleDisplayNone(btn);
-	},
-	loadShare = function (jsUrl, block, btn) {
 		var initScript = function () {
-			showShare(block, btn);
-		};
+			if (w.Ya) {
+				/*!
+				 * remove ya-share2 class in html markup
+				 * or you will end up with two copies of Ya.share2
+				 */
+				if (yShare) {
+					yShare.updateContent({
+						title: d.title || "",
+						description: d.title || "",
+						url: w.location.href || ""
+					});
+				} else {
+					yShare = Ya.share2(yaShare2Id, {
+						content: {
+							title: d.title || "",
+							description: d.title || "",
+							url: w.location.href || ""
+						}
+					});
+				}
+			}
+		},
+		jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
-		}
-	},
-	chooseProvider = function () {
-		var plusoJsUrl = getHTTP(true) + "://share.pluso.ru/pluso-like.js",
-		shareJsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
-		if (pluso) {
-			loadShare(plusoJsUrl, pluso, btn);
 		} else {
-			if (ya_share2) {
-				loadShare(shareJsUrl, ya_share2, btn);
-			}
+			initScript();
 		}
 	},
-	addBtnHandlers = function () {
-		var handleShareBtn = function (ev) {
+	addBtnHandler = function () {
+		var handleShareButton = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			btn[rEL]("click", handleShareBtn);
-			chooseProvider();
+			loadShare();
 		};
-		btn[aEL]("click", handleShareBtn);
+		btn[aEL]("click", handleShareButton);
 	};
-	if ((pluso || ya_share2) && btn) {
+	if (btn && yaShare2) {
 		/* console.log("triggered function: manageShareButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			addBtnHandlers();
+			addBtnHandler();
 		} else {
 			setStyleDisplayNone(btn);
 		}
@@ -1104,8 +1120,7 @@ document.ready().then(manageShareButton);
 /*!
  * init vk-like on click
  */
-var VK,
-manageVKLikeButton = function () {
+var manageVKLikeButton = function () {
 	"use strict";
 	var w = globalRoot,
 	d = document,
@@ -1117,10 +1132,9 @@ manageVKLikeButton = function () {
 	VKLikeId = "vk-like",
 	VKLike = d[gEBI](VKLikeId) || "",
 	btn = d[gEBCN]("btn-show-vk-like")[0] || "",
-	jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122",
 	initScript = function () {
-		try {
-			if (w.VK) {
+		if (w.VK) {
+			try {
 				VK.init({
 					apiId: (VKLike[ds].apiid || ""),
 					nameTransportPath: "/xd_receiver.htm",
@@ -1130,29 +1144,30 @@ manageVKLikeButton = function () {
 					type: "button",
 					height: 24
 				});
+				setStyleVisibilityVisible(VKLike);
+				setStyleOpacity(VKLike, 1);
+				setStyleDisplayNone(btn);
+			} catch(e) {
+				setStyleVisibilityHidden(VKLike);
+				setStyleOpacity(VKLike, 0);
+				setStyleDisplayBlock(btn);
 			}
-			setStyleVisibilityVisible(VKLike);
-			setStyleOpacity(VKLike, 1);
-			setStyleDisplayNone(btn);
-		} catch(e) {
-			setStyleVisibilityHidden(VKLike);
-			setStyleOpacity(VKLike, 0);
-			setStyleDisplayBlock(btn);
 		}
 	},
-	addBtnHandlers = function () {
+	addBtnHandler = function () {
+		var jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
 		}
 	},
 	initVk = function () {
-		var h_a = function (ev) {
+		var handleVKLikeButton = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			btn[rEL]("click", h_a);
-			addBtnHandlers();
+			btn[rEL]("click", handleVKLikeButton);
+			addBtnHandler();
 		};
-		btn[aEL]("click", h_a);
+		btn[aEL]("click", handleVKLikeButton);
 	};
 	if (VKLike && btn) {
 		/* console.log("triggered function: manageVKLikeButton"); */

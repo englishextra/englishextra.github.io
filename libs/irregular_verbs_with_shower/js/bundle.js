@@ -948,55 +948,71 @@ var initUiTotop = function () {
 };
 document.ready().then(initUiTotop);
 /*!
- * init pluso-engine or ya-share on click
+ * init share btn
+ * class ya-share2 automatically triggers Ya.share2,
+ * so use either default class ya-share2 or custom id
+ * ya-share2 class will be added if you init share block
+ * via  ya-share2 api
+ * @see {@link https://tech.yandex.ru/share/doc/dg/api-docpage/}
  */
-var manageShareButton = function () {
+var yShare,
+    manageShareButton = function () {
   "use strict";
 
-  var d = document,
+  var w = globalRoot,
+      d = document,
+      gEBI = "getElementById",
       gEBCN = "getElementsByClassName",
       aEL = "addEventListener",
-      rEL = "removeEventListener",
       btn = d[gEBCN]("btn-share-buttons")[0] || "",
-      pluso = d[gEBCN]("pluso")[0] || "",
-      ya_share2 = d[gEBCN]("ya-share2")[0] || "",
-      showShare = function (block, btn) {
-    setStyleVisibilityVisible(block);
-    setStyleOpacity(block, 1);
+      yaShare2Id = "ya-share2",
+      yaShare2 = d[gEBI](yaShare2Id) || "",
+      loadShare = function () {
+    setStyleVisibilityVisible(yaShare2);
+    setStyleOpacity(yaShare2, 1);
     setStyleDisplayNone(btn);
-  },
-      loadShare = function (jsUrl, block, btn) {
     var initScript = function () {
-      showShare(block, btn);
-    };
+      if (w.Ya) {
+        /*!
+         * remove ya-share2 class in html markup
+         * or you will end up with two copies of Ya.share2
+         */
+        if (yShare) {
+          yShare.updateContent({
+            title: d.title || "",
+            description: d.title || "",
+            url: w.location.href || ""
+          });
+        } else {
+          yShare = Ya.share2(yaShare2Id, {
+            content: {
+              title: d.title || "",
+              description: d.title || "",
+              url: w.location.href || ""
+            }
+          });
+        }
+      }
+    },
+        jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
     if (!scriptIsLoaded(jsUrl)) {
       loadJS(jsUrl, initScript);
-    }
-  },
-      chooseProvider = function () {
-    var plusoJsUrl = getHTTP(true) + "://share.pluso.ru/pluso-like.js",
-        shareJsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
-    if (pluso) {
-      loadShare(plusoJsUrl, pluso, btn);
     } else {
-      if (ya_share2) {
-        loadShare(shareJsUrl, ya_share2, btn);
-      }
+      initScript();
     }
   },
-      addBtnHandlers = function () {
-    var handleShareBtn = function (ev) {
+      addBtnHandler = function () {
+    var handleShareButton = function (ev) {
       ev.stopPropagation();
       ev.preventDefault();
-      btn[rEL]("click", handleShareBtn);
-      chooseProvider();
+      loadShare();
     };
-    btn[aEL]("click", handleShareBtn);
+    btn[aEL]("click", handleShareButton);
   };
-  if ((pluso || ya_share2) && btn) {
+  if (btn && yaShare2) {
     /* console.log("triggered function: manageShareButton"); */
     if ("undefined" !== typeof getHTTP && getHTTP()) {
-      addBtnHandlers();
+      addBtnHandler();
     } else {
       setStyleDisplayNone(btn);
     }
@@ -1008,11 +1024,11 @@ document.ready().then(manageShareButton);
  */
 var initManUp = function () {
   "use strict";
+  /* console.log("triggered function: initManUp"); */
 
+  var initScript = function () {};
   if ("undefined" !== typeof getHTTP && getHTTP()) {
-    /* console.log("triggered function: initManUp"); */
-    var initScript = function () {},
-        jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
+    var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
     if (!scriptIsLoaded(jsUrl)) {
       loadJS(jsUrl, initScript);
     }

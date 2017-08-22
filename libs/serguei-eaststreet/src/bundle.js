@@ -1631,18 +1631,18 @@ var manageLocationQrCodeImage = function () {
 		img.title = imgTitle;
 		removeChildren(holder);
 		appendFragment(img, holder);
+	},
+	initScript = function () {
+		removePageIsActiveClass();
+		btn[aEL]("click", generateLocationQrCodeImg);
+		btn[aEL]("click", handleGenerateLocationQrCodeImgBtn);
+		w[aEL]("hashchange", generateLocationQrCodeImg);
+		holder[aEL]("click", handleGenerateLocationQrCodeImgHolder);
 	};
 	if (btn && page && holder && locationHref) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			/* console.log("triggered function: manageLocationQrCodeImage"); */
-			var initScript = function () {
-				removePageIsActiveClass();
-				btn[aEL]("click", generateLocationQrCodeImg);
-				btn[aEL]("click", handleGenerateLocationQrCodeImgBtn);
-				w[aEL]("hashchange", generateLocationQrCodeImg);
-				holder[aEL]("click", handleGenerateLocationQrCodeImgHolder);
-			},
-			jsUrl = "../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
+			var jsUrl = "../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
 			if (!scriptIsLoaded(jsUrl)) {
 				loadJS(jsUrl, initScript);
 			}
@@ -1652,59 +1652,91 @@ var manageLocationQrCodeImage = function () {
 document.ready().then(manageLocationQrCodeImage);
 /*!
  * init share btn
+ * class ya-share2 automatically triggers Ya.share2,
+ * so use either default class ya-share2 or custom id
+ * ya-share2 class will be added if you init share block
+ * via  ya-share2 api
+ * @see {@link https://tech.yandex.ru/share/doc/dg/api-docpage/}
  */
-var manageShareButton = function () {
+var yShare,
+manageShareButton = function () {
 	"use strict";
-	var d = document,
+	var w = globalRoot,
+	d = document,
+	gEBI = "getElementById",
 	gEBCN = "getElementsByClassName",
 	cL = "classList",
 	aEL = "addEventListener",
 	btn = d[gEBCN]("btn-toggle-holder-share-buttons")[0] || "",
+	yaShare2Id = "ya-share2",
+	yaShare2 =  d[gEBI](yaShare2Id) || "",
 	page = d[gEBCN]("page")[0] || "",
+	holder = d[gEBCN]("holder-share-buttons")[0] || "",
 	isActiveQRCodeClass = "is-active-holder-location-qr-code",
 	isActiveVKLikeClass = "is-active-holder-vk-like",
 	isActiveShareClass = "is-active-holder-share-buttons",
 	isActiveSidepanelClass = "is-active-ui-sidepanel",
-	isActiveMenumoreClass = "is-active-ui-menumore";
-	if (btn && page) {
-		/* console.log("triggered function: manageShareButton"); */
-		var handleOtherUIElements = function (ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			page[cL].toggle(isActiveShareClass);
-			if (page[cL].contains(isActiveQRCodeClass)) {
-				page[cL].remove(isActiveQRCodeClass);
-			}
-			if (page[cL].contains(isActiveVKLikeClass)) {
-				page[cL].remove(isActiveVKLikeClass);
-			}
-			if (page[cL].contains(isActiveSidepanelClass)) {
-				page[cL].remove(isActiveSidepanelClass);
-			}
-			if (page[cL].contains(isActiveMenumoreClass)) {
-				page[cL].remove(isActiveMenumoreClass);
-			}
-			var es5ShimsJsUrl = getHTTP(true) + "://yastatic.net/es5-shims/0.0.2/es5-shims.min.js",
-			shareJsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
-			if (page[cL].contains(isActiveShareClass)) {
-				if (!scriptIsLoaded(es5ShimsJsUrl)) {
-					loadJS(es5ShimsJsUrl, function () {
-						if (!scriptIsLoaded(shareJsUrl)) {
-							loadJS(shareJsUrl);
+	isActiveMenumoreClass = "is-active-ui-menumore",
+	handleShareButton = function (ev) {
+		ev.stopPropagation();
+		ev.preventDefault();
+		page[cL].toggle(isActiveShareClass);
+		if (page[cL].contains(isActiveQRCodeClass)) {
+			page[cL].remove(isActiveQRCodeClass);
+		}
+		if (page[cL].contains(isActiveVKLikeClass)) {
+			page[cL].remove(isActiveVKLikeClass);
+		}
+		if (page[cL].contains(isActiveSidepanelClass)) {
+			page[cL].remove(isActiveSidepanelClass);
+		}
+		if (page[cL].contains(isActiveMenumoreClass)) {
+			page[cL].remove(isActiveMenumoreClass);
+		}
+		var initScript = function () {
+			if (w.Ya) {
+				/*!
+				 * remove ya-share2 class in html markup
+				 * or you will end up with two copies of Ya.share2
+				 */
+				if (yShare) {
+					yShare.updateContent({
+						title: d.title || "",
+						description: d.title || "",
+						url: w.location.href || ""
+					});
+				} else {
+					yShare = Ya.share2(yaShare2Id, {
+						content: {
+							title: d.title || "",
+							description: d.title || "",
+							url: w.location.href || ""
 						}
 					});
 				}
 			}
 		};
-		btn[aEL]("click", handleOtherUIElements);
+		if (page[cL].contains(isActiveShareClass)) {
+			var jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
+			if (!scriptIsLoaded(jsUrl)) {
+				loadJS(jsUrl, initScript);
+			} else {
+				initScript();
+			}
+		}
+	};
+	if (btn && page && holder && yaShare2) {
+		if ("undefined" !== typeof getHTTP && getHTTP()) {
+			/* console.log("triggered function: manageShareButton"); */
+			btn[aEL]("click", handleShareButton);
+		}
 	}
 };
 document.ready().then(manageShareButton);
 /*!
  * init vk-like btn
  */
-var VK,
-manageVKLikeButton = function () {
+var manageVKLikeButton = function () {
 	"use strict";
 	var w = globalRoot,
 	d = document,

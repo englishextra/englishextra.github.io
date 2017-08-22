@@ -2778,9 +2778,7 @@ var VK,
 					});
 					VK.Widgets.Like(vkLikeId, {
 						type: "button",
-						height: 24,
-						pageTitle: d.title || "",
-						pageUrl: w.location.href || ""
+						height: 24
 					});
 				}
 			},
