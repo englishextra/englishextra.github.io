@@ -17,7 +17,7 @@ require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top,
 scrollToTop, setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
 setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t,
 Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge,
-VK, Ya, ymaps, yShare, zenscroll */
+VK, Ya, ymaps, zenscroll */
 /*property console, split */
 /*!
  * define global root
@@ -511,7 +511,7 @@ manageExternalLinks = function (ctx) {
 			}
 		}
 	},
-	arrangeAllExternalLinks = function () {
+	initScript = function () {
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrangeExternalLink(link[i]);
 		}
@@ -519,7 +519,7 @@ manageExternalLinks = function (ctx) {
 	};
 	if (link) {
 		/* console.log("triggered function: manageExternalLinks"); */
-		arrangeAllExternalLinks();
+		initScript();
 	}
 };
 document.ready().then(manageExternalLinks);
@@ -544,7 +544,7 @@ var initAllMasonry = function () {
 	gridItem = d[gEBCN]("masonry-grid-item") || "",
 	msnry,
 	pckry,
-	initGrid = function () {
+	initScript = function () {
 		if (w.Masonry) {
 			/* console.log("function initMasonryDisqus => initialised msnry"); */
 			if (msnry) {
@@ -597,9 +597,6 @@ var initAllMasonry = function () {
 				}
 			}
 		}
-	},
-	initScript = function () {
-		initGrid();
 		var timers = new Timers();
 		timers.timeout(function () {
 			timers.clear();
@@ -663,28 +660,28 @@ var hideImgLightbox = function () {
 	an2 = "fadeInUp",
 	an3 = "fadeOut",
 	an4 = "fadeOutDown",
-	dummySrc = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
+	dummySrc = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+	hideImg = function () {
+		container[cL].remove(an);
+		container[cL].remove(an3);
+		img[cL].remove(an);
+		img[cL].remove(an4);
+		img.src = dummySrc;
+		container.style.display = "none";
+	},
+	hideContainer = function () {
+		container[cL].remove(an1);
+		container[cL].add(an3);
+		var timers = new Timers();
+		timers.timeout(function () {
+			timers.clear();
+			timers = null;
+			hideImg();
+		}, 400);
+	};
 	if (container && img) {
 		img[cL].remove(an2);
 		img[cL].add(an4);
-		var hideImg = function () {
-			container[cL].remove(an);
-			container[cL].remove(an3);
-			img[cL].remove(an);
-			img[cL].remove(an4);
-			img.src = dummySrc;
-			container.style.display = "none";
-		},
-		hideContainer = function () {
-			container[cL].remove(an1);
-			container[cL].add(an3);
-			var timers = new Timers();
-			timers.timeout(function () {
-				timers.clear();
-				timers = null;
-				hideImg();
-			}, 400);
-		};
 		var timers = new Timers();
 		timers.timeout(function () {
 			timers.clear();
@@ -759,11 +756,9 @@ manageImgLightboxLinks = function (ctx) {
 				}
 				imagePromise(hrefString).then(function (r) {
 					img.src = hrefString;
-					/* console.log("manageImgLightboxLinks => imagePromise: loaded image:", r); */
 				}).catch (function (err) {
 					/* console.log("manageImgLightboxLinks => imagePromise: cannot load image:", err); */
 				});
-				/* img.src = hrefString; */
 				w[aEL]("keyup", handleImgLightboxWindow);
 				container[aEL]("click", handleImgLightboxContainer);
 				container.style.display = "block";
@@ -785,7 +780,7 @@ manageImgLightboxLinks = function (ctx) {
 			}
 		}
 	},
-	arrangeAllImgLightboxLinks = function () {
+	initScript = function () {
 		for (var j = 0, l = link.length; j < l; j += 1) {
 			arrangeImgLightboxLink(link[j]);
 		}
@@ -793,7 +788,7 @@ manageImgLightboxLinks = function (ctx) {
 	};
 	if (link) {
 		/* console.log("triggered function: manageImgLightboxLinks"); */
-		arrangeAllImgLightboxLinks();
+		initScript();
 	}
 };
 document.ready().then(manageImgLightboxLinks);
@@ -839,7 +834,7 @@ var handleDataSrcImages = function () {
 			rerenderDataSrcImage(e);
 		}
 	},
-	arrangeAllDataSrcImages = function () {
+	initScript = function () {
 		for (var i = 0, l = img.length; i < l; i += 1) {
 			arrangeDataSrcImage(img[i]);
 		}
@@ -847,7 +842,7 @@ var handleDataSrcImages = function () {
 	};
 	if (img) {
 		/* console.log("triggered function: manageDataSrcImages"); */
-		arrangeAllDataSrcImages();
+		initScript();
 	}
 },
 handleDataSrcImagesWindow = function () {
@@ -918,7 +913,7 @@ var handleDataSrcIframes = function () {
 			rerenderDataSrcIframe(e);
 		}
 	},
-	rerenderDataSrcIframes = function () {
+	initScript = function () {
 		for (var i = 0, l = ifrm.length; i < l; i += 1) {
 			arrangeDataSrcIframe(ifrm[i]);
 		}
@@ -926,7 +921,7 @@ var handleDataSrcIframes = function () {
 	};
 	if (ifrm) {
 		/* console.log("triggered function: manageDataSrcIframes"); */
-		rerenderDataSrcIframes();
+		initScript();
 	}
 },
 handleDataSrcIframesWindow = function () {
@@ -1037,7 +1032,7 @@ manageExpandingLayers = function (ctx) {
 	arrangeBtn = function (e) {
 		e[aEL]("click", handleExpandingLayers);
 	},
-	arrangeAllBtns = function () {
+	initScript = function () {
 		for (var i = 0, l = btn.length; i < l; i += 1) {
 			arrangeBtn(btn[i]);
 		}
@@ -1045,7 +1040,7 @@ manageExpandingLayers = function (ctx) {
 	};
 	if (btn) {
 		/* console.log("triggered function: manageExpandingLayers"); */
-		arrangeAllBtns();
+		initScript();
 	}
 };
 document.ready().then(manageExpandingLayers);
@@ -1077,7 +1072,7 @@ manageSourceCodeLayers = function (ctx) {
 	arrangeBtn = function (e) {
 		e[aEL]("click", handleSourceCodeLayers);
 	},
-	arrangeAllBtns = function () {
+	initScript = function () {
 		for (var i = 0, l = btn.length; i < l; i += 1) {
 			arrangeBtn(btn[i]);
 		}
@@ -1085,7 +1080,7 @@ manageSourceCodeLayers = function (ctx) {
 	};
 	if (btn) {
 		/* console.log("triggered function: manageExpandingLayers"); */
-		arrangeAllBtns();
+		initScript();
 	}
 };
 document.ready().then(manageSourceCodeLayers);
@@ -1196,7 +1191,7 @@ var initNavMenu = function () {
 			holderPanelMenuMore[cL].remove(isActiveClass);
 		}
 	},
-	addContainerHandlers = function () {
+	addContainerHandler = function () {
 		var handleContainerLeft = function () {
 			/* console.log("swipeleft"); */
 			removeHolderActiveClass();
@@ -1220,7 +1215,7 @@ var initNavMenu = function () {
 			/* container.onswiperight = handleContainerRight; */
 		}
 	},
-	addBtnHandlers = function () {
+	addBtnHandler = function () {
 		var h_btn = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
@@ -1229,7 +1224,7 @@ var initNavMenu = function () {
 		};
 		btnNavMenu[aEL]("click", h_btn);
 	},
-	removeHoldeAndAllActiveClass = function () {
+	removeHolderAndAllActiveClass = function () {
 		removeHolderActiveClass();
 		removeAllActiveClass();
 	},
@@ -1239,18 +1234,15 @@ var initNavMenu = function () {
 	addActiveClass = function (e) {
 		e[cL].add(isActiveClass);
 	},
-	removeItemsActiveClass = function (a) {
-		for (var j = 0, l = a.length; j < l; j += 1) {
-			removeActiveClass(a[j]);
-		}
-		/* forEach(a, removeActiveClass, false); */
-	},
 	addItemHandler = function (e) {
 		var handleItem = function () {
 			if (panelNavMenu[cL].contains(isActiveClass)) {
-				removeHoldeAndAllActiveClass();
+				removeHolderAndAllActiveClass();
 			}
-			removeItemsActiveClass(panelNavMenuItems);
+			for (var j = 0, l = panelNavMenuItems.length; j < l; j += 1) {
+				removeActiveClass(panelNavMenuItems[j]);
+			}
+			/* forEach(panelNavMenuItems, removeActiveClass, false); */
 			addActiveClass(e);
 		};
 		e[aEL]("click", handleItem);
@@ -1260,7 +1252,7 @@ var initNavMenu = function () {
 			removeActiveClass(e);
 		}
 	},
-	addAllItemHandlers = function () {
+	addAllItemHandler = function () {
 		for (var i = 0, l = panelNavMenuItems.length; i < l; i += 1) {
 			addItemHandler(panelNavMenuItems[i]);
 		}
@@ -1269,14 +1261,17 @@ var initNavMenu = function () {
 	if (page && container && btnNavMenu && panelNavMenu && panelNavMenuItems) {
 		/* console.log("triggered function: initNavMenu"); */
 		/*!
+		 * close nav on outside click
+		 */
+		addContainerHandler();
+		/*!
 		 * open or close nav
 		 */
-		addBtnHandlers();
-		addContainerHandlers();
+		addBtnHandler();
 		/*!
 		 * close nav, scroll to top, highlight active nav item
 		 */
-		addAllItemHandlers();
+		addAllItemHandler();
 	}
 };
 document.ready().then(initNavMenu);
@@ -1308,7 +1303,7 @@ var addAppUpdatesLink = function () {
 	} else {
 		linkHref = "";
 	}
-	var	arrangeAppUpdatesLink = function () {
+	var	initScript = function () {
 		var listItem = d[cE]("li"),
 		link = d[cE]("a"),
 		linkText = "Скачать приложение сайта";
@@ -1337,7 +1332,7 @@ var addAppUpdatesLink = function () {
 	};
 	if (panel && items && linkHref) {
 		/* console.log("triggered function: addAppUpdatesLink"); */
-		arrangeAppUpdatesLink();
+		initScript();
 	}
 };
 document.ready().then(addAppUpdatesLink);
@@ -1370,10 +1365,10 @@ var initMenuMore = function () {
 	addItemHandler = function (e) {
 		e[aEL]("click", handleItem);
 	},
-	addContainerHandlers = function () {
+	addContainerHandler = function () {
 		container[aEL]("click", handleItem);
 	},
-	addBtnHandlers = function () {
+	addBtnHandler = function () {
 		var h_btn = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
@@ -1381,7 +1376,7 @@ var initMenuMore = function () {
 		};
 		btnMenuMore[aEL]("click", h_btn);
 	},
-	addAllItemHandlers = function () {
+	addAllItemHandler = function () {
 		for (var i = 0, l = panelMenuMoreItems.length; i < l; i += 1) {
 			addItemHandler(panelMenuMoreItems[i]);
 		}
@@ -1392,15 +1387,15 @@ var initMenuMore = function () {
 		/*!
 		 * hide menu more on outside click
 		 */
-		addContainerHandlers();
+		addContainerHandler();
 		/*!
 		 * show or hide menu more
 		 */
-		addBtnHandlers();
+		addBtnHandler();
 		/*!
 		 * hide menu more on item clicked
 		 */
-		addAllItemHandlers();
+		addAllItemHandler();
 	}
 };
 document.ready().then(initMenuMore);
@@ -1423,24 +1418,24 @@ var initUiTotop = function () {
 	btnClass = "ui-totop",
 	btnTitle = "Наверх",
 	isActiveClass = "is-active",
-	handleUiTotopWindow = function (_this) {
-		var logicHandleUiTotopWindow = function () {
-			var btn = d[gEBCN](btnClass)[0] || "",
-			scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
-			windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
-			if (scrollPosition && windowHeight && btn) {
-				if (scrollPosition > windowHeight) {
-					btn[cL].add(isActiveClass);
-				} else {
-					btn[cL].remove(isActiveClass);
-				}
-			}
-		},
-		throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
-		throttleLogicHandleUiTotopWindow();
-	},
 	renderUiTotop = function () {
-		var handleUiTotopAnchor = function (ev) {
+		var handleUiTotopWindow = function (_this) {
+			var logicHandleUiTotopWindow = function () {
+				var btn = d[gEBCN](btnClass)[0] || "",
+				scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
+				windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
+				if (scrollPosition && windowHeight && btn) {
+					if (scrollPosition > windowHeight) {
+						btn[cL].add(isActiveClass);
+					} else {
+						btn[cL].remove(isActiveClass);
+					}
+				}
+			},
+			throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
+			throttleLogicHandleUiTotopWindow();
+		},
+		handleUiTotopAnchor = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
 			scroll2Top(0, 20000);
@@ -1478,7 +1473,7 @@ document.ready().then(initUiTotop);
  * via  ya-share2 api
  * @see {@link https://tech.yandex.ru/share/doc/dg/api-docpage/}
  */
-var yShare,
+var yshare,
 manageShareButton = function () {
 	"use strict";
 	var w = globalRoot,
@@ -1489,43 +1484,40 @@ manageShareButton = function () {
 	btn = d[gEBCN]("btn-share-buttons")[0] || "",
 	yaShare2Id = "ya-share2",
 	yaShare2 =  d[gEBI](yaShare2Id) || "",
-	loadShare = function () {
-		setStyleVisibilityVisible(yaShare2);
-		setStyleOpacity(yaShare2, 1);
-		setStyleDisplayNone(btn);
-		var initScript = function () {
-			if (w.Ya) {
-				/*!
-				 * remove ya-share2 class in html markup
-				 * or you will end up with two copies of Ya.share2
-				 */
-				if (yShare) {
-					yShare.updateContent({
-						title: d.title || "",
-						description: d.title || "",
-						url: w.location.href || ""
-					});
-				} else {
-					yShare = Ya.share2(yaShare2Id, {
-						content: {
-							title: d.title || "",
-							description: d.title || "",
-							url: w.location.href || ""
-						}
-					});
-				}
-			}
-		},
-		jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
-		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl, initScript);
-		}
-	},
 	addBtnHandler = function () {
 		var handleShareButton = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			loadShare();
+			var initScript = function () {
+				if (w.Ya) {
+					try {
+						if (yshare) {
+							yshare.updateContent({
+								title: d.title || "",
+								description: d.title || "",
+								url: w.location.href || ""
+							});
+						} else {
+							yshare = Ya.share2(yaShare2Id, {
+								content: {
+									title: d.title || "",
+									description: d.title || "",
+									url: w.location.href || ""
+								}
+							});
+						}
+						setStyleVisibilityVisible(yaShare2);
+						setStyleOpacity(yaShare2, 1);
+						setStyleDisplayNone(btn);
+					} catch (err) {
+						/* console.log("cannot update or init Ya.share2", err); */
+					}
+				}
+			},
+			jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
+			if (!scriptIsLoaded(jsUrl)) {
+				loadJS(jsUrl, initScript);
+			}
 		};
 		btn[aEL]("click", handleShareButton);
 	};
@@ -1570,7 +1562,7 @@ var initDisqusOnScroll = function () {
 			loadJS(jsUrl, initScript);
 		}
 	},
-	addBtnHandlers = function () {
+	addBtnHandler = function () {
 		var handleDisqusButton = function (ev) {
 			ev.preventDefault();
 			ev.stopPropagation();
@@ -1585,18 +1577,18 @@ var initDisqusOnScroll = function () {
 		appendFragment(msgText, disqusThread);
 		disqusThread.removeAttribute("id");
 		setStyleDisplayNone(btn[pN]);
-	};
-	if (disqusThread && btn && disqusThreadShortname && locationHref) {
+	}/* ,
+	handleDisqusWindow = function () {
+		if (fitsIntoViewport(disqusThread)) {
+			w[rEL]("scroll", handleDisqusWindow);
+			loadDisqus();
+		}
+	} */;
+	if (btn && disqusThread && disqusThreadShortname && locationHref) {
 		/* console.log("triggered function: initDisqusOnScroll"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			addBtnHandlers();
+			addBtnHandler();
 			/* if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
-				var handleDisqusWindow = function () {
-					if (fitsIntoViewport(disqusThread)) {
-						w[rEL]("scroll", handleDisqusWindow);
-						loadDisqus();
-					}
-				};
 				w[aEL]("scroll", handleDisqusWindow);
 			} */
 		} else {
@@ -1635,32 +1627,27 @@ var manageVKLikeButton = function () {
 				setStyleVisibilityVisible(VKLike);
 				setStyleOpacity(VKLike, 1);
 				setStyleDisplayNone(btn);
-			} catch(e) {
-				setStyleVisibilityHidden(VKLike);
-				setStyleOpacity(VKLike, 0);
-				setStyleDisplayBlock(btn);
+			} catch (err) {
+				/* console.log("cannot init VK", err); */
 			}
 		}
 	},
 	addBtnHandler = function () {
-		var jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122";
-		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl, initScript);
-		}
-	},
-	initVk = function () {
 		var handleVKLikeButton = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
 			btn[rEL]("click", handleVKLikeButton);
-			addBtnHandler();
+			var jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122";
+			if (!scriptIsLoaded(jsUrl)) {
+				loadJS(jsUrl, initScript);
+			}
 		};
 		btn[aEL]("click", handleVKLikeButton);
 	};
-	if (VKLike && btn) {
+	if (btn && VKLike) {
 		/* console.log("triggered function: manageVKLikeButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			initVk();
+			addBtnHandler();
 		} else {
 			setStyleDisplayNone(btn);
 		}
@@ -1854,8 +1841,9 @@ var showPageFinishProgress = function () {
 	var d = document,
 	gEBI = "getElementById",
 	container = d[gEBI]("container") || "";
-	/* console.log("triggered function: showPageFinishProgress"); */
-	setStyleOpacity(container, 1);
-	progressBar.complete();
+	if (container) {
+		setStyleOpacity(container, 1);
+		progressBar.complete();
+	}
 };
 globalRoot.addEventListener("load", showPageFinishProgress);

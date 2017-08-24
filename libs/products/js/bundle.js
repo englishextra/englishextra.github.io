@@ -17,7 +17,7 @@ require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top,
 scrollToTop, setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
 setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t,
 Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge,
-VK, Ya, ymaps, yShare, zenscroll */
+VK, Ya, ymaps, zenscroll */
 /*property console, split */
 /*!
  * define global root
@@ -733,7 +733,7 @@ var handleExternalLink = function (url, ev) {
 			}
 		}
 	},
-	    arrangeAllExternalLinks = function () {
+	    initScript = function () {
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrangeExternalLink(link[i]);
 		}
@@ -741,7 +741,7 @@ var handleExternalLink = function (url, ev) {
 	};
 	if (link) {
 		/* console.log("triggered function: manageExternalLinks"); */
-		arrangeAllExternalLinks();
+		initScript();
 	}
 };
 document.ready().then(manageExternalLinks);
@@ -910,7 +910,7 @@ var addAppUpdatesLink = function () {
 	} else {
 		linkHref = "";
 	}
-	var arrangeAppUpdatesLink = function () {
+	var initScript = function () {
 		var listItem = d[cE]("li"),
 		    link = d[cE]("a"),
 		    linkText = "Скачать приложение сайта";
@@ -939,7 +939,7 @@ var addAppUpdatesLink = function () {
 	};
 	if (panel && items && linkHref) {
 		/* console.log("triggered function: addAppUpdatesLink"); */
-		arrangeAppUpdatesLink();
+		initScript();
 	}
 };
 document.ready().then(addAppUpdatesLink);
@@ -973,10 +973,10 @@ var initMenuMore = function () {
 	    addItemHandler = function (e) {
 		e[aEL]("click", handleItem);
 	},
-	    addContainerHandlers = function () {
+	    addContainerHandler = function () {
 		container[aEL]("click", handleItem);
 	},
-	    addBtnHandlers = function () {
+	    addBtnHandler = function () {
 		var h_btn = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
@@ -984,7 +984,7 @@ var initMenuMore = function () {
 		};
 		btnMenuMore[aEL]("click", h_btn);
 	},
-	    addAllItemHandlers = function () {
+	    addAllItemHandler = function () {
 		for (var i = 0, l = panelMenuMoreItems.length; i < l; i += 1) {
 			addItemHandler(panelMenuMoreItems[i]);
 		}
@@ -995,15 +995,15 @@ var initMenuMore = function () {
 		/*!
    * hide menu more on outside click
    */
-		addContainerHandlers();
+		addContainerHandler();
 		/*!
    * show or hide menu more
    */
-		addBtnHandlers();
+		addBtnHandler();
 		/*!
    * hide menu more on item clicked
    */
-		addAllItemHandlers();
+		addAllItemHandler();
 	}
 };
 document.ready().then(initMenuMore);
@@ -1019,14 +1019,11 @@ var showMenuMore = function () {
 	    holderPanelMenuMore = d[gEBCN]("holder-panel-menu-more")[0] || "",
 	    isActiveClass = "is-active";
 	if (holderPanelMenuMore) {
-		var st1 = function () {
-			holderPanelMenuMore[cL].add(isActiveClass);
-		};
 		var timers = new Timers();
 		timers.timeout(function () {
 			timers.clear();
 			timers = null;
-			st1();
+			holderPanelMenuMore[cL].add(isActiveClass);
 		}, 2000);
 	}
 };
@@ -1039,7 +1036,7 @@ document.ready().then(showMenuMore);
  * via  ya-share2 api
  * @see {@link https://tech.yandex.ru/share/doc/dg/api-docpage/}
  */
-var yShare,
+var yshare,
     manageShareButton = function () {
 	"use strict";
 
@@ -1051,43 +1048,40 @@ var yShare,
 	    btn = d[gEBCN]("btn-share-buttons")[0] || "",
 	    yaShare2Id = "ya-share2",
 	    yaShare2 = d[gEBI](yaShare2Id) || "",
-	    loadShare = function () {
-		setStyleVisibilityVisible(yaShare2);
-		setStyleOpacity(yaShare2, 1);
-		setStyleDisplayNone(btn);
-		var initScript = function () {
-			if (w.Ya) {
-				/*!
-     * remove ya-share2 class in html markup
-     * or you will end up with two copies of Ya.share2
-     */
-				if (yShare) {
-					yShare.updateContent({
-						title: d.title || "",
-						description: d.title || "",
-						url: w.location.href || ""
-					});
-				} else {
-					yShare = Ya.share2(yaShare2Id, {
-						content: {
-							title: d.title || "",
-							description: d.title || "",
-							url: w.location.href || ""
-						}
-					});
-				}
-			}
-		},
-		    jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
-		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl, initScript);
-		}
-	},
 	    addBtnHandler = function () {
 		var handleShareButton = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			loadShare();
+			var initScript = function () {
+				if (w.Ya) {
+					try {
+						if (yshare) {
+							yshare.updateContent({
+								title: d.title || "",
+								description: d.title || "",
+								url: w.location.href || ""
+							});
+						} else {
+							yshare = Ya.share2(yaShare2Id, {
+								content: {
+									title: d.title || "",
+									description: d.title || "",
+									url: w.location.href || ""
+								}
+							});
+						}
+						setStyleVisibilityVisible(yaShare2);
+						setStyleOpacity(yaShare2, 1);
+						setStyleDisplayNone(btn);
+					} catch (err) {
+						/* console.log("cannot update or init Ya.share2", err); */
+					}
+				}
+			},
+			    jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
+			if (!scriptIsLoaded(jsUrl)) {
+				loadJS(jsUrl, initScript);
+			}
 		};
 		btn[aEL]("click", handleShareButton);
 	};
@@ -1132,32 +1126,27 @@ var manageVKLikeButton = function () {
 				setStyleVisibilityVisible(VKLike);
 				setStyleOpacity(VKLike, 1);
 				setStyleDisplayNone(btn);
-			} catch (e) {
-				setStyleVisibilityHidden(VKLike);
-				setStyleOpacity(VKLike, 0);
-				setStyleDisplayBlock(btn);
+			} catch (err) {
+				/* console.log("cannot init VK", err); */
 			}
 		}
 	},
 	    addBtnHandler = function () {
-		var jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122";
-		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl, initScript);
-		}
-	},
-	    initVk = function () {
 		var handleVKLikeButton = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
 			btn[rEL]("click", handleVKLikeButton);
-			addBtnHandler();
+			var jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122";
+			if (!scriptIsLoaded(jsUrl)) {
+				loadJS(jsUrl, initScript);
+			}
 		};
 		btn[aEL]("click", handleVKLikeButton);
 	};
-	if (VKLike && btn) {
+	if (btn && VKLike) {
 		/* console.log("triggered function: manageVKLikeButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			initVk();
+			addBtnHandler();
 		} else {
 			setStyleDisplayNone(btn);
 		}
@@ -1192,23 +1181,17 @@ var showPageFinishProgress = function () {
 	    showContainer = function () {
 		setStyleOpacity(container, 1);
 		progressBar.complete();
-	},
-	    showContainerOnImagesPreloaded = function () {
-		var timers = new Timers();
-		timers.interval(function () {
-			/* console.log("function showPageFinishProgress => started Interval"); */
-			if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
-				timers.clear();
-				timers = null;
-				/* console.log("function showPageFinishProgress; imagesPreloaded=" + imagesPreloaded); */
-				showContainer();
-			}
-		}, 100);
 	};
 	if (container) {
-		/* console.log("triggered function: showPageFinishProgress"); */
 		if ("undefined" !== typeof imagesPreloaded) {
-			showContainerOnImagesPreloaded();
+			var timers = new Timers();
+			timers.interval(function () {
+				if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
+					timers.clear();
+					timers = null;
+					showContainer();
+				}
+			}, 100);
 		} else {
 			showContainer();
 		}

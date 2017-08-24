@@ -17,7 +17,7 @@ require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top,
 scrollToTop, setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
 setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t,
 Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge,
-VK, Ya, ymaps, yShare, zenscroll */
+VK, Ya, ymaps, zenscroll */
 /*property console, split */
 /*!
  * define global root
@@ -703,7 +703,10 @@ var Notifier42 = function (msgObj, delay, msgClass) {
 	var clearContainer = function (cb) {
 		container[cL].remove(an2);
 		container[cL].add(an4);
-		var st1 = function () {
+		var timers = new Timers();
+		timers.timeout(function () {
+			timers.clear();
+			timers = null;
 			container[cL].remove(an);
 			container[cL].remove(an4);
 			if (msgClass) {
@@ -713,12 +716,6 @@ var Notifier42 = function (msgObj, delay, msgClass) {
 			if (cb && "function" === typeof cb) {
 				cb();
 			}
-		};
-		var timers = new Timers();
-		timers.timeout(function () {
-			timers.clear();
-			timers = null;
-			st1();
 		}, 400);
 	};
 	container[aEL]("click", function handleContainer() {
@@ -882,7 +879,7 @@ var highlightSidepanelItem = function () {
 			e[cL].remove(isActiveClass);
 		}
 	},
-	addAllItemHandlers = function () {
+	addItemHandler = function () {
 		for (var i = 0, l = items.length; i < l; i += 1) {
 			addItemHandler(items[i]);
 		}
@@ -890,7 +887,7 @@ var highlightSidepanelItem = function () {
 	};
 	if (panel && items && locationHref) {
 		/* console.log("triggered function: highlightNavMenuItem"); */
-		addAllItemHandlers();
+		addItemHandler();
 	}
 };
 document.ready().then(highlightSidepanelItem);
@@ -994,7 +991,7 @@ manageExternalLinks = function (ctx) {
 			}
 		}
 	},
-	arrangeAllExternalLinks = function () {
+	initScript = function () {
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrangeExternalLink(link[i]);
 		}
@@ -1002,7 +999,7 @@ manageExternalLinks = function (ctx) {
 	};
 	if (link) {
 		/* console.log("triggered function: manageExternalLinks"); */
-		arrangeAllExternalLinks();
+		initScript();
 	}
 };
 document.ready().then(manageExternalLinks);
@@ -1022,28 +1019,28 @@ var hideImgLightbox = function () {
 	an2 = "fadeInUp",
 	an3 = "fadeOut",
 	an4 = "fadeOutDown",
-	dummySrc = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
+	dummySrc = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+	hideImg = function () {
+		container[cL].remove(an);
+		container[cL].remove(an3);
+		img[cL].remove(an);
+		img[cL].remove(an4);
+		img.src = dummySrc;
+		container.style.display = "none";
+	},
+	hideContainer = function () {
+		container[cL].remove(an1);
+		container[cL].add(an3);
+		var timers = new Timers();
+		timers.timeout(function () {
+			timers.clear();
+			timers = null;
+			hideImg();
+		}, 400);
+	};
 	if (container && img) {
 		img[cL].remove(an2);
 		img[cL].add(an4);
-		var hideImg = function () {
-			container[cL].remove(an);
-			container[cL].remove(an3);
-			img[cL].remove(an);
-			img[cL].remove(an4);
-			img.src = dummySrc;
-			container.style.display = "none";
-		},
-		hideContainer = function () {
-			container[cL].remove(an1);
-			container[cL].add(an3);
-			var timers = new Timers();
-			timers.timeout(function () {
-				timers.clear();
-				timers = null;
-				hideImg();
-			}, 400);
-		};
 		var timers = new Timers();
 		timers.timeout(function () {
 			timers.clear();
@@ -1118,11 +1115,9 @@ manageImgLightboxLinks = function (ctx) {
 				}
 				imagePromise(hrefString).then(function (r) {
 					img.src = hrefString;
-					/* console.log("manageImgLightboxLinks => imagePromise: loaded image:", r); */
 				}).catch (function (err) {
 					/* console.log("manageImgLightboxLinks => imagePromise: cannot load image:", err); */
 				});
-				/* img.src = hrefString; */
 				w[aEL]("keyup", handleImgLightboxWindow);
 				container[aEL]("click", handleImgLightboxContainer);
 				container.style.display = "block";
@@ -1144,7 +1139,7 @@ manageImgLightboxLinks = function (ctx) {
 			}
 		}
 	},
-	arrangeAllImgLightboxLinks = function () {
+	initScript = function () {
 		for (var j = 0, l = link.length; j < l; j += 1) {
 			arrangeImgLightboxLink(link[j]);
 		}
@@ -1152,7 +1147,7 @@ manageImgLightboxLinks = function (ctx) {
 	};
 	if (link) {
 		/* console.log("triggered function: manageImgLightboxLinks"); */
-		arrangeAllImgLightboxLinks();
+		initScript();
 	}
 };
 /*!
@@ -1197,7 +1192,7 @@ var handleDataSrcImages = function () {
 			rerenderDataSrcImage(e);
 		}
 	},
-	arrangeAllDataSrcImages = function () {
+	initScript = function () {
 		for (var i = 0, l = img.length; i < l; i += 1) {
 			arrangeDataSrcImage(img[i]);
 		}
@@ -1205,7 +1200,7 @@ var handleDataSrcImages = function () {
 	};
 	if (img) {
 		/* console.log("triggered function: manageDataSrcImages"); */
-		arrangeAllDataSrcImages();
+		initScript();
 	}
 },
 handleDataSrcImagesWindow = function () {
@@ -1381,7 +1376,7 @@ manageExpandingLayers = function (ctx) {
 	arrangeBtn = function (e) {
 		e[aEL]("click", handleExpandingLayers);
 	},
-	arrangeAllBtns = function () {
+	initScript = function () {
 		for (var i = 0, l = btn.length; i < l; i += 1) {
 			arrangeBtn(btn[i]);
 		}
@@ -1389,7 +1384,7 @@ manageExpandingLayers = function (ctx) {
 	};
 	if (btn) {
 		/* console.log("triggered function: manageExpandingLayers"); */
-		arrangeAllBtns();
+		initScript();
 	}
 };
 /*!
@@ -1658,7 +1653,7 @@ document.ready().then(manageLocationQrCodeImage);
  * via  ya-share2 api
  * @see {@link https://tech.yandex.ru/share/doc/dg/api-docpage/}
  */
-var yShare,
+var yshare,
 manageShareButton = function () {
 	"use strict";
 	var w = globalRoot,
@@ -1699,14 +1694,14 @@ manageShareButton = function () {
 				 * remove ya-share2 class in html markup
 				 * or you will end up with two copies of Ya.share2
 				 */
-				if (yShare) {
-					yShare.updateContent({
+				if (yshare) {
+					yshare.updateContent({
 						title: d.title || "",
 						description: d.title || "",
 						url: w.location.href || ""
 					});
 				} else {
-					yShare = Ya.share2(yaShare2Id, {
+					yshare = Ya.share2(yaShare2Id, {
 						content: {
 							title: d.title || "",
 							description: d.title || "",
@@ -1811,7 +1806,7 @@ var loadRefreshDisqus = function () {
 	isActiveClass = "is-active",
 	btn = d[gEBCN]("btn-show-disqus")[0] || "",
 	locationHref = w.location.href || "",
-	disqusThreadShortName = disqusThread ? (disqusThread[ds].shortname || "") : "",
+	disqusThreadShortname = disqusThread ? (disqusThread[ds].shortname || "") : "",
 	showDisqus = function () {
 		disqusThread[cL].add(isActiveClass);
 		setStyleDisplayNone(btn);
@@ -1830,21 +1825,21 @@ var loadRefreshDisqus = function () {
 				DISQUS.reset({
 					reload : !0,
 					config : function () {
-						this.page.identifier = disqusThreadShortName;
+						this.page.identifier = disqusThreadShortname;
 						this.page.url = locationHref;
 					}
 				});
 				showDisqus();
-			} catch(e) {
-				setStyleDisplayBlock(btn);
+			} catch (err) {
+				/* console.log("cannot reset DISQUS", err); */
 			}
 		}
 	};
-	if (disqusThread && btn && disqusThreadShortName && locationHref) {
+	if (btn && disqusThread && disqusThreadShortname && locationHref) {
 		/* console.log("triggered function: loadRefreshDisqus"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			LoadingSpinner.show();
-			var jsUrl = getHTTP(true) + "://" + disqusThreadShortName + ".disqus.com/embed.js";
+			var jsUrl = getHTTP(true) + "://" + disqusThreadShortname + ".disqus.com/embed.js";
 			if (!scriptIsLoaded(jsUrl)) {
 				loadJS(jsUrl, initScript);
 			} else {
@@ -1880,10 +1875,10 @@ manageDisqusButton = function () {
  * tech.yandex.ru/maps/jsbox/2.1/mapbasics
  */
 var myMap,
-ymaps,
 initYandexMap = function (yandexMapId) {
 	"use strict";
-	var d = document,
+	var w = globalRoot,
+	d = document,
 	gEBI = "getElementById",
 	cL = "classList",
 	ds = "dataset",
@@ -1900,14 +1895,10 @@ initYandexMap = function (yandexMapId) {
 		if (myMap) {
 			myMap.destroy();
 		}
-		try {
-			myMap = new ymaps.Map(yandexMapId, {
-					center: JSON.parse(yandexMapCenter),
-					zoom: yandexMapZoom
-				});
-		} catch (e) {
-			setStyleDisplayBlock(btnShow);
-		}
+		myMap = new ymaps.Map(yandexMapId, {
+				center: JSON.parse(yandexMapCenter),
+				zoom: yandexMapZoom
+			});
 	},
 	showYandexMap = function () {
 		yandexMap[pN][cL].add(isActiveClass);
@@ -1930,12 +1921,12 @@ initYandexMap = function (yandexMapId) {
 		}
 	},
 	initScript = function () {
-		if ("undefined" !== ymaps && ymaps) {
+		if (w.ymaps) {
 			try {
 				ymaps.ready(initMyMap);
 				showYandexMap();
 			} catch (e) {
-				setStyleDisplayBlock(btnShow);
+				/* console.log("cannot init initMyMap", err); */
 			}
 		}
 	};
@@ -2161,24 +2152,24 @@ var initUiTotop = function () {
 	btnClass = "ui-totop",
 	btnTitle = "Наверх",
 	isActiveClass = "is-active",
-	handleUiTotopWindow = function (_this) {
-		var logicHandleUiTotopWindow = function () {
-			var btn = d[gEBCN](btnClass)[0] || "",
-			scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
-			windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
-			if (scrollPosition && windowHeight && btn) {
-				if (scrollPosition > windowHeight) {
-					btn[cL].add(isActiveClass);
-				} else {
-					btn[cL].remove(isActiveClass);
-				}
-			}
-		},
-		throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
-		throttleLogicHandleUiTotopWindow();
-	},
 	renderUiTotop = function () {
-		var handleUiTotopAnchor = function (ev) {
+		var handleUiTotopWindow = function (_this) {
+			var logicHandleUiTotopWindow = function () {
+				var btn = d[gEBCN](btnClass)[0] || "",
+				scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
+				windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
+				if (scrollPosition && windowHeight && btn) {
+					if (scrollPosition > windowHeight) {
+						btn[cL].add(isActiveClass);
+					} else {
+						btn[cL].remove(isActiveClass);
+					}
+				}
+			},
+			throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
+			throttleLogicHandleUiTotopWindow();
+		},
+		handleUiTotopAnchor = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
 			scroll2Top(0, 20000);
@@ -2399,23 +2390,17 @@ var showPageFinishProgress = function () {
 	showPage = function () {
 		setStyleOpacity(page, 1);
 		progressBar.complete();
-	},
-	showPageOnImagesPreloaded = function () {
-		var timers = new Timers();
-		timers.interval(function () {
-			/* console.log("function showPageFinishProgress => started Interval"); */
-			if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
-				timers.clear();
-				timers = null;
-				/* console.log("function showPageFinishProgress; imagesPreloaded=" + imagesPreloaded); */
-				showPage();
-			}
-		}, 100);
 	};
 	if (page) {
-		/* console.log("triggered function: showPageFinishProgress"); */
 		if ("undefined" !== typeof imagesPreloaded) {
-			showPageOnImagesPreloaded();
+			var timers = new Timers();
+			timers.interval(function () {
+				if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
+					timers.clear();
+					timers = null;
+					showPage();
+				}
+			}, 100);
 		} else {
 			showPage();
 		}

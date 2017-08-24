@@ -17,7 +17,7 @@ require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top,
 scrollToTop, setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
 setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t,
 Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge,
-VK, Ya, ymaps, yShare, zenscroll */
+VK, Ya, ymaps, zenscroll */
 /*property console, split */
 /*!
  * define global root
@@ -295,7 +295,7 @@ manageExternalLinks = function (ctx) {
 			}
 		}
 	},
-	arrangeAllExternalLinks = function () {
+	initScript = function () {
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrangeExternalLink(link[i]);
 		}
@@ -303,7 +303,7 @@ manageExternalLinks = function (ctx) {
 	};
 	if (link) {
 		/* console.log("triggered function: manageExternalLinks"); */
-		arrangeAllExternalLinks();
+		initScript();
 	}
 };
 document.ready().then(manageExternalLinks);
@@ -347,7 +347,7 @@ var initNavMenu = function () {
 			holderPanelMenuMore[cL].remove(isActiveClass);
 		}
 	},
-	addContainerHandlers = function () {
+	addContainerHandler = function () {
 		var handleContainerLeft = function () {
 			/* console.log("swipeleft"); */
 			removeHolderActiveClass();
@@ -371,7 +371,7 @@ var initNavMenu = function () {
 			/* container.onswiperight = handleContainerRight; */
 		}
 	},
-	addBtnHandlers = function () {
+	addBtnHandler = function () {
 		var h_btn = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
@@ -380,7 +380,7 @@ var initNavMenu = function () {
 		};
 		btnNavMenu[aEL]("click", h_btn);
 	},
-	removeHoldeAndAllActiveClass = function () {
+	removeHolderAndAllActiveClass = function () {
 		removeHolderActiveClass();
 		removeAllActiveClass();
 	},
@@ -390,18 +390,15 @@ var initNavMenu = function () {
 	addActiveClass = function (e) {
 		e[cL].add(isActiveClass);
 	},
-	removeItemsActiveClass = function (a) {
-		for (var j = 0, l = a.length; j < l; j += 1) {
-			removeActiveClass(a[j]);
-		}
-		/* forEach(a, removeActiveClass, false); */
-	},
 	addItemHandler = function (e) {
 		var handleItem = function () {
 			if (panelNavMenu[cL].contains(isActiveClass)) {
-				removeHoldeAndAllActiveClass();
+				removeHolderAndAllActiveClass();
 			}
-			removeItemsActiveClass(panelNavMenuItems);
+			for (var j = 0, l = panelNavMenuItems.length; j < l; j += 1) {
+				removeActiveClass(panelNavMenuItems[j]);
+			}
+			/* forEach(panelNavMenuItems, removeActiveClass, false); */
 			addActiveClass(e);
 		};
 		e[aEL]("click", handleItem);
@@ -411,7 +408,7 @@ var initNavMenu = function () {
 			removeActiveClass(e);
 		}
 	},
-	addAllItemHandlers = function () {
+	addAllItemHandler = function () {
 		for (var i = 0, l = panelNavMenuItems.length; i < l; i += 1) {
 			addItemHandler(panelNavMenuItems[i]);
 		}
@@ -420,14 +417,17 @@ var initNavMenu = function () {
 	if (page && container && btnNavMenu && panelNavMenu && panelNavMenuItems) {
 		/* console.log("triggered function: initNavMenu"); */
 		/*!
+		 * close nav on outside click
+		 */
+		addContainerHandler();
+		/*!
 		 * open or close nav
 		 */
-		addBtnHandlers();
-		addContainerHandlers();
+		addBtnHandler();
 		/*!
 		 * close nav, scroll to top, highlight active nav item
 		 */
-		addAllItemHandlers();
+		addAllItemHandler();
 	}
 };
 document.ready().then(initNavMenu);
@@ -450,24 +450,24 @@ var initUiTotop = function () {
 	btnClass = "ui-totop",
 	btnTitle = "Наверх",
 	isActiveClass = "is-active",
-	handleUiTotopWindow = function (_this) {
-		var logicHandleUiTotopWindow = function () {
-			var btn = d[gEBCN](btnClass)[0] || "",
-			scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
-			windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
-			if (scrollPosition && windowHeight && btn) {
-				if (scrollPosition > windowHeight) {
-					btn[cL].add(isActiveClass);
-				} else {
-					btn[cL].remove(isActiveClass);
-				}
-			}
-		},
-		throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
-		throttleLogicHandleUiTotopWindow();
-	},
 	renderUiTotop = function () {
-		var handleUiTotopAnchor = function (ev) {
+		var handleUiTotopWindow = function (_this) {
+			var logicHandleUiTotopWindow = function () {
+				var btn = d[gEBCN](btnClass)[0] || "",
+				scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
+				windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
+				if (scrollPosition && windowHeight && btn) {
+					if (scrollPosition > windowHeight) {
+						btn[cL].add(isActiveClass);
+					} else {
+						btn[cL].remove(isActiveClass);
+					}
+				}
+			},
+			throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
+			throttleLogicHandleUiTotopWindow();
+		},
+		handleUiTotopAnchor = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
 			scroll2Top(0, 20000);
@@ -505,8 +505,9 @@ var showPageFinishProgress = function () {
 	var d = document,
 	gEBI = "getElementById",
 	container = d[gEBI]("container") || "";
-	/* console.log("triggered function: showPageFinishProgress"); */
-	setStyleOpacity(container, 1);
-	progressBar.complete();
+	if (container) {
+		setStyleOpacity(container, 1);
+		progressBar.complete();
+	}
 };
 globalRoot.addEventListener("load", showPageFinishProgress);

@@ -17,7 +17,7 @@ require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top,
 scrollToTop, setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
 setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t,
 Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge,
-VK, Ya, ymaps, yShare, zenscroll */
+VK, Ya, ymaps, zenscroll */
 /*property console, split */
 /*!
  * define global root
@@ -344,23 +344,17 @@ var showPageFinishProgress = function () {
       timers = null;
       setStyleDisplayNone(progress);
     }, 100);
-  },
-      showPageOnImagesPreloaded = function () {
-    var timers = new Timers();
-    timers.interval(function () {
-      /* console.log("function showPageFinishProgress => started Interval"); */
-      if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
-        timers.clear();
-        timers = null;
-        /* console.log("function showPageFinishProgress; imagesPreloaded=" + imagesPreloaded); */
-        showPage();
-      }
-    }, 100);
   };
   if (page) {
-    /* console.log("triggered function: showPageFinishProgress"); */
     if ("undefined" !== typeof imagesPreloaded) {
-      showPageOnImagesPreloaded();
+      var timers = new Timers();
+      timers.interval(function () {
+        if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
+          timers.clear();
+          timers = null;
+          showPage();
+        }
+      }, 100);
     } else {
       showPage();
     }
