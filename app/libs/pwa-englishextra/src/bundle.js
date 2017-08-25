@@ -527,42 +527,39 @@ var handleDataSrcImages = function () {
 	img = d[gEBCN](imgClass) || "",
 	isActiveClass = "is-active",
 	isBindedClass = "is-binded",
-	rerenderDataSrcImage = function (e) {
-		if (!e[cL].contains(isBindedClass)) {
-			var srcString = e[ds].src || "";
-			if (srcString) {
-				if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
-					e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
-					srcString = e[ds].src;
-				}
-				imagePromise(srcString).then(function (r) {
-					e.src = srcString;
-				}).catch (function (err) {
-					console.log("cannot load image with imagePromise:", srcString);
-				});
-				e[cL].add(isActiveClass);
-				e[cL].add(isBindedClass);
-			}
-		}
-	},
-	arrangeDataSrcImage = function (e) {
+	arrange = function (e) {
 		/*!
 		 * true if elem is in same y-axis as the viewport or within 100px of it
 		 * @see {@link https://github.com/ryanve/verge}
 		 */
 		if (verge.inY(e, 100) /*  && 0 !== e.offsetHeight */) {
-			rerenderDataSrcImage(e);
+			if (!e[cL].contains(isBindedClass)) {
+				var srcString = e[ds].src || "";
+				if (srcString) {
+					if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
+						e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
+						srcString = e[ds].src;
+					}
+					imagePromise(srcString).then(function (r) {
+						e.src = srcString;
+					}).catch (function (err) {
+						console.log("cannot load image with imagePromise:", srcString);
+					});
+					e[cL].add(isActiveClass);
+					e[cL].add(isBindedClass);
+				}
+			}
 		}
 	},
-	initScript = function () {
+	arrangeAll = function () {
 		for (var i = 0, l = img.length; i < l; i += 1) {
-			arrangeDataSrcImage(img[i]);
+			arrange(img[i]);
 		}
-		/* forEach(img, arrangeDataSrcImage, false); */
+		/* forEach(img, arrange, false); */
 	};
 	if (img) {
 		/* console.log("triggered function: manageDataSrcImages"); */
-		initScript();
+		arrangeAll();
 	}
 },
 handleDataSrcImagesWindow = function () {
@@ -602,43 +599,40 @@ var handleDataSrcIframes = function () {
 	iframeClass = "data-src-iframe",
 	iframe = d[gEBCN](iframeClass) || "",
 	isBindedClass = "is-binded",
-	rerenderDataSrcIframe = function (e) {
-		if (!e[cL].contains(isBindedClass)) {
-			var srcString = e[ds].src || "";
-			if (srcString) {
-				if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
-					e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
-					srcString = e[ds].src;
-				}
-				e.src = srcString;
-				e[cL].add(isBindedClass);
-				e[sA]("frameborder", "no");
-				e[sA]("style", "border:none;");
-				e[sA]("webkitallowfullscreen", "true");
-				e[sA]("mozallowfullscreen", "true");
-				e[sA]("scrolling", "no");
-				e[sA]("allowfullscreen", "true");
-			}
-		}
-	},
-	arrangeDataSrcIframe = function (e) {
+	arrange = function (e) {
 		/*!
 		 * true if elem is in same y-axis as the viewport or within 100px of it
 		 * @see {@link https://github.com/ryanve/verge}
 		 */
 		if (verge.inY(e, 100) /* && 0 !== e.offsetHeight */) {
-			rerenderDataSrcIframe(e);
+			if (!e[cL].contains(isBindedClass)) {
+				var srcString = e[ds].src || "";
+				if (srcString) {
+					if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
+						e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
+						srcString = e[ds].src;
+					}
+					e.src = srcString;
+					e[cL].add(isBindedClass);
+					e[sA]("frameborder", "no");
+					e[sA]("style", "border:none;");
+					e[sA]("webkitallowfullscreen", "true");
+					e[sA]("mozallowfullscreen", "true");
+					e[sA]("scrolling", "no");
+					e[sA]("allowfullscreen", "true");
+				}
+			}
 		}
 	},
-	initScript = function () {
+	arrangeAll = function () {
 		for (var i = 0, l = iframe.length; i < l; i += 1) {
-			arrangeDataSrcIframe(iframe[i]);
+			arrange(iframe[i]);
 		}
-		/* forEach(iframe, arrangeDataSrcIframe, false); */
+		/* forEach(iframe, arrange, false); */
 	};
 	if (iframe) {
 		/* console.log("triggered function: manageDataSrcIframes"); */
-		initScript();
+		arrangeAll();
 	}
 },
 handleDataSrcIframesWindow = function () {
@@ -679,21 +673,21 @@ var manageIframeLightboxLinks = function (ctx) {
 	linkClass = "iframe-lightbox-link",
 	link = ctx ? ctx[gEBCN](linkClass) || "" : d[gEBCN](linkClass) || "",
 	isBindedClass = "is-binded",
-	arrangeDataSrcIframe = function (e) {
+	arrange = function (e) {
 		if (!e[cL].contains(isBindedClass)) {
 			e.lightbox = new IframeLightbox(e);
 			e[cL].add(isBindedClass);
 		}
 	},
-	initScript = function () {
+	arrangeAll = function () {
 		for (var i = 0, l = link.length; i < l; i += 1) {
-			arrangeDataSrcIframe(link[i]);
+			arrange(link[i]);
 		}
-		/* forEach(link, arrangeDataSrcIframe, false); */
+		/* forEach(link, arrange, false); */
 	};
 	if (link) {
 		/* console.log("triggered function: manageIframeLightboxLibks"); */
-		initScript();
+		arrangeAll();
 	}
 };
 document.ready().then(manageIframeLightboxLinks);
@@ -721,7 +715,7 @@ manageExternalLinks = function (ctx) {
 	aEL = "addEventListener",
 	gA = "getAttribute",
 	isBindedClass = "is-binded",
-	arrangeExternalLink = function (e) {
+	arrange = function (e) {
 		if (!e[cL].contains(isBindedClass)) {
 			var url = e[gA]("href") || "";
 			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
@@ -736,15 +730,15 @@ manageExternalLinks = function (ctx) {
 			}
 		}
 	},
-	initScript = function () {
+	arrangeAll = function () {
 		for (var i = 0, l = link.length; i < l; i += 1) {
-			arrangeExternalLink(link[i]);
+			arrange(link[i]);
 		}
-		/* forEach(link, arrangeExternalLink, false); */
+		/* forEach(link, arrange, false); */
 	};
 	if (link) {
 		/* console.log("triggered function: manageExternalLinks"); */
-		initScript();
+		arrangeAll();
 	}
 };
 document.ready().then(manageExternalLinks);
@@ -872,7 +866,7 @@ manageImgLightboxLinks = function (ctx) {
 		debounceLogicHandleImgLightboxLink = debounce(logicHandleImgLightboxLink, 200);
 		debounceLogicHandleImgLightboxLink();
 	},
-	arrangeImgLightboxLink = function (e) {
+	arrange = function (e) {
 		if (!e[cL].contains(isBindedClass)) {
 			var hrefString = e[gA]("href") || "";
 			if (hrefString) {
@@ -884,15 +878,15 @@ manageImgLightboxLinks = function (ctx) {
 			}
 		}
 	},
-	initScript = function () {
+	arrangeAll = function () {
 		for (var j = 0, l = link.length; j < l; j += 1) {
-			arrangeImgLightboxLink(link[j]);
+			arrange(link[j]);
 		}
-		/* forEach(link, arrangeImgLightboxLink, false); */
+		/* forEach(link, arrange, false); */
 	};
 	if (link) {
 		/* console.log("triggered function: manageImgLightboxLinks"); */
-		initScript();
+		arrangeAll();
 	}
 };
 /*!
@@ -1088,21 +1082,21 @@ var manageExpandingLayers = function (ctx) {
 		}
 		return !1;
 	},
-	arrangeExpandingLayers = function (e) {
+	arrange = function (e) {
 		if (!e[cL].contains(isBindedClass)) {
 			e[aEL]("click", handleExpandingLayers);
 			e[cL].add(isBindedClass);
 		}
 	},
-	initScript = function () {
+	arrangeAll = function () {
 		for (var i = 0, l = btn.length; i < l; i += 1) {
-			arrangeExpandingLayers(btn[i]);
+			arrange(btn[i]);
 		}
-		/* forEach(btn, arrangeExpandingLayers, false); */
+		/* forEach(btn, arrange, false); */
 	};
 	if (btn) {
 		/* console.log("triggered function: manageExpandingLayers"); */
-		initScript();
+		arrangeAll();
 	}
 };
 /*!
@@ -1289,79 +1283,79 @@ var notiBar = function (opt) {
 	animatedClass = "animated",
 	fadeInDownClass = "fadeInDown",
 	fadeOutUpClass = "fadeOutUp";
+	if ("string" === typeof opt) {
+		opt = {
+			"message": opt
+		};
+	}
+	var settings = {
+		"message": "",
+		"timeout": 10000,
+		"key": defaultKey,
+		"datum": defaultDatum,
+		"days": 0,
+	};
+	for (var i in opt) {
+		if (opt.hasOwnProperty(i)) {
+			settings[i] = opt[i];
+		}
+	}
+	var cookieKey = Cookies.get(settings.key) || "";
+	if (cookieKey && cookieKey === decodeURIComponent(settings.datum)) {
+		return !1;
+	}
+	if (notibarContainer) {
+		removeChildren(notibarContainer);
+	} else {
+		notibarContainer = d[cE]("div");
+		notibarContainer[cL].add(notibarClass);
+		notibarContainer[cL].add(animatedClass);
+	}
+	var msgContainer = d[cE]("div");
+	msgContainer[cL].add(messageClass);
+	var msgContent = settings.message || "";
+	if ("string" === typeof msgContent) {
+		msgContent = d.createTextNode(msgContent);
+	}
+	msgContainer[aC](msgContent);
+	notibarContainer[aC](msgContainer);
+	var insertCancelSvg = function (targetObj) {
+		var svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
+		use = d[cENS]("http://www.w3.org/2000/svg", "use");
+		svg[cL].add("ui-icon");
+		use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Cancel");
+		svg[aC](use);
+		targetObj[aC](svg);
+	},
+	closeButton = d[cE]("a");
+	closeButton[cL].add(closeButtonClass);
+	insertCancelSvg(closeButton);
+	var set_cookie = function () {
+		if (settings.days) {
+			Cookies.set(settings.key, settings.datum, {
+				expires: settings.days
+			});
+		} else {
+			Cookies.set(settings.key, settings.datum);
+		}
+	},
+	hideMessage = function () {
+		var notibarContainer = d[gEBCN](notibarClass)[0] || "";
+		if (notibarContainer) {
+			notibarContainer[cL].remove(fadeInDownClass);
+			notibarContainer[cL].add(fadeOutUpClass);
+			removeChildren(notibarContainer);
+		}
+	},
+	handleCloseButton = function () {
+		closeButton[rEL]("click", handleCloseButton);
+		hideMessage();
+		set_cookie();
+	};
+	closeButton[aEL]("click", handleCloseButton);
+	notibarContainer[aC](closeButton);
 	if (b) {
 		/* console.log("triggered function: notiBar"); */
-		if ("string" === typeof opt) {
-			opt = {
-				"message": opt
-			};
-		}
-		var settings = {
-			"message": "",
-			"timeout": 10000,
-			"key": defaultKey,
-			"datum": defaultDatum,
-			"days": 0,
-		};
-		for (var i in opt) {
-			if (opt.hasOwnProperty(i)) {
-				settings[i] = opt[i];
-			}
-		}
-		var cookieKey = Cookies.get(settings.key) || "";
-		if (cookieKey && cookieKey === decodeURIComponent(settings.datum)) {
-			return !1;
-		}
-		if (notibarContainer) {
-			removeChildren(notibarContainer);
-		} else {
-			notibarContainer = d[cE]("div");
-			notibarContainer[cL].add(notibarClass);
-			notibarContainer[cL].add(animatedClass);
-		}
-		var msgContainer = d[cE]("div");
-		msgContainer[cL].add(messageClass);
-		var msgContent = settings.message || "";
-		if ("string" === typeof msgContent) {
-			msgContent = d.createTextNode(msgContent);
-		}
-		msgContainer[aC](msgContent);
-		notibarContainer[aC](msgContainer);
-		var insertCancelSvg = function (targetObj) {
-			var svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
-			use = d[cENS]("http://www.w3.org/2000/svg", "use");
-			svg[cL].add("ui-icon");
-			use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Cancel");
-			svg[aC](use);
-			targetObj[aC](svg);
-		},
-		closeButton = d[cE]("a");
-		closeButton[cL].add(closeButtonClass);
-		insertCancelSvg(closeButton);
-		var set_cookie = function () {
-			if (settings.days) {
-				Cookies.set(settings.key, settings.datum, {
-					expires: settings.days
-				});
-			} else {
-				Cookies.set(settings.key, settings.datum);
-			}
-		},
-		hideMessage = function () {
-			var notibarContainer = d[gEBCN](notibarClass)[0] || "";
-			if (notibarContainer) {
-				notibarContainer[cL].remove(fadeInDownClass);
-				notibarContainer[cL].add(fadeOutUpClass);
-				removeChildren(notibarContainer);
-			}
-		},
-		handleCloseButton = function () {
-			closeButton[rEL]("click", handleCloseButton);
-			hideMessage();
-			set_cookie();
-		};
-		closeButton[aEL]("click", handleCloseButton);
-		notibarContainer[aC](closeButton);
 		appendFragment(notibarContainer, b);
 		notibarContainer[cL].remove(fadeOutUpClass);
 		notibarContainer[cL].add(fadeInDownClass);
@@ -1475,154 +1469,161 @@ var initKamilAutocomplete = function (jsonObj) {
 	container = d[gEBI]("container") || "",
 	typoAutcompleteListSelector = "kamil-typo-autocomplete",
 	typoAutcompleteListClass = "kamil-autocomplete",
-	generateMenu = function (jsonResponse) {
-		if (jsonResponse) {
-			var ac = new Kamil(textInputSelector, {
-					source: jsonResponse,
+	generateMenu = function (jsonObj) {
+		var ac;
+		try {
+			if (!jsonObj[0].hasOwnProperty("title")) {
+				throw new Error("incomplete JSON data: no title");
+			}
+			ac = new Kamil(textInputSelector, {
+					source: jsonObj,
 					property: "title",
 					minChars: 2
 				});
+		} catch (err) {
+			console.log("cannot init Kamil", err);
+			return;
+		}
+		/*!
+		 * create typo suggestion list
+		 */
+		var typoAutcompleteList = d[cE]("ul"),
+		typoListItem = d[cE]("li"),
+		handleTypoSuggestions = function () {
+			typoAutcompleteList.style.display = "none";
+			typoListItem.style.display = "none";
+		},
+		showTypoSuggestions = function () {
+			typoAutcompleteList.style.display = "block";
+			typoListItem.style.display = "block";
+		};
+		typoAutcompleteList[cL].add(typoAutcompleteListClass);
+		typoAutcompleteList.id = typoAutcompleteListSelector;
+		handleTypoSuggestions();
+		typoAutcompleteList[aC](typoListItem);
+		textInput[pN].insertBefore(typoAutcompleteList, textInput.nextElementSibling);
+		/*!
+		 * this is an optional setup of every li
+		 * uset to set a description title attribute
+		 * comment out the title attribute setup below
+		 */
+		ac.renderItem = function (ul, item) {
+			var li = d[cE]("li");
+			/* li.innerHTML = item.title; */
+			appendFragment(d[cTN]("" + item.title), li);
+			li.title = item.text;
+			ul.appendChild(li);
+			return li;
+		};
+		/*!
+		 * show suggestions
+		 */
+		ac.renderMenu = function (ul, items) {
+			items = items || "";
+			var itemsLength = items.length,
+			_this = this,
 			/*!
-			 * create typo suggestion list
+			 * limit output
 			 */
-			var typoAutcompleteList = d[cE]("ul"),
-			typoListItem = d[cE]("li"),
-			handleTypoSuggestions = function () {
-				typoAutcompleteList.style.display = "none";
-				typoListItem.style.display = "none";
-			},
-			showTypoSuggestions = function () {
-				typoAutcompleteList.style.display = "block";
-				typoListItem.style.display = "block";
-			};
-			typoAutcompleteList[cL].add(typoAutcompleteListClass);
-			typoAutcompleteList.id = typoAutcompleteListSelector;
-			handleTypoSuggestions();
-			typoAutcompleteList[aC](typoListItem);
-			textInput[pN].insertBefore(typoAutcompleteList, textInput.nextElementSibling);
-			/*!
-			 * this is an optional setup of every li
-			 * uset to set a description title attribute
-			 * comment out the title attribute setup below
-			 */
-			ac.renderItem = function (ul, item) {
-				var li = d[cE]("li");
-				/* li.innerHTML = item.title; */
-				appendFragment(d[cTN]("" + item.title), li);
-				li.title = item.text;
-				ul.appendChild(li);
-				return li;
-			};
-			/*!
-			 * show suggestions
-			 */
-			ac.renderMenu = function (ul, items) {
-				items = items || "";
-				var itemsLength = items.length,
-				_this = this,
-				/*!
-				 * limit output
-				 */
-				limitKamilOutput = function (e, i) {
-					if (i < 10) {
-						_this._renderItemData(ul, e, i);
-					}
-				};
-				if (items) {
-					for (var i = 0; i < itemsLength; i += 1) {
-						limitKamilOutput(items[i], i);
-					}
-					/* forEach(items, function (e, i) {
-						limitKamilOutput(e, i);
-					}, false); */
-				}
-				/*!
-				 * fix typo - non latin characters found
-				 */
-				var logicReplaceTypo = function () {
-					while (itemsLength < 1) {
-						var textInputValue = textInput.value || "";
-						if (/[^\u0000-\u007f]/.test(textInputValue)) {
-							textInputValue = fixEnRuTypo(textInputValue, "ru", "en");
-						} else {
-							textInputValue = fixEnRuTypo(textInputValue, "en", "ru");
-						}
-						showTypoSuggestions();
-						removeChildren(typoListItem);
-						appendFragment(d[cTN]("" + textInputValue), typoListItem);
-						if (textInputValue.match(/^\s*$/)) {
-							handleTypoSuggestions();
-						}
-						/*!
-						 * hide typo suggestion
-						 */
-						if (textInput.value.length < 3 || textInput.value.match(/^\s*$/)) {
-							handleTypoSuggestions();
-						}
-						itemsLength += 1;
-					}
-				},
-				debounceLogicReplaceTypo = debounce(logicReplaceTypo, 200);
-				debounceLogicReplaceTypo();
-				/*!
-				 * truncate text
-				 */
-				var lis = ul ? ul[gEBTN]("li") || "" : "",
-				truncateKamilText = function (e) {
-					var t = e.firstChild.textContent || "",
-					n = d[cTN](truncString(t, 24));
-					e.replaceChild(n, e.firstChild);
-					/* e.title = "" + t; */
-				};
-				if (lis) {
-					for (var j = 0, m = lis.length; j < m; j += 1) {
-						truncateKamilText(lis[j]);
-					}
-					/* forEach(lis, truncateKamilText, false); */
+			limitKamilOutput = function (e, i) {
+				if (i < 10) {
+					_this._renderItemData(ul, e, i);
 				}
 			};
-			/*!
-			 * set text input value from typo suggestion
-			 */
-			var handleTypoListItem = function (ev) {
-				ev.stopPropagation();
-				ev.preventDefault();
-				/*!
-				 * set focus first, then set text
-				 */
-				textInput.focus();
-				textInput.value = typoListItem.textContent || "";
-				handleTypoSuggestions();
-			};
-			typoListItem[aEL]("click", handleTypoListItem);
-			/*!
-			 * hide suggestions on outside click
-			 */
-			if (container) {
-				container[aEL]("click", handleTypoSuggestions);
+			if (items) {
+				for (var i = 0; i < itemsLength; i += 1) {
+					limitKamilOutput(items[i], i);
+				}
+				/* forEach(items, function (e, i) {
+					limitKamilOutput(e, i);
+				}, false); */
 			}
 			/*!
-			 * unless you specify property option in new Kamil
-			 * use kamil built-in word label as search key in JSON file
-			 * [{"link":"/","label":"some text to match"},
-			 * {"link":"/pages/contents.html","label":"some text to match"}]
+			 * fix typo - non latin characters found
 			 */
-			ac.on("kamilselect", function (e) {
-				var kamilItemLink = e.item.href || "",
-				handleKamilItem = function () {
-					e.inputElement.value = "";
-					handleTypoSuggestions();
-					w.location.href = kamilItemLink;
-				};
-				if (kamilItemLink) {
+			var logicReplaceTypo = function () {
+				while (itemsLength < 1) {
+					var textInputValue = textInput.value || "";
+					if (/[^\u0000-\u007f]/.test(textInputValue)) {
+						textInputValue = fixEnRuTypo(textInputValue, "ru", "en");
+					} else {
+						textInputValue = fixEnRuTypo(textInputValue, "en", "ru");
+					}
+					showTypoSuggestions();
+					removeChildren(typoListItem);
+					appendFragment(d[cTN]("" + textInputValue), typoListItem);
+					if (textInputValue.match(/^\s*$/)) {
+						handleTypoSuggestions();
+					}
 					/*!
-					 * nwjs wont like setImmediate here
+					 * hide typo suggestion
 					 */
-					/* setImmediate(handleKamilItem); */
-					handleKamilItem();
+					if (textInput.value.length < 3 || textInput.value.match(/^\s*$/)) {
+						handleTypoSuggestions();
+					}
+					itemsLength += 1;
 				}
-			});
+			},
+			debounceLogicReplaceTypo = debounce(logicReplaceTypo, 200);
+			debounceLogicReplaceTypo();
+			/*!
+			 * truncate text
+			 */
+			var lis = ul ? ul[gEBTN]("li") || "" : "",
+			truncateKamilText = function (e) {
+				var t = e.firstChild.textContent || "",
+				n = d[cTN](truncString(t, 24));
+				e.replaceChild(n, e.firstChild);
+				/* e.title = "" + t; */
+			};
+			if (lis) {
+				for (var j = 0, m = lis.length; j < m; j += 1) {
+					truncateKamilText(lis[j]);
+				}
+				/* forEach(lis, truncateKamilText, false); */
+			}
+		};
+		/*!
+		 * set text input value from typo suggestion
+		 */
+		var handleTypoListItem = function (ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			/*!
+			 * set focus first, then set text
+			 */
+			textInput.focus();
+			textInput.value = typoListItem.textContent || "";
+			handleTypoSuggestions();
+		};
+		typoListItem[aEL]("click", handleTypoListItem);
+		/*!
+		 * hide suggestions on outside click
+		 */
+		if (container) {
+			container[aEL]("click", handleTypoSuggestions);
 		}
+		/*!
+		 * unless you specify property option in new Kamil
+		 * use kamil built-in word label as search key in JSON file
+		 * [{"link":"/","label":"some text to match"},
+		 * {"link":"/pages/contents.html","label":"some text to match"}]
+		 */
+		ac.on("kamilselect", function (e) {
+			var kamilItemLink = e.item.href || "",
+			handleKamilItem = function () {
+				e.inputElement.value = "";
+				handleTypoSuggestions();
+				w.location.href = kamilItemLink;
+			};
+			if (kamilItemLink) {
+				/*!
+				 * nwjs wont like setImmediate here
+				 */
+				/* setImmediate(handleKamilItem); */
+				handleKamilItem();
+			}
+		});
 	},
 	initScript = function () {
 		generateMenu(jsonObj);

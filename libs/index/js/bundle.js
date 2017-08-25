@@ -1034,7 +1034,7 @@ var initNavMenu = function () {
 			removeActiveClass(e);
 		}
 	},
-	    addAllItemHandler = function () {
+	    addItemHandlerAll = function () {
 		for (var i = 0, l = panelNavMenuItems.length; i < l; i += 1) {
 			addItemHandler(panelNavMenuItems[i]);
 		}
@@ -1053,7 +1053,7 @@ var initNavMenu = function () {
 		/*!
    * close nav, scroll to top, highlight active nav item
    */
-		addAllItemHandler();
+		addItemHandlerAll();
 	}
 };
 document.ready().then(initNavMenu);
@@ -1160,7 +1160,7 @@ var initMenuMore = function () {
 		};
 		btnMenuMore[aEL]("click", h_btn);
 	},
-	    addAllItemHandler = function () {
+	    addItemHandlerAll = function () {
 		for (var i = 0, l = panelMenuMoreItems.length; i < l; i += 1) {
 			addItemHandler(panelMenuMoreItems[i]);
 		}
@@ -1179,7 +1179,7 @@ var initMenuMore = function () {
 		/*!
    * hide menu more on item clicked
    */
-		addAllItemHandler();
+		addItemHandlerAll();
 	}
 };
 document.ready().then(initMenuMore);

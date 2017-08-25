@@ -574,79 +574,79 @@ var notiBar = function (opt) {
 	animatedClass = "animated",
 	fadeInDownClass = "fadeInDown",
 	fadeOutUpClass = "fadeOutUp";
+	if ("string" === typeof opt) {
+		opt = {
+			"message": opt
+		};
+	}
+	var settings = {
+		"message": "",
+		"timeout": 10000,
+		"key": defaultKey,
+		"datum": defaultDatum,
+		"days": 0,
+	};
+	for (var i in opt) {
+		if (opt.hasOwnProperty(i)) {
+			settings[i] = opt[i];
+		}
+	}
+	var cookieKey = Cookies.get(settings.key) || "";
+	if (cookieKey && cookieKey === decodeURIComponent(settings.datum)) {
+		return !1;
+	}
+	if (notibarContainer) {
+		removeChildren(notibarContainer);
+	} else {
+		notibarContainer = d[cE]("div");
+		notibarContainer[cL].add(notibarClass);
+		notibarContainer[cL].add(animatedClass);
+	}
+	var msgContainer = d[cE]("div");
+	msgContainer[cL].add(messageClass);
+	var msgContent = settings.message || "";
+	if ("string" === typeof msgContent) {
+		msgContent = d.createTextNode(msgContent);
+	}
+	msgContainer[aC](msgContent);
+	notibarContainer[aC](msgContainer);
+	var /* insertCancelSvg = function (targetObj) {
+		var svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
+		use = d[cENS]("http://www.w3.org/2000/svg", "use");
+		svg[cL].add("ui-icon");
+		use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Cancel");
+		svg[aC](use);
+		targetObj[aC](svg);
+	}, */
+	closeButton = d[cE]("a");
+	closeButton[cL].add(closeButtonClass);
+	/* insertCancelSvg(closeButton); */
+	var set_cookie = function () {
+		if (settings.days) {
+			Cookies.set(settings.key, settings.datum, {
+				expires: settings.days
+			});
+		} else {
+			Cookies.set(settings.key, settings.datum);
+		}
+	},
+	hideMessage = function () {
+		var notibarContainer = d[gEBCN](notibarClass)[0] || "";
+		if (notibarContainer) {
+			notibarContainer[cL].remove(fadeInDownClass);
+			notibarContainer[cL].add(fadeOutUpClass);
+			removeChildren(notibarContainer);
+		}
+	},
+	handleCloseButton = function () {
+		closeButton[rEL]("click", handleCloseButton);
+		hideMessage();
+		set_cookie();
+	};
+	closeButton[aEL]("click", handleCloseButton);
+	notibarContainer[aC](closeButton);
 	if (b) {
 		/* console.log("triggered function: notiBar"); */
-		if ("string" === typeof opt) {
-			opt = {
-				"message": opt
-			};
-		}
-		var settings = {
-			"message": "",
-			"timeout": 10000,
-			"key": defaultKey,
-			"datum": defaultDatum,
-			"days": 0,
-		};
-		for (var i in opt) {
-			if (opt.hasOwnProperty(i)) {
-				settings[i] = opt[i];
-			}
-		}
-		var cookieKey = Cookies.get(settings.key) || "";
-		if (cookieKey && cookieKey === decodeURIComponent(settings.datum)) {
-			return !1;
-		}
-		if (notibarContainer) {
-			removeChildren(notibarContainer);
-		} else {
-			notibarContainer = d[cE]("div");
-			notibarContainer[cL].add(notibarClass);
-			notibarContainer[cL].add(animatedClass);
-		}
-		var msgContainer = d[cE]("div");
-		msgContainer[cL].add(messageClass);
-		var msgContent = settings.message || "";
-		if ("string" === typeof msgContent) {
-			msgContent = d.createTextNode(msgContent);
-		}
-		msgContainer[aC](msgContent);
-		notibarContainer[aC](msgContainer);
-		var /* insertCancelSvg = function (targetObj) {
-			var svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
-			use = d[cENS]("http://www.w3.org/2000/svg", "use");
-			svg[cL].add("ui-icon");
-			use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Cancel");
-			svg[aC](use);
-			targetObj[aC](svg);
-		}, */
-		closeButton = d[cE]("a");
-		closeButton[cL].add(closeButtonClass);
-		/* insertCancelSvg(closeButton); */
-		var set_cookie = function () {
-			if (settings.days) {
-				Cookies.set(settings.key, settings.datum, {
-					expires: settings.days
-				});
-			} else {
-				Cookies.set(settings.key, settings.datum);
-			}
-		},
-		hideMessage = function () {
-			var notibarContainer = d[gEBCN](notibarClass)[0] || "";
-			if (notibarContainer) {
-				notibarContainer[cL].remove(fadeInDownClass);
-				notibarContainer[cL].add(fadeOutUpClass);
-				removeChildren(notibarContainer);
-			}
-		},
-		handleCloseButton = function () {
-			closeButton[rEL]("click", handleCloseButton);
-			hideMessage();
-			set_cookie();
-		};
-		closeButton[aEL]("click", handleCloseButton);
-		notibarContainer[aC](closeButton);
 		appendFragment(notibarContainer, b);
 		notibarContainer[cL].remove(fadeOutUpClass);
 		notibarContainer[cL].add(fadeInDownClass);
@@ -879,7 +879,7 @@ var highlightSidepanelItem = function () {
 			e[cL].remove(isActiveClass);
 		}
 	},
-	addItemHandler = function () {
+	addItemHandlerAll = function () {
 		for (var i = 0, l = items.length; i < l; i += 1) {
 			addItemHandler(items[i]);
 		}
@@ -887,7 +887,7 @@ var highlightSidepanelItem = function () {
 	};
 	if (panel && items && locationHref) {
 		/* console.log("triggered function: highlightNavMenuItem"); */
-		addItemHandler();
+		addItemHandlerAll();
 	}
 };
 document.ready().then(highlightSidepanelItem);
@@ -976,7 +976,7 @@ manageExternalLinks = function (ctx) {
 	aEL = "addEventListener",
 	gA = "getAttribute",
 	isBindedClass = "is-binded",
-	arrangeExternalLink = function (e) {
+	arrange = function (e) {
 		if (!e[cL].contains(isBindedClass)) {
 			var url = e[gA]("href") || "";
 			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
@@ -991,15 +991,15 @@ manageExternalLinks = function (ctx) {
 			}
 		}
 	},
-	initScript = function () {
+	arrangeAll = function () {
 		for (var i = 0, l = link.length; i < l; i += 1) {
-			arrangeExternalLink(link[i]);
+			arrange(link[i]);
 		}
-		/* forEach(link, arrangeExternalLink, false); */
+		/* forEach(link, arrange, false); */
 	};
 	if (link) {
 		/* console.log("triggered function: manageExternalLinks"); */
-		initScript();
+		arrangeAll();
 	}
 };
 document.ready().then(manageExternalLinks);
@@ -1127,7 +1127,7 @@ manageImgLightboxLinks = function (ctx) {
 		debounceLogicHandleImgLightboxLink = debounce(logicHandleImgLightboxLink, 200);
 		debounceLogicHandleImgLightboxLink();
 	},
-	arrangeImgLightboxLink = function (e) {
+	arrange = function (e) {
 		if (!e[cL].contains(isBindedClass)) {
 			var hrefString = e[gA]("href") || "";
 			if (hrefString) {
@@ -1139,15 +1139,15 @@ manageImgLightboxLinks = function (ctx) {
 			}
 		}
 	},
-	initScript = function () {
+	arrangeAll = function () {
 		for (var j = 0, l = link.length; j < l; j += 1) {
-			arrangeImgLightboxLink(link[j]);
+			arrange(link[j]);
 		}
-		/* forEach(link, arrangeImgLightboxLink, false); */
+		/* forEach(link, arrange, false); */
 	};
 	if (link) {
 		/* console.log("triggered function: manageImgLightboxLinks"); */
-		initScript();
+		arrangeAll();
 	}
 };
 /*!
@@ -1165,42 +1165,39 @@ var handleDataSrcImages = function () {
 	img = d[gEBCN](imgClass) || "",
 	isActiveClass = "is-active",
 	isBindedClass = "is-binded",
-	rerenderDataSrcImage = function (e) {
-		if (!e[cL].contains(isBindedClass)) {
-			var srcString = e[ds].src || "";
-			if (srcString) {
-				if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
-					e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
-					srcString = e[ds].src;
-				}
-				imagePromise(srcString).then(function (r) {
-					e.src = srcString;
-				}).catch (function (err) {
-					console.log("cannot load image with imagePromise:", srcString);
-				});
-				e[cL].add(isActiveClass);
-				e[cL].add(isBindedClass);
-			}
-		}
-	},
-	arrangeDataSrcImage = function (e) {
+	arrange = function (e) {
 		/*!
 		 * true if elem is in same y-axis as the viewport or within 100px of it
 		 * @see {@link https://github.com/ryanve/verge}
 		 */
 		if (verge.inY(e, 100) /*  && 0 !== e.offsetHeight */) {
-			rerenderDataSrcImage(e);
+			if (!e[cL].contains(isBindedClass)) {
+				var srcString = e[ds].src || "";
+				if (srcString) {
+					if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
+						e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
+						srcString = e[ds].src;
+					}
+					imagePromise(srcString).then(function (r) {
+						e.src = srcString;
+					}).catch (function (err) {
+						console.log("cannot load image with imagePromise:", srcString);
+					});
+					e[cL].add(isActiveClass);
+					e[cL].add(isBindedClass);
+				}
+			}
 		}
 	},
-	initScript = function () {
+	arrangeAll = function () {
 		for (var i = 0, l = img.length; i < l; i += 1) {
-			arrangeDataSrcImage(img[i]);
+			arrange(img[i]);
 		}
-		/* forEach(img, arrangeDataSrcImage, false); */
+		/* forEach(img, arrange, false); */
 	};
 	if (img) {
 		/* console.log("triggered function: manageDataSrcImages"); */
-		initScript();
+		arrangeAll();
 	}
 },
 handleDataSrcImagesWindow = function () {
@@ -1993,136 +1990,143 @@ var initKamilAutocomplete = function () {
 	suggestionUlId = "kamil-typo-autocomplete",
 	suggestionUlClass = "kamil-autocomplete",
 	jsonUrl = "../app/libs/pwa-englishextra/json/routes.json",
-	processResponse = function (jsonResponse) {
-		var jpr = safelyParseJSON(jsonResponse);
-		if (jpr) {
-			var ac = new Kamil(textInputSelector, {
-					source: jpr.hashes,
+	generateMenu = function (jsonResponse) {
+		var ac;
+		try {
+			var jsonObj = safelyParseJSON(jsonResponse);
+			if (!jsonObj.hashes[0].hasOwnProperty("title")) {
+				throw new Error("incomplete JSON data: no title");
+			}
+			ac = new Kamil(textInputSelector, {
+					source: jsonObj.hashes,
 					property: "title",
 					minChars: 2
 				});
+		} catch (err) {
+			console.log("cannot init Kamil", err);
+			return;
+		}
+		/*!
+		 * create typo suggestion list
+		 */
+		var suggestionUl = d[cE]("ul"),
+		suggestionLi = d[cE]("li"),
+		handleTypoSuggestions = function () {
+			setStyleDisplayNone(suggestionUl);
+			setStyleDisplayNone(suggestionLi);
+		},
+		showTypoSuggestions = function () {
+			setStyleDisplayBlock(suggestionUl);
+			setStyleDisplayBlock(suggestionLi);
+		};
+		suggestionUl[cL].add(suggestionUlClass);
+		suggestionUl.id = suggestionUlId;
+		handleTypoSuggestions();
+		suggestionUl[aC](suggestionLi);
+		textInput[pN].insertBefore(suggestionUl, textInput.nextElementSibling);
+		/*!
+		 * show suggestions
+		 */
+		ac.renderMenu = function (ul, items) {
+			items = items || "";
+			var itemsLength = items.length,
+			_this = this,
 			/*!
-			 * create typo suggestion list
+			 * limit output
 			 */
-			var suggestionUl = d[cE]("ul"),
-			suggestionLi = d[cE]("li"),
-			handleTypoSuggestions = function () {
-				setStyleDisplayNone(suggestionUl);
-				setStyleDisplayNone(suggestionLi);
-			},
-			showTypoSuggestions = function () {
-				setStyleDisplayBlock(suggestionUl);
-				setStyleDisplayBlock(suggestionLi);
-			};
-			suggestionUl[cL].add(suggestionUlClass);
-			suggestionUl.id = suggestionUlId;
-			handleTypoSuggestions();
-			suggestionUl[aC](suggestionLi);
-			textInput[pN].insertBefore(suggestionUl, textInput.nextElementSibling);
-			/*!
-			 * show suggestions
-			 */
-			ac.renderMenu = function (ul, items) {
-				items = items || "";
-				var itemsLength = items.length,
-				_this = this,
-				/*!
-				 * limit output
-				 */
-				arrangeAllItems = function (e, i) {
-					if (i < 10) {
-						_this._renderItemData(ul, e, i);
-					}
-				};
-				if (items) {
-					for (var i = 0; i < itemsLength; i += 1) {
-						arrangeAllItems(items[i], i);
-					}
-					/* forEach(items, arrangeAllItems, false); */
-				}
-				/*!
-				 * fix typo - non latin characters found
-				 */
-				while (itemsLength < 1) {
-					var textValue = textInput.value;
-					if (/[^\u0000-\u007f]/.test(textValue)) {
-						textValue = fixEnRuTypo(textValue, "ru", "en");
-					} else {
-						textValue = fixEnRuTypo(textValue, "en", "ru");
-					}
-					showTypoSuggestions();
-					removeChildren(suggestionLi);
-					suggestionLi[aC](d[cTN]("" + textValue));
-					if (textValue.match(/^\s*$/)) {
-						handleTypoSuggestions();
-					}
-					if (textInput.value.length < 3 || textInput.value.match(/^\s*$/)) {
-						handleTypoSuggestions();
-					}
-					itemsLength += 1;
-				}
-				/*!
-				 * truncate text
-				 */
-				var lis = ul ? ul[gEBTN]("li") || "" : "",
-				truncateText = function (e) {
-					var t = e.firstChild.textContent || "",
-					n = d.createTextNode(truncString(t, 24));
-					e.replaceChild(n, e.firstChild);
-					e.title = "" + t;
-				};
-				if (lis) {
-					for (var j = 0, m = lis.length; j < m; j += 1) {
-						truncateText(lis[j]);
-					}
-					/* forEach(lis, truncateText, false); */
+			arrangeAllItems = function (e, i) {
+				if (i < 10) {
+					_this._renderItemData(ul, e, i);
 				}
 			};
-			/*!
-			 * set text input value from typo suggestion
-			 */
-			var handleSuggestionLi = function (ev) {
-				ev.stopPropagation();
-				ev.preventDefault();
-				/*!
-				 * set focus first, then set text
-				 */
-				textInput.focus();
-				textInput.value = suggestionLi.firstChild.textContent || "";
-				setStyleDisplayNone(suggestionUl);
-			};
-			suggestionLi[aEL]("click", handleSuggestionLi);
-			/*!
-			 * hide suggestions on outside click
-			 */
-			if (container) {
-				container[aEL]("click", handleTypoSuggestions);
+			if (items) {
+				for (var i = 0; i < itemsLength; i += 1) {
+					arrangeAllItems(items[i], i);
+				}
+				/* forEach(items, arrangeAllItems, false); */
 			}
 			/*!
-			 * unless you specify property option in new Kamil
-			 * use kamil built-in word label as search key in JSON file
-			 * [{"link":"/","label":"some text to match"},
-			 * {"link":"/pages/contents.html","label":"some text to match"}]
+			 * fix typo - non latin characters found
 			 */
-			ac.on("kamilselect", function (e) {
-				var kamilItemLink = e.item.href || "",
-				handleKamilItem = function () {
-					e.inputElement.value = "";
-					handleTypoSuggestions();
-					w.location.href = "../app/" + kamilItemLink;
-				};
-				if (kamilItemLink) {
-					/*!
-					 * nwjs wont like setImmediate here
-					 */
-					/* setImmediate(handleKamilItem); */
-					handleKamilItem();
+			while (itemsLength < 1) {
+				var textValue = textInput.value;
+				if (/[^\u0000-\u007f]/.test(textValue)) {
+					textValue = fixEnRuTypo(textValue, "ru", "en");
+				} else {
+					textValue = fixEnRuTypo(textValue, "en", "ru");
 				}
-			});
+				showTypoSuggestions();
+				removeChildren(suggestionLi);
+				suggestionLi[aC](d[cTN]("" + textValue));
+				if (textValue.match(/^\s*$/)) {
+					handleTypoSuggestions();
+				}
+				if (textInput.value.length < 3 || textInput.value.match(/^\s*$/)) {
+					handleTypoSuggestions();
+				}
+				itemsLength += 1;
+			}
+			/*!
+			 * truncate text
+			 */
+			var lis = ul ? ul[gEBTN]("li") || "" : "",
+			truncateText = function (e) {
+				var t = e.firstChild.textContent || "",
+				n = d.createTextNode(truncString(t, 24));
+				e.replaceChild(n, e.firstChild);
+				e.title = "" + t;
+			};
+			if (lis) {
+				for (var j = 0, m = lis.length; j < m; j += 1) {
+					truncateText(lis[j]);
+				}
+				/* forEach(lis, truncateText, false); */
+			}
+		};
+		/*!
+		 * set text input value from typo suggestion
+		 */
+		var handleSuggestionLi = function (ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			/*!
+			 * set focus first, then set text
+			 */
+			textInput.focus();
+			textInput.value = suggestionLi.firstChild.textContent || "";
+			setStyleDisplayNone(suggestionUl);
+		};
+		suggestionLi[aEL]("click", handleSuggestionLi);
+		/*!
+		 * hide suggestions on outside click
+		 */
+		if (container) {
+			container[aEL]("click", handleTypoSuggestions);
 		}
+		/*!
+		 * unless you specify property option in new Kamil
+		 * use kamil built-in word label as search key in JSON file
+		 * [{"link":"/","label":"some text to match"},
+		 * {"link":"/pages/contents.html","label":"some text to match"}]
+		 */
+		ac.on("kamilselect", function (e) {
+			var kamilItemLink = e.item.href || "",
+			handleKamilItem = function () {
+				e.inputElement.value = "";
+				handleTypoSuggestions();
+				w.location.href = "../app/" + kamilItemLink;
+			};
+			if (kamilItemLink) {
+				/*!
+				 * nwjs wont like setImmediate here
+				 */
+				/* setImmediate(handleKamilItem); */
+				handleKamilItem();
+			}
+		});
 	},
 	initScript = function () {
-		loadUnparsedJSON(jsonUrl, processResponse);
+		loadUnparsedJSON(jsonUrl, generateMenu);
 	};
 	if (searchForm && textInput) {
 		/* console.log("triggered function: initKamilAutocomplete"); */

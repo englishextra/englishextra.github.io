@@ -357,7 +357,7 @@ manageExternalLinks = function (ctx) {
 	aEL = "addEventListener",
 	gA = "getAttribute",
 	isBindedClass = "is-binded",
-	arrangeExternalLink = function (e) {
+	arrange = function (e) {
 		if (!e[cL].contains(isBindedClass)) {
 			var url = e[gA]("href") || "";
 			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
@@ -372,15 +372,15 @@ manageExternalLinks = function (ctx) {
 			}
 		}
 	},
-	initScript = function () {
+	arrangeAll = function () {
 		for (var i = 0, l = link.length; i < l; i += 1) {
-			arrangeExternalLink(link[i]);
+			arrange(link[i]);
 		}
-		/* forEach(link, arrangeExternalLink, false); */
+		/* forEach(link, arrange, false); */
 	};
 	if (link) {
 		/* console.log("triggered function: manageExternalLinks"); */
-		initScript();
+		arrangeAll();
 	}
 };
 document.ready().then(manageExternalLinks);
@@ -399,42 +399,39 @@ var handleDataSrcImages = function () {
 	img = d[gEBCN](imgClass) || "",
 	isActiveClass = "is-active",
 	isBindedClass = "is-binded",
-	rerenderDataSrcImage = function (e) {
-		if (!e[cL].contains(isBindedClass)) {
-			var srcString = e[ds].src || "";
-			if (srcString) {
-				if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
-					e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
-					srcString = e[ds].src;
-				}
-				imagePromise(srcString).then(function (r) {
-					e.src = srcString;
-				}).catch (function (err) {
-					console.log("cannot load image with imagePromise:", srcString);
-				});
-				e[cL].add(isActiveClass);
-				e[cL].add(isBindedClass);
-			}
-		}
-	},
-	arrangeDataSrcImage = function (e) {
+	arrange = function (e) {
 		/*!
 		 * true if elem is in same y-axis as the viewport or within 100px of it
 		 * @see {@link https://github.com/ryanve/verge}
 		 */
 		if (verge.inY(e, 100) /*  && 0 !== e.offsetHeight */) {
-			rerenderDataSrcImage(e);
+			if (!e[cL].contains(isBindedClass)) {
+				var srcString = e[ds].src || "";
+				if (srcString) {
+					if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
+						e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
+						srcString = e[ds].src;
+					}
+					imagePromise(srcString).then(function (r) {
+						e.src = srcString;
+					}).catch (function (err) {
+						console.log("cannot load image with imagePromise:", srcString);
+					});
+					e[cL].add(isActiveClass);
+					e[cL].add(isBindedClass);
+				}
+			}
 		}
 	},
-	initScript = function () {
+	arrangeAll = function () {
 		for (var i = 0, l = img.length; i < l; i += 1) {
-			arrangeDataSrcImage(img[i]);
+			arrange(img[i]);
 		}
-		/* forEach(img, arrangeDataSrcImage, false); */
+		/* forEach(img, arrange, false); */
 	};
 	if (img) {
 		/* console.log("triggered function: manageDataSrcImages"); */
-		initScript();
+		arrangeAll();
 	}
 },
 handleDataSrcImagesWindow = function () {

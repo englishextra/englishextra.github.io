@@ -870,7 +870,7 @@ var initNavMenu = function () {
 			removeActiveClass(e);
 		}
 	},
-	    addAllItemHandler = function () {
+	    addItemHandlerAll = function () {
 		for (var i = 0, l = panelNavMenuItems.length; i < l; i += 1) {
 			addItemHandler(panelNavMenuItems[i]);
 		}
@@ -889,7 +889,7 @@ var initNavMenu = function () {
 		/*!
    * close nav, scroll to top, highlight active nav item
    */
-		addAllItemHandler();
+		addItemHandlerAll();
 	}
 };
 document.ready().then(initNavMenu);

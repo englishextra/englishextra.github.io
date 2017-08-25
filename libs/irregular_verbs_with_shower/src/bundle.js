@@ -313,7 +313,7 @@ manageExternalLinks = function (ctx) {
 	aEL = "addEventListener",
 	gA = "getAttribute",
 	isBindedClass = "is-binded",
-	arrangeExternalLink = function (e) {
+	arrange = function (e) {
 		if (!e[cL].contains(isBindedClass)) {
 			var url = e[gA]("href") || "";
 			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
@@ -328,15 +328,15 @@ manageExternalLinks = function (ctx) {
 			}
 		}
 	},
-	initScript = function () {
+	arrangeAll = function () {
 		for (var i = 0, l = link.length; i < l; i += 1) {
-			arrangeExternalLink(link[i]);
+			arrange(link[i]);
 		}
-		/* forEach(link, arrangeExternalLink, false); */
+		/* forEach(link, arrange, false); */
 	};
 	if (link) {
 		/* console.log("triggered function: manageExternalLinks"); */
-		initScript();
+		arrangeAll();
 	}
 };
 document.ready().then(manageExternalLinks);

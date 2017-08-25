@@ -956,7 +956,7 @@ var initMenuMore = function () {
 		};
 		btnMenuMore[aEL]("click", h_btn);
 	},
-	    addAllItemHandler = function () {
+	    addItemHandlerAll = function () {
 		for (var i = 0, l = panelMenuMoreItems.length; i < l; i += 1) {
 			addItemHandler(panelMenuMoreItems[i]);
 		}
@@ -975,7 +975,7 @@ var initMenuMore = function () {
 		/*!
    * hide menu more on item clicked
    */
-		addAllItemHandler();
+		addItemHandlerAll();
 	}
 };
 document.ready().then(initMenuMore);
