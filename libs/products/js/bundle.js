@@ -9,7 +9,7 @@ findPos, isInViewport, fixEnRuTypo, forEach, getHTTP,
 getKeyValuesFromJSON, IframeLightbox, imagePromise, imagesLoaded,
 imagesPreloaded, insertExternalHTML, insertTextAsFragment, Isotope,
 isValidId, jQuery, Kamil, loadExternalHTML, loadJS, loadTriggerJS,
-loadUnparsedJSON, manageDataSrcImages, manageImgLightboxLinks, Masonry,
+loadUnparsedJSON, manageDataSrcImageAll, manageImgLightboxLinks, Masonry,
 module, myMap, openDeviceBrowser, Packery, Parallax, parseLink,
 PhotoSwipe, PhotoSwipeUI_Default, pnotify, prependFragmentBefore,
 prettyPrint, Promise, Proxy, QRCode, removeChildren, removeElement,
@@ -611,7 +611,7 @@ if (document.title) {
  * @see {@link https://github.com/nwjs/nw.js/wiki/shell}
  * electron - file: | nwjs - chrome-extension: | http: Intel XDK
  * wont do in electron and nw,
- * so manageExternalLinks will set target blank to links
+ * so manageExternalLinkAll will set target blank to links
  * var win = w.open(url, "_blank");
  * win.focus();
  * @param {String} url URL/path string
@@ -706,7 +706,7 @@ var handleExternalLink = function (url, ev) {
 	    debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
 	debounceLogicHandleExternalLink();
 },
-    manageExternalLinks = function (ctx) {
+    manageExternalLinkAll = function (ctx) {
 	"use strict";
 
 	ctx = ctx && ctx.nodeName ? ctx : "";
@@ -718,33 +718,33 @@ var handleExternalLink = function (url, ev) {
 	    aEL = "addEventListener",
 	    gA = "getAttribute",
 	    isBindedClass = "is-binded",
-	    arrangeExternalLink = function (e) {
-		if (!e[cL].contains(isBindedClass)) {
-			var url = e[gA]("href") || "";
-			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-				e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
-				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					e.target = "_blank";
-					e.rel = "noopener";
-				} else {
-					e[aEL]("click", handleExternalLink.bind(null, url));
+	    arrangeAll = function () {
+		var arrange = function (e) {
+			if (!e[cL].contains(isBindedClass)) {
+				var url = e[gA]("href") || "";
+				if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+					e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+					if ("undefined" !== typeof getHTTP && getHTTP()) {
+						e.target = "_blank";
+						e.rel = "noopener";
+					} else {
+						e[aEL]("click", handleExternalLink.bind(null, url));
+					}
+					e[cL].add(isBindedClass);
 				}
-				e[cL].add(isBindedClass);
 			}
-		}
-	},
-	    initScript = function () {
+		};
 		for (var i = 0, l = link.length; i < l; i += 1) {
-			arrangeExternalLink(link[i]);
+			arrange(link[i]);
 		}
-		/* forEach(link, arrangeExternalLink, false); */
+		/* forEach(link, arrange, false); */
 	};
 	if (link) {
-		/* console.log("triggered function: manageExternalLinks"); */
-		initScript();
+		/* console.log("triggered function: manageExternalLinkAll"); */
+		arrangeAll();
 	}
 };
-document.ready().then(manageExternalLinks);
+document.ready().then(manageExternalLinkAll);
 /*!
  * init DoSlide
  * A simple slider.
@@ -825,10 +825,9 @@ var manageLocationQrCodeImage = function () {
 	    gEBCN = "getElementsByClassName",
 	    cL = "classList",
 	    cE = "createElement",
-	    aEL = "addEventListener",
 	    holder = d[gEBCN]("holder-location-qr-code")[0] || "",
 	    locationHref = w.location.href || "",
-	    generateLocationQrCodeImg = function () {
+	    initScript = function () {
 		var locationHref = w.location.href || "",
 		    img = d[cE]("img"),
 		    imgTitle = d.title ? "Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»" : "",
@@ -865,10 +864,6 @@ var manageLocationQrCodeImage = function () {
 		img.title = imgTitle;
 		removeChildren(holder);
 		appendFragment(img, holder);
-	},
-	    initScript = function () {
-		generateLocationQrCodeImg();
-		w[aEL]("hashchange", generateLocationQrCodeImg);
 	};
 	if (holder && locationHref) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
@@ -910,12 +905,15 @@ var addAppUpdatesLink = function () {
 	} else {
 		linkHref = "";
 	}
-	var initScript = function () {
+	var arrange = function () {
 		var listItem = d[cE]("li"),
 		    link = d[cE]("a"),
 		    linkText = "Скачать приложение сайта";
 		link.title = "" + (parseLink(linkHref).hostname || "") + " откроется в новой вкладке";
 		link.href = linkHref;
+		var handleAppUpdatesLink = function () {
+			openDeviceBrowser(linkHref);
+		};
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			link.target = "_blank";
 			link.rel = "noopener";
@@ -926,9 +924,6 @@ var addAppUpdatesLink = function () {
 			/*jshint -W107 */
 			link.href = "javascript:void(0);";
 			/*jshint +W107 */
-			var handleAppUpdatesLink = function () {
-				openDeviceBrowser(linkHref);
-			};
 			link[aEL]("click", handleAppUpdatesLink);
 		}
 		link[aC](d[cTN]("" + linkText));
@@ -939,7 +934,7 @@ var addAppUpdatesLink = function () {
 	};
 	if (panel && items && linkHref) {
 		/* console.log("triggered function: addAppUpdatesLink"); */
-		initScript();
+		arrange();
 	}
 };
 document.ready().then(addAppUpdatesLink);
@@ -970,9 +965,6 @@ var initMenuMore = function () {
 			panelNavMenu[cL].remove(isActiveClass);
 		}
 	},
-	    addItemHandler = function (e) {
-		e[aEL]("click", handleItem);
-	},
 	    addContainerHandler = function () {
 		container[aEL]("click", handleItem);
 	},
@@ -985,6 +977,9 @@ var initMenuMore = function () {
 		btnMenuMore[aEL]("click", h_btn);
 	},
 	    addItemHandlerAll = function () {
+		var addItemHandler = function (e) {
+			e[aEL]("click", handleItem);
+		};
 		for (var i = 0, l = panelMenuMoreItems.length; i < l; i += 1) {
 			addItemHandler(panelMenuMoreItems[i]);
 		}
@@ -1048,7 +1043,7 @@ var yshare,
 	    btn = d[gEBCN]("btn-share-buttons")[0] || "",
 	    yaShare2Id = "ya-share2",
 	    yaShare2 = d[gEBI](yaShare2Id) || "",
-	    addBtnHandler = function () {
+	    addHandler = function () {
 		var handleShareButton = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
@@ -1088,7 +1083,7 @@ var yshare,
 	if (btn && yaShare2) {
 		/* console.log("triggered function: manageShareButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			addBtnHandler();
+			addHandler();
 		} else {
 			setStyleDisplayNone(btn);
 		}
@@ -1111,32 +1106,32 @@ var manageVKLikeButton = function () {
 	    VKLikeId = "vk-like",
 	    VKLike = d[gEBI](VKLikeId) || "",
 	    btn = d[gEBCN]("btn-show-vk-like")[0] || "",
-	    initScript = function () {
-		if (w.VK) {
-			try {
-				VK.init({
-					apiId: VKLike[ds].apiid || "",
-					nameTransportPath: "/xd_receiver.htm",
-					onlyWidgets: !0
-				});
-				VK.Widgets.Like(VKLikeId, {
-					type: "button",
-					height: 24
-				});
-				setStyleVisibilityVisible(VKLike);
-				setStyleOpacity(VKLike, 1);
-				setStyleDisplayNone(btn);
-			} catch (err) {
-				/* console.log("cannot init VK", err); */
-			}
-		}
-	},
-	    addBtnHandler = function () {
+	    addHandler = function () {
 		var handleVKLikeButton = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
 			btn[rEL]("click", handleVKLikeButton);
-			var jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122";
+			var initScript = function () {
+				if (w.VK) {
+					try {
+						VK.init({
+							apiId: VKLike[ds].apiid || "",
+							nameTransportPath: "/xd_receiver.htm",
+							onlyWidgets: !0
+						});
+						VK.Widgets.Like(VKLikeId, {
+							type: "button",
+							height: 24
+						});
+						setStyleVisibilityVisible(VKLike);
+						setStyleOpacity(VKLike, 1);
+						setStyleDisplayNone(btn);
+					} catch (err) {
+						/* console.log("cannot init VK", err); */
+					}
+				}
+			},
+			    jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122";
 			if (!scriptIsLoaded(jsUrl)) {
 				loadJS(jsUrl, initScript);
 			}
@@ -1146,7 +1141,7 @@ var manageVKLikeButton = function () {
 	if (btn && VKLike) {
 		/* console.log("triggered function: manageVKLikeButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			addBtnHandler();
+			addHandler();
 		} else {
 			setStyleDisplayNone(btn);
 		}

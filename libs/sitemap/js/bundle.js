@@ -9,7 +9,7 @@ findPos, isInViewport, fixEnRuTypo, forEach, getHTTP,
 getKeyValuesFromJSON, IframeLightbox, imagePromise, imagesLoaded,
 imagesPreloaded, insertExternalHTML, insertTextAsFragment, Isotope,
 isValidId, jQuery, Kamil, loadExternalHTML, loadJS, loadTriggerJS,
-loadUnparsedJSON, manageDataSrcImages, manageImgLightboxLinks, Masonry,
+loadUnparsedJSON, manageDataSrcImageAll, manageImgLightboxLinks, Masonry,
 module, myMap, openDeviceBrowser, Packery, Parallax, parseLink,
 PhotoSwipe, PhotoSwipeUI_Default, pnotify, prependFragmentBefore,
 prettyPrint, Promise, Proxy, QRCode, removeChildren, removeElement,
@@ -842,7 +842,7 @@ if (document.title) {
  * @see {@link https://github.com/nwjs/nw.js/wiki/shell}
  * electron - file: | nwjs - chrome-extension: | http: Intel XDK
  * wont do in electron and nw,
- * so manageExternalLinks will set target blank to links
+ * so manageExternalLinkAll will set target blank to links
  * var win = w.open(url, "_blank");
  * win.focus();
  * @param {String} url URL/path string
@@ -937,7 +937,7 @@ var handleExternalLink = function (url, ev) {
 	    debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
 	debounceLogicHandleExternalLink();
 },
-    manageExternalLinks = function (ctx) {
+    manageExternalLinkAll = function (ctx) {
 	"use strict";
 
 	ctx = ctx && ctx.nodeName ? ctx : "";
@@ -949,39 +949,39 @@ var handleExternalLink = function (url, ev) {
 	    aEL = "addEventListener",
 	    gA = "getAttribute",
 	    isBindedClass = "is-binded",
-	    arrangeExternalLink = function (e) {
-		if (!e[cL].contains(isBindedClass)) {
-			var url = e[gA]("href") || "";
-			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-				e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
-				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					e.target = "_blank";
-					e.rel = "noopener";
-				} else {
-					e[aEL]("click", handleExternalLink.bind(null, url));
+	    arrangeAll = function () {
+		var arrange = function (e) {
+			if (!e[cL].contains(isBindedClass)) {
+				var url = e[gA]("href") || "";
+				if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+					e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+					if ("undefined" !== typeof getHTTP && getHTTP()) {
+						e.target = "_blank";
+						e.rel = "noopener";
+					} else {
+						e[aEL]("click", handleExternalLink.bind(null, url));
+					}
+					e[cL].add(isBindedClass);
 				}
-				e[cL].add(isBindedClass);
 			}
-		}
-	},
-	    initScript = function () {
+		};
 		for (var i = 0, l = link.length; i < l; i += 1) {
-			arrangeExternalLink(link[i]);
+			arrange(link[i]);
 		}
-		/* forEach(link, arrangeExternalLink, false); */
+		/* forEach(link, arrange, false); */
 	};
 	if (link) {
-		/* console.log("triggered function: manageExternalLinks"); */
-		initScript();
+		/* console.log("triggered function: manageExternalLinkAll"); */
+		arrangeAll();
 	}
 };
-document.ready().then(manageExternalLinks);
+document.ready().then(manageExternalLinkAll);
 /*!
  * replace img src with data-src
  * initiate on load, not on ready
  * @param {Object} [ctx] context HTML Element
  */
-var handleDataSrcImages = function () {
+var handleDataSrcImageAll = function () {
 	"use strict";
 
 	var d = document,
@@ -992,69 +992,66 @@ var handleDataSrcImages = function () {
 	    img = d[gEBCN](imgClass) || "",
 	    isActiveClass = "is-active",
 	    isBindedClass = "is-binded",
-	    rerenderDataSrcImage = function (e) {
-		if (!e[cL].contains(isBindedClass)) {
-			var srcString = e[ds].src || "";
-			if (srcString) {
-				if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
-					e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
-					srcString = e[ds].src;
+	    arrangeAll = function () {
+		var arrange = function (e) {
+			/*!
+    * true if elem is in same y-axis as the viewport or within 100px of it
+    * @see {@link https://github.com/ryanve/verge}
+    */
+			if (verge.inY(e, 100) /*  && 0 !== e.offsetHeight */) {
+					if (!e[cL].contains(isBindedClass)) {
+						var srcString = e[ds].src || "";
+						if (srcString) {
+							if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
+								e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
+								srcString = e[ds].src;
+							}
+							imagePromise(srcString).then(function (r) {
+								e.src = srcString;
+							}).catch(function (err) {
+								console.log("cannot load image with imagePromise:", srcString);
+							});
+							e[cL].add(isActiveClass);
+							e[cL].add(isBindedClass);
+						}
+					}
 				}
-				imagePromise(srcString).then(function (r) {
-					e.src = srcString;
-				}).catch(function (err) {
-					console.log("cannot load image with imagePromise:", srcString);
-				});
-				e[cL].add(isActiveClass);
-				e[cL].add(isBindedClass);
-			}
-		}
-	},
-	    arrangeDataSrcImage = function (e) {
-		/*!
-   * true if elem is in same y-axis as the viewport or within 100px of it
-   * @see {@link https://github.com/ryanve/verge}
-   */
-		if (verge.inY(e, 100) /*  && 0 !== e.offsetHeight */) {
-				rerenderDataSrcImage(e);
-			}
-	},
-	    initScript = function () {
+		};
 		for (var i = 0, l = img.length; i < l; i += 1) {
-			arrangeDataSrcImage(img[i]);
+			arrange(img[i]);
 		}
-		/* forEach(img, arrangeDataSrcImage, false); */
+		/* forEach(img, arrange, false); */
 	};
 	if (img) {
-		/* console.log("triggered function: manageDataSrcImages"); */
-		initScript();
+		/* console.log("triggered function: manageDataSrcImageAll"); */
+		arrangeAll();
 	}
 },
-    handleDataSrcImagesWindow = function () {
-	var throttleHandleDataSrcImages = throttle(handleDataSrcImages, 100);
-	throttleHandleDataSrcImages();
+    handleDataSrcImageAllWindow = function () {
+	var throttlehandleDataSrcImageAll = throttle(handleDataSrcImageAll, 100);
+	throttlehandleDataSrcImageAll();
 },
-    manageDataSrcImages = function () {
+    manageDataSrcImageAll = function () {
 	"use strict";
 
 	var w = globalRoot,
 	    aEL = "addEventListener",
 	    rEL = "removeEventListener";
-	w[rEL]("scroll", handleDataSrcImagesWindow);
-	w[rEL]("resize", handleDataSrcImagesWindow);
-	w[aEL]("scroll", handleDataSrcImagesWindow);
-	w[aEL]("resize", handleDataSrcImagesWindow);
+	w[rEL]("scroll", handleDataSrcImageAllWindow);
+	w[rEL]("resize", handleDataSrcImageAllWindow);
+	w[aEL]("scroll", handleDataSrcImageAllWindow);
+	w[aEL]("resize", handleDataSrcImageAllWindow);
 	var timers = new Timers();
 	timers.timeout(function () {
 		timers.clear();
 		timers = null;
-		handleDataSrcImages();
+		handleDataSrcImageAll();
 	}, 500);
 };
 /*!
  * on load, not on ready
  */
-globalRoot.addEventListener("load", manageDataSrcImages);
+globalRoot.addEventListener("load", manageDataSrcImageAll);
 /*!
  * init Masonry grid
  * @see {@link https://stackoverflow.com/questions/15160010/jquery-masonry-collapsing-on-initial-page-load-works-fine-after-clicking-home}
@@ -1104,7 +1101,7 @@ var initMasonry = function () {
 					iso.layout();
 				});
 			}
-			var handleFilterButtons = function () {
+			var handleFilterButtonAll = function () {
 				var _this = this;
 				iso.arrange({
 					filter: _this.dataset.filter
@@ -1123,13 +1120,13 @@ var initMasonry = function () {
 				timers.timeout(function () {
 					timers.clear();
 					timers = null;
-					handleDataSrcImages();
+					handleDataSrcImageAll();
 				}, 500);
 			};
 			if (btn) {
 				for (var i = 0, l = btn.length; i < l; i += 1) {
 					if (!btn[i].classList.contains("is-binded")) {
-						btn[i].addEventListener("click", handleFilterButtons);
+						btn[i].addEventListener("click", handleFilterButtonAll);
 						btn[i].classList.add("is-binded");
 					}
 				}
@@ -1152,7 +1149,7 @@ var initMasonry = function () {
 				timers.timeout(function () {
 					timers.clear();
 					timers = null;
-					handleDataSrcImages();
+					handleDataSrcImageAll();
 				}, 500);
 			};
 			if (sel) {
@@ -1274,7 +1271,7 @@ var initUiTotop = function () {
 	    btnClass = "ui-totop",
 	    btnTitle = "Наверх",
 	    isActiveClass = "is-active",
-	    renderUiTotop = function () {
+	    arrange = function () {
 		var handleUiTotopWindow = function (_this) {
 			var logicHandleUiTotopWindow = function () {
 				var btn = d[gEBCN](btnClass)[0] || "",
@@ -1318,7 +1315,7 @@ var initUiTotop = function () {
 	};
 	if (b) {
 		/* console.log("triggered function: initUiTotop"); */
-		renderUiTotop();
+		arrange();
 	}
 };
 document.ready().then(initUiTotop);

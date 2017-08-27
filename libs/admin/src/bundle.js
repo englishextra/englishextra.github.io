@@ -9,7 +9,7 @@ findPos, isInViewport, fixEnRuTypo, forEach, getHTTP,
 getKeyValuesFromJSON, IframeLightbox, imagePromise, imagesLoaded,
 imagesPreloaded, insertExternalHTML, insertTextAsFragment, Isotope,
 isValidId, jQuery, Kamil, loadExternalHTML, loadJS, loadTriggerJS,
-loadUnparsedJSON, manageDataSrcImages, manageImgLightboxLinks, Masonry,
+loadUnparsedJSON, manageDataSrcImageAll, manageImgLightboxLinks, Masonry,
 module, myMap, openDeviceBrowser, Packery, Parallax, parseLink,
 PhotoSwipe, PhotoSwipeUI_Default, pnotify, prependFragmentBefore,
 prettyPrint, Promise, Proxy, QRCode, removeChildren, removeElement,
@@ -214,7 +214,7 @@ if (document.title) {
  * @see {@link https://github.com/nwjs/nw.js/wiki/shell}
  * electron - file: | nwjs - chrome-extension: | http: Intel XDK
  * wont do in electron and nw,
- * so manageExternalLinks will set target blank to links
+ * so manageExternalLinkAll will set target blank to links
  * var win = w.open(url, "_blank");
  * win.focus();
  * @param {String} url URL/path string
@@ -269,7 +269,7 @@ var handleExternalLink = function (url, ev) {
 	debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
 	debounceLogicHandleExternalLink();
 },
-manageExternalLinks = function (ctx) {
+manageExternalLinkAll = function (ctx) {
 	"use strict";
 	ctx = ctx && ctx.nodeName ? ctx : "";
 	var d = document,
@@ -280,33 +280,33 @@ manageExternalLinks = function (ctx) {
 	aEL = "addEventListener",
 	gA = "getAttribute",
 	isBindedClass = "is-binded",
-	arrange = function (e) {
-		if (!e[cL].contains(isBindedClass)) {
-			var url = e[gA]("href") || "";
-			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-				e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
-				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					e.target = "_blank";
-					e.rel = "noopener";
-				} else {
-					e[aEL]("click", handleExternalLink.bind(null, url));
-				}
-				e[cL].add(isBindedClass);
-			}
-		}
-	},
 	arrangeAll = function () {
+		var arrange = function (e) {
+			if (!e[cL].contains(isBindedClass)) {
+				var url = e[gA]("href") || "";
+				if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+					e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+					if ("undefined" !== typeof getHTTP && getHTTP()) {
+						e.target = "_blank";
+						e.rel = "noopener";
+					} else {
+						e[aEL]("click", handleExternalLink.bind(null, url));
+					}
+					e[cL].add(isBindedClass);
+				}
+			}
+		};
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrange(link[i]);
 		}
 		/* forEach(link, arrange, false); */
 	};
 	if (link) {
-		/* console.log("triggered function: manageExternalLinks"); */
+		/* console.log("triggered function: manageExternalLinkAll"); */
 		arrangeAll();
 	}
 };
-document.ready().then(manageExternalLinks);
+document.ready().then(manageExternalLinkAll);
 /*!
  * init nav-menu
  */
@@ -332,16 +332,6 @@ var initNavMenu = function () {
 		panelNavMenu[cL].remove(isActiveClass);
 		btnNavMenu[cL].remove(isActiveClass);
 	},
-	addAllActiveClass = function () {
-		page[cL].add(isActiveClass);
-		panelNavMenu[cL].add(isActiveClass);
-		btnNavMenu[cL].add(isActiveClass);
-	},
-	toggleAllActiveClass = function () {
-		page[cL].toggle(isActiveClass);
-		panelNavMenu[cL].toggle(isActiveClass);
-		btnNavMenu[cL].toggle(isActiveClass);
-	},
 	removeHolderActiveClass = function () {
 		if (holderPanelMenuMore && holderPanelMenuMore[cL].contains(isActiveClass)) {
 			holderPanelMenuMore[cL].remove(isActiveClass);
@@ -358,6 +348,11 @@ var initNavMenu = function () {
 		handleContainerRight = function () {
 			/* console.log("swiperight"); */
 			removeHolderActiveClass();
+			var addAllActiveClass = function () {
+				page[cL].add(isActiveClass);
+				panelNavMenu[cL].add(isActiveClass);
+				btnNavMenu[cL].add(isActiveClass);
+			};
 			if (!panelNavMenu[cL].contains(isActiveClass)) {
 				addAllActiveClass();
 			}
@@ -372,43 +367,48 @@ var initNavMenu = function () {
 		}
 	},
 	addBtnHandler = function () {
-		var h_btn = function (ev) {
+		var toggleAllActiveClass = function () {
+			page[cL].toggle(isActiveClass);
+			panelNavMenu[cL].toggle(isActiveClass);
+			btnNavMenu[cL].toggle(isActiveClass);
+		},
+		handleBtnNavMenu = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
 			removeHolderActiveClass();
 			toggleAllActiveClass();
 		};
-		btnNavMenu[aEL]("click", h_btn);
-	},
-	removeHolderAndAllActiveClass = function () {
-		removeHolderActiveClass();
-		removeAllActiveClass();
-	},
-	removeActiveClass = function (e) {
-		e[cL].remove(isActiveClass);
-	},
-	addActiveClass = function (e) {
-		e[cL].add(isActiveClass);
-	},
-	addItemHandler = function (e) {
-		var handleItem = function () {
-			if (panelNavMenu[cL].contains(isActiveClass)) {
-				removeHolderAndAllActiveClass();
-			}
-			for (var j = 0, l = panelNavMenuItems.length; j < l; j += 1) {
-				removeActiveClass(panelNavMenuItems[j]);
-			}
-			/* forEach(panelNavMenuItems, removeActiveClass, false); */
-			addActiveClass(e);
-		};
-		e[aEL]("click", handleItem);
-		if (locationHref === e.href) {
-			addActiveClass(e);
-		} else {
-			removeActiveClass(e);
-		}
+		btnNavMenu[aEL]("click", handleBtnNavMenu);
 	},
 	addItemHandlerAll = function () {
+		var addItemHandler = function (e) {
+			var addActiveClass = function (e) {
+				e[cL].add(isActiveClass);
+			},
+			removeHolderAndAllActiveClass = function () {
+				removeHolderActiveClass();
+				removeAllActiveClass();
+			},
+			removeActiveClass = function (e) {
+				e[cL].remove(isActiveClass);
+			},
+			handleItem = function () {
+				if (panelNavMenu[cL].contains(isActiveClass)) {
+					removeHolderAndAllActiveClass();
+				}
+				for (var j = 0, l = panelNavMenuItems.length; j < l; j += 1) {
+					removeActiveClass(panelNavMenuItems[j]);
+				}
+				/* forEach(panelNavMenuItems, removeActiveClass, false); */
+				addActiveClass(e);
+			};
+			e[aEL]("click", handleItem);
+			if (locationHref === e.href) {
+				addActiveClass(e);
+			} else {
+				removeActiveClass(e);
+			}
+		};
 		for (var i = 0, l = panelNavMenuItems.length; i < l; i += 1) {
 			addItemHandler(panelNavMenuItems[i]);
 		}
@@ -450,7 +450,7 @@ var initUiTotop = function () {
 	btnClass = "ui-totop",
 	btnTitle = "Наверх",
 	isActiveClass = "is-active",
-	renderUiTotop = function () {
+	arrange = function () {
 		var handleUiTotopWindow = function (_this) {
 			var logicHandleUiTotopWindow = function () {
 				var btn = d[gEBCN](btnClass)[0] || "",
@@ -493,7 +493,7 @@ var initUiTotop = function () {
 	};
 	if (b) {
 		/* console.log("triggered function: initUiTotop"); */
-		renderUiTotop();
+		arrange();
 	}
 };
 document.ready().then(initUiTotop);

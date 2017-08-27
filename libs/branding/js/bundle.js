@@ -9,7 +9,7 @@ findPos, isInViewport, fixEnRuTypo, forEach, getHTTP,
 getKeyValuesFromJSON, IframeLightbox, imagePromise, imagesLoaded,
 imagesPreloaded, insertExternalHTML, insertTextAsFragment, Isotope,
 isValidId, jQuery, Kamil, loadExternalHTML, loadJS, loadTriggerJS,
-loadUnparsedJSON, manageDataSrcImages, manageImgLightboxLinks, Masonry,
+loadUnparsedJSON, manageDataSrcImageAll, manageImgLightboxLinks, Masonry,
 module, myMap, openDeviceBrowser, Packery, Parallax, parseLink,
 PhotoSwipe, PhotoSwipeUI_Default, pnotify, prependFragmentBefore,
 prettyPrint, Promise, Proxy, QRCode, removeChildren, removeElement,
@@ -1064,7 +1064,7 @@ if (document.title) {
  * @see {@link https://github.com/nwjs/nw.js/wiki/shell}
  * electron - file: | nwjs - chrome-extension: | http: Intel XDK
  * wont do in electron and nw,
- * so manageExternalLinks will set target blank to links
+ * so manageExternalLinkAll will set target blank to links
  * var win = w.open(url, "_blank");
  * win.focus();
  * @param {String} url URL/path string
@@ -1203,7 +1203,7 @@ var handleExternalLink = function (url, ev) {
 	    debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
 	debounceLogicHandleExternalLink();
 },
-    manageExternalLinks = function (ctx) {
+    manageExternalLinkAll = function (ctx) {
 	"use strict";
 
 	ctx = ctx && ctx.nodeName ? ctx : "";
@@ -1215,33 +1215,33 @@ var handleExternalLink = function (url, ev) {
 	    aEL = "addEventListener",
 	    gA = "getAttribute",
 	    isBindedClass = "is-binded",
-	    arrange = function (e) {
-		if (!e[cL].contains(isBindedClass)) {
-			var url = e[gA]("href") || "";
-			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-				e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
-				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					e.target = "_blank";
-					e.rel = "noopener";
-				} else {
-					e[aEL]("click", handleExternalLink.bind(null, url));
-				}
-				e[cL].add(isBindedClass);
-			}
-		}
-	},
 	    arrangeAll = function () {
+		var arrange = function (e) {
+			if (!e[cL].contains(isBindedClass)) {
+				var url = e[gA]("href") || "";
+				if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+					e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+					if ("undefined" !== typeof getHTTP && getHTTP()) {
+						e.target = "_blank";
+						e.rel = "noopener";
+					} else {
+						e[aEL]("click", handleExternalLink.bind(null, url));
+					}
+					e[cL].add(isBindedClass);
+				}
+			}
+		};
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrange(link[i]);
 		}
 		/* forEach(link, arrange, false); */
 	};
 	if (link) {
-		/* console.log("triggered function: manageExternalLinks"); */
+		/* console.log("triggered function: manageExternalLinkAll"); */
 		arrangeAll();
 	}
 };
-document.ready().then(manageExternalLinks);
+document.ready().then(manageExternalLinkAll);
 /*!
  * init all Masonry grids
  * @see {@link https://stackoverflow.com/questions/15160010/jquery-masonry-collapsing-on-initial-page-load-works-fine-after-clicking-home}
@@ -1383,17 +1383,17 @@ var hideImgLightbox = function () {
 	    an3 = "fadeOut",
 	    an4 = "fadeOutDown",
 	    dummySrc = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-	    hideImg = function () {
-		container[cL].remove(an);
-		container[cL].remove(an3);
-		img[cL].remove(an);
-		img[cL].remove(an4);
-		img.src = dummySrc;
-		container.style.display = "none";
-	},
 	    hideContainer = function () {
 		container[cL].remove(an1);
 		container[cL].add(an3);
+		var hideImg = function () {
+			container[cL].remove(an);
+			container[cL].remove(an3);
+			img[cL].remove(an);
+			img[cL].remove(an4);
+			img.src = dummySrc;
+			container.style.display = "none";
+		};
 		var timers = new Timers();
 		timers.timeout(function () {
 			timers.clear();
@@ -1464,48 +1464,48 @@ var hideImgLightbox = function () {
 		container[cL].add(containerClass);
 		appendFragment(container, b);
 	}
-	var handleImgLightboxLink = function (ev) {
-		ev.stopPropagation();
-		ev.preventDefault();
-		var _this = this;
-		var logicHandleImgLightboxLink = function () {
-			var hrefString = _this[gA]("href") || "";
-			if (container && img && hrefString) {
-				LoadingSpinner.show();
-				container[cL].add(an);
-				container[cL].add(an1);
-				img[cL].add(an);
-				img[cL].add(an2);
-				if (parseLink(hrefString).isAbsolute && !parseLink(hrefString).hasHTTP) {
-					hrefString = hrefString.replace(/^/, getHTTP(true) + ":");
+	var arrangeAll = function () {
+		var arrange = function (e) {
+			var handleImgLightboxLink = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var _this = this;
+				var logicHandleImgLightboxLink = function () {
+					var hrefString = _this[gA]("href") || "";
+					if (container && img && hrefString) {
+						LoadingSpinner.show();
+						container[cL].add(an);
+						container[cL].add(an1);
+						img[cL].add(an);
+						img[cL].add(an2);
+						if (parseLink(hrefString).isAbsolute && !parseLink(hrefString).hasHTTP) {
+							hrefString = hrefString.replace(/^/, getHTTP(true) + ":");
+						}
+						imagePromise(hrefString).then(function (r) {
+							img.src = hrefString;
+						}).catch(function (err) {
+							/* console.log("manageImgLightboxLinks => imagePromise: cannot load image:", err); */
+						});
+						w[aEL]("keyup", handleImgLightboxWindow);
+						container[aEL]("click", handleImgLightboxContainer);
+						container.style.display = "block";
+						LoadingSpinner.hide();
+					}
+				},
+				    debounceLogicHandleImgLightboxLink = debounce(logicHandleImgLightboxLink, 200);
+				debounceLogicHandleImgLightboxLink();
+			};
+			if (!e[cL].contains(isBindedClass)) {
+				var hrefString = e[gA]("href") || "";
+				if (hrefString) {
+					if (parseLink(hrefString).isAbsolute && !parseLink(hrefString).hasHTTP) {
+						e.setAttribute("href", hrefString.replace(/^/, getHTTP(true) + ":"));
+					}
+					e[aEL]("click", handleImgLightboxLink);
+					e[cL].add(isBindedClass);
 				}
-				imagePromise(hrefString).then(function (r) {
-					img.src = hrefString;
-				}).catch(function (err) {
-					/* console.log("manageImgLightboxLinks => imagePromise: cannot load image:", err); */
-				});
-				w[aEL]("keyup", handleImgLightboxWindow);
-				container[aEL]("click", handleImgLightboxContainer);
-				container.style.display = "block";
-				LoadingSpinner.hide();
 			}
-		},
-		    debounceLogicHandleImgLightboxLink = debounce(logicHandleImgLightboxLink, 200);
-		debounceLogicHandleImgLightboxLink();
-	},
-	    arrange = function (e) {
-		if (!e[cL].contains(isBindedClass)) {
-			var hrefString = e[gA]("href") || "";
-			if (hrefString) {
-				if (parseLink(hrefString).isAbsolute && !parseLink(hrefString).hasHTTP) {
-					e.setAttribute("href", hrefString.replace(/^/, getHTTP(true) + ":"));
-				}
-				e[aEL]("click", handleImgLightboxLink);
-				e[cL].add(isBindedClass);
-			}
-		}
-	},
-	    arrangeAll = function () {
+		};
 		for (var j = 0, l = link.length; j < l; j += 1) {
 			arrange(link[j]);
 		}
@@ -1522,7 +1522,7 @@ document.ready().then(manageImgLightboxLinks);
  * initiate on load, not on ready
  * @param {Object} [ctx] context HTML Element
  */
-var handleDataSrcImages = function () {
+var handleDataSrcImageAll = function () {
 	"use strict";
 
 	var d = document,
@@ -1533,71 +1533,71 @@ var handleDataSrcImages = function () {
 	    img = d[gEBCN](imgClass) || "",
 	    isActiveClass = "is-active",
 	    isBindedClass = "is-binded",
-	    arrange = function (e) {
-		/*!
-   * true if elem is in same y-axis as the viewport or within 100px of it
-   * @see {@link https://github.com/ryanve/verge}
-   */
-		if (verge.inY(e, 100) /*  && 0 !== e.offsetHeight */) {
-				if (!e[cL].contains(isBindedClass)) {
-					var srcString = e[ds].src || "";
-					if (srcString) {
-						if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
-							e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
-							srcString = e[ds].src;
+	    arrangeAll = function () {
+		var arrange = function (e) {
+			/*!
+    * true if elem is in same y-axis as the viewport or within 100px of it
+    * @see {@link https://github.com/ryanve/verge}
+    */
+			if (verge.inY(e, 100) /*  && 0 !== e.offsetHeight */) {
+					if (!e[cL].contains(isBindedClass)) {
+						var srcString = e[ds].src || "";
+						if (srcString) {
+							if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
+								e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
+								srcString = e[ds].src;
+							}
+							imagePromise(srcString).then(function (r) {
+								e.src = srcString;
+							}).catch(function (err) {
+								console.log("cannot load image with imagePromise:", srcString);
+							});
+							e[cL].add(isActiveClass);
+							e[cL].add(isBindedClass);
 						}
-						imagePromise(srcString).then(function (r) {
-							e.src = srcString;
-						}).catch(function (err) {
-							console.log("cannot load image with imagePromise:", srcString);
-						});
-						e[cL].add(isActiveClass);
-						e[cL].add(isBindedClass);
 					}
 				}
-			}
-	},
-	    arrangeAll = function () {
+		};
 		for (var i = 0, l = img.length; i < l; i += 1) {
 			arrange(img[i]);
 		}
 		/* forEach(img, arrange, false); */
 	};
 	if (img) {
-		/* console.log("triggered function: manageDataSrcImages"); */
+		/* console.log("triggered function: manageDataSrcImageAll"); */
 		arrangeAll();
 	}
 },
-    handleDataSrcImagesWindow = function () {
-	var throttleHandleDataSrcImages = throttle(handleDataSrcImages, 100);
-	throttleHandleDataSrcImages();
+    handleDataSrcImageAllWindow = function () {
+	var throttlehandleDataSrcImageAll = throttle(handleDataSrcImageAll, 100);
+	throttlehandleDataSrcImageAll();
 },
-    manageDataSrcImages = function () {
+    manageDataSrcImageAll = function () {
 	"use strict";
 
 	var w = globalRoot,
 	    aEL = "addEventListener",
 	    rEL = "removeEventListener";
-	w[rEL]("scroll", handleDataSrcImagesWindow);
-	w[rEL]("resize", handleDataSrcImagesWindow);
-	w[aEL]("scroll", handleDataSrcImagesWindow);
-	w[aEL]("resize", handleDataSrcImagesWindow);
+	w[rEL]("scroll", handleDataSrcImageAllWindow);
+	w[rEL]("resize", handleDataSrcImageAllWindow);
+	w[aEL]("scroll", handleDataSrcImageAllWindow);
+	w[aEL]("resize", handleDataSrcImageAllWindow);
 	var timers = new Timers();
 	timers.timeout(function () {
 		timers.clear();
 		timers = null;
-		handleDataSrcImages();
+		handleDataSrcImageAll();
 	}, 500);
 };
 /*!
  * on load, not on ready
  */
-globalRoot.addEventListener("load", manageDataSrcImages);
+globalRoot.addEventListener("load", manageDataSrcImageAll);
 /*!
  * append media-iframe
  * @param {Object} [ctx] context HTML Element
  */
-var handleDataSrcIframes = function () {
+var handleDataSrcIframeAll = function () {
 	"use strict";
 
 	var d = document,
@@ -1609,71 +1609,68 @@ var handleDataSrcIframes = function () {
 	    ifrm = d[gEBCN](imgClass) || "",
 	    isActiveClass = "is-active",
 	    isBindedClass = "is-binded",
-	    rerenderDataSrcIframe = function (e) {
-		if (!e[cL].contains(isBindedClass)) {
-			var srcString = e[ds].src || "";
-			if (srcString) {
-				if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
-					e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
-					srcString = e[ds].src;
+	    arrangeAll = function () {
+		var arrange = function (e) {
+			/*!
+    * true if elem is in same y-axis as the viewport or within 100px of it
+    * @see {@link https://github.com/ryanve/verge}
+    */
+			if (verge.inY(e, 100) /*  && 0 !== e.offsetHeight */) {
+					if (!e[cL].contains(isBindedClass)) {
+						var srcString = e[ds].src || "";
+						if (srcString) {
+							if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
+								e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
+								srcString = e[ds].src;
+							}
+							e.src = srcString;
+							e[sA]("frameborder", "no");
+							e[sA]("style", "border:none;");
+							e[sA]("webkitallowfullscreen", "true");
+							e[sA]("mozallowfullscreen", "true");
+							e[sA]("scrolling", "no");
+							e[sA]("allowfullscreen", "true");
+							e[cL].add(isActiveClass);
+							e[cL].add(isBindedClass);
+						}
+					}
 				}
-				e.src = srcString;
-				e[sA]("frameborder", "no");
-				e[sA]("style", "border:none;");
-				e[sA]("webkitallowfullscreen", "true");
-				e[sA]("mozallowfullscreen", "true");
-				e[sA]("scrolling", "no");
-				e[sA]("allowfullscreen", "true");
-				e[cL].add(isActiveClass);
-				e[cL].add(isBindedClass);
-			}
-		}
-	},
-	    arrangeDataSrcIframe = function (e) {
-		/*!
-   * true if elem is in same y-axis as the viewport or within 100px of it
-   * @see {@link https://github.com/ryanve/verge}
-   */
-		if (verge.inY(e, 100) /*  && 0 !== e.offsetHeight */) {
-				rerenderDataSrcIframe(e);
-			}
-	},
-	    initScript = function () {
+		};
 		for (var i = 0, l = ifrm.length; i < l; i += 1) {
-			arrangeDataSrcIframe(ifrm[i]);
+			arrange(ifrm[i]);
 		}
-		/* forEach(ifrm, arrangeDataSrcIframe, false); */
+		/* forEach(ifrm, arrange, false); */
 	};
 	if (ifrm) {
-		/* console.log("triggered function: manageDataSrcIframes"); */
-		initScript();
+		/* console.log("triggered function: manageDataSrcIframeAll"); */
+		arrangeAll();
 	}
 },
-    handleDataSrcIframesWindow = function () {
-	var throttleHandleDataSrcIframes = throttle(handleDataSrcIframes, 100);
-	throttleHandleDataSrcIframes();
+    handleDataSrcIframeAllWindow = function () {
+	var throttlehandleDataSrcIframeAll = throttle(handleDataSrcIframeAll, 100);
+	throttlehandleDataSrcIframeAll();
 },
-    manageDataSrcIframes = function () {
+    manageDataSrcIframeAll = function () {
 	"use strict";
 
 	var w = globalRoot,
 	    aEL = "addEventListener",
 	    rEL = "removeEventListener";
-	w[rEL]("scroll", handleDataSrcIframesWindow);
-	w[rEL]("resize", handleDataSrcIframesWindow);
-	w[aEL]("scroll", handleDataSrcIframesWindow);
-	w[aEL]("resize", handleDataSrcIframesWindow);
+	w[rEL]("scroll", handleDataSrcIframeAllWindow);
+	w[rEL]("resize", handleDataSrcIframeAllWindow);
+	w[aEL]("scroll", handleDataSrcIframeAllWindow);
+	w[aEL]("resize", handleDataSrcIframeAllWindow);
 	var timers = new Timers();
 	timers.timeout(function () {
 		timers.clear();
 		timers = null;
-		handleDataSrcIframes();
+		handleDataSrcIframeAll();
 	}, 500);
 };
 /*!
  * on load, not on ready
  */
-globalRoot.addEventListener("load", manageDataSrcIframes);
+globalRoot.addEventListener("load", manageDataSrcIframeAll);
 /*!
  * add smooth scroll or redirection to static select options
  * @param {Object} [ctx] context HTML Element
@@ -1718,18 +1715,21 @@ var manageSearchInput = function () {
 	    gEBI = "getElementById",
 	    aEL = "addEventListener",
 	    searchInput = d[gEBI]("text") || "",
-	    handleSearchInputValue = function () {
-		var _this = this;
-		var logicHandleSearchInputValue = function () {
-			_this.value = _this.value.replace(/\\/g, "").replace(/ +(?= )/g, " ").replace(/\/+(?=\/)/g, "/") || "";
-		},
-		    debounceLogicHandleSearchInputValue = debounce(logicHandleSearchInputValue, 200);
-		debounceLogicHandleSearchInputValue();
+	    addHandler = function () {
+		searchInput.focus();
+		var handleSearchInputValue = function () {
+			var _this = this;
+			var logicHandleSearchInputValue = function () {
+				_this.value = _this.value.replace(/\\/g, "").replace(/ +(?= )/g, " ").replace(/\/+(?=\/)/g, "/") || "";
+			},
+			    debounceLogicHandleSearchInputValue = debounce(logicHandleSearchInputValue, 200);
+			debounceLogicHandleSearchInputValue();
+		};
+		searchInput[aEL]("input", handleSearchInputValue);
 	};
 	if (searchInput) {
 		/* console.log("triggered function: manageSearchInput"); */
-		searchInput.focus();
-		searchInput[aEL]("input", handleSearchInputValue);
+		addHandler();
 	}
 };
 document.ready().then(manageSearchInput);
@@ -1737,7 +1737,7 @@ document.ready().then(manageSearchInput);
  * add click event on hidden-layer show btn
  * @param {Object} [ctx] context HTML Element
  */
-var handleExpandingLayers = function () {
+var handleExpandingLayerAll = function () {
 	"use strict";
 
 	var _this = this;
@@ -1749,7 +1749,7 @@ var handleExpandingLayers = function () {
 		_this[cL].toggle(isActiveClass);
 		layer[cL].toggle(isActiveClass);
 	}
-	return !1;
+	return;
 },
     manageExpandingLayers = function (ctx) {
 	"use strict";
@@ -1760,18 +1760,18 @@ var handleExpandingLayers = function () {
 	    aEL = "addEventListener",
 	    btnClass = "btn-expand-hidden-layer",
 	    btn = ctx ? ctx[gEBCN](btnClass) || "" : d[gEBCN](btnClass) || "",
-	    arrangeBtn = function (e) {
-		e[aEL]("click", handleExpandingLayers);
-	},
-	    initScript = function () {
+	    addHandlerAll = function () {
+		var addHandler = function (e) {
+			e[aEL]("click", handleExpandingLayerAll);
+		};
 		for (var i = 0, l = btn.length; i < l; i += 1) {
-			arrangeBtn(btn[i]);
+			addHandler(btn[i]);
 		}
-		/* forEach(btn, k, false); */
+		/* forEach(btn, addHandler, false); */
 	};
 	if (btn) {
 		/* console.log("triggered function: manageExpandingLayers"); */
-		initScript();
+		addHandlerAll();
 	}
 };
 document.ready().then(manageExpandingLayers);
@@ -1779,7 +1779,7 @@ document.ready().then(manageExpandingLayers);
  * add click event on source code show btn
  * @param {Object} [ctx] context HTML Element
  */
-var handleSourceCodeLayers = function () {
+var handleSourceCodeLayerAll = function () {
 	"use strict";
 
 	var _this = this;
@@ -1791,7 +1791,7 @@ var handleSourceCodeLayers = function () {
 		_this[cL].toggle(isActiveClass);
 		layer[cL].toggle(isActiveClass);
 	}
-	return !1;
+	return;
 },
     manageSourceCodeLayers = function (ctx) {
 	"use strict";
@@ -1802,18 +1802,18 @@ var handleSourceCodeLayers = function () {
 	    aEL = "addEventListener",
 	    btnClass = "sg-btn--source",
 	    btn = ctx ? ctx[gEBCN](btnClass) || "" : d[gEBCN](btnClass) || "",
-	    arrangeBtn = function (e) {
-		e[aEL]("click", handleSourceCodeLayers);
-	},
-	    initScript = function () {
+	    addHandlerAll = function () {
+		var addHandler = function (e) {
+			e[aEL]("click", handleSourceCodeLayerAll);
+		};
 		for (var i = 0, l = btn.length; i < l; i += 1) {
-			arrangeBtn(btn[i]);
+			addHandler(btn[i]);
 		}
-		/* forEach(btn, k, false); */
+		/* forEach(btn, addHandler, false); */
 	};
 	if (btn) {
 		/* console.log("triggered function: manageExpandingLayers"); */
-		initScript();
+		addHandlerAll();
 	}
 };
 document.ready().then(manageSourceCodeLayers);
@@ -1829,10 +1829,9 @@ var manageLocationQrCodeImage = function () {
 	    gEBCN = "getElementsByClassName",
 	    cL = "classList",
 	    cE = "createElement",
-	    aEL = "addEventListener",
 	    holder = d[gEBCN]("holder-location-qr-code")[0] || "",
 	    locationHref = w.location.href || "",
-	    generateLocationQrCodeImg = function () {
+	    initScript = function () {
 		var locationHref = w.location.href || "",
 		    img = d[cE]("img"),
 		    imgTitle = d.title ? "Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»" : "",
@@ -1869,10 +1868,6 @@ var manageLocationQrCodeImage = function () {
 		img.title = imgTitle;
 		removeChildren(holder);
 		appendFragment(img, holder);
-	},
-	    initScript = function () {
-		generateLocationQrCodeImg();
-		w[aEL]("hashchange", generateLocationQrCodeImg);
 	};
 	if (holder && locationHref) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
@@ -1911,16 +1906,6 @@ var initNavMenu = function () {
 		panelNavMenu[cL].remove(isActiveClass);
 		btnNavMenu[cL].remove(isActiveClass);
 	},
-	    addAllActiveClass = function () {
-		page[cL].add(isActiveClass);
-		panelNavMenu[cL].add(isActiveClass);
-		btnNavMenu[cL].add(isActiveClass);
-	},
-	    toggleAllActiveClass = function () {
-		page[cL].toggle(isActiveClass);
-		panelNavMenu[cL].toggle(isActiveClass);
-		btnNavMenu[cL].toggle(isActiveClass);
-	},
 	    removeHolderActiveClass = function () {
 		if (holderPanelMenuMore && holderPanelMenuMore[cL].contains(isActiveClass)) {
 			holderPanelMenuMore[cL].remove(isActiveClass);
@@ -1937,6 +1922,11 @@ var initNavMenu = function () {
 		    handleContainerRight = function () {
 			/* console.log("swiperight"); */
 			removeHolderActiveClass();
+			var addAllActiveClass = function () {
+				page[cL].add(isActiveClass);
+				panelNavMenu[cL].add(isActiveClass);
+				btnNavMenu[cL].add(isActiveClass);
+			};
 			if (!panelNavMenu[cL].contains(isActiveClass)) {
 				addAllActiveClass();
 			}
@@ -1951,43 +1941,48 @@ var initNavMenu = function () {
 		}
 	},
 	    addBtnHandler = function () {
-		var h_btn = function (ev) {
+		var toggleAllActiveClass = function () {
+			page[cL].toggle(isActiveClass);
+			panelNavMenu[cL].toggle(isActiveClass);
+			btnNavMenu[cL].toggle(isActiveClass);
+		},
+		    handleBtnNavMenu = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
 			removeHolderActiveClass();
 			toggleAllActiveClass();
 		};
-		btnNavMenu[aEL]("click", h_btn);
-	},
-	    removeHolderAndAllActiveClass = function () {
-		removeHolderActiveClass();
-		removeAllActiveClass();
-	},
-	    removeActiveClass = function (e) {
-		e[cL].remove(isActiveClass);
-	},
-	    addActiveClass = function (e) {
-		e[cL].add(isActiveClass);
-	},
-	    addItemHandler = function (e) {
-		var handleItem = function () {
-			if (panelNavMenu[cL].contains(isActiveClass)) {
-				removeHolderAndAllActiveClass();
-			}
-			for (var j = 0, l = panelNavMenuItems.length; j < l; j += 1) {
-				removeActiveClass(panelNavMenuItems[j]);
-			}
-			/* forEach(panelNavMenuItems, removeActiveClass, false); */
-			addActiveClass(e);
-		};
-		e[aEL]("click", handleItem);
-		if (locationHref === e.href) {
-			addActiveClass(e);
-		} else {
-			removeActiveClass(e);
-		}
+		btnNavMenu[aEL]("click", handleBtnNavMenu);
 	},
 	    addItemHandlerAll = function () {
+		var addItemHandler = function (e) {
+			var addActiveClass = function (e) {
+				e[cL].add(isActiveClass);
+			},
+			    removeHolderAndAllActiveClass = function () {
+				removeHolderActiveClass();
+				removeAllActiveClass();
+			},
+			    removeActiveClass = function (e) {
+				e[cL].remove(isActiveClass);
+			},
+			    handleItem = function () {
+				if (panelNavMenu[cL].contains(isActiveClass)) {
+					removeHolderAndAllActiveClass();
+				}
+				for (var j = 0, l = panelNavMenuItems.length; j < l; j += 1) {
+					removeActiveClass(panelNavMenuItems[j]);
+				}
+				/* forEach(panelNavMenuItems, removeActiveClass, false); */
+				addActiveClass(e);
+			};
+			e[aEL]("click", handleItem);
+			if (locationHref === e.href) {
+				addActiveClass(e);
+			} else {
+				removeActiveClass(e);
+			}
+		};
 		for (var i = 0, l = panelNavMenuItems.length; i < l; i += 1) {
 			addItemHandler(panelNavMenuItems[i]);
 		}
@@ -2039,12 +2034,15 @@ var addAppUpdatesLink = function () {
 	} else {
 		linkHref = "";
 	}
-	var initScript = function () {
+	var arrange = function () {
 		var listItem = d[cE]("li"),
 		    link = d[cE]("a"),
 		    linkText = "Скачать приложение сайта";
 		link.title = "" + (parseLink(linkHref).hostname || "") + " откроется в новой вкладке";
 		link.href = linkHref;
+		var handleAppUpdatesLink = function () {
+			openDeviceBrowser(linkHref);
+		};
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			link.target = "_blank";
 			link.rel = "noopener";
@@ -2055,9 +2053,6 @@ var addAppUpdatesLink = function () {
 			/*jshint -W107 */
 			link.href = "javascript:void(0);";
 			/*jshint +W107 */
-			var handleAppUpdatesLink = function () {
-				openDeviceBrowser(linkHref);
-			};
 			link[aEL]("click", handleAppUpdatesLink);
 		}
 		link[aC](d[cTN]("" + linkText));
@@ -2068,7 +2063,7 @@ var addAppUpdatesLink = function () {
 	};
 	if (panel && items && linkHref) {
 		/* console.log("triggered function: addAppUpdatesLink"); */
-		initScript();
+		arrange();
 	}
 };
 document.ready().then(addAppUpdatesLink);
@@ -2099,9 +2094,6 @@ var initMenuMore = function () {
 			panelNavMenu[cL].remove(isActiveClass);
 		}
 	},
-	    addItemHandler = function (e) {
-		e[aEL]("click", handleItem);
-	},
 	    addContainerHandler = function () {
 		container[aEL]("click", handleItem);
 	},
@@ -2114,6 +2106,9 @@ var initMenuMore = function () {
 		btnMenuMore[aEL]("click", h_btn);
 	},
 	    addItemHandlerAll = function () {
+		var addItemHandler = function (e) {
+			e[aEL]("click", handleItem);
+		};
 		for (var i = 0, l = panelMenuMoreItems.length; i < l; i += 1) {
 			addItemHandler(panelMenuMoreItems[i]);
 		}
@@ -2157,7 +2152,7 @@ var initUiTotop = function () {
 	    btnClass = "ui-totop",
 	    btnTitle = "Наверх",
 	    isActiveClass = "is-active",
-	    renderUiTotop = function () {
+	    arrange = function () {
 		var handleUiTotopWindow = function (_this) {
 			var logicHandleUiTotopWindow = function () {
 				var btn = d[gEBCN](btnClass)[0] || "",
@@ -2201,7 +2196,7 @@ var initUiTotop = function () {
 	};
 	if (b) {
 		/* console.log("triggered function: initUiTotop"); */
-		renderUiTotop();
+		arrange();
 	}
 };
 document.ready().then(initUiTotop);
@@ -2225,7 +2220,7 @@ var yshare,
 	    btn = d[gEBCN]("btn-share-buttons")[0] || "",
 	    yaShare2Id = "ya-share2",
 	    yaShare2 = d[gEBI](yaShare2Id) || "",
-	    addBtnHandler = function () {
+	    addHandler = function () {
 		var handleShareButton = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
@@ -2265,7 +2260,7 @@ var yshare,
 	if (btn && yaShare2) {
 		/* console.log("triggered function: manageShareButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			addBtnHandler();
+			addHandler();
 		} else {
 			setStyleDisplayNone(btn);
 		}
@@ -2304,7 +2299,7 @@ var initDisqusOnScroll = function () {
 			loadJS(jsUrl, initScript);
 		}
 	},
-	    addBtnHandler = function () {
+	    addHandler = function () {
 		var handleDisqusButton = function (ev) {
 			ev.preventDefault();
 			ev.stopPropagation();
@@ -2329,7 +2324,7 @@ var initDisqusOnScroll = function () {
 	if (btn && disqusThread && disqusThreadShortname && locationHref) {
 		/* console.log("triggered function: initDisqusOnScroll"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			addBtnHandler();
+			addHandler();
 			/* if (!("undefined" !== typeof earlyDeviceSize && "small" === earlyDeviceSize)) {
    	w[aEL]("scroll", handleDisqusWindow);
    } */
@@ -2355,32 +2350,32 @@ var manageVKLikeButton = function () {
 	    VKLikeId = "vk-like",
 	    VKLike = d[gEBI](VKLikeId) || "",
 	    btn = d[gEBCN]("btn-show-vk-like")[0] || "",
-	    initScript = function () {
-		if (w.VK) {
-			try {
-				VK.init({
-					apiId: VKLike[ds].apiid || "",
-					nameTransportPath: "/xd_receiver.htm",
-					onlyWidgets: !0
-				});
-				VK.Widgets.Like(VKLikeId, {
-					type: "button",
-					height: 24
-				});
-				setStyleVisibilityVisible(VKLike);
-				setStyleOpacity(VKLike, 1);
-				setStyleDisplayNone(btn);
-			} catch (err) {
-				/* console.log("cannot init VK", err); */
-			}
-		}
-	},
-	    addBtnHandler = function () {
+	    addHandler = function () {
 		var handleVKLikeButton = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
 			btn[rEL]("click", handleVKLikeButton);
-			var jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122";
+			var initScript = function () {
+				if (w.VK) {
+					try {
+						VK.init({
+							apiId: VKLike[ds].apiid || "",
+							nameTransportPath: "/xd_receiver.htm",
+							onlyWidgets: !0
+						});
+						VK.Widgets.Like(VKLikeId, {
+							type: "button",
+							height: 24
+						});
+						setStyleVisibilityVisible(VKLike);
+						setStyleOpacity(VKLike, 1);
+						setStyleDisplayNone(btn);
+					} catch (err) {
+						/* console.log("cannot init VK", err); */
+					}
+				}
+			},
+			    jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122";
 			if (!scriptIsLoaded(jsUrl)) {
 				loadJS(jsUrl, initScript);
 			}
@@ -2390,7 +2385,7 @@ var manageVKLikeButton = function () {
 	if (btn && VKLike) {
 		/* console.log("triggered function: manageVKLikeButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			addBtnHandler();
+			addHandler();
 		} else {
 			setStyleDisplayNone(btn);
 		}
@@ -2422,7 +2417,7 @@ var initKamilAutocomplete = function () {
 	    suggestionUlId = "kamil-typo-autocomplete",
 	    suggestionUlClass = "kamil-autocomplete",
 	    jsonUrl = "../../app/libs/pwa-englishextra/json/routes.json",
-	    generateMenu = function (jsonResponse) {
+	    processJsonResponse = function (jsonResponse) {
 		var ac;
 		try {
 			var jsonObj = safelyParseJSON(jsonResponse);
@@ -2435,7 +2430,7 @@ var initKamilAutocomplete = function () {
 				minChars: 2
 			});
 		} catch (err) {
-			console.log("cannot init Kamil", err);
+			console.log("cannot init generateMenu", err);
 			return;
 		}
 		/*!
@@ -2443,17 +2438,17 @@ var initKamilAutocomplete = function () {
    */
 		var suggestionUl = d[cE]("ul"),
 		    suggestionLi = d[cE]("li"),
-		    handleTypoSuggestions = function () {
+		    handleTypoSuggestion = function () {
 			setStyleDisplayNone(suggestionUl);
 			setStyleDisplayNone(suggestionLi);
 		},
-		    showTypoSuggestions = function () {
+		    showTypoSuggestion = function () {
 			setStyleDisplayBlock(suggestionUl);
 			setStyleDisplayBlock(suggestionLi);
 		};
 		suggestionUl[cL].add(suggestionUlClass);
 		suggestionUl.id = suggestionUlId;
-		handleTypoSuggestions();
+		handleTypoSuggestion();
 		suggestionUl[aC](suggestionLi);
 		textInput[pN].insertBefore(suggestionUl, textInput.nextElementSibling);
 		/*!
@@ -2467,16 +2462,18 @@ var initKamilAutocomplete = function () {
 			/*!
     * limit output
     */
-			arrangeAllItems = function (e, i) {
+			limitKamilOutput = function (e, i) {
 				if (i < 10) {
 					_this._renderItemData(ul, e, i);
 				}
 			};
 			if (items) {
 				for (var i = 0; i < itemsLength; i += 1) {
-					arrangeAllItems(items[i], i);
+					limitKamilOutput(items[i], i);
 				}
-				/* forEach(items, arrangeAllItems, false); */
+				/* forEach(items, function (e, i) {
+    	limitKamilOutput(e, i);
+    }, false); */
 			}
 			/*!
     * fix typo - non latin characters found
@@ -2488,14 +2485,14 @@ var initKamilAutocomplete = function () {
 				} else {
 					textValue = fixEnRuTypo(textValue, "en", "ru");
 				}
-				showTypoSuggestions();
+				showTypoSuggestion();
 				removeChildren(suggestionLi);
 				suggestionLi[aC](d[cTN]("" + textValue));
 				if (textValue.match(/^\s*$/)) {
-					handleTypoSuggestions();
+					handleTypoSuggestion();
 				}
 				if (textInput.value.length < 3 || textInput.value.match(/^\s*$/)) {
-					handleTypoSuggestions();
+					handleTypoSuggestion();
 				}
 				itemsLength += 1;
 			}
@@ -2534,7 +2531,7 @@ var initKamilAutocomplete = function () {
    * hide suggestions on outside click
    */
 		if (container) {
-			container[aEL]("click", handleTypoSuggestions);
+			container[aEL]("click", handleTypoSuggestion);
 		}
 		/*!
    * unless you specify property option in new Kamil
@@ -2546,7 +2543,7 @@ var initKamilAutocomplete = function () {
 			var kamilItemLink = e.item.href || "",
 			    handleKamilItem = function () {
 				e.inputElement.value = "";
-				handleTypoSuggestions();
+				handleTypoSuggestion();
 				w.location.href = "../../app/" + kamilItemLink;
 			};
 			if (kamilItemLink) {
@@ -2559,7 +2556,7 @@ var initKamilAutocomplete = function () {
 		});
 	},
 	    initScript = function () {
-		loadUnparsedJSON(jsonUrl, generateMenu);
+		loadUnparsedJSON(jsonUrl, processJsonResponse);
 	};
 	if (searchForm && textInput) {
 		/* console.log("triggered function: initKamilAutocomplete"); */

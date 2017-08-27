@@ -9,7 +9,7 @@ findPos, isInViewport, fixEnRuTypo, forEach, getHTTP,
 getKeyValuesFromJSON, IframeLightbox, imagePromise, imagesLoaded,
 imagesPreloaded, insertExternalHTML, insertTextAsFragment, Isotope,
 isValidId, jQuery, Kamil, loadExternalHTML, loadJS, loadTriggerJS,
-loadUnparsedJSON, manageDataSrcImages, manageImgLightboxLinks, Masonry,
+loadUnparsedJSON, manageDataSrcImageAll, manageImgLightboxLinks, Masonry,
 module, myMap, openDeviceBrowser, Packery, Parallax, parseLink,
 PhotoSwipe, PhotoSwipeUI_Default, pnotify, prependFragmentBefore,
 prettyPrint, Promise, Proxy, QRCode, removeChildren, removeElement,
@@ -1092,7 +1092,7 @@ if (document.title) {
  * @see {@link https://github.com/nwjs/nw.js/wiki/shell}
  * electron - file: | nwjs - chrome-extension: | http: Intel XDK
  * wont do in electron and nw,
- * so manageExternalLinks will set target blank to links
+ * so manageExternalLinkAll will set target blank to links
  * var win = w.open(url, "_blank");
  * win.focus();
  * @param {String} url URL/path string
@@ -1187,7 +1187,7 @@ var handleExternalLink = function (url, ev) {
 	    debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
 	debounceLogicHandleExternalLink();
 },
-    manageExternalLinks = function (ctx) {
+    manageExternalLinkAll = function (ctx) {
 	"use strict";
 
 	ctx = ctx && ctx.nodeName ? ctx : "";
@@ -1199,39 +1199,39 @@ var handleExternalLink = function (url, ev) {
 	    aEL = "addEventListener",
 	    gA = "getAttribute",
 	    isBindedClass = "is-binded",
-	    arrange = function (e) {
-		if (!e[cL].contains(isBindedClass)) {
-			var url = e[gA]("href") || "";
-			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-				e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
-				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					e.target = "_blank";
-					e.rel = "noopener";
-				} else {
-					e[aEL]("click", handleExternalLink.bind(null, url));
-				}
-				e[cL].add(isBindedClass);
-			}
-		}
-	},
 	    arrangeAll = function () {
+		var arrange = function (e) {
+			if (!e[cL].contains(isBindedClass)) {
+				var url = e[gA]("href") || "";
+				if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+					e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+					if ("undefined" !== typeof getHTTP && getHTTP()) {
+						e.target = "_blank";
+						e.rel = "noopener";
+					} else {
+						e[aEL]("click", handleExternalLink.bind(null, url));
+					}
+					e[cL].add(isBindedClass);
+				}
+			}
+		};
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrange(link[i]);
 		}
 		/* forEach(link, arrange, false); */
 	};
 	if (link) {
-		/* console.log("triggered function: manageExternalLinks"); */
+		/* console.log("triggered function: manageExternalLinkAll"); */
 		arrangeAll();
 	}
 };
-document.ready().then(manageExternalLinks);
+document.ready().then(manageExternalLinkAll);
 /*!
  * replace img src with data-src
  * initiate on load, not on ready
  * @param {Object} [ctx] context HTML Element
  */
-var handleDataSrcImages = function () {
+var handleDataSrcImageAll = function () {
 	"use strict";
 
 	var d = document,
@@ -1242,66 +1242,66 @@ var handleDataSrcImages = function () {
 	    img = d[gEBCN](imgClass) || "",
 	    isActiveClass = "is-active",
 	    isBindedClass = "is-binded",
-	    arrange = function (e) {
-		/*!
-   * true if elem is in same y-axis as the viewport or within 100px of it
-   * @see {@link https://github.com/ryanve/verge}
-   */
-		if (verge.inY(e, 100) /*  && 0 !== e.offsetHeight */) {
-				if (!e[cL].contains(isBindedClass)) {
-					var srcString = e[ds].src || "";
-					if (srcString) {
-						if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
-							e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
-							srcString = e[ds].src;
+	    arrangeAll = function () {
+		var arrange = function (e) {
+			/*!
+    * true if elem is in same y-axis as the viewport or within 100px of it
+    * @see {@link https://github.com/ryanve/verge}
+    */
+			if (verge.inY(e, 100) /*  && 0 !== e.offsetHeight */) {
+					if (!e[cL].contains(isBindedClass)) {
+						var srcString = e[ds].src || "";
+						if (srcString) {
+							if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
+								e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
+								srcString = e[ds].src;
+							}
+							imagePromise(srcString).then(function (r) {
+								e.src = srcString;
+							}).catch(function (err) {
+								console.log("cannot load image with imagePromise:", srcString);
+							});
+							e[cL].add(isActiveClass);
+							e[cL].add(isBindedClass);
 						}
-						imagePromise(srcString).then(function (r) {
-							e.src = srcString;
-						}).catch(function (err) {
-							console.log("cannot load image with imagePromise:", srcString);
-						});
-						e[cL].add(isActiveClass);
-						e[cL].add(isBindedClass);
 					}
 				}
-			}
-	},
-	    arrangeAll = function () {
+		};
 		for (var i = 0, l = img.length; i < l; i += 1) {
 			arrange(img[i]);
 		}
 		/* forEach(img, arrange, false); */
 	};
 	if (img) {
-		/* console.log("triggered function: manageDataSrcImages"); */
+		/* console.log("triggered function: manageDataSrcImageAll"); */
 		arrangeAll();
 	}
 },
-    handleDataSrcImagesWindow = function () {
-	var throttleHandleDataSrcImages = throttle(handleDataSrcImages, 100);
-	throttleHandleDataSrcImages();
+    handleDataSrcImageAllWindow = function () {
+	var throttlehandleDataSrcImageAll = throttle(handleDataSrcImageAll, 100);
+	throttlehandleDataSrcImageAll();
 },
-    manageDataSrcImages = function () {
+    manageDataSrcImageAll = function () {
 	"use strict";
 
 	var w = globalRoot,
 	    aEL = "addEventListener",
 	    rEL = "removeEventListener";
-	w[rEL]("scroll", handleDataSrcImagesWindow);
-	w[rEL]("resize", handleDataSrcImagesWindow);
-	w[aEL]("scroll", handleDataSrcImagesWindow);
-	w[aEL]("resize", handleDataSrcImagesWindow);
+	w[rEL]("scroll", handleDataSrcImageAllWindow);
+	w[rEL]("resize", handleDataSrcImageAllWindow);
+	w[aEL]("scroll", handleDataSrcImageAllWindow);
+	w[aEL]("resize", handleDataSrcImageAllWindow);
 	var timers = new Timers();
 	timers.timeout(function () {
 		timers.clear();
 		timers = null;
-		handleDataSrcImages();
+		handleDataSrcImageAll();
 	}, 500);
 };
 /*!
  * on load, not on ready
  */
-globalRoot.addEventListener("load", manageDataSrcImages);
+globalRoot.addEventListener("load", manageDataSrcImageAll);
 /*!
  * init disqus_thread and Masonry / Packery
  * add Draggabilly to Packarey
@@ -1468,7 +1468,21 @@ var handleContentsSelect = function () {
 	    aEL = "addEventListener",
 	    contentsSelect = d[gEBI]("contents-select") || "",
 	    jsonUrl = "../libs/contents/json/contents.json",
-	    initContentsSelect = function (jsonResponse) {
+	    processJsonResponse = function (jsonResponse) {
+		var jsonObj;
+		try {
+			jsonObj = safelyParseJSON(jsonResponse);
+			if (!jsonObj[0].label) {
+				throw new Error("incomplete JSON data: no label");
+			} else {
+				if (!jsonObj[0].link) {
+					throw new Error("incomplete JSON data: no link");
+				}
+			}
+		} catch (err) {
+			console.log("cannot init processJsonResponse", err);
+			return;
+		}
 		var df = d.createDocumentFragment(),
 		    generateContentsOptions = function (e) {
 			var label = getKeyValuesFromJSON(e, "label") || "",
@@ -1480,23 +1494,16 @@ var handleContentsSelect = function () {
 				contentsOption[aC](d[cTN](truncString("" + label, 33)));
 				df[aC](contentsOption);
 			}
-		},
-		    jpr = safelyParseJSON(jsonResponse);
-		if (jpr) {
-			for (var i = 0, l = jpr.length; i < l; i += 1) {
-				generateContentsOptions(jpr[i]);
-			}
-			/* forEach(jpr, generateContentsOptions, false); */
-			contentsSelect[aC](df);
-			contentsSelect[aEL]("change", handleContentsSelect);
+		};
+		for (var i = 0, l = jsonObj.length; i < l; i += 1) {
+			generateContentsOptions(jsonObj[i]);
 		}
-	},
-	    loadInitContentsSelect = function () {
-		loadUnparsedJSON(jsonUrl, initContentsSelect);
+		/* forEach(jsonObj, generateContentsOptions, false); */
+		contentsSelect[aC](df);
+		contentsSelect[aEL]("change", handleContentsSelect);
 	};
 	if (contentsSelect) {
-		/* console.log("triggered function: manageContentsSelect"); */
-		loadInitContentsSelect();
+		loadUnparsedJSON(jsonUrl, processJsonResponse);
 	}
 };
 document.ready().then(manageContentsSelect);
@@ -1510,18 +1517,21 @@ var manageSearchInput = function () {
 	    gEBI = "getElementById",
 	    aEL = "addEventListener",
 	    searchInput = d[gEBI]("text") || "",
-	    handleSearchInputValue = function () {
-		var _this = this;
-		var logicHandleSearchInputValue = function () {
-			_this.value = _this.value.replace(/\\/g, "").replace(/ +(?= )/g, " ").replace(/\/+(?=\/)/g, "/") || "";
-		},
-		    debounceLogicHandleSearchInputValue = debounce(logicHandleSearchInputValue, 200);
-		debounceLogicHandleSearchInputValue();
+	    addHandler = function () {
+		searchInput.focus();
+		var handleSearchInputValue = function () {
+			var _this = this;
+			var logicHandleSearchInputValue = function () {
+				_this.value = _this.value.replace(/\\/g, "").replace(/ +(?= )/g, " ").replace(/\/+(?=\/)/g, "/") || "";
+			},
+			    debounceLogicHandleSearchInputValue = debounce(logicHandleSearchInputValue, 200);
+			debounceLogicHandleSearchInputValue();
+		};
+		searchInput[aEL]("input", handleSearchInputValue);
 	};
 	if (searchInput) {
 		/* console.log("triggered function: manageSearchInput"); */
-		searchInput.focus();
-		searchInput[aEL]("input", handleSearchInputValue);
+		addHandler();
 	}
 };
 document.ready().then(manageSearchInput);
@@ -1537,10 +1547,9 @@ var manageLocationQrCodeImage = function () {
 	    gEBCN = "getElementsByClassName",
 	    cL = "classList",
 	    cE = "createElement",
-	    aEL = "addEventListener",
 	    holder = d[gEBCN]("holder-location-qr-code")[0] || "",
 	    locationHref = w.location.href || "",
-	    generateLocationQrCodeImg = function () {
+	    initScript = function () {
 		var locationHref = w.location.href || "",
 		    img = d[cE]("img"),
 		    imgTitle = d.title ? "Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»" : "",
@@ -1577,10 +1586,6 @@ var manageLocationQrCodeImage = function () {
 		img.title = imgTitle;
 		removeChildren(holder);
 		appendFragment(img, holder);
-	},
-	    initScript = function () {
-		generateLocationQrCodeImg();
-		w[aEL]("hashchange", generateLocationQrCodeImg);
 	};
 	if (holder && locationHref) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
@@ -1619,16 +1624,6 @@ var initNavMenu = function () {
 		panelNavMenu[cL].remove(isActiveClass);
 		btnNavMenu[cL].remove(isActiveClass);
 	},
-	    addAllActiveClass = function () {
-		page[cL].add(isActiveClass);
-		panelNavMenu[cL].add(isActiveClass);
-		btnNavMenu[cL].add(isActiveClass);
-	},
-	    toggleAllActiveClass = function () {
-		page[cL].toggle(isActiveClass);
-		panelNavMenu[cL].toggle(isActiveClass);
-		btnNavMenu[cL].toggle(isActiveClass);
-	},
 	    removeHolderActiveClass = function () {
 		if (holderPanelMenuMore && holderPanelMenuMore[cL].contains(isActiveClass)) {
 			holderPanelMenuMore[cL].remove(isActiveClass);
@@ -1645,6 +1640,11 @@ var initNavMenu = function () {
 		    handleContainerRight = function () {
 			/* console.log("swiperight"); */
 			removeHolderActiveClass();
+			var addAllActiveClass = function () {
+				page[cL].add(isActiveClass);
+				panelNavMenu[cL].add(isActiveClass);
+				btnNavMenu[cL].add(isActiveClass);
+			};
 			if (!panelNavMenu[cL].contains(isActiveClass)) {
 				addAllActiveClass();
 			}
@@ -1659,43 +1659,48 @@ var initNavMenu = function () {
 		}
 	},
 	    addBtnHandler = function () {
-		var h_btn = function (ev) {
+		var toggleAllActiveClass = function () {
+			page[cL].toggle(isActiveClass);
+			panelNavMenu[cL].toggle(isActiveClass);
+			btnNavMenu[cL].toggle(isActiveClass);
+		},
+		    handleBtnNavMenu = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
 			removeHolderActiveClass();
 			toggleAllActiveClass();
 		};
-		btnNavMenu[aEL]("click", h_btn);
-	},
-	    removeHolderAndAllActiveClass = function () {
-		removeHolderActiveClass();
-		removeAllActiveClass();
-	},
-	    removeActiveClass = function (e) {
-		e[cL].remove(isActiveClass);
-	},
-	    addActiveClass = function (e) {
-		e[cL].add(isActiveClass);
-	},
-	    addItemHandler = function (e) {
-		var handleItem = function () {
-			if (panelNavMenu[cL].contains(isActiveClass)) {
-				removeHolderAndAllActiveClass();
-			}
-			for (var j = 0, l = panelNavMenuItems.length; j < l; j += 1) {
-				removeActiveClass(panelNavMenuItems[j]);
-			}
-			/* forEach(panelNavMenuItems, removeActiveClass, false); */
-			addActiveClass(e);
-		};
-		e[aEL]("click", handleItem);
-		if (locationHref === e.href) {
-			addActiveClass(e);
-		} else {
-			removeActiveClass(e);
-		}
+		btnNavMenu[aEL]("click", handleBtnNavMenu);
 	},
 	    addItemHandlerAll = function () {
+		var addItemHandler = function (e) {
+			var addActiveClass = function (e) {
+				e[cL].add(isActiveClass);
+			},
+			    removeHolderAndAllActiveClass = function () {
+				removeHolderActiveClass();
+				removeAllActiveClass();
+			},
+			    removeActiveClass = function (e) {
+				e[cL].remove(isActiveClass);
+			},
+			    handleItem = function () {
+				if (panelNavMenu[cL].contains(isActiveClass)) {
+					removeHolderAndAllActiveClass();
+				}
+				for (var j = 0, l = panelNavMenuItems.length; j < l; j += 1) {
+					removeActiveClass(panelNavMenuItems[j]);
+				}
+				/* forEach(panelNavMenuItems, removeActiveClass, false); */
+				addActiveClass(e);
+			};
+			e[aEL]("click", handleItem);
+			if (locationHref === e.href) {
+				addActiveClass(e);
+			} else {
+				removeActiveClass(e);
+			}
+		};
 		for (var i = 0, l = panelNavMenuItems.length; i < l; i += 1) {
 			addItemHandler(panelNavMenuItems[i]);
 		}
@@ -1747,12 +1752,15 @@ var addAppUpdatesLink = function () {
 	} else {
 		linkHref = "";
 	}
-	var initScript = function () {
+	var arrange = function () {
 		var listItem = d[cE]("li"),
 		    link = d[cE]("a"),
 		    linkText = "Скачать приложение сайта";
 		link.title = "" + (parseLink(linkHref).hostname || "") + " откроется в новой вкладке";
 		link.href = linkHref;
+		var handleAppUpdatesLink = function () {
+			openDeviceBrowser(linkHref);
+		};
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			link.target = "_blank";
 			link.rel = "noopener";
@@ -1763,9 +1771,6 @@ var addAppUpdatesLink = function () {
 			/*jshint -W107 */
 			link.href = "javascript:void(0);";
 			/*jshint +W107 */
-			var handleAppUpdatesLink = function () {
-				openDeviceBrowser(linkHref);
-			};
 			link[aEL]("click", handleAppUpdatesLink);
 		}
 		link[aC](d[cTN]("" + linkText));
@@ -1776,7 +1781,7 @@ var addAppUpdatesLink = function () {
 	};
 	if (panel && items && linkHref) {
 		/* console.log("triggered function: addAppUpdatesLink"); */
-		initScript();
+		arrange();
 	}
 };
 document.ready().then(addAppUpdatesLink);
@@ -1807,9 +1812,6 @@ var initMenuMore = function () {
 			panelNavMenu[cL].remove(isActiveClass);
 		}
 	},
-	    addItemHandler = function (e) {
-		e[aEL]("click", handleItem);
-	},
 	    addContainerHandler = function () {
 		container[aEL]("click", handleItem);
 	},
@@ -1822,6 +1824,9 @@ var initMenuMore = function () {
 		btnMenuMore[aEL]("click", h_btn);
 	},
 	    addItemHandlerAll = function () {
+		var addItemHandler = function (e) {
+			e[aEL]("click", handleItem);
+		};
 		for (var i = 0, l = panelMenuMoreItems.length; i < l; i += 1) {
 			addItemHandler(panelMenuMoreItems[i]);
 		}
@@ -1865,7 +1870,7 @@ var initUiTotop = function () {
 	    btnClass = "ui-totop",
 	    btnTitle = "Наверх",
 	    isActiveClass = "is-active",
-	    renderUiTotop = function () {
+	    arrange = function () {
 		var handleUiTotopWindow = function (_this) {
 			var logicHandleUiTotopWindow = function () {
 				var btn = d[gEBCN](btnClass)[0] || "",
@@ -1909,7 +1914,7 @@ var initUiTotop = function () {
 	};
 	if (b) {
 		/* console.log("triggered function: initUiTotop"); */
-		renderUiTotop();
+		arrange();
 	}
 };
 document.ready().then(initUiTotop);
@@ -1933,7 +1938,7 @@ var yshare,
 	    btn = d[gEBCN]("btn-share-buttons")[0] || "",
 	    yaShare2Id = "ya-share2",
 	    yaShare2 = d[gEBI](yaShare2Id) || "",
-	    addBtnHandler = function () {
+	    addHandler = function () {
 		var handleShareButton = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
@@ -1973,7 +1978,7 @@ var yshare,
 	if (btn && yaShare2) {
 		/* console.log("triggered function: manageShareButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			addBtnHandler();
+			addHandler();
 		} else {
 			setStyleDisplayNone(btn);
 		}
@@ -1996,32 +2001,32 @@ var manageVKLikeButton = function () {
 	    VKLikeId = "vk-like",
 	    VKLike = d[gEBI](VKLikeId) || "",
 	    btn = d[gEBCN]("btn-show-vk-like")[0] || "",
-	    initScript = function () {
-		if (w.VK) {
-			try {
-				VK.init({
-					apiId: VKLike[ds].apiid || "",
-					nameTransportPath: "/xd_receiver.htm",
-					onlyWidgets: !0
-				});
-				VK.Widgets.Like(VKLikeId, {
-					type: "button",
-					height: 24
-				});
-				setStyleVisibilityVisible(VKLike);
-				setStyleOpacity(VKLike, 1);
-				setStyleDisplayNone(btn);
-			} catch (err) {
-				/* console.log("cannot init VK", err); */
-			}
-		}
-	},
-	    addBtnHandler = function () {
+	    addHandler = function () {
 		var handleVKLikeButton = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
 			btn[rEL]("click", handleVKLikeButton);
-			var jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122";
+			var initScript = function () {
+				if (w.VK) {
+					try {
+						VK.init({
+							apiId: VKLike[ds].apiid || "",
+							nameTransportPath: "/xd_receiver.htm",
+							onlyWidgets: !0
+						});
+						VK.Widgets.Like(VKLikeId, {
+							type: "button",
+							height: 24
+						});
+						setStyleVisibilityVisible(VKLike);
+						setStyleOpacity(VKLike, 1);
+						setStyleDisplayNone(btn);
+					} catch (err) {
+						/* console.log("cannot init VK", err); */
+					}
+				}
+			},
+			    jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122";
 			if (!scriptIsLoaded(jsUrl)) {
 				loadJS(jsUrl, initScript);
 			}
@@ -2031,7 +2036,7 @@ var manageVKLikeButton = function () {
 	if (btn && VKLike) {
 		/* console.log("triggered function: manageVKLikeButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			addBtnHandler();
+			addHandler();
 		} else {
 			setStyleDisplayNone(btn);
 		}
@@ -2063,7 +2068,7 @@ var initKamilAutocomplete = function () {
 	    suggestionUlId = "kamil-typo-autocomplete",
 	    suggestionUlClass = "kamil-autocomplete",
 	    jsonUrl = "../app/libs/pwa-englishextra/json/routes.json",
-	    generateMenu = function (jsonResponse) {
+	    processJsonResponse = function (jsonResponse) {
 		var ac;
 		try {
 			var jsonObj = safelyParseJSON(jsonResponse);
@@ -2076,7 +2081,7 @@ var initKamilAutocomplete = function () {
 				minChars: 2
 			});
 		} catch (err) {
-			console.log("cannot init Kamil", err);
+			console.log("cannot init generateMenu", err);
 			return;
 		}
 		/*!
@@ -2084,17 +2089,17 @@ var initKamilAutocomplete = function () {
    */
 		var suggestionUl = d[cE]("ul"),
 		    suggestionLi = d[cE]("li"),
-		    handleTypoSuggestions = function () {
+		    handleTypoSuggestion = function () {
 			setStyleDisplayNone(suggestionUl);
 			setStyleDisplayNone(suggestionLi);
 		},
-		    showTypoSuggestions = function () {
+		    showTypoSuggestion = function () {
 			setStyleDisplayBlock(suggestionUl);
 			setStyleDisplayBlock(suggestionLi);
 		};
 		suggestionUl[cL].add(suggestionUlClass);
 		suggestionUl.id = suggestionUlId;
-		handleTypoSuggestions();
+		handleTypoSuggestion();
 		suggestionUl[aC](suggestionLi);
 		textInput[pN].insertBefore(suggestionUl, textInput.nextElementSibling);
 		/*!
@@ -2108,16 +2113,18 @@ var initKamilAutocomplete = function () {
 			/*!
     * limit output
     */
-			arrangeAllItems = function (e, i) {
+			limitKamilOutput = function (e, i) {
 				if (i < 10) {
 					_this._renderItemData(ul, e, i);
 				}
 			};
 			if (items) {
 				for (var i = 0; i < itemsLength; i += 1) {
-					arrangeAllItems(items[i], i);
+					limitKamilOutput(items[i], i);
 				}
-				/* forEach(items, arrangeAllItems, false); */
+				/* forEach(items, function (e, i) {
+    	limitKamilOutput(e, i);
+    }, false); */
 			}
 			/*!
     * fix typo - non latin characters found
@@ -2129,14 +2136,14 @@ var initKamilAutocomplete = function () {
 				} else {
 					textValue = fixEnRuTypo(textValue, "en", "ru");
 				}
-				showTypoSuggestions();
+				showTypoSuggestion();
 				removeChildren(suggestionLi);
 				suggestionLi[aC](d[cTN]("" + textValue));
 				if (textValue.match(/^\s*$/)) {
-					handleTypoSuggestions();
+					handleTypoSuggestion();
 				}
 				if (textInput.value.length < 3 || textInput.value.match(/^\s*$/)) {
-					handleTypoSuggestions();
+					handleTypoSuggestion();
 				}
 				itemsLength += 1;
 			}
@@ -2175,7 +2182,7 @@ var initKamilAutocomplete = function () {
    * hide suggestions on outside click
    */
 		if (container) {
-			container[aEL]("click", handleTypoSuggestions);
+			container[aEL]("click", handleTypoSuggestion);
 		}
 		/*!
    * unless you specify property option in new Kamil
@@ -2187,7 +2194,7 @@ var initKamilAutocomplete = function () {
 			var kamilItemLink = e.item.href || "",
 			    handleKamilItem = function () {
 				e.inputElement.value = "";
-				handleTypoSuggestions();
+				handleTypoSuggestion();
 				w.location.href = "../app/" + kamilItemLink;
 			};
 			if (kamilItemLink) {
@@ -2200,7 +2207,7 @@ var initKamilAutocomplete = function () {
 		});
 	},
 	    initScript = function () {
-		loadUnparsedJSON(jsonUrl, generateMenu);
+		loadUnparsedJSON(jsonUrl, processJsonResponse);
 	};
 	if (searchForm && textInput) {
 		/* console.log("triggered function: initKamilAutocomplete"); */

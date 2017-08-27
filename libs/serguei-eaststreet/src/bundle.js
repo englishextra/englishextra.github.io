@@ -9,7 +9,7 @@ findPos, isInViewport, fixEnRuTypo, forEach, getHTTP,
 getKeyValuesFromJSON, IframeLightbox, imagePromise, imagesLoaded,
 imagesPreloaded, insertExternalHTML, insertTextAsFragment, Isotope,
 isValidId, jQuery, Kamil, loadExternalHTML, loadJS, loadTriggerJS,
-loadUnparsedJSON, manageDataSrcImages, manageImgLightboxLinks, Masonry,
+loadUnparsedJSON, manageDataSrcImageAll, manageImgLightboxLinks, Masonry,
 module, myMap, openDeviceBrowser, Packery, Parallax, parseLink,
 PhotoSwipe, PhotoSwipeUI_Default, pnotify, prependFragmentBefore,
 prettyPrint, Promise, Proxy, QRCode, removeChildren, removeElement,
@@ -461,7 +461,7 @@ if (document.title) {
  * @see {@link https://github.com/nwjs/nw.js/wiki/shell}
  * electron - file: | nwjs - chrome-extension: | http: Intel XDK
  * wont do in electron and nw,
- * so manageExternalLinks will set target blank to links
+ * so manageExternalLinkAll will set target blank to links
  * var win = w.open(url, "_blank");
  * win.focus();
  * @param {String} url URL/path string
@@ -593,7 +593,7 @@ var notiBar = function (opt) {
 	}
 	var cookieKey = Cookies.get(settings.key) || "";
 	if (cookieKey && cookieKey === decodeURIComponent(settings.datum)) {
-		return !1;
+		return;
 	}
 	if (notibarContainer) {
 		removeChildren(notibarContainer);
@@ -621,7 +621,7 @@ var notiBar = function (opt) {
 	closeButton = d[cE]("a");
 	closeButton[cL].add(closeButtonClass);
 	/* insertCancelSvg(closeButton); */
-	var set_cookie = function () {
+	var setCookie = function () {
 		if (settings.days) {
 			Cookies.set(settings.key, settings.datum, {
 				expires: settings.days
@@ -641,12 +641,11 @@ var notiBar = function (opt) {
 	handleCloseButton = function () {
 		closeButton[rEL]("click", handleCloseButton);
 		hideMessage();
-		set_cookie();
+		setCookie();
 	};
 	closeButton[aEL]("click", handleCloseButton);
 	notibarContainer[aC](closeButton);
-	if (b) {
-		/* console.log("triggered function: notiBar"); */
+	var arrange = function () {
 		appendFragment(notibarContainer, b);
 		notibarContainer[cL].remove(fadeOutUpClass);
 		notibarContainer[cL].add(fadeInDownClass);
@@ -656,6 +655,10 @@ var notiBar = function (opt) {
 			timers = null;
 			hideMessage();
 		}, settings.timeout);
+	};
+	if (b) {
+		/* console.log("triggered function: notiBar"); */
+		arrange();
 	}
 };
 /*!
@@ -804,7 +807,7 @@ var initSidepanel = function () {
 	isActiveMenumoreClass = "is-active-ui-menumore";
 	if (b && btn && page && container) {
 		/* console.log("triggered function: initSidepanel"); */
-		var handleOtherUIElements = function () {
+		var handleOtherUIElementAll = function () {
 			if (page[cL].contains(isActiveQRCodeClass)) {
 				page[cL].remove(isActiveQRCodeClass);
 			}
@@ -822,19 +825,19 @@ var initSidepanel = function () {
 			ev.stopPropagation();
 			ev.preventDefault();
 			page[cL].toggle(isActiveSidepanelClass);
-			handleOtherUIElements();
+			handleOtherUIElementAll();
 		},
 		handleOverlaySidepanel = function () {
 			if (page[cL].contains(isActiveSidepanelClass)) {
 				page[cL].remove(isActiveSidepanelClass);
 			}
-			handleOtherUIElements();
+			handleOtherUIElementAll();
 		},
 		handleContainerSidepanel = function () {
 			if (!page[cL].contains(isActiveSidepanelClass)) {
 				page[cL].add(isActiveSidepanelClass);
 			}
-			handleOtherUIElements();
+			handleOtherUIElementAll();
 		};
 		btn[aEL]("click", handleBtnSidepanel);
 		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
@@ -913,7 +916,7 @@ var initMenuMore = function () {
 	aEL = "addEventListener";
 	if (btn && page) {
 		/* console.log("triggered function: initMenuMore"); */
-		var handleOtherUIElements = function () {
+		var handleOtherUIElementAll = function () {
 			if (page[cL].contains(isActiveQRCodeClass)) {
 				page[cL].remove(isActiveQRCodeClass);
 			}
@@ -931,14 +934,14 @@ var initMenuMore = function () {
 			ev.stopPropagation();
 			ev.preventDefault();
 			page[cL].toggle(isActiveMenumoreClass);
-			handleOtherUIElements();
+			handleOtherUIElementAll();
 		};
 		btn[aEL]("click", handleContainer);
 		var handleItem = function () {
 			if (page[cL].contains(isActiveMenumoreClass)) {
 				page[cL].remove(isActiveMenumoreClass);
 			}
-			handleOtherUIElements();
+			handleOtherUIElementAll();
 		};
 		if (items) {
 			var addItemHandler = function (e) {
@@ -965,7 +968,7 @@ var handleExternalLink = function (url, ev) {
 	debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
 	debounceLogicHandleExternalLink();
 },
-manageExternalLinks = function (ctx) {
+manageExternalLinkAll = function (ctx) {
 	"use strict";
 	ctx = ctx && ctx.nodeName ? ctx : "";
 	var d = document,
@@ -976,33 +979,33 @@ manageExternalLinks = function (ctx) {
 	aEL = "addEventListener",
 	gA = "getAttribute",
 	isBindedClass = "is-binded",
-	arrange = function (e) {
-		if (!e[cL].contains(isBindedClass)) {
-			var url = e[gA]("href") || "";
-			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-				e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
-				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					e.target = "_blank";
-					e.rel = "noopener";
-				} else {
-					e[aEL]("click", handleExternalLink.bind(null, url));
-				}
-				e[cL].add(isBindedClass);
-			}
-		}
-	},
 	arrangeAll = function () {
+		var arrange = function (e) {
+			if (!e[cL].contains(isBindedClass)) {
+				var url = e[gA]("href") || "";
+				if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+					e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+					if ("undefined" !== typeof getHTTP && getHTTP()) {
+						e.target = "_blank";
+						e.rel = "noopener";
+					} else {
+						e[aEL]("click", handleExternalLink.bind(null, url));
+					}
+					e[cL].add(isBindedClass);
+				}
+			}
+		};
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrange(link[i]);
 		}
 		/* forEach(link, arrange, false); */
 	};
 	if (link) {
-		/* console.log("triggered function: manageExternalLinks"); */
+		/* console.log("triggered function: manageExternalLinkAll"); */
 		arrangeAll();
 	}
 };
-document.ready().then(manageExternalLinks);
+document.ready().then(manageExternalLinkAll);
 /*!
  * manage data lightbox img links
  */
@@ -1020,17 +1023,17 @@ var hideImgLightbox = function () {
 	an3 = "fadeOut",
 	an4 = "fadeOutDown",
 	dummySrc = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
-	hideImg = function () {
-		container[cL].remove(an);
-		container[cL].remove(an3);
-		img[cL].remove(an);
-		img[cL].remove(an4);
-		img.src = dummySrc;
-		container.style.display = "none";
-	},
 	hideContainer = function () {
 		container[cL].remove(an1);
 		container[cL].add(an3);
+		var hideImg = function () {
+			container[cL].remove(an);
+			container[cL].remove(an3);
+			img[cL].remove(an);
+			img[cL].remove(an4);
+			img.src = dummySrc;
+			container.style.display = "none";
+		};
 		var timers = new Timers();
 		timers.timeout(function () {
 			timers.clear();
@@ -1098,48 +1101,48 @@ manageImgLightboxLinks = function (ctx) {
 		container[cL].add(containerClass);
 		appendFragment(container, b);
 	}
-	var handleImgLightboxLink = function (ev) {
-		ev.stopPropagation();
-		ev.preventDefault();
-		var _this = this;
-		var logicHandleImgLightboxLink = function () {
-			var hrefString = _this[gA]("href") || "";
-			if (container && img && hrefString) {
-				LoadingSpinner.show();
-				container[cL].add(an);
-				container[cL].add(an1);
-				img[cL].add(an);
-				img[cL].add(an2);
-				if (parseLink(hrefString).isAbsolute && !parseLink(hrefString).hasHTTP) {
-					hrefString = hrefString.replace(/^/, getHTTP(true) + ":");
+	var arrangeAll = function () {
+		var arrange = function (e) {
+			var handleImgLightboxLink = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var _this = this;
+				var logicHandleImgLightboxLink = function () {
+					var hrefString = _this[gA]("href") || "";
+					if (container && img && hrefString) {
+						LoadingSpinner.show();
+						container[cL].add(an);
+						container[cL].add(an1);
+						img[cL].add(an);
+						img[cL].add(an2);
+						if (parseLink(hrefString).isAbsolute && !parseLink(hrefString).hasHTTP) {
+							hrefString = hrefString.replace(/^/, getHTTP(true) + ":");
+						}
+						imagePromise(hrefString).then(function (r) {
+							img.src = hrefString;
+						}).catch (function (err) {
+							/* console.log("manageImgLightboxLinks => imagePromise: cannot load image:", err); */
+						});
+						w[aEL]("keyup", handleImgLightboxWindow);
+						container[aEL]("click", handleImgLightboxContainer);
+						container.style.display = "block";
+						LoadingSpinner.hide();
+					}
+				},
+				debounceLogicHandleImgLightboxLink = debounce(logicHandleImgLightboxLink, 200);
+				debounceLogicHandleImgLightboxLink();
+			};
+			if (!e[cL].contains(isBindedClass)) {
+				var hrefString = e[gA]("href") || "";
+				if (hrefString) {
+					if (parseLink(hrefString).isAbsolute && !parseLink(hrefString).hasHTTP) {
+						e.setAttribute("href", hrefString.replace(/^/, getHTTP(true) + ":"));
+					}
+					e[aEL]("click", handleImgLightboxLink);
+					e[cL].add(isBindedClass);
 				}
-				imagePromise(hrefString).then(function (r) {
-					img.src = hrefString;
-				}).catch (function (err) {
-					/* console.log("manageImgLightboxLinks => imagePromise: cannot load image:", err); */
-				});
-				w[aEL]("keyup", handleImgLightboxWindow);
-				container[aEL]("click", handleImgLightboxContainer);
-				container.style.display = "block";
-				LoadingSpinner.hide();
 			}
-		},
-		debounceLogicHandleImgLightboxLink = debounce(logicHandleImgLightboxLink, 200);
-		debounceLogicHandleImgLightboxLink();
-	},
-	arrange = function (e) {
-		if (!e[cL].contains(isBindedClass)) {
-			var hrefString = e[gA]("href") || "";
-			if (hrefString) {
-				if (parseLink(hrefString).isAbsolute && !parseLink(hrefString).hasHTTP) {
-					e.setAttribute("href", hrefString.replace(/^/, getHTTP(true) + ":"));
-				}
-				e[aEL]("click", handleImgLightboxLink);
-				e[cL].add(isBindedClass);
-			}
-		}
-	},
-	arrangeAll = function () {
+		};
 		for (var j = 0, l = link.length; j < l; j += 1) {
 			arrange(link[j]);
 		}
@@ -1155,7 +1158,7 @@ manageImgLightboxLinks = function (ctx) {
  * initiate on load, not on ready
  * @param {Object} [ctx] context HTML Element
  */
-var handleDataSrcImages = function () {
+var handleDataSrcImageAll = function () {
 	"use strict";
 	var d = document,
 	gEBCN = "getElementsByClassName",
@@ -1165,65 +1168,65 @@ var handleDataSrcImages = function () {
 	img = d[gEBCN](imgClass) || "",
 	isActiveClass = "is-active",
 	isBindedClass = "is-binded",
-	arrange = function (e) {
-		/*!
-		 * true if elem is in same y-axis as the viewport or within 100px of it
-		 * @see {@link https://github.com/ryanve/verge}
-		 */
-		if (verge.inY(e, 100) /*  && 0 !== e.offsetHeight */) {
-			if (!e[cL].contains(isBindedClass)) {
-				var srcString = e[ds].src || "";
-				if (srcString) {
-					if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
-						e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
-						srcString = e[ds].src;
+	arrangeAll = function () {
+		var arrange = function (e) {
+			/*!
+			 * true if elem is in same y-axis as the viewport or within 100px of it
+			 * @see {@link https://github.com/ryanve/verge}
+			 */
+			if (verge.inY(e, 100) /*  && 0 !== e.offsetHeight */) {
+				if (!e[cL].contains(isBindedClass)) {
+					var srcString = e[ds].src || "";
+					if (srcString) {
+						if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
+							e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
+							srcString = e[ds].src;
+						}
+						imagePromise(srcString).then(function (r) {
+							e.src = srcString;
+						}).catch (function (err) {
+							console.log("cannot load image with imagePromise:", srcString);
+						});
+						e[cL].add(isActiveClass);
+						e[cL].add(isBindedClass);
 					}
-					imagePromise(srcString).then(function (r) {
-						e.src = srcString;
-					}).catch (function (err) {
-						console.log("cannot load image with imagePromise:", srcString);
-					});
-					e[cL].add(isActiveClass);
-					e[cL].add(isBindedClass);
 				}
 			}
-		}
-	},
-	arrangeAll = function () {
+		};
 		for (var i = 0, l = img.length; i < l; i += 1) {
 			arrange(img[i]);
 		}
 		/* forEach(img, arrange, false); */
 	};
 	if (img) {
-		/* console.log("triggered function: manageDataSrcImages"); */
+		/* console.log("triggered function: manageDataSrcImageAll"); */
 		arrangeAll();
 	}
 },
-handleDataSrcImagesWindow = function () {
-	var throttleHandleDataSrcImages = throttle(handleDataSrcImages, 100);
-	throttleHandleDataSrcImages();
+handleDataSrcImageAllWindow = function () {
+	var throttlehandleDataSrcImageAll = throttle(handleDataSrcImageAll, 100);
+	throttlehandleDataSrcImageAll();
 },
-manageDataSrcImages = function () {
+manageDataSrcImageAll = function () {
 	"use strict";
 	var w = globalRoot,
 	aEL = "addEventListener",
 	rEL = "removeEventListener";
-	w[rEL]("scroll", handleDataSrcImagesWindow);
-	w[rEL]("resize", handleDataSrcImagesWindow);
-	w[aEL]("scroll", handleDataSrcImagesWindow);
-	w[aEL]("resize", handleDataSrcImagesWindow);
+	w[rEL]("scroll", handleDataSrcImageAllWindow);
+	w[rEL]("resize", handleDataSrcImageAllWindow);
+	w[aEL]("scroll", handleDataSrcImageAllWindow);
+	w[aEL]("resize", handleDataSrcImageAllWindow);
 	var timers = new Timers();
 	timers.timeout(function () {
 		timers.clear();
 		timers = null;
-		handleDataSrcImages();
+		handleDataSrcImageAll();
 	}, 500);
 };
 /*!
  * on load, not on ready
  */
-globalRoot.addEventListener("load", manageDataSrcImages);
+globalRoot.addEventListener("load", manageDataSrcImageAll);
 /*!
  * replace img src with data-src
  * initiate on load, not on ready
@@ -1330,18 +1333,21 @@ var manageSearchInput = function () {
 	gEBI = "getElementById",
 	aEL = "addEventListener",
 	searchInput = d[gEBI]("text") || "",
-	handleSearchInputValue = function () {
-		var _this = this;
-		var logicHandleSearchInputValue = function () {
-			_this.value = _this.value.replace(/\\/g, "").replace(/ +(?= )/g, " ").replace(/\/+(?=\/)/g, "/") || "";
-		},
-		debounceLogicHandleSearchInputValue = debounce(logicHandleSearchInputValue, 200);
-		debounceLogicHandleSearchInputValue();
+	addHandler = function () {
+		searchInput.focus();
+		var handleSearchInputValue = function () {
+			var _this = this;
+			var logicHandleSearchInputValue = function () {
+				_this.value = _this.value.replace(/\\/g, "").replace(/ +(?= )/g, " ").replace(/\/+(?=\/)/g, "/") || "";
+			},
+			debounceLogicHandleSearchInputValue = debounce(logicHandleSearchInputValue, 200);
+			debounceLogicHandleSearchInputValue();
+		};
+		searchInput[aEL]("input", handleSearchInputValue);
 	};
 	if (searchInput) {
 		/* console.log("triggered function: manageSearchInput"); */
-		searchInput.focus();
-		searchInput[aEL]("input", handleSearchInputValue);
+		addHandler();
 	}
 };
 document.ready().then(manageSearchInput);
@@ -1349,7 +1355,7 @@ document.ready().then(manageSearchInput);
  * add click event on hidden-layer show btn
  * @param {Object} [ctx] context HTML Element
  */
-var handleExpandingLayers = function () {
+var handleExpandingLayerAll = function () {
 	"use strict";
 	var _this = this;
 	var cL = "classList",
@@ -1360,7 +1366,7 @@ var handleExpandingLayers = function () {
 		_this[cL].toggle(isActiveClass);
 		layer[cL].toggle(isActiveClass);
 	}
-	return !1;
+	return;
 },
 manageExpandingLayers = function (ctx) {
 	"use strict";
@@ -1370,18 +1376,18 @@ manageExpandingLayers = function (ctx) {
 	aEL = "addEventListener",
 	btnClass = "btn-expand-hidden-layer",
 	btn = ctx ? ctx[gEBCN](btnClass) || "" : d[gEBCN](btnClass) || "",
-	arrangeBtn = function (e) {
-		e[aEL]("click", handleExpandingLayers);
-	},
-	initScript = function () {
+	addHandlerAll = function () {
+		var addHandler = function (e) {
+			e[aEL]("click", handleExpandingLayerAll);
+		};
 		for (var i = 0, l = btn.length; i < l; i += 1) {
-			arrangeBtn(btn[i]);
+			addHandler(btn[i]);
 		}
-		/* forEach(btn, k, false); */
+		/* forEach(btn, addHandler, false); */
 	};
 	if (btn) {
 		/* console.log("triggered function: manageExpandingLayers"); */
-		initScript();
+		addHandlerAll();
 	}
 };
 /*!
@@ -1406,9 +1412,9 @@ var includeHTMLintoTarget = function (_this, u, t) {
 			var cb = function () {
 				hideBtn();
 				if (containerParent) {
-					manageExternalLinks(containerParent);
+					manageExternalLinkAll(containerParent);
 					manageImgLightboxLinks(containerParent);
-					handleDataSrcImages();
+					handleDataSrcImageAll();
 				}
 			};
 			insertTextAsFragment(t, container, cb);
@@ -1441,29 +1447,29 @@ var manageDataTargetLinks = function (ctx) {
 	rEL = "removeEventListener",
 	linkClass = "data-target-link",
 	link = ctx ? ctx[gEBCN](linkClass) || "" : d[gEBCN](linkClass) || "",
-	arrangeLink = function (e) {
-		var includeUrl = e[ds].include || "",
-		targetElement = e[ds].target || "";
-		if (includeUrl && targetElement) {
-			e.title = "Появится здесь же";
-			var h_e = function (ev) {
-				ev.stopPropagation();
-				ev.preventDefault();
-				e[rEL]("click", h_e);
-				includeHTMLintoTarget(e, includeUrl, targetElement);
-			};
-			e[aEL]("click", h_e);
-		}
-	},
-	arrangeAllLinks = function () {
+	arrangeAll = function () {
+		var arrange = function (e) {
+			var includeUrl = e[ds].include || "",
+			targetElement = e[ds].target || "";
+			if (includeUrl && targetElement) {
+				e.title = "Появится здесь же";
+				var h_e = function (ev) {
+					ev.stopPropagation();
+					ev.preventDefault();
+					e[rEL]("click", h_e);
+					includeHTMLintoTarget(e, includeUrl, targetElement);
+				};
+				e[aEL]("click", h_e);
+			}
+		};
 		for (var i = 0, l = link.length; i < l; i += 1) {
-			arrangeLink(link[i]);
+			arrange(link[i]);
 		}
-		/* forEach(a, arrangeLink, false); */
+		/* forEach(a, arrange, false); */
 	};
 	if (link) {
 		/* console.log("triggered function: manageDataTargetLinks"); */
-		arrangeAllLinks();
+		arrangeAll();
 	}
 };
 /*!
@@ -1513,22 +1519,22 @@ var manageDebugGridButton = function () {
 			"datum": cookieDatum,
 			"days": 0
 		});
+	},
+	handleDebugGridButton = function (ev) {
+		ev.stopPropagation();
+		ev.preventDefault();
+		container[cL].toggle(debugClass);
+		if (container[cL].contains(debugClass)) {
+			container[aEL]("click", handleDebugGridContainer);
+			showDebugGridMessage();
+		} else {
+			container[rEL]("click", handleDebugGridContainer);
+		}
 	};
 	if (page && container && btn) {
 		/* console.log("triggered function: manageDebugGridButton"); */
 		var locationHref = w.location.href || "";
 		if (locationHref && parseLink(locationHref).hasHTTP && (/^(localhost|127.0.0.1)/).test(parseLink(locationHref).hostname)) {
-			var handleDebugGridButton = function (ev) {
-				ev.stopPropagation();
-				ev.preventDefault();
-				container[cL].toggle(debugClass);
-				if (container[cL].contains(debugClass)) {
-					container[aEL]("click", handleDebugGridContainer);
-					showDebugGridMessage();
-				} else {
-					container[rEL]("click", handleDebugGridContainer);
-				}
-			};
 			btn[aEL]("click", handleDebugGridButton);
 		} else {
 			btn.style.display = "none";
@@ -1557,7 +1563,7 @@ var manageLocationQrCodeImage = function () {
 	isActiveSidepanelClass = "is-active-ui-sidepanel",
 	isActiveMenumoreClass = "is-active-ui-menumore",
 	locationHref = w.location.href || "",
-	handleOtherUIElements = function () {
+	handleOtherUIElementAll = function () {
 		if (page[cL].contains(isActiveVKLikeClass)) {
 			page[cL].remove(isActiveVKLikeClass);
 		}
@@ -1575,7 +1581,7 @@ var manageLocationQrCodeImage = function () {
 		ev.stopPropagation();
 		ev.preventDefault();
 		page[cL].toggle(isActiveQRCodeClass);
-		handleOtherUIElements();
+		handleOtherUIElementAll();
 	},
 	removePageIsActiveClass = function () {
 		if (page[cL].contains(isActiveQRCodeClass)) {
@@ -1584,7 +1590,7 @@ var manageLocationQrCodeImage = function () {
 	},
 	handleGenerateLocationQrCodeImgHolder = function () {
 		removePageIsActiveClass();
-		handleOtherUIElements();
+		handleOtherUIElementAll();
 	},
 	generateLocationQrCodeImg = function () {
 		var locationHref = w.location.href || "",
@@ -1747,7 +1753,7 @@ var manageVKLikeButton = function () {
 	isActiveMenumoreClass = "is-active-ui-menumore";
 	if (btn && page && VKLike) {
 		/* console.log("triggered function: manageVKLikeButton"); */
-		var handleOtherUIElements = function (ev) {
+		var handleOtherUIElementAll = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
 			page[cL].toggle(isActiveVKLikeClass);
@@ -1783,7 +1789,7 @@ var manageVKLikeButton = function () {
 				}
 			}
 		};
-		btn[aEL]("click", handleOtherUIElements);
+		btn[aEL]("click", handleOtherUIElementAll);
 	}
 };
 document.ready().then(manageVKLikeButton);
@@ -1990,7 +1996,7 @@ var initKamilAutocomplete = function () {
 	suggestionUlId = "kamil-typo-autocomplete",
 	suggestionUlClass = "kamil-autocomplete",
 	jsonUrl = "../app/libs/pwa-englishextra/json/routes.json",
-	generateMenu = function (jsonResponse) {
+	processJsonResponse = function (jsonResponse) {
 		var ac;
 		try {
 			var jsonObj = safelyParseJSON(jsonResponse);
@@ -2003,7 +2009,7 @@ var initKamilAutocomplete = function () {
 					minChars: 2
 				});
 		} catch (err) {
-			console.log("cannot init Kamil", err);
+			console.log("cannot init generateMenu", err);
 			return;
 		}
 		/*!
@@ -2011,17 +2017,17 @@ var initKamilAutocomplete = function () {
 		 */
 		var suggestionUl = d[cE]("ul"),
 		suggestionLi = d[cE]("li"),
-		handleTypoSuggestions = function () {
+		handleTypoSuggestion = function () {
 			setStyleDisplayNone(suggestionUl);
 			setStyleDisplayNone(suggestionLi);
 		},
-		showTypoSuggestions = function () {
+		showTypoSuggestion = function () {
 			setStyleDisplayBlock(suggestionUl);
 			setStyleDisplayBlock(suggestionLi);
 		};
 		suggestionUl[cL].add(suggestionUlClass);
 		suggestionUl.id = suggestionUlId;
-		handleTypoSuggestions();
+		handleTypoSuggestion();
 		suggestionUl[aC](suggestionLi);
 		textInput[pN].insertBefore(suggestionUl, textInput.nextElementSibling);
 		/*!
@@ -2034,16 +2040,18 @@ var initKamilAutocomplete = function () {
 			/*!
 			 * limit output
 			 */
-			arrangeAllItems = function (e, i) {
+			limitKamilOutput = function (e, i) {
 				if (i < 10) {
 					_this._renderItemData(ul, e, i);
 				}
 			};
 			if (items) {
 				for (var i = 0; i < itemsLength; i += 1) {
-					arrangeAllItems(items[i], i);
+					limitKamilOutput(items[i], i);
 				}
-				/* forEach(items, arrangeAllItems, false); */
+				/* forEach(items, function (e, i) {
+					limitKamilOutput(e, i);
+				}, false); */
 			}
 			/*!
 			 * fix typo - non latin characters found
@@ -2055,14 +2063,14 @@ var initKamilAutocomplete = function () {
 				} else {
 					textValue = fixEnRuTypo(textValue, "en", "ru");
 				}
-				showTypoSuggestions();
+				showTypoSuggestion();
 				removeChildren(suggestionLi);
 				suggestionLi[aC](d[cTN]("" + textValue));
 				if (textValue.match(/^\s*$/)) {
-					handleTypoSuggestions();
+					handleTypoSuggestion();
 				}
 				if (textInput.value.length < 3 || textInput.value.match(/^\s*$/)) {
-					handleTypoSuggestions();
+					handleTypoSuggestion();
 				}
 				itemsLength += 1;
 			}
@@ -2101,7 +2109,7 @@ var initKamilAutocomplete = function () {
 		 * hide suggestions on outside click
 		 */
 		if (container) {
-			container[aEL]("click", handleTypoSuggestions);
+			container[aEL]("click", handleTypoSuggestion);
 		}
 		/*!
 		 * unless you specify property option in new Kamil
@@ -2113,7 +2121,7 @@ var initKamilAutocomplete = function () {
 			var kamilItemLink = e.item.href || "",
 			handleKamilItem = function () {
 				e.inputElement.value = "";
-				handleTypoSuggestions();
+				handleTypoSuggestion();
 				w.location.href = "../app/" + kamilItemLink;
 			};
 			if (kamilItemLink) {
@@ -2126,7 +2134,7 @@ var initKamilAutocomplete = function () {
 		});
 	},
 	initScript = function () {
-		loadUnparsedJSON(jsonUrl, generateMenu);
+		loadUnparsedJSON(jsonUrl, processJsonResponse);
 	};
 	if (searchForm && textInput) {
 		/* console.log("triggered function: initKamilAutocomplete"); */
@@ -2156,7 +2164,7 @@ var initUiTotop = function () {
 	btnClass = "ui-totop",
 	btnTitle = "Наверх",
 	isActiveClass = "is-active",
-	renderUiTotop = function () {
+	arrange = function () {
 		var handleUiTotopWindow = function (_this) {
 			var logicHandleUiTotopWindow = function () {
 				var btn = d[gEBCN](btnClass)[0] || "",
@@ -2199,7 +2207,7 @@ var initUiTotop = function () {
 	};
 	if (b) {
 		/* console.log("triggered function: initUiTotop"); */
-		renderUiTotop();
+		arrange();
 	}
 };
 document.ready().then(initUiTotop);
@@ -2229,13 +2237,13 @@ var initRoutie = function () {
 		d.title = (titleString ? titleString +  " - "  : "" ) + (initialDocumentTitle ? initialDocumentTitle + (userBrowsingDetails ? userBrowsingDetails : "") : "");
 		manageYandexMapButton("ymap");
 		manageDisqusButton(appContentParent);
-		manageExternalLinks(appContentParent);
+		manageExternalLinkAll(appContentParent);
 		manageDataTargetLinks(appContentParent);
 		manageImgLightboxLinks(appContentParent);
 		manageDataQrcodeImages(appContentParent);
 		manageChaptersSelect(appContentParent);
 		manageExpandingLayers(appContentParent);
-		handleDataSrcImages();
+		handleDataSrcImageAll();
 		LoadingSpinner.hide(scroll2Top.bind(null, 0, 20000));
 	},
 	loadNotFoundPage = function (containerClass) {
@@ -2321,23 +2329,23 @@ document.ready().then(initRoutie);
 /* var observeMutations = function (ctx) {
 	"use strict";
 	ctx = ctx && ctx.nodeName ? ctx : "";
-	if (ctx) {
-		var getMutations = function (e) {
-			var triggerOnMutation = function (m) {
-				console.log("mutations observer: " + m.type);
-				console.log(m.type, "target: " + m.target.tagName + ("." + m.target.className || "#" + m.target.id || ""));
-				console.log(m.type, "added: " + m.addedNodes.length + " nodes");
-				console.log(m.type, "removed: " + m.removedNodes.length + " nodes");
-				if ("childList" === m.type || "subtree" === m.type) {
-					mo.disconnect();
-				}
-			};
-			for (var i = 0, l = e.length; i < l; i += 1) {
-				triggerOnMutation(e[i]);
+	var getMutations = function (e) {
+		var triggerOnMutation = function (m) {
+			console.log("mutations observer: " + m.type);
+			console.log(m.type, "target: " + m.target.tagName + ("." + m.target.className || "#" + m.target.id || ""));
+			console.log(m.type, "added: " + m.addedNodes.length + " nodes");
+			console.log(m.type, "removed: " + m.removedNodes.length + " nodes");
+			if ("childList" === m.type || "subtree" === m.type) {
+				mo.disconnect();
 			}
-			forEach(e, triggerOnMutation);
-		},
-		mo = new MutationObserver(getMutations);
+		};
+		for (var i = 0, l = e.length; i < l; i += 1) {
+			triggerOnMutation(e[i]);
+		}
+		forEach(e, triggerOnMutation);
+	};
+	if (ctx) {
+		var mo = new MutationObserver(getMutations);
 		mo.observe(ctx, {
 			childList: !0,
 			subtree: !0,
