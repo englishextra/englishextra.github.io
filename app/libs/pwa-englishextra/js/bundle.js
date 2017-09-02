@@ -2721,6 +2721,9 @@ var yshare,
 		ev.stopPropagation();
 		ev.preventDefault();
 		var logicHandleShareButton = function () {
+			holder[cL].toggle(isActiveClass);
+			holder[cL].add(isSocialClass);
+			handleOtherSocialButtons(holder);
 			var initScript = function () {
 				if (w.Ya) {
 					try {
@@ -2739,9 +2742,6 @@ var yshare,
 								}
 							});
 						}
-						holder[cL].toggle(isActiveClass);
-						holder[cL].add(isSocialClass);
-						handleOtherSocialButtons(holder);
 					} catch (err) {
 						/* console.log("cannot update or init Ya.share2", err); */
 					}
@@ -2787,6 +2787,9 @@ var manageVKLikeButton = function () {
 		ev.stopPropagation();
 		ev.preventDefault();
 		var logicHandleVKLikeButton = function () {
+			holder[cL].toggle(isActiveClass);
+			holder[cL].add(isSocialClass);
+			handleOtherSocialButtons(holder);
 			var initScript = function () {
 				if (w.VK) {
 					try {
@@ -2799,9 +2802,6 @@ var manageVKLikeButton = function () {
 							type: "button",
 							height: 24
 						});
-						holder[cL].toggle(isActiveClass);
-						holder[cL].add(isSocialClass);
-						handleOtherSocialButtons(holder);
 					} catch (err) {
 						/* console.log("cannot init VK", err); */
 					}

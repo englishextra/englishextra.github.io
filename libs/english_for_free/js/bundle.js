@@ -1771,42 +1771,39 @@ var manageVKLikeButton = function () {
 	    VKLikeId = "vk-like",
 	    VKLike = d[gEBI](VKLikeId) || "",
 	    btn = d[gEBCN]("btn-show-vk-like")[0] || "",
-	    addHandler = function () {
-		var handleVKLikeButton = function (ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			btn[rEL]("click", handleVKLikeButton);
-			var initScript = function () {
-				if (w.VK) {
-					try {
-						VK.init({
-							apiId: VKLike[ds].apiid || "",
-							nameTransportPath: "/xd_receiver.htm",
-							onlyWidgets: !0
-						});
-						VK.Widgets.Like(VKLikeId, {
-							type: "button",
-							height: 24
-						});
-						setStyleVisibilityVisible(VKLike);
-						setStyleOpacity(VKLike, 1);
-						setStyleDisplayNone(btn);
-					} catch (err) {
-						/* console.log("cannot init VK", err); */
-					}
+	    handleVKLikeButton = function (ev) {
+		ev.stopPropagation();
+		ev.preventDefault();
+		btn[rEL]("click", handleVKLikeButton);
+		setStyleVisibilityVisible(VKLike);
+		setStyleOpacity(VKLike, 1);
+		setStyleDisplayNone(btn);
+		var initScript = function () {
+			if (w.VK) {
+				try {
+					VK.init({
+						apiId: VKLike[ds].apiid || "",
+						nameTransportPath: "/xd_receiver.htm",
+						onlyWidgets: !0
+					});
+					VK.Widgets.Like(VKLikeId, {
+						type: "button",
+						height: 24
+					});
+				} catch (err) {
+					/* console.log("cannot init VK", err); */
 				}
-			},
-			    jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122";
-			if (!scriptIsLoaded(jsUrl)) {
-				loadJS(jsUrl, initScript);
 			}
-		};
-		btn[aEL]("click", handleVKLikeButton);
+		},
+		    jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122";
+		if (!scriptIsLoaded(jsUrl)) {
+			loadJS(jsUrl, initScript);
+		}
 	};
 	if (btn && VKLike) {
 		/* console.log("triggered function: manageVKLikeButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			addHandler();
+			btn[aEL]("click", handleVKLikeButton);
 		} else {
 			setStyleDisplayNone(btn);
 		}

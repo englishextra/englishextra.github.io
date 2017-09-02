@@ -2780,46 +2780,48 @@ var manageVKLikeButton = function () {
 	    isActiveVKLikeClass = "is-active-holder-vk-like",
 	    isActiveShareClass = "is-active-holder-share-buttons",
 	    isActiveSidepanelClass = "is-active-ui-sidepanel",
-	    isActiveMenumoreClass = "is-active-ui-menumore";
-	if (btn && page && VKLike) {
-		/* console.log("triggered function: manageVKLikeButton"); */
-		var handleOtherUIElementAll = function (ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			page[cL].toggle(isActiveVKLikeClass);
-			if (page[cL].contains(isActiveQRCodeClass)) {
-				page[cL].remove(isActiveQRCodeClass);
-			}
-			if (page[cL].contains(isActiveShareClass)) {
-				page[cL].remove(isActiveShareClass);
-			}
-			if (page[cL].contains(isActiveSidepanelClass)) {
-				page[cL].remove(isActiveSidepanelClass);
-			}
-			if (page[cL].contains(isActiveMenumoreClass)) {
-				page[cL].remove(isActiveMenumoreClass);
-			}
-			var jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122",
-			    initVKLike = function () {
-				if (w.VK) {
-					VK.init({
-						apiId: VKLike.dataset.apiid || "",
-						nameTransportPath: "/xd_receiver.htm",
-						onlyWidgets: !0
-					});
-					VK.Widgets.Like(vk_like, {
-						type: "button",
-						height: 24
-					});
-				}
-			};
-			if (page[cL].contains(isActiveVKLikeClass)) {
-				if (!scriptIsLoaded(jsUrl)) {
-					loadJS(jsUrl, initVKLike);
-				}
+	    isActiveMenumoreClass = "is-active-ui-menumore",
+	    handleVKLikeButton = function (ev) {
+		ev.stopPropagation();
+		ev.preventDefault();
+		page[cL].toggle(isActiveVKLikeClass);
+		if (page[cL].contains(isActiveQRCodeClass)) {
+			page[cL].remove(isActiveQRCodeClass);
+		}
+		if (page[cL].contains(isActiveShareClass)) {
+			page[cL].remove(isActiveShareClass);
+		}
+		if (page[cL].contains(isActiveSidepanelClass)) {
+			page[cL].remove(isActiveSidepanelClass);
+		}
+		if (page[cL].contains(isActiveMenumoreClass)) {
+			page[cL].remove(isActiveMenumoreClass);
+		}
+		var initScript = function () {
+			if (w.VK) {
+				VK.init({
+					apiId: VKLike.dataset.apiid || "",
+					nameTransportPath: "/xd_receiver.htm",
+					onlyWidgets: !0
+				});
+				VK.Widgets.Like(vk_like, {
+					type: "button",
+					height: 24
+				});
 			}
 		};
-		btn[aEL]("click", handleOtherUIElementAll);
+		if (page[cL].contains(isActiveVKLikeClass)) {
+			var jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122";
+			if (!scriptIsLoaded(jsUrl)) {
+				loadJS(jsUrl, initScript);
+			}
+		}
+	};
+	if (btn && page && VKLike) {
+		if ("undefined" !== typeof getHTTP && getHTTP()) {
+			/* console.log("triggered function: manageVKLikeButton"); */
+			btn[aEL]("click", handleVKLikeButton);
+		}
 	}
 };
 document.ready().then(manageVKLikeButton);
