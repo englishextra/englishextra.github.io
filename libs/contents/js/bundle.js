@@ -2240,22 +2240,23 @@ var showPageFinishProgress = function () {
 	var d = document,
 	    gEBI = "getElementById",
 	    container = d[gEBI]("container") || "",
-	    showContainer = function () {
+	    showPage = function () {
 		setStyleOpacity(container, 1);
 		progressBar.complete();
 	};
 	if (container) {
 		/* if ("undefined" !== typeof imagesPreloaded) {
+  	progressBar.increase(20);
   	var timers = new Timers();
   	timers.interval(function () {
   		if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
   			timers.clear();
   			timers = null;
-  			showContainer();
+  			showPage();
   		}
   	}, 100);
   } else { */
-		showContainer();
+		showPage();
 		/* } */
 	}
 };

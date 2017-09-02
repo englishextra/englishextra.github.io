@@ -1339,22 +1339,23 @@ var showPageFinishProgress = function () {
 	var d = document,
 	gEBCN = "getElementsByClassName",
 	grid = d[gEBCN]("masonry-grid")[0] || "",
-	showGrid = function () {
+	showPage = function () {
 		setStyleOpacity(grid, 1);
 		progressBar.complete();
 	};
 	if (grid) {
 		if ("undefined" !== typeof imagesPreloaded) {
-		var timers = new Timers();
-		timers.interval(function () {
-			if ("undefined" !== typeof imagesPreloaded && localImagesPreloaded) {
-				timers.clear();
-				timers = null;
-				showGrid();
-			}
-		}, 100);
+			progressBar.increase(20);
+			var timers = new Timers();
+			timers.interval(function () {
+				if ("undefined" !== typeof imagesPreloaded && localImagesPreloaded) {
+					timers.clear();
+					timers = null;
+					showPage();
+				}
+			}, 100);
 		} else {
-			showGrid();
+			showPage();
 		}
 	}
 };

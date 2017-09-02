@@ -1175,22 +1175,23 @@ var showPageFinishProgress = function () {
 	var d = document,
 	gEBCN = "getElementsByClassName",
 	superbox = d[gEBCN]("superbox")[0] || "",
-	showSuperbox = function () {
+	showPage = function () {
 		setStyleOpacity(superbox, 1);
 		progressBar.complete();
 	};
 	if (superbox) {
 		/* if ("undefined" !== typeof imagesPreloaded) {
+			progressBar.increase(20);
 			var timers = new Timers();
 			timers.interval(function () {
 				if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
 					timers.clear();
 					timers = null;
-					showSuperbox();
+					showPage();
 				}
 			}, 100);
 		} else { */
-			showSuperbox();
+			showPage();
 		/* } */
 	}
 };
