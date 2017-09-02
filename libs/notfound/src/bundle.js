@@ -192,7 +192,6 @@ var showPageFinishProgress = function () {
 	};
 	if (page) {
 		if ("undefined" !== typeof imagesPreloaded) {
-			progressBar.increase(20);
 			var timers = new Timers();
 			timers.interval(function () {
 				if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
@@ -206,4 +205,4 @@ var showPageFinishProgress = function () {
 		}
 	}
 };
-globalRoot.addEventListener("load", showPageFinishProgress);
+document.ready().then(showPageFinishProgress);

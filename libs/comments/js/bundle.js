@@ -1100,6 +1100,6 @@ var showPageFinishProgress = function () {
 		progressBar.complete();
 	}
 };
-globalRoot.addEventListener("load", showPageFinishProgress);
+document.ready().then(showPageFinishProgress);
 
 //# sourceMappingURL=bundle.js.map

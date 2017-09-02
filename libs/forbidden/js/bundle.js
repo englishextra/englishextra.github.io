@@ -1332,6 +1332,6 @@ var showPageFinishProgress = function () {
 		}
 	}
 };
-globalRoot.addEventListener("load", showPageFinishProgress);
+document.ready().then(showPageFinishProgress);
 
 //# sourceMappingURL=bundle.js.map
