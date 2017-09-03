@@ -1837,7 +1837,7 @@ var showPageFinishProgress = function () {
 	    superbox = d[gEBCN]("superbox")[0] || "",
 	    showPage = function () {
 		setStyleOpacity(superbox, 1);
-		progressBar.complete();
+		progressBar.increase(20);
 	};
 	if (superbox) {
 		/* if ("undefined" !== typeof imagesPreloaded) {
@@ -1856,5 +1856,8 @@ var showPageFinishProgress = function () {
 	}
 };
 document.ready().then(showPageFinishProgress);
+globalRoot.addEventListener("load", function () {
+	progressBar.complete();
+});
 
 //# sourceMappingURL=bundle.js.map

@@ -1341,7 +1341,7 @@ var showPageFinishProgress = function () {
 	grid = d[gEBCN]("masonry-grid")[0] || "",
 	showPage = function () {
 		setStyleOpacity(grid, 1);
-		progressBar.complete();
+		progressBar.increase(20);
 	};
 	if (grid) {
 		if ("undefined" !== typeof imagesPreloaded) {
@@ -1360,3 +1360,6 @@ var showPageFinishProgress = function () {
 	}
 };
 document.ready().then(showPageFinishProgress);
+globalRoot.addEventListener("load", function () {
+	progressBar.complete();
+});

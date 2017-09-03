@@ -1097,9 +1097,12 @@ var showPageFinishProgress = function () {
 	    container = d[gEBI]("container") || "";
 	if (container) {
 		setStyleOpacity(container, 1);
-		progressBar.complete();
+		progressBar.increase(20);
 	}
 };
 document.ready().then(showPageFinishProgress);
+globalRoot.addEventListener("load", function () {
+	progressBar.complete();
+});
 
 //# sourceMappingURL=bundle.js.map

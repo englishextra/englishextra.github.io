@@ -1170,26 +1170,28 @@ var showPageFinishProgress = function () {
 	var d = document,
 	    gEBI = "getElementById",
 	    container = d[gEBI]("container") || "",
-	    showContainer = function () {
+	    showPage = function () {
 		setStyleOpacity(container, 1);
-		progressBar.complete();
+		progressBar.increase(20);
 	};
 	if (container) {
-		progressBar.increase(20);
 		if ("undefined" !== typeof imagesPreloaded) {
 			var timers = new Timers();
 			timers.interval(function () {
 				if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
 					timers.clear();
 					timers = null;
-					showContainer();
+					showPage();
 				}
 			}, 100);
 		} else {
-			showContainer();
+			showPage();
 		}
 	}
 };
 document.ready().then(showPageFinishProgress);
+globalRoot.addEventListener("load", function () {
+	progressBar.complete();
+});
 
 //# sourceMappingURL=bundle.js.map

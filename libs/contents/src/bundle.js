@@ -1489,7 +1489,7 @@ var showPageFinishProgress = function () {
 	container = d[gEBI]("container") || "",
 	showPage = function () {
 		setStyleOpacity(container, 1);
-		progressBar.complete();
+		progressBar.increase(20);
 	};
 	if (container) {
 		/* if ("undefined" !== typeof imagesPreloaded) {
@@ -1508,3 +1508,6 @@ var showPageFinishProgress = function () {
 	}
 };
 document.ready().then(showPageFinishProgress);
+globalRoot.addEventListener("load", function () {
+	progressBar.complete();
+});
