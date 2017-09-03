@@ -1345,7 +1345,6 @@ var showPageFinishProgress = function () {
 	};
 	if (grid) {
 		if ("undefined" !== typeof imagesPreloaded) {
-			progressBar.increase(20);
 			var timers = new Timers();
 			timers.interval(function () {
 				if ("undefined" !== typeof imagesPreloaded && localImagesPreloaded) {

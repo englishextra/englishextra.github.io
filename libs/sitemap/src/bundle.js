@@ -735,7 +735,6 @@ var showPageFinishProgress = function () {
 	};
 	if (container) {
 		/* if ("undefined" !== typeof imagesPreloaded) {
-			progressBar.increase(20);
 			var timers = new Timers();
 			timers.interval(function () {
 				if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
