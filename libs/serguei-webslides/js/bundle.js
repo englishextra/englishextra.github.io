@@ -477,30 +477,27 @@ var handleExternalLink = function (url, ev) {
 	    aEL = "addEventListener",
 	    gA = "getAttribute",
 	    isBindedClass = "is-binded",
-	    arrangeAll = function () {
-		var arrange = function (e) {
-			if (!e[cL].contains(isBindedClass)) {
-				var url = e[gA]("href") || "";
-				if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-					e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
-					if ("undefined" !== typeof getHTTP && getHTTP()) {
-						e.target = "_blank";
-						e.rel = "noopener";
-					} else {
-						e[aEL]("click", handleExternalLink.bind(null, url));
-					}
-					e[cL].add(isBindedClass);
+	    arrange = function (e) {
+		if (!e[cL].contains(isBindedClass)) {
+			var url = e[gA]("href") || "";
+			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+				e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					e.target = "_blank";
+					e.rel = "noopener";
+				} else {
+					e[aEL]("click", handleExternalLink.bind(null, url));
 				}
+				e[cL].add(isBindedClass);
 			}
-		};
+		}
+	};
+	if (link) {
+		/* console.log("triggered function: manageExternalLinkAll"); */
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrange(link[i]);
 		}
 		/* forEach(link, arrange, false); */
-	};
-	if (link) {
-		/* console.log("triggered function: manageExternalLinkAll"); */
-		arrangeAll();
 	}
 };
 document.ready().then(manageExternalLinkAll);

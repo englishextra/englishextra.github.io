@@ -527,39 +527,36 @@ var handleDataSrcImageAll = function () {
 	img = d[gEBCN](imgClass) || "",
 	isActiveClass = "is-active",
 	isBindedClass = "is-binded",
-	arrangeAll = function () {
-		var arrange = function (e) {
-			/*!
-			 * true if elem is in same y-axis as the viewport or within 100px of it
-			 * @see {@link https://github.com/ryanve/verge}
-			 */
-			if (verge.inY(e, 100) /*  && 0 !== e.offsetHeight */) {
-				if (!e[cL].contains(isBindedClass)) {
-					var srcString = e[ds].src || "";
-					if (srcString) {
-						if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
-							e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
-							srcString = e[ds].src;
-						}
-						imagePromise(srcString).then(function (r) {
-							e.src = srcString;
-						}).catch (function (err) {
-							console.log("cannot load image with imagePromise:", srcString);
-						});
-						e[cL].add(isActiveClass);
-						e[cL].add(isBindedClass);
+	arrange = function (e) {
+		/*!
+		 * true if elem is in same y-axis as the viewport or within 100px of it
+		 * @see {@link https://github.com/ryanve/verge}
+		 */
+		if (verge.inY(e, 100) /*  && 0 !== e.offsetHeight */) {
+			if (!e[cL].contains(isBindedClass)) {
+				var srcString = e[ds].src || "";
+				if (srcString) {
+					if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
+						e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
+						srcString = e[ds].src;
 					}
+					imagePromise(srcString).then(function (r) {
+						e.src = srcString;
+					}).catch (function (err) {
+						console.log("cannot load image with imagePromise:", srcString);
+					});
+					e[cL].add(isActiveClass);
+					e[cL].add(isBindedClass);
 				}
 			}
-		};
+		}
+	};
+	if (img) {
+		/* console.log("triggered function: manageDataSrcImageAll"); */
 		for (var i = 0, l = img.length; i < l; i += 1) {
 			arrange(img[i]);
 		}
 		/* forEach(img, arrange, false); */
-	};
-	if (img) {
-		/* console.log("triggered function: manageDataSrcImageAll"); */
-		arrangeAll();
 	}
 },
 handleDataSrcImageAllWindow = function () {
@@ -599,40 +596,37 @@ var handleDataSrcIframeAll = function () {
 	iframeClass = "data-src-iframe",
 	iframe = d[gEBCN](iframeClass) || "",
 	isBindedClass = "is-binded",
-	arrangeAll = function () {
-		var arrange = function (e) {
-			/*!
-			 * true if elem is in same y-axis as the viewport or within 100px of it
-			 * @see {@link https://github.com/ryanve/verge}
-			 */
-			if (verge.inY(e, 100) /* && 0 !== e.offsetHeight */) {
-				if (!e[cL].contains(isBindedClass)) {
-					var srcString = e[ds].src || "";
-					if (srcString) {
-						if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
-							e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
-							srcString = e[ds].src;
-						}
-						e.src = srcString;
-						e[cL].add(isBindedClass);
-						e[sA]("frameborder", "no");
-						e[sA]("style", "border:none;");
-						e[sA]("webkitallowfullscreen", "true");
-						e[sA]("mozallowfullscreen", "true");
-						e[sA]("scrolling", "no");
-						e[sA]("allowfullscreen", "true");
+	arrange = function (e) {
+		/*!
+		 * true if elem is in same y-axis as the viewport or within 100px of it
+		 * @see {@link https://github.com/ryanve/verge}
+		 */
+		if (verge.inY(e, 100) /* && 0 !== e.offsetHeight */) {
+			if (!e[cL].contains(isBindedClass)) {
+				var srcString = e[ds].src || "";
+				if (srcString) {
+					if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
+						e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
+						srcString = e[ds].src;
 					}
+					e.src = srcString;
+					e[cL].add(isBindedClass);
+					e[sA]("frameborder", "no");
+					e[sA]("style", "border:none;");
+					e[sA]("webkitallowfullscreen", "true");
+					e[sA]("mozallowfullscreen", "true");
+					e[sA]("scrolling", "no");
+					e[sA]("allowfullscreen", "true");
 				}
 			}
-		};
+		}
+	};
+	if (iframe) {
+		/* console.log("triggered function: manageDataSrcIframeAll"); */
 		for (var i = 0, l = iframe.length; i < l; i += 1) {
 			arrange(iframe[i]);
 		}
 		/* forEach(iframe, arrange, false); */
-	};
-	if (iframe) {
-		/* console.log("triggered function: manageDataSrcIframeAll"); */
-		arrangeAll();
 	}
 },
 handleDataSrcIframeAllWindow = function () {
@@ -673,21 +667,18 @@ var manageIframeLightboxLinks = function (ctx) {
 	linkClass = "iframe-lightbox-link",
 	link = ctx ? ctx[gEBCN](linkClass) || "" : d[gEBCN](linkClass) || "",
 	isBindedClass = "is-binded",
-	arrangeAll = function () {
-		var arrange = function (e) {
-			if (!e[cL].contains(isBindedClass)) {
-				e.lightbox = new IframeLightbox(e);
-				e[cL].add(isBindedClass);
-			}
-		};
+	arrange = function (e) {
+		if (!e[cL].contains(isBindedClass)) {
+			e.lightbox = new IframeLightbox(e);
+			e[cL].add(isBindedClass);
+		}
+	};
+	if (link) {
+		/* console.log("triggered function: manageIframeLightboxLibks"); */
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrange(link[i]);
 		}
 		/* forEach(link, arrange, false); */
-	};
-	if (link) {
-		/* console.log("triggered function: manageIframeLightboxLibks"); */
-		arrangeAll();
 	}
 };
 document.ready().then(manageIframeLightboxLinks);
@@ -715,30 +706,27 @@ manageExternalLinkAll = function (ctx) {
 	aEL = "addEventListener",
 	gA = "getAttribute",
 	isBindedClass = "is-binded",
-	arrangeAll = function () {
-		var arrange = function (e) {
-			if (!e[cL].contains(isBindedClass)) {
-				var url = e[gA]("href") || "";
-				if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-					e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
-					if ("undefined" !== typeof getHTTP && getHTTP()) {
-						e.target = "_blank";
-						e.rel = "noopener";
-					} else {
-						e[aEL]("click", handleExternalLink.bind(null, url));
-					}
-					e[cL].add(isBindedClass);
+	arrange = function (e) {
+		if (!e[cL].contains(isBindedClass)) {
+			var url = e[gA]("href") || "";
+			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+				e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					e.target = "_blank";
+					e.rel = "noopener";
+				} else {
+					e[aEL]("click", handleExternalLink.bind(null, url));
 				}
+				e[cL].add(isBindedClass);
 			}
-		};
+		}
+	};
+	if (link) {
+		/* console.log("triggered function: manageExternalLinkAll"); */
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrange(link[i]);
 		}
 		/* forEach(link, arrange, false); */
-	};
-	if (link) {
-		/* console.log("triggered function: manageExternalLinkAll"); */
-		arrangeAll();
 	}
 };
 document.ready().then(manageExternalLinkAll);
@@ -837,56 +825,53 @@ manageImgLightboxLinks = function (ctx) {
 		container[cL].add(containerClass);
 		appendFragment(container, b);
 	}
-	var arrangeAll = function () {
-		var arrange = function (e) {
-			var handleImgLightboxLink = function (ev) {
-				ev.stopPropagation();
-				ev.preventDefault();
-				var _this = this;
-				var logicHandleImgLightboxLink = function () {
-					var hrefString = _this[gA]("href") || "";
-					if (container && img && hrefString) {
-						LoadingSpinner.show();
-						container[cL].add(an);
-						container[cL].add(an1);
-						img[cL].add(an);
-						img[cL].add(an2);
-						if (parseLink(hrefString).isAbsolute && !parseLink(hrefString).hasHTTP) {
-							hrefString = hrefString.replace(/^/, getHTTP(true) + ":");
-						}
-						imagePromise(hrefString).then(function (r) {
-							img.src = hrefString;
-						}).catch (function (err) {
-							/* console.log("manageImgLightboxLinks => imagePromise: cannot load image:", err); */
-						});
-						w[aEL]("keyup", handleImgLightboxWindow);
-						container[aEL]("click", handleImgLightboxContainer);
-						container.style.display = "block";
-						LoadingSpinner.hide();
-					}
-				},
-				debounceLogicHandleImgLightboxLink = debounce(logicHandleImgLightboxLink, 200);
-				debounceLogicHandleImgLightboxLink();
-			};
-			if (!e[cL].contains(isBindedClass)) {
-				var hrefString = e[gA]("href") || "";
-				if (hrefString) {
+	var arrange = function (e) {
+		var handleImgLightboxLink = function (ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			var _this = this;
+			var logicHandleImgLightboxLink = function () {
+				var hrefString = _this[gA]("href") || "";
+				if (container && img && hrefString) {
+					LoadingSpinner.show();
+					container[cL].add(an);
+					container[cL].add(an1);
+					img[cL].add(an);
+					img[cL].add(an2);
 					if (parseLink(hrefString).isAbsolute && !parseLink(hrefString).hasHTTP) {
-						e.setAttribute("href", hrefString.replace(/^/, getHTTP(true) + ":"));
+						hrefString = hrefString.replace(/^/, getHTTP(true) + ":");
 					}
-					e[aEL]("click", handleImgLightboxLink);
-					e[cL].add(isBindedClass);
+					imagePromise(hrefString).then(function (r) {
+						img.src = hrefString;
+					}).catch (function (err) {
+						/* console.log("manageImgLightboxLinks => imagePromise: cannot load image:", err); */
+					});
+					w[aEL]("keyup", handleImgLightboxWindow);
+					container[aEL]("click", handleImgLightboxContainer);
+					container.style.display = "block";
+					LoadingSpinner.hide();
 				}
-			}
+			},
+			debounceLogicHandleImgLightboxLink = debounce(logicHandleImgLightboxLink, 200);
+			debounceLogicHandleImgLightboxLink();
 		};
+		if (!e[cL].contains(isBindedClass)) {
+			var hrefString = e[gA]("href") || "";
+			if (hrefString) {
+				if (parseLink(hrefString).isAbsolute && !parseLink(hrefString).hasHTTP) {
+					e.setAttribute("href", hrefString.replace(/^/, getHTTP(true) + ":"));
+				}
+				e[aEL]("click", handleImgLightboxLink);
+				e[cL].add(isBindedClass);
+			}
+		}
+	};
+	if (link) {
+		/* console.log("triggered function: manageImgLightboxLinks"); */
 		for (var j = 0, l = link.length; j < l; j += 1) {
 			arrange(link[j]);
 		}
 		/* forEach(link, arrange, false); */
-	};
-	if (link) {
-		/* console.log("triggered function: manageImgLightboxLinks"); */
-		arrangeAll();
 	}
 };
 /*!
@@ -1002,14 +987,6 @@ var manageChaptersSelect = function () {
 			}
 			listObj[cL].remove(isActiveClass);
 		},
-		insertChevronDownSmallSvg = function (targetObj) {
-			var svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
-			use = d[cENS]("http://www.w3.org/2000/svg", "use");
-			svg[cL].add("ui-icon");
-			use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-ChevronDownSmall");
-			svg[aC](use);
-			targetObj[aC](svg);
-		},
 		chaptersList = d[cE]("ul"),
 		chaptersListItems = chaptersSelect ? chaptersSelect[gEBTN]("option") || "" : "",
 		chaptersListButtonDefaultText = "",
@@ -1042,6 +1019,14 @@ var manageChaptersSelect = function () {
 		/*jshint -W107 */
 		chaptersListButton.href = "javascript:void(0);";
 		/*jshint +W107 */
+		var insertChevronDownSmallSvg = function (targetObj) {
+			var svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
+			use = d[cENS]("http://www.w3.org/2000/svg", "use");
+			svg[cL].add("ui-icon");
+			use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-ChevronDownSmall");
+			svg[aC](use);
+			targetObj[aC](svg);
+		};
 		insertChevronDownSmallSvg(chaptersListButton);
 		var handleChaptersListItemsButton = function (ev) {
 			ev.stopPropagation();
@@ -1073,30 +1058,27 @@ var manageExpandingLayers = function (ctx) {
 	btn = ctx ? ctx[gEBCN](btnClass) || "" : d[gEBCN](btnClass) || "",
 	isBindedClass = "is-binded",
 	isActiveClass = "is-active",
-	arrangeAll = function () {
-		var arrange = function (e) {
-			var handleExpandingLayerAll = function () {
-				var _this = this;
-				var s = _this[pN] ? _this[pN].nextElementSibling : "";
-				if (s) {
-					_this[cL].toggle(isActiveClass);
-					s[cL].toggle(isActiveClass);
-				}
-				return;
-			};
-			if (!e[cL].contains(isBindedClass)) {
-				e[aEL]("click", handleExpandingLayerAll);
-				e[cL].add(isBindedClass);
+	arrange = function (e) {
+		var handleExpandingLayerAll = function () {
+			var _this = this;
+			var s = _this[pN] ? _this[pN].nextElementSibling : "";
+			if (s) {
+				_this[cL].toggle(isActiveClass);
+				s[cL].toggle(isActiveClass);
 			}
+			return;
 		};
+		if (!e[cL].contains(isBindedClass)) {
+			e[aEL]("click", handleExpandingLayerAll);
+			e[cL].add(isBindedClass);
+		}
+	};
+	if (btn) {
+		/* console.log("triggered function: manageExpandingLayers"); */
 		for (var i = 0, l = btn.length; i < l; i += 1) {
 			arrange(btn[i]);
 		}
 		/* forEach(btn, arrange, false); */
-	};
-	if (btn) {
-		/* console.log("triggered function: manageExpandingLayers"); */
-		arrangeAll();
 	}
 };
 /*!
@@ -1354,7 +1336,8 @@ var notiBar = function (opt) {
 	};
 	closeButton[aEL]("click", handleCloseButton);
 	notibarContainer[aC](closeButton);
-	var arrange = function () {
+	if (b) {
+		/* console.log("triggered function: notiBar"); */
 		appendFragment(notibarContainer, b);
 		notibarContainer[cL].remove(fadeOutUpClass);
 		notibarContainer[cL].add(fadeInDownClass);
@@ -1364,10 +1347,6 @@ var notiBar = function (opt) {
 			timers = null;
 			hideMessage();
 		}, settings.timeout);
-	};
-	if (b) {
-		/* console.log("triggered function: notiBar"); */
-		arrange();
 	}
 };
 /*!
@@ -1433,21 +1412,18 @@ var manageSearchInput = function () {
 	gEBI = "getElementById",
 	aEL = "addEventListener",
 	searchInput = d[gEBI]("text") || "",
-	addHandler = function () {
-		searchInput.focus();
-		var handleSearchInputValue = function () {
-			var _this = this;
-			var logicHandleSearchInputValue = function () {
-				_this.value = _this.value.replace(/\\/g, "").replace(/ +(?= )/g, " ").replace(/\/+(?=\/)/g, "/") || "";
-			},
-			debounceLogicHandleSearchInputValue = debounce(logicHandleSearchInputValue, 200);
-			debounceLogicHandleSearchInputValue();
-		};
-		searchInput[aEL]("input", handleSearchInputValue);
+	handleSearchInputValue = function () {
+		var _this = this;
+		var logicHandleSearchInputValue = function () {
+			_this.value = _this.value.replace(/\\/g, "").replace(/ +(?= )/g, " ").replace(/\/+(?=\/)/g, "/") || "";
+		},
+		debounceLogicHandleSearchInputValue = debounce(logicHandleSearchInputValue, 200);
+		debounceLogicHandleSearchInputValue();
 	};
 	if (searchInput) {
 		/* console.log("triggered function: manageSearchInput"); */
-		addHandler();
+		searchInput.focus();
+		searchInput[aEL]("input", handleSearchInputValue);
 	}
 };
 document.ready().then(manageSearchInput);
@@ -1475,7 +1451,7 @@ var initKamilAutocomplete = function (jsonObj) {
 	container = d[gEBI]("container") || "",
 	typoAutcompleteListSelector = "kamil-typo-autocomplete",
 	typoAutcompleteListClass = "kamil-autocomplete",
-	arrange = function (jsonObj) {
+	initScript = function () {
 		var ac;
 		try {
 			if (!jsonObj[0].hasOwnProperty("title")) {
@@ -1577,10 +1553,10 @@ var initKamilAutocomplete = function (jsonObj) {
 			 */
 			var lis = ul ? ul[gEBTN]("li") || "" : "",
 			truncateKamilText = function (e) {
-				var t = e.firstChild.textContent || "",
-				n = d[cTN](truncString(t, 24));
-				e.replaceChild(n, e.firstChild);
-				/* e.title = "" + t; */
+				var truncText = e.firstChild.textContent || "",
+				truncTextObj = d[cTN](truncString(truncText, 24));
+				e.replaceChild(truncTextObj, e.firstChild);
+				/* e.title = "" + truncText; */
 			};
 			if (lis) {
 				for (var j = 0, m = lis.length; j < m; j += 1) {
@@ -1630,9 +1606,6 @@ var initKamilAutocomplete = function (jsonObj) {
 				handleKamilItem();
 			}
 		});
-	},
-	initScript = function () {
-		arrange(jsonObj);
 	};
 	if (searchForm && textInput) {
 		/* console.log("triggered function: initKamilAutocomplete"); */
@@ -1854,52 +1827,6 @@ var manageLocationQrCodeImage = function () {
 	isActiveClass = "is-active",
 	isSocialClass = "is-social",
 	locationHref = w.location.href || "",
-	generateLocationQrCodeImg = function () {
-		var locationHref = w.location.href || "",
-		newImg = d[cE]("img"),
-		newTitle = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
-		newSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
-		newImg.alt = newTitle;
-		var initScript = function () {
-			if (w.QRCode) {
-				if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
-					newSrc = QRCode.generateSVG(locationHref, {
-							ecclevel: "M",
-							fillcolor: "#FFFFFF",
-							textcolor: "#191919",
-							margin: 4,
-							modulesize: 8
-						});
-					var XMLS = new XMLSerializer();
-					newSrc = XMLS.serializeToString(newSrc);
-					newSrc = "data:image/svg+xml;base64," + w.btoa(unescape(encodeURIComponent(newSrc)));
-					newImg.src = newSrc;
-				} else {
-					newSrc = QRCode.generatePNG(locationHref, {
-							ecclevel: "M",
-							format: "html",
-							fillcolor: "#FFFFFF",
-							textcolor: "#191919",
-							margin: 4,
-							modulesize: 8
-						});
-					newImg.src = newSrc;
-				}
-			} else {
-				newImg.src = newSrc;
-			}
-			newImg[cL].add("qr-code-img");
-			newImg.title = newTitle;
-			removeChildren(holder);
-			appendFragment(newImg, holder);
-		},
-		jsUrl = "./cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
-		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl, initScript);
-		} else {
-			initScript();
-		}
-	},
 	handleLocationQrCodeButton = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
@@ -1907,7 +1834,50 @@ var manageLocationQrCodeImage = function () {
 			holder[cL].toggle(isActiveClass);
 			holder[cL].add(isSocialClass);
 			handleOtherSocialButtons(holder);
-			generateLocationQrCodeImg();
+			var locationHref = w.location.href || "",
+			newImg = d[cE]("img"),
+			newTitle = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
+			newSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
+			newImg.alt = newTitle;
+			var initScript = function () {
+				if (w.QRCode) {
+					if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
+						newSrc = QRCode.generateSVG(locationHref, {
+								ecclevel: "M",
+								fillcolor: "#FFFFFF",
+								textcolor: "#191919",
+								margin: 4,
+								modulesize: 8
+							});
+						var XMLS = new XMLSerializer();
+						newSrc = XMLS.serializeToString(newSrc);
+						newSrc = "data:image/svg+xml;base64," + w.btoa(unescape(encodeURIComponent(newSrc)));
+						newImg.src = newSrc;
+					} else {
+						newSrc = QRCode.generatePNG(locationHref, {
+								ecclevel: "M",
+								format: "html",
+								fillcolor: "#FFFFFF",
+								textcolor: "#191919",
+								margin: 4,
+								modulesize: 8
+							});
+						newImg.src = newSrc;
+					}
+				} else {
+					newImg.src = newSrc;
+				}
+				newImg[cL].add("qr-code-img");
+				newImg.title = newTitle;
+				removeChildren(holder);
+				appendFragment(newImg, holder);
+			},
+			jsUrl = "./cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
+			if (!scriptIsLoaded(jsUrl)) {
+				loadJS(jsUrl, initScript);
+			} else {
+				initScript();
+			}
 		},
 		debounceLogicHandleLocationQrCodeButton = debounce(logicHandleLocationQrCodeButton, 200);
 		debounceLogicHandleLocationQrCodeButton();
@@ -2067,39 +2037,39 @@ var manageDebugGridButton = function () {
 	debugClass = "debug",
 	cookieKey = "_manageDebugGridButton_",
 	cookieDatum = "ok",
-	handleDebugGridContainer = function () {
-		if (container) {
-			container[cL].remove(debugClass);
-			container[rEL]("click", handleDebugGridContainer);
-		}
-	},
-	showDebugGridMessage = function () {
-		var col = d[gEBCN]("col")[0] || "",
-		elements = [b, page, container, col],
-		debugMessage = [],
-		renderElementsInfo = function (e) {
-			if (e) {
-				debugMessage.push((e.className ? "." + e.className : e.id ? "#" + e.id : e.tagName), " ", w.getComputedStyle(e).getPropertyValue("font-size"), " ", w.getComputedStyle(e).getPropertyValue("line-height"), " ", e.offsetWidth, "x", e.offsetHeight, " \u003e ");
-			}
-		};
-		for (var i = 0, l = elements.length; i < l; i += 1) {
-			renderElementsInfo(elements[i]);
-		}
-		/* forEach(elements, renderElementsInfo, false); */
-		debugMessage = debugMessage.join("");
-		debugMessage = debugMessage.slice(0, debugMessage.lastIndexOf(" \u003e "));
-		notiBar({
-			"message": debugMessage,
-			"timeout": 5000,
-			"key": cookieKey,
-			"datum": cookieDatum,
-			"days": 0
-		});
-	},
 	handleDebugGridButton = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
 		container[cL].toggle(debugClass);
+		var showDebugGridMessage = function () {
+			var col = d[gEBCN]("col")[0] || "",
+			elements = [b, page, container, col],
+			debugMessage = [],
+			renderElementsInfo = function (e) {
+				if (e) {
+					debugMessage.push((e.className ? "." + e.className : e.id ? "#" + e.id : e.tagName), " ", w.getComputedStyle(e).getPropertyValue("font-size"), " ", w.getComputedStyle(e).getPropertyValue("line-height"), " ", e.offsetWidth, "x", e.offsetHeight, " \u003e ");
+				}
+			};
+			for (var i = 0, l = elements.length; i < l; i += 1) {
+				renderElementsInfo(elements[i]);
+			}
+			/* forEach(elements, renderElementsInfo, false); */
+			debugMessage = debugMessage.join("");
+			debugMessage = debugMessage.slice(0, debugMessage.lastIndexOf(" \u003e "));
+			notiBar({
+				"message": debugMessage,
+				"timeout": 5000,
+				"key": cookieKey,
+				"datum": cookieDatum,
+				"days": 0
+			});
+		},
+		handleDebugGridContainer = function () {
+			if (container) {
+				container[cL].remove(debugClass);
+				container[rEL]("click", handleDebugGridContainer);
+			}
+		};
 		if (container[cL].contains(debugClass)) {
 			container[aEL]("click", handleDebugGridContainer);
 			showDebugGridMessage();
@@ -2555,50 +2525,47 @@ var initUiTotop = function () {
 	btnClass = "ui-totop",
 	btnTitle = "Наверх",
 	isActiveClass = "is-active",
-	arrange = function () {
-		var handleUiTotopAnchor = function (ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			scroll2Top(0, 20000);
-		},
-		insertUpSvg = function (targetObj) {
-			var svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
-			use = d[cENS]("http://www.w3.org/2000/svg", "use");
-			svg[cL].add("ui-icon");
-			use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
-			svg[aC](use);
-			targetObj[aC](svg);
-		},
-		handleUiTotopWindow = function (_this) {
-			var logicHandleUiTotopWindow = function () {
-				var btn = d[gEBCN](btnClass)[0] || "",
-				scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
-				windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
-				if (scrollPosition && windowHeight && btn) {
-					if (scrollPosition > windowHeight) {
-						btn[cL].add(isActiveClass);
-					} else {
-						btn[cL].remove(isActiveClass);
-					}
+	anchor = d[cE]("a"),
+	insertUpSvg = function (targetObj) {
+		var svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
+		use = d[cENS]("http://www.w3.org/2000/svg", "use");
+		svg[cL].add("ui-icon");
+		use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
+		svg[aC](use);
+		targetObj[aC](svg);
+	},
+	handleUiTotopAnchor = function (ev) {
+		ev.stopPropagation();
+		ev.preventDefault();
+		scroll2Top(0, 20000);
+	},
+	handleUiTotopWindow = function (_this) {
+		var logicHandleUiTotopWindow = function () {
+			var btn = d[gEBCN](btnClass)[0] || "",
+			scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
+			windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
+			if (scrollPosition && windowHeight && btn) {
+				if (scrollPosition > windowHeight) {
+					btn[cL].add(isActiveClass);
+				} else {
+					btn[cL].remove(isActiveClass);
 				}
-			},
-			throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
-			throttleLogicHandleUiTotopWindow();
+			}
 		},
-		anchor = d[cE]("a");
-		anchor[cL].add(btnClass);
-		/*jshint -W107 */
-		anchor.href = "javascript:void(0);";
-		/*jshint +W107 */
-		anchor.title = btnTitle;
-		anchor[aEL]("click", handleUiTotopAnchor);
-		insertUpSvg(anchor);
-		b[aC](anchor);
-		w[aEL]("scroll", handleUiTotopWindow);
+		throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
+		throttleLogicHandleUiTotopWindow();
 	};
+	anchor[cL].add(btnClass);
+	/*jshint -W107 */
+	anchor.href = "javascript:void(0);";
+	/*jshint +W107 */
+	anchor.title = btnTitle;
+	insertUpSvg(anchor);
+	b[aC](anchor);
 	if (b) {
 		/* console.log("triggered function: initUiTotop"); */
-		arrange();
+		anchor[aEL]("click", handleUiTotopAnchor);
+		w[aEL]("scroll", handleUiTotopWindow);
 	}
 };
 document.ready().then(initUiTotop);
@@ -2607,12 +2574,11 @@ document.ready().then(initUiTotop);
  */
 var initManUp = function () {
 	"use strict";
-	var initScript = function () {};
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
 		/* console.log("triggered function: initManUp"); */
 		var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl, initScript);
+			loadJS(jsUrl);
 		}
 	}
 };

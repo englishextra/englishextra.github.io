@@ -837,30 +837,27 @@ var handleExternalLink = function (url, ev) {
 	    aEL = "addEventListener",
 	    gA = "getAttribute",
 	    isBindedClass = "is-binded",
-	    arrangeAll = function () {
-		var arrange = function (e) {
-			if (!e[cL].contains(isBindedClass)) {
-				var url = e[gA]("href") || "";
-				if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-					e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
-					if ("undefined" !== typeof getHTTP && getHTTP()) {
-						e.target = "_blank";
-						e.rel = "noopener";
-					} else {
-						e[aEL]("click", handleExternalLink.bind(null, url));
-					}
-					e[cL].add(isBindedClass);
+	    arrange = function (e) {
+		if (!e[cL].contains(isBindedClass)) {
+			var url = e[gA]("href") || "";
+			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+				e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					e.target = "_blank";
+					e.rel = "noopener";
+				} else {
+					e[aEL]("click", handleExternalLink.bind(null, url));
 				}
+				e[cL].add(isBindedClass);
 			}
-		};
+		}
+	};
+	if (link) {
+		/* console.log("triggered function: manageExternalLinkAll"); */
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrange(link[i]);
 		}
 		/* forEach(link, arrange, false); */
-	};
-	if (link) {
-		/* console.log("triggered function: manageExternalLinkAll"); */
-		arrangeAll();
 	}
 };
 document.ready().then(manageExternalLinkAll);
@@ -1198,47 +1195,44 @@ var yshare,
 	    btn = d[gEBCN]("btn-share-buttons")[0] || "",
 	    yaShare2Id = "ya-share2",
 	    yaShare2 = d[gEBI](yaShare2Id) || "",
-	    addHandler = function () {
-		var handleShareButton = function (ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			var initScript = function () {
-				if (w.Ya) {
-					try {
-						if (yshare) {
-							yshare.updateContent({
+	    handleShareButton = function (ev) {
+		ev.stopPropagation();
+		ev.preventDefault();
+		var initScript = function () {
+			if (w.Ya) {
+				try {
+					if (yshare) {
+						yshare.updateContent({
+							title: d.title || "",
+							description: d.title || "",
+							url: w.location.href || ""
+						});
+					} else {
+						yshare = Ya.share2(yaShare2Id, {
+							content: {
 								title: d.title || "",
 								description: d.title || "",
 								url: w.location.href || ""
-							});
-						} else {
-							yshare = Ya.share2(yaShare2Id, {
-								content: {
-									title: d.title || "",
-									description: d.title || "",
-									url: w.location.href || ""
-								}
-							});
-						}
-						setStyleVisibilityVisible(yaShare2);
-						setStyleOpacity(yaShare2, 1);
-						setStyleDisplayNone(btn);
-					} catch (err) {
-						/* console.log("cannot update or init Ya.share2", err); */
+							}
+						});
 					}
+					setStyleVisibilityVisible(yaShare2);
+					setStyleOpacity(yaShare2, 1);
+					setStyleDisplayNone(btn);
+				} catch (err) {
+					/* console.log("cannot update or init Ya.share2", err); */
 				}
-			},
-			    jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
-			if (!scriptIsLoaded(jsUrl)) {
-				loadJS(jsUrl, initScript);
 			}
-		};
-		btn[aEL]("click", handleShareButton);
+		},
+		    jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
+		if (!scriptIsLoaded(jsUrl)) {
+			loadJS(jsUrl, initScript);
+		}
 	};
 	if (btn && yaShare2) {
 		/* console.log("triggered function: manageShareButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			addHandler();
+			btn[aEL]("click", handleShareButton);
 		} else {
 			setStyleDisplayNone(btn);
 		}

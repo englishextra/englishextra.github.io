@@ -312,30 +312,27 @@ manageExternalLinkAll = function (ctx) {
 	aEL = "addEventListener",
 	gA = "getAttribute",
 	isBindedClass = "is-binded",
-	arrangeAll = function () {
-		var arrange = function (e) {
-			if (!e[cL].contains(isBindedClass)) {
-				var url = e[gA]("href") || "";
-				if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-					e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
-					if ("undefined" !== typeof getHTTP && getHTTP()) {
-						e.target = "_blank";
-						e.rel = "noopener";
-					} else {
-						e[aEL]("click", handleExternalLink.bind(null, url));
-					}
-					e[cL].add(isBindedClass);
+	arrange = function (e) {
+		if (!e[cL].contains(isBindedClass)) {
+			var url = e[gA]("href") || "";
+			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+				e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					e.target = "_blank";
+					e.rel = "noopener";
+				} else {
+					e[aEL]("click", handleExternalLink.bind(null, url));
 				}
+				e[cL].add(isBindedClass);
 			}
-		};
+		}
+	};
+	if (link) {
+		/* console.log("triggered function: manageExternalLinkAll"); */
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrange(link[i]);
 		}
 		/* forEach(link, arrange, false); */
-	};
-	if (link) {
-		/* console.log("triggered function: manageExternalLinkAll"); */
-		arrangeAll();
 	}
 };
 document.ready().then(manageExternalLinkAll);
@@ -354,18 +351,6 @@ var initDoSlide = function () {
 	dsContainer = d[gEBCN]("ds-container")[0] || "",
 	cdPrev = d[gEBCN]("cd-prev")[0] || "",
 	cdNext = d[gEBCN]("cd-next")[0] || "",
-	timer = function (slide, interval, token) {
-		var next = function () {
-			token = setTimeout(next, interval);
-			if (!(d.hidden || d.webkitHidden)) {
-				slide.next();
-			}
-		};
-		return function () {
-			clearTimeout(token);
-			token = setTimeout(next, interval);
-		};
-	},
 	initScript = function () {
 		if (w.DoSlide) {
 			var slide = new DoSlide(dsContainerSelector, {
@@ -373,6 +358,18 @@ var initDoSlide = function () {
 				horizontal : true,
 				infinite : true
 			}),
+			timer = function (slide, interval, token) {
+				var next = function () {
+					token = setTimeout(next, interval);
+					if (!(d.hidden || d.webkitHidden)) {
+						slide.next();
+					}
+				};
+				return function () {
+					clearTimeout(token);
+					token = setTimeout(next, interval);
+				};
+			},
 			slideTimer = timer(slide, 5000);
 			/*!
 			 * dont JSMin line below: Notepad++ will freeze
@@ -631,47 +628,44 @@ manageShareButton = function () {
 	btn = d[gEBCN]("btn-share-buttons")[0] || "",
 	yaShare2Id = "ya-share2",
 	yaShare2 =  d[gEBI](yaShare2Id) || "",
-	addHandler = function () {
-		var handleShareButton = function (ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			var initScript = function () {
-				if (w.Ya) {
-					try {
-						if (yshare) {
-							yshare.updateContent({
+	handleShareButton = function (ev) {
+		ev.stopPropagation();
+		ev.preventDefault();
+		var initScript = function () {
+			if (w.Ya) {
+				try {
+					if (yshare) {
+						yshare.updateContent({
+							title: d.title || "",
+							description: d.title || "",
+							url: w.location.href || ""
+						});
+					} else {
+						yshare = Ya.share2(yaShare2Id, {
+							content: {
 								title: d.title || "",
 								description: d.title || "",
 								url: w.location.href || ""
-							});
-						} else {
-							yshare = Ya.share2(yaShare2Id, {
-								content: {
-									title: d.title || "",
-									description: d.title || "",
-									url: w.location.href || ""
-								}
-							});
-						}
-						setStyleVisibilityVisible(yaShare2);
-						setStyleOpacity(yaShare2, 1);
-						setStyleDisplayNone(btn);
-					} catch (err) {
-						/* console.log("cannot update or init Ya.share2", err); */
+							}
+						});
 					}
+					setStyleVisibilityVisible(yaShare2);
+					setStyleOpacity(yaShare2, 1);
+					setStyleDisplayNone(btn);
+				} catch (err) {
+					/* console.log("cannot update or init Ya.share2", err); */
 				}
-			},
-			jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
-			if (!scriptIsLoaded(jsUrl)) {
-				loadJS(jsUrl, initScript);
 			}
-		};
-		btn[aEL]("click", handleShareButton);
+		},
+		jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
+		if (!scriptIsLoaded(jsUrl)) {
+			loadJS(jsUrl, initScript);
+		}
 	};
 	if (btn && yaShare2) {
 		/* console.log("triggered function: manageShareButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			addHandler();
+			btn[aEL]("click", handleShareButton);
 		} else {
 			setStyleDisplayNone(btn);
 		}
@@ -737,12 +731,11 @@ document.ready().then(manageVKLikeButton);
  */
 var initManUp = function () {
 	"use strict";
-	var initScript = function () {};
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
 		/* console.log("triggered function: initManUp"); */
 		var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl, initScript);
+			loadJS(jsUrl);
 		}
 	}
 };

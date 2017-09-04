@@ -465,30 +465,27 @@ manageExternalLinkAll = function (ctx) {
 	aEL = "addEventListener",
 	gA = "getAttribute",
 	isBindedClass = "is-binded",
-	arrangeAll = function () {
-		var arrange = function (e) {
-			if (!e[cL].contains(isBindedClass)) {
-				var url = e[gA]("href") || "";
-				if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-					e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
-					if ("undefined" !== typeof getHTTP && getHTTP()) {
-						e.target = "_blank";
-						e.rel = "noopener";
-					} else {
-						e[aEL]("click", handleExternalLink.bind(null, url));
-					}
-					e[cL].add(isBindedClass);
+	arrange = function (e) {
+		if (!e[cL].contains(isBindedClass)) {
+			var url = e[gA]("href") || "";
+			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+				e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					e.target = "_blank";
+					e.rel = "noopener";
+				} else {
+					e[aEL]("click", handleExternalLink.bind(null, url));
 				}
+				e[cL].add(isBindedClass);
 			}
-		};
+		}
+	};
+	if (link) {
+		/* console.log("triggered function: manageExternalLinkAll"); */
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrange(link[i]);
 		}
 		/* forEach(link, arrange, false); */
-	};
-	if (link) {
-		/* console.log("triggered function: manageExternalLinkAll"); */
-		arrangeAll();
 	}
 };
 document.ready().then(manageExternalLinkAll);
@@ -507,39 +504,36 @@ var handleDataSrcImageAll = function () {
 	img = d[gEBCN](imgClass) || "",
 	isActiveClass = "is-active",
 	isBindedClass = "is-binded",
-	arrangeAll = function () {
-		var arrange = function (e) {
-			/*!
-			 * true if elem is in same y-axis as the viewport or within 100px of it
-			 * @see {@link https://github.com/ryanve/verge}
-			 */
-			if (verge.inY(e, 100) /*  && 0 !== e.offsetHeight */) {
-				if (!e[cL].contains(isBindedClass)) {
-					var srcString = e[ds].src || "";
-					if (srcString) {
-						if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
-							e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
-							srcString = e[ds].src;
-						}
-						imagePromise(srcString).then(function (r) {
-							e.src = srcString;
-						}).catch (function (err) {
-							console.log("cannot load image with imagePromise:", srcString);
-						});
-						e[cL].add(isActiveClass);
-						e[cL].add(isBindedClass);
+	arrange = function (e) {
+		/*!
+		 * true if elem is in same y-axis as the viewport or within 100px of it
+		 * @see {@link https://github.com/ryanve/verge}
+		 */
+		if (verge.inY(e, 100) /*  && 0 !== e.offsetHeight */) {
+			if (!e[cL].contains(isBindedClass)) {
+				var srcString = e[ds].src || "";
+				if (srcString) {
+					if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
+						e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
+						srcString = e[ds].src;
 					}
+					imagePromise(srcString).then(function (r) {
+						e.src = srcString;
+					}).catch (function (err) {
+						console.log("cannot load image with imagePromise:", srcString);
+					});
+					e[cL].add(isActiveClass);
+					e[cL].add(isBindedClass);
 				}
 			}
-		};
+		}
+	};
+	if (img) {
+		/* console.log("triggered function: manageDataSrcImageAll"); */
 		for (var i = 0, l = img.length; i < l; i += 1) {
 			arrange(img[i]);
 		}
 		/* forEach(img, arrange, false); */
-	};
-	if (img) {
-		/* console.log("triggered function: manageDataSrcImageAll"); */
-		arrangeAll();
 	}
 },
 handleDataSrcImageAllWindow = function () {
@@ -777,21 +771,18 @@ var manageSearchInput = function () {
 	gEBI = "getElementById",
 	aEL = "addEventListener",
 	searchInput = d[gEBI]("text") || "",
-	addHandler = function () {
-		searchInput.focus();
-		var handleSearchInputValue = function () {
-			var _this = this;
-			var logicHandleSearchInputValue = function () {
-				_this.value = _this.value.replace(/\\/g, "").replace(/ +(?= )/g, " ").replace(/\/+(?=\/)/g, "/") || "";
-			},
-			debounceLogicHandleSearchInputValue = debounce(logicHandleSearchInputValue, 200);
-			debounceLogicHandleSearchInputValue();
-		};
-		searchInput[aEL]("input", handleSearchInputValue);
+	handleSearchInputValue = function () {
+		var _this = this;
+		var logicHandleSearchInputValue = function () {
+			_this.value = _this.value.replace(/\\/g, "").replace(/ +(?= )/g, " ").replace(/\/+(?=\/)/g, "/") || "";
+		},
+		debounceLogicHandleSearchInputValue = debounce(logicHandleSearchInputValue, 200);
+		debounceLogicHandleSearchInputValue();
 	};
 	if (searchInput) {
 		/* console.log("triggered function: manageSearchInput"); */
-		addHandler();
+		searchInput.focus();
+		searchInput[aEL]("input", handleSearchInputValue);
 	}
 };
 document.ready().then(manageSearchInput);
@@ -1124,50 +1115,47 @@ var initUiTotop = function () {
 	btnClass = "ui-totop",
 	btnTitle = "Наверх",
 	isActiveClass = "is-active",
-	arrange = function () {
-		var handleUiTotopWindow = function (_this) {
-			var logicHandleUiTotopWindow = function () {
-				var btn = d[gEBCN](btnClass)[0] || "",
-				scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
-				windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
-				if (scrollPosition && windowHeight && btn) {
-					if (scrollPosition > windowHeight) {
-						btn[cL].add(isActiveClass);
-					} else {
-						btn[cL].remove(isActiveClass);
-					}
+	anchor = d[cE]("a"),
+	/* insertUpSvg = function (targetObj) {
+		var svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
+		use = d[cENS]("http://www.w3.org/2000/svg", "use");
+		svg[cL].add("ui-icon");
+		use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
+		svg[aC](use);
+		targetObj[aC](svg);
+	}, */
+	handleUiTotopAnchor = function (ev) {
+		ev.stopPropagation();
+		ev.preventDefault();
+		scroll2Top(0, 20000);
+	},
+	handleUiTotopWindow = function (_this) {
+		var logicHandleUiTotopWindow = function () {
+			var btn = d[gEBCN](btnClass)[0] || "",
+			scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
+			windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
+			if (scrollPosition && windowHeight && btn) {
+				if (scrollPosition > windowHeight) {
+					btn[cL].add(isActiveClass);
+				} else {
+					btn[cL].remove(isActiveClass);
 				}
-			},
-			throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
-			throttleLogicHandleUiTotopWindow();
+			}
 		},
-		handleUiTotopAnchor = function (ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			scroll2Top(0, 20000);
-		},
-		/* insertUpSvg = function (targetObj) {
-			var svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
-			use = d[cENS]("http://www.w3.org/2000/svg", "use");
-			svg[cL].add("ui-icon");
-			use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
-			svg[aC](use);
-			targetObj[aC](svg);
-		}, */
-		anchor = d[cE]("a");
-		anchor[cL].add(btnClass);
-		/*jshint -W107 */
-		anchor.href = "javascript:void(0);";
-		/*jshint +W107 */
-		anchor.title = btnTitle;
-		anchor[aEL]("click", handleUiTotopAnchor);
-		/* insertUpSvg(anchor); */
-		b[aC](anchor);
-		w[aEL]("scroll", handleUiTotopWindow);
+		throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
+		throttleLogicHandleUiTotopWindow();
 	};
+	anchor[cL].add(btnClass);
+	/*jshint -W107 */
+	anchor.href = "javascript:void(0);";
+	/*jshint +W107 */
+	anchor.title = btnTitle;
+	/* insertUpSvg(anchor); */
+	b[aC](anchor);
 	if (b) {
 		/* console.log("triggered function: initUiTotop"); */
-		arrange();
+		anchor[aEL]("click", handleUiTotopAnchor);
+		w[aEL]("scroll", handleUiTotopWindow);
 	}
 };
 document.ready().then(initUiTotop);
@@ -1190,47 +1178,44 @@ manageShareButton = function () {
 	btn = d[gEBCN]("btn-share-buttons")[0] || "",
 	yaShare2Id = "ya-share2",
 	yaShare2 =  d[gEBI](yaShare2Id) || "",
-	addHandler = function () {
-		var handleShareButton = function (ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			var initScript = function () {
-				if (w.Ya) {
-					try {
-						if (yshare) {
-							yshare.updateContent({
+	handleShareButton = function (ev) {
+		ev.stopPropagation();
+		ev.preventDefault();
+		var initScript = function () {
+			if (w.Ya) {
+				try {
+					if (yshare) {
+						yshare.updateContent({
+							title: d.title || "",
+							description: d.title || "",
+							url: w.location.href || ""
+						});
+					} else {
+						yshare = Ya.share2(yaShare2Id, {
+							content: {
 								title: d.title || "",
 								description: d.title || "",
 								url: w.location.href || ""
-							});
-						} else {
-							yshare = Ya.share2(yaShare2Id, {
-								content: {
-									title: d.title || "",
-									description: d.title || "",
-									url: w.location.href || ""
-								}
-							});
-						}
-						setStyleVisibilityVisible(yaShare2);
-						setStyleOpacity(yaShare2, 1);
-						setStyleDisplayNone(btn);
-					} catch (err) {
-						/* console.log("cannot update or init Ya.share2", err); */
+							}
+						});
 					}
+					setStyleVisibilityVisible(yaShare2);
+					setStyleOpacity(yaShare2, 1);
+					setStyleDisplayNone(btn);
+				} catch (err) {
+					/* console.log("cannot update or init Ya.share2", err); */
 				}
-			},
-			jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
-			if (!scriptIsLoaded(jsUrl)) {
-				loadJS(jsUrl, initScript);
 			}
-		};
-		btn[aEL]("click", handleShareButton);
+		},
+		jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
+		if (!scriptIsLoaded(jsUrl)) {
+			loadJS(jsUrl, initScript);
+		}
 	};
 	if (btn && yaShare2) {
 		/* console.log("triggered function: manageShareButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			addHandler();
+			btn[aEL]("click", handleShareButton);
 		} else {
 			setStyleDisplayNone(btn);
 		}
@@ -1397,17 +1382,17 @@ var initKamilAutocomplete = function () {
 			 * truncate text
 			 */
 			var lis = ul ? ul[gEBTN]("li") || "" : "",
-			truncateText = function (e) {
-				var t = e.firstChild.textContent || "",
-				n = d.createTextNode(truncString(t, 24));
-				e.replaceChild(n, e.firstChild);
-				e.title = "" + t;
+			truncateKamilText = function (e) {
+				var truncText = e.firstChild.textContent || "",
+				truncTextObj = d[cTN](truncString(truncText, 24));
+				e.replaceChild(truncTextObj, e.firstChild);
+				e.title = "" + truncText;
 			};
 			if (lis) {
 				for (var j = 0, m = lis.length; j < m; j += 1) {
-					truncateText(lis[j]);
+					truncateKamilText(lis[j]);
 				}
-				/* forEach(lis, truncateText, false); */
+				/* forEach(lis, truncateKamilText, false); */
 			}
 		};
 		/*!
@@ -1469,12 +1454,11 @@ document.ready().then(initKamilAutocomplete);
  */
 var initManUp = function () {
 	"use strict";
-	var initScript = function () {};
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
 		/* console.log("triggered function: initManUp"); */
 		var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl, initScript);
+			loadJS(jsUrl);
 		}
 	}
 };

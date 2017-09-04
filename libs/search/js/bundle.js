@@ -758,30 +758,27 @@ var handleExternalLink = function (url, ev) {
 	    aEL = "addEventListener",
 	    gA = "getAttribute",
 	    isBindedClass = "is-binded",
-	    arrangeAll = function () {
-		var arrange = function (e) {
-			if (!e[cL].contains(isBindedClass)) {
-				var url = e[gA]("href") || "";
-				if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-					e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
-					if ("undefined" !== typeof getHTTP && getHTTP()) {
-						e.target = "_blank";
-						e.rel = "noopener";
-					} else {
-						e[aEL]("click", handleExternalLink.bind(null, url));
-					}
-					e[cL].add(isBindedClass);
+	    arrange = function (e) {
+		if (!e[cL].contains(isBindedClass)) {
+			var url = e[gA]("href") || "";
+			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+				e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					e.target = "_blank";
+					e.rel = "noopener";
+				} else {
+					e[aEL]("click", handleExternalLink.bind(null, url));
 				}
+				e[cL].add(isBindedClass);
 			}
-		};
+		}
+	};
+	if (link) {
+		/* console.log("triggered function: manageExternalLinkAll"); */
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrange(link[i]);
 		}
 		/* forEach(link, arrange, false); */
-	};
-	if (link) {
-		/* console.log("triggered function: manageExternalLinkAll"); */
-		arrangeAll();
 	}
 };
 document.ready().then(manageExternalLinkAll);
@@ -890,21 +887,18 @@ var manageSearchInput = function () {
 	    gEBI = "getElementById",
 	    aEL = "addEventListener",
 	    searchInput = d[gEBI]("text") || "",
-	    addHandler = function () {
-		searchInput.focus();
-		var handleSearchInputValue = function () {
-			var _this = this;
-			var logicHandleSearchInputValue = function () {
-				_this.value = _this.value.replace(/\\/g, "").replace(/ +(?= )/g, " ").replace(/\/+(?=\/)/g, "/") || "";
-			},
-			    debounceLogicHandleSearchInputValue = debounce(logicHandleSearchInputValue, 200);
-			debounceLogicHandleSearchInputValue();
-		};
-		searchInput[aEL]("input", handleSearchInputValue);
+	    handleSearchInputValue = function () {
+		var _this = this;
+		var logicHandleSearchInputValue = function () {
+			_this.value = _this.value.replace(/\\/g, "").replace(/ +(?= )/g, " ").replace(/\/+(?=\/)/g, "/") || "";
+		},
+		    debounceLogicHandleSearchInputValue = debounce(logicHandleSearchInputValue, 200);
+		debounceLogicHandleSearchInputValue();
 	};
 	if (searchInput) {
 		/* console.log("triggered function: manageSearchInput"); */
-		addHandler();
+		searchInput.focus();
+		searchInput[aEL]("input", handleSearchInputValue);
 	}
 };
 document.ready().then(manageSearchInput);
@@ -1054,51 +1048,48 @@ var initUiTotop = function () {
 	    btnClass = "ui-totop",
 	    btnTitle = "Наверх",
 	    isActiveClass = "is-active",
-	    arrange = function () {
-		var handleUiTotopWindow = function (_this) {
-			var logicHandleUiTotopWindow = function () {
-				var btn = d[gEBCN](btnClass)[0] || "",
-				    scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
-				    windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
-				if (scrollPosition && windowHeight && btn) {
-					if (scrollPosition > windowHeight) {
-						btn[cL].add(isActiveClass);
-					} else {
-						btn[cL].remove(isActiveClass);
-					}
-				}
-			},
-			    throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
-			throttleLogicHandleUiTotopWindow();
-		},
-		    handleUiTotopAnchor = function (ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			scroll2Top(0, 20000);
-		},
+	    anchor = d[cE]("a"),
 
-		/* insertUpSvg = function (targetObj) {
-  	var svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
-  	use = d[cENS]("http://www.w3.org/2000/svg", "use");
-  	svg[cL].add("ui-icon");
-  	use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
-  	svg[aC](use);
-  	targetObj[aC](svg);
-  }, */
-		anchor = d[cE]("a");
-		anchor[cL].add(btnClass);
-		/*jshint -W107 */
-		anchor.href = "javascript:void(0);";
-		/*jshint +W107 */
-		anchor.title = btnTitle;
-		anchor[aEL]("click", handleUiTotopAnchor);
-		/* insertUpSvg(anchor); */
-		b[aC](anchor);
-		w[aEL]("scroll", handleUiTotopWindow);
+	/* insertUpSvg = function (targetObj) {
+ 	var svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
+ 	use = d[cENS]("http://www.w3.org/2000/svg", "use");
+ 	svg[cL].add("ui-icon");
+ 	use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
+ 	svg[aC](use);
+ 	targetObj[aC](svg);
+ }, */
+	handleUiTotopAnchor = function (ev) {
+		ev.stopPropagation();
+		ev.preventDefault();
+		scroll2Top(0, 20000);
+	},
+	    handleUiTotopWindow = function (_this) {
+		var logicHandleUiTotopWindow = function () {
+			var btn = d[gEBCN](btnClass)[0] || "",
+			    scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
+			    windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
+			if (scrollPosition && windowHeight && btn) {
+				if (scrollPosition > windowHeight) {
+					btn[cL].add(isActiveClass);
+				} else {
+					btn[cL].remove(isActiveClass);
+				}
+			}
+		},
+		    throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
+		throttleLogicHandleUiTotopWindow();
 	};
+	anchor[cL].add(btnClass);
+	/*jshint -W107 */
+	anchor.href = "javascript:void(0);";
+	/*jshint +W107 */
+	anchor.title = btnTitle;
+	/* insertUpSvg(anchor); */
+	b[aC](anchor);
 	if (b) {
 		/* console.log("triggered function: initUiTotop"); */
-		arrange();
+		anchor[aEL]("click", handleUiTotopAnchor);
+		w[aEL]("scroll", handleUiTotopWindow);
 	}
 };
 document.ready().then(initUiTotop);

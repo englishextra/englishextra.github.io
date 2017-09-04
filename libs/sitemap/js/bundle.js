@@ -949,30 +949,27 @@ var handleExternalLink = function (url, ev) {
 	    aEL = "addEventListener",
 	    gA = "getAttribute",
 	    isBindedClass = "is-binded",
-	    arrangeAll = function () {
-		var arrange = function (e) {
-			if (!e[cL].contains(isBindedClass)) {
-				var url = e[gA]("href") || "";
-				if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-					e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
-					if ("undefined" !== typeof getHTTP && getHTTP()) {
-						e.target = "_blank";
-						e.rel = "noopener";
-					} else {
-						e[aEL]("click", handleExternalLink.bind(null, url));
-					}
-					e[cL].add(isBindedClass);
+	    arrange = function (e) {
+		if (!e[cL].contains(isBindedClass)) {
+			var url = e[gA]("href") || "";
+			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+				e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					e.target = "_blank";
+					e.rel = "noopener";
+				} else {
+					e[aEL]("click", handleExternalLink.bind(null, url));
 				}
+				e[cL].add(isBindedClass);
 			}
-		};
+		}
+	};
+	if (link) {
+		/* console.log("triggered function: manageExternalLinkAll"); */
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrange(link[i]);
 		}
 		/* forEach(link, arrange, false); */
-	};
-	if (link) {
-		/* console.log("triggered function: manageExternalLinkAll"); */
-		arrangeAll();
 	}
 };
 document.ready().then(manageExternalLinkAll);
@@ -992,39 +989,36 @@ var handleDataSrcImageAll = function () {
 	    img = d[gEBCN](imgClass) || "",
 	    isActiveClass = "is-active",
 	    isBindedClass = "is-binded",
-	    arrangeAll = function () {
-		var arrange = function (e) {
-			/*!
-    * true if elem is in same y-axis as the viewport or within 100px of it
-    * @see {@link https://github.com/ryanve/verge}
-    */
-			if (verge.inY(e, 100) /*  && 0 !== e.offsetHeight */) {
-					if (!e[cL].contains(isBindedClass)) {
-						var srcString = e[ds].src || "";
-						if (srcString) {
-							if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
-								e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
-								srcString = e[ds].src;
-							}
-							imagePromise(srcString).then(function (r) {
-								e.src = srcString;
-							}).catch(function (err) {
-								console.log("cannot load image with imagePromise:", srcString);
-							});
-							e[cL].add(isActiveClass);
-							e[cL].add(isBindedClass);
+	    arrange = function (e) {
+		/*!
+   * true if elem is in same y-axis as the viewport or within 100px of it
+   * @see {@link https://github.com/ryanve/verge}
+   */
+		if (verge.inY(e, 100) /*  && 0 !== e.offsetHeight */) {
+				if (!e[cL].contains(isBindedClass)) {
+					var srcString = e[ds].src || "";
+					if (srcString) {
+						if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
+							e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
+							srcString = e[ds].src;
 						}
+						imagePromise(srcString).then(function (r) {
+							e.src = srcString;
+						}).catch(function (err) {
+							console.log("cannot load image with imagePromise:", srcString);
+						});
+						e[cL].add(isActiveClass);
+						e[cL].add(isBindedClass);
 					}
 				}
-		};
+			}
+	};
+	if (img) {
+		/* console.log("triggered function: manageDataSrcImageAll"); */
 		for (var i = 0, l = img.length; i < l; i += 1) {
 			arrange(img[i]);
 		}
 		/* forEach(img, arrange, false); */
-	};
-	if (img) {
-		/* console.log("triggered function: manageDataSrcImageAll"); */
-		arrangeAll();
 	}
 },
     handleDataSrcImageAllWindow = function () {
@@ -1081,7 +1075,7 @@ var initMasonry = function () {
 	    iso,
 	    msnry,
 	    pckry,
-	    initGrid = function () {
+	    initScript = function () {
 		var imgLoad;
 		if (w.Masonry && w.Isotope) {
 			/* console.log("function initMasonry => initialised iso"); */
@@ -1220,9 +1214,6 @@ var initMasonry = function () {
 				}
 			}
 		}
-	},
-	    initScript = function () {
-		initGrid();
 		var timers = new Timers();
 		timers.timeout(function () {
 			timers.clear();
@@ -1271,51 +1262,48 @@ var initUiTotop = function () {
 	    btnClass = "ui-totop",
 	    btnTitle = "Наверх",
 	    isActiveClass = "is-active",
-	    arrange = function () {
-		var handleUiTotopWindow = function (_this) {
-			var logicHandleUiTotopWindow = function () {
-				var btn = d[gEBCN](btnClass)[0] || "",
-				    scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
-				    windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
-				if (scrollPosition && windowHeight && btn) {
-					if (scrollPosition > windowHeight) {
-						btn[cL].add(isActiveClass);
-					} else {
-						btn[cL].remove(isActiveClass);
-					}
-				}
-			},
-			    throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
-			throttleLogicHandleUiTotopWindow();
-		},
-		    handleUiTotopAnchor = function (ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			scroll2Top(0, 20000);
-		},
+	    anchor = d[cE]("a"),
 
-		/* insertUpSvg = function (targetObj) {
-  	var svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
-  	use = d[cENS]("http://www.w3.org/2000/svg", "use");
-  	svg[cL].add("ui-icon");
-  	use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
-  	svg[aC](use);
-  	targetObj[aC](svg);
-  }, */
-		anchor = d[cE]("a");
-		anchor[cL].add(btnClass);
-		/*jshint -W107 */
-		anchor.href = "javascript:void(0);";
-		/*jshint +W107 */
-		anchor.title = btnTitle;
-		anchor[aEL]("click", handleUiTotopAnchor);
-		/* insertUpSvg(anchor); */
-		b[aC](anchor);
-		w[aEL]("scroll", handleUiTotopWindow);
+	/* insertUpSvg = function (targetObj) {
+ 	var svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
+ 	use = d[cENS]("http://www.w3.org/2000/svg", "use");
+ 	svg[cL].add("ui-icon");
+ 	use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
+ 	svg[aC](use);
+ 	targetObj[aC](svg);
+ }, */
+	handleUiTotopAnchor = function (ev) {
+		ev.stopPropagation();
+		ev.preventDefault();
+		scroll2Top(0, 20000);
+	},
+	    handleUiTotopWindow = function (_this) {
+		var logicHandleUiTotopWindow = function () {
+			var btn = d[gEBCN](btnClass)[0] || "",
+			    scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
+			    windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
+			if (scrollPosition && windowHeight && btn) {
+				if (scrollPosition > windowHeight) {
+					btn[cL].add(isActiveClass);
+				} else {
+					btn[cL].remove(isActiveClass);
+				}
+			}
+		},
+		    throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
+		throttleLogicHandleUiTotopWindow();
 	};
+	anchor[cL].add(btnClass);
+	/*jshint -W107 */
+	anchor.href = "javascript:void(0);";
+	/*jshint +W107 */
+	anchor.title = btnTitle;
+	/* insertUpSvg(anchor); */
+	b[aC](anchor);
 	if (b) {
 		/* console.log("triggered function: initUiTotop"); */
-		arrange();
+		anchor[aEL]("click", handleUiTotopAnchor);
+		w[aEL]("scroll", handleUiTotopWindow);
 	}
 };
 document.ready().then(initUiTotop);
