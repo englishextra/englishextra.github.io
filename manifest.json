@@ -24,15 +24,15 @@
     "type": "image/png"
   },
   {
+    "src": "/android-chrome-192x192.png",
+    "sizes": "192x192",
+    "type": "image/png"
+  },
+  {
     "src": "/mstile-310x150.png",
     "sizes": "310x150",
     "type": "image/png",
     "density": 1.8
-  },
-  {
-    "src": "/android-chrome-192x192.png",
-    "sizes": "192x192",
-    "type": "image/png"
   },
   {
     "src": "/android-chrome-512x512.png",
