@@ -79,10 +79,6 @@ a {
 	left: 0;
 	opacity: 1;
 	background-color: $ButtonBackgroundDark;
-	/* background-image: url(../img/background-1920x1080.jpg);
-	background-position: center center;
-	background-repeat: no-repeat;
-	background-size: cover; */
 }
 
 .john-locke {
@@ -337,12 +333,23 @@ a {
 	top: 0;
 	right: 0;
 	background-color: $color-hex-englishextra-logo-bg;
-	opacity: 0.8;
+	opacity: 1;
 	overflow: hidden;
-	/* background-image: url(../img/background-1920x1080.jpg);
+	background-image: url(../img/background-1920x1080.jpg);
 	background-position: center center;
 	background-repeat: no-repeat;
-	background-size: cover; */
+	background-size: cover;
+}
+
+.monolith:before {
+	content: "";
+	width: 100%;
+	min-height: 100%;
+	position: absolute;
+	top: 0;
+	right: 0;
+	background-color: #F03B4C;
+	opacity: 0.8;
 }
 
 .hero {
