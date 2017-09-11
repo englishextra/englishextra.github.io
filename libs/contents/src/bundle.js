@@ -524,8 +524,8 @@ var handleDataSrcImageAll = function () {
 	}
 },
 handleDataSrcImageAllWindow = function () {
-	var throttlehandleDataSrcImageAll = throttle(handleDataSrcImageAll, 100);
-	throttlehandleDataSrcImageAll();
+	var throttleHandleDataSrcImageAll = throttle(handleDataSrcImageAll, 100);
+	throttleHandleDataSrcImageAll();
 },
 manageDataSrcImageAll = function () {
 	"use strict";
