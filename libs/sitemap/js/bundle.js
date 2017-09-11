@@ -694,57 +694,6 @@ if (document.title) {
 	};root.scriptIsLoaded = scriptIsLoaded;
 })(globalRoot);
 /*!
- * Load and execute JS via AJAX
- * @see {@link https://gist.github.com/englishextra/8dc9fe7b6ff8bdf5f9b483bf772b9e1c}
- * IE 5.5+, Firefox, Opera, Chrome, Safari XHR object
- * @see {@link https://gist.github.com/Xeoncross/7663273}
- * modified callback(x.responseText,x); to callback(eval(x.responseText),x);
- * @see {@link https://stackoverflow.com/questions/3728798/running-javascript-downloaded-with-xmlhttprequest}
- * @param {String} url path string
- * @param {Object} [callback] callback function
- * @param {Object} [onerror] on error callback function
- * loadTriggerJS(url,callback,onerror)
- */
-(function (root) {
-	"use strict";
-	var loadTriggerJS = function (url, callback, onerror) {
-		var cb = function (string) {
-			return callback && "function" === typeof callback && callback(string);
-		},
-		    fn = function (string) {
-			try {
-				var Fn = Function;new Fn("" + string).call(root);
-			} catch (err) {
-				throw new Error("Error evaluating file " + url, err);
-			}
-		};if (root.Promise && root.fetch && !root.chrome && !("undefined" !== typeof root && root.process && "renderer" === root.process.type)) {
-			fetch(url).then(function (response) {
-				if (!response.ok) {
-					if (onerror && "function" === typeof onerror) {
-						onerror();
-					} else {
-						throw new Error(response.statusText);
-					}
-				}return response;
-			}).then(function (response) {
-				return response.text();
-			}).then(function (text) {
-				fn(text);cb(text);
-			}).catch(function (err) {
-				console.log("Error fetch-ing file " + url, err);
-			});
-		} else {
-			var x = root.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");x.overrideMimeType("application/javascript;charset=utf-8");x.open("GET", url, !0);x.withCredentials = !1;x.onreadystatechange = function () {
-				if (x.status === "404" || x.status === 0) {
-					console.log("Error XMLHttpRequest-ing file " + url, x.status);return onerror && "function" === typeof onerror && onerror();
-				} else if (x.readyState === 4 && x.status === 200 && x.responseText) {
-					fn(x.responseText);cb(x.responseText);
-				}
-			};x.send(null);
-		}
-	};root.loadTriggerJS = loadTriggerJS;
-})(globalRoot);
-/*!
  * append node into other with fragment
  * @see {@link https://gist.github.com/englishextra/0ff3204d5fb285ef058d72f31e3af766}
  * @param {String|object} e an HTML Element to append

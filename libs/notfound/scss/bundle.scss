@@ -1,9 +1,11 @@
-/*! libs\notfound\scss\bundle.scss */
+/*! libs\index\scss\bundle.scss */
 
 @import "englishextra-ui-colors";
 @import "englishextra-ui-variables";
-@import "notfound-font-face";
+@import "font-face";
 @import "normalize";
-@import "notfound-parallax-content";
-@import "css-progress";
-@import "notfound-main";
+@import "location-qr-code";
+@import "vk-like-dark";
+@import "share-buttons-dark";
+@import "animate.partial";
+@import "main";

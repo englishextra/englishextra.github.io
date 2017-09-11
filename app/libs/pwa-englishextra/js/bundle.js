@@ -880,31 +880,14 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 	var loadUnparsedJSON = function (url, callback, onerror) {
 		var cb = function (string) {
 			return callback && "function" === typeof callback && callback(string);
-		};if (root.Promise && root.fetch && !root.chrome && !("undefined" !== typeof root && root.process && "renderer" === root.process.type)) {
-			fetch(url).then(function (response) {
-				if (!response.ok) {
-					if (onerror && "function" === typeof onerror) {
-						onerror();
-					} else {
-						throw new Error(response.statusText);
-					}
-				}return response;
-			}).then(function (response) {
-				return response.text();
-			}).then(function (text) {
-				cb(text);
-			}).catch(function (err) {
-				console.log("Error fetch-ing file " + url, err);
-			});
-		} else {
-			var x = root.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");x.overrideMimeType("application/json;charset=utf-8");x.open("GET", url, !0);x.withCredentials = !1;x.onreadystatechange = function () {
-				if (x.status === "404" || x.status === 0) {
-					console.log("Error XMLHttpRequest-ing file", x.status);return onerror && "function" === typeof onerror && onerror();
-				} else if (x.readyState === 4 && x.status === 200 && x.responseText) {
-					cb(x.responseText);
-				}
-			};x.send(null);
-		}
+		},
+		    x = root.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");x.overrideMimeType("application/json;charset=utf-8");x.open("GET", url, !0);x.withCredentials = !1;x.onreadystatechange = function () {
+			if (x.status === "404" || x.status === 0) {
+				console.log("Error XMLHttpRequest-ing file", x.status);return onerror && "function" === typeof onerror && onerror();
+			} else if (x.readyState === 4 && x.status === 200 && x.responseText) {
+				cb(x.responseText);
+			}
+		};x.send(null);
 	};root.loadUnparsedJSON = loadUnparsedJSON;
 })(globalRoot);
 /*!
@@ -930,48 +913,26 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 		    cCF = "createContextualFragment",
 		    cDF = "createDocumentFragment",
 		    container = d[gEBI](id.replace(/^#/, "")) || "",
-		    cb = function () {
-			return callback && "function" === typeof callback && callback();
-		},
-		    arrange = function (frag) {
-			try {
-				var clonedContainer = container[cN](!1);if (d[cR]) {
-					var rg = d[cR]();rg.selectNode(b);var df = rg[cCF](frag);clonedContainer[aC](df);return container[pN] ? container[pN][rC](clonedContainer, container) : container[iH] = frag, cb();
-				} else {
-					clonedContainer[iH] = frag;return container[pN] ? container[pN][rC](d[cDF][aC](clonedContainer), container) : container[iH] = frag, cb();
-				}
-			} catch (e) {
-				console.log(e);
-			}return !1;
-		},
-		    init = function () {
-			if (root.Promise && root.fetch && !root.chrome && !("undefined" !== typeof root && root.process && "renderer" === root.process.type)) {
-				fetch(url).then(function (response) {
-					if (!response.ok) {
-						if (onerror && "function" === typeof onerror) {
-							onerror();
+		    arrange = function () {
+			var x = root.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");x.overrideMimeType("text/html;charset=utf-8");x.open("GET", url, !0);x.withCredentials = !1;x.onreadystatechange = function () {
+				var cb = function () {
+					return callback && "function" === typeof callback && callback();
+				};if (x.status === "404" || x.status === 0) {
+					console.log("Error XMLHttpRequest-ing file", x.status);return onerror && "function" === typeof onerror && onerror();
+				} else if (x.readyState === 4 && x.status === 200 && x.responseText) {
+					var frag = x.responseText;try {
+						var clonedContainer = container[cN](!1);if (d[cR]) {
+							var rg = d[cR]();rg.selectNode(b);var df = rg[cCF](frag);clonedContainer[aC](df);return container[pN] ? container[pN][rC](clonedContainer, container) : container[iH] = frag, cb();
 						} else {
-							throw new Error(response.statusText);
+							clonedContainer[iH] = frag;return container[pN] ? container[pN][rC](d[cDF][aC](clonedContainer), container) : container[iH] = frag, cb();
 						}
-					}return response;
-				}).then(function (response) {
-					return response.text();
-				}).then(function (text) {
-					arrange(text);
-				}).catch(function (err) {
-					console.log("Error fetch-ing file " + url, err);
-				});
-			} else {
-				var x = root.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");x.overrideMimeType("text/html;charset=utf-8");x.open("GET", url, !0);x.withCredentials = !1;x.onreadystatechange = function () {
-					if (x.status === "404" || x.status === 0) {
-						console.log("Error XMLHttpRequest-ing file", x.status);return onerror && "function" === typeof onerror && onerror();
-					} else if (x.readyState === 4 && x.status === 200 && x.responseText) {
-						arrange(x.responseText);
-					}
-				};x.send(null);
-			}
+					} catch (e) {
+						console.log(e);
+					}return;
+				}
+			};x.send(null);
 		};if (container) {
-			init();
+			arrange();
 		}
 	};root.insertExternalHTML = insertExternalHTML;
 })(globalRoot);
