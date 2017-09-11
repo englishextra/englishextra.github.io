@@ -2260,9 +2260,14 @@ var initRouting = function () {
 					}
 					insertTextAsFragment(renderMasonry, contentsGridRender, function () {
 						if (contentsGridRenderParent) {
-							handleDataSrcImageAll();
 							initMasonry(contentsGridRenderParent);
 							manageExternalLinkAll(contentsGridRenderParent);
+							var timers = new Timers();
+							timers.timeout(function () {
+								timers.clear();
+								timers = null;
+								handleDataSrcImageAll();
+							}, 500);
 						}
 					});
 				} else {
