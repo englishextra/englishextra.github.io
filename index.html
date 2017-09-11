@@ -87,6 +87,10 @@
 				var d = document;
 				var gEBCN = "getElementsByClassName";
 				var cL = "classList";
+				var wrapper = d[gEBCN]("wrapper")[0] || "";
+				if (wrapper) {
+					wrapper.style.opacity = 1;
+				}
 				var ripple = d[gEBCN]("ripple")[0] || "";
 				var parent = ripple ? ripple.parentNode || "" : "";
 				var timer;
@@ -102,10 +106,6 @@
 						slot = null;
 						ripple[cL].add("bounceOutUp");
 						timer = setTimeout(removeRipple, 5000);
-						var wrapper = d[gEBCN]("wrapper")[0] || "";
-						if (wrapper) {
-							wrapper.style.opacity = 1;
-						}
 						var scene = d.getElementById("scene") || "";
 						var parallax;
 						if (scene && w.Parallax) {
