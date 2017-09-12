@@ -1713,6 +1713,7 @@ var manageVKLikeButton = function () {
 	gEBI = "getElementById",
 	gEBCN = "getElementsByClassName",
 	cL = "classList",
+	ds = "dataset",
 	aEL = "addEventListener",
 	btn = d[gEBCN]("btn-toggle-holder-vk-like")[0] || "",
 	page = d[gEBCN]("page")[0] || "",
@@ -1742,7 +1743,7 @@ var manageVKLikeButton = function () {
 		var initScript = function () {
 			if (w.VK) {
 				VK.init({
-					apiId: (VKLike.dataset.apiid || ""),
+					apiId: (VKLike[ds].apiid || ""),
 					nameTransportPath: "/xd_receiver.htm",
 					onlyWidgets: true
 				});

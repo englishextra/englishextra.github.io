@@ -2712,6 +2712,7 @@ var manageVKLikeButton = function () {
 	    gEBI = "getElementById",
 	    gEBCN = "getElementsByClassName",
 	    cL = "classList",
+	    ds = "dataset",
 	    aEL = "addEventListener",
 	    btn = d[gEBCN]("btn-toggle-holder-vk-like")[0] || "",
 	    holder = d[gEBCN]("holder-vk-like")[0] || "",
@@ -2730,7 +2731,7 @@ var manageVKLikeButton = function () {
 				if (w.VK) {
 					try {
 						VK.init({
-							apiId: vkLike.dataset.apiid || "",
+							apiId: vkLike[ds].apiid || "",
 							nameTransportPath: "/xd_receiver.htm",
 							onlyWidgets: true
 						});
