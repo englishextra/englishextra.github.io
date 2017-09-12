@@ -360,10 +360,9 @@ a {
 	text-transform: uppercase;
 	color: $TitleBarAndAppBarDark;
 	background-color: rgba(230, 230, 230, 0.8);
-	/* overflow: hidden;
-	-o-text-overflow: ellipsis;
+	overflow: hidden;
 	text-overflow: ellipsis;
-	white-space: nowrap; */
+	white-space: nowrap;
 	/* margin: 0;
 	margin-top: 2.400rem;
 	margin-left: 3.200rem; */
@@ -400,6 +399,26 @@ a {
 .intro a {
 	color: inherit;
 	text-decoration: none;
+}
+
+.qrcode {
+	display: none;
+	width: 6.400rem;
+	height: 6.400rem;
+	position: absolute;
+	/* top: 50%;
+	left: 50%;
+	margin: 0;
+	margin-right: -50%;
+	transform: translate(-50%, -50%); */
+	top: 1.333rem;
+	right: 1.333rem;
+}
+
+.qrcode img {
+	display: block;
+	width: 6.400rem;
+	height: 6.400rem;
 }
 
 .logo {
@@ -560,17 +579,123 @@ a {
 	text-decoration: none;
 }
 
+#vk_like {
+	height: 1.600rem;
+	position: absolute;
+	/* top: 50%;
+	left: 50%;
+	margin: 0;
+	margin-right: -50%;
+	transform: translate(-50%, -50%); */
+	top: 0;
+	left: 10.400rem;
+}
+
 /*!
  * @see {@link https://gist.github.com/englishextra/40b7c4ffde33bfb58aff259afe229d6a}
  */
 
+/*------------------------------------------
+  Foundation Media Queries
+   http://foundation.zurb.com/docs/media-queries.html
+--------------------------------------------*/
+
+/* Small screens - MOBILE */
+@media only screen {
+	html {
+		font-size: 10px;
+	}
+
+	.quote {
+		left: 15%;
+	}
+
+	.intro {
+		width: 100%;
+	}
+
+	.intro p {
+		font-size: 2.400rem;
+		line-height: 3.000rem;
+	}
+
+	.intro span {
+		font-size: 2.133rem;
+		line-height: 3.000rem;
+	}
+} /* Define mobile styles - Mobile First */
+
+@media only screen and (max-width: 40em) {
+	html {
+		font-size: 10px;
+	}
+} /* max-width 640px, mobile-only styles, use when QAing mobile issues */
+
+/* Medium screens - TABLET */
+@media only screen and (min-width: 40.063em) {
+	html {
+		font-size: 15px;
+	}
+
+	.intro p {
+		font-size: 3.333rem;
+		line-height: 4.000rem;
+	}
+
+	.intro span {
+		font-size: 3.067rem;
+		line-height: 4.000rem;
+	}
+} /* min-width 641px, medium screens */
+
+@media only screen and (min-width: 40.063em) and (max-width: 64em) {
+	html {
+		font-size: 15px;
+	}
+} /* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
+
+/* Large screens - DESKTOP */
+@media only screen and (min-width: 64.063em) {
+	html {
+		font-size: 15px;
+	}
+
+	.quote {
+		left: 20%;
+	}
+
+	.intro {
+		width: 50%;
+	}
+
+	.qrcode {
+		display: block;
+	}
+} /* min-width 1025px, large screens */
+
+@media only screen and (min-width: 64.063em) and (max-width: 90em) {
+	html {
+		font-size: 15px;
+	}
+} /* min-width 1024px and max-width 1440px, use when QAing large screen-only issues */
+
 /* XLarge screens */
-
-/* min-width 1441px, xlarge screens */
-
 @media only screen and (min-width: 90.063em) {
 	html {
 		font-size: 20px;
 	}
-}
+} /* min-width 1441px, xlarge screens */
+
+@media only screen and (min-width: 90.063em) and (max-width: 120em) {
+	html {
+		font-size: 20px;
+	}
+} /* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */
+
+/* XXLarge screens */
+@media only screen and (min-width: 120.063em) {
+	html {
+		font-size: 20px;
+	}
+} /* min-width 1921px, xlarge screens */
 

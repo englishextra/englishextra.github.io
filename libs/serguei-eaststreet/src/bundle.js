@@ -1744,7 +1744,7 @@ var manageVKLikeButton = function () {
 				VK.init({
 					apiId: (VKLike.dataset.apiid || ""),
 					nameTransportPath: "/xd_receiver.htm",
-					onlyWidgets: !0
+					onlyWidgets: true
 				});
 				VK.Widgets.Like(vk_like, {
 					type: "button",
