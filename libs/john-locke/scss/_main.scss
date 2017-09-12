@@ -560,3 +560,17 @@ a {
 	text-decoration: none;
 }
 
+/*!
+ * @see {@link https://gist.github.com/englishextra/40b7c4ffde33bfb58aff259afe229d6a}
+ */
+
+/* XLarge screens */
+
+/* min-width 1441px, xlarge screens */
+
+@media only screen and (min-width: 90.063em) {
+	html {
+		font-size: 20px;
+	}
+}
+

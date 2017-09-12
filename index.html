@@ -128,7 +128,7 @@
 					if ((/\.js$|\.js\?/).test(_this.files[i])) {
 						_this.js.push(_this.files[i]);
 					}
-					if ((/\.css$|\.css\?/).test(_this.files[i])) {
+					if ((/\.css$|\.css\?|\/css\?/).test(_this.files[i])) {
 						_this.loadStyle(_this.files[i]);
 					}
 				}
