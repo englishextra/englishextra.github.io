@@ -1936,17 +1936,16 @@ document.ready().then(initKamilAutocomplete);
 /*!
  * init manUP.js
  */
-var initManUp = function () {
+/* var initManUp = function () {
 	"use strict";
 	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		/* console.log("triggered function: initManUp"); */
 		var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl);
 		}
 	}
 };
-document.ready().then(initManUp);
+document.ready().then(initManUp); */
 /*!
  * show page, finish ToProgress
  */
