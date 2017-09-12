@@ -81,85 +81,45 @@ a {
 	background-color: $ButtonBackgroundDark;
 }
 
-.john-locke {
-	width: 33.333rem;
-	height: 43rem;
-	/* position: absolute;
-    top: 55%;
-    right: 15%;
-	margin: 0; */
-	/* background: blue; */
-	margin: 0;
+.hero {
+	width: 50%;
+	min-height: 100%;
 	position: absolute;
-	top: 50%;
-	left: 65%;
-	margin-right: -50%;
-	transform: translate(-50%, -50%);
+	top: 0;
+	left: 0;
+	opacity: 1;
+	overflow: hidden;
+	background-color: transparent;
+	background-image: url(../img/hero-1920x1080.jpg);
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
-.john-locke a {
-	color: inherit;
-	text-decoration: none;
-}
-
-.john-locke img {
-	display: block;
-	width: 33.333rem;
-	height: 43rem;
-}
-
-.phone {
-	width: 2.133em;
-	height: 4.267em;
-	/* position: absolute;
-    top: 55%;
-    right: 15%;
-	margin: 0; */
-	/* background: blue; */
-	margin: 0;
+.monolith {
+	width: 50%;
+	min-height: 100%;
 	position: absolute;
-	/* top: -10%;
-	right: 40%; */
-	top: 2.667rem;
-	left: 6.933rem;
+	top: 0;
+	right: 0;
+	background-color: $color-hex-englishextra-logo-bg;
+	opacity: 1;
+	overflow: hidden;
+	background-image: url(../img/background-1920x1080.jpg);
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
-.phone a {
-	color: inherit;
-	text-decoration: none;
-}
-
-.phone img {
-	display: block;
-	width: 2.133em;
-	height: 4.267em;
-}
-
-.ripple {
-	width: 16rem;
-	height: 16rem;
-	/* position: absolute;
-    top: 55%;
-    right: 15%;
-	margin: 0; */
-	/* background: blue; */
-	margin: 0;
+.monolith:before {
+	content: "";
+	width: 100%;
+	min-height: 100%;
 	position: absolute;
-	/* top: -10%;
-	right: 40%; */
-	top: -3.333rem;
-	left: 25%;
-}
-
-.ripple a {
-	color: inherit;
-	text-decoration: none;
-}
-
-.ripple img {
-	display: block;
-	width: 16rem;
-	height: 16rem;
+	top: 0;
+	right: 0;
+	background-color: #F03B4C;
+	opacity: 0.8;
 }
 
 .matreshka {
@@ -272,6 +232,60 @@ a {
 	height: 8.667rem;
 }
 
+.ripple {
+	width: 16rem;
+	height: 16rem;
+	/* position: absolute;
+    top: 55%;
+    right: 15%;
+	margin: 0; */
+	/* background: blue; */
+	margin: 0;
+	position: absolute;
+	/* top: -10%;
+	right: 40%; */
+	top: -3.333rem;
+	left: 25%;
+}
+
+.ripple a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.ripple img {
+	display: block;
+	width: 16rem;
+	height: 16rem;
+}
+
+.john-locke {
+	width: 33.333rem;
+	height: 43rem;
+	/* position: absolute;
+    top: 55%;
+    right: 15%;
+	margin: 0; */
+	/* background: blue; */
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 65%;
+	margin-right: -50%;
+	transform: translate(-50%, -50%);
+}
+
+.john-locke a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.john-locke img {
+	display: block;
+	width: 33.333rem;
+	height: 43rem;
+}
+
 .quote {
 	/* width: 29.333rem;
 	height: 5.267rem; */
@@ -324,47 +338,6 @@ a {
 .quote a {
 	color: inherit;
 	text-decoration: none;
-}
-
-.monolith {
-	width: 50%;
-	min-height: 100%;
-	position: absolute;
-	top: 0;
-	right: 0;
-	background-color: $color-hex-englishextra-logo-bg;
-	opacity: 1;
-	overflow: hidden;
-	background-image: url(../img/background-1920x1080.jpg);
-	background-position: center center;
-	background-repeat: no-repeat;
-	background-size: cover;
-}
-
-.monolith:before {
-	content: "";
-	width: 100%;
-	min-height: 100%;
-	position: absolute;
-	top: 0;
-	right: 0;
-	background-color: #F03B4C;
-	opacity: 0.8;
-}
-
-.hero {
-	width: 50%;
-	min-height: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
-	opacity: 1;
-	overflow: hidden;
-	background-color: transparent;
-	background-image: url(../img/hero-1920x1080.jpg);
-	background-position: center center;
-	background-repeat: no-repeat;
-	background-size: cover;
 }
 
 .intro {
@@ -471,6 +444,33 @@ a {
 	display: block;
 	width: 4.000rem;
 	height: 2.400rem;
+}
+
+.phone {
+	width: 2.133em;
+	height: 4.267em;
+	/* position: absolute;
+    top: 55%;
+    right: 15%;
+	margin: 0; */
+	/* background: blue; */
+	margin: 0;
+	position: absolute;
+	/* top: -10%;
+	right: 40%; */
+	top: 2.667rem;
+	left: 6.933rem;
+}
+
+.phone a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.phone img {
+	display: block;
+	width: 2.133em;
+	height: 4.267em;
 }
 
 .vk {
