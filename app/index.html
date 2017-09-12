@@ -261,7 +261,7 @@
 		<template id="template_contents_grid">
 			<div class="masonry-grid-sizer"></div>
 			{{@hashes}}
-			<div class="masonry-grid-item"><a href="{{%_val.href}}"><div class="masonry-grid-item-image"><img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20640%20336%27%2F%3E" rel="lightbox" data-src="{{%_val.src}}" class="data-src-img" alt="Illustration / Иллюстрация"></div><div class="masonry-grid-item-content"><h2>{{=_val.title}}</h2><p>{{=_val.text}}</p></div></a></div>
+			<div class="masonry-grid-item"><a href="{{%_val.href}}"><div class="masonry-grid-item-image"><img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20640%20336%27%2F%3E" data-src="{{%_val.src}}" class="data-src-img" alt="Illustration / Иллюстрация"></div><div class="masonry-grid-item-content"><h2>{{=_val.title}}</h2><p>{{=_val.text}}</p></div></a></div>
 			{{/@hashes}}
 		</template>
 		<template id="template_aside">
