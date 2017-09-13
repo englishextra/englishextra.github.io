@@ -78,8 +78,8 @@
 				<a href="./app/" rel="contents" title="Апп - Английский без регистрации"><img src="./libs/john-locke/img/logo-108x108.png" class="animated infinite pulse" alt="" /></a>
 			</div>
 			<div class="arrow animated duration-3s bounceInDown"><img src="./libs/john-locke/img/arrow-120x72.png" class="animated duration-5s swing" alt="" /></div>
-			<div class="download-app animated duration-3s bounceInRight"><a href="javascript:void(0);"><img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20144%2052%27%2F%3E" alt="" /></a></div>
-			<div class="qrcode animated duration-3s bounceInRight"></div>
+			<div class="download-app"><a href="javascript:void(0);"><img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20144%2052%27%2F%3E" alt="" /></a></div>
+			<div class="qrcode"></div>
 			<!-- <div class="vk-like" id="vk-like" data-apiid="4367728"></div> -->
 			<!-- <div class="ya-share2" data-direction="vertical" data-services="vkontakte,facebook,odnoklassniki,moimir"></div> -->
 		</div>
@@ -161,6 +161,8 @@
 						}
 						qrcodeImg.title = qrcodeImgTitle;
 						qrcode[aC](qrcodeImg);
+						qrcode.style.visibility = "visible";
+						qrcode.style.opacity = 1;
 					}
 					var downloadApp = document[gEBCN]("download-app")[0] || "";
 					var downloadAppLink = downloadApp ? downloadApp[gEBTN]("a")[0] || "" : "";
@@ -190,6 +192,8 @@
 							downloadAppLink.target = "_blank";
 							downloadAppLink.title = "Скачать приложение";
 							downloadAppImg.src = downloadAppImgSrc;
+							downloadApp.style.visibility = "visible";
+							downloadApp.style.opacity = 1;
 						}
 					}
 					if (vkLike && root.VK) {

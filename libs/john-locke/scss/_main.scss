@@ -396,6 +396,9 @@ a {
 
 .qrcode {
 	display: none;
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility 0s, opacity 0.2s ease;
 	width: 8.533rem;
 	height: 8.533rem;
 	position: absolute;
@@ -415,6 +418,9 @@ a {
 }
 
 .download-app {
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility 0s, opacity 0.2s ease;
 	width: 8.533rem;
 	height: 3.067rem;
 	position: absolute;
