@@ -26,14 +26,14 @@
 		<link rel="image_src" href="/image_src.jpg" type="image/jpeg" title="Английский без регистрации" />
 		<link rel="sitemap" href="/sitemap.xml" type="application/xml" />
 		<style>
-			body,a{color:transparent;}body{background-color:#2B2B2B;}img,svg{display:none;}
+			body,a{color:transparent;}body{background-color:#2B2B2B;}img,svg{display:none;}.wrapper{opacity:0;}
 		</style>
 		<script>
 			var imagesPreloaded=false;(function(m){m="[object Array]"===Object.prototype.toString.apply(m)?m:[m];var t=function(){return imagesPreloaded=true;},f=function(){return imagesPreloaded=false;},c=[];for(var i=0,l=m.length;i<l;i++){c[i]=new Image();c[i].onabort=f;c[i].onerror=f;c[i].onload=t;c[i].src=m[i];}}(["./libs/john-locke/img/arrow-120x72.png","./libs/john-locke/img/background-1920x1080.jpg","./libs/john-locke/img/dots-8x8.png","./libs/john-locke/img/hero-1920x1080.jpg","./libs/john-locke/img/john-locke-614x792.png","./libs/john-locke/img/logo-108x108.png","./libs/john-locke/img/matreshka-266x500.png","./libs/john-locke/img/notebook-384x554.png","./libs/john-locke/img/pen-202x2400.png","./libs/john-locke/img/phone-256x512.png","./libs/john-locke/img/ripple-200x200.svg","./libs/john-locke/img/signature-600x244.png","./libs/john-locke/img/tutor-192x192.png","./libs/john-locke/img/vk-192x192.png"]));
 		</script>
 	</head>
 	<body>
-		<div id="container" class="wrapper background">
+		<div id="container" class="wrapper">
 			<div class="hero animated duration-3s bounceInLeft"></div>
 			<div class="monolith animated duration-3s bounceInRight"></div>
 			<div id="scene" class="scene" data-friction-x="0.1" data-friction-y="0.1" data-scalar-x="25" data-scalar-y="15">
@@ -79,7 +79,7 @@
 			</div>
 			<div class="arrow animated duration-3s bounceInDown"><img src="./libs/john-locke/img/arrow-120x72.png" class="animated duration-5s swing" alt="" /></div>
 			<div class="qrcode animated duration-3s bounceInRight"></div>
-			<div id="vk_like"></div>
+			<div class="vk-like" id="vk-like" data-apiid="4367728"></div>
 			<div class="ya-share2" data-direction="vertical" data-services="vkontakte,facebook,odnoklassniki,moimir"></div>
 		</div>
 		<script>
@@ -89,50 +89,52 @@
 				var aEL = "addEventListener";
 				var gEBI = "getElementById";
 				var gEBCN = "getElementsByClassName";
-				var vkLikeHolder = document[gEBI]("vk_like") || "";
-				var handleWindow = function () {
-					var cL = "classList";
-					var pN = "parentNode";
-					var cE = "createElement";
-					var aC = "appendChild";
-					/* var wrapper = document[gEBCN]("wrapper")[0] || "";
-					if (wrapper) {
-						wrapper.style.opacity = 1;
-					} */
-					var ripple = document[gEBCN]("ripple")[0] || "";
-					var parent = ripple ? ripple[pN] || "" : "";
-					var slot;
-					var hideRipple = function () {
+				var cL = "classList";
+				var pN = "parentNode";
+				var ripple = document[gEBCN]("ripple")[0] || "";
+				var parent = ripple ? ripple[pN] || "" : "";
+				var slot;
+				var hideRipple = function () {
+					if (imagesPreloaded) {
+						clearInterval(slot);
+						slot = null;
+						var wrapper = document[gEBCN]("wrapper")[0] || "";
+						if (wrapper) {
+							wrapper.style.opacity = 1;
+						}
+						ripple[cL].add("bounceOutUp");
 						var timer;
 						var removeRipple = function () {
 							clearTimeout(timer);
 							timer = null;
 							parent.removeChild(ripple);
 						};
-						if (imagesPreloaded) {
-							clearInterval(slot);
-							slot = null;
-							ripple[cL].add("bounceOutUp");
-							timer = setTimeout(removeRipple, 5000);
-							var scene = document[gEBI]("scene") || "";
-							var parallax;
-							if (scene && root.Parallax) {
-								parallax = new Parallax(scene);
-							}
-						}
-					};
-					if (ripple && parent && "undefined" !== typeof imagesPreloaded) {
-						if (parent) {
-							slot = setInterval(hideRipple, 100);
+						timer = setTimeout(removeRipple, 5000);
+						var scene = document[gEBI]("scene") || "";
+						var parallax;
+						if (scene && root.Parallax) {
+							parallax = new Parallax(scene);
 						}
 					}
-					var qrcodeHolder = document[gEBCN]("qrcode")[0] || "";
+				};
+				if (ripple && parent && "undefined" !== typeof imagesPreloaded) {
+					if (parent) {
+						slot = setInterval(hideRipple, 100);
+					}
+				}
+				var vkLike = document[gEBI]("vk-like") || "";
+				var handleWindow = function () {
+					var ds = "dataset";
+					var gA = "getAttribute";
+					var cE = "createElement";
+					var aC = "appendChild";
+					var qrcode = document[gEBCN]("qrcode")[0] || "";
 					var locationHref = root.location.href || "";
 					var newImg = document[cE]("img");
 					var newTitle = document.title ? ("Ссылка на страницу «" + document.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
 					var newSrc = "//chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
 					newImg.alt = newTitle;
-					if (qrcodeHolder && root.QRCode) {
+					if (qrcode && root.QRCode) {
 						if (document.implementation.hasFeature("http://www.w3.org/2000/svg","1.1")) {
 							newSrc = QRCode.generateSVG(locationHref, {
 									ecclevel: "M",
@@ -160,17 +162,15 @@
 						newImg.src = newSrc;
 					}
 					newImg.title = newTitle;
-					qrcodeHolder[aC](newImg);
-					if (/^http/.test(window.location.protocol || "") &&
-						!(/^(localhost|127.0.0.1)/).test(window.location.hostname || "") &&
-						vkLikeHolder && root.VK) {
+					qrcode[aC](newImg);
+					if (vkLike && root.VK) {
 						try {
 							VK.init({
-								apiId: 4367728,
+								apiId: (vkLike[ds].apiid || vkLike[gA]("data-apiid") || ""),
 								nameTransportPath: "/xd_receiver.htm",
 								onlyWidgets: true
 							});
-							VK.Widgets.Like("vk_like", {
+							VK.Widgets.Like("vk-like", {
 								type: "button",
 								height: 24
 							});
@@ -184,15 +184,18 @@
 				if (!("classList" in document.createElement("_"))) {
 					scriptsArray.push("//cdn.jsdelivr.net/npm/classlist.js@1.1.20150312/classList.min.js");
 				}
+				if (("undefined" === typeof window.Element && !("dataset" in document.documentElement))) {
+					scriptsArray.push("//cdn.jsdelivr.net/npm/classlist.js@1.1.20150312/classList.min.js");
+				}
 				scriptsArray.push("//cdn.jsdelivr.net/npm/parallax-js@3.1.0/dist/parallax.min.js",
 					"//cdn.jsdelivr.net/npm/qrjs2@0.1.3/qrjs2.min.js");
-				if (/^http/.test(window.location.protocol || "") &&
-						!(/^(localhost|127.0.0.1)/).test(window.location.hostname || "") &&
-						vkLikeHolder) {
+				if (/^http/.test(window.location.protocol||"") &&
+					!(/^(localhost|127.0.0.1)/).test(window.location.hostname||"") &&
+					vkLike) {
 					scriptsArray.push("//vk.com/js/api/openapi.js?147");
 				}
-				var yaShare2Holder = document[gEBCN]("ya-share2") || "";
-				if (yaShare2Holder) {
+				var yaShare2 = document[gEBCN]("ya-share2") || "";
+				if (yaShare2) {
 					scriptsArray.push("//yastatic.net/share2/share.js");
 				}
 				var load;
