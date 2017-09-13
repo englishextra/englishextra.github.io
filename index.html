@@ -126,40 +126,42 @@
 					var cE = "createElement";
 					var aC = "appendChild";
 					var qrcode = document[gEBCN]("qrcode")[0] || "";
-					var locationHref = root.location.href || "";
-					var qrcodeImg = document[cE]("img");
-					var qrcodeImgTitle = document.title ? ("Ссылка на страницу «" + document.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
-					var qrcodeImgSrc = "//chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
-					qrcodeImg.alt = qrcodeImgTitle;
-					if (qrcode && root.QRCode) {
-						if (document.implementation.hasFeature("http://www.w3.org/2000/svg","1.1")) {
-							qrcodeImgSrc = QRCode.generateSVG(locationHref, {
-									ecclevel: "M",
-									fillcolor: "#FFFFFF",
-									textcolor: "#191919",
-									margin: 4,
-									modulesize: 8
-								});
-							var XMLS = new XMLSerializer();
-							qrcodeImgSrc = XMLS.serializeToString(qrcodeImgSrc);
-							qrcodeImgSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(qrcodeImgSrc)));
-							qrcodeImg.src = qrcodeImgSrc;
+					if (qrcode) {
+						var locationHref = root.location.href || "";
+						var qrcodeImg = document[cE]("img");
+						var qrcodeImgTitle = document.title ? ("Ссылка на страницу «" + document.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
+						var qrcodeImgSrc = "//chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
+						qrcodeImg.alt = qrcodeImgTitle;
+						if (root.QRCode) {
+							if (document.implementation.hasFeature("http://www.w3.org/2000/svg","1.1")) {
+								qrcodeImgSrc = QRCode.generateSVG(locationHref, {
+										ecclevel: "M",
+										fillcolor: "#FFFFFF",
+										textcolor: "#191919",
+										margin: 4,
+										modulesize: 8
+									});
+								var XMLS = new XMLSerializer();
+								qrcodeImgSrc = XMLS.serializeToString(qrcodeImgSrc);
+								qrcodeImgSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(qrcodeImgSrc)));
+								qrcodeImg.src = qrcodeImgSrc;
+							} else {
+								qrcodeImgSrc = QRCode.generatePNG(locationHref, {
+										ecclevel: "M",
+										format: "html",
+										fillcolor: "#FFFFFF",
+										textcolor: "#1F1F1F",
+										margin: 4,
+										modulesize: 8
+									});
+								qrcodeImg.src = qrcodeImgSrc;
+							}
 						} else {
-							qrcodeImgSrc = QRCode.generatePNG(locationHref, {
-									ecclevel: "M",
-									format: "html",
-									fillcolor: "#FFFFFF",
-									textcolor: "#1F1F1F",
-									margin: 4,
-									modulesize: 8
-								});
 							qrcodeImg.src = qrcodeImgSrc;
 						}
-					} else {
-						qrcodeImg.src = qrcodeImgSrc;
+						qrcodeImg.title = qrcodeImgTitle;
+						qrcode[aC](qrcodeImg);
 					}
-					qrcodeImg.title = qrcodeImgTitle;
-					qrcode[aC](qrcodeImg);
 					var downloadApp = document[gEBCN]("download-app")[0] || "";
 					var downloadAppLink = downloadApp ? downloadApp[gEBTN]("a")[0] || "" : "";
 					var downloadAppImg = downloadApp ? downloadApp[gEBTN]("img")[0] || "" : "";
@@ -184,6 +186,9 @@
 						}
 						if (downloadAppImgSrc && downloadAppLinkHref) {
 							downloadAppLink.href = downloadAppLinkHref;
+							downloadAppLink.rel = "external";
+							downloadAppLink.target = "_blank";
+							downloadAppLink.title = "Скачать приложение";
 							downloadAppImg.src = downloadAppImgSrc;
 						}
 					}

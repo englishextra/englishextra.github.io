@@ -546,10 +546,10 @@ var addAppUpdatesLink = function () {
 		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-linux-x64.tar.gz";
 	} else if (/IEMobile/i.test(navigatorUserAgent)) {
 		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra.Windows10_1.0.0.0_x86_debug.appx";
-	} else if (/Android/i.test(navigatorUserAgent)) {
-		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-debug.apk";
 	} else {
-		linkHref = "";
+		if (/Android/i.test(navigatorUserAgent)) {
+			linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-debug.apk";
+		}
 	}
 	var	arrange = function () {
 		var listItem = d[cE]("li"),
