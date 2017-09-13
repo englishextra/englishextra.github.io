@@ -204,35 +204,6 @@ a {
 	height: 30.8rem;
 }
 
-.signature {
-	width: 21.333rem;
-	height: 8.667rem;
-	/* position: absolute;
-    top: 55%;
-    right: 15%;
-	margin: 0; */
-	/* background: blue; */
-	margin: 0;
-	position: absolute;
-	/* top: -10%;
-	left: 80%; */
-	bottom: 5%;
-	right: 50%;
-	margin-right: -50%;
-	transform: translate(-50%, -50%);
-}
-
-.signature a {
-	color: inherit;
-	text-decoration: none;
-}
-
-.signature img {
-	display: block;
-	width: 21.333rem;
-	height: 8.667rem;
-}
-
 .ripple {
 	width: 16rem;
 	height: 16rem;
@@ -285,6 +256,35 @@ a {
 	display: block;
 	width: 33.333rem;
 	height: 43rem;
+}
+
+.signature {
+	width: 21.333rem;
+	height: 8.667rem;
+	/* position: absolute;
+    top: 55%;
+    right: 15%;
+	margin: 0; */
+	/* background: blue; */
+	margin: 0;
+	position: absolute;
+	/* top: -10%;
+	left: 80%; */
+	right: 55%;
+	bottom: 5%;
+	margin-right: -50%;
+	transform: translate(-50%, -50%);
+}
+
+.signature a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.signature img {
+	display: block;
+	width: 21.333rem;
+	height: 8.667rem;
 }
 
 .quote {
@@ -355,8 +355,8 @@ a {
 .intro p {
 	display: block;
 	font-size: 3.333rem;
-	font-family: "Roboto", $font-family-webfont-sans-regular;
 	line-height: 4.000rem;
+	font-family: "Roboto Condensed", $font-family-webfont-sans-regular;
 	font-weight: 700;
 	text-transform: uppercase;
 	color: $TitleBarAndAppBarDark;
@@ -388,11 +388,11 @@ a {
 
 .intro span {
 	display: block;
-	font-size: 3.067rem;
-	font-family: "PT Serif", $font-family-webfont-serif-regular;
-	line-height: 4.000rem;
+	font-size: 2.667rem;
+	line-height: 3.333rem;
+	font-family: "Roboto", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", "HelveticaNeue", "Roboto", sans-serif;
 	font-weight: 400;
-	font-style: italic;
+	/* font-style: italic; */
 	text-transform: none;
 	border-bottom: 0.267rem solid $color-hex-englishextra-logo-bg;
 }
@@ -606,6 +606,11 @@ a {
 	html {
 		font-size: 10px;
 	}
+	
+	.signature {
+		right: 40%;
+		bottom: 10%;
+	}
 
 	.quote {
 		left: 15%;
@@ -616,13 +621,14 @@ a {
 	}
 
 	.intro p {
+		top: 60%;
 		font-size: 2.400rem;
 		line-height: 3.000rem;
 	}
 
 	.intro span {
-		font-size: 2.133rem;
-		line-height: 3.000rem;
+		font-size: 1.867rem;
+		line-height: 2.400rem;
 	}
 } /* Define mobile styles - Mobile First */
 
@@ -637,16 +643,16 @@ a {
 	html {
 		font-size: 15px;
 	}
-
-	.intro p {
-		font-size: 3.333rem;
-		line-height: 4.000rem;
+	
+	.signature {
+		right: 40%;
+		bottom: 15%;
 	}
-
-	.intro span {
-		font-size: 3.067rem;
-		line-height: 4.000rem;
+	
+	.quote {
+		left: 10%;
 	}
+	
 } /* min-width 641px, medium screens */
 
 @media only screen and (min-width: 40.063em) and (max-width: 64em) {
@@ -661,12 +667,28 @@ a {
 		font-size: 15px;
 	}
 
+	.signature {
+		right: 55%;
+		bottom: 5%;
+	}
+
 	.quote {
 		left: 20%;
 	}
 
 	.intro {
 		width: 50%;
+	}
+	
+	.intro p {
+		top: 50%;
+		font-size: 3.333rem;
+		line-height: 4.000rem;
+	}
+
+	.intro span {
+		font-size: 2.667rem;
+		line-height: 3.333rem;
 	}
 
 	.qrcode {

@@ -85,14 +85,6 @@
 			(function(root,document){"use strict";var loadJsCss=function(files,callback){var _this=this;_this.files=files;_this.js=[];_this.head=document.getElementsByTagName("head")[0]||"";_this.body=document.body||"";_this.ref=document.getElementsByTagName("script")[0]||"";_this.callback=callback||function(){};_this.loadStyle=function(file){var link=document.createElement("link");link.rel="stylesheet";link.type="text/css";link.href=file;_this.head.appendChild(link);};_this.loadScript=function(i){var script=document.createElement("script");script.type="text/javascript";script.async=true;script.src=_this.js[i];var loadNextScript=function(){if(++i<_this.js.length){_this.loadScript(i);}else{_this.callback();}};script.onload=function(){loadNextScript();};_this.head.appendChild(script);if(_this.ref.parentNode){_this.ref.parentNode.insertBefore(script,_this.ref);}else{(_this.body||_this.head).appendChild(script);}};var i,l;for(i=0,l=_this.files.length;i<l;i+=1){if((/\.js$|\.js\?/).test(_this.files[i])){_this.js.push(_this.files[i]);}if((/\.css$|\.css\?|\/css\?/).test(_this.files[i])){_this.loadStyle(_this.files[i]);}}i=null;l=null;if(_this.js.length>0){_this.loadScript(0);}else{_this.after();}};root.loadJsCss=loadJsCss;}("undefined" !== typeof window ? window : this,document));
 			(function(root, document){
 				"use strict";
-				var scriptsArray = ["//fonts.googleapis.com/css?family=PT+Serif:400,400i%7CRoboto:700&amp;subset=cyrillic",
-					"./libs/john-locke/css/bundle.min.css"];
-				if (!("classList" in document.createElement("_"))) {
-					scriptsArray.push("//cdn.jsdelivr.net/npm/classlist.js@1.1.20150312/classList.min.js");
-				}
-				scriptsArray.push("//cdn.jsdelivr.net/npm/parallax-js@3.1.0/dist/parallax.min.js",
-					"//cdn.jsdelivr.net/npm/qrjs2@0.1.3/qrjs2.min.js",
-					"//vk.com/js/api/openapi.js?147");
 				var aEL = "addEventListener";
 				var handleWindow = function () {
 					var gEBI = "getElementById";
@@ -107,14 +99,14 @@
 					} */
 					var ripple = document[gEBCN]("ripple")[0] || "";
 					var parent = ripple ? ripple[pN] || "" : "";
-					var timer;
-					var removeRipple = function () {
-						clearTimeout(timer);
-						timer = null;
-						parent.removeChild(ripple);
-					};
 					var slot;
 					var hideRipple = function () {
+						var timer;
+						var removeRipple = function () {
+							clearTimeout(timer);
+							timer = null;
+							parent.removeChild(ripple);
+						};
 						if (imagesPreloaded) {
 							clearInterval(slot);
 							slot = null;
@@ -183,11 +175,18 @@
 						}
 					}
 				};
-				var onScriptsLoaded = function () {
-					root[aEL]("load", handleWindow);
-				};
+				var scriptsArray = ["//fonts.googleapis.com/css?family=PT+Serif:400,400i%7CRoboto:400,700%7CRoboto+Condensed:700&amp;subset=cyrillic",
+					"./libs/john-locke/css/bundle.min.css"];
+				if (!("classList" in document.createElement("_"))) {
+					scriptsArray.push("//cdn.jsdelivr.net/npm/classlist.js@1.1.20150312/classList.min.js");
+				}
+				scriptsArray.push("//cdn.jsdelivr.net/npm/parallax-js@3.1.0/dist/parallax.min.js",
+					"//cdn.jsdelivr.net/npm/qrjs2@0.1.3/qrjs2.min.js",
+					"//vk.com/js/api/openapi.js?147");
 				var load;
-				load = new loadJsCss(scriptsArray, onScriptsLoaded);
+				load = new loadJsCss(scriptsArray, function () {
+					root[aEL]("load", handleWindow);
+				});
 			}("undefined" !== typeof window ? window : this, document));
 		</script>
 		<!-- Yandex.Metrika counter --><script>if(/^http/.test(window.location.protocol||"")&&!(/^(localhost|127.0.0.1)/).test(window.location.hostname||"")){(function(d,w,c){(w[c]=w[c]||[]).push(function(){try{w.yaCounter23664397=new Ya.Metrika({id:23664397,webvisor:true,clickmap:true,trackLinks:true,accurateTrackBounce:true,trackHash:true});}catch(e){}});var n=d.getElementsByTagName("script")[0],s=d.createElement("script"),f=function(){n.parentNode.insertBefore(s,n);};s.type="text/javascript";s.async=true;s.src=(d.location.protocol=="https:"?"https:":"http:")+"//mc.yandex.ru/metrika/watch.js";if(w.opera=="[object Opera]"){d.addEventListener("DOMContentLoaded",f,false);}else{f();}}(document,window,"yandex_metrika_callbacks"));}</script><noscript><div><img src="//mc.yandex.ru/watch/23664397" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter --><!-- Google Analytics --><!-- <script>if(/^http/.test(window.location.protocol||"")&&!(/^(localhost|127.0.0.1)/).test(window.location.hostname||"")){(function(i,s,o,g,r,a,m){i.GoogleAnalyticsObject=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments);};i[r].l=1*new Date();a=s.createElement(o);m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m);}(window,document,"script","//www.google-analytics.com/analytics.js","ga"));ga("create","UA-47269668-1","auto");ga("send","pageview");}</script> --><!-- /Google Analytics -->
