@@ -1338,7 +1338,7 @@ var addAppUpdatesLink = function () {
 	} else if (/IEMobile/i.test(navigatorUserAgent)) {
 		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra.Windows10_1.0.0.0_x86_debug.appx";
 	} else if (/Android/i.test(navigatorUserAgent)) {
-		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-debug.apk";
+		linkHref = "https://github.com/englishextra/englishextra-app/releases";
 	} else {
 		linkHref = "";
 	}
@@ -1593,7 +1593,7 @@ var initDownloadAppBtn = function () {
 		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra.Windows10_1.0.0.0_x86_debug.appx";
 	} else if (/Android/i.test(navigatorUserAgent)) {
 		bgUrl = "url(../../libs/products/img/download_android_app_144x52.png)";
-		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-debug.apk";
+		linkHref = "https://github.com/englishextra/englishextra-app/releases";
 	} else {
 		bgUrl = "";
 		linkHref = "";
