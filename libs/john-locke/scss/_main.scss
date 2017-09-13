@@ -502,8 +502,10 @@ a {
 	margin: 0;
 	margin-right: -50%;
 	transform: translate(-50%, -50%); */
-	bottom: 9.067rem;
-	right: 1.333rem;
+	/* bottom: 9.067rem;
+	right: 1.333rem; */
+	bottom: 4.5333rem;
+	left: 1.333rem;
 }
 
 .vk img {
@@ -525,8 +527,10 @@ a {
 	margin: 0;
 	margin-right: -50%;
 	transform: translate(-50%, -50%); */
-	bottom: 4.533rem;
-	right: 1.333rem;
+	/* bottom: 4.533rem;
+	right: 1.333rem; */
+	bottom: 4.5333rem;
+	left: 5.867rem;
 }
 
 .tutor img {
@@ -578,6 +582,13 @@ a {
 .footer a {
 	color: inherit;
 	text-decoration: none;
+}
+
+.ya-share2 {
+	width: 3.200rem;
+	position: absolute;
+	bottom: 0;
+	right: 0;
 }
 
 #vk_like {

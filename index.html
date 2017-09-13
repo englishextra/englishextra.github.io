@@ -65,10 +65,10 @@
 			<div class="footer animated duration-3s bounceInDown">
 				<p><a href="https://github.com/englishextra" rel="content-repository">© englishextra, 2006—2017</a></p>
 			</div>
-			<div class="vk animated duration-3s bounceInRight">
+			<div class="vk animated duration-3s bounceInUp">
 				<a href="https://vk.com/englishextragithubio" rel="external" target="_blank" title="Группа в ВК - Английский без регистрации"><img src="./libs/john-locke/img/vk-192x192.png" class="animated pulse" alt="" /></a>
 			</div>
-			<div class="tutor animated duration-3s bounceInRight">
+			<div class="tutor animated duration-3s bounceInUp">
 				<a href="https://englishextra.github.io/serguei/" rel="external" target="_blank" title="Репетитор английского в Тушино"><img src="./libs/john-locke/img/tutor-192x192.png" class="animated pulse" alt="" /></a>
 			</div>
 			<div class="phone animated duration-3s bounceInDown">
@@ -80,15 +80,17 @@
 			<div class="arrow animated duration-3s bounceInDown"><img src="./libs/john-locke/img/arrow-120x72.png" class="animated duration-5s swing" alt="" /></div>
 			<div class="qrcode animated duration-3s bounceInRight"></div>
 			<div id="vk_like"></div>
+			<div class="ya-share2" data-direction="vertical" data-services="vkontakte,facebook,odnoklassniki,moimir"></div>
 		</div>
 		<script>
 			(function(root,document){"use strict";var loadJsCss=function(files,callback){var _this=this;_this.files=files;_this.js=[];_this.head=document.getElementsByTagName("head")[0]||"";_this.body=document.body||"";_this.ref=document.getElementsByTagName("script")[0]||"";_this.callback=callback||function(){};_this.loadStyle=function(file){var link=document.createElement("link");link.rel="stylesheet";link.type="text/css";link.href=file;_this.head.appendChild(link);};_this.loadScript=function(i){var script=document.createElement("script");script.type="text/javascript";script.async=true;script.src=_this.js[i];var loadNextScript=function(){if(++i<_this.js.length){_this.loadScript(i);}else{_this.callback();}};script.onload=function(){loadNextScript();};_this.head.appendChild(script);if(_this.ref.parentNode){_this.ref.parentNode.insertBefore(script,_this.ref);}else{(_this.body||_this.head).appendChild(script);}};var i,l;for(i=0,l=_this.files.length;i<l;i+=1){if((/\.js$|\.js\?/).test(_this.files[i])){_this.js.push(_this.files[i]);}if((/\.css$|\.css\?|\/css\?/).test(_this.files[i])){_this.loadStyle(_this.files[i]);}}i=null;l=null;if(_this.js.length>0){_this.loadScript(0);}else{_this.after();}};root.loadJsCss=loadJsCss;}("undefined" !== typeof window ? window : this,document));
 			(function(root, document){
 				"use strict";
 				var aEL = "addEventListener";
+				var gEBI = "getElementById";
+				var gEBCN = "getElementsByClassName";
+				var vkLikeHolder = document[gEBI]("vk_like") || "";
 				var handleWindow = function () {
-					var gEBI = "getElementById";
-					var gEBCN = "getElementsByClassName";
 					var cL = "classList";
 					var pN = "parentNode";
 					var cE = "createElement";
@@ -159,9 +161,8 @@
 					}
 					newImg.title = newTitle;
 					qrcodeHolder[aC](newImg);
-					var vkLikeHolder = document[gEBI]("vk_like") || "";
-					if (/^http/.test(window.location.protocol || "") && 
-						!(/^(localhost|127.0.0.1)/).test(window.location.hostname || "") && 
+					if (/^http/.test(window.location.protocol || "") &&
+						!(/^(localhost|127.0.0.1)/).test(window.location.hostname || "") &&
 						vkLikeHolder && root.VK) {
 						try {
 							VK.init({
@@ -185,9 +186,14 @@
 				}
 				scriptsArray.push("//cdn.jsdelivr.net/npm/parallax-js@3.1.0/dist/parallax.min.js",
 					"//cdn.jsdelivr.net/npm/qrjs2@0.1.3/qrjs2.min.js");
-				if (/^http/.test(window.location.protocol || "") && 
-						!(/^(localhost|127.0.0.1)/).test(window.location.hostname || "")) {
+				if (/^http/.test(window.location.protocol || "") &&
+						!(/^(localhost|127.0.0.1)/).test(window.location.hostname || "") &&
+						vkLikeHolder) {
 					scriptsArray.push("//vk.com/js/api/openapi.js?147");
+				}
+				var yaShare2Holder = document[gEBCN]("ya-share2") || "";
+				if (yaShare2Holder) {
+					scriptsArray.push("//yastatic.net/share2/share.js");
 				}
 				var load;
 				load = new loadJsCss(scriptsArray, function () {
