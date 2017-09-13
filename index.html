@@ -92,6 +92,32 @@
 				var gEBCN = "getElementsByClassName";
 				var cL = "classList";
 				var pN = "parentNode";
+				var ripple = document[gEBCN]("ripple")[0] || "";
+				var rippleParent = ripple ? ripple[pN] || "" : "";
+				var timer3;
+				var removeRipple = function () {
+					clearTimeout(timer3);
+					timer3 = null;
+					rippleParent.removeChild(ripple);
+				};
+				var slot;
+				var hideRipple = function () {
+					if (imagesPreloaded) {
+						clearInterval(slot);
+						slot = null;
+						var wrapper = document[gEBCN]("wrapper")[0] || "";
+						if (wrapper) {
+							wrapper.style.opacity = 1;
+						}
+						ripple[cL].add("bounceOutUp");
+						timer3 = setTimeout(removeRipple, 5000);
+					}
+				};
+				if (ripple && rippleParent && "undefined" !== typeof imagesPreloaded) {
+					if (rippleParent) {
+						slot = setInterval(hideRipple, 100);
+					}
+				}
 				var vkLike = document[gEBI]("vk-like") || "";
 				var handleWindow = function () {
 					var gEBTN = "getElementsByTagName";
@@ -197,36 +223,10 @@
 							console.log("cannot init VK", err);
 						}
 					}
-					var ripple = document[gEBCN]("ripple")[0] || "";
-					var rippleParent = ripple ? ripple[pN] || "" : "";
-					var timer3;
-					var removeRipple = function () {
-						clearTimeout(timer3);
-						timer3 = null;
-						rippleParent.removeChild(ripple);
-					};
-					var slot;
-					var hideRipple = function () {
-						if (imagesPreloaded) {
-							clearInterval(slot);
-							slot = null;
-							var wrapper = document[gEBCN]("wrapper")[0] || "";
-							if (wrapper) {
-								wrapper.style.opacity = 1;
-							}
-							ripple[cL].add("bounceOutUp");
-							timer3 = setTimeout(removeRipple, 5000);
-							var scene = document[gEBI]("scene") || "";
-							var parallax;
-							if (scene && root.Parallax) {
-								parallax = new Parallax(scene);
-							}
-						}
-					};
-					if (ripple && rippleParent && "undefined" !== typeof imagesPreloaded) {
-						if (rippleParent) {
-							slot = setInterval(hideRipple, 100);
-						}
+					var scene = document[gEBI]("scene") || "";
+					var parallax;
+					if (scene && root.Parallax) {
+						parallax = new Parallax(scene);
 					}
 				};
 				var scriptsArray = ["//fonts.googleapis.com/css?family=PT+Serif:400,400i%7CRoboto:400,700%7CRoboto+Condensed:700&amp;subset=cyrillic",
