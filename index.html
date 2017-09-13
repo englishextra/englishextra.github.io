@@ -92,32 +92,6 @@
 				var gEBCN = "getElementsByClassName";
 				var cL = "classList";
 				var pN = "parentNode";
-				var ripple = document[gEBCN]("ripple")[0] || "";
-				var rippleParent = ripple ? ripple[pN] || "" : "";
-				var slot;
-				var hideRipple = function () {
-					if (imagesPreloaded) {
-						clearInterval(slot);
-						slot = null;
-						var wrapper = document[gEBCN]("wrapper")[0] || "";
-						if (wrapper) {
-							wrapper.style.opacity = 1;
-						}
-						ripple[cL].add("bounceOutUp");
-						var timer;
-						var removeRipple = function () {
-							clearTimeout(timer);
-							timer = null;
-							rippleParent.removeChild(ripple);
-						};
-						timer = setTimeout(removeRipple, 1000);
-					}
-				};
-				if (ripple && rippleParent && "undefined" !== typeof imagesPreloaded) {
-					if (rippleParent) {
-						slot = setInterval(hideRipple, 100);
-					}
-				}
 				var vkLike = document[gEBI]("vk-like") || "";
 				var handleWindow = function () {
 					var gEBTN = "getElementsByTagName";
@@ -126,6 +100,13 @@
 					var cE = "createElement";
 					var aC = "appendChild";
 					var qrcode = document[gEBCN]("qrcode")[0] || "";
+					var timer;
+					var showQrcode = function () {
+						clearTimeout(timer);
+						timer = null;
+						qrcode.style.visibility = "visible";
+						qrcode.style.opacity = 1;
+					};
 					if (qrcode) {
 						var locationHref = root.location.href || "";
 						var qrcodeImg = document[cE]("img");
@@ -161,13 +142,6 @@
 						}
 						qrcodeImg.title = qrcodeImgTitle;
 						qrcode[aC](qrcodeImg);
-						var timer;
-						var showQrcode = function () {
-							clearTimeout(timer);
-							timer = null;
-							qrcode.style.visibility = "visible";
-							qrcode.style.opacity = 1;
-						};
 						timer = setTimeout(showQrcode, 2000);
 					}
 					var downloadApp = document[gEBCN]("download-app")[0] || "";
@@ -192,19 +166,19 @@
 								downloadAppLinkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-debug.apk";
 							}
 						}
+						var timer2;
+						var showDownloadApp = function () {
+							clearTimeout(timer2);
+							timer2 = null;
+							downloadApp.style.visibility = "visible";
+							downloadApp.style.opacity = 1;
+						};
 						if (downloadAppImgSrc && downloadAppLinkHref) {
 							downloadAppLink.href = downloadAppLinkHref;
 							downloadAppLink.rel = "external";
 							downloadAppLink.target = "_blank";
 							downloadAppLink.title = "Скачать приложение";
 							downloadAppImg.src = downloadAppImgSrc;
-							var timer2;
-							var showDownloadApp = function () {
-								clearTimeout(timer2);
-								timer2 = null;
-								downloadApp.style.visibility = "visible";
-								downloadApp.style.opacity = 1;
-							};
 							timer2 = setTimeout(showDownloadApp, 1000);
 						}
 					}
@@ -223,10 +197,36 @@
 							console.log("cannot init VK", err);
 						}
 					}
-					var scene = document[gEBI]("scene") || "";
-					var parallax;
-					if (scene && root.Parallax) {
-						parallax = new Parallax(scene);
+					var ripple = document[gEBCN]("ripple")[0] || "";
+					var rippleParent = ripple ? ripple[pN] || "" : "";
+					var timer3;
+					var removeRipple = function () {
+						clearTimeout(timer3);
+						timer3 = null;
+						rippleParent.removeChild(ripple);
+					};
+					var slot;
+					var hideRipple = function () {
+						if (imagesPreloaded) {
+							clearInterval(slot);
+							slot = null;
+							var wrapper = document[gEBCN]("wrapper")[0] || "";
+							if (wrapper) {
+								wrapper.style.opacity = 1;
+							}
+							ripple[cL].add("bounceOutUp");
+							timer3 = setTimeout(removeRipple, 5000);
+							var scene = document[gEBI]("scene") || "";
+							var parallax;
+							if (scene && root.Parallax) {
+								parallax = new Parallax(scene);
+							}
+						}
+					};
+					if (ripple && rippleParent && "undefined" !== typeof imagesPreloaded) {
+						if (rippleParent) {
+							slot = setInterval(hideRipple, 100);
+						}
 					}
 				};
 				var scriptsArray = ["//fonts.googleapis.com/css?family=PT+Serif:400,400i%7CRoboto:400,700%7CRoboto+Condensed:700&amp;subset=cyrillic",

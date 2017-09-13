@@ -67,6 +67,7 @@ a {
 	position: absolute;
 }
 
+
 /* .layer img {
 	display: block;
 	width: 100%;
@@ -118,8 +119,8 @@ a {
 	width: 12.8rem;
 	height: 24rem;
 	/* position: absolute;
-    top: 55%;
-    right: 15%;
+	top: 55%;
+	right: 15%;
 	margin: 0; */
 	/* background: blue; */
 	margin: 0;
@@ -145,8 +146,8 @@ a {
 	width: 3.4rem;
 	height: 40rem;
 	/* position: absolute;
-    top: 55%;
-    right: 15%;
+	top: 55%;
+	right: 15%;
 	margin: 0; */
 	/* background: blue; */
 	margin: 0;
@@ -172,8 +173,8 @@ a {
 	width: 21.333rem;
 	height: 30.8rem;
 	/* position: absolute;
-    top: 55%;
-    right: 15%;
+	top: 55%;
+	right: 15%;
 	margin: 0; */
 	/* background: blue; */
 	margin: 0;
@@ -199,8 +200,8 @@ a {
 	width: 16rem;
 	height: 16rem;
 	/* position: absolute;
-    top: 55%;
-    right: 15%;
+	top: 55%;
+	right: 15%;
 	margin: 0; */
 	/* background: blue; */
 	margin: 0;
@@ -226,8 +227,8 @@ a {
 	width: 33.333rem;
 	height: 43rem;
 	/* position: absolute;
-    top: 55%;
-    right: 15%;
+	top: 55%;
+	right: 15%;
 	margin: 0; */
 	/* background: blue; */
 	margin: 0;
@@ -253,8 +254,8 @@ a {
 	width: 21.333rem;
 	height: 8.667rem;
 	/* position: absolute;
-    top: 55%;
-    right: 15%;
+	top: 55%;
+	right: 15%;
 	margin: 0; */
 	/* background: blue; */
 	margin: 0;
@@ -283,8 +284,8 @@ a {
 	height: 5.267rem; */
 	/* max-width: 29.333rem; */
 	/* position: absolute;
-    bottom: 10%;
-    left: 0; */
+	bottom: 10%;
+	left: 0; */
 	text-align: left;
 	background-color: #3BF0DF;
 	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
@@ -296,6 +297,7 @@ a {
 	margin-right: -50%;
 	transform: translate(-50%, -50%);
 }
+
 
 /* .quote img {
 	display: block;
@@ -322,8 +324,6 @@ a {
 	top: 50%;
 	left: 50%;
 	margin-right: -50%;
-	-webkit-transform: translate(-50%, -50%);
-	-ms-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%); */
 }
 
@@ -364,13 +364,11 @@ a {
 	left: 0;
 	transform: translate(0, -50%);
 	/* margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    -webkit-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%); */
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-right: -50%;
+	transform: translate(-50%, -50%); */
 	padding-top: 1.600rem;
 	padding-right: 2.400rem;
 	padding-bottom: 1.600rem;
@@ -463,6 +461,7 @@ a {
 	height: 4.000rem;
 }
 
+
 /* .logo img:hover {
 	animation-name: rotateIn;
 	animation-duration: 1s;
@@ -492,8 +491,8 @@ a {
 	width: 2.133em;
 	height: 4.267em;
 	/* position: absolute;
-    top: 55%;
-    right: 15%;
+	top: 55%;
+	right: 15%;
 	margin: 0; */
 	/* background: blue; */
 	margin: 0;
@@ -624,133 +623,157 @@ a {
 	left: 10.400rem;
 }
 
+
 /*!
  * @see {@link https://gist.github.com/englishextra/40b7c4ffde33bfb58aff259afe229d6a}
  */
+
 
 /*------------------------------------------
   Foundation Media Queries
    http://foundation.zurb.com/docs/media-queries.html
 --------------------------------------------*/
 
+
 /* Small screens - MOBILE */
+
 @media only screen {
 	html {
 		font-size: 10px;
 	}
-
 	.signature {
 		right: 40%;
 		bottom: 10%;
 	}
-
 	.quote {
 		left: 15%;
 	}
-
 	.intro {
 		width: 100%;
 	}
-
 	.intro p {
 		top: 60%;
 		font-size: 2.400rem;
 		line-height: 3.000rem;
 	}
-
 	.intro span {
 		font-size: 1.867rem;
 		line-height: 2.400rem;
 	}
-} /* Define mobile styles - Mobile First */
+}
+
+
+/* Define mobile styles - Mobile First */
 
 @media only screen and (max-width: 40em) {
 	html {
 		font-size: 10px;
 	}
-} /* max-width 640px, mobile-only styles, use when QAing mobile issues */
+}
+
+
+/* max-width 640px, mobile-only styles, use when QAing mobile issues */
+
 
 /* Medium screens - TABLET */
+
 @media only screen and (min-width: 40.063em) {
 	html {
 		font-size: 15px;
 	}
-
 	.signature {
 		right: 40%;
 		bottom: 15%;
 	}
-
 	.quote {
 		left: 10%;
 	}
+}
 
-} /* min-width 641px, medium screens */
+
+/* min-width 641px, medium screens */
 
 @media only screen and (min-width: 40.063em) and (max-width: 64em) {
 	html {
 		font-size: 15px;
 	}
-} /* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
+}
+
+
+/* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
+
 
 /* Large screens - DESKTOP */
+
 @media only screen and (min-width: 64.063em) {
 	html {
 		font-size: 15px;
 	}
-
 	.signature {
 		right: 50%;
 		bottom: 5%;
 	}
-
 	.quote {
 		left: 20%;
 	}
-
 	.intro {
 		width: 50%;
 	}
-
 	.intro p {
 		top: 50%;
 		font-size: 3.333rem;
 		line-height: 4.000rem;
 	}
-
 	.intro span {
 		font-size: 2.667rem;
 		line-height: 3.333rem;
 	}
-
 	.qrcode {
 		display: block;
 	}
-} /* min-width 1025px, large screens */
+}
+
+
+/* min-width 1025px, large screens */
 
 @media only screen and (min-width: 64.063em) and (max-width: 90em) {
 	html {
 		font-size: 15px;
 	}
-} /* min-width 1024px and max-width 1440px, use when QAing large screen-only issues */
+}
+
+
+/* min-width 1024px and max-width 1440px, use when QAing large screen-only issues */
+
 
 /* XLarge screens */
+
 @media only screen and (min-width: 90.063em) {
 	html {
 		font-size: 20px;
 	}
-} /* min-width 1441px, xlarge screens */
+}
+
+
+/* min-width 1441px, xlarge screens */
 
 @media only screen and (min-width: 90.063em) and (max-width: 120em) {
 	html {
 		font-size: 20px;
 	}
-} /* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */
+}
+
+
+/* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */
+
 
 /* XXLarge screens */
+
 @media only screen and (min-width: 120.063em) {
 	html {
 		font-size: 20px;
 	}
-} /* min-width 1921px, xlarge screens */
+}
 
+
+/* min-width 1921px, xlarge screens */
