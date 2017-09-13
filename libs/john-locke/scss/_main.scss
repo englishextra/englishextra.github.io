@@ -396,8 +396,27 @@ a {
 
 .qrcode {
 	display: none;
-	width: 6.400rem;
-	height: 6.400rem;
+	width: 8.533rem;
+	height: 8.533rem;
+	position: absolute;
+	/* top: 50%;
+	left: 50%;
+	margin: 0;
+	margin-right: -50%;
+	transform: translate(-50%, -50%); */
+	top: 5.733rem;
+	right: 1.333rem;
+}
+
+.qrcode img {
+	display: block;
+	width: 8.533rem;
+	height: 8.533rem;
+}
+
+.download-app {
+	width: 8.533rem;
+	height: 3.067rem;
 	position: absolute;
 	/* top: 50%;
 	left: 50%;
@@ -408,10 +427,15 @@ a {
 	right: 1.333rem;
 }
 
-.qrcode img {
+.download-app img {
 	display: block;
-	width: 6.400rem;
-	height: 6.400rem;
+	width: 8.533rem;
+	height: 3.067rem;
+}
+
+.download-app a {
+	color: inherit;
+	text-decoration: none;
 }
 
 .logo {

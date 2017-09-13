@@ -78,6 +78,7 @@
 				<a href="./app/" rel="contents" title="Апп - Английский без регистрации"><img src="./libs/john-locke/img/logo-108x108.png" class="animated infinite pulse" alt="" /></a>
 			</div>
 			<div class="arrow animated duration-3s bounceInDown"><img src="./libs/john-locke/img/arrow-120x72.png" class="animated duration-5s swing" alt="" /></div>
+			<div class="download-app animated duration-3s bounceInRight"><a href="javascript:void(0);"><img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20144%2052%27%2F%3E" alt="" /></a></div>
 			<div class="qrcode animated duration-3s bounceInRight"></div>
 			<div class="vk-like" id="vk-like" data-apiid="4367728"></div>
 			<div class="ya-share2" data-direction="vertical" data-services="vkontakte,facebook,odnoklassniki,moimir"></div>
@@ -92,7 +93,7 @@
 				var cL = "classList";
 				var pN = "parentNode";
 				var ripple = document[gEBCN]("ripple")[0] || "";
-				var parent = ripple ? ripple[pN] || "" : "";
+				var rippleParent = ripple ? ripple[pN] || "" : "";
 				var slot;
 				var hideRipple = function () {
 					if (imagesPreloaded) {
@@ -107,36 +108,32 @@
 						var removeRipple = function () {
 							clearTimeout(timer);
 							timer = null;
-							parent.removeChild(ripple);
+							rippleParent.removeChild(ripple);
 						};
 						timer = setTimeout(removeRipple, 5000);
-						var scene = document[gEBI]("scene") || "";
-						var parallax;
-						if (scene && root.Parallax) {
-							parallax = new Parallax(scene);
-						}
 					}
 				};
-				if (ripple && parent && "undefined" !== typeof imagesPreloaded) {
-					if (parent) {
+				if (ripple && rippleParent && "undefined" !== typeof imagesPreloaded) {
+					if (rippleParent) {
 						slot = setInterval(hideRipple, 100);
 					}
 				}
 				var vkLike = document[gEBI]("vk-like") || "";
 				var handleWindow = function () {
+					var gEBTN = "getElementsByTagName";
 					var ds = "dataset";
 					var gA = "getAttribute";
 					var cE = "createElement";
 					var aC = "appendChild";
 					var qrcode = document[gEBCN]("qrcode")[0] || "";
 					var locationHref = root.location.href || "";
-					var newImg = document[cE]("img");
-					var newTitle = document.title ? ("Ссылка на страницу «" + document.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
-					var newSrc = "//chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
-					newImg.alt = newTitle;
+					var qrcodeImg = document[cE]("img");
+					var qrcodeImgTitle = document.title ? ("Ссылка на страницу «" + document.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
+					var qrcodeImgSrc = "//chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
+					qrcodeImg.alt = qrcodeImgTitle;
 					if (qrcode && root.QRCode) {
 						if (document.implementation.hasFeature("http://www.w3.org/2000/svg","1.1")) {
-							newSrc = QRCode.generateSVG(locationHref, {
+							qrcodeImgSrc = QRCode.generateSVG(locationHref, {
 									ecclevel: "M",
 									fillcolor: "#FFFFFF",
 									textcolor: "#191919",
@@ -144,11 +141,11 @@
 									modulesize: 8
 								});
 							var XMLS = new XMLSerializer();
-							newSrc = XMLS.serializeToString(newSrc);
-							newSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(newSrc)));
-							newImg.src = newSrc;
+							qrcodeImgSrc = XMLS.serializeToString(qrcodeImgSrc);
+							qrcodeImgSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(qrcodeImgSrc)));
+							qrcodeImg.src = qrcodeImgSrc;
 						} else {
-							newSrc = QRCode.generatePNG(locationHref, {
+							qrcodeImgSrc = QRCode.generatePNG(locationHref, {
 									ecclevel: "M",
 									format: "html",
 									fillcolor: "#FFFFFF",
@@ -156,13 +153,40 @@
 									margin: 4,
 									modulesize: 8
 								});
-							newImg.src = newSrc;
+							qrcodeImg.src = qrcodeImgSrc;
 						}
 					} else {
-						newImg.src = newSrc;
+						qrcodeImg.src = qrcodeImgSrc;
 					}
-					newImg.title = newTitle;
-					qrcode[aC](newImg);
+					qrcodeImg.title = qrcodeImgTitle;
+					qrcode[aC](qrcodeImg);
+					var downloadApp = document[gEBCN]("download-app")[0] || "";
+					var downloadAppLink = downloadApp ? downloadApp[gEBTN]("a")[0] || "" : "";
+					var downloadAppImg = downloadApp ? downloadApp[gEBTN]("img")[0] || "" : "";
+					var navigatorUserAgent = navigator.userAgent || "";
+					if (navigatorUserAgent && downloadApp && downloadAppLink && downloadAppImg) {
+						var downloadAppImgSrc;
+						var downloadAppLinkHref;
+						if (/Windows/i.test(navigatorUserAgent) && /(WOW64|Win64)/i.test(navigatorUserAgent)) {
+							downloadAppImgSrc = "./libs/products/img/download_windows_app_144x52.png";
+							downloadAppLinkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-win32-x64-setup.exe";
+						} else if (/(x86_64|x86-64|x64;|amd64|AMD64|x64_64)/i.test(navigatorUserAgent) && /(Linux|X11)/i.test(navigatorUserAgent)) {
+							downloadAppImgSrc = "./libs/products/img/download_linux_app_144x52.png";
+							downloadAppLinkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-linux-x64.tar.gz";
+						} else if (/IEMobile/i.test(navigatorUserAgent)) {
+							downloadAppImgSrc = "./libs/products/img/download_wp_app_144x52.png";
+							downloadAppLinkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra.Windows10_1.0.0.0_x86_debug.appx";
+						} else {
+							if (/Android/i.test(navigatorUserAgent)) {
+								downloadAppImgSrc = "./libs/products/img/download_android_app_144x52.png";
+								downloadAppLinkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-debug.apk";
+							}
+						}
+						if (downloadAppImgSrc && downloadAppLinkHref) {
+							downloadAppLink.href = downloadAppLinkHref;
+							downloadAppImg.src = downloadAppImgSrc;
+						}
+					}
 					if (vkLike && root.VK) {
 						try {
 							VK.init({
@@ -177,6 +201,11 @@
 						} catch (err) {
 							console.log("cannot init VK", err);
 						}
+					}
+					var scene = document[gEBI]("scene") || "";
+					var parallax;
+					if (scene && root.Parallax) {
+						parallax = new Parallax(scene);
 					}
 				};
 				var scriptsArray = ["//fonts.googleapis.com/css?family=PT+Serif:400,400i%7CRoboto:400,700%7CRoboto+Condensed:700&amp;subset=cyrillic",
