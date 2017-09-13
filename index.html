@@ -110,7 +110,7 @@
 							timer = null;
 							rippleParent.removeChild(ripple);
 						};
-						timer = setTimeout(removeRipple, 5000);
+						timer = setTimeout(removeRipple, 1000);
 					}
 				};
 				if (ripple && rippleParent && "undefined" !== typeof imagesPreloaded) {
@@ -168,7 +168,7 @@
 							qrcode.style.visibility = "visible";
 							qrcode.style.opacity = 1;
 						};
-						timer = setTimeout(showQrcode, 6000);
+						timer = setTimeout(showQrcode, 2000);
 					}
 					var downloadApp = document[gEBCN]("download-app")[0] || "";
 					var downloadAppLink = downloadApp ? downloadApp[gEBTN]("a")[0] || "" : "";
@@ -205,7 +205,7 @@
 								downloadApp.style.visibility = "visible";
 								downloadApp.style.opacity = 1;
 							};
-							timer2 = setTimeout(showDownloadApp, 5000);
+							timer2 = setTimeout(showDownloadApp, 1000);
 						}
 					}
 					if (vkLike && root.VK) {
