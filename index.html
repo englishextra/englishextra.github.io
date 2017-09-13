@@ -161,8 +161,14 @@
 						}
 						qrcodeImg.title = qrcodeImgTitle;
 						qrcode[aC](qrcodeImg);
-						qrcode.style.visibility = "visible";
-						qrcode.style.opacity = 1;
+						var timer;
+						var showQrcode = function () {
+							clearTimeout(timer);
+							timer = null;
+							qrcode.style.visibility = "visible";
+							qrcode.style.opacity = 1;
+						};
+						timer = setTimeout(showQrcode, 6000);
 					}
 					var downloadApp = document[gEBCN]("download-app")[0] || "";
 					var downloadAppLink = downloadApp ? downloadApp[gEBTN]("a")[0] || "" : "";
@@ -192,8 +198,14 @@
 							downloadAppLink.target = "_blank";
 							downloadAppLink.title = "Скачать приложение";
 							downloadAppImg.src = downloadAppImgSrc;
-							downloadApp.style.visibility = "visible";
-							downloadApp.style.opacity = 1;
+							var timer2;
+							var showDownloadApp = function () {
+								clearTimeout(timer2);
+								timer2 = null;
+								downloadApp.style.visibility = "visible";
+								downloadApp.style.opacity = 1;
+							};
+							timer2 = setTimeout(showDownloadApp, 5000);
 						}
 					}
 					if (vkLike && root.VK) {
