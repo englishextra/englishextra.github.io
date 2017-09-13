@@ -184,8 +184,11 @@
 					scriptsArray.push("//cdn.jsdelivr.net/npm/classlist.js@1.1.20150312/classList.min.js");
 				}
 				scriptsArray.push("//cdn.jsdelivr.net/npm/parallax-js@3.1.0/dist/parallax.min.js",
-					"//cdn.jsdelivr.net/npm/qrjs2@0.1.3/qrjs2.min.js",
-					"//vk.com/js/api/openapi.js?147");
+					"//cdn.jsdelivr.net/npm/qrjs2@0.1.3/qrjs2.min.js");
+				if (/^http/.test(window.location.protocol || "") && 
+						!(/^(localhost|127.0.0.1)/).test(window.location.hostname || "")) {
+					scriptsArray.push("//vk.com/js/api/openapi.js?147");
+				}
 				var load;
 				load = new loadJsCss(scriptsArray, function () {
 					root[aEL]("load", handleWindow);
