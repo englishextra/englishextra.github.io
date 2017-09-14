@@ -67,7 +67,6 @@ a {
 	position: absolute;
 }
 
-
 /* .layer img {
 	display: block;
 	width: 100%;
@@ -83,7 +82,7 @@ a {
 	opacity: 1;
 	overflow: hidden;
 	background-color: transparent;
-	background-image: url(../img/hero-1920x1080.jpg);
+	background-image: url(../img/hero-960x1080.jpg);
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -98,7 +97,7 @@ a {
 	background-color: $color-hex-englishextra-logo-bg;
 	opacity: 1;
 	overflow: hidden;
-	background-image: url(../img/monolith-1920x1080.jpg);
+	background-image: url(../img/monolith-960x1080.jpg);
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -298,7 +297,6 @@ a {
 	transform: translate(-50%, -50%);
 }
 
-
 /* .quote img {
 	display: block;
 	width: 29.333rem;
@@ -461,7 +459,6 @@ a {
 	height: 4.000rem;
 }
 
-
 /* .logo img:hover {
 	animation-name: rotateIn;
 	animation-duration: 1s;
@@ -623,17 +620,14 @@ a {
 	left: 10.400rem;
 }
 
-
 /*!
  * @see {@link https://gist.github.com/englishextra/40b7c4ffde33bfb58aff259afe229d6a}
  */
-
 
 /*------------------------------------------
   Foundation Media Queries
    http://foundation.zurb.com/docs/media-queries.html
 --------------------------------------------*/
-
 
 /* Small screens - MOBILE */
 
@@ -662,7 +656,6 @@ a {
 	}
 }
 
-
 /* Define mobile styles - Mobile First */
 
 @media only screen and (max-width: 40em) {
@@ -671,9 +664,7 @@ a {
 	}
 }
 
-
 /* max-width 640px, mobile-only styles, use when QAing mobile issues */
-
 
 /* Medium screens - TABLET */
 
@@ -690,7 +681,6 @@ a {
 	}
 }
 
-
 /* min-width 641px, medium screens */
 
 @media only screen and (min-width: 40.063em) and (max-width: 64em) {
@@ -699,9 +689,7 @@ a {
 	}
 }
 
-
 /* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
-
 
 /* Large screens - DESKTOP */
 
@@ -733,7 +721,6 @@ a {
 	}
 }
 
-
 /* min-width 1025px, large screens */
 
 @media only screen and (min-width: 64.063em) and (max-width: 90em) {
@@ -742,9 +729,7 @@ a {
 	}
 }
 
-
 /* min-width 1024px and max-width 1440px, use when QAing large screen-only issues */
-
 
 /* XLarge screens */
 
@@ -754,7 +739,6 @@ a {
 	}
 }
 
-
 /* min-width 1441px, xlarge screens */
 
 @media only screen and (min-width: 90.063em) and (max-width: 120em) {
@@ -763,9 +747,7 @@ a {
 	}
 }
 
-
 /* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */
-
 
 /* XXLarge screens */
 
@@ -774,6 +756,5 @@ a {
 		font-size: 20px;
 	}
 }
-
 
 /* min-width 1921px, xlarge screens */
