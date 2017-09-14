@@ -180,9 +180,9 @@
 						var platformOsFamily = platform.os.family || "";
 						var platformOsVersion = platform.os.version || "";
 						var platformOsArchitecture = platform.os.architecture || "";
-						console.log(navigatorUserAgent);
+						/* console.log(navigatorUserAgent);
 						console.log(platform.os);
-						console.log(platformName + "|" + platformOsFamily + "|" + platformOsVersion + "|" + platformOsArchitecture + "|" + platformDescription);
+						console.log(platformName + "|" + platformOsFamily + "|" + platformOsVersion + "|" + platformOsArchitecture + "|" + platformDescription); */
 						if (platformOsFamily.indexOf("Windows Phone", 0) !== -1  && "10.0" === platformOsVersion) {
 							downloadAppImgSrc = "./libs/products/img/download_wp_app_144x52.png";
 							downloadAppLinkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra.Windows10_1.0.0.0_x86_debug.appx";
