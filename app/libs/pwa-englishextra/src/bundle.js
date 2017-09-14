@@ -2333,18 +2333,18 @@ var initRouting = function () {
 				} */
 				if (false === isNotfound) {
 					var notfoundUrl = routesJsonObj.notfound.url,
-					notfoundText = routesJsonObj.notfound.title;
-					if (notfoundUrl /*  && notfoundText */) {
+					notfoundTitle = routesJsonObj.notfound.title;
+					if (notfoundUrl /*  && notfoundTitle */) {
 						LoadingSpinner.show();
-						insertExternalHTML(appContentId, notfoundUrl, triggerOnContentInserted.bind(null, notfoundText));
+						insertExternalHTML(appContentId, notfoundUrl, triggerOnContentInserted.bind(null, notfoundTitle, null, null, routesJsonObj));
 					}
 				}
 			} else {
 				var homeUrl = routesJsonObj.home.url,
-				homeText = routesJsonObj.home.title;
-				if (homeUrl /*  && homeText */) {
+				homeTitle = routesJsonObj.home.title;
+				if (homeUrl /*  && homeTitle */) {
 					LoadingSpinner.show();
-					insertExternalHTML(appContentId, homeUrl, triggerOnContentInserted.bind(null, homeText));
+					insertExternalHTML(appContentId, homeUrl, triggerOnContentInserted.bind(null, homeTitle, null, null, routesJsonObj));
 				}
 			}
 		};
