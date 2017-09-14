@@ -169,20 +169,41 @@
 					var downloadAppLink = downloadApp ? downloadApp[gEBTN]("a")[0] || "" : "";
 					var downloadAppImg = downloadApp ? downloadApp[gEBTN]("img")[0] || "" : "";
 					var navigatorUserAgent = navigator.userAgent || "";
-					if (navigatorUserAgent && downloadApp && downloadAppLink && downloadAppImg) {
+					if (navigatorUserAgent && downloadApp && downloadAppLink && downloadAppImg && root.platform) {
 						var downloadAppImgSrc;
 						var downloadAppLinkHref;
-						if (/Windows/i.test(navigatorUserAgent) && /(WOW64|Win64)/i.test(navigatorUserAgent)) {
-							downloadAppImgSrc = "./libs/products/img/download_windows_app_144x52.png";
-							downloadAppLinkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-win32-x64-setup.exe";
-						} else if (/(x86_64|x86-64|x64;|amd64|AMD64|x64_64)/i.test(navigatorUserAgent) && /(Linux|X11)/i.test(navigatorUserAgent)) {
-							downloadAppImgSrc = "./libs/products/img/download_linux_app_144x52.png";
-							downloadAppLinkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-linux-x64.tar.gz";
-						} else if (/IEMobile/i.test(navigatorUserAgent)) {
+						var platformName = platform.name || "";
+						var platformDescription = platform.description || "";
+						document.title = document.title + " [" + platformDescription + "]";
+						var platformOsFamily = platform.os.family || "";
+						var platformOsVersion = platform.os.version || "";
+						var platformOsArchitecture = platform.os.architecture || "";
+						console.log(navigatorUserAgent);
+						console.log(platform.os);
+						console.log(platformName + "|" + platformOsFamily + "|" + platformOsVersion + "|" + platformOsArchitecture + "|" + platformDescription);
+						if (platformOsFamily.indexOf("Windows Phone", 0) !== -1  && "10.0" === platformOsVersion) {
 							downloadAppImgSrc = "./libs/products/img/download_wp_app_144x52.png";
 							downloadAppLinkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra.Windows10_1.0.0.0_x86_debug.appx";
+						} else if (platformName.indexOf("IE Mobile", 0) !== -1 && ("7.5" === platformOsVersion || "8.0" === platformOsVersion || "8.1" === platformOsVersion)) {
+							downloadAppImgSrc = "./libs/products/img/download_wp_app_144x52.png";
+							downloadAppLinkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra_app-debug.xap";
+						} else if (platformOsFamily.indexOf("Windows", 0) !== -1 && 64 === platformOsArchitecture) {
+							downloadAppImgSrc = "./libs/products/img/download_windows_app_144x52.png";
+							downloadAppLinkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-win32-x64-setup.exe";
+						} else if (platformOsFamily.indexOf("Windows", 0) !== -1 && 32 === platformOsArchitecture) {
+							downloadAppImgSrc = "./libs/products/img/download_windows_app_144x52.png";
+							downloadAppLinkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-win32-ia32-setup.exe";
+						} else if (navigatorUserAgent.indexOf("armv7l", 0) !== -1) {
+							downloadAppImgSrc = "./libs/products/img/download_linux_app_144x52.png";
+							downloadAppLinkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-linux-armv7l.tar.gz";
+						} else if (navigatorUserAgent.indexOf("X11", 0) !== -1 && navigatorUserAgent.indexOf("Linux") !== -1 && 64 === platformOsArchitecture) {
+							downloadAppImgSrc = "./libs/products/img/download_linux_app_144x52.png";
+							downloadAppLinkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-linux-x64.tar.gz";
+						} else if (navigatorUserAgent.indexOf("X11", 0) !== -1 && navigatorUserAgent.indexOf("Linux") !== -1 && 32 === platformOsArchitecture) {
+							downloadAppImgSrc = "./libs/products/img/download_linux_app_144x52.png";
+							downloadAppLinkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-linux-ia32.tar.gz";
 						} else {
-							if (/Android/i.test(navigatorUserAgent)) {
+							if (platformOsFamily.indexOf("Android", 0) !== -1) {
 								downloadAppImgSrc = "./libs/products/img/download_android_app_144x52.png";
 								downloadAppLinkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-debug.apk";
 							}
@@ -239,7 +260,8 @@
 				scriptsArray.push("//cdn.jsdelivr.net/npm/parallax-js@3.1.0/dist/parallax.min.js",
 					"//cdn.jsdelivr.net/npm/qrjs2@0.1.3/qrjs2.min.js",
 					"//vk.com/js/api/openapi.js?147",
-					"//yastatic.net/share2/share.js");
+					"//yastatic.net/share2/share.js",
+					"//cdn.jsdelivr.net/npm/platform@1.3.4/platform.min.js");
 				var load;
 				load = new loadJsCss(scriptsArray, run);
 			}
