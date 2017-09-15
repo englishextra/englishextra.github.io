@@ -1843,12 +1843,11 @@ var initNavMenu = function () {
 			}
 		};
 		container[aEL]("click", handleContainerLeft);
-		/* container.onclick = handleContainerLeft; */
-		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-			container[aEL]("swipeleft", handleContainerLeft);
-			/* container.onswipeleft = handleContainerLeft; */
-			container[aEL]("swiperight", handleContainerRight);
-			/* container.onswiperight = handleContainerRight; */
+		if (w.tocca) {
+			if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
+				container[aEL]("swipeleft", handleContainerLeft);
+				container[aEL]("swiperight", handleContainerRight);
+			}
 		}
 	},
 	    addBtnHandler = function () {

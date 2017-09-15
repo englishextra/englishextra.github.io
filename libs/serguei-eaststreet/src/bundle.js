@@ -827,11 +827,11 @@ var initSidepanel = function () {
 			handleOtherUIElementAll();
 		};
 		btn[aEL]("click", handleBtnSidepanel);
-		if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-			overlay[aEL]("swipeleft", handleOverlaySidepanel);
-			/* page.onswipeleft = handleOverlaySidepanel; */
-			container[aEL]("swiperight", handleContainerSidepanel);
-			/* page.onswiperight = h_p_right; */
+		if (w.tocca) {
+			if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
+				overlay[aEL]("swipeleft", handleOverlaySidepanel);
+				container[aEL]("swiperight", handleContainerSidepanel);
+			}
 		}
 		if (items) {
 			var g = function (e) {
