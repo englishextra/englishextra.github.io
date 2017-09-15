@@ -80,7 +80,7 @@
 		if (qrcode) {
 			var locationHref = root.location.href || "";
 			var qrcodeImg = document[cE]("img");
-			var qrcodeImgTitle = document.title ? "������ �� �������� �" + document.title.replace(/\[[^\]]*?\]/g, "").trim() + "�" : "";
+			var qrcodeImgTitle = document.title ? "Ссылка на страницу «" + document.title.replace(/\[[^\]]*?\]/g, "").trim() + "»" : "";
 			var qrcodeImgSrc = "//chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
 			qrcodeImg.alt = qrcodeImgTitle;
 			if (root.QRCode) {
@@ -183,7 +183,7 @@
 				downloadAppLink.href = downloadAppLinkHref;
 				downloadAppLink.rel = "external";
 				downloadAppLink.target = "_blank";
-				downloadAppLink.title = "������� ����������";
+				downloadAppLink.title = "Скачать приложение";
 				downloadAppImg.src = downloadAppImgSrc;
 				timer2 = setTimeout(showDownloadApp, 1000);
 			}
