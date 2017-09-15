@@ -98,12 +98,12 @@
 					timer3 = null;
 					rippleParent.removeChild(ripple);
 				};
+				var wrapper = document[gEBCN]("wrapper")[0] || "";
 				var slot;
 				var hideRipple = function () {
 					if (imagesPreloaded) {
 						clearInterval(slot);
 						slot = null;
-						var wrapper = document[gEBCN]("wrapper")[0] || "";
 						if (wrapper) {
 							wrapper.style.opacity = 1;
 						}
@@ -248,6 +248,17 @@
 					if (scene && root.Parallax) {
 						parallax = new Parallax(scene);
 					}
+					if (wrapper && root.WheelIndicator) {
+						var indicator;
+						indicator = new WheelIndicator({
+								elem: wrapper,
+								callback: function (e) {
+									if ("down" === e.direction) {
+										root.location = "./app/#/contents";
+									}
+								}
+							});
+					}
 				};
 				var scriptsArray = ["//fonts.googleapis.com/css?family=PT+Serif:400,400i%7CRoboto:400,700%7CRoboto+Condensed:700&amp;subset=cyrillic",
 					"./libs/john-locke/css/bundle.min.css"];
@@ -259,7 +270,8 @@
 				}
 				scriptsArray.push("//cdn.jsdelivr.net/npm/parallax-js@3.1.0/dist/parallax.min.js",
 					"//cdn.jsdelivr.net/npm/qrjs2@0.1.3/qrjs2.min.js",
-					"//cdn.jsdelivr.net/npm/platform@1.3.4/platform.min.js");
+					"//cdn.jsdelivr.net/npm/platform@1.3.4/platform.min.js",
+					"//cdn.jsdelivr.net/npm/wheel-indicator@1.1.4/lib/wheel-indicator.js");
 				if (vkLike) {
 					scriptsArray.push("//vk.com/js/api/openapi.js?147");
 				}
