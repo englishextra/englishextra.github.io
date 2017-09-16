@@ -32,6 +32,15 @@
 	}
 	var hasTouch = "ontouchstart" in document.documentElement ? true : false;
 	var hasWheel = "onwheel" in document.documentElement ? true : false;
+	var supportsPassive = false;
+	try {
+		var opts = Object.defineProperty({}, "passive", {
+				get: function () {
+					supportsPassive = true;
+				}
+			});
+		root.addEventListener("test", null, opts);
+	} catch (e) {}
 	var gEBI = "getElementById";
 	var vkLike = document[gEBI]("vk-like") || "";
 	var run = function () {
@@ -157,7 +166,7 @@
 			};
 			if (downloadAppImgSrc && downloadAppLinkHref) {
 				downloadAppLink.href = downloadAppLinkHref;
-				downloadAppLink.rel = "external";
+				downloadAppLink.rel = "noopener";
 				downloadAppLink.target = "_blank";
 				downloadAppLink.title = "Скачать приложение";
 				downloadAppImg.src = downloadAppImgSrc;
@@ -203,7 +212,7 @@
 					});
 			}
 			if (root.tocca) {
-				root[aEL]("swipeup", changeLocationToContents);
+				root[aEL]("swipeup", changeLocationToContents, supportsPassive ? { passive: true } : false);
 			}
 		}
 	};
@@ -215,6 +224,9 @@
 	}
 	if (("undefined" === typeof window.Element && !("dataset" in document.documentElement))) {
 		scriptsArray.push("//cdn.jsdelivr.net/npm/classlist.js@1.1.20150312/classList.min.js");
+	}
+	if (!supportsPassive) {
+		scriptsArray.push("//cdnjs.cloudflare.com/ajax/libs/dom4/1.8.3/dom4.js");
 	}
 	scriptsArray.push("//cdn.jsdelivr.net/npm/parallax-js@3.1.0/dist/parallax.min.js",
 		"//cdn.jsdelivr.net/npm/qrjs2@0.1.3/qrjs2.min.js",
