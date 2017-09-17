@@ -162,26 +162,6 @@ a {
 	height: 30.8rem;
 }
 
-.ripple {
-	width: 16rem;
-	height: 16rem;
-	margin: 0;
-	position: absolute;
-	top: -3.333rem;
-	left: 25%;
-}
-
-.ripple a {
-	color: inherit;
-	text-decoration: none;
-}
-
-.ripple img {
-	display: block;
-	width: 16rem;
-	height: 16rem;
-}
-
 .john-locke {
 	width: 33.333rem;
 	height: 43rem;
@@ -514,6 +494,21 @@ a {
 	text-decoration: none;
 }
 
+.ripple {
+	width: 16rem;
+	height: 16rem;
+	margin: 0;
+	position: absolute;
+	top: -3.333rem;
+	left: 25%;
+}
+
+.ripple img {
+	display: block;
+	width: 16rem;
+	height: 16rem;
+}
+
 .ya-share2 {
 	width: 3.200rem;
 	position: absolute;
@@ -542,7 +537,7 @@ a {
 	html {
 		font-size: 10px;
 	}
-	
+
 	.signature {
 		bottom: 10%;
 		left: 70%;
