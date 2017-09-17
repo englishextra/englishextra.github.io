@@ -126,7 +126,7 @@
 		duration: 0.2
 	});
 	root.progressBar.increase(20);
-	var hideProgressBar = function () {
+	root.hideProgressBar = function () {
 		root.progressBar.finish();
 		root.progressBar.hide();
 	};
@@ -193,6 +193,7 @@
 	var run = function () {
 		var cE = "createElement";
 		var aC = "appendChild";
+		progressBar.increase(20);
 		var qrcode = document[gEBCN]("qrcode")[0] || "";
 		var timer;
 		var showQrcode = function () {
