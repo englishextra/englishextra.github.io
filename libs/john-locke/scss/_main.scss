@@ -511,6 +511,25 @@ a {
 	height: 4.267em;
 }
 
+.start {
+	display: none;
+	width: 16.000rem;
+	height: 16.000rem;
+	font-size: 0;
+	margin: 0;
+	position: absolute;
+	left: calc(50% - 8.000rem);
+	bottom: 1.600rem;
+	margin-right: -8.000rem;
+	transform: translate(-50%, -50%);
+}
+
+.start img {
+	display: block;
+	width: 16.000rem;
+	height: 16.000rem;
+}
+
 .vk {
 	width: 3.200rem;
 	height: 3.200rem;

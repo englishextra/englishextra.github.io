@@ -140,8 +140,10 @@
 			if((/^(localhost|127.0.0.1)/).test(window.location.hostname||"")){loadCSS("../../libs/paper/css/bundle.css");}else{loadCSS("../../libs/paper/css/bundle.min.css");}
 		</script>
 		<script>
+				var supportsPassive=false;try{var opts=Object.defineProperty({},"passive",{get:function(){supportsPassive=true;}});root.addEventListener("test",null,opts);}catch(e){}
 				var needsPolyfills = (function () {
-					return !window.requestAnimationFrame ||
+					return !supportsPassive ||
+					!window.requestAnimationFrame ||
 					!window.matchMedia ||
 					("undefined" === typeof window.Element && !("dataset" in document.documentElement)) ||
 					!("classList" in document.createElement("_")) ||

@@ -231,8 +231,12 @@ try {
 		if (scene && root.Parallax) {
 			parallax = new Parallax(scene);
 		}
-		var changeLocationToContents = function () {
-			root.location = "./pages/contents.html";
+		var start = document[gEBCN]("start")[0] || "";
+		var revealStart = function () {
+			if (start) {
+				start[cL].add("bounceInUp");
+				start.style.display = "block";
+			}
 		};
 		if (wrapper) {
 			if (root.WheelIndicator) {
@@ -241,13 +245,13 @@ try {
 					elem: wrapper,
 					callback: function (e) {
 						if ("down" === e.direction) {
-							changeLocationToContents();
+							revealStart();
 						}
 					}
 				});
 			}
 			if (root.tocca) {
-				root[aEL]("swipeup", changeLocationToContents, supportsPassive ? { passive: true } : false);
+				root[aEL]("swipeup", revealStart, supportsPassive ? { passive: true } : false);
 			}
 		}
 	};
