@@ -982,7 +982,7 @@ var handleDataSrcImageAll = function () {
 	    rEL = "removeEventListener";
 	w[rEL]("scroll", handleDataSrcImageAllWindow);
 	w[rEL]("resize", handleDataSrcImageAllWindow);
-	w[aEL]("scroll", handleDataSrcImageAllWindow);
+	w[aEL]("scroll", handleDataSrcImageAllWindow, { passive: true });
 	w[aEL]("resize", handleDataSrcImageAllWindow);
 	var timers = new Timers();
 	timers.timeout(function () {
@@ -1252,7 +1252,7 @@ var initUiTotop = function () {
 	if (b) {
 		/* console.log("triggered function: initUiTotop"); */
 		anchor[aEL]("click", handleUiTotopAnchor);
-		w[aEL]("scroll", handleUiTotopWindow);
+		w[aEL]("scroll", handleUiTotopWindow, { passive: true });
 	}
 };
 document.ready().then(initUiTotop);

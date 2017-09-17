@@ -599,7 +599,7 @@ var initUiTotop = function () {
 	if (b) {
 		/* console.log("triggered function: initUiTotop"); */
 		anchor[aEL]("click", handleUiTotopAnchor);
-		w[aEL]("scroll", handleUiTotopWindow);
+		w[aEL]("scroll", handleUiTotopWindow, {passive: true});
 	}
 };
 document.ready().then(initUiTotop);
