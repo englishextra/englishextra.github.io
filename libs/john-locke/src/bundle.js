@@ -50,7 +50,9 @@
 				}
 			});
 		root.addEventListener("test", null, opts);
-	} catch (e) {}
+	} catch (err) {
+		console.log(err);
+	}
 }
 	("undefined" !== typeof window ? window : this));
 /*!
