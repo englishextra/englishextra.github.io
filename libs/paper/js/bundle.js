@@ -517,7 +517,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 			}_this.el[cL].remove(isShowingClass);_this.body.innerHTML = "";
 		};this.el[aEL]("transitionend", clearBody, false);this.el[aEL]("webkitTransitionEnd", clearBody, false);this.el[aEL]("mozTransitionEnd", clearBody, false);this.el[aEL]("msTransitionEnd", clearBody, false);
 	};IframeLightbox.prototype.loadIframe = function () {
-		this.iframeId = containerClass + Date.now();this.body.innerHTML = '<iframe src="' + this.href + '" name="' + this.iframeId + '" onload="this.style.opacity=1;" style="opacity:0;border:none;" scrolling="no" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true" frameborder="no" title="Embedded Content"></iframe>';(function (iframeId, body) {
+		this.iframeId = containerClass + Date.now();this.body.innerHTML = '<iframe src="' + this.href + '" name="' + this.iframeId + '" id="' + this.iframeId + '" onload="this.style.opacity=1;" style="opacity:0;border:none;" scrolling="no" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true" frameborder="no" title="Embedded Content"></iframe>';(function (iframeId, body) {
 			d[gEBI](iframeId).onload = function () {
 				this.style.opacity = 1;body[cL].add(isLoadedClass);
 			};
