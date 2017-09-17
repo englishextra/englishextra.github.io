@@ -5,17 +5,50 @@
  */
 (function(root,document){"use strict";var loadJsCss=function(files,callback){var _this=this;_this.files=files;_this.js=[];_this.head=document.getElementsByTagName("head")[0]||"";_this.body=document.body||"";_this.ref=document.getElementsByTagName("script")[0]||"";_this.callback=callback||function(){};_this.loadStyle=function(file){var link=document.createElement("link");link.rel="stylesheet";link.type="text/css";link.href=file;_this.head.appendChild(link);};_this.loadScript=function(i){var script=document.createElement("script");script.type="text/javascript";script.async=true;script.src=_this.js[i];var loadNextScript=function(){if(++i<_this.js.length){_this.loadScript(i);}else{_this.callback();}};script.onload=function(){loadNextScript();};_this.head.appendChild(script);if(_this.ref.parentNode){_this.ref.parentNode.insertBefore(script,_this.ref);}else{(_this.body||_this.head).appendChild(script);}};var i,l;for(i=0,l=_this.files.length;i<l;i+=1){if((/\.js$|\.js\?/).test(_this.files[i])){_this.js.push(_this.files[i]);}if((/\.css$|\.css\?|\/css\?/).test(_this.files[i])){_this.loadStyle(_this.files[i]);}}i=null;l=null;if(_this.js.length>0){_this.loadScript(0);}else{_this.after();}};root.loadJsCss=loadJsCss;}("undefined" !== typeof window ? window : this,document));
 /*!
+ * modified ToProgress v0.1.1
+ * @see {@link https://github.com/djyde/ToProgress}
+ * @see {@link https://gist.github.com/englishextra/6a8c79c9efbf1f2f50523d46a918b785}
+ * @see {@link https://jsfiddle.net/englishextra/z5xhjde8/}
+ * arguments.callee changed to TP, a local wrapper function,
+ * so that public function name is now customizable;
+ * wrapped in curly brackets:
+ * else{document.body.appendChild(this.progressBar);};
+ * removed module check
+ * passes jshint
+ */
+(function(root){"use strict";var ToProgress=(function(){var TP=function(){var t=function(){var s=document.createElement("fakeelement"),i={transition:"transitionend",OTransition:"oTransitionEnd",MozTransition:"transitionend",WebkitTransition:"webkitTransitionEnd"};for(var j in i){if(i.hasOwnProperty(j)){if(void 0!==s.style[j]){return i[j];}}}},s=function(t,a){if(this.progress=0,this.options={id:"top-progress-bar",color:"#F44336",height:"2px",duration:0.2},t&&"object"===typeof t){for(var i in t){if(t.hasOwnProperty(i)){this.options[i]=t[i];}}}if(this.options.opacityDuration=3*this.options.duration,this.progressBar=document.createElement("div"),this.progressBar.id=this.options.id,this.progressBar.setCSS=function(t){for(var a in t){if(t.hasOwnProperty(a)){this.style[a]=t[a];}}},this.progressBar.setCSS({position:a?"relative":"fixed",top:"0",left:"0",right:"0","background-color":this.options.color,height:this.options.height,width:"0%",transition:"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s","-moz-transition":"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s","-webkit-transition":"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s"}),a){var o=document.querySelector(a);if(o){if(o.hasChildNodes()){o.insertBefore(this.progressBar,o.firstChild);}else{o.appendChild(this.progressBar);}}}else{document.body.appendChild(this.progressBar);}},i=t();return s.prototype.transit=function(){this.progressBar.style.width=this.progress+"%";},s.prototype.getProgress=function(){return this.progress;},s.prototype.setProgress=function(t,s){this.show();this.progress=t>100?100:0>t?0:t;this.transit();if(s){s();}},s.prototype.increase=function(t,s){this.show();this.setProgress(this.progress+t,s);},s.prototype.decrease=function(t,s){this.show();this.setProgress(this.progress-t,s);},s.prototype.finish=function(t){var s=this;this.setProgress(100,t);this.hide();if(i){this.progressBar.addEventListener(i,function(t){s.reset();s.progressBar.removeEventListener(t.type,TP);});}},s.prototype.reset=function(t){this.progress=0;this.transit();if(t){t();}},s.prototype.hide=function(){this.progressBar.style.opacity="0";},s.prototype.show=function(){this.progressBar.style.opacity="1";},s;};return TP();}());root.ToProgress=ToProgress;}("undefined" !== typeof window ? window : this,document));
+(function (root) {
+	"use strict";
+	root.progressBar = new ToProgress({
+			id: "top-progress-bar",
+			color: "#FF2C40",
+			height: "3px",
+			duration: 0.2
+		});
+	root.progressBar.increase(20);
+	var hideProgressBar = function () {
+		root.progressBar.finish();
+		root.progressBar.hide();
+	};
+	root.addEventListener("load", hideProgressBar);
+}
+	("undefined" !== typeof window ? window : this));
+/*!
  * @see {@link https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md#feature-detection}
  */
-var supportsPassive = false;
-try {
-	var opts = Object.defineProperty({}, "passive", {
-			get: function () {
-				supportsPassive = true;
-			}
-		});
-	root.addEventListener("test", null, opts);
-} catch (e) {}
+(function (root) {
+	"use strict";
+	root.supportsPassive = false;
+	try {
+		var opts = Object.defineProperty({}, "passive", {
+				get: function () {
+					root.supportsPassive = true;
+				}
+			});
+		root.addEventListener("test", null, opts);
+	} catch (e) {}
+}
+	("undefined" !== typeof window ? window : this));
 /*!
  * app logic
  */
@@ -30,7 +63,9 @@ try {
 	var removeRipple = function () {
 		clearTimeout(timer3);
 		timer3 = null;
-		rippleParent.removeChild(ripple);
+		if (ripple && rippleParent) {
+			rippleParent.removeChild(ripple);
+		}
 	};
 	var wrapper = document[gEBCN]("wrapper")[0] || "";
 	var slot;
@@ -38,17 +73,18 @@ try {
 		if (imagesPreloaded) {
 			clearInterval(slot);
 			slot = null;
-			if (wrapper) {
+			/* if (wrapper) {
 				wrapper.style.opacity = 1;
+			} */
+			if (ripple) {
+				ripple[cL].add("bounceOutUp");
 			}
-			ripple[cL].add("bounceOutUp");
 			timer3 = setTimeout(removeRipple, 5000);
+			progressBar.increase(20);
 		}
 	};
-	if (ripple && rippleParent && "undefined" !== typeof imagesPreloaded) {
-		if (rippleParent) {
-			slot = setInterval(hideRipple, 100);
-		}
+	if ("undefined" !== typeof imagesPreloaded) {
+		slot = setInterval(hideRipple, 100);
 	}
 	var hasTouch = "ontouchstart" in document.documentElement ? true : false;
 	var hasWheel = "onwheel" in document.documentElement ? true : false;
@@ -238,7 +274,8 @@ try {
 	};
 	var scriptsArray = ["//fonts.googleapis.com/css?family=PT+Serif:400,400i%7CRoboto:400,700%7CRoboto+Condensed:700&amp;subset=cyrillic",
 		"./libs/john-locke/css/bundle.min.css",
-		"//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.min.css"];
+		"//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.min.css",
+		"//cdn.rawgit.com/kimmobrunfeldt/progressbar.js/0.5.6/dist/progressbar.js"];
 	if (!("classList" in document.createElement("_"))) {
 		scriptsArray.push("//cdn.jsdelivr.net/npm/classlist.js@1.1.20150312/classList.min.js");
 	}
