@@ -208,10 +208,15 @@ try {
 			parallax = new Parallax(scene);
 		}
 		var start = document[gEBCN]("start")[0] || "";
+		var hand = document[gEBCN]("hand")[0] || "";
 		var revealStart = function () {
 			if (start) {
 				start[cL].add("bounceInUp");
 				start.style.display = "block";
+			}
+			if (hand) {
+				hand[cL].add("bounceInUp");
+				hand.style.display = "block";
 			}
 		};
 		if (wrapper) {

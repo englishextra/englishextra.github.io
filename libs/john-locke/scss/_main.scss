@@ -1,5 +1,4 @@
-html,
-body {
+html,body {
 	height: 100%;
 }
 
@@ -25,7 +24,6 @@ a {
 }
 
 .wrapper {
-	/* display: table; */
 	width: 100%;
 	height: 100%;
 	position: absolute;
@@ -37,13 +35,11 @@ a {
 	background-color: $ButtonBackgroundDark;
 }
 
-.wrapper img,
-.wrapper svg {
+.wrapper img,.wrapper svg {
 	display: block;
 }
 
-.scene,
-.layer {
+.scene,.layer {
 	display: block;
 	height: 100%;
 	width: 100%;
@@ -55,9 +51,7 @@ a {
 	display: block;
 	width: 100%;
 	height: 100%;
-	/* background-color: yellow; */
 	text-align: center;
-	/* position: relative; */
 	position: absolute;
 	overflow: hidden;
 	line-height: 0;
@@ -66,12 +60,6 @@ a {
 .layer {
 	position: absolute;
 }
-
-/* .layer img {
-	display: block;
-	width: 100%;
-	height: auto;
-} */
 
 .hero {
 	width: 50%;
@@ -117,15 +105,8 @@ a {
 .matreshka {
 	width: 12.8rem;
 	height: 24rem;
-	/* position: absolute;
-	top: 55%;
-	right: 15%;
-	margin: 0; */
-	/* background: blue; */
 	margin: 0;
 	position: absolute;
-	/* top: -10%;
-	right: 40%; */
 	bottom: -5%;
 	left: 5%;
 }
@@ -144,15 +125,8 @@ a {
 .pen {
 	width: 3.4rem;
 	height: 40rem;
-	/* position: absolute;
-	top: 55%;
-	right: 15%;
-	margin: 0; */
-	/* background: blue; */
 	margin: 0;
 	position: absolute;
-	/* top: -10%;
-	right: 40%; */
 	top: -40%;
 	right: 5%;
 }
@@ -171,15 +145,8 @@ a {
 .notebook {
 	width: 21.333rem;
 	height: 30.8rem;
-	/* position: absolute;
-	top: 55%;
-	right: 15%;
-	margin: 0; */
-	/* background: blue; */
 	margin: 0;
 	position: absolute;
-	/* top: -10%;
-	right: 40%; */
 	bottom: -30%;
 	right: -5%;
 }
@@ -198,15 +165,8 @@ a {
 .ripple {
 	width: 16rem;
 	height: 16rem;
-	/* position: absolute;
-	top: 55%;
-	right: 15%;
-	margin: 0; */
-	/* background: blue; */
 	margin: 0;
 	position: absolute;
-	/* top: -10%;
-	right: 40%; */
 	top: -3.333rem;
 	left: 25%;
 }
@@ -225,17 +185,12 @@ a {
 .john-locke {
 	width: 33.333rem;
 	height: 43rem;
-	/* position: absolute;
-	top: 55%;
-	right: 15%;
-	margin: 0; */
-	/* background: blue; */
 	margin: 0;
 	position: absolute;
 	top: 50%;
 	left: 65%;
 	margin-right: -50%;
-	transform: translate(-50%, -50%);
+	transform: translate(-50%,-50%);
 }
 
 .john-locke a {
@@ -252,19 +207,13 @@ a {
 .signature {
 	width: 21.333rem;
 	height: 8.667rem;
-	/* position: absolute;
-	top: 55%;
-	right: 15%;
-	margin: 0; */
-	/* background: blue; */
 	margin: 0;
 	position: absolute;
-	/* top: -10%;
-	left: 80%; */
-	right: 55%;
+	position: absolute;
 	bottom: 5%;
+	left: 75%;
 	margin-right: -50%;
-	transform: translate(-50%, -50%);
+	transform: translate(-50%,-50%);
 }
 
 .signature a {
@@ -279,50 +228,29 @@ a {
 }
 
 .quote {
-	/* width: 29.333rem;
-	height: 5.267rem; */
-	/* max-width: 29.333rem; */
-	/* position: absolute;
-	bottom: 10%;
-	left: 0; */
 	text-align: left;
 	background-color: #3BF0DF;
-	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50,50,50,0.3);
 	margin: 0;
-	/* background: green; */
 	position: absolute;
 	top: 20%;
 	left: 20%;
 	margin-right: -50%;
-	transform: translate(-50%, -50%);
+	transform: translate(-50%,-50%);
 }
-
-/* .quote img {
-	display: block;
-	width: 29.333rem;
-	height: 5.267rem;
-} */
 
 .quote p {
 	display: block;
 	font-size: 1.200rem;
-	font-family: "PT Serif", $font-family-webfont-serif-regular;
+	font-family: "PT Serif",$font-family-webfont-serif-regular;
 	line-height: 1.500rem;
 	font-weight: 400;
 	color: $TitleBarAndAppBarDark;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	/* margin: 0;
-	margin-top: 2.400rem; */
 	margin-right: 1.600rem;
 	margin-left: 1.600rem;
-	/* margin: 0;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	margin-right: -50%;
-	transform: translate(-50%, -50%); */
 }
 
 .quote a {
@@ -345,28 +273,19 @@ a {
 	display: block;
 	font-size: 3.333rem;
 	line-height: 4.000rem;
-	font-family: "Roboto Condensed", $font-family-webfont-sans-regular;
+	font-family: "Roboto Condensed",$font-family-webfont-sans-regular;
 	font-weight: 700;
 	text-transform: uppercase;
 	color: $TitleBarAndAppBarDark;
-	background-color: rgba(230, 230, 230, 0.8);
+	background-color: rgba(230,230,230,0.8);
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	/* margin: 0;
-	margin-top: 2.400rem;
-	margin-left: 3.200rem; */
 	margin: 0;
 	position: absolute;
 	top: 50%;
 	left: 0;
-	transform: translate(0, -50%);
-	/* margin: 0;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	margin-right: -50%;
-	transform: translate(-50%, -50%); */
+	transform: translate(0,-50%);
 	padding-top: 1.600rem;
 	padding-right: 2.400rem;
 	padding-bottom: 1.600rem;
@@ -377,9 +296,8 @@ a {
 	display: block;
 	font-size: 2.667rem;
 	line-height: 3.333rem;
-	font-family: "Roboto", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", "HelveticaNeue", "Roboto", sans-serif;
+	font-family: "Roboto","Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI","Segoe WP","HelveticaNeue","Roboto",sans-serif;
 	font-weight: 400;
-	/* font-style: italic; */
 	text-transform: none;
 	border-bottom: 0.267rem solid $color-hex-englishextra-logo-bg;
 	padding-bottom: 0.667rem;
@@ -394,15 +312,10 @@ a {
 	display: none;
 	visibility: hidden;
 	opacity: 0;
-	transition: visibility 0s, opacity 0.2s ease;
+	transition: visibility 0s,opacity 0.2s ease;
 	width: 8.533rem;
 	height: 8.533rem;
 	position: absolute;
-	/* top: 50%;
-	left: 50%;
-	margin: 0;
-	margin-right: -50%;
-	transform: translate(-50%, -50%); */
 	top: 5.733rem;
 	right: 1.333rem;
 }
@@ -416,15 +329,10 @@ a {
 .download-app {
 	visibility: hidden;
 	opacity: 0;
-	transition: visibility 0s, opacity 0.2s ease;
+	transition: visibility 0s,opacity 0.2s ease;
 	width: 8.533rem;
 	height: 3.067rem;
 	position: absolute;
-	/* top: 50%;
-	left: 50%;
-	margin: 0;
-	margin-right: -50%;
-	transform: translate(-50%, -50%); */
 	top: 1.333rem;
 	right: 1.333rem;
 }
@@ -444,11 +352,6 @@ a {
 	width: 4.000rem;
 	height: 4.000rem;
 	position: absolute;
-	/* top: 50%;
-	left: 50%;
-	margin: 0;
-	margin-right: -50%;
-	transform: translate(-50%, -50%); */
 	top: 1.333rem;
 	left: 1.333rem;
 }
@@ -458,13 +361,6 @@ a {
 	width: 4.000rem;
 	height: 4.000rem;
 }
-
-/* .logo img:hover {
-	animation-name: rotateIn;
-	animation-duration: 1s;
-	animation-fill-mode: both;
-	animation-iteration-count: 1;
-} */
 
 .logo a {
 	font-size: 0;
@@ -487,15 +383,8 @@ a {
 .phone {
 	width: 2.133em;
 	height: 4.267em;
-	/* position: absolute;
-	top: 55%;
-	right: 15%;
-	margin: 0; */
-	/* background: blue; */
 	margin: 0;
 	position: absolute;
-	/* top: -10%;
-	right: 40%; */
 	top: 2.667rem;
 	left: 6.933rem;
 }
@@ -518,10 +407,8 @@ a {
 	font-size: 0;
 	margin: 0;
 	position: absolute;
+	top: 50%;
 	left: calc(50% - 8.000rem);
-	bottom: 1.600rem;
-	margin-right: -8.000rem;
-	transform: translate(-50%, -50%);
 }
 
 .start img {
@@ -530,17 +417,32 @@ a {
 	height: 16.000rem;
 }
 
+.start a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.hand {
+	display: none;
+	width: 8.000rem;
+	height: 3.800rem;
+	font-size: 0;
+	margin: 0;
+	position: absolute;
+	top: calc(50% + 6.100rem);
+	left: calc(50% - 8.000rem);
+}
+
+.hand img {
+	display: block;
+	width: 8.000rem;
+	height: 3.800rem;
+}
+
 .vk {
 	width: 3.200rem;
 	height: 3.200rem;
 	position: absolute;
-	/* top: 50%;
-	left: 50%;
-	margin: 0;
-	margin-right: -50%;
-	transform: translate(-50%, -50%); */
-	/* bottom: 9.067rem;
-	right: 1.333rem; */
 	bottom: 4.5333rem;
 	left: 1.333rem;
 }
@@ -559,13 +461,6 @@ a {
 	width: 3.200rem;
 	height: 3.200rem;
 	position: absolute;
-	/* top: 50%;
-	left: 50%;
-	margin: 0;
-	margin-right: -50%;
-	transform: translate(-50%, -50%); */
-	/* bottom: 4.533rem;
-	right: 1.333rem; */
 	bottom: 4.5333rem;
 	left: 5.867rem;
 }
@@ -583,7 +478,6 @@ a {
 .footer {
 	width: 100%;
 	min-height: 3.200rem;
-	/* position: fixed; */
 	position: absolute;
 	bottom: 0;
 	left: 0;
@@ -598,9 +492,8 @@ a {
 
 .footer p {
 	display: inline-block;
-	/* max-width: 21.333rem; */
 	height: 3.200rem;
-	font-family: "Roboto", $font-family-webfont-sans-regular;
+	font-family: "Roboto",$font-family-webfont-sans-regular;
 	line-height: 3.200rem;
 	font-size: 0.867rem;
 	font-weight: 700;
@@ -630,11 +523,6 @@ a {
 
 .vk-like {
 	position: absolute;
-	/* top: 50%;
-	left: 50%;
-	margin: 0;
-	margin-right: -50%;
-	transform: translate(-50%, -50%); */
 	top: 0;
 	left: 10.400rem;
 }
@@ -654,21 +542,26 @@ a {
 	html {
 		font-size: 10px;
 	}
+	
 	.signature {
-		right: 40%;
 		bottom: 10%;
+		left: 70%;
 	}
+
 	.quote {
 		left: 15%;
 	}
+
 	.intro {
 		width: 100%;
 	}
+
 	.intro p {
 		top: 60%;
 		font-size: 2.400rem;
 		line-height: 3.000rem;
 	}
+
 	.intro span {
 		font-size: 1.867rem;
 		line-height: 2.400rem;
@@ -691,10 +584,12 @@ a {
 	html {
 		font-size: 15px;
 	}
+
 	.signature {
-		right: 40%;
 		bottom: 15%;
+		left: 75%;
 	}
+
 	.quote {
 		left: 10%;
 	}
@@ -716,25 +611,30 @@ a {
 	html {
 		font-size: 15px;
 	}
+
 	.signature {
-		right: 50%;
 		bottom: 5%;
 	}
+
 	.quote {
 		left: 20%;
 	}
+
 	.intro {
 		width: 50%;
 	}
+
 	.intro p {
 		top: 50%;
 		font-size: 3.333rem;
 		line-height: 4.000rem;
 	}
+
 	.intro span {
 		font-size: 2.667rem;
 		line-height: 3.333rem;
 	}
+
 	.qrcode {
 		display: block;
 	}
