@@ -394,7 +394,9 @@ a {
 	left: calc(50% - 8.000rem);
 }
 
-.start img {
+.start img,
+.start svg,
+.start canvas {
 	display: block;
 	width: 16.000rem;
 	height: 16.000rem;
@@ -505,8 +507,10 @@ a {
 	top: -3.333rem;
 	left: 25%;
 }
+
 .ripple img,
-.ripple svg {
+.ripple svg,
+.ripple canvas {
 	display: block;
 	width: 16.000rem;
 	height: 16.000rem;

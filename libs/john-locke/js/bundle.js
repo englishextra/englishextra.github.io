@@ -87,6 +87,66 @@
 	}
 })("undefined" !== typeof window ? window : this);
 /*!
+ * check for passive support
+ * @see {@link https://github.com/Modernizr/Modernizr/blob/master/feature-detects/svg/asimg.js}
+ */
+(function (root, document) {
+	"use strict";
+
+	root.supportsSvgAsImg = document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1") || "";
+})("undefined" !== typeof window ? window : this, document);
+/*!
+ * check for passive support
+ * @see {@link https://github.com/Modernizr/Modernizr/blob/master/feature-detects/svg/smil.js}
+ */
+(function (root, document) {
+	"use strict";
+
+	var toStringFn = {}.toString;
+	root.supportsSvgSmilAnimation = !!document.createElementNS && /SVGAnimate/.test(toStringFn.call(document.createElementNS("http://www.w3.org/2000/svg", "animate"))) || "";
+})("undefined" !== typeof window ? window : this, document);
+/*!
+ * replace svg images with fallback src
+ */
+(function (root) {
+	"use strict";
+
+	var gEBCN = "getElementsByClassName";
+	if (!supportsSvgAsImg) {
+		var svgImages = document[gEBCN]("svg-or-png-img") || "";
+		if (svgImages) {
+			var i;
+			for (i = 0; i < svgImages.length; i += 1) {
+				svgImages[i].src = svgImages[i].src.slice(0, -3) + "png";
+			}
+			i = null;
+		}
+	}
+	if (!supportsSvgSmilAnimation) {
+		var gifImages = document[gEBCN]("svg-or-gif-img") || "";
+		if (gifImages) {
+			var j;
+			for (j = 0; j < gifImages.length; j += 1) {
+				gifImages[j].src = gifImages[j].src.slice(0, -3) + "gif";
+			}
+			j = null;
+		}
+	}
+	/* var img = new Image();
+ var url = "./libs/john-locke/img/start-1200x1200.svg";
+ img.onload = function () {
+ 	var _this = this;
+ 	var imgWidth = _this.width;
+ 	var imgHeight = _this.height;
+ 	var canvas = start ? start[gEBTN]("canvas")[0] || "" : "";
+ 	var ctx = canvas.getContext('2d');
+ 	if (ctx && imgWidth && imgHeight) {
+ 		ctx.drawImage(img, 0, 0, imgWidth, imgHeight);
+ 	}
+ }
+ img.src = url; */
+})("undefined" !== typeof window ? window : this);
+/*!
  * app logic
  */
 (function (root, document) {
@@ -309,7 +369,7 @@
 		scriptsArray.push("//cdn.jsdelivr.net/npm/classlist.js@1.1.20150312/classList.min.js");
 	}
 	if ("undefined" === typeof window.Element && !("dataset" in document.documentElement)) {
-		scriptsArray.push("//cdn.jsdelivr.net/npm/classlist.js@1.1.20150312/classList.min.js");
+		scriptsArray.push("//cdn.jsdelivr.net/npm/element-dataset@2.2.6/lib/browser/index.cjs.min.js");
 	}
 	if (!supportsPassive) {
 		scriptsArray.push("//cdnjs.cloudflare.com/ajax/libs/dom4/1.8.3/dom4.js");
