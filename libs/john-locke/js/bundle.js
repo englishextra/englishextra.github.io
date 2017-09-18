@@ -295,7 +295,8 @@
 						if ("down" === e.direction) {
 							revealStart();
 						}
-					}
+					},
+					preventMouse: false
 				});
 			}
 			if (root.tocca) {
