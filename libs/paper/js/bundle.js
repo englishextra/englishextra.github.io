@@ -1720,7 +1720,7 @@ var handleDataSrcImageAll = function () {
 	var w = globalRoot,
 	    aEL = "addEventListener",
 	    rEL = "removeEventListener";
-	w[rEL]("scroll", handleDataSrcImageAllWindow);
+	w[rEL]("scroll", handleDataSrcImageAllWindow, { passive: true });
 	w[rEL]("resize", handleDataSrcImageAllWindow);
 	w[aEL]("scroll", handleDataSrcImageAllWindow, { passive: true });
 	w[aEL]("resize", handleDataSrcImageAllWindow);
@@ -1795,7 +1795,7 @@ var handleDataSrcIframeAll = function () {
 	var w = globalRoot,
 	    aEL = "addEventListener",
 	    rEL = "removeEventListener";
-	w[rEL]("scroll", handleDataSrcIframeAllWindow);
+	w[rEL]("scroll", handleDataSrcIframeAllWindow, { passive: true });
 	w[rEL]("resize", handleDataSrcIframeAllWindow);
 	w[aEL]("scroll", handleDataSrcIframeAllWindow, { passive: true });
 	w[aEL]("resize", handleDataSrcIframeAllWindow);
@@ -2502,7 +2502,7 @@ var initDisqusOnScroll = function () {
 	} /* ,
    handleDisqusWindow = function () {
    if (fitsIntoViewport(disqusThread)) {
-   	w[rEL]("scroll", handleDisqusWindow);
+   	w[rEL]("scroll", handleDisqusWindow, {passive: true});
    	loadDisqus();
    }
    } */;

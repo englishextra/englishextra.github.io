@@ -568,7 +568,7 @@ manageDataSrcImageAll = function () {
 	var w = globalRoot,
 	aEL = "addEventListener",
 	rEL = "removeEventListener";
-	w[rEL]("scroll", handleDataSrcImageAllWindow);
+	w[rEL]("scroll", handleDataSrcImageAllWindow, {passive: true});
 	w[rEL]("resize", handleDataSrcImageAllWindow);
 	w[aEL]("scroll", handleDataSrcImageAllWindow, {passive: true});
 	w[aEL]("resize", handleDataSrcImageAllWindow);
@@ -639,7 +639,7 @@ manageDataSrcIframeAll = function (ctx) {
 	var w = globalRoot,
 	aEL = "addEventListener",
 	rEL = "removeEventListener";
-	w[rEL]("scroll", handleDataSrcIframeAllWindow);
+	w[rEL]("scroll", handleDataSrcIframeAllWindow, {passive: true});
 	w[rEL]("resize", handleDataSrcIframeAllWindow);
 	w[aEL]("scroll", handleDataSrcIframeAllWindow, {passive: true});
 	w[aEL]("resize", handleDataSrcIframeAllWindow);
@@ -1772,7 +1772,7 @@ var fixUiPanelContentsSelect = function () {
 		throttleLogicHandleUiPanelContentsSelect();
 	};
 	if (uiPanelContentsSelect) {
-		w[aEL]("scroll", handleUiPanelContentsSelect);
+		w[aEL]("scroll", handleUiPanelContentsSelect, {passive: true});
 	}
 };
 document.ready().then(fixUiPanelContentsSelect);

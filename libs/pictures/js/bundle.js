@@ -1054,7 +1054,7 @@ var handleDataSrcImageAll = function () {
 	var w = globalRoot,
 	    aEL = "addEventListener",
 	    rEL = "removeEventListener";
-	w[rEL]("scroll", handleDataSrcImageAllWindow);
+	w[rEL]("scroll", handleDataSrcImageAllWindow, { passive: true });
 	w[rEL]("resize", handleDataSrcImageAllWindow);
 	w[aEL]("scroll", handleDataSrcImageAllWindow, { passive: true });
 	w[aEL]("resize", handleDataSrcImageAllWindow);

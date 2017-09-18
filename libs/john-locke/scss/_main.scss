@@ -1,4 +1,5 @@
-html,body {
+html,
+body {
 	height: 100%;
 }
 
@@ -35,11 +36,13 @@ a {
 	background-color: $ButtonBackgroundDark;
 }
 
-.wrapper img,.wrapper svg {
+.wrapper img,
+.wrapper svg {
 	display: block;
 }
 
-.scene,.layer {
+.scene,
+.layer {
 	display: block;
 	height: 100%;
 	width: 100%;
@@ -103,8 +106,8 @@ a {
 }
 
 .matreshka {
-	width: 12.8rem;
-	height: 24rem;
+	width: 12.800rem;
+	height: 24.000rem;
 	margin: 0;
 	position: absolute;
 	bottom: -5%;
@@ -118,13 +121,13 @@ a {
 
 .matreshka img {
 	display: block;
-	width: 12.8rem;
-	height: 24rem;
+	width: 12.800rem;
+	height: 24.000rem;
 }
 
 .pen {
-	width: 3.4rem;
-	height: 40rem;
+	width: 3.400rem;
+	height: 40.000rem;
 	margin: 0;
 	position: absolute;
 	top: -40%;
@@ -138,13 +141,13 @@ a {
 
 .pen img {
 	display: block;
-	width: 3.4rem;
-	height: 40rem;
+	width: 3.400rem;
+	height: 40.000rem;
 }
 
 .notebook {
 	width: 21.333rem;
-	height: 30.8rem;
+	height: 30.800rem;
 	margin: 0;
 	position: absolute;
 	bottom: -30%;
@@ -159,18 +162,16 @@ a {
 .notebook img {
 	display: block;
 	width: 21.333rem;
-	height: 30.8rem;
+	height: 30.800rem;
 }
 
 .john-locke {
 	width: 33.333rem;
-	height: 43rem;
-	margin: 0;
+	height: 43.000rem;
 	position: absolute;
-	top: 50%;
-	left: 65%;
-	margin-right: -50%;
-	transform: translate(-50%,-50%);
+	top: calc(50% - 21.500rem);
+	left: calc(65% - 16.667rem);
+	margin: 0;
 }
 
 .john-locke a {
@@ -181,19 +182,16 @@ a {
 .john-locke img {
 	display: block;
 	width: 33.333rem;
-	height: 43rem;
+	height: 43.000rem;
 }
 
 .signature {
 	width: 21.333rem;
 	height: 8.667rem;
+	position: absolute;
+	top: calc(70% - 4.333rem);
+	left: calc(75% - 10.667rem);
 	margin: 0;
-	position: absolute;
-	position: absolute;
-	bottom: 5%;
-	left: 75%;
-	margin-right: -50%;
-	transform: translate(-50%,-50%);
 }
 
 .signature a {
@@ -201,28 +199,29 @@ a {
 	text-decoration: none;
 }
 
-.signature img {
+.signature img,
+.signature svg {
 	display: block;
 	width: 21.333rem;
 	height: 8.667rem;
 }
 
 .quote {
+	min-width: 28.200rem;
+	min-height: 5.400rem;
 	text-align: left;
 	background-color: #3BF0DF;
-	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50,50,50,0.3);
-	margin: 0;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
 	position: absolute;
-	top: 20%;
-	left: 20%;
-	margin-right: -50%;
-	transform: translate(-50%,-50%);
+	top: calc(25% - 2.700rem);
+	left: calc(35% - 14.100rem);
+	margin: 0;
 }
 
 .quote p {
 	display: block;
 	font-size: 1.200rem;
-	font-family: "PT Serif",$font-family-webfont-serif-regular;
+	font-family: "PT Serif", $font-family-webfont-serif-regular;
 	line-height: 1.500rem;
 	font-weight: 400;
 	color: $TitleBarAndAppBarDark;
@@ -253,11 +252,11 @@ a {
 	display: block;
 	font-size: 3.333rem;
 	line-height: 4.000rem;
-	font-family: "Roboto Condensed",$font-family-webfont-sans-regular;
+	font-family: "Roboto Condensed", $font-family-webfont-sans-regular;
 	font-weight: 700;
 	text-transform: uppercase;
 	color: $TitleBarAndAppBarDark;
-	background-color: rgba(230,230,230,0.8);
+	background-color: rgba(230, 230, 230, 0.8);
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -265,7 +264,7 @@ a {
 	position: absolute;
 	top: 50%;
 	left: 0;
-	transform: translate(0,-50%);
+	transform: translate(0, -50%);
 	padding-top: 1.600rem;
 	padding-right: 2.400rem;
 	padding-bottom: 1.600rem;
@@ -276,7 +275,7 @@ a {
 	display: block;
 	font-size: 2.667rem;
 	line-height: 3.333rem;
-	font-family: "Roboto","Source Sans Pro","Open Sans","Exo2","Fira Sans","Segoe UI","Segoe WP","HelveticaNeue","Roboto",sans-serif;
+	font-family: "Roboto", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", "HelveticaNeue", "Roboto", sans-serif;
 	font-weight: 400;
 	text-transform: none;
 	border-bottom: 0.267rem solid $color-hex-englishextra-logo-bg;
@@ -292,7 +291,7 @@ a {
 	display: none;
 	visibility: hidden;
 	opacity: 0;
-	transition: visibility 0s,opacity 0.2s ease;
+	transition: visibility 0s, opacity 0.2s ease;
 	width: 8.533rem;
 	height: 8.533rem;
 	position: absolute;
@@ -309,7 +308,7 @@ a {
 .download-app {
 	visibility: hidden;
 	opacity: 0;
-	transition: visibility 0s,opacity 0.2s ease;
+	transition: visibility 0s, opacity 0.2s ease;
 	width: 8.533rem;
 	height: 3.067rem;
 	position: absolute;
@@ -317,7 +316,8 @@ a {
 	right: 1.333rem;
 }
 
-.download-app img {
+.download-app img,
+.download-app svg {
 	display: block;
 	width: 8.533rem;
 	height: 3.067rem;
@@ -336,7 +336,8 @@ a {
 	left: 1.333rem;
 }
 
-.logo img {
+.logo img,
+.logo svg {
 	display: block;
 	width: 4.000rem;
 	height: 4.000rem;
@@ -354,7 +355,8 @@ a {
 	left: 3.200rem;
 }
 
-.arrow img {
+.arrow img,
+.arrow svg {
 	display: block;
 	width: 4.000rem;
 	height: 2.400rem;
@@ -369,15 +371,16 @@ a {
 	left: 6.933rem;
 }
 
-.phone a {
-	color: inherit;
-	text-decoration: none;
-}
-
-.phone img {
+.phone img,
+.phone svg {
 	display: block;
 	width: 2.133em;
 	height: 4.267em;
+}
+
+.phone a {
+	color: inherit;
+	text-decoration: none;
 }
 
 .start {
@@ -473,7 +476,7 @@ a {
 .footer p {
 	display: inline-block;
 	height: 3.200rem;
-	font-family: "Roboto",$font-family-webfont-sans-regular;
+	font-family: "Roboto", $font-family-webfont-sans-regular;
 	line-height: 3.200rem;
 	font-size: 0.867rem;
 	font-weight: 700;
@@ -502,8 +505,8 @@ a {
 	top: -3.333rem;
 	left: 25%;
 }
-
-.ripple img {
+.ripple img,
+.ripple svg {
 	display: block;
 	width: 16.000rem;
 	height: 16.000rem;
@@ -537,21 +540,17 @@ a {
 	html {
 		font-size: 10px;
 	}
-
-	.signature {
-		bottom: 10%;
-		left: 70%;
-	}
-
+	
 	.quote {
-		left: 15%;
+		top: calc(20% - 2.700rem);
+		left: calc(35% - 14.100rem);
 	}
 
 	.intro {
 		width: 100%;
 	}
 
-	.intro p {
+	.intro h1 {
 		top: 60%;
 		font-size: 2.400rem;
 		line-height: 3.000rem;
@@ -579,14 +578,10 @@ a {
 	html {
 		font-size: 15px;
 	}
-
-	.signature {
-		bottom: 15%;
-		left: 75%;
-	}
-
+	
 	.quote {
-		left: 10%;
+		top: calc(25% - 2.700rem);
+		left: calc(30% - 14.100rem);
 	}
 }
 
@@ -606,20 +601,17 @@ a {
 	html {
 		font-size: 15px;
 	}
-
-	.signature {
-		bottom: 5%;
-	}
-
+	
 	.quote {
-		left: 20%;
+		top: calc(25% - 2.700rem);
+		left: calc(35% - 14.100rem);
 	}
 
 	.intro {
 		width: 50%;
 	}
 
-	.intro p {
+	.intro h1 {
 		top: 50%;
 		font-size: 3.333rem;
 		line-height: 4.000rem;
