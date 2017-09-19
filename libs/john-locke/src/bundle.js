@@ -296,9 +296,10 @@
 		if (scene && root.Parallax) {
 			parallax = new Parallax(scene);
 		}
-		var start = document[gEBCN]("start")[0] || "";
-		var hand = document[gEBCN]("hand")[0] || "";
+		var guesture = document[gEBCN]("guesture")[0] || "";
 		var revealStart = function () {
+			var start = document[gEBCN]("start")[0] || "";
+			var hand = document[gEBCN]("hand")[0] || "";
 			if (start) {
 				start[cL].add("bounceInUp");
 				start.style.display = "block";
@@ -307,8 +308,24 @@
 				hand[cL].add("bounceInUp");
 				hand.style.display = "block";
 			}
+			if (guesture) {
+				guesture[cL].add("bounceOutUp");
+			}
 		};
 		if (wrapper) {
+			var mousewheeldown = document[gEBCN]("mousewheeldown")[0] || "";
+			var swipeup = document[gEBCN]("swipeup")[0] || "";
+			if (hasTouch) {
+				mousewheeldown.style.display = "none";
+			} else {
+				if (hasWheel) {
+					swipeup.style.display = "none";
+				}
+			}
+			if (hasTouch || hasWheel) {
+				guesture[cL].add("bounceInUp");
+				guesture.style.display = "block";
+			}
 			if (root.WheelIndicator) {
 				var indicator;
 				indicator = new WheelIndicator({
