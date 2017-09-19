@@ -26,7 +26,7 @@
 		<link rel="image_src" href="/image_src.jpg" type="image/jpeg" title="Английский без регистрации" />
 		<link rel="sitemap" href="/sitemap.xml" type="application/xml" />
 		<style>
-			body,a{color:transparent;}body{background-color:#2B2B2B;}img,svg{display:none;}
+			body,a{color:transparent;}body{background-color:#2B2B2B;}img,svg,canvas{display:none;}
 			/* .wrapper{opacity:0;} */
 			.ripple {
 				width: 16.000rem;
@@ -36,19 +36,23 @@
 				top: -3.333rem;
 				left: 25%;
 			}
-			.ripple img,
-			.ripple svg,
-			.ripple canvas {
+			.ripple img {
 				display: block;
 				width: 16.000rem;
 				height: 16.000rem;
 			}
 		</style>
 		<script>
-			var imagesPreloaded=false;(function(m){m="[object Array]"===Object.prototype.toString.apply(m)?m:[m];var t=function(){return imagesPreloaded=true;},f=function(){return imagesPreloaded=false;},c=[];for(var i=0,l=m.length;i<l;i++){c[i]=new Image();c[i].onabort=f;c[i].onerror=f;c[i].onload=t;c[i].src=m[i];}}(["./libs/john-locke/img/dots-8x8.png","./libs/john-locke/img/hand-600x286.png","./libs/john-locke/img/hero-960x1080.jpg","./libs/john-locke/img/john-locke-614x792.png","./libs/john-locke/img/matreshka-266x500.png","./libs/john-locke/img/monolith-960x1080.jpg","./libs/john-locke/img/notebook-384x554.png","./libs/john-locke/img/pen-202x2400.png","./libs/john-locke/img/ripple-200x200.svg","./libs/john-locke/img/start-1200x1200.svg"]));
+			var imagesPreloaded=false;(function(m){m="[object Array]"===Object.prototype.toString.apply(m)?m:[m];var t=function(){return imagesPreloaded=true;},f=function(){return imagesPreloaded=false;},c=[];for(var i=0,l=m.length;i<l;i++){c[i]=new Image();c[i].onabort=f;c[i].onerror=f;c[i].onload=t;c[i].src=m[i];}}(["./libs/john-locke/img/dots-8x8.png","./libs/john-locke/img/hand-200x96.png","./libs/john-locke/img/hero-960x1080.jpg","./libs/john-locke/img/john-locke-500x645.png","./libs/john-locke/img/matreshka-192x360.png","./libs/john-locke/img/monolith-960x1080.jpg","./libs/john-locke/img/notebook-320x462.png","./libs/john-locke/img/pen-96x1141.png","./libs/john-locke/img/ripple-200x200.svg","./libs/john-locke/img/start-360x360.svg"]));
 		</script>
 	</head>
 	<body>
+		<!-- images are hidden with display none in html and revealed with display block in css -->
+		<!-- canvas and source image width and height should be of the same aspect ratio, not neccessarily size -->
+		<!-- source svg for canvas painting should have width and height attributes -->
+		<!-- images are finally scaled in css -->
+		<!-- svg as image with svg-nosmil-img class if not supported is replaced with the data-fallback-src -->
+		<!-- animated svg as image with svg-smil-img class if not supported is replaced with the data-fallback-src -->
 		<svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg">
 			<defs>
 				<symbol id="logo" viewBox="0 0 108 108" enable-background="new 0 0 108 108">
@@ -80,17 +84,23 @@
 			<div class="monolith animated duration-3s bounceInRight"></div>
 			<div id="scene" class="scene" data-friction-x="0.1" data-friction-y="0.1" data-scalar-x="25" data-scalar-y="15">
 				<div class="layer" data-depth="0.40">
-					<img src="./libs/john-locke/img/matreshka-266x500.png" class="matreshka animated duration-3s bounceInUp" alt="" />
+					<!-- <img src="./libs/john-locke/img/matreshka-192x360.png" class="matreshka animated duration-3s bounceInUp" alt="" /> -->
+					<canvas data-src="./libs/john-locke/img/matreshka-192x360.png" width="192" height="360" class="matreshka animated duration-3s bounceInUp"></canvas>
 				</div>
 				<div class="layer" data-depth="0.60">
-					<img src="./libs/john-locke/img/notebook-384x554.png" class="notebook animated duration-3s bounceInUp" alt="" />
+					<!-- <img src="./libs/john-locke/img/notebook-320x462.png" class="notebook animated duration-3s bounceInUp" alt="" /> -->
+					<canvas data-src="./libs/john-locke/img/notebook-320x462.png" width="320" height="462" class="notebook animated duration-3s bounceInUp"></canvas>
 				</div>
 				<div class="layer" data-depth="0.80">
-					<img src="./libs/john-locke/img/pen-202x2400.png" class="pen animated duration-3s bounceInDown" alt="" />
+					<!-- <img src="./libs/john-locke/img/pen-96x1141.png" class="pen animated duration-3s bounceInDown" alt="" /> -->
+					<canvas data-src="./libs/john-locke/img/pen-96x1141.png" width="96" height="1141" class="pen animated duration-3s bounceInDown"></canvas>
 				</div>
 			</div>
+			<!-- <div class="john-locke animated duration-3s bounceIn">
+				<img src="./libs/john-locke/img/john-locke-500x645.png" class="animated duration-5s swing" alt="" />
+			</div> -->
 			<div class="john-locke animated duration-3s bounceIn">
-				<img src="./libs/john-locke/img/john-locke-614x792.png" class="animated duration-5s swing" alt="" />
+				<canvas data-src="./libs/john-locke/img/john-locke-500x645.png" width="500" height="645" class="animated duration-5s swing"></canvas>
 			</div>
 			<!-- <div class="signature animated duration-3s bounceInLeft">
 				<img src="./libs/john-locke/img/signature-600x244.png" class="" alt="animated duration-5s swing" />
@@ -99,28 +109,34 @@
 				<svg class="animated duration-5s swing"><use xlink:href="#signature"></use></svg>
 			</div>
 			<div class="intro animated duration-5s bounceInLeft" role="navigation" aria-label="Site">
-				<h1><a href="./pages/contents.html" rel="contents" title="Содержание - Английский без регистрации">статьи<br/>по грамматике<br/>английского<br/><span>для русскоговорящих</span></a></h1>
+				<h1>
+					<a href="./pages/contents.html" rel="contents" title="Содержание - Английский без регистрации">статьи<br/>по грамматике<br/>английского<br/><span>для русскоговорящих</span></a>
+				</h1>
 			</div>
 			<div class="quote animated duration-5s swing">
 				<p>«Великое искусство научиться многому —<br/>это браться сразу за немногое.» (Джон Локк)</p>
 			</div>
 			<div class="start animated">
-				<a href="./pages/contents.html" rel="contents" title="Содержание - Английский без регистрации"><img src="./libs/john-locke/img/start-1200x1200.svg" data-fallback-src="./libs/john-locke/img/start-1200x1200.png" class="svg-smil-img animated duration-5s swing" alt="" /></a>
+				<a href="./pages/contents.html" rel="contents" title="Содержание - Английский без регистрации">
+					<img src="./libs/john-locke/img/start-360x360.svg" data-fallback-src="./libs/john-locke/img/start-360x360.png" class="svg-smil-img animated duration-5s swing" alt="" />
+				</a>
 			</div>
-			<!-- <div class="start animated">
-				<a href="./pages/contents.html" rel="contents" title="Содержание - Английский без регистрации"><canvas class="animated duration-5s swing" width="1200" height="1200"></canvas></a>
-			</div> -->
 			<div class="hand animated">
-				<a href="./pages/contents.html" rel="contents" title="Содержание - Английский без регистрации"><img src="./libs/john-locke/img/hand-600x286.png" class="animated duration-5s swing" alt="" /></a>
+				<a href="./pages/contents.html" rel="contents" title="Содержание - Английский без регистрации">
+					<!-- <img src="./libs/john-locke/img/hand-200x96.png" class="animated duration-5s swing" alt="" /> -->
+					<canvas data-src="./libs/john-locke/img/hand-200x96.png" width="200" height="96" class="animated duration-5s swing"></canvas>
+				</a>
 			</div>
 			<div class="footer animated duration-3s bounceInDown">
-				<p><a href="https://github.com/englishextra/englishextra.github.io" target="_blank" rel="noopener" rel="content-repository">© englishextra, 2006—2017</a></p>
+				<p>
+					<a href="https://github.com/englishextra/englishextra.github.io" target="_blank" rel="noopener" rel="content-repository">© englishextra, 2006—2017</a>
+				</p>
 			</div>
 			<!-- <div class="vk animated duration-3s bounceInUp">
-				<a href="https://vk.com/englishextragithubio" rel="external" target="_blank" rel="noopener" title="Группа в ВК - Английский без регистрации"><img src="./libs/john-locke/img/vk-192x192.png" class="animated pulse" alt="" /></a>
+				<a href="https://vk.com/englishextragithubio" rel="external" target="_blank" rel="noopener" title="Группа в ВК - Английский без регистрации"><img src="./libs/john-locke/img/vk-96x96.svg" data-fallback-src="./libs/john-locke/img/vk-96x96.png" class="svg-nosmil-img animated pulse" alt="" /></a>
 			</div>
 			<div class="tutor animated duration-3s bounceInUp">
-				<a href="https://englishextra.github.io/serguei/" rel="external" target="_blank" rel="noopener" title="Репетитор английского в Тушино"><img src="./libs/john-locke/img/tutor-192x192.png" class="animated pulse" alt="" /></a>
+				<a href="https://englishextra.github.io/serguei/" rel="external" target="_blank" rel="noopener" title="Репетитор английского в Тушино"><img src="./libs/john-locke/img/tutor-96x96.svg" data-fallback-src="./libs/john-locke/img/tutor-96x96.png" class="svg-nosmil-img animated pulse" alt="" /></a>
 			</div> -->
 			<!-- <div class="phone animated duration-3s bounceInDown">
 				<img src="./libs/john-locke/img/phone-256x512.png" class="animated duration-5s swing" alt="" />
@@ -140,12 +156,16 @@
 			<div class="arrow animated duration-3s bounceInDown">
 				<svg class="animated duration-5s swing"><use xlink:href="#arrow"></use></svg>
 			</div>
-			<div class="download-app"><a href="javascript:void(0);" target="_blank" rel="noopener"><img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20144%2052%27%2F%3E" alt="" /></a></div>
+			<div class="download-app">
+				<a href="javascript:void(0);" target="_blank" rel="noopener"><img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20144%2052%27%2F%3E" alt="" /></a>
+			</div>
 			<div class="qrcode"></div>
 			<!-- <div class="vk-like" data-apiid="4367728"></div> -->
 			<!-- <div class="ya-share2" data-direction="vertical" data-services="vkontakte,facebook,odnoklassniki,moimir"></div> -->
 		</div>
-		<div class="ripple animated duration-5s"><img src="./libs/john-locke/img/ripple-200x200.svg" data-fallback-src="./libs/john-locke/img/ripple-200x200.png" class="svg-smil-img" alt="" /></div>
+		<div class="ripple animated duration-5s">
+			<img src="./libs/john-locke/img/ripple-200x200.svg" data-fallback-src="./libs/john-locke/img/ripple-200x200.png" class="svg-smil-img" alt="" />
+		</div>
 		<a class="github-fork-ribbon left-bottom" href="https://github.com/englishextra/englishextra.github.io" target="_blank" rel="noopener" title="Fork me on GitHub" data-ribbon="Fork me on GitHub">Fork me on GitHub</a>
 		<script src="./libs/john-locke/js/bundle.min.js"></script>
 		<script src="/companion.fixed.min.js" type="application/javascript" async="" data-service-worker="/service-worker.min.js"></script>

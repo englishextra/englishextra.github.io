@@ -36,11 +36,6 @@ a {
 	background-color: $ButtonBackgroundDark;
 }
 
-.wrapper img,
-.wrapper svg {
-	display: block;
-}
-
 .scene,
 .layer {
 	display: block;
@@ -62,6 +57,11 @@ a {
 
 .layer {
 	position: absolute;
+}
+
+.layer img,
+.layer canvas {
+	display: block;
 }
 
 .hero {
@@ -119,7 +119,8 @@ a {
 	text-decoration: none;
 }
 
-.matreshka img {
+.matreshka img,
+.matreshka canvas {
 	display: block;
 	width: 12.800rem;
 	height: 24.000rem;
@@ -139,7 +140,8 @@ a {
 	text-decoration: none;
 }
 
-.pen img {
+.pen img,
+.pen canvas {
 	display: block;
 	width: 3.400rem;
 	height: 40.000rem;
@@ -159,7 +161,8 @@ a {
 	text-decoration: none;
 }
 
-.notebook img {
+.notebook img,
+.notebook canvas {
 	display: block;
 	width: 21.333rem;
 	height: 30.800rem;
@@ -179,7 +182,8 @@ a {
 	text-decoration: none;
 }
 
-.john-locke img {
+.john-locke img,
+.john-locke canvas {
 	display: block;
 	width: 33.333rem;
 	height: 43.000rem;
@@ -316,8 +320,7 @@ a {
 	right: 1.333rem;
 }
 
-.download-app img,
-.download-app svg {
+.download-app img {
 	display: block;
 	width: 8.533rem;
 	height: 3.067rem;
@@ -394,9 +397,7 @@ a {
 	left: calc(50% - 8.000rem);
 }
 
-.start img,
-.start svg,
-.start canvas {
+.start img {
 	display: block;
 	width: 16.000rem;
 	height: 16.000rem;
@@ -418,7 +419,8 @@ a {
 	left: calc(50% - 8.000rem);
 }
 
-.hand img {
+.hand img,
+.hand canvas {
 	display: block;
 	width: 8.000rem;
 	height: 3.800rem;
@@ -508,9 +510,7 @@ a {
 	left: 25%;
 }
 
-.ripple img,
-.ripple svg,
-.ripple canvas {
+.ripple img {
 	display: block;
 	width: 16.000rem;
 	height: 16.000rem;
