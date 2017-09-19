@@ -153,45 +153,46 @@
 	"use strict";
 
 	var gEBCN = "getElementsByClassName";
-	var cL = "classList";
-	var pN = "parentNode";
-	var ripple = document[gEBCN]("ripple")[0] || "";
-	var rippleParent = ripple ? ripple[pN] || "" : "";
-	var timer3;
-	var removeRipple = function () {
-		clearTimeout(timer3);
-		timer3 = null;
-		if (ripple && rippleParent) {
-			rippleParent.removeChild(ripple);
-		}
-	};
-	var wrapper = document[gEBCN]("wrapper")[0] || "";
-	var slot;
-	var hideRipple = function () {
-		if (imagesPreloaded) {
-			clearInterval(slot);
-			slot = null;
-			/* if (wrapper) {
-   	wrapper.style.opacity = 1;
-   } */
-			if (ripple) {
-				ripple[cL].add("bounceOutUp");
-			}
-			timer3 = setTimeout(removeRipple, 5000);
-			/* progressBar.increase(20); */
-		}
-	};
-	if ("undefined" !== typeof imagesPreloaded) {
-		slot = setInterval(hideRipple, 100);
-	}
 	var hasTouch = "ontouchstart" in document.documentElement ? true : false;
-	var hasWheel = "onwheel" in document.documentElement ? true : false;
+	var hasWheel = "onwheel" in document.createElement("div") || void 0 !== document.onmousewheel ? true : false;
 	var gEBI = "getElementById";
 	var vkLike = document[gEBI]("vk-like") || "";
 	var run = function () {
+		var cL = "classList";
+		var pN = "parentNode";
 		var cE = "createElement";
 		var aC = "appendChild";
 		/* progressBar.increase(20); */
+		var ripple = document[gEBCN]("ripple")[0] || "";
+		var rippleParent = ripple ? ripple[pN] || "" : "";
+		var timer3;
+		var removeRipple = function () {
+			clearTimeout(timer3);
+			timer3 = null;
+			if (ripple && rippleParent) {
+				rippleParent.removeChild(ripple);
+			}
+		};
+		var wrapper = document[gEBCN]("wrapper")[0] || "";
+		var slot;
+		var hideRipple = function () {
+			if (imagesPreloaded) {
+				clearInterval(slot);
+				slot = null;
+				/* if (wrapper) {
+    	wrapper.style.opacity = 1;
+    } */
+				if (ripple) {
+					ripple[cL].add("bounceOutUp");
+				}
+				timer3 = setTimeout(removeRipple, 5000);
+				/* progressBar.increase(20); */
+			}
+		};
+		if ("undefined" !== typeof imagesPreloaded) {
+			slot = setInterval(hideRipple, 100);
+		}
+
 		var qrcode = document[gEBCN]("qrcode")[0] || "";
 		var timer;
 		var showQrcode = function () {
