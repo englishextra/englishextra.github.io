@@ -37,66 +37,31 @@
 }
 	("undefined" !== typeof window ? window : this)); */
 /*!
- * check for passive support
- * @see {@link https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md#feature-detection}
- */
-(function (root) {
-	"use strict";
-	root.supportsPassive = false;
-	try {
-		var opts = Object.defineProperty({}, "passive", {
-				get: function () {
-					root.supportsPassive = true;
-				}
-			});
-		root.addEventListener("test", null, opts);
-	} catch (err) {
-		console.log(err);
-	}
-}
-	("undefined" !== typeof window ? window : this));
-/*!
- * check for passive support
- * @see {@link https://github.com/Modernizr/Modernizr/blob/master/feature-detects/svg/asimg.js}
+ * app logic
  */
 (function (root, document) {
-	"use strict";
-	root.supportsSvgAsImg = document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1") || "";
-}
-	("undefined" !== typeof window ? window : this, document));
-/*!
- * check for passive support
- * @see {@link https://github.com/Modernizr/Modernizr/blob/master/feature-detects/svg/smil.js}
- */
-(function (root, document) {
-	"use strict";
-	var toStringFn = {}.toString;
-	root.supportsSvgSmilAnimation = !!document.createElementNS &&
-		(/SVGAnimate/).test(toStringFn.call(document.createElementNS("http://www.w3.org/2000/svg", "animate"))) || "";
-}
-	("undefined" !== typeof window ? window : this, document));
-/*!
- * replace svg images with fallback src
- */
-(function(root){
 	"use strict";
 	var gEBCN = "getElementsByClassName";
+	var supportsSvgAsImg = document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1") || "";
+	var toStringFn = {}.toString;
+	var supportsSvgSmilAnimation = !!document.createElementNS &&
+		(/SVGAnimate/).test(toStringFn.call(document.createElementNS("http://www.w3.org/2000/svg", "animate"))) || "";
 	if (!supportsSvgAsImg) {
-		var svgImages = document[gEBCN]("svg-or-png-img") || "";
-		if (svgImages) {
+		var svgNosmilImages = document[gEBCN]("svg-nosmil-img") || "";
+		if (svgNosmilImages) {
 			var i;
-			for (i = 0; i < svgImages.length; i += 1) {
-				svgImages[i].src = svgImages[i].src.slice(0, -3) + "png";
+			for (i = 0; i < svgNosmilImages.length; i += 1) {
+				svgNosmilImages[i].src = svgNosmilImages[i].src.slice(0, -3) + "png";
 			}
 			i = null;
 		}
 	}
 	if (!supportsSvgSmilAnimation) {
-		var gifImages = document[gEBCN]("svg-or-gif-img") || "";
-		if (gifImages) {
+		var svgSmilImages = document[gEBCN]("svg-smil-img") || "";
+		if (svgSmilImages) {
 			var j;
-			for (j = 0; j < gifImages.length; j += 1) {
-				gifImages[j].src = gifImages[j].src.slice(0, -3) + "gif";
+			for (j = 0; j < svgSmilImages.length; j += 1) {
+				svgSmilImages[j].src = svgSmilImages[j].src.slice(0, -3) + "png";
 			}
 			j = null;
 		}
@@ -114,53 +79,46 @@
 		}
 	}
 	img.src = url; */
-}("undefined" !== typeof window ? window : this));
-/*!
- * app logic
- */
-(function (root, document) {
-	"use strict";
-	var gEBCN = "getElementsByClassName";
+	var cN = "className";
+	var pN = "parentNode";
+	var ripple = document[gEBCN]("ripple")[0] || "";
+	var rippleParent = ripple ? ripple[pN] || "" : "";
+	var timer3;
+	var removeRipple = function () {
+		clearTimeout(timer3);
+		timer3 = null;
+		if (ripple && rippleParent) {
+			rippleParent.removeChild(ripple);
+		}
+	};
+	var wrapper = document[gEBCN]("wrapper")[0] || "";
+	var slot;
+	var hideRipple = function () {
+		if (imagesPreloaded) {
+			clearInterval(slot);
+			slot = null;
+			/* if (wrapper) {
+				wrapper.style.opacity = 1;
+			} */
+			if (ripple) {
+				ripple[cN] += " bounceOutUp";
+			}
+			timer3 = setTimeout(removeRipple, 5000);
+			/* progressBar.increase(20); */
+		}
+	};
+	if ("undefined" !== typeof imagesPreloaded) {
+		slot = setInterval(hideRipple, 100);
+	}
 	var hasTouch = "ontouchstart" in document.documentElement ? true : false;
 	var hasWheel = "onwheel" in document.createElement("div") || void 0 !== document.onmousewheel ? true : false;
 	var gEBI = "getElementById";
 	var vkLike = document[gEBI]("vk-like") || "";
 	var run = function () {
 		var cL = "classList";
-		var pN = "parentNode";
 		var cE = "createElement";
 		var aC = "appendChild";
 		/* progressBar.increase(20); */
-		var ripple = document[gEBCN]("ripple")[0] || "";
-		var rippleParent = ripple ? ripple[pN] || "" : "";
-		var timer3;
-		var removeRipple = function () {
-			clearTimeout(timer3);
-			timer3 = null;
-			if (ripple && rippleParent) {
-				rippleParent.removeChild(ripple);
-			}
-		};
-		var wrapper = document[gEBCN]("wrapper")[0] || "";
-		var slot;
-		var hideRipple = function () {
-			if (imagesPreloaded) {
-				clearInterval(slot);
-				slot = null;
-				/* if (wrapper) {
-					wrapper.style.opacity = 1;
-				} */
-				if (ripple) {
-					ripple[cL].add("bounceOutUp");
-				}
-				timer3 = setTimeout(removeRipple, 5000);
-				/* progressBar.increase(20); */
-			}
-		};
-		if ("undefined" !== typeof imagesPreloaded) {
-			slot = setInterval(hideRipple, 100);
-		}
-
 		var qrcode = document[gEBCN]("qrcode")[0] || "";
 		var timer;
 		var showQrcode = function () {
@@ -341,7 +299,7 @@
 			}
 		}
 	};
-	var scriptsArray = ["//fonts.googleapis.com/css?family=PT+Serif:400,400i%7CRoboto:400,700%7CRoboto+Condensed:700&amp;subset=cyrillic",
+	var scriptsArray = ["//fonts.googleapis.com/css?family=PT+Serif:400,400i%7CRoboto:400,700%7CRoboto+Condensed:700&subset=cyrillic",
 		"./libs/john-locke/css/bundle.min.css",
 		"//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.min.css"];
 	if (!("classList" in document.createElement("_"))) {
@@ -350,6 +308,20 @@
 	if (("undefined" === typeof window.Element && !("dataset" in document.documentElement))) {
 		scriptsArray.push("//cdn.jsdelivr.net/npm/element-dataset@2.2.6/lib/browser/index.cjs.min.js");
 	}
+	var supportsPassive = function () {
+		try {
+			var opts = Object.defineProperty({}, "passive", {
+					get: function () {
+						return true;
+					}
+				});
+			root.addEventListener("test", null, opts);
+		} catch (err) {
+			console.log(err);
+		}
+		return false;
+	}
+	();
 	if (!supportsPassive) {
 		scriptsArray.push("//cdnjs.cloudflare.com/ajax/libs/dom4/1.8.3/dom4.js");
 	}
