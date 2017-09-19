@@ -74,6 +74,7 @@
 	"use strict";
 
 	var gEBCN = "getElementsByClassName";
+	var gA = "getAttribute";
 	var supportsSvgAsImg = document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1") || "";
 	var toStringFn = {}.toString;
 	var supportsSvgSmilAnimation = !!document.createElementNS && /SVGAnimate/.test(toStringFn.call(document.createElementNS("http://www.w3.org/2000/svg", "animate"))) || "";
@@ -82,7 +83,7 @@
 		if (svgNosmilImages) {
 			var i;
 			for (i = 0; i < svgNosmilImages.length; i += 1) {
-				svgNosmilImages[i].src = svgNosmilImages[i].src.slice(0, -3) + "png";
+				svgNosmilImages[i].src = svgNosmilImages[i][gA]("data-fallback-src");
 			}
 			i = null;
 		}
@@ -92,7 +93,7 @@
 		if (svgSmilImages) {
 			var j;
 			for (j = 0; j < svgSmilImages.length; j += 1) {
-				svgSmilImages[j].src = svgSmilImages[j].src.slice(0, -3) + "png";
+				svgSmilImages[j].src = svgSmilImages[j][gA]("data-fallback-src");
 			}
 			j = null;
 		}
@@ -265,6 +266,9 @@
 				downloadAppLink.rel = "noopener";
 				downloadAppLink.target = "_blank";
 				downloadAppLink.title = "Скачать приложение";
+				if (!supportsSvgAsImg) {
+					downloadAppImgSrc = downloadAppImgSrc.slice(0, -3) + "png";
+				}
 				downloadAppImg.src = downloadAppImgSrc;
 				timer2 = setTimeout(showDownloadApp, 1000);
 			}
