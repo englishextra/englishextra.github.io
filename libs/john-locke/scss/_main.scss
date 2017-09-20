@@ -467,6 +467,25 @@ a {
 	font-size: 0;
 }
 
+.btn-share {
+	width: 3.200rem;
+	height: 3.200rem;
+	position: absolute;
+	top: 1.600rem;
+	left: 10.667rem;
+}
+
+.btn-share img,
+.btn-share svg {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+}
+
+.btn-share a {
+	font-size: 0;
+}
+
 .tutor {
 	width: 3.200rem;
 	height: 3.200rem;
@@ -532,7 +551,6 @@ a {
 	top: -3.333rem;
 	left: 25%;
 }
-
 .ripple img {
 	display: block;
 	width: 16.000rem;
@@ -540,10 +558,10 @@ a {
 } */
 
 .ya-share2 {
-	width: 3.200rem;
+	height: 3.200rem;
 	position: absolute;
-	bottom: 0;
-	right: 0;
+	top: 1.600rem;
+	left: 10.667rem;
 }
 
 .vk-like {
