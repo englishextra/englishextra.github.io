@@ -13,6 +13,22 @@
  */
 (function(root,document){"use strict";var loadJsCss=function(files,callback){var _this=this;_this.files=files;_this.js=[];_this.head=document.getElementsByTagName("head")[0]||"";_this.body=document.body||"";_this.ref=document.getElementsByTagName("script")[0]||"";_this.callback=callback||function(){};_this.loadStyle=function(file){var link=document.createElement("link");link.rel="stylesheet";link.type="text/css";link.href=file;_this.head.appendChild(link);};_this.loadScript=function(i){var script=document.createElement("script");script.type="text/javascript";script.async=true;script.src=_this.js[i];var loadNextScript=function(){if(++i<_this.js.length){_this.loadScript(i);}else{_this.callback();}};script.onload=function(){loadNextScript();};_this.head.appendChild(script);if(_this.ref.parentNode){_this.ref.parentNode.insertBefore(script,_this.ref);}else{(_this.body||_this.head).appendChild(script);}};var i,l;for(i=0,l=_this.files.length;i<l;i+=1){if((/\.js$|\.js\?/).test(_this.files[i])){_this.js.push(_this.files[i]);}if((/\.css$|\.css\?|\/css\?/).test(_this.files[i])){_this.loadStyle(_this.files[i]);}}i=null;l=null;if(_this.js.length>0){_this.loadScript(0);}else{_this.after();}};root.loadJsCss=loadJsCss;}("undefined" !== typeof window ? window : this,document));
 /*!
+ * modified Returns a function, that, as long as it continues to be invoked, will not
+ * be triggered. The function will be called after it stops being called for
+ * N milliseconds. If `immediate` is passed, trigger the function on the
+ * leading edge, instead of the trailing. The function also has a property 'clear'
+ * that is a function which will clear the timer to prevent previously scheduled executions.
+ * @source underscore.js
+ * @see http://unscriptable.com/2009/03/20/debouncing-javascript-methods/
+ * @param {Function} function to wrap
+ * @param {Number} timeout in ms (`100`)
+ * @param {Boolean} whether to execute at the beginning (`false`)
+ * @api public
+ * @see {@link https://github.com/component/debounce/blob/master/index.js}
+ * passes jshint
+ */
+(function(root,undefined){var debounce=function(func,wait,immediate){var timeout,args,context,timestamp,result;if(undefined===wait||null===wait){wait=100;}function later(){var last=Date.now()-timestamp;if(last<wait&&last>=0){timeout=setTimeout(later,wait-last);}else{timeout=null;if(!immediate){result=func.apply(context,args);context=args=null;}}}var debounced=function(){context=this;args=arguments;timestamp=Date.now();var callNow=immediate&&!timeout;if(!timeout){timeout=setTimeout(later,wait);}if(callNow){result=func.apply(context,args);context=args=null;}return result;};debounced.clear=function(){if(timeout){clearTimeout(timeout);timeout=null;}};debounced.flush=function(){if(timeout){result=func.apply(context,args);context=args=null;clearTimeout(timeout);timeout=null;}};return debounced;};root.debounce=debounce;}("undefined" !== typeof window ? window : this, document));
+/*!
  * modified ToProgress v0.1.1
  * @see {@link https://github.com/djyde/ToProgress}
  * @see {@link https://gist.github.com/englishextra/6a8c79c9efbf1f2f50523d46a918b785}
@@ -354,41 +370,45 @@
 		var showShareButtons = function (ev) {
 			ev.preventDefault();
 			ev.stopPropagation();
-			yaShare2[cL].toggle("is-active");
-			hideOtherIsSocial(yaShare2);
-			var initScript = function () {
-				if (root.Ya) {
-					try {
-						if (yshare) {
-							yshare.updateContent({
-								title: document.title || "",
-								description: document.title || "",
-								url: root.location.href || ""
-							});
-						} else {
-							yshare = Ya.share2(yaShare2Id, {
-								content: {
+			var logicShowShareButtons = function () {
+				yaShare2[cL].toggle("is-active");
+				hideOtherIsSocial(yaShare2);
+				var initScript = function () {
+					if (root.Ya) {
+						try {
+							if (yshare) {
+								yshare.updateContent({
 									title: document.title || "",
 									description: document.title || "",
 									url: root.location.href || ""
-								}
-							});
+								});
+							} else {
+								yshare = Ya.share2(yaShare2Id, {
+									content: {
+										title: document.title || "",
+										description: document.title || "",
+										url: root.location.href || ""
+									}
+								});
+							}
+						} catch (err) {
+							/* console.log("cannot update or init Ya.share2", err); */
 						}
-					} catch (err) {
-						/* console.log("cannot update or init Ya.share2", err); */
 					}
+				};
+				var jsUrl = "//yastatic.net/share2/share.js";
+				if (!scriptIsLoaded(jsUrl)) {
+					var load;
+					load = new loadJsCss([jsUrl], initScript);
+				} else {
+					initScript();
 				}
 			};
-			var jsUrl = "//yastatic.net/share2/share.js";
-			if (!scriptIsLoaded(jsUrl)) {
-				var load;
-				load = new loadJsCss([jsUrl], initScript);
-			} else {
-				initScript();
-			}
+			var debounceLogicShowShareButtons = debounce(logicShowShareButtons, 200);
+			debounceLogicShowShareButtons();
 		};
 		if (btnShareLink && yaShare2) {
-			btnShareLink[aEL]("click", showShareButtons);
+			btnShareLink[aEL]("click", showShareButtons);		
 		}
 		var btnLike = document[gEBCN]("btn-like")[0] || "";
 		var btnLikeLink = btnLike ? btnLike[gEBTN]("a")[0] || "" : "";
@@ -396,30 +416,34 @@
 		var showVkLike = function (ev) {
 			ev.preventDefault();
 			ev.stopPropagation();
-			vkLike[cL].toggle("is-active");
-			hideOtherIsSocial(vkLike);
-			var initScript = function () {
-				if (vkLike && root.VK) {
-					try {
-						VK.init({
-							apiId: (vkLike[ds].apiid || ""),
-							nameTransportPath: "/xd_receiver.htm",
-							onlyWidgets: true
-						});
-						VK.Widgets.Like("vk-like", {
-							type: "button",
-							height: 24
-						});
-					} catch (err) {
-						/* console.log("cannot init VK", err); */
+			var logicShowVkLike = function () {
+				vkLike[cL].toggle("is-active");
+				hideOtherIsSocial(vkLike);
+				var initScript = function () {
+					if (vkLike && root.VK) {
+						try {
+							VK.init({
+								apiId: (vkLike[ds].apiid || ""),
+								nameTransportPath: "/xd_receiver.htm",
+								onlyWidgets: true
+							});
+							VK.Widgets.Like("vk-like", {
+								type: "button",
+								height: 24
+							});
+						} catch (err) {
+							/* console.log("cannot init VK", err); */
+						}
 					}
+				};
+				var jsUrl = "//vk.com/js/api/openapi.js?147";
+				if (!scriptIsLoaded(jsUrl)) {
+					var load;
+					load = new loadJsCss([jsUrl], initScript);
 				}
 			};
-			var jsUrl = "//vk.com/js/api/openapi.js?147";
-			if (!scriptIsLoaded(jsUrl)) {
-				var load;
-				load = new loadJsCss([jsUrl], initScript);
-			}
+			var debounceLogicShowVkLike = debounce(logicShowVkLike, 200);
+			debounceLogicShowVkLike();
 		};
 		if (btnLikeLink && vkLike) {
 			btnLikeLink[aEL]("click", showVkLike);
