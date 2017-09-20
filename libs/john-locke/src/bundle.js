@@ -1,4 +1,12 @@
 /*!
+ * How can I check if a JS file has been included already?
+ * @see {@link https://gist.github.com/englishextra/403a0ca44fc5f495400ed0e20bc51d47}
+ * @see {@link https://stackoverflow.com/questions/18155347/how-can-i-check-if-a-js-file-has-been-included-already}
+ * @param {String} s path string
+ * scriptIsLoaded(s)
+ */
+(function(root){"use strict";var scriptIsLoaded=function(s){for(var b=document.getElementsByTagName("script")||"",a=0;a<b.length;a+=1){if(b[a].getAttribute("src")===s){return!0;}}return!1;};root.scriptIsLoaded=scriptIsLoaded;}("undefined" !== typeof window ? window : this, document));
+/*!
  * modified To load JS and CSS files with vanilla JavaScript
  * @see {@link https://gist.github.com/Aymkdn/98acfbb46fbe7c1f00cdd3c753520ea8}
  * @see {@link https://gist.github.com/englishextra/ff9dc7ab002312568742861cb80865c9}
@@ -91,13 +99,13 @@
 		if (document.styleSheets.length > cssnum) {
 			clearInterval(slot);
 			slot = null;
-			var k;
-			for (k = 0; k < canvasAll.length; k += 1) {
-				if (canvasAll[k][gA]("data-src")) {
-					drawImageFromUrl(canvasAll[k], canvasAll[k][gA]("data-src"));
+			var i;
+			for (i = 0; i < canvasAll.length; i += 1) {
+				if (canvasAll[i][gA]("data-src")) {
+					drawImageFromUrl(canvasAll[i], canvasAll[i][gA]("data-src"));
 				}
 			}
-			k = null;
+			i = null;
 		}
 	};
 	if (canvasAll && cssnum) {
@@ -136,8 +144,6 @@
 	}
 	var hasTouch = "ontouchstart" in document.documentElement ? true : false;
 	var hasWheel = "onwheel" in document.createElement("div") || void 0 !== document.onmousewheel ? true : false;
-	var gEBI = "getElementById";
-	var vkLike = document[gEBI]("vk-like") || "";
 	var run = function () {
 		var cL = "classList";
 		var cE = "createElement";
@@ -273,23 +279,8 @@
 				timer2 = setTimeout(showDownloadApp, 1000);
 			}
 		}
+		var gEBI = "getElementById";
 		var ds = "dataset";
-		var gA = "getAttribute";
-		if (vkLike && root.VK) {
-			try {
-				VK.init({
-					apiId: (vkLike[ds].apiid || vkLike[gA]("data-apiid") || ""),
-					nameTransportPath: "/xd_receiver.htm",
-					onlyWidgets: true
-				});
-				VK.Widgets.Like("vk-like", {
-					type: "button",
-					height: 24
-				});
-			} catch (err) {
-				console.log("cannot init VK", err);
-			}
-		}
 		var aEL = "addEventListener";
 		var scene = document[gEBI]("scene") || "";
 		var parallax;
@@ -342,23 +333,96 @@
 				root[aEL]("swipeup", revealStart, supportsPassive ? { passive: true } : false);
 			}
 		}
-		var rEL = "removeEventListener";
+		var hideOtherIsSocial = function (_this) {
+			_this = _this || this;
+			var isSocialAll = document[gEBCN]("is-social") || "";
+			if (isSocialAll) {
+				var k;
+				for (k = 0; k < isSocialAll.length; k += 1) {
+					if (_this !== isSocialAll[k]) {
+						isSocialAll[k][cL].remove("is-active");
+					}
+				}
+				k = null;
+			}
+		};
+		root[aEL]("click", hideOtherIsSocial);
 		var btnShare = document[gEBCN]("btn-share")[0] || "";
 		var btnShareLink = btnShare ? btnShare[gEBTN]("a")[0] || "" : "";
+		var yaShare2 = document[gEBCN]("ya-share2")[0] || "";
+		var yshare;
 		var showShareButtons = function (ev) {
 			ev.preventDefault();
 			ev.stopPropagation();
-			btnShareLink[rEL]("click", showShareButtons);
-			var yaShare2 = document[gEBCN]("ya-share2")[0] || "";
-			if (yaShare2) {
-				var load2;
-				load2 = new loadJsCss(["//yastatic.net/share2/share.js"], function () {
-						btnShare[cL].add("bounceOutUp");
-					});
+			yaShare2[cL].toggle("is-active");
+			hideOtherIsSocial(yaShare2);
+			var initScript = function () {
+				if (root.Ya) {
+					try {
+						if (yshare) {
+							yshare.updateContent({
+								title: document.title || "",
+								description: document.title || "",
+								url: root.location.href || ""
+							});
+						} else {
+							yshare = Ya.share2(yaShare2Id, {
+								content: {
+									title: document.title || "",
+									description: document.title || "",
+									url: root.location.href || ""
+								}
+							});
+						}
+					} catch (err) {
+						/* console.log("cannot update or init Ya.share2", err); */
+					}
+				}
+			};
+			var jsUrl = "//yastatic.net/share2/share.js";
+			if (!scriptIsLoaded(jsUrl)) {
+				var load;
+				load = new loadJsCss([jsUrl], initScript);
+			} else {
+				initScript();
 			}
 		};
-		if (btnShareLink) {
+		if (btnShareLink && yaShare2) {
 			btnShareLink[aEL]("click", showShareButtons);
+		}
+		var btnLike = document[gEBCN]("btn-like")[0] || "";
+		var btnLikeLink = btnLike ? btnLike[gEBTN]("a")[0] || "" : "";
+		var vkLike = document[gEBCN]("vk-like")[0] || "";
+		var showVkLike = function (ev) {
+			ev.preventDefault();
+			ev.stopPropagation();
+			vkLike[cL].toggle("is-active");
+			hideOtherIsSocial(vkLike);
+			var initScript = function () {
+				if (vkLike && root.VK) {
+					try {
+						VK.init({
+							apiId: (vkLike[ds].apiid || ""),
+							nameTransportPath: "/xd_receiver.htm",
+							onlyWidgets: true
+						});
+						VK.Widgets.Like("vk-like", {
+							type: "button",
+							height: 24
+						});
+					} catch (err) {
+						/* console.log("cannot init VK", err); */
+					}
+				}
+			};
+			var jsUrl = "//vk.com/js/api/openapi.js?147";
+			if (!scriptIsLoaded(jsUrl)) {
+				var load;
+				load = new loadJsCss([jsUrl], initScript);
+			}
+		};
+		if (btnLikeLink && vkLike) {
+			btnLikeLink[aEL]("click", showVkLike);
 		}
 	};
 	var scriptsArray = ["//fonts.googleapis.com/css?family=PT+Serif:400,400i%7CRoboto:400,700%7CRoboto+Condensed:700&subset=cyrillic",
@@ -379,7 +443,7 @@
 				});
 			root.addEventListener("test", null, opts);
 		} catch (err) {
-			console.log(err);
+			/* console.log(err); */
 		}
 		return false;
 	}
@@ -397,13 +461,6 @@
 	if (hasTouch) {
 		scriptsArray.push("//cdnjs.cloudflare.com/ajax/libs/Tocca.js/2.0.1/Tocca.min.js");
 	}
-	if (vkLike) {
-		scriptsArray.push("//vk.com/js/api/openapi.js?147");
-	}
-	/* var yaShare2 = document[gEBCN]("ya-share2")[0] || "";
-	if (yaShare2) {
-		scriptsArray.push("//yastatic.net/share2/share.js");
-	} */
 	var load;
 	load = new loadJsCss(scriptsArray, run);
 }

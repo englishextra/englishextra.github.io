@@ -449,44 +449,45 @@ a {
 	height: 6.400rem;
 }
 
-.vk {
-	width: 3.200rem;
-	height: 3.200rem;
-	position: absolute;
-	bottom: 4.5333rem;
-	left: 1.333rem;
-}
-
-.vk img {
-	display: block;
-	width: 3.200rem;
-	height: 3.200rem;
-}
-
-.vk a {
-	font-size: 0;
-}
-
 .btn-share {
-	width: 3.200rem;
-	height: 3.200rem;
+	width: 2.133rem;
+	height: 2.133rem;
 	position: absolute;
-	top: 1.733rem;
+	top: 1.333rem;
 	left: 10.667rem;
 }
 
 .btn-share img,
 .btn-share svg {
 	display: block;
-	width: 3.200rem;
-	height: 3.200rem;
+	width: 2.133rem;
+	height: 2.133rem;
 }
 
 .btn-share a {
 	font-size: 0;
 }
 
-.tutor {
+.btn-like {
+	width: 2.133rem;
+	height: 2.133rem;
+	position: absolute;
+	top: 1.333rem;
+	left: 14.133rem;
+}
+
+.btn-like img,
+.btn-like svg {
+	display: block;
+	width: 2.133rem;
+	height: 2.133rem;
+}
+
+.btn-like a {
+	font-size: 0;
+}
+
+.btn-tutor {
 	width: 3.200rem;
 	height: 3.200rem;
 	position: absolute;
@@ -494,13 +495,31 @@ a {
 	left: 5.867rem;
 }
 
-.tutor img {
+.btn-tutor img {
 	display: block;
 	width: 3.200rem;
 	height: 3.200rem;
 }
 
-.tutor a {
+.btn-tutor a {
+	font-size: 0;
+}
+
+.btn-vk {
+	width: 3.200rem;
+	height: 3.200rem;
+	position: absolute;
+	bottom: 4.5333rem;
+	left: 1.333rem;
+}
+
+.btn-vk img {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+}
+
+.btn-vk a {
 	font-size: 0;
 }
 
@@ -558,16 +577,26 @@ a {
 } */
 
 .ya-share2 {
+	display: none;
 	height: 3.200rem;
 	position: absolute;
-	top: 1.733rem;
+	top: 4.933rem;
 	left: 10.667rem;
 }
 
+.ya-share2.is-active {
+	display: block;
+}
+
 .vk-like {
+	display: none;
 	position: absolute;
-	top: 0;
-	left: 10.400rem;
+	top: 4.933rem;
+	left: 14.133rem;
+}
+
+.vk-like.is-active {
+	display: block;
 }
 
 /*!
@@ -585,7 +614,7 @@ a {
 	html {
 		font-size: 10px;
 	}
-	
+
 	.quote {
 		top: calc(20% - 2.700rem);
 		left: calc(35% - 14.100rem);
@@ -623,7 +652,7 @@ a {
 	html {
 		font-size: 15px;
 	}
-	
+
 	.quote {
 		top: calc(25% - 2.700rem);
 		left: calc(30% - 14.100rem);
@@ -646,7 +675,7 @@ a {
 	html {
 		font-size: 15px;
 	}
-	
+
 	.quote {
 		top: calc(25% - 2.700rem);
 		left: calc(35% - 14.100rem);
