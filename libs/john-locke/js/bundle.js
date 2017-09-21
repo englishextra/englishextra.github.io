@@ -1,3 +1,75 @@
+/*jslint browser: true */
+/*jslint node: true */
+/*global debounce, getHumanDate, hasTouch, hasWheel, imagesPreloaded, loadJsCss,
+Parallax, platform, QRCode, scriptIsLoaded, supportsClassList,
+supportsDataset, supportsPassive, supportsSvgAsImg,
+supportsSvgSmilAnimation, unescape, VK, WheelIndicator, Ya */
+/*!
+ * @returns {boolean|string} true or empty string
+ */
+(function (root, document) {
+	"use strict";
+	root.supportsSvgAsImg = document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1") || "";
+})("undefined" !== typeof window ? window : this, document);
+/*!
+ * @returns {boolean|string} true or empty string
+ */
+(function (root, document) {
+	"use strict";
+	var toStringFn = {}.toString;root.supportsSvgSmilAnimation = !!document.createElementNS && /SVGAnimate/.test(toStringFn.call(document.createElementNS("http://www.w3.org/2000/svg", "animate"))) || "";
+})("undefined" !== typeof window ? window : this, document);
+/*!
+ * @returns {boolean} true or false
+ */
+(function (root) {
+	"use strict";
+	root.supportsPassive = false;try {
+		var opts = Object.defineProperty && Object.defineProperty({}, 'passive', { get: function () {
+				root.supportsPassive = true;
+			} });root.addEventListener('test', function () {}, opts);
+	} catch (err) {}
+})("undefined" !== typeof window ? window : this);
+/*!
+ * @returns {boolean|string} true or empty string
+ */
+(function (root, document) {
+	"use strict";
+	root.hasTouch = "ontouchstart" in document.documentElement || "";
+})("undefined" !== typeof window ? window : this, document);
+/*!
+ * @returns {boolean|string} true or empty string
+ */
+(function (root, document) {
+	"use strict";
+	root.hasWheel = "onwheel" in document.createElement("div") || void 0 !== document.onmousewheel || "";
+})("undefined" !== typeof window ? window : this, document);
+/*!
+ * @returns {boolean|string} true or empty string
+ */
+(function (root, document) {
+	"use strict";
+	root.supportsClassList = "classList" in document.createElement("_") || "";
+})("undefined" !== typeof window ? window : this, document);
+/*!
+ * @returns {boolean|string} true or empty string
+ */
+(function (root, document) {
+	"use strict";
+	root.supportsDataset = !("undefined" === typeof window.Element && !("dataset" in document.documentElement)) || "";
+})("undefined" !== typeof window ? window : this, document);
+/*!
+ * @returns {boolean|string} true or empty string
+ */
+(function (root) {
+	"use strict";
+	root.getHumanDate = function () {
+		var newDate = new Date();var newDay = newDate.getDate();var newYear = newDate.getFullYear();var newMonth = newDate.getMonth();newMonth += 1;if (10 > newDay) {
+			newDay = "0" + newDay;
+		}if (10 > newMonth) {
+			newMonth = "0" + newMonth;
+		}return newYear + "-" + newMonth + "-" + newDay;
+	}();
+})("undefined" !== typeof window ? window : this);
 /*!
  * How can I check if a JS file has been included already?
  * @see {@link https://gist.github.com/englishextra/403a0ca44fc5f495400ed0e20bc51d47}
@@ -136,9 +208,6 @@
 
 	var gEBCN = "getElementsByClassName";
 	var gA = "getAttribute";
-	var supportsSvgAsImg = document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1") || "";
-	var toStringFn = {}.toString;
-	var supportsSvgSmilAnimation = !!document.createElementNS && /SVGAnimate/.test(toStringFn.call(document.createElementNS("http://www.w3.org/2000/svg", "animate"))) || "";
 	if (!supportsSvgAsImg) {
 		var svgNosmilImages = document[gEBCN]("svg-nosmil-img") || "";
 		if (svgNosmilImages) {
@@ -160,20 +229,18 @@
 		}
 	}
 	var gEBTN = "getElementsByTagName";
+	var aEL = "addEventListener";
 	var drawImageFromUrl = function (canvasObj, url) {
-		if (!url) {
-			return;
-		}
-		if (!canvasObj) {
+		if (!canvasObj || !url) {
 			return;
 		}
 		var img = new Image();
-		img.onload = function () {
+		img[aEL]("load", function () {
 			var ctx = canvasObj.getContext("2d");
 			if (ctx) {
 				ctx.drawImage(img, 0, 0, canvasObj.width, canvasObj.height);
 			}
-		};
+		});
 		img.src = url;
 	};
 	var canvasAll = document[gEBTN]("canvas") || "";
@@ -226,8 +293,6 @@
 	if ("undefined" !== typeof imagesPreloaded) {
 		slot2 = setInterval(hideRipple, 100);
 	}
-	var hasTouch = "ontouchstart" in document.documentElement ? true : false;
-	var hasWheel = "onwheel" in document.createElement("div") || void 0 !== document.onmousewheel ? true : false;
 	var run = function () {
 		var cL = "classList";
 		var cE = "createElement";
@@ -278,20 +343,6 @@
 			qrcode[aC](qrcodeImg);
 			timer = setTimeout(showQrcode, 2000);
 		}
-		var getHumanDate = function () {
-			var newDate = new Date();
-			var newDay = newDate.getDate();
-			var newYear = newDate.getFullYear();
-			var newMonth = newDate.getMonth();
-			newMonth += 1;
-			if (10 > newDay) {
-				newDay = "0" + newDay;
-			}
-			if (10 > newMonth) {
-				newMonth = "0" + newMonth;
-			}
-			return newYear + "-" + newMonth + "-" + newDay;
-		}();
 		var gEBTN = "getElementsByTagName";
 		var downloadApp = document[gEBCN]("download-app")[0] || "";
 		var downloadAppLink = downloadApp ? downloadApp[gEBTN]("a")[0] || "" : "";
@@ -357,7 +408,6 @@
 		}
 		var gEBI = "getElementById";
 		var ds = "dataset";
-		var aEL = "addEventListener";
 		var scene = document[gEBI]("scene") || "";
 		var parallax;
 		if (scene && root.Parallax) {
@@ -384,29 +434,31 @@
 			var swipeup = document[gEBCN]("swipeup")[0] || "";
 			if (hasTouch) {
 				mousewheeldown.style.display = "none";
+				if (root.tocca) {
+					root[aEL]("swipeup", revealStart, {
+						passive: true
+					});
+				}
 			} else {
 				if (hasWheel) {
 					swipeup.style.display = "none";
+					if (root.WheelIndicator) {
+						var indicator;
+						indicator = new WheelIndicator({
+							elem: wrapper,
+							callback: function (e) {
+								if ("down" === e.direction) {
+									revealStart();
+								}
+							},
+							preventMouse: false
+						});
+					}
 				}
 			}
 			if (hasTouch || hasWheel) {
 				guesture[cL].add("bounceInUp");
 				guesture.style.display = "block";
-			}
-			if (root.WheelIndicator) {
-				var indicator;
-				indicator = new WheelIndicator({
-					elem: wrapper,
-					callback: function (e) {
-						if ("down" === e.direction) {
-							revealStart();
-						}
-					},
-					preventMouse: false
-				});
-			}
-			if (root.tocca) {
-				root[aEL]("swipeup", revealStart, supportsPassive ? { passive: true } : false);
 			}
 		}
 		var hideOtherIsSocial = function (_this) {
@@ -425,7 +477,8 @@
 		root[aEL]("click", hideOtherIsSocial);
 		var btnShare = document[gEBCN]("btn-share")[0] || "";
 		var btnShareLink = btnShare ? btnShare[gEBTN]("a")[0] || "" : "";
-		var yaShare2 = document[gEBCN]("ya-share2")[0] || "";
+		var yaShare2Id = "ya-share2";
+		var yaShare2 = document[gEBI](yaShare2Id) || "";
 		var yshare;
 		var showShareButtons = function (ev) {
 			ev.preventDefault();
@@ -510,35 +563,23 @@
 		}
 	};
 	var scriptsArray = ["//fonts.googleapis.com/css?family=PT+Serif:400,400i%7CRoboto:400,700%7CRoboto+Condensed:700&subset=cyrillic", "./libs/john-locke/css/bundle.min.css", "//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.min.css"];
-	if (!("classList" in document.createElement("_"))) {
+	if (!supportsClassList) {
 		scriptsArray.push("//cdn.jsdelivr.net/npm/classlist.js@1.1.20150312/classList.min.js");
 	}
-	if ("undefined" === typeof window.Element && !("dataset" in document.documentElement)) {
+	if (!supportsDataset) {
 		scriptsArray.push("//cdn.jsdelivr.net/npm/element-dataset@2.2.6/lib/browser/index.cjs.min.js");
 	}
-	var supportsPassive = function () {
-		try {
-			var opts = Object.defineProperty({}, "passive", {
-				get: function () {
-					return true;
-				}
-			});
-			root.addEventListener("test", null, opts);
-		} catch (err) {
-			/* console.log(err); */
-		}
-		return false;
-	}();
 	if (!supportsPassive) {
 		scriptsArray.push("//cdnjs.cloudflare.com/ajax/libs/dom4/1.8.3/dom4.js");
 	}
 	scriptsArray.push("//cdn.jsdelivr.net/npm/parallax-js@3.1.0/dist/parallax.min.js", "//cdn.jsdelivr.net/npm/qrjs2@0.1.3/qrjs2.min.js", "//cdn.jsdelivr.net/npm/platform@1.3.4/platform.min.js");
-	if (hasWheel) {
-		/* scriptsArray.push("//cdn.jsdelivr.net/npm/wheel-indicator@1.1.4/lib/wheel-indicator.min.js"); */
-		scriptsArray.push("./cdn/wheel-indicator/1.1.4/js/wheel-indicator-passive.fixed.min.js");
-	}
 	if (hasTouch) {
 		scriptsArray.push("//cdnjs.cloudflare.com/ajax/libs/Tocca.js/2.0.1/Tocca.min.js");
+	} else {
+		if (hasWheel) {
+			/* scriptsArray.push("//cdn.jsdelivr.net/npm/wheel-indicator@1.1.4/lib/wheel-indicator.min.js"); */
+			scriptsArray.push("./cdn/wheel-indicator/1.1.4/js/wheel-indicator-passive.fixed.min.js");
+		}
 	}
 	var load;
 	load = new loadJsCss(scriptsArray, run);
