@@ -1,71 +1,18 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global debounce, getHumanDate, hasTouch, hasWheel, imagesPreloaded, loadJsCss,
-Parallax, platform, QRCode, scriptIsLoaded, supportsClassList,
-supportsDataset, supportsPassive, supportsSvgAsImg,
-supportsSvgSmilAnimation, unescape, VK, WheelIndicator, Ya */
+/*global imagesPreloaded, Parallax, platform, QRCode, unescape, VK,
+WheelIndicator, Ya */
+/*property console, split */
 /*!
- * @returns {boolean|string} true or empty string
+ * define global root
  */
-(function(root,document){"use strict";root.supportsSvgAsImg=document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image","1.1")||"";}("undefined" !== typeof window ? window : this,document));
+/* var globalRoot = "object" === typeof window && window || "object" === typeof self && self || "object" === typeof global && global || {}; */
+var globalRoot = "undefined" !== typeof window ? window : this;
 /*!
- * @returns {boolean|string} true or empty string
+ * safe way to handle console.log
+ * @see {@link https://github.com/paulmillr/console-polyfill}
  */
-(function(root,document){"use strict";var toStringFn={}.toString;root.supportsSvgSmilAnimation=!!document.createElementNS&&(/SVGAnimate/).test(toStringFn.call(document.createElementNS("http://www.w3.org/2000/svg","animate")))||"";}("undefined" !== typeof window ? window : this,document));
-/*!
- * @returns {boolean} true or false
- */
-(function(root){"use strict";root.supportsPassive=false;try{var opts=Object.defineProperty&&Object.defineProperty({},'passive',{get:function(){root.supportsPassive=true;}});root.addEventListener('test',function(){},opts);}catch(err){}}("undefined" !== typeof window ? window : this));
-/*!
- * @returns {boolean|string} true or empty string
- */
-(function(root,document){"use strict";root.hasTouch="ontouchstart"in document.documentElement||"";}("undefined" !== typeof window ? window : this,document));
-/*!
- * @returns {boolean|string} true or empty string
- */
-(function(root,document){"use strict";root.hasWheel="onwheel"in document.createElement("div")||void 0!==document.onmousewheel||"";}("undefined" !== typeof window ? window : this,document));
-/*!
- * @returns {boolean|string} true or empty string
- */
-(function(root,document){"use strict";root.supportsClassList="classList"in document.createElement("_")||"";}("undefined" !== typeof window ? window : this,document));
-/*!
- * @returns {boolean|string} true or empty string
- */
-(function(root,document){"use strict";root.supportsDataset=!("undefined"===typeof window.Element&&!("dataset"in document.documentElement))||"";}("undefined" !== typeof window ? window : this,document));
-/*!
- * @returns {boolean|string} true or empty string
- */
-(function(root){"use strict";root.getHumanDate=function(){var newDate=(new Date());var newDay=newDate.getDate();var newYear=newDate.getFullYear();var newMonth=newDate.getMonth();(newMonth+=1);if(10>newDay){newDay="0"+newDay;}if(10>newMonth){newMonth="0"+newMonth;}return newYear+"-"+newMonth+"-"+newDay;}();}("undefined" !== typeof window ? window : this));
-/*!
- * How can I check if a JS file has been included already?
- * @see {@link https://gist.github.com/englishextra/403a0ca44fc5f495400ed0e20bc51d47}
- * @see {@link https://stackoverflow.com/questions/18155347/how-can-i-check-if-a-js-file-has-been-included-already}
- * @param {String} s path string
- * scriptIsLoaded(s)
- */
-(function(root){"use strict";var scriptIsLoaded=function(s){for(var b=document.getElementsByTagName("script")||"",a=0;a<b.length;a+=1){if(b[a].getAttribute("src")===s){return!0;}}return!1;};root.scriptIsLoaded=scriptIsLoaded;}("undefined" !== typeof window ? window : this, document));
-/*!
- * modified To load JS and CSS files with vanilla JavaScript
- * @see {@link https://gist.github.com/Aymkdn/98acfbb46fbe7c1f00cdd3c753520ea8}
- * @see {@link https://gist.github.com/englishextra/ff9dc7ab002312568742861cb80865c9}
- */
-(function(root,document){"use strict";var loadJsCss=function(files,callback){var _this=this;_this.files=files;_this.js=[];_this.head=document.getElementsByTagName("head")[0]||"";_this.body=document.body||"";_this.ref=document.getElementsByTagName("script")[0]||"";_this.callback=callback||function(){};_this.loadStyle=function(file){var link=document.createElement("link");link.rel="stylesheet";link.type="text/css";link.href=file;_this.head.appendChild(link);};_this.loadScript=function(i){var script=document.createElement("script");script.type="text/javascript";script.async=true;script.src=_this.js[i];var loadNextScript=function(){if(++i<_this.js.length){_this.loadScript(i);}else{_this.callback();}};script.onload=function(){loadNextScript();};_this.head.appendChild(script);if(_this.ref.parentNode){_this.ref.parentNode.insertBefore(script,_this.ref);}else{(_this.body||_this.head).appendChild(script);}};var i,l;for(i=0,l=_this.files.length;i<l;i+=1){if((/\.js$|\.js\?/).test(_this.files[i])){_this.js.push(_this.files[i]);}if((/\.css$|\.css\?|\/css\?/).test(_this.files[i])){_this.loadStyle(_this.files[i]);}}i=null;l=null;if(_this.js.length>0){_this.loadScript(0);}else{_this.after();}};root.loadJsCss=loadJsCss;}("undefined" !== typeof window ? window : this,document));
-/*!
- * modified Returns a function, that, as long as it continues to be invoked, will not
- * be triggered. The function will be called after it stops being called for
- * N milliseconds. If `immediate` is passed, trigger the function on the
- * leading edge, instead of the trailing. The function also has a property 'clear'
- * that is a function which will clear the timer to prevent previously scheduled executions.
- * @source underscore.js
- * @see http://unscriptable.com/2009/03/20/debouncing-javascript-methods/
- * @param {Function} function to wrap
- * @param {Number} timeout in ms (`100`)
- * @param {Boolean} whether to execute at the beginning (`false`)
- * @api public
- * @see {@link https://github.com/component/debounce/blob/master/index.js}
- * passes jshint
- */
-(function(root,undefined){var debounce=function(func,wait,immediate){var timeout,args,context,timestamp,result;if(undefined===wait||null===wait){wait=100;}function later(){var last=Date.now()-timestamp;if(last<wait&&last>=0){timeout=setTimeout(later,wait-last);}else{timeout=null;if(!immediate){result=func.apply(context,args);context=args=null;}}}var debounced=function(){context=this;args=arguments;timestamp=Date.now();var callNow=immediate&&!timeout;if(!timeout){timeout=setTimeout(later,wait);}if(callNow){result=func.apply(context,args);context=args=null;}return result;};debounced.clear=function(){if(timeout){clearTimeout(timeout);timeout=null;}};debounced.flush=function(){if(timeout){result=func.apply(context,args);context=args=null;clearTimeout(timeout);timeout=null;}};return debounced;};root.debounce=debounce;}("undefined" !== typeof window ? window : this, document));
+(function(root){"use strict";if(!root.console){root.console={};}var con=root.console;var prop,method;var dummy=function(){};var properties=["memory"];var methods=("assert,clear,count,debug,dir,dirxml,error,exception,group,"+"groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd,"+"show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn").split(",");while((prop=properties.pop())){if(!con[prop]){con[prop]={};}}while((method=methods.pop())){if(!con[method]){con[method]=dummy;}}}(globalRoot));
 /*!
  * modified ToProgress v0.1.1
  * @see {@link https://github.com/djyde/ToProgress}
@@ -78,26 +25,7 @@ supportsSvgSmilAnimation, unescape, VK, WheelIndicator, Ya */
  * removed module check
  * passes jshint
  */
-//(function(root){"use strict";var ToProgress=(function(){var TP=function(){var t=function(){var s=document.createElement("fakeelement"),i={transition:"transitionend",OTransition:"oTransitionEnd",MozTransition:"transitionend",WebkitTransition:"webkitTransitionEnd"};for(var j in i){if(i.hasOwnProperty(j)){if(void 0!==s.style[j]){return i[j];}}}},s=function(t,a){if(this.progress=0,this.options={id:"top-progress-bar",color:"#F44336",height:"2px",duration:0.2},t&&"object"===typeof t){for(var i in t){if(t.hasOwnProperty(i)){this.options[i]=t[i];}}}if(this.options.opacityDuration=3*this.options.duration,this.progressBar=document.createElement("div"),this.progressBar.id=this.options.id,this.progressBar.setCSS=function(t){for(var a in t){if(t.hasOwnProperty(a)){this.style[a]=t[a];}}},this.progressBar.setCSS({position:a?"relative":"fixed",top:"0",left:"0",right:"0","background-color":this.options.color,height:this.options.height,width:"0%",transition:"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s","-moz-transition":"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s","-webkit-transition":"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s"}),a){var o=document.querySelector(a);if(o){if(o.hasChildNodes()){o.insertBefore(this.progressBar,o.firstChild);}else{o.appendChild(this.progressBar);}}}else{document.body.appendChild(this.progressBar);}},i=t();return s.prototype.transit=function(){this.progressBar.style.width=this.progress+"%";},s.prototype.getProgress=function(){return this.progress;},s.prototype.setProgress=function(t,s){this.show();this.progress=t>100?100:0>t?0:t;this.transit();if(s){s();}},s.prototype.increase=function(t,s){this.show();this.setProgress(this.progress+t,s);},s.prototype.decrease=function(t,s){this.show();this.setProgress(this.progress-t,s);},s.prototype.finish=function(t){var s=this;this.setProgress(100,t);this.hide();if(i){this.progressBar.addEventListener(i,function(t){s.reset();s.progressBar.removeEventListener(t.type,TP);});}},s.prototype.reset=function(t){this.progress=0;this.transit();if(t){t();}},s.prototype.hide=function(){this.progressBar.style.opacity="0";},s.prototype.show=function(){this.progressBar.style.opacity="1";},s;};return TP();}());root.ToProgress=ToProgress;}("undefined" !== typeof window ? window : this,document));
-/*!
- * start progress indicator
- */
-/* (function (root) {
-	"use strict";
-	root.progressBar = new ToProgress({
-			id: "top-progress-bar",
-			color: "#FF2C40",
-			height: "0.200rem",
-			duration: 0.2
-		});
-	root.progressBar.increase(20);
-	root.hideProgressBar = function () {
-		root.progressBar.finish();
-		root.progressBar.hide();
-	};
-	root.addEventListener("load", hideProgressBar);
-}
-	("undefined" !== typeof window ? window : this)); */
+//(function(root){"use strict";var ToProgress=(function(){var TP=function(){var t=function(){var s=document.createElement("fakeelement"),i={transition:"transitionend",OTransition:"oTransitionEnd",MozTransition:"transitionend",WebkitTransition:"webkitTransitionEnd"};for(var j in i){if(i.hasOwnProperty(j)){if(void 0!==s.style[j]){return i[j];}}}},s=function(t,a){if(this.progress=0,this.options={id:"top-progress-bar",color:"#F44336",height:"2px",duration:0.2},t&&"object"===typeof t){for(var i in t){if(t.hasOwnProperty(i)){this.options[i]=t[i];}}}if(this.options.opacityDuration=3*this.options.duration,this.progressBar=document.createElement("div"),this.progressBar.id=this.options.id,this.progressBar.setCSS=function(t){for(var a in t){if(t.hasOwnProperty(a)){this.style[a]=t[a];}}},this.progressBar.setCSS({position:a?"relative":"fixed",top:"0",left:"0",right:"0","background-color":this.options.color,height:this.options.height,width:"0%",transition:"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s","-moz-transition":"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s","-webkit-transition":"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s"}),a){var o=document.querySelector(a);if(o){if(o.hasChildNodes()){o.insertBefore(this.progressBar,o.firstChild);}else{o.appendChild(this.progressBar);}}}else{document.body.appendChild(this.progressBar);}},i=t();return s.prototype.transit=function(){this.progressBar.style.width=this.progress+"%";},s.prototype.getProgress=function(){return this.progress;},s.prototype.setProgress=function(t,s){this.show();this.progress=t>100?100:0>t?0:t;this.transit();if(s){s();}},s.prototype.increase=function(t,s){this.show();this.setProgress(this.progress+t,s);},s.prototype.decrease=function(t,s){this.show();this.setProgress(this.progress-t,s);},s.prototype.finish=function(t){var s=this;this.setProgress(100,t);this.hide();if(i){this.progressBar.addEventListener(i,function(t){s.reset();s.progressBar.removeEventListener(t.type,TP);});}},s.prototype.reset=function(t){this.progress=0;this.transit();if(t){t();}},s.prototype.hide=function(){this.progressBar.style.opacity="0";},s.prototype.show=function(){this.progressBar.style.opacity="1";},s;};return TP();}());root.ToProgress=ToProgress;}(globalRoot,document));
 /*!
  * app logic
  */
@@ -105,6 +33,19 @@ supportsSvgSmilAnimation, unescape, VK, WheelIndicator, Ya */
 	"use strict";
 	var gEBCN = "getElementsByClassName";
 	var gA = "getAttribute";
+	/* var progressBar = new ToProgress({
+			id: "top-progress-bar",
+			color: "#FF2C40",
+			height: "0.200rem",
+			duration: 0.2
+		});
+	progressBar.increase(20);
+	var hideProgressBar = function () {
+		progressBar.finish();
+		progressBar.hide();
+	};
+	root.addEventListener("load", hideProgressBar); */
+	var supportsSvgAsImg = document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1") || "";
 	if (!supportsSvgAsImg) {
 		var svgNosmilImages = document[gEBCN]("svg-nosmil-img") || "";
 		if (svgNosmilImages) {
@@ -115,6 +56,8 @@ supportsSvgSmilAnimation, unescape, VK, WheelIndicator, Ya */
 			i = null;
 		}
 	}
+	var toStringFn = {}.toString;
+	var supportsSvgSmilAnimation = !!document.createElementNS && (/SVGAnimate/).test(toStringFn.call(document.createElementNS("http://www.w3.org/2000/svg", "animate"))) || "";
 	if (!supportsSvgSmilAnimation) {
 		var svgSmilImages = document[gEBCN]("svg-smil-img") || "";
 		if (svgSmilImages) {
@@ -190,6 +133,63 @@ supportsSvgSmilAnimation, unescape, VK, WheelIndicator, Ya */
 	if ("undefined" !== typeof imagesPreloaded) {
 		slot2 = setInterval(hideRipple, 100);
 	}
+	var hasTouch = "ontouchstart" in document.documentElement || "";
+	var hasWheel = "onwheel" in document.createElement("div") || void 0 !== document.onmousewheel || "";
+	var loadJsCss = function (files, callback) {
+		var _this = this;
+		_this.files = files;
+		_this.js = [];
+		_this.head = document.getElementsByTagName("head")[0] || "";
+		_this.body = document.body || "";
+		_this.ref = document.getElementsByTagName("script")[0] || "";
+		_this.callback = callback || function () {};
+		_this.loadStyle = function (file) {
+			var link = document.createElement("link");
+			link.rel = "stylesheet";
+			link.type = "text/css";
+			link.href = file;
+			_this.head.appendChild(link);
+		};
+		_this.loadScript = function (i) {
+			var script = document.createElement("script");
+			script.type = "text/javascript";
+			script.async = true;
+			script.src = _this.js[i];
+			var loadNextScript = function () {
+				if (++i < _this.js.length) {
+					_this.loadScript(i);
+				} else {
+					_this.callback();
+				}
+			};
+			script.onload = function () {
+				loadNextScript();
+			};
+			_this.head.appendChild(script);
+			if (_this.ref.parentNode) {
+				_this.ref.parentNode.insertBefore(script, _this.ref);
+			} else {
+				(_this.body || _this.head).appendChild(script);
+			}
+		};
+		var i,
+		l;
+		for (i = 0, l = _this.files.length; i < l; i += 1) {
+			if ((/\.js$|\.js\?/).test(_this.files[i])) {
+				_this.js.push(_this.files[i]);
+			}
+			if ((/\.css$|\.css\?|\/css\?/).test(_this.files[i])) {
+				_this.loadStyle(_this.files[i]);
+			}
+		}
+		i = null;
+		l = null;
+		if (_this.js.length > 0) {
+			_this.loadScript(0);
+		} else {
+			_this.after();
+		}
+	};
 	var run = function () {
 		var cL = "classList";
 		var cE = "createElement";
@@ -245,6 +245,21 @@ supportsSvgSmilAnimation, unescape, VK, WheelIndicator, Ya */
 		var downloadAppLink = downloadApp ? downloadApp[gEBTN]("a")[0] || "" : "";
 		var downloadAppImg = downloadApp ? downloadApp[gEBTN]("img")[0] || "" : "";
 		var navigatorUserAgent = navigator.userAgent || "";
+		var getHumanDate = function () {
+			var newDate = (new Date());
+			var newDay = newDate.getDate();
+			var newYear = newDate.getFullYear();
+			var newMonth = newDate.getMonth();
+			(newMonth += 1);
+			if (10 > newDay) {
+				newDay = "0" + newDay;
+			}
+			if (10 > newMonth) {
+				newMonth = "0" + newMonth;
+			}
+			return newYear + "-" + newMonth + "-" + newDay;
+		}
+		();
 		if (navigatorUserAgent && downloadApp && downloadAppLink && downloadAppImg && root.platform) {
 			var downloadAppImgSrc;
 			var downloadAppLinkHref;
@@ -385,6 +400,65 @@ supportsSvgSmilAnimation, unescape, VK, WheelIndicator, Ya */
 		var yaShare2Id = "ya-share2";
 		var yaShare2 =  document[gEBI](yaShare2Id) || "";
 		var yshare;
+		var scriptIsLoaded = function (s) {
+			for (var b = document.getElementsByTagName("script") || "", a = 0; a < b.length; a += 1) {
+				if (b[a].getAttribute("src") === s) {
+					return true;
+				}
+			}
+			return false;
+		};
+		var debounce = function (func, wait, immediate) {
+			var timeout,
+			args,
+			context,
+			timestamp,
+			result;
+			if (undefined === wait || null === wait) {
+				wait = 100;
+			}
+			function later() {
+				var last = Date.now() - timestamp;
+				if (last < wait && last >= 0) {
+					timeout = setTimeout(later, wait - last);
+				} else {
+					timeout = null;
+					if (!immediate) {
+						result = func.apply(context, args);
+						context = args = null;
+					}
+				}
+			}
+			var debounced = function () {
+				context = this;
+				args = arguments;
+				timestamp = Date.now();
+				var callNow = immediate && !timeout;
+				if (!timeout) {
+					timeout = setTimeout(later, wait);
+				}
+				if (callNow) {
+					result = func.apply(context, args);
+					context = args = null;
+				}
+				return result;
+			};
+			debounced.clear = function () {
+				if (timeout) {
+					clearTimeout(timeout);
+					timeout = null;
+				}
+			};
+			debounced.flush = function () {
+				if (timeout) {
+					result = func.apply(context, args);
+					context = args = null;
+					clearTimeout(timeout);
+					timeout = null;
+				}
+			};
+			return debounced;
+		};
 		var showShareButtons = function (ev) {
 			ev.preventDefault();
 			ev.stopPropagation();
@@ -470,12 +544,23 @@ supportsSvgSmilAnimation, unescape, VK, WheelIndicator, Ya */
 	var scriptsArray = ["//fonts.googleapis.com/css?family=PT+Serif:400,400i%7CRoboto:400,700%7CRoboto+Condensed:700&subset=cyrillic",
 		"./libs/john-locke/css/bundle.min.css",
 		"//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.min.css"];
+	var supportsClassList = "classList" in document.createElement("_") || "";
 	if (!supportsClassList) {
 		scriptsArray.push("//cdn.jsdelivr.net/npm/classlist.js@1.1.20150312/classList.min.js");
 	}
+	var supportsDataset = "undefined" !== typeof root.Element && "dataset" in document.documentElement || "";
 	if (!supportsDataset) {
 		scriptsArray.push("//cdn.jsdelivr.net/npm/element-dataset@2.2.6/lib/browser/index.cjs.min.js");
 	}
+	var supportsPassive = false;
+	try {
+		var opts = Object.defineProperty && Object.defineProperty({}, 'passive', {
+				get: function () {
+					supportsPassive = true;
+				}
+			});
+		root.addEventListener('test', function () {}, opts);
+	} catch (err) {}
 	if (!supportsPassive) {
 		scriptsArray.push("//cdnjs.cloudflare.com/ajax/libs/dom4/1.8.3/dom4.js");
 	}
@@ -493,4 +578,4 @@ supportsSvgSmilAnimation, unescape, VK, WheelIndicator, Ya */
 	var load;
 	load = new loadJsCss(scriptsArray, run);
 }
-	("undefined" !== typeof window ? window : this, document));
+	(globalRoot, document));
