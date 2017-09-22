@@ -227,11 +227,13 @@ a {
 	min-width: 28.200rem;
 	min-height: 5.400rem;
 	text-align: left;
-	background-color: #3BF0DF;
-	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
 	position: absolute;
 	top: calc(25% - 2.700rem);
 	left: calc(35% - 14.100rem);
+	opacity: 0;
+	overflow: hidden;
+	background-color: #3BF0DF;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
 	margin: 0;
 }
 
@@ -260,7 +262,7 @@ a {
 	position: absolute;
 	top: 0;
 	left: 0;
-	opacity: 1;
+	opacity: 0;
 	overflow: hidden;
 	background-size: cover;
 }
@@ -543,7 +545,8 @@ a {
 	bottom: 0;
 	left: 0;
 	text-align: center;
-	opacity: 1;
+	opacity: 0;
+	overflow: hidden;
 	background-color: transparent;
 	background-image: url(../img/dots-8x8.png);
 	background-position: top left;
