@@ -13,20 +13,22 @@ VK, WheelIndicator, Ya */
 		root.console = {};
 	}
 	var con = root.console;
-	var prop, method;
+	var prop;
+	var method;
 	var dummy = function () {};
 	var properties = ["memory"];
 	var methods = ("assert,clear,count,debug,dir,dirxml,error,exception,group," + "groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd," + "show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn").split(",");
-	while (prop = properties.pop()) {
+	for (; prop = properties.pop();) {
 		if (!con[prop]) {
 			con[prop] = {};
 		}
 	}
-	while (method = methods.pop()) {
+	for (; method = methods.pop();) {
 		if (!con[method]) {
 			con[method] = dummy;
 		}
 	}
+	prop = method = dummy = properties = methods = null;
 	var ToProgress = function () {
 		var TP = function () {
 			var t = function () {
@@ -152,21 +154,21 @@ VK, WheelIndicator, Ya */
 	if (!supportsSvgAsImg) {
 		var svgNosmilImages = document[gEBCN]("svg-nosmil-img") || "";
 		if (svgNosmilImages) {
-			var i;
-			for (i = 0; i < svgNosmilImages.length; i += 1) {
+			var i, l;
+			for (i = 0, l = svgNosmilImages.length; i < l; i += 1) {
 				svgNosmilImages[i].src = svgNosmilImages[i][gA]("data-fallback-src");
 			}
-			i = null;
+			i = l = null;
 		}
 	}
 	if (!supportsSvgSmilAnimation) {
 		var svgSmilImages = document[gEBCN]("svg-smil-img") || "";
 		if (svgSmilImages) {
-			var j;
-			for (j = 0; j < svgSmilImages.length; j += 1) {
+			var j, m;
+			for (j = 0, m = svgSmilImages.length; j < m; j += 1) {
 				svgSmilImages[j].src = svgSmilImages[j][gA]("data-fallback-src");
 			}
-			j = null;
+			j = m = null;
 		}
 	}
 	var gEBTN = "getElementsByTagName";
@@ -191,13 +193,13 @@ VK, WheelIndicator, Ya */
 		if (document.styleSheets.length > cssnum) {
 			clearInterval(slot);
 			slot = null;
-			var i;
-			for (i = 0; i < canvasAll.length; i += 1) {
+			var i, l;
+			for (i = 0, l = canvasAll.length; i < l; i += 1) {
 				if (canvasAll[i][gA]("data-src")) {
 					drawImageFromUrl(canvasAll[i], canvasAll[i][gA]("data-src"));
 				}
 			}
-			i = null;
+			i = l = null;
 		}
 	};
 	if (canvasAll && cssnum) {
@@ -207,38 +209,43 @@ VK, WheelIndicator, Ya */
 	var pN = "parentNode";
 	var ripple = document[gEBCN]("ripple")[0] || "";
 	var rippleParent = ripple ? ripple[pN] || "" : "";
+	var removeRipple = function () {
+		rippleParent.removeChild(ripple);
+	};
+	var timerDeferRemoveRipple;
+	var deferRemoveRipple = function () {
+		clearTimeout(timerDeferRemoveRipple);
+		timerDeferRemoveRipple = null;
+		removeRipple();
+	};
 	var loading = document[gEBCN]("loading")[0] || "";
 	var loadingParent = loading ? loading[pN] || "" : "";
-	var removeLoadingIndicators = function () {
-		if (ripple && rippleParent) {
-			rippleParent.removeChild(ripple);
-		}
-		if (loading && loadingParent) {
-			loadingParent.removeChild(loading);
-		}
+	var removeLoading = function () {
+		loadingParent.removeChild(loading);
 	};
-	var timer3;
-	var deferRemoveLoadingIndicators = function () {
-		clearTimeout(timer3);
-		timer3 = null;
-		removeLoadingIndicators();
+	var timerDeferRemoveLoading;
+	var deferRemoveLoading = function () {
+		clearTimeout(timerDeferRemoveLoading);
+		timerDeferRemoveLoading = null;
+		removeLoading();
 	};
 	var wrapper = document[gEBCN]("wrapper")[0] || "";
 	var slot2;
-	var hideLoadingIndicators = function () {
+	var hidePreloaders = function () {
 		if (imagesPreloaded) {
 			clearInterval(slot2);
 			slot2 = null;
 			/* if (wrapper) {
    	wrapper.style.opacity = 1;
    } */
-			if (loading) {
-				loading[cN] += " bounceOutUp";
-			}
-			if (ripple) {
+			if (ripple && rippleParent) {
 				ripple[cN] += " bounceOutUp";
+				timerDeferRemoveRipple = setTimeout(deferRemoveRipple, 5000);
 			}
-			timer3 = setTimeout(deferRemoveLoadingIndicators, 5000);
+			if (loading && loadingParent) {
+				loading[cN] += " bounceOutUp";
+				timerDeferRemoveLoading = setTimeout(deferRemoveLoading, 5000);
+			}
 			if (!supportsSvgSmilAnimation) {
 				progressBar.increase(20);
 			}
@@ -246,10 +253,10 @@ VK, WheelIndicator, Ya */
 	};
 	if ("undefined" !== typeof imagesPreloaded) {
 		if (!supportsSvgSmilAnimation) {
-			removeLoadingIndicators();
-		} else {
-			slot2 = setInterval(hideLoadingIndicators, 100);
+			removeRipple();
+			removeLoading();
 		}
+		slot2 = setInterval(hidePreloaders, 100);
 	}
 	var hasTouch = "ontouchstart" in document.documentElement || "";
 	var hasWheel = "onwheel" in document.createElement("div") || void 0 !== document.onmousewheel || "";
@@ -299,8 +306,7 @@ VK, WheelIndicator, Ya */
 				_this.loadStyle(_this.files[i]);
 			}
 		}
-		i = null;
-		l = null;
+		i = l = null;
 		if (_this.js.length > 0) {
 			_this.loadScript(0);
 		} else {
@@ -321,10 +327,10 @@ VK, WheelIndicator, Ya */
 			progressBar.increase(20);
 		}
 		var qrcode = document[gEBCN]("qrcode")[0] || "";
-		var timer;
+		var timerShowQrcode;
 		var showQrcode = function () {
-			clearTimeout(timer);
-			timer = null;
+			clearTimeout(timerShowQrcode);
+			timerShowQrcode = null;
 			qrcode.style.visibility = "visible";
 			qrcode.style.opacity = 1;
 		};
@@ -363,7 +369,7 @@ VK, WheelIndicator, Ya */
 			}
 			qrcodeImg.title = qrcodeImgTitle;
 			qrcode[aC](qrcodeImg);
-			timer = setTimeout(showQrcode, 2000);
+			timerShowQrcode = setTimeout(showQrcode, 2000);
 		}
 		var gEBTN = "getElementsByTagName";
 		var downloadApp = document[gEBCN]("download-app")[0] || "";
@@ -423,10 +429,10 @@ VK, WheelIndicator, Ya */
 					downloadAppLinkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-debug.apk";
 				}
 			}
-			var timer2;
+			var timerShowDownloadApp;
 			var showDownloadApp = function () {
-				clearTimeout(timer2);
-				timer2 = null;
+				clearTimeout(timerShowDownloadApp);
+				timerShowDownloadApp = null;
 				downloadApp.style.visibility = "visible";
 				downloadApp.style.opacity = 1;
 			};
@@ -439,7 +445,7 @@ VK, WheelIndicator, Ya */
 					downloadAppImgSrc = downloadAppImgSrc.slice(0, -3) + "png";
 				}
 				downloadAppImg.src = downloadAppImgSrc;
-				timer2 = setTimeout(showDownloadApp, 1000);
+				timerShowDownloadApp = setTimeout(showDownloadApp, 1000);
 			}
 		}
 		var gEBI = "getElementById";
@@ -497,12 +503,15 @@ VK, WheelIndicator, Ya */
 				guesture.style.display = "block";
 			}
 		}
-		var scriptIsLoaded = function (s) {
-			for (var b = document.getElementsByTagName("script") || "", a = 0; a < b.length; a += 1) {
-				if (b[a].getAttribute("src") === s) {
+		var scriptIsLoaded = function (_src) {
+			var a, i, l;
+			for (a = document.getElementsByTagName("script") || "", i = 0, l = a.length; i < l; i += 1) {
+				if (a[i].getAttribute("src") === _src) {
+					a = i = l = null;
 					return true;
 				}
 			}
+			a = i = l = null;
 			return false;
 		};
 		var debounce = function (func, wait, immediate) {
@@ -556,13 +565,13 @@ VK, WheelIndicator, Ya */
 			_this = _this || this;
 			var isSocialAll = document[gEBCN]("is-social") || "";
 			if (isSocialAll) {
-				var k;
-				for (k = 0; k < isSocialAll.length; k += 1) {
+				var k, n;
+				for (k = 0, n = isSocialAll.length; k < n; k += 1) {
 					if (_this !== isSocialAll[k]) {
 						isSocialAll[k][cL].remove("is-active");
 					}
 				}
-				k = null;
+				k = n = null;
 			}
 		};
 		root[aEL]("click", hideOtherIsSocial);
@@ -571,7 +580,7 @@ VK, WheelIndicator, Ya */
 		var yaShare2Id = "ya-share2";
 		var yaShare2 = document[gEBI](yaShare2Id) || "";
 		var yshare;
-		var showShareButtons = function (ev) {
+		var showYaShare2 = function (ev) {
 			ev.preventDefault();
 			ev.stopPropagation();
 			var logicShowShareButtons = function () {
@@ -612,7 +621,7 @@ VK, WheelIndicator, Ya */
 			debounceLogicShowShareButtons();
 		};
 		if (btnShareLink && yaShare2) {
-			btnShareLink[aEL]("click", showShareButtons);
+			btnShareLink[aEL]("click", showYaShare2);
 		}
 		var btnLike = document[gEBCN]("btn-like")[0] || "";
 		var btnLikeLink = btnLike ? btnLike[gEBTN]("a")[0] || "" : "";
