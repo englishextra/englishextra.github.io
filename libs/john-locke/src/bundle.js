@@ -220,54 +220,49 @@ VK, WheelIndicator, Ya */
 		slotDrawCanvasAll = setInterval(drawCanvasAll, 100);
 	}
 	var cN = "className";
-	var pN = "parentNode";
-	
 	var quote = document[gEBCN]("quote")[0] || "";
-	var quotePosition = quote.getBoundingClientRect() || "";
-	var quoteWidth = quotePosition.width || quote.offsetWidth;
-	var slotShowquote = setInterval(function(){
-		var currentquotePosition = quote.getBoundingClientRect() || "";
-		var currentquotewidth = currentquotePosition.width || quote.offsetWidth;
-		if (quoteWidth !== currentquotewidth) {
+	var quoteParagraph = quote ? quote[gEBTN]("p")[0] || "" : "";
+	var quoteParagraphPosition = quoteParagraph.getBoundingClientRect() || "";
+	var quoteParagraphWidth = quoteParagraphPosition.width || quoteParagraph.offsetWidth;
+	var slotShowquoteParagraph = setInterval(function(){
+		var currentQuoteParagraphPosition = quoteParagraph.getBoundingClientRect() || "";
+		var currentQuoteParagraphWidth = currentQuoteParagraphPosition.width || quoteParagraph.offsetWidth;
+		if (quoteParagraphWidth !== currentQuoteParagraphWidth) {
+			clearInterval(slotShowquoteParagraph);
+			slotShowquoteParagraph = null;
 			quote[cN] += " bounceInDown";
 			quote.style.opacity = 1;
 		}
 	}, 100);
-	
 	var intro = document[gEBCN]("intro")[0] || "";
-	var introPosition = intro.getBoundingClientRect() || "";
-	var introWidth = introPosition.width || intro.offsetWidth;
-	var slotShowIntro = setInterval(function(){
-		var currentIntroPosition = intro.getBoundingClientRect() || "";
-		var currentIntrowidth = currentIntroPosition.width || intro.offsetWidth;
-		if (introWidth !== currentIntrowidth) {
+	var introHeading = intro ? intro[gEBTN]("h1")[0] || "" : "";
+	var introHeadingPosition = introHeading.getBoundingClientRect() || "";
+	var introHeadingWidth = introHeadingPosition.width || introHeading.offsetWidth;
+	var slotShowIntroHeadingWidth = setInterval(function(){
+		var currentIntroHeadingPosition = introHeading.getBoundingClientRect() || "";
+		var currentIntroHeadingWidth = currentIntroHeadingPosition.width || introHeading.offsetWidth;
+		if (introHeadingWidth !== currentIntroHeadingWidth) {
+			clearInterval(slotShowIntroHeadingWidth);
+			slotShowIntroHeadingWidth = null;
 			intro[cN] += " bounceInLeft";
 			intro.style.opacity = 1;
 		}
 	}, 100);
-	
-	
 	var footer = document[gEBCN]("footer")[0] || "";
 	var footerParagraph = footer ? footer[gEBTN]("p")[0] || "" : "";
 	var footerParagraphPosition = footerParagraph.getBoundingClientRect() || "";
 	var footerParagraphWidth = footerParagraphPosition.width || footerParagraph.offsetWidth;
 	var slotShowfooterParagraph = setInterval(function(){
-		var currentfooterParagraphPosition = footerParagraph.getBoundingClientRect() || "";
-		var currentfooterParagraphwidth = currentfooterParagraphPosition.width || footerParagraph.offsetWidth;
-		if (footerParagraphWidth !== currentfooterParagraphwidth) {
+		var currentFooterParagraphPosition = footerParagraph.getBoundingClientRect() || "";
+		var currentFooterParagraphWidth = currentFooterParagraphPosition.width || footerParagraph.offsetWidth;
+		if (footerParagraphWidth !== currentFooterParagraphWidth) {
+			clearInterval(slotShowfooterParagraph);
+			slotShowfooterParagraph = null;
 			footer[cN] += " bounceInDown";
 			footer.style.opacity = 1;
 		}
 	}, 100);
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	var pN = "parentNode";
 	var ripple = document[gEBCN]("ripple")[0] || "";
 	var rippleParent = ripple ? ripple[pN] || "" : "";
 	var removeRipple = function () {
