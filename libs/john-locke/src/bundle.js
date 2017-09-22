@@ -230,7 +230,7 @@ VK, WheelIndicator, Ya */
 		if (quoteParagraphWidth !== currentQuoteParagraphWidth) {
 			clearInterval(slotShowquoteParagraph);
 			slotShowquoteParagraph = null;
-			quote.style.opacity = 1;
+			quote.style.visibility = "visible";
 			quote[cN] += " bounceInDown";
 		}
 	}, 100);
@@ -244,7 +244,7 @@ VK, WheelIndicator, Ya */
 		if (introHeadingWidth !== currentIntroHeadingWidth) {
 			clearInterval(slotShowIntroHeadingWidth);
 			slotShowIntroHeadingWidth = null;
-			intro.style.opacity = 1;
+			intro.style.visibility = "visible";
 			intro[cN] += " bounceInLeft";
 		}
 	}, 100);
@@ -258,7 +258,7 @@ VK, WheelIndicator, Ya */
 		if (footerParagraphWidth !== currentFooterParagraphWidth) {
 			clearInterval(slotShowfooterParagraph);
 			slotShowfooterParagraph = null;
-			footer.style.opacity = 1;
+			footer.style.visibility = "visible";
 			footer[cN] += " bounceInDown";
 		}
 	}, 100);

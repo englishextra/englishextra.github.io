@@ -8,7 +8,6 @@ VK, WheelIndicator, Ya */
  */
 (function (root, document, undefined) {
 	"use strict";
-
 	if (!root.console) {
 		root.console = {};
 	}
@@ -17,23 +16,25 @@ VK, WheelIndicator, Ya */
 	var method;
 	var dummy = function () {};
 	var properties = ["memory"];
-	var methods = ("assert,clear,count,debug,dir,dirxml,error,exception,group," + "groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd," + "show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn").split(",");
-	for (; prop = properties.pop();) {
+	var methods = ("assert,clear,count,debug,dir,dirxml,error,exception,group," +
+		"groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd," +
+		"show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn").split(",");
+	for (; (prop = properties.pop()); ) {
 		if (!con[prop]) {
 			con[prop] = {};
 		}
 	}
-	for (; method = methods.pop();) {
+	for (; (method = methods.pop()); ) {
 		if (!con[method]) {
 			con[method] = dummy;
 		}
 	}
 	prop = method = dummy = properties = methods = null;
-	var ToProgress = function () {
+	var ToProgress = (function () {
 		var TP = function () {
 			var t = function () {
 				var s = document.createElement("fakeelement"),
-				    i = {
+				i = {
 					transition: "transitionend",
 					OTransition: "oTransitionEnd",
 					MozTransition: "transitionend",
@@ -47,13 +48,13 @@ VK, WheelIndicator, Ya */
 					}
 				}
 			},
-			    s = function (t, a) {
+			s = function (t, a) {
 				if (this.progress = 0, this.options = {
-					id: "top-progress-bar",
-					color: "#F44336",
-					height: "2px",
-					duration: 0.2
-				}, t && "object" === typeof t) {
+						id: "top-progress-bar",
+						color: "#F44336",
+						height: "2px",
+						duration: 0.2
+					}, t && "object" === typeof t) {
 					for (var i in t) {
 						if (t.hasOwnProperty(i)) {
 							this.options[i] = t[i];
@@ -67,17 +68,17 @@ VK, WheelIndicator, Ya */
 						}
 					}
 				}, this.progressBar.setCSS({
-					position: a ? "relative" : "fixed",
-					top: "0",
-					left: "0",
-					right: "0",
-					"background-color": this.options.color,
-					height: this.options.height,
-					width: "0%",
-					transition: "width " + this.options.duration + "s, opacity " + this.options.opacityDuration + "s",
-					"-moz-transition": "width " + this.options.duration + "s, opacity " + this.options.opacityDuration + "s",
-					"-webkit-transition": "width " + this.options.duration + "s, opacity " + this.options.opacityDuration + "s"
-				}), a) {
+						position: a ? "relative" : "fixed",
+						top: "0",
+						left: "0",
+						right: "0",
+						"background-color": this.options.color,
+						height: this.options.height,
+						width: "0%",
+						transition: "width " + this.options.duration + "s, opacity " + this.options.opacityDuration + "s",
+						"-moz-transition": "width " + this.options.duration + "s, opacity " + this.options.opacityDuration + "s",
+						"-webkit-transition": "width " + this.options.duration + "s, opacity " + this.options.opacityDuration + "s"
+					}), a) {
 					var o = document.querySelector(a);
 					if (o) {
 						if (o.hasChildNodes()) {
@@ -90,25 +91,30 @@ VK, WheelIndicator, Ya */
 					document.body.appendChild(this.progressBar);
 				}
 			},
-			    i = t();
+			i = t();
 			return s.prototype.transit = function () {
 				this.progressBar.style.width = this.progress + "%";
-			}, s.prototype.getProgress = function () {
+			},
+			s.prototype.getProgress = function () {
 				return this.progress;
-			}, s.prototype.setProgress = function (t, s) {
+			},
+			s.prototype.setProgress = function (t, s) {
 				this.show();
 				this.progress = t > 100 ? 100 : 0 > t ? 0 : t;
 				this.transit();
 				if (s) {
 					s();
 				}
-			}, s.prototype.increase = function (t, s) {
+			},
+			s.prototype.increase = function (t, s) {
 				this.show();
 				this.setProgress(this.progress + t, s);
-			}, s.prototype.decrease = function (t, s) {
+			},
+			s.prototype.decrease = function (t, s) {
 				this.show();
 				this.setProgress(this.progress - t, s);
-			}, s.prototype.finish = function (t) {
+			},
+			s.prototype.finish = function (t) {
 				var s = this;
 				this.setProgress(100, t);
 				this.hide();
@@ -118,32 +124,37 @@ VK, WheelIndicator, Ya */
 						s.progressBar.removeEventListener(t.type, TP);
 					});
 				}
-			}, s.prototype.reset = function (t) {
+			},
+			s.prototype.reset = function (t) {
 				this.progress = 0;
 				this.transit();
 				if (t) {
 					t();
 				}
-			}, s.prototype.hide = function () {
+			},
+			s.prototype.hide = function () {
 				this.progressBar.style.opacity = "0";
-			}, s.prototype.show = function () {
+			},
+			s.prototype.show = function () {
 				this.progressBar.style.opacity = "1";
-			}, s;
+			},
+			s;
 		};
 		return TP();
-	}();
+	}
+		());
 	var progressBar = new ToProgress({
-		id: "top-progress-bar",
-		color: "#FF2C40",
-		height: "0.200rem",
-		duration: 0.2
-	});
+			id: "top-progress-bar",
+			color: "#FF2C40",
+			height: "0.200rem",
+			duration: 0.2
+		});
 	var hideProgressBar = function () {
 		progressBar.finish();
 		progressBar.hide();
 	};
 	var toStringFn = {}.toString;
-	var supportsSvgSmilAnimation = !!document.createElementNS && /SVGAnimate/.test(toStringFn.call(document.createElementNS("http://www.w3.org/2000/svg", "animate"))) || "";
+	var supportsSvgSmilAnimation = !!document.createElementNS && (/SVGAnimate/).test(toStringFn.call(document.createElementNS("http://www.w3.org/2000/svg", "animate"))) || "";
 	if (!supportsSvgSmilAnimation) {
 		progressBar.increase(20);
 		root.addEventListener("load", hideProgressBar);
@@ -154,7 +165,8 @@ VK, WheelIndicator, Ya */
 	if (!supportsSvgAsImg) {
 		var svgNosmilImages = document[gEBCN]("svg-nosmil-img") || "";
 		if (svgNosmilImages) {
-			var i, l;
+			var i,
+			l;
 			for (i = 0, l = svgNosmilImages.length; i < l; i += 1) {
 				svgNosmilImages[i].src = svgNosmilImages[i][gA]("data-fallback-src");
 			}
@@ -164,7 +176,8 @@ VK, WheelIndicator, Ya */
 	if (!supportsSvgSmilAnimation) {
 		var svgSmilImages = document[gEBCN]("svg-smil-img") || "";
 		if (svgSmilImages) {
-			var j, m;
+			var j,
+			m;
 			for (j = 0, m = svgSmilImages.length; j < m; j += 1) {
 				svgSmilImages[j].src = svgSmilImages[j][gA]("data-fallback-src");
 			}
@@ -188,12 +201,13 @@ VK, WheelIndicator, Ya */
 	};
 	var canvasAll = document[gEBTN]("canvas") || "";
 	var cssnum = document.styleSheets.length || 0;
-	var slotDrawCanvasAll;
+	var slot;
 	var drawCanvasAll = function () {
 		if (document.styleSheets.length > cssnum) {
-			clearInterval(slotDrawCanvasAll);
-			slotDrawCanvasAll = null;
-			var i, l;
+			clearInterval(slot);
+			slot = null;
+			var i,
+			l;
 			for (i = 0, l = canvasAll.length; i < l; i += 1) {
 				if (canvasAll[i][gA]("data-src")) {
 					drawImageFromUrl(canvasAll[i], canvasAll[i][gA]("data-src"));
@@ -203,51 +217,9 @@ VK, WheelIndicator, Ya */
 		}
 	};
 	if (canvasAll && cssnum) {
-		slotDrawCanvasAll = setInterval(drawCanvasAll, 100);
+		slot = setInterval(drawCanvasAll, 100);
 	}
 	var cN = "className";
-	var quote = document[gEBCN]("quote")[0] || "";
-	var quoteParagraph = quote ? quote[gEBTN]("p")[0] || "" : "";
-	var quoteParagraphPosition = quoteParagraph.getBoundingClientRect() || "";
-	var quoteParagraphWidth = quoteParagraphPosition.width || quoteParagraph.offsetWidth;
-	var slotShowquoteParagraph = setInterval(function () {
-		var currentQuoteParagraphPosition = quoteParagraph.getBoundingClientRect() || "";
-		var currentQuoteParagraphWidth = currentQuoteParagraphPosition.width || quoteParagraph.offsetWidth;
-		if (quoteParagraphWidth !== currentQuoteParagraphWidth) {
-			clearInterval(slotShowquoteParagraph);
-			slotShowquoteParagraph = null;
-			quote.style.opacity = 1;
-			quote[cN] += " bounceInDown";
-		}
-	}, 100);
-	var intro = document[gEBCN]("intro")[0] || "";
-	var introHeading = intro ? intro[gEBTN]("h1")[0] || "" : "";
-	var introHeadingPosition = introHeading.getBoundingClientRect() || "";
-	var introHeadingWidth = introHeadingPosition.width || introHeading.offsetWidth;
-	var slotShowIntroHeadingWidth = setInterval(function () {
-		var currentIntroHeadingPosition = introHeading.getBoundingClientRect() || "";
-		var currentIntroHeadingWidth = currentIntroHeadingPosition.width || introHeading.offsetWidth;
-		if (introHeadingWidth !== currentIntroHeadingWidth) {
-			clearInterval(slotShowIntroHeadingWidth);
-			slotShowIntroHeadingWidth = null;
-			intro.style.opacity = 1;
-			intro[cN] += " bounceInLeft";
-		}
-	}, 100);
-	var footer = document[gEBCN]("footer")[0] || "";
-	var footerParagraph = footer ? footer[gEBTN]("p")[0] || "" : "";
-	var footerParagraphPosition = footerParagraph.getBoundingClientRect() || "";
-	var footerParagraphWidth = footerParagraphPosition.width || footerParagraph.offsetWidth;
-	var slotShowfooterParagraph = setInterval(function () {
-		var currentFooterParagraphPosition = footerParagraph.getBoundingClientRect() || "";
-		var currentFooterParagraphWidth = currentFooterParagraphPosition.width || footerParagraph.offsetWidth;
-		if (footerParagraphWidth !== currentFooterParagraphWidth) {
-			clearInterval(slotShowfooterParagraph);
-			slotShowfooterParagraph = null;
-			footer.style.opacity = 1;
-			footer[cN] += " bounceInDown";
-		}
-	}, 100);
 	var pN = "parentNode";
 	var ripple = document[gEBCN]("ripple")[0] || "";
 	var rippleParent = ripple ? ripple[pN] || "" : "";
@@ -272,14 +244,14 @@ VK, WheelIndicator, Ya */
 		removeLoading();
 	};
 	var wrapper = document[gEBCN]("wrapper")[0] || "";
-	var slotHidePreloaders;
+	var slot2;
 	var hidePreloaders = function () {
 		if (imagesPreloaded) {
-			clearInterval(slotHidePreloaders);
-			slotHidePreloaders = null;
+			clearInterval(slot2);
+			slot2 = null;
 			/* if (wrapper) {
-   	wrapper.style.opacity = 1;
-   } */
+				wrapper.style.opacity = 1;
+			} */
 			if (ripple && rippleParent) {
 				ripple[cN] += " bounceOutUp";
 				timerDeferRemoveRipple = setTimeout(deferRemoveRipple, 5000);
@@ -298,7 +270,7 @@ VK, WheelIndicator, Ya */
 			removeRipple();
 			removeLoading();
 		}
-		slotHidePreloaders = setInterval(hidePreloaders, 100);
+		slot2 = setInterval(hidePreloaders, 100);
 	}
 	var hasTouch = "ontouchstart" in document.documentElement || "";
 	var hasWheel = "onwheel" in document.createElement("div") || void 0 !== document.onmousewheel || "";
@@ -339,12 +311,13 @@ VK, WheelIndicator, Ya */
 				(_this.body || _this.head).appendChild(script);
 			}
 		};
-		var i, l;
+		var i,
+		l;
 		for (i = 0, l = _this.files.length; i < l; i += 1) {
-			if (/\.js$|\.js\?/.test(_this.files[i])) {
+			if ((/\.js$|\.js\?/).test(_this.files[i])) {
 				_this.js.push(_this.files[i]);
 			}
-			if (/\.css$|\.css\?|\/css\?/.test(_this.files[i])) {
+			if ((/\.css$|\.css\?|\/css\?/).test(_this.files[i])) {
 				_this.loadStyle(_this.files[i]);
 			}
 		}
@@ -355,12 +328,13 @@ VK, WheelIndicator, Ya */
 			_this.after();
 		}
 	};
-	var getHTTP = function (type) {
+	var getHTTP = (function (type) {
 		return function (force) {
 			force = force || "";
 			return "http:" === type ? "http" : "https:" === type ? "https" : force ? "http" : "";
 		};
-	}(root.location.protocol || "");
+	}
+		(root.location.protocol || ""));
 	var run = function () {
 		var cL = "classList";
 		var cE = "createElement";
@@ -379,31 +353,31 @@ VK, WheelIndicator, Ya */
 		if (qrcode) {
 			var locationHref = root.location.href || "";
 			var qrcodeImg = document[cE]("img");
-			var qrcodeImgTitle = document.title ? "Ссылка на страницу «" + document.title.replace(/\[[^\]]*?\]/g, "").trim() + "»" : "";
+			var qrcodeImgTitle = document.title ? ("Ссылка на страницу «" + document.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
 			var qrcodeImgSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
 			qrcodeImg.alt = qrcodeImgTitle;
 			if (root.QRCode) {
 				if (document.implementation.hasFeature("http://www.w3.org/2000/svg", "1.1")) {
 					qrcodeImgSrc = QRCode.generateSVG(locationHref, {
-						ecclevel: "M",
-						fillcolor: "#FFFFFF",
-						textcolor: "#191919",
-						margin: 4,
-						modulesize: 8
-					});
+							ecclevel: "M",
+							fillcolor: "#FFFFFF",
+							textcolor: "#191919",
+							margin: 4,
+							modulesize: 8
+						});
 					var XMLS = new XMLSerializer();
 					qrcodeImgSrc = XMLS.serializeToString(qrcodeImgSrc);
 					qrcodeImgSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(qrcodeImgSrc)));
 					qrcodeImg.src = qrcodeImgSrc;
 				} else {
 					qrcodeImgSrc = QRCode.generatePNG(locationHref, {
-						ecclevel: "M",
-						format: "html",
-						fillcolor: "#FFFFFF",
-						textcolor: "#1F1F1F",
-						margin: 4,
-						modulesize: 8
-					});
+							ecclevel: "M",
+							format: "html",
+							fillcolor: "#FFFFFF",
+							textcolor: "#1F1F1F",
+							margin: 4,
+							modulesize: 8
+						});
 					qrcodeImg.src = qrcodeImgSrc;
 				}
 			} else {
@@ -419,11 +393,11 @@ VK, WheelIndicator, Ya */
 		var downloadAppImg = downloadApp ? downloadApp[gEBTN]("img")[0] || "" : "";
 		var navigatorUserAgent = navigator.userAgent || "";
 		var getHumanDate = function () {
-			var newDate = new Date();
+			var newDate = (new Date());
 			var newDay = newDate.getDate();
 			var newYear = newDate.getFullYear();
 			var newMonth = newDate.getMonth();
-			newMonth += 1;
+			(newMonth += 1);
 			if (10 > newDay) {
 				newDay = "0" + newDay;
 			}
@@ -431,20 +405,29 @@ VK, WheelIndicator, Ya */
 				newMonth = "0" + newMonth;
 			}
 			return newYear + "-" + newMonth + "-" + newDay;
-		}();
+		}
+		();
 		if (navigatorUserAgent && downloadApp && downloadAppLink && downloadAppImg && root.platform) {
 			var downloadAppImgSrc;
 			var downloadAppLinkHref;
 			var platformName = platform.name || "";
 			var platformDescription = platform.description || "";
-			document.title = document.title + " [" + (getHumanDate ? " " + getHumanDate : "") + (platformDescription ? " " + platformDescription : "") + (hasTouch || hasWheel ? " with" : "") + (hasTouch ? " touch" : "") + (hasTouch && hasWheel ? "," : "") + (hasWheel ? " mousewheel" : "") + "]";
+			document.title = document.title +
+			" [" +
+			(getHumanDate ? " " + getHumanDate : "") +
+			(platformDescription ? " " + platformDescription : "") +
+			((hasTouch || hasWheel) ? " with" : "") +
+			(hasTouch ? " touch" : "") +
+			((hasTouch && hasWheel) ? "," : "") +
+			(hasWheel ? " mousewheel" : "") +
+			"]";
 			var platformOsFamily = platform.os.family || "";
 			var platformOsVersion = platform.os.version || "";
 			var platformOsArchitecture = platform.os.architecture || "";
 			/* console.log(navigatorUserAgent);
-   console.log(platform.os);
-   console.log(platformName + "|" + platformOsFamily + "|" + platformOsVersion + "|" + platformOsArchitecture + "|" + platformDescription); */
-			if (platformOsFamily.indexOf("Windows Phone", 0) !== -1 && "10.0" === platformOsVersion) {
+			console.log(platform.os);
+			console.log(platformName + "|" + platformOsFamily + "|" + platformOsVersion + "|" + platformOsArchitecture + "|" + platformDescription); */
+			if (platformOsFamily.indexOf("Windows Phone", 0) !== -1  && "10.0" === platformOsVersion) {
 				downloadAppImgSrc = "./libs/products/img/download_wp_app_144x52.svg";
 				downloadAppLinkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra.Windows10_1.0.0.0_x86_debug.appx";
 			} else if (platformName.indexOf("IE Mobile", 0) !== -1 && ("7.5" === platformOsVersion || "8.0" === platformOsVersion || "8.1" === platformOsVersion)) {
@@ -529,14 +512,14 @@ VK, WheelIndicator, Ya */
 					if (root.WheelIndicator) {
 						var indicator;
 						indicator = new WheelIndicator({
-							elem: wrapper,
-							callback: function (e) {
-								if ("down" === e.direction) {
-									revealStart();
-								}
-							},
-							preventMouse: false
-						});
+								elem: wrapper,
+								callback: function (e) {
+									if ("down" === e.direction) {
+										revealStart();
+									}
+								},
+								preventMouse: false
+							});
 					}
 				}
 			}
@@ -546,7 +529,9 @@ VK, WheelIndicator, Ya */
 			}
 		}
 		var scriptIsLoaded = function (_src) {
-			var a, i, l;
+			var a,
+			i,
+			l;
 			for (a = document.getElementsByTagName("script") || "", i = 0, l = a.length; i < l; i += 1) {
 				if (a[i].getAttribute("src") === _src) {
 					a = i = l = null;
@@ -557,7 +542,11 @@ VK, WheelIndicator, Ya */
 			return false;
 		};
 		var debounce = function (func, wait, immediate) {
-			var timeout, args, context, timestamp, result;
+			var timeout,
+			args,
+			context,
+			timestamp,
+			result;
 			if (undefined === wait || null === wait) {
 				wait = 100;
 			}
@@ -607,7 +596,8 @@ VK, WheelIndicator, Ya */
 			_this = _this || this;
 			var isSocialAll = document[gEBCN]("is-social") || "";
 			if (isSocialAll) {
-				var k, n;
+				var k,
+				n;
 				for (k = 0, n = isSocialAll.length; k < n; k += 1) {
 					if (_this !== isSocialAll[k]) {
 						isSocialAll[k][cL].remove("is-active");
@@ -620,7 +610,7 @@ VK, WheelIndicator, Ya */
 		var btnShare = document[gEBCN]("btn-share")[0] || "";
 		var btnShareLink = btnShare ? btnShare[gEBTN]("a")[0] || "" : "";
 		var yaShare2Id = "ya-share2";
-		var yaShare2 = document[gEBI](yaShare2Id) || "";
+		var yaShare2 =  document[gEBI](yaShare2Id) || "";
 		var yshare;
 		var showYaShare2 = function (ev) {
 			ev.preventDefault();
@@ -678,7 +668,7 @@ VK, WheelIndicator, Ya */
 					if (vkLike && root.VK) {
 						try {
 							VK.init({
-								apiId: vkLike[ds].apiid || "",
+								apiId: (vkLike[ds].apiid || ""),
 								nameTransportPath: "/xd_receiver.htm",
 								onlyWidgets: true
 							});
@@ -704,7 +694,9 @@ VK, WheelIndicator, Ya */
 			btnLikeLink[aEL]("click", showVkLike);
 		}
 	};
-	var scriptsArray = [getHTTP(true) + "://fonts.googleapis.com/css?family=PT+Serif:400,400i%7CRoboto:400,700%7CRoboto+Condensed:700&subset=cyrillic", "./libs/john-locke/css/bundle.min.css", getHTTP(true) + "://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.min.css"];
+	var scriptsArray = [getHTTP(true) + "://fonts.googleapis.com/css?family=PT+Serif:400,400i%7CRoboto:400,700%7CRoboto+Condensed:700&subset=cyrillic",
+		"./libs/john-locke/css/bundle.min.css",
+		getHTTP(true) + "://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.min.css"];
 	var supportsClassList = "classList" in document.createElement("_") || "";
 	if (!supportsClassList) {
 		scriptsArray.push(getHTTP(true) + "://cdn.jsdelivr.net/npm/classlist.js@1.1.20150312/classList.min.js");
@@ -716,16 +708,18 @@ VK, WheelIndicator, Ya */
 	var supportsPassive = false;
 	try {
 		var opts = Object.defineProperty && Object.defineProperty({}, 'passive', {
-			get: function () {
-				supportsPassive = true;
-			}
-		});
+				get: function () {
+					supportsPassive = true;
+				}
+			});
 		root.addEventListener('test', function () {}, opts);
 	} catch (err) {}
 	if (!supportsPassive) {
 		scriptsArray.push(getHTTP(true) + "://cdnjs.cloudflare.com/ajax/libs/dom4/1.8.3/dom4.js");
 	}
-	scriptsArray.push(getHTTP(true) + "://cdn.jsdelivr.net/npm/parallax-js@3.1.0/dist/parallax.min.js", getHTTP(true) + "://cdn.jsdelivr.net/npm/qrjs2@0.1.3/qrjs2.min.js", getHTTP(true) + "://cdn.jsdelivr.net/npm/platform@1.3.4/platform.min.js");
+	scriptsArray.push(getHTTP(true) + "://cdn.jsdelivr.net/npm/parallax-js@3.1.0/dist/parallax.min.js",
+		getHTTP(true) + "://cdn.jsdelivr.net/npm/qrjs2@0.1.3/qrjs2.min.js",
+		getHTTP(true) + "://cdn.jsdelivr.net/npm/platform@1.3.4/platform.min.js");
 	if (hasTouch) {
 		scriptsArray.push(getHTTP(true) + "://cdnjs.cloudflare.com/ajax/libs/Tocca.js/2.0.1/Tocca.min.js");
 	} else {
@@ -736,6 +730,5 @@ VK, WheelIndicator, Ya */
 	}
 	var load;
 	load = new loadJsCss(scriptsArray, run);
-})(window, document);
-
-//# sourceMappingURL=bundle.js.map
+}
+	(window, document));
