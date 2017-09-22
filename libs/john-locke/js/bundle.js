@@ -1,50 +1,43 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global imagesPreloaded, Parallax, platform, QRCode, ToProgress,
- unescape, VK, WheelIndicator, Ya */
+/*global imagesPreloaded, Parallax, platform, QRCode, unescape,
+VK, WheelIndicator, Ya */
 /*property console, split */
 /*!
- * define global root
+ * app logic
  */
-/* var globalRoot = "object" === typeof window && window || "object" === typeof self && self || "object" === typeof global && global || {}; */
-var globalRoot = "undefined" !== typeof window ? window : this;
-/*!
- * safe way to handle console.log
- * @see {@link https://github.com/paulmillr/console-polyfill}
- */
-(function (root) {
+(function (root, document, undefined) {
 	"use strict";
+
 	if (!root.console) {
 		root.console = {};
-	}var con = root.console;var prop, method;var dummy = function () {};var properties = ["memory"];var methods = ("assert,clear,count,debug,dir,dirxml,error,exception,group," + "groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd," + "show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn").split(",");while (prop = properties.pop()) {
+	}
+	var con = root.console;
+	var prop, method;
+	var dummy = function () {};
+	var properties = ["memory"];
+	var methods = ("assert,clear,count,debug,dir,dirxml,error,exception,group," + "groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd," + "show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn").split(",");
+	while (prop = properties.pop()) {
 		if (!con[prop]) {
 			con[prop] = {};
 		}
-	}while (method = methods.pop()) {
+	}
+	while (method = methods.pop()) {
 		if (!con[method]) {
 			con[method] = dummy;
 		}
 	}
-})(globalRoot);
-/*!
- * modified ToProgress v0.1.1
- * @see {@link https://github.com/djyde/ToProgress}
- * @see {@link https://gist.github.com/englishextra/6a8c79c9efbf1f2f50523d46a918b785}
- * @see {@link https://jsfiddle.net/englishextra/z5xhjde8/}
- * arguments.callee changed to TP, a local wrapper function,
- * so that public function name is now customizable;
- * wrapped in curly brackets:
- * else{document.body.appendChild(this.progressBar);};
- * removed module check
- * passes jshint
- */
-(function (root) {
-	"use strict";
 	var ToProgress = function () {
 		var TP = function () {
 			var t = function () {
 				var s = document.createElement("fakeelement"),
-				    i = { transition: "transitionend", OTransition: "oTransitionEnd", MozTransition: "transitionend", WebkitTransition: "webkitTransitionEnd" };for (var j in i) {
+				    i = {
+					transition: "transitionend",
+					OTransition: "oTransitionEnd",
+					MozTransition: "transitionend",
+					WebkitTransition: "webkitTransitionEnd"
+				};
+				for (var j in i) {
 					if (i.hasOwnProperty(j)) {
 						if (void 0 !== s.style[j]) {
 							return i[j];
@@ -53,20 +46,38 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 				}
 			},
 			    s = function (t, a) {
-				if (this.progress = 0, this.options = { id: "top-progress-bar", color: "#F44336", height: "2px", duration: 0.2 }, t && "object" === typeof t) {
+				if (this.progress = 0, this.options = {
+					id: "top-progress-bar",
+					color: "#F44336",
+					height: "2px",
+					duration: 0.2
+				}, t && "object" === typeof t) {
 					for (var i in t) {
 						if (t.hasOwnProperty(i)) {
 							this.options[i] = t[i];
 						}
 					}
-				}if (this.options.opacityDuration = 3 * this.options.duration, this.progressBar = document.createElement("div"), this.progressBar.id = this.options.id, this.progressBar.setCSS = function (t) {
+				}
+				if (this.options.opacityDuration = 3 * this.options.duration, this.progressBar = document.createElement("div"), this.progressBar.id = this.options.id, this.progressBar.setCSS = function (t) {
 					for (var a in t) {
 						if (t.hasOwnProperty(a)) {
 							this.style[a] = t[a];
 						}
 					}
-				}, this.progressBar.setCSS({ position: a ? "relative" : "fixed", top: "0", left: "0", right: "0", "background-color": this.options.color, height: this.options.height, width: "0%", transition: "width " + this.options.duration + "s, opacity " + this.options.opacityDuration + "s", "-moz-transition": "width " + this.options.duration + "s, opacity " + this.options.opacityDuration + "s", "-webkit-transition": "width " + this.options.duration + "s, opacity " + this.options.opacityDuration + "s" }), a) {
-					var o = document.querySelector(a);if (o) {
+				}, this.progressBar.setCSS({
+					position: a ? "relative" : "fixed",
+					top: "0",
+					left: "0",
+					right: "0",
+					"background-color": this.options.color,
+					height: this.options.height,
+					width: "0%",
+					transition: "width " + this.options.duration + "s, opacity " + this.options.opacityDuration + "s",
+					"-moz-transition": "width " + this.options.duration + "s, opacity " + this.options.opacityDuration + "s",
+					"-webkit-transition": "width " + this.options.duration + "s, opacity " + this.options.opacityDuration + "s"
+				}), a) {
+					var o = document.querySelector(a);
+					if (o) {
 						if (o.hasChildNodes()) {
 							o.insertBefore(this.progressBar, o.firstChild);
 						} else {
@@ -77,26 +88,38 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 					document.body.appendChild(this.progressBar);
 				}
 			},
-			    i = t();return s.prototype.transit = function () {
+			    i = t();
+			return s.prototype.transit = function () {
 				this.progressBar.style.width = this.progress + "%";
 			}, s.prototype.getProgress = function () {
 				return this.progress;
 			}, s.prototype.setProgress = function (t, s) {
-				this.show();this.progress = t > 100 ? 100 : 0 > t ? 0 : t;this.transit();if (s) {
+				this.show();
+				this.progress = t > 100 ? 100 : 0 > t ? 0 : t;
+				this.transit();
+				if (s) {
 					s();
 				}
 			}, s.prototype.increase = function (t, s) {
-				this.show();this.setProgress(this.progress + t, s);
+				this.show();
+				this.setProgress(this.progress + t, s);
 			}, s.prototype.decrease = function (t, s) {
-				this.show();this.setProgress(this.progress - t, s);
+				this.show();
+				this.setProgress(this.progress - t, s);
 			}, s.prototype.finish = function (t) {
-				var s = this;this.setProgress(100, t);this.hide();if (i) {
+				var s = this;
+				this.setProgress(100, t);
+				this.hide();
+				if (i) {
 					this.progressBar.addEventListener(i, function (t) {
-						s.reset();s.progressBar.removeEventListener(t.type, TP);
+						s.reset();
+						s.progressBar.removeEventListener(t.type, TP);
 					});
 				}
 			}, s.prototype.reset = function (t) {
-				this.progress = 0;this.transit();if (t) {
+				this.progress = 0;
+				this.transit();
+				if (t) {
 					t();
 				}
 			}, s.prototype.hide = function () {
@@ -104,17 +127,9 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 			}, s.prototype.show = function () {
 				this.progressBar.style.opacity = "1";
 			}, s;
-		};return TP();
-	}();root.ToProgress = ToProgress;
-})(globalRoot, document);
-/*!
- * app logic
- */
-(function (root, document) {
-	"use strict";
-
-	var gEBCN = "getElementsByClassName";
-	var gA = "getAttribute";
+		};
+		return TP();
+	}();
 	var progressBar = new ToProgress({
 		id: "top-progress-bar",
 		color: "#FF2C40",
@@ -131,6 +146,8 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 		progressBar.increase(20);
 		root.addEventListener("load", hideProgressBar);
 	}
+	var gEBCN = "getElementsByClassName";
+	var gA = "getAttribute";
 	var supportsSvgAsImg = document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1") || "";
 	if (!supportsSvgAsImg) {
 		var svgNosmilImages = document[gEBCN]("svg-nosmil-img") || "";
@@ -190,30 +207,38 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 	var pN = "parentNode";
 	var ripple = document[gEBCN]("ripple")[0] || "";
 	var rippleParent = ripple ? ripple[pN] || "" : "";
-	var removeRipple = function () {
+	var loading = document[gEBCN]("loading")[0] || "";
+	var loadingParent = loading ? loading[pN] || "" : "";
+	var removeLoadingIndicators = function () {
 		if (ripple && rippleParent) {
 			rippleParent.removeChild(ripple);
 		}
+		if (loading && loadingParent) {
+			loadingParent.removeChild(loading);
+		}
 	};
 	var timer3;
-	var deferRemoveRipple = function () {
+	var deferRemoveLoadingIndicators = function () {
 		clearTimeout(timer3);
 		timer3 = null;
-		removeRipple();
+		removeLoadingIndicators();
 	};
 	var wrapper = document[gEBCN]("wrapper")[0] || "";
 	var slot2;
-	var hideRipple = function () {
+	var hideLoadingIndicators = function () {
 		if (imagesPreloaded) {
 			clearInterval(slot2);
 			slot2 = null;
 			/* if (wrapper) {
    	wrapper.style.opacity = 1;
    } */
+			if (loading) {
+				loading[cN] += " bounceOutUp";
+			}
 			if (ripple) {
 				ripple[cN] += " bounceOutUp";
 			}
-			timer3 = setTimeout(deferRemoveRipple, 5000);
+			timer3 = setTimeout(deferRemoveLoadingIndicators, 5000);
 			if (!supportsSvgSmilAnimation) {
 				progressBar.increase(20);
 			}
@@ -221,9 +246,9 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 	};
 	if ("undefined" !== typeof imagesPreloaded) {
 		if (!supportsSvgSmilAnimation) {
-			removeRipple();
+			removeLoadingIndicators();
 		} else {
-			slot2 = setInterval(hideRipple, 100);
+			slot2 = setInterval(hideLoadingIndicators, 100);
 		}
 	}
 	var hasTouch = "ontouchstart" in document.documentElement || "";
@@ -282,6 +307,12 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 			_this.after();
 		}
 	};
+	var getHTTP = function (type) {
+		return function (force) {
+			force = force || "";
+			return "http:" === type ? "http" : "https:" === type ? "https" : force ? "http" : "";
+		};
+	}(root.location.protocol || "");
 	var run = function () {
 		var cL = "classList";
 		var cE = "createElement";
@@ -301,7 +332,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 			var locationHref = root.location.href || "";
 			var qrcodeImg = document[cE]("img");
 			var qrcodeImgTitle = document.title ? "Ссылка на страницу «" + document.title.replace(/\[[^\]]*?\]/g, "").trim() + "»" : "";
-			var qrcodeImgSrc = "//chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
+			var qrcodeImgSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
 			qrcodeImg.alt = qrcodeImgTitle;
 			if (root.QRCode) {
 				if (document.implementation.hasFeature("http://www.w3.org/2000/svg", "1.1")) {
@@ -466,25 +497,6 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 				guesture.style.display = "block";
 			}
 		}
-		var hideOtherIsSocial = function (_this) {
-			_this = _this || this;
-			var isSocialAll = document[gEBCN]("is-social") || "";
-			if (isSocialAll) {
-				var k;
-				for (k = 0; k < isSocialAll.length; k += 1) {
-					if (_this !== isSocialAll[k]) {
-						isSocialAll[k][cL].remove("is-active");
-					}
-				}
-				k = null;
-			}
-		};
-		root[aEL]("click", hideOtherIsSocial);
-		var btnShare = document[gEBCN]("btn-share")[0] || "";
-		var btnShareLink = btnShare ? btnShare[gEBTN]("a")[0] || "" : "";
-		var yaShare2Id = "ya-share2";
-		var yaShare2 = document[gEBI](yaShare2Id) || "";
-		var yshare;
 		var scriptIsLoaded = function (s) {
 			for (var b = document.getElementsByTagName("script") || "", a = 0; a < b.length; a += 1) {
 				if (b[a].getAttribute("src") === s) {
@@ -540,6 +552,25 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 			};
 			return debounced;
 		};
+		var hideOtherIsSocial = function (_this) {
+			_this = _this || this;
+			var isSocialAll = document[gEBCN]("is-social") || "";
+			if (isSocialAll) {
+				var k;
+				for (k = 0; k < isSocialAll.length; k += 1) {
+					if (_this !== isSocialAll[k]) {
+						isSocialAll[k][cL].remove("is-active");
+					}
+				}
+				k = null;
+			}
+		};
+		root[aEL]("click", hideOtherIsSocial);
+		var btnShare = document[gEBCN]("btn-share")[0] || "";
+		var btnShareLink = btnShare ? btnShare[gEBTN]("a")[0] || "" : "";
+		var yaShare2Id = "ya-share2";
+		var yaShare2 = document[gEBI](yaShare2Id) || "";
+		var yshare;
 		var showShareButtons = function (ev) {
 			ev.preventDefault();
 			ev.stopPropagation();
@@ -569,7 +600,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 						}
 					}
 				};
-				var jsUrl = "//yastatic.net/share2/share.js";
+				var jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
 				if (!scriptIsLoaded(jsUrl)) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
@@ -609,7 +640,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 						}
 					}
 				};
-				var jsUrl = "//vk.com/js/api/openapi.js?147";
+				var jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?147";
 				if (!scriptIsLoaded(jsUrl)) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
@@ -622,14 +653,14 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 			btnLikeLink[aEL]("click", showVkLike);
 		}
 	};
-	var scriptsArray = ["//fonts.googleapis.com/css?family=PT+Serif:400,400i%7CRoboto:400,700%7CRoboto+Condensed:700&subset=cyrillic", "./libs/john-locke/css/bundle.min.css", "//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.min.css"];
+	var scriptsArray = [getHTTP(true) + "://fonts.googleapis.com/css?family=PT+Serif:400,400i%7CRoboto:400,700%7CRoboto+Condensed:700&subset=cyrillic", "./libs/john-locke/css/bundle.min.css", getHTTP(true) + "://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.min.css"];
 	var supportsClassList = "classList" in document.createElement("_") || "";
 	if (!supportsClassList) {
-		scriptsArray.push("//cdn.jsdelivr.net/npm/classlist.js@1.1.20150312/classList.min.js");
+		scriptsArray.push(getHTTP(true) + "://cdn.jsdelivr.net/npm/classlist.js@1.1.20150312/classList.min.js");
 	}
 	var supportsDataset = "undefined" !== typeof root.Element && "dataset" in document.documentElement || "";
 	if (!supportsDataset) {
-		scriptsArray.push("//cdn.jsdelivr.net/npm/element-dataset@2.2.6/lib/browser/index.cjs.min.js");
+		scriptsArray.push(getHTTP(true) + "://cdn.jsdelivr.net/npm/element-dataset@2.2.6/lib/browser/index.cjs.min.js");
 	}
 	var supportsPassive = false;
 	try {
@@ -641,19 +672,19 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 		root.addEventListener('test', function () {}, opts);
 	} catch (err) {}
 	if (!supportsPassive) {
-		scriptsArray.push("//cdnjs.cloudflare.com/ajax/libs/dom4/1.8.3/dom4.js");
+		scriptsArray.push(getHTTP(true) + "://cdnjs.cloudflare.com/ajax/libs/dom4/1.8.3/dom4.js");
 	}
-	scriptsArray.push("//cdn.jsdelivr.net/npm/parallax-js@3.1.0/dist/parallax.min.js", "//cdn.jsdelivr.net/npm/qrjs2@0.1.3/qrjs2.min.js", "//cdn.jsdelivr.net/npm/platform@1.3.4/platform.min.js");
+	scriptsArray.push(getHTTP(true) + "://cdn.jsdelivr.net/npm/parallax-js@3.1.0/dist/parallax.min.js", getHTTP(true) + "://cdn.jsdelivr.net/npm/qrjs2@0.1.3/qrjs2.min.js", getHTTP(true) + "://cdn.jsdelivr.net/npm/platform@1.3.4/platform.min.js");
 	if (hasTouch) {
-		scriptsArray.push("//cdnjs.cloudflare.com/ajax/libs/Tocca.js/2.0.1/Tocca.min.js");
+		scriptsArray.push(getHTTP(true) + "://cdnjs.cloudflare.com/ajax/libs/Tocca.js/2.0.1/Tocca.min.js");
 	} else {
 		if (hasWheel) {
-			/* scriptsArray.push("//cdn.jsdelivr.net/npm/wheel-indicator@1.1.4/lib/wheel-indicator.min.js"); */
+			/* scriptsArray.push(getHTTP(true) + "://cdn.jsdelivr.net/npm/wheel-indicator@1.1.4/lib/wheel-indicator.min.js"); */
 			scriptsArray.push("./cdn/wheel-indicator/1.1.4/js/wheel-indicator-passive.fixed.min.js");
 		}
 	}
 	var load;
 	load = new loadJsCss(scriptsArray, run);
-})(globalRoot, document);
+})(window, document);
 
 //# sourceMappingURL=bundle.js.map

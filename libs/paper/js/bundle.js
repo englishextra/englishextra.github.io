@@ -533,7 +533,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 	};IframeLightbox.prototype.isOpen = function () {
 		return this.el[cL].contains(isOpenedClass);
 	};root.IframeLightbox = IframeLightbox;
-})("undefined" !== typeof window ? window : this);
+})(globalRoot);
 /*!
  * add js class to html element
  */

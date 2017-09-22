@@ -12,10 +12,11 @@ body {
 	font-size: 1.000rem;
 	line-height: 1.333rem;
 	color: $TitleBarAndAppBarDark;
-	margin: 0;
+	overflow-y: auto;
 	user-select: none;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
+	margin: 0;
 }
 
 a {
@@ -63,6 +64,20 @@ a {
 .layer canvas {
 	display: block;
 }
+
+/* .loading {
+	font-size: 1.000rem;
+	line-height: 1.000rem;
+	font-family: sans-serif;
+	font-weight: 400;
+    color: #F79AA2;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+} */
 
 .hero {
 	width: 50%;
