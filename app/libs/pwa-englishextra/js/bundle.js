@@ -270,7 +270,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 	};IframeLightbox.prototype.isOpen = function () {
 		return this.el[cL].contains(isOpenedClass);
 	};root.IframeLightbox = IframeLightbox;
-})("undefined" !== typeof window ? window : this);
+})(globalRoot);
 /*!
  * modified scrollToY
  * @see {@link http://stackoverflow.com/questions/8917921/cross-browser-javascript-not-jquery-scroll-to-top-animation}
