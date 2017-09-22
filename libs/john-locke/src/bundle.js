@@ -224,42 +224,60 @@ VK, WheelIndicator, Ya */
 	var quoteParagraph = quote ? quote[gEBTN]("p")[0] || "" : "";
 	var quoteParagraphPosition = quoteParagraph.getBoundingClientRect() || "";
 	var quoteParagraphWidth = quoteParagraphPosition.width || quoteParagraph.offsetWidth;
-	var slotShowquoteParagraph = setInterval(function(){
-		var currentQuoteParagraphPosition = quoteParagraph.getBoundingClientRect() || "";
-		var currentQuoteParagraphWidth = currentQuoteParagraphPosition.width || quoteParagraph.offsetWidth;
-		if (quoteParagraphWidth !== currentQuoteParagraphWidth) {
-			clearInterval(slotShowquoteParagraph);
-			slotShowquoteParagraph = null;
-			quote.style.visibility = "visible";
-			quote[cN] += " bounceInDown";
+	var timerShowQuoteParagraph;
+	var deferShowQuoteParagraph = function () {
+		clearTimeout(timerShowQuoteParagraph);
+		timerShowQuoteParagraph = null;
+		quote.style.visibility = "visible";
+		quote[cN] += " bounceInDown";
+	};
+	var slotShowQuoteParagraph = setInterval(function(){
+		var position = quoteParagraph.getBoundingClientRect() || "";
+		var width = position.width || quoteParagraph.offsetWidth;
+		if (quoteParagraphWidth !== width) {
+			clearInterval(slotShowQuoteParagraph);
+			slotShowQuoteParagraph = null;
+			timerShowQuoteParagraph = setTimeout(deferShowQuoteParagraph, 200);
 		}
 	}, 100);
 	var intro = document[gEBCN]("intro")[0] || "";
 	var introHeading = intro ? intro[gEBTN]("h1")[0] || "" : "";
 	var introHeadingPosition = introHeading.getBoundingClientRect() || "";
 	var introHeadingWidth = introHeadingPosition.width || introHeading.offsetWidth;
-	var slotShowIntroHeadingWidth = setInterval(function(){
-		var currentIntroHeadingPosition = introHeading.getBoundingClientRect() || "";
-		var currentIntroHeadingWidth = currentIntroHeadingPosition.width || introHeading.offsetWidth;
-		if (introHeadingWidth !== currentIntroHeadingWidth) {
-			clearInterval(slotShowIntroHeadingWidth);
-			slotShowIntroHeadingWidth = null;
-			intro.style.visibility = "visible";
-			intro[cN] += " bounceInLeft";
+	var timerShowIntroHeading;
+	var deferShowIntroHeading = function () {
+		clearTimeout(timerShowIntroHeading);
+		timerShowIntroHeading = null;
+		intro.style.visibility = "visible";
+		intro[cN] += " bounceInLeft";
+	};
+	var slotShowIntroHeading = setInterval(function(){
+		var position = introHeading.getBoundingClientRect() || "";
+		var width = position.width || introHeading.offsetWidth;
+		if (introHeadingWidth !== width) {
+			clearInterval(slotShowIntroHeading);
+			slotShowIntroHeading = null;
+			timerShowIntroHeading = setTimeout(deferShowIntroHeading, 200);
 		}
 	}, 100);
 	var footer = document[gEBCN]("footer")[0] || "";
 	var footerParagraph = footer ? footer[gEBTN]("p")[0] || "" : "";
 	var footerParagraphPosition = footerParagraph.getBoundingClientRect() || "";
 	var footerParagraphWidth = footerParagraphPosition.width || footerParagraph.offsetWidth;
-	var slotShowfooterParagraph = setInterval(function(){
-		var currentFooterParagraphPosition = footerParagraph.getBoundingClientRect() || "";
-		var currentFooterParagraphWidth = currentFooterParagraphPosition.width || footerParagraph.offsetWidth;
-		if (footerParagraphWidth !== currentFooterParagraphWidth) {
-			clearInterval(slotShowfooterParagraph);
-			slotShowfooterParagraph = null;
-			footer.style.visibility = "visible";
-			footer[cN] += " bounceInDown";
+	var timerShowFooterParagraph;
+	var deferShowFooterParagraph = function () {
+		clearTimeout(timerShowFooterParagraph);
+		timerShowFooterParagraph = null;
+		footer.style.visibility = "visible";
+		footer[cN] += " bounceInDown";
+	};
+	var slotShowFooterParagraph = setInterval(function(){
+		var position = footerParagraph.getBoundingClientRect() || "";
+		var width = position.width || footerParagraph.offsetWidth;
+		if (footerParagraphWidth !== width) {
+			clearInterval(slotShowFooterParagraph);
+			slotShowFooterParagraph = null;
+			timerShowFooterParagraph = setTimeout(deferShowFooterParagraph, 200);
 		}
 	}, 100);
 	var pN = "parentNode";
