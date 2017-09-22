@@ -216,8 +216,8 @@ VK, WheelIndicator, Ya */
 		if (quoteParagraphWidth !== currentQuoteParagraphWidth) {
 			clearInterval(slotShowquoteParagraph);
 			slotShowquoteParagraph = null;
-			quote[cN] += " bounceInDown";
 			quote.style.opacity = 1;
+			quote[cN] += " bounceInDown";
 		}
 	}, 100);
 	var intro = document[gEBCN]("intro")[0] || "";
@@ -230,8 +230,8 @@ VK, WheelIndicator, Ya */
 		if (introHeadingWidth !== currentIntroHeadingWidth) {
 			clearInterval(slotShowIntroHeadingWidth);
 			slotShowIntroHeadingWidth = null;
-			intro[cN] += " bounceInLeft";
 			intro.style.opacity = 1;
+			intro[cN] += " bounceInLeft";
 		}
 	}, 100);
 	var footer = document[gEBCN]("footer")[0] || "";
@@ -244,8 +244,8 @@ VK, WheelIndicator, Ya */
 		if (footerParagraphWidth !== currentFooterParagraphWidth) {
 			clearInterval(slotShowfooterParagraph);
 			slotShowfooterParagraph = null;
-			footer[cN] += " bounceInDown";
 			footer.style.opacity = 1;
+			footer[cN] += " bounceInDown";
 		}
 	}, 100);
 	var pN = "parentNode";
