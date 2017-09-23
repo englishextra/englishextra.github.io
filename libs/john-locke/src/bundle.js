@@ -233,7 +233,7 @@ VK, WheelIndicator, Ya */
 					clearInterval(slot);
 					slot = null;
 					parent.className += " " + additionalClass;
-					timer = setTimeout(defer, 200);
+					timer = setTimeout(defer, 100);
 				}
 			}, 100);
 	};
