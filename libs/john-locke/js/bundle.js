@@ -214,7 +214,7 @@ VK, WheelIndicator, Ya */
 	var deferShowQuoteParagraph = function () {
 		clearTimeout(timerShowQuoteParagraph);
 		timerShowQuoteParagraph = null;
-		quote.style.visibility = "visible";
+		quote.style.display = "block";
 		quote[cN] += " bounceInDown";
 	};
 	var slotShowQuoteParagraph = setInterval(function () {
@@ -234,7 +234,7 @@ VK, WheelIndicator, Ya */
 	var deferShowIntroHeading = function () {
 		clearTimeout(timerShowIntroHeading);
 		timerShowIntroHeading = null;
-		intro.style.visibility = "visible";
+		intro.style.display = "block";
 		intro[cN] += " bounceInLeft";
 	};
 	var slotShowIntroHeading = setInterval(function () {
@@ -254,7 +254,7 @@ VK, WheelIndicator, Ya */
 	var deferShowFooterParagraph = function () {
 		clearTimeout(timerShowFooterParagraph);
 		timerShowFooterParagraph = null;
-		footer.style.visibility = "visible";
+		footer.style.display = "block";
 		footer[cN] += " bounceInDown";
 	};
 	var slotShowFooterParagraph = setInterval(function () {

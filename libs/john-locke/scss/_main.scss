@@ -224,13 +224,13 @@ a {
 }
 
 .quote {
+	display: none;
 	min-width: 28.200rem;
 	min-height: 5.400rem;
 	text-align: left;
 	position: absolute;
 	top: calc(25% - 2.700rem);
 	left: calc(35% - 14.100rem);
-	visibility: hidden;
 	overflow: hidden;
 	background-color: #3BF0DF;
 	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
@@ -257,12 +257,12 @@ a {
 }
 
 .intro {
+	display: none;
 	width: 50%;
 	min-height: 100%;
 	position: absolute;
 	top: 0;
 	left: 0;
-	visibility: hidden;
 	overflow: hidden;
 	background-size: cover;
 }
@@ -539,13 +539,13 @@ a {
 }
 
 .footer {
+	display: none;
 	width: 100%;
 	min-height: 3.200rem;
 	position: absolute;
 	bottom: 0;
 	left: 0;
 	text-align: center;
-	visibility: hidden;
 	overflow: hidden;
 	background-color: transparent;
 	background-image: url(../img/dots-8x8.png);
