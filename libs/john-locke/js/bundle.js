@@ -149,6 +149,59 @@ VK, WheelIndicator, Ya */
 		root.addEventListener("load", hideProgressBar);
 	}
 	var gEBCN = "getElementsByClassName";
+	var cN = "className";
+	var pN = "parentNode";
+	var ripple = document[gEBCN]("ripple")[0] || "";
+	var rippleParent = ripple ? ripple[pN] || "" : "";
+	var removeRipple = function () {
+		rippleParent.removeChild(ripple);
+	};
+	var timerDeferRemoveRipple;
+	var deferRemoveRipple = function () {
+		clearTimeout(timerDeferRemoveRipple);
+		timerDeferRemoveRipple = null;
+		removeRipple();
+	};
+	var loading = document[gEBCN]("loading")[0] || "";
+	var loadingParent = loading ? loading[pN] || "" : "";
+	var removeLoading = function () {
+		loadingParent.removeChild(loading);
+	};
+	var timerDeferRemoveLoading;
+	var deferRemoveLoading = function () {
+		clearTimeout(timerDeferRemoveLoading);
+		timerDeferRemoveLoading = null;
+		removeLoading();
+	};
+	var wrapper = document[gEBCN]("wrapper")[0] || "";
+	var slotHidePreloaders;
+	var hidePreloaders = function () {
+		if (imagesPreloaded) {
+			clearInterval(slotHidePreloaders);
+			slotHidePreloaders = null;
+			/* if (wrapper) {
+   	wrapper.style.opacity = 1;
+   } */
+			if (ripple && rippleParent) {
+				ripple[cN] += " bounceOutUp";
+				timerDeferRemoveRipple = setTimeout(deferRemoveRipple, 5000);
+			}
+			if (loading && loadingParent) {
+				loading[cN] += " bounceOutUp";
+				timerDeferRemoveLoading = setTimeout(deferRemoveLoading, 5000);
+			}
+			if (!supportsSvgSmilAnimation) {
+				progressBar.increase(20);
+			}
+		}
+	};
+	if ("undefined" !== typeof imagesPreloaded) {
+		if (!supportsSvgSmilAnimation) {
+			removeRipple();
+			removeLoading();
+		}
+		slotHidePreloaders = setInterval(hidePreloaders, 100);
+	}
 	var gA = "getAttribute";
 	var supportsSvgAsImg = document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1") || "";
 	if (!supportsSvgAsImg) {
@@ -205,89 +258,38 @@ VK, WheelIndicator, Ya */
 	if (canvasAll && cssnum) {
 		slotDrawCanvasAll = setInterval(drawCanvasAll, 100);
 	}
-	var displayParentOnElementWidthChange = function (parent, element, elementWidth, displayStyle, additionalClass, timeout, interval) {
-		var timer;
-		var defer = function () {
-			clearTimeout(timer);
-			timer = null;
-			parent.style.display = displayStyle;
-		};
-		var slot = setInterval(function () {
-			var position = element.getBoundingClientRect() || "";
-			var currentWidth = position.width || element.offsetWidth;
-			if (elementWidth !== currentWidth) {
-				clearInterval(slot);
-				slot = null;
-				parent.className += " " + additionalClass;
-				timer = setTimeout(defer, 100);
-			}
-		}, 100);
-	};
-	var quote = document[gEBCN]("quote")[0] || "";
-	var quoteParagraph = quote ? quote[gEBTN]("p")[0] || "" : "";
-	var quoteParagraphWidth = quoteParagraph.getBoundingClientRect().width || quoteParagraph.offsetWidth;
-	displayParentOnElementWidthChange(quote, quoteParagraph, quoteParagraphWidth, "block", "bounceInDown", 200, 100);
-	var intro = document[gEBCN]("intro")[0] || "";
-	var introHeading = intro ? intro[gEBTN]("h1")[0] || "" : "";
-	var introHeadingWidth = introHeading.getBoundingClientRect().width || introHeading.offsetWidth;
-	displayParentOnElementWidthChange(intro, introHeading, introHeadingWidth, "block", "bounceInLeft", 200, 100);
-	var footer = document[gEBCN]("footer")[0] || "";
-	var footerParagraph = footer ? footer[gEBTN]("p")[0] || "" : "";
-	var footerParagraphWidth = footerParagraph.getBoundingClientRect().width || footerParagraph.offsetWidth;
-	displayParentOnElementWidthChange(footer, footerParagraph, footerParagraphWidth, "block", "bounceInDown", 200, 100);
-	var cN = "className";
-	var pN = "parentNode";
-	var ripple = document[gEBCN]("ripple")[0] || "";
-	var rippleParent = ripple ? ripple[pN] || "" : "";
-	var removeRipple = function () {
-		rippleParent.removeChild(ripple);
-	};
-	var timerDeferRemoveRipple;
-	var deferRemoveRipple = function () {
-		clearTimeout(timerDeferRemoveRipple);
-		timerDeferRemoveRipple = null;
-		removeRipple();
-	};
-	var loading = document[gEBCN]("loading")[0] || "";
-	var loadingParent = loading ? loading[pN] || "" : "";
-	var removeLoading = function () {
-		loadingParent.removeChild(loading);
-	};
-	var timerDeferRemoveLoading;
-	var deferRemoveLoading = function () {
-		clearTimeout(timerDeferRemoveLoading);
-		timerDeferRemoveLoading = null;
-		removeLoading();
-	};
-	var wrapper = document[gEBCN]("wrapper")[0] || "";
-	var slotHidePreloaders;
-	var hidePreloaders = function () {
-		if (imagesPreloaded) {
-			clearInterval(slotHidePreloaders);
-			slotHidePreloaders = null;
-			/* if (wrapper) {
-   	wrapper.style.opacity = 1;
-   } */
-			if (ripple && rippleParent) {
-				ripple[cN] += " bounceOutUp";
-				timerDeferRemoveRipple = setTimeout(deferRemoveRipple, 5000);
-			}
-			if (loading && loadingParent) {
-				loading[cN] += " bounceOutUp";
-				timerDeferRemoveLoading = setTimeout(deferRemoveLoading, 5000);
-			}
-			if (!supportsSvgSmilAnimation) {
-				progressBar.increase(20);
-			}
-		}
-	};
-	if ("undefined" !== typeof imagesPreloaded) {
-		if (!supportsSvgSmilAnimation) {
-			removeRipple();
-			removeLoading();
-		}
-		slotHidePreloaders = setInterval(hidePreloaders, 100);
-	}
+	/* var displayParentOnElementWidthChange = function (parent, element, elementWidth, displayStyle, additionalClass, timeout, interval) {
+ 	var timer;
+ 	var defer = function () {
+ 		clearTimeout(timer);
+ 		timer = null;
+ 		parent.style.opacity = 1;
+ 	};
+ 	var slot;
+ 	var tick = function () {
+ 		var position = element.getBoundingClientRect() || "";
+ 		var currentWidth = position.width || element.offsetWidth;
+ 		if (currentWidth > 0 && elementWidth !== currentWidth) {
+ 			clearInterval(slot);
+ 			slot = null;alert(currentWidth)
+ 			parent.className += " " + additionalClass;
+ 			timer = setTimeout(defer, 100);
+ 		}
+ 	};
+ 	var slot = setInterval(tick, 100);
+ };
+ var quote = document[gEBCN]("quote")[0] || "";
+ var quoteParagraph = quote ? quote[gEBTN]("p")[0] || "" : "";
+ var quoteParagraphWidth = quoteParagraph.getBoundingClientRect().width || quoteParagraph.offsetWidth;
+ displayParentOnElementWidthChange(quote, quoteParagraph, quoteParagraphWidth, "block", "bounceInDown", 200, 100);
+ var intro = document[gEBCN]("intro")[0] || "";
+ var introHeading = intro ? intro[gEBTN]("h1")[0] || "" : "";
+ var introHeadingWidth = introHeading.getBoundingClientRect().width || introHeading.offsetWidth;
+ displayParentOnElementWidthChange(intro, introHeading, introHeadingWidth, "block", "bounceInLeft", 200, 100);
+ var footer = document[gEBCN]("footer")[0] || "";
+ var footerParagraph = footer ? footer[gEBTN]("p")[0] || "" : "";
+ var footerParagraphWidth = footerParagraph.getBoundingClientRect().width || footerParagraph.offsetWidth;
+ displayParentOnElementWidthChange(footer, footerParagraph, footerParagraphWidth, "block", "bounceInDown", 200, 100); */
 	var hasTouch = "ontouchstart" in document.documentElement || "";
 	var hasWheel = "onwheel" in document.createElement("div") || void 0 !== document.onmousewheel || "";
 	var loadJsCss = function (files, callback) {
@@ -692,7 +694,9 @@ VK, WheelIndicator, Ya */
 			btnLikeLink[aEL]("click", showVkLike);
 		}
 	};
-	var scriptsArray = [getHTTP(true) + "://fonts.googleapis.com/css?family=PT+Serif:400,400i%7CRoboto:400,700%7CRoboto+Condensed:700&subset=cyrillic", "./libs/john-locke/css/bundle.min.css", getHTTP(true) + "://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.min.css"];
+	var scriptsArray = [
+	/* getHTTP(true) + "://fonts.googleapis.com/css?family=PT+Serif:400,400i%7CRoboto:400,700%7CRoboto+Condensed:700&subset=cyrillic", */
+	"./libs/john-locke/css/bundle.min.css", getHTTP(true) + "://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.min.css"];
 	var supportsClassList = "classList" in document.createElement("_") || "";
 	if (!supportsClassList) {
 		scriptsArray.push(getHTTP(true) + "://cdn.jsdelivr.net/npm/classlist.js@1.1.20150312/classList.min.js");
