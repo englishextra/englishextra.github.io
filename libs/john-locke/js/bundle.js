@@ -205,67 +205,37 @@ VK, WheelIndicator, Ya */
 	if (canvasAll && cssnum) {
 		slotDrawCanvasAll = setInterval(drawCanvasAll, 100);
 	}
-	var cN = "className";
+	var displayParentOnElementWidthChange = function (parent, element, elementWidth, displayStyle, additionalClass, timeout, interval) {
+		var timer;
+		var defer = function () {
+			clearTimeout(timer);
+			timer = null;
+			parent.style.display = displayStyle;
+			parent.className += " " + additionalClass;
+		};
+		var slot = setInterval(function () {
+			var position = element.getBoundingClientRect() || "";
+			var currentWidth = position.width || element.offsetWidth;
+			if (elementWidth !== currentWidth) {
+				clearInterval(slot);
+				slot = null;
+				timer = setTimeout(defer, 200);
+			}
+		}, 100);
+	};
 	var quote = document[gEBCN]("quote")[0] || "";
 	var quoteParagraph = quote ? quote[gEBTN]("p")[0] || "" : "";
-	var quoteParagraphPosition = quoteParagraph.getBoundingClientRect() || "";
-	var quoteParagraphWidth = quoteParagraphPosition.width || quoteParagraph.offsetWidth;
-	var timerShowQuoteParagraph;
-	var deferShowQuoteParagraph = function () {
-		clearTimeout(timerShowQuoteParagraph);
-		timerShowQuoteParagraph = null;
-		quote.style.display = "block";
-		quote[cN] += " bounceInDown";
-	};
-	var slotShowQuoteParagraph = setInterval(function () {
-		var position = quoteParagraph.getBoundingClientRect() || "";
-		var width = position.width || quoteParagraph.offsetWidth;
-		if (quoteParagraphWidth !== width) {
-			clearInterval(slotShowQuoteParagraph);
-			slotShowQuoteParagraph = null;
-			timerShowQuoteParagraph = setTimeout(deferShowQuoteParagraph, 200);
-		}
-	}, 100);
+	var quoteParagraphWidth = quoteParagraph.getBoundingClientRect().width || quoteParagraph.offsetWidth;
+	displayParentOnElementWidthChange(quote, quoteParagraph, quoteParagraphWidth, "block", "bounceInDown", 200, 100);
 	var intro = document[gEBCN]("intro")[0] || "";
 	var introHeading = intro ? intro[gEBTN]("h1")[0] || "" : "";
-	var introHeadingPosition = introHeading.getBoundingClientRect() || "";
-	var introHeadingWidth = introHeadingPosition.width || introHeading.offsetWidth;
-	var timerShowIntroHeading;
-	var deferShowIntroHeading = function () {
-		clearTimeout(timerShowIntroHeading);
-		timerShowIntroHeading = null;
-		intro.style.display = "block";
-		intro[cN] += " bounceInLeft";
-	};
-	var slotShowIntroHeading = setInterval(function () {
-		var position = introHeading.getBoundingClientRect() || "";
-		var width = position.width || introHeading.offsetWidth;
-		if (introHeadingWidth !== width) {
-			clearInterval(slotShowIntroHeading);
-			slotShowIntroHeading = null;
-			timerShowIntroHeading = setTimeout(deferShowIntroHeading, 200);
-		}
-	}, 100);
+	var introHeadingWidth = introHeading.getBoundingClientRect().width || introHeading.offsetWidth;
+	displayParentOnElementWidthChange(intro, introHeading, introHeadingWidth, "block", "bounceInLeft", 200, 100);
 	var footer = document[gEBCN]("footer")[0] || "";
 	var footerParagraph = footer ? footer[gEBTN]("p")[0] || "" : "";
-	var footerParagraphPosition = footerParagraph.getBoundingClientRect() || "";
-	var footerParagraphWidth = footerParagraphPosition.width || footerParagraph.offsetWidth;
-	var timerShowFooterParagraph;
-	var deferShowFooterParagraph = function () {
-		clearTimeout(timerShowFooterParagraph);
-		timerShowFooterParagraph = null;
-		footer.style.display = "block";
-		footer[cN] += " bounceInDown";
-	};
-	var slotShowFooterParagraph = setInterval(function () {
-		var position = footerParagraph.getBoundingClientRect() || "";
-		var width = position.width || footerParagraph.offsetWidth;
-		if (footerParagraphWidth !== width) {
-			clearInterval(slotShowFooterParagraph);
-			slotShowFooterParagraph = null;
-			timerShowFooterParagraph = setTimeout(deferShowFooterParagraph, 200);
-		}
-	}, 100);
+	var footerParagraphWidth = footerParagraph.getBoundingClientRect().width || footerParagraph.offsetWidth;
+	displayParentOnElementWidthChange(footer, footerParagraph, footerParagraphWidth, "block", "bounceInDown", 200, 100);
+	var cN = "className";
 	var pN = "parentNode";
 	var ripple = document[gEBCN]("ripple")[0] || "";
 	var rippleParent = ripple ? ripple[pN] || "" : "";
