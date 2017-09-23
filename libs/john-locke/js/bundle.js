@@ -211,7 +211,6 @@ VK, WheelIndicator, Ya */
 			clearTimeout(timer);
 			timer = null;
 			parent.style.display = displayStyle;
-			parent.className += " " + additionalClass;
 		};
 		var slot = setInterval(function () {
 			var position = element.getBoundingClientRect() || "";
@@ -219,6 +218,7 @@ VK, WheelIndicator, Ya */
 			if (elementWidth !== currentWidth) {
 				clearInterval(slot);
 				slot = null;
+				parent.className += " " + additionalClass;
 				timer = setTimeout(defer, 200);
 			}
 		}, 100);
