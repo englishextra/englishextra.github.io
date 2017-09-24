@@ -1,14 +1,14 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global imagesPreloaded, Parallax, platform, QRCode, unescape,
-VK, WheelIndicator, Ya */
+/*global debounce, imagesPreloaded, loadJsCss, Parallax, platform, QRCode,
+ToProgress, unescape, VK, WheelIndicator, Ya */
 /*property console, split */
 /*!
- * app logic
+ * safe way to handle console.log
+ * @see {@link https://github.com/paulmillr/console-polyfill}
  */
-(function (root, document, undefined) {
+(function(root){
 	"use strict";
-
 	if (!root.console) {
 		root.console = {};
 	}
@@ -31,134 +31,319 @@ VK, WheelIndicator, Ya */
 		}
 	}
 	prop = method = dummy = properties = methods = null;
-
-	var style = "style";
-
-	var createElement = "createElement";
-	
-	var appendChild = "appendChild";
-	
-	var insertBefore = "insertBefore";
-	
-	var prototype = "prototype";
-	
-	var body = "body";
-	
-	var hasOwnProperty = "hasOwnProperty";
-
+}("undefined" !== typeof window ? window : this));
+/*!
+ * modified ToProgress v0.1.1
+ * @see {@link http://github.com/djyde/ToProgress}
+ * @see {@link https://github.com/djyde/ToProgress/blob/master/ToProgress.js}
+ * passes jshint
+ */
+(function (root) {
+	"use strict";
 	var ToProgress = (function () {
 		var TP = function () {
-			var t = function () {
-				var s = document[createElement]("fakeelement"),
-				i = {
-					transition: "transitionend",
-					OTransition: "oTransitionEnd",
-					MozTransition: "transitionend",
-					WebkitTransition: "webkitTransitionEnd"
+			var style = "style";
+			var createElement = "createElement";
+			var appendChild = "appendChild";
+			var prototype = "prototype";
+			var hasOwnProperty = "hasOwnProperty";
+			var getElementById = "getElementById";
+			var getElementsByClassName = "getElementsByClassName";
+			var firstChild = "firstChild";
+			var addEventListener = "addEventListener";
+			function whichTransitionEvent() {
+				var t,
+				el = document[createElement]("fakeelement");
+				var transitions = {
+					"transition": "transitionend",
+					"OTransition": "oTransitionEnd",
+					"MozTransition": "transitionend",
+					"WebkitTransition": "webkitTransitionEnd"
 				};
-				for (var j in i) {
-					if (i[hasOwnProperty](j)) {
-						if (void 0 !== s[style][j]) {
-							return i[j];
+				for (t in transitions) {
+					if (transitions[hasOwnProperty](t)) {
+						if (el[style][t] !== undefined) {
+							return transitions[t];
 						}
 					}
 				}
-			},
-			s = function (t, a) {
-				if (this.progress = 0, this.options = {
-						id: "top-progress-bar",
-						color: "#F44336",
-						height: "2px",
-						duration: 0.2
-					}, t && "object" === typeof t) {
-					for (var i in t) {
-						if (t[hasOwnProperty](i)) {
-							this.options[i] = t[i];
+			}
+			var transitionEvent = whichTransitionEvent();
+			function ToProgress(opt, selector) {
+				this.progress = 0;
+				this.options = {
+					id: 'top-progress-bar',
+					color: '#F44336',
+					height: '2px',
+					duration: 0.2
+				};
+				if (opt && typeof opt === 'object') {
+					for (var key in opt) {
+						if (opt[hasOwnProperty](key)) {
+							this.options[key] = opt[key];
 						}
 					}
 				}
-				if (this.options.opacityDuration = 3 * this.options.duration, this.progressBar = document[createElement]("div"), this.progressBar.id = this.options.id, this.progressBar.setCSS = function (t) {
-					for (var a in t) {
-						if (t[hasOwnProperty](a)) {
-							this[style][a] = t[a];
+				this.options.opacityDuration = this.options.duration * 3;
+				this.progressBar = document[createElement]('div');
+				this.progressBar.id = this.options.id;
+				this.progressBar.setCSS = function (style) {
+					for (var property in style) {
+						if (style[hasOwnProperty](property)) {
+							this.style[property] = style[property];
 						}
 					}
-				}, this.progressBar.setCSS({
-						position: a ? "relative" : "fixed",
-						top: "0",
-						left: "0",
-						right: "0",
-						"background-color": this.options.color,
-						height: this.options.height,
-						width: "0%",
-						transition: "width " + this.options.duration + "s, opacity " + this.options.opacityDuration + "s",
-						"-moz-transition": "width " + this.options.duration + "s, opacity " + this.options.opacityDuration + "s",
-						"-webkit-transition": "width " + this.options.duration + "s, opacity " + this.options.opacityDuration + "s"
-					}), a) {
-					var o = document.querySelector(a);
-					if (o) {
-						if (o.hasChildNodes()) {
-							o[insertBefore](this.progressBar, o.firstChild);
+				};
+				this.progressBar.setCSS({
+					"position": selector ? "relative" : "fixed",
+					"top": "0",
+					"left": "0",
+					"right": "0",
+					"background-color": this.options.color,
+					"height": this.options.height,
+					"width": "0%",
+					"transition": "width " + this.options.duration + "s" + ", opacity " + this.options.opacityDuration + "s",
+					"-moz-transition": "width " + this.options.duration + "s" + ", opacity " + this.options.opacityDuration + "s",
+					"-webkit-transition": "width " + this.options.duration + "s" + ", opacity " + this.options.opacityDuration + "s"
+				});
+				if (selector) {
+					var el;
+					if (selector.indexOf("#", 0) !== -1) {
+						el = document[getElementById](selector) || "";
+					} else {
+						if (selector.indexOf(".", 0) !== -1) {
+							el = document[getElementsByClassName](selector)[0] || "";
+						}
+					}
+					if (el) {
+						if (el.hasChildNodes()) {
+							el.insertBefore(this.progressBar, el[firstChild]);
 						} else {
-							o[appendChild](this.progressBar);
+							el[appendChild](this.progressBar);
 						}
 					}
 				} else {
-					document[body][appendChild](this.progressBar);
+					document.body[appendChild](this.progressBar);
 				}
-			},
-			i = t();
-			return s[prototype].transit = function () {
-				this.progressBar[style].width = this.progress + "%";
-			},
-			s[prototype].getProgress = function () {
+			}
+			ToProgress[prototype].transit = function () {
+				this.progressBar[style].width = this.progress + '%';
+			};
+			ToProgress[prototype].getProgress = function () {
 				return this.progress;
-			},
-			s[prototype].setProgress = function (t, s) {
+			};
+			ToProgress[prototype].setProgress = function (progress, callback) {
 				this.show();
-				this.progress = t > 100 ? 100 : 0 > t ? 0 : t;
-				this.transit();
-				if (s) {
-					s();
+				if (progress > 100) {
+					this.progress = 100;
+				} else if (progress < 0) {
+					this.progress = 0;
+				} else {
+					this.progress = progress;
 				}
-			},
-			s[prototype].increase = function (t, s) {
+				this.transit();
+				if (callback) {
+					callback();
+				}
+			};
+			ToProgress[prototype].increase = function (toBeIncreasedProgress, callback) {
 				this.show();
-				this.setProgress(this.progress + t, s);
-			},
-			s[prototype].decrease = function (t, s) {
+				this.setProgress(this.progress + toBeIncreasedProgress, callback);
+			};
+			ToProgress[prototype].decrease = function (toBeDecreasedProgress, callback) {
 				this.show();
-				this.setProgress(this.progress - t, s);
-			},
-			s[prototype].finish = function (t) {
-				var s = this;
-				this.setProgress(100, t);
+				this.setProgress(this.progress - toBeDecreasedProgress, callback);
+			};
+			ToProgress[prototype].finish = function (callback) {
+				var that = this;
+				this.setProgress(100, callback);
 				this.hide();
-				if (i) {
-					this.progressBar.addEventListener(i, function (t) {
-						s.reset();
-						s.progressBar.removeEventListener(t.type, TP);
+				if (transitionEvent) {
+					this.progressBar[addEventListener](transitionEvent, function (e) {
+						that.reset();
+						that.progressBar.removeEventListener(e.type, TP);
 					});
 				}
-			},
-			s[prototype].reset = function (t) {
+			};
+			ToProgress[prototype].reset = function (callback) {
 				this.progress = 0;
 				this.transit();
-				if (t) {
-					t();
+				if (callback) {
+					callback();
 				}
-			},
-			s[prototype].hide = function () {
-				this.progressBar[style].opacity = "0";
-			},
-			s[prototype].show = function () {
-				this.progressBar[style].opacity = "1";
-			},
-			s;
+			};
+			ToProgress[prototype].hide = function () {
+				this.progressBar[style].opacity = '0';
+			};
+			ToProgress[prototype].show = function () {
+				this.progressBar[style].opacity = '1';
+			};
+			return ToProgress;
 		};
 		return TP();
 	}
 		());
+	root.ToProgress = ToProgress;
+}
+	("undefined" !== typeof window ? window : this));
+/*!
+ * modified Returns a function, that, as long as it continues to be invoked, will not
+ * be triggered. The function will be called after it stops being called for
+ * N milliseconds. If `immediate` is passed, trigger the function on the
+ * leading edge, instead of the trailing. The function also has a property 'clear'
+ * that is a function which will clear the timer to prevent previously scheduled executions.
+ * @source underscore.js
+ * @see http://unscriptable.com/2009/03/20/debouncing-javascript-methods/
+ * @param {Function} function to wrap
+ * @param {Number} timeout in ms (`100`)
+ * @param {Boolean} whether to execute at the beginning (`false`)
+ * @api public
+ * @see {@link https://github.com/component/debounce/blob/master/index.js}
+ * passes jshint
+ */
+
+(function (root) {
+	"use strict";
+	var debounce = function (func, wait, immediate) {
+		var timeout,
+		args,
+		context,
+		timestamp,
+		result;
+		if (undefined === wait || null === wait) {
+			wait = 100;
+		}
+		function later() {
+			var last = Date.now() - timestamp;
+			if (last < wait && last >= 0) {
+				timeout = setTimeout(later, wait - last);
+			} else {
+				timeout = null;
+				if (!immediate) {
+					result = func.apply(context, args);
+					context = args = null;
+				}
+			}
+		}
+		var debounced = function () {
+			context = this;
+			args = arguments;
+			timestamp = Date.now();
+			var callNow = immediate && !timeout;
+			if (!timeout) {
+				timeout = setTimeout(later, wait);
+			}
+			if (callNow) {
+				result = func.apply(context, args);
+				context = args = null;
+			}
+			return result;
+		};
+		debounced.clear = function () {
+			if (timeout) {
+				clearTimeout(timeout);
+				timeout = null;
+			}
+		};
+		debounced.flush = function () {
+			if (timeout) {
+				result = func.apply(context, args);
+				context = args = null;
+				clearTimeout(timeout);
+				timeout = null;
+			}
+		};
+		return debounced;
+	};
+	root.debounce = debounce;
+}
+	("undefined" !== typeof window ? window : this));
+/*!
+ * modified loadExt
+ * @see {@link https://gist.github.com/englishextra/ff9dc7ab002312568742861cb80865c9}
+ * passes jshint
+ */
+(function (root) {
+	"use strict";
+	var loadJsCss = function (files, callback) {
+		var _this = this;
+		var getElementsByTagName = "getElementsByTagName";
+		var createElement = "createElement";
+		var appendChild = "appendChild";
+		var body = "body";
+		var parentNode = "parentNode";
+		var insertBefore = "insertBefore";
+		var length = "length";
+		_this.files = files;
+		_this.js = [];
+		_this.head = document[getElementsByTagName]("head")[0] || "";
+		_this.body = document[body] || "";
+		_this.ref = document[getElementsByTagName]("script")[0] || "";
+		_this.callback = callback || function () {};
+		_this.loadStyle = function (file) {
+			var link = document[createElement]("link");
+			link.rel = "stylesheet";
+			link.type = "text/css";
+			link.href = file;
+			_this.head[appendChild](link);
+		};
+		_this.loadScript = function (i) {
+			var script = document[createElement]("script");
+			script.type = "text/javascript";
+			script.async = true;
+			script.src = _this.js[i];
+			var loadNextScript = function () {
+				if (++i < _this.js[length]) {
+					_this.loadScript(i);
+				} else {
+					_this.callback();
+				}
+			};
+			script.onload = function () {
+				loadNextScript();
+			};
+			_this.head[appendChild](script);
+			if (_this.ref[parentNode]) {
+				_this.ref[parentNode][insertBefore](script, _this.ref);
+			} else {
+				(_this.body || _this.head)[appendChild](script);
+			}
+		};
+		var i,
+		l;
+		for (i = 0, l = _this.files[length]; i < l; i += 1) {
+			if ((/\.js$|\.js\?/).test(_this.files[i])) {
+				_this.js.push(_this.files[i]);
+			}
+			if ((/\.css$|\.css\?|\/css\?/).test(_this.files[i])) {
+				_this.loadStyle(_this.files[i]);
+			}
+		}
+		i = l = null;
+		if (_this.js[length] > 0) {
+			_this.loadScript(0);
+		} else {
+			_this.after();
+		}
+	};
+	root.loadJsCss = loadJsCss;
+}
+	("undefined" !== typeof window ? window : this));
+/*!
+ * app logic
+ */
+(function (root, document, undefined) {
+	"use strict";
+
+	var style = "style";
+
+	var createElement = "createElement";
+
+	var appendChild = "appendChild";
+
+	var getElementsByTagName = "getElementsByTagName";
+
+	var addEventListener = "addEventListener";
 
 	var progressBar = new ToProgress({
 			id: "top-progress-bar",
@@ -166,8 +351,8 @@ VK, WheelIndicator, Ya */
 			height: "0.200rem",
 			duration: 0.2
 		});
-		
-	var createElementNS = "createElementNS";	
+
+	var createElementNS = "createElementNS";
 
 	var toStringFn = {}.toString;
 	var supportsSvgSmilAnimation = !!document[createElementNS] && (/SVGAnimate/).test(toStringFn.call(document[createElementNS]("http://www.w3.org/2000/svg", "animate"))) || "";
@@ -179,7 +364,7 @@ VK, WheelIndicator, Ya */
 
 	if (!supportsSvgSmilAnimation) {
 		progressBar.increase(20);
-		root.addEventListener("load", hideProgressBar);
+		root[addEventListener]("load", hideProgressBar);
 	}
 
 	var getElementsByClassName = "getElementsByClassName";
@@ -188,10 +373,20 @@ VK, WheelIndicator, Ya */
 
 	var parentNode = "parentNode";
 
+	var removeElement = function (elem) {
+		if (elem) {
+			if ("undefined" !== typeof elem.remove) {
+				return elem.remove();
+			} else {
+				return elem[parentNode] && elem[parentNode].removeChild(elem);
+			}
+		}
+	};
+
 	var ripple = document[getElementsByClassName]("ripple")[0] || "";
-	var rippleParent = ripple ? ripple[parentNode] || "" : "";
+
 	var removeRipple = function () {
-		rippleParent.removeChild(ripple);
+		removeElement(ripple);
 	};
 
 	var timerDeferRemoveRipple;
@@ -202,9 +397,9 @@ VK, WheelIndicator, Ya */
 	};
 
 	var loading = document[getElementsByClassName]("loading")[0] || "";
-	var loadingParent = loading ? loading[parentNode] || "" : "";
+
 	var removeLoading = function () {
-		loadingParent.removeChild(loading);
+		removeElement(loading);
 	};
 
 	var timerDeferRemoveLoading;
@@ -226,11 +421,11 @@ VK, WheelIndicator, Ya */
 			/* if (wrapper) {
 				wrapper[style].opacity = 1;
 			} */
-			if (ripple && rippleParent) {
+			if (ripple) {
 				ripple[className] += " " + bounceOutUpClass;
 				timerDeferRemoveRipple = setTimeout(deferRemoveRipple, 5000);
 			}
-			if (loading && loadingParent) {
+			if (loading) {
 				loading[className] += " " + bounceOutUpClass;
 				timerDeferRemoveLoading = setTimeout(deferRemoveLoading, 5000);
 			}
@@ -248,31 +443,37 @@ VK, WheelIndicator, Ya */
 	}
 
 	var getAttribute = "getAttribute";
+
+	var src = "src";
+
 	var supportsSvgAsImg = document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1") || "";
+
+	var length = "length";
+
 	if (!supportsSvgAsImg) {
 		var svgNosmilImages = document[getElementsByClassName]("svg-nosmil-img") || "";
 		if (svgNosmilImages) {
 			var i,
 			l;
-			for (i = 0, l = svgNosmilImages.length; i < l; i += 1) {
-				svgNosmilImages[i].src = svgNosmilImages[i][getAttribute]("data-fallback-src");
+			for (i = 0, l = svgNosmilImages[length]; i < l; i += 1) {
+				svgNosmilImages[i][src] = svgNosmilImages[i][getAttribute]("data-fallback-src");
 			}
 			i = l = null;
 		}
 	}
+
 	if (!supportsSvgSmilAnimation) {
 		var svgSmilImages = document[getElementsByClassName]("svg-smil-img") || "";
 		if (svgSmilImages) {
 			var j,
 			m;
-			for (j = 0, m = svgSmilImages.length; j < m; j += 1) {
-				svgSmilImages[j].src = svgSmilImages[j][getAttribute]("data-fallback-src");
+			for (j = 0, m = svgSmilImages[length]; j < m; j += 1) {
+				svgSmilImages[j][src] = svgSmilImages[j][getAttribute]("data-fallback-src");
 			}
 			j = m = null;
 		}
 	}
-	var getElementsByTagName = "getElementsByTagName";
-	var addEventListener = "addEventListener";
+
 	var drawImageFromUrl = function (canvasObj, url) {
 		if (!canvasObj || !url) {
 			return;
@@ -284,20 +485,20 @@ VK, WheelIndicator, Ya */
 				ctx.drawImage(img, 0, 0, canvasObj.width, canvasObj.height);
 			}
 		});
-		img.src = url;
+		img[src] = url;
 	};
 
 	var canvasAll = document[getElementsByTagName]("canvas") || "";
-	var cssnum = document.styleSheets.length || 0;
+	var styleSheetsLength = document.styleSheets[length] || 0;
 
 	var slotDrawCanvasAll;
 	var drawCanvasAll = function () {
-		if (document.styleSheets.length > cssnum) {
+		if (document.styleSheets[length] > styleSheetsLength) {
 			clearInterval(slotDrawCanvasAll);
 			slotDrawCanvasAll = null;
 			var i,
 			l;
-			for (i = 0, l = canvasAll.length; i < l; i += 1) {
+			for (i = 0, l = canvasAll[length]; i < l; i += 1) {
 				if (canvasAll[i][getAttribute]("data-src")) {
 					drawImageFromUrl(canvasAll[i], canvasAll[i][getAttribute]("data-src"));
 				}
@@ -305,7 +506,7 @@ VK, WheelIndicator, Ya */
 			i = l = null;
 		}
 	};
-	if (canvasAll && cssnum) {
+	if (canvasAll && styleSheetsLength) {
 		slotDrawCanvasAll = setInterval(drawCanvasAll, 100);
 	}
 
@@ -350,68 +551,11 @@ VK, WheelIndicator, Ya */
 
 	var href = "href";
 
-	var loadJsCss = function (files, callback) {
-		var _this = this;
-		_this.files = files;
-		_this.js = [];
-		_this.head = document[getElementsByTagName]("head")[0] || "";
-		_this.body = document[body] || "";
-		_this.ref = document[getElementsByTagName]("script")[0] || "";
-		_this.callback = callback || function () {};
-		_this.loadStyle = function (file) {
-			var link = document[createElement]("link");
-			link.rel = "stylesheet";
-			link.type = "text/css";
-			link[href] = file;
-			_this.head[appendChild](link);
-		};
-		_this.loadScript = function (i) {
-			var script = document[createElement]("script");
-			script.type = "text/javascript";
-			script.async = true;
-			script.src = _this.js[i];
-			var loadNextScript = function () {
-				if (++i < _this.js.length) {
-					_this.loadScript(i);
-				} else {
-					_this.callback();
-				}
-			};
-			script.onload = function () {
-				loadNextScript();
-			};
-			_this.head[appendChild](script);
-			if (_this.ref[parentNode]) {
-				_this.ref[parentNode][insertBefore](script, _this.ref);
-			} else {
-				(_this.body || _this.head)[appendChild](script);
-			}
-		};
-		var i,
-		l;
-		for (i = 0, l = _this.files.length; i < l; i += 1) {
-			if ((/\.js$|\.js\?/).test(_this.files[i])) {
-				_this.js.push(_this.files[i]);
-			}
-			if ((/\.css$|\.css\?|\/css\?/).test(_this.files[i])) {
-				_this.loadStyle(_this.files[i]);
-			}
-		}
-		i = l = null;
-		if (_this.js.length > 0) {
-			_this.loadScript(0);
-		} else {
-			_this.after();
-		}
+	var getHTTP = function (force) {
+		force = force || "";
+		var locationProtocol = root.location.protocol || "";
+		return "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : force ? "http" : "";
 	};
-
-	var getHTTP = (function (type) {
-		return function (force) {
-			force = force || "";
-			return "http:" === type ? "http" : "https:" === type ? "https" : force ? "http" : "";
-		};
-	}
-		(root.location.protocol || ""));
 
 	var run = function () {
 
@@ -451,7 +595,7 @@ VK, WheelIndicator, Ya */
 					var XMLS = new XMLSerializer();
 					qrcodeImgSrc = XMLS.serializeToString(qrcodeImgSrc);
 					qrcodeImgSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(qrcodeImgSrc)));
-					qrcodeImg.src = qrcodeImgSrc;
+					qrcodeImg[src] = qrcodeImgSrc;
 				} else {
 					qrcodeImgSrc = QRCode.generatePNG(locationHref, {
 							ecclevel: "M",
@@ -461,10 +605,10 @@ VK, WheelIndicator, Ya */
 							margin: 4,
 							modulesize: 8
 						});
-					qrcodeImg.src = qrcodeImgSrc;
+					qrcodeImg[src] = qrcodeImgSrc;
 				}
 			} else {
-				qrcodeImg.src = qrcodeImgSrc;
+				qrcodeImg[src] = qrcodeImgSrc;
 			}
 			qrcodeImg[title] = qrcodeImgTitle;
 			qrcode[appendChild](qrcodeImg);
@@ -555,7 +699,7 @@ VK, WheelIndicator, Ya */
 				if (!supportsSvgAsImg) {
 					downloadAppImgSrc = downloadAppImgSrc.slice(0, -3) + "png";
 				}
-				downloadAppImg.src = downloadAppImgSrc;
+				downloadAppImg[src] = downloadAppImgSrc;
 				timerShowDownloadApp = setTimeout(showDownloadApp, 1000);
 			}
 		}
@@ -627,7 +771,7 @@ VK, WheelIndicator, Ya */
 			var a,
 			i,
 			l;
-			for (a = document[getElementsByTagName]("script") || "", i = 0, l = a.length; i < l; i += 1) {
+			for (a = document[getElementsByTagName]("script") || "", i = 0, l = a[length]; i < l; i += 1) {
 				if (a[i][getAttribute]("src") === _src) {
 					a = i = l = null;
 					return true;
@@ -635,58 +779,6 @@ VK, WheelIndicator, Ya */
 			}
 			a = i = l = null;
 			return false;
-		};
-
-		var debounce = function (func, wait, immediate) {
-			var timeout,
-			args,
-			context,
-			timestamp,
-			result;
-			if (undefined === wait || null === wait) {
-				wait = 100;
-			}
-			function later() {
-				var last = Date.now() - timestamp;
-				if (last < wait && last >= 0) {
-					timeout = setTimeout(later, wait - last);
-				} else {
-					timeout = null;
-					if (!immediate) {
-						result = func.apply(context, args);
-						context = args = null;
-					}
-				}
-			}
-			var debounced = function () {
-				context = this;
-				args = arguments;
-				timestamp = Date.now();
-				var callNow = immediate && !timeout;
-				if (!timeout) {
-					timeout = setTimeout(later, wait);
-				}
-				if (callNow) {
-					result = func.apply(context, args);
-					context = args = null;
-				}
-				return result;
-			};
-			debounced.clear = function () {
-				if (timeout) {
-					clearTimeout(timeout);
-					timeout = null;
-				}
-			};
-			debounced.flush = function () {
-				if (timeout) {
-					result = func.apply(context, args);
-					context = args = null;
-					clearTimeout(timeout);
-					timeout = null;
-				}
-			};
-			return debounced;
 		};
 
 		var isActiveClass = "is-active";
@@ -697,7 +789,7 @@ VK, WheelIndicator, Ya */
 			if (isSocialAll) {
 				var k,
 				n;
-				for (k = 0, n = isSocialAll.length; k < n; k += 1) {
+				for (k = 0, n = isSocialAll[length]; k < n; k += 1) {
 					if (_this !== isSocialAll[k]) {
 						isSocialAll[k][classList].remove(isActiveClass);
 					}
@@ -705,6 +797,7 @@ VK, WheelIndicator, Ya */
 				k = n = null;
 			}
 		};
+
 		root[addEventListener]("click", hideOtherIsSocial);
 
 		var btnShare = document[getElementsByClassName]("btn-share")[0] || "";
@@ -752,6 +845,7 @@ VK, WheelIndicator, Ya */
 			var debounceLogicShowShareButtons = debounce(logicShowShareButtons, 200);
 			debounceLogicShowShareButtons();
 		};
+
 		if (btnShareLink && yaShare2) {
 			btnShareLink[addEventListener]("click", showYaShare2);
 		}
@@ -795,6 +889,7 @@ VK, WheelIndicator, Ya */
 			var debounceLogicShowVkLike = debounce(logicShowVkLike, 200);
 			debounceLogicShowVkLike();
 		};
+
 		if (btnLikeLink && vkLike) {
 			btnLikeLink[addEventListener]("click", showVkLike);
 		}
@@ -804,14 +899,19 @@ VK, WheelIndicator, Ya */
 		getHTTP(true) + "://fonts.googleapis.com/css?family=PT+Serif:400,400i%7CRoboto:400,700%7CRoboto+Condensed:700&subset=cyrillic",
 		"./libs/john-locke/css/bundle.min.css",
 		getHTTP(true) + "://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.min.css"];
+
 	var supportsClassList = "classList" in document[createElement]("_") || "";
+
 	if (!supportsClassList) {
 		scriptsArray.push(getHTTP(true) + "://cdn.jsdelivr.net/npm/classlist.js@1.1.20150312/classList.min.js");
 	}
+
 	var supportsDataset = "undefined" !== typeof root.Element && "dataset" in document[documentElement] || "";
+
 	if (!supportsDataset) {
 		scriptsArray.push(getHTTP(true) + "://cdn.jsdelivr.net/npm/element-dataset@2.2.6/lib/browser/index.cjs.min.js");
 	}
+
 	var supportsPassive = false;
 	try {
 		var opts = Object.defineProperty && Object.defineProperty({}, 'passive', {
@@ -819,14 +919,17 @@ VK, WheelIndicator, Ya */
 					supportsPassive = true;
 				}
 			});
-		root.addEventListener('test', function () {}, opts);
+		root[addEventListener]('test', function () {}, opts);
 	} catch (err) {}
+
 	if (!supportsPassive) {
 		scriptsArray.push(getHTTP(true) + "://cdnjs.cloudflare.com/ajax/libs/dom4/1.8.3/dom4.js");
 	}
+
 	scriptsArray.push(getHTTP(true) + "://cdn.jsdelivr.net/npm/parallax-js@3.1.0/dist/parallax.min.js",
 		getHTTP(true) + "://cdn.jsdelivr.net/npm/qrjs2@0.1.3/qrjs2.min.js",
 		getHTTP(true) + "://cdn.jsdelivr.net/npm/platform@1.3.4/platform.min.js");
+
 	if (hasTouch) {
 		scriptsArray.push(getHTTP(true) + "://cdnjs.cloudflare.com/ajax/libs/Tocca.js/2.0.1/Tocca.min.js");
 	} else {
@@ -835,7 +938,8 @@ VK, WheelIndicator, Ya */
 			scriptsArray.push("./cdn/wheel-indicator/1.1.4/js/wheel-indicator-passive.fixed.min.js");
 		}
 	}
+
 	var load;
 	load = new loadJsCss(scriptsArray, run);
 }
-	(window, document));
+	("undefined" !== typeof window ? window : this, document));
