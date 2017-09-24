@@ -29,10 +29,25 @@ VK, WheelIndicator, Ya */
 		}
 	}
 	prop = method = dummy = properties = methods = null;
+
+	var style = "style";
+
+	var createElement = "createElement";
+
+	var appendChild = "appendChild";
+
+	var insertBefore = "insertBefore";
+
+	var prototype = "prototype";
+
+	var body = "body";
+
+	var hasOwnProperty = "hasOwnProperty";
+
 	var ToProgress = function () {
 		var TP = function () {
 			var t = function () {
-				var s = document.createElement("fakeelement"),
+				var s = document[createElement]("fakeelement"),
 				    i = {
 					transition: "transitionend",
 					OTransition: "oTransitionEnd",
@@ -40,8 +55,8 @@ VK, WheelIndicator, Ya */
 					WebkitTransition: "webkitTransitionEnd"
 				};
 				for (var j in i) {
-					if (i.hasOwnProperty(j)) {
-						if (void 0 !== s.style[j]) {
+					if (i[hasOwnProperty](j)) {
+						if (void 0 !== s[style][j]) {
 							return i[j];
 						}
 					}
@@ -55,15 +70,15 @@ VK, WheelIndicator, Ya */
 					duration: 0.2
 				}, t && "object" === typeof t) {
 					for (var i in t) {
-						if (t.hasOwnProperty(i)) {
+						if (t[hasOwnProperty](i)) {
 							this.options[i] = t[i];
 						}
 					}
 				}
-				if (this.options.opacityDuration = 3 * this.options.duration, this.progressBar = document.createElement("div"), this.progressBar.id = this.options.id, this.progressBar.setCSS = function (t) {
+				if (this.options.opacityDuration = 3 * this.options.duration, this.progressBar = document[createElement]("div"), this.progressBar.id = this.options.id, this.progressBar.setCSS = function (t) {
 					for (var a in t) {
-						if (t.hasOwnProperty(a)) {
-							this.style[a] = t[a];
+						if (t[hasOwnProperty](a)) {
+							this[style][a] = t[a];
 						}
 					}
 				}, this.progressBar.setCSS({
@@ -81,34 +96,34 @@ VK, WheelIndicator, Ya */
 					var o = document.querySelector(a);
 					if (o) {
 						if (o.hasChildNodes()) {
-							o.insertBefore(this.progressBar, o.firstChild);
+							o[insertBefore](this.progressBar, o.firstChild);
 						} else {
-							o.appendChild(this.progressBar);
+							o[appendChild](this.progressBar);
 						}
 					}
 				} else {
-					document.body.appendChild(this.progressBar);
+					document[body][appendChild](this.progressBar);
 				}
 			},
 			    i = t();
-			return s.prototype.transit = function () {
-				this.progressBar.style.width = this.progress + "%";
-			}, s.prototype.getProgress = function () {
+			return s[prototype].transit = function () {
+				this.progressBar[style].width = this.progress + "%";
+			}, s[prototype].getProgress = function () {
 				return this.progress;
-			}, s.prototype.setProgress = function (t, s) {
+			}, s[prototype].setProgress = function (t, s) {
 				this.show();
 				this.progress = t > 100 ? 100 : 0 > t ? 0 : t;
 				this.transit();
 				if (s) {
 					s();
 				}
-			}, s.prototype.increase = function (t, s) {
+			}, s[prototype].increase = function (t, s) {
 				this.show();
 				this.setProgress(this.progress + t, s);
-			}, s.prototype.decrease = function (t, s) {
+			}, s[prototype].decrease = function (t, s) {
 				this.show();
 				this.setProgress(this.progress - t, s);
-			}, s.prototype.finish = function (t) {
+			}, s[prototype].finish = function (t) {
 				var s = this;
 				this.setProgress(100, t);
 				this.hide();
@@ -118,76 +133,93 @@ VK, WheelIndicator, Ya */
 						s.progressBar.removeEventListener(t.type, TP);
 					});
 				}
-			}, s.prototype.reset = function (t) {
+			}, s[prototype].reset = function (t) {
 				this.progress = 0;
 				this.transit();
 				if (t) {
 					t();
 				}
-			}, s.prototype.hide = function () {
-				this.progressBar.style.opacity = "0";
-			}, s.prototype.show = function () {
-				this.progressBar.style.opacity = "1";
+			}, s[prototype].hide = function () {
+				this.progressBar[style].opacity = "0";
+			}, s[prototype].show = function () {
+				this.progressBar[style].opacity = "1";
 			}, s;
 		};
 		return TP();
 	}();
+
 	var progressBar = new ToProgress({
 		id: "top-progress-bar",
 		color: "#FF2C40",
 		height: "0.200rem",
 		duration: 0.2
 	});
+
+	var createElementNS = "createElementNS";
+
+	var toStringFn = {}.toString;
+	var supportsSvgSmilAnimation = !!document[createElementNS] && /SVGAnimate/.test(toStringFn.call(document[createElementNS]("http://www.w3.org/2000/svg", "animate"))) || "";
+
 	var hideProgressBar = function () {
 		progressBar.finish();
 		progressBar.hide();
 	};
-	var toStringFn = {}.toString;
-	var supportsSvgSmilAnimation = !!document.createElementNS && /SVGAnimate/.test(toStringFn.call(document.createElementNS("http://www.w3.org/2000/svg", "animate"))) || "";
+
 	if (!supportsSvgSmilAnimation) {
 		progressBar.increase(20);
 		root.addEventListener("load", hideProgressBar);
 	}
+
 	var getElementsByClassName = "getElementsByClassName";
+
 	var className = "className";
+
 	var parentNode = "parentNode";
+
 	var ripple = document[getElementsByClassName]("ripple")[0] || "";
 	var rippleParent = ripple ? ripple[parentNode] || "" : "";
 	var removeRipple = function () {
 		rippleParent.removeChild(ripple);
 	};
+
 	var timerDeferRemoveRipple;
 	var deferRemoveRipple = function () {
 		clearTimeout(timerDeferRemoveRipple);
 		timerDeferRemoveRipple = null;
 		removeRipple();
 	};
+
 	var loading = document[getElementsByClassName]("loading")[0] || "";
 	var loadingParent = loading ? loading[parentNode] || "" : "";
 	var removeLoading = function () {
 		loadingParent.removeChild(loading);
 	};
+
 	var timerDeferRemoveLoading;
 	var deferRemoveLoading = function () {
 		clearTimeout(timerDeferRemoveLoading);
 		timerDeferRemoveLoading = null;
 		removeLoading();
 	};
+
+	var bounceOutUpClass = "bounceOutUp";
+
 	var wrapper = document[getElementsByClassName]("wrapper")[0] || "";
+
 	var slotHidePreloaders;
 	var hidePreloaders = function () {
 		if (imagesPreloaded) {
 			clearInterval(slotHidePreloaders);
 			slotHidePreloaders = null;
 			/* if (wrapper) {
-   	wrapper.style.opacity = 1;
+   	wrapper[style].opacity = 1;
    } */
 			if (ripple && rippleParent) {
-				ripple[className] += " bounceOutUp";
+				ripple[className] += " " + bounceOutUpClass;
 				timerDeferRemoveRipple = setTimeout(deferRemoveRipple, 5000);
 			}
 			if (loading && loadingParent) {
-				loading[className] += " bounceOutUp";
+				loading[className] += " " + bounceOutUpClass;
 				timerDeferRemoveLoading = setTimeout(deferRemoveLoading, 5000);
 			}
 			if (!supportsSvgSmilAnimation) {
@@ -202,6 +234,7 @@ VK, WheelIndicator, Ya */
 		}
 		slotHidePreloaders = setInterval(hidePreloaders, 100);
 	}
+
 	var getAttribute = "getAttribute";
 	var supportsSvgAsImg = document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1") || "";
 	if (!supportsSvgAsImg) {
@@ -239,8 +272,10 @@ VK, WheelIndicator, Ya */
 		});
 		img.src = url;
 	};
+
 	var canvasAll = document[getElementsByTagName]("canvas") || "";
 	var cssnum = document.styleSheets.length || 0;
+
 	var slotDrawCanvasAll;
 	var drawCanvasAll = function () {
 		if (document.styleSheets.length > cssnum) {
@@ -258,12 +293,13 @@ VK, WheelIndicator, Ya */
 	if (canvasAll && cssnum) {
 		slotDrawCanvasAll = setInterval(drawCanvasAll, 100);
 	}
+
 	/* var displayParentOnElementWidthChange = function (parent, element, elementWidth, displayStyle, additionalClass, timeout, interval) {
  	var timer;
  	var defer = function () {
  		clearTimeout(timer);
  		timer = null;
- 		parent.style.opacity = 1;
+ 		parent[style].opacity = 1;
  	};
  	var slot;
  	var tick = function () {
@@ -290,25 +326,32 @@ VK, WheelIndicator, Ya */
  var footerParagraph = footer ? footer[getElementsByTagName]("p")[0] || "" : "";
  var footerParagraphWidth = footerParagraph.getBoundingClientRect().width || footerParagraph.offsetWidth;
  displayParentOnElementWidthChange(footer, footerParagraph, footerParagraphWidth, "block", "bounceInDown", 200, 100); */
-	var hasTouch = "ontouchstart" in document.documentElement || "";
-	var hasWheel = "onwheel" in document.createElement("div") || void 0 !== document.onmousewheel || "";
+
+	var documentElement = "documentElement";
+
+	var hasTouch = "ontouchstart" in document[documentElement] || "";
+
+	var hasWheel = "onwheel" in document[createElement]("div") || void 0 !== document.onmousewheel || "";
+
+	var href = "href";
+
 	var loadJsCss = function (files, callback) {
 		var _this = this;
 		_this.files = files;
 		_this.js = [];
-		_this.head = document.getElementsByTagName("head")[0] || "";
-		_this.body = document.body || "";
-		_this.ref = document.getElementsByTagName("script")[0] || "";
+		_this.head = document[getElementsByTagName]("head")[0] || "";
+		_this.body = document[body] || "";
+		_this.ref = document[getElementsByTagName]("script")[0] || "";
 		_this.callback = callback || function () {};
 		_this.loadStyle = function (file) {
-			var link = document.createElement("link");
+			var link = document[createElement]("link");
 			link.rel = "stylesheet";
 			link.type = "text/css";
-			link.href = file;
-			_this.head.appendChild(link);
+			link[href] = file;
+			_this.head[appendChild](link);
 		};
 		_this.loadScript = function (i) {
-			var script = document.createElement("script");
+			var script = document[createElement]("script");
 			script.type = "text/javascript";
 			script.async = true;
 			script.src = _this.js[i];
@@ -322,11 +365,11 @@ VK, WheelIndicator, Ya */
 			script.onload = function () {
 				loadNextScript();
 			};
-			_this.head.appendChild(script);
-			if (_this.ref.parentNode) {
-				_this.ref.parentNode.insertBefore(script, _this.ref);
+			_this.head[appendChild](script);
+			if (_this.ref[parentNode]) {
+				_this.ref[parentNode][insertBefore](script, _this.ref);
 			} else {
-				(_this.body || _this.head).appendChild(script);
+				(_this.body || _this.head)[appendChild](script);
 			}
 		};
 		var i, l;
@@ -345,31 +388,38 @@ VK, WheelIndicator, Ya */
 			_this.after();
 		}
 	};
+
 	var getHTTP = function (type) {
 		return function (force) {
 			force = force || "";
 			return "http:" === type ? "http" : "https:" === type ? "https" : force ? "http" : "";
 		};
 	}(root.location.protocol || "");
+
 	var run = function () {
-		var classList = "classList";
-		var createElement = "createElement";
-		var appendChild = "appendChild";
+
 		if (!supportsSvgSmilAnimation) {
 			progressBar.increase(20);
 		}
+
 		var qrcode = document[getElementsByClassName]("qrcode")[0] || "";
 		var timerShowQrcode;
 		var showQrcode = function () {
 			clearTimeout(timerShowQrcode);
 			timerShowQrcode = null;
-			qrcode.style.visibility = "visible";
-			qrcode.style.opacity = 1;
+			qrcode[style].visibility = "visible";
+			qrcode[style].opacity = 1;
 		};
+
+		var locationHref = root.location[href] || "";
+
+		var title = "title";
+
+		var documentTitle = document[title] || "";
+
 		if (qrcode) {
-			var locationHref = root.location.href || "";
 			var qrcodeImg = document[createElement]("img");
-			var qrcodeImgTitle = document.title ? "Ссылка на страницу «" + document.title.replace(/\[[^\]]*?\]/g, "").trim() + "»" : "";
+			var qrcodeImgTitle = documentTitle ? "Ссылка на страницу «" + documentTitle.replace(/\[[^\]]*?\]/g, "").trim() + "»" : "";
 			var qrcodeImgSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
 			qrcodeImg.alt = qrcodeImgTitle;
 			if (root.QRCode) {
@@ -399,14 +449,16 @@ VK, WheelIndicator, Ya */
 			} else {
 				qrcodeImg.src = qrcodeImgSrc;
 			}
-			qrcodeImg.title = qrcodeImgTitle;
+			qrcodeImg[title] = qrcodeImgTitle;
 			qrcode[appendChild](qrcodeImg);
 			timerShowQrcode = setTimeout(showQrcode, 2000);
 		}
+
 		var downloadApp = document[getElementsByClassName]("download-app")[0] || "";
 		var downloadAppLink = downloadApp ? downloadApp[getElementsByTagName]("a")[0] || "" : "";
 		var downloadAppImg = downloadApp ? downloadApp[getElementsByTagName]("img")[0] || "" : "";
 		var navigatorUserAgent = navigator.userAgent || "";
+
 		var getHumanDate = function () {
 			var newDate = new Date();
 			var newDay = newDate.getDate();
@@ -421,12 +473,21 @@ VK, WheelIndicator, Ya */
 			}
 			return newYear + "-" + newMonth + "-" + newDay;
 		}();
+
+		var timerShowDownloadApp;
+		var showDownloadApp = function () {
+			clearTimeout(timerShowDownloadApp);
+			timerShowDownloadApp = null;
+			downloadApp[style].visibility = "visible";
+			downloadApp[style].opacity = 1;
+		};
+
 		if (navigatorUserAgent && downloadApp && downloadAppLink && downloadAppImg && root.platform) {
 			var downloadAppImgSrc;
 			var downloadAppLinkHref;
 			var platformName = platform.name || "";
 			var platformDescription = platform.description || "";
-			document.title = document.title + " [" + (getHumanDate ? " " + getHumanDate : "") + (platformDescription ? " " + platformDescription : "") + (hasTouch || hasWheel ? " with" : "") + (hasTouch ? " touch" : "") + (hasTouch && hasWheel ? "," : "") + (hasWheel ? " mousewheel" : "") + "]";
+			document[title] = documentTitle + " [" + (getHumanDate ? " " + getHumanDate : "") + (platformDescription ? " " + platformDescription : "") + (hasTouch || hasWheel ? " with" : "") + (hasTouch ? " touch" : "") + (hasTouch && hasWheel ? "," : "") + (hasWheel ? " mousewheel" : "") + "]";
 			var platformOsFamily = platform.os.family || "";
 			var platformOsVersion = platform.os.version || "";
 			var platformOsArchitecture = platform.os.architecture || "";
@@ -460,18 +521,11 @@ VK, WheelIndicator, Ya */
 					downloadAppLinkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-debug.apk";
 				}
 			}
-			var timerShowDownloadApp;
-			var showDownloadApp = function () {
-				clearTimeout(timerShowDownloadApp);
-				timerShowDownloadApp = null;
-				downloadApp.style.visibility = "visible";
-				downloadApp.style.opacity = 1;
-			};
 			if (downloadAppImgSrc && downloadAppLinkHref) {
-				downloadAppLink.href = downloadAppLinkHref;
+				downloadAppLink[href] = downloadAppLinkHref;
 				downloadAppLink.rel = "noopener";
 				downloadAppLink.target = "_blank";
-				downloadAppLink.title = "Скачать приложение";
+				downloadAppLink[title] = "Скачать приложение";
 				if (!supportsSvgAsImg) {
 					downloadAppImgSrc = downloadAppImgSrc.slice(0, -3) + "png";
 				}
@@ -479,34 +533,42 @@ VK, WheelIndicator, Ya */
 				timerShowDownloadApp = setTimeout(showDownloadApp, 1000);
 			}
 		}
+
 		var getElementById = "getElementById";
-		var dataset = "dataset";
+
 		var scene = document[getElementById]("scene") || "";
 		var parallax;
 		if (scene && root.Parallax) {
 			parallax = new Parallax(scene);
 		}
+
+		var classList = "classList";
+
+		var bounceInUpClass = "bounceInUp";
+
 		var guesture = document[getElementsByClassName]("guesture")[0] || "";
+
 		var revealStart = function () {
 			var start = document[getElementsByClassName]("start")[0] || "";
 			var hand = document[getElementsByClassName]("hand")[0] || "";
 			if (start) {
-				start[classList].add("bounceInUp");
-				start.style.display = "block";
+				start[classList].add(bounceInUpClass);
+				start[style].display = "block";
 			}
 			if (hand) {
-				hand[classList].add("bounceInUp");
-				hand.style.display = "block";
+				hand[classList].add(bounceInUpClass);
+				hand[style].display = "block";
 			}
 			if (guesture) {
-				guesture[classList].add("bounceOutUp");
+				guesture[classList].add(bounceOutUpClass);
 			}
 		};
+
 		if (wrapper) {
 			var mousewheeldown = document[getElementsByClassName]("mousewheeldown")[0] || "";
 			var swipeup = document[getElementsByClassName]("swipeup")[0] || "";
 			if (hasTouch) {
-				mousewheeldown.style.display = "none";
+				mousewheeldown[style].display = "none";
 				if (root.tocca) {
 					root[addEventListener]("swipeup", revealStart, {
 						passive: true
@@ -514,7 +576,7 @@ VK, WheelIndicator, Ya */
 				}
 			} else {
 				if (hasWheel) {
-					swipeup.style.display = "none";
+					swipeup[style].display = "none";
 					if (root.WheelIndicator) {
 						var indicator;
 						indicator = new WheelIndicator({
@@ -530,14 +592,15 @@ VK, WheelIndicator, Ya */
 				}
 			}
 			if (hasTouch || hasWheel) {
-				guesture[classList].add("bounceInUp");
-				guesture.style.display = "block";
+				guesture[classList].add(bounceInUpClass);
+				guesture[style].display = "block";
 			}
 		}
+
 		var scriptIsLoaded = function (_src) {
 			var a, i, l;
-			for (a = document.getElementsByTagName("script") || "", i = 0, l = a.length; i < l; i += 1) {
-				if (a[i].getAttribute("src") === _src) {
+			for (a = document[getElementsByTagName]("script") || "", i = 0, l = a.length; i < l; i += 1) {
+				if (a[i][getAttribute]("src") === _src) {
 					a = i = l = null;
 					return true;
 				}
@@ -545,6 +608,7 @@ VK, WheelIndicator, Ya */
 			a = i = l = null;
 			return false;
 		};
+
 		var debounce = function (func, wait, immediate) {
 			var timeout, args, context, timestamp, result;
 			if (undefined === wait || null === wait) {
@@ -592,6 +656,9 @@ VK, WheelIndicator, Ya */
 			};
 			return debounced;
 		};
+
+		var isActiveClass = "is-active";
+
 		var hideOtherIsSocial = function (_this) {
 			_this = _this || this;
 			var isSocialAll = document[getElementsByClassName]("is-social") || "";
@@ -599,13 +666,14 @@ VK, WheelIndicator, Ya */
 				var k, n;
 				for (k = 0, n = isSocialAll.length; k < n; k += 1) {
 					if (_this !== isSocialAll[k]) {
-						isSocialAll[k][classList].remove("is-active");
+						isSocialAll[k][classList].remove(isActiveClass);
 					}
 				}
 				k = n = null;
 			}
 		};
 		root[addEventListener]("click", hideOtherIsSocial);
+
 		var btnShare = document[getElementsByClassName]("btn-share")[0] || "";
 		var btnShareLink = btnShare ? btnShare[getElementsByTagName]("a")[0] || "" : "";
 		var yaShare2Id = "ya-share2";
@@ -615,23 +683,23 @@ VK, WheelIndicator, Ya */
 			ev.preventDefault();
 			ev.stopPropagation();
 			var logicShowShareButtons = function () {
-				yaShare2[classList].toggle("is-active");
+				yaShare2[classList].toggle(isActiveClass);
 				hideOtherIsSocial(yaShare2);
 				var initScript = function () {
 					if (root.Ya) {
 						try {
 							if (yshare) {
 								yshare.updateContent({
-									title: document.title || "",
-									description: document.title || "",
-									url: root.location.href || ""
+									title: documentTitle,
+									description: documentTitle,
+									url: locationHref
 								});
 							} else {
 								yshare = Ya.share2(yaShare2Id, {
 									content: {
-										title: document.title || "",
-										description: document.title || "",
-										url: root.location.href || ""
+										title: documentTitle,
+										description: documentTitle,
+										url: locationHref
 									}
 								});
 							}
@@ -654,14 +722,19 @@ VK, WheelIndicator, Ya */
 		if (btnShareLink && yaShare2) {
 			btnShareLink[addEventListener]("click", showYaShare2);
 		}
+
+		var dataset = "dataset";
+
 		var btnLike = document[getElementsByClassName]("btn-like")[0] || "";
 		var btnLikeLink = btnLike ? btnLike[getElementsByTagName]("a")[0] || "" : "";
-		var vkLike = document[getElementsByClassName]("vk-like")[0] || "";
+		var vkLikeClass = "vk-like";
+		var vkLikeId = "vk-like";
+		var vkLike = document[getElementsByClassName](vkLikeClass)[0] || "";
 		var showVkLike = function (ev) {
 			ev.preventDefault();
 			ev.stopPropagation();
 			var logicShowVkLike = function () {
-				vkLike[classList].toggle("is-active");
+				vkLike[classList].toggle(isActiveClass);
 				hideOtherIsSocial(vkLike);
 				var initScript = function () {
 					if (vkLike && root.VK) {
@@ -671,7 +744,7 @@ VK, WheelIndicator, Ya */
 								nameTransportPath: "/xd_receiver.htm",
 								onlyWidgets: true
 							});
-							VK.Widgets.Like("vk-like", {
+							VK.Widgets.Like(vkLikeId, {
 								type: "button",
 								height: 24
 							});
@@ -693,12 +766,13 @@ VK, WheelIndicator, Ya */
 			btnLikeLink[addEventListener]("click", showVkLike);
 		}
 	};
+
 	var scriptsArray = [getHTTP(true) + "://fonts.googleapis.com/css?family=PT+Serif:400,400i%7CRoboto:400,700%7CRoboto+Condensed:700&subset=cyrillic", "./libs/john-locke/css/bundle.min.css", getHTTP(true) + "://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.min.css"];
-	var supportsClassList = "classList" in document.createElement("_") || "";
+	var supportsClassList = "classList" in document[createElement]("_") || "";
 	if (!supportsClassList) {
 		scriptsArray.push(getHTTP(true) + "://cdn.jsdelivr.net/npm/classlist.js@1.1.20150312/classList.min.js");
 	}
-	var supportsDataset = "undefined" !== typeof root.Element && "dataset" in document.documentElement || "";
+	var supportsDataset = "undefined" !== typeof root.Element && "dataset" in document[documentElement] || "";
 	if (!supportsDataset) {
 		scriptsArray.push(getHTTP(true) + "://cdn.jsdelivr.net/npm/element-dataset@2.2.6/lib/browser/index.cjs.min.js");
 	}
