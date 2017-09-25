@@ -552,6 +552,15 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		return "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : force ? "http" : "";
 	};
 
+	var vkLikeClass = "vk-like";
+	var vkLike = document[getElementsByClassName](vkLikeClass)[0] || "";
+
+	var yaShare2Id = "ya-share2";
+
+	var getElementById = "getElementById";
+
+	var yaShare2 = document[getElementById](yaShare2Id) || "";
+
 	var run = function () {
 
 		if (!supportsSvgSmilAnimation) {
@@ -690,8 +699,6 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 			}
 		}
 
-		var getElementById = "getElementById";
-
 		var scene = document[getElementById]("scene") || "";
 		var parallax;
 		if (scene && root.Parallax) {
@@ -785,8 +792,6 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 
 		var btnShare = document[getElementsByClassName]("btn-share")[0] || "";
 		var btnShareLink = btnShare ? btnShare[getElementsByTagName]("a")[0] || "" : "";
-		var yaShare2Id = "ya-share2";
-		var yaShare2 = document[getElementById](yaShare2Id) || "";
 		var yshare;
 		var showYaShare2 = function (ev) {
 			ev.preventDefault();
@@ -817,13 +822,14 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 						}
 					}
 				};
-				var jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
-				if (!scriptIsLoaded(jsUrl)) {
-					var load;
-					load = new loadJsCss([jsUrl], initScript);
-				} else {
-					initScript();
-				}
+				/* var jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
+    if (!scriptIsLoaded(jsUrl)) {
+    	var load;
+    	load = new loadJsCss([jsUrl], initScript);
+    } else {
+    	initScript();
+    } */
+				initScript();
 			};
 			var debounceLogicShowShareButtons = debounce(logicShowShareButtons, 200);
 			debounceLogicShowShareButtons();
@@ -837,10 +843,9 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 
 		var btnLike = document[getElementsByClassName]("btn-like")[0] || "";
 		var btnLikeLink = btnLike ? btnLike[getElementsByTagName]("a")[0] || "" : "";
-		var vkLikeClass = "vk-like";
 		var vkLikeId = "vk-like";
-		var vkLike = document[getElementsByClassName](vkLikeClass)[0] || "";
 
+		var vlike;
 		var showVkLike = function (ev) {
 			ev.preventDefault();
 			ev.stopPropagation();
@@ -864,10 +869,14 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 						}
 					}
 				};
-				var jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?147";
-				if (!scriptIsLoaded(jsUrl)) {
-					var load;
-					load = new loadJsCss([jsUrl], initScript);
+				/* var jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?147";
+    if (!scriptIsLoaded(jsUrl)) {
+    	var load;
+    	load = new loadJsCss([jsUrl], initScript);
+    } */
+				if (!vlike) {
+					vlike = true;
+					initScript();
 				}
 			};
 			var debounceLogicShowVkLike = debounce(logicShowVkLike, 200);
@@ -917,6 +926,14 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 			/* scriptsArray.push(getHTTP(true) + "://cdn.jsdelivr.net/npm/wheel-indicator@1.1.4/lib/wheel-indicator.min.js"); */
 			scriptsArray.push("./cdn/wheel-indicator/1.1.4/js/wheel-indicator-passive.fixed.min.js");
 		}
+	}
+
+	if (vkLike) {
+		scriptsArray.push(getHTTP(true) + "://vk.com/js/api/openapi.js?147");
+	}
+
+	if (yaShare2) {
+		scriptsArray.push(getHTTP(true) + "://yastatic.net/share2/share.js");
 	}
 
 	var load;
