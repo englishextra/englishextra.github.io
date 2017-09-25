@@ -10,7 +10,7 @@ getKeyValuesFromJSON, IframeLightbox, imagePromise, imagesLoaded,
 imagesPreloaded, insertExternalHTML, insertTextAsFragment, Isotope,
 isValidId, jQuery, Kamil, loadExternalHTML, loadJS, loadTriggerJS,
 loadUnparsedJSON, manageDataSrcImageAll, manageImgLightboxLinks, Masonry,
-module, myMap, openDeviceBrowser, Packery, Parallax, parseLink,
+module, openDeviceBrowser, Packery, Parallax, parseLink,
 PhotoSwipe, PhotoSwipeUI_Default, pnotify, prependFragmentBefore,
 prettyPrint, Promise, Proxy, QRCode, removeChildren, removeElement,
 require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top,
@@ -1944,7 +1944,7 @@ manageShareButton = function () {
 							});
 						}
 					} catch (err) {
-						/* console.log("cannot update or init Ya.share2", err); */
+						console.log("cannot update or init Ya", err);
 					}
 				}
 			},
@@ -1969,7 +1969,8 @@ document.ready().then(manageShareButton);
 /*!
  * init vk-like btn
  */
-var manageVKLikeButton = function () {
+var vlike,
+manageVKLikeButton = function () {
 	"use strict";
 	var w = globalRoot,
 	d = document,
@@ -1993,24 +1994,29 @@ var manageVKLikeButton = function () {
 			handleOtherSocialButtons(holder);
 			var initScript = function () {
 				if (w.VK) {
-					try {
-						VK.init({
-							apiId: (vkLike[ds].apiid || ""),
-							nameTransportPath: "/xd_receiver.htm",
-							onlyWidgets: true
-						});
-						VK.Widgets.Like(vkLikeId, {
-							type: "button",
-							height: 24
-						});
-					} catch (err) {
-						/* console.log("cannot init VK", err); */
+					if (!vlike) {
+						try {
+							VK.init({
+								apiId: (vkLike[dataset].apiid || ""),
+								nameTransportPath: "/xd_receiver.htm",
+								onlyWidgets: true
+							});
+							VK.Widgets.Like(vkLikeId, {
+								type: "button",
+								height: 24
+							});
+							vlike = true;
+						} catch (err) {
+							console.log("cannot init VK", err);
+						}
 					}
 				}
 			},
 			jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122";
 			if (!scriptIsLoaded(jsUrl)) {
 				loadJS(jsUrl, initScript);
+			} else {
+				initScript();
 			}
 		},
 		debounceLogicHandleVKLikeButton = debounce(logicHandleVKLikeButton, 200);

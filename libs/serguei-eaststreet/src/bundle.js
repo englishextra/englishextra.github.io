@@ -10,7 +10,7 @@ getKeyValuesFromJSON, IframeLightbox, imagePromise, imagesLoaded,
 imagesPreloaded, insertExternalHTML, insertTextAsFragment, Isotope,
 isValidId, jQuery, Kamil, loadExternalHTML, loadJS, loadTriggerJS,
 loadUnparsedJSON, manageDataSrcImageAll, manageImgLightboxLinks, Masonry,
-module, myMap, openDeviceBrowser, Packery, Parallax, parseLink,
+module, openDeviceBrowser, Packery, Parallax, parseLink,
 PhotoSwipe, PhotoSwipeUI_Default, pnotify, prependFragmentBefore,
 prettyPrint, Promise, Proxy, QRCode, removeChildren, removeElement,
 require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top,
@@ -632,7 +632,8 @@ var notiBar = function (opt) {
 	};
 	closeButton[aEL]("click", handleCloseButton);
 	notibarContainer[aC](closeButton);
-	var arrange = function () {
+	if (b) {
+		/* console.log("triggered function: notiBar"); */
 		appendFragment(notibarContainer, b);
 		notibarContainer[cL].remove(fadeOutUpClass);
 		notibarContainer[cL].add(fadeInDownClass);
@@ -642,10 +643,6 @@ var notiBar = function (opt) {
 			timers = null;
 			hideMessage();
 		}, settings.timeout);
-	};
-	if (b) {
-		/* console.log("triggered function: notiBar"); */
-		arrange();
 	}
 };
 /*!
@@ -775,7 +772,8 @@ document.ready().then(initNotifier42WriteMe);
  */
 var initSidepanel = function () {
 	"use strict";
-	var d = document,
+	var w = globalRoot,
+	d = document,
 	b = d.body || "",
 	gEBCN = "getElementsByClassName",
 	gEBTN = "getElementsByTagName",
@@ -836,7 +834,6 @@ var initSidepanel = function () {
 		if (items) {
 			var g = function (e) {
 				e[aEL]("click", handleOverlaySidepanel);
-				/* e.onclick = handleOverlaySidepanel; */
 			};
 			for (var i = 0, l = items.length; i < l; i += 1) {
 				g(items[i]);
@@ -844,7 +841,6 @@ var initSidepanel = function () {
 			/* forEach(items, g, false); */
 		}
 		b[aEL]("click", handleOverlaySidepanel);
-		/* b.onclick = handleOverlaySidepanel; */
 	}
 };
 document.ready().then(initSidepanel);
@@ -1706,19 +1702,20 @@ document.ready().then(manageShareButton);
 /*!
  * init vk-like btn
  */
-var manageVKLikeButton = function () {
+var vlike,
+manageVKLikeButton = function () {
 	"use strict";
 	var w = globalRoot,
 	d = document,
 	gEBI = "getElementById",
 	gEBCN = "getElementsByClassName",
 	cL = "classList",
-	ds = "dataset",
+	dataset = "dataset",
 	aEL = "addEventListener",
 	btn = d[gEBCN]("btn-toggle-holder-vk-like")[0] || "",
 	page = d[gEBCN]("page")[0] || "",
-	vk_like = "vk-like",
-	VKLike = d[gEBI](vk_like) || "",
+	vkLikeId = "vk-like",
+	vkLike = d[gEBI](vkLikeId) || "",
 	isActiveQRCodeClass = "is-active-holder-location-qr-code",
 	isActiveVKLikeClass = "is-active-holder-vk-like",
 	isActiveShareClass = "is-active-holder-share-buttons",
@@ -1742,25 +1739,34 @@ var manageVKLikeButton = function () {
 		}
 		var initScript = function () {
 			if (w.VK) {
-				VK.init({
-					apiId: (VKLike[ds].apiid || ""),
-					nameTransportPath: "/xd_receiver.htm",
-					onlyWidgets: true
-				});
-				VK.Widgets.Like(vk_like, {
-					type: "button",
-					height: 24
-				});
+				if (!vlike) {
+					try {
+						VK.init({
+							apiId: (vkLike[dataset].apiid || ""),
+							nameTransportPath: "/xd_receiver.htm",
+							onlyWidgets: true
+						});
+						VK.Widgets.Like(vkLikeId, {
+							type: "button",
+							height: 24
+						});
+						vlike = true;
+					} catch (err) {
+						console.log("cannot init VK", err);
+					}
+				}
 			}
 		};
 		if (page[cL].contains(isActiveVKLikeClass)) {
 			var jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122";
 			if (!scriptIsLoaded(jsUrl)) {
 				loadJS(jsUrl, initScript);
+			} else {
+				initScript();
 			}
 		}
 	};
-	if (btn && page && VKLike) {
+	if (btn && page && vkLike) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			/* console.log("triggered function: manageVKLikeButton"); */
 			btn[aEL]("click", handleVKLikeButton);
@@ -1846,7 +1852,7 @@ manageDisqusButton = function () {
  * load Yandex map
  * tech.yandex.ru/maps/jsbox/2.1/mapbasics
  */
-var myMap,
+var mymap,
 initYandexMap = function (yandexMapId) {
 	"use strict";
 	var w = globalRoot,
@@ -1863,42 +1869,32 @@ initYandexMap = function (yandexMapId) {
 	yandexMapCenter = yandexMap ? (yandexMap[ds].center || "") : "",
 	yandexMapZoom = yandexMap ? (yandexMap[ds].zoom || "") : "",
 	isActiveClass = "is-active",
-	initMyMap = function () {
-		if (myMap) {
-			myMap.destroy();
-		}
-		myMap = new ymaps.Map(yandexMapId, {
-				center: JSON.parse(yandexMapCenter),
-				zoom: yandexMapZoom
-			});
-	},
-	showYandexMap = function () {
-		yandexMap[pN][cL].add(isActiveClass);
-		setStyleDisplayNone(btnShow);
-		LoadingSpinner.hide();
-	},
-	hideYandexMap = function () {
-		removeChildren(yandexMap);
-		var msgText = d.createRange().createContextualFragment("<p>Карты доступны только в веб версии этой страницы.</p>");
-		appendFragment(msgText, yandexMap);
-		yandexMap.removeAttribute("id");
-		setStyleDisplayNone(btnShow[pN]);
-	},
 	handleYandexMapBtnDestroy = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
 		btnDestroy[rEL]("click", handleYandexMapBtnDestroy);
-		if (myMap) {
-			myMap.destroy();
+		if (mymap) {
+			mymap.destroy();
 		}
 	},
 	initScript = function () {
+		var initMyMap = function () {
+			if (mymap) {
+				mymap.destroy();
+			}
+			mymap = new ymaps.Map(yandexMapId, {
+					center: JSON.parse(yandexMapCenter),
+					zoom: yandexMapZoom
+				});
+		};
 		if (w.ymaps) {
 			try {
 				ymaps.ready(initMyMap);
-				showYandexMap();
-			} catch (e) {
-				/* console.log("cannot init initMyMap", err); */
+				yandexMap[pN][cL].add(isActiveClass);
+				setStyleDisplayNone(btnShow);
+				LoadingSpinner.hide();
+			} catch (err) {
+				console.log("cannot init ymaps", err);
 			}
 		}
 	};
@@ -1916,7 +1912,11 @@ initYandexMap = function (yandexMapId) {
 				initScript();
 			}
 		} else {
-			hideYandexMap();
+			removeChildren(yandexMap);
+			var msgText = d.createRange().createContextualFragment("<p>Карты доступны только в веб версии этой страницы.</p>");
+			appendFragment(msgText, yandexMap);
+			yandexMap.removeAttribute("id");
+			setStyleDisplayNone(btnShow[pN]);
 		}
 	}
 },

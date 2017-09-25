@@ -10,7 +10,7 @@ getKeyValuesFromJSON, IframeLightbox, imagePromise, imagesLoaded,
 imagesPreloaded, insertExternalHTML, insertTextAsFragment, Isotope,
 isValidId, jQuery, Kamil, loadExternalHTML, loadJS, loadTriggerJS,
 loadUnparsedJSON, manageDataSrcImageAll, manageImgLightboxLinks, Masonry,
-module, myMap, openDeviceBrowser, Packery, Parallax, parseLink,
+module, openDeviceBrowser, Packery, Parallax, parseLink,
 PhotoSwipe, PhotoSwipeUI_Default, pnotify, prependFragmentBefore,
 prettyPrint, Promise, Proxy, QRCode, removeChildren, removeElement,
 require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top,
@@ -429,7 +429,7 @@ manageShareButton = function () {
 					setStyleOpacity(yaShare2, 1);
 					setStyleDisplayNone(btn);
 				} catch (err) {
-					/* console.log("cannot update or init Ya.share2", err); */
+					console.log("cannot update or init Ya", err);
 				}
 			}
 		},

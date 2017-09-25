@@ -562,15 +562,6 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		return "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : force ? "http" : "";
 	};
 
-	var vkLikeClass = "vk-like";
-	var vkLike = document[getElementsByClassName](vkLikeClass)[0] || "";
-
-	var yaShare2Id = "ya-share2";
-
-	var getElementById = "getElementById";
-
-	var yaShare2 =  document[getElementById](yaShare2Id) || "";
-
 	var run = function () {
 
 		if (!supportsSvgSmilAnimation) {
@@ -718,6 +709,8 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 			}
 		}
 
+		var getElementById = "getElementById";
+
 		var scene = document[getElementById]("scene") || "";
 		var parallax;
 		if (scene && root.Parallax) {
@@ -812,6 +805,10 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 
 		root[addEventListener]("click", hideOtherIsSocial);
 
+		var yaShare2Id = "ya-share2";
+
+		var yaShare2 =  document[getElementById](yaShare2Id) || "";
+
 		var btnShare = document[getElementsByClassName]("btn-share")[0] || "";
 		var btnShareLink = btnShare ? btnShare[getElementsByTagName]("a")[0] || "" : "";
 		var yshare;
@@ -840,18 +837,17 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 								});
 							}
 						} catch (err) {
-							/* console.log("cannot update or init Ya.share2", err); */
+							console.log("cannot update or init Ya", err);
 						}
 					}
 				};
-				/* var jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
+				var jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
 				if (!scriptIsLoaded(jsUrl)) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
 				} else {
 					initScript();
-				} */
-				initScript();
+				}
 			};
 			var debounceLogicShowShareButtons = debounce(logicShowShareButtons, 200);
 			debounceLogicShowShareButtons();
@@ -862,6 +858,9 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		}
 
 		var dataset = "dataset";
+
+		var vkLikeClass = "vk-like";
+		var vkLike = document[getElementsByClassName](vkLikeClass)[0] || "";
 
 		var btnLike = document[getElementsByClassName]("btn-like")[0] || "";
 		var btnLikeLink = btnLike ? btnLike[getElementsByTagName]("a")[0] || "" : "";
@@ -875,29 +874,30 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 				vkLike[classList].toggle(isActiveClass);
 				hideOtherIsSocial(vkLike);
 				var initScript = function () {
-					if (vkLike && root.VK) {
-						try {
-							VK.init({
-								apiId: (vkLike[dataset].apiid || ""),
-								nameTransportPath: "/xd_receiver.htm",
-								onlyWidgets: true
-							});
-							VK.Widgets.Like(vkLikeId, {
-								type: "button",
-								height: 24
-							});
-						} catch (err) {
-							/* console.log("cannot init VK", err); */
+					if (root.VK) {
+						if (!vlike) {
+							try {
+								VK.init({
+									apiId: (vkLike[dataset].apiid || ""),
+									nameTransportPath: "/xd_receiver.htm",
+									onlyWidgets: true
+								});
+								VK.Widgets.Like(vkLikeId, {
+									type: "button",
+									height: 24
+								});
+								vlike = true;
+							} catch (err) {
+								console.log("cannot init VK", err);
+							}
 						}
 					}
 				};
-				/* var jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?147";
+				var jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?147";
 				if (!scriptIsLoaded(jsUrl)) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
-				} */
-				if (!vlike) {
-					vlike = true;
+				} else {
 					initScript();
 				}
 			};
@@ -953,14 +953,6 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 			/* scriptsArray.push(getHTTP(true) + "://cdn.jsdelivr.net/npm/wheel-indicator@1.1.4/lib/wheel-indicator.min.js"); */
 			scriptsArray.push("./cdn/wheel-indicator/1.1.4/js/wheel-indicator-passive.fixed.min.js");
 		}
-	}
-
-	if (vkLike) {
-		scriptsArray.push(getHTTP(true) + "://vk.com/js/api/openapi.js?147");
-	}
-
-	if (yaShare2) {
-		scriptsArray.push(getHTTP(true) + "://yastatic.net/share2/share.js");
 	}
 
 	var load;

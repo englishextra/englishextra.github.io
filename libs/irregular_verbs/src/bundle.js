@@ -10,7 +10,7 @@ getKeyValuesFromJSON, IframeLightbox, imagePromise, imagesLoaded,
 imagesPreloaded, insertExternalHTML, insertTextAsFragment, Isotope,
 isValidId, jQuery, Kamil, loadExternalHTML, loadJS, loadTriggerJS,
 loadUnparsedJSON, manageDataSrcImageAll, manageImgLightboxLinks, Masonry,
-module, myMap, openDeviceBrowser, Packery, Parallax, parseLink,
+module, openDeviceBrowser, Packery, Parallax, parseLink,
 PhotoSwipe, PhotoSwipeUI_Default, pnotify, prependFragmentBefore,
 prettyPrint, Promise, Proxy, QRCode, removeChildren, removeElement,
 require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top,
@@ -622,7 +622,7 @@ manageShareButton = function () {
 					setStyleOpacity(yaShare2, 1);
 					setStyleDisplayNone(btn);
 				} catch (err) {
-					/* console.log("cannot update or init Ya.share2", err); */
+					console.log("cannot update or init Ya", err);
 				}
 			}
 		},
@@ -650,24 +650,24 @@ var manageVKLikeButton = function () {
 	d = document,
 	gEBI = "getElementById",
 	gEBCN = "getElementsByClassName",
-	ds = "dataset",
+	dataset = "dataset",
 	aEL = "addEventListener",
 	rEL = "removeEventListener",
 	VKLikeId = "vk-like",
-	VKLike = d[gEBI](VKLikeId) || "",
+	vkLike = d[gEBI](VKLikeId) || "",
 	btn = d[gEBCN]("btn-show-vk-like")[0] || "",
 	handleVKLikeButton = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
 		btn[rEL]("click", handleVKLikeButton);
-		setStyleVisibilityVisible(VKLike);
-		setStyleOpacity(VKLike, 1);
+		setStyleVisibilityVisible(vkLike);
+		setStyleOpacity(vkLike, 1);
 		setStyleDisplayNone(btn);
 		var initScript = function () {
 			if (w.VK) {
 				try {
 					VK.init({
-						apiId: (VKLike[ds].apiid || ""),
+						apiId: (vkLike[dataset].apiid || ""),
 						nameTransportPath: "/xd_receiver.htm",
 						onlyWidgets: true
 					});
@@ -676,7 +676,7 @@ var manageVKLikeButton = function () {
 						height: 24
 					});
 				} catch (err) {
-					/* console.log("cannot init VK", err); */
+					console.log("cannot init VK", err);
 				}
 			}
 		},
@@ -685,7 +685,7 @@ var manageVKLikeButton = function () {
 			loadJS(jsUrl, initScript);
 		}
 	};
-	if (btn && VKLike) {
+	if (btn && vkLike) {
 		/* console.log("triggered function: manageVKLikeButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			btn[aEL]("click", handleVKLikeButton);
