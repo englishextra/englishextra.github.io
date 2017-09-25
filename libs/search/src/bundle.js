@@ -1,23 +1,10 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global global, $, ActiveXObject, alignToMasterBottomLeft,
-appendFragment, Carousel, changeLocation, container, Cookies, debounce,
-define, DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation,
-earlyDeviceSize, earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch,
-earlySvgasimgSupport, earlySvgSupport, escape, FastClick, fetch,
-findPos, isInViewport, fixEnRuTypo, forEach, getHTTP,
-getKeyValuesFromJSON, IframeLightbox, imagePromise, imagesLoaded,
-imagesPreloaded, insertExternalHTML, insertTextAsFragment, Isotope,
-isValidId, jQuery, Kamil, loadExternalHTML, loadJS, loadTriggerJS,
-loadUnparsedJSON, manageDataSrcImageAll, manageImgLightboxLinks, Masonry,
-module, openDeviceBrowser, Packery, Parallax, parseLink,
-PhotoSwipe, PhotoSwipeUI_Default, pnotify, prependFragmentBefore,
-prettyPrint, Promise, Proxy, QRCode, removeChildren, removeElement,
-require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top,
-scrollToTop, setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
-setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t,
-Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge,
-VK, Ya, ymaps, zenscroll */
+/*global $, debounce, earlyDeviceOrientation, earlyDeviceSize,
+earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch,
+earlySvgasimgSupport, earlySvgSupport, getHTTP, jQuery, loadJS,
+openDeviceBrowser, parseLink, Promise, require, scriptIsLoaded,
+scroll2Top, setStyleOpacity, throttle, ToProgress */
 /*property console, split */
 /*!
  * define global root
@@ -109,23 +96,6 @@ var userBrowsingDetails = " [" + (earlyFnGetYyyymmdd ? earlyFnGetYyyymmdd : "") 
 if (document.title) {
 	document.title = document.title + userBrowsingDetails;
 }
-/*!
- * modified JavaScript Sync/Async forEach - v0.1.2 - 1/10/2012
- * @see {@link https://github.com/millermedeiros/amd-utils/issues/17}
- * @see {@link https://github.com/cowboy/javascript-sync-async-foreach}
- * @see {@link http://stackoverflow.com/questions/22335853/hack-to-convert-javascript-number-to-uint32}
- * @see {@link https://jsfiddle.net/englishextra/voq0bb62/}
- * Copyright (c) 2012 "Cowboy" Ben Alman; Licensed MIT
- * removed Node.js / browser support wrapper function
- * @param {Object} a Any object to walk through
- * @param {Object} b The sync callback function
- * @param {Object} [c] The async callback function
- * forEach(a,function(e){console.log("eachCallback: "+e);},!1});
- * forEach(a,function(e){console.log("eachCallback: "+e);},function(){console.log("doneCallback");});
- * @see {@link https://github.com/cowboy/javascript-sync-async-foreach/blob/master/dist/ba-foreach.js}
- * passes jshint
- */
-(function(root){"use strict";root.forEach=function(arr,eachFn,doneFn){var i=-1;var len=(function(val){val=+val;if(!isFinite(val)||!val){return 0;}return(function(left,right){return left-right*Math.floor(left/right);}(Math.floor(val),Math.pow(2,32)));}(arr.length));(function next(result){var async;var abort=result===false;do{++i;}while(!(i in arr)&&i!==len);if(abort||i===len){if(doneFn){doneFn(!abort,arr);}return;}result=eachFn.call({async:function(){async=true;return next;}},arr[i],i,arr);if(!async){next(result);}}());};}(globalRoot));
 /*!
  * modified Returns a function, that, as long as it continues to be invoked, will not
  * be triggered. The function will be called after it stops being called for

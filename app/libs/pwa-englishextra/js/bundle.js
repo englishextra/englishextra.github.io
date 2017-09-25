@@ -1,23 +1,15 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global global, $, ActiveXObject, alignToMasterBottomLeft,
-appendFragment, Carousel, changeLocation, container, Cookies, debounce,
-define, DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation,
+/*global ActiveXObject, alignToMasterBottomLeft, appendFragment,
+Carousel, container, Cookies, debounce, DISQUS, earlyDeviceOrientation,
 earlyDeviceSize, earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch,
-earlySvgasimgSupport, earlySvgSupport, escape, FastClick, fetch,
-findPos, isInViewport, fixEnRuTypo, forEach, getHTTP,
-getKeyValuesFromJSON, IframeLightbox, imagePromise, imagesLoaded,
-imagesPreloaded, insertExternalHTML, insertTextAsFragment, Isotope,
-isValidId, jQuery, Kamil, loadExternalHTML, loadJS, loadTriggerJS,
-loadUnparsedJSON, manageDataSrcImageAll, manageImgLightboxLinks, Masonry,
-module, openDeviceBrowser, Packery, Parallax, parseLink,
-PhotoSwipe, PhotoSwipeUI_Default, pnotify, prependFragmentBefore,
-prettyPrint, Promise, Proxy, QRCode, removeChildren, removeElement,
-require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top,
-scrollToTop, setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
-setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t,
-Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge,
-VK, Ya, ymaps, zenscroll */
+earlySvgasimgSupport, earlySvgSupport, escape, findPos, fixEnRuTypo,
+getHTTP, IframeLightbox, imagePromise, imagesPreloaded,
+insertExternalHTML, insertTextAsFragment, isValidId, Kamil, loadJS,
+loadUnparsedJSON, Masonry, openDeviceBrowser, Packery, parseLink,
+Promise, QRCode, removeChildren, require, safelyParseJSON,
+scriptIsLoaded, scroll2Top, t, throttle, Timers, truncString, unescape,
+verge, VK, Ya */
 /*property console, split */
 /*!
  * define global root
@@ -547,46 +539,6 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 			}
 		}return c;
 	};root.getKeyValuesFromJSON = getKeyValuesFromJSON;
-})(globalRoot);
-/*!
- * modified JavaScript Sync/Async forEach - v0.1.2 - 1/10/2012
- * @see {@link https://github.com/millermedeiros/amd-utils/issues/17}
- * @see {@link https://github.com/cowboy/javascript-sync-async-foreach}
- * @see {@link http://stackoverflow.com/questions/22335853/hack-to-convert-javascript-number-to-uint32}
- * @see {@link https://jsfiddle.net/englishextra/voq0bb62/}
- * Copyright (c) 2012 "Cowboy" Ben Alman; Licensed MIT
- * removed Node.js / browser support wrapper function
- * @param {Object} a Any object to walk through
- * @param {Object} b The sync callback function
- * @param {Object} [c] The async callback function
- * forEach(a,function(e){console.log("eachCallback: "+e);},!1});
- * forEach(a,function(e){console.log("eachCallback: "+e);},function(){console.log("doneCallback");});
- * @see {@link https://github.com/cowboy/javascript-sync-async-foreach/blob/master/dist/ba-foreach.js}
- * passes jshint
- */
-(function (root) {
-	"use strict";
-	root.forEach = function (arr, eachFn, doneFn) {
-		var i = -1;var len = function (val) {
-			val = +val;if (!isFinite(val) || !val) {
-				return 0;
-			}return function (left, right) {
-				return left - right * Math.floor(left / right);
-			}(Math.floor(val), Math.pow(2, 32));
-		}(arr.length);(function next(result) {
-			var async;var abort = result === false;do {
-				++i;
-			} while (!(i in arr) && i !== len);if (abort || i === len) {
-				if (doneFn) {
-					doneFn(!abort, arr);
-				}return;
-			}result = eachFn.call({ async: function () {
-					async = true;return next;
-				} }, arr[i], i, arr);if (!async) {
-				next(result);
-			}
-		})();
-	};
 })(globalRoot);
 /*!
  * loop over the Array
@@ -1494,9 +1446,12 @@ var hideImgLightbox = function () {
     handleImgLightboxContainer = function () {
 	"use strict";
 
-	var rEL = "removeEventListener";
+	var d = document;
+	var getElementsByClassName = "getElementsByClassName";
+	var removeEventListener = "removeEventListener";
+	var container = d[getElementsByClassName]("img-lightbox-container")[0] || "";
 	if (container) {
-		container[rEL]("click", handleImgLightboxContainer);
+		container[removeEventListener]("click", handleImgLightboxContainer);
 		hideImgLightbox();
 	}
 },
@@ -2713,7 +2668,7 @@ var vlike,
 	    gEBI = "getElementById",
 	    gEBCN = "getElementsByClassName",
 	    cL = "classList",
-	    ds = "dataset",
+	    dataset = "dataset",
 	    aEL = "addEventListener",
 	    btn = d[gEBCN]("btn-toggle-holder-vk-like")[0] || "",
 	    holder = d[gEBCN]("holder-vk-like")[0] || "",

@@ -1,23 +1,12 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global global, $, ActiveXObject, alignToMasterBottomLeft,
-appendFragment, Carousel, changeLocation, container, Cookies, debounce,
-define, DISQUS, DoSlide, Draggabilly, earlyDeviceOrientation,
+/*global appendFragment, debounce, earlyDeviceOrientation,
 earlyDeviceSize, earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch,
-earlySvgasimgSupport, earlySvgSupport, escape, FastClick, fetch,
-findPos, isInViewport, fixEnRuTypo, forEach, getHTTP,
-getKeyValuesFromJSON, IframeLightbox, imagePromise, imagesLoaded,
-imagesPreloaded, insertExternalHTML, insertTextAsFragment, Isotope,
-isValidId, jQuery, Kamil, loadExternalHTML, loadJS, loadTriggerJS,
-loadUnparsedJSON, manageDataSrcImageAll, manageImgLightboxLinks, Masonry,
-module, openDeviceBrowser, Packery, Parallax, parseLink,
-PhotoSwipe, PhotoSwipeUI_Default, pnotify, prependFragmentBefore,
-prettyPrint, Promise, Proxy, QRCode, removeChildren, removeElement,
-require, routie, safelyParseJSON, scriptIsLoaded, scroll2Top,
-scrollToTop, setImmediate, setStyleDisplayBlock, setStyleDisplayNone,
-setStyleOpacity, setStyleVisibilityHidden, setStyleVisibilityVisible, t,
-Tablesort, throttle, Timers, ToProgress, truncString, unescape, verge,
-VK, Ya, ymaps, zenscroll */
+earlySvgasimgSupport, earlySvgSupport, getHTTP, imagePromise, jQuery,
+loadJS, openDeviceBrowser, parseLink, Promise, QRCode, removeChildren,
+require, scriptIsLoaded, scroll2Top, setStyleDisplayBlock,
+setStyleDisplayNone, setStyleOpacity, setStyleVisibilityVisible,
+throttle, Timers, ToProgress, unescape, verge, VK, Ya */
 /*property console, split */
 /*!
  * define global root
@@ -511,46 +500,6 @@ var userBrowsingDetails = " [" + (earlyFnGetYyyymmdd ? earlyFnGetYyyymmdd : "") 
 if (document.title) {
 	document.title = document.title + userBrowsingDetails;
 }
-/*!
- * modified JavaScript Sync/Async forEach - v0.1.2 - 1/10/2012
- * @see {@link https://github.com/millermedeiros/amd-utils/issues/17}
- * @see {@link https://github.com/cowboy/javascript-sync-async-foreach}
- * @see {@link http://stackoverflow.com/questions/22335853/hack-to-convert-javascript-number-to-uint32}
- * @see {@link https://jsfiddle.net/englishextra/voq0bb62/}
- * Copyright (c) 2012 "Cowboy" Ben Alman; Licensed MIT
- * removed Node.js / browser support wrapper function
- * @param {Object} a Any object to walk through
- * @param {Object} b The sync callback function
- * @param {Object} [c] The async callback function
- * forEach(a,function(e){console.log("eachCallback: "+e);},!1});
- * forEach(a,function(e){console.log("eachCallback: "+e);},function(){console.log("doneCallback");});
- * @see {@link https://github.com/cowboy/javascript-sync-async-foreach/blob/master/dist/ba-foreach.js}
- * passes jshint
- */
-(function (root) {
-	"use strict";
-	root.forEach = function (arr, eachFn, doneFn) {
-		var i = -1;var len = function (val) {
-			val = +val;if (!isFinite(val) || !val) {
-				return 0;
-			}return function (left, right) {
-				return left - right * Math.floor(left / right);
-			}(Math.floor(val), Math.pow(2, 32));
-		}(arr.length);(function next(result) {
-			var async;var abort = result === false;do {
-				++i;
-			} while (!(i in arr) && i !== len);if (abort || i === len) {
-				if (doneFn) {
-					doneFn(!abort, arr);
-				}return;
-			}result = eachFn.call({ async: function () {
-					async = true;return next;
-				} }, arr[i], i, arr);if (!async) {
-				next(result);
-			}
-		})();
-	};
-})(globalRoot);
 /*!
  * Timer management (setInterval / setTimeout)
  * @param {Function} fn
@@ -1435,68 +1384,6 @@ var initNavMenu = function () {
 	}
 };
 document.ready().then(initNavMenu);
-/*!
- * add updates link to menu more
- * place that above init menu more
- */
-var addAppUpdatesLink = function () {
-	"use strict";
-
-	var d = document,
-	    gEBCN = "getElementsByClassName",
-	    gEBTN = "getElementsByTagName",
-	    cE = "createElement",
-	    cTN = "createTextNode",
-	    aC = "appendChild",
-	    aEL = "addEventListener",
-	    panel = d[gEBCN]("panel-menu-more")[0] || "",
-	    items = panel ? panel[gEBTN]("li") || "" : "",
-	    navigatorUserAgent = navigator.userAgent || "",
-	    linkHref;
-	if (/Windows/i.test(navigatorUserAgent) && /(WOW64|Win64)/i.test(navigatorUserAgent)) {
-		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-win32-x64-setup.exe";
-	} else if (/(x86_64|x86-64|x64;|amd64|AMD64|x64_64)/i.test(navigatorUserAgent) && /(Linux|X11)/i.test(navigatorUserAgent)) {
-		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-linux-x64.tar.gz";
-	} else if (/IEMobile/i.test(navigatorUserAgent)) {
-		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra.Windows10_1.0.0.0_x86_debug.appx";
-	} else {
-		if (/Android/i.test(navigatorUserAgent)) {
-			linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-debug.apk";
-		}
-	}
-	var arrange = function () {
-		var listItem = d[cE]("li"),
-		    link = d[cE]("a"),
-		    linkText = "Скачать приложение сайта";
-		link.title = "" + (parseLink(linkHref).hostname || "") + " откроется в новой вкладке";
-		link.href = linkHref;
-		var handleAppUpdatesLink = function () {
-			openDeviceBrowser(linkHref);
-		};
-		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			link.target = "_blank";
-			link.rel = "noopener";
-		} else {
-			/*!
-    * no prevent default and void .href above
-    */
-			/*jshint -W107 */
-			link.href = "javascript:void(0);";
-			/*jshint +W107 */
-			link[aEL]("click", handleAppUpdatesLink);
-		}
-		link[aC](d[cTN]("" + linkText));
-		listItem[aC](link);
-		if (panel.hasChildNodes()) {
-			prependFragmentBefore(listItem, panel.firstChild);
-		}
-	};
-	if (panel && items && linkHref) {
-		/* console.log("triggered function: addAppUpdatesLink"); */
-		arrange();
-	}
-};
-document.ready().then(addAppUpdatesLink);
 /*!
  * init menu-more
  */

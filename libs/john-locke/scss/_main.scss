@@ -463,6 +463,7 @@ a {
 }
 
 .btn-share {
+	display: none;
 	width: 2.133rem;
 	height: 2.133rem;
 	position: absolute;
@@ -482,6 +483,7 @@ a {
 }
 
 .btn-like {
+	display: none;
 	width: 2.133rem;
 	height: 2.133rem;
 	position: absolute;
@@ -593,7 +595,7 @@ a {
 	display: none;
 	height: 3.200rem;
 	position: absolute;
-	top: 4.933rem;
+	top: 3.600rem;
 	left: 10.667rem;
 }
 
@@ -604,7 +606,7 @@ a {
 .vk-like {
 	display: none;
 	position: absolute;
-	top: 4.933rem;
+	top: 3.600rem;
 	left: 14.133rem;
 }
 

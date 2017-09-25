@@ -804,6 +804,8 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		};
 
 		root[addEventListener]("click", hideOtherIsSocial);
+		
+		var bounceInDownClass = "bounceInDown";
 
 		var yaShare2Id = "ya-share2";
 
@@ -853,7 +855,9 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 			debounceLogicShowShareButtons();
 		};
 
-		if (btnShareLink && yaShare2) {
+		if (btnShare && btnShareLink && yaShare2) {
+			btnShare[classList].add(bounceInDownClass);
+			btnShare[style].display = "block";
 			btnShareLink[addEventListener]("click", showYaShare2);
 		}
 
@@ -905,7 +909,9 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 			debounceLogicShowVkLike();
 		};
 
-		if (btnLikeLink && vkLike) {
+		if (btnLike && btnLikeLink && vkLike) {
+			btnLike[classList].add(bounceInDownClass);
+			btnLike[style].display = "block";
 			btnLikeLink[addEventListener]("click", showVkLike);
 		}
 	};
