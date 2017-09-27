@@ -1,7 +1,7 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global debounce, imagesPreloaded, loadJsCss, Parallax, platform, QRCode,
-ToProgress, unescape, VK, WheelIndicator, Ya */
+/*global debounce, doesFontExist, imagesPreloaded, loadJsCss, Parallax,
+platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 /*property console, split */
 /*!
  * safe way to handle console.log
@@ -52,6 +52,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 			var firstChild = "firstChild";
 			var addEventListener = "addEventListener";
 			var removeEventListener = "removeEventListener";
+			var opacity = "opacity";
 			function whichTransitionEvent() {
 				var t,
 				    el = document[createElement]("fakeelement");
@@ -73,12 +74,12 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 			function ToProgress(opt, selector) {
 				this.progress = 0;
 				this.options = {
-					id: 'top-progress-bar',
-					color: '#F44336',
-					height: '2px',
+					id: "top-progress-bar",
+					color: "#F44336",
+					height: "2px",
 					duration: 0.2
 				};
-				if (opt && typeof opt === 'object') {
+				if (opt && typeof opt === "object") {
 					for (var key in opt) {
 						if (opt[hasOwnProperty](key)) {
 							this.options[key] = opt[key];
@@ -86,7 +87,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 					}
 				}
 				this.options.opacityDuration = this.options.duration * 3;
-				this.progressBar = document[createElement]('div');
+				this.progressBar = document[createElement]("div");
 				this.progressBar.id = this.options.id;
 				this.progressBar.setCSS = function (style) {
 					for (var property in style) {
@@ -128,7 +129,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 				}
 			}
 			ToProgress[prototype].transit = function () {
-				this.progressBar[style].width = this.progress + '%';
+				this.progressBar[style].width = this.progress + "%";
 			};
 			ToProgress[prototype].getProgress = function () {
 				return this.progress;
@@ -174,16 +175,55 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 				}
 			};
 			ToProgress[prototype].hide = function () {
-				this.progressBar[style].opacity = '0';
+				this.progressBar[style][opacity] = "0";
 			};
 			ToProgress[prototype].show = function () {
-				this.progressBar[style].opacity = '1';
+				this.progressBar[style][opacity] = "1";
 			};
 			return ToProgress;
 		};
 		return TP();
 	}();
 	root.ToProgress = ToProgress;
+})("undefined" !== typeof window ? window : this, document);
+/*!
+ * modified Detect Whether a Font is Installed
+ * @param {String} fontName The name of the font to check
+ * @return {Boolean}
+ * @author Kirupa <sam@samclarke.com>
+ * @see {@link https://www.kirupa.com/html5/detect_whether_font_is_installed.htm}
+ * passes jshint
+ */
+(function (root, document) {
+	"use strict";
+
+	var doesFontExist = function (fontName) {
+		var canvas = document.createElement("canvas");
+		var context = canvas.getContext("2d");
+		var text = "abcdefghijklmnopqrstuvwxyz0123456789";
+		context.font = "72px monospace";
+		var baselineSize = context.measureText(text).width;
+		context.font = "72px '" + fontName + "', monospace";
+		var newSize = context.measureText(text).width;
+		var parentNode = "parentNode";
+		var removeChild = "removeChild";
+		var remove = "remove";
+		if (canvas) {
+			if ("undefined" !== typeof canvas[remove]) {
+				canvas[remove]();
+			} else {
+				if (canvas[parentNode]) {
+					canvas[parentNode][removeChild](canvas);
+				}
+			}
+		}
+		if (newSize == baselineSize) {
+			return false;
+		} else {
+			return true;
+		}
+	};
+	root.doesFontExist = doesFontExist;
 })("undefined" !== typeof window ? window : this, document);
 /*!
  * modified Returns a function, that, as long as it continues to be invoked, will not
@@ -200,7 +240,6 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
  * @see {@link https://github.com/component/debounce/blob/master/index.js}
  * passes jshint
  */
-
 (function (root) {
 	"use strict";
 
@@ -318,7 +357,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		if (_this.js[length] > 0) {
 			_this.loadScript(0);
 		} else {
-			_this.after();
+			_this.callback();
 		}
 	};
 	root.loadJsCss = loadJsCss;
@@ -374,7 +413,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 	var removeElement = function (elem) {
 		if (elem) {
 			if ("undefined" !== typeof elem[remove]) {
-				return elem.remove();
+				return elem[remove]();
 			} else {
 				return elem[parentNode] && elem[parentNode][removeChild](elem);
 			}
@@ -411,13 +450,15 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 
 	var wrapper = document[getElementsByClassName]("wrapper")[0] || "";
 
+	var opacity = "opacity";
+
 	var slotHidePreloaders;
 	var hidePreloaders = function () {
 		if (imagesPreloaded) {
 			clearInterval(slotHidePreloaders);
 			slotHidePreloaders = null;
 			/* if (wrapper) {
-   	wrapper[style].opacity = 1;
+   	wrapper[style][opacity] = 1;
    } */
 			if (ripple) {
 				ripple[className] += " " + bounceOutUpClass;
@@ -484,12 +525,14 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		img[src] = url;
 	};
 
+	var styleSheets = "styleSheets";
+
 	var canvasAll = document[getElementsByTagName]("canvas") || "";
-	var styleSheetsLength = document.styleSheets[length] || 0;
+	var styleSheetsLength = document[styleSheets][length] || 0;
 
 	var slotDrawCanvasAll;
 	var drawCanvasAll = function () {
-		if (document.styleSheets[length] > styleSheetsLength) {
+		if (document[styleSheets][length] > styleSheetsLength) {
 			clearInterval(slotDrawCanvasAll);
 			slotDrawCanvasAll = null;
 			var i, l;
@@ -504,39 +547,6 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 	if (canvasAll && styleSheetsLength) {
 		slotDrawCanvasAll = setInterval(drawCanvasAll, 100);
 	}
-
-	/* var displayParentOnElementWidthChange = function (parent, element, elementWidth, displayStyle, additionalClass, timeout, interval) {
- 	var timer;
- 	var defer = function () {
- 		clearTimeout(timer);
- 		timer = null;
- 		parent[style].opacity = 1;
- 	};
- 	var slot;
- 	var tick = function () {
- 		var position = element.getBoundingClientRect() || "";
- 		var currentWidth = position.width || element.offsetWidth;
- 		if (currentWidth > 0 && elementWidth !== currentWidth) {
- 			clearInterval(slot);
- 			slot = null;alert(currentWidth)
- 			parent.className += " " + additionalClass;
- 			timer = setTimeout(defer, 100);
- 		}
- 	};
- 	var slot = setInterval(tick, 100);
- };
- var quote = document[getElementsByClassName]("quote")[0] || "";
- var quoteParagraph = quote ? quote[getElementsByTagName]("p")[0] || "" : "";
- var quoteParagraphWidth = quoteParagraph.getBoundingClientRect().width || quoteParagraph.offsetWidth;
- displayParentOnElementWidthChange(quote, quoteParagraph, quoteParagraphWidth, "block", "bounceInDown", 200, 100);
- var intro = document[getElementsByClassName]("intro")[0] || "";
- var introHeading = intro ? intro[getElementsByTagName]("h1")[0] || "" : "";
- var introHeadingWidth = introHeading.getBoundingClientRect().width || introHeading.offsetWidth;
- displayParentOnElementWidthChange(intro, introHeading, introHeadingWidth, "block", "bounceInLeft", 200, 100);
- var footer = document[getElementsByClassName]("footer")[0] || "";
- var footerParagraph = footer ? footer[getElementsByTagName]("p")[0] || "" : "";
- var footerParagraphWidth = footerParagraph.getBoundingClientRect().width || footerParagraph.offsetWidth;
- displayParentOnElementWidthChange(footer, footerParagraph, footerParagraphWidth, "block", "bounceInDown", 200, 100); */
 
 	var documentElement = "documentElement";
 
@@ -560,13 +570,15 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 			progressBar.increase(20);
 		}
 
+		var visibility = "visibility";
+
 		var qrcode = document[getElementsByClassName]("qrcode")[0] || "";
 		var timerShowQrcode;
 		var showQrcode = function () {
 			clearTimeout(timerShowQrcode);
 			timerShowQrcode = null;
-			qrcode[style].visibility = "visible";
-			qrcode[style].opacity = 1;
+			qrcode[style][visibility] = "visible";
+			qrcode[style][opacity] = 1;
 		};
 
 		var locationHref = root.location[href] || "";
@@ -636,8 +648,8 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		var showDownloadApp = function () {
 			clearTimeout(timerShowDownloadApp);
 			timerShowDownloadApp = null;
-			downloadApp[style].visibility = "visible";
-			downloadApp[style].opacity = 1;
+			downloadApp[style][visibility] = "visible";
+			downloadApp[style][opacity] = 1;
 		};
 
 		if (navigatorUserAgent && downloadApp && downloadAppLink && downloadAppImg && root.platform) {
@@ -834,8 +846,8 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		};
 
 		if (btnShare && btnShareLink && yaShare2) {
-			btnShare[style].visibility = "visible";
-			btnShare[style].opacity = 1;
+			btnShare[style][visibility] = "visible";
+			btnShare[style][opacity] = 1;
 			btnShareLink[addEventListener]("click", showYaShare2);
 		}
 
@@ -888,13 +900,13 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		};
 
 		if (btnLike && btnLikeLink && vkLike) {
-			btnLike[style].visibility = "visible";
-			btnLike[style].opacity = 1;
+			btnLike[style][visibility] = "visible";
+			btnLike[style][opacity] = 1;
 			btnLikeLink[addEventListener]("click", showVkLike);
 		}
 	};
 
-	var scripts = [forcedHTTP + "://fonts.googleapis.com/css?family=PT+Serif:400,400i%7CRoboto:400,700%7CRoboto+Condensed:700&subset=cyrillic", forcedHTTP + "://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.min.css", "./libs/john-locke/css/bundle.min.css"];
+	var scripts = [forcedHTTP + "://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.min.css", "./libs/john-locke/css/bundle.min.css"];
 
 	var supportsClassList = "classList" in document[createElement]("_") || "";
 
@@ -938,8 +950,38 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		}
 	}
 
+	var supportsCanvas = function () {
+		var elem = document.createElement("canvas");
+		return !!(elem.getContext && elem.getContext("2d"));
+	}();
+
+	var slotCheckFontIsLoaded;
+	var checkFontIsLoaded = function () {
+
+		var initScriptsLoading = function () {
+			clearInterval(slotCheckFontIsLoaded);
+			slotCheckFontIsLoaded = null;
+			if (!supportsSvgSmilAnimation) {
+				progressBar.increase(20);
+			}
+			var load;
+			load = new loadJsCss(scripts, run);
+		};
+		if (supportsCanvas) {
+			if (doesFontExist("Roboto") && doesFontExist("Roboto Condensed") && doesFontExist("PT Serif")) {
+				initScriptsLoading();
+			}
+		} else {
+			initScriptsLoading();
+		}
+	};
+
+	var checkFontIsLoadedCallback = function () {
+		slotCheckFontIsLoaded = setInterval(checkFontIsLoaded, 100);
+	};
+
 	var load;
-	load = new loadJsCss(scripts, run);
+	load = new loadJsCss([forcedHTTP + "://fonts.googleapis.com/css?family=PT+Serif:400,400i%7CRoboto:400,700%7CRoboto+Condensed:700&subset=cyrillic"], checkFontIsLoadedCallback);
 })("undefined" !== typeof window ? window : this, document);
 
 //# sourceMappingURL=bundle.js.map
