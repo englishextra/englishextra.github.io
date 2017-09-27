@@ -205,18 +205,7 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 		var baselineSize = context.measureText(text).width;
 		context.font = "72px '" + fontName + "', monospace";
 		var newSize = context.measureText(text).width;
-		var parentNode = "parentNode";
-		var removeChild = "removeChild";
-		var remove = "remove";
-		if (canvas) {
-			if ("undefined" !== typeof canvas[remove]) {
-				canvas[remove]();
-			} else {
-				if (canvas[parentNode]) {
-					canvas[parentNode][removeChild](canvas);
-				}
-			}
-		}
+		canvas = null;
 		if (newSize == baselineSize) {
 			return false;
 		} else {
