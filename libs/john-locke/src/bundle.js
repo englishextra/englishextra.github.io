@@ -562,6 +562,8 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		return "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : force ? "http" : "";
 	};
 
+	var forcedHTTP = getHTTP(true);
+
 	var run = function () {
 
 		if (!supportsSvgSmilAnimation) {
@@ -586,7 +588,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		if (qrcode) {
 			var qrcodeImg = document[createElement]("img");
 			var qrcodeImgTitle = documentTitle ? ("Ссылка на страницу «" + documentTitle.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
-			var qrcodeImgSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
+			var qrcodeImgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
 			qrcodeImg.alt = qrcodeImgTitle;
 			if (root.QRCode) {
 				if (supportsSvgAsImg) {
@@ -650,8 +652,6 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		};
 
 		if (navigatorUserAgent && downloadApp && downloadAppLink && downloadAppImg && root.platform) {
-			var downloadAppImgSrc;
-			var downloadAppLinkHref;
 			var platformName = platform.name || "";
 			var platformDescription = platform.description || "";
 			document[title] = documentTitle +
@@ -669,6 +669,8 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 			/* console.log(navigatorUserAgent);
 			console.log(platform.os);
 			console.log(platformName + "|" + platformOsFamily + "|" + platformOsVersion + "|" + platformOsArchitecture + "|" + platformDescription); */
+			var downloadAppImgSrc;
+			var downloadAppLinkHref;
 			if (platformOsFamily.indexOf("Windows Phone", 0) !== -1  && "10.0" === platformOsVersion) {
 				downloadAppImgSrc = "./libs/products/img/download_wp_app_144x52.svg";
 				downloadAppLinkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra.Windows10_1.0.0.0_x86_debug.appx";
@@ -804,8 +806,6 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		};
 
 		root[addEventListener]("click", hideOtherIsSocial);
-		
-		var bounceInDownClass = "bounceInDown";
 
 		var yaShare2Id = "ya-share2";
 
@@ -843,7 +843,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 						}
 					}
 				};
-				var jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
+				var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
 				if (!scriptIsLoaded(jsUrl)) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
@@ -856,8 +856,8 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		};
 
 		if (btnShare && btnShareLink && yaShare2) {
-			btnShare[classList].add(bounceInDownClass);
-			btnShare[style].display = "block";
+			btnShare[style].visibility = "visible";
+			btnShare[style].opacity = 1;
 			btnShareLink[addEventListener]("click", showYaShare2);
 		}
 
@@ -897,7 +897,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 						}
 					}
 				};
-				var jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?147";
+				var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?147";
 				if (!scriptIsLoaded(jsUrl)) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
@@ -910,58 +910,64 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		};
 
 		if (btnLike && btnLikeLink && vkLike) {
-			btnLike[classList].add(bounceInDownClass);
-			btnLike[style].display = "block";
+			btnLike[style].visibility = "visible";
+			btnLike[style].opacity = 1;
 			btnLikeLink[addEventListener]("click", showVkLike);
 		}
 	};
 
-	var scriptsArray = [
-		getHTTP(true) + "://fonts.googleapis.com/css?family=PT+Serif:400,400i%7CRoboto:400,700%7CRoboto+Condensed:700&subset=cyrillic",
-		"./libs/john-locke/css/bundle.min.css",
-		getHTTP(true) + "://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.min.css"];
+	var scripts = [
+		forcedHTTP + "://fonts.googleapis.com/css?family=PT+Serif:400,400i%7CRoboto:400,700%7CRoboto+Condensed:700&subset=cyrillic",
+		forcedHTTP + "://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.min.css",
+		"./libs/john-locke/css/bundle.min.css"];
 
 	var supportsClassList = "classList" in document[createElement]("_") || "";
 
 	if (!supportsClassList) {
-		scriptsArray.push(getHTTP(true) + "://cdn.jsdelivr.net/npm/classlist.js@1.1.20150312/classList.min.js");
+		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/classlist.js@1.1.20150312/classList.min.js");
 	}
 
 	var supportsDataset = "undefined" !== typeof root.Element && "dataset" in document[documentElement] || "";
 
 	if (!supportsDataset) {
-		scriptsArray.push(getHTTP(true) + "://cdn.jsdelivr.net/npm/element-dataset@2.2.6/lib/browser/index.cjs.min.js");
+		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/element-dataset@2.2.6/lib/browser/index.cjs.min.js");
 	}
 
-	var supportsPassive = false;
+	var defineProperty = "defineProperty";
 
-	try {
-		var opts = Object.defineProperty && Object.defineProperty({}, 'passive', {
-				get: function () {
-					supportsPassive = true;
-				}
-			});
-		root[addEventListener]('test', function () {}, opts);
-	} catch (err) {}
+	var supportsPassive = (function () {
+		var support = false;
+		try {
+			var opts = Object[defineProperty] && Object[defineProperty]({}, "passive", {
+					get: function () {
+						support = true;
+					}
+				});
+			root[addEventListener]("test", function () {}, opts);
+		} catch (err) {}
+		return support;
+
+	}
+		());
 
 	if (!supportsPassive) {
-		scriptsArray.push(getHTTP(true) + "://cdnjs.cloudflare.com/ajax/libs/dom4/1.8.3/dom4.js");
+		scripts.push(forcedHTTP + "://cdnjs.cloudflare.com/ajax/libs/dom4/1.8.3/dom4.js");
 	}
 
-	scriptsArray.push(getHTTP(true) + "://cdn.jsdelivr.net/npm/parallax-js@3.1.0/dist/parallax.min.js",
-		getHTTP(true) + "://cdn.jsdelivr.net/npm/qrjs2@0.1.3/qrjs2.min.js",
-		getHTTP(true) + "://cdn.jsdelivr.net/npm/platform@1.3.4/platform.min.js");
+	scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/parallax-js@3.1.0/dist/parallax.min.js",
+		forcedHTTP + "://cdn.jsdelivr.net/npm/qrjs2@0.1.3/qrjs2.min.js",
+		forcedHTTP + "://cdn.jsdelivr.net/npm/platform@1.3.4/platform.min.js");
 
 	if (hasTouch) {
-		scriptsArray.push(getHTTP(true) + "://cdnjs.cloudflare.com/ajax/libs/Tocca.js/2.0.1/Tocca.min.js");
+		scripts.push(forcedHTTP + "://cdnjs.cloudflare.com/ajax/libs/Tocca.js/2.0.1/Tocca.min.js");
 	} else {
 		if (hasWheel) {
-			/* scriptsArray.push(getHTTP(true) + "://cdn.jsdelivr.net/npm/wheel-indicator@1.1.4/lib/wheel-indicator.min.js"); */
-			scriptsArray.push("./cdn/wheel-indicator/1.1.4/js/wheel-indicator-passive.fixed.min.js");
+			/* scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/wheel-indicator@1.1.4/lib/wheel-indicator.min.js"); */
+			scripts.push("./cdn/wheel-indicator/1.1.4/js/wheel-indicator-passive.fixed.min.js");
 		}
 	}
 
 	var load;
-	load = new loadJsCss(scriptsArray, run);
+	load = new loadJsCss(scripts, run);
 }
 	("undefined" !== typeof window ? window : this, document));

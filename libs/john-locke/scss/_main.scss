@@ -463,7 +463,9 @@ a {
 }
 
 .btn-share {
-	display: none;
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility 0s, opacity 0.2s ease;
 	width: 2.133rem;
 	height: 2.133rem;
 	position: absolute;
@@ -483,7 +485,9 @@ a {
 }
 
 .btn-like {
-	display: none;
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility 0s, opacity 0.2s ease;
 	width: 2.133rem;
 	height: 2.133rem;
 	position: absolute;
