@@ -977,15 +977,13 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 		}
 	}
 
-	var supportsCanvas = (function () {
-		var elem = document.createElement("canvas");
-		return !!(elem.getContext && elem.getContext("2d"));
-	}
-		());
+	/*!
+	 * load scripts after webfonts loaded using doesFontExist
+	 */
 
-	var slotCheckFontIsLoaded;
-	var checkFontIsLoaded = function () {
+	var checkFontIsLoadedCallback = function () {
 
+		var slotCheckFontIsLoaded;
 		var initScriptsLoading = function () {
 			clearInterval(slotCheckFontIsLoaded);
 			slotCheckFontIsLoaded = null;
@@ -993,24 +991,80 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 				progressBar.increase(20);
 			}
 			var load;
-			load = new loadJsCss(scripts, run);			
+			load = new loadJsCss(scripts, run);
 		};
-		if (supportsCanvas) {
-			if (doesFontExist("Roboto") && doesFontExist("Roboto Condensed") && doesFontExist("PT Serif")) {
+
+		var supportsCanvas = (function () {
+			var elem = document.createElement("canvas");
+			return !!(elem.getContext && elem.getContext("2d"));
+		}
+			());
+
+		var checkFontIsLoaded = function () {
+
+			if (supportsCanvas) {
+				if (doesFontExist("Roboto") && doesFontExist("Roboto Condensed") && doesFontExist("PT Serif")) {
+					initScriptsLoading();
+				}
+			} else {
 				initScriptsLoading();
 			}
-		} else {
-			initScriptsLoading();
-		}
-	};
+		};
 
-	var checkFontIsLoadedCallback = function () {
 		slotCheckFontIsLoaded = setInterval(checkFontIsLoaded, 100);
 	};
 
 	var load;
 	load = new loadJsCss(
-			[forcedHTTP + "://fonts.googleapis.com/css?family=PT+Serif:400,400i%7CRoboto:400,700%7CRoboto+Condensed:700&subset=cyrillic"],
-			checkFontIsLoadedCallback);
+			[forcedHTTP + "://fonts.googleapis.com/css?family=PT+Serif:400%7CRoboto:400,700%7CRoboto+Condensed:700&subset=cyrillic"],
+			checkFontIsLoadedCallback
+		);
+
+	/*!
+	 * load scripts after webfonts loaded using webfontloader
+	 */
+
+	/* root.WebFontConfig = {
+		google: {
+			families: [
+				"PT Serif:400:cyrillic",
+				"Roboto:400,700:cyrillic",
+				"Roboto Condensed:700:cyrillic"
+			]
+		},
+		listeners: [],
+		active: function () {
+			this.called_ready = true;
+			for (var i = 0; i < this.listeners.length; i++) {
+				this.listeners[i]();
+			}
+		},
+		ready: function (callback) {
+			if (this.called_ready) {
+				callback();
+			} else {
+				this.listeners.push(callback);
+			}
+		}
+	};
+
+	var checkFontIsLoadedCallback = function () {
+
+		var initScriptsLoading = function () {
+			if (!supportsSvgSmilAnimation) {
+				progressBar.increase(20);
+			}
+			var load;
+			load = new loadJsCss(scripts, run);
+		};
+
+		root.WebFontConfig.ready(initScriptsLoading);
+	};
+
+	var load;
+	load = new loadJsCss(
+			[forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"],
+			checkFontIsLoadedCallback
+		); */
 }
 	("undefined" !== typeof window ? window : this, document));

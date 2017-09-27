@@ -238,10 +238,10 @@ a {
 
 .quote p {
 	display: block;
-	font-size: 1.200rem;
 	font-family: "PT Serif", $font-family-webfont-serif-regular;
-	line-height: 1.500rem;
 	font-weight: 400;
+	font-size: 1.200rem;
+	line-height: 1.500rem;
 	color: $TitleBarAndAppBarDark;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -267,10 +267,10 @@ a {
 
 .intro h1 {
 	display: block;
-	font-size: 3.333rem;
-	line-height: 4.000rem;
 	font-family: "Roboto Condensed", $font-family-webfont-sans-regular;
 	font-weight: 700;
+	font-size: 3.333rem;
+	line-height: 4.000rem;
 	text-transform: uppercase;
 	color: $TitleBarAndAppBarDark;
 	background-color: rgba(230, 230, 230, 0.8);
@@ -290,10 +290,10 @@ a {
 
 .intro span {
 	display: block;
-	font-size: 2.667rem;
-	line-height: 3.333rem;
 	font-family: "Roboto", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", "HelveticaNeue", "Roboto", sans-serif;
 	font-weight: 400;
+	font-size: 2.667rem;
+	line-height: 3.333rem;
 	text-transform: none;
 	border-bottom: 0.267rem solid $color-hex-englishextra-logo-bg;
 	padding-bottom: 0.667rem;
@@ -561,9 +561,9 @@ a {
 	display: inline-block;
 	height: 3.200rem;
 	font-family: "Roboto", $font-family-webfont-sans-regular;
-	line-height: 3.200rem;
-	font-size: 0.867rem;
 	font-weight: 700;
+	font-size: 0.867rem;
+	line-height: 3.200rem;
 	text-align: center;
 	text-transform: uppercase;
 	overflow: hidden;

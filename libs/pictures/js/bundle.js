@@ -1524,7 +1524,7 @@ var initPhotoswipe = function () {
 						captionEl.children[0].innerText = "";
 						return false;
 					}
-					captionEl.children[0].innerHTML = item.title + "<br/><small>Photo: " + item.author + "</small>";
+					captionEl.children[0].innerHTML = item.title + "<br /><small>Photo: " + item.author + "</small>";
 					return true;
 				}
 			};
