@@ -357,16 +357,6 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 (function (root, document, undefined) {
 	"use strict";
 
-	var style = "style";
-
-	var createElement = "createElement";
-
-	var appendChild = "appendChild";
-
-	var getElementsByTagName = "getElementsByTagName";
-
-	var addEventListener = "addEventListener";
-
 	var progressBar = new ToProgress({
 		id: "top-progress-bar",
 		color: "#FF2C40",
@@ -374,24 +364,39 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 		duration: 0.2
 	});
 
-	var createElementNS = "createElementNS";
-
-	var toStringFn = {}.toString;
-	var supportsSvgSmilAnimation = !!document[createElementNS] && /SVGAnimate/.test(toStringFn.call(document[createElementNS]("http://www.w3.org/2000/svg", "animate"))) || "";
-
 	var hideProgressBar = function () {
 		progressBar.finish();
 		progressBar.hide();
 	};
 
+	var slotOnImagesPreloaded;
+	var onImagesPreloaded = function () {
+		if (imagesPreloaded) {
+			clearInterval(slotOnImagesPreloaded);
+			slotOnImagesPreloaded = null;
+			progressBar.increase(20);
+		}
+	};
+
+	var addEventListener = "addEventListener";
+
+	var createElementNS = "createElementNS";
+
+	var toStringFn = {}.toString;
+	var supportsSvgSmilAnimation = !!document[createElementNS] && /SVGAnimate/.test(toStringFn.call(document[createElementNS]("http://www.w3.org/2000/svg", "animate"))) || "";
+
 	if (!supportsSvgSmilAnimation) {
+
 		progressBar.increase(20);
+
+		if ("undefined" !== typeof imagesPreloaded) {
+			slotOnImagesPreloaded = setInterval(onImagesPreloaded, 100);
+		}
+
 		root[addEventListener]("load", hideProgressBar);
 	}
 
 	var getElementsByClassName = "getElementsByClassName";
-
-	var className = "className";
 
 	var parentNode = "parentNode";
 
@@ -435,48 +440,35 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 		removeLoading();
 	};
 
+	var className = "className";
+
 	var bounceOutUpClass = "bounceOutUp";
 
-	var wrapper = document[getElementsByClassName]("wrapper")[0] || "";
-
-	var opacity = "opacity";
-
-	var slotHidePreloaders;
 	var hidePreloaders = function () {
-		if (imagesPreloaded) {
-			clearInterval(slotHidePreloaders);
-			slotHidePreloaders = null;
-			/* if (wrapper) {
-   	wrapper[style][opacity] = 1;
-   } */
-			if (ripple) {
-				ripple[className] += " " + bounceOutUpClass;
-				timerDeferRemoveRipple = setTimeout(deferRemoveRipple, 5000);
-			}
-			if (loading) {
-				loading[className] += " " + bounceOutUpClass;
-				timerDeferRemoveLoading = setTimeout(deferRemoveLoading, 5000);
-			}
-			if (!supportsSvgSmilAnimation) {
-				progressBar.increase(20);
-			}
+		if (ripple) {
+			ripple[className] += " " + bounceOutUpClass;
+			timerDeferRemoveRipple = setTimeout(deferRemoveRipple, 5000);
+		}
+		if (loading) {
+			loading[className] += " " + bounceOutUpClass;
+			timerDeferRemoveLoading = setTimeout(deferRemoveLoading, 5000);
 		}
 	};
-	if ("undefined" !== typeof imagesPreloaded) {
-		if (!supportsSvgSmilAnimation) {
-			removeRipple();
-			removeLoading();
-		}
-		slotHidePreloaders = setInterval(hidePreloaders, 100);
+
+	if (!supportsSvgSmilAnimation) {
+		removeRipple();
+		removeLoading();
+	} else {
+		root[addEventListener]("load", hidePreloaders);
 	}
 
 	var getAttribute = "getAttribute";
 
 	var src = "src";
 
-	var supportsSvgAsImg = document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1") || "";
-
 	var length = "length";
+
+	var supportsSvgAsImg = document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1") || "";
 
 	if (!supportsSvgAsImg) {
 		var svgNosmilImages = document[getElementsByClassName]("svg-nosmil-img") || "";
@@ -514,6 +506,8 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 		img[src] = url;
 	};
 
+	var getElementsByTagName = "getElementsByTagName";
+
 	var styleSheets = "styleSheets";
 
 	var canvasAll = document[getElementsByTagName]("canvas") || "";
@@ -539,11 +533,11 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 
 	var documentElement = "documentElement";
 
+	var createElement = "createElement";
+
 	var hasTouch = "ontouchstart" in document[documentElement] || "";
 
 	var hasWheel = "onwheel" in document[createElement]("div") || void 0 !== document.onmousewheel || "";
-
-	var href = "href";
 
 	var getHTTP = function (force) {
 		force = force || "";
@@ -559,7 +553,11 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 			progressBar.increase(20);
 		}
 
+		var style = "style";
+
 		var visibility = "visibility";
+
+		var opacity = "opacity";
 
 		var qrcode = document[getElementsByClassName]("qrcode")[0] || "";
 		var timerShowQrcode;
@@ -570,11 +568,15 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 			qrcode[style][opacity] = 1;
 		};
 
+		var href = "href";
+
 		var locationHref = root.location[href] || "";
 
 		var title = "title";
 
 		var documentTitle = document[title] || "";
+
+		var appendChild = "appendChild";
 
 		if (qrcode) {
 			var qrcodeImg = document[createElement]("img");
@@ -722,6 +724,8 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 				guesture[classList].add(bounceOutUpClass);
 			}
 		};
+
+		var wrapper = document[getElementsByClassName]("wrapper")[0] || "";
 
 		if (wrapper) {
 			var mousewheeldown = document[getElementsByClassName]("mousewheeldown")[0] || "";
