@@ -2350,7 +2350,7 @@ var showPageFinishProgress = function () {
 		if ("undefined" !== typeof imagesPreloaded) {
 			var timers = new Timers();
 			timers.interval(function () {
-				if ("undefined" !== typeof imagesPreloaded && imagesPreloaded) {
+				if (imagesPreloaded) {
 					timers.clear();
 					timers = null;
 					showPage();

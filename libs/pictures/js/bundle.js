@@ -1879,10 +1879,10 @@ var showPageFinishProgress = function () {
 		progressBar.increase(20);
 	};
 	if (grid) {
-		if ("undefined" !== typeof imagesPreloaded) {
+		if ("undefined" !== typeof localImagesPreloaded) {
 			var timers = new Timers();
 			timers.interval(function () {
-				if ("undefined" !== typeof imagesPreloaded && localImagesPreloaded) {
+				if (localImagesPreloaded) {
 					timers.clear();
 					timers = null;
 					showPage();
