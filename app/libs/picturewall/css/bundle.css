@@ -1,0 +1,196 @@
+/*! libs\picturewall\scss\bundle.scss */
+
+/*! @import "englishextra-ui-colors" */
+
+/**
+ * englishextra-ui colors
+ * use microsoft.com/en-us/design/color
+ * localhost/tools/Tinter-Shader/index.html
+ * localhost/tools/perfect_colors/
+ * localhost/tools/TinyColor/index.html
+ * localhost/tools/color-palette-generator/index.html
+ * localhost/tools/hexcolortool/index.html
+ * localhost/tools/css3-playground/
+ */
+
+/* 0073D2
+007DD1
+5E308F
+9C0087
+D13636
+F23819
+FF4141
+00AC54
+547E71
+8C582C
+F5630E
+FDE000
+C3C3C3
+D54848
+2D7C9A
+2F79B6
+EF6B50
+EB5262
+706D6A
+60867B
+615FC8
+744DA5
+3087CD */
+
+/* \$(.*?)\: (.*?)\;
+\t\t\t\t\t\t\t\t\t\t<div class="masonry-grid-item"><div class="bg-\1"><span class="color-variable-name">$\1</span></div></div>
+
+\$(.*?)\: (.*?)\;
+.bg-\1 {
+	background-color: $\1;
+} */
+
+/*! @import "englishextra-ui-variables"; */
+
+/*!
+ * modified zoomwall.js v1.1.1
+ * The MIT License (MIT)
+ * Copyright (c) 2014 Eric Leong
+ * @see {@link https://github.com/ericleong/zoomwall.js}
+ * @see {@link https://github.com/ericleong/zoomwall.js/blob/master/zoomwall.js}
+ * passes jshint
+ */
+
+.zoomwall {
+	font-size: 0;
+	overflow: hidden;
+}
+
+.zoomwall img {
+	display: inline-block;
+	height: 15vw;
+	opacity: 1;
+	vertical-align: top;
+	-webkit-transform-origin: 0% 0%;
+	transform-origin: 0% 0%;
+	-webkit-transition-property: opacity, -webkit-transform;
+	transition-property: opacity, -webkit-transform;
+	transition-property: transform, opacity;
+	transition-property: transform, opacity, -webkit-transform;
+	-webkit-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+	-webkit-transition-timing-function: ease-out;
+	transition-timing-function: ease-out;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.zoomwall.lightbox img {
+	-webkit-transition-timing-function: ease-in;
+	transition-timing-function: ease-in;
+	opacity: 0.3;
+}
+
+.zoomwall.lightbox img.active {
+	opacity: 1;
+}
+
+* {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+html {
+	font-size: 15px;
+	line-height: 20px;
+}
+
+body {
+	font-size: 1.000rem;
+	line-height: 1.333rem;
+	color: #1F1F1F;
+	overflow-y: auto;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+	margin: 0;
+}
+
+a {
+	color: inherit;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+}
+
+.wrapper {
+	width: 100%;
+	min-height: 100%;
+	background-color: #2B2B2B;
+}
+
+.title-bar {
+	height: 3.200rem;
+	background-color: #1F1F1F;
+	/* text-align: center; */
+}
+
+.title-bar a:link,
+.title-bar a:visited {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+
+.title-bar a:hover {
+	color: #F03B4C;
+}
+
+.title-bar-icon {
+	display: block;
+	width: 1.333rem;
+	height: 1.333rem;
+	/* background-color: red; */
+}
+
+.title-bar-icon > * {
+	fill: #FFFFFF;
+}
+
+.btn-title-bar svg {
+	display: block;
+}
+
+.btn-title-bar {
+	display: block;
+	position: absolute;
+	color: #FFFFFF;
+}
+
+.btn-title-bar.back {
+	top: 0.933rem;
+	left: 0.933rem;
+}
+
+.btn-title-bar.title {
+	font-family: "Roboto", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", "HelveticaNeue", "Roboto", sans-serif;
+	font-weight: 400;
+	font-size: 0.933rem;
+	line-height: 3.200rem;
+	margin: 0;
+	top: 0;
+	left: 50%;
+	margin-right: -50%;
+	-webkit-transform: translate(-50%, 0);
+	transform: translate(-50%, 0);
+}
+
+.btn-title-bar.repo {
+	top: 0.933rem;
+	right: 0.933rem;
+}
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3Njc3MvYnVuZGxlLnNjc3MiLCIuLi9zY3NzL19jb2xvcnMuc2NzcyIsIi4uL3Njc3MvX3ZhcmlhYmxlcy5zY3NzIiwiLi4vc2Nzcy9fem9vbXdhbGwuZml4ZWQuc2NzcyIsIi4uL3Njc3MvX21haW4uc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSx3Q0FBd0M7QUNBeEMsdUNBQXVDO0FBRXZDOzs7Ozs7Ozs7R0FTRztBQUVIOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O1NBc0JTO0FBMEZUOzs7Ozs7SUFNSTtBQ25JSiwyQ0FBMkM7QUNBM0M7Ozs7Ozs7R0FPRztBQUVIO0NBQ0MsYUFBWTtDQUNaLGlCQUFnQixFQUNoQjs7QUFFRDtDQUNDLHNCQUFxQjtDQUNyQixhQUFZO0NBQ1osV0FBVTtDQUNWLG9CQUFtQjtDQUNuQixnQ0FBdUI7U0FBdkIsd0JBQXVCO0NBQ3ZCLHdEQUF1QztDQUF2QyxnREFBdUM7Q0FBdkMsd0NBQXVDO0NBQXZDLDJEQUF1QztDQUN2QyxrQ0FBeUI7U0FBekIsMEJBQXlCO0NBQ3pCLDZDQUFvQztTQUFwQyxxQ0FBb0M7Q0FDcEMsMEJBQWlCO0lBQWpCLHVCQUFpQjtLQUFqQixzQkFBaUI7U0FBakIsa0JBQWlCLEVBQ2pCOztBQUVEO0NBQ0MsNENBQW1DO1NBQW5DLG9DQUFtQztDQUNuQyxhQUFZLEVBQ1o7O0FBRUQ7Q0FDQyxXQUFVLEVBQ1Y7O0FDakNEO0NBQ0MsK0JBQXNCO1NBQXRCLHVCQUFzQixFQUN0Qjs7QUFFRDs7Q0FFQyxhQUFZLEVBQ1o7O0FBRUQ7Q0FDQyxnQkFBZTtDQUNmLGtCQUFpQixFQUNqQjs7QUFFRDtDQUNDLG9CQUFtQjtDQUNuQixzQkFBcUI7Q0FDckIsZUh1QjhCO0NHdEI5QixpQkFBZ0I7Q0FDaEIsMEJBQWlCO0lBQWpCLHVCQUFpQjtLQUFqQixzQkFBaUI7U0FBakIsa0JBQWlCO0NBQ2pCLHlDQUF3QztDQUN4QyxjQUFhO0NBQ2IsVUFBUyxFQUNUOztBQUVEO0NBQ0MsZUFBYztDQUNkLHlDQUF3QztDQUN4QyxjQUFhLEVBQ2I7O0FBRUQ7Q0FDQyxZQUFXO0NBQ1gsaUJBQWdCO0NBQ2hCLDBCSGE2QixFR1o3Qjs7QUFFRDtDQUNDLGlCQUFnQjtDQUNoQiwwQkFBeUI7Q0FDekIseUJBQXlCLEVBQ3pCOztBQUVEOztDQUVDLHNCQUFxQjtDQUNyQixlQUFjLEVBQ2Q7O0FBRUQ7Q0FDQyxlQUFjLEVBQ2Q7O0FBRUQ7Q0FDQyxlQUFjO0NBQ2QsZ0JBQWU7Q0FDZixpQkFBZ0I7Q0FDaEIsNEJBQTRCLEVBQzVCOztBQUVEO0NBQ0MsY0FBYSxFQUNiOztBQUVEO0NBQ0MsZUFBYyxFQUNkOztBQUVEO0NBQ0MsZUFBYztDQUNkLG1CQUFrQjtDQUNsQixlQUFjLEVBQ2Q7O0FBRUQ7Q0FDQyxjQUFhO0NBQ2IsZUFBYyxFQUNkOztBQUVEO0NBQ0MsMElGN0VvSjtDRThFcEosaUJBQWdCO0NBQ2hCLG9CQUFtQjtDQUNuQixzQkFBcUI7Q0FDckIsVUFBUztDQUNULE9BQU07Q0FDTixVQUFTO0NBQ1QsbUJBQWtCO0NBQ2xCLHNDQUE2QjtTQUE3Qiw4QkFBNkIsRUFDN0I7O0FBRUQ7Q0FDQyxjQUFhO0NBQ2IsZ0JBQWUsRUFDZiIsImZpbGUiOiJidW5kbGUuY3NzIn0= */
