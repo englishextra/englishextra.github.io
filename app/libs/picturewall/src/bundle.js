@@ -311,9 +311,10 @@ Promise, zoomwall */
  */
 (function (root, document) {
 	"use strict";
-	var echo = function (imgClass, dataAttributeName) {
+	var echo = function (imgClass, dataAttributeName, throttleRate) {
 		imgClass = imgClass || "data-src-img";
 		dataAttributeName = dataAttributeName || "src";
+		throttleRate = throttleRate || 100;
 		var Echo = function (elem) {
 			var _this = this;
 			_this.elem = elem;
@@ -349,18 +350,44 @@ Promise, zoomwall */
 				}
 			}
 		};
+		var throttle = function (func, wait) {
+			var ctx,
+			args,
+			rtn,
+			timeoutID;
+			var last = 0;
+			return function throttled() {
+				ctx = this;
+				args = arguments;
+				var delta = new Date() - last;
+				if (!timeoutID) {
+					if (delta >= wait) {
+						call();
+					} else {
+						timeoutID = setTimeout(call, wait - delta);
+					}
+				}
+				return rtn;
+			};
+			function call() {
+				timeoutID = 0;
+				last = +new Date();
+				rtn = func.apply(ctx, args);
+				ctx = null;
+				args = null;
+			}
+		};
+		var throttleEchoImageAll = throttle(echoImageAll, throttleRate);
 		Echo.prototype = {
 			init: function () {
 				echoStore.push(this.elem);
 			},
 			render: function () {
-				if (document.addEventListener) {}
-				else {}
 				echoImageAll();
 			},
 			listen: function () {
 				if (!isBindedEcho) {
-					root.addEventListener("scroll", echoImageAll);
+					root.addEventListener("scroll", throttleEchoImageAll);
 					document.documentElement.classList.add(isBindedEchoClass);
 				}
 			}
@@ -452,104 +479,111 @@ Promise, zoomwall */
 /*!
  * app logic
  */
-(function(root, document){
+(function (root, document) {
 	"use strict";
 
 	var run = function () {
+
 		var zoomwallGallery = document.getElementById("zoomwall") || "";
-		var imgClass = "data-src-img"; // lazyloader finds images using class name
-		var jsonHighresKeyName = "highres"; // should be same img data attribute as in json high resolution key name
-		var jsonSrcKeyName = "src"; // will be an initial img src from json
-		var jsonUrl = "./libs/picturewall/json/zoomwall.json"; // images list
+		var imgClass = "data-src-img";
+		var jsonHighresKeyName = "highres";
+		var jsonSrcKeyName = "src";
+		var jsonUrl = "./libs/picturewall/json/zoomwall.json";
+
 		var myHeaders = new Headers();
+
 		fetch(jsonUrl, {
 			headers: myHeaders,
 			credentials: "same-origin"
 		}).then(function (response) {
+
 			if (response.ok) {
 				return response.text();
 			} else {
 				throw new Error("cannot fetch", jsonUrl);
 			}
+
 		}).then(function (text) {
+
 			var generateGallery = new Promise(function (resolve, reject) {
-				var jsonObj;
-				try {
-					jsonObj = JSON.parse(text);
-					if (!jsonObj[0][jsonHighresKeyName]) {
-						throw new Error("incomplete JSON data: no " + jsonHighresKeyName);
-					} else {
-						if (!jsonObj[0][jsonSrcKeyName]) {
-							throw new Error("incomplete JSON data: no " + jsonSrcKeyName);
-						}
-					}
-				} catch (err) {
-					console.log("cannot init generateGallery", err);
-					return;
-				}
-				var df = document.createDocumentFragment();
-				var key;
-				for (key in jsonObj) {
-					if (jsonObj.hasOwnProperty(key)) {
-						if (jsonObj[key][jsonSrcKeyName] && jsonObj[key][jsonHighresKeyName]) {
-							var img = document.createElement("img");
-							if ((/^([0-9]+)(\x|\ )([0-9]+)$/).test(jsonObj[key][jsonSrcKeyName])) {
-								img.src = ["data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20",
-									jsonObj[key][jsonSrcKeyName].replace("x", "%20"),
-									"%27%2F%3E"].join("");
-							} else {
-								img.src = jsonObj[key][jsonSrcKeyName];
+					var jsonObj;
+					try {
+						jsonObj = JSON.parse(text);
+						if (!jsonObj[0][jsonHighresKeyName]) {
+							throw new Error("incomplete JSON data: no " + jsonHighresKeyName);
+						} else {
+							if (!jsonObj[0][jsonSrcKeyName]) {
+								throw new Error("incomplete JSON data: no " + jsonSrcKeyName);
 							}
-							img.dataset[jsonHighresKeyName] = jsonObj[key][jsonHighresKeyName];
-							img.classList.add(imgClass);
-							df.appendChild(img);
-							df.appendChild(document.createTextNode("\n"));
+						}
+					} catch (err) {
+						console.log("cannot init generateGallery", err);
+						return;
+					}
+
+					var appendChild = "appendChild";
+
+					var createElement = "createElement";
+
+					var classList = "classList";
+
+					var dataset = "dataset";
+
+					var src = "src";
+
+					var createTextNode = "createTextNode";
+
+					var hasOwnProperty = "hasOwnProperty";
+
+					var df = document.createDocumentFragment();
+					var key;
+					for (key in jsonObj) {
+						if (jsonObj[hasOwnProperty](key)) {
+							if (jsonObj[key][jsonSrcKeyName] && jsonObj[key][jsonHighresKeyName]) {
+								var img = document[createElement]("img");
+								if ((/^([0-9]+)(\x|\ )([0-9]+)$/).test(jsonObj[key][jsonSrcKeyName])) {
+									img[src] = ["data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20", jsonObj[key][jsonSrcKeyName].replace("x", "%20"), "%27%2F%3E"].join("");
+								} else {
+									img[src] = jsonObj[key][jsonSrcKeyName];
+								}
+								img[dataset][jsonHighresKeyName] = jsonObj[key][jsonHighresKeyName];
+								img[classList].add(imgClass);
+								df[appendChild](img);
+								df[appendChild](document[createTextNode]("\n"));
+							}
 						}
 					}
-				}
-				key = null;
-				/* var i;
-				for (i = 0; i < jsonObj.length; i += 1) {
-					var img = d.createElement("img");
-					img.src = jsonObj[i].src;
-					img.dataset[jsonHighresKeyName] = jsonObj[i][jsonHighresKeyName];
-					img.classList.add(imgClass);
-					df.appendChild(img);
-					df.appendChild(d.createTextNode("\n"));
-				}
-				i = null; */
-				if (zoomwallGallery.appendChild(df)) {
-					resolve();
-				} else {
-					reject();
-				}
-			});
+					key = null;
+					if (zoomwallGallery[appendChild](df)) {
+						resolve();
+					} else {
+						reject();
+					}
+				});
+
 			generateGallery.then(function (result) {
 				return result;
 			}).then(function (result) {
 				var timers = setTimeout(function () {
-					clearTimeout(timers);
-					timers = null;
-					if (zoomwallGallery) {
-						zoomwall.create(zoomwallGallery, true, jsonHighresKeyName);
-					}
-				}, 200);
+						clearTimeout(timers);
+						timers = null;
+						if (zoomwallGallery) {
+							zoomwall.create(zoomwallGallery, true, jsonHighresKeyName);
+						}
+					}, 200);
 			}).then(function (result) {
 				var timers = setTimeout(function () {
-					clearTimeout(timers);
-					timers = null;
-					echo(imgClass, jsonHighresKeyName);
-				}, 200);
+						clearTimeout(timers);
+						timers = null;
+						echo(imgClass, jsonHighresKeyName);
+					}, 200);
 			}).catch (function (err) {
 				console.log("Cannot create zoomwall gallery", err);
 			});
+
 		}).catch (function (err) {
 			console.log("cannot parse", jsonUrl);
 		});
-		/* var initEcho = function () {
-			echo(imgClass, jsonHighresKeyName);
-		};
-		w.addEventListener("load", initEcho); */
 	};
 
 	var scripts = ["./libs/picturewall/css/bundle.min.css"];
@@ -562,8 +596,7 @@ Promise, zoomwall */
 		scripts.push("//cdn.jsdelivr.net/fetch/2.0.1/fetch.min.js");
 	}
 
-	/* scripts.push("./js/zoomwall.fixed.min.js", "./js/echo.fixed.js"); */
-
 	var load;
 	load = new loadJsCss(scripts, run);
-}("undefined" !== typeof window ? window : this, document));
+}
+	("undefined" !== typeof window ? window : this, document));
