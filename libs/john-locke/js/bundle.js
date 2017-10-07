@@ -707,22 +707,46 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 
 		var bounceInUpClass = "bounceInUp";
 
+		var bounceOutDownClass = "bounceOutDown";
+
 		var guesture = document[getElementsByClassName]("guesture")[0] || "";
 
+		var start = document[getElementsByClassName]("start")[0] || "";
+		var hand = document[getElementsByClassName]("hand")[0] || "";
+
 		var revealStart = function () {
-			var start = document[getElementsByClassName]("start")[0] || "";
-			var hand = document[getElementsByClassName]("hand")[0] || "";
 			if (start) {
+				start[classList].remove(bounceOutDownClass);
 				start[classList].add(bounceInUpClass);
 				start[style].display = "block";
 			}
 			if (hand) {
+				hand[classList].remove(bounceOutDownClass);
 				hand[classList].add(bounceInUpClass);
 				hand[style].display = "block";
 			}
 			if (guesture) {
 				guesture[classList].add(bounceOutUpClass);
 			}
+		};
+
+		var concealStart = function () {
+			if (start) {
+				start[classList].remove(bounceInUpClass);
+				start[classList].add(bounceOutDownClass);
+			}
+			if (hand) {
+				hand[classList].remove(bounceInUpClass);
+				hand[classList].add(bounceOutDownClass);
+			}
+			var timerDeferHideStart;
+			var deferHideStart = function () {
+				clearTimeout(timerDeferHideStart);
+				timerDeferHideStart = null;
+				start[style].display = "none";
+				hand[style].display = "none";
+			};
+			timerDeferHideStart = setTimeout(deferHideStart, 1000);
 		};
 
 		var wrapper = document[getElementsByClassName]("wrapper")[0] || "";
@@ -736,6 +760,9 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 					root[addEventListener]("swipeup", revealStart, {
 						passive: true
 					});
+					root[addEventListener]("swipedown", concealStart, {
+						passive: true
+					});
 				}
 			} else {
 				if (hasWheel) {
@@ -747,6 +774,9 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 							callback: function (e) {
 								if ("down" === e.direction) {
 									revealStart();
+								}
+								if ("up" === e.direction) {
+									concealStart();
 								}
 							},
 							preventMouse: false
@@ -947,12 +977,12 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
   * load scripts after webfonts loaded using doesFontExist
   */
 
-	var checkFontIsLoadedCallback = function () {
+	var onFontsLoadedCallback = function () {
 
-		var slotCheckFontIsLoaded;
-		var initScriptsLoading = function () {
-			clearInterval(slotCheckFontIsLoaded);
-			slotCheckFontIsLoaded = null;
+		var slotOnFontsLoaded;
+		var onFontsLoaded = function () {
+			clearInterval(slotOnFontsLoaded);
+			slotOnFontsLoaded = null;
 			if (!supportsSvgSmilAnimation) {
 				progressBar.increase(20);
 			}
@@ -969,18 +999,18 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 
 			if (supportsCanvas) {
 				if (doesFontExist("Roboto") && doesFontExist("Roboto Condensed") && doesFontExist("PT Serif")) {
-					initScriptsLoading();
+					onFontsLoaded();
 				}
 			} else {
-				initScriptsLoading();
+				onFontsLoaded();
 			}
 		};
 
-		slotCheckFontIsLoaded = setInterval(checkFontIsLoaded, 100);
+		slotOnFontsLoaded = setInterval(checkFontIsLoaded, 100);
 	};
 
 	var load;
-	load = new loadJsCss([forcedHTTP + "://fonts.googleapis.com/css?family=PT+Serif:400%7CRoboto:400,700%7CRoboto+Condensed:700&subset=cyrillic"], checkFontIsLoadedCallback);
+	load = new loadJsCss([forcedHTTP + "://fonts.googleapis.com/css?family=PT+Serif:400%7CRoboto:400,700%7CRoboto+Condensed:700&subset=cyrillic"], onFontsLoadedCallback);
 
 	/*!
   * load scripts after webfonts loaded using webfontloader
@@ -1009,20 +1039,20 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
  		}
  	}
  };
- 	var checkFontIsLoadedCallback = function () {
- 		var initScriptsLoading = function () {
+ 	var onFontsLoadedCallback = function () {
+ 		var onFontsLoaded = function () {
  		if (!supportsSvgSmilAnimation) {
  			progressBar.increase(20);
  		}
  		var load;
  		load = new loadJsCss(scripts, run);
  	};
- 		root.WebFontConfig.ready(initScriptsLoading);
+ 		root.WebFontConfig.ready(onFontsLoaded);
  };
  	var load;
  load = new loadJsCss(
  		[forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"],
- 		checkFontIsLoadedCallback
+ 		onFontsLoadedCallback
  	); */
 })("undefined" !== typeof window ? window : this, document);
 

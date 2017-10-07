@@ -1,7 +1,6 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global echo, Headers, loadJsCss,
-Promise, zoomwall */
+/*global doesFontExist, echo, Headers, loadJsCss, Promise, zoomwall */
 /*property console, split */
 /*!
  * safe way to handle console.log
@@ -384,7 +383,7 @@ Promise, zoomwall */
 			},
 			listen: function () {
 				if (!isBindedEcho) {
-					root.addEventListener("scroll", throttleEchoImageAll);
+					root.addEventListener("scroll", throttleEchoImageAll, { passive: true });
 					document.documentElement.classList.add(isBindedEchoClass);
 				}
 			}
@@ -400,6 +399,34 @@ Promise, zoomwall */
 		}
 	};
 	root.echo = echo;
+})("undefined" !== typeof window ? window : this, document);
+/*!
+ * modified Detect Whether a Font is Installed
+ * @param {String} fontName The name of the font to check
+ * @return {Boolean}
+ * @author Kirupa <sam@samclarke.com>
+ * @see {@link https://www.kirupa.com/html5/detect_whether_font_is_installed.htm}
+ * passes jshint
+ */
+(function (root, document) {
+	"use strict";
+
+	var doesFontExist = function (fontName) {
+		var canvas = document.createElement("canvas");
+		var context = canvas.getContext("2d");
+		var text = "abcdefghijklmnopqrstuvwxyz0123456789";
+		context.font = "72px monospace";
+		var baselineSize = context.measureText(text).width;
+		context.font = "72px '" + fontName + "', monospace";
+		var newSize = context.measureText(text).width;
+		canvas = null;
+		if (newSize == baselineSize) {
+			return false;
+		} else {
+			return true;
+		}
+	};
+	root.doesFontExist = doesFontExist;
 })("undefined" !== typeof window ? window : this, document);
 /*!
  * modified loadExt
@@ -477,6 +504,8 @@ Promise, zoomwall */
 (function (root, document) {
 	"use strict";
 
+	var createElement = "createElement";
+
 	var run = function () {
 
 		var zoomwallGallery = document.getElementById("zoomwall") || "";
@@ -517,8 +546,6 @@ Promise, zoomwall */
 
 				var appendChild = "appendChild";
 
-				var createElement = "createElement";
-
 				var classList = "classList";
 
 				var dataset = "dataset";
@@ -530,6 +557,7 @@ Promise, zoomwall */
 				var hasOwnProperty = "hasOwnProperty";
 
 				var df = document.createDocumentFragment();
+
 				var key;
 				for (key in jsonObj) {
 					if (jsonObj[hasOwnProperty](key)) {
@@ -548,6 +576,7 @@ Promise, zoomwall */
 					}
 				}
 				key = null;
+
 				if (zoomwallGallery[appendChild](df)) {
 					resolve();
 				} else {
@@ -581,16 +610,133 @@ Promise, zoomwall */
 
 	var scripts = ["./libs/picturewall/css/bundle.min.css"];
 
+	var getHTTP = function (force) {
+		force = force || "";
+		var locationProtocol = root.location.protocol || "";
+		return "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : force ? "http" : "";
+	};
+
+	var forcedHTTP = getHTTP(true);
+
+	var supportsClassList = "classList" in document[createElement]("_") || "";
+
+	if (!supportsClassList) {
+		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/classlist.js@1.1.20150312/classList.min.js");
+	}
+
+	var documentElement = "documentElement";
+
+	var supportsDataset = "undefined" !== typeof root.Element && "dataset" in document[documentElement] || "";
+
+	if (!supportsDataset) {
+		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/element-dataset@2.2.6/lib/browser/index.cjs.min.js");
+	}
+
+	var addEventListener = "addEventListener";
+
+	var defineProperty = "defineProperty";
+
+	var supportsPassive = function () {
+		var support = false;
+		try {
+			var opts = Object[defineProperty] && Object[defineProperty]({}, "passive", {
+				get: function () {
+					support = true;
+				}
+			});
+			root[addEventListener]("test", function () {}, opts);
+		} catch (err) {}
+		return support;
+	}();
+
+	if (!supportsPassive) {
+		scripts.push(forcedHTTP + "://cdnjs.cloudflare.com/ajax/libs/dom4/1.8.3/dom4.js");
+	}
+
 	if (!root.Promise) {
-		scripts.push("//cdn.jsdelivr.net/es6-promise-polyfill/1.2.0/promise.min.js");
+		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/es6-promise-polyfill/1.2.0/promise.min.js");
 	}
 
 	if (!root.fetch) {
-		scripts.push("//cdn.jsdelivr.net/fetch/2.0.1/fetch.min.js");
+		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/fetch/2.0.1/fetch.min.js");
 	}
 
+	/*!
+  * load scripts after webfonts loaded using doesFontExist
+  */
+
+	var onFontsLoadedCallback = function () {
+
+		var slotOnFontsLoaded;
+		var onFontsLoaded = function () {
+			clearInterval(slotOnFontsLoaded);
+			slotOnFontsLoaded = null;
+			var load;
+			load = new loadJsCss(scripts, run);
+		};
+
+		var supportsCanvas = function () {
+			var elem = document.createElement("canvas");
+			return !!(elem.getContext && elem.getContext("2d"));
+		}();
+
+		var checkFontIsLoaded = function () {
+
+			if (supportsCanvas) {
+				if (doesFontExist("Roboto")) {
+					onFontsLoaded();
+				}
+			} else {
+				onFontsLoaded();
+			}
+		};
+
+		slotOnFontsLoaded = setInterval(checkFontIsLoaded, 100);
+	};
+
 	var load;
-	load = new loadJsCss(scripts, run);
+	load = new loadJsCss([forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:400&subset=cyrillic"], onFontsLoadedCallback);
+
+	/*!
+  * load scripts after webfonts loaded using webfontloader
+  */
+
+	/* root.WebFontConfig = {
+ 	google: {
+ 		families: [
+ 			"Roboto:400:cyrillic"
+ 		]
+ 	},
+ 	listeners: [],
+ 	active: function () {
+ 		this.called_ready = true;
+ 		for (var i = 0; i < this.listeners.length; i++) {
+ 			this.listeners[i]();
+ 		}
+ 	},
+ 	ready: function (callback) {
+ 		if (this.called_ready) {
+ 			callback();
+ 		} else {
+ 			this.listeners.push(callback);
+ 		}
+ 	}
+ };
+ 	var onFontsLoadedCallback = function () {
+ 		var onFontsLoaded = function () {
+ 		if (!supportsSvgSmilAnimation) {
+ 			progressBar.increase(20);
+ 		}
+ 		var load;
+ 		load = new loadJsCss(scripts, run);
+ 	};
+ 		root.WebFontConfig.ready(onFontsLoaded);
+ };
+ 	var load;
+ load = new loadJsCss(
+ 		[forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"],
+ 		onFontsLoadedCallback
+ 	); */
 })("undefined" !== typeof window ? window : this, document);
 
 //# sourceMappingURL=bundle.js.map
