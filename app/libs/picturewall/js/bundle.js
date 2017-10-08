@@ -42,20 +42,33 @@
 (function (root, document) {
 	"use strict";
 
+	var parentNode = "parentNode";
+	var addEventListener = "addEventListener";
+	var classList = "classList";
+	var getElementsByClassName = "getElementsByClassName";
+	var children = "children";
+	var getComputedStyle = "getComputedStyle";
+	var offsetTop = "offsetTop";
+	var dataset = "dataset";
+	var nextElementSibling = "nextElementSibling";
+	var previousElementSibling = "previousElementSibling";
+	var length = "length";
+	var hasOwnProperty = "hasOwnProperty";
+	var style = "style";
 	var zoomwall = {
 		create: function (blocks, enableKeys, dataAttributeHighresName, dataAttributeLowresName) {
 			var _this = this;
 			_this.dataAttributeHighresName = dataAttributeHighresName || "highres";
 			_this.dataAttributeLowresName = dataAttributeLowresName || "lowres";
-			zoomwall.resize(blocks.children);
-			blocks.classList.remove("loading");
-			blocks.addEventListener("click", function () {
-				if (_this.children && _this.children.length > 0) {
-					zoomwall.shrink(_this.children[0]);
+			zoomwall.resize(blocks[children]);
+			blocks[classList].remove("loading");
+			blocks[addEventListener]("click", function () {
+				if (_this[children] && _this[children][length] > 0) {
+					zoomwall.shrink(_this[children][0]);
 				}
 			});
-			for (var i = 0; i < blocks.children.length; i++) {
-				blocks.children[i].addEventListener("click", zoomwall.animate);
+			for (var i = 0; i < blocks[children][length]; i++) {
+				blocks[children][i][addEventListener]("click", zoomwall.animate);
 			}
 			if (enableKeys) {
 				zoomwall.keys(blocks);
@@ -66,12 +79,12 @@
 				if (e.defaultPrevented) {
 					return;
 				}
-				var elem = blocks || document.getElementsByClassName("zoomwall lightbox")[0];
+				var elem = blocks || document[getElementsByClassName]("zoomwall lightbox")[0];
 				if (elem) {
 					switch (e.keyCode) {
 						case 27:
-							if (elem.children && elem.children.length > 0) {
-								zoomwall.shrink(elem.children[0]);
+							if (elem[children] && elem[children][length] > 0) {
+								zoomwall.shrink(elem[children][0]);
 							}
 							e.preventDefault();
 							break;
@@ -86,15 +99,15 @@
 					}
 				}
 			};
-			document.addEventListener("keydown", keyPager);
+			document[addEventListener]("keydown", keyPager);
 			return keyPager;
 		},
 		resizeRow: function (row, width) {
-			if (row && row.length > 1) {
+			if (row && row[length] > 1) {
 				for (var i in row) {
-					if (row.hasOwnProperty(i)) {
-						row[i].style.width = parseInt(window.getComputedStyle(row[i]).width, 10) / width * 100 + "%";
-						row[i].style.height = "auto";
+					if (row[hasOwnProperty](i)) {
+						row[i][style].width = parseInt(root[getComputedStyle](row[i]).width, 10) / width * 100 + "%";
+						row[i][style].height = "auto";
 					}
 				}
 			}
@@ -102,8 +115,8 @@
 		calcRowWidth: function (row) {
 			var width = 0;
 			for (var i in row) {
-				if (row.hasOwnProperty(i)) {
-					width += parseInt(window.getComputedStyle(row[i]).width, 10);
+				if (row[hasOwnProperty](i)) {
+					width += parseInt(root[getComputedStyle](row[i]).width, 10);
 				}
 			}
 			return width;
@@ -111,15 +124,15 @@
 		resize: function (blocks) {
 			var row = [];
 			var top = -1;
-			for (var c = 0; c < blocks.length; c++) {
+			for (var c = 0; c < blocks[length]; c++) {
 				var block = blocks[c];
 				if (block) {
 					if (top == -1) {
-						top = block.offsetTop;
-					} else if (block.offsetTop != top) {
+						top = block[offsetTop];
+					} else if (block[offsetTop] != top) {
 						zoomwall.resizeRow(row, zoomwall.calcRowWidth(row));
 						row = [];
-						top = block.offsetTop;
+						top = block[offsetTop];
 					}
 					row.push(block);
 				}
@@ -127,103 +140,103 @@
 			zoomwall.resizeRow(row, zoomwall.calcRowWidth(row));
 		},
 		reset: function (block) {
-			block.style.transform = "translate(0, 0) scale(1)";
-			block.style.webkitTransform = "translate(0, 0) scale(1)";
-			block.classList.remove("active");
+			block[style].transform = "translate(0, 0) scale(1)";
+			block[style].webkitTransform = "translate(0, 0) scale(1)";
+			block[classList].remove("active");
 		},
 		shrink: function (block) {
-			block.parentNode.classList.remove("lightbox");
+			block[parentNode][classList].remove("lightbox");
 			zoomwall.reset(block);
-			var prev = block.previousElementSibling;
+			var prev = block[previousElementSibling];
 			while (prev) {
 				zoomwall.reset(prev);
-				prev = prev.previousElementSibling;
+				prev = prev[previousElementSibling];
 			}
-			var next = block.nextElementSibling;
+			var next = block[nextElementSibling];
 			while (next) {
 				zoomwall.reset(next);
-				next = next.nextElementSibling;
+				next = next[nextElementSibling];
 			}
-			if (block.dataset.lowres) {
-				block.src = block.dataset.lowres;
+			if (block[dataset].lowres) {
+				block.src = block[dataset].lowres;
 			}
 		},
 		expand: function (block) {
 			var _this = this;
-			block.classList.add("active");
-			block.parentNode.classList.add("lightbox");
-			var parentStyle = window.getComputedStyle(block.parentNode);
+			block[classList].add("active");
+			block[parentNode][classList].add("lightbox");
+			var parentStyle = root[getComputedStyle](block[parentNode]);
 			var parentWidth = parseInt(parentStyle.width, 10);
 			var parentHeight = parseInt(parentStyle.height, 10);
-			var parentTop = block.parentNode.getBoundingClientRect().top;
-			var blockStyle = window.getComputedStyle(block);
+			var parentTop = block[parentNode].getBoundingClientRect().top;
+			var blockStyle = root[getComputedStyle](block);
 			var blockWidth = parseInt(blockStyle.width, 10);
 			var blockHeight = parseInt(blockStyle.height, 10);
-			var targetHeight = window.innerHeight;
-			if (parentHeight < window.innerHeight) {
+			var targetHeight = root.innerHeight;
+			if (parentHeight < root.innerHeight) {
 				targetHeight = parentHeight;
 			} else if (parentTop > 0) {
 				targetHeight -= parentTop;
 			}
-			if (block.dataset[_this.dataAttributeHighresName]) {
-				if (block.src != block.dataset[_this.dataAttributeHighresName] && block.dataset[_this.dataAttributeLowresName] === undefined) {
-					block.dataset[_this.dataAttributeLowresName] = block.src;
+			if (block[dataset][_this.dataAttributeHighresName]) {
+				if (block.src != block[dataset][_this.dataAttributeHighresName] && block[dataset][_this.dataAttributeLowresName] === undefined) {
+					block[dataset][_this.dataAttributeLowresName] = block.src;
 				}
-				block.src = block.dataset[_this.dataAttributeHighresName];
+				block.src = block[dataset][_this.dataAttributeHighresName];
 			}
 			var row = [];
 			row.push(block);
-			var next = block.nextElementSibling;
-			while (next && next.offsetTop == block.offsetTop) {
+			var next = block[nextElementSibling];
+			while (next && next[offsetTop] == block[offsetTop]) {
 				row.push(next);
-				next = next.nextElementSibling;
+				next = next[nextElementSibling];
 			}
-			var prev = block.previousElementSibling;
-			while (prev && prev.offsetTop == block.offsetTop) {
+			var prev = block[previousElementSibling];
+			while (prev && prev[offsetTop] == block[offsetTop]) {
 				row.unshift(prev);
-				prev = prev.previousElementSibling;
+				prev = prev[previousElementSibling];
 			}
 			var scale = targetHeight / blockHeight;
 			if (blockWidth * scale > parentWidth) {
 				scale = parentWidth / blockWidth;
 			}
-			var offsetY = parentTop - block.parentNode.offsetTop + block.offsetTop;
-			if (parentHeight < window.innerHeight || blockHeight * scale < parentHeight) {
+			var offsetY = parentTop - block[parentNode][offsetTop] + block[offsetTop];
+			if (parentHeight < root.innerHeight || blockHeight * scale < parentHeight) {
 				offsetY -= targetHeight / 2 - blockHeight * scale / 2;
 			}
 			if (parentTop > 0) {
 				offsetY -= parentTop;
 			}
 			var leftOffsetX = 0;
-			for (var i = 0; i < row.length && row[i] != block; i++) {
-				leftOffsetX += parseInt(window.getComputedStyle(row[i]).width, 10) * scale;
+			for (var i = 0; i < row[length] && row[i] != block; i++) {
+				leftOffsetX += parseInt(root[getComputedStyle](row[i]).width, 10) * scale;
 			}
 			leftOffsetX = parentWidth / 2 - blockWidth * scale / 2 - leftOffsetX;
 			var rightOffsetX = 0;
-			for (var j = row.length - 1; j >= 0 && row[j] != block; j--) {
-				rightOffsetX += parseInt(window.getComputedStyle(row[j]).width, 10) * scale;
+			for (var j = row[length] - 1; j >= 0 && row[j] != block; j--) {
+				rightOffsetX += parseInt(root[getComputedStyle](row[j]).width, 10) * scale;
 			}
 			rightOffsetX = parentWidth / 2 - blockWidth * scale / 2 - rightOffsetX;
 			var itemOffset = 0;
 			var prevWidth = 0;
-			for (var k = 0; k < row.length; k++) {
+			for (var k = 0; k < row[length]; k++) {
 				itemOffset += prevWidth * scale - prevWidth;
-				prevWidth = parseInt(window.getComputedStyle(row[k]).width, 10);
+				prevWidth = parseInt(root[getComputedStyle](row[k]).width, 10);
 				var percentageOffsetX = (itemOffset + leftOffsetX) / prevWidth * 100;
-				var percentageOffsetY = -offsetY / parseInt(window.getComputedStyle(row[k]).height, 10) * 100;
-				row[k].style.transformOrigin = "0% 0%";
-				row[k].style.webkitTransformOrigin = "0% 0%";
-				row[k].style.transform = "translate(" + percentageOffsetX.toFixed(8) + "%, " + percentageOffsetY.toFixed(8) + "%) scale(" + scale.toFixed(8) + ")";
-				row[k].style.webkitTransform = "translate(" + percentageOffsetX.toFixed(8) + "%, " + percentageOffsetY.toFixed(8) + "%) scale(" + scale.toFixed(8) + ")";
+				var percentageOffsetY = -offsetY / parseInt(root[getComputedStyle](row[k]).height, 10) * 100;
+				row[k][style].transformOrigin = "0% 0%";
+				row[k][style].webkitTransformOrigin = "0% 0%";
+				row[k][style].transform = "translate(" + percentageOffsetX.toFixed(8) + "%, " + percentageOffsetY.toFixed(8) + "%) scale(" + scale.toFixed(8) + ")";
+				row[k][style].webkitTransform = "translate(" + percentageOffsetX.toFixed(8) + "%, " + percentageOffsetY.toFixed(8) + "%) scale(" + scale.toFixed(8) + ")";
 			}
 			var nextOffsetY = blockHeight * (scale - 1) - offsetY;
 			var prevHeight;
 			itemOffset = 0;
 			prevWidth = 0;
-			var next2 = row[row.length - 1].nextElementSibling;
+			var next2 = row[row[length] - 1][nextElementSibling];
 			var nextRowTop = -1;
 			while (next2) {
-				var curTop = next2.offsetTop;
+				var curTop = next2[offsetTop];
 				if (curTop == nextRowTop) {
 					itemOffset += prevWidth * scale - prevWidth;
 				} else {
@@ -233,67 +246,67 @@
 					}
 					nextRowTop = curTop;
 				}
-				prevWidth = parseInt(window.getComputedStyle(next2).width, 10);
-				prevHeight = parseInt(window.getComputedStyle(next2).height, 10);
+				prevWidth = parseInt(root[getComputedStyle](next2).width, 10);
+				prevHeight = parseInt(root[getComputedStyle](next2).height, 10);
 				var percentageOffsetX2 = (itemOffset + leftOffsetX) / prevWidth * 100;
 				var percentageOffsetY2 = nextOffsetY / prevHeight * 100;
-				next2.style.transformOrigin = "0% 0%";
-				next2.style.webkitTransformOrigin = "0% 0%";
-				next2.style.transform = "translate(" + percentageOffsetX2.toFixed(8) + "%, " + percentageOffsetY2.toFixed(8) + "%) scale(" + scale.toFixed(8) + ")";
-				next2.style.webkitTransform = "translate(" + percentageOffsetX2.toFixed(8) + "%, " + percentageOffsetY2.toFixed(8) + "%) scale(" + scale.toFixed(8) + ")";
-				next2 = next2.nextElementSibling;
+				next2[style].transformOrigin = "0% 0%";
+				next2[style].webkitTransformOrigin = "0% 0%";
+				next2[style].transform = "translate(" + percentageOffsetX2.toFixed(8) + "%, " + percentageOffsetY2.toFixed(8) + "%) scale(" + scale.toFixed(8) + ")";
+				next2[style].webkitTransform = "translate(" + percentageOffsetX2.toFixed(8) + "%, " + percentageOffsetY2.toFixed(8) + "%) scale(" + scale.toFixed(8) + ")";
+				next2 = next2[nextElementSibling];
 			}
 			var prevOffsetY = -offsetY;
 			itemOffset = 0;
 			prevWidth = 0;
-			var prev2 = row[0].previousElementSibling;
+			var prev2 = row[0][previousElementSibling];
 			var prevRowTop = -1;
 			while (prev2) {
-				var curTop2 = prev2.offsetTop;
+				var curTop2 = prev2[offsetTop];
 				if (curTop2 == prevRowTop) {
 					itemOffset -= prevWidth * scale - prevWidth;
 				} else {
 					itemOffset = 0;
-					prevOffsetY -= parseInt(window.getComputedStyle(prev2).height, 10) * (scale - 1);
+					prevOffsetY -= parseInt(root[getComputedStyle](prev2).height, 10) * (scale - 1);
 					prevRowTop = curTop2;
 				}
-				prevWidth = parseInt(window.getComputedStyle(prev2).width, 10);
+				prevWidth = parseInt(root[getComputedStyle](prev2).width, 10);
 				var percentageOffsetX3 = (itemOffset - rightOffsetX) / prevWidth * 100;
-				var percentageOffsetY3 = prevOffsetY / parseInt(window.getComputedStyle(prev2).height, 10) * 100;
-				prev2.style.transformOrigin = "100% 0%";
-				prev2.style.webkitTransformOrigin = "100% 0%";
-				prev2.style.transform = "translate(" + percentageOffsetX3.toFixed(8) + "%, " + percentageOffsetY3.toFixed(8) + "%) scale(" + scale.toFixed(8) + ")";
-				prev2.style.webkitTransform = "translate(" + percentageOffsetX3.toFixed(8) + "%, " + percentageOffsetY3.toFixed(8) + "%) scale(" + scale.toFixed(8) + ")";
-				prev2 = prev2.previousElementSibling;
+				var percentageOffsetY3 = prevOffsetY / parseInt(root[getComputedStyle](prev2).height, 10) * 100;
+				prev2[style].transformOrigin = "100% 0%";
+				prev2[style].webkitTransformOrigin = "100% 0%";
+				prev2[style].transform = "translate(" + percentageOffsetX3.toFixed(8) + "%, " + percentageOffsetY3.toFixed(8) + "%) scale(" + scale.toFixed(8) + ")";
+				prev2[style].webkitTransform = "translate(" + percentageOffsetX3.toFixed(8) + "%, " + percentageOffsetY3.toFixed(8) + "%) scale(" + scale.toFixed(8) + ")";
+				prev2 = prev2[previousElementSibling];
 			}
 		},
 		animate: function (e) {
 			var _this = this;
-			if (_this.classList.contains("active")) {
+			if (_this[classList].contains("active")) {
 				zoomwall.shrink(_this);
 			} else {
-				var actives = _this.parentNode.getElementsByClassName("active");
-				for (var i = 0; i < actives.length; i++) {
-					actives[i].classList.remove("active");
+				var actives = _this[parentNode][getElementsByClassName]("active");
+				for (var i = 0; i < actives[length]; i++) {
+					actives[i][classList].remove("active");
 				}
 				zoomwall.expand(_this);
 			}
 			e.stopPropagation();
 		},
 		page: function (blocks, isNext) {
-			var actives = blocks.getElementsByClassName("active");
-			if (actives && actives.length > 0) {
+			var actives = blocks[getElementsByClassName]("active");
+			if (actives && actives[length] > 0) {
 				var current = actives[0];
 				var next;
 				if (isNext) {
-					next = current.nextElementSibling;
+					next = current[nextElementSibling];
 				} else {
-					next = current.previousElementSibling;
+					next = current[previousElementSibling];
 				}
 				if (next) {
-					current.classList.remove("active");
-					if (current.dataset.lowres) {
-						current.src = current.dataset.lowres;
+					current[classList].remove("active");
+					if (current[dataset].lowres) {
+						current.src = current[dataset].lowres;
 					}
 					zoomwall.expand(next);
 				}
@@ -315,6 +328,15 @@
 		imgClass = imgClass || "data-src-img";
 		dataAttributeName = dataAttributeName || "src";
 		throttleRate = throttleRate || 100;
+		var addEventListener = "addEventListener";
+		var dataset = "dataset";
+		var getElementsByClassName = "getElementsByClassName";
+		var getBoundingClientRect = "getBoundingClientRect";
+		var classList = "classList";
+		var getAttribute = "getAttribute";
+		var length = "length";
+		var documentElement = "documentElement";
+		var defineProperty = "defineProperty";
 		var Echo = function (elem) {
 			var _this = this;
 			_this.elem = elem;
@@ -323,15 +345,15 @@
 		};
 		var isBindedEchoClass = "is-binded-echo";
 		var isBindedEcho = function () {
-			return document.documentElement.classList.contains(isBindedEchoClass) || "";
+			return document[documentElement][classList].contains(isBindedEchoClass) || "";
 		}();
 		var echoStore = [];
 		var scrolledIntoView = function (element) {
-			var coords = element.getBoundingClientRect();
-			return (coords.top >= 0 && coords.left >= 0 && coords.top) <= (window.innerHeight || document.documentElement.clientHeight);
+			var coords = element[getBoundingClientRect]();
+			return (coords.top >= 0 && coords.left >= 0 && coords.top) <= (root.innerHeight || document[documentElement].clientHeight);
 		};
 		var echoSrc = function (img, callback) {
-			img.src = img.dataset[dataAttributeName] || img.getAttribute("data-" + dataAttributeName);
+			img.src = img[dataset][dataAttributeName] || img[getAttribute]("data-" + dataAttributeName);
 			if (callback) {
 				callback();
 			}
@@ -374,6 +396,18 @@
 			}
 		};
 		var throttleEchoImageAll = throttle(echoImageAll, throttleRate);
+		var supportsPassive = function () {
+			var support = false;
+			try {
+				var opts = Object[defineProperty] && Object[defineProperty]({}, "passive", {
+					get: function () {
+						support = true;
+					}
+				});
+				root[addEventListener]("test", function () {}, opts);
+			} catch (err) {}
+			return support;
+		}();
 		Echo.prototype = {
 			init: function () {
 				echoStore.push(this.elem);
@@ -383,14 +417,14 @@
 			},
 			listen: function () {
 				if (!isBindedEcho) {
-					root.addEventListener("scroll", throttleEchoImageAll, { passive: true });
-					document.documentElement.classList.add(isBindedEchoClass);
+					root[addEventListener]("scroll", throttleEchoImageAll, supportsPassive ? { passive: true } : false);
+					document[documentElement][classList].add(isBindedEchoClass);
 				}
 			}
 		};
-		var lazyImgs = document.getElementsByClassName(imgClass) || "";
+		var lazyImgs = document[getElementsByClassName](imgClass) || "";
 		var walkLazyImageAll = function () {
-			for (var i = 0; i < lazyImgs.length; i++) {
+			for (var i = 0; i < lazyImgs[length]; i++) {
 				new Echo(lazyImgs[i]).init();
 			}
 		};
@@ -529,7 +563,16 @@
 		}).then(function (text) {
 
 			var generateGallery = new Promise(function (resolve, reject) {
+
+				var appendChild = "appendChild";
+				var classList = "classList";
+				var dataset = "dataset";
+				var src = "src";
+				var createTextNode = "createTextNode";
+				var hasOwnProperty = "hasOwnProperty";
+
 				var jsonObj;
+
 				try {
 					jsonObj = JSON.parse(text);
 					if (!jsonObj[0][jsonHighresKeyName]) {
@@ -543,18 +586,6 @@
 					console.log("cannot init generateGallery", err);
 					return;
 				}
-
-				var appendChild = "appendChild";
-
-				var classList = "classList";
-
-				var dataset = "dataset";
-
-				var src = "src";
-
-				var createTextNode = "createTextNode";
-
-				var hasOwnProperty = "hasOwnProperty";
 
 				var df = document.createDocumentFragment();
 
@@ -587,17 +618,17 @@
 			generateGallery.then(function (result) {
 				return result;
 			}).then(function (result) {
-				var timers = setTimeout(function () {
-					clearTimeout(timers);
-					timers = null;
+				var timer = setTimeout(function () {
+					clearTimeout(timer);
+					timer = null;
 					if (zoomwallGallery) {
 						zoomwall.create(zoomwallGallery, true, jsonHighresKeyName);
 					}
 				}, 200);
 			}).then(function (result) {
-				var timers = setTimeout(function () {
-					clearTimeout(timers);
-					timers = null;
+				var timer = setTimeout(function () {
+					clearTimeout(timer);
+					timer = null;
 					echo(imgClass, jsonHighresKeyName);
 				}, 200);
 			}).catch(function (err) {
@@ -607,6 +638,10 @@
 			console.log("cannot parse", jsonUrl);
 		});
 	};
+
+	var documentElement = "documentElement";
+	var defineProperty = "defineProperty";
+	var addEventListener = "addEventListener";
 
 	var scripts = ["./libs/picturewall/css/bundle.min.css"];
 
@@ -624,17 +659,11 @@
 		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/classlist.js@1.1.20150312/classList.min.js");
 	}
 
-	var documentElement = "documentElement";
-
 	var supportsDataset = "undefined" !== typeof root.Element && "dataset" in document[documentElement] || "";
 
 	if (!supportsDataset) {
 		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/element-dataset@2.2.6/lib/browser/index.cjs.min.js");
 	}
-
-	var addEventListener = "addEventListener";
-
-	var defineProperty = "defineProperty";
 
 	var supportsPassive = function () {
 		var support = false;
@@ -667,16 +696,16 @@
 
 	var onFontsLoadedCallback = function () {
 
-		var slotOnFontsLoaded;
+		var slot;
 		var onFontsLoaded = function () {
-			clearInterval(slotOnFontsLoaded);
-			slotOnFontsLoaded = null;
+			clearInterval(slot);
+			slot = null;
 			var load;
 			load = new loadJsCss(scripts, run);
 		};
 
 		var supportsCanvas = function () {
-			var elem = document.createElement("canvas");
+			var elem = document[createElement]("canvas");
 			return !!(elem.getContext && elem.getContext("2d"));
 		}();
 
@@ -691,7 +720,7 @@
 			}
 		};
 
-		slotOnFontsLoaded = setInterval(checkFontIsLoaded, 100);
+		slot = setInterval(checkFontIsLoaded, 100);
 	};
 
 	var load;

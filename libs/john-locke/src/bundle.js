@@ -363,6 +363,23 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 (function (root, document, undefined) {
 	"use strict";
 
+	var addEventListener = "addEventListener";
+	var createElementNS = "createElementNS";
+	var getElementsByClassName = "getElementsByClassName";
+	var parentNode = "parentNode";
+	var removeChild = "removeChild";
+	var remove = "remove";
+	var className = "className";
+	var getAttribute = "getAttribute";
+	var src = "src";
+	var length = "length";
+	var getElementsByTagName = "getElementsByTagName";
+	var styleSheets = "styleSheets";
+	var documentElement = "documentElement";
+	var createElement = "createElement";
+
+	var bounceOutUpClass = "bounceOutUp";
+
 	var progressBar = new ToProgress({
 			id: "top-progress-bar",
 			color: "#FF2C40",
@@ -384,10 +401,6 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 		}
 	};
 
-	var addEventListener = "addEventListener";
-
-	var createElementNS = "createElementNS";
-
 	var toStringFn = {}.toString;
 	var supportsSvgSmilAnimation = !!document[createElementNS] && (/SVGAnimate/).test(toStringFn.call(document[createElementNS]("http://www.w3.org/2000/svg", "animate"))) || "";
 
@@ -401,14 +414,6 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 
 		root[addEventListener]("load", hideProgressBar);
 	}
-
-	var getElementsByClassName = "getElementsByClassName";
-
-	var parentNode = "parentNode";
-
-	var removeChild = "removeChild";
-
-	var remove = "remove";
 
 	var removeElement = function (elem) {
 		if (elem) {
@@ -446,10 +451,6 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 		removeLoading();
 	};
 
-	var className = "className";
-
-	var bounceOutUpClass = "bounceOutUp";
-
 	var hidePreloaders = function () {
 		if (ripple) {
 			ripple[className] += " " + bounceOutUpClass;
@@ -467,12 +468,6 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 	} else {
 		root[addEventListener]("load", hidePreloaders);
 	}
-
-	var getAttribute = "getAttribute";
-
-	var src = "src";
-
-	var length = "length";
 
 	var supportsSvgAsImg = document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1") || "";
 
@@ -514,14 +509,12 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 		img[src] = url;
 	};
 
-	var getElementsByTagName = "getElementsByTagName";
-
-	var styleSheets = "styleSheets";
-
 	var canvasAll = document[getElementsByTagName]("canvas") || "";
+
 	var styleSheetsLength = document[styleSheets][length] || 0;
 
 	var slotDrawCanvasAll;
+
 	var drawCanvasAll = function () {
 		if (document[styleSheets][length] > styleSheetsLength) {
 			clearInterval(slotDrawCanvasAll);
@@ -536,13 +529,10 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 			i = l = null;
 		}
 	};
+
 	if (canvasAll && styleSheetsLength) {
 		slotDrawCanvasAll = setInterval(drawCanvasAll, 100);
 	}
-
-	var documentElement = "documentElement";
-
-	var createElement = "createElement";
 
 	var hasTouch = "ontouchstart" in document[documentElement] || "";
 
@@ -558,34 +548,35 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 
 	var run = function () {
 
+		var style = "style";
+		var visibility = "visibility";
+		var opacity = "opacity";
+		var href = "href";
+		var appendChild = "appendChild";
+		var getElementById = "getElementById";
+		var classList = "classList";
+		var dataset = "dataset";
+		var title = "title";
+
+		var bounceInUpClass = "bounceInUp";
+		var bounceOutDownClass = "bounceOutDown";
+
 		if (!supportsSvgSmilAnimation) {
 			progressBar.increase(20);
 		}
 
-		var style = "style";
-
-		var visibility = "visibility";
-
-		var opacity = "opacity";
-
 		var qrcode = document[getElementsByClassName]("qrcode")[0] || "";
-		var timerShowQrcode;
+		var timerhowQrcode;
 		var showQrcode = function () {
-			clearTimeout(timerShowQrcode);
-			timerShowQrcode = null;
+			clearTimeout(timerhowQrcode);
+			timerhowQrcode = null;
 			qrcode[style][visibility] = "visible";
 			qrcode[style][opacity] = 1;
 		};
 
-		var href = "href";
-
 		var locationHref = root.location[href] || "";
 
-		var title = "title";
-
 		var documentTitle = document[title] || "";
-
-		var appendChild = "appendChild";
 
 		if (qrcode) {
 			var qrcodeImg = document[createElement]("img");
@@ -621,7 +612,7 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 			}
 			qrcodeImg[title] = qrcodeImgTitle;
 			qrcode[appendChild](qrcodeImg);
-			timerShowQrcode = setTimeout(showQrcode, 2000);
+			timerhowQrcode = setTimeout(showQrcode, 2000);
 		}
 
 		var downloadApp = document[getElementsByClassName]("download-app")[0] || "";
@@ -645,10 +636,10 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 		}
 		();
 
-		var timerShowDownloadApp;
+		var timerhowDownloadApp;
 		var showDownloadApp = function () {
-			clearTimeout(timerShowDownloadApp);
-			timerShowDownloadApp = null;
+			clearTimeout(timerhowDownloadApp);
+			timerhowDownloadApp = null;
 			downloadApp[style][visibility] = "visible";
 			downloadApp[style][opacity] = 1;
 		};
@@ -709,11 +700,9 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 					downloadAppImgSrc = downloadAppImgSrc.slice(0, -3) + "png";
 				}
 				downloadAppImg[src] = downloadAppImgSrc;
-				timerShowDownloadApp = setTimeout(showDownloadApp, 1000);
+				timerhowDownloadApp = setTimeout(showDownloadApp, 1000);
 			}
 		}
-
-		var getElementById = "getElementById";
 
 		var scene = document[getElementById]("scene") || "";
 		var parallax;
@@ -721,17 +710,11 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 			parallax = new Parallax(scene);
 		}
 
-		var classList = "classList";
-
-		var bounceInUpClass = "bounceInUp";
-		
-		var bounceOutDownClass = "bounceOutDown";
-
 		var guesture = document[getElementsByClassName]("guesture")[0] || "";
 
 		var start = document[getElementsByClassName]("start")[0] || "";
 		var hand = document[getElementsByClassName]("hand")[0] || "";
-		
+
 		var revealStart = function () {
 			if (start) {
 				start[classList].remove(bounceOutDownClass);
@@ -747,7 +730,7 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 				guesture[classList].add(bounceOutUpClass);
 			}
 		};
-		
+
 		var concealStart = function () {
 			if (start) {
 				start[classList].remove(bounceInUpClass);
@@ -775,12 +758,8 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 			if (hasTouch) {
 				mousewheeldown[style].display = "none";
 				if (root.tocca) {
-					root[addEventListener]("swipeup", revealStart, {
-						passive: true
-					});
-					root[addEventListener]("swipedown", concealStart, {
-						passive: true
-					});
+					root[addEventListener]("swipeup", revealStart, {passive: true});
+					root[addEventListener]("swipedown", concealStart, {passive: true});
 				}
 			} else {
 				if (hasWheel) {
@@ -895,8 +874,6 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 			btnShareLink[addEventListener]("click", showYaShare2);
 		}
 
-		var dataset = "dataset";
-
 		var vkLikeClass = "vk-like";
 		var vkLike = document[getElementsByClassName](vkLikeClass)[0] || "";
 
@@ -950,6 +927,8 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 		}
 	};
 
+	var defineProperty = "defineProperty";
+
 	var scripts = [
 		forcedHTTP + "://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.min.css",
 		"./libs/john-locke/css/bundle.min.css"];
@@ -965,8 +944,6 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 	if (!supportsDataset) {
 		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/element-dataset@2.2.6/lib/browser/index.cjs.min.js");
 	}
-
-	var defineProperty = "defineProperty";
 
 	var supportsPassive = (function () {
 		var support = false;
@@ -1006,10 +983,10 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 
 	var onFontsLoadedCallback = function () {
 
-		var slotOnFontsLoaded;
+		var slot;
 		var onFontsLoaded = function () {
-			clearInterval(slotOnFontsLoaded);
-			slotOnFontsLoaded = null;
+			clearInterval(slot);
+			slot = null;
 			if (!supportsSvgSmilAnimation) {
 				progressBar.increase(20);
 			}
@@ -1018,7 +995,7 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 		};
 
 		var supportsCanvas = (function () {
-			var elem = document.createElement("canvas");
+			var elem = document[createElement]("canvas");
 			return !!(elem.getContext && elem.getContext("2d"));
 		}
 			());
@@ -1034,7 +1011,7 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 			}
 		};
 
-		slotOnFontsLoaded = setInterval(checkFontIsLoaded, 100);
+		slot = setInterval(checkFontIsLoaded, 100);
 	};
 
 	var load;
