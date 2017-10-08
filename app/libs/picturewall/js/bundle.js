@@ -319,6 +319,8 @@
  * modified Echo.js, simple JavaScript image lazy loading
  * added option to specify data attribute and img class
  * @see {@link https://toddmotto.com/echo-js-simple-javascript-image-lazy-loading/}
+ * @see {@link https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md#feature-detection}
+ * forced passive event listener if supported
  * passes jshint
  */
 (function (root, document) {
@@ -618,19 +620,23 @@
 			generateGallery.then(function (result) {
 				return result;
 			}).then(function (result) {
-				var timer = setTimeout(function () {
-					clearTimeout(timer);
-					timer = null;
+				var timerCreateGallery;
+				var createGallery = function () {
+					clearTimeout(timerCreateGallery);
+					timerCreateGallery = null;
 					if (zoomwallGallery) {
 						zoomwall.create(zoomwallGallery, true, jsonHighresKeyName);
 					}
-				}, 200);
+				};
+				timerCreateGallery = setTimeout(createGallery, 200);
 			}).then(function (result) {
-				var timer = setTimeout(function () {
-					clearTimeout(timer);
-					timer = null;
+				var timerSetLazyloading;
+				var setLazyloading = function () {
+					clearTimeout(timerSetLazyloading);
+					timerSetLazyloading = null;
 					echo(imgClass, jsonHighresKeyName);
-				}, 200);
+				};
+				timerSetLazyloading = setTimeout(setLazyloading, 200);
 			}).catch(function (err) {
 				console.log("Cannot create zoomwall gallery", err);
 			});
@@ -711,12 +717,12 @@
 
 		var checkFontIsLoaded = function () {
 
-			if (supportsCanvas) {
-				if (doesFontExist("Roboto")) {
+			if (doesFontExist("Roboto")) {
+				if (supportsCanvas) {
+					onFontsLoaded();
+				} else {
 					onFontsLoaded();
 				}
-			} else {
-				onFontsLoaded();
 			}
 		};
 
