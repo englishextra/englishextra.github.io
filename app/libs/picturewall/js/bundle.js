@@ -716,17 +716,17 @@
 		}();
 
 		var checkFontIsLoaded = function () {
-
 			if (doesFontExist("Roboto")) {
-				if (supportsCanvas) {
-					onFontsLoaded();
-				} else {
-					onFontsLoaded();
-				}
+				onFontsLoaded();
 			}
 		};
 
-		slot = setInterval(checkFontIsLoaded, 100);
+		if (supportsCanvas) {
+			slot = setInterval(checkFontIsLoaded, 100);
+		} else {
+			slot = null;
+			onFontsLoaded();
+		}
 	};
 
 	var load;

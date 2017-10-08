@@ -566,10 +566,10 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 		}
 
 		var qrcode = document[getElementsByClassName]("qrcode")[0] || "";
-		var timerhowQrcode;
+		var timerShowQrcode;
 		var showQrcode = function () {
-			clearTimeout(timerhowQrcode);
-			timerhowQrcode = null;
+			clearTimeout(timerShowQrcode);
+			timerShowQrcode = null;
 			qrcode[style][visibility] = "visible";
 			qrcode[style][opacity] = 1;
 		};
@@ -612,7 +612,7 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 			}
 			qrcodeImg[title] = qrcodeImgTitle;
 			qrcode[appendChild](qrcodeImg);
-			timerhowQrcode = setTimeout(showQrcode, 2000);
+			timerShowQrcode = setTimeout(showQrcode, 2000);
 		}
 
 		var downloadApp = document[getElementsByClassName]("download-app")[0] || "";
@@ -740,14 +740,14 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 				hand[classList].remove(bounceInUpClass);
 				hand[classList].add(bounceOutDownClass);
 			}
-			var timerDeferHideStart;
-			var deferHideStart = function () {
-				clearTimeout(timerDeferHideStart);
-				timerDeferHideStart = null;
+			var timerHideStart;
+			var hideStart = function () {
+				clearTimeout(timerHideStart);
+				timerHideStart = null;
 				start[style].display = "none";
 				hand[style].display = "none";
 			};
-			timerDeferHideStart = setTimeout(deferHideStart, 1000);
+			timerHideStart = setTimeout(hideStart, 1000);
 		};
 
 		var wrapper = document[getElementsByClassName]("wrapper")[0] || "";
@@ -972,7 +972,6 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 		scripts.push(forcedHTTP + "://cdnjs.cloudflare.com/ajax/libs/Tocca.js/2.0.1/Tocca.min.js");
 	} else {
 		if (hasWheel) {
-			/* scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/wheel-indicator@1.1.4/lib/wheel-indicator.min.js"); */
 			scripts.push("./cdn/wheel-indicator/1.1.4/js/wheel-indicator.fixed.min.js");
 		}
 	}
@@ -1001,17 +1000,17 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 			());
 
 		var checkFontIsLoaded = function () {
-
-			if (supportsCanvas) {
-				if (doesFontExist("Roboto") && doesFontExist("Roboto Condensed") && doesFontExist("PT Serif")) {
-					onFontsLoaded();
-				}
-			} else {
+			if (doesFontExist("Roboto") && doesFontExist("Roboto Condensed") && doesFontExist("PT Serif")) {
 				onFontsLoaded();
 			}
 		};
 
-		slot = setInterval(checkFontIsLoaded, 100);
+		if (supportsCanvas) {
+			slot = setInterval(checkFontIsLoaded, 100);
+		} else {
+			slot = null;
+			onFontsLoaded();
+		}
 	};
 
 	var load;
