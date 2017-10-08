@@ -946,7 +946,7 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 	} else {
 		if (hasWheel) {
 			/* scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/wheel-indicator@1.1.4/lib/wheel-indicator.min.js"); */
-			scripts.push("./cdn/wheel-indicator/1.1.4/js/wheel-indicator-passive.fixed.min.js");
+			scripts.push("./cdn/wheel-indicator/1.1.4/js/wheel-indicator.fixed.min.js");
 		}
 	}
 
