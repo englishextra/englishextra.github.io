@@ -1,6 +1,7 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global doesFontExist, echo, Headers, loadJsCss, Promise, zoomwall */
+/*global doesFontExist, echo, Headers, loadJsCss, platform, Promise,
+zoomwall */
 /*property console, split */
 /*!
  * safe way to handle console.log
@@ -549,6 +550,14 @@
 
 	var run = function () {
 
+		var appendChild = "appendChild";
+		var classList = "classList";
+		var dataset = "dataset";
+		var src = "src";
+		var createTextNode = "createTextNode";
+		var hasOwnProperty = "hasOwnProperty";
+		var title = "title";
+
 		var zoomwallGallery = document.getElementById("zoomwall") || "";
 		var imgClass = "data-src-img";
 		var jsonHighresKeyName = "highres";
@@ -571,13 +580,6 @@
 		}).then(function (text) {
 
 			var generateGallery = new Promise(function (resolve, reject) {
-
-				var appendChild = "appendChild";
-				var classList = "classList";
-				var dataset = "dataset";
-				var src = "src";
-				var createTextNode = "createTextNode";
-				var hasOwnProperty = "hasOwnProperty";
 
 				var jsonObj;
 
@@ -650,6 +652,46 @@
 		}).catch (function (err) {
 			console.log("cannot parse", jsonUrl);
 		});
+
+		var hasTouch = "ontouchstart" in document[documentElement] || "";
+
+		var hasWheel = "onwheel" in document[createElement]("div") || void 0 !== document.onmousewheel || "";
+
+		var documentTitle = document[title] || "";
+
+		var navigatorUserAgent = navigator.userAgent || "";
+
+		var getHumanDate = function () {
+			var newDate = (new Date());
+			var newDay = newDate.getDate();
+			var newYear = newDate.getFullYear();
+			var newMonth = newDate.getMonth();
+			(newMonth += 1);
+			if (10 > newDay) {
+				newDay = "0" + newDay;
+			}
+			if (10 > newMonth) {
+				newMonth = "0" + newMonth;
+			}
+			return newYear + "-" + newMonth + "-" + newDay;
+		}
+		();
+
+		var platformName = "";
+		var platformDescription = "";
+		if (navigatorUserAgent && root.platform) {
+			platformName = platform.name || "";
+			platformDescription = platform.description || "";
+			document[title] = documentTitle +
+			" [" +
+			(getHumanDate ? " " + getHumanDate : "") +
+			(platformDescription ? " " + platformDescription : "") +
+			((hasTouch || hasWheel) ? " with" : "") +
+			(hasTouch ? " touch" : "") +
+			((hasTouch && hasWheel) ? "," : "") +
+			(hasWheel ? " mousewheel" : "") +
+			"]";
+		}
 	};
 
 	var documentElement = "documentElement";
@@ -704,6 +746,8 @@
 	if (!root.fetch) {
 		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/fetch/2.0.1/fetch.min.js");
 	}
+
+	scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/platform@1.3.4/platform.min.js");
 
 	/*!
 	 * load scripts after webfonts loaded using doesFontExist
