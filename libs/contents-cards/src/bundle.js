@@ -38,6 +38,8 @@ Promise, t */
  */
 (function(root, document) {
 	"use strict";
+	var getElementById = "getElementById";
+	var getElementsByClassName = "getElementsByClassName";
 	function extend(a, b) {
 		for (var key in b) {
 			if (b.hasOwnProperty(key)) {
@@ -47,8 +49,12 @@ Promise, t */
 		return a;
 	}
 	var Minigrid = function(props) {
-		var containerEle = props.container instanceof Node ? (props.container) : (document.querySelector(props.container));
-		var itemsNodeList = props.item instanceof NodeList ? props.item : containerEle.querySelectorAll(props.item);
+		var containerEle = props.container instanceof Node ?
+			(props.container) :
+			(document[getElementById](props.container) || document[getElementsByClassName](props.container)[0] || "");
+		var itemsNodeList = props.item instanceof NodeList ?
+			props.item :
+			(containerEle[getElementsByClassName](props.item) || "");
 		this.props = extend(props, {
 			container: containerEle,
 			nodeList: itemsNodeList
@@ -488,7 +494,8 @@ Promise, t */
 			"]";
 		}
 
-		var cardGrid = document[getElementsByClassName]("card-grid")[0] || "";
+		var cardGridClass = "card-grid";
+		var cardGrid = document[getElementsByClassName](cardGridClass)[0] || "";
 		var imgClass = "data-src-img";
 		var jsonHrefKeyName = "href";
 		var jsonSrcKeyName = "src";
@@ -712,12 +719,17 @@ Promise, t */
 					clearTimeout(timerCreateGrid);
 					timerCreateGrid = null;
 
+					var onMinigridCreated = function () {
+						cardGrid[style].visibility = "visible";
+						cardGrid[style].opacity = 1;
+					};
 					var mgrid;
 					var initMinigrid = function () {
 						mgrid = new Minigrid({
-								container: ".card-grid",
-								item: ".card-wrap",
-								gutter: 20
+								container: cardGridClass,
+								item: cardWrapClass,
+								gutter: 20,
+								done: onMinigridCreated
 							});
 						mgrid.mount();
 					};
@@ -728,21 +740,16 @@ Promise, t */
 					root[addEventListener]("resize", updateMinigrid, {passive: true});
 
 					var docElemStyle = document[documentElement][style];
-
 					var transitionProperty = typeof docElemStyle.transition == "string" ?
 						"transition" : "WebkitTransition";
-
 					var transformProperty = typeof docElemStyle.transform == "string" ?
 						"transform" : "WebkitTransform";
-
 					function toDashedAll(str) {
 						return str.replace(/([A-Z])/g, function ($1) {
 							return '-' + $1.toLowerCase();
 						});
 					}
-
 					var styleSheet = document[styleSheets][0] || "";
-
 					if (styleSheet) {
 						var cssRule = toDashedAll([".",
 									cardWrapClass,
@@ -764,12 +771,7 @@ Promise, t */
 				var setLazyloading = function () {
 					clearTimeout(timerSetLazyloading);
 					timerSetLazyloading = null;
-
-					cardGrid[style].visibility = "visible";
-					cardGrid[style].opacity = 1;
-
 					echo(imgClass, jsonSrcKeyName);
-
 				};
 				timerSetLazyloading = setTimeout(setLazyloading, 200);
 

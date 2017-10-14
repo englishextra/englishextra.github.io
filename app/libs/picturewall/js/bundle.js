@@ -1,6 +1,6 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global doesFontExist, echo, Headers, loadJsCss, platform, Promise,
+/*global doesFontExist, echo, Headers, loadJsCss, platform, Promise, t,
 zoomwall */
 /*property console, split */
 /*!
@@ -57,7 +57,7 @@ zoomwall */
 	var hasOwnProperty = "hasOwnProperty";
 	var style = "style";
 	var zoomwall = {
-		create: function (blocks, enableKeys, dataAttributeHighresName, dataAttributeLowresName) {
+		create: function (blocks, enableKeys, dataAttributeHighresName, dataAttributeLowresName, done) {
 			var _this = this;
 			_this.dataAttributeHighresName = dataAttributeHighresName || "highres";
 			_this.dataAttributeLowresName = dataAttributeLowresName || "lowres";
@@ -73,6 +73,9 @@ zoomwall */
 			}
 			if (enableKeys) {
 				zoomwall.keys(blocks);
+			}
+			if (typeof done === "function") {
+				done(blocks);
 			}
 		},
 		keys: function (blocks) {
@@ -317,6 +320,89 @@ zoomwall */
 	root.zoomwall = zoomwall;
 })("undefined" !== typeof window ? window : this, document);
 /*!
+ * modified t.js
+ * a micro-templating framework in ~400 bytes gzipped
+ * @author Jason Mooberry <jasonmoo@me.com>
+ * @license MIT
+ * @version 0.1.0
+ * Simple interpolation: {{=value}}
+ * Scrubbed interpolation: {{%unsafe_value}}
+ * Name-spaced variables: {{=User.address.city}}
+ * If/else blocks: {{value}} <<markup>> {{:value}} <<alternate markup>> {{/value}}
+ * If not blocks: {{!value}} <<markup>> {{/!value}}
+ * Object/Array iteration: {{@object_value}} {{=_key}}:{{=_val}} {{/@object_value}}
+ * Multi-line templates (no removal of newlines required to render)
+ * Render the same template multiple times with different data
+ * Works in all modern browsers
+ * @see {@link https://github.com/loele/t.js/blob/2b3ab7039353cc365fb3463f6df08fd00eb3eb3d/t.js}
+ * passes jshint
+ */
+(function (root) {
+	"use strict";
+
+	var blockregex = /\{\{(([@!]?)(.+?))\}\}(([\s\S]+?)(\{\{:\1\}\}([\s\S]+?))?)\{\{\/\1\}\}/g,
+	    valregex = /\{\{([=%])(.+?)\}\}/g;
+	var t = function (template) {
+		this.t = template;
+	};
+	function scrub(val) {
+		return new Option(val).text.replace(/"/g, "&quot;");
+	}
+	function get_value(vars, key) {
+		var parts = key.split(".");
+		while (parts.length) {
+			if (!(parts[0] in vars)) {
+				return false;
+			}
+			vars = vars[parts.shift()];
+		}
+		return vars;
+	}
+	function render(fragment, vars) {
+		return fragment.replace(blockregex, function (_, __, meta, key, inner, if_true, has_else, if_false) {
+			var val = get_value(vars, key),
+			    temp = "",
+			    i;
+			if (!val) {
+				if (meta === "!") {
+					return render(inner, vars);
+				}
+				if (has_else) {
+					return render(if_false, vars);
+				}
+				return "";
+			}
+			if (!meta) {
+				return render(if_true, vars);
+			}
+			if (meta === "@") {
+				_ = vars._key;
+				__ = vars._val;
+				for (i in val) {
+					if (val.hasOwnProperty(i)) {
+						vars._key = i;
+						vars._val = val[i];
+						temp += render(inner, vars);
+					}
+				}
+				vars._key = _;
+				vars._val = __;
+				return temp;
+			}
+		}).replace(valregex, function (_, meta, key) {
+			var val = get_value(vars, key);
+			if (val || val === 0) {
+				return meta === "%" ? scrub(val) : val;
+			}
+			return "";
+		});
+	}
+	t.prototype.render = function (vars) {
+		return render(this.t, vars);
+	};
+	root.t = t;
+})("undefined" !== typeof window ? window : this);
+/*!
  * modified Echo.js, simple JavaScript image lazy loading
  * added option to specify data attribute and img class
  * @see {@link https://toddmotto.com/echo-js-simple-javascript-image-lazy-loading/}
@@ -546,8 +632,10 @@ zoomwall */
 
 	var run = function () {
 
+		var getElementById = "getElementById";
 		var getElementsByClassName = "getElementsByClassName";
 		var appendChild = "appendChild";
+		var parentNode = "parentNode";
 		var classList = "classList";
 		var dataset = "dataset";
 		var src = "src";
@@ -556,6 +644,8 @@ zoomwall */
 		var style = "style";
 		var createTextNode = "createTextNode";
 		var hasOwnProperty = "hasOwnProperty";
+		var innerHTML = "innerHTML";
+		var createContextualFragment = "createContextualFragment";
 		var createDocumentFragment = "createDocumentFragment";
 
 		var hasTouch = "ontouchstart" in document[documentElement] || "";
@@ -589,11 +679,78 @@ zoomwall */
 			document[title] = documentTitle + " [" + (getHumanDate ? " " + getHumanDate : "") + (platformDescription ? " " + platformDescription : "") + (hasTouch || hasWheel ? " with" : "") + (hasTouch ? " touch" : "") + (hasTouch && hasWheel ? "," : "") + (hasWheel ? " mousewheel" : "") + "]";
 		}
 
-		var zoomwallGallery = document[getElementsByClassName]("zoomwall")[0] || "";
+		var zoomwallGalleryClass = "zoomwall";
+		var zoomwallGallery = document[getElementsByClassName](zoomwallGalleryClass)[0] || "";
 		var imgClass = "data-src-img";
-		var jsonHighresKeyName = "highres";
 		var jsonSrcKeyName = "src";
+		var jsonWidthKeyName = "width";
+		var jsonHeightKeyName = "height";
 		var jsonUrl = "./libs/picturewall/json/zoomwall.json";
+
+		var safelyParseJSON = function (response) {
+			var isJson = function (obj) {
+				var objType = typeof obj;
+				return ['boolean', 'number', "string", 'symbol', "function"].indexOf(objType) === -1;
+			};
+			if (!isJson(response)) {
+				return JSON.parse(response);
+			} else {
+				return response;
+			}
+		};
+
+		var renderTemplate = function (parsedJson, templateId, targetId) {
+			var template = document[getElementById](templateId) || "";
+			var target = document[getElementById](targetId) || "";
+			var jsonObj = safelyParseJSON(parsedJson);
+			if (jsonObj && template && target) {
+				var targetHtml = template[innerHTML] || "",
+				    renderTargetTemplate = new t(targetHtml);
+				return renderTargetTemplate.render(jsonObj);
+			}
+			return {};
+		};
+
+		var insertTextAsFragment = function (text, container, callback) {
+			var body = document.body || "";
+			var cb = function () {
+				return callback && "function" === typeof callback && callback();
+			};
+			try {
+				var clonedContainer = container.cloneNode(!1);
+				if (document.createRange) {
+					var rg = document.createRange();
+					rg.selectNode(body);
+					var df = rg[createContextualFragment](text);
+					clonedContainer[appendChild](df);
+					return container[parentNode] ? container[parentNode].replaceChild(clonedContainer, container) : container[innerHTML] = text, cb();
+				} else {
+					clonedContainer[innerHTML] = text;
+					return container[parentNode] ? container[parentNode].replaceChild(document[createDocumentFragment][appendChild](clonedContainer), container) : container[innerHTML] = text, cb();
+				}
+			} catch (e) {
+				console.log(e);
+				return;
+			}
+		};
+
+		var insertFromTemplate = function (parsedJson, templateId, targetId, callback, useInner) {
+			var inner = useInner || "";
+			var template = document[getElementById](templateId) || "";
+			var target = document[getElementById](targetId) || "";
+			var cb = function () {
+				return callback && "function" === typeof callback && callback();
+			};
+			if (parsedJson && template && target) {
+				var targetRendered = renderTemplate(parsedJson, templateId, targetId);
+				if (inner) {
+					target[innerHTML] = targetRendered;
+					cb();
+				} else {
+					insertTextAsFragment(targetRendered, target, cb);
+				}
+			}
+		};
 
 		var myHeaders = new Headers();
 
@@ -615,53 +772,69 @@ zoomwall */
 
 				try {
 					jsonObj = JSON.parse(text);
-					if (!jsonObj[0][jsonHighresKeyName]) {
-						throw new Error("incomplete JSON data: no " + jsonHighresKeyName);
-					} else {
-						if (!jsonObj[0][jsonSrcKeyName]) {
-							throw new Error("incomplete JSON data: no " + jsonSrcKeyName);
-						}
+					if (!jsonObj.images[0][jsonSrcKeyName]) {
+						throw new Error("incomplete JSON data: no " + jsonSrcKeyName);
 					}
 				} catch (err) {
 					console.log("cannot init generateGallery", err);
 					return;
 				}
 
-				var df = document[createDocumentFragment]();
-
-				var key;
-				for (key in jsonObj) {
-					if (jsonObj[hasOwnProperty](key)) {
-						if (jsonObj[key][jsonSrcKeyName] && jsonObj[key][jsonHighresKeyName]) {
-							var img = document[createElement]("img");
-							if (/^([0-9]+)(\x|\ )([0-9]+)$/.test(jsonObj[key][jsonSrcKeyName])) {
-								img[src] = ["data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20", jsonObj[key][jsonSrcKeyName].replace("x", "%20"), "%27%2F%3E"].join("");
-							} else {
-								var dummyImg = new Image();
-								dummyImg[src] = jsonObj[key][jsonSrcKeyName];
-								var dummyImgWidth = dummyImg.naturalWidth;
-								var dummyImgHeight = dummyImg.naturalHeight;
-								if (dummyImgWidth && dummyImgHeight) {
-									img[src] = ["data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20", dummyImgWidth, "%20", dummyImgHeight, "%27%2F%3E"].join("");
-								} else {
-									img[src] = ["data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20", 1440, "%20", 810, "%27%2F%3E"].join("");
-								}
-							}
-							img[dataset][jsonHighresKeyName] = jsonObj[key][jsonHighresKeyName];
-							img[classList].add(imgClass);
-							img[alt] = "";
-							df[appendChild](img);
-							df[appendChild](document[createTextNode]("\n"));
-						}
+				/*!
+     * render with <template> and t.js
+     * the drawback you cannot know image sizes
+     * attention to last param: if false cloneNode will be used
+     * and setting listeners or changing its CSS will not be possible
+     */
+				insertFromTemplate(jsonObj, "template_zoomwall", "target_zoomwall", function () {
+					if (document[getElementsByClassName](imgClass)[length] > 0) {
+						resolve();
+					} else {
+						reject();
 					}
-				}
-				key = null;
+				}, true);
 
-				if (zoomwallGallery[appendChild](df)) {
-					resolve();
-				} else {
-					reject();
-				}
+				/*!
+     * render with creating DOM Nodes
+     */
+				/* jsonObj = jsonObj.images;
+    	var df = document[createDocumentFragment]();
+    	var key;
+    for (key in jsonObj) {
+    	if (jsonObj[hasOwnProperty](key)) {
+    		if (jsonObj[key][jsonSrcKeyName]) {
+    			var img = document[createElement]("img");
+    			if (jsonObj[key][jsonWidthKeyName]) {
+    				img[src] = ["data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20",
+    					jsonObj[key][jsonWidthKeyName],
+    					"%20",
+    					jsonObj[key][jsonHeightKeyName],
+    					"%27%2F%3E"].join("");
+    			} else {
+    				var dummyImg = new Image();
+    				dummyImg[src] = jsonObj[key][jsonSrcKeyName];
+    				var dummyImgWidth = dummyImg.naturalWidth;
+    				var dummyImgHeight = dummyImg.naturalHeight;
+    				if (dummyImgWidth && dummyImgHeight) {
+    					img[src] = ["data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20", dummyImgWidth, "%20", dummyImgHeight, "%27%2F%3E"].join("");
+    				} else {
+    					img[src] = ["data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20", 640, "%20", 360, "%27%2F%3E"].join("");
+    				}
+    			}
+    			img[dataset][jsonSrcKeyName] = jsonObj[key][jsonSrcKeyName];
+    			img[classList].add(imgClass);
+    			img[alt] = "";
+    				df[appendChild](img);
+    			df[appendChild](document[createTextNode]("\n"));
+    		}
+    	}
+    }
+    key = null;
+    	if (zoomwallGallery[appendChild](df)) {
+    	resolve();
+    } else {
+    	reject();
+    } */
 			});
 
 			generateGallery.then(function (result) {
@@ -674,7 +847,11 @@ zoomwall */
 					clearTimeout(timerCreateGallery);
 					timerCreateGallery = null;
 
-					zoomwall.create(zoomwallGallery, true, jsonHighresKeyName);
+					var onZoomwallCreated = function () {
+						zoomwallGallery[style].visibility = "visible";
+						zoomwallGallery[style].opacity = 1;
+					};
+					zoomwall.create(zoomwallGallery, true, jsonSrcKeyName, null, onZoomwallCreated);
 				};
 				timerCreateGallery = setTimeout(createGallery, 100);
 			}).then(function (result) {
@@ -683,11 +860,7 @@ zoomwall */
 				var setLazyloading = function () {
 					clearTimeout(timerSetLazyloading);
 					timerSetLazyloading = null;
-
-					zoomwallGallery[style].visibility = "visible";
-					zoomwallGallery[style].opacity = 1;
-
-					echo(imgClass, jsonHighresKeyName);
+					echo(imgClass, jsonSrcKeyName);
 				};
 				timerSetLazyloading = setTimeout(setLazyloading, 200);
 			}).catch(function (err) {
