@@ -1,0 +1,165 @@
+*,
+*:after,
+*::before {
+	box-sizing: border-box;
+}
+
+::selection {
+	color: $color-rgba-selection-text;
+	background-color: $color-rgba-selection-bg;
+}
+
+::placeholder {
+	color: $color-hex-gray-text !important;
+	opacity: 1;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+html {
+	font-size: 15px;
+	line-height: 20px;
+}
+
+body {
+	font-size: 1.000rem;
+	line-height: 1.333rem;
+	color: $color-hex-body-text;
+	overflow-y: auto;
+	user-select: none;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+	margin: 0;
+}
+
+a {
+	color: inherit;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+}
+
+.wrapper {
+	width: 100%;
+	min-height: 100%;
+	background-color: $LeftNavBarLight;
+}
+
+.title-bar {
+	height: 3.200rem;
+	background-color: #1F1F1F;
+	/* text-align: center; */
+}
+
+.title-bar a:link,
+.title-bar a:visited {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+
+.title-bar a:hover {
+	color: #F03B4C;
+}
+
+.title-bar-icon {
+	display: block;
+	width: 1.333rem;
+	height: 1.333rem;
+	/* background-color: red; */
+}
+
+.title-bar-icon>* {
+	fill: #FFFFFF;
+}
+
+.btn-title-bar svg {
+	display: block;
+}
+
+.btn-title-bar {
+	display: block;
+	position: absolute;
+	color: #FFFFFF;
+}
+
+.btn-title-bar.back {
+	top: 0.933rem;
+	left: 0.933rem;
+}
+
+.btn-title-bar.title {
+	font-family: "Roboto", $font-family-webfont-sans-regular;
+	font-weight: 400;
+	font-size: 0.933rem;
+	line-height: 3.200rem;
+	margin: 0;
+	top: 0;
+	left: 50%;
+	margin-right: -50%;
+	transform: translate(-50%, 0);
+}
+
+.btn-title-bar.repo {
+	top: 0.933rem;
+	right: 0.933rem;
+}
+
+.card-grid {
+	width: 100%;
+	max-width: 1280px;
+	margin: 0 auto;
+	transition: visibility 0s, opacity 0.2s ease;
+}
+
+.card-grid:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.card-wrap {
+	width: 264px;
+	background-color: #FFFFFF;
+	box-shadow: 0 0.333em 0.333em 0 $color-rgba-card-shadow;
+	/*!
+	 * if transition set, all the images will be loaded
+	 */
+	/* transition: transform 0.4s ease-out; */
+}
+
+.card-wrap a {
+	color: inherit;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+	text-decoration: none;
+}
+
+.card img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.card-content {
+	color: $color-hex-body-text;
+	padding: 1.000rem;
+}
+
+.card-content h2 {
+	font-family: "Roboto", $font-family-webfont-sans-regular;
+	font-weight: 400;
+	font-size: 1.125rem;
+	line-height: 1.424rem;
+	margin: 0;
+	margin-bottom: 0.267rem;
+}
+
+.card-content p {
+	font-family: "Roboto", $font-family-webfont-sans-regular;
+	font-weight: 400;
+	font-size: 0.889rem;
+	line-height: 1.250rem;
+	margin: 0;
+}

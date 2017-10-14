@@ -92,7 +92,8 @@ u,
 	text-decoration: underline;
 }
 
-*,*:after,
+*,
+*:after,
 *::before {
 	box-sizing: border-box;
 }

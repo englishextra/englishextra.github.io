@@ -21,10 +21,21 @@
 	outline: none;
 }
 
-.pswp * {
+.pswp *,
+*:after,
+*::before {
 	box-sizing: border-box;
 }
 
+::selection {
+	color: $color-rgba-selection-text;
+	background-color: $color-rgba-selection-bg;
+}
+
+::placeholder {
+	color: $color-hex-gray-text !important;
+	opacity: 1;
+}
 .pswp img {
 	max-width: none;
 }

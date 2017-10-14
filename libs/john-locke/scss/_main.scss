@@ -1,7 +1,18 @@
-* {
+*,
+*:after,
+*::before {
 	box-sizing: border-box;
 }
 
+::selection {
+	color: $color-rgba-selection-text;
+	background-color: $color-rgba-selection-bg;
+}
+
+::placeholder {
+	color: $color-hex-gray-text !important;
+	opacity: 1;
+}
 html,
 body {
 	height: 100%;
@@ -15,7 +26,7 @@ html {
 body {
 	font-size: 1.000rem;
 	line-height: 1.333rem;
-	color: $TitleBarAndAppBarDark;
+	color: $color-hex-body-text;
 	overflow-y: auto;
 	user-select: none;
 	-webkit-tap-highlight-color: transparent;
@@ -235,7 +246,7 @@ a {
 	left: calc(35% - 14.100rem);
 	overflow: hidden;
 	background-color: #3BF0DF;
-	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
 	margin: 0;
 }
 

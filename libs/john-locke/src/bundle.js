@@ -961,7 +961,7 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 		());
 
 	if (!supportsPassive) {
-		scripts.push(forcedHTTP + "://cdnjs.cloudflare.com/ajax/libs/dom4/1.8.3/dom4.js");
+		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/dom4@1.8.5/build/dom4.max.min.js");
 	}
 
 	scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/parallax-js@3.1.0/dist/parallax.min.js",

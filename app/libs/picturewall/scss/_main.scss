@@ -1,7 +1,18 @@
-* {
+*,
+*:after,
+*::before {
 	box-sizing: border-box;
 }
 
+::selection {
+	color: $color-rgba-selection-text;
+	background-color: $color-rgba-selection-bg;
+}
+
+::placeholder {
+	color: $color-hex-gray-text !important;
+	opacity: 1;
+}
 html,
 body {
 	height: 100%;
@@ -15,7 +26,7 @@ html {
 body {
 	font-size: 1.000rem;
 	line-height: 1.333rem;
-	color: $TitleBarAndAppBarDark;
+	color: $color-hex-body-text;
 	overflow-y: auto;
 	user-select: none;
 	-webkit-tap-highlight-color: transparent;
