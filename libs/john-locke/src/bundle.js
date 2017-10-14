@@ -214,7 +214,8 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 		}
 	};
 	root.doesFontExist = doesFontExist;
-})("undefined" !== typeof window ? window : this, document);
+}
+	("undefined" !== typeof window ? window : this, document));
 /*!
  * modified Returns a function, that, as long as it continues to be invoked, will not
  * be triggered. The function will be called after it stops being called for

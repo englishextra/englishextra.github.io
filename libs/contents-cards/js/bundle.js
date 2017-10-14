@@ -485,33 +485,33 @@ Promise, t */
 		var cardContentClass = "card-content";
 		var jsonUrl = "./libs/contents-cards/json/contents.json";
 
-		var safelyParseJSON = function (a) {
+		var safelyParseJSON = function (response) {
 			var isJson = function (obj) {
 				var objType = typeof obj;
 				return ['boolean', 'number', "string", 'symbol', "function"].indexOf(objType) === -1;
 			};
-			if (!isJson(a)) {
-				return JSON.parse(a);
+			if (!isJson(response)) {
+				return JSON.parse(response);
 			} else {
-				return a;
+				return response;
 			}
 		};
 
 		var renderTemplate = function (parsedJson, templateId, targetId) {
 			var template = document[getElementById](templateId) || "";
 			var target = document[getElementById](targetId) || "";
-			parsedJson = safelyParseJSON(parsedJson);
-			if (parsedJson && template && target) {
+			var jsonObj = safelyParseJSON(parsedJson);
+			if (jsonObj && template && target) {
 				var targetHtml = template[innerHTML] || "",
 				    renderTargetTemplate = new t(targetHtml);
-				return renderTargetTemplate.render(parsedJson);
+				return renderTargetTemplate.render(jsonObj);
 			}
 			return {};
 		};
 
 		var insertTextAsFragment = function (text, container, callback) {
-			var body = document.body || "",
-			    cb = function () {
+			var body = document.body || "";
+			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
 			try {
@@ -533,15 +533,15 @@ Promise, t */
 		};
 
 		var insertFromTemplate = function (parsedJson, templateId, targetId, callback, useInner) {
-			useInner = useInner || "";
-			var template = document[getElementById](templateId) || "",
-			    target = document[getElementById](targetId) || "",
-			    cb = function () {
+			var inner = useInner || "";
+			var template = document[getElementById](templateId) || "";
+			var target = document[getElementById](targetId) || "";
+			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
 			if (parsedJson && template && target) {
 				var targetRendered = renderTemplate(parsedJson, templateId, targetId);
-				if (useInner) {
+				if (inner) {
 					target[innerHTML] = targetRendered;
 					cb();
 				} else {
@@ -666,25 +666,14 @@ Promise, t */
 			});
 
 			generateCardGrid.then(function (result) {
+
 				return result;
 			}).then(function (result) {
 
-				var docElemStyle = document[documentElement][style];
-
-				var transitionProperty = typeof docElemStyle.transition == "string" ? "transition" : "WebkitTransition";
-
-				var transformProperty = typeof docElemStyle.transform == "string" ? "transform" : "WebkitTransform";
-
-				function toDashedAll(str) {
-					return str.replace(/([A-Z])/g, function ($1) {
-						return '-' + $1.toLowerCase();
-					});
-				}
-
-				var timerCreateCardGrid;
-				var createCardGrid = function () {
-					clearTimeout(timerCreateCardGrid);
-					timerCreateCardGrid = null;
+				var timerCreateGrid;
+				var createGrid = function () {
+					clearTimeout(timerCreateGrid);
+					timerCreateGrid = null;
 
 					var mgrid;
 					var initMinigrid = function () {
@@ -701,28 +690,36 @@ Promise, t */
 					initMinigrid();
 					root[addEventListener]("resize", updateMinigrid, { passive: true });
 
-					var timerRevealCardGrid;
-					var revealCardGrid = function () {
-						clearTimeout(timerRevealCardGrid);
-						timerRevealCardGrid = null;
+					var docElemStyle = document[documentElement][style];
 
-						cardGrid[style].visibility = "visible";
-						cardGrid[style].opacity = 1;
+					var transitionProperty = typeof docElemStyle.transition == "string" ? "transition" : "WebkitTransition";
 
-						var sheet = document[styleSheets][0] || "";
-						if (sheet) {
-							var rule = toDashedAll([".", cardWrapClass, "{", transitionProperty, ": ", transformProperty, " 0.4s ease-out;", "}"].join(""));
-							sheet.insertRule(rule, 0);
-						}
-					};
-					timerRevealCardGrid = setTimeout(revealCardGrid, 200);
+					var transformProperty = typeof docElemStyle.transform == "string" ? "transform" : "WebkitTransform";
+
+					function toDashedAll(str) {
+						return str.replace(/([A-Z])/g, function ($1) {
+							return '-' + $1.toLowerCase();
+						});
+					}
+
+					var styleSheet = document[styleSheets][0] || "";
+
+					if (styleSheet) {
+						var cssRule = toDashedAll([".", cardWrapClass, "{", transitionProperty, ": ", transformProperty, " 0.4s ease-out;", "}"].join(""));
+						styleSheet.insertRule(cssRule, 0);
+					}
 				};
-				timerCreateCardGrid = setTimeout(createCardGrid, 200);
+				timerCreateGrid = setTimeout(createGrid, 100);
 			}).then(function (result) {
+
 				var timerSetLazyloading;
 				var setLazyloading = function () {
 					clearTimeout(timerSetLazyloading);
 					timerSetLazyloading = null;
+
+					cardGrid[style].visibility = "visible";
+					cardGrid[style].opacity = 1;
+
 					echo(imgClass, jsonSrcKeyName);
 				};
 				timerSetLazyloading = setTimeout(setLazyloading, 200);

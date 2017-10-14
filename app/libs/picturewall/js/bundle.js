@@ -546,13 +546,14 @@ zoomwall */
 
 	var run = function () {
 
-		var getElementById = "getElementById";
+		var getElementsByClassName = "getElementsByClassName";
 		var appendChild = "appendChild";
 		var classList = "classList";
 		var dataset = "dataset";
 		var src = "src";
 		var alt = "alt";
 		var title = "title";
+		var style = "style";
 		var createTextNode = "createTextNode";
 		var hasOwnProperty = "hasOwnProperty";
 		var createDocumentFragment = "createDocumentFragment";
@@ -588,7 +589,7 @@ zoomwall */
 			document[title] = documentTitle + " [" + (getHumanDate ? " " + getHumanDate : "") + (platformDescription ? " " + platformDescription : "") + (hasTouch || hasWheel ? " with" : "") + (hasTouch ? " touch" : "") + (hasTouch && hasWheel ? "," : "") + (hasWheel ? " mousewheel" : "") + "]";
 		}
 
-		var zoomwallGallery = document[getElementById]("zoomwall") || "";
+		var zoomwallGallery = document[getElementsByClassName]("zoomwall")[0] || "";
 		var imgClass = "data-src-img";
 		var jsonHighresKeyName = "highres";
 		var jsonSrcKeyName = "src";
@@ -664,20 +665,28 @@ zoomwall */
 			});
 
 			generateGallery.then(function (result) {
+
 				return result;
 			}).then(function (result) {
+
 				var timerCreateGallery;
 				var createGallery = function () {
 					clearTimeout(timerCreateGallery);
 					timerCreateGallery = null;
+
 					zoomwall.create(zoomwallGallery, true, jsonHighresKeyName);
 				};
 				timerCreateGallery = setTimeout(createGallery, 100);
 			}).then(function (result) {
+
 				var timerSetLazyloading;
 				var setLazyloading = function () {
 					clearTimeout(timerSetLazyloading);
 					timerSetLazyloading = null;
+
+					zoomwallGallery[style].visibility = "visible";
+					zoomwallGallery[style].opacity = 1;
+
 					echo(imgClass, jsonHighresKeyName);
 				};
 				timerSetLazyloading = setTimeout(setLazyloading, 200);
