@@ -33,7 +33,7 @@ Promise, t */
 	prop = method = dummy = properties = methods = null;
 }("undefined" !== typeof window ? window : this));
 /*!
- * @license Minigrid v3.1.1 – minimal cascading grid layout http://alves.im/minigrid
+ * @license Minigrid v3.1.1 minimal cascading grid layout http://alves.im/minigrid
  * @see {@link https://github.com/henriquea/minigrid}
  */
 (function(root, document) {
@@ -760,10 +760,10 @@ Promise, t */
 						}
 
 					};
-					timerRevealCardGrid = setTimeout(revealCardGrid, 100);
+					timerRevealCardGrid = setTimeout(revealCardGrid, 200);
 
 				};
-				timerCreateCardGrid = setTimeout(createCardGrid, 100);
+				timerCreateCardGrid = setTimeout(createCardGrid, 200);
 
 			}).then(function (result) {
 				var timerSetLazyloading;
