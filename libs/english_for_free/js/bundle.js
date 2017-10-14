@@ -985,7 +985,7 @@ var handleDataSrcImageAll = function () {
    * true if elem is in same y-axis as the viewport or within 100px of it
    * @see {@link https://github.com/ryanve/verge}
    */
-		if (verge.inY(e, 100) /*  && 0 !== e.offsetHeight */) {
+		if (verge.inY(e, 100) /* && 0 !== e.offsetHeight */) {
 				if (!e[cL].contains(isBindedClass)) {
 					var srcString = e[ds].src || "";
 					if (srcString) {
@@ -1043,7 +1043,7 @@ globalRoot.addEventListener("load", manageDataSrcImageAll);
  * Add element.scrollTop if you want to take the parent scrolling into account.
  * (or use jQuery .position() if you are fan of that library)
  * If you want coords relative to the document use element.getBoundingClientRect().top.
- * Add window.pageYOffset if you want to take the document scrolling into account.
+ * Add globalRoot.pageYOffset if you want to take the document scrolling into account.
  * Subtract element.clientTop if you don't consider the element border as the part of the element
  * @see {@link https://stackoverflow.com/questions/6777506/offsettop-vs-jquery-offset-top}
  * In IE<=11, calling getBoundingClientRect on an element outside of the DOM
@@ -1519,7 +1519,7 @@ document.ready().then(initUiTotop);
  * class ya-share2 automatically triggers Ya.share2,
  * so use either default class ya-share2 or custom id
  * ya-share2 class will be added if you init share block
- * via  ya-share2 api
+ * via ya-share2 api
  * @see {@link https://tech.yandex.ru/share/doc/dg/api-docpage/}
  */
 var yshare,

@@ -37,7 +37,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 /*!
  * modified t.js
  * a micro-templating framework in ~400 bytes gzipped
- * @author  Jason Mooberry <jasonmoo@me.com>
+ * @author Jason Mooberry <jasonmoo@me.com>
  * @license MIT
  * @version 0.1.0
  * Simple interpolation: {{=value}}
@@ -1192,7 +1192,7 @@ var handleDataSrcImageAll = function () {
    * true if elem is in same y-axis as the viewport or within 100px of it
    * @see {@link https://github.com/ryanve/verge}
    */
-		if (verge.inY(e, 100) /*  && 0 !== e.offsetHeight */) {
+		if (verge.inY(e, 100) /* && 0 !== e.offsetHeight */) {
 				if (!e[cL].contains(isBindedClass)) {
 					var srcString = e[ds].src || "";
 					if (srcString) {
@@ -2589,7 +2589,7 @@ document.ready().then(manageLocationQrCodeImage);
  * class ya-share2 automatically triggers Ya.share2,
  * so use either default class ya-share2 or custom id
  * ya-share2 class will be added if you init share block
- * via  ya-share2 api
+ * via ya-share2 api
  * @see {@link https://tech.yandex.ru/share/doc/dg/api-docpage/}
  */
 var yshare,
@@ -3035,7 +3035,7 @@ var initRouting = function () {
 				if (false === isNotfound) {
 					var notfoundUrl = routesJsonObj.notfound.url,
 					    notfoundTitle = routesJsonObj.notfound.title;
-					if (notfoundUrl /*  && notfoundTitle */) {
+					if (notfoundUrl /* && notfoundTitle */) {
 							LoadingSpinner.show();
 							insertExternalHTML(appContentId, notfoundUrl, triggerOnContentInserted.bind(null, notfoundTitle, null, null, routesJsonObj));
 						}
@@ -3043,7 +3043,7 @@ var initRouting = function () {
 			} else {
 				var homeUrl = routesJsonObj.home.url,
 				    homeTitle = routesJsonObj.home.title;
-				if (homeUrl /*  && homeTitle */) {
+				if (homeUrl /* && homeTitle */) {
 						LoadingSpinner.show();
 						insertExternalHTML(appContentId, homeUrl, triggerOnContentInserted.bind(null, homeTitle, null, null, routesJsonObj));
 					}

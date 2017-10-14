@@ -542,18 +542,53 @@ zoomwall */
 	"use strict";
 
 	var createElement = "createElement";
+	var length = "length";
 
 	var run = function () {
 
+		var getElementById = "getElementById";
 		var appendChild = "appendChild";
 		var classList = "classList";
 		var dataset = "dataset";
 		var src = "src";
+		var alt = "alt";
+		var title = "title";
 		var createTextNode = "createTextNode";
 		var hasOwnProperty = "hasOwnProperty";
-		var title = "title";
+		var createDocumentFragment = "createDocumentFragment";
 
-		var zoomwallGallery = document.getElementById("zoomwall") || "";
+		var hasTouch = "ontouchstart" in document[documentElement] || "";
+
+		var hasWheel = "onwheel" in document[createElement]("div") || void 0 !== document.onmousewheel || "";
+
+		var documentTitle = document[title] || "";
+
+		var navigatorUserAgent = navigator.userAgent || "";
+
+		var getHumanDate = function () {
+			var newDate = new Date();
+			var newDay = newDate.getDate();
+			var newYear = newDate.getFullYear();
+			var newMonth = newDate.getMonth();
+			newMonth += 1;
+			if (10 > newDay) {
+				newDay = "0" + newDay;
+			}
+			if (10 > newMonth) {
+				newMonth = "0" + newMonth;
+			}
+			return newYear + "-" + newMonth + "-" + newDay;
+		}();
+
+		var platformName = "";
+		var platformDescription = "";
+		if (navigatorUserAgent && root.platform) {
+			platformName = platform.name || "";
+			platformDescription = platform.description || "";
+			document[title] = documentTitle + " [" + (getHumanDate ? " " + getHumanDate : "") + (platformDescription ? " " + platformDescription : "") + (hasTouch || hasWheel ? " with" : "") + (hasTouch ? " touch" : "") + (hasTouch && hasWheel ? "," : "") + (hasWheel ? " mousewheel" : "") + "]";
+		}
+
+		var zoomwallGallery = document[getElementById]("zoomwall") || "";
 		var imgClass = "data-src-img";
 		var jsonHighresKeyName = "highres";
 		var jsonSrcKeyName = "src";
@@ -591,7 +626,7 @@ zoomwall */
 					return;
 				}
 
-				var df = document.createDocumentFragment();
+				var df = document[createDocumentFragment]();
 
 				var key;
 				for (key in jsonObj) {
@@ -601,10 +636,19 @@ zoomwall */
 							if (/^([0-9]+)(\x|\ )([0-9]+)$/.test(jsonObj[key][jsonSrcKeyName])) {
 								img[src] = ["data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20", jsonObj[key][jsonSrcKeyName].replace("x", "%20"), "%27%2F%3E"].join("");
 							} else {
-								img[src] = jsonObj[key][jsonSrcKeyName];
+								var dummyImg = new Image();
+								dummyImg[src] = jsonObj[key][jsonSrcKeyName];
+								var dummyImgWidth = dummyImg.naturalWidth;
+								var dummyImgHeight = dummyImg.naturalHeight;
+								if (dummyImgWidth && dummyImgHeight) {
+									img[src] = ["data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20", dummyImgWidth, "%20", dummyImgHeight, "%27%2F%3E"].join("");
+								} else {
+									img[src] = ["data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20", 1440, "%20", 810, "%27%2F%3E"].join("");
+								}
 							}
 							img[dataset][jsonHighresKeyName] = jsonObj[key][jsonHighresKeyName];
 							img[classList].add(imgClass);
+							img[alt] = "";
 							df[appendChild](img);
 							df[appendChild](document[createTextNode]("\n"));
 						}
@@ -626,11 +670,9 @@ zoomwall */
 				var createGallery = function () {
 					clearTimeout(timerCreateGallery);
 					timerCreateGallery = null;
-					if (zoomwallGallery) {
-						zoomwall.create(zoomwallGallery, true, jsonHighresKeyName);
-					}
+					zoomwall.create(zoomwallGallery, true, jsonHighresKeyName);
 				};
-				timerCreateGallery = setTimeout(createGallery, 200);
+				timerCreateGallery = setTimeout(createGallery, 100);
 			}).then(function (result) {
 				var timerSetLazyloading;
 				var setLazyloading = function () {
@@ -645,37 +687,6 @@ zoomwall */
 		}).catch(function (err) {
 			console.log("cannot parse", jsonUrl);
 		});
-
-		var hasTouch = "ontouchstart" in document[documentElement] || "";
-
-		var hasWheel = "onwheel" in document[createElement]("div") || void 0 !== document.onmousewheel || "";
-
-		var documentTitle = document[title] || "";
-
-		var navigatorUserAgent = navigator.userAgent || "";
-
-		var getHumanDate = function () {
-			var newDate = new Date();
-			var newDay = newDate.getDate();
-			var newYear = newDate.getFullYear();
-			var newMonth = newDate.getMonth();
-			newMonth += 1;
-			if (10 > newDay) {
-				newDay = "0" + newDay;
-			}
-			if (10 > newMonth) {
-				newMonth = "0" + newMonth;
-			}
-			return newYear + "-" + newMonth + "-" + newDay;
-		}();
-
-		var platformName = "";
-		var platformDescription = "";
-		if (navigatorUserAgent && root.platform) {
-			platformName = platform.name || "";
-			platformDescription = platform.description || "";
-			document[title] = documentTitle + " [" + (getHumanDate ? " " + getHumanDate : "") + (platformDescription ? " " + platformDescription : "") + (hasTouch || hasWheel ? " with" : "") + (hasTouch ? " touch" : "") + (hasTouch && hasWheel ? "," : "") + (hasWheel ? " mousewheel" : "") + "]";
-		}
 	};
 
 	var documentElement = "documentElement";
@@ -780,7 +791,7 @@ zoomwall */
  	listeners: [],
  	active: function () {
  		this.called_ready = true;
- 		for (var i = 0; i < this.listeners.length; i++) {
+ 		for (var i = 0; i < this.listeners[length]; i++) {
  			this.listeners[i]();
  		}
  	},

@@ -565,6 +565,42 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 			progressBar.increase(20);
 		}
 
+		var documentTitle = document[title] || "";
+
+		var navigatorUserAgent = navigator.userAgent || "";
+
+		var getHumanDate = function () {
+			var newDate = (new Date());
+			var newDay = newDate.getDate();
+			var newYear = newDate.getFullYear();
+			var newMonth = newDate.getMonth();
+			(newMonth += 1);
+			if (10 > newDay) {
+				newDay = "0" + newDay;
+			}
+			if (10 > newMonth) {
+				newMonth = "0" + newMonth;
+			}
+			return newYear + "-" + newMonth + "-" + newDay;
+		}
+		();
+
+		var platformName = "";
+		var platformDescription = "";
+		if (navigatorUserAgent && root.platform) {
+			platformName = platform.name || "";
+			platformDescription = platform.description || "";
+			document[title] = documentTitle +
+			" [" +
+			(getHumanDate ? " " + getHumanDate : "") +
+			(platformDescription ? " " + platformDescription : "") +
+			((hasTouch || hasWheel) ? " with" : "") +
+			(hasTouch ? " touch" : "") +
+			((hasTouch && hasWheel) ? "," : "") +
+			(hasWheel ? " mousewheel" : "") +
+			"]";
+		}
+
 		var qrcode = document[getElementsByClassName]("qrcode")[0] || "";
 		var timerShowQrcode;
 		var showQrcode = function () {
@@ -575,8 +611,6 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 		};
 
 		var locationHref = root.location[href] || "";
-
-		var documentTitle = document[title] || "";
 
 		if (qrcode) {
 			var qrcodeImg = document[createElement]("img");
@@ -618,24 +652,7 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 		var downloadApp = document[getElementsByClassName]("download-app")[0] || "";
 		var downloadAppLink = downloadApp ? downloadApp[getElementsByTagName]("a")[0] || "" : "";
 		var downloadAppImg = downloadApp ? downloadApp[getElementsByTagName]("img")[0] || "" : "";
-		var navigatorUserAgent = navigator.userAgent || "";
-
-		var getHumanDate = function () {
-			var newDate = (new Date());
-			var newDay = newDate.getDate();
-			var newYear = newDate.getFullYear();
-			var newMonth = newDate.getMonth();
-			(newMonth += 1);
-			if (10 > newDay) {
-				newDay = "0" + newDay;
-			}
-			if (10 > newMonth) {
-				newMonth = "0" + newMonth;
-			}
-			return newYear + "-" + newMonth + "-" + newDay;
-		}
-		();
-
+		
 		var timerhowDownloadApp;
 		var showDownloadApp = function () {
 			clearTimeout(timerhowDownloadApp);
@@ -643,19 +660,8 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 			downloadApp[style][visibility] = "visible";
 			downloadApp[style][opacity] = 1;
 		};
-
+		
 		if (navigatorUserAgent && downloadApp && downloadAppLink && downloadAppImg && root.platform) {
-			var platformName = platform.name || "";
-			var platformDescription = platform.description || "";
-			document[title] = documentTitle +
-			" [" +
-			(getHumanDate ? " " + getHumanDate : "") +
-			(platformDescription ? " " + platformDescription : "") +
-			((hasTouch || hasWheel) ? " with" : "") +
-			(hasTouch ? " touch" : "") +
-			((hasTouch && hasWheel) ? "," : "") +
-			(hasWheel ? " mousewheel" : "") +
-			"]";
 			var platformOsFamily = platform.os.family || "";
 			var platformOsVersion = platform.os.version || "";
 			var platformOsArchitecture = platform.os.architecture || "";
@@ -664,7 +670,7 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 			console.log(platformName + "|" + platformOsFamily + "|" + platformOsVersion + "|" + platformOsArchitecture + "|" + platformDescription); */
 			var downloadAppImgSrc;
 			var downloadAppLinkHref;
-			if (platformOsFamily.indexOf("Windows Phone", 0) !== -1  && "10.0" === platformOsVersion) {
+			if (platformOsFamily.indexOf("Windows Phone", 0) !== -1 && "10.0" === platformOsVersion) {
 				downloadAppImgSrc = "./libs/products/img/download_wp_app_144x52.svg";
 				downloadAppLinkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra.Windows10_1.0.0.0_x86_debug.appx";
 			} else if (platformName.indexOf("IE Mobile", 0) !== -1 && ("7.5" === platformOsVersion || "8.0" === platformOsVersion || "8.1" === platformOsVersion)) {
@@ -822,7 +828,7 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 
 		var yaShare2Id = "ya-share2";
 
-		var yaShare2 =  document[getElementById](yaShare2Id) || "";
+		var yaShare2 = document[getElementById](yaShare2Id) || "";
 
 		var btnShare = document[getElementsByClassName]("btn-share")[0] || "";
 		var btnShareLink = btnShare ? btnShare[getElementsByTagName]("a")[0] || "" : "";
@@ -1034,7 +1040,7 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 		listeners: [],
 		active: function () {
 			this.called_ready = true;
-			for (var i = 0; i < this.listeners.length; i++) {
+			for (var i = 0; i < this.listeners[length]; i++) {
 				this.listeners[i]();
 			}
 		},

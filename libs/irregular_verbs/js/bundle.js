@@ -895,7 +895,7 @@ document.ready().then(showMenuMore);
  * class ya-share2 automatically triggers Ya.share2,
  * so use either default class ya-share2 or custom id
  * ya-share2 class will be added if you init share block
- * via  ya-share2 api
+ * via ya-share2 api
  * @see {@link https://tech.yandex.ru/share/doc/dg/api-docpage/}
  */
 var yshare,

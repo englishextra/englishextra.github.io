@@ -573,7 +573,7 @@ document.ready().then(showMenuMore);
  * class ya-share2 automatically triggers Ya.share2,
  * so use either default class ya-share2 or custom id
  * ya-share2 class will be added if you init share block
- * via  ya-share2 api
+ * via ya-share2 api
  * @see {@link https://tech.yandex.ru/share/doc/dg/api-docpage/}
  */
 var yshare,
@@ -586,7 +586,7 @@ manageShareButton = function () {
 	aEL = "addEventListener",
 	btn = d[gEBCN]("btn-share-buttons")[0] || "",
 	yaShare2Id = "ya-share2",
-	yaShare2 =  d[gEBI](yaShare2Id) || "",
+	yaShare2 = d[gEBI](yaShare2Id) || "",
 	handleShareButton = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();

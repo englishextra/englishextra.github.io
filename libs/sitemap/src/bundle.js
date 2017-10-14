@@ -345,7 +345,7 @@ var handleDataSrcImageAll = function () {
 		 * true if elem is in same y-axis as the viewport or within 100px of it
 		 * @see {@link https://github.com/ryanve/verge}
 		 */
-		if (verge.inY(e, 100) /*  && 0 !== e.offsetHeight */) {
+		if (verge.inY(e, 100) /* && 0 !== e.offsetHeight */) {
 			if (!e[cL].contains(isBindedClass)) {
 				var srcString = e[ds].src || "";
 				if (srcString) {
