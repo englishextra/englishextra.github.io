@@ -530,9 +530,9 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 	var hasWheel = "onwheel" in document[createElement]("div") || void 0 !== document.onmousewheel || "";
 
 	var getHTTP = function (force) {
-		force = force || "";
+		var any = force || "";
 		var locationProtocol = root.location.protocol || "";
-		return "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : force ? "http" : "";
+		return "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : any ? "http" : "";
 	};
 
 	var forcedHTTP = getHTTP(true);

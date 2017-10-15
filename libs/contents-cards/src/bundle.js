@@ -575,22 +575,9 @@ Promise, t */
 			}
 		};
 
-		var myHeaders = new Headers();
+		var generateCardGrid = function (text) {
 
-		fetch(jsonUrl, {
-			headers: myHeaders,
-			credentials: "same-origin"
-		}).then(function (response) {
-
-			if (response.ok) {
-				return response.text();
-			} else {
-				throw new Error("cannot fetch", jsonUrl);
-			}
-
-		}).then(function (text) {
-
-			var generateCardGrid = new Promise(function (resolve, reject) {
+			return new Promise(function (resolve, reject) {
 
 				var jsonObj;
 
@@ -707,78 +694,85 @@ Promise, t */
 					reject();
 				} */
 			});
+		};
 
-			generateCardGrid.then(function (result) {
+		var timerCreateGrid;
+		var createGrid = function () {
+			clearTimeout(timerCreateGrid);
+			timerCreateGrid = null;
 
+			var onMinigridCreated = function () {
+				cardGrid[style].visibility = "visible";
+				cardGrid[style].opacity = 1;
+			};
+			var mgrid;
+			var initMinigrid = function () {
+				mgrid = new Minigrid({
+						container: cardGridClass,
+						item: cardWrapClass,
+						gutter: 20,
+						done: onMinigridCreated
+					});
+				mgrid.mount();
+			};
+			var updateMinigrid = function () {
+				mgrid.mount();
+			};
+			initMinigrid();
+			root[addEventListener]("resize", updateMinigrid, {passive: true});
+
+			var toDashedAll = function (str) {
+				return str.replace((/([A-Z])/g), function ($1) {
+					return "-" + $1.toLowerCase();
+				});
+			};
+			var docElemStyle = document[documentElement][style];
+			var transitionProperty = typeof docElemStyle.transition == "string" ?
+				"transition" : "WebkitTransition";
+			var transformProperty = typeof docElemStyle.transform == "string" ?
+				"transform" : "WebkitTransform";
+			var styleSheet = document[styleSheets][0] || "";
+			if (styleSheet) {
+				var cssRule = toDashedAll([".",
+							cardWrapClass,
+							"{",
+							transitionProperty,
+							": ",
+							transformProperty,
+							" 0.4s ease-out;",
+							"}"].join(""));
+				styleSheet.insertRule(cssRule, 0);
+			}
+		};
+
+		var timerSetLazyloading;
+		var setLazyloading = function () {
+			clearTimeout(timerSetLazyloading);
+			timerSetLazyloading = null;
+			echo(imgClass, jsonSrcKeyName);
+		};
+
+		var myHeaders = new Headers();
+
+		fetch(jsonUrl, {
+			headers: myHeaders,
+			credentials: "same-origin"
+		}).then(function (response) {
+			if (response.ok) {
+				return response.text();
+			} else {
+				throw new Error("cannot fetch", jsonUrl);
+			}
+		}).then(function (text) {
+			generateCardGrid(text).then(function (result) {
 				return result;
-
 			}).then(function (result) {
-
-				var timerCreateGrid;
-				var createGrid = function () {
-					clearTimeout(timerCreateGrid);
-					timerCreateGrid = null;
-
-					var onMinigridCreated = function () {
-						cardGrid[style].visibility = "visible";
-						cardGrid[style].opacity = 1;
-					};
-					var mgrid;
-					var initMinigrid = function () {
-						mgrid = new Minigrid({
-								container: cardGridClass,
-								item: cardWrapClass,
-								gutter: 20,
-								done: onMinigridCreated
-							});
-						mgrid.mount();
-					};
-					var updateMinigrid = function () {
-						mgrid.mount();
-					};
-					initMinigrid();
-					root[addEventListener]("resize", updateMinigrid, {passive: true});
-
-					var docElemStyle = document[documentElement][style];
-					var transitionProperty = typeof docElemStyle.transition == "string" ?
-						"transition" : "WebkitTransition";
-					var transformProperty = typeof docElemStyle.transform == "string" ?
-						"transform" : "WebkitTransform";
-					function toDashedAll(str) {
-						return str.replace(/([A-Z])/g, function ($1) {
-							return '-' + $1.toLowerCase();
-						});
-					}
-					var styleSheet = document[styleSheets][0] || "";
-					if (styleSheet) {
-						var cssRule = toDashedAll([".",
-									cardWrapClass,
-									"{",
-									transitionProperty,
-									": ",
-									transformProperty,
-									" 0.4s ease-out;",
-									"}"].join(""));
-						styleSheet.insertRule(cssRule, 0);
-					}
-
-				};
 				timerCreateGrid = setTimeout(createGrid, 100);
-
 			}).then(function (result) {
-
-				var timerSetLazyloading;
-				var setLazyloading = function () {
-					clearTimeout(timerSetLazyloading);
-					timerSetLazyloading = null;
-					echo(imgClass, jsonSrcKeyName);
-				};
 				timerSetLazyloading = setTimeout(setLazyloading, 200);
-
 			}).catch (function (err) {
 				console.log("Cannot create card grid", err);
 			});
-
 		}).catch (function (err) {
 			console.log("cannot parse", jsonUrl);
 		});
@@ -789,9 +783,9 @@ Promise, t */
 	var scripts = ["./libs/contents-cards/css/bundle.min.css"];
 
 	var getHTTP = function (force) {
-		force = force || "";
+		var any = force || "";
 		var locationProtocol = root.location.protocol || "";
-		return "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : force ? "http" : "";
+		return "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : any ? "http" : "";
 	};
 
 	var forcedHTTP = getHTTP(true);

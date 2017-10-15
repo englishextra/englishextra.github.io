@@ -7,8 +7,9 @@ zoomwall */
  * safe way to handle console.log
  * @see {@link https://github.com/paulmillr/console-polyfill}
  */
-(function(root){
+(function (root) {
 	"use strict";
+
 	if (!root.console) {
 		root.console = {};
 	}
@@ -17,21 +18,19 @@ zoomwall */
 	var method;
 	var dummy = function () {};
 	var properties = ["memory"];
-	var methods = ("assert,clear,count,debug,dir,dirxml,error,exception,group," +
-		"groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd," +
-		"show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn").split(",");
-	for (; (prop = properties.pop()); ) {
+	var methods = ("assert,clear,count,debug,dir,dirxml,error,exception,group," + "groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd," + "show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn").split(",");
+	for (; prop = properties.pop();) {
 		if (!con[prop]) {
 			con[prop] = {};
 		}
 	}
-	for (; (method = methods.pop()); ) {
+	for (; method = methods.pop();) {
 		if (!con[method]) {
 			con[method] = dummy;
 		}
 	}
 	prop = method = dummy = properties = methods = null;
-}("undefined" !== typeof window ? window : this));
+})("undefined" !== typeof window ? window : this);
 /*!
  * modified zoomwall.js v1.1.1
  * The MIT License (MIT)
@@ -43,6 +42,7 @@ zoomwall */
  */
 (function (root, document) {
 	"use strict";
+
 	var parentNode = "parentNode";
 	var addEventListener = "addEventListener";
 	var classList = "classList";
@@ -86,20 +86,20 @@ zoomwall */
 				var elem = blocks || document[getElementsByClassName]("zoomwall lightbox")[0];
 				if (elem) {
 					switch (e.keyCode) {
-					case 27:
-						if (elem[children] && elem[children][length] > 0) {
-							zoomwall.shrink(elem[children][0]);
-						}
-						e.preventDefault();
-						break;
-					case 37:
-						zoomwall.page(elem, false);
-						e.preventDefault();
-						break;
-					case 39:
-						zoomwall.page(elem, true);
-						e.preventDefault();
-						break;
+						case 27:
+							if (elem[children] && elem[children][length] > 0) {
+								zoomwall.shrink(elem[children][0]);
+							}
+							e.preventDefault();
+							break;
+						case 37:
+							zoomwall.page(elem, false);
+							e.preventDefault();
+							break;
+						case 39:
+							zoomwall.page(elem, true);
+							e.preventDefault();
+							break;
 					}
 				}
 			};
@@ -110,7 +110,7 @@ zoomwall */
 			if (row && row[length] > 1) {
 				for (var i in row) {
 					if (row[hasOwnProperty](i)) {
-						row[i][style].width = (parseInt(root[getComputedStyle](row[i]).width, 10) / width * 100) + "%";
+						row[i][style].width = parseInt(root[getComputedStyle](row[i]).width, 10) / width * 100 + "%";
 						row[i][style].height = "auto";
 					}
 				}
@@ -224,7 +224,7 @@ zoomwall */
 			var itemOffset = 0;
 			var prevWidth = 0;
 			for (var k = 0; k < row[length]; k++) {
-				itemOffset += (prevWidth * scale - prevWidth);
+				itemOffset += prevWidth * scale - prevWidth;
 				prevWidth = parseInt(root[getComputedStyle](row[k]).width, 10);
 				var percentageOffsetX = (itemOffset + leftOffsetX) / prevWidth * 100;
 				var percentageOffsetY = -offsetY / parseInt(root[getComputedStyle](row[k]).height, 10) * 100;
@@ -339,8 +339,9 @@ zoomwall */
  */
 (function (root) {
 	"use strict";
+
 	var blockregex = /\{\{(([@!]?)(.+?))\}\}(([\s\S]+?)(\{\{:\1\}\}([\s\S]+?))?)\{\{\/\1\}\}/g,
-	valregex = /\{\{([=%])(.+?)\}\}/g;
+	    valregex = /\{\{([=%])(.+?)\}\}/g;
 	var t = function (template) {
 		this.t = template;
 	};
@@ -350,7 +351,7 @@ zoomwall */
 	function get_value(vars, key) {
 		var parts = key.split(".");
 		while (parts.length) {
-			if (!(parts[0]in vars)) {
+			if (!(parts[0] in vars)) {
 				return false;
 			}
 			vars = vars[parts.shift()];
@@ -360,8 +361,8 @@ zoomwall */
 	function render(fragment, vars) {
 		return fragment.replace(blockregex, function (_, __, meta, key, inner, if_true, has_else, if_false) {
 			var val = get_value(vars, key),
-			temp = "",
-			i;
+			    temp = "",
+			    i;
 			if (!val) {
 				if (meta === "!") {
 					return render(inner, vars);
@@ -400,8 +401,7 @@ zoomwall */
 		return render(this.t, vars);
 	};
 	root.t = t;
-}
-	("undefined" !== typeof window ? window : this));
+})("undefined" !== typeof window ? window : this);
 /*!
  * modified Echo.js, simple JavaScript image lazy loading
  * added option to specify data attribute and img class
@@ -412,6 +412,7 @@ zoomwall */
  */
 (function (root, document) {
 	"use strict";
+
 	var echo = function (imgClass, dataAttributeName, throttleRate) {
 		imgClass = imgClass || "data-src-img";
 		dataAttributeName = dataAttributeName || "src";
@@ -432,14 +433,13 @@ zoomwall */
 			_this.listen();
 		};
 		var isBindedEchoClass = "is-binded-echo";
-		var isBindedEcho = (function () {
+		var isBindedEcho = function () {
 			return document[documentElement][classList].contains(isBindedEchoClass) || "";
-		}
-			());
+		}();
 		var echoStore = [];
 		var scrolledIntoView = function (element) {
 			var coords = element[getBoundingClientRect]();
-			return ((coords.top >= 0 && coords.left >= 0 && coords.top) <= (root.innerHeight || document[documentElement].clientHeight));
+			return (coords.top >= 0 && coords.left >= 0 && coords.top) <= (root.innerHeight || document[documentElement].clientHeight);
 		};
 		var echoSrc = function (img, callback) {
 			img.src = img[dataset][dataAttributeName] || img[getAttribute]("data-" + dataAttributeName);
@@ -461,10 +461,7 @@ zoomwall */
 			}
 		};
 		var throttle = function (func, wait) {
-			var ctx,
-			args,
-			rtn,
-			timeoutID;
+			var ctx, args, rtn, timeoutID;
 			var last = 0;
 			return function throttled() {
 				ctx = this;
@@ -488,19 +485,18 @@ zoomwall */
 			}
 		};
 		var throttleEchoImageAll = throttle(echoImageAll, throttleRate);
-		var supportsPassive = (function () {
-				var support = false;
-				try {
-					var opts = Object[defineProperty] && Object[defineProperty]({}, "passive", {
-							get: function () {
-								support = true;
-							}
-						});
-					root[addEventListener]("test", function () {}, opts);
-				} catch (err) {}
-				return support;
-			}
-				());
+		var supportsPassive = function () {
+			var support = false;
+			try {
+				var opts = Object[defineProperty] && Object[defineProperty]({}, "passive", {
+					get: function () {
+						support = true;
+					}
+				});
+				root[addEventListener]("test", function () {}, opts);
+			} catch (err) {}
+			return support;
+		}();
 		Echo.prototype = {
 			init: function () {
 				echoStore.push(this.elem);
@@ -510,7 +506,7 @@ zoomwall */
 			},
 			listen: function () {
 				if (!isBindedEcho) {
-					root[addEventListener]("scroll", throttleEchoImageAll, supportsPassive ? {passive: true} : false);
+					root[addEventListener]("scroll", throttleEchoImageAll, supportsPassive ? { passive: true } : false);
 					document[documentElement][classList].add(isBindedEchoClass);
 				}
 			}
@@ -526,8 +522,7 @@ zoomwall */
 		}
 	};
 	root.echo = echo;
-}
-	("undefined" !== typeof window ? window : this, document));
+})("undefined" !== typeof window ? window : this, document);
 /*!
  * modified Detect Whether a Font is Installed
  * @param {String} fontName The name of the font to check
@@ -538,6 +533,7 @@ zoomwall */
  */
 (function (root, document) {
 	"use strict";
+
 	var doesFontExist = function (fontName) {
 		var canvas = document.createElement("canvas");
 		var context = canvas.getContext("2d");
@@ -554,8 +550,7 @@ zoomwall */
 		}
 	};
 	root.doesFontExist = doesFontExist;
-}
-	("undefined" !== typeof window ? window : this, document));
+})("undefined" !== typeof window ? window : this, document);
 /*!
  * modified loadExt
  * @see {@link https://gist.github.com/englishextra/ff9dc7ab002312568742861cb80865c9}
@@ -563,6 +558,7 @@ zoomwall */
  */
 (function (root, document) {
 	"use strict";
+
 	var loadJsCss = function (files, callback) {
 		var _this = this;
 		var getElementsByTagName = "getElementsByTagName";
@@ -607,13 +603,12 @@ zoomwall */
 				(_this.body || _this.head)[appendChild](script);
 			}
 		};
-		var i,
-		l;
+		var i, l;
 		for (i = 0, l = _this.files[length]; i < l; i += 1) {
-			if ((/\.js$|\.js\?/).test(_this.files[i])) {
+			if (/\.js$|\.js\?/.test(_this.files[i])) {
 				_this.js.push(_this.files[i]);
 			}
-			if ((/\.css$|\.css\?|\/css\?/).test(_this.files[i])) {
+			if (/\.css$|\.css\?|\/css\?/.test(_this.files[i])) {
 				_this.loadStyle(_this.files[i]);
 			}
 		}
@@ -625,8 +620,7 @@ zoomwall */
 		}
 	};
 	root.loadJsCss = loadJsCss;
-}
-	("undefined" !== typeof window ? window : this, document));
+})("undefined" !== typeof window ? window : this, document);
 /*!
  * app logic
  */
@@ -663,11 +657,11 @@ zoomwall */
 		var navigatorUserAgent = navigator.userAgent || "";
 
 		var getHumanDate = function () {
-			var newDate = (new Date());
+			var newDate = new Date();
 			var newDay = newDate.getDate();
 			var newYear = newDate.getFullYear();
 			var newMonth = newDate.getMonth();
-			(newMonth += 1);
+			newMonth += 1;
 			if (10 > newDay) {
 				newDay = "0" + newDay;
 			}
@@ -675,23 +669,14 @@ zoomwall */
 				newMonth = "0" + newMonth;
 			}
 			return newYear + "-" + newMonth + "-" + newDay;
-		}
-		();
+		}();
 
 		var platformName = "";
 		var platformDescription = "";
 		if (navigatorUserAgent && root.platform) {
 			platformName = platform.name || "";
 			platformDescription = platform.description || "";
-			document[title] = documentTitle +
-			" [" +
-			(getHumanDate ? " " + getHumanDate : "") +
-			(platformDescription ? " " + platformDescription : "") +
-			((hasTouch || hasWheel) ? " with" : "") +
-			(hasTouch ? " touch" : "") +
-			((hasTouch && hasWheel) ? "," : "") +
-			(hasWheel ? " mousewheel" : "") +
-			"]";
+			document[title] = documentTitle + " [" + (getHumanDate ? " " + getHumanDate : "") + (platformDescription ? " " + platformDescription : "") + (hasTouch || hasWheel ? " with" : "") + (hasTouch ? " touch" : "") + (hasTouch && hasWheel ? "," : "") + (hasWheel ? " mousewheel" : "") + "]";
 		}
 
 		var zoomwallGalleryClass = "zoomwall";
@@ -720,7 +705,7 @@ zoomwall */
 			var jsonObj = safelyParseJSON(parsedJson);
 			if (jsonObj && template && target) {
 				var targetHtml = template[innerHTML] || "",
-				renderTargetTemplate = new t(targetHtml);
+				    renderTargetTemplate = new t(targetHtml);
 				return renderTargetTemplate.render(jsonObj);
 			}
 			return {};
@@ -738,12 +723,10 @@ zoomwall */
 					rg.selectNode(body);
 					var df = rg[createContextualFragment](text);
 					clonedContainer[appendChild](df);
-					return container[parentNode] ? container[parentNode].replaceChild(clonedContainer, container) : container[innerHTML] = text,
-					cb();
+					return container[parentNode] ? container[parentNode].replaceChild(clonedContainer, container) : container[innerHTML] = text, cb();
 				} else {
 					clonedContainer[innerHTML] = text;
-					return container[parentNode] ? container[parentNode].replaceChild(document[createDocumentFragment][appendChild](clonedContainer), container) : container[innerHTML] = text,
-					cb();
+					return container[parentNode] ? container[parentNode].replaceChild(document[createDocumentFragment][appendChild](clonedContainer), container) : container[innerHTML] = text, cb();
 				}
 			} catch (e) {
 				console.log(e);
@@ -769,22 +752,9 @@ zoomwall */
 			}
 		};
 
-		var myHeaders = new Headers();
+		var generateGallery = function (text) {
 
-		fetch(jsonUrl, {
-			headers: myHeaders,
-			credentials: "same-origin"
-		}).then(function (response) {
-
-			if (response.ok) {
-				return response.text();
-			} else {
-				throw new Error("cannot fetch", jsonUrl);
-			}
-
-		}).then(function (text) {
-
-			var generateGallery = new Promise(function (resolve, reject) {
+			return new Promise(function (resolve, reject) {
 
 				var jsonObj;
 
@@ -799,11 +769,11 @@ zoomwall */
 				}
 
 				/*!
-				 * render with <template> and t.js
-				 * the drawback you cannot know image sizes
-				 * attention to last param: if false cloneNode will be used
-				 * and setting listeners or changing its CSS will not be possible
-				 */
+     * render with <template> and t.js
+     * the drawback you cannot know image sizes
+     * attention to last param: if false cloneNode will be used
+     * and setting listeners or changing its CSS will not be possible
+     */
 				insertFromTemplate(jsonObj, "template_zoomwall", "target_zoomwall", function () {
 					if (document[getElementsByClassName](imgClass)[length] > 0) {
 						resolve();
@@ -813,87 +783,90 @@ zoomwall */
 				}, true);
 
 				/*!
-				 * render with creating DOM Nodes
-				 */
+     * render with creating DOM Nodes
+     */
 				/* jsonObj = jsonObj.images;
-
-				var df = document[createDocumentFragment]();
-
-				var key;
-				for (key in jsonObj) {
-					if (jsonObj[hasOwnProperty](key)) {
-						if (jsonObj[key][jsonSrcKeyName]) {
-							var img = document[createElement]("img");
-							if (jsonObj[key][jsonWidthKeyName]) {
-								img[src] = ["data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20",
-									jsonObj[key][jsonWidthKeyName],
-									"%20",
-									jsonObj[key][jsonHeightKeyName],
-									"%27%2F%3E"].join("");
-							} else {
-								var dummyImg = new Image();
-								dummyImg[src] = jsonObj[key][jsonSrcKeyName];
-								var dummyImgWidth = dummyImg.naturalWidth;
-								var dummyImgHeight = dummyImg.naturalHeight;
-								if (dummyImgWidth && dummyImgHeight) {
-									img[src] = ["data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20", dummyImgWidth, "%20", dummyImgHeight, "%27%2F%3E"].join("");
-								} else {
-									img[src] = ["data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20", 640, "%20", 360, "%27%2F%3E"].join("");
-								}
-							}
-							img[dataset][jsonSrcKeyName] = jsonObj[key][jsonSrcKeyName];
-							img[classList].add(imgClass);
-							img[alt] = "";
-
-							df[appendChild](img);
-							df[appendChild](document[createTextNode]("\n"));
-						}
-					}
-				}
-				key = null;
-
-				if (zoomwallGallery[appendChild](df)) {
-					resolve();
-				} else {
-					reject();
-				} */
+    	var df = document[createDocumentFragment]();
+    	var key;
+    for (key in jsonObj) {
+    	if (jsonObj[hasOwnProperty](key)) {
+    		if (jsonObj[key][jsonSrcKeyName]) {
+    			var img = document[createElement]("img");
+    			if (jsonObj[key][jsonWidthKeyName]) {
+    				img[src] = ["data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20",
+    					jsonObj[key][jsonWidthKeyName],
+    					"%20",
+    					jsonObj[key][jsonHeightKeyName],
+    					"%27%2F%3E"].join("");
+    			} else {
+    				var dummyImg = new Image();
+    				dummyImg[src] = jsonObj[key][jsonSrcKeyName];
+    				var dummyImgWidth = dummyImg.naturalWidth;
+    				var dummyImgHeight = dummyImg.naturalHeight;
+    				if (dummyImgWidth && dummyImgHeight) {
+    					img[src] = ["data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20", dummyImgWidth, "%20", dummyImgHeight, "%27%2F%3E"].join("");
+    				} else {
+    					img[src] = ["data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20", 640, "%20", 360, "%27%2F%3E"].join("");
+    				}
+    			}
+    			img[dataset][jsonSrcKeyName] = jsonObj[key][jsonSrcKeyName];
+    			img[classList].add(imgClass);
+    			img[alt] = "";
+    				df[appendChild](img);
+    			df[appendChild](document[createTextNode]("\n"));
+    		}
+    	}
+    }
+    key = null;
+    	if (zoomwallGallery[appendChild](df)) {
+    	resolve();
+    } else {
+    	reject();
+    } */
 			});
+		};
 
-			generateGallery.then(function (result) {
+		var timerCreateGallery;
+		var createGallery = function () {
+			clearTimeout(timerCreateGallery);
+			timerCreateGallery = null;
 
+			var onZoomwallCreated = function () {
+				zoomwallGallery[style].visibility = "visible";
+				zoomwallGallery[style].opacity = 1;
+			};
+			zoomwall.create(zoomwallGallery, true, jsonSrcKeyName, null, onZoomwallCreated);
+		};
+
+		var timerSetLazyloading;
+		var setLazyloading = function () {
+			clearTimeout(timerSetLazyloading);
+			timerSetLazyloading = null;
+			echo(imgClass, jsonSrcKeyName);
+		};
+
+		var myHeaders = new Headers();
+
+		fetch(jsonUrl, {
+			headers: myHeaders,
+			credentials: "same-origin"
+		}).then(function (response) {
+			if (response.ok) {
+				return response.text();
+			} else {
+				throw new Error("cannot fetch", jsonUrl);
+			}
+		}).then(function (text) {
+			generateGallery(text).then(function (result) {
 				return result;
-
 			}).then(function (result) {
-
-				var timerCreateGallery;
-				var createGallery = function () {
-					clearTimeout(timerCreateGallery);
-					timerCreateGallery = null;
-
-					var onZoomwallCreated = function () {
-						zoomwallGallery[style].visibility = "visible";
-						zoomwallGallery[style].opacity = 1;
-					};
-					zoomwall.create(zoomwallGallery, true, jsonSrcKeyName, null, onZoomwallCreated);
-
-				};
 				timerCreateGallery = setTimeout(createGallery, 100);
-
 			}).then(function (result) {
-
-				var timerSetLazyloading;
-				var setLazyloading = function () {
-						clearTimeout(timerSetLazyloading);
-						timerSetLazyloading = null;
-						echo(imgClass, jsonSrcKeyName);
-					};
 				timerSetLazyloading = setTimeout(setLazyloading, 200);
-
-			}).catch (function (err) {
+			}).catch(function (err) {
 				console.log("Cannot create zoomwall gallery", err);
 			});
-
-		}).catch (function (err) {
+		}).catch(function (err) {
 			console.log("cannot parse", jsonUrl);
 		});
 	};
@@ -905,9 +878,9 @@ zoomwall */
 	var scripts = ["./libs/picturewall/css/bundle.min.css"];
 
 	var getHTTP = function (force) {
-		force = force || "";
+		var any = force || "";
 		var locationProtocol = root.location.protocol || "";
-		return "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : force ? "http" : "";
+		return "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : any ? "http" : "";
 	};
 
 	var forcedHTTP = getHTTP(true);
@@ -924,20 +897,18 @@ zoomwall */
 		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/element-dataset@2.2.6/lib/browser/index.cjs.min.js");
 	}
 
-	var supportsPassive = (function () {
+	var supportsPassive = function () {
 		var support = false;
 		try {
 			var opts = Object[defineProperty] && Object[defineProperty]({}, "passive", {
-					get: function () {
-						support = true;
-					}
-				});
+				get: function () {
+					support = true;
+				}
+			});
 			root[addEventListener]("test", function () {}, opts);
 		} catch (err) {}
 		return support;
-
-	}
-		());
+	}();
 
 	if (!supportsPassive) {
 		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/dom4@1.8.5/build/dom4.max.min.js");
@@ -954,8 +925,8 @@ zoomwall */
 	scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/platform@1.3.4/platform.min.js");
 
 	/*!
-	 * load scripts after webfonts loaded using doesFontExist
-	 */
+  * load scripts after webfonts loaded using doesFontExist
+  */
 
 	var onFontsLoadedCallback = function () {
 
@@ -967,11 +938,10 @@ zoomwall */
 			load = new loadJsCss(scripts, run);
 		};
 
-		var supportsCanvas = (function () {
+		var supportsCanvas = function () {
 			var elem = document[createElement]("canvas");
 			return !!(elem.getContext && elem.getContext("2d"));
-		}
-			());
+		}();
 
 		var checkFontIsLoaded = function () {
 			if (doesFontExist("Roboto")) {
@@ -988,54 +958,48 @@ zoomwall */
 	};
 
 	var load;
-	load = new loadJsCss(
-			[forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:400&subset=cyrillic"],
-			onFontsLoadedCallback
-		);
+	load = new loadJsCss([forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:400&subset=cyrillic"], onFontsLoadedCallback);
 
 	/*!
-	 * load scripts after webfonts loaded using webfontloader
-	 */
+  * load scripts after webfonts loaded using webfontloader
+  */
 
 	/* root.WebFontConfig = {
-		google: {
-			families: [
-				"Roboto:400:cyrillic"
-			]
-		},
-		listeners: [],
-		active: function () {
-			this.called_ready = true;
-			for (var i = 0; i < this.listeners[length]; i++) {
-				this.listeners[i]();
-			}
-		},
-		ready: function (callback) {
-			if (this.called_ready) {
-				callback();
-			} else {
-				this.listeners.push(callback);
-			}
-		}
-	};
+ 	google: {
+ 		families: [
+ 			"Roboto:400:cyrillic"
+ 		]
+ 	},
+ 	listeners: [],
+ 	active: function () {
+ 		this.called_ready = true;
+ 		for (var i = 0; i < this.listeners[length]; i++) {
+ 			this.listeners[i]();
+ 		}
+ 	},
+ 	ready: function (callback) {
+ 		if (this.called_ready) {
+ 			callback();
+ 		} else {
+ 			this.listeners.push(callback);
+ 		}
+ 	}
+ };
+ 	var onFontsLoadedCallback = function () {
+ 		var onFontsLoaded = function () {
+ 		if (!supportsSvgSmilAnimation) {
+ 			progressBar.increase(20);
+ 		}
+ 		var load;
+ 		load = new loadJsCss(scripts, run);
+ 	};
+ 		root.WebFontConfig.ready(onFontsLoaded);
+ };
+ 	var load;
+ load = new loadJsCss(
+ 		[forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"],
+ 		onFontsLoadedCallback
+ 	); */
+})("undefined" !== typeof window ? window : this, document);
 
-	var onFontsLoadedCallback = function () {
-
-		var onFontsLoaded = function () {
-			if (!supportsSvgSmilAnimation) {
-				progressBar.increase(20);
-			}
-			var load;
-			load = new loadJsCss(scripts, run);
-		};
-
-		root.WebFontConfig.ready(onFontsLoaded);
-	};
-
-	var load;
-	load = new loadJsCss(
-			[forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"],
-			onFontsLoadedCallback
-		); */
-}
-	("undefined" !== typeof window ? window : this, document));
+//# sourceMappingURL=bundle.js.map
