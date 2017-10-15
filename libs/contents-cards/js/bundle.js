@@ -1,7 +1,7 @@
 /*jslint browser: true */
 /*jslint node: true */
 /*global doesFontExist, echo, Headers, loadJsCss, Minigrid, platform,
-Promise, t */
+Promise, t, ToProgress */
 /*property console, split */
 /*!
  * safe way to handle console.log
@@ -576,7 +576,6 @@ Promise, t */
 	var documentElement = "documentElement";
 	var createElement = "createElement";
 	var length = "length";
-	var addEventListener = "addEventListener";
 
 	var progressBar = new ToProgress({
 		id: "top-progress-bar",
@@ -594,6 +593,8 @@ Promise, t */
 
 	var run = function () {
 
+		var body = "body";
+		var addEventListener = "addEventListener";
 		var getElementById = "getElementById";
 		var getElementsByClassName = "getElementsByClassName";
 		var appendChild = "appendChild";
@@ -866,8 +867,6 @@ Promise, t */
 				var cssRule = toDashedAll([".", cardWrapClass, "{", transitionProperty, ": ", transformProperty, " 0.4s ease-out;", "}"].join(""));
 				styleSheet.insertRule(cssRule, 0);
 			}
-
-			progressBar.increase(20);
 		};
 
 		var timerSetLazyloading;
@@ -876,8 +875,6 @@ Promise, t */
 			timerSetLazyloading = null;
 
 			echo(imgClass, jsonSrcKeyName);
-
-			hideProgressBar();
 		};
 
 		var myHeaders = new Headers();
@@ -904,6 +901,54 @@ Promise, t */
 		}).catch(function (err) {
 			console.log("cannot parse", jsonUrl);
 		});
+
+		var throttle = function (func, wait) {
+			var ctx;
+			var args;
+			var rtn;
+			var timeoutID;
+			var last = 0;
+			return function throttled() {
+				ctx = this;
+				args = arguments;
+				var delta = new Date() - last;
+				if (!timeoutID) {
+					if (delta >= wait) {
+						call();
+					} else {
+						timeoutID = setTimeout(call, wait - delta);
+					}
+				}
+				return rtn;
+			};
+			function call() {
+				timeoutID = 0;
+				last = +new Date();
+				rtn = func.apply(ctx, args);
+				ctx = null;
+				args = null;
+			}
+		};
+
+		var titleBar = document[getElementsByClassName]("title-bar")[0] || "";
+		var titleBarHeight = titleBar.offsetHeight || 0;
+		var isFixedClass = "is-fixed";
+		var handleTitleBar = function () {
+			var logic = function () {
+				if ((document[body].scrollTop || document[documentElement].scrollTop || 0) > titleBarHeight) {
+					titleBar[classList].add(isFixedClass);
+				} else {
+					titleBar[classList].remove(isFixedClass);
+				}
+			};
+			var throttleLogic = throttle(logic, 100);
+			throttleLogic();
+		};
+		if (titleBar) {
+			root[addEventListener]("scroll", handleTitleBar, { passive: true });
+		}
+
+		hideProgressBar();
 	};
 
 	var defineProperty = "defineProperty";

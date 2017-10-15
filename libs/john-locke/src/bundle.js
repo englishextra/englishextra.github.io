@@ -1,6 +1,6 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global debounce, doesFontExist, loadJsCss, Parallax, platform, QRCode,
+/*global doesFontExist, loadJsCss, Parallax, platform, QRCode,
 ToProgress, unescape, VK, WheelIndicator, Ya */
 /*property console, split */
 /*!
@@ -216,77 +216,6 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 	root.doesFontExist = doesFontExist;
 }
 	("undefined" !== typeof window ? window : this, document));
-/*!
- * modified Returns a function, that, as long as it continues to be invoked, will not
- * be triggered. The function will be called after it stops being called for
- * N milliseconds. If `immediate` is passed, trigger the function on the
- * leading edge, instead of the trailing. The function also has a property 'clear'
- * that is a function which will clear the timer to prevent previously scheduled executions.
- * @source underscore.js
- * @see http://unscriptable.com/2009/03/20/debouncing-javascript-methods/
- * @param {Function} function to wrap
- * @param {Number} timeout in ms (`100`)
- * @param {Boolean} whether to execute at the beginning (`false`)
- * @api public
- * @see {@link https://github.com/component/debounce/blob/master/index.js}
- * passes jshint
- */
-(function (root) {
-	"use strict";
-	var debounce = function (func, wait, immediate) {
-		var timeout,
-		args,
-		context,
-		timestamp,
-		result;
-		if (undefined === wait || null === wait) {
-			wait = 100;
-		}
-		function later() {
-			var last = Date.now() - timestamp;
-			if (last < wait && last >= 0) {
-				timeout = setTimeout(later, wait - last);
-			} else {
-				timeout = null;
-				if (!immediate) {
-					result = func.apply(context, args);
-					context = args = null;
-				}
-			}
-		}
-		var debounced = function () {
-			context = this;
-			args = arguments;
-			timestamp = Date.now();
-			var callNow = immediate && !timeout;
-			if (!timeout) {
-				timeout = setTimeout(later, wait);
-			}
-			if (callNow) {
-				result = func.apply(context, args);
-				context = args = null;
-			}
-			return result;
-		};
-		debounced.clear = function () {
-			if (timeout) {
-				clearTimeout(timeout);
-				timeout = null;
-			}
-		};
-		debounced.flush = function () {
-			if (timeout) {
-				result = func.apply(context, args);
-				context = args = null;
-				clearTimeout(timeout);
-				timeout = null;
-			}
-		};
-		return debounced;
-	};
-	root.debounce = debounce;
-}
-	("undefined" !== typeof window ? window : this));
 /*!
  * modified loadExt
  * @see {@link https://gist.github.com/englishextra/ff9dc7ab002312568742861cb80865c9}
@@ -811,6 +740,58 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 
 		root[addEventListener]("click", hideOtherIsSocial);
 
+		var debounce = function (func, wait, immediate) {
+			var timeout;
+			var args;
+			var context;
+			var timestamp;
+			var result;
+			if (undefined === wait || null === wait) {
+				wait = 100;
+			}
+			function later() {
+				var last = Date.now() - timestamp;
+				if (last < wait && last >= 0) {
+					timeout = setTimeout(later, wait - last);
+				} else {
+					timeout = null;
+					if (!immediate) {
+						result = func.apply(context, args);
+						context = args = null;
+					}
+				}
+			}
+			var debounced = function () {
+				context = this;
+				args = arguments;
+				timestamp = Date.now();
+				var callNow = immediate && !timeout;
+				if (!timeout) {
+					timeout = setTimeout(later, wait);
+				}
+				if (callNow) {
+					result = func.apply(context, args);
+					context = args = null;
+				}
+				return result;
+			};
+			debounced.clear = function () {
+				if (timeout) {
+					clearTimeout(timeout);
+					timeout = null;
+				}
+			};
+			debounced.flush = function () {
+				if (timeout) {
+					result = func.apply(context, args);
+					context = args = null;
+					clearTimeout(timeout);
+					timeout = null;
+				}
+			};
+			return debounced;
+		};
+
 		var yaShare2Id = "ya-share2";
 
 		var yaShare2 = document[getElementById](yaShare2Id) || "";
@@ -821,7 +802,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		var showYaShare2 = function (ev) {
 			ev.preventDefault();
 			ev.stopPropagation();
-			var logicShowShareButtons = function () {
+			var logic = function () {
 				yaShare2[classList].toggle(isActiveClass);
 				hideOtherIsSocial(yaShare2);
 				var initScript = function () {
@@ -855,8 +836,8 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 					initScript();
 				}
 			};
-			var debounceLogicShowShareButtons = debounce(logicShowShareButtons, 200);
-			debounceLogicShowShareButtons();
+			var debounceLogic = debounce(logic, 200);
+			debounceLogic();
 		};
 
 		if (btnShare && btnShareLink && yaShare2) {
@@ -876,7 +857,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		var showVkLike = function (ev) {
 			ev.preventDefault();
 			ev.stopPropagation();
-			var logicShowVkLike = function () {
+			var logic = function () {
 				vkLike[classList].toggle(isActiveClass);
 				hideOtherIsSocial(vkLike);
 				var initScript = function () {
@@ -907,8 +888,8 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 					initScript();
 				}
 			};
-			var debounceLogicShowVkLike = debounce(logicShowVkLike, 200);
-			debounceLogicShowVkLike();
+			var debounceLogic = debounce(logic, 200);
+			debounceLogic();
 		};
 
 		if (btnLike && btnLikeLink && vkLike) {

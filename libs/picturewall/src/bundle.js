@@ -1,7 +1,7 @@
 /*jslint browser: true */
 /*jslint node: true */
 /*global doesFontExist, echo, Headers, loadJsCss, platform, Promise, t,
-zoomwall */
+ToProgress, zoomwall */
 /*property console, split */
 /*!
  * safe way to handle console.log
@@ -789,6 +789,7 @@ zoomwall */
 (function (root, document) {
 	"use strict";
 
+	var documentElement = "documentElement";
 	var createElement = "createElement";
 	var length = "length";
 
@@ -808,6 +809,8 @@ zoomwall */
 
 	var run = function () {
 
+		var body = "body";
+		var addEventListener = "addEventListener";
 		var getElementById = "getElementById";
 		var getElementsByClassName = "getElementsByClassName";
 		var appendChild = "appendChild";
@@ -872,6 +875,7 @@ zoomwall */
 		var jsonSrcKeyName = "src";
 		var jsonWidthKeyName = "width";
 		var jsonHeightKeyName = "height";
+		var jsonTitleKeyName = "title";
 		var jsonUrl = "./libs/contents-cards/json/contents.json";
 
 		var safelyParseJSON = function (response) {
@@ -1002,7 +1006,8 @@ zoomwall */
 							}
 							img[dataset][jsonSrcKeyName] = jsonObj[key][jsonSrcKeyName];
 							img[classList].add(imgClass);
-							img[alt] = "";
+							img[alt] = jsonObj[key][jsonTitleKeyName];
+							img[title] = jsonObj[key][jsonTitleKeyName];
 
 							df[appendChild](img);
 							df[appendChild](document[createTextNode]("\n"));
@@ -1029,8 +1034,6 @@ zoomwall */
 				zoomwallGallery[style].opacity = 1;
 			};
 			zoomwall.create(zoomwallGallery, true, jsonSrcKeyName, null, onZoomwallCreated);
-
-			progressBar.increase(20);
 		};
 
 		var timerSetLazyloading;
@@ -1039,8 +1042,6 @@ zoomwall */
 			timerSetLazyloading = null;
 
 			echo(imgClass, jsonSrcKeyName);
-
-			hideProgressBar();
 		};
 
 		var myHeaders = new Headers();
@@ -1067,11 +1068,57 @@ zoomwall */
 		}).catch (function (err) {
 			console.log("cannot parse", jsonUrl);
 		});
+
+		var throttle = function (func, wait) {
+			var ctx;
+			var args;
+			var rtn;
+			var timeoutID;
+			var last = 0;
+			return function throttled() {
+				ctx = this;
+				args = arguments;
+				var delta = new Date() - last;
+				if (!timeoutID) {
+					if (delta >= wait) {
+						call();
+					} else {
+						timeoutID = setTimeout(call, wait - delta);
+					}
+				}
+				return rtn;
+			};
+			function call() {
+				timeoutID = 0;
+				last = +new Date();
+				rtn = func.apply(ctx, args);
+				ctx = null;
+				args = null;
+			}
+		};
+
+		var titleBar = document[getElementsByClassName]("title-bar")[0] || "";
+		var titleBarHeight = titleBar.offsetHeight || 0;
+		var isFixedClass = "is-fixed";
+		var handleTitleBar = function () {
+			var logic = function () {
+				if ((document[body].scrollTop || document[documentElement].scrollTop || 0) > titleBarHeight) {
+					titleBar[classList].add(isFixedClass);
+				} else {
+					titleBar[classList].remove(isFixedClass);
+				}
+			};
+			var throttleLogic = throttle(logic, 100);
+			throttleLogic();
+		};
+		if (titleBar) {
+			root[addEventListener]("scroll", handleTitleBar, {passive: true});
+		}
+
+		hideProgressBar();
 	};
 
-	var documentElement = "documentElement";
 	var defineProperty = "defineProperty";
-	var addEventListener = "addEventListener";
 
 	var scripts = ["./libs/picturewall/css/bundle.min.css"];
 
