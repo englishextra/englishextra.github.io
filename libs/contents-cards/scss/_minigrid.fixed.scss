@@ -17,12 +17,16 @@
 
 .card-wrap {
 	width: 264px;
+	overflow: hidden;
 	background-color: #FFFFFF;
-	box-shadow: 0 0.333em 0.333em 0 $color-rgba-card-shadow;
+	/* box-shadow: 0 0.333em 0.333em 0 $color-rgba-card-shadow; */
 	/*!
 	 * if transition set, all the images will be loaded
 	 */
 	/* transition: transform 0.4s ease-out; */
+	border: 0.067rem solid $color-rgba-card-shadow;
+	border-radius: 0.200rem;
+	box-shadow: 0 0.133rem 0 $color-rgba-card-shadow;
 }
 
 .card-wrap a {
