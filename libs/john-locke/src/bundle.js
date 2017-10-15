@@ -1,7 +1,7 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global debounce, doesFontExist, imagesPreloaded, loadJsCss, Parallax,
-platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
+/*global debounce, doesFontExist, loadJsCss, Parallax, platform, QRCode,
+ToProgress, unescape, VK, WheelIndicator, Ya */
 /*property console, split */
 /*!
  * safe way to handle console.log
@@ -393,27 +393,11 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 		progressBar.hide();
 	};
 
-	var slotOnImagesPreloaded;
-	var onImagesPreloaded = function () {
-		if (imagesPreloaded) {
-			clearInterval(slotOnImagesPreloaded);
-			slotOnImagesPreloaded = null;
-			progressBar.increase(20);
-		}
-	};
-
 	var toStringFn = {}.toString;
 	var supportsSvgSmilAnimation = !!document[createElementNS] && (/SVGAnimate/).test(toStringFn.call(document[createElementNS]("http://www.w3.org/2000/svg", "animate"))) || "";
 
 	if (!supportsSvgSmilAnimation) {
-
 		progressBar.increase(20);
-
-		if ("undefined" !== typeof imagesPreloaded) {
-			slotOnImagesPreloaded = setInterval(onImagesPreloaded, 100);
-		}
-
-		root[addEventListener]("load", hideProgressBar);
 	}
 
 	var removeElement = function (elem) {
@@ -653,7 +637,7 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 		var downloadApp = document[getElementsByClassName]("download-app")[0] || "";
 		var downloadAppLink = downloadApp ? downloadApp[getElementsByTagName]("a")[0] || "" : "";
 		var downloadAppImg = downloadApp ? downloadApp[getElementsByTagName]("img")[0] || "" : "";
-		
+
 		var timerhowDownloadApp;
 		var showDownloadApp = function () {
 			clearTimeout(timerhowDownloadApp);
@@ -661,7 +645,7 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 			downloadApp[style][visibility] = "visible";
 			downloadApp[style][opacity] = 1;
 		};
-		
+
 		if (navigatorUserAgent && downloadApp && downloadAppLink && downloadAppImg && root.platform) {
 			var platformOsFamily = platform.os.family || "";
 			var platformOsVersion = platform.os.version || "";
@@ -932,6 +916,10 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 			btnLike[style][opacity] = 1;
 			btnLikeLink[addEventListener]("click", showVkLike);
 		}
+
+		if (!supportsSvgSmilAnimation) {
+			hideProgressBar();
+		}
 	};
 
 	var defineProperty = "defineProperty";
@@ -993,9 +981,11 @@ platform, QRCode, ToProgress, unescape, VK, WheelIndicator, Ya */
 		var onFontsLoaded = function () {
 			clearInterval(slot);
 			slot = null;
+
 			if (!supportsSvgSmilAnimation) {
 				progressBar.increase(20);
 			}
+
 			var load;
 			load = new loadJsCss(scripts, run);
 		};

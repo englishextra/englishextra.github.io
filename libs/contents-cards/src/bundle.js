@@ -33,6 +33,162 @@ Promise, t */
 	prop = method = dummy = properties = methods = null;
 }("undefined" !== typeof window ? window : this));
 /*!
+ * modified ToProgress v0.1.1
+ * @see {@link http://github.com/djyde/ToProgress}
+ * @see {@link https://github.com/djyde/ToProgress/blob/master/ToProgress.js}
+ * passes jshint
+ */
+(function (root, document, undefined) {
+	"use strict";
+	var ToProgress = (function () {
+		var TP = function () {
+			var style = "style";
+			var createElement = "createElement";
+			var appendChild = "appendChild";
+			var prototype = "prototype";
+			var hasOwnProperty = "hasOwnProperty";
+			var getElementById = "getElementById";
+			var getElementsByClassName = "getElementsByClassName";
+			var firstChild = "firstChild";
+			var addEventListener = "addEventListener";
+			var removeEventListener = "removeEventListener";
+			var opacity = "opacity";
+			function whichTransitionEvent() {
+				var t,
+				el = document[createElement]("fakeelement");
+				var transitions = {
+					"transition": "transitionend",
+					"OTransition": "oTransitionEnd",
+					"MozTransition": "transitionend",
+					"WebkitTransition": "webkitTransitionEnd"
+				};
+				for (t in transitions) {
+					if (transitions[hasOwnProperty](t)) {
+						if (el[style][t] !== undefined) {
+							return transitions[t];
+						}
+					}
+				}
+			}
+			var transitionEvent = whichTransitionEvent();
+			function ToProgress(opt, selector) {
+				this.progress = 0;
+				this.options = {
+					id: "top-progress-bar",
+					color: "#F44336",
+					height: "2px",
+					duration: 0.2
+				};
+				if (opt && typeof opt === "object") {
+					for (var key in opt) {
+						if (opt[hasOwnProperty](key)) {
+							this.options[key] = opt[key];
+						}
+					}
+				}
+				this.options.opacityDuration = this.options.duration * 3;
+				this.progressBar = document[createElement]("div");
+				this.progressBar.id = this.options.id;
+				this.progressBar.setCSS = function (style) {
+					for (var property in style) {
+						if (style[hasOwnProperty](property)) {
+							this.style[property] = style[property];
+						}
+					}
+				};
+				this.progressBar.setCSS({
+					"position": selector ? "relative" : "fixed",
+					"top": "0",
+					"left": "0",
+					"right": "0",
+					"background-color": this.options.color,
+					"height": this.options.height,
+					"width": "0%",
+					"transition": "width " + this.options.duration + "s" + ", opacity " + this.options.opacityDuration + "s",
+					"-moz-transition": "width " + this.options.duration + "s" + ", opacity " + this.options.opacityDuration + "s",
+					"-webkit-transition": "width " + this.options.duration + "s" + ", opacity " + this.options.opacityDuration + "s"
+				});
+				if (selector) {
+					var el;
+					if (selector.indexOf("#", 0) !== -1) {
+						el = document[getElementById](selector) || "";
+					} else {
+						if (selector.indexOf(".", 0) !== -1) {
+							el = document[getElementsByClassName](selector)[0] || "";
+						}
+					}
+					if (el) {
+						if (el.hasChildNodes()) {
+							el.insertBefore(this.progressBar, el[firstChild]);
+						} else {
+							el[appendChild](this.progressBar);
+						}
+					}
+				} else {
+					document.body[appendChild](this.progressBar);
+				}
+			}
+			ToProgress[prototype].transit = function () {
+				this.progressBar[style].width = this.progress + "%";
+			};
+			ToProgress[prototype].getProgress = function () {
+				return this.progress;
+			};
+			ToProgress[prototype].setProgress = function (progress, callback) {
+				this.show();
+				if (progress > 100) {
+					this.progress = 100;
+				} else if (progress < 0) {
+					this.progress = 0;
+				} else {
+					this.progress = progress;
+				}
+				this.transit();
+				if (callback) {
+					callback();
+				}
+			};
+			ToProgress[prototype].increase = function (toBeIncreasedProgress, callback) {
+				this.show();
+				this.setProgress(this.progress + toBeIncreasedProgress, callback);
+			};
+			ToProgress[prototype].decrease = function (toBeDecreasedProgress, callback) {
+				this.show();
+				this.setProgress(this.progress - toBeDecreasedProgress, callback);
+			};
+			ToProgress[prototype].finish = function (callback) {
+				var that = this;
+				this.setProgress(100, callback);
+				this.hide();
+				if (transitionEvent) {
+					this.progressBar[addEventListener](transitionEvent, function (e) {
+						that.reset();
+						that.progressBar[removeEventListener](e.type, TP);
+					});
+				}
+			};
+			ToProgress[prototype].reset = function (callback) {
+				this.progress = 0;
+				this.transit();
+				if (callback) {
+					callback();
+				}
+			};
+			ToProgress[prototype].hide = function () {
+				this.progressBar[style][opacity] = "0";
+			};
+			ToProgress[prototype].show = function () {
+				this.progressBar[style][opacity] = "1";
+			};
+			return ToProgress;
+		};
+		return TP();
+	}
+		());
+	root.ToProgress = ToProgress;
+}
+	("undefined" !== typeof window ? window : this, document));
+/*!
  * @license Minigrid v3.1.1 minimal cascading grid layout http://alves.im/minigrid
  * @see {@link https://github.com/henriquea/minigrid}
  */
@@ -434,6 +590,20 @@ Promise, t */
 	var length = "length";
 	var addEventListener = "addEventListener";
 
+	var progressBar = new ToProgress({
+			id: "top-progress-bar",
+			color: "#FF2C40",
+			height: "0.200rem",
+			duration: 0.2
+		});
+
+	var hideProgressBar = function () {
+		progressBar.finish();
+		progressBar.hide();
+	};
+
+	progressBar.increase(20);
+
 	var run = function () {
 
 		var getElementById = "getElementById";
@@ -453,6 +623,8 @@ Promise, t */
 		var createContextualFragment = "createContextualFragment";
 		var createDocumentFragment = "createDocumentFragment";
 		var styleSheets = "styleSheets";
+
+		progressBar.increase(20);
 
 		var hasTouch = "ontouchstart" in document[documentElement] || "";
 
@@ -743,13 +915,18 @@ Promise, t */
 							"}"].join(""));
 				styleSheet.insertRule(cssRule, 0);
 			}
+
+			progressBar.increase(20);
 		};
 
 		var timerSetLazyloading;
 		var setLazyloading = function () {
 			clearTimeout(timerSetLazyloading);
 			timerSetLazyloading = null;
+
 			echo(imgClass, jsonSrcKeyName);
+
+			hideProgressBar();
 		};
 
 		var myHeaders = new Headers();
@@ -841,6 +1018,9 @@ Promise, t */
 		var onFontsLoaded = function () {
 			clearInterval(slot);
 			slot = null;
+
+			progressBar.increase(20);
+
 			var load;
 			load = new loadJsCss(scripts, run);
 		};
@@ -900,9 +1080,7 @@ Promise, t */
 	var onFontsLoadedCallback = function () {
 
 		var onFontsLoaded = function () {
-			if (!supportsSvgSmilAnimation) {
-				progressBar.increase(20);
-			}
+			progressBar.increase(20);
 			var load;
 			load = new loadJsCss(scripts, run);
 		};
