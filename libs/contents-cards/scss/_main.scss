@@ -70,7 +70,7 @@ a {
 .title-bar a:link,
 .title-bar a:visited {
 	text-decoration: none;
-	color: #FFFFFF;
+	color: $TitleBarAndAppBarLight;
 }
 
 .title-bar a:hover {
@@ -84,7 +84,7 @@ a {
 }
 
 .title-bar-icon > * {
-	fill: #FFFFFF;
+	fill: $TitleBarAndAppBarLight;
 }
 
 .btn-title-bar svg {
@@ -94,7 +94,7 @@ a {
 .btn-title-bar {
 	display: block;
 	position: relative;
-	color: #FFFFFF;
+	color: $TitleBarAndAppBarLight;
 }
 
 .btn-title-bar.back {
@@ -109,7 +109,7 @@ a {
 .btn-title-bar.title {
 	display: inline-block;
 	font-family: "Roboto", $font-family-webfont-sans-regular;
-	font-weight: 400;
+	font-weight: 700;
 	font-size: 0.933rem;
 	line-height: 3.200rem;
 	margin: 0;
@@ -131,7 +131,7 @@ a {
 	position: fixed;
 	bottom: 0;
 	right: 3.200rem;
-	background-color: $TitleBarAndAppBarLight;
+	background-color: $color-rgba-ui-icon-bg;
 }
 
 .btn-share a > * {
@@ -155,7 +155,7 @@ a {
 	position: fixed;
 	bottom: 0;
 	right: 0;
-	background-color: $TitleBarAndAppBarLight;
+	background-color: $color-rgba-ui-icon-bg;
 }
 
 .btn-totop.is-active {

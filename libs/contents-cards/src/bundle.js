@@ -1245,10 +1245,10 @@ Promise, t, ToProgress, WheelIndicator, Ya */
 
 		var hideTitleBar = function () {
 			var logic = function () {
-				titleBar[classList].remove(isFixedClass);
 				if ((document[body].scrollTop || document[documentElement].scrollTop || 0) > titleBarHeight) {
 					titleBar[classList].add(isHiddenClass);
 				} else {
+					titleBar[classList].remove(isFixedClass);
 					titleBar[classList].remove(isHiddenClass);
 				}
 			};
@@ -1480,7 +1480,7 @@ Promise, t, ToProgress, WheelIndicator, Ya */
 	/* root.WebFontConfig = {
 		google: {
 			families: [
-				"Roboto:400:cyrillic"
+				"Roboto:400,700:cyrillic"
 			]
 		},
 		listeners: [],
