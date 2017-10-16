@@ -926,6 +926,16 @@ ToProgress, WheelIndicator, zoomwall */
 			}
 		};
 
+		var countObjKeys = function (obj) {
+			var count = 0;
+			for (var prop in obj) {
+				if (obj.hasOwnProperty(prop)) {
+					++count;
+				}
+			}
+			return count;
+		};
+
 		var generateGallery = function (text) {
 
 			return new Promise(function (resolve, reject) {
@@ -956,15 +966,6 @@ ToProgress, WheelIndicator, zoomwall */
      * attention to last param: if false cloneNode will be used
      * and setting listeners or changing its CSS will not be possible
      */
-				function countObjKeys(obj) {
-					var count = 0;
-					for (var prop in obj) {
-						if (obj.hasOwnProperty(prop)) {
-							++count;
-						}
-					}
-					return count;
-				}
 				var pagesKeysNumber = countObjKeys(jsonObj.pages);
 				insertFromTemplate(jsonObj, "template_zoomwall", "target_zoomwall", function () {
 					if (pagesKeysNumber === document[getElementsByClassName](imgClass)[length]) {
@@ -1195,10 +1196,10 @@ ToProgress, WheelIndicator, zoomwall */
 
 		var hideTitleBar = function () {
 			var logic = function () {
+				titleBar[classList].remove(isFixedClass);
 				if ((document[body].scrollTop || document[documentElement].scrollTop || 0) > titleBarHeight) {
 					titleBar[classList].add(isHiddenClass);
 				} else {
-					titleBar[classList].remove(isFixedClass);
 					titleBar[classList].remove(isHiddenClass);
 				}
 			};
@@ -1246,6 +1247,76 @@ ToProgress, WheelIndicator, zoomwall */
 					}
 				}
 			}
+		}
+
+		var isActiveClass = "is-active";
+
+		var scroll2Top = function (scrollTargetY, speed, easing) {
+			var scrollY = root.scrollY || document.documentElement.scrollTop;
+			var posY = scrollTargetY || 0;
+			var rate = speed || 2000;
+			var soothing = easing || "easeOutSine";
+			var currentTime = 0;
+			var time = Math.max(0.1, Math.min(Math.abs(scrollY - posY) / rate, 0.8));
+			var easingEquations = {
+				easeOutSine: function (pos) {
+					return Math.sin(pos * (Math.PI / 2));
+				},
+				easeInOutSine: function (pos) {
+					return -0.5 * (Math.cos(Math.PI * pos) - 1);
+				},
+				easeInOutQuint: function (pos) {
+					if ((pos /= 0.5) < 1) {
+						return 0.5 * Math.pow(pos, 5);
+					}
+					return 0.5 * (Math.pow(pos - 2, 5) + 2);
+				}
+			};
+			function tick() {
+				currentTime += 1 / 60;
+				var p = currentTime / time;
+				var t = easingEquations[soothing](p);
+				if (p < 1) {
+					requestAnimationFrame(tick);
+					root.scrollTo(0, scrollY + (posY - scrollY) * t);
+				} else {
+					root.scrollTo(0, posY);
+				}
+			}
+			tick();
+		};
+
+		var docElem = document[documentElement] || "";
+		var docBody = document[body] || "";
+		var btnClass = "btn-totop";
+		var btnTotop = document[getElementsByClassName](btnClass)[0] || "";
+		var handleBtnTotop = function (evt) {
+			evt.stopPropagation();
+			evt.preventDefault();
+			scroll2Top(0, 20000);
+			if (titleBar) {
+				titleBar[classList].remove(isHiddenClass);
+			}
+		};
+		var handleBtnTotopWindow = function (_this) {
+			var logic = function () {
+				var btn = document[getElementsByClassName](btnClass)[0] || "";
+				var scrollPosition = _this.pageYOffset || docElem.scrollTop || docBody.scrollTop || "";
+				var windowHeight = _this.innerHeight || docElem.clientHeight || docBody.clientHeight || "";
+				if (scrollPosition && windowHeight && btn) {
+					if (scrollPosition > windowHeight) {
+						btn[classList].add(isActiveClass);
+					} else {
+						btn[classList].remove(isActiveClass);
+					}
+				}
+			};
+			var throttleLogic = throttle(logic, 100);
+			throttleLogic();
+		};
+		if (btnTotop) {
+			btnTotop[addEventListener]("click", handleBtnTotop);
+			root[addEventListener]("scroll", handleBtnTotopWindow, { passive: true });
 		}
 
 		hideProgressBar();

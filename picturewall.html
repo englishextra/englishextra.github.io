@@ -68,9 +68,13 @@
 					<title>Back</title>
 					<path d="M32,15v2H3.8l12.3,12.3l-1.4,1.4L0,16L14.7,1.3l1.4,1.4L3.8,15H32z"></path>
 				</symbol>
-				<symbol id="ui-icon-vk" viewBox="0 0 32 32">
+				<symbol id="ui-icon-Vk" viewBox="0 0 32 32">
 					<title>vk</title>
 					<path d="M30.309,8.208C30.52,7.497,30.309,7,29.324,7h-3.283c-0.844,0-1.219,0.45-1.43,0.947c0,0-1.665,4.121-4.033,6.774c-0.774,0.782-1.102,1.018-1.524,1.018c-0.211,0-0.516-0.237-0.516-0.947V8.208C18.539,7.355,18.304,7,17.601,7h-5.158c-0.516,0-0.844,0.403-0.844,0.758c0,0.805,1.172,0.995,1.313,3.221v4.879c0,1.066-0.188,1.255-0.61,1.255c-1.102,0-3.822-4.121-5.416-8.858C6.557,7.379,6.252,7,5.408,7H2.125C1.188,7,1,7.45,1,7.947c0,0.876,1.102,5.234,5.182,10.989C8.902,22.868,12.724,25,16.194,25c2.087,0,2.345-0.474,2.345-1.279v-2.984c0-0.947,0.188-1.137,0.868-1.137c0.492,0,1.313,0.237,3.259,2.132C24.894,23.982,25.269,25,26.511,25h3.283c0.938,0,1.407-0.474,1.125-1.397c-0.305-0.924-1.36-2.274-2.767-3.884c-0.774-0.924-1.923-1.895-2.251-2.392c-0.492-0.639-0.352-0.924,0-1.468C25.901,15.834,29.911,10.15,30.309,8.208z"></path>
+				</symbol>
+				<symbol id="ui-icon-Up" viewBox="0 0 96 96">
+					<title>Up</title>
+					<path d="M70.497,46.118l-2.153,2.117L49.529,29.736V72h-3.06V29.736L27.653,48.235L25.5,46.118L48,24l22.5,22.118H70.497z"></path>
 				</symbol>
 			</defs>
 		</svg>
@@ -84,11 +88,18 @@
 				<h1 class="btn-title-bar title">Все иллюстрации</h1>
 				<a class="btn-title-bar vk" href="https://vk.com/englishextragithubio" target="_blank" rel="noopener" title="Паблик">
 					<svg class="title-bar-icon">
-						<use xlink:href="#ui-icon-vk"></use>
+						<use xlink:href="#ui-icon-Vk"></use>
 					</svg>
 				</a>
 			</div>
 			<div class="zoomwall" id="target_zoomwall"></div>
+			<div class="btn-totop">
+				<a href="javascript:void(0);" title="Наверх">
+					<svg>
+						<use xlink:href="#ui-icon-Up"></use>
+					</svg>
+				</a>
+			</div>
 		</div>
 		<template id="template_zoomwall">
 			{{@pages}}

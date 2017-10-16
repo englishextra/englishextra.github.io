@@ -124,3 +124,66 @@ a {
 	top: 0.933rem;
 	right: 0.933rem;
 }
+
+.btn-share {
+	width: 3.200rem;
+	height: 3.200rem;
+	position: fixed;
+	bottom: 0;
+	right: 3.200rem;
+	background-color: $TitleBarAndAppBarLight;
+}
+
+.btn-share a > * {
+	fill: #767676;
+}
+
+.btn-share svg {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+}
+
+.btn-share a {
+	font-size: 0;
+}
+
+.btn-totop {
+	display: none;
+	width: 3.200rem;
+	height: 3.200rem;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	background-color: $TitleBarAndAppBarLight;
+}
+
+.btn-totop.is-active {
+	display: block;
+}
+
+.btn-totop a > * {
+	fill: $ButtonOutline;
+}
+
+.btn-totop svg {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+}
+
+.btn-totop a {
+	font-size: 0;
+}
+
+.ya-share2 {
+	display: none;
+	height: 3.200rem;
+	position: fixed;
+	bottom: 0;
+	right: 6.400rem;
+}
+
+.ya-share2.is-active {
+	display: block;
+}
