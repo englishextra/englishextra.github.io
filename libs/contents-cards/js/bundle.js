@@ -1,7 +1,7 @@
 /*jslint browser: true */
 /*jslint node: true */
 /*global doesFontExist, echo, Headers, loadJsCss, Minigrid, platform,
-Promise, t, ToProgress */
+Promise, t, ToProgress, WheelIndicator */
 /*property console, split */
 /*!
  * safe way to handle console.log
@@ -591,6 +591,10 @@ Promise, t, ToProgress */
 
 	progressBar.increase(20);
 
+	var hasTouch = "ontouchstart" in document[documentElement] || "";
+
+	var hasWheel = "onwheel" in document[createElement]("div") || void 0 !== document.onmousewheel || "";
+
 	var run = function () {
 
 		var body = "body";
@@ -600,14 +604,8 @@ Promise, t, ToProgress */
 		var appendChild = "appendChild";
 		var parentNode = "parentNode";
 		var classList = "classList";
-		var dataset = "dataset";
-		var href = "href";
-		var src = "src";
-		var alt = "alt";
 		var title = "title";
 		var style = "style";
-		var createTextNode = "createTextNode";
-		var hasOwnProperty = "hasOwnProperty";
 		var innerHTML = "innerHTML";
 		var createContextualFragment = "createContextualFragment";
 		var createDocumentFragment = "createDocumentFragment";
@@ -656,8 +654,6 @@ Promise, t, ToProgress */
 		var jsonWidthKeyName = "width";
 		var jsonHeightKeyName = "height";
 		var cardWrapClass = "card-wrap";
-		var cardClass = "card";
-		var cardContentClass = "card-content";
 		var jsonUrl = "./libs/contents-cards/json/contents.json";
 
 		var safelyParseJSON = function (response) {
@@ -737,10 +733,14 @@ Promise, t, ToProgress */
 						throw new Error("incomplete JSON data: no " + jsonHrefKeyName);
 					} else if (!jsonObj.pages[0][jsonSrcKeyName]) {
 						throw new Error("incomplete JSON data: no " + jsonSrcKeyName);
-					} else if (!jsonObj.pages[0][jsonSrcKeyName]) {
+					} else if (!jsonObj.pages[0][jsonWidthKeyName]) {
+						throw new Error("incomplete JSON data: no " + jsonWidthKeyName);
+					} else if (!jsonObj.pages[0][jsonHeightKeyName]) {
+						throw new Error("incomplete JSON data: no " + jsonHeightKeyName);
+					} else if (!jsonObj.pages[0][jsonTitleKeyName]) {
 						throw new Error("incomplete JSON data: no " + jsonTitleKeyName);
 					} else {
-						if (!jsonObj.pages[0][jsonSrcKeyName]) {
+						if (!jsonObj.pages[0][jsonTextKeyName]) {
 							throw new Error("incomplete JSON data: no " + jsonTextKeyName);
 						}
 					}
@@ -755,8 +755,18 @@ Promise, t, ToProgress */
      * attention to last param: if false cloneNode will be used
      * and setting listeners or changing its CSS will not be possible
      */
+				function countObjKeys(obj) {
+					var count = 0;
+					for (var prop in obj) {
+						if (obj.hasOwnProperty(prop)) {
+							++count;
+						}
+					}
+					return count;
+				}
+				var pagesKeysNumber = countObjKeys(jsonObj.pages);
 				insertFromTemplate(jsonObj, "template_card_grid", "target_card_grid", function () {
-					if (document[getElementsByClassName](cardWrapClass)[length] > 0) {
+					if (pagesKeysNumber === document[getElementsByClassName](cardWrapClass)[length]) {
 						resolve();
 					} else {
 						reject();
@@ -766,7 +776,15 @@ Promise, t, ToProgress */
 				/*!
      * render with creating DOM Nodes
      */
-				/* jsonObj = jsonObj.pages;
+				/* var dataset = "dataset";
+    var href = "href";
+    var src = "src";
+    var alt = "alt";
+    var createTextNode = "createTextNode";
+    var hasOwnProperty = "hasOwnProperty";
+    	var cardClass = "card";
+    var cardContentClass = "card-content";
+    	jsonObj = jsonObj.pages;
     	var df = document[createDocumentFragment]();
     	var key;
     for (key in jsonObj) {
@@ -892,7 +910,7 @@ Promise, t, ToProgress */
 			generateCardGrid(text).then(function (result) {
 				return result;
 			}).then(function (result) {
-				timerCreateGrid = setTimeout(createGrid, 100);
+				timerCreateGrid = setTimeout(createGrid, 200);
 			}).then(function (result) {
 				timerSetLazyloading = setTimeout(setLazyloading, 200);
 			}).catch(function (err) {
@@ -933,8 +951,114 @@ Promise, t, ToProgress */
 		var titleBar = document[getElementsByClassName]("title-bar")[0] || "";
 		var titleBarHeight = titleBar.offsetHeight || 0;
 		var isFixedClass = "is-fixed";
-		var handleTitleBar = function () {
+
+		/*!
+   * set fixed on scroll/swipedependong on titleBar position
+   */
+		/* var handleTitleBar = function () {
+  	var logic = function () {
+  		if ((document[body].scrollTop || document[documentElement].scrollTop || 0) > titleBarHeight) {
+  			titleBar[classList].add(isFixedClass);
+  		} else {
+  			titleBar[classList].remove(isFixedClass);
+  		}
+  	};
+  	var throttleLogic = throttle(logic, 100);
+  	throttleLogic();
+  };
+  if (titleBar) {
+  	root[addEventListener]("scroll", handleTitleBar, {passive: true});
+  } */
+
+		var wrapper = document[getElementsByClassName]("wrapper")[0] || "";
+
+		/*!
+   * set fixed depending on scroll/swipe direction
+   * and titleBar position
+   * needs animate.css classes
+   */
+		/* var animatedClass = "animated";
+  var duration4msClass = "duration-4ms";
+  var slideInDownClass = "slideInDown";
+  var slideOutUpClass = "slideOutUp";
+  	var hideTitleBar = function () {
+  	var logic = function () {
+  		titleBar[classList].remove(slideInDownClass);
+  		if ((document[body].scrollTop || document[documentElement].scrollTop || 0) > titleBarHeight) {
+  			titleBar[classList].add(slideOutUpClass);
+  		} else {
+  			titleBar[classList].remove(isFixedClass);
+  			titleBar[classList].remove(slideOutUpClass);
+  		}
+  	};
+  	var throttleLogic = throttle(logic, 100);
+  	throttleLogic();
+  };
+  var revealTitleBar = function () {
+  	var logic = function () {
+  		titleBar[classList].remove(slideOutUpClass);
+  		if ((document[body].scrollTop || document[documentElement].scrollTop || 0) > titleBarHeight) {
+  			titleBar[classList].add(isFixedClass);
+  			titleBar[classList].add(slideInDownClass);
+  		} else {
+  			titleBar[classList].remove(isFixedClass);
+  			titleBar[classList].remove(slideInDownClass);
+  		}
+  	};
+  	var throttleLogic = throttle(logic, 100);
+  	throttleLogic();
+  };
+  if (wrapper && titleBar) {
+  	titleBar[classList].add(animatedClass);
+  	titleBar[classList].add(duration4msClass);
+  	if (hasTouch) {
+  		if (root.tocca) {
+  			root[addEventListener]("swipeup", hideTitleBar, {passive: true});
+  			root[addEventListener]("swipedown", revealTitleBar, {passive: true});
+  		}
+  	} else {
+  		if (hasWheel) {
+  			if (root.WheelIndicator) {
+  				var indicator;
+  				indicator = new WheelIndicator({
+  						elem: wrapper,
+  						callback: function (e) {
+  							if ("down" === e.direction) {
+  								hideTitleBar();
+  							}
+  							if ("up" === e.direction) {
+  								revealTitleBar();
+  							}
+  						},
+  						preventMouse: false
+  					});
+  			}
+  		}
+  	}
+  } */
+
+		/*!
+   * set fixed or hidden class depending on scroll/swipe direction
+   * and titleBar position
+   * needs transition top 0.4s ease out in CSS for .title-bar
+   */
+		var isHiddenClass = "is-hidden";
+
+		var hideTitleBar = function () {
 			var logic = function () {
+				if ((document[body].scrollTop || document[documentElement].scrollTop || 0) > titleBarHeight) {
+					titleBar[classList].add(isHiddenClass);
+				} else {
+					titleBar[classList].remove(isFixedClass);
+					titleBar[classList].remove(isHiddenClass);
+				}
+			};
+			var throttleLogic = throttle(logic, 100);
+			throttleLogic();
+		};
+		var revealTitleBar = function () {
+			var logic = function () {
+				titleBar[classList].remove(isHiddenClass);
 				if ((document[body].scrollTop || document[documentElement].scrollTop || 0) > titleBarHeight) {
 					titleBar[classList].add(isFixedClass);
 				} else {
@@ -944,8 +1068,35 @@ Promise, t, ToProgress */
 			var throttleLogic = throttle(logic, 100);
 			throttleLogic();
 		};
-		if (titleBar) {
-			root[addEventListener]("scroll", handleTitleBar, { passive: true });
+		if (wrapper && titleBar) {
+			if (hasTouch) {
+				if (root.tocca) {
+					root[addEventListener]("swipeup", hideTitleBar, {
+						passive: true
+					});
+					root[addEventListener]("swipedown", revealTitleBar, {
+						passive: true
+					});
+				}
+			} else {
+				if (hasWheel) {
+					if (root.WheelIndicator) {
+						var indicator;
+						indicator = new WheelIndicator({
+							elem: wrapper,
+							callback: function (e) {
+								if ("down" === e.direction) {
+									hideTitleBar();
+								}
+								if ("up" === e.direction) {
+									revealTitleBar();
+								}
+							},
+							preventMouse: false
+						});
+					}
+				}
+			}
 		}
 
 		hideProgressBar();
@@ -1001,6 +1152,14 @@ Promise, t, ToProgress */
 	}
 
 	scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/platform@1.3.4/platform.min.js");
+
+	if (hasTouch) {
+		scripts.push(forcedHTTP + "://cdnjs.cloudflare.com/ajax/libs/Tocca.js/2.0.1/Tocca.min.js");
+	} else {
+		if (hasWheel) {
+			scripts.push("./cdn/wheel-indicator/1.1.4/js/wheel-indicator.fixed.min.js");
+		}
+	}
 
 	/*!
   * load scripts after webfonts loaded using doesFontExist

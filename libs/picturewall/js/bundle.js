@@ -1,7 +1,7 @@
 /*jslint browser: true */
 /*jslint node: true */
 /*global doesFontExist, echo, Headers, loadJsCss, platform, Promise, t,
-ToProgress, zoomwall */
+ToProgress, WheelIndicator, zoomwall */
 /*property console, split */
 /*!
  * safe way to handle console.log
@@ -800,6 +800,10 @@ ToProgress, zoomwall */
 
 	progressBar.increase(20);
 
+	var hasTouch = "ontouchstart" in document[documentElement] || "";
+
+	var hasWheel = "onwheel" in document[createElement]("div") || void 0 !== document.onmousewheel || "";
+
 	var run = function () {
 
 		var body = "body";
@@ -809,13 +813,8 @@ ToProgress, zoomwall */
 		var appendChild = "appendChild";
 		var parentNode = "parentNode";
 		var classList = "classList";
-		var dataset = "dataset";
-		var src = "src";
-		var alt = "alt";
 		var title = "title";
 		var style = "style";
-		var createTextNode = "createTextNode";
-		var hasOwnProperty = "hasOwnProperty";
 		var innerHTML = "innerHTML";
 		var createContextualFragment = "createContextualFragment";
 		var createDocumentFragment = "createDocumentFragment";
@@ -937,6 +936,14 @@ ToProgress, zoomwall */
 					jsonObj = JSON.parse(text);
 					if (!jsonObj.pages[0][jsonSrcKeyName]) {
 						throw new Error("incomplete JSON data: no " + jsonSrcKeyName);
+					} else if (!jsonObj.pages[0][jsonWidthKeyName]) {
+						throw new Error("incomplete JSON data: no " + jsonWidthKeyName);
+					} else if (!jsonObj.pages[0][jsonHeightKeyName]) {
+						throw new Error("incomplete JSON data: no " + jsonHeightKeyName);
+					} else {
+						if (!jsonObj.pages[0][jsonTitleKeyName]) {
+							throw new Error("incomplete JSON data: no " + jsonTitleKeyName);
+						}
 					}
 				} catch (err) {
 					console.log("cannot init generateGallery", err);
@@ -949,8 +956,18 @@ ToProgress, zoomwall */
      * attention to last param: if false cloneNode will be used
      * and setting listeners or changing its CSS will not be possible
      */
+				function countObjKeys(obj) {
+					var count = 0;
+					for (var prop in obj) {
+						if (obj.hasOwnProperty(prop)) {
+							++count;
+						}
+					}
+					return count;
+				}
+				var pagesKeysNumber = countObjKeys(jsonObj.pages);
 				insertFromTemplate(jsonObj, "template_zoomwall", "target_zoomwall", function () {
-					if (document[getElementsByClassName](imgClass)[length] > 0) {
+					if (pagesKeysNumber === document[getElementsByClassName](imgClass)[length]) {
 						resolve();
 					} else {
 						reject();
@@ -960,7 +977,12 @@ ToProgress, zoomwall */
 				/*!
      * render with creating DOM Nodes
      */
-				/* jsonObj = jsonObj.pages;
+				/* var dataset = "dataset";
+    var src = "src";
+    var alt = "alt";
+    var createTextNode = "createTextNode";
+    var hasOwnProperty = "hasOwnProperty";
+    	jsonObj = jsonObj.pages;
     	var df = document[createDocumentFragment]();
     	var key;
     for (key in jsonObj) {
@@ -1037,7 +1059,7 @@ ToProgress, zoomwall */
 			generateGallery(text).then(function (result) {
 				return result;
 			}).then(function (result) {
-				timerCreateGallery = setTimeout(createGallery, 100);
+				timerCreateGallery = setTimeout(createGallery, 200);
 			}).then(function (result) {
 				timerSetLazyloading = setTimeout(setLazyloading, 200);
 			}).catch(function (err) {
@@ -1078,8 +1100,114 @@ ToProgress, zoomwall */
 		var titleBar = document[getElementsByClassName]("title-bar")[0] || "";
 		var titleBarHeight = titleBar.offsetHeight || 0;
 		var isFixedClass = "is-fixed";
-		var handleTitleBar = function () {
+
+		/*!
+   * set fixed on scroll/swipedependong on titleBar position
+   */
+		/* var handleTitleBar = function () {
+  	var logic = function () {
+  		if ((document[body].scrollTop || document[documentElement].scrollTop || 0) > titleBarHeight) {
+  			titleBar[classList].add(isFixedClass);
+  		} else {
+  			titleBar[classList].remove(isFixedClass);
+  		}
+  	};
+  	var throttleLogic = throttle(logic, 100);
+  	throttleLogic();
+  };
+  if (titleBar) {
+  	root[addEventListener]("scroll", handleTitleBar, {passive: true});
+  } */
+
+		var wrapper = document[getElementsByClassName]("wrapper")[0] || "";
+
+		/*!
+   * set fixed depending on scroll/swipe direction
+   * and titleBar position
+   * needs animate.css classes
+   */
+		/* var animatedClass = "animated";
+  var duration4msClass = "duration-4ms";
+  var slideInDownClass = "slideInDown";
+  var slideOutUpClass = "slideOutUp";
+  	var hideTitleBar = function () {
+  	var logic = function () {
+  		titleBar[classList].remove(slideInDownClass);
+  		if ((document[body].scrollTop || document[documentElement].scrollTop || 0) > titleBarHeight) {
+  			titleBar[classList].add(slideOutUpClass);
+  		} else {
+  			titleBar[classList].remove(isFixedClass);
+  			titleBar[classList].remove(slideOutUpClass);
+  		}
+  	};
+  	var throttleLogic = throttle(logic, 100);
+  	throttleLogic();
+  };
+  var revealTitleBar = function () {
+  	var logic = function () {
+  		titleBar[classList].remove(slideOutUpClass);
+  		if ((document[body].scrollTop || document[documentElement].scrollTop || 0) > titleBarHeight) {
+  			titleBar[classList].add(isFixedClass);
+  			titleBar[classList].add(slideInDownClass);
+  		} else {
+  			titleBar[classList].remove(isFixedClass);
+  			titleBar[classList].remove(slideInDownClass);
+  		}
+  	};
+  	var throttleLogic = throttle(logic, 100);
+  	throttleLogic();
+  };
+  if (wrapper && titleBar) {
+  	titleBar[classList].add(animatedClass);
+  	titleBar[classList].add(duration4msClass);
+  	if (hasTouch) {
+  		if (root.tocca) {
+  			root[addEventListener]("swipeup", hideTitleBar, {passive: true});
+  			root[addEventListener]("swipedown", revealTitleBar, {passive: true});
+  		}
+  	} else {
+  		if (hasWheel) {
+  			if (root.WheelIndicator) {
+  				var indicator;
+  				indicator = new WheelIndicator({
+  						elem: wrapper,
+  						callback: function (e) {
+  							if ("down" === e.direction) {
+  								hideTitleBar();
+  							}
+  							if ("up" === e.direction) {
+  								revealTitleBar();
+  							}
+  						},
+  						preventMouse: false
+  					});
+  			}
+  		}
+  	}
+  } */
+
+		/*!
+   * set fixed or hidden class depending on scroll/swipe direction
+   * and titleBar position
+   * needs transition top 0.4s ease out in CSS for .title-bar
+   */
+		var isHiddenClass = "is-hidden";
+
+		var hideTitleBar = function () {
 			var logic = function () {
+				if ((document[body].scrollTop || document[documentElement].scrollTop || 0) > titleBarHeight) {
+					titleBar[classList].add(isHiddenClass);
+				} else {
+					titleBar[classList].remove(isFixedClass);
+					titleBar[classList].remove(isHiddenClass);
+				}
+			};
+			var throttleLogic = throttle(logic, 100);
+			throttleLogic();
+		};
+		var revealTitleBar = function () {
+			var logic = function () {
+				titleBar[classList].remove(isHiddenClass);
 				if ((document[body].scrollTop || document[documentElement].scrollTop || 0) > titleBarHeight) {
 					titleBar[classList].add(isFixedClass);
 				} else {
@@ -1089,8 +1217,35 @@ ToProgress, zoomwall */
 			var throttleLogic = throttle(logic, 100);
 			throttleLogic();
 		};
-		if (titleBar) {
-			root[addEventListener]("scroll", handleTitleBar, { passive: true });
+		if (wrapper && titleBar) {
+			if (hasTouch) {
+				if (root.tocca) {
+					root[addEventListener]("swipeup", hideTitleBar, {
+						passive: true
+					});
+					root[addEventListener]("swipedown", revealTitleBar, {
+						passive: true
+					});
+				}
+			} else {
+				if (hasWheel) {
+					if (root.WheelIndicator) {
+						var indicator;
+						indicator = new WheelIndicator({
+							elem: wrapper,
+							callback: function (e) {
+								if ("down" === e.direction) {
+									hideTitleBar();
+								}
+								if ("up" === e.direction) {
+									revealTitleBar();
+								}
+							},
+							preventMouse: false
+						});
+					}
+				}
+			}
 		}
 
 		hideProgressBar();
@@ -1146,6 +1301,14 @@ ToProgress, zoomwall */
 	}
 
 	scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/platform@1.3.4/platform.min.js");
+
+	if (hasTouch) {
+		scripts.push(forcedHTTP + "://cdnjs.cloudflare.com/ajax/libs/Tocca.js/2.0.1/Tocca.min.js");
+	} else {
+		if (hasWheel) {
+			scripts.push("./cdn/wheel-indicator/1.1.4/js/wheel-indicator.fixed.min.js");
+		}
+	}
 
 	/*!
   * load scripts after webfonts loaded using doesFontExist
