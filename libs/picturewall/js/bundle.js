@@ -819,6 +819,12 @@ ToProgress, WheelIndicator, zoomwall */
 		var createContextualFragment = "createContextualFragment";
 		var createDocumentFragment = "createDocumentFragment";
 
+		var docElem = document[documentElement] || "";
+		if (docElem && docElem[classList]) {
+			docElem[classList].remove("no-js");
+			docElem[classList].add("js");
+		}
+
 		progressBar.increase(20);
 
 		var hasTouch = "ontouchstart" in document[documentElement] || "";
@@ -1286,7 +1292,6 @@ ToProgress, WheelIndicator, zoomwall */
 			tick();
 		};
 
-		var docElem = document[documentElement] || "";
 		var docBody = document[body] || "";
 		var btnClass = "btn-totop";
 		var btnTotop = document[getElementsByClassName](btnClass)[0] || "";

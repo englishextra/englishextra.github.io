@@ -49,7 +49,8 @@ a {
 .title-bar {
 	width: 100%;
 	height: 3.200rem;
-	position: absolute;
+	/* position: absolute; */
+	position: fixed;
 	top: 0;
 	transition: top 0.4s ease-out;
 	text-align: center;
@@ -58,7 +59,7 @@ a {
 }
 
 .title-bar.is-fixed {
-	position: fixed;
+	/* position: fixed; */
 	top: 0;
 }
 
@@ -157,7 +158,7 @@ a {
 	height: 3.200rem;
 	position: fixed;
 	bottom: 0;
-	right: 6.400rem;
+	right: 3.200rem;
 }
 
 .ya-share2.is-active {

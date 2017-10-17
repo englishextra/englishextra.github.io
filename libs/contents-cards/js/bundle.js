@@ -616,6 +616,12 @@ Promise, t, ToProgress, WheelIndicator, Ya */
 		var createDocumentFragment = "createDocumentFragment";
 		var styleSheets = "styleSheets";
 
+		var docElem = document[documentElement] || "";
+		if (docElem && docElem[classList]) {
+			docElem[classList].remove("no-js");
+			docElem[classList].add("js");
+		}
+
 		progressBar.increase(20);
 
 		var hasTouch = "ontouchstart" in document[documentElement] || "";
@@ -1278,7 +1284,6 @@ Promise, t, ToProgress, WheelIndicator, Ya */
 			tick();
 		};
 
-		var docElem = document[documentElement] || "";
 		var docBody = document[body] || "";
 		var btnClass = "btn-totop";
 		var btnTotop = document[getElementsByClassName](btnClass)[0] || "";
