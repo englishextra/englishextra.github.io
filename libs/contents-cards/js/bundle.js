@@ -1,7 +1,7 @@
 /*jslint browser: true */
 /*jslint node: true */
 /*global doesFontExist, echo, Headers, loadJsCss, Minigrid, platform,
-Promise, t, ToProgress, WheelIndicator, Ya */
+Promise, t, ToProgress, VK, WheelIndicator, Ya */
 /*property console, split */
 /*!
  * safe way to handle console.log
@@ -606,10 +606,9 @@ Promise, t, ToProgress, WheelIndicator, Ya */
 		var appendChild = "appendChild";
 		var parentNode = "parentNode";
 		var classList = "classList";
+		var dataset = "dataset";
 		var title = "title";
 		var style = "style";
-		var visibility = "visibility";
-		var opacity = "opacity";
 		var href = "href";
 		var innerHTML = "innerHTML";
 		var createContextualFragment = "createContextualFragment";
@@ -1065,9 +1064,60 @@ Promise, t, ToProgress, WheelIndicator, Ya */
 		};
 
 		if (btnShare && btnShareLink && yaShare2) {
-			btnShare[style][visibility] = "visible";
-			btnShare[style][opacity] = 1;
 			btnShareLink[addEventListener]("click", showYaShare2);
+		}
+
+		var vkLikeClass = "vk-like";
+		var vkLike = document[getElementsByClassName](vkLikeClass)[0] || "";
+
+		var holderVkLikeClass = "holder-vk-like";
+		var holderVkLike = document[getElementsByClassName](holderVkLikeClass)[0] || "";
+
+		var btnLike = document[getElementsByClassName]("btn-like")[0] || "";
+		var btnLikeLink = btnLike ? btnLike[getElementsByTagName]("a")[0] || "" : "";
+		var vkLikeId = "vk-like";
+
+		var vlike;
+		var showVkLike = function (ev) {
+			ev.preventDefault();
+			ev.stopPropagation();
+			var logic = function () {
+				holderVkLike[classList].toggle(isActiveClass);
+				hideOtherIsSocial(holderVkLike);
+				var initScript = function () {
+					if (root.VK) {
+						if (!vlike) {
+							try {
+								VK.init({
+									apiId: vkLike[dataset].apiid || "",
+									nameTransportPath: "/xd_receiver.htm",
+									onlyWidgets: true
+								});
+								VK.Widgets.Like(vkLikeId, {
+									type: "button",
+									height: 24
+								});
+								vlike = true;
+							} catch (err) {
+								console.log("cannot init VK", err);
+							}
+						}
+					}
+				};
+				var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?147";
+				if (!scriptIsLoaded(jsUrl)) {
+					var load;
+					load = new loadJsCss([jsUrl], initScript);
+				} else {
+					initScript();
+				}
+			};
+			var debounceLogic = debounce(logic, 200);
+			debounceLogic();
+		};
+
+		if (btnLike && btnLikeLink && vkLike) {
+			btnLikeLink[addEventListener]("click", showVkLike);
 		}
 
 		var throttle = function (func, wait) {
@@ -1415,7 +1465,7 @@ Promise, t, ToProgress, WheelIndicator, Ya */
 	};
 
 	var load;
-	load = new loadJsCss([forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:400&subset=cyrillic"], onFontsLoadedCallback);
+	load = new loadJsCss([forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:400,700&subset=cyrillic"], onFontsLoadedCallback);
 
 	/*!
   * load scripts after webfonts loaded using webfontloader

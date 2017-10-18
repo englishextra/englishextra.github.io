@@ -129,7 +129,7 @@ a {
 	position: absolute;
 	top: 0;
 	right: 0;
-	background-color: #F03B4C;
+	background-color: $color-hex-englishextra-logo-bg;
 	opacity: 0.8;
 }
 
@@ -478,21 +478,22 @@ a {
 }
 
 .btn-share {
-	visibility: hidden;
-	opacity: 0;
-	transition: visibility 0s, opacity 0.2s ease;
-	width: 2.133rem;
-	height: 2.133rem;
-	position: absolute;
-	top: 1.333rem;
-	left: 10.667rem;
+	width: 3.200rem;
+	height: 3.200rem;
+	position: fixed;
+	bottom: 0;
+	right: 3.200rem;
+	background-color: $TitleBarAndAppBarLight;
 }
 
-.btn-share img,
+.btn-share a > * {
+	fill: $ButtonOutline;
+}
+
 .btn-share svg {
 	display: block;
-	width: 2.133rem;
-	height: 2.133rem;
+	width: 3.200rem;
+	height: 3.200rem;
 }
 
 .btn-share a {
@@ -500,21 +501,22 @@ a {
 }
 
 .btn-like {
-	visibility: hidden;
-	opacity: 0;
-	transition: visibility 0s, opacity 0.2s ease;
-	width: 2.133rem;
-	height: 2.133rem;
-	position: absolute;
-	top: 1.333rem;
-	left: 14.133rem;
+	width: 3.200rem;
+	height: 3.200rem;
+	position: fixed;
+	bottom: 0;
+	right: 6.400rem;
+	background-color: $TitleBarAndAppBarLight;
 }
 
-.btn-like img,
+.btn-like a > * {
+	fill: $ButtonOutline;
+}
+
 .btn-like svg {
 	display: block;
-	width: 2.133rem;
-	height: 2.133rem;
+	width: 3.200rem;
+	height: 3.200rem;
 }
 
 .btn-like a {
@@ -611,26 +613,52 @@ a {
 } */
 
 .ya-share2 {
-	display: none;
+	display: inline-block;
+	visibility: hidden;
+	opacity: 0;
 	height: 3.200rem;
-	position: absolute;
-	top: 3.600rem;
-	left: 10.667rem;
+	position: fixed;
+	bottom: 0;
+	right: 3.200rem;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+	transition: visibility 0s, opacity 0.2s ease;
 }
 
 .ya-share2.is-active {
-	display: block;
+	visibility: visible;
+	opacity: 1;
+}
+
+.holder-vk-like {
+	display: inline-block;
+	visibility: hidden;
+	opacity: 0;
+	height: 3.200rem;
+	position: fixed;
+	bottom: 0;
+	right: 3.200rem;
+	line-height: 0;
+	background-color: $color-hex-vk-like-bg;
+	background-color: $color-hex-vk-like-bg;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+	transition: visibility 0s, opacity 0.2s ease;
+	z-index: 1;
+}
+
+.holder-vk-like.is-active {
+	visibility: visible;
+	opacity: 1;
 }
 
 .vk-like {
-	display: none;
+	display: inline-block;
+	height: 24px;
 	position: absolute;
-	top: 3.600rem;
-	left: 14.133rem;
-}
-
-.vk-like.is-active {
-	display: block;
+	top: 50%;
+	-webkit-transform: translate(0, -50%);
+	transform: translate(0, -50%);
+	margin: 0 0 0 0.667rem;
+	line-height: 0;
 }
 
 /*!

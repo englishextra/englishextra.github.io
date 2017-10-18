@@ -726,7 +726,7 @@ u,
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	color: inherit;
-	background-color: #F2F2F2;
+	background-color: $LeftNavBarLight;
 	appearance: none;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
@@ -756,7 +756,7 @@ u,
 .holder-chapters-select .chapters-select:focus,
 .holder-chapters-select .chapters-select:hover,
 .holder-chapters-select .chapters-select:active {
-	border: 0.067rem solid #F2F2F2;
+	border: 0.067rem solid $LeftNavBarLight;
 }
 
 /*!
@@ -1129,13 +1129,14 @@ u,
 	display: block;
 	visibility: hidden;
 	opacity: 0;
-	width: 3.200rem;
+	height: 3.200rem;
 	position: fixed;
-	top: 3.200rem;
+	top: 9.600rem;
 	left: 3.200rem;
 	line-height: 3.200rem;
 	background-color: #FFFFFF;
 	transition: left 0.2s linear, visibility 0s, opacity 0.2s ease;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
 }
 
 @media handheld, only screen and (max-width: 360px) {
@@ -1159,10 +1160,13 @@ u,
 	opacity: 0;
 	height: 3.200rem;
 	position: fixed;
-	top: 3.200rem;
+	top: 6.400rem;
 	left: 3.200rem;
 	line-height: 0;
-	transition: left 0.2s linear, visibility 0s, opacity 0.2s ease;
+	background-color: $color-hex-vk-like-bg;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+	transition: visibility 0s, opacity 0.2s ease;
+	z-index: 1;
 }
 
 @media handheld, only screen and (max-width: 360px) {
@@ -1173,10 +1177,12 @@ u,
 
 .vk-like {
 	display: inline-block;
-	height: 1.533rem;
-	position: relative;
-	top: 0.800rem;
-	left: 0.800rem;
+	height: 24px;
+	position: absolute;
+	top: 50%;
+	-webkit-transform: translate(0, -50%);
+	transform: translate(0, -50%);
+	margin: 0 0 0 0.667rem;
 	line-height: 0;
 }
 

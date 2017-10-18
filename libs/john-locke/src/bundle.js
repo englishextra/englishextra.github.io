@@ -462,18 +462,21 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 
 	var run = function () {
 
-		var style = "style";
-		var visibility = "visibility";
-		var opacity = "opacity";
-		var href = "href";
 		var appendChild = "appendChild";
 		var getElementById = "getElementById";
 		var classList = "classList";
 		var dataset = "dataset";
+		var style = "style";
+		var visibility = "visibility";
+		var opacity = "opacity";
+		var href = "href";
 		var title = "title";
 
-		var bounceInUpClass = "bounceInUp";
-		var bounceOutDownClass = "bounceOutDown";
+		var docElem = document[documentElement] || "";
+		if (docElem && docElem[classList]) {
+			docElem[classList].remove("no-js");
+			docElem[classList].add("js");
+		}
 
 		if (!supportsSvgSmilAnimation) {
 			progressBar.increase(20);
@@ -629,6 +632,9 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		if (scene && root.Parallax) {
 			parallax = new Parallax(scene);
 		}
+
+		var bounceInUpClass = "bounceInUp";
+		var bounceOutDownClass = "bounceOutDown";
 
 		var guesture = document[getElementsByClassName]("guesture")[0] || "";
 
@@ -841,13 +847,14 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		};
 
 		if (btnShare && btnShareLink && yaShare2) {
-			btnShare[style][visibility] = "visible";
-			btnShare[style][opacity] = 1;
 			btnShareLink[addEventListener]("click", showYaShare2);
 		}
 
 		var vkLikeClass = "vk-like";
 		var vkLike = document[getElementsByClassName](vkLikeClass)[0] || "";
+
+		var holderVkLikeClass = "holder-vk-like";
+		var holderVkLike = document[getElementsByClassName](holderVkLikeClass)[0] || "";
 
 		var btnLike = document[getElementsByClassName]("btn-like")[0] || "";
 		var btnLikeLink = btnLike ? btnLike[getElementsByTagName]("a")[0] || "" : "";
@@ -858,8 +865,8 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 			ev.preventDefault();
 			ev.stopPropagation();
 			var logic = function () {
-				vkLike[classList].toggle(isActiveClass);
-				hideOtherIsSocial(vkLike);
+				holderVkLike[classList].toggle(isActiveClass);
+				hideOtherIsSocial(holderVkLike);
 				var initScript = function () {
 					if (root.VK) {
 						if (!vlike) {
@@ -893,8 +900,6 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		};
 
 		if (btnLike && btnLikeLink && vkLike) {
-			btnLike[style][visibility] = "visible";
-			btnLike[style][opacity] = 1;
 			btnLikeLink[addEventListener]("click", showVkLike);
 		}
 

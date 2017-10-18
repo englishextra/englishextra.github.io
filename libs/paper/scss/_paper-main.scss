@@ -1022,7 +1022,7 @@ u,
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	color: inherit;
-	background-color: #F2F2F2;
+	background-color: $LeftNavBarLight;
 	appearance: none;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
@@ -1052,7 +1052,7 @@ u,
 .holder-chapters-select .chapters-select:focus,
 .holder-chapters-select .chapters-select:hover,
 .holder-chapters-select .chapters-select:active {
-	border: 0.063rem solid #F2F2F2;
+	border: 0.063rem solid $LeftNavBarLight;
 }
 
 /*!

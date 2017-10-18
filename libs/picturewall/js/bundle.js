@@ -1,7 +1,7 @@
 /*jslint browser: true */
 /*jslint node: true */
 /*global doesFontExist, echo, Headers, loadJsCss, platform, Promise, t,
-ToProgress, WheelIndicator, zoomwall */
+ToProgress, VK, WheelIndicator, Ya, zoomwall */
 /*property console, split */
 /*!
  * safe way to handle console.log
@@ -810,11 +810,15 @@ ToProgress, WheelIndicator, zoomwall */
 		var addEventListener = "addEventListener";
 		var getElementById = "getElementById";
 		var getElementsByClassName = "getElementsByClassName";
+		var getElementsByTagName = "getElementsByTagName";
+		var getAttribute = "getAttribute";
 		var appendChild = "appendChild";
 		var parentNode = "parentNode";
 		var classList = "classList";
-		var title = "title";
+		var dataset = "dataset";
 		var style = "style";
+		var href = "href";
+		var title = "title";
 		var innerHTML = "innerHTML";
 		var createContextualFragment = "createContextualFragment";
 		var createDocumentFragment = "createDocumentFragment";
@@ -1076,6 +1080,195 @@ ToProgress, WheelIndicator, zoomwall */
 			console.log("cannot parse", jsonUrl);
 		});
 
+		var locationHref = root.location[href] || "";
+
+		var scriptIsLoaded = function (_src) {
+			var scriptAll, i, l;
+			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[length]; i < l; i += 1) {
+				if (scriptAll[i][getAttribute]("src") === _src) {
+					scriptAll = i = l = null;
+					return true;
+				}
+			}
+			scriptAll = i = l = null;
+			return false;
+		};
+
+		var isActiveClass = "is-active";
+
+		var hideOtherIsSocial = function (_this) {
+			_this = _this || this;
+			var isSocialAll = document[getElementsByClassName]("is-social") || "";
+			if (isSocialAll) {
+				var k, n;
+				for (k = 0, n = isSocialAll[length]; k < n; k += 1) {
+					if (_this !== isSocialAll[k]) {
+						isSocialAll[k][classList].remove(isActiveClass);
+					}
+				}
+				k = n = null;
+			}
+		};
+
+		root[addEventListener]("click", hideOtherIsSocial);
+
+		var debounce = function (func, wait, immediate) {
+			var timeout;
+			var args;
+			var context;
+			var timestamp;
+			var result;
+			if (undefined === wait || null === wait) {
+				wait = 100;
+			}
+			function later() {
+				var last = Date.now() - timestamp;
+				if (last < wait && last >= 0) {
+					timeout = setTimeout(later, wait - last);
+				} else {
+					timeout = null;
+					if (!immediate) {
+						result = func.apply(context, args);
+						context = args = null;
+					}
+				}
+			}
+			var debounced = function () {
+				context = this;
+				args = arguments;
+				timestamp = Date.now();
+				var callNow = immediate && !timeout;
+				if (!timeout) {
+					timeout = setTimeout(later, wait);
+				}
+				if (callNow) {
+					result = func.apply(context, args);
+					context = args = null;
+				}
+				return result;
+			};
+			debounced.clear = function () {
+				if (timeout) {
+					clearTimeout(timeout);
+					timeout = null;
+				}
+			};
+			debounced.flush = function () {
+				if (timeout) {
+					result = func.apply(context, args);
+					context = args = null;
+					clearTimeout(timeout);
+					timeout = null;
+				}
+			};
+			return debounced;
+		};
+
+		var yaShare2Id = "ya-share2";
+
+		var yaShare2 = document[getElementById](yaShare2Id) || "";
+
+		var btnShare = document[getElementsByClassName]("btn-share")[0] || "";
+		var btnShareLink = btnShare ? btnShare[getElementsByTagName]("a")[0] || "" : "";
+		var yshare;
+		var showYaShare2 = function (ev) {
+			ev.preventDefault();
+			ev.stopPropagation();
+			var logic = function () {
+				yaShare2[classList].toggle(isActiveClass);
+				hideOtherIsSocial(yaShare2);
+				var initScript = function () {
+					if (root.Ya) {
+						try {
+							if (yshare) {
+								yshare.updateContent({
+									title: documentTitle,
+									description: documentTitle,
+									url: locationHref
+								});
+							} else {
+								yshare = Ya.share2(yaShare2Id, {
+									content: {
+										title: documentTitle,
+										description: documentTitle,
+										url: locationHref
+									}
+								});
+							}
+						} catch (err) {
+							console.log("cannot update or init Ya", err);
+						}
+					}
+				};
+				var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
+				if (!scriptIsLoaded(jsUrl)) {
+					var load;
+					load = new loadJsCss([jsUrl], initScript);
+				} else {
+					initScript();
+				}
+			};
+			var debounceLogic = debounce(logic, 200);
+			debounceLogic();
+		};
+
+		if (btnShare && btnShareLink && yaShare2) {
+			btnShareLink[addEventListener]("click", showYaShare2);
+		}
+
+		var vkLikeClass = "vk-like";
+		var vkLike = document[getElementsByClassName](vkLikeClass)[0] || "";
+
+		var holderVkLikeClass = "holder-vk-like";
+		var holderVkLike = document[getElementsByClassName](holderVkLikeClass)[0] || "";
+
+		var btnLike = document[getElementsByClassName]("btn-like")[0] || "";
+		var btnLikeLink = btnLike ? btnLike[getElementsByTagName]("a")[0] || "" : "";
+		var vkLikeId = "vk-like";
+
+		var vlike;
+		var showVkLike = function (ev) {
+			ev.preventDefault();
+			ev.stopPropagation();
+			var logic = function () {
+				holderVkLike[classList].toggle(isActiveClass);
+				hideOtherIsSocial(holderVkLike);
+				var initScript = function () {
+					if (root.VK) {
+						if (!vlike) {
+							try {
+								VK.init({
+									apiId: vkLike[dataset].apiid || "",
+									nameTransportPath: "/xd_receiver.htm",
+									onlyWidgets: true
+								});
+								VK.Widgets.Like(vkLikeId, {
+									type: "button",
+									height: 24
+								});
+								vlike = true;
+							} catch (err) {
+								console.log("cannot init VK", err);
+							}
+						}
+					}
+				};
+				var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?147";
+				if (!scriptIsLoaded(jsUrl)) {
+					var load;
+					load = new loadJsCss([jsUrl], initScript);
+				} else {
+					initScript();
+				}
+			};
+			var debounceLogic = debounce(logic, 200);
+			debounceLogic();
+		};
+
+		if (btnLike && btnLikeLink && vkLike) {
+			btnLikeLink[addEventListener]("click", showVkLike);
+		}
+
 		var throttle = function (func, wait) {
 			var ctx;
 			var args;
@@ -1255,8 +1448,6 @@ ToProgress, WheelIndicator, zoomwall */
 			}
 		}
 
-		var isActiveClass = "is-active";
-
 		var scroll2Top = function (scrollTargetY, speed, easing) {
 			var scrollY = root.scrollY || document.documentElement.scrollTop;
 			var posY = scrollTargetY || 0;
@@ -1376,6 +1567,10 @@ ToProgress, WheelIndicator, zoomwall */
 		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/fetch/2.0.1/fetch.min.js");
 	}
 
+	if (!root.requestAnimationFrame) {
+		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/request-animation-frame-polyfill@0.1.3/index.min.js");
+	}
+
 	scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/platform@1.3.4/platform.min.js");
 
 	if (hasTouch) {
@@ -1423,7 +1618,7 @@ ToProgress, WheelIndicator, zoomwall */
 	};
 
 	var load;
-	load = new loadJsCss([forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:400&subset=cyrillic"], onFontsLoadedCallback);
+	load = new loadJsCss([forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:400,700&subset=cyrillic"], onFontsLoadedCallback);
 
 	/*!
   * load scripts after webfonts loaded using webfontloader

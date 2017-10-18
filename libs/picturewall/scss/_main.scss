@@ -54,7 +54,7 @@ a {
 	top: 0;
 	transition: top 0.4s ease-out;
 	text-align: center;
-	background-color: #1F1F1F;
+	background-color: $TitleBarAndAppBarDark;
 	z-index: 1;
 }
 
@@ -74,13 +74,13 @@ a {
 }
 
 .title-bar a:hover {
-	color: #F03B4C;
+	color: $color-hex-englishextra-logo-bg;
 }
 
 .title-bar-icon {
 	display: block;
-	width: 1.333rem;
-	height: 1.333rem;
+	width: 3.200rem;
+	height: 3.200rem;
 }
 
 .title-bar-icon > * {
@@ -99,11 +99,11 @@ a {
 
 .btn-title-bar.back {
 	display: block;
-	width: 1.333rem;
-	height: 1.333rem;
+	width: 3.200rem;
+	height: 3.200rem;
 	float: left;
-	top: 0.933rem;
-	left: 0.933rem;
+	top: 0;
+	left: 0;
 }
 
 .btn-title-bar.title {
@@ -118,11 +118,57 @@ a {
 
 .btn-title-bar.vk {
 	display: block;
-	width: 1.333rem;
-	height: 1.333rem;
+	width: 3.200rem;
+	height: 3.200rem;
 	float: right;
-	top: 0.933rem;
-	right: 0.933rem;
+	top: 0;
+	right: 0;
+}
+
+.btn-share {
+	width: 3.200rem;
+	height: 3.200rem;
+	position: fixed;
+	bottom: 0;
+	right: 3.200rem;
+	background-color: $color-rgba-dark-ui-icon-bg;
+}
+
+.btn-share a > * {
+	fill: $TitleBarAndAppBarLight;
+}
+
+.btn-share svg {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+}
+
+.btn-share a {
+	font-size: 0;
+}
+
+.btn-like {
+	width: 3.200rem;
+	height: 3.200rem;
+	position: fixed;
+	bottom: 0;
+	right: 6.400rem;
+	background-color: $color-rgba-dark-ui-icon-bg;
+}
+
+.btn-like a > * {
+	fill: $TitleBarAndAppBarLight;
+}
+
+.btn-like svg {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+}
+
+.btn-like a {
+	font-size: 0;
 }
 
 .btn-totop {
@@ -154,13 +200,50 @@ a {
 }
 
 .ya-share2 {
-	display: none;
+	display: inline-block;
+	visibility: hidden;
+	opacity: 0;
 	height: 3.200rem;
 	position: fixed;
 	bottom: 0;
 	right: 3.200rem;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+	transition: visibility 0s, opacity 0.2s ease;
 }
 
 .ya-share2.is-active {
-	display: block;
+	visibility: visible;
+	opacity: 1;
+}
+
+.holder-vk-like {
+	display: inline-block;
+	visibility: hidden;
+	opacity: 0;
+	height: 3.200rem;
+	position: fixed;
+	bottom: 0;
+	right: 3.200rem;
+	line-height: 0;
+	background-color: $color-hex-vk-like-bg;
+	background-color: $color-hex-vk-like-bg;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+	transition: visibility 0s, opacity 0.2s ease;
+	z-index: 1;
+}
+
+.holder-vk-like.is-active {
+	visibility: visible;
+	opacity: 1;
+}
+
+.vk-like {
+	display: inline-block;
+	height: 24px;
+	position: absolute;
+	top: 50%;
+	-webkit-transform: translate(0, -50%);
+	transform: translate(0, -50%);
+	margin: 0 0 0 0.667rem;
+	line-height: 0;
 }
