@@ -42,17 +42,17 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 
 	var ToProgress = function () {
 		var TP = function () {
-			var style = "style";
-			var createElement = "createElement";
+			var addEventListener = "addEventListener";
 			var appendChild = "appendChild";
-			var prototype = "prototype";
-			var hasOwnProperty = "hasOwnProperty";
+			var createElement = "createElement";
+			var firstChild = "firstChild";
 			var getElementById = "getElementById";
 			var getElementsByClassName = "getElementsByClassName";
-			var firstChild = "firstChild";
-			var addEventListener = "addEventListener";
-			var removeEventListener = "removeEventListener";
+			var hasOwnProperty = "hasOwnProperty";
 			var opacity = "opacity";
+			var prototype = "prototype";
+			var removeEventListener = "removeEventListener";
+			var style = "style";
 			function whichTransitionEvent() {
 				var t,
 				    el = document[createElement]("fakeelement");
@@ -193,8 +193,9 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 (function (root, document) {
 	"use strict";
 
-	var getElementById = "getElementById";
 	var getElementsByClassName = "getElementsByClassName";
+	var getElementById = "getElementById";
+	var length = "length";
 	function extend(a, b) {
 		for (var key in b) {
 			if (b.hasOwnProperty(key)) {
@@ -215,7 +216,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		if (!this.props.container) {
 			return false;
 		}
-		if (!this.props.nodeList || this.props.nodeList.length === 0) {
+		if (!this.props.nodeList || this.props.nodeList[length] === 0) {
 			return false;
 		}
 		var gutter = typeof this.props.gutter === "number" && isFinite(this.props.gutter) && Math.floor(this.props.gutter) === this.props.gutter ? this.props.gutter : 0;
@@ -286,17 +287,19 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 (function (root) {
 	"use strict";
 
-	var blockregex = /\{\{(([@!]?)(.+?))\}\}(([\s\S]+?)(\{\{:\1\}\}([\s\S]+?))?)\{\{\/\1\}\}/g,
-	    valregex = /\{\{([=%])(.+?)\}\}/g;
+	var length = "length";
+	var replace = "replace";
+	var blockregex = /\{\{(([@!]?)(.+?))\}\}(([\s\S]+?)(\{\{:\1\}\}([\s\S]+?))?)\{\{\/\1\}\}/g;
+	var valregex = /\{\{([=%])(.+?)\}\}/g;
 	var t = function (template) {
 		this.t = template;
 	};
 	function scrub(val) {
-		return new Option(val).text.replace(/"/g, "&quot;");
+		return new Option(val).text[replace](/"/g, "&quot;");
 	}
 	function get_value(vars, key) {
 		var parts = key.split(".");
-		while (parts.length) {
+		while (parts[length]) {
 			if (!(parts[0] in vars)) {
 				return false;
 			}
@@ -305,7 +308,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		return vars;
 	}
 	function render(fragment, vars) {
-		return fragment.replace(blockregex, function (_, __, meta, key, inner, if_true, has_else, if_false) {
+		return fragment[replace](blockregex, function (_, __, meta, key, inner, if_true, has_else, if_false) {
 			var val = get_value(vars, key),
 			    temp = "",
 			    i;
@@ -360,18 +363,18 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 	"use strict";
 
 	var echo = function (imgClass, dataAttributeName, throttleRate) {
-		imgClass = imgClass || "data-src-img";
-		dataAttributeName = dataAttributeName || "src";
-		throttleRate = throttleRate || 100;
+		var _imgClass = imgClass || "data-src-img";
+		var _dataAttributeName = dataAttributeName || "src";
+		var _throttleRate = throttleRate || 100;
 		var addEventListener = "addEventListener";
-		var dataset = "dataset";
-		var getElementsByClassName = "getElementsByClassName";
-		var getBoundingClientRect = "getBoundingClientRect";
 		var classList = "classList";
-		var getAttribute = "getAttribute";
-		var length = "length";
-		var documentElement = "documentElement";
+		var dataset = "dataset";
 		var defineProperty = "defineProperty";
+		var documentElement = "documentElement";
+		var getAttribute = "getAttribute";
+		var getBoundingClientRect = "getBoundingClientRect";
+		var getElementsByClassName = "getElementsByClassName";
+		var length = "length";
 		var Echo = function (elem) {
 			var _this = this;
 			_this.elem = elem;
@@ -388,7 +391,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 			return (coords.top >= 0 && coords.left >= 0 && coords.top) <= (root.innerHeight || document[documentElement].clientHeight);
 		};
 		var echoSrc = function (img, callback) {
-			img.src = img[dataset][dataAttributeName] || img[getAttribute]("data-" + dataAttributeName);
+			img.src = img[dataset][_dataAttributeName] || img[getAttribute]("data-" + _dataAttributeName);
 			if (callback) {
 				callback();
 			}
@@ -399,7 +402,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 			}
 		};
 		var echoImageAll = function () {
-			for (var i = 0; i < echoStore.length; i++) {
+			for (var i = 0; i < echoStore[length]; i++) {
 				var self = echoStore[i];
 				if (scrolledIntoView(self)) {
 					echoSrc(self, removeEcho(self, i));
@@ -430,7 +433,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 				args = null;
 			}
 		};
-		var throttleEchoImageAll = throttle(echoImageAll, throttleRate);
+		var throttleEchoImageAll = throttle(echoImageAll, _throttleRate);
 		var supportsPassive = function () {
 			var support = false;
 			try {
@@ -457,7 +460,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 				}
 			}
 		};
-		var lazyImgs = document[getElementsByClassName](imgClass) || "";
+		var lazyImgs = document[getElementsByClassName](_imgClass) || "";
 		var walkLazyImageAll = function () {
 			for (var i = 0; i < lazyImgs[length]; i++) {
 				new Echo(lazyImgs[i]).init();
@@ -507,13 +510,13 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 
 	var loadJsCss = function (files, callback) {
 		var _this = this;
-		var getElementsByTagName = "getElementsByTagName";
-		var createElement = "createElement";
 		var appendChild = "appendChild";
 		var body = "body";
-		var parentNode = "parentNode";
+		var createElement = "createElement";
+		var getElementsByTagName = "getElementsByTagName";
 		var insertBefore = "insertBefore";
 		var length = "length";
+		var parentNode = "parentNode";
 		_this.files = files;
 		_this.js = [];
 		_this.head = document[getElementsByTagName]("head")[0] || "";
@@ -573,8 +576,8 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 (function (root, document) {
 	"use strict";
 
-	var documentElement = "documentElement";
 	var createElement = "createElement";
+	var documentElement = "documentElement";
 	var length = "length";
 
 	var progressBar = new ToProgress({
@@ -595,25 +598,31 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 
 	var hasWheel = "onwheel" in document[createElement]("div") || void 0 !== document.onmousewheel || "";
 
+	var getHTTP = function (force) {
+		var any = force || "";
+		var locationProtocol = root.location.protocol || "";
+		return "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : any ? "http" : "";
+	};
+
 	var run = function () {
 
-		var body = "body";
 		var addEventListener = "addEventListener";
+		var appendChild = "appendChild";
+		var body = "body";
+		var classList = "classList";
+		var createContextualFragment = "createContextualFragment";
+		var createDocumentFragment = "createDocumentFragment";
+		var dataset = "dataset";
+		var getAttribute = "getAttribute";
 		var getElementById = "getElementById";
 		var getElementsByClassName = "getElementsByClassName";
 		var getElementsByTagName = "getElementsByTagName";
-		var getAttribute = "getAttribute";
-		var appendChild = "appendChild";
-		var parentNode = "parentNode";
-		var classList = "classList";
-		var dataset = "dataset";
-		var title = "title";
-		var style = "style";
 		var href = "href";
 		var innerHTML = "innerHTML";
-		var createContextualFragment = "createContextualFragment";
-		var createDocumentFragment = "createDocumentFragment";
+		var parentNode = "parentNode";
+		var style = "style";
 		var styleSheets = "styleSheets";
+		var title = "title";
 
 		var docElem = document[documentElement] || "";
 		if (docElem && docElem[classList]) {
@@ -623,9 +632,196 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 
 		progressBar.increase(20);
 
-		var hasTouch = "ontouchstart" in document[documentElement] || "";
+		/*jshint bitwise: false */
+		var parseLink = function (url, full) {
+			var _full = full || "";
+			return function () {
+				var _replace = function (s) {
+					return s.replace(/^(#|\?)/, "").replace(/\:$/, "");
+				};
+				var _location = location || "";
+				var _protocol = function (protocol) {
+					switch (protocol) {
+						case "http:":
+							return _full ? ":" + 80 : 80;
+						case "https:":
+							return _full ? ":" + 443 : 443;
+						default:
+							return _full ? ":" + _location.port : _location.port;
+					}
+				};
+				var _isAbsolute = 0 === url.indexOf("//") || !!~url.indexOf("://");
+				var _locationHref = root.location || "";
+				var _origin = function () {
+					var o = _locationHref.protocol + "//" + _locationHref.hostname + (_locationHref.port ? ":" + _locationHref.port : "");
+					return o || "";
+				};
+				var _isCrossDomain = function () {
+					var c = document[createElement]("a");
+					c.href = url;
+					var v = c.protocol + "//" + c.hostname + (c.port ? ":" + c.port : "");
+					return v !== _origin();
+				};
+				var _link = document[createElement]("a");
+				_link.href = url;
+				return {
+					href: _link.href,
+					origin: _origin(),
+					host: _link.host || _location.host,
+					port: "0" === _link.port || "" === _link.port ? _protocol(_link.protocol) : _full ? _link.port : _replace(_link.port),
+					hash: _full ? _link.hash : _replace(_link.hash),
+					hostname: _link.hostname || _location.hostname,
+					pathname: _link.pathname.charAt(0) !== "/" ? _full ? "/" + _link.pathname : _link.pathname : _full ? _link.pathname : _link.pathname.slice(1),
+					protocol: !_link.protocol || ":" === _link.protocol ? _full ? _location.protocol : _replace(_location.protocol) : _full ? _link.protocol : _replace(_link.protocol),
+					search: _full ? _link.search : _replace(_link.search),
+					query: _full ? _link.search : _replace(_link.search),
+					isAbsolute: _isAbsolute,
+					isRelative: !_isAbsolute,
+					isCrossDomain: _isCrossDomain(),
+					hasHTTP: /^(http|https):\/\//i.test(url) ? !0 : !1
+				};
+			}();
+		};
+		/*jshint bitwise: true */
 
-		var hasWheel = "onwheel" in document[createElement]("div") || void 0 !== document.onmousewheel || "";
+		var isNodejs = "undefined" !== typeof process && "undefined" !== typeof require || "";
+		var isElectron = "undefined" !== typeof root && root.process && "renderer" === root.process.type || "";
+		var isNwjs = function () {
+			if ("undefined" !== typeof isNodejs && isNodejs) {
+				try {
+					if ("undefined" !== typeof require("nw.gui")) {
+						return true;
+					}
+				} catch (e) {
+					return false;
+				}
+			}
+			return false;
+		}();
+
+		var openDeviceBrowser = function (url) {
+			var triggerForElectron = function () {
+				var es = isElectron ? require("electron").shell : "";
+				return es ? es.openExternal(url) : "";
+			};
+			var triggerForNwjs = function () {
+				var ns = isNwjs ? require("nw.gui").Shell : "";
+				return ns ? ns.openExternal(url) : "";
+			};
+			var triggerForHTTP = function () {
+				return true;
+			};
+			var triggerForLocal = function () {
+				return root.open(url, "_system", "scrollbars=1,location=no");
+			};
+			if (isElectron) {
+				triggerForElectron();
+			} else if (isNwjs) {
+				triggerForNwjs();
+			} else {
+				var locationProtocol = root.location.protocol || "",
+				    hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
+				if (hasHTTP) {
+					triggerForHTTP();
+				} else {
+					triggerForLocal();
+				}
+			}
+		};
+
+		var debounce = function (func, wait, immediate) {
+			var timeout;
+			var args;
+			var context;
+			var timestamp;
+			var result;
+			if (undefined === wait || null === wait) {
+				wait = 100;
+			}
+			function later() {
+				var last = Date.now() - timestamp;
+				if (last < wait && last >= 0) {
+					timeout = setTimeout(later, wait - last);
+				} else {
+					timeout = null;
+					if (!immediate) {
+						result = func.apply(context, args);
+						context = args = null;
+					}
+				}
+			}
+			var debounced = function () {
+				context = this;
+				args = arguments;
+				timestamp = Date.now();
+				var callNow = immediate && !timeout;
+				if (!timeout) {
+					timeout = setTimeout(later, wait);
+				}
+				if (callNow) {
+					result = func.apply(context, args);
+					context = args = null;
+				}
+				return result;
+			};
+			debounced.clear = function () {
+				if (timeout) {
+					clearTimeout(timeout);
+					timeout = null;
+				}
+			};
+			debounced.flush = function () {
+				if (timeout) {
+					result = func.apply(context, args);
+					context = args = null;
+					clearTimeout(timeout);
+					timeout = null;
+				}
+			};
+			return debounced;
+		};
+
+		var isBindedClass = "is-binded";
+
+		var manageExternalLinkAll = function (ctx) {
+			var _ctx = ctx && ctx.nodeName ? ctx : "";
+			var linkTag = "a";
+			var externalLinks = _ctx ? _ctx[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
+			var arrange = function (e) {
+				var handleExternalLink = function (url, evt) {
+					evt.stopPropagation();
+					evt.preventDefault();
+					var logic = openDeviceBrowser.bind(null, url);
+					var debounceLogic = debounce(logic, 200);
+					debounceLogic();
+				};
+				if (!e[classList].contains(isBindedClass) && !e.target && !e.rel) {
+					var url = e[getAttribute]("href") || "";
+					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+						if ("undefined" !== typeof getHTTP && getHTTP()) {
+							e.target = "_blank";
+							e.rel = "noopener";
+						} else {
+							e[addEventListener]("click", handleExternalLink.bind(null, url));
+						}
+						e[classList].add(isBindedClass);
+					}
+				}
+			};
+			if (externalLinks) {
+				var i;
+				var l;
+				for (i = 0, l = externalLinks.length; i < l; i += 1) {
+					arrange(externalLinks[i]);
+				}
+				i = l = null;
+			}
+		};
+
+		var wrapper = document[getElementsByClassName]("wrapper")[0] || "";
+
+		manageExternalLinkAll(wrapper);
 
 		var documentTitle = document[title] || "";
 
@@ -657,13 +853,13 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		var cardGridClass = "card-grid";
 		var cardGrid = document[getElementsByClassName](cardGridClass)[0] || "";
 		var imgClass = "data-src-img";
+		var cardWrapClass = "card-wrap";
 		var jsonHrefKeyName = "href";
 		var jsonSrcKeyName = "src";
 		var jsonTitleKeyName = "title";
 		var jsonTextKeyName = "text";
 		var jsonWidthKeyName = "width";
 		var jsonHeightKeyName = "height";
-		var cardWrapClass = "card-wrap";
 		var jsonUrl = "./libs/contents-cards/json/contents.json";
 
 		var safelyParseJSON = function (response) {
@@ -714,7 +910,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		};
 
 		var insertFromTemplate = function (parsedJson, templateId, targetId, callback, useInner) {
-			var inner = useInner || "";
+			var _useInner = useInner || "";
 			var template = document[getElementById](templateId) || "";
 			var target = document[getElementById](targetId) || "";
 			var cb = function () {
@@ -722,7 +918,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 			};
 			if (parsedJson && template && target) {
 				var targetRendered = renderTemplate(parsedJson, templateId, targetId);
-				if (inner) {
+				if (_useInner) {
 					target[innerHTML] = targetRendered;
 					cb();
 				} else {
@@ -787,12 +983,12 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 				/*!
      * render with creating DOM Nodes
      */
-				/* var dataset = "dataset";
+				/* var alt = "alt";
+    var createTextNode = "createTextNode";
+    var dataset = "dataset";
+    var hasOwnProperty = "hasOwnProperty";
     var href = "href";
     var src = "src";
-    var alt = "alt";
-    var createTextNode = "createTextNode";
-    var hasOwnProperty = "hasOwnProperty";
     	var cardClass = "card";
     var cardContentClass = "card-content";
     	jsonObj = jsonObj.pages;
@@ -933,10 +1129,10 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 
 		var locationHref = root.location[href] || "";
 
-		var scriptIsLoaded = function (_src) {
+		var scriptIsLoaded = function (scriptSrc) {
 			var scriptAll, i, l;
 			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[length]; i < l; i += 1) {
-				if (scriptAll[i][getAttribute]("src") === _src) {
+				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
 					scriptAll = i = l = null;
 					return true;
 				}
@@ -947,13 +1143,13 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 
 		var isActiveClass = "is-active";
 
-		var hideOtherIsSocial = function (_this) {
-			_this = _this || this;
+		var hideOtherIsSocial = function (thisObj) {
+			var _thisObj = thisObj || this;
 			var isSocialAll = document[getElementsByClassName]("is-social") || "";
 			if (isSocialAll) {
 				var k, n;
 				for (k = 0, n = isSocialAll[length]; k < n; k += 1) {
-					if (_this !== isSocialAll[k]) {
+					if (_thisObj !== isSocialAll[k]) {
 						isSocialAll[k][classList].remove(isActiveClass);
 					}
 				}
@@ -962,58 +1158,6 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		};
 
 		root[addEventListener]("click", hideOtherIsSocial);
-
-		var debounce = function (func, wait, immediate) {
-			var timeout;
-			var args;
-			var context;
-			var timestamp;
-			var result;
-			if (undefined === wait || null === wait) {
-				wait = 100;
-			}
-			function later() {
-				var last = Date.now() - timestamp;
-				if (last < wait && last >= 0) {
-					timeout = setTimeout(later, wait - last);
-				} else {
-					timeout = null;
-					if (!immediate) {
-						result = func.apply(context, args);
-						context = args = null;
-					}
-				}
-			}
-			var debounced = function () {
-				context = this;
-				args = arguments;
-				timestamp = Date.now();
-				var callNow = immediate && !timeout;
-				if (!timeout) {
-					timeout = setTimeout(later, wait);
-				}
-				if (callNow) {
-					result = func.apply(context, args);
-					context = args = null;
-				}
-				return result;
-			};
-			debounced.clear = function () {
-				if (timeout) {
-					clearTimeout(timeout);
-					timeout = null;
-				}
-			};
-			debounced.flush = function () {
-				if (timeout) {
-					result = func.apply(context, args);
-					context = args = null;
-					clearTimeout(timeout);
-					timeout = null;
-				}
-			};
-			return debounced;
-		};
 
 		var yaShare2Id = "ya-share2";
 
@@ -1169,8 +1313,6 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
   if (titleBar) {
   	root[addEventListener]("scroll", handleTitleBar, {passive: true});
   } */
-
-		var wrapper = document[getElementsByClassName]("wrapper")[0] || "";
 
 		/*!
    * set fixed depending on scroll/swipe direction
@@ -1372,12 +1514,6 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 	var defineProperty = "defineProperty";
 
 	var scripts = ["./libs/contents-cards/css/bundle.min.css"];
-
-	var getHTTP = function (force) {
-		var any = force || "";
-		var locationProtocol = root.location.protocol || "";
-		return "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : any ? "http" : "";
-	};
 
 	var forcedHTTP = getHTTP(true);
 

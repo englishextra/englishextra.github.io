@@ -1382,7 +1382,7 @@ a {
 
 @media only screen {
 	html {
-		font-size: 10px;
+		font-size: 12px;
 	}
 
 	.quote {
@@ -1410,7 +1410,7 @@ a {
 
 @media only screen and (max-width: 40em) {
 	html {
-		font-size: 10px;
+		font-size: 12px;
 	}
 }
 
@@ -1420,7 +1420,7 @@ a {
 
 @media only screen and (min-width: 40.063em) {
 	html {
-		font-size: 15px;
+		font-size: 12px;
 	}
 
 	.quote {
@@ -1485,7 +1485,7 @@ a {
 
 @media only screen and (min-width: 90.063em) {
 	html {
-		font-size: 20px;
+		font-size: 18px;
 	}
 }
 
@@ -1493,7 +1493,7 @@ a {
 
 @media only screen and (min-width: 90.063em) and (max-width: 120em) {
 	html {
-		font-size: 20px;
+		font-size: 18px;
 	}
 }
 
@@ -1503,7 +1503,7 @@ a {
 
 @media only screen and (min-width: 120.063em) {
 	html {
-		font-size: 20px;
+		font-size: 18px;
 	}
 }
 

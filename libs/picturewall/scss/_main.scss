@@ -131,7 +131,7 @@ a {
 	position: fixed;
 	bottom: 0;
 	right: 3.200rem;
-	background-color: $color-rgba-dark-ui-icon-bg;
+	background-color: $ButtonBackgroundDark;
 }
 
 .btn-share a > * {
@@ -154,7 +154,7 @@ a {
 	position: fixed;
 	bottom: 0;
 	right: 6.400rem;
-	background-color: $color-rgba-dark-ui-icon-bg;
+	background-color: $ButtonBackgroundDark;
 }
 
 .btn-like a > * {
@@ -178,7 +178,7 @@ a {
 	position: fixed;
 	bottom: 0;
 	right: 0;
-	background-color: $color-rgba-dark-ui-icon-bg;
+	background-color: $ButtonBackgroundDark;
 }
 
 .btn-totop.is-active {
@@ -247,3 +247,98 @@ a {
 	margin: 0 0 0 0.667rem;
 	line-height: 0;
 }
+
+/*!
+ * @see {@link https://gist.github.com/englishextra/40b7c4ffde33bfb58aff259afe229d6a}
+ */
+
+/*------------------------------------------
+  Foundation Media Queries
+   http://foundation.zurb.com/docs/media-queries.html
+--------------------------------------------*/
+
+/* Small screens - MOBILE */
+
+@media only screen {
+	html {
+		font-size: 12px;
+	}
+}
+
+/* Define mobile styles - Mobile First */
+
+@media only screen and (max-width: 40em) {
+	html {
+		font-size: 12px;
+	}
+}
+
+/* max-width 640px, mobile-only styles, use when QAing mobile issues */
+
+/* Medium screens - TABLET */
+
+@media only screen and (min-width: 40.063em) {
+	html {
+		font-size: 12px;
+	}
+}
+
+/* min-width 641px, medium screens */
+
+@media only screen and (min-width: 40.063em) and (max-width: 64em) {
+	html {
+		font-size: 15px;
+	}
+}
+
+/* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
+
+/* Large screens - DESKTOP */
+
+@media only screen and (min-width: 64.063em) {
+	html {
+		font-size: 15px;
+	}
+
+	.qrcode {
+		display: block;
+	}
+}
+
+/* min-width 1025px, large screens */
+
+@media only screen and (min-width: 64.063em) and (max-width: 90em) {
+	html {
+		font-size: 15px;
+	}
+}
+
+/* min-width 1024px and max-width 1440px, use when QAing large screen-only issues */
+
+/* XLarge screens */
+
+@media only screen and (min-width: 90.063em) {
+	html {
+		font-size: 18px;
+	}
+}
+
+/* min-width 1441px, xlarge screens */
+
+@media only screen and (min-width: 90.063em) and (max-width: 120em) {
+	html {
+		font-size: 18px;
+	}
+}
+
+/* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */
+
+/* XXLarge screens */
+
+@media only screen and (min-width: 120.063em) {
+	html {
+		font-size: 18px;
+	}
+}
+
+/* min-width 1921px, xlarge screens */
