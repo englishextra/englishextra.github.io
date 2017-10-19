@@ -1030,7 +1030,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 
 	var defineProperty = "defineProperty";
 
-	var scripts = [forcedHTTP + "://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.0/gh-fork-ribbon.min.css", "./libs/john-locke/css/bundle.min.css"];
+	var scripts = [forcedHTTP + "://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.2/gh-fork-ribbon.min.css", "./libs/john-locke/css/bundle.min.css"];
 
 	var supportsClassList = "classList" in document[createElement]("_") || "";
 
