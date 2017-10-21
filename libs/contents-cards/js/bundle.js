@@ -576,8 +576,10 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 (function (root, document) {
 	"use strict";
 
+	var addEventListener = "addEventListener";
 	var createElement = "createElement";
 	var documentElement = "documentElement";
+	var getElementsByClassName = "getElementsByClassName";
 	var length = "length";
 
 	var progressBar = new ToProgress({
@@ -606,16 +608,15 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 
 	var run = function () {
 
-		var addEventListener = "addEventListener";
 		var appendChild = "appendChild";
 		var body = "body";
 		var classList = "classList";
+		var className = "className";
 		var createContextualFragment = "createContextualFragment";
 		var createDocumentFragment = "createDocumentFragment";
 		var dataset = "dataset";
 		var getAttribute = "getAttribute";
 		var getElementById = "getElementById";
-		var getElementsByClassName = "getElementsByClassName";
 		var getElementsByTagName = "getElementsByTagName";
 		var href = "href";
 		var innerHTML = "innerHTML";
@@ -631,6 +632,39 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		}
 
 		progressBar.increase(20);
+
+		var observeMutations = function (ctx) {
+			var _ctx = ctx && ctx.nodeName ? ctx : "";
+			var getMutations = function (e) {
+				var triggerOnMutation = function (m) {
+					console.log("mutations observer: " + m.type);
+					console.log(m.type, "target: " + m.target.tagName + ("." + m.target[className] || "#" + m.target.id || ""));
+					console.log(m.type, "added: " + m.addedNodes[length] + " nodes");
+					console.log(m.type, "removed: " + m.removedNodes[length] + " nodes");
+					if ("childList" === m.type || "subtree" === m.type) {
+						mo.disconnect();
+						hideProgressBar();
+					}
+				};
+				for (var i = 0, l = e[length]; i < l; i += 1) {
+					triggerOnMutation(e[i]);
+				}
+			};
+			if (_ctx) {
+				var mo = new MutationObserver(getMutations);
+				mo.observe(_ctx, {
+					childList: !0,
+					subtree: !0,
+					attributes: !1,
+					characterData: !1
+				});
+			}
+		};
+
+		var cardGridClass = "card-grid";
+		var cardGrid = document[getElementsByClassName](cardGridClass)[0] || "";
+
+		observeMutations(cardGrid);
 
 		/*jshint bitwise: false */
 		var parseLink = function (url, full) {
@@ -850,8 +884,6 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 			document[title] = documentTitle + " [" + (getHumanDate ? " " + getHumanDate : "") + (platformDescription ? " " + platformDescription : "") + (hasTouch || hasWheel ? " with" : "") + (hasTouch ? " touch" : "") + (hasTouch && hasWheel ? "," : "") + (hasWheel ? " mousewheel" : "") + "]";
 		}
 
-		var cardGridClass = "card-grid";
-		var cardGrid = document[getElementsByClassName](cardGridClass)[0] || "";
 		var imgClass = "data-src-img";
 		var cardWrapClass = "card-wrap";
 		var jsonHrefKeyName = "href";
@@ -970,10 +1002,13 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
      * the drawback you cannot know image sizes
      * attention to last param: if false cloneNode will be used
      * and setting listeners or changing its CSS will not be possible
+     * attention IE11 counts elements within template tag,
+     * so you might have length + 1
+     * to fix that select elemnts in a container that doesnt have source template
      */
 				var pagesKeysNumber = countObjKeys(jsonObj.pages);
 				insertFromTemplate(jsonObj, "template_card_grid", "target_card_grid", function () {
-					if (pagesKeysNumber === document[getElementsByClassName](cardWrapClass)[length]) {
+					if (wrapper[getElementsByClassName](cardWrapClass)[pagesKeysNumber - 1]) {
 						resolve();
 					} else {
 						reject();
@@ -1363,7 +1398,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
   			if (root.WheelIndicator) {
   				var indicator;
   				indicator = new WheelIndicator({
-  						elem: wrapper,
+  						elem: root,
   						callback: function (e) {
   							if ("down" === e.direction) {
   								hideTitleBar();
@@ -1388,10 +1423,10 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 
 		var hideTitleBar = function () {
 			var logic = function () {
+				titleBar[classList].remove(isFixedClass);
 				if ((document[body].scrollTop || document[documentElement].scrollTop || 0) > titleBarHeight) {
 					titleBar[classList].add(isHiddenClass);
 				} else {
-					titleBar[classList].remove(isFixedClass);
 					titleBar[classList].remove(isHiddenClass);
 				}
 			};
@@ -1410,22 +1445,29 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 			var throttleLogic = throttle(logic, 100);
 			throttleLogic();
 		};
-		if (wrapper && titleBar) {
+		var resetTitleBar = function () {
+			var logic = function () {
+				if ((document[body].scrollTop || document[documentElement].scrollTop || 0) < titleBarHeight) {
+					titleBar[classList].remove(isHiddenClass);
+					titleBar[classList].remove(isFixedClass);
+				}
+			};
+			var throttleLogic = throttle(logic, 100);
+			throttleLogic();
+		};
+		if (titleBar) {
+			root[addEventListener]("scroll", resetTitleBar, { passive: true });
 			if (hasTouch) {
 				if (root.tocca) {
-					root[addEventListener]("swipeup", hideTitleBar, {
-						passive: true
-					});
-					root[addEventListener]("swipedown", revealTitleBar, {
-						passive: true
-					});
+					root[addEventListener]("swipeup", hideTitleBar, { passive: true });
+					root[addEventListener]("swipedown", revealTitleBar, { passive: true });
 				}
 			} else {
 				if (hasWheel) {
 					if (root.WheelIndicator) {
 						var indicator;
 						indicator = new WheelIndicator({
-							elem: wrapper,
+							elem: root,
 							callback: function (e) {
 								if ("down" === e.direction) {
 									hideTitleBar();
@@ -1507,8 +1549,6 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 			btnTotop[addEventListener]("click", handleBtnTotop);
 			root[addEventListener]("scroll", handleBtnTotopWindow, { passive: true });
 		}
-
-		hideProgressBar();
 	};
 
 	var defineProperty = "defineProperty";
@@ -1516,6 +1556,10 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 	var scripts = ["./libs/contents-cards/css/bundle.min.css"];
 
 	var forcedHTTP = getHTTP(true);
+
+	if (!root.MutationObserver) {
+		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/mutation-observer@1.0.3/index.min.js");
+	}
 
 	var supportsClassList = "classList" in document[createElement]("_") || "";
 
@@ -1547,7 +1591,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 	}
 
 	if (!root.Promise) {
-		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/es6-promise-polyfill/1.2.0/promise.min.js");
+		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/promise-polyfill@6.0.2/promise.min.js");
 	}
 
 	if (!root.fetch) {
@@ -1568,6 +1612,11 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
   * load scripts after webfonts loaded using doesFontExist
   */
 
+	var supportsCanvas = function () {
+		var elem = document[createElement]("canvas");
+		return !!(elem.getContext && elem.getContext("2d"));
+	}();
+
 	var onFontsLoadedCallback = function () {
 
 		var slot;
@@ -1580,11 +1629,6 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 			var load;
 			load = new loadJsCss(scripts, run);
 		};
-
-		var supportsCanvas = function () {
-			var elem = document[createElement]("canvas");
-			return !!(elem.getContext && elem.getContext("2d"));
-		}();
 
 		var checkFontIsLoaded = function () {
 			if (doesFontExist("Roboto")) {
