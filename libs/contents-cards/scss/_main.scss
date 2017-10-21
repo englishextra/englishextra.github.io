@@ -56,7 +56,7 @@ a {
 	transition: top 0.4s ease-out;
 	text-align: center;
 	background-color: $TitleBarAndAppBarDark;
-	z-index: 1;
+	/* z-index: 1; */
 }
 
 .title-bar.is-fixed {
@@ -226,7 +226,6 @@ a {
 	bottom: 0;
 	right: 3.200rem;
 	line-height: 0;
-	background-color: $color-hex-vk-like-bg;
 	background-color: $color-hex-vk-like-bg;
 	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
 	transition: visibility 0s, opacity 0.2s ease;
