@@ -22,7 +22,7 @@
 		</xsl:element>
 	</xsl:template>
 	<xsl:template match="channel">
-		<body id="podcast" onload="jsFeedUrl='{$feedUrl}';loadSubscribeAreaUltra('podcast');go_decoding()">
+		<body id="podcast">
 			<div id="cometestme" style="display:none;">
 				<xsl:text disable-output-escaping="yes">&amp;amp;</xsl:text>
 			</div>
