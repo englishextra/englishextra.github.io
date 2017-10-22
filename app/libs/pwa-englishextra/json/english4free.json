@@ -1,122 +1,124 @@
 {
 	"items": [{
-		"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-odo-640x480.png",
-		"href": "https://en.oxforddictionaries.com/",
-		"title": "Oxford Dictionaries",
-		"text": "Словарь современных значений английских слов, синонимов и антонимов, а также вопросники, игры и видео, статьи по грамматике."
-	},
-	{
-		"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-duolingo-640x480.png",
-		"href": "https://www.microsoft.com/en-us/store/apps/duolingo-learn-languages-for-free/9wzdncrcv5xn",
-		"title": "Learn a language for free. Forever.",
-		"text": "Learn Spanish, French, German, Portuguese, Italian, Irish, Dutch, Danish, and English. Totally fun and 100% free."
-	},
-	{
-		"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-phrasal-verbs-machine-640x480.png",
-		"href": "http://play.google.com/store/apps/developer?id=Cambridge+Learning+%28Cambridge+University+Press%29",
-		"title": "Cambridge для Android",
-		"text": "Cambridge выпустили три платных Android приложений известной обучающей серии in USE, а также пару бесплатных программ — English Monstruo и Phrasal Verbs Machine. Совместимо с Android 2.2 и выше."
-	},
-	{
-		"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-gg-640x480.png",
-		"href": "http://www.quickanddirtytips.com/grammar-girl",
-		"title": "Подсказки от Grammar Girl",
-		"text": "Американский вариант «Как правильно?». Действительно распространенные ошибки и конфузы разбирает автор в своем подкасте. Бесплатно MP3. Минус — много не очень правильной рекламы, не покупайтесь!"
-	},
-	{
-		"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-oup-640x480.png",
-		"href": "http://elt.oup.com/student/headway",
-		"title": "Headway онлайн",
-		"text": "Практикуйте свой ​​английский с интерактивными упражнениями, головоломками и играми. Вы можете сами сконструировать тесты под себя, пройти их онлайн или распечатать для дальнейшей практики оффлайн. В Вашем распоряжении шесть уровней."
-	},
-	{
-		"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-visualdictionary-640x480.png",
-		"href": "http://www.ikonet.com/en/visualdictionary/",
-		"title": "Словарь в картинках",
-		"text": "Тематический онлайн-словарь в картинках, не требующий регистрации для работы с ним, содержит около полутора десятка основных тем с детализированными иллюстрированными подтемами. Найдется любая мелочь. Для тренировки используйте раздел игр."
-	},
-	{
-		"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-telegraph-640x480.png",
-		"href": "http://www.telegraph.co.uk/topics/about-us/style-book/",
-		"title": "Telegraph Style Book",
-		"text": "Официальное руководство по стилистике и оформлению издательства Telegraph Media Group Limited для газеты The Daily Telegraph, журнала The Sunday Telegraph, приложений и сайта Telegraph.co.uk."
-	},
-	{
-		"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-english-accents-map-640x480.png",
-		"href": "https://www.englishaccentsmap.com/",
-		"title": "English Accents Map",
-		"text": "Интерактивная карта вариаций английского произношения с примерами."
-	},
-	{
-		"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-ege-640x480.png",
-		"href": "http://fipi.ru/ege-i-gve-11/demoversii-specifikacii-kodifikatory",
-		"title": "Демо-КИМы ЕГЭ",
-		"text": "Задания демонстрационных вариантов не используются на экзаменах, но они имеют аналогичную структуру, ознакомление с которой позволяет выпускникам и абитуриентам выработать стратегию подготовки к ЕГЭ."
-	},
-	{
-		"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-yandex-640x480.png",
-		"href": "http://ege.yandex.ru/english/",
-		"title": "ЕГЭ на Яндексе",
-		"text": "На Яндексе можно выполнять задания из демонстрационных вариантов ЕГЭ в режиме онлайн-тренировки."
-	},
-	{
-		"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-bbc-640x480.png",
-		"href": "http://www.bbc.co.uk/podcasts/series/english",
-		"title": "Подкасты BBC",
-		"text": "Кладезь подкастов как новостных, так и обучающих. Свободно скачиваемые MP3 напрямую через RSS фиды или по бесплатной подписке в iTunes."
-	},
-	{
-		"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-angryalien-640x480.png",
-		"href": "http://www.angryalien.com/",
-		"title": "«Злые зайчики»",
-		"text": "30-ти секундные ролики — пародии на известные голивудские блокбастеры. Все герои очень похожи на зайчиков."
-	},
-	{
-		"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-vv-640x480.png",
-		"href": "http://www.videovocab.tv/",
-		"title": "Video Vocab",
-		"text": "Oбучающие видеопрезентации по экономике, финансам и технологиям."
-	},
-	{
-		"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-languagelink-640x480.png",
-		"href": "http://www.languagelink.ru/test/english/onlinetest/main.html",
-		"title": "Тест по английскому языку online",
-		"text": "Прежде чем обращаться к репетитору, решите данный тест из пяти десятков вопросов с ответами, запишите себе те вопросы, в которых вы не уверены."
-	},
-	{
-		"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-egu-640x480.png",
-		"href": "http://www.cambridge.org/elt/inuse/grammartests/esgu-test.htm",
-		"title": "Тест «Красный Мерфи» (базовый)",
-		"text": "Все мы любим Красный Мерфи, а так ли хорошо мы усвоили его уроки? Проверьте себя: «базовый», «повышенный», «продвинутый»"
-	},
-	{
-		"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-kino35mm-640x480.png",
-		"href": "http://www.kino35mm.ru/",
-		"title": "Сходим в кино!",
-		"text": "И посмотрим фильм на оригинальном языке с русскими субтитрами."
-	},
-	{
-		"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-linguaspectrum-640x480.png",
-		"href": "https://vimeo.com/britlish/videos",
-		"title": "Видео от Linguaspectrum",
-		"text": "Бывший полицейский и менеджер по маркетингу, Ричард выпускает образовательные ролики для изучающих английский, создает новые сайты с квизами и тестами."
-	},
-	{
-		"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-grammargremlins-640x480.png",
-		"href": "http://cdextras.cambridge.org/grammargremlins/",
-		"title": "Выгони гремлин",
-		"text": "Трехуровневый тест Grammar Gremlins на базе известного курса In use собьет с Вас спесь по поводу Вашего «pre-intermediate». Задача: освободиться от злых гномиков — гремлинов, приносящих неудачу пилоту."
-	},
-	{
-		"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-interurok-640x480.png",
-		"href": "http://interneturok.ru/ru/school/english/10-11-klassy",
-		"title": "3500 бесплатных видеоуроков",
-		"text": "Более 4000 видеоуроков по основным предметам школьной программы — в открытом доступе и без рекламы. Смотри и понимай."
-	},
-	{
-		"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-multitran-640x480.png",
-		"href": "http://www.multitran.ru/",
-		"title": "Словарь Мультитран",
-		"text": "В настоящее время это один из наиболее полных и самых популярных автоматических онлайновых словарей Рунета."
-	}]
+			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-odo-640x480.png",
+			"href": "https://en.oxforddictionaries.com/",
+			"title": "Oxford Dictionaries",
+			"text": "Словарь современных значений английских слов, синонимов и антонимов, а также вопросники, игры и видео, статьи по грамматике."
+		},
+		{
+			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-duolingo-640x480.png",
+			"href": "https://www.microsoft.com/en-us/store/apps/duolingo-learn-languages-for-free/9wzdncrcv5xn",
+			"title": "Learn a language for free. Forever.",
+			"text": "Learn Spanish, French, German, Portuguese, Italian, Irish, Dutch, Danish, and English. Totally fun and 100% free."
+		},
+		{
+			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-phrasal-verbs-machine-640x480.png",
+			"href": "http://play.google.com/store/apps/developer?id=Cambridge+Learning+%28Cambridge+University+Press%29",
+			"title": "Cambridge для Android",
+			"text": "Cambridge выпустили три платных Android приложений известной обучающей серии in USE, а также пару бесплатных программ — English Monstruo и Phrasal Verbs Machine. Совместимо с Android 2.2 и выше."
+		},
+		{
+			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-gg-640x480.png",
+			"href": "http://www.quickanddirtytips.com/grammar-girl",
+			"title": "Подсказки от Grammar Girl",
+			"text": "Американский вариант «Как правильно?». Действительно распространенные ошибки и конфузы разбирает автор в своем подкасте. Бесплатно MP3. Минус — много не очень правильной рекламы, не покупайтесь!"
+		},
+		{
+			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-oup-640x480.png",
+			"href": "http://elt.oup.com/student/headway",
+			"title": "Headway онлайн",
+			"text": "Практикуйте свой ​​английский с интерактивными упражнениями, головоломками и играми. Вы можете сами сконструировать тесты под себя, пройти их онлайн или распечатать для дальнейшей практики оффлайн. В Вашем распоряжении шесть уровней."
+		},
+		{
+			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-visualdictionary-640x480.png",
+			"href": "http://www.ikonet.com/en/visualdictionary/",
+			"title": "Словарь в картинках",
+			"text": "Тематический онлайн-словарь в картинках, не требующий регистрации для работы с ним, содержит около полутора десятка основных тем с детализированными иллюстрированными подтемами. Найдется любая мелочь. Для тренировки используйте раздел игр."
+		},
+		{
+			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-telegraph-640x480.png",
+			"href": "http://www.telegraph.co.uk/topics/about-us/style-book/",
+			"title": "Telegraph Style Book",
+			"text": "Официальное руководство по стилистике и оформлению издательства Telegraph Media Group Limited для газеты The Daily Telegraph, журнала The Sunday Telegraph, приложений и сайта Telegraph.co.uk."
+		},
+		{
+			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-english-accents-map-640x480.png",
+			"href": "https://www.englishaccentsmap.com/",
+			"title": "English Accents Map",
+			"text": "Интерактивная карта вариаций английского произношения с примерами."
+		},
+		{
+			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-ege-640x480.png",
+			"href": "http://fipi.ru/ege-i-gve-11/demoversii-specifikacii-kodifikatory",
+			"title": "Демо-КИМы ЕГЭ",
+			"text": "Задания демонстрационных вариантов не используются на экзаменах, но они имеют аналогичную структуру, ознакомление с которой позволяет выпускникам и абитуриентам выработать стратегию подготовки к ЕГЭ."
+		},
+		{
+			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-yandex-640x480.png",
+			"href": "http://ege.yandex.ru/english/",
+			"title": "ЕГЭ на Яндексе",
+			"text": "На Яндексе можно выполнять задания из демонстрационных вариантов ЕГЭ в режиме онлайн-тренировки."
+		},
+		{
+			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-bbc-640x480.png",
+			"href": "http://www.bbc.co.uk/podcasts/series/english",
+			"title": "Подкасты BBC",
+			"text": "Кладезь подкастов как новостных, так и обучающих. Свободно скачиваемые MP3 напрямую через RSS фиды или по бесплатной подписке в iTunes."
+		},
+		{
+			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-angryalien-640x480.png",
+			"href": "http://www.angryalien.com/",
+			"title": "«Злые зайчики»",
+			"text": "30-ти секундные ролики — пародии на известные голивудские блокбастеры. Все герои очень похожи на зайчиков."
+		},
+		{
+			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-vv-640x480.png",
+			"href": "http://www.videovocab.tv/",
+			"title": "Video Vocab",
+			"text": "Oбучающие видеопрезентации по экономике, финансам и технологиям."
+		},
+		{
+			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-languagelink-640x480.png",
+			"href": "http://www.languagelink.ru/test/english/onlinetest/main.html",
+			"title": "Тест по английскому языку online",
+			"text": "Прежде чем обращаться к репетитору, решите данный тест из пяти десятков вопросов с ответами, запишите себе те вопросы, в которых вы не уверены."
+		},
+		{
+			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-egu-640x480.png",
+			"href": "http://www.cambridge.org/elt/inuse/grammartests/esgu-test.htm",
+			"title": "Тест «Красный Мерфи» (базовый)",
+			"text": "Все мы любим Красный Мерфи, а так ли хорошо мы усвоили его уроки? Проверьте себя: «базовый», «повышенный», «продвинутый»"
+		},
+		{
+			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-kino35mm-640x480.png",
+			"href": "http://www.kino35mm.ru/",
+			"title": "Сходим в кино!",
+			"text": "И посмотрим фильм на оригинальном языке с русскими субтитрами."
+		},
+		{
+			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-linguaspectrum-640x480.png",
+			"href": "https://vimeo.com/britlish/videos",
+			"title": "Видео от Linguaspectrum",
+			"text": "Бывший полицейский и менеджер по маркетингу, Ричард выпускает образовательные ролики для изучающих английский, создает новые сайты с квизами и тестами."
+		},
+		{
+			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-grammargremlins-640x480.png",
+			"href": "http://cdextras.cambridge.org/grammargremlins/",
+			"title": "Выгони гремлин",
+			"text": "Трехуровневый тест Grammar Gremlins на базе известного курса In use собьет с Вас спесь по поводу Вашего «pre-intermediate». Задача: освободиться от злых гномиков — гремлинов, приносящих неудачу пилоту."
+		},
+		{
+			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-interurok-640x480.png",
+			"href": "http://interneturok.ru/ru/school/english/10-11-klassy",
+			"title": "3500 бесплатных видеоуроков",
+			"text": "Более 4000 видеоуроков по основным предметам школьной программы — в открытом доступе и без рекламы. Смотри и понимай."
+		},
+		{
+			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-multitran-640x480.png",
+			"href": "http://www.multitran.ru/",
+			"title": "Словарь Мультитран",
+			"text": "В настоящее время это один из наиболее полных и самых популярных автоматических онлайновых словарей Рунета."
+		}
+	]
 }
+
