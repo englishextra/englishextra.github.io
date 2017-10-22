@@ -1,0 +1,254 @@
+/*
+ * CSS Stylesheet for RSS 0.9x and 2.0, RSS 1.0, Atom: item titles and content
+ *
+ * Copyright (c) 2004 Burning Door, LLC.  All Rights Reserved.
+ */
+
+/* To work around a bug in IE, the namespace prefix must be the same as in the feed */
+@namespace feedburner url(http://rssnamespace.org/feedburner/ext/1.0);
+
+/*
+ * RSS 0.9x and 2.0 styles here
+ */
+ 
+rss {
+        display: block;
+        font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+        font-size: 80%;
+        margin: 25px 15px 25px 15px;
+        }
+
+rss channel * { display: none }         
+        
+rss channel title {
+        display: block;
+        font-size: 2.0em;
+        font-weight: bold;
+        margin-bottom: 5px;
+        }
+
+rss channel link {
+        display: block;
+        margin-bottom: 25px;
+        }
+
+/* This is for IE */
+rss channel feedburner\:browserFriendly {
+  margin:20px;
+  background:yellow;
+  text-align:center;
+  display:block;
+  padding:10px;
+  font-size:85%;
+}
+
+rss channel feedburner|browserFriendly {
+  margin:20px;
+  background:yellow;
+  text-align:center;
+  display:block;
+  padding:10px;
+  font-size:85%;
+}
+
+rss channel item { display: block }             
+
+rss channel item title {
+        display: block;
+        font-family: Helvetica, Geneva, Verdana, Arial, sans-serif; 
+        font-size: 1.3em;
+        font-weight: bold;
+        margin-bottom: 2px;
+        }
+
+rss channel item description {
+        display: block;
+        margin-bottom: 25px;
+        }
+
+rss channel item description * {
+        display: inline;
+        }
+
+rss channel item link { display: none } 
+
+/*
+ * RSS 1.0 styles here ... have to do IE styles differently
+ */
+
+RDF {
+        display: block;
+        font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+        font-size: 80%;
+        margin: 25px 15px 25px 15px;
+        }
+
+RDF * { display: none }
+
+RDF channel { display: block }
+
+RDF channel * { display: none }         
+        
+RDF channel title {
+        display: block;
+        font-size: 2.0em;
+        font-weight: bold;
+        margin-bottom: 5px;
+        }
+
+RDF channel link {
+        display: block;
+        margin-bottom: 25px;
+        }
+
+RDF channel feedburner|browserFriendly {
+  margin:20px;
+  background:yellow;
+  text-align:center;
+  display:block;
+  padding:10px;
+  font-size:85%;
+}
+
+RDF item { display: block}
+
+RDF item title {
+        display: block;
+        font-family: Helvetica, Geneva, Verdana, Arial, sans-serif; 
+        font-size: 1.3em;
+        font-weight: bold;
+        margin-bottom: 2px;
+        }
+
+RDF item description {
+        display: block;
+        margin-bottom: 25px;
+        }
+        
+RDF item description * {
+        display: inline;
+        }
+
+RDF item link { display: none } 
+
+/* For IE */
+rdf\:RDF {
+        display: block;
+        font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+        font-size: 80%;
+        margin: 25px 15px 25px 15px;
+        }
+
+rdf\:RDF * { display: none }
+
+rdf\:RDF channel { display: block }
+
+rdf\:RDF channel * { display: none }            
+        
+rdf\:RDF channel title {
+        display: block;
+        font-size: 2.0em;
+        font-weight: bold;
+        margin-bottom: 5px;
+        }
+
+rdf\:RDF channel link {
+        display: block;
+        margin-bottom: 25px;
+        }
+
+rdf\:RDF channel feedburner\:browserFriendly {
+  margin:20px;
+  background:yellow;
+  text-align:center;
+  display:block;
+  padding:10px;
+  font-size:85%;
+}
+
+rdf\:RDF item { display: block}
+
+rdf\:RDF item title {
+        display: block;
+        font-family: Helvetica, Geneva, Verdana, Arial, sans-serif; 
+        font-size: 1.3em;
+        font-weight: bold;
+        margin-bottom: 2px;
+        }
+
+rdf\:RDF item description {
+        display: block;
+        margin-bottom: 25px;
+        }
+
+rdf\:RDF item description * {
+        display: inline;
+        }
+
+rdf\:RDF item link { display: none }    
+
+/*
+ * Atom styles here
+ */
+feed {
+        display: block;
+        font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+        font-size: 80%;
+        margin: 25px 15px 25px 15px;
+        }
+
+feed * { display: none }                
+        
+feed title {
+        display: block;
+        font-size: 2.0em;
+        font-weight: bold;
+        margin-bottom: 25px;
+        }
+
+/* This is for IE */
+feed feedburner\:browserFriendly {
+  margin:20px;
+  background:yellow;
+  text-align:center;
+  display:block;
+  padding:10px;
+  font-size:85%;
+}
+
+feed feedburner|browserFriendly {
+  margin:20px;
+  background:yellow;
+  text-align:center;
+  display:block;
+  padding:10px;
+  font-size:85%;
+}
+
+feed entry { display: block }           
+
+feed entry title {
+        display: block;
+        font-family: Helvetica, Geneva, Verdana, Arial, sans-serif; 
+        font-size: 1.3em;
+        font-weight: bold;
+        margin-bottom: 2px;
+        }
+
+feed entry summary {
+        display: block;
+        margin-bottom: 25px;
+        }
+
+feed entry summary * {
+        display: inline;
+        }
+
+feed entry content {
+        display: block;
+        margin-bottom: 25px;
+        }
+
+feed entry content * {
+        display: inline;
+        }
