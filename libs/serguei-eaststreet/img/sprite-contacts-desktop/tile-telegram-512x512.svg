@@ -1,1 +1,19 @@
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 240 240" enable-background="new 0 0 240 240"><defs><linearGradient id="b" x1="0.6667" y1="0.1667" x2="0.4167" y2="0.75"><stop stop-color="#37aee2" offset="0"/><stop stop-color="#1e96c8" offset="1"/></linearGradient><linearGradient id="w" x1="0.6597" y1="0.4369" x2="0.8512" y2="0.8024"><stop stop-color="#eff7fc" offset="0"/><stop stop-color="#fff" offset="1"/></linearGradient></defs><rect fill="url(#b)" width="240" height="240"/><path fill="#c8daea" d="m98 175c-3.8876 0-3.227-1.4679-4.5678-5.1695L82 132.2059 170 80"/><path fill="#a9c9dd" d="m98 175c3 0 4.3255-1.372 6-3l16-15.558-19.958-12.035"/><path fill="url(#w)" d="m100.04 144.41 48.36 35.729c5.5185 3.0449 9.5014 1.4684 10.876-5.1235l19.685-92.763c2.0154-8.0802-3.0801-11.745-8.3594-9.3482l-115.59 44.571c-7.8901 3.1647-7.8441 7.5666-1.4382 9.528l29.663 9.2583 68.673-43.325c3.2419-1.9659 6.2173-0.90899 3.7752 1.2584"/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+<linearGradient id="XMLID_6_" gradientUnits="userSpaceOnUse" x1="209.5085" y1="305.5336" x2="208.9751" y2="304.2892" gradientTransform="matrix(240 0 0 -240 -49951 73409)">
+	<stop  offset="0" style="stop-color:#37AEE2"/>
+	<stop  offset="1" style="stop-color:#1E96C8"/>
+</linearGradient>
+<rect id="XMLID_4_" fill="url(#XMLID_6_)" width="512" height="512"/>
+<path id="XMLID_3_" fill="#C8DAEA" d="M209.067,373.333c-8.294,0-6.884-3.132-9.745-11.028l-24.389-80.266l187.733-111.373"/>
+<path id="XMLID_2_" fill="#A9C9DD" d="M209.067,373.333c6.4,0,9.228-2.927,12.8-6.4L256,333.743l-42.577-25.675"/>
+<linearGradient id="XMLID_7_" gradientUnits="userSpaceOnUse" x1="209.1233" y1="305.1739" x2="209.5318" y2="304.3941" gradientTransform="matrix(130.4927 0 0 -109.4496 -27015.0625 33663.3086)">
+	<stop  offset="0" style="stop-color:#EFF7FC"/>
+	<stop  offset="1" style="stop-color:#FFFFFF"/>
+</linearGradient>
+<path id="XMLID_1_" fill="url(#XMLID_7_)" d="M213.419,308.075l103.168,76.222c11.773,6.496,20.27,3.133,23.202-10.93
+	l41.995-197.894c4.299-17.238-6.571-25.056-17.833-19.943l-246.592,95.085c-16.832,6.751-16.734,16.142-3.068,20.326l63.281,19.751
+	l146.502-92.427c6.916-4.194,13.264-1.939,8.054,2.685"/>
+</svg>
