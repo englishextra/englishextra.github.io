@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- <?xml-stylesheet type="text/xsl" media="screen" href="/rss2enclosuresfull.xsl"?><?xml-stylesheet type="text/css" media="screen" href="https://englishextra.github.io/feeds/itemcontent.css"?><rss xmlns:media="http://search.yahoo.com/mrss/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0"> -->
+<!-- <?xml-stylesheet type="text/xsl" media="screen" href="https://englishextra.github.io/feeds/rss2enclosuresfull.xsl"?><?xml-stylesheet type="text/css" media="screen" href="https://englishextra.github.io/feeds/itemcontent.css"?><rss xmlns:media="http://search.yahoo.com/mrss/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0"> -->
 <?xml-stylesheet type="text/xsl" media="screen" href="https://englishextra.github.io/feeds/rss2.xsl"?><?xml-stylesheet type="text/css" media="screen" href="https://englishextra.github.io/feeds/itemcontent.css"?><rss xmlns:media="http://search.yahoo.com/mrss/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
 	<channel>
 		<generator>RSS Builder by B!Soft</generator>
@@ -13,7 +13,7 @@
 		<image>
 			<title>Английский без регистрации</title>
 			<link>https://englishextra.github.io/</link>
-			<url>http://englishextra.github.io/apple-touch-icon-144x144.png</url>
+			<url>https://englishextra.github.io/android-chrome-512x512.png</url>
 			<width>144</width>
 			<height>144</height>
 		</image>
