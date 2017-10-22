@@ -55,19 +55,6 @@
 						</div>
 						<div id="subscribe-options">
 							<h3>Subscribe Now!</h3>
-							<h4>...with iTunes:</h4>
-							<p class="desktopsub" id="subscribeITMS">
-								<a href="pcast://{substring-after($feedUrl,'//')}" onclick="this.href = subscribeNowUltra('itpc://'+window.location.host+window.location.pathname,'iTunes');return true">Add to iTunes</a>
-							</p>
-							<xsl:if test="count(feedburner:emailServiceId)=1">
-								<h4>...via email:</h4>
-								<xsl:variable name="feedhost" select="/rss/channel/feedburner:feedburnerHostname"/>
-								<xsl:variable name="ffid" select="/rss/channel/feedburner:emailServiceId"/>
-								<p id="emailthis">
-									<a onclick="window.open('{$feedhost}/fb/a/mailverify?uri={$ffid}', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true" target="popupwindow" href="{$feedhost}/fb/a/mailverify?uri={$ffid}">Get <xsl:value-of select="$title"/> delivered by email</a>
-								</p>
-							</xsl:if>
-							<h4>...with something else (copy this address):</h4>
 							<p class="desktopsub">
 								<form>
 									<input type="text" value="{$feedUrl}" style="width:300px;border:1px solid #999;padding:2px;"/>
