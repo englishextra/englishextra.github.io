@@ -1,5 +1,13 @@
 {
 	"pages": [{
+			"href": "./serguei/index.html",
+			"src": "./app/libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-serguei-640x336.png",
+			"width": "640",
+			"height": "336",
+			"title": "Репетитор английского в Тушино",
+			"text": "«С нуля», подтянуть, улучшить, подготовка к ЕГЭ. Преподаю английский школьникам, студентам и взрослым в частном порядке в Тушино."
+		},
+		{
 			"href": "./pages/more/more_irregular_verbs.html",
 			"src": "./app/libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-irrverbsscr-640x336.png",
 			"width": "640",
@@ -558,14 +566,6 @@
 			"height": "336",
 			"title": "Новые статьи",
 			"text": "RSS поток (лента / фид) ресурса — эще один метод оставаться в курсе новых публикаций."
-		},
-		{
-			"href": "./serguei/index.html",
-			"src": "./app/libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-serguei-640x336.png",
-			"width": "640",
-			"height": "336",
-			"title": "Репетитор английского в Тушино",
-			"text": "«С нуля», подтянуть, улучшить, подготовка к ЕГЭ. Преподаю английский школьникам, студентам и взрослым в частном порядке в Тушино."
 		},
 		{
 			"href": "./portfolio/index.html",

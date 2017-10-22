@@ -2103,7 +2103,7 @@ globalRoot.addEventListener("load", manageDataSrcImageAll);
  * initiate on load, not on ready
  * @param {Object} [ctx] context HTML Element
  */
-var manageDataQrcodeImages = function (ctx) {
+var manageDataQrcodeImageAll = function (ctx) {
 	"use strict";
 
 	ctx = ctx && ctx.nodeName ? ctx : "";
@@ -2156,7 +2156,7 @@ var manageDataQrcodeImages = function (ctx) {
 		/* forEach(img, generateImg, false); */
 	};
 	if (img) {
-		/* console.log("triggered function: manageDataQrcodeImages"); */
+		/* console.log("triggered function: manageDataQrcodeImageAll"); */
 		var jsUrl = "../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
@@ -2165,6 +2165,10 @@ var manageDataQrcodeImages = function (ctx) {
 		}
 	}
 };
+/*!
+ * on load, not on ready
+ */
+globalRoot.addEventListener("load", manageDataQrcodeImageAll);
 /*!
  * add smooth scroll or redirection to static select options
  * @param {Object} [ctx] context HTML Element
@@ -3125,7 +3129,7 @@ var initRoutie = function () {
 		manageExternalLinkAll(appContentParent);
 		manageDataTargetLinks(appContentParent);
 		manageImgLightboxLinks(appContentParent);
-		manageDataQrcodeImages(appContentParent);
+		manageDataQrcodeImageAll(appContentParent);
 		manageChaptersSelect(appContentParent);
 		manageExpandingLayers(appContentParent);
 		handleDataSrcImageAll();

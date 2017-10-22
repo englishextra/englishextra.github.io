@@ -1673,9 +1673,6 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 			evt.stopPropagation();
 			evt.preventDefault();
 			scroll2Top(0, 20000);
-			if (titleBar) {
-				titleBar[classList].remove(isHiddenClass);
-			}
 		};
 		var handleBtnTotopWindow = function (_this) {
 			var logic = function () {
