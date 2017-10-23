@@ -57,7 +57,7 @@
 							<h3>Subscribe Now!</h3>
 							<p class="desktopsub">
 								<form>
-									<input type="text" value="{$feedUrl}" style="width:300px;border:1px solid #999;padding:2px;"/>
+									<input id="text" type="text" value="{$feedUrl}"/>
 								</form>
 							</p>
 							<xsl:choose>
