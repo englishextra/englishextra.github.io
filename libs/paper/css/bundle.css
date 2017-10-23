@@ -2428,7 +2428,7 @@ body {
 .holder-vk-like {
 	display: inline-block;
 	height: 3.000rem;
-	position: fixed;
+	position: absolute;
 	top: 0;
 	left: 6.000rem;
 	line-height: 0;
