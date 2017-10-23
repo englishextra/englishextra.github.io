@@ -199,13 +199,17 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 (function (root, document) {
 	"use strict";
 	var doesFontExist = function (fontName) {
-		var canvas = document.createElement("canvas");
-		var context = canvas.getContext("2d");
+		var createElement = "createElement";
+		var getContext = "getContext";
+		var measureText = "measureText";
+		var width = "width";
+		var canvas = document[createElement]("canvas");
+		var context = canvas[getContext]("2d");
 		var text = "abcdefghijklmnopqrstuvwxyz0123456789";
 		context.font = "72px monospace";
-		var baselineSize = context.measureText(text).width;
+		var baselineSize = context[measureText](text)[width];
 		context.font = "72px '" + fontName + "', monospace";
-		var newSize = context.measureText(text).width;
+		var newSize = context[measureText](text)[width];
 		canvas = null;
 		if (newSize == baselineSize) {
 			return false;

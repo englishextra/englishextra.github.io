@@ -6,19 +6,24 @@
 
 .holder-vk-like {
 	display: inline-block;
-	position: absolute;
-	top: 0.750rem;
-	left: 6.750rem;
+	height: 3.000rem;
+	position: fixed;
+	top: 0;
+	left: 6.000rem;
 	line-height: 0;
+	background-color: $color-hex-vk-like-bg;
+	box-shadow: 0.125rem 0.125rem 0.125rem 0 $color-rgba-ui-bar-shadow;
+	z-index: 1;
 }
 
 .vk-like {
 	display: inline-block;
-	height: 1.500rem;
+	height: 24px;
+	position: absolute;
+	top: 50%;
+	transform: translate(0, -50%);
+	margin: 0 0 0 0.625rem;
 	line-height: 0;
-	visibility: hidden;
-	opacity: 0;
-	transition: visibility 0s, opacity 0.2s ease;
 }
 
 .btn-show-vk-like {
