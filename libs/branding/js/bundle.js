@@ -1738,7 +1738,7 @@ var manageLocationQrCodeImage = function () {
 	if (holder && locationHref) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			/* console.log("triggered function: manageLocationQrCodeImage"); */
-			var jsUrl = "../../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
+			var jsUrl = "../../cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js";
 			if (!scriptIsLoaded(jsUrl)) {
 				loadJS(jsUrl, initScript);
 			}

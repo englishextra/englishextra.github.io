@@ -2566,7 +2566,7 @@ var manageLocationQrCodeImage = function () {
 				removeChildren(holder);
 				appendFragment(newImg, holder);
 			},
-			    jsUrl = "./cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
+			    jsUrl = "./cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js";
 			if (!scriptIsLoaded(jsUrl)) {
 				loadJS(jsUrl, initScript);
 			} else {

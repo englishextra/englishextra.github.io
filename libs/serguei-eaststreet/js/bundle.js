@@ -2157,7 +2157,7 @@ var manageDataQrcodeImageAll = function (ctx) {
 	};
 	if (img) {
 		/* console.log("triggered function: manageDataQrcodeImageAll"); */
-		var jsUrl = "../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
+		var jsUrl = "../cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
 		} else {
@@ -2519,7 +2519,7 @@ var manageLocationQrCodeImage = function () {
 	if (btn && page && holder && locationHref) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			/* console.log("triggered function: manageLocationQrCodeImage"); */
-			var jsUrl = "../cdn/qrjs2/0.1.3/js/qrjs2.fixed.min.js";
+			var jsUrl = "../cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js";
 			if (!scriptIsLoaded(jsUrl)) {
 				loadJS(jsUrl, initScript);
 			}
