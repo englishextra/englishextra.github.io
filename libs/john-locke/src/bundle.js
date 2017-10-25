@@ -34,8 +34,15 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 }("undefined" !== typeof window ? window : this));
 /*!
  * modified ToProgress v0.1.1
+ * arguments.callee changed to TP, a local wrapper function,
+ * so that public function name is now customizable;
+ * wrapped in curly brackets:
+ * else{document.body.appendChild(this.progressBar);};
+ * removed module check
  * @see {@link http://github.com/djyde/ToProgress}
  * @see {@link https://github.com/djyde/ToProgress/blob/master/ToProgress.js}
+ * @see {@link https://gist.github.com/englishextra/6a8c79c9efbf1f2f50523d46a918b785}
+ * @see {@link https://jsfiddle.net/englishextra/z5xhjde8/}
  * passes jshint
  */
 (function (root, document, undefined) {
@@ -211,7 +218,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		context.font = "72px '" + fontName + "', monospace";
 		var newSize = context[measureText](text)[width];
 		canvas = null;
-		if (newSize == baselineSize) {
+		if (newSize === baselineSize) {
 			return false;
 		} else {
 			return true;
@@ -723,7 +730,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 
 		var navigatorUserAgent = navigator.userAgent || "";
 
-		var getHumanDate = function () {
+		var getHumanDate = (function () {
 			var newDate = (new Date());
 			var newDay = newDate.getDate();
 			var newYear = newDate.getFullYear();
@@ -737,7 +744,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 			}
 			return newYear + "-" + newMonth + "-" + newDay;
 		}
-		();
+		());
 
 		var platformName = "";
 		var platformDescription = "";

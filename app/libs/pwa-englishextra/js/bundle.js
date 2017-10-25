@@ -1,7 +1,7 @@
 /*jslint browser: true */
 /*jslint node: true */
 /*global ActiveXObject, alignToMasterBottomLeft, appendFragment,
-Carousel, container, Cookies, debounce, DISQUS, earlyDeviceOrientation,
+Carousel, Cookies, debounce, DISQUS, earlyDeviceOrientation,
 earlyDeviceSize, earlyDeviceType, earlyFnGetYyyymmdd, earlyHasTouch,
 earlySvgasimgSupport, earlySvgSupport, escape, findPos, fixEnRuTypo,
 getHTTP, IframeLightbox, imagePromise, imagesPreloaded,
@@ -240,7 +240,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 		var _this = this,
 		    bd = d[cE]("div");this.el = d[cE]("div");this.content = d[cE]("div");this.body = d[cE]("div");this.el[cL].add(containerClass);bd[cL].add("backdrop");this.content[cL].add("content");this.body[cL].add("body");this.el[aC](bd);this.content[aC](this.body);this.contentHolder = d[cE]("div");this.contentHolder[cL].add("content-holder");this.contentHolder[aC](this.content);this.el[aC](this.contentHolder);d.body[aC](this.el);bd[aEL]("click", function () {
 			_this.close();
-		});var clearBody = function (e) {
+		});var clearBody = function () {
 			if (_this.isOpen()) {
 				return;
 			}_this.el[cL].remove(isShowingClass);_this.body.innerHTML = "";
@@ -481,7 +481,9 @@ var globalRoot = "undefined" !== typeof window ? window : this;
  */
 (function (root, undefined) {
 	var throttle = function (func, wait) {
-		var ctx, args, rtn, timeoutID;var last = 0;return function throttled() {
+		var ctx;var args;var rtn;var timeoutID;var last = 0;function call() {
+			timeoutID = 0;last = +new Date();rtn = func.apply(ctx, args);ctx = null;args = null;
+		}return function throttled() {
 			ctx = this;args = arguments;var delta = new Date() - last;if (!timeoutID) {
 				if (delta >= wait) {
 					call();
@@ -489,9 +491,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 					timeoutID = setTimeout(call, wait - delta);
 				}
 			}return rtn;
-		};function call() {
-			timeoutID = 0;last = +new Date();rtn = func.apply(ctx, args);ctx = null;args = null;
-		}
+		};
 	};root.throttle = throttle;
 })(globalRoot);
 /*!
@@ -1200,10 +1200,10 @@ var handleDataSrcImageAll = function () {
 							e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
 							srcString = e[ds].src;
 						}
-						imagePromise(srcString).then(function (r) {
+						imagePromise(srcString).then(function () {
 							e.src = srcString;
 						}).catch(function (err) {
-							console.log("cannot load image with imagePromise:", srcString);
+							console.log("cannot load image with imagePromise:", srcString, err);
 						});
 						e[cL].add(isActiveClass);
 						e[cL].add(isBindedClass);
@@ -1514,10 +1514,10 @@ var hideImgLightbox = function () {
 					if (parseLink(hrefString).isAbsolute && !parseLink(hrefString).hasHTTP) {
 						hrefString = hrefString.replace(/^/, getHTTP(true) + ":");
 					}
-					imagePromise(hrefString).then(function (r) {
+					imagePromise(hrefString).then(function () {
 						img.src = hrefString;
 					}).catch(function (err) {
-						/* console.log("manageImgLightboxLinks => imagePromise: cannot load image:", err); */
+						console.log("cannot load image with imagePromise:", hrefString, err);
 					});
 					w[aEL]("keyup", handleImgLightboxWindow);
 					container[aEL]("click", handleImgLightboxContainer);

@@ -439,7 +439,9 @@ if (document.title) {
  */
 (function (root, undefined) {
 	var throttle = function (func, wait) {
-		var ctx, args, rtn, timeoutID;var last = 0;return function throttled() {
+		var ctx;var args;var rtn;var timeoutID;var last = 0;function call() {
+			timeoutID = 0;last = +new Date();rtn = func.apply(ctx, args);ctx = null;args = null;
+		}return function throttled() {
 			ctx = this;args = arguments;var delta = new Date() - last;if (!timeoutID) {
 				if (delta >= wait) {
 					call();
@@ -447,9 +449,7 @@ if (document.title) {
 					timeoutID = setTimeout(call, wait - delta);
 				}
 			}return rtn;
-		};function call() {
-			timeoutID = 0;last = +new Date();rtn = func.apply(ctx, args);ctx = null;args = null;
-		}
+		};
 	};root.throttle = throttle;
 })(globalRoot);
 /*!

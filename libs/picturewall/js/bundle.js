@@ -33,8 +33,15 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 })("undefined" !== typeof window ? window : this);
 /*!
  * modified ToProgress v0.1.1
+ * arguments.callee changed to TP, a local wrapper function,
+ * so that public function name is now customizable;
+ * wrapped in curly brackets:
+ * else{document.body.appendChild(this.progressBar);};
+ * removed module check
  * @see {@link http://github.com/djyde/ToProgress}
  * @see {@link https://github.com/djyde/ToProgress/blob/master/ToProgress.js}
+ * @see {@link https://gist.github.com/englishextra/6a8c79c9efbf1f2f50523d46a918b785}
+ * @see {@link https://jsfiddle.net/englishextra/z5xhjde8/}
  * passes jshint
  */
 (function (root, document, undefined) {
@@ -286,9 +293,9 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 			for (var c = 0; c < blocks[length]; c++) {
 				var block = blocks[c];
 				if (block) {
-					if (top == -1) {
+					if (top === -1) {
 						top = block[offsetTop];
-					} else if (block[offsetTop] != top) {
+					} else if (block[offsetTop] !== top) {
 						zoomwall.resizeRow(row, zoomwall.calcRowWidth(row));
 						row = [];
 						top = block[offsetTop];
@@ -338,7 +345,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 				targetHeight -= parentTop;
 			}
 			if (block[dataset][_this.dataAttributeHighresName]) {
-				if (block.src != block[dataset][_this.dataAttributeHighresName] && block[dataset][_this.dataAttributeLowresName] === undefined) {
+				if (block.src !== block[dataset][_this.dataAttributeHighresName] && block[dataset][_this.dataAttributeLowresName] === undefined) {
 					block[dataset][_this.dataAttributeLowresName] = block.src;
 				}
 				block.src = block[dataset][_this.dataAttributeHighresName];
@@ -346,12 +353,12 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 			var row = [];
 			row.push(block);
 			var next = block[nextElementSibling];
-			while (next && next[offsetTop] == block[offsetTop]) {
+			while (next && next[offsetTop] === block[offsetTop]) {
 				row.push(next);
 				next = next[nextElementSibling];
 			}
 			var prev = block[previousElementSibling];
-			while (prev && prev[offsetTop] == block[offsetTop]) {
+			while (prev && prev[offsetTop] === block[offsetTop]) {
 				row.unshift(prev);
 				prev = prev[previousElementSibling];
 			}
@@ -367,12 +374,12 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 				offsetY -= parentTop;
 			}
 			var leftOffsetX = 0;
-			for (var i = 0; i < row[length] && row[i] != block; i++) {
+			for (var i = 0; i < row[length] && row[i] !== block; i++) {
 				leftOffsetX += parseInt(root[getComputedStyle](row[i]).width, 10) * scale;
 			}
 			leftOffsetX = parentWidth / 2 - blockWidth * scale / 2 - leftOffsetX;
 			var rightOffsetX = 0;
-			for (var j = row[length] - 1; j >= 0 && row[j] != block; j--) {
+			for (var j = row[length] - 1; j >= 0 && row[j] !== block; j--) {
 				rightOffsetX += parseInt(root[getComputedStyle](row[j]).width, 10) * scale;
 			}
 			rightOffsetX = parentWidth / 2 - blockWidth * scale / 2 - rightOffsetX;
@@ -396,10 +403,10 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 			var nextRowTop = -1;
 			while (next2) {
 				var curTop = next2[offsetTop];
-				if (curTop == nextRowTop) {
+				if (curTop === nextRowTop) {
 					itemOffset += prevWidth * scale - prevWidth;
 				} else {
-					if (nextRowTop != -1) {
+					if (nextRowTop !== -1) {
 						itemOffset = 0;
 						nextOffsetY += prevHeight * (scale - 1);
 					}
@@ -422,7 +429,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 			var prevRowTop = -1;
 			while (prev2) {
 				var curTop2 = prev2[offsetTop];
-				if (curTop2 == prevRowTop) {
+				if (curTop2 === prevRowTop) {
 					itemOffset -= prevWidth * scale - prevWidth;
 				} else {
 					itemOffset = 0;
@@ -618,8 +625,18 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 			}
 		};
 		var throttle = function (func, wait) {
-			var ctx, args, rtn, timeoutID;
+			var ctx;
+			var args;
+			var rtn;
+			var timeoutID;
 			var last = 0;
+			function call() {
+				timeoutID = 0;
+				last = +new Date();
+				rtn = func.apply(ctx, args);
+				ctx = null;
+				args = null;
+			}
 			return function throttled() {
 				ctx = this;
 				args = arguments;
@@ -633,13 +650,6 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 				}
 				return rtn;
 			};
-			function call() {
-				timeoutID = 0;
-				last = +new Date();
-				rtn = func.apply(ctx, args);
-				ctx = null;
-				args = null;
-			}
 		};
 		var throttleEchoImageAll = throttle(echoImageAll, _throttleRate);
 		var supportsPassive = function () {
@@ -704,7 +714,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 		context.font = "72px '" + fontName + "', monospace";
 		var newSize = context[measureText](text)[width];
 		canvas = null;
-		if (newSize == baselineSize) {
+		if (newSize === baselineSize) {
 			return false;
 		} else {
 			return true;
@@ -817,6 +827,8 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 		return "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : any ? "http" : "";
 	};
 
+	var forcedHTTP = getHTTP(true);
+
 	var run = function () {
 
 		var appendChild = "appendChild";
@@ -844,6 +856,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 
 		progressBar.increase(20);
 
+		var mo;
 		var observeMutations = function (ctx) {
 			var _ctx = ctx && ctx.nodeName ? ctx : "";
 			var getMutations = function (e) {
@@ -862,7 +875,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 				}
 			};
 			if (_ctx) {
-				var mo = new MutationObserver(getMutations);
+				mo = new MutationObserver(getMutations);
 				mo.observe(_ctx, {
 					childList: !0,
 					subtree: !0,
@@ -1303,15 +1316,15 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 		}).then(function (text) {
 			generateGallery(text).then(function (result) {
 				return result;
-			}).then(function (result) {
+			}).then(function () {
 				timerCreateGallery = setTimeout(createGallery, 200);
-			}).then(function (result) {
+			}).then(function () {
 				timerSetLazyloading = setTimeout(setLazyloading, 200);
 			}).catch(function (err) {
 				console.log("Cannot create zoomwall gallery", err);
 			});
 		}).catch(function (err) {
-			console.log("cannot parse", jsonUrl);
+			console.log("cannot parse", jsonUrl, err);
 		});
 
 		var locationHref = root.location[href] || "";
@@ -1457,6 +1470,13 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 			var rtn;
 			var timeoutID;
 			var last = 0;
+			function call() {
+				timeoutID = 0;
+				last = +new Date();
+				rtn = func.apply(ctx, args);
+				ctx = null;
+				args = null;
+			}
 			return function throttled() {
 				ctx = this;
 				args = arguments;
@@ -1470,13 +1490,6 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 				}
 				return rtn;
 			};
-			function call() {
-				timeoutID = 0;
-				last = +new Date();
-				rtn = func.apply(ctx, args);
-				ctx = null;
-				args = null;
-			}
 		};
 
 		var titleBar = document[getElementsByClassName]("title-bar")[0] || "";
@@ -1703,8 +1716,6 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 	var defineProperty = "defineProperty";
 
 	var scripts = ["./libs/picturewall/css/bundle.min.css"];
-
-	var forcedHTTP = getHTTP(true);
 
 	if (!root.MutationObserver) {
 		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/mutation-observer@1.0.3/index.min.js");

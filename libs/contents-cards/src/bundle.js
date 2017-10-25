@@ -34,8 +34,15 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 }("undefined" !== typeof window ? window : this));
 /*!
  * modified ToProgress v0.1.1
+ * arguments.callee changed to TP, a local wrapper function,
+ * so that public function name is now customizable;
+ * wrapped in curly brackets:
+ * else{document.body.appendChild(this.progressBar);};
+ * removed module check
  * @see {@link http://github.com/djyde/ToProgress}
  * @see {@link https://github.com/djyde/ToProgress/blob/master/ToProgress.js}
+ * @see {@link https://gist.github.com/englishextra/6a8c79c9efbf1f2f50523d46a918b785}
+ * @see {@link https://jsfiddle.net/englishextra/z5xhjde8/}
  * passes jshint
  */
 (function (root, document, undefined) {
@@ -416,11 +423,18 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 			}
 		};
 		var throttle = function (func, wait) {
-			var ctx,
-			args,
-			rtn,
-			timeoutID;
+			var ctx;
+			var args;
+			var rtn;
+			var timeoutID;
 			var last = 0;
+			function call() {
+				timeoutID = 0;
+				last = +new Date();
+				rtn = func.apply(ctx, args);
+				ctx = null;
+				args = null;
+			}
 			return function throttled() {
 				ctx = this;
 				args = arguments;
@@ -434,13 +448,6 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 				}
 				return rtn;
 			};
-			function call() {
-				timeoutID = 0;
-				last = +new Date();
-				rtn = func.apply(ctx, args);
-				ctx = null;
-				args = null;
-			}
 		};
 		var throttleEchoImageAll = throttle(echoImageAll, _throttleRate);
 		var supportsPassive = (function () {
@@ -506,7 +513,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		context.font = "72px '" + fontName + "', monospace";
 		var newSize = context[measureText](text)[width];
 		canvas = null;
-		if (newSize == baselineSize) {
+		if (newSize === baselineSize) {
 			return false;
 		} else {
 			return true;
@@ -622,6 +629,8 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		return "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : any ? "http" : "";
 	};
 
+	var forcedHTTP = getHTTP(true);
+
 	var run = function () {
 
 		var appendChild = "appendChild";
@@ -649,6 +658,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 
 		progressBar.increase(20);
 
+		var mo;
 		var observeMutations = function (ctx) {
 			var _ctx = ctx && ctx.nodeName ? ctx : "";
 			var getMutations = function (e) {
@@ -667,7 +677,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 				}
 			};
 			if (_ctx) {
-				var mo = new MutationObserver(getMutations);
+				mo = new MutationObserver(getMutations);
 				mo.observe(_ctx, {
 					childList: !0,
 					subtree: !0,
@@ -883,7 +893,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 
 		var navigatorUserAgent = navigator.userAgent || "";
 
-		var getHumanDate = function () {
+		var getHumanDate = (function () {
 			var newDate = (new Date());
 			var newDay = newDate.getDate();
 			var newYear = newDate.getFullYear();
@@ -897,7 +907,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 			}
 			return newYear + "-" + newMonth + "-" + newDay;
 		}
-		();
+		());
 
 		var platformName = "";
 		var platformDescription = "";
@@ -1172,9 +1182,9 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 				});
 			};
 			var docElemStyle = document[documentElement][style];
-			var transitionProperty = typeof docElemStyle.transition == "string" ?
+			var transitionProperty = typeof docElemStyle.transition === "string" ?
 				"transition" : "WebkitTransition";
-			var transformProperty = typeof docElemStyle.transform == "string" ?
+			var transformProperty = typeof docElemStyle.transform === "string" ?
 				"transform" : "WebkitTransform";
 			var styleSheet = document[styleSheets][0] || "";
 			if (styleSheet) {
@@ -1212,15 +1222,15 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		}).then(function (text) {
 			generateCardGrid(text).then(function (result) {
 				return result;
-			}).then(function (result) {
+			}).then(function () {
 				timerCreateGrid = setTimeout(createGrid, 200);
-			}).then(function (result) {
+			}).then(function () {
 				timerSetLazyloading = setTimeout(setLazyloading, 200);
 			}).catch (function (err) {
 				console.log("Cannot create card grid", err);
 			});
 		}).catch (function (err) {
-			console.log("cannot parse", jsonUrl);
+			console.log("cannot parse", jsonUrl, err);
 		});
 
 		var locationHref = root.location[href] || "";
@@ -1369,6 +1379,13 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 			var rtn;
 			var timeoutID;
 			var last = 0;
+			function call() {
+				timeoutID = 0;
+				last = +new Date();
+				rtn = func.apply(ctx, args);
+				ctx = null;
+				args = null;
+			}
 			return function throttled() {
 				ctx = this;
 				args = arguments;
@@ -1382,13 +1399,6 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 				}
 				return rtn;
 			};
-			function call() {
-				timeoutID = 0;
-				last = +new Date();
-				rtn = func.apply(ctx, args);
-				ctx = null;
-				args = null;
-			}
 		};
 
 		var titleBar = document[getElementsByClassName]("title-bar")[0] || "";
@@ -1616,8 +1626,6 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 	var defineProperty = "defineProperty";
 
 	var scripts = ["./libs/contents-cards/css/bundle.min.css"];
-
-	var forcedHTTP = getHTTP(true);
 
 	if (!root.MutationObserver) {
 		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/mutation-observer@1.0.3/index.min.js");

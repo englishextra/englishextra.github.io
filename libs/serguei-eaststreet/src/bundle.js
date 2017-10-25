@@ -228,7 +228,7 @@ if (document.title) {
  * @see {@link https://github.com/component/throttle/blob/master/index.js}
  * passes jshint
  */
-(function(root,undefined){var throttle=function(func,wait){var ctx,args,rtn,timeoutID;var last=0;return function throttled(){ctx=this;args=arguments;var delta=new Date()-last;if(!timeoutID){if(delta>=wait){call();}else{timeoutID=setTimeout(call,wait-delta);}}return rtn;};function call(){timeoutID=0;last=+new Date();rtn=func.apply(ctx,args);ctx=null;args=null;}};root.throttle=throttle;}(globalRoot));
+(function(root,undefined){var throttle=function(func,wait){var ctx;var args;var rtn;var timeoutID;var last=0;function call(){timeoutID=0;last=+new Date();rtn=func.apply(ctx,args);ctx=null;args=null;}return function throttled(){ctx=this;args=arguments;var delta=new Date()-last;if(!timeoutID){if(delta>=wait){call();}else{timeoutID=setTimeout(call,wait-delta);}}return rtn;};};root.throttle=throttle;}(globalRoot));
 /*!
  * A simple promise-compatible "document ready" event handler with a few extra treats.
  * With browserify/webpack:
@@ -1076,10 +1076,10 @@ manageImgLightboxLinks = function (ctx) {
 					if (parseLink(hrefString).isAbsolute && !parseLink(hrefString).hasHTTP) {
 						hrefString = hrefString.replace(/^/, getHTTP(true) + ":");
 					}
-					imagePromise(hrefString).then(function (r) {
+					imagePromise(hrefString).then(function () {
 						img.src = hrefString;
 					}).catch (function (err) {
-						/* console.log("manageImgLightboxLinks => imagePromise: cannot load image:", err); */
+						console.log("cannot load image with imagePromise:", hrefString, err);
 					});
 					w[aEL]("keyup", handleImgLightboxWindow);
 					container[aEL]("click", handleImgLightboxContainer);
@@ -1137,10 +1137,10 @@ var handleDataSrcImageAll = function () {
 						e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
 						srcString = e[ds].src;
 					}
-					imagePromise(srcString).then(function (r) {
+					imagePromise(srcString).then(function () {
 						e.src = srcString;
 					}).catch (function (err) {
-						console.log("cannot load image with imagePromise:", srcString);
+						console.log("cannot load image with imagePromise:", srcString, err);
 					});
 					e[cL].add(isActiveClass);
 					e[cL].add(isBindedClass);
