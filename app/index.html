@@ -153,10 +153,10 @@
 						<div class="holder-search-form">
 							<form action="https://yandex.ru/sitesearch" class="search-form" id="search-form" target="_blank" onsubmit="return false;" method="get" enctype="application/x-www-form-urlencoded">
 								<div>
-									<span class="holder-search-text"><input type="text" name="text" id="text" autocomplete="off" placeholder="Поиск" aria-label="Keywords / Ключевые слова" /><button type="submit" aria-label="Submit / Отправить">
+									<div class="holder-search-text"><input type="text" name="text" id="text" autocomplete="off" placeholder="Поиск" aria-label="Keywords / Ключевые слова" /><button type="submit" aria-label="Submit / Отправить">
 									<svg class="ui-icon">
 										<use xlink:href="#ui-icon-Search"></use>
-									</svg></button></span>
+									</svg></button></div>
 									<input name="searchid" id="searchid" value="2192588" type="hidden" />
 									<input name="web" id="web" value="1" type="hidden" />
 								</div>
@@ -265,7 +265,17 @@
 		<template id="template_contents_grid">
 			<div class="masonry-grid-sizer"></div>
 			{{@hashes}}
-			<div class="masonry-grid-item"><a href="{{%_val.href}}"><div class="masonry-grid-item-image"><img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20{{%_val.width}}%20{{%_val.height}}%27%2F%3E" data-src="{{%_val.src}}" class="data-src-img" alt="{{%_val.title}}" /></div><div class="masonry-grid-item-content"><h2>{{=_val.title}}</h2><p>{{=_val.text}}</p></div></a></div>
+			<div class="masonry-grid-item">
+				<a href="{{%_val.href}}">
+					<div class="masonry-grid-item-image">
+						<img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20{{%_val.width}}%20{{%_val.height}}%27%2F%3E" data-src="{{%_val.src}}" class="data-src-img" alt="{{%_val.title}}" />
+					</div>
+					<div class="masonry-grid-item-content">
+						<h2>{{=_val.title}}</h2>
+						<p>{{=_val.text}}</p>
+					</div>
+				</a>
+			</div>
 			{{/@hashes}}
 		</template>
 		<template id="template_aside">
