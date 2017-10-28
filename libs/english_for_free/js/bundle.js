@@ -274,6 +274,16 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 	    defaults = { useJquery: !win.IGNORE_JQUERY && typeof jQuery !== "undefined", swipeThreshold: win.SWIPE_THRESHOLD || 100, tapThreshold: win.TAP_THRESHOLD || 150, dbltapThreshold: win.DBL_TAP_THRESHOLD || 200, longtapThreshold: win.LONG_TAP_THRESHOLD || 1000, tapPrecision: win.TAP_PRECISION / 2 || 60 / 2, justTouchEvents: win.JUST_ON_TOUCH_DEVICES },
 	    wasTouch = false,
 	    touchevents = { touchstart: pointerEventSupport("PointerDown") || "touchstart", touchend: pointerEventSupport("PointerUp") || "touchend", touchmove: pointerEventSupport("PointerMove") || "touchmove" },
+	    tapNum = 0,
+	    pointerId,
+	    currX,
+	    currY,
+	    cachedX,
+	    cachedY,
+	    timestamp,
+	    target,
+	    dblTapTimer,
+	    longtapTimer,
 	    isTheSameFingerId = function (e) {
 		return !e.pointerId || typeof pointerId === "undefined" || e.pointerId === pointerId;
 	},
@@ -351,17 +361,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 		}if (e.type === "mousemove" && wasTouch) {
 			return;
 		}var pointer = getPointerEvent(e);currX = pointer.pageX;currY = pointer.pageY;
-	},
-	    tapNum = 0,
-	    pointerId,
-	    currX,
-	    currY,
-	    cachedX,
-	    cachedY,
-	    timestamp,
-	    target,
-	    dblTapTimer,
-	    longtapTimer;setListener(doc, touchevents.touchstart + (defaults.justTouchEvents ? "" : " mousedown"), onTouchStart);setListener(doc, touchevents.touchend + (defaults.justTouchEvents ? "" : " mouseup"), onTouchEnd);setListener(doc, touchevents.touchmove + (defaults.justTouchEvents ? "" : " mousemove"), onTouchMove);win.tocca = function (options) {
+	};setListener(doc, touchevents.touchstart + (defaults.justTouchEvents ? "" : " mousedown"), onTouchStart);setListener(doc, touchevents.touchend + (defaults.justTouchEvents ? "" : " mouseup"), onTouchEnd);setListener(doc, touchevents.touchmove + (defaults.justTouchEvents ? "" : " mousemove"), onTouchMove);win.tocca = function (options) {
 		for (var opt in options) {
 			if (options.hasOwnProperty(opt)) {
 				defaults[opt] = options[opt];
@@ -674,9 +674,9 @@ if (document.title) {
 			if (e) {
 				var d = document,
 				    df = d.createDocumentFragment() || "",
-				    aC = "appendChild";if ("string" === typeof e) {
+				    appendChild = "appendChild";if ("string" === typeof e) {
 					e = d.createTextNode(e);
-				}df[aC](e);a[aC](df);
+				}df[appendChild](e);a[appendChild](df);
 			}
 		}();
 	};root.appendFragment = appendFragment;
@@ -928,30 +928,30 @@ var handleExternalLink = function (url, ev) {
 	    debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
 	debounceLogicHandleExternalLink();
 },
-    manageExternalLinkAll = function (ctx) {
+    manageExternalLinkAll = function (scope) {
 	"use strict";
 
-	ctx = ctx && ctx.nodeName ? ctx : "";
+	var ctx = scope && scope.nodeName ? scope : "";
 	var d = document,
-	    gEBTN = "getElementsByTagName",
+	    getElementsByTagName = "getElementsByTagName",
 	    linkTag = "a",
-	    link = ctx ? ctx[gEBTN](linkTag) || "" : d[gEBTN](linkTag) || "",
-	    cL = "classList",
-	    aEL = "addEventListener",
-	    gA = "getAttribute",
+	    link = ctx ? ctx[getElementsByTagName](linkTag) || "" : d[getElementsByTagName](linkTag) || "",
+	    classList = "classList",
+	    addEventListener = "addEventListener",
+	    getAttribute = "getAttribute",
 	    isBindedClass = "is-binded",
 	    arrange = function (e) {
-		if (!e[cL].contains(isBindedClass)) {
-			var url = e[gA]("href") || "";
+		if (!e[classList].contains(isBindedClass)) {
+			var url = e[getAttribute]("href") || "";
 			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
 				e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					e.target = "_blank";
 					e.rel = "noopener";
 				} else {
-					e[aEL]("click", handleExternalLink.bind(null, url));
+					e[addEventListener]("click", handleExternalLink.bind(null, url));
 				}
-				e[cL].add(isBindedClass);
+				e[classList].add(isBindedClass);
 			}
 		}
 	};
@@ -973,11 +973,11 @@ var handleDataSrcImageAll = function () {
 	"use strict";
 
 	var d = document,
-	    gEBCN = "getElementsByClassName",
-	    cL = "classList",
-	    ds = "dataset",
+	    getElementsByClassName = "getElementsByClassName",
+	    classList = "classList",
+	    dataset = "dataset",
 	    imgClass = "data-src-img",
-	    img = d[gEBCN](imgClass) || "",
+	    img = d[getElementsByClassName](imgClass) || "",
 	    isActiveClass = "is-active",
 	    isBindedClass = "is-binded",
 	    arrange = function (e) {
@@ -986,20 +986,20 @@ var handleDataSrcImageAll = function () {
    * @see {@link https://github.com/ryanve/verge}
    */
 		if (verge.inY(e, 100) /* && 0 !== e.offsetHeight */) {
-				if (!e[cL].contains(isBindedClass)) {
-					var srcString = e[ds].src || "";
+				if (!e[classList].contains(isBindedClass)) {
+					var srcString = e[dataset].src || "";
 					if (srcString) {
 						if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
-							e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
-							srcString = e[ds].src;
+							e[dataset].src = srcString.replace(/^/, getHTTP(true) + ":");
+							srcString = e[dataset].src;
 						}
 						imagePromise(srcString).then(function () {
 							e.src = srcString;
 						}).catch(function (err) {
 							console.log("cannot load image with imagePromise:", srcString, err);
 						});
-						e[cL].add(isActiveClass);
-						e[cL].add(isBindedClass);
+						e[classList].add(isActiveClass);
+						e[classList].add(isBindedClass);
 					}
 				}
 			}
@@ -1020,12 +1020,12 @@ var handleDataSrcImageAll = function () {
 	"use strict";
 
 	var w = globalRoot,
-	    aEL = "addEventListener",
-	    rEL = "removeEventListener";
-	w[rEL]("scroll", handleDataSrcImageAllWindow, { passive: true });
-	w[rEL]("resize", handleDataSrcImageAllWindow);
-	w[aEL]("scroll", handleDataSrcImageAllWindow, { passive: true });
-	w[aEL]("resize", handleDataSrcImageAllWindow);
+	    addEventListener = "addEventListener",
+	    removeEventListener = "removeEventListener";
+	w[removeEventListener]("scroll", handleDataSrcImageAllWindow, { passive: true });
+	w[removeEventListener]("resize", handleDataSrcImageAllWindow);
+	w[addEventListener]("scroll", handleDataSrcImageAllWindow, { passive: true });
+	w[addEventListener]("resize", handleDataSrcImageAllWindow);
 	var timers = new Timers();
 	timers.timeout(function () {
 		timers.clear();
@@ -1057,15 +1057,15 @@ var initSuperBox = function () {
 	var w = globalRoot,
 	    d = document,
 	    b = d.body || "",
-	    cL = "classList",
-	    gEBCN = "getElementsByClassName",
-	    gEBTN = "getElementsByTagName",
-	    cE = "createElement",
-	    sA = "setAttribute",
-	    gA = "getAttribute",
-	    aC = "appendChild",
-	    aEL = "addEventListener",
-	    rEL = "removeEventListener",
+	    classList = "classList",
+	    getElementsByClassName = "getElementsByClassName",
+	    getElementsByTagName = "getElementsByTagName",
+	    createElement = "createElement",
+	    setAttribute = "setAttribute",
+	    getAttribute = "getAttribute",
+	    appendChild = "appendChild",
+	    addEventListener = "addEventListener",
+	    removeEventListener = "removeEventListener",
 	    s1 = "superbox-list",
 	    s2 = "superbox-show",
 	    s3 = "superbox-current-desc",
@@ -1074,27 +1074,27 @@ var initSuperBox = function () {
 	    an = "animated",
 	    an1 = "fadeIn",
 	    an2 = "fadeOut",
-	    lists = d[gEBCN](s1) || "",
-	    sShowDiv = d[cE]("div"),
-	    sCloseDiv = d[cE]("div"),
+	    lists = d[getElementsByClassName](s1) || "",
+	    sShowDiv = d[createElement]("div"),
+	    sCloseDiv = d[createElement]("div"),
 	    handleItem = function (_this) {
-		var sDesc = _this ? _this[gEBCN](s5)[0] || "" : "",
+		var sDesc = _this ? _this[getElementsByClassName](s5)[0] || "" : "",
 		    sDescHtml = sDesc.innerHTML;
-		sShowDiv[cL].add(s2);
-		var sShowDivChild = d[cE]("div");
-		sShowDivChild[cL].add(s3);
-		sShowDiv[aC](sShowDivChild);
-		sCloseDiv[cL].add(s4);
+		sShowDiv[classList].add(s2);
+		var sShowDivChild = d[createElement]("div");
+		sShowDivChild[classList].add(s3);
+		sShowDiv[appendChild](sShowDivChild);
+		sCloseDiv[classList].add(s4);
 		/*!
    * dont use appendAfter
    */
 		_this.parentNode.insertBefore(sShowDiv, _this.nextElementSibling);
-		var sShow = d[gEBCN](s2)[0] || "";
+		var sShow = d[getElementsByClassName](s2)[0] || "";
 		setStyleDisplayBlock(sShow);
-		var sCurDesc = d[gEBCN](s3)[0] || "";
+		var sCurDesc = d[getElementsByClassName](s3)[0] || "";
 		removeChildren(sCurDesc);
 		sCurDesc.insertAdjacentHTML("beforeend", sDescHtml);
-		sCurDesc[aC](sCloseDiv);
+		sCurDesc[appendChild](sCloseDiv);
 		setStyleOpacity(sCurDesc, 0);
 		setStyleDisplayBlock(sCurDesc);
 		var sRevealPos = _this.offsetTop,
@@ -1105,28 +1105,28 @@ var initSuperBox = function () {
 			timers = null;
 			scroll2Top(sRevealPos, 20000);
 		}, 100);
-		sCurDesc[cL].add(an);
-		sCurDesc[cL].add(an1);
+		sCurDesc[classList].add(an);
+		sCurDesc[classList].add(an1);
 		/*!
    * track clicks on external links
    */
-		var link = sCurDesc ? sCurDesc[gEBTN]("a") || "" : "";
+		var link = sCurDesc ? sCurDesc[getElementsByTagName]("a") || "" : "";
 		if (link) {
 			var createCounterImg = function () {
 				var _this = this;
 				var rfrr = encodeURIComponent(d.location.href || ""),
 				    ttl = encodeURIComponent(d.title || "").replace("\x27", "&#39;"),
-				    hrefString = _this[gA]("href") || "",
+				    hrefString = _this[getAttribute]("href") || "",
 				    dmn = hrefString ? encodeURIComponent(hrefString) : "",
 				    counterHost = /^(localhost|127.0.0.1)/.test(w.location.host) ? "http://localhost/externalcounters/" : "";
 				if (counterHost) {
-					var counterElement = d[cE]("div");
-					counterElement[sA]("style", "position:absolute;left:-9999px;width:1px;height:1px;border:0;background:transparent url(" + counterHost + "?dmn=" + dmn + "&rfrr=" + rfrr + "&ttl=" + ttl + "&encoding=utf-8) top left no-repeat;");
+					var counterElement = d[createElement]("div");
+					counterElement[setAttribute]("style", "position:absolute;left:-9999px;width:1px;height:1px;border:0;background:transparent url(" + counterHost + "?dmn=" + dmn + "&rfrr=" + rfrr + "&ttl=" + ttl + "&encoding=utf-8) top left no-repeat;");
 					appendFragment(counterElement, b);
 				}
 			},
 			    trackClicks = function (e) {
-				var hrefString = e[gA]("href") || "",
+				var hrefString = e[getAttribute]("href") || "",
 				    handleSuperboxExternalLink = function (ev) {
 					ev.preventDefault();
 					ev.stopPropagation();
@@ -1137,9 +1137,9 @@ var initSuperBox = function () {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					e.target = "_blank";
 					e.rel = "noopener";
-					e[aEL]("click", createCounterImg);
+					e[addEventListener]("click", createCounterImg);
 				} else {
-					e[aEL]("click", handleSuperboxExternalLink);
+					e[addEventListener]("click", handleSuperboxExternalLink);
 				}
 			};
 			for (var j = 0, l = link.length; j < l; j += 1) {
@@ -1150,7 +1150,7 @@ var initSuperBox = function () {
 		/*!
    * hide description
    */
-		var sClose = sCurDesc ? sCurDesc[gEBCN](s4)[0] || "" : "",
+		var sClose = sCurDesc ? sCurDesc[getElementsByClassName](s4)[0] || "" : "",
 		    doOnClose = function () {
 			var timers = new Timers();
 			timers.timeout(function () {
@@ -1158,26 +1158,26 @@ var initSuperBox = function () {
 				timers = null;
 				scroll2Top(sHidePos, 20000);
 			}, 100);
-			sCurDesc[cL].remove(an1);
-			sCurDesc[cL].add(an2);
+			sCurDesc[classList].remove(an1);
+			sCurDesc[classList].add(an2);
 			var timers2 = new Timers();
 			timers2.timeout(function () {
 				timers2.clear();
 				timers2 = null;
 				setStyleDisplayNone(sCurDesc);
 				setStyleDisplayNone(sShow);
-				sCurDesc[cL].remove(an);
-				sCurDesc[cL].remove(an2);
+				sCurDesc[classList].remove(an);
+				sCurDesc[classList].remove(an2);
 			}, 200);
 		};
 		if (sClose) {
 			var handleSuperboxClose = function (ev) {
 				ev.preventDefault();
 				ev.stopPropagation();
-				sClose[rEL]("click", handleSuperboxClose);
+				sClose[removeEventListener]("click", handleSuperboxClose);
 				doOnClose();
 			};
-			sClose[aEL]("click", handleSuperboxClose);
+			sClose[addEventListener]("click", handleSuperboxClose);
 		}
 	},
 	    addItemHandler = function (e) {
@@ -1186,7 +1186,7 @@ var initSuperBox = function () {
 			ev.preventDefault();
 			handleItem(e);
 		};
-		e[aEL]("click", handleSuperboxListItem);
+		e[addEventListener]("click", handleSuperboxListItem);
 	};
 	if (lists) {
 		/* console.log("triggered function: initSuperBox"); */
@@ -1206,14 +1206,14 @@ var manageLocationQrCodeImage = function () {
 
 	var w = globalRoot,
 	    d = document,
-	    gEBCN = "getElementsByClassName",
-	    cL = "classList",
-	    cE = "createElement",
-	    holder = d[gEBCN]("holder-location-qr-code")[0] || "",
+	    getElementsByClassName = "getElementsByClassName",
+	    classList = "classList",
+	    createElement = "createElement",
+	    holder = d[getElementsByClassName]("holder-location-qr-code")[0] || "",
 	    locationHref = w.location.href || "",
 	    initScript = function () {
 		var locationHref = w.location.href || "",
-		    img = d[cE]("img"),
+		    img = d[createElement]("img"),
 		    imgTitle = d.title ? "Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»" : "",
 		    imgSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
 		img.alt = imgTitle;
@@ -1244,7 +1244,7 @@ var manageLocationQrCodeImage = function () {
 		} else {
 			img.src = imgSrc;
 		}
-		img[cL].add("qr-code-img");
+		img[classList].add("qr-code-img");
 		img.title = imgTitle;
 		removeChildren(holder);
 		appendFragment(img, holder);
@@ -1268,34 +1268,34 @@ var initNavMenu = function () {
 
 	var w = globalRoot,
 	    d = document,
-	    gEBI = "getElementById",
-	    gEBCN = "getElementsByClassName",
-	    gEBTN = "getElementsByTagName",
-	    cL = "classList",
-	    aEL = "addEventListener",
-	    container = d[gEBI]("container") || "",
-	    page = d[gEBI]("page") || "",
-	    btnNavMenu = d[gEBCN]("btn-nav-menu")[0] || "",
-	    panelNavMenu = d[gEBCN]("panel-nav-menu")[0] || "",
-	    panelNavMenuItems = panelNavMenu ? panelNavMenu[gEBTN]("a") || "" : "",
-	    holderPanelMenuMore = d[gEBCN]("holder-panel-menu-more")[0] || "",
+	    getElementById = "getElementById",
+	    getElementsByClassName = "getElementsByClassName",
+	    getElementsByTagName = "getElementsByTagName",
+	    classList = "classList",
+	    addEventListener = "addEventListener",
+	    container = d[getElementById]("container") || "",
+	    page = d[getElementById]("page") || "",
+	    btnNavMenu = d[getElementsByClassName]("btn-nav-menu")[0] || "",
+	    panelNavMenu = d[getElementsByClassName]("panel-nav-menu")[0] || "",
+	    panelNavMenuItems = panelNavMenu ? panelNavMenu[getElementsByTagName]("a") || "" : "",
+	    holderPanelMenuMore = d[getElementsByClassName]("holder-panel-menu-more")[0] || "",
 	    isActiveClass = "is-active",
 	    locationHref = w.location.href || "",
 	    removeAllActiveClass = function () {
-		page[cL].remove(isActiveClass);
-		panelNavMenu[cL].remove(isActiveClass);
-		btnNavMenu[cL].remove(isActiveClass);
+		page[classList].remove(isActiveClass);
+		panelNavMenu[classList].remove(isActiveClass);
+		btnNavMenu[classList].remove(isActiveClass);
 	},
 	    removeHolderActiveClass = function () {
-		if (holderPanelMenuMore && holderPanelMenuMore[cL].contains(isActiveClass)) {
-			holderPanelMenuMore[cL].remove(isActiveClass);
+		if (holderPanelMenuMore && holderPanelMenuMore[classList].contains(isActiveClass)) {
+			holderPanelMenuMore[classList].remove(isActiveClass);
 		}
 	},
 	    addContainerHandler = function () {
 		var handleContainerLeft = function () {
 			/* console.log("swipeleft"); */
 			removeHolderActiveClass();
-			if (panelNavMenu[cL].contains(isActiveClass)) {
+			if (panelNavMenu[classList].contains(isActiveClass)) {
 				removeAllActiveClass();
 			}
 		},
@@ -1303,27 +1303,27 @@ var initNavMenu = function () {
 			/* console.log("swiperight"); */
 			removeHolderActiveClass();
 			var addAllActiveClass = function () {
-				page[cL].add(isActiveClass);
-				panelNavMenu[cL].add(isActiveClass);
-				btnNavMenu[cL].add(isActiveClass);
+				page[classList].add(isActiveClass);
+				panelNavMenu[classList].add(isActiveClass);
+				btnNavMenu[classList].add(isActiveClass);
 			};
-			if (!panelNavMenu[cL].contains(isActiveClass)) {
+			if (!panelNavMenu[classList].contains(isActiveClass)) {
 				addAllActiveClass();
 			}
 		};
-		container[aEL]("click", handleContainerLeft);
+		container[addEventListener]("click", handleContainerLeft);
 		if (w.tocca) {
 			if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-				container[aEL]("swipeleft", handleContainerLeft);
-				container[aEL]("swiperight", handleContainerRight);
+				container[addEventListener]("swipeleft", handleContainerLeft);
+				container[addEventListener]("swiperight", handleContainerRight);
 			}
 		}
 	},
 	    addBtnHandler = function () {
 		var toggleAllActiveClass = function () {
-			page[cL].toggle(isActiveClass);
-			panelNavMenu[cL].toggle(isActiveClass);
-			btnNavMenu[cL].toggle(isActiveClass);
+			page[classList].toggle(isActiveClass);
+			panelNavMenu[classList].toggle(isActiveClass);
+			btnNavMenu[classList].toggle(isActiveClass);
 		},
 		    handleBtnNavMenu = function (ev) {
 			ev.stopPropagation();
@@ -1331,22 +1331,22 @@ var initNavMenu = function () {
 			removeHolderActiveClass();
 			toggleAllActiveClass();
 		};
-		btnNavMenu[aEL]("click", handleBtnNavMenu);
+		btnNavMenu[addEventListener]("click", handleBtnNavMenu);
 	},
 	    addItemHandlerAll = function () {
 		var addItemHandler = function (e) {
 			var addActiveClass = function (e) {
-				e[cL].add(isActiveClass);
+				e[classList].add(isActiveClass);
 			},
 			    removeHolderAndAllActiveClass = function () {
 				removeHolderActiveClass();
 				removeAllActiveClass();
 			},
 			    removeActiveClass = function (e) {
-				e[cL].remove(isActiveClass);
+				e[classList].remove(isActiveClass);
 			},
 			    handleItem = function () {
-				if (panelNavMenu[cL].contains(isActiveClass)) {
+				if (panelNavMenu[classList].contains(isActiveClass)) {
 					removeHolderAndAllActiveClass();
 				}
 				for (var j = 0, l = panelNavMenuItems.length; j < l; j += 1) {
@@ -1355,7 +1355,7 @@ var initNavMenu = function () {
 				/* forEach(panelNavMenuItems, removeActiveClass, false); */
 				addActiveClass(e);
 			};
-			e[aEL]("click", handleItem);
+			e[addEventListener]("click", handleItem);
 			if (locationHref === e.href) {
 				addActiveClass(e);
 			} else {
@@ -1391,40 +1391,40 @@ var initMenuMore = function () {
 	"use strict";
 
 	var d = document,
-	    gEBI = "getElementById",
-	    gEBCN = "getElementsByClassName",
-	    gEBTN = "getElementsByTagName",
-	    cL = "classList",
-	    aEL = "addEventListener",
-	    container = d[gEBI]("container") || "",
-	    page = d[gEBI]("page") || "",
-	    holderPanelMenuMore = d[gEBCN]("holder-panel-menu-more")[0] || "",
-	    btnMenuMore = d[gEBCN]("btn-menu-more")[0] || "",
-	    panelMenuMore = d[gEBCN]("panel-menu-more")[0] || "",
-	    panelMenuMoreItems = panelMenuMore ? panelMenuMore[gEBTN]("li") || "" : "",
-	    panelNavMenu = d[gEBCN]("panel-nav-menu")[0] || "",
+	    getElementById = "getElementById",
+	    getElementsByClassName = "getElementsByClassName",
+	    getElementsByTagName = "getElementsByTagName",
+	    classList = "classList",
+	    addEventListener = "addEventListener",
+	    container = d[getElementById]("container") || "",
+	    page = d[getElementById]("page") || "",
+	    holderPanelMenuMore = d[getElementsByClassName]("holder-panel-menu-more")[0] || "",
+	    btnMenuMore = d[getElementsByClassName]("btn-menu-more")[0] || "",
+	    panelMenuMore = d[getElementsByClassName]("panel-menu-more")[0] || "",
+	    panelMenuMoreItems = panelMenuMore ? panelMenuMore[getElementsByTagName]("li") || "" : "",
+	    panelNavMenu = d[getElementsByClassName]("panel-nav-menu")[0] || "",
 	    isActiveClass = "is-active",
 	    handleItem = function () {
-		page[cL].remove(isActiveClass);
-		holderPanelMenuMore[cL].remove(isActiveClass);
-		if (panelNavMenu && panelNavMenu[cL].contains(isActiveClass)) {
-			panelNavMenu[cL].remove(isActiveClass);
+		page[classList].remove(isActiveClass);
+		holderPanelMenuMore[classList].remove(isActiveClass);
+		if (panelNavMenu && panelNavMenu[classList].contains(isActiveClass)) {
+			panelNavMenu[classList].remove(isActiveClass);
 		}
 	},
 	    addContainerHandler = function () {
-		container[aEL]("click", handleItem);
+		container[addEventListener]("click", handleItem);
 	},
 	    addBtnHandler = function () {
 		var h_btn = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			holderPanelMenuMore[cL].toggle(isActiveClass);
+			holderPanelMenuMore[classList].toggle(isActiveClass);
 		};
-		btnMenuMore[aEL]("click", h_btn);
+		btnMenuMore[addEventListener]("click", h_btn);
 	},
 	    addItemHandlerAll = function () {
 		var addItemHandler = function (e) {
-			e[aEL]("click", handleItem);
+			e[addEventListener]("click", handleItem);
 		};
 		for (var i = 0, l = panelMenuMoreItems.length; i < l; i += 1) {
 			addItemHandler(panelMenuMoreItems[i]);
@@ -1458,26 +1458,26 @@ var initUiTotop = function () {
 	    d = document,
 	    h = d.documentElement || "",
 	    b = d.body || "",
-	    gEBCN = "getElementsByClassName",
-	    cL = "classList",
-	    cE = "createElement",
-	    aC = "appendChild",
+	    getElementsByClassName = "getElementsByClassName",
+	    classList = "classList",
+	    createElement = "createElement",
+	    appendChild = "appendChild",
 
-	/* cENS = "createElementNS",
- sANS = "setAttributeNS", */
-	aEL = "addEventListener",
+	/* createElementNS = "createElementNS",
+ setAttributeNS = "setAttributeNS", */
+	addEventListener = "addEventListener",
 	    btnClass = "ui-totop",
 	    btnTitle = "Наверх",
 	    isActiveClass = "is-active",
-	    anchor = d[cE]("a"),
+	    anchor = d[createElement]("a"),
 
 	/* insertUpSvg = function (targetObj) {
- 	var svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
- 	use = d[cENS]("http://www.w3.org/2000/svg", "use");
- 	svg[cL].add("ui-icon");
- 	use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
- 	svg[aC](use);
- 	targetObj[aC](svg);
+ 	var svg = d[createElementNS]("http://www.w3.org/2000/svg", "svg"),
+ 	use = d[createElementNS]("http://www.w3.org/2000/svg", "use");
+ 	svg[classList].add("ui-icon");
+ 	use[setAttributeNS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
+ 	svg[appendChild](use);
+ 	targetObj[appendChild](svg);
  }, */
 	handleUiTotopAnchor = function (ev) {
 		ev.stopPropagation();
@@ -1486,31 +1486,31 @@ var initUiTotop = function () {
 	},
 	    handleUiTotopWindow = function (_this) {
 		var logicHandleUiTotopWindow = function () {
-			var btn = d[gEBCN](btnClass)[0] || "",
+			var btn = d[getElementsByClassName](btnClass)[0] || "",
 			    scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
 			    windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
 			if (scrollPosition && windowHeight && btn) {
 				if (scrollPosition > windowHeight) {
-					btn[cL].add(isActiveClass);
+					btn[classList].add(isActiveClass);
 				} else {
-					btn[cL].remove(isActiveClass);
+					btn[classList].remove(isActiveClass);
 				}
 			}
 		},
 		    throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
 		throttleLogicHandleUiTotopWindow();
 	};
-	anchor[cL].add(btnClass);
+	anchor[classList].add(btnClass);
 	/*jshint -W107 */
 	anchor.href = "javascript:void(0);";
 	/*jshint +W107 */
 	anchor.title = btnTitle;
 	/* insertUpSvg(anchor); */
-	b[aC](anchor);
+	b[appendChild](anchor);
 	if (b) {
 		/* console.log("triggered function: initUiTotop"); */
-		anchor[aEL]("click", handleUiTotopAnchor);
-		w[aEL]("scroll", handleUiTotopWindow, { passive: true });
+		anchor[addEventListener]("click", handleUiTotopAnchor);
+		w[addEventListener]("scroll", handleUiTotopWindow, { passive: true });
 	}
 };
 document.ready().then(initUiTotop);
@@ -1528,12 +1528,12 @@ var yshare,
 
 	var w = globalRoot,
 	    d = document,
-	    gEBI = "getElementById",
-	    gEBCN = "getElementsByClassName",
-	    aEL = "addEventListener",
-	    btn = d[gEBCN]("btn-share-buttons")[0] || "",
+	    getElementById = "getElementById",
+	    getElementsByClassName = "getElementsByClassName",
+	    addEventListener = "addEventListener",
+	    btn = d[getElementsByClassName]("btn-share-buttons")[0] || "",
 	    yaShare2Id = "ya-share2",
-	    yaShare2 = d[gEBI](yaShare2Id) || "",
+	    yaShare2 = d[getElementById](yaShare2Id) || "",
 	    handleShareButton = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
@@ -1571,7 +1571,7 @@ var yshare,
 	if (btn && yaShare2) {
 		/* console.log("triggered function: manageShareButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			btn[aEL]("click", handleShareButton);
+			btn[addEventListener]("click", handleShareButton);
 		} else {
 			setStyleDisplayNone(btn);
 		}
@@ -1586,18 +1586,18 @@ var manageVKLikeButton = function () {
 
 	var w = globalRoot,
 	    d = document,
-	    gEBI = "getElementById",
-	    gEBCN = "getElementsByClassName",
+	    getElementById = "getElementById",
+	    getElementsByClassName = "getElementsByClassName",
 	    dataset = "dataset",
-	    aEL = "addEventListener",
-	    rEL = "removeEventListener",
+	    addEventListener = "addEventListener",
+	    removeEventListener = "removeEventListener",
 	    VKLikeId = "vk-like",
-	    vkLike = d[gEBI](VKLikeId) || "",
-	    btn = d[gEBCN]("btn-show-vk-like")[0] || "",
+	    vkLike = d[getElementById](VKLikeId) || "",
+	    btn = d[getElementsByClassName]("btn-show-vk-like")[0] || "",
 	    handleVKLikeButton = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
-		btn[rEL]("click", handleVKLikeButton);
+		btn[removeEventListener]("click", handleVKLikeButton);
 		setStyleVisibilityVisible(vkLike);
 		setStyleOpacity(vkLike, 1);
 		setStyleDisplayNone(btn);
@@ -1626,7 +1626,7 @@ var manageVKLikeButton = function () {
 	if (btn && vkLike) {
 		/* console.log("triggered function: manageVKLikeButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			btn[aEL]("click", handleVKLikeButton);
+			btn[addEventListener]("click", handleVKLikeButton);
 		} else {
 			setStyleDisplayNone(btn);
 		}
@@ -1653,8 +1653,8 @@ var showPageFinishProgress = function () {
 	"use strict";
 
 	var d = document,
-	    gEBCN = "getElementsByClassName",
-	    superbox = d[gEBCN]("superbox")[0] || "",
+	    getElementsByClassName = "getElementsByClassName",
+	    superbox = d[getElementsByClassName]("superbox")[0] || "",
 	    showPage = function () {
 		setStyleOpacity(superbox, 1);
 		progressBar.increase(20);

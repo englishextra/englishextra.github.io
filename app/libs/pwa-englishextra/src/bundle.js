@@ -64,7 +64,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
  * @see {@link https://habrahabr.ru/post/327246/}
  * @see {@link https://codepen.io/iGetPass/pen/apZPMo}
  */
-(function(root){"use strict";var d=document,gEBCN="getElementsByClassName",aEL="addEventListener";var Carousel=function(setting){var _this=this;if(d[gEBCN](setting.wrap)[0]===null){console.error("Carousel not fount selector "+setting.wrap);return;}var privates={};this.prev_slide=function(){--privates.opt.position;if(privates.opt.position<0){privates.opt.position=privates.opt.max_position-1;}privates.sel.wrap.style.transform="translateX(-"+privates.opt.position+"00%)";};this.next_slide=function(){++privates.opt.position;if(privates.opt.position>=privates.opt.max_position){privates.opt.position=0;}privates.sel.wrap.style.transform="translateX(-"+privates.opt.position+"00%)";};privates.setting=setting;privates.sel={"main":d[gEBCN](privates.setting.main)[0],"wrap":d[gEBCN](privates.setting.wrap)[0],"children":d[gEBCN](privates.setting.wrap)[0].children,"prev":d[gEBCN](privates.setting.prev)[0],"next":d[gEBCN](privates.setting.next)[0]};privates.opt={"position":0,"max_position":d[gEBCN](privates.setting.wrap)[0].children.length};if(privates.sel.prev!==null){privates.sel.prev[aEL]("click",function(){_this.prev_slide();});}if(privates.sel.next!==null){privates.sel.next[aEL]("click",function(){_this.next_slide();});}};root.Carousel=Carousel;}(globalRoot));
+(function(root){"use strict";var d=document,getElementsByClassName="getElementsByClassName",addEventListener="addEventListener";var Carousel=function(setting){var _this=this;if(d[getElementsByClassName](setting.wrap)[0]===null){console.error("Carousel not fount selector "+setting.wrap);return;}var privates={};this.prev_slide=function(){--privates.opt.position;if(privates.opt.position<0){privates.opt.position=privates.opt.max_position-1;}privates.sel.wrap.style.transform="translateX(-"+privates.opt.position+"00%)";};this.next_slide=function(){++privates.opt.position;if(privates.opt.position>=privates.opt.max_position){privates.opt.position=0;}privates.sel.wrap.style.transform="translateX(-"+privates.opt.position+"00%)";};privates.setting=setting;privates.sel={"main":d[getElementsByClassName](privates.setting.main)[0],"wrap":d[getElementsByClassName](privates.setting.wrap)[0],"children":d[getElementsByClassName](privates.setting.wrap)[0].children,"prev":d[getElementsByClassName](privates.setting.prev)[0],"next":d[getElementsByClassName](privates.setting.next)[0]};privates.opt={"position":0,"max_position":d[getElementsByClassName](privates.setting.wrap)[0].children.length};if(privates.sel.prev!==null){privates.sel.prev[addEventListener]("click",function(){_this.prev_slide();});}if(privates.sel.next!==null){privates.sel.next[addEventListener]("click",function(){_this.next_slide();});}};root.Carousel=Carousel;}(globalRoot));
 /*!
  * modified Simple lightbox effect in pure JS
  * @see {@link https://github.com/squeral/lightbox}
@@ -74,7 +74,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
  * new IframeLightbox(elem)
  * passes jshint
  */
-(function(root){"use strict";var d=document,aEL="addEventListener",gEBI="getElementById",gEBCN="getElementsByClassName",cE="createElement",cL="classList",aC="appendChild",ds="dataset",containerClass="iframe-lightbox",isLoadedClass="is-loaded",isOpenedClass="is-opened",isShowingClass="is-showing";var IframeLightbox=function(elem,rate){if(elem.nodeName){this.trigger=elem;this.rate=rate||500;this.el=d[gEBCN](containerClass)[0]||"";this.body=this.el?this.el[gEBCN]("body")[0]:"";this.content=this.el?this.el[gEBCN]("content")[0]:"";this.href=elem[ds].src||"";this.paddingBottom=elem[ds].paddingBottom||"";this.init();}else{return;}};IframeLightbox.prototype.init=function(){var _this=this;if(!this.el){this.create();}var debounce=function(func,wait){var timeout,args,context,timestamp;return function(){context=this;args=[].slice.call(arguments,0);timestamp=new Date();var later=function(){var last=(new Date())-timestamp;if(last<wait){timeout=setTimeout(later,wait-last);}else{timeout=null;func.apply(context,args);}};if(!timeout){timeout=setTimeout(later,wait);}};};var handleOpenIframeLightbox=function(e){e.preventDefault();_this.open();};var debounceHandleOpenIframeLightbox=debounce(handleOpenIframeLightbox,this.rate);this.trigger[aEL]("click",debounceHandleOpenIframeLightbox);};IframeLightbox.prototype.create=function(){var _this=this,bd=d[cE]("div");this.el=d[cE]("div");this.content=d[cE]("div");this.body=d[cE]("div");this.el[cL].add(containerClass);bd[cL].add("backdrop");this.content[cL].add("content");this.body[cL].add("body");this.el[aC](bd);this.content[aC](this.body);this.contentHolder=d[cE]("div");this.contentHolder[cL].add("content-holder");this.contentHolder[aC](this.content);this.el[aC](this.contentHolder);d.body[aC](this.el);bd[aEL]("click",function(){_this.close();});var clearBody=function(){if(_this.isOpen()){return;}_this.el[cL].remove(isShowingClass);_this.body.innerHTML="";};this.el[aEL]("transitionend",clearBody,false);this.el[aEL]("webkitTransitionEnd",clearBody,false);this.el[aEL]("mozTransitionEnd",clearBody,false);this.el[aEL]("msTransitionEnd",clearBody,false);};IframeLightbox.prototype.loadIframe=function(){this.iframeId=containerClass+Date.now();this.body.innerHTML='<iframe src="'+this.href+'" name="'+this.iframeId+'" id="'+this.iframeId+'" onload="this.style.opacity=1;" style="opacity:0;border:none;" scrolling="no" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true" frameborder="no" title="Embedded Content"></iframe>';(function(iframeId,body){d[gEBI](iframeId).onload=function(){this.style.opacity=1;body[cL].add(isLoadedClass);};}(this.iframeId,this.body));};IframeLightbox.prototype.open=function(){this.loadIframe();if(this.paddingBottom){this.content.style.paddingBottom=this.paddingBottom;}else{this.content.removeAttribute("style");}this.el[cL].add(isShowingClass);this.el[cL].add(isOpenedClass);};IframeLightbox.prototype.close=function(){this.el[cL].remove(isOpenedClass);this.body[cL].remove(isLoadedClass);};IframeLightbox.prototype.isOpen=function(){return this.el[cL].contains(isOpenedClass);};root.IframeLightbox=IframeLightbox;}(globalRoot));
+(function(root){"use strict";var d=document,addEventListener="addEventListener",getElementById="getElementById",getElementsByClassName="getElementsByClassName",createElement="createElement",classList="classList",appendChild="appendChild",dataset="dataset",containerClass="iframe-lightbox",isLoadedClass="is-loaded",isOpenedClass="is-opened",isShowingClass="is-showing";var IframeLightbox=function(elem,rate){if(elem.nodeName){this.trigger=elem;this.rate=rate||500;this.el=d[getElementsByClassName](containerClass)[0]||"";this.body=this.el?this.el[getElementsByClassName]("body")[0]:"";this.content=this.el?this.el[getElementsByClassName]("content")[0]:"";this.href=elem[dataset].src||"";this.paddingBottom=elem[dataset].paddingBottom||"";this.init();}else{return;}};IframeLightbox.prototype.init=function(){var _this=this;if(!this.el){this.create();}var debounce=function(func,wait){var timeout,args,context,timestamp;return function(){context=this;args=[].slice.call(arguments,0);timestamp=new Date();var later=function(){var last=(new Date())-timestamp;if(last<wait){timeout=setTimeout(later,wait-last);}else{timeout=null;func.apply(context,args);}};if(!timeout){timeout=setTimeout(later,wait);}};};var handleOpenIframeLightbox=function(e){e.preventDefault();_this.open();};var debounceHandleOpenIframeLightbox=debounce(handleOpenIframeLightbox,this.rate);this.trigger[addEventListener]("click",debounceHandleOpenIframeLightbox);};IframeLightbox.prototype.create=function(){var _this=this,bd=d[createElement]("div");this.el=d[createElement]("div");this.content=d[createElement]("div");this.body=d[createElement]("div");this.el[classList].add(containerClass);bd[classList].add("backdrop");this.content[classList].add("content");this.body[classList].add("body");this.el[appendChild](bd);this.content[appendChild](this.body);this.contentHolder=d[createElement]("div");this.contentHolder[classList].add("content-holder");this.contentHolder[appendChild](this.content);this.el[appendChild](this.contentHolder);d.body[appendChild](this.el);bd[addEventListener]("click",function(){_this.close();});var clearBody=function(){if(_this.isOpen()){return;}_this.el[classList].remove(isShowingClass);_this.body.innerHTML="";};this.el[addEventListener]("transitionend",clearBody,false);this.el[addEventListener]("webkitTransitionEnd",clearBody,false);this.el[addEventListener]("mozTransitionEnd",clearBody,false);this.el[addEventListener]("msTransitionEnd",clearBody,false);};IframeLightbox.prototype.loadIframe=function(){this.iframeId=containerClass+Date.now();this.body.innerHTML='<iframe src="'+this.href+'" name="'+this.iframeId+'" id="'+this.iframeId+'" onload="this.style.opacity=1;" style="opacity:0;border:none;" scrolling="no" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true" frameborder="no" title="Embedded Content"></iframe>';(function(iframeId,body){d[getElementById](iframeId).onload=function(){this.style.opacity=1;body[classList].add(isLoadedClass);};}(this.iframeId,this.body));};IframeLightbox.prototype.open=function(){this.loadIframe();if(this.paddingBottom){this.content.style.paddingBottom=this.paddingBottom;}else{this.content.removeAttribute("style");}this.el[classList].add(isShowingClass);this.el[classList].add(isOpenedClass);};IframeLightbox.prototype.close=function(){this.el[classList].remove(isOpenedClass);this.body[classList].remove(isLoadedClass);};IframeLightbox.prototype.isOpen=function(){return this.el[classList].contains(isOpenedClass);};root.IframeLightbox=IframeLightbox;}(globalRoot));
 /*!
  * modified scrollToY
  * @see {@link http://stackoverflow.com/questions/8917921/cross-browser-javascript-not-jquery-scroll-to-top-animation}
@@ -234,7 +234,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
  * @param {Boolean} [sameWidth] set same width as of master, default is false
  * alignToMasterBottomLeft(masterId, servantId, sameWidth)
  */
-(function(root){var alignToMasterBottomLeft=function(masterId,servantId,sameWidth){sameWidth=sameWidth||"";var d=document,gEBI="getElementById",master=d[gEBI](masterId)||"",servant=d[gEBI](servantId)||"";if(master&&servant){var style=servant.style||"";if(style){if(sameWidth){style.width=servant.offsetWidth+"px";}style.left=master.offsetLeft+"px";style.top=(master.offsetTop+master.offsetHeight)+"px";}}};root.alignToMasterBottomLeft=alignToMasterBottomLeft;}(globalRoot));
+(function(root){var alignToMasterBottomLeft=function(masterId,servantId,sameWidth){sameWidth=sameWidth||"";var d=document,getElementById="getElementById",master=d[getElementById](masterId)||"",servant=d[getElementById](servantId)||"";if(master&&servant){var style=servant.style||"";if(style){if(sameWidth){style.width=servant.offsetWidth+"px";}style.left=master.offsetLeft+"px";style.top=(master.offsetTop+master.offsetHeight)+"px";}}};root.alignToMasterBottomLeft=alignToMasterBottomLeft;}(globalRoot));
 /*!
  * remove all children of parent element
  * @see {@link https://gist.github.com/englishextra/da26bf39bc90fd29435e8ae0b409ddc3}
@@ -249,7 +249,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
  * @param {Object} a target HTML Element
  * appendFragment(e,a)
  */
-(function(root){"use strict";var appendFragment=function(e,a){var d=document;a=a||d.getElementsByTagNames("body")[0]||"";return (function(){if(e){var d=document,df=d.createDocumentFragment()||"",aC="appendChild";if("string"===typeof e){e=d.createTextNode(e);}df[aC](e);a[aC](df);}}());};root.appendFragment=appendFragment;}(globalRoot));
+(function(root){"use strict";var appendFragment=function(e,a){var d=document;a=a||d.getElementsByTagNames("body")[0]||"";return (function(){if(e){var d=document,df=d.createDocumentFragment()||"",appendChild="appendChild";if("string"===typeof e){e=d.createTextNode(e);}df[appendChild](e);a[appendChild](df);}}());};root.appendFragment=appendFragment;}(globalRoot));
 /*!
  * insert text response as fragment into element
  * @see {@link https://gist.github.com/englishextra/4e13afb8ce184ad28d77f6b5eed71d1f}
@@ -258,7 +258,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
  * @param {Object} [callback] callback function
  * insertTextAsFragment(t,c,f)
  */
-(function(root){"use strict";var insertTextAsFragment=function(text,container,callback){var d=document,b=d.body||"",aC="appendChild",iH="innerHTML",pN="parentNode",cb=function(){return callback&&"function"===typeof callback&&callback();};try{var clonedContainer=container.cloneNode(!1);if(d.createRange){var rg=d.createRange();rg.selectNode(b);var df=rg.createContextualFragment(text);clonedContainer[aC](df);return container[pN]?container[pN].replaceChild(clonedContainer,container):container[iH]=text,cb();}else{clonedContainer[iH]=text;return container[pN]?container[pN].replaceChild(d.createDocumentFragment[aC](clonedContainer),container):container[iH]=text,cb();}}catch(e){console.log(e);}return!1;};root.insertTextAsFragment=insertTextAsFragment;}(globalRoot));
+(function(root){"use strict";var insertTextAsFragment=function(text,container,callback){var d=document,b=d.body||"",appendChild="appendChild",innerHTML="innerHTML",parentNode="parentNode",cb=function(){return callback&&"function"===typeof callback&&callback();};try{var clonedContainer=container.cloneNode(!1);if(d.createRange){var rg=d.createRange();rg.selectNode(b);var df=rg.createContextualFragment(text);clonedContainer[appendChild](df);return container[parentNode]?container[parentNode].replaceChild(clonedContainer,container):container[innerHTML]=text,cb();}else{clonedContainer[innerHTML]=text;return container[parentNode]?container[parentNode].replaceChild(d.createDocumentFragment[appendChild](clonedContainer),container):container[innerHTML]=text,cb();}}catch(e){console.log(e);}return!1;};root.insertTextAsFragment=insertTextAsFragment;}(globalRoot));
 /*!
  * get current protocol - "http" or "https", else return ""
  * @param {Boolean} [force] When set to "true", and the result is empty,
@@ -329,7 +329,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
  * @param {Object} [onerror] on error callback function
  * insertExternalHTML(selector,url,callback,onerror)
  */
-(function(root){"use strict";var insertExternalHTML=function(id,url,callback,onerror){var d=document,b=d.body||"",gEBI="getElementById",cN="cloneNode",aC="appendChild",pN="parentNode",iH="innerHTML",rC="replaceChild",cR="createRange",cCF="createContextualFragment",cDF="createDocumentFragment",container=d[gEBI](id.replace(/^#/,""))||"",arrange=function(){var x=root.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");x.overrideMimeType("text/html;charset=utf-8");x.open("GET",url,!0);x.withCredentials=!1;x.onreadystatechange=function(){var cb=function(){return callback&&"function"===typeof callback&&callback();};if(x.status==="404"||x.status===0){console.log("Error XMLHttpRequest-ing file",x.status);return onerror&&"function"===typeof onerror&&onerror();}else if(x.readyState===4&&x.status===200&&x.responseText){var frag=x.responseText;try{var clonedContainer=container[cN](!1);if(d[cR]){var rg=d[cR]();rg.selectNode(b);var df=rg[cCF](frag);clonedContainer[aC](df);return container[pN]?container[pN][rC](clonedContainer,container):container[iH]=frag,cb();}else{clonedContainer[iH]=frag;return container[pN]?container[pN][rC](d[cDF][aC](clonedContainer),container):container[iH]=frag,cb();}}catch(e){console.log(e);}return;}};x.send(null);};if(container){arrange();}};root.insertExternalHTML=insertExternalHTML;}(globalRoot));
+(function(root){"use strict";var insertExternalHTML=function(id,url,callback,onerror){var d=document,b=d.body||"",getElementById="getElementById",cN="cloneNode",appendChild="appendChild",parentNode="parentNode",innerHTML="innerHTML",replaceChild="replaceChild",createRange="createRange",createContextualFragment="createContextualFragment",createDocumentFragment="createDocumentFragment",container=d[getElementById](id.replace(/^#/,""))||"",arrange=function(){var x=root.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP");x.overrideMimeType("text/html;charset=utf-8");x.open("GET",url,!0);x.withCredentials=!1;x.onreadystatechange=function(){var cb=function(){return callback&&"function"===typeof callback&&callback();};if(x.status==="404"||x.status===0){console.log("Error XMLHttpRequest-ing file",x.status);return onerror&&"function"===typeof onerror&&onerror();}else if(x.readyState===4&&x.status===200&&x.responseText){var frag=x.responseText;try{var clonedContainer=container[cN](!1);if(d[createRange]){var rg=d[createRange]();rg.selectNode(b);var df=rg[createContextualFragment](frag);clonedContainer[appendChild](df);return container[parentNode]?container[parentNode][replaceChild](clonedContainer,container):container[innerHTML]=frag,cb();}else{clonedContainer[innerHTML]=frag;return container[parentNode]?container[parentNode][replaceChild](d[createDocumentFragment][appendChild](clonedContainer),container):container[innerHTML]=frag,cb();}}catch(e){console.log(e);}return;}};x.send(null);};if(container){arrange();}};root.insertExternalHTML=insertExternalHTML;}(globalRoot));
 /*!
  * Open external links in default browser out of Electron / nwjs
  * @see {@link https://gist.github.com/englishextra/b9a8140e1c1b8aa01772375aeacbf49b}
@@ -413,21 +413,21 @@ var LoadingSpinner = (function () {
 	"use strict";
 	var d = document,
 	b = d.body || "",
-	gEBCN = "getElementsByClassName",
-	cL = "classList",
-	cE = "createElement",
+	getElementsByClassName = "getElementsByClassName",
+	classList = "classList",
+	createElement = "createElement",
 	spinnerClass = "loading-spinner",
-	spinner = d[gEBCN](spinnerClass)[0] || "",
+	spinner = d[getElementsByClassName](spinnerClass)[0] || "",
 	isActiveClass = "is-active-loading-spinner";
 	/* console.log("triggered function: LoadingSpinner"); */
 	if (!spinner) {
-		spinner = d[cE]("div");
-		spinner[cL].add(spinnerClass);
+		spinner = d[createElement]("div");
+		spinner[classList].add(spinnerClass);
 		appendFragment(spinner, b);
 	}
 	return {
 		show: function () {
-			return b[cL].contains(isActiveClass) || b[cL].add(isActiveClass);
+			return b[classList].contains(isActiveClass) || b[classList].add(isActiveClass);
 		},
 		hide: function (callback, delay) {
 			delay = delay || 500;
@@ -435,7 +435,7 @@ var LoadingSpinner = (function () {
 			timers.timeout(function () {
 				timers.clear();
 				timers = null;
-				b[cL].remove(isActiveClass);
+				b[classList].remove(isActiveClass);
 				if (callback && "function" === typeof callback) {
 					callback();
 				}
@@ -452,9 +452,9 @@ var LoadingSpinner = (function () {
 var renderTemplate = function (parsedJson, templateId, targetId) {
 	"use strict";
 	var d = document,
-	gEBI = "getElementById",
-	template = d[gEBI](templateId) || "",
-	target = d[gEBI](targetId) || "";
+	getElementById = "getElementById",
+	template = d[getElementById](templateId) || "",
+	target = d[getElementById](targetId) || "";
 	parsedJson = safelyParseJSON(parsedJson);
 	if (parsedJson && template && target) {
 		var targetHtml = template.innerHTML || "",
@@ -472,9 +472,9 @@ var insertFromTemplate = function (parsedJson, templateId, targetId, callback, u
 	"use strict";
 	useInner = useInner || "";
 	var d = document,
-	gEBI = "getElementById",
-	template = d[gEBI](templateId) || "",
-	target = d[gEBI](targetId) || "",
+	getElementById = "getElementById",
+	template = d[getElementById](templateId) || "",
+	target = d[getElementById](targetId) || "",
 	cb = function () {
 		return callback && "function" === typeof callback && callback();
 	};
@@ -495,11 +495,11 @@ var insertFromTemplate = function (parsedJson, templateId, targetId, callback, u
 var handleDataSrcImageAll = function () {
 	"use strict";
 	var d = document,
-	gEBCN = "getElementsByClassName",
-	cL = "classList",
-	ds = "dataset",
+	getElementsByClassName = "getElementsByClassName",
+	classList = "classList",
+	dataset = "dataset",
 	imgClass = "data-src-img",
-	img = d[gEBCN](imgClass) || "",
+	img = d[getElementsByClassName](imgClass) || "",
 	isActiveClass = "is-active",
 	isBindedClass = "is-binded",
 	arrange = function (e) {
@@ -508,20 +508,20 @@ var handleDataSrcImageAll = function () {
 		 * @see {@link https://github.com/ryanve/verge}
 		 */
 		if (verge.inY(e, 100) /* && 0 !== e.offsetHeight */) {
-			if (!e[cL].contains(isBindedClass)) {
-				var srcString = e[ds].src || "";
+			if (!e[classList].contains(isBindedClass)) {
+				var srcString = e[dataset].src || "";
 				if (srcString) {
 					if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
-						e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
-						srcString = e[ds].src;
+						e[dataset].src = srcString.replace(/^/, getHTTP(true) + ":");
+						srcString = e[dataset].src;
 					}
 					imagePromise(srcString).then(function () {
 						e.src = srcString;
 					}).catch (function (err) {
 						console.log("cannot load image with imagePromise:", srcString, err);
 					});
-					e[cL].add(isActiveClass);
-					e[cL].add(isBindedClass);
+					e[classList].add(isActiveClass);
+					e[classList].add(isBindedClass);
 				}
 			}
 		}
@@ -541,12 +541,12 @@ handleDataSrcImageAllWindow = function () {
 manageDataSrcImageAll = function () {
 	"use strict";
 	var w = globalRoot,
-	aEL = "addEventListener",
-	rEL = "removeEventListener";
-	w[rEL]("scroll", handleDataSrcImageAllWindow, {passive: true});
-	w[rEL]("resize", handleDataSrcImageAllWindow);
-	w[aEL]("scroll", handleDataSrcImageAllWindow, {passive: true});
-	w[aEL]("resize", handleDataSrcImageAllWindow);
+	addEventListener = "addEventListener",
+	removeEventListener = "removeEventListener";
+	w[removeEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
+	w[removeEventListener]("resize", handleDataSrcImageAllWindow);
+	w[addEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
+	w[addEventListener]("resize", handleDataSrcImageAllWindow);
 	var timers = new Timers();
 	timers.timeout(function () {
 		timers.clear();
@@ -564,12 +564,12 @@ globalRoot.addEventListener("load", manageDataSrcImageAll);
 var handleDataSrcIframeAll = function () {
 	"use strict";
 	var d = document,
-	gEBCN = "getElementsByClassName",
-	cL = "classList",
-	ds = "dataset",
-	sA = "setAttribute",
+	getElementsByClassName = "getElementsByClassName",
+	classList = "classList",
+	dataset = "dataset",
+	setAttribute = "setAttribute",
 	iframeClass = "data-src-iframe",
-	iframe = d[gEBCN](iframeClass) || "",
+	iframe = d[getElementsByClassName](iframeClass) || "",
 	isBindedClass = "is-binded",
 	arrange = function (e) {
 		/*!
@@ -577,21 +577,21 @@ var handleDataSrcIframeAll = function () {
 		 * @see {@link https://github.com/ryanve/verge}
 		 */
 		if (verge.inY(e, 100) /* && 0 !== e.offsetHeight */) {
-			if (!e[cL].contains(isBindedClass)) {
-				var srcString = e[ds].src || "";
+			if (!e[classList].contains(isBindedClass)) {
+				var srcString = e[dataset].src || "";
 				if (srcString) {
 					if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
-						e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
-						srcString = e[ds].src;
+						e[dataset].src = srcString.replace(/^/, getHTTP(true) + ":");
+						srcString = e[dataset].src;
 					}
 					e.src = srcString;
-					e[cL].add(isBindedClass);
-					e[sA]("frameborder", "no");
-					e[sA]("style", "border:none;");
-					e[sA]("webkitallowfullscreen", "true");
-					e[sA]("mozallowfullscreen", "true");
-					e[sA]("scrolling", "no");
-					e[sA]("allowfullscreen", "true");
+					e[classList].add(isBindedClass);
+					e[setAttribute]("frameborder", "no");
+					e[setAttribute]("style", "border:none;");
+					e[setAttribute]("webkitallowfullscreen", "true");
+					e[setAttribute]("mozallowfullscreen", "true");
+					e[setAttribute]("scrolling", "no");
+					e[setAttribute]("allowfullscreen", "true");
 				}
 			}
 		}
@@ -608,16 +608,15 @@ handleDataSrcIframeAllWindow = function () {
 	var throttlehandleDataSrcIframeAll = throttle(handleDataSrcIframeAll, 100);
 	throttlehandleDataSrcIframeAll();
 },
-manageDataSrcIframeAll = function (ctx) {
+manageDataSrcIframeAll = function () {
 	"use strict";
-	ctx = ctx && ctx.nodeName ? ctx : "";
 	var w = globalRoot,
-	aEL = "addEventListener",
-	rEL = "removeEventListener";
-	w[rEL]("scroll", handleDataSrcIframeAllWindow, {passive: true});
-	w[rEL]("resize", handleDataSrcIframeAllWindow);
-	w[aEL]("scroll", handleDataSrcIframeAllWindow, {passive: true});
-	w[aEL]("resize", handleDataSrcIframeAllWindow);
+	addEventListener = "addEventListener",
+	removeEventListener = "removeEventListener";
+	w[removeEventListener]("scroll", handleDataSrcIframeAllWindow, {passive: true});
+	w[removeEventListener]("resize", handleDataSrcIframeAllWindow);
+	w[addEventListener]("scroll", handleDataSrcIframeAllWindow, {passive: true});
+	w[addEventListener]("resize", handleDataSrcIframeAllWindow);
 	var timers = new Timers();
 	timers.timeout(function () {
 		timers.clear();
@@ -633,19 +632,19 @@ globalRoot.addEventListener("load", manageDataSrcIframeAll);
  * replace iframe src with data-src
  * @param {Object} [ctx] context HTML Element
  */
-var manageIframeLightboxLinks = function (ctx) {
+var manageIframeLightboxLinks = function (scope) {
 	"use strict";
-	ctx = ctx && ctx.nodeName ? ctx : "";
+	var ctx = scope && scope.nodeName ? scope : "";
 	var d = document,
-	gEBCN = "getElementsByClassName",
-	cL = "classList",
+	getElementsByClassName = "getElementsByClassName",
+	classList = "classList",
 	linkClass = "iframe-lightbox-link",
-	link = ctx ? ctx[gEBCN](linkClass) || "" : d[gEBCN](linkClass) || "",
+	link = ctx ? ctx[getElementsByClassName](linkClass) || "" : d[getElementsByClassName](linkClass) || "",
 	isBindedClass = "is-binded",
 	arrange = function (e) {
-		if (!e[cL].contains(isBindedClass)) {
+		if (!e[classList].contains(isBindedClass)) {
 			e.lightbox = new IframeLightbox(e);
-			e[cL].add(isBindedClass);
+			e[classList].add(isBindedClass);
 		}
 	};
 	if (link) {
@@ -670,29 +669,29 @@ var handleExternalLink = function (url, ev) {
 	debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
 	debounceLogicHandleExternalLink();
 },
-manageExternalLinkAll = function (ctx) {
+manageExternalLinkAll = function (scope) {
 	"use strict";
-	ctx = ctx && ctx.nodeName ? ctx : "";
+	var ctx = scope && scope.nodeName ? scope : "";
 	var d = document,
-	gEBTN = "getElementsByTagName",
+	getElementsByTagName = "getElementsByTagName",
 	linkTag = "a",
-	link = ctx ? ctx[gEBTN](linkTag) || "" : d[gEBTN](linkTag) || "",
-	cL = "classList",
-	aEL = "addEventListener",
-	gA = "getAttribute",
+	link = ctx ? ctx[getElementsByTagName](linkTag) || "" : d[getElementsByTagName](linkTag) || "",
+	classList = "classList",
+	addEventListener = "addEventListener",
+	getAttribute = "getAttribute",
 	isBindedClass = "is-binded",
 	arrange = function (e) {
-		if (!e[cL].contains(isBindedClass)) {
-			var url = e[gA]("href") || "";
+		if (!e[classList].contains(isBindedClass)) {
+			var url = e[getAttribute]("href") || "";
 			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
 				e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					e.target = "_blank";
 					e.rel = "noopener";
 				} else {
-					e[aEL]("click", handleExternalLink.bind(null, url));
+					e[addEventListener]("click", handleExternalLink.bind(null, url));
 				}
-				e[cL].add(isBindedClass);
+				e[classList].add(isBindedClass);
 			}
 		}
 	};
@@ -711,11 +710,11 @@ document.ready().then(manageExternalLinkAll);
 var hideImgLightbox = function () {
 	"use strict";
 	var d = document,
-	gEBCN = "getElementsByClassName",
-	gEBTN = "getElementsByTagName",
-	cL = "classList",
-	container = d[gEBCN]("img-lightbox-container")[0] || "",
-	img = container ? container[gEBTN]("img")[0] || "" : "",
+	getElementsByClassName = "getElementsByClassName",
+	getElementsByTagName = "getElementsByTagName",
+	classList = "classList",
+	container = d[getElementsByClassName]("img-lightbox-container")[0] || "",
+	img = container ? container[getElementsByTagName]("img")[0] || "" : "",
 	an = "animated",
 	an1 = "fadeIn",
 	an2 = "fadeInUp",
@@ -723,13 +722,13 @@ var hideImgLightbox = function () {
 	an4 = "fadeOutDown",
 	dummySrc = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
 	hideContainer = function () {
-		container[cL].remove(an1);
-		container[cL].add(an3);
+		container[classList].remove(an1);
+		container[classList].add(an3);
 		var hideImg = function () {
-			container[cL].remove(an);
-			container[cL].remove(an3);
-			img[cL].remove(an);
-			img[cL].remove(an4);
+			container[classList].remove(an);
+			container[classList].remove(an3);
+			img[classList].remove(an);
+			img[classList].remove(an4);
 			img.src = dummySrc;
 			container.style.display = "none";
 		};
@@ -741,8 +740,8 @@ var hideImgLightbox = function () {
 		}, 400);
 	};
 	if (container && img) {
-		img[cL].remove(an2);
-		img[cL].add(an4);
+		img[classList].remove(an2);
+		img[classList].add(an4);
 		var timers = new Timers();
 		timers.timeout(function () {
 			timers.clear();
@@ -765,42 +764,42 @@ handleImgLightboxContainer = function () {
 handleImgLightboxWindow = function (ev) {
 	"use strict";
 	var w = globalRoot,
-	rEL = "removeEventListener";
-	w[rEL]("keyup", handleImgLightboxWindow);
+	removeEventListener = "removeEventListener";
+	w[removeEventListener]("keyup", handleImgLightboxWindow);
 	if (27 === (ev.which || ev.keyCode)) {
 		hideImgLightbox();
 	}
 },
-manageImgLightboxLinks = function (ctx) {
+manageImgLightboxLinks = function (scope) {
 	"use strict";
-	ctx = ctx && ctx.nodeName ? ctx : "";
+	var ctx = scope && scope.nodeName ? scope : "";
 	var w = globalRoot,
 	d = document,
 	b = d.body || "",
-	gEBCN = "getElementsByClassName",
-	gEBTN = "getElementsByTagName",
-	cL = "classList",
-	cE = "createElement",
-	gA = "getAttribute",
-	aC = "appendChild",
-	aEL = "addEventListener",
+	getElementsByClassName = "getElementsByClassName",
+	getElementsByTagName = "getElementsByTagName",
+	classList = "classList",
+	createElement = "createElement",
+	getAttribute = "getAttribute",
+	appendChild = "appendChild",
+	addEventListener = "addEventListener",
 	linkClass = "img-lightbox-link",
-	link = ctx ? ctx[gEBCN](linkClass) || "" : d[gEBCN](linkClass) || "",
+	link = ctx ? ctx[getElementsByClassName](linkClass) || "" : d[getElementsByClassName](linkClass) || "",
 	containerClass = "img-lightbox-container",
-	container = d[gEBCN](containerClass)[0] || "",
-	img = container ? container[gEBTN]("img")[0] || "" : "",
+	container = d[getElementsByClassName](containerClass)[0] || "",
+	img = container ? container[getElementsByTagName]("img")[0] || "" : "",
 	an = "animated",
 	an1 = "fadeIn",
 	an2 = "fadeInUp",
 	isBindedClass = "is-binded",
 	dummySrc = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
 	if (!container) {
-		container = d[cE]("div");
-		img = d[cE]("img");
+		container = d[createElement]("div");
+		img = d[createElement]("img");
 		img.src = dummySrc;
 		img.alt = "";
-		container[aC](img);
-		container[cL].add(containerClass);
+		container[appendChild](img);
+		container[classList].add(containerClass);
 		appendFragment(container, b);
 	}
 	var arrange = function (e) {
@@ -809,13 +808,13 @@ manageImgLightboxLinks = function (ctx) {
 			ev.preventDefault();
 			var _this = this;
 			var logicHandleImgLightboxLink = function () {
-				var hrefString = _this[gA]("href") || "";
+				var hrefString = _this[getAttribute]("href") || "";
 				if (container && img && hrefString) {
 					LoadingSpinner.show();
-					container[cL].add(an);
-					container[cL].add(an1);
-					img[cL].add(an);
-					img[cL].add(an2);
+					container[classList].add(an);
+					container[classList].add(an1);
+					img[classList].add(an);
+					img[classList].add(an2);
 					if (parseLink(hrefString).isAbsolute && !parseLink(hrefString).hasHTTP) {
 						hrefString = hrefString.replace(/^/, getHTTP(true) + ":");
 					}
@@ -824,8 +823,8 @@ manageImgLightboxLinks = function (ctx) {
 					}).catch (function (err) {
 						console.log("cannot load image with imagePromise:", hrefString, err);
 					});
-					w[aEL]("keyup", handleImgLightboxWindow);
-					container[aEL]("click", handleImgLightboxContainer);
+					w[addEventListener]("keyup", handleImgLightboxWindow);
+					container[addEventListener]("click", handleImgLightboxContainer);
 					container.style.display = "block";
 					LoadingSpinner.hide();
 				}
@@ -833,14 +832,14 @@ manageImgLightboxLinks = function (ctx) {
 			debounceLogicHandleImgLightboxLink = debounce(logicHandleImgLightboxLink, 200);
 			debounceLogicHandleImgLightboxLink();
 		};
-		if (!e[cL].contains(isBindedClass)) {
-			var hrefString = e[gA]("href") || "";
+		if (!e[classList].contains(isBindedClass)) {
+			var hrefString = e[getAttribute]("href") || "";
 			if (hrefString) {
 				if (parseLink(hrefString).isAbsolute && !parseLink(hrefString).hasHTTP) {
 					e.setAttribute("href", hrefString.replace(/^/, getHTTP(true) + ":"));
 				}
-				e[aEL]("click", handleImgLightboxLink);
-				e[cL].add(isBindedClass);
+				e[addEventListener]("click", handleImgLightboxLink);
+				e[classList].add(isBindedClass);
 			}
 		}
 	};
@@ -862,14 +861,14 @@ var handleOtherDropdownLists = function (_this) {
 	"use strict";
 	_this = _this || this;
 	var d = document,
-	gEBCN = "getElementsByClassName",
-	cL = "classList",
+	getElementsByClassName = "getElementsByClassName",
+	classList = "classList",
 	isActiveClass = "is-active",
 	isDropdownClass = "is-dropdown",
-	list = d[gEBCN](isDropdownClass) || "",
+	list = d[getElementsByClassName](isDropdownClass) || "",
 	removeActiveClass = function (e) {
 		if (_this !== e) {
-			e[cL].remove(isActiveClass);
+			e[classList].remove(isActiveClass);
 		}
 	};
 	if (list) {
@@ -882,11 +881,11 @@ var handleOtherDropdownLists = function (_this) {
 manageOtherDropdownListAll = function () {
 	"use strict";
 	var d = document,
-	gEBI = "getElementById",
-	aEL = "addEventListener",
-	container = d[gEBI]("container") || "";
+	getElementById = "getElementById",
+	addEventListener = "addEventListener",
+	container = d[getElementById]("container") || "";
 	if (container) {
-		container[aEL]("click", handleOtherDropdownLists);
+		container[addEventListener]("click", handleOtherDropdownLists);
 	}
 };
 document.ready().then(manageOtherDropdownListAll);
@@ -899,33 +898,33 @@ var manageChaptersSelect = function () {
 	"use strict";
 	var w = globalRoot,
 	d = document,
-	gEBI = "getElementById",
-	gEBTN = "getElementsByTagName",
-	gEBCN = "getElementsByClassName",
-	cL = "classList",
-	pN = "parentNode",
-	cDF = "createDocumentFragment",
-	cE = "createElement",
-	cENS = "createElementNS",
-	sANS = "setAttributeNS",
-	cTN = "createTextNode",
-	aC = "appendChild",
-	aEL = "addEventListener",
-	chaptersSelect = d[gEBI]("chapters-select") || "",
-	holderChaptersSelect = d[gEBCN]("holder-chapters-select")[0] || "",
-	uiPanelContentsSelect = d[gEBCN]("ui-panel-contents-select")[0] || "",
+	getElementById = "getElementById",
+	getElementsByTagName = "getElementsByTagName",
+	getElementsByClassName = "getElementsByClassName",
+	classList = "classList",
+	parentNode = "parentNode",
+	createDocumentFragment = "createDocumentFragment",
+	createElement = "createElement",
+	createElementNS = "createElementNS",
+	setAttributeNS = "setAttributeNS",
+	createTextNode = "createTextNode",
+	appendChild = "appendChild",
+	addEventListener = "addEventListener",
+	chaptersSelect = d[getElementById]("chapters-select") || "",
+	holderChaptersSelect = d[getElementsByClassName]("holder-chapters-select")[0] || "",
+	uiPanelContentsSelect = d[getElementsByClassName]("ui-panel-contents-select")[0] || "",
 	chaptersListClass = "chapters-list",
-	isBindedClass = "is-binded",
 	isFixedClass = "is-fixed",
 	isActiveClass = "is-active",
 	isDropdownClass = "is-dropdown",
+	/*isBindedClass = "is-binded",
 	rerenderChaptersSelect = function () {
 		var handleChaptersSelect = function () {
 			var _this = this;
 			var hashString = _this.options[_this.selectedIndex].value || "",
-			uiPanelContentsSelectHeight = uiPanelContentsSelect ? (uiPanelContentsSelect[cL].contains(isFixedClass) ? uiPanelContentsSelect.offsetHeight : uiPanelContentsSelect.offsetHeight * 2) : 0;
+			uiPanelContentsSelectHeight = uiPanelContentsSelect ? (uiPanelContentsSelect[classList].contains(isFixedClass) ? uiPanelContentsSelect.offsetHeight : uiPanelContentsSelect.offsetHeight * 2) : 0;
 			if (hashString) {
-				var tragetObject = hashString ? (isValidId(hashString, true) ? d[gEBI](hashString.replace(/^#/,"")) || "" : "") : "";
+				var tragetObject = hashString ? (isValidId(hashString, true) ? d[getElementById](hashString.replace(/^#/,"")) || "" : "") : "";
 				if (tragetObject) {
 					scroll2Top(findPos(tragetObject).top - uiPanelContentsSelectHeight, 10000);
 				} else {
@@ -933,9 +932,9 @@ var manageChaptersSelect = function () {
 				}
 			}
 		};
-		if (!chaptersSelect[cL].contains(isBindedClass)) {
-			chaptersSelect[aEL]("change", handleChaptersSelect);
-			chaptersSelect[cL].add(isBindedClass);
+		if (!chaptersSelect[classList].contains(isBindedClass)) {
+			chaptersSelect[addEventListener]("change", handleChaptersSelect);
+			chaptersSelect[classList].add(isBindedClass);
 		}
 		var rerenderOption = function (option) {
 			if (option) {
@@ -946,73 +945,72 @@ var manageChaptersSelect = function () {
 				appendFragment(d.createTextNode(optionTextTruncated), option);
 			}
 		},
-		chaptersSelectOptions = chaptersSelect ? chaptersSelect[gEBTN]("option") || "" : "";
+		chaptersSelectOptions = chaptersSelect ? chaptersSelect[getElementsByTagName]("option") || "" : "";
 		for (var i = 0, l = chaptersSelectOptions.length; i < l; i += 1) {
 			rerenderOption(chaptersSelectOptions[i]);
 		}
-		/* forEach(chaptersSelectOptions, rerenderOption, false); */
-	},
+	},*/
 	rerenderChaptersList = function () {
 		var handleChaptersListItem = function (listObj, hashString) {
-			var uiPanelContentsSelectHeight = uiPanelContentsSelect ? (uiPanelContentsSelect[cL].contains(isFixedClass) ? uiPanelContentsSelect.offsetHeight : uiPanelContentsSelect.offsetHeight * 2) : 0;
+			var uiPanelContentsSelectHeight = uiPanelContentsSelect ? (uiPanelContentsSelect[classList].contains(isFixedClass) ? uiPanelContentsSelect.offsetHeight : uiPanelContentsSelect.offsetHeight * 2) : 0;
 			if (hashString) {
-				var tragetObject = hashString ? (isValidId(hashString, true) ? d[gEBI](hashString.replace(/^#/,"")) || "" : "") : "";
+				var tragetObject = hashString ? (isValidId(hashString, true) ? d[getElementById](hashString.replace(/^#/,"")) || "" : "") : "";
 				if (tragetObject) {
 					scroll2Top(findPos(tragetObject).top - uiPanelContentsSelectHeight, 10000);
 				} else {
 					w.location.hash = hashString;
 				}
 			}
-			listObj[cL].remove(isActiveClass);
+			listObj[classList].remove(isActiveClass);
 		},
-		chaptersList = d[cE]("ul"),
-		chaptersListItems = chaptersSelect ? chaptersSelect[gEBTN]("option") || "" : "",
+		chaptersList = d[createElement]("ul"),
+		chaptersListItems = chaptersSelect ? chaptersSelect[getElementsByTagName]("option") || "" : "",
 		chaptersListButtonDefaultText = "",
-		df = d[cDF](),
+		df = d[createDocumentFragment](),
 		generateChaptersListItems = function (_this, i) {
 			if (0 === i) {
 				chaptersListButtonDefaultText = _this.firstChild.textContent;
 			}
-			var chaptersListItem = d[cE]("li"),
+			var chaptersListItem = d[createElement]("li"),
 			chaptersListItemText = _this.firstChild.textContent || "",
 			chaptersListItemValue = _this.value,
 			chaptersListItemTextTruncated = truncString("" + chaptersListItemText, 28);
-			chaptersListItem[aC](d[cTN](chaptersListItemTextTruncated));
+			chaptersListItem[appendChild](d[createTextNode](chaptersListItemTextTruncated));
 			chaptersListItem.title = chaptersListItemText;
-			chaptersListItem[aEL]("click", handleChaptersListItem.bind(null, chaptersList, chaptersListItemValue));
-			df[aC](chaptersListItem);
-			df[aC](d.createTextNode("\n"));
+			chaptersListItem[addEventListener]("click", handleChaptersListItem.bind(null, chaptersList, chaptersListItemValue));
+			df[appendChild](chaptersListItem);
+			df[appendChild](d.createTextNode("\n"));
 		};
 		for (var i = 0, l = chaptersListItems.length; i < l; i += 1) {
 			generateChaptersListItems(chaptersListItems[i], i);
 		}
 		/* forEach(chaptersListItems, generateChaptersListItems, false); */
 		appendFragment(df, chaptersList);
-		chaptersList[cL].add(chaptersListClass);
-		chaptersList[cL].add(isDropdownClass);
-		holderChaptersSelect.replaceChild(chaptersList, chaptersSelect[pN][pN]);
-		var chaptersListButton = d[cE]("a");
-		chaptersListButton[aC](d[cTN](chaptersListButtonDefaultText));
-		chaptersList[pN].insertBefore(chaptersListButton, chaptersList);
+		chaptersList[classList].add(chaptersListClass);
+		chaptersList[classList].add(isDropdownClass);
+		holderChaptersSelect.replaceChild(chaptersList, chaptersSelect[parentNode][parentNode]);
+		var chaptersListButton = d[createElement]("a");
+		chaptersListButton[appendChild](d[createTextNode](chaptersListButtonDefaultText));
+		chaptersList[parentNode].insertBefore(chaptersListButton, chaptersList);
 		/*jshint -W107 */
 		chaptersListButton.href = "javascript:void(0);";
 		/*jshint +W107 */
 		var insertChevronDownSmallSvg = function (targetObj) {
-			var svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
-			use = d[cENS]("http://www.w3.org/2000/svg", "use");
-			svg[cL].add("ui-icon");
-			use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-ChevronDownSmall");
-			svg[aC](use);
-			targetObj[aC](svg);
+			var svg = d[createElementNS]("http://www.w3.org/2000/svg", "svg"),
+			use = d[createElementNS]("http://www.w3.org/2000/svg", "use");
+			svg[classList].add("ui-icon");
+			use[setAttributeNS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-ChevronDownSmall");
+			svg[appendChild](use);
+			targetObj[appendChild](svg);
 		};
 		insertChevronDownSmallSvg(chaptersListButton);
 		var handleChaptersListItemsButton = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			chaptersList[cL].toggle(isActiveClass);
+			chaptersList[classList].toggle(isActiveClass);
 			handleOtherDropdownLists(chaptersList);
 		};
-		chaptersListButton[aEL]("click", handleChaptersListItemsButton);
+		chaptersListButton[addEventListener]("click", handleChaptersListItemsButton);
 	};
 	if (holderChaptersSelect && chaptersSelect) {
 		/* console.log("triggered function: manageChaptersSelect"); */
@@ -1024,31 +1022,31 @@ var manageChaptersSelect = function () {
  * add click event on hidden-layer show btn
  * @param {Object} [ctx] context HTML Element
  */
-var manageExpandingLayers = function (ctx) {
+var manageExpandingLayers = function (scope) {
 	"use strict";
-	ctx = ctx && ctx.nodeName ? ctx : "";
+	var ctx = scope && scope.nodeName ? scope : "";
 	var d = document,
-	gEBCN = "getElementsByClassName",
-	aEL = "addEventListener",
-	cL = "classList",
-	pN = "parentNode",
+	getElementsByClassName = "getElementsByClassName",
+	addEventListener = "addEventListener",
+	classList = "classList",
+	parentNode = "parentNode",
 	btnClass = "btn-expand-hidden-layer",
-	btn = ctx ? ctx[gEBCN](btnClass) || "" : d[gEBCN](btnClass) || "",
+	btn = ctx ? ctx[getElementsByClassName](btnClass) || "" : d[getElementsByClassName](btnClass) || "",
 	isBindedClass = "is-binded",
 	isActiveClass = "is-active",
 	arrange = function (e) {
 		var handleExpandingLayerAll = function () {
 			var _this = this;
-			var s = _this[pN] ? _this[pN].nextElementSibling : "";
+			var s = _this[parentNode] ? _this[parentNode].nextElementSibling : "";
 			if (s) {
-				_this[cL].toggle(isActiveClass);
-				s[cL].toggle(isActiveClass);
+				_this[classList].toggle(isActiveClass);
+				s[classList].toggle(isActiveClass);
 			}
 			return;
 		};
-		if (!e[cL].contains(isBindedClass)) {
-			e[aEL]("click", handleExpandingLayerAll);
-			e[cL].add(isBindedClass);
+		if (!e[classList].contains(isBindedClass)) {
+			e[addEventListener]("click", handleExpandingLayerAll);
+			e[classList].add(isBindedClass);
 		}
 	};
 	if (btn) {
@@ -1071,18 +1069,18 @@ var manageExpandingLayers = function (ctx) {
  */
 var msnry,
 pckry,
-initMasonry = function (ctx) {
+initMasonry = function (scope) {
 	"use strict";
-	ctx = ctx && ctx.nodeName ? ctx : "";
+	var ctx = scope && scope.nodeName ? scope : "";
 	var w = globalRoot,
 	d = document,
-	gEBCN = "getElementsByClassName",
+	getElementsByClassName = "getElementsByClassName",
 	gridClass = "masonry-grid",
 	gridItemClass = "masonry-grid-item",
 	gridItemSelector = ".masonry-grid-item",
 	gridSizerSelector = ".masonry-grid-sizer",
-	grid = ctx ? ctx[gEBCN](gridClass)[0] || "" : d[gEBCN](gridClass)[0] || "",
-	gridItem = ctx ? ctx[gEBCN](gridItemClass)[0] || "" : d[gEBCN](gridItemClass)[0] || "",
+	grid = ctx ? ctx[getElementsByClassName](gridClass)[0] || "" : d[getElementsByClassName](gridClass)[0] || "",
+	gridItem = ctx ? ctx[getElementsByClassName](gridItemClass)[0] || "" : d[getElementsByClassName](gridItemClass)[0] || "",
 	initScript = function () {
 		if (w.Masonry) {
 			/* console.log("function initMasonry.arrangeItems => initialised msnry"); */
@@ -1136,35 +1134,35 @@ initMasonry = function (ctx) {
 /*!
  * load or refresh disqus_thread on click
  */
-var manageDisqusButton = function (ctx) {
+var manageDisqusButton = function (scope) {
 	"use strict";
-	ctx = ctx && ctx.nodeName ? ctx : "";
+	var ctx = scope && scope.nodeName ? scope : "";
 	var w = globalRoot,
 	d = document,
-	gEBI = "getElementById",
-	gEBCN = "getElementsByClassName",
-	cL = "classList",
-	ds = "dataset",
-	aC = "appendChild",
-	aEL = "addEventListener",
-	rEL = "removeEventListener",
-	cE = "createElement",
+	getElementById = "getElementById",
+	getElementsByClassName = "getElementsByClassName",
+	classList = "classList",
+	dataset = "dataset",
+	appendChild = "appendChild",
+	addEventListener = "addEventListener",
+	removeEventListener = "removeEventListener",
+	createElement = "createElement",
 	btnClass = "btn-show-disqus",
-	btn = ctx ? ctx[gEBCN](btnClass)[0] || "" : d[gEBCN](btnClass)[0] || "",
-	disqusThread = d[gEBI]("disqus_thread") || "",
+	btn = ctx ? ctx[getElementsByClassName](btnClass)[0] || "" : d[getElementsByClassName](btnClass)[0] || "",
+	disqusThread = d[getElementById]("disqus_thread") || "",
 	isBindedClass = "is-binded",
 	isActiveClass = "is-active",
 	locationHref = w.location.href || "",
-	disqusThreadShortname = disqusThread ? (disqusThread[ds].shortname || "") : "",
+	disqusThreadShortname = disqusThread ? (disqusThread[dataset].shortname || "") : "",
 	hideDisqusButton = function () {
-		disqusThread[cL].add(isActiveClass);
+		disqusThread[classList].add(isActiveClass);
 		btn.style.display = "none";
 		LoadingSpinner.hide();
 	},
 	hideDisqusThread = function () {
 		removeChildren(disqusThread);
-		var replacementText = d[cE]("p");
-		replacementText[aC](d.createTextNode("Комментарии доступны только в веб версии этой страницы."));
+		var replacementText = d[createElement]("p");
+		replacementText[appendChild](d.createTextNode("Комментарии доступны только в веб версии этой страницы."));
 		appendFragment(replacementText, disqusThread);
 		disqusThread.removeAttribute("id");
 		hideDisqusButton();
@@ -1184,7 +1182,7 @@ var manageDisqusButton = function (ctx) {
 									this.page.url = locationHref;
 								}
 							});
-							btn[rEL]("click", handleDisqusButton);
+							btn[removeEventListener]("click", handleDisqusButton);
 							LoadingSpinner.show();
 							hideDisqusButton();
 						} catch (err) {
@@ -1202,13 +1200,13 @@ var manageDisqusButton = function (ctx) {
 			debounceLogicHandleDisqusButton = debounce(logicHandleDisqusButton, 200);
 			debounceLogicHandleDisqusButton();
 		};
-		btn[aEL]("click", handleDisqusButton);
-		btn[cL].add(isBindedClass);
+		btn[addEventListener]("click", handleDisqusButton);
+		btn[classList].add(isBindedClass);
 	};
 	if (disqusThread && btn && disqusThreadShortname && locationHref) {
 		/* console.log("triggered function: manageDisqusButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			if (!btn[cL].contains(isBindedClass)) {
+			if (!btn[classList].contains(isBindedClass)) {
 				addBtnHandler();
 			}
 		} else {
@@ -1226,16 +1224,16 @@ var notiBar = function (opt) {
 	"use strict";
 	var d = document,
 	b = d.body || "",
-	gEBCN = "getElementsByClassName",
-	cL = "classList",
-	cE = "createElement",
-	cENS = "createElementNS",
-	sANS = "setAttributeNS",
-	aC = "appendChild",
-	aEL = "addEventListener",
-	rEL = "removeEventListener",
+	getElementsByClassName = "getElementsByClassName",
+	classList = "classList",
+	createElement = "createElement",
+	createElementNS = "createElementNS",
+	setAttributeNS = "setAttributeNS",
+	appendChild = "appendChild",
+	addEventListener = "addEventListener",
+	removeEventListener = "removeEventListener",
 	notibarClass = "notibar",
-	notibarContainer = d[gEBCN](notibarClass)[0] || "",
+	notibarContainer = d[getElementsByClassName](notibarClass)[0] || "",
 	messageClass = "message",
 	closeButtonClass = "close",
 	defaultKey = "_notibar_dismiss_",
@@ -1267,28 +1265,28 @@ var notiBar = function (opt) {
 	if (notibarContainer) {
 		removeChildren(notibarContainer);
 	} else {
-		notibarContainer = d[cE]("div");
-		notibarContainer[cL].add(notibarClass);
-		notibarContainer[cL].add(animatedClass);
+		notibarContainer = d[createElement]("div");
+		notibarContainer[classList].add(notibarClass);
+		notibarContainer[classList].add(animatedClass);
 	}
-	var msgContainer = d[cE]("div");
-	msgContainer[cL].add(messageClass);
+	var msgContainer = d[createElement]("div");
+	msgContainer[classList].add(messageClass);
 	var msgContent = settings.message || "";
 	if ("string" === typeof msgContent) {
 		msgContent = d.createTextNode(msgContent);
 	}
-	msgContainer[aC](msgContent);
-	notibarContainer[aC](msgContainer);
+	msgContainer[appendChild](msgContent);
+	notibarContainer[appendChild](msgContainer);
 	var insertCancelSvg = function (targetObj) {
-		var svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
-		use = d[cENS]("http://www.w3.org/2000/svg", "use");
-		svg[cL].add("ui-icon");
-		use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Cancel");
-		svg[aC](use);
-		targetObj[aC](svg);
+		var svg = d[createElementNS]("http://www.w3.org/2000/svg", "svg"),
+		use = d[createElementNS]("http://www.w3.org/2000/svg", "use");
+		svg[classList].add("ui-icon");
+		use[setAttributeNS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Cancel");
+		svg[appendChild](use);
+		targetObj[appendChild](svg);
 	},
-	closeButton = d[cE]("a");
-	closeButton[cL].add(closeButtonClass);
+	closeButton = d[createElement]("a");
+	closeButton[classList].add(closeButtonClass);
 	insertCancelSvg(closeButton);
 	var setCookie = function () {
 		if (settings.days) {
@@ -1300,25 +1298,25 @@ var notiBar = function (opt) {
 		}
 	},
 	hideMessage = function () {
-		var notibarContainer = d[gEBCN](notibarClass)[0] || "";
+		var notibarContainer = d[getElementsByClassName](notibarClass)[0] || "";
 		if (notibarContainer) {
-			notibarContainer[cL].remove(fadeInDownClass);
-			notibarContainer[cL].add(fadeOutUpClass);
+			notibarContainer[classList].remove(fadeInDownClass);
+			notibarContainer[classList].add(fadeOutUpClass);
 			removeChildren(notibarContainer);
 		}
 	},
 	handleCloseButton = function () {
-		closeButton[rEL]("click", handleCloseButton);
+		closeButton[removeEventListener]("click", handleCloseButton);
 		hideMessage();
 		setCookie();
 	};
-	closeButton[aEL]("click", handleCloseButton);
-	notibarContainer[aC](closeButton);
+	closeButton[addEventListener]("click", handleCloseButton);
+	notibarContainer[appendChild](closeButton);
 	if (b) {
 		/* console.log("triggered function: notiBar"); */
 		appendFragment(notibarContainer, b);
-		notibarContainer[cL].remove(fadeOutUpClass);
-		notibarContainer[cL].add(fadeInDownClass);
+		notibarContainer[classList].remove(fadeOutUpClass);
+		notibarContainer[classList].add(fadeInDownClass);
 		var timers = new Timers();
 		timers.timeout(function () {
 			timers.clear();
@@ -1334,13 +1332,13 @@ var initNotibarMsg = function () {
 	"use strict";
 	var w = globalRoot,
 	d = document,
-	gEBCN = "getElementsByClassName",
-	cL = "classList",
-	aC = "appendChild",
-	aEL = "addEventListener",
-	rEL = "removeEventListener",
-	cE = "createElement",
-	uiPanelContentsSelect = d[gEBCN]("ui-panel-contents-select")[0] || "",
+	getElementsByClassName = "getElementsByClassName",
+	classList = "classList",
+	appendChild = "appendChild",
+	addEventListener = "addEventListener",
+	removeEventListener = "removeEventListener",
+	createElement = "createElement",
+	uiPanelContentsSelect = d[getElementsByClassName]("ui-panel-contents-select")[0] || "",
 	cookieKey = "_notibar_dismiss_",
 	cookieDatum = "Выбрать статью можно щелкнув по самофиксирующейся планке с заголовком текущей страницы.",
 	locationOrigin = parseLink(w.location.href).origin,
@@ -1350,20 +1348,20 @@ var initNotibarMsg = function () {
 		timers.timeout(function () {
 			timers.clear();
 			timers = null;
-			var msgObj = d[cE]("a");
+			var msgObj = d[createElement]("a");
 			/*jshint -W107 */
 			msgObj.href = "javascript:void(0);";
 			/*jshint +W107 */
 			var handleMsgObj = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				msgObj[rEL]("click", handleMsgObj);
+				msgObj[removeEventListener]("click", handleMsgObj);
 				var uiPanelContentsSelectPos = uiPanelContentsSelect ? findPos(uiPanelContentsSelect).top : 0,
-				uiPanelContentsSelectHeight = uiPanelContentsSelect ? (uiPanelContentsSelect[cL].contains(isFixedClass) ? uiPanelContentsSelect.offsetHeight : uiPanelContentsSelect.offsetHeight) : 0;
+				uiPanelContentsSelectHeight = uiPanelContentsSelect ? (uiPanelContentsSelect[classList].contains(isFixedClass) ? uiPanelContentsSelect.offsetHeight : uiPanelContentsSelect.offsetHeight) : 0;
 				scroll2Top(uiPanelContentsSelectPos - uiPanelContentsSelectHeight, 2000);
 			};
-			msgObj[aEL]("click", handleMsgObj);
-			msgObj[aC](d.createTextNode(cookieDatum));
+			msgObj[addEventListener]("click", handleMsgObj);
+			msgObj[appendChild](d.createTextNode(cookieDatum));
 			notiBar({
 				"message": msgObj,
 				"timeout": 5000,
@@ -1387,9 +1385,9 @@ document.ready().then(initNotibarMsg);
 var manageSearchInput = function () {
 	"use strict";
 	var d = document,
-	gEBI = "getElementById",
-	aEL = "addEventListener",
-	searchInput = d[gEBI]("text") || "",
+	getElementById = "getElementById",
+	addEventListener = "addEventListener",
+	searchInput = d[getElementById]("text") || "",
 	handleSearchInputValue = function () {
 		var _this = this;
 		var logicHandleSearchInputValue = function () {
@@ -1401,7 +1399,7 @@ var manageSearchInput = function () {
 	if (searchInput) {
 		/* console.log("triggered function: manageSearchInput"); */
 		searchInput.focus();
-		searchInput[aEL]("input", handleSearchInputValue);
+		searchInput[addEventListener]("input", handleSearchInputValue);
 	}
 };
 document.ready().then(manageSearchInput);
@@ -1414,19 +1412,19 @@ var initKamilAutocomplete = function (jsonObj) {
 	"use strict";
 	var w = globalRoot,
 	d = document,
-	gEBI = "getElementById",
-	gEBCN = "getElementsByClassName",
-	gEBTN = "getElementsByTagName",
-	cL = "classList",
-	cE = "createElement",
-	cTN = "createTextNode",
-	aC = "appendChild",
-	pN = "parentNode",
-	aEL = "addEventListener",
-	searchForm = d[gEBCN]("search-form")[0] || "",
+	getElementById = "getElementById",
+	getElementsByClassName = "getElementsByClassName",
+	getElementsByTagName = "getElementsByTagName",
+	classList = "classList",
+	createElement = "createElement",
+	createTextNode = "createTextNode",
+	appendChild = "appendChild",
+	parentNode = "parentNode",
+	addEventListener = "addEventListener",
+	searchForm = d[getElementsByClassName]("search-form")[0] || "",
 	textInputSelector = "#text",
-	textInput = d[gEBI]("text") || "",
-	container = d[gEBI]("container") || "",
+	textInput = d[getElementById]("text") || "",
+	container = d[getElementById]("container") || "",
 	typoAutcompleteListSelector = "kamil-typo-autocomplete",
 	typoAutcompleteListClass = "kamil-autocomplete",
 	initScript = function () {
@@ -1447,8 +1445,8 @@ var initKamilAutocomplete = function (jsonObj) {
 		/*!
 		 * create typo suggestion list
 		 */
-		var typoAutcompleteList = d[cE]("ul"),
-		typoListItem = d[cE]("li"),
+		var typoAutcompleteList = d[createElement]("ul"),
+		typoListItem = d[createElement]("li"),
 		handleTypoSuggestion = function () {
 			typoAutcompleteList.style.display = "none";
 			typoListItem.style.display = "none";
@@ -1457,20 +1455,20 @@ var initKamilAutocomplete = function (jsonObj) {
 			typoAutcompleteList.style.display = "block";
 			typoListItem.style.display = "block";
 		};
-		typoAutcompleteList[cL].add(typoAutcompleteListClass);
+		typoAutcompleteList[classList].add(typoAutcompleteListClass);
 		typoAutcompleteList.id = typoAutcompleteListSelector;
 		handleTypoSuggestion();
-		typoAutcompleteList[aC](typoListItem);
-		textInput[pN].insertBefore(typoAutcompleteList, textInput.nextElementSibling);
+		typoAutcompleteList[appendChild](typoListItem);
+		textInput[parentNode].insertBefore(typoAutcompleteList, textInput.nextElementSibling);
 		/*!
 		 * this is an optional setup of every li
 		 * uset to set a description title attribute
 		 * comment out the title attribute setup below
 		 */
 		ac.renderItem = function (ul, item) {
-			var li = d[cE]("li");
+			var li = d[createElement]("li");
 			/* li.innerHTML = item.title; */
-			appendFragment(d[cTN]("" + item.title), li);
+			appendFragment(d[createTextNode]("" + item.title), li);
 			li.title = item.text;
 			ul.appendChild(li);
 			return li;
@@ -1511,7 +1509,7 @@ var initKamilAutocomplete = function (jsonObj) {
 					}
 					showTypoSuggestion();
 					removeChildren(typoListItem);
-					appendFragment(d[cTN]("" + textInputValue), typoListItem);
+					appendFragment(d[createTextNode]("" + textInputValue), typoListItem);
 					if (textInputValue.match(/^\s*$/)) {
 						handleTypoSuggestion();
 					}
@@ -1529,10 +1527,10 @@ var initKamilAutocomplete = function (jsonObj) {
 			/*!
 			 * truncate text
 			 */
-			var lis = ul ? ul[gEBTN]("li") || "" : "",
+			var lis = ul ? ul[getElementsByTagName]("li") || "" : "",
 			truncateKamilText = function (e) {
 				var truncText = e.firstChild.textContent || "",
-				truncTextObj = d[cTN](truncString(truncText, 24));
+				truncTextObj = d[createTextNode](truncString(truncText, 24));
 				e.replaceChild(truncTextObj, e.firstChild);
 				/* e.title = "" + truncText; */
 			};
@@ -1556,12 +1554,12 @@ var initKamilAutocomplete = function (jsonObj) {
 			textInput.value = typoListItem.textContent || "";
 			handleTypoSuggestion();
 		};
-		typoListItem[aEL]("click", handleTypoListItem);
+		typoListItem[addEventListener]("click", handleTypoListItem);
 		/*!
 		 * hide suggestions on outside click
 		 */
 		if (container) {
-			container[aEL]("click", handleTypoSuggestion);
+			container[addEventListener]("click", handleTypoSuggestion);
 		}
 		/*!
 		 * unless you specify property option in new Kamil
@@ -1600,34 +1598,34 @@ var renderNavigation = function () {
 	"use strict";
 	var w = globalRoot,
 	d = document,
-	gEBI = "getElementById",
-	gEBTN = "getElementsByTagName",
-	cL = "classList",
-	pN = "parentNode",
-	aEL = "addEventListener",
-	navbar = d[gEBI]("navbar") || "",
-	navbarParent = navbar[pN] || "",
+	getElementById = "getElementById",
+	getElementsByTagName = "getElementsByTagName",
+	classList = "classList",
+	parentNode = "parentNode",
+	addEventListener = "addEventListener",
+	navbar = d[getElementById]("navbar") || "",
+	navbarParent = navbar[parentNode] || "",
 	popularTemplateId = "template_navbar_popular",
-	popularTemplate = d[gEBI](popularTemplateId) || "",
+	popularTemplate = d[getElementById](popularTemplateId) || "",
 	popularRenderId = "render_navbar_popular",
-	popularRender = d[gEBI](popularRenderId) || "",
+	popularRender = d[getElementById](popularRenderId) || "",
 	moreTemplateId = "template_navbar_more",
-	moreTemplate = d[gEBI](moreTemplateId) || "",
+	moreTemplate = d[getElementById](moreTemplateId) || "",
 	moreRenderId = "render_navbar_more",
-	moreRender = d[gEBI](moreRenderId) || "",
+	moreRender = d[getElementById](moreRenderId) || "",
 	carouselTemplateId = "template_b_carousel",
-	carouselTemplate = d[gEBI](carouselTemplateId) || "",
+	carouselTemplate = d[getElementById](carouselTemplateId) || "",
 	carouselRenderId = "render_b_carousel",
-	carouselRender = d[gEBI](carouselRenderId) || "",
-	carouselRenderParent = carouselRender[pN] || "",
+	carouselRender = d[getElementById](carouselRenderId) || "",
+	carouselRenderParent = carouselRender[parentNode] || "",
 	showRenderNavbarPopularId = "show_render_navbar_popular",
-	showRenderNavbarPopular = d[gEBI](showRenderNavbarPopularId) || "",
+	showRenderNavbarPopular = d[getElementById](showRenderNavbarPopularId) || "",
 	renderNavbarPopularId = "render_navbar_popular",
-	renderNavbarPopular = d[gEBI](renderNavbarPopularId) || "",
+	renderNavbarPopular = d[getElementById](renderNavbarPopularId) || "",
 	showRenderNavbarMoreId = "show_render_navbar_more",
-	showRenderNavbarMore = d[gEBI](showRenderNavbarMoreId) || "",
+	showRenderNavbarMore = d[getElementById](showRenderNavbarMoreId) || "",
 	renderNavbarMoreId = "render_navbar_more",
-	renderNavbarMore = d[gEBI](renderNavbarMoreId) || "",
+	renderNavbarMore = d[getElementById](renderNavbarMoreId) || "",
 	navigationJsonUrl = "./libs/pwa-englishextra/json/navigation.json",
 	isActiveClass = "is-active",
 	processNavigationJsonResponse = function (navigationJsonResponse) {
@@ -1648,9 +1646,9 @@ var renderNavigation = function () {
 			return;
 		}
 		var handleListItemAll = function (e) {
-			var items = e ? e[gEBTN]("li") || "" : "",
+			var items = e ? e[getElementsByTagName]("li") || "" : "",
 			addHandler = function (e) {
-				e[aEL]("click", handleOtherDropdownLists);
+				e[addEventListener]("click", handleOtherDropdownLists);
 			};
 			if (items) {
 				for (var i = 0, l = items.length; i < l; i += 1) {
@@ -1662,13 +1660,13 @@ var renderNavigation = function () {
 		handleShowRenderNavbarPopularButton = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			renderNavbarPopular[cL].toggle(isActiveClass);
+			renderNavbarPopular[classList].toggle(isActiveClass);
 			handleOtherDropdownLists(renderNavbarPopular);
 		},
 		handleShowRenderNavbarMoreButton = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			renderNavbarMore[cL].toggle(isActiveClass);
+			renderNavbarMore[classList].toggle(isActiveClass);
 			handleOtherDropdownLists(renderNavbarMore);
 		},
 		alignNavbarListAll = function () {
@@ -1687,9 +1685,9 @@ var renderNavigation = function () {
 						alignNavbarListAll();
 						handleListItemAll(renderNavbarPopular);
 						handleListItemAll(renderNavbarMore);
-						showRenderNavbarPopular[aEL]("click", handleShowRenderNavbarPopularButton);
-						showRenderNavbarMore[aEL]("click", handleShowRenderNavbarMoreButton);
-						w[aEL]("resize", handleShowNavbarListsWindow);
+						showRenderNavbarPopular[addEventListener]("click", handleShowRenderNavbarPopularButton);
+						showRenderNavbarMore[addEventListener]("click", handleShowRenderNavbarMoreButton);
+						w[addEventListener]("resize", handleShowNavbarListsWindow);
 						if (navbarParent) {
 							manageExternalLinkAll(navbarParent);
 						}
@@ -1730,27 +1728,27 @@ var fixUiPanelContentsSelect = function () {
 	"use strict";
 	var w = globalRoot,
 	d = document,
-	gEBCN = "getElementsByClassName",
-	cL = "classList",
-	aEL = "addEventListener",
-	uiPanelNavigation = d[gEBCN]("ui-panel-navigation")[0] || "",
-	holderHero = d[gEBCN]("holder-hero")[0] || "",
-	uiPanelContentsSelect = d[gEBCN]("ui-panel-contents-select")[0] || "",
+	getElementsByClassName = "getElementsByClassName",
+	classList = "classList",
+	addEventListener = "addEventListener",
+	uiPanelNavigation = d[getElementsByClassName]("ui-panel-navigation")[0] || "",
+	holderHero = d[getElementsByClassName]("holder-hero")[0] || "",
+	uiPanelContentsSelect = d[getElementsByClassName]("ui-panel-contents-select")[0] || "",
 	criticalHeight = (uiPanelNavigation ? uiPanelNavigation.offsetHeight : 0) + (holderHero ? holderHero.offsetHeight : 0),
 	isFixedClass = "is-fixed",
 	handleUiPanelContentsSelect = function () {
 		var logicHandleUiPanelContentsSelect = function () {
 			if ((d.body.scrollTop || d.documentElement.scrollTop || 0) > criticalHeight) {
-				uiPanelContentsSelect[cL].add(isFixedClass);
+				uiPanelContentsSelect[classList].add(isFixedClass);
 			} else {
-				uiPanelContentsSelect[cL].remove(isFixedClass);
+				uiPanelContentsSelect[classList].remove(isFixedClass);
 			}
 		},
 		throttleLogicHandleUiPanelContentsSelect = throttle(logicHandleUiPanelContentsSelect, 100);
 		throttleLogicHandleUiPanelContentsSelect();
 	};
 	if (uiPanelContentsSelect) {
-		w[aEL]("scroll", handleUiPanelContentsSelect, {passive: true});
+		w[addEventListener]("scroll", handleUiPanelContentsSelect, {passive: true});
 	}
 };
 document.ready().then(fixUiPanelContentsSelect);
@@ -1764,14 +1762,14 @@ var handleOtherSocialButtons = function (_this) {
 	"use strict";
 	_this = _this || this;
 	var d = document,
-	gEBCN = "getElementsByClassName",
-	cL = "classList",
+	getElementsByClassName = "getElementsByClassName",
+	classList = "classList",
 	isActiveClass = "is-active",
 	isSocialClass = "is-social",
-	btn = d[gEBCN](isSocialClass) || "",
+	btn = d[getElementsByClassName](isSocialClass) || "",
 	removeActiveClass = function (e) {
 		if (_this !== e) {
-			e[cL].remove(isActiveClass);
+			e[classList].remove(isActiveClass);
 		}
 	};
 	if (btn) {
@@ -1784,11 +1782,11 @@ var handleOtherSocialButtons = function (_this) {
 manageOtherSocialButtonAll = function () {
 	"use strict";
 	var d = document,
-	gEBI = "getElementById",
-	aEL = "addEventListener",
-	container = d[gEBI]("container") || "";
+	getElementById = "getElementById",
+	addEventListener = "addEventListener",
+	container = d[getElementById]("container") || "";
 	if (container) {
-		container[aEL]("click", handleOtherSocialButtons);
+		container[addEventListener]("click", handleOtherSocialButtons);
 	}
 };
 document.ready().then(manageOtherSocialButtonAll);
@@ -1801,12 +1799,12 @@ var manageLocationQrCodeImage = function () {
 	"use strict";
 	var w = globalRoot,
 	d = document,
-	gEBCN = "getElementsByClassName",
-	cL = "classList",
-	cE = "createElement",
-	aEL = "addEventListener",
-	btn = d[gEBCN]("btn-toggle-holder-location-qr-code")[0] || "",
-	holder = d[gEBCN]("holder-location-qr-code")[0] || "",
+	getElementsByClassName = "getElementsByClassName",
+	classList = "classList",
+	createElement = "createElement",
+	addEventListener = "addEventListener",
+	btn = d[getElementsByClassName]("btn-toggle-holder-location-qr-code")[0] || "",
+	holder = d[getElementsByClassName]("holder-location-qr-code")[0] || "",
 	isActiveClass = "is-active",
 	isSocialClass = "is-social",
 	locationHref = w.location.href || "",
@@ -1814,11 +1812,11 @@ var manageLocationQrCodeImage = function () {
 		ev.stopPropagation();
 		ev.preventDefault();
 		var logicHandleLocationQrCodeButton = function () {
-			holder[cL].toggle(isActiveClass);
-			holder[cL].add(isSocialClass);
+			holder[classList].toggle(isActiveClass);
+			holder[classList].add(isSocialClass);
 			handleOtherSocialButtons(holder);
 			var locationHref = w.location.href || "",
-			newImg = d[cE]("img"),
+			newImg = d[createElement]("img"),
 			newTitle = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
 			newSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
 			newImg.alt = newTitle;
@@ -1850,7 +1848,7 @@ var manageLocationQrCodeImage = function () {
 				} else {
 					newImg.src = newSrc;
 				}
-				newImg[cL].add("qr-code-img");
+				newImg[classList].add("qr-code-img");
 				newImg.title = newTitle;
 				removeChildren(holder);
 				appendFragment(newImg, holder);
@@ -1868,7 +1866,7 @@ var manageLocationQrCodeImage = function () {
 	if (btn && holder && locationHref) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			/* console.log("triggered function: manageLocationQrCodeImage"); */
-			btn[aEL]("click", handleLocationQrCodeButton);
+			btn[addEventListener]("click", handleLocationQrCodeButton);
 		}
 	}
 };
@@ -1886,22 +1884,22 @@ manageShareButton = function () {
 	"use strict";
 	var w = globalRoot,
 	d = document,
-	gEBI = "getElementById",
-	gEBCN = "getElementsByClassName",
-	cL = "classList",
-	aEL = "addEventListener",
-	btn = d[gEBCN]("btn-toggle-holder-share-buttons")[0] || "",
+	getElementById = "getElementById",
+	getElementsByClassName = "getElementsByClassName",
+	classList = "classList",
+	addEventListener = "addEventListener",
+	btn = d[getElementsByClassName]("btn-toggle-holder-share-buttons")[0] || "",
 	yaShare2Id = "ya-share2",
-	yaShare2 = d[gEBI](yaShare2Id) || "",
-	holder = d[gEBCN]("holder-share-buttons")[0] || "",
+	yaShare2 = d[getElementById](yaShare2Id) || "",
+	holder = d[getElementsByClassName]("holder-share-buttons")[0] || "",
 	isActiveClass = "is-active",
 	isSocialClass = "is-social",
 	handleShareButton = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
 		var logicHandleShareButton = function () {
-			holder[cL].toggle(isActiveClass);
-			holder[cL].add(isSocialClass);
+			holder[classList].toggle(isActiveClass);
+			holder[classList].add(isSocialClass);
 			handleOtherSocialButtons(holder);
 			var initScript = function () {
 				if (w.Ya) {
@@ -1939,7 +1937,7 @@ manageShareButton = function () {
 	if (btn && holder && yaShare2) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			/* console.log("triggered function: manageShareButton"); */
-			btn[aEL]("click", handleShareButton);
+			btn[addEventListener]("click", handleShareButton);
 		}
 	}
 };
@@ -1952,23 +1950,23 @@ manageVKLikeButton = function () {
 	"use strict";
 	var w = globalRoot,
 	d = document,
-	gEBI = "getElementById",
-	gEBCN = "getElementsByClassName",
-	cL = "classList",
+	getElementById = "getElementById",
+	getElementsByClassName = "getElementsByClassName",
+	classList = "classList",
 	dataset = "dataset",
-	aEL = "addEventListener",
-	btn = d[gEBCN]("btn-toggle-holder-vk-like")[0] || "",
-	holder = d[gEBCN]("holder-vk-like")[0] || "",
+	addEventListener = "addEventListener",
+	btn = d[getElementsByClassName]("btn-toggle-holder-vk-like")[0] || "",
+	holder = d[getElementsByClassName]("holder-vk-like")[0] || "",
 	vkLikeId = "vk-like",
-	vkLike = d[gEBI](vkLikeId) || "",
+	vkLike = d[getElementById](vkLikeId) || "",
 	isActiveClass = "is-active",
 	isSocialClass = "is-social",
 	handleVKLikeButton = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
 		var logicHandleVKLikeButton = function () {
-			holder[cL].toggle(isActiveClass);
-			holder[cL].add(isSocialClass);
+			holder[classList].toggle(isActiveClass);
+			holder[classList].add(isSocialClass);
 			handleOtherSocialButtons(holder);
 			var initScript = function () {
 				if (w.VK) {
@@ -2003,7 +2001,7 @@ manageVKLikeButton = function () {
 	if (btn && holder && vkLike) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			/* console.log("triggered function: manageVKLikeButton"); */
-			btn[aEL]("click", handleVKLikeButton);
+			btn[addEventListener]("click", handleVKLikeButton);
 		}
 	}
 };
@@ -2016,23 +2014,23 @@ var manageDebugGridButton = function () {
 	var w = globalRoot,
 	d = document,
 	b = d.body || "",
-	gEBI = "getElementById",
-	gEBCN = "getElementsByClassName",
-	cL = "classList",
-	aEL = "addEventListener",
-	rEL = "removeEventListener",
-	container = d[gEBI]("container") || "",
-	page = d[gEBI]("page") || "",
-	btn = d[gEBCN]("btn-toggle-col-debug")[0] || "",
+	getElementById = "getElementById",
+	getElementsByClassName = "getElementsByClassName",
+	classList = "classList",
+	addEventListener = "addEventListener",
+	removeEventListener = "removeEventListener",
+	container = d[getElementById]("container") || "",
+	page = d[getElementById]("page") || "",
+	btn = d[getElementsByClassName]("btn-toggle-col-debug")[0] || "",
 	debugClass = "debug",
 	cookieKey = "_manageDebugGridButton_",
 	cookieDatum = "ok",
 	handleDebugGridButton = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
-		container[cL].toggle(debugClass);
+		container[classList].toggle(debugClass);
 		var showDebugGridMessage = function () {
-			var col = d[gEBCN]("col")[0] || "",
+			var col = d[getElementsByClassName]("col")[0] || "",
 			elements = [b, page, container, col],
 			debugMessage = [],
 			renderElementsInfo = function (e) {
@@ -2056,22 +2054,22 @@ var manageDebugGridButton = function () {
 		},
 		handleDebugGridContainer = function () {
 			if (container) {
-				container[cL].remove(debugClass);
-				container[rEL]("click", handleDebugGridContainer);
+				container[classList].remove(debugClass);
+				container[removeEventListener]("click", handleDebugGridContainer);
 			}
 		};
-		if (container[cL].contains(debugClass)) {
-			container[aEL]("click", handleDebugGridContainer);
+		if (container[classList].contains(debugClass)) {
+			container[addEventListener]("click", handleDebugGridContainer);
 			showDebugGridMessage();
 		} else {
-			container[rEL]("click", handleDebugGridContainer);
+			container[removeEventListener]("click", handleDebugGridContainer);
 		}
 	};
 	if (page && container && btn) {
 		/* console.log("triggered function: manageDebugGridButton"); */
 		var locationHref = w.location.href || "";
 		if (locationHref && parseLink(locationHref).hasHTTP && (/^(localhost|127.0.0.1)/).test(parseLink(locationHref).hostname)) {
-			btn[aEL]("click", handleDebugGridButton);
+			btn[addEventListener]("click", handleDebugGridButton);
 		} else {
 			btn.style.display = "none";
 		}
@@ -2085,28 +2083,32 @@ var initRouting = function () {
 	"use strict";
 	var w = globalRoot,
 	d = document,
-	gEBI = "getElementById",
-	gEBCN = "getElementsByClassName",
-	gEBTN = "getElementsByTagName",
-	cL = "classList",
-	cE = "createElement",
-	cTN = "createTextNode",
-	cDF = "createDocumentFragment",
-	cENS = "createElementNS",
-	sANS = "setAttributeNS",
-	aC = "appendChild",
-	/* iH = "innerHTML", */
-	pN = "parentNode",
-	aEL = "addEventListener",
+	getElementById = "getElementById",
+	getElementsByClassName = "getElementsByClassName",
+	getElementsByTagName = "getElementsByTagName",
+	classList = "classList",
+	dataset = "dataset",
+	length = "length",
+	title = "title",
+	href = "href",
+	createElement = "createElement",
+	createTextNode = "createTextNode",
+	createDocumentFragment = "createDocumentFragment",
+	createElementNS = "createElementNS",
+	setAttributeNS = "setAttributeNS",
+	appendChild = "appendChild",
+	/* innerHTML = "innerHTML", */
+	parentNode = "parentNode",
+	addEventListener = "addEventListener",
 	appContentId = "app-content",
-	appContent = d[gEBI](appContentId) || "",
-	appContentParent = appContent[pN] || "",
-	/* contentsSelectTemplate = d[gEBI]("template_contents_select") || "", */
-	contentsSelectRender = d[gEBI]("render_contents_select") || "",
-	contentsSelect = d[gEBCN]("contents-select")[0] || "",
-	holderContentsSelect = d[gEBCN]("holder-contents-select")[0] || "",
+	appContent = d[getElementById](appContentId) || "",
+	appContentParent = appContent[parentNode] || "",
+	/* contentsSelectTemplate = d[getElementById]("template_contents_select") || "", */
+	/*contentsSelectRender = d[getElementById]("render_contents_select") || "",*/
+	contentsSelect = d[getElementsByClassName]("contents-select")[0] || "",
+	holderContentsSelect = d[getElementsByClassName]("holder-contents-select")[0] || "",
 	contentsListClass = "contents-list",
-	searchTextInput = d[gEBI]("text") || "",
+	searchTextInput = d[getElementById]("text") || "",
 	asideTemplateId = "template_aside",
 	asideRenderId = "render_aside",
 	commentsTemplateId = "template_comments",
@@ -2140,7 +2142,7 @@ var initRouting = function () {
 		var renderMasonry,
 		renderComments,
 		triggerOnContentInserted = function (titleString, nextHrefString, asideObj, routesObj) {
-			/* var h1 = contentsSelect || d[gEBI]("h1") || "",
+			/* var h1 = contentsSelect || d[getElementById]("h1") || "",
 			h1Pos = findPos(h1).top || 0;
 			if (h1) {
 				scroll2Top(h1Pos, 20000);
@@ -2149,12 +2151,12 @@ var initRouting = function () {
 			} */
 			/* scroll2Top(0, 20000); */
 			/* if (titleString) { */
-			d.title = (titleString ? titleString + " - " : "") + (initialDocumentTitle ? initialDocumentTitle + (userBrowsingDetails ? userBrowsingDetails : "") : "");
+			d[title] = (titleString ? titleString + " - " : "") + (initialDocumentTitle ? initialDocumentTitle + (userBrowsingDetails ? userBrowsingDetails : "") : "");
 			/* } */
 			var locationHash = w.location.hash || "";
 			if (contentsSelect) {
 				var optionMatched = false;
-				for (var i = 0, l = contentsSelect.options.length; i < l; i += 1) {
+				for (var i = 0, l = contentsSelect.options[length]; i < l; i += 1) {
 					if (locationHash === contentsSelect.options[i].value) {
 						optionMatched = true;
 						contentsSelect.selectedIndex = i;
@@ -2174,37 +2176,37 @@ var initRouting = function () {
 					contentsSelect.selectedIndex = 0;
 				}
 			}
-			var contentsList = d[gEBCN](contentsListClass)[0] || "";
+			var contentsList = d[getElementsByClassName](contentsListClass)[0] || "";
 			if (contentsList) {
-				var contentsListButton = holderContentsSelect ? holderContentsSelect[gEBTN]("a")[0] || "" : "";
+				var contentsListButton = holderContentsSelect ? holderContentsSelect[getElementsByTagName]("a")[0] || "" : "";
 				if (contentsListButton) {
 					var itemMatched = false,
-					contentsListItems = contentsList ? contentsList[gEBTN]("li") || "" : "";
-					for (var j = 0, m = contentsListItems.length; j < m; j += 1) {
-						if (locationHash === contentsListItems[j].dataset.href) {
+					contentsListItems = contentsList ? contentsList[getElementsByTagName]("li") || "" : "";
+					for (var j = 0, m = contentsListItems[length]; j < m; j += 1) {
+						if (locationHash === contentsListItems[j][dataset][href]) {
 							itemMatched = true;
-							contentsListButton.replaceChild(d[cTN](contentsListItems[j].firstChild.textContent), contentsListButton.firstChild);
+							contentsListButton.replaceChild(d[createTextNode](contentsListItems[j].firstChild.textContent), contentsListButton.firstChild);
 							break;
 						}
 					}
 					/* for (var key2 in contentsListItems) {
 						if (contentsListItems.hasOwnProperty(key2)) {
-							if (locationHash === contentsListItems[key2].dataset.href) {
+							if (locationHash === contentsListItems[key2][dataset][href]) {
 								itemMatched = true;
-								contentsListButton.replaceChild(d[cTN](contentsListItems[key2].firstChild.textContent), contentsListButton.firstChild);
+								contentsListButton.replaceChild(d[createTextNode](contentsListItems[key2].firstChild.textContent), contentsListButton.firstChild);
 								break;
 							}
 						}
 					} */
 					if (!itemMatched) {
-						contentsListButton.replaceChild(d[cTN](contentsListButtonDefaultText), contentsListButton.firstChild);
+						contentsListButton.replaceChild(d[createTextNode](contentsListButtonDefaultText), contentsListButton.firstChild);
 					}
 				}
 			}
 			if (asideObj) {
-				var asideTemplate = d[gEBI](asideTemplateId) || "",
-				asideRender = d[gEBI](asideRenderId) || "",
-				asideRenderParent = asideRender[pN] || "";
+				var asideTemplate = d[getElementById](asideTemplateId) || "",
+				asideRender = d[getElementById](asideRenderId) || "",
+				asideRenderParent = asideRender[parentNode] || "";
 				if (asideTemplate && asideRender) {
 					insertFromTemplate(asideObj, asideTemplateId, asideRenderId, function () {
 						if (asideRenderParent) {
@@ -2220,17 +2222,17 @@ var initRouting = function () {
 				}
 			}
 			if (nextHrefString) {
-				var nextHrefTemplate = d[gEBI](nextHrefTemplateId) || "",
-				nextHrefRender = d[gEBI](nextHrefRenderId) || "";
+				var nextHrefTemplate = d[getElementById](nextHrefTemplateId) || "",
+				nextHrefRender = d[getElementById](nextHrefRenderId) || "";
 				if (nextHrefTemplate && nextHrefRender) {
 					insertFromTemplate({
 						"next_href": nextHrefString
 					}, nextHrefTemplateId, nextHrefRenderId);
 				}
 			}
-			var commentsTemplate = d[gEBI](commentsTemplateId) || "",
-			commentsRender = d[gEBI](commentsRenderId) || "",
-			commentsRenderParent = commentsRender[pN] || "";
+			var commentsTemplate = d[getElementById](commentsTemplateId) || "",
+			commentsRender = d[getElementById](commentsRenderId) || "",
+			commentsRenderParent = commentsRender[parentNode] || "";
 			if (commentsTemplate && commentsRender) {
 				if (!renderComments) {
 					renderComments = renderTemplate({}, commentsTemplateId, commentsRenderId);
@@ -2241,12 +2243,12 @@ var initRouting = function () {
 					}
 				});
 			}
-			var masonryGrid = d[gEBCN](masonryGridClass)[0] || "",
-			masonryGridParent = masonryGrid[pN] || "";
+			var masonryGrid = d[getElementsByClassName](masonryGridClass)[0] || "",
+			masonryGridParent = masonryGrid[parentNode] || "";
 			if (masonryGrid && masonryGridParent) {
-				var contentsGridTemplate = d[gEBI](contentsGridTemplateId) || "",
-				contentsGridRender = d[gEBI](contentsGridRenderId) || "",
-				contentsGridRenderParent = contentsGridRender[pN] || "";
+				var contentsGridTemplate = d[getElementById](contentsGridTemplateId) || "",
+				contentsGridRender = d[getElementById](contentsGridRenderId) || "",
+				contentsGridRenderParent = contentsGridRender[parentNode] || "";
 				if (contentsGridTemplate && contentsGridRender) {
 					if (!renderMasonry) {
 						if (routesObj) {
@@ -2297,27 +2299,27 @@ var initRouting = function () {
 			var locationHash = w.location.hash || "";
 			if (locationHash) {
 				var isNotfound = false;
-				for (var i = 0, l = routesJsonObj.hashes.length; i < l; i += 1) {
-					if (locationHash === routesJsonObj.hashes[i].href) {
+				for (var i = 0, l = routesJsonObj.hashes[length]; i < l; i += 1) {
+					if (locationHash === routesJsonObj.hashes[i][href]) {
 						isNotfound = true;
 						LoadingSpinner.show();
-						insertExternalHTML(appContentId, routesJsonObj.hashes[i].url, triggerOnContentInserted.bind(null, routesJsonObj.hashes[i].title, routesJsonObj.hashes[i].next_href, routesJsonObj.hashes[i].aside, routesJsonObj));
+						insertExternalHTML(appContentId, routesJsonObj.hashes[i].url, triggerOnContentInserted.bind(null, routesJsonObj.hashes[i][title], routesJsonObj.hashes[i].next_href, routesJsonObj.hashes[i].aside, routesJsonObj));
 						break;
 					}
 				}
 				/* for (var key in routesJsonObj.hashes) {
 					if (routesJsonObj.hashes.hasOwnProperty(key)) {
-						if (locationHash === routesJsonObj.hashes[key].href) {
+						if (locationHash === routesJsonObj.hashes[key][href]) {
 							isNotfound = true;
 							LoadingSpinner.show();
-							insertExternalHTML(appContentId, routesJsonObj.hashes[key].url, triggerOnContentInserted.bind(null, routesJsonObj.hashes[key].title, routesJsonObj.hashes[key].next_href, routesJsonObj.hashes[key].aside, routesJsonObj));
+							insertExternalHTML(appContentId, routesJsonObj.hashes[key].url, triggerOnContentInserted.bind(null, routesJsonObj.hashes[key][title], routesJsonObj.hashes[key].next_href, routesJsonObj.hashes[key].aside, routesJsonObj));
 							break;
 						}
 					}
 				} */
 				if (false === isNotfound) {
 					var notfoundUrl = routesJsonObj.notfound.url,
-					notfoundTitle = routesJsonObj.notfound.title;
+					notfoundTitle = routesJsonObj.notfound[title];
 					if (notfoundUrl /* && notfoundTitle */) {
 						LoadingSpinner.show();
 						insertExternalHTML(appContentId, notfoundUrl, triggerOnContentInserted.bind(null, notfoundTitle, null, null, routesJsonObj));
@@ -2325,7 +2327,7 @@ var initRouting = function () {
 				}
 			} else {
 				var homeUrl = routesJsonObj.home.url,
-				homeTitle = routesJsonObj.home.title;
+				homeTitle = routesJsonObj.home[title];
 				if (homeUrl /* && homeTitle */) {
 					LoadingSpinner.show();
 					insertExternalHTML(appContentId, homeUrl, triggerOnContentInserted.bind(null, homeTitle, null, null, routesJsonObj));
@@ -2333,13 +2335,13 @@ var initRouting = function () {
 			}
 		};
 		handleRoutesWindow();
-		w[aEL]("hashchange", handleRoutesWindow);
-		var rerenderContentsSelect = function () {
+		w[addEventListener]("hashchange", handleRoutesWindow);
+		/*var rerenderContentsSelect = function () {
 			var handleContentsSelect = function () {
 				var _this = this;
 				var hashString = _this.options[_this.selectedIndex].value || "";
 				if (hashString) {
-					var tragetObject = isValidId(hashString, true) ? d[gEBI](hashString.replace(/^#/, "")) || "" : "";
+					var tragetObject = isValidId(hashString, true) ? d[getElementById](hashString.replace(/^#/, "")) || "" : "";
 					if (tragetObject) {
 						scroll2Top(findPos(tragetObject).top, 10000);
 					} else {
@@ -2347,24 +2349,23 @@ var initRouting = function () {
 					}
 				}
 			},
-			df = d[cDF](),
+			df = d[createDocumentFragment](),
 			generateContentsSelectOptions = function (e) {
-				if (e.title) {
-					var contentsOption = d[cE]("option");
-					contentsOption.value = e.href;
-					var contentsOptionText = e.title;
-					contentsOption.title = contentsOptionText;
+				if (e[title]) {
+					var contentsOption = d[createElement]("option");
+					contentsOption.value = e[href];
+					var contentsOptionText = e[title];
+					contentsOption[title] = contentsOptionText;
 					var contentsOptionTextTruncated = truncString("" + contentsOptionText, 44);
-					contentsOption[aC](d.createTextNode(contentsOptionTextTruncated));
-					df[aC](contentsOption);
-					df[aC](d.createTextNode("\n"));
+					contentsOption[appendChild](d.createTextNode(contentsOptionTextTruncated));
+					df[appendChild](contentsOption);
+					df[appendChild](d.createTextNode("\n"));
 				}
 			};
-			for (var i = 0, l = routesJsonObj.hashes.length; i < l; i += 1) {
+			for (var i = 0, l = routesJsonObj.hashes[length]; i < l; i += 1) {
 				generateContentsSelectOptions(routesJsonObj.hashes[i]);
 			}
-			/* forEach(routesJsonObj.hashes, generateContentsSelectOptions, false); */
-			appendFragment(df, contentsSelectRender);
+			appendFragment(df, contentsSelectRender);*/
 			/*!
 			 * insertFromTemplate used in renderTemplate
 			 * will remove event listener from select (parent) element,
@@ -2375,72 +2376,72 @@ var initRouting = function () {
 			 * with document fragment
 			 */
 			/* if (contentsSelectTemplate && contentsSelectRender) {
-				var contentsSelectHtml = contentsSelectTemplate[iH] || "",
+				var contentsSelectHtml = contentsSelectTemplate[innerHTML] || "",
 				renderContentsSelectTemplate = new t(contentsSelectHtml);
 				var contentsSelectRendered = renderContentsSelectTemplate.render(routesJsonObj);
-				contentsSelectRender[iH] = contentsSelectRendered;
+				contentsSelectRender[innerHTML] = contentsSelectRendered;
 			} */
-			contentsSelect[aEL]("change", handleContentsSelect);
-		};
+			/*contentsSelect[addEventListener]("change", handleContentsSelect);
+		};*/
 		var rerenderContentsList = function () {
 			var handleContentsListItem = function (listObj, hashString) {
 				if (hashString) {
-					var tragetObject = isValidId(hashString, true) ? d[gEBI](hashString.replace(/^#/, "")) || "" : "";
+					var tragetObject = isValidId(hashString, true) ? d[getElementById](hashString.replace(/^#/, "")) || "" : "";
 					if (tragetObject) {
 						scroll2Top(findPos(tragetObject).top, 10000);
 					} else {
 						w.location.hash = hashString;
 					}
 				}
-				listObj[cL].remove(isActiveClass);
+				listObj[classList].remove(isActiveClass);
 			},
-			contentsList = d[cE]("ul"),
+			contentsList = d[createElement]("ul"),
 			contentsListButtonText = contentsSelect.options[0].textContent || "",
-			df = d[cDF](),
+			df = d[createDocumentFragment](),
 			generateContentsListItems = function (e) {
-				if (e.title) {
-					var contentsListItem = d[cE]("li"),
-					contentsListItemHref = e.href,
-					contentsListItemText = e.title;
-					contentsListItem.title = contentsListItemText;
-					contentsListItem.dataset.href = contentsListItemHref;
+				if (e[title]) {
+					var contentsListItem = d[createElement]("li"),
+					contentsListItemHref = e[href],
+					contentsListItemText = e[title];
+					contentsListItem[title] = contentsListItemText;
+					contentsListItem[dataset][href] = contentsListItemHref;
 					var contentsListItemTextTruncated = truncString("" + contentsListItemText, 44);
-					contentsListItem[aC](d.createTextNode(contentsListItemTextTruncated));
-					contentsListItem[aEL]("click", handleContentsListItem.bind(null, contentsList, contentsListItemHref));
-					df[aC](contentsListItem);
-					df[aC](d.createTextNode("\n"));
+					contentsListItem[appendChild](d.createTextNode(contentsListItemTextTruncated));
+					contentsListItem[addEventListener]("click", handleContentsListItem.bind(null, contentsList, contentsListItemHref));
+					df[appendChild](contentsListItem);
+					df[appendChild](d.createTextNode("\n"));
 				}
 			};
-			for (var j = 0, m = routesJsonObj.hashes.length; j < m; j += 1) {
+			for (var j = 0, m = routesJsonObj.hashes[length]; j < m; j += 1) {
 				generateContentsListItems(routesJsonObj.hashes[j]);
 			}
 			/* forEach(routesJsonObj.hashes, generateContentsListItems, false); */
 			appendFragment(df, contentsList);
-			contentsList[cL].add(contentsListClass);
-			contentsList[cL].add(isDropdownClass);
-			holderContentsSelect.replaceChild(contentsList, contentsSelect[pN][pN]);
-			var contentsListButton = d[cE]("a");
-			contentsListButton[aC](d[cTN](contentsListButtonText));
-			contentsList[pN].insertBefore(contentsListButton, contentsList);
+			contentsList[classList].add(contentsListClass);
+			contentsList[classList].add(isDropdownClass);
+			holderContentsSelect.replaceChild(contentsList, contentsSelect[parentNode][parentNode]);
+			var contentsListButton = d[createElement]("a");
+			contentsListButton[appendChild](d[createTextNode](contentsListButtonText));
+			contentsList[parentNode].insertBefore(contentsListButton, contentsList);
 			/*jshint -W107 */
-			contentsListButton.href = "javascript:void(0);";
+			contentsListButton[href] = "javascript:void(0);";
 			/*jshint +W107 */
 			var insertChevronDownSmallSvg = function (targetObj) {
-				var svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
-				use = d[cENS]("http://www.w3.org/2000/svg", "use");
-				svg[cL].add("ui-icon");
-				use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-ChevronDownSmall");
-				svg[aC](use);
-				targetObj[aC](svg);
+				var svg = d[createElementNS]("http://www.w3.org/2000/svg", "svg"),
+				use = d[createElementNS]("http://www.w3.org/2000/svg", "use");
+				svg[classList].add("ui-icon");
+				use[setAttributeNS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-ChevronDownSmall");
+				svg[appendChild](use);
+				targetObj[appendChild](svg);
 			};
 			insertChevronDownSmallSvg(contentsListButton);
 			var handleContentsListItemsButton = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				contentsList[cL].toggle(isActiveClass);
+				contentsList[classList].toggle(isActiveClass);
 				handleOtherDropdownLists(contentsList);
 			};
-			contentsListButton[aEL]("click", handleContentsListItemsButton);
+			contentsListButton[addEventListener]("click", handleContentsListItemsButton);
 		};
 		if (contentsSelect) {
 			/* if (contentsSelectRender) {
@@ -2461,9 +2462,10 @@ document.ready().then(initRouting);
  * bind functions only for inserted DOM
  * @param {String} ctx HTML Element class or id string
  */
-/* var observeMutations = function (ctx) {
+/* var observeMutations = function (scope) {
 	"use strict";
-	ctx = ctx && ctx.nodeName ? ctx : "";
+	var ctx = scope && scope.nodeName ? scope : "";
+	var mo;
 	var getMutations = function (e) {
 		var triggerOnMutation = function (m) {
 			console.log("mutations observer: " + m.type);
@@ -2477,10 +2479,9 @@ document.ready().then(initRouting);
 		for (var i = 0, l = e.length; i < l; i += 1) {
 			triggerOnMutation(e[i]);
 		}
-		forEach(e, triggerOnMutation);
 	};
 	if (ctx) {
-		var mo = new MutationObserver(getMutations);
+		mo = new MutationObserver(getMutations);
 		mo.observe(ctx, {
 			childList: !0,
 			subtree: !0,
@@ -2501,9 +2502,9 @@ document.ready().then(initRouting);
 	"use strict";
 	var w = globalRoot,
 	d = document,
-	gEBI = "getElementById",
-	pN = "parentNode",
-	ctx = d[gEBI]("app-content")[pN] || "",
+	getElementById = "getElementById",
+	parentNode = "parentNode",
+	ctx = d[getElementById]("app-content")[parentNode] || "",
 	locationHash = w.location.hash || "";
 	if (ctx && locationHash) {
 		console.log("triggered function: updateInsertedDom");
@@ -2520,24 +2521,24 @@ var initUiTotop = function () {
 	d = document,
 	h = d.documentElement || "",
 	b = d.body || "",
-	gEBCN = "getElementsByClassName",
-	cL = "classList",
-	cE = "createElement",
-	aC = "appendChild",
-	cENS = "createElementNS",
-	sANS = "setAttributeNS",
-	aEL = "addEventListener",
+	getElementsByClassName = "getElementsByClassName",
+	classList = "classList",
+	createElement = "createElement",
+	appendChild = "appendChild",
+	createElementNS = "createElementNS",
+	setAttributeNS = "setAttributeNS",
+	addEventListener = "addEventListener",
 	btnClass = "ui-totop",
 	btnTitle = "Наверх",
 	isActiveClass = "is-active",
-	anchor = d[cE]("a"),
+	anchor = d[createElement]("a"),
 	insertUpSvg = function (targetObj) {
-		var svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
-		use = d[cENS]("http://www.w3.org/2000/svg", "use");
-		svg[cL].add("ui-icon");
-		use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
-		svg[aC](use);
-		targetObj[aC](svg);
+		var svg = d[createElementNS]("http://www.w3.org/2000/svg", "svg"),
+		use = d[createElementNS]("http://www.w3.org/2000/svg", "use");
+		svg[classList].add("ui-icon");
+		use[setAttributeNS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
+		svg[appendChild](use);
+		targetObj[appendChild](svg);
 	},
 	handleUiTotopAnchor = function (ev) {
 		ev.stopPropagation();
@@ -2546,31 +2547,31 @@ var initUiTotop = function () {
 	},
 	handleUiTotopWindow = function (_this) {
 		var logicHandleUiTotopWindow = function () {
-			var btn = d[gEBCN](btnClass)[0] || "",
+			var btn = d[getElementsByClassName](btnClass)[0] || "",
 			scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
 			windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
 			if (scrollPosition && windowHeight && btn) {
 				if (scrollPosition > windowHeight) {
-					btn[cL].add(isActiveClass);
+					btn[classList].add(isActiveClass);
 				} else {
-					btn[cL].remove(isActiveClass);
+					btn[classList].remove(isActiveClass);
 				}
 			}
 		},
 		throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
 		throttleLogicHandleUiTotopWindow();
 	};
-	anchor[cL].add(btnClass);
+	anchor[classList].add(btnClass);
 	/*jshint -W107 */
 	anchor.href = "javascript:void(0);";
 	/*jshint +W107 */
 	anchor.title = btnTitle;
 	insertUpSvg(anchor);
-	b[aC](anchor);
+	b[appendChild](anchor);
 	if (b) {
 		/* console.log("triggered function: initUiTotop"); */
-		anchor[aEL]("click", handleUiTotopAnchor);
-		w[aEL]("scroll", handleUiTotopWindow, {passive: true});
+		anchor[addEventListener]("click", handleUiTotopAnchor);
+		w[addEventListener]("scroll", handleUiTotopWindow, {passive: true});
 	}
 };
 document.ready().then(initUiTotop);
@@ -2593,8 +2594,8 @@ document.ready().then(initManUp); */
 var showPageFinishProgress = function () {
 	"use strict";
 	var d = document,
-	gEBI = "getElementById",
-	page = d[gEBI]("page") || "",
+	getElementById = "getElementById",
+	page = d[getElementById]("page") || "",
 	showPage = function () {
 		page.style.opacity = 1;
 	};

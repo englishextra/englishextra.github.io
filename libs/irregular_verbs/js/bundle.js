@@ -350,9 +350,9 @@ if (document.title) {
 			if (e) {
 				var d = document,
 				    df = d.createDocumentFragment() || "",
-				    aC = "appendChild";if ("string" === typeof e) {
+				    appendChild = "appendChild";if ("string" === typeof e) {
 					e = d.createTextNode(e);
-				}df[aC](e);a[aC](df);
+				}df[appendChild](e);a[appendChild](df);
 			}
 		}();
 	};root.appendFragment = appendFragment;
@@ -585,30 +585,30 @@ var handleExternalLink = function (url, ev) {
 	    debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
 	debounceLogicHandleExternalLink();
 },
-    manageExternalLinkAll = function (ctx) {
+    manageExternalLinkAll = function (scope) {
 	"use strict";
 
-	ctx = ctx && ctx.nodeName ? ctx : "";
+	var ctx = scope && scope.nodeName ? scope : "";
 	var d = document,
-	    gEBTN = "getElementsByTagName",
+	    getElementsByTagName = "getElementsByTagName",
 	    linkTag = "a",
-	    link = ctx ? ctx[gEBTN](linkTag) || "" : d[gEBTN](linkTag) || "",
-	    cL = "classList",
-	    aEL = "addEventListener",
-	    gA = "getAttribute",
+	    link = ctx ? ctx[getElementsByTagName](linkTag) || "" : d[getElementsByTagName](linkTag) || "",
+	    classList = "classList",
+	    addEventListener = "addEventListener",
+	    getAttribute = "getAttribute",
 	    isBindedClass = "is-binded",
 	    arrange = function (e) {
-		if (!e[cL].contains(isBindedClass)) {
-			var url = e[gA]("href") || "";
+		if (!e[classList].contains(isBindedClass)) {
+			var url = e[getAttribute]("href") || "";
 			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
 				e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					e.target = "_blank";
 					e.rel = "noopener";
 				} else {
-					e[aEL]("click", handleExternalLink.bind(null, url));
+					e[addEventListener]("click", handleExternalLink.bind(null, url));
 				}
-				e[cL].add(isBindedClass);
+				e[classList].add(isBindedClass);
 			}
 		}
 	};
@@ -629,15 +629,15 @@ var hideUiBtnsInFullScreen = function () {
 
 	var w = globalRoot,
 	    d = document,
-	    gEBCN = "getElementsByClassName",
-	    cdPrev = d[gEBCN]("cd-prev")[0] || "",
-	    cdNext = d[gEBCN]("cd-next")[0] || "",
-	    btnNavMenu = d[gEBCN]("btn-nav-menu")[0] || "",
-	    btnMenuMore = d[gEBCN]("btn-menu-more")[0] || "",
-	    btnShowVKLike = d[gEBCN]("btn-show-vk-like")[0] || "",
-	    btnShareButtons = d[gEBCN]("btn-share-buttons")[0] || "",
-	    btnUiTotop = d[gEBCN]("ui-totop")[0] || "",
-	    holderSearchForm = d[gEBCN]("holder-search-form")[0] || "",
+	    getElementsByClassName = "getElementsByClassName",
+	    cdPrev = d[getElementsByClassName]("cd-prev")[0] || "",
+	    cdNext = d[getElementsByClassName]("cd-next")[0] || "",
+	    btnNavMenu = d[getElementsByClassName]("btn-nav-menu")[0] || "",
+	    btnMenuMore = d[getElementsByClassName]("btn-menu-more")[0] || "",
+	    btnShowVKLike = d[getElementsByClassName]("btn-show-vk-like")[0] || "",
+	    btnShareButtons = d[getElementsByClassName]("btn-share-buttons")[0] || "",
+	    btnUiTotop = d[getElementsByClassName]("ui-totop")[0] || "",
+	    holderSearchForm = d[getElementsByClassName]("holder-search-form")[0] || "",
 	    jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122",
 	    f = !1;
 	if (!f) {
@@ -667,10 +667,10 @@ var hideUiBtnsInFullScreen = function () {
 	"use strict";
 
 	var w = globalRoot,
-	    aEL = "addEventListener";
+	    addEventListener = "addEventListener";
 	if ("undefined" !== typeof earlyDeviceType && "desktop" === earlyDeviceType) {
 		hideUiBtnsInFullScreen();
-		w[aEL]("resize", hideUiBtnsInFullScreen);
+		w[addEventListener]("resize", hideUiBtnsInFullScreen);
 	}
 };
 document.ready().then(resizeHideUiBtnsInFullScreen);
@@ -684,12 +684,12 @@ var initDoSlide = function () {
 
 	var w = globalRoot,
 	    d = document,
-	    gEBCN = "getElementsByClassName",
-	    aEL = "addEventListener",
+	    getElementsByClassName = "getElementsByClassName",
+	    addEventListener = "addEventListener",
 	    dsContainerSelector = ".ds-container",
-	    dsContainer = d[gEBCN]("ds-container")[0] || "",
-	    cdPrev = d[gEBCN]("cd-prev")[0] || "",
-	    cdNext = d[gEBCN]("cd-next")[0] || "",
+	    dsContainer = d[getElementsByClassName]("ds-container")[0] || "",
+	    cdPrev = d[getElementsByClassName]("cd-prev")[0] || "",
+	    cdNext = d[getElementsByClassName]("cd-next")[0] || "",
 	    initScript = function () {
 		if (w.DoSlide) {
 			var slide = new DoSlide(dsContainerSelector, {
@@ -725,13 +725,13 @@ var initDoSlide = function () {
 				ev.stopPropagation();
 				slide.prev();
 			};
-			cdPrev[aEL]("click", handleCdPrev);
+			cdPrev[addEventListener]("click", handleCdPrev);
 			var handleCdNext = function (ev) {
 				ev.preventDefault();
 				ev.stopPropagation();
 				slide.next();
 			};
-			cdNext[aEL]("click", handleCdNext);
+			cdNext[addEventListener]("click", handleCdNext);
 		}
 	};
 	if (dsContainer && cdPrev && cdNext) {
@@ -751,14 +751,14 @@ var manageLocationQrCodeImage = function () {
 
 	var w = globalRoot,
 	    d = document,
-	    gEBCN = "getElementsByClassName",
-	    cL = "classList",
-	    cE = "createElement",
-	    holder = d[gEBCN]("holder-location-qr-code")[0] || "",
+	    getElementsByClassName = "getElementsByClassName",
+	    classList = "classList",
+	    createElement = "createElement",
+	    holder = d[getElementsByClassName]("holder-location-qr-code")[0] || "",
 	    locationHref = w.location.href || "",
 	    initScript = function () {
 		var locationHref = w.location.href || "",
-		    img = d[cE]("img"),
+		    img = d[createElement]("img"),
 		    imgTitle = d.title ? "Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»" : "",
 		    imgSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
 		img.alt = imgTitle;
@@ -789,7 +789,7 @@ var manageLocationQrCodeImage = function () {
 		} else {
 			img.src = imgSrc;
 		}
-		img[cL].add("qr-code-img");
+		img[classList].add("qr-code-img");
 		img.title = imgTitle;
 		removeChildren(holder);
 		appendFragment(img, holder);
@@ -812,40 +812,40 @@ var initMenuMore = function () {
 	"use strict";
 
 	var d = document,
-	    gEBI = "getElementById",
-	    gEBCN = "getElementsByClassName",
-	    gEBTN = "getElementsByTagName",
-	    cL = "classList",
-	    aEL = "addEventListener",
-	    container = d[gEBI]("container") || "",
-	    page = d[gEBI]("page") || "",
-	    holderPanelMenuMore = d[gEBCN]("holder-panel-menu-more")[0] || "",
-	    btnMenuMore = d[gEBCN]("btn-menu-more")[0] || "",
-	    panelMenuMore = d[gEBCN]("panel-menu-more")[0] || "",
-	    panelMenuMoreItems = panelMenuMore ? panelMenuMore[gEBTN]("li") || "" : "",
-	    panelNavMenu = d[gEBCN]("panel-nav-menu")[0] || "",
+	    getElementById = "getElementById",
+	    getElementsByClassName = "getElementsByClassName",
+	    getElementsByTagName = "getElementsByTagName",
+	    classList = "classList",
+	    addEventListener = "addEventListener",
+	    container = d[getElementById]("container") || "",
+	    page = d[getElementById]("page") || "",
+	    holderPanelMenuMore = d[getElementsByClassName]("holder-panel-menu-more")[0] || "",
+	    btnMenuMore = d[getElementsByClassName]("btn-menu-more")[0] || "",
+	    panelMenuMore = d[getElementsByClassName]("panel-menu-more")[0] || "",
+	    panelMenuMoreItems = panelMenuMore ? panelMenuMore[getElementsByTagName]("li") || "" : "",
+	    panelNavMenu = d[getElementsByClassName]("panel-nav-menu")[0] || "",
 	    isActiveClass = "is-active",
 	    handleItem = function () {
-		page[cL].remove(isActiveClass);
-		holderPanelMenuMore[cL].remove(isActiveClass);
-		if (panelNavMenu && panelNavMenu[cL].contains(isActiveClass)) {
-			panelNavMenu[cL].remove(isActiveClass);
+		page[classList].remove(isActiveClass);
+		holderPanelMenuMore[classList].remove(isActiveClass);
+		if (panelNavMenu && panelNavMenu[classList].contains(isActiveClass)) {
+			panelNavMenu[classList].remove(isActiveClass);
 		}
 	},
 	    addContainerHandler = function () {
-		container[aEL]("click", handleItem);
+		container[addEventListener]("click", handleItem);
 	},
 	    addBtnHandler = function () {
 		var h_btn = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			holderPanelMenuMore[cL].toggle(isActiveClass);
+			holderPanelMenuMore[classList].toggle(isActiveClass);
 		};
-		btnMenuMore[aEL]("click", h_btn);
+		btnMenuMore[addEventListener]("click", h_btn);
 	},
 	    addItemHandlerAll = function () {
 		var addItemHandler = function (e) {
-			e[aEL]("click", handleItem);
+			e[addEventListener]("click", handleItem);
 		};
 		for (var i = 0, l = panelMenuMoreItems.length; i < l; i += 1) {
 			addItemHandler(panelMenuMoreItems[i]);
@@ -876,16 +876,16 @@ var showMenuMore = function () {
 	"use strict";
 
 	var d = document,
-	    gEBCN = "getElementsByClassName",
-	    cL = "classList",
-	    holderPanelMenuMore = d[gEBCN]("holder-panel-menu-more")[0] || "",
+	    getElementsByClassName = "getElementsByClassName",
+	    classList = "classList",
+	    holderPanelMenuMore = d[getElementsByClassName]("holder-panel-menu-more")[0] || "",
 	    isActiveClass = "is-active";
 	if (holderPanelMenuMore) {
 		var timers = new Timers();
 		timers.timeout(function () {
 			timers.clear();
 			timers = null;
-			holderPanelMenuMore[cL].add(isActiveClass);
+			holderPanelMenuMore[classList].add(isActiveClass);
 		}, 2000);
 	}
 };
@@ -904,12 +904,12 @@ var yshare,
 
 	var w = globalRoot,
 	    d = document,
-	    gEBI = "getElementById",
-	    gEBCN = "getElementsByClassName",
-	    aEL = "addEventListener",
-	    btn = d[gEBCN]("btn-share-buttons")[0] || "",
+	    getElementById = "getElementById",
+	    getElementsByClassName = "getElementsByClassName",
+	    addEventListener = "addEventListener",
+	    btn = d[getElementsByClassName]("btn-share-buttons")[0] || "",
 	    yaShare2Id = "ya-share2",
-	    yaShare2 = d[gEBI](yaShare2Id) || "",
+	    yaShare2 = d[getElementById](yaShare2Id) || "",
 	    handleShareButton = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
@@ -947,7 +947,7 @@ var yshare,
 	if (btn && yaShare2) {
 		/* console.log("triggered function: manageShareButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			btn[aEL]("click", handleShareButton);
+			btn[addEventListener]("click", handleShareButton);
 		} else {
 			setStyleDisplayNone(btn);
 		}
@@ -962,18 +962,18 @@ var manageVKLikeButton = function () {
 
 	var w = globalRoot,
 	    d = document,
-	    gEBI = "getElementById",
-	    gEBCN = "getElementsByClassName",
+	    getElementById = "getElementById",
+	    getElementsByClassName = "getElementsByClassName",
 	    dataset = "dataset",
-	    aEL = "addEventListener",
-	    rEL = "removeEventListener",
+	    addEventListener = "addEventListener",
+	    removeEventListener = "removeEventListener",
 	    VKLikeId = "vk-like",
-	    vkLike = d[gEBI](VKLikeId) || "",
-	    btn = d[gEBCN]("btn-show-vk-like")[0] || "",
+	    vkLike = d[getElementById](VKLikeId) || "",
+	    btn = d[getElementsByClassName]("btn-show-vk-like")[0] || "",
 	    handleVKLikeButton = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
-		btn[rEL]("click", handleVKLikeButton);
+		btn[removeEventListener]("click", handleVKLikeButton);
 		setStyleVisibilityVisible(vkLike);
 		setStyleOpacity(vkLike, 1);
 		setStyleDisplayNone(btn);
@@ -1002,7 +1002,7 @@ var manageVKLikeButton = function () {
 	if (btn && vkLike) {
 		/* console.log("triggered function: manageVKLikeButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			btn[aEL]("click", handleVKLikeButton);
+			btn[addEventListener]("click", handleVKLikeButton);
 		} else {
 			setStyleDisplayNone(btn);
 		}
@@ -1029,8 +1029,8 @@ var showPageFinishProgress = function () {
 	"use strict";
 
 	var d = document,
-	    gEBI = "getElementById",
-	    container = d[gEBI]("container") || "";
+	    getElementById = "getElementById",
+	    container = d[getElementById]("container") || "";
 	if (container) {
 		setStyleOpacity(container, 1);
 		progressBar.increase(20);

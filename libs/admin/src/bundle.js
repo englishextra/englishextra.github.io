@@ -48,7 +48,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
  * @see {@link https://github.com/GianlucaGuarini/Tocca.js/blob/master/Tocca.js}
  * passes jshint
  */
-(function(doc,win){"use strict";if(typeof doc.createEvent!=="function"){return false;}var pointerEventSupport=function(type){var lo=type.toLowerCase(),ms="MS"+type;return navigator.msPointerEnabled?ms:win.PointerEvent?lo:false;},defaults={useJquery:!win.IGNORE_JQUERY&&typeof jQuery!=="undefined",swipeThreshold:win.SWIPE_THRESHOLD||100,tapThreshold:win.TAP_THRESHOLD||150,dbltapThreshold:win.DBL_TAP_THRESHOLD||200,longtapThreshold:win.LONG_TAP_THRESHOLD||1000,tapPrecision:win.TAP_PRECISION/2||60/2,justTouchEvents:win.JUST_ON_TOUCH_DEVICES},wasTouch=false,touchevents={touchstart:pointerEventSupport("PointerDown")||"touchstart",touchend:pointerEventSupport("PointerUp")||"touchend",touchmove:pointerEventSupport("PointerMove")||"touchmove"},isTheSameFingerId=function(e){return!e.pointerId||typeof pointerId==="undefined"||e.pointerId===pointerId;},setListener=function(elm,events,callback){var eventsArray=events.split(" "),i=eventsArray.length;while(i--){elm.addEventListener(eventsArray[i],callback,false);}},getPointerEvent=function(event){return event.targetTouches?event.targetTouches[0]:event;},getTimestamp=function(){return new Date().getTime();},sendEvent=function(elm,eventName,originalEvent,data){var customEvent=doc.createEvent("Event");customEvent.originalEvent=originalEvent;data=data||{};data.x=currX;data.y=currY;data.distance=data.distance;if(defaults.useJquery){customEvent=jQuery.Event(eventName,{originalEvent:originalEvent});jQuery(elm).trigger(customEvent,data);}if(customEvent.initEvent){for(var key in data){if(data.hasOwnProperty(key)){customEvent[key]=data[key];}}customEvent.initEvent(eventName,true,true);elm.dispatchEvent(customEvent);}while(elm){if(elm["on"+eventName]){elm["on"+eventName](customEvent);}elm=elm.parentNode;}},onTouchStart=function(e){if(!isTheSameFingerId(e)){return;}pointerId=e.pointerId;if(e.type!=="mousedown"){wasTouch=true;}if(e.type==="mousedown"&&wasTouch){return;}var pointer=getPointerEvent(e);cachedX=currX=pointer.pageX;cachedY=currY=pointer.pageY;longtapTimer=setTimeout(function(){sendEvent(e.target,"longtap",e);target=e.target;},defaults.longtapThreshold);timestamp=getTimestamp();tapNum++;},onTouchEnd=function(e){if(!isTheSameFingerId(e)){return;}pointerId=undefined;if(e.type==="mouseup"&&wasTouch){wasTouch=false;return;}var eventsArr=[],now=getTimestamp(),deltaY=cachedY-currY,deltaX=cachedX-currX;clearTimeout(dblTapTimer);clearTimeout(longtapTimer);if(deltaX<=-defaults.swipeThreshold){eventsArr.push("swiperight");}if(deltaX>=defaults.swipeThreshold){eventsArr.push("swipeleft");}if(deltaY<=-defaults.swipeThreshold){eventsArr.push("swipedown");}if(deltaY>=defaults.swipeThreshold){eventsArr.push("swipeup");}if(eventsArr.length){for(var i=0;i<eventsArr.length;i++){var eventName=eventsArr[i];sendEvent(e.target,eventName,e,{distance:{x:Math.abs(deltaX),y:Math.abs(deltaY)}});}tapNum=0;}else{if(cachedX>=currX-defaults.tapPrecision&&cachedX<=currX+defaults.tapPrecision&&cachedY>=currY-defaults.tapPrecision&&cachedY<=currY+defaults.tapPrecision){if(timestamp+defaults.tapThreshold-now>=0){sendEvent(e.target,tapNum>=2&&target===e.target?"dbltap":"tap",e);target=e.target;}}dblTapTimer=setTimeout(function(){tapNum=0;},defaults.dbltapThreshold);}},onTouchMove=function(e){if(!isTheSameFingerId(e)){return;}if(e.type==="mousemove"&&wasTouch){return;}var pointer=getPointerEvent(e);currX=pointer.pageX;currY=pointer.pageY;},tapNum=0,pointerId,currX,currY,cachedX,cachedY,timestamp,target,dblTapTimer,longtapTimer;setListener(doc,touchevents.touchstart+(defaults.justTouchEvents?"":" mousedown"),onTouchStart);setListener(doc,touchevents.touchend+(defaults.justTouchEvents?"":" mouseup"),onTouchEnd);setListener(doc,touchevents.touchmove+(defaults.justTouchEvents?"":" mousemove"),onTouchMove);win.tocca=function(options){for(var opt in options){if(options.hasOwnProperty(opt)){defaults[opt]=options[opt];}}return defaults;};}(document,globalRoot));
+(function(doc,win){"use strict";if(typeof doc.createEvent!=="function"){return false;}var pointerEventSupport=function(type){var lo=type.toLowerCase(),ms="MS"+type;return navigator.msPointerEnabled?ms:win.PointerEvent?lo:false;},defaults={useJquery:!win.IGNORE_JQUERY&&typeof jQuery!=="undefined",swipeThreshold:win.SWIPE_THRESHOLD||100,tapThreshold:win.TAP_THRESHOLD||150,dbltapThreshold:win.DBL_TAP_THRESHOLD||200,longtapThreshold:win.LONG_TAP_THRESHOLD||1000,tapPrecision:win.TAP_PRECISION/2||60/2,justTouchEvents:win.JUST_ON_TOUCH_DEVICES},wasTouch=false,touchevents={touchstart:pointerEventSupport("PointerDown")||"touchstart",touchend:pointerEventSupport("PointerUp")||"touchend",touchmove:pointerEventSupport("PointerMove")||"touchmove"},tapNum=0,pointerId,currX,currY,cachedX,cachedY,timestamp,target,dblTapTimer,longtapTimer,isTheSameFingerId=function(e){return!e.pointerId||typeof pointerId==="undefined"||e.pointerId===pointerId;},setListener=function(elm,events,callback){var eventsArray=events.split(" "),i=eventsArray.length;while(i--){elm.addEventListener(eventsArray[i],callback,false);}},getPointerEvent=function(event){return event.targetTouches?event.targetTouches[0]:event;},getTimestamp=function(){return new Date().getTime();},sendEvent=function(elm,eventName,originalEvent,data){var customEvent=doc.createEvent("Event");customEvent.originalEvent=originalEvent;data=data||{};data.x=currX;data.y=currY;data.distance=data.distance;if(defaults.useJquery){customEvent=jQuery.Event(eventName,{originalEvent:originalEvent});jQuery(elm).trigger(customEvent,data);}if(customEvent.initEvent){for(var key in data){if(data.hasOwnProperty(key)){customEvent[key]=data[key];}}customEvent.initEvent(eventName,true,true);elm.dispatchEvent(customEvent);}while(elm){if(elm["on"+eventName]){elm["on"+eventName](customEvent);}elm=elm.parentNode;}},onTouchStart=function(e){if(!isTheSameFingerId(e)){return;}pointerId=e.pointerId;if(e.type!=="mousedown"){wasTouch=true;}if(e.type==="mousedown"&&wasTouch){return;}var pointer=getPointerEvent(e);cachedX=currX=pointer.pageX;cachedY=currY=pointer.pageY;longtapTimer=setTimeout(function(){sendEvent(e.target,"longtap",e);target=e.target;},defaults.longtapThreshold);timestamp=getTimestamp();tapNum++;},onTouchEnd=function(e){if(!isTheSameFingerId(e)){return;}pointerId=undefined;if(e.type==="mouseup"&&wasTouch){wasTouch=false;return;}var eventsArr=[],now=getTimestamp(),deltaY=cachedY-currY,deltaX=cachedX-currX;clearTimeout(dblTapTimer);clearTimeout(longtapTimer);if(deltaX<=-defaults.swipeThreshold){eventsArr.push("swiperight");}if(deltaX>=defaults.swipeThreshold){eventsArr.push("swipeleft");}if(deltaY<=-defaults.swipeThreshold){eventsArr.push("swipedown");}if(deltaY>=defaults.swipeThreshold){eventsArr.push("swipeup");}if(eventsArr.length){for(var i=0;i<eventsArr.length;i++){var eventName=eventsArr[i];sendEvent(e.target,eventName,e,{distance:{x:Math.abs(deltaX),y:Math.abs(deltaY)}});}tapNum=0;}else{if(cachedX>=currX-defaults.tapPrecision&&cachedX<=currX+defaults.tapPrecision&&cachedY>=currY-defaults.tapPrecision&&cachedY<=currY+defaults.tapPrecision){if(timestamp+defaults.tapThreshold-now>=0){sendEvent(e.target,tapNum>=2&&target===e.target?"dbltap":"tap",e);target=e.target;}}dblTapTimer=setTimeout(function(){tapNum=0;},defaults.dbltapThreshold);}},onTouchMove=function(e){if(!isTheSameFingerId(e)){return;}if(e.type==="mousemove"&&wasTouch){return;}var pointer=getPointerEvent(e);currX=pointer.pageX;currY=pointer.pageY;};setListener(doc,touchevents.touchstart+(defaults.justTouchEvents?"":" mousedown"),onTouchStart);setListener(doc,touchevents.touchend+(defaults.justTouchEvents?"":" mouseup"),onTouchEnd);setListener(doc,touchevents.touchmove+(defaults.justTouchEvents?"":" mousemove"),onTouchMove);win.tocca=function(options){for(var opt in options){if(options.hasOwnProperty(opt)){defaults[opt]=options[opt];}}return defaults;};}(document,globalRoot));
 /*!
  * add js class to html element
  */
@@ -146,7 +146,7 @@ if (document.title) {
  * @param {Object} a target HTML Element
  * appendFragment(e,a)
  */
-(function(root){"use strict";var appendFragment=function(e,a){var d=document;a=a||d.getElementsByTagNames("body")[0]||"";return (function(){if(e){var d=document,df=d.createDocumentFragment()||"",aC="appendChild";if("string"===typeof e){e=d.createTextNode(e);}df[aC](e);a[aC](df);}}());};root.appendFragment=appendFragment;}(globalRoot));
+(function(root){"use strict";var appendFragment=function(e,a){var d=document;a=a||d.getElementsByTagNames("body")[0]||"";return (function(){if(e){var d=document,df=d.createDocumentFragment()||"",appendChild="appendChild";if("string"===typeof e){e=d.createTextNode(e);}df[appendChild](e);a[appendChild](df);}}());};root.appendFragment=appendFragment;}(globalRoot));
 /*!
  * set style opacity of an element
  * @param {Object} a an HTML Element
@@ -239,29 +239,29 @@ var handleExternalLink = function (url, ev) {
 	debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
 	debounceLogicHandleExternalLink();
 },
-manageExternalLinkAll = function (ctx) {
+manageExternalLinkAll = function (scope) {
 	"use strict";
-	ctx = ctx && ctx.nodeName ? ctx : "";
+	var ctx = scope && scope.nodeName ? scope : "";
 	var d = document,
-	gEBTN = "getElementsByTagName",
+	getElementsByTagName = "getElementsByTagName",
 	linkTag = "a",
-	link = ctx ? ctx[gEBTN](linkTag) || "" : d[gEBTN](linkTag) || "",
-	cL = "classList",
-	aEL = "addEventListener",
-	gA = "getAttribute",
+	link = ctx ? ctx[getElementsByTagName](linkTag) || "" : d[getElementsByTagName](linkTag) || "",
+	classList = "classList",
+	addEventListener = "addEventListener",
+	getAttribute = "getAttribute",
 	isBindedClass = "is-binded",
 	arrange = function (e) {
-		if (!e[cL].contains(isBindedClass)) {
-			var url = e[gA]("href") || "";
+		if (!e[classList].contains(isBindedClass)) {
+			var url = e[getAttribute]("href") || "";
 			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
 				e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					e.target = "_blank";
 					e.rel = "noopener";
 				} else {
-					e[aEL]("click", handleExternalLink.bind(null, url));
+					e[addEventListener]("click", handleExternalLink.bind(null, url));
 				}
-				e[cL].add(isBindedClass);
+				e[classList].add(isBindedClass);
 			}
 		}
 	};
@@ -281,34 +281,34 @@ var initNavMenu = function () {
 	"use strict";
 	var w = globalRoot,
 	d = document,
-	gEBI = "getElementById",
-	gEBCN = "getElementsByClassName",
-	gEBTN = "getElementsByTagName",
-	cL = "classList",
-	aEL = "addEventListener",
-	container = d[gEBI]("container") || "",
-	page = d[gEBI]("page") || "",
-	btnNavMenu = d[gEBCN]("btn-nav-menu")[0] || "",
-	panelNavMenu = d[gEBCN]("panel-nav-menu")[0] || "",
-	panelNavMenuItems = panelNavMenu ? panelNavMenu[gEBTN]("a") || "" : "",
-	holderPanelMenuMore = d[gEBCN]("holder-panel-menu-more")[0] || "",
+	getElementById = "getElementById",
+	getElementsByClassName = "getElementsByClassName",
+	getElementsByTagName = "getElementsByTagName",
+	classList = "classList",
+	addEventListener = "addEventListener",
+	container = d[getElementById]("container") || "",
+	page = d[getElementById]("page") || "",
+	btnNavMenu = d[getElementsByClassName]("btn-nav-menu")[0] || "",
+	panelNavMenu = d[getElementsByClassName]("panel-nav-menu")[0] || "",
+	panelNavMenuItems = panelNavMenu ? panelNavMenu[getElementsByTagName]("a") || "" : "",
+	holderPanelMenuMore = d[getElementsByClassName]("holder-panel-menu-more")[0] || "",
 	isActiveClass = "is-active",
 	locationHref = w.location.href || "",
 	removeAllActiveClass = function () {
-		page[cL].remove(isActiveClass);
-		panelNavMenu[cL].remove(isActiveClass);
-		btnNavMenu[cL].remove(isActiveClass);
+		page[classList].remove(isActiveClass);
+		panelNavMenu[classList].remove(isActiveClass);
+		btnNavMenu[classList].remove(isActiveClass);
 	},
 	removeHolderActiveClass = function () {
-		if (holderPanelMenuMore && holderPanelMenuMore[cL].contains(isActiveClass)) {
-			holderPanelMenuMore[cL].remove(isActiveClass);
+		if (holderPanelMenuMore && holderPanelMenuMore[classList].contains(isActiveClass)) {
+			holderPanelMenuMore[classList].remove(isActiveClass);
 		}
 	},
 	addContainerHandler = function () {
 		var handleContainerLeft = function () {
 			/* console.log("swipeleft"); */
 			removeHolderActiveClass();
-			if (panelNavMenu[cL].contains(isActiveClass)) {
+			if (panelNavMenu[classList].contains(isActiveClass)) {
 				removeAllActiveClass();
 			}
 		},
@@ -316,27 +316,27 @@ var initNavMenu = function () {
 			/* console.log("swiperight"); */
 			removeHolderActiveClass();
 			var addAllActiveClass = function () {
-				page[cL].add(isActiveClass);
-				panelNavMenu[cL].add(isActiveClass);
-				btnNavMenu[cL].add(isActiveClass);
+				page[classList].add(isActiveClass);
+				panelNavMenu[classList].add(isActiveClass);
+				btnNavMenu[classList].add(isActiveClass);
 			};
-			if (!panelNavMenu[cL].contains(isActiveClass)) {
+			if (!panelNavMenu[classList].contains(isActiveClass)) {
 				addAllActiveClass();
 			}
 		};
-		container[aEL]("click", handleContainerLeft);
+		container[addEventListener]("click", handleContainerLeft);
 		if (w.tocca) {
 			if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-				container[aEL]("swipeleft", handleContainerLeft);
-				container[aEL]("swiperight", handleContainerRight);
+				container[addEventListener]("swipeleft", handleContainerLeft);
+				container[addEventListener]("swiperight", handleContainerRight);
 			}
 		}
 	},
 	addBtnHandler = function () {
 		var toggleAllActiveClass = function () {
-			page[cL].toggle(isActiveClass);
-			panelNavMenu[cL].toggle(isActiveClass);
-			btnNavMenu[cL].toggle(isActiveClass);
+			page[classList].toggle(isActiveClass);
+			panelNavMenu[classList].toggle(isActiveClass);
+			btnNavMenu[classList].toggle(isActiveClass);
 		},
 		handleBtnNavMenu = function (ev) {
 			ev.stopPropagation();
@@ -344,22 +344,22 @@ var initNavMenu = function () {
 			removeHolderActiveClass();
 			toggleAllActiveClass();
 		};
-		btnNavMenu[aEL]("click", handleBtnNavMenu);
+		btnNavMenu[addEventListener]("click", handleBtnNavMenu);
 	},
 	addItemHandlerAll = function () {
 		var addItemHandler = function (e) {
 			var addActiveClass = function (e) {
-				e[cL].add(isActiveClass);
+				e[classList].add(isActiveClass);
 			},
 			removeHolderAndAllActiveClass = function () {
 				removeHolderActiveClass();
 				removeAllActiveClass();
 			},
 			removeActiveClass = function (e) {
-				e[cL].remove(isActiveClass);
+				e[classList].remove(isActiveClass);
 			},
 			handleItem = function () {
-				if (panelNavMenu[cL].contains(isActiveClass)) {
+				if (panelNavMenu[classList].contains(isActiveClass)) {
 					removeHolderAndAllActiveClass();
 				}
 				for (var j = 0, l = panelNavMenuItems.length; j < l; j += 1) {
@@ -368,7 +368,7 @@ var initNavMenu = function () {
 				/* forEach(panelNavMenuItems, removeActiveClass, false); */
 				addActiveClass(e);
 			};
-			e[aEL]("click", handleItem);
+			e[addEventListener]("click", handleItem);
 			if (locationHref === e.href) {
 				addActiveClass(e);
 			} else {
@@ -406,24 +406,24 @@ var initUiTotop = function () {
 	d = document,
 	h = d.documentElement || "",
 	b = d.body || "",
-	gEBCN = "getElementsByClassName",
-	cL = "classList",
-	cE = "createElement",
-	aC = "appendChild",
-	/* cENS = "createElementNS",
-	sANS = "setAttributeNS", */
-	aEL = "addEventListener",
+	getElementsByClassName = "getElementsByClassName",
+	classList = "classList",
+	createElement = "createElement",
+	appendChild = "appendChild",
+	/* createElementNS = "createElementNS",
+	setAttributeNS = "setAttributeNS", */
+	addEventListener = "addEventListener",
 	btnClass = "ui-totop",
 	btnTitle = "Наверх",
 	isActiveClass = "is-active",
-	anchor = d[cE]("a"),
+	anchor = d[createElement]("a"),
 	/* insertUpSvg = function (targetObj) {
-		var svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
-		use = d[cENS]("http://www.w3.org/2000/svg", "use");
-		svg[cL].add("ui-icon");
-		use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
-		svg[aC](use);
-		targetObj[aC](svg);
+		var svg = d[createElementNS]("http://www.w3.org/2000/svg", "svg"),
+		use = d[createElementNS]("http://www.w3.org/2000/svg", "use");
+		svg[classList].add("ui-icon");
+		use[setAttributeNS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
+		svg[appendChild](use);
+		targetObj[appendChild](svg);
 	}, */
 	handleUiTotopAnchor = function (ev) {
 		ev.stopPropagation();
@@ -432,31 +432,31 @@ var initUiTotop = function () {
 	},
 	handleUiTotopWindow = function (_this) {
 		var logicHandleUiTotopWindow = function () {
-			var btn = d[gEBCN](btnClass)[0] || "",
+			var btn = d[getElementsByClassName](btnClass)[0] || "",
 			scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
 			windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
 			if (scrollPosition && windowHeight && btn) {
 				if (scrollPosition > windowHeight) {
-					btn[cL].add(isActiveClass);
+					btn[classList].add(isActiveClass);
 				} else {
-					btn[cL].remove(isActiveClass);
+					btn[classList].remove(isActiveClass);
 				}
 			}
 		},
 		throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
 		throttleLogicHandleUiTotopWindow();
 	};
-	anchor[cL].add(btnClass);
+	anchor[classList].add(btnClass);
 	/*jshint -W107 */
 	anchor.href = "javascript:void(0);";
 	/*jshint +W107 */
 	anchor.title = btnTitle;
 	/* insertUpSvg(anchor); */
-	b[aC](anchor);
+	b[appendChild](anchor);
 	if (b) {
 		/* console.log("triggered function: initUiTotop"); */
-		anchor[aEL]("click", handleUiTotopAnchor);
-		w[aEL]("scroll", handleUiTotopWindow, {passive: true});
+		anchor[addEventListener]("click", handleUiTotopAnchor);
+		w[addEventListener]("scroll", handleUiTotopWindow, {passive: true});
 	}
 };
 document.ready().then(initUiTotop);
@@ -466,8 +466,8 @@ document.ready().then(initUiTotop);
 var showPageFinishProgress = function () {
 	"use strict";
 	var d = document,
-	gEBI = "getElementById",
-	container = d[gEBI]("container") || "";
+	getElementById = "getElementById",
+	container = d[getElementById]("container") || "";
 	if (container) {
 		setStyleOpacity(container, 1);
 		progressBar.increase(20);

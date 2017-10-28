@@ -141,7 +141,7 @@ if (document.title) {
  * @param {Object} a target HTML Element
  * appendFragment(e,a)
  */
-(function(root){"use strict";var appendFragment=function(e,a){var d=document;a=a||d.getElementsByTagNames("body")[0]||"";return (function(){if(e){var d=document,df=d.createDocumentFragment()||"",aC="appendChild";if("string"===typeof e){e=d.createTextNode(e);}df[aC](e);a[aC](df);}}());};root.appendFragment=appendFragment;}(globalRoot));
+(function(root){"use strict";var appendFragment=function(e,a){var d=document;a=a||d.getElementsByTagNames("body")[0]||"";return (function(){if(e){var d=document,df=d.createDocumentFragment()||"",appendChild="appendChild";if("string"===typeof e){e=d.createTextNode(e);}df[appendChild](e);a[appendChild](df);}}());};root.appendFragment=appendFragment;}(globalRoot));
 /*!
  * set style display none of an element
  * @param {Object} a an HTML Element
@@ -246,29 +246,29 @@ var handleExternalLink = function (url, ev) {
 	debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
 	debounceLogicHandleExternalLink();
 },
-manageExternalLinkAll = function (ctx) {
+manageExternalLinkAll = function (scope) {
 	"use strict";
-	ctx = ctx && ctx.nodeName ? ctx : "";
+	var ctx = scope && scope.nodeName ? scope : "";
 	var d = document,
-	gEBTN = "getElementsByTagName",
+	getElementsByTagName = "getElementsByTagName",
 	linkTag = "a",
-	link = ctx ? ctx[gEBTN](linkTag) || "" : d[gEBTN](linkTag) || "",
-	cL = "classList",
-	aEL = "addEventListener",
-	gA = "getAttribute",
+	link = ctx ? ctx[getElementsByTagName](linkTag) || "" : d[getElementsByTagName](linkTag) || "",
+	classList = "classList",
+	addEventListener = "addEventListener",
+	getAttribute = "getAttribute",
 	isBindedClass = "is-binded",
 	arrange = function (e) {
-		if (!e[cL].contains(isBindedClass)) {
-			var url = e[gA]("href") || "";
+		if (!e[classList].contains(isBindedClass)) {
+			var url = e[getAttribute]("href") || "";
 			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
 				e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					e.target = "_blank";
 					e.rel = "noopener";
 				} else {
-					e[aEL]("click", handleExternalLink.bind(null, url));
+					e[addEventListener]("click", handleExternalLink.bind(null, url));
 				}
-				e[cL].add(isBindedClass);
+				e[classList].add(isBindedClass);
 			}
 		}
 	};
@@ -302,24 +302,24 @@ var initUiTotop = function () {
 	d = document,
 	h = d.documentElement || "",
 	b = d.body || "",
-	gEBCN = "getElementsByClassName",
-	cL = "classList",
-	cE = "createElement",
-	aC = "appendChild",
-	/* cENS = "createElementNS",
-	sANS = "setAttributeNS", */
-	aEL = "addEventListener",
+	getElementsByClassName = "getElementsByClassName",
+	classList = "classList",
+	createElement = "createElement",
+	appendChild = "appendChild",
+	/* createElementNS = "createElementNS",
+	setAttributeNS = "setAttributeNS", */
+	addEventListener = "addEventListener",
 	btnClass = "ui-totop",
 	btnTitle = "Наверх",
 	isActiveClass = "is-active",
-	anchor = d[cE]("a"),
+	anchor = d[createElement]("a"),
 	/* insertUpSvg = function (targetObj) {
-		var svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
-		use = d[cENS]("http://www.w3.org/2000/svg", "use");
-		svg[cL].add("ui-icon");
-		use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
-		svg[aC](use);
-		targetObj[aC](svg);
+		var svg = d[createElementNS]("http://www.w3.org/2000/svg", "svg"),
+		use = d[createElementNS]("http://www.w3.org/2000/svg", "use");
+		svg[classList].add("ui-icon");
+		use[setAttributeNS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
+		svg[appendChild](use);
+		targetObj[appendChild](svg);
 	}, */
 	handleUiTotopAnchor = function (ev) {
 		ev.stopPropagation();
@@ -328,31 +328,31 @@ var initUiTotop = function () {
 	},
 	handleUiTotopWindow = function (_this) {
 		var logicHandleUiTotopWindow = function () {
-			var btn = d[gEBCN](btnClass)[0] || "",
+			var btn = d[getElementsByClassName](btnClass)[0] || "",
 			scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
 			windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
 			if (scrollPosition && windowHeight && btn) {
 				if (scrollPosition > windowHeight) {
-					btn[cL].add(isActiveClass);
+					btn[classList].add(isActiveClass);
 				} else {
-					btn[cL].remove(isActiveClass);
+					btn[classList].remove(isActiveClass);
 				}
 			}
 		},
 		throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
 		throttleLogicHandleUiTotopWindow();
 	};
-	anchor[cL].add(btnClass);
+	anchor[classList].add(btnClass);
 	/*jshint -W107 */
 	anchor.href = "javascript:void(0);";
 	/*jshint +W107 */
 	anchor.title = btnTitle;
 	/* insertUpSvg(anchor); */
-	b[aC](anchor);
+	b[appendChild](anchor);
 	if (b) {
 		/* console.log("triggered function: initUiTotop"); */
-		anchor[aEL]("click", handleUiTotopAnchor);
-		w[aEL]("scroll", handleUiTotopWindow, {passive: true});
+		anchor[addEventListener]("click", handleUiTotopAnchor);
+		w[addEventListener]("scroll", handleUiTotopWindow, {passive: true});
 	}
 };
 document.ready().then(initUiTotop);
@@ -369,12 +369,12 @@ manageShareButton = function () {
 	"use strict";
 	var w = globalRoot,
 	d = document,
-	gEBI = "getElementById",
-	gEBCN = "getElementsByClassName",
-	aEL = "addEventListener",
-	btn = d[gEBCN]("btn-share-buttons")[0] || "",
+	getElementById = "getElementById",
+	getElementsByClassName = "getElementsByClassName",
+	addEventListener = "addEventListener",
+	btn = d[getElementsByClassName]("btn-share-buttons")[0] || "",
 	yaShare2Id = "ya-share2",
-	yaShare2 = d[gEBI](yaShare2Id) || "",
+	yaShare2 = d[getElementById](yaShare2Id) || "",
 	handleShareButton = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
@@ -412,7 +412,7 @@ manageShareButton = function () {
 	if (btn && yaShare2) {
 		/* console.log("triggered function: manageShareButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			btn[aEL]("click", handleShareButton);
+			btn[addEventListener]("click", handleShareButton);
 		} else {
 			setStyleDisplayNone(btn);
 		}
@@ -438,8 +438,8 @@ document.ready().then(initManUp); */
 var showPageFinishProgress = function () {
 	"use strict";
 	var d = document,
-	gEBI = "getElementById",
-	page = d[gEBI]("page") || "";
+	getElementById = "getElementById",
+	page = d[getElementById]("page") || "";
 	if (page) {
 		setStyleOpacity(page, 1);
 		progressBar.increase(20);

@@ -8,7 +8,7 @@
 
 ## On-line
 
- - [the website](https://englishextra.github.io/)
+* [the website](https://englishextra.github.io/)
 
 ## Production Push URL
 
@@ -18,9 +18,9 @@ https://github.com/englishextra/shimansky.biz.git
 
 ## Remotes
 
- - [GitHub](https://github.com/englishextra/shimansky.biz)
- - [BitBucket](https://bitbucket.org/englishextra/shimansky.biz)
- - [GitLab](https://gitlab.com/englishextra/shimansky.biz)
+* [GitHub](https://github.com/englishextra/shimansky.biz)
+* [BitBucket](https://bitbucket.org/englishextra/shimansky.biz)
+* [GitLab](https://gitlab.com/englishextra/shimansky.biz)
 
 ## Copyright
 

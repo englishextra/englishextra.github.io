@@ -2,7 +2,7 @@
 /*jslint node: true */
 /*global doesFontExist, loadJsCss, Parallax, platform, QRCode,
 ToProgress, unescape, VK, WheelIndicator, Ya */
-/*property console, split */
+/*property console, join, split */
 /*!
  * safe way to handle console.log
  * @see {@link https://github.com/paulmillr/console-polyfill}
@@ -17,9 +17,10 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 	var method;
 	var dummy = function () {};
 	var properties = ["memory"];
-	var methods = ("assert,clear,count,debug,dir,dirxml,error,exception,group," +
-		"groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd," +
-		"show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn").split(",");
+	var methods = ["assert,clear,count,debug,dir,dirxml,error,exception,group,",
+		"groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd,",
+		"show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn"];
+	methods.join("").split(",");
 	for (; (prop = properties.pop()); ) {
 		if (!con[prop]) {
 			con[prop] = {};
@@ -628,64 +629,36 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 			}
 		};
 
-		var debounce = function (func, wait, immediate) {
+		var debounce = function (func, wait) {
 			var timeout;
 			var args;
 			var context;
 			var timestamp;
-			var result;
-			if (undefined === wait || null === wait) {
-				wait = 100;
-			}
-			function later() {
-				var last = Date.now() - timestamp;
-				if (last < wait && last >= 0) {
-					timeout = setTimeout(later, wait - last);
-				} else {
-					timeout = null;
-					if (!immediate) {
-						result = func.apply(context, args);
-						context = args = null;
-					}
-				}
-			}
-			var debounced = function () {
+			return function () {
 				context = this;
-				args = arguments;
-				timestamp = Date.now();
-				var callNow = immediate && !timeout;
+				args = [].slice.call(arguments, 0);
+				timestamp = new Date();
+				var later = function () {
+					var last = (new Date()) - timestamp;
+					if (last < wait) {
+						timeout = setTimeout(later, wait - last);
+					} else {
+						timeout = null;
+						func.apply(context, args);
+					}
+				};
 				if (!timeout) {
 					timeout = setTimeout(later, wait);
 				}
-				if (callNow) {
-					result = func.apply(context, args);
-					context = args = null;
-				}
-				return result;
 			};
-			debounced.clear = function () {
-				if (timeout) {
-					clearTimeout(timeout);
-					timeout = null;
-				}
-			};
-			debounced.flush = function () {
-				if (timeout) {
-					result = func.apply(context, args);
-					context = args = null;
-					clearTimeout(timeout);
-					timeout = null;
-				}
-			};
-			return debounced;
 		};
 
 		var isBindedClass = "is-binded";
 
-		var manageExternalLinkAll = function (ctx) {
-			var _ctx = ctx && ctx.nodeName ? ctx : "";
+		var manageExternalLinkAll = function (scope) {
+			var context = scope && scope.nodeName ? scope : "";
 			var linkTag = "a";
-			var externalLinks = _ctx ? _ctx[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
+			var externalLinks = context ? context[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
 			var arrange = function (e) {
 				var handleExternalLink = function (url, evt) {
 					evt.stopPropagation();

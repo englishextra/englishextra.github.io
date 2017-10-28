@@ -190,29 +190,29 @@ var handleExternalLink = function (url, ev) {
 	debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
 	debounceLogicHandleExternalLink();
 },
-manageExternalLinkAll = function (ctx) {
+manageExternalLinkAll = function (scope) {
 	"use strict";
-	ctx = ctx && ctx.nodeName ? ctx : "";
+	var ctx = scope && scope.nodeName ? scope : "";
 	var d = document,
-	gEBTN = "getElementsByTagName",
+	getElementsByTagName = "getElementsByTagName",
 	linkTag = "a",
-	link = ctx ? ctx[gEBTN](linkTag) || "" : d[gEBTN](linkTag) || "",
-	cL = "classList",
-	aEL = "addEventListener",
-	gA = "getAttribute",
+	link = ctx ? ctx[getElementsByTagName](linkTag) || "" : d[getElementsByTagName](linkTag) || "",
+	classList = "classList",
+	addEventListener = "addEventListener",
+	getAttribute = "getAttribute",
 	isBindedClass = "is-binded",
 	arrange = function (e) {
-		if (!e[cL].contains(isBindedClass)) {
-			var url = e[gA]("href") || "";
+		if (!e[classList].contains(isBindedClass)) {
+			var url = e[getAttribute]("href") || "";
 			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
 				e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					e.target = "_blank";
 					e.rel = "noopener";
 				} else {
-					e[aEL]("click", handleExternalLink.bind(null, url));
+					e[addEventListener]("click", handleExternalLink.bind(null, url));
 				}
-				e[cL].add(isBindedClass);
+				e[classList].add(isBindedClass);
 			}
 		}
 	};
@@ -288,6 +288,11 @@ var initWebslides = function() {
 			$previous = jQuery('#' + ID.previous);
 			$navigation.append($counter);
 			/*** FUNCTIONS ***/
+			// The first slide is number first, last is slides length
+			var slidePointer = {
+				current: 1,
+				last: $slides.length
+			};
 			var updateCounter = function () {
 				// updates the counter
 				$counter.text(slidePointer.current + labels.separator + slidePointer.last);
@@ -307,6 +312,14 @@ var initWebslides = function() {
 				}
 			};
 			$slideshow.data('moving', false);
+			var fireSlideEvent = function (slide) {
+				var slideEvent = new w.CustomEvent('slidechanged', {
+						detail: {
+							slide: slide || $currentSlide
+						}
+					});
+				w.dispatchEvent(slideEvent);
+			};
 			var nextSlide = function () {
 				var nextSlide;
 				if ($slideshow.hasClass(ID.verticalClass) && !isMobile) { // Is vertical
@@ -449,22 +462,9 @@ var initWebslides = function() {
 				// update counter
 				updateCounter();
 			};
-			var fireSlideEvent = function (slide) {
-				var slideEvent = new w.CustomEvent('slidechanged', {
-						detail: {
-							slide: slide || $currentSlide
-						}
-					});
-				w.dispatchEvent(slideEvent);
-			};
 			/*** INIT SLIDESHOW ***/
 			// Initially hide all slides
 			$slides.hide();
-			// The first slide is number first, last is slides length
-			var slidePointer = {
-				current: 1,
-				last: $slides.length
-			};
 			var slideState = parseInt(document.location.hash.replace('#slide=', ''));
 			if (slideState && (slideState > 0 && slideState <= $slides.length)) {
 				// if slide= hash state is given and valid, go to that slide
@@ -518,25 +518,6 @@ var initWebslides = function() {
 			/**
 			 * Bind the event HashChange when the prev/next history button was clicked
 			 */
-			jQuery(w).bind("hashchange", function () {
-				if (hasHash()) {
-					goToSlideIfSlideHashChange();
-				} else {
-					w.location.reload();
-				}
-			});
-			function hasHash() {
-				return w.location.hash ? true : false;
-			}
-			function goToSlideIfSlideHashChange() {
-				var paramsArr = getArrayOfHashParams();
-				var slideObj = $.grep(paramsArr, function (e) {
-						return (e.key === "slide");
-					});
-				if (slideObj.length === 1) {
-					goToSlide(slideObj[0].value);
-				}
-			}
 			function getArrayOfHashParams() {
 				var hash = w.location.hash.replace('#', '').split('&');
 				var paramsArr = new Array([]);
@@ -549,6 +530,25 @@ var initWebslides = function() {
 				}
 				return paramsArr;
 			}
+			function goToSlideIfSlideHashChange() {
+				var paramsArr = getArrayOfHashParams();
+				var slideObj = $.grep(paramsArr, function (e) {
+						return (e.key === "slide");
+					});
+				if (slideObj.length === 1) {
+					goToSlide(slideObj[0].value);
+				}
+			}
+			function hasHash() {
+				return w.location.hash ? true : false;
+			}
+			jQuery(w).bind("hashchange", function () {
+				if (hasHash()) {
+					goToSlideIfSlideHashChange();
+				} else {
+					w.location.reload();
+				}
+			});
 			// Mouse wheel
 			jQuery(w).bind('mousewheel DOMMouseScroll', function (event) {
 				$slideshow.data('iswheel', true);
@@ -575,9 +575,8 @@ var initWebslides = function() {
 				$slideshow.data('touchYEnd', e.touches[0].screenY);
 				$slideshow.data('touchXEnd', e.touches[0].screenX);
 			});
-			jQuery(w).on("touchend", function (ev) {
+			jQuery(w).on("touchend", function () {
 				$slideshow.data('iswheel', false);
-				/* var e = ev.originalEvent; */
 				var diffX = $slideshow.data('touchXStart') - $slideshow.data('touchXEnd');
 				var diffY = $slideshow.data('touchYStart') - $slideshow.data('touchYEnd');
 				if ((!$slideshow.hasClass(ID.verticalClass) || isMobile) && Math.abs(diffX) > Math.abs(diffY)) {
@@ -626,17 +625,17 @@ loadJS("../libs/serguei-webslides/js/vendors.min.js", initWebslides);
  * initiate on load, not on ready
  * @param {Object} [ctx] context HTML Element
  */
-var manageDataQrcodeImageAll = function (ctx) {
+var manageDataQrcodeImageAll = function (scope) {
 	"use strict";
-	ctx = ctx && ctx.nodeName ? ctx : "";
+	var ctx = scope && scope.nodeName ? scope : "";
 	var w = globalRoot,
 	d = document,
-	gEBCN = "getElementsByClassName",
-	ds = "dataset",
+	getElementsByClassName = "getElementsByClassName",
+	dataset = "dataset",
 	imgClass = "data-qrcode-img",
-	img = ctx ? ctx[gEBCN](imgClass) || "" : d[gEBCN](imgClass) || "",
+	img = ctx ? ctx[getElementsByClassName](imgClass) || "" : d[getElementsByClassName](imgClass) || "",
 	generateImg = function (e) {
-		var qrcode = e[ds].qrcode || "";
+		var qrcode = e[dataset].qrcode || "";
 		qrcode = decodeURIComponent(qrcode);
 		if (qrcode) {
 			var imgSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(qrcode);
@@ -692,8 +691,8 @@ document.ready().then(manageDataQrcodeImageAll);
 var showPageFinishProgress = function () {
 	"use strict";
 	var d = document,
-	gEBI = "getElementById",
-	page = d[gEBI]("page") || "";
+	getElementById = "getElementById",
+	page = d[getElementById]("page") || "";
 	if (page) {
 		setStyleOpacity(page, 1);
 		progressBar.increase(20);

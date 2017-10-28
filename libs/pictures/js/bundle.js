@@ -163,6 +163,16 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 	    defaults = { useJquery: !win.IGNORE_JQUERY && typeof jQuery !== "undefined", swipeThreshold: win.SWIPE_THRESHOLD || 100, tapThreshold: win.TAP_THRESHOLD || 150, dbltapThreshold: win.DBL_TAP_THRESHOLD || 200, longtapThreshold: win.LONG_TAP_THRESHOLD || 1000, tapPrecision: win.TAP_PRECISION / 2 || 60 / 2, justTouchEvents: win.JUST_ON_TOUCH_DEVICES },
 	    wasTouch = false,
 	    touchevents = { touchstart: pointerEventSupport("PointerDown") || "touchstart", touchend: pointerEventSupport("PointerUp") || "touchend", touchmove: pointerEventSupport("PointerMove") || "touchmove" },
+	    tapNum = 0,
+	    pointerId,
+	    currX,
+	    currY,
+	    cachedX,
+	    cachedY,
+	    timestamp,
+	    target,
+	    dblTapTimer,
+	    longtapTimer,
 	    isTheSameFingerId = function (e) {
 		return !e.pointerId || typeof pointerId === "undefined" || e.pointerId === pointerId;
 	},
@@ -240,17 +250,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 		}if (e.type === "mousemove" && wasTouch) {
 			return;
 		}var pointer = getPointerEvent(e);currX = pointer.pageX;currY = pointer.pageY;
-	},
-	    tapNum = 0,
-	    pointerId,
-	    currX,
-	    currY,
-	    cachedX,
-	    cachedY,
-	    timestamp,
-	    target,
-	    dblTapTimer,
-	    longtapTimer;setListener(doc, touchevents.touchstart + (defaults.justTouchEvents ? "" : " mousedown"), onTouchStart);setListener(doc, touchevents.touchend + (defaults.justTouchEvents ? "" : " mouseup"), onTouchEnd);setListener(doc, touchevents.touchmove + (defaults.justTouchEvents ? "" : " mousemove"), onTouchMove);win.tocca = function (options) {
+	};setListener(doc, touchevents.touchstart + (defaults.justTouchEvents ? "" : " mousedown"), onTouchStart);setListener(doc, touchevents.touchend + (defaults.justTouchEvents ? "" : " mouseup"), onTouchEnd);setListener(doc, touchevents.touchmove + (defaults.justTouchEvents ? "" : " mousemove"), onTouchMove);win.tocca = function (options) {
 		for (var opt in options) {
 			if (options.hasOwnProperty(opt)) {
 				defaults[opt] = options[opt];
@@ -676,9 +676,9 @@ if (document.title) {
 			if (e) {
 				var d = document,
 				    df = d.createDocumentFragment() || "",
-				    aC = "appendChild";if ("string" === typeof e) {
+				    appendChild = "appendChild";if ("string" === typeof e) {
 					e = d.createTextNode(e);
-				}df[aC](e);a[aC](df);
+				}df[appendChild](e);a[appendChild](df);
 			}
 		}();
 	};root.appendFragment = appendFragment;
@@ -911,30 +911,30 @@ var handleExternalLink = function (url, ev) {
 	    debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
 	debounceLogicHandleExternalLink();
 },
-    manageExternalLinkAll = function (ctx) {
+    manageExternalLinkAll = function (scope) {
 	"use strict";
 
-	ctx = ctx && ctx.nodeName ? ctx : "";
+	var ctx = scope && scope.nodeName ? scope : "";
 	var d = document,
-	    gEBTN = "getElementsByTagName",
+	    getElementsByTagName = "getElementsByTagName",
 	    linkTag = "a",
-	    link = ctx ? ctx[gEBTN](linkTag) || "" : d[gEBTN](linkTag) || "",
-	    cL = "classList",
-	    aEL = "addEventListener",
-	    gA = "getAttribute",
+	    link = ctx ? ctx[getElementsByTagName](linkTag) || "" : d[getElementsByTagName](linkTag) || "",
+	    classList = "classList",
+	    addEventListener = "addEventListener",
+	    getAttribute = "getAttribute",
 	    isBindedClass = "is-binded",
 	    arrange = function (e) {
-		if (!e[cL].contains(isBindedClass)) {
-			var url = e[gA]("href") || "";
+		if (!e[classList].contains(isBindedClass)) {
+			var url = e[getAttribute]("href") || "";
 			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
 				e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					e.target = "_blank";
 					e.rel = "noopener";
 				} else {
-					e[aEL]("click", handleExternalLink.bind(null, url));
+					e[addEventListener]("click", handleExternalLink.bind(null, url));
 				}
-				e[cL].add(isBindedClass);
+				e[classList].add(isBindedClass);
 			}
 		}
 	};
@@ -956,11 +956,11 @@ var handleDataSrcImageAll = function () {
 	"use strict";
 
 	var d = document,
-	    gEBCN = "getElementsByClassName",
-	    cL = "classList",
-	    ds = "dataset",
+	    getElementsByClassName = "getElementsByClassName",
+	    classList = "classList",
+	    dataset = "dataset",
 	    imgClass = "data-src-img",
-	    img = d[gEBCN](imgClass) || "",
+	    img = d[getElementsByClassName](imgClass) || "",
 	    isActiveClass = "is-active",
 	    isBindedClass = "is-binded",
 	    arrange = function (e) {
@@ -969,20 +969,20 @@ var handleDataSrcImageAll = function () {
    * @see {@link https://github.com/ryanve/verge}
    */
 		if (verge.inY(e, 100) /* && 0 !== e.offsetHeight */) {
-				if (!e[cL].contains(isBindedClass)) {
-					var srcString = e[ds].src || "";
+				if (!e[classList].contains(isBindedClass)) {
+					var srcString = e[dataset].src || "";
 					if (srcString) {
 						if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
-							e[ds].src = srcString.replace(/^/, getHTTP(true) + ":");
-							srcString = e[ds].src;
+							e[dataset].src = srcString.replace(/^/, getHTTP(true) + ":");
+							srcString = e[dataset].src;
 						}
 						imagePromise(srcString).then(function () {
 							e.src = srcString;
 						}).catch(function (err) {
 							console.log("cannot load image with imagePromise:", srcString, err);
 						});
-						e[cL].add(isActiveClass);
-						e[cL].add(isBindedClass);
+						e[classList].add(isActiveClass);
+						e[classList].add(isBindedClass);
 					}
 				}
 			}
@@ -1003,12 +1003,12 @@ var handleDataSrcImageAll = function () {
 	"use strict";
 
 	var w = globalRoot,
-	    aEL = "addEventListener",
-	    rEL = "removeEventListener";
-	w[rEL]("scroll", handleDataSrcImageAllWindow, { passive: true });
-	w[rEL]("resize", handleDataSrcImageAllWindow);
-	w[aEL]("scroll", handleDataSrcImageAllWindow, { passive: true });
-	w[aEL]("resize", handleDataSrcImageAllWindow);
+	    addEventListener = "addEventListener",
+	    removeEventListener = "removeEventListener";
+	w[removeEventListener]("scroll", handleDataSrcImageAllWindow, { passive: true });
+	w[removeEventListener]("resize", handleDataSrcImageAllWindow);
+	w[addEventListener]("scroll", handleDataSrcImageAllWindow, { passive: true });
+	w[addEventListener]("resize", handleDataSrcImageAllWindow);
 	var timers = new Timers();
 	timers.timeout(function () {
 		timers.clear();
@@ -1029,14 +1029,14 @@ var manageLocationQrCodeImage = function () {
 
 	var w = globalRoot,
 	    d = document,
-	    gEBCN = "getElementsByClassName",
-	    cL = "classList",
-	    cE = "createElement",
-	    holder = d[gEBCN]("holder-location-qr-code")[0] || "",
+	    getElementsByClassName = "getElementsByClassName",
+	    classList = "classList",
+	    createElement = "createElement",
+	    holder = d[getElementsByClassName]("holder-location-qr-code")[0] || "",
 	    locationHref = w.location.href || "",
 	    initScript = function () {
 		var locationHref = w.location.href || "",
-		    img = d[cE]("img"),
+		    img = d[createElement]("img"),
 		    imgTitle = d.title ? "Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»" : "",
 		    imgSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
 		img.alt = imgTitle;
@@ -1067,7 +1067,7 @@ var manageLocationQrCodeImage = function () {
 		} else {
 			img.src = imgSrc;
 		}
-		img[cL].add("qr-code-img");
+		img[classList].add("qr-code-img");
 		img.title = imgTitle;
 		removeChildren(holder);
 		appendFragment(img, holder);
@@ -1091,34 +1091,34 @@ var initNavMenu = function () {
 
 	var w = globalRoot,
 	    d = document,
-	    gEBI = "getElementById",
-	    gEBCN = "getElementsByClassName",
-	    gEBTN = "getElementsByTagName",
-	    cL = "classList",
-	    aEL = "addEventListener",
-	    container = d[gEBI]("container") || "",
-	    page = d[gEBI]("page") || "",
-	    btnNavMenu = d[gEBCN]("btn-nav-menu")[0] || "",
-	    panelNavMenu = d[gEBCN]("panel-nav-menu")[0] || "",
-	    panelNavMenuItems = panelNavMenu ? panelNavMenu[gEBTN]("a") || "" : "",
-	    holderPanelMenuMore = d[gEBCN]("holder-panel-menu-more")[0] || "",
+	    getElementById = "getElementById",
+	    getElementsByClassName = "getElementsByClassName",
+	    getElementsByTagName = "getElementsByTagName",
+	    classList = "classList",
+	    addEventListener = "addEventListener",
+	    container = d[getElementById]("container") || "",
+	    page = d[getElementById]("page") || "",
+	    btnNavMenu = d[getElementsByClassName]("btn-nav-menu")[0] || "",
+	    panelNavMenu = d[getElementsByClassName]("panel-nav-menu")[0] || "",
+	    panelNavMenuItems = panelNavMenu ? panelNavMenu[getElementsByTagName]("a") || "" : "",
+	    holderPanelMenuMore = d[getElementsByClassName]("holder-panel-menu-more")[0] || "",
 	    isActiveClass = "is-active",
 	    locationHref = w.location.href || "",
 	    removeAllActiveClass = function () {
-		page[cL].remove(isActiveClass);
-		panelNavMenu[cL].remove(isActiveClass);
-		btnNavMenu[cL].remove(isActiveClass);
+		page[classList].remove(isActiveClass);
+		panelNavMenu[classList].remove(isActiveClass);
+		btnNavMenu[classList].remove(isActiveClass);
 	},
 	    removeHolderActiveClass = function () {
-		if (holderPanelMenuMore && holderPanelMenuMore[cL].contains(isActiveClass)) {
-			holderPanelMenuMore[cL].remove(isActiveClass);
+		if (holderPanelMenuMore && holderPanelMenuMore[classList].contains(isActiveClass)) {
+			holderPanelMenuMore[classList].remove(isActiveClass);
 		}
 	},
 	    addContainerHandler = function () {
 		var handleContainerLeft = function () {
 			/* console.log("swipeleft"); */
 			removeHolderActiveClass();
-			if (panelNavMenu[cL].contains(isActiveClass)) {
+			if (panelNavMenu[classList].contains(isActiveClass)) {
 				removeAllActiveClass();
 			}
 		},
@@ -1126,27 +1126,27 @@ var initNavMenu = function () {
 			/* console.log("swiperight"); */
 			removeHolderActiveClass();
 			var addAllActiveClass = function () {
-				page[cL].add(isActiveClass);
-				panelNavMenu[cL].add(isActiveClass);
-				btnNavMenu[cL].add(isActiveClass);
+				page[classList].add(isActiveClass);
+				panelNavMenu[classList].add(isActiveClass);
+				btnNavMenu[classList].add(isActiveClass);
 			};
-			if (!panelNavMenu[cL].contains(isActiveClass)) {
+			if (!panelNavMenu[classList].contains(isActiveClass)) {
 				addAllActiveClass();
 			}
 		};
-		container[aEL]("click", handleContainerLeft);
+		container[addEventListener]("click", handleContainerLeft);
 		if (w.tocca) {
 			if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-				container[aEL]("swipeleft", handleContainerLeft);
-				container[aEL]("swiperight", handleContainerRight);
+				container[addEventListener]("swipeleft", handleContainerLeft);
+				container[addEventListener]("swiperight", handleContainerRight);
 			}
 		}
 	},
 	    addBtnHandler = function () {
 		var toggleAllActiveClass = function () {
-			page[cL].toggle(isActiveClass);
-			panelNavMenu[cL].toggle(isActiveClass);
-			btnNavMenu[cL].toggle(isActiveClass);
+			page[classList].toggle(isActiveClass);
+			panelNavMenu[classList].toggle(isActiveClass);
+			btnNavMenu[classList].toggle(isActiveClass);
 		},
 		    handleBtnNavMenu = function (ev) {
 			ev.stopPropagation();
@@ -1154,22 +1154,22 @@ var initNavMenu = function () {
 			removeHolderActiveClass();
 			toggleAllActiveClass();
 		};
-		btnNavMenu[aEL]("click", handleBtnNavMenu);
+		btnNavMenu[addEventListener]("click", handleBtnNavMenu);
 	},
 	    addItemHandlerAll = function () {
 		var addItemHandler = function (e) {
 			var addActiveClass = function (e) {
-				e[cL].add(isActiveClass);
+				e[classList].add(isActiveClass);
 			},
 			    removeHolderAndAllActiveClass = function () {
 				removeHolderActiveClass();
 				removeAllActiveClass();
 			},
 			    removeActiveClass = function (e) {
-				e[cL].remove(isActiveClass);
+				e[classList].remove(isActiveClass);
 			},
 			    handleItem = function () {
-				if (panelNavMenu[cL].contains(isActiveClass)) {
+				if (panelNavMenu[classList].contains(isActiveClass)) {
 					removeHolderAndAllActiveClass();
 				}
 				for (var j = 0, l = panelNavMenuItems.length; j < l; j += 1) {
@@ -1178,7 +1178,7 @@ var initNavMenu = function () {
 				/* forEach(panelNavMenuItems, removeActiveClass, false); */
 				addActiveClass(e);
 			};
-			e[aEL]("click", handleItem);
+			e[addEventListener]("click", handleItem);
 			if (locationHref === e.href) {
 				addActiveClass(e);
 			} else {
@@ -1214,40 +1214,40 @@ var initMenuMore = function () {
 	"use strict";
 
 	var d = document,
-	    gEBI = "getElementById",
-	    gEBCN = "getElementsByClassName",
-	    gEBTN = "getElementsByTagName",
-	    cL = "classList",
-	    aEL = "addEventListener",
-	    container = d[gEBI]("container") || "",
-	    page = d[gEBI]("page") || "",
-	    holderPanelMenuMore = d[gEBCN]("holder-panel-menu-more")[0] || "",
-	    btnMenuMore = d[gEBCN]("btn-menu-more")[0] || "",
-	    panelMenuMore = d[gEBCN]("panel-menu-more")[0] || "",
-	    panelMenuMoreItems = panelMenuMore ? panelMenuMore[gEBTN]("li") || "" : "",
-	    panelNavMenu = d[gEBCN]("panel-nav-menu")[0] || "",
+	    getElementById = "getElementById",
+	    getElementsByClassName = "getElementsByClassName",
+	    getElementsByTagName = "getElementsByTagName",
+	    classList = "classList",
+	    addEventListener = "addEventListener",
+	    container = d[getElementById]("container") || "",
+	    page = d[getElementById]("page") || "",
+	    holderPanelMenuMore = d[getElementsByClassName]("holder-panel-menu-more")[0] || "",
+	    btnMenuMore = d[getElementsByClassName]("btn-menu-more")[0] || "",
+	    panelMenuMore = d[getElementsByClassName]("panel-menu-more")[0] || "",
+	    panelMenuMoreItems = panelMenuMore ? panelMenuMore[getElementsByTagName]("li") || "" : "",
+	    panelNavMenu = d[getElementsByClassName]("panel-nav-menu")[0] || "",
 	    isActiveClass = "is-active",
 	    handleItem = function () {
-		page[cL].remove(isActiveClass);
-		holderPanelMenuMore[cL].remove(isActiveClass);
-		if (panelNavMenu && panelNavMenu[cL].contains(isActiveClass)) {
-			panelNavMenu[cL].remove(isActiveClass);
+		page[classList].remove(isActiveClass);
+		holderPanelMenuMore[classList].remove(isActiveClass);
+		if (panelNavMenu && panelNavMenu[classList].contains(isActiveClass)) {
+			panelNavMenu[classList].remove(isActiveClass);
 		}
 	},
 	    addContainerHandler = function () {
-		container[aEL]("click", handleItem);
+		container[addEventListener]("click", handleItem);
 	},
 	    addBtnHandler = function () {
 		var h_btn = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			holderPanelMenuMore[cL].toggle(isActiveClass);
+			holderPanelMenuMore[classList].toggle(isActiveClass);
 		};
-		btnMenuMore[aEL]("click", h_btn);
+		btnMenuMore[addEventListener]("click", h_btn);
 	},
 	    addItemHandlerAll = function () {
 		var addItemHandler = function (e) {
-			e[aEL]("click", handleItem);
+			e[addEventListener]("click", handleItem);
 		};
 		for (var i = 0, l = panelMenuMoreItems.length; i < l; i += 1) {
 			addItemHandler(panelMenuMoreItems[i]);
@@ -1280,12 +1280,12 @@ var localImagesPreloaded,
 
 	var w = globalRoot,
 	    d = document,
-	    gEBCN = "getElementsByClassName",
+	    getElementsByClassName = "getElementsByClassName",
 	    gridItemClass = "masonry-grid-item",
 	    gridItemSelector = ".masonry-grid-item",
 	    gridSizerSelector = ".masonry-grid-sizer",
-	    grid = d[gEBCN]("masonry-grid")[0] || "",
-	    gridItem = d[gEBCN](gridItemClass)[0] || "",
+	    grid = d[getElementsByClassName]("masonry-grid")[0] || "",
+	    gridItem = d[getElementsByClassName](gridItemClass)[0] || "",
 	    msnry,
 	    pckry,
 	    initGrid = function () {
@@ -1300,7 +1300,7 @@ var localImagesPreloaded,
 			});
 			if (w.imagesLoaded) {
 				imgLoad = imagesLoaded(grid);
-				imgLoad.on("progress", function (instance) {
+				imgLoad.on("progress", function () {
 					/* console.log("function initMasonry => reinitialised msnry"); */
 					msnry.layout();
 				});
@@ -1319,7 +1319,7 @@ var localImagesPreloaded,
 				});
 				if (w.imagesLoaded) {
 					imgLoad = imagesLoaded(grid);
-					imgLoad.on("progress", function (instance) {
+					imgLoad.on("progress", function () {
 						/* console.log("function initMasonry => reinitialised pckry"); */
 						pckry.layout();
 					});
@@ -1362,14 +1362,13 @@ var initPhotoswipe = function () {
 	"use strict";
 
 	var d = document,
-	    gEBCN = "getElementsByClassName",
-	    gEBTN = "getElementsByTagName",
-	    ds = "dataset",
+	    getElementsByClassName = "getElementsByClassName",
+	    getElementsByTagName = "getElementsByTagName",
+	    dataset = "dataset",
 	    pswpGalleryClass = "pswp-gallery",
 	    pswpGallerySelector = ".pswp-gallery",
-	    pswpGallery = d[gEBCN](pswpGalleryClass) || "",
-	    pswpGalleryItems = d[gEBCN]("masonry-grid-item") || "",
-
+	    pswpGallery = d[getElementsByClassName](pswpGalleryClass) || "",
+	    pswpGalleryItems = d[getElementsByClassName]("masonry-grid-item") || "";
 	/*!
   * modified PhotoSwipe v4.1.1 init code
   * fixed: 7 'el' is already defined.
@@ -1380,55 +1379,43 @@ var initPhotoswipe = function () {
   * photoswipe.com/documentation/getting-started.html
   * passes jshint
   */
-	pswp = function (gallerySelector) {
-		var w = globalRoot;
+	var initPhotoSwipeFromDOM = function (gallerySelector) {
 		var parseThumbnailElements = function (el) {
 			var thumbElements = el.childNodes,
 			    numNodes = thumbElements.length,
 			    items = [],
-
-			/* el, */
-			childElements,
-
-			/* thumbnailEl, */
-			size,
+			    childElements,
+			    size,
 			    item;
 			for (var i = 0; i < numNodes; i++) {
 				el = thumbElements[i];
-				/* include only element nodes */
 				if (el.nodeType !== 1) {
 					continue;
 				}
 				childElements = el.children;
-				size = el.getAttribute("data-size").split("x");
-				/* create slide object */
+				size = el.getAttribute('data-size').split('x');
 				item = {
-					src: el.getAttribute("href"),
+					src: el.getAttribute('href'),
 					w: parseInt(size[0], 10),
 					h: parseInt(size[1], 10),
-					author: el.getAttribute("data-author")
+					author: el.getAttribute('data-author')
 				};
-				/* save link to element for getThumbBoundsFn */
 				item.el = el;
 				if (childElements.length > 0) {
-					/* thumbnail url */
 					item.msrc = childElements[0].getAttribute('src');
 					if (childElements.length > 1) {
-						/* caption (contents of figure) */
 						item.title = childElements[1].innerHTML;
 					}
 				}
-				var mediumSrc = el.getAttribute("data-med");
+				var mediumSrc = el.getAttribute('data-med');
 				if (mediumSrc) {
-					size = el.getAttribute("data-med-size").split("x");
-					/* "medium-sized" image */
+					size = el.getAttribute('data-med-size').split('x');
 					item.m = {
 						src: mediumSrc,
 						w: parseInt(size[0], 10),
 						h: parseInt(size[1], 10)
 					};
 				}
-				/* original image */
 				item.o = {
 					src: item.src,
 					w: item.w,
@@ -1438,12 +1425,118 @@ var initPhotoswipe = function () {
 			}
 			return items;
 		};
-		/* find nearest parent element */
 		var closest = function closest(el, fn) {
 			return el && (fn(el) ? el : closest(el.parentNode, fn));
 		};
+		var openPhotoSwipe = function (index, galleryElement, disableAnimation, fromURL) {
+			var pswpElement = document.querySelectorAll('.pswp')[0],
+			    gallery,
+			    options,
+			    items;
+			items = parseThumbnailElements(galleryElement);
+			options = {
+				galleryUID: galleryElement.getAttribute('data-pswp-uid'),
+				getThumbBoundsFn: function (index) {
+					var thumbnail = items[index].el.children[0],
+					    pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
+					    rect = thumbnail.getBoundingClientRect();
+					return {
+						x: rect.left,
+						y: rect.top + pageYScroll,
+						w: rect.width
+					};
+				},
+				addCaptionHTMLFn: function (item, captionEl) {
+					if (!item.title) {
+						captionEl.children[0].innerText = "";
+						return false;
+					}
+					captionEl.children[0].innerHTML = item.title + '<br/><small>Photo: ' + item.author + '</small>';
+					return true;
+				}
+			};
+			if (fromURL) {
+				if (options.galleryPIDs) {
+					for (var j = 0; j < items.length; j++) {
+						if (items[j].pid === index) {
+							options.index = j;
+							break;
+						}
+					}
+				} else {
+					options.index = parseInt(index, 10) - 1;
+				}
+			} else {
+				options.index = parseInt(index, 10);
+			}
+			if (isNaN(options.index)) {
+				return;
+			}
+			var radios = document.getElementsByName('gallery-style');
+			for (var i = 0, length = radios.length; i < length; i++) {
+				if (radios[i].checked) {
+					if (radios[i].id === 'radio-minimal-black') {
+						options.mainClass = 'pswp--minimal--dark';
+						options.barsSize = {
+							top: 0,
+							bottom: 0
+						};
+						options.captionEl = false;
+						options.fullscreenEl = false;
+						options.shareEl = false;
+						options.bgOpacity = 0.85;
+						options.tapToClose = true;
+						options.tapToToggleControls = false;
+					}
+					break;
+				}
+			}
+			if (disableAnimation) {
+				options.showAnimationDuration = 0;
+			}
+			gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+			var realViewportWidth,
+			    useLargeImages = false,
+			    firstResize = true,
+			    imageSrcWillChange;
+			gallery.listen('beforeResize', function () {
+				var dpiRatio = window.devicePixelRatio ? window.devicePixelRatio : 1;
+				dpiRatio = Math.min(dpiRatio, 2.5);
+				realViewportWidth = gallery.viewportSize.x * dpiRatio;
+				if (realViewportWidth >= 1200 || !gallery.likelyTouchDevice && realViewportWidth > 800 || screen.width > 1200) {
+					if (!useLargeImages) {
+						useLargeImages = true;
+						imageSrcWillChange = true;
+					}
+				} else {
+					if (useLargeImages) {
+						useLargeImages = false;
+						imageSrcWillChange = true;
+					}
+				}
+				if (imageSrcWillChange && !firstResize) {
+					gallery.invalidateCurrItems();
+				}
+				if (firstResize) {
+					firstResize = false;
+				}
+				imageSrcWillChange = false;
+			});
+			gallery.listen('gettingData', function (index, item) {
+				if (useLargeImages) {
+					item.src = item.o.src;
+					item.w = item.o.w;
+					item.h = item.o.h;
+				} else {
+					item.src = item.m.src;
+					item.w = item.m.w;
+					item.h = item.m.h;
+				}
+			});
+			gallery.init();
+		};
 		var onThumbnailsClick = function (e) {
-			e = e || w.event;
+			e = e || window.event;
 			if (e.preventDefault) {
 				e.preventDefault();
 			} else {
@@ -1477,9 +1570,8 @@ var initPhotoswipe = function () {
 			return false;
 		};
 		var photoswipeParseHash = function () {
-			var hash = w.location.hash.substring(1),
+			var hash = window.location.hash.substring(1),
 			    params = {};
-			/* pid=1 */
 			if (hash.length < 5) {
 				return params;
 			}
@@ -1499,140 +1591,25 @@ var initPhotoswipe = function () {
 			}
 			return params;
 		};
-		var openPhotoSwipe = function (index, galleryElement, disableAnimation, fromURL) {
-			var pswpElement = document.querySelectorAll(".pswp")[0],
-			    gallery,
-			    options,
-			    items;
-			items = parseThumbnailElements(galleryElement);
-			/* define options (if needed) */
-			options = {
-				galleryUID: galleryElement.getAttribute("data-pswp-uid"),
-				getThumbBoundsFn: function (index) {
-					/* See Options->getThumbBoundsFn section of docs for more info */
-					var thumbnail = items[index].el.children[0],
-					    pageYScroll = w.pageYOffset || document.documentElement.scrollTop,
-					    rect = thumbnail.getBoundingClientRect();
-					return {
-						x: rect.left,
-						y: rect.top + pageYScroll,
-						w: rect.width
-					};
-				},
-				addCaptionHTMLFn: function (item, captionEl, isFake) {
-					if (!item.title) {
-						captionEl.children[0].innerText = "";
-						return false;
-					}
-					captionEl.children[0].innerHTML = item.title + "<br /><small>Photo: " + item.author + "</small>";
-					return true;
-				}
-			};
-			if (fromURL) {
-				if (options.galleryPIDs) {
-					/* parse real index when custom PIDs are used */
-					/* http://photoswipe.com/documentation/faq.html#custom-pid-in-url */
-					for (var j = 0; j < items.length; j++) {
-						if (items[j].pid === index) {
-							options.index = j;
-							break;
-						}
-					}
-				} else {
-					options.index = parseInt(index, 10) - 1;
-				}
-			} else {
-				options.index = parseInt(index, 10);
-			}
-			/* exit if index not found */
-			if (isNaN(options.index)) {
-				return;
-			}
-			var radios = document.getElementsByName("gallery-style");
-			for (var i = 0, length = radios.length; i < length; i++) {
-				if (radios[i].checked) {
-					if (radios[i].id === "radio-all-controls") {} else if (radios[i].id === "radio-minimal-black") {
-						options.mainClass = "pswp--minimal--dark";
-						options.barsSize = {
-							top: 0,
-							bottom: 0
-						};
-						options.captionEl = false;
-						options.fullscreenEl = false;
-						options.shareEl = false;
-						options.bgOpacity = 0.85;
-						options.tapToClose = true;
-						options.tapToToggleControls = false;
-					}
-					break;
-				}
-			}
-			if (disableAnimation) {
-				options.showAnimationDuration = 0;
-			}
-			/* Pass data to PhotoSwipe and initialize it */
-			gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
-			/* see: http://photoswipe.com/documentation/responsive-images.html */
-			var realViewportWidth,
-			    useLargeImages = false,
-			    firstResize = true,
-			    imageSrcWillChange;
-			gallery.listen("beforeResize", function () {
-				var dpiRatio = w.devicePixelRatio ? w.devicePixelRatio : 1;
-				dpiRatio = Math.min(dpiRatio, 2.5);
-				realViewportWidth = gallery.viewportSize.x * dpiRatio;
-				if (realViewportWidth >= 1200 || !gallery.likelyTouchDevice && realViewportWidth > 800 || screen.width > 1200) {
-					if (!useLargeImages) {
-						useLargeImages = true;
-						imageSrcWillChange = true;
-					}
-				} else {
-					if (useLargeImages) {
-						useLargeImages = false;
-						imageSrcWillChange = true;
-					}
-				}
-				if (imageSrcWillChange && !firstResize) {
-					gallery.invalidateCurrItems();
-				}
-				if (firstResize) {
-					firstResize = false;
-				}
-				imageSrcWillChange = false;
-			});
-			gallery.listen("gettingData", function (index, item) {
-				if (useLargeImages) {
-					item.src = item.o.src;
-					item.w = item.o.w;
-					item.h = item.o.h;
-				} else {
-					item.src = item.m.src;
-					item.w = item.m.w;
-					item.h = item.m.h;
-				}
-			});
-			gallery.init();
-		};
-		/* select all gallery elements */
+
 		var galleryElements = document.querySelectorAll(gallerySelector);
 		for (var i = 0, l = galleryElements.length; i < l; i++) {
-			galleryElements[i].setAttribute("data-pswp-uid", i + 1);
+			galleryElements[i].setAttribute('data-pswp-uid', i + 1);
 			galleryElements[i].onclick = onThumbnailsClick;
 		}
-		/* Parse URL and open gallery if it contains #&pid=3&gid=1 */
 		var hashData = photoswipeParseHash();
 		if (hashData.pid && hashData.gid) {
 			openPhotoSwipe(hashData.pid, galleryElements[hashData.gid - 1], true, true);
 		}
-	},
-	    initScript = function () {
+	};
+	var initScript = function () {
 		var arrange = function (e) {
 			setStyleDisplayBlock(e);
 			var fixUrlAll = function (linkArr) {
 				var fixUrl = function (link) {
-					var med = link[ds].med || "";
+					var med = link[dataset].med || "";
 					if (med && parseLink(med).isCrossDomain && !parseLink(med).hasHTTP) {
-						link[ds].med = med.replace(/^/, getHTTP(true) + ":");
+						link[dataset].med = med.replace(/^/, getHTTP(true) + ":");
 					}
 					/*!
       * dont use href to read href, use getAttribute, because href adds protocol
@@ -1647,7 +1624,7 @@ var initPhotoswipe = function () {
 				}
 				/* forEach(linkArr, fixUrl, false); */
 			};
-			var galleryLinkArr = e ? e[gEBTN]("a") || "" : "";
+			var galleryLinkArr = e ? e[getElementsByTagName]("a") || "" : "";
 			if (galleryLinkArr) {
 				fixUrlAll(galleryLinkArr);
 			}
@@ -1655,8 +1632,8 @@ var initPhotoswipe = function () {
 		for (var i = 0, l = pswpGallery.length; i < l; i += 1) {
 			arrange(pswpGallery[i]);
 		}
-		/* forEach(galleries, arrange, false); */
-		pswp(pswpGallerySelector);
+		/* forEach(galleries, initPhotoSwipeFromDOM, false); */
+		initPhotoSwipeFromDOM(pswpGallerySelector);
 	};
 	if (pswpGallery && pswpGalleryItems) {
 		/* console.log("triggered function: initPhotoswipe"); */
@@ -1677,26 +1654,26 @@ var initUiTotop = function () {
 	    d = document,
 	    h = d.documentElement || "",
 	    b = d.body || "",
-	    gEBCN = "getElementsByClassName",
-	    cL = "classList",
-	    cE = "createElement",
-	    aC = "appendChild",
+	    getElementsByClassName = "getElementsByClassName",
+	    classList = "classList",
+	    createElement = "createElement",
+	    appendChild = "appendChild",
 
-	/* cENS = "createElementNS",
- sANS = "setAttributeNS", */
-	aEL = "addEventListener",
+	/* createElementNS = "createElementNS",
+ setAttributeNS = "setAttributeNS", */
+	addEventListener = "addEventListener",
 	    btnClass = "ui-totop",
 	    btnTitle = "Наверх",
 	    isActiveClass = "is-active",
-	    anchor = d[cE]("a"),
+	    anchor = d[createElement]("a"),
 
 	/* insertUpSvg = function (targetObj) {
- 	var svg = d[cENS]("http://www.w3.org/2000/svg", "svg"),
- 	use = d[cENS]("http://www.w3.org/2000/svg", "use");
- 	svg[cL].add("ui-icon");
- 	use[sANS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
- 	svg[aC](use);
- 	targetObj[aC](svg);
+ 	var svg = d[createElementNS]("http://www.w3.org/2000/svg", "svg"),
+ 	use = d[createElementNS]("http://www.w3.org/2000/svg", "use");
+ 	svg[classList].add("ui-icon");
+ 	use[setAttributeNS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
+ 	svg[appendChild](use);
+ 	targetObj[appendChild](svg);
  }, */
 	handleUiTotopAnchor = function (ev) {
 		ev.stopPropagation();
@@ -1705,31 +1682,31 @@ var initUiTotop = function () {
 	},
 	    handleUiTotopWindow = function (_this) {
 		var logicHandleUiTotopWindow = function () {
-			var btn = d[gEBCN](btnClass)[0] || "",
+			var btn = d[getElementsByClassName](btnClass)[0] || "",
 			    scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
 			    windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
 			if (scrollPosition && windowHeight && btn) {
 				if (scrollPosition > windowHeight) {
-					btn[cL].add(isActiveClass);
+					btn[classList].add(isActiveClass);
 				} else {
-					btn[cL].remove(isActiveClass);
+					btn[classList].remove(isActiveClass);
 				}
 			}
 		},
 		    throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
 		throttleLogicHandleUiTotopWindow();
 	};
-	anchor[cL].add(btnClass);
+	anchor[classList].add(btnClass);
 	/*jshint -W107 */
 	anchor.href = "javascript:void(0);";
 	/*jshint +W107 */
 	anchor.title = btnTitle;
 	/* insertUpSvg(anchor); */
-	b[aC](anchor);
+	b[appendChild](anchor);
 	if (b) {
 		/* console.log("triggered function: initUiTotop"); */
-		anchor[aEL]("click", handleUiTotopAnchor);
-		w[aEL]("scroll", handleUiTotopWindow, { passive: true });
+		anchor[addEventListener]("click", handleUiTotopAnchor);
+		w[addEventListener]("scroll", handleUiTotopWindow, { passive: true });
 	}
 };
 document.ready().then(initUiTotop);
@@ -1747,12 +1724,12 @@ var yshare,
 
 	var w = globalRoot,
 	    d = document,
-	    gEBI = "getElementById",
-	    gEBCN = "getElementsByClassName",
-	    aEL = "addEventListener",
-	    btn = d[gEBCN]("btn-share-buttons")[0] || "",
+	    getElementById = "getElementById",
+	    getElementsByClassName = "getElementsByClassName",
+	    addEventListener = "addEventListener",
+	    btn = d[getElementsByClassName]("btn-share-buttons")[0] || "",
 	    yaShare2Id = "ya-share2",
-	    yaShare2 = d[gEBI](yaShare2Id) || "",
+	    yaShare2 = d[getElementById](yaShare2Id) || "",
 	    handleShareButton = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
@@ -1790,7 +1767,7 @@ var yshare,
 	if (btn && yaShare2) {
 		/* console.log("triggered function: manageShareButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			btn[aEL]("click", handleShareButton);
+			btn[addEventListener]("click", handleShareButton);
 		} else {
 			setStyleDisplayNone(btn);
 		}
@@ -1805,18 +1782,18 @@ var manageVKLikeButton = function () {
 
 	var w = globalRoot,
 	    d = document,
-	    gEBI = "getElementById",
-	    gEBCN = "getElementsByClassName",
+	    getElementById = "getElementById",
+	    getElementsByClassName = "getElementsByClassName",
 	    dataset = "dataset",
-	    aEL = "addEventListener",
-	    rEL = "removeEventListener",
+	    addEventListener = "addEventListener",
+	    removeEventListener = "removeEventListener",
 	    VKLikeId = "vk-like",
-	    vkLike = d[gEBI](VKLikeId) || "",
-	    btn = d[gEBCN]("btn-show-vk-like")[0] || "",
+	    vkLike = d[getElementById](VKLikeId) || "",
+	    btn = d[getElementsByClassName]("btn-show-vk-like")[0] || "",
 	    handleVKLikeButton = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
-		btn[rEL]("click", handleVKLikeButton);
+		btn[removeEventListener]("click", handleVKLikeButton);
 		setStyleVisibilityVisible(vkLike);
 		setStyleOpacity(vkLike, 1);
 		setStyleDisplayNone(btn);
@@ -1845,7 +1822,7 @@ var manageVKLikeButton = function () {
 	if (btn && vkLike) {
 		/* console.log("triggered function: manageVKLikeButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			btn[aEL]("click", handleVKLikeButton);
+			btn[addEventListener]("click", handleVKLikeButton);
 		} else {
 			setStyleDisplayNone(btn);
 		}
@@ -1872,8 +1849,8 @@ var showPageFinishProgress = function () {
 	"use strict";
 
 	var d = document,
-	    gEBCN = "getElementsByClassName",
-	    grid = d[gEBCN]("masonry-grid")[0] || "",
+	    getElementsByClassName = "getElementsByClassName",
+	    grid = d[getElementsByClassName]("masonry-grid")[0] || "",
 	    showPage = function () {
 		setStyleOpacity(grid, 1);
 		progressBar.increase(20);

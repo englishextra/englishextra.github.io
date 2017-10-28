@@ -9,7 +9,7 @@
 
 ## On-line
 
- - [the website](https://englishextra.github.io/)
+* [the website](https://englishextra.github.io/)
 
 ## Production Push URL
 
@@ -19,9 +19,9 @@ https://github.com/englishextra/englishextra.github.io.git
 
 ## Remotes
 
- - [GitHub](https://github.com/englishextra/englishextra.github.io)
- - [BitBucket](https://bitbucket.org/englishextra/englishextra.github.io)
- - [GitLab](https://gitlab.com/englishextra/englishextra.github.io)
+* [GitHub](https://github.com/englishextra/englishextra.github.io)
+* [BitBucket](https://bitbucket.org/englishextra/englishextra.github.io)
+* [GitLab](https://gitlab.com/englishextra/englishextra.github.io)
 
 ## Copyright
 
