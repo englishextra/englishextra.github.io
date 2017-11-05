@@ -254,9 +254,9 @@ manageExternalLinkAll = function (scope) {
 	getElementsByTagName = "getElementsByTagName",
 	linkTag = "a",
 	link = ctx ? ctx[getElementsByTagName](linkTag) || "" : d[getElementsByTagName](linkTag) || "",
-	classList = "classList",
-	addEventListener = "addEventListener",
-	getAttribute = "getAttribute",
+	classList = "classList";
+	var _addEventListener = "addEventListener";
+	var getAttribute = "getAttribute",
 	isBindedClass = "is-binded",
 	arrange = function (e) {
 		if (!e[classList].contains(isBindedClass)) {
@@ -267,7 +267,7 @@ manageExternalLinkAll = function (scope) {
 					e.target = "_blank";
 					e.rel = "noopener";
 				} else {
-					e[addEventListener]("click", handleExternalLink.bind(null, url));
+					e[_addEventListener]("click", handleExternalLink.bind(null, url));
 				}
 				e[classList].add(isBindedClass);
 			}
@@ -382,10 +382,10 @@ document.ready().then(initSearch);
  */
 var manageSearchInput = function () {
 	"use strict";
-	var d = document,
-	getElementById = "getElementById",
-	addEventListener = "addEventListener",
-	searchInput = d[getElementById]("text") || "",
+	var d = document;
+	var getElementById = "getElementById";
+	var _addEventListener = "addEventListener";
+	var searchInput = d[getElementById]("text") || "",
 	handleSearchInputValue = function () {
 		var _this = this;
 		var logicHandleSearchInputValue = function () {
@@ -397,7 +397,7 @@ var manageSearchInput = function () {
 	if (searchInput) {
 		/* console.log("triggered function: manageSearchInput"); */
 		searchInput.focus();
-		searchInput[addEventListener]("input", handleSearchInputValue);
+		searchInput[_addEventListener]("input", handleSearchInputValue);
 	}
 };
 document.ready().then(manageSearchInput);
@@ -411,9 +411,9 @@ var initNavMenu = function () {
 	getElementById = "getElementById",
 	getElementsByClassName = "getElementsByClassName",
 	getElementsByTagName = "getElementsByTagName",
-	classList = "classList",
-	addEventListener = "addEventListener",
-	container = d[getElementById]("container") || "",
+	classList = "classList";
+	var _addEventListener = "addEventListener";
+	var container = d[getElementById]("container") || "",
 	page = d[getElementById]("page") || "",
 	btnNavMenu = d[getElementsByClassName]("btn-nav-menu")[0] || "",
 	panelNavMenu = d[getElementsByClassName]("panel-nav-menu")[0] || "",
@@ -451,11 +451,11 @@ var initNavMenu = function () {
 				addAllActiveClass();
 			}
 		};
-		container[addEventListener]("click", handleContainerLeft);
+		container[_addEventListener]("click", handleContainerLeft);
 		if (w.tocca) {
 			if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-				container[addEventListener]("swipeleft", handleContainerLeft);
-				container[addEventListener]("swiperight", handleContainerRight);
+				container[_addEventListener]("swipeleft", handleContainerLeft);
+				container[_addEventListener]("swiperight", handleContainerRight);
 			}
 		}
 	},
@@ -471,7 +471,7 @@ var initNavMenu = function () {
 			removeHolderActiveClass();
 			toggleAllActiveClass();
 		};
-		btnNavMenu[addEventListener]("click", handleBtnNavMenu);
+		btnNavMenu[_addEventListener]("click", handleBtnNavMenu);
 	},
 	addItemHandlerAll = function () {
 		var addItemHandler = function (e) {
@@ -495,7 +495,7 @@ var initNavMenu = function () {
 				/* forEach(panelNavMenuItems, removeActiveClass, false); */
 				addActiveClass(e);
 			};
-			e[addEventListener]("click", handleItem);
+			e[_addEventListener]("click", handleItem);
 			if (locationHref === e.href) {
 				addActiveClass(e);
 			} else {
@@ -536,11 +536,11 @@ var initUiTotop = function () {
 	getElementsByClassName = "getElementsByClassName",
 	classList = "classList",
 	createElement = "createElement",
-	appendChild = "appendChild",
-	/* createElementNS = "createElementNS",
-	setAttributeNS = "setAttributeNS", */
-	addEventListener = "addEventListener",
-	btnClass = "ui-totop",
+	appendChild = "appendChild";
+	/* var createElementNS = "createElementNS";
+	var setAttributeNS = "setAttributeNS"; */
+	var _addEventListener = "addEventListener";
+	var btnClass = "ui-totop",
 	btnTitle = "Наверх",
 	isActiveClass = "is-active",
 	anchor = d[createElement]("a"),
@@ -582,8 +582,8 @@ var initUiTotop = function () {
 	b[appendChild](anchor);
 	if (b) {
 		/* console.log("triggered function: initUiTotop"); */
-		anchor[addEventListener]("click", handleUiTotopAnchor);
-		w[addEventListener]("scroll", handleUiTotopWindow, {passive: true});
+		anchor[_addEventListener]("click", handleUiTotopAnchor);
+		w[_addEventListener]("scroll", handleUiTotopWindow, {passive: true});
 	}
 };
 document.ready().then(initUiTotop);

@@ -259,9 +259,9 @@ manageExternalLinkAll = function (scope) {
 	getElementsByTagName = "getElementsByTagName",
 	linkTag = "a",
 	link = ctx ? ctx[getElementsByTagName](linkTag) || "" : d[getElementsByTagName](linkTag) || "",
-	classList = "classList",
-	addEventListener = "addEventListener",
-	getAttribute = "getAttribute",
+	classList = "classList";
+	var _addEventListener = "addEventListener";
+	var getAttribute = "getAttribute",
 	isBindedClass = "is-binded",
 	arrange = function (e) {
 		if (!e[classList].contains(isBindedClass)) {
@@ -272,7 +272,7 @@ manageExternalLinkAll = function (scope) {
 					e.target = "_blank";
 					e.rel = "noopener";
 				} else {
-					e[addEventListener]("click", handleExternalLink.bind(null, url));
+					e[_addEventListener]("click", handleExternalLink.bind(null, url));
 				}
 				e[classList].add(isBindedClass);
 			}
@@ -330,11 +330,11 @@ var hideUiBtnsInFullScreen = function () {
 },
 resizeHideUiBtnsInFullScreen = function () {
 	"use strict";
-	var w = globalRoot,
-	addEventListener = "addEventListener";
+	var w = globalRoot;
+	var _addEventListener = "addEventListener";
 	if ("undefined" !== typeof earlyDeviceType && "desktop" === earlyDeviceType) {
 		hideUiBtnsInFullScreen();
-		w[addEventListener]("resize", hideUiBtnsInFullScreen);
+		w[_addEventListener]("resize", hideUiBtnsInFullScreen);
 	}
 };
 document.ready().then(resizeHideUiBtnsInFullScreen);
@@ -347,9 +347,9 @@ var initDoSlide = function () {
 	"use strict";
 	var w = globalRoot,
 	d = document,
-	getElementsByClassName = "getElementsByClassName",
-	addEventListener = "addEventListener",
-	dsContainerSelector = ".ds-container",
+	getElementsByClassName = "getElementsByClassName";
+	var _addEventListener = "addEventListener";
+	var dsContainerSelector = ".ds-container",
 	dsContainer = d[getElementsByClassName]("ds-container")[0] || "",
 	cdPrev = d[getElementsByClassName]("cd-prev")[0] || "",
 	cdNext = d[getElementsByClassName]("cd-next")[0] || "",
@@ -388,13 +388,13 @@ var initDoSlide = function () {
 				ev.stopPropagation();
 				slide.prev();
 			};
-			cdPrev[addEventListener]("click", handleCdPrev);
+			cdPrev[_addEventListener]("click", handleCdPrev);
 			var handleCdNext = function (ev) {
 				ev.preventDefault();
 				ev.stopPropagation();
 				slide.next();
 			};
-			cdNext[addEventListener]("click", handleCdNext);
+			cdNext[_addEventListener]("click", handleCdNext);
 		}
 	};
 	if (dsContainer && cdPrev && cdNext) {
@@ -476,9 +476,9 @@ var initMenuMore = function () {
 	getElementById = "getElementById",
 	getElementsByClassName = "getElementsByClassName",
 	getElementsByTagName = "getElementsByTagName",
-	classList = "classList",
-	addEventListener = "addEventListener",
-	container = d[getElementById]("container") || "",
+	classList = "classList";
+	var _addEventListener = "addEventListener";
+	var container = d[getElementById]("container") || "",
 	page = d[getElementById]("page") || "",
 	holderPanelMenuMore = d[getElementsByClassName]("holder-panel-menu-more")[0] || "",
 	btnMenuMore = d[getElementsByClassName]("btn-menu-more")[0] || "",
@@ -494,7 +494,7 @@ var initMenuMore = function () {
 		}
 	},
 	addContainerHandler = function () {
-		container[addEventListener]("click", handleItem);
+		container[_addEventListener]("click", handleItem);
 	},
 	addBtnHandler = function () {
 		var h_btn = function (ev) {
@@ -502,11 +502,11 @@ var initMenuMore = function () {
 			ev.preventDefault();
 			holderPanelMenuMore[classList].toggle(isActiveClass);
 		};
-		btnMenuMore[addEventListener]("click", h_btn);
+		btnMenuMore[_addEventListener]("click", h_btn);
 	},
 	addItemHandlerAll = function () {
 		var addItemHandler = function (e) {
-			e[addEventListener]("click", handleItem);
+			e[_addEventListener]("click", handleItem);
 		};
 		for (var i = 0, l = panelMenuMoreItems.length; i < l; i += 1) {
 			addItemHandler(panelMenuMoreItems[i]);
@@ -564,8 +564,8 @@ manageShareButton = function () {
 	var w = globalRoot,
 	d = document,
 	getElementById = "getElementById",
-	getElementsByClassName = "getElementsByClassName",
-	addEventListener = "addEventListener",
+	getElementsByClassName = "getElementsByClassName";
+	var _addEventListener = "addEventListener",
 	btn = d[getElementsByClassName]("btn-share-buttons")[0] || "",
 	yaShare2Id = "ya-share2",
 	yaShare2 = d[getElementById](yaShare2Id) || "",
@@ -606,7 +606,7 @@ manageShareButton = function () {
 	if (btn && yaShare2) {
 		/* console.log("triggered function: manageShareButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			btn[addEventListener]("click", handleShareButton);
+			btn[_addEventListener]("click", handleShareButton);
 		} else {
 			setStyleDisplayNone(btn);
 		}
@@ -622,16 +622,16 @@ var manageVKLikeButton = function () {
 	d = document,
 	getElementById = "getElementById",
 	getElementsByClassName = "getElementsByClassName",
-	dataset = "dataset",
-	addEventListener = "addEventListener",
-	removeEventListener = "removeEventListener",
+	dataset = "dataset";
+	var _addEventListener = "addEventListener",
+	_removeEventListener = "removeEventListener",
 	VKLikeId = "vk-like",
 	vkLike = d[getElementById](VKLikeId) || "",
 	btn = d[getElementsByClassName]("btn-show-vk-like")[0] || "",
 	handleVKLikeButton = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
-		btn[removeEventListener]("click", handleVKLikeButton);
+		btn[_removeEventListener]("click", handleVKLikeButton);
 		setStyleVisibilityVisible(vkLike);
 		setStyleOpacity(vkLike, 1);
 		setStyleDisplayNone(btn);
@@ -660,7 +660,7 @@ var manageVKLikeButton = function () {
 	if (btn && vkLike) {
 		/* console.log("triggered function: manageVKLikeButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			btn[addEventListener]("click", handleVKLikeButton);
+			btn[_addEventListener]("click", handleVKLikeButton);
 		} else {
 			setStyleDisplayNone(btn);
 		}

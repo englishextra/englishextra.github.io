@@ -197,9 +197,9 @@ manageExternalLinkAll = function (scope) {
 	getElementsByTagName = "getElementsByTagName",
 	linkTag = "a",
 	link = ctx ? ctx[getElementsByTagName](linkTag) || "" : d[getElementsByTagName](linkTag) || "",
-	classList = "classList",
-	addEventListener = "addEventListener",
-	getAttribute = "getAttribute",
+	classList = "classList";
+	var _addEventListener = "addEventListener";
+	var getAttribute = "getAttribute",
 	isBindedClass = "is-binded",
 	arrange = function (e) {
 		if (!e[classList].contains(isBindedClass)) {
@@ -210,7 +210,7 @@ manageExternalLinkAll = function (scope) {
 					e.target = "_blank";
 					e.rel = "noopener";
 				} else {
-					e[addEventListener]("click", handleExternalLink.bind(null, url));
+					e[_addEventListener]("click", handleExternalLink.bind(null, url));
 				}
 				e[classList].add(isBindedClass);
 			}

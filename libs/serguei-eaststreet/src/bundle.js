@@ -525,9 +525,9 @@ var notiBar = function (opt) {
 	createElement = "createElement",
 	/* createElementNS = "createElementNS",
 	setAttributeNS = "setAttributeNS", */
-	appendChild = "appendChild",
-	addEventListener = "addEventListener",
-	removeEventListener = "removeEventListener",
+	appendChild = "appendChild";
+	var _addEventListener = "addEventListener",
+	_removeEventListener = "removeEventListener",
 	notibarClass = "notibar",
 	notibarContainer = d[getElementsByClassName](notibarClass)[0] || "",
 	messageClass = "message",
@@ -602,11 +602,11 @@ var notiBar = function (opt) {
 		}
 	},
 	handleCloseButton = function () {
-		closeButton[removeEventListener]("click", handleCloseButton);
+		closeButton[_removeEventListener]("click", handleCloseButton);
 		hideMessage();
 		setCookie();
 	};
-	closeButton[addEventListener]("click", handleCloseButton);
+	closeButton[_addEventListener]("click", handleCloseButton);
 	notibarContainer[appendChild](closeButton);
 	if (b) {
 		/* console.log("triggered function: notiBar"); */
@@ -640,9 +640,9 @@ var Notifier42 = function (msgObj, delay, msgClass) {
 	b = d.body || "",
 	getElementsByClassName = "getElementsByClassName",
 	classList = "classList",
-	createElement = "createElement",
-	addEventListener = "addEventListener",
-	removeEventListener = "removeEventListener",
+	createElement = "createElement";
+	var _addEventListener = "addEventListener",
+	_removeEventListener = "removeEventListener",
 	cls = "notifier42",
 	container = d[getElementsByClassName](cls)[0] || "",
 	an = "animated",
@@ -681,8 +681,8 @@ var Notifier42 = function (msgObj, delay, msgClass) {
 			}
 		}, 400);
 	};
-	container[addEventListener]("click", function handleContainer() {
-		this[removeEventListener]("click", handleContainer);
+	container[_addEventListener]("click", function handleContainer() {
+		this[_removeEventListener]("click", handleContainer);
 		clearContainer();
 	});
 	if (0 !== delay) {
@@ -708,9 +708,9 @@ var initNotifier42WriteMe = function () {
 		var w = globalRoot,
 		d = document,
 		getElementById = "getElementById",
-		createElement = "createElement",
-		addEventListener = "addEventListener",
-		removeEventListener = "removeEventListener",
+		createElement = "createElement";
+		var _addEventListener = "addEventListener",
+		_removeEventListener = "removeEventListener",
 		cookieKey = "_notifier42_write_me_",
 		msgText = "Напишите мне, отвечу очень скоро. Регистрироваться не нужно.",
 		locationOrigin = parseLink(w.location.href).origin,
@@ -723,11 +723,11 @@ var initNotifier42WriteMe = function () {
 			var handleMsgObj = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				msgObj[removeEventListener]("click", handleMsgObj);
+				msgObj[_removeEventListener]("click", handleMsgObj);
 				var targetObj = d[getElementById]("disqus_thread") || "";
 				scroll2Top((targetObj ? findPos(targetObj).top : 0), 20000);
 			};
-			msgObj[addEventListener]("click", handleMsgObj);
+			msgObj[_addEventListener]("click", handleMsgObj);
 			var nf42;
 			nf42 = new Notifier42(msgObj, 5000);
 			Cookies.set(cookieKey, msgText);
@@ -754,8 +754,8 @@ var initSidepanel = function () {
 	b = d.body || "",
 	getElementsByClassName = "getElementsByClassName",
 	getElementsByTagName = "getElementsByTagName",
-	classList = "classList",
-	addEventListener = "addEventListener",
+	classList = "classList";
+	var _addEventListener = "addEventListener",
 	btn = d[getElementsByClassName]("btn-toggle-ui-sidepanel")[0] || "",
 	page = d[getElementsByClassName]("page")[0] || "",
 	container = d[getElementsByClassName]("container")[0] || "",
@@ -801,23 +801,23 @@ var initSidepanel = function () {
 			}
 			handleOtherUIElementAll();
 		};
-		btn[addEventListener]("click", handleBtnSidepanel);
+		btn[_addEventListener]("click", handleBtnSidepanel);
 		if (w.tocca) {
 			if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-				overlay[addEventListener]("swipeleft", handleOverlaySidepanel);
-				container[addEventListener]("swiperight", handleContainerSidepanel);
+				overlay[_addEventListener]("swipeleft", handleOverlaySidepanel);
+				container[_addEventListener]("swiperight", handleContainerSidepanel);
 			}
 		}
 		if (items) {
 			var g = function (e) {
-				e[addEventListener]("click", handleOverlaySidepanel);
+				e[_addEventListener]("click", handleOverlaySidepanel);
 			};
 			for (var i = 0, l = items.length; i < l; i += 1) {
 				g(items[i]);
 			}
 			/* forEach(items, g, false); */
 		}
-		b[addEventListener]("click", handleOverlaySidepanel);
+		b[_addEventListener]("click", handleOverlaySidepanel);
 	}
 };
 document.ready().then(initSidepanel);
@@ -872,8 +872,8 @@ var initMenuMore = function () {
 	isActiveShareClass = "is-active-holder-share-buttons",
 	isActiveSidepanelClass = "is-active-ui-sidepanel",
 	isActiveMenumoreClass = "is-active-ui-menumore",
-	classList = "classList",
-	addEventListener = "addEventListener";
+	classList = "classList";
+	var _addEventListener = "addEventListener";
 	if (btn && page) {
 		/* console.log("triggered function: initMenuMore"); */
 		var handleOtherUIElementAll = function () {
@@ -896,7 +896,7 @@ var initMenuMore = function () {
 			page[classList].toggle(isActiveMenumoreClass);
 			handleOtherUIElementAll();
 		};
-		btn[addEventListener]("click", handleContainer);
+		btn[_addEventListener]("click", handleContainer);
 		var handleItem = function () {
 			if (page[classList].contains(isActiveMenumoreClass)) {
 				page[classList].remove(isActiveMenumoreClass);
@@ -905,7 +905,7 @@ var initMenuMore = function () {
 		};
 		if (items) {
 			var addItemHandler = function (e) {
-				e[addEventListener]("click", handleItem);
+				e[_addEventListener]("click", handleItem);
 			};
 			for (var i = 0, l = items.length; i < l; i += 1) {
 				addItemHandler(items[i]);
@@ -935,8 +935,8 @@ manageExternalLinkAll = function (scope) {
 	getElementsByTagName = "getElementsByTagName",
 	linkTag = "a",
 	link = ctx ? ctx[getElementsByTagName](linkTag) || "" : d[getElementsByTagName](linkTag) || "",
-	classList = "classList",
-	addEventListener = "addEventListener",
+	classList = "classList";
+	var _addEventListener = "addEventListener",
 	getAttribute = "getAttribute",
 	isBindedClass = "is-binded",
 	arrange = function (e) {
@@ -948,7 +948,7 @@ manageExternalLinkAll = function (scope) {
 					e.target = "_blank";
 					e.rel = "noopener";
 				} else {
-					e[addEventListener]("click", handleExternalLink.bind(null, url));
+					e[_addEventListener]("click", handleExternalLink.bind(null, url));
 				}
 				e[classList].add(isBindedClass);
 			}
@@ -1013,18 +1013,18 @@ handleImgLightboxContainer = function () {
 	"use strict";
 	var d = document;
 	var getElementsByClassName = "getElementsByClassName";
-	var removeEventListener = "removeEventListener";
+	var _removeEventListener = "removeEventListener";
 	var container = d[getElementsByClassName]("img-lightbox-container")[0] || "";
 	if (container) {
-		container[removeEventListener]("click", handleImgLightboxContainer);
+		container[_removeEventListener]("click", handleImgLightboxContainer);
 		hideImgLightbox();
 	}
 },
 handleImgLightboxWindow = function (ev) {
 	"use strict";
 	var w = globalRoot,
-	removeEventListener = "removeEventListener";
-	w[removeEventListener]("keyup", handleImgLightboxWindow);
+	_removeEventListener = "removeEventListener";
+	w[_removeEventListener]("keyup", handleImgLightboxWindow);
 	if (27 === (ev.which || ev.keyCode)) {
 		hideImgLightbox();
 	}
@@ -1040,8 +1040,8 @@ manageImgLightboxLinks = function (scope) {
 	classList = "classList",
 	createElement = "createElement",
 	getAttribute = "getAttribute",
-	appendChild = "appendChild",
-	addEventListener = "addEventListener",
+	appendChild = "appendChild";
+	var _addEventListener = "addEventListener",
 	linkClass = "img-lightbox-link",
 	link = ctx ? ctx[getElementsByClassName](linkClass) || "" : d[getElementsByClassName](linkClass) || "",
 	containerClass = "img-lightbox-container",
@@ -1082,8 +1082,8 @@ manageImgLightboxLinks = function (scope) {
 					}).catch (function (err) {
 						console.log("cannot load image with imagePromise:", hrefString, err);
 					});
-					w[addEventListener]("keyup", handleImgLightboxWindow);
-					container[addEventListener]("click", handleImgLightboxContainer);
+					w[_addEventListener]("keyup", handleImgLightboxWindow);
+					container[_addEventListener]("click", handleImgLightboxContainer);
 					container.style.display = "block";
 					LoadingSpinner.hide();
 				}
@@ -1097,7 +1097,7 @@ manageImgLightboxLinks = function (scope) {
 				if (parseLink(hrefString).isAbsolute && !parseLink(hrefString).hasHTTP) {
 					e.setAttribute("href", hrefString.replace(/^/, getHTTP(true) + ":"));
 				}
-				e[addEventListener]("click", handleImgLightboxLink);
+				e[_addEventListener]("click", handleImgLightboxLink);
 				e[classList].add(isBindedClass);
 			}
 		}
@@ -1163,13 +1163,13 @@ handleDataSrcImageAllWindow = function () {
 },
 manageDataSrcImageAll = function () {
 	"use strict";
-	var w = globalRoot,
-	addEventListener = "addEventListener",
-	removeEventListener = "removeEventListener";
-	w[removeEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
-	w[removeEventListener]("resize", handleDataSrcImageAllWindow);
-	w[addEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
-	w[addEventListener]("resize", handleDataSrcImageAllWindow);
+	var w = globalRoot;
+	var _addEventListener = "addEventListener";
+	var _removeEventListener = "removeEventListener";
+	w[_removeEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
+	w[_removeEventListener]("resize", handleDataSrcImageAllWindow);
+	w[_addEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
+	w[_addEventListener]("resize", handleDataSrcImageAllWindow);
 	var timers = new Timers();
 	timers.timeout(function () {
 		timers.clear();
@@ -1273,13 +1273,13 @@ var handleChaptersSelect = function () {
 },
 manageChaptersSelect = function () {
 	"use strict";
-	var d = document,
-	getElementById = "getElementById",
-	addEventListener = "addEventListener",
-	chaptersSelect = d[getElementById]("chapters-select") || "";
+	var d = document;
+	var getElementById = "getElementById";
+	var _addEventListener = "addEventListener";
+	var chaptersSelect = d[getElementById]("chapters-select") || "";
 	if (chaptersSelect) {
 		/* console.log("triggered function: manageChaptersSelect"); */
-		chaptersSelect[addEventListener]("change", handleChaptersSelect);
+		chaptersSelect[_addEventListener]("change", handleChaptersSelect);
 	}
 };
 /*!
@@ -1287,10 +1287,10 @@ manageChaptersSelect = function () {
  */
 var manageSearchInput = function () {
 	"use strict";
-	var d = document,
-	getElementById = "getElementById",
-	addEventListener = "addEventListener",
-	searchInput = d[getElementById]("text") || "",
+	var d = document;
+	var getElementById = "getElementById";
+	var _addEventListener = "addEventListener";
+	var searchInput = d[getElementById]("text") || "",
 	handleSearchInputValue = function () {
 		var _this = this;
 		var logicHandleSearchInputValue = function () {
@@ -1302,7 +1302,7 @@ var manageSearchInput = function () {
 	if (searchInput) {
 		/* console.log("triggered function: manageSearchInput"); */
 		searchInput.focus();
-		searchInput[addEventListener]("input", handleSearchInputValue);
+		searchInput[_addEventListener]("input", handleSearchInputValue);
 	}
 };
 document.ready().then(manageSearchInput);
@@ -1327,12 +1327,12 @@ manageExpandingLayers = function (scope) {
 	"use strict";
 	var ctx = scope && scope.nodeName ? scope : "";
 	var d = document,
-	getElementsByClassName = "getElementsByClassName",
-	addEventListener = "addEventListener",
+	getElementsByClassName = "getElementsByClassName";
+	var _addEventListener = "addEventListener",
 	btnClass = "btn-expand-hidden-layer",
 	btn = ctx ? ctx[getElementsByClassName](btnClass) || "" : d[getElementsByClassName](btnClass) || "",
 	addHandler = function (e) {
-		e[addEventListener]("click", handleExpandingLayerAll);
+		e[_addEventListener]("click", handleExpandingLayerAll);
 	};
 	if (btn) {
 		/* console.log("triggered function: manageExpandingLayers"); */
@@ -1394,9 +1394,9 @@ var manageDataTargetLinks = function (scope) {
 	var ctx = scope && scope.nodeName ? scope : "";
 	var d = document,
 	getElementsByClassName = "getElementsByClassName",
-	dataset = "dataset",
-	addEventListener = "addEventListener",
-	removeEventListener = "removeEventListener",
+	dataset = "dataset";
+	var _addEventListener = "addEventListener",
+	_removeEventListener = "removeEventListener",
 	linkClass = "data-target-link",
 	link = ctx ? ctx[getElementsByClassName](linkClass) || "" : d[getElementsByClassName](linkClass) || "",
 	arrangeAll = function () {
@@ -1408,10 +1408,10 @@ var manageDataTargetLinks = function (scope) {
 				var h_e = function (ev) {
 					ev.stopPropagation();
 					ev.preventDefault();
-					e[removeEventListener]("click", h_e);
+					e[_removeEventListener]("click", h_e);
 					includeHTMLintoTarget(e, includeUrl, targetElement);
 				};
-				e[addEventListener]("click", h_e);
+				e[_addEventListener]("click", h_e);
 			}
 		};
 		for (var i = 0, l = link.length; i < l; i += 1) {
@@ -1434,9 +1434,9 @@ var manageDebugGridButton = function () {
 	b = d.body || "",
 	getElementById = "getElementById",
 	getElementsByClassName = "getElementsByClassName",
-	classList = "classList",
-	addEventListener = "addEventListener",
-	removeEventListener = "removeEventListener",
+	classList = "classList";
+	var _addEventListener = "addEventListener",
+	_removeEventListener = "removeEventListener",
 	container = d[getElementById]("container") || "",
 	page = d[getElementById]("page") || "",
 	btn = d[getElementsByClassName]("btn-toggle-col-debug")[0] || "",
@@ -1446,7 +1446,7 @@ var manageDebugGridButton = function () {
 	handleDebugGridContainer = function () {
 		if (container) {
 			container[classList].remove(debugClass);
-			container[removeEventListener]("click", handleDebugGridContainer);
+			container[_removeEventListener]("click", handleDebugGridContainer);
 		}
 	},
 	showDebugGridMessage = function () {
@@ -1477,17 +1477,17 @@ var manageDebugGridButton = function () {
 		ev.preventDefault();
 		container[classList].toggle(debugClass);
 		if (container[classList].contains(debugClass)) {
-			container[addEventListener]("click", handleDebugGridContainer);
+			container[_addEventListener]("click", handleDebugGridContainer);
 			showDebugGridMessage();
 		} else {
-			container[removeEventListener]("click", handleDebugGridContainer);
+			container[_removeEventListener]("click", handleDebugGridContainer);
 		}
 	};
 	if (page && container && btn) {
 		/* console.log("triggered function: manageDebugGridButton"); */
 		var locationHref = w.location.href || "";
 		if (locationHref && parseLink(locationHref).hasHTTP && (/^(localhost|127.0.0.1)/).test(parseLink(locationHref).hostname)) {
-			btn[addEventListener]("click", handleDebugGridButton);
+			btn[_addEventListener]("click", handleDebugGridButton);
 		} else {
 			btn.style.display = "none";
 		}
@@ -1504,8 +1504,8 @@ var manageLocationQrCodeImage = function () {
 	d = document,
 	getElementsByClassName = "getElementsByClassName",
 	classList = "classList",
-	createElement = "createElement",
-	addEventListener = "addEventListener",
+	createElement = "createElement";
+	var _addEventListener = "addEventListener",
 	btn = d[getElementsByClassName]("btn-toggle-holder-location-qr-code")[0] || "",
 	page = d[getElementsByClassName]("page")[0] || "",
 	holder = d[getElementsByClassName]("holder-location-qr-code")[0] || "",
@@ -1584,10 +1584,10 @@ var manageLocationQrCodeImage = function () {
 	},
 	initScript = function () {
 		removePageIsActiveClass();
-		btn[addEventListener]("click", generateLocationQrCodeImg);
-		btn[addEventListener]("click", handleGenerateLocationQrCodeImgBtn);
-		w[addEventListener]("hashchange", generateLocationQrCodeImg);
-		holder[addEventListener]("click", handleGenerateLocationQrCodeImgHolder);
+		btn[_addEventListener]("click", generateLocationQrCodeImg);
+		btn[_addEventListener]("click", handleGenerateLocationQrCodeImgBtn);
+		w[_addEventListener]("hashchange", generateLocationQrCodeImg);
+		holder[_addEventListener]("click", handleGenerateLocationQrCodeImgHolder);
 	};
 	if (btn && page && holder && locationHref) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
@@ -1615,8 +1615,8 @@ manageShareButton = function () {
 	d = document,
 	getElementById = "getElementById",
 	getElementsByClassName = "getElementsByClassName",
-	classList = "classList",
-	addEventListener = "addEventListener",
+	classList = "classList";
+	var _addEventListener = "addEventListener",
 	btn = d[getElementsByClassName]("btn-toggle-holder-share-buttons")[0] || "",
 	yaShare2Id = "ya-share2",
 	yaShare2 = d[getElementById](yaShare2Id) || "",
@@ -1678,7 +1678,7 @@ manageShareButton = function () {
 	if (btn && page && holder && yaShare2) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			/* console.log("triggered function: manageShareButton"); */
-			btn[addEventListener]("click", handleShareButton);
+			btn[_addEventListener]("click", handleShareButton);
 		}
 	}
 };
@@ -1694,8 +1694,8 @@ manageVKLikeButton = function () {
 	getElementById = "getElementById",
 	getElementsByClassName = "getElementsByClassName",
 	classList = "classList",
-	dataset = "dataset",
-	addEventListener = "addEventListener",
+	dataset = "dataset";
+	var _addEventListener = "addEventListener",
 	btn = d[getElementsByClassName]("btn-toggle-holder-vk-like")[0] || "",
 	page = d[getElementsByClassName]("page")[0] || "",
 	vkLikeId = "vk-like",
@@ -1753,7 +1753,7 @@ manageVKLikeButton = function () {
 	if (btn && page && vkLike) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			/* console.log("triggered function: manageVKLikeButton"); */
-			btn[addEventListener]("click", handleVKLikeButton);
+			btn[_addEventListener]("click", handleVKLikeButton);
 		}
 	}
 };
@@ -1816,20 +1816,20 @@ manageDisqusButton = function () {
 	"use strict";
 	var d = document,
 	getElementById = "getElementById",
-	getElementsByClassName = "getElementsByClassName",
-	addEventListener = "addEventListener",
-	removeEventListener = "removeEventListener",
+	getElementsByClassName = "getElementsByClassName";
+	var _addEventListener = "addEventListener",
+	_removeEventListener = "removeEventListener",
 	disqusThread = d[getElementById]("disqus_thread") || "",
 	btn = disqusThread ? (d[getElementsByClassName]("btn-show-disqus")[0] || "") : "",
 	handleManageDisqusButton = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
-		btn[removeEventListener]("click", handleManageDisqusButton);
+		btn[_removeEventListener]("click", handleManageDisqusButton);
 		loadRefreshDisqus();
 	};
 	if (disqusThread && btn) {
 		/* console.log("triggered function: manageDisqusButton"); */
-		btn[addEventListener]("click", handleManageDisqusButton);
+		btn[_addEventListener]("click", handleManageDisqusButton);
 	}
 };
 /*!
@@ -1844,9 +1844,9 @@ initYandexMap = function (yandexMapId) {
 	getElementById = "getElementById",
 	classList = "classList",
 	dataset = "dataset",
-	parentNode = "parentNode",
-	addEventListener = "addEventListener",
-	removeEventListener = "removeEventListener",
+	parentNode = "parentNode";
+	var _addEventListener = "addEventListener",
+	_removeEventListener = "removeEventListener",
 	yandexMap = d[getElementById](yandexMapId) || "",
 	btnShow = yandexMap ? (d[getElementById](yandexMap[dataset].btnShow) || "") : "",
 	btnDestroy = yandexMap ? (d[getElementById](yandexMap[dataset].btnDestroy) || "") : "",
@@ -1856,7 +1856,7 @@ initYandexMap = function (yandexMapId) {
 	handleYandexMapBtnDestroy = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
-		btnDestroy[removeEventListener]("click", handleYandexMapBtnDestroy);
+		btnDestroy[_removeEventListener]("click", handleYandexMapBtnDestroy);
 		if (mymap) {
 			mymap.destroy();
 		}
@@ -1886,7 +1886,7 @@ initYandexMap = function (yandexMapId) {
 		/* console.log("triggered function: initYandexMap"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			if (btnDestroy) {
-				btnDestroy[addEventListener]("click", handleYandexMapBtnDestroy);
+				btnDestroy[_addEventListener]("click", handleYandexMapBtnDestroy);
 			}
 			LoadingSpinner.show();
 			var jsUrl = getHTTP(true) + "://api-maps.yandex.ru/2.1/?lang=ru_RU";
@@ -1908,21 +1908,21 @@ manageYandexMapButton = function (yandexMapId) {
 	"use strict";
 	var d = document,
 	getElementById = "getElementById",
-	dataset = "dataset",
-	addEventListener = "addEventListener",
-	removeEventListener = "removeEventListener",
+	dataset = "dataset";
+	var _addEventListener = "addEventListener",
+	_removeEventListener = "removeEventListener",
 	yandexMap = d[getElementById](yandexMapId) || "",
 	btnShow = yandexMap ? (d[getElementById](yandexMap[dataset].btnShow) || "") : "",
 	handleBtnShow = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
-		btnShow[removeEventListener]("click", handleBtnShow);
+		btnShow[_removeEventListener]("click", handleBtnShow);
 		initYandexMap(yandexMapId);
 		return !1;
 	};
 	if (yandexMap && btnShow) {
 		/* console.log("triggered function: manageYandexMapButton"); */
-		btnShow[addEventListener]("click", handleBtnShow);
+		btnShow[_addEventListener]("click", handleBtnShow);
 	}
 };
 /*!
@@ -1940,9 +1940,9 @@ var initKamilAutocomplete = function () {
 	createElement = "createElement",
 	createTextNode = "createTextNode",
 	parentNode = "parentNode",
-	appendChild = "appendChild",
-	addEventListener = "addEventListener",
-	searchForm = d[getElementsByClassName]("search-form")[0] || "",
+	appendChild = "appendChild";
+	var _addEventListener = "addEventListener";
+	var searchForm = d[getElementsByClassName]("search-form")[0] || "",
 	textInputSelector = "#text",
 	textInput = d[getElementById]("text") || "",
 	container = d[getElementById]("container") || "",
@@ -2057,12 +2057,12 @@ var initKamilAutocomplete = function () {
 			textInput.value = suggestionLi.firstChild.textContent || "";
 			setStyleDisplayNone(suggestionUl);
 		};
-		suggestionLi[addEventListener]("click", handleSuggestionLi);
+		suggestionLi[_addEventListener]("click", handleSuggestionLi);
 		/*!
 		 * hide suggestions on outside click
 		 */
 		if (container) {
-			container[addEventListener]("click", handleTypoSuggestion);
+			container[_addEventListener]("click", handleTypoSuggestion);
 		}
 		/*!
 		 * unless you specify property option in new Kamil
@@ -2110,11 +2110,11 @@ var initUiTotop = function () {
 	getElementsByClassName = "getElementsByClassName",
 	classList = "classList",
 	createElement = "createElement",
-	appendChild = "appendChild",
-	/* createElementNS = "createElementNS",
-	setAttributeNS = "setAttributeNS", */
-	addEventListener = "addEventListener",
-	btnClass = "ui-totop",
+	appendChild = "appendChild";
+	/* var createElementNS = "createElementNS";
+	var setAttributeNS = "setAttributeNS"; */
+	var _addEventListener = "addEventListener";
+	var btnClass = "ui-totop",
 	btnTitle = "Наверх",
 	isActiveClass = "is-active",
 	anchor = d[createElement]("a"),
@@ -2156,8 +2156,8 @@ var initUiTotop = function () {
 	b[appendChild](anchor);
 	if (b) {
 		/* console.log("triggered function: initUiTotop"); */
-		anchor[addEventListener]("click", handleUiTotopAnchor);
-		w[addEventListener]("scroll", handleUiTotopWindow, {passive: true});
+		anchor[_addEventListener]("click", handleUiTotopAnchor);
+		w[_addEventListener]("scroll", handleUiTotopWindow, {passive: true});
 	}
 };
 document.ready().then(initUiTotop);

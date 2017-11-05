@@ -611,9 +611,9 @@ var handleExternalLink = function (url, ev) {
 	    getElementsByTagName = "getElementsByTagName",
 	    linkTag = "a",
 	    link = ctx ? ctx[getElementsByTagName](linkTag) || "" : d[getElementsByTagName](linkTag) || "",
-	    classList = "classList",
-	    addEventListener = "addEventListener",
-	    getAttribute = "getAttribute",
+	    classList = "classList";
+	var _addEventListener = "addEventListener";
+	var getAttribute = "getAttribute",
 	    isBindedClass = "is-binded",
 	    arrange = function (e) {
 		if (!e[classList].contains(isBindedClass)) {
@@ -624,7 +624,7 @@ var handleExternalLink = function (url, ev) {
 					e.target = "_blank";
 					e.rel = "noopener";
 				} else {
-					e[addEventListener]("click", handleExternalLink.bind(null, url));
+					e[_addEventListener]("click", handleExternalLink.bind(null, url));
 				}
 				e[classList].add(isBindedClass);
 			}
@@ -665,12 +665,11 @@ var initUiTotop = function () {
 	    getElementsByClassName = "getElementsByClassName",
 	    classList = "classList",
 	    createElement = "createElement",
-	    appendChild = "appendChild",
-
-	/* createElementNS = "createElementNS",
- setAttributeNS = "setAttributeNS", */
-	addEventListener = "addEventListener",
-	    btnClass = "ui-totop",
+	    appendChild = "appendChild";
+	/* var createElementNS = "createElementNS";
+ var setAttributeNS = "setAttributeNS"; */
+	var _addEventListener = "addEventListener";
+	var btnClass = "ui-totop",
 	    btnTitle = "Наверх",
 	    isActiveClass = "is-active",
 	    anchor = d[createElement]("a"),
@@ -713,8 +712,8 @@ var initUiTotop = function () {
 	b[appendChild](anchor);
 	if (b) {
 		/* console.log("triggered function: initUiTotop"); */
-		anchor[addEventListener]("click", handleUiTotopAnchor);
-		w[addEventListener]("scroll", handleUiTotopWindow, { passive: true });
+		anchor[_addEventListener]("click", handleUiTotopAnchor);
+		w[_addEventListener]("scroll", handleUiTotopWindow, { passive: true });
 	}
 };
 document.ready().then(initUiTotop);
@@ -733,8 +732,8 @@ var yshare,
 	var w = globalRoot,
 	    d = document,
 	    getElementById = "getElementById",
-	    getElementsByClassName = "getElementsByClassName",
-	    addEventListener = "addEventListener",
+	    getElementsByClassName = "getElementsByClassName";
+	var _addEventListener = "addEventListener",
 	    btn = d[getElementsByClassName]("btn-share-buttons")[0] || "",
 	    yaShare2Id = "ya-share2",
 	    yaShare2 = d[getElementById](yaShare2Id) || "",
@@ -775,7 +774,7 @@ var yshare,
 	if (btn && yaShare2) {
 		/* console.log("triggered function: manageShareButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			btn[addEventListener]("click", handleShareButton);
+			btn[_addEventListener]("click", handleShareButton);
 		} else {
 			setStyleDisplayNone(btn);
 		}

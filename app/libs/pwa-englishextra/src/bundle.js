@@ -64,7 +64,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
  * @see {@link https://habrahabr.ru/post/327246/}
  * @see {@link https://codepen.io/iGetPass/pen/apZPMo}
  */
-(function(root){"use strict";var d=document,getElementsByClassName="getElementsByClassName",addEventListener="addEventListener";var Carousel=function(setting){var _this=this;if(d[getElementsByClassName](setting.wrap)[0]===null){console.error("Carousel not fount selector "+setting.wrap);return;}var privates={};this.prev_slide=function(){--privates.opt.position;if(privates.opt.position<0){privates.opt.position=privates.opt.max_position-1;}privates.sel.wrap.style.transform="translateX(-"+privates.opt.position+"00%)";};this.next_slide=function(){++privates.opt.position;if(privates.opt.position>=privates.opt.max_position){privates.opt.position=0;}privates.sel.wrap.style.transform="translateX(-"+privates.opt.position+"00%)";};privates.setting=setting;privates.sel={"main":d[getElementsByClassName](privates.setting.main)[0],"wrap":d[getElementsByClassName](privates.setting.wrap)[0],"children":d[getElementsByClassName](privates.setting.wrap)[0].children,"prev":d[getElementsByClassName](privates.setting.prev)[0],"next":d[getElementsByClassName](privates.setting.next)[0]};privates.opt={"position":0,"max_position":d[getElementsByClassName](privates.setting.wrap)[0].children.length};if(privates.sel.prev!==null){privates.sel.prev[addEventListener]("click",function(){_this.prev_slide();});}if(privates.sel.next!==null){privates.sel.next[addEventListener]("click",function(){_this.next_slide();});}};root.Carousel=Carousel;}(globalRoot));
+(function(root){"use strict";var d=document,getElementsByClassName="getElementsByClassName",_addEventListener="addEventListener";var Carousel=function(setting){var _this=this;if(d[getElementsByClassName](setting.wrap)[0]===null){console.error("Carousel not fount selector "+setting.wrap);return;}var privates={};this.prev_slide=function(){--privates.opt.position;if(privates.opt.position<0){privates.opt.position=privates.opt.max_position-1;}privates.sel.wrap.style.transform="translateX(-"+privates.opt.position+"00%)";};this.next_slide=function(){++privates.opt.position;if(privates.opt.position>=privates.opt.max_position){privates.opt.position=0;}privates.sel.wrap.style.transform="translateX(-"+privates.opt.position+"00%)";};privates.setting=setting;privates.sel={"main":d[getElementsByClassName](privates.setting.main)[0],"wrap":d[getElementsByClassName](privates.setting.wrap)[0],"children":d[getElementsByClassName](privates.setting.wrap)[0].children,"prev":d[getElementsByClassName](privates.setting.prev)[0],"next":d[getElementsByClassName](privates.setting.next)[0]};privates.opt={"position":0,"max_position":d[getElementsByClassName](privates.setting.wrap)[0].children.length};if(privates.sel.prev!==null){privates.sel.prev[_addEventListener]("click",function(){_this.prev_slide();});}if(privates.sel.next!==null){privates.sel.next[_addEventListener]("click",function(){_this.next_slide();});}};root.Carousel=Carousel;}(globalRoot));
 /*!
  * modified Simple lightbox effect in pure JS
  * @see {@link https://github.com/squeral/lightbox}
@@ -74,7 +74,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
  * new IframeLightbox(elem)
  * passes jshint
  */
-(function(root){"use strict";var d=document,addEventListener="addEventListener",getElementById="getElementById",getElementsByClassName="getElementsByClassName",createElement="createElement",classList="classList",appendChild="appendChild",dataset="dataset",containerClass="iframe-lightbox",isLoadedClass="is-loaded",isOpenedClass="is-opened",isShowingClass="is-showing";var IframeLightbox=function(elem,rate){if(elem.nodeName){this.trigger=elem;this.rate=rate||500;this.el=d[getElementsByClassName](containerClass)[0]||"";this.body=this.el?this.el[getElementsByClassName]("body")[0]:"";this.content=this.el?this.el[getElementsByClassName]("content")[0]:"";this.href=elem[dataset].src||"";this.paddingBottom=elem[dataset].paddingBottom||"";this.init();}else{return;}};IframeLightbox.prototype.init=function(){var _this=this;if(!this.el){this.create();}var debounce=function(func,wait){var timeout,args,context,timestamp;return function(){context=this;args=[].slice.call(arguments,0);timestamp=new Date();var later=function(){var last=(new Date())-timestamp;if(last<wait){timeout=setTimeout(later,wait-last);}else{timeout=null;func.apply(context,args);}};if(!timeout){timeout=setTimeout(later,wait);}};};var handleOpenIframeLightbox=function(e){e.preventDefault();_this.open();};var debounceHandleOpenIframeLightbox=debounce(handleOpenIframeLightbox,this.rate);this.trigger[addEventListener]("click",debounceHandleOpenIframeLightbox);};IframeLightbox.prototype.create=function(){var _this=this,bd=d[createElement]("div");this.el=d[createElement]("div");this.content=d[createElement]("div");this.body=d[createElement]("div");this.el[classList].add(containerClass);bd[classList].add("backdrop");this.content[classList].add("content");this.body[classList].add("body");this.el[appendChild](bd);this.content[appendChild](this.body);this.contentHolder=d[createElement]("div");this.contentHolder[classList].add("content-holder");this.contentHolder[appendChild](this.content);this.el[appendChild](this.contentHolder);d.body[appendChild](this.el);bd[addEventListener]("click",function(){_this.close();});var clearBody=function(){if(_this.isOpen()){return;}_this.el[classList].remove(isShowingClass);_this.body.innerHTML="";};this.el[addEventListener]("transitionend",clearBody,false);this.el[addEventListener]("webkitTransitionEnd",clearBody,false);this.el[addEventListener]("mozTransitionEnd",clearBody,false);this.el[addEventListener]("msTransitionEnd",clearBody,false);};IframeLightbox.prototype.loadIframe=function(){this.iframeId=containerClass+Date.now();this.body.innerHTML='<iframe src="'+this.href+'" name="'+this.iframeId+'" id="'+this.iframeId+'" onload="this.style.opacity=1;" style="opacity:0;border:none;" scrolling="no" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true" frameborder="no" title="Embedded Content"></iframe>';(function(iframeId,body){d[getElementById](iframeId).onload=function(){this.style.opacity=1;body[classList].add(isLoadedClass);};}(this.iframeId,this.body));};IframeLightbox.prototype.open=function(){this.loadIframe();if(this.paddingBottom){this.content.style.paddingBottom=this.paddingBottom;}else{this.content.removeAttribute("style");}this.el[classList].add(isShowingClass);this.el[classList].add(isOpenedClass);};IframeLightbox.prototype.close=function(){this.el[classList].remove(isOpenedClass);this.body[classList].remove(isLoadedClass);};IframeLightbox.prototype.isOpen=function(){return this.el[classList].contains(isOpenedClass);};root.IframeLightbox=IframeLightbox;}(globalRoot));
+(function(root){"use strict";var d=document,_addEventListener="addEventListener",getElementById="getElementById",getElementsByClassName="getElementsByClassName",createElement="createElement",classList="classList",appendChild="appendChild",dataset="dataset",containerClass="iframe-lightbox",isLoadedClass="is-loaded",isOpenedClass="is-opened",isShowingClass="is-showing";var IframeLightbox=function(elem,rate){if(elem.nodeName){this.trigger=elem;this.rate=rate||500;this.el=d[getElementsByClassName](containerClass)[0]||"";this.body=this.el?this.el[getElementsByClassName]("body")[0]:"";this.content=this.el?this.el[getElementsByClassName]("content")[0]:"";this.href=elem[dataset].src||"";this.paddingBottom=elem[dataset].paddingBottom||"";this.init();}else{return;}};IframeLightbox.prototype.init=function(){var _this=this;if(!this.el){this.create();}var debounce=function(func,wait){var timeout,args,context,timestamp;return function(){context=this;args=[].slice.call(arguments,0);timestamp=new Date();var later=function(){var last=(new Date())-timestamp;if(last<wait){timeout=setTimeout(later,wait-last);}else{timeout=null;func.apply(context,args);}};if(!timeout){timeout=setTimeout(later,wait);}};};var handleOpenIframeLightbox=function(e){e.preventDefault();_this.open();};var debounceHandleOpenIframeLightbox=debounce(handleOpenIframeLightbox,this.rate);this.trigger[_addEventListener]("click",debounceHandleOpenIframeLightbox);};IframeLightbox.prototype.create=function(){var _this=this,bd=d[createElement]("div");this.el=d[createElement]("div");this.content=d[createElement]("div");this.body=d[createElement]("div");this.el[classList].add(containerClass);bd[classList].add("backdrop");this.content[classList].add("content");this.body[classList].add("body");this.el[appendChild](bd);this.content[appendChild](this.body);this.contentHolder=d[createElement]("div");this.contentHolder[classList].add("content-holder");this.contentHolder[appendChild](this.content);this.el[appendChild](this.contentHolder);d.body[appendChild](this.el);bd[_addEventListener]("click",function(){_this.close();});var clearBody=function(){if(_this.isOpen()){return;}_this.el[classList].remove(isShowingClass);_this.body.innerHTML="";};this.el[_addEventListener]("transitionend",clearBody,false);this.el[_addEventListener]("webkitTransitionEnd",clearBody,false);this.el[_addEventListener]("mozTransitionEnd",clearBody,false);this.el[_addEventListener]("msTransitionEnd",clearBody,false);};IframeLightbox.prototype.loadIframe=function(){this.iframeId=containerClass+Date.now();this.body.innerHTML='<iframe src="'+this.href+'" name="'+this.iframeId+'" id="'+this.iframeId+'" onload="this.style.opacity=1;" style="opacity:0;border:none;" scrolling="no" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true" frameborder="no" title="Embedded Content"></iframe>';(function(iframeId,body){d[getElementById](iframeId).onload=function(){this.style.opacity=1;body[classList].add(isLoadedClass);};}(this.iframeId,this.body));};IframeLightbox.prototype.open=function(){this.loadIframe();if(this.paddingBottom){this.content.style.paddingBottom=this.paddingBottom;}else{this.content.removeAttribute("style");}this.el[classList].add(isShowingClass);this.el[classList].add(isOpenedClass);};IframeLightbox.prototype.close=function(){this.el[classList].remove(isOpenedClass);this.body[classList].remove(isLoadedClass);};IframeLightbox.prototype.isOpen=function(){return this.el[classList].contains(isOpenedClass);};root.IframeLightbox=IframeLightbox;}(globalRoot));
 /*!
  * modified scrollToY
  * @see {@link http://stackoverflow.com/questions/8917921/cross-browser-javascript-not-jquery-scroll-to-top-animation}
@@ -540,13 +540,13 @@ handleDataSrcImageAllWindow = function () {
 },
 manageDataSrcImageAll = function () {
 	"use strict";
-	var w = globalRoot,
-	addEventListener = "addEventListener",
-	removeEventListener = "removeEventListener";
-	w[removeEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
-	w[removeEventListener]("resize", handleDataSrcImageAllWindow);
-	w[addEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
-	w[addEventListener]("resize", handleDataSrcImageAllWindow);
+	var w = globalRoot;
+	var _addEventListener = "addEventListener";
+	var _removeEventListener = "removeEventListener";
+	w[_removeEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
+	w[_removeEventListener]("resize", handleDataSrcImageAllWindow);
+	w[_addEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
+	w[_addEventListener]("resize", handleDataSrcImageAllWindow);
 	var timers = new Timers();
 	timers.timeout(function () {
 		timers.clear();
@@ -610,13 +610,13 @@ handleDataSrcIframeAllWindow = function () {
 },
 manageDataSrcIframeAll = function () {
 	"use strict";
-	var w = globalRoot,
-	addEventListener = "addEventListener",
-	removeEventListener = "removeEventListener";
-	w[removeEventListener]("scroll", handleDataSrcIframeAllWindow, {passive: true});
-	w[removeEventListener]("resize", handleDataSrcIframeAllWindow);
-	w[addEventListener]("scroll", handleDataSrcIframeAllWindow, {passive: true});
-	w[addEventListener]("resize", handleDataSrcIframeAllWindow);
+	var w = globalRoot;
+	var _addEventListener = "addEventListener";
+	var _removeEventListener = "removeEventListener";
+	w[_removeEventListener]("scroll", handleDataSrcIframeAllWindow, {passive: true});
+	w[_removeEventListener]("resize", handleDataSrcIframeAllWindow);
+	w[_addEventListener]("scroll", handleDataSrcIframeAllWindow, {passive: true});
+	w[_addEventListener]("resize", handleDataSrcIframeAllWindow);
 	var timers = new Timers();
 	timers.timeout(function () {
 		timers.clear();
@@ -676,9 +676,9 @@ manageExternalLinkAll = function (scope) {
 	getElementsByTagName = "getElementsByTagName",
 	linkTag = "a",
 	link = ctx ? ctx[getElementsByTagName](linkTag) || "" : d[getElementsByTagName](linkTag) || "",
-	classList = "classList",
-	addEventListener = "addEventListener",
-	getAttribute = "getAttribute",
+	classList = "classList";
+	var _addEventListener = "addEventListener";
+	var getAttribute = "getAttribute",
 	isBindedClass = "is-binded",
 	arrange = function (e) {
 		if (!e[classList].contains(isBindedClass)) {
@@ -689,7 +689,7 @@ manageExternalLinkAll = function (scope) {
 					e.target = "_blank";
 					e.rel = "noopener";
 				} else {
-					e[addEventListener]("click", handleExternalLink.bind(null, url));
+					e[_addEventListener]("click", handleExternalLink.bind(null, url));
 				}
 				e[classList].add(isBindedClass);
 			}
@@ -754,18 +754,18 @@ handleImgLightboxContainer = function () {
 	"use strict";
 	var d = document;
 	var getElementsByClassName = "getElementsByClassName";
-	var removeEventListener = "removeEventListener";
+	var _removeEventListener = "removeEventListener";
 	var container = d[getElementsByClassName]("img-lightbox-container")[0] || "";
 	if (container) {
-		container[removeEventListener]("click", handleImgLightboxContainer);
+		container[_removeEventListener]("click", handleImgLightboxContainer);
 		hideImgLightbox();
 	}
 },
 handleImgLightboxWindow = function (ev) {
 	"use strict";
 	var w = globalRoot,
-	removeEventListener = "removeEventListener";
-	w[removeEventListener]("keyup", handleImgLightboxWindow);
+	_removeEventListener = "removeEventListener";
+	w[_removeEventListener]("keyup", handleImgLightboxWindow);
 	if (27 === (ev.which || ev.keyCode)) {
 		hideImgLightbox();
 	}
@@ -781,9 +781,9 @@ manageImgLightboxLinks = function (scope) {
 	classList = "classList",
 	createElement = "createElement",
 	getAttribute = "getAttribute",
-	appendChild = "appendChild",
-	addEventListener = "addEventListener",
-	linkClass = "img-lightbox-link",
+	appendChild = "appendChild";
+	var _addEventListener = "addEventListener";
+	var linkClass = "img-lightbox-link",
 	link = ctx ? ctx[getElementsByClassName](linkClass) || "" : d[getElementsByClassName](linkClass) || "",
 	containerClass = "img-lightbox-container",
 	container = d[getElementsByClassName](containerClass)[0] || "",
@@ -823,8 +823,8 @@ manageImgLightboxLinks = function (scope) {
 					}).catch (function (err) {
 						console.log("cannot load image with imagePromise:", hrefString, err);
 					});
-					w[addEventListener]("keyup", handleImgLightboxWindow);
-					container[addEventListener]("click", handleImgLightboxContainer);
+					w[_addEventListener]("keyup", handleImgLightboxWindow);
+					container[_addEventListener]("click", handleImgLightboxContainer);
 					container.style.display = "block";
 					LoadingSpinner.hide();
 				}
@@ -838,7 +838,7 @@ manageImgLightboxLinks = function (scope) {
 				if (parseLink(hrefString).isAbsolute && !parseLink(hrefString).hasHTTP) {
 					e.setAttribute("href", hrefString.replace(/^/, getHTTP(true) + ":"));
 				}
-				e[addEventListener]("click", handleImgLightboxLink);
+				e[_addEventListener]("click", handleImgLightboxLink);
 				e[classList].add(isBindedClass);
 			}
 		}
@@ -880,12 +880,12 @@ var handleOtherDropdownLists = function (_this) {
 },
 manageOtherDropdownListAll = function () {
 	"use strict";
-	var d = document,
-	getElementById = "getElementById",
-	addEventListener = "addEventListener",
-	container = d[getElementById]("container") || "";
+	var d = document;
+	var getElementById = "getElementById";
+	var _addEventListener = "addEventListener";
+	var container = d[getElementById]("container") || "";
 	if (container) {
-		container[addEventListener]("click", handleOtherDropdownLists);
+		container[_addEventListener]("click", handleOtherDropdownLists);
 	}
 };
 document.ready().then(manageOtherDropdownListAll);
@@ -908,9 +908,9 @@ var manageChaptersSelect = function () {
 	createElementNS = "createElementNS",
 	setAttributeNS = "setAttributeNS",
 	createTextNode = "createTextNode",
-	appendChild = "appendChild",
-	addEventListener = "addEventListener",
-	chaptersSelect = d[getElementById]("chapters-select") || "",
+	appendChild = "appendChild";
+	var _addEventListener = "addEventListener";
+	var chaptersSelect = d[getElementById]("chapters-select") || "",
 	holderChaptersSelect = d[getElementsByClassName]("holder-chapters-select")[0] || "",
 	uiPanelContentsSelect = d[getElementsByClassName]("ui-panel-contents-select")[0] || "",
 	chaptersListClass = "chapters-list",
@@ -933,7 +933,7 @@ var manageChaptersSelect = function () {
 			}
 		};
 		if (!chaptersSelect[classList].contains(isBindedClass)) {
-			chaptersSelect[addEventListener]("change", handleChaptersSelect);
+			chaptersSelect[_addEventListener]("change", handleChaptersSelect);
 			chaptersSelect[classList].add(isBindedClass);
 		}
 		var rerenderOption = function (option) {
@@ -977,7 +977,7 @@ var manageChaptersSelect = function () {
 			chaptersListItemTextTruncated = truncString("" + chaptersListItemText, 28);
 			chaptersListItem[appendChild](d[createTextNode](chaptersListItemTextTruncated));
 			chaptersListItem.title = chaptersListItemText;
-			chaptersListItem[addEventListener]("click", handleChaptersListItem.bind(null, chaptersList, chaptersListItemValue));
+			chaptersListItem[_addEventListener]("click", handleChaptersListItem.bind(null, chaptersList, chaptersListItemValue));
 			df[appendChild](chaptersListItem);
 			df[appendChild](d.createTextNode("\n"));
 		};
@@ -1010,7 +1010,7 @@ var manageChaptersSelect = function () {
 			chaptersList[classList].toggle(isActiveClass);
 			handleOtherDropdownLists(chaptersList);
 		};
-		chaptersListButton[addEventListener]("click", handleChaptersListItemsButton);
+		chaptersListButton[_addEventListener]("click", handleChaptersListItemsButton);
 	};
 	if (holderChaptersSelect && chaptersSelect) {
 		/* console.log("triggered function: manageChaptersSelect"); */
@@ -1026,9 +1026,9 @@ var manageExpandingLayers = function (scope) {
 	"use strict";
 	var ctx = scope && scope.nodeName ? scope : "";
 	var d = document,
-	getElementsByClassName = "getElementsByClassName",
-	addEventListener = "addEventListener",
-	classList = "classList",
+	getElementsByClassName = "getElementsByClassName";
+	var _addEventListener = "addEventListener";
+	var classList = "classList",
 	parentNode = "parentNode",
 	btnClass = "btn-expand-hidden-layer",
 	btn = ctx ? ctx[getElementsByClassName](btnClass) || "" : d[getElementsByClassName](btnClass) || "",
@@ -1045,7 +1045,7 @@ var manageExpandingLayers = function (scope) {
 			return;
 		};
 		if (!e[classList].contains(isBindedClass)) {
-			e[addEventListener]("click", handleExpandingLayerAll);
+			e[_addEventListener]("click", handleExpandingLayerAll);
 			e[classList].add(isBindedClass);
 		}
 	};
@@ -1143,9 +1143,9 @@ var manageDisqusButton = function (scope) {
 	getElementsByClassName = "getElementsByClassName",
 	classList = "classList",
 	dataset = "dataset",
-	appendChild = "appendChild",
-	addEventListener = "addEventListener",
-	removeEventListener = "removeEventListener",
+	appendChild = "appendChild";
+	var _addEventListener = "addEventListener",
+	_removeEventListener = "removeEventListener",
 	createElement = "createElement",
 	btnClass = "btn-show-disqus",
 	btn = ctx ? ctx[getElementsByClassName](btnClass)[0] || "" : d[getElementsByClassName](btnClass)[0] || "",
@@ -1182,7 +1182,7 @@ var manageDisqusButton = function (scope) {
 									this.page.url = locationHref;
 								}
 							});
-							btn[removeEventListener]("click", handleDisqusButton);
+							btn[_removeEventListener]("click", handleDisqusButton);
 							LoadingSpinner.show();
 							hideDisqusButton();
 						} catch (err) {
@@ -1200,7 +1200,7 @@ var manageDisqusButton = function (scope) {
 			debounceLogicHandleDisqusButton = debounce(logicHandleDisqusButton, 200);
 			debounceLogicHandleDisqusButton();
 		};
-		btn[addEventListener]("click", handleDisqusButton);
+		btn[_addEventListener]("click", handleDisqusButton);
 		btn[classList].add(isBindedClass);
 	};
 	if (disqusThread && btn && disqusThreadShortname && locationHref) {
@@ -1229,9 +1229,9 @@ var notiBar = function (opt) {
 	createElement = "createElement",
 	createElementNS = "createElementNS",
 	setAttributeNS = "setAttributeNS",
-	appendChild = "appendChild",
-	addEventListener = "addEventListener",
-	removeEventListener = "removeEventListener",
+	appendChild = "appendChild";
+	var _addEventListener = "addEventListener",
+	_removeEventListener = "removeEventListener",
 	notibarClass = "notibar",
 	notibarContainer = d[getElementsByClassName](notibarClass)[0] || "",
 	messageClass = "message",
@@ -1306,11 +1306,11 @@ var notiBar = function (opt) {
 		}
 	},
 	handleCloseButton = function () {
-		closeButton[removeEventListener]("click", handleCloseButton);
+		closeButton[_removeEventListener]("click", handleCloseButton);
 		hideMessage();
 		setCookie();
 	};
-	closeButton[addEventListener]("click", handleCloseButton);
+	closeButton[_addEventListener]("click", handleCloseButton);
 	notibarContainer[appendChild](closeButton);
 	if (b) {
 		/* console.log("triggered function: notiBar"); */
@@ -1334,9 +1334,9 @@ var initNotibarMsg = function () {
 	d = document,
 	getElementsByClassName = "getElementsByClassName",
 	classList = "classList",
-	appendChild = "appendChild",
-	addEventListener = "addEventListener",
-	removeEventListener = "removeEventListener",
+	appendChild = "appendChild";
+	var _addEventListener = "addEventListener",
+	_removeEventListener = "removeEventListener",
 	createElement = "createElement",
 	uiPanelContentsSelect = d[getElementsByClassName]("ui-panel-contents-select")[0] || "",
 	cookieKey = "_notibar_dismiss_",
@@ -1355,12 +1355,12 @@ var initNotibarMsg = function () {
 			var handleMsgObj = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				msgObj[removeEventListener]("click", handleMsgObj);
+				msgObj[_removeEventListener]("click", handleMsgObj);
 				var uiPanelContentsSelectPos = uiPanelContentsSelect ? findPos(uiPanelContentsSelect).top : 0,
 				uiPanelContentsSelectHeight = uiPanelContentsSelect ? (uiPanelContentsSelect[classList].contains(isFixedClass) ? uiPanelContentsSelect.offsetHeight : uiPanelContentsSelect.offsetHeight) : 0;
 				scroll2Top(uiPanelContentsSelectPos - uiPanelContentsSelectHeight, 2000);
 			};
-			msgObj[addEventListener]("click", handleMsgObj);
+			msgObj[_addEventListener]("click", handleMsgObj);
 			msgObj[appendChild](d.createTextNode(cookieDatum));
 			notiBar({
 				"message": msgObj,
@@ -1384,10 +1384,10 @@ document.ready().then(initNotibarMsg);
  */
 var manageSearchInput = function () {
 	"use strict";
-	var d = document,
-	getElementById = "getElementById",
-	addEventListener = "addEventListener",
-	searchInput = d[getElementById]("text") || "",
+	var d = document;
+	var getElementById = "getElementById";
+	var _addEventListener = "addEventListener";
+	var searchInput = d[getElementById]("text") || "",
 	handleSearchInputValue = function () {
 		var _this = this;
 		var logicHandleSearchInputValue = function () {
@@ -1399,7 +1399,7 @@ var manageSearchInput = function () {
 	if (searchInput) {
 		/* console.log("triggered function: manageSearchInput"); */
 		searchInput.focus();
-		searchInput[addEventListener]("input", handleSearchInputValue);
+		searchInput[_addEventListener]("input", handleSearchInputValue);
 	}
 };
 document.ready().then(manageSearchInput);
@@ -1419,9 +1419,9 @@ var initKamilAutocomplete = function (jsonObj) {
 	createElement = "createElement",
 	createTextNode = "createTextNode",
 	appendChild = "appendChild",
-	parentNode = "parentNode",
-	addEventListener = "addEventListener",
-	searchForm = d[getElementsByClassName]("search-form")[0] || "",
+	parentNode = "parentNode";
+	var _addEventListener = "addEventListener";
+	var searchForm = d[getElementsByClassName]("search-form")[0] || "",
 	textInputSelector = "#text",
 	textInput = d[getElementById]("text") || "",
 	container = d[getElementById]("container") || "",
@@ -1554,12 +1554,12 @@ var initKamilAutocomplete = function (jsonObj) {
 			textInput.value = typoListItem.textContent || "";
 			handleTypoSuggestion();
 		};
-		typoListItem[addEventListener]("click", handleTypoListItem);
+		typoListItem[_addEventListener]("click", handleTypoListItem);
 		/*!
 		 * hide suggestions on outside click
 		 */
 		if (container) {
-			container[addEventListener]("click", handleTypoSuggestion);
+			container[_addEventListener]("click", handleTypoSuggestion);
 		}
 		/*!
 		 * unless you specify property option in new Kamil
@@ -1601,9 +1601,9 @@ var renderNavigation = function () {
 	getElementById = "getElementById",
 	getElementsByTagName = "getElementsByTagName",
 	classList = "classList",
-	parentNode = "parentNode",
-	addEventListener = "addEventListener",
-	navbar = d[getElementById]("navbar") || "",
+	parentNode = "parentNode";
+	var _addEventListener = "addEventListener";
+	var navbar = d[getElementById]("navbar") || "",
 	navbarParent = navbar[parentNode] || "",
 	popularTemplateId = "template_navbar_popular",
 	popularTemplate = d[getElementById](popularTemplateId) || "",
@@ -1648,7 +1648,7 @@ var renderNavigation = function () {
 		var handleListItemAll = function (e) {
 			var items = e ? e[getElementsByTagName]("li") || "" : "",
 			addHandler = function (e) {
-				e[addEventListener]("click", handleOtherDropdownLists);
+				e[_addEventListener]("click", handleOtherDropdownLists);
 			};
 			if (items) {
 				for (var i = 0, l = items.length; i < l; i += 1) {
@@ -1685,9 +1685,9 @@ var renderNavigation = function () {
 						alignNavbarListAll();
 						handleListItemAll(renderNavbarPopular);
 						handleListItemAll(renderNavbarMore);
-						showRenderNavbarPopular[addEventListener]("click", handleShowRenderNavbarPopularButton);
-						showRenderNavbarMore[addEventListener]("click", handleShowRenderNavbarMoreButton);
-						w[addEventListener]("resize", handleShowNavbarListsWindow);
+						showRenderNavbarPopular[_addEventListener]("click", handleShowRenderNavbarPopularButton);
+						showRenderNavbarMore[_addEventListener]("click", handleShowRenderNavbarMoreButton);
+						w[_addEventListener]("resize", handleShowNavbarListsWindow);
 						if (navbarParent) {
 							manageExternalLinkAll(navbarParent);
 						}
@@ -1729,9 +1729,9 @@ var fixUiPanelContentsSelect = function () {
 	var w = globalRoot,
 	d = document,
 	getElementsByClassName = "getElementsByClassName",
-	classList = "classList",
-	addEventListener = "addEventListener",
-	uiPanelNavigation = d[getElementsByClassName]("ui-panel-navigation")[0] || "",
+	classList = "classList";
+	var _addEventListener = "addEventListener";
+	var uiPanelNavigation = d[getElementsByClassName]("ui-panel-navigation")[0] || "",
 	holderHero = d[getElementsByClassName]("holder-hero")[0] || "",
 	uiPanelContentsSelect = d[getElementsByClassName]("ui-panel-contents-select")[0] || "",
 	criticalHeight = (uiPanelNavigation ? uiPanelNavigation.offsetHeight : 0) + (holderHero ? holderHero.offsetHeight : 0),
@@ -1748,7 +1748,7 @@ var fixUiPanelContentsSelect = function () {
 		throttleLogicHandleUiPanelContentsSelect();
 	};
 	if (uiPanelContentsSelect) {
-		w[addEventListener]("scroll", handleUiPanelContentsSelect, {passive: true});
+		w[_addEventListener]("scroll", handleUiPanelContentsSelect, {passive: true});
 	}
 };
 document.ready().then(fixUiPanelContentsSelect);
@@ -1781,12 +1781,12 @@ var handleOtherSocialButtons = function (_this) {
 },
 manageOtherSocialButtonAll = function () {
 	"use strict";
-	var d = document,
-	getElementById = "getElementById",
-	addEventListener = "addEventListener",
-	container = d[getElementById]("container") || "";
+	var d = document;
+	var getElementById = "getElementById";
+	var _addEventListener = "addEventListener";
+	var container = d[getElementById]("container") || "";
 	if (container) {
-		container[addEventListener]("click", handleOtherSocialButtons);
+		container[_addEventListener]("click", handleOtherSocialButtons);
 	}
 };
 document.ready().then(manageOtherSocialButtonAll);
@@ -1801,8 +1801,8 @@ var manageLocationQrCodeImage = function () {
 	d = document,
 	getElementsByClassName = "getElementsByClassName",
 	classList = "classList",
-	createElement = "createElement",
-	addEventListener = "addEventListener",
+	createElement = "createElement";
+	var _addEventListener = "addEventListener",
 	btn = d[getElementsByClassName]("btn-toggle-holder-location-qr-code")[0] || "",
 	holder = d[getElementsByClassName]("holder-location-qr-code")[0] || "",
 	isActiveClass = "is-active",
@@ -1866,7 +1866,7 @@ var manageLocationQrCodeImage = function () {
 	if (btn && holder && locationHref) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			/* console.log("triggered function: manageLocationQrCodeImage"); */
-			btn[addEventListener]("click", handleLocationQrCodeButton);
+			btn[_addEventListener]("click", handleLocationQrCodeButton);
 		}
 	}
 };
@@ -1886,8 +1886,8 @@ manageShareButton = function () {
 	d = document,
 	getElementById = "getElementById",
 	getElementsByClassName = "getElementsByClassName",
-	classList = "classList",
-	addEventListener = "addEventListener",
+	classList = "classList";
+	var _addEventListener = "addEventListener",
 	btn = d[getElementsByClassName]("btn-toggle-holder-share-buttons")[0] || "",
 	yaShare2Id = "ya-share2",
 	yaShare2 = d[getElementById](yaShare2Id) || "",
@@ -1937,7 +1937,7 @@ manageShareButton = function () {
 	if (btn && holder && yaShare2) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			/* console.log("triggered function: manageShareButton"); */
-			btn[addEventListener]("click", handleShareButton);
+			btn[_addEventListener]("click", handleShareButton);
 		}
 	}
 };
@@ -1953,8 +1953,8 @@ manageVKLikeButton = function () {
 	getElementById = "getElementById",
 	getElementsByClassName = "getElementsByClassName",
 	classList = "classList",
-	dataset = "dataset",
-	addEventListener = "addEventListener",
+	dataset = "dataset";
+	var _addEventListener = "addEventListener",
 	btn = d[getElementsByClassName]("btn-toggle-holder-vk-like")[0] || "",
 	holder = d[getElementsByClassName]("holder-vk-like")[0] || "",
 	vkLikeId = "vk-like",
@@ -2001,7 +2001,7 @@ manageVKLikeButton = function () {
 	if (btn && holder && vkLike) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			/* console.log("triggered function: manageVKLikeButton"); */
-			btn[addEventListener]("click", handleVKLikeButton);
+			btn[_addEventListener]("click", handleVKLikeButton);
 		}
 	}
 };
@@ -2016,9 +2016,9 @@ var manageDebugGridButton = function () {
 	b = d.body || "",
 	getElementById = "getElementById",
 	getElementsByClassName = "getElementsByClassName",
-	classList = "classList",
-	addEventListener = "addEventListener",
-	removeEventListener = "removeEventListener",
+	classList = "classList";
+	var _addEventListener = "addEventListener",
+	_removeEventListener = "removeEventListener",
 	container = d[getElementById]("container") || "",
 	page = d[getElementById]("page") || "",
 	btn = d[getElementsByClassName]("btn-toggle-col-debug")[0] || "",
@@ -2055,21 +2055,21 @@ var manageDebugGridButton = function () {
 		handleDebugGridContainer = function () {
 			if (container) {
 				container[classList].remove(debugClass);
-				container[removeEventListener]("click", handleDebugGridContainer);
+				container[_removeEventListener]("click", handleDebugGridContainer);
 			}
 		};
 		if (container[classList].contains(debugClass)) {
-			container[addEventListener]("click", handleDebugGridContainer);
+			container[_addEventListener]("click", handleDebugGridContainer);
 			showDebugGridMessage();
 		} else {
-			container[removeEventListener]("click", handleDebugGridContainer);
+			container[_removeEventListener]("click", handleDebugGridContainer);
 		}
 	};
 	if (page && container && btn) {
 		/* console.log("triggered function: manageDebugGridButton"); */
 		var locationHref = w.location.href || "";
 		if (locationHref && parseLink(locationHref).hasHTTP && (/^(localhost|127.0.0.1)/).test(parseLink(locationHref).hostname)) {
-			btn[addEventListener]("click", handleDebugGridButton);
+			btn[_addEventListener]("click", handleDebugGridButton);
 		} else {
 			btn.style.display = "none";
 		}
@@ -2081,48 +2081,48 @@ document.ready().then(manageDebugGridButton);
  */
 var initRouting = function () {
 	"use strict";
-	var w = globalRoot,
-	d = document,
-	getElementById = "getElementById",
-	getElementsByClassName = "getElementsByClassName",
-	getElementsByTagName = "getElementsByTagName",
-	classList = "classList",
-	dataset = "dataset",
-	length = "length",
-	title = "title",
-	href = "href",
-	createElement = "createElement",
-	createTextNode = "createTextNode",
-	createDocumentFragment = "createDocumentFragment",
-	createElementNS = "createElementNS",
-	setAttributeNS = "setAttributeNS",
-	appendChild = "appendChild",
-	/* innerHTML = "innerHTML", */
-	parentNode = "parentNode",
-	addEventListener = "addEventListener",
-	appContentId = "app-content",
-	appContent = d[getElementById](appContentId) || "",
-	appContentParent = appContent[parentNode] || "",
-	/* contentsSelectTemplate = d[getElementById]("template_contents_select") || "", */
-	/*contentsSelectRender = d[getElementById]("render_contents_select") || "",*/
-	contentsSelect = d[getElementsByClassName]("contents-select")[0] || "",
-	holderContentsSelect = d[getElementsByClassName]("holder-contents-select")[0] || "",
-	contentsListClass = "contents-list",
-	searchTextInput = d[getElementById]("text") || "",
-	asideTemplateId = "template_aside",
-	asideRenderId = "render_aside",
-	commentsTemplateId = "template_comments",
-	commentsRenderId = "render_comments",
-	nextHrefTemplateId = "template_bottom_navigation",
-	nextHrefRenderId = "render_bottom_navigation",
-	contentsGridTemplateId = "template_contents_grid",
-	contentsGridRenderId = "render_contents_grid",
-	masonryGridClass = "masonry-grid",
-	isActiveClass = "is-active",
-	isDropdownClass = "is-dropdown",
-	routesJsonUrl = "./libs/pwa-englishextra/json/routes.json",
-	contentsListButtonDefaultText = contentsSelect ? (contentsSelect.options[0].firstChild.textContent || "") : "",
-	processRoutesJsonResponse = function (routesJsonResponse) {
+	var w = globalRoot;
+	var d = document;
+	var getElementById = "getElementById";
+	var getElementsByClassName = "getElementsByClassName";
+	var getElementsByTagName = "getElementsByTagName";
+	var classList = "classList";
+	var dataset = "dataset";
+	var _length = "length";
+	var title = "title";
+	var href = "href";
+	var createElement = "createElement";
+	var createTextNode = "createTextNode";
+	var createDocumentFragment = "createDocumentFragment";
+	var createElementNS = "createElementNS";
+	var setAttributeNS = "setAttributeNS";
+	var appendChild = "appendChild";
+	/* var innerHTML = "innerHTML"; */
+	var parentNode = "parentNode";
+	var _addEventListener = "addEventListener";
+	var appContentId = "app-content";
+	var appContent = d[getElementById](appContentId) || "";
+	var appContentParent = appContent[parentNode] || "";
+	/* var contentsSelectTemplate = d[getElementById]("template_contents_select") || ""; */
+	/* var contentsSelectRender = d[getElementById]("render_contents_select") || ""; */
+	var contentsSelect = d[getElementsByClassName]("contents-select")[0] || "";
+	var holderContentsSelect = d[getElementsByClassName]("holder-contents-select")[0] || "";
+	var contentsListClass = "contents-list";
+	var searchTextInput = d[getElementById]("text") || "";
+	var asideTemplateId = "template_aside";
+	var asideRenderId = "render_aside";
+	var commentsTemplateId = "template_comments";
+	var commentsRenderId = "render_comments";
+	var nextHrefTemplateId = "template_bottom_navigation";
+	var nextHrefRenderId = "render_bottom_navigation";
+	var contentsGridTemplateId = "template_contents_grid";
+	var contentsGridRenderId = "render_contents_grid";
+	var masonryGridClass = "masonry-grid";
+	var isActiveClass = "is-active";
+	var isDropdownClass = "is-dropdown";
+	var routesJsonUrl = "./libs/pwa-englishextra/json/routes.json";
+	var contentsListButtonDefaultText = contentsSelect ? (contentsSelect.options[0].firstChild.textContent || "") : "";
+	var processRoutesJsonResponse = function (routesJsonResponse) {
 		var routesJsonObj;
 		try {
 			routesJsonObj = JSON.parse(routesJsonResponse);
@@ -2139,11 +2139,11 @@ var initRouting = function () {
 			console.log("cannot init processRoutesJsonResponse", err);
 			return;
 		}
-		var renderMasonry,
-		renderComments,
-		triggerOnContentInserted = function (titleString, nextHrefString, asideObj, routesObj) {
-			/* var h1 = contentsSelect || d[getElementById]("h1") || "",
-			h1Pos = findPos(h1).top || 0;
+		var renderMasonry;
+		var renderComments;
+		var triggerOnContentInserted = function (titleString, nextHrefString, asideObj, routesObj) {
+			/* var h1 = contentsSelect || d[getElementById]("h1") || "";
+			var h1Pos = findPos(h1).top || 0;
 			if (h1) {
 				scroll2Top(h1Pos, 20000);
 			} else {
@@ -2156,7 +2156,7 @@ var initRouting = function () {
 			var locationHash = w.location.hash || "";
 			if (contentsSelect) {
 				var optionMatched = false;
-				for (var i = 0, l = contentsSelect.options[length]; i < l; i += 1) {
+				for (var i = 0, l = contentsSelect.options[_length]; i < l; i += 1) {
 					if (locationHash === contentsSelect.options[i].value) {
 						optionMatched = true;
 						contentsSelect.selectedIndex = i;
@@ -2180,9 +2180,9 @@ var initRouting = function () {
 			if (contentsList) {
 				var contentsListButton = holderContentsSelect ? holderContentsSelect[getElementsByTagName]("a")[0] || "" : "";
 				if (contentsListButton) {
-					var itemMatched = false,
-					contentsListItems = contentsList ? contentsList[getElementsByTagName]("li") || "" : "";
-					for (var j = 0, m = contentsListItems[length]; j < m; j += 1) {
+					var itemMatched = false;
+					var contentsListItems = contentsList ? contentsList[getElementsByTagName]("li") || "" : "";
+					for (var j = 0, m = contentsListItems[_length]; j < m; j += 1) {
 						if (locationHash === contentsListItems[j][dataset][href]) {
 							itemMatched = true;
 							contentsListButton.replaceChild(d[createTextNode](contentsListItems[j].firstChild.textContent), contentsListButton.firstChild);
@@ -2204,9 +2204,9 @@ var initRouting = function () {
 				}
 			}
 			if (asideObj) {
-				var asideTemplate = d[getElementById](asideTemplateId) || "",
-				asideRender = d[getElementById](asideRenderId) || "",
-				asideRenderParent = asideRender[parentNode] || "";
+				var asideTemplate = d[getElementById](asideTemplateId) || "";
+				var asideRender = d[getElementById](asideRenderId) || "";
+				var asideRenderParent = asideRender[parentNode] || "";
 				if (asideTemplate && asideRender) {
 					insertFromTemplate(asideObj, asideTemplateId, asideRenderId, function () {
 						if (asideRenderParent) {
@@ -2222,17 +2222,17 @@ var initRouting = function () {
 				}
 			}
 			if (nextHrefString) {
-				var nextHrefTemplate = d[getElementById](nextHrefTemplateId) || "",
-				nextHrefRender = d[getElementById](nextHrefRenderId) || "";
+				var nextHrefTemplate = d[getElementById](nextHrefTemplateId) || "";
+				var nextHrefRender = d[getElementById](nextHrefRenderId) || "";
 				if (nextHrefTemplate && nextHrefRender) {
 					insertFromTemplate({
 						"next_href": nextHrefString
 					}, nextHrefTemplateId, nextHrefRenderId);
 				}
 			}
-			var commentsTemplate = d[getElementById](commentsTemplateId) || "",
-			commentsRender = d[getElementById](commentsRenderId) || "",
-			commentsRenderParent = commentsRender[parentNode] || "";
+			var commentsTemplate = d[getElementById](commentsTemplateId) || "";
+			var commentsRender = d[getElementById](commentsRenderId) || "";
+			var commentsRenderParent = commentsRender[parentNode] || "";
 			if (commentsTemplate && commentsRender) {
 				if (!renderComments) {
 					renderComments = renderTemplate({}, commentsTemplateId, commentsRenderId);
@@ -2243,12 +2243,12 @@ var initRouting = function () {
 					}
 				});
 			}
-			var masonryGrid = d[getElementsByClassName](masonryGridClass)[0] || "",
-			masonryGridParent = masonryGrid[parentNode] || "";
+			var masonryGrid = d[getElementsByClassName](masonryGridClass)[0] || "";
+			var masonryGridParent = masonryGrid[parentNode] || "";
 			if (masonryGrid && masonryGridParent) {
-				var contentsGridTemplate = d[getElementById](contentsGridTemplateId) || "",
-				contentsGridRender = d[getElementById](contentsGridRenderId) || "",
-				contentsGridRenderParent = contentsGridRender[parentNode] || "";
+				var contentsGridTemplate = d[getElementById](contentsGridTemplateId) || "";
+				var contentsGridRender = d[getElementById](contentsGridRenderId) || "";
+				var contentsGridRenderParent = contentsGridRender[parentNode] || "";
 				if (contentsGridTemplate && contentsGridRender) {
 					if (!renderMasonry) {
 						if (routesObj) {
@@ -2299,7 +2299,7 @@ var initRouting = function () {
 			var locationHash = w.location.hash || "";
 			if (locationHash) {
 				var isNotfound = false;
-				for (var i = 0, l = routesJsonObj.hashes[length]; i < l; i += 1) {
+				for (var i = 0, l = routesJsonObj.hashes[_length]; i < l; i += 1) {
 					if (locationHash === routesJsonObj.hashes[i][href]) {
 						isNotfound = true;
 						LoadingSpinner.show();
@@ -2318,16 +2318,16 @@ var initRouting = function () {
 					}
 				} */
 				if (false === isNotfound) {
-					var notfoundUrl = routesJsonObj.notfound.url,
-					notfoundTitle = routesJsonObj.notfound[title];
+					var notfoundUrl = routesJsonObj.notfound.url;
+					var notfoundTitle = routesJsonObj.notfound[title];
 					if (notfoundUrl /* && notfoundTitle */) {
 						LoadingSpinner.show();
 						insertExternalHTML(appContentId, notfoundUrl, triggerOnContentInserted.bind(null, notfoundTitle, null, null, routesJsonObj));
 					}
 				}
 			} else {
-				var homeUrl = routesJsonObj.home.url,
-				homeTitle = routesJsonObj.home[title];
+				var homeUrl = routesJsonObj.home.url;
+				var homeTitle = routesJsonObj.home[title];
 				if (homeUrl /* && homeTitle */) {
 					LoadingSpinner.show();
 					insertExternalHTML(appContentId, homeUrl, triggerOnContentInserted.bind(null, homeTitle, null, null, routesJsonObj));
@@ -2335,7 +2335,7 @@ var initRouting = function () {
 			}
 		};
 		handleRoutesWindow();
-		w[addEventListener]("hashchange", handleRoutesWindow);
+		w[_addEventListener]("hashchange", handleRoutesWindow);
 		/*var rerenderContentsSelect = function () {
 			var handleContentsSelect = function () {
 				var _this = this;
@@ -2348,9 +2348,9 @@ var initRouting = function () {
 						w.location.hash = hashString;
 					}
 				}
-			},
-			df = d[createDocumentFragment](),
-			generateContentsSelectOptions = function (e) {
+			};
+			var df = d[createDocumentFragment]();
+			var generateContentsSelectOptions = function (e) {
 				if (e[title]) {
 					var contentsOption = d[createElement]("option");
 					contentsOption.value = e[href];
@@ -2362,7 +2362,7 @@ var initRouting = function () {
 					df[appendChild](d.createTextNode("\n"));
 				}
 			};
-			for (var i = 0, l = routesJsonObj.hashes[length]; i < l; i += 1) {
+			for (var i = 0, l = routesJsonObj.hashes[_length]; i < l; i += 1) {
 				generateContentsSelectOptions(routesJsonObj.hashes[i]);
 			}
 			appendFragment(df, contentsSelectRender);*/
@@ -2376,12 +2376,12 @@ var initRouting = function () {
 			 * with document fragment
 			 */
 			/* if (contentsSelectTemplate && contentsSelectRender) {
-				var contentsSelectHtml = contentsSelectTemplate[innerHTML] || "",
-				renderContentsSelectTemplate = new t(contentsSelectHtml);
+				var contentsSelectHtml = contentsSelectTemplate[innerHTML] || "";
+				var renderContentsSelectTemplate = new t(contentsSelectHtml);
 				var contentsSelectRendered = renderContentsSelectTemplate.render(routesJsonObj);
 				contentsSelectRender[innerHTML] = contentsSelectRendered;
 			} */
-			/*contentsSelect[addEventListener]("change", handleContentsSelect);
+			/*contentsSelect[_addEventListener]("change", handleContentsSelect);
 		};*/
 		var rerenderContentsList = function () {
 			var handleContentsListItem = function (listObj, hashString) {
@@ -2394,25 +2394,25 @@ var initRouting = function () {
 					}
 				}
 				listObj[classList].remove(isActiveClass);
-			},
-			contentsList = d[createElement]("ul"),
-			contentsListButtonText = contentsSelect.options[0].textContent || "",
-			df = d[createDocumentFragment](),
-			generateContentsListItems = function (e) {
+			};
+			var contentsList = d[createElement]("ul");
+			var contentsListButtonText = contentsSelect.options[0].textContent || "";
+			var df = d[createDocumentFragment]();
+			var generateContentsListItems = function (e) {
 				if (e[title]) {
-					var contentsListItem = d[createElement]("li"),
-					contentsListItemHref = e[href],
-					contentsListItemText = e[title];
+					var contentsListItem = d[createElement]("li");
+					var contentsListItemHref = e[href];
+					var contentsListItemText = e[title];
 					contentsListItem[title] = contentsListItemText;
 					contentsListItem[dataset][href] = contentsListItemHref;
 					var contentsListItemTextTruncated = truncString("" + contentsListItemText, 44);
 					contentsListItem[appendChild](d.createTextNode(contentsListItemTextTruncated));
-					contentsListItem[addEventListener]("click", handleContentsListItem.bind(null, contentsList, contentsListItemHref));
+					contentsListItem[_addEventListener]("click", handleContentsListItem.bind(null, contentsList, contentsListItemHref));
 					df[appendChild](contentsListItem);
 					df[appendChild](d.createTextNode("\n"));
 				}
 			};
-			for (var j = 0, m = routesJsonObj.hashes[length]; j < m; j += 1) {
+			for (var j = 0, m = routesJsonObj.hashes[_length]; j < m; j += 1) {
 				generateContentsListItems(routesJsonObj.hashes[j]);
 			}
 			/* forEach(routesJsonObj.hashes, generateContentsListItems, false); */
@@ -2427,8 +2427,8 @@ var initRouting = function () {
 			contentsListButton[href] = "javascript:void(0);";
 			/*jshint +W107 */
 			var insertChevronDownSmallSvg = function (targetObj) {
-				var svg = d[createElementNS]("http://www.w3.org/2000/svg", "svg"),
-				use = d[createElementNS]("http://www.w3.org/2000/svg", "use");
+				var svg = d[createElementNS]("http://www.w3.org/2000/svg", "svg");
+				var use = d[createElementNS]("http://www.w3.org/2000/svg", "use");
 				svg[classList].add("ui-icon");
 				use[setAttributeNS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-ChevronDownSmall");
 				svg[appendChild](use);
@@ -2441,7 +2441,7 @@ var initRouting = function () {
 				contentsList[classList].toggle(isActiveClass);
 				handleOtherDropdownLists(contentsList);
 			};
-			contentsListButton[addEventListener]("click", handleContentsListItemsButton);
+			contentsListButton[_addEventListener]("click", handleContentsListItemsButton);
 		};
 		if (contentsSelect) {
 			/* if (contentsSelectRender) {
@@ -2526,8 +2526,8 @@ var initUiTotop = function () {
 	createElement = "createElement",
 	appendChild = "appendChild",
 	createElementNS = "createElementNS",
-	setAttributeNS = "setAttributeNS",
-	addEventListener = "addEventListener",
+	setAttributeNS = "setAttributeNS";
+	var _addEventListener = "addEventListener",
 	btnClass = "ui-totop",
 	btnTitle = "Наверх",
 	isActiveClass = "is-active",
@@ -2570,8 +2570,8 @@ var initUiTotop = function () {
 	b[appendChild](anchor);
 	if (b) {
 		/* console.log("triggered function: initUiTotop"); */
-		anchor[addEventListener]("click", handleUiTotopAnchor);
-		w[addEventListener]("scroll", handleUiTotopWindow, {passive: true});
+		anchor[_addEventListener]("click", handleUiTotopAnchor);
+		w[_addEventListener]("scroll", handleUiTotopWindow, {passive: true});
 	}
 };
 document.ready().then(initUiTotop);

@@ -50,7 +50,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 
 	var ToProgress = function () {
 		var TP = function () {
-			var addEventListener = "addEventListener";
+			var _addEventListener = "addEventListener";
 			var appendChild = "appendChild";
 			var createElement = "createElement";
 			var firstChild = "firstChild";
@@ -59,7 +59,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 			var hasOwnProperty = "hasOwnProperty";
 			var opacity = "opacity";
 			var prototype = "prototype";
-			var removeEventListener = "removeEventListener";
+			var _removeEventListener = "removeEventListener";
 			var style = "style";
 			function whichTransitionEvent() {
 				var t,
@@ -169,9 +169,9 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 				this.setProgress(100, callback);
 				this.hide();
 				if (transitionEvent) {
-					this.progressBar[addEventListener](transitionEvent, function (e) {
+					this.progressBar[_addEventListener](transitionEvent, function (e) {
 						that.reset();
-						that.progressBar[removeEventListener](e.type, TP);
+						that.progressBar[_removeEventListener](e.type, TP);
 					});
 				}
 			};
@@ -241,7 +241,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		var createElement = "createElement";
 		var getElementsByTagName = "getElementsByTagName";
 		var insertBefore = "insertBefore";
-		var length = "length";
+		var _length = "length";
 		var parentNode = "parentNode";
 		_this.files = files;
 		_this.js = [];
@@ -262,7 +262,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 			script.async = true;
 			script.src = _this.js[i];
 			var loadNextScript = function () {
-				if (++i < _this.js[length]) {
+				if (++i < _this.js[_length]) {
 					_this.loadScript(i);
 				} else {
 					_this.callback();
@@ -279,7 +279,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 			}
 		};
 		var i, l;
-		for (i = 0, l = _this.files[length]; i < l; i += 1) {
+		for (i = 0, l = _this.files[_length]; i < l; i += 1) {
 			if (/\.js$|\.js\?/.test(_this.files[i])) {
 				_this.js.push(_this.files[i]);
 			}
@@ -288,7 +288,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 			}
 		}
 		i = l = null;
-		if (_this.js[length] > 0) {
+		if (_this.js[_length] > 0) {
 			_this.loadScript(0);
 		} else {
 			_this.callback();
@@ -302,7 +302,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 (function (root, document, undefined) {
 	"use strict";
 
-	var addEventListener = "addEventListener";
+	var _addEventListener = "addEventListener";
 	var alt = "alt";
 	var className = "className";
 	var createElement = "createElement";
@@ -312,7 +312,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 	var getElementsByClassName = "getElementsByClassName";
 	var getElementsByTagName = "getElementsByTagName";
 	var height = "height";
-	var length = "length";
+	var _length = "length";
 	var parentNode = "parentNode";
 	var remove = "remove";
 	var removeChild = "removeChild";
@@ -340,7 +340,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 
 		progressBar.increase(20);
 
-		root[addEventListener]("load", hideProgressBar);
+		root[_addEventListener]("load", hideProgressBar);
 	}
 
 	var removeElement = function (elem) {
@@ -396,7 +396,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		removeRipple();
 		removeLoading();
 	} else {
-		root[addEventListener]("load", hidePreloaders);
+		root[_addEventListener]("load", hidePreloaders);
 	}
 
 	var supportsSvgAsImg = document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1") || "";
@@ -405,7 +405,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		var svgNosmilImages = document[getElementsByClassName]("svg-nosmil-img") || "";
 		if (svgNosmilImages) {
 			var i, l;
-			for (i = 0, l = svgNosmilImages[length]; i < l; i += 1) {
+			for (i = 0, l = svgNosmilImages[_length]; i < l; i += 1) {
 				svgNosmilImages[i][src] = svgNosmilImages[i][getAttribute]("data-fallback-src");
 			}
 			i = l = null;
@@ -416,7 +416,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		var svgSmilImages = document[getElementsByClassName]("svg-smil-img") || "";
 		if (svgSmilImages) {
 			var j, m;
-			for (j = 0, m = svgSmilImages[length]; j < m; j += 1) {
+			for (j = 0, m = svgSmilImages[_length]; j < m; j += 1) {
 				svgSmilImages[j][src] = svgSmilImages[j][getAttribute]("data-fallback-src");
 			}
 			j = m = null;
@@ -428,7 +428,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 			return;
 		}
 		var img = new Image();
-		img[addEventListener]("load", function () {
+		img[_addEventListener]("load", function () {
 			var ctx = canvasObj.getContext("2d");
 			if (ctx) {
 				ctx.drawImage(img, 0, 0, canvasObj[width], canvasObj[height]);
@@ -455,7 +455,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 
 	var canvasAll = document[getElementsByTagName]("canvas") || "";
 
-	var styleSheetsLength = document[styleSheets][length] || 0;
+	var styleSheetsLength = document[styleSheets][_length] || 0;
 
 	var supportsCanvas = function () {
 		var elem = document[createElement]("canvas");
@@ -464,11 +464,11 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 
 	var slotDrawCanvasAll;
 	var drawCanvasAll = function () {
-		if (document[styleSheets][length] > styleSheetsLength) {
+		if (document[styleSheets][_length] > styleSheetsLength) {
 			clearInterval(slotDrawCanvasAll);
 			slotDrawCanvasAll = null;
 			var i, l, canvasObj, url;
-			for (i = 0, l = canvasAll[length]; i < l; i += 1) {
+			for (i = 0, l = canvasAll[_length]; i < l; i += 1) {
 				if (canvasAll[i][getAttribute]("data-src")) {
 					canvasObj = canvasAll[i];
 					url = canvasAll[i][getAttribute]("data-src");
@@ -663,7 +663,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 							e.target = "_blank";
 							e.rel = "noopener";
 						} else {
-							e[addEventListener]("click", handleExternalLink.bind(null, url));
+							e[_addEventListener]("click", handleExternalLink.bind(null, url));
 						}
 						e[classList].add(isBindedClass);
 					}
@@ -875,8 +875,8 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 			if (hasTouch) {
 				mousewheeldown[style].display = "none";
 				if (root.tocca) {
-					root[addEventListener]("swipeup", revealStart, { passive: true });
-					root[addEventListener]("swipedown", concealStart, { passive: true });
+					root[_addEventListener]("swipeup", revealStart, { passive: true });
+					root[_addEventListener]("swipedown", concealStart, { passive: true });
 				}
 			} else {
 				if (hasWheel) {
@@ -906,7 +906,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 
 		var scriptIsLoaded = function (scriptSrc) {
 			var scriptAll, i, l;
-			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[length]; i < l; i += 1) {
+			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[_length]; i < l; i += 1) {
 				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
 					scriptAll = i = l = null;
 					return true;
@@ -923,7 +923,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 			var isSocialAll = document[getElementsByClassName]("is-social") || "";
 			if (isSocialAll) {
 				var k, n;
-				for (k = 0, n = isSocialAll[length]; k < n; k += 1) {
+				for (k = 0, n = isSocialAll[_length]; k < n; k += 1) {
 					if (_thisObj !== isSocialAll[k]) {
 						isSocialAll[k][classList].remove(isActiveClass);
 					}
@@ -932,7 +932,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 			}
 		};
 
-		root[addEventListener]("click", hideOtherIsSocial);
+		root[_addEventListener]("click", hideOtherIsSocial);
 
 		var yaShare2Id = "ya-share2";
 
@@ -983,7 +983,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		};
 
 		if (btnShare && btnShareLink && yaShare2) {
-			btnShareLink[addEventListener]("click", showYaShare2);
+			btnShareLink[_addEventListener]("click", showYaShare2);
 		}
 
 		var vkLikeClass = "vk-like";
@@ -1036,7 +1036,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		};
 
 		if (btnLike && btnLikeLink && vkLike) {
-			btnLikeLink[addEventListener]("click", showVkLike);
+			btnLikeLink[_addEventListener]("click", showVkLike);
 		}
 	};
 
@@ -1064,7 +1064,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 					support = true;
 				}
 			});
-			root[addEventListener]("test", function () {}, opts);
+			root[_addEventListener]("test", function () {}, opts);
 		} catch (err) {}
 		return support;
 	}();
@@ -1134,7 +1134,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
  	listeners: [],
  	active: function () {
  		this.called_ready = true;
- 		for (var i = 0; i < this.listeners[length]; i++) {
+ 		for (var i = 0; i < this.listeners[_length]; i++) {
  			this.listeners[i]();
  		}
  	},
