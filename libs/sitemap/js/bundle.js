@@ -711,23 +711,23 @@ var handleExternalLink = function (url, ev) {
 
 	ev.stopPropagation();
 	ev.preventDefault();
-	var logicHandleExternalLink = openDeviceBrowser.bind(null, url),
-	    debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
+	var logicHandleExternalLink = openDeviceBrowser.bind(null, url);
+	var debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
 	debounceLogicHandleExternalLink();
 },
     manageExternalLinkAll = function (scope) {
 	"use strict";
 
 	var ctx = scope && scope.nodeName ? scope : "";
-	var d = document,
-	    getElementsByTagName = "getElementsByTagName",
-	    linkTag = "a",
-	    link = ctx ? ctx[getElementsByTagName](linkTag) || "" : d[getElementsByTagName](linkTag) || "",
-	    classList = "classList";
+	var d = document;
+	var getElementsByTagName = "getElementsByTagName";
+	var getAttribute = "getAttribute";
+	var classList = "classList";
 	var _addEventListener = "addEventListener";
-	var getAttribute = "getAttribute",
-	    isBindedClass = "is-binded",
-	    arrange = function (e) {
+	var linkTag = "a";
+	var link = ctx ? ctx[getElementsByTagName](linkTag) || "" : d[getElementsByTagName](linkTag) || "";
+	var isBindedClass = "is-binded";
+	var arrange = function (e) {
 		if (!e[classList].contains(isBindedClass)) {
 			var url = e[getAttribute]("href") || "";
 			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
@@ -743,7 +743,6 @@ var handleExternalLink = function (url, ev) {
 		}
 	};
 	if (link) {
-		/* console.log("triggered function: manageExternalLinkAll"); */
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrange(link[i]);
 		}
@@ -759,15 +758,15 @@ document.ready().then(manageExternalLinkAll);
 var handleDataSrcImageAll = function () {
 	"use strict";
 
-	var d = document,
-	    getElementsByClassName = "getElementsByClassName",
-	    classList = "classList",
-	    dataset = "dataset",
-	    imgClass = "data-src-img",
-	    img = d[getElementsByClassName](imgClass) || "",
-	    isActiveClass = "is-active",
-	    isBindedClass = "is-binded",
-	    arrange = function (e) {
+	var d = document;
+	var getElementsByClassName = "getElementsByClassName";
+	var classList = "classList";
+	var dataset = "dataset";
+	var imgClass = "data-src-img";
+	var img = d[getElementsByClassName](imgClass) || "";
+	var isActiveClass = "is-active";
+	var isBindedClass = "is-binded";
+	var arrange = function (e) {
 		/*!
    * true if elem is in same y-axis as the viewport or within 100px of it
    * @see {@link https://github.com/ryanve/verge}
@@ -792,7 +791,6 @@ var handleDataSrcImageAll = function () {
 			}
 	};
 	if (img) {
-		/* console.log("triggered function: manageDataSrcImageAll"); */
 		for (var i = 0, l = img.length; i < l; i += 1) {
 			arrange(img[i]);
 		}
@@ -837,26 +835,25 @@ globalRoot.addEventListener("load", manageDataSrcImageAll);
 var initMasonry = function () {
 	"use strict";
 
-	var w = globalRoot,
-	    d = document,
-	    getElementsByClassName = "getElementsByClassName",
-	    getElementsByTagName = "getElementsByTagName",
-	    gridItemClass = "masonry-grid-item",
-	    gridItemSelector = ".masonry-grid-item",
-	    gridSizerSelector = ".masonry-grid-sizer",
-	    grid = d[getElementsByClassName]("masonry-grid")[0] || "",
-	    gridItem = d[getElementsByClassName](gridItemClass) || "",
-	    holder = d[getElementsByClassName]("holder-filter-buttons")[0] || "",
-	    btn = holder ? holder[getElementsByTagName]("li") || "" : "",
-	    sel = d[getElementsByClassName]("filter-select")[0] || "",
-	    controls = d[getElementsByClassName]("holder-filter-controls")[0] || "",
-	    iso,
-	    msnry,
-	    pckry,
-	    initScript = function () {
+	var w = globalRoot;
+	var d = document;
+	var getElementsByClassName = "getElementsByClassName";
+	var getElementsByTagName = "getElementsByTagName";
+	var gridItemClass = "masonry-grid-item";
+	var gridItemSelector = ".masonry-grid-item";
+	var gridSizerSelector = ".masonry-grid-sizer";
+	var grid = d[getElementsByClassName]("masonry-grid")[0] || "";
+	var gridItem = d[getElementsByClassName](gridItemClass) || "";
+	var holder = d[getElementsByClassName]("holder-filter-buttons")[0] || "";
+	var btn = holder ? holder[getElementsByTagName]("li") || "" : "";
+	var sel = d[getElementsByClassName]("filter-select")[0] || "";
+	var controls = d[getElementsByClassName]("holder-filter-controls")[0] || "";
+	var iso;
+	var msnry;
+	var pckry;
+	var initScript = function () {
 		var imgLoad;
 		if (w.Masonry && w.Isotope) {
-			/* console.log("function initMasonry => initialised iso"); */
 			iso = new Isotope(grid, {
 				itemSelector: gridItemSelector,
 				layoutMode: "masonry",
@@ -869,7 +866,6 @@ var initMasonry = function () {
 			if (w.imagesLoaded) {
 				imgLoad = imagesLoaded(grid);
 				imgLoad.on("progress", function () {
-					/* console.log("function initMasonry => reinitialised iso"); */
 					iso.layout();
 				});
 			}
@@ -934,7 +930,6 @@ var initMasonry = function () {
 				controls.classList.add("visible");
 			}
 		} else if (w.Masonry) {
-			/* console.log("function initMasonry => initialised msnry"); */
 			msnry = new Masonry(grid, {
 				itemSelector: gridItemSelector,
 				columnWidth: gridSizerSelector,
@@ -944,7 +939,6 @@ var initMasonry = function () {
 			if (w.imagesLoaded) {
 				imgLoad = imagesLoaded(grid);
 				imgLoad.on("progress", function () {
-					/* console.log("function initMasonry => reinitialised msnry"); */
 					msnry.layout();
 				});
 			}
@@ -953,7 +947,6 @@ var initMasonry = function () {
 			}
 		} else {
 			if (w.Packery) {
-				/* console.log("function initMasonry => initialised pckry"); */
 				pckry = new Packery(grid, {
 					itemSelector: gridItemSelector,
 					columnWidth: gridSizerSelector,
@@ -963,13 +956,11 @@ var initMasonry = function () {
 				if (w.imagesLoaded) {
 					imgLoad = imagesLoaded(grid);
 					imgLoad.on("progress", function () {
-						/* console.log("function initMasonry => reinitialised pckry"); */
 						pckry.layout();
 					});
 				}
 				if (gridItem) {
 					if (w.Draggabilly) {
-						/* console.log("function initMasonry => initialised draggie"); */
 						var draggie,
 						    draggies = [],
 						    f = function (e) {
@@ -982,7 +973,6 @@ var initMasonry = function () {
 						}
 						/* forEach(gridItem, f, false); */
 						if (pckry && draggie) {
-							/* console.log("function initMasonry => binded draggie to pckry"); */
 							pckry.bindDraggabillyEvents(draggie);
 						}
 					}
@@ -1008,7 +998,6 @@ var initMasonry = function () {
 		}, 500);
 	};
 	if (grid && gridItem) {
-		/* console.log("triggered function: initMasonry"); */
 		/* var jsUrl = "./cdn/masonry/4.1.1/js/masonry.imagesloaded.pkgd.fixed.min.js"; */
 		/* var jsUrl = "./cdn/packery/2.1.1/js/packery.imagesloaded.pkgd.fixed.min.js"; */
 		/* var jsUrl = "./cdn/packery/2.1.1/js/packery.imagesloaded.draggabilly.pkgd.fixed.min.js"; */
@@ -1025,40 +1014,39 @@ document.ready().then(initMasonry);
 var initUiTotop = function () {
 	"use strict";
 
-	var w = globalRoot,
-	    d = document,
-	    h = d.documentElement || "",
-	    b = d.body || "",
-	    getElementsByClassName = "getElementsByClassName",
-	    classList = "classList",
-	    createElement = "createElement",
-	    appendChild = "appendChild";
+	var w = globalRoot;
+	var d = document;
+	var h = d.documentElement || "";
+	var b = d.body || "";
+	var getElementsByClassName = "getElementsByClassName";
+	var classList = "classList";
+	var createElement = "createElement";
+	var appendChild = "appendChild";
 	/* var createElementNS = "createElementNS";
  var setAttributeNS = "setAttributeNS"; */
 	var _addEventListener = "addEventListener";
-	var btnClass = "ui-totop",
-	    btnTitle = "Наверх",
-	    isActiveClass = "is-active",
-	    anchor = d[createElement]("a"),
-
-	/* insertUpSvg = function (targetObj) {
- 	var svg = d[createElementNS]("http://www.w3.org/2000/svg", "svg"),
- 	use = d[createElementNS]("http://www.w3.org/2000/svg", "use");
+	var btnClass = "ui-totop";
+	var btnTitle = "Наверх";
+	var isActiveClass = "is-active";
+	var anchor = d[createElement]("a");
+	/* var insertUpSvg = function (targetObj) {
+ 	var svg = d[createElementNS]("http://www.w3.org/2000/svg", "svg");
+ 	var use = d[createElementNS]("http://www.w3.org/2000/svg", "use");
  	svg[classList].add("ui-icon");
  	use[setAttributeNS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
  	svg[appendChild](use);
  	targetObj[appendChild](svg);
- }, */
-	handleUiTotopAnchor = function (ev) {
+ }; */
+	var handleUiTotopAnchor = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
 		scroll2Top(0, 20000);
-	},
-	    handleUiTotopWindow = function (_this) {
+	};
+	var handleUiTotopWindow = function (_this) {
 		var logicHandleUiTotopWindow = function () {
-			var btn = d[getElementsByClassName](btnClass)[0] || "",
-			    scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
-			    windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
+			var btn = d[getElementsByClassName](btnClass)[0] || "";
+			var scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "";
+			var windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
 			if (scrollPosition && windowHeight && btn) {
 				if (scrollPosition > windowHeight) {
 					btn[classList].add(isActiveClass);
@@ -1066,8 +1054,8 @@ var initUiTotop = function () {
 					btn[classList].remove(isActiveClass);
 				}
 			}
-		},
-		    throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
+		};
+		var throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
 		throttleLogicHandleUiTotopWindow();
 	};
 	anchor[classList].add(btnClass);
@@ -1078,7 +1066,6 @@ var initUiTotop = function () {
 	/* insertUpSvg(anchor); */
 	b[appendChild](anchor);
 	if (b) {
-		/* console.log("triggered function: initUiTotop"); */
 		anchor[_addEventListener]("click", handleUiTotopAnchor);
 		w[_addEventListener]("scroll", handleUiTotopWindow, { passive: true });
 	}
@@ -1090,10 +1077,10 @@ document.ready().then(initUiTotop);
 var showPageFinishProgress = function () {
 	"use strict";
 
-	var d = document,
-	    getElementById = "getElementById",
-	    container = d[getElementById]("container") || "",
-	    showPage = function () {
+	var d = document;
+	var getElementById = "getElementById";
+	var container = d[getElementById]("container") || "";
+	var showPage = function () {
 		setStyleOpacity(container, 1);
 		progressBar.increase(20);
 	};

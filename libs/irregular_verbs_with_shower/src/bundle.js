@@ -242,22 +242,22 @@ var handleExternalLink = function (url, ev) {
 	"use strict";
 	ev.stopPropagation();
 	ev.preventDefault();
-	var logicHandleExternalLink = openDeviceBrowser.bind(null, url),
-	debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
+	var logicHandleExternalLink = openDeviceBrowser.bind(null, url);
+	var debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
 	debounceLogicHandleExternalLink();
 },
 manageExternalLinkAll = function (scope) {
 	"use strict";
 	var ctx = scope && scope.nodeName ? scope : "";
-	var d = document,
-	getElementsByTagName = "getElementsByTagName",
-	linkTag = "a",
-	link = ctx ? ctx[getElementsByTagName](linkTag) || "" : d[getElementsByTagName](linkTag) || "",
-	classList = "classList";
+	var d = document;
+	var getElementsByTagName = "getElementsByTagName";
+	var getAttribute = "getAttribute";
+	var classList = "classList";
 	var _addEventListener = "addEventListener";
-	var getAttribute = "getAttribute",
-	isBindedClass = "is-binded",
-	arrange = function (e) {
+	var linkTag = "a";
+	var link = ctx ? ctx[getElementsByTagName](linkTag) || "" : d[getElementsByTagName](linkTag) || "";
+	var isBindedClass = "is-binded";
+	var arrange = function (e) {
 		if (!e[classList].contains(isBindedClass)) {
 			var url = e[getAttribute]("href") || "";
 			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
@@ -273,7 +273,6 @@ manageExternalLinkAll = function (scope) {
 		}
 	};
 	if (link) {
-		/* console.log("triggered function: manageExternalLinkAll"); */
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrange(link[i]);
 		}
@@ -286,7 +285,6 @@ document.ready().then(manageExternalLinkAll);
  */
 var initShower = function () {
 	"use strict";
-	/* console.log("triggered function: initShower"); */
 	var jsUrl = "../../cdn/shower/1.0.1/js/shower.fixed.min.js";
 	if (!scriptIsLoaded(jsUrl)) {
 		loadJS(jsUrl);
@@ -298,39 +296,39 @@ document.ready().then(initShower);
  */
 var initUiTotop = function () {
 	"use strict";
-	var w = globalRoot,
-	d = document,
-	h = d.documentElement || "",
-	b = d.body || "",
-	getElementsByClassName = "getElementsByClassName",
-	classList = "classList",
-	createElement = "createElement",
-	appendChild = "appendChild";
+	var w = globalRoot;
+	var d = document;
+	var h = d.documentElement || "";
+	var b = d.body || "";
+	var getElementsByClassName = "getElementsByClassName";
+	var classList = "classList";
+	var createElement = "createElement";
+	var appendChild = "appendChild";
 	/* var createElementNS = "createElementNS";
 	var setAttributeNS = "setAttributeNS"; */
 	var _addEventListener = "addEventListener";
-	var btnClass = "ui-totop",
-	btnTitle = "Наверх",
-	isActiveClass = "is-active",
-	anchor = d[createElement]("a"),
-	/* insertUpSvg = function (targetObj) {
-		var svg = d[createElementNS]("http://www.w3.org/2000/svg", "svg"),
-		use = d[createElementNS]("http://www.w3.org/2000/svg", "use");
+	var btnClass = "ui-totop";
+	var btnTitle = "Наверх";
+	var isActiveClass = "is-active";
+	var anchor = d[createElement]("a");
+	/* var insertUpSvg = function (targetObj) {
+		var svg = d[createElementNS]("http://www.w3.org/2000/svg", "svg");
+		var use = d[createElementNS]("http://www.w3.org/2000/svg", "use");
 		svg[classList].add("ui-icon");
 		use[setAttributeNS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
 		svg[appendChild](use);
 		targetObj[appendChild](svg);
-	}, */
-	handleUiTotopAnchor = function (ev) {
+	}; */
+	var handleUiTotopAnchor = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
 		scroll2Top(0, 20000);
-	},
-	handleUiTotopWindow = function (_this) {
+	};
+	var handleUiTotopWindow = function (_this) {
 		var logicHandleUiTotopWindow = function () {
-			var btn = d[getElementsByClassName](btnClass)[0] || "",
-			scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "",
-			windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
+			var btn = d[getElementsByClassName](btnClass)[0] || "";
+			var scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "";
+			var windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
 			if (scrollPosition && windowHeight && btn) {
 				if (scrollPosition > windowHeight) {
 					btn[classList].add(isActiveClass);
@@ -338,8 +336,8 @@ var initUiTotop = function () {
 					btn[classList].remove(isActiveClass);
 				}
 			}
-		},
-		throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
+		};
+		var throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
 		throttleLogicHandleUiTotopWindow();
 	};
 	anchor[classList].add(btnClass);
@@ -350,7 +348,6 @@ var initUiTotop = function () {
 	/* insertUpSvg(anchor); */
 	b[appendChild](anchor);
 	if (b) {
-		/* console.log("triggered function: initUiTotop"); */
 		anchor[_addEventListener]("click", handleUiTotopAnchor);
 		w[_addEventListener]("scroll", handleUiTotopWindow, {passive: true});
 	}
@@ -364,18 +361,18 @@ document.ready().then(initUiTotop);
  * via ya-share2 api
  * @see {@link https://tech.yandex.ru/share/doc/dg/api-docpage/}
  */
-var yshare,
-manageShareButton = function () {
+var yshare;
+var manageShareButton = function () {
 	"use strict";
-	var w = globalRoot,
-	d = document,
-	getElementById = "getElementById",
-	getElementsByClassName = "getElementsByClassName";
-	var _addEventListener = "addEventListener",
-	btn = d[getElementsByClassName]("btn-share-buttons")[0] || "",
-	yaShare2Id = "ya-share2",
-	yaShare2 = d[getElementById](yaShare2Id) || "",
-	handleShareButton = function (ev) {
+	var w = globalRoot;
+	var d = document;
+	var getElementById = "getElementById";
+	var getElementsByClassName = "getElementsByClassName";
+	var _addEventListener = "addEventListener";
+	var btn = d[getElementsByClassName]("btn-share-buttons")[0] || "";
+	var yaShare2Id = "ya-share2";
+	var yaShare2 = d[getElementById](yaShare2Id) || "";
+	var handleShareButton = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
 		var initScript = function () {
@@ -403,14 +400,13 @@ manageShareButton = function () {
 					console.log("cannot update or init Ya", err);
 				}
 			}
-		},
-		jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
+		};
+		var jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
 		}
 	};
 	if (btn && yaShare2) {
-		/* console.log("triggered function: manageShareButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			btn[_addEventListener]("click", handleShareButton);
 		} else {
@@ -437,9 +433,9 @@ document.ready().then(initManUp); */
  */
 var showPageFinishProgress = function () {
 	"use strict";
-	var d = document,
-	getElementById = "getElementById",
-	page = d[getElementById]("page") || "";
+	var d = document;
+	var getElementById = "getElementById";
+	var page = d[getElementById]("page") || "";
 	if (page) {
 		setStyleOpacity(page, 1);
 		progressBar.increase(20);

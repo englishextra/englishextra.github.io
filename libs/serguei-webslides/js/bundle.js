@@ -448,23 +448,23 @@ var handleExternalLink = function (url, ev) {
 
 	ev.stopPropagation();
 	ev.preventDefault();
-	var logicHandleExternalLink = openDeviceBrowser.bind(null, url),
-	    debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
+	var logicHandleExternalLink = openDeviceBrowser.bind(null, url);
+	var debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
 	debounceLogicHandleExternalLink();
 },
     manageExternalLinkAll = function (scope) {
 	"use strict";
 
 	var ctx = scope && scope.nodeName ? scope : "";
-	var d = document,
-	    getElementsByTagName = "getElementsByTagName",
-	    linkTag = "a",
-	    link = ctx ? ctx[getElementsByTagName](linkTag) || "" : d[getElementsByTagName](linkTag) || "",
-	    classList = "classList";
+	var d = document;
+	var getElementsByTagName = "getElementsByTagName";
+	var getAttribute = "getAttribute";
+	var classList = "classList";
 	var _addEventListener = "addEventListener";
-	var getAttribute = "getAttribute",
-	    isBindedClass = "is-binded",
-	    arrange = function (e) {
+	var linkTag = "a";
+	var link = ctx ? ctx[getElementsByTagName](linkTag) || "" : d[getElementsByTagName](linkTag) || "";
+	var isBindedClass = "is-binded";
+	var arrange = function (e) {
 		if (!e[classList].contains(isBindedClass)) {
 			var url = e[getAttribute]("href") || "";
 			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
@@ -480,7 +480,6 @@ var handleExternalLink = function (url, ev) {
 		}
 	};
 	if (link) {
-		/* console.log("triggered function: manageExternalLinkAll"); */
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrange(link[i]);
 		}
@@ -897,13 +896,13 @@ var manageDataQrcodeImageAll = function (scope) {
 	"use strict";
 
 	var ctx = scope && scope.nodeName ? scope : "";
-	var w = globalRoot,
-	    d = document,
-	    getElementsByClassName = "getElementsByClassName",
-	    dataset = "dataset",
-	    imgClass = "data-qrcode-img",
-	    img = ctx ? ctx[getElementsByClassName](imgClass) || "" : d[getElementsByClassName](imgClass) || "",
-	    generateImg = function (e) {
+	var w = globalRoot;
+	var d = document;
+	var getElementsByClassName = "getElementsByClassName";
+	var dataset = "dataset";
+	var imgClass = "data-qrcode-img";
+	var img = ctx ? ctx[getElementsByClassName](imgClass) || "" : d[getElementsByClassName](imgClass) || "";
+	var generateImg = function (e) {
 		var qrcode = e[dataset].qrcode || "";
 		qrcode = decodeURIComponent(qrcode);
 		if (qrcode) {
@@ -938,15 +937,14 @@ var manageDataQrcodeImageAll = function (scope) {
 				e.src = imgSrc;
 			}
 		}
-	},
-	    initScript = function () {
+	};
+	var initScript = function () {
 		for (var i = 0, l = img.length; i < l; i += 1) {
 			generateImg(img[i]);
 		}
 		/* forEach(img, generateImg, false); */
 	};
 	if (img) {
-		/* console.log("triggered function: manageDataQrcodeImageAll"); */
 		var jsUrl = "../cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
@@ -960,9 +958,9 @@ document.ready().then(manageDataQrcodeImageAll);
 var showPageFinishProgress = function () {
 	"use strict";
 
-	var d = document,
-	    getElementById = "getElementById",
-	    page = d[getElementById]("page") || "";
+	var d = document;
+	var getElementById = "getElementById";
+	var page = d[getElementById]("page") || "";
 	if (page) {
 		setStyleOpacity(page, 1);
 		progressBar.increase(20);

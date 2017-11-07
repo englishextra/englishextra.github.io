@@ -248,22 +248,22 @@ var handleExternalLink = function (url, ev) {
 	"use strict";
 	ev.stopPropagation();
 	ev.preventDefault();
-	var logicHandleExternalLink = openDeviceBrowser.bind(null, url),
-	debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
+	var logicHandleExternalLink = openDeviceBrowser.bind(null, url);
+	var debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
 	debounceLogicHandleExternalLink();
 },
 manageExternalLinkAll = function (scope) {
 	"use strict";
 	var ctx = scope && scope.nodeName ? scope : "";
-	var d = document,
-	getElementsByTagName = "getElementsByTagName",
-	linkTag = "a",
-	link = ctx ? ctx[getElementsByTagName](linkTag) || "" : d[getElementsByTagName](linkTag) || "",
-	classList = "classList";
+	var d = document;
+	var getElementsByTagName = "getElementsByTagName";
+	var getAttribute = "getAttribute";
+	var classList = "classList";
 	var _addEventListener = "addEventListener";
-	var getAttribute = "getAttribute",
-	isBindedClass = "is-binded",
-	arrange = function (e) {
+	var linkTag = "a";
+	var link = ctx ? ctx[getElementsByTagName](linkTag) || "" : d[getElementsByTagName](linkTag) || "";
+	var isBindedClass = "is-binded";
+	var arrange = function (e) {
 		if (!e[classList].contains(isBindedClass)) {
 			var url = e[getAttribute]("href") || "";
 			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
@@ -279,7 +279,6 @@ manageExternalLinkAll = function (scope) {
 		}
 	};
 	if (link) {
-		/* console.log("triggered function: manageExternalLinkAll"); */
 		for (var i = 0, l = link.length; i < l; i += 1) {
 			arrange(link[i]);
 		}
@@ -292,18 +291,18 @@ document.ready().then(manageExternalLinkAll);
  */
 var hideUiBtnsInFullScreen = function () {
 	"use strict";
-	var w = globalRoot,
-	d = document,
-	getElementsByClassName = "getElementsByClassName",
-	cdPrev = d[getElementsByClassName]("cd-prev")[0] || "",
-	cdNext = d[getElementsByClassName]("cd-next")[0] || "",
+	var w = globalRoot;
+	var d = document;
+	var getElementsByClassName = "getElementsByClassName";
+	var cdPrev = d[getElementsByClassName]("cd-prev")[0] || "";
+	var cdNext = d[getElementsByClassName]("cd-next")[0] || "",
 	btnNavMenu = d[getElementsByClassName]("btn-nav-menu")[0] || "",
 	btnMenuMore = d[getElementsByClassName]("btn-menu-more")[0] || "",
 	btnShowVKLike = d[getElementsByClassName]("btn-show-vk-like")[0] || "",
 	btnShareButtons = d[getElementsByClassName]("btn-share-buttons")[0] || "",
 	btnUiTotop = d[getElementsByClassName]("ui-totop")[0] || "",
-	holderSearchForm = d[getElementsByClassName]("holder-search-form")[0] || "",
-	jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122",
+	holderSearchForm = d[getElementsByClassName]("holder-search-form")[0] || "";
+	var jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122",
 	f = !1;
 	if (!f) {
 		f = !0;
@@ -345,34 +344,44 @@ document.ready().then(resizeHideUiBtnsInFullScreen);
  */
 var initDoSlide = function () {
 	"use strict";
-	var w = globalRoot,
-	d = document,
-	getElementsByClassName = "getElementsByClassName";
+	var w = globalRoot;
+	var d = document;
+	var getElementsByClassName = "getElementsByClassName";
 	var _addEventListener = "addEventListener";
-	var dsContainerSelector = ".ds-container",
-	dsContainer = d[getElementsByClassName]("ds-container")[0] || "",
-	cdPrev = d[getElementsByClassName]("cd-prev")[0] || "",
-	cdNext = d[getElementsByClassName]("cd-next")[0] || "",
-	initScript = function () {
+	var dsContainerSelector = ".ds-container";
+	var dsContainer = d[getElementsByClassName]("ds-container")[0] || "";
+	var cdPrev = d[getElementsByClassName]("cd-prev")[0] || "";
+	var cdNext = d[getElementsByClassName]("cd-next")[0] || "";
+	var initScript = function () {
+		var slide = new DoSlide(dsContainerSelector, {
+			duration : 2000,
+			horizontal : true,
+			infinite : true
+		});
+		var timer = function (slide, interval, token) {
+			var next = function () {
+				token = setTimeout(next, interval);
+				if (!(d.hidden || d.webkitHidden)) {
+					slide.next();
+				}
+			};
+			return function () {
+				clearTimeout(token);
+				token = setTimeout(next, interval);
+			};
+		};
+		var slideTimer = timer(slide, 5000);
+		var handleCdPrev = function (ev) {
+			ev.preventDefault();
+			ev.stopPropagation();
+			slide.prev();
+		};
+		var handleCdNext = function (ev) {
+			ev.preventDefault();
+			ev.stopPropagation();
+			slide.next();
+		};
 		if (w.DoSlide) {
-			var slide = new DoSlide(dsContainerSelector, {
-				duration : 2000,
-				horizontal : true,
-				infinite : true
-			}),
-			timer = function (slide, interval, token) {
-				var next = function () {
-					token = setTimeout(next, interval);
-					if (!(d.hidden || d.webkitHidden)) {
-						slide.next();
-					}
-				};
-				return function () {
-					clearTimeout(token);
-					token = setTimeout(next, interval);
-				};
-			},
-			slideTimer = timer(slide, 5000);
 			/*!
 			 * dont JSMin line below: Notepad++ will freeze
 			 * comment out if you dont want slide autorotation
@@ -383,17 +392,7 @@ var initDoSlide = function () {
 			 */
 			setStyleDisplayBlock(cdPrev);
 			setStyleDisplayBlock(cdNext);
-			var handleCdPrev = function (ev) {
-				ev.preventDefault();
-				ev.stopPropagation();
-				slide.prev();
-			};
 			cdPrev[_addEventListener]("click", handleCdPrev);
-			var handleCdNext = function (ev) {
-				ev.preventDefault();
-				ev.stopPropagation();
-				slide.next();
-			};
 			cdNext[_addEventListener]("click", handleCdNext);
 		}
 	};
@@ -411,18 +410,18 @@ document.ready().then(initDoSlide);
  */
 var manageLocationQrCodeImage = function () {
 	"use strict";
-	var w = globalRoot,
-	d = document,
-	getElementsByClassName = "getElementsByClassName",
-	classList = "classList",
-	createElement = "createElement",
-	holder = d[getElementsByClassName]("holder-location-qr-code")[0] || "",
-	locationHref = w.location.href || "",
-	initScript = function () {
-		var locationHref = w.location.href || "",
-		img = d[createElement]("img"),
-		imgTitle = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "",
-		imgSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
+	var w = globalRoot;
+	var d = document;
+	var getElementsByClassName = "getElementsByClassName";
+	var classList = "classList";
+	var createElement = "createElement";
+	var holder = d[getElementsByClassName]("holder-location-qr-code")[0] || "";
+	var locationHref = w.location.href || "";
+	var initScript = function () {
+		var locationHref = w.location.href || "";
+		var img = d[createElement]("img");
+		var imgTitle = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
+		var imgSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
 		img.alt = imgTitle;
 		if (w.QRCode) {
 			if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
@@ -458,7 +457,6 @@ var manageLocationQrCodeImage = function () {
 	};
 	if (holder && locationHref) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			/* console.log("triggered function: manageLocationQrCodeImage"); */
 			var jsUrl = "../../cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js";
 			if (!scriptIsLoaded(jsUrl)) {
 				loadJS(jsUrl, initScript);
@@ -472,39 +470,39 @@ document.ready().then(manageLocationQrCodeImage);
  */
 var initMenuMore = function () {
 	"use strict";
-	var d = document,
-	getElementById = "getElementById",
-	getElementsByClassName = "getElementsByClassName",
-	getElementsByTagName = "getElementsByTagName",
-	classList = "classList";
+	var d = document;
+	var getElementById = "getElementById";
+	var getElementsByClassName = "getElementsByClassName";
+	var getElementsByTagName = "getElementsByTagName";
+	var classList = "classList";
 	var _addEventListener = "addEventListener";
-	var container = d[getElementById]("container") || "",
-	page = d[getElementById]("page") || "",
-	holderPanelMenuMore = d[getElementsByClassName]("holder-panel-menu-more")[0] || "",
-	btnMenuMore = d[getElementsByClassName]("btn-menu-more")[0] || "",
-	panelMenuMore = d[getElementsByClassName]("panel-menu-more")[0] || "",
-	panelMenuMoreItems = panelMenuMore ? panelMenuMore[getElementsByTagName]("li") || "" : "",
-	panelNavMenu = d[getElementsByClassName]("panel-nav-menu")[0] || "",
-	isActiveClass = "is-active",
-	handleItem = function () {
+	var container = d[getElementById]("container") || "";
+	var page = d[getElementById]("page") || "";
+	var holderPanelMenuMore = d[getElementsByClassName]("holder-panel-menu-more")[0] || "";
+	var btnMenuMore = d[getElementsByClassName]("btn-menu-more")[0] || "";
+	var panelMenuMore = d[getElementsByClassName]("panel-menu-more")[0] || "";
+	var panelMenuMoreItems = panelMenuMore ? panelMenuMore[getElementsByTagName]("li") || "" : "";
+	var panelNavMenu = d[getElementsByClassName]("panel-nav-menu")[0] || "";
+	var isActiveClass = "is-active";
+	var handleItem = function () {
 		page[classList].remove(isActiveClass);
 		holderPanelMenuMore[classList].remove(isActiveClass);
 		if (panelNavMenu && panelNavMenu[classList].contains(isActiveClass)) {
 			panelNavMenu[classList].remove(isActiveClass);
 		}
-	},
-	addContainerHandler = function () {
+	};
+	var addContainerHandler = function () {
 		container[_addEventListener]("click", handleItem);
-	},
-	addBtnHandler = function () {
-		var h_btn = function (ev) {
+	};
+	var addBtnHandler = function () {
+		var handleBtnMenuMore = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
 			holderPanelMenuMore[classList].toggle(isActiveClass);
 		};
-		btnMenuMore[_addEventListener]("click", h_btn);
-	},
-	addItemHandlerAll = function () {
+		btnMenuMore[_addEventListener]("click", handleBtnMenuMore);
+	};
+	var addItemHandlerAll = function () {
 		var addItemHandler = function (e) {
 			e[_addEventListener]("click", handleItem);
 		};
@@ -514,7 +512,6 @@ var initMenuMore = function () {
 		/* forEach(panelMenuMoreItems, addItemHandler, false); */
 	};
 	if (page && container && holderPanelMenuMore && btnMenuMore && panelMenuMore && panelMenuMoreItems) {
-		/* console.log("triggered function: initMenuMore"); */
 		/*!
 		 * hide menu more on outside click
 		 */
@@ -535,11 +532,11 @@ document.ready().then(initMenuMore);
  */
 var showMenuMore = function () {
 	"use strict";
-	var d = document,
-	getElementsByClassName = "getElementsByClassName",
-	classList = "classList",
-	holderPanelMenuMore = d[getElementsByClassName]("holder-panel-menu-more")[0] || "",
-	isActiveClass = "is-active";
+	var d = document;
+	var getElementsByClassName = "getElementsByClassName";
+	var classList = "classList";
+	var holderPanelMenuMore = d[getElementsByClassName]("holder-panel-menu-more")[0] || "";
+	var isActiveClass = "is-active";
 	if (holderPanelMenuMore) {
 		var timers = new Timers();
 		timers.timeout(function () {
@@ -558,18 +555,18 @@ document.ready().then(showMenuMore);
  * via ya-share2 api
  * @see {@link https://tech.yandex.ru/share/doc/dg/api-docpage/}
  */
-var yshare,
-manageShareButton = function () {
+var yshare;
+var manageShareButton = function () {
 	"use strict";
-	var w = globalRoot,
-	d = document,
-	getElementById = "getElementById",
-	getElementsByClassName = "getElementsByClassName";
-	var _addEventListener = "addEventListener",
-	btn = d[getElementsByClassName]("btn-share-buttons")[0] || "",
-	yaShare2Id = "ya-share2",
-	yaShare2 = d[getElementById](yaShare2Id) || "",
-	handleShareButton = function (ev) {
+	var w = globalRoot;
+	var d = document;
+	var getElementById = "getElementById";
+	var getElementsByClassName = "getElementsByClassName";
+	var _addEventListener = "addEventListener";
+	var btn = d[getElementsByClassName]("btn-share-buttons")[0] || "";
+	var yaShare2Id = "ya-share2";
+	var yaShare2 = d[getElementById](yaShare2Id) || "";
+	var handleShareButton = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
 		var initScript = function () {
@@ -597,14 +594,13 @@ manageShareButton = function () {
 					console.log("cannot update or init Ya", err);
 				}
 			}
-		},
-		jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
+		};
+		var jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
 		}
 	};
 	if (btn && yaShare2) {
-		/* console.log("triggered function: manageShareButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			btn[_addEventListener]("click", handleShareButton);
 		} else {
@@ -618,17 +614,17 @@ document.ready().then(manageShareButton);
  */
 var manageVKLikeButton = function () {
 	"use strict";
-	var w = globalRoot,
-	d = document,
-	getElementById = "getElementById",
-	getElementsByClassName = "getElementsByClassName",
-	dataset = "dataset";
-	var _addEventListener = "addEventListener",
-	_removeEventListener = "removeEventListener",
-	VKLikeId = "vk-like",
-	vkLike = d[getElementById](VKLikeId) || "",
-	btn = d[getElementsByClassName]("btn-show-vk-like")[0] || "",
-	handleVKLikeButton = function (ev) {
+	var w = globalRoot;
+	var d = document;
+	var getElementById = "getElementById";
+	var getElementsByClassName = "getElementsByClassName";
+	var dataset = "dataset";
+	var _addEventListener = "addEventListener";
+	var _removeEventListener = "removeEventListener";
+	var VKLikeId = "vk-like";
+	var vkLike = d[getElementById](VKLikeId) || "";
+	var btn = d[getElementsByClassName]("btn-show-vk-like")[0] || "";
+	var handleVKLikeButton = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
 		btn[_removeEventListener]("click", handleVKLikeButton);
@@ -651,14 +647,13 @@ var manageVKLikeButton = function () {
 					console.log("cannot init VK", err);
 				}
 			}
-		},
-		jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122";
+		};
+		var jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122";
 		if (!scriptIsLoaded(jsUrl)) {
 			loadJS(jsUrl, initScript);
 		}
 	};
 	if (btn && vkLike) {
-		/* console.log("triggered function: manageVKLikeButton"); */
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			btn[_addEventListener]("click", handleVKLikeButton);
 		} else {
@@ -685,9 +680,9 @@ document.ready().then(initManUp); */
  */
 var showPageFinishProgress = function () {
 	"use strict";
-	var d = document,
-	getElementById = "getElementById",
-	container = d[getElementById]("container") || "";
+	var d = document;
+	var getElementById = "getElementById";
+	var container = d[getElementById]("container") || "";
 	if (container) {
 		setStyleOpacity(container, 1);
 		progressBar.increase(20);
