@@ -1216,12 +1216,12 @@ var handleDataSrcImageAll = function () {
 		}
 		/* forEach(img, arrange, false); */
 	}
-},
-    handleDataSrcImageAllWindow = function () {
+};
+var handleDataSrcImageAllWindow = function () {
 	var throttleHandleDataSrcImageAll = throttle(handleDataSrcImageAll, 100);
 	throttleHandleDataSrcImageAll();
-},
-    manageDataSrcImageAll = function () {
+};
+var manageDataSrcImageAll = function () {
 	"use strict";
 
 	var w = globalRoot;
@@ -1287,12 +1287,12 @@ var handleDataSrcIframeAll = function () {
 		}
 		/* forEach(iframe, arrange, false); */
 	}
-},
-    handleDataSrcIframeAllWindow = function () {
+};
+var handleDataSrcIframeAllWindow = function () {
 	var throttlehandleDataSrcIframeAll = throttle(handleDataSrcIframeAll, 100);
 	throttlehandleDataSrcIframeAll();
-},
-    manageDataSrcIframeAll = function () {
+};
+var manageDataSrcIframeAll = function () {
 	"use strict";
 
 	var w = globalRoot;
@@ -1354,8 +1354,8 @@ var handleExternalLink = function (url, ev) {
 	var logicHandleExternalLink = openDeviceBrowser.bind(null, url);
 	var debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
 	debounceLogicHandleExternalLink();
-},
-    manageExternalLinkAll = function (scope) {
+};
+var manageExternalLinkAll = function (scope) {
 	"use strict";
 
 	var ctx = scope && scope.nodeName ? scope : "";
@@ -1436,8 +1436,8 @@ var hideImgLightbox = function () {
 			hideContainer();
 		}, 400);
 	}
-},
-    handleImgLightboxContainer = function () {
+};
+var handleImgLightboxContainer = function () {
 	"use strict";
 
 	var d = document;
@@ -1448,8 +1448,8 @@ var hideImgLightbox = function () {
 		container[_removeEventListener]("click", handleImgLightboxContainer);
 		hideImgLightbox();
 	}
-},
-    handleImgLightboxWindow = function (ev) {
+};
+var handleImgLightboxWindow = function (ev) {
 	"use strict";
 
 	var w = globalRoot;
@@ -1458,8 +1458,8 @@ var hideImgLightbox = function () {
 	if (27 === (ev.which || ev.keyCode)) {
 		hideImgLightbox();
 	}
-},
-    manageImgLightboxLinks = function (scope) {
+};
+var manageImgLightboxLinks = function (scope) {
 	"use strict";
 
 	var ctx = scope && scope.nodeName ? scope : "";
@@ -1567,8 +1567,8 @@ var handleOtherDropdownLists = function (_self) {
 		}
 		/* forEach(list, removeActiveClass, false); */
 	}
-},
-    manageOtherDropdownListAll = function () {
+};
+var manageOtherDropdownListAll = function () {
 	"use strict";
 
 	var d = document;
@@ -1663,10 +1663,10 @@ var manageChaptersSelect = function () {
 			if (0 === i) {
 				chaptersListButtonDefaultText = _this.firstChild.textContent;
 			}
-			var chaptersListItem = d[createElement]("li"),
-			    chaptersListItemText = _this.firstChild.textContent || "",
-			    chaptersListItemValue = _this.value,
-			    chaptersListItemTextTruncated = truncString("" + chaptersListItemText, 28);
+			var chaptersListItem = d[createElement]("li");
+			var chaptersListItemText = _this.firstChild.textContent || "";
+			var chaptersListItemValue = _this.value;
+			var chaptersListItemTextTruncated = truncString("" + chaptersListItemText, 28);
 			chaptersListItem[appendChild](d[createTextNode](chaptersListItemTextTruncated));
 			chaptersListItem.title = chaptersListItemText;
 			chaptersListItem[_addEventListener]("click", handleChaptersListItem.bind(null, chaptersList, chaptersListItemValue));
@@ -1684,9 +1684,9 @@ var manageChaptersSelect = function () {
 		var chaptersListButton = d[createElement]("a");
 		chaptersListButton[appendChild](d[createTextNode](chaptersListButtonDefaultText));
 		chaptersList[parentNode].insertBefore(chaptersListButton, chaptersList);
-		/*jshint -W107 */
+		/* jshint -W107 */
 		chaptersListButton.href = "javascript:void(0);";
-		/*jshint +W107 */
+		/* jshint +W107 */
 		var insertChevronDownSmallSvg = function (targetObj) {
 			var svg = d[createElementNS]("http://www.w3.org/2000/svg", "svg"),
 			    use = d[createElementNS]("http://www.w3.org/2000/svg", "use");
@@ -1968,8 +1968,8 @@ var notiBar = function (opt) {
 	msgContainer[appendChild](msgContent);
 	notibarContainer[appendChild](msgContainer);
 	var insertCancelSvg = function (targetObj) {
-		var svg = d[createElementNS]("http://www.w3.org/2000/svg", "svg"),
-		    use = d[createElementNS]("http://www.w3.org/2000/svg", "use");
+		var svg = d[createElementNS]("http://www.w3.org/2000/svg", "svg");
+		var use = d[createElementNS]("http://www.w3.org/2000/svg", "use");
 		svg[classList].add("ui-icon");
 		use[setAttributeNS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Cancel");
 		svg[appendChild](use);
@@ -2039,9 +2039,9 @@ var initNotibarMsg = function () {
 			timers.clear();
 			timers = null;
 			var msgObj = d[createElement]("a");
-			/*jshint -W107 */
+			/* jshint -W107 */
 			msgObj.href = "javascript:void(0);";
-			/*jshint +W107 */
+			/* jshint +W107 */
 			var handleMsgObj = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
@@ -2166,8 +2166,8 @@ var initKamilAutocomplete = function (jsonObj) {
 		/*!
    * show suggestions
    */
-		ac.renderMenu = function (ul, items) {
-			items = items || "";
+		ac.renderMenu = function (ul, stance) {
+			var items = stance || "";
 			var itemsLength = items.length;
 			var _this = this;
 			/*!
@@ -2470,8 +2470,8 @@ var handleOtherSocialButtons = function (_self) {
 		}
 		/* forEach(btn, removeActiveClass, false); */
 	}
-},
-    manageOtherSocialButtonAll = function () {
+};
+var manageOtherSocialButtonAll = function () {
 	"use strict";
 
 	var d = document;
@@ -2614,7 +2614,7 @@ var manageShareButton = function () {
 							});
 						}
 					} catch (err) {
-						console.log("cannot update or init Ya", err);
+						/* console.log("cannot update or init Ya", err); */
 					}
 				}
 			};
@@ -2677,7 +2677,7 @@ var manageVKLikeButton = function () {
 							});
 							vlike = true;
 						} catch (err) {
-							console.log("cannot init VK", err);
+							/* console.log("cannot init VK", err); */
 						}
 					}
 				}
@@ -2724,10 +2724,10 @@ var manageDebugGridButton = function () {
 		ev.preventDefault();
 		container[classList].toggle(debugClass);
 		var showDebugGridMessage = function () {
-			var col = d[getElementsByClassName]("col")[0] || "",
-			    elements = [b, page, container, col],
-			    debugMessage = [],
-			    renderElementsInfo = function (e) {
+			var col = d[getElementsByClassName]("col")[0] || "";
+			var elements = [b, page, container, col];
+			var debugMessage = [];
+			var renderElementsInfo = function (e) {
 				if (e) {
 					debugMessage.push(e.className ? "." + e.className : e.id ? "#" + e.id : e.tagName, " ", w.getComputedStyle(e).getPropertyValue("font-size"), " ", w.getComputedStyle(e).getPropertyValue("line-height"), " ", e.offsetWidth, "x", e.offsetHeight, " \u003e ");
 				}
@@ -3117,9 +3117,9 @@ var initRouting = function () {
 			var contentsListButton = d[createElement]("a");
 			contentsListButton[appendChild](d[createTextNode](contentsListButtonText));
 			contentsList[parentNode].insertBefore(contentsListButton, contentsList);
-			/*jshint -W107 */
+			/* jshint -W107 */
 			contentsListButton[href] = "javascript:void(0);";
-			/*jshint +W107 */
+			/* jshint +W107 */
 			var insertChevronDownSmallSvg = function (targetObj) {
 				var svg = d[createElementNS]("http://www.w3.org/2000/svg", "svg");
 				var use = d[createElementNS]("http://www.w3.org/2000/svg", "use");
@@ -3257,9 +3257,9 @@ var initUiTotop = function () {
 		throttleLogicHandleUiTotopWindow();
 	};
 	anchor[classList].add(btnClass);
-	/*jshint -W107 */
+	/* jshint -W107 */
 	anchor.href = "javascript:void(0);";
-	/*jshint +W107 */
+	/* jshint +W107 */
 	anchor.title = btnTitle;
 	insertUpSvg(anchor);
 	b[appendChild](anchor);
@@ -3269,19 +3269,6 @@ var initUiTotop = function () {
 	}
 };
 document.ready().then(initUiTotop);
-/*!
- * init manUP.js
- */
-/* var initManUp = function () {
-	"use strict";
-	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
-		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl);
-		}
-	}
-};
-document.ready().then(initManUp); */
 /*!
  * show page, finish ToProgress
  */

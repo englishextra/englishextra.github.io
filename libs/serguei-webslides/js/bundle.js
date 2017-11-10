@@ -451,8 +451,8 @@ var handleExternalLink = function (url, ev) {
 	var logicHandleExternalLink = openDeviceBrowser.bind(null, url);
 	var debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
 	debounceLogicHandleExternalLink();
-},
-    manageExternalLinkAll = function (scope) {
+};
+var manageExternalLinkAll = function (scope) {
 	"use strict";
 
 	var ctx = scope && scope.nodeName ? scope : "";

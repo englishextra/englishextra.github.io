@@ -191,8 +191,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 			return ToProgress;
 		};
 		return TP();
-	}
-		());
+	})();
 	root.ToProgress = ToProgress;
 }
 	("undefined" !== typeof window ? window : this, document));
@@ -465,8 +464,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 	var supportsCanvas = (function () {
 		var elem = document[createElement]("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
-	}
-		());
+	})();
 
 	var slotDrawCanvasAll;
 	var drawCanvasAll = function () {
@@ -578,8 +576,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 					isCrossDomain: _isCrossDomain(),
 					hasHTTP: /^(http|https):\/\//i.test(url) ? !0 : !1
 				};
-			}
-				());
+			})();
 		};
 		/*jshint bitwise: true */
 
@@ -596,8 +593,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 				}
 			}
 			return false;
-		}
-			());
+		})();
 
 		var openDeviceBrowser = function (url) {
 			var triggerForElectron = function () {
@@ -716,8 +712,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 				newMonth = "0" + newMonth;
 			}
 			return newYear + "-" + newMonth + "-" + newDay;
-		}
-		());
+		})();
 
 		var platformName = "";
 		var platformDescription = "";
@@ -994,7 +989,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 								});
 							}
 						} catch (err) {
-							console.log("cannot update or init Ya", err);
+							/* console.log("cannot update or init Ya", err); */
 						}
 					}
 				};
@@ -1046,7 +1041,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 								});
 								vlike = true;
 							} catch (err) {
-								console.log("cannot init VK", err);
+								/* console.log("cannot init VK", err); */
 							}
 						}
 					}
@@ -1077,7 +1072,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 	var supportsClassList = "classList" in document[createElement]("_") || "";
 
 	if (!supportsClassList) {
-		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/classlist.js@1.1.20150312/classList.min.js");
+		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.201711092/classList.min.js");
 	}
 
 	var supportsDataset = "undefined" !== typeof root.Element && "dataset" in document[documentElement] || "";
@@ -1098,8 +1093,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		} catch (err) {}
 		return support;
 
-	}
-		());
+	})();
 
 	if (!supportsPassive) {
 		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/dom4@1.8.5/build/dom4.max.min.js");

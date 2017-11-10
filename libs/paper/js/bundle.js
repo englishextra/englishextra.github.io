@@ -1258,8 +1258,8 @@ var handleExternalLink = function (url, ev) {
 	var logicHandleExternalLink = openDeviceBrowser.bind(null, url);
 	var debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
 	debounceLogicHandleExternalLink();
-},
-    manageExternalLinkAll = function (scope) {
+};
+var manageExternalLinkAll = function (scope) {
 	"use strict";
 
 	var ctx = scope && scope.nodeName ? scope : "";
@@ -1392,10 +1392,10 @@ var initNotifier42WriteComment = function () {
 	var locationOrigin = parseLink(w.location.href).origin;
 	var showMsg = function () {
 		var msgObj = d[createElement]("a");
-		/*jshint -W107 */
+		/* jshint -W107 */
 		msgObj.href = "javascript:void(0);";
 		appendFragment(msgText, msgObj);
-		/*jshint +W107 */
+		/* jshint +W107 */
 		var handleMsgObj = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
@@ -1509,8 +1509,8 @@ var hideImgLightbox = function () {
 			hideContainer();
 		}, 400);
 	}
-},
-    handleImgLightboxContainer = function () {
+};
+var handleImgLightboxContainer = function () {
 	"use strict";
 
 	var d = document;
@@ -1521,8 +1521,8 @@ var hideImgLightbox = function () {
 		container[_removeEventListener]("click", handleImgLightboxContainer);
 		hideImgLightbox();
 	}
-},
-    handleImgLightboxWindow = function (ev) {
+};
+var handleImgLightboxWindow = function (ev) {
 	"use strict";
 
 	var w = globalRoot;
@@ -1531,8 +1531,8 @@ var hideImgLightbox = function () {
 	if (27 === (ev.which || ev.keyCode)) {
 		hideImgLightbox();
 	}
-},
-    manageImgLightboxLinks = function (scope) {
+};
+var manageImgLightboxLinks = function (scope) {
 	"use strict";
 
 	var ctx = scope && scope.nodeName ? scope : "";
@@ -1660,12 +1660,12 @@ var handleDataSrcImageAll = function () {
 		}
 		/* forEach(img, arrange, false); */
 	}
-},
-    handleDataSrcImageAllWindow = function () {
+};
+var handleDataSrcImageAllWindow = function () {
 	var throttleHandleDataSrcImageAll = throttle(handleDataSrcImageAll, 100);
 	throttleHandleDataSrcImageAll();
-},
-    manageDataSrcImageAll = function () {
+};
+var manageDataSrcImageAll = function () {
 	"use strict";
 
 	var w = globalRoot;
@@ -1734,12 +1734,12 @@ var handleDataSrcIframeAll = function () {
 		}
 		/* forEach(ifrm, arrange, false); */
 	}
-},
-    handleDataSrcIframeAllWindow = function () {
+};
+var handleDataSrcIframeAllWindow = function () {
 	var throttlehandleDataSrcIframeAll = throttle(handleDataSrcIframeAll, 100);
 	throttlehandleDataSrcIframeAll();
-},
-    manageDataSrcIframeAll = function () {
+};
+var manageDataSrcIframeAll = function () {
 	"use strict";
 
 	var w = globalRoot;
@@ -1808,8 +1808,8 @@ var handleChaptersSelect = function () {
 			w.location.href = hashString;
 		}
 	}
-},
-    manageChaptersSelect = function () {
+};
+var manageChaptersSelect = function () {
 	"use strict";
 
 	var d = document;
@@ -1862,8 +1862,8 @@ var handleExpandingLayerAll = function () {
 		layer[classList].toggle(isActiveClass);
 	}
 	return;
-},
-    manageExpandingLayers = function (scope) {
+};
+var manageExpandingLayers = function (scope) {
 	"use strict";
 
 	var ctx = scope && scope.nodeName ? scope : "";
@@ -2083,9 +2083,9 @@ var addAppUpdatesLink = function () {
 	var appendChild = "appendChild";
 	var _addEventListener = "addEventListener";
 	var panel = d[getElementsByClassName]("panel-menu-more")[0] || "";
-	var items = panel ? panel[getElementsByTagName]("li") || "" : "",
-	    navigatorUserAgent = navigator.userAgent || "",
-	    linkHref;
+	var items = panel ? panel[getElementsByTagName]("li") || "" : "";
+	var navigatorUserAgent = navigator.userAgent || "";
+	var linkHref;
 	if (/Windows/i.test(navigatorUserAgent) && /(WOW64|Win64)/i.test(navigatorUserAgent)) {
 		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-win32-x64-setup.exe";
 	} else if (/(x86_64|x86-64|x64;|amd64|AMD64|x64_64)/i.test(navigatorUserAgent) && /(Linux|X11)/i.test(navigatorUserAgent)) {
@@ -2099,8 +2099,8 @@ var addAppUpdatesLink = function () {
 	}
 	var arrange = function () {
 		var listItem = d[createElement]("li");
-		var link = d[createElement]("a"),
-		    linkText = "Скачать приложение сайта";
+		var link = d[createElement]("a");
+		var linkText = "Скачать приложение сайта";
 		link.title = "" + (parseLink(linkHref).hostname || "") + " откроется в новой вкладке";
 		link.href = linkHref;
 		var handleAppUpdatesLink = function () {
@@ -2113,9 +2113,9 @@ var addAppUpdatesLink = function () {
 			/*!
     * no prevent default and void .href above
     */
-			/*jshint -W107 */
+			/* jshint -W107 */
 			link.href = "javascript:void(0);";
-			/*jshint +W107 */
+			/* jshint +W107 */
 			link[_addEventListener]("click", handleAppUpdatesLink);
 		}
 		link[appendChild](d[createTextNode]("" + linkText));
@@ -2206,21 +2206,11 @@ var initUiTotop = function () {
 	var classList = "classList";
 	var createElement = "createElement";
 	var appendChild = "appendChild";
-	/* var createElementNS = "createElementNS";
- var setAttributeNS = "setAttributeNS"; */
 	var _addEventListener = "addEventListener";
 	var btnClass = "ui-totop";
 	var btnTitle = "Наверх";
 	var isActiveClass = "is-active";
 	var anchor = d[createElement]("a");
-	/* var insertUpSvg = function (targetObj) {
- 	var svg = d[createElementNS]("http://www.w3.org/2000/svg", "svg");
- 	var use = d[createElementNS]("http://www.w3.org/2000/svg", "use");
- 	svg[classList].add("ui-icon");
- 	use[setAttributeNS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
- 	svg[appendChild](use);
- 	targetObj[appendChild](svg);
- }; */
 	var handleUiTotopAnchor = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
@@ -2243,9 +2233,9 @@ var initUiTotop = function () {
 		throttleLogicHandleUiTotopWindow();
 	};
 	anchor[classList].add(btnClass);
-	/*jshint -W107 */
+	/* jshint -W107 */
 	anchor.href = "javascript:void(0);";
-	/*jshint +W107 */
+	/* jshint +W107 */
 	anchor.title = btnTitle;
 	/* insertUpSvg(anchor); */
 	b[appendChild](anchor);
@@ -2300,7 +2290,7 @@ var manageShareButton = function () {
 					setStyleOpacity(yaShare2, 1);
 					setStyleDisplayNone(btn);
 				} catch (err) {
-					console.log("cannot update or init Ya", err);
+					/* console.log("cannot update or init Ya", err); */
 				}
 			}
 		};
@@ -2325,8 +2315,8 @@ var initDownloadAppBtn = function () {
 	"use strict";
 
 	var d = document;
-	var b = d.body || "",
-	    navigatorUserAgent = navigator.userAgent || "";
+	var b = d.body || "";
+	var navigatorUserAgent = navigator.userAgent || "";
 	var cls = "btn-download-app";
 	var createElement = "createElement";
 	var classList = "classList";
@@ -2436,13 +2426,13 @@ var initDisqusOnScroll = function () {
 			loadDisqus();
 		};
 		btn[_addEventListener]("click", handleDisqusButton);
-	} /* ;
-   var handleDisqusWindow = function () {
-   if (fitsIntoViewport(disqusThread)) {
-   	w[_removeEventListener]("scroll", handleDisqusWindow, {passive: true});
-   	loadDisqus();
-   }
-   } */;
+	};
+	/* var handleDisqusWindow = function () {
+ 	if (fitsIntoViewport(disqusThread)) {
+ 		w[_removeEventListener]("scroll", handleDisqusWindow, {passive: true});
+ 		loadDisqus();
+ 	}
+ }; */
 	if (btn && disqusThread && disqusThreadShortname && locationHref) {
 		if ("undefined" !== typeof getHTTP && getHTTP()) {
 			addHandler();
@@ -2495,7 +2485,7 @@ var manageVKLikeButton = function () {
 						height: 24
 					});
 				} catch (err) {
-					console.log("cannot init VK", err);
+					/* console.log("cannot init VK", err); */
 				}
 			}
 		};
@@ -2575,8 +2565,8 @@ var initKamilAutocomplete = function () {
 		/*!
    * show suggestions
    */
-		ac.renderMenu = function (ul, items) {
-			items = items || "";
+		ac.renderMenu = function (ul, stance) {
+			var items = stance || "";
 			var itemsLength = items.length;
 			var _this = this;
 			/*!
@@ -2686,19 +2676,6 @@ var initKamilAutocomplete = function () {
 	}
 };
 document.ready().then(initKamilAutocomplete);
-/*!
- * init manUP.js
- */
-/* var initManUp = function () {
-	"use strict";
-	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
-		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl);
-		}
-	}
-};
-document.ready().then(initManUp); */
 /*!
  * show page, finish ToProgress
  */

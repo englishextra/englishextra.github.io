@@ -692,8 +692,8 @@ var handleExternalLink = function (url, ev) {
 	var logicHandleExternalLink = openDeviceBrowser.bind(null, url);
 	var debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
 	debounceLogicHandleExternalLink();
-},
-    manageExternalLinkAll = function (scope) {
+};
+var manageExternalLinkAll = function (scope) {
 	"use strict";
 
 	var ctx = scope && scope.nodeName ? scope : "";
@@ -736,83 +736,82 @@ var initComments = function () {
 
 	var w = globalRoot;
 	var initScript = function () {
-		if ("undefined" !== typeof w.jQuery) {
+		var arrange = function () {
 			$(document).ready(function () {
-				/*!
-     * init comments
-     */
-				var d = document,
-				    comments_textarea = $("#comments_textarea") || "",
-
-				/* comments_check = $("#comments_check") || "", */
-				comments_form_submit_button = $("#comments_form_submit_button") || "",
-				    comments_form = $("#comments_form") || "",
-				    comments_form_reset_button = $("#comments_form_reset_button") || "",
-				    load_pt_comments = $("#load_pt_comments") || "",
-				    error_msg = {
-					history: !1,
-					stack: !1,
+				var d = document;
+				var commentsTextareaId = "comments_textarea";
+				var commentsTextarea = $("#" + commentsTextareaId) || "";
+				var submitButton = $("#comments_form_submit_button") || "";
+				var commentsForm = $("#comments_form") || "";
+				var resetButton = $("#comments_form_reset_button") || "";
+				var loadComments = $("#load_pt_comments") || "";
+				var notify = jQuery.pnotify || "";
+				var errorMsg = {
+					history: false,
+					stack: false,
 					title: "Неуспешно",
 					text: " Введите Ваш комментарий! ",
 					opacity: 1,
 					width: "280px",
-					remove: !0,
+					remove: true,
 					pnotify_addclass: "ui-pnotify-error",
-					delay: 3E3
-				},
-				    notify = jQuery.pnotify || "",
-				    success_msg = {
-					history: !1,
-					stack: !1,
+					delay: 3000
+				};
+				var successMsg = {
+					history: false,
+					stack: false,
 					title: "Успех",
 					text: "Ваш комментарий добавлен!",
 					opacity: 1,
 					width: "280px",
-					remove: !0,
+					remove: true,
 					pnotify_addclass: "ui-pnotify-success",
-					delay: 3E3
+					delay: 3000
 				};
-				if (comments_textarea) {
-					var h_comments_form_submit_button = function () {
-						var comments_textarea_value = comments_textarea.val(),
-						    self_href = encodeURIComponent(w.location.href.split("#")[0]),
-						    fixed_title = encodeURIComponent(d.title.replace("'", "&#39;")),
-						    ajax_data = "comments_textarea=" + comments_textarea_value + "&self_href=" + self_href + "&self_title=" + fixed_title;
-						if (comments_textarea_value) {
-							localStorage.setItem("comments_textarea", JSON.stringify(comments_textarea_value));
+				if (commentsTextarea) {
+					var handleSubmitBtn = function () {
+						var commentsTextareaValue = commentsTextarea.val();
+						var locationHref = encodeURIComponent(w.location.href.split("#")[0]);
+						var docTitle = encodeURIComponent(d.title.replace("'", "&#39;"));
+						var ajaxData = commentsTextareaId + "=" + commentsTextareaValue + "&self_href=" + locationHref + "&self_title=" + docTitle;
+						if (commentsTextareaValue) {
+							localStorage.setItem(commentsTextareaId, JSON.stringify(commentsTextareaValue));
 						}
-						if (!comments_textarea_value || !self_href || !fixed_title) {
-							return notify(error_msg), !1;
+						if (!commentsTextareaValue || !locationHref || !docTitle) {
+							return notify(errorMsg), false;
 						}
-						comments_form_submit_button.hide();
+						submitButton.hide();
 						$.ajax({
 							type: "POST",
 							url: "/scripts/comments/add.php",
-							data: ajax_data,
+							data: ajaxData,
 							success: function () {
-								localStorage.removeItem("comments_textarea");
-								comments_form[0].reset();
-								load_pt_comments.load("/scripts/comments/?load=posts&limit=100");
-								notify(success_msg);
+								localStorage.removeItem(commentsTextareaId);
+								commentsForm[0].reset();
+								loadComments.load("/scripts/comments/?load=posts&limit=100");
+								notify(successMsg);
 							}
 						});
-						return !1;
+						return;
 					};
-					comments_form_submit_button.click(h_comments_form_submit_button);
-					var comments_textarea_current_value = comments_textarea.val(),
-					    self_href = localStorage.getItem("comments_textarea");
-					if (!comments_textarea_current_value && self_href) {
-						comments_textarea.val($.parseJSON(self_href));
+					submitButton.click(handleSubmitBtn);
+					var commentsTextareaValue = commentsTextarea.val();
+					var commentsTextareaStoredValue = localStorage.getItem(commentsTextareaId);
+					if (!commentsTextareaValue && commentsTextareaStoredValue) {
+						commentsTextarea.val($.parseJSON(commentsTextareaStoredValue));
 					}
-					var h_comments_form_reset_button = function () {
-						localStorage.removeItem("comments_textarea");
-						comments_textarea.val("");
-						comments_textarea.focus();
+					var handleResetBtn = function () {
+						localStorage.removeItem(commentsTextareaId);
+						commentsTextarea.val("");
+						commentsTextarea.focus();
 					};
-					comments_form_reset_button.click(h_comments_form_reset_button);
+					resetButton.click(handleResetBtn);
 				}
-				load_pt_comments.load("/scripts/comments/?load=posts&limit=100");
+				loadComments.load("/scripts/comments/?load=posts&limit=100");
 			});
+		};
+		if (w.jQuery) {
+			arrange();
 		}
 	};
 	var jsUrl = "../libs/comments/js/vendors.min.js";
@@ -972,21 +971,11 @@ var initUiTotop = function () {
 	var classList = "classList";
 	var createElement = "createElement";
 	var appendChild = "appendChild";
-	/* var createElementNS = "createElementNS";
- var setAttributeNS = "setAttributeNS"; */
 	var _addEventListener = "addEventListener";
 	var btnClass = "ui-totop";
 	var btnTitle = "Наверх";
 	var isActiveClass = "is-active";
 	var anchor = d[createElement]("a");
-	/* var insertUpSvg = function (targetObj) {
- 	var svg = d[createElementNS]("http://www.w3.org/2000/svg", "svg");
- 	var use = d[createElementNS]("http://www.w3.org/2000/svg", "use");
- 	svg[classList].add("ui-icon");
- 	use[setAttributeNS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
- 	svg[appendChild](use);
- 	targetObj[appendChild](svg);
- }; */
 	var handleUiTotopAnchor = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
@@ -1009,9 +998,9 @@ var initUiTotop = function () {
 		throttleLogicHandleUiTotopWindow();
 	};
 	anchor[classList].add(btnClass);
-	/*jshint -W107 */
+	/* jshint -W107 */
 	anchor.href = "javascript:void(0);";
-	/*jshint +W107 */
+	/* jshint +W107 */
 	anchor.title = btnTitle;
 	/* insertUpSvg(anchor); */
 	b[appendChild](anchor);

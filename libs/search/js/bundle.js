@@ -692,8 +692,8 @@ var handleExternalLink = function (url, ev) {
 	var logicHandleExternalLink = openDeviceBrowser.bind(null, url);
 	var debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
 	debounceLogicHandleExternalLink();
-},
-    manageExternalLinkAll = function (scope) {
+};
+var manageExternalLinkAll = function (scope) {
 	"use strict";
 
 	var ctx = scope && scope.nodeName ? scope : "";
@@ -736,33 +736,27 @@ var initSearch = function () {
 
 	var w = globalRoot;
 	var initScript = function () {
-		if ("undefined" !== typeof w.jQuery) {
+		var arrange = function () {
 			$(document).ready(function () {
-				/*!
-     * init comments
-     */
-				var text = $("#text") || "",
-				    searchForm = $("#searchForm") || "";
-				/*!
-     * init search submit
-     */
+				var text = $("#text") || "";
+				var searchForm = $("#searchForm") || "";
 				if (jQuery.pnotify) {
-					var search_form_submit_button = $("#search_form_submit_button") || "",
-					    error_msg = {
-						history: !1,
-						stack: !1,
+					var submitButton = $("#search_form_submit_button") || "";
+					var resetButton = $("#search_form_reset_button") || "";
+					var notify = jQuery.pnotify || "";
+					var error_msg = {
+						history: false,
+						stack: false,
 						title: "Неуспешно",
 						text: " Введите Ваш запрос! ",
 						opacity: 1,
 						width: "280px",
-						remove: !0,
+						remove: true,
 						pnotify_addclass: "ui-pnotify-error",
-						delay: 3E3
-					},
-					    search_form_reset_button = $("#search_form_reset_button") || "",
-					    notify = jQuery.pnotify || "";
+						delay: 3000
+					};
 					if (text) {
-						var h_search_form_submit_button = function (event) {
+						var handleSubmitBtn = function (event) {
 							if (text.val()) {
 								searchForm.submit();
 							} else {
@@ -770,17 +764,13 @@ var initSearch = function () {
 								notify(error_msg);
 							}
 						};
-						search_form_submit_button.click(h_search_form_submit_button);
-						var h_search_form_reset_button = function () {
+						submitButton.click(handleSubmitBtn);
+						var handleResetBtn = function () {
 							text.focus();
 						};
-						search_form_reset_button.click(h_search_form_reset_button);
+						resetButton.click(handleResetBtn);
 					}
 				}
-				/*!
-     * init autocomplete
-     * results are cached cache.sqlite > cache_search_autocomplete
-     */
 				if ($.fn.autocomplete) {
 					var action = "/scripts/autocomplete/";
 					text.autocomplete({
@@ -815,6 +805,9 @@ var initSearch = function () {
 					});
 				}
 			});
+		};
+		if (w.jQuery) {
+			arrange();
 		}
 	};
 	var jsUrl = "../libs/search/js/vendors.min.js";
@@ -984,21 +977,11 @@ var initUiTotop = function () {
 	var classList = "classList";
 	var createElement = "createElement";
 	var appendChild = "appendChild";
-	/* var createElementNS = "createElementNS";
- var setAttributeNS = "setAttributeNS"; */
 	var _addEventListener = "addEventListener";
 	var btnClass = "ui-totop";
 	var btnTitle = "Наверх";
 	var isActiveClass = "is-active";
 	var anchor = d[createElement]("a");
-	/* var insertUpSvg = function (targetObj) {
- 	var svg = d[createElementNS]("http://www.w3.org/2000/svg", "svg");
- 	var use = d[createElementNS]("http://www.w3.org/2000/svg", "use");
- 	svg[classList].add("ui-icon");
- 	use[setAttributeNS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
- 	svg[appendChild](use);
- 	targetObj[appendChild](svg);
- }; */
 	var handleUiTotopAnchor = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
@@ -1021,9 +1004,9 @@ var initUiTotop = function () {
 		throttleLogicHandleUiTotopWindow();
 	};
 	anchor[classList].add(btnClass);
-	/*jshint -W107 */
+	/* jshint -W107 */
 	anchor.href = "javascript:void(0);";
-	/*jshint +W107 */
+	/* jshint +W107 */
 	anchor.title = btnTitle;
 	/* insertUpSvg(anchor); */
 	b[appendChild](anchor);

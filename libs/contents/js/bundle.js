@@ -1070,8 +1070,8 @@ var handleExternalLink = function (url, ev) {
 	var logicHandleExternalLink = openDeviceBrowser.bind(null, url);
 	var debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
 	debounceLogicHandleExternalLink();
-},
-    manageExternalLinkAll = function (scope) {
+};
+var manageExternalLinkAll = function (scope) {
 	"use strict";
 
 	var ctx = scope && scope.nodeName ? scope : "";
@@ -1152,12 +1152,12 @@ var handleDataSrcImageAll = function () {
 		}
 		/* forEach(img, arrange, false); */
 	}
-},
-    handleDataSrcImageAllWindow = function () {
+};
+var handleDataSrcImageAllWindow = function () {
 	var throttleHandleDataSrcImageAll = throttle(handleDataSrcImageAll, 100);
 	throttleHandleDataSrcImageAll();
-},
-    manageDataSrcImageAll = function () {
+};
+var manageDataSrcImageAll = function () {
 	"use strict";
 
 	var w = globalRoot;
@@ -1257,23 +1257,19 @@ var initMasonryDisqus = function () {
 				}
 			}
 		}, 500);
-	},
-	    showDisqusThread = function () {
+	};
+	var showDisqusThread = function () {
 		var initDisqus = function () {
 			var timers = new Timers();
 			timers.interval(function () {
-				/* console.log("function initMasonryDisqus => started Interval"); */
 				var disqusThreadHeight = disqusThread.clientHeight || disqusThread.offsetHeight || "";
 				if (108 < disqusThreadHeight) {
 					timers.clear();
 					timers = null;
-					/* console.log("function initMasonryDisqus; disqusThreadHeight=" + disqusThreadHeight); */
 					if ("undefined" !== typeof msnry && msnry) {
-						/* console.log("function initMasonryDisqus => reinitialised msnry"); */
 						msnry.layout();
 					} else {
 						if ("undefined" !== typeof pckry && pckry) {
-							/* console.log("function initMasonryDisqus => reinitialised pckry"); */
 							pckry.layout();
 						}
 					}
@@ -1309,7 +1305,6 @@ var initMasonryDisqus = function () {
 		}
 	};
 	if (grid && gridItem) {
-		/* console.log("triggered function: initMasonryDisqus"); */
 		/* var jsUrl = "../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
 		/* var jsUrl = "../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js"; */
 		var jsUrl = "../cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
@@ -1328,8 +1323,8 @@ var handleContentsSelect = function () {
 	"use strict";
 
 	var _this = this;
-	var w = window,
-	    d = document;
+	var w = window;
+	var d = document;
 	var getElementById = "getElementById";
 	var hashString = _this.options[_this.selectedIndex].value || "";
 	if (hashString) {
@@ -1340,8 +1335,8 @@ var handleContentsSelect = function () {
 			w.location.href = hashString;
 		}
 	}
-},
-    manageContentsSelect = function () {
+};
+var manageContentsSelect = function () {
 	"use strict";
 
 	var d = document;
@@ -1367,10 +1362,10 @@ var handleContentsSelect = function () {
 			console.log("cannot init processJsonResponse", err);
 			return;
 		}
-		var df = d.createDocumentFragment(),
-		    generateContentsOptions = function (e) {
-			var label = getKeyValuesFromJSON(e, "label") || "",
-			    link = getKeyValuesFromJSON(e, "link") || "";
+		var df = d.createDocumentFragment();
+		var generateContentsOptions = function (e) {
+			var label = getKeyValuesFromJSON(e, "label") || "";
+			var link = getKeyValuesFromJSON(e, "link") || "";
 			if (label && link) {
 				var contentsOption = d[createElement]("option");
 				contentsOption.value = link;
@@ -1615,9 +1610,9 @@ var addAppUpdatesLink = function () {
 	var appendChild = "appendChild";
 	var _addEventListener = "addEventListener";
 	var panel = d[getElementsByClassName]("panel-menu-more")[0] || "";
-	var items = panel ? panel[getElementsByTagName]("li") || "" : "",
-	    navigatorUserAgent = navigator.userAgent || "",
-	    linkHref;
+	var items = panel ? panel[getElementsByTagName]("li") || "" : "";
+	var navigatorUserAgent = navigator.userAgent || "";
+	var linkHref;
 	if (/Windows/i.test(navigatorUserAgent) && /(WOW64|Win64)/i.test(navigatorUserAgent)) {
 		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-win32-x64-setup.exe";
 	} else if (/(x86_64|x86-64|x64;|amd64|AMD64|x64_64)/i.test(navigatorUserAgent) && /(Linux|X11)/i.test(navigatorUserAgent)) {
@@ -1631,8 +1626,8 @@ var addAppUpdatesLink = function () {
 	}
 	var arrange = function () {
 		var listItem = d[createElement]("li");
-		var link = d[createElement]("a"),
-		    linkText = "Скачать приложение сайта";
+		var link = d[createElement]("a");
+		var linkText = "Скачать приложение сайта";
 		link.title = "" + (parseLink(linkHref).hostname || "") + " откроется в новой вкладке";
 		link.href = linkHref;
 		var handleAppUpdatesLink = function () {
@@ -1645,9 +1640,9 @@ var addAppUpdatesLink = function () {
 			/*!
     * no prevent default and void .href above
     */
-			/*jshint -W107 */
+			/* jshint -W107 */
 			link.href = "javascript:void(0);";
-			/*jshint +W107 */
+			/* jshint +W107 */
 			link[_addEventListener]("click", handleAppUpdatesLink);
 		}
 		link[appendChild](d[createTextNode]("" + linkText));
@@ -1738,21 +1733,11 @@ var initUiTotop = function () {
 	var classList = "classList";
 	var createElement = "createElement";
 	var appendChild = "appendChild";
-	/* var createElementNS = "createElementNS";
- var setAttributeNS = "setAttributeNS"; */
 	var _addEventListener = "addEventListener";
 	var btnClass = "ui-totop";
 	var btnTitle = "Наверх";
 	var isActiveClass = "is-active";
 	var anchor = d[createElement]("a");
-	/* var insertUpSvg = function (targetObj) {
- 	var svg = d[createElementNS]("http://www.w3.org/2000/svg", "svg");
- 	var use = d[createElementNS]("http://www.w3.org/2000/svg", "use");
- 	svg[classList].add("ui-icon");
- 	use[setAttributeNS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
- 	svg[appendChild](use);
- 	targetObj[appendChild](svg);
- }; */
 	var handleUiTotopAnchor = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
@@ -1775,9 +1760,9 @@ var initUiTotop = function () {
 		throttleLogicHandleUiTotopWindow();
 	};
 	anchor[classList].add(btnClass);
-	/*jshint -W107 */
+	/* jshint -W107 */
 	anchor.href = "javascript:void(0);";
-	/*jshint +W107 */
+	/* jshint +W107 */
 	anchor.title = btnTitle;
 	/* insertUpSvg(anchor); */
 	b[appendChild](anchor);
@@ -1832,7 +1817,7 @@ var manageShareButton = function () {
 					setStyleOpacity(yaShare2, 1);
 					setStyleDisplayNone(btn);
 				} catch (err) {
-					console.log("cannot update or init Ya", err);
+					/* console.log("cannot update or init Ya", err); */
 				}
 			}
 		};
@@ -1886,7 +1871,7 @@ var manageVKLikeButton = function () {
 						height: 24
 					});
 				} catch (err) {
-					console.log("cannot init VK", err);
+					/* console.log("cannot init VK", err); */
 				}
 			}
 		};
@@ -1966,8 +1951,8 @@ var initKamilAutocomplete = function () {
 		/*!
    * show suggestions
    */
-		ac.renderMenu = function (ul, items) {
-			items = items || "";
+		ac.renderMenu = function (ul, stance) {
+			var items = stance || "";
 			var itemsLength = items.length;
 			var _this = this;
 			/*!
@@ -2078,19 +2063,6 @@ var initKamilAutocomplete = function () {
 };
 document.ready().then(initKamilAutocomplete);
 /*!
- * init manUP.js
- */
-/* var initManUp = function () {
-	"use strict";
-	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
-		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl);
-		}
-	}
-};
-document.ready().then(initManUp); */
-/*!
  * show page, finish ToProgress
  */
 var showPageFinishProgress = function () {
@@ -2113,9 +2085,10 @@ var showPageFinishProgress = function () {
   			showPage();
   		}
   	}, 100);
-  } else { */
+  } else {
+  	showPage();
+  } */
 		showPage();
-		/* } */
 	}
 };
 document.ready().then(showPageFinishProgress);

@@ -1426,8 +1426,6 @@ var notiBar = function (opt) {
 	var getElementsByClassName = "getElementsByClassName";
 	var classList = "classList";
 	var createElement = "createElement";
-	/* var createElementNS = "createElementNS";
- var setAttributeNS = "setAttributeNS"; */
 	var appendChild = "appendChild";
 	var _addEventListener = "addEventListener";
 	var _removeEventListener = "removeEventListener";
@@ -1476,15 +1474,15 @@ var notiBar = function (opt) {
 	}
 	msgContainer[appendChild](msgContent);
 	notibarContainer[appendChild](msgContainer);
-	var /* insertCancelSvg = function (targetObj) {
-     var svg = d[createElementNS]("http://www.w3.org/2000/svg", "svg"),
-     use = d[createElementNS]("http://www.w3.org/2000/svg", "use");
-     svg[classList].add("ui-icon");
-     use[setAttributeNS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Cancel");
-     svg[appendChild](use);
-     targetObj[appendChild](svg);
-     }, */
-	closeButton = d[createElement]("a");
+	/* var insertCancelSvg = function (targetObj) {
+ 	var svg = d[createElementNS]("http://www.w3.org/2000/svg", "svg");
+ 	var use = d[createElementNS]("http://www.w3.org/2000/svg", "use");
+ 	svg[classList].add("ui-icon");
+ 	use[setAttributeNS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Cancel");
+ 	svg[appendChild](use);
+ 	targetObj[appendChild](svg);
+ }, */
+	var closeButton = d[createElement]("a");
 	closeButton[classList].add(closeButtonClass);
 	/* insertCancelSvg(closeButton); */
 	var setCookie = function () {
@@ -1621,10 +1619,10 @@ var initNotifier42WriteMe = function () {
 	var locationOrigin = parseLink(w.location.href).origin;
 	var showMsg = function () {
 		var msgObj = d[createElement]("a");
-		/*jshint -W107 */
+		/* jshint -W107 */
 		msgObj.href = "javascript:void(0);";
 		appendFragment(msgText, msgObj);
-		/*jshint +W107 */
+		/* jshint +W107 */
 		var handleMsgObj = function (ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
@@ -1671,7 +1669,7 @@ var initSidepanel = function () {
 	var isActiveShareClass = "is-active-holder-share-buttons";
 	var isActiveSidepanelClass = "is-active-ui-sidepanel";
 	var isActiveMenumoreClass = "is-active-ui-menumore";
-	if (b && btn && page && container) {
+	var arrange = function () {
 		var handleOtherUIElementAll = function () {
 			if (page[classList].contains(isActiveQRCodeClass)) {
 				page[classList].remove(isActiveQRCodeClass);
@@ -1721,6 +1719,9 @@ var initSidepanel = function () {
 			/* forEach(items, g, false); */
 		}
 		b[_addEventListener]("click", handleOverlaySidepanel);
+	};
+	if (b && btn && page && container) {
+		arrange();
 	}
 };
 document.ready().then(initSidepanel);
@@ -1778,7 +1779,7 @@ var initMenuMore = function () {
 	var isActiveMenumoreClass = "is-active-ui-menumore";
 	var classList = "classList";
 	var _addEventListener = "addEventListener";
-	if (btn && page) {
+	var arrange = function () {
 		var handleOtherUIElementAll = function () {
 			if (page[classList].contains(isActiveQRCodeClass)) {
 				page[classList].remove(isActiveQRCodeClass);
@@ -1815,6 +1816,9 @@ var initMenuMore = function () {
 			}
 			/* forEach(items, addItemHandler, false); */
 		}
+	};
+	if (btn && page) {
+		arrange();
 	}
 };
 document.ready().then(initMenuMore);
@@ -1831,8 +1835,8 @@ var handleExternalLink = function (url, ev) {
 	var logicHandleExternalLink = openDeviceBrowser.bind(null, url);
 	var debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
 	debounceLogicHandleExternalLink();
-},
-    manageExternalLinkAll = function (scope) {
+};
+var manageExternalLinkAll = function (scope) {
 	"use strict";
 
 	var ctx = scope && scope.nodeName ? scope : "";
@@ -1913,8 +1917,8 @@ var hideImgLightbox = function () {
 			hideContainer();
 		}, 400);
 	}
-},
-    handleImgLightboxContainer = function () {
+};
+var handleImgLightboxContainer = function () {
 	"use strict";
 
 	var d = document;
@@ -1925,8 +1929,8 @@ var hideImgLightbox = function () {
 		container[_removeEventListener]("click", handleImgLightboxContainer);
 		hideImgLightbox();
 	}
-},
-    handleImgLightboxWindow = function (ev) {
+};
+var handleImgLightboxWindow = function (ev) {
 	"use strict";
 
 	var w = globalRoot;
@@ -1935,8 +1939,8 @@ var hideImgLightbox = function () {
 	if (27 === (ev.which || ev.keyCode)) {
 		hideImgLightbox();
 	}
-},
-    manageImgLightboxLinks = function (scope) {
+};
+var manageImgLightboxLinks = function (scope) {
 	"use strict";
 
 	var ctx = scope && scope.nodeName ? scope : "";
@@ -2063,12 +2067,12 @@ var handleDataSrcImageAll = function () {
 		}
 		/* forEach(img, arrange, false); */
 	}
-},
-    handleDataSrcImageAllWindow = function () {
+};
+var handleDataSrcImageAllWindow = function () {
 	var throttleHandleDataSrcImageAll = throttle(handleDataSrcImageAll, 100);
 	throttleHandleDataSrcImageAll();
-},
-    manageDataSrcImageAll = function () {
+};
+var manageDataSrcImageAll = function () {
 	"use strict";
 
 	var w = globalRoot;
@@ -2179,8 +2183,8 @@ var handleChaptersSelect = function () {
 			w.location.href = hashString;
 		}
 	}
-},
-    manageChaptersSelect = function () {
+};
+var manageChaptersSelect = function () {
 	"use strict";
 
 	var d = document;
@@ -2232,8 +2236,8 @@ var handleExpandingLayerAll = function () {
 		layer[classList].toggle(isActiveClass);
 	}
 	return;
-},
-    manageExpandingLayers = function (scope) {
+};
+var manageExpandingLayers = function (scope) {
 	"use strict";
 
 	var ctx = scope && scope.nodeName ? scope : "";
@@ -2647,7 +2651,7 @@ var manageVKLikeButton = function () {
 						});
 						vlike = true;
 					} catch (err) {
-						console.log("cannot init VK", err);
+						/* console.log("cannot init VK", err); */
 					}
 				}
 			}
@@ -2721,8 +2725,8 @@ var loadRefreshDisqus = function () {
 			setStyleDisplayNone(btn[parentNode]);
 		}
 	}
-},
-    manageDisqusButton = function () {
+};
+var manageDisqusButton = function () {
 	"use strict";
 
 	var d = document;
@@ -2897,8 +2901,8 @@ var initKamilAutocomplete = function () {
 		/*!
    * show suggestions
    */
-		ac.renderMenu = function (ul, items) {
-			items = items || "";
+		ac.renderMenu = function (ul, stance) {
+			var items = stance || "";
 			var itemsLength = items.length;
 			var _this = this;
 			/*!
@@ -3022,21 +3026,11 @@ var initUiTotop = function () {
 	var classList = "classList";
 	var createElement = "createElement";
 	var appendChild = "appendChild";
-	/* var createElementNS = "createElementNS";
- var setAttributeNS = "setAttributeNS"; */
 	var _addEventListener = "addEventListener";
 	var btnClass = "ui-totop";
 	var btnTitle = "Наверх";
 	var isActiveClass = "is-active";
 	var anchor = d[createElement]("a");
-	/* var insertUpSvg = function (targetObj) {
- 	var svg = d[createElementNS]("http://www.w3.org/2000/svg", "svg");
- 	var use = d[createElementNS]("http://www.w3.org/2000/svg", "use");
- 	svg[classList].add("ui-icon");
- 	use[setAttributeNS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
- 	svg[appendChild](use);
- 	targetObj[appendChild](svg);
- }; */
 	var handleUiTotopAnchor = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
@@ -3059,9 +3053,9 @@ var initUiTotop = function () {
 		throttleLogicHandleUiTotopWindow();
 	};
 	anchor[classList].add(btnClass);
-	/*jshint -W107 */
+	/* jshint -W107 */
 	anchor.href = "javascript:void(0);";
-	/*jshint +W107 */
+	/* jshint +W107 */
 	anchor.title = btnTitle;
 	/* insertUpSvg(anchor); */
 	b[appendChild](anchor);
@@ -3124,7 +3118,6 @@ var initRoutie = function () {
   * "#/home" => "/home"
   */
 	if (appContent) {
-		/* console.log("triggered function: routie"); */
 		routie({
 			"": function () {
 				loadVirtualPage(appContentId, "./includes/home.html", function () {
@@ -3237,19 +3230,6 @@ document.ready().then(initRoutie);
 	}
 };
 globalRoot.addEventListener("hashchange", updateInsertedDom); */
-/*!
- * init manUP.js
- */
-/* var initManUp = function () {
-	"use strict";
-	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
-		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl);
-		}
-	}
-};
-document.ready().then(initManUp); */
 /*!
  * show page, finish ToProgress
  */

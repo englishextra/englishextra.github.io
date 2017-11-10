@@ -603,8 +603,8 @@ var handleExternalLink = function (url, ev) {
 	var logicHandleExternalLink = openDeviceBrowser.bind(null, url);
 	var debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
 	debounceLogicHandleExternalLink();
-},
-    manageExternalLinkAll = function (scope) {
+};
+var manageExternalLinkAll = function (scope) {
 	"use strict";
 
 	var ctx = scope && scope.nodeName ? scope : "";
@@ -784,9 +784,9 @@ var addAppUpdatesLink = function () {
 	var appendChild = "appendChild";
 	var _addEventListener = "addEventListener";
 	var panel = d[getElementsByClassName]("panel-menu-more")[0] || "";
-	var items = panel ? panel[getElementsByTagName]("li") || "" : "",
-	    navigatorUserAgent = navigator.userAgent || "",
-	    linkHref;
+	var items = panel ? panel[getElementsByTagName]("li") || "" : "";
+	var navigatorUserAgent = navigator.userAgent || "";
+	var linkHref;
 	if (/Windows/i.test(navigatorUserAgent) && /(WOW64|Win64)/i.test(navigatorUserAgent)) {
 		linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-win32-x64-setup.exe";
 	} else if (/(x86_64|x86-64|x64;|amd64|AMD64|x64_64)/i.test(navigatorUserAgent) && /(Linux|X11)/i.test(navigatorUserAgent)) {
@@ -800,8 +800,8 @@ var addAppUpdatesLink = function () {
 	}
 	var arrange = function () {
 		var listItem = d[createElement]("li");
-		var link = d[createElement]("a"),
-		    linkText = "Скачать приложение сайта";
+		var link = d[createElement]("a");
+		var linkText = "Скачать приложение сайта";
 		link.title = "" + (parseLink(linkHref).hostname || "") + " откроется в новой вкладке";
 		link.href = linkHref;
 		var handleAppUpdatesLink = function () {
@@ -814,9 +814,9 @@ var addAppUpdatesLink = function () {
 			/*!
     * no prevent default and void .href above
     */
-			/*jshint -W107 */
+			/* jshint -W107 */
 			link.href = "javascript:void(0);";
-			/*jshint +W107 */
+			/* jshint +W107 */
 			link[_addEventListener]("click", handleAppUpdatesLink);
 		}
 		link[appendChild](d[createTextNode]("" + linkText));
@@ -959,7 +959,7 @@ var manageShareButton = function () {
 					setStyleOpacity(yaShare2, 1);
 					setStyleDisplayNone(btn);
 				} catch (err) {
-					console.log("cannot update or init Ya", err);
+					/* console.log("cannot update or init Ya", err); */
 				}
 			}
 		};
@@ -1013,7 +1013,7 @@ var manageVKLikeButton = function () {
 						height: 24
 					});
 				} catch (err) {
-					console.log("cannot init VK", err);
+					/* console.log("cannot init VK", err); */
 				}
 			}
 		};
@@ -1031,19 +1031,6 @@ var manageVKLikeButton = function () {
 	}
 };
 document.ready().then(manageVKLikeButton);
-/*!
- * init manUP.js
- */
-/* var initManUp = function () {
-	"use strict";
-	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
-		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl);
-		}
-	}
-};
-document.ready().then(initManUp); */
 /*!
  * show page, finish ToProgress
  */

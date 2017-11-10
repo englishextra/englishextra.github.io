@@ -191,8 +191,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 			return ToProgress;
 		};
 		return TP();
-	}
-		());
+	})();
 	root.ToProgress = ToProgress;
 }
 	("undefined" !== typeof window ? window : this, document));
@@ -601,8 +600,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 		var isBindedEchoClass = "is-binded-echo";
 		var isBindedEcho = (function () {
 			return document[documentElement][classList].contains(isBindedEchoClass) || "";
-		}
-			());
+		})();
 		var echoStore = [];
 		var scrolledIntoView = function (element) {
 			var coords = element[getBoundingClientRect]();
@@ -666,8 +664,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 					root[_addEventListener]("test", function () {}, opts);
 				} catch (err) {}
 				return support;
-			}
-				());
+			})();
 		Echo.prototype = {
 			init: function () {
 				echoStore.push(this.elem);
@@ -944,8 +941,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 					isCrossDomain: _isCrossDomain(),
 					hasHTTP: /^(http|https):\/\//i.test(url) ? !0 : !1
 				};
-			}
-				());
+			})();
 		};
 		/*jshint bitwise: true */
 
@@ -962,8 +958,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 				}
 			}
 			return false;
-		}
-			());
+		})();
 
 		var openDeviceBrowser = function (url) {
 			var triggerForElectron = function () {
@@ -1082,8 +1077,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 				newMonth = "0" + newMonth;
 			}
 			return newYear + "-" + newMonth + "-" + newDay;
-		}
-		());
+		})();
 
 		var platformName = "";
 		var platformDescription = "";
@@ -1394,7 +1388,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 								});
 							}
 						} catch (err) {
-							console.log("cannot update or init Ya", err);
+							/* console.log("cannot update or init Ya", err); */
 						}
 					}
 				};
@@ -1446,7 +1440,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 								});
 								vlike = true;
 							} catch (err) {
-								console.log("cannot init VK", err);
+								/* console.log("cannot init VK", err); */
 							}
 						}
 					}
@@ -1728,7 +1722,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 	var supportsClassList = "classList" in document[createElement]("_") || "";
 
 	if (!supportsClassList) {
-		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/classlist.js@1.1.20150312/classList.min.js");
+		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.201711092/classList.min.js");
 	}
 
 	var supportsDataset = "undefined" !== typeof root.Element && "dataset" in document[documentElement] || "";
@@ -1749,8 +1743,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 		} catch (err) {}
 		return support;
 
-	}
-		());
+	})();
 
 	if (!supportsPassive) {
 		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/dom4@1.8.5/build/dom4.max.min.js");
@@ -1785,8 +1778,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 	var supportsCanvas = (function () {
 		var elem = document[createElement]("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
-	}
-		());
+	})();
 
 	var onFontsLoadedCallback = function () {
 

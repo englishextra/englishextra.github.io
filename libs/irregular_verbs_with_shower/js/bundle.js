@@ -602,8 +602,8 @@ var handleExternalLink = function (url, ev) {
   var logicHandleExternalLink = openDeviceBrowser.bind(null, url);
   var debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
   debounceLogicHandleExternalLink();
-},
-    manageExternalLinkAll = function (scope) {
+};
+var manageExternalLinkAll = function (scope) {
   "use strict";
 
   var ctx = scope && scope.nodeName ? scope : "";
@@ -664,21 +664,11 @@ var initUiTotop = function () {
   var classList = "classList";
   var createElement = "createElement";
   var appendChild = "appendChild";
-  /* var createElementNS = "createElementNS";
-  var setAttributeNS = "setAttributeNS"; */
   var _addEventListener = "addEventListener";
   var btnClass = "ui-totop";
   var btnTitle = "Наверх";
   var isActiveClass = "is-active";
   var anchor = d[createElement]("a");
-  /* var insertUpSvg = function (targetObj) {
-  	var svg = d[createElementNS]("http://www.w3.org/2000/svg", "svg");
-  	var use = d[createElementNS]("http://www.w3.org/2000/svg", "use");
-  	svg[classList].add("ui-icon");
-  	use[setAttributeNS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
-  	svg[appendChild](use);
-  	targetObj[appendChild](svg);
-  }; */
   var handleUiTotopAnchor = function (ev) {
     ev.stopPropagation();
     ev.preventDefault();
@@ -701,9 +691,9 @@ var initUiTotop = function () {
     throttleLogicHandleUiTotopWindow();
   };
   anchor[classList].add(btnClass);
-  /*jshint -W107 */
+  /* jshint -W107 */
   anchor.href = "javascript:void(0);";
-  /*jshint +W107 */
+  /* jshint +W107 */
   anchor.title = btnTitle;
   /* insertUpSvg(anchor); */
   b[appendChild](anchor);
@@ -758,7 +748,7 @@ var manageShareButton = function () {
           setStyleOpacity(yaShare2, 1);
           setStyleDisplayNone(btn);
         } catch (err) {
-          console.log("cannot update or init Ya", err);
+          /* console.log("cannot update or init Ya", err); */
         }
       }
     };
@@ -776,19 +766,6 @@ var manageShareButton = function () {
   }
 };
 document.ready().then(manageShareButton);
-/*!
- * init manUP.js
- */
-/* var initManUp = function () {
-	"use strict";
-	if ("undefined" !== typeof getHTTP && getHTTP()) {
-		var jsUrl = "/cdn/ManUp.js/0.7/js/manup.fixed.min.js";
-		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl);
-		}
-	}
-};
-document.ready().then(initManUp); */
 /*!
  * show page, finish ToProgress
  */
