@@ -361,7 +361,7 @@ var initComments = function () {
 				}
 				loadComments.load("/scripts/comments/?load=posts&limit=100");
 			});
-		}
+		};
 		if (w.jQuery) {
 			arrange();
 		}
