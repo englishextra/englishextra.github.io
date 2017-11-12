@@ -1,8 +1,8 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global ActiveXObject, Cookies, doesFontExist, escape, IframeLightbox,
-imagePromise, jQuery, Kamil, loadJS, loadJsCss, Promise, QRCode,
-require, Tablesort, Timers, ToProgress, unescape, verge, VK, Ya */
+/*global ActiveXObject, Cookies, doesFontExist, IframeLightbox, imagePromise,
+Kamil, loadJS, loadJsCss, Promise, QRCode, require, Tablesort, Timers,
+ToProgress, unescape, verge, VK, Ya*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
