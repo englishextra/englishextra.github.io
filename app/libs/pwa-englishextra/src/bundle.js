@@ -249,7 +249,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
  * @param {Object} a target HTML Element
  * appendFragment(e,a)
  */
-(function(root){"use strict";var appendFragment=function(e,a){var d=document;a=a||d.getElementsByTagNames("body")[0]||"";return (function(){if(e){var d=document,df=d.createDocumentFragment()||"",appendChild="appendChild";if("string"===typeof e){e=d.createTextNode(e);}df[appendChild](e);a[appendChild](df);}})();};root.appendFragment=appendFragment;}(globalRoot));
+(function(root){"use strict";var appendFragment=function(e,a){var d=document;a=a||d.getElementsByTagName("body")[0]||"";return (function(){if(e){var d=document,df=d.createDocumentFragment()||"",appendChild="appendChild";if("string"===typeof e){e=d.createTextNode(e);}df[appendChild](e);a[appendChild](df);}})();};root.appendFragment=appendFragment;}(globalRoot));
 /*!
  * insert text response as fragment into element
  * @see {@link https://gist.github.com/englishextra/4e13afb8ce184ad28d77f6b5eed71d1f}
@@ -258,7 +258,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
  * @param {Object} [callback] callback function
  * insertTextAsFragment(t,c,f)
  */
-(function(root){"use strict";var insertTextAsFragment=function(text,container,callback){var d=document,b=d.body||"",appendChild="appendChild",innerHTML="innerHTML",parentNode="parentNode",cb=function(){return callback&&"function"===typeof callback&&callback();};try{var clonedContainer=container.cloneNode(!1);if(d.createRange){var rg=d.createRange();rg.selectNode(b);var df=rg.createContextualFragment(text);clonedContainer[appendChild](df);return container[parentNode]?container[parentNode].replaceChild(clonedContainer,container):container[innerHTML]=text,cb();}else{clonedContainer[innerHTML]=text;return container[parentNode]?container[parentNode].replaceChild(d.createDocumentFragment[appendChild](clonedContainer),container):container[innerHTML]=text,cb();}}catch(e){console.log(e);}return!1;};root.insertTextAsFragment=insertTextAsFragment;}(globalRoot));
+(function(root){"use strict";var insertTextAsFragment=function(text,container,callback){var d=document,b=d.body||"",appendChild="appendChild",innerHTML="innerHTML",parentNode="parentNode",cb=function(){return callback&&"function"===typeof callback&&callback();};try{var clonedContainer=container.cloneNode(!1);if(d.createRange){var rg=d.createRange();rg.selectNode(b);var df=rg.createContextualFragment(text);clonedContainer[appendChild](df);return container[parentNode]?container[parentNode].replaceChild(clonedContainer,container):container[innerHTML]=text,cb();}else{clonedContainer[innerHTML]=text;return container[parentNode]?container[parentNode].replaceChild(d.createDocumentFragment[appendChild](clonedContainer),container):container[innerHTML]=text,cb();}}catch(e){console.log(e);}return;};root.insertTextAsFragment=insertTextAsFragment;}(globalRoot));
 /*!
  * get current protocol - "http" or "https", else return ""
  * @param {Boolean} [force] When set to "true", and the result is empty,
@@ -309,7 +309,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
  * @param {String} s path string
  * scriptIsLoaded(s)
  */
-(function(root){"use strict";var scriptIsLoaded=function(s){for(var b=document.getElementsByTagName("script")||"",a=0;a<b.length;a+=1){if(b[a].getAttribute("src")===s){return!0;}}return!1;};root.scriptIsLoaded=scriptIsLoaded;}(globalRoot));
+(function(root){"use strict";var scriptIsLoaded=function(s){for(var b=document.getElementsByTagName("script")||"",a=0;a<b.length;a+=1){if(b[a].getAttribute("src")===s){return true;}}return;};root.scriptIsLoaded=scriptIsLoaded;}(globalRoot));
 /*!
  * Load .json file, but don't JSON.parse it
  * modified JSON with JS.md
@@ -351,7 +351,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
  * @see {@link https://github.com/lyrictenor/node-is-nwjs/blob/master/index.js}
  * @returns {Boolean} true or false
  */
-(function(root){"use strict";var isNodejs="undefined"!==typeof process&&"undefined"!==typeof require||"",isElectron="undefined"!==typeof root&&root.process&&"renderer"===root.process.type||"",isNwjs=(function(){if("undefined"!==typeof isNodejs&&isNodejs){try{if("undefined"!==typeof require("nw.gui")){return!0;}}catch(e){return!1;}}return!1;}()),openDeviceBrowser=function(url){var triggerForElectron=function(){var es=isElectron?require("electron").shell:"";return es?es.openExternal(url):"";},triggerForNwjs=function(){var ns=isNwjs?require("nw.gui").Shell:"";return ns?ns.openExternal(url):"";},triggerForHTTP=function(){return!0;},triggerForLocal=function(){return root.open(url,"_system","scrollbars=1,location=no");};if(isElectron){triggerForElectron();}else if(isNwjs){triggerForNwjs();}else{var locationProtocol=root.location.protocol||"",hasHTTP=locationProtocol?"http:"===locationProtocol?"http":"https:"===locationProtocol?"https":"":"";if(hasHTTP){triggerForHTTP();}else{triggerForLocal();}}};root.openDeviceBrowser=openDeviceBrowser;}(globalRoot));
+(function(root){"use strict";var isNodejs="undefined"!==typeof process&&"undefined"!==typeof require||"",isElectron="undefined"!==typeof root&&root.process&&"renderer"===root.process.type||"",isNwjs=(function(){if("undefined"!==typeof isNodejs&&isNodejs){try{if("undefined"!==typeof require("nw.gui")){return true;}}catch(e){return;}}return;}()),openDeviceBrowser=function(url){var triggerForElectron=function(){var es=isElectron?require("electron").shell:"";return es?es.openExternal(url):"";},triggerForNwjs=function(){var ns=isNwjs?require("nw.gui").Shell:"";return ns?ns.openExternal(url):"";},triggerForHTTP=function(){return true;},triggerForLocal=function(){return root.open(url,"_system","scrollbars=1,location=no");};if(isElectron){triggerForElectron();}else if(isNwjs){triggerForNwjs();}else{var locationProtocol=root.location.protocol||"",hasHTTP=locationProtocol?"http:"===locationProtocol?"http":"https:"===locationProtocol?"https":"":"";if(hasHTTP){triggerForHTTP();}else{triggerForLocal();}}};root.openDeviceBrowser=openDeviceBrowser;}(globalRoot));
 /*!
  * add js class to html element
  */

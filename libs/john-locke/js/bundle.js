@@ -1073,15 +1073,18 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/dom4@1.8.5/build/dom4.max.min.js");
 	}
 
-	scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/parallax-js@3.1.0/dist/parallax.min.js", forcedHTTP + "://cdn.jsdelivr.net/npm/qrjs2@0.1.6/qrjs2.min.js", forcedHTTP + "://cdn.jsdelivr.net/npm/platform@1.3.4/platform.min.js");
+	/* scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/platform@1.3.4/platform.min.js",
+ 	forcedHTTP + "://cdn.jsdelivr.net/npm/qrjs2@0.1.6/qrjs2.min.js",
+ 	forcedHTTP + "://cdn.jsdelivr.net/npm/parallax-js@3.1.0/dist/parallax.min.js");
+ 	if (hasTouch) {
+ 	scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/tocca@2.0.1/Tocca.min.js");
+ } else {
+ 	if (hasWheel) {
+ 		scripts.push("./cdn/wheel-indicator/1.1.4/js/wheel-indicator.fixed.min.js");
+ 	}
+ } */
 
-	if (hasTouch) {
-		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/tocca@2.0.1/Tocca.min.js");
-	} else {
-		if (hasWheel) {
-			scripts.push("./cdn/wheel-indicator/1.1.4/js/wheel-indicator.fixed.min.js");
-		}
-	}
+	scripts.push("./libs/john-locke/js/vendors.min.js");
 
 	/*!
   * load scripts after webfonts loaded using doesFontExist

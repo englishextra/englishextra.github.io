@@ -275,9 +275,9 @@ if (document.title) {
 	var scriptIsLoaded = function (s) {
 		for (var b = document.getElementsByTagName("script") || "", a = 0; a < b.length; a += 1) {
 			if (b[a].getAttribute("src") === s) {
-				return !0;
+				return true;
 			}
-		}return !1;
+		}return;
 	};root.scriptIsLoaded = scriptIsLoaded;
 })(globalRoot);
 /*!
@@ -379,12 +379,12 @@ if (document.title) {
 		if ("undefined" !== typeof isNodejs && isNodejs) {
 			try {
 				if ("undefined" !== typeof require("nw.gui")) {
-					return !0;
+					return true;
 				}
 			} catch (e) {
-				return !1;
+				return;
 			}
-		}return !1;
+		}return;
 	}(),
 	    openDeviceBrowser = function (url) {
 		var triggerForElectron = function () {
@@ -394,7 +394,7 @@ if (document.title) {
 			var ns = isNwjs ? require("nw.gui").Shell : "";return ns ? ns.openExternal(url) : "";
 		},
 		    triggerForHTTP = function () {
-			return !0;
+			return true;
 		},
 		    triggerForLocal = function () {
 			return root.open(url, "_system", "scrollbars=1,location=no");

@@ -493,7 +493,7 @@ if (document.title) {
 (function (root) {
 	"use strict";
 	var appendFragment = function (e, a) {
-		var d = document;a = a || d.getElementsByTagNames("body")[0] || "";return function () {
+		var d = document;a = a || d.getElementsByTagName("body")[0] || "";return function () {
 			if (e) {
 				var d = document,
 				    df = d.createDocumentFragment() || "",
@@ -603,12 +603,12 @@ if (document.title) {
 		if ("undefined" !== typeof isNodejs && isNodejs) {
 			try {
 				if ("undefined" !== typeof require("nw.gui")) {
-					return !0;
+					return true;
 				}
 			} catch (e) {
-				return !1;
+				return;
 			}
-		}return !1;
+		}return;
 	}(),
 	    openDeviceBrowser = function (url) {
 		var triggerForElectron = function () {
@@ -618,7 +618,7 @@ if (document.title) {
 			var ns = isNwjs ? require("nw.gui").Shell : "";return ns ? ns.openExternal(url) : "";
 		},
 		    triggerForHTTP = function () {
-			return !0;
+			return true;
 		},
 		    triggerForLocal = function () {
 			return root.open(url, "_system", "scrollbars=1,location=no");
