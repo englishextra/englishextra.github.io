@@ -302,12 +302,13 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 (function (root, document, undefined) {
 	"use strict";
 
+	var docElem = document.documentElement || "";
+
 	var _addEventListener = "addEventListener";
 	var alt = "alt";
 	var className = "className";
 	var createElement = "createElement";
 	var createElementNS = "createElementNS";
-	var documentElement = "documentElement";
 	var getAttribute = "getAttribute";
 	var getElementsByClassName = "getElementsByClassName";
 	var getElementsByTagName = "getElementsByTagName";
@@ -487,7 +488,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		slotDrawCanvasAll = setInterval(drawCanvasAll, 100);
 	}
 
-	var hasTouch = "ontouchstart" in document[documentElement] || "";
+	var hasTouch = "ontouchstart" in docElem || "";
 
 	var hasWheel = "onwheel" in document[createElement]("div") || void 0 !== document.onmousewheel || "";
 
@@ -510,7 +511,6 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		var href = "href";
 		var title = "title";
 
-		var docElem = document[documentElement] || "";
 		if (docElem && docElem[classList]) {
 			docElem[classList].remove("no-js");
 			docElem[classList].add("js");
@@ -1050,7 +1050,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.201711092/classList.min.js");
 	}
 
-	var supportsDataset = "undefined" !== typeof root.Element && "dataset" in document[documentElement] || "";
+	var supportsDataset = "undefined" !== typeof root.Element && "dataset" in docElem || "";
 
 	if (!supportsDataset) {
 		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/element-dataset@2.2.6/lib/browser/index.cjs.min.js");

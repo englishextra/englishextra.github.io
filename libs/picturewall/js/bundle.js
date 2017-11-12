@@ -800,9 +800,10 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 (function (root, document) {
 	"use strict";
 
+	var docElem = document.documentElement || "";
+
 	var _addEventListener = "addEventListener";
 	var createElement = "createElement";
-	var documentElement = "documentElement";
 	var _length = "length";
 
 	var progressBar = new ToProgress({
@@ -819,7 +820,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 
 	progressBar.increase(20);
 
-	var hasTouch = "ontouchstart" in document[documentElement] || "";
+	var hasTouch = "ontouchstart" in docElem || "";
 
 	var hasWheel = "onwheel" in document[createElement]("div") || void 0 !== document.onmousewheel || "";
 
@@ -850,7 +851,6 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 		var style = "style";
 		var title = "title";
 
-		var docElem = document[documentElement] || "";
 		if (docElem && docElem[classList]) {
 			docElem[classList].remove("no-js");
 			docElem[classList].add("js");
@@ -1475,7 +1475,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
    */
 		/* var handleTitleBar = function () {
   	var logic = function () {
-  		if ((document[body].scrollTop || document[documentElement].scrollTop || 0) > titleBarHeight) {
+  		if ((document[body].scrollTop || docElem.scrollTop || 0) > titleBarHeight) {
   			titleBar[classList].add(isFixedClass);
   		} else {
   			titleBar[classList].remove(isFixedClass);
@@ -1500,7 +1500,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
   	var hideTitleBar = function () {
   	var logic = function () {
   		titleBar[classList].remove(slideInDownClass);
-  		if ((document[body].scrollTop || document[documentElement].scrollTop || 0) > titleBarHeight) {
+  		if ((document[body].scrollTop || docElem.scrollTop || 0) > titleBarHeight) {
   			titleBar[classList].add(slideOutUpClass);
   		} else {
   			titleBar[classList].remove(isFixedClass);
@@ -1513,7 +1513,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
   var revealTitleBar = function () {
   	var logic = function () {
   		titleBar[classList].remove(slideOutUpClass);
-  		if ((document[body].scrollTop || document[documentElement].scrollTop || 0) > titleBarHeight) {
+  		if ((document[body].scrollTop || docElem.scrollTop || 0) > titleBarHeight) {
   			titleBar[classList].add(isFixedClass);
   			titleBar[classList].add(slideInDownClass);
   		} else {
@@ -1563,7 +1563,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 		var hideTitleBar = function () {
 			var logic = function () {
 				titleBar[classList].remove(isFixedClass);
-				if ((document[body].scrollTop || document[documentElement].scrollTop || 0) > titleBarHeight) {
+				if ((document[body].scrollTop || docElem.scrollTop || 0) > titleBarHeight) {
 					titleBar[classList].add(isHiddenClass);
 				} else {
 					titleBar[classList].remove(isHiddenClass);
@@ -1575,7 +1575,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 		var revealTitleBar = function () {
 			var logic = function () {
 				titleBar[classList].remove(isHiddenClass);
-				if ((document[body].scrollTop || document[documentElement].scrollTop || 0) > titleBarHeight) {
+				if ((document[body].scrollTop || docElem.scrollTop || 0) > titleBarHeight) {
 					titleBar[classList].add(isFixedClass);
 				} else {
 					titleBar[classList].remove(isFixedClass);
@@ -1586,7 +1586,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 		};
 		var resetTitleBar = function () {
 			var logic = function () {
-				if ((document[body].scrollTop || document[documentElement].scrollTop || 0) < titleBarHeight) {
+				if ((document[body].scrollTop || docElem.scrollTop || 0) < titleBarHeight) {
 					titleBar[classList].remove(isHiddenClass);
 					titleBar[classList].remove(isFixedClass);
 				}
@@ -1623,7 +1623,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 		}
 
 		var scroll2Top = function (scrollTargetY, speed, easing) {
-			var scrollY = root.scrollY || document.documentElement.scrollTop;
+			var scrollY = root.scrollY || docElem.scrollTop;
 			var posY = scrollTargetY || 0;
 			var rate = speed || 2000;
 			var soothing = easing || "easeOutSine";
@@ -1701,7 +1701,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall */
 		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.201711092/classList.min.js");
 	}
 
-	var supportsDataset = "undefined" !== typeof root.Element && "dataset" in document[documentElement] || "";
+	var supportsDataset = "undefined" !== typeof root.Element && "dataset" in docElem || "";
 
 	if (!supportsDataset) {
 		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/element-dataset@2.2.6/lib/browser/index.cjs.min.js");

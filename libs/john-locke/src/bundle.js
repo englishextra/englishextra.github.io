@@ -193,8 +193,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		return TP();
 	})();
 	root.ToProgress = ToProgress;
-}
-	("undefined" !== typeof window ? window : this, document));
+})("undefined" !== typeof window ? window : this, document);
 /*!
  * modified Detect Whether a Font is Installed
  * @param {String} fontName The name of the font to check
@@ -225,8 +224,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		}
 	};
 	root.doesFontExist = doesFontExist;
-}
-	("undefined" !== typeof window ? window : this, document));
+})("undefined" !== typeof window ? window : this, document);
 /*!
  * modified loadExt
  * @see {@link https://gist.github.com/englishextra/ff9dc7ab002312568742861cb80865c9}
@@ -296,20 +294,20 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		}
 	};
 	root.loadJsCss = loadJsCss;
-}
-	("undefined" !== typeof window ? window : this, document));
+})("undefined" !== typeof window ? window : this, document);
 /*!
  * app logic
  */
 (function (root, document, undefined) {
 	"use strict";
 
+	var docElem = document.documentElement || "";
+	
 	var _addEventListener = "addEventListener";
 	var alt = "alt";
 	var className = "className";
 	var createElement = "createElement";
 	var createElementNS = "createElementNS";
-	var documentElement = "documentElement";
 	var getAttribute = "getAttribute";
 	var getElementsByClassName = "getElementsByClassName";
 	var getElementsByTagName = "getElementsByTagName";
@@ -495,7 +493,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		slotDrawCanvasAll = setInterval(drawCanvasAll, 100);
 	}
 
-	var hasTouch = "ontouchstart" in document[documentElement] || "";
+	var hasTouch = "ontouchstart" in docElem || "";
 
 	var hasWheel = "onwheel" in document[createElement]("div") || void 0 !== document.onmousewheel || "";
 
@@ -518,7 +516,6 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		var href = "href";
 		var title = "title";
 
-		var docElem = document[documentElement] || "";
 		if (docElem && docElem[classList]) {
 			docElem[classList].remove("no-js");
 			docElem[classList].add("js");
@@ -1075,7 +1072,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.201711092/classList.min.js");
 	}
 
-	var supportsDataset = "undefined" !== typeof root.Element && "dataset" in document[documentElement] || "";
+	var supportsDataset = "undefined" !== typeof root.Element && "dataset" in docElem || "";
 
 	if (!supportsDataset) {
 		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/element-dataset@2.2.6/lib/browser/index.cjs.min.js");
@@ -1196,5 +1193,4 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 			[forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"],
 			onFontsLoadedCallback
 		); */
-}
-	("undefined" !== typeof window ? window : this, document));
+})("undefined" !== typeof window ? window : this, document);

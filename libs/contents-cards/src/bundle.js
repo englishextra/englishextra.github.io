@@ -193,8 +193,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		return TP();
 	})();
 	root.ToProgress = ToProgress;
-}
-	("undefined" !== typeof window ? window : this, document));
+})("undefined" !== typeof window ? window : this, document);
 /*!
  * @license Minigrid v3.1.1 minimal cascading grid layout http://alves.im/minigrid
  * @see {@link https://github.com/henriquea/minigrid}
@@ -363,8 +362,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		return render(this.t, vars);
 	};
 	root.t = t;
-}
-	("undefined" !== typeof window ? window : this));
+})("undefined" !== typeof window ? window : this);
 /*!
  * modified Echo.js, simple JavaScript image lazy loading
  * added option to specify data attribute and img class
@@ -487,8 +485,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		}
 	};
 	root.echo = echo;
-}
-	("undefined" !== typeof window ? window : this, document));
+})("undefined" !== typeof window ? window : this, document);
 /*!
  * modified Detect Whether a Font is Installed
  * @param {String} fontName The name of the font to check
@@ -519,8 +516,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		}
 	};
 	root.doesFontExist = doesFontExist;
-}
-	("undefined" !== typeof window ? window : this, document));
+})("undefined" !== typeof window ? window : this, document);
 /*!
  * modified loadExt
  * @see {@link https://gist.github.com/englishextra/ff9dc7ab002312568742861cb80865c9}
@@ -590,17 +586,16 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		}
 	};
 	root.loadJsCss = loadJsCss;
-}
-	("undefined" !== typeof window ? window : this, document));
+})("undefined" !== typeof window ? window : this, document);
 /*!
  * app logic
  */
 (function (root, document) {
 	"use strict";
 
+	var docElem = document.documentElement || "";
 	var _addEventListener = "addEventListener";
 	var createElement = "createElement";
-	var documentElement = "documentElement";
 	var getElementsByClassName = "getElementsByClassName";
 	var _length = "length";
 
@@ -618,7 +613,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 
 	progressBar.increase(20);
 
-	var hasTouch = "ontouchstart" in document[documentElement] || "";
+	var hasTouch = "ontouchstart" in docElem || "";
 
 	var hasWheel = "onwheel" in document[createElement]("div") || void 0 !== document.onmousewheel || "";
 
@@ -649,7 +644,6 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		var styleSheets = "styleSheets";
 		var title = "title";
 
-		var docElem = document[documentElement] || "";
 		if (docElem && docElem[classList]) {
 			docElem[classList].remove("no-js");
 			docElem[classList].add("js");
@@ -1149,7 +1143,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 					return "-" + $1.toLowerCase();
 				});
 			};
-			var docElemStyle = document[documentElement][style];
+			var docElemStyle = docElem[style];
 			var transitionProperty = typeof docElemStyle.transition === "string" ?
 				"transition" : "WebkitTransition";
 			var transformProperty = typeof docElemStyle.transform === "string" ?
@@ -1378,7 +1372,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		 */
 		/* var handleTitleBar = function () {
 			var logic = function () {
-				if ((document[body].scrollTop || document[documentElement].scrollTop || 0) > titleBarHeight) {
+				if ((document[body].scrollTop || docElem.scrollTop || 0) > titleBarHeight) {
 					titleBar[classList].add(isFixedClass);
 				} else {
 					titleBar[classList].remove(isFixedClass);
@@ -1404,7 +1398,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		var hideTitleBar = function () {
 			var logic = function () {
 				titleBar[classList].remove(slideInDownClass);
-				if ((document[body].scrollTop || document[documentElement].scrollTop || 0) > titleBarHeight) {
+				if ((document[body].scrollTop || docElem.scrollTop || 0) > titleBarHeight) {
 					titleBar[classList].add(slideOutUpClass);
 				} else {
 					titleBar[classList].remove(isFixedClass);
@@ -1417,7 +1411,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		var revealTitleBar = function () {
 			var logic = function () {
 				titleBar[classList].remove(slideOutUpClass);
-				if ((document[body].scrollTop || document[documentElement].scrollTop || 0) > titleBarHeight) {
+				if ((document[body].scrollTop || docElem.scrollTop || 0) > titleBarHeight) {
 					titleBar[classList].add(isFixedClass);
 					titleBar[classList].add(slideInDownClass);
 				} else {
@@ -1467,7 +1461,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		var hideTitleBar = function () {
 			var logic = function () {
 				titleBar[classList].remove(isFixedClass);
-				if ((document[body].scrollTop || document[documentElement].scrollTop || 0) > titleBarHeight) {
+				if ((document[body].scrollTop || docElem.scrollTop || 0) > titleBarHeight) {
 					titleBar[classList].add(isHiddenClass);
 				} else {
 					titleBar[classList].remove(isHiddenClass);
@@ -1479,7 +1473,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		var revealTitleBar = function () {
 			var logic = function () {
 				titleBar[classList].remove(isHiddenClass);
-				if ((document[body].scrollTop || document[documentElement].scrollTop || 0) > titleBarHeight) {
+				if ((document[body].scrollTop || docElem.scrollTop || 0) > titleBarHeight) {
 					titleBar[classList].add(isFixedClass);
 				} else {
 					titleBar[classList].remove(isFixedClass);
@@ -1490,7 +1484,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		};
 		var resetTitleBar = function () {
 			var logic = function () {
-				if ((document[body].scrollTop || document[documentElement].scrollTop || 0) < titleBarHeight) {
+				if ((document[body].scrollTop || docElem.scrollTop || 0) < titleBarHeight) {
 					titleBar[classList].remove(isHiddenClass);
 					titleBar[classList].remove(isFixedClass);
 				}
@@ -1527,7 +1521,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		}
 
 		var scroll2Top = function (scrollTargetY, speed, easing) {
-			var scrollY = root.scrollY || document.documentElement.scrollTop;
+			var scrollY = root.scrollY || docElem.scrollTop;
 			var posY = scrollTargetY || 0;
 			var rate = speed || 2000;
 			var soothing = easing || "easeOutSine";
@@ -1562,6 +1556,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		};
 
 		var docBody = document[body] || "";
+
 		var btnClass = "btn-totop";
 		var btnTotop = document[getElementsByClassName](btnClass)[0] || "";
 		var handleBtnTotop = function (evt) {
@@ -1605,7 +1600,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.201711092/classList.min.js");
 	}
 
-	var supportsDataset = "undefined" !== typeof root.Element && "dataset" in document[documentElement] || "";
+	var supportsDataset = "undefined" !== typeof root.Element && "dataset" in docElem || "";
 
 	if (!supportsDataset) {
 		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/element-dataset@2.2.6/lib/browser/index.cjs.min.js");
@@ -1731,5 +1726,4 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 			[forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"],
 			onFontsLoadedCallback
 		); */
-}
-	("undefined" !== typeof window ? window : this, document));
+})("undefined" !== typeof window ? window : this, document);

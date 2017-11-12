@@ -592,9 +592,9 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 (function (root, document) {
 	"use strict";
 
+	var docElem = document.documentElement || "";
 	var _addEventListener = "addEventListener";
 	var createElement = "createElement";
-	var documentElement = "documentElement";
 	var getElementsByClassName = "getElementsByClassName";
 	var _length = "length";
 
@@ -612,7 +612,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 
 	progressBar.increase(20);
 
-	var hasTouch = "ontouchstart" in document[documentElement] || "";
+	var hasTouch = "ontouchstart" in docElem || "";
 
 	var hasWheel = "onwheel" in document[createElement]("div") || void 0 !== document.onmousewheel || "";
 
@@ -643,7 +643,6 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		var styleSheets = "styleSheets";
 		var title = "title";
 
-		var docElem = document[documentElement] || "";
 		if (docElem && docElem[classList]) {
 			docElem[classList].remove("no-js");
 			docElem[classList].add("js");
@@ -1110,7 +1109,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 					return "-" + $1.toLowerCase();
 				});
 			};
-			var docElemStyle = document[documentElement][style];
+			var docElemStyle = docElem[style];
 			var transitionProperty = typeof docElemStyle.transition === "string" ? "transition" : "WebkitTransition";
 			var transformProperty = typeof docElemStyle.transform === "string" ? "transform" : "WebkitTransform";
 			var styleSheet = document[styleSheets][0] || "";
@@ -1327,7 +1326,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
    */
 		/* var handleTitleBar = function () {
   	var logic = function () {
-  		if ((document[body].scrollTop || document[documentElement].scrollTop || 0) > titleBarHeight) {
+  		if ((document[body].scrollTop || docElem.scrollTop || 0) > titleBarHeight) {
   			titleBar[classList].add(isFixedClass);
   		} else {
   			titleBar[classList].remove(isFixedClass);
@@ -1352,7 +1351,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
   	var hideTitleBar = function () {
   	var logic = function () {
   		titleBar[classList].remove(slideInDownClass);
-  		if ((document[body].scrollTop || document[documentElement].scrollTop || 0) > titleBarHeight) {
+  		if ((document[body].scrollTop || docElem.scrollTop || 0) > titleBarHeight) {
   			titleBar[classList].add(slideOutUpClass);
   		} else {
   			titleBar[classList].remove(isFixedClass);
@@ -1365,7 +1364,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
   var revealTitleBar = function () {
   	var logic = function () {
   		titleBar[classList].remove(slideOutUpClass);
-  		if ((document[body].scrollTop || document[documentElement].scrollTop || 0) > titleBarHeight) {
+  		if ((document[body].scrollTop || docElem.scrollTop || 0) > titleBarHeight) {
   			titleBar[classList].add(isFixedClass);
   			titleBar[classList].add(slideInDownClass);
   		} else {
@@ -1415,7 +1414,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		var hideTitleBar = function () {
 			var logic = function () {
 				titleBar[classList].remove(isFixedClass);
-				if ((document[body].scrollTop || document[documentElement].scrollTop || 0) > titleBarHeight) {
+				if ((document[body].scrollTop || docElem.scrollTop || 0) > titleBarHeight) {
 					titleBar[classList].add(isHiddenClass);
 				} else {
 					titleBar[classList].remove(isHiddenClass);
@@ -1427,7 +1426,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		var revealTitleBar = function () {
 			var logic = function () {
 				titleBar[classList].remove(isHiddenClass);
-				if ((document[body].scrollTop || document[documentElement].scrollTop || 0) > titleBarHeight) {
+				if ((document[body].scrollTop || docElem.scrollTop || 0) > titleBarHeight) {
 					titleBar[classList].add(isFixedClass);
 				} else {
 					titleBar[classList].remove(isFixedClass);
@@ -1438,7 +1437,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		};
 		var resetTitleBar = function () {
 			var logic = function () {
-				if ((document[body].scrollTop || document[documentElement].scrollTop || 0) < titleBarHeight) {
+				if ((document[body].scrollTop || docElem.scrollTop || 0) < titleBarHeight) {
 					titleBar[classList].remove(isHiddenClass);
 					titleBar[classList].remove(isFixedClass);
 				}
@@ -1475,7 +1474,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		}
 
 		var scroll2Top = function (scrollTargetY, speed, easing) {
-			var scrollY = root.scrollY || document.documentElement.scrollTop;
+			var scrollY = root.scrollY || docElem.scrollTop;
 			var posY = scrollTargetY || 0;
 			var rate = speed || 2000;
 			var soothing = easing || "easeOutSine";
@@ -1510,6 +1509,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		};
 
 		var docBody = document[body] || "";
+
 		var btnClass = "btn-totop";
 		var btnTotop = document[getElementsByClassName](btnClass)[0] || "";
 		var handleBtnTotop = function (evt) {
@@ -1553,7 +1553,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.201711092/classList.min.js");
 	}
 
-	var supportsDataset = "undefined" !== typeof root.Element && "dataset" in document[documentElement] || "";
+	var supportsDataset = "undefined" !== typeof root.Element && "dataset" in docElem || "";
 
 	if (!supportsDataset) {
 		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/element-dataset@2.2.6/lib/browser/index.cjs.min.js");
