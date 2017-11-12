@@ -1523,7 +1523,9 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 		var locationOrigin = parseLink(root.location.href).origin;
 		var showMsg = function () {
 			var msgObj = document[createElement]("a");
+			/* jshint -W107 */
 			msgObj.href = "javascript:void(0);";
+			/* jshint +W107 */
 			appendFragment(msgText, msgObj);
 			var handleMsgObj = function (ev) {
 				ev.stopPropagation();
@@ -2099,7 +2101,9 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 				link.target = "_blank";
 				link.rel = "noopener";
 			} else {
+				/* jshint -W107 */
 				link.href = "javascript:void(0);";
+				/* jshint +W107 */
 				link[_addEventListener]("click", handleAppUpdatesLink);
 			}
 			link[appendChild](document[createTextNode]("" + linkText));
@@ -2184,7 +2188,9 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 			throttleLogicHandleUiTotopWindow();
 		};
 		anchor[classList].add(btnClass);
+		/* jshint -W107 */
 		anchor.href = "javascript:void(0);";
+		/* jshint +W107 */
 		anchor.title = btnTitle;
 		bodyElem[appendChild](anchor);
 		if (bodyElem) {
