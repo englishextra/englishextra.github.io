@@ -1059,7 +1059,7 @@ ToProgress, unescape, verge, VK, Ya*/
 			if (tableSort) {
 				/* var jsUrl = "../../cdn/tablesort/4.0.1/js/tablesort.fixed.min.js";
 				if (!scriptIsLoaded(jsUrl)) {
-					loadJS(jsUrl, initScript);
+					loadJsCss([jsUrl], initScript);
 				} */
 				initScript();
 			}
@@ -1449,7 +1449,7 @@ ToProgress, unescape, verge, VK, Ya*/
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					/* var jsUrl = "../../cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js";
 					if (!scriptIsLoaded(jsUrl)) {
-						loadJS(jsUrl, initScript);
+						loadJsCss([jsUrl], initScript);
 					} */
 					initScript();
 				}
@@ -1720,7 +1720,7 @@ ToProgress, unescape, verge, VK, Ya*/
 				};
 				var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
 				if (!scriptIsLoaded(jsUrl)) {
-					loadJS(jsUrl, initScript);
+					loadJsCss([jsUrl], initScript);
 				}
 			};
 			if (btn && yaShare2) {
@@ -1816,7 +1816,7 @@ ToProgress, unescape, verge, VK, Ya*/
 					LoadingSpinner.hide();
 				};
 				if (!scriptIsLoaded(jsUrl)) {
-					loadJS(jsUrl, initScript);
+					loadJsCss([jsUrl], initScript);
 				}
 			};
 			var addHandler = function () {
@@ -1870,7 +1870,7 @@ ToProgress, unescape, verge, VK, Ya*/
 				};
 				var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?122";
 				if (!scriptIsLoaded(jsUrl)) {
-					loadJS(jsUrl, initScript);
+					loadJsCss([jsUrl], initScript);
 				}
 			};
 			if (btn && vkLike) {
@@ -1996,7 +1996,7 @@ ToProgress, unescape, verge, VK, Ya*/
 			if (searchForm && textInput) {
 				/* var jsUrl = "../../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
 				if (!scriptIsLoaded(jsUrl)) {
-					loadJS(jsUrl, initScript);
+					loadJsCss([jsUrl], initScript);
 				} */
 				initScript();
 			}
