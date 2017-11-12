@@ -2012,13 +2012,15 @@ ToProgress, unescape, verge, VK, Ya*/
 		showPageFinishProgress();
 	};
 
-	var scripts = ["../../cdn/verge/1.9.1/js/verge.fixed.min.js",
+	/* var scripts = ["../../cdn/verge/1.9.1/js/verge.fixed.min.js",
 		"../../cdn/iframe-lightbox/0.1.6/js/iframe-lightbox.fixed.min.js",
 		"../../cdn/Tocca.js/2.0.1/js/Tocca.fixed.min.js",
 		"../../cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js",
 		"../../cdn/tablesort/4.0.1/js/tablesort.fixed.min.js",
 		"../../cdn/js-cookie/2.1.3/js/js.cookie.fixed.min.js",
-		"../../cdn/kamil/0.1.1/js/kamil.fixed.min.js"];
+		"../../cdn/kamil/0.1.1/js/kamil.fixed.min.js"]; */
+
+	var scripts = ["../../libs/paper/js/vendors.min.js"];
 
 	/*!
 	 * load scripts after webfonts loaded using doesFontExist
