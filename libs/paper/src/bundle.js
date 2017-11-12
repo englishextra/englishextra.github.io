@@ -1,8 +1,9 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global ActiveXObject, Cookies, escape, IframeLightbox, imagePromise,
-jQuery, Kamil, loadJS, Promise, QRCode, require, Tablesort, Timers,
-ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
+/*global ActiveXObject, Cookies, doesFontExist, escape, IframeLightbox,
+imagePromise, jQuery, Kamil, loadJS, loadJsCss, Promise, QRCode,
+require, Tablesort, Timers, ToProgress, unescape, verge, VK, Ya */
+/*property console, join, split */
 /*!
  * safe way to handle console.log
  * @see {@link https://github.com/paulmillr/console-polyfill}
@@ -811,44 +812,6 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 	root.IframeLightbox = IframeLightbox;
 })("undefined" !== typeof window ? window : this, document);
 /*!
- * A simple promise-compatible "document ready" event handler with a few extra treats.
- * With browserify/webpack:
- * const ready = require('document-ready-promise')
- * ready().then(function(){})
- * If in a non-commonjs environment, just include the script. It will attach document.ready for you.
- * document.ready().then(function() {})
- * The document.ready promise will preserve any values that you may be passing through the promise chain.
- * Using ES2015 and fetch
- * fetch(new Request('kitten.jpg'))
- * .then(response => response.blob())
- * .then(document.ready)
- * .then(blob => document.querySelector("img").src = URL.createObjectURL(blob))
- * @see {@link https://github.com/michealparks/document-ready-promise}
- * @see {@link https://github.com/michealparks/document-ready-promise/blob/master/document-ready-promise.js}
- * passes jshint
- */
-(function (root) {
-	"use strict";
-	var d = root.document;
-	d.ready = function (chainVal) {
-		var loaded = (/^loaded|^i|^c/).test(d.readyState),
-		DOMContentLoaded = "DOMContentLoaded",
-		load = "load";
-		return new Promise(function (resolve) {
-			if (loaded) {
-				return resolve(chainVal);
-			}
-			function onReady() {
-				resolve(chainVal);
-				d.removeEventListener(DOMContentLoaded, onReady);
-				root.removeEventListener(load, onReady);
-			}
-			d.addEventListener(DOMContentLoaded, onReady);
-			root.addEventListener(load, onReady);
-		});
-	};
-})("undefined" !== typeof window ? window : this, document);
-/*!
  * Timer management (setInterval / setTimeout)
  * @param {Function} fn
  * @param {Number} ms
@@ -885,6 +848,107 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 	root.Timers = Timers;
 })("undefined" !== typeof window ? window : this, document);
 /*!
+ * modified Detect Whether a Font is Installed
+ * @param {String} fontName The name of the font to check
+ * @return {Boolean}
+ * @author Kirupa <sam@samclarke.com>
+ * @see {@link https://www.kirupa.com/html5/detect_whether_font_is_installed.htm}
+ * passes jshint
+ */
+(function (root, document) {
+	"use strict";
+	var doesFontExist = function (fontName) {
+		var createElement = "createElement";
+		var getContext = "getContext";
+		var measureText = "measureText";
+		var width = "width";
+		var canvas = document[createElement]("canvas");
+		var context = canvas[getContext]("2d");
+		var text = "abcdefghijklmnopqrstuvwxyz0123456789";
+		context.font = "72px monospace";
+		var baselineSize = context[measureText](text)[width];
+		context.font = "72px '" + fontName + "', monospace";
+		var newSize = context[measureText](text)[width];
+		canvas = null;
+		if (newSize === baselineSize) {
+			return false;
+		} else {
+			return true;
+		}
+	};
+	root.doesFontExist = doesFontExist;
+})("undefined" !== typeof window ? window : this, document);
+/*!
+ * modified loadExt
+ * @see {@link https://gist.github.com/englishextra/ff9dc7ab002312568742861cb80865c9}
+ * passes jshint
+ */
+(function (root, document) {
+	"use strict";
+	var loadJsCss = function (files, callback) {
+		var _this = this;
+		var appendChild = "appendChild";
+		var body = "body";
+		var createElement = "createElement";
+		var getElementsByTagName = "getElementsByTagName";
+		var insertBefore = "insertBefore";
+		var _length = "length";
+		var parentNode = "parentNode";
+		_this.files = files;
+		_this.js = [];
+		_this.head = document[getElementsByTagName]("head")[0] || "";
+		_this.body = document[body] || "";
+		_this.ref = document[getElementsByTagName]("script")[0] || "";
+		_this.callback = callback || function () {};
+		_this.loadStyle = function (file) {
+			var link = document[createElement]("link");
+			link.rel = "stylesheet";
+			link.type = "text/css";
+			link.href = file;
+			_this.head[appendChild](link);
+		};
+		_this.loadScript = function (i) {
+			var script = document[createElement]("script");
+			script.type = "text/javascript";
+			script.async = true;
+			script.src = _this.js[i];
+			var loadNextScript = function () {
+				if (++i < _this.js[_length]) {
+					_this.loadScript(i);
+				} else {
+					_this.callback();
+				}
+			};
+			script.onload = function () {
+				loadNextScript();
+			};
+			_this.head[appendChild](script);
+			if (_this.ref[parentNode]) {
+				_this.ref[parentNode][insertBefore](script, _this.ref);
+			} else {
+				(_this.body || _this.head)[appendChild](script);
+			}
+		};
+		var i,
+		l;
+		for (i = 0, l = _this.files[_length]; i < l; i += 1) {
+			if ((/\.js$|\.js\?/).test(_this.files[i])) {
+				_this.js.push(_this.files[i]);
+			}
+			if ((/\.css$|\.css\?|\/css\?/).test(_this.files[i])) {
+				_this.loadStyle(_this.files[i]);
+			}
+		}
+		i = l = null;
+		if (_this.js[_length] > 0) {
+			_this.loadScript(0);
+		} else {
+			_this.callback();
+		}
+	};
+	root.loadJsCss = loadJsCss;
+})("undefined" !== typeof window ? window : this, document);
+/*!
  * app logic
  */
 (function (root, document) {
@@ -892,10 +956,11 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 
 	var docElem = document.documentElement || "";
 	var docImplem = document.implementation || "";
-	var bodyElem = document.body || "";
+	var docBody = document.body || "";
 
 	var createElement = "createElement";
 	var getElementById = "getElementById";
+	var _length = "length";
 
 	var progressBar = new ToProgress({
 			id: "top-progress-bar",
@@ -911,24 +976,26 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 
 	progressBar.increase(20);
 
-	root.addEventListener("load", hideProgressBar);
-
 	var getHTTP = function (force) {
 		var any = force || "";
 		var locationProtocol = root.location.protocol || "";
 		return "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : any ? "http" : "";
 	};
 
-	/* var run = function () { */
+	var forcedHTTP = getHTTP(true);
+
+	var run = function () {
 
 		var appendChild = "appendChild";
 		var classList = "classList";
+		var createDocumentFragment = "createDocumentFragment";
 		var createTextNode = "createTextNode";
 		var dataset = "dataset";
 		var getAttribute = "getAttribute";
 		var getElementsByClassName = "getElementsByClassName";
 		var getElementsByTagName = "getElementsByTagName";
 		var parentNode = "parentNode";
+		var remove = "remove";
 		var setAttribute = "setAttribute";
 		var title = "title";
 		var _addEventListener = "addEventListener";
@@ -1026,7 +1093,6 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 			return selector;
 		})("svg");
 
-
 		var earlySvgasimgSupport = (function (selector) {
 			selector = docImplem.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1") ? selector : "no-" + selector;
 			docElem[classList].add(selector);
@@ -1060,19 +1126,19 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 		}
 
 		var scriptIsLoaded = function (s) {
-			for (var b = document.getElementsByTagName("script") || "", a = 0; a < b.length; a += 1) {
-				if (b[a].getAttribute("src") === s) {
-					return !0;
+			for (var b = document[getElementsByTagName]("script") || "", a = 0; a < b[_length]; a += 1) {
+				if (b[a][getAttribute]("src") === s) {
+					return true;
 				}
 			}
-			return !1;
+			return;
 		};
 
 		var loadUnparsedJSON = function (url, callback, onerror) {
 			var cb = function (string) {
 				return callback && "function" === typeof callback && callback(string);
-			},
-			x = root.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+			};
+			var x = root.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
 			x.overrideMimeType("application/json;charset=utf-8");
 			x.open("GET", url, !0);
 			x.withCredentials = !1;
@@ -1125,11 +1191,9 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 		};
 
 		var removeElement = function (e) {
-			var r = "remove",
-			parentNode = "parentNode";
 			if (e) {
-				if ("undefined" !== typeof e[r]) {
-					return e[r]();
+				if ("undefined" !== typeof e[remove]) {
+					return e[remove]();
 				} else {
 					return e[parentNode] && e[parentNode].removeChild(e);
 				}
@@ -1137,77 +1201,60 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 		};
 
 		var removeChildren = function (e) {
-			return (function () {
-				if (e && e.firstChild) {
-					for (; e.firstChild; ) {
-						e.removeChild(e.firstChild);
-					}
+			if (e && e.firstChild) {
+				for (; e.firstChild; ) {
+					e.removeChild(e.firstChild);
 				}
-			})();
+			}
 		};
 
 		var appendFragment = function (e, a) {
-			var d = document;
-			a = a || d.getElementsByTagNames("body")[0] || "";
-			return (function () {
-				if (e) {
-					var d = document,
-					df = d.createDocumentFragment() || "",
-					appendChild = "appendChild";
-					if ("string" === typeof e) {
-						e = d.createTextNode(e);
-					}
-					df[appendChild](e);
-					a[appendChild](df);
+			a = a || document[getElementsByTagName]("body")[0] || "";
+			if (e) {
+				var df = document[createDocumentFragment]() || "";
+				if ("string" === typeof e) {
+					e = document[createTextNode](e);
 				}
-			})();
+				df[appendChild](e);
+				a[appendChild](df);
+			}
 		};
 
 		var prependFragmentBefore = function (e, a) {
 			if ("string" === typeof e) {
-				e = document.createTextNode(e);
+				e = document[createTextNode](e);
 			}
-			var p = a.parentNode || "",
-			df = document.createDocumentFragment();
-			return (function () {
-				if (p) {
-					df.appendChild(e);
-					p.insertBefore(df, a);
-				}
-			})();
+			var p = a.parentNode || "";
+			var df = document[createDocumentFragment]();
+			if (p) {
+				df.appendChild(e);
+				p.insertBefore(df, a);
+			}
 		};
 
 		var setStyleDisplayBlock = function (a) {
-			return (function () {
-				if (a) {
-					a.style.display = "block";
-				}
-			})();
+			if (a) {
+				a.style.display = "block";
+			}
 		};
 
 		var setStyleDisplayNone = function (a) {
-			return (function () {
-				if (a) {
-					a.style.display = "none";
-				}
-			})();
+			if (a) {
+				a.style.display = "none";
+			}
 		};
 
 		var setStyleOpacity = function (a, n) {
 			n = n || 1;
-			return (function () {
-				if (a) {
-					a.style.opacity = n;
-				}
-			})();
+			if (a) {
+				a.style.opacity = n;
+			}
 		};
 
 		var setStyleVisibilityVisible = function (a) {
-			return (function () {
-				if (a) {
-					a.style.visibility = "visible";
-				}
-			})();
+			if (a) {
+				a.style.visibility = "visible";
+			}
 		};
 
 		var isValidId = function (a, full) {
@@ -1216,11 +1263,9 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 
 		var findPos = function (a) {
 			a = a.getBoundingClientRect();
-			var b = document.body,
-			c = document.documentElement;
 			return {
-				top: Math.round(a.top + (root.pageYOffset || c.scrollTop || b.scrollTop) - (c.clientTop || b.clientTop || 0)),
-				left: Math.round(a.left + (root.pageXOffset || c.scrollLeft || b.scrollLeft) - (c.clientLeft || b.clientLeft || 0))
+				top: Math.round(a.top + (root.pageYOffset || docElem.scrollTop || docBody.scrollTop) - (docElem.clientTop || docBody.clientTop || 0)),
+				left: Math.round(a.left + (root.pageXOffset || docElem.scrollLeft || docBody.scrollLeft) - (docElem.clientLeft || docBody.clientLeft || 0))
 			};
 		};
 
@@ -1267,11 +1312,11 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 			if (!spinner) {
 				spinner = document[createElement]("div");
 				spinner[classList].add(spinnerClass);
-				appendFragment(spinner, bodyElem);
+				appendFragment(spinner, docBody);
 			}
 			return {
 				show: function () {
-					return bodyElem[classList].contains(isActiveClass) || bodyElem[classList].add(isActiveClass);
+					return docBody[classList].contains(isActiveClass) || docBody[classList].add(isActiveClass);
 				},
 				hide: function (callback, timeout) {
 					var delay = timeout || 500;
@@ -1279,7 +1324,7 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 					timers.timeout(function () {
 						timers.clear();
 						timers = null;
-						bodyElem[classList].remove(isActiveClass);
+						docBody[classList].remove(isActiveClass);
 						if (callback && "function" === typeof callback) {
 							callback();
 						}
@@ -1467,7 +1512,7 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 			var an4 = "fadeOutDown";
 			if (!container) {
 				container = document[createElement]("div");
-				appendFragment(container, bodyElem);
+				appendFragment(container, docBody);
 			}
 			container[classList].add(cls);
 			container[classList].add(an);
@@ -1549,7 +1594,7 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 				}, 16000);
 			}
 		};
-		document.ready().then(initNotifier42WriteComment);
+		initNotifier42WriteComment();
 
 		var initTablesort = function (scope) {
 			var ctx = scope && scope.nodeName ? scope : "";
@@ -1582,7 +1627,7 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 				}
 			}
 		};
-		document.ready().then(initTablesort);
+		initTablesort();
 
 		var hideImgLightbox = function () {
 			var container = document[getElementsByClassName]("img-lightbox-container")[0] || "";
@@ -1654,7 +1699,7 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 				img.alt = "";
 				container[appendChild](img);
 				container[classList].add(containerClass);
-				appendFragment(container, bodyElem);
+				appendFragment(container, docBody);
 			}
 			var arrange = function (e) {
 				var handleImgLightboxLink = function (ev) {
@@ -1670,7 +1715,7 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 							img[classList].add(an);
 							img[classList].add(an2);
 							if (parseLink(hrefString).isAbsolute && !parseLink(hrefString).hasHTTP) {
-								hrefString = hrefString.replace(/^/, getHTTP(true) + ":");
+								hrefString = hrefString.replace(/^/, forcedHTTP + ":");
 							}
 							imagePromise(hrefString).then(function () {
 								img.src = hrefString;
@@ -1690,7 +1735,7 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 					var hrefString = e[getAttribute]("href") || "";
 					if (hrefString) {
 						if (parseLink(hrefString).isAbsolute && !parseLink(hrefString).hasHTTP) {
-							e.setAttribute("href", hrefString.replace(/^/, getHTTP(true) + ":"));
+							e.setAttribute("href", hrefString.replace(/^/, forcedHTTP + ":"));
 						}
 						e[_addEventListener]("click", handleImgLightboxLink);
 						e[classList].add(isBindedClass);
@@ -1703,7 +1748,7 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 				}
 			}
 		};
-		document.ready().then(manageImgLightboxLinks);
+		manageImgLightboxLinks();
 
 		var throttle = function (func, wait) {
 			var ctx;
@@ -1744,7 +1789,7 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 						var srcString = e[dataset].src || "";
 						if (srcString) {
 							if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
-								e[dataset].src = srcString.replace(/^/, getHTTP(true) + ":");
+								e[dataset].src = srcString.replace(/^/, forcedHTTP + ":");
 								srcString = e[dataset].src;
 							}
 							imagePromise(srcString).then(function () {
@@ -1784,7 +1829,7 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 				handleDataSrcImageAll();
 			}, 500);
 		};
-		root.addEventListener("load", manageDataSrcImageAll);
+		manageDataSrcImageAll();
 
 		var handleDataSrcIframeAll = function () {
 			var imgClass = "data-src-iframe";
@@ -1797,7 +1842,7 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 						var srcString = e[dataset].src || "";
 						if (srcString) {
 							if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
-								e[dataset].src = srcString.replace(/^/, getHTTP(true) + ":");
+								e[dataset].src = srcString.replace(/^/, forcedHTTP + ":");
 								srcString = e[dataset].src;
 							}
 							e.src = srcString;
@@ -1839,7 +1884,7 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 				handleDataSrcIframeAll();
 			}, 500);
 		};
-		root.addEventListener("load", manageDataSrcIframeAll);
+		manageDataSrcIframeAll();
 
 		var manageIframeLightboxLinks = function (scope) {
 			var ctx = scope && scope.nodeName ? scope : "";
@@ -1858,7 +1903,7 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 				}
 			}
 		};
-		document.ready().then(manageIframeLightboxLinks);
+		manageIframeLightboxLinks();
 
 		var handleChaptersSelect = function () {
 			var _this = this;
@@ -1878,7 +1923,7 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 				chaptersSelect[_addEventListener]("change", handleChaptersSelect);
 			}
 		};
-		document.ready().then(manageChaptersSelect);
+		manageChaptersSelect();
 
 		var manageSearchInput = function () {
 			var searchInput = document[getElementById]("text") || "";
@@ -1895,7 +1940,7 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 				searchInput[_addEventListener]("input", handleSearchInputValue);
 			}
 		};
-		document.ready().then(manageSearchInput);
+		manageSearchInput();
 
 		var handleExpandingLayerAll = function () {
 			var _this = this;
@@ -1920,7 +1965,7 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 				}
 			}
 		};
-		document.ready().then(manageExpandingLayers);
+		manageExpandingLayers();
 
 		var manageLocationQrCodeImage = function () {
 			var holder = document[getElementsByClassName]("holder-location-qr-code")[0] || "";
@@ -1929,7 +1974,7 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 				var locationHref = root.location.href || "";
 				var img = document[createElement]("img");
 				var imgTitle = document.title ? ("Ссылка на страницу «" + document.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
-				var imgSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
+				var imgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
 				img.alt = imgTitle;
 				if (root.QRCode) {
 					if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
@@ -1972,7 +2017,7 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 				}
 			}
 		};
-		document.ready().then(manageLocationQrCodeImage);
+		manageLocationQrCodeImage();
 
 		var initNavMenu = function () {
 			var container = document[getElementById]("container") || "";
@@ -2071,7 +2116,7 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 				addItemHandlerAll();
 			}
 		};
-		document.ready().then(initNavMenu);
+		initNavMenu();
 
 		var addAppUpdatesLink = function () {
 			var panel = document[getElementsByClassName]("panel-menu-more")[0] || "";
@@ -2117,7 +2162,7 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 				arrange();
 			}
 		};
-		document.ready().then(addAppUpdatesLink);
+		addAppUpdatesLink();
 
 		var initMenuMore = function () {
 			var container = document[getElementById]("container") || "";
@@ -2160,7 +2205,7 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 				addItemHandlerAll();
 			}
 		};
-		document.ready().then(initMenuMore);
+		initMenuMore();
 
 		var initUiTotop = function () {
 			var btnClass = "ui-totop";
@@ -2175,8 +2220,8 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 			var handleUiTotopWindow = function (_this) {
 				var logicHandleUiTotopWindow = function () {
 					var btn = document[getElementsByClassName](btnClass)[0] || "";
-					var scrollPosition = _this.pageYOffset || docElem.scrollTop || bodyElem.scrollTop || "";
-					var windowHeight = _this.innerHeight || docElem.clientHeight || bodyElem.clientHeight || "";
+					var scrollPosition = _this.pageYOffset || docElem.scrollTop || docBody.scrollTop || "";
+					var windowHeight = _this.innerHeight || docElem.clientHeight || docBody.clientHeight || "";
 					if (scrollPosition && windowHeight && btn) {
 						if (scrollPosition > windowHeight) {
 							btn[classList].add(isActiveClass);
@@ -2193,15 +2238,15 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 			anchor.href = "javascript:void(0);";
 			/* jshint +W107 */
 			anchor.title = btnTitle;
-			bodyElem[appendChild](anchor);
-			if (bodyElem) {
+			docBody[appendChild](anchor);
+			if (docBody) {
 				anchor[_addEventListener]("click", handleUiTotopAnchor);
 				root[_addEventListener]("scroll", handleUiTotopWindow, {
 					passive: true
 				});
 			}
 		};
-		document.ready().then(initUiTotop);
+		initUiTotop();
 
 		var yshare;
 		var manageShareButton = function () {
@@ -2235,7 +2280,7 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 						} catch (err) {}
 					}
 				};
-				var jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
+				var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
 				if (!scriptIsLoaded(jsUrl)) {
 					loadJS(jsUrl, initScript);
 				}
@@ -2248,7 +2293,7 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 				}
 			}
 		};
-		document.ready().then(manageShareButton);
+		manageShareButton();
 
 		var initDownloadAppBtn = function () {
 			var navigatorUserAgent = navigator.userAgent || "";
@@ -2291,7 +2336,7 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 				} else {
 					link[_addEventListener]("click", handleDownloadAppBtn);
 				}
-				appendFragment(link, bodyElem);
+				appendFragment(link, docBody);
 				var timers = new Timers();
 				timers.timeout(function () {
 					timers.clear();
@@ -2307,7 +2352,7 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 					}, 750);
 				}, 8000);
 			};
-			if (bodyElem && navigatorUserAgent && linkHref) {
+			if (docBody && navigatorUserAgent && linkHref) {
 				var timers = new Timers();
 				timers.timeout(function () {
 					timers.clear();
@@ -2316,7 +2361,7 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 				}, 3000);
 			}
 		};
-		document.ready().then(initDownloadAppBtn);
+		initDownloadAppBtn();
 
 		var initDisqusOnScroll = function () {
 			var disqusThread = document[getElementById]("disqus_thread") || "";
@@ -2324,7 +2369,7 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 			var locationHref = root.location.href || "";
 			var disqusThreadShortname = disqusThread ? (disqusThread[dataset].shortname || "") : "";
 			var isActiveClass = "is-active";
-			var jsUrl = getHTTP(true) + "://" + disqusThreadShortname + ".disqus.com/embed.js";
+			var jsUrl = forcedHTTP + "://" + disqusThreadShortname + ".disqus.com/embed.js";
 			var loadDisqus = function () {
 				LoadingSpinner.show();
 				var initScript = function () {
@@ -2357,7 +2402,7 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 				}
 			}
 		};
-		document.ready().then(initDisqusOnScroll);
+		initDisqusOnScroll();
 
 		var manageVKLikeButton = function () {
 			var VKLikeId = "vk-like";
@@ -2385,7 +2430,7 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 						} catch (err) {}
 					}
 				};
-				var jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122";
+				var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?122";
 				if (!scriptIsLoaded(jsUrl)) {
 					loadJS(jsUrl, initScript);
 				}
@@ -2398,7 +2443,7 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 				}
 			}
 		};
-		document.ready().then(manageVKLikeButton);
+		manageVKLikeButton();
 
 		var initKamilAutocomplete = function () {
 			var searchForm = document[getElementsByClassName]("search-form")[0] || "";
@@ -2517,17 +2562,97 @@ ToProgress, unescape, verge, VK, Ya */ /*property console, join, split */
 				}
 			}
 		};
-		document.ready().then(initKamilAutocomplete);
+		initKamilAutocomplete();
 
 		var showPageFinishProgress = function () {
 			if (container) {
 				setStyleOpacity(container, 1);
-				progressBar.increase(20);
+				hideProgressBar();
 			}
 		};
-		document.ready().then(showPageFinishProgress);
-	/* };
+		showPageFinishProgress();
+	};
 
-	run(); */
+	/*!
+	 * load scripts after webfonts loaded using doesFontExist
+	 */
 
+	var supportsCanvas = (function () {
+		var elem = document[createElement]("canvas");
+		return !!(elem.getContext && elem.getContext("2d"));
+	})();
+
+	var onFontsLoadedCallback = function () {
+
+		var slot;
+		var onFontsLoaded = function () {
+			clearInterval(slot);
+			slot = null;
+
+			progressBar.increase(20);
+			run();
+		};
+
+		var checkFontIsLoaded = function () {
+			if (doesFontExist("Roboto") && doesFontExist("Roboto Mono")) {
+				onFontsLoaded();
+			}
+		};
+
+		if (supportsCanvas) {
+			slot = setInterval(checkFontIsLoaded, 100);
+		} else {
+			slot = null;
+			onFontsLoaded();
+		}
+	};
+
+	var load;
+	load = new loadJsCss(
+			[forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic"],
+			onFontsLoadedCallback
+		);
+
+	/*!
+	 * load scripts after webfonts loaded using webfontloader
+	 */
+
+	/* root.WebFontConfig = {
+		google: {
+			families: [
+				"Roboto:300,400,400i,700,700i:cyrillic",
+				"Roboto Mono:400,700:cyrillic"
+			]
+		},
+		listeners: [],
+		active: function () {
+			this.called_ready = true;
+			for (var i = 0; i < this.listeners[_length]; i++) {
+				this.listeners[i]();
+			}
+		},
+		ready: function (callback) {
+			if (this.called_ready) {
+				callback();
+			} else {
+				this.listeners.push(callback);
+			}
+		}
+	};
+
+	var onFontsLoadedCallback = function () {
+
+		var onFontsLoaded = function () {
+			progressBar.increase(20);
+			run();
+		};
+
+		root.WebFontConfig.ready(onFontsLoaded);
+	};
+
+	var load;
+	load = new loadJsCss(
+			[forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"],
+			onFontsLoadedCallback
+		); */
 })("undefined" !== typeof window ? window : this, document);

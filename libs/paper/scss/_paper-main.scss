@@ -20,7 +20,7 @@ html {
 }
 
 body {
-	font-family: $font-family-webfont-sans-regular;
+	font-family: "Roboto", $font-family-webfont-sans-regular;
 	font-weight: 400;
 	font-size: 1.000rem;
 	line-height: 1.500;
@@ -855,7 +855,7 @@ u,
 }
 
 .col .phonetic {
-	font-family: $font-family-webfont-monospace;
+	font-family: "Roboto Mono", $font-family-webfont-monospace;
 }
 
 .col .underline {
