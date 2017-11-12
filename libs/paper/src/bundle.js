@@ -2609,7 +2609,7 @@ require, Tablesort, Timers, ToProgress, unescape, verge, VK, Ya */
 
 	var load;
 	load = new loadJsCss(
-			[forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic"],
+			[forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic,latin-ext"],
 			onFontsLoadedCallback
 		);
 
