@@ -2003,7 +2003,6 @@ ToProgress, unescape, verge, VK, Ya*/
 
 		var showPageFinishProgress = function () {
 			if (container) {
-				setStyleOpacity(container, 1);
 				hideProgressBar();
 			}
 		};
@@ -2012,7 +2011,7 @@ ToProgress, unescape, verge, VK, Ya*/
 
 	var defineProperty = "defineProperty";
 
-	var scripts = [];
+	var scripts = ["../../libs/paper/css/bundle.min.css"];
 
 	if (!root.MutationObserver) {
 		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/mutation-observer@1.0.3/index.min.js");
@@ -2102,7 +2101,7 @@ ToProgress, unescape, verge, VK, Ya*/
 	};
 
 	var load;
-	load = new loadJsCss([forcedHTTP + "://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic,latin-ext", "../../libs/paper/css/bundle.min.css"], onFontsLoadedCallback);
+	load = new loadJsCss([forcedHTTP + "://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic,latin-ext"], onFontsLoadedCallback);
 
 	/*!
   * load scripts after webfonts loaded using webfontloader
