@@ -398,6 +398,7 @@ ToProgress, unescape, verge, VK, Ya*/
 
 	var createElement = "createElement";
 	var getElementById = "getElementById";
+	var _addEventListener = "addEventListener";
 	var _length = "length";
 
 	var progressBar = new ToProgress({
@@ -436,7 +437,6 @@ ToProgress, unescape, verge, VK, Ya*/
 		var remove = "remove";
 		var setAttribute = "setAttribute";
 		var title = "title";
-		var _addEventListener = "addEventListener";
 		var _removeEventListener = "removeEventListener";
 
 		if (docElem && docElem[classList]) {
@@ -2010,6 +2010,51 @@ ToProgress, unescape, verge, VK, Ya*/
 		showPageFinishProgress();
 	};
 
+	var defineProperty = "defineProperty";
+
+	var scripts = ["../../libs/paper/css/bundle.min.css"];
+
+	if (!root.MutationObserver) {
+		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/mutation-observer@1.0.3/index.min.js");
+	}
+
+	var supportsClassList = "classList" in document[createElement]("_") || "";
+
+	if (!supportsClassList) {
+		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.201711092/classList.min.js");
+	}
+
+	var supportsDataset = "undefined" !== typeof root.Element && "dataset" in docElem || "";
+
+	if (!supportsDataset) {
+		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/element-dataset@2.2.6/lib/browser/index.cjs.min.js");
+	}
+
+	var supportsPassive = function () {
+		var support = false;
+		try {
+			var opts = Object[defineProperty] && Object[defineProperty]({}, "passive", {
+				get: function () {
+					support = true;
+				}
+			});
+			root[_addEventListener]("test", function () {}, opts);
+		} catch (err) {}
+		return support;
+	}();
+
+	if (!supportsPassive) {
+		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/dom4@1.8.5/build/dom4.max.min.js");
+	}
+
+	if (!root.Promise) {
+		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/promise-polyfill@6.0.2/promise.min.js");
+	}
+
+	if (!root.fetch) {
+		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/fetch/2.0.1/fetch.min.js");
+	}
+
 	/* var scripts = ["../../cdn/verge/1.9.1/js/verge.fixed.min.js",
  	"../../cdn/iframe-lightbox/0.1.6/js/iframe-lightbox.fixed.min.js",
  	"../../cdn/Tocca.js/2.0.1/js/Tocca.fixed.min.js",
@@ -2018,7 +2063,7 @@ ToProgress, unescape, verge, VK, Ya*/
  	"../../cdn/js-cookie/2.1.3/js/js.cookie.fixed.min.js",
  	"../../cdn/kamil/0.1.1/js/kamil.fixed.min.js"]; */
 
-	var scripts = ["../../libs/paper/js/vendors.min.js"];
+	scripts.push("../../libs/paper/js/vendors.min.js");
 
 	/*!
   * load scripts after webfonts loaded using doesFontExist
