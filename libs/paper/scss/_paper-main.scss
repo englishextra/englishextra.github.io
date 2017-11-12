@@ -20,7 +20,7 @@ html {
 }
 
 body {
-	font-family: "Roboto", $font-family-webfont-sans-regular;
+	font-family: "Open Sans", $font-family-webfont-sans-regular;
 	font-weight: 400;
 	font-size: 1.000rem;
 	line-height: 1.500;
@@ -1204,7 +1204,7 @@ u,
  * msdn.microsoft.com/en-us/library/windows/apps/hh202920%28v=vs.105%29.aspx
  */
 
-@media only screen and (max-width: 480px) {
+/* @media only screen and (max-width: 480px) {
 	body {
 		font-family: $font-family-local-sans-regular;
 	}
@@ -1215,7 +1215,7 @@ u,
 	.col .phonetic {
 		font-family: $font-family-local-monospace;
 	}
-}
+} */
 
 /**
  * media queries

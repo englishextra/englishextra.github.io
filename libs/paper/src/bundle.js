@@ -614,58 +614,6 @@ require, Tablesort, Timers, ToProgress, unescape, verge, VK, Ya */
 	root.verge = verge;
 })("undefined" !== typeof window ? window : this);
 /*!
- * return image is loaded promise
- * @see {@link https://jsfiddle.net/englishextra/56pavv7d/}
- * @param {String|Object} s image path string or HTML DOM Image Object
- * var m = document.querySelector("img") || "";
- * var s = m.src || "";
- * imagePromise(m).then(function (r) {
- * alert(r);
- * }).catch (function (err) {
- * alert(err);
- * });
- * imagePromise(s).then(function (r) {
- * alert(r);
- * }).catch (function (err) {
- * alert(err);
- * });
- * @see {@link https://gist.github.com/englishextra/3e95d301d1d47fe6e26e3be198f0675e}
- * passes jshint
- */
-(function (root) {
-	"use strict";
-	var imagePromise = function (s) {
-		if (root.Promise) {
-			return new Promise(function (y, n) {
-				var f = function (e, p) {
-					e.onload = function () {
-						y(p);
-					};
-					e.onerror = function () {
-						n(p);
-					};
-					e.src = p;
-				};
-				if ("string" === typeof s) {
-					var a = new Image();
-					f(a, s);
-				} else {
-					if ("img" !== s.tagName) {
-						return Promise.reject();
-					} else {
-						if (s.src) {
-							f(s, s.src);
-						}
-					}
-				}
-			});
-		} else {
-			throw new Error("Promise is not in global object");
-		}
-	};
-	root.imagePromise = imagePromise;
-})("undefined" !== typeof window ? window : this);
-/*!
  * modified Simple lightbox effect in pure JS
  * @see {@link https://github.com/squeral/lightbox}
  * @see {@link https://github.com/squeral/lightbox/blob/master/lightbox.js}
@@ -811,6 +759,58 @@ require, Tablesort, Timers, ToProgress, unescape, verge, VK, Ya */
 	};
 	root.IframeLightbox = IframeLightbox;
 })("undefined" !== typeof window ? window : this, document);
+/*!
+ * return image is loaded promise
+ * @see {@link https://jsfiddle.net/englishextra/56pavv7d/}
+ * @param {String|Object} s image path string or HTML DOM Image Object
+ * var m = document.querySelector("img") || "";
+ * var s = m.src || "";
+ * imagePromise(m).then(function (r) {
+ * alert(r);
+ * }).catch (function (err) {
+ * alert(err);
+ * });
+ * imagePromise(s).then(function (r) {
+ * alert(r);
+ * }).catch (function (err) {
+ * alert(err);
+ * });
+ * @see {@link https://gist.github.com/englishextra/3e95d301d1d47fe6e26e3be198f0675e}
+ * passes jshint
+ */
+(function (root) {
+	"use strict";
+	var imagePromise = function (s) {
+		if (root.Promise) {
+			return new Promise(function (y, n) {
+				var f = function (e, p) {
+					e.onload = function () {
+						y(p);
+					};
+					e.onerror = function () {
+						n(p);
+					};
+					e.src = p;
+				};
+				if ("string" === typeof s) {
+					var a = new Image();
+					f(a, s);
+				} else {
+					if ("img" !== s.tagName) {
+						return Promise.reject();
+					} else {
+						if (s.src) {
+							f(s, s.src);
+						}
+					}
+				}
+			});
+		} else {
+			throw new Error("Promise is not in global object");
+		}
+	};
+	root.imagePromise = imagePromise;
+})("undefined" !== typeof window ? window : this);
 /*!
  * Timer management (setInterval / setTimeout)
  * @param {Function} fn
@@ -2594,7 +2594,7 @@ require, Tablesort, Timers, ToProgress, unescape, verge, VK, Ya */
 		};
 
 		var checkFontIsLoaded = function () {
-			if (doesFontExist("Roboto") && doesFontExist("Roboto Mono")) {
+			if (doesFontExist("Open Sans") && doesFontExist("Roboto Mono")) {
 				onFontsLoaded();
 			}
 		};
@@ -2609,7 +2609,7 @@ require, Tablesort, Timers, ToProgress, unescape, verge, VK, Ya */
 
 	var load;
 	load = new loadJsCss(
-			[forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic,latin-ext"],
+			[forcedHTTP + "://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic,latin-ext"],
 			onFontsLoadedCallback
 		);
 
@@ -2620,7 +2620,7 @@ require, Tablesort, Timers, ToProgress, unescape, verge, VK, Ya */
 	/* root.WebFontConfig = {
 		google: {
 			families: [
-				"Roboto:300,400,400i,700,700i:cyrillic",
+				"Open Sans:300,400,400i,700,700i:cyrillic",
 				"Roboto Mono:400,700:cyrillic,latin-ext"
 			]
 		},
