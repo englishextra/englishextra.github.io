@@ -2618,7 +2618,7 @@ require, Tablesort, Timers, ToProgress, unescape, verge, VK, Ya */
  	google: {
  		families: [
  			"Roboto:300,400,400i,700,700i:cyrillic",
- 			"Roboto Mono:400,700:cyrillic"
+ 			"Roboto Mono:400,700:cyrillic,latin-ext"
  		]
  	},
  	listeners: [],
