@@ -1,7 +1,7 @@
 /*jslint browser: true */
 /*jslint node: true */
 /*global ActiveXObject, Cookies, doesFontExist, IframeLightbox, imagePromise,
-Kamil, loadJS, loadJsCss, Promise, QRCode, require, Tablesort, Timers,
+Kamil, loadJsCss, Promise, QRCode, require, Tablesort, Timers,
 ToProgress, unescape, verge, VK, Ya*/
 /*property console, join, split */
 /*!
