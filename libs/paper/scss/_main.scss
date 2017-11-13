@@ -1,4 +1,4 @@
-/*! @import "paper-main"; */
+/*! @import "main"; */
 
 /**
  * main
@@ -225,12 +225,19 @@ u,
 }
 
 .container {
+	display: block;
+	visibility: visible;
+	opacity: 1;
 	width: 100%;
 	height: 100%;
-	/* opacity: 1;
-	transition: opacity 0.2s ease; */
+	transition: visibility 0s, opacity 0.2s ease;
 	padding: 0;
 	margin: 0 auto;
+}
+
+.container img,
+.container svg {
+	display: block;
 }
 
 .app-content {
@@ -1190,154 +1197,93 @@ u,
 	color: $color-hex-gray-text;
 }
 
-/**
- * retina
+/*!
+ * @see {@link https://gist.github.com/englishextra/40b7c4ffde33bfb58aff259afe229d6a}
  */
 
-@media only screen and (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-}
+/*------------------------------------------
+  Foundation Media Queries
+   http://foundation.zurb.com/docs/media-queries.html
+--------------------------------------------*/
 
-/**
- * font for mobile
- * iosfonts.com/
- * google.com/design/spec/style/typography.html#typography-language-categorization
- * msdn.microsoft.com/en-us/library/windows/apps/hh202920%28v=vs.105%29.aspx
- */
+/* Small screens - MOBILE */
 
-/* @media only screen and (max-width: 480px) {
-	body {
-		font-family: $font-family-local-sans-regular;
-	}
-
-	.panel-nav-menu li {
-		font-family: $font-family-local-sans-light;
-	}
-	.col .phonetic {
-		font-family: $font-family-local-monospace;
-	}
-} */
-
-/**
- * media queries
- */
-
-@media only screen and (max-width: 20em) {
+@media only screen {
 	html {
-		font-size: 85.7%;
+		font-size: 13px;
 	}
 }
 
-@media only screen and (min-width: 20.063em) {
+/* Define mobile styles - Mobile First */
+
+@media only screen and (max-width: 40em) {
 	html {
-		font-size: 92.2%;
+		font-size: 13px;
 	}
 }
 
-@media only screen and (min-width: 20.063em) and (max-width: 30em) {
-	html {
-		font-size: 92.2%;
-	}
-}
+/* max-width 640px, mobile-only styles, use when QAing mobile issues */
 
-@media only screen and (min-width: 30.063em) {
-	html {
-		font-size: 107.1%;
-	}
-}
-
-@media only screen and (min-width: 30.063em) and (max-width: 40em) {
-	html {
-		font-size: 107.1%;
-	}
-}
+/* Medium screens - TABLET */
 
 @media only screen and (min-width: 40.063em) {
 	html {
-		font-size: 121.4%;
+		font-size: 13px;
 	}
 }
 
-@media only screen and (min-width: 40.063em) and (max-width: 50em) {
+/* min-width 641px, medium screens */
+
+@media only screen and (min-width: 40.063em) and (max-width: 64em) {
 	html {
-		font-size: 121.4%;
+		font-size: 16px;
 	}
 }
 
-@media only screen and (min-width: 50.063em) {
-	html {
-		font-size: 92.2%;
-	}
-}
+/* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
 
-@media only screen and (min-width: 50.063em) and (max-width: 60em) {
-	html {
-		font-size: 92.2%;
-	}
-}
-
-@media only screen and (min-width: 60.063em) {
-	html {
-		font-size: 92.2%;
-	}
-}
-
-@media only screen and (min-width: 60.063em) and (max-width: 64em) {
-	html {
-		font-size: 92.2%;
-	}
-}
+/* Large screens - DESKTOP */
 
 @media only screen and (min-width: 64.063em) {
 	html {
-		font-size: 100%;
+		font-size: 16px;
 	}
 }
 
-@media only screen and (min-width: 64.063em) and (max-width: 74em) {
+/* min-width 1025px, large screens */
+
+@media only screen and (min-width: 64.063em) and (max-width: 90em) {
 	html {
-		font-size: 100%;
+		font-size: 16px;
 	}
 }
 
-@media only screen and (min-width: 74.063em) {
-	html {
-		font-size: 100%;
-	}
-}
+/* min-width 1024px and max-width 1440px, use when QAing large screen-only issues */
 
-@media only screen and (min-width: 74.063em) and (max-width: 80em) {
-	html {
-		font-size: 100%;
-	}
-}
-
-@media only screen and (min-width: 80.063em) {
-	html {
-		font-size: 100%;
-	}
-}
-
-@media only screen and (min-width: 80.063em) and (max-width: 90em) {
-	html {
-		font-size: 100%;
-	}
-}
+/* XLarge screens */
 
 @media only screen and (min-width: 90.063em) {
 	html {
-		font-size: 107.1%;
+		font-size: 16px;
 	}
 }
+
+/* min-width 1441px, xlarge screens */
 
 @media only screen and (min-width: 90.063em) and (max-width: 120em) {
 	html {
-		font-size: 107.1%;
+		font-size: 19px;
 	}
 }
+
+/* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */
+
+/* XXLarge screens */
 
 @media only screen and (min-width: 120.063em) {
 	html {
-		font-size: 114.3%;
+		font-size: 19px;
 	}
 }
 
+/* min-width 1921px, xlarge screens */

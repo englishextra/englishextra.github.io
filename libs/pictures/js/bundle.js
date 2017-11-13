@@ -1761,8 +1761,8 @@ var manageVKLikeButton = function () {
 	var dataset = "dataset";
 	var _addEventListener = "addEventListener";
 	var _removeEventListener = "removeEventListener";
-	var VKLikeId = "vk-like";
-	var vkLike = d[getElementById](VKLikeId) || "";
+	var vkLikeId = "vk-like";
+	var vkLike = d[getElementById](vkLikeId) || "";
 	var btn = d[getElementsByClassName]("btn-show-vk-like")[0] || "";
 	var handleVKLikeButton = function (ev) {
 		ev.stopPropagation();
@@ -1779,7 +1779,7 @@ var manageVKLikeButton = function () {
 						nameTransportPath: "/xd_receiver.htm",
 						onlyWidgets: true
 					});
-					VK.Widgets.Like(VKLikeId, {
+					VK.Widgets.Like(vkLikeId, {
 						type: "button",
 						height: 24
 					});
