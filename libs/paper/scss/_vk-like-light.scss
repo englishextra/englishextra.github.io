@@ -6,6 +6,8 @@
 
 .holder-vk-like {
 	display: inline-block;
+	visibility: hidden;
+	opacity: 0;
 	height: 3.000rem;
 	position: absolute;
 	top: 0;
@@ -13,7 +15,13 @@
 	line-height: 0;
 	background-color: $color-hex-vk-like-bg;
 	box-shadow: 0.125rem 0.125rem 0.125rem 0 $color-rgba-ui-bar-shadow;
+	transition: visibility 0s, opacity 0.2s ease;
 	z-index: 1;
+}
+
+.holder-vk-like.is-active {
+	visibility: visible;
+	opacity: 1;
 }
 
 .vk-like {

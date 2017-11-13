@@ -36,21 +36,37 @@
  */
 
 .ya-share2 {
-	position: fixed /* !important */;
-	right: 3.000rem;
-	bottom: 0;
+	display: inline-block;
 	visibility: hidden;
 	opacity: 0;
+	height: 3.000rem;
+	position: fixed;
+	bottom: 0;
+	right: 3.000rem;
+	box-shadow: 0.125rem 0.125rem 0.125rem 0 $color-rgba-ui-bar-shadow;
 	transition: visibility 0s, opacity 0.2s ease;
 }
 
+.ya-share2.is-active {
+	visibility: visible;
+	opacity: 1;
+}
+
 .pluso {
-	position: fixed /* !important */;
-	right: 0;
-	bottom: 0;
+	display: inline-block;
 	visibility: hidden;
 	opacity: 0;
+	height: 3.000rem;
+	position: fixed;
+	bottom: 0;
+	right: 3.000rem;
+	box-shadow: 0.125rem 0.125rem 0.125rem 0 $color-rgba-ui-bar-shadow;
 	transition: visibility 0s, opacity 0.2s ease;
+}
+
+.pluso.is-active {
+	visibility: visible;
+	opacity: 1;
 }
 
 .btn-share-buttons {

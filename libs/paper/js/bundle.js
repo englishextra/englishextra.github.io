@@ -682,18 +682,18 @@ ToProgress, unescape, verge, VK, Ya*/
 			}
 		};
 
-		var setStyleOpacity = function (a, n) {
-			n = n || 1;
-			if (a) {
-				a.style.opacity = n;
-			}
-		};
+		/* var setStyleOpacity = function (a, n) {
+  	n = n || 1;
+  	if (a) {
+  		a.style.opacity = n;
+  	}
+  }; */
 
-		var setStyleVisibilityVisible = function (a) {
-			if (a) {
-				a.style.visibility = "visible";
-			}
-		};
+		/* var setStyleVisibilityVisible = function (a) {
+  	if (a) {
+  		a.style.visibility = "visible";
+  	}
+  }; */
 
 		var isValidId = function (a, full) {
 			return full ? /^\#[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? !0 : !1 : /^[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? !0 : !1;
@@ -1035,29 +1035,34 @@ ToProgress, unescape, verge, VK, Ya*/
 			var tableSortClass = "table-sort";
 			var tableSort = ctx ? ctx[getElementsByClassName](tableSortClass) || "" : document[getElementsByClassName](tableSortClass) || "";
 			var initScript = function () {
-				var arrange = function (e) {
-					var tableId = e.id || "";
-					if (tableId && root.Tablesort) {
-						var table = document[getElementById](tableId) || "";
-						var caption = table ? table[getElementsByTagName]("caption")[0] || "" : "";
-						if (!caption) {
-							var tableCaption = document[createElement]("caption");
-							prependFragmentBefore(tableCaption, table.firstChild);
-							caption = table.firstChild;
+				if (root.Tablesort) {
+					var arrange = function (e) {
+						var tableId = e.id || "";
+						if (tableId) {
+							var table = document[getElementById](tableId) || "";
+							var caption = table ? table[getElementsByTagName]("caption")[0] || "" : "";
+							if (!caption) {
+								var tableCaption = document[createElement]("caption");
+								prependFragmentBefore(tableCaption, table.firstChild);
+								caption = table.firstChild;
+							}
+							appendFragment("Сортируемая таблица", caption);
+							var tblsort;
+							tblsort = new Tablesort(table);
 						}
-						appendFragment("Сортируемая таблица", caption);
-						var tblsort;
-						tblsort = new Tablesort(table);
+					};
+					for (var i = 0, l = tableSort.length; i < l; i += 1) {
+						arrange(tableSort[i]);
 					}
-				};
-				for (var i = 0, l = tableSort.length; i < l; i += 1) {
-					arrange(tableSort[i]);
 				}
 			};
 			if (tableSort) {
 				/* var jsUrl = "../../cdn/tablesort/4.0.1/js/tablesort.fixed.min.js";
     if (!scriptIsLoaded(jsUrl)) {
-    	loadJsCss([jsUrl], initScript);
+    	var load;
+    	load = new loadJsCss([jsUrl], initScript);
+    } else {
+    	initScript();
     } */
 				initScript();
 			}
@@ -1402,52 +1407,59 @@ ToProgress, unescape, verge, VK, Ya*/
 		};
 		manageExpandingLayers();
 
+		var qcode;
 		var manageLocationQrCodeImage = function () {
 			var holder = document[getElementsByClassName]("holder-location-qr-code")[0] || "";
 			var locationHref = root.location.href || "";
 			var initScript = function () {
-				var locationHref = root.location.href || "";
-				var img = document[createElement]("img");
-				var imgTitle = document.title ? "Ссылка на страницу «" + document.title.replace(/\[[^\]]*?\]/g, "").trim() + "»" : "";
-				var imgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
-				img.alt = imgTitle;
-				if (root.QRCode) {
-					if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
-						imgSrc = QRCode.generateSVG(locationHref, {
-							ecclevel: "M",
-							fillcolor: "#FFFFFF",
-							textcolor: "#191919",
-							margin: 4,
-							modulesize: 8
-						});
-						var XMLS = new XMLSerializer();
-						imgSrc = XMLS.serializeToString(imgSrc);
-						imgSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(imgSrc)));
-						img.src = imgSrc;
+				if (!qcode) {
+					qcode = true;
+					var locationHref = root.location.href || "";
+					var img = document[createElement]("img");
+					var imgTitle = document.title ? "Ссылка на страницу «" + document.title.replace(/\[[^\]]*?\]/g, "").trim() + "»" : "";
+					var imgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
+					img.alt = imgTitle;
+					if (root.QRCode) {
+						if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
+							imgSrc = QRCode.generateSVG(locationHref, {
+								ecclevel: "M",
+								fillcolor: "#FFFFFF",
+								textcolor: "#191919",
+								margin: 4,
+								modulesize: 8
+							});
+							var XMLS = new XMLSerializer();
+							imgSrc = XMLS.serializeToString(imgSrc);
+							imgSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(imgSrc)));
+							img.src = imgSrc;
+						} else {
+							imgSrc = QRCode.generatePNG(locationHref, {
+								ecclevel: "M",
+								format: "html",
+								fillcolor: "#FFFFFF",
+								textcolor: "#191919",
+								margin: 4,
+								modulesize: 8
+							});
+							img.src = imgSrc;
+						}
 					} else {
-						imgSrc = QRCode.generatePNG(locationHref, {
-							ecclevel: "M",
-							format: "html",
-							fillcolor: "#FFFFFF",
-							textcolor: "#191919",
-							margin: 4,
-							modulesize: 8
-						});
 						img.src = imgSrc;
 					}
-				} else {
-					img.src = imgSrc;
+					img[classList].add("qr-code-img");
+					img.title = imgTitle;
+					removeChildren(holder);
+					appendFragment(img, holder);
 				}
-				img[classList].add("qr-code-img");
-				img.title = imgTitle;
-				removeChildren(holder);
-				appendFragment(img, holder);
 			};
 			if (holder && locationHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					/* var jsUrl = "../../cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js";
      if (!scriptIsLoaded(jsUrl)) {
-     	loadJsCss([jsUrl], initScript);
+     	var load;
+     	load = new loadJsCss([jsUrl], initScript);
+     } else {
+     	initScript();
      } */
 					initScript();
 				}
@@ -1643,83 +1655,70 @@ ToProgress, unescape, verge, VK, Ya*/
 		};
 		initMenuMore();
 
-		var initUiTotop = function () {
-			var btnClass = "ui-totop";
-			var btnTitle = "Наверх";
+		var hideOtherIsSocial = function (thisObj) {
+			var _thisObj = thisObj || this;
 			var isActiveClass = "is-active";
-			var anchor = document[createElement]("a");
-			var handleUiTotopAnchor = function (ev) {
-				ev.stopPropagation();
-				ev.preventDefault();
-				scroll2Top(0, 20000);
-			};
-			var handleUiTotopWindow = function (_this) {
-				var logicHandleUiTotopWindow = function () {
-					var btn = document[getElementsByClassName](btnClass)[0] || "";
-					var scrollPosition = _this.pageYOffset || docElem.scrollTop || docBody.scrollTop || "";
-					var windowHeight = _this.innerHeight || docElem.clientHeight || docBody.clientHeight || "";
-					if (scrollPosition && windowHeight && btn) {
-						if (scrollPosition > windowHeight) {
-							btn[classList].add(isActiveClass);
-						} else {
-							btn[classList].remove(isActiveClass);
-						}
+			var isSocialAll = document[getElementsByClassName]("is-social") || "";
+			if (isSocialAll) {
+				var k, n;
+				for (k = 0, n = isSocialAll[_length]; k < n; k += 1) {
+					if (_thisObj !== isSocialAll[k]) {
+						isSocialAll[k][classList].remove(isActiveClass);
 					}
-				};
-				var throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
-				throttleLogicHandleUiTotopWindow();
-			};
-			anchor[classList].add(btnClass);
-			/* jshint -W107 */
-			anchor.href = "javascript:void(0);";
-			/* jshint +W107 */
-			anchor.title = btnTitle;
-			docBody[appendChild](anchor);
-			if (docBody) {
-				anchor[_addEventListener]("click", handleUiTotopAnchor);
-				root[_addEventListener]("scroll", handleUiTotopWindow, {
-					passive: true
-				});
+				}
+				k = n = null;
 			}
 		};
-		initUiTotop();
+
+		root[_addEventListener]("click", hideOtherIsSocial);
 
 		var yshare;
 		var manageShareButton = function () {
 			var btn = document[getElementsByClassName]("btn-share-buttons")[0] || "";
 			var yaShare2Id = "ya-share2";
 			var yaShare2 = document[getElementById](yaShare2Id) || "";
+			var locationHref = root.location || "";
+			var documentTitle = document[title] || "";
+			var isActiveClass = "is-active";
 			var handleShareButton = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				var initScript = function () {
-					if (root.Ya) {
-						try {
-							if (yshare) {
-								yshare.updateContent({
-									title: document.title || "",
-									description: document.title || "",
-									url: root.location.href || ""
-								});
-							} else {
-								yshare = Ya.share2(yaShare2Id, {
-									content: {
-										title: document.title || "",
-										description: document.title || "",
-										url: root.location.href || ""
-									}
-								});
+				var logic = function () {
+					yaShare2[classList].toggle(isActiveClass);
+					hideOtherIsSocial(yaShare2);
+					var initScript = function () {
+						if (root.Ya) {
+							try {
+								if (yshare) {
+									yshare.updateContent({
+										title: documentTitle,
+										description: documentTitle,
+										url: locationHref
+									});
+								} else {
+									yshare = Ya.share2(yaShare2Id, {
+										content: {
+											title: documentTitle,
+											description: documentTitle,
+											url: locationHref
+										}
+									});
+								}
+							} catch (err) {
+								/* console.log("cannot update or init Ya", err); */
 							}
-							setStyleVisibilityVisible(yaShare2);
-							setStyleOpacity(yaShare2, 1);
-							setStyleDisplayNone(btn);
-						} catch (err) {}
+						}
+					};
+					var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
+					if (!scriptIsLoaded(jsUrl)) {
+						var load;
+						load = new loadJsCss([jsUrl], initScript);
+					} else {
+						initScript();
 					}
 				};
-				var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
-				if (!scriptIsLoaded(jsUrl)) {
-					loadJsCss([jsUrl], initScript);
-				}
+				var debounceLogic = debounce(logic, 200);
+				debounceLogic();
 			};
 			if (btn && yaShare2) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
@@ -1730,6 +1729,60 @@ ToProgress, unescape, verge, VK, Ya*/
 			}
 		};
 		manageShareButton();
+
+		var vlike;
+		var manageVKLikeButton = function () {
+			var vkLikeId = "vk-like";
+			var vkLike = document[getElementById](vkLikeId) || "";
+			var holderVkLike = document[getElementsByClassName]("holder-vk-like")[0] || "";
+			var btn = document[getElementsByClassName]("btn-show-vk-like")[0] || "";
+			var isActiveClass = "is-active";
+			var handleVKLikeButton = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var logic = function () {
+					holderVkLike[classList].toggle(isActiveClass);
+					hideOtherIsSocial(holderVkLike);
+					var initScript = function () {
+						if (root.VK) {
+							if (!vlike) {
+								try {
+									VK.init({
+										apiId: vkLike[dataset].apiid || "",
+										nameTransportPath: "/xd_receiver.htm",
+										onlyWidgets: true
+									});
+									VK.Widgets.Like(vkLikeId, {
+										type: "button",
+										height: 24
+									});
+									vlike = true;
+								} catch (err) {
+									/* console.log("cannot init VK", err); */
+								}
+							}
+						}
+					};
+					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?147";
+					if (!scriptIsLoaded(jsUrl)) {
+						var load;
+						load = new loadJsCss([jsUrl], initScript);
+					} else {
+						initScript();
+					}
+				};
+				var debounceLogic = debounce(logic, 200);
+				debounceLogic();
+			};
+			if (btn && vkLike) {
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					btn[_addEventListener]("click", handleVKLikeButton);
+				} else {
+					setStyleDisplayNone(btn);
+				}
+			}
+		};
+		manageVKLikeButton();
 
 		var initDownloadAppBtn = function () {
 			var navigatorUserAgent = navigator.userAgent || "";
@@ -1799,6 +1852,7 @@ ToProgress, unescape, verge, VK, Ya*/
 		};
 		initDownloadAppBtn();
 
+		var disqs;
 		var initDisqusOnScroll = function () {
 			var disqusThread = document[getElementById]("disqus_thread") || "";
 			var btn = document[getElementsByClassName]("btn-show-disqus")[0] || "";
@@ -1807,14 +1861,18 @@ ToProgress, unescape, verge, VK, Ya*/
 			var isActiveClass = "is-active";
 			var jsUrl = forcedHTTP + "://" + disqusThreadShortname + ".disqus.com/embed.js";
 			var loadDisqus = function () {
-				LoadingSpinner.show();
 				var initScript = function () {
-					setStyleDisplayNone(btn);
-					disqusThread[classList].add(isActiveClass);
-					LoadingSpinner.hide();
+					if (!disqs) {
+						disqs = true;
+						setStyleDisplayNone(btn);
+						disqusThread[classList].add(isActiveClass);
+					}
 				};
 				if (!scriptIsLoaded(jsUrl)) {
-					loadJsCss([jsUrl], initScript);
+					var load;
+					load = new loadJsCss([jsUrl], initScript);
+				} else {
+					initScript();
 				}
 			};
 			var addHandler = function () {
@@ -1840,47 +1898,7 @@ ToProgress, unescape, verge, VK, Ya*/
 		};
 		initDisqusOnScroll();
 
-		var manageVKLikeButton = function () {
-			var VKLikeId = "vk-like";
-			var vkLike = document[getElementById](VKLikeId) || "";
-			var btn = document[getElementsByClassName]("btn-show-vk-like")[0] || "";
-			var handleVKLikeButton = function (ev) {
-				ev.stopPropagation();
-				ev.preventDefault();
-				btn[_removeEventListener]("click", handleVKLikeButton);
-				setStyleVisibilityVisible(vkLike);
-				setStyleOpacity(vkLike, 1);
-				setStyleDisplayNone(btn);
-				var initScript = function () {
-					if (root.VK) {
-						try {
-							VK.init({
-								apiId: vkLike[dataset].apiid || "",
-								nameTransportPath: "/xd_receiver.htm",
-								onlyWidgets: true
-							});
-							VK.Widgets.Like(VKLikeId, {
-								type: "button",
-								height: 24
-							});
-						} catch (err) {}
-					}
-				};
-				var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?122";
-				if (!scriptIsLoaded(jsUrl)) {
-					loadJsCss([jsUrl], initScript);
-				}
-			};
-			if (btn && vkLike) {
-				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					btn[_addEventListener]("click", handleVKLikeButton);
-				} else {
-					setStyleDisplayNone(btn);
-				}
-			}
-		};
-		manageVKLikeButton();
-
+		var kaml;
 		var initKamilAutocomplete = function () {
 			var searchForm = document[getElementsByClassName]("search-form")[0] || "";
 			var textInputSelector = "#text";
@@ -1989,17 +2007,64 @@ ToProgress, unescape, verge, VK, Ya*/
 				});
 			};
 			var initScript = function () {
-				loadUnparsedJSON(jsonUrl, processJsonResponse);
+				if (!kaml) {
+					kaml = true;
+					loadUnparsedJSON(jsonUrl, processJsonResponse);
+				}
 			};
 			if (searchForm && textInput) {
 				/* var jsUrl = "../../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
     if (!scriptIsLoaded(jsUrl)) {
-    	loadJsCss([jsUrl], initScript);
+    	var load;
+    	load = new loadJsCss([jsUrl], initScript);
+    } else {
+    	initScript();
     } */
 				initScript();
 			}
 		};
 		initKamilAutocomplete();
+
+		var initUiTotop = function () {
+			var btnClass = "ui-totop";
+			var btnTitle = "Наверх";
+			var isActiveClass = "is-active";
+			var anchor = document[createElement]("a");
+			var handleUiTotopAnchor = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				scroll2Top(0, 20000);
+			};
+			var handleUiTotopWindow = function (_this) {
+				var logicHandleUiTotopWindow = function () {
+					var btn = document[getElementsByClassName](btnClass)[0] || "";
+					var scrollPosition = _this.pageYOffset || docElem.scrollTop || docBody.scrollTop || "";
+					var windowHeight = _this.innerHeight || docElem.clientHeight || docBody.clientHeight || "";
+					if (scrollPosition && windowHeight && btn) {
+						if (scrollPosition > windowHeight) {
+							btn[classList].add(isActiveClass);
+						} else {
+							btn[classList].remove(isActiveClass);
+						}
+					}
+				};
+				var throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
+				throttleLogicHandleUiTotopWindow();
+			};
+			anchor[classList].add(btnClass);
+			/* jshint -W107 */
+			anchor.href = "javascript:void(0);";
+			/* jshint +W107 */
+			anchor.title = btnTitle;
+			docBody[appendChild](anchor);
+			if (docBody) {
+				anchor[_addEventListener]("click", handleUiTotopAnchor);
+				root[_addEventListener]("scroll", handleUiTotopWindow, {
+					passive: true
+				});
+			}
+		};
+		initUiTotop();
 
 		var showPageFinishProgress = function () {
 			if (container) {
