@@ -15,20 +15,20 @@
 	position : fixed;
 	bottom : 0;
 	left: 0;
-	font-size: 0.875rem;
-	line-height: 1.250rem;
+	font-size: 0.933rem;
+	line-height: 1.333rem;
 	text-align : center;
 	word-break : keep-all;
 	color : $color-rgba-notifier42-text;
 	background-color: $color-rgba-notifier42-bg;
-	box-shadow: 0.125rem 0.125rem 0.125rem 0 $color-rgba-ui-bar-shadow;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
 	padding: 0;
 	margin: 0 auto;
 }
 
 .notifier42.animated {
-	padding: 0.875rem 3.000rem;
-	min-height: 3.000rem;
+	padding: 0.933rem 3.200rem;
+	min-height: 3.200rem;
 }
 
 .notifier42.notice {

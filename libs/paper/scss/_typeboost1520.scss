@@ -1,15 +1,15 @@
-/*! @import "typeboost-css"; */
+/*! @import "typeboost1520"; */
 
 /*!
- * typeboost.css v0.1.8
- * @see {@link https://github.com/englishextra/typeboost.css}
- * set html font to 16px, and body to 1.000rem
+ * typeboost-uwp.css v0.1.8
+ * @see {@link https://github.com/englishextra/typeboost-uwp.css}
+ * set html font to 15px, and body to 1.000rem
  * line height should be the closest multiple of 4
  */
 
 html {
-	font-size: 16px;
-	line-height: 24px;
+	font-size: 15px;
+	line-height: 20px;
 }
 
 body {
@@ -149,7 +149,7 @@ body {
 
 .col address,
 .col p.address {
-	font-size: 0.933rem;
+	font-size: 0.867rem;
 	line-height: 1.333rem;
 	margin-right: 0;
 }
@@ -159,20 +159,20 @@ body {
 }
 
 .col h1 {
-	font-size: 2.438rem;
+	font-size: 2.400rem;
 	line-height: 3.200rem;
 	padding: 0;
 }
 
 .col h2 {
-	font-size: 1.563rem;
-	line-height: 2.000rem;
+	font-size: 1.600rem;
+	line-height: 2.133rem;
 	padding: 0;
 }
 
 .col h3 {
-	font-size: 1.333rem;
-	line-height: 1.333rem;
+	font-size: 1.267rem;
+	line-height: 1.600rem;
 	padding: 0;
 }
 
@@ -203,14 +203,14 @@ body {
 .col table th,
 .col pre,
 .col pre code {
-	font-size: 0.933rem;
+	font-size: 0.867rem;
 	line-height: 1.333rem;
 }
 
 .col p.larger,
 .col blockquote {
-	font-size: 1.200rem;
-	line-height: 1.867rem;
+	font-size: 1.133rem;
+	line-height: 1.600rem;
 }
 
 .col p,
@@ -244,7 +244,7 @@ body {
 	-moz-tab-size: 4;
 	-o-tab-size: 4;
 	tab-size: 4;
-	padding: 1.000rem 1.333rem;
+	padding: 1.067rem 1.333rem;
 }
 
 .col pre code {
@@ -271,7 +271,7 @@ body {
 
 .col table td,
 .col table th {
-	padding: 0.438rem 0.800rem 0.438rem 0.800rem;
+	padding: 0.500rem 0.800rem 0.467rem 0.800rem;
 	vertical-align: top;
 }
 
@@ -297,7 +297,7 @@ body {
 .col input[type^="datetime-local"],
 .col select,
 .col textarea {
-	font-size: 0.933rem;
+	font-size: 0.867rem;
 	line-height: 1.333rem;
 	box-sizing: border-box;
 	vertical-align: baseline;
@@ -308,12 +308,12 @@ body {
 }
 
 .col select {
-	padding: 0 0 0 0.333rem;
+	padding: 0 0 0 0.267rem;
 }
 
 .col optgroup {
-	margin: 0.333rem;
-	padding-left: 0.333rem;
+	margin: 0.267rem;
+	padding-left: 0.267rem;
 }
 
 .col input[type="color"] {
@@ -346,7 +346,7 @@ body {
 .col input[type="button"],
 .col input[type="reset"],
 .col input[type="submit"] {
-	font-size: 0.933rem;
+	font-size: 0.867rem;
 	line-height: 1.333rem;
 	box-sizing: border-box;
 	vertical-align: baseline;
@@ -359,7 +359,7 @@ body {
 
 .col label {
 	display: block;
-	margin-bottom: 0.333rem;
+	margin-bottom: 0.267rem;
 }
 
 .col textarea {
@@ -393,7 +393,7 @@ body {
 }
 
 .col ul {
-	padding-left: 2.500rem;
+	padding-left: 2.667rem;
 }
 
 .col td ul {
@@ -731,7 +731,7 @@ body {
 .col table + p,
 .col ul + p,
 .col details + p {
-	margin-bottom: 1.000rem;
+	margin-bottom: 1.067rem;
 }
 
 .col .textleft {
@@ -759,7 +759,7 @@ body {
 .col .hr {
 	height: 0.067rem;
 	padding: 0;
-	margin: 1.333rem 0 1.438rem 0;
+	margin: 1.333rem 0 1.267rem 0;
 }
 
 /**

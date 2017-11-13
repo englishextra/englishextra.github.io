@@ -10,8 +10,8 @@ body {
 }
 
 html {
-	font-size: 16px;
-	line-height: 24px;
+	font-size: 15px;
+	line-height: 20px;
 	/**
 	 * set the parent to background transparent
 	 * and position relative to parent, absolute for child
@@ -20,10 +20,10 @@ html {
 }
 
 body {
-	font-family: "Open Sans", $font-family-webfont-sans-regular;
+	font-family: "Roboto", $font-family-webfont-sans-regular;
 	font-weight: 400;
 	font-size: 1.000rem;
-	line-height: 1.500;
+	line-height: 1.333rem;
 	width: 100%;
 	color: $color-hex-body-text;
 	background-color: $color-hex-page-bg;
@@ -163,8 +163,8 @@ u,
 
 .grid:last-child,
 .grid-narrow:last-child {
-	/* margin-bottom: 1.500rem; */
-	padding-bottom: 1.500rem;
+	/* margin-bottom: 1.333rem; */
+	padding-bottom: 1.333rem;
 }
 
 .grid .col .content h1,
@@ -180,7 +180,7 @@ u,
 
 .grid .col .content h2.btn-expand-hidden-layer:first-child,
 .grid-narrow .col .content h2.btn-expand-hidden-layer:first-child {
-	margin-top: 1.500rem;
+	margin-top: 1.333rem;
 }
 
 .grid .col .footer p,
@@ -201,7 +201,7 @@ u,
 	min-height: 100%;
 	position: relative;
 	top: 0;
-	/* left: 17.000rem; */
+	/* left: 18.133rem; */
 	left: 0;
 	background-color: $color-hex-page-bg;
 	transition: left 0.2s linear;
@@ -214,13 +214,13 @@ u,
 
 .page.is-active {
 	position: relative;
-	left: 17.000rem;
+	left: 18.133rem;
 }
 
 .panel-nav-top {
 	display: block;
 	width: 100%;
-	height: 3.000rem;
+	height: 3.200rem;
 	background-color: $color-hex-ui-bar-bg;
 }
 
@@ -270,15 +270,15 @@ u,
 
 .panel-nav-menu {
 	display: block;
-	width: 17.000rem;
+	width: 18.133rem;
 	height: 100%;
 	position: fixed;
 	top: 0;
-	/* left: 17.000rem; */
+	/* left: 18.133rem; */
 	left: 0;
 	bottom: 0;
-	font-size: 0.875em;
-	line-height: 3.000rem;
+	font-size: 0.867rem;
+	line-height: 3.200rem;
 	list-style: none;
 	overflow-y: auto;
 	-webkit-overflow-scrolling: touch;
@@ -286,7 +286,7 @@ u,
 	transition: left 0.2s linear;
 	padding: 0;
 	margin: 0;
-	margin-left: -17.000rem;
+	margin-left: -18.133rem;
 }
 
 /* .js .panel-nav-menu {
@@ -309,12 +309,12 @@ u,
 	text-decoration: none;
 	white-space: normal;
 	white-space: nowrap;
-	font-size: 0.875rem;
+	font-size: 0.867rem;
 	color: #FFFFFF;
 	border: none;
 	transition: background-color 0.2s ease;
-	padding-right: 1.250rem;
-	padding-left: 1.250rem;
+	padding-right: 1.333rem;
+	padding-left: 1.333rem;
 }
 
 .panel-nav-menu li a:hover {
@@ -333,11 +333,11 @@ u,
 
 .btn-nav-menu {
 	display: inline-block;
-	width: 3.000rem;
-	height: 3.000rem;
+	width: 3.200rem;
+	height: 3.200rem;
 	position: fixed;
 	top: 0;
-	/* left: 17.000rem; */
+	/* left: 18.133rem; */
 	left: 0;
 	color: $color-hex-gray-text;
 	transition: left 0.2s linear, background-color 0.2s ease;
@@ -369,8 +369,8 @@ u,
 .btn-nav-menu:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e914";
-	font-size: 1.250rem;
-	line-height: 3.000rem;
+	font-size: 1.333rem;
+	line-height: 3.200rem;
 }
 
 .page.is-active .btn-nav-menu:before {
@@ -379,8 +379,8 @@ u,
 }
 
 .page.is-active .panel-nav-menu {
-	left: 17.000rem;
-	width: 17.000rem;
+	left: 18.133rem;
+	width: 18.133rem;
 }
 
 .page.is-active .btn-nav-menu {
@@ -388,9 +388,9 @@ u,
 	 * position absolute
 	 * left: 0;
 	 * position fixed
-	 * left: 17.000rem;
+	 * left: 18.133rem;
 	 */
-	left: 17.000rem;
+	left: 18.133rem;
 }
 
 /*! @import "menu-more-light"; */
@@ -401,11 +401,11 @@ u,
 
 .btn-menu-more {
 	display: inline-block;
-	width: 3.000rem;
-	height: 3.000rem;
+	width: 3.200rem;
+	height: 3.200rem;
 	position: absolute;
 	top: 0;
-	left: 3.000rem;
+	left: 3.200rem;
 	color: $color-hex-gray-text;
 	text-decoration: none;
 	transition: background-color 0.2s ease;
@@ -430,20 +430,20 @@ u,
 .btn-menu-more:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e915";
-	font-size: 1.250rem;
-	line-height: 3.000rem;
+	font-size: 1.333rem;
+	line-height: 3.200rem;
 }
 
 .holder-panel-menu-more {
 	display: block;
 	visibility: hidden;
 	position: absolute;
-	top: 3.000rem;
-	left: 3.000rem;
+	top: 3.200rem;
+	left: 3.200rem;
 	color: $color-hex-body-text;
 	background-color: $LeftNavBarLight;
-	border: 0.063rem solid $AccentColor;
-	box-shadow: 0.125rem 0.125rem 0.125rem 0 $color-rgba-ui-bar-shadow;
+	border: 0.067rem solid $AccentColor;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
 	opacity: 0;
 	transition: visibility 0s, opacity 0.2s ease;
 }
@@ -455,10 +455,10 @@ u,
 
 .panel-menu-more {
 	display: block;
-	width: 17.000rem;
+	width: 18.133rem;
 	height: 100%;
-	font-size: 0.875em;
-	line-height: 3.000rem;
+	font-size: 0.867rem;
+	line-height: 3.200rem;
 	list-style-type: none;
 	padding: 0;
 	margin: 0;
@@ -472,8 +472,8 @@ u,
 	transition: background-color 0.2s ease;
 	overflow-x: hidden;
 	white-space: nowrap;
-	padding-right: 1.250rem;
-	padding-left: 1.250rem;
+	padding-right: 1.333rem;
+	padding-left: 1.333rem;
 }
 
 .panel-menu-more li a:hover {
@@ -494,32 +494,32 @@ u,
 .holder-search-form {
 	display: inline-block;
 	position: fixed;
-	top: 0.375rem;
-	right: 0.375rem;
+	top: 0.400rem;
+	right: 0.400rem;
 }
 
 .holder-search-form input[type^=text],
 .holder-search-form input[type^=search] {
 	width: 9.000rem;
 	font-family: inherit;
-	font-size: 0.875rem;
-	line-height: 1.125rem;
+	font-size: 0.867rem;
+	line-height: 1.200rem;
 	color: inherit;
 	border-color: transparent;
 	border-style: solid;
-	border-width: 0.063rem;
+	border-width: 0.067rem;
 	transition: width 0.2s linear;
     transition-delay: 0.2s;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
-	padding: 0.500rem 2.250rem 0.500rem 0.500rem;
+	padding: 0.533rem 2.400rem 0.533rem 0.533rem;
 }
 
 .holder-search-form input[type^=text]:focus,
 .holder-search-form input[type^=text]:active,
 .holder-search-form input[type^=search]:focus,
 .holder-search-form input[type^=search]:active {
-	width: 17.000rem;
+	width: 18.133rem;
 	background-color: $color-hex-hover-ui-icon-bg;
 	border-color: transparent;
 	-webkit-tap-highlight-color: transparent;
@@ -531,51 +531,52 @@ u,
 	.holder-search-form input[type^=text]:active,
 	.holder-search-form input[type^=search]:focus,
 	.holder-search-form input[type^=search]:active {
-		width: 13.250rem;
+		width: 14.133rem;
 	}
 }
 
 .holder-search-form button[type^=submit] {
-	width: 2.250rem;
+	width: 2.400rem;
+	height: 2.400rem;
 	position: fixed;
-	top: 0.375rem;
-	right: 0.375rem;
+	top: 0.400rem;
+	right: 0.400rem;
 	font-size: 0;
 	line-height: 0;
 	color: $color-hex-gray-text;
 	background-color: transparent;
-	border: 0.063rem solid transparent;
+	border: 0.067rem solid transparent;
 	cursor: pointer;
-	padding: 1.063rem;
+	padding: 1.133rem;
 }
 
 .holder-search-form button[type^=submit]:after {
 	position: absolute;
 	top: 0;
-	right: 0.563rem;
+	right: 0.600rem;
 	font-family: "englishextra-ui-icons";
 	content: "\e91c";
-	font-size: 1.000rem;
-	line-height: 2.125rem;
+	font-size: 1.067rem;
+	line-height: 2.267rem;
 }
 
 /* .holder-search-form button[type^=submit]:focus, */
 .holder-search-form button[type^=submit]:active {
 	color: $color-hex-body-text;
 	background-color: $AccentColor;
-	border: 0.063rem solid $AccentColor;
+	border: 0.067rem solid $AccentColor;
 }
 
 .holder-search-text:before,
 .ya-site-form:before {
-	width: 2.250rem;
+	width: 2.400rem;
 	position: absolute;
 	top: 0;
 	right: 0;
 	font-family: "englishextra-ui-icons";
 	content: "\e91c";
-	font-size: 1.000rem;
-	padding: 0.375rem 0.625rem;
+	font-size: 1.067rem;
+	padding: 0.533rem 0.667rem;
 }
 
 .holder-search-form input[type^=text],
@@ -636,7 +637,7 @@ u,
 
 #h1 {
 	margin-top: 0;
-	margin-bottom: 0.500rem;
+	margin-bottom: 0.533rem;
 }
 
 .col h2 a,
@@ -668,14 +669,14 @@ u,
 
 .col p.subhead {
 	font-size: 1.188rem;
-	line-height: 1.750rem;
+	line-height: 1.867rem;
 }
 
 .col dl dt a {
 	color: inherit;
 	border-bottom-color: inherit;
 	border-bottom-style: solid;
-	border-bottom-width: 0.063rem;
+	border-bottom-width: 0.067rem;
 }
 
 .col dl dt a:focus,
@@ -715,9 +716,9 @@ u,
 }
 
 .col figcaption {
-	font-size: 0.813rem;
-	line-height: 1.250;
-	margin-top: 0.250rem;
+	font-size: 0.800rem;
+	line-height: 1.333;
+	margin-top: 0.333rem;
 }
 
 .col figcaption a,
@@ -773,7 +774,7 @@ u,
 }
 
 .holder-chapters-select + canvas {
-	margin-top: 1.500rem;
+	margin-top: 1.333rem;
 }
 
 .col table.respond {
@@ -782,33 +783,33 @@ u,
 
 .col table {
 	border: none;
-	border-top-width: 0.063rem;
+	border-top-width: 0.067rem;
 	border-top-style: solid;
 	border-top-color: $color-hex-divider;
-	border-right-width: 0.063rem;
+	border-right-width: 0.067rem;
 	border-right-style: solid;
 	border-right-color: $color-hex-divider;
-	border-left-width: 0.063rem;
+	border-left-width: 0.067rem;
 	border-left-style: solid;
 	border-left-color: $color-hex-divider;
 }
 
 .col table th {
 	border: none;
-	border-bottom-width: 0.063rem;
+	border-bottom-width: 0.067rem;
 	border-bottom-style: solid;
 	border-bottom-color: $color-hex-divider;
 }
 
 .col table td {
 	border: none;
-	border-bottom-width: 0.063rem;
+	border-bottom-width: 0.067rem;
 	border-bottom-style: solid;
 	border-bottom-color: $color-hex-divider;
 }
 
 .col table td.with-img-only {
-	padding: 0.500rem;
+	padding: 0.533rem;
 }
 
 @media screen and (max-width: 640px) {
@@ -827,9 +828,9 @@ u,
 		width: 100%;
 		float: left;
 		position: relative;
-		border: 0.063rem solid $color-hex-divider;
+		border: 0.067rem solid $color-hex-divider;
 		border-bottom: none;
-		margin-bottom: 1.500rem;
+		margin-bottom: 1.333rem;
 	}
 
 	.col table.respond tr:last-child {
@@ -847,13 +848,13 @@ u,
 		content: attr(data-label);
 		font-weight: bold;
 		text-align: right;
-		padding-right: 0.625rem;
+		padding-right: 0.667rem;
 	}
 }
 
 .col hr,
 .col .hr {
-	height: 0.063rem;
+	height: 0.067rem;
 	background-color: $color-hex-divider;
 }
 
@@ -867,7 +868,7 @@ u,
 
 .col .underline {
 	text-decoration: none;
-	border-bottom-width: 0.063rem;
+	border-bottom-width: 0.067rem;
 	border-bottom-style: solid;
 	border-bottom-color: inherit;
 }
@@ -878,33 +879,33 @@ u,
 
 .col div + .holder-bottom-navigation,
 .holder-bottom-navigation:first-child {
-	margin-top: 1.500rem;
+	margin-top: 1.333rem;
 }
 
 .col .btn-larger,
 .col a.btn-larger {
-	height: 2.250rem;
-	font-size: 0.875rem;
+	height: 2.400rem;
+	font-size: 0.933rem;
 	font-weight: 400;
-	padding-right: 0.688rem;
-	padding-left: 0.688rem;
+	padding-right: 0.733rem;
+	padding-left: 0.733rem;
 }
 
 .col a.btn-larger {
 	display: inline-block;
 	font-family: inherit;
-	line-height: 2.125rem;
+	line-height: 2.267rem;
 	text-align: center;
 	text-decoration: none;
-	border: 0.063rem solid $TitleBarAndAppBarDark;
+	border: 0.067rem solid $TitleBarAndAppBarDark;
 }
 
 .col a.btn-larger i.fa,
 .col a.btn-larger i.mi,
 .col a.btn-larger i.mdi,
 .col a.btn-larger i.material-icons {
-	font-size: 0.750rem;
-	line-height: 2.250rem;
+	font-size: 0.800rem;
+	line-height: 2.400rem;
 }
 
 .col .btn-primary,
@@ -967,7 +968,7 @@ u,
 .col .aside {
 	display: block;
 	background-color: $LeftNavBarLight;
-	padding: 1.250rem 1.250rem;
+	padding: 1.333rem 1.333rem;
 }
 
 .col .aside *:first-child {
@@ -979,13 +980,13 @@ u,
 }
 
 .col .aside p {
-	font-size: 0.813rem;
-	line-height: 1.250rem;
+	font-size: 0.800rem;
+	line-height: 1.333rem;
 }
 
 .col .aside h2 {
-	font-size: 1.125rem;
-	line-height: 1.500rem;
+	font-size: 1.200rem;
+	line-height: 1.333rem;
 }
 
 /* .col .aside h2 a,
@@ -995,7 +996,7 @@ u,
 } */
 
 .col p + .aside {
-	margin-top: 1.500rem;
+	margin-top: 1.333rem;
 }
 
 /**
@@ -1021,10 +1022,10 @@ u,
 .holder-chapters-select .chapters-select {
 	display: inline-block;
 	width: 100%;
-	max-width: 17.000rem;
-	height: 2.250rem;
+	max-width: 18.133rem;
+	height: 2.400rem;
 	font-family: inherit;
-	font-size: 0.875rem;
+	font-size: 0.867rem;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -1034,7 +1035,7 @@ u,
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	margin: 0;
-	padding: 0 0 0 0.250rem;
+	padding: 0 0 0 0.333rem;
 }
 
 .holder-chapters-select .chapters-select::-ms-expand {
@@ -1048,7 +1049,7 @@ u,
 
 .holder-chapters-select .chapters-select optgroup {
 	font-style: normal;
-	padding-left: 0.250rem;
+	padding-left: 0.333rem;
 }
 
 /*!
@@ -1059,7 +1060,7 @@ u,
 .holder-chapters-select .chapters-select:focus,
 .holder-chapters-select .chapters-select:hover,
 .holder-chapters-select .chapters-select:active {
-	border: 0.063rem solid $LeftNavBarLight;
+	border: 0.067rem solid $LeftNavBarLight;
 }
 
 /*!
@@ -1076,10 +1077,10 @@ u,
 .col .btn-expand-hidden-layer:after {
 	font-family: "englishextra-ui-icons";
 	content: "\e901";
-	font-size: 0.438em;
+	font-size: 0.400em;
 	position: relative;
-	bottom: 0.438em;
-	margin-left: 0.438em;
+	bottom: 0.467em;
+	margin-left: 0.467em;
 }
 
 .col .btn-expand-hidden-layer.is-active:after {
@@ -1107,7 +1108,7 @@ u,
 
 .col .holder-btn-expand-hidden-layer + .holder-hidden-layer.is-active,
 .legacy .col .holder-btn-expand-hidden-layer + .holder-hidden-layer {
-	margin-top: 0.500rem;
+	margin-top: 0.533rem;
 }
 
 .col .holder-hidden-layer h3:first-child,
@@ -1149,9 +1150,9 @@ u,
 	border-style: none;
 	font-family: "englishextra-ui-icons";
 	content: "\e907";
-	font-size: 0.500rem;
+	font-size: 0.533rem;
 	position: relative;
-	top: 0.063rem;
+	top: 0.067rem;
 	visibility: hidden;
 }
 
@@ -1176,17 +1177,17 @@ u,
  */
 
 .col .footer {
-	border-top: 0.063rem solid $color-hex-divider;
+	border-top: 0.067rem solid $color-hex-divider;
 }
 
 .col .footer p {
-	font-size: 0.813rem;
-	line-height: 1.500;
+	font-size: 0.800rem;
+	line-height: 1.333rem;
 }
 
 .col .footer a {
 	color: $color-hex-gray-text;
-	border-bottom-width: 0.063rem;
+	border-bottom-width: 0.067rem;
 	border-bottom-style: solid;
 	border-bottom-color: $color-hex-gray-text;
 }
@@ -1210,7 +1211,7 @@ u,
 
 @media only screen {
 	html {
-		font-size: 13px;
+		font-size: 12px;
 	}
 }
 
@@ -1218,7 +1219,7 @@ u,
 
 @media only screen and (max-width: 40em) {
 	html {
-		font-size: 13px;
+		font-size: 12px;
 	}
 }
 
@@ -1228,7 +1229,7 @@ u,
 
 @media only screen and (min-width: 40.063em) {
 	html {
-		font-size: 13px;
+		font-size: 12px;
 	}
 }
 
@@ -1236,7 +1237,7 @@ u,
 
 @media only screen and (min-width: 40.063em) and (max-width: 64em) {
 	html {
-		font-size: 16px;
+		font-size: 15px;
 	}
 }
 
@@ -1246,7 +1247,7 @@ u,
 
 @media only screen and (min-width: 64.063em) {
 	html {
-		font-size: 16px;
+		font-size: 15px;
 	}
 }
 
@@ -1254,7 +1255,7 @@ u,
 
 @media only screen and (min-width: 64.063em) and (max-width: 90em) {
 	html {
-		font-size: 16px;
+		font-size: 15px;
 	}
 }
 
@@ -1264,7 +1265,7 @@ u,
 
 @media only screen and (min-width: 90.063em) {
 	html {
-		font-size: 16px;
+		font-size: 15px;
 	}
 }
 
@@ -1272,7 +1273,7 @@ u,
 
 @media only screen and (min-width: 90.063em) and (max-width: 120em) {
 	html {
-		font-size: 19px;
+		font-size: 18px;
 	}
 }
 
@@ -1282,7 +1283,7 @@ u,
 
 @media only screen and (min-width: 120.063em) {
 	html {
-		font-size: 19px;
+		font-size: 18px;
 	}
 }
 

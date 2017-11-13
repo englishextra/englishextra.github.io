@@ -49,11 +49,11 @@
 	background-color: $color-rgba-hint-bg;
 	color: #FFFFFF;
 	padding: 0.500em 0.625em;
-	font-size: 0.875em;
+	font-size: 0.933rem;
 	font-family: inherit;
-	line-height: 0.875em;
+	line-height: 0.933rem;
 	white-space: nowrap;
-	box-shadow: 0.125rem 0.125rem 0.125rem 0 $color-rgba-ui-bar-shadow;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
 }
 
 [data-hint='']:after,
@@ -112,7 +112,7 @@
 }
 
 .hint--right:after {
-	margin-bottom: -0.875em;
+	margin-bottom: -0.933rem;
 }
 
 .hint--right:after,
@@ -135,7 +135,7 @@
 }
 
 .hint--left:after {
-	margin-bottom: -0.875em;
+	margin-bottom: -0.933rem;
 }
 
 .hint--top-left:before,

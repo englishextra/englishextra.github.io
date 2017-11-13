@@ -2154,7 +2154,7 @@ ToProgress, unescape, verge, VK, Ya*/
 		};
 
 		var checkFontIsLoaded = function () {
-			if (doesFontExist("Open Sans") && doesFontExist("Roboto Mono")) {
+			if (doesFontExist("Roboto") && doesFontExist("Roboto Mono")) {
 				onFontsLoaded();
 			}
 		};
@@ -2169,7 +2169,7 @@ ToProgress, unescape, verge, VK, Ya*/
 
 	var load;
 	load = new loadJsCss(
-			[forcedHTTP + "://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic,latin-ext"],
+			[forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic,latin-ext"],
 			onFontsLoadedCallback
 		);
 
@@ -2180,7 +2180,7 @@ ToProgress, unescape, verge, VK, Ya*/
 	/* root.WebFontConfig = {
 		google: {
 			families: [
-				"Open Sans:300,400,400i,700,700i:cyrillic",
+				"Roboto:300,400,400i,700,700i:cyrillic",
 				"Roboto Mono:400,700:cyrillic,latin-ext"
 			]
 		},
