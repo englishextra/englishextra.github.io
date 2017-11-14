@@ -455,7 +455,8 @@ u,
 	position: relative;
 	top: 0;
 	left: 0;
-	opacity: 0;
+	visibility: visible;
+	opacity: 1;
 	transition: left 0.2s linear, opacity 0.2s ease;
 }
 

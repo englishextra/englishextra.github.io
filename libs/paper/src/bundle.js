@@ -115,7 +115,8 @@ ToProgress, unescape, verge, VK, Ya*/
 					"width": "0%",
 					"transition": "width " + this.options.duration + "s" + ", opacity " + this.options.opacityDuration + "s",
 					"-moz-transition": "width " + this.options.duration + "s" + ", opacity " + this.options.opacityDuration + "s",
-					"-webkit-transition": "width " + this.options.duration + "s" + ", opacity " + this.options.opacityDuration + "s"
+					"-webkit-transition": "width " + this.options.duration + "s" + ", opacity " + this.options.opacityDuration + "s",
+					"z-index": this.options.zIndex
 				});
 				if (selector) {
 					var el;
