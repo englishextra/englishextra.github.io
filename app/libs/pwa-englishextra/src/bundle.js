@@ -1578,7 +1578,6 @@ Ya*/
 			var hideDisqusButton = function () {
 				disqusThread[classList].add(isActiveClass);
 				btn.style.display = "none";
-				LoadingSpinner.hide();
 			};
 			var hideDisqusThread = function () {
 				removeChildren(disqusThread);
@@ -1604,7 +1603,6 @@ Ya*/
 										}
 									});
 									btn[_removeEventListener]("click", handleDisqusButton);
-									LoadingSpinner.show();
 									hideDisqusButton();
 								} catch (err) {
 									/* console.log("cannot reset DISQUS", err); */
