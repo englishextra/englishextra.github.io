@@ -40,6 +40,7 @@
 
 .masonry-grid-item {
 	float: left;
+	overflow: hidden;
 	border: 0.067rem solid $color-rgba-card-shadow;
 	border-radius: 0.200rem;
 	box-shadow: 0 0.133rem 0 $color-rgba-card-shadow;
