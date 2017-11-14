@@ -20,7 +20,7 @@ html {
 }
 
 body {
-	font-family: $font-family-local-sans-regular;
+	font-family: "Roboto", $font-family-local-sans-regular;
 	font-weight: 400;
 	font-size: 1.000rem;
 	line-height: 1.333rem;
@@ -415,7 +415,7 @@ u,
 }
 
 .col .phonetic {
-	font-family: $font-family-local-monospace;
+	font-family: "Roboto Mono", $font-family-local-monospace;
 }
 
 /*!
@@ -510,7 +510,7 @@ u,
 	float: left;
 	height: 3.200rem;
 	min-width: 3.200rem;
-	font-size: 0.933rem;
+	font-size: 0.867rem;
 	line-height: 3.200rem;
 	text-decoration: none;
 	color: #FFFFFF;
@@ -557,7 +557,7 @@ u,
 
 .navbar-list li {
 	height: 3.200rem;
-	font-size: 0.933rem;
+	font-size: 0.867rem;
 	line-height: 3.200rem;
 }
 
@@ -722,7 +722,7 @@ u,
 	width: 100%;
 	height: 3.200rem;
 	font-family: inherit;
-	font-size: 0.933rem;
+	font-size: 0.867rem;
 	line-height: 3.200rem;
 	/* overflow: hidden;
 	white-space: nowrap;
@@ -777,7 +777,7 @@ u,
 	max-height: 0;
 	position: absolute;
 	list-style: none;
-	font-size: 0.933rem;
+	font-size: 0.867rem;
 	overflow-x: hidden;
 	overflow-y: auto;
 	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
@@ -813,7 +813,7 @@ u,
 .holder-contents-select a {
 	display: block;
 	height: 3.200rem;
-	font-size: 0.933rem;
+	font-size: 0.867rem;
 	line-height: 3.200rem;
 	color: $ButtonText;
 	background-color: $TitleBarAndAppBarLight;
@@ -1002,7 +1002,7 @@ u,
 .col .btn-larger,
 .col a.btn-larger {
 	height: 2.400rem;
-	font-size: 0.933rem;
+	font-size: 0.867rem;
 	font-weight: 400;
 	padding-right: 0.733rem;
 	padding-left: 0.733rem;
@@ -1093,7 +1093,7 @@ u,
 	width: 100%;
 	height: 2.400rem;
 	font-family: inherit;
-	font-size: 0.933rem;
+	font-size: 0.867rem;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -1153,7 +1153,7 @@ u,
 	max-height: 0;
 	position: absolute;
 	list-style: none;
-	font-size: 0.933rem;
+	font-size: 0.867rem;
 	overflow-x: hidden;
 	overflow-y: auto;
 	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
@@ -1189,7 +1189,7 @@ u,
 .holder-chapters-select a {
 	display: block;
 	height: 2.400rem;
-	font-size: 0.933rem;
+	font-size: 0.867rem;
 	line-height: 2.400rem;
 	color: $ButtonText;
 	background-color: $LeftNavBarLight;
@@ -1312,7 +1312,7 @@ u,
 .holder-search-form input[type^=search] {
 	width: 9.600rem;
 	font-family: inherit;
-	font-size: 0.933rem;
+	font-size: 0.867rem;
 	line-height: 1.200rem;
 	color: $PlaceholderText;
 	border-color: $PlaceholderText;
@@ -1575,7 +1575,7 @@ u,
 	left: 50%;
 	margin-right: -50%;
 	transform: translate(-50%, -50%); */
-	font-size: 0.933rem;
+	font-size: 0.867rem;
 	line-height: 1.333rem;
 	text-align: center;
 	padding: 0.933rem 0.667rem;

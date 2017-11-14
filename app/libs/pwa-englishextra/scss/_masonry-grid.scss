@@ -40,7 +40,9 @@
 
 .masonry-grid-item {
 	float: left;
-	box-shadow: 0 0.267em 0.267em 0 $color-rgba-card-shadow;
+	border: 0.067rem solid $color-rgba-card-shadow;
+	border-radius: 0.200rem;
+	box-shadow: 0 0.133rem 0 $color-rgba-card-shadow;
 	margin: 1.500%;
 }
 
@@ -64,11 +66,10 @@
 }
 
 .masonry-grid-item-content h2 {
-	font-family: $font-family-local-sans-regular;
 	font-weight: 400;
-	font-size: 1.250rem;
-	line-height: 1.600rem;
-	margin-top: 0;
+	font-size: 1.125rem;
+	line-height: 1.424rem;
+	margin: 0;
 	margin-bottom: 0.267rem;
 }
 
@@ -90,10 +91,9 @@
 }
 
 .masonry-grid-item-content p {
-	font-family: $color-hex-body-text;
 	font-weight: 400;
-	font-size: 0.933rem;
-	line-height: 1.333rem;
+	font-size: 0.889rem;
+	line-height: 1.250rem;
 	margin: 0;
 }
 
