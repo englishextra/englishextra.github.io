@@ -304,16 +304,22 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 	"use strict";
 
 	var docElem = document.documentElement || "";
-	var _addEventListener = "addEventListener";
+
 	var createElement = "createElement";
-	var getElementsByClassName = "getElementsByClassName";
+	var createElementNS = "createElementNS";
+	var defineProperty = "defineProperty";
+	var getOwnPropertyDescriptor = "getOwnPropertyDescriptor";
+	var querySelector = "querySelector";
+	var querySelectorAll = "querySelectorAll";
+	var _addEventListener = "addEventListener";
 	var _length = "length";
 
 	var progressBar = new ToProgress({
 		id: "top-progress-bar",
 		color: "#FF2C40",
 		height: "0.200rem",
-		duration: 0.2
+		duration: 0.2,
+		zIndex: 999
 	});
 
 	var hideProgressBar = function () {
@@ -346,6 +352,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		var dataset = "dataset";
 		var getAttribute = "getAttribute";
 		var getElementById = "getElementById";
+		var getElementsByClassName = "getElementsByClassName";
 		var getElementsByTagName = "getElementsByTagName";
 		var href = "href";
 		var innerHTML = "innerHTML";
@@ -1250,25 +1257,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		}
 	};
 
-	var defineProperty = "defineProperty";
-
 	var scripts = ["./libs/contents-cards/css/bundle.min.css"];
-
-	if (!root.MutationObserver) {
-		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/mutation-observer@1.0.3/index.min.js");
-	}
-
-	var supportsClassList = "classList" in document[createElement]("_") || "";
-
-	if (!supportsClassList) {
-		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.201711092/classList.min.js");
-	}
-
-	var supportsDataset = "undefined" !== typeof root.Element && "dataset" in docElem || "";
-
-	if (!supportsDataset) {
-		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/element-dataset@2.2.6/lib/browser/index.cjs.min.js");
-	}
 
 	var supportsPassive = function () {
 		var support = false;
@@ -1283,16 +1272,15 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		return support;
 	}();
 
-	if (!supportsPassive) {
-		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/dom4@1.8.5/build/dom4.max.min.js");
-	}
+	var needsPolyfills = function () {
+		return !supportsPassive || !root.requestAnimationFrame || !root.matchMedia || "undefined" === typeof root.Element && !("dataset" in docElem) || !("classList" in document[createElement]("_")) || document[createElementNS] && !("classList" in document[createElementNS]("http://www.w3.org/2000/svg", "g")) ||
+		/* !document.importNode || */
+		/* !("content" in document[createElement]("template")) || */
+		root.attachEvent && !root[_addEventListener] || !("onhashchange" in root) || !Array.prototype.indexOf || !root.Promise || !root.fetch || !document[querySelectorAll] || !document[querySelector] || !Function.prototype.bind || Object[defineProperty] && Object[getOwnPropertyDescriptor] && Object[getOwnPropertyDescriptor](Element.prototype, "textContent") && !Object[getOwnPropertyDescriptor](Element.prototype, "textContent").get || !("undefined" !== typeof root.localStorage && "undefined" !== typeof root.sessionStorage) || !root.WeakMap || !root.MutationObserver;
+	}();
 
-	if (!root.Promise) {
-		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/promise-polyfill@6.0.2/promise.min.js");
-	}
-
-	if (!root.fetch) {
-		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/fetch/2.0.1/fetch.min.js");
+	if (needsPolyfills) {
+		scripts.push("../../cdn/polyfills/js/polyfills.fixed.min.js");
 	}
 
 	/* scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/platform@1.3.4/platform.min.js",

@@ -457,7 +457,8 @@ Ya*/
 	var getElementById = "getElementById";
 	var getOwnPropertyDescriptor = "getOwnPropertyDescriptor";
 	var querySelector = "querySelector";
-	var querySelectorAll = "querySelectorAll";	var _addEventListener = "addEventListener";
+	var querySelectorAll = "querySelectorAll";
+	var _addEventListener = "addEventListener";
 	var _length = "length";
 
 	var progressBar = new ToProgress({
@@ -1161,7 +1162,7 @@ Ya*/
 				handleDataSrcIframeAll();
 			}, 500);
 		};
-		manageDataSrcIframeAll
+		manageDataSrcIframeAll();
 		/* root[_addEventListener]("load", manageDataSrcIframeAll); */
 
 		var manageIframeLightboxLinks = function (scope) {
@@ -2851,7 +2852,7 @@ Ya*/
 		/* !document.importNode || */
 		/* !("content" in document[createElement]("template")) || */
 		(root.attachEvent && !root[_addEventListener]) ||
-		!("onhashchange" in window) ||
+		!("onhashchange" in root) ||
 		!Array.prototype.indexOf ||
 		!root.Promise ||
 		!root.fetch ||

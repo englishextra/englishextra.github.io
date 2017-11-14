@@ -400,7 +400,6 @@ ToProgress, unescape, verge, VK, Ya*/
 	var createElement = "createElement";
 	var createElementNS = "createElementNS";
 	var defineProperty = "defineProperty";
-	var getElementById = "getElementById";
 	var getOwnPropertyDescriptor = "getOwnPropertyDescriptor";
 	var querySelector = "querySelector";
 	var querySelectorAll = "querySelectorAll";var _addEventListener = "addEventListener";
@@ -410,7 +409,8 @@ ToProgress, unescape, verge, VK, Ya*/
 		id: "top-progress-bar",
 		color: "#FF2C40",
 		height: "0.200rem",
-		duration: 0.2
+		duration: 0.2,
+		zIndex: 999
 	});
 
 	var hideProgressBar = function () {
@@ -436,6 +436,7 @@ ToProgress, unescape, verge, VK, Ya*/
 		var createTextNode = "createTextNode";
 		var dataset = "dataset";
 		var getAttribute = "getAttribute";
+		var getElementById = "getElementById";
 		var getElementsByClassName = "getElementsByClassName";
 		var getElementsByTagName = "getElementsByTagName";
 		var parentNode = "parentNode";
@@ -748,7 +749,6 @@ ToProgress, unescape, verge, VK, Ya*/
 		};
 
 		var LoadingSpinner = function () {
-			var createElement = "createElement";
 			var spinnerClass = "loading-spinner";
 			var spinner = document[getElementsByClassName](spinnerClass)[0] || "";
 			var isActiveClass = "is-active-loading-spinner";
@@ -2093,7 +2093,7 @@ ToProgress, unescape, verge, VK, Ya*/
 		return !supportsPassive || !root.requestAnimationFrame || !root.matchMedia || "undefined" === typeof root.Element && !("dataset" in docElem) || !("classList" in document[createElement]("_")) || document[createElementNS] && !("classList" in document[createElementNS]("http://www.w3.org/2000/svg", "g")) ||
 		/* !document.importNode || */
 		/* !("content" in document[createElement]("template")) || */
-		root.attachEvent && !root.addEventListener || !("onhashchange" in window) || !Array.prototype.indexOf || !root.Promise || !root.fetch || !document[querySelectorAll] || !document[querySelector] || !Function.prototype.bind || Object[defineProperty] && Object[getOwnPropertyDescriptor] && Object[getOwnPropertyDescriptor](Element.prototype, "textContent") && !Object[getOwnPropertyDescriptor](Element.prototype, "textContent").get || !("undefined" !== typeof root.localStorage && "undefined" !== typeof root.sessionStorage) || !root.WeakMap || !root.MutationObserver;
+		root.attachEvent && !root[_addEventListener] || !("onhashchange" in root) || !Array.prototype.indexOf || !root.Promise || !root.fetch || !document[querySelectorAll] || !document[querySelector] || !Function.prototype.bind || Object[defineProperty] && Object[getOwnPropertyDescriptor] && Object[getOwnPropertyDescriptor](Element.prototype, "textContent") && !Object[getOwnPropertyDescriptor](Element.prototype, "textContent").get || !("undefined" !== typeof root.localStorage && "undefined" !== typeof root.sessionStorage) || !root.WeakMap || !root.MutationObserver;
 	}();
 
 	if (needsPolyfills) {

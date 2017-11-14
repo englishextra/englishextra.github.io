@@ -305,29 +305,34 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 
 	var docElem = document.documentElement || "";
 
-	var _addEventListener = "addEventListener";
 	var alt = "alt";
 	var className = "className";
 	var createElement = "createElement";
 	var createElementNS = "createElementNS";
+	var defineProperty = "defineProperty";
 	var getAttribute = "getAttribute";
 	var getElementsByClassName = "getElementsByClassName";
 	var getElementsByTagName = "getElementsByTagName";
+	var getOwnPropertyDescriptor = "getOwnPropertyDescriptor";
 	var height = "height";
-	var _length = "length";
 	var parentNode = "parentNode";
+	var querySelector = "querySelector";
+	var querySelectorAll = "querySelectorAll";
 	var remove = "remove";
 	var removeChild = "removeChild";
 	var src = "src";
 	var style = "style";
 	var styleSheets = "styleSheets";
 	var width = "width";
+	var _addEventListener = "addEventListener";
+	var _length = "length";
 
 	var progressBar = new ToProgress({
 		id: "top-progress-bar",
 		color: "#FF2C40",
 		height: "0.200rem",
-		duration: 0.2
+		duration: 0.2,
+		zIndex: 999
 	});
 
 	var hideProgressBar = function () {
@@ -504,13 +509,13 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 	var run = function () {
 
 		var appendChild = "appendChild";
-		var getElementById = "getElementById";
 		var classList = "classList";
 		var dataset = "dataset";
-		var visibility = "visibility";
-		var opacity = "opacity";
+		var getElementById = "getElementById";
 		var href = "href";
+		var opacity = "opacity";
 		var title = "title";
+		var visibility = "visibility";
 
 		if (docElem && docElem[classList]) {
 			docElem[classList].remove("no-js");
@@ -1041,21 +1046,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		}
 	};
 
-	var defineProperty = "defineProperty";
-
 	var scripts = [forcedHTTP + "://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.2/gh-fork-ribbon.min.css", "./libs/john-locke/css/bundle.min.css"];
-
-	var supportsClassList = "classList" in document[createElement]("_") || "";
-
-	if (!supportsClassList) {
-		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.201711092/classList.min.js");
-	}
-
-	var supportsDataset = "undefined" !== typeof root.Element && "dataset" in docElem || "";
-
-	if (!supportsDataset) {
-		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/element-dataset@2.2.6/lib/browser/index.cjs.min.js");
-	}
 
 	var supportsPassive = function () {
 		var support = false;
@@ -1070,8 +1061,15 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		return support;
 	}();
 
-	if (!supportsPassive) {
-		scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/dom4@1.8.5/build/dom4.max.min.js");
+	var needsPolyfills = function () {
+		return !supportsPassive || !root.requestAnimationFrame || !root.matchMedia || "undefined" === typeof root.Element && !("dataset" in docElem) || !("classList" in document[createElement]("_")) || document[createElementNS] && !("classList" in document[createElementNS]("http://www.w3.org/2000/svg", "g")) ||
+		/* !document.importNode || */
+		/* !("content" in document[createElement]("template")) || */
+		root.attachEvent && !root[_addEventListener] || !("onhashchange" in root) || !Array.prototype.indexOf || !root.Promise || !root.fetch || !document[querySelectorAll] || !document[querySelector] || !Function.prototype.bind || Object[defineProperty] && Object[getOwnPropertyDescriptor] && Object[getOwnPropertyDescriptor](Element.prototype, "textContent") && !Object[getOwnPropertyDescriptor](Element.prototype, "textContent").get || !("undefined" !== typeof root.localStorage && "undefined" !== typeof root.sessionStorage) || !root.WeakMap || !root.MutationObserver;
+	}();
+
+	if (needsPolyfills) {
+		scripts.push("../../cdn/polyfills/js/polyfills.fixed.min.js");
 	}
 
 	/* scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/platform@1.3.4/platform.min.js",
