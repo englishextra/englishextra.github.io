@@ -1260,6 +1260,7 @@ u,
 
 .holder-search-form input[type^=text],
 .holder-search-form input[type^=search] {
+	display: inline-block;
 	width: 9.600rem;
 	font-family: inherit;
 	font-size: 0.933rem;
@@ -1342,6 +1343,7 @@ u,
 
 .holder-search-form input[type^=text],
 .holder-search-form input[type^=search] {
+	display: inline-block;
 	background-color: $color-hex-ui-bar-bg;
 }
 

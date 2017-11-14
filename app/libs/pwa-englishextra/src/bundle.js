@@ -1409,7 +1409,7 @@ Ya*/
 				for (var i = 0, l = chaptersSelectOptions.length; i < l; i += 1) {
 					rerenderOption(chaptersSelectOptions[i]);
 				}
-			};*/
+			}; */
 			var rerenderChaptersList = function () {
 				var handleChaptersListItem = function (listObj, hashString) {
 					var uiPanelContentsSelectHeight = uiPanelContentsSelect ? (uiPanelContentsSelect[classList].contains(isFixedClass) ? uiPanelContentsSelect.offsetHeight : uiPanelContentsSelect.offsetHeight * 2) : 0;
@@ -2374,8 +2374,8 @@ Ya*/
 			var appContentId = "app-content";
 			var appContent = document[getElementById](appContentId) || "";
 			var appContentParent = appContent[parentNode] || "";
-			/* var contentsSelectTemplate = document[getElementById]("template_contents_select") || ""; */
-			/* var contentsSelectRender = document[getElementById]("render_contents_select") || ""; */
+			/* var contentsSelectTemplate = document[getElementById]("template_contents_select") || "";
+			var contentsSelectRender = document[getElementById]("render_contents_select") || ""; */
 			var contentsSelect = document[getElementsByClassName]("contents-select")[0] || "";
 			var holderContentsSelect = document[getElementsByClassName]("holder-contents-select")[0] || "";
 			var contentsListClass = "contents-list";
@@ -2607,7 +2607,22 @@ Ya*/
 				};
 				handleRoutesWindow();
 				root[_addEventListener]("hashchange", handleRoutesWindow);
-				/*var rerenderContentsSelect = function () {
+				/*!
+				 * insertFromTemplate used in renderTemplate
+				 * will remove event listener from select (parent) element,
+				 * because it uses fragment method and not inner html
+				 * (UPD now you can set last arg as true, and the event listener will work),
+				 * so you will have to use inner html method
+				 * alternative way to generate select options
+				 * with document fragment
+				 */
+				/* if (contentsSelectTemplate && contentsSelectRender) {
+					var contentsSelectHtml = contentsSelectTemplate[innerHTML] || "";
+					var renderContentsSelectTemplate = new t(contentsSelectHtml);
+					var contentsSelectRendered = renderContentsSelectTemplate.render(routesJsonObj);
+					contentsSelectRender[innerHTML] = contentsSelectRendered;
+				} */
+				/* var rerenderContentsSelect = function () {
 					var handleContentsSelect = function () {
 						var _this = this;
 						var hashString = _this.options[_this.selectedIndex].value || "";
@@ -2636,24 +2651,9 @@ Ya*/
 					for (var i = 0, l = routesJsonObj.hashes[_length]; i < l; i += 1) {
 						generateContentsSelectOptions(routesJsonObj.hashes[i]);
 					}
-					appendFragment(df, contentsSelectRender);*/
-					/*!
-					 * insertFromTemplate used in renderTemplate
-					 * will remove event listener from select (parent) element,
-					 * because it uses fragment method and not inner html
-					 * (UPD now you can set last arg as true, and the event listener will work),
-					 * so you will have to use inner html method
-					 * alternative way to generate select options
-					 * with document fragment
-					 */
-					/* if (contentsSelectTemplate && contentsSelectRender) {
-						var contentsSelectHtml = contentsSelectTemplate[innerHTML] || "";
-						var renderContentsSelectTemplate = new t(contentsSelectHtml);
-						var contentsSelectRendered = renderContentsSelectTemplate.render(routesJsonObj);
-						contentsSelectRender[innerHTML] = contentsSelectRendered;
-					} */
-					/*contentsSelect[_addEventListener]("change", handleContentsSelect);
-				};*/
+					appendFragment(df, contentsSelectRender);
+					contentsSelect[_addEventListener]("change", handleContentsSelect);
+				}; */
 				var rerenderContentsList = function () {
 					var handleContentsListItem = function (listObj, hashString) {
 						if (hashString) {

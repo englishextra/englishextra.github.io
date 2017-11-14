@@ -3719,6 +3719,7 @@ u,
 
 .holder-search-form input[type^=text],
 .holder-search-form input[type^=search] {
+	display: inline-block;
 	width: 9.600rem;
 	font-family: inherit;
 	font-size: 0.867rem;
@@ -3803,6 +3804,7 @@ u,
 
 .holder-search-form input[type^=text],
 .holder-search-form input[type^=search] {
+	display: inline-block;
 	background-color: #E7E7E7;
 }
 
