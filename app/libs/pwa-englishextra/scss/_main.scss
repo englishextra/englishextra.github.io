@@ -1627,3 +1627,225 @@ u,
 	pointer-events: none;
 }
 
+/*!
+ * @see {@link https://gist.github.com/englishextra/40b7c4ffde33bfb58aff259afe229d6a}
+ */
+
+/*------------------------------------------
+  Foundation Media Queries
+   http://foundation.zurb.com/docs/media-queries.html
+--------------------------------------------*/
+
+/* Small screens - MOBILE */
+
+@media only screen {
+	html {
+		font-size: 12px;
+	}
+
+	.holder-navbar,
+	.holder-contents-select,
+	.col,
+	.masonry-grid,
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a,
+	.footer {
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-chapters-select .chapters-list {
+		width: calc(100% - 1.333rem);
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
+	}
+
+	.padded-content,
+	.masonry-grid {
+		padding: 1.067rem 0;
+	}
+
+	.holder-b-carousel {
+		display: none;
+	}
+}
+
+/* Define mobile styles - Mobile First */
+
+@media only screen and (max-width: 40em) {
+	html {
+		font-size: 12px;
+	}
+}
+
+/* max-width 640px, mobile-only styles, use when QAing mobile issues */
+
+/* Medium screens - TABLET */
+
+@media only screen and (min-width: 40.063em) {
+	html {
+		font-size: 12px;
+	}
+
+	.holder-navbar,
+	.holder-contents-select,
+	.col,
+	.masonry-grid,
+	.footer {
+		max-width: 76.800rem;
+	}
+
+	.holder-contents-select .contents-select,
+	.holder-contents-select a,
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select a {
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list,
+	.holder-chapters-select .chapters-list {
+		width: calc(100% - 1.333rem);
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: left;
+	}
+
+	.padded-content,
+	.masonry-grid {
+		padding: 1.600rem 0 3.200rem 0;
+	}
+
+	.holder-b-carousel {
+		display: block;
+	}
+}
+
+/* min-width 641px, medium screens */
+
+@media only screen and (min-width: 40.063em) and (max-width: 64em) {
+	html {
+		font-size: 15px;
+	}
+}
+
+/* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
+
+/* Large screens - DESKTOP */
+
+@media only screen and (min-width: 64.063em) {
+	html {
+		font-size: 15px;
+	}
+	.holder-navbar,
+	.holder-contents-select,
+	.col,
+	.masonry-grid,
+	.footer {
+		max-width: 76.800rem;
+	}
+
+	.holder-contents-select .contents-select,
+	.holder-contents-select .contents-list,
+	.holder-contents-select a {
+		width: calc(76.800rem - 1.333rem);
+	}
+
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select .chapters-list,
+	.holder-chapters-select a {
+		width: 18.133rem;
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: center;
+	}
+
+	.padded-content,
+	.masonry-grid {
+		padding: 1.600rem 0 3.200rem 0;
+	}
+
+	.holder-b-carousel {
+		display: block;
+	}
+}
+
+/* min-width 1025px, large screens */
+
+@media only screen and (min-width: 64.063em) and (max-width: 90em) {
+	html {
+		font-size: 15px;
+	}
+}
+
+/* min-width 1024px and max-width 1440px, use when QAing large screen-only issues */
+
+/* XLarge screens */
+
+@media only screen and (min-width: 90.063em) {
+	html {
+		font-size: 18px;
+	}
+
+	.holder-navbar,
+	.holder-contents-select,
+	.col,
+	.masonry-grid,
+	.footer {
+		max-width: 76.800rem;
+	}
+
+	.holder-contents-select .contents-select,
+	.holder-contents-select .contents-list,
+	.holder-contents-select a {
+		width: calc(76.800rem - 1.333rem);
+	}
+
+	.holder-chapters-select .chapters-select,
+	.holder-chapters-select .chapters-list,
+	.holder-chapters-select a {
+		width: 18.133rem;
+	}
+
+	.col .textcenter,
+	.footer {
+		text-align: center;
+	}
+
+	.padded-content,
+	.masonry-grid {
+		padding: 1.600rem 0 3.200rem 0;
+	}
+
+	.holder-b-carousel {
+		display: block;
+	}
+}
+
+/* min-width 1441px, xlarge screens */
+
+@media only screen and (min-width: 90.063em) and (max-width: 120em) {
+	html {
+		font-size: 18px;
+	}
+}
+
+/* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */
+
+/* XXLarge screens */
+
+@media only screen and (min-width: 120.063em) {
+	html {
+		font-size: 18px;
+	}
+}
+
+/* min-width 1921px, xlarge screens */
