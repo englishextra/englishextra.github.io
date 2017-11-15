@@ -217,6 +217,10 @@ u,
 	left: 18.133rem;
 }
 
+.page img {
+	display: block;
+}
+
 .panel-nav-top {
 	display: block;
 	width: 100%;
@@ -233,11 +237,6 @@ u,
 	transition: visibility 0s, opacity 0.2s ease;
 	padding: 0;
 	margin: 0 auto;
-}
-
-.container img,
-.container svg {
-	display: block;
 }
 
 .app-content {

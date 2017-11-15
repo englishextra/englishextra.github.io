@@ -1,7 +1,7 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global doesFontExist, loadJsCss, Parallax, platform, QRCode,
-ToProgress, unescape, VK, WheelIndicator, Ya */
+/*global doesFontExist, loadCSS, loadJsCss, Parallax, platform, QRCode,
+ToProgress, unescape, VK, WheelIndicator, Ya*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -227,6 +227,36 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 	root.doesFontExist = doesFontExist;
 })("undefined" !== typeof window ? window : this, document);
 /*!
+ * load CSS async
+ * modified order of arguments, added callback option, removed CommonJS stuff
+ * @see {@link https://github.com/filamentgroup/loadCSS}
+ * @see {@link https://gist.github.com/englishextra/50592e9944bd2edc46fe5a82adec3396}
+ * @param {String} hrefString path string
+ * @param {Object} callback callback function
+ * @param {String} media media attribute string value
+ * @param {Object} [before] target HTML element
+ * loadCSS(hrefString,callback,media,before)
+ */
+(function (root, document) {
+	var loadCSS = function (_href, callback) {
+		"use strict";
+		var ref = document.getElementsByTagName("head")[0] || "";
+		var link = document.createElement("link");
+		link.rel = "stylesheet";
+		link.href = _href;
+		link.media = "all";
+		if (ref) {
+			ref.appendChild(link);
+			if (callback && "function" === typeof callback) {
+				link.onload = callback;
+			}
+			return link;
+		}
+		return;
+	};
+	root.loadCSS = loadCSS;
+})("undefined" !== typeof window ? window : this, document);
+/*!
  * modified loadExt
  * @see {@link https://gist.github.com/englishextra/ff9dc7ab002312568742861cb80865c9}
  * passes jshint
@@ -338,6 +368,11 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		progressBar.finish();
 		progressBar.hide();
 	};
+
+	/* progressBar.complete = function () {
+		return this.finish(),
+		this.hide();
+	}; */
 
 	var toStringFn = {}.toString;
 	var supportsSvgSmilAnimation = !!document[createElementNS] && (/SVGAnimate/).test(toStringFn.call(document[createElementNS]("http://www.w3.org/2000/svg", "animate"))) || "";
@@ -522,13 +557,13 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		var title = "title";
 		var visibility = "visibility";
 
+		if (!supportsSvgSmilAnimation) {
+			progressBar.increase(20);
+		}
+
 		if (docElem && docElem[classList]) {
 			docElem[classList].remove("no-js");
 			docElem[classList].add("js");
-		}
-
-		if (!supportsSvgSmilAnimation) {
-			progressBar.increase(20);
 		}
 
 		/*jshint bitwise: false */
@@ -1160,9 +1195,8 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 		}
 	};
 
-	var load;
-	load = new loadJsCss(
-			[forcedHTTP + "://fonts.googleapis.com/css?family=PT+Serif:400%7CRoboto:400,700%7CRoboto+Condensed:700&subset=cyrillic"],
+	loadCSS(
+			forcedHTTP + "://fonts.googleapis.com/css?family=PT+Serif:400%7CRoboto:400,700%7CRoboto+Condensed:700&subset=cyrillic",
 			onFontsLoadedCallback
 		);
 
@@ -1200,6 +1234,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya */
 			if (!supportsSvgSmilAnimation) {
 				progressBar.increase(20);
 			}
+
 			var load;
 			load = new loadJsCss(scripts, run);
 		};

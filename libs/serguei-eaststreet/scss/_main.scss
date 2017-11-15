@@ -20,7 +20,7 @@ html {
 }
 
 body {
-	font-family: $font-family-local-sans-regular;
+	font-family: "Roboto", $font-family-local-sans-regular;
 	font-weight: 400;
 	font-size: 1.000rem;
 	line-height: 1.333rem;
@@ -139,23 +139,23 @@ u,
  * hide and show on mobile
  */
 
-.show-inline-on-mobile,
-.show-block-on-mobile {
+.page .show-inline-on-mobile,
+.page .show-block-on-mobile {
 	display: none;
 }
 
 @media handheld, only screen and (max-width: 800px) {
-	.hide-on-mobile {
+	.page .hide-on-mobile {
 		display: none;
 		width: 0;
 		height: 0;
 	}
 
-	.show-inline-on-mobile {
+	.page .show-inline-on-mobile {
 		display: inline;
 	}
 
-	.show-block-on-mobile {
+	.page .show-block-on-mobile {
 		display: block;
 	}
 }
@@ -262,8 +262,13 @@ u,
 	position: relative;
 	top: 0;
 	left: 0;
-	opacity: 0;
+	visibility: visible;
+	opacity: 1;
 	transition: left 0.2s linear, opacity 0.2s ease;
+}
+
+.page img {
+	display: block;
 }
 
 .container {
@@ -566,7 +571,7 @@ u,
 .col .btn-larger,
 .col a.btn-larger {
 	height: 2.400rem;
-	font-size: 0.933rem;
+	font-size: 0.867rem;
 	font-weight: 400;
 	padding-right: 0.733rem;
 	padding-left: 0.733rem;
@@ -675,7 +680,7 @@ u,
 	margin-bottom: 0;
 }
 
-.col .aside p {	
+.col .aside p {
 	font-size: 0.867rem;
 	line-height: 1.333rem;
 }
@@ -721,7 +726,7 @@ u,
 	max-width: 18.133rem;
 	height: 2.400rem;
 	font-family: inherit;
-	font-size: 0.933rem;
+	font-size: 0.867rem;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -933,7 +938,7 @@ u,
 .ui-sidepanel-list a {
 	display: block;
 	width: 100%;
-	font-size: 0.933rem;
+	font-size: 0.867rem;
 	text-decoration: none;
 	color: #FFFFFF;
 	background-color: transparent;
@@ -1039,7 +1044,7 @@ u,
 .ui-menumore-list a {
 	display: block;
 	width: 100%;
-	font-size: 0.933rem;
+	font-size: 0.867rem;
 	text-decoration: none;
 	color: inherit;
 	background-color: transparent;
@@ -1263,7 +1268,7 @@ u,
 	display: inline-block;
 	width: 9.600rem;
 	font-family: inherit;
-	font-size: 0.933rem;
+	font-size: 0.867rem;
 	line-height: 1.200rem;
 	color: inherit;
 	border-color: transparent;
@@ -1409,4 +1414,127 @@ u,
 	background-color: rgba(241, 68, 68, 0.1);
 	pointer-events: none;
 }
+
+/*!
+ * @see {@link https://gist.github.com/englishextra/40b7c4ffde33bfb58aff259afe229d6a}
+ */
+
+/*------------------------------------------
+  Foundation Media Queries
+   http://foundation.zurb.com/docs/media-queries.html
+--------------------------------------------*/
+
+/* Small screens - MOBILE */
+
+@media only screen {
+	html {
+		font-size: 12px;
+	}
+
+	.col {
+		max-width: 100%;
+	}
+
+	.padded-content {
+		padding: 1.067rem 0;
+	}
+}
+
+/* Define mobile styles - Mobile First */
+
+@media only screen and (max-width: 40em) {
+	html {
+		font-size: 12px;
+	}
+}
+
+/* max-width 640px, mobile-only styles, use when QAing mobile issues */
+
+/* Medium screens - TABLET */
+
+@media only screen and (min-width: 40.063em) {
+	html {
+		font-size: 12px;
+	}
+
+	.col {
+		max-width: 76.800rem;
+	}
+
+	.padded-content {
+		padding: 1.600rem 0.667rem;
+	}
+}
+
+/* min-width 641px, medium screens */
+
+@media only screen and (min-width: 40.063em) and (max-width: 64em) {
+	html {
+		font-size: 15px;
+	}
+}
+
+/* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
+
+/* Large screens - DESKTOP */
+
+@media only screen and (min-width: 64.063em) {
+	html {
+		font-size: 15px;
+	}
+
+	.col {
+		max-width: 76.800rem;
+	}
+
+	.padded-content {
+		padding: 1.600rem 0.667rem;
+	}
+}
+
+/* min-width 1025px, large screens */
+
+@media only screen and (min-width: 64.063em) and (max-width: 90em) {
+	html {
+		font-size: 15px;
+	}
+}
+
+/* min-width 1024px and max-width 1440px, use when QAing large screen-only issues */
+
+/* XLarge screens */
+
+@media only screen and (min-width: 90.063em) {
+	html {
+		font-size: 18px;
+	}
+
+	.col {
+		max-width: 76.800rem;
+	}
+
+	.padded-content {
+		padding: 1.600rem 0.667rem;
+	}
+}
+
+/* min-width 1441px, xlarge screens */
+
+@media only screen and (min-width: 90.063em) and (max-width: 120em) {
+	html {
+		font-size: 18px;
+	}
+}
+
+/* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */
+
+/* XXLarge screens */
+
+@media only screen and (min-width: 120.063em) {
+	html {
+		font-size: 18px;
+	}
+}
+
+/* min-width 1921px, xlarge screens */
 
