@@ -1,9 +1,8 @@
 /*jslint browser: true */
 /*jslint node: true */
 /*global ActiveXObject, Cookies, Carousel, DISQUS, doesFontExist,
-IframeLightbox, imagePromise, Kamil, loadJsCss, Masonry,
-Packery, Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK,
-Ya*/
+IframeLightbox, imagePromise, Kamil, loadCSS, loadJsCss, Masonry, Packery,
+Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -372,6 +371,36 @@ Ya*/
 	root.doesFontExist = doesFontExist;
 })("undefined" !== typeof window ? window : this, document);
 /*!
+ * load CSS async
+ * modified order of arguments, added callback option, removed CommonJS stuff
+ * @see {@link https://github.com/filamentgroup/loadCSS}
+ * @see {@link https://gist.github.com/englishextra/50592e9944bd2edc46fe5a82adec3396}
+ * @param {String} hrefString path string
+ * @param {Object} callback callback function
+ * @param {String} media media attribute string value
+ * @param {Object} [before] target HTML element
+ * loadCSS(hrefString,callback,media,before)
+ */
+(function (root, document) {
+	var loadCSS = function (_href, callback) {
+		"use strict";
+		var ref = document.getElementsByTagName("head")[0] || "";
+		var link = document.createElement("link");
+		link.rel = "stylesheet";
+		link.href = _href;
+		link.media = "all";
+		if (ref) {
+			ref.appendChild(link);
+			if (callback && "function" === typeof callback) {
+				link.onload = callback;
+			}
+			return link;
+		}
+		return;
+	};
+	root.loadCSS = loadCSS;
+})("undefined" !== typeof window ? window : this, document);
+/*!
  * modified loadExt
  * @see {@link https://gist.github.com/englishextra/ff9dc7ab002312568742861cb80865c9}
  * passes jshint
@@ -474,6 +503,11 @@ Ya*/
 		progressBar.hide();
 	};
 
+	/* progressBar.complete = function () {
+		return this.finish(),
+		this.hide();
+	}; */
+
 	progressBar.increase(20);
 
 	var getHTTP = function (force) {
@@ -506,6 +540,8 @@ Ya*/
 		var title = "title";
 		var _addEventListener = "addEventListener";
 		var _removeEventListener = "removeEventListener";
+
+		progressBar.increase(20);
 
 		if (docElem && docElem[classList]) {
 			docElem[classList].remove("no-js");
@@ -2918,9 +2954,8 @@ Ya*/
 		}
 	};
 
-	var load;
-	load = new loadJsCss(
-			[forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic,latin-ext"],
+	loadCSS(
+			forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic,latin-ext",
 			onFontsLoadedCallback
 		);
 
