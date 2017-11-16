@@ -86,7 +86,8 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 					id: "top-progress-bar",
 					color: "#F44336",
 					height: "2px",
-					duration: 0.2
+					duration: 0.2,
+					zIndex: "auto"
 				};
 				if (opt && typeof opt === "object") {
 					for (var key in opt) {
