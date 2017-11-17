@@ -1183,6 +1183,9 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 		};
 
 		var checkFontIsLoaded = function () {
+			/*!
+			 * check only for fonts that are used in current page
+			 */
 			if (doesFontExist("Roboto") && doesFontExist("Roboto Condensed") && doesFontExist("PT Serif")) {
 				onFontsLoaded();
 			}

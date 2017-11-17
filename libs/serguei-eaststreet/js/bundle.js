@@ -972,18 +972,6 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 			}
 		};
 
-		/* var prependFragmentBefore = function (e, a) {
-  	if ("string" === typeof e) {
-  		e = document[createTextNode](e);
-  	}
-  	var p = a.parentNode || "";
-  	var df = document[createDocumentFragment]();
-  	if (p) {
-  		df.appendChild(e);
-  		p.insertBefore(df, a);
-  	}
-  }; */
-
 		var setStyleDisplayBlock = function (a) {
 			if (a) {
 				a.style.display = "block";
@@ -995,19 +983,6 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 				a.style.display = "none";
 			}
 		};
-
-		/* var setStyleOpacity = function (a, n) {
-  	n = n || 1;
-  	if (a) {
-  		a.style.opacity = n;
-  	}
-  }; */
-
-		/* var setStyleVisibilityVisible = function (a) {
-  	if (a) {
-  		a.style.visibility = "visible";
-  	}
-  }; */
 
 		var isValidId = function (a, full) {
 			return full ? /^\#[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? !0 : !1 : /^[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? !0 : !1;
@@ -2545,58 +2520,6 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 		};
 		initRoutie();
 
-		/*!
-   * observe mutations
-   * bind functions only for inserted DOM
-   * @param {String} ctx HTML Element class or id string
-   */
-		/*  var observeMutations = function (scope) {
-  	var ctx = scope && scope.nodeName ? scope : "";
-  	var mo;
-  	var getMutations = function (e) {
-  		var triggerOnMutation = function (m) {
-  			console.log("mutations observer: " + m.type);
-  			console.log(m.type, "target: " + m.target.tagName + ("." + m.target.className || "#" + m.target.id || ""));
-  			console.log(m.type, "added: " + m.addedNodes.length + " nodes");
-  			console.log(m.type, "removed: " + m.removedNodes.length + " nodes");
-  			if ("childList" === m.type || "subtree" === m.type) {
-  				mo.disconnect();
-  			}
-  		};
-  		for (var i = 0, l = e.length; i < l; i += 1) {
-  			triggerOnMutation(e[i]);
-  		}
-  	};
-  	if (ctx) {
-  		mo = new MutationObserver(getMutations);
-  		mo.observe(ctx, {
-  			childList: !0,
-  			subtree: !0,
-  			attributes: !1,
-  			characterData: !1
-  		});
-  	}
-  }; */
-		/*!
-   * apply changes to inserted DOM
-   * because replace child is used in the first place
-   * to insert new content, and if parent node doesnt exist
-   * inner html method is applied,
-   * the parent node should be observed, not the target
-   * node for the insertion
-   */
-		/* var updateInsertedDom = function () {
-  	var getElementById = "getElementById";
-  	var parentNode = "parentNode";
-  	var ctx = document[getElementById]("app-content")[parentNode] || "";
-  	var locationHash = root.location.hash || "";
-  	if (ctx && locationHash) {
-  		console.log("triggered function: updateInsertedDom");
-  		observeMutations(ctx);
-  	}
-  };
-  root[_addEventListener]("hashchange", updateInsertedDom); */
-
 		hideProgressBar();
 	};
 
@@ -2658,9 +2581,12 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 		};
 
 		var checkFontIsLoaded = function () {
-			if (doesFontExist("Roboto") && doesFontExist("Roboto Mono")) {
-				onFontsLoaded();
-			}
+			/*!
+    * check only for fonts that are used in current page
+    */
+			if (doesFontExist("Roboto") /* && doesFontExist("Roboto Mono") */) {
+					onFontsLoaded();
+				}
 		};
 
 		if (supportsCanvas) {

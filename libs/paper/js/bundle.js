@@ -725,19 +725,6 @@ ToProgress, unescape, verge, VK, Ya*/
 			}
 		};
 
-		/* var setStyleOpacity = function (a, n) {
-  	n = n || 1;
-  	if (a) {
-  		a.style.opacity = n;
-  	}
-  }; */
-
-		/* var setStyleVisibilityVisible = function (a) {
-  	if (a) {
-  		a.style.visibility = "visible";
-  	}
-  }; */
-
 		var isValidId = function (a, full) {
 			return full ? /^\#[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? !0 : !1 : /^[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? !0 : !1;
 		};
@@ -2170,9 +2157,12 @@ ToProgress, unescape, verge, VK, Ya*/
 		};
 
 		var checkFontIsLoaded = function () {
-			if (doesFontExist("Roboto") && doesFontExist("Roboto Mono")) {
-				onFontsLoaded();
-			}
+			/*!
+    * check only for fonts that are used in current page
+    */
+			if (doesFontExist("Roboto") /* && doesFontExist("Roboto Mono") */) {
+					onFontsLoaded();
+				}
 		};
 
 		if (supportsCanvas) {

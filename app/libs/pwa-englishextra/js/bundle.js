@@ -2923,9 +2923,12 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 		};
 
 		var checkFontIsLoaded = function () {
-			if (doesFontExist("Roboto") && doesFontExist("Roboto Mono")) {
-				onFontsLoaded();
-			}
+			/*!
+    * check only for fonts that are used in current page
+    */
+			if (doesFontExist("Roboto") /* && doesFontExist("Roboto Mono") */) {
+					onFontsLoaded();
+				}
 		};
 
 		if (supportsCanvas) {

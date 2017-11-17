@@ -1,24 +1,33 @@
-/* @import "webslides-base"; */
+@charset "UTF-8";
 
-
-/* !
- * base.css
+/*!
+ * App: WebSlides
+ * Version: 0.1
+ * Date: 2017-01-08
+ * Description: A simple and versatile framework for building HTML presentations, landings, and portfolios.
+ * Author: José Luis Antúnez
+ * Author URI: http://twitter.com/jlantunez
+ * License: The MIT License (MIT)
+ * License URI: https://opensource.org/licenses/MIT
  */
 
+/*!
+ * added changes for  #navigation and .wsready body from version 1.5.0
+ * also custom changes made for logo, swipe icon etc.
+ */
 
-/* ---------------------------------------------------------------------------------
+/*!
+ * Name: WebSlides
+ * Version: 1.5.0
+ * Date: 2017-09-16
+ * Description: Making HTML presentations easy
+ * URL: https://github.com/webslides/webslides#readme
+ * Credits: @jlantunez, @LuisSacristan, @Belelros
+ */
 
-	App: WebSlides
-	Version: 0.1
-	Date: 2017-01-08
-	Description: A simple and versatile framework for building HTML presentations, landings, and portfolios.
-	Author: José Luis Antúnez
-	Author URI: http://twitter.com/jlantunez
-	License: The MIT License (MIT)
-	License URI: https://opensource.org/licenses/MIT
+@charset "UTF-8";
 
------------------------------------------------------------------------------------
-
+/*-----------------------------------------------------------------------------------
 	0. CSS Reset & Normalize
 	1. Base
 		1.1 Wrap/Container
@@ -33,7 +42,6 @@
 		3.1 Logo
 	4. Navigation
 		4.1 Navbars
-		4.2 Tabs
 	5. SLIDES (vertically and horizontally centered)
 		5.1 Mini container & Alignment
 		5.2 Counter / Navigation Slides
@@ -56,15 +64,18 @@
 	12. Avatars
 	13. Tables
 	14. Forms
-	15. Safari Bug (flex-wrap)
-	16. Print
-
+  15. Longform Elements
+	16. Safari Bug (flex-wrap)
+	17. Slidex index (aka zoom)
+  18. Print
+  19. Colors
 ----------------------------------------------------------------------------------- */
 
-
-/* =========================================
+/*
+=========================================
 0. CSS Reset & Normalize
-=========================================== */
+=========================================
+*/
 
 html,
 body,
@@ -83,7 +94,7 @@ p,
 blockquote,
 pre,
 a,
-bbbr,
+abbr,
 acronym,
 address,
 big,
@@ -136,7 +147,6 @@ figure,
 figcaption,
 footer,
 header,
-hgroup,
 menu,
 nav,
 output,
@@ -148,11 +158,11 @@ mark,
 audio,
 video {
 	border: 0;
-	font-size: 100%;
 	font: inherit;
-	vertical-align: baseline;
+	font-size: 100%;
 	margin: 0;
 	padding: 0;
+	vertical-align: baseline;
 }
 
 article,
@@ -176,28 +186,34 @@ body {
 
 blockquote,
 q {
-	quotes: none;
+	quotes: '' '';
 }
 
 blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-	content: none;
+	content: '';
 }
 
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+	margin-bottom: 24px;
+	width: 100%;
 }
 
 html {
+	-ms-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
 
 *,
 *::before,
 *::after {
+	-webkit-box-sizing: inherit;
 	box-sizing: inherit;
 }
 
@@ -250,10 +266,9 @@ a:hover {
 
 sup,
 sub {
-	font-size: 0.75em;
-	line-height: 2.2em;
+	font-size: .75em;
 	height: 0;
-	line-height: 0;
+	line-height: 2.2em;
 	position: relative;
 	vertical-align: baseline;
 }
@@ -263,11 +278,11 @@ sup {
 }
 
 sub {
-	top: 0.5ex;
+	top: .5ex;
 }
 
 small {
-	font-size: 0.75em;
+	font-size: .75em;
 	line-height: 1.72;
 }
 
@@ -276,13 +291,13 @@ big {
 }
 
 hr {
-	border: none;
+	border: 0;
 	clear: both;
 	display: block;
 	height: 1px;
-	width: 100%;
-	text-align: center;
 	margin: 3.2rem auto;
+	text-align: center;
+	width: 100%;
 }
 
 h2+hr,
@@ -294,19 +309,6 @@ p+hr {
 	margin-bottom: 4rem;
 }
 
-
-/* hr::after {
-	position: relative;
-	top: -2.4rem;
-	font-size: 2.4rem;
-	content: "\00A7";
-	display: inline-block;
-	border-radius: 50%;
-	width: 4.8rem;
-	height: 4.8rem;
-	line-height: 4.8rem;
-} */
-
 dfn,
 cite,
 em,
@@ -314,15 +316,19 @@ i {
 	font-style: italic;
 }
 
-bbbr,
+abbr,
 acronym {
 	cursor: help;
 }
 
 mark,
 ins {
-	text-decoration: none;
 	padding: 0 4px;
+	text-decoration: none;
+	text-shadow: none;
+}
+
+::-moz-selection {
 	text-shadow: none;
 }
 
@@ -331,16 +337,13 @@ ins {
 }
 
 img {
-	/* Make sure images are scaled correctly. */
 	border: 0;
 	height: auto;
 	max-width: 100%;
 }
 
 img:hover {
-	filter: alpha(opacity=9000);
-	opacity: 0.90;
-	filter: alpha(opacity=90);
+	opacity: .9;
 }
 
 svg:not(:root) {
@@ -348,37 +351,18 @@ svg:not(:root) {
 }
 
 figure {
-	position: relative;
-	margin: 0;
 	line-height: 0;
+	margin: 0;
+	position: relative;
 }
 
 optgroup {
 	font-weight: bold;
 }
 
-table {
-	width: 100%;
-	border-collapse: collapse;
-	border-spacing: 0;
-	margin-bottom: 24px;
-}
-
 td,
 th {
 	padding: 0;
-}
-
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
-	content: "";
-}
-
-blockquote,
-q {
-	quotes: "" "";
 }
 
 dt {
@@ -389,69 +373,69 @@ dd {
 	margin: 0;
 }
 
+/*=== Clearing === */
 
-/* === Clearing === */
-
-.clear:before,
-.clear:after,
 header:before,
 header:after,
 main:before,
 main:after,
-.wrap:before,
-.wrap:after,
-group:before,
-group:after,
 section:before,
 section:after,
 aside:before,
 aside:after,
 footer:before,
-footer:after {
-	content: "";
+footer:after,
+.clear:before,
+.clear:after,
+.wrap:before,
+.wrap:after {
+	content: '';
 	display: table;
 }
 
-.clear:after,
 header:after,
 main:after,
-.wrap:after,
-group:after,
 section:after,
 aside:after,
-footer:after {
+footer:after,
+.clear:after,
+.wrap:after {
 	clear: both;
 }
 
-
-/* =========================================
+/*=========================================
 1. Base --> Baseline: 8px = .8rem
 =========================================== */
 
-body {
-	overflow-x: hidden;
-	/*!
-	 *
-	 */
-	-webkit-tap-highlight-color: transparent;
-	outline: none;
-	/*!
-	 *
-	 */
+/* -- Disable elastic scrolling/bounce:
+webslides.js will add .ws-ready automatically. Don't worry :) -- */
+
+.ws-ready,
+.ws-ready body {
+	height: 100%;
+	overflow: hidden;
+	width: 100%;
 }
 
+.ws-ready.ws-ready-zoom {
+	overflow: visible;
+}
 
-/* == Prototype faster - Vertical rhythm
-To show the grid/baseline.png, press ENTER key on keyboard == */
+.ws-ready.ws-ready-zoom body {
+	overflow: auto;
+}
 
+#webslides {
+	-ms-overflow-style: none;
+	-webkit-overflow-scrolling: touch;
+	height: 100vh;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
 
-/* body.baseline {
-	background: url(../img/baseline.png) left top .8rem/.8rem;
-} */
-
-
-/*
-#webslides.vertical {cursor: s-resize; } */
+#webslides::-webkit-scrollbar {
+	display: none;
+}
 
 li li {
 	margin-left: 1.6rem;
@@ -465,15 +449,9 @@ input:focus,
 textarea:focus,
 button {
 	text-decoration: none;
-	/*!
-	 *
-	 */
 	transition: all .2s ease-out;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
-	/*!
-	 *
-	 */
 }
 
 p a:active {
@@ -490,37 +468,25 @@ nav a[rel="external"] em,
 	overflow: hidden;
 }
 
-
-/**
- * hide and show on mobile
- */
-
 .page .show-inline-on-mobile,
 .page .show-block-on-mobile {
 	display: none;
 }
 
 @media handheld,
-only screen and (max-width: 800px) {
+only screen and (max-width:800px) {
 	.page .hide-on-mobile {
 		display: none;
 		width: 0;
 		height: 0;
 	}
-
 	.page .show-inline-on-mobile {
 		display: inline;
 	}
-
 	.page .show-block-on-mobile {
 		display: block;
 	}
 }
-
-
-/*!
- * layout
- */
 
 .page {
 	visibility: visible;
@@ -531,8 +497,6 @@ only screen and (max-width: 800px) {
 .page img {
 	display: block;
 }
-
-/* Layer/Box Shadow */
 
 .shadow {
 	position: relative;
@@ -556,9 +520,6 @@ only screen and (max-width: 800px) {
 	right: 2.4rem;
 	left: auto;
 }
-
-
-/* === 1.1 WRAP/CONTAINER === */
 
 .wrap,
 header nav,
@@ -605,49 +566,40 @@ img.aligncenter {
 	margin-bottom: 2.4rem;
 }
 
-@media (min-width: 768px) {
+@media (min-width:768px) {
 	img.aligncenter {
 		margin-top: .8rem;
 		margin-bottom: .8rem;
 	}
-
 	img.alignright,
 	svg.alignright {
 		margin: .8rem 0 .8rem 4.8rem;
 	}
-
 	img.alignleft,
 	svg.alignright {
 		margin: .8rem 4.8rem .8rem 0;
 	}
 }
 
-@media (min-width: 1024px) {
-	/* === div.size-60, img.size-50, h1.size-40, p.size-30... === */
+@media (min-width:1024px) {
 	.size-80 {
 		width: 80%;
 	}
-
 	.size-70 {
 		width: 70%;
 	}
-
 	.size-60 {
 		width: 60%;
 	}
-
 	.size-50 {
 		width: 50%;
 	}
-
 	.size-40 {
 		width: 40%;
 	}
-
 	.size-30 {
 		width: 30%;
 	}
-
 	.size-20 {
 		width: 20%;
 	}
@@ -681,19 +633,10 @@ pre code {
 	padding: 0;
 }
 
-
-/* === 1.2 Animations ================
-Just 3 basic animations:
-.fadeIn,
-.fadeInUp,
-.zoomIn.
-https://github.com/daneden/animate.css */
-
 @keyframes fadeIn {
 	from {
 		opacity: 0;
 	}
-
 	to {
 		opacity: 1;
 	}
@@ -708,7 +651,6 @@ https://github.com/daneden/animate.css */
 		opacity: 0;
 		transform: translate3d(0, 100%, 0);
 	}
-
 	to {
 		opacity: 1;
 		transform: none;
@@ -725,7 +667,6 @@ https://github.com/daneden/animate.css */
 		opacity: 0;
 		transform: scale3d(.3, .3, .3);
 	}
-
 	50% {
 		opacity: 1;
 	}
@@ -735,21 +676,14 @@ https://github.com/daneden/animate.css */
 	animation: zoomIn 1s;
 }
 
-
-/* Animated Background (Matrix) */
-
 @keyframes anim {
 	0% {
 		transform: translateY(0);
 	}
-
 	100% {
 		transform: translateY(-1200px);
 	}
 }
-
-
-/* Duration */
 
 .slow {
 	animation-duration: 4s;
@@ -759,26 +693,17 @@ https://github.com/daneden/animate.css */
 	animation-duration: 5s;
 }
 
-
-/* Transitions */
-
 header,
 footer,
 #navigation {
 	transition: all 0.4s ease-in-out;
 }
 
-
-/* === 1.3 Responsive Media (videos, iframe...) === */
-
 .embed {
 	position: relative;
 	height: 0;
 	overflow: hidden;
-	/* aspect ratio:16:9 */
 	padding-bottom: 56.6%;
-	/* aspect ratio: 4:3 */
-	/* padding-bottom: 75%; */
 }
 
 .embed iframe,
@@ -792,17 +717,11 @@ footer,
 	margin: 0;
 }
 
-
-/* === Browser (Screenshots) ================ */
-
 h1+.browser,
 h2+.browser,
 p+.browser {
 	margin-top: 4.8rem;
 }
-
-
-/* <figure class="browser"> img </figure> */
 
 .browser {
 	overflow: hidden;
@@ -819,9 +738,6 @@ li .browser {
 	margin-bottom: 0;
 }
 
-
-/* === Topbar === */
-
 .browser:before {
 	position: absolute;
 	top: 0;
@@ -831,7 +747,6 @@ li .browser {
 	padding: 1.6rem;
 	width: 100%;
 	line-height: 0;
-	/* copypastecharacter.com/graphic-shapes */
 	content: "● ● ●";
 }
 
@@ -845,10 +760,6 @@ li .browser {
 	width: 100%;
 	margin-top: 3.2rem;
 }
-
-
-/* === 1.4. Basic Grid (Flexible blocks)
-Auto-fill & Equal height === */
 
 .grid {
 	margin-right: auto;
@@ -885,42 +796,26 @@ Auto-fill & Equal height === */
 	.grid>.column {
 		width: 25%;
 	}
-
-	/* Grid (Sidebar + Main) .grid.sm */
 	.grid.sm .column:nth-child(1) {
 		width: 30%;
 	}
-
 	.grid.sm .column:nth-child(2) {
 		width: 70%;
 	}
-
-	/* Grid (Main + Sidebar) .grid.ms */
 	.grid.ms .column:nth-child(1) {
 		width: 70%;
 	}
-
 	.grid.ms .column:nth-child(2) {
 		width: 30%;
 	}
-
-	/* Grid (Sidebar + Main + Sidebar) .grid.sms */
 	.grid.sms .column:nth-child(2) {
 		width: 50%;
 	}
 }
 
-
-/* ============================
-2. TYPOGRAPHY & LISTS
-============================== */
-
 html,
 body {
 	line-height: 1;
-	/* Sometimes fonts don't display optimally on all devices */
-	/* -moz-osx-font-smoothing: grayscale; */
-	/* -webkit-font-smoothing: antialiased; */
 	text-rendering: optimizeLegibility;
 	font-weight: 300;
 }
@@ -963,9 +858,6 @@ ol>li {
 li li {
 	font-size: 100%;
 }
-
-
-/* == List .description (Product/Specs) === */
 
 ul.description {
 	padding: 0;
@@ -1060,22 +952,19 @@ h3.alignleft+p.alignright {
 	margin-bottom: 0;
 }
 
-@media (min-width: 768px) {
+@media (min-width:768px) {
 	h1 {
 		font-size: 5.6rem;
 		line-height: 7.2rem;
 	}
-
 	h2 {
 		font-size: 4.8rem;
 		line-height: 6.4rem;
 	}
-
 	h3 {
 		font-size: 4rem;
 		line-height: 5.6rem;
 	}
-
 	h4 {
 		font-size: 3.2rem;
 		line-height: 4.8rem;
@@ -1135,11 +1024,6 @@ h3+img {
 	line-height: 4rem;
 }
 
-
-/* =========================================
-2.1. Headings with background
-=========================================== */
-
 h1[class*="bg-"],
 h2[class*="bg-"],
 h3[class*="bg-"],
@@ -1159,43 +1043,27 @@ h3 [class*="bg-"] {
 	padding: .4rem .8rem;
 }
 
-
-/* =========================================
-2.2. Typography Classes = .text-
-=========================================== */
-
 .text-intro,
 [class*="content-"] p {
 	font-size: 2.4rem;
 	line-height: 4rem;
 }
 
-
-/* -- Serif -- */
-
 .text-serif,
 h1 span {
 	font-family: "Roboto", $font-family-local-sans-light;
 }
 
-
-/* -- h1,h2... Promo/Landings -- */
-
 .text-landing {
-	/* font-weight: 600; */
 	letter-spacing: .4rem;
 	text-transform: uppercase;
 }
 
-@media (min-width: 768px) {
+@media (min-width:768px) {
 	.text-landing {
 		letter-spacing: 1.6rem;
 	}
 }
-
-
-/* -- Subtitle (Before h1, h2) --
-p.subtitle + h1/h2 */
 
 p.text-subtitle {
 	font-size: 1.6rem;
@@ -1223,16 +1091,13 @@ p.text-subtitle svg {
 	text-transform: lowercase;
 }
 
-
-/* -- Numbers (results, sales... 23,478,289 iphones) -- */
-
 .text-data {
 	font-size: 6.4rem;
 	line-height: 8rem;
 	margin-bottom: .8rem;
 }
 
-@media (min-width: 768px) {
+@media (min-width:768px) {
 	.text-data {
 		font-size: 15.2rem;
 		line-height: 16.8rem;
@@ -1246,16 +1111,12 @@ p.text-subtitle svg {
 	text-transform: uppercase;
 }
 
-
-/* -- Magazine Two Columns -- */
-
-@media (min-width: 768px) {
+@media (min-width:768px) {
 	.text-cols {
 		column-count: 2;
 		column-gap: 4.8rem;
 		text-align: left;
 	}
-
 	.text-landing+.text-cols {
 		margin-top: 3.2rem;
 	}
@@ -1271,12 +1132,8 @@ p.text-subtitle svg {
 	line-height: 1;
 }
 
-
-/* -- Heading with border -- */
-
 .text-context {
 	position: relative;
-	/* letter-spacing: .1rem; */
 }
 
 .text-context.text-uppercase {
@@ -1295,17 +1152,11 @@ p.text-subtitle svg {
 	width: 100%;
 }
 
-
-/* -- Separator/Symbols (stars ***...) -- */
-
 .text-symbols {
 	font-weight: 600;
 	letter-spacing: .8rem;
 	text-align: center;
 }
-
-
-/* -- Separator -- */
 
 .text-separator {
 	margin-top: 2.4rem;
@@ -1320,20 +1171,16 @@ p.text-subtitle svg {
 	left: 0;
 }
 
-@media (min-width: 568px) {
+@media (min-width:568px) {
 	.text-separator {
 		width: 80%;
 		margin-top: 0;
 		margin-left: 20%;
 	}
-
 	.text-separator:before {
 		margin-top: 1.2rem;
 	}
 }
-
-
-/* -- Pull Quote (Right/Left)	-- */
 
 [class*="text-pull"] {
 	position: relative;
@@ -1349,24 +1196,22 @@ p.text-subtitle svg {
 	margin-top: .8rem;
 }
 
-@media (min-width: 1024px) {
+@media (min-width:1024px) {
 	[class*="text-pull"] {
 		margin-right: -4rem;
 		margin-left: -4rem;
 	}
 }
 
-@media (min-width: 568px) {
+@media (min-width:568px) {
 	[class*="text-pull-"] {
 		width: 32rem;
 	}
-
 	.text-pull-right {
 		float: right;
 		margin-right: -2.4rem;
 		margin-left: 2.4rem;
 	}
-
 	.text-pull-left {
 		float: left;
 		margin-left: -2.4rem;
@@ -1374,70 +1219,10 @@ p.text-subtitle svg {
 	}
 }
 
-
-/* -- Info Messages (error, warning, success... -- */
-
 .text-info {
 	font-size: 1.6rem;
 	line-height: 2.4rem;
 }
-
-
-/* =========================================
-2.1. San Francisco Font (Apple's new font)
-=========================================== */
-
-
-/* .text-apple,
-.bg-apple {
-	font-family: "San Francisco", helvetica, arial, sans-serif;
-} */
-
-
-/* Ultra Light */
-
-
-/* @font-face {
-	font-family: "San Francisco";
-	font-weight: 100;
-	src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-ultralight-webfont.woff2");
-} */
-
-
-/* Thin */
-
-
-/* @font-face {
-	font-family: "San Francisco";
-	font-weight: 200;
-	src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-thin-webfont.woff2");
-}
- */
-
-
-/* Regular */
-
-
-/* @font-face {
-	font-family: "San Francisco";
-	font-weight: 400;
-	src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff2");
-} */
-
-
-/* Bold */
-
-
-/* @font-face {
-	font-family: "San Francisco";
-	font-weight: bold;
-	src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-bold-webfont.woff2");
-} */
-
-
-/* =========================================
-3. Header & Footer
-=========================================== */
 
 header,
 footer,
@@ -1463,7 +1248,6 @@ section footer {
 	position: absolute;
 	top: 0;
 	left: 0;
-	/* hover/visibility */
 	z-index: 3;
 }
 
@@ -1472,24 +1256,15 @@ section footer {
 	bottom: 0;
 }
 
-
-/* === Hide header[role=banner] === */
-
-
-/* desktop only? Add @media (min-width: 1025px) */
-
 header[role=banner] {
 	opacity: 0;
 }
-
-
-/* === Show Header[role=banner] === */
 
 header[role=banner]:hover {
 	opacity: 1;
 }
 
-@media (max-width: 767px) {
+@media (max-width:767px) {
 	footer .alignleft,
 	footer .alignright {
 		float: none;
@@ -1497,13 +1272,8 @@ header[role=banner]:hover {
 	}
 }
 
-
-/* === 3.1. Logo === */
-
 .logo {
 	text-transform: lowercase;
-	/* float: left;
-	font-size: 4.8rem; */
 }
 
 .logo a {
@@ -1514,8 +1284,6 @@ header[role=banner]:hover {
 	vertical-align: middle;
 	float: left;
 	text-indent: -4000px;
-	/* If you remove text-indent */
-	/* padding-left: 6rem; */
 }
 
 .no-svg .logo a {
@@ -1523,7 +1291,7 @@ header[role=banner]:hover {
 }
 
 @media handheld,
-only screen and (max-width: 800px) {
+only screen and (max-width:800px) {
 	.logo a {
 		background: url(../img/logo-96x96.png) no-repeat 0 0;
 		background-size: 5rem 5rem;
@@ -1540,34 +1308,10 @@ only screen and (max-width: 800px) {
 	}
 }
 
-
-/* @media (max-width: 600px){
-	.logo a {
-		text-indent: -4000px;
-	}
-} */
-
-
-/* =========================================
-4. Navigation
-=========================================== */
-
-
-/* === 4.1. Navbars === */
-
 nav ul {
 	display: flex;
 	flex-wrap: wrap;
-	/* ====align left==== */
 	justify-content: flex-start;
-	/* ==== align center ==== */
-	/* justify-content: center; */
-	/* ====align right==== */
-	/* justify-content: flex-end; */
-	/* ====separated columns li a==== */
-	/* justify-content: space-between; */
-	/* ====separated columns centered li a==== */
-	/* justify-content: space-around; */
 }
 
 nav ul li {
@@ -1589,7 +1333,6 @@ nav[role=navigation] li a {
 	display: flex;
 	justify-content: center;
 	max-width: 100%;
-	/* full li>a when you decide */
 }
 
 nav[role=navigation] li a svg {
@@ -1603,28 +1346,22 @@ header nav ul {
 
 nav.aligncenter ul,
 .aligncenter nav ul {
-	/* ==== align center ==== */
 	justify-content: center;
 }
 
 nav.navbar ul li {
-	/* ====full float li a ==== */
 	flex: 1 1 auto;
 }
 
-@media (max-width: 568px) {
+@media (max-width:568px) {
 	nav.navbar ul {
 		flex-flow: column wrap;
 		padding: 0;
 	}
-
 	nav.navbar li a {
 		justify-content: flex-start;
 	}
 }
-
-
-/* === 4.2. Tabs === */
 
 ul.tabs {
 	display: inline-block;
@@ -1634,8 +1371,6 @@ ul.tabs {
 ul.tabs li {
 	position: relative;
 	display: table-cell;
-	/* ftext-transform: uppercase;
-	letter-spacing: .1rem; */
 	padding: .8rem 2.4rem;
 	cursor: pointer;
 }
@@ -1662,19 +1397,6 @@ ul.tabs li.current {
 	font-weight: 600;
 }
 
-
-/* .tabs li:after{
-	position: relative;
-	right: -2.8rem;
-	font-size:1.6rem;
-	font-weight:300;
-	content: "*";
-}
-
-.tabs li:last-child:after {
-	display: none;
-} */
-
 .tab-content {
 	display: none;
 }
@@ -1685,21 +1407,11 @@ ul.tabs li.current {
 	animation-duration: .3s;
 }
 
-@media (max-width: 400px) {
+@media (max-width:400px) {
 	.tabs li {
 		display: block;
 	}
 }
-
-
-/* ============================================
-5. SLIDES (Full Screen)
-Vertically and horizontally centered
-============================================== */
-
-
-/* Fade transition to all slides.
-* = All HTML elements will have those styles. */
 
 section * {
 	animation: fadeIn 0.3s ease-in-out;
@@ -1712,25 +1424,19 @@ section .background-video,
 	animation-duration: 0s;
 }
 
-
-/* === Section = Slide === */
-
 section,
 .slide {
 	position: relative;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	/* Fixed/Visible header? padding-top: 12rem; */
 	padding: 2.4rem;
 	word-wrap: break-word;
 	page-break-after: always;
 	min-height: 100vh;
-	/* Fullscreen */
-	/* Prototyping? min-height: 720px (Baseline: 8px = .8rem) */
 }
 
-@media (min-width: 1024px) {
+@media (min-width:1024px) {
 	section,
 	.slide {
 		padding-top: 12rem;
@@ -1738,38 +1444,20 @@ section,
 	}
 }
 
-
-/* slide no padding (full card,
-.embed> youtube video...) */
-
 .fullscreen {
 	padding: 0;
-	/* Fixed/Visible header?
-		padding:8.2rem 0 0 0;
-	 */
 }
-
-
-/* slide alignment - top */
 
 .slide-top {
 	justify-content: flex-start;
 }
 
-
-/* slide alignment - bottom */
-
 .slide-bottom {
 	justify-content: flex-end;
 }
 
-
-/* == 5.1. Mini container width:50% (600px)
-.wrap:1200px; / Aligned items [class*="content-"]=== */
-
 [class*="content-"] {
 	position: relative;
-	/* display: table; */
 	text-align: left;
 }
 
@@ -1791,48 +1479,33 @@ section,
 	text-align: center;
 }
 
-@media (min-width: 768px) {
+@media (min-width:768px) {
 	[class*="content-"] {
 		width: 50%;
 	}
-
 	.content-left {
 		float: left;
 	}
-
 	.content-right {
 		float: right;
 	}
-
 	[class*="content-"]+[class*="content-"] {
 		padding-left: 2.4rem;
 		margin-bottom: 4.8rem;
 	}
-
 	[class*="content-"]+[class*="size-"] {
 		margin-top: 6.4rem;
 		clear: both;
 	}
-
 	[class*="content-"]:before,
 	[class*="content-"]:after {
 		content: "";
 		display: table;
 	}
-
 	[class*="content-"]:after {
 		clear: both;
 	}
 }
-
-
-/*!
- * https://github.com/webslides/WebSlides/blob/master/static/css/webslides.css
- * 1.5.0
- */
-
-
-/* === 5.2 Counter / Navigation Slides	=== */
 
 #navigation {
 	animation: fadeIn 0.4s;
@@ -1844,7 +1517,6 @@ section,
 	position: fixed;
 	right: 0;
 	width: 24.4rem;
-	/* hover/visibility */
 	z-index: 4;
 }
 
@@ -1899,15 +1571,11 @@ a#previous {
 	.no-svg #navigation {
 		background-image: url(../img/swipe-96x96.png);
 	}
-
 	#navigation a,
 	#counter {
 		display: none;
 	}
 }
-
-
-/* === 5.3 Slides - Background Images === */
 
 .background,
 [class*="background-"] {
@@ -1934,19 +1602,11 @@ a#previous {
 	background-size: cover;
 }
 
-
-/* fullscreen video
-	<video class="background-video">
- */
-
 .background-video {
 	width: 100%;
 	height: 100%;
 	object-fit: fill;
 }
-
-
-/* === BG Positions === */
 
 .background-center {
 	background-position: center;
@@ -1976,22 +1636,16 @@ a#previous {
 	.background-left-bottom {
 		background-position: left bottom;
 	}
-
 	.background-right-bottom {
 		background-position: right bottom;
 	}
-
 	.background-right {
 		background-position: right;
 	}
-
 	.background-left {
 		background-position: left;
 	}
 }
-
-
-/* === bg image light overlay === */
 
 [class*="bg-"] .background.light,
 [class*="bg-"] [class*="background-"].light {
@@ -2018,14 +1672,10 @@ a#previous {
 		opacity: 0.20;
 		animation: fadeIn ease-in 0.20;
 	}
-
 	.background-video {
 		opacity: 0.80;
 	}
 }
-
-
-/* === Animated Background Image === */
 
 .background.anim {
 	height: 200%;
@@ -2034,12 +1684,6 @@ a#previous {
 	background-position: center top;
 	animation: anim 80s linear infinite;
 }
-
-
-/* ===============================================================
-6. Magic blocks with flexbox (Auto-fill & Equal Height)
-Blocks Links li>a = .flexblock.blink (.blink required)
-================================================================= */
 
 .flexblock {
 	margin-right: auto;
@@ -2063,7 +1707,6 @@ Blocks Links li>a = .flexblock.blink (.blink required)
 .flexblock.blink li>a {
 	position: relative;
 	display: flex;
-	/* making paragraphs and linked block */
 	flex-direction: column;
 	margin: 0;
 	padding: 2.4rem;
@@ -2072,9 +1715,7 @@ Blocks Links li>a = .flexblock.blink (.blink required)
 .flexblock li {
 	flex: auto;
 	text-align: left;
-	/* float: left; */
 	width: 100%;
-	/* more control */
 	transition: .3s;
 }
 
@@ -2124,11 +1765,6 @@ footer .column h3 {
 	line-height: 3.2rem;
 }
 
-
-/* ====================================================================
-6.1 Features <ul class="flexblock features">
-====================================================================== */
-
 .flexblock.features>li {
 	width: 100%;
 	border-radius: .4rem;
@@ -2140,21 +1776,17 @@ footer .column h3 {
 		margin-right: -2%;
 		margin-left: -2%;
 	}
-
 	.flexblock.features>li {
 		margin-right: 2%;
 		margin-left: 2%;
 		width: 29%;
 	}
-
 	.size-50 .flexblock.features>li {
 		width: 46%;
 	}
-
 	.column .flexblock.features>li {
 		width: 100%;
 	}
-
 	footer .flexblock.features>li {
 		margin-bottom: 0;
 	}
@@ -2201,11 +1833,6 @@ footer .column h3 {
 	}
 }
 
-
-/* =====================================================================
-6.2 Clients Logos <ul class="flexblock clients">
-======================================================================= */
-
 .flexblock.clients.blink li>a,
 .flexblock.clients li {
 	padding: 0;
@@ -2241,12 +1868,6 @@ footer .column h3 {
 	z-index: 1;
 }
 
-
-/* ==================================================
-6.3 flexblock.steps <ul class="flexblock steps">
-About, Philosophy...
-=================================================== */
-
 .steps li {
 	width: 100%;
 }
@@ -2261,18 +1882,16 @@ About, Philosophy...
 	font-size: 6.4rem;
 }
 
-@media (min-width: 768px) {
+@media (min-width:768px) {
 	.steps li {
 		width: 50%;
 	}
 }
 
-@media (min-width: 1024px) {
+@media (min-width:1024px) {
 	.steps li {
 		width: 25%;
-		/* width: 33.3333%; */
 	}
-
 	.process {
 		position: absolute;
 		top: 60px;
@@ -2283,11 +1902,6 @@ About, Philosophy...
 		border-left-width: 15px;
 	}
 }
-
-
-/* =================================================
-6.4 Block Numbers - <ul class="flexblock metrics">
-=================================================== */
 
 .metrics li {
 	text-align: center;
@@ -2306,13 +1920,13 @@ About, Philosophy...
 	margin: 0 auto;
 }
 
-@media (min-width: 568px) {
+@media (min-width:568px) {
 	.metrics li {
 		width: 50%;
 	}
 }
 
-@media (min-width: 1024px) {
+@media (min-width:1024px) {
 	.metrics li {
 		width: 25%;
 	}
@@ -2321,11 +1935,6 @@ About, Philosophy...
 .card-50 .metrics li {
 	width: 50%;
 }
-
-
-/* =====================================================
-6.5 Specs/Items: <ul class="flexblock specs">
-======================================================= */
 
 .specs li {
 	width: 100%;
@@ -2373,12 +1982,6 @@ About, Philosophy...
 	}
 }
 
-
-/* =================================================
-6.6 Reasons/Why/Numbers (counter-increment)
-<ul class="flexblock reasons">
-=================================================== */
-
 .flexblock.reasons li {
 	text-align: left;
 	width: 100%;
@@ -2403,25 +2006,15 @@ About, Philosophy...
 	display: block;
 }
 
-@media (min-width: 768px) {
+@media (min-width:768px) {
 	.reasons li {
 		padding-left: 8.8rem;
-		/* You need two digits? (1-10) */
-		/* padding-left: 12rem; */
 	}
-
 	.reasons li:before {
 		position: absolute;
 		left: 2.4rem;
 	}
 }
-
-
-/* =================================================
-6.7 Gallery - <ul class="flexblock gallery">
-Block Thumbnails li+.overlay+image
-img size recommended:800x600px
-=================================================== */
 
 .flexblock.gallery li {
 	margin-bottom: 4.8rem;
@@ -2451,9 +2044,6 @@ img size recommended:800x600px
 	position: relative;
 	padding: 1.6rem;
 }
-
-
-/* Arrow */
 
 .gallery li figcaption:before {
 	content: "";
@@ -2488,7 +2078,6 @@ img size recommended:800x600px
 		margin-right: -2%;
 		margin-left: -2%;
 	}
-
 	.flexblock.gallery li {
 		margin-right: 2%;
 		margin-left: 2%;
@@ -2500,12 +2089,10 @@ img size recommended:800x600px
 	.flexblock.gallery li {
 		width: 21%;
 	}
-
 	.grid.sm .flexblock.gallery li,
 	.grid.ms .flexblock.gallery li {
 		width: 29%;
 	}
-
 	.grid.sms .flexblock.gallery li {
 		width: 46%;
 	}
@@ -2516,9 +2103,6 @@ img size recommended:800x600px
 	margin-left: auto;
 	display: block;
 }
-
-
-/* Overlay */
 
 .overlay {
 	position: absolute;
@@ -2558,11 +2142,6 @@ li .overlay h2 {
 li:hover .overlay {
 	cursor: pointer;
 }
-
-
-/* ===============================================
-6.8 Plans / Pricing <ul class="flexblock plans">
-================================================= */
 
 .flexblock.plans>li {
 	text-align: center;
@@ -2612,9 +2191,6 @@ li:hover .overlay {
 	margin-bottom: 2.4rem;
 }
 
-
-/* Specs ----------- */
-
 .flexblock.plans li ul li {
 	width: 100%;
 	padding: .8rem 3.2rem;
@@ -2627,32 +2203,23 @@ li:hover .overlay {
 		margin-right: -2%;
 		margin-left: -2%;
 	}
-
 	.flexblock.plans>li {
 		margin-right: 2%;
 		margin-left: 2%;
 		width: 29%;
 	}
-
 	.plans>li:hover,
 	.plans>li:nth-child(2) {
 		position: relative;
 		z-index: 2;
 		transform: scale(1.08);
 	}
-
 	.plans:hover li:nth-child(2):not(:hover) {
 		position: relative;
 		z-index: 1;
 		transform: scale(1);
 	}
 }
-
-
-/* ===========================================
-6.9 Block Activity <ul class="activity">
-CV / News
-============================================= */
 
 .flexblock.activity {
 	flex-direction: column;
@@ -2687,48 +2254,28 @@ CV / News
 	margin-left: 1rem;
 }
 
-@media (min-width: 768px) {
+@media (min-width:768px) {
 	.activity p {
 		float: left;
 	}
-
 	.activity .year {
 		width: 15%;
 	}
-
 	.activity .title {
 		width: 27%;
 		margin-right: 4%;
 		margin-left: 4%;
 	}
-
 	.activity .summary {
 		width: 50%;
 	}
 }
-
-
-/* =========================================
-.flexblock sublist
-=========================================== */
 
 .flexblock li li,
 .flexblock.blink li li {
 	padding: 0;
 	width: 100%;
 }
-
-
-/* .flexblock li li:before {
-	position: absolute;
-	top: 3px;
-	left: 0;
-	content: "*";
-	font-weight: 400;
-} */
-
-
-/* === Mini container .flexblock li === */
 
 [class*="content-"] .flexblock li p {
 	font-size: 1.8rem;
@@ -2739,11 +2286,6 @@ CV / News
 .content-left .flexblock.features li {
 	width: 46%;
 }
-
-
-/* =============================================
-7. Promos/Offers (pricing, tagline, CTA...)
-=============================================== */
 
 .cta {
 	display: flex;
@@ -2783,30 +2325,24 @@ CV / News
 	margin-bottom: 0;
 }
 
-@media (min-width: 768px) {
+@media (min-width:768px) {
 	.number,
 	.cta .benefit {
 		padding: 4.8rem;
 		max-width: 50%;
 	}
-
 	.cta .benefit {
 		text-align: left;
 	}
-
 	.number span {
 		font-size: 16rem;
 		line-height: 16rem;
 	}
-
 	.number span sup {
 		font-size: 6rem;
 		vertical-align: middle;
 	}
 }
-
-
-/* --- Header CTA --- */
 
 .cta-cover {
 	display: table;
@@ -2817,35 +2353,27 @@ CV / News
 	font-weight: 400;
 }
 
-@media (min-width: 1024px) {
+@media (min-width:1024px) {
 	.cta-cover h1 {
 		max-width: 80%;
 		float: left;
 	}
-
 	.cta-cover h1 strong {
 		display: block;
 	}
-
 	.cta-cover .button {
 		margin-top: 1.2rem;
 	}
-
 	.cta-cover .try {
 		text-align: center;
 	}
 }
 
-@media (max-width: 1023px) {
+@media (max-width:1023px) {
 	.cta-cover .alignright {
 		float: none;
 	}
 }
-
-
-/* =========================================
-8. Work/Resumé/CV <ul class="work">
-=========================================== */
 
 h1+.work,
 h2+.work,
@@ -2921,14 +2449,13 @@ p+.work {
 	right: 0;
 }
 
-@media (min-width: 768px) {
+@media (min-width:768px) {
 	.work-label p,
 	.work li p {
 		width: 25%;
 		margin-right: 2%;
 		float: left;
 	}
-
 	.work li.work-label p:last-child,
 	.work li p:last-child {
 		position: relative;
@@ -2939,13 +2466,12 @@ p+.work {
 		text-align: right;
 		padding-right: 1.2rem;
 	}
-
 	.work li p.work-date {
 		width: 120px;
 	}
 }
 
-@media (max-width: 768px) {
+@media (max-width:768px) {
 	.work-client,
 	.work-label .work-services {
 		clip: rect(1px, 1px, 1px, 1px);
@@ -2956,22 +2482,12 @@ p+.work {
 	}
 }
 
-
-/* ===========================================
-9. Table of contents
-============================================= */
-
 .toc,
 .toc ol>li:before,
 .chapter {
 	position: relative;
 	z-index: 2;
 }
-
-
-/* .toc {
-	padding: 2.4rem;
-} */
 
 .toc ol {
 	position: relative;
@@ -3018,7 +2534,6 @@ p+.work {
 
 .toc li .toc-page:before {
 	position: absolute;
-	/* width: 100%; */
 	right: 4rem;
 	left: 0;
 	margin-top: 1.8rem;
@@ -3039,18 +2554,12 @@ p+.work {
 	border-bottom-width: 2px;
 }
 
-
-/* ===========================================
-10. Cards
-============================================= */
-
 [class*="card-"],
 [class*="card-"]>a {
 	position: relative;
 	display: flex;
 	flex-direction: row;
 	clear: both;
-	/* width: 100%; */
 }
 
 .fullscreen [class*="card-"],
@@ -3063,11 +2572,7 @@ p+.work {
 	display: block;
 }
 
-
-/* ==	Images inside container:
-object-fit to re-frame images rather than just stretch and resize them	=== */
-
-@media (min-width: 768px) {
+@media (min-width:768px) {
 	[class*="card-"][class*="bg-"] figure,
 	.fullscreen [class*="card-"] figure {
 		vertical-align: middle;
@@ -3075,7 +2580,6 @@ object-fit to re-frame images rather than just stretch and resize them	=== */
 		min-width: 380px;
 		max-height: 100%;
 	}
-
 	[class*="card-"][class*="bg-"] figure img,
 	.fullscreen [class*="card-"] figure img {
 		position: absolute;
@@ -3101,74 +2605,58 @@ object-fit to re-frame images rather than just stretch and resize them	=== */
 	position: relative;
 }
 
-@media (min-width: 768px) {
-	/* == Cards (Sizes) - Reference: figure img:-70,60,50,40,30... === */
+@media (min-width:768px) {
 	.card-50 figure,
 	.card-50 blockquote,
 	.card-50 .flex-content {
 		width: 50%;
 	}
-
 	.card-30 figure,
 	.card-70 .flex-content,
 	.card-70 blockquote {
 		width: 30%;
 	}
-
 	.card-40 figure,
 	.card-60 .flex-content,
 	.card-60 blockquote {
 		width: 40%;
 	}
-
 	.card-60 figure,
 	.card-40 .flex-content,
 	.card-40 blockquote {
 		width: 60%;
 	}
-
 	.card-70 figure,
 	.card-30 .flex-content,
 	.card-30 blockquote {
 		width: 70%;
 	}
-
 	[class*="card-"]:nth-child(odd) figure {
 		order: 0;
 	}
-
 	[class*="card-"]:nth-child(even) figure {
 		order: 1;
 	}
-
 	.flex-content,
 	[class*="card-"] blockquote {
 		padding: 4.8rem;
 	}
-
 	.fullscreen [class*="card-"] .flex-content,
 	.fullscreen [class*="card-"] blockquote {
 		padding: 6.4rem;
 	}
 }
 
-
-/* == Card - Headings === */
-
-@media (max-width: 767px) {
+@media (max-width:767px) {
 	[class*="card-"],
 	[class*="card-"]>a {
 		flex-flow: column;
 	}
-
 	.card figure,
 	.card header {
 		width: 100%;
 	}
 }
-
-
-/* == Ficaption Cards === */
 
 [class*="card-"] figure figcaption {
 	position: absolute;
@@ -3177,7 +2665,6 @@ object-fit to re-frame images rather than just stretch and resize them	=== */
 	padding: .8rem 2.4rem;
 	font-size: 1.4rem;
 	line-height: 2.4rem;
-	/* Visibility */
 	z-index: 2;
 }
 
@@ -3196,11 +2683,6 @@ object-fit to re-frame images rather than just stretch and resize them	=== */
 	font-size: 1rem;
 }
 
-
-/* =========================================
-11. Quotes
-=========================================== */
-
 blockquote {
 	position: relative;
 	display: inline-block;
@@ -3210,12 +2692,6 @@ blockquote p {
 	font-size: 2.4rem;
 	line-height: 4rem;
 }
-
-
-/* .bg-apple blockquote p {
-	font-family: "Roboto", $font-family-local-sans-regular;
-	font-weight: 300;
-} */
 
 cite {
 	display: block;
@@ -3248,22 +2724,15 @@ blockquote.wall:before {
 	blockquote.wall {
 		padding-left: 8rem;
 	}
-
 	blockquote.wall p {
 		font-size: 3.2rem;
 		line-height: 4.8rem;
 	}
-
 	blockquote.wall:before {
 		top: -3.2rem;
 		left: .8rem;
 	}
 }
-
-
-/* =========================================
-12. Avatars - uifaces.com
-=========================================== */
 
 cite img,
 img[class*="avatar-"] {
@@ -3306,11 +2775,6 @@ img.avatar-40 {
 	height: 40px;
 }
 
-
-/* =========================================
-13. Tables
-=========================================== */
-
 table {
 	margin-top: 3.2rem;
 	margin-bottom: 3.2rem;
@@ -3342,11 +2806,6 @@ tr>td {
 	font-weight: 400;
 }
 
-
-/* .slide tr>td {
-	width: 25%;
-} */
-
 table {
 	border: none;
 	border-top-width: 0.063rem;
@@ -3369,30 +2828,26 @@ table td {
 	border-bottom-style: solid;
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width:640px) {
 	table,
 	table tr,
 	table td {
 		display: block;
 		box-sizing: border-box;
 	}
-
 	table tr {
 		width: 100%;
 		float: left;
 		position: relative;
 		margin-bottom: 2.4rem;
 	}
-
 	table tr:last-child {
 		margin-bottom: 0;
 	}
-
 	table thead,
 	table tfoot {
 		display: none;
 	}
-
 	table td::before {
 		display: block;
 		float: left;
@@ -3403,11 +2858,6 @@ table td {
 		padding-right: 0.625rem;
 	}
 }
-
-
-/* =========================================
-14. Forms
-=========================================== */
 
 form {
 	text-align: left;
@@ -3457,11 +2907,6 @@ button[type="submit"] {
 	width: 100%;
 }
 
-
-/* input:hover, textarea:hover, select:hover {
-	transform: translateY(-.2rem);
-} */
-
 input:focus,
 textarea:focus,
 select:focus {
@@ -3480,9 +2925,6 @@ button {
 .button {
 	display: inline-block;
 	line-height: 4.8rem;
-	/* border-radius:4.8rem;
-	text-transform: uppercase;
-	letter-spacing: .1rem; */
 	font-size: 1.8rem;
 	font-weight: 400;
 	text-align: center;
@@ -3534,56 +2976,9 @@ legend {
 	font-weight: 400;
 }
 
-
-/* === App Store Badges === */
-
-
-/* Change width and height: 216x64px, 162x48px, 135x40... */
-
-
-/* [class*="badge-"] {
-	width: 135px;
-	height: 40px;
-	line-height: 4rem;
-	background-size: cover;
-	background-repeat: no-repeat;
-	display: inline-block;
-	text-indent: -4000px;
-	border-radius: .6rem;
-}
-
-@media (min-width:1024px) {
-	[class*="badge-"] {
-		width: 162px;
-		height: 48px;
-		line-height: 4.8rem;
-	}
-}
-
-.badge-ios {
-	background-image: url("../img/bt-appstore.png");
-}
-
-.badge-android {
-	background-image: url("../img/bt-playstore.png");
-} */
-
-
-/* Buttons/Badges - Hover */
-
-
-/* a.button:hover,
-button[type="submit"]:hover,
-input[type="submit"]:hover {
-	transform: scale(1.01);
-} */
-
 [class*="badge-"]:hover {
 	opacity: 0.7;
 }
-
-
-/* === Sign Up/Login Form - Landings === */
 
 .user input {
 	margin-bottom: 0;
@@ -3608,13 +3003,11 @@ input[type="submit"]:hover {
 		width: 70%;
 		float: left;
 	}
-
 	.user button,
 	.user input[type="submit"] {
 		width: 30%;
 		cursor: pointer;
 	}
-
 	[class*="button"]+[class*="button"],
 	[class*="badge"]+[class*="badge"] {
 		margin-left: 1.8rem;
@@ -3622,7 +3015,6 @@ input[type="submit"]:hover {
 }
 
 @media (max-width:499px) {
-
 	[class*="button"]+[class*="button"],
 	[class*="badge"]+[class*="badge"] {
 		margin-top: .8rem;
@@ -3634,12 +3026,6 @@ button:disabled:hover {
 	cursor: not-allowed;
 }
 
-
-/* =========================================
-15. SAFARI BUGS (flex-wrap)
-Solution: stackoverflow.com/questions/34250282/flexbox-safari-bug-flex-wrap
-=========================================== */
-
 .flexblock:before,
 .flexblock:after,
 .grid:before,
@@ -3649,19 +3035,12 @@ Solution: stackoverflow.com/questions/34250282/flexbox-safari-bug-flex-wrap
 	width: 0;
 }
 
-
-/* =========================================
-16. PRINT
-=========================================== */
-
 @media print {
 	section,
 	.slide {
-		/* not static, just in case slide contents take advantage of positioning */
 		position: relative;
 		display: block !important;
 	}
-
 	#counter,
 	#navigation {
 		display: none;

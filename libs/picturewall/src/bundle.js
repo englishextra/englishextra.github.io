@@ -1337,6 +1337,9 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 		};
 
 		var checkFontIsLoaded = function () {
+			/*!
+			 * check only for fonts that are used in current page
+			 */
 			if (doesFontExist("Roboto")) {
 				onFontsLoaded();
 			}

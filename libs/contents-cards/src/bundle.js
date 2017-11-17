@@ -1421,6 +1421,9 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 		};
 
 		var checkFontIsLoaded = function () {
+			/*!
+			 * check only for fonts that are used in current page
+			 */
 			if (doesFontExist("Roboto")) {
 				onFontsLoaded();
 			}
