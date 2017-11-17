@@ -768,7 +768,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 		if (qrcode) {
 			var qrcodeImg = document[createElement]("img");
 			var qrcodeImgTitle = documentTitle ? "Ссылка на страницу «" + documentTitle.replace(/\[[^\]]*?\]/g, "").trim() + "»" : "";
-			var qrcodeImgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
+			var qrcodeImgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(locationHref);
 			qrcodeImg[alt] = qrcodeImgTitle;
 			if (root.QRCode) {
 				if (supportsSvgAsImg) {

@@ -1193,7 +1193,7 @@ var manageLocationQrCodeImage = function () {
 		var locationHref = w.location.href || "";
 		var img = d[createElement]("img");
 		var imgTitle = d.title ? "Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»" : "";
-		var imgSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
+		var imgSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(locationHref);
 		img.alt = imgTitle;
 		if (w.QRCode) {
 			if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {

@@ -1618,7 +1618,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 				var qrcode = e[dataset].qrcode || "";
 				qrcode = decodeURIComponent(qrcode);
 				if (qrcode) {
-					var imgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(qrcode);
+					var imgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(qrcode);
 					e.title = qrcode;
 					e.alt = qrcode;
 					if (root.QRCode) {
@@ -1898,7 +1898,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 				var locationHref = root.location.href || "";
 				var img = document[createElement]("img");
 				var imgTitle = document.title ? "Ссылка на страницу «" + document.title.replace(/\[[^\]]*?\]/g, "").trim() + "»" : "";
-				var imgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
+				var imgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(locationHref);
 				img.alt = imgTitle;
 				if (root.QRCode) {
 					if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {

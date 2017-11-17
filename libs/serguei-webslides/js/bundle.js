@@ -687,7 +687,7 @@ unescape, WebSlides*/
 				var qrcode = e[dataset].qrcode || "";
 				qrcode = decodeURIComponent(qrcode);
 				if (qrcode) {
-					var imgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(qrcode);
+					var imgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(qrcode);
 					e.title = qrcode;
 					e.alt = qrcode;
 					if (root.QRCode) {

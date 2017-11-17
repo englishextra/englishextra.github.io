@@ -2183,7 +2183,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 					var locationHref = root.location.href || "";
 					var newImg = document[createElement]("img");
 					var newTitle = document[title] ? ("Ссылка на страницу «" + document[title].replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
-					var newSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=300x300&chl=" + encodeURIComponent(locationHref);
+					var newSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(locationHref);
 					newImg.alt = newTitle;
 					var initScript = function () {
 						if (root.QRCode) {
