@@ -789,10 +789,12 @@ unescape, WebSlides*/
 		scripts.push("../cdn/polyfills/js/polyfills.fixed.min.js");
 	}
 
-	/* var scripts = [forcedHTTP + "://cdn.jsdelivr.net/npm/webslides@1.4.2/static/js/webslides.js",
-		forcedHTTP + "://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.js"]; */
-
-	scripts.push("../libs/serguei-webslides/js/vendors.min.js");
+	if (hasWheel) {
+		/* var scripts = [forcedHTTP + "://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.js",
+			forcedHTTP + "://cdn.jsdelivr.net/npm/webslides@1.4.2/static/js/webslides.js",
+			"../cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js"]; */
+		scripts.push("../libs/serguei-webslides/js/vendors.min.js");
+	}
 
 	/*!
 	 * load scripts after webfonts loaded using doesFontExist
