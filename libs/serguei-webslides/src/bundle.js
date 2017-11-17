@@ -365,7 +365,7 @@ unescape, WebSlides*/
 
 	progressBar.increase(20);
 
-	var hasWheel = "onwheel" in document[createElement]("div") || void 0 !== document.onmousewheel || "";
+	var hasTouch = "ontouchstart" in docElem || "";
 
 	var getHTTP = function (force) {
 		var any = force || "";
@@ -737,7 +737,7 @@ unescape, WebSlides*/
 		manageDataQrcodeImageAll();
 		/* root[_addEventListener]("load", manageDataQrcodeImageAll); */
 
-		if (hasWheel && "undefined" !== root.jQuery && root.WebSlides) {
+		if (!hasTouch && "undefined" !== root.jQuery && root.WebSlides) {
 			root.ws = new WebSlides();
 		}
 
@@ -789,7 +789,7 @@ unescape, WebSlides*/
 		scripts.push("../cdn/polyfills/js/polyfills.fixed.min.js");
 	}
 
-	if (hasWheel) {
+	if (!hasTouch) {
 		/* var scripts = [forcedHTTP + "://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.js",
 			forcedHTTP + "://cdn.jsdelivr.net/npm/webslides@1.4.2/static/js/webslides.js",
 			"../cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js"]; */
