@@ -735,9 +735,9 @@ unescape, WebSlides*/
 		 manageDataQrcodeImageAll();
 		/* root[_addEventListener]("load", manageDataQrcodeImageAll); */
 
-		if ("undefined" !== root.jQuery && root.WebSlides) {
+		/* if ("undefined" !== root.jQuery && root.WebSlides) {
 			root.ws = new WebSlides();
-		}
+		} */
 
 		hideProgressBar();
 	};
