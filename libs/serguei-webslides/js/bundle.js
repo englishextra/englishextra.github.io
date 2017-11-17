@@ -367,6 +367,8 @@ unescape, WebSlides*/
 
 	progressBar.increase(20);
 
+	var hasWheel = "onwheel" in document[createElement]("div") || void 0 !== document.onmousewheel || "";
+
 	var getHTTP = function (force) {
 		var any = force || "";
 		var locationProtocol = root.location.protocol || "";
@@ -737,9 +739,9 @@ unescape, WebSlides*/
 		manageDataQrcodeImageAll();
 		/* root[_addEventListener]("load", manageDataQrcodeImageAll); */
 
-		/* if ("undefined" !== root.jQuery && root.WebSlides) {
-  	root.ws = new WebSlides();
-  } */
+		if (hasWheel && "undefined" !== root.jQuery && root.WebSlides) {
+			root.ws = new WebSlides();
+		}
 
 		hideProgressBar();
 	};
