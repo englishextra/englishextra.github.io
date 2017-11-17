@@ -734,7 +734,7 @@ unescape, WebSlides*/
 				initScript();
 			}
 		};
-		 manageDataQrcodeImageAll();
+		manageDataQrcodeImageAll();
 		/* root[_addEventListener]("load", manageDataQrcodeImageAll); */
 
 		if (hasWheel && "undefined" !== root.jQuery && root.WebSlides) {
