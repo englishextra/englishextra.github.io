@@ -207,6 +207,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 
 	var getElementsByClassName = "getElementsByClassName";
 	var _addEventListener = "addEventListener";
+	var _length = "length";
 	var Carousel = function (setting) {
 		var _this = this;
 		if (document[getElementsByClassName](setting.wrap)[0] === null) {

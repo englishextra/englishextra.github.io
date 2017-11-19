@@ -401,7 +401,7 @@ unescape, WebSlides*/
 			var f = function (a) {
 				var b = a.split(" ");
 				if (selectors) {
-					for (var c = 0; c < b.length; c += 1) {
+					for (var c = 0; c < b[_length]; c += 1) {
 						a = b[c];
 						selectors.add(a);
 					}
@@ -410,7 +410,7 @@ unescape, WebSlides*/
 			var g = function (a) {
 				var b = a.split(" ");
 				if (selectors) {
-					for (var c = 0; c < b.length; c += 1) {
+					for (var c = 0; c < b[_length]; c += 1) {
 						a = b[c];
 						selectors.remove(a);
 					}
@@ -492,11 +492,11 @@ unescape, WebSlides*/
 			return selector;
 		}("touch");
 
-		var earlyFnGetYyyymmdd = function () {
-			var newDate = new Date(),
-			    newDay = newDate.getDate(),
-			    newYear = newDate.getFullYear(),
-			    newMonth = newDate.getMonth();
+		var getHumanDate = function () {
+			var newDate = new Date();
+			var newDay = newDate.getDate();
+			var newYear = newDate.getFullYear();
+			var newMonth = newDate.getMonth();
 			newMonth += 1;
 			if (10 > newDay) {
 				newDay = "0" + newDay;
@@ -507,7 +507,7 @@ unescape, WebSlides*/
 			return newYear + "-" + newMonth + "-" + newDay;
 		}();
 
-		var userBrowsingDetails = " [" + (earlyFnGetYyyymmdd ? earlyFnGetYyyymmdd : "") + (earlyDeviceType ? " " + earlyDeviceType : "") + (earlyDeviceFormfactor.orientation ? " " + earlyDeviceFormfactor.orientation : "") + (earlyDeviceFormfactor.size ? " " + earlyDeviceFormfactor.size : "") + (earlySvgSupport ? " " + earlySvgSupport : "") + (earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") + (earlyHasTouch ? " " + earlyHasTouch : "") + "]";
+		var userBrowsingDetails = " [" + (getHumanDate ? getHumanDate : "") + (earlyDeviceType ? " " + earlyDeviceType : "") + (earlyDeviceFormfactor.orientation ? " " + earlyDeviceFormfactor.orientation : "") + (earlyDeviceFormfactor.size ? " " + earlyDeviceFormfactor.size : "") + (earlySvgSupport ? " " + earlySvgSupport : "") + (earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") + (earlyHasTouch ? " " + earlyHasTouch : "") + "]";
 		if (document[title]) {
 			document[title] = document[title] + userBrowsingDetails;
 		}
@@ -671,7 +671,7 @@ unescape, WebSlides*/
 				}
 			};
 			if (link) {
-				for (var i = 0, l = link.length; i < l; i += 1) {
+				for (var i = 0, l = link[_length]; i < l; i += 1) {
 					arrange(link[i]);
 				}
 				/* forEach(link, arrange, false); */
@@ -720,7 +720,7 @@ unescape, WebSlides*/
 				}
 			};
 			var initScript = function () {
-				for (var i = 0, l = img.length; i < l; i += 1) {
+				for (var i = 0, l = img[_length]; i < l; i += 1) {
 					generateImg(img[i]);
 				}
 				/* forEach(img, generateImg, false); */
@@ -739,8 +739,29 @@ unescape, WebSlides*/
 		manageDataQrcodeImageAll();
 		/* root[_addEventListener]("load", manageDataQrcodeImageAll); */
 
-		if (!hasTouch && "undefined" !== root.jQuery && root.WebSlides) {
-			root.ws = new WebSlides();
+		var smallScreen = root.matchMedia("all and (max-width:768px)");
+
+		if (!smallScreen.matches && !hasTouch && "undefined" !== root.jQuery && root.WebSlides) {
+			/*!
+    * autoslide:  number or boolean false Amount of milliseconds to wait to go to next slide automatically.
+    * changeOnClick:  boolean false If true, clicking on the page will go to the next slide unless it's a clickable element. See ClickToNav docs for more info.
+    * loop:  boolean true Lets WebSlides loop the slides so once it reaches the end, going next will make it go to the first slide.
+    * minWheelDelta:  number 40 Controls the amount of scroll needed to trigger a navigation. Lower this number to decrease the scroll resistance.
+    * navigateOnScroll:  number 40 Whether scroll can trigger navigation or not.
+    * scrollWait:  number 450 Controls the amount of time needed to wait for a scroll transition to happen again.
+    * slideOffset:  number 50 Amount of sliding needed to trigger a new navigation.
+    * showIndex:  boolean true Controls if the index can be shown.
+    */
+			root.ws = new WebSlides({
+				autoslide: true,
+				changeOnClick: false,
+				loop: true,
+				minWheelDelta: 40,
+				navigateOnScroll: true,
+				scrollWait: 450,
+				slideOffset: 50,
+				showIndex: true
+			});
 		}
 
 		hideProgressBar();
@@ -772,12 +793,10 @@ unescape, WebSlides*/
 		scripts.push("../cdn/polyfills/js/polyfills.fixed.min.js");
 	}
 
-	if (!hasTouch) {
-		/* var scripts = [forcedHTTP + "://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.js",
-  	forcedHTTP + "://cdn.jsdelivr.net/npm/webslides@1.4.2/static/js/webslides.js",
-  	"../cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js"]; */
-		scripts.push("../libs/serguei-webslides/js/vendors.min.js");
-	}
+	/* var scripts = [forcedHTTP + "://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.js",
+ 	forcedHTTP + "://cdn.jsdelivr.net/npm/webslides@1.4.2/static/js/webslides.js",
+ 	"../cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js"]; */
+	scripts.push("../libs/serguei-webslides/js/vendors.min.js");
 
 	/*!
   * load scripts after webfonts loaded using doesFontExist

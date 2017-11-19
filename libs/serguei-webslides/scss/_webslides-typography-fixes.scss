@@ -1,0 +1,35 @@
+/* @import "webslides-typography-fixes"; */
+
+/*!
+ * Name: WebSlides
+ * Version: 1.5.0
+ * Date: 2017-09-16
+ * Description: Making HTML presentations easy
+ * URL: https://github.com/webslides/webslides#readme
+ * Credits: @jlantunez, @LuisSacristan, @Belelros
+ */
+/*!
+ * fixes
+ */
+ 
+pre,
+code {
+	font-family: "Roboto Mono", $font-family-local-monospace;
+}
+
+html,
+body,
+input,
+select,
+textarea {
+	font-family: "Roboto", $font-family-local-sans-regular;
+}
+
+.text-serif,
+h1 span {
+	font-family: "Roboto", $font-family-local-sans-light;
+}
+
+blockquote.wall:before {
+	font-family: "Roboto", $font-family-local-sans-regular;
+}

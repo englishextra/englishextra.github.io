@@ -1,0 +1,210 @@
+/* @import "webslides-color-fixes"; */
+
+/*!
+ * Name: WebSlides
+ * Version: 1.5.0
+ * Date: 2017-09-16
+ * Description: Making HTML presentations easy
+ * URL: https://github.com/webslides/webslides#readme
+ * Credits: @jlantunez, @LuisSacristan, @Belelros
+ */
+
+/*!
+ * fixes
+ */
+
+body {
+	color: $color-hex-body-text;
+	background-color: $color-hex-lighter-page-bg;
+}
+
+[class*="bg-"] a,
+[class*="bg-gradient-"] a {
+	color: $color-hex-link;
+}
+
+a,
+.bg-white a,
+.bg-light a,
+.bg-gradient-white a {
+	color: $AccentColor;
+}
+
+a:hover {
+	color: #7DDCFF;
+}
+
+hr:after {
+	background-color: rgba(255, 255, 255, 0.8);
+	color: $color-hex-body-text;
+}
+
+bbbr,
+acronym {
+	border-bottom: 0.063rem dotted $color-hex-body-text;
+}
+
+::selection {
+	color: $color-rgba-selection-text;
+	background-color: $color-rgba-selection-bg;
+}
+
+::placeholder {
+	color: $color-hex-gray-text !important;
+	opacity: 1;
+}
+
+.bg-primary {
+	background-color: $AccentColor;
+}
+
+.bg-trans-dark,
+.bg-trans-gradient,
+.bg-primary,
+.bg-secondary,
+.bg-blue,
+.bg-green,
+.bg-purple,
+.bg-red,
+.bg-facebook,
+.bg-apple,
+[class*='bg-black'],
+[class*='bg-gradient-'] {
+	text-shadow: none;
+}
+
+[class*="bg-"] .bg-white {
+	color: $color-hex-body-text;
+	text-shadow: none;
+}
+
+.bg-gradient-white {
+	background: linear-gradient(180deg, #f2f4f6 0, #fff 100%);
+	color: $color-hex-body-text;
+	text-shadow: none;
+}
+
+.bg-gradient-gray {
+	background: linear-gradient(90deg, $color-hex-lighter-page-bg 0, #dee2e6 100%);
+	color: $color-hex-body-text;
+	text-shadow: none;
+}
+
+.overlay,
+.overlay a {
+	text-shadow: none;
+}
+
+ul.tabs li:before {
+	background-color: $AccentColor;
+}
+
+.gallery li a {
+	color: $color-hex-body-text;
+	text-shadow: none;
+}
+
+.plans>li>a {
+	color: $color-hex-body-text;
+	text-shadow: none;
+}
+
+thead {
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+tr:nth-child(even)>td {
+	background: rgba(0, 0, 0, 0.1);
+}
+
+td:hover {
+	background: inherit;
+}
+
+tr:nth-child(even) > td:hover {
+	background: rgba(0, 0, 0, 0.1);
+}
+
+table {
+	border-top-color: rgba(0, 0, 0, 0.5);
+	border-right-color: rgba(0, 0, 0, 0.5);
+	border-left-color: rgba(0, 0, 0, 0.5);
+}
+
+table th {
+	border-bottom-color: rgba(0, 0, 0, 0.5);
+}
+
+table td {
+	border-bottom-color: rgba(0, 0, 0, 0.5);
+}
+
+@media screen and (max-width:768px) {
+	table {
+		border: none;
+	}
+
+	table th,
+	table td {
+		border-top: none;
+		border-right: none;
+		border-left: none;
+	}
+
+	table tr {
+		border: 0.063rem solid rgba(0, 0, 0, 0.5);
+		border-bottom: none;
+	}
+}
+
+button,
+input,
+select,
+textarea,
+button[type="submit"],
+input[type="submit"],
+.button,
+.button:hover,
+button[type="submit"]:hover,
+input[type="submit"]:hover {
+	border: 0.063rem solid $AccentColor;
+}
+
+button[type="submit"],
+input[type="submit"],
+.button,
+.button:hover,
+button[type="submit"]:hover,
+input[type="submit"]:hover {
+	color: $color-hex-body-text;
+	background-color: $AccentColor;
+	text-shadow: none;
+}
+
+.button:active,
+button[type="submit"]:active,
+input[type="submit"]:active {
+	color: $color-hex-body-text;
+	background-color: $AccentColor;
+}
+
+.bg-white a.button.ghost,
+.bg-gradient-white a.button.ghost {
+	color: $color-hex-body-text;
+	border: 0.063rem solid $AccentColor;
+}
+
+fieldset {
+	border: 0.063rem solid $AccentColor;
+}
+
+.toc,
+.toc ol>li:before,
+.chapter {
+	background-color: $color-hex-lighter-page-bg;
+}
+
+#counter,
+#navigation a {
+	color: $color-hex-link;
+}

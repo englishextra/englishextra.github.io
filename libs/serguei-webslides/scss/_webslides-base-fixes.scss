@@ -1,0 +1,205 @@
+/* @import "webslides-base-fixes"; */
+
+/*!
+ * Name: WebSlides
+ * Version: 1.5.0
+ * Date: 2017-09-16
+ * Description: Making HTML presentations easy
+ * URL: https://github.com/webslides/webslides#readme
+ * Credits: @jlantunez, @LuisSacristan, @Belelros
+ */
+/*!
+ * fixes
+ */
+
+.page .show-inline-on-mobile,
+.page .show-block-on-mobile {
+	display: none;
+}
+
+@media handheld,
+only screen and (max-width:800px) {
+	.page .hide-on-mobile {
+		display: none;
+		width: 0;
+		height: 0;
+	}
+	.page .show-inline-on-mobile {
+		display: inline;
+	}
+	.page .show-block-on-mobile {
+		display: block;
+	}
+}
+
+.page {
+	visibility: visible;
+	opacity: 1;
+	transition: visibility 0s, opacity 0.2s ease;
+}
+
+.page img {
+	display: block;
+}
+
+.logo {
+	text-transform: lowercase;
+}
+
+.logo a {
+	background: url(../img/logo-256x96.png) no-repeat 0 0;
+	background-size: 16rem 6rem;
+	width: 16rem;
+	height: 6rem;
+	vertical-align: middle;
+	float: left;
+	text-indent: -4000px;
+}
+
+.no-svg .logo a {
+	background-image: url(../img/logo-256x96.png);
+}
+
+@media handheld,
+only screen and (max-width:800px) {
+	.logo a {
+		background: url(../img/logo-96x96.png) no-repeat 0 0;
+		background-size: 5rem 5rem;
+		width: 5rem;
+		height: 5rem;
+	}
+	.no-svg .logo a {
+		background-image: url(../img/logo-96x96.png);
+	}
+	.logo {
+		position: fixed;
+		top: 0;
+		left: 0;
+	}
+}
+
+#navigation {
+	animation: fadeIn 0.4s;
+	opacity: 1;
+}
+
+#counter {
+	display: block;
+	/*!
+	 * or set showIndex: false
+	 * in options
+	 */
+	/* pointer-events: none; */
+}
+
+/* @media (max-width:1024px) {
+	#navigation {
+		background: url(../img/swipe-96x96.png) no-repeat center top;
+		background-size: 5rem 5rem;
+		animation: fadeIn 0.2s;
+	}
+	.no-svg #navigation {
+		background-image: url(../img/swipe-96x96.png);
+	}
+} */
+
+@media (max-width:1024px) {
+	#navigation {
+		background-image: none;
+	}
+	#navigation a,
+	#counter {
+		display: block;
+	}
+}
+
+@media (max-width:768px) {
+	#navigation a,
+	#counter {
+		display: none;
+	}
+}
+
+table {
+	margin-top: 3.2rem;
+	margin-bottom: 3.2rem;
+}
+
+table td,
+th,
+thead {
+	border-spacing: 0;
+	padding: .7rem 2.4rem;
+}
+
+thead th,
+th {
+	text-align: left;
+	cursor: default;
+	white-space: nowrap;
+	font-weight: 600;
+	text-transform: uppercase;
+}
+
+thead,
+td.goals {
+	font-weight: 600;
+	text-shadow: none;
+}
+
+tr>td {
+	font-weight: 400;
+}
+
+table {
+	border: none;
+	border-top-width: 0.063rem;
+	border-top-style: solid;
+	border-right-width: 0.063rem;
+	border-right-style: solid;
+	border-left-width: 0.063rem;
+	border-left-style: solid;
+}
+
+table th {
+	border: none;
+	border-bottom-width: 0.063rem;
+	border-bottom-style: solid;
+}
+
+table td {
+	border: none;
+	border-bottom-width: 0.063rem;
+	border-bottom-style: solid;
+}
+
+@media screen and (max-width:768px) {
+	table,
+	table tr,
+	table td {
+		display: block;
+		box-sizing: border-box;
+	}
+	table tr {
+		width: 100%;
+		float: left;
+		position: relative;
+		margin-bottom: 2.4rem;
+	}
+	table tr:last-child {
+		margin-bottom: 0;
+	}
+	table thead,
+	table tfoot {
+		display: none;
+	}
+	table td::before {
+		display: block;
+		float: left;
+		content: attr(data-label);
+		font-weight: bold;
+		text-transform: uppercase;
+		text-align: right;
+		padding-right: 0.625rem;
+	}
+}

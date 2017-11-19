@@ -1536,6 +1536,11 @@ section,
 	position: relative;
 	text-align: center;
 	width: 10rem;
+	/*!
+	 * or set showIndex: false
+	 * in options
+	 */
+	/* pointer-events: none; */
 }
 
 #counter a:hover {
@@ -1562,7 +1567,7 @@ a#previous {
 	left: 3.2rem;
 }
 
-@media (max-width:1024px) {
+/* @media (max-width:1024px) {
 	#navigation {
 		background: url(../img/swipe-96x96.png) no-repeat center top;
 		background-size: 5rem 5rem;
@@ -1571,6 +1576,13 @@ a#previous {
 	.no-svg #navigation {
 		background-image: url(../img/swipe-96x96.png);
 	}
+	#navigation a,
+	#counter {
+		display: none;
+	}
+} */
+
+@media (max-width:768px) {
 	#navigation a,
 	#counter {
 		display: none;
@@ -2828,7 +2840,7 @@ table td {
 	border-bottom-style: solid;
 }
 
-@media screen and (max-width:640px) {
+@media screen and (max-width:768px) {
 	table,
 	table tr,
 	table td {

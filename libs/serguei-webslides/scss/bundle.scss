@@ -4,7 +4,11 @@
 
 @import "englishextra-ui-colors";
 @import "englishextra-ui-variables";
-@import "webslides-base.fixed";
-@import "webslides-colors.fixed";
-@import "serguei-webslides-sprites";
+@import "webslides-base";
+@import "webslides-base-fixes";
+@import "webslides-typography";
+@import "webslides-typography-fixes";
+@import "webslides-color";
+@import "webslides-color-fixes";
+@import "sprites";
 
