@@ -739,7 +739,7 @@ unescape, WebSlides*/
 
 		var smallScreen = root.matchMedia("all and (max-width:768px)");
 
-		if (/* !smallScreen.matches && !hasTouch &&  */"undefined" !== root.jQuery && root.WebSlides) {
+		if (!smallScreen.matches && !hasTouch && "undefined" !== root.jQuery && root.WebSlides) {
 			/*!
 			 * autoslide:  number or boolean false Amount of milliseconds to wait to go to next slide automatically.
 			 * changeOnClick:  boolean false If true, clicking on the page will go to the next slide unless it's a clickable element. See ClickToNav docs for more info.
