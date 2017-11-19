@@ -470,6 +470,7 @@ ToProgress, unescape, verge, VK, Ya*/
 		var appendChild = "appendChild";
 		var classList = "classList";
 		var createDocumentFragment = "createDocumentFragment";
+		var createRange = "createRange";
 		var createTextNode = "createTextNode";
 		var dataset = "dataset";
 		var getAttribute = "getAttribute";
@@ -495,7 +496,7 @@ ToProgress, unescape, verge, VK, Ya*/
 			var f = function (a) {
 				var b = a.split(" ");
 				if (selectors) {
-					for (var c = 0; c < b.length; c += 1) {
+					for (var c = 0; c < b[_length]; c += 1) {
 						a = b[c];
 						selectors.add(a);
 					}
@@ -504,7 +505,7 @@ ToProgress, unescape, verge, VK, Ya*/
 			var g = function (a) {
 				var b = a.split(" ");
 				if (selectors) {
-					for (var c = 0; c < b.length; c += 1) {
+					for (var c = 0; c < b[_length]; c += 1) {
 						a = b[c];
 						selectors.remove(a);
 					}
@@ -586,11 +587,11 @@ ToProgress, unescape, verge, VK, Ya*/
 			return selector;
 		}("touch");
 
-		var earlyFnGetYyyymmdd = function () {
-			var newDate = new Date(),
-			    newDay = newDate.getDate(),
-			    newYear = newDate.getFullYear(),
-			    newMonth = newDate.getMonth();
+		var getHumanDate = function () {
+			var newDate = new Date();
+			var newDay = newDate.getDate();
+			var newYear = newDate.getFullYear();
+			var newMonth = newDate.getMonth();
 			newMonth += 1;
 			if (10 > newDay) {
 				newDay = "0" + newDay;
@@ -601,7 +602,7 @@ ToProgress, unescape, verge, VK, Ya*/
 			return newYear + "-" + newMonth + "-" + newDay;
 		}();
 
-		var userBrowsingDetails = " [" + (earlyFnGetYyyymmdd ? earlyFnGetYyyymmdd : "") + (earlyDeviceType ? " " + earlyDeviceType : "") + (earlyDeviceFormfactor.orientation ? " " + earlyDeviceFormfactor.orientation : "") + (earlyDeviceFormfactor.size ? " " + earlyDeviceFormfactor.size : "") + (earlySvgSupport ? " " + earlySvgSupport : "") + (earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") + (earlyHasTouch ? " " + earlyHasTouch : "") + "]";
+		var userBrowsingDetails = " [" + (getHumanDate ? getHumanDate : "") + (earlyDeviceType ? " " + earlyDeviceType : "") + (earlyDeviceFormfactor.orientation ? " " + earlyDeviceFormfactor.orientation : "") + (earlyDeviceFormfactor.size ? " " + earlyDeviceFormfactor.size : "") + (earlySvgSupport ? " " + earlySvgSupport : "") + (earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") + (earlyHasTouch ? " " + earlyHasTouch : "") + "]";
 		if (document[title]) {
 			document[title] = document[title] + userBrowsingDetails;
 		}
@@ -648,7 +649,7 @@ ToProgress, unescape, verge, VK, Ya*/
 
 		var truncString = function (str, max, add) {
 			add = add || "\u2026";
-			return "string" === typeof str && str.length > max ? str.substring(0, max) + add : str;
+			return "string" === typeof str && str[_length] > max ? str.substring(0, max) + add : str;
 		};
 
 		var fixEnRuTypo = function (e, a, b) {
@@ -660,7 +661,7 @@ ToProgress, unescape, verge, VK, Ya*/
 				a = "f,dult`;pbqrkvyjghcnea[wxio]ms'.zF<DULT~:PBQRKVYJGHCNEA{WXIO}MS'>Z@#$^&|/?";
 				b = '\u0430\u0431\u0432\u0433\u0434\u0435\u0451\u0436\u0437\u0438\u0439\u043a\u043b\u043c\u043d\u043e\u043f\u0440\u0441\u0442\u0443\u0444\u0445\u0446\u0447\u0448\u0449\u044a\u044c\u044b\u044d\u044e\u044f\u0410\u0411\u0412\u0413\u0414\u0415\u0401\u0416\u0417\u0418\u0419\u041a\u041b\u041c\u041d\u041e\u041f\u0420\u0421\u0422\u0423\u0424\u0425\u0426\u0427\u0428\u0429\u042a\u042c\u042b\u042d\u042e\u042f"\u2116;:?/.,';
 			}
-			for (var d = 0; d < e.length; d++) {
+			for (var d = 0; d < e[_length]; d++) {
 				var f = a.indexOf(e.charAt(d));
 				if (c > f) {
 					c += e.charAt(d);
@@ -952,7 +953,7 @@ ToProgress, unescape, verge, VK, Ya*/
 			if (externalLinks) {
 				var i;
 				var l;
-				for (i = 0, l = externalLinks.length; i < l; i += 1) {
+				for (i = 0, l = externalLinks[_length]; i < l; i += 1) {
 					arrange(externalLinks[i]);
 				}
 				i = l = null;
@@ -1080,7 +1081,7 @@ ToProgress, unescape, verge, VK, Ya*/
 							tblsort = new Tablesort(table);
 						}
 					};
-					for (var i = 0, l = tableSort.length; i < l; i += 1) {
+					for (var i = 0, l = tableSort[_length]; i < l; i += 1) {
 						arrange(tableSort[i]);
 					}
 				}
@@ -1212,7 +1213,7 @@ ToProgress, unescape, verge, VK, Ya*/
 				}
 			};
 			if (link) {
-				for (var j = 0, l = link.length; j < l; j += 1) {
+				for (var j = 0, l = link[_length]; j < l; j += 1) {
 					arrange(link[j]);
 				}
 			}
@@ -1273,7 +1274,7 @@ ToProgress, unescape, verge, VK, Ya*/
 				}
 			};
 			if (img) {
-				for (var i = 0, l = img.length; i < l; i += 1) {
+				for (var i = 0, l = img[_length]; i < l; i += 1) {
 					arrange(img[i]);
 				}
 			}
@@ -1328,7 +1329,7 @@ ToProgress, unescape, verge, VK, Ya*/
 				}
 			};
 			if (ifrm) {
-				for (var i = 0, l = ifrm.length; i < l; i += 1) {
+				for (var i = 0, l = ifrm[_length]; i < l; i += 1) {
 					arrange(ifrm[i]);
 				}
 			}
@@ -1367,7 +1368,7 @@ ToProgress, unescape, verge, VK, Ya*/
 				}
 			};
 			if (link) {
-				for (var i = 0, l = link.length; i < l; i += 1) {
+				for (var i = 0, l = link[_length]; i < l; i += 1) {
 					arrange(link[i]);
 				}
 			}
@@ -1429,7 +1430,7 @@ ToProgress, unescape, verge, VK, Ya*/
 				e[_addEventListener]("click", handleExpandingLayerAll);
 			};
 			if (btn) {
-				for (var i = 0, l = btn.length; i < l; i += 1) {
+				for (var i = 0, l = btn[_length]; i < l; i += 1) {
 					addHandler(btn[i]);
 				}
 			}
@@ -1571,7 +1572,7 @@ ToProgress, unescape, verge, VK, Ya*/
 						if (panelNavMenu[classList].contains(isActiveClass)) {
 							removeHolderAndAllActiveClass();
 						}
-						for (var j = 0, l = panelNavMenuItems.length; j < l; j += 1) {
+						for (var j = 0, l = panelNavMenuItems[_length]; j < l; j += 1) {
 							removeActiveClass(panelNavMenuItems[j]);
 						}
 						addActiveClass(e);
@@ -1583,7 +1584,7 @@ ToProgress, unescape, verge, VK, Ya*/
 						removeActiveClass(e);
 					}
 				};
-				for (var i = 0, l = panelNavMenuItems.length; i < l; i += 1) {
+				for (var i = 0, l = panelNavMenuItems[_length]; i < l; i += 1) {
 					addItemHandler(panelNavMenuItems[i]);
 				}
 			};
@@ -1672,7 +1673,7 @@ ToProgress, unescape, verge, VK, Ya*/
 				var addItemHandler = function (e) {
 					e[_addEventListener]("click", handleItem);
 				};
-				for (var i = 0, l = panelMenuMoreItems.length; i < l; i += 1) {
+				for (var i = 0, l = panelMenuMoreItems[_length]; i < l; i += 1) {
 					addItemHandler(panelMenuMoreItems[i]);
 				}
 			};
@@ -1918,7 +1919,7 @@ ToProgress, unescape, verge, VK, Ya*/
 					addHandler();
 				} else {
 					removeChildren(disqusThread);
-					var msgText = document.createRange().createContextualFragment("<p>Комментарии доступны только в веб версии этой страницы.</p>");
+					var msgText = document[createRange]().createContextualFragment("<p>Комментарии доступны только в веб версии этой страницы.</p>");
 					appendFragment(msgText, disqusThread);
 					disqusThread.removeAttribute("id");
 					setStyleDisplayNone(btn[parentNode]);
@@ -1969,7 +1970,7 @@ ToProgress, unescape, verge, VK, Ya*/
 				textInput[parentNode].insertBefore(suggestionUl, textInput.nextElementSibling);
 				ac.renderMenu = function (ul, stance) {
 					var items = stance || "";
-					var itemsLength = items.length;
+					var itemsLength = items[_length];
 					var _this = this;
 					var limitKamilOutput = function (e, i) {
 						if (i < 10) {
@@ -1994,7 +1995,7 @@ ToProgress, unescape, verge, VK, Ya*/
 						if (textValue.match(/^\s*$/)) {
 							handleTypoSuggestion();
 						}
-						if (textInput.value.length < 3 || textInput.value.match(/^\s*$/)) {
+						if (textInput.value[_length] < 3 || textInput.value.match(/^\s*$/)) {
 							handleTypoSuggestion();
 						}
 						itemsLength += 1;
@@ -2007,7 +2008,7 @@ ToProgress, unescape, verge, VK, Ya*/
 						e.title = "" + truncText;
 					};
 					if (lis) {
-						for (var j = 0, m = lis.length; j < m; j += 1) {
+						for (var j = 0, m = lis[_length]; j < m; j += 1) {
 							truncateKamilText(lis[j]);
 						}
 					}

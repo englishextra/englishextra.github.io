@@ -239,7 +239,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 		};
 		privates.opt = {
 			"position": 0,
-			"max_position": document[getElementsByClassName](privates.setting.wrap)[0].children.length
+			"max_position": document[getElementsByClassName](privates.setting.wrap)[0].children[_length]
 		};
 		if (privates.sel.prev !== null) {
 			privates.sel.prev[_addEventListener]("click", function () {
@@ -560,7 +560,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var f = function (a) {
 				var b = a.split(" ");
 				if (selectors) {
-					for (var c = 0; c < b.length; c += 1) {
+					for (var c = 0; c < b[_length]; c += 1) {
 						a = b[c];
 						selectors.add(a);
 					}
@@ -569,7 +569,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var g = function (a) {
 				var b = a.split(" ");
 				if (selectors) {
-					for (var c = 0; c < b.length; c += 1) {
+					for (var c = 0; c < b[_length]; c += 1) {
 						a = b[c];
 						selectors.remove(a);
 					}
@@ -651,11 +651,11 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			return selector;
 		}("touch");
 
-		var earlyFnGetYyyymmdd = function () {
-			var newDate = new Date(),
-			    newDay = newDate.getDate(),
-			    newYear = newDate.getFullYear(),
-			    newMonth = newDate.getMonth();
+		var getHumanDate = function () {
+			var newDate = new Date();
+			var newDay = newDate.getDate();
+			var newYear = newDate.getFullYear();
+			var newMonth = newDate.getMonth();
 			newMonth += 1;
 			if (10 > newDay) {
 				newDay = "0" + newDay;
@@ -668,7 +668,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 
 		var initialDocumentTitle = document.title || "";
 
-		var userBrowsingDetails = " [" + (earlyFnGetYyyymmdd ? earlyFnGetYyyymmdd : "") + (earlyDeviceType ? " " + earlyDeviceType : "") + (earlyDeviceFormfactor.orientation ? " " + earlyDeviceFormfactor.orientation : "") + (earlyDeviceFormfactor.size ? " " + earlyDeviceFormfactor.size : "") + (earlySvgSupport ? " " + earlySvgSupport : "") + (earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") + (earlyHasTouch ? " " + earlyHasTouch : "") + "]";
+		var userBrowsingDetails = " [" + (getHumanDate ? getHumanDate : "") + (earlyDeviceType ? " " + earlyDeviceType : "") + (earlyDeviceFormfactor.orientation ? " " + earlyDeviceFormfactor.orientation : "") + (earlyDeviceFormfactor.size ? " " + earlyDeviceFormfactor.size : "") + (earlySvgSupport ? " " + earlySvgSupport : "") + (earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") + (earlyHasTouch ? " " + earlyHasTouch : "") + "]";
 		if (document[title]) {
 			document[title] = document[title] + userBrowsingDetails;
 		}
@@ -939,7 +939,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 
 		var truncString = function (str, max, add) {
 			add = add || "\u2026";
-			return "string" === typeof str && str.length > max ? str.substring(0, max) + add : str;
+			return "string" === typeof str && str[_length] > max ? str.substring(0, max) + add : str;
 		};
 
 		var fixEnRuTypo = function (e, a, b) {
@@ -951,7 +951,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				a = "f,dult`;pbqrkvyjghcnea[wxio]ms'.zF<DULT~:PBQRKVYJGHCNEA{WXIO}MS'>Z@#$^&|/?";
 				b = '\u0430\u0431\u0432\u0433\u0434\u0435\u0451\u0436\u0437\u0438\u0439\u043a\u043b\u043c\u043d\u043e\u043f\u0440\u0441\u0442\u0443\u0444\u0445\u0446\u0447\u0448\u0449\u044a\u044c\u044b\u044d\u044e\u044f\u0410\u0411\u0412\u0413\u0414\u0415\u0401\u0416\u0417\u0418\u0419\u041a\u041b\u041c\u041d\u041e\u041f\u0420\u0421\u0422\u0423\u0424\u0425\u0426\u0427\u0428\u0429\u042a\u042c\u042b\u042d\u042e\u042f"\u2116;:?/.,';
 			}
-			for (var d = 0; d < e.length; d++) {
+			for (var d = 0; d < e[_length]; d++) {
 				var f = a.indexOf(e.charAt(d));
 				if (c > f) {
 					c += e.charAt(d);
@@ -980,9 +980,9 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				return callback && "function" === typeof callback && callback();
 			};
 			try {
-				var clonedContainer = container.cloneNode(!1);
-				if (document.createRange) {
-					var rg = document.createRange();
+				var clonedContainer = container[cloneNode](false);
+				if (document[createRange]) {
+					var rg = document[createRange]();
 					rg.selectNode(body);
 					var df = rg[createContextualFragment](text);
 					clonedContainer[appendChild](df);
@@ -1123,7 +1123,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 					}
 			};
 			if (img) {
-				for (var i = 0, l = img.length; i < l; i += 1) {
+				for (var i = 0, l = img[_length]; i < l; i += 1) {
 					arrange(img[i]);
 				}
 				/* forEach(img, arrange, false); */
@@ -1178,7 +1178,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 					}
 			};
 			if (iframe) {
-				for (var i = 0, l = iframe.length; i < l; i += 1) {
+				for (var i = 0, l = iframe[_length]; i < l; i += 1) {
 					arrange(iframe[i]);
 				}
 				/* forEach(iframe, arrange, false); */
@@ -1215,7 +1215,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				}
 			};
 			if (link) {
-				for (var i = 0, l = link.length; i < l; i += 1) {
+				for (var i = 0, l = link[_length]; i < l; i += 1) {
 					arrange(link[i]);
 				}
 				/* forEach(link, arrange, false); */
@@ -1251,7 +1251,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				}
 			};
 			if (link) {
-				for (var i = 0, l = link.length; i < l; i += 1) {
+				for (var i = 0, l = link[_length]; i < l; i += 1) {
 					arrange(link[i]);
 				}
 				/* forEach(link, arrange, false); */
@@ -1374,7 +1374,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				}
 			};
 			if (link) {
-				for (var j = 0, l = link.length; j < l; j += 1) {
+				for (var j = 0, l = link[_length]; j < l; j += 1) {
 					arrange(link[j]);
 				}
 				/* forEach(link, arrange, false); */
@@ -1392,7 +1392,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				}
 			};
 			if (list) {
-				for (var i = 0, l = list.length; i < l; i += 1) {
+				for (var i = 0, l = list[_length]; i < l; i += 1) {
 					removeActiveClass(list[i]);
 				}
 				/* forEach(list, removeActiveClass, false); */
@@ -1444,7 +1444,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
    		}
    	};
    	var chaptersSelectOptions = chaptersSelect ? chaptersSelect[getElementsByTagName]("option") || "" : "";
-   	for (var i = 0, l = chaptersSelectOptions.length; i < l; i += 1) {
+   	for (var i = 0, l = chaptersSelectOptions[_length]; i < l; i += 1) {
    		rerenderOption(chaptersSelectOptions[i]);
    	}
    }; */
@@ -1479,7 +1479,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 					df[appendChild](chaptersListItem);
 					df[appendChild](document[createTextNode]("\n"));
 				};
-				for (var i = 0, l = chaptersListItems.length; i < l; i += 1) {
+				for (var i = 0, l = chaptersListItems[_length]; i < l; i += 1) {
 					generateChaptersListItems(chaptersListItems[i], i);
 				}
 				/* forEach(chaptersListItems, generateChaptersListItems, false); */
@@ -1538,7 +1538,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				}
 			};
 			if (btn) {
-				for (var i = 0, l = btn.length; i < l; i += 1) {
+				for (var i = 0, l = btn[_length]; i < l; i += 1) {
 					arrange(btn[i]);
 				}
 				/* forEach(btn, arrange, false); */
@@ -1884,7 +1884,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
      */
 				ac.renderMenu = function (ul, stance) {
 					var items = stance || "";
-					var itemsLength = items.length;
+					var itemsLength = items[_length];
 					var _this = this;
 					/*!
       * limit output
@@ -1922,7 +1922,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 							/*!
         * hide typo suggestion
         */
-							if (textInput.value.length < 3 || textInput.value.match(/^\s*$/)) {
+							if (textInput.value[_length] < 3 || textInput.value.match(/^\s*$/)) {
 								handleTypoSuggestion();
 							}
 							itemsLength += 1;
@@ -1941,7 +1941,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 						/* e.title = "" + truncText; */
 					};
 					if (lis) {
-						for (var j = 0, m = lis.length; j < m; j += 1) {
+						for (var j = 0, m = lis[_length]; j < m; j += 1) {
 							truncateKamilText(lis[j]);
 						}
 						/* forEach(lis, truncateKamilText, false); */
@@ -2048,7 +2048,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 						e[_addEventListener]("click", handleOtherDropdownLists);
 					};
 					if (items) {
-						for (var i = 0, l = items.length; i < l; i += 1) {
+						for (var i = 0, l = items[_length]; i < l; i += 1) {
 							addHandler(items[i]);
 						}
 						/* forEach(btn, addHandler, false); */
@@ -2153,7 +2153,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				}
 			};
 			if (btn) {
-				for (var i = 0, l = btn.length; i < l; i += 1) {
+				for (var i = 0, l = btn[_length]; i < l; i += 1) {
 					removeActiveClass(btn[i]);
 				}
 				/* forEach(btn, removeActiveClass, false); */
@@ -2370,7 +2370,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 							debugMessage.push(e.className ? "." + e.className : e.id ? "#" + e.id : e.tagName, " ", root.getComputedStyle(e).getPropertyValue("font-size"), " ", root.getComputedStyle(e).getPropertyValue("line-height"), " ", e.offsetWidth, "x", e.offsetHeight, " \u003e ");
 						}
 					};
-					for (var i = 0, l = elements.length; i < l; i += 1) {
+					for (var i = 0, l = elements[_length]; i < l; i += 1) {
 						renderElementsInfo(elements[i]);
 					}
 					/* forEach(elements, renderElementsInfo, false); */
@@ -2774,13 +2774,13 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
   		var triggerOnMutation = function (m) {
   			console.log("mutations observer: " + m.type);
   			console.log(m.type, "target: " + m.target.tagName + ("." + m.target.className || "#" + m.target.id || ""));
-  			console.log(m.type, "added: " + m.addedNodes.length + " nodes");
-  			console.log(m.type, "removed: " + m.removedNodes.length + " nodes");
+  			console.log(m.type, "added: " + m.addedNodes[_length] + " nodes");
+  			console.log(m.type, "removed: " + m.removedNodes[_length] + " nodes");
   			if ("childList" === m.type || "subtree" === m.type) {
   				mo.disconnect();
   			}
   		};
-  		for (var i = 0, l = e.length; i < l; i += 1) {
+  		for (var i = 0, l = e[_length]; i < l; i += 1) {
   			triggerOnMutation(e[i]);
   		}
   	};

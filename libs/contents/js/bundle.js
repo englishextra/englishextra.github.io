@@ -1,9 +1,6 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global ActiveXObject, appendFragment, debounce, Draggabilly,
-earlyDeviceOrientation, earlyDeviceSize, earlyDeviceType,
-earlyFnGetYyyymmdd, earlyHasTouch, earlySvgasimgSupport,
-earlySvgSupport, findPos, fixEnRuTypo, getHTTP, getKeyValuesFromJSON,
+/*global ActiveXObject, appendFragment, debounce, Draggabilly, findPos, fixEnRuTypo, getHTTP, getKeyValuesFromJSON,
 imagePromise, isValidId, jQuery, Kamil, loadJS, loadUnparsedJSON,
 Masonry, openDeviceBrowser, Packery, parseLink, prependFragmentBefore,
 Promise, QRCode, removeChildren, require, safelyParseJSON,
@@ -14,8 +11,8 @@ ToProgress, truncString, unescape, verge, VK, Ya */
 /*!
  * define global root
  */
-/* var globalRoot = "object" === typeof window && window || "object" === typeof self && self || "object" === typeof global && global || {}; */
-var globalRoot = "undefined" !== typeof window ? window : this;
+/* var root = "object" === typeof window && window || "object" === typeof self && self || "object" === typeof global && global || {}; */
+var root = "undefined" !== typeof window ? window : this;
 /*!
  * safe way to handle console.log
  * @see {@link https://github.com/paulmillr/console-polyfill}
@@ -33,7 +30,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 			con[method] = dummy;
 		}
 	}
-})(globalRoot);
+})(root);
 /*!
  * modified ToProgress v0.1.1
  * @see {@link https://github.com/djyde/ToProgress}
@@ -114,7 +111,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 			}, s;
 		};return TP();
 	}();root.ToProgress = ToProgress;
-})(globalRoot);
+})(root);
 /*!
  * modified verge 1.9.1+201402130803
  * @see {@link https://github.com/ryanve/verge}
@@ -180,7 +177,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 			var r = rectangle(el, cushion);return !!r && r.bottom >= 0 && r.right >= 0 && r.top <= viewportH() && r.left <= viewportW() && 0 !== el.offsetHeight;
 		};return xports;
 	}();root.verge = verge;
-})(globalRoot);
+})(root);
 /*!
  * return image is loaded promise
  * @see {@link https://jsfiddle.net/englishextra/56pavv7d/}
@@ -226,8 +223,8 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 		} else {
 			throw new Error("Promise is not in global object");
 		}
-	};globalRoot.imagePromise = imagePromise;
-})(globalRoot);
+	};root.imagePromise = imagePromise;
+})(root);
 /*!
  * modified scrollToY
  * @see {@link http://stackoverflow.com/questions/8917921/cross-browser-javascript-not-jquery-scroll-to-top-animation}
@@ -252,7 +249,7 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 			}
 		}tick();
 	};root.scroll2Top = scroll2Top;
-})(globalRoot);
+})(root);
 /*!
  * Super lightweight script (~1kb) to detect via Javascript events like
  * 'tap' 'dbltap' "swipeup" "swipedown" "swipeleft" "swiperight"
@@ -371,135 +368,132 @@ var globalRoot = "undefined" !== typeof window ? window : this;
 			}
 		}return defaults;
 	};
-})(document, globalRoot);
-/*!
- * add js class to html element
- */
-(function (classes) {
-	"use strict";
-	if (classes) {
-		classes.add("js");
-	}
-})(document.documentElement.classList || "");
-/*!
- * modified MediaHack - (c) 2013 Pomke Nohkan MIT LICENCED.
- * @see {@link https://gist.github.com/englishextra/ff8c9dde94abe32a9d7c4a65e0f2ccac}
- * @see {@link https://jsfiddle.net/englishextra/xg7ce8kc/}
- * removed className fallback and additionally
- * returns earlyDeviceOrientation,earlyDeviceSize
- * Add media query classes to DOM nodes
- * @see {@link https://github.com/pomke/mediahack/blob/master/mediahack.js}
- */
-(function (root, selectors) {
-	"use strict";
-	var orientation,
-	    size,
-	    f = function (a) {
-		var b = a.split(" ");if (selectors) {
-			for (var c = 0; c < b.length; c += 1) {
-				a = b[c];selectors.add(a);
+})(document, root);
+var docElem = document.documentElement || "";
+var docImplem = document.implementation || "";
+var _length = "length";
+
+var classList = "classList";
+
+if (docElem && docElem[classList]) {
+	docElem[classList].remove("no-js");
+	docElem[classList].add("js");
+}
+
+var earlyDeviceFormfactor = function (selectors) {
+	var orientation;
+	var size;
+	var f = function (a) {
+		var b = a.split(" ");
+		if (selectors) {
+			for (var c = 0; c < b[_length]; c += 1) {
+				a = b[c];
+				selectors.add(a);
 			}
 		}
-	},
-	    g = function (a) {
-		var b = a.split(" ");if (selectors) {
-			for (var c = 0; c < b.length; c += 1) {
-				a = b[c];selectors.remove(a);
+	};
+	var g = function (a) {
+		var b = a.split(" ");
+		if (selectors) {
+			for (var c = 0; c < b[_length]; c += 1) {
+				a = b[c];
+				selectors.remove(a);
 			}
 		}
-	},
-	    h = { landscape: "all and (orientation:landscape)", portrait: "all and (orientation:portrait)" },
-	    k = { small: "all and (max-width:768px)", medium: "all and (min-width:768px) and (max-width:991px)", large: "all and (min-width:992px)" },
-	    d,
-	    mM = "matchMedia",
-	    m = "matches",
-	    o = function (a, b) {
+	};
+	var h = {
+		landscape: "all and (orientation:landscape)",
+		portrait: "all and (orientation:portrait)"
+	};
+	var k = {
+		small: "all and (max-width:768px)",
+		medium: "all and (min-width:768px) and (max-width:991px)",
+		large: "all and (min-width:992px)"
+	};
+	var d;
+	var matchMedia = "matchMedia";
+	var matches = "matches";
+	var o = function (a, b) {
 		var c = function (a) {
-			if (a[m]) {
-				f(b);orientation = b;
+			if (a[matches]) {
+				f(b);
+				orientation = b;
 			} else {
 				g(b);
 			}
-		};c(a);a.addListener(c);
-	},
-	    s = function (a, b) {
+		};
+		c(a);
+		a.addListener(c);
+	};
+	var s = function (a, b) {
 		var c = function (a) {
-			if (a[m]) {
-				f(b);size = b;
+			if (a[matches]) {
+				f(b);
+				size = b;
 			} else {
 				g(b);
 			}
-		};c(a);a.addListener(c);
-	};for (d in h) {
+		};
+		c(a);
+		a.addListener(c);
+	};
+	for (d in h) {
 		if (h.hasOwnProperty(d)) {
-			o(root[mM](h[d]), d);
+			o(root[matchMedia](h[d]), d);
 		}
-	}for (d in k) {
+	}
+	for (d in k) {
 		if (k.hasOwnProperty(d)) {
-			s(root[mM](k[d]), d);
+			s(root[matchMedia](k[d]), d);
 		}
-	}root.earlyDeviceOrientation = orientation || "";root.earlyDeviceSize = size || "";
-})(globalRoot, document.documentElement.classList || "");
-/*!
- * add mobile or desktop class
- * using Detect Mobile Browsers | Open source mobile phone detection
- * Regex updated: 1 August 2014
- * detectmobilebrowsers.com
- * @see {@link https://github.com/heikojansen/plack-middleware-detectmobilebrowsers}
- */
-(function (root, html, mobile, desktop, opera) {
-	"use strict";
-	var selector = /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(opera) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(opera.substr(0, 4)) ? mobile : desktop;if (html) {
-		html.classList.add(selector);
-	}root.earlyDeviceType = selector || "";
-})(globalRoot, document.documentElement || "", "mobile", "desktop", navigator.userAgent || navigator.vendor || globalRoot.opera);
-/*!
- * add svg support class
- */
-(function (root, html, selector) {
-	"use strict";
-	selector = document.implementation.hasFeature("http://www.w3.org/2000/svg", "1.1") ? selector : "no-" + selector;if (html) {
-		html.classList.add(selector);
-	}root.earlySvgSupport = selector || "";
-})(globalRoot, document.documentElement || "", "svg");
-/*!
- * add svgasimg support class
- */
-(function (root, html, selector) {
-	"use strict";
-	selector = document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1") ? selector : "no-" + selector;if (html) {
-		html.classList.add(selector);
-	}root.earlySvgasimgSupport = selector || "";
-})(globalRoot, document.documentElement || "", "svgasimg");
-/*!
- * add touch support class
- * @see {@link https://gist.github.com/englishextra/3cb22aab31a52b6760b5921e4fe8db95}
- * @see {@link https://jsfiddle.net/englishextra/z5xhjde8/}
- */
-(function (root, html, selector) {
-	"use strict";
-	selector = "ontouchstart" in html ? selector : "no-" + selector;if (html) {
-		html.classList.add(selector);
-	}root.earlyHasTouch = selector || "";
-})(globalRoot, document.documentElement || "", "touch");
-/*!
- * return date in YYYY-MM-DD format
- */
-(function (root) {
-	"use strict";
-	var newDate = new Date(),
-	    newDay = newDate.getDate(),
-	    newYear = newDate.getFullYear(),
-	    newMonth = newDate.getMonth();newMonth += 1;if (10 > newDay) {
+	}
+	return {
+		orientation: orientation || "",
+		size: size || ""
+	};
+}(docElem[classList] || "");
+var earlyDeviceType = function (mobile, desktop, opera) {
+	var selector = /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(opera) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(opera.substr(0, 4)) ? mobile : desktop;
+	docElem[classList].add(selector);
+	return selector;
+}("mobile", "desktop", navigator.userAgent || navigator.vendor || root.opera);
+
+var earlySvgSupport = function (selector) {
+	selector = docImplem.hasFeature("http://www.w3.org/2000/svg", "1.1") ? selector : "no-" + selector;
+	docElem[classList].add(selector);
+	return selector;
+}("svg");
+
+var earlySvgasimgSupport = function (selector) {
+	selector = docImplem.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1") ? selector : "no-" + selector;
+	docElem[classList].add(selector);
+	return selector;
+}("svgasimg");
+
+var earlyHasTouch = function (selector) {
+	selector = "ontouchstart" in docElem ? selector : "no-" + selector;
+	docElem[classList].add(selector);
+	return selector;
+}("touch");
+
+var getHumanDate = function () {
+	var newDate = new Date();
+	var newDay = newDate.getDate();
+	var newYear = newDate.getFullYear();
+	var newMonth = newDate.getMonth();
+	newMonth += 1;
+	if (10 > newDay) {
 		newDay = "0" + newDay;
-	}if (10 > newMonth) {
+	}
+	if (10 > newMonth) {
 		newMonth = "0" + newMonth;
-	}root.earlyFnGetYyyymmdd = newYear + "-" + newMonth + "-" + newDay;
-})(globalRoot);
+	}
+	return newYear + "-" + newMonth + "-" + newDay;
+}();
 /*!
  * append details to title
  */
-var userBrowsingDetails = " [" + (earlyFnGetYyyymmdd ? earlyFnGetYyyymmdd : "") + (earlyDeviceType ? " " + earlyDeviceType : "") + (earlyDeviceSize ? " " + earlyDeviceSize : "") + (earlyDeviceOrientation ? " " + earlyDeviceOrientation : "") + (earlySvgSupport ? " " + earlySvgSupport : "") + (earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") + (earlyHasTouch ? " " + earlyHasTouch : "") + "]";
+var userBrowsingDetails = " [" + (getHumanDate ? getHumanDate : "") + (earlyDeviceType ? " " + earlyDeviceType : "") + (earlyDeviceFormfactor.orientation ? " " + earlyDeviceFormfactor.orientation : "") + (earlyDeviceFormfactor.size ? " " + earlyDeviceFormfactor.size : "") + (earlySvgSupport ? " " + earlySvgSupport : "") + (earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") + (earlyHasTouch ? " " + earlyHasTouch : "") + "]";
 if (document.title) {
 	document.title = document.title + userBrowsingDetails;
 }
@@ -529,7 +523,7 @@ if (document.title) {
 	};Timers.prototype.clear = function () {
 		this.ids.forEach(clearTimeout);this.ids = [];
 	};root.Timers = Timers;
-})(globalRoot);
+})(root);
 /*!
  * modified Returns a function, that, as long as it continues to be invoked, will not
  * be triggered. The function will be called after it stops being called for
@@ -573,7 +567,7 @@ if (document.title) {
 			}
 		};return debounced;
 	};root.debounce = debounce;
-})(globalRoot);
+})(root);
 /*!
  * modified Returns a new function that, when invoked, invokes `func` at most once per `wait` milliseconds.
  * @param {Function} func Function to wrap.
@@ -596,7 +590,7 @@ if (document.title) {
 			}return rtn;
 		};
 	};root.throttle = throttle;
-})(globalRoot);
+})(root);
 /*!
  * A simple promise-compatible "document ready" event handler with a few extra treats.
  * With browserify/webpack:
@@ -627,7 +621,7 @@ if (document.title) {
 			}d.addEventListener(DOMContentLoaded, onReady);root.addEventListener(load, onReady);
 		});
 	};
-})(globalRoot);
+})(root);
 /*!
  * How can I check if a JS file has been included already?
  * @see {@link https://gist.github.com/englishextra/403a0ca44fc5f495400ed0e20bc51d47}
@@ -644,7 +638,7 @@ if (document.title) {
 			}
 		}return;
 	};root.scriptIsLoaded = scriptIsLoaded;
-})(globalRoot);
+})(root);
 /*!
  * Load .json file, but don't JSON.parse it
  * modified JSON with JS.md
@@ -669,7 +663,7 @@ if (document.title) {
 			}
 		};x.send(null);
 	};root.loadUnparsedJSON = loadUnparsedJSON;
-})(globalRoot);
+})(root);
 /*!
  * parse JSON without try / catch
  * @param {String} a JSON string
@@ -687,7 +681,7 @@ if (document.title) {
 			return a;
 		}
 	};root.safelyParseJSON = safelyParseJSON;
-})(globalRoot);
+})(root);
 /*!
  * return an array of values that match on a certain key
  * techslides.com/how-to-parse-and-search-json-in-javascript
@@ -715,7 +709,7 @@ if (document.title) {
 			}
 		}return c;
 	};root.getKeyValuesFromJSON = getKeyValuesFromJSON;
-})(globalRoot);
+})(root);
 /*!
  * loop over the Array
  * @see {@link https://stackoverflow.com/questions/18238173/javascript-loop-through-json-array}
@@ -730,7 +724,7 @@ if (document.title) {
 	var truncString = function (str, max, add) {
 		add = add || "\u2026";return "string" === typeof str && str.length > max ? str.substring(0, max) + add : str;
 	};root.truncString = truncString;
-})(globalRoot);
+})(root);
 /*!
  * fix en ru / ru en typo
  * modified sovtime.ru/soft/convert.html
@@ -757,7 +751,7 @@ if (document.title) {
 			}
 		}return c;
 	};root.fixEnRuTypo = fixEnRuTypo;
-})(globalRoot);
+})(root);
 /*!
  * remove all children of parent element
  * @see {@link https://gist.github.com/englishextra/da26bf39bc90fd29435e8ae0b409ddc3}
@@ -775,7 +769,7 @@ if (document.title) {
 			}
 		}();
 	};root.removeChildren = removeChildren;
-})(globalRoot);
+})(root);
 /*!
  * append node into other with fragment
  * @see {@link https://gist.github.com/englishextra/0ff3204d5fb285ef058d72f31e3af766}
@@ -796,7 +790,7 @@ if (document.title) {
 			}
 		}();
 	};root.appendFragment = appendFragment;
-})(globalRoot);
+})(root);
 /*!
  * Adds Element as fragment BEFORE NeighborElement
  * @see {@link https://gist.github.com/englishextra/fa19e39ce84982b17fc76485db9d1bea}
@@ -815,7 +809,7 @@ if (document.title) {
 			}
 		}();
 	};root.prependFragmentBefore = prependFragmentBefore;
-})(globalRoot);
+})(root);
 /*!
  * set style display block of an element
  * @param {Object} a an HTML Element
@@ -829,7 +823,7 @@ if (document.title) {
 			}
 		}();
 	};root.setStyleDisplayBlock = setStyleDisplayBlock;
-})(globalRoot);
+})(root);
 /*!
  * set style display none of an element
  * @param {Object} a an HTML Element
@@ -843,7 +837,7 @@ if (document.title) {
 			}
 		}();
 	};root.setStyleDisplayNone = setStyleDisplayNone;
-})(globalRoot);
+})(root);
 /*!
  * set style opacity of an element
  * @param {Object} a an HTML Element
@@ -858,7 +852,7 @@ if (document.title) {
 			}
 		}();
 	};root.setStyleOpacity = setStyleOpacity;
-})(globalRoot);
+})(root);
 /*!
  * set style visibility visible of an element
  * @param {Object} a an HTML Element
@@ -872,7 +866,7 @@ if (document.title) {
 			}
 		}();
 	};root.setStyleVisibilityVisible = setStyleVisibilityVisible;
-})(globalRoot);
+})(root);
 /*!
  * set style visibility hidden of an element
  * @param {Object} a an HTML Element
@@ -886,7 +880,7 @@ if (document.title) {
 			}
 		}();
 	};root.setStyleVisibilityHidden = setStyleVisibilityHidden;
-})(globalRoot);
+})(root);
 /*!
  * Check if string represents a valid HTML id
  * @see {@link https://gist.github.com/englishextra/b5aaef8b555a3ba84c68a6e251db149d}
@@ -900,7 +894,7 @@ if (document.title) {
 	var isValidId = function (a, full) {
 		return full ? /^\#[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? !0 : !1 : /^[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? !0 : !1;
 	};root.isValidId = isValidId;
-})(globalRoot);
+})(root);
 /*!
  * find element's position
  * @see {@link https://stackoverflow.com/questions/5598743/finding-elements-position-relative-to-the-document}
@@ -913,7 +907,7 @@ if (document.title) {
 		a = a.getBoundingClientRect();var b = document.body,
 		    c = document.documentElement;return { top: Math.round(a.top + (root.pageYOffset || c.scrollTop || b.scrollTop) - (c.clientTop || b.clientTop || 0)), left: Math.round(a.left + (root.pageXOffset || c.scrollLeft || b.scrollLeft) - (c.clientLeft || b.clientLeft || 0)) };
 	};root.findPos = findPos;
-})(globalRoot);
+})(root);
 /*!
  * modified Unified URL parsing API in the browser and node
  * @see {@link https://github.com/wooorm/parse-link}
@@ -953,7 +947,7 @@ if (document.title) {
 			    a = document.createElement("a");a.href = url;return { href: a.href, origin: _o(), host: a.host || l.host, port: "0" === a.port || "" === a.port ? _p(a.protocol) : full ? a.port : _r(a.port), hash: full ? a.hash : _r(a.hash), hostname: a.hostname || l.hostname, pathname: a.pathname.charAt(0) !== "/" ? full ? "/" + a.pathname : a.pathname : full ? a.pathname : a.pathname.slice(1), protocol: !a.protocol || ":" === a.protocol ? full ? l.protocol : _r(l.protocol) : full ? a.protocol : _r(a.protocol), search: full ? a.search : _r(a.search), query: full ? a.search : _r(a.search), isAbsolute: _s, isRelative: !_s, isCrossDomain: _c(), hasHTTP: /^(http|https):\/\//i.test(url) ? !0 : !1 };
 		}();
 	};root.parseLink = parseLink;
-})(globalRoot);
+})(root);
 /*jshint bitwise: true */
 /*!
  * get current protocol - "http" or "https", else return ""
@@ -968,7 +962,7 @@ if (document.title) {
 			force = force || "";return "http:" === type ? "http" : "https:" === type ? "https" : force ? "http" : "";
 		};
 	}(root.location.protocol || "");root.getHTTP = getHTTP;
-})(globalRoot);
+})(root);
 /*!
  * Open external links in default browser out of Electron / nwjs
  * @see {@link https://gist.github.com/englishextra/b9a8140e1c1b8aa01772375aeacbf49b}
@@ -1030,7 +1024,7 @@ if (document.title) {
 			}
 		}
 	};root.openDeviceBrowser = openDeviceBrowser;
-})(globalRoot);
+})(root);
 /*!
  * init ToProgress and extend methods
  */
@@ -1099,7 +1093,7 @@ var manageExternalLinkAll = function (scope) {
 		}
 	};
 	if (link) {
-		for (var i = 0, l = link.length; i < l; i += 1) {
+		for (var i = 0, l = link[_length]; i < l; i += 1) {
 			arrange(link[i]);
 		}
 		/* forEach(link, arrange, false); */
@@ -1147,7 +1141,7 @@ var handleDataSrcImageAll = function () {
 			}
 	};
 	if (img) {
-		for (var i = 0, l = img.length; i < l; i += 1) {
+		for (var i = 0, l = img[_length]; i < l; i += 1) {
 			arrange(img[i]);
 		}
 		/* forEach(img, arrange, false); */
@@ -1160,7 +1154,7 @@ var handleDataSrcImageAllWindow = function () {
 var manageDataSrcImageAll = function () {
 	"use strict";
 
-	var w = globalRoot;
+	var w = root;
 	var _addEventListener = "addEventListener";
 	var _removeEventListener = "removeEventListener";
 	w[_removeEventListener]("scroll", handleDataSrcImageAllWindow, { passive: true });
@@ -1177,7 +1171,7 @@ var manageDataSrcImageAll = function () {
 /*!
  * on load, not on ready
  */
-globalRoot.addEventListener("load", manageDataSrcImageAll);
+root.addEventListener("load", manageDataSrcImageAll);
 /*!
  * init disqus_thread and Masonry / Packery
  * add Draggabilly to Packarey
@@ -1192,7 +1186,7 @@ globalRoot.addEventListener("load", manageDataSrcImageAll);
 var initMasonryDisqus = function () {
 	"use strict";
 
-	var w = globalRoot;
+	var w = root;
 	var d = document;
 	var getElementById = "getElementById";
 	var getElementsByClassName = "getElementsByClassName";
@@ -1374,7 +1368,7 @@ var manageContentsSelect = function () {
 				df[appendChild](contentsOption);
 			}
 		};
-		for (var i = 0, l = jsonObj.length; i < l; i += 1) {
+		for (var i = 0, l = jsonObj[_length]; i < l; i += 1) {
 			generateContentsOptions(jsonObj[i]);
 		}
 		/* forEach(jsonObj, generateContentsOptions, false); */
@@ -1417,7 +1411,7 @@ document.ready().then(manageSearchInput);
 var manageLocationQrCodeImage = function () {
 	"use strict";
 
-	var w = globalRoot;
+	var w = root;
 	var d = document;
 	var getElementsByClassName = "getElementsByClassName";
 	var classList = "classList";
@@ -1478,7 +1472,7 @@ document.ready().then(manageLocationQrCodeImage);
 var initNavMenu = function () {
 	"use strict";
 
-	var w = globalRoot;
+	var w = root;
 	var d = document;
 	var getElementById = "getElementById";
 	var getElementsByClassName = "getElementsByClassName";
@@ -1561,7 +1555,7 @@ var initNavMenu = function () {
 				if (panelNavMenu[classList].contains(isActiveClass)) {
 					removeHolderAndAllActiveClass();
 				}
-				for (var j = 0, l = panelNavMenuItems.length; j < l; j += 1) {
+				for (var j = 0, l = panelNavMenuItems[_length]; j < l; j += 1) {
 					removeActiveClass(panelNavMenuItems[j]);
 				}
 				/* forEach(panelNavMenuItems, removeActiveClass, false); */
@@ -1574,7 +1568,7 @@ var initNavMenu = function () {
 				removeActiveClass(e);
 			}
 		};
-		for (var i = 0, l = panelNavMenuItems.length; i < l; i += 1) {
+		for (var i = 0, l = panelNavMenuItems[_length]; i < l; i += 1) {
 			addItemHandler(panelNavMenuItems[i]);
 		}
 		/* forEach(panelNavMenuItems, addItemHandler, false); */
@@ -1698,7 +1692,7 @@ var initMenuMore = function () {
 		var addItemHandler = function (e) {
 			e[_addEventListener]("click", handleItem);
 		};
-		for (var i = 0, l = panelMenuMoreItems.length; i < l; i += 1) {
+		for (var i = 0, l = panelMenuMoreItems[_length]; i < l; i += 1) {
 			addItemHandler(panelMenuMoreItems[i]);
 		}
 		/* forEach(panelMenuMoreItems, addItemHandler, false); */
@@ -1725,7 +1719,7 @@ document.ready().then(initMenuMore);
 var initUiTotop = function () {
 	"use strict";
 
-	var w = globalRoot;
+	var w = root;
 	var d = document;
 	var h = d.documentElement || "";
 	var b = d.body || "";
@@ -1784,7 +1778,7 @@ var yshare;
 var manageShareButton = function () {
 	"use strict";
 
-	var w = globalRoot;
+	var w = root;
 	var d = document;
 	var getElementById = "getElementById";
 	var getElementsByClassName = "getElementsByClassName";
@@ -1841,7 +1835,7 @@ document.ready().then(manageShareButton);
 var manageVKLikeButton = function () {
 	"use strict";
 
-	var w = globalRoot;
+	var w = root;
 	var d = document;
 	var getElementById = "getElementById";
 	var getElementsByClassName = "getElementsByClassName";
@@ -1896,7 +1890,7 @@ document.ready().then(manageVKLikeButton);
 var initKamilAutocomplete = function () {
 	"use strict";
 
-	var w = globalRoot;
+	var w = root;
 	var d = document;
 	var getElementById = "getElementById";
 	var getElementsByClassName = "getElementsByClassName";
@@ -1953,7 +1947,7 @@ var initKamilAutocomplete = function () {
    */
 		ac.renderMenu = function (ul, stance) {
 			var items = stance || "";
-			var itemsLength = items.length;
+			var itemsLength = items[_length];
 			var _this = this;
 			/*!
     * limit output
@@ -1987,7 +1981,7 @@ var initKamilAutocomplete = function () {
 				if (textValue.match(/^\s*$/)) {
 					handleTypoSuggestion();
 				}
-				if (textInput.value.length < 3 || textInput.value.match(/^\s*$/)) {
+				if (textInput.value[_length] < 3 || textInput.value.match(/^\s*$/)) {
 					handleTypoSuggestion();
 				}
 				itemsLength += 1;
@@ -2003,7 +1997,7 @@ var initKamilAutocomplete = function () {
 				e.title = "" + truncText;
 			};
 			if (lis) {
-				for (var j = 0, m = lis.length; j < m; j += 1) {
+				for (var j = 0, m = lis[_length]; j < m; j += 1) {
 					truncateKamilText(lis[j]);
 				}
 				/* forEach(lis, truncateKamilText, false); */
@@ -2092,7 +2086,7 @@ var showPageFinishProgress = function () {
 	}
 };
 document.ready().then(showPageFinishProgress);
-globalRoot.addEventListener("load", function () {
+root.addEventListener("load", function () {
 	progressBar.complete();
 });
 

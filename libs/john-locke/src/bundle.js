@@ -566,6 +566,41 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 			docElem[classList].remove("no-js");
 			docElem[classList].add("js");
 		}
+		
+		var documentTitle = document[title] || "";
+
+		var navigatorUserAgent = navigator.userAgent || "";
+
+		var getHumanDate = (function () {
+			var newDate = (new Date());
+			var newDay = newDate.getDate();
+			var newYear = newDate.getFullYear();
+			var newMonth = newDate.getMonth();
+			(newMonth += 1);
+			if (10 > newDay) {
+				newDay = "0" + newDay;
+			}
+			if (10 > newMonth) {
+				newMonth = "0" + newMonth;
+			}
+			return newYear + "-" + newMonth + "-" + newDay;
+		})();
+
+		var platformName = "";
+		var platformDescription = "";
+		if (navigatorUserAgent && root.platform) {
+			platformName = platform.name || "";
+			platformDescription = platform.description || "";
+			document[title] = documentTitle +
+			" [" +
+			(getHumanDate ? " " + getHumanDate : "") +
+			(platformDescription ? " " + platformDescription : "") +
+			((hasTouch || hasWheel) ? " with" : "") +
+			(hasTouch ? " touch" : "") +
+			((hasTouch && hasWheel) ? "," : "") +
+			(hasWheel ? " mousewheel" : "") +
+			"]";
+		}
 
 		/*jshint bitwise: false */
 		var parseLink = function (url, full) {
@@ -723,7 +758,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 			if (externalLinks) {
 				var i;
 				var l;
-				for (i = 0, l = externalLinks.length; i < l; i += 1) {
+				for (i = 0, l = externalLinks[_length]; i < l; i += 1) {
 					arrange(externalLinks[i]);
 				}
 				i = l = null;
@@ -733,41 +768,6 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 		var wrapper = document[getElementsByClassName]("wrapper")[0] || "";
 
 		manageExternalLinkAll(wrapper);
-
-		var documentTitle = document[title] || "";
-
-		var navigatorUserAgent = navigator.userAgent || "";
-
-		var getHumanDate = (function () {
-			var newDate = (new Date());
-			var newDay = newDate.getDate();
-			var newYear = newDate.getFullYear();
-			var newMonth = newDate.getMonth();
-			(newMonth += 1);
-			if (10 > newDay) {
-				newDay = "0" + newDay;
-			}
-			if (10 > newMonth) {
-				newMonth = "0" + newMonth;
-			}
-			return newYear + "-" + newMonth + "-" + newDay;
-		})();
-
-		var platformName = "";
-		var platformDescription = "";
-		if (navigatorUserAgent && root.platform) {
-			platformName = platform.name || "";
-			platformDescription = platform.description || "";
-			document[title] = documentTitle +
-			" [" +
-			(getHumanDate ? " " + getHumanDate : "") +
-			(platformDescription ? " " + platformDescription : "") +
-			((hasTouch || hasWheel) ? " with" : "") +
-			(hasTouch ? " touch" : "") +
-			((hasTouch && hasWheel) ? "," : "") +
-			(hasWheel ? " mousewheel" : "") +
-			"]";
-		}
 
 		var qrcode = document[getElementsByClassName]("qrcode")[0] || "";
 

@@ -103,6 +103,10 @@ only screen and (max-width:800px) {
 	}
 } */
 
+#counter a {
+	border-radius: .4rem;
+}
+
 @media (max-width:1024px) {
 	#navigation {
 		background-image: none;

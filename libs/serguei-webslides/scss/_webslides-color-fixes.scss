@@ -209,12 +209,17 @@ fieldset {
 	color: $color-hex-link;
 }
 
+#webslides:hover #navigation a:hover {
+	background-color: $color-rgba-page-overlay-bg;
+	color: #fff;
+}
+
 #webslides-zoomed {
 	background: $color-rgba-page-overlay-bg;
 }
 
 #webslides-zoomed .column > .wrap-zoom.current {
-	border: 0.6rem solid $AccentColorLighter;
+	border: 0.6rem solid $AccentColorBrighter;
 }
 
 .text-slide-number {
