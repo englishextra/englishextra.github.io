@@ -208,3 +208,16 @@ fieldset {
 #navigation a {
 	color: $color-hex-link;
 }
+
+#webslides-zoomed {
+	background: $color-rgba-page-overlay-bg;
+}
+
+#webslides-zoomed .column > .wrap-zoom.current {
+	border: 0.6rem solid $AccentColor;
+}
+
+.text-slide-number {
+	color: #FFFFFF;
+}
+
