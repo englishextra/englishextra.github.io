@@ -476,6 +476,7 @@ ToProgress, unescape, verge, VK, Ya*/
 		var getElementsByTagName = "getElementsByTagName";
 		var parentNode = "parentNode";
 		var remove = "remove";
+		var removeChild = "removeChild";
 		var setAttribute = "setAttribute";
 		var title = "title";
 		var _removeEventListener = "removeEventListener";
@@ -600,17 +601,23 @@ ToProgress, unescape, verge, VK, Ya*/
 		})();
 
 		var userBrowsingDetails = " [" + (getHumanDate ? getHumanDate : "") + (earlyDeviceType ? " " + earlyDeviceType : "") + (earlyDeviceFormfactor.orientation ? " " + earlyDeviceFormfactor.orientation : "") + (earlyDeviceFormfactor.size ? " " + earlyDeviceFormfactor.size : "") + (earlySvgSupport ? " " + earlySvgSupport : "") + (earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") + (earlyHasTouch ? " " + earlyHasTouch : "") + "]";
+
 		if (document[title]) {
 			document[title] = document[title] + userBrowsingDetails;
 		}
 
-		var scriptIsLoaded = function (s) {
-			for (var b = document[getElementsByTagName]("script") || "", a = 0; a < b[_length]; a += 1) {
-				if (b[a][getAttribute]("src") === s) {
+		var scriptIsLoaded = function (scriptSrc) {
+			var scriptAll,
+			i,
+			l;
+			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[_length]; i < l; i += 1) {
+				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
+					scriptAll = i = l = null;
 					return true;
 				}
 			}
-			return;
+			scriptAll = i = l = null;
+			return false;
 		};
 
 		var loadUnparsedJSON = function (url, callback, onerror) {
@@ -632,15 +639,15 @@ ToProgress, unescape, verge, VK, Ya*/
 			x.send(null);
 		};
 
-		var safelyParseJSON = function (a) {
+		var safelyParseJSON = function (response) {
 			var isJson = function (obj) {
-				var t = typeof obj;
-				return ['boolean', 'number', "string", 'symbol', "function"].indexOf(t) === -1;
+				var objType = typeof obj;
+				return ['boolean', 'number', "string", 'symbol', "function"].indexOf(objType) === -1;
 			};
-			if (!isJson(a)) {
-				return JSON.parse(a);
+			if (!isJson(response)) {
+				return JSON.parse(response);
 			} else {
-				return a;
+				return response;
 			}
 		};
 
@@ -669,12 +676,12 @@ ToProgress, unescape, verge, VK, Ya*/
 			return c;
 		};
 
-		var removeElement = function (e) {
-			if (e) {
-				if ("undefined" !== typeof e[remove]) {
-					return e[remove]();
+		var removeElement = function (elem) {
+			if (elem) {
+				if ("undefined" !== typeof elem[remove]) {
+					return elem[remove]();
 				} else {
-					return e[parentNode] && e[parentNode].removeChild(e);
+					return elem[parentNode] && elem[parentNode][removeChild](elem);
 				}
 			}
 		};
@@ -703,10 +710,10 @@ ToProgress, unescape, verge, VK, Ya*/
 			if ("string" === typeof e) {
 				e = document[createTextNode](e);
 			}
-			var p = a.parentNode || "";
+			var p = a[parentNode] || "";
 			var df = document[createDocumentFragment]();
 			if (p) {
-				df.appendChild(e);
+				df[appendChild](e);
 				p.insertBefore(df, a);
 			}
 		};
@@ -768,6 +775,30 @@ ToProgress, unescape, verge, VK, Ya*/
 				}
 			}
 			tick();
+		};
+
+		var debounce = function (func, wait) {
+			var timeout;
+			var args;
+			var context;
+			var timestamp;
+			return function () {
+				context = this;
+				args = [].slice.call(arguments, 0);
+				timestamp = new Date();
+				var later = function () {
+					var last = (new Date()) - timestamp;
+					if (last < wait) {
+						timeout = setTimeout(later, wait - last);
+					} else {
+						timeout = null;
+						func.apply(context, args);
+					}
+				};
+				if (!timeout) {
+					timeout = setTimeout(later, wait);
+				}
+			};
 		};
 
 		var LoadingSpinner = (function () {
@@ -895,52 +926,23 @@ ToProgress, unescape, verge, VK, Ya*/
 			}
 		};
 
-		var debounce = function (func, wait) {
-			var timeout;
-			var args;
-			var context;
-			var timestamp;
-			return function () {
-				context = this;
-				args = [].slice.call(arguments, 0);
-				timestamp = new Date();
-				var later = function () {
-					var last = (new Date()) - timestamp;
-					if (last < wait) {
-						timeout = setTimeout(later, wait - last);
-					} else {
-						timeout = null;
-						func.apply(context, args);
-					}
-				};
-				if (!timeout) {
-					timeout = setTimeout(later, wait);
-				}
-			};
+		var handleExternalLink = function (url, ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			var logicHandleExternalLink = openDeviceBrowser.bind(null, url);
+			var debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
+			debounceLogicHandleExternalLink();
 		};
-
-		var isBindedClass = "is-binded";
-
 		var manageExternalLinkAll = function (scope) {
-			var context = scope && scope.nodeName ? scope : "";
+			var ctx = scope && scope.nodeName ? scope : "";
 			var linkTag = "a";
-			var externalLinks = context ? context[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
+			var link = ctx ? ctx[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
+			var isBindedClass = "is-binded";
 			var arrange = function (e) {
-				var handleExternalLink = function (url, evt) {
-					evt.stopPropagation();
-					evt.preventDefault();
-					var logic = openDeviceBrowser.bind(null, url);
-					var debounceLogic = debounce(logic, 200);
-					debounceLogic();
-				};
-				if (!e[classList].contains(isBindedClass) &&
-						!e.target &&
-						!e.rel) {
+				if (!e[classList].contains(isBindedClass)) {
 					var url = e[getAttribute]("href") || "";
-					if (url &&
-						parseLink(url).isCrossDomain &&
-						parseLink(url).hasHTTP) {
-						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+						e[title] = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
 						if ("undefined" !== typeof getHTTP && getHTTP()) {
 							e.target = "_blank";
 							e.rel = "noopener";
@@ -951,19 +953,14 @@ ToProgress, unescape, verge, VK, Ya*/
 					}
 				}
 			};
-			if (externalLinks) {
-				var i;
-				var l;
-				for (i = 0, l = externalLinks[_length]; i < l; i += 1) {
-					arrange(externalLinks[i]);
+			if (link) {
+				for (var i = 0, l = link[_length]; i < l; i += 1) {
+					arrange(link[i]);
 				}
-				i = l = null;
+				/* forEach(link, arrange, false); */
 			}
 		};
-
-		var container = document[getElementById]("container") || "";
-
-		manageExternalLinkAll(container);
+		manageExternalLinkAll();
 
 		var Notifier42 = function (annonce, timeout, elemClass) {
 			var msgObj = annonce || "No message passed as argument";

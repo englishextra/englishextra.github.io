@@ -863,6 +863,8 @@ u,
 	color: $color-hex-highlight;
 }
 
+.col pre,
+.col pre code,
 .col .phonetic {
 	font-family: "Roboto Mono", $font-family-webfont-monospace;
 }
@@ -1167,6 +1169,433 @@ u,
 .col table th.sort-up:after {
 	border-bottom: none;
 	border-width: 0;
+}
+
+/*!
+ * sg specific
+ */
+
+.col p + div,
+.col table + table,
+.col video + video,
+.col pre + pre,
+.col img + img,
+.col details + details,
+.col ol + ol,
+.col ul + ul,
+.col dl + dl,
+.col blockquote + blockquote,
+.col hr {
+	margin-top: 1.000rem;
+}
+
+/* .col p+div > .btn-nav, */
+
+.col address:first-child,
+.col blockquote:first-child,
+.col blockquote p:first-child,
+.col table:first-child,
+.col video:first-child,
+.col img:first-child,
+.col svg:first-child,
+.col pre:first-child,
+.col dl:first-child,
+.col ol:first-child,
+.col ul:first-child,
+.col details:first-child,
+.col figure:first-child {
+	margin-top: 0;
+}
+
+.col hr,
+.col video,
+.col pre,
+.col details,
+.col figure {
+	margin-bottom: 1.000rem;
+}
+
+.col blockquote p:last-child,
+.col hr:last-child,
+.col video:last-child,
+.col pre:last-child,
+.col details:last-child,
+.col figure:last-child {
+	margin-bottom: 0;
+}
+
+.col .sg-btn {
+	display: inline-block;
+	height: 2.133rem;
+	font-size: 0.800rem;
+	font-weight: 400;
+	line-height: 2.000rem;
+	text-decoration: none;
+	color: inherit;
+	background-color: $LeftNavBarLight;
+	border: 0.067rem solid $LeftNavBarLight;
+	vertical-align: text-bottom;
+	padding: 0 0.667rem;
+	/**
+	 * @see {@link https://css-tricks.com/fighting-the-space-between-inline-block-elements/}
+	 */
+	margin-bottom: -0.067em;
+	cursor: pointer;
+}
+
+.col .sg-btn:after {
+	font-family: "englishextra-ui-icons";
+	content: "\e901";
+	font-size: 0.467em;
+	position: relative;
+	vertical-align: middle;
+	margin-left: 0.600em;
+}
+
+.col .sg-btn.is-active:after {
+	font-family: "englishextra-ui-icons";
+	content: "\e907";
+	font-size: 0.467em;
+	position: relative;
+	vertical-align: middle;
+	margin-left: 0.600em;
+}
+
+.col .sg-markup-controls {
+	overflow: hidden;
+	padding-top: 1.000rem;
+}
+
+.legacy .col .sg-btn--source {
+	display: none;
+}
+
+.col .sg-source {
+	position: relative;
+}
+
+.col .sg-source pre {
+	margin: 0;
+}
+
+.col .sg-source {
+	max-height: 160.000em;
+	overflow-y: auto;
+}
+
+.js .col .sg-source {
+	max-height: 0;
+	overflow: hidden;
+}
+
+.col .sg-source.is-active,
+.legacy .col .sg-source {
+	max-height: 160.000em;
+	overflow-y: auto;
+}
+
+.col .sg-font-primary {
+	font-family: "Roboto", $font-family-webfont-sans-regular;
+	font-weight: 400;
+	font-size: 1.000rem;
+	line-height: 1.333rem;
+	padding: 0;
+	margin: 0;
+}
+
+.col .sg-font-secondary {
+	font-family: "Roboto", $font-family-webfont-sans-regular;
+	font-weight: 300;
+	font-size: 1.600rem;
+	line-height: 2.000rem;
+	padding: 0;
+	margin: 0;
+}
+
+.col .sg-font-phonetic {
+	font-family: "Roboto Mono", $font-family-webfont-monospace;
+	font-weight: 400;
+	font-size: 1.000rem;
+	line-height: 1.333rem;
+	padding: 0;
+	margin: 0;
+}
+
+.col .sg-font-preformatted {
+	font-family: "Roboto Mono", $font-family-webfont-monospace;
+	font-weight: 400;
+	font-size: 0.867rem;
+	line-height: 1.333rem;
+	padding: 0;
+	margin: 0;
+}
+
+/* .col .sg-panel-ui-btns span, */
+
+.col .sg-panel-ui-btns svg {
+	display: block;
+	float: left;
+	width: 3.200rem;
+	height: 3.200rem;
+	background-color: $color-hex-ui-icon-bg;
+	vertical-align: bottom;
+	margin: 0;
+	padding: 0.933rem;
+}
+
+/* .col .sg-panel-ui-btns span:hover, */
+
+.col .sg-panel-ui-btns svg:hover {
+	background-color: $color-hex-hover-ui-icon-bg;
+	cursor: pointer;
+}
+
+/**
+ * englishextra ui colors
+ */
+
+.bg-AccentColor {
+	background-color: $AccentColor;
+}
+
+.bg-AccentColorBrighter {
+	background-color: $AccentColorBrighter;
+}
+
+.bg-LeftNavBarDark {
+	background-color: $LeftNavBarDark;
+}
+
+.bg-TitleBarAndAppBarDark {
+	background-color: $TitleBarAndAppBarDark;
+}
+
+.bg-TitleBarAndAppBarDarkItemHighlight {
+	background-color: $TitleBarAndAppBarDarkItemHighlight;
+}
+
+.bg-LeftNavBarLight {
+	background-color: $LeftNavBarLight;
+}
+
+.bg-TitleBarAndAppBarLight {
+	background-color: $TitleBarAndAppBarLight;
+}
+
+.bg-ButtonBackground {
+	background-color: $ButtonBackground;
+}
+
+.bg-ButtonBackgroundDark {
+	background-color: $ButtonBackgroundDark;
+}
+
+.bg-ButtonText {
+	background-color: $ButtonText;
+}
+
+.bg-ButtonOutline {
+	background-color: $ButtonOutline;
+}
+
+.bg-PlaceholderText {
+	background-color: $PlaceholderText;
+}
+
+.bg-color-rgba-selection-text {
+	background-color: $color-rgba-selection-text;
+}
+
+.bg-color-rgba-selection-bg {
+	background-color: $color-rgba-selection-bg;
+}
+
+.bg-color-hex-body-text {
+	background-color: $color-hex-body-text;
+}
+
+.bg-color-hex-gray-text {
+	background-color: $color-hex-gray-text;
+}
+
+.bg-color-hex-link {
+	background-color: $color-hex-link;
+}
+
+.bg-color-hex-hover-link {
+	background-color: $color-hex-hover-link;
+}
+
+.bg-color-hex-visited-link {
+	background-color: $color-hex-visited-link;
+}
+
+.bg-color-hex-progress-bar {
+	background-color: $color-hex-progress-bar;
+}
+
+.bg-color-hex-highlight {
+	background-color: $color-hex-highlight;
+}
+
+.bg-color-hex-url {
+	background-color: $color-hex-url;
+}
+
+.bg-color-hex-page-bg {
+	background-color: $color-hex-page-bg;
+}
+
+.bg-color-rgba-page-overlay-bg {
+	background-color: $color-rgba-page-overlay-bg;
+}
+
+.bg-color-hex-divider {
+	background-color: $color-hex-divider;
+}
+
+.bg-color-hex-lighter-divider {
+	background-color: $color-hex-lighter-divider;
+}
+
+.bg-color-hex-ui-icon-bg {
+	background-color: $color-hex-ui-icon-bg;
+}
+
+.bg-color-rgba-ui-icon-bg {
+	background-color: $color-rgba-ui-icon-bg;
+}
+
+.bg-color-hex-hover-ui-icon-bg {
+	background-color: $color-hex-hover-ui-icon-bg;
+}
+
+.bg-color-rgba-dark-ui-icon-bg {
+	background-color: $color-rgba-dark-ui-icon-bg;
+}
+
+.bg-color-hex-hover-dark-ui-icon-bg {
+	background-color: $color-hex-hover-dark-ui-icon-bg;
+}
+
+.bg-color-hex-ui-button-bg {
+	background-color: $color-hex-ui-button-bg;
+}
+
+.bg-color-hex-hover-ui-button-bg {
+	background-color: $color-hex-hover-ui-button-bg;
+}
+
+.bg-color-hex-ui-button-secondary-bg {
+	background-color: $color-hex-ui-button-secondary-bg;
+}
+
+.bg-color-hex-hover-ui-button-secondary-bg {
+	background-color: $color-hex-hover-ui-button-secondary-bg;
+}
+
+.bg-color-hex-active-input-bg {
+	background-color: $color-hex-active-input-bg;
+}
+
+.bg-color-hex-disabled-input-bg {
+	background-color: $color-hex-disabled-input-bg;
+}
+
+.bg-color-hex-dark-ui-bar-bg {
+	background-color: $color-hex-dark-ui-bar-bg;
+}
+
+.bg-color-hex-dark-ui-bar-hover-item-bg {
+	background-color: $color-hex-dark-ui-bar-hover-item-bg;
+}
+
+.bg-color-hex-dark-ui-bar-active-item-bg {
+	background-color: $color-hex-dark-ui-bar-active-item-bg;
+}
+
+.bg-color-hex-darker-ui-bar-bg {
+	background-color: $color-hex-darker-ui-bar-bg;
+}
+
+.bg-color-hex-darker-ui-bar-hover-item-bg {
+	background-color: $color-hex-darker-ui-bar-hover-item-bg;
+}
+
+.bg-color-hex-darker-ui-bar-active-item-bg {
+	background-color: $color-hex-darker-ui-bar-active-item-bg;
+}
+
+.bg-color-rgba-darker-ui-bar-inset-shadow {
+	background-color: $color-rgba-darker-ui-bar-inset-shadow;
+}
+
+.bg-color-hex-ui-bar-bg {
+	background-color: $color-hex-ui-bar-bg;
+}
+
+.bg-color-rgba-ui-bar-shadow {
+	background-color: $color-rgba-ui-bar-shadow;
+}
+
+.bg-color-hex-lighter-page-bg {
+	background-color: $color-hex-lighter-page-bg;
+}
+
+.bg-color-rgba-card-shadow {
+	background-color: $color-rgba-card-shadow;
+}
+
+.bg-color-rgba-lightbox-shadow {
+	background-color: $color-rgba-lightbox-shadow;
+}
+
+.bg-color-rgba-hint-bg {
+	background-color: $color-rgba-hint-bg;
+}
+
+.bg-color-rgba-loading-spinner-text {
+	background-color: $color-rgba-loading-spinner-text;
+}
+
+.bg-color-rgba-loading-spinner-bg {
+	background-color: $color-rgba-loading-spinner-bg;
+}
+
+.bg-color-rgba-notifier42-text {
+	background-color: $color-rgba-notifier42-text;
+}
+
+.bg-color-rgba-notifier42-bg {
+	background-color: $color-rgba-notifier42-bg;
+}
+
+.bg-color-rgba-notifier42-notice {
+	background-color: $color-rgba-notifier42-notice;
+}
+
+.bg-color-rgba-notifier42-success {
+	background-color: $color-rgba-notifier42-success;
+}
+
+.bg-color-rgba-notifier42-warning {
+	background-color: $color-rgba-notifier42-warning;
+}
+
+.bg-color-rgba-notifier42-error {
+	background-color: $color-rgba-notifier42-error;
+}
+
+.bg-color-rgba-img-lightbox-border {
+	background-color: $color-rgba-img-lightbox-border;
+}
+
+.bg-color-hex-englishextra-logo-bg {
+	background-color: $color-hex-englishextra-logo-bg;
+}
+
+.bg-color-hex-vk-like-bg {
+	background-color: $color-hex-vk-like-bg;
 }
 
 /**

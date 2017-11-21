@@ -198,6 +198,58 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 	root.ToProgress = ToProgress;
 })("undefined" !== typeof window ? window : this, document);
 /*!
+ * return image is loaded promise
+ * @see {@link https://jsfiddle.net/englishextra/56pavv7d/}
+ * @param {String|Object} s image path string or HTML DOM Image Object
+ * var m = document.querySelector("img") || "";
+ * var s = m.src || "";
+ * imagePromise(m).then(function (r) {
+ * alert(r);
+ * }).catch (function (err) {
+ * alert(err);
+ * });
+ * imagePromise(s).then(function (r) {
+ * alert(r);
+ * }).catch (function (err) {
+ * alert(err);
+ * });
+ * @see {@link https://gist.github.com/englishextra/3e95d301d1d47fe6e26e3be198f0675e}
+ * passes jshint
+ */
+(function (root) {
+	"use strict";
+	var imagePromise = function (s) {
+		if (root.Promise) {
+			return new Promise(function (y, n) {
+				var f = function (e, p) {
+					e.onload = function () {
+						y(p);
+					};
+					e.onerror = function () {
+						n(p);
+					};
+					e.src = p;
+				};
+				if ("string" === typeof s) {
+					var a = new Image();
+					f(a, s);
+				} else {
+					if ("img" !== s.tagName) {
+						return Promise.reject();
+					} else {
+						if (s.src) {
+							f(s, s.src);
+						}
+					}
+				}
+			});
+		} else {
+			throw new Error("Promise is not in global object");
+		}
+	};
+	root.imagePromise = imagePromise;
+})("undefined" !== typeof window ? window : this);
+/*!
  * Timer management (setInterval / setTimeout)
  * @param {Function} fn
  * @param {Number} ms
@@ -364,58 +416,6 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 	};
 	root.loadJsCss = loadJsCss;
 })("undefined" !== typeof window ? window : this, document);
-/*!
- * return image is loaded promise
- * @see {@link https://jsfiddle.net/englishextra/56pavv7d/}
- * @param {String|Object} s image path string or HTML DOM Image Object
- * var m = document.querySelector("img") || "";
- * var s = m.src || "";
- * imagePromise(m).then(function (r) {
- * alert(r);
- * }).catch (function (err) {
- * alert(err);
- * });
- * imagePromise(s).then(function (r) {
- * alert(r);
- * }).catch (function (err) {
- * alert(err);
- * });
- * @see {@link https://gist.github.com/englishextra/3e95d301d1d47fe6e26e3be198f0675e}
- * passes jshint
- */
-(function (root) {
-	"use strict";
-	var imagePromise = function (s) {
-		if (root.Promise) {
-			return new Promise(function (y, n) {
-				var f = function (e, p) {
-					e.onload = function () {
-						y(p);
-					};
-					e.onerror = function () {
-						n(p);
-					};
-					e.src = p;
-				};
-				if ("string" === typeof s) {
-					var a = new Image();
-					f(a, s);
-				} else {
-					if ("img" !== s.tagName) {
-						return Promise.reject();
-					} else {
-						if (s.src) {
-							f(s, s.src);
-						}
-					}
-				}
-			});
-		} else {
-			throw new Error("Promise is not in global object");
-		}
-	};
-	root.imagePromise = imagePromise;
-})("undefined" !== typeof window ? window : this);
 /*!
  * app logic
  */
@@ -600,6 +600,7 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 		})();
 
 		var userBrowsingDetails = " [" + (getHumanDate ? getHumanDate : "") + (earlyDeviceType ? " " + earlyDeviceType : "") + (earlyDeviceFormfactor.orientation ? " " + earlyDeviceFormfactor.orientation : "") + (earlyDeviceFormfactor.size ? " " + earlyDeviceFormfactor.size : "") + (earlySvgSupport ? " " + earlySvgSupport : "") + (earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") + (earlyHasTouch ? " " + earlyHasTouch : "") + "]";
+
 		if (document[title]) {
 			document[title] = document[title] + userBrowsingDetails;
 		}
@@ -735,7 +736,7 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 		/*var setStyleOpacity = function (a, n) {
 			n = n || 1;
 			if (a) {
-				a.style.opacity = n;
+				a[style].opacity = n;
 			}
 		};*/
 
@@ -850,11 +851,6 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			}
 		};
 
-		/*!
-		 * set click event on external links,
-		 * so that they open in new browser tab
-		 * @param {Object} [ctx] context HTML Element
-		 */
 		var handleExternalLink = function (url, ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
@@ -890,11 +886,7 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			}
 		};
 		manageExternalLinkAll();
-		/*!
-		 * replace img src with data-src
-		 * initiate on load, not on ready
-		 * @param {Object} [ctx] context HTML Element
-		 */
+
 		var handleDataSrcImageAll = function () {
 			var imgClass = "data-src-img";
 			var img = document[getElementsByClassName](imgClass) || "";
@@ -948,10 +940,7 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			}, 500);
 		};
 		manageDataSrcImageAll();
-		/*!
-		 * init qr-code
-		 * @see {@link https://stackoverflow.com/questions/12777622/how-to-use-enquire-js}
-		 */
+
 		var manageLocationQrCodeImage = function () {
 			var holder = document[getElementsByClassName]("holder-location-qr-code")[0] || "";
 			var locationHref = root.location.href || "";
@@ -1005,9 +994,7 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			}
 		};
 		manageLocationQrCodeImage();
-		/*!
-		 * init nav-menu
-		 */
+
 		var initNavMenu = function () {
 			var container = document[getElementById]("container") || "";
 			var page = document[getElementById]("page") || "";
@@ -1119,9 +1106,7 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			}
 		};
 		initNavMenu();
-		/*!
-		 * init menu-more
-		 */
+
 		var initMenuMore = function () {
 			var container = document[getElementById]("container") || "";
 			var page = document[getElementById]("page") || "";
@@ -1174,9 +1159,7 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			}
 		};
 		initMenuMore();
-		/*!
-		 * init Masonry grid and rerender on imagesLoaded progress
-		 */
+
 		var localImagesPreloaded;
 		var initMasonry = function () {
 			var gridItemClass = "masonry-grid-item";
@@ -1250,9 +1233,7 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			}
 		};
 		initMasonry();
-		/*!
-		 * init photoswipe
-		 */
+
 		var initPhotoswipe = function () {
 			var pswpGalleryClass = "pswp-gallery";
 			var pswpGallerySelector = ".pswp-gallery";

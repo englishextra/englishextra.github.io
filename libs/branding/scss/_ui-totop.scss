@@ -1,9 +1,7 @@
 /*! @import "ui-totop"; */
-
 /**
  * @see {@link https://github.com/sksmatt/UItoTop-jQuery-Plugin/}
  */
-
 .ui-totop {
 	display: inline-block;
 	visibility: hidden;
@@ -24,21 +22,17 @@
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
-
 .ui-totop:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e923";
 }
-
 .ui-totop.is-active {
 	visibility: visible;
 	opacity: 1;
 }
-
 .ui-totop:hover {
 	background-color: $color-hex-hover-ui-icon-bg;
 }
-
 /* .ui-totop:focus, */
 .ui-totop:active {
 	color: $color-hex-body-text;

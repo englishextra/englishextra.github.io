@@ -508,6 +508,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 		var innerHTML = "innerHTML";
 		var parentNode = "parentNode";
 		var remove = "remove";
+		var removeChild = "removeChild";
 		var replaceChild = "replaceChild";
 		var title = "title";
 		var _addEventListener = "addEventListener";
@@ -635,17 +636,23 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 		var initialDocumentTitle = document.title || "";
 
 		var userBrowsingDetails = " [" + (getHumanDate ? getHumanDate : "") + (earlyDeviceType ? " " + earlyDeviceType : "") + (earlyDeviceFormfactor.orientation ? " " + earlyDeviceFormfactor.orientation : "") + (earlyDeviceFormfactor.size ? " " + earlyDeviceFormfactor.size : "") + (earlySvgSupport ? " " + earlySvgSupport : "") + (earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") + (earlyHasTouch ? " " + earlyHasTouch : "") + "]";
+
 		if (document[title]) {
 			document[title] = document[title] + userBrowsingDetails;
 		}
 
-		var scriptIsLoaded = function (s) {
-			for (var b = document[getElementsByTagName]("script") || "", a = 0; a < b[_length]; a += 1) {
-				if (b[a][getAttribute]("src") === s) {
+		var scriptIsLoaded = function (scriptSrc) {
+			var scriptAll,
+			i,
+			l;
+			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[_length]; i < l; i += 1) {
+				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
+					scriptAll = i = l = null;
 					return true;
 				}
 			}
-			return;
+			scriptAll = i = l = null;
+			return false;
 		};
 
 		var debounce = function (func, wait) {
@@ -891,15 +898,15 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 			x.send(null);
 		};
 
-		var safelyParseJSON = function (a) {
+		var safelyParseJSON = function (response) {
 			var isJson = function (obj) {
-				var t = typeof obj;
-				return ['boolean', 'number', "string", 'symbol', "function"].indexOf(t) === -1;
+				var objType = typeof obj;
+				return ['boolean', 'number', "string", 'symbol', "function"].indexOf(objType) === -1;
 			};
-			if (!isJson(a)) {
-				return JSON.parse(a);
+			if (!isJson(response)) {
+				return JSON.parse(response);
 			} else {
-				return a;
+				return response;
 			}
 		};
 
@@ -952,12 +959,12 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 			}
 		};
 
-		var removeElement = function (e) {
-			if (e) {
-				if ("undefined" !== typeof e[remove]) {
-					return e[remove]();
+		var removeElement = function (elem) {
+			if (elem) {
+				if ("undefined" !== typeof elem[remove]) {
+					return elem[remove]();
 				} else {
-					return e[parentNode] && e[parentNode].removeChild(e);
+					return elem[parentNode] && elem[parentNode][removeChild](elem);
 				}
 			}
 		};

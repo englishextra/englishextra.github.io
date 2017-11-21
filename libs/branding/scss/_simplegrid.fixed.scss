@@ -25,7 +25,7 @@ body {
 [class*='col-'] {
 	float: left;
 	min-height: 1px;
-	padding-right: 1.500rem;
+	padding-right: 1.333rem;
 }
 
 .grid {
@@ -53,8 +53,8 @@ body {
 }
 
 .grid-pad {
-	padding-top: 1.500rem;
-	padding-left: 1.500rem;
+	padding-top: 1.333rem;
+	padding-left: 1.333rem;
 	padding-right: 0;
 }
 
@@ -199,7 +199,7 @@ body {
 		min-width: 0;
 		margin-left: 0;
 		margin-right: 0;
-		padding-left: 0.750rem;
+		padding-left: 0.800rem;
 		padding-right: 0;
 	}
 
@@ -215,8 +215,8 @@ body {
 		width: auto;
 		float: none;
 		margin: 0;
-		padding-top: 1.500rem;
-		padding-right: 0.750rem;
+		padding-top: 1.333rem;
+		padding-right: 0.800rem;
 	}
 
 	[class*='col-']:first-child {
@@ -227,13 +227,13 @@ body {
 		float: left;
 		margin: 0;
 		padding-left: 0;
-		padding-right: 0.750rem;
+		padding-right: 0.800rem;
 		padding-bottom: 0;
 	}
 
 	.grid-pad {
 		padding-top: 0;
-		padding-left: 0.750rem;
+		padding-left: 0.800rem;
 	}
 
 	.grid-pad:first-child {

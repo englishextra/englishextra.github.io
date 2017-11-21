@@ -14,26 +14,363 @@ var root = "undefined" !== typeof window ? window : this;
  * safe way to handle console.log
  * @see {@link https://github.com/paulmillr/console-polyfill}
  */
-(function(root){"use strict";if(!root.console){root.console={};}var con=root.console;var prop,method;var dummy=function(){};var properties=["memory"];var methods=("assert,clear,count,debug,dir,dirxml,error,exception,group,"+"groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd,"+"show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn").split(",");while((prop=properties.pop())){if(!con[prop]){con[prop]={};}}while((method=methods.pop())){if(!con[method]){con[method]=dummy;}}}(root));
+(function(root){
+	"use strict";
+	if (!root.console) {
+		root.console = {};
+	}
+	var con = root.console;
+	var prop;
+	var method;
+	var dummy = function () {};
+	var properties = ["memory"];
+	var methods = ["assert,clear,count,debug,dir,dirxml,error,exception,group,",
+		"groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd,",
+		"show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn"];
+	methods.join("").split(",");
+	for (; (prop = properties.pop()); ) {
+		if (!con[prop]) {
+			con[prop] = {};
+		}
+	}
+	for (; (method = methods.pop()); ) {
+		if (!con[method]) {
+			con[method] = dummy;
+		}
+	}
+	prop = method = dummy = properties = methods = null;
+}("undefined" !== typeof window ? window : this));
 /*!
  * modified ToProgress v0.1.1
- * @see {@link https://github.com/djyde/ToProgress}
- * @see {@link https://gist.github.com/englishextra/6a8c79c9efbf1f2f50523d46a918b785}
- * @see {@link https://jsfiddle.net/englishextra/z5xhjde8/}
  * arguments.callee changed to TP, a local wrapper function,
  * so that public function name is now customizable;
  * wrapped in curly brackets:
  * else{document.body.appendChild(this.progressBar);};
  * removed module check
+ * @see {@link http://github.com/djyde/ToProgress}
+ * @see {@link https://github.com/djyde/ToProgress/blob/master/ToProgress.js}
+ * @see {@link https://gist.github.com/englishextra/6a8c79c9efbf1f2f50523d46a918b785}
+ * @see {@link https://jsfiddle.net/englishextra/z5xhjde8/}
  * passes jshint
  */
-(function(root){"use strict";var ToProgress=(function(){var TP=function(){var t=function(){var s=document.createElement("fakeelement"),i={transition:"transitionend",OTransition:"oTransitionEnd",MozTransition:"transitionend",WebkitTransition:"webkitTransitionEnd"};for(var j in i){if(i.hasOwnProperty(j)){if(void 0!==s.style[j]){return i[j];}}}},s=function(t,a){if(this.progress=0,this.options={id:"top-progress-bar",color:"#F44336",height:"2px",duration:0.2},t&&"object"===typeof t){for(var i in t){if(t.hasOwnProperty(i)){this.options[i]=t[i];}}}if(this.options.opacityDuration=3*this.options.duration,this.progressBar=document.createElement("div"),this.progressBar.id=this.options.id,this.progressBar.setCSS=function(t){for(var a in t){if(t.hasOwnProperty(a)){this.style[a]=t[a];}}},this.progressBar.setCSS({position:a?"relative":"fixed",top:"0",left:"0",right:"0","background-color":this.options.color,height:this.options.height,width:"0%",transition:"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s","-moz-transition":"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s","-webkit-transition":"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s"}),a){var o=document.querySelector(a);if(o){if(o.hasChildNodes()){o.insertBefore(this.progressBar,o.firstChild);}else{o.appendChild(this.progressBar);}}}else{document.body.appendChild(this.progressBar);}},i=t();return s.prototype.transit=function(){this.progressBar.style.width=this.progress+"%";},s.prototype.getProgress=function(){return this.progress;},s.prototype.setProgress=function(t,s){this.show();this.progress=t>100?100:0>t?0:t;this.transit();if(s){s();}},s.prototype.increase=function(t,s){this.show();this.setProgress(this.progress+t,s);},s.prototype.decrease=function(t,s){this.show();this.setProgress(this.progress-t,s);},s.prototype.finish=function(t){var s=this;this.setProgress(100,t);this.hide();if(i){this.progressBar.addEventListener(i,function(t){s.reset();s.progressBar.removeEventListener(t.type,TP);});}},s.prototype.reset=function(t){this.progress=0;this.transit();if(t){t();}},s.prototype.hide=function(){this.progressBar.style.opacity="0";},s.prototype.show=function(){this.progressBar.style.opacity="1";},s;};return TP();})();root.ToProgress=ToProgress;}(root));
+(function (root, document, undefined) {
+	"use strict";
+	var ToProgress = (function () {
+		var TP = function () {
+			var _addEventListener = "addEventListener";
+			var appendChild = "appendChild";
+			var createElement = "createElement";
+			var firstChild = "firstChild";
+			var getElementById = "getElementById";
+			var getElementsByClassName = "getElementsByClassName";
+			var hasOwnProperty = "hasOwnProperty";
+			var opacity = "opacity";
+			var prototype = "prototype";
+			var _removeEventListener = "removeEventListener";
+			var style = "style";
+			function whichTransitionEvent() {
+				var t,
+				el = document[createElement]("fakeelement");
+				var transitions = {
+					"transition": "transitionend",
+					"OTransition": "oTransitionEnd",
+					"MozTransition": "transitionend",
+					"WebkitTransition": "webkitTransitionEnd"
+				};
+				for (t in transitions) {
+					if (transitions[hasOwnProperty](t)) {
+						if (el[style][t] !== undefined) {
+							return transitions[t];
+						}
+					}
+				}
+			}
+			var transitionEvent = whichTransitionEvent();
+			function ToProgress(opt, selector) {
+				this.progress = 0;
+				this.options = {
+					id: "top-progress-bar",
+					color: "#F44336",
+					height: "2px",
+					duration: 0.2,
+					zIndex: "auto"
+				};
+				if (opt && typeof opt === "object") {
+					for (var key in opt) {
+						if (opt[hasOwnProperty](key)) {
+							this.options[key] = opt[key];
+						}
+					}
+				}
+				this.options.opacityDuration = this.options.duration * 3;
+				this.progressBar = document[createElement]("div");
+				this.progressBar.id = this.options.id;
+				this.progressBar.setCSS = function (style) {
+					for (var property in style) {
+						if (style[hasOwnProperty](property)) {
+							this.style[property] = style[property];
+						}
+					}
+				};
+				this.progressBar.setCSS({
+					"position": selector ? "relative" : "fixed",
+					"top": "0",
+					"left": "0",
+					"right": "0",
+					"background-color": this.options.color,
+					"height": this.options.height,
+					"width": "0%",
+					"transition": "width " + this.options.duration + "s" + ", opacity " + this.options.opacityDuration + "s",
+					"-moz-transition": "width " + this.options.duration + "s" + ", opacity " + this.options.opacityDuration + "s",
+					"-webkit-transition": "width " + this.options.duration + "s" + ", opacity " + this.options.opacityDuration + "s",
+					"z-index": this.options.zIndex
+				});
+				if (selector) {
+					var el;
+					if (selector.indexOf("#", 0) !== -1) {
+						el = document[getElementById](selector) || "";
+					} else {
+						if (selector.indexOf(".", 0) !== -1) {
+							el = document[getElementsByClassName](selector)[0] || "";
+						}
+					}
+					if (el) {
+						if (el.hasChildNodes()) {
+							el.insertBefore(this.progressBar, el[firstChild]);
+						} else {
+							el[appendChild](this.progressBar);
+						}
+					}
+				} else {
+					document.body[appendChild](this.progressBar);
+				}
+			}
+			ToProgress[prototype].transit = function () {
+				this.progressBar[style].width = this.progress + "%";
+			};
+			ToProgress[prototype].getProgress = function () {
+				return this.progress;
+			};
+			ToProgress[prototype].setProgress = function (progress, callback) {
+				this.show();
+				if (progress > 100) {
+					this.progress = 100;
+				} else if (progress < 0) {
+					this.progress = 0;
+				} else {
+					this.progress = progress;
+				}
+				this.transit();
+				if (callback) {
+					callback();
+				}
+			};
+			ToProgress[prototype].increase = function (toBeIncreasedProgress, callback) {
+				this.show();
+				this.setProgress(this.progress + toBeIncreasedProgress, callback);
+			};
+			ToProgress[prototype].decrease = function (toBeDecreasedProgress, callback) {
+				this.show();
+				this.setProgress(this.progress - toBeDecreasedProgress, callback);
+			};
+			ToProgress[prototype].finish = function (callback) {
+				var that = this;
+				this.setProgress(100, callback);
+				this.hide();
+				if (transitionEvent) {
+					this.progressBar[_addEventListener](transitionEvent, function (e) {
+						that.reset();
+						that.progressBar[_removeEventListener](e.type, TP);
+					});
+				}
+			};
+			ToProgress[prototype].reset = function (callback) {
+				this.progress = 0;
+				this.transit();
+				if (callback) {
+					callback();
+				}
+			};
+			ToProgress[prototype].hide = function () {
+				this.progressBar[style][opacity] = "0";
+			};
+			ToProgress[prototype].show = function () {
+				this.progressBar[style][opacity] = "1";
+			};
+			return ToProgress;
+		};
+		return TP();
+	})();
+	root.ToProgress = ToProgress;
+})("undefined" !== typeof window ? window : this, document);
 /*!
- * modified scrollToY
- * @see {@link http://stackoverflow.com/questions/8917921/cross-browser-javascript-not-jquery-scroll-to-top-animation}
+ * modified Detect Whether a Font is Installed
+ * @param {String} fontName The name of the font to check
+ * @return {Boolean}
+ * @author Kirupa <sam@samclarke.com>
+ * @see {@link https://www.kirupa.com/html5/detect_whether_font_is_installed.htm}
  * passes jshint
  */
-(function(root){"use strict";var scroll2Top=function(scrollTargetY,speed,easing){var scrollY=root.scrollY||document.documentElement.scrollTop;scrollTargetY=scrollTargetY||0;speed=speed||2000;easing=easing||'easeOutSine';var currentTime=0;var time=Math.max(0.1,Math.min(Math.abs(scrollY-scrollTargetY)/speed,0.8));var easingEquations={easeOutSine:function(pos){return Math.sin(pos*(Math.PI/2));},easeInOutSine:function(pos){return(-0.5*(Math.cos(Math.PI*pos)-1));},easeInOutQuint:function(pos){if((pos/=0.5)<1){return 0.5*Math.pow(pos,5);}return 0.5*(Math.pow((pos-2),5)+2);}};function tick(){currentTime+=1/60;var p=currentTime/time;var t=easingEquations[easing](p);if(p<1){requestAnimationFrame(tick);root.scrollTo(0,scrollY+((scrollTargetY-scrollY)*t));}else{root.scrollTo(0,scrollTargetY);}}tick();};root.scroll2Top=scroll2Top;}(root));
+(function (root, document) {
+	"use strict";
+	var doesFontExist = function (fontName) {
+		var createElement = "createElement";
+		var getContext = "getContext";
+		var measureText = "measureText";
+		var width = "width";
+		var canvas = document[createElement]("canvas");
+		var context = canvas[getContext]("2d");
+		var text = "abcdefghijklmnopqrstuvwxyz0123456789";
+		context.font = "72px monospace";
+		var baselineSize = context[measureText](text)[width];
+		context.font = "72px '" + fontName + "', monospace";
+		var newSize = context[measureText](text)[width];
+		canvas = null;
+		if (newSize === baselineSize) {
+			return false;
+		} else {
+			return true;
+		}
+	};
+	root.doesFontExist = doesFontExist;
+})("undefined" !== typeof window ? window : this, document);
+/*!
+ * load CSS async
+ * modified order of arguments, added callback option, removed CommonJS stuff
+ * @see {@link https://github.com/filamentgroup/loadCSS}
+ * @see {@link https://gist.github.com/englishextra/50592e9944bd2edc46fe5a82adec3396}
+ * @param {String} hrefString path string
+ * @param {Object} callback callback function
+ * @param {String} media media attribute string value
+ * @param {Object} [before] target HTML element
+ * loadCSS(hrefString,callback,media,before)
+ */
+(function (root, document) {
+	var loadCSS = function (_href, callback) {
+		"use strict";
+		var ref = document.getElementsByTagName("head")[0] || "";
+		var link = document.createElement("link");
+		link.rel = "stylesheet";
+		link.href = _href;
+		link.media = "all";
+		if (ref) {
+			ref.appendChild(link);
+			if (callback && "function" === typeof callback) {
+				link.onload = callback;
+			}
+			return link;
+		}
+		return;
+	};
+	root.loadCSS = loadCSS;
+})("undefined" !== typeof window ? window : this, document);
+/*!
+ * modified loadExt
+ * @see {@link https://gist.github.com/englishextra/ff9dc7ab002312568742861cb80865c9}
+ * passes jshint
+ */
+(function (root, document) {
+	"use strict";
+	var loadJsCss = function (files, callback) {
+		var _this = this;
+		var appendChild = "appendChild";
+		var body = "body";
+		var createElement = "createElement";
+		var getElementsByTagName = "getElementsByTagName";
+		var insertBefore = "insertBefore";
+		var _length = "length";
+		var parentNode = "parentNode";
+		_this.files = files;
+		_this.js = [];
+		_this.head = document[getElementsByTagName]("head")[0] || "";
+		_this.body = document[body] || "";
+		_this.ref = document[getElementsByTagName]("script")[0] || "";
+		_this.callback = callback || function () {};
+		_this.loadStyle = function (file) {
+			var link = document[createElement]("link");
+			link.rel = "stylesheet";
+			link.type = "text/css";
+			link.href = file;
+			_this.head[appendChild](link);
+		};
+		_this.loadScript = function (i) {
+			var script = document[createElement]("script");
+			script.type = "text/javascript";
+			script.async = true;
+			script.src = _this.js[i];
+			var loadNextScript = function () {
+				if (++i < _this.js[_length]) {
+					_this.loadScript(i);
+				} else {
+					_this.callback();
+				}
+			};
+			script.onload = function () {
+				loadNextScript();
+			};
+			_this.head[appendChild](script);
+			if (_this.ref[parentNode]) {
+				_this.ref[parentNode][insertBefore](script, _this.ref);
+			} else {
+				(_this.body || _this.head)[appendChild](script);
+			}
+		};
+		var i,
+		l;
+		for (i = 0, l = _this.files[_length]; i < l; i += 1) {
+			if ((/\.js$|\.js\?/).test(_this.files[i])) {
+				_this.js.push(_this.files[i]);
+			}
+			if ((/\.css$|\.css\?|\/css\?/).test(_this.files[i])) {
+				_this.loadStyle(_this.files[i]);
+			}
+		}
+		i = l = null;
+		if (_this.js[_length] > 0) {
+			_this.loadScript(0);
+		} else {
+			_this.callback();
+		}
+	};
+	root.loadJsCss = loadJsCss;
+})("undefined" !== typeof window ? window : this, document);
+/*!
+ * app logic
+ */
+		var scroll2Top = function (scrollTargetY, speed, easing) {
+			var scrollY = root.scrollY || docElem.scrollTop;
+			var posY = scrollTargetY || 0;
+			var rate = speed || 2000;
+			var soothing = easing || "easeOutSine";
+			var currentTime = 0;
+			var time = Math.max(0.1, Math.min(Math.abs(scrollY - posY) / rate, 0.8));
+			var easingEquations = {
+				easeOutSine: function (pos) {
+					return Math.sin(pos * (Math.PI / 2));
+				},
+				easeInOutSine: function (pos) {
+					return (-0.5 * (Math.cos(Math.PI * pos) - 1));
+				},
+				easeInOutQuint: function (pos) {
+					if ((pos /= 0.5) < 1) {
+						return 0.5 * Math.pow(pos, 5);
+					}
+					return 0.5 * (Math.pow((pos - 2), 5) + 2);
+				}
+			};
+			function tick() {
+				currentTime += 1 / 60;
+				var p = currentTime / time;
+				var t = easingEquations[soothing](p);
+				if (p < 1) {
+					requestAnimationFrame(tick);
+					root.scrollTo(0, scrollY + ((posY - scrollY) * t));
+				} else {
+					root.scrollTo(0, posY);
+				}
+			}
+			tick();
+		};
 		var docElem = document.documentElement || "";
 		var docImplem = document.implementation || "";
 		var _length = "length";
@@ -155,163 +492,227 @@ var root = "undefined" !== typeof window ? window : this;
 			}
 			return newYear + "-" + newMonth + "-" + newDay;
 		})();
-/*!
- * append details to title
- */
-var userBrowsingDetails = " [" + (getHumanDate ? getHumanDate : "") + (earlyDeviceType ? " " + earlyDeviceType : "") + (earlyDeviceFormfactor.orientation ? " " + earlyDeviceFormfactor.orientation : "") + (earlyDeviceFormfactor.size ? " " + earlyDeviceFormfactor.size : "") + (earlySvgSupport ? " " + earlySvgSupport : "") + (earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") + (earlyHasTouch ? " " + earlyHasTouch : "") + "]";
-if (document.title) {
-	document.title = document.title + userBrowsingDetails;
-}
-/*!
- * modified Returns a function, that, as long as it continues to be invoked, will not
- * be triggered. The function will be called after it stops being called for
- * N milliseconds. If `immediate` is passed, trigger the function on the
- * leading edge, instead of the trailing. The function also has a property 'clear'
- * that is a function which will clear the timer to prevent previously scheduled executions.
- * @source underscore.js
- * @see http://unscriptable.com/2009/03/20/debouncing-javascript-methods/
- * @param {Function} function to wrap
- * @param {Number} timeout in ms (`100`)
- * @param {Boolean} whether to execute at the beginning (`false`)
- * @api public
- * @see {@link https://github.com/component/debounce/blob/master/index.js}
- * passes jshint
- */
-(function(root,undefined){var debounce=function(func,wait,immediate){var timeout,args,context,timestamp,result;if(undefined===wait||null===wait){wait=100;}function later(){var last=Date.now()-timestamp;if(last<wait&&last>=0){timeout=setTimeout(later,wait-last);}else{timeout=null;if(!immediate){result=func.apply(context,args);context=args=null;}}}var debounced=function(){context=this;args=arguments;timestamp=Date.now();var callNow=immediate&&!timeout;if(!timeout){timeout=setTimeout(later,wait);}if(callNow){result=func.apply(context,args);context=args=null;}return result;};debounced.clear=function(){if(timeout){clearTimeout(timeout);timeout=null;}};debounced.flush=function(){if(timeout){result=func.apply(context,args);context=args=null;clearTimeout(timeout);timeout=null;}};return debounced;};root.debounce=debounce;}(root));
-/*!
- * modified Returns a new function that, when invoked, invokes `func` at most once per `wait` milliseconds.
- * @param {Function} func Function to wrap.
- * @param {Number} wait Number of milliseconds that must elapse between `func` invocations.
- * @return {Function} A new function that wraps the `func` function passed in.
- * @see {@link https://github.com/component/throttle/blob/master/index.js}
- * passes jshint
- */
-(function(root,undefined){var throttle=function(func,wait){var ctx;var args;var rtn;var timeoutID;var last=0;function call(){timeoutID=0;last=+new Date();rtn=func.apply(ctx,args);ctx=null;args=null;}return function throttled(){ctx=this;args=arguments;var delta=new Date()-last;if(!timeoutID){if(delta>=wait){call();}else{timeoutID=setTimeout(call,wait-delta);}}return rtn;};};root.throttle=throttle;}(root));
-/*!
- * A simple promise-compatible "document ready" event handler with a few extra treats.
- * With browserify/webpack:
- * const ready = require('document-ready-promise')
- * ready().then(function(){})
- * If in a non-commonjs environment, just include the script. It will attach document.ready for you.
- * document.ready().then(function() {})
- * The document.ready promise will preserve any values that you may be passing through the promise chain.
- * Using ES2015 and fetch
- * fetch(new Request('kitten.jpg'))
- * .then(response => response.blob())
- * .then(document.ready)
- * .then(blob => document.querySelector("img").src = URL.createObjectURL(blob))
- * @see {@link https://github.com/michealparks/document-ready-promise}
- * @see {@link https://github.com/michealparks/document-ready-promise/blob/master/document-ready-promise.js}
- * passes jshint
- */
-(function(root){"use strict";var d=root.document;d.ready=function(chainVal){var loaded=(/^loaded|^i|^c/).test(d.readyState),DOMContentLoaded="DOMContentLoaded",load="load";return new Promise(function(resolve){if(loaded){return resolve(chainVal);}function onReady(){resolve(chainVal);d.removeEventListener(DOMContentLoaded,onReady);root.removeEventListener(load,onReady);}d.addEventListener(DOMContentLoaded,onReady);root.addEventListener(load,onReady);});};}(root));
-/*!
- * How can I check if a JS file has been included already?
- * @see {@link https://gist.github.com/englishextra/403a0ca44fc5f495400ed0e20bc51d47}
- * @see {@link https://stackoverflow.com/questions/18155347/how-can-i-check-if-a-js-file-has-been-included-already}
- * @param {String} s path string
- * scriptIsLoaded(s)
- */
-(function(root){"use strict";var scriptIsLoaded=function(s){for(var b=document.getElementsByTagName("script")||"",a=0;a<b.length;a+=1){if(b[a].getAttribute("src")===s){return true;}}return;};root.scriptIsLoaded=scriptIsLoaded;}(root));
-/*!
- * append node into other with fragment
- * @see {@link https://gist.github.com/englishextra/0ff3204d5fb285ef058d72f31e3af766}
- * @param {String|object} e an HTML Element to append
- * @param {Object} a target HTML Element
- * appendFragment(e,a)
- */
-(function(root){"use strict";var appendFragment=function(e,a){var d=document;a=a||d.getElementsByTagName("body")[0]||"";return (function(){if(e){var d=document,df=d.createDocumentFragment()||"",appendChild="appendChild";if("string"===typeof e){e=d.createTextNode(e);}df[appendChild](e);a[appendChild](df);}})();};root.appendFragment=appendFragment;}(root));
-/*!
- * set style display none of an element
- * @param {Object} a an HTML Element
- * setStyleDisplayNone(a)
- */
-(function(root){var setStyleDisplayNone=function(a){return (function(){if(a){a.style.display="none";}})();};root.setStyleDisplayNone=setStyleDisplayNone;}(root));
-/*!
- * set style opacity of an element
- * @param {Object} a an HTML Element
- * @param {Number} n any positive decimal number 0.00-1.00
- * setStyleOpacity(a,n)
- */
-(function(root){var setStyleOpacity=function(a,n){n=n||1;return (function(){if(a){a.style.opacity=n;}})();};root.setStyleOpacity=setStyleOpacity;}(root));
-/*!
- * set style visibility visible of an element
- * @param {Object} a an HTML Element
- * setStyleVisibilityVisible(a)
- */
-(function(root){var setStyleVisibilityVisible=function(a){return (function(){if(a){a.style.visibility="visible";}})();};root.setStyleVisibilityVisible=setStyleVisibilityVisible;}(root));
-/*!
- * modified Unified URL parsing API in the browser and node
- * @see {@link https://github.com/wooorm/parse-link}
- * removed module check
- * @see {@link https://gist.github.com/englishextra/4e9a0498772f05fa5d45cfcc0d8be5dd}
- * @see {@link https://gist.github.com/englishextra/2a7fdabd0b23a8433d5fc148fb788455}
- * @see {@link https://jsfiddle.net/englishextra/fcdds4v6/}
- * @param {String} url URL string
- * @param {Boolean} [true|false] if true, returns protocol:, :port, /pathname, ?search, ?query, #hash
- * if set to false, returns protocol, port, pathname, search, query, hash
- * alert(parseLink("http://localhost/search?s=t&v=z#dev").href|
- * origin|host|port|hash|hostname|pathname|protocol|search|query|isAbsolute|isRelative|isCrossDomain);
- */
-/*jshint bitwise: false */
-(function(root){"use strict";var parseLink=function(url,full){full=full||!1;return (function(){var _r=function(s){return s.replace(/^(#|\?)/,"").replace(/\:$/,"");},l=location||"",_p=function(protocol){switch(protocol){case"http:":return full?":"+80:80;case"https:":return full?":"+443:443;default:return full?":"+l.port:l.port;}},_s=(0===url.indexOf("//")||!!~url.indexOf("://")),w=root.location||"",_o=function(){var o=w.protocol+"//"+w.hostname+(w.port?":"+w.port:"");return o||"";},_c=function(){var c=document.createElement("a");c.href=url;var v=c.protocol+"//"+c.hostname+(c.port?":"+c.port:"");return v!==_o();},a=document.createElement("a");a.href=url;return{href:a.href,origin:_o(),host:a.host||l.host,port:("0"===a.port||""===a.port)?_p(a.protocol):(full?a.port:_r(a.port)),hash:full?a.hash:_r(a.hash),hostname:a.hostname||l.hostname,pathname:a.pathname.charAt(0)!=="/"?(full?"/"+a.pathname:a.pathname):(full?a.pathname:a.pathname.slice(1)),protocol:!a.protocol||":"===a.protocol?(full?l.protocol:_r(l.protocol)):(full?a.protocol:_r(a.protocol)),search:full?a.search:_r(a.search),query:full?a.search:_r(a.search),isAbsolute:_s,isRelative:!_s,isCrossDomain:_c(),hasHTTP:/^(http|https):\/\//i.test(url)?!0:!1};})();};root.parseLink=parseLink;}(root));
-/*jshint bitwise: true */
-/*!
- * get current protocol - "http" or "https", else return ""
- * @param {Boolean} [force] When set to "true", and the result is empty,
- * the function will return "http"
- * getHTTP(true)
- */
-(function(root){"use strict";var getHTTP=(function(type){return function(force){force=force||"";return"http:"===type?"http":"https:"===type?"https":force?"http":"";};}(root.location.protocol||""));root.getHTTP=getHTTP;}(root));
-/*!
- * Open external links in default browser out of Electron / nwjs
- * @see {@link https://gist.github.com/englishextra/b9a8140e1c1b8aa01772375aeacbf49b}
- * @see {@link https://stackoverflow.com/questions/32402327/how-can-i-force-external-links-from-browser-window-to-open-in-a-default-browser}
- * @see {@link https://github.com/nwjs/nw.js/wiki/shell}
- * electron - file: | nwjs - chrome-extension: | http: Intel XDK
- * wont do in electron and nw,
- * so manageExternalLinkAll will set target blank to links
- * var win = w.open(url, "_blank");
- * win.focus();
- * @param {String} url URL/path string
- * openDeviceBrowser(url)
- * detect Node.js
- * @see {@link https://github.com/lyrictenor/node-is-nwjs/blob/master/is-nodejs.js}
- * @returns {Boolean} true or false
- * detect Electron
- * @returns {Boolean} true or false
- * detect NW.js
- * @see {@link https://github.com/lyrictenor/node-is-nwjs/blob/master/index.js}
- * @returns {Boolean} true or false
- */
-(function(root){"use strict";var isNodejs="undefined"!==typeof process&&"undefined"!==typeof require||"",isElectron="undefined"!==typeof root&&root.process&&"renderer"===root.process.type||"",isNwjs=(function(){if("undefined"!==typeof isNodejs&&isNodejs){try{if("undefined"!==typeof require("nw.gui")){return true;}}catch(e){return;}}return;}()),openDeviceBrowser=function(url){var triggerForElectron=function(){var es=isElectron?require("electron").shell:"";return es?es.openExternal(url):"";},triggerForNwjs=function(){var ns=isNwjs?require("nw.gui").Shell:"";return ns?ns.openExternal(url):"";},triggerForHTTP=function(){return true;},triggerForLocal=function(){return root.open(url,"_system","scrollbars=1,location=no");};if(isElectron){triggerForElectron();}else if(isNwjs){triggerForNwjs();}else{var locationProtocol=root.location.protocol||"",hasHTTP=locationProtocol?"http:"===locationProtocol?"http":"https:"===locationProtocol?"https":"":"";if(hasHTTP){triggerForHTTP();}else{triggerForLocal();}}};root.openDeviceBrowser=openDeviceBrowser;}(root));
-/*!
- * init ToProgress and extend methods
- */
-var progressBar = new ToProgress({
-		id : "top-progress-bar",
-		color : "#FF2C40",
-		height : "3px",
-		duration : 0.2
-	});
-/*!
- * @memberof progressBar
- * @param {Int} [n] a whole positive number
- * progressBar.init(n)
- */
-progressBar.init = function (state) {
-	state = state || 20;
-	return this.increase(state);
-};
-/*!
- * @memberof progressBar
- * progressBar.complete()
- */
-progressBar.complete = function () {
-	return this.finish(),
-	this.hide();
-};
-progressBar.init();
+		var initialDocumentTitle = document.title || "";
+
+		var userBrowsingDetails = " [" + (getHumanDate ? getHumanDate : "") + (earlyDeviceType ? " " + earlyDeviceType : "") + (earlyDeviceFormfactor.orientation ? " " + earlyDeviceFormfactor.orientation : "") + (earlyDeviceFormfactor.size ? " " + earlyDeviceFormfactor.size : "") + (earlySvgSupport ? " " + earlySvgSupport : "") + (earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") + (earlyHasTouch ? " " + earlyHasTouch : "") + "]";
+
+		if (document[title]) {
+			document[title] = document[title] + userBrowsingDetails;
+		}
+		var debounce = function (func, wait) {
+			var timeout;
+			var args;
+			var context;
+			var timestamp;
+			return function () {
+				context = this;
+				args = [].slice.call(arguments, 0);
+				timestamp = new Date();
+				var later = function () {
+					var last = (new Date()) - timestamp;
+					if (last < wait) {
+						timeout = setTimeout(later, wait - last);
+					} else {
+						timeout = null;
+						func.apply(context, args);
+					}
+				};
+				if (!timeout) {
+					timeout = setTimeout(later, wait);
+				}
+			};
+		};
+		var throttle = function (func, wait) {
+			var ctx;
+			var args;
+			var rtn;
+			var timeoutID;
+			var last = 0;
+			function call() {
+				timeoutID = 0;
+				last = +new Date();
+				rtn = func.apply(ctx, args);
+				ctx = null;
+				args = null;
+			}
+			return function throttled() {
+				ctx = this;
+				args = arguments;
+				var delta = new Date() - last;
+				if (!timeoutID) {
+					if (delta >= wait) {
+						call();
+					} else {
+						timeoutID = setTimeout(call, wait - delta);
+					}
+				}
+				return rtn;
+			};
+		};
+
+		var scriptIsLoaded = function (scriptSrc) {
+			var scriptAll,
+			i,
+			l;
+			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[_length]; i < l; i += 1) {
+				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
+					scriptAll = i = l = null;
+					return true;
+				}
+			}
+			scriptAll = i = l = null;
+			return false;
+		};
+		var appendFragment = function (e, a) {
+			a = a || document[getElementsByTagName]("body")[0] || "";
+			if (e) {
+				var df = document[createDocumentFragment]() || "";
+				if ("string" === typeof e) {
+					e = document[createTextNode](e);
+				}
+				df[appendChild](e);
+				a[appendChild](df);
+			}
+		};
+		var setStyleDisplayNone = function (a) {
+			if (a) {
+				a.style.display = "none";
+			}
+		};
+		var setStyleOpacity = function (a, n) {
+			n = n || 1;
+			if (a) {
+				a[style].opacity = n;
+			}
+		};
+
+		var setStyleVisibilityVisible = function (a) {
+			if (a) {
+				a.style.visibility = "visible";
+			}
+		};
+
+		/*jshint bitwise: false */
+		var parseLink = function (url, full) {
+			var _full = full || "";
+			return (function () {
+				var _replace = function (s) {
+					return s.replace(/^(#|\?)/, "").replace(/\:$/, "");
+				};
+				var _location = location || "";
+				var _protocol = function (protocol) {
+					switch (protocol) {
+					case "http:":
+						return _full ? ":" + 80 : 80;
+					case "https:":
+						return _full ? ":" + 443 : 443;
+					default:
+						return _full ? ":" + _location.port : _location.port;
+					}
+				};
+				var _isAbsolute = (0 === url.indexOf("//") || !!~url.indexOf("://"));
+				var _locationHref = root.location || "";
+				var _origin = function () {
+					var o = _locationHref.protocol + "//" + _locationHref.hostname + (_locationHref.port ? ":" + _locationHref.port : "");
+					return o || "";
+				};
+				var _isCrossDomain = function () {
+					var c = document[createElement]("a");
+					c.href = url;
+					var v = c.protocol + "//" + c.hostname + (c.port ? ":" + c.port : "");
+					return v !== _origin();
+				};
+				var _link = document[createElement]("a");
+				_link.href = url;
+				return {
+					href: _link.href,
+					origin: _origin(),
+					host: _link.host || _location.host,
+					port: ("0" === _link.port || "" === _link.port) ? _protocol(_link.protocol) : (_full ? _link.port : _replace(_link.port)),
+					hash: _full ? _link.hash : _replace(_link.hash),
+					hostname: _link.hostname || _location.hostname,
+					pathname: _link.pathname.charAt(0) !== "/" ? (_full ? "/" + _link.pathname : _link.pathname) : (_full ? _link.pathname : _link.pathname.slice(1)),
+					protocol: !_link.protocol || ":" === _link.protocol ? (_full ? _location.protocol : _replace(_location.protocol)) : (_full ? _link.protocol : _replace(_link.protocol)),
+					search: _full ? _link.search : _replace(_link.search),
+					query: _full ? _link.search : _replace(_link.search),
+					isAbsolute: _isAbsolute,
+					isRelative: !_isAbsolute,
+					isCrossDomain: _isCrossDomain(),
+					hasHTTP: /^(http|https):\/\//i.test(url) ? !0 : !1
+				};
+			})();
+		};
+		/*jshint bitwise: true */
+	var getHTTP = function (force) {
+		var any = force || "";
+		var locationProtocol = root.location.protocol || "";
+		return "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : any ? "http" : "";
+	};
+
+	var forcedHTTP = getHTTP(true);
+		var isNodejs = "undefined" !== typeof process && "undefined" !== typeof require || "";
+		var isElectron = "undefined" !== typeof root && root.process && "renderer" === root.process.type || "";
+		var isNwjs = (function () {
+			if ("undefined" !== typeof isNodejs && isNodejs) {
+				try {
+					if ("undefined" !== typeof require("nw.gui")) {
+						return true;
+					}
+				} catch (e) {
+					return false;
+				}
+			}
+			return false;
+		})();
+
+		var openDeviceBrowser = function (url) {
+			var triggerForElectron = function () {
+				var es = isElectron ? require("electron").shell : "";
+				return es ? es.openExternal(url) : "";
+			};
+			var triggerForNwjs = function () {
+				var ns = isNwjs ? require("nw.gui").Shell : "";
+				return ns ? ns.openExternal(url) : "";
+			};
+			var triggerForHTTP = function () {
+				return true;
+			};
+			var triggerForLocal = function () {
+				return root.open(url, "_system", "scrollbars=1,location=no");
+			};
+			if (isElectron) {
+				triggerForElectron();
+			} else if (isNwjs) {
+				triggerForNwjs();
+			} else {
+				var locationProtocol = root.location.protocol || "",
+				hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
+				if (hasHTTP) {
+					triggerForHTTP();
+				} else {
+					triggerForLocal();
+				}
+			}
+		};
+	var progressBar = new ToProgress({
+			id: "top-progress-bar",
+			color: "#FF2C40",
+			height: "0.200rem",
+			duration: 0.2,
+			zIndex: 999
+		});
+
+	var hideProgressBar = function () {
+		progressBar.finish();
+		progressBar.hide();
+	};
+
+	/* progressBar.complete = function () {
+		return this.finish(),
+		this.hide();
+	}; */
+
+	progressBar.increase(20);
 /*!
  * set click event on external links,
  * so that they open in new browser tab
@@ -334,7 +735,7 @@ var manageExternalLinkAll = function (scope) {
 	var classList = "classList";
 	var _addEventListener = "addEventListener";
 	var linkTag = "a";
-	var link = ctx ? ctx[getElementsByTagName](linkTag) || "" : d[getElementsByTagName](linkTag) || "";
+	var link = ctx ? ctx[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
 	var isBindedClass = "is-binded";
 	var arrange = function (e) {
 		if (!e[classList].contains(isBindedClass)) {
@@ -358,7 +759,7 @@ var manageExternalLinkAll = function (scope) {
 		/* forEach(link, arrange, false); */
 	}
 };
-document.ready().then(manageExternalLinkAll);
+manageExternalLinkAll();
 /*!
  * init Shower
  */
@@ -369,7 +770,7 @@ var initShower = function () {
 		loadJS(jsUrl);
 	}
 };
-document.ready().then(initShower);
+initShower();
 /*!
  * init ui-totop
  */
@@ -387,7 +788,7 @@ var initUiTotop = function () {
 	var btnClass = "ui-totop";
 	var btnTitle = "Наверх";
 	var isActiveClass = "is-active";
-	var anchor = d[createElement]("a");
+	var anchor = document[createElement]("a");
 	var handleUiTotopAnchor = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
@@ -395,7 +796,7 @@ var initUiTotop = function () {
 	};
 	var handleUiTotopWindow = function (_this) {
 		var logicHandleUiTotopWindow = function () {
-			var btn = d[getElementsByClassName](btnClass)[0] || "";
+			var btn = document[getElementsByClassName](btnClass)[0] || "";
 			var scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "";
 			var windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
 			if (scrollPosition && windowHeight && btn) {
@@ -418,10 +819,10 @@ var initUiTotop = function () {
 	b[appendChild](anchor);
 	if (b) {
 		anchor[_addEventListener]("click", handleUiTotopAnchor);
-		w[_addEventListener]("scroll", handleUiTotopWindow, {passive: true});
+		root[_addEventListener]("scroll", handleUiTotopWindow, {passive: true});
 	}
 };
-document.ready().then(initUiTotop);
+initUiTotop();
 /*!
  * init share btn
  * class ya-share2 automatically triggers Ya.share2,
@@ -438,27 +839,27 @@ var manageShareButton = function () {
 	var getElementById = "getElementById";
 	var getElementsByClassName = "getElementsByClassName";
 	var _addEventListener = "addEventListener";
-	var btn = d[getElementsByClassName]("btn-share-buttons")[0] || "";
+	var btn = document[getElementsByClassName]("btn-share-buttons")[0] || "";
 	var yaShare2Id = "ya-share2";
-	var yaShare2 = d[getElementById](yaShare2Id) || "";
+	var yaShare2 = document[getElementById](yaShare2Id) || "";
 	var handleShareButton = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
 		var initScript = function () {
-			if (w.Ya) {
+			if (root.Ya) {
 				try {
 					if (yshare) {
 						yshare.updateContent({
 							title: d.title || "",
 							description: d.title || "",
-							url: w.location.href || ""
+							url: root.location.href || ""
 						});
 					} else {
 						yshare = Ya.share2(yaShare2Id, {
 							content: {
 								title: d.title || "",
 								description: d.title || "",
-								url: w.location.href || ""
+								url: root.location.href || ""
 							}
 						});
 					}
@@ -470,9 +871,12 @@ var manageShareButton = function () {
 				}
 			}
 		};
-		var jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
+		var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
 		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl, initScript);
+			var load;
+			load = new loadJsCss([jsUrl], initScript);
+		} else {
+			initScript();
 		}
 	};
 	if (btn && yaShare2) {
@@ -483,7 +887,7 @@ var manageShareButton = function () {
 		}
 	}
 };
-document.ready().then(manageShareButton);
+manageShareButton();
 /*!
  * show page, finish ToProgress
  */
@@ -491,13 +895,11 @@ var showPageFinishProgress = function () {
 	"use strict";
 	var d = document;
 	var getElementById = "getElementById";
-	var page = d[getElementById]("page") || "";
+	var page = document[getElementById]("page") || "";
 	if (page) {
 		setStyleOpacity(page, 1);
 		progressBar.increase(20);
 	}
 };
-document.ready().then(showPageFinishProgress);
-root.addEventListener("load", function () {
-	progressBar.complete();
-});
+showPageFinishProgress();
+		hideProgressBar();

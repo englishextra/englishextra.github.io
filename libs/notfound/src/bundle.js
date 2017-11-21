@@ -15,20 +15,329 @@ var root = "undefined" !== typeof window ? window : this;
  * safe way to handle console.log
  * @see {@link https://github.com/paulmillr/console-polyfill}
  */
-(function(root){"use strict";if(!root.console){root.console={};}var con=root.console;var prop,method;var dummy=function(){};var properties=["memory"];var methods=("assert,clear,count,debug,dir,dirxml,error,exception,group,"+"groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd,"+"show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn").split(",");while((prop=properties.pop())){if(!con[prop]){con[prop]={};}}while((method=methods.pop())){if(!con[method]){con[method]=dummy;}}}(root));
+(function(root){
+	"use strict";
+	if (!root.console) {
+		root.console = {};
+	}
+	var con = root.console;
+	var prop;
+	var method;
+	var dummy = function () {};
+	var properties = ["memory"];
+	var methods = ["assert,clear,count,debug,dir,dirxml,error,exception,group,",
+		"groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd,",
+		"show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn"];
+	methods.join("").split(",");
+	for (; (prop = properties.pop()); ) {
+		if (!con[prop]) {
+			con[prop] = {};
+		}
+	}
+	for (; (method = methods.pop()); ) {
+		if (!con[method]) {
+			con[method] = dummy;
+		}
+	}
+	prop = method = dummy = properties = methods = null;
+}("undefined" !== typeof window ? window : this));
 /*!
  * modified ToProgress v0.1.1
- * @see {@link https://github.com/djyde/ToProgress}
- * @see {@link https://gist.github.com/englishextra/6a8c79c9efbf1f2f50523d46a918b785}
- * @see {@link https://jsfiddle.net/englishextra/z5xhjde8/}
  * arguments.callee changed to TP, a local wrapper function,
  * so that public function name is now customizable;
  * wrapped in curly brackets:
  * else{document.body.appendChild(this.progressBar);};
  * removed module check
+ * @see {@link http://github.com/djyde/ToProgress}
+ * @see {@link https://github.com/djyde/ToProgress/blob/master/ToProgress.js}
+ * @see {@link https://gist.github.com/englishextra/6a8c79c9efbf1f2f50523d46a918b785}
+ * @see {@link https://jsfiddle.net/englishextra/z5xhjde8/}
  * passes jshint
  */
-(function(root){"use strict";var ToProgress=(function(){var TP=function(){var t=function(){var s=document.createElement("fakeelement"),i={transition:"transitionend",OTransition:"oTransitionEnd",MozTransition:"transitionend",WebkitTransition:"webkitTransitionEnd"};for(var j in i){if(i.hasOwnProperty(j)){if(void 0!==s.style[j]){return i[j];}}}},s=function(t,a){if(this.progress=0,this.options={id:"top-progress-bar",color:"#F44336",height:"2px",duration:0.2},t&&"object"===typeof t){for(var i in t){if(t.hasOwnProperty(i)){this.options[i]=t[i];}}}if(this.options.opacityDuration=3*this.options.duration,this.progressBar=document.createElement("div"),this.progressBar.id=this.options.id,this.progressBar.setCSS=function(t){for(var a in t){if(t.hasOwnProperty(a)){this.style[a]=t[a];}}},this.progressBar.setCSS({position:a?"relative":"fixed",top:"0",left:"0",right:"0","background-color":this.options.color,height:this.options.height,width:"0%",transition:"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s","-moz-transition":"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s","-webkit-transition":"width "+this.options.duration+"s, opacity "+this.options.opacityDuration+"s"}),a){var o=document.querySelector(a);if(o){if(o.hasChildNodes()){o.insertBefore(this.progressBar,o.firstChild);}else{o.appendChild(this.progressBar);}}}else{document.body.appendChild(this.progressBar);}},i=t();return s.prototype.transit=function(){this.progressBar.style.width=this.progress+"%";},s.prototype.getProgress=function(){return this.progress;},s.prototype.setProgress=function(t,s){this.show();this.progress=t>100?100:0>t?0:t;this.transit();if(s){s();}},s.prototype.increase=function(t,s){this.show();this.setProgress(this.progress+t,s);},s.prototype.decrease=function(t,s){this.show();this.setProgress(this.progress-t,s);},s.prototype.finish=function(t){var s=this;this.setProgress(100,t);this.hide();if(i){this.progressBar.addEventListener(i,function(t){s.reset();s.progressBar.removeEventListener(t.type,TP);});}},s.prototype.reset=function(t){this.progress=0;this.transit();if(t){t();}},s.prototype.hide=function(){this.progressBar.style.opacity="0";},s.prototype.show=function(){this.progressBar.style.opacity="1";},s;};return TP();})();root.ToProgress=ToProgress;}(root));
+(function (root, document, undefined) {
+	"use strict";
+	var ToProgress = (function () {
+		var TP = function () {
+			var _addEventListener = "addEventListener";
+			var appendChild = "appendChild";
+			var createElement = "createElement";
+			var firstChild = "firstChild";
+			var getElementById = "getElementById";
+			var getElementsByClassName = "getElementsByClassName";
+			var hasOwnProperty = "hasOwnProperty";
+			var opacity = "opacity";
+			var prototype = "prototype";
+			var _removeEventListener = "removeEventListener";
+			var style = "style";
+			function whichTransitionEvent() {
+				var t,
+				el = document[createElement]("fakeelement");
+				var transitions = {
+					"transition": "transitionend",
+					"OTransition": "oTransitionEnd",
+					"MozTransition": "transitionend",
+					"WebkitTransition": "webkitTransitionEnd"
+				};
+				for (t in transitions) {
+					if (transitions[hasOwnProperty](t)) {
+						if (el[style][t] !== undefined) {
+							return transitions[t];
+						}
+					}
+				}
+			}
+			var transitionEvent = whichTransitionEvent();
+			function ToProgress(opt, selector) {
+				this.progress = 0;
+				this.options = {
+					id: "top-progress-bar",
+					color: "#F44336",
+					height: "2px",
+					duration: 0.2,
+					zIndex: "auto"
+				};
+				if (opt && typeof opt === "object") {
+					for (var key in opt) {
+						if (opt[hasOwnProperty](key)) {
+							this.options[key] = opt[key];
+						}
+					}
+				}
+				this.options.opacityDuration = this.options.duration * 3;
+				this.progressBar = document[createElement]("div");
+				this.progressBar.id = this.options.id;
+				this.progressBar.setCSS = function (style) {
+					for (var property in style) {
+						if (style[hasOwnProperty](property)) {
+							this.style[property] = style[property];
+						}
+					}
+				};
+				this.progressBar.setCSS({
+					"position": selector ? "relative" : "fixed",
+					"top": "0",
+					"left": "0",
+					"right": "0",
+					"background-color": this.options.color,
+					"height": this.options.height,
+					"width": "0%",
+					"transition": "width " + this.options.duration + "s" + ", opacity " + this.options.opacityDuration + "s",
+					"-moz-transition": "width " + this.options.duration + "s" + ", opacity " + this.options.opacityDuration + "s",
+					"-webkit-transition": "width " + this.options.duration + "s" + ", opacity " + this.options.opacityDuration + "s",
+					"z-index": this.options.zIndex
+				});
+				if (selector) {
+					var el;
+					if (selector.indexOf("#", 0) !== -1) {
+						el = document[getElementById](selector) || "";
+					} else {
+						if (selector.indexOf(".", 0) !== -1) {
+							el = document[getElementsByClassName](selector)[0] || "";
+						}
+					}
+					if (el) {
+						if (el.hasChildNodes()) {
+							el.insertBefore(this.progressBar, el[firstChild]);
+						} else {
+							el[appendChild](this.progressBar);
+						}
+					}
+				} else {
+					document.body[appendChild](this.progressBar);
+				}
+			}
+			ToProgress[prototype].transit = function () {
+				this.progressBar[style].width = this.progress + "%";
+			};
+			ToProgress[prototype].getProgress = function () {
+				return this.progress;
+			};
+			ToProgress[prototype].setProgress = function (progress, callback) {
+				this.show();
+				if (progress > 100) {
+					this.progress = 100;
+				} else if (progress < 0) {
+					this.progress = 0;
+				} else {
+					this.progress = progress;
+				}
+				this.transit();
+				if (callback) {
+					callback();
+				}
+			};
+			ToProgress[prototype].increase = function (toBeIncreasedProgress, callback) {
+				this.show();
+				this.setProgress(this.progress + toBeIncreasedProgress, callback);
+			};
+			ToProgress[prototype].decrease = function (toBeDecreasedProgress, callback) {
+				this.show();
+				this.setProgress(this.progress - toBeDecreasedProgress, callback);
+			};
+			ToProgress[prototype].finish = function (callback) {
+				var that = this;
+				this.setProgress(100, callback);
+				this.hide();
+				if (transitionEvent) {
+					this.progressBar[_addEventListener](transitionEvent, function (e) {
+						that.reset();
+						that.progressBar[_removeEventListener](e.type, TP);
+					});
+				}
+			};
+			ToProgress[prototype].reset = function (callback) {
+				this.progress = 0;
+				this.transit();
+				if (callback) {
+					callback();
+				}
+			};
+			ToProgress[prototype].hide = function () {
+				this.progressBar[style][opacity] = "0";
+			};
+			ToProgress[prototype].show = function () {
+				this.progressBar[style][opacity] = "1";
+			};
+			return ToProgress;
+		};
+		return TP();
+	})();
+	root.ToProgress = ToProgress;
+})("undefined" !== typeof window ? window : this, document);
+/*!
+ * modified Detect Whether a Font is Installed
+ * @param {String} fontName The name of the font to check
+ * @return {Boolean}
+ * @author Kirupa <sam@samclarke.com>
+ * @see {@link https://www.kirupa.com/html5/detect_whether_font_is_installed.htm}
+ * passes jshint
+ */
+(function (root, document) {
+	"use strict";
+	var doesFontExist = function (fontName) {
+		var createElement = "createElement";
+		var getContext = "getContext";
+		var measureText = "measureText";
+		var width = "width";
+		var canvas = document[createElement]("canvas");
+		var context = canvas[getContext]("2d");
+		var text = "abcdefghijklmnopqrstuvwxyz0123456789";
+		context.font = "72px monospace";
+		var baselineSize = context[measureText](text)[width];
+		context.font = "72px '" + fontName + "', monospace";
+		var newSize = context[measureText](text)[width];
+		canvas = null;
+		if (newSize === baselineSize) {
+			return false;
+		} else {
+			return true;
+		}
+	};
+	root.doesFontExist = doesFontExist;
+})("undefined" !== typeof window ? window : this, document);
+/*!
+ * load CSS async
+ * modified order of arguments, added callback option, removed CommonJS stuff
+ * @see {@link https://github.com/filamentgroup/loadCSS}
+ * @see {@link https://gist.github.com/englishextra/50592e9944bd2edc46fe5a82adec3396}
+ * @param {String} hrefString path string
+ * @param {Object} callback callback function
+ * @param {String} media media attribute string value
+ * @param {Object} [before] target HTML element
+ * loadCSS(hrefString,callback,media,before)
+ */
+(function (root, document) {
+	var loadCSS = function (_href, callback) {
+		"use strict";
+		var ref = document.getElementsByTagName("head")[0] || "";
+		var link = document.createElement("link");
+		link.rel = "stylesheet";
+		link.href = _href;
+		link.media = "all";
+		if (ref) {
+			ref.appendChild(link);
+			if (callback && "function" === typeof callback) {
+				link.onload = callback;
+			}
+			return link;
+		}
+		return;
+	};
+	root.loadCSS = loadCSS;
+})("undefined" !== typeof window ? window : this, document);
+/*!
+ * modified loadExt
+ * @see {@link https://gist.github.com/englishextra/ff9dc7ab002312568742861cb80865c9}
+ * passes jshint
+ */
+(function (root, document) {
+	"use strict";
+	var loadJsCss = function (files, callback) {
+		var _this = this;
+		var appendChild = "appendChild";
+		var body = "body";
+		var createElement = "createElement";
+		var getElementsByTagName = "getElementsByTagName";
+		var insertBefore = "insertBefore";
+		var _length = "length";
+		var parentNode = "parentNode";
+		_this.files = files;
+		_this.js = [];
+		_this.head = document[getElementsByTagName]("head")[0] || "";
+		_this.body = document[body] || "";
+		_this.ref = document[getElementsByTagName]("script")[0] || "";
+		_this.callback = callback || function () {};
+		_this.loadStyle = function (file) {
+			var link = document[createElement]("link");
+			link.rel = "stylesheet";
+			link.type = "text/css";
+			link.href = file;
+			_this.head[appendChild](link);
+		};
+		_this.loadScript = function (i) {
+			var script = document[createElement]("script");
+			script.type = "text/javascript";
+			script.async = true;
+			script.src = _this.js[i];
+			var loadNextScript = function () {
+				if (++i < _this.js[_length]) {
+					_this.loadScript(i);
+				} else {
+					_this.callback();
+				}
+			};
+			script.onload = function () {
+				loadNextScript();
+			};
+			_this.head[appendChild](script);
+			if (_this.ref[parentNode]) {
+				_this.ref[parentNode][insertBefore](script, _this.ref);
+			} else {
+				(_this.body || _this.head)[appendChild](script);
+			}
+		};
+		var i,
+		l;
+		for (i = 0, l = _this.files[_length]; i < l; i += 1) {
+			if ((/\.js$|\.js\?/).test(_this.files[i])) {
+				_this.js.push(_this.files[i]);
+			}
+			if ((/\.css$|\.css\?|\/css\?/).test(_this.files[i])) {
+				_this.loadStyle(_this.files[i]);
+			}
+		}
+		i = l = null;
+		if (_this.js[_length] > 0) {
+			_this.loadScript(0);
+		} else {
+			_this.callback();
+		}
+	};
+	root.loadJsCss = loadJsCss;
+})("undefined" !== typeof window ? window : this, document);
+/*!
+ * app logic
+ */
 /*!
  * Super lightweight script (~1kb) to detect via Javascript events like
  * 'tap' 'dbltap' "swipeup" "swipedown" "swipeleft" "swiperight"
@@ -164,13 +473,13 @@ var root = "undefined" !== typeof window ? window : this;
 			}
 			return newYear + "-" + newMonth + "-" + newDay;
 		})();
-/*!
- * append details to title
- */
-var userBrowsingDetails = " [" + (getHumanDate ? getHumanDate : "") + (earlyDeviceType ? " " + earlyDeviceType : "") + (earlyDeviceFormfactor.orientation ? " " + earlyDeviceFormfactor.orientation : "") + (earlyDeviceFormfactor.size ? " " + earlyDeviceFormfactor.size : "") + (earlySvgSupport ? " " + earlySvgSupport : "") + (earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") + (earlyHasTouch ? " " + earlyHasTouch : "") + "]";
-if (document.title) {
-	document.title = document.title + userBrowsingDetails;
-}
+		var initialDocumentTitle = document.title || "";
+
+		var userBrowsingDetails = " [" + (getHumanDate ? getHumanDate : "") + (earlyDeviceType ? " " + earlyDeviceType : "") + (earlyDeviceFormfactor.orientation ? " " + earlyDeviceFormfactor.orientation : "") + (earlyDeviceFormfactor.size ? " " + earlyDeviceFormfactor.size : "") + (earlySvgSupport ? " " + earlySvgSupport : "") + (earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") + (earlyHasTouch ? " " + earlyHasTouch : "") + "]";
+
+		if (document[title]) {
+			document[title] = document[title] + userBrowsingDetails;
+		}
 /*!
  * Timer management (setInterval / setTimeout)
  * @param {Function} fn
@@ -187,159 +496,220 @@ if (document.title) {
  * @see {@link https://github.com/component/timers/blob/master/index.js}
  * passes jshint
  */
-(function(root){var Timers=function(ids){this.ids=ids||[];};Timers.prototype.timeout=function(fn,ms){var id=setTimeout(fn,ms);this.ids.push(id);return id;};Timers.prototype.interval=function(fn,ms){var id=setInterval(fn,ms);this.ids.push(id);return id;};Timers.prototype.clear=function(){this.ids.forEach(clearTimeout);this.ids=[];};root.Timers=Timers;}(root));
-/*!
- * A simple promise-compatible "document ready" event handler with a few extra treats.
- * With browserify/webpack:
- * const ready = require('document-ready-promise')
- * ready().then(function(){})
- * If in a non-commonjs environment, just include the script. It will attach document.ready for you.
- * document.ready().then(function() {})
- * The document.ready promise will preserve any values that you may be passing through the promise chain.
- * Using ES2015 and fetch
- * fetch(new Request('kitten.jpg'))
- * .then(response => response.blob())
- * .then(document.ready)
- * .then(blob => document.querySelector("img").src = URL.createObjectURL(blob))
- * @see {@link https://github.com/michealparks/document-ready-promise}
- * @see {@link https://github.com/michealparks/document-ready-promise/blob/master/document-ready-promise.js}
- * passes jshint
- */
-(function(root){"use strict";var d=root.document;d.ready=function(chainVal){var loaded=(/^loaded|^i|^c/).test(d.readyState),DOMContentLoaded="DOMContentLoaded",load="load";return new Promise(function(resolve){if(loaded){return resolve(chainVal);}function onReady(){resolve(chainVal);d.removeEventListener(DOMContentLoaded,onReady);root.removeEventListener(load,onReady);}d.addEventListener(DOMContentLoaded,onReady);root.addEventListener(load,onReady);});};}(root));
-/*!
- * How can I check if a JS file has been included already?
- * @see {@link https://gist.github.com/englishextra/403a0ca44fc5f495400ed0e20bc51d47}
- * @see {@link https://stackoverflow.com/questions/18155347/how-can-i-check-if-a-js-file-has-been-included-already}
- * @param {String} s path string
- * scriptIsLoaded(s)
- */
-(function(root){"use strict";var scriptIsLoaded=function(s){for(var b=document.getElementsByTagName("script")||"",a=0;a<b.length;a+=1){if(b[a].getAttribute("src")===s){return true;}}return;};root.scriptIsLoaded=scriptIsLoaded;}(root));
-/*!
- * remove all children of parent element
- * @see {@link https://gist.github.com/englishextra/da26bf39bc90fd29435e8ae0b409ddc3}
- * @param {Object} e parent HTML Element
- * removeChildren(e)
- */
-(function(root){"use strict";var removeChildren=function(e){return (function(){if(e&&e.firstChild){for(;e.firstChild;){e.removeChild(e.firstChild);}}})();};root.removeChildren=removeChildren;}(root));
-/*!
- * append node into other with fragment
- * @see {@link https://gist.github.com/englishextra/0ff3204d5fb285ef058d72f31e3af766}
- * @param {String|object} e an HTML Element to append
- * @param {Object} a target HTML Element
- * appendFragment(e,a)
- */
-(function(root){"use strict";var appendFragment=function(e,a){var d=document;a=a||d.getElementsByTagName("body")[0]||"";return (function(){if(e){var d=document,df=d.createDocumentFragment()||"",appendChild="appendChild";if("string"===typeof e){e=d.createTextNode(e);}df[appendChild](e);a[appendChild](df);}})();};root.appendFragment=appendFragment;}(root));
-/*!
- * Adds Element as fragment BEFORE NeighborElement
- * @see {@link https://gist.github.com/englishextra/fa19e39ce84982b17fc76485db9d1bea}
- * @param {String|object} e HTML Element to prepend before before
- * @param {Object} a target HTML Element
- * prependFragmentBefore(e,a)
- */
-(function(root){var prependFragmentBefore=function(e,a){if("string"===typeof e){e=document.createTextNode(e);}var p=a.parentNode||"",df=document.createDocumentFragment();return (function(){if(p){df.appendChild(e);p.insertBefore(df,a);}})();};root.prependFragmentBefore=prependFragmentBefore;}(root));
-/*!
- * set style display block of an element
- * @param {Object} a an HTML Element
- * setStyleDisplayBlock(a)
- */
-(function(root){var setStyleDisplayBlock=function(a){return (function(){if(a){a.style.display="block";}})();};root.setStyleDisplayBlock=setStyleDisplayBlock;}(root));
-/*!
- * set style display none of an element
- * @param {Object} a an HTML Element
- * setStyleDisplayNone(a)
- */
-(function(root){var setStyleDisplayNone=function(a){return (function(){if(a){a.style.display="none";}})();};root.setStyleDisplayNone=setStyleDisplayNone;}(root));
-/*!
- * set style opacity of an element
- * @param {Object} a an HTML Element
- * @param {Number} n any positive decimal number 0.00-1.00
- * setStyleOpacity(a,n)
- */
-(function(root){var setStyleOpacity=function(a,n){n=n||1;return (function(){if(a){a.style.opacity=n;}})();};root.setStyleOpacity=setStyleOpacity;}(root));
-/*!
- * set style visibility visible of an element
- * @param {Object} a an HTML Element
- * setStyleVisibilityVisible(a)
- */
-(function(root){var setStyleVisibilityVisible=function(a){return (function(){if(a){a.style.visibility="visible";}})();};root.setStyleVisibilityVisible=setStyleVisibilityVisible;}(root));
-/*!
- * set style visibility hidden of an element
- * @param {Object} a an HTML Element
- * setStyleVisibilityHidden(a)
- */
-(function(root){var setStyleVisibilityHidden=function(a){return (function(){if(a){a.style.visibility="hidden";}})();};root.setStyleVisibilityHidden=setStyleVisibilityHidden;}(root));
-/*!
- * modified Unified URL parsing API in the browser and node
- * @see {@link https://github.com/wooorm/parse-link}
- * removed module check
- * @see {@link https://gist.github.com/englishextra/4e9a0498772f05fa5d45cfcc0d8be5dd}
- * @see {@link https://gist.github.com/englishextra/2a7fdabd0b23a8433d5fc148fb788455}
- * @see {@link https://jsfiddle.net/englishextra/fcdds4v6/}
- * @param {String} url URL string
- * @param {Boolean} [true|false] if true, returns protocol:, :port, /pathname, ?search, ?query, #hash
- * if set to false, returns protocol, port, pathname, search, query, hash
- * alert(parseLink("http://localhost/search?s=t&v=z#dev").href|
- * origin|host|port|hash|hostname|pathname|protocol|search|query|isAbsolute|isRelative|isCrossDomain);
- */
-/*jshint bitwise: false */
-(function(root){"use strict";var parseLink=function(url,full){full=full||!1;return (function(){var _r=function(s){return s.replace(/^(#|\?)/,"").replace(/\:$/,"");},l=location||"",_p=function(protocol){switch(protocol){case"http:":return full?":"+80:80;case"https:":return full?":"+443:443;default:return full?":"+l.port:l.port;}},_s=(0===url.indexOf("//")||!!~url.indexOf("://")),w=root.location||"",_o=function(){var o=w.protocol+"//"+w.hostname+(w.port?":"+w.port:"");return o||"";},_c=function(){var c=document.createElement("a");c.href=url;var v=c.protocol+"//"+c.hostname+(c.port?":"+c.port:"");return v!==_o();},a=document.createElement("a");a.href=url;return{href:a.href,origin:_o(),host:a.host||l.host,port:("0"===a.port||""===a.port)?_p(a.protocol):(full?a.port:_r(a.port)),hash:full?a.hash:_r(a.hash),hostname:a.hostname||l.hostname,pathname:a.pathname.charAt(0)!=="/"?(full?"/"+a.pathname:a.pathname):(full?a.pathname:a.pathname.slice(1)),protocol:!a.protocol||":"===a.protocol?(full?l.protocol:_r(l.protocol)):(full?a.protocol:_r(a.protocol)),search:full?a.search:_r(a.search),query:full?a.search:_r(a.search),isAbsolute:_s,isRelative:!_s,isCrossDomain:_c(),hasHTTP:/^(http|https):\/\//i.test(url)?!0:!1};})();};root.parseLink=parseLink;}(root));
-/*jshint bitwise: true */
-/*!
- * get current protocol - "http" or "https", else return ""
- * @param {Boolean} [force] When set to "true", and the result is empty,
- * the function will return "http"
- * getHTTP(true)
- */
-(function(root){"use strict";var getHTTP=(function(type){return function(force){force=force||"";return"http:"===type?"http":"https:"===type?"https":force?"http":"";};}(root.location.protocol||""));root.getHTTP=getHTTP;}(root));
-/*!
- * Open external links in default browser out of Electron / nwjs
- * @see {@link https://gist.github.com/englishextra/b9a8140e1c1b8aa01772375aeacbf49b}
- * @see {@link https://stackoverflow.com/questions/32402327/how-can-i-force-external-links-from-browser-window-to-open-in-a-default-browser}
- * @see {@link https://github.com/nwjs/nw.js/wiki/shell}
- * electron - file: | nwjs - chrome-extension: | http: Intel XDK
- * wont do in electron and nw,
- * so manageExternalLinkAll will set target blank to links
- * var win = w.open(url, "_blank");
- * win.focus();
- * @param {String} url URL/path string
- * openDeviceBrowser(url)
- * detect Node.js
- * @see {@link https://github.com/lyrictenor/node-is-nwjs/blob/master/is-nodejs.js}
- * @returns {Boolean} true or false
- * detect Electron
- * @returns {Boolean} true or false
- * detect NW.js
- * @see {@link https://github.com/lyrictenor/node-is-nwjs/blob/master/index.js}
- * @returns {Boolean} true or false
- */
-(function(root){"use strict";var isNodejs="undefined"!==typeof process&&"undefined"!==typeof require||"",isElectron="undefined"!==typeof root&&root.process&&"renderer"===root.process.type||"",isNwjs=(function(){if("undefined"!==typeof isNodejs&&isNodejs){try{if("undefined"!==typeof require("nw.gui")){return true;}}catch(e){return;}}return;}()),openDeviceBrowser=function(url){var triggerForElectron=function(){var es=isElectron?require("electron").shell:"";return es?es.openExternal(url):"";},triggerForNwjs=function(){var ns=isNwjs?require("nw.gui").Shell:"";return ns?ns.openExternal(url):"";},triggerForHTTP=function(){return true;},triggerForLocal=function(){return root.open(url,"_system","scrollbars=1,location=no");};if(isElectron){triggerForElectron();}else if(isNwjs){triggerForNwjs();}else{var locationProtocol=root.location.protocol||"",hasHTTP=locationProtocol?"http:"===locationProtocol?"http":"https:"===locationProtocol?"https":"":"";if(hasHTTP){triggerForHTTP();}else{triggerForLocal();}}};root.openDeviceBrowser=openDeviceBrowser;}(root));
-/*!
- * init ToProgress and extend methods
- */
-var progressBar = new ToProgress({
-		id : "top-progress-bar",
-		color : "#FF2C40",
-		height : "3px",
-		duration : 0.2
-	});
-/*!
- * @memberof progressBar
- * @param {Int} [n] a whole positive number
- * progressBar.init(n)
- */
-progressBar.init = function (state) {
-	state = state || 20;
-	return this.increase(state);
-};
-/*!
- * @memberof progressBar
- * progressBar.complete()
- */
-progressBar.complete = function () {
-	return this.finish(),
-	this.hide();
-};
-progressBar.init();
+(function (root) {
+	var Timers = function (ids) {
+		this.ids = ids || [];
+	};
+	Timers.prototype.timeout = function (fn, ms) {
+		var id = setTimeout(fn, ms);
+		this.ids.push(id);
+		return id;
+	};
+	Timers.prototype.interval = function (fn, ms) {
+		var id = setInterval(fn, ms);
+		this.ids.push(id);
+		return id;
+	};
+	Timers.prototype.clear = function () {
+		this.ids.forEach(clearTimeout);
+		this.ids = [];
+	};
+	root.Timers = Timers;
+})("undefined" !== typeof window ? window : this, document);
+
+		var scriptIsLoaded = function (scriptSrc) {
+			var scriptAll,
+			i,
+			l;
+			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[_length]; i < l; i += 1) {
+				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
+					scriptAll = i = l = null;
+					return true;
+				}
+			}
+			scriptAll = i = l = null;
+			return false;
+		};
+		var removeChildren = function (e) {
+			if (e && e.firstChild) {
+				for (; e.firstChild; ) {
+					e.removeChild(e.firstChild);
+				}
+			}
+		};
+		var appendFragment = function (e, a) {
+			a = a || document[getElementsByTagName]("body")[0] || "";
+			if (e) {
+				var df = document[createDocumentFragment]() || "";
+				if ("string" === typeof e) {
+					e = document[createTextNode](e);
+				}
+				df[appendChild](e);
+				a[appendChild](df);
+			}
+		};
+		var prependFragmentBefore = function (e, a) {
+			if ("string" === typeof e) {
+				e = document[createTextNode](e);
+			}
+			var p = a[parentNode] || "";
+			var df = document[createDocumentFragment]();
+			if (p) {
+				df[appendChild](e);
+				p.insertBefore(df, a);
+			}
+		};
+		var setStyleDisplayBlock = function (a) {
+			if (a) {
+				a.style.display = "block";
+			}
+		};
+		var setStyleDisplayNone = function (a) {
+			if (a) {
+				a.style.display = "none";
+			}
+		};
+		var setStyleOpacity = function (a, n) {
+			n = n || 1;
+			if (a) {
+				a[style].opacity = n;
+			}
+		};
+
+		var setStyleVisibilityVisible = function (a) {
+			if (a) {
+				a.style.visibility = "visible";
+			}
+		};
+
+		var setStyleVisibilityHidden = function (a) {
+			return (function () {
+				if (a) {
+					a[style].visibility = "hidden";
+				}
+			})();
+		};
+		/*jshint bitwise: false */
+		var parseLink = function (url, full) {
+			var _full = full || "";
+			return (function () {
+				var _replace = function (s) {
+					return s.replace(/^(#|\?)/, "").replace(/\:$/, "");
+				};
+				var _location = location || "";
+				var _protocol = function (protocol) {
+					switch (protocol) {
+					case "http:":
+						return _full ? ":" + 80 : 80;
+					case "https:":
+						return _full ? ":" + 443 : 443;
+					default:
+						return _full ? ":" + _location.port : _location.port;
+					}
+				};
+				var _isAbsolute = (0 === url.indexOf("//") || !!~url.indexOf("://"));
+				var _locationHref = root.location || "";
+				var _origin = function () {
+					var o = _locationHref.protocol + "//" + _locationHref.hostname + (_locationHref.port ? ":" + _locationHref.port : "");
+					return o || "";
+				};
+				var _isCrossDomain = function () {
+					var c = document[createElement]("a");
+					c.href = url;
+					var v = c.protocol + "//" + c.hostname + (c.port ? ":" + c.port : "");
+					return v !== _origin();
+				};
+				var _link = document[createElement]("a");
+				_link.href = url;
+				return {
+					href: _link.href,
+					origin: _origin(),
+					host: _link.host || _location.host,
+					port: ("0" === _link.port || "" === _link.port) ? _protocol(_link.protocol) : (_full ? _link.port : _replace(_link.port)),
+					hash: _full ? _link.hash : _replace(_link.hash),
+					hostname: _link.hostname || _location.hostname,
+					pathname: _link.pathname.charAt(0) !== "/" ? (_full ? "/" + _link.pathname : _link.pathname) : (_full ? _link.pathname : _link.pathname.slice(1)),
+					protocol: !_link.protocol || ":" === _link.protocol ? (_full ? _location.protocol : _replace(_location.protocol)) : (_full ? _link.protocol : _replace(_link.protocol)),
+					search: _full ? _link.search : _replace(_link.search),
+					query: _full ? _link.search : _replace(_link.search),
+					isAbsolute: _isAbsolute,
+					isRelative: !_isAbsolute,
+					isCrossDomain: _isCrossDomain(),
+					hasHTTP: /^(http|https):\/\//i.test(url) ? !0 : !1
+				};
+			})();
+		};
+		/*jshint bitwise: true */
+	var getHTTP = function (force) {
+		var any = force || "";
+		var locationProtocol = root.location.protocol || "";
+		return "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : any ? "http" : "";
+	};
+
+	var forcedHTTP = getHTTP(true);
+		var isNodejs = "undefined" !== typeof process && "undefined" !== typeof require || "";
+		var isElectron = "undefined" !== typeof root && root.process && "renderer" === root.process.type || "";
+		var isNwjs = (function () {
+			if ("undefined" !== typeof isNodejs && isNodejs) {
+				try {
+					if ("undefined" !== typeof require("nw.gui")) {
+						return true;
+					}
+				} catch (e) {
+					return false;
+				}
+			}
+			return false;
+		})();
+
+		var openDeviceBrowser = function (url) {
+			var triggerForElectron = function () {
+				var es = isElectron ? require("electron").shell : "";
+				return es ? es.openExternal(url) : "";
+			};
+			var triggerForNwjs = function () {
+				var ns = isNwjs ? require("nw.gui").Shell : "";
+				return ns ? ns.openExternal(url) : "";
+			};
+			var triggerForHTTP = function () {
+				return true;
+			};
+			var triggerForLocal = function () {
+				return root.open(url, "_system", "scrollbars=1,location=no");
+			};
+			if (isElectron) {
+				triggerForElectron();
+			} else if (isNwjs) {
+				triggerForNwjs();
+			} else {
+				var locationProtocol = root.location.protocol || "",
+				hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
+				if (hasHTTP) {
+					triggerForHTTP();
+				} else {
+					triggerForLocal();
+				}
+			}
+		};
+	var progressBar = new ToProgress({
+			id: "top-progress-bar",
+			color: "#FF2C40",
+			height: "0.200rem",
+			duration: 0.2,
+			zIndex: 999
+		});
+
+	var hideProgressBar = function () {
+		progressBar.finish();
+		progressBar.hide();
+	};
+
+	/* progressBar.complete = function () {
+		return this.finish(),
+		this.hide();
+	}; */
+
+	progressBar.increase(20);
 /*!
  * set click event on external links,
  * so that they open in new browser tab
@@ -362,7 +732,7 @@ var manageExternalLinkAll = function (scope) {
 	var classList = "classList";
 	var _addEventListener = "addEventListener";
 	var linkTag = "a";
-	var link = ctx ? ctx[getElementsByTagName](linkTag) || "" : d[getElementsByTagName](linkTag) || "";
+	var link = ctx ? ctx[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
 	var isBindedClass = "is-binded";
 	var arrange = function (e) {
 		if (!e[classList].contains(isBindedClass)) {
@@ -386,7 +756,7 @@ var manageExternalLinkAll = function (scope) {
 		/* forEach(link, arrange, false); */
 	}
 };
-document.ready().then(manageExternalLinkAll);
+manageExternalLinkAll();
 /*!
  * init qr-code
  * @see {@link https://stackoverflow.com/questions/12777622/how-to-use-enquire-js}
@@ -398,15 +768,15 @@ var manageLocationQrCodeImage = function () {
 	var getElementsByClassName = "getElementsByClassName";
 	var classList = "classList";
 	var createElement = "createElement";
-	var holder = d[getElementsByClassName]("holder-location-qr-code")[0] || "";
-	var locationHref = w.location.href || "";
+	var holder = document[getElementsByClassName]("holder-location-qr-code")[0] || "";
+	var locationHref = root.location.href || "";
 	var initScript = function () {
-		var locationHref = w.location.href || "";
-		var img = d[createElement]("img");
+		var locationHref = root.location.href || "";
+		var img = document[createElement]("img");
 		var imgTitle = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
 		var imgSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(locationHref);
 		img.alt = imgTitle;
-		if (w.QRCode) {
+		if (root.QRCode) {
 			if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
 				imgSrc = QRCode.generateSVG(locationHref, {
 						ecclevel: "M",
@@ -417,7 +787,7 @@ var manageLocationQrCodeImage = function () {
 					});
 				var XMLS = new XMLSerializer();
 				imgSrc = XMLS.serializeToString(imgSrc);
-				imgSrc = "data:image/svg+xml;base64," + w.btoa(unescape(encodeURIComponent(imgSrc)));
+				imgSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(imgSrc)));
 				img.src = imgSrc;
 			} else {
 				imgSrc = QRCode.generatePNG(locationHref, {
@@ -447,7 +817,7 @@ var manageLocationQrCodeImage = function () {
 		}
 	}
 };
-document.ready().then(manageLocationQrCodeImage);
+manageLocationQrCodeImage();
 /*!
  * init nav-menu
  */
@@ -460,14 +830,14 @@ var initNavMenu = function () {
 	var getElementsByTagName = "getElementsByTagName";
 	var classList = "classList";
 	var _addEventListener = "addEventListener";
-	var container = d[getElementById]("container") || "";
-	var page = d[getElementById]("page") || "";
-	var btnNavMenu = d[getElementsByClassName]("btn-nav-menu")[0] || "";
-	var panelNavMenu = d[getElementsByClassName]("panel-nav-menu")[0] || "";
+	var container = document[getElementById]("container") || "";
+	var page = document[getElementById]("page") || "";
+	var btnNavMenu = document[getElementsByClassName]("btn-nav-menu")[0] || "";
+	var panelNavMenu = document[getElementsByClassName]("panel-nav-menu")[0] || "";
 	var panelNavMenuItems = panelNavMenu ? panelNavMenu[getElementsByTagName]("a") || "" : "";
-	var holderPanelMenuMore = d[getElementsByClassName]("holder-panel-menu-more")[0] || "";
+	var holderPanelMenuMore = document[getElementsByClassName]("holder-panel-menu-more")[0] || "";
 	var isActiveClass = "is-active";
-	var locationHref = w.location.href || "";
+	var locationHref = root.location.href || "";
 	var removeAllActiveClass = function () {
 		page[classList].remove(isActiveClass);
 		panelNavMenu[classList].remove(isActiveClass);
@@ -499,7 +869,7 @@ var initNavMenu = function () {
 			}
 		};
 		container[_addEventListener]("click", handleContainerLeft);
-		if (w.tocca) {
+		if (root.tocca) {
 			if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
 				container[_addEventListener]("swipeleft", handleContainerLeft);
 				container[_addEventListener]("swiperight", handleContainerRight);
@@ -569,7 +939,7 @@ var initNavMenu = function () {
 		addItemHandlerAll();
 	}
 };
-document.ready().then(initNavMenu);
+initNavMenu();
 /*!
  * add updates link to menu more
  * place that above init menu more
@@ -583,7 +953,7 @@ var addAppUpdatesLink = function () {
 	var createTextNode = "createTextNode";
 	var appendChild = "appendChild";
 	var _addEventListener = "addEventListener";
-	var panel = d[getElementsByClassName]("panel-menu-more")[0] || "";
+	var panel = document[getElementsByClassName]("panel-menu-more")[0] || "";
 	var items = panel ? panel[getElementsByTagName]("li") || "" : "";
 	var navigatorUserAgent = navigator.userAgent || "";
 	var linkHref;
@@ -599,8 +969,8 @@ var addAppUpdatesLink = function () {
 		}
 	}
 	var	arrange = function () {
-		var listItem = d[createElement]("li");
-		var link = d[createElement]("a");
+		var listItem = document[createElement]("li");
+		var link = document[createElement]("a");
 		var linkText = "Скачать приложение сайта";
 		link.title = "" + (parseLink(linkHref).hostname || "") + " откроется в новой вкладке";
 		link.href = linkHref;
@@ -619,7 +989,7 @@ var addAppUpdatesLink = function () {
 			/* jshint +W107 */
 			link[_addEventListener]("click", handleAppUpdatesLink);
 		}
-		link[appendChild](d[createTextNode]("" + linkText));
+		link[appendChild](document[createTextNode]("" + linkText));
 		listItem[appendChild](link);
 		if (panel.hasChildNodes()) {
 			prependFragmentBefore(listItem, panel.firstChild);
@@ -629,7 +999,7 @@ var addAppUpdatesLink = function () {
 		arrange();
 	}
 };
-document.ready().then(addAppUpdatesLink);
+addAppUpdatesLink();
 /*!
  * init menu-more
  */
@@ -641,13 +1011,13 @@ var initMenuMore = function () {
 	var getElementsByTagName = "getElementsByTagName";
 	var classList = "classList";
 	var _addEventListener = "addEventListener";
-	var container = d[getElementById]("container") || "";
-	var page = d[getElementById]("page") || "";
-	var holderPanelMenuMore = d[getElementsByClassName]("holder-panel-menu-more")[0] || "";
-	var btnMenuMore = d[getElementsByClassName]("btn-menu-more")[0] || "";
-	var panelMenuMore = d[getElementsByClassName]("panel-menu-more")[0] || "";
+	var container = document[getElementById]("container") || "";
+	var page = document[getElementById]("page") || "";
+	var holderPanelMenuMore = document[getElementsByClassName]("holder-panel-menu-more")[0] || "";
+	var btnMenuMore = document[getElementsByClassName]("btn-menu-more")[0] || "";
+	var panelMenuMore = document[getElementsByClassName]("panel-menu-more")[0] || "";
 	var panelMenuMoreItems = panelMenuMore ? panelMenuMore[getElementsByTagName]("li") || "" : "";
-	var panelNavMenu = d[getElementsByClassName]("panel-nav-menu")[0] || "";
+	var panelNavMenu = document[getElementsByClassName]("panel-nav-menu")[0] || "";
 	var isActiveClass = "is-active";
 	var handleItem = function () {
 		page[classList].remove(isActiveClass);
@@ -691,7 +1061,7 @@ var initMenuMore = function () {
 		addItemHandlerAll();
 	}
 };
-document.ready().then(initMenuMore);
+initMenuMore();
 /*!
  * init share btn
  * class ya-share2 automatically triggers Ya.share2,
@@ -708,27 +1078,27 @@ var manageShareButton = function () {
 	var getElementById = "getElementById";
 	var getElementsByClassName = "getElementsByClassName";
 	var _addEventListener = "addEventListener";
-	var btn = d[getElementsByClassName]("btn-share-buttons")[0] || "";
+	var btn = document[getElementsByClassName]("btn-share-buttons")[0] || "";
 	var yaShare2Id = "ya-share2";
-	var yaShare2 = d[getElementById](yaShare2Id) || "";
+	var yaShare2 = document[getElementById](yaShare2Id) || "";
 	var handleShareButton = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
 		var initScript = function () {
-			if (w.Ya) {
+			if (root.Ya) {
 				try {
 					if (yshare) {
 						yshare.updateContent({
 							title: d.title || "",
 							description: d.title || "",
-							url: w.location.href || ""
+							url: root.location.href || ""
 						});
 					} else {
 						yshare = Ya.share2(yaShare2Id, {
 							content: {
 								title: d.title || "",
 								description: d.title || "",
-								url: w.location.href || ""
+								url: root.location.href || ""
 							}
 						});
 					}
@@ -740,9 +1110,12 @@ var manageShareButton = function () {
 				}
 			}
 		};
-		var jsUrl = getHTTP(true) + "://yastatic.net/share2/share.js";
+		var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
 		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl, initScript);
+			var load;
+			load = new loadJsCss([jsUrl], initScript);
+		} else {
+			initScript();
 		}
 	};
 	if (btn && yaShare2) {
@@ -753,7 +1126,7 @@ var manageShareButton = function () {
 		}
 	}
 };
-document.ready().then(manageShareButton);
+manageShareButton();
 /*!
  * init vk-like on click
  */
@@ -767,8 +1140,8 @@ var manageVKLikeButton = function () {
 	var _addEventListener = "addEventListener";
 	var _removeEventListener = "removeEventListener";
 	var vkLikeId = "vk-like";
-	var vkLike = d[getElementById](vkLikeId) || "";
-	var btn = d[getElementsByClassName]("btn-show-vk-like")[0] || "";
+	var vkLike = document[getElementById](vkLikeId) || "";
+	var btn = document[getElementsByClassName]("btn-show-vk-like")[0] || "";
 	var handleVKLikeButton = function (ev) {
 		ev.stopPropagation();
 		ev.preventDefault();
@@ -777,7 +1150,7 @@ var manageVKLikeButton = function () {
 		setStyleOpacity(vkLike, 1);
 		setStyleDisplayNone(btn);
 		var initScript = function () {
-			if (w.VK) {
+			if (root.VK) {
 				try {
 					VK.init({
 						apiId: (vkLike[dataset].apiid || ""),
@@ -793,9 +1166,12 @@ var manageVKLikeButton = function () {
 				}
 			}
 		};
-		var jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122";
+		var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?122";
 		if (!scriptIsLoaded(jsUrl)) {
-			loadJS(jsUrl, initScript);
+			var load;
+			load = new loadJsCss([jsUrl], initScript);
+		} else {
+			initScript();
 		}
 	};
 	if (btn && vkLike) {
@@ -806,7 +1182,7 @@ var manageVKLikeButton = function () {
 		}
 	}
 };
-document.ready().then(manageVKLikeButton);
+manageVKLikeButton();
 /*!
  * show page, finish ToProgress
  */
@@ -815,8 +1191,8 @@ var showPageFinishProgress = function () {
 	var d = document;
 	var getElementById = "getElementById";
 	var getElementsByClassName = "getElementsByClassName";
-	var page = d[getElementById]("page") || "";
-	var holder = d[getElementsByClassName]("holder-site-logo")[0] || "";
+	var page = document[getElementById]("page") || "";
+	var holder = document[getElementsByClassName]("holder-site-logo")[0] || "";
 	var showPage = function () {
 		setStyleOpacity(page, 1);
 		setStyleOpacity(holder, 1);
@@ -837,7 +1213,5 @@ var showPageFinishProgress = function () {
 		}
 	}
 };
-document.ready().then(showPageFinishProgress);
-root.addEventListener("load", function () {
-	progressBar.complete();
-});
+showPageFinishProgress();
+		hideProgressBar();
