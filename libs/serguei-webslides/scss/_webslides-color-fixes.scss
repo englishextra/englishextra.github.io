@@ -152,7 +152,7 @@ table td {
 	}
 
 	table tr {
-		border: 0.063rem solid rgba(0, 0, 0, 0.5);
+		border: 0.067rem solid rgba(0, 0, 0, 0.5);
 		border-bottom: none;
 	}
 }
@@ -167,7 +167,7 @@ input[type="submit"],
 .button:hover,
 button[type="submit"]:hover,
 input[type="submit"]:hover {
-	border: 0.063rem solid $AccentColor;
+	border: 0.067rem solid $AccentColor;
 }
 
 button[type="submit"],
@@ -191,11 +191,11 @@ input[type="submit"]:active {
 .bg-white a.button.ghost,
 .bg-gradient-white a.button.ghost {
 	color: $color-hex-body-text;
-	border: 0.063rem solid $AccentColor;
+	border: 0.067rem solid $AccentColor;
 }
 
 fieldset {
-	border: 0.063rem solid $AccentColor;
+	border: 0.067rem solid $AccentColor;
 }
 
 .toc,

@@ -136,24 +136,24 @@ u,
  * hide and show on mobile
  */
 
-.show-inline-on-mobile,
-.show-block-on-mobile {
-	display: none /* !important */;
+.page .show-inline-on-mobile,
+.page .show-block-on-mobile {
+	display: none;
 }
 
 @media handheld, only screen and (max-width: 800px) {
-	.hide-on-mobile {
-		display: none /* !important */;
+	.page .hide-on-mobile {
+		display: none;
 		width: 0;
 		height: 0;
 	}
 
-	.show-inline-on-mobile {
-		display: inline /* !important */;
+	.page .show-inline-on-mobile {
+		display: inline;
 	}
 
-	.show-block-on-mobile {
-		display: block /* !important */;
+	.page .show-block-on-mobile {
+		display: block;
 	}
 }
 

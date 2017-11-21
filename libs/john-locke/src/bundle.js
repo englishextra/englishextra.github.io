@@ -385,15 +385,15 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 		root[_addEventListener]("load", hideProgressBar);
 	}
 
-	var removeElement = function (elem) {
-		if (elem) {
-			if ("undefined" !== typeof elem[remove]) {
-				return elem[remove]();
-			} else {
-				return elem[parentNode] && elem[parentNode][removeChild](elem);
+		var removeElement = function (elem) {
+			if (elem) {
+				if ("undefined" !== typeof elem[remove]) {
+					return elem[remove]();
+				} else {
+					return elem[parentNode] && elem[parentNode][removeChild](elem);
+				}
 			}
-		}
-	};
+		};
 
 	var ripple = document[getElementsByClassName]("ripple")[0] || "";
 
@@ -934,8 +934,8 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 			if (hasTouch) {
 				mousewheeldown[style].display = "none";
 				if (root.tocca) {
-					root[_addEventListener]("swipeup", revealStart, {passive: true});
-					root[_addEventListener]("swipedown", concealStart, {passive: true});
+					root[_addEventListener]("swipeup", revealStart/* , {passive: true} */);
+					root[_addEventListener]("swipedown", concealStart/* , {passive: true} */);
 				}
 			} else {
 				if (hasWheel) {

@@ -7,9 +7,9 @@
 .masonry-grid-wrapper {
 	width: 92%;
 	height: 100%;
-	max-width: 70.000rem;
-	padding-top: 1.500rem;
-	padding-bottom: 1.500rem;
+	max-width: 74.667rem;
+	padding-top: 1.333rem;
+	padding-bottom: 1.333rem;
 	margin: 0 auto;
 }
 
@@ -17,9 +17,9 @@
 .masonry-grid-wrapper h1 {
 	font-family: $font-family-webfont-sans-light;
 	font-weight: 300;
-	font-size: 2.144rem;
+	font-size: 1.600rem;
 	text-align: center;
-	margin: 0 1% 1.500rem 1%;
+	margin: 0.400rem 1% 1.733rem 1%;
 }
 
 .masonry-grid-wrapper h1 a {
@@ -36,7 +36,7 @@
 	width: 100%;
 	background: transparent;
 	padding: 0;
-	margin: 0 auto 1.500rem auto;
+	margin: 0 auto 1.333rem auto;
 }
 
 .masonry-grid:after {
@@ -52,7 +52,7 @@
 	font-weight: 300;
 	color: inherit;
 	background-color: #FFFFFF;
-	box-shadow: 0 0.250em 0.250em 0 $color-rgba-card-shadow;
+	box-shadow: 0 0.267rem 0.267rem 0 $color-rgba-card-shadow;
 	margin: 2% 1% 0 1%;
 }
 
@@ -80,7 +80,7 @@
 }
 
 .masonry-grid-item p {
-	min-height: 6.750rem;
+	min-height: 7.200rem;
 	color: inherit;
 	padding: 1.000rem;
 	margin: 0;
@@ -106,19 +106,9 @@
 	.masonry-grid-wrapper {
 		width: 100%;
 	}
-
-	.masonry-grid-wrapper #h1,
-.masonry-grid-wrapper h1 {
-		font-size: 1.772rem;
-	}
 }
 
 @media handheld,only screen and (max-width:360px) {
-	.masonry-grid-wrapper #h1,
-.masonry-grid-wrapper h1 {
-		font-size: 1.464rem;
-	}
-
 	.masonry-grid-item {
 		float: none;
 	}

@@ -21,10 +21,10 @@ html {
 }
 
 body {
-	font-family: $font-family-webfont-sans-regular;
+	font-family: "Roboto", $font-family-local-sans-regular;
 	font-weight: 400;
 	font-size: 1.000rem;
-	line-height: 1.500;
+	line-height: 1.500rem;
 	width: 100%;
 	color: $color-hex-body-text;
 	background-color: $color-hex-page-bg;
@@ -130,24 +130,24 @@ u,
  * hide and show on mobile
  */
 
-.show-inline-on-mobile,
-.show-block-on-mobile {
-	display: none /* !important */;
+.page .show-inline-on-mobile,
+.page .show-block-on-mobile {
+	display: none;
 }
 
 @media handheld, only screen and (max-width: 800px) {
-	.hide-on-mobile {
-		display: none /* !important */;
+	.page .hide-on-mobile {
+		display: none;
 		width: 0;
 		height: 0;
 	}
 
-	.show-inline-on-mobile {
-		display: inline /* !important */;
+	.page .show-inline-on-mobile {
+		display: inline;
 	}
 
-	.show-block-on-mobile {
-		display: block /* !important */;
+	.page .show-block-on-mobile {
+		display: block;
 	}
 }
 
@@ -173,8 +173,8 @@ u,
 
 .holder-btn-nav-menu {
 	display: inline-block;
-	width: 3.000rem;
-	height: 3.000rem;
+	width: 3.200rem;
+	height: 3.200rem;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -207,8 +207,8 @@ u,
 .btn-nav-menu:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e90f";
-	font-size: 1.250rem;
-	line-height: 3.000rem;
+	font-size: 1.333rem;
+	line-height: 3.200rem;
 }
 
 /**
@@ -232,7 +232,7 @@ u,
 	display: inline-block;
 	font-size: 0.938rem;
 	font-weight: 300;
-	line-height: 3.000rem;
+	line-height: 3.200rem;
 	color: inherit;
 	background-color: #FFFFFF;
 	border-radius: 0 0 0.625em 0;
@@ -287,7 +287,7 @@ u,
 @media only screen and (max-width: 480px) {
 	body,
 	.slide .explanation {
-		font-family: $font-family-local-sans-regular;
+		font-family: "Roboto", $font-family-local-sans-regular;
 	}
 
 	.caption h1 {
@@ -295,7 +295,7 @@ u,
 	}
 
 	.slide .phonetic {
-		font-family: $font-family-local-monospace;
+		font-family: "Roboto Mono", $font-family-local-monospace;
 	}
 }
 

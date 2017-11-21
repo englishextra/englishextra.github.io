@@ -18,8 +18,9 @@
 .masonry-grid {
 	display: block;
 	width: 100%;
-	opacity: 0;
-	transition: opacity 0.2s ease;
+	visibility: visible;
+	opacity: 1;
+	transition: visibility 0s, opacity 0.2s ease;
 	margin: 0 auto;
 }
 

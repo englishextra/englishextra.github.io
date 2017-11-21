@@ -610,6 +610,8 @@ template {
 
 .holder-vk-like {
 	display: inline-block;
+	visibility: hidden;
+	opacity: 0;
 	height: 3.000rem;
 	position: absolute;
 	top: 0;
@@ -619,6 +621,11 @@ template {
 	-webkit-box-shadow: 0.125rem 0.125rem 0.125rem 0 rgba(50, 50, 50, 0.3);
 	box-shadow: 0.125rem 0.125rem 0.125rem 0 rgba(50, 50, 50, 0.3);
 	z-index: 1;
+}
+
+.holder-vk-like.is-active {
+	visibility: visible;
+	opacity: 1;
 }
 
 .vk-like {
@@ -715,6 +722,11 @@ template {
 	opacity: 0;
 	-webkit-transition: visibility 0s, opacity 0.2s ease;
 	transition: visibility 0s, opacity 0.2s ease;
+}
+
+.ya-share2.is-active {
+	visibility: visible;
+	opacity: 1;
 }
 
 .pluso {
@@ -861,7 +873,7 @@ template {
 	display: block;
 	font-weight: 400;
 	font-size: 1.000rem;
-	line-height: 1.500;
+	line-height: 1.500rem;
 	color: inherit;
 }
 
@@ -1117,7 +1129,7 @@ body {
 	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", "HelveticaNeue", "Roboto", sans-serif;
 	font-weight: 400;
 	font-size: 1.000rem;
-	line-height: 1.500;
+	line-height: 1.500rem;
 	width: 100%;
 	color: #191919;
 	background-color: #F0F0F0;
@@ -1241,23 +1253,23 @@ u,
  * hide and show on mobile
  */
 
-.show-inline-on-mobile,
-.show-block-on-mobile {
+.page .show-inline-on-mobile,
+.page .show-block-on-mobile {
 	display: none;
 }
 
 @media handheld, only screen and (max-width: 800px) {
-	.hide-on-mobile {
+	.page .hide-on-mobile {
 		display: none;
 		width: 0;
 		height: 0;
 	}
 
-	.show-inline-on-mobile {
+	.page .show-inline-on-mobile {
 		display: inline;
 	}
 
-	.show-block-on-mobile {
+	.page .show-block-on-mobile {
 		display: block;
 	}
 }
@@ -1576,8 +1588,8 @@ u,
 		width: 100%;
 		position: absolute;
 		top: 0;
-		left: 8.250rem;
-		padding-right: 16.500rem;
+		left: 8.800rem;
+		padding-right: 17.600rem;
 	}
 }
 

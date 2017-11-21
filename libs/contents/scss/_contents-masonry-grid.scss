@@ -35,7 +35,7 @@
 .holder-contents-select .contents-select {
 	display: inline-block;
 	width: 100%;
-	max-width: 17.000rem;
+	max-width: 18.133rem;
 	height: 2.250rem;
 	font-family: inherit;
 	font-size: 0.875rem;
@@ -70,14 +70,14 @@
 .holder-contents-select .contents-select:hover,
 .holder-contents-select .contents-select:active,
 .holder-contents-select .contents-select:focus {
-	border: 0.063rem solid #FFFFFF;
+	border: 0.067rem solid #FFFFFF;
 }
 
 .masonry-grid-wrapper .footer {
 	/** 720px - 24px - 24px */
 	max-width: 42.000em;
 	font-size: 0.813rem;
-	line-height: 1.500;
+	line-height: 1.333rem;
 	text-align: center;
 	margin: 1.500rem auto;
 }
@@ -157,10 +157,10 @@
 }
 
 .masonry-grid-item-content p {
-	font-family: $font-family-webfont-sans-regular;
+	font-family: "Roboto", $font-family-local-sans-regular;
 	font-weight: 400;
 	font-size: 1.000rem;
-	line-height: 1.500;
+	line-height: 1.500rem;
 	margin: 0;
 }
 

@@ -16,7 +16,7 @@
 	overflow-y: auto;
 	color: inherit;
 	background-color: $LeftNavBarLight;
-	border: 0.063rem solid $AccentColor;
+	border: 0.067rem solid $AccentColor;
 	border-radius: 0;
 	box-sizing: border-box;
 	box-shadow: 0.125rem 0.125rem 0.125rem 0 $color-rgba-ui-bar-shadow;
@@ -26,11 +26,11 @@
 }
 .kamil-autocomplete li {
 	font-weight: 400;
-	line-height: 3.000rem;
+	line-height: 3.200rem;
 	overflow-x: hidden;
 	white-space: nowrap;
-	padding-right: 1.250rem;
-	padding-left: 1.250rem;
+	padding-right: 1.333rem;
+	padding-left: 1.333rem;
 	cursor: pointer;
 }
 .kamil-autocomplete li.kamil-active,

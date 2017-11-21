@@ -10,8 +10,8 @@ body {
 }
 
 html {
-	font-size: 16px;
-	line-height: 24px;
+	font-size: 15px;
+	line-height: 20px;
 	/**
 	 * set the parent to background transparent
 	 * and position relative to parent, absolute for child
@@ -20,10 +20,10 @@ html {
 }
 
 body {
-	font-family: $font-family-webfont-sans-regular;
+	font-family: "Roboto", $font-family-local-sans-regular;
 	font-weight: 400;
 	font-size: 1.000rem;
-	line-height: 1.500;
+	line-height: 1.333rem;
 	width: 100%;
 	color: $color-hex-body-text;
 	background-color: $color-hex-page-bg;
@@ -136,24 +136,24 @@ u,
  * hide and show on mobile
  */
 
-.show-inline-on-mobile,
-.show-block-on-mobile {
-	display: none /* !important */;
+.page .show-inline-on-mobile,
+.page .show-block-on-mobile {
+	display: none;
 }
 
 @media handheld, only screen and (max-width: 800px) {
-	.hide-on-mobile {
-		display: none /* !important */;
+	.page .hide-on-mobile {
+		display: none;
 		width: 0;
 		height: 0;
 	}
 
-	.show-inline-on-mobile {
-		display: inline /* !important */;
+	.page .show-inline-on-mobile {
+		display: inline;
 	}
 
-	.show-block-on-mobile {
-		display: block /* !important */;
+	.page .show-block-on-mobile {
+		display: block;
 	}
 }
 
@@ -201,7 +201,7 @@ u,
 	min-height: 100%;
 	position: relative;
 	top: 0;
-	/* left: 17.000rem; */
+	/* left: 18.133rem; */
 	left: 0;
 	background-color: $color-hex-page-bg;
 	transition: left 0.2s linear;
@@ -214,13 +214,13 @@ u,
 
 .page.is-active {
 	position: relative;
-	left: 17.000rem;
+	left: 18.133rem;
 }
 
 .panel-nav-top {
 	display: block;
 	width: 100%;
-	height: 3.000rem;
+	height: 3.200rem;
 	background-color: $color-hex-ui-bar-bg;
 }
 
@@ -263,15 +263,15 @@ u,
 
 .panel-nav-menu {
 	display: block;
-	width: 17.000rem;
+	width: 18.133rem;
 	height: 100%;
 	position: fixed;
 	top: 0;
-	/* left: 17.000rem; */
+	/* left: 18.133rem; */
 	left: 0;
 	bottom: 0;
-	font-size: 0.875em;
-	line-height: 3.000rem;
+	font-size: 0.867em;
+	line-height: 3.200rem;
 	list-style: none;
 	overflow-y: auto;
 	-webkit-overflow-scrolling: touch;
@@ -279,7 +279,7 @@ u,
 	transition: left 0.2s linear;
 	padding: 0;
 	margin: 0;
-	margin-left: -17.000rem;
+	margin-left: -18.133rem;
 }
 
 /* .js .panel-nav-menu {
@@ -306,8 +306,8 @@ u,
 	color: #FFFFFF;
 	border: none;
 	transition: background-color 0.2s ease;
-	padding-right: 1.250rem;
-	padding-left: 1.250rem;
+	padding-right: 1.333rem;
+	padding-left: 1.333rem;
 }
 
 .panel-nav-menu li a:hover {
@@ -326,11 +326,11 @@ u,
 
 .btn-nav-menu {
 	display: inline-block;
-	width: 3.000rem;
-	height: 3.000rem;
+	width: 3.200rem;
+	height: 3.200rem;
 	position: fixed;
 	top: 0;
-	/* left: 17.000rem; */
+	/* left: 18.133rem; */
 	left: 0;
 	color: $color-hex-gray-text;
 	transition: left 0.2s linear, background-color 0.2s ease;
@@ -362,8 +362,8 @@ u,
 .btn-nav-menu:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e914";
-	font-size: 1.250rem;
-	line-height: 3.000rem;
+	font-size: 1.333rem;
+	line-height: 3.200rem;
 }
 
 .page.is-active .btn-nav-menu:before {
@@ -372,8 +372,8 @@ u,
 }
 
 .page.is-active .panel-nav-menu {
-	left: 17.000rem;
-	width: 17.000rem;
+	left: 18.133rem;
+	width: 18.133rem;
 }
 
 .page.is-active .btn-nav-menu {
@@ -381,9 +381,9 @@ u,
 	 * position absolute
 	 * left: 0;
 	 * position fixed
-	 * left: 17.000rem;
+	 * left: 18.133rem;
 	 */
-	left: 17.000rem;
+	left: 18.133rem;
 }
 
 /*! @import "menu-more-light"; */
@@ -394,11 +394,11 @@ u,
 
 .btn-menu-more {
 	display: inline-block;
-	width: 3.000rem;
-	height: 3.000rem;
+	width: 3.200rem;
+	height: 3.200rem;
 	position: absolute;
 	top: 0;
-	left: 3.000rem;
+	left: 3.200rem;
 	color: $color-hex-gray-text;
 	text-decoration: none;
 	transition: background-color 0.2s ease;
@@ -423,20 +423,20 @@ u,
 .btn-menu-more:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e915";
-	font-size: 1.250rem;
-	line-height: 3.000rem;
+	font-size: 1.333rem;
+	line-height: 3.200rem;
 }
 
 .holder-panel-menu-more {
 	display: block;
 	visibility: hidden;
 	position: absolute;
-	top: 3.000rem;
-	left: 3.000rem;
+	top: 3.200rem;
+	left: 3.200rem;
 	color: $color-hex-body-text;
 	background-color: $LeftNavBarLight;
-	border: 0.063rem solid $AccentColor;
-	box-shadow: 0.125rem 0.125rem 0.125rem 0 $color-rgba-ui-bar-shadow;
+	border: 0.067rem solid $AccentColor;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
 	opacity: 0;
 	transition: visibility 0s, opacity 0.2s ease;
 }
@@ -448,10 +448,10 @@ u,
 
 .panel-menu-more {
 	display: block;
-	width: 17.000rem;
+	width: 18.133rem;
 	height: 100%;
-	font-size: 0.875em;
-	line-height: 3.000rem;
+	font-size: 0.867em;
+	line-height: 3.200rem;
 	list-style-type: none;
 	padding: 0;
 	margin: 0;
@@ -465,8 +465,8 @@ u,
 	transition: background-color 0.2s ease;
 	overflow-x: hidden;
 	white-space: nowrap;
-	padding-right: 1.250rem;
-	padding-left: 1.250rem;
+	padding-right: 1.333rem;
+	padding-left: 1.333rem;
 }
 
 .panel-menu-more li a:hover {
@@ -600,7 +600,7 @@ u,
 		width: 100%;
 		float: left;
 		position: relative;
-		border: 0.063rem solid $color-hex-divider;
+		border: 0.067rem solid $color-hex-divider;
 		border-bottom: none;
 		margin-bottom: 1.500rem;
 	}
@@ -682,7 +682,7 @@ u,
 
 .col .footer p {
 	font-size: 0.813rem;
-	line-height: 1.500;
+	line-height: 1.333rem;
 }
 
 .col .footer a {
@@ -722,134 +722,101 @@ u,
 
 @media only screen and (max-width: 480px) {
 	body {
-		font-family: $font-family-local-sans-regular;
+		font-family: "Roboto", $font-family-local-sans-regular;
 	}
 
 	.panel-nav-menu li {
 		font-family: $font-family-local-sans-light;
 	}}
 
-/**
- * media queries
+/*!
+ * @see {@link https://gist.github.com/englishextra/40b7c4ffde33bfb58aff259afe229d6a}
  */
 
-@media only screen and (max-width: 20em) {
+/*------------------------------------------
+  Foundation Media Queries
+   http://foundation.zurb.com/docs/media-queries.html
+--------------------------------------------*/
+
+/* Small screens - MOBILE */
+
+@media only screen {
 	html {
-		font-size: 85.7%;
+		font-size: 12px;
 	}
 }
 
-@media only screen and (min-width: 20.063em) {
+/* Define mobile styles - Mobile First */
+
+@media only screen and (max-width: 40em) {
 	html {
-		font-size: 92.2%;
+		font-size: 12px;
 	}
 }
 
-@media only screen and (min-width: 20.063em) and (max-width: 30em) {
-	html {
-		font-size: 92.2%;
-	}
-}
+/* max-width 640px, mobile-only styles, use when QAing mobile issues */
 
-@media only screen and (min-width: 30.063em) {
-	html {
-		font-size: 107.1%;
-	}
-}
-
-@media only screen and (min-width: 30.063em) and (max-width: 40em) {
-	html {
-		font-size: 107.1%;
-	}
-}
+/* Medium screens - TABLET */
 
 @media only screen and (min-width: 40.063em) {
 	html {
-		font-size: 121.4%;
+		font-size: 12px;
 	}
 }
 
-@media only screen and (min-width: 40.063em) and (max-width: 50em) {
+/* min-width 641px, medium screens */
+
+@media only screen and (min-width: 40.063em) and (max-width: 64em) {
 	html {
-		font-size: 121.4%;
+		font-size: 15px;
 	}
 }
 
-@media only screen and (min-width: 50.063em) {
-	html {
-		font-size: 92.2%;
-	}
-}
+/* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
 
-@media only screen and (min-width: 50.063em) and (max-width: 60em) {
-	html {
-		font-size: 92.2%;
-	}
-}
-
-@media only screen and (min-width: 60.063em) {
-	html {
-		font-size: 92.2%;
-	}
-}
-
-@media only screen and (min-width: 60.063em) and (max-width: 64em) {
-	html {
-		font-size: 92.2%;
-	}
-}
+/* Large screens - DESKTOP */
 
 @media only screen and (min-width: 64.063em) {
 	html {
-		font-size: 100%;
+		font-size: 15px;
 	}
 }
 
-@media only screen and (min-width: 64.063em) and (max-width: 74em) {
+/* min-width 1025px, large screens */
+
+@media only screen and (min-width: 64.063em) and (max-width: 90em) {
 	html {
-		font-size: 100%;
+		font-size: 15px;
 	}
 }
 
-@media only screen and (min-width: 74.063em) {
-	html {
-		font-size: 100%;
-	}
-}
+/* min-width 1024px and max-width 1440px, use when QAing large screen-only issues */
 
-@media only screen and (min-width: 74.063em) and (max-width: 80em) {
-	html {
-		font-size: 100%;
-	}
-}
-
-@media only screen and (min-width: 80.063em) {
-	html {
-		font-size: 100%;
-	}
-}
-
-@media only screen and (min-width: 80.063em) and (max-width: 90em) {
-	html {
-		font-size: 100%;
-	}
-}
+/* XLarge screens */
 
 @media only screen and (min-width: 90.063em) {
 	html {
-		font-size: 107.1%;
+		font-size: 15px;
 	}
 }
+
+/* min-width 1441px, xlarge screens */
 
 @media only screen and (min-width: 90.063em) and (max-width: 120em) {
 	html {
-		font-size: 107.1%;
+		font-size: 18px;
 	}
 }
 
+/* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */
+
+/* XXLarge screens */
+
 @media only screen and (min-width: 120.063em) {
 	html {
-		font-size: 114.3%;
+		font-size: 18px;
 	}
 }
+
+/* min-width 1921px, xlarge screens */
 

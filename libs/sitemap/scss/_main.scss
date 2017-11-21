@@ -10,8 +10,8 @@ body {
 }
 
 html {
-	font-size: 16px;
-	line-height: 24px;
+	font-size: 15px;
+	line-height: 20px;
 	/**
 	 * set the parent to background transparent
 	 * and position relative to parent, absolute for child
@@ -20,10 +20,10 @@ html {
 }
 
 body {
-	font-family: $font-family-webfont-sans-regular;
+	font-family: "Roboto", $font-family-local-sans-regular;
 	font-weight: 400;
 	font-size: 1.000rem;
-	line-height: 1.500;
+	line-height: 1.333rem;
 	width: 100%;
 	color: $color-hex-body-text;
 	background-color: $color-hex-page-bg;
@@ -136,24 +136,24 @@ u,
  * hide and show on mobile
  */
 
-.show-inline-on-mobile,
-.show-block-on-mobile {
-	display: none /* !important */;
+.page .show-inline-on-mobile,
+.page .show-block-on-mobile {
+	display: none;
 }
 
 @media handheld, only screen and (max-width: 800px) {
-	.hide-on-mobile {
-		display: none /* !important */;
+	.page .hide-on-mobile {
+		display: none;
 		width: 0;
 		height: 0;
 	}
 
-	.show-inline-on-mobile {
-		display: inline /* !important */;
+	.page .show-inline-on-mobile {
+		display: inline;
 	}
 
-	.show-block-on-mobile {
-		display: block /* !important */;
+	.page .show-block-on-mobile {
+		display: block;
 	}
 }
 
@@ -170,16 +170,17 @@ u,
 	min-height: 100%;
 	position: relative;
 	top: 0;
-	/* left: 17.000rem; */
+	/* left: 18.133rem; */
 	left: 0;
+	visibility: visible;
+	opacity: 1;
+	transition: left 0.2s linear, opacity 0.2s ease;
 	background-color: $color-hex-page-bg;
 }
 
 .container {
 	width: 100%;
 	height: 100%;
-	opacity: 0;
-	transition: opacity 0.2s ease;
 	padding: 0;
 	margin: 0 auto;
 }
@@ -224,13 +225,13 @@ u,
 	display: table-cell;
 	min-width: 7.500rem;
 	height: 2.250rem;
-	font-family: $font-family-webfont-sans-regular;
+	font-family: "Roboto", $font-family-local-sans-regular;
 	font-weight: 300;
 	font-size: 0.875rem;
 	vertical-align: middle;
 	color: #FFFFFF;
 	background-color: $color-hex-ui-button-bg;
-	border: 0.063rem solid $color-hex-ui-button-bg;
+	border: 0.067rem solid $color-hex-ui-button-bg;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 	cursor: pointer;
@@ -241,7 +242,7 @@ u,
 .holder-filter-buttons li:hover,
 .holder-filter-buttons li.is-active {
 	background-color: $color-hex-hover-ui-button-bg;
-	border: 0.063rem solid $color-hex-hover-ui-button-bg;
+	border: 0.067rem solid $color-hex-hover-ui-button-bg;
 }
 
 /* .holder-filter-buttons li:first-child {
@@ -261,7 +262,7 @@ u,
 .filter-select,
 .filter-select:active,
 .filter-select:focus {
-	font-family: $font-family-webfont-sans-regular;
+	font-family: "Roboto", $font-family-local-sans-regular;
 	font-weight: 300;
 	font-size: 0.875rem;
 	display: block;
@@ -270,7 +271,7 @@ u,
 	text-align: center;
 	color: #FFFFFF;
 	background-color: $color-hex-ui-button-bg;
-	border: 0.063rem solid $color-hex-ui-button-bg;
+	border: 0.067rem solid $color-hex-ui-button-bg;
 	box-sizing: border-box;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
@@ -317,3 +318,93 @@ u,
 	text-decoration: underline;
 }
 
+/*!
+ * @see {@link https://gist.github.com/englishextra/40b7c4ffde33bfb58aff259afe229d6a}
+ */
+
+/*------------------------------------------
+  Foundation Media Queries
+   http://foundation.zurb.com/docs/media-queries.html
+--------------------------------------------*/
+
+/* Small screens - MOBILE */
+
+@media only screen {
+	html {
+		font-size: 12px;
+	}
+}
+
+/* Define mobile styles - Mobile First */
+
+@media only screen and (max-width: 40em) {
+	html {
+		font-size: 12px;
+	}
+}
+
+/* max-width 640px, mobile-only styles, use when QAing mobile issues */
+
+/* Medium screens - TABLET */
+
+@media only screen and (min-width: 40.063em) {
+	html {
+		font-size: 12px;
+	}
+}
+
+/* min-width 641px, medium screens */
+
+@media only screen and (min-width: 40.063em) and (max-width: 64em) {
+	html {
+		font-size: 15px;
+	}
+}
+
+/* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
+
+/* Large screens - DESKTOP */
+
+@media only screen and (min-width: 64.063em) {
+	html {
+		font-size: 15px;
+	}
+}
+
+/* min-width 1025px, large screens */
+
+@media only screen and (min-width: 64.063em) and (max-width: 90em) {
+	html {
+		font-size: 15px;
+	}
+}
+
+/* min-width 1024px and max-width 1440px, use when QAing large screen-only issues */
+
+/* XLarge screens */
+
+@media only screen and (min-width: 90.063em) {
+	html {
+		font-size: 15px;
+	}
+}
+
+/* min-width 1441px, xlarge screens */
+
+@media only screen and (min-width: 90.063em) and (max-width: 120em) {
+	html {
+		font-size: 18px;
+	}
+}
+
+/* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */
+
+/* XXLarge screens */
+
+@media only screen and (min-width: 120.063em) {
+	html {
+		font-size: 18px;
+	}
+}
+
+/* min-width 1921px, xlarge screens */

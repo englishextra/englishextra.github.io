@@ -6,14 +6,22 @@
 
 .holder-vk-like {
 	display: inline-block;
-	height: 3.000rem;
+	visibility: hidden;
+	opacity: 0;
+	height: 3.200rem;
 	position: absolute;
 	top: 0;
-	left: 6.000rem;
+	left: 6.400rem;
 	line-height: 0;
 	background-color: $color-hex-vk-like-bg;
-	box-shadow: 0.125rem 0.125rem 0.125rem 0 $color-rgba-ui-bar-shadow;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+	transition: visibility 0s, opacity 0.2s ease;
 	z-index: 1;
+}
+
+.holder-vk-like.is-active {
+	visibility: visible;
+	opacity: 1;
 }
 
 .vk-like {
@@ -22,17 +30,17 @@
 	position: absolute;
 	top: 50%;
 	transform: translate(0, -50%);
-	margin: 0 0 0 0.625rem;
+	margin: 0 0 0 0.667rem;
 	line-height: 0;
 }
 
 .btn-show-vk-like {
 	display: inline-block;
-	width: 3.000rem;
-	height: 3.000rem;
+	width: 3.200rem;
+	height: 3.200rem;
 	position: absolute;
 	top: 0;
-	left: 6.000rem;
+	left: 6.400rem;
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
@@ -58,7 +66,7 @@
 .btn-show-vk-like:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e925";
-	font-size: 1.250rem;
-	line-height: 3.000rem;
+	font-size: 1.333rem;
+	line-height: 3.200rem;
 }
 

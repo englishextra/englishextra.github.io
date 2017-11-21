@@ -2136,7 +2136,7 @@ body {
 	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", "HelveticaNeue", "Roboto", sans-serif;
 	font-weight: 400;
 	font-size: 1.000rem;
-	line-height: 1.500;
+	line-height: 1.500rem;
 	width: 100%;
 	color: #191919;
 	background-color: #F0F0F0;
@@ -2268,23 +2268,23 @@ u,
  * hide and show on mobile
  */
 
-.show-inline-on-mobile,
-.show-block-on-mobile {
+.page .show-inline-on-mobile,
+.page .show-block-on-mobile {
 	display: none;
 }
 
 @media handheld, only screen and (max-width: 800px) {
-	.hide-on-mobile {
+	.page .hide-on-mobile {
 		display: none;
 		width: 0;
 		height: 0;
 	}
 
-	.show-inline-on-mobile {
+	.page .show-inline-on-mobile {
 		display: inline;
 	}
 
-	.show-block-on-mobile {
+	.page .show-block-on-mobile {
 		display: block;
 	}
 }
