@@ -2633,7 +2633,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 						} */
 						if (false === isNotfound) {
 							var notfoundUrl = routesJsonObj.notfound.url;
-							var notfoundTitle = routesJsonObj.notfoundocument[title];
+							var notfoundTitle = routesJsonObj.notfound.title;
 							if (notfoundUrl /* && notfoundTitle */) {
 								LoadingSpinner.show();
 								insertExternalHTML(appContentId, notfoundUrl, triggerOnContentInserted.bind(null, notfoundTitle, null, null, routesJsonObj));
