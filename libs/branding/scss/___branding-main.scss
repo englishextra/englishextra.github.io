@@ -501,7 +501,7 @@ u,
 	color: inherit;
 	border-color: transparent;
 	border-style: solid;
-	border-width: 0.063rem;
+	border-width: 0.067rem;
 	transition: width 0.2s linear;
     transition-delay: 0.2s;
 	-webkit-tap-highlight-color: transparent;
@@ -669,7 +669,7 @@ u,
 	color: inherit;
 	border-bottom-color: inherit;
 	border-bottom-style: solid;
-	border-bottom-width: 0.063rem;
+	border-bottom-width: 0.067rem;
 }
 
 .col dl dt a:focus,
@@ -776,27 +776,27 @@ u,
 
 .col table {
 	border: none;
-	border-top-width: 0.063rem;
+	border-top-width: 0.067rem;
 	border-top-style: solid;
 	border-top-color: $color-hex-divider;
-	border-right-width: 0.063rem;
+	border-right-width: 0.067rem;
 	border-right-style: solid;
 	border-right-color: $color-hex-divider;
-	border-left-width: 0.063rem;
+	border-left-width: 0.067rem;
 	border-left-style: solid;
 	border-left-color: $color-hex-divider;
 }
 
 .col table th {
 	border: none;
-	border-bottom-width: 0.063rem;
+	border-bottom-width: 0.067rem;
 	border-bottom-style: solid;
 	border-bottom-color: $color-hex-divider;
 }
 
 .col table td {
 	border: none;
-	border-bottom-width: 0.063rem;
+	border-bottom-width: 0.067rem;
 	border-bottom-style: solid;
 	border-bottom-color: $color-hex-divider;
 }
@@ -847,7 +847,7 @@ u,
 
 .col hr,
 .col .hr {
-	height: 0.063rem;
+	height: 0.067rem;
 	background-color: $color-hex-divider;
 }
 
@@ -859,7 +859,7 @@ u,
 
 .col .underline {
 	text-decoration: none;
-	border-bottom-width: 0.063rem;
+	border-bottom-width: 0.067rem;
 	border-bottom-style: solid;
 	border-bottom-color: inherit;
 }
@@ -1143,7 +1143,7 @@ u,
 	content: "\e907";
 	font-size: 0.500rem;
 	position: relative;
-	top: 0.063rem;
+	top: 0.067rem;
 	visibility: hidden;
 }
 
@@ -1605,7 +1605,7 @@ u,
 
 .col .footer a {
 	color: $color-hex-gray-text;
-	border-bottom-width: 0.063rem;
+	border-bottom-width: 0.067rem;
 	border-bottom-style: solid;
 	border-bottom-color: $color-hex-gray-text;
 }
@@ -1645,127 +1645,94 @@ u,
 	}
 }
 
-/**
- * media queries
+/*!
+ * @see {@link https://gist.github.com/englishextra/40b7c4ffde33bfb58aff259afe229d6a}
  */
 
-@media only screen and (max-width: 20em) {
+/*------------------------------------------
+  Foundation Media Queries
+   http://foundation.zurb.com/docs/media-queries.html
+--------------------------------------------*/
+
+/* Small screens - MOBILE */
+
+@media only screen {
 	html {
-		font-size: 85.7%;
+		font-size: 12px;
 	}
 }
 
-@media only screen and (min-width: 20.063em) {
+/* Define mobile styles - Mobile First */
+
+@media only screen and (max-width: 40em) {
 	html {
-		font-size: 92.2%;
+		font-size: 12px;
 	}
 }
 
-@media only screen and (min-width: 20.063em) and (max-width: 30em) {
-	html {
-		font-size: 92.2%;
-	}
-}
+/* max-width 640px, mobile-only styles, use when QAing mobile issues */
 
-@media only screen and (min-width: 30.063em) {
-	html {
-		font-size: 107.1%;
-	}
-}
-
-@media only screen and (min-width: 30.063em) and (max-width: 40em) {
-	html {
-		font-size: 107.1%;
-	}
-}
+/* Medium screens - TABLET */
 
 @media only screen and (min-width: 40.063em) {
 	html {
-		font-size: 121.4%;
+		font-size: 12px;
 	}
 }
 
-@media only screen and (min-width: 40.063em) and (max-width: 50em) {
+/* min-width 641px, medium screens */
+
+@media only screen and (min-width: 40.063em) and (max-width: 64em) {
 	html {
-		font-size: 121.4%;
+		font-size: 15px;
 	}
 }
 
-@media only screen and (min-width: 50.063em) {
-	html {
-		font-size: 92.2%;
-	}
-}
+/* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
 
-@media only screen and (min-width: 50.063em) and (max-width: 60em) {
-	html {
-		font-size: 92.2%;
-	}
-}
-
-@media only screen and (min-width: 60.063em) {
-	html {
-		font-size: 92.2%;
-	}
-}
-
-@media only screen and (min-width: 60.063em) and (max-width: 64em) {
-	html {
-		font-size: 92.2%;
-	}
-}
+/* Large screens - DESKTOP */
 
 @media only screen and (min-width: 64.063em) {
 	html {
-		font-size: 100%;
+		font-size: 15px;
 	}
 }
 
-@media only screen and (min-width: 64.063em) and (max-width: 74em) {
+/* min-width 1025px, large screens */
+
+@media only screen and (min-width: 64.063em) and (max-width: 90em) {
 	html {
-		font-size: 100%;
+		font-size: 15px;
 	}
 }
 
-@media only screen and (min-width: 74.063em) {
-	html {
-		font-size: 100%;
-	}
-}
+/* min-width 1024px and max-width 1440px, use when QAing large screen-only issues */
 
-@media only screen and (min-width: 74.063em) and (max-width: 80em) {
-	html {
-		font-size: 100%;
-	}
-}
-
-@media only screen and (min-width: 80.063em) {
-	html {
-		font-size: 100%;
-	}
-}
-
-@media only screen and (min-width: 80.063em) and (max-width: 90em) {
-	html {
-		font-size: 100%;
-	}
-}
+/* XLarge screens */
 
 @media only screen and (min-width: 90.063em) {
 	html {
-		font-size: 107.1%;
+		font-size: 15px;
 	}
 }
+
+/* min-width 1441px, xlarge screens */
 
 @media only screen and (min-width: 90.063em) and (max-width: 120em) {
 	html {
-		font-size: 107.1%;
+		font-size: 18px;
 	}
 }
 
+/* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */
+
+/* XXLarge screens */
+
 @media only screen and (min-width: 120.063em) {
 	html {
-		font-size: 114.3%;
+		font-size: 18px;
 	}
 }
+
+/* min-width 1921px, xlarge screens */
 

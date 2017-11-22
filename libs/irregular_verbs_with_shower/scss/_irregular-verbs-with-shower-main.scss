@@ -24,7 +24,7 @@ body {
 	font-family: "Roboto", $font-family-local-sans-regular;
 	font-weight: 400;
 	font-size: 1.000rem;
-	line-height: 1.500rem;
+	line-height: 1.333rem;
 	width: 100%;
 	color: $color-hex-body-text;
 	background-color: $color-hex-page-bg;
@@ -243,7 +243,7 @@ u,
 .caption h1 a {
 	color: inherit;
 	text-decoration: none;
-	border-bottom-width: 0.063rem;
+	border-bottom-width: 0.067rem;
 	border-bottom-style: solid;
 	border-bottom-color: inherit;
 	-webkit-tap-highlight-color: transparent;

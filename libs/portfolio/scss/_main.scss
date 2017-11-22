@@ -1,4 +1,4 @@
-/*! @import "irregular-verbs-main"; */
+/*! @import "main"; */
 
 /**
  * main
@@ -165,22 +165,106 @@ u,
 	/* left: 18.133rem; */
 	left: 0;
 	background-color: $color-hex-page-bg;
+	transition: left 0.2s linear;
+}
+
+/* .js .page {
+	position: relative;
+	left: 0;
+} */
+
+.page.is-active {
+	position: relative;
+	left: 18.133rem;
+}
+
+.page img,
+.superbox img {
+	display: block;
+}
+
+.panel-nav-top {
+	display: block;
+	width: 100%;
+	height: 3.200rem;
+	background-color: $color-hex-dark-ui-bar-bg;
 }
 
 .container {
 	width: 100%;
 	height: 100%;
-	opacity: 0;
-	transition: opacity 0.2s ease;
 	padding: 0;
 	margin: 0 auto;
 }
 
-/*! @import "irregular-verbs-nav-menu"; */
+/*! @import "nav-menu-dark"; */
 
 /**
- * nav-menu
+ * nav menu
  */
+
+.panel-nav-menu {
+	display: block;
+	width: 18.133rem;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	/* left: 18.133rem; */
+	left: 0;
+	bottom: 0;
+	font-size: 0.867em;
+	line-height: 3.200rem;
+	list-style: none;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+	background-color: $color-hex-darker-ui-bar-bg;
+	transition: left 0.2s linear;
+	padding: 0;
+	margin: 0;
+	margin-left: -18.133rem;
+}
+
+/* .js .panel-nav-menu {
+	position: fixed;
+	top: 0;
+	left: 0;
+} */
+
+.panel-nav-menu li {
+	position: relative;
+	top: 0;
+	left: 0;
+	font-weight: 400;
+	padding: 0;
+	margin: 0;
+}
+
+.panel-nav-menu li a {
+	display: block;
+	text-decoration: none;
+	white-space: normal;
+	white-space: nowrap;
+	font-size: 0.875rem;
+	color: #FFFFFF;
+	border: none;
+	transition: background-color 0.2s ease;
+	padding-right: 1.333rem;
+	padding-left: 1.333rem;
+}
+
+.panel-nav-menu li a:hover {
+	background-color: $color-hex-darker-ui-bar-hover-item-bg;
+}
+
+/* .panel-nav-menu li a:focus, */
+.panel-nav-menu li a:active {
+	color: $color-hex-body-text;
+	background-color: $AccentColor;
+}
+
+.panel-nav-menu li a.is-active {
+	background-color: $color-hex-darker-ui-bar-active-item-bg;
+}
 
 .btn-nav-menu {
 	display: inline-block;
@@ -207,17 +291,37 @@ u,
 
 .btn-nav-menu {
 	text-align: center;
-	background-color: $color-rgba-dark-ui-icon-bg;
+	background-color: $color-rgba-dark-ui-icon-bg
 }
 
 .btn-nav-menu:before {
 	font-family: "englishextra-ui-icons";
-	content: "\e90f";
+	content: "\e914";
 	font-size: 1.333rem;
 	line-height: 3.200rem;
 }
 
-/*! @import "menu-more-light"; */
+.page.is-active .btn-nav-menu:before {
+	font-family: "englishextra-ui-icons";
+	content: "\e90a";
+}
+
+.page.is-active .panel-nav-menu {
+	left: 18.133rem;
+	width: 18.133rem;
+}
+
+.page.is-active .btn-nav-menu {
+	/**
+	 * position absolute
+	 * left: 0;
+	 * position fixed
+	 * left: 18.133rem;
+	 */
+	left: 0;
+}
+
+/*! @import "menu-more-dark"; */
 
 /**
  * menu more
@@ -230,8 +334,8 @@ u,
 	position: absolute;
 	top: 0;
 	left: 3.200rem;
-	color: #FFFFFF;
 	text-decoration: none;
+	color: #FFFFFF;
 	transition: background-color 0.2s ease;
 	cursor: pointer;
 }
@@ -248,7 +352,7 @@ u,
 
 .btn-menu-more {
 	text-align: center;
-	background-color: $color-rgba-dark-ui-icon-bg;
+	background-color: $color-rgba-dark-ui-icon-bg
 }
 
 .btn-menu-more:before {
@@ -311,79 +415,29 @@ u,
 	background-color: $AccentColor;
 }
 
-/**
+/*!
  * other
  */
 
-.cd-prev,
-.cd-next {
-	display: none;
-	width: 3.200rem;
-	height: 3.200rem;
-	text-indent: 100%;
-	white-space: nowrap;
-	overflow: hidden;
-	z-index: 1;
-}
-
-.cd-prev {
-	position: fixed;
-	left: 0;
-	top: calc(50% - 22px);
-	bottom: auto;
-}
-
-.cd-next {
-	position: fixed;
-	right: 0;
-	top: calc(50% - 22px);
-	bottom: auto;
-}
-
-.cd-prev,
-.cd-next {
+.container h1 {
+	width: 100%;
+	position: absolute;
+	top: 0;
+	font-size: 1.200rem;
+	font-weight: 300;
+	line-height: 3.200rem;
 	text-align: center;
+	white-space: nowrap;
 	color: #FFFFFF;
-	background-color: $color-rgba-dark-ui-icon-bg;
-	transition: background-color 0.2s ease;
-}
-
-.cd-prev:before {
-	display: block;
-	font-family: "englishextra-ui-icons";
-	content: "\e904";
-	font-size: 1.500rem;
-	line-height: 3.200rem;
-	text-indent: 0;
-}
-
-.cd-next:before {
-	display: block;
-	font-family: "englishextra-ui-icons";
-	content: "\e906";
-	font-size: 1.500rem;
-	line-height: 3.200rem;
-	text-indent: 0;
-}
-
-.cd-prev:hover,
-.cd-next:hover {
-	background-color: $color-hex-hover-dark-ui-icon-bg;
-}
-
-/* .cd-prev:focus,
-.cd-next:focus, */
-.cd-prev:active,
-.cd-next:active {
-	color: $color-hex-body-text;
-	background-color: $AccentColor;
+	background-color: $color-hex-dark-ui-bar-bg;
+	margin: 0;
 }
 
 /**
  * retina
  */
 
-@media only screen and (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+@media (min-resolution: 192dpi) {
 }
 
 /**
@@ -393,16 +447,17 @@ u,
  * msdn.microsoft.com/en-us/library/windows/apps/hh202920%28v=vs.105%29.aspx
  */
 
-@media only screen and (max-width: 480px) {
-	body,
-	.slide .explanation {
+/* @media only screen and (max-width: 480px) {
+	body {
 		font-family: "Roboto", $font-family-local-sans-regular;
 	}
 
-	.slide .phonetic {
-		font-family: "Roboto Mono", $font-family-local-monospace;
+	.panel-nav-menu li,
+	.container h1,
+	.superbox-current-desc h2 {
+		font-family: $font-family-local-sans-light;
 	}
-}
+} */
 
 /*!
  * @see {@link https://gist.github.com/englishextra/40b7c4ffde33bfb58aff259afe229d6a}

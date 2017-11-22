@@ -510,6 +510,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 		var remove = "remove";
 		var removeChild = "removeChild";
 		var replaceChild = "replaceChild";
+		var style = "style";
 		var title = "title";
 		var _addEventListener = "addEventListener";
 		var _removeEventListener = "removeEventListener";
@@ -979,13 +980,13 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 
 		var setStyleDisplayBlock = function (a) {
 			if (a) {
-				a.style.display = "block";
+				a[style].display = "block";
 			}
 		};
 
 		var setStyleDisplayNone = function (a) {
 			if (a) {
-				a.style.display = "none";
+				a[style].display = "none";
 			}
 		};
 
@@ -2179,7 +2180,6 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 						ymaps.ready(initMyMap);
 						yandexMap[parentNode][classList].add(isActiveClass);
 						setStyleDisplayNone(btnShow);
-						LoadingSpinner.hide();
 					} catch (err) {
 						console.log("cannot init ymaps", err);
 					}
@@ -2190,7 +2190,6 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 					if (btnDestroy) {
 						btnDestroy[_addEventListener]("click", handleYandexMapBtnDestroy);
 					}
-					LoadingSpinner.show();
 					var jsUrl = forcedHTTP + "://api-maps.yandex.ru/2.1/?lang=ru_RU";
 					if (!scriptIsLoaded(jsUrl)) {
 						loadJS(jsUrl, initScript);

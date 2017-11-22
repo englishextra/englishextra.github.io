@@ -478,6 +478,7 @@ ToProgress, unescape, verge, VK, Ya*/
 		var remove = "remove";
 		var removeChild = "removeChild";
 		var setAttribute = "setAttribute";
+		var style = "style";
 		var title = "title";
 		var _removeEventListener = "removeEventListener";
 
@@ -720,13 +721,13 @@ ToProgress, unescape, verge, VK, Ya*/
 
 		var setStyleDisplayBlock = function (a) {
 			if (a) {
-				a.style.display = "block";
+				a[style].display = "block";
 			}
 		};
 
 		var setStyleDisplayNone = function (a) {
 			if (a) {
-				a.style.display = "none";
+				a[style].display = "none";
 			}
 		};
 
@@ -741,93 +742,6 @@ ToProgress, unescape, verge, VK, Ya*/
 				left: Math.round(a.left + (root.pageXOffset || docElem.scrollLeft || docBody.scrollLeft) - (docElem.clientLeft || docBody.clientLeft || 0))
 			};
 		};
-
-		var scroll2Top = function (scrollTargetY, speed, easing) {
-			var scrollY = root.scrollY || docElem.scrollTop;
-			var posY = scrollTargetY || 0;
-			var rate = speed || 2000;
-			var soothing = easing || "easeOutSine";
-			var currentTime = 0;
-			var time = Math.max(0.1, Math.min(Math.abs(scrollY - posY) / rate, 0.8));
-			var easingEquations = {
-				easeOutSine: function (pos) {
-					return Math.sin(pos * (Math.PI / 2));
-				},
-				easeInOutSine: function (pos) {
-					return (-0.5 * (Math.cos(Math.PI * pos) - 1));
-				},
-				easeInOutQuint: function (pos) {
-					if ((pos /= 0.5) < 1) {
-						return 0.5 * Math.pow(pos, 5);
-					}
-					return 0.5 * (Math.pow((pos - 2), 5) + 2);
-				}
-			};
-			function tick() {
-				currentTime += 1 / 60;
-				var p = currentTime / time;
-				var t = easingEquations[soothing](p);
-				if (p < 1) {
-					requestAnimationFrame(tick);
-					root.scrollTo(0, scrollY + ((posY - scrollY) * t));
-				} else {
-					root.scrollTo(0, posY);
-				}
-			}
-			tick();
-		};
-
-		var debounce = function (func, wait) {
-			var timeout;
-			var args;
-			var context;
-			var timestamp;
-			return function () {
-				context = this;
-				args = [].slice.call(arguments, 0);
-				timestamp = new Date();
-				var later = function () {
-					var last = (new Date()) - timestamp;
-					if (last < wait) {
-						timeout = setTimeout(later, wait - last);
-					} else {
-						timeout = null;
-						func.apply(context, args);
-					}
-				};
-				if (!timeout) {
-					timeout = setTimeout(later, wait);
-				}
-			};
-		};
-
-		var LoadingSpinner = (function () {
-			var spinnerClass = "loading-spinner";
-			var spinner = document[getElementsByClassName](spinnerClass)[0] || "";
-			var isActiveClass = "is-active-loading-spinner";
-			if (!spinner) {
-				spinner = document[createElement]("div");
-				spinner[classList].add(spinnerClass);
-				appendFragment(spinner, docBody);
-			}
-			return {
-				show: function () {
-					return docBody[classList].contains(isActiveClass) || docBody[classList].add(isActiveClass);
-				},
-				hide: function (callback, timeout) {
-					var delay = timeout || 500;
-					var timers = new Timers();
-					timers.timeout(function () {
-						timers.clear();
-						timers = null;
-						docBody[classList].remove(isActiveClass);
-						if (callback && "function" === typeof callback) {
-							callback();
-						}
-					}, delay);
-				}
-			};
-		})();
 
 		/*jshint bitwise: false */
 		var parseLink = function (url, full) {
@@ -925,6 +839,121 @@ ToProgress, unescape, verge, VK, Ya*/
 				}
 			}
 		};
+
+		var debounce = function (func, wait) {
+			var timeout;
+			var args;
+			var context;
+			var timestamp;
+			return function () {
+				context = this;
+				args = [].slice.call(arguments, 0);
+				timestamp = new Date();
+				var later = function () {
+					var last = (new Date()) - timestamp;
+					if (last < wait) {
+						timeout = setTimeout(later, wait - last);
+					} else {
+						timeout = null;
+						func.apply(context, args);
+					}
+				};
+				if (!timeout) {
+					timeout = setTimeout(later, wait);
+				}
+			};
+		};
+
+		var throttle = function (func, wait) {
+			var ctx;
+			var args;
+			var rtn;
+			var timeoutID;
+			var last = 0;
+			function call() {
+				timeoutID = 0;
+				last = +new Date();
+				rtn = func.apply(ctx, args);
+				ctx = null;
+				args = null;
+			}
+			return function throttled() {
+				ctx = this;
+				args = arguments;
+				var delta = new Date() - last;
+				if (!timeoutID) {
+					if (delta >= wait) {
+						call();
+					} else {
+						timeoutID = setTimeout(call, wait - delta);
+					}
+				}
+				return rtn;
+			};
+		};
+
+		var scroll2Top = function (scrollTargetY, speed, easing) {
+			var scrollY = root.scrollY || docElem.scrollTop;
+			var posY = scrollTargetY || 0;
+			var rate = speed || 2000;
+			var soothing = easing || "easeOutSine";
+			var currentTime = 0;
+			var time = Math.max(0.1, Math.min(Math.abs(scrollY - posY) / rate, 0.8));
+			var easingEquations = {
+				easeOutSine: function (pos) {
+					return Math.sin(pos * (Math.PI / 2));
+				},
+				easeInOutSine: function (pos) {
+					return (-0.5 * (Math.cos(Math.PI * pos) - 1));
+				},
+				easeInOutQuint: function (pos) {
+					if ((pos /= 0.5) < 1) {
+						return 0.5 * Math.pow(pos, 5);
+					}
+					return 0.5 * (Math.pow((pos - 2), 5) + 2);
+				}
+			};
+			function tick() {
+				currentTime += 1 / 60;
+				var p = currentTime / time;
+				var t = easingEquations[soothing](p);
+				if (p < 1) {
+					requestAnimationFrame(tick);
+					root.scrollTo(0, scrollY + ((posY - scrollY) * t));
+				} else {
+					root.scrollTo(0, posY);
+				}
+			}
+			tick();
+		};
+
+		var LoadingSpinner = (function () {
+			var spinnerClass = "loading-spinner";
+			var spinner = document[getElementsByClassName](spinnerClass)[0] || "";
+			var isActiveClass = "is-active-loading-spinner";
+			if (!spinner) {
+				spinner = document[createElement]("div");
+				spinner[classList].add(spinnerClass);
+				appendFragment(spinner, docBody);
+			}
+			return {
+				show: function () {
+					return docBody[classList].contains(isActiveClass) || docBody[classList].add(isActiveClass);
+				},
+				hide: function (callback, timeout) {
+					var delay = timeout || 500;
+					var timers = new Timers();
+					timers.timeout(function () {
+						timers.clear();
+						timers = null;
+						docBody[classList].remove(isActiveClass);
+						if (callback && "function" === typeof callback) {
+							callback();
+						}
+					}, delay);
+				}
+			};
+		})();
 
 		var handleExternalLink = function (url, ev) {
 			ev.stopPropagation();
@@ -1217,34 +1246,6 @@ ToProgress, unescape, verge, VK, Ya*/
 			}
 		};
 		manageImgLightboxLinks();
-
-		var throttle = function (func, wait) {
-			var ctx;
-			var args;
-			var rtn;
-			var timeoutID;
-			var last = 0;
-			function call() {
-				timeoutID = 0;
-				last = +new Date();
-				rtn = func.apply(ctx, args);
-				ctx = null;
-				args = null;
-			}
-			return function throttled() {
-				ctx = this;
-				args = arguments;
-				var delta = new Date() - last;
-				if (!timeoutID) {
-					if (delta >= wait) {
-						call();
-					} else {
-						timeoutID = setTimeout(call, wait - delta);
-					}
-				}
-				return rtn;
-			};
-		};
 
 		var handleDataSrcImageAll = function () {
 			var imgClass = "data-src-img";
@@ -1698,7 +1699,6 @@ ToProgress, unescape, verge, VK, Ya*/
 				k = n = null;
 			}
 		};
-
 		root[_addEventListener]("click", hideOtherIsSocial);
 
 		var yshare;

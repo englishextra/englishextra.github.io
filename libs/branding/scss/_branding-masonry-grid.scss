@@ -26,7 +26,7 @@
 	float: left;
 	font-weight: 300;
 	font-size: 1.000rem;
-	min-height: 5.125rem;
+	min-height: 5.467rem;
 }
 
 @media handheld,only screen and (max-width:320px) {
@@ -42,7 +42,7 @@
 
 .masonry-grid-item [class^="bg-"],
 .masonry-grid-item [class*=" bg-"] {
-	min-height: 5.125rem;
+	min-height: 5.467rem;
 }
 
 .masonry-grid-item .color-variable-name {
@@ -50,10 +50,10 @@
 	position: absolute;
 	right: 0;
 	bottom: 0;
-	font-size: 0.875rem;
+	font-size: 0.867rem;
 	font-weight: 300;
 	color: #FFFFFF;
 	background-color: $color-rgba-dark-ui-icon-bg;
-	padding: 0.500rem;
+	padding: 0.533rem;
 }
 

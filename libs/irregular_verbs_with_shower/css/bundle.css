@@ -948,13 +948,13 @@ template {
 	display: inline-block;
 	visibility: hidden;
 	opacity: 0;
-	width: 3.000rem;
-	height: 3.000rem;
+	width: 3.200rem;
+	height: 3.200rem;
 	position: fixed;
 	right: 0;
 	bottom: 0;
-	font-size: 1.250rem;
-	line-height: 3.000rem;
+	font-size: 1.333rem;
+	line-height: 3.200rem;
 	text-align: center;
 	text-decoration: none;
 	color: #616161;
@@ -1012,7 +1012,7 @@ body {
 	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", "HelveticaNeue", "Roboto", sans-serif;
 	font-weight: 400;
 	font-size: 1.000rem;
-	line-height: 1.500rem;
+	line-height: 1.333rem;
 	width: 100%;
 	color: #191919;
 	background-color: #F0F0F0;
@@ -1251,7 +1251,7 @@ u,
 .caption h1 a {
 	color: inherit;
 	text-decoration: none;
-	border-bottom-width: 0.063rem;
+	border-bottom-width: 0.067rem;
 	border-bottom-style: solid;
 	border-bottom-color: inherit;
 	-webkit-tap-highlight-color: transparent;

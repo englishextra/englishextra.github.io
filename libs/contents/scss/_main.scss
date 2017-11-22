@@ -1,4 +1,4 @@
-/*! @import "english-for-free-main"; */
+/*! @import "contents-main"; */
 
 /**
  * main
@@ -178,21 +178,29 @@ u,
 	left: 18.133rem;
 }
 
+.page img,
+.masonry-grid img {
+	display: block;
+}
+
 .panel-nav-top {
 	display: block;
 	width: 100%;
 	height: 3.200rem;
-	background-color: $color-hex-dark-ui-bar-bg;
+	background-color: $color-hex-ui-bar-bg;
 }
 
 .container {
 	width: 100%;
 	height: 100%;
+	visibility: visible;
+	opacity: 1;
+	transition: visibility 0s, opacity 0.2s ease;
 	padding: 0;
 	margin: 0 auto;
 }
 
-/*! @import "nav-menu-dark"; */
+/*! @import "nav-menu-light"; */
 
 /**
  * nav menu
@@ -265,16 +273,23 @@ u,
 	display: inline-block;
 	width: 3.200rem;
 	height: 3.200rem;
-	position: absolute;
+	position: fixed;
 	top: 0;
+	/* left: 18.133rem; */
 	left: 0;
-	color: #FFFFFF;
-	transition: background-color 0.2s ease;
+	color: $color-hex-gray-text;
+	transition: left 0.2s linear, background-color 0.2s ease;
 	cursor: pointer;
 }
 
+/* .js .btn-nav-menu {
+	position: fixed;
+	top: 0;
+	left: 0;
+} */
+
 .btn-nav-menu:hover {
-	background-color: $color-hex-hover-dark-ui-icon-bg;
+	background-color: $color-hex-hover-ui-icon-bg;
 }
 
 .page.is-active .btn-nav-menu,
@@ -286,7 +301,7 @@ u,
 
 .btn-nav-menu {
 	text-align: center;
-	background-color: $color-rgba-dark-ui-icon-bg
+	background-color: $color-hex-ui-icon-bg;
 }
 
 .btn-nav-menu:before {
@@ -313,10 +328,10 @@ u,
 	 * position fixed
 	 * left: 18.133rem;
 	 */
-	left: 0;
+	left: 18.133rem;
 }
 
-/*! @import "menu-more-dark"; */
+/*! @import "menu-more-light"; */
 
 /**
  * menu more
@@ -329,14 +344,14 @@ u,
 	position: absolute;
 	top: 0;
 	left: 3.200rem;
+	color: $color-hex-gray-text;
 	text-decoration: none;
-	color: #FFFFFF;
 	transition: background-color 0.2s ease;
 	cursor: pointer;
 }
 
 .btn-menu-more:hover {
-	background-color: $color-hex-hover-dark-ui-icon-bg;
+	background-color: $color-hex-hover-ui-icon-bg;
 }
 
 /* .btn-menu-more:focus, */
@@ -347,7 +362,7 @@ u,
 
 .btn-menu-more {
 	text-align: center;
-	background-color: $color-rgba-dark-ui-icon-bg
+	background-color: $color-hex-ui-icon-bg;
 }
 
 .btn-menu-more:before {
@@ -411,51 +426,141 @@ u,
 }
 
 /*!
- * other
+ * search form
  */
 
- .container h1 {
-	font-weight: 300;
-	line-height: 3.200rem;
-	text-align: center;
-	white-space: nowrap;
-	color: #FFFFFF;
-	background-color: $color-hex-dark-ui-bar-bg;
-	margin: 0;
+.holder-search-form {
+	display: inline-block;
+	position: fixed;
+	top: 0.400rem;
+	right: 0.400rem;
 }
 
-@media only screen and (max-width: 20em) {
-	.container h1 {
-		font-size: 0.938rem;
+.holder-search-form input[type^=text],
+.holder-search-form input[type^=search] {
+	display: inline-block;
+	width: 9.600rem;
+	font-family: inherit;
+	font-size: 0.867rem;
+	line-height: 1.200rem;
+	color: inherit;
+	border-color: transparent;
+	border-style: solid;
+	border-width: 0.067rem;
+	transition: width 0.2s linear;
+    transition-delay: 0.2s;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+	padding: 0.533rem 2.400rem 0.533rem 0.533rem;
+}
+
+.holder-search-form input[type^=text]:focus,
+.holder-search-form input[type^=text]:active,
+.holder-search-form input[type^=search]:focus,
+.holder-search-form input[type^=search]:active {
+	width: 18.133rem;
+	background-color: $color-hex-hover-ui-icon-bg;
+	border-color: transparent;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+}
+
+@media only screen and (max-width: 480px) {
+	.holder-search-form input[type^=text]:focus,
+	.holder-search-form input[type^=text]:active,
+	.holder-search-form input[type^=search]:focus,
+	.holder-search-form input[type^=search]:active {
+		width: 14.133rem;
 	}
 }
 
-@media only screen and (min-width: 20.063em) {
-	.container h1 {
-		font-size: 1.100rem;
-	}
+.holder-search-form button[type^=submit] {
+	width: 2.400rem;
+	height: 2.400rem;
+	position: fixed;
+	top: 0.400rem;
+	right: 0.400rem;
+	font-size: 0;
+	line-height: 0;
+	color: $color-hex-gray-text;
+	background-color: transparent;
+	border: 0.067rem solid transparent;
+	cursor: pointer;
+	padding: 1.133rem;
 }
 
-@media only screen and (min-width: 30.063em) {
-	.container h1 {
-		font-size: 1.210rem;
-	}
+.holder-search-form button[type^=submit]:after {
+	position: absolute;
+	top: 0;
+	right: 0.600rem;
+	font-family: "englishextra-ui-icons";
+	content: "\e91c";
+	font-size: 1.067rem;
+	line-height: 2.267rem;
 }
 
-@media only screen and (min-width: 40.063em) {
-	.container h1 {
-		font-size: 1.500rem;
-	}
+/* .holder-search-form button[type^=submit]:focus, */
+.holder-search-form button[type^=submit]:active {
+	color: $color-hex-body-text;
+	background-color: $AccentColor;
+	border: 0.067rem solid $AccentColor;
 }
 
-@media only screen and (min-width: 60.063em) {
-	.container h1 {
-		width: 100%;
-		position: absolute;
-		top: 0;
-		left: 8.800rem;
-		padding-right: 17.600rem;
-	}
+.holder-search-text:before,
+.ya-site-form:before {
+	width: 2.400rem;
+	position: absolute;
+	top: 0;
+	right: 0;
+	font-family: "englishextra-ui-icons";
+	content: "\e91c";
+	font-size: 1.067rem;
+	padding: 0.533rem 0.667rem;
+}
+
+.holder-search-form input[type^=text],
+.holder-search-form input[type^=search] {
+	display: inline-block;
+	background-color: $color-hex-ui-bar-bg;
+}
+
+/*!
+ * fix for yandex search
+ * site.yandex.net/v2.0/js/suggest.js
+ */
+
+.holder-search-form table td {
+	padding: 0;
+}
+
+.ya-site-form.ya-site-form_inited_no {
+	visibility: hidden;
+}
+
+.ya-page_js_yes .ya-site-form_inited_no,
+.ya-site-form__submit {
+	display: none;
+}
+/**
+ * footer
+ */
+
+.footer p {
+	font-size: 0.813rem;
+	line-height: 1.333rem;
+}
+
+.footer a {
+	color: $color-hex-gray-text;
+	border-bottom-width: 0.067rem;
+	border-bottom-style: solid;
+	border-bottom-color: $color-hex-gray-text;
+}
+
+.footer a:hover,
+.footer a:active,
+.footer a:focus {
+	color: $color-hex-gray-text;
 }
 
 /**
@@ -472,17 +577,17 @@ u,
  * msdn.microsoft.com/en-us/library/windows/apps/hh202920%28v=vs.105%29.aspx
  */
 
-@media only screen and (max-width: 480px) {
-	body {
+/* @media only screen and (max-width: 480px) {
+	body,
+	.container h1 {
 		font-family: "Roboto", $font-family-local-sans-regular;
 	}
 
 	.panel-nav-menu li,
-	.superbox-wrapper h1,
-	.superbox-current-desc h2 {
+	.masonry-grid-item-content h2 {
 		font-family: $font-family-local-sans-light;
 	}
-}
+} */
 
 /*!
  * @see {@link https://gist.github.com/englishextra/40b7c4ffde33bfb58aff259afe229d6a}

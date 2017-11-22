@@ -511,20 +511,6 @@ unescape, WebSlides*/
 			document[title] = document[title] + userBrowsingDetails;
 		}
 
-		/* var scriptIsLoaded = function (scriptSrc) {
-			var scriptAll,
-			i,
-			l;
-			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[_length]; i < l; i += 1) {
-				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
-					scriptAll = i = l = null;
-					return true;
-				}
-			}
-			scriptAll = i = l = null;
-			return false;
-		}; */
-
 		var debounce = function (func, wait) {
 			var timeout;
 			var args;

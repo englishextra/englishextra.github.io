@@ -1,16 +1,8 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global appendFragment, debounce, getHTTP, imagePromise, jQuery,
-loadJS, openDeviceBrowser, parseLink, Promise, QRCode, removeChildren,
-require, scriptIsLoaded, scroll2Top, setStyleDisplayBlock,
-setStyleDisplayNone, setStyleOpacity, setStyleVisibilityVisible,
-throttle, Timers, ToProgress, unescape, verge, VK, Ya */
-/*property console, split */
-/*!
- * define global root
- */
-/* var root = "object" === typeof window && window || "object" === typeof self && self || "object" === typeof global && global || {}; */
-var root = "undefined" !== typeof window ? window : this;
+/*global doesFontExist, imagePromise, loadCSS, loadJsCss, Promise, QRCode,
+require, Timers, ToProgress, unescape, verge, VK, Ya*/
+/*property console, join, split */
 /*!
  * safe way to handle console.log
  * @see {@link https://github.com/paulmillr/console-polyfill}
@@ -205,6 +197,94 @@ var root = "undefined" !== typeof window ? window : this;
 	root.ToProgress = ToProgress;
 })("undefined" !== typeof window ? window : this, document);
 /*!
+ * return image is loaded promise
+ * @see {@link https://jsfiddle.net/englishextra/56pavv7d/}
+ * @param {String|Object} s image path string or HTML DOM Image Object
+ * var m = document.querySelector("img") || "";
+ * var s = m.src || "";
+ * imagePromise(m).then(function (r) {
+ * alert(r);
+ * }).catch (function (err) {
+ * alert(err);
+ * });
+ * imagePromise(s).then(function (r) {
+ * alert(r);
+ * }).catch (function (err) {
+ * alert(err);
+ * });
+ * @see {@link https://gist.github.com/englishextra/3e95d301d1d47fe6e26e3be198f0675e}
+ * passes jshint
+ */
+(function (root) {
+	"use strict";
+	var imagePromise = function (s) {
+		if (root.Promise) {
+			return new Promise(function (y, n) {
+				var f = function (e, p) {
+					e.onload = function () {
+						y(p);
+					};
+					e.onerror = function () {
+						n(p);
+					};
+					e.src = p;
+				};
+				if ("string" === typeof s) {
+					var a = new Image();
+					f(a, s);
+				} else {
+					if ("img" !== s.tagName) {
+						return Promise.reject();
+					} else {
+						if (s.src) {
+							f(s, s.src);
+						}
+					}
+				}
+			});
+		} else {
+			throw new Error("Promise is not in global object");
+		}
+	};
+	root.imagePromise = imagePromise;
+})("undefined" !== typeof window ? window : this);
+/*!
+ * Timer management (setInterval / setTimeout)
+ * @param {Function} fn
+ * @param {Number} ms
+ * var timers = new Timers();
+ * timers.timeout(function () {
+ * console.log("before:", timers);
+ * timers.clear();
+ * timers = null;
+ * doSomething();
+ * console.log("after:", timers);
+ * }, 3000);
+ * @see {@link https://github.com/component/timers}
+ * @see {@link https://github.com/component/timers/blob/master/index.js}
+ * passes jshint
+ */
+(function (root) {
+	var Timers = function (ids) {
+		this.ids = ids || [];
+	};
+	Timers.prototype.timeout = function (fn, ms) {
+		var id = setTimeout(fn, ms);
+		this.ids.push(id);
+		return id;
+	};
+	Timers.prototype.interval = function (fn, ms) {
+		var id = setInterval(fn, ms);
+		this.ids.push(id);
+		return id;
+	};
+	Timers.prototype.clear = function () {
+		this.ids.forEach(clearTimeout);
+		this.ids = [];
+	};
+	root.Timers = Timers;
+})("undefined" !== typeof window ? window : this, document);
+/*!
  * modified Detect Whether a Font is Installed
  * @param {String} fontName The name of the font to check
  * @return {Boolean}
@@ -338,130 +418,66 @@ var root = "undefined" !== typeof window ? window : this;
 /*!
  * app logic
  */
-/*!
- * modified verge 1.9.1+201402130803
- * @see {@link https://github.com/ryanve/verge}
- * MIT License 2013 Ryan Van Etten
- * removed module
- * converted to dot notation
- * added &&r.left<=viewportW()&&(0!==el.offsetHeight);
- * added &&r.left<=viewportW()&&(0!==el.offsetHeight);
- * added &&r.top<=viewportH()&&(0!==el.offsetHeight);
- * Substitute inViewport with: inY on vertical sites, inX on horizontal ones.
- * On pages without horizontal scroll, inX is always true.
- * On pages without vertical scroll, inY is always true.
- * If the viewport width is >= the document width, then inX is always true.
- * bug: inViewport returns true if element is hidden
- * @see {@link https://github.com/ryanve/verge/issues/19}
- * @see {@link https://github.com/ryanve/verge/blob/master/verge.js}
- * passes jshint
- */
-(function(root){"use strict";var verge=(function(){var xports={},win=typeof root!=="undefined"&&root,doc=typeof document!=="undefined"&&document,docElem=doc&&doc.documentElement,matchMedia=win.matchMedia||win.msMatchMedia,mq=matchMedia?function(q){return!!matchMedia.call(win,q).matches;}:function(){return false;},viewportW=xports.viewportW=function(){var a=docElem.clientWidth,b=win.innerWidth;return a<b?b:a;},viewportH=xports.viewportH=function(){var a=docElem.clientHeight,b=win.innerHeight;return a<b?b:a;};xports.mq=mq;xports.matchMedia=matchMedia?function(){return matchMedia.apply(win,arguments);}:function(){return{};};function viewport(){return{"width":viewportW(),"height":viewportH()};}xports.viewport=viewport;xports.scrollX=function(){return win.pageXOffset||docElem.scrollLeft;};xports.scrollY=function(){return win.pageYOffset||docElem.scrollTop;};function calibrate(coords,cushion){var o={};cushion=+cushion||0;o.width=(o.right=coords.right+cushion)-(o.left=coords.left-cushion);o.height=(o.bottom=coords.bottom+cushion)-(o.top=coords.top-cushion);return o;}function rectangle(el,cushion){el=el&&!el.nodeType?el[0]:el;if(!el||1!==el.nodeType){return false;}return calibrate(el.getBoundingClientRect(),cushion);}xports.rectangle=rectangle;function aspect(o){o=null===o?viewport():1===o.nodeType?rectangle(o):o;var h=o.height,w=o.width;h=typeof h==="function"?h.call(o):h;w=typeof w==="function"?w.call(o):w;return w/h;}xports.aspect=aspect;xports.inX=function(el,cushion){var r=rectangle(el,cushion);return!!r&&r.right>=0&&r.left<=viewportW()&&(0!==el.offsetHeight);};xports.inY=function(el,cushion){var r=rectangle(el,cushion);return!!r&&r.bottom>=0&&r.top<=viewportH()&&(0!==el.offsetHeight);};xports.inViewport=function(el,cushion){var r=rectangle(el,cushion);return!!r&&r.bottom>=0&&r.right>=0&&r.top<=viewportH()&&r.left<=viewportW()&&(0!==el.offsetHeight);};return xports;})();root.verge=verge;}(root));
-/*!
- * return image is loaded promise
- * @see {@link https://jsfiddle.net/englishextra/56pavv7d/}
- * @param {String|Object} s image path string or HTML DOM Image Object
- * var m = document.querySelector("img") || "";
- * var s = m.src || "";
- * imagePromise(m).then(function (r) {
- * alert(r);
- * }).catch (function (err) {
- * alert(err);
- * });
- * imagePromise(s).then(function (r) {
- * alert(r);
- * }).catch (function (err) {
- * alert(err);
- * });
- * @see {@link https://gist.github.com/englishextra/3e95d301d1d47fe6e26e3be198f0675e}
- * passes jshint
- */
-(function (root) {
+(function (root, document) {
 	"use strict";
-	var imagePromise = function (s) {
-		if (root.Promise) {
-			return new Promise(function (y, n) {
-				var f = function (e, p) {
-					e.onload = function () {
-						y(p);
-					};
-					e.onerror = function () {
-						n(p);
-					};
-					e.src = p;
-				};
-				if ("string" === typeof s) {
-					var a = new Image();
-					f(a, s);
-				} else {
-					if ("img" !== s.tagName) {
-						return Promise.reject();
-					} else {
-						if (s.src) {
-							f(s, s.src);
-						}
-					}
-				}
-			});
-		} else {
-			throw new Error("Promise is not in global object");
-		}
-	};
-	root.imagePromise = imagePromise;
-})("undefined" !== typeof window ? window : this);
-		var scroll2Top = function (scrollTargetY, speed, easing) {
-			var scrollY = root.scrollY || docElem.scrollTop;
-			var posY = scrollTargetY || 0;
-			var rate = speed || 2000;
-			var soothing = easing || "easeOutSine";
-			var currentTime = 0;
-			var time = Math.max(0.1, Math.min(Math.abs(scrollY - posY) / rate, 0.8));
-			var easingEquations = {
-				easeOutSine: function (pos) {
-					return Math.sin(pos * (Math.PI / 2));
-				},
-				easeInOutSine: function (pos) {
-					return (-0.5 * (Math.cos(Math.PI * pos) - 1));
-				},
-				easeInOutQuint: function (pos) {
-					if ((pos /= 0.5) < 1) {
-						return 0.5 * Math.pow(pos, 5);
-					}
-					return 0.5 * (Math.pow((pos - 2), 5) + 2);
-				}
-			};
-			function tick() {
-				currentTime += 1 / 60;
-				var p = currentTime / time;
-				var t = easingEquations[soothing](p);
-				if (p < 1) {
-					requestAnimationFrame(tick);
-					root.scrollTo(0, scrollY + ((posY - scrollY) * t));
-				} else {
-					root.scrollTo(0, posY);
-				}
-			}
-			tick();
-		};
-/*!
- * Super lightweight script (~1kb) to detect via Javascript events like
- * 'tap' 'dbltap' "swipeup" "swipedown" "swipeleft" "swiperight"
- * on any kind of device.
- * Version: 2.0.1
- * Author: Gianluca Guarini
- * Contact: gianluca.guarini@gmail.com
- * Website: http://www.gianlucaguarini.com/
- * Twitter: @gianlucaguarini
- * Copyright (c) Gianluca Guarini
- * @see {@link https://github.com/GianlucaGuarini/Tocca.js/blob/master/Tocca.js}
- * passes jshint
- */
-(function(doc,win){"use strict";if(typeof doc.createEvent!=="function"){return false;}var pointerEventSupport=function(type){var lo=type.toLowerCase(),ms="MS"+type;return navigator.msPointerEnabled?ms:win.PointerEvent?lo:false;},defaults={useJquery:!win.IGNORE_JQUERY&&typeof jQuery!=="undefined",swipeThreshold:win.SWIPE_THRESHOLD||100,tapThreshold:win.TAP_THRESHOLD||150,dbltapThreshold:win.DBL_TAP_THRESHOLD||200,longtapThreshold:win.LONG_TAP_THRESHOLD||1000,tapPrecision:win.TAP_PRECISION/2||60/2,justTouchEvents:win.JUST_ON_TOUCH_DEVICES},wasTouch=false,touchevents={touchstart:pointerEventSupport("PointerDown")||"touchstart",touchend:pointerEventSupport("PointerUp")||"touchend",touchmove:pointerEventSupport("PointerMove")||"touchmove"},tapNum=0,pointerId,currX,currY,cachedX,cachedY,timestamp,target,dblTapTimer,longtapTimer,isTheSameFingerId=function(e){return!e.pointerId||typeof pointerId==="undefined"||e.pointerId===pointerId;},setListener=function(elm,events,callback){var eventsArray=events.split(" "),i=eventsArray.length;while(i--){elm.addEventListener(eventsArray[i],callback,false);}},getPointerEvent=function(event){return event.targetTouches?event.targetTouches[0]:event;},getTimestamp=function(){return new Date().getTime();},sendEvent=function(elm,eventName,originalEvent,data){var customEvent=doc.createEvent("Event");customEvent.originalEvent=originalEvent;data=data||{};data.x=currX;data.y=currY;data.distance=data.distance;if(defaults.useJquery){customEvent=jQuery.Event(eventName,{originalEvent:originalEvent});jQuery(elm).trigger(customEvent,data);}if(customEvent.initEvent){for(var key in data){if(data.hasOwnProperty(key)){customEvent[key]=data[key];}}customEvent.initEvent(eventName,true,true);elm.dispatchEvent(customEvent);}while(elm){if(elm["on"+eventName]){elm["on"+eventName](customEvent);}elm=elm.parentNode;}},onTouchStart=function(e){if(!isTheSameFingerId(e)){return;}pointerId=e.pointerId;if(e.type!=="mousedown"){wasTouch=true;}if(e.type==="mousedown"&&wasTouch){return;}var pointer=getPointerEvent(e);cachedX=currX=pointer.pageX;cachedY=currY=pointer.pageY;longtapTimer=setTimeout(function(){sendEvent(e.target,"longtap",e);target=e.target;},defaults.longtapThreshold);timestamp=getTimestamp();tapNum++;},onTouchEnd=function(e){if(!isTheSameFingerId(e)){return;}pointerId=undefined;if(e.type==="mouseup"&&wasTouch){wasTouch=false;return;}var eventsArr=[],now=getTimestamp(),deltaY=cachedY-currY,deltaX=cachedX-currX;clearTimeout(dblTapTimer);clearTimeout(longtapTimer);if(deltaX<=-defaults.swipeThreshold){eventsArr.push("swiperight");}if(deltaX>=defaults.swipeThreshold){eventsArr.push("swipeleft");}if(deltaY<=-defaults.swipeThreshold){eventsArr.push("swipedown");}if(deltaY>=defaults.swipeThreshold){eventsArr.push("swipeup");}if(eventsArr.length){for(var i=0;i<eventsArr.length;i++){var eventName=eventsArr[i];sendEvent(e.target,eventName,e,{distance:{x:Math.abs(deltaX),y:Math.abs(deltaY)}});}tapNum=0;}else{if(cachedX>=currX-defaults.tapPrecision&&cachedX<=currX+defaults.tapPrecision&&cachedY>=currY-defaults.tapPrecision&&cachedY<=currY+defaults.tapPrecision){if(timestamp+defaults.tapThreshold-now>=0){sendEvent(e.target,tapNum>=2&&target===e.target?"dbltap":"tap",e);target=e.target;}}dblTapTimer=setTimeout(function(){tapNum=0;},defaults.dbltapThreshold);}},onTouchMove=function(e){if(!isTheSameFingerId(e)){return;}if(e.type==="mousemove"&&wasTouch){return;}var pointer=getPointerEvent(e);currX=pointer.pageX;currY=pointer.pageY;};setListener(doc,touchevents.touchstart+(defaults.justTouchEvents?"":" mousedown"),onTouchStart);setListener(doc,touchevents.touchend+(defaults.justTouchEvents?"":" mouseup"),onTouchEnd);setListener(doc,touchevents.touchmove+(defaults.justTouchEvents?"":" mousemove"),onTouchMove);win.tocca=function(options){for(var opt in options){if(options.hasOwnProperty(opt)){defaults[opt]=options[opt];}}return defaults;};}(document,root));
-		var docElem = document.documentElement || "";
-		var docImplem = document.implementation || "";
-		var _length = "length";
 
+	var docElem = document.documentElement || "";
+	var docImplem = document.implementation || "";
+	var docBody = document.body || "";
+
+	var createElement = "createElement";
+	var createElementNS = "createElementNS";
+	var defineProperty = "defineProperty";
+	var getOwnPropertyDescriptor = "getOwnPropertyDescriptor";
+	var querySelector = "querySelector";
+	var querySelectorAll = "querySelectorAll";	var _addEventListener = "addEventListener";
+	var _length = "length";
+
+	var progressBar = new ToProgress({
+			id: "top-progress-bar",
+			color: "#FF2C40",
+			height: "0.200rem",
+			duration: 0.2,
+			zIndex: 999
+		});
+
+	var hideProgressBar = function () {
+		progressBar.finish();
+		progressBar.hide();
+	};
+
+	/* progressBar.complete = function () {
+		return this.finish(),
+		this.hide();
+	}; */
+
+	progressBar.increase(20);
+
+	var getHTTP = function (force) {
+		var any = force || "";
+		var locationProtocol = root.location.protocol || "";
+		return "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : any ? "http" : "";
+	};
+
+	var forcedHTTP = getHTTP(true);
+
+	var run = function () {
+
+		var appendChild = "appendChild";
 		var classList = "classList";
+		var createDocumentFragment = "createDocumentFragment";
+		var createTextNode = "createTextNode";
+		var dataset = "dataset";
+		var getAttribute = "getAttribute";
+		var getElementById = "getElementById";
+		var getElementsByClassName = "getElementsByClassName";
+		var getElementsByTagName = "getElementsByTagName";
+		var parentNode = "parentNode";
+		var style = "style";
+		var title = "title";
+		var _removeEventListener = "removeEventListener";
+
+		progressBar.increase(20);
 
 		if (docElem && docElem[classList]) {
 			docElem[classList].remove("no-js");
@@ -540,6 +556,7 @@ var root = "undefined" !== typeof window ? window : this;
 				size: size || ""
 			};
 		})(docElem[classList] || "");
+
 		var earlyDeviceType = (function (mobile, desktop, opera) {
 			var selector = (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i).test(opera) || (/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i).test(opera.substr(0, 4)) ? mobile : desktop;
 			docElem[classList].add(selector);
@@ -578,49 +595,113 @@ var root = "undefined" !== typeof window ? window : this;
 			}
 			return newYear + "-" + newMonth + "-" + newDay;
 		})();
-		var initialDocumentTitle = document.title || "";
 
 		var userBrowsingDetails = " [" + (getHumanDate ? getHumanDate : "") + (earlyDeviceType ? " " + earlyDeviceType : "") + (earlyDeviceFormfactor.orientation ? " " + earlyDeviceFormfactor.orientation : "") + (earlyDeviceFormfactor.size ? " " + earlyDeviceFormfactor.size : "") + (earlySvgSupport ? " " + earlySvgSupport : "") + (earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") + (earlyHasTouch ? " " + earlyHasTouch : "") + "]";
 
 		if (document[title]) {
 			document[title] = document[title] + userBrowsingDetails;
 		}
-/*!
- * Timer management (setInterval / setTimeout)
- * @param {Function} fn
- * @param {Number} ms
- * var timers = new Timers();
- * timers.timeout(function () {
- * console.log("before:", timers);
- * timers.clear();
- * timers = null;
- * doSomething();
- * console.log("after:", timers);
- * }, 3000);
- * @see {@link https://github.com/component/timers}
- * @see {@link https://github.com/component/timers/blob/master/index.js}
- * passes jshint
- */
-(function (root) {
-	var Timers = function (ids) {
-		this.ids = ids || [];
-	};
-	Timers.prototype.timeout = function (fn, ms) {
-		var id = setTimeout(fn, ms);
-		this.ids.push(id);
-		return id;
-	};
-	Timers.prototype.interval = function (fn, ms) {
-		var id = setInterval(fn, ms);
-		this.ids.push(id);
-		return id;
-	};
-	Timers.prototype.clear = function () {
-		this.ids.forEach(clearTimeout);
-		this.ids = [];
-	};
-	root.Timers = Timers;
-})("undefined" !== typeof window ? window : this, document);
+
+		var scriptIsLoaded = function (scriptSrc) {
+			var scriptAll,
+			i,
+			l;
+			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[_length]; i < l; i += 1) {
+				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
+					scriptAll = i = l = null;
+					return true;
+				}
+			}
+			scriptAll = i = l = null;
+			return false;
+		};
+
+		var removeChildren = function (e) {
+			if (e && e.firstChild) {
+				for (; e.firstChild; ) {
+					e.removeChild(e.firstChild);
+				}
+			}
+		};
+
+		var appendFragment = function (e, a) {
+			a = a || document[getElementsByTagName]("body")[0] || "";
+			if (e) {
+				var df = document[createDocumentFragment]() || "";
+				if ("string" === typeof e) {
+					e = document[createTextNode](e);
+				}
+				df[appendChild](e);
+				a[appendChild](df);
+			}
+		};
+
+		var prependFragmentBefore = function (e, a) {
+			if ("string" === typeof e) {
+				e = document[createTextNode](e);
+			}
+			var p = a[parentNode] || "";
+			var df = document[createDocumentFragment]();
+			if (p) {
+				df[appendChild](e);
+				p.insertBefore(df, a);
+			}
+		};
+
+		var setStyleDisplayBlock = function (a) {
+			if (a) {
+				a[style].display = "block";
+			}
+		};
+
+		var setStyleDisplayNone = function (a) {
+			if (a) {
+				a[style].display = "none";
+			}
+		};
+
+		var setStyleOpacity = function (a, n) {
+			n = n || 1;
+			if (a) {
+				a[style].opacity = n;
+			}
+		};
+
+		var scroll2Top = function (scrollTargetY, speed, easing) {
+			var scrollY = root.scrollY || docElem.scrollTop;
+			var posY = scrollTargetY || 0;
+			var rate = speed || 2000;
+			var soothing = easing || "easeOutSine";
+			var currentTime = 0;
+			var time = Math.max(0.1, Math.min(Math.abs(scrollY - posY) / rate, 0.8));
+			var easingEquations = {
+				easeOutSine: function (pos) {
+					return Math.sin(pos * (Math.PI / 2));
+				},
+				easeInOutSine: function (pos) {
+					return (-0.5 * (Math.cos(Math.PI * pos) - 1));
+				},
+				easeInOutQuint: function (pos) {
+					if ((pos /= 0.5) < 1) {
+						return 0.5 * Math.pow(pos, 5);
+					}
+					return 0.5 * (Math.pow((pos - 2), 5) + 2);
+				}
+			};
+			function tick() {
+				currentTime += 1 / 60;
+				var p = currentTime / time;
+				var t = easingEquations[soothing](p);
+				if (p < 1) {
+					requestAnimationFrame(tick);
+					root.scrollTo(0, scrollY + ((posY - scrollY) * t));
+				} else {
+					root.scrollTo(0, posY);
+				}
+			}
+			tick();
+		};
+
 		var debounce = function (func, wait) {
 			var timeout;
 			var args;
@@ -644,6 +725,7 @@ var root = "undefined" !== typeof window ? window : this;
 				}
 			};
 		};
+
 		var throttle = function (func, wait) {
 			var ctx;
 			var args;
@@ -672,67 +754,6 @@ var root = "undefined" !== typeof window ? window : this;
 			};
 		};
 
-		var scriptIsLoaded = function (scriptSrc) {
-			var scriptAll,
-			i,
-			l;
-			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[_length]; i < l; i += 1) {
-				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
-					scriptAll = i = l = null;
-					return true;
-				}
-			}
-			scriptAll = i = l = null;
-			return false;
-		};
-		var removeChildren = function (e) {
-			if (e && e.firstChild) {
-				for (; e.firstChild; ) {
-					e.removeChild(e.firstChild);
-				}
-			}
-		};
-		var appendFragment = function (e, a) {
-			a = a || document[getElementsByTagName]("body")[0] || "";
-			if (e) {
-				var df = document[createDocumentFragment]() || "";
-				if ("string" === typeof e) {
-					e = document[createTextNode](e);
-				}
-				df[appendChild](e);
-				a[appendChild](df);
-			}
-		};
-		var setStyleDisplayBlock = function (a) {
-			if (a) {
-				a.style.display = "block";
-			}
-		};
-		var setStyleDisplayNone = function (a) {
-			if (a) {
-				a.style.display = "none";
-			}
-		};
-		var setStyleOpacity = function (a, n) {
-			n = n || 1;
-			if (a) {
-				a[style].opacity = n;
-			}
-		};
-
-		var setStyleVisibilityVisible = function (a) {
-			if (a) {
-				a.style.visibility = "visible";
-			}
-		};
-
-		var setStyleVisibilityHidden = function (a) {
-			return (function () {
-				if (a) {
-					a[style].visibility = "hidden";
-				}
-			})();
-		};
 		/*jshint bitwise: false */
 		var parseLink = function (url, full) {
 			var _full = full || "";
@@ -784,13 +805,7 @@ var root = "undefined" !== typeof window ? window : this;
 			})();
 		};
 		/*jshint bitwise: true */
-	var getHTTP = function (force) {
-		var any = force || "";
-		var locationProtocol = root.location.protocol || "";
-		return "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : any ? "http" : "";
-	};
 
-	var forcedHTTP = getHTTP(true);
 		var isNodejs = "undefined" !== typeof process && "undefined" !== typeof require || "";
 		var isElectron = "undefined" !== typeof root && root.process && "renderer" === root.process.type || "";
 		var isNwjs = (function () {
@@ -835,742 +850,811 @@ var root = "undefined" !== typeof window ? window : this;
 				}
 			}
 		};
-	var progressBar = new ToProgress({
-			id: "top-progress-bar",
-			color: "#FF2C40",
-			height: "0.200rem",
-			duration: 0.2,
-			zIndex: 999
-		});
 
-	var hideProgressBar = function () {
-		progressBar.finish();
-		progressBar.hide();
-	};
-
-	/* progressBar.complete = function () {
-		return this.finish(),
-		this.hide();
-	}; */
-
-	progressBar.increase(20);
-/*!
- * set click event on external links,
- * so that they open in new browser tab
- * @param {Object} [ctx] context HTML Element
- */
-var handleExternalLink = function (url, ev) {
-	"use strict";
-	ev.stopPropagation();
-	ev.preventDefault();
-	var logicHandleExternalLink = openDeviceBrowser.bind(null, url);
-	var debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
-	debounceLogicHandleExternalLink();
-};
-var manageExternalLinkAll = function (scope) {
-	"use strict";
-	var ctx = scope && scope.nodeName ? scope : "";
-	var d = document;
-	var getElementsByTagName = "getElementsByTagName";
-	var getAttribute = "getAttribute";
-	var classList = "classList";
-	var _addEventListener = "addEventListener";
-	var linkTag = "a";
-	var link = ctx ? ctx[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
-	var isBindedClass = "is-binded";
-	var arrange = function (e) {
-		if (!e[classList].contains(isBindedClass)) {
-			var url = e[getAttribute]("href") || "";
-			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-				e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
-				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					e.target = "_blank";
-					e.rel = "noopener";
-				} else {
-					e[_addEventListener]("click", handleExternalLink.bind(null, url));
-				}
-				e[classList].add(isBindedClass);
-			}
-		}
-	};
-	if (link) {
-		for (var i = 0, l = link[_length]; i < l; i += 1) {
-			arrange(link[i]);
-		}
-		/* forEach(link, arrange, false); */
-	}
-};
-manageExternalLinkAll();
-/*!
- * replace img src with data-src
- * initiate on load, not on ready
- * @param {Object} [ctx] context HTML Element
- */
-var handleDataSrcImageAll = function () {
-	"use strict";
-	var d = document;
-	var getElementsByClassName = "getElementsByClassName";
-	var classList = "classList";
-	var dataset = "dataset";
-	var imgClass = "data-src-img";
-	var img = document[getElementsByClassName](imgClass) || "";
-	var isActiveClass = "is-active";
-	var isBindedClass = "is-binded";
-	var arrange = function (e) {
-		/*!
-		 * true if elem is in same y-axis as the viewport or within 100px of it
-		 * @see {@link https://github.com/ryanve/verge}
-		 */
-		if (verge.inY(e, 100) /* && 0 !== e.offsetHeight */) {
-			if (!e[classList].contains(isBindedClass)) {
-				var srcString = e[dataset].src || "";
-				if (srcString) {
-					if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
-						e[dataset].src = srcString.replace(/^/, getHTTP(true) + ":");
-						srcString = e[dataset].src;
+		var handleExternalLink = function (url, ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			var logicHandleExternalLink = openDeviceBrowser.bind(null, url);
+			var debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
+			debounceLogicHandleExternalLink();
+		};
+		var manageExternalLinkAll = function (scope) {
+			var ctx = scope && scope.nodeName ? scope : "";
+			var linkTag = "a";
+			var link = ctx ? ctx[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
+			var isBindedClass = "is-binded";
+			var arrange = function (e) {
+				if (!e[classList].contains(isBindedClass)) {
+					var url = e[getAttribute]("href") || "";
+					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+						e[title] = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+						if ("undefined" !== typeof getHTTP && getHTTP()) {
+							e.target = "_blank";
+							e.rel = "noopener";
+						} else {
+							e[_addEventListener]("click", handleExternalLink.bind(null, url));
+						}
+						e[classList].add(isBindedClass);
 					}
-					imagePromise(srcString).then(function () {
-						e.src = srcString;
-					}).catch (function (err) {
-						console.log("cannot load image with imagePromise:", srcString, err);
-					});
-					e[classList].add(isActiveClass);
-					e[classList].add(isBindedClass);
-				}
-			}
-		}
-	};
-	if (img) {
-		for (var i = 0, l = img[_length]; i < l; i += 1) {
-			arrange(img[i]);
-		}
-		/* forEach(img, arrange, false); */
-	}
-};
-var handleDataSrcImageAllWindow = function () {
-	var throttleHandleDataSrcImageAll = throttle(handleDataSrcImageAll, 100);
-	throttleHandleDataSrcImageAll();
-};
-var manageDataSrcImageAll = function () {
-	"use strict";
-	var w = root;
-	var _addEventListener = "addEventListener";
-	var _removeEventListener = "removeEventListener";
-	root[_removeEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
-	root[_removeEventListener]("resize", handleDataSrcImageAllWindow);
-	root[_addEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
-	root[_addEventListener]("resize", handleDataSrcImageAllWindow);
-	var timers = new Timers();
-	timers.timeout(function () {
-		timers.clear();
-		timers = null;
-		handleDataSrcImageAll();
-	}, 500);
-};
-manageDataSrcImageAll();
-/*!
- * init superbox
- * If you want coords relative to the parent node, use element.offsetTop.
- * Add element.scrollTop if you want to take the parent scrolling into account.
- * (or use jQuery .position() if you are fan of that library)
- * If you want coords relative to the document use element.getBoundingClientRect().top.
- * Add root.pageYOffset if you want to take the document scrolling into account.
- * Subtract element.clientTop if you don't consider the element border as the part of the element
- * @see {@link https://stackoverflow.com/questions/6777506/offsettop-vs-jquery-offset-top}
- * In IE<=11, calling getBoundingClientRect on an element outside of the DOM
- * throws an unspecified error instead of returning a 0x0 DOMRect. See IE bug #829392.
- * caniuse.com/#feat=getboundingclientrect
- * @see {@link https://stackoverflow.com/questions/3464876/javascript-get-window-x-y-position-for-scroll}
- */
-var initSuperBox = function () {
-	"use strict";
-	var w = root;
-	var d = document;
-	var b = d.body || "";
-	var classList = "classList";
-	var getElementsByClassName = "getElementsByClassName";
-	var getElementsByTagName = "getElementsByTagName";
-	var createElement = "createElement";
-	var setAttribute = "setAttribute";
-	var getAttribute = "getAttribute";
-	var appendChild = "appendChild";
-	var _addEventListener = "addEventListener";
-	var _removeEventListener = "removeEventListener";
-	var s1 = "superbox-list";
-	var s2 = "superbox-show";
-	var s3 = "superbox-current-desc";
-	var s4 = "superbox-close";
-	var s5 = "superbox-desc";
-	var an = "animated";
-	var an1 = "fadeIn";
-	var an2 = "fadeOut";
-	var lists = document[getElementsByClassName](s1) || "";
-	var sShowDiv = document[createElement]("div");
-	var sCloseDiv = document[createElement]("div");
-	var handleItem = function (_this) {
-		var sDesc = _this ? _this[getElementsByClassName](s5)[0] || "" : "";
-		var sDescHtml = sDesc.innerHTML;
-		sShowDiv[classList].add(s2);
-		var sShowDivChild = document[createElement]("div");
-		sShowDivChild[classList].add(s3);
-		sShowDiv[appendChild](sShowDivChild);
-		sCloseDiv[classList].add(s4);
-		/*!
-		 * dont use appendAfter
-		 */
-		_this.parentNode.insertBefore(sShowDiv, _this.nextElementSibling);
-		var sShow = document[getElementsByClassName](s2)[0] || "";
-		setStyleDisplayBlock(sShow);
-		var sCurDesc = document[getElementsByClassName](s3)[0] || "";
-		removeChildren(sCurDesc);
-		sCurDesc.insertAdjacentHTML("beforeend", sDescHtml);
-		sCurDesc[appendChild](sCloseDiv);
-		setStyleOpacity(sCurDesc, 0);
-		setStyleDisplayBlock(sCurDesc);
-		var sRevealPos = _this.offsetTop;
-		var sHidePos = w.pageYOffset || d.documentElement.scrollTop;
-		var timers = new Timers();
-		timers.timeout(function () {
-			timers.clear();
-			timers = null;
-			scroll2Top(sRevealPos, 20000);
-		}, 100);
-		sCurDesc[classList].add(an);
-		sCurDesc[classList].add(an1);
-		/*!
-		 * track clicks on external links
-		 */
-		var link = sCurDesc ? sCurDesc[getElementsByTagName]("a") || "" : "";
-		if (link) {
-			var createCounterImg = function () {
-				var _this = this;
-				var rfrr = encodeURIComponent(d.location.href || ""),
-				ttl = encodeURIComponent(d.title || "").replace("\x27", "&#39;"),
-				hrefString = _this[getAttribute]("href") || "",
-				dmn = hrefString ? encodeURIComponent(hrefString) : "",
-				counterHost = (/^(localhost|127.0.0.1)/).test(root.location.host) ? "http://localhost/externalcounters/" : "";
-				if (counterHost) {
-					var counterElement = document[createElement]("div");
-					counterElement[setAttribute]("style", "position:absolute;left:-9999px;width:1px;height:1px;border:0;background:transparent url(" + counterHost + "?dmn=" + dmn + "&rfrr=" + rfrr + "&ttl=" + ttl + "&encoding=utf-8) top left no-repeat;");
-					appendFragment(counterElement, b);
 				}
 			};
-			var trackClicks = function (e) {
-				var hrefString = e[getAttribute]("href") || "",
-				handleSuperboxExternalLink = function (ev) {
-					ev.preventDefault();
-					ev.stopPropagation();
-					var _this = this;
-					createCounterImg(_this);
-					openDeviceBrowser(hrefString);
-				};
-				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					e.target = "_blank";
-					e.rel = "noopener";
-					e[_addEventListener]("click", createCounterImg);
-				} else {
-					e[_addEventListener]("click", handleSuperboxExternalLink);
+			if (link) {
+				for (var i = 0, l = link[_length]; i < l; i += 1) {
+					arrange(link[i]);
+				}
+				/* forEach(link, arrange, false); */
+			}
+		};
+		manageExternalLinkAll();
+
+		var handleDataSrcImageAll = function () {
+			var imgClass = "data-src-img";
+			var img = document[getElementsByClassName](imgClass) || "";
+			var isActiveClass = "is-active";
+			var isBindedClass = "is-binded";
+			var arrange = function (e) {
+				if (verge.inY(e, 100)) {
+					if (!e[classList].contains(isBindedClass)) {
+						var srcString = e[dataset].src || "";
+						if (srcString) {
+							if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
+								e[dataset].src = srcString.replace(/^/, forcedHTTP + ":");
+								srcString = e[dataset].src;
+							}
+							imagePromise(srcString).then(function () {
+								e.src = srcString;
+							}).catch (function (err) {
+								console.log("cannot load image with imagePromise:", srcString, err);
+							});
+							e[classList].add(isActiveClass);
+							e[classList].add(isBindedClass);
+						}
+					}
 				}
 			};
-			for (var j = 0, l = link[_length]; j < l; j += 1) {
-				trackClicks(link[j]);
+			if (img) {
+				for (var i = 0, l = img[_length]; i < l; i += 1) {
+					arrange(img[i]);
+				}
 			}
-			/* forEach(link, trackClicks, false); */
-		}
-		/*!
-		 * hide description
-		 */
-		var sClose = sCurDesc ? sCurDesc[getElementsByClassName](s4)[0] || "" : "";
-		var doOnClose = function () {
+		};
+		var handleDataSrcImageAllWindow = function () {
+			var throttleHandleDataSrcImageAll = throttle(handleDataSrcImageAll, 100);
+			throttleHandleDataSrcImageAll();
+		};
+		var manageDataSrcImageAll = function () {
+			root[_removeEventListener]("scroll", handleDataSrcImageAllWindow, {
+				passive: true
+			});
+			root[_removeEventListener]("resize", handleDataSrcImageAllWindow);
+			root[_addEventListener]("scroll", handleDataSrcImageAllWindow, {
+				passive: true
+			});
+			root[_addEventListener]("resize", handleDataSrcImageAllWindow);
 			var timers = new Timers();
 			timers.timeout(function () {
 				timers.clear();
 				timers = null;
-				scroll2Top(sHidePos, 20000);
-			}, 100);
-			sCurDesc[classList].remove(an1);
-			sCurDesc[classList].add(an2);
-			var timers2 = new Timers();
-			timers2.timeout(function () {
-				timers2.clear();
-				timers2 = null;
-				setStyleDisplayNone(sCurDesc);
-				setStyleDisplayNone(sShow);
-				sCurDesc[classList].remove(an);
-				sCurDesc[classList].remove(an2);
-			}, 200);
+				handleDataSrcImageAll();
+			}, 500);
 		};
-		if (sClose) {
-			var handleSuperboxClose = function (ev) {
-				ev.preventDefault();
-				ev.stopPropagation();
-				sClose[_removeEventListener]("click", handleSuperboxClose);
-				doOnClose();
-			};
-			sClose[_addEventListener]("click", handleSuperboxClose);
-		}
-	};
-	var addItemHandler = function (e) {
-		var handleSuperboxListItem = function (ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			handleItem(e);
-		};
-		e[_addEventListener]("click", handleSuperboxListItem);
-	};
-	if (lists) {
-		for (var i = 0, l = lists[_length]; i < l; i += 1) {
-			addItemHandler(lists[i]);
-		}
-		/* forEach(lists, addItemHandler(lists[i]); */
-	}
-};
-initSuperBox();
-/*!
- * init qr-code
- * @see {@link https://stackoverflow.com/questions/12777622/how-to-use-enquire-js}
- */
-var manageLocationQrCodeImage = function () {
-	"use strict";
-	var w = root;
-	var d = document;
-	var getElementsByClassName = "getElementsByClassName";
-	var classList = "classList";
-	var createElement = "createElement";
-	var holder = document[getElementsByClassName]("holder-location-qr-code")[0] || "";
-	var locationHref = root.location.href || "";
-	var initScript = function () {
-		var locationHref = root.location.href || "";
-		var img = document[createElement]("img");
-		var imgTitle = d.title ? ("Ссылка на страницу «" + d.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
-		var imgSrc = getHTTP(true) + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(locationHref);
-		img.alt = imgTitle;
-		if (root.QRCode) {
-			if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
-				imgSrc = QRCode.generateSVG(locationHref, {
-						ecclevel: "M",
-						fillcolor: "#FFFFFF",
-						textcolor: "#191919",
-						margin: 4,
-						modulesize: 8
-					});
-				var XMLS = new XMLSerializer();
-				imgSrc = XMLS.serializeToString(imgSrc);
-				imgSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(imgSrc)));
-				img.src = imgSrc;
-			} else {
-				imgSrc = QRCode.generatePNG(locationHref, {
-						ecclevel: "M",
-						format: "html",
-						fillcolor: "#FFFFFF",
-						textcolor: "#191919",
-						margin: 4,
-						modulesize: 8
-					});
-				img.src = imgSrc;
-			}
-		} else {
-			img.src = imgSrc;
-		}
-		img[classList].add("qr-code-img");
-		img.title = imgTitle;
-		removeChildren(holder);
-		appendFragment(img, holder);
-	};
-	if (holder && locationHref) {
-		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			var jsUrl = "../cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js";
-			if (!scriptIsLoaded(jsUrl)) {
-				loadJS(jsUrl, initScript);
-			}
-		}
-	}
-};
-manageLocationQrCodeImage();
-/*!
- * init nav-menu
- */
-var initNavMenu = function () {
-	"use strict";
-	var w = root;
-	var d = document;
-	var getElementById = "getElementById";
-	var getElementsByClassName = "getElementsByClassName";
-	var getElementsByTagName = "getElementsByTagName";
-	var classList = "classList";
-	var _addEventListener = "addEventListener";
-	var container = document[getElementById]("container") || "";
-	var page = document[getElementById]("page") || "";
-	var btnNavMenu = document[getElementsByClassName]("btn-nav-menu")[0] || "";
-	var panelNavMenu = document[getElementsByClassName]("panel-nav-menu")[0] || "";
-	var panelNavMenuItems = panelNavMenu ? panelNavMenu[getElementsByTagName]("a") || "" : "";
-	var holderPanelMenuMore = document[getElementsByClassName]("holder-panel-menu-more")[0] || "";
-	var isActiveClass = "is-active";
-	var locationHref = root.location.href || "";
-	var removeAllActiveClass = function () {
-		page[classList].remove(isActiveClass);
-		panelNavMenu[classList].remove(isActiveClass);
-		btnNavMenu[classList].remove(isActiveClass);
-	};
-	var removeHolderActiveClass = function () {
-		if (holderPanelMenuMore && holderPanelMenuMore[classList].contains(isActiveClass)) {
-			holderPanelMenuMore[classList].remove(isActiveClass);
-		}
-	};
-	var addContainerHandler = function () {
-		var handleContainerLeft = function () {
-			/* console.log("swipeleft"); */
-			removeHolderActiveClass();
-			if (panelNavMenu[classList].contains(isActiveClass)) {
-				removeAllActiveClass();
-			}
-		};
-		var handleContainerRight = function () {
-			/* console.log("swiperight"); */
-			removeHolderActiveClass();
-			var addAllActiveClass = function () {
-				page[classList].add(isActiveClass);
-				panelNavMenu[classList].add(isActiveClass);
-				btnNavMenu[classList].add(isActiveClass);
-			};
-			if (!panelNavMenu[classList].contains(isActiveClass)) {
-				addAllActiveClass();
-			}
-		};
-		container[_addEventListener]("click", handleContainerLeft);
-		if (root.tocca) {
-			if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-				container[_addEventListener]("swipeleft", handleContainerLeft);
-				container[_addEventListener]("swiperight", handleContainerRight);
-			}
-		}
-	};
-	var addBtnHandler = function () {
-		var toggleAllActiveClass = function () {
-			page[classList].toggle(isActiveClass);
-			panelNavMenu[classList].toggle(isActiveClass);
-			btnNavMenu[classList].toggle(isActiveClass);
-		};
-		var handleBtnNavMenu = function (ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			removeHolderActiveClass();
-			toggleAllActiveClass();
-		};
-		btnNavMenu[_addEventListener]("click", handleBtnNavMenu);
-	};
-	var addItemHandlerAll = function () {
-		var addItemHandler = function (e) {
-			var addActiveClass = function (e) {
-				e[classList].add(isActiveClass);
-			};
-			var removeHolderAndAllActiveClass = function () {
-				removeHolderActiveClass();
-				removeAllActiveClass();
-			};
-			var removeActiveClass = function (e) {
-				e[classList].remove(isActiveClass);
-			};
-			var handleItem = function () {
-				if (panelNavMenu[classList].contains(isActiveClass)) {
-					removeHolderAndAllActiveClass();
-				}
-				for (var j = 0, l = panelNavMenuItems[_length]; j < l; j += 1) {
-					removeActiveClass(panelNavMenuItems[j]);
-				}
-				/* forEach(panelNavMenuItems, removeActiveClass, false); */
-				addActiveClass(e);
-			};
-			e[_addEventListener]("click", handleItem);
-			if (locationHref === e.href) {
-				addActiveClass(e);
-			} else {
-				removeActiveClass(e);
-			}
-		};
-		for (var i = 0, l = panelNavMenuItems[_length]; i < l; i += 1) {
-			addItemHandler(panelNavMenuItems[i]);
-		}
-		/* forEach(panelNavMenuItems, addItemHandler, false); */
-	};
-	if (page && container && btnNavMenu && panelNavMenu && panelNavMenuItems) {
+		manageDataSrcImageAll();
+
 		/*!
-		 * close nav on outside click
+		 * init superbox
+		 * If you want coords relative to the parent node, use element.offsetTop.
+		 * Add element.scrollTop if you want to take the parent scrolling into account.
+		 * (or use jQuery .position() if you are fan of that library)
+		 * If you want coords relative to the document use element.getBoundingClientRect().top.
+		 * Add root.pageYOffset if you want to take the document scrolling into account.
+		 * Subtract element.clientTop if you don't consider the element border as the part of the element
+		 * @see {@link https://stackoverflow.com/questions/6777506/offsettop-vs-jquery-offset-top}
+		 * In IE<=11, calling getBoundingClientRect on an element outside of the DOM
+		 * throws an unspecified error instead of returning a 0x0 DOMRect. See IE bug #829392.
+		 * caniuse.com/#feat=getboundingclientrect
+		 * @see {@link https://stackoverflow.com/questions/3464876/javascript-get-window-x-y-position-for-scroll}
 		 */
-		addContainerHandler();
-		/*!
-		 * open or close nav
-		 */
-		addBtnHandler();
-		/*!
-		 * close nav, scroll to top, highlight active nav item
-		 */
-		addItemHandlerAll();
-	}
-};
-initNavMenu();
-/*!
- * init menu-more
- */
-var initMenuMore = function () {
-	"use strict";
-	var d = document;
-	var getElementById = "getElementById";
-	var getElementsByClassName = "getElementsByClassName";
-	var getElementsByTagName = "getElementsByTagName";
-	var classList = "classList";
-	var _addEventListener = "addEventListener";
-	var container = document[getElementById]("container") || "";
-	var page = document[getElementById]("page") || "";
-	var holderPanelMenuMore = document[getElementsByClassName]("holder-panel-menu-more")[0] || "";
-	var btnMenuMore = document[getElementsByClassName]("btn-menu-more")[0] || "";
-	var panelMenuMore = document[getElementsByClassName]("panel-menu-more")[0] || "";
-	var panelMenuMoreItems = panelMenuMore ? panelMenuMore[getElementsByTagName]("li") || "" : "";
-	var panelNavMenu = document[getElementsByClassName]("panel-nav-menu")[0] || "";
-	var isActiveClass = "is-active";
-	var handleItem = function () {
-		page[classList].remove(isActiveClass);
-		holderPanelMenuMore[classList].remove(isActiveClass);
-		if (panelNavMenu && panelNavMenu[classList].contains(isActiveClass)) {
-			panelNavMenu[classList].remove(isActiveClass);
-		}
-	};
-	var addContainerHandler = function () {
-		container[_addEventListener]("click", handleItem);
-	};
-	var addBtnHandler = function () {
-		var handleBtnMenuMore = function (ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			holderPanelMenuMore[classList].toggle(isActiveClass);
-		};
-		btnMenuMore[_addEventListener]("click", handleBtnMenuMore);
-	};
-	var addItemHandlerAll = function () {
-		var addItemHandler = function (e) {
-			e[_addEventListener]("click", handleItem);
-		};
-		for (var i = 0, l = panelMenuMoreItems[_length]; i < l; i += 1) {
-			addItemHandler(panelMenuMoreItems[i]);
-		}
-		/* forEach(panelMenuMoreItems, addItemHandler, false); */
-	};
-	if (page && container && holderPanelMenuMore && btnMenuMore && panelMenuMore && panelMenuMoreItems) {
-		/*!
-		 * hide menu more on outside click
-		 */
-		addContainerHandler();
-		/*!
-		 * show or hide menu more
-		 */
-		addBtnHandler();
-		/*!
-		 * hide menu more on item clicked
-		 */
-		addItemHandlerAll();
-	}
-};
-initMenuMore();
-/*!
- * init ui-totop
- */
-var initUiTotop = function () {
-	"use strict";
-	var w = root;
-	var d = document;
-	var h = d.documentElement || "";
-	var b = d.body || "";
-	var getElementsByClassName = "getElementsByClassName";
-	var classList = "classList";
-	var createElement = "createElement";
-	var appendChild = "appendChild";
-	var _addEventListener = "addEventListener";
-	var btnClass = "ui-totop";
-	var btnTitle = "Наверх";
-	var isActiveClass = "is-active";
-	var anchor = document[createElement]("a");
-	var handleUiTotopAnchor = function (ev) {
-		ev.stopPropagation();
-		ev.preventDefault();
-		scroll2Top(0, 20000);
-	};
-	var handleUiTotopWindow = function (_this) {
-		var logicHandleUiTotopWindow = function () {
-			var btn = document[getElementsByClassName](btnClass)[0] || "";
-			var scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "";
-			var windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
-			if (scrollPosition && windowHeight && btn) {
-				if (scrollPosition > windowHeight) {
-					btn[classList].add(isActiveClass);
-				} else {
-					btn[classList].remove(isActiveClass);
-				}
-			}
-		};
-		var throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
-		throttleLogicHandleUiTotopWindow();
-	};
-	anchor[classList].add(btnClass);
-	/* jshint -W107 */
-	anchor.href = "javascript:void(0);";
-	/* jshint +W107 */
-	anchor.title = btnTitle;
-	/* insertUpSvg(anchor); */
-	b[appendChild](anchor);
-	if (b) {
-		anchor[_addEventListener]("click", handleUiTotopAnchor);
-		root[_addEventListener]("scroll", handleUiTotopWindow, {passive: true});
-	}
-};
-initUiTotop();
-/*!
- * init share btn
- * class ya-share2 automatically triggers Ya.share2,
- * so use either default class ya-share2 or custom id
- * ya-share2 class will be added if you init share block
- * via ya-share2 api
- * @see {@link https://tech.yandex.ru/share/doc/dg/api-docpage/}
- */
-var yshare;
-var manageShareButton = function () {
-	"use strict";
-	var w = root;
-	var d = document;
-	var getElementById = "getElementById";
-	var getElementsByClassName = "getElementsByClassName";
-	var _addEventListener = "addEventListener";
-	var btn = document[getElementsByClassName]("btn-share-buttons")[0] || "";
-	var yaShare2Id = "ya-share2";
-	var yaShare2 = document[getElementById](yaShare2Id) || "";
-	var handleShareButton = function (ev) {
-		ev.stopPropagation();
-		ev.preventDefault();
-		var initScript = function () {
-			if (root.Ya) {
-				try {
-					if (yshare) {
-						yshare.updateContent({
-							title: d.title || "",
-							description: d.title || "",
-							url: root.location.href || ""
-						});
-					} else {
-						yshare = Ya.share2(yaShare2Id, {
-							content: {
-								title: d.title || "",
-								description: d.title || "",
-								url: root.location.href || ""
-							}
-						});
-					}
-					setStyleVisibilityVisible(yaShare2);
-					setStyleOpacity(yaShare2, 1);
-					setStyleDisplayNone(btn);
-				} catch (err) {
-					/* console.log("cannot update or init Ya", err); */
-				}
-			}
-		};
-		var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
-		if (!scriptIsLoaded(jsUrl)) {
-			var load;
-			load = new loadJsCss([jsUrl], initScript);
-		} else {
-			initScript();
-		}
-	};
-	if (btn && yaShare2) {
-		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			btn[_addEventListener]("click", handleShareButton);
-		} else {
-			setStyleDisplayNone(btn);
-		}
-	}
-};
-manageShareButton();
-/*!
- * init vk-like on click
- */
-var manageVKLikeButton = function () {
-	"use strict";
-	var w = root;
-	var d = document;
-	var getElementById = "getElementById";
-	var getElementsByClassName = "getElementsByClassName";
-	var dataset = "dataset";
-	var _addEventListener = "addEventListener";
-	var _removeEventListener = "removeEventListener";
-	var vkLikeId = "vk-like";
-	var vkLike = document[getElementById](vkLikeId) || "";
-	var btn = document[getElementsByClassName]("btn-show-vk-like")[0] || "";
-	var handleVKLikeButton = function (ev) {
-		ev.stopPropagation();
-		ev.preventDefault();
-		btn[_removeEventListener]("click", handleVKLikeButton);
-		setStyleVisibilityVisible(vkLike);
-		setStyleOpacity(vkLike, 1);
-		setStyleDisplayNone(btn);
-		var initScript = function () {
-			if (root.VK) {
-				try {
-					VK.init({
-						apiId: (vkLike[dataset].apiid || ""),
-						nameTransportPath: "/xd_receiver.htm",
-						onlyWidgets: true
-					});
-					VK.Widgets.Like(vkLikeId, {
-						type: "button",
-						height: 24
-					});
-				} catch (err) {
-					/* console.log("cannot init VK", err); */
-				}
-			}
-		};
-		var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?122";
-		if (!scriptIsLoaded(jsUrl)) {
-			var load;
-			load = new loadJsCss([jsUrl], initScript);
-		} else {
-			initScript();
-		}
-	};
-	if (btn && vkLike) {
-		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			btn[_addEventListener]("click", handleVKLikeButton);
-		} else {
-			setStyleDisplayNone(btn);
-		}
-	}
-};
-manageVKLikeButton();
-/*!
- * show page, finish ToProgress
- */
-var showPageFinishProgress = function () {
-	"use strict";
-	var d = document;
-	var getElementsByClassName = "getElementsByClassName";
-	var superbox = document[getElementsByClassName]("superbox")[0] || "";
-	var showPage = function () {
-		setStyleOpacity(superbox, 1);
-		progressBar.increase(20);
-	};
-	if (superbox) {
-		/* if ("undefined" !== typeof imagesPreloaded) {
-			var timers = new Timers();
-			timers.interval(function () {
-				if (imagesPreloaded) {
+		var initSuperBox = function () {
+			var w = root;
+			var d = document;
+			var b = d.body || "";
+			var classList = "classList";
+			var getElementsByClassName = "getElementsByClassName";
+			var getElementsByTagName = "getElementsByTagName";
+			var createElement = "createElement";
+			var setAttribute = "setAttribute";
+			var getAttribute = "getAttribute";
+			var appendChild = "appendChild";
+			var _addEventListener = "addEventListener";
+			var _removeEventListener = "removeEventListener";
+			var s1 = "superbox-list";
+			var s2 = "superbox-show";
+			var s3 = "superbox-current-desc";
+			var s4 = "superbox-close";
+			var s5 = "superbox-desc";
+			var an = "animated";
+			var an1 = "fadeIn";
+			var an2 = "fadeOut";
+			var lists = document[getElementsByClassName](s1) || "";
+			var sShowDiv = document[createElement]("div");
+			var sCloseDiv = document[createElement]("div");
+			var handleItem = function (_this) {
+				var sDesc = _this ? _this[getElementsByClassName](s5)[0] || "" : "";
+				var sDescHtml = sDesc.innerHTML;
+				sShowDiv[classList].add(s2);
+				var sShowDivChild = document[createElement]("div");
+				sShowDivChild[classList].add(s3);
+				sShowDiv[appendChild](sShowDivChild);
+				sCloseDiv[classList].add(s4);
+				/*!
+				 * dont use appendAfter
+				 */
+				_this.parentNode.insertBefore(sShowDiv, _this.nextElementSibling);
+				var sShow = document[getElementsByClassName](s2)[0] || "";
+				setStyleDisplayBlock(sShow);
+				var sCurDesc = document[getElementsByClassName](s3)[0] || "";
+				removeChildren(sCurDesc);
+				sCurDesc.insertAdjacentHTML("beforeend", sDescHtml);
+				sCurDesc[appendChild](sCloseDiv);
+				setStyleOpacity(sCurDesc, 0);
+				setStyleDisplayBlock(sCurDesc);
+				var sRevealPos = _this.offsetTop;
+				var sHidePos = w.pageYOffset || d.documentElement.scrollTop;
+				var timers = new Timers();
+				timers.timeout(function () {
 					timers.clear();
 					timers = null;
-					showPage();
+					scroll2Top(sRevealPos, 20000);
+				}, 100);
+				sCurDesc[classList].add(an);
+				sCurDesc[classList].add(an1);
+				/*!
+				 * track clicks on external links
+				 */
+				var link = sCurDesc ? sCurDesc[getElementsByTagName]("a") || "" : "";
+				if (link) {
+					var createCounterImg = function () {
+						var _this = this;
+						var rfrr = encodeURIComponent(d.location.href || ""),
+						ttl = encodeURIComponent(d.title || "").replace("\x27", "&#39;"),
+						hrefString = _this[getAttribute]("href") || "",
+						dmn = hrefString ? encodeURIComponent(hrefString) : "",
+						counterHost = (/^(localhost|127.0.0.1)/).test(root.location.host) ? "http://localhost/externalcounters/" : "";
+						if (counterHost) {
+							var counterElement = document[createElement]("div");
+							counterElement[setAttribute]("style", "position:absolute;left:-9999px;width:1px;height:1px;border:0;background:transparent url(" + counterHost + "?dmn=" + dmn + "&rfrr=" + rfrr + "&ttl=" + ttl + "&encoding=utf-8) top left no-repeat;");
+							appendFragment(counterElement, b);
+						}
+					};
+					var trackClicks = function (e) {
+						var hrefString = e[getAttribute]("href") || "",
+						handleSuperboxExternalLink = function (ev) {
+							ev.preventDefault();
+							ev.stopPropagation();
+							var _this = this;
+							createCounterImg(_this);
+							openDeviceBrowser(hrefString);
+						};
+						if ("undefined" !== typeof getHTTP && getHTTP()) {
+							e.target = "_blank";
+							e.rel = "noopener";
+							e[_addEventListener]("click", createCounterImg);
+						} else {
+							e[_addEventListener]("click", handleSuperboxExternalLink);
+						}
+					};
+					for (var j = 0, l = link[_length]; j < l; j += 1) {
+						trackClicks(link[j]);
+					}
+					/* forEach(link, trackClicks, false); */
 				}
-			}, 100);
-		} else {
-			showPage();
-		} */
-		showPage();
-	}
-};
-showPageFinishProgress();
+				/*!
+				 * hide description
+				 */
+				var sClose = sCurDesc ? sCurDesc[getElementsByClassName](s4)[0] || "" : "";
+				var doOnClose = function () {
+					var timers = new Timers();
+					timers.timeout(function () {
+						timers.clear();
+						timers = null;
+						scroll2Top(sHidePos, 20000);
+					}, 100);
+					sCurDesc[classList].remove(an1);
+					sCurDesc[classList].add(an2);
+					var timers2 = new Timers();
+					timers2.timeout(function () {
+						timers2.clear();
+						timers2 = null;
+						setStyleDisplayNone(sCurDesc);
+						setStyleDisplayNone(sShow);
+						sCurDesc[classList].remove(an);
+						sCurDesc[classList].remove(an2);
+					}, 200);
+				};
+				if (sClose) {
+					var handleSuperboxClose = function (ev) {
+						ev.preventDefault();
+						ev.stopPropagation();
+						sClose[_removeEventListener]("click", handleSuperboxClose);
+						doOnClose();
+					};
+					sClose[_addEventListener]("click", handleSuperboxClose);
+				}
+			};
+			var addItemHandler = function (e) {
+				var handleSuperboxListItem = function (ev) {
+					ev.stopPropagation();
+					ev.preventDefault();
+					handleItem(e);
+				};
+				e[_addEventListener]("click", handleSuperboxListItem);
+			};
+			if (lists) {
+				for (var i = 0, l = lists[_length]; i < l; i += 1) {
+					addItemHandler(lists[i]);
+				}
+				/* forEach(lists, addItemHandler, false); */
+			}
+		};
+		initSuperBox();
+
+		var qcode;
+		var manageLocationQrCodeImage = function () {
+			var holder = document[getElementsByClassName]("holder-location-qr-code")[0] || "";
+			var locationHref = root.location.href || "";
+			var initScript = function () {
+				if (!qcode) {
+					qcode = true;
+					var locationHref = root.location.href || "";
+					var img = document[createElement]("img");
+					var imgTitle = document.title ? ("Ссылка на страницу «" + document.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
+					var imgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(locationHref);
+					img.alt = imgTitle;
+					if (root.QRCode) {
+						if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
+							imgSrc = QRCode.generateSVG(locationHref, {
+									ecclevel: "M",
+									fillcolor: "#FFFFFF",
+									textcolor: "#191919",
+									margin: 4,
+									modulesize: 8
+								});
+							var XMLS = new XMLSerializer();
+							imgSrc = XMLS.serializeToString(imgSrc);
+							imgSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(imgSrc)));
+							img.src = imgSrc;
+						} else {
+							imgSrc = QRCode.generatePNG(locationHref, {
+									ecclevel: "M",
+									format: "html",
+									fillcolor: "#FFFFFF",
+									textcolor: "#191919",
+									margin: 4,
+									modulesize: 8
+								});
+							img.src = imgSrc;
+						}
+					} else {
+						img.src = imgSrc;
+					}
+					img[classList].add("qr-code-img");
+					img.title = imgTitle;
+					removeChildren(holder);
+					appendFragment(img, holder);
+				}
+			};
+			if (holder && locationHref) {
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					/* var jsUrl = "../../cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js";
+					if (!scriptIsLoaded(jsUrl)) {
+						var load;
+						load = new loadJsCss([jsUrl], initScript);
+					} else {
+						initScript();
+					} */
+					initScript();
+				}
+			}
+		};
+		manageLocationQrCodeImage();
+
+		var initNavMenu = function () {
+			var container = document[getElementById]("container") || "";
+			var page = document[getElementById]("page") || "";
+			var btnNavMenu = document[getElementsByClassName]("btn-nav-menu")[0] || "";
+			var panelNavMenu = document[getElementsByClassName]("panel-nav-menu")[0] || "";
+			var panelNavMenuItems = panelNavMenu ? panelNavMenu[getElementsByTagName]("a") || "" : "";
+			var holderPanelMenuMore = document[getElementsByClassName]("holder-panel-menu-more")[0] || "";
+			var isActiveClass = "is-active";
+			var locationHref = root.location.href || "";
+			var removeAllActiveClass = function () {
+				page[classList].remove(isActiveClass);
+				panelNavMenu[classList].remove(isActiveClass);
+				btnNavMenu[classList].remove(isActiveClass);
+			};
+			var removeHolderActiveClass = function () {
+				if (holderPanelMenuMore && holderPanelMenuMore[classList].contains(isActiveClass)) {
+					holderPanelMenuMore[classList].remove(isActiveClass);
+				}
+			};
+			var addContainerHandler = function () {
+				var handleContainerLeft = function () {
+					removeHolderActiveClass();
+					if (panelNavMenu[classList].contains(isActiveClass)) {
+						removeAllActiveClass();
+					}
+				};
+				var handleContainerRight = function () {
+					removeHolderActiveClass();
+					var addAllActiveClass = function () {
+						page[classList].add(isActiveClass);
+						panelNavMenu[classList].add(isActiveClass);
+						btnNavMenu[classList].add(isActiveClass);
+					};
+					if (!panelNavMenu[classList].contains(isActiveClass)) {
+						addAllActiveClass();
+					}
+				};
+				container[_addEventListener]("click", handleContainerLeft);
+				if (root.tocca) {
+					if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
+						container[_addEventListener]("swipeleft", handleContainerLeft);
+						container[_addEventListener]("swiperight", handleContainerRight);
+					}
+				}
+			};
+			var addBtnHandler = function () {
+				var toggleAllActiveClass = function () {
+					page[classList].toggle(isActiveClass);
+					panelNavMenu[classList].toggle(isActiveClass);
+					btnNavMenu[classList].toggle(isActiveClass);
+				};
+				var handleBtnNavMenu = function (ev) {
+					ev.stopPropagation();
+					ev.preventDefault();
+					removeHolderActiveClass();
+					toggleAllActiveClass();
+				};
+				btnNavMenu[_addEventListener]("click", handleBtnNavMenu);
+			};
+			var addItemHandlerAll = function () {
+				var addItemHandler = function (e) {
+					var addActiveClass = function (e) {
+						e[classList].add(isActiveClass);
+					};
+					var removeHolderAndAllActiveClass = function () {
+						removeHolderActiveClass();
+						removeAllActiveClass();
+					};
+					var removeActiveClass = function (e) {
+						e[classList].remove(isActiveClass);
+					};
+					var handleItem = function () {
+						if (panelNavMenu[classList].contains(isActiveClass)) {
+							removeHolderAndAllActiveClass();
+						}
+						for (var j = 0, l = panelNavMenuItems[_length]; j < l; j += 1) {
+							removeActiveClass(panelNavMenuItems[j]);
+						}
+						addActiveClass(e);
+					};
+					e[_addEventListener]("click", handleItem);
+					if (locationHref === e.href) {
+						addActiveClass(e);
+					} else {
+						removeActiveClass(e);
+					}
+				};
+				for (var i = 0, l = panelNavMenuItems[_length]; i < l; i += 1) {
+					addItemHandler(panelNavMenuItems[i]);
+				}
+			};
+			if (page && container && btnNavMenu && panelNavMenu && panelNavMenuItems) {
+				addContainerHandler();
+				addBtnHandler();
+				addItemHandlerAll();
+			}
+		};
+		initNavMenu();
+
+		var addAppUpdatesLink = function () {
+			var panel = document[getElementsByClassName]("panel-menu-more")[0] || "";
+			var items = panel ? panel[getElementsByTagName]("li") || "" : "";
+			var navigatorUserAgent = navigator.userAgent || "";
+			var linkHref;
+			if (/Windows/i.test(navigatorUserAgent) && /(WOW64|Win64)/i.test(navigatorUserAgent)) {
+				linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-win32-x64-setup.exe";
+			} else if (/(x86_64|x86-64|x64;|amd64|AMD64|x64_64)/i.test(navigatorUserAgent) && /(Linux|X11)/i.test(navigatorUserAgent)) {
+				linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-linux-x64.tar.gz";
+			} else if (/IEMobile/i.test(navigatorUserAgent)) {
+				linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra.Windows10_1.0.0.0_x86_debug.appx";
+			} else {
+				if (/Android/i.test(navigatorUserAgent)) {
+					linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-debug.apk";
+				}
+			}
+			var arrange = function () {
+				var listItem = document[createElement]("li");
+				var link = document[createElement]("a");
+				var linkText = "Скачать приложение сайта";
+				link.title = "" + (parseLink(linkHref).hostname || "") + " откроется в новой вкладке";
+				link.href = linkHref;
+				var handleAppUpdatesLink = function () {
+					openDeviceBrowser(linkHref);
+				};
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					link.target = "_blank";
+					link.rel = "noopener";
+				} else {
+					/* jshint -W107 */
+					link.href = "javascript:void(0);";
+					/* jshint +W107 */
+					link[_addEventListener]("click", handleAppUpdatesLink);
+				}
+				link[appendChild](document[createTextNode]("" + linkText));
+				listItem[appendChild](link);
+				if (panel.hasChildNodes()) {
+					prependFragmentBefore(listItem, panel.firstChild);
+				}
+			};
+			if (panel && items && linkHref) {
+				arrange();
+			}
+		};
+		addAppUpdatesLink();
+
+		var initMenuMore = function () {
+			var container = document[getElementById]("container") || "";
+			var page = document[getElementById]("page") || "";
+			var holderPanelMenuMore = document[getElementsByClassName]("holder-panel-menu-more")[0] || "";
+			var btnMenuMore = document[getElementsByClassName]("btn-menu-more")[0] || "";
+			var panelMenuMore = document[getElementsByClassName]("panel-menu-more")[0] || "";
+			var panelMenuMoreItems = panelMenuMore ? panelMenuMore[getElementsByTagName]("li") || "" : "";
+			var panelNavMenu = document[getElementsByClassName]("panel-nav-menu")[0] || "";
+			var isActiveClass = "is-active";
+			var handleItem = function () {
+				page[classList].remove(isActiveClass);
+				holderPanelMenuMore[classList].remove(isActiveClass);
+				if (panelNavMenu && panelNavMenu[classList].contains(isActiveClass)) {
+					panelNavMenu[classList].remove(isActiveClass);
+				}
+			};
+			var addContainerHandler = function () {
+				container[_addEventListener]("click", handleItem);
+			};
+			var addBtnHandler = function () {
+				var handleBtnMenuMore = function (ev) {
+					ev.stopPropagation();
+					ev.preventDefault();
+					holderPanelMenuMore[classList].toggle(isActiveClass);
+				};
+				btnMenuMore[_addEventListener]("click", handleBtnMenuMore);
+			};
+			var addItemHandlerAll = function () {
+				var addItemHandler = function (e) {
+					e[_addEventListener]("click", handleItem);
+				};
+				for (var i = 0, l = panelMenuMoreItems[_length]; i < l; i += 1) {
+					addItemHandler(panelMenuMoreItems[i]);
+				}
+			};
+			if (page && container && holderPanelMenuMore && btnMenuMore && panelMenuMore && panelMenuMoreItems) {
+				addContainerHandler();
+				addBtnHandler();
+				addItemHandlerAll();
+			}
+		};
+		initMenuMore();
+
+		var hideOtherIsSocial = function (thisObj) {
+			var _thisObj = thisObj || this;
+			var isActiveClass = "is-active";
+			var isSocialAll = document[getElementsByClassName]("is-social") || "";
+			if (isSocialAll) {
+				var k,
+				n;
+				for (k = 0, n = isSocialAll[_length]; k < n; k += 1) {
+					if (_thisObj !== isSocialAll[k]) {
+						isSocialAll[k][classList].remove(isActiveClass);
+					}
+				}
+				k = n = null;
+			}
+		};
+		root[_addEventListener]("click", hideOtherIsSocial);
+
+		var yshare;
+		var manageShareButton = function () {
+			var btn = document[getElementsByClassName]("btn-share-buttons")[0] || "";
+			var yaShare2Id = "ya-share2";
+			var yaShare2 = document[getElementById](yaShare2Id) || "";
+			var locationHref = root.location || "";
+			var documentTitle = document[title] || "";
+			var isActiveClass = "is-active";
+			var handleShareButton = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var logic = function () {
+					yaShare2[classList].toggle(isActiveClass);
+					hideOtherIsSocial(yaShare2);
+					var initScript = function () {
+						if (root.Ya) {
+							try {
+								if (yshare) {
+									yshare.updateContent({
+										title: documentTitle,
+										description: documentTitle,
+										url: locationHref
+									});
+								} else {
+									yshare = Ya.share2(yaShare2Id, {
+										content: {
+											title: documentTitle,
+											description: documentTitle,
+											url: locationHref
+										}
+									});
+								}
+							} catch (err) {
+								/* console.log("cannot update or init Ya", err); */
+							}
+						}
+					};
+					var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
+					if (!scriptIsLoaded(jsUrl)) {
+						var load;
+						load = new loadJsCss([jsUrl], initScript);
+					} else {
+						initScript();
+					}
+				};
+				var debounceLogic = debounce(logic, 200);
+				debounceLogic();
+			};
+			if (btn && yaShare2) {
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					btn[_addEventListener]("click", handleShareButton);
+				} else {
+					setStyleDisplayNone(btn);
+				}
+			}
+		};
+		manageShareButton();
+
+		var vlike;
+		var manageVKLikeButton = function () {
+			var vkLikeId = "vk-like";
+			var vkLike = document[getElementById](vkLikeId) || "";
+			var holderVkLike = document[getElementsByClassName]("holder-vk-like")[0] || "";
+			var btn = document[getElementsByClassName]("btn-show-vk-like")[0] || "";
+			var isActiveClass = "is-active";
+			var handleVKLikeButton = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var logic = function () {
+					holderVkLike[classList].toggle(isActiveClass);
+					hideOtherIsSocial(holderVkLike);
+					var initScript = function () {
+						if (root.VK) {
+							if (!vlike) {
+								try {
+									VK.init({
+										apiId: (vkLike[dataset].apiid || ""),
+										nameTransportPath: "/xd_receiver.htm",
+										onlyWidgets: true
+									});
+									VK.Widgets.Like(vkLikeId, {
+										type: "button",
+										height: 24
+									});
+									vlike = true;
+								} catch (err) {
+									/* console.log("cannot init VK", err); */
+								}
+							}
+						}
+					};
+					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?147";
+					if (!scriptIsLoaded(jsUrl)) {
+						var load;
+						load = new loadJsCss([jsUrl], initScript);
+					} else {
+						initScript();
+					}
+				};
+				var debounceLogic = debounce(logic, 200);
+				debounceLogic();
+			};
+			if (btn && vkLike) {
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					btn[_addEventListener]("click", handleVKLikeButton);
+				} else {
+					setStyleDisplayNone(btn);
+				}
+			}
+		};
+		manageVKLikeButton();
+
+		var initUiTotop = function () {
+			var btnClass = "ui-totop";
+			var btnTitle = "Наверх";
+			var isActiveClass = "is-active";
+			var anchor = document[createElement]("a");
+			var handleUiTotopAnchor = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				scroll2Top(0, 20000);
+			};
+			var handleUiTotopWindow = function (_this) {
+				var logicHandleUiTotopWindow = function () {
+					var btn = document[getElementsByClassName](btnClass)[0] || "";
+					var scrollPosition = _this.pageYOffset || docElem.scrollTop || docBody.scrollTop || "";
+					var windowHeight = _this.innerHeight || docElem.clientHeight || docBody.clientHeight || "";
+					if (scrollPosition && windowHeight && btn) {
+						if (scrollPosition > windowHeight) {
+							btn[classList].add(isActiveClass);
+						} else {
+							btn[classList].remove(isActiveClass);
+						}
+					}
+				};
+				var throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
+				throttleLogicHandleUiTotopWindow();
+			};
+			anchor[classList].add(btnClass);
+			/* jshint -W107 */
+			anchor.href = "javascript:void(0);";
+			/* jshint +W107 */
+			anchor.title = btnTitle;
+			docBody[appendChild](anchor);
+			if (docBody) {
+				anchor[_addEventListener]("click", handleUiTotopAnchor);
+				root[_addEventListener]("scroll", handleUiTotopWindow, {
+					passive: true
+				});
+			}
+		};
+		initUiTotop();
+
 		hideProgressBar();
+	};
+
+	var scripts = ["../../libs/english_for_free/css/bundle.min.css"];
+
+	var supportsPassive = (function () {
+		var support = false;
+		try {
+			var opts = Object[defineProperty] && Object[defineProperty]({}, "passive", {
+					get: function () {
+						support = true;
+					}
+				});
+			root[_addEventListener]("test", function () {}, opts);
+		} catch (err) {}
+		return support;
+	})();
+
+	var needsPolyfills = (function () {
+		return !supportsPassive ||
+		!root.requestAnimationFrame ||
+		!root.matchMedia ||
+		("undefined" === typeof root.Element && !("dataset" in docElem)) ||
+		!("classList" in document[createElement]("_")) ||
+		document[createElementNS] && !("classList" in document[createElementNS]("http://www.w3.org/2000/svg", "g")) ||
+		/* !document.importNode || */
+		/* !("content" in document[createElement]("template")) || */
+		(root.attachEvent && !root[_addEventListener]) ||
+		!("onhashchange" in root) ||
+		!Array.prototype.indexOf ||
+		!root.Promise ||
+		!root.fetch ||
+		!document[querySelectorAll] ||
+		!document[querySelector] ||
+		!Function.prototype.bind ||
+		(Object[defineProperty] &&
+			Object[getOwnPropertyDescriptor] &&
+			Object[getOwnPropertyDescriptor](Element.prototype, "textContent") &&
+			!Object[getOwnPropertyDescriptor](Element.prototype, "textContent").get) ||
+		!("undefined" !== typeof root.localStorage && "undefined" !== typeof root.sessionStorage) ||
+		!root.WeakMap ||
+		!root.MutationObserver;
+	})();
+
+	if (needsPolyfills) {
+		scripts.push("../../cdn/polyfills/js/polyfills.fixed.min.js");
+	}
+
+	/* var scripts = ["../../cdn/verge/1.9.1/js/verge.fixed.min.js",
+		"../../cdn/Tocca.js/2.0.1/js/Tocca.fixed.min.js"]; */
+
+	scripts.push("../../libs/english_for_free/js/vendors.min.js");
+
+	/*!
+	 * load scripts after webfonts loaded using doesFontExist
+	 */
+
+	var supportsCanvas = (function () {
+		var elem = document[createElement]("canvas");
+		return !!(elem.getContext && elem.getContext("2d"));
+	})();
+
+	var onFontsLoadedCallback = function () {
+
+		var slot;
+		var onFontsLoaded = function () {
+			clearInterval(slot);
+			slot = null;
+
+			progressBar.increase(20);
+
+			var load;
+			load = new loadJsCss(scripts, run);
+		};
+
+		var checkFontIsLoaded = function () {
+			/*!
+			 * check only for fonts that are used in current page
+			 */
+			if (doesFontExist("Roboto") /* && doesFontExist("Roboto Mono") */) {
+				onFontsLoaded();
+			}
+		};
+
+		if (supportsCanvas) {
+			slot = setInterval(checkFontIsLoaded, 100);
+		} else {
+			slot = null;
+			onFontsLoaded();
+		}
+	};
+
+	loadCSS(
+			forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic,latin-ext",
+			onFontsLoadedCallback
+		);
+
+	/*!
+	 * load scripts after webfonts loaded using webfontloader
+	 */
+
+	/* root.WebFontConfig = {
+		google: {
+			families: [
+				"Roboto:300,400,400i,700,700i:cyrillic",
+				"Roboto Mono:400,700:cyrillic,latin-ext"
+			]
+		},
+		listeners: [],
+		active: function () {
+			this.called_ready = true;
+			for (var i = 0; i < this.listeners[_length]; i++) {
+				this.listeners[i]();
+			}
+		},
+		ready: function (callback) {
+			if (this.called_ready) {
+				callback();
+			} else {
+				this.listeners.push(callback);
+			}
+		}
+	};
+
+	var onFontsLoadedCallback = function () {
+
+		var onFontsLoaded = function () {
+			progressBar.increase(20);
+
+			var load;
+			load = new loadJsCss(scripts, run);
+		};
+
+		root.WebFontConfig.ready(onFontsLoaded);
+	};
+
+	var load;
+	load = new loadJsCss(
+			[forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"],
+			onFontsLoadedCallback
+		); */
+})("undefined" !== typeof window ? window : this, document);

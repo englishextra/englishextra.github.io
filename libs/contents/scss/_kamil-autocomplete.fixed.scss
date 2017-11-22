@@ -8,10 +8,10 @@
  */
 .kamil-autocomplete {
 	display: none;
-	max-height: 15.000rem;
+	max-height: 16.000rem;
 	position: absolute;
 	list-style: none;
-	font-size: 0.875em;
+	font-size: 0.867rem;
 	text-align: left;
 	overflow-y: auto;
 	color: inherit;
@@ -19,11 +19,12 @@
 	border: 0.067rem solid $AccentColor;
 	border-radius: 0;
 	box-sizing: border-box;
-	box-shadow: 0.125rem 0.125rem 0.125rem 0 $color-rgba-ui-bar-shadow;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
 	outline: none;
 	padding: 0;
 	margin: 0;
 }
+
 .kamil-autocomplete li {
 	font-weight: 400;
 	line-height: 3.200rem;
@@ -33,11 +34,52 @@
 	padding-left: 1.333rem;
 	cursor: pointer;
 }
+
 .kamil-autocomplete li.kamil-active,
 .kamil-autocomplete li:hover {
 	color: inherit;
 	background-color: $TitleBarAndAppBarLight;
 }
+
+/* .kamil-autocomplete li:focus, */
+.kamil-autocomplete li:active {
+	color: $color-hex-body-text;
+	background-color: $AccentColor;
+}.kamil-autocomplete {
+	display: none;
+	max-height: 16.000rem;
+	position: absolute;
+	list-style: none;
+	font-size: 0.867rem;
+	text-align: left;
+	overflow-y: auto;
+	color: inherit;
+	background-color: $LeftNavBarLight;
+	border: 0.067rem solid $AccentColor;
+	border-radius: 0;
+	box-sizing: border-box;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+	outline: none;
+	padding: 0;
+	margin: 0;
+}
+
+.kamil-autocomplete li {
+	font-weight: 400;
+	line-height: 3.200rem;
+	overflow-x: hidden;
+	white-space: nowrap;
+	padding-right: 1.333rem;
+	padding-left: 1.333rem;
+	cursor: pointer;
+}
+
+.kamil-autocomplete li.kamil-active,
+.kamil-autocomplete li:hover {
+	color: inherit;
+	background-color: $TitleBarAndAppBarLight;
+}
+
 /* .kamil-autocomplete li:focus, */
 .kamil-autocomplete li:active {
 	color: $color-hex-body-text;

@@ -1,4 +1,4 @@
-/*! @import "portfolio-main"; */
+/*! @import "main"; */
 
 /**
  * main
@@ -176,6 +176,11 @@ u,
 .page.is-active {
 	position: relative;
 	left: 18.133rem;
+}
+
+.page img,
+.superbox img {
+	display: block;
 }
 
 .panel-nav-top {
@@ -414,7 +419,11 @@ u,
  * other
  */
 
- .container h1 {
+.container h1 {
+	width: 100%;
+	position: absolute;
+	top: 0;
+	font-size: 1.200rem;
 	font-weight: 300;
 	line-height: 3.200rem;
 	text-align: center;
@@ -424,45 +433,11 @@ u,
 	margin: 0;
 }
 
-@media only screen and (max-width: 20em) {
-	.container h1 {
-		font-size: 0.938rem;
-	}
-}
-
-@media only screen and (min-width: 20.063em) {
-	.container h1 {
-		font-size: 1.100rem;
-	}
-}
-
-@media only screen and (min-width: 30.063em) {
-	.container h1 {
-		font-size: 1.210rem;
-	}
-}
-
-@media only screen and (min-width: 40.063em) {
-	.container h1 {
-		font-size: 1.500rem;
-	}
-}
-
-@media only screen and (min-width: 60.063em) {
-	.container h1 {
-		width: 100%;
-		position: absolute;
-		top: 0;
-		left: 8.800rem;
-		padding-right: 17.600rem;
-	}
-}
-
 /**
  * retina
  */
 
-@media only screen and (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+@media (min-resolution: 192dpi) {
 }
 
 /**
@@ -472,7 +447,7 @@ u,
  * msdn.microsoft.com/en-us/library/windows/apps/hh202920%28v=vs.105%29.aspx
  */
 
-@media only screen and (max-width: 480px) {
+/* @media only screen and (max-width: 480px) {
 	body {
 		font-family: "Roboto", $font-family-local-sans-regular;
 	}
@@ -482,7 +457,7 @@ u,
 	.superbox-current-desc h2 {
 		font-family: $font-family-local-sans-light;
 	}
-}
+} */
 
 /*!
  * @see {@link https://gist.github.com/englishextra/40b7c4ffde33bfb58aff259afe229d6a}

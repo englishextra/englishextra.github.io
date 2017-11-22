@@ -641,7 +641,7 @@ html {
 
 body {
 	font-size: 1.000rem;
-	line-height: 1.500rem;
+	line-height: 1.333rem;
 }
 
 .col div,
@@ -1387,7 +1387,7 @@ body {
 
 .col hr,
 .col .hr {
-	height: 0.063rem;
+	height: 0.067rem;
 	padding: 0;
 	margin: 1.500rem 0 1.438rem 0;
 }
@@ -1723,27 +1723,27 @@ body {
 
 .col table {
 	border: none;
-	border-top-width: 0.063rem;
+	border-top-width: 0.067rem;
 	border-top-style: solid;
 	border-top-color: #C3C3C3;
-	border-right-width: 0.063rem;
+	border-right-width: 0.067rem;
 	border-right-style: solid;
 	border-right-color: #C3C3C3;
-	border-left-width: 0.063rem;
+	border-left-width: 0.067rem;
 	border-left-style: solid;
 	border-left-color: #C3C3C3;
 }
 
 .col table th {
 	border: none;
-	border-bottom-width: 0.063rem;
+	border-bottom-width: 0.067rem;
 	border-bottom-style: solid;
 	border-bottom-color: #C3C3C3;
 }
 
 .col table td {
 	border: none;
-	border-bottom-width: 0.063rem;
+	border-bottom-width: 0.067rem;
 	border-bottom-style: solid;
 	border-bottom-color: #C3C3C3;
 }
@@ -2554,7 +2554,7 @@ body {
 	width: 3.200rem;
 	height: 3.200rem;
 	position: fixed;
-	right: 3.000rem;
+	right: 3.200rem;
 	bottom: 0;
 	text-indent: 0;
 	text-align: center;
@@ -3459,7 +3459,7 @@ u,
 	color: inherit;
 	border-color: transparent;
 	border-style: solid;
-	border-width: 0.063rem;
+	border-width: 0.067rem;
 	-webkit-transition: width 0.2s linear;
 	transition: width 0.2s linear;
 	-webkit-transition-delay: 0.2s;
@@ -3630,7 +3630,7 @@ u,
 	color: inherit;
 	border-bottom-color: inherit;
 	border-bottom-style: solid;
-	border-bottom-width: 0.063rem;
+	border-bottom-width: 0.067rem;
 }
 
 .col dl dt a:focus,
@@ -3738,27 +3738,27 @@ u,
 
 .col table {
 	border: none;
-	border-top-width: 0.063rem;
+	border-top-width: 0.067rem;
 	border-top-style: solid;
 	border-top-color: #C3C3C3;
-	border-right-width: 0.063rem;
+	border-right-width: 0.067rem;
 	border-right-style: solid;
 	border-right-color: #C3C3C3;
-	border-left-width: 0.063rem;
+	border-left-width: 0.067rem;
 	border-left-style: solid;
 	border-left-color: #C3C3C3;
 }
 
 .col table th {
 	border: none;
-	border-bottom-width: 0.063rem;
+	border-bottom-width: 0.067rem;
 	border-bottom-style: solid;
 	border-bottom-color: #C3C3C3;
 }
 
 .col table td {
 	border: none;
-	border-bottom-width: 0.063rem;
+	border-bottom-width: 0.067rem;
 	border-bottom-style: solid;
 	border-bottom-color: #C3C3C3;
 }
@@ -3810,7 +3810,7 @@ u,
 
 .col hr,
 .col .hr {
-	height: 0.063rem;
+	height: 0.067rem;
 	background-color: #C3C3C3;
 }
 
@@ -3822,7 +3822,7 @@ u,
 
 .col .underline {
 	text-decoration: none;
-	border-bottom-width: 0.063rem;
+	border-bottom-width: 0.067rem;
 	border-bottom-style: solid;
 	border-bottom-color: inherit;
 }
@@ -4112,7 +4112,7 @@ u,
 	content: "\e907";
 	font-size: 0.500rem;
 	position: relative;
-	top: 0.063rem;
+	top: 0.067rem;
 	visibility: hidden;
 }
 
@@ -4259,7 +4259,7 @@ u,
 	font-family: "Roboto", "Segoe UI", "Segoe WP", "HelveticaNeue", "Roboto", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
 	font-weight: 400;
 	font-size: 1.000rem;
-	line-height: 1.500rem;
+	line-height: 1.333rem;
 	padding: 0;
 	margin: 0;
 }
@@ -4277,7 +4277,7 @@ u,
 	font-family: "Roboto Mono", "Consolas", "Monaco", "Droid Sans Mono", "Inconsolata", "Source Code Pro", monospace;
 	font-weight: 400;
 	font-size: 1.000rem;
-	line-height: 1.500rem;
+	line-height: 1.333rem;
 	padding: 0;
 	margin: 0;
 }
@@ -4574,7 +4574,7 @@ u,
 
 .col .footer a {
 	color: #616161;
-	border-bottom-width: 0.063rem;
+	border-bottom-width: 0.067rem;
 	border-bottom-style: solid;
 	border-bottom-color: #616161;
 }

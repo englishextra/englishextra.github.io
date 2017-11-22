@@ -334,6 +334,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 	"use strict";
 
 	var docElem = document.documentElement || "";
+	var docBody = document.body || "";
 
 	var createElement = "createElement";
 	var createElementNS = "createElementNS";
@@ -396,17 +397,22 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 		var parentNode = "parentNode";
 		var style = "style";
 		var title = "title";
-		
+
+		var isActiveClass = "is-active";
+		var isBindedClass = "is-binded";
+		var isFixedClass = "is-fixed";
+		var isHiddenClass = "is-hidden";
+
+		var documentTitle = document[title] || "";
+		var locationHref = root.location[href] || "";
+		var navigatorUserAgent = navigator.userAgent || "";
+
 		progressBar.increase(20);
 
 		if (docElem && docElem[classList]) {
 			docElem[classList].remove("no-js");
 			docElem[classList].add("js");
 		}
-
-		var documentTitle = document[title] || "";
-
-		var navigatorUserAgent = navigator.userAgent || "";
 
 		var getHumanDate = (function () {
 			var newDate = (new Date());
@@ -594,7 +600,82 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 			};
 		};
 
-		var isBindedClass = "is-binded";
+		var throttle = function (func, wait) {
+			var ctx;
+			var args;
+			var rtn;
+			var timeoutID;
+			var last = 0;
+			function call() {
+				timeoutID = 0;
+				last = +new Date();
+				rtn = func.apply(ctx, args);
+				ctx = null;
+				args = null;
+			}
+			return function throttled() {
+				ctx = this;
+				args = arguments;
+				var delta = new Date() - last;
+				if (!timeoutID) {
+					if (delta >= wait) {
+						call();
+					} else {
+						timeoutID = setTimeout(call, wait - delta);
+					}
+				}
+				return rtn;
+			};
+		};
+
+		var scroll2Top = function (scrollTargetY, speed, easing) {
+			var scrollY = root.scrollY || docElem.scrollTop;
+			var posY = scrollTargetY || 0;
+			var rate = speed || 2000;
+			var soothing = easing || "easeOutSine";
+			var currentTime = 0;
+			var time = Math.max(0.1, Math.min(Math.abs(scrollY - posY) / rate, 0.8));
+			var easingEquations = {
+				easeOutSine: function (pos) {
+					return Math.sin(pos * (Math.PI / 2));
+				},
+				easeInOutSine: function (pos) {
+					return (-0.5 * (Math.cos(Math.PI * pos) - 1));
+				},
+				easeInOutQuint: function (pos) {
+					if ((pos /= 0.5) < 1) {
+						return 0.5 * Math.pow(pos, 5);
+					}
+					return 0.5 * (Math.pow((pos - 2), 5) + 2);
+				}
+			};
+			function tick() {
+				currentTime += 1 / 60;
+				var p = currentTime / time;
+				var t = easingEquations[soothing](p);
+				if (p < 1) {
+					requestAnimationFrame(tick);
+					root.scrollTo(0, scrollY + ((posY - scrollY) * t));
+				} else {
+					root.scrollTo(0, posY);
+				}
+			}
+			tick();
+		};
+
+		var scriptIsLoaded = function (scriptSrc) {
+			var scriptAll,
+			i,
+			l;
+			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[_length]; i < l; i += 1) {
+				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
+					scriptAll = i = l = null;
+					return true;
+				}
+			}
+			scriptAll = i = l = null;
+			return false;
+		};
 
 		var manageExternalLinkAll = function (scope) {
 			var context = scope && scope.nodeName ? scope : "";
@@ -640,7 +721,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 
 		manageExternalLinkAll(wrapper);
 
-		var imgClass = "data-src-img";
+		var dataSrcImgClass = "data-src-img";
 		var jsonSrcKeyName = "src";
 		var jsonWidthKeyName = "width";
 		var jsonHeightKeyName = "height";
@@ -759,7 +840,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 				 */
 				var pagesKeysNumber = countObjKeys(jsonObj.pages);
 				insertFromTemplate(jsonObj, "template_zoomwall", "target_zoomwall", function () {
-					if (wrapper[getElementsByClassName](imgClass)[pagesKeysNumber - 1]) {
+					if (wrapper[getElementsByClassName](dataSrcImgClass)[pagesKeysNumber - 1]) {
 						resolve();
 					} else {
 						reject();
@@ -802,7 +883,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 								}
 							}
 							img[dataset][jsonSrcKeyName] = jsonObj[key][jsonSrcKeyName];
-							img[classList].add(imgClass);
+							img[classList].add(dataSrcImgClass);
 							img[alt] = jsonObj[key][jsonTitleKeyName];
 							img[title] = jsonObj[key][jsonTitleKeyName];
 
@@ -838,7 +919,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 			clearTimeout(timerSetLazyloading);
 			timerSetLazyloading = null;
 
-			echo(imgClass, jsonSrcKeyName);
+			echo(dataSrcImgClass, jsonSrcKeyName);
 		};
 
 		var myHeaders = new Headers();
@@ -866,24 +947,6 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 			console.log("cannot parse", jsonUrl, err);
 		});
 
-		var locationHref = root.location[href] || "";
-
-		var scriptIsLoaded = function (scriptSrc) {
-			var scriptAll,
-			i,
-			l;
-			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[_length]; i < l; i += 1) {
-				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
-					scriptAll = i = l = null;
-					return true;
-				}
-			}
-			scriptAll = i = l = null;
-			return false;
-		};
-
-		var isActiveClass = "is-active";
-
 		var hideOtherIsSocial = function (thisObj) {
 			var _thisObj = thisObj || this;
 			var isSocialAll = document[getElementsByClassName]("is-social") || "";
@@ -898,7 +961,6 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 				k = n = null;
 			}
 		};
-
 		root[_addEventListener]("click", hideOtherIsSocial);
 
 		var yaShare2Id = "ya-share2";
@@ -1006,37 +1068,8 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 			btnLikeLink[_addEventListener]("click", showVkLike);
 		}
 
-		var throttle = function (func, wait) {
-			var ctx;
-			var args;
-			var rtn;
-			var timeoutID;
-			var last = 0;
-			function call() {
-				timeoutID = 0;
-				last = +new Date();
-				rtn = func.apply(ctx, args);
-				ctx = null;
-				args = null;
-			}
-			return function throttled() {
-				ctx = this;
-				args = arguments;
-				var delta = new Date() - last;
-				if (!timeoutID) {
-					if (delta >= wait) {
-						call();
-					} else {
-						timeoutID = setTimeout(call, wait - delta);
-					}
-				}
-				return rtn;
-			};
-		};
-
 		var titleBar = document[getElementsByClassName]("title-bar")[0] || "";
 		var titleBarHeight = titleBar.offsetHeight || 0;
-		var isFixedClass = "is-fixed";
 
 		/*!
 		 * set fixed on scroll/swipedependong on titleBar position
@@ -1127,8 +1160,6 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 		 * and titleBar position
 		 * needs transition top 0.4s ease out in CSS for .title-bar
 		 */
-		var isHiddenClass = "is-hidden";
-
 		var hideTitleBar = function () {
 			var logic = function () {
 				titleBar[classList].remove(isFixedClass);
@@ -1191,42 +1222,6 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 			}
 		}
 
-		var scroll2Top = function (scrollTargetY, speed, easing) {
-			var scrollY = root.scrollY || docElem.scrollTop;
-			var posY = scrollTargetY || 0;
-			var rate = speed || 2000;
-			var soothing = easing || "easeOutSine";
-			var currentTime = 0;
-			var time = Math.max(0.1, Math.min(Math.abs(scrollY - posY) / rate, 0.8));
-			var easingEquations = {
-				easeOutSine: function (pos) {
-					return Math.sin(pos * (Math.PI / 2));
-				},
-				easeInOutSine: function (pos) {
-					return (-0.5 * (Math.cos(Math.PI * pos) - 1));
-				},
-				easeInOutQuint: function (pos) {
-					if ((pos /= 0.5) < 1) {
-						return 0.5 * Math.pow(pos, 5);
-					}
-					return 0.5 * (Math.pow((pos - 2), 5) + 2);
-				}
-			};
-			function tick() {
-				currentTime += 1 / 60;
-				var p = currentTime / time;
-				var t = easingEquations[soothing](p);
-				if (p < 1) {
-					requestAnimationFrame(tick);
-					root.scrollTo(0, scrollY + ((posY - scrollY) * t));
-				} else {
-					root.scrollTo(0, posY);
-				}
-			}
-			tick();
-		};
-
-		var docBody = document[body] || "";
 		var btnClass = "btn-totop";
 		var btnTotop = document[getElementsByClassName](btnClass)[0] || "";
 		var handleBtnTotop = function (evt) {
@@ -1301,18 +1296,12 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 		scripts.push("../../cdn/polyfills/js/polyfills.fixed.min.js");
 	}
 
-	/* scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/platform@1.3.4/platform.min.js",
+	/* scripts.push("./cdn/platform/1.3.4/js/platform.fixed.min.js",
 		"./cdn/zoomwall.js/1.1.1/js/zoomwall.fixed.min.js",
 		"./cdn/echo.js/0.1.0/js/echo.fixed.min.js",
-		"./cdn/t.js/0.1.0/js/t.fixed.min.js");
-
-	if (hasTouch) {
-		scripts.push(forcedHTTP + "://cdnjs.cloudflare.com/ajax/libs/Tocca.js/2.0.1/Tocca.min.js");
-	} else {
-		if (hasWheel) {
-			scripts.push("./cdn/wheel-indicator/1.1.4/js/wheel-indicator.fixed.min.js");
-		}
-	} */
+		"./cdn/t.js/0.1.0/js/t.fixed.min.js",
+		"./cdn/Tocca.js/2.0.1/js/Tocca.fixed.min.js",
+		"./cdn/wheel-indicator/1.1.4/js/wheel-indicator.fixed.min.js"); */
 
 	scripts.push("./libs/picturewall/js/vendors.min.js");
 

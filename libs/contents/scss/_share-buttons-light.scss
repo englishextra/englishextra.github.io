@@ -64,12 +64,17 @@
 	transition: visibility 0s, opacity 0.2s ease;
 }
 
+.pluso.is-active {
+	visibility: visible;
+	opacity: 1;
+}
+
 .btn-share-buttons {
 	display: inline-block;
 	width: 3.200rem;
 	height: 3.200rem;
 	position: fixed;
-	right: 3.000rem;
+	right: 3.200rem;
 	bottom: 0;
 	text-indent: 0;
 	text-align: center;

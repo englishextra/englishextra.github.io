@@ -18,8 +18,9 @@
 .superbox {
 	display: block;
 	max-width: 100%;
-	opacity: 0;
-	transition: opacity 0.2s ease;
+	visibility: visible;
+	opacity: 1;
+	transition: visibility 0s, opacity 0.2s ease;
 	margin: 0 auto;
 }
 
@@ -61,12 +62,12 @@
 	background-color: $color-hex-darker-ui-bar-bg;
 	box-shadow: inset 0 0.063em 0.313em $color-rgba-darker-ui-bar-inset-shadow;
 	margin: 0 auto;
-	padding: 2.500em 1.500em 2.750em 1.500em;
+	padding: 2.400rem 1.333rem 2.667rem 1.333rem;
 }
 
 .superbox-current-desc {
 	display: none;
-	max-width: 37.500rem;
+	max-width: 40.000rem;
 	color: #FFFFFF;
 	margin: 0 auto;
 }
@@ -74,7 +75,7 @@
 .superbox-current-desc h2 {
 	font-weight: 300;
 	display: block;
-	font-size: 1.772rem;
+	font-size: 1.600rem;
 	line-height: 1.200;
 	color: inherit;
 	clear: both;
@@ -91,7 +92,7 @@
 	display: block;
 	font-weight: 400;
 	font-size: 1.000rem;
-	line-height: 1.500rem;
+	line-height: 1.333rem;
 	color: inherit;
 }
 
@@ -103,7 +104,7 @@
 .superbox-current-desc p a:active {
 	border-bottom-color: inherit;
 	border-bottom-style: solid;
-	border-bottom-width: 0.063rem;
+	border-bottom-width: 0.067rem;
 }
 
 .superbox-float {

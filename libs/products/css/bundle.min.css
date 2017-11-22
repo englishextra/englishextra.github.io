@@ -754,7 +754,7 @@ template {
 	width: 3.200rem;
 	height: 3.200rem;
 	position: fixed;
-	right: 3.000rem;
+	right: 3.200rem;
 	bottom: 0;
 	text-indent: 0;
 	text-align: center;
@@ -895,7 +895,7 @@ body {
 [class^="slide-"] h2 a {
 	color: inherit;
 	text-decoration: none;
-	border-bottom-width: 0.063rem;
+	border-bottom-width: 0.067rem;
 	border-bottom-style: solid;
 	border-bottom-color: inherit;
 	-webkit-tap-highlight-color: transparent;
