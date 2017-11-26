@@ -1,15 +1,7 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global debounce, getHTTP, loadJS,
-openDeviceBrowser, parseLink, Promise, require, scriptIsLoaded,
-scroll2Top, setStyleDisplayNone, setStyleOpacity,
-setStyleVisibilityVisible, throttle, ToProgress, Ya */
-/*property console, split */
-/*!
- * define global root
- */
-/* var root = "object" === typeof window && window || "object" === typeof self && self || "object" === typeof global && global || {}; */
-var root = "undefined" !== typeof window ? window : this;
+/*global doesFontExist, loadCSS, loadJsCss, require, ToProgress, Ya*/
+/*property console, join, split */
 /*!
  * safe way to handle console.log
  * @see {@link https://github.com/paulmillr/console-polyfill}
@@ -337,45 +329,63 @@ var root = "undefined" !== typeof window ? window : this;
 /*!
  * app logic
  */
-		var scroll2Top = function (scrollTargetY, speed, easing) {
-			var scrollY = root.scrollY || docElem.scrollTop;
-			var posY = scrollTargetY || 0;
-			var rate = speed || 2000;
-			var soothing = easing || "easeOutSine";
-			var currentTime = 0;
-			var time = Math.max(0.1, Math.min(Math.abs(scrollY - posY) / rate, 0.8));
-			var easingEquations = {
-				easeOutSine: function (pos) {
-					return Math.sin(pos * (Math.PI / 2));
-				},
-				easeInOutSine: function (pos) {
-					return (-0.5 * (Math.cos(Math.PI * pos) - 1));
-				},
-				easeInOutQuint: function (pos) {
-					if ((pos /= 0.5) < 1) {
-						return 0.5 * Math.pow(pos, 5);
-					}
-					return 0.5 * (Math.pow((pos - 2), 5) + 2);
-				}
-			};
-			function tick() {
-				currentTime += 1 / 60;
-				var p = currentTime / time;
-				var t = easingEquations[soothing](p);
-				if (p < 1) {
-					requestAnimationFrame(tick);
-					root.scrollTo(0, scrollY + ((posY - scrollY) * t));
-				} else {
-					root.scrollTo(0, posY);
-				}
-			}
-			tick();
-		};
-		var docElem = document.documentElement || "";
-		var docImplem = document.implementation || "";
-		var _length = "length";
+(function (root, document) {
+	"use strict";
 
+	var docElem = document.documentElement || "";
+	var docImplem = document.implementation || "";
+	var docBody = document.body || "";
+
+	var createElement = "createElement";
+	var createElementNS = "createElementNS";
+	var defineProperty = "defineProperty";
+	var getOwnPropertyDescriptor = "getOwnPropertyDescriptor";
+	var querySelector = "querySelector";
+	var querySelectorAll = "querySelectorAll";	var _addEventListener = "addEventListener";
+	var _length = "length";
+
+	var progressBar = new ToProgress({
+			id: "top-progress-bar",
+			color: "#FF2C40",
+			height: "0.200rem",
+			duration: 0.2,
+			zIndex: 999
+		});
+
+	var hideProgressBar = function () {
+		progressBar.finish();
+		progressBar.hide();
+	};
+
+	/* progressBar.complete = function () {
+		return this.finish(),
+		this.hide();
+	}; */
+
+	progressBar.increase(20);
+
+	var getHTTP = function (force) {
+		var any = force || "";
+		var locationProtocol = root.location.protocol || "";
+		return "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : any ? "http" : "";
+	};
+
+	var forcedHTTP = getHTTP(true);
+
+	var run = function () {
+
+		var appendChild = "appendChild";
 		var classList = "classList";
+		var createElement = "createElement";
+		var getAttribute = "getAttribute";
+		var getElementById = "getElementById";
+		var getElementsByClassName = "getElementsByClassName";
+		var getElementsByTagName = "getElementsByTagName";
+		var style = "style";
+		var title = "title";
+		var _addEventListener = "addEventListener";
+
+		progressBar.increase(20);
 
 		if (docElem && docElem[classList]) {
 			docElem[classList].remove("no-js");
@@ -493,13 +503,68 @@ var root = "undefined" !== typeof window ? window : this;
 			}
 			return newYear + "-" + newMonth + "-" + newDay;
 		})();
-		var initialDocumentTitle = document.title || "";
 
 		var userBrowsingDetails = " [" + (getHumanDate ? getHumanDate : "") + (earlyDeviceType ? " " + earlyDeviceType : "") + (earlyDeviceFormfactor.orientation ? " " + earlyDeviceFormfactor.orientation : "") + (earlyDeviceFormfactor.size ? " " + earlyDeviceFormfactor.size : "") + (earlySvgSupport ? " " + earlySvgSupport : "") + (earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") + (earlyHasTouch ? " " + earlyHasTouch : "") + "]";
 
 		if (document[title]) {
 			document[title] = document[title] + userBrowsingDetails;
 		}
+
+		var scriptIsLoaded = function (scriptSrc) {
+			var scriptAll,
+			i,
+			l;
+			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[_length]; i < l; i += 1) {
+				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
+					scriptAll = i = l = null;
+					return true;
+				}
+			}
+			scriptAll = i = l = null;
+			return false;
+		};
+
+		var setStyleDisplayNone = function (a) {
+			if (a) {
+				a[style].display = "none";
+			}
+		};
+
+		var scroll2Top = function (scrollTargetY, speed, easing) {
+			var scrollY = root.scrollY || docElem.scrollTop;
+			var posY = scrollTargetY || 0;
+			var rate = speed || 2000;
+			var soothing = easing || "easeOutSine";
+			var currentTime = 0;
+			var time = Math.max(0.1, Math.min(Math.abs(scrollY - posY) / rate, 0.8));
+			var easingEquations = {
+				easeOutSine: function (pos) {
+					return Math.sin(pos * (Math.PI / 2));
+				},
+				easeInOutSine: function (pos) {
+					return (-0.5 * (Math.cos(Math.PI * pos) - 1));
+				},
+				easeInOutQuint: function (pos) {
+					if ((pos /= 0.5) < 1) {
+						return 0.5 * Math.pow(pos, 5);
+					}
+					return 0.5 * (Math.pow((pos - 2), 5) + 2);
+				}
+			};
+			function tick() {
+				currentTime += 1 / 60;
+				var p = currentTime / time;
+				var t = easingEquations[soothing](p);
+				if (p < 1) {
+					requestAnimationFrame(tick);
+					root.scrollTo(0, scrollY + ((posY - scrollY) * t));
+				} else {
+					root.scrollTo(0, posY);
+				}
+			}
+			tick();
+		};
+
 		var debounce = function (func, wait) {
 			var timeout;
 			var args;
@@ -523,6 +588,7 @@ var root = "undefined" !== typeof window ? window : this;
 				}
 			};
 		};
+
 		var throttle = function (func, wait) {
 			var ctx;
 			var args;
@@ -549,48 +615,6 @@ var root = "undefined" !== typeof window ? window : this;
 				}
 				return rtn;
 			};
-		};
-
-		var scriptIsLoaded = function (scriptSrc) {
-			var scriptAll,
-			i,
-			l;
-			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[_length]; i < l; i += 1) {
-				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
-					scriptAll = i = l = null;
-					return true;
-				}
-			}
-			scriptAll = i = l = null;
-			return false;
-		};
-		var appendFragment = function (e, a) {
-			a = a || document[getElementsByTagName]("body")[0] || "";
-			if (e) {
-				var df = document[createDocumentFragment]() || "";
-				if ("string" === typeof e) {
-					e = document[createTextNode](e);
-				}
-				df[appendChild](e);
-				a[appendChild](df);
-			}
-		};
-		var setStyleDisplayNone = function (a) {
-			if (a) {
-				a[style].display = "none";
-			}
-		};
-		var setStyleOpacity = function (a, n) {
-			n = n || 1;
-			if (a) {
-				a[style].opacity = n;
-			}
-		};
-
-		var setStyleVisibilityVisible = function (a) {
-			if (a) {
-				a[style].visibility = "visible";
-			}
 		};
 
 		/*jshint bitwise: false */
@@ -644,13 +668,7 @@ var root = "undefined" !== typeof window ? window : this;
 			})();
 		};
 		/*jshint bitwise: true */
-	var getHTTP = function (force) {
-		var any = force || "";
-		var locationProtocol = root.location.protocol || "";
-		return "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : any ? "http" : "";
-	};
 
-	var forcedHTTP = getHTTP(true);
 		var isNodejs = "undefined" !== typeof process && "undefined" !== typeof require || "";
 		var isElectron = "undefined" !== typeof root && root.process && "renderer" === root.process.type || "";
 		var isNwjs = (function () {
@@ -695,212 +713,306 @@ var root = "undefined" !== typeof window ? window : this;
 				}
 			}
 		};
-	var progressBar = new ToProgress({
-			id: "top-progress-bar",
-			color: "#FF2C40",
-			height: "0.200rem",
-			duration: 0.2,
-			zIndex: 999
-		});
 
-	var hideProgressBar = function () {
-		progressBar.finish();
-		progressBar.hide();
-	};
-
-	/* progressBar.complete = function () {
-		return this.finish(),
-		this.hide();
-	}; */
-
-	progressBar.increase(20);
-/*!
- * set click event on external links,
- * so that they open in new browser tab
- * @param {Object} [ctx] context HTML Element
- */
-var handleExternalLink = function (url, ev) {
-	"use strict";
-	ev.stopPropagation();
-	ev.preventDefault();
-	var logicHandleExternalLink = openDeviceBrowser.bind(null, url);
-	var debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
-	debounceLogicHandleExternalLink();
-};
-var manageExternalLinkAll = function (scope) {
-	"use strict";
-	var ctx = scope && scope.nodeName ? scope : "";
-	var d = document;
-	var getElementsByTagName = "getElementsByTagName";
-	var getAttribute = "getAttribute";
-	var classList = "classList";
-	var _addEventListener = "addEventListener";
-	var linkTag = "a";
-	var link = ctx ? ctx[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
-	var isBindedClass = "is-binded";
-	var arrange = function (e) {
-		if (!e[classList].contains(isBindedClass)) {
-			var url = e[getAttribute]("href") || "";
-			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-				e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
-				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					e.target = "_blank";
-					e.rel = "noopener";
-				} else {
-					e[_addEventListener]("click", handleExternalLink.bind(null, url));
-				}
-				e[classList].add(isBindedClass);
-			}
-		}
-	};
-	if (link) {
-		for (var i = 0, l = link[_length]; i < l; i += 1) {
-			arrange(link[i]);
-		}
-		/* forEach(link, arrange, false); */
-	}
-};
-manageExternalLinkAll();
-/*!
- * init Shower
- */
-var initShower = function () {
-	"use strict";
-	var jsUrl = "../../cdn/shower/1.0.1/js/shower.fixed.min.js";
-	if (!scriptIsLoaded(jsUrl)) {
-		loadJS(jsUrl);
-	}
-};
-initShower();
-/*!
- * init ui-totop
- */
-var initUiTotop = function () {
-	"use strict";
-	var w = root;
-	var d = document;
-	var h = d.documentElement || "";
-	var b = d.body || "";
-	var getElementsByClassName = "getElementsByClassName";
-	var classList = "classList";
-	var createElement = "createElement";
-	var appendChild = "appendChild";
-	var _addEventListener = "addEventListener";
-	var btnClass = "ui-totop";
-	var btnTitle = "Наверх";
-	var isActiveClass = "is-active";
-	var anchor = document[createElement]("a");
-	var handleUiTotopAnchor = function (ev) {
-		ev.stopPropagation();
-		ev.preventDefault();
-		scroll2Top(0, 20000);
-	};
-	var handleUiTotopWindow = function (_this) {
-		var logicHandleUiTotopWindow = function () {
-			var btn = document[getElementsByClassName](btnClass)[0] || "";
-			var scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "";
-			var windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
-			if (scrollPosition && windowHeight && btn) {
-				if (scrollPosition > windowHeight) {
-					btn[classList].add(isActiveClass);
-				} else {
-					btn[classList].remove(isActiveClass);
-				}
-			}
+		var handleExternalLink = function (url, ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			var logicHandleExternalLink = openDeviceBrowser.bind(null, url);
+			var debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
+			debounceLogicHandleExternalLink();
 		};
-		var throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
-		throttleLogicHandleUiTotopWindow();
-	};
-	anchor[classList].add(btnClass);
-	/* jshint -W107 */
-	anchor.href = "javascript:void(0);";
-	/* jshint +W107 */
-	anchor.title = btnTitle;
-	/* insertUpSvg(anchor); */
-	b[appendChild](anchor);
-	if (b) {
-		anchor[_addEventListener]("click", handleUiTotopAnchor);
-		root[_addEventListener]("scroll", handleUiTotopWindow, {passive: true});
-	}
-};
-initUiTotop();
-/*!
- * init share btn
- * class ya-share2 automatically triggers Ya.share2,
- * so use either default class ya-share2 or custom id
- * ya-share2 class will be added if you init share block
- * via ya-share2 api
- * @see {@link https://tech.yandex.ru/share/doc/dg/api-docpage/}
- */
-var yshare;
-var manageShareButton = function () {
-	"use strict";
-	var w = root;
-	var d = document;
-	var getElementById = "getElementById";
-	var getElementsByClassName = "getElementsByClassName";
-	var _addEventListener = "addEventListener";
-	var btn = document[getElementsByClassName]("btn-share-buttons")[0] || "";
-	var yaShare2Id = "ya-share2";
-	var yaShare2 = document[getElementById](yaShare2Id) || "";
-	var handleShareButton = function (ev) {
-		ev.stopPropagation();
-		ev.preventDefault();
-		var initScript = function () {
-			if (root.Ya) {
-				try {
-					if (yshare) {
-						yshare.updateContent({
-							title: d.title || "",
-							description: d.title || "",
-							url: root.location.href || ""
-						});
-					} else {
-						yshare = Ya.share2(yaShare2Id, {
-							content: {
-								title: d.title || "",
-								description: d.title || "",
-								url: root.location.href || ""
-							}
-						});
+		var manageExternalLinkAll = function (scope) {
+			var ctx = scope && scope.nodeName ? scope : "";
+			var linkTag = "a";
+			var link = ctx ? ctx[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
+			var isBindedClass = "is-binded";
+			var arrange = function (e) {
+				if (!e[classList].contains(isBindedClass)) {
+					var url = e[getAttribute]("href") || "";
+					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+						e[title] = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+						if ("undefined" !== typeof getHTTP && getHTTP()) {
+							e.target = "_blank";
+							e.rel = "noopener";
+						} else {
+							e[_addEventListener]("click", handleExternalLink.bind(null, url));
+						}
+						e[classList].add(isBindedClass);
 					}
-					setStyleVisibilityVisible(yaShare2);
-					setStyleOpacity(yaShare2, 1);
+				}
+			};
+			if (link) {
+				for (var i = 0, l = link[_length]; i < l; i += 1) {
+					arrange(link[i]);
+				}
+				/* forEach(link, arrange, false); */
+			}
+		};
+		manageExternalLinkAll();
+
+		/* var initShower = function () {
+			var jsUrl = "../../cdn/shower/1.0.1/js/shower.fixed.min.js";
+			if (!scriptIsLoaded(jsUrl)) {
+				var load;
+				load = new loadJsCss([jsUrl]);
+			}
+		};
+		initShower(); */
+
+		var hideOtherIsSocial = function (thisObj) {
+			var _thisObj = thisObj || this;
+			var isActiveClass = "is-active";
+			var isSocialAll = document[getElementsByClassName]("is-social") || "";
+			if (isSocialAll) {
+				var k,
+				n;
+				for (k = 0, n = isSocialAll[_length]; k < n; k += 1) {
+					if (_thisObj !== isSocialAll[k]) {
+						isSocialAll[k][classList].remove(isActiveClass);
+					}
+				}
+				k = n = null;
+			}
+		};
+		root[_addEventListener]("click", hideOtherIsSocial);
+
+		var yshare;
+		var manageShareButton = function () {
+			var btn = document[getElementsByClassName]("btn-share-buttons")[0] || "";
+			var yaShare2Id = "ya-share2";
+			var yaShare2 = document[getElementById](yaShare2Id) || "";
+			var locationHref = root.location || "";
+			var documentTitle = document[title] || "";
+			var isActiveClass = "is-active";
+			var handleShareButton = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var logic = function () {
+					yaShare2[classList].toggle(isActiveClass);
+					hideOtherIsSocial(yaShare2);
+					var initScript = function () {
+						if (root.Ya) {
+							try {
+								if (yshare) {
+									yshare.updateContent({
+										title: documentTitle,
+										description: documentTitle,
+										url: locationHref
+									});
+								} else {
+									yshare = Ya.share2(yaShare2Id, {
+										content: {
+											title: documentTitle,
+											description: documentTitle,
+											url: locationHref
+										}
+									});
+								}
+							} catch (err) {
+								/* console.log("cannot update or init Ya", err); */
+							}
+						}
+					};
+					var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
+					if (!scriptIsLoaded(jsUrl)) {
+						var load;
+						load = new loadJsCss([jsUrl], initScript);
+					} else {
+						initScript();
+					}
+				};
+				var debounceLogic = debounce(logic, 200);
+				debounceLogic();
+			};
+			if (btn && yaShare2) {
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					btn[_addEventListener]("click", handleShareButton);
+				} else {
 					setStyleDisplayNone(btn);
-				} catch (err) {
-					/* console.log("cannot update or init Ya", err); */
 				}
 			}
 		};
-		var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
-		if (!scriptIsLoaded(jsUrl)) {
+		manageShareButton();
+
+		var initUiTotop = function () {
+			var btnClass = "ui-totop";
+			var btnTitle = "Наверх";
+			var isActiveClass = "is-active";
+			var anchor = document[createElement]("a");
+			var handleUiTotopAnchor = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				scroll2Top(0, 20000);
+			};
+			var handleUiTotopWindow = function (_this) {
+				var logicHandleUiTotopWindow = function () {
+					var btn = document[getElementsByClassName](btnClass)[0] || "";
+					var scrollPosition = _this.pageYOffset || docElem.scrollTop || docBody.scrollTop || "";
+					var windowHeight = _this.innerHeight || docElem.clientHeight || docBody.clientHeight || "";
+					if (scrollPosition && windowHeight && btn) {
+						if (scrollPosition > windowHeight) {
+							btn[classList].add(isActiveClass);
+						} else {
+							btn[classList].remove(isActiveClass);
+						}
+					}
+				};
+				var throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
+				throttleLogicHandleUiTotopWindow();
+			};
+			anchor[classList].add(btnClass);
+			/* jshint -W107 */
+			anchor.href = "javascript:void(0);";
+			/* jshint +W107 */
+			anchor.title = btnTitle;
+			docBody[appendChild](anchor);
+			if (docBody) {
+				anchor[_addEventListener]("click", handleUiTotopAnchor);
+				root[_addEventListener]("scroll", handleUiTotopWindow, {
+					passive: true
+				});
+			}
+		};
+		initUiTotop();
+
+		hideProgressBar();
+	};
+
+	var scripts = ["../../libs/irregular_verbs_with_shower/css/bundle.min.css"];
+
+	var supportsPassive = (function () {
+		var support = false;
+		try {
+			var opts = Object[defineProperty] && Object[defineProperty]({}, "passive", {
+					get: function () {
+						support = true;
+					}
+				});
+			root[_addEventListener]("test", function () {}, opts);
+		} catch (err) {}
+		return support;
+	})();
+
+	var needsPolyfills = (function () {
+		return !supportsPassive ||
+		!root.requestAnimationFrame ||
+		!root.matchMedia ||
+		("undefined" === typeof root.Element && !("dataset" in docElem)) ||
+		!("classList" in document[createElement]("_")) ||
+		document[createElementNS] && !("classList" in document[createElementNS]("http://www.w3.org/2000/svg", "g")) ||
+		/* !document.importNode || */
+		/* !("content" in document[createElement]("template")) || */
+		(root.attachEvent && !root[_addEventListener]) ||
+		!("onhashchange" in root) ||
+		!Array.prototype.indexOf ||
+		!root.Promise ||
+		!root.fetch ||
+		!document[querySelectorAll] ||
+		!document[querySelector] ||
+		!Function.prototype.bind ||
+		(Object[defineProperty] &&
+			Object[getOwnPropertyDescriptor] &&
+			Object[getOwnPropertyDescriptor](Element.prototype, "textContent") &&
+			!Object[getOwnPropertyDescriptor](Element.prototype, "textContent").get) ||
+		!("undefined" !== typeof root.localStorage && "undefined" !== typeof root.sessionStorage) ||
+		!root.WeakMap ||
+		!root.MutationObserver;
+	})();
+
+	if (needsPolyfills) {
+		scripts.push("../../cdn/polyfills/js/polyfills.fixed.min.js");
+	}
+
+	/* var scripts = ["../../cdn/shower/1.0.1/js/shower.fixed.min.js"]; */
+
+	scripts.push("../../libs/irregular_verbs_with_shower/js/vendors.min.js");
+
+	/*!
+	 * load scripts after webfonts loaded using doesFontExist
+	 */
+
+	var supportsCanvas = (function () {
+		var elem = document[createElement]("canvas");
+		return !!(elem.getContext && elem.getContext("2d"));
+	})();
+
+	var onFontsLoadedCallback = function () {
+
+		var slot;
+		var onFontsLoaded = function () {
+			clearInterval(slot);
+			slot = null;
+
+			progressBar.increase(20);
+
 			var load;
-			load = new loadJsCss([jsUrl], initScript);
+			load = new loadJsCss(scripts, run);
+		};
+
+		var checkFontIsLoaded = function () {
+			/*!
+			 * check only for fonts that are used in current page
+			 */
+			if (doesFontExist("Roboto") /* && doesFontExist("Roboto Mono") */) {
+				onFontsLoaded();
+			}
+		};
+
+		if (supportsCanvas) {
+			slot = setInterval(checkFontIsLoaded, 100);
 		} else {
-			initScript();
+			slot = null;
+			onFontsLoaded();
 		}
 	};
-	if (btn && yaShare2) {
-		if ("undefined" !== typeof getHTTP && getHTTP()) {
-			btn[_addEventListener]("click", handleShareButton);
-		} else {
-			setStyleDisplayNone(btn);
+
+	loadCSS(
+			forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic,latin-ext",
+			onFontsLoadedCallback
+		);
+
+	/*!
+	 * load scripts after webfonts loaded using webfontloader
+	 */
+
+	/* root.WebFontConfig = {
+		google: {
+			families: [
+				"Roboto:300,400,400i,700,700i:cyrillic",
+				"Roboto Mono:400,700:cyrillic,latin-ext"
+			]
+		},
+		listeners: [],
+		active: function () {
+			this.called_ready = true;
+			for (var i = 0; i < this.listeners[_length]; i++) {
+				this.listeners[i]();
+			}
+		},
+		ready: function (callback) {
+			if (this.called_ready) {
+				callback();
+			} else {
+				this.listeners.push(callback);
+			}
 		}
-	}
-};
-manageShareButton();
-/*!
- * show page, finish ToProgress
- */
-var showPageFinishProgress = function () {
-	"use strict";
-	var d = document;
-	var getElementById = "getElementById";
-	var page = document[getElementById]("page") || "";
-	if (page) {
-		setStyleOpacity(page, 1);
-		progressBar.increase(20);
-	}
-};
-showPageFinishProgress();
-		hideProgressBar();
+	};
+
+	var onFontsLoadedCallback = function () {
+
+		var onFontsLoaded = function () {
+			progressBar.increase(20);
+
+			var load;
+			load = new loadJsCss(scripts, run);
+		};
+
+		root.WebFontConfig.ready(onFontsLoaded);
+	};
+
+	var load;
+	load = new loadJsCss(
+			[forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"],
+			onFontsLoadedCallback
+		); */
+})("undefined" !== typeof window ? window : this, document);

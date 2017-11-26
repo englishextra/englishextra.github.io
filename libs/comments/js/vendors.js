@@ -1,3 +1,4 @@
+/*global define, jQuery*/
 /*!
  * modified jQuery JavaScript Library v2.1.1 -deprecated,-wrap
  * @see {@link http://jquery.com/}
@@ -581,7 +582,6 @@ return jQuery;}));
 /*jshint bitwise: true */
 /*jslint browser: true */
 /*jslint node: true */
-/*global global, ActiveXObject, define, escape, module, pnotify, Proxy, jQuery, require, self, setImmediate, window */
 /*!
  * modified jQuery PNotify Plugin 1.3.1
  * @see {@link http://sciactive.com/pnotify/}

@@ -2520,7 +2520,6 @@ body {
 	display: inline-block;
 	visibility: hidden;
 	opacity: 0;
-	height: 3.200rem;
 	position: fixed;
 	right: 3.200rem;
 	bottom: 0;
@@ -2982,6 +2981,20 @@ select:focus,
 select:active {
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
+}
+
+:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
+}
+
+::-ms-expand {
+	display: none;
+}
+
+::-ms-value {
+	background: none;
+	color: $color-hex-body-text;
 }
 
 img {
@@ -3994,6 +4007,11 @@ u,
 	padding: 0 0 0 0.250rem;
 }
 
+.holder-chapters-select .chapters-select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
+}
+
 .holder-chapters-select .chapters-select::-ms-expand {
 	display: none;
 }
@@ -4588,6 +4606,9 @@ u,
 /**
  * retina
  */
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+}
 
 /**
  * font for mobile

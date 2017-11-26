@@ -59,6 +59,20 @@ select:active {
 	outline: none;
 }
 
+:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
+}
+
+::-ms-expand {
+	display: none;
+}
+
+::-ms-value {
+	background: none;
+	color: $color-hex-body-text;
+}
+
 img {
 	border: 0;
 	-ms-interpolation-mode: bicubic;
@@ -214,21 +228,26 @@ u,
 
 .page.is-active {
 	position: relative;
-	left: 17.000rem;
+	left: 18.133rem;
+}
+
+.page img {
+	display: block;
 }
 
 .panel-nav-top {
 	display: block;
 	width: 100%;
-	height: 3.000rem;
+	height: 3.200rem;
 	background-color: $color-hex-ui-bar-bg;
 }
 
 .container {
 	width: 100%;
 	height: 100%;
-	opacity: 0;
-	transition: opacity 0.2s ease;
+	visibility: visible;
+	opacity: 1;
+	transition: visibility 0s, opacity 0.2s ease;
 	padding: 0;
 	margin: 0 auto;
 }
@@ -1027,6 +1046,11 @@ u,
 	outline: none;
 	margin: 0;
 	padding: 0 0 0 0.250rem;
+}
+
+.holder-chapters-select .chapters-select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
 }
 
 .holder-chapters-select .chapters-select::-ms-expand {

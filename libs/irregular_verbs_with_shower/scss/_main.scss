@@ -10,8 +10,8 @@ body {
 }
 
 html {
-	font-size: 16px;
-	line-height: 24px;
+	font-size: 15px;
+	line-height: 20px;
 	/**
 	 * set the parent to background transparent
 	 * and position relative to parent, absolute for child
@@ -59,6 +59,20 @@ select:focus,
 select:active {
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
+}
+
+:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
+}
+
+::-ms-expand {
+	display: none;
+}
+
+::-ms-value {
+	background: none;
+	color: $color-hex-body-text;
 }
 
 img {
@@ -162,10 +176,16 @@ u,
 	 * and position relative to parent, absolute for child
 	 */
 	min-height: 100%;
+	visibility: visible;
+	opacity: 1;
+	transition: visibility 0s, opacity 0.2s ease;
 	background-color: $color-hex-page-bg;
 }
 
-/*! @import "irregular-verbs-with-shower-nav-menu"; */
+.page img,
+.shower-list img {
+	display: block;
+}
 
 /**
  * nav-menu
@@ -216,11 +236,11 @@ u,
  */
 
 .caption {
-	height: 3.000rem;
+	height: 3.200rem;
 	position: absolute;
 	top: 0;
-	left: 3.000rem;
-	font-size: 1.000em;
+	left: 3.200rem;
+	font-size: 0.867rem;
 	text-align: left;
 	color: inherit;
 	background-color: transparent;
@@ -230,7 +250,7 @@ u,
 
 .caption h1 {
 	display: inline-block;
-	font-size: 0.938rem;
+	font-size: 0.867rem;
 	font-weight: 300;
 	line-height: 3.200rem;
 	color: inherit;
@@ -277,6 +297,9 @@ u,
  * retina
  */
 
+@media only screen and (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+}
+
 /**
  * font for mobile
  * iosfonts.com/
@@ -284,7 +307,7 @@ u,
  * msdn.microsoft.com/en-us/library/windows/apps/hh202920%28v=vs.105%29.aspx
  */
 
-@media only screen and (max-width: 480px) {
+/* @media only screen and (max-width: 480px) {
 	body,
 	.slide .explanation {
 		font-family: "Roboto", $font-family-local-sans-regular;
@@ -297,7 +320,98 @@ u,
 	.slide .phonetic {
 		font-family: "Roboto Mono", $font-family-local-monospace;
 	}
+} */
+
+/*!
+ * @see {@link https://gist.github.com/englishextra/40b7c4ffde33bfb58aff259afe229d6a}
+ */
+
+/*------------------------------------------
+  Foundation Media Queries
+   http://foundation.zurb.com/docs/media-queries.html
+--------------------------------------------*/
+
+/* Small screens - MOBILE */
+
+@media only screen {
+	html {
+		font-size: 12px;
+	}
 }
+
+/* Define mobile styles - Mobile First */
+
+@media only screen and (max-width: 40em) {
+	html {
+		font-size: 12px;
+	}
+}
+
+/* max-width 640px, mobile-only styles, use when QAing mobile issues */
+
+/* Medium screens - TABLET */
+
+@media only screen and (min-width: 40.063em) {
+	html {
+		font-size: 12px;
+	}
+}
+
+/* min-width 641px, medium screens */
+
+@media only screen and (min-width: 40.063em) and (max-width: 64em) {
+	html {
+		font-size: 15px;
+	}
+}
+
+/* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
+
+/* Large screens - DESKTOP */
+
+@media only screen and (min-width: 64.063em) {
+	html {
+		font-size: 15px;
+	}
+}
+
+/* min-width 1025px, large screens */
+
+@media only screen and (min-width: 64.063em) and (max-width: 90em) {
+	html {
+		font-size: 15px;
+	}
+}
+
+/* min-width 1024px and max-width 1440px, use when QAing large screen-only issues */
+
+/* XLarge screens */
+
+@media only screen and (min-width: 90.063em) {
+	html {
+		font-size: 15px;
+	}
+}
+
+/* min-width 1441px, xlarge screens */
+
+@media only screen and (min-width: 90.063em) and (max-width: 120em) {
+	html {
+		font-size: 18px;
+	}
+}
+
+/* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */
+
+/* XXLarge screens */
+
+@media only screen and (min-width: 120.063em) {
+	html {
+		font-size: 18px;
+	}
+}
+
+/* min-width 1921px, xlarge screens */
 
 /**
  * used for making screensaver

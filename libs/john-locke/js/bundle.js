@@ -554,6 +554,16 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 		var title = "title";
 		var visibility = "visibility";
 
+		var bounceInUpClass = "bounceInUp";
+		var bounceOutDownClass = "bounceOutDown";
+
+		var isActiveClass = "is-active";
+		var isBindedClass = "is-binded";
+
+		var documentTitle = document[title] || "";
+		var locationHref = root.location[href] || "";
+		var navigatorUserAgent = navigator.userAgent || "";
+
 		if (!supportsSvgSmilAnimation) {
 			progressBar.increase(20);
 		}
@@ -562,10 +572,6 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 			docElem[classList].remove("no-js");
 			docElem[classList].add("js");
 		}
-
-		var documentTitle = document[title] || "";
-
-		var navigatorUserAgent = navigator.userAgent || "";
 
 		var getHumanDate = function () {
 			var newDate = new Date();
@@ -711,7 +717,17 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 			};
 		};
 
-		var isBindedClass = "is-binded";
+		var scriptIsLoaded = function (scriptSrc) {
+			var scriptAll, i, l;
+			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[_length]; i < l; i += 1) {
+				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
+					scriptAll = i = l = null;
+					return true;
+				}
+			}
+			scriptAll = i = l = null;
+			return false;
+		};
 
 		var manageExternalLinkAll = function (scope) {
 			var context = scope && scope.nodeName ? scope : "";
@@ -762,8 +778,6 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 			qrcode[style][visibility] = "visible";
 			qrcode[style][opacity] = 1;
 		};
-
-		var locationHref = root.location[href] || "";
 
 		if (qrcode) {
 			var qrcodeImg = document[createElement]("img");
@@ -869,9 +883,6 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 			parallax = new Parallax(scene);
 		}
 
-		var bounceInUpClass = "bounceInUp";
-		var bounceOutDownClass = "bounceOutDown";
-
 		var guesture = document[getElementsByClassName]("guesture")[0] || "";
 
 		var start = document[getElementsByClassName]("start")[0] || "";
@@ -947,20 +958,6 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 			}
 		}
 
-		var scriptIsLoaded = function (scriptSrc) {
-			var scriptAll, i, l;
-			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[_length]; i < l; i += 1) {
-				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
-					scriptAll = i = l = null;
-					return true;
-				}
-			}
-			scriptAll = i = l = null;
-			return false;
-		};
-
-		var isActiveClass = "is-active";
-
 		var hideOtherIsSocial = function (thisObj) {
 			var _thisObj = thisObj || this;
 			var isSocialAll = document[getElementsByClassName]("is-social") || "";
@@ -974,7 +971,6 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 				k = n = null;
 			}
 		};
-
 		root[_addEventListener]("click", hideOtherIsSocial);
 
 		var yaShare2Id = "ya-share2";
@@ -1109,16 +1105,11 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 		scripts.push("../../cdn/polyfills/js/polyfills.fixed.min.js");
 	}
 
-	/* scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/platform@1.3.4/platform.min.js",
- 	forcedHTTP + "://cdn.jsdelivr.net/npm/qrjs2@0.1.6/qrjs2.min.js",
- 	forcedHTTP + "://cdn.jsdelivr.net/npm/parallax-js@3.1.0/dist/parallax.min.js");
- 	if (hasTouch) {
- 	scripts.push(forcedHTTP + "://cdn.jsdelivr.net/npm/tocca@2.0.1/Tocca.min.js");
- } else {
- 	if (hasWheel) {
- 		scripts.push("./cdn/wheel-indicator/1.1.4/js/wheel-indicator.fixed.min.js");
- 	}
- } */
+	/* scripts.push("./cdn/platform/1.3.4/js/platform.fixed.min.js",
+ 	"./cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js",
+ 	"./cdn/parallax-js/3.1.0/js/parallax.fixed.min.js",
+ 	"./cdn/Tocca.js/2.0.1/js/Tocca.fixed.min.js",
+ 	"./cdn/wheel-indicator/1.1.4/js/wheel-indicator.fixed.min.js"); */
 
 	scripts.push("./libs/john-locke/js/vendors.min.js");
 

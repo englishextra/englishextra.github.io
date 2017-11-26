@@ -669,17 +669,21 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 		var initialDocumentTitle = document.title || "";
 
 		var userBrowsingDetails = " [" + (getHumanDate ? getHumanDate : "") + (earlyDeviceType ? " " + earlyDeviceType : "") + (earlyDeviceFormfactor.orientation ? " " + earlyDeviceFormfactor.orientation : "") + (earlyDeviceFormfactor.size ? " " + earlyDeviceFormfactor.size : "") + (earlySvgSupport ? " " + earlySvgSupport : "") + (earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") + (earlyHasTouch ? " " + earlyHasTouch : "") + "]";
+
 		if (document[title]) {
 			document[title] = document[title] + userBrowsingDetails;
 		}
 
-		var scriptIsLoaded = function (s) {
-			for (var b = document[getElementsByTagName]("script") || "", a = 0; a < b[_length]; a += 1) {
-				if (b[a][getAttribute]("src") === s) {
+		var scriptIsLoaded = function (scriptSrc) {
+			var scriptAll, i, l;
+			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[_length]; i < l; i += 1) {
+				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
+					scriptAll = i = l = null;
 					return true;
 				}
 			}
-			return;
+			scriptAll = i = l = null;
+			return false;
 		};
 
 		var debounce = function (func, wait) {
@@ -925,15 +929,15 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			x.send(null);
 		};
 
-		var safelyParseJSON = function (a) {
+		var safelyParseJSON = function (response) {
 			var isJson = function (obj) {
-				var t = typeof obj;
-				return ['boolean', 'number', "string", 'symbol', "function"].indexOf(t) === -1;
+				var objType = typeof obj;
+				return ['boolean', 'number', "string", 'symbol', "function"].indexOf(objType) === -1;
 			};
-			if (!isJson(a)) {
-				return JSON.parse(a);
+			if (!isJson(response)) {
+				return JSON.parse(response);
 			} else {
-				return a;
+				return response;
 			}
 		};
 
@@ -1029,9 +1033,8 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 
 		var alignToMasterBottomLeft = function (masterId, servantId, sameWidth) {
 			sameWidth = sameWidth || "";
-			var d = document,
-			    master = d[getElementById](masterId) || "",
-			    servant = d[getElementById](servantId) || "";
+			var master = document[getElementById](masterId) || "";
+			var servant = document[getElementById](servantId) || "";
 			if (master && servant) {
 				var style = servant.style || "";
 				if (style) {
@@ -1092,6 +1095,42 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				arrange();
 			}
 		};
+
+		var handleExternalLink = function (url, ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			var logicHandleExternalLink = openDeviceBrowser.bind(null, url);
+			var debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
+			debounceLogicHandleExternalLink();
+		};
+		var manageExternalLinkAll = function (scope) {
+			var ctx = scope && scope.nodeName ? scope : "";
+			var linkTag = "a";
+			var link = ctx ? ctx[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
+			var isBindedClass = "is-binded";
+			var arrange = function (e) {
+				if (!e[classList].contains(isBindedClass)) {
+					var url = e[getAttribute]("href") || "";
+					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+						if ("undefined" !== typeof getHTTP && getHTTP()) {
+							e.target = "_blank";
+							e.rel = "noopener";
+						} else {
+							e[_addEventListener]("click", handleExternalLink.bind(null, url));
+						}
+						e[classList].add(isBindedClass);
+					}
+				}
+			};
+			if (link) {
+				for (var i = 0, l = link[_length]; i < l; i += 1) {
+					arrange(link[i]);
+				}
+				/* forEach(link, arrange, false); */
+			}
+		};
+		manageExternalLinkAll();
 
 		var handleDataSrcImageAll = function () {
 			var imgClass = "data-src-img";
@@ -1222,42 +1261,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			}
 		};
 		manageIframeLightboxLinks();
-
-		var handleExternalLink = function (url, ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			var logicHandleExternalLink = openDeviceBrowser.bind(null, url);
-			var debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
-			debounceLogicHandleExternalLink();
-		};
-		var manageExternalLinkAll = function (scope) {
-			var ctx = scope && scope.nodeName ? scope : "";
-			var linkTag = "a";
-			var link = ctx ? ctx[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
-			var isBindedClass = "is-binded";
-			var arrange = function (e) {
-				if (!e[classList].contains(isBindedClass)) {
-					var url = e[getAttribute]("href") || "";
-					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
-						if ("undefined" !== typeof getHTTP && getHTTP()) {
-							e.target = "_blank";
-							e.rel = "noopener";
-						} else {
-							e[_addEventListener]("click", handleExternalLink.bind(null, url));
-						}
-						e[classList].add(isBindedClass);
-					}
-				}
-			};
-			if (link) {
-				for (var i = 0, l = link[_length]; i < l; i += 1) {
-					arrange(link[i]);
-				}
-				/* forEach(link, arrange, false); */
-			}
-		};
-		manageExternalLinkAll();
 
 		var hideImgLightbox = function () {
 			var container = document[getElementsByClassName]("img-lightbox-container")[0] || "";
@@ -2628,7 +2631,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
       } */
 						if (false === isNotfound) {
 							var notfoundUrl = routesJsonObj.notfound.url;
-							var notfoundTitle = routesJsonObj.notfound[title];
+							var notfoundTitle = routesJsonObj.notfound.title;
 							if (notfoundUrl /* && notfoundTitle */) {
 									LoadingSpinner.show();
 									insertExternalHTML(appContentId, notfoundUrl, triggerOnContentInserted.bind(null, notfoundTitle, null, null, routesJsonObj));

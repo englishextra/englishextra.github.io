@@ -1,14 +1,7 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global debounce, getHTTP, jQuery,
-openDeviceBrowser, parseLink, Promise, require, scroll2Top,
-setStyleOpacity, throttle, ToProgress */
-/*property console, split */
-/*!
- * define global root
- */
-/* var root = "object" === typeof window && window || "object" === typeof self && self || "object" === typeof global && global || {}; */
-var root = "undefined" !== typeof window ? window : this;
+/*global doesFontExist, loadCSS, loadJsCss, require, ToProgress*/
+/*property console, join, split */
 /*!
  * safe way to handle console.log
  * @see {@link https://github.com/paulmillr/console-polyfill}
@@ -336,59 +329,60 @@ var root = "undefined" !== typeof window ? window : this;
 /*!
  * app logic
  */
-		var scroll2Top = function (scrollTargetY, speed, easing) {
-			var scrollY = root.scrollY || docElem.scrollTop;
-			var posY = scrollTargetY || 0;
-			var rate = speed || 2000;
-			var soothing = easing || "easeOutSine";
-			var currentTime = 0;
-			var time = Math.max(0.1, Math.min(Math.abs(scrollY - posY) / rate, 0.8));
-			var easingEquations = {
-				easeOutSine: function (pos) {
-					return Math.sin(pos * (Math.PI / 2));
-				},
-				easeInOutSine: function (pos) {
-					return (-0.5 * (Math.cos(Math.PI * pos) - 1));
-				},
-				easeInOutQuint: function (pos) {
-					if ((pos /= 0.5) < 1) {
-						return 0.5 * Math.pow(pos, 5);
-					}
-					return 0.5 * (Math.pow((pos - 2), 5) + 2);
-				}
-			};
-			function tick() {
-				currentTime += 1 / 60;
-				var p = currentTime / time;
-				var t = easingEquations[soothing](p);
-				if (p < 1) {
-					requestAnimationFrame(tick);
-					root.scrollTo(0, scrollY + ((posY - scrollY) * t));
-				} else {
-					root.scrollTo(0, posY);
-				}
-			}
-			tick();
-		};
-/*!
- * Super lightweight script (~1kb) to detect via Javascript events like
- * 'tap' 'dbltap' "swipeup" "swipedown" "swipeleft" "swiperight"
- * on any kind of device.
- * Version: 2.0.1
- * Author: Gianluca Guarini
- * Contact: gianluca.guarini@gmail.com
- * Website: http://www.gianlucaguarini.com/
- * Twitter: @gianlucaguarini
- * Copyright (c) Gianluca Guarini
- * @see {@link https://github.com/GianlucaGuarini/Tocca.js/blob/master/Tocca.js}
- * passes jshint
- */
-(function(doc,win){"use strict";if(typeof doc.createEvent!=="function"){return false;}var pointerEventSupport=function(type){var lo=type.toLowerCase(),ms="MS"+type;return navigator.msPointerEnabled?ms:win.PointerEvent?lo:false;},defaults={useJquery:!win.IGNORE_JQUERY&&typeof jQuery!=="undefined",swipeThreshold:win.SWIPE_THRESHOLD||100,tapThreshold:win.TAP_THRESHOLD||150,dbltapThreshold:win.DBL_TAP_THRESHOLD||200,longtapThreshold:win.LONG_TAP_THRESHOLD||1000,tapPrecision:win.TAP_PRECISION/2||60/2,justTouchEvents:win.JUST_ON_TOUCH_DEVICES},wasTouch=false,touchevents={touchstart:pointerEventSupport("PointerDown")||"touchstart",touchend:pointerEventSupport("PointerUp")||"touchend",touchmove:pointerEventSupport("PointerMove")||"touchmove"},tapNum=0,pointerId,currX,currY,cachedX,cachedY,timestamp,target,dblTapTimer,longtapTimer,isTheSameFingerId=function(e){return!e.pointerId||typeof pointerId==="undefined"||e.pointerId===pointerId;},setListener=function(elm,events,callback){var eventsArray=events.split(" "),i=eventsArray.length;while(i--){elm.addEventListener(eventsArray[i],callback,false);}},getPointerEvent=function(event){return event.targetTouches?event.targetTouches[0]:event;},getTimestamp=function(){return new Date().getTime();},sendEvent=function(elm,eventName,originalEvent,data){var customEvent=doc.createEvent("Event");customEvent.originalEvent=originalEvent;data=data||{};data.x=currX;data.y=currY;data.distance=data.distance;if(defaults.useJquery){customEvent=jQuery.Event(eventName,{originalEvent:originalEvent});jQuery(elm).trigger(customEvent,data);}if(customEvent.initEvent){for(var key in data){if(data.hasOwnProperty(key)){customEvent[key]=data[key];}}customEvent.initEvent(eventName,true,true);elm.dispatchEvent(customEvent);}while(elm){if(elm["on"+eventName]){elm["on"+eventName](customEvent);}elm=elm.parentNode;}},onTouchStart=function(e){if(!isTheSameFingerId(e)){return;}pointerId=e.pointerId;if(e.type!=="mousedown"){wasTouch=true;}if(e.type==="mousedown"&&wasTouch){return;}var pointer=getPointerEvent(e);cachedX=currX=pointer.pageX;cachedY=currY=pointer.pageY;longtapTimer=setTimeout(function(){sendEvent(e.target,"longtap",e);target=e.target;},defaults.longtapThreshold);timestamp=getTimestamp();tapNum++;},onTouchEnd=function(e){if(!isTheSameFingerId(e)){return;}pointerId=undefined;if(e.type==="mouseup"&&wasTouch){wasTouch=false;return;}var eventsArr=[],now=getTimestamp(),deltaY=cachedY-currY,deltaX=cachedX-currX;clearTimeout(dblTapTimer);clearTimeout(longtapTimer);if(deltaX<=-defaults.swipeThreshold){eventsArr.push("swiperight");}if(deltaX>=defaults.swipeThreshold){eventsArr.push("swipeleft");}if(deltaY<=-defaults.swipeThreshold){eventsArr.push("swipedown");}if(deltaY>=defaults.swipeThreshold){eventsArr.push("swipeup");}if(eventsArr.length){for(var i=0;i<eventsArr.length;i++){var eventName=eventsArr[i];sendEvent(e.target,eventName,e,{distance:{x:Math.abs(deltaX),y:Math.abs(deltaY)}});}tapNum=0;}else{if(cachedX>=currX-defaults.tapPrecision&&cachedX<=currX+defaults.tapPrecision&&cachedY>=currY-defaults.tapPrecision&&cachedY<=currY+defaults.tapPrecision){if(timestamp+defaults.tapThreshold-now>=0){sendEvent(e.target,tapNum>=2&&target===e.target?"dbltap":"tap",e);target=e.target;}}dblTapTimer=setTimeout(function(){tapNum=0;},defaults.dbltapThreshold);}},onTouchMove=function(e){if(!isTheSameFingerId(e)){return;}if(e.type==="mousemove"&&wasTouch){return;}var pointer=getPointerEvent(e);currX=pointer.pageX;currY=pointer.pageY;};setListener(doc,touchevents.touchstart+(defaults.justTouchEvents?"":" mousedown"),onTouchStart);setListener(doc,touchevents.touchend+(defaults.justTouchEvents?"":" mouseup"),onTouchEnd);setListener(doc,touchevents.touchmove+(defaults.justTouchEvents?"":" mousemove"),onTouchMove);win.tocca=function(options){for(var opt in options){if(options.hasOwnProperty(opt)){defaults[opt]=options[opt];}}return defaults;};}(document,root));
-		var docElem = document.documentElement || "";
-		var docImplem = document.implementation || "";
-		var _length = "length";
+(function (root, document) {
+	"use strict";
 
+	var docElem = document.documentElement || "";
+	var docImplem = document.implementation || "";
+	var docBody = document.body || "";
+
+	var createElement = "createElement";
+	var createElementNS = "createElementNS";
+	var defineProperty = "defineProperty";
+	var getOwnPropertyDescriptor = "getOwnPropertyDescriptor";
+	var querySelector = "querySelector";
+	var querySelectorAll = "querySelectorAll";	var _addEventListener = "addEventListener";
+	var _length = "length";
+
+	var progressBar = new ToProgress({
+			id: "top-progress-bar",
+			color: "#FF2C40",
+			height: "0.200rem",
+			duration: 0.2,
+			zIndex: 999
+		});
+
+	var hideProgressBar = function () {
+		progressBar.finish();
+		progressBar.hide();
+	};
+
+	/* progressBar.complete = function () {
+		return this.finish(),
+		this.hide();
+	}; */
+
+	progressBar.increase(20);
+
+	var getHTTP = function (force) {
+		var any = force || "";
+		var locationProtocol = root.location.protocol || "";
+		return "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : any ? "http" : "";
+	};
+
+	var forcedHTTP = getHTTP(true);
+
+	var run = function () {
+
+		var appendChild = "appendChild";
 		var classList = "classList";
+		var getAttribute = "getAttribute";
+		var getElementById = "getElementById";
+		var getElementsByClassName = "getElementsByClassName";
+		var getElementsByTagName = "getElementsByTagName";
+		var title = "title";
+
+		progressBar.increase(20);
 
 		if (docElem && docElem[classList]) {
 			docElem[classList].remove("no-js");
@@ -506,13 +500,48 @@ var root = "undefined" !== typeof window ? window : this;
 			}
 			return newYear + "-" + newMonth + "-" + newDay;
 		})();
-		var initialDocumentTitle = document.title || "";
 
 		var userBrowsingDetails = " [" + (getHumanDate ? getHumanDate : "") + (earlyDeviceType ? " " + earlyDeviceType : "") + (earlyDeviceFormfactor.orientation ? " " + earlyDeviceFormfactor.orientation : "") + (earlyDeviceFormfactor.size ? " " + earlyDeviceFormfactor.size : "") + (earlySvgSupport ? " " + earlySvgSupport : "") + (earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") + (earlyHasTouch ? " " + earlyHasTouch : "") + "]";
 
 		if (document[title]) {
 			document[title] = document[title] + userBrowsingDetails;
 		}
+
+		var scroll2Top = function (scrollTargetY, speed, easing) {
+			var scrollY = root.scrollY || docElem.scrollTop;
+			var posY = scrollTargetY || 0;
+			var rate = speed || 2000;
+			var soothing = easing || "easeOutSine";
+			var currentTime = 0;
+			var time = Math.max(0.1, Math.min(Math.abs(scrollY - posY) / rate, 0.8));
+			var easingEquations = {
+				easeOutSine: function (pos) {
+					return Math.sin(pos * (Math.PI / 2));
+				},
+				easeInOutSine: function (pos) {
+					return (-0.5 * (Math.cos(Math.PI * pos) - 1));
+				},
+				easeInOutQuint: function (pos) {
+					if ((pos /= 0.5) < 1) {
+						return 0.5 * Math.pow(pos, 5);
+					}
+					return 0.5 * (Math.pow((pos - 2), 5) + 2);
+				}
+			};
+			function tick() {
+				currentTime += 1 / 60;
+				var p = currentTime / time;
+				var t = easingEquations[soothing](p);
+				if (p < 1) {
+					requestAnimationFrame(tick);
+					root.scrollTo(0, scrollY + ((posY - scrollY) * t));
+				} else {
+					root.scrollTo(0, posY);
+				}
+			}
+			tick();
+		};
+
 		var debounce = function (func, wait) {
 			var timeout;
 			var args;
@@ -536,6 +565,7 @@ var root = "undefined" !== typeof window ? window : this;
 				}
 			};
 		};
+
 		var throttle = function (func, wait) {
 			var ctx;
 			var args;
@@ -562,24 +592,6 @@ var root = "undefined" !== typeof window ? window : this;
 				}
 				return rtn;
 			};
-		};
-
-		var appendFragment = function (e, a) {
-			a = a || document[getElementsByTagName]("body")[0] || "";
-			if (e) {
-				var df = document[createDocumentFragment]() || "";
-				if ("string" === typeof e) {
-					e = document[createTextNode](e);
-				}
-				df[appendChild](e);
-				a[appendChild](df);
-			}
-		};
-		var setStyleOpacity = function (a, n) {
-			n = n || 1;
-			if (a) {
-				a[style].opacity = n;
-			}
 		};
 
 		/*jshint bitwise: false */
@@ -633,13 +645,7 @@ var root = "undefined" !== typeof window ? window : this;
 			})();
 		};
 		/*jshint bitwise: true */
-	var getHTTP = function (force) {
-		var any = force || "";
-		var locationProtocol = root.location.protocol || "";
-		return "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : any ? "http" : "";
-	};
 
-	var forcedHTTP = getHTTP(true);
 		var isNodejs = "undefined" !== typeof process && "undefined" !== typeof require || "";
 		var isElectron = "undefined" !== typeof root && root.process && "renderer" === root.process.type || "";
 		var isNwjs = (function () {
@@ -684,258 +690,317 @@ var root = "undefined" !== typeof window ? window : this;
 				}
 			}
 		};
-	var progressBar = new ToProgress({
-			id: "top-progress-bar",
-			color: "#FF2C40",
-			height: "0.200rem",
-			duration: 0.2,
-			zIndex: 999
-		});
 
-	var hideProgressBar = function () {
-		progressBar.finish();
-		progressBar.hide();
-	};
-
-	/* progressBar.complete = function () {
-		return this.finish(),
-		this.hide();
-	}; */
-
-	progressBar.increase(20);
-/*!
- * set click event on external links,
- * so that they open in new browser tab
- * @param {Object} [ctx] context HTML Element
- */
-var handleExternalLink = function (url, ev) {
-	"use strict";
-	ev.stopPropagation();
-	ev.preventDefault();
-	var logicHandleExternalLink = openDeviceBrowser.bind(null, url);
-	var debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
-	debounceLogicHandleExternalLink();
-};
-var manageExternalLinkAll = function (scope) {
-	"use strict";
-	var ctx = scope && scope.nodeName ? scope : "";
-	var d = document;
-	var getElementsByTagName = "getElementsByTagName";
-	var getAttribute = "getAttribute";
-	var classList = "classList";
-	var _addEventListener = "addEventListener";
-	var linkTag = "a";
-	var link = ctx ? ctx[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
-	var isBindedClass = "is-binded";
-	var arrange = function (e) {
-		if (!e[classList].contains(isBindedClass)) {
-			var url = e[getAttribute]("href") || "";
-			if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-				e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
-				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					e.target = "_blank";
-					e.rel = "noopener";
-				} else {
-					e[_addEventListener]("click", handleExternalLink.bind(null, url));
-				}
-				e[classList].add(isBindedClass);
-			}
-		}
-	};
-	if (link) {
-		for (var i = 0, l = link[_length]; i < l; i += 1) {
-			arrange(link[i]);
-		}
-		/* forEach(link, arrange, false); */
-	}
-};
-manageExternalLinkAll();
-/*!
- * init nav-menu
- */
-var initNavMenu = function () {
-	"use strict";
-	var w = root;
-	var d = document;
-	var getElementById = "getElementById";
-	var getElementsByClassName = "getElementsByClassName";
-	var getElementsByTagName = "getElementsByTagName";
-	var classList = "classList";
-	var _addEventListener = "addEventListener";
-	var container = document[getElementById]("container") || "";
-	var page = document[getElementById]("page") || "";
-	var btnNavMenu = document[getElementsByClassName]("btn-nav-menu")[0] || "";
-	var panelNavMenu = document[getElementsByClassName]("panel-nav-menu")[0] || "";
-	var panelNavMenuItems = panelNavMenu ? panelNavMenu[getElementsByTagName]("a") || "" : "";
-	var holderPanelMenuMore = document[getElementsByClassName]("holder-panel-menu-more")[0] || "";
-	var isActiveClass = "is-active";
-	var locationHref = root.location.href || "";
-	var removeAllActiveClass = function () {
-		page[classList].remove(isActiveClass);
-		panelNavMenu[classList].remove(isActiveClass);
-		btnNavMenu[classList].remove(isActiveClass);
-	};
-	var removeHolderActiveClass = function () {
-		if (holderPanelMenuMore && holderPanelMenuMore[classList].contains(isActiveClass)) {
-			holderPanelMenuMore[classList].remove(isActiveClass);
-		}
-	};
-	var addContainerHandler = function () {
-		var handleContainerLeft = function () {
-			/* console.log("swipeleft"); */
-			removeHolderActiveClass();
-			if (panelNavMenu[classList].contains(isActiveClass)) {
-				removeAllActiveClass();
-			}
-		};
-		var handleContainerRight = function () {
-			/* console.log("swiperight"); */
-			removeHolderActiveClass();
-			var addAllActiveClass = function () {
-				page[classList].add(isActiveClass);
-				panelNavMenu[classList].add(isActiveClass);
-				btnNavMenu[classList].add(isActiveClass);
-			};
-			if (!panelNavMenu[classList].contains(isActiveClass)) {
-				addAllActiveClass();
-			}
-		};
-		container[_addEventListener]("click", handleContainerLeft);
-		if (root.tocca) {
-			if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-				container[_addEventListener]("swipeleft", handleContainerLeft);
-				container[_addEventListener]("swiperight", handleContainerRight);
-			}
-		}
-	};
-	var addBtnHandler = function () {
-		var toggleAllActiveClass = function () {
-			page[classList].toggle(isActiveClass);
-			panelNavMenu[classList].toggle(isActiveClass);
-			btnNavMenu[classList].toggle(isActiveClass);
-		};
-		var handleBtnNavMenu = function (ev) {
+		var handleExternalLink = function (url, ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			removeHolderActiveClass();
-			toggleAllActiveClass();
+			var logicHandleExternalLink = openDeviceBrowser.bind(null, url);
+			var debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
+			debounceLogicHandleExternalLink();
 		};
-		btnNavMenu[_addEventListener]("click", handleBtnNavMenu);
-	};
-	var addItemHandlerAll = function () {
-		var addItemHandler = function (e) {
-			var addActiveClass = function (e) {
-				e[classList].add(isActiveClass);
-			};
-			var removeHolderAndAllActiveClass = function () {
-				removeHolderActiveClass();
-				removeAllActiveClass();
-			};
-			var removeActiveClass = function (e) {
-				e[classList].remove(isActiveClass);
-			};
-			var handleItem = function () {
-				if (panelNavMenu[classList].contains(isActiveClass)) {
-					removeHolderAndAllActiveClass();
+		var manageExternalLinkAll = function (scope) {
+			var ctx = scope && scope.nodeName ? scope : "";
+			var linkTag = "a";
+			var link = ctx ? ctx[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
+			var isBindedClass = "is-binded";
+			var arrange = function (e) {
+				if (!e[classList].contains(isBindedClass)) {
+					var url = e[getAttribute]("href") || "";
+					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+						e[title] = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+						if ("undefined" !== typeof getHTTP && getHTTP()) {
+							e.target = "_blank";
+							e.rel = "noopener";
+						} else {
+							e[_addEventListener]("click", handleExternalLink.bind(null, url));
+						}
+						e[classList].add(isBindedClass);
+					}
 				}
-				for (var j = 0, l = panelNavMenuItems[_length]; j < l; j += 1) {
-					removeActiveClass(panelNavMenuItems[j]);
-				}
-				/* forEach(panelNavMenuItems, removeActiveClass, false); */
-				addActiveClass(e);
 			};
-			e[_addEventListener]("click", handleItem);
-			if (locationHref === e.href) {
-				addActiveClass(e);
-			} else {
-				removeActiveClass(e);
+			if (link) {
+				for (var i = 0, l = link[_length]; i < l; i += 1) {
+					arrange(link[i]);
+				}
+				/* forEach(link, arrange, false); */
 			}
 		};
-		for (var i = 0, l = panelNavMenuItems[_length]; i < l; i += 1) {
-			addItemHandler(panelNavMenuItems[i]);
-		}
-		/* forEach(panelNavMenuItems, addItemHandler, false); */
-	};
-	if (page && container && btnNavMenu && panelNavMenu && panelNavMenuItems) {
-		/*!
-		 * close nav on outside click
-		 */
-		addContainerHandler();
-		/*!
-		 * open or close nav
-		 */
-		addBtnHandler();
-		/*!
-		 * close nav, scroll to top, highlight active nav item
-		 */
-		addItemHandlerAll();
-	}
-};
-initNavMenu();
-/*!
- * init ui-totop
- */
-var initUiTotop = function () {
-	"use strict";
-	var w = root;
-	var d = document;
-	var h = d.documentElement || "";
-	var b = d.body || "";
-	var getElementsByClassName = "getElementsByClassName";
-	var classList = "classList";
-	var createElement = "createElement";
-	var appendChild = "appendChild";
-	var _addEventListener = "addEventListener";
-	var btnClass = "ui-totop";
-	var btnTitle = "Наверх";
-	var isActiveClass = "is-active";
-	var anchor = document[createElement]("a");
-	var handleUiTotopAnchor = function (ev) {
-		ev.stopPropagation();
-		ev.preventDefault();
-		scroll2Top(0, 20000);
-	};
-	var handleUiTotopWindow = function (_this) {
-		var logicHandleUiTotopWindow = function () {
-			var btn = document[getElementsByClassName](btnClass)[0] || "";
-			var scrollPosition = _this.pageYOffset || h.scrollTop || b.scrollTop || "";
-			var windowHeight = _this.innerHeight || h.clientHeight || b.clientHeight || "";
-			if (scrollPosition && windowHeight && btn) {
-				if (scrollPosition > windowHeight) {
-					btn[classList].add(isActiveClass);
-				} else {
-					btn[classList].remove(isActiveClass);
+		manageExternalLinkAll();
+
+		var initNavMenu = function () {
+			var container = document[getElementById]("container") || "";
+			var page = document[getElementById]("page") || "";
+			var btnNavMenu = document[getElementsByClassName]("btn-nav-menu")[0] || "";
+			var panelNavMenu = document[getElementsByClassName]("panel-nav-menu")[0] || "";
+			var panelNavMenuItems = panelNavMenu ? panelNavMenu[getElementsByTagName]("a") || "" : "";
+			var holderPanelMenuMore = document[getElementsByClassName]("holder-panel-menu-more")[0] || "";
+			var isActiveClass = "is-active";
+			var locationHref = root.location.href || "";
+			var removeAllActiveClass = function () {
+				page[classList].remove(isActiveClass);
+				panelNavMenu[classList].remove(isActiveClass);
+				btnNavMenu[classList].remove(isActiveClass);
+			};
+			var removeHolderActiveClass = function () {
+				if (holderPanelMenuMore && holderPanelMenuMore[classList].contains(isActiveClass)) {
+					holderPanelMenuMore[classList].remove(isActiveClass);
 				}
+			};
+			var addContainerHandler = function () {
+				var handleContainerLeft = function () {
+					removeHolderActiveClass();
+					if (panelNavMenu[classList].contains(isActiveClass)) {
+						removeAllActiveClass();
+					}
+				};
+				var handleContainerRight = function () {
+					removeHolderActiveClass();
+					var addAllActiveClass = function () {
+						page[classList].add(isActiveClass);
+						panelNavMenu[classList].add(isActiveClass);
+						btnNavMenu[classList].add(isActiveClass);
+					};
+					if (!panelNavMenu[classList].contains(isActiveClass)) {
+						addAllActiveClass();
+					}
+				};
+				container[_addEventListener]("click", handleContainerLeft);
+				if (root.tocca) {
+					if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
+						container[_addEventListener]("swipeleft", handleContainerLeft);
+						container[_addEventListener]("swiperight", handleContainerRight);
+					}
+				}
+			};
+			var addBtnHandler = function () {
+				var toggleAllActiveClass = function () {
+					page[classList].toggle(isActiveClass);
+					panelNavMenu[classList].toggle(isActiveClass);
+					btnNavMenu[classList].toggle(isActiveClass);
+				};
+				var handleBtnNavMenu = function (ev) {
+					ev.stopPropagation();
+					ev.preventDefault();
+					removeHolderActiveClass();
+					toggleAllActiveClass();
+				};
+				btnNavMenu[_addEventListener]("click", handleBtnNavMenu);
+			};
+			var addItemHandlerAll = function () {
+				var addItemHandler = function (e) {
+					var addActiveClass = function (e) {
+						e[classList].add(isActiveClass);
+					};
+					var removeHolderAndAllActiveClass = function () {
+						removeHolderActiveClass();
+						removeAllActiveClass();
+					};
+					var removeActiveClass = function (e) {
+						e[classList].remove(isActiveClass);
+					};
+					var handleItem = function () {
+						if (panelNavMenu[classList].contains(isActiveClass)) {
+							removeHolderAndAllActiveClass();
+						}
+						for (var j = 0, l = panelNavMenuItems[_length]; j < l; j += 1) {
+							removeActiveClass(panelNavMenuItems[j]);
+						}
+						addActiveClass(e);
+					};
+					e[_addEventListener]("click", handleItem);
+					if (locationHref === e.href) {
+						addActiveClass(e);
+					} else {
+						removeActiveClass(e);
+					}
+				};
+				for (var i = 0, l = panelNavMenuItems[_length]; i < l; i += 1) {
+					addItemHandler(panelNavMenuItems[i]);
+				}
+			};
+			if (page && container && btnNavMenu && panelNavMenu && panelNavMenuItems) {
+				addContainerHandler();
+				addBtnHandler();
+				addItemHandlerAll();
 			}
 		};
-		var throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
-		throttleLogicHandleUiTotopWindow();
-	};
-	anchor[classList].add(btnClass);
-	/* jshint -W107 */
-	anchor.href = "javascript:void(0);";
-	/* jshint +W107 */
-	anchor.title = btnTitle;
-	/* insertUpSvg(anchor); */
-	b[appendChild](anchor);
-	if (b) {
-		anchor[_addEventListener]("click", handleUiTotopAnchor);
-		root[_addEventListener]("scroll", handleUiTotopWindow, {passive: true});
-	}
-};
-initUiTotop();
-/*!
- * show page, finish ToProgress
- */
-var showPageFinishProgress = function () {
-	"use strict";
-	var d = document;
-	var getElementById = "getElementById";
-	var container = document[getElementById]("container") || "";
-	if (container) {
-		setStyleOpacity(container, 1);
-		progressBar.increase(20);
-	}
-};
-showPageFinishProgress();
+		initNavMenu();
+
+		var initUiTotop = function () {
+			var btnClass = "ui-totop";
+			var btnTitle = "Наверх";
+			var isActiveClass = "is-active";
+			var anchor = document[createElement]("a");
+			var handleUiTotopAnchor = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				scroll2Top(0, 20000);
+			};
+			var handleUiTotopWindow = function (_this) {
+				var logicHandleUiTotopWindow = function () {
+					var btn = document[getElementsByClassName](btnClass)[0] || "";
+					var scrollPosition = _this.pageYOffset || docElem.scrollTop || docBody.scrollTop || "";
+					var windowHeight = _this.innerHeight || docElem.clientHeight || docBody.clientHeight || "";
+					if (scrollPosition && windowHeight && btn) {
+						if (scrollPosition > windowHeight) {
+							btn[classList].add(isActiveClass);
+						} else {
+							btn[classList].remove(isActiveClass);
+						}
+					}
+				};
+				var throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
+				throttleLogicHandleUiTotopWindow();
+			};
+			anchor[classList].add(btnClass);
+			/* jshint -W107 */
+			anchor.href = "javascript:void(0);";
+			/* jshint +W107 */
+			anchor.title = btnTitle;
+			docBody[appendChild](anchor);
+			if (docBody) {
+				anchor[_addEventListener]("click", handleUiTotopAnchor);
+				root[_addEventListener]("scroll", handleUiTotopWindow, {
+					passive: true
+				});
+			}
+		};
+		initUiTotop();
+
 		hideProgressBar();
+	};
+
+	var scripts = ["../libs/admin/css/bundle.min.css"];
+
+	var supportsPassive = (function () {
+		var support = false;
+		try {
+			var opts = Object[defineProperty] && Object[defineProperty]({}, "passive", {
+					get: function () {
+						support = true;
+					}
+				});
+			root[_addEventListener]("test", function () {}, opts);
+		} catch (err) {}
+		return support;
+	})();
+
+	var needsPolyfills = (function () {
+		return !supportsPassive ||
+		!root.requestAnimationFrame ||
+		!root.matchMedia ||
+		("undefined" === typeof root.Element && !("dataset" in docElem)) ||
+		!("classList" in document[createElement]("_")) ||
+		document[createElementNS] && !("classList" in document[createElementNS]("http://www.w3.org/2000/svg", "g")) ||
+		/* !document.importNode || */
+		/* !("content" in document[createElement]("template")) || */
+		(root.attachEvent && !root[_addEventListener]) ||
+		!("onhashchange" in root) ||
+		!Array.prototype.indexOf ||
+		!root.Promise ||
+		!root.fetch ||
+		!document[querySelectorAll] ||
+		!document[querySelector] ||
+		!Function.prototype.bind ||
+		(Object[defineProperty] &&
+			Object[getOwnPropertyDescriptor] &&
+			Object[getOwnPropertyDescriptor](Element.prototype, "textContent") &&
+			!Object[getOwnPropertyDescriptor](Element.prototype, "textContent").get) ||
+		!("undefined" !== typeof root.localStorage && "undefined" !== typeof root.sessionStorage) ||
+		!root.WeakMap ||
+		!root.MutationObserver;
+	})();
+
+	if (needsPolyfills) {
+		scripts.push("../cdn/polyfills/js/polyfills.fixed.min.js");
+	}
+
+	/*!
+	 * load scripts after webfonts loaded using doesFontExist
+	 */
+
+	var supportsCanvas = (function () {
+		var elem = document[createElement]("canvas");
+		return !!(elem.getContext && elem.getContext("2d"));
+	})();
+
+	var onFontsLoadedCallback = function () {
+
+		var slot;
+		var onFontsLoaded = function () {
+			clearInterval(slot);
+			slot = null;
+
+			progressBar.increase(20);
+
+			var load;
+			load = new loadJsCss(scripts, run);
+		};
+
+		var checkFontIsLoaded = function () {
+			/*!
+			 * check only for fonts that are used in current page
+			 */
+			if (doesFontExist("Roboto") /* && doesFontExist("Roboto Mono") */) {
+				onFontsLoaded();
+			}
+		};
+
+		if (supportsCanvas) {
+			slot = setInterval(checkFontIsLoaded, 100);
+		} else {
+			slot = null;
+			onFontsLoaded();
+		}
+	};
+
+	loadCSS(
+			forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic,latin-ext",
+			onFontsLoadedCallback
+		);
+
+	/*!
+	 * load scripts after webfonts loaded using webfontloader
+	 */
+
+	/* root.WebFontConfig = {
+		google: {
+			families: [
+				"Roboto:300,400,400i,700,700i:cyrillic",
+				"Roboto Mono:400,700:cyrillic,latin-ext"
+			]
+		},
+		listeners: [],
+		active: function () {
+			this.called_ready = true;
+			for (var i = 0; i < this.listeners[_length]; i++) {
+				this.listeners[i]();
+			}
+		},
+		ready: function (callback) {
+			if (this.called_ready) {
+				callback();
+			} else {
+				this.listeners.push(callback);
+			}
+		}
+	};
+
+	var onFontsLoadedCallback = function () {
+
+		var onFontsLoaded = function () {
+			progressBar.increase(20);
+
+			var load;
+			load = new loadJsCss(scripts, run);
+		};
+
+		root.WebFontConfig.ready(onFontsLoaded);
+	};
+
+	var load;
+	load = new loadJsCss(
+			[forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"],
+			onFontsLoadedCallback
+		); */
+})("undefined" !== typeof window ? window : this, document);

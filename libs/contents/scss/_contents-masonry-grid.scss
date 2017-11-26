@@ -48,6 +48,11 @@
 	padding: 0 0 0 0.267rem;
 }
 
+.holder-contents-select .contents-select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
+}
+
 .holder-contents-select .contents-select::-ms-expand {
 	display: none;
 }

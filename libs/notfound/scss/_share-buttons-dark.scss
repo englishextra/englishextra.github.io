@@ -39,7 +39,6 @@
 	display: inline-block;
 	visibility: hidden;
 	opacity: 0;
-	height: 3.200rem;
 	position: fixed;
 	right: 3.200rem;
 	bottom: 0;
@@ -62,6 +61,11 @@
 	bottom: 0;
 	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
 	transition: visibility 0s, opacity 0.2s ease;
+}
+
+.pluso.is-active {
+	visibility: visible;
+	opacity: 1;
 }
 
 .btn-share-buttons {

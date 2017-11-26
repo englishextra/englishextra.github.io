@@ -60,6 +60,20 @@ select:active {
 	outline: none;
 }
 
+:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
+}
+
+::-ms-expand {
+	display: none;
+}
+
+::-ms-value {
+	background: none;
+	color: $color-hex-body-text;
+}
+
 img {
 	border: 0;
 	-ms-interpolation-mode: bicubic;
@@ -737,6 +751,11 @@ u,
 	outline: none;
 }
 
+.holder-contents-select .contents-select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
+}
+
 .holder-contents-select .contents-select::-ms-expand {
 	display: none;
 }
@@ -1106,6 +1125,11 @@ u,
 	outline: none;
 	margin: 0;
 	padding: 0 2.133rem 0 0.267rem;
+}
+
+.holder-chapters-select .chapters-select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
 }
 
 .holder-chapters-select .chapters-select::-ms-expand {

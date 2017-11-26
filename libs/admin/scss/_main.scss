@@ -1,4 +1,4 @@
-/*! @import "search-main"; */
+/*! @import "admin-main"; */
 
 /**
  * main
@@ -57,6 +57,20 @@ select:focus,
 select:active {
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
+}
+
+:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
+}
+
+::-ms-expand {
+	display: none;
+}
+
+::-ms-value {
+	background: none;
+	color: $color-hex-body-text;
 }
 
 img {
@@ -217,6 +231,10 @@ u,
 	left: 18.133rem;
 }
 
+.page img {
+	display: block;
+}
+
 .panel-nav-top {
 	display: block;
 	width: 100%;
@@ -227,8 +245,9 @@ u,
 .container {
 	width: 100%;
 	height: 100%;
-	opacity: 0;
-	transition: opacity 0.2s ease;
+	visibility: visible;
+	opacity: 1;
+	transition: visibility 0s, opacity 0.2s ease;
 	padding: 0;
 	margin: 0 auto;
 }
@@ -642,42 +661,34 @@ u,
 }
 
 /**
- * overrides to jquery-ui-1.10.4.custom.min.css
+ * specific
  */
 
-.ui-autocomplete {
-	font-family: inherit;
-	color: inherit;
-	background-color: #FFFFFF;
-	border: 0.067rem solid $color-hex-divider;
-	border-radius: 0;
-	z-index: 999;
+.col table.respond {
+	width: 100%;
 }
 
-.ui-state-hover,
-.ui-widget-content .ui-state-hover,
-.ui-widget-header .ui-state-hover,
-.ui-state-focus,
-.ui-widget-content .ui-state-focus,
-.ui-widget-header .ui-state-focus {
-	background-color: $color-hex-hover-ui-icon-bg;
-	border: 0.067rem solid $color-hex-hover-ui-icon-bg;
-	border-radius: 0;
-	padding: 0;
-	margin: 0;
+/**
+ * colors
+ */
+
+.col .DarkSlateGray {
+	color: #2F4F4F;
 }
 
-.ui-menu-item,
-.ui-menu-item .ui-corner-all {
-	font-size: 0.813rem;
-	font-weight: 400 !important;
-	color: inherit;
-	-webkit-tap-highlight-color: transparent;
-	outline: none;
+.col .FireBrick,
+.col .IndianRed {
+	font-weight: 700;
+	color: #B22222;
 }
 
-.ui-widget-shadow {
-	border-radius: 0;
+.col .SeaGreen {
+	font-weight: 400;
+	color: #2E8B57;
+}
+
+.col .SlateGray {
+	color: #708090;
 }
 
 /**
@@ -710,12 +721,8 @@ u,
  * specific
  */
 
-#search_form {
-	margin-bottom: 1.500rem;
-}
-
-#search_form input[type=text] {
-	width: 100%;
+#actions_form {
+	margin-top: 1.500rem;
 }
 
 /**
@@ -732,14 +739,15 @@ u,
  * msdn.microsoft.com/en-us/library/windows/apps/hh202920%28v=vs.105%29.aspx
  */
 
-@media only screen and (max-width: 480px) {
+/* @media only screen and (max-width: 480px) {
 	body {
 		font-family: "Roboto", $font-family-local-sans-regular;
 	}
 
 	.panel-nav-menu li {
 		font-family: $font-family-local-sans-light;
-	}}
+	}
+} */
 
 /*!
  * @see {@link https://gist.github.com/englishextra/40b7c4ffde33bfb58aff259afe229d6a}

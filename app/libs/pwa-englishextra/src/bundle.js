@@ -1098,6 +1098,42 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			}
 		};
 
+		var handleExternalLink = function (url, ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			var logicHandleExternalLink = openDeviceBrowser.bind(null, url);
+			var debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
+			debounceLogicHandleExternalLink();
+		};
+		var manageExternalLinkAll = function (scope) {
+			var ctx = scope && scope.nodeName ? scope : "";
+			var linkTag = "a";
+			var link = ctx ? ctx[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
+			var isBindedClass = "is-binded";
+			var arrange = function (e) {
+				if (!e[classList].contains(isBindedClass)) {
+					var url = e[getAttribute]("href") || "";
+					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+						if ("undefined" !== typeof getHTTP && getHTTP()) {
+							e.target = "_blank";
+							e.rel = "noopener";
+						} else {
+							e[_addEventListener]("click", handleExternalLink.bind(null, url));
+						}
+						e[classList].add(isBindedClass);
+					}
+				}
+			};
+			if (link) {
+				for (var i = 0, l = link[_length]; i < l; i += 1) {
+					arrange(link[i]);
+				}
+				/* forEach(link, arrange, false); */
+			}
+		};
+		manageExternalLinkAll();
+
 		var handleDataSrcImageAll = function () {
 			var imgClass = "data-src-img";
 			var img = document[getElementsByClassName](imgClass) || "";
@@ -1227,42 +1263,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			}
 		};
 		manageIframeLightboxLinks();
-
-		var handleExternalLink = function (url, ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			var logicHandleExternalLink = openDeviceBrowser.bind(null, url);
-			var debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
-			debounceLogicHandleExternalLink();
-		};
-		var manageExternalLinkAll = function (scope) {
-			var ctx = scope && scope.nodeName ? scope : "";
-			var linkTag = "a";
-			var link = ctx ? ctx[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
-			var isBindedClass = "is-binded";
-			var arrange = function (e) {
-				if (!e[classList].contains(isBindedClass)) {
-					var url = e[getAttribute]("href") || "";
-					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
-						if ("undefined" !== typeof getHTTP && getHTTP()) {
-							e.target = "_blank";
-							e.rel = "noopener";
-						} else {
-							e[_addEventListener]("click", handleExternalLink.bind(null, url));
-						}
-						e[classList].add(isBindedClass);
-					}
-				}
-			};
-			if (link) {
-				for (var i = 0, l = link[_length]; i < l; i += 1) {
-					arrange(link[i]);
-				}
-				/* forEach(link, arrange, false); */
-			}
-		};
-		manageExternalLinkAll();
 
 		var hideImgLightbox = function () {
 			var container = document[getElementsByClassName]("img-lightbox-container")[0] || "";
