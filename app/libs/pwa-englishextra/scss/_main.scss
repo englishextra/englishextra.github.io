@@ -1519,6 +1519,72 @@ u,
 }
 
 /*!
+ * footer
+ */
+
+.container-footer {
+	width: 100%;
+	min-height: 3.200rem;
+	/*!
+	 * for centering inner element vertically
+	 * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
+	 */
+	/* position: relative; */
+	color: #FFFFFF;
+	background-color: $TitleBarAndAppBarDark;
+}
+
+.footer {
+	/*!
+	 * for centering inner element vertically
+	 * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
+	 */
+	/* position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-right: -50%;
+	transform: translate(-50%, -50%); */
+	font-size: 0.867rem;
+	line-height: 1.333rem;
+	text-align: center;
+	padding: 0.933rem 0.667rem;
+	margin: 0 auto;
+}
+
+/*!
+ * ya-share2
+ * yandex.ru/blog/share/kak-uvelichit-shrift-tsifr-sch-tchika#comment-add
+ */
+
+/* .ya-share2 {
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+} */
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__icon {
+	height: 3.200rem;
+	width: 3.200rem;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__counter {
+	font-size: 1.333rem;
+	line-height: 3.200rem;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__title {
+	width: 0;
+	height: 0;
+	overflow: hidden;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__item {
+	margin: 0;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__badge {
+	border-radius: 0;
+}
+
+/*!
  * social buttons
  */
 
@@ -1575,37 +1641,55 @@ u,
 	line-height: 0;
 }
 
-/*!
- * footer
+/**
+ * @see {@link https://github.com/sksmatt/UItoTop-jQuery-Plugin/}
  */
 
-.container-footer {
-	width: 100%;
-	min-height: 3.200rem;
-	/*!
-	 * for centering inner element vertically
-	 * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
-	 */
-	/* position: relative; */
+.ui-totop {
+	display: inline-block;
+	visibility: hidden;
+	opacity: 0;
+	width: 3.200rem;
+	height: 3.200rem;
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	font-size: 1.333rem;
+	line-height: 3.200rem;
+	text-align: center;
+	text-decoration: none;
 	color: #FFFFFF;
-	background-color: $TitleBarAndAppBarDark;
+	background-color: rgba(31, 31, 31, 0.8);
+	border: none;
+	transition: visibility 0s, opacity 0.2s ease, background-color 0.2s ease;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
 }
 
-.footer {
+.ui-totop .ui-icon {
 	/*!
-	 * for centering inner element vertically
+	 * Centering things
 	 * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
 	 */
-	/* position: absolute;
-	top: 50%;
-	left: 50%;
-	margin-right: -50%;
-	transform: translate(-50%, -50%); */
-	font-size: 0.867rem;
-	line-height: 1.333rem;
-	text-align: center;
-	padding: 0.933rem 0.667rem;
-	margin: 0 auto;
+	display: block;
+	width: 1.333rem;
+	height: 1.333rem;
+	margin-top: 0.933rem;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.ui-totop .ui-icon > * {
+	fill: #FFFFFF;
+}
+
+.ui-totop.is-active {
+	visibility: visible;
+	opacity: 1;
+}
+
+.ui-totop:hover {
+	background-color: $TitleBarAndAppBarDark;
 }
 
 /*!

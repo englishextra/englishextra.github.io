@@ -2445,9 +2445,9 @@ body {
 	display: inline-block;
 	width: 3.200rem;
 	height: 3.200rem;
-	position: absolute;
-	top: 0;
-	left: 6.400rem;
+	position: fixed;
+	bottom: 0;
+	right: 6.400rem;
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
