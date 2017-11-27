@@ -1,9 +1,8 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global ActiveXObject, Cookies, doesFontExist, Draggabilly, IframeLightbox,
-imagePromise, Kamil, loadCSS, loadJsCss, Masonry, Packery, prettyPrint,
-Promise, QRCode, require, Tablesort, Timers, ToProgress, unescape, verge, VK,
-Ya*/
+/*global ActiveXObject, Cookies, doesFontExist, IframeLightbox, imagePromise,
+Kamil, loadCSS, loadJsCss, Promise, QRCode, require, Tablesort, Timers,
+ToProgress, unescape, verge, VK, Ya*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -482,7 +481,6 @@ Ya*/
 		var remove = "remove";
 		var removeChild = "removeChild";
 		var setAttribute = "setAttribute";
-		var style = "style";
 		var title = "title";
 		var _removeEventListener = "removeEventListener";
 
@@ -723,13 +721,13 @@ Ya*/
 
 		var setStyleDisplayBlock = function (a) {
 			if (a) {
-				a[style].display = "block";
+				a.style.display = "block";
 			}
 		};
 
 		var setStyleDisplayNone = function (a) {
 			if (a) {
-				a[style].display = "none";
+				a.style.display = "none";
 			}
 		};
 
@@ -801,34 +799,6 @@ Ya*/
 				if (!timeout) {
 					timeout = setTimeout(later, wait);
 				}
-			};
-		};
-
-		var throttle = function (func, wait) {
-			var ctx;
-			var args;
-			var rtn;
-			var timeoutID;
-			var last = 0;
-			function call() {
-				timeoutID = 0;
-				last = +new Date();
-				rtn = func.apply(ctx, args);
-				ctx = null;
-				args = null;
-			}
-			return function throttled() {
-				ctx = this;
-				args = arguments;
-				var delta = new Date() - last;
-				if (!timeoutID) {
-					if (delta >= wait) {
-						call();
-					} else {
-						timeoutID = setTimeout(call, wait - delta);
-					}
-				}
-				return rtn;
 			};
 		};
 
@@ -1349,6 +1319,34 @@ Ya*/
 		};
 		manageImgLightboxLinks();
 
+		var throttle = function (func, wait) {
+			var ctx;
+			var args;
+			var rtn;
+			var timeoutID;
+			var last = 0;
+			function call() {
+				timeoutID = 0;
+				last = +new Date();
+				rtn = func.apply(ctx, args);
+				ctx = null;
+				args = null;
+			}
+			return function throttled() {
+				ctx = this;
+				args = arguments;
+				var delta = new Date() - last;
+				if (!timeoutID) {
+					if (delta >= wait) {
+						call();
+					} else {
+						timeoutID = setTimeout(call, wait - delta);
+					}
+				}
+				return rtn;
+			};
+		};
+
 		var handleDataSrcImageAll = function () {
 			var imgClass = "data-src-img";
 			var img = document[getElementsByClassName](imgClass) || "";
@@ -1826,6 +1824,7 @@ Ya*/
 				k = n = null;
 			}
 		};
+
 		root[_addEventListener]("click", hideOtherIsSocial);
 
 		var yshare;

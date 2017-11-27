@@ -476,7 +476,6 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 		var getElementsByClassName = "getElementsByClassName";
 		var getElementsByTagName = "getElementsByTagName";
 		var parentNode = "parentNode";
-		var setAttribute = "setAttribute";
 		var style = "style";
 		var title = "title";
 		var _removeEventListener = "removeEventListener";
@@ -957,6 +956,18 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
    * @see {@link https://stackoverflow.com/questions/3464876/javascript-get-window-x-y-position-for-scroll}
    */
 		var initSuperBox = function () {
+			var w = root;
+			var d = document;
+			var b = d.body || "";
+			var classList = "classList";
+			var getElementsByClassName = "getElementsByClassName";
+			var getElementsByTagName = "getElementsByTagName";
+			var createElement = "createElement";
+			var setAttribute = "setAttribute";
+			var getAttribute = "getAttribute";
+			var appendChild = "appendChild";
+			var _addEventListener = "addEventListener";
+			var _removeEventListener = "removeEventListener";
 			var s1 = "superbox-list";
 			var s2 = "superbox-show";
 			var s3 = "superbox-current-desc";
@@ -989,7 +1000,7 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 				setStyleOpacity(sCurDesc, 0);
 				setStyleDisplayBlock(sCurDesc);
 				var sRevealPos = _this.offsetTop;
-				var sHidePos = root.pageYOffset || docElem.scrollTop;
+				var sHidePos = w.pageYOffset || d.documentElement.scrollTop;
 				var timers = new Timers();
 				timers.timeout(function () {
 					timers.clear();
@@ -1005,15 +1016,15 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 				if (link) {
 					var createCounterImg = function () {
 						var _this = this;
-						var rfrr = encodeURIComponent(root.location.href || ""),
-						    ttl = encodeURIComponent(document[title] || "").replace("\x27", "&#39;"),
+						var rfrr = encodeURIComponent(d.location.href || ""),
+						    ttl = encodeURIComponent(d.title || "").replace("\x27", "&#39;"),
 						    hrefString = _this[getAttribute]("href") || "",
 						    dmn = hrefString ? encodeURIComponent(hrefString) : "",
 						    counterHost = /^(localhost|127.0.0.1)/.test(root.location.host) ? "http://localhost/externalcounters/" : "";
 						if (counterHost) {
 							var counterElement = document[createElement]("div");
 							counterElement[setAttribute]("style", "position:absolute;left:-9999px;width:1px;height:1px;border:0;background:transparent url(" + counterHost + "?dmn=" + dmn + "&rfrr=" + rfrr + "&ttl=" + ttl + "&encoding=utf-8) top left no-repeat;");
-							appendFragment(counterElement, docBody);
+							appendFragment(counterElement, b);
 						}
 					};
 					var trackClicks = function (e) {

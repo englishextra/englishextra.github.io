@@ -423,7 +423,6 @@ ToProgress, unescape, VK, Ya*/
 		var getElementsByClassName = "getElementsByClassName";
 		var getElementsByTagName = "getElementsByTagName";
 		var parentNode = "parentNode";
-		var style = "style";
 		var title = "title";
 		var _addEventListener = "addEventListener";
 
@@ -618,12 +617,12 @@ ToProgress, unescape, VK, Ya*/
 		};
 		var setStyleDisplayBlock = function (a) {
 			if (a) {
-				a[style].display = "block";
+				a.style.display = "block";
 			}
 		};
 		var setStyleDisplayNone = function (a) {
 			if (a) {
-				a[style].display = "none";
+				a.style.display = "none";
 			}
 		};
 
@@ -1011,6 +1010,7 @@ ToProgress, unescape, VK, Ya*/
 				k = n = null;
 			}
 		};
+
 		root[_addEventListener]("click", hideOtherIsSocial);
 
 		var yshare;

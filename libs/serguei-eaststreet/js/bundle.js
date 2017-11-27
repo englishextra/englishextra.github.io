@@ -512,9 +512,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 		var innerHTML = "innerHTML";
 		var parentNode = "parentNode";
 		var remove = "remove";
-		var removeChild = "removeChild";
 		var replaceChild = "replaceChild";
-		var style = "style";
 		var title = "title";
 		var _addEventListener = "addEventListener";
 		var _removeEventListener = "removeEventListener";
@@ -641,21 +639,17 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 		var initialDocumentTitle = document.title || "";
 
 		var userBrowsingDetails = " [" + (getHumanDate ? getHumanDate : "") + (earlyDeviceType ? " " + earlyDeviceType : "") + (earlyDeviceFormfactor.orientation ? " " + earlyDeviceFormfactor.orientation : "") + (earlyDeviceFormfactor.size ? " " + earlyDeviceFormfactor.size : "") + (earlySvgSupport ? " " + earlySvgSupport : "") + (earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") + (earlyHasTouch ? " " + earlyHasTouch : "") + "]";
-
 		if (document[title]) {
 			document[title] = document[title] + userBrowsingDetails;
 		}
 
-		var scriptIsLoaded = function (scriptSrc) {
-			var scriptAll, i, l;
-			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[_length]; i < l; i += 1) {
-				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
-					scriptAll = i = l = null;
+		var scriptIsLoaded = function (s) {
+			for (var b = document[getElementsByTagName]("script") || "", a = 0; a < b[_length]; a += 1) {
+				if (b[a][getAttribute]("src") === s) {
 					return true;
 				}
 			}
-			scriptAll = i = l = null;
-			return false;
+			return;
 		};
 
 		var debounce = function (func, wait) {
@@ -901,15 +895,15 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 			x.send(null);
 		};
 
-		var safelyParseJSON = function (response) {
+		var safelyParseJSON = function (a) {
 			var isJson = function (obj) {
-				var objType = typeof obj;
-				return ['boolean', 'number', "string", 'symbol', "function"].indexOf(objType) === -1;
+				var t = typeof obj;
+				return ['boolean', 'number', "string", 'symbol', "function"].indexOf(t) === -1;
 			};
-			if (!isJson(response)) {
-				return JSON.parse(response);
+			if (!isJson(a)) {
+				return JSON.parse(a);
 			} else {
-				return response;
+				return a;
 			}
 		};
 
@@ -960,12 +954,12 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 			}
 		};
 
-		var removeElement = function (elem) {
-			if (elem) {
-				if ("undefined" !== typeof elem[remove]) {
-					return elem[remove]();
+		var removeElement = function (e) {
+			if (e) {
+				if ("undefined" !== typeof e[remove]) {
+					return e[remove]();
 				} else {
-					return elem[parentNode] && elem[parentNode][removeChild](elem);
+					return e[parentNode] && e[parentNode].removeChild(e);
 				}
 			}
 		};
@@ -980,13 +974,13 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 
 		var setStyleDisplayBlock = function (a) {
 			if (a) {
-				a[style].display = "block";
+				a.style.display = "block";
 			}
 		};
 
 		var setStyleDisplayNone = function (a) {
 			if (a) {
-				a[style].display = "none";
+				a.style.display = "none";
 			}
 		};
 
@@ -2178,6 +2172,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 						ymaps.ready(initMyMap);
 						yandexMap[parentNode][classList].add(isActiveClass);
 						setStyleDisplayNone(btnShow);
+						LoadingSpinner.hide();
 					} catch (err) {
 						console.log("cannot init ymaps", err);
 					}
@@ -2188,6 +2183,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 					if (btnDestroy) {
 						btnDestroy[_addEventListener]("click", handleYandexMapBtnDestroy);
 					}
+					LoadingSpinner.show();
 					var jsUrl = forcedHTTP + "://api-maps.yandex.ru/2.1/?lang=ru_RU";
 					if (!scriptIsLoaded(jsUrl)) {
 						loadJS(jsUrl, initScript);

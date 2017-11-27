@@ -18,7 +18,7 @@
 	right: -50%;
 	left: -50%;
 	visibility: visible;
-	background-color: #E6E6EA;
+	background-color: $TitleBarAndAppBarLight;
 	text-decoration: none;
 	text-align: center;
 	transform-origin: 50% 100%;
@@ -26,7 +26,7 @@
 }
 
 .badge a:hover {
-	background-color: #E6E6EA;
+	background-color: $TitleBarAndAppBarLight;
 }
 
 .shower-list {
@@ -80,8 +80,8 @@
 
 .slide h2 {
 	font-weight: 700;
-	font-size: 3.000em;
-	line-height: 1.200;
+	font-size: 3.200em;
+	line-height: 1.200em;
 	color: #FFFFFF;
 	margin: 0 0 37px;
 }
@@ -92,9 +92,9 @@
 
 .slide .explanation {
 	font-weight: 400;
-	font-size: 0.813em;
+	font-size: 0.867em;
 	font-style: italic;
-	margin-left: 0.250em;
+	margin-left: 0.333em;
 }
 
 .slide .phonetic {
@@ -132,19 +132,19 @@
 
 .shower-list .slide:after {
 	font-weight: 700;
-	font-size: 2.500em;
-	line-height: 1.340em;
+	font-size: 2.667em;
+	line-height: 1.400em;
 	width: auto;
 	height: auto;
 	position: relative;
-	top: 0.344em;
+	top: 0.333em;
 	right: auto;
 	bottom: -80px;
 	left: 120px;
 	color: #FFFFFF;
 	background-color: #FF6978;
 	background-image: none;
-	padding: 0.344em 0.5em;
+	padding: 0.333em 0.533em;
 }
 
 .shower-list .slide:target:after {

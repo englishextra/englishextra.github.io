@@ -1,7 +1,8 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global doesFontExist, loadCSS, loadJsCss, QRCode, require,
-ToProgress, unescape, VK, Ya*/
+/*global ActiveXObject, doesFontExist, Draggabilly, imagePromise, Kamil,
+loadCSS, loadJsCss, Masonry, Packery, Promise, QRCode, require, Timers,
+ToProgress, unescape, verge, VK, Ya*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -197,6 +198,95 @@ ToProgress, unescape, VK, Ya*/
 	root.ToProgress = ToProgress;
 })("undefined" !== typeof window ? window : this, document);
 /*!
+ * return image is loaded promise
+ * @see {@link https://jsfiddle.net/englishextra/56pavv7d/}
+ * @param {String|Object} s image path string or HTML DOM Image Object
+ * var m = document.querySelector("img") || "";
+ * var s = m.src || "";
+ * imagePromise(m).then(function (r) {
+ * alert(r);
+ * }).catch (function (err) {
+ * alert(err);
+ * });
+ * imagePromise(s).then(function (r) {
+ * alert(r);
+ * }).catch (function (err) {
+ * alert(err);
+ * });
+ * @see {@link https://gist.github.com/englishextra/3e95d301d1d47fe6e26e3be198f0675e}
+ * passes jshint
+ */
+(function (root) {
+	"use strict";
+
+	var imagePromise = function (s) {
+		if (root.Promise) {
+			return new Promise(function (y, n) {
+				var f = function (e, p) {
+					e.onload = function () {
+						y(p);
+					};
+					e.onerror = function () {
+						n(p);
+					};
+					e.src = p;
+				};
+				if ("string" === typeof s) {
+					var a = new Image();
+					f(a, s);
+				} else {
+					if ("img" !== s.tagName) {
+						return Promise.reject();
+					} else {
+						if (s.src) {
+							f(s, s.src);
+						}
+					}
+				}
+			});
+		} else {
+			throw new Error("Promise is not in global object");
+		}
+	};
+	root.imagePromise = imagePromise;
+})("undefined" !== typeof window ? window : this);
+/*!
+ * Timer management (setInterval / setTimeout)
+ * @param {Function} fn
+ * @param {Number} ms
+ * var timers = new Timers();
+ * timers.timeout(function () {
+ * console.log("before:", timers);
+ * timers.clear();
+ * timers = null;
+ * doSomething();
+ * console.log("after:", timers);
+ * }, 3000);
+ * @see {@link https://github.com/component/timers}
+ * @see {@link https://github.com/component/timers/blob/master/index.js}
+ * passes jshint
+ */
+(function (root) {
+	var Timers = function (ids) {
+		this.ids = ids || [];
+	};
+	Timers.prototype.timeout = function (fn, ms) {
+		var id = setTimeout(fn, ms);
+		this.ids.push(id);
+		return id;
+	};
+	Timers.prototype.interval = function (fn, ms) {
+		var id = setInterval(fn, ms);
+		this.ids.push(id);
+		return id;
+	};
+	Timers.prototype.clear = function () {
+		this.ids.forEach(clearTimeout);
+		this.ids = [];
+	};
+	root.Timers = Timers;
+})("undefined" !== typeof window ? window : this, document);
+/*!
  * modified Detect Whether a Font is Installed
  * @param {String} fontName The name of the font to check
  * @return {Boolean}
@@ -337,6 +427,7 @@ ToProgress, unescape, VK, Ya*/
 
 	var docElem = document.documentElement || "";
 	var docImplem = document.implementation || "";
+	var docBody = document.body || "";
 
 	var createElement = "createElement";
 	var createElementNS = "createElementNS";
@@ -390,6 +481,7 @@ ToProgress, unescape, VK, Ya*/
 		var style = "style";
 		var title = "title";
 		var _addEventListener = "addEventListener";
+		var _removeEventListener = "removeEventListener";
 
 		progressBar.increase(20);
 
@@ -528,6 +620,78 @@ ToProgress, unescape, VK, Ya*/
 			return false;
 		};
 
+		var loadUnparsedJSON = function (url, callback, onerror) {
+			var cb = function (string) {
+				return callback && "function" === typeof callback && callback(string);
+			};
+			var x = root.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+			x.overrideMimeType("application/json;charset=utf-8");
+			x.open("GET", url, !0);
+			x.withCredentials = !1;
+			x.onreadystatechange = function () {
+				if (x.status === "404" || x.status === 0) {
+					console.log("Error XMLHttpRequest-ing file", x.status);
+					return onerror && "function" === typeof onerror && onerror();
+				} else if (x.readyState === 4 && x.status === 200 && x.responseText) {
+					cb(x.responseText);
+				}
+			};
+			x.send(null);
+		};
+
+		var safelyParseJSON = function (response) {
+			var isJson = function (obj) {
+				var objType = typeof obj;
+				return ['boolean', 'number', "string", 'symbol', "function"].indexOf(objType) === -1;
+			};
+			if (!isJson(response)) {
+				return JSON.parse(response);
+			} else {
+				return response;
+			}
+		};
+
+		var getKeyValuesFromJSON = function (b, d) {
+			var c = [];
+			for (var a in b) {
+				if (b.hasOwnProperty(a)) {
+					if ("object" === typeof b[a]) {
+						c = c.concat(getKeyValuesFromJSON(b[a], d));
+					} else {
+						if (a === d) {
+							c.push(b[a]);
+						}
+					}
+				}
+			}
+			return c;
+		};
+
+		var truncString = function (str, max, add) {
+			add = add || "\u2026";
+			return "string" === typeof str && str[_length] > max ? str.substring(0, max) + add : str;
+		};
+
+		var fixEnRuTypo = function (e, a, b) {
+			var c = "";
+			if ("ru" === a && "en" === b) {
+				a = '\u0430\u0431\u0432\u0433\u0434\u0435\u0451\u0436\u0437\u0438\u0439\u043a\u043b\u043c\u043d\u043e\u043f\u0440\u0441\u0442\u0443\u0444\u0445\u0446\u0447\u0448\u0449\u044a\u044c\u044b\u044d\u044e\u044f\u0410\u0411\u0412\u0413\u0414\u0415\u0401\u0416\u0417\u0418\u0419\u041a\u041b\u041c\u041d\u041e\u041f\u0420\u0421\u0422\u0423\u0424\u0425\u0426\u0427\u0428\u0429\u042a\u042c\u042b\u042d\u042e\u042f"\u2116;:?/.,';
+				b = "f,dult`;pbqrkvyjghcnea[wxio]ms'.zF<DULT~:PBQRKVYJGHCNEA{WXIO}MS'>Z@#$^&|/?";
+			} else {
+				a = "f,dult`;pbqrkvyjghcnea[wxio]ms'.zF<DULT~:PBQRKVYJGHCNEA{WXIO}MS'>Z@#$^&|/?";
+				b = '\u0430\u0431\u0432\u0433\u0434\u0435\u0451\u0436\u0437\u0438\u0439\u043a\u043b\u043c\u043d\u043e\u043f\u0440\u0441\u0442\u0443\u0444\u0445\u0446\u0447\u0448\u0449\u044a\u044c\u044b\u044d\u044e\u044f\u0410\u0411\u0412\u0413\u0414\u0415\u0401\u0416\u0417\u0418\u0419\u041a\u041b\u041c\u041d\u041e\u041f\u0420\u0421\u0422\u0423\u0424\u0425\u0426\u0427\u0428\u0429\u042a\u042c\u042b\u042d\u042e\u042f"\u2116;:?/.,';
+			}
+			for (var d = 0; d < e[_length]; d++) {
+				var f = a.indexOf(e.charAt(d));
+				if (c > f) {
+					c += e.charAt(d);
+				} else {
+					c += b.charAt(f);
+				}
+			}
+			return c;
+		};
+
 		var removeChildren = function (e) {
 			if (e && e.firstChild) {
 				for (; e.firstChild;) {
@@ -560,10 +724,63 @@ ToProgress, unescape, VK, Ya*/
 			}
 		};
 
+		var setStyleDisplayBlock = function (a) {
+			if (a) {
+				a[style].display = "block";
+			}
+		};
+
 		var setStyleDisplayNone = function (a) {
 			if (a) {
 				a[style].display = "none";
 			}
+		};
+
+		var isValidId = function (a, full) {
+			return full ? /^\#[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? !0 : !1 : /^[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? !0 : !1;
+		};
+
+		var findPos = function (a) {
+			a = a.getBoundingClientRect();
+			return {
+				top: Math.round(a.top + (root.pageYOffset || docElem.scrollTop || docBody.scrollTop) - (docElem.clientTop || docBody.clientTop || 0)),
+				left: Math.round(a.left + (root.pageXOffset || docElem.scrollLeft || docBody.scrollLeft) - (docElem.clientLeft || docBody.clientLeft || 0))
+			};
+		};
+
+		var scroll2Top = function (scrollTargetY, speed, easing) {
+			var scrollY = root.scrollY || docElem.scrollTop;
+			var posY = scrollTargetY || 0;
+			var rate = speed || 2000;
+			var soothing = easing || "easeOutSine";
+			var currentTime = 0;
+			var time = Math.max(0.1, Math.min(Math.abs(scrollY - posY) / rate, 0.8));
+			var easingEquations = {
+				easeOutSine: function (pos) {
+					return Math.sin(pos * (Math.PI / 2));
+				},
+				easeInOutSine: function (pos) {
+					return -0.5 * (Math.cos(Math.PI * pos) - 1);
+				},
+				easeInOutQuint: function (pos) {
+					if ((pos /= 0.5) < 1) {
+						return 0.5 * Math.pow(pos, 5);
+					}
+					return 0.5 * (Math.pow(pos - 2, 5) + 2);
+				}
+			};
+			function tick() {
+				currentTime += 1 / 60;
+				var p = currentTime / time;
+				var t = easingEquations[soothing](p);
+				if (p < 1) {
+					requestAnimationFrame(tick);
+					root.scrollTo(0, scrollY + (posY - scrollY) * t);
+				} else {
+					root.scrollTo(0, posY);
+				}
+			}
+			tick();
 		};
 
 		var debounce = function (func, wait) {
@@ -587,6 +804,34 @@ ToProgress, unescape, VK, Ya*/
 				if (!timeout) {
 					timeout = setTimeout(later, wait);
 				}
+			};
+		};
+
+		var throttle = function (func, wait) {
+			var ctx;
+			var args;
+			var rtn;
+			var timeoutID;
+			var last = 0;
+			function call() {
+				timeoutID = 0;
+				last = +new Date();
+				rtn = func.apply(ctx, args);
+				ctx = null;
+				args = null;
+			}
+			return function throttled() {
+				ctx = this;
+				args = arguments;
+				var delta = new Date() - last;
+				if (!timeoutID) {
+					if (delta >= wait) {
+						call();
+					} else {
+						timeoutID = setTimeout(call, wait - delta);
+					}
+				}
+				return rtn;
 			};
 		};
 

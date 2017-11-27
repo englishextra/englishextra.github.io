@@ -403,22 +403,22 @@ a.pswp__share--facebook:before {
 }
 
 a.pswp__share--facebook:hover {
-	background: #3E5C9A;
+	background: $color-hex-facebook-bg;
 	color: #FFF;
 }
 
 a.pswp__share--facebook:hover:before {
-	border-bottom-color: #3E5C9A;
+	border-bottom-color: $color-hex-facebook-bg;
 }
 
 a.pswp__share--twitter:hover {
-	background: #55ACEE;
+	background: $color-hex-twitter-bg;
 	color: #FFF;
 }
 
 a.pswp__share--pinterest:hover {
 	background: #CCC;
-	color: #CE272D;
+	color: $color-hex-pinterest-bg;
 }
 
 a.pswp__share--download:hover {
