@@ -508,18 +508,10 @@ unescape, WebSlides*/
 		}();
 
 		var userBrowsingDetails = " [" + (getHumanDate ? getHumanDate : "") + (earlyDeviceType ? " " + earlyDeviceType : "") + (earlyDeviceFormfactor.orientation ? " " + earlyDeviceFormfactor.orientation : "") + (earlyDeviceFormfactor.size ? " " + earlyDeviceFormfactor.size : "") + (earlySvgSupport ? " " + earlySvgSupport : "") + (earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") + (earlyHasTouch ? " " + earlyHasTouch : "") + "]";
+
 		if (document[title]) {
 			document[title] = document[title] + userBrowsingDetails;
 		}
-
-		/* var scriptIsLoaded = function (s) {
-  	for (var b = document[getElementsByTagName]("script") || "", a = 0; a < b[_length]; a += 1) {
-  		if (b[a][getAttribute]("src") === s) {
-  			return true;
-  		}
-  	}
-  	return;
-  }; */
 
 		var debounce = function (func, wait) {
 			var timeout;
