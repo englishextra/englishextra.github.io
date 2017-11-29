@@ -328,8 +328,8 @@ verge*/
  * loadCSS(hrefString,callback,media,before)
  */
 (function (root, document) {
+	"use strict";
 	var loadCSS = function (_href, callback) {
-		"use strict";
 		var ref = document.getElementsByTagName("head")[0] || "";
 		var link = document.createElement("link");
 		link.rel = "stylesheet";
@@ -1039,7 +1039,8 @@ verge*/
 				/* var jsUrl = "./cdn/packery/2.1.1/js/packery.imagesloaded.draggabilly.pkgd.fixed.min.js"; */
 				/* var jsUrl = "./cdn/isotope/3.0.1/js/isotope.imagesloaded.pkgd.fixed.min.js";
 				if (!scriptIsLoaded(jsUrl)) {
-					loadJS(jsUrl, initScript);
+					var load;
+					load = new loadJsCss([jsUrl], initScript);
 				} */
 				initScript();
 			}

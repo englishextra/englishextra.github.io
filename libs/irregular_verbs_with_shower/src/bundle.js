@@ -238,8 +238,8 @@
  * loadCSS(hrefString,callback,media,before)
  */
 (function (root, document) {
+	"use strict";
 	var loadCSS = function (_href, callback) {
-		"use strict";
 		var ref = document.getElementsByTagName("head")[0] || "";
 		var link = document.createElement("link");
 		link.rel = "stylesheet";
