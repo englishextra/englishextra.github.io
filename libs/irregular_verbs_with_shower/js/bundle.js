@@ -833,6 +833,60 @@
 		};
 		manageShareButton();
 
+		var vlike;
+		var manageVKLikeButton = function () {
+			var vkLikeId = "vk-like";
+			var vkLike = document[getElementById](vkLikeId) || "";
+			var holderVkLike = document[getElementsByClassName]("holder-vk-like")[0] || "";
+			var btn = document[getElementsByClassName]("btn-show-vk-like")[0] || "";
+			var isActiveClass = "is-active";
+			var handleVKLikeButton = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var logic = function () {
+					holderVkLike[classList].toggle(isActiveClass);
+					hideOtherIsSocial(holderVkLike);
+					var initScript = function () {
+						if (root.VK) {
+							if (!vlike) {
+								try {
+									VK.init({
+										apiId: vkLike[dataset].apiid || "",
+										nameTransportPath: "/xd_receiver.htm",
+										onlyWidgets: true
+									});
+									VK.Widgets.Like(vkLikeId, {
+										type: "button",
+										height: 24
+									});
+									vlike = true;
+								} catch (err) {
+									/* console.log("cannot init VK", err); */
+								}
+							}
+						}
+					};
+					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?147";
+					if (!scriptIsLoaded(jsUrl)) {
+						var load;
+						load = new loadJsCss([jsUrl], initScript);
+					} else {
+						initScript();
+					}
+				};
+				var debounceLogic = debounce(logic, 200);
+				debounceLogic();
+			};
+			if (btn && vkLike) {
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					btn[_addEventListener]("click", handleVKLikeButton);
+				} else {
+					setStyleDisplayNone(btn);
+				}
+			}
+		};
+		manageVKLikeButton();
+
 		var initUiTotop = function () {
 			var btnClass = "ui-totop";
 			var btnTitle = "Наверх";
