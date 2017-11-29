@@ -330,9 +330,9 @@ ToProgress, unescape, verge, VK, Ya*/
  * loadCSS(hrefString,callback,media,before)
  */
 (function (root, document) {
-	var loadCSS = function (_href, callback) {
-		"use strict";
+	"use strict";
 
+	var loadCSS = function (_href, callback) {
 		var ref = document.getElementsByTagName("head")[0] || "";
 		var link = document.createElement("link");
 		link.rel = "stylesheet";

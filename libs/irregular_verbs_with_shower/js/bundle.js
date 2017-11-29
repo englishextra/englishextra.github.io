@@ -1,6 +1,6 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global doesFontExist, loadCSS, loadJsCss, require, ToProgress, Ya*/
+/*global doesFontExist, loadCSS, loadJsCss, require, ToProgress, VK, Ya*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -239,9 +239,9 @@
  * loadCSS(hrefString,callback,media,before)
  */
 (function (root, document) {
-	var loadCSS = function (_href, callback) {
-		"use strict";
+	"use strict";
 
+	var loadCSS = function (_href, callback) {
 		var ref = document.getElementsByTagName("head")[0] || "";
 		var link = document.createElement("link");
 		link.rel = "stylesheet";
@@ -378,6 +378,7 @@
 
 		var appendChild = "appendChild";
 		var classList = "classList";
+		var dataset = "dataset";
 		var createElement = "createElement";
 		var getAttribute = "getAttribute";
 		var getElementById = "getElementById";

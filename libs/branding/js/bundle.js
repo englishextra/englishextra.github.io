@@ -331,9 +331,9 @@ Ya*/
  * loadCSS(hrefString,callback,media,before)
  */
 (function (root, document) {
-	var loadCSS = function (_href, callback) {
-		"use strict";
+	"use strict";
 
+	var loadCSS = function (_href, callback) {
 		var ref = document.getElementsByTagName("head")[0] || "";
 		var link = document.createElement("link");
 		link.rel = "stylesheet";
@@ -1204,7 +1204,8 @@ Ya*/
 				/* var jsUrl = "../../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js"; */
 				/* var jsUrl = "../../cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
     if (!scriptIsLoaded(jsUrl)) {
-    	loadJS(jsUrl, initScript);
+    	var load;
+    	load = new loadJsCss([jsUrl], initScript);
     } */
 				initScript();
 			}
@@ -1221,7 +1222,8 @@ Ya*/
 			if (pre) {
 				/* var jsUrl = "../../cdn/google-code-prettify/0.1/js/prettify.bundled.fixed.min.js";
     if (!scriptIsLoaded(jsUrl)) {
-    	loadJS(jsUrl, initScript);
+    	var load;
+    	load = new loadJsCss([jsUrl], initScript);
     } */
 				initScript();
 			}

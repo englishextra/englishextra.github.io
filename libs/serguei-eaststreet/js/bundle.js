@@ -330,9 +330,9 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
  * loadCSS(hrefString,callback,media,before)
  */
 (function (root, document) {
-	var loadCSS = function (_href, callback) {
-		"use strict";
+	"use strict";
 
+	var loadCSS = function (_href, callback) {
 		var ref = document.getElementsByTagName("head")[0] || "";
 		var link = document.createElement("link");
 		link.rel = "stylesheet";
@@ -359,9 +359,9 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
  * loadJS(srcString,callback)
  */
 (function (root, document) {
-	var loadJS = function (_src, callback) {
-		"use strict";
+	"use strict";
 
+	var loadJS = function (_src, callback) {
 		var ref = document.getElementsByTagName("script")[0] || "";
 		var script = document.createElement("script");
 		script.src = _src;
@@ -2376,52 +2376,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 			}
 		};
 		initKamilAutocomplete();
-		/*!
-   * init ui-totop
-   */
-		var initUiTotop = function () {
-			var btnClass = "ui-totop";
-			var btnTitle = "Наверх";
-			var isActiveClass = "is-active";
-			var anchor = document[createElement]("a");
-			var handleUiTotopAnchor = function (ev) {
-				ev.stopPropagation();
-				ev.preventDefault();
-				scroll2Top(0, 20000);
-			};
-			var handleUiTotopWindow = function (_this) {
-				var logicHandleUiTotopWindow = function () {
-					var btn = document[getElementsByClassName](btnClass)[0] || "";
-					var scrollPosition = _this.pageYOffset || docElem.scrollTop || docBody.scrollTop || "";
-					var windowHeight = _this.innerHeight || docElem.clientHeight || docBody.clientHeight || "";
-					if (scrollPosition && windowHeight && btn) {
-						if (scrollPosition > windowHeight) {
-							btn[classList].add(isActiveClass);
-						} else {
-							btn[classList].remove(isActiveClass);
-						}
-					}
-				};
-				var throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
-				throttleLogicHandleUiTotopWindow();
-			};
-			anchor[classList].add(btnClass);
-			/* jshint -W107 */
-			anchor.href = "javascript:void(0);";
-			/* jshint +W107 */
-			anchor.title = btnTitle;
-			/* insertUpSvg(anchor); */
-			docBody[appendChild](anchor);
-			if (docBody) {
-				anchor[_addEventListener]("click", handleUiTotopAnchor);
-				root[_addEventListener]("scroll", handleUiTotopWindow, { passive: true });
-			}
-		};
-		initUiTotop();
-		/*!
-   * init routie
-   * @param {String} ctx HTML id string
-   */
+
 		var initRoutie = function () {
 			var appContentId = "app-content";
 			var appContent = document[getElementById](appContentId) || "";
@@ -2523,6 +2478,46 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 			}
 		};
 		initRoutie();
+
+		var initUiTotop = function () {
+			var btnClass = "ui-totop";
+			var btnTitle = "Наверх";
+			var isActiveClass = "is-active";
+			var anchor = document[createElement]("a");
+			var handleUiTotopAnchor = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				scroll2Top(0, 20000);
+			};
+			var handleUiTotopWindow = function (_this) {
+				var logicHandleUiTotopWindow = function () {
+					var btn = document[getElementsByClassName](btnClass)[0] || "";
+					var scrollPosition = _this.pageYOffset || docElem.scrollTop || docBody.scrollTop || "";
+					var windowHeight = _this.innerHeight || docElem.clientHeight || docBody.clientHeight || "";
+					if (scrollPosition && windowHeight && btn) {
+						if (scrollPosition > windowHeight) {
+							btn[classList].add(isActiveClass);
+						} else {
+							btn[classList].remove(isActiveClass);
+						}
+					}
+				};
+				var throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
+				throttleLogicHandleUiTotopWindow();
+			};
+			anchor[classList].add(btnClass);
+			/* jshint -W107 */
+			anchor.href = "javascript:void(0);";
+			/* jshint +W107 */
+			anchor.title = btnTitle;
+			/* insertUpSvg(anchor); */
+			docBody[appendChild](anchor);
+			if (docBody) {
+				anchor[_addEventListener]("click", handleUiTotopAnchor);
+				root[_addEventListener]("scroll", handleUiTotopWindow, { passive: true });
+			}
+		};
+		initUiTotop();
 
 		hideProgressBar();
 	};
