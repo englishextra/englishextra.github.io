@@ -211,8 +211,6 @@ u,
 	margin: 0 auto;
 }
 
-/*! @import "nav-menu-dark"; */
-
 /**
  * nav menu
  */
@@ -237,12 +235,6 @@ u,
 	margin: 0;
 	margin-left: -18.133rem;
 }
-
-/* .js .panel-nav-menu {
-	position: fixed;
-	top: 0;
-	left: 0;
-} */
 
 .panel-nav-menu li {
 	position: relative;
@@ -284,11 +276,11 @@ u,
 	display: inline-block;
 	width: 3.200rem;
 	height: 3.200rem;
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	color: #FFFFFF;
-	transition: background-color 0.2s ease;
+	transition: left 0.2s linear, background-color 0.2s ease;
 	cursor: pointer;
 }
 
@@ -332,10 +324,8 @@ u,
 	 * position fixed
 	 * left: 18.133rem;
 	 */
-	left: 0;
+	left: 18.133rem;
 }
-
-/*! @import "menu-more-dark"; */
 
 /**
  * menu more
@@ -345,13 +335,22 @@ u,
 	display: inline-block;
 	width: 3.200rem;
 	height: 3.200rem;
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 3.200rem;
-	text-decoration: none;
 	color: #FFFFFF;
-	transition: background-color 0.2s ease;
+	transition: left 0.2s linear, background-color 0.2s ease;
 	cursor: pointer;
+}
+
+.page.is-active .btn-menu-more {
+	/**
+	 * position absolute
+	 * left: 0;
+	 * position fixed
+	 * left: 21.333rem;
+	 */
+	left: 21.333rem;
 }
 
 .btn-menu-more:hover {
@@ -379,7 +378,7 @@ u,
 .holder-panel-menu-more {
 	display: block;
 	visibility: hidden;
-	position: absolute;
+	position: fixed;
 	top: 3.200rem;
 	left: 3.200rem;
 	color: $color-hex-body-text;
@@ -388,6 +387,16 @@ u,
 	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
 	opacity: 0;
 	transition: visibility 0s, opacity 0.2s ease;
+}
+
+.page.is-active .holder-panel-menu-more {
+	/**
+	 * position absolute
+	 * left: 0;
+	 * position fixed
+	 * left: 21.333rem;
+	 */
+	left: 21.333rem;
 }
 
 .holder-panel-menu-more.is-active {
