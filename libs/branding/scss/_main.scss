@@ -1,6 +1,6 @@
 /*! @import "main"; */
 
-/**
+/*!
  * main
  */
 
@@ -40,7 +40,7 @@ body {
 	padding: 0;
 }
 
-/**
+/*!
  * englishextra specific rules
  */
 
@@ -120,7 +120,7 @@ u,
 	opacity: 1;
 }
 
-/**
+/*!
  * clearfix css-tricks.com/snippets/css/clear-fix/
  */
 
@@ -130,7 +130,7 @@ u,
 	clear: both;
 }
 
-/**
+/*!
  * fit width
  */
 
@@ -138,7 +138,7 @@ u,
 	min-width: 100%;
 }
 
-/**
+/*!
  * fit half width
  */
 
@@ -146,7 +146,7 @@ u,
 	min-width: 50%;
 }
 
-/**
+/*!
  * hide and show on mobile
  */
 
@@ -171,7 +171,7 @@ u,
 	}
 }
 
-/**
+/*!
  * fixes to Simple Grid
  */
 
@@ -202,7 +202,7 @@ u,
 	text-align: center;
 }
 
-/**
+/*!
  * other
  */
 
@@ -275,7 +275,7 @@ u,
 	clear: both;
 }
 
-/**
+/*!
  * nav menu
  */
 
@@ -392,7 +392,7 @@ u,
 	left: 18.133rem;
 }
 
-/**
+/*!
  * menu more
  */
 
@@ -621,7 +621,7 @@ u,
 	display: none;
 }
 
-/**
+/*!
  * fixes to typeboost.css
  * modularscale.com
  * @see {@link https://github.com/modularscale/modularscale-sass}
@@ -1020,7 +1020,7 @@ u,
 	margin-top: 1.333rem;
 }
 
-/**
+/*!
  * fix width for hint.css
  * where hint class sets display inline block
  */
@@ -1152,7 +1152,7 @@ u,
 	margin-bottom: 0;
 }
 
-/**
+/*!
  * modified github.com/tristen/tablesort
  * tristen.ca/tablesort/demo/
  */
@@ -1373,7 +1373,7 @@ u,
 	cursor: pointer;
 }
 
-/**
+/*!
  * englishextra ui colors
  */
 
@@ -1621,7 +1621,7 @@ u,
 	background-color: $color-hex-vk-like-bg;
 }
 
-/**
+/*!
  * footer
  */
 
@@ -1676,7 +1676,7 @@ u,
 	border-radius: 0;
 }
 
-/**
+/*!
  * pluso, yashare
  */
 
@@ -1749,7 +1749,7 @@ u,
 	line-height: 3.200rem;
 }
 
-/**
+/*!
  * vk-like
  */
 
@@ -1819,7 +1819,7 @@ u,
 	line-height: 3.200rem;
 }
 
-/**
+/*!
  * @see {@link https://github.com/sksmatt/UItoTop-jQuery-Plugin/}
  */
 .ui-totop {
@@ -1857,6 +1857,212 @@ u,
 .ui-totop:active {
 	color: $color-hex-body-text;
 	background-color: $AccentColor;
+}
+
+/*!
+ * @see {@link https://github.com/lukehaas/css-loaders}
+ * projects.lukehaas.me/css-loaders/
+ * size of a loader dependent on font size
+ */
+
+.is-active-loading-spinner .loading-spinner {
+	font-size: 0.500em;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin: -5.000em 0 0 -5.000em;
+	text-indent: -9999em;
+	border-top: 1.000em solid $color-rgba-loading-spinner-bg;
+	border-right: 1.000em solid $color-rgba-loading-spinner-bg;
+	border-bottom: 1.000em solid $color-rgba-loading-spinner-bg;
+	border-left: 1.000em solid $color-rgba-loading-spinner-text;
+	transform: translateZ(0);
+	animation: load8 1.1s infinite linear;
+}
+
+.is-active-loading-spinner .loading-spinner,
+.is-active-loading-spinner .loading-spinner:after {
+	border-radius: 50%;
+	width: 10.000em;
+	height: 10.000em;
+}
+
+@keyframes load8 {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+/*!
+ * img lightbox
+ */
+
+.img-lightbox-container {
+	display: none;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: $color-rgba-page-overlay-bg;
+	opacity: 0;
+}
+
+.img-lightbox-container img {
+	display: block;
+	max-width: 90%;
+	max-height: 90%;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	cursor: zoom-out;
+	background-color: transparent;
+	border: 0;
+	box-shadow: 0.267rem 0.267rem 0.267rem 0 $color-rgba-lightbox-shadow;
+	opacity: 0;
+	user-select: none;
+	vertical-align: middle;
+	margin: auto;
+}
+
+/*!
+ * reset for animate.css
+ * daneden.github.io/animate.css/
+ */
+
+.img-lightbox-container.animated,
+.img-lightbox-container img.animated {
+	animation-duration: 0.4s;
+	animation-fill-mode: both;
+}
+
+/*!
+ * download app btn
+ */
+
+.btn-download-app {
+	display: block;
+	width: 10.200rem;
+	height: 3.467rem;
+	position: fixed;
+	top: 3.600rem;
+	right: 0.400rem;
+	background-position: left top;
+	background-repeat: no-repeat;
+	background-size: 10.200rem 3.600rem;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+}
+
+/*!
+ * reset for animate.css
+ * daneden.github.io/animate.css/
+ */
+
+.btn-download-app.animated {
+	animation-duration: 0.2s;
+	animation-fill-mode: both;
+}
+
+/*!
+ * location qr code
+ */
+
+.holder-location-qr-code {
+	display: block;
+	width: 100%;
+	float: left;
+	text-align: left;
+	background-color: #FFFFFF;
+}
+
+.holder-location-qr-code .qr-code-img,
+.holder-location-qr-code img {
+	display: block;
+	width: 9.600rem;
+	height: 9.600rem;
+	background-color: transparent;
+	background-size: 9.600rem 9.600rem;
+	border: 0;
+	vertical-align: bottom;
+	padding: 0;
+	margin: 0;
+}
+
+/*!
+ * notifier42
+ * inspired by github.com/mlcheng/js-toast
+ */
+
+.notifier42 {
+	display: block;
+	opacity : 0;
+	/* width: calc(100% - 6.400rem); */
+	width: 100%;
+	/* min-height: 3.200rem; */
+	height: 0;
+	position : fixed;
+	bottom : 0;
+	left: 0;
+	font-size: 0.933rem;
+	line-height: 1.333rem;
+	text-align : center;
+	word-break : keep-all;
+	color : $color-rgba-notifier42-text;
+	background-color: $color-rgba-notifier42-bg;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+	padding: 0;
+	margin: 0 auto;
+}
+
+.notifier42.animated {
+	padding: 0.933rem 3.200rem;
+	min-height: 3.200rem;
+}
+
+.notifier42.notice {
+	background-color: $color-rgba-notifier42-notice;
+}
+
+.notifier42.warning {
+	background-color: $color-rgba-notifier42-warning;
+}
+
+.notifier42.error {
+	background-color: $color-rgba-notifier42-error;
+}
+
+.notifier42.success {
+	background-color: $color-rgba-notifier42-success;
+}
+
+/*!
+ * reset for animate.css
+ * daneden.github.io/animate.css/
+ */
+
+.notifier42.animated {
+	animation-duration: 0.4s;
+	animation-fill-mode: both;
+}
+
+/*!
+ * disqus
+ */
+
+#disqus_thread {
+	background-color: $LeftNavBarLight;
+}
+
+#disqus_thread.is-active iframe {
+	margin-top: 0.533rem;
+	padding-right: 1.333rem;
+	padding-left: 1.333rem;
 }
 
 /*!

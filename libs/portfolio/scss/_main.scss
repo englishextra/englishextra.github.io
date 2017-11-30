@@ -1,6 +1,6 @@
 /*! @import "main"; */
 
-/**
+/*!
  * main
  */
 
@@ -40,7 +40,7 @@ body {
 	padding: 0;
 }
 
-/**
+/*!
  * englishextra specific rules
  */
 
@@ -120,7 +120,7 @@ u,
 	opacity: 1;
 }
 
-/**
+/*!
  * clearfix css-tricks.com/snippets/css/clear-fix/
  */
 
@@ -130,7 +130,7 @@ u,
 	clear: both;
 }
 
-/**
+/*!
  * fit width
  */
 
@@ -138,7 +138,7 @@ u,
 	min-width: 100%;
 }
 
-/**
+/*!
  * hide and show on mobile
  */
 
@@ -163,7 +163,7 @@ u,
 	}
 }
 
-/**
+/*!
  * other
  */
 
@@ -211,7 +211,7 @@ u,
 	margin: 0 auto;
 }
 
-/**
+/*!
  * nav menu
  */
 
@@ -327,7 +327,7 @@ u,
 	left: 18.133rem;
 }
 
-/**
+/*!
  * menu more
  */
 
@@ -485,7 +485,7 @@ u,
 	border-radius: 0;
 }
 
-/**
+/*!
  * pluso, yashare
  */
 
@@ -558,7 +558,7 @@ u,
 	line-height: 3.200rem;
 }
 
-/**
+/*!
  * vk-like
  */
 
@@ -628,7 +628,7 @@ u,
 	line-height: 3.200rem;
 }
 
-/**
+/*!
  * @see {@link https://github.com/sksmatt/UItoTop-jQuery-Plugin/}
  */
 .ui-totop {
@@ -668,14 +668,39 @@ u,
 	background-color: $AccentColor;
 }
 
-/**
+/*!
+ * location qr code
+ */
+
+.holder-location-qr-code {
+	display: block;
+	width: 100%;
+	float: left;
+	text-align: left;
+	background-color: #FFFFFF;
+}
+
+.holder-location-qr-code .qr-code-img,
+.holder-location-qr-code img {
+	display: block;
+	width: 9.000rem;
+	height: 9.000rem;
+	background-color: transparent;
+	background-size: 9.000rem 9.000rem;
+	border: 0;
+	vertical-align: bottom;
+	padding: 0;
+	margin: 0;
+}
+
+/*!
  * retina
  */
 
 @media (min-resolution: 192dpi) {
 }
 
-/**
+/*!
  * font for mobile
  * iosfonts.com/
  * google.com/design/spec/style/typography.html#typography-language-categorization

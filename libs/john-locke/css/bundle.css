@@ -2,7 +2,7 @@
 
 /*! @import "englishextra-ui-colors" */
 
-/**
+/*!
  * englishextra-ui colors
  * use microsoft.com/en-us/design/color
  * localhost/tools/Tinter-Shader/index.html
@@ -646,7 +646,7 @@ EB5262
 
 /*! @import "main"; */
 
-/**
+/*!
  * main
  */
 
@@ -693,7 +693,7 @@ body {
 	padding: 0;
 }
 
-/**
+/*!
  * englishextra specific rules
  */
 
@@ -789,7 +789,7 @@ u,
 	opacity: 1;
 }
 
-/**
+/*!
  * clearfix css-tricks.com/snippets/css/clear-fix/
  */
 
@@ -799,7 +799,7 @@ u,
 	clear: both;
 }
 
-/**
+/*!
  * fit width
  */
 
@@ -807,7 +807,7 @@ u,
 	min-width: 100%;
 }
 
-/**
+/*!
  * fit half width
  */
 
@@ -815,7 +815,7 @@ u,
 	min-width: 50%;
 }
 
-/**
+/*!
  * hide and show on mobile
  */
 

@@ -1,6 +1,6 @@
 /*! @import "branding-main"; */
 
-/**
+/*!
  * main
  */
 
@@ -40,7 +40,7 @@ body {
 	padding: 0;
 }
 
-/**
+/*!
  * englishextra specific rules
  */
 
@@ -120,7 +120,7 @@ u,
 	opacity: 1;
 }
 
-/**
+/*!
  * clearfix css-tricks.com/snippets/css/clear-fix/
  */
 
@@ -130,7 +130,7 @@ u,
 	clear: both;
 }
 
-/**
+/*!
  * fit width
  */
 
@@ -138,7 +138,7 @@ u,
 	min-width: 100%;
 }
 
-/**
+/*!
  * fit half width
  */
 
@@ -146,7 +146,7 @@ u,
 	min-width: 50%;
 }
 
-/**
+/*!
  * hide and show on mobile
  */
 
@@ -171,7 +171,7 @@ u,
 	}
 }
 
-/**
+/*!
  * fixes to Simple Grid
  */
 
@@ -202,7 +202,7 @@ u,
 	text-align: center;
 }
 
-/**
+/*!
  * other
  */
 
@@ -274,7 +274,7 @@ u,
 	clear: both;
 }
 
-/**
+/*!
  * nav menu
  */
 
@@ -391,7 +391,7 @@ u,
 	left: 17.000rem;
 }
 
-/**
+/*!
  * menu more
  */
 
@@ -619,7 +619,7 @@ u,
 	display: none;
 }
 
-/**
+/*!
  * fixes to typeboost.css
  * modularscale.com
  * @see {@link https://github.com/modularscale/modularscale-sass}
@@ -1013,7 +1013,7 @@ u,
 	margin-top: 1.500rem;
 }
 
-/**
+/*!
  * fix width for hint.css
  * where hint class sets display inline block
  */
@@ -1145,7 +1145,7 @@ u,
 	margin-bottom: 0;
 }
 
-/**
+/*!
  * modified github.com/tristen/tablesort
  * tristen.ca/tablesort/demo/
  */
@@ -1191,7 +1191,7 @@ u,
 	border-width: 0;
 }
 
-/**
+/*!
  * sg specific
  */
 
@@ -1370,7 +1370,7 @@ u,
 	cursor: pointer;
 }
 
-/**
+/*!
  * englishextra ui colors
  */
 
@@ -1618,7 +1618,7 @@ u,
 	background-color: $color-hex-vk-like-bg;
 }
 
-/**
+/*!
  * footer
  */
 
@@ -1644,14 +1644,14 @@ u,
 	color: $color-hex-gray-text;
 }
 
-/**
+/*!
  * retina
  */
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
 }
 
-/**
+/*!
  * font for mobile
  * iosfonts.com/
  * google.com/design/spec/style/typography.html#typography-language-categorization

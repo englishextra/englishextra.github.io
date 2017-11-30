@@ -1,6 +1,6 @@
 /*! @import "main"; */
 
-/**
+/*!
  * main
  */
 
@@ -41,7 +41,7 @@ body {
 	padding: 0;
 }
 
-/**
+/*!
  * englishextra specific rules
  */
 
@@ -121,7 +121,7 @@ u,
 	opacity: 1;
 }
 
-/**
+/*!
  * clearfix css-tricks.com/snippets/css/clear-fix/
  */
 
@@ -131,7 +131,7 @@ u,
 	clear: both;
 }
 
-/**
+/*!
  * fit width
  */
 
@@ -139,7 +139,7 @@ u,
 	min-width: 100%;
 }
 
-/**
+/*!
  * fit half width
  */
 
@@ -147,7 +147,7 @@ u,
 	min-width: 50%;
 }
 
-/**
+/*!
  * hide and show on mobile
  */
 
@@ -1641,7 +1641,7 @@ u,
 	line-height: 0;
 }
 
-/**
+/*!
  * @see {@link https://github.com/sksmatt/UItoTop-jQuery-Plugin/}
  */
 
@@ -1735,6 +1735,167 @@ u,
 	left: 0;
 	background-color: rgba(241, 68, 68, 0.1);
 	pointer-events: none;
+}
+
+/*!
+ * img lightbox
+ */
+
+.img-lightbox-container {
+	display: none;
+	opacity: 0;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: $color-rgba-page-overlay-bg;
+	z-index: 1;
+}
+
+.img-lightbox-container img {
+	display: block;
+	opacity: 0;
+	max-width: 90%;
+	max-height: 90%;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: transparent;
+	border: 0;
+	box-shadow: 0.267rem 0.267rem 0.267rem 0 $color-rgba-lightbox-shadow;
+	vertical-align: middle;
+	user-select: none;
+	cursor: zoom-out;
+	margin: auto;
+}
+
+/*!
+ * reset for animate.css
+ * daneden.github.io/animate.css/
+ */
+
+.img-lightbox-container.animated,
+.img-lightbox-container img.animated {
+	animation-duration: 0.4s;
+	animation-fill-mode: both;
+}
+
+/*!
+ * @see {@link https://github.com/lukehaas/css-loaders}
+ * projects.lukehaas.me/css-loaders/
+ * size of a loader dependent on font size
+ */
+
+.is-active-loading-spinner .loading-spinner {
+	font-size: 0.500em;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin: -5.000em 0 0 -5.000em;
+	text-indent: -9999em;
+	border-top: 1.000em solid $color-rgba-loading-spinner-bg;
+	border-right: 1.000em solid $color-rgba-loading-spinner-bg;
+	border-bottom: 1.000em solid $color-rgba-loading-spinner-bg;
+	border-left: 1.000em solid $color-rgba-loading-spinner-text;
+	transform: translateZ(0);
+	animation: load8 1.1s infinite linear;
+	z-index: 3;
+}
+
+.is-active-loading-spinner .loading-spinner,
+.is-active-loading-spinner .loading-spinner:after {
+	border-radius: 50%;
+	width: 10.000em;
+	height: 10.000em;
+}
+
+@keyframes load8 {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+/*!
+ * notibar
+ * @see {@link https://github.com/duyetdev/notibar.js}
+ */
+
+.notibar {
+	display: block;
+	opacity : 0;
+	width: 100%;
+	min-height: 3.200rem;
+	position: fixed;
+	top: 0;
+	left: 0;
+	font-size: 0.867rem;
+	line-height: 1.333rem;
+	text-align : center;
+	word-break : keep-all;
+	color: #FFFFFF;
+	background-color: $color-rgba-notifier42-notice;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+	padding: 0.933rem 3.200rem;
+	margin : 0 auto;
+	z-index: 2;
+}
+
+.notibar .close {
+	width: 3.200rem;
+	height: 3.200rem;
+	position: absolute;
+	top: 50%;
+	right: 0;
+	font-size: 0.800rem;
+	line-height: 3.200rem;
+	text-align: center;
+	text-decoration: none;
+	color: inherit;
+	cursor: pointer;
+	margin-top: -1.600rem;
+}
+
+.notibar .close .ui-icon {
+	display: block;
+	width: 1.067rem;
+	height: 1.067rem;
+	position: absolute;
+	right: 1.067rem;
+	bottom: 1.067rem;
+}
+
+.notibar .close .ui-icon > * {
+	fill: #FFFFFF;
+}
+
+.notibar div.message {
+	text-align: center;
+}
+
+.notibar.animated {
+	animation-duration: 0.4s;
+	animation-fill-mode: both;
+}
+
+/*!
+ * disqus
+ */
+
+#disqus_thread {
+	background-color: $LeftNavBarLight;
+}
+
+#disqus_thread.is-active iframe {
+	margin-top: 0.533rem;
+	padding-right: 1.333rem;
+	padding-left: 1.333rem;
 }
 
 /*!
