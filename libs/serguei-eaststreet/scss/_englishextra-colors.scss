@@ -1,0 +1,136 @@
+/*! @import "englishextra-ui-colors" */
+
+/*!
+ * englishextra-ui colors
+ * use microsoft.com/en-us/design/color
+ * localhost/tools/Tinter-Shader/index.html
+ * localhost/tools/perfect_colors/
+ * localhost/tools/TinyColor/index.html
+ * localhost/tools/color-palette-generator/index.html
+ * localhost/tools/hexcolortool/index.html
+ * localhost/tools/css3-playground/
+ */
+
+/* 0073D2
+007DD1
+5E308F
+9C0087
+D13636
+F23819
+FF4141
+00AC54
+547E71
+8C582C
+F5630E
+FDE000
+C3C3C3
+D54848
+2D7C9A
+2F79B6
+EF6B50
+EB5262
+706D6A
+60867B
+615FC8
+744DA5
+3087CD */
+
+$AccentColor: #D83544;
+$AccentColorBrighter: #FF6877;
+
+$LeftNavBarDark: #171717;
+$TitleBarAndAppBarDark: #1F1F1F;
+$TitleBarAndAppBarDarkItemHighlight: #393939;
+
+$LeftNavBarLight: #F2F2F2;
+$TitleBarAndAppBarLight: #E6E6E6;
+
+$ButtonBackground: #CCCCCC;
+$ButtonBackgroundDark: #2B2B2B;
+$ButtonText: #191919;
+$ButtonOutline: #767676;
+
+$PlaceholderText: #878787;
+
+$color-rgba-selection-text: rgba(255, 255, 255, 0.9);
+$color-rgba-selection-bg: rgba(58, 150, 221, 0.9);
+
+$color-hex-body-text: #191919;
+$color-hex-gray-text: #616161;
+
+$color-hex-link: #1467BD;
+$color-hex-hover-link: #3585D8;
+$color-hex-visited-link: #9B9B9B;
+
+$color-hex-progress-bar: #FF2C40;
+
+$color-hex-highlight: #D93D3D;
+$color-hex-url: #009B4C;
+
+$color-hex-page-bg: #F0F0F0;
+$color-rgba-page-overlay-bg: rgba(0, 0, 0, 0.8);
+
+$color-hex-divider: #C3C3C3;
+$color-hex-lighter-divider: #C9C9C9;
+
+$color-hex-ui-icon-bg: #E7E7E7;
+$color-rgba-ui-icon-bg: rgba(205, 205, 205, 0.5);
+$color-hex-hover-ui-icon-bg: #D5D5D5;
+
+$color-rgba-dark-ui-icon-bg: rgba(45, 45, 45, 0.5);
+$color-hex-hover-dark-ui-icon-bg: #2D2D2D;
+
+$color-hex-ui-button-bg: #373737;
+$color-hex-hover-ui-button-bg: #5F5F5F;
+
+$color-hex-ui-button-secondary-bg: #EDEDED;
+$color-hex-hover-ui-button-secondary-bg: #DBDBDB;
+
+$color-hex-active-input-bg: #F3F3F3;
+$color-hex-disabled-input-bg: #D5D5D5;
+
+$color-hex-dark-ui-bar-bg: #2D2D2D;
+$color-hex-dark-ui-bar-hover-item-bg: #4B4B4B;
+$color-hex-dark-ui-bar-active-item-bg: #A82933;
+$color-hex-darker-ui-bar-bg: #232323;
+$color-hex-darker-ui-bar-hover-item-bg: #414141;
+$color-hex-darker-ui-bar-active-item-bg: #801E26;
+$color-rgba-darker-ui-bar-inset-shadow: rgba(0, 0, 0, 0.9);
+
+$color-hex-ui-bar-bg: #E7E7E7;
+$color-rgba-ui-bar-shadow: rgba(50, 50, 50, 0.3);
+
+$color-hex-lighter-page-bg: #F9F9F9;
+
+$color-rgba-card-shadow: rgba(150, 150, 150, 0.2);
+$color-rgba-lightbox-shadow: rgba(3, 3, 3, 0.3);
+
+$color-rgba-hint-bg: rgba(25, 25, 25, 0.9);
+
+$color-rgba-loading-spinner-text: rgba(218, 53, 60, 0.8);
+$color-rgba-loading-spinner-bg: rgba(220, 220, 220, 0.5);
+
+$color-rgba-notifier42-text: rgba(255, 255, 255, 0.9);
+$color-rgba-notifier42-bg: rgba(25, 25, 25, 0.9);
+$color-rgba-notifier42-notice: rgba(25, 25, 25, 0.9);
+$color-rgba-notifier42-success: rgba(25, 25, 25, 0.9);
+$color-rgba-notifier42-warning: rgba(25, 25, 25, 0.9);
+$color-rgba-notifier42-error: rgba(25, 25, 25, 0.9);
+
+$color-rgba-img-lightbox-border: rgba(255, 255, 255, 0.5);
+
+$color-hex-englishextra-logo-bg: #F03B4C;
+
+$color-hex-vk-like-bg: #5E81A8;
+$color-hex-facebook-bg: #3B5998;
+$color-hex-twitter-bg: #1DA1F2;
+$color-hex-pinterest-bg: #BD081C;
+
+/* \$(.*?)\: (.*?)\;
+\t\t\t\t\t\t\t\t\t\t<div class="masonry-grid-item"><div class="bg-\1"><span class="color-variable-name">$\1</span></div></div>
+
+\$(.*?)\: (.*?)\;
+.bg-\1 {
+	background-color: $\1;
+} */
+

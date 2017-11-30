@@ -1,0 +1,59 @@
+/*! @import "branding-masonry-grid"; */
+
+/*!
+ * masonry grid
+ */
+
+.masonry-grid {
+	display: block;
+	width: 100%;
+	padding: 0;
+	margin: 0 auto;
+}
+
+.masonry-grid:after {
+	display: block;
+	content: "";
+	clear: both;
+}
+
+.masonry-grid-sizer,
+.masonry-grid-item {
+	width: 50%;
+}
+
+.masonry-grid-item {
+	float: left;
+	font-weight: 300;
+	font-size: 1.000rem;
+	min-height: 5.467rem;
+}
+
+@media handheld,only screen and (max-width:320px) {
+	.masonry-grid-sizer,
+	.masonry-grid-item {
+		width: 100%;
+	}
+	
+	.masonry-grid-item {
+		float: none;
+	}
+}
+
+.masonry-grid-item [class^="bg-"],
+.masonry-grid-item [class*=" bg-"] {
+	min-height: 5.467rem;
+}
+
+.masonry-grid-item .color-variable-name {
+	display: block;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	font-size: 0.867rem;
+	font-weight: 300;
+	color: #FFFFFF;
+	background-color: $color-rgba-dark-ui-icon-bg;
+	padding: 0.533rem;
+}
+
