@@ -891,10 +891,6 @@ template {
 	padding: -0.800em;
 }
 
-.masonry-grid-item-content .highlight {
-	color: #D93D3D;
-}
-
 @media only screen and (max-width: 20em) {
 	.masonry-grid {
 		max-width: 93.8%;
@@ -926,16 +922,6 @@ template {
 }
 
 @media only screen and (min-width: 30.063em) {
-	.masonry-grid {
-		max-width: 75%;
-	}
-}
-
-@media only screen and (min-width: 40.063em) {
-	.masonry-grid {
-		max-width: 93.8%;
-	}
-
 	.masonry-grid-sizer {
 		width: 50%;
 	}

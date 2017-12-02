@@ -1109,10 +1109,6 @@ u,
 	html {
 		font-size: 15px;
 	}
-
-	.qrcode {
-		display: block;
-	}
 }
 
 /* min-width 1025px, large screens */

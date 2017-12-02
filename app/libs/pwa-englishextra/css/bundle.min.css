@@ -2597,7 +2597,7 @@ body {
 .masonry-grid-wrapper {
 	width: 100%;
 	height: 100%;
-	background-color: #F2F2F2;
+	background-color: #F0F0F0;
 	/** stackoverflow.com/questions/14967413/background-color-not-showing-for-a-div
 	Because the content collapses when the children are floated
 	and adding the overflow rule restores the behavior you'd expect. */
@@ -2694,9 +2694,9 @@ body {
 }
 
 @media only screen and (max-width: 20em) {
-	/* .masonry-grid {
+	.masonry-grid {
 		max-width: 93.8%;
-	} */
+	}
 
 	.masonry-grid-sizer {
 		width: 100%;
@@ -2709,9 +2709,9 @@ body {
 }
 
 @media only screen and (min-width: 20.063em) {
-	/* .masonry-grid {
+	.masonry-grid {
 		max-width: 93.8%;
-	} */
+	}
 
 	.masonry-grid-sizer {
 		width: 100%;
@@ -2723,17 +2723,7 @@ body {
 	}
 }
 
-/* @media only screen and (min-width: 30.063em) {
-	.masonry-grid {
-		max-width: 75%;
-	}
-} */
-
-@media only screen and (min-width: 40.063em) {
-	/* .masonry-grid {
-		max-width: 93.8%;
-	} */
-
+@media only screen and (min-width: 30.063em) {
 	.masonry-grid-sizer {
 		width: 50%;
 	}
@@ -2744,16 +2734,16 @@ body {
 	}
 }
 
-/* @media only screen and (min-width: 50.063em) {
+@media only screen and (min-width: 50.063em) {
 	.masonry-grid {
 		max-width: 81.3%;
 	}
-} */
+}
 
 @media only screen and (min-width: 60.063em) {
-	/* .masonry-grid {
+	.masonry-grid {
 		max-width: 93.8%;
-	} */
+	}
 
 	.masonry-grid-sizer {
 		width: 33.333%;
@@ -2764,16 +2754,16 @@ body {
 	}
 }
 
-/* @media only screen and (min-width: 74.063em) {
+@media only screen and (min-width: 74.063em) {
 	.masonry-grid {
 		max-width: 81.3%;
 	}
-} */
+}
 
 @media only screen and (min-width: 80.063em) {
-	/* .masonry-grid {
+	.masonry-grid {
 		max-width: 93.8%;
-	} */
+	}
 
 	.masonry-grid-sizer {
 		width: 25%;
@@ -2784,11 +2774,11 @@ body {
 	}
 }
 
-/* @media only screen and (min-width: 90.063em) {
+@media only screen and (min-width: 90.063em) {
 	.masonry-grid {
 		max-width: 81.3%;
 	}
-} */
+}
 
 /*! @import "animate.partial"; */
 
