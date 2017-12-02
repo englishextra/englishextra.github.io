@@ -694,32 +694,6 @@ u,
 }
 
 /*!
- * retina
- */
-
-@media (min-resolution: 192dpi) {
-}
-
-/*!
- * font for mobile
- * iosfonts.com/
- * google.com/design/spec/style/typography.html#typography-language-categorization
- * msdn.microsoft.com/en-us/library/windows/apps/hh202920%28v=vs.105%29.aspx
- */
-
-/* @media only screen and (max-width: 480px) {
-	body {
-		font-family: "Roboto", $font-family-local-sans-regular;
-	}
-
-	.panel-nav-menu li,
-	.container h1,
-	.superbox-current-desc h2 {
-		font-family: $font-family-local-sans-light;
-	}
-} */
-
-/*!
  * @see {@link https://gist.github.com/englishextra/40b7c4ffde33bfb58aff259afe229d6a}
  */
 

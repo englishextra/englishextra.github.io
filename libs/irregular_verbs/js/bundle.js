@@ -276,9 +276,9 @@ ToProgress, unescape, VK, Ya*/
  * loadCSS(hrefString,callback,media,before)
  */
 (function (root, document) {
-	"use strict";
-
 	var loadCSS = function (_href, callback) {
+		"use strict";
+
 		var ref = document.getElementsByTagName("head")[0] || "";
 		var link = document.createElement("link");
 		link.rel = "stylesheet";
@@ -793,8 +793,8 @@ ToProgress, unescape, VK, Ya*/
 					}
 				}
 			}
-		};
-		var resizeHideUiBtnsInFullScreen = function () {
+		},
+		    resizeHideUiBtnsInFullScreen = function () {
 			if ("undefined" !== typeof earlyDeviceType && "desktop" === earlyDeviceType) {
 				hideUiBtnsInFullScreen();
 				root[_addEventListener]("resize", hideUiBtnsInFullScreen);
@@ -856,8 +856,7 @@ ToProgress, unescape, VK, Ya*/
 			if (dsContainer && cdPrev && cdNext) {
 				/* var jsUrl = "../../cdn/doSlide/1.1.4/js/do-slide.fixed.min.js";
     if (!scriptIsLoaded(jsUrl)) {
-    	var load;
-    	load = new loadJsCss([jsUrl], initScript);
+    	loadJS(jsUrl, initScript);
     } */
 				initScript();
 			}
