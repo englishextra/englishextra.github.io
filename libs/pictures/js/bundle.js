@@ -875,8 +875,7 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 		manageExternalLinkAll();
 
 		var handleDataSrcImageAll = function () {
-			var imgClass = "data-src-img";
-			var img = document[getElementsByClassName](imgClass) || "";
+			var img = document[getElementsByClassName]("data-src-img") || "";
 			var isActiveClass = "is-active";
 			var isBindedClass = "is-binded";
 			var arrange = function (e) {

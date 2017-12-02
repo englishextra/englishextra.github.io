@@ -329,9 +329,9 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
  * loadCSS(hrefString,callback,media,before)
  */
 (function (root, document) {
-	var loadCSS = function (_href, callback) {
-		"use strict";
+	"use strict";
 
+	var loadCSS = function (_href, callback) {
 		var ref = document.getElementsByTagName("head")[0] || "";
 		var link = document.createElement("link");
 		link.rel = "stylesheet";
@@ -890,8 +890,7 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 		manageExternalLinkAll();
 
 		var handleDataSrcImageAll = function () {
-			var imgClass = "data-src-img";
-			var img = document[getElementsByClassName](imgClass) || "";
+			var img = document[getElementsByClassName]("data-src-img") || "";
 			var isActiveClass = "is-active";
 			var isBindedClass = "is-binded";
 			var arrange = function (e) {

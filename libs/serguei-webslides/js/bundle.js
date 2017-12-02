@@ -240,9 +240,9 @@ unescape, WebSlides*/
  * loadCSS(hrefString,callback,media,before)
  */
 (function (root, document) {
-	var loadCSS = function (_href, callback) {
-		"use strict";
+	"use strict";
 
+	var loadCSS = function (_href, callback) {
 		var ref = document.getElementsByTagName("head")[0] || "";
 		var link = document.createElement("link");
 		link.rel = "stylesheet";
@@ -673,8 +673,8 @@ unescape, WebSlides*/
 
 		var manageDataQrcodeImageAll = function (scope) {
 			var ctx = scope && scope.nodeName ? scope : "";
-			var imgClass = "data-qrcode-img";
-			var img = ctx ? ctx[getElementsByClassName](imgClass) || "" : document[getElementsByClassName](imgClass) || "";
+			var dataQrcodeImgClass = "data-qrcode-img";
+			var img = ctx ? ctx[getElementsByClassName](dataQrcodeImgClass) || "" : document[getElementsByClassName](dataQrcodeImgClass) || "";
 			var generateImg = function (e) {
 				var qrcode = e[dataset].qrcode || "";
 				qrcode = decodeURIComponent(qrcode);
