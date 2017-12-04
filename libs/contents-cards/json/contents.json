@@ -1,6 +1,6 @@
 {
 	"pages": [{
-			"href": "./serguei/index.html",
+			"href": "./serguei/",
 			"src": "./app/libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-serguei-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -568,7 +568,7 @@
 			"text": "RSS поток (лента / фид) ресурса — эще один метод оставаться в курсе новых публикаций."
 		},
 		{
-			"href": "./portfolio/index.html",
+			"href": "./portfolio/",
 			"src": "./app/libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-portfolio-640x336.png",
 			"width": 640,
 			"height": 336,
