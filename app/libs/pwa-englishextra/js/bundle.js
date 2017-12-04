@@ -2884,7 +2884,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 	}();
 
 	var needsPolyfills = function () {
-		return !supportsPassive || !root.requestAnimationFrame || !root.matchMedia || "undefined" === typeof root.Element && !("dataset" in docElem) || !("classList" in document[createElement]("_")) || document[createElementNS] && !("classList" in document[createElementNS]("http://www.w3.org/2000/svg", "g")) ||
+		return !String.prototype.startsWith || !supportsPassive || !root.requestAnimationFrame || !root.matchMedia || "undefined" === typeof root.Element && !("dataset" in docElem) || !("classList" in document[createElement]("_")) || document[createElementNS] && !("classList" in document[createElementNS]("http://www.w3.org/2000/svg", "g")) ||
 		/* !document.importNode || */
 		/* !("content" in document[createElement]("template")) || */
 		root.attachEvent && !root[_addEventListener] || !("onhashchange" in root) || !Array.prototype.indexOf || !root.Promise || !root.fetch || !document[querySelectorAll] || !document[querySelector] || !Function.prototype.bind || Object[defineProperty] && Object[getOwnPropertyDescriptor] && Object[getOwnPropertyDescriptor](Element.prototype, "textContent") && !Object[getOwnPropertyDescriptor](Element.prototype, "textContent").get || !("undefined" !== typeof root.localStorage && "undefined" !== typeof root.sessionStorage) || !root.WeakMap || !root.MutationObserver;

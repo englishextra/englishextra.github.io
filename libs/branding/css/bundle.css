@@ -3331,8 +3331,8 @@ u,
 }
 
 .col p.subhead {
-	font-size: 1.133rem;
-	line-height: 1.400rem;
+	font-size: 1.200rem;
+	line-height: 1.600rem;
 }
 
 .col dl dt a {
@@ -4789,7 +4789,7 @@ u,
 
 @media only screen and (max-width: 40em) {
 	html {
-		font-size: 12px;
+		font-size: 13px;
 	}
 }
 
@@ -4799,7 +4799,7 @@ u,
 
 @media only screen and (min-width: 40.063em) {
 	html {
-		font-size: 12px;
+		font-size: 13px;
 	}
 }
 
@@ -4853,7 +4853,7 @@ u,
 
 @media only screen and (min-width: 120.063em) {
 	html {
-		font-size: 18px;
+		font-size: 19px;
 	}
 }
 
