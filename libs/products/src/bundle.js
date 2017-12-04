@@ -1146,7 +1146,8 @@ ToProgress, unescape, VK, Ya*/
 	})();
 
 	var needsPolyfills = (function () {
-		return !supportsPassive ||
+		return !String.prototype.startsWith ||
+		!supportsPassive ||
 		!root.requestAnimationFrame ||
 		!root.matchMedia ||
 		("undefined" === typeof root.Element && !("dataset" in docElem)) ||

@@ -831,7 +831,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 					isAbsolute: _isAbsolute,
 					isRelative: !_isAbsolute,
 					isCrossDomain: _isCrossDomain(),
-					hasHTTP: /^(http|https):\/\//i.test(url) ? !0 : !1
+					hasHTTP: /^(http|https):\/\//i.test(url) ? true : false
 				};
 			}();
 		};
@@ -1111,7 +1111,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 			/* var insertCancelSvg = function (targetObj) {
    	var svg = document[createElementNS]("http://www.w3.org/2000/svg", "svg");
    	var use = document[createElementNS]("http://www.w3.org/2000/svg", "use");
-   	svg[classList].add("ui-icon");
+   	svg[setAttribute]("class", "ui-icon");
    	use[setAttributeNS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Cancel");
    	svg[appendChild](use);
    	targetObj[appendChild](svg);
@@ -2537,7 +2537,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 	}();
 
 	var needsPolyfills = function () {
-		return !supportsPassive || !root.requestAnimationFrame || !root.matchMedia || "undefined" === typeof root.Element && !("dataset" in docElem) || !("classList" in document[createElement]("_")) || document[createElementNS] && !("classList" in document[createElementNS]("http://www.w3.org/2000/svg", "g")) ||
+		return !String.prototype.startsWith || !supportsPassive || !root.requestAnimationFrame || !root.matchMedia || "undefined" === typeof root.Element && !("dataset" in docElem) || !("classList" in document[createElement]("_")) || document[createElementNS] && !("classList" in document[createElementNS]("http://www.w3.org/2000/svg", "g")) ||
 		/* !document.importNode || */
 		/* !("content" in document[createElement]("template")) || */
 		root.attachEvent && !root[_addEventListener] || !("onhashchange" in root) || !Array.prototype.indexOf || !root.Promise || !root.fetch || !document[querySelectorAll] || !document[querySelector] || !Function.prototype.bind || Object[defineProperty] && Object[getOwnPropertyDescriptor] && Object[getOwnPropertyDescriptor](Element.prototype, "textContent") && !Object[getOwnPropertyDescriptor](Element.prototype, "textContent").get || !("undefined" !== typeof root.localStorage && "undefined" !== typeof root.sessionStorage) || !root.WeakMap || !root.MutationObserver;

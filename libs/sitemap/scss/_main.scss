@@ -59,20 +59,6 @@ select:active {
 	outline: none;
 }
 
-:-moz-focusring {
-  color: transparent;
-  text-shadow: 0 0 0 #000;
-}
-
-::-ms-expand {
-	display: none;
-}
-
-::-ms-value {
-	background: none;
-	color: $color-hex-body-text;
-}
-
 img {
 	border: 0;
 	-ms-interpolation-mode: bicubic;
@@ -116,7 +102,7 @@ u,
 }
 
 ::placeholder {
-	color: $color-hex-gray-text !important;
+	color: $PlaceholderText !important;
 	opacity: 1;
 }
 

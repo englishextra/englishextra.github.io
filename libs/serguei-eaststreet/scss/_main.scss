@@ -60,20 +60,6 @@ select:active {
 	outline: none;
 }
 
-:-moz-focusring {
-  color: transparent;
-  text-shadow: 0 0 0 #000;
-}
-
-::-ms-expand {
-	display: none;
-}
-
-::-ms-value {
-	background: none;
-	color: $color-hex-body-text;
-}
-
 img {
 	border: 0;
 	-ms-interpolation-mode: bicubic;
@@ -117,7 +103,7 @@ u,
 }
 
 ::placeholder {
-	color: $color-hex-gray-text !important;
+	color: $PlaceholderText !important;
 	opacity: 1;
 }
 
@@ -411,7 +397,7 @@ u,
 .col img.data-src-img,
 .col img[data-src] {
 	opacity: 0;
-	transition: opacity 0.4s ease;
+	transition: opacity 0.2s ease;
 }
 
 .col img.data-src-img,
@@ -1213,7 +1199,7 @@ u,
 	width: 9.600rem;
 	font-family: inherit;
 	font-size: 0.867rem;
-	line-height: 1.200rem;
+	line-height: 1.133rem;
 	color: inherit;
 	border-color: transparent;
 	border-style: solid;
@@ -1245,6 +1231,7 @@ u,
 }
 
 .holder-search-form button[type^=submit] {
+	display: inline-block;
 	width: 2.400rem;
 	height: 2.400rem;
 	position: fixed;
@@ -1606,10 +1593,10 @@ u,
 	position: fixed;
 	top: 0;
 	left: 0;
-	font-size: 0.867rem;
+	font-size: 0.933rem;
 	line-height: 1.333rem;
 	text-align : center;
-	word-break : keep-all;
+	word-break : break-word;
 	color: #FFFFFF;
 	background-color: $color-rgba-notifier42-notice;
 	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
@@ -1643,7 +1630,7 @@ u,
 }
 
 .notibar.animated {
-	animation-duration: 0.4s;
+	animation-duration: 0.2s;
 	animation-fill-mode: both;
 }
 
