@@ -769,7 +769,7 @@ template {
 	/** 720px - 24px - 24px */
 	max-width: 44.800em;
 	font-size: 0.800rem;
-	line-height: 1.333rem;
+	line-height: 1.067rem;
 	text-align: center;
 	margin: 1.333rem auto;
 }
@@ -1535,9 +1535,9 @@ u,
  * footer
  */
 
-.footer p {
-	font-size: 0.813rem;
-	line-height: 1.333rem;
+.col .footer p {
+	font-size: 0.800rem;
+	line-height: 1.067rem;
 }
 
 .footer a {

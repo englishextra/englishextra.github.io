@@ -273,7 +273,7 @@ u,
 
 .col figcaption {
 	font-size: 0.800rem;
-	line-height: 1.067;
+	line-height: 1.067rem;
 	margin-top: 0.267rem;
 }
 
@@ -458,7 +458,8 @@ u,
 	transition: left 0.2s linear, opacity 0.2s ease;
 }
 
-.page img {
+.page img,
+.masonry-grid img {
 	display: block;
 }
 

@@ -217,7 +217,8 @@ u,
 	left: 18.133rem;
 }
 
-.page img {
+.page img,
+.masonry-grid img {
 	display: block;
 }
 
@@ -1238,8 +1239,8 @@ u,
 	display: inline-block;
 	height: 2.133rem;
 	font-size: 0.800rem;
-	font-weight: 400;
 	line-height: 2.000rem;
+	font-weight: 400;
 	text-decoration: none;
 	color: inherit;
 	background-color: $LeftNavBarLight;
@@ -1618,7 +1619,7 @@ u,
 
 .col .footer p {
 	font-size: 0.800rem;
-	line-height: 1.333rem;
+	line-height: 1.067rem;
 }
 
 .col .footer a {
@@ -1865,6 +1866,7 @@ u,
 	border-left: 1.000em solid $color-rgba-loading-spinner-text;
 	transform: translateZ(0);
 	animation: load8 1.1s infinite linear;
+	z-index: 3;
 }
 
 .is-active-loading-spinner .loading-spinner,

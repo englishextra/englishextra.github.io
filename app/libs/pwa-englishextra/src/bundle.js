@@ -858,7 +858,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 					isAbsolute: _isAbsolute,
 					isRelative: !_isAbsolute,
 					isCrossDomain: _isCrossDomain(),
-					hasHTTP: /^(http|https):\/\//i.test(url) ? !0 : !1
+					hasHTTP: (/^(http|https):\/\//i).test(url) ? true : false
 				};
 			})();
 		};
@@ -1499,9 +1499,9 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				chaptersListButton.href = "javascript:void(0);";
 				/* jshint +W107 */
 				var insertChevronDownSmallSvg = function (targetObj) {
-					var svg = document[createElementNS]("http://www.w3.org/2000/svg", "svg"),
-					use = document[createElementNS]("http://www.w3.org/2000/svg", "use");
-					svg[classList].add("ui-icon");
+					var svg = document[createElementNS]("http://www.w3.org/2000/svg", "svg");
+					var use = document[createElementNS]("http://www.w3.org/2000/svg", "use");
+					svg[setAttribute]("class", "ui-icon");
 					use[setAttributeNS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-ChevronDownSmall");
 					svg[appendChild](use);
 					targetObj[appendChild](svg);
@@ -1727,7 +1727,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var insertCancelSvg = function (targetObj) {
 				var svg = document[createElementNS]("http://www.w3.org/2000/svg", "svg");
 				var use = document[createElementNS]("http://www.w3.org/2000/svg", "use");
-				svg[classList].add("ui-icon");
+				svg[setAttribute]("class", "ui-icon");
 				use[setAttributeNS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Cancel");
 				svg[appendChild](use);
 				targetObj[appendChild](svg);
@@ -2674,7 +2674,11 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 							if (tragetObject) {
 								scroll2Top(findPos(tragetObject).top, 10000);
 							} else {
-								root.location.hash = hashString;
+								if (hashString.startsWith("#", 0)) {
+									root.location.hash = hashString;
+								} else {
+									root.location.href = hashString;
+								}
 							}
 						}
 					};
@@ -2704,7 +2708,11 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 							if (tragetObject) {
 								scroll2Top(findPos(tragetObject).top, 10000);
 							} else {
-								root.location.hash = hashString;
+								if (hashString.startsWith("#", 0)) {
+									root.location.hash = hashString;
+								} else {
+									root.location.href = hashString;
+								}
 							}
 						}
 						listObj[classList].remove(isActiveClass);
@@ -2743,7 +2751,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 					var insertChevronDownSmallSvg = function (targetObj) {
 						var svg = document[createElementNS]("http://www.w3.org/2000/svg", "svg");
 						var use = document[createElementNS]("http://www.w3.org/2000/svg", "use");
-						svg[classList].add("ui-icon");
+						svg[setAttribute]("class", "ui-icon");
 						use[setAttributeNS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-ChevronDownSmall");
 						svg[appendChild](use);
 						targetObj[appendChild](svg);
@@ -2827,7 +2835,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var insertUpSvg = function (targetObj) {
 				var svg = document[createElementNS]("http://www.w3.org/2000/svg", "svg");
 				var use = document[createElementNS]("http://www.w3.org/2000/svg", "use");
-				svg[classList].add("ui-icon");
+				svg[setAttribute]("class", "ui-icon");
 				use[setAttributeNS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Up");
 				svg[appendChild](use);
 				targetObj[appendChild](svg);

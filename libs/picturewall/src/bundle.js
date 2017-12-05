@@ -525,7 +525,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 					isAbsolute: _isAbsolute,
 					isRelative: !_isAbsolute,
 					isCrossDomain: _isCrossDomain(),
-					hasHTTP: /^(http|https):\/\//i.test(url) ? !0 : !1
+					hasHTTP: (/^(http|https):\/\//i).test(url) ? true : false
 				};
 			})();
 		};
