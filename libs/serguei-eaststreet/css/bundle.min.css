@@ -780,7 +780,7 @@ body {
 .col address,
 .col p.address {
 	font-size: 0.867rem;
-	line-height: 1.067rem;
+	line-height: 1.333rem;
 	margin-right: 0;
 }
 
@@ -834,7 +834,7 @@ body {
 .col pre,
 .col pre code {
 	font-size: 0.867rem;
-	line-height: 1.067rem;
+	line-height: 1.333rem;
 }
 
 .col p.larger,
@@ -929,7 +929,7 @@ body {
 .col select,
 .col textarea {
 	font-size: 0.867rem;
-	line-height: 1.067rem;
+	line-height: 1.333rem;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	vertical-align: baseline;
@@ -979,7 +979,7 @@ body {
 .col input[type="reset"],
 .col input[type="submit"] {
 	font-size: 0.867rem;
-	line-height: 1.067rem;
+	line-height: 1.333rem;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	vertical-align: baseline;
@@ -3376,7 +3376,7 @@ u,
 
 .col .aside p {
 	font-size: 0.867rem;
-	line-height: 1.067rem;
+	line-height: 1.333rem;
 }
 
 .col .aside h2 {
