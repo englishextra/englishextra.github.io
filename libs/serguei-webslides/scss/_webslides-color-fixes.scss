@@ -27,11 +27,11 @@ a,
 .bg-white a,
 .bg-light a,
 .bg-gradient-white a {
-	color: $AccentColor;
+	color: $color-hex-link;
 }
 
 a:hover {
-	color: #7DDCFF;
+	color: $color-hex-hover-link;
 }
 
 hr:after {
