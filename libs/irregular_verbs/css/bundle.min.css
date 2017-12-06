@@ -1,2 +1,1425 @@
-@font-face{font-family:englishextra-ui-icons;src:url(../../../fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.woff2) format("woff2"),url(../../../fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.woff) format("woff"),url(../../../fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.ttf) format("truetype");font-weight:400;font-style:normal}html{font-family:sans-serif;line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figcaption,figure,main{display:block}figure{margin:1em 40px}hr{-webkit-box-sizing:content-box;box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}a:active,a:hover{outline-width:0}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}audio,video{display:inline-block}audio:not([controls]){display:none;height:0}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{font-family:sans-serif;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}button,html [type=button],[type=reset],[type=submit]{-webkit-appearance:button}button::-moz-focus-inner,[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring,[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring{outline:1px dotted ButtonText}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{-webkit-box-sizing:border-box;box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{display:inline-block;vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{-webkit-box-sizing:border-box;box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details,menu{display:block}summary{display:list-item}canvas{display:inline-block}template{display:none}[hidden]{display:none}.ds-parent{overflow:hidden;padding:0;margin:0}.ds-container{width:100%;height:100%;position:absolute;top:0;left:0;overflow:hidden;padding:0;margin:0 auto}.ds-container>*{width:100%;height:100%;position:relative;top:0;left:0;-webkit-box-sizing:border-box;box-sizing:border-box;overflow:hidden}body{width:100%;position:absolute;overflow-x:hidden;overflow-y:hidden}.slider{min-height:100%;padding-top:56.25%;margin:0 auto}.slide{min-height:100%;text-align:center;background-color:#252e31;background-position:center center;background-size:cover}.slide div{margin:12.5% 0 0 18.8%}.slide h2{display:block;font-size:3.375rem;font-weight:700;line-height:1;text-align:left;color:#fff;background-color:transparent}.slide .explanation{font-weight:400;font-size:2.594rem;font-style:italic;line-height:1}.slide .phonetic{font-family:"Roboto Mono",Consolas,Monaco,"Droid Sans Mono",Inconsolata,"Source Code Pro",monospace}html,body{height:100%}html{font-size:15px;line-height:20px;background-color:transparent}body{font-family:Roboto,"Segoe UI","Segoe WP",HelveticaNeue,Roboto,"Source Sans Pro","Open Sans",Exo2,"Fira Sans",sans-serif;font-weight:400;font-size:1rem;line-height:1.333rem;width:100%;color:#191919;background-color:#f0f0f0;-webkit-text-size-adjust:none;-moz-text-size-adjust:none;-ms-text-size-adjust:none;text-size-adjust:none;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-moz-font-feature-settings:"liga","kern";-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent;outline:0;overflow-x:hidden;margin:0;padding:0}a{color:inherit;text-decoration:none}a:focus,a:active,button:focus,button:active,select:focus,select:active{-webkit-tap-highlight-color:transparent;outline:0}img{border:0;-ms-interpolation-mode:bicubic;vertical-align:bottom}p:first-child{margin-top:0}p:last-child{margin-bottom:0}b,strong,.bolder{font-weight:700}i,em,.italic{font-style:italic}u,.underline{text-decoration:underline}*,:after,::before{-webkit-box-sizing:border-box;box-sizing:border-box}::-moz-selection{color:rgba(255,255,255,.9);background-color:rgba(58,150,221,.9)}::selection{color:rgba(255,255,255,.9);background-color:rgba(58,150,221,.9)}::-webkit-input-placeholder{color:#878787!important;opacity:1}:-ms-input-placeholder{color:#878787!important;opacity:1}::placeholder{color:#878787!important;opacity:1}.cf:after{content:"";display:table;clear:both}.fit-width{min-width:100%}.page .show-inline-on-mobile,.page .show-block-on-mobile{display:none}@media handheld,only screen and (max-width:800px){.page .hide-on-mobile{display:none;width:0;height:0}.page .show-inline-on-mobile{display:inline}.page .show-block-on-mobile{display:block}}.page{width:100%;min-height:100%;position:relative;top:0;left:0;visibility:visible;opacity:1;-webkit-transition:left .2s linear,opacity .2s ease;transition:left .2s linear,opacity .2s ease;background-color:#f0f0f0}.page img{display:block}.container{width:100%;height:100%;padding:0;margin:0 auto}.btn-nav-menu{display:inline-block;width:3.2rem;height:3.2rem;position:fixed;top:0;left:0;color:#fff;-webkit-transition:left .2s linear,background-color .2s ease;transition:left .2s linear,background-color .2s ease;cursor:pointer}.btn-nav-menu:hover{background-color:#2d2d2d}.page.is-active .btn-nav-menu,.btn-nav-menu:active{color:#191919;background-color:#d83544}.btn-nav-menu{text-align:center;background-color:rgba(45,45,45,.5)}.btn-nav-menu:before{font-family:englishextra-ui-icons;content:"\e90f";font-size:1.333rem;line-height:3.2rem}.btn-menu-more{display:inline-block;width:3.2rem;height:3.2rem;position:fixed;top:0;left:3.2rem;color:#fff;text-decoration:none;-webkit-transition:left .2s linear,background-color .2s ease;transition:left .2s linear,background-color .2s ease;cursor:pointer}.page.is-active .btn-menu-more{left:21.333rem}.btn-menu-more:hover{background-color:#2d2d2d}.btn-menu-more:active{color:#191919;background-color:#d83544}.btn-menu-more{text-align:center;background-color:rgba(45,45,45,.5)}.btn-menu-more:before{font-family:englishextra-ui-icons;content:"\e915";font-size:1.333rem;line-height:3.2rem}.holder-panel-menu-more{display:block;visibility:hidden;opacity:0;position:fixed;top:3.2rem;left:3.2rem;color:#191919;background-color:#f2f2f2;border:.067rem solid #d83544;-webkit-box-shadow:.133rem .133rem .133rem 0 rgba(50,50,50,.3);box-shadow:.133rem .133rem .133rem 0 rgba(50,50,50,.3);-webkit-transition:visibility 0s,opacity .2s ease;transition:visibility 0s,opacity .2s ease}.page.is-active .holder-panel-menu-more{left:21.333rem}.holder-panel-menu-more.is-active{visibility:visible;opacity:1}.panel-menu-more{display:block;width:18.133rem;height:100%;font-size:.867em;line-height:3.2rem;list-style-type:none;padding:0;margin:0}.panel-menu-more li a{display:block;font-weight:400;text-decoration:none;color:inherit;-webkit-transition:background-color .2s ease;transition:background-color .2s ease;overflow-x:hidden;white-space:nowrap;padding-right:1.333rem;padding-left:1.333rem}.panel-menu-more li a:hover{color:inherit;background-color:#e6e6e6}.panel-menu-more li a:active{color:#191919;background-color:#d83544}.cd-prev,.cd-next{display:none;width:3.2rem;height:3.2rem;text-indent:100%;white-space:nowrap;overflow:hidden;z-index:1}.cd-prev{position:fixed;left:0;top:calc(50% - 22px);bottom:auto}.cd-next{position:fixed;right:0;top:calc(50% - 22px);bottom:auto}.cd-prev,.cd-next{text-align:center;color:#fff;background-color:rgba(45,45,45,.5);-webkit-transition:background-color .2s ease;transition:background-color .2s ease}.cd-prev:before{display:block;font-family:englishextra-ui-icons;content:"\e904";font-size:1.5rem;line-height:3.2rem;text-indent:0}.cd-next:before{display:block;font-family:englishextra-ui-icons;content:"\e906";font-size:1.5rem;line-height:3.2rem;text-indent:0}.cd-prev:hover,.cd-next:hover{background-color:#2d2d2d}.cd-prev:active,.cd-next:active{color:#191919;background-color:#d83544}.ya-share2 .ya-share2__container_size_m .ya-share2__icon{height:3.2rem;width:3.2rem}.ya-share2 .ya-share2__container_size_m .ya-share2__counter{font-size:1.333rem;line-height:3.2rem}.ya-share2 .ya-share2__container_size_m .ya-share2__title{width:0;height:0;overflow:hidden}.ya-share2 .ya-share2__container_size_m .ya-share2__item{margin:0}.ya-share2 .ya-share2__container_size_m .ya-share2__badge{border-radius:0}.ya-share2{display:inline-block;visibility:hidden;opacity:0;position:fixed;right:3.2rem;bottom:0;-webkit-box-shadow:.133rem .133rem .133rem 0 rgba(50,50,50,.3);box-shadow:.133rem .133rem .133rem 0 rgba(50,50,50,.3);-webkit-transition:visibility 0s,opacity .2s ease;transition:visibility 0s,opacity .2s ease}.ya-share2.is-active{visibility:visible;opacity:1}.pluso{display:inline-block;visibility:hidden;opacity:0;height:3.2rem;position:fixed;right:3.2rem;bottom:0;-webkit-box-shadow:.133rem .133rem .133rem 0 rgba(50,50,50,.3);box-shadow:.133rem .133rem .133rem 0 rgba(50,50,50,.3);-webkit-transition:visibility 0s,opacity .2s ease;transition:visibility 0s,opacity .2s ease}.pluso.is-active{visibility:visible;opacity:1}.btn-share-buttons{display:inline-block;width:3.2rem;height:3.2rem;position:fixed;right:3.2rem;bottom:0;text-indent:0;text-align:center;text-decoration:none;color:#fff;background-color:rgba(45,45,45,.5);border:none;overflow:hidden;-webkit-transition:background-color .2s ease;transition:background-color .2s ease;-webkit-tap-highlight-color:transparent;outline:0}.btn-share-buttons:hover{background-color:#2d2d2d}.btn-share-buttons:active{color:#191919;background-color:#d83544}.btn-share-buttons:before{font-family:englishextra-ui-icons;content:"\e91d";font-size:1.333rem;line-height:3.2rem}.holder-vk-like{display:inline-block;visibility:hidden;opacity:0;height:3.2rem;position:fixed;right:6.4rem;bottom:0;line-height:0;-webkit-transition:visibility 0s,opacity .2s ease;transition:visibility 0s,opacity .2s ease;background-color:#5e81a8;-webkit-box-shadow:.133rem .133rem .133rem 0 rgba(50,50,50,.3);box-shadow:.133rem .133rem .133rem 0 rgba(50,50,50,.3);z-index:1}.holder-vk-like.is-active{visibility:visible;opacity:1}.vk-like{display:inline-block;height:24px;position:absolute;top:50%;-webkit-transform:translate(0,-50%);transform:translate(0,-50%);margin:0 0 0 .667rem;line-height:0}.btn-show-vk-like{display:inline-block;width:3.2rem;height:3.2rem;position:fixed;bottom:0;right:6.4rem;text-indent:0;text-align:center;text-decoration:none;color:#fff;background-color:rgba(45,45,45,.5);border:none;overflow:hidden;-webkit-transition:background-color .2s ease;transition:background-color .2s ease;-webkit-tap-highlight-color:transparent;outline:0}.btn-show-vk-like:hover{background-color:#2d2d2d}.btn-show-vk-like:active{color:#191919;background-color:#d83544}.btn-show-vk-like:before{font-family:englishextra-ui-icons;content:"\e925";font-size:1.333rem;line-height:3.2rem}.holder-location-qr-code{display:block;width:100%;float:left;text-align:left;background-color:#fff}.holder-location-qr-code .qr-code-img,.holder-location-qr-code img{display:block;width:9rem;height:9rem;background-color:transparent;background-size:9rem 9rem;border:0;vertical-align:bottom;padding:0;margin:0}@media only screen{html{font-size:12px}}@media only screen and (max-width:40em){html{font-size:13px}}@media only screen and (min-width:40.063em){html{font-size:13px}}@media only screen and (min-width:40.063em) and (max-width:64em){html{font-size:15px}}@media only screen and (min-width:64.063em){html{font-size:15px}}@media only screen and (min-width:64.063em) and (max-width:90em){html{font-size:15px}}@media only screen and (min-width:90.063em){html{font-size:15px}}@media only screen and (min-width:90.063em) and (max-width:120em){html{font-size:18px}}@media only screen and (min-width:120.063em){html{font-size:19px}}
-/*# sourceMappingURL=bundle.min.css.map */
+/*! libs\irregular_verbs\scss\bundle.scss */
+
+/*! @import "englishextra-ui-colors" */
+
+/*!
+ * englishextra-ui colors
+ * use microsoft.com/en-us/design/color
+ * localhost/tools/Tinter-Shader/index.html
+ * localhost/tools/perfect_colors/
+ * localhost/tools/TinyColor/index.html
+ * localhost/tools/color-palette-generator/index.html
+ * localhost/tools/hexcolortool/index.html
+ * localhost/tools/css3-playground/
+ */
+
+/* 0073D2
+007DD1
+5E308F
+9C0087
+D13636
+F23819
+FF4141
+00AC54
+547E71
+8C582C
+F5630E
+FDE000
+C3C3C3
+D54848
+2D7C9A
+2F79B6
+EF6B50
+EB5262
+706D6A
+60867B
+615FC8
+744DA5
+3087CD */
+
+/* \$(.*?)\: (.*?)\;
+\t\t\t\t\t\t\t\t\t\t<div class="masonry-grid-item"><div class="bg-\1"><span class="color-variable-name">$\1</span></div></div>
+
+\$(.*?)\: (.*?)\;
+.bg-\1 {
+	background-color: $\1;
+} */
+
+/*! @import "englishextra-ui-variables"; */
+
+/*! @import "font-face"; */
+
+@font-face {
+	font-family: "englishextra-ui-icons";
+	src: url(../../../fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.woff2) format("woff2"), url(../../../fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.woff) format("woff"), url(../../../fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.ttf) format("truetype");
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* @font-face {
+	font-family: "Exo2";
+	src: url(../../../fonts/exo2-fontfacekit/Exo2Regular.woff2) format("woff2"), url(../../../fonts/exo2-fontfacekit/Exo2Regular.woff) format("woff"), url(../../../fonts/exo2-fontfacekit/Exo2Regular.ttf) format("truetype");
+	font-style: normal;
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: "Exo2";
+	src: url(../../../fonts/exo2-fontfacekit/Exo2Italic.woff2) format("woff2"), url(../../../fonts/exo2-fontfacekit/Exo2Italic.woff) format("woff"), url(../../../fonts/exo2-fontfacekit/Exo2Italic.ttf) format("truetype");
+	font-style: italic;
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: "Exo2";
+	src: url(../../../fonts/exo2-fontfacekit/Exo2Bold.woff2) format("woff2"), url(../../../fonts/exo2-fontfacekit/Exo2Bold.woff) format("woff"), url(../../../fonts/exo2-fontfacekit/Exo2Bold.ttf) format("truetype");
+	font-style: normal;
+	font-weight: 700;
+}
+
+@font-face {
+	font-family: "Source Code Pro";
+	src: url(../../../fonts/source-code-pro-fontfacekit/SourceCodePro-Regular.otf.woff2) format("woff2"), url(../../../fonts/source-code-pro-fontfacekit/SourceCodePro-Regular.otf.woff) format("woff"), url(../../../fonts/source-code-pro-fontfacekit/SourceCodePro-Regular.ttf) format("truetype");
+	font-weight: 400;
+	font-style: normal;
+	font-stretch: normal;
+} */
+
+/*! @import "normalize"; */
+
+/*! normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */
+
+/*!
+ * 1. Change the default font family in all browsers (opinionated).
+ * 2. Correct the line height in all browsers.
+ * 3. Prevent adjustments of font size after orientation changes in
+ *		IE on Windows Phone and in iOS.
+ */
+
+/* Document
+	========================================================================== */
+
+html {
+	font-family: sans-serif;
+	/* 1 */
+	line-height: 1.15;
+	/* 2 */
+	-ms-text-size-adjust: 100%;
+	/* 3 */
+	-webkit-text-size-adjust: 100%;
+	/* 3 */
+}
+
+/* Sections
+	========================================================================== */
+
+/*!
+ * Remove the margin in all browsers (opinionated).
+ */
+
+body {
+	margin: 0;
+}
+
+/*!
+ * Add the correct display in IE 9-.
+ */
+
+article,
+aside,
+footer,
+header,
+nav,
+section {
+	display: block;
+}
+
+/*!
+ * Correct the font size and margin on `h1` elements within `section` and
+ * `article` contexts in Chrome, Firefox, and Safari.
+ */
+
+h1 {
+	font-size: 2em;
+	margin: 0.67em 0;
+}
+
+/* Grouping content
+	========================================================================== */
+
+/*!
+ * Add the correct display in IE 9-.
+ * 1. Add the correct display in IE.
+ */
+
+figcaption,
+figure,
+main {
+	/* 1 */
+	display: block;
+}
+
+/*!
+ * Add the correct margin in IE 8.
+ */
+
+figure {
+	margin: 1em 40px;
+}
+
+/*!
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+
+hr {
+	-webkit-box-sizing: content-box;
+	box-sizing: content-box;
+	/* 1 */
+	height: 0;
+	/* 1 */
+	overflow: visible;
+	/* 2 */
+}
+
+/*!
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+
+pre {
+	font-family: monospace, monospace;
+	/* 1 */
+	font-size: 1em;
+	/* 2 */
+}
+
+/* Text-level semantics
+	========================================================================== */
+
+/*!
+ * 1. Remove the gray background on active links in IE 10.
+ * 2. Remove gaps in links underline in iOS 8+ and Safari 8+.
+ */
+
+a {
+	background-color: transparent;
+	/* 1 */
+	-webkit-text-decoration-skip: objects;
+	/* 2 */
+}
+
+/*!
+ * Remove the outline on focused links when they are also active or hovered
+ * in all browsers (opinionated).
+ */
+
+a:active,
+a:hover {
+	outline-width: 0;
+}
+
+/*!
+ * 1. Remove the bottom border in Firefox 39-.
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ */
+
+abbr[title] {
+	border-bottom: none;
+	/* 1 */
+	text-decoration: underline;
+	/* 2 */
+	text-decoration: underline dotted;
+	/* 2 */
+}
+
+/*!
+ * Prevent the duplicate application of `bolder` by the next rule in Safari 6.
+ */
+
+b,
+strong {
+	font-weight: inherit;
+}
+
+/*!
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+
+b,
+strong {
+	font-weight: bolder;
+}
+
+/*!
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+
+code,
+kbd,
+samp {
+	font-family: monospace, monospace;
+	/* 1 */
+	font-size: 1em;
+	/* 2 */
+}
+
+/*!
+ * Add the correct font style in Android 4.3-.
+ */
+
+dfn {
+	font-style: italic;
+}
+
+/*!
+ * Add the correct background and color in IE 9-.
+ */
+
+mark {
+	background-color: #ff0;
+	color: #000;
+}
+
+/*!
+ * Add the correct font size in all browsers.
+ */
+
+small {
+	font-size: 80%;
+}
+
+/*!
+ * Prevent `sub` and `sup` elements from affecting the line height in
+ * all browsers.
+ */
+
+sub,
+sup {
+	font-size: 75%;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
+}
+
+sub {
+	bottom: -0.25em;
+}
+
+sup {
+	top: -0.5em;
+}
+
+/* Embedded content
+	========================================================================== */
+
+/*!
+ * Add the correct display in IE 9-.
+ */
+
+audio,
+video {
+	display: inline-block;
+}
+
+/*!
+ * Add the correct display in iOS 4-7.
+ */
+
+audio:not([controls]) {
+	display: none;
+	height: 0;
+}
+
+/*!
+ * Remove the border on images inside links in IE 10-.
+ */
+
+img {
+	border-style: none;
+}
+
+/*!
+ * Hide the overflow in IE.
+ */
+
+svg:not(:root) {
+	overflow: hidden;
+}
+
+/* Forms
+	========================================================================== */
+
+/*!
+ * 1. Change the font styles in all browsers (opinionated).
+ * 2. Remove the margin in Firefox and Safari.
+ */
+
+button,
+input,
+optgroup,
+select,
+textarea {
+	font-family: sans-serif;
+	/* 1 */
+	font-size: 100%;
+	/* 1 */
+	line-height: 1.15;
+	/* 1 */
+	margin: 0;
+	/* 2 */
+}
+
+/*!
+ * Show the overflow in IE.
+ * 1. Show the overflow in Edge.
+ */
+
+button,
+input {
+	/* 1 */
+	overflow: visible;
+}
+
+/*!
+ * Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 1. Remove the inheritance of text transform in Firefox.
+ */
+
+button,
+select {
+	/* 1 */
+	text-transform: none;
+}
+
+/*!
+ * 1. Prevent a WebKit bug where (2) destroys native `audio` and `video`
+ *		controls in Android 4.
+ * 2. Correct the inability to style clickable types in iOS and Safari.
+ */
+
+button,
+html [type="button"],
+[type="reset"],
+[type="submit"] {
+	-webkit-appearance: button;
+	/* 2 */
+}
+
+/*!
+ * Remove the inner border and padding in Firefox.
+ */
+
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+	border-style: none;
+	padding: 0;
+}
+
+/*!
+ * Restore the focus styles unset by the previous rule.
+ */
+
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+	outline: 1px dotted ButtonText;
+}
+
+/*!
+ * Change the border, margin, and padding in all browsers (opinionated).
+ */
+
+fieldset {
+	border: 1px solid #c0c0c0;
+	margin: 0 2px;
+	padding: 0.35em 0.625em 0.75em;
+}
+
+/*!
+ * 1. Correct the text wrapping in Edge and IE.
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
+ * 3. Remove the padding so developers are not caught out when they zero out
+ *		`fieldset` elements in all browsers.
+ */
+
+legend {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	/* 1 */
+	color: inherit;
+	/* 2 */
+	display: table;
+	/* 1 */
+	max-width: 100%;
+	/* 1 */
+	padding: 0;
+	/* 3 */
+	white-space: normal;
+	/* 1 */
+}
+
+/*!
+ * 1. Add the correct display in IE 9-.
+ * 2. Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ */
+
+progress {
+	display: inline-block;
+	/* 1 */
+	vertical-align: baseline;
+	/* 2 */
+}
+
+/*!
+ * Remove the default vertical scrollbar in IE.
+ */
+
+textarea {
+	overflow: auto;
+}
+
+/*!
+ * 1. Add the correct box sizing in IE 10-.
+ * 2. Remove the padding in IE 10-.
+ */
+
+[type="checkbox"],
+[type="radio"] {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	/* 1 */
+	padding: 0;
+	/* 2 */
+}
+
+/*!
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+	height: auto;
+}
+
+/*!
+ * 1. Correct the odd appearance in Chrome and Safari.
+ * 2. Correct the outline style in Safari.
+ */
+
+[type="search"] {
+	-webkit-appearance: textfield;
+	/* 1 */
+	outline-offset: -2px;
+	/* 2 */
+}
+
+/*!
+ * Remove the inner padding and cancel buttons in Chrome and Safari on macOS.
+ */
+
+[type="search"]::-webkit-search-cancel-button,
+[type="search"]::-webkit-search-decoration {
+	-webkit-appearance: none;
+}
+
+/*!
+ * 1. Correct the inability to style clickable types in iOS and Safari.
+ * 2. Change font properties to `inherit` in Safari.
+ */
+
+::-webkit-file-upload-button {
+	-webkit-appearance: button;
+	/* 1 */
+	font: inherit;
+	/* 2 */
+}
+
+/* Interactive
+	========================================================================== */
+
+/*
+ * Add the correct display in IE 9-.
+ * 1. Add the correct display in Edge, IE, and Firefox.
+ */
+
+details,
+menu {
+	display: block;
+}
+
+/*
+ * Add the correct display in all browsers.
+ */
+
+summary {
+	display: list-item;
+}
+
+/* Scripting
+	========================================================================== */
+
+/*!
+ * Add the correct display in IE 9-.
+ */
+
+canvas {
+	display: inline-block;
+}
+
+/*!
+ * Add the correct display in IE.
+ */
+
+template {
+	display: none;
+}
+
+/* Hidden
+	========================================================================== */
+
+/*!
+ * Add the correct display in IE 10-.
+ */
+
+[hidden] {
+	display: none;
+}
+
+/*! @import "irregular-verbs-doslide"; */
+
+/*!
+ * DoSlide v1.1.3
+ * (c) 2016 MopTym <moptym@163.com>
+ * Released under the MIT License.
+ * Homepage - https://github.com/MopTym/doSlide
+ */
+
+/*!
+ * renamed wrap class
+ * @see {@link https://github.com/MopTym/doSlide/issues/19#issuecomment-205791702}
+ * @see {@link https://github.com/MopTym/doSlide/blob/master/demo/3_1_slider.html}
+ */
+
+.ds-parent {
+	overflow: hidden;
+	padding: 0;
+	margin: 0;
+}
+
+.ds-container {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+	padding: 0;
+	margin: 0 auto;
+}
+
+.ds-container > * {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	top: 0;
+	left: 0;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+body {
+	width: 100%;
+	position: absolute;
+	overflow-x: hidden;
+	overflow-y: hidden;
+}
+
+.slider {
+	min-height: 100%;
+	/**
+	 * Maintain the aspect ratio of a div with CSS
+	 * @see {@link https://github.com/MopTym/doSlide/issues/19#issuecomment-205791018}
+	 * @see {@link https://stackoverflow.com/questions/1495407/maintain-the-aspect-ratio-of-a-div-with-css}
+	 * aspect ratio | padding-bottom value
+	 * --------------|----------------------
+	 * 16:9 | 56.25%
+	 * 4:3 | 75%
+	 * 3:2 | 66.66%
+	 * 8:5 | 62.5%
+	 */
+	padding-top: 56.25%;
+	/*max-width: 100%;*/
+	margin: 0 auto;
+}
+
+.slide {
+	min-height: 100%;
+	text-align: center;
+	background-color: #252E31;
+	background-position: center center;
+	background-size: cover;
+}
+
+.slide div {
+	margin: 12.500% 0 0 18.800%;
+}
+
+.slide h2 {
+	display: block;
+	font-size: 3.375rem;
+	font-weight: 700;
+	line-height: 1.000;
+	text-align: left;
+	color: #FFFFFF;
+	background-color: transparent;
+}
+
+.slide .explanation {
+	font-weight: 400;
+	font-size: 2.594rem;
+	font-style: italic;
+	line-height: 1.000;
+}
+
+.slide .phonetic {
+	font-family: "Roboto Mono", "Consolas", "Monaco", "Droid Sans Mono", "Inconsolata", "Source Code Pro", monospace;
+}
+
+/*! @import "main"; */
+
+/*!
+ * main
+ */
+
+html,
+body {
+	height: 100%;
+}
+
+html {
+	font-size: 15px;
+	line-height: 20px;
+	/**
+	 * set the parent to background transparent
+	 * and position relative to parent, absolute for child
+	 */
+	background-color: transparent;
+}
+
+body {
+	font-family: "Roboto", "Segoe UI", "Segoe WP", "HelveticaNeue", "Roboto", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
+	font-weight: 400;
+	font-size: 1.000rem;
+	line-height: 1.333rem;
+	width: 100%;
+	color: #191919;
+	background-color: #F0F0F0;
+	-webkit-text-size-adjust: none;
+	-moz-text-size-adjust: none;
+	-ms-text-size-adjust: none;
+	text-size-adjust: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-moz-font-feature-settings: "liga", "kern";
+	-webkit-touch-callout: none;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+	overflow-x: hidden;
+	margin: 0;
+	padding: 0;
+}
+
+/*!
+ * englishextra specific rules
+ */
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+a:focus,
+a:active,
+button:focus,
+button:active,
+select:focus,
+select:active {
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+}
+
+img {
+	border: 0;
+	-ms-interpolation-mode: bicubic;
+	vertical-align: bottom;
+}
+
+p:first-child {
+	margin-top: 0;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+
+b,
+strong,
+.bolder {
+	font-weight: bold;
+}
+
+i,
+em,
+.italic {
+	font-style: italic;
+}
+
+u,
+.underline {
+	text-decoration: underline;
+}
+
+*,
+*:after,
+*::before {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+::-moz-selection {
+	color: rgba(255, 255, 255, 0.9);
+	background-color: rgba(58, 150, 221, 0.9);
+}
+
+::selection {
+	color: rgba(255, 255, 255, 0.9);
+	background-color: rgba(58, 150, 221, 0.9);
+}
+
+::-webkit-input-placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
+:-ms-input-placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
+::placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
+/*!
+ * clearfix css-tricks.com/snippets/css/clear-fix/
+ */
+
+.cf:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+/*!
+ * fit width
+ */
+
+.fit-width {
+	min-width: 100%;
+}
+
+/*!
+ * hide and show on mobile
+ */
+
+.page .show-inline-on-mobile,
+.page .show-block-on-mobile {
+	display: none;
+}
+
+@media handheld, only screen and (max-width: 800px) {
+	.page .hide-on-mobile {
+		display: none;
+		width: 0;
+		height: 0;
+	}
+
+	.page .show-inline-on-mobile {
+		display: inline;
+	}
+
+	.page .show-block-on-mobile {
+		display: block;
+	}
+}
+
+/*!
+ * other
+ */
+
+.page {
+	width: 100%;
+	/**
+	 * set the parent to min height 100%, not just height
+	 * and position relative to parent, absolute for child
+	 */
+	min-height: 100%;
+	position: relative;
+	top: 0;
+	/* left: 18.133rem; */
+	left: 0;
+	visibility: visible;
+	opacity: 1;
+	-webkit-transition: left 0.2s linear, opacity 0.2s ease;
+	transition: left 0.2s linear, opacity 0.2s ease;
+	background-color: #F0F0F0;
+}
+
+.page img {
+	display: block;
+}
+
+.container {
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0 auto;
+}
+
+/*! @import "irregular-verbs-nav-menu"; */
+
+/*!
+ * nav-menu
+ */
+
+.btn-nav-menu {
+	display: inline-block;
+	width: 3.200rem;
+	height: 3.200rem;
+	position: fixed;
+	top: 0;
+	left: 0;
+	color: #FFFFFF;
+	-webkit-transition: left 0.2s linear, background-color 0.2s ease;
+	transition: left 0.2s linear, background-color 0.2s ease;
+	cursor: pointer;
+}
+
+.btn-nav-menu:hover {
+	background-color: #2D2D2D;
+}
+
+.page.is-active .btn-nav-menu,
+.btn-nav-menu:active {
+	color: #191919;
+	background-color: #D83544;
+}
+
+.btn-nav-menu {
+	text-align: center;
+	background-color: rgba(45, 45, 45, 0.5);
+}
+
+.btn-nav-menu:before {
+	font-family: "englishextra-ui-icons";
+	content: "\e90f";
+	font-size: 1.333rem;
+	line-height: 3.200rem;
+}
+
+/*!
+ * menu more
+ */
+
+.btn-menu-more {
+	display: inline-block;
+	width: 3.200rem;
+	height: 3.200rem;
+	position: fixed;
+	top: 0;
+	left: 3.200rem;
+	color: #FFFFFF;
+	text-decoration: none;
+	-webkit-transition: left 0.2s linear, background-color 0.2s ease;
+	transition: left 0.2s linear, background-color 0.2s ease;
+	cursor: pointer;
+}
+
+.page.is-active .btn-menu-more {
+	/**
+	 * position absolute
+	 * left: 0;
+	 * position fixed
+	 * left: 21.333rem;
+	 */
+	left: 21.333rem;
+}
+
+.btn-menu-more:hover {
+	background-color: #2D2D2D;
+}
+
+/* .btn-menu-more:focus, */
+
+.btn-menu-more:active {
+	color: #191919;
+	background-color: #D83544;
+}
+
+.btn-menu-more {
+	text-align: center;
+	background-color: rgba(45, 45, 45, 0.5);
+}
+
+.btn-menu-more:before {
+	font-family: "englishextra-ui-icons";
+	content: "\e915";
+	font-size: 1.333rem;
+	line-height: 3.200rem;
+}
+
+.holder-panel-menu-more {
+	display: block;
+	visibility: hidden;
+	opacity: 0;
+	position: fixed;
+	top: 3.200rem;
+	left: 3.200rem;
+	color: #191919;
+	background-color: #F2F2F2;
+	border: 0.067rem solid #D83544;
+	-webkit-box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
+	-webkit-transition: visibility 0s, opacity 0.2s ease;
+	transition: visibility 0s, opacity 0.2s ease;
+}
+
+.page.is-active .holder-panel-menu-more {
+	/**
+	 * position absolute
+	 * left: 0;
+	 * position fixed
+	 * left: 21.333rem;
+	 */
+	left: 21.333rem;
+}
+
+.holder-panel-menu-more.is-active {
+	visibility: visible;
+	opacity: 1;
+}
+
+.panel-menu-more {
+	display: block;
+	width: 18.133rem;
+	height: 100%;
+	font-size: 0.867em;
+	line-height: 3.200rem;
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.panel-menu-more li a {
+	display: block;
+	font-weight: 400;
+	text-decoration: none;
+	color: inherit;
+	-webkit-transition: background-color 0.2s ease;
+	transition: background-color 0.2s ease;
+	overflow-x: hidden;
+	white-space: nowrap;
+	padding-right: 1.333rem;
+	padding-left: 1.333rem;
+}
+
+.panel-menu-more li a:hover {
+	color: inherit;
+	background-color: #E6E6E6;
+}
+
+/* .panel-menu-more li a:focus, */
+
+.panel-menu-more li a:active {
+	color: #191919;
+	background-color: #D83544;
+}
+
+/*!
+ * other
+ */
+
+.cd-prev,
+.cd-next {
+	display: none;
+	width: 3.200rem;
+	height: 3.200rem;
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	z-index: 1;
+}
+
+.cd-prev {
+	position: fixed;
+	left: 0;
+	top: calc(50% - 22px);
+	bottom: auto;
+}
+
+.cd-next {
+	position: fixed;
+	right: 0;
+	top: calc(50% - 22px);
+	bottom: auto;
+}
+
+.cd-prev,
+.cd-next {
+	text-align: center;
+	color: #FFFFFF;
+	background-color: rgba(45, 45, 45, 0.5);
+	-webkit-transition: background-color 0.2s ease;
+	transition: background-color 0.2s ease;
+}
+
+.cd-prev:before {
+	display: block;
+	font-family: "englishextra-ui-icons";
+	content: "\e904";
+	font-size: 1.500rem;
+	line-height: 3.200rem;
+	text-indent: 0;
+}
+
+.cd-next:before {
+	display: block;
+	font-family: "englishextra-ui-icons";
+	content: "\e906";
+	font-size: 1.500rem;
+	line-height: 3.200rem;
+	text-indent: 0;
+}
+
+.cd-prev:hover,
+.cd-next:hover {
+	background-color: #2D2D2D;
+}
+
+/* .cd-prev:focus,
+.cd-next:focus, */
+
+.cd-prev:active,
+.cd-next:active {
+	color: #191919;
+	background-color: #D83544;
+}
+
+/*!
+ * ya-share2
+ * yandex.ru/blog/share/kak-uvelichit-shrift-tsifr-sch-tchika#comment-add
+ */
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__icon {
+	height: 3.200rem;
+	width: 3.200rem;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__counter {
+	font-size: 1.333rem;
+	line-height: 3.200rem;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__title {
+	width: 0;
+	height: 0;
+	overflow: hidden;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__item {
+	margin: 0;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__badge {
+	border-radius: 0;
+}
+
+/*!
+ * pluso, yashare
+ */
+
+.ya-share2 {
+	display: inline-block;
+	visibility: hidden;
+	opacity: 0;
+	position: fixed;
+	right: 3.200rem;
+	bottom: 0;
+	-webkit-box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
+	-webkit-transition: visibility 0s, opacity 0.2s ease;
+	transition: visibility 0s, opacity 0.2s ease;
+}
+
+.ya-share2.is-active {
+	visibility: visible;
+	opacity: 1;
+}
+
+.pluso {
+	display: inline-block;
+	visibility: hidden;
+	opacity: 0;
+	height: 3.200rem;
+	position: fixed;
+	right: 3.200rem;
+	bottom: 0;
+	-webkit-box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
+	-webkit-transition: visibility 0s, opacity 0.2s ease;
+	transition: visibility 0s, opacity 0.2s ease;
+}
+
+.pluso.is-active {
+	visibility: visible;
+	opacity: 1;
+}
+
+.btn-share-buttons {
+	display: inline-block;
+	width: 3.200rem;
+	height: 3.200rem;
+	position: fixed;
+	right: 3.200rem;
+	bottom: 0;
+	text-indent: 0;
+	text-align: center;
+	text-decoration: none;
+	color: #FFFFFF;
+	background-color: rgba(45, 45, 45, 0.5);
+	border: none;
+	overflow: hidden;
+	-webkit-transition: background-color 0.2s ease;
+	transition: background-color 0.2s ease;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+}
+
+.btn-share-buttons:hover {
+	background-color: #2D2D2D;
+}
+
+/* .btn-share-buttons:focus, */
+
+.btn-share-buttons:active {
+	color: #191919;
+	background-color: #D83544;
+}
+
+.btn-share-buttons:before {
+	font-family: "englishextra-ui-icons";
+	content: "\e91d";
+	font-size: 1.333rem;
+	line-height: 3.200rem;
+}
+
+/*!
+ * vk-like
+ */
+
+.holder-vk-like {
+	display: inline-block;
+	visibility: hidden;
+	opacity: 0;
+	height: 3.200rem;
+	position: fixed;
+	right: 6.400rem;
+	bottom: 0;
+	line-height: 0;
+	-webkit-transition: visibility 0s, opacity 0.2s ease;
+	transition: visibility 0s, opacity 0.2s ease;
+	background-color: #5E81A8;
+	-webkit-box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
+	z-index: 1;
+}
+
+.holder-vk-like.is-active {
+	visibility: visible;
+	opacity: 1;
+}
+
+.vk-like {
+	display: inline-block;
+	height: 24px;
+	position: absolute;
+	top: 50%;
+	-webkit-transform: translate(0, -50%);
+	transform: translate(0, -50%);
+	margin: 0 0 0 0.667rem;
+	line-height: 0;
+}
+
+.btn-show-vk-like {
+	display: inline-block;
+	width: 3.200rem;
+	height: 3.200rem;
+	position: fixed;
+	bottom: 0;
+	right: 6.400rem;
+	text-indent: 0;
+	text-align: center;
+	text-decoration: none;
+	color: #FFFFFF;
+	background-color: rgba(45, 45, 45, 0.5);
+	border: none;
+	overflow: hidden;
+	-webkit-transition: background-color 0.2s ease;
+	transition: background-color 0.2s ease;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+}
+
+.btn-show-vk-like:hover {
+	background-color: #2D2D2D;
+}
+
+/* .btn-show-vk-like:focus, */
+
+.btn-show-vk-like:active {
+	color: #191919;
+	background-color: #D83544;
+}
+
+.btn-show-vk-like:before {
+	font-family: "englishextra-ui-icons";
+	content: "\e925";
+	font-size: 1.333rem;
+	line-height: 3.200rem;
+}
+
+/*!
+ * location qr code
+ */
+
+.holder-location-qr-code {
+	display: block;
+	width: 100%;
+	float: left;
+	text-align: left;
+	background-color: #FFFFFF;
+}
+
+.holder-location-qr-code .qr-code-img,
+.holder-location-qr-code img {
+	display: block;
+	width: 9.000rem;
+	height: 9.000rem;
+	background-color: transparent;
+	background-size: 9.000rem 9.000rem;
+	border: 0;
+	vertical-align: bottom;
+	padding: 0;
+	margin: 0;
+}
+
+/*!
+ * @see {@link https://gist.github.com/englishextra/40b7c4ffde33bfb58aff259afe229d6a}
+ */
+
+/*------------------------------------------
+  Foundation Media Queries
+   http://foundation.zurb.com/docs/media-queries.html
+--------------------------------------------*/
+
+/* Small screens - MOBILE */
+
+@media only screen {
+	html {
+		font-size: 12px;
+	}
+}
+
+/* Define mobile styles - Mobile First */
+
+@media only screen and (max-width: 40em) {
+	html {
+		font-size: 13px;
+	}
+}
+
+/* max-width 640px, mobile-only styles, use when QAing mobile issues */
+
+/* Medium screens - TABLET */
+
+@media only screen and (min-width: 40.063em) {
+	html {
+		font-size: 13px;
+	}
+}
+
+/* min-width 641px, medium screens */
+
+@media only screen and (min-width: 40.063em) and (max-width: 64em) {
+	html {
+		font-size: 15px;
+	}
+}
+
+/* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
+
+/* Large screens - DESKTOP */
+
+@media only screen and (min-width: 64.063em) {
+	html {
+		font-size: 15px;
+	}
+}
+
+/* min-width 1025px, large screens */
+
+@media only screen and (min-width: 64.063em) and (max-width: 90em) {
+	html {
+		font-size: 15px;
+	}
+}
+
+/* min-width 1024px and max-width 1440px, use when QAing large screen-only issues */
+
+/* XLarge screens */
+
+@media only screen and (min-width: 90.063em) {
+	html {
+		font-size: 15px;
+	}
+}
+
+/* min-width 1441px, xlarge screens */
+
+@media only screen and (min-width: 90.063em) and (max-width: 120em) {
+	html {
+		font-size: 18px;
+	}
+}
+
+/* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */
+
+/* XXLarge screens */
+
+@media only screen and (min-width: 120.063em) {
+	html {
+		font-size: 19px;
+	}
+}
+
+/* min-width 1921px, xlarge screens */
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3Njc3MvYnVuZGxlLnNjc3MiLCIuLi9zY3NzL19lbmdsaXNoZXh0cmEtdWktY29sb3JzLnNjc3MiLCIuLi9zY3NzL19lbmdsaXNoZXh0cmEtdWktdmFyaWFibGVzLnNjc3MiLCIuLi9zY3NzL19mb250LWZhY2Uuc2NzcyIsIi4uL3Njc3MvX25vcm1hbGl6ZS5zY3NzIiwiYnVuZGxlLmNzcyIsIi4uL3Njc3MvX2Rvc2xpZGUuc2NzcyIsIi4uL3Njc3MvX21haW4uc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSw0Q0FBNEM7QUNBNUMsdUNBQXVDO0FBRXZDOzs7Ozs7Ozs7R0FTRztBQUVIOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O1NBc0JTO0FBNkZUOzs7Ozs7SUFNSTtBQ3RJSiwyQ0FBMkM7QUNBM0MsMkJBQTJCO0FBRTNCO0NBQ0MscUNBQW9DO0NBQ3BDLDRTQUEyUztDQUMzUyxvQkFBbUI7Q0FDbkIsbUJBQWtCLEVBQUE7O0FBR25COzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7SUEyQkk7QUNwQ0osMkJBQTJCO0FBRTNCLDRFQUE0RTtBQUU1RTs7Ozs7R0FLRztBQUVIOzhFQUM4RTtBQUU5RTtDQUNDLHdCQUF1QjtDQUFHLE9BQU87Q0FDakMsa0JBQWlCO0NBQUcsT0FBTztDQUMzQiwyQkFBMEI7Q0FBRyxPQUFPO0NBQ3BDLCtCQUE4QjtDQUFHLE9BQU8sRUFDeEM7O0FBRUQ7OEVBQzhFO0FBRTlFOztHQUVHO0FBRUg7Q0FDQyxVQUFTLEVBQ1Q7O0FBRUQ7O0dBRUc7QUFFSDs7Ozs7O0NBTUMsZUFBYyxFQUNkOztBQUVEOzs7R0FHRztBQUVIO0NBQ0MsZUFBYztDQUNkLGlCQUFnQixFQUNoQjs7QUFFRDs4RUFDOEU7QUFFOUU7OztHQUdHO0FBRUg7OztDQUVPLE9BQU87Q0FDYixlQUFjLEVBQ2Q7O0FBRUQ7O0dBRUc7QUFFSDtDQUNDLGlCQUFnQixFQUNoQjs7QUFFRDs7O0dBR0c7QUFFSDtDQUNDLGdDQUF1QjtTQUF2Qix3QkFBdUI7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 */

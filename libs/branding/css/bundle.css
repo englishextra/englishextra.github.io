@@ -777,7 +777,7 @@ body {
 .col address,
 .col p.address {
 	font-size: 0.867rem;
-	line-height: 1.333rem;
+	line-height: 1.067rem;
 	margin-right: 0;
 }
 
@@ -831,7 +831,7 @@ body {
 .col pre,
 .col pre code {
 	font-size: 0.867rem;
-	line-height: 1.333rem;
+	line-height: 1.067rem;
 }
 
 .col p.larger,
@@ -926,7 +926,7 @@ body {
 .col select,
 .col textarea {
 	font-size: 0.867rem;
-	line-height: 1.333rem;
+	line-height: 1.067rem;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	vertical-align: baseline;
@@ -976,7 +976,7 @@ body {
 .col input[type="reset"],
 .col input[type="submit"] {
 	font-size: 0.867rem;
-	line-height: 1.333rem;
+	line-height: 1.067rem;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	vertical-align: baseline;
@@ -4005,7 +4005,7 @@ u,
 	font-family: "Roboto Mono", "Source Code Pro", "Consolas", "Monaco", "Droid Sans Mono", "Inconsolata", monospace;
 	font-weight: 400;
 	font-size: 0.867rem;
-	line-height: 1.333rem;
+	line-height: 1.067rem;
 	padding: 0;
 	margin: 0;
 }
