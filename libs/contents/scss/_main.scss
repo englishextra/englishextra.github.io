@@ -168,11 +168,6 @@ u,
 	transition: left 0.2s linear;
 }
 
-/* .js .page {
-	position: relative;
-	left: 0;
-} */
-
 .page.is-active {
 	position: relative;
 	left: 18.133rem;
@@ -308,12 +303,6 @@ u,
 }
 
 .page.is-active .btn-nav-menu {
-	/**
-	 * position absolute
-	 * left: 0;
-	 * position fixed
-	 * left: 18.133rem;
-	 */
 	left: 18.133rem;
 }
 
@@ -335,12 +324,6 @@ u,
 }
 
 .page.is-active .btn-menu-more {
-	/**
-	 * position absolute
-	 * left: 0;
-	 * position fixed
-	 * left: 21.333rem;
-	 */
 	left: 21.333rem;
 }
 
@@ -381,12 +364,6 @@ u,
 }
 
 .page.is-active .holder-panel-menu-more {
-	/**
-	 * position absolute
-	 * left: 0;
-	 * position fixed
-	 * left: 21.333rem;
-	 */
 	left: 21.333rem;
 }
 
