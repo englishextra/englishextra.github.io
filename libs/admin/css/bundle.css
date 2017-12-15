@@ -2759,10 +2759,10 @@ u,
  */
 
 .col .footer {
-	border-top: 0.063rem solid #C3C3C3;
+	border-top: 0.067rem solid #C3C3C3;
 }
 
-.col .col .footer p {
+.col .footer p {
 	font-size: 0.800rem;
 	line-height: 1.067rem;
 }
