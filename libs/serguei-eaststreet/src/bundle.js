@@ -2574,7 +2574,8 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 		"./cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js",
 		"./cdn/js-cookie/2.1.3/js/js.cookie.fixed.min.js",
 		"./cdn/kamil/0.1.1/js/kamil.fixed.min.js",
-		"./cdn/routie/0.3.2/js/routie.fixed.js"]; */
+		"./cdn/routie/0.3.2/js/routie.fixed.js",
+		"./cdn/Tocca.js/2.0.1/js/Tocca.fixed.min.js"]; */
 
 	scripts.push("../libs/serguei-eaststreet/js/vendors.min.js");
 
