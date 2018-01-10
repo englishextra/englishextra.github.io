@@ -1282,13 +1282,9 @@ ToProgress, unescape, verge, VK, Ya*/
 			throttleHandleDataSrcImageAll();
 		};
 		var manageDataSrcImageAll = function () {
-			root[_removeEventListener]("scroll", handleDataSrcImageAllWindow, {
-				passive: true
-			});
+			root[_removeEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
 			root[_removeEventListener]("resize", handleDataSrcImageAllWindow);
-			root[_addEventListener]("scroll", handleDataSrcImageAllWindow, {
-				passive: true
-			});
+			root[_addEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
 			root[_addEventListener]("resize", handleDataSrcImageAllWindow);
 			var timers = new Timers();
 			timers.timeout(function () {
@@ -1336,13 +1332,9 @@ ToProgress, unescape, verge, VK, Ya*/
 			throttlehandleDataSrcIframeAll();
 		};
 		var manageDataSrcIframeAll = function () {
-			root[_removeEventListener]("scroll", handleDataSrcIframeAllWindow, {
-				passive: true
-			});
+			root[_removeEventListener]("scroll", handleDataSrcIframeAllWindow, {passive: true});
 			root[_removeEventListener]("resize", handleDataSrcIframeAllWindow);
-			root[_addEventListener]("scroll", handleDataSrcIframeAllWindow, {
-				passive: true
-			});
+			root[_addEventListener]("scroll", handleDataSrcIframeAllWindow, {passive: true});
 			root[_addEventListener]("resize", handleDataSrcIframeAllWindow);
 			var timers = new Timers();
 			timers.timeout(function () {
