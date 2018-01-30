@@ -605,6 +605,7 @@ var root = "undefined" !== typeof window ? window : this;
  * passes jshint
  */
 (function (root) {
+	"use strict";
 	var Timers = function (ids) {
 		this.ids = ids || [];
 	};

@@ -265,6 +265,7 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
  * passes jshint
  */
 (function (root) {
+	"use strict";
 	var Timers = function (ids) {
 		this.ids = ids || [];
 	};

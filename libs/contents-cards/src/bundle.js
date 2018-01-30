@@ -1022,7 +1022,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 			}).then(function () {
 				timerCreateGrid = setTimeout(createGrid, 200);
 			}).then(function () {
-				timerSetLazyloading = setTimeout(setLazyloading, 200);
+				timerSetLazyloading = setTimeout(setLazyloading, 500);
 			}).catch (function (err) {
 				console.log("Cannot create card grid", err);
 			});

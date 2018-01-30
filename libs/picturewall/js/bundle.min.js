@@ -939,7 +939,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 			}).then(function () {
 				timerCreateGallery = setTimeout(createGallery, 200);
 			}).then(function () {
-				timerSetLazyloading = setTimeout(setLazyloading, 200);
+				timerSetLazyloading = setTimeout(setLazyloading, 500);
 			}).catch (function (err) {
 				console.log("Cannot create zoomwall gallery", err);
 			});

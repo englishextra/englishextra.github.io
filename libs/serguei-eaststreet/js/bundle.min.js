@@ -266,6 +266,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
  * passes jshint
  */
 (function (root) {
+	"use strict";
 	var Timers = function (ids) {
 		this.ids = ids || [];
 	};
