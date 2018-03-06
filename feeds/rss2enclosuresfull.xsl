@@ -88,7 +88,7 @@
 					<xsl:apply-templates select="item"/>
 				</div>
 				<div id="footer">
-					<p>© 2006—2017 englishextra</p>
+					<p>© 2006—2018 englishextra</p>
 				</div>
 			</div>
 		</body>
