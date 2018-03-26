@@ -3812,7 +3812,7 @@ u,
 	max-height: 0;
 	position: absolute;
 	list-style: none;
-	font-size: 0.867rem;
+	font-size: 0.933rem;
 	overflow-x: hidden;
 	overflow-y: auto;
 	-webkit-box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
@@ -4576,7 +4576,7 @@ u,
 	left: 50%;
 	margin-right: -50%;
 	transform: translate(-50%, -50%); */
-	font-size: 0.800rem;
+	font-size: 0.933rem;
 	line-height: 1.067rem;
 	text-align: center;
 	word-break: break-word;
