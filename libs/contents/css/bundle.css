@@ -600,7 +600,7 @@ template {
 	max-height: 16.000rem;
 	position: absolute;
 	list-style: none;
-	font-size: 0.867rem;
+	font-size: 0.933rem;
 	text-align: left;
 	overflow-y: auto;
 	color: inherit;
@@ -644,7 +644,7 @@ template {
 	max-height: 16.000rem;
 	position: absolute;
 	list-style: none;
-	font-size: 0.867rem;
+	font-size: 0.933rem;
 	text-align: left;
 	overflow-y: auto;
 	color: inherit;
@@ -1403,7 +1403,7 @@ u,
 	display: inline-block;
 	width: 9.600rem;
 	font-family: inherit;
-	font-size: 0.867rem;
+	font-size: 0.933rem;
 	line-height: 1.133rem;
 	color: inherit;
 	border-color: transparent;

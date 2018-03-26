@@ -688,7 +688,7 @@ body {
 
 .col address,
 .col p.address {
-	font-size: 0.867rem;
+	font-size: 0.933rem;
 	line-height: 1.333rem;
 	margin-right: 0;
 }
@@ -742,7 +742,7 @@ body {
 .col table th,
 .col pre,
 .col pre code {
-	font-size: 0.867rem;
+	font-size: 0.933rem;
 	line-height: 1.333rem;
 }
 
@@ -837,7 +837,7 @@ body {
 .col input[type^="datetime-local"],
 .col select,
 .col textarea {
-	font-size: 0.867rem;
+	font-size: 0.933rem;
 	line-height: 1.333rem;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
@@ -887,7 +887,7 @@ body {
 .col input[type="button"],
 .col input[type="reset"],
 .col input[type="submit"] {
-	font-size: 0.867rem;
+	font-size: 0.933rem;
 	line-height: 1.333rem;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
@@ -2408,7 +2408,7 @@ body {
 	max-height: 16.000rem;
 	position: absolute;
 	list-style: none;
-	font-size: 0.867rem;
+	font-size: 0.933rem;
 	text-align: left;
 	overflow-y: auto;
 	color: inherit;
@@ -3585,7 +3585,7 @@ u,
 
 .navbar-list li {
 	height: 3.200rem;
-	font-size: 0.867rem;
+	font-size: 0.933rem;
 	line-height: 3.200rem;
 }
 
@@ -3752,7 +3752,7 @@ u,
 	width: 100%;
 	height: 3.200rem;
 	font-family: inherit;
-	font-size: 0.867rem;
+	font-size: 0.933rem;
 	line-height: 3.200rem;
 	/* overflow: hidden;
 	white-space: nowrap;
@@ -3852,7 +3852,7 @@ u,
 .holder-contents-select a {
 	display: block;
 	height: 3.200rem;
-	font-size: 0.867rem;
+	font-size: 0.933rem;
 	line-height: 3.200rem;
 	color: #191919;
 	background-color: #E6E6E6;
@@ -4011,7 +4011,7 @@ u,
 }
 
 .col .aside p {
-	font-size: 0.867rem;
+	font-size: 0.933rem;
 	line-height: 1.333rem;
 }
 
@@ -4042,7 +4042,7 @@ u,
 .col .btn-larger,
 .col a.btn-larger {
 	height: 2.400rem;
-	font-size: 0.867rem;
+	font-size: 0.933rem;
 	font-weight: 400;
 	padding-right: 0.733rem;
 	padding-left: 0.733rem;
@@ -4133,7 +4133,7 @@ u,
 	width: 100%;
 	height: 2.400rem;
 	font-family: inherit;
-	font-size: 0.867rem;
+	font-size: 0.933rem;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -4238,7 +4238,7 @@ u,
 .holder-chapters-select a {
 	display: block;
 	height: 2.400rem;
-	font-size: 0.867rem;
+	font-size: 0.933rem;
 	line-height: 2.400rem;
 	color: #191919;
 	background-color: #F2F2F2;
@@ -4367,7 +4367,7 @@ u,
 	display: inline-block;
 	width: 9.600rem;
 	font-family: inherit;
-	font-size: 0.867rem;
+	font-size: 0.933rem;
 	line-height: 1.133rem;
 	color: #878787;
 	border-color: #878787;
