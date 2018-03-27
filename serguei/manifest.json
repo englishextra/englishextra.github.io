@@ -17,7 +17,7 @@
 		"sizes": "512x512",
 		"type": "image/png"
 	}],
-	"scope": "/",
+	"scope": "/serguei/",
 	"mjs_access_whitelist": [{
 		"url": "https://englishextra.github.io/serguei/"
 	}],
