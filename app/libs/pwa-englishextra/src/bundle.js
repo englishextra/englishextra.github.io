@@ -542,8 +542,13 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 		var setAttributeNS = "setAttributeNS";
 		var style = "style";
 		var title = "title";
-		var _addEventListener = "addEventListener";
 		var _removeEventListener = "removeEventListener";
+
+		var isActiveClass = "is-active";
+		var isBindedClass = "is-binded";
+		var isDropdownClass = "is-dropdown";
+		var isFixedClass = "is-fixed";
+		var isSocialClass = "is-social";
 
 		progressBar.increase(20);
 
@@ -1022,7 +1027,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 		};
 
 		var isValidId = function (a, full) {
-			return full ? /^\#[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? !0 : !1 : /^[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? !0 : !1;
+			return full ? /^\#[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? true : false : /^[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? true : false;
 		};
 
 		var findPos = function (a) {
@@ -1111,7 +1116,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var ctx = scope && scope.nodeName ? scope : "";
 			var linkTag = "a";
 			var link = ctx ? ctx[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
-			var isBindedClass = "is-binded";
 			var arrange = function (e) {
 				if (!e[classList].contains(isBindedClass)) {
 					var url = e[getAttribute]("href") || "";
@@ -1138,8 +1142,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 
 		var handleDataSrcImageAll = function () {
 			var img = document[getElementsByClassName]("data-src-img") || "";
-			var isActiveClass = "is-active";
-			var isBindedClass = "is-binded";
 			var arrange = function (e) {
 				/*!
 				 * true if elem is in same y-axis as the viewport or within 100px of it
@@ -1191,9 +1193,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 		/* root[_addEventListener]("load", manageDataSrcImageAll); */
 
 		var handleDataSrcIframeAll = function () {
-			var iframeClass = "data-src-iframe";
-			var iframe = document[getElementsByClassName](iframeClass) || "";
-			var isBindedClass = "is-binded";
+			var iframe = document[getElementsByClassName]("data-src-iframe") || "";
 			var arrange = function (e) {
 				/*!
 				 * true if elem is in same y-axis as the viewport or within 100px of it
@@ -1208,6 +1208,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 								srcString = e[dataset].src;
 							}
 							e.src = srcString;
+							e[classList].add(isActiveClass);
 							e[classList].add(isBindedClass);
 							e[setAttribute]("frameborder", "no");
 							e[setAttribute]("style", "border:none;");
@@ -1249,7 +1250,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var ctx = scope && scope.nodeName ? scope : "";
 			var linkClass = "iframe-lightbox-link";
 			var link = ctx ? ctx[getElementsByClassName](linkClass) || "" : document[getElementsByClassName](linkClass) || "";
-			var isBindedClass = "is-binded";
 			var arrange = function (e) {
 				if (!e[classList].contains(isBindedClass)) {
 					e.lightbox = new IframeLightbox(e);
@@ -1327,7 +1327,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var animatedClass = "animated";
 			var fadeInClass = "fadeIn";
 			var fadeInUpClass = "fadeInUp";
-			var isBindedClass = "is-binded";
 			var dummySrc = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
 			if (!container) {
 				container = document[createElement]("div");
@@ -1389,8 +1388,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 
 		var handleOtherDropdownLists = function (_self) {
 			var _this = _self || this;
-			var isActiveClass = "is-active";
-			var isDropdownClass = "is-dropdown";
 			var list = document[getElementsByClassName](isDropdownClass) || "";
 			var removeActiveClass = function (e) {
 				if (_this !== e) {
@@ -1418,19 +1415,15 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var holderChaptersSelect = document[getElementsByClassName]("holder-chapters-select")[0] || "";
 			var uiPanelContentsSelect = document[getElementsByClassName]("ui-panel-contents-select")[0] || "";
 			var chaptersListClass = "chapters-list";
-			var isFixedClass = "is-fixed";
-			var isActiveClass = "is-active";
-			var isDropdownClass = "is-dropdown";
-			/* var isBindedClass = "is-binded";
-			var rerenderChaptersSelect = function () {
+			/* var rerenderChaptersSelect = function () {
 				var handleChaptersSelect = function () {
 					var _this = this;
 					var hashString = _this.options[_this.selectedIndex].value || "";
 					var uiPanelContentsSelectHeight = uiPanelContentsSelect ? (uiPanelContentsSelect[classList].contains(isFixedClass) ? uiPanelContentsSelect.offsetHeight : uiPanelContentsSelect.offsetHeight * 2) : 0;
 					if (hashString) {
-						var tragetObject = hashString ? (isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/,"")) || "" : "") : "";
-						if (tragetObject) {
-							scroll2Top(findPos(tragetObject).top - uiPanelContentsSelectHeight, 10000);
+						var targetObject = hashString ? (isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/,"")) || "" : "") : "";
+						if (targetObject) {
+							scroll2Top(findPos(targetObject).top - uiPanelContentsSelectHeight, 10000);
 						} else {
 							root.location.hash = hashString;
 						}
@@ -1458,9 +1451,9 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				var handleChaptersListItem = function (listObj, hashString) {
 					var uiPanelContentsSelectHeight = uiPanelContentsSelect ? (uiPanelContentsSelect[classList].contains(isFixedClass) ? uiPanelContentsSelect.offsetHeight : uiPanelContentsSelect.offsetHeight * 2) : 0;
 					if (hashString) {
-						var tragetObject = hashString ? (isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/,"")) || "" : "") : "";
-						if (tragetObject) {
-							scroll2Top(findPos(tragetObject).top - uiPanelContentsSelectHeight, 10000);
+						var targetObject = hashString ? (isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/,"")) || "" : "") : "";
+						if (targetObject) {
+							scroll2Top(findPos(targetObject).top - uiPanelContentsSelectHeight, 10000);
 						} else {
 							root.location.hash = hashString;
 						}
@@ -1526,8 +1519,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var ctx = scope && scope.nodeName ? scope : "";
 			var btnClass = "btn-expand-hidden-layer";
 			var btn = ctx ? ctx[getElementsByClassName](btnClass) || "" : document[getElementsByClassName](btnClass) || "";
-			var isBindedClass = "is-binded";
-			var isActiveClass = "is-active";
 			var arrange = function (e) {
 				var handleExpandingLayerAll = function () {
 					var _this = this;
@@ -1616,8 +1607,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var btnClass = "btn-show-disqus";
 			var btn = ctx ? ctx[getElementsByClassName](btnClass)[0] || "" : document[getElementsByClassName](btnClass)[0] || "";
 			var disqusThread = document[getElementById]("disqus_thread") || "";
-			var isBindedClass = "is-binded";
-			var isActiveClass = "is-active";
 			var locationHref = root.location.href || "";
 			var disqusThreadShortname = disqusThread ? (disqusThread[dataset].shortname || "") : "";
 			var hideDisqusButton = function () {
@@ -1778,7 +1767,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var cookieKey = "_notibar_dismiss_";
 			var cookieDatum = "Выбрать статью можно щелкнув по самофиксирующейся планке с заголовком текущей страницы.";
 			var locationOrigin = parseLink(root.location.href).origin;
-			var isFixedClass = "is-fixed";
 			var arrange = function () {
 				var timers = new Timers();
 				timers.timeout(function () {
@@ -2030,7 +2018,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var renderNavbarMoreId = "render_navbar_more";
 			var renderNavbarMore = document[getElementById](renderNavbarMoreId) || "";
 			var navigationJsonUrl = "./libs/pwa-englishextra/json/navigation.json";
-			var isActiveClass = "is-active";
 			var processNavigationJsonResponse = function (navigationJsonResponse) {
 				try {
 					var navigationJsonObj = JSON.parse(navigationJsonResponse);
@@ -2130,7 +2117,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var holderHero = document[getElementsByClassName]("holder-hero")[0] || "";
 			var uiPanelContentsSelect = document[getElementsByClassName]("ui-panel-contents-select")[0] || "";
 			var criticalHeight = (uiPanelNavigation ? uiPanelNavigation.offsetHeight : 0) + (holderHero ? holderHero.offsetHeight : 0);
-			var isFixedClass = "is-fixed";
 			var handleUiPanelContentsSelect = function () {
 				var logicHandleUiPanelContentsSelect = function () {
 					if ((docBody.scrollTop || docElem.scrollTop || 0) > criticalHeight) {
@@ -2150,8 +2136,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 
 		var handleOtherSocialButtons = function (_self) {
 			var _this = _self || this;
-			var isActiveClass = "is-active";
-			var isSocialClass = "is-social";
 			var btn = document[getElementsByClassName](isSocialClass) || "";
 			var removeActiveClass = function (e) {
 				if (_this !== e) {
@@ -2177,8 +2161,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 		var manageLocationQrCodeImage = function () {
 			var btn = document[getElementsByClassName]("btn-toggle-holder-location-qr-code")[0] || "";
 			var holder = document[getElementsByClassName]("holder-location-qr-code")[0] || "";
-			var isActiveClass = "is-active";
-			var isSocialClass = "is-social";
 			var locationHref = root.location.href || "";
 			var handleLocationQrCodeButton = function (ev) {
 				ev.stopPropagation();
@@ -2251,8 +2233,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var yaShare2Id = "ya-share2";
 			var yaShare2 = document[getElementById](yaShare2Id) || "";
 			var holder = document[getElementsByClassName]("holder-share-buttons")[0] || "";
-			var isActiveClass = "is-active";
-			var isSocialClass = "is-social";
 			var handleShareButton = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
@@ -2308,8 +2288,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var holder = document[getElementsByClassName]("holder-vk-like")[0] || "";
 			var vkLikeId = "vk-like";
 			var vkLike = document[getElementById](vkLikeId) || "";
-			var isActiveClass = "is-active";
-			var isSocialClass = "is-social";
 			var handleVKLikeButton = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
@@ -2417,7 +2395,10 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 		var initRouting = function () {
 			var appContentId = "app-content";
 			var appContent = document[getElementById](appContentId) || "";
-			var appContentParent = appContent[parentNode] || "";
+			var appContentParent;
+			if (appContent) {
+				appContentParent = appContent[parentNode] || "";
+			}
 			/* var contentsSelectTemplate = document[getElementById]("template_contents_select") || "";
 			var contentsSelectRender = document[getElementById]("render_contents_select") || ""; */
 			var contentsSelect = document[getElementsByClassName]("contents-select")[0] || "";
@@ -2433,8 +2414,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var contentsGridTemplateId = "template_contents_grid";
 			var contentsGridRenderId = "render_contents_grid";
 			var masonryGridClass = "masonry-grid";
-			var isActiveClass = "is-active";
-			var isDropdownClass = "is-dropdown";
 			var routesJsonUrl = "./libs/pwa-englishextra/json/routes.json";
 			var contentsListButtonDefaultText = contentsSelect ? (contentsSelect.options[0].firstChild.textContent || "") : "";
 			var processRoutesJsonResponse = function (routesJsonResponse) {
@@ -2596,7 +2575,12 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 						manageIframeLightboxLinks(appContentParent);
 						manageChaptersSelect(appContentParent);
 						manageExpandingLayers(appContentParent);
-						handleDataSrcIframeAll();
+						var timers2 = new Timers();
+						timers2.timeout(function () {
+							timers2.clear();
+							timers2 = null;
+							handleDataSrcIframeAll();
+						}, 500);
 						var timers = new Timers();
 						timers.timeout(function () {
 							timers.clear();
@@ -2633,11 +2617,15 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 							}
 						} */
 						if (false === isNotfound) {
-							var notfoundUrl = routesJsonObj.notfound.url;
-							var notfoundTitle = routesJsonObj.notfound.title;
-							if (notfoundUrl /* && notfoundTitle */) {
-								LoadingSpinner.show();
-								insertExternalHTML(appContentId, notfoundUrl, triggerOnContentInserted.bind(null, notfoundTitle, null, null, routesJsonObj));
+							if (document[getElementById](locationHash.substring(1))) {
+								root.location.hash = locationHash;
+							} else {
+								var notfoundUrl = routesJsonObj.notfound.url;
+								var notfoundTitle = routesJsonObj.notfound[title];
+								if (notfoundUrl /* && notfoundTitle */) {
+									LoadingSpinner.show();
+									insertExternalHTML(appContentId, notfoundUrl, triggerOnContentInserted.bind(null, notfoundTitle, null, null, routesJsonObj));
+								}
 							}
 						}
 					} else {
@@ -2671,9 +2659,9 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 						var _this = this;
 						var hashString = _this.options[_this.selectedIndex].value || "";
 						if (hashString) {
-							var tragetObject = isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/, "")) || "" : "";
-							if (tragetObject) {
-								scroll2Top(findPos(tragetObject).top, 10000);
+							var targetObject = isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/, "")) || "" : "";
+							if (targetObject) {
+								scroll2Top(findPos(targetObject).top, 10000);
 							} else {
 								if (hashString.startsWith("#", 0)) {
 									root.location.hash = hashString;
@@ -2705,9 +2693,9 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				var rerenderContentsList = function () {
 					var handleContentsListItem = function (listObj, hashString) {
 						if (hashString) {
-							var tragetObject = isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/, "")) || "" : "";
-							if (tragetObject) {
-								scroll2Top(findPos(tragetObject).top, 10000);
+							var targetObject = isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/, "")) || "" : "";
+							if (targetObject) {
+								scroll2Top(findPos(targetObject).top, 10000);
 							} else {
 								if (hashString.startsWith("#", 0)) {
 									root.location.hash = hashString;
@@ -2831,7 +2819,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 		var initUiTotop = function () {
 			var btnClass = "ui-totop";
 			var btnTitle = "Наверх";
-			var isActiveClass = "is-active";
 			var anchor = document[createElement]("a");
 			var insertUpSvg = function (targetObj) {
 				var svg = document[createElementNS]("http://www.w3.org/2000/svg", "svg");

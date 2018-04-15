@@ -1020,9 +1020,9 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 			generateCardGrid(text).then(function (result) {
 				return result;
 			}).then(function () {
-				timerCreateGrid = setTimeout(createGrid, 200);
+				timerCreateGrid = setTimeout(createGrid, 500);
 			}).then(function () {
-				timerSetLazyloading = setTimeout(setLazyloading, 500);
+				timerSetLazyloading = setTimeout(setLazyloading, 1000);
 			}).catch (function (err) {
 				console.log("Cannot create card grid", err);
 			});

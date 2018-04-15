@@ -886,7 +886,14 @@ u,
 .col a.btn-larger i.fa,
 .col a.btn-larger i.mi,
 .col a.btn-larger i.mdi,
-.col a.btn-larger i.material-icons {
+.col a.btn-larger i.material-icons,
+.mdi {
+	vertical-align: bottom;
+}
+
+.mdi.mdi-menu {
+	font-size: 24px;
+}
 	font-size: 0.800rem;
 	line-height: 2.400rem;
 }

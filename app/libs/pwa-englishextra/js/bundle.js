@@ -1022,7 +1022,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 		};
 
 		var isValidId = function (a, full) {
-			return full ? /^\#[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? !0 : !1 : /^[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? !0 : !1;
+			return full ? /^\#[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? true : false : /^[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? true : false;
 		};
 
 		var findPos = function (a) {
@@ -1189,8 +1189,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 		/* root[_addEventListener]("load", manageDataSrcImageAll); */
 
 		var handleDataSrcIframeAll = function () {
-			var iframeClass = "data-src-iframe";
-			var iframe = document[getElementsByClassName](iframeClass) || "";
+			var iframe = document[getElementsByClassName]("data-src-iframe") || "";
 			var isBindedClass = "is-binded";
 			var arrange = function (e) {
 				/*!
@@ -1426,9 +1425,9 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
    		var hashString = _this.options[_this.selectedIndex].value || "";
    		var uiPanelContentsSelectHeight = uiPanelContentsSelect ? (uiPanelContentsSelect[classList].contains(isFixedClass) ? uiPanelContentsSelect.offsetHeight : uiPanelContentsSelect.offsetHeight * 2) : 0;
    		if (hashString) {
-   			var tragetObject = hashString ? (isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/,"")) || "" : "") : "";
-   			if (tragetObject) {
-   				scroll2Top(findPos(tragetObject).top - uiPanelContentsSelectHeight, 10000);
+   			var targetObject = hashString ? (isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/,"")) || "" : "") : "";
+   			if (targetObject) {
+   				scroll2Top(findPos(targetObject).top - uiPanelContentsSelectHeight, 10000);
    			} else {
    				root.location.hash = hashString;
    			}
@@ -1456,9 +1455,9 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				var handleChaptersListItem = function (listObj, hashString) {
 					var uiPanelContentsSelectHeight = uiPanelContentsSelect ? uiPanelContentsSelect[classList].contains(isFixedClass) ? uiPanelContentsSelect.offsetHeight : uiPanelContentsSelect.offsetHeight * 2 : 0;
 					if (hashString) {
-						var tragetObject = hashString ? isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/, "")) || "" : "" : "";
-						if (tragetObject) {
-							scroll2Top(findPos(tragetObject).top - uiPanelContentsSelectHeight, 10000);
+						var targetObject = hashString ? isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/, "")) || "" : "" : "";
+						if (targetObject) {
+							scroll2Top(findPos(targetObject).top - uiPanelContentsSelectHeight, 10000);
 						} else {
 							root.location.hash = hashString;
 						}
@@ -2632,7 +2631,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
       } */
 						if (false === isNotfound) {
 							var notfoundUrl = routesJsonObj.notfound.url;
-							var notfoundTitle = routesJsonObj.notfound.title;
+							var notfoundTitle = routesJsonObj.notfound[title];
 							if (notfoundUrl /* && notfoundTitle */) {
 									LoadingSpinner.show();
 									insertExternalHTML(appContentId, notfoundUrl, triggerOnContentInserted.bind(null, notfoundTitle, null, null, routesJsonObj));
@@ -2669,9 +2668,9 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
     		var _this = this;
     		var hashString = _this.options[_this.selectedIndex].value || "";
     		if (hashString) {
-    			var tragetObject = isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/, "")) || "" : "";
-    			if (tragetObject) {
-    				scroll2Top(findPos(tragetObject).top, 10000);
+    			var targetObject = isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/, "")) || "" : "";
+    			if (targetObject) {
+    				scroll2Top(findPos(targetObject).top, 10000);
     			} else {
     				if (hashString.startsWith("#", 0)) {
     					root.location.hash = hashString;
@@ -2703,9 +2702,9 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				var rerenderContentsList = function () {
 					var handleContentsListItem = function (listObj, hashString) {
 						if (hashString) {
-							var tragetObject = isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/, "")) || "" : "";
-							if (tragetObject) {
-								scroll2Top(findPos(tragetObject).top, 10000);
+							var targetObject = isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/, "")) || "" : "";
+							if (targetObject) {
+								scroll2Top(findPos(targetObject).top, 10000);
 							} else {
 								if (hashString.startsWith("#", 0)) {
 									root.location.hash = hashString;

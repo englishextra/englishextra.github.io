@@ -737,7 +737,7 @@ ToProgress, unescape, verge, VK, Ya*/
 		};
 
 		var isValidId = function (a, full) {
-			return full ? /^\#[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? !0 : !1 : /^[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? !0 : !1;
+			return full ? /^\#[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? true : false : /^[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? true : false;
 		};
 
 		var findPos = function (a) {
@@ -1152,9 +1152,9 @@ ToProgress, unescape, verge, VK, Ya*/
 			var _this = this;
 			var hashString = _this.options[_this.selectedIndex].value || "";
 			if (hashString) {
-				var tragetObject = isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/, "")) || "" : "";
-				if (tragetObject) {
-					scroll2Top(findPos(tragetObject).top, 10000);
+				var targetObject = isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/, "")) || "" : "";
+				if (targetObject) {
+					scroll2Top(findPos(targetObject).top, 10000);
 				} else {
 					root.location.href = hashString;
 				}

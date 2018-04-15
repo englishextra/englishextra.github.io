@@ -937,9 +937,9 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 			generateGallery(text).then(function (result) {
 				return result;
 			}).then(function () {
-				timerCreateGallery = setTimeout(createGallery, 200);
+				timerCreateGallery = setTimeout(createGallery, 500);
 			}).then(function () {
-				timerSetLazyloading = setTimeout(setLazyloading, 500);
+				timerSetLazyloading = setTimeout(setLazyloading, 1000);
 			}).catch (function (err) {
 				console.log("Cannot create zoomwall gallery", err);
 			});
