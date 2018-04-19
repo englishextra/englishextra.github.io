@@ -1157,9 +1157,9 @@ ToProgress, unescape, verge, VK, Ya*/
 			var _this = this;
 			var hashString = _this.options[_this.selectedIndex].value || "";
 			if (hashString) {
-				var targetObject = isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/, "")) || "" : "";
-				if (targetObject) {
-					scroll2Top(findPos(targetObject).top, 10000);
+				var targetObj = isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/, "")) || "" : "";
+				if (targetObj) {
+					scroll2Top(findPos(targetObj).top, 10000);
 				} else {
 					root.location.href = hashString;
 				}
