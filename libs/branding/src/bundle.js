@@ -2216,6 +2216,8 @@ Ya*/
 		initUiTotop();
 
 		hideProgressBar();
+
+		scroll2Top(0, 20000);
 	};
 
 	var scripts = ["../../libs/branding/css/bundle.min.css"];
