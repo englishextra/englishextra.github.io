@@ -823,6 +823,8 @@ u,
 .title-bar.is-fixed {
 	/* position: fixed; */
 	top: 0;
+	-webkit-box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
 }
 
 .title-bar.is-hidden {

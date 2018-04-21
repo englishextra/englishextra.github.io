@@ -23,7 +23,7 @@
 	}],
 	"start_url": "https://englishextra.github.io/serguei/",
 	"display": "standalone",
-	"orientation": "landscape",
+	"orientation": "landscape-primary",
 	"ms_TileColor": "#F03B4C",
 	"theme_color": "#F03B4C",
 	"background_color": "#F03B4C"

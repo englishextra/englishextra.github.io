@@ -179,6 +179,7 @@ u,
 .title-bar.is-fixed {
 	/* position: fixed; */
 	top: 0;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
 }
 
 .title-bar.is-hidden {
