@@ -23,7 +23,7 @@
 	}],
 	"start_url": "https://englishextra.github.io/app/",
 	"display": "standalone",
-	"orientation": "landscape-primary",
+	"orientation": "any",
 	"ms_TileColor": "#F03B4C",
 	"theme_color": "#F03B4C",
 	"background_color": "#F03B4C"
