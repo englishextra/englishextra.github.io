@@ -745,14 +745,14 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 		};
 
 		var appendFragment = function (e, a) {
-			a = a || document[getElementsByTagName]("body")[0] || "";
+			var parent = a || document[getElementsByTagName]("body")[0] || "";
 			if (e) {
 				var df = document[createDocumentFragment]() || "";
 				if ("string" === typeof e) {
 					e = document[createTextNode](e);
 				}
 				df[appendChild](e);
-				a[appendChild](df);
+				parent[appendChild](df);
 			}
 		};
 

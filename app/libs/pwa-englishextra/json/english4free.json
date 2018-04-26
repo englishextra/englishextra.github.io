@@ -79,7 +79,7 @@
 		},
 		{
 			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-languagelink-640x480.png",
-			"href": "http://www.languagelink.ru/test/english/onlinetest/main.html",
+			"href": "https://www.languagelink.ru/test/english/",
 			"title": "Тест по английскому языку online",
 			"text": "Прежде чем обращаться к репетитору, решите данный тест из пяти десятков вопросов с ответами, запишите себе те вопросы, в которых вы не уверены."
 		},
