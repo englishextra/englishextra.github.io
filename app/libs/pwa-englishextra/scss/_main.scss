@@ -1655,7 +1655,7 @@ u,
 	text-align: center;
 	text-decoration: none;
 	color: #FFFFFF;
-	background-color: rgba(31, 31, 31, 0.8);
+	background-color: $color-rgba-page-overlay-bg;
 	border: none;
 	transition: visibility 0s, opacity 0.2s ease, background-color 0.2s ease;
 	-webkit-tap-highlight-color: transparent;
