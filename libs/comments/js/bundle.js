@@ -62,7 +62,7 @@
 			var style = "style";
 			function whichTransitionEvent() {
 				var t,
-				    el = document[createElement]("fakeelement");
+				  el = document[createElement]("fakeelement");
 				var transitions = {
 					"transition": "transitionend",
 					"OTransition": "oTransitionEnd",
@@ -684,7 +684,7 @@
 				triggerForNwjs();
 			} else {
 				var locationProtocol = root.location.protocol || "",
-				    hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
+				  hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
 				if (hasHTTP) {
 					triggerForHTTP();
 				} else {
@@ -809,10 +809,10 @@
 				}
 			};
 			/* var jsUrl = "../libs/comments/js/vendors.min.js";
-   if (!scriptIsLoaded(jsUrl)) {
-   	var load;
-   	load = new loadJsCss([jsUrl], initScript);
-   } */
+  if (!scriptIsLoaded(jsUrl)) {
+  	var load;
+  	load = new loadJsCss([jsUrl], initScript);
+  } */
 			initScript();
 		};
 		initComments();
@@ -1000,8 +1000,8 @@
 	scripts.push("../libs/comments/js/vendors.min.js");
 
 	/*!
-  * load scripts after webfonts loaded using doesFontExist
-  */
+ * load scripts after webfonts loaded using doesFontExist
+ */
 
 	var supportsCanvas = function () {
 		var elem = document[createElement]("canvas");
@@ -1023,8 +1023,8 @@
 
 		var checkFontIsLoaded = function () {
 			/*!
-    * check only for fonts that are used in current page
-    */
+  * check only for fonts that are used in current page
+  */
 			if (doesFontExist("Roboto") /* && doesFontExist("Roboto Mono") */) {
 					onFontsLoaded();
 				}
@@ -1041,8 +1041,8 @@
 	loadCSS(forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic,latin-ext", onFontsLoadedCallback);
 
 	/*!
-  * load scripts after webfonts loaded using webfontloader
-  */
+ * load scripts after webfonts loaded using webfontloader
+ */
 
 	/* root.WebFontConfig = {
  	google: {

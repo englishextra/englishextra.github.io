@@ -32,7 +32,7 @@ unescape, WebSlides*/
 		}
 	}
 	prop = method = dummy = properties = methods = null;
-}("undefined" !== typeof window ? window : this));
+})("undefined" !== typeof window ? window : this);
 /*!
  * modified ToProgress v0.1.1
  * arguments.callee changed to TP, a local wrapper function,
@@ -733,14 +733,14 @@ unescape, WebSlides*/
 
 		if (!smallScreen.matches && !hasTouch && "undefined" !== root.jQuery && root.WebSlides) {
 			/*!
-			 * autoslide:  number or boolean false Amount of milliseconds to wait to go to next slide automatically.
-			 * changeOnClick:  boolean false If true, clicking on the page will go to the next slide unless it's a clickable element. See ClickToNav docs for more info.
-			 * loop:  boolean true Lets WebSlides loop the slides so once it reaches the end, going next will make it go to the first slide.
-			 * minWheelDelta:  number 40 Controls the amount of scroll needed to trigger a navigation. Lower this number to decrease the scroll resistance.
-			 * navigateOnScroll:  number 40 Whether scroll can trigger navigation or not.
-			 * scrollWait:  number 450 Controls the amount of time needed to wait for a scroll transition to happen again.
-			 * slideOffset:  number 50 Amount of sliding needed to trigger a new navigation.
-			 * showIndex:  boolean true Controls if the index can be shown.
+			 * autoslide: number or boolean false Amount of milliseconds to wait to go to next slide automatically.
+			 * changeOnClick: boolean false If true, clicking on the page will go to the next slide unless it's a clickable element. See ClickToNav docs for more info.
+			 * loop: boolean true Lets WebSlides loop the slides so once it reaches the end, going next will make it go to the first slide.
+			 * minWheelDelta: number 40 Controls the amount of scroll needed to trigger a navigation. Lower this number to decrease the scroll resistance.
+			 * navigateOnScroll: number 40 Whether scroll can trigger navigation or not.
+			 * scrollWait: number 450 Controls the amount of time needed to wait for a scroll transition to happen again.
+			 * slideOffset: number 50 Amount of sliding needed to trigger a new navigation.
+			 * showIndex: boolean true Controls if the index can be shown.
 			 */
 			root.ws = new WebSlides({
 					autoslide: true,

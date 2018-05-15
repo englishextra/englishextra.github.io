@@ -32,7 +32,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 		}
 	}
 	prop = method = dummy = properties = methods = null;
-}("undefined" !== typeof window ? window : this));
+})("undefined" !== typeof window ? window : this);
 /*!
  * modified ToProgress v0.1.1
  * arguments.callee changed to TP, a local wrapper function,

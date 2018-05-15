@@ -64,7 +64,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var style = "style";
 			function whichTransitionEvent() {
 				var t,
-				    el = document[createElement]("fakeelement");
+				  el = document[createElement]("fakeelement");
 				var transitions = {
 					"transition": "transitionend",
 					"OTransition": "oTransitionEnd",
@@ -903,7 +903,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				triggerForNwjs();
 			} else {
 				var locationProtocol = root.location.protocol || "",
-				    hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
+				  hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
 				if (hasHTTP) {
 					triggerForHTTP();
 				} else {
@@ -921,7 +921,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			x.open("GET", url, !0);
 			x.withCredentials = !1;
 			x.onreadystatechange = function () {
-				if (x.status === "404" || x.status === 0) {
+				if (x.status === "404" || x.status === "0") {
 					console.log("Error XMLHttpRequest-ing file", x.status);
 					return onerror && "function" === typeof onerror && onerror();
 				} else if (x.readyState === 4 && x.status === 200 && x.responseText) {
@@ -974,7 +974,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var jsonObj = safelyParseJSON(parsedJson);
 			if (jsonObj && template && target) {
 				var targetHtml = template[innerHTML] || "",
-				    renderTargetTemplate = new t(targetHtml);
+				  renderTargetTemplate = new t(targetHtml);
 				return renderTargetTemplate.render(jsonObj);
 			}
 			return {};
@@ -1068,7 +1068,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 					var cb = function () {
 						return callback && "function" === typeof callback && callback();
 					};
-					if (x.status === "404" || x.status === 0) {
+					if (x.status === "404" || x.status === "0") {
 						console.log("Error XMLHttpRequest-ing file", x.status);
 						return onerror && "function" === typeof onerror && onerror();
 					} else if (x.readyState === 4 && x.status === 200 && x.responseText) {
@@ -1140,9 +1140,9 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var isBindedClass = "is-binded";
 			var arrange = function (e) {
 				/*!
-     * true if elem is in same y-axis as the viewport or within 100px of it
-     * @see {@link https://github.com/ryanve/verge}
-     */
+   * true if elem is in same y-axis as the viewport or within 100px of it
+   * @see {@link https://github.com/ryanve/verge}
+   */
 				if (verge.inY(e, 100) /* && 0 !== e.offsetHeight */) {
 						if (!e[classList].contains(isBindedClass)) {
 							var srcString = e[dataset].src || "";
@@ -1193,9 +1193,9 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var isBindedClass = "is-binded";
 			var arrange = function (e) {
 				/*!
-     * true if elem is in same y-axis as the viewport or within 100px of it
-     * @see {@link https://github.com/ryanve/verge}
-     */
+   * true if elem is in same y-axis as the viewport or within 100px of it
+   * @see {@link https://github.com/ryanve/verge}
+   */
 				if (verge.inY(e, 100) /* && 0 !== e.offsetHeight */) {
 						if (!e[classList].contains(isBindedClass)) {
 							var srcString = e[dataset].src || "";
@@ -1242,7 +1242,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 		manageDataSrcIframeAll();
 		/* root[_addEventListener]("load", manageDataSrcIframeAll); */
 
-		var manageIframeLightboxLinks = function (scope) {
+		var manageIframeLightboxLinkAll = function (scope) {
 			var ctx = scope && scope.nodeName ? scope : "";
 			var linkClass = "iframe-lightbox-link";
 			var link = ctx ? ctx[getElementsByClassName](linkClass) || "" : document[getElementsByClassName](linkClass) || "";
@@ -1260,7 +1260,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				/* forEach(link, arrange, false); */
 			}
 		};
-		manageIframeLightboxLinks();
+		manageIframeLightboxLinkAll();
 
 		var hideImgLightbox = function () {
 			var container = document[getElementsByClassName]("img-lightbox-container")[0] || "";
@@ -1314,7 +1314,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				hideImgLightbox();
 			}
 		};
-		var manageImgLightboxLinks = function (scope) {
+		var manageImgLightboxLinkAll = function (scope) {
 			var ctx = scope && scope.nodeName ? scope : "";
 			var linkClass = "img-lightbox-link";
 			var link = ctx ? ctx[getElementsByClassName](linkClass) || "" : document[getElementsByClassName](linkClass) || "";
@@ -1419,38 +1419,38 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var isActiveClass = "is-active";
 			var isDropdownClass = "is-dropdown";
 			/* var isBindedClass = "is-binded";
-   var rerenderChaptersSelect = function () {
-   	var handleChaptersSelect = function () {
-   		var _this = this;
-   		var hashString = _this.options[_this.selectedIndex].value || "";
-   		var uiPanelContentsSelectHeight = uiPanelContentsSelect ? (uiPanelContentsSelect[classList].contains(isFixedClass) ? uiPanelContentsSelect.offsetHeight : uiPanelContentsSelect.offsetHeight * 2) : 0;
-   		if (hashString) {
-   			var targetObj = hashString ? (isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/,"")) || "" : "") : "";
-   			if (targetObj) {
-   				scroll2Top(findPos(targetObj).top - uiPanelContentsSelectHeight, 10000);
-   			} else {
-   				root.location.hash = hashString;
-   			}
-   		}
-   	};
-   	if (!chaptersSelect[classList].contains(isBindedClass)) {
-   		chaptersSelect[_addEventListener]("change", handleChaptersSelect);
-   		chaptersSelect[classList].add(isBindedClass);
-   	}
-   	var rerenderOption = function (option) {
-   		if (option) {
-   			var optionText = option.textContent;
-   			option.title = optionText;
-   			var optionTextTruncated = truncString("" + optionText, 28);
-   			removeChildren(option);
-   			appendFragment(document[createTextNode](optionTextTruncated), option);
-   		}
-   	};
-   	var chaptersSelectOptions = chaptersSelect ? chaptersSelect[getElementsByTagName]("option") || "" : "";
-   	for (var i = 0, l = chaptersSelectOptions[_length]; i < l; i += 1) {
-   		rerenderOption(chaptersSelectOptions[i]);
-   	}
-   }; */
+  var rerenderChaptersSelect = function () {
+  	var handleChaptersSelect = function () {
+  		var _this = this;
+  		var hashString = _this.options[_this.selectedIndex].value || "";
+  		var uiPanelContentsSelectHeight = uiPanelContentsSelect ? (uiPanelContentsSelect[classList].contains(isFixedClass) ? uiPanelContentsSelect.offsetHeight : uiPanelContentsSelect.offsetHeight * 2) : 0;
+  		if (hashString) {
+  			var targetObj = hashString ? (isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/,"")) || "" : "") : "";
+  			if (targetObj) {
+  				scroll2Top(findPos(targetObj).top - uiPanelContentsSelectHeight, 10000);
+  			} else {
+  				root.location.hash = hashString;
+  			}
+  		}
+  	};
+  	if (!chaptersSelect[classList].contains(isBindedClass)) {
+  		chaptersSelect[_addEventListener]("change", handleChaptersSelect);
+  		chaptersSelect[classList].add(isBindedClass);
+  	}
+  	var rerenderOption = function (option) {
+  		if (option) {
+  			var optionText = option.textContent;
+  			option.title = optionText;
+  			var optionTextTruncated = truncString("" + optionText, 28);
+  			removeChildren(option);
+  			appendFragment(document[createTextNode](optionTextTruncated), option);
+  		}
+  	};
+  	var chaptersSelectOptions = chaptersSelect ? chaptersSelect[getElementsByTagName]("option") || "" : "";
+  	for (var i = 0, l = chaptersSelectOptions[_length]; i < l; i += 1) {
+  		rerenderOption(chaptersSelectOptions[i]);
+  	}
+  }; */
 			var rerenderChaptersList = function () {
 				var handleChaptersListItem = function (listObj, hashString) {
 					var uiPanelContentsSelectHeight = uiPanelContentsSelect ? uiPanelContentsSelect[classList].contains(isFixedClass) ? uiPanelContentsSelect.offsetHeight : uiPanelContentsSelect.offsetHeight * 2 : 0;
@@ -1598,12 +1598,12 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			if (grid && gridItem) {
 				/* var jsUrl = "./cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
 				/* var jsUrl = "./cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
-    if (!scriptIsLoaded(jsUrl)) {
-    	var load;
-    	load = new loadJsCss([jsUrl], initScript);
-    } else {
-    	initScript();
-    } */
+  if (!scriptIsLoaded(jsUrl)) {
+  	var load;
+  	load = new loadJsCss([jsUrl], initScript);
+  } else {
+  	initScript();
+  } */
 				initScript();
 			}
 		};
@@ -1730,7 +1730,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				svg[appendChild](use);
 				targetObj[appendChild](svg);
 			},
-			    closeButton = document[createElement]("a");
+			  closeButton = document[createElement]("a");
 			closeButton[classList].add(closeButtonClass);
 			insertCancelSvg(closeButton);
 			var setCookie = function () {
@@ -1852,8 +1852,8 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 					return;
 				}
 				/*!
-     * create typo suggestion list
-     */
+   * create typo suggestion list
+   */
 				var typoAutcompleteList = document[createElement]("ul");
 				var typoListItem = document[createElement]("li");
 				var handleTypoSuggestion = function () {
@@ -1870,10 +1870,10 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				typoAutcompleteList[appendChild](typoListItem);
 				textInput[parentNode].insertBefore(typoAutcompleteList, textInput.nextElementSibling);
 				/*!
-     * this is an optional setup of every li
-     * uset to set a description title attribute
-     * comment out the title attribute setup below
-     */
+   * this is an optional setup of every li
+   * uset to set a description title attribute
+   * comment out the title attribute setup below
+   */
 				ac.renderItem = function (ul, item) {
 					var li = document[createElement]("li");
 					/* li.innerHTML = item.title; */
@@ -1883,15 +1883,15 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 					return li;
 				};
 				/*!
-     * show suggestions
-     */
+   * show suggestions
+   */
 				ac.renderMenu = function (ul, stance) {
 					var items = stance || "";
 					var itemsLength = items[_length];
 					var _this = this;
 					/*!
-      * limit output
-      */
+   * limit output
+   */
 					var limitKamilOutput = function (e, i) {
 						if (i < 10) {
 							_this._renderItemData(ul, e, i);
@@ -1902,12 +1902,12 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 							limitKamilOutput(items[i], i);
 						}
 						/* forEach(items, function (e, i) {
-      	limitKamilOutput(e, i);
-      }, false); */
+   	limitKamilOutput(e, i);
+   }, false); */
 					}
 					/*!
-      * fix typo - non latin characters found
-      */
+   * fix typo - non latin characters found
+   */
 					var logicReplaceTypo = function () {
 						while (itemsLength < 1) {
 							var textInputValue = textInput.value || "";
@@ -1923,8 +1923,8 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 								handleTypoSuggestion();
 							}
 							/*!
-        * hide typo suggestion
-        */
+    * hide typo suggestion
+    */
 							if (textInput.value[_length] < 3 || textInput.value.match(/^\s*$/)) {
 								handleTypoSuggestion();
 							}
@@ -1934,8 +1934,8 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 					var debounceLogicReplaceTypo = debounce(logicReplaceTypo, 200);
 					debounceLogicReplaceTypo();
 					/*!
-      * truncate text
-      */
+   * truncate text
+   */
 					var lis = ul ? ul[getElementsByTagName]("li") || "" : "";
 					var truncateKamilText = function (e) {
 						var truncText = e.firstChild.textContent || "";
@@ -1951,31 +1951,31 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 					}
 				};
 				/*!
-     * set text input value from typo suggestion
-     */
+   * set text input value from typo suggestion
+   */
 				var handleTypoListItem = function (ev) {
 					ev.stopPropagation();
 					ev.preventDefault();
 					/*!
-      * set focus first, then set text
-      */
+   * set focus first, then set text
+   */
 					textInput.focus();
 					textInput.value = typoListItem.textContent || "";
 					handleTypoSuggestion();
 				};
 				typoListItem[_addEventListener]("click", handleTypoListItem);
 				/*!
-     * hide suggestions on outside click
-     */
+   * hide suggestions on outside click
+   */
 				if (container) {
 					container[_addEventListener]("click", handleTypoSuggestion);
 				}
 				/*!
-     * unless you specify property option in new Kamil
-     * use kamil built-in word label as search key in JSON file
-     * [{"link":"/","label":"some text to match"},
-     * {"link":"/pages/contents.html","label":"some text to match"}]
-     */
+   * unless you specify property option in new Kamil
+   * use kamil built-in word label as search key in JSON file
+   * [{"link":"/","label":"some text to match"},
+   * {"link":"/pages/contents.html","label":"some text to match"}]
+   */
 				ac.on("kamilselect", function (e) {
 					var kamilItemLink = e.item.href || "";
 					var handleKamilItem = function () {
@@ -1985,8 +1985,8 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 					};
 					if (kamilItemLink) {
 						/*!
-       * nwjs wont like setImmediate here
-       */
+    * nwjs wont like setImmediate here
+    */
 						/* setImmediate(handleKamilItem); */
 						handleKamilItem();
 					}
@@ -1994,10 +1994,10 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			};
 			if (searchForm && textInput) {
 				/* var jsUrl = "./cdn/kamil/0.1.1/js/kamil.fixed.min.js";
-    if (!scriptIsLoaded(jsUrl)) {
-    	var load;
-    	load = new loadJsCss([jsUrl], initScript);
-    } */
+  if (!scriptIsLoaded(jsUrl)) {
+  	var load;
+  	load = new loadJsCss([jsUrl], initScript);
+  } */
 				initScript();
 			}
 		};
@@ -2223,12 +2223,12 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 						appendFragment(newImg, holder);
 					};
 					/* var jsUrl = "./cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js";
-     if (!scriptIsLoaded(jsUrl)) {
-     	var load;
-     	load = new loadJsCss([jsUrl], initScript);
-     } else {
-     	initScript();
-     } */
+   if (!scriptIsLoaded(jsUrl)) {
+   	var load;
+   	load = new loadJsCss([jsUrl], initScript);
+   } else {
+   	initScript();
+   } */
 					initScript();
 				};
 				var debounceLogicHandleLocationQrCodeButton = debounce(logicHandleLocationQrCodeButton, 200);
@@ -2416,7 +2416,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var appContent = document[getElementById](appContentId) || "";
 			var appContentParent = appContent[parentNode] || "";
 			/* var contentsSelectTemplate = document[getElementById]("template_contents_select") || "";
-   var contentsSelectRender = document[getElementById]("render_contents_select") || ""; */
+  var contentsSelectRender = document[getElementById]("render_contents_select") || ""; */
 			var contentsSelect = document[getElementsByClassName]("contents-select")[0] || "";
 			var holderContentsSelect = document[getElementsByClassName]("holder-contents-select")[0] || "";
 			var contentsListClass = "contents-list";
@@ -2455,12 +2455,12 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				var renderComments;
 				var triggerOnContentInserted = function (titleString, nextHrefString, asideObj, routesObj) {
 					/* var h1 = contentsSelect || document[getElementById]("h1") || "";
-     var h1Pos = findPos(h1).top || 0;
-     if (h1) {
-     	scroll2Top(h1Pos, 20000);
-     } else {
-     	scroll2Top(0, 20000);
-     } */
+   var h1Pos = findPos(h1).top || 0;
+   if (h1) {
+   	scroll2Top(h1Pos, 20000);
+   } else {
+   	scroll2Top(0, 20000);
+   } */
 					/* scroll2Top(0, 20000); */
 					/* if (titleString) { */
 					document[title] = (titleString ? titleString + " - " : "") + (initialDocumentTitle ? initialDocumentTitle + (userBrowsingDetails ? userBrowsingDetails : "") : "");
@@ -2476,14 +2476,14 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 							}
 						}
 						/* for (var key in contentsSelect.options) {
-      	if (contentsSelect.options.hasOwnProperty(key)) {
-      		if (locationHash === contentsSelect.options[key].value) {
-      			optionMatched = true;
-      			contentsSelect.selectedIndex = key;
-      			break;
-      		}
-      	}
-      } */
+   	if (contentsSelect.options.hasOwnProperty(key)) {
+   		if (locationHash === contentsSelect.options[key].value) {
+   			optionMatched = true;
+   			contentsSelect.selectedIndex = key;
+   			break;
+   		}
+   	}
+   } */
 						if (!optionMatched) {
 							contentsSelect.selectedIndex = 0;
 						}
@@ -2502,14 +2502,14 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 								}
 							}
 							/* for (var key2 in contentsListItems) {
-       	if (contentsListItems.hasOwnProperty(key2)) {
-       		if (locationHash === contentsListItems[key2][dataset][href]) {
-       			itemMatched = true;
-       			contentsListButton.replaceChild(document[createTextNode](contentsListItems[key2].firstChild.textContent), contentsListButton.firstChild);
-       			break;
-       		}
-       	}
-       } */
+    	if (contentsListItems.hasOwnProperty(key2)) {
+    		if (locationHash === contentsListItems[key2][dataset][href]) {
+    			itemMatched = true;
+    			contentsListButton.replaceChild(document[createTextNode](contentsListItems[key2].firstChild.textContent), contentsListButton.firstChild);
+    			break;
+    		}
+    	}
+    } */
 							if (!itemMatched) {
 								contentsListButton.replaceChild(document[createTextNode](contentsListButtonDefaultText), contentsListButton.firstChild);
 							}
@@ -2584,13 +2584,13 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 						}
 					}
 					/*!
-      * cache parent node beforehand
-      * put when templates rendered
-      */
+   * cache parent node beforehand
+   * put when templates rendered
+   */
 					if (appContentParent) {
 						manageExternalLinkAll(appContentParent);
-						manageImgLightboxLinks(appContentParent);
-						manageIframeLightboxLinks(appContentParent);
+						manageImgLightboxLinkAll(appContentParent);
+						manageIframeLightboxLinkAll(appContentParent);
 						manageChaptersSelect(appContentParent);
 						manageExpandingLayers(appContentParent);
 						handleDataSrcIframeAll();
@@ -2610,26 +2610,26 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 					}
 					var locationHash = root.location.hash || "";
 					if (locationHash) {
-						var isNotfound = false;
+						isFound = false;
 						for (var i = 0, l = routesJsonObj.hashes[_length]; i < l; i += 1) {
 							if (locationHash === routesJsonObj.hashes[i][href]) {
-								isNotfound = true;
+								isFound = true;
 								LoadingSpinner.show();
 								insertExternalHTML(appContentId, routesJsonObj.hashes[i].url, triggerOnContentInserted.bind(null, routesJsonObj.hashes[i][title], routesJsonObj.hashes[i].next_href, routesJsonObj.hashes[i].aside, routesJsonObj));
 								break;
 							}
 						}
 						/* for (var key in routesJsonObj.hashes) {
-      	if (routesJsonObj.hashes.hasOwnProperty(key)) {
-      		if (locationHash === routesJsonObj.hashes[key][href]) {
-      			isNotfound = true;
-      			LoadingSpinner.show();
-      			insertExternalHTML(appContentId, routesJsonObj.hashes[key].url, triggerOnContentInserted.bind(null, routesJsonObj.hashes[key][title], routesJsonObj.hashes[key].next_href, routesJsonObj.hashes[key].aside, routesJsonObj));
-      			break;
-      		}
-      	}
-      } */
-						if (false === isNotfound) {
+							if (routesJsonObj.hashes.hasOwnProperty(key)) {
+								if (locationHash === routesJsonObj.hashes[key][href]) {
+									isFound = true;
+									LoadingSpinner.show();
+									insertExternalHTML(appContentId, routesJsonObj.hashes[key].url, triggerOnContentInserted.bind(null, routesJsonObj.hashes[key][title], routesJsonObj.hashes[key].next_href, routesJsonObj.hashes[key].aside, routesJsonObj));
+									break;
+								}
+							}
+						} */
+						if (false === isFound) {
 							var notfoundUrl = routesJsonObj.notfound.url;
 							var notfoundTitle = routesJsonObj.notfound[title];
 							if (notfoundUrl /* && notfoundTitle */) {
@@ -2649,56 +2649,56 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				handleRoutesWindow();
 				root[_addEventListener]("hashchange", handleRoutesWindow);
 				/*!
-     * insertFromTemplate used in renderTemplate
-     * will remove event listener from select (parent) element,
-     * because it uses fragment method and not inner html
-     * (UPD now you can set last arg as true, and the event listener will work),
-     * so you will have to use inner html method
-     * alternative way to generate select options
-     * with document fragment
-     */
+   * insertFromTemplate used in renderTemplate
+   * will remove event listener from select (parent) element,
+   * because it uses fragment method and not inner html
+   * (UPD now you can set last arg as true, and the event listener will work),
+   * so you will have to use inner html method
+   * alternative way to generate select options
+   * with document fragment
+   */
 				/* if (contentsSelectTemplate && contentsSelectRender) {
-    	var contentsSelectHtml = contentsSelectTemplate[innerHTML] || "";
-    	var renderContentsSelectTemplate = new t(contentsSelectHtml);
-    	var contentsSelectRendered = renderContentsSelectTemplate.render(routesJsonObj);
-    	contentsSelectRender[innerHTML] = contentsSelectRendered;
-    } */
+  	var contentsSelectHtml = contentsSelectTemplate[innerHTML] || "";
+  	var renderContentsSelectTemplate = new t(contentsSelectHtml);
+  	var contentsSelectRendered = renderContentsSelectTemplate.render(routesJsonObj);
+  	contentsSelectRender[innerHTML] = contentsSelectRendered;
+  } */
 				/* var rerenderContentsSelect = function () {
-    	var handleContentsSelect = function () {
-    		var _this = this;
-    		var hashString = _this.options[_this.selectedIndex].value || "";
-    		if (hashString) {
-    			var targetObj = isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/, "")) || "" : "";
-    			if (targetObj) {
-    				scroll2Top(findPos(targetObj).top, 10000);
-    			} else {
-    				if (hashString.startsWith("#", 0)) {
-    					root.location.hash = hashString;
-    				} else {
-    					root.location.href = hashString;
-    				}
-    			}
-    		}
-    	};
-    	var df = document[createDocumentFragment]();
-    	var generateContentsSelectOptions = function (e) {
-    		if (e[title]) {
-    			var contentsOption = document[createElement]("option");
-    			contentsOption.value = e[href];
-    			var contentsOptionText = e[title];
-    			contentsOption[title] = contentsOptionText;
-    			var contentsOptionTextTruncated = truncString("" + contentsOptionText, 44);
-    			contentsOption[appendChild](document[createTextNode](contentsOptionTextTruncated));
-    			df[appendChild](contentsOption);
-    			df[appendChild](document[createTextNode]("\n"));
-    		}
-    	};
-    	for (var i = 0, l = routesJsonObj.hashes[_length]; i < l; i += 1) {
-    		generateContentsSelectOptions(routesJsonObj.hashes[i]);
-    	}
-    	appendFragment(df, contentsSelectRender);
-    	contentsSelect[_addEventListener]("change", handleContentsSelect);
-    }; */
+  	var handleContentsSelect = function () {
+  		var _this = this;
+  		var hashString = _this.options[_this.selectedIndex].value || "";
+  		if (hashString) {
+  			var targetObj = isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/, "")) || "" : "";
+  			if (targetObj) {
+  				scroll2Top(findPos(targetObj).top, 10000);
+  			} else {
+  				if (hashString.startsWith("#", 0)) {
+  					root.location.hash = hashString;
+  				} else {
+  					root.location.href = hashString;
+  				}
+  			}
+  		}
+  	};
+  	var df = document[createDocumentFragment]();
+  	var generateContentsSelectOptions = function (e) {
+  		if (e[title]) {
+  			var contentsOption = document[createElement]("option");
+  			contentsOption.value = e[href];
+  			var contentsOptionText = e[title];
+  			contentsOption[title] = contentsOptionText;
+  			var contentsOptionTextTruncated = truncString("" + contentsOptionText, 44);
+  			contentsOption[appendChild](document[createTextNode](contentsOptionTextTruncated));
+  			df[appendChild](contentsOption);
+  			df[appendChild](document[createTextNode]("\n"));
+  		}
+  	};
+  	for (var i = 0, l = routesJsonObj.hashes[_length]; i < l; i += 1) {
+  		generateContentsSelectOptions(routesJsonObj.hashes[i]);
+  	}
+  	appendFragment(df, contentsSelectRender);
+  	contentsSelect[_addEventListener]("change", handleContentsSelect);
+  }; */
 				var rerenderContentsList = function () {
 					var handleContentsListItem = function (listObj, hashString) {
 						if (hashString) {
@@ -2765,8 +2765,8 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				};
 				if (contentsSelect) {
 					/* if (contentsSelectRender) {
-     	rerenderContentsSelect();
-     } */
+   	rerenderContentsSelect();
+   } */
 					if (holderContentsSelect) {
 						rerenderContentsList();
 					}
@@ -2779,51 +2779,51 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 		initRouting();
 
 		/* var observeMutations = function (scope) {
-  	var ctx = scope && scope.nodeName ? scope : "";
-  	var mo;
-  	var getMutations = function (e) {
-  		var triggerOnMutation = function (m) {
-  			console.log("mutations observer: " + m.type);
-  			console.log(m.type, "target: " + m.target.tagName + ("." + m.target.className || "#" + m.target.id || ""));
-  			console.log(m.type, "added: " + m.addedNodes[_length] + " nodes");
-  			console.log(m.type, "removed: " + m.removedNodes[_length] + " nodes");
-  			if ("childList" === m.type || "subtree" === m.type) {
-  				mo.disconnect();
-  			}
-  		};
-  		for (var i = 0, l = e[_length]; i < l; i += 1) {
-  			triggerOnMutation(e[i]);
-  		}
-  	};
-  	if (ctx) {
-  		mo = new MutationObserver(getMutations);
-  		mo.observe(ctx, {
-  			childList: !0,
-  			subtree: !0,
-  			attributes: !1,
-  			characterData: !1
-  		});
-  	}
-  }; */
+ 	var ctx = scope && scope.nodeName ? scope : "";
+ 	var mo;
+ 	var getMutations = function (e) {
+ 		var triggerOnMutation = function (m) {
+ 			console.log("mutations observer: " + m.type);
+ 			console.log(m.type, "target: " + m.target.tagName + ("." + m.target.className || "#" + m.target.id || ""));
+ 			console.log(m.type, "added: " + m.addedNodes[_length] + " nodes");
+ 			console.log(m.type, "removed: " + m.removedNodes[_length] + " nodes");
+ 			if ("childList" === m.type || "subtree" === m.type) {
+ 				mo.disconnect();
+ 			}
+ 		};
+ 		for (var i = 0, l = e[_length]; i < l; i += 1) {
+ 			triggerOnMutation(e[i]);
+ 		}
+ 	};
+ 	if (ctx) {
+ 		mo = new MutationObserver(getMutations);
+ 		mo.observe(ctx, {
+ 			childList: !0,
+ 			subtree: !0,
+ 			attributes: !1,
+ 			characterData: !1
+ 		});
+ 	}
+ }; */
 		/*!
-   * apply changes to inserted DOM
-   * because replace child is used in the first place
-   * to insert new content, and if parent node doesnt exist
-   * inner html method is applied,
-   * the parent node should be observed, not the target
-   * node for the insertion
-   */
+  * apply changes to inserted DOM
+  * because replace child is used in the first place
+  * to insert new content, and if parent node doesnt exist
+  * inner html method is applied,
+  * the parent node should be observed, not the target
+  * node for the insertion
+  */
 		/* var updateInsertedDom = function () {
-  	var getElementById = "getElementById";
-  	var parentNode = "parentNode";
-  	var ctx = document[getElementById]("app-content")[parentNode] || "";
-  	var locationHash = root.location.hash || "";
-  	if (ctx && locationHash) {
-  		console.log("triggered function: updateInsertedDom");
-  		observeMutations(ctx);
-  	}
-  };
-  root[_addEventListener]("hashchange", updateInsertedDom); */
+ 	var getElementById = "getElementById";
+ 	var parentNode = "parentNode";
+ 	var ctx = document[getElementById]("app-content")[parentNode] || "";
+ 	var locationHash = root.location.hash || "";
+ 	if (ctx && locationHash) {
+ 		console.log("triggered function: updateInsertedDom");
+ 		observeMutations(ctx);
+ 	}
+ };
+ root[_addEventListener]("hashchange", updateInsertedDom); */
 
 		var initUiTotop = function () {
 			var btnClass = "ui-totop";
@@ -2913,8 +2913,8 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 	scripts.push("./libs/pwa-englishextra/js/vendors.min.js");
 
 	/*!
-  * load scripts after webfonts loaded using doesFontExist
-  */
+ * load scripts after webfonts loaded using doesFontExist
+ */
 
 	var supportsCanvas = function () {
 		var elem = document[createElement]("canvas");
@@ -2936,8 +2936,8 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 
 		var checkFontIsLoaded = function () {
 			/*!
-    * check only for fonts that are used in current page
-    */
+  * check only for fonts that are used in current page
+  */
 			if (doesFontExist("Roboto") /* && doesFontExist("Roboto Mono") */) {
 					onFontsLoaded();
 				}
@@ -2954,8 +2954,8 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 	loadCSS(forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic,latin-ext", onFontsLoadedCallback);
 
 	/*!
-  * load scripts after webfonts loaded using webfontloader
-  */
+ * load scripts after webfonts loaded using webfontloader
+ */
 
 	/* root.WebFontConfig = {
  	google: {

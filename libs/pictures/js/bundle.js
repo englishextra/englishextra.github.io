@@ -64,7 +64,7 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var style = "style";
 			function whichTransitionEvent() {
 				var t,
-				    el = document[createElement]("fakeelement");
+				  el = document[createElement]("fakeelement");
 				var transitions = {
 					"transition": "transitionend",
 					"OTransition": "oTransitionEnd",
@@ -830,7 +830,7 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 				triggerForNwjs();
 			} else {
 				var locationProtocol = root.location.protocol || "",
-				    hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
+				  hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
 				if (hasHTTP) {
 					triggerForHTTP();
 				} else {
@@ -881,9 +881,9 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var isBindedClass = "is-binded";
 			var arrange = function (e) {
 				/*!
-     * true if elem is in same y-axis as the viewport or within 100px of it
-     * @see {@link https://github.com/ryanve/verge}
-     */
+   * true if elem is in same y-axis as the viewport or within 100px of it
+   * @see {@link https://github.com/ryanve/verge}
+   */
 				if (verge.inY(e, 100) /* && 0 !== e.offsetHeight */) {
 						if (!e[classList].contains(isBindedClass)) {
 							var srcString = e[dataset].src || "";
@@ -972,10 +972,10 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			if (holder && locationHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					/* var jsUrl = "../cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js";
-     if (!scriptIsLoaded(jsUrl)) {
-     	var load;
-     	load = new loadJsCss([jsUrl], initScript);
-     } */
+   if (!scriptIsLoaded(jsUrl)) {
+   	var load;
+   	load = new loadJsCss([jsUrl], initScript);
+   } */
 					initScript();
 				}
 			}
@@ -1079,16 +1079,16 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			};
 			if (page && container && btnNavMenu && panelNavMenu && panelNavMenuItems) {
 				/*!
-     * close nav on outside click
-     */
+   * close nav on outside click
+   */
 				addContainerHandler();
 				/*!
-     * open or close nav
-     */
+   * open or close nav
+   */
 				addBtnHandler();
 				/*!
-     * close nav, scroll to top, highlight active nav item
-     */
+   * close nav, scroll to top, highlight active nav item
+   */
 				addItemHandlerAll();
 			}
 		};
@@ -1132,16 +1132,16 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			};
 			if (page && container && holderPanelMenuMore && btnMenuMore && panelMenuMore && panelMenuMoreItems) {
 				/*!
-     * hide menu more on outside click
-     */
+   * hide menu more on outside click
+   */
 				addContainerHandler();
 				/*!
-     * show or hide menu more
-     */
+   * show or hide menu more
+   */
 				addBtnHandler();
 				/*!
-     * hide menu more on item clicked
-     */
+   * hide menu more on item clicked
+   */
 				addItemHandlerAll();
 			}
 		};
@@ -1212,10 +1212,10 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			if (grid && gridItem) {
 				/* var jsUrl = "../cdn/masonry/4.1.1/js/masonry.imagesloaded.pkgd.fixed.min.js"; */
 				/* var jsUrl = "../cdn/packery/2.1.1/js/packery.imagesloaded.pkgd.fixed.min.js";
-    if (!scriptIsLoaded(jsUrl)) {
-    	var load;
-    	load = new loadJsCss([jsUrl], initScript);
-    } */
+  if (!scriptIsLoaded(jsUrl)) {
+  	var load;
+  	load = new loadJsCss([jsUrl], initScript);
+  } */
 				initScript();
 			}
 		};
@@ -1227,23 +1227,23 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var pswpGallery = document[getElementsByClassName](pswpGalleryClass) || "";
 			var pswpGalleryItems = document[getElementsByClassName]("masonry-grid-item") || "";
 			/*!
-    * modified PhotoSwipe v4.1.1 init code
-    * fixed: 7 'el' is already defined.
-    * fixed: 73 Expected an assignment or function call and instead saw an expression.
-    * replaced single quotes with double quotes
-    * source: photoswipe.com
-    * other suggested variation:
-    * photoswipe.com/documentation/getting-started.html
-    * passes jshint
-    */
+  * modified PhotoSwipe v4.1.1 init code
+  * fixed: 7 'el' is already defined.
+  * fixed: 73 Expected an assignment or function call and instead saw an expression.
+  * replaced single quotes with double quotes
+  * source: photoswipe.com
+  * other suggested variation:
+  * photoswipe.com/documentation/getting-started.html
+  * passes jshint
+  */
 			var initPhotoSwipeFromDOM = function (gallerySelector) {
 				var parseThumbnailElements = function (el) {
 					var thumbElements = el.childNodes,
-					    numNodes = thumbElements[_length],
-					    items = [],
-					    childElements,
-					    size,
-					    item;
+					  numNodes = thumbElements[_length],
+					  items = [],
+					  childElements,
+					  size,
+					  item;
 					for (var i = 0; i < numNodes; i++) {
 						el = thumbElements[i];
 						if (el.nodeType !== 1) {
@@ -1287,16 +1287,16 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 				};
 				var openPhotoSwipe = function (index, galleryElement, disableAnimation, fromURL) {
 					var pswpElement = document[querySelectorAll]('.pswp')[0],
-					    gallery,
-					    options,
-					    items;
+					  gallery,
+					  options,
+					  items;
 					items = parseThumbnailElements(galleryElement);
 					options = {
 						galleryUID: galleryElement[getAttribute]('data-pswp-uid'),
 						getThumbBoundsFn: function (index) {
 							var thumbnail = items[index].el.children[0],
-							    pageYScroll = root.pageYOffset || docElem.scrollTop,
-							    rect = thumbnail.getBoundingClientRect();
+							  pageYScroll = root.pageYOffset || docElem.scrollTop,
+							  rect = thumbnail.getBoundingClientRect();
 							return {
 								x: rect.left,
 								y: rect.top + pageYScroll,
@@ -1353,9 +1353,9 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 					}
 					gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
 					var realViewportWidth,
-					    useLargeImages = false,
-					    firstResize = true,
-					    imageSrcWillChange;
+					  useLargeImages = false,
+					  firstResize = true,
+					  imageSrcWillChange;
 					gallery.listen('beforeResize', function () {
 						var dpiRatio = root.devicePixelRatio ? root.devicePixelRatio : 1;
 						dpiRatio = Math.min(dpiRatio, 2.5);
@@ -1408,9 +1408,9 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 					}
 					var clickedGallery = clickedListItem[parentNode];
 					var childNodes = clickedListItem[parentNode].childNodes,
-					    numChildNodes = childNodes[_length],
-					    nodeIndex = 0,
-					    index;
+					  numChildNodes = childNodes[_length],
+					  nodeIndex = 0,
+					  index;
 					for (var i = 0; i < numChildNodes; i++) {
 						if (childNodes[i].nodeType !== 1) {
 							continue;
@@ -1428,7 +1428,7 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 				};
 				var photoswipeParseHash = function () {
 					var hash = root.location.hash.substring(1),
-					    params = {};
+					  params = {};
 					if (hash[_length] < 5) {
 						return params;
 					}
@@ -1468,8 +1468,8 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 								link[dataset].med = med.replace(/^/, forcedHTTP + ":");
 							}
 							/*!
-        * dont use href to read href, use getAttribute, because href adds protocol
-        */
+    * dont use href to read href, use getAttribute, because href adds protocol
+    */
 							var hrefString = link[getAttribute]("href") || "";
 							if (hrefString && parseLink(hrefString).isCrossDomain && !parseLink(hrefString).hasHTTP) {
 								link.href = hrefString.replace(/^/, forcedHTTP + ":");
@@ -1493,10 +1493,10 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			};
 			if (pswpGallery && pswpGalleryItems) {
 				/* var jsUrl = "../cdn/photoswipe/4.1.0/js/photoswipe.photoswipe-ui-default.fixed.min.js";
-    if (!scriptIsLoaded(jsUrl)) {
-    	var load;
-    	load = new loadJsCss([jsUrl], initScript);
-    } */
+  if (!scriptIsLoaded(jsUrl)) {
+  	var load;
+  	load = new loadJsCss([jsUrl], initScript);
+  } */
 				initScript();
 			}
 		};
@@ -1709,8 +1709,8 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 	scripts.push("../libs/pictures/js/vendors.min.js");
 
 	/*!
-  * load scripts after webfonts loaded using doesFontExist
-  */
+ * load scripts after webfonts loaded using doesFontExist
+ */
 
 	var supportsCanvas = function () {
 		var elem = document[createElement]("canvas");
@@ -1732,8 +1732,8 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 
 		var checkFontIsLoaded = function () {
 			/*!
-    * check only for fonts that are used in current page
-    */
+  * check only for fonts that are used in current page
+  */
 			if (doesFontExist("Roboto") /* && doesFontExist("Roboto Mono") */) {
 					onFontsLoaded();
 				}
@@ -1750,8 +1750,8 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 	loadCSS(forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic,latin-ext", onFontsLoadedCallback);
 
 	/*!
-  * load scripts after webfonts loaded using webfontloader
-  */
+ * load scripts after webfonts loaded using webfontloader
+ */
 
 	/* root.WebFontConfig = {
  	google: {

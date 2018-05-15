@@ -99,11 +99,11 @@ EB5262
 	12. Avatars
 	13. Tables
 	14. Forms
-  15. Longform Elements
+ 15. Longform Elements
 	16. Safari Bug (flex-wrap)
 	17. Slidex index (aka zoom)
-  18. Print
-  19. Colors - separate scss _webslides-colors.fixed.scss
+ 18. Print
+ 19. Colors - separate scss _webslides-colors.fixed.scss
 ----------------------------------------------------------------------------------- */
 
 /*
@@ -877,7 +877,7 @@ https://github.com/daneden/animate.css */
 	/*padding-bottom: 75%;*/
 	position: relative;
 	/* -- Responsive background video
-  https://fvsch.com/code/video-background/ -- */
+ https://fvsch.com/code/video-background/ -- */
 }
 
 .embed iframe,
@@ -970,7 +970,7 @@ p + .browser {
 }
 
 .browser:before {
-	content: '\25CF   \25CF   \25CF';
+	content: '\25CF  \25CF  \25CF';
 	font-size: .8rem;
 	left: 0;
 	line-height: 0;
@@ -1293,8 +1293,8 @@ section,
 .fullscreen {
 	padding: 0;
 	/* Fixed/Visible header?
-  padding:8.2rem 0 0 0;
-  */
+ padding:8.2rem 0 0 0;
+ */
 }
 
 /* slide alignment - top */
@@ -1395,8 +1395,8 @@ form[class*='bg-'] {
 	background-position: center;
 	background-size: cover;
 	/*fullscreen video
-    <video class="background-video">
-  */
+  <video class="background-video">
+ */
 }
 
 .background-top {
@@ -1460,7 +1460,7 @@ form[class*='bg-'] {
 
 /*=== bg image/video overlay === */
 
-/*-- [class*="bg-"] .background.dark, [class*="bg-"] .embed.dark...  -- */
+/*-- [class*="bg-"] .background.dark, [class*="bg-"] .embed.dark... -- */
 
 [class*='bg-'] .light,
 [class*='bg-'] .light {
@@ -1508,7 +1508,7 @@ form[class*='bg-'] {
 	margin: 2.4rem;
 }
 
-/* === 5.2 Counter / Navigation Slides  === */
+/* === 5.2 Counter / Navigation Slides === */
 
 #navigation {
 	-webkit-animation: fadeIn 8s;
@@ -2790,7 +2790,7 @@ cite {
 }
 
 cite:before {
-	content: '\2014   \2009';
+	content: '\2014  \2009';
 	margin-right: 6px;
 }
 
@@ -3156,7 +3156,7 @@ button:disabled:hover {
 .longform {
 	width: 72rem;
 	/* Why 72rem=720px?
-  90-95 characters per line = better reading speed */
+ 90-95 characters per line = better reading speed */
 	/* Mobile: video full width */
 }
 
@@ -3427,9 +3427,9 @@ Solution: stackoverflow.com/questions/34250282/flexbox-safari-bug-flex-wrap
 
 #webslides.disabled {
 	/*
-    filter: blur(10px);
-    transform: scale(1.1);
-    */
+  filter: blur(10px);
+  transform: scale(1.1);
+  */
 	/* Blur makes scroll no accesible */
 	width: calc(100% - 10px);
 }
@@ -4267,7 +4267,7 @@ h1 span {
 	}
 }
 
-/* -- Pull Quote (Right/Left)  -- */
+/* -- Pull Quote (Right/Left) -- */
 
 [class*='text-pull'] {
 	font-size: 2.4rem;
@@ -4315,7 +4315,7 @@ figure[class*='text-pull-'] {
 	padding-top: 0;
 }
 
-/* -- Interviews (Questions & Answers)  --- */
+/* -- Interviews (Questions & Answers) --- */
 
 /* -- <dl class="text-interview">
 <dt>name</dt>

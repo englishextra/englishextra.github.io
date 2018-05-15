@@ -63,7 +63,7 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var style = "style";
 			function whichTransitionEvent() {
 				var t,
-				    el = document[createElement]("fakeelement");
+				  el = document[createElement]("fakeelement");
 				var transitions = {
 					"transition": "transitionend",
 					"OTransition": "oTransitionEnd",
@@ -845,7 +845,7 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 				triggerForNwjs();
 			} else {
 				var locationProtocol = root.location.protocol || "",
-				    hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
+				  hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
 				if (hasHTTP) {
 					triggerForHTTP();
 				} else {
@@ -943,19 +943,19 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 		manageDataSrcImageAll();
 
 		/*!
-   * init superbox
-   * If you want coords relative to the parent node, use element.offsetTop.
-   * Add element.scrollTop if you want to take the parent scrolling into account.
-   * (or use jQuery .position() if you are fan of that library)
-   * If you want coords relative to the document use element.getBoundingClientRect().top.
-   * Add root.pageYOffset if you want to take the document scrolling into account.
-   * Subtract element.clientTop if you don't consider the element border as the part of the element
-   * @see {@link https://stackoverflow.com/questions/6777506/offsettop-vs-jquery-offset-top}
-   * In IE<=11, calling getBoundingClientRect on an element outside of the DOM
-   * throws an unspecified error instead of returning a 0x0 DOMRect. See IE bug #829392.
-   * caniuse.com/#feat=getboundingclientrect
-   * @see {@link https://stackoverflow.com/questions/3464876/javascript-get-window-x-y-position-for-scroll}
-   */
+  * init superbox
+  * If you want coords relative to the parent node, use element.offsetTop.
+  * Add element.scrollTop if you want to take the parent scrolling into account.
+  * (or use jQuery .position() if you are fan of that library)
+  * If you want coords relative to the document use element.getBoundingClientRect().top.
+  * Add root.pageYOffset if you want to take the document scrolling into account.
+  * Subtract element.clientTop if you don't consider the element border as the part of the element
+  * @see {@link https://stackoverflow.com/questions/6777506/offsettop-vs-jquery-offset-top}
+  * In IE<=11, calling getBoundingClientRect on an element outside of the DOM
+  * throws an unspecified error instead of returning a 0x0 DOMRect. See IE bug #829392.
+  * caniuse.com/#feat=getboundingclientrect
+  * @see {@link https://stackoverflow.com/questions/3464876/javascript-get-window-x-y-position-for-scroll}
+  */
 		var initSuperBox = function () {
 			var s1 = "superbox-list";
 			var s2 = "superbox-show";
@@ -977,8 +977,8 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 				sShowDiv[appendChild](sShowDivChild);
 				sCloseDiv[classList].add(s4);
 				/*!
-     * dont use appendAfter
-     */
+   * dont use appendAfter
+   */
 				_this.parentNode.insertBefore(sShowDiv, _this.nextElementSibling);
 				var sShow = document[getElementsByClassName](s2)[0] || "";
 				setStyleDisplayBlock(sShow);
@@ -999,17 +999,17 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 				sCurDesc[classList].add(an);
 				sCurDesc[classList].add(an1);
 				/*!
-     * track clicks on external links
-     */
+   * track clicks on external links
+   */
 				var link = sCurDesc ? sCurDesc[getElementsByTagName]("a") || "" : "";
 				if (link) {
 					var createCounterImg = function () {
 						var _this = this;
 						var rfrr = encodeURIComponent(root.location.href || ""),
-						    ttl = encodeURIComponent(document[title] || "").replace("\x27", "&#39;"),
-						    hrefString = _this[getAttribute]("href") || "",
-						    dmn = hrefString ? encodeURIComponent(hrefString) : "",
-						    counterHost = /^(localhost|127.0.0.1)/.test(root.location.host) ? "http://localhost/externalcounters/" : "";
+						  ttl = encodeURIComponent(document[title] || "").replace("\x27", "&#39;"),
+						  hrefString = _this[getAttribute]("href") || "",
+						  dmn = hrefString ? encodeURIComponent(hrefString) : "",
+						  counterHost = /^(localhost|127.0.0.1)/.test(root.location.host) ? "http://localhost/externalcounters/" : "";
 						if (counterHost) {
 							var counterElement = document[createElement]("div");
 							counterElement[setAttribute]("style", "position:absolute;left:-9999px;width:1px;height:1px;border:0;background:transparent url(" + counterHost + "?dmn=" + dmn + "&rfrr=" + rfrr + "&ttl=" + ttl + "&encoding=utf-8) top left no-repeat;");
@@ -1018,7 +1018,7 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 					};
 					var trackClicks = function (e) {
 						var hrefString = e[getAttribute]("href") || "",
-						    handleSuperboxExternalLink = function (ev) {
+						  handleSuperboxExternalLink = function (ev) {
 							ev.preventDefault();
 							ev.stopPropagation();
 							var _this = this;
@@ -1039,8 +1039,8 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 					/* forEach(link, trackClicks, false); */
 				}
 				/*!
-     * hide description
-     */
+   * hide description
+   */
 				var sClose = sCurDesc ? sCurDesc[getElementsByClassName](s4)[0] || "" : "";
 				var doOnClose = function () {
 					var timers = new Timers();
@@ -1136,12 +1136,12 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			if (holder && locationHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					/* var jsUrl = "../../cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js";
-     if (!scriptIsLoaded(jsUrl)) {
-     	var load;
-     	load = new loadJsCss([jsUrl], initScript);
-     } else {
-     	initScript();
-     } */
+   if (!scriptIsLoaded(jsUrl)) {
+   	var load;
+   	load = new loadJsCss([jsUrl], initScript);
+   } else {
+   	initScript();
+   } */
 					initScript();
 				}
 			}
@@ -1540,8 +1540,8 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 	scripts.push("../../libs/english_for_free/js/vendors.min.js");
 
 	/*!
-  * load scripts after webfonts loaded using doesFontExist
-  */
+ * load scripts after webfonts loaded using doesFontExist
+ */
 
 	var supportsCanvas = function () {
 		var elem = document[createElement]("canvas");
@@ -1563,8 +1563,8 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 
 		var checkFontIsLoaded = function () {
 			/*!
-    * check only for fonts that are used in current page
-    */
+  * check only for fonts that are used in current page
+  */
 			if (doesFontExist("Roboto") /* && doesFontExist("Roboto Mono") */) {
 					onFontsLoaded();
 				}
@@ -1581,8 +1581,8 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 	loadCSS(forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic,latin-ext", onFontsLoadedCallback);
 
 	/*!
-  * load scripts after webfonts loaded using webfontloader
-  */
+ * load scripts after webfonts loaded using webfontloader
+ */
 
 	/* root.WebFontConfig = {
  	google: {

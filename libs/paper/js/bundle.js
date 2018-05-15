@@ -64,7 +64,7 @@ ToProgress, unescape, verge, VK, Ya*/
 			var style = "style";
 			function whichTransitionEvent() {
 				var t,
-				    el = document[createElement]("fakeelement");
+				  el = document[createElement]("fakeelement");
 				var transitions = {
 					"transition": "transitionend",
 					"OTransition": "oTransitionEnd",
@@ -632,7 +632,7 @@ ToProgress, unescape, verge, VK, Ya*/
 			x.open("GET", url, !0);
 			x.withCredentials = !1;
 			x.onreadystatechange = function () {
-				if (x.status === "404" || x.status === 0) {
+				if (x.status === "404" || x.status === "0") {
 					console.log("Error XMLHttpRequest-ing file", x.status);
 					return onerror && "function" === typeof onerror && onerror();
 				} else if (x.readyState === 4 && x.status === 200 && x.responseText) {
@@ -833,7 +833,7 @@ ToProgress, unescape, verge, VK, Ya*/
 				triggerForNwjs();
 			} else {
 				var locationProtocol = root.location.protocol || "",
-				    hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
+				  hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
 				if (hasHTTP) {
 					triggerForHTTP();
 				} else {
@@ -1117,12 +1117,12 @@ ToProgress, unescape, verge, VK, Ya*/
 			};
 			if (tableSort) {
 				/* var jsUrl = "../../cdn/tablesort/4.0.1/js/tablesort.fixed.min.js";
-    if (!scriptIsLoaded(jsUrl)) {
-    	var load;
-    	load = new loadJsCss([jsUrl], initScript);
-    } else {
-    	initScript();
-    } */
+  if (!scriptIsLoaded(jsUrl)) {
+  	var load;
+  	load = new loadJsCss([jsUrl], initScript);
+  } else {
+  	initScript();
+  } */
 				initScript();
 			}
 		};
@@ -1179,7 +1179,7 @@ ToProgress, unescape, verge, VK, Ya*/
 				hideImgLightbox();
 			}
 		};
-		var manageImgLightboxLinks = function (scope) {
+		var manageImgLightboxLinkAll = function (scope) {
 			var ctx = scope && scope.nodeName ? scope : "";
 			var linkClass = "img-lightbox-link";
 			var link = ctx ? ctx[getElementsByClassName](linkClass) || "" : document[getElementsByClassName](linkClass) || "";
@@ -1247,7 +1247,7 @@ ToProgress, unescape, verge, VK, Ya*/
 				}
 			}
 		};
-		manageImgLightboxLinks();
+		manageImgLightboxLinkAll();
 
 		var handleDataSrcImageAll = function () {
 			var img = document[getElementsByClassName]("data-src-img") || "";
@@ -1355,7 +1355,7 @@ ToProgress, unescape, verge, VK, Ya*/
 		};
 		manageDataSrcIframeAll();
 
-		var manageIframeLightboxLinks = function (scope) {
+		var manageIframeLightboxLinkAll = function (scope) {
 			var ctx = scope && scope.nodeName ? scope : "";
 			var linkClass = "iframe-lightbox-link";
 			var link = ctx ? ctx[getElementsByClassName](linkClass) || "" : document[getElementsByClassName](linkClass) || "";
@@ -1372,7 +1372,7 @@ ToProgress, unescape, verge, VK, Ya*/
 				}
 			}
 		};
-		manageIframeLightboxLinks();
+		manageIframeLightboxLinkAll();
 
 		var handleChaptersSelect = function () {
 			var _this = this;
@@ -1484,12 +1484,12 @@ ToProgress, unescape, verge, VK, Ya*/
 			if (holder && locationHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					/* var jsUrl = "../../cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js";
-     if (!scriptIsLoaded(jsUrl)) {
-     	var load;
-     	load = new loadJsCss([jsUrl], initScript);
-     } else {
-     	initScript();
-     } */
+   if (!scriptIsLoaded(jsUrl)) {
+   	var load;
+   	load = new loadJsCss([jsUrl], initScript);
+   } else {
+   	initScript();
+   } */
 					initScript();
 				}
 			}
@@ -2042,12 +2042,12 @@ ToProgress, unescape, verge, VK, Ya*/
 			};
 			if (searchForm && textInput) {
 				/* var jsUrl = "../../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
-    if (!scriptIsLoaded(jsUrl)) {
-    	var load;
-    	load = new loadJsCss([jsUrl], initScript);
-    } else {
-    	initScript();
-    } */
+  if (!scriptIsLoaded(jsUrl)) {
+  	var load;
+  	load = new loadJsCss([jsUrl], initScript);
+  } else {
+  	initScript();
+  } */
 				initScript();
 			}
 		};
@@ -2136,8 +2136,8 @@ ToProgress, unescape, verge, VK, Ya*/
 	scripts.push("../../libs/paper/js/vendors.min.js");
 
 	/*!
-  * load scripts after webfonts loaded using doesFontExist
-  */
+ * load scripts after webfonts loaded using doesFontExist
+ */
 
 	var supportsCanvas = function () {
 		var elem = document[createElement]("canvas");
@@ -2159,8 +2159,8 @@ ToProgress, unescape, verge, VK, Ya*/
 
 		var checkFontIsLoaded = function () {
 			/*!
-    * check only for fonts that are used in current page
-    */
+  * check only for fonts that are used in current page
+  */
 			if (doesFontExist("Roboto") /* && doesFontExist("Roboto Mono") */) {
 					onFontsLoaded();
 				}
@@ -2177,8 +2177,8 @@ ToProgress, unescape, verge, VK, Ya*/
 	loadCSS(forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic,latin-ext", onFontsLoadedCallback);
 
 	/*!
-  * load scripts after webfonts loaded using webfontloader
-  */
+ * load scripts after webfonts loaded using webfontloader
+ */
 
 	/* root.WebFontConfig = {
  	google: {

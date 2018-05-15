@@ -33,7 +33,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 		}
 	}
 	prop = method = dummy = properties = methods = null;
-}("undefined" !== typeof window ? window : this));
+})("undefined" !== typeof window ? window : this);
 /*!
  * modified ToProgress v0.1.1
  * arguments.callee changed to TP, a local wrapper function,
@@ -924,7 +924,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			x.open("GET", url, !0);
 			x.withCredentials = !1;
 			x.onreadystatechange = function () {
-				if (x.status === "404" || x.status === 0) {
+				if (x.status === "404" || x.status === "0") {
 					console.log("Error XMLHttpRequest-ing file", x.status);
 					return onerror && "function" === typeof onerror && onerror();
 				} else if (x.readyState === 4 && x.status === 200 && x.responseText) {
@@ -976,11 +976,18 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var target = document[getElementById](targetId) || "";
 			var jsonObj = safelyParseJSON(parsedJson);
 			if (jsonObj && template && target) {
-				var targetHtml = template[innerHTML] || "",
-				renderTargetTemplate = new t(targetHtml);
-				return renderTargetTemplate.render(jsonObj);
+				var targetHtml = template[innerHTML] || "";
+				if (root.t) {
+					var renderTargetTemplate = new t(targetHtml);
+					return renderTargetTemplate.render(jsonObj);
+				} else {
+					if (root.Mustache) {
+						Mustache.parse(targetHtml);
+						return Mustache.render(targetHtml, jsonObj);
+					}
+				}
 			}
-			return {};
+			return "cannot renderTemplate";
 		};
 
 		var insertTextAsFragment = function (text, container, callback) {
@@ -1073,7 +1080,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 					var cb = function () {
 						return callback && "function" === typeof callback && callback();
 					};
-					if (x.status === "404" || x.status === 0) {
+					if (x.status === "404" || x.status === "0") {
 						console.log("Error XMLHttpRequest-ing file", x.status);
 						return onerror && "function" === typeof onerror && onerror();
 					} else if (x.readyState === 4 && x.status === 200 && x.responseText) {
@@ -1246,7 +1253,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 		manageDataSrcIframeAll();
 		/* root[_addEventListener]("load", manageDataSrcIframeAll); */
 
-		var manageIframeLightboxLinks = function (scope) {
+		var manageIframeLightboxLinkAll = function (scope) {
 			var ctx = scope && scope.nodeName ? scope : "";
 			var linkClass = "iframe-lightbox-link";
 			var link = ctx ? ctx[getElementsByClassName](linkClass) || "" : document[getElementsByClassName](linkClass) || "";
@@ -1263,7 +1270,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				/* forEach(link, arrange, false); */
 			}
 		};
-		manageIframeLightboxLinks();
+		manageIframeLightboxLinkAll();
 
 		var hideImgLightbox = function () {
 			var container = document[getElementsByClassName]("img-lightbox-container")[0] || "";
@@ -1317,7 +1324,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				hideImgLightbox();
 			}
 		};
-		var manageImgLightboxLinks = function (scope) {
+		var manageImgLightboxLinkAll = function (scope) {
 			var ctx = scope && scope.nodeName ? scope : "";
 			var linkClass = "img-lightbox-link";
 			var link = ctx ? ctx[getElementsByClassName](linkClass) || "" : document[getElementsByClassName](linkClass) || "";
@@ -2571,8 +2578,8 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 					 */
 					if (appContentParent) {
 						manageExternalLinkAll(appContentParent);
-						manageImgLightboxLinks(appContentParent);
-						manageIframeLightboxLinks(appContentParent);
+						manageImgLightboxLinkAll(appContentParent);
+						manageIframeLightboxLinkAll(appContentParent);
 						manageChaptersSelect(appContentParent);
 						manageExpandingLayers(appContentParent);
 						var timers2 = new Timers();
@@ -2597,10 +2604,10 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 					}
 					var locationHash = root.location.hash || "";
 					if (locationHash) {
-						var isNotfound = false;
+						var isFound = false;
 						for (var i = 0, l = routesJsonObj.hashes[_length]; i < l; i += 1) {
 							if (locationHash === routesJsonObj.hashes[i][href]) {
-								isNotfound = true;
+								isFound = true;
 								LoadingSpinner.show();
 								insertExternalHTML(appContentId, routesJsonObj.hashes[i].url, triggerOnContentInserted.bind(null, routesJsonObj.hashes[i][title], routesJsonObj.hashes[i].next_href, routesJsonObj.hashes[i].aside, routesJsonObj));
 								break;
@@ -2609,14 +2616,14 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 						/* for (var key in routesJsonObj.hashes) {
 							if (routesJsonObj.hashes.hasOwnProperty(key)) {
 								if (locationHash === routesJsonObj.hashes[key][href]) {
-									isNotfound = true;
+									isFound = true;
 									LoadingSpinner.show();
 									insertExternalHTML(appContentId, routesJsonObj.hashes[key].url, triggerOnContentInserted.bind(null, routesJsonObj.hashes[key][title], routesJsonObj.hashes[key].next_href, routesJsonObj.hashes[key].aside, routesJsonObj));
 									break;
 								}
 							}
 						} */
-						if (false === isNotfound) {
+						if (false === isFound) {
 							if (document[getElementById](locationHash.substring(1))) {
 								root.location.hash = locationHash;
 							} else {

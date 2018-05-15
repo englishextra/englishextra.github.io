@@ -1,13 +1,13 @@
 [class^="mi-"], [class*=" mi-"] {
-  font-family: 'micon';
-  font-style: normal;
-  font-weight: normal;
+ font-family: 'micon';
+ font-style: normal;
+ font-weight: normal;
 
-  /* fix buttons height */
-  line-height: 1em;
+ /* fix buttons height */
+ line-height: 1em;
 
-  /* you can be more comfortable with increased icons size */
-  /* font-size: 120%; */
+ /* you can be more comfortable with increased icons size */
+ /* font-size: 120%; */
 }
 
 .mi-Cancel { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xea80;&nbsp;'); }

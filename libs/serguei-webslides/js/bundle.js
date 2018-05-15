@@ -63,7 +63,7 @@ unescape, WebSlides*/
 			var style = "style";
 			function whichTransitionEvent() {
 				var t,
-				    el = document[createElement]("fakeelement");
+				  el = document[createElement]("fakeelement");
 				var transitions = {
 					"transition": "transitionend",
 					"OTransition": "oTransitionEnd",
@@ -625,7 +625,7 @@ unescape, WebSlides*/
 				triggerForNwjs();
 			} else {
 				var locationProtocol = root.location.protocol || "",
-				    hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
+				  hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
 				if (hasHTTP) {
 					triggerForHTTP();
 				} else {
@@ -719,12 +719,12 @@ unescape, WebSlides*/
 			};
 			if (img) {
 				/* var jsUrl = "../cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js";
-    if (!scriptIsLoaded(jsUrl)) {
-    	var load;
-    	load = new loadJsCss([jsUrl], initScript);
-    } else {
-    	initScript();
-    } */
+  if (!scriptIsLoaded(jsUrl)) {
+  	var load;
+  	load = new loadJsCss([jsUrl], initScript);
+  } else {
+  	initScript();
+  } */
 				initScript();
 			}
 		};
@@ -735,15 +735,15 @@ unescape, WebSlides*/
 
 		if (!smallScreen.matches && !hasTouch && "undefined" !== root.jQuery && root.WebSlides) {
 			/*!
-    * autoslide:  number or boolean false Amount of milliseconds to wait to go to next slide automatically.
-    * changeOnClick:  boolean false If true, clicking on the page will go to the next slide unless it's a clickable element. See ClickToNav docs for more info.
-    * loop:  boolean true Lets WebSlides loop the slides so once it reaches the end, going next will make it go to the first slide.
-    * minWheelDelta:  number 40 Controls the amount of scroll needed to trigger a navigation. Lower this number to decrease the scroll resistance.
-    * navigateOnScroll:  number 40 Whether scroll can trigger navigation or not.
-    * scrollWait:  number 450 Controls the amount of time needed to wait for a scroll transition to happen again.
-    * slideOffset:  number 50 Amount of sliding needed to trigger a new navigation.
-    * showIndex:  boolean true Controls if the index can be shown.
-    */
+  * autoslide: number or boolean false Amount of milliseconds to wait to go to next slide automatically.
+  * changeOnClick: boolean false If true, clicking on the page will go to the next slide unless it's a clickable element. See ClickToNav docs for more info.
+  * loop: boolean true Lets WebSlides loop the slides so once it reaches the end, going next will make it go to the first slide.
+  * minWheelDelta: number 40 Controls the amount of scroll needed to trigger a navigation. Lower this number to decrease the scroll resistance.
+  * navigateOnScroll: number 40 Whether scroll can trigger navigation or not.
+  * scrollWait: number 450 Controls the amount of time needed to wait for a scroll transition to happen again.
+  * slideOffset: number 50 Amount of sliding needed to trigger a new navigation.
+  * showIndex: boolean true Controls if the index can be shown.
+  */
 			root.ws = new WebSlides({
 				autoslide: true,
 				changeOnClick: false,
@@ -791,8 +791,8 @@ unescape, WebSlides*/
 	scripts.push("../libs/serguei-webslides/js/vendors.min.js");
 
 	/*!
-  * load scripts after webfonts loaded using doesFontExist
-  */
+ * load scripts after webfonts loaded using doesFontExist
+ */
 
 	var supportsCanvas = function () {
 		var elem = document[createElement]("canvas");
@@ -814,8 +814,8 @@ unescape, WebSlides*/
 
 		var checkFontIsLoaded = function () {
 			/*!
-    * check only for fonts that are used in current page
-    */
+  * check only for fonts that are used in current page
+  */
 			if (doesFontExist("Roboto") /* && doesFontExist("Roboto Mono") */) {
 					onFontsLoaded();
 				}
@@ -832,8 +832,8 @@ unescape, WebSlides*/
 	loadCSS(forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic,latin-ext", onFontsLoadedCallback);
 
 	/*!
-  * load scripts after webfonts loaded using webfontloader
-  */
+ * load scripts after webfonts loaded using webfontloader
+ */
 
 	/* root.WebFontConfig = {
  	google: {

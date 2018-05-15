@@ -33,7 +33,7 @@ ToProgress, unescape, verge, VK, Ya*/
 		}
 	}
 	prop = method = dummy = properties = methods = null;
-}("undefined" !== typeof window ? window : this));
+})("undefined" !== typeof window ? window : this);
 /*!
  * modified ToProgress v0.1.1
  * arguments.callee changed to TP, a local wrapper function,
@@ -631,7 +631,7 @@ ToProgress, unescape, verge, VK, Ya*/
 			x.open("GET", url, !0);
 			x.withCredentials = !1;
 			x.onreadystatechange = function () {
-				if (x.status === "404" || x.status === 0) {
+				if (x.status === "404" || x.status === "0") {
 					console.log("Error XMLHttpRequest-ing file", x.status);
 					return onerror && "function" === typeof onerror && onerror();
 				} else if (x.readyState === 4 && x.status === 200 && x.responseText) {
@@ -1178,7 +1178,7 @@ ToProgress, unescape, verge, VK, Ya*/
 				hideImgLightbox();
 			}
 		};
-		var manageImgLightboxLinks = function (scope) {
+		var manageImgLightboxLinkAll = function (scope) {
 			var ctx = scope && scope.nodeName ? scope : "";
 			var linkClass = "img-lightbox-link";
 			var link = ctx ? ctx[getElementsByClassName](linkClass) || "" : document[getElementsByClassName](linkClass) || "";
@@ -1246,7 +1246,7 @@ ToProgress, unescape, verge, VK, Ya*/
 				}
 			}
 		};
-		manageImgLightboxLinks();
+		manageImgLightboxLinkAll();
 
 		var handleDataSrcImageAll = function () {
 			var img = document[getElementsByClassName]("data-src-img") || "";
@@ -1346,7 +1346,7 @@ ToProgress, unescape, verge, VK, Ya*/
 		};
 		manageDataSrcIframeAll();
 
-		var manageIframeLightboxLinks = function (scope) {
+		var manageIframeLightboxLinkAll = function (scope) {
 			var ctx = scope && scope.nodeName ? scope : "";
 			var linkClass = "iframe-lightbox-link";
 			var link = ctx ? ctx[getElementsByClassName](linkClass) || "" : document[getElementsByClassName](linkClass) || "";
@@ -1363,7 +1363,7 @@ ToProgress, unescape, verge, VK, Ya*/
 				}
 			}
 		};
-		manageIframeLightboxLinks();
+		manageIframeLightboxLinkAll();
 
 		var handleChaptersSelect = function () {
 			var _this = this;

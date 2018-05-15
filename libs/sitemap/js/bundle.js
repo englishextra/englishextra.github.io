@@ -64,7 +64,7 @@ verge*/
 			var style = "style";
 			function whichTransitionEvent() {
 				var t,
-				    el = document[createElement]("fakeelement");
+				  el = document[createElement]("fakeelement");
 				var transitions = {
 					"transition": "transitionend",
 					"OTransition": "oTransitionEnd",
@@ -779,7 +779,7 @@ verge*/
 				triggerForNwjs();
 			} else {
 				var locationProtocol = root.location.protocol || "",
-				    hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
+				  hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
 				if (hasHTTP) {
 					triggerForHTTP();
 				} else {
@@ -830,9 +830,9 @@ verge*/
 			var isBindedClass = "is-binded";
 			var arrange = function (e) {
 				/*!
-     * true if elem is in same y-axis as the viewport or within 100px of it
-     * @see {@link https://github.com/ryanve/verge}
-     */
+   * true if elem is in same y-axis as the viewport or within 100px of it
+   * @see {@link https://github.com/ryanve/verge}
+   */
 				if (verge.inY(e, 100) /* && 0 !== e.offsetHeight */) {
 						if (!e[classList].contains(isBindedClass)) {
 							var srcString = e[dataset].src || "";
@@ -1001,8 +1001,8 @@ verge*/
 						if (gridItem) {
 							if (root.Draggabilly) {
 								var draggie,
-								    draggies = [],
-								    f = function (e) {
+								  draggies = [],
+								  f = function (e) {
 									var draggableElem = e;
 									draggie = new Draggabilly(draggableElem, {});
 									draggies.push(draggie);
@@ -1041,10 +1041,10 @@ verge*/
 				/* var jsUrl = "./cdn/packery/2.1.1/js/packery.imagesloaded.pkgd.fixed.min.js"; */
 				/* var jsUrl = "./cdn/packery/2.1.1/js/packery.imagesloaded.draggabilly.pkgd.fixed.min.js"; */
 				/* var jsUrl = "./cdn/isotope/3.0.1/js/isotope.imagesloaded.pkgd.fixed.min.js";
-    if (!scriptIsLoaded(jsUrl)) {
-    	var load;
-    	load = new loadJsCss([jsUrl], initScript);
-    } */
+  if (!scriptIsLoaded(jsUrl)) {
+  	var load;
+  	load = new loadJsCss([jsUrl], initScript);
+  } */
 				initScript();
 			}
 		};
@@ -1126,8 +1126,8 @@ verge*/
 	scripts.push("./libs/sitemap/js/vendors.min.js");
 
 	/*!
-  * load scripts after webfonts loaded using doesFontExist
-  */
+ * load scripts after webfonts loaded using doesFontExist
+ */
 
 	var supportsCanvas = function () {
 		var elem = document[createElement]("canvas");
@@ -1149,8 +1149,8 @@ verge*/
 
 		var checkFontIsLoaded = function () {
 			/*!
-    * check only for fonts that are used in current page
-    */
+  * check only for fonts that are used in current page
+  */
 			if (doesFontExist("Roboto") /* && doesFontExist("Roboto Mono") */) {
 					onFontsLoaded();
 				}
@@ -1167,8 +1167,8 @@ verge*/
 	loadCSS(forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic,latin-ext", onFontsLoadedCallback);
 
 	/*!
-  * load scripts after webfonts loaded using webfontloader
-  */
+ * load scripts after webfonts loaded using webfontloader
+ */
 
 	/* root.WebFontConfig = {
  	google: {

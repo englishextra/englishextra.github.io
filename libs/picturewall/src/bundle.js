@@ -32,7 +32,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 		}
 	}
 	prop = method = dummy = properties = methods = null;
-}("undefined" !== typeof window ? window : this));
+})("undefined" !== typeof window ? window : this);
 /*!
  * modified ToProgress v0.1.1
  * arguments.callee changed to TP, a local wrapper function,
@@ -745,11 +745,18 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 			var target = document[getElementById](targetId) || "";
 			var jsonObj = safelyParseJSON(parsedJson);
 			if (jsonObj && template && target) {
-				var targetHtml = template[innerHTML] || "",
-				renderTargetTemplate = new t(targetHtml);
-				return renderTargetTemplate.render(jsonObj);
+				var targetHtml = template[innerHTML] || "";
+				if (root.t) {
+					var renderTargetTemplate = new t(targetHtml);
+					return renderTargetTemplate.render(jsonObj);
+				} else {
+					if (root.Mustache) {
+						Mustache.parse(targetHtml);
+						return Mustache.render(targetHtml, jsonObj);
+					}
+				}
 			}
-			return {};
+			return "cannot renderTemplate";
 		};
 
 		var insertTextAsFragment = function (text, container, callback) {

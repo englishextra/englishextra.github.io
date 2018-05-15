@@ -63,7 +63,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 			var style = "style";
 			function whichTransitionEvent() {
 				var t,
-				    el = document[createElement]("fakeelement");
+				  el = document[createElement]("fakeelement");
 				var transitions = {
 					"transition": "transitionend",
 					"OTransition": "oTransitionEnd",
@@ -562,7 +562,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 				triggerForNwjs();
 			} else {
 				var locationProtocol = root.location.protocol || "",
-				    hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
+				  hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
 				if (hasHTTP) {
 					triggerForHTTP();
 				} else {
@@ -738,7 +738,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 			var jsonObj = safelyParseJSON(parsedJson);
 			if (jsonObj && template && target) {
 				var targetHtml = template[innerHTML] || "",
-				    renderTargetTemplate = new t(targetHtml);
+				  renderTargetTemplate = new t(targetHtml);
 				return renderTargetTemplate.render(jsonObj);
 			}
 			return {};
@@ -824,14 +824,14 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 				}
 
 				/*!
-     * render with <template> and t.js
-     * the drawback you cannot know image sizes
-     * attention to last param: if false cloneNode will be used
-     * and setting listeners or changing its CSS will not be possible
-     * attention IE11 counts elements within template tag,
-     * so you might have length + 1
-     * to fix that select elemnts in a container that doesnt have source template
-     */
+   * render with <template> and t.js
+   * the drawback you cannot know image sizes
+   * attention to last param: if false cloneNode will be used
+   * and setting listeners or changing its CSS will not be possible
+   * attention IE11 counts elements within template tag,
+   * so you might have length + 1
+   * to fix that select elemnts in a container that doesnt have source template
+   */
 				var pagesKeysNumber = countObjKeys(jsonObj.pages);
 				insertFromTemplate(jsonObj, "template_card_grid", "target_card_grid", function () {
 					if (wrapper[getElementsByClassName](cardWrapClass)[pagesKeysNumber - 1]) {
@@ -842,76 +842,76 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 				}, true);
 
 				/*!
-     * render with creating DOM Nodes
-     */
+   * render with creating DOM Nodes
+   */
 				/* var alt = "alt";
-    var createTextNode = "createTextNode";
-    var dataset = "dataset";
-    var hasOwnProperty = "hasOwnProperty";
-    var href = "href";
-    var src = "src";
-    	var cardClass = "card";
-    var cardContentClass = "card-content";
-    	jsonObj = jsonObj.pages;
-    	var df = document[createDocumentFragment]();
-    	var key;
-    for (key in jsonObj) {
-    	if (jsonObj[hasOwnProperty](key)) {
-    		if (jsonObj[key][jsonSrcKeyName] &&
-    			jsonObj[key][jsonHrefKeyName] &&
-    			jsonObj[key][jsonTitleKeyName] &&
-    			jsonObj[key][jsonTextKeyName]) {
-    				var cardWrap = document[createElement]("div");
-    			cardWrap[classList].add(cardWrapClass);
-    				var card = document[createElement]("div");
-    			card[classList].add(cardClass);
-    				cardWrap[appendChild](card);
-    				var img = document[createElement]("img");
-    			if (jsonObj[key][jsonWidthKeyName] && jsonObj[key][jsonHeightKeyName]) {
-    				img[src] = ["data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20",
-    					jsonObj[key][jsonWidthKeyName],
-    					"%20",
-    					jsonObj[key][jsonHeightKeyName],
-    					"%27%2F%3E"].join("");
-    			} else {
-    				var dummyImg = new Image();
-    				dummyImg[src] = jsonObj[key][jsonSrcKeyName];
-    				var dummyImgWidth = dummyImg.naturalWidth;
-    				var dummyImgHeight = dummyImg.naturalHeight;
-    				if (dummyImgWidth && dummyImgHeight) {
-    					img[src] = ["data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20", dummyImgWidth, "%20", dummyImgHeight, "%27%2F%3E"].join("");
-    				} else {
-    					img[src] = ["data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20", 640, "%20", 360, "%27%2F%3E"].join("");
-    				}
-    			}
-    			img[dataset][jsonSrcKeyName] = jsonObj[key][jsonSrcKeyName];
-    			img[classList].add(dataSrcImgClass);
-    			img[alt] = "";
-    				card[appendChild](img);
-    				var cardContent = document[createElement]("div");
-    			cardContent[classList].add(cardContentClass);
-    				var heading2 = document[createElement]("h2");
-    			heading2[appendChild](document[createTextNode](jsonObj[key][jsonTitleKeyName]));
-    				cardContent[appendChild](heading2);
-    				var paragraph = document[createElement]("p");
-    			paragraph[appendChild](document[createTextNode](jsonObj[key][jsonTextKeyName]));
-    				cardContent[appendChild](paragraph);
-    				card[appendChild](cardContent);
-    				var cardLink = document[createElement]("a");
-    			cardLink[href] = ["", jsonObj[key][jsonHrefKeyName]].join("");
-    			cardLink[appendChild](card);
-    				cardWrap[appendChild](cardLink);
-    				df[appendChild](cardWrap);
-    			df[appendChild](document[createTextNode]("\n"));
-    		}
-    	}
-    }
-    key = null;
-    	if (cardGrid[appendChild](df)) {
-    	resolve();
-    } else {
-    	reject();
-    } */
+  var createTextNode = "createTextNode";
+  var dataset = "dataset";
+  var hasOwnProperty = "hasOwnProperty";
+  var href = "href";
+  var src = "src";
+  	var cardClass = "card";
+  var cardContentClass = "card-content";
+  	jsonObj = jsonObj.pages;
+  	var df = document[createDocumentFragment]();
+  	var key;
+  for (key in jsonObj) {
+  	if (jsonObj[hasOwnProperty](key)) {
+  		if (jsonObj[key][jsonSrcKeyName] &&
+  			jsonObj[key][jsonHrefKeyName] &&
+  			jsonObj[key][jsonTitleKeyName] &&
+  			jsonObj[key][jsonTextKeyName]) {
+  				var cardWrap = document[createElement]("div");
+  			cardWrap[classList].add(cardWrapClass);
+  				var card = document[createElement]("div");
+  			card[classList].add(cardClass);
+  				cardWrap[appendChild](card);
+  				var img = document[createElement]("img");
+  			if (jsonObj[key][jsonWidthKeyName] && jsonObj[key][jsonHeightKeyName]) {
+  				img[src] = ["data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20",
+  					jsonObj[key][jsonWidthKeyName],
+  					"%20",
+  					jsonObj[key][jsonHeightKeyName],
+  					"%27%2F%3E"].join("");
+  			} else {
+  				var dummyImg = new Image();
+  				dummyImg[src] = jsonObj[key][jsonSrcKeyName];
+  				var dummyImgWidth = dummyImg.naturalWidth;
+  				var dummyImgHeight = dummyImg.naturalHeight;
+  				if (dummyImgWidth && dummyImgHeight) {
+  					img[src] = ["data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20", dummyImgWidth, "%20", dummyImgHeight, "%27%2F%3E"].join("");
+  				} else {
+  					img[src] = ["data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20", 640, "%20", 360, "%27%2F%3E"].join("");
+  				}
+  			}
+  			img[dataset][jsonSrcKeyName] = jsonObj[key][jsonSrcKeyName];
+  			img[classList].add(dataSrcImgClass);
+  			img[alt] = "";
+  				card[appendChild](img);
+  				var cardContent = document[createElement]("div");
+  			cardContent[classList].add(cardContentClass);
+  				var heading2 = document[createElement]("h2");
+  			heading2[appendChild](document[createTextNode](jsonObj[key][jsonTitleKeyName]));
+  				cardContent[appendChild](heading2);
+  				var paragraph = document[createElement]("p");
+  			paragraph[appendChild](document[createTextNode](jsonObj[key][jsonTextKeyName]));
+  				cardContent[appendChild](paragraph);
+  				card[appendChild](cardContent);
+  				var cardLink = document[createElement]("a");
+  			cardLink[href] = ["", jsonObj[key][jsonHrefKeyName]].join("");
+  			cardLink[appendChild](card);
+  				cardWrap[appendChild](cardLink);
+  				df[appendChild](cardWrap);
+  			df[appendChild](document[createTextNode]("\n"));
+  		}
+  	}
+  }
+  key = null;
+  	if (cardGrid[appendChild](df)) {
+  	resolve();
+  } else {
+  	reject();
+  } */
 			});
 		};
 
@@ -1112,93 +1112,93 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 		var titleBarHeight = titleBar.offsetHeight || 0;
 
 		/*!
-   * set fixed on scroll/swipedependong on titleBar position
-   */
+  * set fixed on scroll/swipedependong on titleBar position
+  */
 		/* var handleTitleBar = function () {
-  	var logic = function () {
-  		if ((document[body].scrollTop || docElem.scrollTop || 0) > titleBarHeight) {
-  			titleBar[classList].add(isFixedClass);
-  		} else {
-  			titleBar[classList].remove(isFixedClass);
-  		}
-  	};
-  	var throttleLogic = throttle(logic, 100);
-  	throttleLogic();
-  };
-  if (titleBar) {
-  	root[_addEventListener]("scroll", handleTitleBar, {passive: true});
-  } */
+ 	var logic = function () {
+ 		if ((document[body].scrollTop || docElem.scrollTop || 0) > titleBarHeight) {
+ 			titleBar[classList].add(isFixedClass);
+ 		} else {
+ 			titleBar[classList].remove(isFixedClass);
+ 		}
+ 	};
+ 	var throttleLogic = throttle(logic, 100);
+ 	throttleLogic();
+ };
+ if (titleBar) {
+ 	root[_addEventListener]("scroll", handleTitleBar, {passive: true});
+ } */
 
 		/*!
-   * set fixed depending on scroll/swipe direction
-   * and titleBar position
-   * needs animate.css classes
-   */
+  * set fixed depending on scroll/swipe direction
+  * and titleBar position
+  * needs animate.css classes
+  */
 		/* var animatedClass = "animated";
-  var duration4msClass = "duration-4ms";
-  var slideInDownClass = "slideInDown";
-  var slideOutUpClass = "slideOutUp";
-  	var hideTitleBar = function () {
-  	var logic = function () {
-  		titleBar[classList].remove(slideInDownClass);
-  		if ((document[body].scrollTop || docElem.scrollTop || 0) > titleBarHeight) {
-  			titleBar[classList].add(slideOutUpClass);
-  		} else {
-  			titleBar[classList].remove(isFixedClass);
-  			titleBar[classList].remove(slideOutUpClass);
-  		}
-  	};
-  	var throttleLogic = throttle(logic, 100);
-  	throttleLogic();
-  };
-  var revealTitleBar = function () {
-  	var logic = function () {
-  		titleBar[classList].remove(slideOutUpClass);
-  		if ((document[body].scrollTop || docElem.scrollTop || 0) > titleBarHeight) {
-  			titleBar[classList].add(isFixedClass);
-  			titleBar[classList].add(slideInDownClass);
-  		} else {
-  			titleBar[classList].remove(isFixedClass);
-  			titleBar[classList].remove(slideInDownClass);
-  		}
-  	};
-  	var throttleLogic = throttle(logic, 100);
-  	throttleLogic();
-  };
-  if (wrapper && titleBar) {
-  	titleBar[classList].add(animatedClass);
-  	titleBar[classList].add(duration4msClass);
-  	if (hasTouch) {
-  		if (root.tocca) {
-  			root[_addEventListener]("swipeup", hideTitleBar, {passive: true});
-  			root[_addEventListener]("swipedown", revealTitleBar, {passive: true});
-  		}
-  	} else {
-  		if (hasWheel) {
-  			if (root.WheelIndicator) {
-  				var indicator;
-  				indicator = new WheelIndicator({
-  						elem: root,
-  						callback: function (e) {
-  							if ("down" === e.direction) {
-  								hideTitleBar();
-  							}
-  							if ("up" === e.direction) {
-  								revealTitleBar();
-  							}
-  						},
-  						preventMouse: false
-  					});
-  			}
-  		}
-  	}
-  } */
+ var duration4msClass = "duration-4ms";
+ var slideInDownClass = "slideInDown";
+ var slideOutUpClass = "slideOutUp";
+ 	var hideTitleBar = function () {
+ 	var logic = function () {
+ 		titleBar[classList].remove(slideInDownClass);
+ 		if ((document[body].scrollTop || docElem.scrollTop || 0) > titleBarHeight) {
+ 			titleBar[classList].add(slideOutUpClass);
+ 		} else {
+ 			titleBar[classList].remove(isFixedClass);
+ 			titleBar[classList].remove(slideOutUpClass);
+ 		}
+ 	};
+ 	var throttleLogic = throttle(logic, 100);
+ 	throttleLogic();
+ };
+ var revealTitleBar = function () {
+ 	var logic = function () {
+ 		titleBar[classList].remove(slideOutUpClass);
+ 		if ((document[body].scrollTop || docElem.scrollTop || 0) > titleBarHeight) {
+ 			titleBar[classList].add(isFixedClass);
+ 			titleBar[classList].add(slideInDownClass);
+ 		} else {
+ 			titleBar[classList].remove(isFixedClass);
+ 			titleBar[classList].remove(slideInDownClass);
+ 		}
+ 	};
+ 	var throttleLogic = throttle(logic, 100);
+ 	throttleLogic();
+ };
+ if (wrapper && titleBar) {
+ 	titleBar[classList].add(animatedClass);
+ 	titleBar[classList].add(duration4msClass);
+ 	if (hasTouch) {
+ 		if (root.tocca) {
+ 			root[_addEventListener]("swipeup", hideTitleBar, {passive: true});
+ 			root[_addEventListener]("swipedown", revealTitleBar, {passive: true});
+ 		}
+ 	} else {
+ 		if (hasWheel) {
+ 			if (root.WheelIndicator) {
+ 				var indicator;
+ 				indicator = new WheelIndicator({
+ 						elem: root,
+ 						callback: function (e) {
+ 							if ("down" === e.direction) {
+ 								hideTitleBar();
+ 							}
+ 							if ("up" === e.direction) {
+ 								revealTitleBar();
+ 							}
+ 						},
+ 						preventMouse: false
+ 					});
+ 			}
+ 		}
+ 	}
+ } */
 
 		/*!
-   * set fixed or hidden class depending on scroll/swipe direction
-   * and titleBar position
-   * needs transition top 0.4s ease out in CSS for .title-bar
-   */
+  * set fixed or hidden class depending on scroll/swipe direction
+  * and titleBar position
+  * needs transition top 0.4s ease out in CSS for .title-bar
+  */
 		var hideTitleBar = function () {
 			var logic = function () {
 				titleBar[classList].remove(isFixedClass);
@@ -1326,8 +1326,8 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 	scripts.push("./libs/contents-cards/js/vendors.min.js");
 
 	/*!
-  * load scripts after webfonts loaded using doesFontExist
-  */
+ * load scripts after webfonts loaded using doesFontExist
+ */
 
 	var supportsCanvas = function () {
 		var elem = document[createElement]("canvas");
@@ -1349,8 +1349,8 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 
 		var checkFontIsLoaded = function () {
 			/*!
-    * check only for fonts that are used in current page
-    */
+  * check only for fonts that are used in current page
+  */
 			if (doesFontExist("Roboto")) {
 				onFontsLoaded();
 			}
@@ -1367,8 +1367,8 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 	loadCSS(forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:400,700&subset=cyrillic", onFontsLoadedCallback);
 
 	/*!
-  * load scripts after webfonts loaded using webfontloader
-  */
+ * load scripts after webfonts loaded using webfontloader
+ */
 
 	/* root.WebFontConfig = {
  	google: {

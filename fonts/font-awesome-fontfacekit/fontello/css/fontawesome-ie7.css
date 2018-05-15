@@ -1,13 +1,13 @@
 [class^="fa-"], [class*=" fa-"] {
-  font-family: 'fontawesome';
-  font-style: normal;
-  font-weight: normal;
+ font-family: 'fontawesome';
+ font-style: normal;
+ font-weight: normal;
 
-  /* fix buttons height */
-  line-height: 1em;
+ /* fix buttons height */
+ line-height: 1em;
 
-  /* you can be more comfortable with increased icons size */
-  /* font-size: 120%; */
+ /* you can be more comfortable with increased icons size */
+ /* font-size: 120%; */
 }
 
 .fa-qrcode { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf029;&nbsp;'); }

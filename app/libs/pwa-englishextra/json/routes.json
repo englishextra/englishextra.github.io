@@ -1,7 +1,7 @@
 {
 	"home": {
 		"url": "./pages/home.html",
-		"title": ""
+		"title": "Начало"
 	},
 	"notfound": {
 		"url": "./pages/notfound.html",

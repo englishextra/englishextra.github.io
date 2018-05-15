@@ -63,7 +63,7 @@ ToProgress, unescape, VK, Ya*/
 			var style = "style";
 			function whichTransitionEvent() {
 				var t,
-				    el = document[createElement]("fakeelement");
+				  el = document[createElement]("fakeelement");
 				var transitions = {
 					"transition": "transitionend",
 					"OTransition": "oTransitionEnd",
@@ -716,7 +716,7 @@ ToProgress, unescape, VK, Ya*/
 				triggerForNwjs();
 			} else {
 				var locationProtocol = root.location.protocol || "",
-				    hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
+				  hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
 				if (hasHTTP) {
 					triggerForHTTP();
 				} else {
@@ -799,13 +799,13 @@ ToProgress, unescape, VK, Ya*/
 				};
 				if (root.DoSlide) {
 					/*!
-      * dont JSMin line below: Notepad++ will freeze
-      * comment out if you dont want slide autorotation
-      */
+   * dont JSMin line below: Notepad++ will freeze
+   * comment out if you dont want slide autorotation
+   */
 					slide.onChanged(slideTimer).do(slideTimer);
 					/*!
-      * init next button if no slide autorotation
-      */
+   * init next button if no slide autorotation
+   */
 					setStyleDisplayBlock(cdPrev);
 					setStyleDisplayBlock(cdNext);
 					cdPrev[_addEventListener]("click", handleCdPrev);
@@ -814,10 +814,10 @@ ToProgress, unescape, VK, Ya*/
 			};
 			if (dsContainer && cdPrev && cdNext) {
 				/* var jsUrl = "../../cdn/doSlide/1.1.4/js/do-slide.fixed.min.js";
-    if (!scriptIsLoaded(jsUrl)) {
-    	var load;
-    	load = new loadJsCss([jsUrl], initScript);
-    } */
+  if (!scriptIsLoaded(jsUrl)) {
+  	var load;
+  	load = new loadJsCss([jsUrl], initScript);
+  } */
 				initScript();
 			}
 		};
@@ -867,10 +867,10 @@ ToProgress, unescape, VK, Ya*/
 			if (holder && locationHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					/* var jsUrl = "../cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js";
-     if (!scriptIsLoaded(jsUrl)) {
-     	var load;
-     	load = new loadJsCss([jsUrl], initScript);
-     } */
+   if (!scriptIsLoaded(jsUrl)) {
+   	var load;
+   	load = new loadJsCss([jsUrl], initScript);
+   } */
 					initScript();
 				}
 			}
@@ -915,16 +915,16 @@ ToProgress, unescape, VK, Ya*/
 			};
 			if (page && container && holderPanelMenuMore && btnMenuMore && panelMenuMore && panelMenuMoreItems) {
 				/*!
-     * hide menu more on outside click
-     */
+   * hide menu more on outside click
+   */
 				addContainerHandler();
 				/*!
-     * show or hide menu more
-     */
+   * show or hide menu more
+   */
 				addBtnHandler();
 				/*!
-     * hide menu more on item clicked
-     */
+   * hide menu more on item clicked
+   */
 				addItemHandlerAll();
 			}
 		};
@@ -980,8 +980,8 @@ ToProgress, unescape, VK, Ya*/
 					link.rel = "noopener";
 				} else {
 					/*!
-      * no prevent default and void .href above
-      */
+   * no prevent default and void .href above
+   */
 					/* jshint -W107 */
 					link.href = "javascript:void(0);";
 					/* jshint +W107 */
@@ -1161,8 +1161,8 @@ ToProgress, unescape, VK, Ya*/
 	scripts.push("../../libs/products/js/vendors.min.js");
 
 	/*!
-  * load scripts after webfonts loaded using doesFontExist
-  */
+ * load scripts after webfonts loaded using doesFontExist
+ */
 
 	var supportsCanvas = function () {
 		var elem = document[createElement]("canvas");
@@ -1184,8 +1184,8 @@ ToProgress, unescape, VK, Ya*/
 
 		var checkFontIsLoaded = function () {
 			/*!
-    * check only for fonts that are used in current page
-    */
+  * check only for fonts that are used in current page
+  */
 			if (doesFontExist("Roboto") /* && doesFontExist("Roboto Mono") */) {
 					onFontsLoaded();
 				}
@@ -1202,8 +1202,8 @@ ToProgress, unescape, VK, Ya*/
 	loadCSS(forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic,latin-ext", onFontsLoadedCallback);
 
 	/*!
-  * load scripts after webfonts loaded using webfontloader
-  */
+ * load scripts after webfonts loaded using webfontloader
+ */
 
 	/* root.WebFontConfig = {
  	google: {

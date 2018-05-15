@@ -64,7 +64,7 @@ ToProgress, unescape, verge, VK, Ya*/
 			var style = "style";
 			function whichTransitionEvent() {
 				var t,
-				    el = document[createElement]("fakeelement");
+				  el = document[createElement]("fakeelement");
 				var transitions = {
 					"transition": "transitionend",
 					"OTransition": "oTransitionEnd",
@@ -630,7 +630,7 @@ ToProgress, unescape, verge, VK, Ya*/
 			x.open("GET", url, !0);
 			x.withCredentials = !1;
 			x.onreadystatechange = function () {
-				if (x.status === "404" || x.status === 0) {
+				if (x.status === "404" || x.status === "0") {
 					console.log("Error XMLHttpRequest-ing file", x.status);
 					return onerror && "function" === typeof onerror && onerror();
 				} else if (x.readyState === 4 && x.status === 200 && x.responseText) {
@@ -924,7 +924,7 @@ ToProgress, unescape, verge, VK, Ya*/
 				triggerForNwjs();
 			} else {
 				var locationProtocol = root.location.protocol || "",
-				    hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
+				  hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
 				if (hasHTTP) {
 					triggerForHTTP();
 				} else {
@@ -1022,16 +1022,16 @@ ToProgress, unescape, verge, VK, Ya*/
 		manageDataSrcImageAll();
 
 		/*!
-   * init disqus_thread and Masonry / Packery
-   * add Draggabilly to Packarey
-   * @see {@link https://stackoverflow.com/questions/15160010/jquery-masonry-collapsing-on-initial-page-load-works-fine-after-clicking-home}
-   * @see {@link https://gist.github.com/englishextra/5e423ff34f67982f017b}
-   * percentPosition: true works well with percent-width items,
-   * as items will not transition their position on resize.
-   * masonry.desandro.com/options.html
-   * use timed out layout property after initialising
-   * to level the horizontal gaps
-   */
+  * init disqus_thread and Masonry / Packery
+  * add Draggabilly to Packarey
+  * @see {@link https://stackoverflow.com/questions/15160010/jquery-masonry-collapsing-on-initial-page-load-works-fine-after-clicking-home}
+  * @see {@link https://gist.github.com/englishextra/5e423ff34f67982f017b}
+  * percentPosition: true works well with percent-width items,
+  * as items will not transition their position on resize.
+  * masonry.desandro.com/options.html
+  * use timed out layout property after initialising
+  * to level the horizontal gaps
+  */
 		var initMasonryDisqus = function () {
 			var gridItemClass = "masonry-grid-item";
 			var gridItemSelector = ".masonry-grid-item";
@@ -1062,8 +1062,8 @@ ToProgress, unescape, verge, VK, Ya*/
 						if (gridItem) {
 							if (root.Draggabilly) {
 								var draggie,
-								    draggies = [],
-								    initDraggie = function (e) {
+								  draggies = [],
+								  initDraggie = function (e) {
 									var draggableElem = e;
 									draggie = new Draggabilly(draggableElem, {});
 									draggies.push(draggie);
@@ -1112,10 +1112,10 @@ ToProgress, unescape, verge, VK, Ya*/
 					disqusThread[classList].add(isActiveClass);
 				};
 				/* var jsUrl = getHTTP(true) + "://" + disqusThreadShortname + ".disqus.com/embed.js";
-    if (!scriptIsLoaded(jsUrl)) {
-    	var load;
-    	load = new loadJsCss([jsUrl], initDisqus);
-    } */
+  if (!scriptIsLoaded(jsUrl)) {
+  	var load;
+  	load = new loadJsCss([jsUrl], initDisqus);
+  } */
 				initDisqus();
 			};
 			var initScript = function () {
@@ -1144,10 +1144,10 @@ ToProgress, unescape, verge, VK, Ya*/
 				/* var jsUrl = "../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
 				/* var jsUrl = "../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js"; */
 				/* var jsUrl = "../cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
-    if (!scriptIsLoaded(jsUrl)) {
-    	var load;
-    	load = new loadJsCss([jsUrl], initScript);
-    } */
+  if (!scriptIsLoaded(jsUrl)) {
+  	var load;
+  	load = new loadJsCss([jsUrl], initScript);
+  } */
 				initScript();
 			}
 		};
@@ -1273,12 +1273,12 @@ ToProgress, unescape, verge, VK, Ya*/
 			if (holder && locationHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					/* var jsUrl = "../../cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js";
-     if (!scriptIsLoaded(jsUrl)) {
-     	var load;
-     	load = new loadJsCss([jsUrl], initScript);
-     } else {
-     	initScript();
-     } */
+   if (!scriptIsLoaded(jsUrl)) {
+   	var load;
+   	load = new loadJsCss([jsUrl], initScript);
+   } else {
+   	initScript();
+   } */
 					initScript();
 				}
 			}
@@ -1626,8 +1626,8 @@ ToProgress, unescape, verge, VK, Ya*/
 					return;
 				}
 				/*!
-     * create typo suggestion list
-     */
+   * create typo suggestion list
+   */
 				var suggestionUl = document[createElement]("ul");
 				var suggestionLi = document[createElement]("li");
 				var handleTypoSuggestion = function () {
@@ -1644,15 +1644,15 @@ ToProgress, unescape, verge, VK, Ya*/
 				suggestionUl[appendChild](suggestionLi);
 				textInput[parentNode].insertBefore(suggestionUl, textInput.nextElementSibling);
 				/*!
-     * show suggestions
-     */
+   * show suggestions
+   */
 				ac.renderMenu = function (ul, stance) {
 					var items = stance || "";
 					var itemsLength = items[_length];
 					var _this = this;
 					/*!
-      * limit output
-      */
+   * limit output
+   */
 					var limitKamilOutput = function (e, i) {
 						if (i < 10) {
 							_this._renderItemData(ul, e, i);
@@ -1663,12 +1663,12 @@ ToProgress, unescape, verge, VK, Ya*/
 							limitKamilOutput(items[i], i);
 						}
 						/* forEach(items, function (e, i) {
-      	limitKamilOutput(e, i);
-      }, false); */
+   	limitKamilOutput(e, i);
+   }, false); */
 					}
 					/*!
-      * fix typo - non latin characters found
-      */
+   * fix typo - non latin characters found
+   */
 					while (itemsLength < 1) {
 						var textValue = textInput.value;
 						if (/[^\u0000-\u007f]/.test(textValue)) {
@@ -1688,8 +1688,8 @@ ToProgress, unescape, verge, VK, Ya*/
 						itemsLength += 1;
 					}
 					/*!
-      * truncate text
-      */
+   * truncate text
+   */
 					var lis = ul ? ul[getElementsByTagName]("li") || "" : "";
 					var truncateKamilText = function (e) {
 						var truncText = e.firstChild.textContent || "";
@@ -1705,31 +1705,31 @@ ToProgress, unescape, verge, VK, Ya*/
 					}
 				};
 				/*!
-     * set text input value from typo suggestion
-     */
+   * set text input value from typo suggestion
+   */
 				var handleSuggestionLi = function (ev) {
 					ev.stopPropagation();
 					ev.preventDefault();
 					/*!
-      * set focus first, then set text
-      */
+   * set focus first, then set text
+   */
 					textInput.focus();
 					textInput.value = suggestionLi.firstChild.textContent || "";
 					setStyleDisplayNone(suggestionUl);
 				};
 				suggestionLi[_addEventListener]("click", handleSuggestionLi);
 				/*!
-     * hide suggestions on outside click
-     */
+   * hide suggestions on outside click
+   */
 				if (container) {
 					container[_addEventListener]("click", handleTypoSuggestion);
 				}
 				/*!
-     * unless you specify property option in new Kamil
-     * use kamil built-in word label as search key in JSON file
-     * [{"link":"/","label":"some text to match"},
-     * {"link":"/pages/contents.html","label":"some text to match"}]
-     */
+   * unless you specify property option in new Kamil
+   * use kamil built-in word label as search key in JSON file
+   * [{"link":"/","label":"some text to match"},
+   * {"link":"/pages/contents.html","label":"some text to match"}]
+   */
 				ac.on("kamilselect", function (e) {
 					var kamilItemLink = e.item.href || "";
 					var handleKamilItem = function () {
@@ -1739,8 +1739,8 @@ ToProgress, unescape, verge, VK, Ya*/
 					};
 					if (kamilItemLink) {
 						/*!
-       * nwjs wont like setImmediate here
-       */
+    * nwjs wont like setImmediate here
+    */
 						/* setImmediate(handleKamilItem); */
 						handleKamilItem();
 					}
@@ -1751,10 +1751,10 @@ ToProgress, unescape, verge, VK, Ya*/
 			};
 			if (searchForm && textInput) {
 				/* var jsUrl = "../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
-    if (!scriptIsLoaded(jsUrl)) {
-    	var load;
-    	load = new loadJsCss([jsUrl], initScript);
-    } */
+  if (!scriptIsLoaded(jsUrl)) {
+  	var load;
+  	load = new loadJsCss([jsUrl], initScript);
+  } */
 				initScript();
 			}
 		};
@@ -1839,8 +1839,8 @@ ToProgress, unescape, verge, VK, Ya*/
 	scripts.push("../libs/contents/js/vendors.min.js");
 
 	/*!
-  * load scripts after webfonts loaded using doesFontExist
-  */
+ * load scripts after webfonts loaded using doesFontExist
+ */
 
 	var supportsCanvas = function () {
 		var elem = document[createElement]("canvas");
@@ -1862,8 +1862,8 @@ ToProgress, unescape, verge, VK, Ya*/
 
 		var checkFontIsLoaded = function () {
 			/*!
-    * check only for fonts that are used in current page
-    */
+  * check only for fonts that are used in current page
+  */
 			if (doesFontExist("Roboto") /* && doesFontExist("Roboto Mono") */) {
 					onFontsLoaded();
 				}
@@ -1880,8 +1880,8 @@ ToProgress, unescape, verge, VK, Ya*/
 	loadCSS(forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic,latin-ext", onFontsLoadedCallback);
 
 	/*!
-  * load scripts after webfonts loaded using webfontloader
-  */
+ * load scripts after webfonts loaded using webfontloader
+ */
 
 	/* root.WebFontConfig = {
  	google: {
