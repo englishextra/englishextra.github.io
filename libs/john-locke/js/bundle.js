@@ -7,9 +7,8 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
  * safe way to handle console.log
  * @see {@link https://github.com/paulmillr/console-polyfill}
  */
-(function (root) {
+(function(root){
 	"use strict";
-
 	if (!root.console) {
 		root.console = {};
 	}
@@ -18,14 +17,16 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 	var method;
 	var dummy = function () {};
 	var properties = ["memory"];
-	var methods = ["assert,clear,count,debug,dir,dirxml,error,exception,group,", "groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd,", "show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn"];
+	var methods = ["assert,clear,count,debug,dir,dirxml,error,exception,group,",
+		"groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd,",
+		"show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn"];
 	methods.join("").split(",");
-	for (; prop = properties.pop();) {
+	for (; (prop = properties.pop()); ) {
 		if (!con[prop]) {
 			con[prop] = {};
 		}
 	}
-	for (; method = methods.pop();) {
+	for (; (method = methods.pop()); ) {
 		if (!con[method]) {
 			con[method] = dummy;
 		}
@@ -47,8 +48,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
  */
 (function (root, document, undefined) {
 	"use strict";
-
-	var ToProgress = function () {
+	var ToProgress = (function () {
 		var TP = function () {
 			var _addEventListener = "addEventListener";
 			var appendChild = "appendChild";
@@ -63,7 +63,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 			var style = "style";
 			function whichTransitionEvent() {
 				var t,
-				  el = document[createElement]("fakeelement");
+				el = document[createElement]("fakeelement");
 				var transitions = {
 					"transition": "transitionend",
 					"OTransition": "oTransitionEnd",
@@ -193,7 +193,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 			return ToProgress;
 		};
 		return TP();
-	}();
+	})();
 	root.ToProgress = ToProgress;
 })("undefined" !== typeof window ? window : this, document);
 /*!
@@ -206,7 +206,6 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
  */
 (function (root, document) {
 	"use strict";
-
 	var doesFontExist = function (fontName) {
 		var createElement = "createElement";
 		var getContext = "getContext";
@@ -241,7 +240,6 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
  */
 (function (root, document) {
 	"use strict";
-
 	var loadCSS = function (_href, callback) {
 		var ref = document.getElementsByTagName("head")[0] || "";
 		var link = document.createElement("link");
@@ -266,7 +264,6 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
  */
 (function (root, document) {
 	"use strict";
-
 	var loadJsCss = function (files, callback) {
 		var _this = this;
 		var appendChild = "appendChild";
@@ -311,12 +308,13 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 				(_this.body || _this.head)[appendChild](script);
 			}
 		};
-		var i, l;
+		var i,
+		l;
 		for (i = 0, l = _this.files[_length]; i < l; i += 1) {
-			if (/\.js$|\.js\?/.test(_this.files[i])) {
+			if ((/\.js$|\.js\?/).test(_this.files[i])) {
 				_this.js.push(_this.files[i]);
 			}
-			if (/\.css$|\.css\?|\/css\?/.test(_this.files[i])) {
+			if ((/\.css$|\.css\?|\/css\?/).test(_this.files[i])) {
 				_this.loadStyle(_this.files[i]);
 			}
 		}
@@ -360,12 +358,12 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 	var _length = "length";
 
 	var progressBar = new ToProgress({
-		id: "top-progress-bar",
-		color: "#FF2C40",
-		height: "0.200rem",
-		duration: 0.2,
-		zIndex: 999
-	});
+			id: "top-progress-bar",
+			color: "#FF2C40",
+			height: "0.200rem",
+			duration: 0.2,
+			zIndex: 999
+		});
 
 	var hideProgressBar = function () {
 		progressBar.finish();
@@ -373,12 +371,12 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 	};
 
 	/* progressBar.complete = function () {
- 	return this.finish(),
- 	this.hide();
- }; */
+		return this.finish(),
+		this.hide();
+	}; */
 
 	var toStringFn = {}.toString;
-	var supportsSvgSmilAnimation = !!document[createElementNS] && /SVGAnimate/.test(toStringFn.call(document[createElementNS]("http://www.w3.org/2000/svg", "animate"))) || "";
+	var supportsSvgSmilAnimation = !!document[createElementNS] && (/SVGAnimate/).test(toStringFn.call(document[createElementNS]("http://www.w3.org/2000/svg", "animate"))) || "";
 
 	if (!supportsSvgSmilAnimation) {
 
@@ -448,7 +446,8 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 	if (!supportsSvgAsImg) {
 		var svgNosmilImages = document[getElementsByClassName]("svg-nosmil-img") || "";
 		if (svgNosmilImages) {
-			var i, l;
+			var i,
+			l;
 			for (i = 0, l = svgNosmilImages[_length]; i < l; i += 1) {
 				svgNosmilImages[i][src] = svgNosmilImages[i][getAttribute]("data-fallback-src");
 			}
@@ -459,7 +458,8 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 	if (!supportsSvgSmilAnimation) {
 		var svgSmilImages = document[getElementsByClassName]("svg-smil-img") || "";
 		if (svgSmilImages) {
-			var j, m;
+			var j,
+			m;
 			for (j = 0, m = svgSmilImages[_length]; j < m; j += 1) {
 				svgSmilImages[j][src] = svgSmilImages[j][getAttribute]("data-fallback-src");
 			}
@@ -501,17 +501,20 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 
 	var styleSheetsLength = document[styleSheets][_length] || 0;
 
-	var supportsCanvas = function () {
+	var supportsCanvas = (function () {
 		var elem = document[createElement]("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
-	}();
+	})();
 
 	var slotDrawCanvasAll;
 	var drawCanvasAll = function () {
 		if (document[styleSheets][_length] > styleSheetsLength) {
 			clearInterval(slotDrawCanvasAll);
 			slotDrawCanvasAll = null;
-			var i, l, canvasObj, url;
+			var i,
+			l,
+			canvasObj,
+			url;
 			for (i = 0, l = canvasAll[_length]; i < l; i += 1) {
 				if (canvasAll[i][getAttribute]("data-src")) {
 					canvasObj = canvasAll[i];
@@ -521,6 +524,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 					} else {
 						replaceCanvasWithImg(canvasObj, url);
 					}
+
 				}
 			}
 			i = l = canvasObj = url = null;
@@ -573,12 +577,12 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 			docElem[classList].add("js");
 		}
 
-		var getHumanDate = function () {
-			var newDate = new Date();
+		var getHumanDate = (function () {
+			var newDate = (new Date());
 			var newDay = newDate.getDate();
 			var newYear = newDate.getFullYear();
 			var newMonth = newDate.getMonth();
-			newMonth += 1;
+			(newMonth += 1);
 			if (10 > newDay) {
 				newDay = "0" + newDay;
 			}
@@ -586,35 +590,43 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 				newMonth = "0" + newMonth;
 			}
 			return newYear + "-" + newMonth + "-" + newDay;
-		}();
+		})();
 
 		var platformName = "";
 		var platformDescription = "";
 		if (navigatorUserAgent && root.platform) {
 			platformName = platform.name || "";
 			platformDescription = platform.description || "";
-			document[title] = documentTitle + " [" + (getHumanDate ? " " + getHumanDate : "") + (platformDescription ? " " + platformDescription : "") + (hasTouch || hasWheel ? " with" : "") + (hasTouch ? " touch" : "") + (hasTouch && hasWheel ? "," : "") + (hasWheel ? " mousewheel" : "") + "]";
+			document[title] = documentTitle +
+			" [" +
+			(getHumanDate ? " " + getHumanDate : "") +
+			(platformDescription ? " " + platformDescription : "") +
+			((hasTouch || hasWheel) ? " with" : "") +
+			(hasTouch ? " touch" : "") +
+			((hasTouch && hasWheel) ? "," : "") +
+			(hasWheel ? " mousewheel" : "") +
+			"]";
 		}
 
 		/*jshint bitwise: false */
 		var parseLink = function (url, full) {
 			var _full = full || "";
-			return function () {
+			return (function () {
 				var _replace = function (s) {
 					return s.replace(/^(#|\?)/, "").replace(/\:$/, "");
 				};
 				var _location = location || "";
 				var _protocol = function (protocol) {
 					switch (protocol) {
-						case "http:":
-							return _full ? ":" + 80 : 80;
-						case "https:":
-							return _full ? ":" + 443 : 443;
-						default:
-							return _full ? ":" + _location.port : _location.port;
+					case "http:":
+						return _full ? ":" + 80 : 80;
+					case "https:":
+						return _full ? ":" + 443 : 443;
+					default:
+						return _full ? ":" + _location.port : _location.port;
 					}
 				};
-				var _isAbsolute = 0 === url.indexOf("//") || !!~url.indexOf("://");
+				var _isAbsolute = (0 === url.indexOf("//") || !!~url.indexOf("://"));
 				var _locationHref = root.location || "";
 				var _origin = function () {
 					var o = _locationHref.protocol + "//" + _locationHref.hostname + (_locationHref.port ? ":" + _locationHref.port : "");
@@ -632,25 +644,25 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 					href: _link.href,
 					origin: _origin(),
 					host: _link.host || _location.host,
-					port: "0" === _link.port || "" === _link.port ? _protocol(_link.protocol) : _full ? _link.port : _replace(_link.port),
+					port: ("0" === _link.port || "" === _link.port) ? _protocol(_link.protocol) : (_full ? _link.port : _replace(_link.port)),
 					hash: _full ? _link.hash : _replace(_link.hash),
 					hostname: _link.hostname || _location.hostname,
-					pathname: _link.pathname.charAt(0) !== "/" ? _full ? "/" + _link.pathname : _link.pathname : _full ? _link.pathname : _link.pathname.slice(1),
-					protocol: !_link.protocol || ":" === _link.protocol ? _full ? _location.protocol : _replace(_location.protocol) : _full ? _link.protocol : _replace(_link.protocol),
+					pathname: _link.pathname.charAt(0) !== "/" ? (_full ? "/" + _link.pathname : _link.pathname) : (_full ? _link.pathname : _link.pathname.slice(1)),
+					protocol: !_link.protocol || ":" === _link.protocol ? (_full ? _location.protocol : _replace(_location.protocol)) : (_full ? _link.protocol : _replace(_link.protocol)),
 					search: _full ? _link.search : _replace(_link.search),
 					query: _full ? _link.search : _replace(_link.search),
 					isAbsolute: _isAbsolute,
 					isRelative: !_isAbsolute,
 					isCrossDomain: _isCrossDomain(),
-					hasHTTP: /^(http|https):\/\//i.test(url) ? true : false
+					hasHTTP: (/^(http|https):\/\//i).test(url) ? true : false
 				};
-			}();
+			})();
 		};
 		/*jshint bitwise: true */
 
 		var isNodejs = "undefined" !== typeof process && "undefined" !== typeof require || "";
 		var isElectron = "undefined" !== typeof root && root.process && "renderer" === root.process.type || "";
-		var isNwjs = function () {
+		var isNwjs = (function () {
 			if ("undefined" !== typeof isNodejs && isNodejs) {
 				try {
 					if ("undefined" !== typeof require("nw.gui")) {
@@ -661,7 +673,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 				}
 			}
 			return false;
-		}();
+		})();
 
 		var openDeviceBrowser = function (url) {
 			var triggerForElectron = function () {
@@ -684,7 +696,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 				triggerForNwjs();
 			} else {
 				var locationProtocol = root.location.protocol || "",
-				  hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
+				hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
 				if (hasHTTP) {
 					triggerForHTTP();
 				} else {
@@ -703,7 +715,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 				args = [].slice.call(arguments, 0);
 				timestamp = new Date();
 				var later = function () {
-					var last = new Date() - timestamp;
+					var last = (new Date()) - timestamp;
 					if (last < wait) {
 						timeout = setTimeout(later, wait - last);
 					} else {
@@ -718,7 +730,9 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 		};
 
 		var scriptIsLoaded = function (scriptSrc) {
-			var scriptAll, i, l;
+			var scriptAll,
+			i,
+			l;
 			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[_length]; i < l; i += 1) {
 				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
 					scriptAll = i = l = null;
@@ -741,9 +755,13 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 					var debounceLogic = debounce(logic, 200);
 					debounceLogic();
 				};
-				if (!e[classList].contains(isBindedClass) && !e.target && !e.rel) {
+				if (!e[classList].contains(isBindedClass) &&
+						!e.target &&
+						!e.rel) {
 					var url = e[getAttribute]("href") || "";
-					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+					if (url &&
+						parseLink(url).isCrossDomain &&
+						parseLink(url).hasHTTP) {
 						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
 						if ("undefined" !== typeof getHTTP && getHTTP()) {
 							e.target = "_blank";
@@ -781,31 +799,31 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 
 		if (qrcode) {
 			var qrcodeImg = document[createElement]("img");
-			var qrcodeImgTitle = documentTitle ? "Ссылка на страницу «" + documentTitle.replace(/\[[^\]]*?\]/g, "").trim() + "»" : "";
+			var qrcodeImgTitle = documentTitle ? ("Ссылка на страницу «" + documentTitle.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
 			var qrcodeImgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(locationHref);
 			qrcodeImg[alt] = qrcodeImgTitle;
 			if (root.QRCode) {
 				if (supportsSvgAsImg) {
 					qrcodeImgSrc = QRCode.generateSVG(locationHref, {
-						ecclevel: "M",
-						fillcolor: "#FFFFFF",
-						textcolor: "#191919",
-						margin: 4,
-						modulesize: 8
-					});
+							ecclevel: "M",
+							fillcolor: "#FFFFFF",
+							textcolor: "#191919",
+							margin: 4,
+							modulesize: 8
+						});
 					var XMLS = new XMLSerializer();
 					qrcodeImgSrc = XMLS.serializeToString(qrcodeImgSrc);
 					qrcodeImgSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(qrcodeImgSrc)));
 					qrcodeImg[src] = qrcodeImgSrc;
 				} else {
 					qrcodeImgSrc = QRCode.generatePNG(locationHref, {
-						ecclevel: "M",
-						format: "html",
-						fillcolor: "#FFFFFF",
-						textcolor: "#1F1F1F",
-						margin: 4,
-						modulesize: 8
-					});
+							ecclevel: "M",
+							format: "html",
+							fillcolor: "#FFFFFF",
+							textcolor: "#1F1F1F",
+							margin: 4,
+							modulesize: 8
+						});
 					qrcodeImg[src] = qrcodeImgSrc;
 				}
 			} else {
@@ -833,8 +851,8 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 			var platformOsVersion = platform.os.version || "";
 			var platformOsArchitecture = platform.os.architecture || "";
 			/* console.log(navigatorUserAgent);
-  console.log(platform.os);
-  console.log(platformName + "|" + platformOsFamily + "|" + platformOsVersion + "|" + platformOsArchitecture + "|" + platformDescription); */
+			console.log(platform.os);
+			console.log(platformName + "|" + platformOsFamily + "|" + platformOsVersion + "|" + platformOsArchitecture + "|" + platformDescription); */
 			var downloadAppImgSrc;
 			var downloadAppLinkHref;
 			if (platformOsFamily.indexOf("Windows Phone", 0) !== -1 && "10.0" === platformOsVersion) {
@@ -929,8 +947,8 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 			if (hasTouch) {
 				mousewheeldown[style].display = "none";
 				if (root.tocca) {
-					root[_addEventListener]("swipeup", revealStart, { passive: true });
-					root[_addEventListener]("swipedown", concealStart, { passive: true });
+					root[_addEventListener]("swipeup", revealStart, {passive: true});
+					root[_addEventListener]("swipedown", concealStart, {passive: true});
 				}
 			} else {
 				if (hasWheel) {
@@ -938,17 +956,17 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 					if (root.WheelIndicator) {
 						var indicator;
 						indicator = new WheelIndicator({
-							elem: root,
-							callback: function (e) {
-								if ("down" === e.direction) {
-									revealStart();
-								}
-								if ("up" === e.direction) {
-									concealStart();
-								}
-							},
-							preventMouse: false
-						});
+								elem: root,
+								callback: function (e) {
+									if ("down" === e.direction) {
+										revealStart();
+									}
+									if ("up" === e.direction) {
+										concealStart();
+									}
+								},
+								preventMouse: false
+							});
 					}
 				}
 			}
@@ -962,7 +980,8 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 			var _thisObj = thisObj || this;
 			var isSocialAll = document[getElementsByClassName]("is-social") || "";
 			if (isSocialAll) {
-				var k, n;
+				var k,
+				n;
 				for (k = 0, n = isSocialAll[_length]; k < n; k += 1) {
 					if (_thisObj !== isSocialAll[k]) {
 						isSocialAll[k][classList].remove(isActiveClass);
@@ -1047,7 +1066,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 						if (!vlike) {
 							try {
 								VK.init({
-									apiId: vkLike[dataset].apiid || "",
+									apiId: (vkLike[dataset].apiid || ""),
 									nameTransportPath: "/xd_receiver.htm",
 									onlyWidgets: true
 								});
@@ -1079,43 +1098,66 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 		}
 	};
 
-	var scripts = [forcedHTTP + "://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.2/gh-fork-ribbon.min.css", "./libs/john-locke/css/bundle.min.css"];
+	/* var scripts = [
+		forcedHTTP + "://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.2/gh-fork-ribbon.min.css",
+		"./libs/john-locke/css/bundle.min.css"]; */
+	var scripts = [];
 
-	var supportsPassive = function () {
+	var supportsPassive = (function () {
 		var support = false;
 		try {
 			var opts = Object[defineProperty] && Object[defineProperty]({}, "passive", {
-				get: function () {
-					support = true;
-				}
-			});
+					get: function () {
+						support = true;
+					}
+				});
 			root[_addEventListener]("test", function () {}, opts);
 		} catch (err) {}
 		return support;
-	}();
+	})();
 
-	var needsPolyfills = function () {
-		return !String.prototype.startsWith || !supportsPassive || !root.requestAnimationFrame || !root.matchMedia || "undefined" === typeof root.Element && !("dataset" in docElem) || !("classList" in document[createElement]("_")) || document[createElementNS] && !("classList" in document[createElementNS]("http://www.w3.org/2000/svg", "g")) ||
+	var needsPolyfills = (function () {
+		return !String.prototype.startsWith ||
+		!supportsPassive ||
+		!root.requestAnimationFrame ||
+		!root.matchMedia ||
+		("undefined" === typeof root.Element && !("dataset" in docElem)) ||
+		!("classList" in document[createElement]("_")) ||
+		document[createElementNS] && !("classList" in document[createElementNS]("http://www.w3.org/2000/svg", "g")) ||
 		/* !document.importNode || */
 		/* !("content" in document[createElement]("template")) || */
-		root.attachEvent && !root[_addEventListener] || !("onhashchange" in root) || !Array.prototype.indexOf || !root.Promise || !root.fetch || !document[querySelectorAll] || !document[querySelector] || !Function.prototype.bind || Object[defineProperty] && Object[getOwnPropertyDescriptor] && Object[getOwnPropertyDescriptor](Element.prototype, "textContent") && !Object[getOwnPropertyDescriptor](Element.prototype, "textContent").get || !("undefined" !== typeof root.localStorage && "undefined" !== typeof root.sessionStorage) || !root.WeakMap || !root.MutationObserver;
-	}();
+		(root.attachEvent && !root[_addEventListener]) ||
+		!("onhashchange" in root) ||
+		!Array.prototype.indexOf ||
+		!root.Promise ||
+		!root.fetch ||
+		!document[querySelectorAll] ||
+		!document[querySelector] ||
+		!Function.prototype.bind ||
+		(Object[defineProperty] &&
+			Object[getOwnPropertyDescriptor] &&
+			Object[getOwnPropertyDescriptor](Element.prototype, "textContent") &&
+			!Object[getOwnPropertyDescriptor](Element.prototype, "textContent").get) ||
+		!("undefined" !== typeof root.localStorage && "undefined" !== typeof root.sessionStorage) ||
+		!root.WeakMap ||
+		!root.MutationObserver;
+	})();
 
 	if (needsPolyfills) {
 		scripts.push("../../cdn/polyfills/js/polyfills.fixed.min.js");
 	}
 
 	/* scripts.push("./cdn/platform/1.3.4/js/platform.fixed.min.js",
- 	"./cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js",
- 	"./cdn/parallax-js/3.1.0/js/parallax.fixed.min.js",
- 	"./cdn/Tocca.js/2.0.1/js/Tocca.fixed.min.js",
- 	"./cdn/wheel-indicator/1.1.4/js/wheel-indicator.fixed.min.js"); */
+		"./cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js",
+		"./cdn/parallax-js/3.1.0/js/parallax.fixed.min.js",
+		"./cdn/Tocca.js/2.0.1/js/Tocca.fixed.min.js",
+		"./cdn/wheel-indicator/1.1.4/js/wheel-indicator.fixed.min.js"); */
 
 	scripts.push("./libs/john-locke/js/vendors.min.js");
 
 	/*!
- * load scripts after webfonts loaded using doesFontExist
- */
+	 * load scripts after webfonts loaded using doesFontExist
+	 */
 
 	var onFontsLoadedCallback = function () {
 
@@ -1134,8 +1176,8 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 
 		var checkFontIsLoaded = function () {
 			/*!
-  * check only for fonts that are used in current page
-  */
+			 * check only for fonts that are used in current page
+			 */
 			if (doesFontExist("Roboto") && doesFontExist("Roboto Condensed") && doesFontExist("PT Serif")) {
 				onFontsLoaded();
 			}
@@ -1149,50 +1191,57 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 		}
 	};
 
-	loadCSS(forcedHTTP + "://fonts.googleapis.com/css?family=PT+Serif:400%7CRoboto:400,700%7CRoboto+Condensed:700&subset=cyrillic", onFontsLoadedCallback);
+	loadCSS(
+			/* forcedHTTP + "://fonts.googleapis.com/css?family=PT+Serif:400%7CRoboto:400,700%7CRoboto+Condensed:700&subset=cyrillic", */
+			"./libs/john-locke/css/bundle.min.css",
+			onFontsLoadedCallback
+		);
 
 	/*!
- * load scripts after webfonts loaded using webfontloader
- */
+	 * load scripts after webfonts loaded using webfontloader
+	 */
 
 	/* root.WebFontConfig = {
- 	google: {
- 		families: [
- 			"PT Serif:400:cyrillic",
- 			"Roboto:400,700:cyrillic",
- 			"Roboto Condensed:700:cyrillic"
- 		]
- 	},
- 	listeners: [],
- 	active: function () {
- 		this.called_ready = true;
- 		for (var i = 0; i < this.listeners[_length]; i++) {
- 			this.listeners[i]();
- 		}
- 	},
- 	ready: function (callback) {
- 		if (this.called_ready) {
- 			callback();
- 		} else {
- 			this.listeners.push(callback);
- 		}
- 	}
- };
- 	var onFontsLoadedCallback = function () {
- 		var onFontsLoaded = function () {
- 		if (!supportsSvgSmilAnimation) {
- 			progressBar.increase(20);
- 		}
- 			var load;
- 		load = new loadJsCss(scripts, run);
- 	};
- 		root.WebFontConfig.ready(onFontsLoaded);
- };
- 	var load;
- load = new loadJsCss(
- 		[forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"],
- 		onFontsLoadedCallback
- 	); */
-})("undefined" !== typeof window ? window : this, document);
+		google: {
+			families: [
+				"PT Serif:400:cyrillic",
+				"Roboto:400,700:cyrillic",
+				"Roboto Condensed:700:cyrillic"
+			]
+		},
+		listeners: [],
+		active: function () {
+			this.called_ready = true;
+			for (var i = 0; i < this.listeners[_length]; i++) {
+				this.listeners[i]();
+			}
+		},
+		ready: function (callback) {
+			if (this.called_ready) {
+				callback();
+			} else {
+				this.listeners.push(callback);
+			}
+		}
+	};
 
-//# sourceMappingURL=bundle.js.map
+	var onFontsLoadedCallback = function () {
+
+		var onFontsLoaded = function () {
+			if (!supportsSvgSmilAnimation) {
+				progressBar.increase(20);
+			}
+
+			var load;
+			load = new loadJsCss(scripts, run);
+		};
+
+		root.WebFontConfig.ready(onFontsLoaded);
+	};
+
+	var load;
+	load = new loadJsCss(
+			[forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"],
+			onFontsLoadedCallback
+		); */
+})("undefined" !== typeof window ? window : this, document);
