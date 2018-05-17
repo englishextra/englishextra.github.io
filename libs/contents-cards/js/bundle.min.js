@@ -1341,7 +1341,8 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 		}
 	};
 
-	var scripts = ["./libs/contents-cards/css/bundle.min.css"];
+	/* var scripts = ["./libs/contents-cards/css/bundle.min.css"]; */
+	var scripts = [];
 
 	var supportsPassive = (function () {
 		var support = false;
@@ -1436,7 +1437,8 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 	};
 
 	loadCSS(
-			forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:400,700&subset=cyrillic",
+			/* forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:400,700&subset=cyrillic", */
+			"./libs/contents-cards/css/bundle.min.css",
 			onFontsLoadedCallback
 		);
 
