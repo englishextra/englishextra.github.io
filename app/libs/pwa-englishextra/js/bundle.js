@@ -8,9 +8,8 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
  * safe way to handle console.log
  * @see {@link https://github.com/paulmillr/console-polyfill}
  */
-(function (root) {
+(function(root){
 	"use strict";
-
 	if (!root.console) {
 		root.console = {};
 	}
@@ -19,14 +18,16 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 	var method;
 	var dummy = function () {};
 	var properties = ["memory"];
-	var methods = ["assert,clear,count,debug,dir,dirxml,error,exception,group,", "groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd,", "show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn"];
+	var methods = ["assert,clear,count,debug,dir,dirxml,error,exception,group,",
+		"groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd,",
+		"show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn"];
 	methods.join("").split(",");
-	for (; prop = properties.pop();) {
+	for (; (prop = properties.pop()); ) {
 		if (!con[prop]) {
 			con[prop] = {};
 		}
 	}
-	for (; method = methods.pop();) {
+	for (; (method = methods.pop()); ) {
 		if (!con[method]) {
 			con[method] = dummy;
 		}
@@ -48,8 +49,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
  */
 (function (root, document, undefined) {
 	"use strict";
-
-	var ToProgress = function () {
+	var ToProgress = (function () {
 		var TP = function () {
 			var _addEventListener = "addEventListener";
 			var appendChild = "appendChild";
@@ -64,7 +64,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var style = "style";
 			function whichTransitionEvent() {
 				var t,
-				  el = document[createElement]("fakeelement");
+				el = document[createElement]("fakeelement");
 				var transitions = {
 					"transition": "transitionend",
 					"OTransition": "oTransitionEnd",
@@ -194,7 +194,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			return ToProgress;
 		};
 		return TP();
-	}();
+	})();
 	root.ToProgress = ToProgress;
 })("undefined" !== typeof window ? window : this, document);
 /*!
@@ -204,7 +204,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
  */
 (function (root, document) {
 	"use strict";
-
 	var getElementsByClassName = "getElementsByClassName";
 	var _addEventListener = "addEventListener";
 	var _length = "length";
@@ -275,7 +274,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
  */
 (function (root) {
 	"use strict";
-
 	var imagePromise = function (s) {
 		if (root.Promise) {
 			return new Promise(function (y, n) {
@@ -354,7 +352,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
  */
 (function (root, document) {
 	"use strict";
-
 	var doesFontExist = function (fontName) {
 		var createElement = "createElement";
 		var getContext = "getContext";
@@ -389,7 +386,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
  */
 (function (root, document) {
 	"use strict";
-
 	var loadCSS = function (_href, callback) {
 		var ref = document.getElementsByTagName("head")[0] || "";
 		var link = document.createElement("link");
@@ -414,7 +410,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
  */
 (function (root, document) {
 	"use strict";
-
 	var loadJsCss = function (files, callback) {
 		var _this = this;
 		var appendChild = "appendChild";
@@ -459,12 +454,13 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				(_this.body || _this.head)[appendChild](script);
 			}
 		};
-		var i, l;
+		var i,
+		l;
 		for (i = 0, l = _this.files[_length]; i < l; i += 1) {
-			if (/\.js$|\.js\?/.test(_this.files[i])) {
+			if ((/\.js$|\.js\?/).test(_this.files[i])) {
 				_this.js.push(_this.files[i]);
 			}
-			if (/\.css$|\.css\?|\/css\?/.test(_this.files[i])) {
+			if ((/\.css$|\.css\?|\/css\?/).test(_this.files[i])) {
 				_this.loadStyle(_this.files[i]);
 			}
 		}
@@ -498,12 +494,12 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 	var _length = "length";
 
 	var progressBar = new ToProgress({
-		id: "top-progress-bar",
-		color: "#FF2C40",
-		height: "0.200rem",
-		duration: 0.2,
-		zIndex: 999
-	});
+			id: "top-progress-bar",
+			color: "#FF2C40",
+			height: "0.200rem",
+			duration: 0.2,
+			zIndex: 999
+		});
 
 	var hideProgressBar = function () {
 		progressBar.finish();
@@ -511,9 +507,9 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 	};
 
 	/* progressBar.complete = function () {
- 	return this.finish(),
- 	this.hide();
- }; */
+		return this.finish(),
+		this.hide();
+	}; */
 
 	progressBar.increase(20);
 
@@ -546,8 +542,13 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 		var setAttributeNS = "setAttributeNS";
 		var style = "style";
 		var title = "title";
-		var _addEventListener = "addEventListener";
 		var _removeEventListener = "removeEventListener";
+
+		var isActiveClass = "is-active";
+		var isBindedClass = "is-binded";
+		var isDropdownClass = "is-dropdown";
+		var isFixedClass = "is-fixed";
+		var isSocialClass = "is-social";
 
 		progressBar.increase(20);
 
@@ -556,7 +557,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			docElem[classList].add("js");
 		}
 
-		var earlyDeviceFormfactor = function (selectors) {
+		var earlyDeviceFormfactor = (function (selectors) {
 			var orientation;
 			var size;
 			var f = function (a) {
@@ -627,38 +628,38 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				orientation: orientation || "",
 				size: size || ""
 			};
-		}(docElem[classList] || "");
+		})(docElem[classList] || "");
 
-		var earlyDeviceType = function (mobile, desktop, opera) {
-			var selector = /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(opera) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(opera.substr(0, 4)) ? mobile : desktop;
+		var earlyDeviceType = (function (mobile, desktop, opera) {
+			var selector = (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i).test(opera) || (/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i).test(opera.substr(0, 4)) ? mobile : desktop;
 			docElem[classList].add(selector);
 			return selector;
-		}("mobile", "desktop", navigator.userAgent || navigator.vendor || root.opera);
+		})("mobile", "desktop", navigator.userAgent || navigator.vendor || (root).opera);
 
-		var earlySvgSupport = function (selector) {
+		var earlySvgSupport = (function (selector) {
 			selector = docImplem.hasFeature("http://www.w3.org/2000/svg", "1.1") ? selector : "no-" + selector;
 			docElem[classList].add(selector);
 			return selector;
-		}("svg");
+		})("svg");
 
-		var earlySvgasimgSupport = function (selector) {
+		var earlySvgasimgSupport = (function (selector) {
 			selector = docImplem.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1") ? selector : "no-" + selector;
 			docElem[classList].add(selector);
 			return selector;
-		}("svgasimg");
+		})("svgasimg");
 
-		var earlyHasTouch = function (selector) {
+		var earlyHasTouch = (function (selector) {
 			selector = "ontouchstart" in docElem ? selector : "no-" + selector;
 			docElem[classList].add(selector);
 			return selector;
-		}("touch");
+		})("touch");
 
-		var getHumanDate = function () {
-			var newDate = new Date();
+		var getHumanDate = (function () {
+			var newDate = (new Date());
 			var newDay = newDate.getDate();
 			var newYear = newDate.getFullYear();
 			var newMonth = newDate.getMonth();
-			newMonth += 1;
+			(newMonth += 1);
 			if (10 > newDay) {
 				newDay = "0" + newDay;
 			}
@@ -666,7 +667,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				newMonth = "0" + newMonth;
 			}
 			return newYear + "-" + newMonth + "-" + newDay;
-		}();
+		})();
 
 		var initialDocumentTitle = document.title || "";
 
@@ -677,7 +678,9 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 		}
 
 		var scriptIsLoaded = function (scriptSrc) {
-			var scriptAll, i, l;
+			var scriptAll,
+			i,
+			l;
 			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[_length]; i < l; i += 1) {
 				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
 					scriptAll = i = l = null;
@@ -698,7 +701,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				args = [].slice.call(arguments, 0);
 				timestamp = new Date();
 				var later = function () {
-					var last = new Date() - timestamp;
+					var last = (new Date()) - timestamp;
 					if (last < wait) {
 						timeout = setTimeout(later, wait - last);
 					} else {
@@ -752,13 +755,13 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 					return Math.sin(pos * (Math.PI / 2));
 				},
 				easeInOutSine: function (pos) {
-					return -0.5 * (Math.cos(Math.PI * pos) - 1);
+					return (-0.5 * (Math.cos(Math.PI * pos) - 1));
 				},
 				easeInOutQuint: function (pos) {
 					if ((pos /= 0.5) < 1) {
 						return 0.5 * Math.pow(pos, 5);
 					}
-					return 0.5 * (Math.pow(pos - 2, 5) + 2);
+					return 0.5 * (Math.pow((pos - 2), 5) + 2);
 				}
 			};
 			function tick() {
@@ -767,7 +770,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				var t = easingEquations[soothing](p);
 				if (p < 1) {
 					requestAnimationFrame(tick);
-					root.scrollTo(0, scrollY + (posY - scrollY) * t);
+					root.scrollTo(0, scrollY + ((posY - scrollY) * t));
 				} else {
 					root.scrollTo(0, posY);
 				}
@@ -787,7 +790,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			}
 		};
 
-		var LoadingSpinner = function () {
+		var LoadingSpinner = (function () {
 			var spinnerClass = "loading-spinner";
 			var spinner = document[getElementsByClassName](spinnerClass)[0] || "";
 			var isActiveClass = "is-active-loading-spinner";
@@ -813,27 +816,27 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 					}, delay);
 				}
 			};
-		}();
+		})();
 
 		/*jshint bitwise: false */
 		var parseLink = function (url, full) {
 			var _full = full || "";
-			return function () {
+			return (function () {
 				var _replace = function (s) {
 					return s.replace(/^(#|\?)/, "").replace(/\:$/, "");
 				};
 				var _location = location || "";
 				var _protocol = function (protocol) {
 					switch (protocol) {
-						case "http:":
-							return _full ? ":" + 80 : 80;
-						case "https:":
-							return _full ? ":" + 443 : 443;
-						default:
-							return _full ? ":" + _location.port : _location.port;
+					case "http:":
+						return _full ? ":" + 80 : 80;
+					case "https:":
+						return _full ? ":" + 443 : 443;
+					default:
+						return _full ? ":" + _location.port : _location.port;
 					}
 				};
-				var _isAbsolute = 0 === url.indexOf("//") || !!~url.indexOf("://");
+				var _isAbsolute = (0 === url.indexOf("//") || !!~url.indexOf("://"));
 				var _locationHref = root.location || "";
 				var _origin = function () {
 					var o = _locationHref.protocol + "//" + _locationHref.hostname + (_locationHref.port ? ":" + _locationHref.port : "");
@@ -851,25 +854,25 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 					href: _link.href,
 					origin: _origin(),
 					host: _link.host || _location.host,
-					port: "0" === _link.port || "" === _link.port ? _protocol(_link.protocol) : _full ? _link.port : _replace(_link.port),
+					port: ("0" === _link.port || "" === _link.port) ? _protocol(_link.protocol) : (_full ? _link.port : _replace(_link.port)),
 					hash: _full ? _link.hash : _replace(_link.hash),
 					hostname: _link.hostname || _location.hostname,
-					pathname: _link.pathname.charAt(0) !== "/" ? _full ? "/" + _link.pathname : _link.pathname : _full ? _link.pathname : _link.pathname.slice(1),
-					protocol: !_link.protocol || ":" === _link.protocol ? _full ? _location.protocol : _replace(_location.protocol) : _full ? _link.protocol : _replace(_link.protocol),
+					pathname: _link.pathname.charAt(0) !== "/" ? (_full ? "/" + _link.pathname : _link.pathname) : (_full ? _link.pathname : _link.pathname.slice(1)),
+					protocol: !_link.protocol || ":" === _link.protocol ? (_full ? _location.protocol : _replace(_location.protocol)) : (_full ? _link.protocol : _replace(_link.protocol)),
 					search: _full ? _link.search : _replace(_link.search),
 					query: _full ? _link.search : _replace(_link.search),
 					isAbsolute: _isAbsolute,
 					isRelative: !_isAbsolute,
 					isCrossDomain: _isCrossDomain(),
-					hasHTTP: /^(http|https):\/\//i.test(url) ? true : false
+					hasHTTP: (/^(http|https):\/\//i).test(url) ? true : false
 				};
-			}();
+			})();
 		};
 		/*jshint bitwise: true */
 
 		var isNodejs = "undefined" !== typeof process && "undefined" !== typeof require || "";
 		var isElectron = "undefined" !== typeof root && root.process && "renderer" === root.process.type || "";
-		var isNwjs = function () {
+		var isNwjs = (function () {
 			if ("undefined" !== typeof isNodejs && isNodejs) {
 				try {
 					if ("undefined" !== typeof require("nw.gui")) {
@@ -880,7 +883,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				}
 			}
 			return false;
-		}();
+		})();
 
 		var openDeviceBrowser = function (url) {
 			var triggerForElectron = function () {
@@ -903,7 +906,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				triggerForNwjs();
 			} else {
 				var locationProtocol = root.location.protocol || "",
-				  hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
+				hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
 				if (hasHTTP) {
 					triggerForHTTP();
 				} else {
@@ -945,7 +948,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 
 		var truncString = function (str, max, add) {
 			add = add || "\u2026";
-			return "string" === typeof str && str[_length] > max ? str.substring(0, max) + add : str;
+			return ("string" === typeof str && str[_length] > max ? str.substring(0, max) + add : str);
 		};
 
 		var fixEnRuTypo = function (e, a, b) {
@@ -973,11 +976,18 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var target = document[getElementById](targetId) || "";
 			var jsonObj = safelyParseJSON(parsedJson);
 			if (jsonObj && template && target) {
-				var targetHtml = template[innerHTML] || "",
-				  renderTargetTemplate = new t(targetHtml);
-				return renderTargetTemplate.render(jsonObj);
+				var targetHtml = template[innerHTML] || "";
+				if (root.t) {
+					var renderTargetTemplate = new t(targetHtml);
+					return renderTargetTemplate.render(jsonObj);
+				} else {
+					if (root.Mustache) {
+						Mustache.parse(targetHtml);
+						return Mustache.render(targetHtml, jsonObj);
+					}
+				}
 			}
-			return {};
+			return "cannot renderTemplate";
 		};
 
 		var insertTextAsFragment = function (text, container, callback) {
@@ -992,10 +1002,12 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 					rg.selectNode(body);
 					var df = rg[createContextualFragment](text);
 					clonedContainer[appendChild](df);
-					return container[parentNode] ? container[parentNode].replaceChild(clonedContainer, container) : container[innerHTML] = text, cb();
+					return container[parentNode] ? container[parentNode].replaceChild(clonedContainer, container) : container[innerHTML] = text,
+					cb();
 				} else {
 					clonedContainer[innerHTML] = text;
-					return container[parentNode] ? container[parentNode].replaceChild(document[createDocumentFragment][appendChild](clonedContainer), container) : container[innerHTML] = text, cb();
+					return container[parentNode] ? container[parentNode].replaceChild(document[createDocumentFragment][appendChild](clonedContainer), container) : container[innerHTML] = text,
+					cb();
 				}
 			} catch (e) {
 				console.log(e);
@@ -1044,14 +1056,14 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 						style.width = servant.offsetWidth + "px";
 					}
 					style.left = master.offsetLeft + "px";
-					style.top = master.offsetTop + master.offsetHeight + "px";
+					style.top = (master.offsetTop + master.offsetHeight) + "px";
 				}
 			}
 		};
 
 		var removeChildren = function (e) {
 			if (e && e.firstChild) {
-				for (; e.firstChild;) {
+				for (; e.firstChild; ) {
 					e.removeChild(e.firstChild);
 				}
 			}
@@ -1080,10 +1092,12 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 								rg.selectNode(docBody);
 								var df = rg[createContextualFragment](frag);
 								clonedContainer[appendChild](df);
-								return container[parentNode] ? container[parentNode][replaceChild](clonedContainer, container) : container[innerHTML] = frag, cb();
+								return container[parentNode] ? container[parentNode][replaceChild](clonedContainer, container) : container[innerHTML] = frag,
+								cb();
 							} else {
 								clonedContainer[innerHTML] = frag;
-								return container[parentNode] ? container[parentNode][replaceChild](document[createDocumentFragment][appendChild](clonedContainer), container) : container[innerHTML] = frag, cb();
+								return container[parentNode] ? container[parentNode][replaceChild](document[createDocumentFragment][appendChild](clonedContainer), container) : container[innerHTML] = frag,
+								cb();
 							}
 						} catch (e) {
 							console.log(e);
@@ -1109,7 +1123,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var ctx = scope && scope.nodeName ? scope : "";
 			var linkTag = "a";
 			var link = ctx ? ctx[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
-			var isBindedClass = "is-binded";
 			var arrange = function (e) {
 				if (!e[classList].contains(isBindedClass)) {
 					var url = e[getAttribute]("href") || "";
@@ -1136,31 +1149,29 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 
 		var handleDataSrcImageAll = function () {
 			var img = document[getElementsByClassName]("data-src-img") || "";
-			var isActiveClass = "is-active";
-			var isBindedClass = "is-binded";
 			var arrange = function (e) {
 				/*!
-   * true if elem is in same y-axis as the viewport or within 100px of it
-   * @see {@link https://github.com/ryanve/verge}
-   */
+				 * true if elem is in same y-axis as the viewport or within 100px of it
+				 * @see {@link https://github.com/ryanve/verge}
+				 */
 				if (verge.inY(e, 100) /* && 0 !== e.offsetHeight */) {
-						if (!e[classList].contains(isBindedClass)) {
-							var srcString = e[dataset].src || "";
-							if (srcString) {
-								if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
-									e[dataset].src = srcString.replace(/^/, forcedHTTP + ":");
-									srcString = e[dataset].src;
-								}
-								imagePromise(srcString).then(function () {
-									e.src = srcString;
-								}).catch(function (err) {
-									console.log("cannot load image with imagePromise:", srcString, err);
-								});
-								e[classList].add(isActiveClass);
-								e[classList].add(isBindedClass);
+					if (!e[classList].contains(isBindedClass)) {
+						var srcString = e[dataset].src || "";
+						if (srcString) {
+							if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
+								e[dataset].src = srcString.replace(/^/, forcedHTTP + ":");
+								srcString = e[dataset].src;
 							}
+							imagePromise(srcString).then(function () {
+								e.src = srcString;
+							}).catch (function (err) {
+								console.log("cannot load image with imagePromise:", srcString, err);
+							});
+							e[classList].add(isActiveClass);
+							e[classList].add(isBindedClass);
 						}
 					}
+				}
 			};
 			if (img) {
 				for (var i = 0, l = img[_length]; i < l; i += 1) {
@@ -1174,9 +1185,9 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			throttleHandleDataSrcImageAll();
 		};
 		var manageDataSrcImageAll = function () {
-			root[_removeEventListener]("scroll", handleDataSrcImageAllWindow, { passive: true });
+			root[_removeEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
 			root[_removeEventListener]("resize", handleDataSrcImageAllWindow);
-			root[_addEventListener]("scroll", handleDataSrcImageAllWindow, { passive: true });
+			root[_addEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
 			root[_addEventListener]("resize", handleDataSrcImageAllWindow);
 			var timers = new Timers();
 			timers.timeout(function () {
@@ -1190,31 +1201,31 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 
 		var handleDataSrcIframeAll = function () {
 			var iframe = document[getElementsByClassName]("data-src-iframe") || "";
-			var isBindedClass = "is-binded";
 			var arrange = function (e) {
 				/*!
-   * true if elem is in same y-axis as the viewport or within 100px of it
-   * @see {@link https://github.com/ryanve/verge}
-   */
+				 * true if elem is in same y-axis as the viewport or within 100px of it
+				 * @see {@link https://github.com/ryanve/verge}
+				 */
 				if (verge.inY(e, 100) /* && 0 !== e.offsetHeight */) {
-						if (!e[classList].contains(isBindedClass)) {
-							var srcString = e[dataset].src || "";
-							if (srcString) {
-								if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
-									e[dataset].src = srcString.replace(/^/, forcedHTTP + ":");
-									srcString = e[dataset].src;
-								}
-								e.src = srcString;
-								e[classList].add(isBindedClass);
-								e[setAttribute]("frameborder", "no");
-								e[setAttribute]("style", "border:none;");
-								e[setAttribute]("webkitallowfullscreen", "true");
-								e[setAttribute]("mozallowfullscreen", "true");
-								e[setAttribute]("scrolling", "no");
-								e[setAttribute]("allowfullscreen", "true");
+					if (!e[classList].contains(isBindedClass)) {
+						var srcString = e[dataset].src || "";
+						if (srcString) {
+							if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
+								e[dataset].src = srcString.replace(/^/, forcedHTTP + ":");
+								srcString = e[dataset].src;
 							}
+							e.src = srcString;
+							e[classList].add(isActiveClass);
+							e[classList].add(isBindedClass);
+							e[setAttribute]("frameborder", "no");
+							e[setAttribute]("style", "border:none;");
+							e[setAttribute]("webkitallowfullscreen", "true");
+							e[setAttribute]("mozallowfullscreen", "true");
+							e[setAttribute]("scrolling", "no");
+							e[setAttribute]("allowfullscreen", "true");
 						}
 					}
+				}
 			};
 			if (iframe) {
 				for (var i = 0, l = iframe[_length]; i < l; i += 1) {
@@ -1228,9 +1239,9 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			throttlehandleDataSrcIframeAll();
 		};
 		var manageDataSrcIframeAll = function () {
-			root[_removeEventListener]("scroll", handleDataSrcIframeAllWindow, { passive: true });
+			root[_removeEventListener]("scroll", handleDataSrcIframeAllWindow, {passive: true});
 			root[_removeEventListener]("resize", handleDataSrcIframeAllWindow);
-			root[_addEventListener]("scroll", handleDataSrcIframeAllWindow, { passive: true });
+			root[_addEventListener]("scroll", handleDataSrcIframeAllWindow, {passive: true});
 			root[_addEventListener]("resize", handleDataSrcIframeAllWindow);
 			var timers = new Timers();
 			timers.timeout(function () {
@@ -1246,7 +1257,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var ctx = scope && scope.nodeName ? scope : "";
 			var linkClass = "iframe-lightbox-link";
 			var link = ctx ? ctx[getElementsByClassName](linkClass) || "" : document[getElementsByClassName](linkClass) || "";
-			var isBindedClass = "is-binded";
 			var arrange = function (e) {
 				if (!e[classList].contains(isBindedClass)) {
 					e.lightbox = new IframeLightbox(e);
@@ -1324,7 +1334,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var animatedClass = "animated";
 			var fadeInClass = "fadeIn";
 			var fadeInUpClass = "fadeInUp";
-			var isBindedClass = "is-binded";
 			var dummySrc = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
 			if (!container) {
 				container = document[createElement]("div");
@@ -1353,7 +1362,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 							}
 							imagePromise(hrefString).then(function () {
 								img.src = hrefString;
-							}).catch(function (err) {
+							}).catch (function (err) {
 								console.log("cannot load image with imagePromise:", hrefString, err);
 							});
 							root[_addEventListener]("keyup", handleImgLightboxWindow);
@@ -1386,8 +1395,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 
 		var handleOtherDropdownLists = function (_self) {
 			var _this = _self || this;
-			var isActiveClass = "is-active";
-			var isDropdownClass = "is-dropdown";
 			var list = document[getElementsByClassName](isDropdownClass) || "";
 			var removeActiveClass = function (e) {
 				if (_this !== e) {
@@ -1415,47 +1422,43 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var holderChaptersSelect = document[getElementsByClassName]("holder-chapters-select")[0] || "";
 			var uiPanelContentsSelect = document[getElementsByClassName]("ui-panel-contents-select")[0] || "";
 			var chaptersListClass = "chapters-list";
-			var isFixedClass = "is-fixed";
-			var isActiveClass = "is-active";
-			var isDropdownClass = "is-dropdown";
-			/* var isBindedClass = "is-binded";
-  var rerenderChaptersSelect = function () {
-  	var handleChaptersSelect = function () {
-  		var _this = this;
-  		var hashString = _this.options[_this.selectedIndex].value || "";
-  		var uiPanelContentsSelectHeight = uiPanelContentsSelect ? (uiPanelContentsSelect[classList].contains(isFixedClass) ? uiPanelContentsSelect.offsetHeight : uiPanelContentsSelect.offsetHeight * 2) : 0;
-  		if (hashString) {
-  			var targetObj = hashString ? (isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/,"")) || "" : "") : "";
-  			if (targetObj) {
-  				scroll2Top(findPos(targetObj).top - uiPanelContentsSelectHeight, 10000);
-  			} else {
-  				root.location.hash = hashString;
-  			}
-  		}
-  	};
-  	if (!chaptersSelect[classList].contains(isBindedClass)) {
-  		chaptersSelect[_addEventListener]("change", handleChaptersSelect);
-  		chaptersSelect[classList].add(isBindedClass);
-  	}
-  	var rerenderOption = function (option) {
-  		if (option) {
-  			var optionText = option.textContent;
-  			option.title = optionText;
-  			var optionTextTruncated = truncString("" + optionText, 28);
-  			removeChildren(option);
-  			appendFragment(document[createTextNode](optionTextTruncated), option);
-  		}
-  	};
-  	var chaptersSelectOptions = chaptersSelect ? chaptersSelect[getElementsByTagName]("option") || "" : "";
-  	for (var i = 0, l = chaptersSelectOptions[_length]; i < l; i += 1) {
-  		rerenderOption(chaptersSelectOptions[i]);
-  	}
-  }; */
+			/* var rerenderChaptersSelect = function () {
+				var handleChaptersSelect = function () {
+					var _this = this;
+					var hashString = _this.options[_this.selectedIndex].value || "";
+					var uiPanelContentsSelectHeight = uiPanelContentsSelect ? (uiPanelContentsSelect[classList].contains(isFixedClass) ? uiPanelContentsSelect.offsetHeight : uiPanelContentsSelect.offsetHeight * 2) : 0;
+					if (hashString) {
+						var targetObj = hashString ? (isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/,"")) || "" : "") : "";
+						if (targetObj) {
+							scroll2Top(findPos(targetObj).top - uiPanelContentsSelectHeight, 10000);
+						} else {
+							root.location.hash = hashString;
+						}
+					}
+				};
+				if (!chaptersSelect[classList].contains(isBindedClass)) {
+					chaptersSelect[_addEventListener]("change", handleChaptersSelect);
+					chaptersSelect[classList].add(isBindedClass);
+				}
+				var rerenderOption = function (option) {
+					if (option) {
+						var optionText = option.textContent;
+						option.title = optionText;
+						var optionTextTruncated = truncString("" + optionText, 28);
+						removeChildren(option);
+						appendFragment(document[createTextNode](optionTextTruncated), option);
+					}
+				};
+				var chaptersSelectOptions = chaptersSelect ? chaptersSelect[getElementsByTagName]("option") || "" : "";
+				for (var i = 0, l = chaptersSelectOptions[_length]; i < l; i += 1) {
+					rerenderOption(chaptersSelectOptions[i]);
+				}
+			}; */
 			var rerenderChaptersList = function () {
 				var handleChaptersListItem = function (listObj, hashString) {
-					var uiPanelContentsSelectHeight = uiPanelContentsSelect ? uiPanelContentsSelect[classList].contains(isFixedClass) ? uiPanelContentsSelect.offsetHeight : uiPanelContentsSelect.offsetHeight * 2 : 0;
+					var uiPanelContentsSelectHeight = uiPanelContentsSelect ? (uiPanelContentsSelect[classList].contains(isFixedClass) ? uiPanelContentsSelect.offsetHeight : uiPanelContentsSelect.offsetHeight * 2) : 0;
 					if (hashString) {
-						var targetObj = hashString ? isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/, "")) || "" : "" : "";
+						var targetObj = hashString ? (isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/,"")) || "" : "") : "";
 						if (targetObj) {
 							scroll2Top(findPos(targetObj).top - uiPanelContentsSelectHeight, 10000);
 						} else {
@@ -1523,8 +1526,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var ctx = scope && scope.nodeName ? scope : "";
 			var btnClass = "btn-expand-hidden-layer";
 			var btn = ctx ? ctx[getElementsByClassName](btnClass) || "" : document[getElementsByClassName](btnClass) || "";
-			var isBindedClass = "is-binded";
-			var isActiveClass = "is-active";
 			var arrange = function (e) {
 				var handleExpandingLayerAll = function () {
 					var _this = this;
@@ -1564,22 +1565,22 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 						msnry.destroy();
 					}
 					msnry = new Masonry(grid, {
-						itemSelector: gridItemSelector,
-						columnWidth: gridSizerSelector,
-						gutter: 0,
-						percentPosition: true
-					});
+							itemSelector: gridItemSelector,
+							columnWidth: gridSizerSelector,
+							gutter: 0,
+							percentPosition: true
+						});
 				} else {
 					if (root.Packery) {
 						if (pckry) {
 							pckry.destroy();
 						}
 						pckry = new Packery(grid, {
-							itemSelector: gridItemSelector,
-							columnWidth: gridSizerSelector,
-							gutter: 0,
-							percentPosition: true
-						});
+								itemSelector: gridItemSelector,
+								columnWidth: gridSizerSelector,
+								gutter: 0,
+								percentPosition: true
+							});
 					}
 				}
 				var timers = new Timers();
@@ -1598,12 +1599,12 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			if (grid && gridItem) {
 				/* var jsUrl = "./cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
 				/* var jsUrl = "./cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
-  if (!scriptIsLoaded(jsUrl)) {
-  	var load;
-  	load = new loadJsCss([jsUrl], initScript);
-  } else {
-  	initScript();
-  } */
+				if (!scriptIsLoaded(jsUrl)) {
+					var load;
+					load = new loadJsCss([jsUrl], initScript);
+				} else {
+					initScript();
+				} */
 				initScript();
 			}
 		};
@@ -1613,10 +1614,8 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var btnClass = "btn-show-disqus";
 			var btn = ctx ? ctx[getElementsByClassName](btnClass)[0] || "" : document[getElementsByClassName](btnClass)[0] || "";
 			var disqusThread = document[getElementById]("disqus_thread") || "";
-			var isBindedClass = "is-binded";
-			var isActiveClass = "is-active";
 			var locationHref = root.location.href || "";
-			var disqusThreadShortname = disqusThread ? disqusThread[dataset].shortname || "" : "";
+			var disqusThreadShortname = disqusThread ? (disqusThread[dataset].shortname || "") : "";
 			var hideDisqusButton = function () {
 				disqusThread[classList].add(isActiveClass);
 				btn[style].display = "none";
@@ -1696,7 +1695,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				"timeout": 10000,
 				"key": defaultKey,
 				"datum": defaultDatum,
-				"days": 0
+				"days": 0,
 			};
 			for (var i in opt) {
 				if (opt.hasOwnProperty(i)) {
@@ -1730,7 +1729,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				svg[appendChild](use);
 				targetObj[appendChild](svg);
 			},
-			  closeButton = document[createElement]("a");
+			closeButton = document[createElement]("a");
 			closeButton[classList].add(closeButtonClass);
 			insertCancelSvg(closeButton);
 			var setCookie = function () {
@@ -1775,7 +1774,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var cookieKey = "_notibar_dismiss_";
 			var cookieDatum = "Выбрать статью можно щелкнув по самофиксирующейся планке с заголовком текущей страницы.";
 			var locationOrigin = parseLink(root.location.href).origin;
-			var isFixedClass = "is-fixed";
 			var arrange = function () {
 				var timers = new Timers();
 				timers.timeout(function () {
@@ -1790,7 +1788,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 						ev.preventDefault();
 						msgObj[_removeEventListener]("click", handleMsgObj);
 						var uiPanelContentsSelectPos = uiPanelContentsSelect ? findPos(uiPanelContentsSelect).top : 0;
-						var uiPanelContentsSelectHeight = uiPanelContentsSelect ? uiPanelContentsSelect[classList].contains(isFixedClass) ? uiPanelContentsSelect.offsetHeight : uiPanelContentsSelect.offsetHeight : 0;
+						var uiPanelContentsSelectHeight = uiPanelContentsSelect ? (uiPanelContentsSelect[classList].contains(isFixedClass) ? uiPanelContentsSelect.offsetHeight : uiPanelContentsSelect.offsetHeight) : 0;
 						scroll2Top(uiPanelContentsSelectPos - uiPanelContentsSelectHeight, 2000);
 					};
 					msgObj[_addEventListener]("click", handleMsgObj);
@@ -1843,17 +1841,17 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 						throw new Error("incomplete JSON data: no title");
 					}
 					ac = new Kamil(textInputSelector, {
-						source: jsonObj,
-						property: "title",
-						minChars: 2
-					});
+							source: jsonObj,
+							property: "title",
+							minChars: 2
+						});
 				} catch (err) {
 					console.log("cannot init Kamil", err);
 					return;
 				}
 				/*!
-   * create typo suggestion list
-   */
+				 * create typo suggestion list
+				 */
 				var typoAutcompleteList = document[createElement]("ul");
 				var typoListItem = document[createElement]("li");
 				var handleTypoSuggestion = function () {
@@ -1870,10 +1868,10 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				typoAutcompleteList[appendChild](typoListItem);
 				textInput[parentNode].insertBefore(typoAutcompleteList, textInput.nextElementSibling);
 				/*!
-   * this is an optional setup of every li
-   * uset to set a description title attribute
-   * comment out the title attribute setup below
-   */
+				 * this is an optional setup of every li
+				 * uset to set a description title attribute
+				 * comment out the title attribute setup below
+				 */
 				ac.renderItem = function (ul, item) {
 					var li = document[createElement]("li");
 					/* li.innerHTML = item.title; */
@@ -1883,15 +1881,15 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 					return li;
 				};
 				/*!
-   * show suggestions
-   */
+				 * show suggestions
+				 */
 				ac.renderMenu = function (ul, stance) {
 					var items = stance || "";
 					var itemsLength = items[_length];
 					var _this = this;
 					/*!
-   * limit output
-   */
+					 * limit output
+					 */
 					var limitKamilOutput = function (e, i) {
 						if (i < 10) {
 							_this._renderItemData(ul, e, i);
@@ -1902,12 +1900,12 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 							limitKamilOutput(items[i], i);
 						}
 						/* forEach(items, function (e, i) {
-   	limitKamilOutput(e, i);
-   }, false); */
+							limitKamilOutput(e, i);
+						}, false); */
 					}
 					/*!
-   * fix typo - non latin characters found
-   */
+					 * fix typo - non latin characters found
+					 */
 					var logicReplaceTypo = function () {
 						while (itemsLength < 1) {
 							var textInputValue = textInput.value || "";
@@ -1923,8 +1921,8 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 								handleTypoSuggestion();
 							}
 							/*!
-    * hide typo suggestion
-    */
+							 * hide typo suggestion
+							 */
 							if (textInput.value[_length] < 3 || textInput.value.match(/^\s*$/)) {
 								handleTypoSuggestion();
 							}
@@ -1934,8 +1932,8 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 					var debounceLogicReplaceTypo = debounce(logicReplaceTypo, 200);
 					debounceLogicReplaceTypo();
 					/*!
-   * truncate text
-   */
+					 * truncate text
+					 */
 					var lis = ul ? ul[getElementsByTagName]("li") || "" : "";
 					var truncateKamilText = function (e) {
 						var truncText = e.firstChild.textContent || "";
@@ -1951,31 +1949,31 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 					}
 				};
 				/*!
-   * set text input value from typo suggestion
-   */
+				 * set text input value from typo suggestion
+				 */
 				var handleTypoListItem = function (ev) {
 					ev.stopPropagation();
 					ev.preventDefault();
 					/*!
-   * set focus first, then set text
-   */
+					 * set focus first, then set text
+					 */
 					textInput.focus();
 					textInput.value = typoListItem.textContent || "";
 					handleTypoSuggestion();
 				};
 				typoListItem[_addEventListener]("click", handleTypoListItem);
 				/*!
-   * hide suggestions on outside click
-   */
+				 * hide suggestions on outside click
+				 */
 				if (container) {
 					container[_addEventListener]("click", handleTypoSuggestion);
 				}
 				/*!
-   * unless you specify property option in new Kamil
-   * use kamil built-in word label as search key in JSON file
-   * [{"link":"/","label":"some text to match"},
-   * {"link":"/pages/contents.html","label":"some text to match"}]
-   */
+				 * unless you specify property option in new Kamil
+				 * use kamil built-in word label as search key in JSON file
+				 * [{"link":"/","label":"some text to match"},
+				 * {"link":"/pages/contents.html","label":"some text to match"}]
+				 */
 				ac.on("kamilselect", function (e) {
 					var kamilItemLink = e.item.href || "";
 					var handleKamilItem = function () {
@@ -1985,8 +1983,8 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 					};
 					if (kamilItemLink) {
 						/*!
-    * nwjs wont like setImmediate here
-    */
+						 * nwjs wont like setImmediate here
+						 */
 						/* setImmediate(handleKamilItem); */
 						handleKamilItem();
 					}
@@ -1994,10 +1992,10 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			};
 			if (searchForm && textInput) {
 				/* var jsUrl = "./cdn/kamil/0.1.1/js/kamil.fixed.min.js";
-  if (!scriptIsLoaded(jsUrl)) {
-  	var load;
-  	load = new loadJsCss([jsUrl], initScript);
-  } */
+				if (!scriptIsLoaded(jsUrl)) {
+					var load;
+					load = new loadJsCss([jsUrl], initScript);
+				} */
 				initScript();
 			}
 		};
@@ -2027,7 +2025,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var renderNavbarMoreId = "render_navbar_more";
 			var renderNavbarMore = document[getElementById](renderNavbarMoreId) || "";
 			var navigationJsonUrl = "./libs/pwa-englishextra/json/navigation.json";
-			var isActiveClass = "is-active";
 			var processNavigationJsonResponse = function (navigationJsonResponse) {
 				try {
 					var navigationJsonObj = JSON.parse(navigationJsonResponse);
@@ -2099,11 +2096,11 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 					insertFromTemplate(navigationJsonResponse, carouselTemplateId, carouselRenderId, function () {
 						var carousel;
 						carousel = new Carousel({
-							"main": "js-carousel",
-							"wrap": "js-carousel__wrap",
-							"prev": "js-carousel__prev",
-							"next": "js-carousel__next"
-						});
+								"main": "js-carousel",
+								"wrap": "js-carousel__wrap",
+								"prev": "js-carousel__prev",
+								"next": "js-carousel__next"
+							});
 						if (carouselRenderParent) {
 							manageExternalLinkAll(carouselRenderParent);
 							var timers = new Timers();
@@ -2127,7 +2124,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var holderHero = document[getElementsByClassName]("holder-hero")[0] || "";
 			var uiPanelContentsSelect = document[getElementsByClassName]("ui-panel-contents-select")[0] || "";
 			var criticalHeight = (uiPanelNavigation ? uiPanelNavigation.offsetHeight : 0) + (holderHero ? holderHero.offsetHeight : 0);
-			var isFixedClass = "is-fixed";
 			var handleUiPanelContentsSelect = function () {
 				var logicHandleUiPanelContentsSelect = function () {
 					if ((docBody.scrollTop || docElem.scrollTop || 0) > criticalHeight) {
@@ -2140,15 +2136,13 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				throttleLogicHandleUiPanelContentsSelect();
 			};
 			if (uiPanelContentsSelect) {
-				root[_addEventListener]("scroll", handleUiPanelContentsSelect, { passive: true });
+				root[_addEventListener]("scroll", handleUiPanelContentsSelect, {passive: true});
 			}
 		};
 		fixUiPanelContentsSelect();
 
 		var handleOtherSocialButtons = function (_self) {
 			var _this = _self || this;
-			var isActiveClass = "is-active";
-			var isSocialClass = "is-social";
 			var btn = document[getElementsByClassName](isSocialClass) || "";
 			var removeActiveClass = function (e) {
 				if (_this !== e) {
@@ -2174,8 +2168,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 		var manageLocationQrCodeImage = function () {
 			var btn = document[getElementsByClassName]("btn-toggle-holder-location-qr-code")[0] || "";
 			var holder = document[getElementsByClassName]("holder-location-qr-code")[0] || "";
-			var isActiveClass = "is-active";
-			var isSocialClass = "is-social";
 			var locationHref = root.location.href || "";
 			var handleLocationQrCodeButton = function (ev) {
 				ev.stopPropagation();
@@ -2186,32 +2178,32 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 					handleOtherSocialButtons(holder);
 					var locationHref = root.location.href || "";
 					var newImg = document[createElement]("img");
-					var newTitle = document[title] ? "Ссылка на страницу «" + document[title].replace(/\[[^\]]*?\]/g, "").trim() + "»" : "";
+					var newTitle = document[title] ? ("Ссылка на страницу «" + document[title].replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
 					var newSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(locationHref);
 					newImg.alt = newTitle;
 					var initScript = function () {
 						if (root.QRCode) {
 							if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
 								newSrc = QRCode.generateSVG(locationHref, {
-									ecclevel: "M",
-									fillcolor: "#FFFFFF",
-									textcolor: "#191919",
-									margin: 4,
-									modulesize: 8
-								});
+										ecclevel: "M",
+										fillcolor: "#FFFFFF",
+										textcolor: "#191919",
+										margin: 4,
+										modulesize: 8
+									});
 								var XMLS = new XMLSerializer();
 								newSrc = XMLS.serializeToString(newSrc);
 								newSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(newSrc)));
 								newImg.src = newSrc;
 							} else {
 								newSrc = QRCode.generatePNG(locationHref, {
-									ecclevel: "M",
-									format: "html",
-									fillcolor: "#FFFFFF",
-									textcolor: "#191919",
-									margin: 4,
-									modulesize: 8
-								});
+										ecclevel: "M",
+										format: "html",
+										fillcolor: "#FFFFFF",
+										textcolor: "#191919",
+										margin: 4,
+										modulesize: 8
+									});
 								newImg.src = newSrc;
 							}
 						} else {
@@ -2223,12 +2215,12 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 						appendFragment(newImg, holder);
 					};
 					/* var jsUrl = "./cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js";
-   if (!scriptIsLoaded(jsUrl)) {
-   	var load;
-   	load = new loadJsCss([jsUrl], initScript);
-   } else {
-   	initScript();
-   } */
+					if (!scriptIsLoaded(jsUrl)) {
+						var load;
+						load = new loadJsCss([jsUrl], initScript);
+					} else {
+						initScript();
+					} */
 					initScript();
 				};
 				var debounceLogicHandleLocationQrCodeButton = debounce(logicHandleLocationQrCodeButton, 200);
@@ -2248,8 +2240,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var yaShare2Id = "ya-share2";
 			var yaShare2 = document[getElementById](yaShare2Id) || "";
 			var holder = document[getElementsByClassName]("holder-share-buttons")[0] || "";
-			var isActiveClass = "is-active";
-			var isSocialClass = "is-social";
 			var handleShareButton = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
@@ -2305,8 +2295,6 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var holder = document[getElementsByClassName]("holder-vk-like")[0] || "";
 			var vkLikeId = "vk-like";
 			var vkLike = document[getElementById](vkLikeId) || "";
-			var isActiveClass = "is-active";
-			var isSocialClass = "is-social";
 			var handleVKLikeButton = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
@@ -2319,7 +2307,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 							if (!vlike) {
 								try {
 									VK.init({
-										apiId: vkLike[dataset].apiid || "",
+										apiId: (vkLike[dataset].apiid || ""),
 										nameTransportPath: "/xd_receiver.htm",
 										onlyWidgets: true
 									});
@@ -2370,7 +2358,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 					var debugMessage = [];
 					var renderElementsInfo = function (e) {
 						if (e) {
-							debugMessage.push(e.className ? "." + e.className : e.id ? "#" + e.id : e.tagName, " ", root.getComputedStyle(e).getPropertyValue("font-size"), " ", root.getComputedStyle(e).getPropertyValue("line-height"), " ", e.offsetWidth, "x", e.offsetHeight, " \u003e ");
+							debugMessage.push((e.className ? "." + e.className : e.id ? "#" + e.id : e.tagName), " ", root.getComputedStyle(e).getPropertyValue("font-size"), " ", root.getComputedStyle(e).getPropertyValue("line-height"), " ", e.offsetWidth, "x", e.offsetHeight, " \u003e ");
 						}
 					};
 					for (var i = 0, l = elements[_length]; i < l; i += 1) {
@@ -2402,7 +2390,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			};
 			if (page && container && btn) {
 				var locationHref = root.location.href || "";
-				if (locationHref && parseLink(locationHref).hasHTTP && /^(localhost|127.0.0.1)/.test(parseLink(locationHref).hostname)) {
+				if (locationHref && parseLink(locationHref).hasHTTP && (/^(localhost|127.0.0.1)/).test(parseLink(locationHref).hostname)) {
 					btn[_addEventListener]("click", handleDebugGridButton);
 				} else {
 					btn[style].display = "none";
@@ -2414,9 +2402,12 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 		var initRouting = function () {
 			var appContentId = "app-content";
 			var appContent = document[getElementById](appContentId) || "";
-			var appContentParent = appContent[parentNode] || "";
+			var appContentParent;
+			if (appContent) {
+				appContentParent = appContent[parentNode] || "";
+			}
 			/* var contentsSelectTemplate = document[getElementById]("template_contents_select") || "";
-  var contentsSelectRender = document[getElementById]("render_contents_select") || ""; */
+			var contentsSelectRender = document[getElementById]("render_contents_select") || ""; */
 			var contentsSelect = document[getElementsByClassName]("contents-select")[0] || "";
 			var holderContentsSelect = document[getElementsByClassName]("holder-contents-select")[0] || "";
 			var contentsListClass = "contents-list";
@@ -2430,10 +2421,8 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var contentsGridTemplateId = "template_contents_grid";
 			var contentsGridRenderId = "render_contents_grid";
 			var masonryGridClass = "masonry-grid";
-			var isActiveClass = "is-active";
-			var isDropdownClass = "is-dropdown";
 			var routesJsonUrl = "./libs/pwa-englishextra/json/routes.json";
-			var contentsListButtonDefaultText = contentsSelect ? contentsSelect.options[0].firstChild.textContent || "" : "";
+			var contentsListButtonDefaultText = contentsSelect ? (contentsSelect.options[0].firstChild.textContent || "") : "";
 			var processRoutesJsonResponse = function (routesJsonResponse) {
 				var routesJsonObj;
 				try {
@@ -2455,12 +2444,12 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				var renderComments;
 				var triggerOnContentInserted = function (titleString, nextHrefString, asideObj, routesObj) {
 					/* var h1 = contentsSelect || document[getElementById]("h1") || "";
-   var h1Pos = findPos(h1).top || 0;
-   if (h1) {
-   	scroll2Top(h1Pos, 20000);
-   } else {
-   	scroll2Top(0, 20000);
-   } */
+					var h1Pos = findPos(h1).top || 0;
+					if (h1) {
+						scroll2Top(h1Pos, 20000);
+					} else {
+						scroll2Top(0, 20000);
+					} */
 					/* scroll2Top(0, 20000); */
 					/* if (titleString) { */
 					document[title] = (titleString ? titleString + " - " : "") + (initialDocumentTitle ? initialDocumentTitle + (userBrowsingDetails ? userBrowsingDetails : "") : "");
@@ -2476,14 +2465,14 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 							}
 						}
 						/* for (var key in contentsSelect.options) {
-   	if (contentsSelect.options.hasOwnProperty(key)) {
-   		if (locationHash === contentsSelect.options[key].value) {
-   			optionMatched = true;
-   			contentsSelect.selectedIndex = key;
-   			break;
-   		}
-   	}
-   } */
+							if (contentsSelect.options.hasOwnProperty(key)) {
+								if (locationHash === contentsSelect.options[key].value) {
+									optionMatched = true;
+									contentsSelect.selectedIndex = key;
+									break;
+								}
+							}
+						} */
 						if (!optionMatched) {
 							contentsSelect.selectedIndex = 0;
 						}
@@ -2502,14 +2491,14 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 								}
 							}
 							/* for (var key2 in contentsListItems) {
-    	if (contentsListItems.hasOwnProperty(key2)) {
-    		if (locationHash === contentsListItems[key2][dataset][href]) {
-    			itemMatched = true;
-    			contentsListButton.replaceChild(document[createTextNode](contentsListItems[key2].firstChild.textContent), contentsListButton.firstChild);
-    			break;
-    		}
-    	}
-    } */
+								if (contentsListItems.hasOwnProperty(key2)) {
+									if (locationHash === contentsListItems[key2][dataset][href]) {
+										itemMatched = true;
+										contentsListButton.replaceChild(document[createTextNode](contentsListItems[key2].firstChild.textContent), contentsListButton.firstChild);
+										break;
+									}
+								}
+							} */
 							if (!itemMatched) {
 								contentsListButton.replaceChild(document[createTextNode](contentsListButtonDefaultText), contentsListButton.firstChild);
 							}
@@ -2584,16 +2573,21 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 						}
 					}
 					/*!
-   * cache parent node beforehand
-   * put when templates rendered
-   */
+					 * cache parent node beforehand
+					 * put when templates rendered
+					 */
 					if (appContentParent) {
 						manageExternalLinkAll(appContentParent);
 						manageImgLightboxLinkAll(appContentParent);
 						manageIframeLightboxLinkAll(appContentParent);
 						manageChaptersSelect(appContentParent);
 						manageExpandingLayers(appContentParent);
-						handleDataSrcIframeAll();
+						var timers2 = new Timers();
+						timers2.timeout(function () {
+							timers2.clear();
+							timers2 = null;
+							handleDataSrcIframeAll();
+						}, 500);
 						var timers = new Timers();
 						timers.timeout(function () {
 							timers.clear();
@@ -2610,7 +2604,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 					}
 					var locationHash = root.location.hash || "";
 					if (locationHash) {
-						isFound = false;
+						var isFound = false;
 						for (var i = 0, l = routesJsonObj.hashes[_length]; i < l; i += 1) {
 							if (locationHash === routesJsonObj.hashes[i][href]) {
 								isFound = true;
@@ -2630,75 +2624,79 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 							}
 						} */
 						if (false === isFound) {
-							var notfoundUrl = routesJsonObj.notfound.url;
-							var notfoundTitle = routesJsonObj.notfound[title];
-							if (notfoundUrl /* && notfoundTitle */) {
+							if (document[getElementById](locationHash.substring(1))) {
+								root.location.hash = locationHash;
+							} else {
+								var notfoundUrl = routesJsonObj.notfound.url;
+								var notfoundTitle = routesJsonObj.notfound[title];
+								if (notfoundUrl /* && notfoundTitle */) {
 									LoadingSpinner.show();
 									insertExternalHTML(appContentId, notfoundUrl, triggerOnContentInserted.bind(null, notfoundTitle, null, null, routesJsonObj));
 								}
+							}
 						}
 					} else {
 						var homeUrl = routesJsonObj.home.url;
 						var homeTitle = routesJsonObj.home[title];
 						if (homeUrl /* && homeTitle */) {
-								LoadingSpinner.show();
-								insertExternalHTML(appContentId, homeUrl, triggerOnContentInserted.bind(null, homeTitle, null, null, routesJsonObj));
-							}
+							LoadingSpinner.show();
+							insertExternalHTML(appContentId, homeUrl, triggerOnContentInserted.bind(null, homeTitle, null, null, routesJsonObj));
+						}
 					}
 				};
 				handleRoutesWindow();
 				root[_addEventListener]("hashchange", handleRoutesWindow);
 				/*!
-   * insertFromTemplate used in renderTemplate
-   * will remove event listener from select (parent) element,
-   * because it uses fragment method and not inner html
-   * (UPD now you can set last arg as true, and the event listener will work),
-   * so you will have to use inner html method
-   * alternative way to generate select options
-   * with document fragment
-   */
+				 * insertFromTemplate used in renderTemplate
+				 * will remove event listener from select (parent) element,
+				 * because it uses fragment method and not inner html
+				 * (UPD now you can set last arg as true, and the event listener will work),
+				 * so you will have to use inner html method
+				 * alternative way to generate select options
+				 * with document fragment
+				 */
 				/* if (contentsSelectTemplate && contentsSelectRender) {
-  	var contentsSelectHtml = contentsSelectTemplate[innerHTML] || "";
-  	var renderContentsSelectTemplate = new t(contentsSelectHtml);
-  	var contentsSelectRendered = renderContentsSelectTemplate.render(routesJsonObj);
-  	contentsSelectRender[innerHTML] = contentsSelectRendered;
-  } */
+					var contentsSelectHtml = contentsSelectTemplate[innerHTML] || "";
+					var renderContentsSelectTemplate = new t(contentsSelectHtml);
+					var contentsSelectRendered = renderContentsSelectTemplate.render(routesJsonObj);
+					contentsSelectRender[innerHTML] = contentsSelectRendered;
+				} */
 				/* var rerenderContentsSelect = function () {
-  	var handleContentsSelect = function () {
-  		var _this = this;
-  		var hashString = _this.options[_this.selectedIndex].value || "";
-  		if (hashString) {
-  			var targetObj = isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/, "")) || "" : "";
-  			if (targetObj) {
-  				scroll2Top(findPos(targetObj).top, 10000);
-  			} else {
-  				if (hashString.startsWith("#", 0)) {
-  					root.location.hash = hashString;
-  				} else {
-  					root.location.href = hashString;
-  				}
-  			}
-  		}
-  	};
-  	var df = document[createDocumentFragment]();
-  	var generateContentsSelectOptions = function (e) {
-  		if (e[title]) {
-  			var contentsOption = document[createElement]("option");
-  			contentsOption.value = e[href];
-  			var contentsOptionText = e[title];
-  			contentsOption[title] = contentsOptionText;
-  			var contentsOptionTextTruncated = truncString("" + contentsOptionText, 44);
-  			contentsOption[appendChild](document[createTextNode](contentsOptionTextTruncated));
-  			df[appendChild](contentsOption);
-  			df[appendChild](document[createTextNode]("\n"));
-  		}
-  	};
-  	for (var i = 0, l = routesJsonObj.hashes[_length]; i < l; i += 1) {
-  		generateContentsSelectOptions(routesJsonObj.hashes[i]);
-  	}
-  	appendFragment(df, contentsSelectRender);
-  	contentsSelect[_addEventListener]("change", handleContentsSelect);
-  }; */
+					var handleContentsSelect = function () {
+						var _this = this;
+						var hashString = _this.options[_this.selectedIndex].value || "";
+						if (hashString) {
+							var targetObj = isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/, "")) || "" : "";
+							if (targetObj) {
+								scroll2Top(findPos(targetObj).top, 10000);
+							} else {
+								if (hashString.startsWith("#", 0)) {
+									root.location.hash = hashString;
+								} else {
+									root.location.href = hashString;
+								}
+							}
+						}
+					};
+					var df = document[createDocumentFragment]();
+					var generateContentsSelectOptions = function (e) {
+						if (e[title]) {
+							var contentsOption = document[createElement]("option");
+							contentsOption.value = e[href];
+							var contentsOptionText = e[title];
+							contentsOption[title] = contentsOptionText;
+							var contentsOptionTextTruncated = truncString("" + contentsOptionText, 44);
+							contentsOption[appendChild](document[createTextNode](contentsOptionTextTruncated));
+							df[appendChild](contentsOption);
+							df[appendChild](document[createTextNode]("\n"));
+						}
+					};
+					for (var i = 0, l = routesJsonObj.hashes[_length]; i < l; i += 1) {
+						generateContentsSelectOptions(routesJsonObj.hashes[i]);
+					}
+					appendFragment(df, contentsSelectRender);
+					contentsSelect[_addEventListener]("change", handleContentsSelect);
+				}; */
 				var rerenderContentsList = function () {
 					var handleContentsListItem = function (listObj, hashString) {
 						if (hashString) {
@@ -2765,8 +2763,8 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				};
 				if (contentsSelect) {
 					/* if (contentsSelectRender) {
-   	rerenderContentsSelect();
-   } */
+						rerenderContentsSelect();
+					} */
 					if (holderContentsSelect) {
 						rerenderContentsList();
 					}
@@ -2779,56 +2777,55 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 		initRouting();
 
 		/* var observeMutations = function (scope) {
- 	var ctx = scope && scope.nodeName ? scope : "";
- 	var mo;
- 	var getMutations = function (e) {
- 		var triggerOnMutation = function (m) {
- 			console.log("mutations observer: " + m.type);
- 			console.log(m.type, "target: " + m.target.tagName + ("." + m.target.className || "#" + m.target.id || ""));
- 			console.log(m.type, "added: " + m.addedNodes[_length] + " nodes");
- 			console.log(m.type, "removed: " + m.removedNodes[_length] + " nodes");
- 			if ("childList" === m.type || "subtree" === m.type) {
- 				mo.disconnect();
- 			}
- 		};
- 		for (var i = 0, l = e[_length]; i < l; i += 1) {
- 			triggerOnMutation(e[i]);
- 		}
- 	};
- 	if (ctx) {
- 		mo = new MutationObserver(getMutations);
- 		mo.observe(ctx, {
- 			childList: !0,
- 			subtree: !0,
- 			attributes: !1,
- 			characterData: !1
- 		});
- 	}
- }; */
+			var ctx = scope && scope.nodeName ? scope : "";
+			var mo;
+			var getMutations = function (e) {
+				var triggerOnMutation = function (m) {
+					console.log("mutations observer: " + m.type);
+					console.log(m.type, "target: " + m.target.tagName + ("." + m.target.className || "#" + m.target.id || ""));
+					console.log(m.type, "added: " + m.addedNodes[_length] + " nodes");
+					console.log(m.type, "removed: " + m.removedNodes[_length] + " nodes");
+					if ("childList" === m.type || "subtree" === m.type) {
+						mo.disconnect();
+					}
+				};
+				for (var i = 0, l = e[_length]; i < l; i += 1) {
+					triggerOnMutation(e[i]);
+				}
+			};
+			if (ctx) {
+				mo = new MutationObserver(getMutations);
+				mo.observe(ctx, {
+					childList: !0,
+					subtree: !0,
+					attributes: !1,
+					characterData: !1
+				});
+			}
+		}; */
 		/*!
-  * apply changes to inserted DOM
-  * because replace child is used in the first place
-  * to insert new content, and if parent node doesnt exist
-  * inner html method is applied,
-  * the parent node should be observed, not the target
-  * node for the insertion
-  */
+		 * apply changes to inserted DOM
+		 * because replace child is used in the first place
+		 * to insert new content, and if parent node doesnt exist
+		 * inner html method is applied,
+		 * the parent node should be observed, not the target
+		 * node for the insertion
+		 */
 		/* var updateInsertedDom = function () {
- 	var getElementById = "getElementById";
- 	var parentNode = "parentNode";
- 	var ctx = document[getElementById]("app-content")[parentNode] || "";
- 	var locationHash = root.location.hash || "";
- 	if (ctx && locationHash) {
- 		console.log("triggered function: updateInsertedDom");
- 		observeMutations(ctx);
- 	}
- };
- root[_addEventListener]("hashchange", updateInsertedDom); */
+			var getElementById = "getElementById";
+			var parentNode = "parentNode";
+			var ctx = document[getElementById]("app-content")[parentNode] || "";
+			var locationHash = root.location.hash || "";
+			if (ctx && locationHash) {
+				console.log("triggered function: updateInsertedDom");
+				observeMutations(ctx);
+			}
+		};
+		root[_addEventListener]("hashchange", updateInsertedDom); */
 
 		var initUiTotop = function () {
 			var btnClass = "ui-totop";
 			var btnTitle = "Наверх";
-			var isActiveClass = "is-active";
 			var anchor = document[createElement]("a");
 			var insertUpSvg = function (targetObj) {
 				var svg = document[createElementNS]("http://www.w3.org/2000/svg", "svg");
@@ -2868,7 +2865,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			docBody[appendChild](anchor);
 			if (docBody) {
 				anchor[_addEventListener]("click", handleUiTotopAnchor);
-				root[_addEventListener]("scroll", handleUiTotopWindow, { passive: true });
+				root[_addEventListener]("scroll", handleUiTotopWindow, {passive: true});
 			}
 		};
 		initUiTotop();
@@ -2876,50 +2873,71 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 		hideProgressBar();
 	};
 
-	var scripts = ["./libs/pwa-englishextra/css/bundle.min.css"];
+	/* var scripts = ["./libs/pwa-englishextra/css/bundle.min.css"]; */
+	var scripts = [];
 
-	var supportsPassive = function () {
+	var supportsPassive = (function () {
 		var support = false;
 		try {
 			var opts = Object[defineProperty] && Object[defineProperty]({}, "passive", {
-				get: function () {
-					support = true;
-				}
-			});
+					get: function () {
+						support = true;
+					}
+				});
 			root[_addEventListener]("test", function () {}, opts);
 		} catch (err) {}
 		return support;
-	}();
+	})();
 
-	var needsPolyfills = function () {
-		return !String.prototype.startsWith || !supportsPassive || !root.requestAnimationFrame || !root.matchMedia || "undefined" === typeof root.Element && !("dataset" in docElem) || !("classList" in document[createElement]("_")) || document[createElementNS] && !("classList" in document[createElementNS]("http://www.w3.org/2000/svg", "g")) ||
+	var needsPolyfills = (function () {
+		return !String.prototype.startsWith ||
+		!supportsPassive ||
+		!root.requestAnimationFrame ||
+		!root.matchMedia ||
+		("undefined" === typeof root.Element && !("dataset" in docElem)) ||
+		!("classList" in document[createElement]("_")) ||
+		document[createElementNS] && !("classList" in document[createElementNS]("http://www.w3.org/2000/svg", "g")) ||
 		/* !document.importNode || */
 		/* !("content" in document[createElement]("template")) || */
-		root.attachEvent && !root[_addEventListener] || !("onhashchange" in root) || !Array.prototype.indexOf || !root.Promise || !root.fetch || !document[querySelectorAll] || !document[querySelector] || !Function.prototype.bind || Object[defineProperty] && Object[getOwnPropertyDescriptor] && Object[getOwnPropertyDescriptor](Element.prototype, "textContent") && !Object[getOwnPropertyDescriptor](Element.prototype, "textContent").get || !("undefined" !== typeof root.localStorage && "undefined" !== typeof root.sessionStorage) || !root.WeakMap || !root.MutationObserver;
-	}();
+		(root.attachEvent && !root[_addEventListener]) ||
+		!("onhashchange" in root) ||
+		!Array.prototype.indexOf ||
+		!root.Promise ||
+		!root.fetch ||
+		!document[querySelectorAll] ||
+		!document[querySelector] ||
+		!Function.prototype.bind ||
+		(Object[defineProperty] &&
+			Object[getOwnPropertyDescriptor] &&
+			Object[getOwnPropertyDescriptor](Element.prototype, "textContent") &&
+			!Object[getOwnPropertyDescriptor](Element.prototype, "textContent").get) ||
+		!("undefined" !== typeof root.localStorage && "undefined" !== typeof root.sessionStorage) ||
+		!root.WeakMap ||
+		!root.MutationObserver;
+	})();
 
 	if (needsPolyfills) {
 		scripts.push("./cdn/polyfills/js/polyfills.fixed.min.js");
 	}
 
 	/* var scripts = ["./cdn/t.js/0.1.0/js/t.fixed.min.js",
- 	"./cdn/verge/1.9.1/js/verge.fixed.min.js",
- 	"./cdn/iframe-lightbox/0.1.6/js/iframe-lightbox.fixed.min.js",
- 	"./cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js",
- 	"./cdn/js-cookie/2.1.3/js/js.cookie.fixed.min.js",
- 	"./cdn/kamil/0.1.1/js/kamil.fixed.min.js",
- 	"./cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js"]; */
+		"./cdn/verge/1.9.1/js/verge.fixed.min.js",
+		"./cdn/iframe-lightbox/0.1.6/js/iframe-lightbox.fixed.min.js",
+		"./cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js",
+		"./cdn/js-cookie/2.1.3/js/js.cookie.fixed.min.js",
+		"./cdn/kamil/0.1.1/js/kamil.fixed.min.js",
+		"./cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js"]; */
 
 	scripts.push("./libs/pwa-englishextra/js/vendors.min.js");
 
 	/*!
- * load scripts after webfonts loaded using doesFontExist
- */
+	 * load scripts after webfonts loaded using doesFontExist
+	 */
 
-	var supportsCanvas = function () {
+	var supportsCanvas = (function () {
 		var elem = document[createElement]("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
-	}();
+	})();
 
 	var onFontsLoadedCallback = function () {
 
@@ -2936,11 +2954,11 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 
 		var checkFontIsLoaded = function () {
 			/*!
-  * check only for fonts that are used in current page
-  */
+			 * check only for fonts that are used in current page
+			 */
 			if (doesFontExist("Roboto") /* && doesFontExist("Roboto Mono") */) {
-					onFontsLoaded();
-				}
+				onFontsLoaded();
+			}
 		};
 
 		if (supportsCanvas) {
@@ -2951,47 +2969,54 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 		}
 	};
 
-	loadCSS(forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic,latin-ext", onFontsLoadedCallback);
+	loadCSS(
+			/* forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic,latin-ext", */
+			"./libs/pwa-englishextra/css/bundle.min.css",
+			onFontsLoadedCallback
+		);
 
 	/*!
- * load scripts after webfonts loaded using webfontloader
- */
+	 * load scripts after webfonts loaded using webfontloader
+	 */
 
 	/* root.WebFontConfig = {
- 	google: {
- 		families: [
- 			"Roboto:300,400,400i,700,700i:cyrillic",
- 			"Roboto Mono:400,700:cyrillic,latin-ext"
- 		]
- 	},
- 	listeners: [],
- 	active: function () {
- 		this.called_ready = true;
- 		for (var i = 0; i < this.listeners[_length]; i++) {
- 			this.listeners[i]();
- 		}
- 	},
- 	ready: function (callback) {
- 		if (this.called_ready) {
- 			callback();
- 		} else {
- 			this.listeners.push(callback);
- 		}
- 	}
- };
- 	var onFontsLoadedCallback = function () {
- 		var onFontsLoaded = function () {
- 		progressBar.increase(20);
- 			var load;
- 		load = new loadJsCss(scripts, run);
- 	};
- 		root.WebFontConfig.ready(onFontsLoaded);
- };
- 	var load;
- load = new loadJsCss(
- 		[forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"],
- 		onFontsLoadedCallback
- 	); */
-})("undefined" !== typeof window ? window : this, document);
+		google: {
+			families: [
+				"Roboto:300,400,400i,700,700i:cyrillic",
+				"Roboto Mono:400,700:cyrillic,latin-ext"
+			]
+		},
+		listeners: [],
+		active: function () {
+			this.called_ready = true;
+			for (var i = 0; i < this.listeners[_length]; i++) {
+				this.listeners[i]();
+			}
+		},
+		ready: function (callback) {
+			if (this.called_ready) {
+				callback();
+			} else {
+				this.listeners.push(callback);
+			}
+		}
+	};
 
-//# sourceMappingURL=bundle.js.map
+	var onFontsLoadedCallback = function () {
+
+		var onFontsLoaded = function () {
+			progressBar.increase(20);
+
+			var load;
+			load = new loadJsCss(scripts, run);
+		};
+
+		root.WebFontConfig.ready(onFontsLoaded);
+	};
+
+	var load;
+	load = new loadJsCss(
+			[forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"],
+			onFontsLoadedCallback
+		); */
+})("undefined" !== typeof window ? window : this, document);
