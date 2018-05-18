@@ -966,7 +966,8 @@
 		hideProgressBar();
 	};
 
-	var scripts = ["../libs/comments/css/bundle.min.css"];
+	/* var scripts = ["../libs/comments/css/bundle.min.css"]; */
+	var scripts = [];
 
 	var supportsPassive = (function () {
 		var support = false;
@@ -1057,7 +1058,8 @@
 	};
 
 	loadCSS(
-			forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic,latin-ext",
+			/* forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic,latin-ext", */
+			"../libs/comments/css/bundle.min.css",
 			onFontsLoadedCallback
 		);
 

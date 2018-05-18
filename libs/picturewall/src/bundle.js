@@ -1258,7 +1258,8 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 		}
 	};
 
-	var scripts = ["./libs/picturewall/css/bundle.min.css"];
+	/* var scripts = ["./libs/picturewall/css/bundle.min.css"]; */
+	var scripts = [];
 
 	var supportsPassive = (function () {
 		var support = false;
@@ -1353,7 +1354,8 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 	};
 
 	loadCSS(
-			forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:400,700&subset=cyrillic",
+			/* forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:400,700&subset=cyrillic", */
+			"./libs/picturewall/css/bundle.min.css",
 			onFontsLoadedCallback
 		);
 

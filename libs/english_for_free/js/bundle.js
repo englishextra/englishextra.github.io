@@ -7,9 +7,8 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
  * safe way to handle console.log
  * @see {@link https://github.com/paulmillr/console-polyfill}
  */
-(function (root) {
+(function(root){
 	"use strict";
-
 	if (!root.console) {
 		root.console = {};
 	}
@@ -18,14 +17,16 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 	var method;
 	var dummy = function () {};
 	var properties = ["memory"];
-	var methods = ["assert,clear,count,debug,dir,dirxml,error,exception,group,", "groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd,", "show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn"];
+	var methods = ["assert,clear,count,debug,dir,dirxml,error,exception,group,",
+		"groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd,",
+		"show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn"];
 	methods.join("").split(",");
-	for (; prop = properties.pop();) {
+	for (; (prop = properties.pop()); ) {
 		if (!con[prop]) {
 			con[prop] = {};
 		}
 	}
-	for (; method = methods.pop();) {
+	for (; (method = methods.pop()); ) {
 		if (!con[method]) {
 			con[method] = dummy;
 		}
@@ -47,8 +48,7 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
  */
 (function (root, document, undefined) {
 	"use strict";
-
-	var ToProgress = function () {
+	var ToProgress = (function () {
 		var TP = function () {
 			var _addEventListener = "addEventListener";
 			var appendChild = "appendChild";
@@ -63,7 +63,7 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var style = "style";
 			function whichTransitionEvent() {
 				var t,
-				  el = document[createElement]("fakeelement");
+				el = document[createElement]("fakeelement");
 				var transitions = {
 					"transition": "transitionend",
 					"OTransition": "oTransitionEnd",
@@ -193,7 +193,7 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			return ToProgress;
 		};
 		return TP();
-	}();
+	})();
 	root.ToProgress = ToProgress;
 })("undefined" !== typeof window ? window : this, document);
 /*!
@@ -217,7 +217,6 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
  */
 (function (root) {
 	"use strict";
-
 	var imagePromise = function (s) {
 		if (root.Promise) {
 			return new Promise(function (y, n) {
@@ -296,7 +295,6 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
  */
 (function (root, document) {
 	"use strict";
-
 	var doesFontExist = function (fontName) {
 		var createElement = "createElement";
 		var getContext = "getContext";
@@ -331,7 +329,6 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
  */
 (function (root, document) {
 	"use strict";
-
 	var loadCSS = function (_href, callback) {
 		var ref = document.getElementsByTagName("head")[0] || "";
 		var link = document.createElement("link");
@@ -356,7 +353,6 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
  */
 (function (root, document) {
 	"use strict";
-
 	var loadJsCss = function (files, callback) {
 		var _this = this;
 		var appendChild = "appendChild";
@@ -401,12 +397,13 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 				(_this.body || _this.head)[appendChild](script);
 			}
 		};
-		var i, l;
+		var i,
+		l;
 		for (i = 0, l = _this.files[_length]; i < l; i += 1) {
-			if (/\.js$|\.js\?/.test(_this.files[i])) {
+			if ((/\.js$|\.js\?/).test(_this.files[i])) {
 				_this.js.push(_this.files[i]);
 			}
-			if (/\.css$|\.css\?|\/css\?/.test(_this.files[i])) {
+			if ((/\.css$|\.css\?|\/css\?/).test(_this.files[i])) {
 				_this.loadStyle(_this.files[i]);
 			}
 		}
@@ -434,16 +431,16 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 	var defineProperty = "defineProperty";
 	var getOwnPropertyDescriptor = "getOwnPropertyDescriptor";
 	var querySelector = "querySelector";
-	var querySelectorAll = "querySelectorAll";var _addEventListener = "addEventListener";
+	var querySelectorAll = "querySelectorAll";	var _addEventListener = "addEventListener";
 	var _length = "length";
 
 	var progressBar = new ToProgress({
-		id: "top-progress-bar",
-		color: "#FF2C40",
-		height: "0.200rem",
-		duration: 0.2,
-		zIndex: 999
-	});
+			id: "top-progress-bar",
+			color: "#FF2C40",
+			height: "0.200rem",
+			duration: 0.2,
+			zIndex: 999
+		});
 
 	var hideProgressBar = function () {
 		progressBar.finish();
@@ -451,9 +448,9 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 	};
 
 	/* progressBar.complete = function () {
- 	return this.finish(),
- 	this.hide();
- }; */
+		return this.finish(),
+		this.hide();
+	}; */
 
 	progressBar.increase(20);
 
@@ -489,7 +486,7 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			docElem[classList].add("js");
 		}
 
-		var earlyDeviceFormfactor = function (selectors) {
+		var earlyDeviceFormfactor = (function (selectors) {
 			var orientation;
 			var size;
 			var f = function (a) {
@@ -560,38 +557,38 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 				orientation: orientation || "",
 				size: size || ""
 			};
-		}(docElem[classList] || "");
+		})(docElem[classList] || "");
 
-		var earlyDeviceType = function (mobile, desktop, opera) {
-			var selector = /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(opera) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(opera.substr(0, 4)) ? mobile : desktop;
+		var earlyDeviceType = (function (mobile, desktop, opera) {
+			var selector = (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i).test(opera) || (/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i).test(opera.substr(0, 4)) ? mobile : desktop;
 			docElem[classList].add(selector);
 			return selector;
-		}("mobile", "desktop", navigator.userAgent || navigator.vendor || root.opera);
+		})("mobile", "desktop", navigator.userAgent || navigator.vendor || (root).opera);
 
-		var earlySvgSupport = function (selector) {
+		var earlySvgSupport = (function (selector) {
 			selector = docImplem.hasFeature("http://www.w3.org/2000/svg", "1.1") ? selector : "no-" + selector;
 			docElem[classList].add(selector);
 			return selector;
-		}("svg");
+		})("svg");
 
-		var earlySvgasimgSupport = function (selector) {
+		var earlySvgasimgSupport = (function (selector) {
 			selector = docImplem.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1") ? selector : "no-" + selector;
 			docElem[classList].add(selector);
 			return selector;
-		}("svgasimg");
+		})("svgasimg");
 
-		var earlyHasTouch = function (selector) {
+		var earlyHasTouch = (function (selector) {
 			selector = "ontouchstart" in docElem ? selector : "no-" + selector;
 			docElem[classList].add(selector);
 			return selector;
-		}("touch");
+		})("touch");
 
-		var getHumanDate = function () {
-			var newDate = new Date();
+		var getHumanDate = (function () {
+			var newDate = (new Date());
 			var newDay = newDate.getDate();
 			var newYear = newDate.getFullYear();
 			var newMonth = newDate.getMonth();
-			newMonth += 1;
+			(newMonth += 1);
 			if (10 > newDay) {
 				newDay = "0" + newDay;
 			}
@@ -599,7 +596,7 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 				newMonth = "0" + newMonth;
 			}
 			return newYear + "-" + newMonth + "-" + newDay;
-		}();
+		})();
 
 		var userBrowsingDetails = " [" + (getHumanDate ? getHumanDate : "") + (earlyDeviceType ? " " + earlyDeviceType : "") + (earlyDeviceFormfactor.orientation ? " " + earlyDeviceFormfactor.orientation : "") + (earlyDeviceFormfactor.size ? " " + earlyDeviceFormfactor.size : "") + (earlySvgSupport ? " " + earlySvgSupport : "") + (earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") + (earlyHasTouch ? " " + earlyHasTouch : "") + "]";
 
@@ -608,7 +605,9 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 		}
 
 		var scriptIsLoaded = function (scriptSrc) {
-			var scriptAll, i, l;
+			var scriptAll,
+			i,
+			l;
 			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[_length]; i < l; i += 1) {
 				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
 					scriptAll = i = l = null;
@@ -621,7 +620,7 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 
 		var removeChildren = function (e) {
 			if (e && e.firstChild) {
-				for (; e.firstChild;) {
+				for (; e.firstChild; ) {
 					e.removeChild(e.firstChild);
 				}
 			}
@@ -682,13 +681,13 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 					return Math.sin(pos * (Math.PI / 2));
 				},
 				easeInOutSine: function (pos) {
-					return -0.5 * (Math.cos(Math.PI * pos) - 1);
+					return (-0.5 * (Math.cos(Math.PI * pos) - 1));
 				},
 				easeInOutQuint: function (pos) {
 					if ((pos /= 0.5) < 1) {
 						return 0.5 * Math.pow(pos, 5);
 					}
-					return 0.5 * (Math.pow(pos - 2, 5) + 2);
+					return 0.5 * (Math.pow((pos - 2), 5) + 2);
 				}
 			};
 			function tick() {
@@ -697,7 +696,7 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 				var t = easingEquations[soothing](p);
 				if (p < 1) {
 					requestAnimationFrame(tick);
-					root.scrollTo(0, scrollY + (posY - scrollY) * t);
+					root.scrollTo(0, scrollY + ((posY - scrollY) * t));
 				} else {
 					root.scrollTo(0, posY);
 				}
@@ -715,7 +714,7 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 				args = [].slice.call(arguments, 0);
 				timestamp = new Date();
 				var later = function () {
-					var last = new Date() - timestamp;
+					var last = (new Date()) - timestamp;
 					if (last < wait) {
 						timeout = setTimeout(later, wait - last);
 					} else {
@@ -760,22 +759,22 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 		/*jshint bitwise: false */
 		var parseLink = function (url, full) {
 			var _full = full || "";
-			return function () {
+			return (function () {
 				var _replace = function (s) {
 					return s.replace(/^(#|\?)/, "").replace(/\:$/, "");
 				};
 				var _location = location || "";
 				var _protocol = function (protocol) {
 					switch (protocol) {
-						case "http:":
-							return _full ? ":" + 80 : 80;
-						case "https:":
-							return _full ? ":" + 443 : 443;
-						default:
-							return _full ? ":" + _location.port : _location.port;
+					case "http:":
+						return _full ? ":" + 80 : 80;
+					case "https:":
+						return _full ? ":" + 443 : 443;
+					default:
+						return _full ? ":" + _location.port : _location.port;
 					}
 				};
-				var _isAbsolute = 0 === url.indexOf("//") || !!~url.indexOf("://");
+				var _isAbsolute = (0 === url.indexOf("//") || !!~url.indexOf("://"));
 				var _locationHref = root.location || "";
 				var _origin = function () {
 					var o = _locationHref.protocol + "//" + _locationHref.hostname + (_locationHref.port ? ":" + _locationHref.port : "");
@@ -793,25 +792,25 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 					href: _link.href,
 					origin: _origin(),
 					host: _link.host || _location.host,
-					port: "0" === _link.port || "" === _link.port ? _protocol(_link.protocol) : _full ? _link.port : _replace(_link.port),
+					port: ("0" === _link.port || "" === _link.port) ? _protocol(_link.protocol) : (_full ? _link.port : _replace(_link.port)),
 					hash: _full ? _link.hash : _replace(_link.hash),
 					hostname: _link.hostname || _location.hostname,
-					pathname: _link.pathname.charAt(0) !== "/" ? _full ? "/" + _link.pathname : _link.pathname : _full ? _link.pathname : _link.pathname.slice(1),
-					protocol: !_link.protocol || ":" === _link.protocol ? _full ? _location.protocol : _replace(_location.protocol) : _full ? _link.protocol : _replace(_link.protocol),
+					pathname: _link.pathname.charAt(0) !== "/" ? (_full ? "/" + _link.pathname : _link.pathname) : (_full ? _link.pathname : _link.pathname.slice(1)),
+					protocol: !_link.protocol || ":" === _link.protocol ? (_full ? _location.protocol : _replace(_location.protocol)) : (_full ? _link.protocol : _replace(_link.protocol)),
 					search: _full ? _link.search : _replace(_link.search),
 					query: _full ? _link.search : _replace(_link.search),
 					isAbsolute: _isAbsolute,
 					isRelative: !_isAbsolute,
 					isCrossDomain: _isCrossDomain(),
-					hasHTTP: /^(http|https):\/\//i.test(url) ? true : false
+					hasHTTP: (/^(http|https):\/\//i).test(url) ? true : false
 				};
-			}();
+			})();
 		};
 		/*jshint bitwise: true */
 
 		var isNodejs = "undefined" !== typeof process && "undefined" !== typeof require || "";
 		var isElectron = "undefined" !== typeof root && root.process && "renderer" === root.process.type || "";
-		var isNwjs = function () {
+		var isNwjs = (function () {
 			if ("undefined" !== typeof isNodejs && isNodejs) {
 				try {
 					if ("undefined" !== typeof require("nw.gui")) {
@@ -822,7 +821,7 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 				}
 			}
 			return false;
-		}();
+		})();
 
 		var openDeviceBrowser = function (url) {
 			var triggerForElectron = function () {
@@ -845,7 +844,7 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 				triggerForNwjs();
 			} else {
 				var locationProtocol = root.location.protocol || "",
-				  hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
+				hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
 				if (hasHTTP) {
 					triggerForHTTP();
 				} else {
@@ -905,7 +904,7 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 							}
 							imagePromise(srcString).then(function () {
 								e.src = srcString;
-							}).catch(function (err) {
+							}).catch (function (err) {
 								console.log("cannot load image with imagePromise:", srcString, err);
 							});
 							e[classList].add(isActiveClass);
@@ -925,13 +924,9 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			throttleHandleDataSrcImageAll();
 		};
 		var manageDataSrcImageAll = function () {
-			root[_removeEventListener]("scroll", handleDataSrcImageAllWindow, {
-				passive: true
-			});
+			root[_removeEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
 			root[_removeEventListener]("resize", handleDataSrcImageAllWindow);
-			root[_addEventListener]("scroll", handleDataSrcImageAllWindow, {
-				passive: true
-			});
+			root[_addEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
 			root[_addEventListener]("resize", handleDataSrcImageAllWindow);
 			var timers = new Timers();
 			timers.timeout(function () {
@@ -943,19 +938,19 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 		manageDataSrcImageAll();
 
 		/*!
-  * init superbox
-  * If you want coords relative to the parent node, use element.offsetTop.
-  * Add element.scrollTop if you want to take the parent scrolling into account.
-  * (or use jQuery .position() if you are fan of that library)
-  * If you want coords relative to the document use element.getBoundingClientRect().top.
-  * Add root.pageYOffset if you want to take the document scrolling into account.
-  * Subtract element.clientTop if you don't consider the element border as the part of the element
-  * @see {@link https://stackoverflow.com/questions/6777506/offsettop-vs-jquery-offset-top}
-  * In IE<=11, calling getBoundingClientRect on an element outside of the DOM
-  * throws an unspecified error instead of returning a 0x0 DOMRect. See IE bug #829392.
-  * caniuse.com/#feat=getboundingclientrect
-  * @see {@link https://stackoverflow.com/questions/3464876/javascript-get-window-x-y-position-for-scroll}
-  */
+		 * init superbox
+		 * If you want coords relative to the parent node, use element.offsetTop.
+		 * Add element.scrollTop if you want to take the parent scrolling into account.
+		 * (or use jQuery .position() if you are fan of that library)
+		 * If you want coords relative to the document use element.getBoundingClientRect().top.
+		 * Add root.pageYOffset if you want to take the document scrolling into account.
+		 * Subtract element.clientTop if you don't consider the element border as the part of the element
+		 * @see {@link https://stackoverflow.com/questions/6777506/offsettop-vs-jquery-offset-top}
+		 * In IE<=11, calling getBoundingClientRect on an element outside of the DOM
+		 * throws an unspecified error instead of returning a 0x0 DOMRect. See IE bug #829392.
+		 * caniuse.com/#feat=getboundingclientrect
+		 * @see {@link https://stackoverflow.com/questions/3464876/javascript-get-window-x-y-position-for-scroll}
+		 */
 		var initSuperBox = function () {
 			var s1 = "superbox-list";
 			var s2 = "superbox-show";
@@ -977,8 +972,8 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 				sShowDiv[appendChild](sShowDivChild);
 				sCloseDiv[classList].add(s4);
 				/*!
-   * dont use appendAfter
-   */
+				 * dont use appendAfter
+				 */
 				_this.parentNode.insertBefore(sShowDiv, _this.nextElementSibling);
 				var sShow = document[getElementsByClassName](s2)[0] || "";
 				setStyleDisplayBlock(sShow);
@@ -999,17 +994,17 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 				sCurDesc[classList].add(an);
 				sCurDesc[classList].add(an1);
 				/*!
-   * track clicks on external links
-   */
+				 * track clicks on external links
+				 */
 				var link = sCurDesc ? sCurDesc[getElementsByTagName]("a") || "" : "";
 				if (link) {
 					var createCounterImg = function () {
 						var _this = this;
 						var rfrr = encodeURIComponent(root.location.href || ""),
-						  ttl = encodeURIComponent(document[title] || "").replace("\x27", "&#39;"),
-						  hrefString = _this[getAttribute]("href") || "",
-						  dmn = hrefString ? encodeURIComponent(hrefString) : "",
-						  counterHost = /^(localhost|127.0.0.1)/.test(root.location.host) ? "http://localhost/externalcounters/" : "";
+						ttl = encodeURIComponent(document[title] || "").replace("\x27", "&#39;"),
+						hrefString = _this[getAttribute]("href") || "",
+						dmn = hrefString ? encodeURIComponent(hrefString) : "",
+						counterHost = (/^(localhost|127.0.0.1)/).test(root.location.host) ? "http://localhost/externalcounters/" : "";
 						if (counterHost) {
 							var counterElement = document[createElement]("div");
 							counterElement[setAttribute]("style", "position:absolute;left:-9999px;width:1px;height:1px;border:0;background:transparent url(" + counterHost + "?dmn=" + dmn + "&rfrr=" + rfrr + "&ttl=" + ttl + "&encoding=utf-8) top left no-repeat;");
@@ -1018,7 +1013,7 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 					};
 					var trackClicks = function (e) {
 						var hrefString = e[getAttribute]("href") || "",
-						  handleSuperboxExternalLink = function (ev) {
+						handleSuperboxExternalLink = function (ev) {
 							ev.preventDefault();
 							ev.stopPropagation();
 							var _this = this;
@@ -1039,8 +1034,8 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 					/* forEach(link, trackClicks, false); */
 				}
 				/*!
-   * hide description
-   */
+				 * hide description
+				 */
 				var sClose = sCurDesc ? sCurDesc[getElementsByClassName](s4)[0] || "" : "";
 				var doOnClose = function () {
 					var timers = new Timers();
@@ -1097,31 +1092,31 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 					qcode = true;
 					var locationHref = root.location.href || "";
 					var img = document[createElement]("img");
-					var imgTitle = document.title ? "Ссылка на страницу «" + document.title.replace(/\[[^\]]*?\]/g, "").trim() + "»" : "";
+					var imgTitle = document.title ? ("Ссылка на страницу «" + document.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
 					var imgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(locationHref);
 					img.alt = imgTitle;
 					if (root.QRCode) {
 						if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
 							imgSrc = QRCode.generateSVG(locationHref, {
-								ecclevel: "M",
-								fillcolor: "#FFFFFF",
-								textcolor: "#191919",
-								margin: 4,
-								modulesize: 8
-							});
+									ecclevel: "M",
+									fillcolor: "#FFFFFF",
+									textcolor: "#191919",
+									margin: 4,
+									modulesize: 8
+								});
 							var XMLS = new XMLSerializer();
 							imgSrc = XMLS.serializeToString(imgSrc);
 							imgSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(imgSrc)));
 							img.src = imgSrc;
 						} else {
 							imgSrc = QRCode.generatePNG(locationHref, {
-								ecclevel: "M",
-								format: "html",
-								fillcolor: "#FFFFFF",
-								textcolor: "#191919",
-								margin: 4,
-								modulesize: 8
-							});
+									ecclevel: "M",
+									format: "html",
+									fillcolor: "#FFFFFF",
+									textcolor: "#191919",
+									margin: 4,
+									modulesize: 8
+								});
 							img.src = imgSrc;
 						}
 					} else {
@@ -1136,12 +1131,12 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			if (holder && locationHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					/* var jsUrl = "../../cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js";
-   if (!scriptIsLoaded(jsUrl)) {
-   	var load;
-   	load = new loadJsCss([jsUrl], initScript);
-   } else {
-   	initScript();
-   } */
+					if (!scriptIsLoaded(jsUrl)) {
+						var load;
+						load = new loadJsCss([jsUrl], initScript);
+					} else {
+						initScript();
+					} */
 					initScript();
 				}
 			}
@@ -1341,7 +1336,8 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var isActiveClass = "is-active";
 			var isSocialAll = document[getElementsByClassName]("is-social") || "";
 			if (isSocialAll) {
-				var k, n;
+				var k,
+				n;
 				for (k = 0, n = isSocialAll[_length]; k < n; k += 1) {
 					if (_thisObj !== isSocialAll[k]) {
 						isSocialAll[k][classList].remove(isActiveClass);
@@ -1428,7 +1424,7 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 							if (!vlike) {
 								try {
 									VK.init({
-										apiId: vkLike[dataset].apiid || "",
+										apiId: (vkLike[dataset].apiid || ""),
 										nameTransportPath: "/xd_receiver.htm",
 										onlyWidgets: true
 									});
@@ -1508,45 +1504,66 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 		hideProgressBar();
 	};
 
-	var scripts = ["../../libs/english_for_free/css/bundle.min.css"];
+	/* var scripts = ["../../libs/english_for_free/css/bundle.min.css"]; */
+	var scripts = [];
 
-	var supportsPassive = function () {
+	var supportsPassive = (function () {
 		var support = false;
 		try {
 			var opts = Object[defineProperty] && Object[defineProperty]({}, "passive", {
-				get: function () {
-					support = true;
-				}
-			});
+					get: function () {
+						support = true;
+					}
+				});
 			root[_addEventListener]("test", function () {}, opts);
 		} catch (err) {}
 		return support;
-	}();
+	})();
 
-	var needsPolyfills = function () {
-		return !String.prototype.startsWith || !supportsPassive || !root.requestAnimationFrame || !root.matchMedia || "undefined" === typeof root.Element && !("dataset" in docElem) || !("classList" in document[createElement]("_")) || document[createElementNS] && !("classList" in document[createElementNS]("http://www.w3.org/2000/svg", "g")) ||
+	var needsPolyfills = (function () {
+		return !String.prototype.startsWith ||
+		!supportsPassive ||
+		!root.requestAnimationFrame ||
+		!root.matchMedia ||
+		("undefined" === typeof root.Element && !("dataset" in docElem)) ||
+		!("classList" in document[createElement]("_")) ||
+		document[createElementNS] && !("classList" in document[createElementNS]("http://www.w3.org/2000/svg", "g")) ||
 		/* !document.importNode || */
 		/* !("content" in document[createElement]("template")) || */
-		root.attachEvent && !root[_addEventListener] || !("onhashchange" in root) || !Array.prototype.indexOf || !root.Promise || !root.fetch || !document[querySelectorAll] || !document[querySelector] || !Function.prototype.bind || Object[defineProperty] && Object[getOwnPropertyDescriptor] && Object[getOwnPropertyDescriptor](Element.prototype, "textContent") && !Object[getOwnPropertyDescriptor](Element.prototype, "textContent").get || !("undefined" !== typeof root.localStorage && "undefined" !== typeof root.sessionStorage) || !root.WeakMap || !root.MutationObserver;
-	}();
+		(root.attachEvent && !root[_addEventListener]) ||
+		!("onhashchange" in root) ||
+		!Array.prototype.indexOf ||
+		!root.Promise ||
+		!root.fetch ||
+		!document[querySelectorAll] ||
+		!document[querySelector] ||
+		!Function.prototype.bind ||
+		(Object[defineProperty] &&
+			Object[getOwnPropertyDescriptor] &&
+			Object[getOwnPropertyDescriptor](Element.prototype, "textContent") &&
+			!Object[getOwnPropertyDescriptor](Element.prototype, "textContent").get) ||
+		!("undefined" !== typeof root.localStorage && "undefined" !== typeof root.sessionStorage) ||
+		!root.WeakMap ||
+		!root.MutationObserver;
+	})();
 
 	if (needsPolyfills) {
 		scripts.push("../../cdn/polyfills/js/polyfills.fixed.min.js");
 	}
 
 	/* var scripts = ["../../cdn/verge/1.9.1/js/verge.fixed.min.js",
- 	"../../cdn/Tocca.js/2.0.1/js/Tocca.fixed.min.js"]; */
+		"../../cdn/Tocca.js/2.0.1/js/Tocca.fixed.min.js"]; */
 
 	scripts.push("../../libs/english_for_free/js/vendors.min.js");
 
 	/*!
- * load scripts after webfonts loaded using doesFontExist
- */
+	 * load scripts after webfonts loaded using doesFontExist
+	 */
 
-	var supportsCanvas = function () {
+	var supportsCanvas = (function () {
 		var elem = document[createElement]("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
-	}();
+	})();
 
 	var onFontsLoadedCallback = function () {
 
@@ -1563,11 +1580,11 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 
 		var checkFontIsLoaded = function () {
 			/*!
-  * check only for fonts that are used in current page
-  */
+			 * check only for fonts that are used in current page
+			 */
 			if (doesFontExist("Roboto") /* && doesFontExist("Roboto Mono") */) {
-					onFontsLoaded();
-				}
+				onFontsLoaded();
+			}
 		};
 
 		if (supportsCanvas) {
@@ -1578,47 +1595,54 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 		}
 	};
 
-	loadCSS(forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic,latin-ext", onFontsLoadedCallback);
+	loadCSS(
+			/* forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic,latin-ext", */
+			"../../libs/english_for_free/css/bundle.min.css",
+			onFontsLoadedCallback
+		);
 
 	/*!
- * load scripts after webfonts loaded using webfontloader
- */
+	 * load scripts after webfonts loaded using webfontloader
+	 */
 
 	/* root.WebFontConfig = {
- 	google: {
- 		families: [
- 			"Roboto:300,400,400i,700,700i:cyrillic",
- 			"Roboto Mono:400,700:cyrillic,latin-ext"
- 		]
- 	},
- 	listeners: [],
- 	active: function () {
- 		this.called_ready = true;
- 		for (var i = 0; i < this.listeners[_length]; i++) {
- 			this.listeners[i]();
- 		}
- 	},
- 	ready: function (callback) {
- 		if (this.called_ready) {
- 			callback();
- 		} else {
- 			this.listeners.push(callback);
- 		}
- 	}
- };
- 	var onFontsLoadedCallback = function () {
- 		var onFontsLoaded = function () {
- 		progressBar.increase(20);
- 			var load;
- 		load = new loadJsCss(scripts, run);
- 	};
- 		root.WebFontConfig.ready(onFontsLoaded);
- };
- 	var load;
- load = new loadJsCss(
- 		[forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"],
- 		onFontsLoadedCallback
- 	); */
-})("undefined" !== typeof window ? window : this, document);
+		google: {
+			families: [
+				"Roboto:300,400,400i,700,700i:cyrillic",
+				"Roboto Mono:400,700:cyrillic,latin-ext"
+			]
+		},
+		listeners: [],
+		active: function () {
+			this.called_ready = true;
+			for (var i = 0; i < this.listeners[_length]; i++) {
+				this.listeners[i]();
+			}
+		},
+		ready: function (callback) {
+			if (this.called_ready) {
+				callback();
+			} else {
+				this.listeners.push(callback);
+			}
+		}
+	};
 
-//# sourceMappingURL=bundle.js.map
+	var onFontsLoadedCallback = function () {
+
+		var onFontsLoaded = function () {
+			progressBar.increase(20);
+
+			var load;
+			load = new loadJsCss(scripts, run);
+		};
+
+		root.WebFontConfig.ready(onFontsLoaded);
+	};
+
+	var load;
+	load = new loadJsCss(
+			[forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"],
+			onFontsLoadedCallback
+		); */
+})("undefined" !== typeof window ? window : this, document);

@@ -7,9 +7,8 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
  * safe way to handle console.log
  * @see {@link https://github.com/paulmillr/console-polyfill}
  */
-(function (root) {
+(function(root){
 	"use strict";
-
 	if (!root.console) {
 		root.console = {};
 	}
@@ -18,14 +17,16 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 	var method;
 	var dummy = function () {};
 	var properties = ["memory"];
-	var methods = ["assert,clear,count,debug,dir,dirxml,error,exception,group,", "groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd,", "show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn"];
+	var methods = ["assert,clear,count,debug,dir,dirxml,error,exception,group,",
+		"groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd,",
+		"show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn"];
 	methods.join("").split(",");
-	for (; prop = properties.pop();) {
+	for (; (prop = properties.pop()); ) {
 		if (!con[prop]) {
 			con[prop] = {};
 		}
 	}
-	for (; method = methods.pop();) {
+	for (; (method = methods.pop()); ) {
 		if (!con[method]) {
 			con[method] = dummy;
 		}
@@ -47,8 +48,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
  */
 (function (root, document, undefined) {
 	"use strict";
-
-	var ToProgress = function () {
+	var ToProgress = (function () {
 		var TP = function () {
 			var _addEventListener = "addEventListener";
 			var appendChild = "appendChild";
@@ -63,7 +63,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 			var style = "style";
 			function whichTransitionEvent() {
 				var t,
-				  el = document[createElement]("fakeelement");
+				el = document[createElement]("fakeelement");
 				var transitions = {
 					"transition": "transitionend",
 					"OTransition": "oTransitionEnd",
@@ -193,7 +193,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 			return ToProgress;
 		};
 		return TP();
-	}();
+	})();
 	root.ToProgress = ToProgress;
 })("undefined" !== typeof window ? window : this, document);
 /*!
@@ -206,7 +206,6 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
  */
 (function (root, document) {
 	"use strict";
-
 	var doesFontExist = function (fontName) {
 		var createElement = "createElement";
 		var getContext = "getContext";
@@ -241,7 +240,6 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
  */
 (function (root, document) {
 	"use strict";
-
 	var loadCSS = function (_href, callback) {
 		var ref = document.getElementsByTagName("head")[0] || "";
 		var link = document.createElement("link");
@@ -266,7 +264,6 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
  */
 (function (root, document) {
 	"use strict";
-
 	var loadJsCss = function (files, callback) {
 		var _this = this;
 		var appendChild = "appendChild";
@@ -311,12 +308,13 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 				(_this.body || _this.head)[appendChild](script);
 			}
 		};
-		var i, l;
+		var i,
+		l;
 		for (i = 0, l = _this.files[_length]; i < l; i += 1) {
-			if (/\.js$|\.js\?/.test(_this.files[i])) {
+			if ((/\.js$|\.js\?/).test(_this.files[i])) {
 				_this.js.push(_this.files[i]);
 			}
-			if (/\.css$|\.css\?|\/css\?/.test(_this.files[i])) {
+			if ((/\.css$|\.css\?|\/css\?/).test(_this.files[i])) {
 				_this.loadStyle(_this.files[i]);
 			}
 		}
@@ -348,12 +346,12 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 	var _length = "length";
 
 	var progressBar = new ToProgress({
-		id: "top-progress-bar",
-		color: "#FF2C40",
-		height: "0.200rem",
-		duration: 0.2,
-		zIndex: 999
-	});
+			id: "top-progress-bar",
+			color: "#FF2C40",
+			height: "0.200rem",
+			duration: 0.2,
+			zIndex: 999
+		});
 
 	var hideProgressBar = function () {
 		progressBar.finish();
@@ -361,9 +359,9 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 	};
 
 	/* progressBar.complete = function () {
- 	return this.finish(),
- 	this.hide();
- }; */
+		return this.finish(),
+		this.hide();
+	}; */
 
 	progressBar.increase(20);
 
@@ -416,12 +414,12 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 			docElem[classList].add("js");
 		}
 
-		var getHumanDate = function () {
-			var newDate = new Date();
+		var getHumanDate = (function () {
+			var newDate = (new Date());
 			var newDay = newDate.getDate();
 			var newYear = newDate.getFullYear();
 			var newMonth = newDate.getMonth();
-			newMonth += 1;
+			(newMonth += 1);
 			if (10 > newDay) {
 				newDay = "0" + newDay;
 			}
@@ -429,14 +427,22 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 				newMonth = "0" + newMonth;
 			}
 			return newYear + "-" + newMonth + "-" + newDay;
-		}();
+		})();
 
 		var platformName = "";
 		var platformDescription = "";
 		if (navigatorUserAgent && root.platform) {
 			platformName = platform.name || "";
 			platformDescription = platform.description || "";
-			document[title] = documentTitle + " [" + (getHumanDate ? " " + getHumanDate : "") + (platformDescription ? " " + platformDescription : "") + (hasTouch || hasWheel ? " with" : "") + (hasTouch ? " touch" : "") + (hasTouch && hasWheel ? "," : "") + (hasWheel ? " mousewheel" : "") + "]";
+			document[title] = documentTitle +
+			" [" +
+			(getHumanDate ? " " + getHumanDate : "") +
+			(platformDescription ? " " + platformDescription : "") +
+			((hasTouch || hasWheel) ? " with" : "") +
+			(hasTouch ? " touch" : "") +
+			((hasTouch && hasWheel) ? "," : "") +
+			(hasWheel ? " mousewheel" : "") +
+			"]";
 		}
 
 		var observeMutations = function (scope) {
@@ -476,22 +482,22 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 		/*jshint bitwise: false */
 		var parseLink = function (url, full) {
 			var _full = full || "";
-			return function () {
+			return (function () {
 				var _replace = function (s) {
 					return s.replace(/^(#|\?)/, "").replace(/\:$/, "");
 				};
 				var _location = location || "";
 				var _protocol = function (protocol) {
 					switch (protocol) {
-						case "http:":
-							return _full ? ":" + 80 : 80;
-						case "https:":
-							return _full ? ":" + 443 : 443;
-						default:
-							return _full ? ":" + _location.port : _location.port;
+					case "http:":
+						return _full ? ":" + 80 : 80;
+					case "https:":
+						return _full ? ":" + 443 : 443;
+					default:
+						return _full ? ":" + _location.port : _location.port;
 					}
 				};
-				var _isAbsolute = 0 === url.indexOf("//") || !!~url.indexOf("://");
+				var _isAbsolute = (0 === url.indexOf("//") || !!~url.indexOf("://"));
 				var _locationHref = root.location || "";
 				var _origin = function () {
 					var o = _locationHref.protocol + "//" + _locationHref.hostname + (_locationHref.port ? ":" + _locationHref.port : "");
@@ -509,25 +515,25 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 					href: _link.href,
 					origin: _origin(),
 					host: _link.host || _location.host,
-					port: "0" === _link.port || "" === _link.port ? _protocol(_link.protocol) : _full ? _link.port : _replace(_link.port),
+					port: ("0" === _link.port || "" === _link.port) ? _protocol(_link.protocol) : (_full ? _link.port : _replace(_link.port)),
 					hash: _full ? _link.hash : _replace(_link.hash),
 					hostname: _link.hostname || _location.hostname,
-					pathname: _link.pathname.charAt(0) !== "/" ? _full ? "/" + _link.pathname : _link.pathname : _full ? _link.pathname : _link.pathname.slice(1),
-					protocol: !_link.protocol || ":" === _link.protocol ? _full ? _location.protocol : _replace(_location.protocol) : _full ? _link.protocol : _replace(_link.protocol),
+					pathname: _link.pathname.charAt(0) !== "/" ? (_full ? "/" + _link.pathname : _link.pathname) : (_full ? _link.pathname : _link.pathname.slice(1)),
+					protocol: !_link.protocol || ":" === _link.protocol ? (_full ? _location.protocol : _replace(_location.protocol)) : (_full ? _link.protocol : _replace(_link.protocol)),
 					search: _full ? _link.search : _replace(_link.search),
 					query: _full ? _link.search : _replace(_link.search),
 					isAbsolute: _isAbsolute,
 					isRelative: !_isAbsolute,
 					isCrossDomain: _isCrossDomain(),
-					hasHTTP: /^(http|https):\/\//i.test(url) ? true : false
+					hasHTTP: (/^(http|https):\/\//i).test(url) ? true : false
 				};
-			}();
+			})();
 		};
 		/*jshint bitwise: true */
 
 		var isNodejs = "undefined" !== typeof process && "undefined" !== typeof require || "";
 		var isElectron = "undefined" !== typeof root && root.process && "renderer" === root.process.type || "";
-		var isNwjs = function () {
+		var isNwjs = (function () {
 			if ("undefined" !== typeof isNodejs && isNodejs) {
 				try {
 					if ("undefined" !== typeof require("nw.gui")) {
@@ -538,7 +544,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 				}
 			}
 			return false;
-		}();
+		})();
 
 		var openDeviceBrowser = function (url) {
 			var triggerForElectron = function () {
@@ -561,7 +567,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 				triggerForNwjs();
 			} else {
 				var locationProtocol = root.location.protocol || "",
-				  hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
+				hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
 				if (hasHTTP) {
 					triggerForHTTP();
 				} else {
@@ -580,7 +586,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 				args = [].slice.call(arguments, 0);
 				timestamp = new Date();
 				var later = function () {
-					var last = new Date() - timestamp;
+					var last = (new Date()) - timestamp;
 					if (last < wait) {
 						timeout = setTimeout(later, wait - last);
 					} else {
@@ -634,13 +640,13 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 					return Math.sin(pos * (Math.PI / 2));
 				},
 				easeInOutSine: function (pos) {
-					return -0.5 * (Math.cos(Math.PI * pos) - 1);
+					return (-0.5 * (Math.cos(Math.PI * pos) - 1));
 				},
 				easeInOutQuint: function (pos) {
 					if ((pos /= 0.5) < 1) {
 						return 0.5 * Math.pow(pos, 5);
 					}
-					return 0.5 * (Math.pow(pos - 2, 5) + 2);
+					return 0.5 * (Math.pow((pos - 2), 5) + 2);
 				}
 			};
 			function tick() {
@@ -649,7 +655,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 				var t = easingEquations[soothing](p);
 				if (p < 1) {
 					requestAnimationFrame(tick);
-					root.scrollTo(0, scrollY + (posY - scrollY) * t);
+					root.scrollTo(0, scrollY + ((posY - scrollY) * t));
 				} else {
 					root.scrollTo(0, posY);
 				}
@@ -658,7 +664,9 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 		};
 
 		var scriptIsLoaded = function (scriptSrc) {
-			var scriptAll, i, l;
+			var scriptAll,
+			i,
+			l;
 			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[_length]; i < l; i += 1) {
 				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
 					scriptAll = i = l = null;
@@ -681,9 +689,13 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 					var debounceLogic = debounce(logic, 200);
 					debounceLogic();
 				};
-				if (!e[classList].contains(isBindedClass) && !e.target && !e.rel) {
+				if (!e[classList].contains(isBindedClass) &&
+						!e.target &&
+						!e.rel) {
 					var url = e[getAttribute]("href") || "";
-					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+					if (url &&
+						parseLink(url).isCrossDomain &&
+						parseLink(url).hasHTTP) {
 						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
 						if ("undefined" !== typeof getHTTP && getHTTP()) {
 							e.target = "_blank";
@@ -733,11 +745,18 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 			var target = document[getElementById](targetId) || "";
 			var jsonObj = safelyParseJSON(parsedJson);
 			if (jsonObj && template && target) {
-				var targetHtml = template[innerHTML] || "",
-				  renderTargetTemplate = new t(targetHtml);
-				return renderTargetTemplate.render(jsonObj);
+				var targetHtml = template[innerHTML] || "";
+				if (root.t) {
+					var renderTargetTemplate = new t(targetHtml);
+					return renderTargetTemplate.render(jsonObj);
+				} else {
+					if (root.Mustache) {
+						Mustache.parse(targetHtml);
+						return Mustache.render(targetHtml, jsonObj);
+					}
+				}
 			}
-			return {};
+			return "cannot renderTemplate";
 		};
 
 		var insertTextAsFragment = function (text, container, callback) {
@@ -752,10 +771,12 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 					rg.selectNode(body);
 					var df = rg[createContextualFragment](text);
 					clonedContainer[appendChild](df);
-					return container[parentNode] ? container[parentNode].replaceChild(clonedContainer, container) : container[innerHTML] = text, cb();
+					return container[parentNode] ? container[parentNode].replaceChild(clonedContainer, container) : container[innerHTML] = text,
+					cb();
 				} else {
 					clonedContainer[innerHTML] = text;
-					return container[parentNode] ? container[parentNode].replaceChild(document[createDocumentFragment][appendChild](clonedContainer), container) : container[innerHTML] = text, cb();
+					return container[parentNode] ? container[parentNode].replaceChild(document[createDocumentFragment][appendChild](clonedContainer), container) : container[innerHTML] = text,
+					cb();
 				}
 			} catch (e) {
 				console.log(e);
@@ -816,14 +837,14 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 				}
 
 				/*!
-   * render with <template> and t.js
-   * the drawback you cannot know image sizes
-   * attention to last param: if false cloneNode will be used
-   * and setting listeners or changing its CSS will not be possible
-   * attention IE11 counts elements within template tag,
-   * so you might have length + 1
-   * to fix that select elemnts in a container that doesnt have source template
-   */
+				 * render with <template> and t.js
+				 * the drawback you cannot know image sizes
+				 * attention to last param: if false cloneNode will be used
+				 * and setting listeners or changing its CSS will not be possible
+				 * attention IE11 counts elements within template tag,
+				 * so you might have length + 1
+				 * to fix that select elemnts in a container that doesnt have source template
+				 */
 				var pagesKeysNumber = countObjKeys(jsonObj.pages);
 				insertFromTemplate(jsonObj, "template_zoomwall", "target_zoomwall", function () {
 					if (wrapper[getElementsByClassName](dataSrcImgClass)[pagesKeysNumber - 1]) {
@@ -834,52 +855,57 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 				}, true);
 
 				/*!
-   * render with creating DOM Nodes
-   */
+				 * render with creating DOM Nodes
+				 */
 				/* var alt = "alt";
-  var createTextNode = "createTextNode";
-  var dataset = "dataset";
-  var hasOwnProperty = "hasOwnProperty";
-  var src = "src";
-  	jsonObj = jsonObj.pages;
-  	var df = document[createDocumentFragment]();
-  	var key;
-  for (key in jsonObj) {
-  	if (jsonObj[hasOwnProperty](key)) {
-  		if (jsonObj[key][jsonSrcKeyName]) {
-  			var img = document[createElement]("img");
-  			if (jsonObj[key][jsonWidthKeyName]) {
-  				img[src] = ["data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20",
-  					jsonObj[key][jsonWidthKeyName],
-  					"%20",
-  					jsonObj[key][jsonHeightKeyName],
-  					"%27%2F%3E"].join("");
-  			} else {
-  				var dummyImg = new Image();
-  				dummyImg[src] = jsonObj[key][jsonSrcKeyName];
-  				var dummyImgWidth = dummyImg.naturalWidth;
-  				var dummyImgHeight = dummyImg.naturalHeight;
-  				if (dummyImgWidth && dummyImgHeight) {
-  					img[src] = ["data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20", dummyImgWidth, "%20", dummyImgHeight, "%27%2F%3E"].join("");
-  				} else {
-  					img[src] = ["data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20", 640, "%20", 360, "%27%2F%3E"].join("");
-  				}
-  			}
-  			img[dataset][jsonSrcKeyName] = jsonObj[key][jsonSrcKeyName];
-  			img[classList].add(dataSrcImgClass);
-  			img[alt] = jsonObj[key][jsonTitleKeyName];
-  			img[title] = jsonObj[key][jsonTitleKeyName];
-  				df[appendChild](img);
-  			df[appendChild](document[createTextNode]("\n"));
-  		}
-  	}
-  }
-  key = null;
-  	if (zoomwallGallery[appendChild](df)) {
-  	resolve();
-  } else {
-  	reject();
-  } */
+				var createTextNode = "createTextNode";
+				var dataset = "dataset";
+				var hasOwnProperty = "hasOwnProperty";
+				var src = "src";
+
+				jsonObj = jsonObj.pages;
+
+				var df = document[createDocumentFragment]();
+
+				var key;
+				for (key in jsonObj) {
+					if (jsonObj[hasOwnProperty](key)) {
+						if (jsonObj[key][jsonSrcKeyName]) {
+							var img = document[createElement]("img");
+							if (jsonObj[key][jsonWidthKeyName]) {
+								img[src] = ["data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20",
+									jsonObj[key][jsonWidthKeyName],
+									"%20",
+									jsonObj[key][jsonHeightKeyName],
+									"%27%2F%3E"].join("");
+							} else {
+								var dummyImg = new Image();
+								dummyImg[src] = jsonObj[key][jsonSrcKeyName];
+								var dummyImgWidth = dummyImg.naturalWidth;
+								var dummyImgHeight = dummyImg.naturalHeight;
+								if (dummyImgWidth && dummyImgHeight) {
+									img[src] = ["data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20", dummyImgWidth, "%20", dummyImgHeight, "%27%2F%3E"].join("");
+								} else {
+									img[src] = ["data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20", 640, "%20", 360, "%27%2F%3E"].join("");
+								}
+							}
+							img[dataset][jsonSrcKeyName] = jsonObj[key][jsonSrcKeyName];
+							img[classList].add(dataSrcImgClass);
+							img[alt] = jsonObj[key][jsonTitleKeyName];
+							img[title] = jsonObj[key][jsonTitleKeyName];
+
+							df[appendChild](img);
+							df[appendChild](document[createTextNode]("\n"));
+						}
+					}
+				}
+				key = null;
+
+				if (zoomwallGallery[appendChild](df)) {
+					resolve();
+				} else {
+					reject();
+				} */
 			});
 		};
 
@@ -921,10 +947,10 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 				timerCreateGallery = setTimeout(createGallery, 500);
 			}).then(function () {
 				timerSetLazyloading = setTimeout(setLazyloading, 1000);
-			}).catch(function (err) {
+			}).catch (function (err) {
 				console.log("Cannot create zoomwall gallery", err);
 			});
-		}).catch(function (err) {
+		}).catch (function (err) {
 			console.log("cannot parse", jsonUrl, err);
 		});
 
@@ -932,7 +958,8 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 			var _thisObj = thisObj || this;
 			var isSocialAll = document[getElementsByClassName]("is-social") || "";
 			if (isSocialAll) {
-				var k, n;
+				var k,
+				n;
 				for (k = 0, n = isSocialAll[_length]; k < n; k += 1) {
 					if (_thisObj !== isSocialAll[k]) {
 						isSocialAll[k][classList].remove(isActiveClass);
@@ -1017,7 +1044,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 						if (!vlike) {
 							try {
 								VK.init({
-									apiId: vkLike[dataset].apiid || "",
+									apiId: (vkLike[dataset].apiid || ""),
 									nameTransportPath: "/xd_receiver.htm",
 									onlyWidgets: true
 								});
@@ -1052,93 +1079,94 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 		var titleBarHeight = titleBar.offsetHeight || 0;
 
 		/*!
-  * set fixed on scroll/swipedependong on titleBar position
-  */
+		 * set fixed on scroll/swipedependong on titleBar position
+		 */
 		/* var handleTitleBar = function () {
- 	var logic = function () {
- 		if ((document[body].scrollTop || docElem.scrollTop || 0) > titleBarHeight) {
- 			titleBar[classList].add(isFixedClass);
- 		} else {
- 			titleBar[classList].remove(isFixedClass);
- 		}
- 	};
- 	var throttleLogic = throttle(logic, 100);
- 	throttleLogic();
- };
- if (titleBar) {
- 	root[_addEventListener]("scroll", handleTitleBar, {passive: true});
- } */
+			var logic = function () {
+				if ((document[body].scrollTop || docElem.scrollTop || 0) > titleBarHeight) {
+					titleBar[classList].add(isFixedClass);
+				} else {
+					titleBar[classList].remove(isFixedClass);
+				}
+			};
+			var throttleLogic = throttle(logic, 100);
+			throttleLogic();
+		};
+		if (titleBar) {
+			root[_addEventListener]("scroll", handleTitleBar, {passive: true});
+		} */
 
 		/*!
-  * set fixed depending on scroll/swipe direction
-  * and titleBar position
-  * needs animate.css classes
-  */
+		 * set fixed depending on scroll/swipe direction
+		 * and titleBar position
+		 * needs animate.css classes
+		 */
 		/* var animatedClass = "animated";
- var duration4msClass = "duration-4ms";
- var slideInDownClass = "slideInDown";
- var slideOutUpClass = "slideOutUp";
- 	var hideTitleBar = function () {
- 	var logic = function () {
- 		titleBar[classList].remove(slideInDownClass);
- 		if ((document[body].scrollTop || docElem.scrollTop || 0) > titleBarHeight) {
- 			titleBar[classList].add(slideOutUpClass);
- 		} else {
- 			titleBar[classList].remove(isFixedClass);
- 			titleBar[classList].remove(slideOutUpClass);
- 		}
- 	};
- 	var throttleLogic = throttle(logic, 100);
- 	throttleLogic();
- };
- var revealTitleBar = function () {
- 	var logic = function () {
- 		titleBar[classList].remove(slideOutUpClass);
- 		if ((document[body].scrollTop || docElem.scrollTop || 0) > titleBarHeight) {
- 			titleBar[classList].add(isFixedClass);
- 			titleBar[classList].add(slideInDownClass);
- 		} else {
- 			titleBar[classList].remove(isFixedClass);
- 			titleBar[classList].remove(slideInDownClass);
- 		}
- 	};
- 	var throttleLogic = throttle(logic, 100);
- 	throttleLogic();
- };
- if (wrapper && titleBar) {
- 	titleBar[classList].add(animatedClass);
- 	titleBar[classList].add(duration4msClass);
- 	if (hasTouch) {
- 		if (root.tocca) {
- 			root[_addEventListener]("swipeup", hideTitleBar, {passive: true});
- 			root[_addEventListener]("swipedown", revealTitleBar, {passive: true});
- 		}
- 	} else {
- 		if (hasWheel) {
- 			if (root.WheelIndicator) {
- 				var indicator;
- 				indicator = new WheelIndicator({
- 						elem: root,
- 						callback: function (e) {
- 							if ("down" === e.direction) {
- 								hideTitleBar();
- 							}
- 							if ("up" === e.direction) {
- 								revealTitleBar();
- 							}
- 						},
- 						preventMouse: false
- 					});
- 			}
- 		}
- 	}
- } */
+		var duration4msClass = "duration-4ms";
+		var slideInDownClass = "slideInDown";
+		var slideOutUpClass = "slideOutUp";
+
+		var hideTitleBar = function () {
+			var logic = function () {
+				titleBar[classList].remove(slideInDownClass);
+				if ((document[body].scrollTop || docElem.scrollTop || 0) > titleBarHeight) {
+					titleBar[classList].add(slideOutUpClass);
+				} else {
+					titleBar[classList].remove(isFixedClass);
+					titleBar[classList].remove(slideOutUpClass);
+				}
+			};
+			var throttleLogic = throttle(logic, 100);
+			throttleLogic();
+		};
+		var revealTitleBar = function () {
+			var logic = function () {
+				titleBar[classList].remove(slideOutUpClass);
+				if ((document[body].scrollTop || docElem.scrollTop || 0) > titleBarHeight) {
+					titleBar[classList].add(isFixedClass);
+					titleBar[classList].add(slideInDownClass);
+				} else {
+					titleBar[classList].remove(isFixedClass);
+					titleBar[classList].remove(slideInDownClass);
+				}
+			};
+			var throttleLogic = throttle(logic, 100);
+			throttleLogic();
+		};
+		if (wrapper && titleBar) {
+			titleBar[classList].add(animatedClass);
+			titleBar[classList].add(duration4msClass);
+			if (hasTouch) {
+				if (root.tocca) {
+					root[_addEventListener]("swipeup", hideTitleBar, {passive: true});
+					root[_addEventListener]("swipedown", revealTitleBar, {passive: true});
+				}
+			} else {
+				if (hasWheel) {
+					if (root.WheelIndicator) {
+						var indicator;
+						indicator = new WheelIndicator({
+								elem: root,
+								callback: function (e) {
+									if ("down" === e.direction) {
+										hideTitleBar();
+									}
+									if ("up" === e.direction) {
+										revealTitleBar();
+									}
+								},
+								preventMouse: false
+							});
+					}
+				}
+			}
+		} */
 
 		/*!
-  * set fixed or hidden class depending on scroll/swipe direction
-  * and titleBar position
-  * needs transition top 0.4s ease out in CSS for .title-bar
-  */
+		 * set fixed or hidden class depending on scroll/swipe direction
+		 * and titleBar position
+		 * needs transition top 0.4s ease out in CSS for .title-bar
+		 */
 		var hideTitleBar = function () {
 			var logic = function () {
 				titleBar[classList].remove(isFixedClass);
@@ -1174,28 +1202,28 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 			throttleLogic();
 		};
 		if (titleBar) {
-			root[_addEventListener]("scroll", resetTitleBar, { passive: true });
+			root[_addEventListener]("scroll", resetTitleBar, {passive: true});
 			if (hasTouch) {
 				if (root.tocca) {
-					root[_addEventListener]("swipeup", hideTitleBar, { passive: true });
-					root[_addEventListener]("swipedown", revealTitleBar, { passive: true });
+					root[_addEventListener]("swipeup", hideTitleBar, {passive: true});
+					root[_addEventListener]("swipedown", revealTitleBar, {passive: true});
 				}
 			} else {
 				if (hasWheel) {
 					if (root.WheelIndicator) {
 						var indicator;
 						indicator = new WheelIndicator({
-							elem: root,
-							callback: function (e) {
-								if ("down" === e.direction) {
-									hideTitleBar();
-								}
-								if ("up" === e.direction) {
-									revealTitleBar();
-								}
-							},
-							preventMouse: false
-						});
+								elem: root,
+								callback: function (e) {
+									if ("down" === e.direction) {
+										hideTitleBar();
+									}
+									if ("up" === e.direction) {
+										revealTitleBar();
+									}
+								},
+								preventMouse: false
+							});
 					}
 				}
 			}
@@ -1226,53 +1254,74 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 		};
 		if (btnTotop) {
 			btnTotop[_addEventListener]("click", handleBtnTotop);
-			root[_addEventListener]("scroll", handleBtnTotopWindow, { passive: true });
+			root[_addEventListener]("scroll", handleBtnTotopWindow, {passive: true});
 		}
 	};
 
-	var scripts = ["./libs/picturewall/css/bundle.min.css"];
+	/* var scripts = ["./libs/picturewall/css/bundle.min.css"]; */
+	var scripts = [];
 
-	var supportsPassive = function () {
+	var supportsPassive = (function () {
 		var support = false;
 		try {
 			var opts = Object[defineProperty] && Object[defineProperty]({}, "passive", {
-				get: function () {
-					support = true;
-				}
-			});
+					get: function () {
+						support = true;
+					}
+				});
 			root[_addEventListener]("test", function () {}, opts);
 		} catch (err) {}
 		return support;
-	}();
+	})();
 
-	var needsPolyfills = function () {
-		return !String.prototype.startsWith || !supportsPassive || !root.requestAnimationFrame || !root.matchMedia || "undefined" === typeof root.Element && !("dataset" in docElem) || !("classList" in document[createElement]("_")) || document[createElementNS] && !("classList" in document[createElementNS]("http://www.w3.org/2000/svg", "g")) ||
+	var needsPolyfills = (function () {
+		return !String.prototype.startsWith ||
+		!supportsPassive ||
+		!root.requestAnimationFrame ||
+		!root.matchMedia ||
+		("undefined" === typeof root.Element && !("dataset" in docElem)) ||
+		!("classList" in document[createElement]("_")) ||
+		document[createElementNS] && !("classList" in document[createElementNS]("http://www.w3.org/2000/svg", "g")) ||
 		/* !document.importNode || */
 		/* !("content" in document[createElement]("template")) || */
-		root.attachEvent && !root[_addEventListener] || !("onhashchange" in root) || !Array.prototype.indexOf || !root.Promise || !root.fetch || !document[querySelectorAll] || !document[querySelector] || !Function.prototype.bind || Object[defineProperty] && Object[getOwnPropertyDescriptor] && Object[getOwnPropertyDescriptor](Element.prototype, "textContent") && !Object[getOwnPropertyDescriptor](Element.prototype, "textContent").get || !("undefined" !== typeof root.localStorage && "undefined" !== typeof root.sessionStorage) || !root.WeakMap || !root.MutationObserver;
-	}();
+		(root.attachEvent && !root[_addEventListener]) ||
+		!("onhashchange" in root) ||
+		!Array.prototype.indexOf ||
+		!root.Promise ||
+		!root.fetch ||
+		!document[querySelectorAll] ||
+		!document[querySelector] ||
+		!Function.prototype.bind ||
+		(Object[defineProperty] &&
+			Object[getOwnPropertyDescriptor] &&
+			Object[getOwnPropertyDescriptor](Element.prototype, "textContent") &&
+			!Object[getOwnPropertyDescriptor](Element.prototype, "textContent").get) ||
+		!("undefined" !== typeof root.localStorage && "undefined" !== typeof root.sessionStorage) ||
+		!root.WeakMap ||
+		!root.MutationObserver;
+	})();
 
 	if (needsPolyfills) {
 		scripts.push("../../cdn/polyfills/js/polyfills.fixed.min.js");
 	}
 
 	/* scripts.push("./cdn/platform/1.3.4/js/platform.fixed.min.js",
- 	"./cdn/zoomwall.js/1.1.1/js/zoomwall.fixed.min.js",
- 	"./cdn/echo.js/0.1.0/js/echo.fixed.min.js",
- 	"./cdn/t.js/0.1.0/js/t.fixed.min.js",
- 	"./cdn/Tocca.js/2.0.1/js/Tocca.fixed.min.js",
- 	"./cdn/wheel-indicator/1.1.4/js/wheel-indicator.fixed.min.js"); */
+		"./cdn/zoomwall.js/1.1.1/js/zoomwall.fixed.min.js",
+		"./cdn/echo.js/0.1.0/js/echo.fixed.min.js",
+		"./cdn/t.js/0.1.0/js/t.fixed.min.js",
+		"./cdn/Tocca.js/2.0.1/js/Tocca.fixed.min.js",
+		"./cdn/wheel-indicator/1.1.4/js/wheel-indicator.fixed.min.js"); */
 
 	scripts.push("./libs/picturewall/js/vendors.min.js");
 
 	/*!
- * load scripts after webfonts loaded using doesFontExist
- */
+	 * load scripts after webfonts loaded using doesFontExist
+	 */
 
-	var supportsCanvas = function () {
+	var supportsCanvas = (function () {
 		var elem = document[createElement]("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
-	}();
+	})();
 
 	var onFontsLoadedCallback = function () {
 
@@ -1289,8 +1338,8 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 
 		var checkFontIsLoaded = function () {
 			/*!
-  * check only for fonts that are used in current page
-  */
+			 * check only for fonts that are used in current page
+			 */
 			if (doesFontExist("Roboto")) {
 				onFontsLoaded();
 			}
@@ -1304,46 +1353,53 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 		}
 	};
 
-	loadCSS(forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:400,700&subset=cyrillic", onFontsLoadedCallback);
+	loadCSS(
+			/* forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:400,700&subset=cyrillic", */
+			"./libs/picturewall/css/bundle.min.css",
+			onFontsLoadedCallback
+		);
 
 	/*!
- * load scripts after webfonts loaded using webfontloader
- */
+	 * load scripts after webfonts loaded using webfontloader
+	 */
 
 	/* root.WebFontConfig = {
- 	google: {
- 		families: [
- 			"Roboto:400,700:cyrillic"
- 		]
- 	},
- 	listeners: [],
- 	active: function () {
- 		this.called_ready = true;
- 		for (var i = 0; i < this.listeners[_length]; i++) {
- 			this.listeners[i]();
- 		}
- 	},
- 	ready: function (callback) {
- 		if (this.called_ready) {
- 			callback();
- 		} else {
- 			this.listeners.push(callback);
- 		}
- 	}
- };
- 	var onFontsLoadedCallback = function () {
- 		var onFontsLoaded = function () {
- 		progressBar.increase(20);
- 			var load;
- 		load = new loadJsCss(scripts, run);
- 	};
- 		root.WebFontConfig.ready(onFontsLoaded);
- };
- 	var load;
- load = new loadJsCss(
- 		[forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"],
- 		onFontsLoadedCallback
- 	); */
-})("undefined" !== typeof window ? window : this, document);
+		google: {
+			families: [
+				"Roboto:400,700:cyrillic"
+			]
+		},
+		listeners: [],
+		active: function () {
+			this.called_ready = true;
+			for (var i = 0; i < this.listeners[_length]; i++) {
+				this.listeners[i]();
+			}
+		},
+		ready: function (callback) {
+			if (this.called_ready) {
+				callback();
+			} else {
+				this.listeners.push(callback);
+			}
+		}
+	};
 
-//# sourceMappingURL=bundle.js.map
+	var onFontsLoadedCallback = function () {
+
+		var onFontsLoaded = function () {
+			progressBar.increase(20);
+
+			var load;
+			load = new loadJsCss(scripts, run);
+		};
+
+		root.WebFontConfig.ready(onFontsLoaded);
+	};
+
+	var load;
+	load = new loadJsCss(
+			[forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"],
+			onFontsLoadedCallback
+		); */
+})("undefined" !== typeof window ? window : this, document);
