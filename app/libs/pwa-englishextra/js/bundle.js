@@ -1637,7 +1637,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 							if (root.DISQUS) {
 								try {
 									DISQUS.reset({
-										reload: !0,
+										reload: true,
 										config: function () {
 											this.page.identifier = disqusThreadShortname;
 											this.page.url = locationHref;
