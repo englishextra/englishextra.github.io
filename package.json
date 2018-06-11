@@ -18,7 +18,6 @@
 		"babel-plugin-transform-async-to-generator": "^6.24.1",
 		"babel-plugin-transform-es2015-arrow-functions": "^6.22.0",
 		"beautify-css": "^1.0.0",
-		"bower": "^1.8.0",
 		"browserify": "^14.4.0",
 		"clean-css-cli": "^4.1.5",
 		"electron": "^1.6.11",
