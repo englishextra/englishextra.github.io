@@ -2429,51 +2429,51 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 			if (appContent) {
 				routie({
 					"": function () {
-						loadVirtualPage(appContentId, "./includes/home.html", function () {
+						loadVirtualPage(appContentId, "./includes/serguei-eaststreet/home.html", function () {
 							reinitVirtualPage("Начало");
 						});
 					},
 					"/home": function () {
-						loadVirtualPage(appContentId, "./includes/home.html", function () {
+						loadVirtualPage(appContentId, "./includes/serguei-eaststreet/home.html", function () {
 							reinitVirtualPage("Начало");
 						});
 					},
 					"/schedule": function () {
 						if ("undefined" !== typeof getHTTP && getHTTP()) {
-							loadVirtualPage(appContentId, "./includes/schedule.html", function () {
+							loadVirtualPage(appContentId, "./includes/serguei-eaststreet/schedule.html", function () {
 								reinitVirtualPage("Расписание");
 							});
 						}
 					},
 					"/map": function () {
 						if ("undefined" !== typeof getHTTP && getHTTP()) {
-							loadVirtualPage(appContentId, "./includes/map.html", function () {
+							loadVirtualPage(appContentId, "./includes/serguei-eaststreet/map.html", function () {
 								reinitVirtualPage("Карта");
 							});
 						}
 					},
 					"/level_test": function () {
-						loadVirtualPage(appContentId, "./includes/level_test.html", function () {
+						loadVirtualPage(appContentId, "./includes/serguei-eaststreet/level_test.html", function () {
 							reinitVirtualPage("Уровневый тест");
 						});
 					},
 					"/common_mistakes": function () {
-						loadVirtualPage(appContentId, "./includes/common_mistakes.html", function () {
+						loadVirtualPage(appContentId, "./includes/serguei-eaststreet/common_mistakes.html", function () {
 							reinitVirtualPage("Распространенные ошибки");
 						});
 					},
 					"/demo_ege": function () {
-						loadVirtualPage(appContentId, "./includes/demo_ege.html", function () {
+						loadVirtualPage(appContentId, "./includes/serguei-eaststreet/demo_ege.html", function () {
 							reinitVirtualPage("Демо-вариант ЕГЭ-11 АЯ (ПЧ)");
 						});
 					},
 					"/demo_ege_speaking": function () {
-						loadVirtualPage(appContentId, "./includes/demo_ege_speaking.html", function () {
+						loadVirtualPage(appContentId, "./includes/serguei-eaststreet/demo_ege_speaking.html", function () {
 							reinitVirtualPage("Демо-вариант ЕГЭ-11 АЯ (УЧ)");
 						});
 					},
 					"/previous_ege_analysis": function () {
-						loadVirtualPage(appContentId, "./includes/previous_ege_analysis.html", function () {
+						loadVirtualPage(appContentId, "./includes/serguei-eaststreet/previous_ege_analysis.html", function () {
 							reinitVirtualPage("ЕГЭ: разбор ошибок");
 						});
 					},
