@@ -595,11 +595,6 @@ a.mui-btn:active,
 	background-color: $clr-grey-200;
 }
 
-.app-content .link-color-inherit a {
-	color: inherit;
-	text-decoration: underline;
-}
-
 /*!
  * app-content
  */
@@ -819,7 +814,12 @@ a.mui-btn:active,
 
 .card-wrap.card-wrap--skeleton {
 	background-color: transparent;
+	box-shadow: none;
 	padding: 0;
+}
+
+.card-wrap.card-wrap--skeleton.is-active {
+	box-shadow: 0 0.063rem 0.063rem 0 rgba(0, 0, 0, 0.16), 0 0 0.063rem 0 rgba(0, 0, 0, 0.12);
 }
 
 .card-wrap.card-wrap--skeleton .ymap-iframe-wrapper {
@@ -832,23 +832,30 @@ a.mui-btn:active,
 	margin: 0 !important;
 }
 
-.card-wrap--banner-dark-background {
+.card-wrap--banner-dark {
 	color: #FFFFFF;
 	background-color: $clr-blue-grey-700;
 }
 
-.card-wrap--aside-background {
-	background-color: $clr-grey-300;
+.card-wrap--aside {
+	color: $clr-blue-grey-800;
+	background-color: $clr-blue-grey-100;
 }
 
-.card-wrap--notice-background {
-	color: $clr-light-blue-700;
-	background-color: $clr-light-blue-50;
+.card-wrap--notice {
+	color: $clr-light-blue-900;
+	background-color: $clr-light-blue-100;
 }
 
-.card-wrap--banner-dark-background a,
-.card-wrap--aside-background a,
-.card-wrap--notice-background a {
+.card-wrap--heading {
+	background-color: #FFFFFF;
+}
+
+.plain-links a,
+.card-wrap--heading a,
+.card-wrap--banner-dark a,
+.card-wrap--aside a,
+.card-wrap--notice a {
 	color: inherit;
 	text-decoration: underline;
 }

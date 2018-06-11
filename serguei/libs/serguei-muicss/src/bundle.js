@@ -1346,21 +1346,34 @@ twttr, unescape, verge, WheelIndicator*/
 		};
 		manageRippleEffect();
 
-		var observeMutations = function (scope, callback, disconnect, timeout) {
+		var observeMutations = function (scope, callback, settings) {
 			var context = scope && scope.nodeName ? scope : "";
+			var options = settings || {};
+			options.disconnect = options.disconnect || false;
+			options.timeout = options.timeout || 0;
+			options.childList = options.childList || true;
+			options.subtree = options.subtree || true;
+			options.attributes = options.attributes || false;
+			options.characterData = options.characterData || false;
+			options.log = options.log || false;
 			var mo;
 			var getMutations = function (e) {
 				var triggerOnMutation = function (m) {
-					console.log("mutations observer: " + m.type);
-					console.log(m.type, "target: " + m.target.tagName + ("." + m.target[className] || "#" + m.target.id || ""));
-					console.log(m.type, "added: " + m.addedNodes[_length] + " nodes");
-					console.log(m.type, "removed: " + m.removedNodes[_length] + " nodes");
-					if ("childList" === m.type || "subtree" === m.type) {
-						if (disconnect) {
+					if (options.log) {
+						console.log("mutations observer: " + m.type);
+						console.log(m.type, "target: " + m.target.tagName + ("." + m.target[className] || "#" + m.target.id || ""));
+						console.log(m.type, "added: " + m.addedNodes[_length] + " nodes");
+						console.log(m.type, "removed: " + m.removedNodes[_length] + " nodes");
+					}
+					if ("childList" === m.type ||
+						"subtree" === m.type ||
+						"attributes" === m.type ||
+						"characterData" === m.type) {
+						if (options.disconnect) {
 							 mo.disconnect();
 						}
 						if (callback && "function" === typeof callback) {
-							if (timeout && "number" === typeof timeout) {
+							if (options.timeout && "number" === typeof options.timeout) {
 								var timers = new Timers();
 								timers.timeout(function () {
 									timers.clear();
@@ -1368,7 +1381,7 @@ twttr, unescape, verge, WheelIndicator*/
 									if (mgrid) {
 										callback();
 									}
-								}, timeout);
+								}, options.timeout);
 							} else {
 								callback();
 							}
@@ -1382,10 +1395,10 @@ twttr, unescape, verge, WheelIndicator*/
 			if (context) {
 				mo = new MutationObserver(getMutations);
 				mo.observe(context, {
-					childList: true,
-					subtree: true,
-					attributes: false,
-					characterData: false
+					childList: options.childList,
+					subtree: options.subtree,
+					attributes: options.attributes,
+					characterData: options.characterData
 				});
 			}
 		};
@@ -1394,13 +1407,16 @@ twttr, unescape, verge, WheelIndicator*/
 
 		var mgrid;
 
-		var updateMinigrid = function () {
+		var updateMinigrid = function (parent) {
 			var timers = new Timers();
 			timers.timeout(function () {
 				timers.clear();
 				timers = null;
 				if (mgrid) {
 					mgrid.mount();
+					if (parent && parent.nodeName) {
+						parent[classList].add(isActiveClass);
+					}
 				}
 			}, 500);
 		};
@@ -1409,8 +1425,7 @@ twttr, unescape, verge, WheelIndicator*/
 			var disqusThread = document[getElementById]("disqus_thread") || "";
 			if (disqusThread) {
 				if (!disqusThread[parentNode][classList].contains(isBindedMinigridCardClass)) {
-					/* disqusThread[parentNode][_addEventListener]("DOMSubtreeModified", updateMinigrid, {passive: true}); */
-					observeMutations(disqusThread[parentNode], updateMinigrid);
+					observeMutations(disqusThread[parentNode], updateMinigrid.bind(null, disqusThread[parentNode]));
 					disqusThread[parentNode][classList].add(isBindedMinigridCardClass);
 				}
 			}
@@ -1467,8 +1482,7 @@ twttr, unescape, verge, WheelIndicator*/
 				l;
 				for (i = 0, l = instagramMedia[_length]; i < l; i += 1) {
 					if (!instagramMedia[i][parentNode][classList].contains(isBindedMinigridCardClass)) {
-						/* instagramMedia[i][parentNode][_addEventListener]("DOMSubtreeModified", updateMinigrid, {passive: true}); */
-						observeMutations(instagramMedia[i][parentNode], updateMinigrid);
+						observeMutations(instagramMedia[i][parentNode], updateMinigrid.bind(null, instagramMedia[i][parentNode]));
 						instagramMedia[i][parentNode][classList].add(isBindedMinigridCardClass);
 					}
 				}
@@ -1500,8 +1514,7 @@ twttr, unescape, verge, WheelIndicator*/
 				l;
 				for (i = 0, l = twitterTweet[_length]; i < l; i += 1) {
 					if (!twitterTweet[i][parentNode][classList].contains(isBindedMinigridCardClass)) {
-						/* twitterTweet[i][parentNode][_addEventListener]("DOMSubtreeModified", updateMinigrid, {passive: true}); */
-						observeMutations(twitterTweet[i][parentNode], updateMinigrid);
+						observeMutations(twitterTweet[i][parentNode], updateMinigrid.bind(null, twitterTweet[i][parentNode]));
 						twitterTweet[i][parentNode][classList].add(isBindedMinigridCardClass);
 					}
 				}
