@@ -2796,10 +2796,10 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			if (ctx) {
 				mo = new MutationObserver(getMutations);
 				mo.observe(ctx, {
-					childList: !0,
-					subtree: !0,
-					attributes: !1,
-					characterData: !1
+					childList: true,
+					subtree: true,
+					attributes: false,
+					characterData: false
 				});
 			}
 		}; */

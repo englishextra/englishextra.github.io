@@ -466,10 +466,10 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 			if (context) {
 				mo = new MutationObserver(getMutations);
 				mo.observe(context, {
-					childList: !0,
-					subtree: !0,
-					attributes: !1,
-					characterData: !1
+					childList: true,
+					subtree: true,
+					attributes: false,
+					characterData: false
 				});
 			}
 		};

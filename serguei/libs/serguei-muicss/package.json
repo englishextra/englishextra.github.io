@@ -1,0 +1,44 @@
+{
+	"name": "serguei-muicss-dev",
+	"version": "1.0.0",
+	"description": "Developing personal website with https://github.com/muicss/mui. Lightweight CSS framework https://www.muicss.com.",
+	"keywords": [
+		"english",
+		"webapp",
+		"spa",
+		"html",
+		"css",
+		"scss",
+		"js",
+		"pwa",
+		"material",
+		"material-design"
+	],
+	"main": "gulpfile.js",
+	"scripts": {
+		"start": "gulp default",
+		"bundle": "gulp bundle-assets"
+	},
+	"devDependencies": {
+		"browser-sync": "2.10.1",
+		"gulp": "3.9.1",
+		"gulp-autoprefixer": "3.1.0",
+		"gulp-bundle-assets": "2.29.0",
+		"gulp-cli": "1.4.0",
+		"gulp-minify-css": "1.2.2",
+		"gulp-sass": "2.1.1",
+		"jquery": "^3.3.1",
+		"mustache": "^2.3.0",
+		"normalize.css": "^8.0.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/englishextra/serguei-muicss-dev.git"
+	},
+	"author": "englishextra <englishextra@yandex.ru> (https://github.com/englishextra)",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/englishextra/serguei-muicss-dev/issues"
+	},
+	"homepage": "https://github.com/englishextra/serguei-muicss-dev#readme"
+}

@@ -1,0 +1,37 @@
+$TitleBarAndAppBarDark: #1F1F1F;
+$ButtonBackgroundDark: #2B2B2B;
+$TitleBarAndAppBarDarkItemHighlight: #393939;
+
+$color-rgba-page-overlay-bg: rgba(0, 0, 0, 0.7);
+$color-rgba-lightbox-shadow: rgba(3, 3, 3, 0.3);
+
+//
+// brand color
+//
+
+$clr-brand-color-list: (
+ "base": #F03B4C,
+ "50":  #FA9FA6,
+ "100": #F88B94,
+ "200": #F67782,
+ "300": #F46370,
+ "400": #F24F5E,
+ "500": #F03B4C,
+ "600": #D83544,
+ "700": #C02F3C,
+ "800": #A82934,
+ "900": #90232C
+);
+
+$clr-brand-color:   map-get($clr-brand-color-list, "base");
+
+$clr-brand-color-50:  map-get($clr-brand-color-list, "50");
+$clr-brand-color-100: map-get($clr-brand-color-list, "100");
+$clr-brand-color-200: map-get($clr-brand-color-list, "200");
+$clr-brand-color-300: map-get($clr-brand-color-list, "300");
+$clr-brand-color-400: map-get($clr-brand-color-list, "400");
+$clr-brand-color-500: map-get($clr-brand-color-list, "500");
+$clr-brand-color-600: map-get($clr-brand-color-list, "600");
+$clr-brand-color-700: map-get($clr-brand-color-list, "700");
+$clr-brand-color-800: map-get($clr-brand-color-list, "800");
+$clr-brand-color-900: map-get($clr-brand-color-list, "900");
