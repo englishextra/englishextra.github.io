@@ -12,3 +12,4 @@ project-info.json
 xdk-publish-meta-data.json
 node_modules/
 *.ai
+*.psd
