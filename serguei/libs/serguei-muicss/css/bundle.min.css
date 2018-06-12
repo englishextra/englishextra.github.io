@@ -902,6 +902,10 @@ a.mui-btn:active,
 	padding-left: 0.938rem;
 }
 
+.card-wrap.card-wrap--skeleton #disqus_thread.is-active {
+	margin-top: -24px !Important;
+}
+
 /*!
  * @see {@link https://github.com/sksmatt/UItoTop-jQuery-Plugin/}
  */
