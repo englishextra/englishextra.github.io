@@ -1,7 +1,7 @@
-/*global ActiveXObject, console, doesFontExist, hljs, IframeLightbox,
-imgLightbox, imagePromise, instgrm, JsonHashRouter, loadCSS, loadJsCss,
-Minigrid, Mustache, Promise, Timers, QRCode, require, ripple, t, twttr,
-unescape, verge, WheelIndicator*/
+/*global ActiveXObject, console, DISQUS, doesFontExist, hljs,
+IframeLightbox, imgLightbox, imagePromise, instgrm, JsonHashRouter, loadCSS,
+loadJsCss, Minigrid, Mustache, Promise, Timers, QRCode, require, ripple, t,
+twttr, unescape, verge, WheelIndicator*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -479,6 +479,7 @@ unescape, verge, WheelIndicator*/
 
 		var appendChild = "appendChild";
 		var body = "body";
+		var className = "className";
 		var cloneNode = "cloneNode";
 		var createContextualFragment = "createContextualFragment";
 		var createDocumentFragment = "createDocumentFragment";
@@ -629,6 +630,18 @@ unescape, verge, WheelIndicator*/
 		if (document[title]) {
 			document[title] = document[title] + userBrowsingDetails;
 		}
+
+		var scriptIsLoaded = function (scriptSrc) {
+			var scriptAll, i, l;
+			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[_length]; i < l; i += 1) {
+				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
+					scriptAll = i = l = null;
+					return true;
+				}
+			}
+			scriptAll = i = l = null;
+			return false;
+		};
 
 		var debounce = function (func, wait) {
 			var timeout;
@@ -1326,48 +1339,188 @@ unescape, verge, WheelIndicator*/
 		};
 		manageRippleEffect();
 
+		var observeMutations = function (scope, callback, settings) {
+			var context = scope && scope.nodeName ? scope : "";
+			var options = settings || {};
+			options.disconnect = options.disconnect || false;
+			options.timeout = options.timeout || 0;
+			options.childList = options.childList || true;
+			options.subtree = options.subtree || true;
+			options.attributes = options.attributes || false;
+			options.characterData = options.characterData || false;
+			options.log = options.log || false;
+			var mo;
+			var getMutations = function (e) {
+				var triggerOnMutation = function (m) {
+					if (options.log) {
+						console.log("mutations observer: " + m.type);
+						console.log(m.type, "target: " + m.target.tagName + ("." + m.target[className] || "#" + m.target.id || ""));
+						console.log(m.type, "added: " + m.addedNodes[_length] + " nodes");
+						console.log(m.type, "removed: " + m.removedNodes[_length] + " nodes");
+					}
+					if ("childList" === m.type || "subtree" === m.type || "attributes" === m.type || "characterData" === m.type) {
+						if (options.disconnect) {
+							mo.disconnect();
+						}
+						if (callback && "function" === typeof callback) {
+							if (options.timeout && "number" === typeof options.timeout) {
+								var timers = new Timers();
+								timers.timeout(function () {
+									timers.clear();
+									timers = null;
+									if (mgrid) {
+										callback();
+									}
+								}, options.timeout);
+							} else {
+								callback();
+							}
+						}
+					}
+				};
+				for (var i = 0, l = e[_length]; i < l; i += 1) {
+					triggerOnMutation(e[i]);
+				}
+			};
+			if (context) {
+				mo = new MutationObserver(getMutations);
+				mo.observe(context, {
+					childList: options.childList,
+					subtree: options.subtree,
+					attributes: options.attributes,
+					characterData: options.characterData
+				});
+			}
+		};
+
+		var isBindedMinigridCardClass = "is-binded-minigrid-card";
+
 		var mgrid;
 
-		var updateMinigrid = function () {
-			mgrid.mount();
+		var updateMinigrid = function (parent) {
+			var timers = new Timers();
+			timers.timeout(function () {
+				timers.clear();
+				timers = null;
+				if (mgrid) {
+					mgrid.mount();
+					if (parent && parent.nodeName) {
+						parent[classList].add(isActiveClass);
+					}
+				}
+			}, 500);
+		};
+
+		var handleDisqusEmbedInMinigrid = function () {
+			var disqusThread = document[getElementById]("disqus_thread") || "";
+			if (disqusThread) {
+				if (!disqusThread[parentNode][classList].contains(isBindedMinigridCardClass)) {
+					observeMutations(disqusThread[parentNode], updateMinigrid.bind(null, disqusThread[parentNode]));
+					disqusThread[parentNode][classList].add(isBindedMinigridCardClass);
+				}
+			}
+		};
+		var manageDisqusEmbed = function () {
+			var disqusThread = document[getElementById]("disqus_thread") || "";
+			var locationHref = root.location.href || "";
+			var disqusThreadShortname = disqusThread ? disqusThread[dataset].shortname || "" : "";
+			var hideDisqusThread = function () {
+				removeChildren(disqusThread);
+				var replacementText = document[createElement]("p");
+				replacementText[appendChild](document[createTextNode]("Комментарии доступны только в веб версии этой страницы."));
+				appendFragment(replacementText, disqusThread);
+				disqusThread.removeAttribute("id");
+			};
+			var initScript = function () {
+				if (root.DISQUS) {
+					try {
+						DISQUS.reset({
+							reload: true,
+							config: function () {
+								this.page.identifier = disqusThreadShortname;
+								this.page.url = locationHref;
+							}
+						});
+						disqusThread[classList].add(isActiveClass);
+					} catch (err) {
+						/* console.log("cannot reset DISQUS", err); */
+					}
+				}
+			};
+			if (disqusThread && disqusThreadShortname && locationHref) {
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					handleDisqusEmbedInMinigrid();
+					var jsUrl = forcedHTTP + "://" + disqusThreadShortname + ".disqus.com/embed.js";
+					if (!scriptIsLoaded(jsUrl)) {
+						var load;
+						load = new loadJsCss([jsUrl], initScript);
+					} else {
+						initScript();
+					}
+				} else {
+					hideDisqusThread();
+				}
+			}
 		};
 
 		var handleInstagramEmbedInMinigrid = function () {
-			if (mgrid) {
-				var instagramMedia = document[getElementsByClassName]("instagram-media") || "";
-				if (instagramMedia) {
-					var i, l;
-					for (i = 0, l = instagramMedia[_length]; i < l; i += 1) {
-						instagramMedia[i][_addEventListener]("DOMSubtreeModified", updateMinigrid, { passive: true });
+			var instagramMedia = document[getElementsByClassName]("instagram-media") || "";
+			if (instagramMedia) {
+				var i, l;
+				for (i = 0, l = instagramMedia[_length]; i < l; i += 1) {
+					if (!instagramMedia[i][parentNode][classList].contains(isBindedMinigridCardClass)) {
+						observeMutations(instagramMedia[i][parentNode], updateMinigrid.bind(null, instagramMedia[i][parentNode]));
+						instagramMedia[i][parentNode][classList].add(isBindedMinigridCardClass);
 					}
 				}
 			}
 		};
 		var manageInstagramEmbeds = function () {
-			if (root.instgrm) {
-				var instagramMedia = document[getElementsByClassName]("instagram-media")[0] || "";
-				if (instagramMedia) {
+			var instagramMedia = document[getElementsByClassName]("instagram-media")[0] || "";
+			var initScript = function () {
+				if (root.instgrm) {
 					instgrm.Embeds.process();
+				}
+			};
+			if (instagramMedia) {
+				handleInstagramEmbedInMinigrid();
+				var jsUrl = forcedHTTP + "://" + "www.instagram.com/embed.js";
+				if (!scriptIsLoaded(jsUrl)) {
+					var load;
+					load = new loadJsCss([jsUrl], initScript);
+				} else {
+					initScript();
 				}
 			}
 		};
 
 		var handleTwitterEmbedInMinigrid = function () {
-			if (mgrid) {
-				var twitterTweet = document[getElementsByClassName]("twitter-tweet") || "";
-				if (twitterTweet) {
-					var i, l;
-					for (i = 0, l = twitterTweet[_length]; i < l; i += 1) {
-						twitterTweet[i][_addEventListener]("DOMSubtreeModified", updateMinigrid, { passive: true });
+			var twitterTweet = document[getElementsByClassName]("twitter-tweet") || "";
+			if (twitterTweet) {
+				var i, l;
+				for (i = 0, l = twitterTweet[_length]; i < l; i += 1) {
+					if (!twitterTweet[i][parentNode][classList].contains(isBindedMinigridCardClass)) {
+						observeMutations(twitterTweet[i][parentNode], updateMinigrid.bind(null, twitterTweet[i][parentNode]));
+						twitterTweet[i][parentNode][classList].add(isBindedMinigridCardClass);
 					}
 				}
 			}
 		};
 		var manageTwitterEmbeds = function () {
-			if (root.twttr) {
-				var twitterTweet = document[getElementsByClassName]("twitter-tweet")[0] || "";
-				if (twitterTweet) {
+			var twitterTweet = document[getElementsByClassName]("twitter-tweet")[0] || "";
+			var initScript = function () {
+				if (root.twttr) {
 					twttr.widgets.load();
+				}
+			};
+			if (twitterTweet) {
+				handleTwitterEmbedInMinigrid();
+				var jsUrl = forcedHTTP + "://" + "platform.twitter.com/widgets.js";
+				if (!scriptIsLoaded(jsUrl)) {
+					var load;
+					load = new loadJsCss([jsUrl], initScript);
+				} else {
+					initScript();
 				}
 			}
 		};
@@ -1396,8 +1549,6 @@ unescape, verge, WheelIndicator*/
 			var onMinigridCreated = function () {
 				cardGrid[style].visibility = "visible";
 				cardGrid[style].opacity = 1;
-				handleInstagramEmbedInMinigrid();
-				handleTwitterEmbedInMinigrid();
 			};
 			var initMinigrid = function () {
 				if (mgrid) {
@@ -1652,37 +1803,6 @@ unescape, verge, WheelIndicator*/
   	}
   }); */
 
-		/* var observeMutations = function (scope) {
-  	var context = scope && scope.nodeName ? scope : "";
-  	var mo;
-  	var getMutations = function (e) {
-  		var triggerOnMutation = function (m) {
-  			console.log("mutations observer: " + m.type);
-  			console.log(m.type, "target: " + m.target.tagName + ("." + m.target[className] || "#" + m.target.id || ""));
-  			console.log(m.type, "added: " + m.addedNodes[_length] + " nodes");
-  			console.log(m.type, "removed: " + m.removedNodes[_length] + " nodes");
-  			if ("childList" === m.type || "subtree" === m.type) {
-  				 mo.disconnect();
-  			}
-  		};
-  		for (var i = 0, l = e[_length]; i < l; i += 1) {
-  			triggerOnMutation(e[i]);
-  		}
-  	};
-  	if (context) {
-  		mo = new MutationObserver(getMutations);
-  		mo.observe(context, {
-  			childList: !0,
-  			subtree: !0,
-  			attributes: !1,
-  			characterData: !1
-  		});
-  	}
-  };
-  if (appContentParent) {
-  	observeMutations(appContentParent);
-  } */
-
 		var jhrouter;
 		jhrouter = new JsonHashRouter("./libs/serguei-muicss/json/navigation.min.json", appContentId, {
 			jsonHomePropName: "home",
@@ -1753,6 +1873,8 @@ unescape, verge, WheelIndicator*/
 					manageRippleEffect();
 					manageInstagramEmbeds();
 					manageTwitterEmbeds();
+					manageDisqusEmbed();
+					/* manageFlickrEmbeds(); */
 					var timers3 = new Timers();
 					timers3.timeout(function () {
 						timers3.clear();
@@ -1838,7 +1960,7 @@ unescape, verge, WheelIndicator*/
  	"../../cdn/wheel-indicator/1.1.4/js/wheel-indicator.fixed.js"
  ]; */
 
-	scripts.push("./libs/serguei-muicss/js/vendors.min.js", "https://platform.twitter.com/widgets.js", "https://www.instagram.com/embed.js");
+	scripts.push("./libs/serguei-muicss/js/vendors.min.js");
 
 	/*!
   * load scripts after webfonts loaded using doesFontExist
