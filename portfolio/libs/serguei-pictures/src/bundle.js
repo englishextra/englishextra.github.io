@@ -928,7 +928,7 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 		manageDataSrcImageAll();
 
 		var manageLocationQrCodeImage = function () {
-			var holder = document[getElementsByClassName]("holder-location-qr-code")[0] || "";
+			var holder = document[getElementsByClassName]("holder-location-qrcode")[0] || "";
 			var locationHref = root.location.href || "";
 			var initScript = function () {
 				var locationHref = root.location.href || "";

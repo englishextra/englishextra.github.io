@@ -197,9 +197,14 @@
 				opacity: 0;
 			}
 			template,
-			#sidedrawer li>strong+ul,
+			#sidedrawer li > strong + ul,
 			.app-content img,
-			.app-content iframe {
+			.app-content iframe,
+			.btn-toggle-holder-qrcode,
+			.btn-toggle-holder-share-buttons,
+			.btn-toggle-holder-vk-like,
+			.holder-location-qrcode,
+			.holder-share-buttons {
 				display: none;
 			}
 		</style>
@@ -367,6 +372,14 @@
 					<path fill="currentColor" d="M43.977,2c3.651,0,6.732,1.253,9.239,3.761C55.738,8.283,57,11.363,57,15c0,3.653-1.239,6.693-3.715,9.123C50.654,26.708,47.551,28,43.977,28c-3.514,0-6.562-1.277-9.146-3.831C32.277,21.615,31,18.56,31,15c0-3.559,1.277-6.639,3.831-9.239C37.338,3.253,40.386,2,43.977,2z M44.023,4.345c-2.956,0-5.455,1.037-7.498,3.111c-2.121,2.167-3.181,4.682-3.181,7.545c0,2.879,1.052,5.371,3.157,7.474c2.105,2.105,4.612,3.157,7.521,3.157c2.894,0,5.417-1.059,7.568-3.18c2.043-1.965,3.064-4.449,3.064-7.452c0-2.956-1.037-5.47-3.11-7.544C49.471,5.382,46.964,4.345,44.023,4.345z M47.506,11.773v5.316H46.02v6.314h-4.04v-6.314h-1.485v-5.316c0-0.232,0.081-0.429,0.243-0.592c0.163-0.162,0.36-0.244,0.592-0.244h5.34c0.217,0,0.41,0.081,0.58,0.244C47.42,11.344,47.506,11.541,47.506,11.773z M42.189,8.431c0-1.222,0.603-1.834,1.811-1.834s1.811,0.611,1.811,1.834c0,1.207-0.604,1.811-1.811,1.811S42.189,9.637,42.189,8.431z"></path>
 					<path fill="currentColor" d="M73.977,2.228c3.637,0,6.716,1.262,9.24,3.784C85.738,8.519,87,11.59,87,15.228s-1.239,6.686-3.715,9.146c-2.615,2.569-5.718,3.854-9.308,3.854c-3.514,0-6.562-1.277-9.146-3.831C62.277,21.844,61,18.787,61,15.228c0-3.544,1.277-6.616,3.831-9.216C67.354,3.489,70.402,2.228,73.977,2.228z M74.024,4.572c-2.956,0-5.456,1.044-7.499,3.134c-2.121,2.152-3.181,4.659-3.181,7.521c0,2.895,1.052,5.386,3.157,7.475c2.105,2.105,4.612,3.157,7.522,3.157c2.894,0,5.416-1.06,7.567-3.18c2.043-1.981,3.064-4.464,3.064-7.452c0-2.971-1.037-5.478-3.11-7.521C79.486,5.617,76.979,4.572,74.024,4.572z M78.922,12.163v2.228h-9.448v-2.228H78.922z M78.922,16.342v2.227h-9.448v-2.227H78.922z"></path>
 				</symbol>
+				<symbol id="ui-icon-thumb-up-outline" viewBox="0 0 24 24">
+					<title>thumb-up-outline</title>
+					<path fill="currentColor" d="M5,9V21H1V9H5M9,21A2,2 0 0,1 7,19V9C7,8.45 7.22,7.95 7.59,7.59L14.17,1L15.23,2.06C15.5,2.33 15.67,2.7 15.67,3.11L15.64,3.43L14.69,8H21C22.11,8 23,8.9 23,10V12C23,12.26 22.95,12.5 22.86,12.73L19.84,19.78C19.54,20.5 18.83,21 18,21H9M9,19H18.03L21,12V10H12.21L13.34,4.68L9,9.03V19Z"></path>
+				</symbol>
+				<symbol id="ui-icon-share-variant" viewBox="0 0 24 24">
+					<title>share-variant</title>
+					<path fill="currentColor" d="M18,16.08C17.24,16.08 16.56,16.38 16.04,16.85L8.91,12.7C8.96,12.47 9,12.24 9,12C9,11.76 8.96,11.53 8.91,11.3L15.96,7.19C16.5,7.69 17.21,8 18,8A3,3 0 0,0 21,5A3,3 0 0,0 18,2A3,3 0 0,0 15,5C15,5.24 15.04,5.47 15.09,5.7L8.04,9.81C7.5,9.31 6.79,9 6,9A3,3 0 0,0 3,12A3,3 0 0,0 6,15C6.79,15 7.5,14.69 8.04,14.19L15.16,18.34C15.11,18.55 15.08,18.77 15.08,19C15.08,20.61 16.39,21.91 18,21.91C19.61,21.91 20.92,20.61 20.92,19A2.92,2.92 0 0,0 18,16.08Z"></path>
+				</symbol>
 			</defs>
 		</svg>
 		<nav id="sidedrawer" class="mui--no-user-select">
@@ -458,12 +471,7 @@
 						</svg>
 					</a>
 				</template>
-				<a href="javascript:void(0);" class="mui-appbar__ui-button mui-appbar__ui-button--qrcode mui--visible-xl-block" aria-label="Навигация" title="Ссылка">
-					<svg class="ui-icon">
-						<use xlink:href="#ui-icon-qrcode-scan"></use>
-					</svg>
-				</a>
-				<div class="holder-location-qr-code" aria-hidden="true"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="qr-code-img" alt="" /></div>
+				<div class="holder-location-qrcode" aria-hidden="true"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="qr-code-img" alt="" /></div>
 				<a href="javascript:void(0);" class="mui-appbar__ui-button mui-appbar__ui-button--more" data-mui-toggle="dropdown" aria-label="Навигация" title="Соцсети">
 					<svg class="ui-icon">
 						<use xlink:href="#ui-icon-more"></use>
@@ -491,6 +499,24 @@
 				<div class="app-content" id="app-content"></div>
 			</div>
 		</main>
+		<a href="javascript:void(0);" class="btn-social btn-toggle-holder-qrcode mui-btn mui-btn--fab ripple" aria-label="Навигация" title="Ссылка">
+			<svg class="ui-icon">
+				<use xlink:href="#ui-icon-qrcode-scan"></use>
+			</svg>
+		</a>
+		<a href="javascript:void(0);" class="btn-social btn-toggle-holder-share-buttons mui-btn mui-btn--fab ripple" aria-label="Навигация" title="Поделиться">
+			<svg class="ui-icon">
+				<use xlink:href="#ui-icon-share-variant"></use>
+			</svg>
+		</a>
+		<a href="javascript:void(0);" class="btn-social btn-toggle-holder-vk-like mui-btn mui-btn--fab ripple" aria-label="Навигация" title="ВК Нравится">
+			<svg class="ui-icon">
+				<use xlink:href="#ui-icon-thumb-up-outline"></use>
+			</svg>
+		</a>
+		<div class="holder-location-qrcode" aria-hidden="true"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="qr-code-img" alt="" /></div>
+		<div class="holder-share-buttons"><div id="ya-share2" data-direction="horizontal" data-services="vkontakte,facebook,pocket,telegram" aria-hidden="true"></div></div>
+		<div class="holder-vk-like"><div class="vk-like" id="vk-like" data-apiid="4367728" aria-hidden="true"></div></div>
 		<div class="half-circle-spinner" aria-hidden="true">
 			<div class="circle circle-1"></div>
 			<div class="circle circle-2"></div>

@@ -1,7 +1,7 @@
-/*global ActiveXObject, console, DISQUS, doesFontExist, hljs,
-IframeLightbox, imgLightbox, imagePromise, instgrm, JsonHashRouter, loadCSS,
-loadJsCss, Minigrid, Mustache, Promise, Timers, QRCode, require, ripple, t,
-twttr, unescape, verge, WheelIndicator*/
+/*global ActiveXObject, console, DISQUS, doesFontExist, hljs, IframeLightbox,
+imgLightbox, imagePromise, instgrm, JsonHashRouter, loadCSS, loadJsCss,
+Minigrid, Mustache, Promise, Timers, QRCode, require, ripple, t, twttr,
+unescape, verge, VK, WheelIndicator, Ya*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -503,6 +503,7 @@ twttr, unescape, verge, WheelIndicator*/
 		var isFixedClass = "is-fixed";
 		var isHiddenClass = "is-hidden";
 		var isBindedIframeLightboxLinkClass = "is-binded-iframe-lightbox-link";
+		var isCollapsableClass = "is-collapsable";
 
 		/* progressBar.increase(20); */
 
@@ -1170,85 +1171,38 @@ twttr, unescape, verge, WheelIndicator*/
 		var appContent = document[getElementById](appContentId) || "";
 		var appContentParent = appContent ? appContent[parentNode] ? appContent[parentNode] : "" : "";
 
-		var manageLocationQrCodeImage = function () {
-			var btn = document[getElementsByClassName]("mui-appbar__ui-button--qrcode")[0] || "";
-			var holder = document[getElementsByClassName]("holder-location-qr-code")[0] || "";
-			var locationHref = root.location.href || "";
-			var hideLocationQrCodeImage = function () {
-				holder[classList].remove(isActiveClass);
-			};
-			var handleLocationQrCodeButton = function (ev) {
-				ev.stopPropagation();
-				ev.preventDefault();
-				var logicHandleLocationQrCodeButton = function () {
-					holder[classList].toggle(isActiveClass);
-					var locationHref = root.location.href || "";
-					var newImg = document[createElement]("img");
-					var newTitle = document[title] ? ("Ссылка на страницу «" + document[title].replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
-					var newSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(locationHref);
-					newImg.alt = newTitle;
-					var initScript = function () {
-						if (root.QRCode) {
-							if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
-								newSrc = QRCode.generateSVG(locationHref, {
-										ecclevel: "M",
-										fillcolor: "#FFFFFF",
-										textcolor: "#212121",
-										margin: 4,
-										modulesize: 8
-									});
-								var XMLS = new XMLSerializer();
-								newSrc = XMLS.serializeToString(newSrc);
-								newSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(newSrc)));
-								newImg.src = newSrc;
-							} else {
-								newSrc = QRCode.generatePNG(locationHref, {
-										ecclevel: "M",
-										format: "html",
-										fillcolor: "#FFFFFF",
-										textcolor: "#212121",
-										margin: 4,
-										modulesize: 8
-									});
-								newImg.src = newSrc;
-							}
-						} else {
-							newImg.src = newSrc;
-						}
-						newImg[classList].add("qr-code-img");
-						newImg.title = newTitle;
-						removeChildren(holder);
-						appendFragment(newImg, holder);
-					};
-					/* var jsUrl = "./cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js";
-					if (!scriptIsLoaded(jsUrl)) {
-						var load;
-						load = new loadJsCss([jsUrl], initScript);
-					} else {
-						initScript();
-					} */
-					initScript();
-				};
-				var debounceLogicHandleLocationQrCodeButton = debounce(logicHandleLocationQrCodeButton, 200);
-				debounceLogicHandleLocationQrCodeButton();
-			};
-			if (btn && holder && locationHref) {
-				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					btn[_addEventListener]("click", handleLocationQrCodeButton);
-					if (appContentParent) {
-						appContentParent[_addEventListener]("click", hideLocationQrCodeImage);
-					}
-					root[_addEventListener]("hashchange", hideLocationQrCodeImage);
+		var manageOtherCollapsableAll = function (_self) {
+			var _this = _self || this;
+			var btn = document[getElementsByClassName](isCollapsableClass) || "";
+			var removeActiveClass = function (e) {
+				if (_this !== e) {
+					e[classList].remove(isActiveClass);
 				}
+			};
+			if (btn) {
+				for (var i = 0, l = btn[_length]; i < l; i += 1) {
+					removeActiveClass(btn[i]);
+				}
+				/* forEach(btn, removeActiveClass, false); */
+			}
+			if (sidedrawer && _self !== sidedrawer) {
+				hideSidedrawer();
 			}
 		};
-		manageLocationQrCodeImage();
+		var manageCollapsableAll = function () {
+			if (appContentParent) {
+				appContentParent[_addEventListener]("click", manageOtherCollapsableAll);
+			}
+		};
+		manageCollapsableAll();
+		root[_addEventListener]("hashchange", manageOtherCollapsableAll);
 
 		var hideCurrentDropdownMenu = function (e) {
 			if (e) {
 				if (/* e[style].display !== "none" || */e[classList].contains(isActiveClass)) {
 					/* e[style].display = "none"; */
 					e[classList].remove(isActiveClass);
+					manageOtherCollapsableAll(e);
 				}
 			}
 		};
@@ -1272,6 +1226,7 @@ twttr, unescape, verge, WheelIndicator*/
 					/* dropdownMenu[style].display = "none"; */
 					dropdownMenu[classList].remove(isActiveClass);
 				}
+				manageOtherCollapsableAll(dropdownMenu);
 				var linkAll = dropdownMenu[getElementsByTagName]("a") || "";
 				if (linkAll) {
 					for (var i = 0, l = linkAll[_length]; i < l; i += 1) {
@@ -1300,6 +1255,7 @@ twttr, unescape, verge, WheelIndicator*/
 							dropdownButtonAll[i][classList].add(isBindedClass);
 							/* dropdownButtonAll[i].nextElementSibling[style].display = "none"; */
 							dropdownButtonAll[i][classList].remove(isActiveClass);
+							dropdownButtonAll[i].nextElementSibling[classList].add(isCollapsableClass);
 					}
 				}
 			}
@@ -1627,7 +1583,7 @@ twttr, unescape, verge, WheelIndicator*/
 		};
 		/* manageSidedrawerCategoryAll(); */
 
-		var handleSidedrawerLinkAll = function () {
+		var hideSidedrawer = function () {
 			docBody[classList].add(hideSidedrawerClass);
 			sidedrawer[classList].remove(activeClass);
 		};
@@ -1638,14 +1594,14 @@ twttr, unescape, verge, WheelIndicator*/
 				if (linkAll) {
 					for (var i = 0, l = linkAll[_length]; i < l; i += 1) {
 						if (!linkAll[i][classList].contains(isBindedClass)) {
-							linkAll[i][_addEventListener]("click", handleSidedrawerLinkAll);
+							linkAll[i][_addEventListener]("click", hideSidedrawer);
 							linkAll[i][classList].add(isBindedClass);
 						}
 					}
 				}
 			}
 			if (appContentParent) {
-				appContentParent[_addEventListener]("click", handleSidedrawerLinkAll);
+				appContentParent[_addEventListener]("click", hideSidedrawer);
 			}
 		};
 		/* hideSidedrawerOnNavigating(); */
@@ -1662,6 +1618,7 @@ twttr, unescape, verge, WheelIndicator*/
 				} else {
 					sidedrawer[classList].remove(activeClass);
 				}
+				manageOtherCollapsableAll(sidedrawer);
 			}
 		};
 		var manageSidedrawer = function () {
@@ -1741,6 +1698,189 @@ twttr, unescape, verge, WheelIndicator*/
 				}
 			}
 		}
+
+		var manageLocationQrCodeImage = function () {
+			var btn = document[getElementsByClassName]("btn-toggle-holder-qrcode")[0] || "";
+			var holder = document[getElementsByClassName]("holder-location-qrcode")[0] || "";
+			var locationHref = root.location.href || "";
+			var hideLocationQrCodeImage = function () {
+				holder[classList].remove(isActiveClass);
+			};
+			var handleLocationQrCodeButton = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				manageOtherCollapsableAll(holder);
+				var logicHandleLocationQrCodeButton = function () {
+					holder[classList].toggle(isActiveClass);
+					var locationHref = root.location.href || "";
+					var newImg = document[createElement]("img");
+					var newTitle = document[title] ? ("Ссылка на страницу «" + document[title].replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
+					var newSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(locationHref);
+					newImg.alt = newTitle;
+					var initScript = function () {
+						if (root.QRCode) {
+							if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
+								newSrc = QRCode.generateSVG(locationHref, {
+										ecclevel: "M",
+										fillcolor: "#FFFFFF",
+										textcolor: "#212121",
+										margin: 4,
+										modulesize: 8
+									});
+								var XMLS = new XMLSerializer();
+								newSrc = XMLS.serializeToString(newSrc);
+								newSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(newSrc)));
+								newImg.src = newSrc;
+							} else {
+								newSrc = QRCode.generatePNG(locationHref, {
+										ecclevel: "M",
+										format: "html",
+										fillcolor: "#FFFFFF",
+										textcolor: "#212121",
+										margin: 4,
+										modulesize: 8
+									});
+								newImg.src = newSrc;
+							}
+						} else {
+							newImg.src = newSrc;
+						}
+						newImg[classList].add("qr-code-img");
+						newImg.title = newTitle;
+						removeChildren(holder);
+						appendFragment(newImg, holder);
+					};
+					/* var jsUrl = "./cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js";
+					if (!scriptIsLoaded(jsUrl)) {
+						var load;
+						load = new loadJsCss([jsUrl], initScript);
+					} else {
+						initScript();
+					} */
+					initScript();
+				};
+				var debounceLogicHandleLocationQrCodeButton = debounce(logicHandleLocationQrCodeButton, 200);
+				debounceLogicHandleLocationQrCodeButton();
+			};
+			if (btn && holder && locationHref) {
+				holder[classList].add(isCollapsableClass);
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					btn[_addEventListener]("click", handleLocationQrCodeButton);
+					if (appContentParent) {
+						appContentParent[_addEventListener]("click", hideLocationQrCodeImage);
+					}
+					root[_addEventListener]("hashchange", hideLocationQrCodeImage);
+				}
+			}
+		};
+		manageLocationQrCodeImage();
+
+		var yshare;
+		var manageShareButton = function () {
+			var btn = document[getElementsByClassName]("btn-toggle-holder-share-buttons")[0] || "";
+			var yaShare2Id = "ya-share2";
+			var yaShare2 = document[getElementById](yaShare2Id) || "";
+			var holder = document[getElementsByClassName]("holder-share-buttons")[0] || "";
+			var handleShareButton = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var logicHandleShareButton = function () {
+					holder[classList].toggle(isActiveClass);
+					holder[classList].add(isCollapsableClass);
+					manageOtherCollapsableAll(holder);
+					var initScript = function () {
+						if (root.Ya) {
+							try {
+								if (yshare) {
+									yshare.updateContent({
+										title: document[title] || "",
+										description: document[title] || "",
+										url: root.location.href || ""
+									});
+								} else {
+									yshare = Ya.share2(yaShare2Id, {
+										content: {
+											title: document[title] || "",
+											description: document[title] || "",
+											url: root.location.href || ""
+										}
+									});
+								}
+							} catch (err) {
+								/* console.log("cannot update or init Ya", err); */
+							}
+						}
+					};
+					var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
+					if (!scriptIsLoaded(jsUrl)) {
+						var load;
+						load = new loadJsCss([jsUrl], initScript);
+					} else {
+						initScript();
+					}
+				};
+				var debounceLogicHandleShareButton = debounce(logicHandleShareButton, 200);
+				debounceLogicHandleShareButton();
+			};
+			if (btn && holder && yaShare2) {
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					btn[_addEventListener]("click", handleShareButton);
+				}
+			}
+		};
+		manageShareButton();
+
+		var vlike;
+		var manageVKLikeButton = function () {
+			var btn = document[getElementsByClassName]("btn-toggle-holder-vk-like")[0] || "";
+			var holder = document[getElementsByClassName]("holder-vk-like")[0] || "";
+			var vkLikeId = "vk-like";
+			var vkLike = document[getElementById](vkLikeId) || "";
+			var handleVKLikeButton = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var logicHandleVKLikeButton = function () {
+					holder[classList].toggle(isActiveClass);
+					holder[classList].add(isCollapsableClass);
+					manageOtherCollapsableAll(holder);
+					var initScript = function () {
+						if (root.VK) {
+							if (!vlike) {
+								try {
+									VK.init({
+										apiId: (vkLike[dataset].apiid || ""),
+										nameTransportPath: "/xd_receiver.htm",
+										onlyWidgets: true
+									});
+									VK.Widgets.Like(vkLikeId, {
+										type: "button",
+										height: 24
+									});
+									vlike = true;
+								} catch (err) {
+									/* console.log("cannot init VK", err); */
+								}
+							}
+						}
+					};
+					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?122";
+					if (!scriptIsLoaded(jsUrl)) {
+						var load;
+						load = new loadJsCss([jsUrl], initScript);
+					} else {
+						initScript();
+					}
+				};
+				var debounceLogicHandleVKLikeButton = debounce(logicHandleVKLikeButton, 200);
+				debounceLogicHandleVKLikeButton();
+			};
+			if (btn && holder && vkLike) {
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					btn[_addEventListener]("click", handleVKLikeButton);
+				}
+			}
+		};
+		manageVKLikeButton();
 
 		var initUiTotop = function () {
 			var btnClass = "ui-totop";

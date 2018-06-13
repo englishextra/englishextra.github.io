@@ -4770,7 +4770,7 @@ u,
 	z-index: 1;
 }
 
-.btn-toggle-holder-location-qr-code {
+.btn-toggle-holder-location-qrcode {
 	position: fixed;
 	top: 6.400rem;
 	right: 0;
@@ -4812,7 +4812,7 @@ u,
  * location qr code
  */
 
-.holder-location-qr-code {
+.holder-location-qrcode {
 	display: block;
 	visibility: hidden;
 	opacity: 0;
@@ -4830,13 +4830,13 @@ u,
 	z-index: 1;
 }
 
-.holder-location-qr-code.is-active {
+.holder-location-qrcode.is-active {
 	visibility: visible;
 	opacity: 1;
 }
 
-.holder-location-qr-code .qr-code-img,
-.holder-location-qr-code img {
+.holder-location-qrcode .qr-code-img,
+.holder-location-qrcode img {
 	display: block;
 	width: 9.600rem;
 	height: 9.600rem;
@@ -4923,6 +4923,7 @@ u,
 	display: block;
 	visibility: hidden;
 	opacity: 0;
+	overflow: hidden;
 	position: fixed;
 	top: 6.400rem;
 	right: 3.200rem;
@@ -4945,9 +4946,10 @@ u,
  */
 
 .holder-vk-like {
-	display: inline-block;
+	display: block;
 	visibility: hidden;
 	opacity: 0;
+	overflow: hidden;
 	height: 3.200rem;
 	position: fixed;
 	top: 6.400rem;

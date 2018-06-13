@@ -1140,7 +1140,7 @@ u,
  * location qr code
  */
 
-.holder-location-qr-code {
+.holder-location-qrcode {
 	display: block;
 	visibility: hidden;
 	opacity: 0;
@@ -1156,28 +1156,28 @@ u,
 }
 
 @media handheld, only screen and (max-width: 360px) {
-	.holder-location-qr-code {
+	.holder-location-qrcode {
 		left: 0;
 	}
 }
 
-.page.is-active-holder-location-qr-code .holder-location-qr-code {
+.page.is-active-holder-location-qrcode .holder-location-qrcode {
 	visibility: visible;
 	opacity: 1;
 }
 
-.page.is-active-ui-sidepanel .holder-location-qr-code {
+.page.is-active-ui-sidepanel .holder-location-qrcode {
 	left: 18.133rem;
 }
 
 @media handheld, only screen and (max-width: 1024px) {
-	.ui-sidebar .btn-toggle-holder-location-qr-code {
+	.ui-sidebar .btn-toggle-holder-location-qrcode {
 		display: none;
 	}
 }
 
-.holder-location-qr-code .qr-code-img,
-.holder-location-qr-code img {
+.holder-location-qrcode .qr-code-img,
+.holder-location-qrcode img {
 	display: block;
 	width: 9.600rem;
 	height: 9.600rem;
@@ -1349,6 +1349,7 @@ u,
 	display: block;
 	visibility: hidden;
 	opacity: 0;
+	overflow: hidden;
 	position: fixed;
 	top: 3.200rem;
 	left: 3.200rem;
@@ -1374,9 +1375,10 @@ u,
  */
 
 .holder-vk-like {
-	display: inline-block;
+	display: block;
 	visibility: hidden;
 	opacity: 0;
+	overflow: hidden;
 	height: 3.200rem;
 	position: fixed;
 	top: 3.200rem;

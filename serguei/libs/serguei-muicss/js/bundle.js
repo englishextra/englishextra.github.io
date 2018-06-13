@@ -1,7 +1,7 @@
-/*global ActiveXObject, console, doesFontExist, hljs, IframeLightbox,
+/*global ActiveXObject, console, DISQUS, doesFontExist, hljs, IframeLightbox,
 imgLightbox, imagePromise, instgrm, JsonHashRouter, loadCSS, loadJsCss,
 Minigrid, Mustache, Promise, Timers, QRCode, require, ripple, t, twttr,
-unescape, verge, WheelIndicator*/
+unescape, verge, VK, WheelIndicator, Ya*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -479,6 +479,7 @@ unescape, verge, WheelIndicator*/
 
 		var appendChild = "appendChild";
 		var body = "body";
+		var className = "className";
 		var cloneNode = "cloneNode";
 		var createContextualFragment = "createContextualFragment";
 		var createDocumentFragment = "createDocumentFragment";
@@ -502,6 +503,7 @@ unescape, verge, WheelIndicator*/
 		var isFixedClass = "is-fixed";
 		var isHiddenClass = "is-hidden";
 		var isBindedIframeLightboxLinkClass = "is-binded-iframe-lightbox-link";
+		var isCollapsableClass = "is-collapsable";
 
 		/* progressBar.increase(20); */
 
@@ -629,6 +631,18 @@ unescape, verge, WheelIndicator*/
 		if (document[title]) {
 			document[title] = document[title] + userBrowsingDetails;
 		}
+
+		var scriptIsLoaded = function (scriptSrc) {
+			var scriptAll, i, l;
+			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[_length]; i < l; i += 1) {
+				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
+					scriptAll = i = l = null;
+					return true;
+				}
+			}
+			scriptAll = i = l = null;
+			return false;
+		};
 
 		var debounce = function (func, wait) {
 			var timeout;
@@ -1153,9 +1167,35 @@ unescape, verge, WheelIndicator*/
 		var appContent = document[getElementById](appContentId) || "";
 		var appContentParent = appContent ? appContent[parentNode] ? appContent[parentNode] : "" : "";
 
+		var manageOtherCollapsableAll = function (_self) {
+			var _this = _self || this;
+			var btn = document[getElementsByClassName](isCollapsableClass) || "";
+			var removeActiveClass = function (e) {
+				if (_this !== e) {
+					e[classList].remove(isActiveClass);
+				}
+			};
+			if (btn) {
+				for (var i = 0, l = btn[_length]; i < l; i += 1) {
+					removeActiveClass(btn[i]);
+				}
+				/* forEach(btn, removeActiveClass, false); */
+			}
+			if (sidedrawer && _self !== sidedrawer) {
+				hideSidedrawer();
+			}
+		};
+		var manageCollapsableAll = function () {
+			if (appContentParent) {
+				appContentParent[_addEventListener]("click", manageOtherCollapsableAll);
+			}
+		};
+		manageCollapsableAll();
+		root[_addEventListener]("hashchange", manageOtherCollapsableAll);
+
 		var manageLocationQrCodeImage = function () {
 			var btn = document[getElementsByClassName]("mui-appbar__ui-button--qrcode")[0] || "";
-			var holder = document[getElementsByClassName]("holder-location-qr-code")[0] || "";
+			var holder = document[getElementsByClassName]("holder-location-qrcode")[0] || "";
 			var locationHref = root.location.href || "";
 			var hideLocationQrCodeImage = function () {
 				holder[classList].remove(isActiveClass);
@@ -1163,6 +1203,7 @@ unescape, verge, WheelIndicator*/
 			var handleLocationQrCodeButton = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
+				manageOtherCollapsableAll(holder);
 				var logicHandleLocationQrCodeButton = function () {
 					holder[classList].toggle(isActiveClass);
 					var locationHref = root.location.href || "";
@@ -1216,6 +1257,7 @@ unescape, verge, WheelIndicator*/
 				debounceLogicHandleLocationQrCodeButton();
 			};
 			if (btn && holder && locationHref) {
+				holder[classList].add(isCollapsableClass);
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					btn[_addEventListener]("click", handleLocationQrCodeButton);
 					if (appContentParent) {
@@ -1232,6 +1274,7 @@ unescape, verge, WheelIndicator*/
 				if ( /* e[style].display !== "none" || */e[classList].contains(isActiveClass)) {
 					/* e[style].display = "none"; */
 					e[classList].remove(isActiveClass);
+					manageOtherCollapsableAll(e);
 				}
 			}
 		};
@@ -1255,6 +1298,7 @@ unescape, verge, WheelIndicator*/
 					/* dropdownMenu[style].display = "none"; */
 					dropdownMenu[classList].remove(isActiveClass);
 				}
+				manageOtherCollapsableAll(dropdownMenu);
 				var linkAll = dropdownMenu[getElementsByTagName]("a") || "";
 				if (linkAll) {
 					for (var i = 0, l = linkAll[_length]; i < l; i += 1) {
@@ -1280,6 +1324,7 @@ unescape, verge, WheelIndicator*/
 						dropdownButtonAll[i][classList].add(isBindedClass);
 						/* dropdownButtonAll[i].nextElementSibling[style].display = "none"; */
 						dropdownButtonAll[i][classList].remove(isActiveClass);
+						dropdownButtonAll[i].nextElementSibling[classList].add(isCollapsableClass);
 					}
 				}
 			}
@@ -1326,48 +1371,188 @@ unescape, verge, WheelIndicator*/
 		};
 		manageRippleEffect();
 
+		var observeMutations = function (scope, callback, settings) {
+			var context = scope && scope.nodeName ? scope : "";
+			var options = settings || {};
+			options.disconnect = options.disconnect || false;
+			options.timeout = options.timeout || 0;
+			options.childList = options.childList || true;
+			options.subtree = options.subtree || true;
+			options.attributes = options.attributes || false;
+			options.characterData = options.characterData || false;
+			options.log = options.log || false;
+			var mo;
+			var getMutations = function (e) {
+				var triggerOnMutation = function (m) {
+					if (options.log) {
+						console.log("mutations observer: " + m.type);
+						console.log(m.type, "target: " + m.target.tagName + ("." + m.target[className] || "#" + m.target.id || ""));
+						console.log(m.type, "added: " + m.addedNodes[_length] + " nodes");
+						console.log(m.type, "removed: " + m.removedNodes[_length] + " nodes");
+					}
+					if ("childList" === m.type || "subtree" === m.type || "attributes" === m.type || "characterData" === m.type) {
+						if (options.disconnect) {
+							mo.disconnect();
+						}
+						if (callback && "function" === typeof callback) {
+							if (options.timeout && "number" === typeof options.timeout) {
+								var timers = new Timers();
+								timers.timeout(function () {
+									timers.clear();
+									timers = null;
+									if (mgrid) {
+										callback();
+									}
+								}, options.timeout);
+							} else {
+								callback();
+							}
+						}
+					}
+				};
+				for (var i = 0, l = e[_length]; i < l; i += 1) {
+					triggerOnMutation(e[i]);
+				}
+			};
+			if (context) {
+				mo = new MutationObserver(getMutations);
+				mo.observe(context, {
+					childList: options.childList,
+					subtree: options.subtree,
+					attributes: options.attributes,
+					characterData: options.characterData
+				});
+			}
+		};
+
+		var isBindedMinigridCardClass = "is-binded-minigrid-card";
+
 		var mgrid;
 
-		var updateMinigrid = function () {
-			mgrid.mount();
+		var updateMinigrid = function (parent) {
+			var timers = new Timers();
+			timers.timeout(function () {
+				timers.clear();
+				timers = null;
+				if (mgrid) {
+					mgrid.mount();
+					if (parent && parent.nodeName) {
+						parent[classList].add(isActiveClass);
+					}
+				}
+			}, 500);
+		};
+
+		var handleDisqusEmbedInMinigrid = function () {
+			var disqusThread = document[getElementById]("disqus_thread") || "";
+			if (disqusThread) {
+				if (!disqusThread[parentNode][classList].contains(isBindedMinigridCardClass)) {
+					observeMutations(disqusThread[parentNode], updateMinigrid.bind(null, disqusThread[parentNode]));
+					disqusThread[parentNode][classList].add(isBindedMinigridCardClass);
+				}
+			}
+		};
+		var manageDisqusEmbed = function () {
+			var disqusThread = document[getElementById]("disqus_thread") || "";
+			var locationHref = root.location.href || "";
+			var disqusThreadShortname = disqusThread ? disqusThread[dataset].shortname || "" : "";
+			var hideDisqusThread = function () {
+				removeChildren(disqusThread);
+				var replacementText = document[createElement]("p");
+				replacementText[appendChild](document[createTextNode]("Комментарии доступны только в веб версии этой страницы."));
+				appendFragment(replacementText, disqusThread);
+				disqusThread.removeAttribute("id");
+			};
+			var initScript = function () {
+				if (root.DISQUS) {
+					try {
+						DISQUS.reset({
+							reload: true,
+							config: function () {
+								this.page.identifier = disqusThreadShortname;
+								this.page.url = locationHref;
+							}
+						});
+						disqusThread[classList].add(isActiveClass);
+					} catch (err) {
+						/* console.log("cannot reset DISQUS", err); */
+					}
+				}
+			};
+			if (disqusThread && disqusThreadShortname && locationHref) {
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					handleDisqusEmbedInMinigrid();
+					var jsUrl = forcedHTTP + "://" + disqusThreadShortname + ".disqus.com/embed.js";
+					if (!scriptIsLoaded(jsUrl)) {
+						var load;
+						load = new loadJsCss([jsUrl], initScript);
+					} else {
+						initScript();
+					}
+				} else {
+					hideDisqusThread();
+				}
+			}
 		};
 
 		var handleInstagramEmbedInMinigrid = function () {
-			if (mgrid) {
-				var instagramMedia = document[getElementsByClassName]("instagram-media") || "";
-				if (instagramMedia) {
-					var i, l;
-					for (i = 0, l = instagramMedia[_length]; i < l; i += 1) {
-						instagramMedia[i][_addEventListener]("DOMSubtreeModified", updateMinigrid, { passive: true });
+			var instagramMedia = document[getElementsByClassName]("instagram-media") || "";
+			if (instagramMedia) {
+				var i, l;
+				for (i = 0, l = instagramMedia[_length]; i < l; i += 1) {
+					if (!instagramMedia[i][parentNode][classList].contains(isBindedMinigridCardClass)) {
+						observeMutations(instagramMedia[i][parentNode], updateMinigrid.bind(null, instagramMedia[i][parentNode]));
+						instagramMedia[i][parentNode][classList].add(isBindedMinigridCardClass);
 					}
 				}
 			}
 		};
 		var manageInstagramEmbeds = function () {
-			if (root.instgrm) {
-				var instagramMedia = document[getElementsByClassName]("instagram-media")[0] || "";
-				if (instagramMedia) {
+			var instagramMedia = document[getElementsByClassName]("instagram-media")[0] || "";
+			var initScript = function () {
+				if (root.instgrm) {
 					instgrm.Embeds.process();
+				}
+			};
+			if (instagramMedia) {
+				handleInstagramEmbedInMinigrid();
+				var jsUrl = forcedHTTP + "://" + "www.instagram.com/embed.js";
+				if (!scriptIsLoaded(jsUrl)) {
+					var load;
+					load = new loadJsCss([jsUrl], initScript);
+				} else {
+					initScript();
 				}
 			}
 		};
 
 		var handleTwitterEmbedInMinigrid = function () {
-			if (mgrid) {
-				var twitterTweet = document[getElementsByClassName]("twitter-tweet") || "";
-				if (twitterTweet) {
-					var i, l;
-					for (i = 0, l = twitterTweet[_length]; i < l; i += 1) {
-						twitterTweet[i][_addEventListener]("DOMSubtreeModified", updateMinigrid, { passive: true });
+			var twitterTweet = document[getElementsByClassName]("twitter-tweet") || "";
+			if (twitterTweet) {
+				var i, l;
+				for (i = 0, l = twitterTweet[_length]; i < l; i += 1) {
+					if (!twitterTweet[i][parentNode][classList].contains(isBindedMinigridCardClass)) {
+						observeMutations(twitterTweet[i][parentNode], updateMinigrid.bind(null, twitterTweet[i][parentNode]));
+						twitterTweet[i][parentNode][classList].add(isBindedMinigridCardClass);
 					}
 				}
 			}
 		};
 		var manageTwitterEmbeds = function () {
-			if (root.twttr) {
-				var twitterTweet = document[getElementsByClassName]("twitter-tweet")[0] || "";
-				if (twitterTweet) {
+			var twitterTweet = document[getElementsByClassName]("twitter-tweet")[0] || "";
+			var initScript = function () {
+				if (root.twttr) {
 					twttr.widgets.load();
+				}
+			};
+			if (twitterTweet) {
+				handleTwitterEmbedInMinigrid();
+				var jsUrl = forcedHTTP + "://" + "platform.twitter.com/widgets.js";
+				if (!scriptIsLoaded(jsUrl)) {
+					var load;
+					load = new loadJsCss([jsUrl], initScript);
+				} else {
+					initScript();
 				}
 			}
 		};
@@ -1396,8 +1581,6 @@ unescape, verge, WheelIndicator*/
 			var onMinigridCreated = function () {
 				cardGrid[style].visibility = "visible";
 				cardGrid[style].opacity = 1;
-				handleInstagramEmbedInMinigrid();
-				handleTwitterEmbedInMinigrid();
 			};
 			var initMinigrid = function () {
 				if (mgrid) {
@@ -1450,7 +1633,7 @@ unescape, verge, WheelIndicator*/
 		};
 		/* manageSidedrawerCategoryAll(); */
 
-		var handleSidedrawerLinkAll = function () {
+		var hideSidedrawer = function () {
 			docBody[classList].add(hideSidedrawerClass);
 			sidedrawer[classList].remove(activeClass);
 		};
@@ -1461,14 +1644,14 @@ unescape, verge, WheelIndicator*/
 				if (linkAll) {
 					for (var i = 0, l = linkAll[_length]; i < l; i += 1) {
 						if (!linkAll[i][classList].contains(isBindedClass)) {
-							linkAll[i][_addEventListener]("click", handleSidedrawerLinkAll);
+							linkAll[i][_addEventListener]("click", hideSidedrawer);
 							linkAll[i][classList].add(isBindedClass);
 						}
 					}
 				}
 			}
 			if (appContentParent) {
-				appContentParent[_addEventListener]("click", handleSidedrawerLinkAll);
+				appContentParent[_addEventListener]("click", hideSidedrawer);
 			}
 		};
 		/* hideSidedrawerOnNavigating(); */
@@ -1485,6 +1668,7 @@ unescape, verge, WheelIndicator*/
 				} else {
 					sidedrawer[classList].remove(activeClass);
 				}
+				manageOtherCollapsableAll(sidedrawer);
 			}
 		};
 		var manageSidedrawer = function () {
@@ -1564,6 +1748,113 @@ unescape, verge, WheelIndicator*/
 				}
 			}
 		}
+
+		var yshare;
+		var manageShareButton = function () {
+			var btn = document[getElementsByClassName]("btn-toggle-holder-share-buttons")[0] || "";
+			var yaShare2Id = "ya-share2";
+			var yaShare2 = document[getElementById](yaShare2Id) || "";
+			var holder = document[getElementsByClassName]("holder-share-buttons")[0] || "";
+			var handleShareButton = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var logicHandleShareButton = function () {
+					holder[classList].toggle(isActiveClass);
+					holder[classList].add(isCollapsableClass);
+					manageOtherCollapsableAll(holder);
+					var initScript = function () {
+						if (root.Ya) {
+							try {
+								if (yshare) {
+									yshare.updateContent({
+										title: document[title] || "",
+										description: document[title] || "",
+										url: root.location.href || ""
+									});
+								} else {
+									yshare = Ya.share2(yaShare2Id, {
+										content: {
+											title: document[title] || "",
+											description: document[title] || "",
+											url: root.location.href || ""
+										}
+									});
+								}
+							} catch (err) {
+								/* console.log("cannot update or init Ya", err); */
+							}
+						}
+					};
+					var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
+					if (!scriptIsLoaded(jsUrl)) {
+						var load;
+						load = new loadJsCss([jsUrl], initScript);
+					} else {
+						initScript();
+					}
+				};
+				var debounceLogicHandleShareButton = debounce(logicHandleShareButton, 200);
+				debounceLogicHandleShareButton();
+			};
+			if (btn && holder && yaShare2) {
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					btn[_addEventListener]("click", handleShareButton);
+				}
+			}
+		};
+		manageShareButton();
+
+		var vlike;
+		var manageVKLikeButton = function () {
+			var btn = document[getElementsByClassName]("btn-toggle-holder-vk-like")[0] || "";
+			var holder = document[getElementsByClassName]("holder-vk-like")[0] || "";
+			var vkLikeId = "vk-like";
+			var vkLike = document[getElementById](vkLikeId) || "";
+			var handleVKLikeButton = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var logicHandleVKLikeButton = function () {
+					holder[classList].toggle(isActiveClass);
+					holder[classList].add(isCollapsableClass);
+					manageOtherCollapsableAll(holder);
+					var initScript = function () {
+						if (root.VK) {
+							if (!vlike) {
+								try {
+									VK.init({
+										apiId: vkLike[dataset].apiid || "",
+										nameTransportPath: "/xd_receiver.htm",
+										onlyWidgets: true
+									});
+									VK.Widgets.Like(vkLikeId, {
+										type: "button",
+										height: 24
+									});
+									vlike = true;
+								} catch (err) {
+									/* console.log("cannot init VK", err); */
+								}
+							}
+						}
+					};
+					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?122";
+					if (!scriptIsLoaded(jsUrl)) {
+						var load;
+						load = new loadJsCss([jsUrl], initScript);
+					} else {
+						initScript();
+					}
+				};
+				var debounceLogicHandleVKLikeButton = debounce(logicHandleVKLikeButton, 200);
+				debounceLogicHandleVKLikeButton();
+			};
+			if (btn && holder && vkLike) {
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					btn[_addEventListener]("click", handleVKLikeButton);
+				}
+			}
+		};
+		manageVKLikeButton();
 
 		var initUiTotop = function () {
 			var btnClass = "ui-totop";
@@ -1652,37 +1943,6 @@ unescape, verge, WheelIndicator*/
   	}
   }); */
 
-		/* var observeMutations = function (scope) {
-  	var context = scope && scope.nodeName ? scope : "";
-  	var mo;
-  	var getMutations = function (e) {
-  		var triggerOnMutation = function (m) {
-  			console.log("mutations observer: " + m.type);
-  			console.log(m.type, "target: " + m.target.tagName + ("." + m.target[className] || "#" + m.target.id || ""));
-  			console.log(m.type, "added: " + m.addedNodes[_length] + " nodes");
-  			console.log(m.type, "removed: " + m.removedNodes[_length] + " nodes");
-  			if ("childList" === m.type || "subtree" === m.type) {
-  				 mo.disconnect();
-  			}
-  		};
-  		for (var i = 0, l = e[_length]; i < l; i += 1) {
-  			triggerOnMutation(e[i]);
-  		}
-  	};
-  	if (context) {
-  		mo = new MutationObserver(getMutations);
-  		mo.observe(context, {
-  			childList: !0,
-  			subtree: !0,
-  			attributes: !1,
-  			characterData: !1
-  		});
-  	}
-  };
-  if (appContentParent) {
-  	observeMutations(appContentParent);
-  } */
-
 		var jhrouter;
 		jhrouter = new JsonHashRouter("./libs/serguei-muicss/json/navigation.min.json", appContentId, {
 			jsonHomePropName: "home",
@@ -1753,6 +2013,8 @@ unescape, verge, WheelIndicator*/
 					manageRippleEffect();
 					manageInstagramEmbeds();
 					manageTwitterEmbeds();
+					manageDisqusEmbed();
+					/* manageFlickrEmbeds(); */
 					var timers3 = new Timers();
 					timers3.timeout(function () {
 						timers3.clear();
@@ -1838,7 +2100,7 @@ unescape, verge, WheelIndicator*/
  	"../../cdn/wheel-indicator/1.1.4/js/wheel-indicator.fixed.js"
  ]; */
 
-	scripts.push("./libs/serguei-muicss/js/vendors.min.js", "https://platform.twitter.com/widgets.js", "https://www.instagram.com/embed.js");
+	scripts.push("./libs/serguei-muicss/js/vendors.min.js");
 
 	/*!
   * load scripts after webfonts loaded using doesFontExist

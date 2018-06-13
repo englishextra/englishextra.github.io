@@ -2166,8 +2166,8 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 		root[_addEventListener]("hashchange", handleOtherSocialButtons);
 
 		var manageLocationQrCodeImage = function () {
-			var btn = document[getElementsByClassName]("btn-toggle-holder-location-qr-code")[0] || "";
-			var holder = document[getElementsByClassName]("holder-location-qr-code")[0] || "";
+			var btn = document[getElementsByClassName]("btn-toggle-holder-location-qrcode")[0] || "";
+			var holder = document[getElementsByClassName]("holder-location-qrcode")[0] || "";
 			var locationHref = root.location.href || "";
 			var handleLocationQrCodeButton = function (ev) {
 				ev.stopPropagation();

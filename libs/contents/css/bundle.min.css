@@ -1939,9 +1939,10 @@ u,
  */
 
 .holder-vk-like {
-	display: inline-block;
+	display: block;
 	visibility: hidden;
 	opacity: 0;
+	overflow: hidden;
 	height: 3.200rem;
 	position: fixed;
 	right: 6.400rem;
@@ -2060,7 +2061,7 @@ u,
  * location qr code
  */
 
-.holder-location-qr-code {
+.holder-location-qrcode {
 	display: block;
 	width: 100%;
 	float: left;
@@ -2068,8 +2069,8 @@ u,
 	background-color: #FFFFFF;
 }
 
-.holder-location-qr-code .qr-code-img,
-.holder-location-qr-code img {
+.holder-location-qrcode .qr-code-img,
+.holder-location-qrcode img {
 	display: block;
 	width: 9.000rem;
 	height: 9.000rem;

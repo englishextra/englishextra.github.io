@@ -1262,7 +1262,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 			var overlay = document[getElementsByClassName]("page-overlay")[0] || "";
 			var panel = document[getElementsByClassName]("ui-sidepanel")[0] || "";
 			var items = panel ? panel[getElementsByTagName]("li") || "" : "";
-			var isActiveQRCodeClass = "is-active-holder-location-qr-code";
+			var isActiveQRCodeClass = "is-active-holder-location-qrcode";
 			var isActiveVKLikeClass = "is-active-holder-vk-like";
 			var isActiveShareClass = "is-active-holder-share-buttons";
 			var isActiveSidepanelClass = "is-active-ui-sidepanel";
@@ -1354,7 +1354,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 			var page = document[getElementsByClassName]("page")[0] || "";
 			var holder = document[getElementsByClassName]("ui-menumore")[0] || "";
 			var items = holder ? holder[getElementsByTagName]("li") || "" : "";
-			var isActiveQRCodeClass = "is-active-holder-location-qr-code";
+			var isActiveQRCodeClass = "is-active-holder-location-qrcode";
 			var isActiveVKLikeClass = "is-active-holder-vk-like";
 			var isActiveShareClass = "is-active-holder-share-buttons";
 			var isActiveSidepanelClass = "is-active-ui-sidepanel";
@@ -1869,10 +1869,10 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 		manageDebugGridButton();
 
 		var manageLocationQrCodeImage = function () {
-			var btn = document[getElementsByClassName]("btn-toggle-holder-location-qr-code")[0] || "";
+			var btn = document[getElementsByClassName]("btn-toggle-holder-location-qrcode")[0] || "";
 			var page = document[getElementsByClassName]("page")[0] || "";
-			var holder = document[getElementsByClassName]("holder-location-qr-code")[0] || "";
-			var isActiveQRCodeClass = "is-active-holder-location-qr-code";
+			var holder = document[getElementsByClassName]("holder-location-qrcode")[0] || "";
+			var isActiveQRCodeClass = "is-active-holder-location-qrcode";
 			var isActiveVKLikeClass = "is-active-holder-vk-like";
 			var isActiveShareClass = "is-active-holder-share-buttons";
 			var isActiveSidepanelClass = "is-active-ui-sidepanel";
@@ -1972,7 +1972,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 			var yaShare2 = document[getElementById](yaShare2Id) || "";
 			var page = document[getElementsByClassName]("page")[0] || "";
 			var holder = document[getElementsByClassName]("holder-share-buttons")[0] || "";
-			var isActiveQRCodeClass = "is-active-holder-location-qr-code";
+			var isActiveQRCodeClass = "is-active-holder-location-qrcode";
 			var isActiveVKLikeClass = "is-active-holder-vk-like";
 			var isActiveShareClass = "is-active-holder-share-buttons";
 			var isActiveSidepanelClass = "is-active-ui-sidepanel";
@@ -2040,7 +2040,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 			var page = document[getElementsByClassName]("page")[0] || "";
 			var vkLikeId = "vk-like";
 			var vkLike = document[getElementById](vkLikeId) || "";
-			var isActiveQRCodeClass = "is-active-holder-location-qr-code";
+			var isActiveQRCodeClass = "is-active-holder-location-qrcode";
 			var isActiveVKLikeClass = "is-active-holder-vk-like";
 			var isActiveShareClass = "is-active-holder-share-buttons";
 			var isActiveSidepanelClass = "is-active-ui-sidepanel";

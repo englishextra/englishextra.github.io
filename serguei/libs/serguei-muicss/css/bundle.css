@@ -298,8 +298,7 @@ button {
 }
 
 .mui-appbar__ui-button--vk,
-.mui-appbar__ui-button--map-maker,
-.mui-appbar__ui-button--qrcode {
+.mui-appbar__ui-button--map-makere {
 	float: right;
 	position: absolute;
 	right: 3.500rem;
@@ -846,11 +845,13 @@ a.mui-btn:active,
 
 .card-wrap.card-wrap--skeleton {
 	background-color: transparent;
+	-webkit-box-shadow: none;
 	box-shadow: none;
 	padding: 0;
 }
 
 .card-wrap.card-wrap--skeleton.is-active {
+	-webkit-box-shadow: 0 0.063rem 0.063rem 0 rgba(0, 0, 0, 0.16), 0 0 0.063rem 0 rgba(0, 0, 0, 0.12);
 	box-shadow: 0 0.063rem 0.063rem 0 rgba(0, 0, 0, 0.16), 0 0 0.063rem 0 rgba(0, 0, 0, 0.12);
 }
 
@@ -876,7 +877,7 @@ a.mui-btn:active,
 
 .card-wrap--notice {
 	color: #01579b;
-	background-color: #B3E5FC;
+	background-color: #b3e5fc;
 }
 
 .card-wrap--heading {
@@ -914,6 +915,206 @@ a.mui-btn:active,
 /* .card-wrap.card-wrap--skeleton #disqus_thread.is-active {
 	margin-top: 24px;
 } */
+
+/*!
+ * share buttons
+ */
+
+.btn-social {
+	display: inline-block;
+	width: 2.500rem;
+	height: 2.500rem;
+	font-size: 1.125rem;
+	line-height: 2.500rem;
+	color: inherit;
+	background-color: rgba(255, 255, 255, 0.5);
+	margin: 0;
+}
+
+.btn-toggle-holder-qrcode .ui-icon,
+.btn-toggle-holder-share-buttons .ui-icon,
+.btn-toggle-holder-vk-like .ui-icon {
+	/*!
+	 * Centering things
+	 * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
+	 */
+	display: block;
+	width: 1.125rem;
+	height: 1.125rem;
+	margin-top: 0.750rem;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.btn-toggle-holder-qrcode .ui-icon > *,
+.btn-toggle-holder-share-buttons .ui-icon > *,
+.btn-toggle-holder-vk-like .ui-icon > * {
+	fill: currentColor;
+}
+
+.btn-toggle-holder-qrcode.mui-btn--fab {
+	position: fixed;
+	right: 0.750rem;
+	bottom: 10.000rem;
+	-webkit-box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
+	box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
+}
+
+.btn-toggle-holder-share-buttons.mui-btn--fab {
+	position: fixed;
+	right: 0.750rem;
+	bottom: 7.000rem;
+	-webkit-box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
+	box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
+}
+
+.btn-toggle-holder-vk-like.mui-btn--fab {
+	position: fixed;
+	right: 0.750rem;
+	bottom: 4.000rem;
+	-webkit-box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
+	box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
+}
+
+/*!
+ * qrjs2
+ */
+
+.holder-location-qrcode {
+	display: block;
+	visibility: hidden;
+	opacity: 0;
+	width: 9.000rem;
+	height: 9.000rem;
+	position: fixed;
+	right: 4.000rem;
+	bottom: 3.500rem;
+	border-radius: 0.125rem;
+	box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
+	transition: visibility 0s, opacity 0.2s ease;
+	overflow: hidden;
+	/*!
+	 * to overlay mui-dropdown__menu
+	 */
+	z-index: 2;
+}
+
+.holder-location-qrcode.is-active {
+	visibility: visible;
+	opacity: 1;
+}
+
+.holder-location-qrcode .qr-code-img,
+.holder-location-qrcode img {
+	display: block;
+	width: 9.000rem;
+	height: 9.000rem;
+	background-color: transparent;
+	background-size: 9.000rem 9.000rem;
+	border: 0;
+	vertical-align: bottom;
+	padding: 0;
+	margin: 0;
+}
+
+/*!
+ * ya-share2
+ * yandex.ru/blog/share/kak-uvelichit-shrift-tsifr-sch-tchika#comment-add
+ */
+
+/* .ya-share2 {
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+} */
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__icon {
+	height: 3.000rem;
+	width: 3.000rem;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__counter {
+	font-size: 1.250rem;
+	line-height: 3.000rem;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__title {
+	width: 0;
+	height: 0;
+	overflow: hidden;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__item {
+	margin: 0;
+}
+
+.ya-share2 .ya-share2__container_size_m .ya-share2__badge {
+	border-radius: 0;
+}
+
+/*!
+ * holder social buttons
+ */
+
+.holder-share-buttons {
+	display: block;
+	visibility: hidden;
+	opacity: 0;
+	overflow: hidden;
+	position: fixed;
+	right: 4.000rem;
+	bottom: 6.500rem;
+	line-height: 3.000rem;
+	background-color: #FFFFFF;
+	border-radius: 0.125rem;
+	-webkit-box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
+	box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
+	-webkit-transition: visibility 0s, opacity 0.2s ease;
+	transition: visibility 0s, opacity 0.2s ease;
+	z-index: 1;
+}
+
+.holder-share-buttons.is-active {
+	visibility: visible;
+	opacity: 1;
+}
+
+/*!
+ * holder-vk-like
+ */
+
+.holder-vk-like {
+	display: block;
+	visibility: hidden;
+	opacity: 0;
+	overflow: hidden;
+	height: 3.000rem;
+	position: fixed;
+	right: 4.000rem;
+	bottom: 3.500rem;
+	line-height: 0;
+	background-color: #5E81A8;
+	border-radius: 0.125rem;
+	-webkit-box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
+	box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
+	-webkit-transition: visibility 0s, opacity 0.2s ease;
+	transition: visibility 0s, opacity 0.2s ease;
+	z-index: 1;
+}
+
+.holder-vk-like.is-active {
+	visibility: visible;
+	opacity: 1;
+}
+
+.vk-like {
+	display: inline-block;
+	height: 24px;
+	position: absolute;
+	top: 50%;
+	-webkit-transform: translate(0, -50%);
+	transform: translate(0, -50%);
+	margin: 0 0 0 0.625rem;
+	line-height: 0;
+}
 
 /*!
  * @see {@link https://github.com/sksmatt/UItoTop-jQuery-Plugin/}
@@ -1015,66 +1216,6 @@ a.mui-btn:active,
 .img-lightbox-container img {
 	-webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0 rgba(3, 3, 3, 0.3);
 	box-shadow: 0.25rem 0.25rem 0.25rem 0 rgba(3, 3, 3, 0.3);
-}
-
-/*!
- * qrjs2
- */
-
-.holder-location-qr-code {
-	display: block;
-	visibility: hidden;
-	opacity: 0;
-	width: 9.000rem;
-	height: 9.000rem;
-	position: absolute;
-	/* 56x56 */
-	top: 3.500rem;
-	right: 0.875rem;
-	border-radius: 0.125rem;
-	-webkit-box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
-	box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
-	-webkit-transition: visibility 0s, opacity 0.2s ease;
-	transition: visibility 0s, opacity 0.2s ease;
-	overflow: hidden;
-	/*!
-	 * to overlay mui-dropdown__menu
-	 */
-	z-index: 2;
-}
-
-@media (orientation: landscape) and (max-height: 480px) {
-	.holder-location-qr-code {
-		/* 48x48 */
-		top: 3.000rem;
-		right: 0.750rem;
-	}
-}
-
-@media (min-width: 480px) {
-	.holder-location-qr-code {
-		/* 64x64 */
-		top: 4.000rem;
-		right: 1.000rem;
-	}
-}
-
-.holder-location-qr-code.is-active {
-	visibility: visible;
-	opacity: 1;
-}
-
-.holder-location-qr-code .qr-code-img,
-.holder-location-qr-code img {
-	display: block;
-	width: 9.000rem;
-	height: 9.000rem;
-	background-color: transparent;
-	background-size: 9.000rem 9.000rem;
-	border: 0;
-	vertical-align: bottom;
-	padding: 0;
-	margin: 0;
 }
 
 #sidedrawer,

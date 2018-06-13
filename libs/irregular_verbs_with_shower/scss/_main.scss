@@ -386,9 +386,10 @@ u,
  */
 
 .holder-vk-like {
-	display: inline-block;
+	display: block;
 	visibility: hidden;
 	opacity: 0;
+	overflow: hidden;
 	height: 3.200rem;
 	position: fixed;
 	right: 6.400rem;
