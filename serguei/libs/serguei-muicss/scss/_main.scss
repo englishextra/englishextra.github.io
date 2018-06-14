@@ -305,7 +305,7 @@ button {
 	}
 }
 
-@media (min-width:480px) {
+@media (min-width: 480px) {
 	.mui-appbar__ui-button {
 
 		/* 64x64 */
@@ -729,7 +729,6 @@ a.mui-btn:active,
 }
 
 .card-wrap {
-	/* 56x56 */
 	/* width: 280px; */
 	width: 17.500rem;
 	/* width: 33.333333%; */
@@ -751,7 +750,6 @@ a.mui-btn:active,
 
 @media (min-width: 360px) {
 	.card-wrap {
-		/* 64x64 */
 		/* width: 320px; */
 		width: 20.000rem;
 	}
@@ -759,7 +757,6 @@ a.mui-btn:active,
 
 @media (min-width: 480px) {
 	.card-wrap {
-		/* 64x64 */
 		/* width: 440px; */
 		width: 27.500rem;
 	}
@@ -767,7 +764,6 @@ a.mui-btn:active,
 
 @media (min-width: 640px) {
 	.card-wrap {
-		/* 64x64 */
 		/* width: 600px; */
 		width: 37.500rem;;
 	}
@@ -775,7 +771,6 @@ a.mui-btn:active,
 
 @media (min-width: 1024px) {
 	.card-wrap {
-		/* 64x64 */
 		/* width: 480px; */
 		width: 30.000rem;;
 	}
@@ -783,7 +778,6 @@ a.mui-btn:active,
 
 @media (min-width: 1280px) {
 	.card-wrap {
-		/* 64x64 */
 		/* width: 400px; */
 		width: 25.000rem;
 	}
@@ -1383,7 +1377,7 @@ a.mui-btn:active,
 	}
 }
 
-@media (min-width:480px) {
+@media (min-width: 480px) {
 	#header.is-hidden {
 		top: -4.000rem;
 	}
@@ -1490,7 +1484,7 @@ a.mui-btn:active,
 	}
 }
 
-@media (min-width:480px) {
+@media (min-width: 480px) {
 	#sidedrawer-brand {
 
 		/* 136x64 */
@@ -1580,7 +1574,7 @@ a.mui-btn:active,
 	background-color: currentColor;
 }
 
-@media (min-width:768px) {
+@media (min-width: 768px) {
 
 	/* #header {
 		left: 15.000rem;

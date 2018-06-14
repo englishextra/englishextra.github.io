@@ -18,22 +18,22 @@ $color-rgba-lightbox-shadow: rgba(3, 3, 3, 0.3);
 //
 
 $clr-brand-color-list: (
- "base": #F03B4C,
- "50":  #FA9FA6,
- "100": #F88B94,
- "200": #F67782,
- "300": #F46370,
- "400": #F24F5E,
- "500": #F03B4C,
- "600": #D83544,
- "700": #C02F3C,
- "800": #A82934,
- "900": #90232C
+	"base": #F03B4C,
+	"50": #FA9FA6,
+	"100": #F88B94,
+	"200": #F67782,
+	"300": #F46370,
+	"400": #F24F5E,
+	"500": #F03B4C,
+	"600": #D83544,
+	"700": #C02F3C,
+	"800": #A82934,
+	"900": #90232C
 );
 
-$clr-brand-color:   map-get($clr-brand-color-list, "base");
+$clr-brand-color:  map-get($clr-brand-color-list, "base");
 
-$clr-brand-color-50:  map-get($clr-brand-color-list, "50");
+$clr-brand-color-50: map-get($clr-brand-color-list, "50");
 $clr-brand-color-100: map-get($clr-brand-color-list, "100");
 $clr-brand-color-200: map-get($clr-brand-color-list, "200");
 $clr-brand-color-300: map-get($clr-brand-color-list, "300");

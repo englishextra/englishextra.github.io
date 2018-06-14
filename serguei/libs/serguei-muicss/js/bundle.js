@@ -1193,82 +1193,6 @@ unescape, verge, VK, WheelIndicator, Ya*/
 		manageCollapsableAll();
 		root[_addEventListener]("hashchange", manageOtherCollapsableAll);
 
-		var manageLocationQrCodeImage = function () {
-			var btn = document[getElementsByClassName]("mui-appbar__ui-button--qrcode")[0] || "";
-			var holder = document[getElementsByClassName]("holder-location-qrcode")[0] || "";
-			var locationHref = root.location.href || "";
-			var hideLocationQrCodeImage = function () {
-				holder[classList].remove(isActiveClass);
-			};
-			var handleLocationQrCodeButton = function (ev) {
-				ev.stopPropagation();
-				ev.preventDefault();
-				manageOtherCollapsableAll(holder);
-				var logicHandleLocationQrCodeButton = function () {
-					holder[classList].toggle(isActiveClass);
-					var locationHref = root.location.href || "";
-					var newImg = document[createElement]("img");
-					var newTitle = document[title] ? "Ссылка на страницу «" + document[title].replace(/\[[^\]]*?\]/g, "").trim() + "»" : "";
-					var newSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(locationHref);
-					newImg.alt = newTitle;
-					var initScript = function () {
-						if (root.QRCode) {
-							if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
-								newSrc = QRCode.generateSVG(locationHref, {
-									ecclevel: "M",
-									fillcolor: "#FFFFFF",
-									textcolor: "#212121",
-									margin: 4,
-									modulesize: 8
-								});
-								var XMLS = new XMLSerializer();
-								newSrc = XMLS.serializeToString(newSrc);
-								newSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(newSrc)));
-								newImg.src = newSrc;
-							} else {
-								newSrc = QRCode.generatePNG(locationHref, {
-									ecclevel: "M",
-									format: "html",
-									fillcolor: "#FFFFFF",
-									textcolor: "#212121",
-									margin: 4,
-									modulesize: 8
-								});
-								newImg.src = newSrc;
-							}
-						} else {
-							newImg.src = newSrc;
-						}
-						newImg[classList].add("qr-code-img");
-						newImg.title = newTitle;
-						removeChildren(holder);
-						appendFragment(newImg, holder);
-					};
-					/* var jsUrl = "./cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js";
-     if (!scriptIsLoaded(jsUrl)) {
-     	var load;
-     	load = new loadJsCss([jsUrl], initScript);
-     } else {
-     	initScript();
-     } */
-					initScript();
-				};
-				var debounceLogicHandleLocationQrCodeButton = debounce(logicHandleLocationQrCodeButton, 200);
-				debounceLogicHandleLocationQrCodeButton();
-			};
-			if (btn && holder && locationHref) {
-				holder[classList].add(isCollapsableClass);
-				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					btn[_addEventListener]("click", handleLocationQrCodeButton);
-					if (appContentParent) {
-						appContentParent[_addEventListener]("click", hideLocationQrCodeImage);
-					}
-					root[_addEventListener]("hashchange", hideLocationQrCodeImage);
-				}
-			}
-		};
-		manageLocationQrCodeImage();
-
 		var hideCurrentDropdownMenu = function (e) {
 			if (e) {
 				if ( /* e[style].display !== "none" || */e[classList].contains(isActiveClass)) {
@@ -1749,6 +1673,104 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			}
 		}
 
+		var manageLocationQrCodeImage = function () {
+			var btn = document[getElementsByClassName]("btn-toggle-holder-qrcode")[0] || "";
+			var holder = document[getElementsByClassName]("holder-location-qrcode")[0] || "";
+			var locationHref = root.location.href || "";
+			var hideLocationQrCodeImage = function () {
+				holder[classList].remove(isActiveClass);
+			};
+			var handleLocationQrCodeButton = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				manageOtherCollapsableAll(holder);
+				var logicHandleLocationQrCodeButton = function () {
+					holder[classList].toggle(isActiveClass);
+					var locationHref = root.location.href || "";
+					var newImg = document[createElement]("img");
+					var newTitle = document[title] ? "Ссылка на страницу «" + document[title].replace(/\[[^\]]*?\]/g, "").trim() + "»" : "";
+					var newSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(locationHref);
+					newImg.alt = newTitle;
+					var initScript = function () {
+						if (root.QRCode) {
+							if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
+								newSrc = QRCode.generateSVG(locationHref, {
+									ecclevel: "M",
+									fillcolor: "#FFFFFF",
+									textcolor: "#212121",
+									margin: 4,
+									modulesize: 8
+								});
+								var XMLS = new XMLSerializer();
+								newSrc = XMLS.serializeToString(newSrc);
+								newSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(newSrc)));
+								newImg.src = newSrc;
+							} else {
+								newSrc = QRCode.generatePNG(locationHref, {
+									ecclevel: "M",
+									format: "html",
+									fillcolor: "#FFFFFF",
+									textcolor: "#212121",
+									margin: 4,
+									modulesize: 8
+								});
+								newImg.src = newSrc;
+							}
+						} else {
+							newImg.src = newSrc;
+						}
+						newImg[classList].add("qr-code-img");
+						newImg.title = newTitle;
+						removeChildren(holder);
+						appendFragment(newImg, holder);
+					};
+					/* var jsUrl = "./cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js";
+     if (!scriptIsLoaded(jsUrl)) {
+     	var load;
+     	load = new loadJsCss([jsUrl], initScript);
+     } else {
+     	initScript();
+     } */
+					initScript();
+				};
+				var debounceLogicHandleLocationQrCodeButton = debounce(logicHandleLocationQrCodeButton, 200);
+				debounceLogicHandleLocationQrCodeButton();
+			};
+			if (btn && holder && locationHref) {
+				holder[classList].add(isCollapsableClass);
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					btn[_addEventListener]("click", handleLocationQrCodeButton);
+					if (appContentParent) {
+						appContentParent[_addEventListener]("click", hideLocationQrCodeImage);
+					}
+					root[_addEventListener]("hashchange", hideLocationQrCodeImage);
+				}
+			}
+		};
+		manageLocationQrCodeImage();
+
+		var manageMobileappsButton = function () {
+			var btn = document[getElementsByClassName]("btn-toggle-holder-mobileapps-buttons")[0] || "";
+			var holder = document[getElementsByClassName]("holder-mobileapps-buttons")[0] || "";
+			var handleMobileappsButton = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var logicHandleMobileappsButton = function () {
+					holder[classList].toggle(isActiveClass);
+					holder[classList].add(isCollapsableClass);
+					manageOtherCollapsableAll(holder);
+				};
+				var debounceLogicHandleMobileappsButton = debounce(logicHandleMobileappsButton, 200);
+				debounceLogicHandleMobileappsButton();
+			};
+			if (btn && holder) {
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					btn[_addEventListener]("click", handleMobileappsButton);
+				}
+			}
+		};
+		manageMobileappsButton();
+
 		var yshare;
 		var manageShareButton = function () {
 			var btn = document[getElementsByClassName]("btn-toggle-holder-share-buttons")[0] || "";
@@ -1864,7 +1886,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				var svg = document[createElementNS]("http://www.w3.org/2000/svg", "svg");
 				var use = document[createElementNS]("http://www.w3.org/2000/svg", "use");
 				svg[setAttribute]("class", "ui-icon");
-				use[setAttributeNS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-arrow-up");
+				use[setAttributeNS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-outline-arrow_upward");
 				svg[appendChild](use);
 				targetObj[appendChild](svg);
 			};
