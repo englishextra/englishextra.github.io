@@ -1278,64 +1278,6 @@ a.mui-btn:active,
 	box-shadow: 0.250rem 0.250rem 0.250rem 0 rgba(3, 3, 3, 0.3);
 }
 
-/*!
- * qrjs2
- */
-
-.holder-location-qrcode {
-	display: block;
-	visibility: hidden;
-	opacity: 0;
-	width: 9.000rem;
-	height: 9.000rem;
-	position: absolute;
-	/* 56x56 */
-	top: 3.500rem;
-	right: 0.875rem;
-	border-radius: 0.125rem;
-	box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
-	transition: visibility 0s, opacity 0.2s ease;
-	overflow: hidden;
-	/*!
-	 * to overlay mui-dropdown__menu
-	 */
-	z-index: 2;
-}
-
-@media (orientation: landscape) and (max-height: 480px) {
-	.holder-location-qrcode {
-		/* 48x48 */
-		top: 3.000rem;
-		right: 0.750rem;
-	}
-}
-
-@media (min-width: 480px) {
-	.holder-location-qrcode {
-		/* 64x64 */
-		top: 4.000rem;
-		right: 1.000rem;
-	}
-}
-
-.holder-location-qrcode.is-active {
-	visibility: visible;
-	opacity: 1;
-}
-
-.holder-location-qrcode .qr-code-img,
-.holder-location-qrcode img {
-	display: block;
-	width: 9.000rem;
-	height: 9.000rem;
-	background-color: transparent;
-	background-size: 9.000rem 9.000rem;
-	border: 0;
-	vertical-align: bottom;
-	padding: 0;
-	margin: 0;
-}
-
 #sidedrawer,
 #header,
 #footer,

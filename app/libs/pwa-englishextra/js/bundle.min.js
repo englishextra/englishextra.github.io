@@ -548,7 +548,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 		var isBindedClass = "is-binded";
 		var isDropdownClass = "is-dropdown";
 		var isFixedClass = "is-fixed";
-		var isSocialClass = "is-social";
+		var isCollapsableClass = "is-collapsable";
 
 		progressBar.increase(20);
 
@@ -2143,7 +2143,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 
 		var handleOtherSocialButtons = function (_self) {
 			var _this = _self || this;
-			var btn = document[getElementsByClassName](isSocialClass) || "";
+			var btn = document[getElementsByClassName](isCollapsableClass) || "";
 			var removeActiveClass = function (e) {
 				if (_this !== e) {
 					e[classList].remove(isActiveClass);
@@ -2174,7 +2174,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				ev.preventDefault();
 				var logicHandleLocationQrCodeButton = function () {
 					holder[classList].toggle(isActiveClass);
-					holder[classList].add(isSocialClass);
+					holder[classList].add(isCollapsableClass);
 					handleOtherSocialButtons(holder);
 					var locationHref = root.location.href || "";
 					var newImg = document[createElement]("img");
@@ -2245,7 +2245,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				ev.preventDefault();
 				var logicHandleShareButton = function () {
 					holder[classList].toggle(isActiveClass);
-					holder[classList].add(isSocialClass);
+					holder[classList].add(isCollapsableClass);
 					handleOtherSocialButtons(holder);
 					var initScript = function () {
 						if (root.Ya) {
@@ -2300,7 +2300,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 				ev.preventDefault();
 				var logicHandleVKLikeButton = function () {
 					holder[classList].toggle(isActiveClass);
-					holder[classList].add(isSocialClass);
+					holder[classList].add(isCollapsableClass);
 					handleOtherSocialButtons(holder);
 					var initScript = function () {
 						if (root.VK) {
