@@ -1775,6 +1775,28 @@ unescape, verge, VK, WheelIndicator, Ya*/
 		};
 		manageLocationQrCodeImage();
 
+		var manageMobileappsButton = function () {
+			var btn = document[getElementsByClassName]("btn-toggle-holder-mobileapps-buttons")[0] || "";
+			var holder = document[getElementsByClassName]("holder-mobileapps-buttons")[0] || "";
+			var handleMobileappsButton = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var logicHandleMobileappsButton = function () {
+					holder[classList].toggle(isActiveClass);
+					holder[classList].add(isCollapsableClass);
+					manageOtherCollapsableAll(holder);
+				};
+				var debounceLogicHandleMobileappsButton = debounce(logicHandleMobileappsButton, 200);
+				debounceLogicHandleMobileappsButton();
+			};
+			if (btn && holder) {
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					btn[_addEventListener]("click", handleMobileappsButton);
+				}
+			}
+		};
+		manageMobileappsButton();
+
 		var yshare;
 		var manageShareButton = function () {
 			var btn = document[getElementsByClassName]("btn-toggle-holder-share-buttons")[0] || "";

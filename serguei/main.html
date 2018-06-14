@@ -200,11 +200,19 @@
 			#sidedrawer li > strong + ul,
 			.app-content img,
 			.app-content iframe,
-			.btn-toggle-holder-qrcode,
-			.btn-toggle-holder-share-buttons,
-			.btn-toggle-holder-vk-like,
+			.btn-phone,
+			.btn-whatsapp,
+			.btn-viber,
+			.btn-telegram,
+			.btn-email,
+			.btn-toggle-holder-mobileapps-buttons.mui-btn--fab,
+			.btn-toggle-holder-qrcode.mui-btn--fab,
+			.btn-toggle-holder-share-buttons.mui-btn--fab,
+			.btn-toggle-holder-vk-like.mui-btn--fab,
+			.ui-totop,
 			.holder-location-qrcode,
-			.holder-share-buttons {
+			.holder-share-buttons,
+			.holder-vk-like {
 				display: none;
 			}
 		</style>
@@ -258,7 +266,7 @@
 "./libs/serguei-muicss/img/sprite-english-through-movies/movies-yunost-cinema-1440x810.jpg",
 "./libs/serguei-muicss/img/sprite-english-through-movies/movies-zvezda-cinema-1440x810.jpg",
 "./libs/serguei-muicss/img/sprite-english4free-banner/english4free-banner-vimeo-1440x810.png",
-"./libs/serguei-muicss/img/sprite-english4free-banner/english4free-banner-youtube-1440x810.png"	
+"./libs/serguei-muicss/img/sprite-english4free-banner/english4free-banner-youtube-1440x810.png"
 			]));
 			console.log("Source code: https://gitlab.com/englishextra/englishextra.gitlab.io");
 		</script>
@@ -354,9 +362,9 @@
 					<title>voice</title>
 					<path fill="currentColor" d="M9,5A4,4 0 0,1 13,9A4,4 0 0,1 9,13A4,4 0 0,1 5,9A4,4 0 0,1 9,5M9,15C11.67,15 17,16.34 17,19V21H1V19C1,16.34 6.33,15 9,15M16.76,5.36C18.78,7.56 18.78,10.61 16.76,12.63L15.08,10.94C15.92,9.76 15.92,8.23 15.08,7.05L16.76,5.36M20.07,2C24,6.05 23.97,12.11 20.07,16L18.44,14.37C21.21,11.19 21.21,6.65 18.44,3.63L20.07,2Z"></path>
 				</symbol>
-				<symbol id="ui-icon-email" viewBox="0 0 24 24">
-					<title>email</title>
-					<path fill="currentColor" d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"></path>
+				<symbol id="ui-icon-email-outline" viewBox="0 0 24 24">
+					<title>email-outline</title>
+					<path fill="currentColor" d="M4,4H20A2,2 0 0,1 22,6V18A2,2 0 0,1 20,20H4C2.89,20 2,19.1 2,18V6C2,4.89 2.89,4 4,4M12,11L20,6H4L12,11M4,18H20V8.37L12,13.36L4,8.37V18Z"></path>
 				</symbol>
 				<symbol id="ui-icon-menu-down" viewBox="0 0 24 24">
 					<title>menu-down</title>
@@ -379,6 +387,10 @@
 				<symbol id="ui-icon-share-variant" viewBox="0 0 24 24">
 					<title>share-variant</title>
 					<path fill="currentColor" d="M18,16.08C17.24,16.08 16.56,16.38 16.04,16.85L8.91,12.7C8.96,12.47 9,12.24 9,12C9,11.76 8.96,11.53 8.91,11.3L15.96,7.19C16.5,7.69 17.21,8 18,8A3,3 0 0,0 21,5A3,3 0 0,0 18,2A3,3 0 0,0 15,5C15,5.24 15.04,5.47 15.09,5.7L8.04,9.81C7.5,9.31 6.79,9 6,9A3,3 0 0,0 3,12A3,3 0 0,0 6,15C6.79,15 7.5,14.69 8.04,14.19L15.16,18.34C15.11,18.55 15.08,18.77 15.08,19C15.08,20.61 16.39,21.91 18,21.91C19.61,21.91 20.92,20.61 20.92,19A2.92,2.92 0 0,0 18,16.08Z"></path>
+				</symbol>
+				<symbol id="ui-icon-send" viewBox="0 0 24 24">
+					<title>send</title>
+					<path fill="currentColor" d="M2,21L23,12L2,3V10L17,12L2,14V21Z"></path>
 				</symbol>
 			</defs>
 		</svg>
@@ -444,7 +456,7 @@
 						<use xlink:href="#site-logo-icon"></use>
 					</svg>
 				</a>
-				<a href="javascript:void(0);" class="mui-appbar__ui-button mui-appbar__ui-button--phone" data-mui-toggle="dropdown" aria-label="Навигация" title="Связь">
+				<a href="javascript:void(0);" class="mui-appbar__ui-button mui-appbar__ui-button--phone" data-mui-toggle="dropdown" aria-label="Навигация" title="Соцсети">
 					<svg class="ui-icon">
 						<use xlink:href="#ui-icon-menu-down"></use>
 					</svg>
@@ -453,14 +465,14 @@
 				<template id="t_template_dropdown_contacts">
 					{{@contacts}}
 					<li>
-						<a href="{{%_val.href}}" class="ripple" title="{{%_val.title}}">{{=_val.title}}</a>
+						<a href="{{%_val.href}}" class="ripple" target="_blank" title="{{%_val.title}}">{{=_val.title}}</a>
 					</li>
 					{{/@contacts}}
 				</template>
 				<template id="mustache_template_dropdown_contacts">
 					{{#contacts}}
 					<li>
-						<a href="{{href}}" class="ripple" title="{{title}}">{{title}}</a>
+						<a href="{{href}}" class="ripple" target="_blank" title="{{title}}">{{title}}</a>
 					</li>
 					{{/contacts}}
 				</template>
@@ -471,8 +483,7 @@
 						</svg>
 					</a>
 				</template>
-				<div class="holder-location-qrcode" aria-hidden="true"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="qr-code-img" alt="" /></div>
-				<a href="javascript:void(0);" class="mui-appbar__ui-button mui-appbar__ui-button--more" data-mui-toggle="dropdown" aria-label="Навигация" title="Соцсети">
+				<a href="javascript:void(0);" class="mui-appbar__ui-button mui-appbar__ui-button--more" data-mui-toggle="dropdown" aria-label="Навигация" title="Объявления">
 					<svg class="ui-icon">
 						<use xlink:href="#ui-icon-more"></use>
 					</svg>
@@ -504,19 +515,51 @@
 				<use xlink:href="#ui-icon-qrcode-scan"></use>
 			</svg>
 		</a>
+		<a href="javascript:void(0);" class="btn-social btn-toggle-holder-mobileapps-buttons mui-btn mui-btn--fab ripple" aria-label="Навигация" title="Контакты">
+			<svg class="ui-icon">
+				<use xlink:href="#ui-icon-send"></use>
+			</svg>
+		</a>
 		<a href="javascript:void(0);" class="btn-social btn-toggle-holder-share-buttons mui-btn mui-btn--fab ripple" aria-label="Навигация" title="Поделиться">
 			<svg class="ui-icon">
 				<use xlink:href="#ui-icon-share-variant"></use>
 			</svg>
 		</a>
-		<a href="javascript:void(0);" class="btn-social btn-toggle-holder-vk-like mui-btn mui-btn--fab ripple" aria-label="Навигация" title="ВК Нравится">
+		<a href="javascript:void(0);" class="btn-social btn-toggle-holder-vk-like mui-btn mui-btn--fab ripple" aria-label="Навигация" title="Нравится">
 			<svg class="ui-icon">
 				<use xlink:href="#ui-icon-thumb-up-outline"></use>
 			</svg>
 		</a>
 		<div class="holder-location-qrcode" aria-hidden="true"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="qr-code-img" alt="" /></div>
-		<div class="holder-share-buttons"><div id="ya-share2" data-direction="horizontal" data-services="vkontakte,facebook,pocket,telegram" aria-hidden="true"></div></div>
-		<div class="holder-vk-like"><div class="vk-like" id="vk-like" data-apiid="4367728" aria-hidden="true"></div></div>
+		<div class="holder-mobileapps-buttons" aria-hidden="true">
+			<a href="tel:%2B79854416702" class="btn-mobileapps btn-phone" aria-label="Навигация" title="Телефон">
+				<svg class="ui-icon">
+					<use xlink:href="#ui-icon-phone"></use>
+				</svg>
+			</a>
+			<a href="whatsapp://send?phone=79854416702" class="btn-mobileapps btn-whatsapp" aria-label="Навигация" title="Вотсап">
+				<svg class="ui-icon">
+					<use xlink:href="#ui-icon-whatsapp"></use>
+				</svg>
+			</a>
+			<a href="viber://chat?number=%2B79854416702" class="btn-mobileapps btn-viber" aria-label="Навигация" title="Вайбер">
+				<svg class="ui-icon">
+					<use xlink:href="#ui-icon-viber"></use>
+				</svg>
+			</a>
+			<a href="tg://resolve?domain=english_tushino" class="btn-mobileapps btn-telegram" aria-label="Навигация" title="Телеграм">
+				<svg class="ui-icon">
+					<use xlink:href="#ui-icon-telegram"></use>
+				</svg>
+			</a>
+			<a href="mailto:englishextra2%40yahoo.com" class="btn-mobileapps btn-email" aria-label="Навигация" title="Имейл">
+				<svg class="ui-icon">
+					<use xlink:href="#ui-icon-email-outline"></use>
+				</svg>
+			</a>
+		</div>
+		<div class="holder-share-buttons" aria-hidden="true"><div id="ya-share2" data-direction="horizontal" data-services="vkontakte,whatsapp,facebook,pocket"></div></div>
+		<div class="holder-vk-like" aria-hidden="true"><div class="vk-like" id="vk-like" data-apiid="4367728"></div></div>
 		<div class="half-circle-spinner" aria-hidden="true">
 			<div class="circle circle-1"></div>
 			<div class="circle circle-2"></div>

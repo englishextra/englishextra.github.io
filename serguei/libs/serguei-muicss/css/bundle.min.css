@@ -926,11 +926,21 @@ a.mui-btn:active,
 	height: 2.500rem;
 	font-size: 1.125rem;
 	line-height: 2.500rem;
-	color: inherit;
 	background-color: rgba(255, 255, 255, 0.5);
 	margin: 0;
 }
 
+.btn-mobileapps {
+	display: block;
+	width: 3.000rem;
+	height: 3.000rem;
+	float: left;
+	font-size: 2.000rem;
+	line-height: 2.000rem;
+	margin: 0;
+}
+
+.btn-toggle-holder-mobileapps-buttons .ui-icon,
 .btn-toggle-holder-qrcode .ui-icon,
 .btn-toggle-holder-share-buttons .ui-icon,
 .btn-toggle-holder-vk-like .ui-icon {
@@ -946,34 +956,99 @@ a.mui-btn:active,
 	margin-left: auto;
 }
 
+.btn-phone .ui-icon,
+.btn-whatsapp .ui-icon,
+.btn-viber .ui-icon,
+.btn-telegram .ui-icon,
+.btn-email .ui-icon {
+	/*!
+	 * Centering things
+	 * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
+	 */
+	display: block;
+	width: 2.000rem;
+	height: 2.000rem;
+	margin-top: 0.500rem;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.btn-phone .ui-icon > *,
+.btn-whatsapp .ui-icon > *,
+.btn-viber .ui-icon > *,
+.btn-telegram .ui-icon > *,
+.btn-email .ui-icon > *,
 .btn-toggle-holder-qrcode .ui-icon > *,
+.btn-toggle-holder-mobileapps-buttons .ui-icon > *,
 .btn-toggle-holder-share-buttons .ui-icon > *,
 .btn-toggle-holder-vk-like .ui-icon > * {
 	fill: currentColor;
 }
 
-.btn-toggle-holder-qrcode.mui-btn--fab {
-	position: fixed;
-	right: 0.750rem;
-	bottom: 10.000rem;
-	-webkit-box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
-	box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
-}
-
-.btn-toggle-holder-share-buttons.mui-btn--fab {
-	position: fixed;
-	right: 0.750rem;
-	bottom: 7.000rem;
-	-webkit-box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
-	box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
-}
-
+.btn-toggle-holder-qrcode.mui-btn--fab,
+.btn-toggle-holder-mobileapps-buttons.mui-btn--fab,
+.btn-toggle-holder-share-buttons.mui-btn--fab,
 .btn-toggle-holder-vk-like.mui-btn--fab {
 	position: fixed;
 	right: 0.750rem;
-	bottom: 4.000rem;
-	-webkit-box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
 	box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
+}
+
+.btn-phone {
+	color: #FFFFFF;
+	background-color: #00CB5E;
+}
+
+.btn-whatsapp {
+	color: #FFFFFF;
+	background-color: #25D366;
+}
+
+.btn-viber {
+	color: #FFFFFF;
+	background-color: #8F5DB7;
+}
+
+.btn-telegram {
+	color: #FFFFFF;
+	background-color: #0088CC;
+}
+
+.btn-email {
+	color: #FFFFFF;
+	background-color: #DA4336;
+}
+
+.btn-toggle-holder-qrcode.mui-btn--fab {
+	display: none;
+	bottom: 13.000rem;
+	color: #616161;
+}
+
+.btn-toggle-holder-mobileapps-buttons.mui-btn--fab {
+	display: inline-block;
+	bottom: 10.000rem;
+	/* color: #FFFFFF;
+	background-color: #DA4336; */
+	color: #616161;
+}
+
+.btn-toggle-holder-share-buttons.mui-btn--fab {
+	display: inline-block;
+	bottom: 7.000rem;
+	color: #616161;
+}
+
+.btn-toggle-holder-vk-like.mui-btn--fab {
+	display: inline-block;
+	bottom: 4.000rem;
+	color: #616161;
+}
+
+@media (min-width: 1200px) {
+	.btn-toggle-holder-qrcode.mui-btn--fab {
+		display: inline-block;
+	}
 }
 
 /*!
@@ -988,7 +1063,7 @@ a.mui-btn:active,
 	height: 9.000rem;
 	position: fixed;
 	right: 4.000rem;
-	bottom: 3.500rem;
+	bottom: 6.500rem;
 	border-radius: 0.125rem;
 	box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
 	transition: visibility 0s, opacity 0.2s ease;
@@ -1015,6 +1090,34 @@ a.mui-btn:active,
 	vertical-align: bottom;
 	padding: 0;
 	margin: 0;
+}
+
+/*!
+ * holder mobileapps buttons
+ */
+
+.holder-mobileapps-buttons {
+	display: block;
+	visibility: hidden;
+	opacity: 0;
+	overflow: hidden;
+	height: 3.000rem;
+	position: fixed;
+	right: 4.000rem;
+	bottom: 9.500rem;
+	line-height: 3.000rem;
+	background-color: #FFFFFF;
+	border-radius: 0.125rem;
+	-webkit-box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
+	box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
+	-webkit-transition: visibility 0s, opacity 0.2s ease;
+	transition: visibility 0s, opacity 0.2s ease;
+	z-index: 1;
+}
+
+.holder-mobileapps-buttons.is-active {
+	visibility: visible;
+	opacity: 1;
 }
 
 /*!
