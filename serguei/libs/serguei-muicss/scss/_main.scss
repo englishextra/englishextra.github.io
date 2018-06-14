@@ -924,6 +924,7 @@ a.mui-btn:active,
 }
 
 .btn-phone .ui-icon,
+.btn-skype .ui-icon,
 .btn-whatsapp .ui-icon,
 .btn-viber .ui-icon,
 .btn-telegram .ui-icon,
@@ -941,6 +942,7 @@ a.mui-btn:active,
 }
 
 .btn-phone .ui-icon > *,
+.btn-skype .ui-icon > *,
 .btn-whatsapp .ui-icon > *,
 .btn-viber .ui-icon > *,
 .btn-telegram .ui-icon > *,
@@ -964,6 +966,11 @@ a.mui-btn:active,
 .btn-phone {
 	color: #FFFFFF;
 	background-color: $color-hex-phone-bg;
+}
+
+.btn-skype {
+	color: #FFFFFF;
+	background-color: $color-hex-skype-bg;
 }
 
 .btn-whatsapp {
