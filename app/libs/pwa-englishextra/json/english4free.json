@@ -7,7 +7,7 @@
 		},
 		{
 			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-duolingo-640x480.png",
-			"href": "https://www.microsoft.com/en-us/store/apps/duolingo-learn-languages-for-free/9wzdncrcv5xn",
+			"href": "https://www.duolingo.com/",
 			"title": "Learn a language for free. Forever.",
 			"text": "Learn Spanish, French, German, Portuguese, Italian, Irish, Dutch, Danish, and English. Totally fun and 100% free."
 		},
@@ -90,8 +90,8 @@
 			"text": "Все мы любим Красный Мерфи, а так ли хорошо мы усвоили его уроки? Проверьте себя: «базовый», «повышенный», «продвинутый»"
 		},
 		{
-			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-kino35mm-640x480.png",
-			"href": "http://www.kino35mm.ru/",
+			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-pioner-cinema-640x480.png",
+			"href": "http://pioner-cinema.ru/",
 			"title": "Сходим в кино!",
 			"text": "И посмотрим фильм на оригинальном языке с русскими субтитрами."
 		},
@@ -109,7 +109,7 @@
 		},
 		{
 			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-interurok-640x480.png",
-			"href": "http://interneturok.ru/ru/school/english/10-11-klassy",
+			"href": "https://interneturok.ru/subject/english",
 			"title": "3500 бесплатных видеоуроков",
 			"text": "Более 4000 видеоуроков по основным предметам школьной программы — в открытом доступе и без рекламы. Смотри и понимай."
 		},

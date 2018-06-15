@@ -344,7 +344,7 @@
 		<template id="template_b_carousel">
 			{{@b_carousel}}
 			<div class="b-carousel__item">
-				<a href="{{%_val.href}}" class="b-carousel__a" aria-label="Special / Особый"><img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%201920%20270%27%2F%3E" rel="lightbox" data-src="{{%_val.src}}" class="data-src-img b-carousel__img" alt="Illustration / Иллюстрация" /></a>
+				<a href="{{%_val.href}}" class="b-carousel__a" aria-label="Special / Особый"><img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%201920%20270%27%2F%3E" data-src="{{%_val.src}}" class="data-src-img b-carousel__img" alt="Illustration / Иллюстрация" /></a>
 			</div>
 			{{/@b_carousel}}
 		</template>
@@ -369,7 +369,7 @@
 			<div class="aside">
 				{{@items}}
 				<h2><a href="{{%_val.href}}">{{=_val.title}}</a></h2>
-				<p><a href="{{%_val.href}}"><img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20640%20480%27%2F%3E" rel="lightbox" data-src="{{%_val.src}}" class="data-src-img" alt="{{%_val.title}}" /></a></p>
+				<p><a href="{{%_val.href}}"><img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20640%20480%27%2F%3E" data-src="{{%_val.src}}" class="data-src-img" alt="{{%_val.title}}" /></a></p>
 				<p>{{=_val.text}}</p>
 				{{/@items}}
 			</div>
