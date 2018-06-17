@@ -1,10 +1,10 @@
 {
 	"home": {
-		"url": "./pages/home.html",
+		"url": "./includes/pwa-englishextra/home.html",
 		"title": "Начало"
 	},
 	"notfound": {
-		"url": "./pages/notfound.html",
+		"url": "./includes/pwa-englishextra/notfound.html",
 		"title": "Страница не найдена"
 	},
 	"hashes": [{
@@ -17,7 +17,7 @@
 		}, {
 			"href": "#/aids_most_commonly_used_idioms",
 			"next_href": "#/aids_topics",
-			"url": "./pages/aids/aids_most_commonly_used_idioms.html",
+			"url": "./includes/pwa-englishextra/aids/aids_most_commonly_used_idioms.html",
 			"src": "./libs/pwa-englishextra/img/gallery/aids_most_commonly_used_idioms.jpg",
 			"width": 1440,
 			"height": 810,
@@ -55,7 +55,7 @@
 		}, {
 			"href": "#/aids_topics",
 			"next_href": "#/articles_reading_rules_utf",
-			"url": "./pages/aids/aids_topics.html",
+			"url": "./includes/pwa-englishextra/aids/aids_topics.html",
 			"src": "./libs/pwa-englishextra/img/gallery/aids_topics.jpg",
 			"width": 1440,
 			"height": 810,
@@ -93,7 +93,7 @@
 		}, {
 			"href": "#/articles_reading_rules_utf",
 			"next_href": "#/tests_gia_ege_get_ready_for_a_run",
-			"url": "./pages/articles/articles_reading_rules_utf.html",
+			"url": "./includes/pwa-englishextra/articles/articles_reading_rules_utf.html",
 			"src": "./libs/pwa-englishextra/img/gallery/articles_reading_rules_utf.jpg",
 			"width": 1440,
 			"height": 810,
@@ -121,7 +121,7 @@
 		}, {
 			"href": "#/tests_gia_ege_get_ready_for_a_run",
 			"next_href": "#/tests_advanced_grammar_in_use_level_test",
-			"url": "./pages/tests/tests_gia_ege_get_ready_for_a_run.html",
+			"url": "./includes/pwa-englishextra/tests/tests_gia_ege_get_ready_for_a_run.html",
 			"src": "./libs/pwa-englishextra/img/gallery/tests_gia_ege_get_ready_for_a_run.jpg",
 			"width": 1440,
 			"height": 810,
@@ -154,7 +154,7 @@
 		}, {
 			"href": "#/tests_advanced_grammar_in_use_level_test",
 			"next_href": "#/tests_english_grammar_in_use_level_test",
-			"url": "./pages/tests/tests_advanced_grammar_in_use_level_test.html",
+			"url": "./includes/pwa-englishextra/tests/tests_advanced_grammar_in_use_level_test.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-cup-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -187,7 +187,7 @@
 		}, {
 			"href": "#/tests_english_grammar_in_use_level_test",
 			"next_href": "#/tests_essential_grammar_in_use_level_test",
-			"url": "./pages/tests/tests_english_grammar_in_use_level_test.html",
+			"url": "./includes/pwa-englishextra/tests/tests_english_grammar_in_use_level_test.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-cup-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -220,7 +220,7 @@
 		}, {
 			"href": "#/tests_essential_grammar_in_use_level_test",
 			"next_href": "#/tests_ege_english_test_sample",
-			"url": "./pages/tests/tests_essential_grammar_in_use_level_test.html",
+			"url": "./includes/pwa-englishextra/tests/tests_essential_grammar_in_use_level_test.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-cup-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -253,7 +253,7 @@
 		}, {
 			"href": "#/tests_ege_english_test_sample",
 			"next_href": "#/tests_ege_english_test_sample_speaking",
-			"url": "./pages/tests/tests_ege_english_test_sample.html",
+			"url": "./includes/pwa-englishextra/tests/tests_ege_english_test_sample.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-ege-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -286,7 +286,7 @@
 		}, {
 			"href": "#/tests_ege_english_test_sample_speaking",
 			"next_href": "#/tests_ege_essay_sample",
-			"url": "./pages/tests/tests_ege_english_test_sample_speaking.html",
+			"url": "./includes/pwa-englishextra/tests/tests_ege_english_test_sample_speaking.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-ege-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -319,7 +319,7 @@
 		}, {
 			"href": "#/tests_ege_essay_sample",
 			"next_href": "#/tests_gia_ege_letter_sample",
-			"url": "./pages/tests/tests_ege_essay_sample.html",
+			"url": "./includes/pwa-englishextra/tests/tests_ege_essay_sample.html",
 			"src": "./libs/pwa-englishextra/img/gallery/tests_ege_essay_sample.jpg",
 			"width": 1440,
 			"height": 810,
@@ -352,7 +352,7 @@
 		}, {
 			"href": "#/tests_gia_ege_letter_sample",
 			"next_href": "#/tests_gia_english_test_sample",
-			"url": "./pages/tests/tests_gia_ege_letter_sample.html",
+			"url": "./includes/pwa-englishextra/tests/tests_gia_ege_letter_sample.html",
 			"src": "./libs/pwa-englishextra/img/gallery/tests_gia_ege_letter_sample.jpg",
 			"width": 1440,
 			"height": 810,
@@ -385,7 +385,7 @@
 		}, {
 			"href": "#/tests_gia_english_test_sample",
 			"next_href": "#/tests_gia_english_test_sample_speaking",
-			"url": "./pages/tests/tests_gia_english_test_sample.html",
+			"url": "./includes/pwa-englishextra/tests/tests_gia_english_test_sample.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-gia-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -418,7 +418,7 @@
 		}, {
 			"href": "#/tests_gia_english_test_sample_speaking",
 			"next_href": "#/tests_languagelink_online_test",
-			"url": "./pages/tests/tests_gia_english_test_sample_speaking.html",
+			"url": "./includes/pwa-englishextra/tests/tests_gia_english_test_sample_speaking.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-gia-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -451,7 +451,7 @@
 		}, {
 			"href": "#/tests_languagelink_online_test",
 			"next_href": "#/tests_common_mistakes_test_advanced",
-			"url": "./pages/tests/tests_languagelink_online_test.html",
+			"url": "./includes/pwa-englishextra/tests/tests_languagelink_online_test.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-languagelink-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -489,7 +489,7 @@
 		}, {
 			"href": "#/tests_common_mistakes_test_advanced",
 			"next_href": "#/tests_english_allrussian_olympiad_regional_stage_2013",
-			"url": "./pages/tests/tests_common_mistakes_test_advanced.html",
+			"url": "./includes/pwa-englishextra/tests/tests_common_mistakes_test_advanced.html",
 			"src": "./libs/pwa-englishextra/img/gallery/tests_common_mistakes_test_advanced.jpg",
 			"width": 1440,
 			"height": 810,
@@ -527,7 +527,7 @@
 		}, {
 			"href": "#/tests_english_allrussian_olympiad_regional_stage_2013",
 			"next_href": "#/tests_grammar_tests_with_answers",
-			"url": "./pages/tests/tests_english_allrussian_olympiad_regional_stage_2013.html",
+			"url": "./includes/pwa-englishextra/tests/tests_english_allrussian_olympiad_regional_stage_2013.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-rosolymp-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -565,7 +565,7 @@
 		}, {
 			"href": "#/tests_grammar_tests_with_answers",
 			"next_href": "#/grammar_grammar_girl_s_quick_and_dirty_grammar_at_a_glance",
-			"url": "./pages/tests/tests_grammar_tests_with_answers.html",
+			"url": "./includes/pwa-englishextra/tests/tests_grammar_tests_with_answers.html",
 			"src": "./libs/pwa-englishextra/img/gallery/tests_grammar_tests_with_answers.jpg",
 			"width": 1440,
 			"height": 810,
@@ -598,7 +598,7 @@
 		}, {
 			"href": "#/grammar_grammar_girl_s_quick_and_dirty_grammar_at_a_glance",
 			"next_href": "#/grammar_all_whole_entire",
-			"url": "./pages/grammar/grammar_grammar_girl_s_quick_and_dirty_grammar_at_a_glance.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_grammar_girl_s_quick_and_dirty_grammar_at_a_glance.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-gg-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -636,7 +636,7 @@
 		}, {
 			"href": "#/grammar_all_whole_entire",
 			"next_href": "#/grammar_alone_by_myself_and_on_my_own",
-			"url": "./pages/grammar/grammar_all_whole_entire.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_all_whole_entire.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-grammar-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -669,7 +669,7 @@
 		}, {
 			"href": "#/grammar_alone_by_myself_and_on_my_own",
 			"next_href": "#/grammar_attributes_order",
-			"url": "./pages/grammar/grammar_alone_by_myself_and_on_my_own.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_alone_by_myself_and_on_my_own.html",
 			"src": "./libs/pwa-englishextra/img/gallery/grammar_alone_by_myself_and_on_my_own.jpg",
 			"width": 1440,
 			"height": 810,
@@ -702,7 +702,7 @@
 		}, {
 			"href": "#/grammar_attributes_order",
 			"next_href": "#/grammar_can_could_be_able_to",
-			"url": "./pages/grammar/grammar_attributes_order.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_attributes_order.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-grammar-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -735,7 +735,7 @@
 		}, {
 			"href": "#/grammar_can_could_be_able_to",
 			"next_href": "#/grammar_capital_letters",
-			"url": "./pages/grammar/grammar_can_could_be_able_to.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_can_could_be_able_to.html",
 			"src": "./libs/pwa-englishextra/img/gallery/grammar_can_could_be_able_to.jpg",
 			"width": 1440,
 			"height": 810,
@@ -768,7 +768,7 @@
 		}, {
 			"href": "#/grammar_capital_letters",
 			"next_href": "#/grammar_comma_before_who_which_that",
-			"url": "./pages/grammar/grammar_capital_letters.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_capital_letters.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-grammar-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -801,7 +801,7 @@
 		}, {
 			"href": "#/grammar_comma_before_who_which_that",
 			"next_href": "#/grammar_common_and_proper_nouns",
-			"url": "./pages/grammar/grammar_comma_before_who_which_that.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_comma_before_who_which_that.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-grammar-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -834,7 +834,7 @@
 		}, {
 			"href": "#/grammar_common_and_proper_nouns",
 			"next_href": "#/grammar_conditionals",
-			"url": "./pages/grammar/grammar_common_and_proper_nouns.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_common_and_proper_nouns.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-grammar-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -867,7 +867,7 @@
 		}, {
 			"href": "#/grammar_conditionals",
 			"next_href": "#/grammar_degrees_of_comparison",
-			"url": "./pages/grammar/grammar_conditionals.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_conditionals.html",
 			"src": "./libs/pwa-englishextra/img/gallery/grammar_conditionals.jpg",
 			"width": 1440,
 			"height": 810,
@@ -900,7 +900,7 @@
 		}, {
 			"href": "#/grammar_degrees_of_comparison",
 			"next_href": "#/grammar_ex_former",
-			"url": "./pages/grammar/grammar_degrees_of_comparison.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_degrees_of_comparison.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-grammar-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -933,7 +933,7 @@
 		}, {
 			"href": "#/grammar_ex_former",
 			"next_href": "#/grammar_foreign_words",
-			"url": "./pages/grammar/grammar_ex_former.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_ex_former.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-grammar-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -966,7 +966,7 @@
 		}, {
 			"href": "#/grammar_foreign_words",
 			"next_href": "#/grammar_glossary_of_grammatical_terms",
-			"url": "./pages/grammar/grammar_foreign_words.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_foreign_words.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-grammar-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -999,7 +999,7 @@
 		}, {
 			"href": "#/grammar_glossary_of_grammatical_terms",
 			"next_href": "#/grammar_in_at_on",
-			"url": "./pages/grammar/grammar_glossary_of_grammatical_terms.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_glossary_of_grammatical_terms.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-grammar-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -1032,7 +1032,7 @@
 		}, {
 			"href": "#/grammar_in_at_on",
 			"next_href": "#/grammar_in_hospital_at_work",
-			"url": "./pages/grammar/grammar_in_at_on.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_in_at_on.html",
 			"src": "./libs/pwa-englishextra/img/gallery/grammar_in_at_on.jpg",
 			"width": 1440,
 			"height": 810,
@@ -1065,7 +1065,7 @@
 		}, {
 			"href": "#/grammar_in_hospital_at_work",
 			"next_href": "#/grammar_irregular_verbs",
-			"url": "./pages/grammar/grammar_in_hospital_at_work.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_in_hospital_at_work.html",
 			"src": "./libs/pwa-englishextra/img/gallery/grammar_in_hospital_at_work.jpg",
 			"width": 1440,
 			"height": 810,
@@ -1098,7 +1098,7 @@
 		}, {
 			"href": "#/grammar_irregular_verbs",
 			"next_href": "#/grammar_may_might_be_allowed_to",
-			"url": "./pages/grammar/grammar_irregular_verbs.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_irregular_verbs.html",
 			"src": "./libs/pwa-englishextra/img/gallery/grammar_irregular_verbs.jpg",
 			"width": 1440,
 			"height": 810,
@@ -1131,7 +1131,7 @@
 		}, {
 			"href": "#/grammar_may_might_be_allowed_to",
 			"next_href": "#/grammar_modal_verbs",
-			"url": "./pages/grammar/grammar_may_might_be_allowed_to.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_may_might_be_allowed_to.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-grammar-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -1164,7 +1164,7 @@
 		}, {
 			"href": "#/grammar_modal_verbs",
 			"next_href": "#/grammar_much_many_little_few",
-			"url": "./pages/grammar/grammar_modal_verbs.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_modal_verbs.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-grammar-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -1197,7 +1197,7 @@
 		}, {
 			"href": "#/grammar_much_many_little_few",
 			"next_href": "#/grammar_or_nor_neither",
-			"url": "./pages/grammar/grammar_much_many_little_few.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_much_many_little_few.html",
 			"src": "./libs/pwa-englishextra/img/gallery/grammar_much_many_little_few.jpg",
 			"width": 1440,
 			"height": 810,
@@ -1230,7 +1230,7 @@
 		}, {
 			"href": "#/grammar_or_nor_neither",
 			"next_href": "#/grammar_phrasal_verbs",
-			"url": "./pages/grammar/grammar_or_nor_neither.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_or_nor_neither.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-grammar-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -1263,7 +1263,7 @@
 		}, {
 			"href": "#/grammar_phrasal_verbs",
 			"next_href": "#/grammar_reported_speech",
-			"url": "./pages/grammar/grammar_phrasal_verbs.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_phrasal_verbs.html",
 			"src": "./libs/pwa-englishextra/img/gallery/grammar_phrasal_verbs.jpg",
 			"width": 1440,
 			"height": 810,
@@ -1301,7 +1301,7 @@
 		}, {
 			"href": "#/grammar_reported_speech",
 			"next_href": "#/grammar_saying_numbers",
-			"url": "./pages/grammar/grammar_reported_speech.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_reported_speech.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-grammar-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -1334,7 +1334,7 @@
 		}, {
 			"href": "#/grammar_saying_numbers",
 			"next_href": "#/grammar_stative_and_action_verbs",
-			"url": "./pages/grammar/grammar_saying_numbers.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_saying_numbers.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-grammar-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -1367,7 +1367,7 @@
 		}, {
 			"href": "#/grammar_stative_and_action_verbs",
 			"next_href": "#/grammar_the_listing_comma",
-			"url": "./pages/grammar/grammar_stative_and_action_verbs.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_stative_and_action_verbs.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-grammar-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -1400,7 +1400,7 @@
 		}, {
 			"href": "#/grammar_the_listing_comma",
 			"next_href": "#/grammar_too_enough_so_such",
-			"url": "./pages/grammar/grammar_the_listing_comma.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_the_listing_comma.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-grammar-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -1433,7 +1433,7 @@
 		}, {
 			"href": "#/grammar_too_enough_so_such",
 			"next_href": "#/grammar_to_me_for_me",
-			"url": "./pages/grammar/grammar_too_enough_so_such.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_too_enough_so_such.html",
 			"src": "./libs/pwa-englishextra/img/gallery/grammar_too_enough_so_such.jpg",
 			"width": 1440,
 			"height": 810,
@@ -1466,7 +1466,7 @@
 		}, {
 			"href": "#/grammar_to_me_for_me",
 			"next_href": "#/grammar_translating_participles",
-			"url": "./pages/grammar/grammar_to_me_for_me.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_to_me_for_me.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-grammar-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -1499,7 +1499,7 @@
 		}, {
 			"href": "#/grammar_translating_participles",
 			"next_href": "#/grammar_usage_of_articles_a_the",
-			"url": "./pages/grammar/grammar_translating_participles.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_translating_participles.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-grammar-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -1532,7 +1532,7 @@
 		}, {
 			"href": "#/grammar_usage_of_articles_a_the",
 			"next_href": "#/grammar_usage_of_hyphens",
-			"url": "./pages/grammar/grammar_usage_of_articles_a_the.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_usage_of_articles_a_the.html",
 			"src": "./libs/pwa-englishextra/img/gallery/grammar_usage_of_articles_a_the.jpg",
 			"width": 1440,
 			"height": 810,
@@ -1565,7 +1565,7 @@
 		}, {
 			"href": "#/grammar_usage_of_hyphens",
 			"next_href": "#/grammar_usage_of_tenses",
-			"url": "./pages/grammar/grammar_usage_of_hyphens.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_usage_of_hyphens.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-grammar-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -1598,7 +1598,7 @@
 		}, {
 			"href": "#/grammar_usage_of_tenses",
 			"next_href": "#/grammar_when_must_means_probably",
-			"url": "./pages/grammar/grammar_usage_of_tenses.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_usage_of_tenses.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-grammar-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -1631,7 +1631,7 @@
 		}, {
 			"href": "#/grammar_when_must_means_probably",
 			"next_href": "#/grammar_word_order",
-			"url": "./pages/grammar/grammar_when_must_means_probably.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_when_must_means_probably.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-grammar-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -1664,7 +1664,7 @@
 		}, {
 			"href": "#/grammar_word_order",
 			"next_href": "#/reading_country_language_person_capital",
-			"url": "./pages/grammar/grammar_word_order.html",
+			"url": "./includes/pwa-englishextra/grammar/grammar_word_order.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-grammar-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -1697,7 +1697,7 @@
 		}, {
 			"href": "#/reading_country_language_person_capital",
 			"next_href": "#/reading_russia_ukraine_war_conflict_vocabulary",
-			"url": "./pages/reading/reading_country_language_person_capital.html",
+			"url": "./includes/pwa-englishextra/reading/reading_country_language_person_capital.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-reading-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -1740,7 +1740,7 @@
 		}, {
 			"href": "#/reading_russia_ukraine_war_conflict_vocabulary",
 			"next_href": "#/reading_the_man_with_the_scar",
-			"url": "./pages/reading/reading_russia_ukraine_war_conflict_vocabulary.html",
+			"url": "./includes/pwa-englishextra/reading/reading_russia_ukraine_war_conflict_vocabulary.html",
 			"src": "./libs/pwa-englishextra/img/gallery/reading_russia_ukraine_war_conflict_vocabulary.jpg",
 			"width": 1440,
 			"height": 810,
@@ -1783,7 +1783,7 @@
 		}, {
 			"href": "#/reading_the_man_with_the_scar",
 			"next_href": "#/transcripts_linguaspectrum_essential_british_english_expressions",
-			"url": "./pages/reading/reading_the_man_with_the_scar.html",
+			"url": "./includes/pwa-englishextra/reading/reading_the_man_with_the_scar.html",
 			"src": "./libs/pwa-englishextra/img/gallery/reading_the_man_with_the_scar.jpg",
 			"width": 1440,
 			"height": 810,
@@ -1826,7 +1826,7 @@
 		}, {
 			"href": "#/transcripts_linguaspectrum_essential_british_english_expressions",
 			"next_href": "#/transcripts_linguaspectrum_spell",
-			"url": "./pages/transcripts/transcripts_linguaspectrum_essential_british_english_expressions.html",
+			"url": "./includes/pwa-englishextra/transcripts/transcripts_linguaspectrum_essential_british_english_expressions.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-transcripts-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -1869,7 +1869,7 @@
 		}, {
 			"href": "#/transcripts_linguaspectrum_spell",
 			"next_href": "#/transcripts_video_vocab_transcripts",
-			"url": "./pages/transcripts/transcripts_linguaspectrum_spell.html",
+			"url": "./includes/pwa-englishextra/transcripts/transcripts_linguaspectrum_spell.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-transcripts-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -1912,7 +1912,7 @@
 		}, {
 			"href": "#/transcripts_video_vocab_transcripts",
 			"next_href": "#/reading_the_man_with_the_scar",
-			"url": "./pages/transcripts/transcripts_video_vocab_transcripts.html",
+			"url": "./includes/pwa-englishextra/transcripts/transcripts_video_vocab_transcripts.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-transcripts-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -1955,7 +1955,7 @@
 		}, {
 			"href": "#/home",
 			"next_href": "#/contents",
-			"url": "./pages/home.html",
+			"url": "./includes/pwa-englishextra/home.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-home-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -1964,7 +1964,7 @@
 		}, {
 			"href": "#/contents",
 			"next_href": "#/about",
-			"url": "./pages/contents.html",
+			"url": "./includes/pwa-englishextra/contents.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-contents-640x336.png",
 			"width": 640,
 			"height": 336,
@@ -1973,7 +1973,7 @@
 		}, {
 			"href": "#/about",
 			"next_href": "#/aids_most_commonly_used_idioms",
-			"url": "./pages/about.html",
+			"url": "./includes/pwa-englishextra/about.html",
 			"src": "./libs/pwa-englishextra/img/sprite-contents-banner/contents-banner-about-640x336.png",
 			"width": 640,
 			"height": 336,

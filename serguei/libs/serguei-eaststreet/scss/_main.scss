@@ -1675,6 +1675,36 @@ u,
 }
 
 /*!
+ * copyright
+ */
+
+.card-wrap.card-wrap--notice {
+	color: inherit;
+	background-color: $LeftNavBarLight;
+	padding: 1.000rem;
+	margin-top: 1.333rem;
+}
+
+.card-wrap.card-wrap--notice a {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.card-wrap.card-wrap--notice h3:first-child {
+	margin-top: 0;
+}
+
+.card-wrap.card-wrap--notice .mui--text-subhead {
+	font-size: 1.133rem;
+}
+
+.card-wrap.card-wrap--notice .mui--text-caption,
+.card-wrap.card-wrap--notice .copyright {
+	font-size: 0.800rem;
+	line-height: 1.067rem;
+}
+
+/*!
  * disqus
  */
 
