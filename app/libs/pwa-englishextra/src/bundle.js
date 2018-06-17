@@ -2577,22 +2577,17 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 					 * put when templates rendered
 					 */
 					if (appContentParent) {
-						manageExternalLinkAll(appContentParent);
-						manageImgLightboxLinkAll(appContentParent);
-						manageIframeLightboxLinkAll(appContentParent);
-						manageChaptersSelect(appContentParent);
-						manageExpandingLayers(appContentParent);
-						var timers2 = new Timers();
-						timers2.timeout(function () {
-							timers2.clear();
-							timers2 = null;
-							handleDataSrcIframeAll();
-						}, 500);
 						var timers = new Timers();
 						timers.timeout(function () {
 							timers.clear();
 							timers = null;
+							handleDataSrcIframeAll();
 							handleDataSrcImageAll();
+							manageExternalLinkAll(appContentParent);
+							manageImgLightboxLinkAll(appContentParent);
+							manageIframeLightboxLinkAll(appContentParent);
+							manageChaptersSelect(appContentParent);
+							manageExpandingLayers(appContentParent);
 						}, 500);
 					}
 					LoadingSpinner.hide(scroll2Top.bind(null, 0, 20000));

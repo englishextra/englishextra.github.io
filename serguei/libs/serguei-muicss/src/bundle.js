@@ -2054,33 +2054,22 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				onContentInserted: function (titleString) {
 					document[title] = (titleString ? titleString + " - " : "") + (initialDocumentTitle ? initialDocumentTitle + (userBrowsingDetails ? userBrowsingDetails : "") : "");
 					if (appContentParent) {
-						manageExternalLinkAll(appContentParent);
-						manageImgLightboxLinkAll(appContentParent);
-						manageIframeLightboxLinkAll(appContentParent);
-						manageDropdownButtonAll(appContentParent);
-						manageHljsCodeAll(appContentParent);
-						manageRippleEffect();
-						manageInstagramEmbeds();
-						manageTwitterEmbeds();
-						manageDisqusEmbed();
-						/* manageFlickrEmbeds(); */
-						var timers3 = new Timers();
-						timers3.timeout(function () {
-							timers3.clear();
-							timers3 = null;
-							manageMinigrid();
-						}, 500);
-						var timers2 = new Timers();
-						timers2.timeout(function () {
-							timers2.clear();
-							timers2 = null;
-							handleDataSrcIframeAll(appContentParent);
-						}, 500);
 						var timers = new Timers();
 						timers.timeout(function () {
 							timers.clear();
 							timers = null;
+							manageMinigrid();
+							handleDataSrcIframeAll(appContentParent);
 							handleDataSrcImageAll(appContentParent);
+							manageExternalLinkAll(appContentParent);
+							manageImgLightboxLinkAll(appContentParent);
+							manageIframeLightboxLinkAll(appContentParent);
+							manageDropdownButtonAll(appContentParent);
+							manageHljsCodeAll(appContentParent);
+							manageRippleEffect();
+							manageInstagramEmbeds();
+							manageTwitterEmbeds();
+							manageDisqusEmbed();
 						}, 500);
 					}
 					LoadingSpinner.hide();

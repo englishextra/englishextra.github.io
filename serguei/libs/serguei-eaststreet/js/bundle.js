@@ -1754,12 +1754,12 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 					var cb = function () {
 						hideBtn();
 						if (containerParent) {
-							manageExternalLinkAll(containerParent);
-							manageImgLightboxLinkAll(containerParent);
 							var timers = new Timers();
 							timers.timeout(function () {
 								timers.clear();
 								timers = null;
+								manageExternalLinkAll(containerParent);
+								manageImgLightboxLinkAll(containerParent);
 								handleDataSrcImageAll();
 							}, 500);
 						}
@@ -2400,14 +2400,19 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 				 * hide loading spinner before scrolling
 				 */
 				document.title = (titleString ? titleString + " - " : "" ) + (initialDocumentTitle ? initialDocumentTitle + (userBrowsingDetails ? userBrowsingDetails : "") : "");
-				manageYandexMapButton("ymap");
-				manageDisqusButton(appContentParent);
-				manageExternalLinkAll(appContentParent);
-				manageDataTargetLinks(appContentParent);
-				manageImgLightboxLinkAll(appContentParent);
-				manageDataQrcodeImageAll(appContentParent);
-				manageChaptersSelect(appContentParent);
-				manageExpandingLayers(appContentParent);
+				var timers = new Timers();
+				timers.timeout(function () {
+					timers.clear();
+					timers = null;
+					manageYandexMapButton("ymap");
+					manageDisqusButton(appContentParent);
+					manageExternalLinkAll(appContentParent);
+					manageDataTargetLinks(appContentParent);
+					manageImgLightboxLinkAll(appContentParent);
+					manageDataQrcodeImageAll(appContentParent);
+					manageChaptersSelect(appContentParent);
+					manageExpandingLayers(appContentParent);
+				}, 500);
 				LoadingSpinner.hide(scroll2Top.bind(null, 0, 20000));
 			};
 			var loadNotFoundPage = function (containerClass) {
