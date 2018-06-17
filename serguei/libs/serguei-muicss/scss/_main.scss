@@ -684,6 +684,22 @@ a.mui-btn:active,
 	fill: currentColor;
 }
 
+.app-content .card-wrap table:last-child {
+	margin-bottom: 0;
+}
+
+.app-content .card-wrap table caption {
+	font-weight: 400;
+	font-size: 0.750rem;
+	line-height: 1.000rem;
+	font-style: italic;
+	text-align: left;
+}
+
+.app-content .card-wrap .mui-table-wrapper + p {
+	margin-top: 0.667rem;
+}
+
 /*!
  * responsive table
  */
