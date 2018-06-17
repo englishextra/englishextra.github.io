@@ -715,6 +715,12 @@ a.mui-btn:active,
 	fill: currentColor;
 }
 
+.copyright {
+	font-weight: 400;
+	font-size: 0.750rem;
+	line-height: 1.000rem;
+}
+
 /*!
  * minigrid
  */
@@ -879,7 +885,7 @@ a.mui-btn:active,
 	background-color: #FFFFFF;
 }
 
-.plain-links a,
+.card-wrap--plain-links a,
 .card-wrap--heading a,
 .card-wrap--banner-dark a,
 .card-wrap--aside a,
