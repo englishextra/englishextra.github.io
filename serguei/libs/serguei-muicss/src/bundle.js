@@ -1171,6 +1171,13 @@ unescape, verge, VK, WheelIndicator, Ya*/
 		var appContent = document[getElementById](appContentId) || "";
 		var appContentParent = appContent ? appContent[parentNode] ? appContent[parentNode] : "" : "";
 
+		var sidedrawer = document[getElementById]("sidedrawer") || "";
+
+		var hideSidedrawer = function () {
+			docBody[classList].add(hideSidedrawerClass);
+			sidedrawer[classList].remove(activeClass);
+		};
+
 		var manageOtherCollapsableAll = function (_self) {
 			var _this = _self || this;
 			var btn = document[getElementsByClassName](isCollapsableClass) || "";
@@ -1548,8 +1555,6 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var sidedrawer = document[getElementById]("sidedrawer") || "";
-
 		var activeClass = "active";
 		var hideSidedrawerClass = "hide-sidedrawer";
 
@@ -1583,10 +1588,6 @@ unescape, verge, VK, WheelIndicator, Ya*/
 		};
 		/* manageSidedrawerCategoryAll(); */
 
-		var hideSidedrawer = function () {
-			docBody[classList].add(hideSidedrawerClass);
-			sidedrawer[classList].remove(activeClass);
-		};
 		var hideSidedrawerOnNavigating = function () {
 			var linkAll;
 			if (sidedrawer) {

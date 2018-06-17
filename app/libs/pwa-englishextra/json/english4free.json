@@ -7,7 +7,7 @@
 		}, {
 			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-duolingo-640x480.png",
 			"href": "https://www.duolingo.com/",
-			"title": "Learn a language for free. Forever.",
+			"title": "Learn a language for free",
 			"text": "Learn Spanish, French, German, Portuguese, Italian, Irish, Dutch, Danish, and English. Totally fun and 100% free."
 		}, {
 			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-gg-640x480.png",
@@ -62,12 +62,12 @@
 		}, {
 			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-languagelink-640x480.png",
 			"href": "https://www.languagelink.ru/test/english/",
-			"title": "Тест по английскому языку online",
+			"title": "Уровневый тест",
 			"text": "Прежде чем обращаться к репетитору, решите данный тест из пяти десятков вопросов с ответами, запишите себе те вопросы, в которых вы не уверены."
 		}, {
 			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-egu-640x480.png",
 			"href": "http://www.cambridge.org/elt/inuse/grammartests/esgu-test.htm",
-			"title": "Тест «Красный Мерфи» (базовый)",
+			"title": "Тест «Красный Мерфи»",
 			"text": "Все мы любим Красный Мерфи, а так ли хорошо мы усвоили его уроки? Проверьте себя: «базовый», «повышенный», «продвинутый»"
 		}, {
 			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-pioner-cinema-640x480.png",
@@ -87,7 +87,7 @@
 		}, {
 			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-interurok-640x480.png",
 			"href": "https://interneturok.ru/subject/english",
-			"title": "3500 бесплатных видеоуроков",
+			"title": "3500 видеоуроков",
 			"text": "Более 4000 видеоуроков по основным предметам школьной программы — в открытом доступе и без рекламы. Смотри и понимай."
 		}, {
 			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-multitran-640x480.png",
@@ -97,7 +97,7 @@
 		}, {
 			"src": "./libs/pwa-englishextra/img/sprite-english4free-banner/english4free-banner-wsu-640x480.png",
 			"href": "https://brians.wsu.edu/common-errors/",
-			"title": "Common Errors in English Usage",
+			"title": "Common Errors in English",
 			"text": "Dictionaries differ among themselves on how much guidance to usage they provide, but the goal of a usage guide like this is substantially different: to protect you against patterns which are regarded by substantial numbers of well-educated people as nonstandard."
 		}
 	]
