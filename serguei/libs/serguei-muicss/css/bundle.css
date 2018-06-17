@@ -715,6 +715,93 @@ a.mui-btn:active,
 	fill: currentColor;
 }
 
+/*!
+ * responsive table
+ */
+
+/* .app-content table.respond {
+	width: auto;
+} */
+
+.app-content .card-wrap table.respond {
+	width: 100%;
+}
+
+/* .app-content table.respond {
+	border: none;
+	border-top-width: 0.063rem;
+	border-top-style: solid;
+	border-top-color: rgba(0, 0, 0, 0.12);
+	border-right-width: 0.063rem;
+	border-right-style: solid;
+	border-right-color: rgba(0, 0, 0, 0.12);
+	border-left-width: 0.063rem;
+	border-left-style: solid;
+	border-left-color: rgba(0, 0, 0, 0.12);
+}
+
+.app-content table.respond th {
+	border: none;
+	border-bottom-width: 0.063rem;
+	border-bottom-style: solid;
+	border-bottom-color: rgba(0, 0, 0, 0.12);
+}
+
+.app-content table.respond td {
+	border: none;
+	border-bottom-width: 0.063rem;
+	border-bottom-style: solid;
+	border-bottom-color: rgba(0, 0, 0, 0.12);
+}
+
+.app-content table.respond td.with-img-only {
+	padding: 0.500rem;
+} */
+
+@media screen and (max-width: 640px) {
+	.app-content table.respond {
+		border: none;
+	}
+
+	.app-content table.respond,
+	.app-content table.respond tr,
+	.app-content table.respond td {
+		display: block;
+		box-sizing: border-box;
+	}
+
+	.app-content table.respond tr {
+		width: 100%;
+		float: left;
+		position: relative;
+		border: 0.063rem solid rgba(0, 0, 0, 0.12);
+		border-bottom: none;
+		margin-bottom: 0.938rem;
+	}
+
+	.app-content table.respond tr:last-child {
+		margin-bottom: 0;
+	}
+
+	.app-content table.respond thead,
+	.app-content table.respond tfoot {
+		display: none;
+	}
+
+	.app-content table.respond td::before {
+		display: block;
+		float: left;
+		content: attr(data-label);
+		font-weight: bold;
+		text-align: right;
+		padding-right: 0.625rem;
+	}
+}
+
+/*!
+ * copyright
+ */
+
 .copyright {
 	font-weight: 400;
 	font-size: 0.750rem;
@@ -776,7 +863,7 @@ a.mui-btn:active,
 	 * if transition set, all the images will be loaded
 	 */
 	/* transition: transform 0.4s ease-out; */
-	/* border: 0.067rem solid $color-rgba-card-shadow;
+	/* border: 0.063rem solid $color-rgba-card-shadow;
 	border-radius: 0.200rem;
 	box-shadow: 0 0.133rem 0 $color-rgba-card-shadow; */
 	border: none;
