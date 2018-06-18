@@ -552,14 +552,6 @@ button {
 }
 
 /*!
- * mui-table
- */
-
-.mui-table-wrapper {
-	overflow: auto;
-}
-
-/*!
  * mui-btn
  */
 
@@ -711,20 +703,29 @@ button {
 	fill: currentColor;
 }
 
-.card-wrap table:last-child {
+/*!
+ * mui-table
+ */
+
+.mui-table-wrapper {
+	overflow: auto;
+}
+
+.mui-table-wrapper + p,
+.mui-table-wrapper + .mui-table-wrapper {
+	margin-top: 0.667rem;
+}
+
+.card-wrap .mui-table:last-child {
 	margin-bottom: 0;
 }
 
-.card-wrap table caption {
+.card-wrap .mui-table caption {
 	font-weight: 400;
 	font-size: 0.750rem;
 	line-height: 1.000rem;
 	font-style: italic;
 	text-align: left;
-}
-
-.mui-table-wrapper + p {
-	margin-top: 0.667rem;
 }
 
 /*!
