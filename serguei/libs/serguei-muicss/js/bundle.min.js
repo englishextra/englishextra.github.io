@@ -1502,6 +1502,53 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			}
 		};
 
+		var handleVkEmbedInMinigrid = function () {
+			var vkPost = document[getElementsByClassName]("vk-post") || "";
+			if (vkPost) {
+				var i,
+				l;
+				for (i = 0, l = vkPost[_length]; i < l; i += 1) {
+					if (!vkPost[i][parentNode][classList].contains(isBindedMinigridCardClass)) {
+						observeMutations(vkPost[i][parentNode], updateMinigrid.bind(null, vkPost[i][parentNode]));
+						vkPost[i][parentNode][classList].add(isBindedMinigridCardClass);
+					}
+				}
+			}
+		};
+		var manageVkEmbeds = function () {
+			var vkPost = document[getElementsByClassName]("vk-post")[0] || "";
+			var initScript = function () {
+				var initVkPost = function (element_id, owner_id, post_id, hash) {
+					if (!VK.Widgets.Post(element_id, owner_id, post_id, hash)) {
+						initVkPost();
+					}
+				};
+				if (root.VK && VK.Widgets && VK.Widgets.Post) {
+					var vkPost = document[getElementsByClassName]("vk-post") || "";
+					if (vkPost) {
+						var i,
+						l;
+						for (i = 0, l = vkPost[_length]; i < l; i += 1) {
+							if (!vkPost[i][classList].contains(isBindedClass)) {
+								initVkPost(vkPost[i].id, vkPost[i][dataset].vkOwnerid, vkPost[i][dataset].vkPostid, vkPost[i][dataset].vkHash);
+								vkPost[i][classList].add(isBindedClass);
+							}
+						}
+					}
+				}
+			};
+			if (vkPost) {
+				handleVkEmbedInMinigrid();
+				var jsUrl = forcedHTTP + "://" + "vk.com/js/api/openapi.js?154";
+				if (!scriptIsLoaded(jsUrl)) {
+					var load;
+					load = new loadJsCss([jsUrl], initScript);
+				} else {
+					initScript();
+				}
+			}
+		};
+
 		var toDashedAll = function (str) {
 			return str.replace((/([A-Z])/g), function ($1) {
 				return "-" + $1.toLowerCase();
@@ -1886,7 +1933,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 							}
 						}
 					};
-					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?122";
+					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
 					if (!scriptIsLoaded(jsUrl)) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
@@ -2069,6 +2116,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 							manageRippleEffect();
 							manageInstagramEmbeds();
 							manageTwitterEmbeds();
+							manageVkEmbeds();
 							manageDisqusEmbed();
 						}, 500);
 					}

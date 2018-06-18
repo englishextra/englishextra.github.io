@@ -700,15 +700,15 @@ button {
  * responsive table
  */
 
-/* .card-wrap table.respond {
+/* .card-wrap .mui-table--bordered {
 	width: auto;
 } */
 
-.card-wrap table.respond {
+.card-wrap .mui-table--bordered {
 	width: 100%;
 }
 
-/* .card-wrap table.respond {
+/* .card-wrap .mui-table--bordered {
 	border: none;
 	border-top-width: 0.063rem;
 	border-top-style: solid;
@@ -721,37 +721,37 @@ button {
 	border-left-color: rgba(0, 0, 0, 0.12);
 }
 
-.card-wrap table.respond th {
+.card-wrap .mui-table--bordered th {
 	border: none;
 	border-bottom-width: 0.063rem;
 	border-bottom-style: solid;
 	border-bottom-color: rgba(0, 0, 0, 0.12);
 }
 
-.card-wrap table.respond td {
+.card-wrap .mui-table--bordered td {
 	border: none;
 	border-bottom-width: 0.063rem;
 	border-bottom-style: solid;
 	border-bottom-color: rgba(0, 0, 0, 0.12);
 }
 
-.card-wrap table.respond td.with-img-only {
+.card-wrap .mui-table--bordered td.with-img-only {
 	padding: 0.500rem;
 } */
 
 @media screen and (max-width: 639px) {
-	.card-wrap table.respond {
+	.card-wrap .mui-table--bordered {
 		border: none;
 	}
 
-	.card-wrap table.respond,
-	.card-wrap table.respond tr,
-	.card-wrap table.respond td {
+	.card-wrap .mui-table--bordered,
+	.card-wrap .mui-table--bordered tr,
+	.card-wrap .mui-table--bordered td {
 		display: block;
 		box-sizing: border-box;
 	}
 
-	.card-wrap table.respond tr {
+	.card-wrap .mui-table--bordered tr {
 		width: 100%;
 		float: left;
 		position: relative;
@@ -760,16 +760,16 @@ button {
 		margin-bottom: 0.938rem;
 	}
 
-	.card-wrap table.respond tr:last-child {
+	.card-wrap .mui-table--bordered tr:last-child {
 		margin-bottom: 0;
 	}
 
-	.card-wrap table.respond thead,
-	.card-wrap table.respond tfoot {
+	.card-wrap .mui-table--bordered thead,
+	.card-wrap .mui-table--bordered tfoot {
 		display: none;
 	}
 
-	.card-wrap table.respond td::before {
+	.card-wrap .mui-table--bordered td::before {
 		display: block;
 		float: left;
 		content: attr(data-label);
@@ -1181,9 +1181,7 @@ button {
 	line-height: 3.000rem;
 	background-color: #FFFFFF;
 	border-radius: 0.125rem;
-	-webkit-box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
 	box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
-	-webkit-transition: visibility 0s, opacity 0.2s ease;
 	transition: visibility 0s, opacity 0.2s ease;
 	z-index: 1;
 }

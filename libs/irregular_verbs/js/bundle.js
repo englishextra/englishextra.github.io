@@ -770,7 +770,7 @@ ToProgress, unescape, VK, Ya*/
 			var btnShareButtons = document[getElementsByClassName]("btn-share-buttons")[0] || "";
 			var btnUiTotop = document[getElementsByClassName]("ui-totop")[0] || "";
 			var holderSearchForm = document[getElementsByClassName]("holder-search-form")[0] || "";
-			var jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?122";
+			var jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?154";
 			var f = false;
 			if (!f) {
 				f = true;

@@ -1860,7 +1860,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 							}
 						}
 					};
-					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?122";
+					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
 					if (!scriptIsLoaded(jsUrl)) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
