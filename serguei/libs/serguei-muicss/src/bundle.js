@@ -1577,9 +1577,14 @@ unescape, verge, VK, WheelIndicator, Ya*/
 						"}"].join(""));
 			/* styleSheet.insertRule(cssRule, 0); */
 		}
-		var manageMinigrid = function () {
+		var manageMinigrid = function (callback) {
+			var cb = function () {
+				return callback && "function" === typeof callback && callback();
+			};
 			var cardGrid = document[getElementsByClassName](cardGridClass)[0] || "";
 			var onMinigridCreated = function () {
+				root[_addEventListener]("resize", updateMinigrid, {passive: true});
+				cb();
 				cardGrid[style].visibility = "visible";
 				cardGrid[style].opacity = 1;
 			};
@@ -1591,11 +1596,11 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				mgrid = new Minigrid({
 						container: cardGridClass,
 						item: cardWrapClass,
-						gutter: 20,
-						done: onMinigridCreated
+						gutter: 20/* ,
+						done: onMinigridCreated */
 					});
 				mgrid.mount();
-				root[_addEventListener]("resize", updateMinigrid, {passive: true});
+				onMinigridCreated();
 			};
 			if (cardGrid) {
 				initMinigrid();
@@ -2105,7 +2110,12 @@ unescape, verge, VK, WheelIndicator, Ya*/
 						timers.timeout(function () {
 							timers.clear();
 							timers = null;
-							manageMinigrid();
+							manageMinigrid(function () {
+								manageInstagramEmbeds();
+								manageTwitterEmbeds();
+								manageVkEmbeds();
+								manageDisqusEmbed();
+							});
 							handleDataSrcIframeAll(appContentParent);
 							handleDataSrcImageAll(appContentParent);
 							manageExternalLinkAll(appContentParent);
@@ -2114,10 +2124,6 @@ unescape, verge, VK, WheelIndicator, Ya*/
 							manageDropdownButtonAll(appContentParent);
 							manageHljsCodeAll(appContentParent);
 							manageRippleEffect();
-							manageInstagramEmbeds();
-							manageTwitterEmbeds();
-							manageVkEmbeds();
-							manageDisqusEmbed();
 						}, 500);
 					}
 					LoadingSpinner.hide();

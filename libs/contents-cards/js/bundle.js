@@ -969,10 +969,11 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 				mgrid = new Minigrid({
 						container: cardGridClass,
 						item: cardWrapClass,
-						gutter: 20,
-						done: onMinigridCreated
+						gutter: 20/* ,
+						done: onMinigridCreated */
 					});
 				mgrid.mount();
+				onMinigridCreated();
 			};
 			var updateMinigrid = function () {
 				mgrid.mount();
