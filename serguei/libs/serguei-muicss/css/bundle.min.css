@@ -563,18 +563,14 @@ button {
  * mui-btn
  */
 
-a.mui-btn,
-.app-content a.mui-btn {
+.card-wrap .mui-btn {
 	color: inherit;
 	text-decoration: none;
 }
 
-a.mui-btn:focus,
-a.mui-btn:hover,
-a.mui-btn:active,
-.app-content a.mui-btn:focus,
-.app-content a.mui-btn:hover,
-.app-content a.mui-btn:active {
+.card-wrap .mui-btn:focus,
+.card-wrap .mui-btn:hover,
+.card-wrap .mui-btn:active {
 	text-decoration: none;
 }
 
@@ -629,33 +625,33 @@ a.mui-btn:active,
  * app-content
  */
 
-.app-content h1 {
+.card-wrap h1 {
 	font-weight: 400;
 }
 
-.app-content img,
-.app-content iframe {
+.card-wrap img,
+.card-wrap iframe {
 	display: block;
 	width: 100%;
 }
 
-.app-content figcaption a {
+.card-wrap figcaption a {
 	color: inherit;
 	text-decoration: none;
 }
 
-.app-content .data-src-img,
-.app-content .data-src-iframe {
+.card-wrap .data-src-img,
+.card-wrap .data-src-iframe {
 	background-color: #eeeeee;
 }
 
-.app-content a {
+.card-wrap a {
 	color: #0277bd;
 }
 
-.app-content a:focus,
-.app-content a:hover,
-.app-content a:active {
+.card-wrap a:focus,
+.card-wrap a:hover,
+.card-wrap a:active {
 	text-decoration: underline;
 }
 
@@ -663,12 +659,12 @@ a.mui-btn:active,
  * hljs
  */
 
-/* .app-content pre {
+/* .card-wrap pre {
 	padding: 0;
 	margin: 0;
 } */
 
-.app-content pre code {
+.card-wrap pre code {
 	font-family: "Roboto Mono", "Consolas", "Monaco", "Droid Sans Mono", "Inconsolata", "Source Code Pro", monospace;
 	font-size: 0.813rem;
 	line-height: 1.188rem;
@@ -679,7 +675,7 @@ a.mui-btn:active,
  * custom large-btn
  */
 
-.app-content .mui-btn.large-btn-link {
+.card-wrap .mui-btn.large-btn-link {
 	display: block;
 	width: 100%;
 	height: 10.000rem;
@@ -689,13 +685,13 @@ a.mui-btn:active,
 	cursor: pointer;
 }
 
-.app-content .mui-btn.large-btn-link:focus,
-.app-content .mui-btn.large-btn-link:hover,
-.app-content .mui-btn.large-btn-link:active {
+.card-wrap .mui-btn.large-btn-link:focus,
+.card-wrap .mui-btn.large-btn-link:hover,
+.card-wrap .mui-btn.large-btn-link:active {
 	text-decoration: none;
 }
 
-.app-content .mui-btn.large-btn-link .large-btn-icon {
+.card-wrap .mui-btn.large-btn-link .large-btn-icon {
 	display: block;
 	width: 10.000rem;
 	height: 10.000rem;
@@ -711,15 +707,15 @@ a.mui-btn:active,
 	transform: translate(-50%, -50%);
 }
 
-.app-content .mui-btn.large-btn-link .large-btn-icon > * {
+.card-wrap .mui-btn.large-btn-link .large-btn-icon > * {
 	fill: currentColor;
 }
 
-.app-content .card-wrap table:last-child {
+.card-wrap table:last-child {
 	margin-bottom: 0;
 }
 
-.app-content .card-wrap table caption {
+.card-wrap table caption {
 	font-weight: 400;
 	font-size: 0.750rem;
 	line-height: 1.000rem;
@@ -727,7 +723,7 @@ a.mui-btn:active,
 	text-align: left;
 }
 
-.app-content .card-wrap .mui-table-wrapper + p {
+.mui-table-wrapper + p {
 	margin-top: 0.667rem;
 }
 
@@ -735,15 +731,15 @@ a.mui-btn:active,
  * responsive table
  */
 
-/* .app-content table.respond {
+/* .card-wrap table.respond {
 	width: auto;
 } */
 
-.app-content .card-wrap table.respond {
+.card-wrap table.respond {
 	width: 100%;
 }
 
-/* .app-content table.respond {
+/* .card-wrap table.respond {
 	border: none;
 	border-top-width: 0.063rem;
 	border-top-style: solid;
@@ -756,37 +752,38 @@ a.mui-btn:active,
 	border-left-color: rgba(0, 0, 0, 0.12);
 }
 
-.app-content table.respond th {
+.card-wrap table.respond th {
 	border: none;
 	border-bottom-width: 0.063rem;
 	border-bottom-style: solid;
 	border-bottom-color: rgba(0, 0, 0, 0.12);
 }
 
-.app-content table.respond td {
+.card-wrap table.respond td {
 	border: none;
 	border-bottom-width: 0.063rem;
 	border-bottom-style: solid;
 	border-bottom-color: rgba(0, 0, 0, 0.12);
 }
 
-.app-content table.respond td.with-img-only {
+.card-wrap table.respond td.with-img-only {
 	padding: 0.500rem;
 } */
 
 @media screen and (max-width: 639px) {
-	.app-content table.respond {
+	.card-wrap table.respond {
 		border: none;
 	}
 
-	.app-content table.respond,
-	.app-content table.respond tr,
-	.app-content table.respond td {
+	.card-wrap table.respond,
+	.card-wrap table.respond tr,
+	.card-wrap table.respond td {
 		display: block;
+		-webkit-box-sizing: border-box;
 		box-sizing: border-box;
 	}
 
-	.app-content table.respond tr {
+	.card-wrap table.respond tr {
 		width: 100%;
 		float: left;
 		position: relative;
@@ -795,16 +792,16 @@ a.mui-btn:active,
 		margin-bottom: 0.938rem;
 	}
 
-	.app-content table.respond tr:last-child {
+	.card-wrap table.respond tr:last-child {
 		margin-bottom: 0;
 	}
 
-	.app-content table.respond thead,
-	.app-content table.respond tfoot {
+	.card-wrap table.respond thead,
+	.card-wrap table.respond tfoot {
 		display: none;
 	}
 
-	.app-content table.respond td::before {
+	.card-wrap table.respond td::before {
 		display: block;
 		float: left;
 		content: attr(data-label);
@@ -879,7 +876,7 @@ a.mui-btn:active,
 	 * if transition set, all the images will be loaded
 	 */
 	/* transition: transform 0.4s ease-out; */
-	/* border: 0.063rem solid $color-rgba-card-shadow;
+	/* border: 0.067rem solid $color-rgba-card-shadow;
 	border-radius: 0.200rem;
 	box-shadow: 0 0.133rem 0 $color-rgba-card-shadow; */
 	border: none;
