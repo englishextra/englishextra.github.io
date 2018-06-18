@@ -982,6 +982,11 @@ button {
 	background-color: #b3e5fc;
 }
 
+.card-wrap--copyright {
+	color: #FFFFFF;
+	background-color: #616161;
+}
+
 .card-wrap--heading {
 	background-color: #FFFFFF;
 }
@@ -990,7 +995,8 @@ button {
 .card-wrap--heading a,
 .card-wrap--banner-dark a,
 .card-wrap--aside a,
-.card-wrap--notice a {
+.card-wrap--notice a,
+.card-wrap--copyright a {
 	color: inherit;
 	text-decoration: underline;
 }

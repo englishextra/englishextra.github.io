@@ -947,6 +947,11 @@ button {
 	background-color: $clr-light-blue-100;
 }
 
+.card-wrap--copyright {
+	color: #FFFFFF;
+	background-color: $clr-grey-700;
+}
+
 .card-wrap--heading {
 	background-color: #FFFFFF;
 }
@@ -955,7 +960,8 @@ button {
 .card-wrap--heading a,
 .card-wrap--banner-dark a,
 .card-wrap--aside a,
-.card-wrap--notice a {
+.card-wrap--notice a,
+.card-wrap--copyright a {
 	color: inherit;
 	text-decoration: underline;
 }
