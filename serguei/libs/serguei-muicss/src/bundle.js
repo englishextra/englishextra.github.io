@@ -1389,7 +1389,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 		};
 		var manageDisqusEmbed = function (callback) {
 			var cb = function () {
-				callback && "function" === typeof callback && callback();
+				return callback && "function" === typeof callback && callback();
 			};
 			var disqusThread = document[getElementById]("disqus_thread") || "";
 			var locationHref = root.location.href || "";
@@ -1450,7 +1450,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 		};
 		var manageInstagramEmbeds = function (callback) {
 			var cb = function () {
-				callback && "function" === typeof callback && callback();
+				return callback && "function" === typeof callback && callback();
 			};
 			var instagramMedia = document[getElementsByClassName]("instagram-media")[0] || "";
 			var initScript = function () {
@@ -1490,7 +1490,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 		};
 		var manageTwitterEmbeds = function (callback) {
 			var cb = function () {
-				callback && "function" === typeof callback && callback();
+				return callback && "function" === typeof callback && callback();
 			};
 			var twitterTweet = document[getElementsByClassName]("twitter-tweet")[0] || "";
 			var initScript = function () {
@@ -1530,7 +1530,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 		};
 		var manageVkEmbeds = function (callback) {
 			var cb = function () {
-				callback && "function" === typeof callback && callback();
+				return callback && "function" === typeof callback && callback();
 			};
 			var vkPost = document[getElementsByClassName]("vk-post")[0] || "";
 			var initScript = function () {
@@ -1609,9 +1609,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 		var manageMinigrid = function (gridElem, callback) {
 			return new Promise(function (resolve, reject) {
 				var cb = function () {
-					if (callback && "function" === typeof callback) {
-						callback();
-					}
+					return callback && "function" === typeof callback && callback();
 				};
 				var cardGrid = gridElem && gridElem.nodeName ? gridElem : "";
 				var onMinigridCreated = function () {
