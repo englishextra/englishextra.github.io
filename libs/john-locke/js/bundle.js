@@ -1024,7 +1024,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 								});
 							}
 						} catch (err) {
-							/* console.log("cannot update or init Ya", err); */
+							/* console.log("cannot yshare.updateContent or Ya.share2", err); */
 						}
 					}
 				};
@@ -1076,7 +1076,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 								});
 								vlike = true;
 							} catch (err) {
-								/* console.log("cannot init VK", err); */
+								/* console.log("cannot VK.init", err); */
 							}
 						}
 					}

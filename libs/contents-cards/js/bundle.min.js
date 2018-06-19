@@ -976,7 +976,11 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 				onMinigridCreated();
 			};
 			var updateMinigrid = function () {
-				mgrid.mount();
+				var timers = setTimeout(function () {
+					clearTimeout(timers);
+					timers = null;
+					mgrid.mount();
+				}, 500);
 			};
 			initMinigrid();
 			root[_addEventListener]("resize", updateMinigrid, {passive: true});
@@ -993,7 +997,8 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 				"transform" : "WebkitTransform";
 			var styleSheet = document[styleSheets][0] || "";
 			if (styleSheet) {
-				var cssRule = toDashedAll([".",
+				var cssRule;
+				cssRule = toDashedAll([".",
 							cardWrapClass,
 							"{",
 							transitionProperty,
@@ -1001,7 +1006,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 							transformProperty,
 							" 0.4s ease-out;",
 							"}"].join(""));
-				styleSheet.insertRule(cssRule, 0);
+				/* styleSheet.insertRule(cssRule, 0); */
 			}
 		};
 
@@ -1025,9 +1030,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 				throw new Error("cannot fetch", jsonUrl);
 			}
 		}).then(function (text) {
-			generateCardGrid(text).then(function (result) {
-				return result;
-			}).then(function () {
+			generateCardGrid(text).then(function () {
 				timerCreateGrid = setTimeout(createGrid, 500);
 			}).then(function () {
 				timerSetLazyloading = setTimeout(setLazyloading, 1000);
@@ -1086,7 +1089,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 								});
 							}
 						} catch (err) {
-							/* console.log("cannot update or init Ya", err); */
+							/* console.log("cannot yshare.updateContent or Ya.share2", err); */
 						}
 					}
 				};
@@ -1138,7 +1141,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 								});
 								vlike = true;
 							} catch (err) {
-								/* console.log("cannot init VK", err); */
+								/* console.log("cannot VK.init", err); */
 							}
 						}
 					}

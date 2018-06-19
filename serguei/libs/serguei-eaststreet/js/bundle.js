@@ -2076,7 +2076,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 								});
 								vlike = true;
 							} catch (err) {
-								/* console.log("cannot init VK", err); */
+								/* console.log("cannot VK.init", err); */
 							}
 						}
 					}
@@ -2116,7 +2116,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 							}
 						});
 					} catch (err) {
-						/* console.log("cannot reset DISQUS", err); */
+						/* console.log("cannot DISQUS.reset", err); */
 					}
 				}
 			};
