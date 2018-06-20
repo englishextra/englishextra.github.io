@@ -1710,15 +1710,19 @@ ripple, t, twttr, unescape, verge, VK, WheelIndicator, Ya*/
 				styleSheet.insertRule(cssRule, 0);
 			}
 		};
+		/*!
+		 * takes too much CPU
+		 */
+		/* addCardWrapCssRule(); */
 
 		var cardGridClass = "card-grid";
 
 		var manageMinigrid = function (callback) {
 			return new Promise(function (resolve, reject) {
+				var cardGrid = document[getElementsByClassName](cardGridClass)[0] || "";
 				var cb = function () {
 					return callback && "function" === typeof callback && callback();
 				};
-				var cardGrid = document[getElementsByClassName](cardGridClass)[0] || "";
 				var onMinigridCreated = function () {
 					root[_addEventListener]("resize", updateMinigrid, {passive: true});
 					cardGrid[style].visibility = "visible";

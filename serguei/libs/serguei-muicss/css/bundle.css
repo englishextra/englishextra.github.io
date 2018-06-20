@@ -903,8 +903,8 @@ button {
 
 @media (min-width: 640px) {
 	.card-wrap {
-		/* width: 600px; */
-		width: 37.500rem;
+		/* width: 480px; */
+		width: 30.000rem;
 	}
 }
 
@@ -1388,7 +1388,7 @@ button {
 /* .ui-totop:focus,
 .ui-totop:hover,
 .ui-totop:active {
-	background-color: $color-rgba-page-overlay-bg;;
+	background-color: $color-rgba-page-overlay-bg;
 } */
 
 .ui-totop.mui-btn--fab {
