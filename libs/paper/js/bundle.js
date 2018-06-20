@@ -482,6 +482,7 @@ ToProgress, unescape, verge, VK, Ya*/
 		var style = "style";
 		var title = "title";
 		var _removeEventListener = "removeEventListener";
+		var isActiveDisqusThreadClass = "is-active-disqus-thread";
 
 		progressBar.increase(20);
 
@@ -1883,7 +1884,7 @@ ToProgress, unescape, verge, VK, Ya*/
 					if (!disqs) {
 						disqs = true;
 						setStyleDisplayNone(btn);
-						disqusThread[classList].add("is-active-disqus-thread");
+						disqusThread[classList].add(isActiveDisqusThreadClass);
 					}
 				};
 				if (!scriptIsLoaded(jsUrl)) {

@@ -550,6 +550,7 @@ Ya*/
 		var isDropdownClass = "is-dropdown";
 		var isFixedClass = "is-fixed";
 		var isCollapsableClass = "is-collapsable";
+		var isActiveDisqusThreadClass = "is-active-disqus-thread";
 
 		progressBar.increase(20);
 
@@ -1618,7 +1619,7 @@ Ya*/
 			var locationHref = root.location.href || "";
 			var disqusThreadShortname = disqusThread ? (disqusThread[dataset].shortname || "") : "";
 			var hideDisqusButton = function () {
-				disqusThread[classList].add("is-active-disqus-thread");
+				disqusThread[classList].add(isActiveDisqusThreadClass);
 				btn[style].display = "none";
 			};
 			var hideDisqusThread = function () {

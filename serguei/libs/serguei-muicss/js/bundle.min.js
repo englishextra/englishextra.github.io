@@ -572,13 +572,13 @@ ripple, t, twttr, unescape, verge, VK, WheelIndicator, Ya*/
 		var styleSheets = "styleSheets";
 		var title = "title";
 		var _removeEventListener = "removeEventListener";
-
 		var isActiveClass = "is-active";
 		var isBindedClass = "is-binded";
 		var isFixedClass = "is-fixed";
 		var isHiddenClass = "is-hidden";
 		var isBindedIframeLightboxLinkClass = "is-binded-iframe-lightbox-link";
 		var isCollapsableClass = "is-collapsable";
+		var isActiveDisqusThreadClass = "is-active-disqus-thread";
 
 		/* progressBar.increase(20); */
 
@@ -1496,7 +1496,7 @@ ripple, t, twttr, unescape, verge, VK, WheelIndicator, Ya*/
 								this.page.url = locationHref;
 							}
 						});
-						disqusThread[classList].add("is-active-disqus-thread");
+						disqusThread[classList].add(isActiveDisqusThreadClass);
 						cb();
 					} catch (err) {
 						/* console.log("cannot DISQUS.reset", err); */

@@ -515,6 +515,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 		var title = "title";
 		var _addEventListener = "addEventListener";
 		var _removeEventListener = "removeEventListener";
+		var isActiveDisqusThreadClass = "is-active-disqus-thread";
 
 		progressBar.increase(20);
 
@@ -2122,7 +2123,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 			};
 			if (btn && disqusThread && disqusThreadShortname && locationHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					disqusThread[classList].add("is-active-disqus-thread");
+					disqusThread[classList].add(isActiveDisqusThreadClass);
 					setStyleDisplayNone(btn);
 					var jsUrl = forcedHTTP + "://" + disqusThreadShortname + ".disqus.com/embed.js";
 					if (!scriptIsLoaded(jsUrl)) {
