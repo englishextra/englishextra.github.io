@@ -1088,23 +1088,22 @@
 
 /**
  * Generates event when user makes new movement (like a swipe on a touchscreen).
- * @version 1.1.4
+ * @version 1.2.0
  * @link https://github.com/Promo/wheel-indicator
  * @license MIT
  */
 
 /* global module, window, document */
 
-var WheelIndicator = (function(win, doc) {
-    var eventWheel = 'onwheel' in doc ? 'wheel' : 'mousewheel',
-
-        DEFAULTS = {
+var WheelIndicator = (function() {
+    function Module(options) {
+        var DEFAULTS = {
             callback: function(){},
-            elem: doc,
+            elem: document,
             preventMouse: true
         };
 
-    function Module(options){
+        this.eventWheel = 'onwheel' in document ? 'wheel' : 'mousewheel';
         this._options = extend(DEFAULTS, options);
         this._deltaArray = [ 0, 0, 0 ];
         this._isAcceleration = false;
@@ -1119,12 +1118,12 @@ var WheelIndicator = (function(win, doc) {
                 processDelta.call(self, event);
 
                 if (self._options.preventMouse) {
-                  preventDefault(event);
+                    preventDefault(event);
                 }
             }
         };
 
-        addEvent(this._options.elem, eventWheel, this._wheelHandler);
+        addEvent(this._options.elem, this.eventWheel, this._wheelHandler);
     }
 
     Module.prototype = {
@@ -1152,14 +1151,14 @@ var WheelIndicator = (function(win, doc) {
             var neededOption = this._options[option];
 
             if (neededOption !== undefined) {
-              return neededOption;
+                return neededOption;
             }
 
             throw new Error('Unknown option');
         },
 
         destroy: function(){
-            removeEvent(this._options.elem, eventWheel, this._wheelHandler);
+            removeEvent(this._options.elem, this.eventWheel, this._wheelHandler);
 
             return this;
         }
@@ -1172,8 +1171,7 @@ var WheelIndicator = (function(win, doc) {
     }
 
     var getDeltaY = function(event){
-
-        if(event.wheelDelta && !event.deltaY) {
+        if (event.wheelDelta && !event.deltaY) {
             getDeltaY = function(event) {
                 return event.wheelDelta * -1;
             };
@@ -1187,7 +1185,7 @@ var WheelIndicator = (function(win, doc) {
     };
 
     function preventDefault(event){
-        event = event || win.event;
+        event = event || window.event;
 
         if (event.preventDefault) {
             event.preventDefault();
@@ -1225,7 +1223,7 @@ var WheelIndicator = (function(win, doc) {
         }
 
         //if all of last three deltas is greater than 0 or lesser than 0 then direction is switched
-        if(Math.abs(repeatDirection) === arrayLength) {
+        if (Math.abs(repeatDirection) === arrayLength) {
             //determine type of sustainable direction
             //(three positive or negative deltas in a row)
             sustainableDirection = repeatDirection > 0 ? 'down' : 'up';
@@ -1238,7 +1236,7 @@ var WheelIndicator = (function(win, doc) {
         }
 
         //if wheel`s moving and current event is not the first in array
-        if(!self._isStopped){
+        if (!self._isStopped){
             if(changedDirection) {
                 self._isAcceleration = true;
 
@@ -1256,7 +1254,7 @@ var WheelIndicator = (function(win, doc) {
         }
 
         //if wheel is stopped and current delta value is the first in array
-        if(self._isStopped) {
+        if (self._isStopped) {
             self._isStopped = false;
             self._isAcceleration = true;
             self._direction = direction;
@@ -1327,7 +1325,7 @@ var WheelIndicator = (function(win, doc) {
     }
 
     return Module;
-}(window, document));
+}());
 
 if (typeof exports === 'object') {
     module.exports = WheelIndicator;
