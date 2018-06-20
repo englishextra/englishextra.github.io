@@ -577,6 +577,7 @@ ripple, t, twttr, unescape, verge, VK, WheelIndicator, Ya*/
 		var isFixedClass = "is-fixed";
 		var isHiddenClass = "is-hidden";
 		var isBindedIframeLightboxLinkClass = "is-binded-iframe-lightbox-link";
+		var isBindedMinigridCardClass = "is-binded-minigrid-card";
 		var isCollapsableClass = "is-collapsable";
 		var isActiveDisqusThreadClass = "is-active-disqus-thread";
 
@@ -1438,8 +1439,6 @@ ripple, t, twttr, unescape, verge, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var isBindedMinigridCardClass = "is-binded-minigrid-card";
-
 		var mgrid;
 
 		var updateMinigrid = function (parent) {
@@ -1507,19 +1506,19 @@ ripple, t, twttr, unescape, verge, VK, WheelIndicator, Ya*/
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					handleDisqusEmbedInMinigrid();
 					var jsUrl = forcedHTTP + "://" + disqusThreadShortname + ".disqus.com/embed.js";
-					/* if (!scriptIsLoaded(jsUrl)) {
+					if (!scriptIsLoaded(jsUrl)) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {
 						initScript();
-					} */
-					if (!scriptIsLoaded(jsUrl)) {
+					}
+					/* if (!scriptIsLoaded(jsUrl)) {
 						loadJsCssWithPromise([jsUrl]).then(function () {
 							initScript();
 						});
 					} else {
 						initScript();
-					}
+					} */
 				} else {
 					hideDisqusThread();
 				}
@@ -1557,19 +1556,19 @@ ripple, t, twttr, unescape, verge, VK, WheelIndicator, Ya*/
 			if (instagramMedia) {
 				handleInstagramEmbedInMinigrid();
 				var jsUrl = forcedHTTP + "://" + "www.instagram.com/embed.js";
-				/* if (!scriptIsLoaded(jsUrl)) {
+				if (!scriptIsLoaded(jsUrl)) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
 				} else {
 					initScript();
-				} */
-				if (!scriptIsLoaded(jsUrl)) {
+				}
+				/* if (!scriptIsLoaded(jsUrl)) {
 					loadJsCssWithPromise([jsUrl]).then(function () {
 						initScript();
 					});
 				} else {
 					initScript();
-				}
+				} */
 			}
 		};
 
@@ -1604,19 +1603,19 @@ ripple, t, twttr, unescape, verge, VK, WheelIndicator, Ya*/
 			if (twitterTweet) {
 				handleTwitterEmbedInMinigrid();
 				var jsUrl = forcedHTTP + "://" + "platform.twitter.com/widgets.js";
-				/* if (!scriptIsLoaded(jsUrl)) {
+				if (!scriptIsLoaded(jsUrl)) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
 				} else {
 					initScript();
-				} */
-				if (!scriptIsLoaded(jsUrl)) {
+				}
+				/* if (!scriptIsLoaded(jsUrl)) {
 					loadJsCssWithPromise([jsUrl]).then(function () {
 						initScript();
 					});
 				} else {
 					initScript();
-				}
+				} */
 			}
 		};
 
@@ -1666,19 +1665,19 @@ ripple, t, twttr, unescape, verge, VK, WheelIndicator, Ya*/
 			if (vkPost) {
 				handleVkEmbedInMinigrid();
 				var jsUrl = forcedHTTP + "://" + "vk.com/js/api/openapi.js?154";
-				/* if (!scriptIsLoaded(jsUrl)) {
+				if (!scriptIsLoaded(jsUrl)) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
 				} else {
 					initScript();
-				} */
-				if (!scriptIsLoaded(jsUrl)) {
+				}
+				/* if (!scriptIsLoaded(jsUrl)) {
 					loadJsCssWithPromise([jsUrl]).then(function () {
 						initScript();
 					});
 				} else {
 					initScript();
-				}
+				} */
 			}
 		};
 
@@ -1710,10 +1709,6 @@ ripple, t, twttr, unescape, verge, VK, WheelIndicator, Ya*/
 				styleSheet.insertRule(cssRule, 0);
 			}
 		};
-		/*!
-		 * takes too much CPU
-		 */
-		/* addCardWrapCssRule(); */
 
 		var cardGridClass = "card-grid";
 
