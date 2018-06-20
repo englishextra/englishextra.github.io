@@ -1412,7 +1412,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 								this.page.url = locationHref;
 							}
 						});
-						disqusThread[classList].add(isActiveClass);
+						disqusThread[classList].add("is-active-disqus-thread");
 					} catch (err) {
 						/* console.log("cannot DISQUS.reset", err); */
 					}

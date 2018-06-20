@@ -2122,7 +2122,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 			};
 			if (btn && disqusThread && disqusThreadShortname && locationHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					disqusThread[classList].add(isActiveClass);
+					disqusThread[classList].add("is-active-disqus-thread");
 					setStyleDisplayNone(btn);
 					var jsUrl = forcedHTTP + "://" + disqusThreadShortname + ".disqus.com/embed.js";
 					if (!scriptIsLoaded(jsUrl)) {

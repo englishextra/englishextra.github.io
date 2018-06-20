@@ -1104,7 +1104,7 @@ ToProgress, unescape, verge, VK, Ya*/
 							}
 						}
 					}, 100);
-					disqusThread[classList].add(isActiveClass);
+					disqusThread[classList].add("is-active-disqus-thread");
 				};
 				/* var jsUrl = getHTTP(true) + "://" + disqusThreadShortname + ".disqus.com/embed.js";
 				if (!scriptIsLoaded(jsUrl)) {

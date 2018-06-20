@@ -1,8 +1,9 @@
 /*jslint browser: true */
 /*jslint node: true */
 /*global ActiveXObject, Cookies, Carousel, DISQUS, doesFontExist,
-IframeLightbox, imagePromise, Kamil, loadCSS, loadJsCss, Masonry, Packery,
-Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
+IframeLightbox, imagePromise, Kamil, loadCSS, loadJsCss, Masonry, Mustache,
+Packery, Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK,
+Ya*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -1617,7 +1618,7 @@ Promise, QRCode, require, t, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var locationHref = root.location.href || "";
 			var disqusThreadShortname = disqusThread ? (disqusThread[dataset].shortname || "") : "";
 			var hideDisqusButton = function () {
-				disqusThread[classList].add(isActiveClass);
+				disqusThread[classList].add("is-active-disqus-thread");
 				btn[style].display = "none";
 			};
 			var hideDisqusThread = function () {

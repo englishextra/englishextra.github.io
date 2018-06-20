@@ -4437,7 +4437,7 @@ u,
 	background-color: #F2F2F2;
 }
 
-#disqus_thread.is-active iframe {
+#disqus_thread.is-active-disqus-thread iframe {
 	margin-top: 0.533rem;
 	padding-right: 1.333rem;
 	padding-left: 1.333rem;

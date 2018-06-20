@@ -2012,7 +2012,7 @@ Ya*/
 					if (!disqs) {
 						disqs = true;
 						setStyleDisplayNone(btn);
-						disqusThread[classList].add(isActiveClass);
+						disqusThread[classList].add("is-active-disqus-thread");
 					}
 				};
 				if (!scriptIsLoaded(jsUrl)) {

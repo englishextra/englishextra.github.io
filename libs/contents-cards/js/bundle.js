@@ -1,7 +1,7 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global doesFontExist, echo, Headers, loadCSS, loadJsCss, Minigrid, platform,
-Promise, t, ToProgress, VK, WheelIndicator, Ya*/
+/*global doesFontExist, echo, Headers, loadCSS, loadJsCss, Minigrid, Mustache,
+platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -955,36 +955,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 			});
 		};
 
-		var timerCreateGrid;
-		var createGrid = function () {
-			clearTimeout(timerCreateGrid);
-			timerCreateGrid = null;
-
-			var onMinigridCreated = function () {
-				cardGrid[style].visibility = "visible";
-				cardGrid[style].opacity = 1;
-			};
-			var mgrid;
-			var initMinigrid = function () {
-				mgrid = new Minigrid({
-						container: cardGridClass,
-						item: cardWrapClass,
-						gutter: 20/* ,
-						done: onMinigridCreated */
-					});
-				mgrid.mount();
-				onMinigridCreated();
-			};
-			var updateMinigrid = function () {
-				var timers = setTimeout(function () {
-					clearTimeout(timers);
-					timers = null;
-					mgrid.mount();
-				}, 500);
-			};
-			initMinigrid();
-			root[_addEventListener]("resize", updateMinigrid, {passive: true});
-
+		var addCardWrapCssRule = function () {
 			var toDashedAll = function (str) {
 				return str.replace((/([A-Z])/g), function ($1) {
 					return "-" + $1.toLowerCase();
@@ -1006,8 +977,42 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 							transformProperty,
 							" 0.4s ease-out;",
 							"}"].join(""));
-				/* styleSheet.insertRule(cssRule, 0); */
+				styleSheet.insertRule(cssRule, 0);
 			}
+		};
+
+		var timerCreateGrid;
+		var createGrid = function () {
+			clearTimeout(timerCreateGrid);
+			timerCreateGrid = null;
+
+			var onMinigridCreated = function () {
+				cardGrid[style].visibility = "visible";
+				cardGrid[style].opacity = 1;
+			};
+			var mgrid;
+			var initMinigrid = function () {
+				mgrid = new Minigrid({
+						container: cardGridClass,
+						item: cardWrapClass,
+						gutter: 20/* ,
+						done: onMinigridCreated */
+					});
+				mgrid.mount();
+				onMinigridCreated();
+				addCardWrapCssRule();
+			};
+			var updateMinigrid = function () {
+				if (mgrid) {
+					var timers = setTimeout(function () {
+						clearTimeout(timers);
+						timers = null;
+						mgrid.mount();
+					}, 500);
+				}
+			};
+			initMinigrid();
+			root[_addEventListener]("resize", updateMinigrid, {passive: true});
 		};
 
 		var timerSetLazyloading;

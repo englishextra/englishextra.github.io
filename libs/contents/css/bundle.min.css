@@ -2086,7 +2086,7 @@ u,
  * disqus
  */
 
-#disqus_thread.is-active iframe {
+#disqus_thread.is-active-disqus-thread iframe {
 	margin: 0 0 -0.533em 0;
 	padding: 0;
 }

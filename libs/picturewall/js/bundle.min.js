@@ -1,7 +1,7 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global doesFontExist, echo, Headers, loadCSS, loadJsCss, platform, Promise, t,
-ToProgress, VK, WheelIndicator, Ya, zoomwall*/
+/*global doesFontExist, echo, Headers, loadCSS, loadJsCss, Mustache, platform,
+Promise, t, ToProgress, VK, WheelIndicator, Ya, zoomwall */
 /*property console, join, split */
 /*!
  * safe way to handle console.log
