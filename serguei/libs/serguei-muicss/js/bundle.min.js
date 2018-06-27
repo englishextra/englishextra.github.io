@@ -1722,7 +1722,7 @@ ripple, t, twttr, unescape, verge, VK, WheelIndicator, Ya*/
 					root[_addEventListener]("resize", updateMinigrid, {passive: true});
 					cardGrid[style].visibility = "visible";
 					cardGrid[style].opacity = 1;
-					addCardWrapCssRule();
+					/* addCardWrapCssRule(); */
 					cb();
 				};
 				var initMinigrid = function () {
