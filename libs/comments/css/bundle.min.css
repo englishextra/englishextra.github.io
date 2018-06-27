@@ -3053,7 +3053,7 @@ u,
 }
 
 .col table.respond {
-	width: auto;
+	width: 100%;
 }
 
 .col table {
@@ -3092,16 +3092,19 @@ u,
 		border: none;
 	}
 
+	.col table.respond td {
+		display: block;
+	}
+
 	.col table.respond,
 	.col table.respond tr,
 	.col table.respond td {
-		display: block;
+		width: 100%;
 		-webkit-box-sizing: border-box;
 		box-sizing: border-box;
 	}
 
 	.col table.respond tr {
-		width: 100%;
 		float: left;
 		position: relative;
 		border: 0.067rem solid #C3C3C3;
