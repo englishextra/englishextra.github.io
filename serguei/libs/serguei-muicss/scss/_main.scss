@@ -869,6 +869,13 @@ button {
 	}
 }
 
+@media (min-width: 960px) {
+	.card-wrap {
+		/* width: 440px; */
+		width: 27.500rem;
+	}
+}
+
 @media (min-width: 1024px) {
 	.card-wrap {
 		/* width: 480px; */
