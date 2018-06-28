@@ -1,7 +1,7 @@
 {
 	"name": "serguei-muicss-dev",
 	"version": "1.0.0",
-	"description": "Developing personal PWA with https://github.com/muicss/mui. Lightweight CSS framework https://www.muicss.com. No JS framework.",
+	"description": "Developing Tutor Portfolio PWA with https://github.com/muicss/mui. Lightweight CSS framework https://www.muicss.com. No JS framework. Demo site: https://englishextra.gitlab.io/",
 	"keywords": [
 		"english",
 		"webapp",
