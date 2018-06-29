@@ -1831,6 +1831,29 @@ ripple, t, twttr, unescape, verge, VK, WheelIndicator, Ya*/
 		};
 		manageSidedrawer();
 
+		var highlightSidedrawerItem = function () {
+			var sidedrawerCategoriesList = document[getElementById]("render_sitedrawer_categories") || "";
+			var items = sidedrawerCategoriesList ? sidedrawerCategoriesList[getElementsByTagName]("a") || "" : "";
+			var locationHref = root.location.href || "";
+			var addItemHandler = function (e) {
+				if (locationHref === e.href) {
+					e[classList].add(isActiveClass);
+				} else {
+					e[classList].remove(isActiveClass);
+				}
+			};
+			var addItemHandlerAll = function () {
+				for (var i = 0, l = items[_length]; i < l; i += 1) {
+					addItemHandler(items[i]);
+				}
+			};
+			if (sidedrawerCategoriesList && items && locationHref) {
+				addItemHandlerAll();
+			}
+		};
+		highlightSidedrawerItem();
+		root[_addEventListener]("hashchange", highlightSidedrawerItem);
+
 		var appBar = document[getElementsByTagName]("header")[0] || "";
 		var appBarHeight = appBar.offsetHeight || 0;
 

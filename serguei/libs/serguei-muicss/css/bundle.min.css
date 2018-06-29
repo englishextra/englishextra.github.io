@@ -1653,6 +1653,7 @@ button {
 #sidedrawer li a:focus,
 #sidedrawer li a:hover,
 #sidedrawer li a:active,
+#sidedrawer li a.is-active,
 #sidedrawer li > strong:focus,
 #sidedrawer li > strong:hover,
 #sidedrawer li > strong:active {
@@ -1770,6 +1771,7 @@ button {
 #sidedrawer li a:focus,
 #sidedrawer li a:hover,
 #sidedrawer li a:active,
+#sidedrawer li a.is-active,
 #sidedrawer li > strong:focus,
 #sidedrawer li > strong:hover,
 #sidedrawer li > strong:active {
