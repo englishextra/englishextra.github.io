@@ -1,7 +1,7 @@
 /*global ActiveXObject, console, DISQUS, doesFontExist, hljs, IframeLightbox,
 imgLightbox, imagePromise, instgrm, JsonHashRouter, loadCSS, loadJsCss,
-loadJsCssWithPromise, Minigrid, Mustache, Promise, Timers, QRCode, require,
-ripple, t, twttr, unescape, verge, VK, WheelIndicator, Ya*/
+Minigrid, Mustache, Promise, Timers, QRCode, require, ripple, t, twttr,
+unescape, verge, VK, WheelIndicator, Ya*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -419,81 +419,6 @@ ripple, t, twttr, unescape, verge, VK, WheelIndicator, Ya*/
 		}
 	};
 	root.loadJsCss = loadJsCss;
-})("undefined" !== typeof window ? window : this, document);
-/*!
- * modified loadExt with Promise
- * @see {@link https://gist.github.com/englishextra/ff9dc7ab002312568742861cb80865c9}
- * passes jshint
- */
-(function (root, document) {
-	"use strict";
-	var loadJsCssWithPromise = function (fileArray) {
-		return new Promise(function (resolve, reject) {
-			var appendChild = "appendChild";
-			var body = "body";
-			var createElement = "createElement";
-			var getElementsByTagName = "getElementsByTagName";
-			var insertBefore = "insertBefore";
-			var _length = "length";
-			var parentNode = "parentNode";
-			var files = fileArray;
-			var js = [];
-			var _head = document[getElementsByTagName]("head")[0] || "";
-			var _body = document[body] || "";
-			var ref = document[getElementsByTagName]("script")[0] || "";
-			var loadStyle = function(file) {
-				var link = document[createElement]("link");
-				link.rel = "stylesheet";
-				link.type = "text/css";
-				link.href = file;
-				_head[appendChild](link);
-			};
-			var loadScript = function (i) {
-				var script = document[createElement]("script");
-				script.type = "text/javascript";
-				script.async = true;
-				script.src = js[i];
-				var loadNextScript = function () {
-					if (++i < js[_length]) {
-						loadScript(i);
-					}
-				};
-				script.onload = function () {
-					loadNextScript();
-				};
-				_head[appendChild](script);
-				if (ref[parentNode]) {
-					ref[parentNode][insertBefore](script, ref);
-				} else {
-					(_body || _head)[appendChild](script);
-				}
-			};
-			var fileList = [];
-			try {
-				var i,
-				l;
-				for (i = 0, l = files[_length]; i < l; i += 1) {
-					if ((/\.js$|\.js\?/).test(files[i])) {
-						js.push(files[i]);
-					}
-					if ((/\.css$|\.css\?|\/css\?/).test(files[i])) {
-						loadStyle(files[i]);
-					}
-					fileList.push(files[i]);
-				}
-				i = l = null;
-				if (js[_length] > 0) {
-					loadScript(0);
-				}
-				console.log("appended ", fileList.join(", "));
-				resolve(files[i]);
-			} catch (err) {
-				console.log("cannot ", err);
-				reject(err);
-			}
-		});
-	};
-	root.loadJsCssWithPromise = loadJsCssWithPromise;
 })("undefined" !== typeof window ? window : this, document);
 /*!
  * app logic
@@ -1851,7 +1776,6 @@ ripple, t, twttr, unescape, verge, VK, WheelIndicator, Ya*/
 				addItemHandlerAll();
 			}
 		};
-		highlightSidedrawerItem();
 		root[_addEventListener]("hashchange", highlightSidedrawerItem);
 
 		var appBar = document[getElementsByTagName]("header")[0] || "";
@@ -2321,6 +2245,7 @@ ripple, t, twttr, unescape, verge, VK, WheelIndicator, Ya*/
 							manageDropdownButtonAll(appContentParent);
 							manageHljsCodeAll(appContentParent);
 							manageRippleEffect();
+							highlightSidedrawerItem();
 						}, 500);
 					}
 					LoadingSpinner.hide();
