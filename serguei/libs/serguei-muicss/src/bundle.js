@@ -150,9 +150,9 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				if ("function" === typeof options.onJsonParsed) {
 					options.onJsonParsed(jsonResponse);
 				}
-				var triggerOnContentInserted = function (titleString) {
+				var triggerOnContentInserted = function (jsonObj, titleString) {
 					if ("function" === typeof options.onContentInserted) {
-						options.onContentInserted(titleString);
+						options.onContentInserted(jsonObj, titleString);
 					}
 				};
 				var handleRoutesWindow = function () {
@@ -165,7 +165,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 						for (var i = 0, l = jsonObj[options.jsonHashesPropName][_length]; i < l; i += 1) {
 							if (locationHash === jsonObj[options.jsonHashesPropName][i][options.jsonHrefPropName]) {
 								isFound = true;
-								insertExternalHTML(renderId, jsonObj[options.jsonHashesPropName][i][options.jsonUrlPropName], triggerOnContentInserted.bind(null, jsonObj[options.jsonHashesPropName][i][options.jsonTitlePropName]));
+								insertExternalHTML(renderId, jsonObj[options.jsonHashesPropName][i][options.jsonUrlPropName], triggerOnContentInserted.bind(null, jsonObj, jsonObj[options.jsonHashesPropName][i][options.jsonTitlePropName]));
 								break;
 							}
 						}
@@ -177,7 +177,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 								var notfoundUrl = jsonObj[options.jsonNotfoundPropName][options.jsonUrlPropName];
 								var notfoundTitle = jsonObj[options.jsonNotfoundPropName][options.jsonTitlePropName];
 								if (notfoundUrl && notfoundTitle) {
-									insertExternalHTML(renderId, notfoundUrl, triggerOnContentInserted.bind(null, notfoundTitle));
+									insertExternalHTML(renderId, notfoundUrl, triggerOnContentInserted.bind(null, jsonObj, notfoundTitle));
 								}
 							}
 						}
@@ -185,7 +185,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 						var homeUrl = jsonObj[options.jsonHomePropName][options.jsonUrlPropName];
 						var homeTitle = jsonObj[options.jsonHomePropName][options.jsonTitlePropName];
 						if (homeUrl && homeTitle) {
-							insertExternalHTML(renderId, homeUrl, triggerOnContentInserted.bind(null, homeTitle));
+							insertExternalHTML(renderId, homeUrl, triggerOnContentInserted.bind(null, jsonObj, homeTitle));
 						}
 					}
 				};
@@ -2213,7 +2213,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 						}, true);
 					}
 				},
-				onContentInserted: function (titleString) {
+				onContentInserted: function (jsonObj, titleString) {
 					document[title] = (titleString ? titleString + " - " : "") + (initialDocumentTitle ? initialDocumentTitle + (userBrowsingDetails ? userBrowsingDetails : "") : "");
 					if (appContentParent) {
 						var timers = new Timers();
@@ -2246,6 +2246,29 @@ unescape, verge, VK, WheelIndicator, Ya*/
 							manageHljsCodeAll(appContentParent);
 							manageRippleEffect();
 							highlightSidedrawerItem();
+							var btnPrevPage = document[getElementsByClassName]("btn-prev-page")[0] || "";
+							var btnNextPage = document[getElementsByClassName]("btn-next-page")[0] || "";
+							if (btnPrevPage && btnNextPage) {
+								var locationHash = root.location.hash || "";
+								var prevHash;
+								var nextHash;
+								if (locationHash) {
+									for (var i = 0, l = jsonObj.hashes[_length]; i < l; i += 1) {
+										if (locationHash === jsonObj.hashes[i].href) {
+											prevHash = i > 0 ? jsonObj.hashes[i - 1].href : jsonObj.hashes[jsonObj.hashes[_length] - 1].href;
+											nextHash = jsonObj.hashes[_length] > i + 1 ? jsonObj.hashes[i + 1].href : jsonObj.hashes[0].href;
+											break;
+										}
+									}
+								} else {
+									prevHash = jsonObj.hashes[jsonObj.hashes[_length] - 1].href;
+									nextHash = jsonObj.hashes[1].href;
+								}
+								if (prevHash && nextHash) {
+									btnPrevPage.href = prevHash;
+									btnNextPage.href = nextHash;
+								}
+							}
 						}, 500);
 					}
 					LoadingSpinner.hide();

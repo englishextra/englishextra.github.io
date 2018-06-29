@@ -745,7 +745,7 @@ button {
 	.card-wrap .mui-table--bordered {
 		border: none;
 	}
-	
+
 	.card-wrap .mui-table--bordered td {
 		display: block;
 	}
@@ -1130,6 +1130,72 @@ button {
 	.btn-toggle-holder-qrcode.mui-btn--fab {
 		display: inline-block;
 	}
+}
+
+/*!
+ * prev and next
+ */
+
+.btn-prev-page,
+.btn-next-page {
+	display: block;
+	width: 2.500rem;
+	height: 2.500rem;
+	font-size: 1.125rem;
+	line-height: 2.500rem;
+	background-color: rgba(255, 255, 255, 0.5);
+	margin: 0;
+}
+
+.btn-prev-page .ui-icon,
+.btn-next-page .ui-icon {
+	/*!
+	 * Centering things
+	 * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
+	 */
+	display: block;
+	width: 1.125rem;
+	height: 1.125rem;
+	margin-top: 0.750rem;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.btn-prev-page .ui-icon > *,
+.btn-next-page .ui-icon > * {
+	fill: currentColor;
+}
+
+.btn-prev-page.mui-btn--fab,
+.btn-next-page.mui-btn--fab {
+	display: block;
+	color: #616161;
+	box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
+	/*!
+	 * Centering things
+	 * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
+	 */
+	position: fixed;
+	top: calc(50% - 4.250rem);
+	transform: translate(0, -50%);
+	margin: 0;
+}
+
+.btn-prev-page.mui-btn--fab {
+	left: 0.750rem;
+}
+
+.btn-next-page.mui-btn--fab {
+	right: 0.750rem;
+}
+
+.btn-prev-page.mui-btn--fab:focus,
+.btn-prev-page.mui-btn--fab:hover,
+.btn-prev-page.mui-btn--fab:active,
+.btn-next-page.mui-btn--fab:focus,
+.btn-next-page.mui-btn--fab:hover,
+.btn-next-page.mui-btn--fab:active {
+	background-color: rgba(255, 255, 255, 0.5);
 }
 
 /*!
