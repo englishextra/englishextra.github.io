@@ -785,6 +785,7 @@ button {
 	.card-wrap .mui-table--bordered tr,
 	.card-wrap .mui-table--bordered td {
 		width: 100%;
+		-webkit-box-sizing: border-box;
 		box-sizing: border-box;
 	}
 
@@ -813,16 +814,6 @@ button {
 		text-align: right;
 		padding-right: 0.625rem;
 	}
-}
-
-/*!
- * copyright
- */
-
-.copyright {
-	font-weight: 400;
-	font-size: 0.750rem;
-	line-height: 1.000rem;
 }
 
 /*!
@@ -1215,6 +1206,7 @@ button {
 .btn-next-page.mui-btn--fab {
 	display: block;
 	color: #616161;
+	-webkit-box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
 	box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
 	/*!
 	 * Centering things
@@ -1222,6 +1214,7 @@ button {
 	 */
 	position: fixed;
 	top: calc(50% - 4.250rem);
+	-webkit-transform: translate(0, -50%);
 	transform: translate(0, -50%);
 	margin: 0;
 }
@@ -1240,7 +1233,7 @@ button {
 .btn-next-page.mui-btn--fab:focus,
 .btn-next-page.mui-btn--fab:hover,
 .btn-next-page.mui-btn--fab:active {
-	background-color: rgba(255, 255, 255, 0.5);
+	background-color: initial;
 }
 
 /*!
