@@ -1030,7 +1030,6 @@ button {
  */
 
 .btn-social {
-	display: inline-block;
 	width: 2.500rem;
 	height: 2.500rem;
 	font-size: 1.125rem;
@@ -1137,13 +1136,13 @@ button {
 }
 
 .btn-toggle-holder-qrcode.mui-btn--fab {
-	display: none;
+	display: block;
 	bottom: 13.000rem;
 	color: #616161;
 }
 
 .btn-toggle-holder-mobileapps-buttons.mui-btn--fab {
-	display: inline-block;
+	display: block;
 	bottom: 10.000rem;
 	/* color: #FFFFFF;
 	background-color: $color-hex-email-bg; */
@@ -1151,20 +1150,34 @@ button {
 }
 
 .btn-toggle-holder-share-buttons.mui-btn--fab {
-	display: inline-block;
+	display: block;
 	bottom: 7.000rem;
 	color: #616161;
 }
 
 .btn-toggle-holder-vk-like.mui-btn--fab {
-	display: inline-block;
+	display: block;
 	bottom: 4.000rem;
 	color: #616161;
 }
 
-@media (min-width: 1200px) {
+@media (max-width: 1279px) {
 	.btn-toggle-holder-qrcode.mui-btn--fab {
-		display: inline-block;
+		display: none;
+	}
+}
+
+@media (max-height: 479px) {
+	.btn-toggle-holder-mobileapps-buttons.mui-btn--fab,
+	.btn-toggle-holder-share-buttons.mui-btn--fab,
+	.btn-toggle-holder-vk-like.mui-btn--fab {
+		display: none;
+	}
+}
+
+@media (max-height: 559px) {
+	.btn-toggle-holder-qrcode.mui-btn--fab {
+		display: none;
 	}
 }
 
@@ -1213,7 +1226,7 @@ button {
 	 * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
 	 */
 	position: fixed;
-	top: calc(50% - 4.250rem);
+	top: 50%;
 	-webkit-transform: translate(0, -50%);
 	transform: translate(0, -50%);
 	margin: 0;
@@ -1233,7 +1246,7 @@ button {
 .btn-next-page.mui-btn--fab:focus,
 .btn-next-page.mui-btn--fab:hover,
 .btn-next-page.mui-btn--fab:active {
-	background-color: initial;
+	background-color: rgba(255, 255, 255, 0.5);
 }
 
 /*!
