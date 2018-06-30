@@ -2577,10 +2577,10 @@ Ya*/
 					 * put when templates rendered
 					 */
 					if (appContentParent) {
-						var timers = new Timers();
+						/* var timers = new Timers();
 						timers.timeout(function () {
 							timers.clear();
-							timers = null;
+							timers = null; */
 							handleDataSrcIframeAll();
 							handleDataSrcImageAll();
 							manageExternalLinkAll(appContentParent);
@@ -2588,7 +2588,7 @@ Ya*/
 							manageIframeLightboxLinkAll(appContentParent);
 							manageChaptersSelect(appContentParent);
 							manageExpandingLayers(appContentParent);
-						}, 500);
+						/* }, 500); */
 					}
 					LoadingSpinner.hide(scroll2Top.bind(null, 0, 20000));
 				};

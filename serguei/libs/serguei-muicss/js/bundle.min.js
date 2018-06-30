@@ -2216,16 +2216,10 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				onContentInserted: function (jsonObj, titleString) {
 					document[title] = (titleString ? titleString + " - " : "") + (initialDocumentTitle ? initialDocumentTitle + (userBrowsingDetails ? userBrowsingDetails : "") : "");
 					if (appContentParent) {
-						var timers = new Timers();
+						/* var timers = new Timers();
 						timers.timeout(function () {
 							timers.clear();
-							timers = null;
-							/* manageMinigrid(function () {
-								manageInstagramEmbeds();
-								manageTwitterEmbeds();
-								manageVkEmbeds();
-								manageDisqusEmbed();
-							}); */
+							timers = null; */
 							manageMinigrid().then(function () {
 								manageDisqusEmbed();
 							}).then(function () {
@@ -2269,7 +2263,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 									btnNextPage.href = nextHash;
 								}
 							}
-						}, 500);
+						/* }, 500); */
 					}
 					LoadingSpinner.hide();
 					scroll2Top(0, 20000);
