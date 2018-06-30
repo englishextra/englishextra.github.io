@@ -1191,12 +1191,11 @@ Ya*/
 			root[_removeEventListener]("resize", handleDataSrcImageAllWindow);
 			root[_addEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
 			root[_addEventListener]("resize", handleDataSrcImageAllWindow);
-			var timers = new Timers();
-			timers.timeout(function () {
-				timers.clear();
-				timers = null;
-				handleDataSrcImageAll();
-			}, 500);
+			var timers = setTimeout(function () {
+					clearTimeout(timers);
+					timers = null;
+					handleDataSrcImageAll();
+				}, 500);
 		};
 		manageDataSrcImageAll();
 		/* root[_addEventListener]("load", manageDataSrcImageAll); */
@@ -1245,12 +1244,11 @@ Ya*/
 			root[_removeEventListener]("resize", handleDataSrcIframeAllWindow);
 			root[_addEventListener]("scroll", handleDataSrcIframeAllWindow, {passive: true});
 			root[_addEventListener]("resize", handleDataSrcIframeAllWindow);
-			var timers = new Timers();
-			timers.timeout(function () {
-				timers.clear();
-				timers = null;
-				handleDataSrcIframeAll();
-			}, 500);
+			var timers = setTimeout(function () {
+					clearTimeout(timers);
+					timers = null;
+					handleDataSrcIframeAll();
+				}, 500);
 		};
 		manageDataSrcIframeAll();
 		/* root[_addEventListener]("load", manageDataSrcIframeAll); */
@@ -2577,10 +2575,10 @@ Ya*/
 					 * put when templates rendered
 					 */
 					if (appContentParent) {
-						/* var timers = new Timers();
+						var timers = new Timers();
 						timers.timeout(function () {
 							timers.clear();
-							timers = null; */
+							timers = null;
 							handleDataSrcIframeAll();
 							handleDataSrcImageAll();
 							manageExternalLinkAll(appContentParent);
@@ -2588,7 +2586,7 @@ Ya*/
 							manageIframeLightboxLinkAll(appContentParent);
 							manageChaptersSelect(appContentParent);
 							manageExpandingLayers(appContentParent);
-						/* }, 500); */
+						}, 100);
 					}
 					LoadingSpinner.hide(scroll2Top.bind(null, 0, 20000));
 				};

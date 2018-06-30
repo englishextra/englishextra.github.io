@@ -1288,12 +1288,11 @@ ToProgress, unescape, verge, VK, Ya*/
 			root[_removeEventListener]("resize", handleDataSrcImageAllWindow);
 			root[_addEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
 			root[_addEventListener]("resize", handleDataSrcImageAllWindow);
-			var timers = new Timers();
-			timers.timeout(function () {
-				timers.clear();
-				timers = null;
-				handleDataSrcImageAll();
-			}, 500);
+			var timers = setTimeout(function () {
+					clearTimeout(timers);
+					timers = null;
+					handleDataSrcImageAll();
+				}, 500);
 		};
 		manageDataSrcImageAll();
 
@@ -1338,12 +1337,11 @@ ToProgress, unescape, verge, VK, Ya*/
 			root[_removeEventListener]("resize", handleDataSrcIframeAllWindow);
 			root[_addEventListener]("scroll", handleDataSrcIframeAllWindow, {passive: true});
 			root[_addEventListener]("resize", handleDataSrcIframeAllWindow);
-			var timers = new Timers();
-			timers.timeout(function () {
-				timers.clear();
-				timers = null;
-				handleDataSrcIframeAll();
-			}, 500);
+			var timers = setTimeout(function () {
+					clearTimeout(timers);
+					timers = null;
+					handleDataSrcIframeAll();
+				}, 500);
 		};
 		manageDataSrcIframeAll();
 
