@@ -1468,7 +1468,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			};
 			if (instagramMedia) {
 				handleInstagramEmbedInMinigrid();
-				var jsUrl = forcedHTTP + "://" + "www.instagram.com/embed.js";
+				var jsUrl = forcedHTTP + "://www.instagram.com/embed.js";
 				if (!scriptIsLoaded(jsUrl)) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
@@ -1514,7 +1514,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			};
 			if (twitterTweet) {
 				handleTwitterEmbedInMinigrid();
-				var jsUrl = forcedHTTP + "://" + "platform.twitter.com/widgets.js";
+				var jsUrl = forcedHTTP + "://platform.twitter.com/widgets.js";
 				if (!scriptIsLoaded(jsUrl)) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
@@ -1574,7 +1574,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			};
 			if (vkPost) {
 				handleVkEmbedInMinigrid();
-				var jsUrl = forcedHTTP + "://" + "vk.com/js/api/openapi.js?154";
+				var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
 				if (!scriptIsLoaded(jsUrl)) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
