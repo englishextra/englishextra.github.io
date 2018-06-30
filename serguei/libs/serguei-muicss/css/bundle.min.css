@@ -963,6 +963,8 @@ button {
 	margin-left: 0;
 }
 
+.card-wrap.card-wrap--skeleton .instagram-media,
+.card-wrap.card-wrap--skeleton .twitter-tweet,
 .card-wrap.card-wrap--skeleton .instagram-media.instagram-media-rendered,
 .card-wrap.card-wrap--skeleton .twitter-tweet.twitter-tweet-rendered {
 	margin: 0 !important;
