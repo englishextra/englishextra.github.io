@@ -996,23 +996,52 @@ button {
  * share buttons
  */
 
-.btn-social {
+.btn-toggle-holder-qrcode.mui-btn--fab,
+.btn-toggle-holder-mobileapps-buttons.mui-btn--fab,
+.btn-toggle-holder-share-buttons.mui-btn--fab,
+.btn-toggle-holder-vk-like.mui-btn--fab {
+	display: block;
 	width: 2.500rem;
 	height: 2.500rem;
+	position: fixed;
+	right: 0.750rem;
 	font-size: 1.125rem;
 	line-height: 2.500rem;
+	color: $clr-grey-700;
 	background-color: rgba(255, 255, 255, 0.5);
+	box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
 	margin: 0;
 }
 
-.btn-mobileapps {
-	display: block;
-	width: 3.000rem;
-	height: 3.000rem;
-	float: left;
-	font-size: 2.000rem;
-	line-height: 2.000rem;
-	margin: 0;
+.btn-toggle-holder-qrcode.mui-btn--fab {
+	bottom: 13.000rem;
+}
+
+.btn-toggle-holder-mobileapps-buttons.mui-btn--fab {
+	bottom: 10.000rem;
+}
+
+.btn-toggle-holder-share-buttons.mui-btn--fab {
+	bottom: 7.000rem;
+}
+
+.btn-toggle-holder-vk-like.mui-btn--fab {
+	bottom: 4.000rem;
+}
+
+.btn-toggle-holder-qrcode.mui-btn--fab:focus,
+.btn-toggle-holder-qrcode.mui-btn--fab:hover,
+.btn-toggle-holder-qrcode.mui-btn--fab:active,
+.btn-toggle-holder-mobileapps-buttons.mui-btn--fab:focus,
+.btn-toggle-holder-mobileapps-buttons.mui-btn--fab:hover,
+.btn-toggle-holder-mobileapps-buttons.mui-btn--fab:active,
+.btn-toggle-holder-share-buttons.mui-btn--fab:focus,
+.btn-toggle-holder-share-buttons.mui-btn--fab:hover,
+.btn-toggle-holder-share-buttons.mui-btn--fab:active,
+.btn-toggle-holder-vk-like.mui-btn--fab:focus,
+.btn-toggle-holder-vk-like.mui-btn--fab:hover,
+.btn-toggle-holder-vk-like.mui-btn--fab:active {
+	background-color: rgba(255, 255, 255, 0.5);
 }
 
 .btn-toggle-holder-mobileapps-buttons .ui-icon,
@@ -1029,6 +1058,73 @@ button {
 	margin-top: 0.750rem;
 	margin-right: auto;
 	margin-left: auto;
+}
+
+.btn-toggle-holder-qrcode .ui-icon > *,
+.btn-toggle-holder-mobileapps-buttons .ui-icon > *,
+.btn-toggle-holder-share-buttons .ui-icon > *,
+.btn-toggle-holder-vk-like .ui-icon > * {
+	fill: currentColor;
+}
+
+@media (max-width: 959px) {
+	.btn-toggle-holder-qrcode.mui-btn--fab {
+		display: none;
+	}
+}
+
+@media (max-height: 479px) {
+	.btn-toggle-holder-mobileapps-buttons.mui-btn--fab,
+	.btn-toggle-holder-share-buttons.mui-btn--fab,
+	.btn-toggle-holder-vk-like.mui-btn--fab {
+		display: none;
+	}
+}
+
+@media (max-height: 559px) {
+	.btn-toggle-holder-qrcode.mui-btn--fab {
+		display: none;
+	}
+}
+
+.btn-phone,
+.btn-skype,
+.btn-whatsapp,
+.btn-viber,
+.btn-telegram,
+.btn-email {
+	display: block;
+	width: 3.000rem;
+	height: 3.000rem;
+	float: left;
+	font-size: 2.000rem;
+	line-height: 2.000rem;
+	color: #FFFFFF;
+	margin: 0;
+}
+
+.btn-phone {
+	background-color: #00CB5E;
+}
+
+.btn-skype {
+	background-color: #00AFF0;
+}
+
+.btn-whatsapp {
+	background-color: #25D366;
+}
+
+.btn-viber {
+	background-color: #8F5DB7;
+}
+
+.btn-telegram {
+	background-color: #0088CC;
+}
+
+.btn-email {
+	background-color: #DA4336;
 }
 
 .btn-phone .ui-icon,
@@ -1054,137 +1150,23 @@ button {
 .btn-whatsapp .ui-icon > *,
 .btn-viber .ui-icon > *,
 .btn-telegram .ui-icon > *,
-.btn-email .ui-icon > *,
-.btn-toggle-holder-qrcode .ui-icon > *,
-.btn-toggle-holder-mobileapps-buttons .ui-icon > *,
-.btn-toggle-holder-share-buttons .ui-icon > *,
-.btn-toggle-holder-vk-like .ui-icon > * {
+.btn-email .ui-icon > * {
 	fill: currentColor;
-}
-
-.btn-toggle-holder-qrcode.mui-btn--fab,
-.btn-toggle-holder-mobileapps-buttons.mui-btn--fab,
-.btn-toggle-holder-share-buttons.mui-btn--fab,
-.btn-toggle-holder-vk-like.mui-btn--fab {
-	position: fixed;
-	right: 0.750rem;
-	box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
-}
-
-.btn-phone {
-	color: #FFFFFF;
-	background-color: $color-hex-phone-bg;
-}
-
-.btn-skype {
-	color: #FFFFFF;
-	background-color: $color-hex-skype-bg;
-}
-
-.btn-whatsapp {
-	color: #FFFFFF;
-	background-color: $color-hex-whatsapp-bg;
-}
-
-.btn-viber {
-	color: #FFFFFF;
-	background-color: $color-hex-viber-bg;
-}
-
-.btn-telegram {
-	color: #FFFFFF;
-	background-color: $color-hex-telegram-bg;
-}
-
-.btn-email {
-	color: #FFFFFF;
-	background-color: $color-hex-email-bg;
-}
-
-.btn-toggle-holder-qrcode.mui-btn--fab {
-	display: block;
-	bottom: 13.000rem;
-	color: $clr-grey-700;
-}
-
-.btn-toggle-holder-mobileapps-buttons.mui-btn--fab {
-	display: block;
-	bottom: 10.000rem;
-	/* color: #FFFFFF;
-	background-color: $color-hex-email-bg; */
-	color: $clr-grey-700;
-}
-
-.btn-toggle-holder-share-buttons.mui-btn--fab {
-	display: block;
-	bottom: 7.000rem;
-	color: $clr-grey-700;
-}
-
-.btn-toggle-holder-vk-like.mui-btn--fab {
-	display: block;
-	bottom: 4.000rem;
-	color: $clr-grey-700;
-}
-
-@media (max-width: 959px) {
-	.btn-toggle-holder-qrcode.mui-btn--fab {
-		display: none;
-	}
-}
-
-@media (max-height: 479px) {
-	.btn-toggle-holder-mobileapps-buttons.mui-btn--fab,
-	.btn-toggle-holder-share-buttons.mui-btn--fab,
-	.btn-toggle-holder-vk-like.mui-btn--fab {
-		display: none;
-	}
-}
-
-@media (max-height: 559px) {
-	.btn-toggle-holder-qrcode.mui-btn--fab {
-		display: none;
-	}
 }
 
 /*!
  * prev and next
  */
 
-.btn-prev-page,
-.btn-next-page {
+.btn-prev-page.mui-btn--fab,
+.btn-next-page.mui-btn--fab {
 	display: block;
 	width: 2.500rem;
 	height: 2.500rem;
 	font-size: 1.125rem;
 	line-height: 2.500rem;
+	color: $clr-grey-700;
 	background-color: rgba(255, 255, 255, 0.5);
-	margin: 0;
-}
-
-.btn-prev-page .ui-icon,
-.btn-next-page .ui-icon {
-	/*!
-	 * Centering things
-	 * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
-	 */
-	display: block;
-	width: 1.125rem;
-	height: 1.125rem;
-	margin-top: 0.750rem;
-	margin-right: auto;
-	margin-left: auto;
-}
-
-.btn-prev-page .ui-icon > *,
-.btn-next-page .ui-icon > * {
-	fill: currentColor;
-}
-
-.btn-prev-page.mui-btn--fab,
-.btn-next-page.mui-btn--fab {
-	display: block;
-	color: #616161;
 	box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
 	/*!
 	 * Centering things
@@ -1211,6 +1193,25 @@ button {
 .btn-next-page.mui-btn--fab:hover,
 .btn-next-page.mui-btn--fab:active {
 	background-color: rgba(255, 255, 255, 0.5);
+}
+
+.btn-prev-page .ui-icon,
+.btn-next-page .ui-icon {
+	/*!
+	 * Centering things
+	 * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
+	 */
+	display: block;
+	width: 1.125rem;
+	height: 1.125rem;
+	margin-top: 0.750rem;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.btn-prev-page .ui-icon > *,
+.btn-next-page .ui-icon > * {
+	fill: currentColor;
 }
 
 /*!

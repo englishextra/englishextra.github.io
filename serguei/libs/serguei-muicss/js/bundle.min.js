@@ -1,6 +1,6 @@
 /*global ActiveXObject, console, DISQUS, doesFontExist, hljs, IframeLightbox,
 imgLightbox, imagePromise, instgrm, JsonHashRouter, loadCSS, loadJsCss,
-Minigrid, Mustache, Promise, Timers, QRCode, require, ripple, t, twttr,
+Minigrid, Mustache, Promise, QRCode, require, ripple, t, twttr,
 unescape, verge, VK, WheelIndicator, Ya*/
 /*property console, join, split */
 /*!
@@ -252,43 +252,6 @@ unescape, verge, VK, WheelIndicator, Ya*/
 	};
 	root.imagePromise = imagePromise;
 })("undefined" !== typeof window ? window : this);
-/*!
- * Timer management (setInterval / setTimeout)
- * @param {Function} fn
- * @param {Number} ms
- * var timers = new Timers();
- * timers.timeout(function () {
- * console.log("before:", timers);
- * timers.clear();
- * timers = null;
- * doSomething();
- * console.log("after:", timers);
- * }, 3000);
- * @see {@link https://github.com/component/timers}
- * @see {@link https://github.com/component/timers/blob/master/index.js}
- * passes jshint
- */
-(function(root) {
-	"use strict";
-	var Timers = function(ids) {
-		this.ids = ids || [];
-	};
-	Timers.prototype.timeout = function(fn, ms) {
-		var id = setTimeout(fn, ms);
-		this.ids.push(id);
-		return id;
-	};
-	Timers.prototype.interval = function(fn, ms) {
-		var id = setInterval(fn, ms);
-		this.ids.push(id);
-		return id;
-	};
-	Timers.prototype.clear = function() {
-		this.ids.forEach(clearTimeout);
-		this.ids = [];
-	};
-	root.Timers = Timers;
-})("undefined" !== typeof window ? window : this, document);
 /*!
  * modified Detect Whether a Font is Installed
  * @param {String} fontName The name of the font to check
