@@ -1378,17 +1378,17 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
-			/* var disqusThread = document[getElementById]("disqus_thread") || "";
+			var disqusThread = document[getElementById]("disqus_thread") || "";
 			if (disqusThread[parentNode]) {
 				if (!disqusThread[parentNode][classList].contains(isBindedMinigridCardClass)) {
-					observeMutations(disqusThread[parentNode], updateMinigrid.bind(null, disqusThread[parentNode]));
+					/* observeMutations(disqusThread[parentNode], updateMinigrid.bind(null, disqusThread[parentNode])); */
 					disqusThread[parentNode][classList].add(isBindedMinigridCardClass);
 				}
 				if (!disqusThread[classList].contains(isBindedMinigridCardClass)) {
-					observeMutations(disqusThread, updateMinigrid.bind(null, disqusThread));
+					/* observeMutations(disqusThread, updateMinigrid.bind(null, disqusThread)); */
 					disqusThread[classList].add(isBindedMinigridCardClass);
 				}
-			} */
+			}
 			cb();
 		};
 		var manageDisqusEmbed = function (callback) {
@@ -1433,13 +1433,6 @@ unescape, verge, VK, WheelIndicator, Ya*/
 						} else {
 							initScript();
 						}
-						/* if (!scriptIsLoaded(jsUrl)) {
-							loadJsCssWithPromise([jsUrl]).then(function () {
-								initScript();
-							});
-						} else {
-							initScript();
-						} */
 					});
 				} else {
 					hideDisqusThread();
@@ -1452,17 +1445,17 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
-			/* var instagramMedia = document[getElementsByClassName]("instagram-media") || "";
+			var instagramMedia = document[getElementsByClassName]("instagram-media") || "";
 			if (instagramMedia) {
 				var i,
 				l;
 				for (i = 0, l = instagramMedia[_length]; i < l; i += 1) {
 					if (instagramMedia[i][parentNode] && !instagramMedia[i][parentNode][classList].contains(isBindedMinigridCardClass)) {
-						observeMutations(instagramMedia[i][parentNode], updateMinigrid.bind(null, instagramMedia[i][parentNode]));
+						/* observeMutations(instagramMedia[i][parentNode], updateMinigrid.bind(null, instagramMedia[i][parentNode])); */
 						instagramMedia[i][parentNode][classList].add(isBindedMinigridCardClass);
 					}
 				}
-			} */
+			}
 			cb();
 		};
 		var manageInstagramEmbeds = function (callback) {
@@ -1499,13 +1492,6 @@ unescape, verge, VK, WheelIndicator, Ya*/
 					} else {
 						initScript();
 					}
-					/* if (!scriptIsLoaded(jsUrl)) {
-						loadJsCssWithPromise([jsUrl]).then(function () {
-							initScript();
-						});
-					} else {
-						initScript();
-					} */
 				});
 			}
 			cb();
@@ -1515,17 +1501,17 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
-			/* var twitterTweet = document[getElementsByClassName]("twitter-tweet") || "";
+			var twitterTweet = document[getElementsByClassName]("twitter-tweet") || "";
 			if (twitterTweet) {
 				var i,
 				l;
 				for (i = 0, l = twitterTweet[_length]; i < l; i += 1) {
 					if (twitterTweet[i][parentNode] && !twitterTweet[i][parentNode][classList].contains(isBindedMinigridCardClass)) {
-						observeMutations(twitterTweet[i][parentNode], updateMinigrid.bind(null, twitterTweet[i][parentNode]));
+						/* observeMutations(twitterTweet[i][parentNode], updateMinigrid.bind(null, twitterTweet[i][parentNode])); */
 						twitterTweet[i][parentNode][classList].add(isBindedMinigridCardClass);
 					}
 				}
-			} */
+			}
 			cb();
 		};
 		var manageTwitterEmbeds = function (callback) {
@@ -1562,13 +1548,6 @@ unescape, verge, VK, WheelIndicator, Ya*/
 					} else {
 						initScript();
 					}
-					/* if (!scriptIsLoaded(jsUrl)) {
-						loadJsCssWithPromise([jsUrl]).then(function () {
-							initScript();
-						});
-					} else {
-						initScript();
-					} */
 				});
 			}
 			cb();
@@ -1578,17 +1557,17 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
-			/* var vkPost = document[getElementsByClassName]("vk-post") || "";
+			var vkPost = document[getElementsByClassName]("vk-post") || "";
 			if (vkPost) {
 				var i,
 				l;
 				for (i = 0, l = vkPost[_length]; i < l; i += 1) {
 					if (vkPost[i][parentNode] && !vkPost[i][parentNode][classList].contains(isBindedMinigridCardClass)) {
-						observeMutations(vkPost[i][parentNode], updateMinigrid.bind(null, vkPost[i][parentNode]));
+						/* observeMutations(vkPost[i][parentNode], updateMinigrid.bind(null, vkPost[i][parentNode])); */
 						vkPost[i][parentNode][classList].add(isBindedMinigridCardClass);
 					}
 				}
-			} */
+			}
 			cb();
 		};
 		var manageVkEmbeds = function (callback) {
@@ -1630,13 +1609,6 @@ unescape, verge, VK, WheelIndicator, Ya*/
 					} else {
 						initScript();
 					}
-					/* if (!scriptIsLoaded(jsUrl)) {
-						loadJsCssWithPromise([jsUrl]).then(function () {
-							initScript();
-						});
-					} else {
-						initScript();
-					} */
 				});
 			}
 			cb();
@@ -1937,13 +1909,6 @@ unescape, verge, VK, WheelIndicator, Ya*/
 					} else {
 						initScript();
 					} */
-					/* if (!scriptIsLoaded(jsUrl)) {
-						loadJsCssWithPromise([jsUrl]).then(function () {
-							initScript();
-						});
-					} else {
-						initScript();
-					} */
 					initScript();
 				};
 				var debounceLogicHandleLocationQrCodeButton = debounce(logicHandleLocationQrCodeButton, 200);
@@ -2027,13 +1992,6 @@ unescape, verge, VK, WheelIndicator, Ya*/
 					} else {
 						initScript();
 					}
-					/* if (!scriptIsLoaded(jsUrl)) {
-						loadJsCssWithPromise([jsUrl]).then(function () {
-							initScript();
-						});
-					} else {
-						initScript();
-					} */
 				};
 				var debounceLogicHandleShareButton = debounce(logicHandleShareButton, 200);
 				debounceLogicHandleShareButton();
@@ -2084,13 +2042,6 @@ unescape, verge, VK, WheelIndicator, Ya*/
 					} else {
 						initScript();
 					}
-					/* if (!scriptIsLoaded(jsUrl)) {
-						loadJsCssWithPromise([jsUrl]).then(function () {
-							initScript();
-						});
-					} else {
-						initScript();
-					} */
 				};
 				var debounceLogicHandleVKLikeButton = debounce(logicHandleVKLikeButton, 200);
 				debounceLogicHandleVKLikeButton();
