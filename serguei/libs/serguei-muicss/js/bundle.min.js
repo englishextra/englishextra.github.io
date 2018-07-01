@@ -1381,11 +1381,11 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			var disqusThread = document[getElementById]("disqus_thread") || "";
 			if (disqusThread[parentNode]) {
 				if (!disqusThread[parentNode][classList].contains(isBindedMinigridCardClass)) {
-					/* observeMutations(disqusThread[parentNode], updateMinigrid.bind(null, disqusThread[parentNode])); */
+					observeMutations(disqusThread[parentNode], updateMinigrid.bind(null, disqusThread[parentNode]));
 					disqusThread[parentNode][classList].add(isBindedMinigridCardClass);
 				}
 				if (!disqusThread[classList].contains(isBindedMinigridCardClass)) {
-					/* observeMutations(disqusThread, updateMinigrid.bind(null, disqusThread)); */
+					observeMutations(disqusThread, updateMinigrid.bind(null, disqusThread));
 					disqusThread[classList].add(isBindedMinigridCardClass);
 				}
 			}
@@ -1451,7 +1451,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				l;
 				for (i = 0, l = instagramMedia[_length]; i < l; i += 1) {
 					if (instagramMedia[i][parentNode] && !instagramMedia[i][parentNode][classList].contains(isBindedMinigridCardClass)) {
-						/* observeMutations(instagramMedia[i][parentNode], updateMinigrid.bind(null, instagramMedia[i][parentNode])); */
+						observeMutations(instagramMedia[i][parentNode], updateMinigrid.bind(null, instagramMedia[i][parentNode]));
 						instagramMedia[i][parentNode][classList].add(isBindedMinigridCardClass);
 					}
 				}
@@ -1507,7 +1507,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				l;
 				for (i = 0, l = twitterTweet[_length]; i < l; i += 1) {
 					if (twitterTweet[i][parentNode] && !twitterTweet[i][parentNode][classList].contains(isBindedMinigridCardClass)) {
-						/* observeMutations(twitterTweet[i][parentNode], updateMinigrid.bind(null, twitterTweet[i][parentNode])); */
+						observeMutations(twitterTweet[i][parentNode], updateMinigrid.bind(null, twitterTweet[i][parentNode]));
 						twitterTweet[i][parentNode][classList].add(isBindedMinigridCardClass);
 					}
 				}
@@ -1563,7 +1563,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				l;
 				for (i = 0, l = vkPost[_length]; i < l; i += 1) {
 					if (vkPost[i][parentNode] && !vkPost[i][parentNode][classList].contains(isBindedMinigridCardClass)) {
-						/* observeMutations(vkPost[i][parentNode], updateMinigrid.bind(null, vkPost[i][parentNode])); */
+						observeMutations(vkPost[i][parentNode], updateMinigrid.bind(null, vkPost[i][parentNode]));
 						vkPost[i][parentNode][classList].add(isBindedMinigridCardClass);
 					}
 				}
