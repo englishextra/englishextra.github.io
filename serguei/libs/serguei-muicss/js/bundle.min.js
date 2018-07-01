@@ -1342,7 +1342,10 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var handleDisqusEmbedInMinigrid = function () {
+		var handleDisqusEmbedInMinigrid = function (callback) {
+			var cb = function () {
+				return callback && "function" === typeof callback && callback();
+			};
 			var disqusThread = document[getElementById]("disqus_thread") || "";
 			if (disqusThread[parentNode]) {
 				if (!disqusThread[parentNode][classList].contains(isBindedMinigridCardClass)) {
@@ -1353,6 +1356,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 					observeMutations(disqusThread, updateMinigrid.bind(null, disqusThread));
 					disqusThread[classList].add(isBindedMinigridCardClass);
 				}
+				cb();
 			}
 		};
 		var manageDisqusEmbed = function (callback) {
@@ -1389,28 +1393,32 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			};
 			if (disqusThread && disqusThreadShortname && locationHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					handleDisqusEmbedInMinigrid();
-					var jsUrl = forcedHTTP + "://" + disqusThreadShortname + ".disqus.com/embed.js";
-					if (!scriptIsLoaded(jsUrl)) {
-						var load;
-						load = new loadJsCss([jsUrl], initScript);
-					} else {
-						initScript();
-					}
-					/* if (!scriptIsLoaded(jsUrl)) {
-						loadJsCssWithPromise([jsUrl]).then(function () {
+					handleDisqusEmbedInMinigrid(function () {
+						var jsUrl = forcedHTTP + "://" + disqusThreadShortname + ".disqus.com/embed.js";
+						if (!scriptIsLoaded(jsUrl)) {
+							var load;
+							load = new loadJsCss([jsUrl], initScript);
+						} else {
 							initScript();
-						});
-					} else {
-						initScript();
-					} */
+						}
+						/* if (!scriptIsLoaded(jsUrl)) {
+							loadJsCssWithPromise([jsUrl]).then(function () {
+								initScript();
+							});
+						} else {
+							initScript();
+						} */
+					});
 				} else {
 					hideDisqusThread();
 				}
 			}
 		};
 
-		var handleInstagramEmbedInMinigrid = function () {
+		var handleInstagramEmbedInMinigrid = function (callback) {
+			var cb = function () {
+				return callback && "function" === typeof callback && callback();
+			};
 			var instagramMedia = document[getElementsByClassName]("instagram-media") || "";
 			if (instagramMedia) {
 				var i,
@@ -1421,6 +1429,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 						instagramMedia[i][parentNode][classList].add(isBindedMinigridCardClass);
 					}
 				}
+				cb();
 			}
 		};
 		var manageInstagramEmbeds = function (callback) {
@@ -1439,25 +1448,29 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				}
 			};
 			if (instagramMedia) {
-				handleInstagramEmbedInMinigrid();
-				var jsUrl = forcedHTTP + "://www.instagram.com/embed.js";
-				if (!scriptIsLoaded(jsUrl)) {
-					var load;
-					load = new loadJsCss([jsUrl], initScript);
-				} else {
-					initScript();
-				}
-				/* if (!scriptIsLoaded(jsUrl)) {
-					loadJsCssWithPromise([jsUrl]).then(function () {
+				handleInstagramEmbedInMinigrid(function () {
+					var jsUrl = forcedHTTP + "://www.instagram.com/embed.js";
+					if (!scriptIsLoaded(jsUrl)) {
+						var load;
+						load = new loadJsCss([jsUrl], initScript);
+					} else {
 						initScript();
-					});
-				} else {
-					initScript();
-				} */
+					}
+					/* if (!scriptIsLoaded(jsUrl)) {
+						loadJsCssWithPromise([jsUrl]).then(function () {
+							initScript();
+						});
+					} else {
+						initScript();
+					} */
+				});
 			}
 		};
 
-		var handleTwitterEmbedInMinigrid = function () {
+		var handleTwitterEmbedInMinigrid = function (callback) {
+			var cb = function () {
+				return callback && "function" === typeof callback && callback();
+			};
 			var twitterTweet = document[getElementsByClassName]("twitter-tweet") || "";
 			if (twitterTweet) {
 				var i,
@@ -1468,6 +1481,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 						twitterTweet[i][parentNode][classList].add(isBindedMinigridCardClass);
 					}
 				}
+				cb();
 			}
 		};
 		var manageTwitterEmbeds = function (callback) {
@@ -1486,25 +1500,29 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				}
 			};
 			if (twitterTweet) {
-				handleTwitterEmbedInMinigrid();
-				var jsUrl = forcedHTTP + "://platform.twitter.com/widgets.js";
-				if (!scriptIsLoaded(jsUrl)) {
-					var load;
-					load = new loadJsCss([jsUrl], initScript);
-				} else {
-					initScript();
-				}
-				/* if (!scriptIsLoaded(jsUrl)) {
-					loadJsCssWithPromise([jsUrl]).then(function () {
+				handleTwitterEmbedInMinigrid(function () {
+					var jsUrl = forcedHTTP + "://platform.twitter.com/widgets.js";
+					if (!scriptIsLoaded(jsUrl)) {
+						var load;
+						load = new loadJsCss([jsUrl], initScript);
+					} else {
 						initScript();
-					});
-				} else {
-					initScript();
-				} */
+					}
+					/* if (!scriptIsLoaded(jsUrl)) {
+						loadJsCssWithPromise([jsUrl]).then(function () {
+							initScript();
+						});
+					} else {
+						initScript();
+					} */
+				});
 			}
 		};
 
-		var handleVkEmbedInMinigrid = function () {
+		var handleVkEmbedInMinigrid = function (callback) {
+			var cb = function () {
+				return callback && "function" === typeof callback && callback();
+			};
 			var vkPost = document[getElementsByClassName]("vk-post") || "";
 			if (vkPost) {
 				var i,
@@ -1515,6 +1533,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 						vkPost[i][parentNode][classList].add(isBindedMinigridCardClass);
 					}
 				}
+				cb();
 			}
 		};
 		var manageVkEmbeds = function (callback) {
@@ -1548,21 +1567,22 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				}
 			};
 			if (vkPost) {
-				handleVkEmbedInMinigrid();
-				var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
-				if (!scriptIsLoaded(jsUrl)) {
-					var load;
-					load = new loadJsCss([jsUrl], initScript);
-				} else {
-					initScript();
-				}
-				/* if (!scriptIsLoaded(jsUrl)) {
-					loadJsCssWithPromise([jsUrl]).then(function () {
+				handleVkEmbedInMinigrid(function () {
+					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
+					if (!scriptIsLoaded(jsUrl)) {
+						var load;
+						load = new loadJsCss([jsUrl], initScript);
+					} else {
 						initScript();
-					});
-				} else {
-					initScript();
-				} */
+					}
+					/* if (!scriptIsLoaded(jsUrl)) {
+						loadJsCssWithPromise([jsUrl]).then(function () {
+							initScript();
+						});
+					} else {
+						initScript();
+					} */
+				});
 			}
 		};
 
