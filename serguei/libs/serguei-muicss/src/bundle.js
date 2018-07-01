@@ -1342,11 +1342,43 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			}
 		};
 
+		var updateMinigridOnHeightChange = function (e, tresholdHeight) {
+			var keyHeight = tresholdHeight || 108;
+			var logThis = function (height) {
+				console.log(timer,
+					e.nodeName ? e.nodeName : "",
+					e.className ? "." + e.className : "",
+					e.id ? "#" + e.id : "",
+					height);
+			};
+			/* destroy operation if for some time
+			failed - you should multiply counter
+			by set interval delay
+			to get milliseconds */
+			var counter = 40;
+			var delay = 200;
+			var timer = setInterval(function () {
+					counter--;
+					if (counter === 0) {
+						clearInterval(timer);
+						timer = null;
+					}
+					var height = e.clientHeight || e.offsetHeight || "";
+					/* logThis(height); */
+					if (keyHeight < height) {
+						clearInterval(timer);
+						timer = null;
+						/* logThis(height); */
+						updateMinigrid();
+					}
+				}, delay);
+		};
+
 		var handleDisqusEmbedInMinigrid = function (callback) {
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
-			var disqusThread = document[getElementById]("disqus_thread") || "";
+			/* var disqusThread = document[getElementById]("disqus_thread") || "";
 			if (disqusThread[parentNode]) {
 				if (!disqusThread[parentNode][classList].contains(isBindedMinigridCardClass)) {
 					observeMutations(disqusThread[parentNode], updateMinigrid.bind(null, disqusThread[parentNode]));
@@ -1356,8 +1388,8 @@ unescape, verge, VK, WheelIndicator, Ya*/
 					observeMutations(disqusThread, updateMinigrid.bind(null, disqusThread));
 					disqusThread[classList].add(isBindedMinigridCardClass);
 				}
-				cb();
-			}
+			} */
+			cb();
 		};
 		var manageDisqusEmbed = function (callback) {
 			var cb = function () {
@@ -1384,8 +1416,8 @@ unescape, verge, VK, WheelIndicator, Ya*/
 								this.page.url = locationHref;
 							}
 						});
-						disqusThread[classList].add(isActiveDisqusThreadClass);
-						cb();
+						disqusThread[classList].add(isActiveDisqusThreadClass)
+						updateMinigridOnHeightChange(disqusThread);
 					} catch (err) {
 						/* console.log("cannot DISQUS.reset", err); */
 					}
@@ -1413,13 +1445,14 @@ unescape, verge, VK, WheelIndicator, Ya*/
 					hideDisqusThread();
 				}
 			}
+			cb();
 		};
 
 		var handleInstagramEmbedInMinigrid = function (callback) {
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
-			var instagramMedia = document[getElementsByClassName]("instagram-media") || "";
+			/* var instagramMedia = document[getElementsByClassName]("instagram-media") || "";
 			if (instagramMedia) {
 				var i,
 				l;
@@ -1429,8 +1462,8 @@ unescape, verge, VK, WheelIndicator, Ya*/
 						instagramMedia[i][parentNode][classList].add(isBindedMinigridCardClass);
 					}
 				}
-				cb();
-			}
+			} */
+			cb();
 		};
 		var manageInstagramEmbeds = function (callback) {
 			var cb = function () {
@@ -1441,7 +1474,17 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				if (root.instgrm) {
 					try {
 						instgrm.Embeds.process();
-						cb();
+						var instagramMedia = document[getElementsByClassName]("instagram-media") || "";
+						if (instagramMedia) {
+							var i,
+							l;
+							for (i = 0, l = instagramMedia[_length]; i < l; i += 1) {
+								if (!instagramMedia[i][classList].contains(isBindedClass)) {
+									instagramMedia[i][classList].add(isBindedClass);
+									updateMinigridOnHeightChange(instagramMedia[i]);
+								}
+							}
+						}
 					} catch (err) {
 						/* console.log("cannot instgrm.Embeds.process", err); */
 					}
@@ -1465,13 +1508,14 @@ unescape, verge, VK, WheelIndicator, Ya*/
 					} */
 				});
 			}
+			cb();
 		};
 
 		var handleTwitterEmbedInMinigrid = function (callback) {
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
-			var twitterTweet = document[getElementsByClassName]("twitter-tweet") || "";
+			/* var twitterTweet = document[getElementsByClassName]("twitter-tweet") || "";
 			if (twitterTweet) {
 				var i,
 				l;
@@ -1481,8 +1525,8 @@ unescape, verge, VK, WheelIndicator, Ya*/
 						twitterTweet[i][parentNode][classList].add(isBindedMinigridCardClass);
 					}
 				}
-				cb();
-			}
+			} */
+			cb();
 		};
 		var manageTwitterEmbeds = function (callback) {
 			var cb = function () {
@@ -1493,7 +1537,17 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				if (root.twttr) {
 					try {
 						twttr.widgets.load();
-						cb();
+						var twitterTweet = document[getElementsByClassName]("twitter-tweet") || "";
+						if (twitterTweet) {
+							var i,
+							l;
+							for (i = 0, l = twitterTweet[_length]; i < l; i += 1) {
+								if (!twitterTweet[i][classList].contains(isBindedClass)) {
+									twitterTweet[i][classList].add(isBindedClass);
+									updateMinigridOnHeightChange(twitterTweet[i]);
+								}
+							}
+						}
 					} catch (err) {
 						/* console.log("cannot twttr.widgets.load", err); */
 					}
@@ -1517,13 +1571,14 @@ unescape, verge, VK, WheelIndicator, Ya*/
 					} */
 				});
 			}
+			cb();
 		};
 
 		var handleVkEmbedInMinigrid = function (callback) {
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
-			var vkPost = document[getElementsByClassName]("vk-post") || "";
+			/* var vkPost = document[getElementsByClassName]("vk-post") || "";
 			if (vkPost) {
 				var i,
 				l;
@@ -1533,8 +1588,8 @@ unescape, verge, VK, WheelIndicator, Ya*/
 						vkPost[i][parentNode][classList].add(isBindedMinigridCardClass);
 					}
 				}
-				cb();
-			}
+			} */
+			cb();
 		};
 		var manageVkEmbeds = function (callback) {
 			var cb = function () {
@@ -1557,10 +1612,10 @@ unescape, verge, VK, WheelIndicator, Ya*/
 								if (!vkPost[i][classList].contains(isBindedClass)) {
 									initVkPost(vkPost[i].id, vkPost[i][dataset].vkOwnerid, vkPost[i][dataset].vkPostid, vkPost[i][dataset].vkHash);
 									vkPost[i][classList].add(isBindedClass);
+									updateMinigridOnHeightChange(vkPost[i]);
 								}
 							}
 						}
-						cb();
 					} catch (err) {
 						/* console.log("cannot initVkPost", err); */
 					}
@@ -1584,6 +1639,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 					} */
 				});
 			}
+			cb();
 		};
 
 		var cardWrapClass = "card-wrap";
@@ -2207,8 +2263,6 @@ unescape, verge, VK, WheelIndicator, Ya*/
 								manageTwitterEmbeds();
 							}).then(function () {
 								manageVkEmbeds();
-							}).then(function () {
-								updateMinigrid();
 							}).catch (function (err) {
 								console.log("fail: manageMinigrid", err);
 							});
