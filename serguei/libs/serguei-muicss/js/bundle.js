@@ -2207,6 +2207,8 @@ unescape, verge, VK, WheelIndicator, Ya*/
 								manageTwitterEmbeds();
 							}).then(function () {
 								manageVkEmbeds();
+							}).then(function () {
+								updateMinigrid();
 							}).catch (function (err) {
 								console.log("fail: manageMinigrid", err);
 							});
