@@ -1416,7 +1416,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 								this.page.url = locationHref;
 							}
 						});
-						disqusThread[classList].add(isActiveDisqusThreadClass)
+						disqusThread[classList].add(isActiveDisqusThreadClass);
 						updateMinigridOnHeightChange(disqusThread);
 					} catch (err) {
 						/* console.log("cannot DISQUS.reset", err); */
