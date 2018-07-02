@@ -1270,7 +1270,8 @@ unescape, verge, VK, WheelIndicator, Ya*/
 		};
 		manageRippleEffect();
 
-		var observeMutations = function (scope, callback, settings) {
+		var observeMutations;
+		observeMutations = function (scope, callback, settings) {
 			var context = scope && scope.nodeName ? scope : "";
 			var options = settings || {};
 			options.disconnect = options.disconnect || false;
@@ -1344,7 +1345,8 @@ unescape, verge, VK, WheelIndicator, Ya*/
 
 		var updateMinigridOnHeightChange = function (e, tresholdHeight) {
 			var keyHeight = tresholdHeight || 108;
-			var logThis = function (height) {
+			var logThis;
+			logThis = function (height) {
 				console.log(timer,
 					e.nodeName ? e.nodeName : "",
 					e.className ? "." + e.className : "",
