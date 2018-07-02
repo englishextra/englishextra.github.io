@@ -1334,7 +1334,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 						clearTimeout(timers);
 						timers = null;
 						mgrid.mount();
-					}, 100);
+					}, 2000);
 			}
 			/*!
 			 * dont put that together with mgrid check
@@ -1382,10 +1382,10 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				return callback && "function" === typeof callback && callback();
 			};
 			/* var disqusThread = document[getElementById]("disqus_thread") || "";
-			if (disqusThread) {
-				if (!disqusThread[classList].contains(isBindedMinigridCardClass)) {
-					observeMutations(disqusThread, updateMinigrid.bind(null, disqusThread));
-					disqusThread[classList].add(isBindedMinigridCardClass);
+			if (disqusThread[parentNode]) {
+				if (!disqusThread[parentNode][classList].contains(isBindedMinigridCardClass)) {
+					observeMutations(disqusThread[parentNode], updateMinigrid.bind(null, disqusThread[parentNode]));
+					disqusThread[parentNode][classList].add(isBindedMinigridCardClass);
 				}
 			} */
 			cb();
@@ -1416,7 +1416,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 							}
 						});
 						disqusThread[classList].add(isActiveDisqusThreadClass);
-						updateMinigridOnHeightChange(disqusThread);
+						updateMinigridOnHeightChange(disqusThread[parentNode]);
 					} catch (err) {
 						/* console.log("cannot DISQUS.reset", err); */
 					}
@@ -1646,15 +1646,24 @@ unescape, verge, VK, WheelIndicator, Ya*/
 
 		var manageMinigrid = function (callback) {
 			return new Promise(function (resolve, reject) {
-				var cardGrid = document[getElementsByClassName](cardGridClass)[0] || "";
 				var cb = function () {
 					return callback && "function" === typeof callback && callback();
+				};
+				var cardGrid = document[getElementsByClassName](cardGridClass)[0] || "";
+				var updateMinigridOnMutations = function () {
+					if (cardGrid) {
+						if (!cardGrid[classList].contains(isBindedMinigridCardClass)) {
+							observeMutations(cardGrid, updateMinigrid.bind(null, cardGrid), {log: true});
+							cardGrid[classList].add(isBindedMinigridCardClass);
+						}
+					}
 				};
 				var onMinigridCreated = function () {
 					root[_addEventListener]("resize", updateMinigrid, {passive: true});
 					cardGrid[style].visibility = "visible";
 					cardGrid[style].opacity = 1;
 					/* addCardWrapCssRule(); */
+					updateMinigridOnMutations();
 					cb();
 				};
 				var initMinigrid = function () {
