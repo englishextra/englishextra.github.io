@@ -1328,19 +1328,17 @@ unescape, verge, VK, WheelIndicator, Ya*/
 
 		var mgrid;
 
-		var updateMinigrid = function (parent) {
+		var updateMinigrid = function (delay, parentIsActive) {
+			var timeout = delay || 100;
 			if (mgrid) {
 				var timers = setTimeout(function () {
 						clearTimeout(timers);
 						timers = null;
 						mgrid.mount();
-					}, 2000);
-			}
-			/*!
-			 * dont put that together with mgrid check
-			 */
-			if (parent && parent.nodeName) {
-				parent[classList].add(isActiveClass);
+					}, timeout);
+				if (parentIsActive && parentIsActive.nodeName) {
+					parentIsActive[classList].add(isActiveClass);
+				}
 			}
 		};
 
@@ -1356,10 +1354,10 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			};
 			/* destroy operation if for some time
 			failed - you should multiply counter
-			by set interval delay
+			by set interval slot
 			to get milliseconds */
 			var counter = 40;
-			var delay = 200;
+			var slot = 200;
 			var timer = setInterval(function () {
 					counter--;
 					if (counter === 0) {
@@ -1374,7 +1372,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 						logThis(height);
 						updateMinigrid();
 					}
-				}, delay);
+				}, slot);
 		};
 
 		var handleDisqusEmbedInMinigrid = function (callback) {
@@ -1384,7 +1382,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			/* var disqusThread = document[getElementById]("disqus_thread") || "";
 			if (disqusThread[parentNode]) {
 				if (!disqusThread[parentNode][classList].contains(isBindedMinigridCardClass)) {
-					observeMutations(disqusThread[parentNode], updateMinigrid.bind(null, disqusThread[parentNode]));
+					observeMutations(disqusThread[parentNode], updateMinigrid.bind(null, false, disqusThread[parentNode]));
 					disqusThread[parentNode][classList].add(isBindedMinigridCardClass);
 				}
 			} */
@@ -1450,7 +1448,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				l;
 				for (i = 0, l = instagramMedia[_length]; i < l; i += 1) {
 					if (instagramMedia[i][parentNode] && !instagramMedia[i][parentNode][classList].contains(isBindedMinigridCardClass)) {
-						observeMutations(instagramMedia[i][parentNode], updateMinigrid.bind(null, instagramMedia[i][parentNode]));
+						observeMutations(instagramMedia[i][parentNode], updateMinigrid.bind(null, false, instagramMedia[i][parentNode]));
 						instagramMedia[i][parentNode][classList].add(isBindedMinigridCardClass);
 					}
 				}
@@ -1506,7 +1504,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				l;
 				for (i = 0, l = twitterTweet[_length]; i < l; i += 1) {
 					if (twitterTweet[i][parentNode] && !twitterTweet[i][parentNode][classList].contains(isBindedMinigridCardClass)) {
-						observeMutations(twitterTweet[i][parentNode], updateMinigrid.bind(null, twitterTweet[i][parentNode]));
+						observeMutations(twitterTweet[i][parentNode], updateMinigrid.bind(null, false, twitterTweet[i][parentNode]));
 						twitterTweet[i][parentNode][classList].add(isBindedMinigridCardClass);
 					}
 				}
@@ -1562,7 +1560,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				l;
 				for (i = 0, l = vkPost[_length]; i < l; i += 1) {
 					if (vkPost[i][parentNode] && !vkPost[i][parentNode][classList].contains(isBindedMinigridCardClass)) {
-						observeMutations(vkPost[i][parentNode], updateMinigrid.bind(null, vkPost[i][parentNode]));
+						observeMutations(vkPost[i][parentNode], updateMinigrid.bind(null, false, vkPost[i][parentNode]));
 						vkPost[i][parentNode][classList].add(isBindedMinigridCardClass);
 					}
 				}
@@ -1651,11 +1649,9 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				};
 				var cardGrid = document[getElementsByClassName](cardGridClass)[0] || "";
 				var updateMinigridOnMutations = function () {
-					if (cardGrid) {
-						if (!cardGrid[classList].contains(isBindedMinigridCardClass)) {
-							observeMutations(cardGrid, updateMinigrid.bind(null, cardGrid), {log: true});
-							cardGrid[classList].add(isBindedMinigridCardClass);
-						}
+					if (!cardGrid[classList].contains(isBindedMinigridCardClass)) {
+						observeMutations(cardGrid, updateMinigrid.bind(null, 2000), {log: true});
+						cardGrid[classList].add(isBindedMinigridCardClass);
 					}
 				};
 				var onMinigridCreated = function () {
