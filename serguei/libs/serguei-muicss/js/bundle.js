@@ -465,7 +465,8 @@ unescape, verge, VK, WheelIndicator, Ya*/
 		var isFixedClass = "is-fixed";
 		var isHiddenClass = "is-hidden";
 		var isBindedIframeLightboxLinkClass = "is-binded-iframe-lightbox-link";
-		var isBindedMinigridCardClass = "is-binded-minigrid-card";
+		var isBindedMinigridCardClass;
+		isBindedMinigridCardClass = "is-binded-minigrid-card";
 		var isCollapsableClass = "is-collapsable";
 		var isActiveDisqusThreadClass = "is-active-disqus-thread";
 
@@ -1366,11 +1367,11 @@ unescape, verge, VK, WheelIndicator, Ya*/
 						timer = null;
 					}
 					var height = e.clientHeight || e.offsetHeight || "";
-					/* logThis(height); */
+					logThis(height);
 					if (keyHeight < height) {
 						clearInterval(timer);
 						timer = null;
-						/* logThis(height); */
+						logThis(height);
 						updateMinigrid();
 					}
 				}, delay);
@@ -1380,17 +1381,13 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
-			var disqusThread = document[getElementById]("disqus_thread") || "";
-			if (disqusThread[parentNode]) {
-				if (!disqusThread[parentNode][classList].contains(isBindedMinigridCardClass)) {
-					observeMutations(disqusThread[parentNode], updateMinigrid.bind(null, disqusThread[parentNode]));
-					disqusThread[parentNode][classList].add(isBindedMinigridCardClass);
-				}
+			/* var disqusThread = document[getElementById]("disqus_thread") || "";
+			if (disqusThread) {
 				if (!disqusThread[classList].contains(isBindedMinigridCardClass)) {
 					observeMutations(disqusThread, updateMinigrid.bind(null, disqusThread));
 					disqusThread[classList].add(isBindedMinigridCardClass);
 				}
-			}
+			} */
 			cb();
 		};
 		var manageDisqusEmbed = function (callback) {
@@ -1447,7 +1444,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
-			var instagramMedia = document[getElementsByClassName]("instagram-media") || "";
+			/* var instagramMedia = document[getElementsByClassName]("instagram-media") || "";
 			if (instagramMedia) {
 				var i,
 				l;
@@ -1457,7 +1454,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 						instagramMedia[i][parentNode][classList].add(isBindedMinigridCardClass);
 					}
 				}
-			}
+			} */
 			cb();
 		};
 		var manageInstagramEmbeds = function (callback) {
@@ -1476,7 +1473,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 							for (i = 0, l = instagramMedia[_length]; i < l; i += 1) {
 								if (!instagramMedia[i][classList].contains(isBindedClass)) {
 									instagramMedia[i][classList].add(isBindedClass);
-									updateMinigridOnHeightChange(instagramMedia[i]);
+									updateMinigridOnHeightChange(instagramMedia[i][parentNode]);
 								}
 							}
 						}
@@ -1503,7 +1500,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
-			var twitterTweet = document[getElementsByClassName]("twitter-tweet") || "";
+			/* var twitterTweet = document[getElementsByClassName]("twitter-tweet") || "";
 			if (twitterTweet) {
 				var i,
 				l;
@@ -1513,7 +1510,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 						twitterTweet[i][parentNode][classList].add(isBindedMinigridCardClass);
 					}
 				}
-			}
+			} */
 			cb();
 		};
 		var manageTwitterEmbeds = function (callback) {
@@ -1532,7 +1529,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 							for (i = 0, l = twitterTweet[_length]; i < l; i += 1) {
 								if (!twitterTweet[i][classList].contains(isBindedClass)) {
 									twitterTweet[i][classList].add(isBindedClass);
-									updateMinigridOnHeightChange(twitterTweet[i]);
+									updateMinigridOnHeightChange(twitterTweet[i][parentNode]);
 								}
 							}
 						}
@@ -1559,7 +1556,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
-			var vkPost = document[getElementsByClassName]("vk-post") || "";
+			/* var vkPost = document[getElementsByClassName]("vk-post") || "";
 			if (vkPost) {
 				var i,
 				l;
@@ -1569,7 +1566,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 						vkPost[i][parentNode][classList].add(isBindedMinigridCardClass);
 					}
 				}
-			}
+			} */
 			cb();
 		};
 		var manageVkEmbeds = function (callback) {
@@ -1593,7 +1590,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 								if (!vkPost[i][classList].contains(isBindedClass)) {
 									initVkPost(vkPost[i].id, vkPost[i][dataset].vkOwnerid, vkPost[i][dataset].vkPostid, vkPost[i][dataset].vkHash);
 									vkPost[i][classList].add(isBindedClass);
-									updateMinigridOnHeightChange(vkPost[i]);
+									updateMinigridOnHeightChange(vkPost[i][parentNode]);
 								}
 							}
 						}
