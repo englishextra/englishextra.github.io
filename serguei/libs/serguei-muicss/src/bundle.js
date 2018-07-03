@@ -1328,16 +1328,16 @@ unescape, verge, VK, WheelIndicator, Ya*/
 
 		var mgrid;
 
-		var updateMinigrid = function (delay, parentIsActive) {
+		var updateMinigrid = function (delay, isActiveElem) {
 			var timeout = delay || 100;
 			if (mgrid) {
 				var timers = setTimeout(function () {
 						clearTimeout(timers);
 						timers = null;
-						mgrid.mount();
+						mgrid.mount(); /* alert(); */
 					}, timeout);
-				if (parentIsActive && parentIsActive.nodeName) {
-					parentIsActive[classList].add(isActiveClass);
+				if (isActiveElem && isActiveElem.nodeName) {
+					isActiveElem[classList].add(isActiveClass);
 				}
 			}
 		};
@@ -1414,7 +1414,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 							}
 						});
 						disqusThread[classList].add(isActiveDisqusThreadClass);
-						updateMinigridOnHeightChange(disqusThread[parentNode]);
+						/* updateMinigridOnHeightChange(disqusThread[parentNode]); */
 					} catch (err) {
 						/* console.log("cannot DISQUS.reset", err); */
 					}
@@ -1464,7 +1464,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				if (root.instgrm) {
 					try {
 						instgrm.Embeds.process();
-						var instagramMedia = document[getElementsByClassName]("instagram-media") || "";
+						/* var instagramMedia = document[getElementsByClassName]("instagram-media") || "";
 						if (instagramMedia) {
 							var i,
 							l;
@@ -1474,7 +1474,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 									updateMinigridOnHeightChange(instagramMedia[i][parentNode]);
 								}
 							}
-						}
+						} */
 					} catch (err) {
 						/* console.log("cannot instgrm.Embeds.process", err); */
 					}
@@ -1520,7 +1520,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				if (root.twttr) {
 					try {
 						twttr.widgets.load();
-						var twitterTweet = document[getElementsByClassName]("twitter-tweet") || "";
+						/* var twitterTweet = document[getElementsByClassName]("twitter-tweet") || "";
 						if (twitterTweet) {
 							var i,
 							l;
@@ -1530,7 +1530,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 									updateMinigridOnHeightChange(twitterTweet[i][parentNode]);
 								}
 							}
-						}
+						} */
 					} catch (err) {
 						/* console.log("cannot twttr.widgets.load", err); */
 					}
@@ -1588,7 +1588,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 								if (!vkPost[i][classList].contains(isBindedClass)) {
 									initVkPost(vkPost[i].id, vkPost[i][dataset].vkOwnerid, vkPost[i][dataset].vkPostid, vkPost[i][dataset].vkHash);
 									vkPost[i][classList].add(isBindedClass);
-									updateMinigridOnHeightChange(vkPost[i][parentNode]);
+									/* updateMinigridOnHeightChange(vkPost[i][parentNode]); */
 								}
 							}
 						}
@@ -1650,7 +1650,11 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				var cardGrid = document[getElementsByClassName](cardGridClass)[0] || "";
 				var updateMinigridOnMutations = function () {
 					if (!cardGrid[classList].contains(isBindedMinigridCardClass)) {
-						observeMutations(cardGrid, updateMinigrid.bind(null, 2000), {log: true});
+						/*!
+						 * execute this function at most once every ... milliseconds
+						 */
+						var throttleLogic = throttle(updateMinigrid.bind(null, 2000), 2000);
+						observeMutations(cardGrid, throttleLogic, {log: true});
 						cardGrid[classList].add(isBindedMinigridCardClass);
 					}
 				};
