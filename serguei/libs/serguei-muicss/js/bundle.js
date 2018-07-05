@@ -465,8 +465,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 		var isFixedClass = "is-fixed";
 		var isHiddenClass = "is-hidden";
 		var isBindedIframeLightboxLinkClass = "is-binded-iframe-lightbox-link";
-		var isBindedMinigridCardClass;
-		isBindedMinigridCardClass = "is-binded-minigrid-card";
+		var isBindedMinigridCardClass = "is-binded-minigrid-card";
 		var isCollapsableClass = "is-collapsable";
 		var isActiveDisqusThreadClass = "is-active-disqus-thread";
 
@@ -1328,25 +1327,45 @@ unescape, verge, VK, WheelIndicator, Ya*/
 
 		var mgrid;
 
-		var updateMinigrid = function (delay, parentIsActive) {
+		var updateMinigrid = function (delay, callback) {
+			var cb = function () {
+				return callback && "function" === typeof callback && callback();
+			};
 			var timeout = delay || 100;
+			var logThis;
+			logThis = function () {
+				console.log("updateMinigrid");
+			};
 			if (mgrid) {
 				var timer = setTimeout(function () {
 						clearTimeout(timer);
 						timer = null;
+						logThis();
 						mgrid.mount();
+						cb();
 					}, timeout);
-				if (parentIsActive && parentIsActive.nodeName) {
-					parentIsActive[classList].add(isActiveClass);
-				}
 			}
 		};
 
-		var updateMinigridOnHeightChange = function (e, tresholdHeight) {
+		var updateMinigridThrottled = throttle(updateMinigrid, 2000);
+
+		var setIsActiveClass = function (e) {
+			if (e && e.nodeName && !e[classList].contains(isActiveClass)) {
+				e[classList].add(isActiveClass);
+			}
+		};
+
+		var triggerOnHeightChange = function (e, delay, tresholdHeight, callback) {
+			var cb = function () {
+				return callback && "function" === typeof callback && callback();
+			};
 			var keyHeight = tresholdHeight || 108;
 			var logThis;
-			logThis = function (height) {
-				console.log(timer,
+			logThis = function (timer, slot, height) {
+				console.log("triggerOnHeightChange:",
+					timer,
+					slot,
+					keyHeight,
 					e.nodeName ? e.nodeName : "",
 					e.className ? "." + e.className : "",
 					e.id ? "#" + e.id : "",
@@ -1356,8 +1375,8 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			failed - you should multiply counter
 			by set interval slot
 			to get milliseconds */
-			var counter = 40;
-			var slot = 200;
+			var counter = 8;
+			var slot = delay || 100;
 			var timer = setInterval(function () {
 					counter--;
 					if (counter === 0) {
@@ -1365,33 +1384,17 @@ unescape, verge, VK, WheelIndicator, Ya*/
 						timer = null;
 					}
 					var height = e.clientHeight || e.offsetHeight || "";
-					logThis(height);
+					/* logThis(timer, slot, height); */
 					if (keyHeight < height) {
 						clearInterval(timer);
 						timer = null;
-						logThis(height);
-						updateMinigrid();
+						logThis(timer, slot, height);
+						cb();
 					}
 				}, slot);
 		};
 
-		var handleDisqusEmbedInMinigrid = function (callback) {
-			var cb = function () {
-				return callback && "function" === typeof callback && callback();
-			};
-			/* var disqusThread = document[getElementById]("disqus_thread") || "";
-			if (disqusThread[parentNode]) {
-				if (!disqusThread[parentNode][classList].contains(isBindedMinigridCardClass)) {
-					observeMutations(disqusThread[parentNode], updateMinigrid.bind(null, false, disqusThread[parentNode]));
-					disqusThread[parentNode][classList].add(isBindedMinigridCardClass);
-				}
-			} */
-			cb();
-		};
-		var manageDisqusEmbed = function (callback) {
-			var cb = function () {
-				return callback && "function" === typeof callback && callback();
-			};
+		var manageDisqusEmbed = function () {
 			var disqusThread = document[getElementById]("disqus_thread") || "";
 			var locationHref = root.location.href || "";
 			var disqusThreadShortname = disqusThread ? (disqusThread[dataset].shortname || "") : "";
@@ -1401,9 +1404,11 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				replacementText[appendChild](document[createTextNode]("Комментарии доступны только в веб версии этой страницы."));
 				appendFragment(replacementText, disqusThread);
 				disqusThread.removeAttribute("id");
-
 			};
 			var initScript = function () {
+				var setDisqusCSSClass = function () {
+					disqusThread[classList].add(isActiveDisqusThreadClass);
+				};
 				if (root.DISQUS) {
 					try {
 						DISQUS.reset({
@@ -1413,8 +1418,11 @@ unescape, verge, VK, WheelIndicator, Ya*/
 								this.page.url = locationHref;
 							}
 						});
-						disqusThread[classList].add(isActiveDisqusThreadClass);
-						updateMinigridOnHeightChange(disqusThread[parentNode]);
+						if (!disqusThread[parentNode][classList].contains(isBindedMinigridCardClass)) {
+							disqusThread[parentNode][classList].add(isBindedMinigridCardClass);
+							triggerOnHeightChange(disqusThread[parentNode], 1000, null, setDisqusCSSClass);
+							disqusThread[parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
+						}
 					} catch (err) {
 						/* console.log("cannot DISQUS.reset", err); */
 					}
@@ -1422,56 +1430,34 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			};
 			if (disqusThread && disqusThreadShortname && locationHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					handleDisqusEmbedInMinigrid(function () {
-						var jsUrl = forcedHTTP + "://" + disqusThreadShortname + ".disqus.com/embed.js";
-						if (!scriptIsLoaded(jsUrl)) {
-							var load;
-							load = new loadJsCss([jsUrl], initScript);
-						} else {
-							initScript();
-						}
-					});
+					var jsUrl = forcedHTTP + "://" + disqusThreadShortname + ".disqus.com/embed.js";
+					if (!scriptIsLoaded(jsUrl)) {
+						var load;
+						load = new loadJsCss([jsUrl], initScript);
+					} else {
+						initScript();
+					}
 				} else {
 					hideDisqusThread();
 				}
 			}
-			cb();
 		};
 
-		var handleInstagramEmbedInMinigrid = function (callback) {
-			var cb = function () {
-				return callback && "function" === typeof callback && callback();
-			};
-			/* var instagramMedia = document[getElementsByClassName]("instagram-media") || "";
-			if (instagramMedia) {
-				var i,
-				l;
-				for (i = 0, l = instagramMedia[_length]; i < l; i += 1) {
-					if (instagramMedia[i][parentNode] && !instagramMedia[i][parentNode][classList].contains(isBindedMinigridCardClass)) {
-						observeMutations(instagramMedia[i][parentNode], updateMinigrid.bind(null, false, instagramMedia[i][parentNode]));
-						instagramMedia[i][parentNode][classList].add(isBindedMinigridCardClass);
-					}
-				}
-			} */
-			cb();
-		};
-		var manageInstagramEmbeds = function (callback) {
-			var cb = function () {
-				return callback && "function" === typeof callback && callback();
-			};
+		var manageInstagramEmbeds = function () {
 			var instagramMedia = document[getElementsByClassName]("instagram-media")[0] || "";
 			var initScript = function () {
 				if (root.instgrm) {
 					try {
-						instgrm.Embeds.process();
 						var instagramMedia = document[getElementsByClassName]("instagram-media") || "";
 						if (instagramMedia) {
+							instgrm.Embeds.process();
 							var i,
 							l;
 							for (i = 0, l = instagramMedia[_length]; i < l; i += 1) {
-								if (!instagramMedia[i][classList].contains(isBindedClass)) {
-									instagramMedia[i][classList].add(isBindedClass);
-									updateMinigridOnHeightChange(instagramMedia[i][parentNode]);
+								if (!instagramMedia[i][classList].contains(isBindedMinigridCardClass)) {
+									instagramMedia[i][classList].add(isBindedMinigridCardClass);
+									triggerOnHeightChange(instagramMedia[i][parentNode], 1000, null, setIsActiveClass.bind(null, instagramMedia[i][parentNode]));
+									instagramMedia[i][parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
 								}
 							}
 						}
@@ -1481,53 +1467,31 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				}
 			};
 			if (instagramMedia) {
-				handleInstagramEmbedInMinigrid(function () {
-					var jsUrl = forcedHTTP + "://www.instagram.com/embed.js";
-					if (!scriptIsLoaded(jsUrl)) {
-						var load;
-						load = new loadJsCss([jsUrl], initScript);
-					} else {
-						initScript();
-					}
-				});
+				var jsUrl = forcedHTTP + "://www.instagram.com/embed.js";
+				if (!scriptIsLoaded(jsUrl)) {
+					var load;
+					load = new loadJsCss([jsUrl], initScript);
+				} else {
+					initScript();
+				}
 			}
-			cb();
 		};
 
-		var handleTwitterEmbedInMinigrid = function (callback) {
-			var cb = function () {
-				return callback && "function" === typeof callback && callback();
-			};
-			/* var twitterTweet = document[getElementsByClassName]("twitter-tweet") || "";
-			if (twitterTweet) {
-				var i,
-				l;
-				for (i = 0, l = twitterTweet[_length]; i < l; i += 1) {
-					if (twitterTweet[i][parentNode] && !twitterTweet[i][parentNode][classList].contains(isBindedMinigridCardClass)) {
-						observeMutations(twitterTweet[i][parentNode], updateMinigrid.bind(null, false, twitterTweet[i][parentNode]));
-						twitterTweet[i][parentNode][classList].add(isBindedMinigridCardClass);
-					}
-				}
-			} */
-			cb();
-		};
-		var manageTwitterEmbeds = function (callback) {
-			var cb = function () {
-				return callback && "function" === typeof callback && callback();
-			};
+		var manageTwitterEmbeds = function () {
 			var twitterTweet = document[getElementsByClassName]("twitter-tweet")[0] || "";
 			var initScript = function () {
 				if (root.twttr) {
 					try {
-						twttr.widgets.load();
 						var twitterTweet = document[getElementsByClassName]("twitter-tweet") || "";
 						if (twitterTweet) {
+							twttr.widgets.load();
 							var i,
 							l;
 							for (i = 0, l = twitterTweet[_length]; i < l; i += 1) {
-								if (!twitterTweet[i][classList].contains(isBindedClass)) {
-									twitterTweet[i][classList].add(isBindedClass);
-									updateMinigridOnHeightChange(twitterTweet[i][parentNode]);
+								if (!twitterTweet[i][classList].contains(isBindedMinigridCardClass)) {
+									twitterTweet[i][classList].add(isBindedMinigridCardClass);
+									triggerOnHeightChange(twitterTweet[i][parentNode], 1000, null, setIsActiveClass.bind(null, twitterTweet[i][parentNode]));
+									twitterTweet[i][parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
 								}
 							}
 						}
@@ -1537,40 +1501,17 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				}
 			};
 			if (twitterTweet) {
-				handleTwitterEmbedInMinigrid(function () {
-					var jsUrl = forcedHTTP + "://platform.twitter.com/widgets.js";
-					if (!scriptIsLoaded(jsUrl)) {
-						var load;
-						load = new loadJsCss([jsUrl], initScript);
-					} else {
-						initScript();
-					}
-				});
+				var jsUrl = forcedHTTP + "://platform.twitter.com/widgets.js";
+				if (!scriptIsLoaded(jsUrl)) {
+					var load;
+					load = new loadJsCss([jsUrl], initScript);
+				} else {
+					initScript();
+				}
 			}
-			cb();
 		};
 
-		var handleVkEmbedInMinigrid = function (callback) {
-			var cb = function () {
-				return callback && "function" === typeof callback && callback();
-			};
-			/* var vkPost = document[getElementsByClassName]("vk-post") || "";
-			if (vkPost) {
-				var i,
-				l;
-				for (i = 0, l = vkPost[_length]; i < l; i += 1) {
-					if (vkPost[i][parentNode] && !vkPost[i][parentNode][classList].contains(isBindedMinigridCardClass)) {
-						observeMutations(vkPost[i][parentNode], updateMinigrid.bind(null, false, vkPost[i][parentNode]));
-						vkPost[i][parentNode][classList].add(isBindedMinigridCardClass);
-					}
-				}
-			} */
-			cb();
-		};
-		var manageVkEmbeds = function (callback) {
-			var cb = function () {
-				return callback && "function" === typeof callback && callback();
-			};
+		var manageVkEmbeds = function () {
 			var vkPost = document[getElementsByClassName]("vk-post")[0] || "";
 			var initScript = function () {
 				var initVkPost = function (element_id, owner_id, post_id, hash) {
@@ -1585,10 +1526,11 @@ unescape, verge, VK, WheelIndicator, Ya*/
 							var i,
 							l;
 							for (i = 0, l = vkPost[_length]; i < l; i += 1) {
-								if (!vkPost[i][classList].contains(isBindedClass)) {
+								if (!vkPost[i][classList].contains(isBindedMinigridCardClass)) {
+									vkPost[i][classList].add(isBindedMinigridCardClass);
+									triggerOnHeightChange(vkPost[i][parentNode], 1000, null, setIsActiveClass.bind(null, vkPost[i][parentNode]));
+									vkPost[i][parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
 									initVkPost(vkPost[i].id, vkPost[i][dataset].vkOwnerid, vkPost[i][dataset].vkPostid, vkPost[i][dataset].vkHash);
-									vkPost[i][classList].add(isBindedClass);
-									updateMinigridOnHeightChange(vkPost[i][parentNode]);
 								}
 							}
 						}
@@ -1598,17 +1540,14 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				}
 			};
 			if (vkPost) {
-				handleVkEmbedInMinigrid(function () {
-					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
-					if (!scriptIsLoaded(jsUrl)) {
-						var load;
-						load = new loadJsCss([jsUrl], initScript);
-					} else {
-						initScript();
-					}
-				});
+				var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
+				if (!scriptIsLoaded(jsUrl)) {
+					var load;
+					load = new loadJsCss([jsUrl], initScript);
+				} else {
+					initScript();
+				}
 			}
-			cb();
 		};
 
 		var cardWrapClass = "card-wrap";
@@ -1649,9 +1588,13 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				};
 				var cardGrid = document[getElementsByClassName](cardGridClass)[0] || "";
 				var updateMinigridOnMutations = function () {
-					if (!cardGrid[classList].contains(isBindedMinigridCardClass)) {
-						observeMutations(cardGrid, updateMinigrid.bind(null, 2000), {log: true});
-						cardGrid[classList].add(isBindedMinigridCardClass);
+					if (!cardGrid[classList].contains(isBindedClass)) {
+						/*!
+						 * execute this function at most once every ... milliseconds
+						 */
+						/* var throttleLogic = throttle(updateMinigrid.bind(null, 2000), 2000);
+						observeMutations(cardGrid, throttleLogic, {log: false}); */
+						cardGrid[classList].add(isBindedClass);
 					}
 				};
 				var onMinigridCreated = function () {
