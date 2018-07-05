@@ -197,43 +197,6 @@ ToProgress, unescape, VK, Ya*/
 	root.ToProgress = ToProgress;
 })("undefined" !== typeof window ? window : this, document);
 /*!
- * Timer management (setInterval / setTimeout)
- * @param {Function} fn
- * @param {Number} ms
- * var timers = new Timers();
- * timers.timeout(function () {
- * console.log("before:", timers);
- * timers.clear();
- * timers = null;
- * doSomething();
- * console.log("after:", timers);
- * }, 3000);
- * @see {@link https://github.com/component/timers}
- * @see {@link https://github.com/component/timers/blob/master/index.js}
- * passes jshint
- */
-(function (root) {
-	"use strict";
-	var Timers = function (ids) {
-		this.ids = ids || [];
-	};
-	Timers.prototype.timeout = function (fn, ms) {
-		var id = setTimeout(fn, ms);
-		this.ids.push(id);
-		return id;
-	};
-	Timers.prototype.interval = function (fn, ms) {
-		var id = setInterval(fn, ms);
-		this.ids.push(id);
-		return id;
-	};
-	Timers.prototype.clear = function () {
-		this.ids.forEach(clearTimeout);
-		this.ids = [];
-	};
-	root.Timers = Timers;
-})("undefined" !== typeof window ? window : this, document);
-/*!
  * modified Detect Whether a Font is Installed
  * @param {String} fontName The name of the font to check
  * @return {Boolean}
@@ -934,10 +897,9 @@ ToProgress, unescape, VK, Ya*/
 			var holderPanelMenuMore = document[getElementsByClassName]("holder-panel-menu-more")[0] || "";
 			var isActiveClass = "is-active";
 			if (holderPanelMenuMore) {
-				var timers = new Timers();
-				timers.timeout(function () {
-					timers.clear();
-					timers = null;
+				var timer = setTimeout(function () {
+					clearTimeout(timer);
+					timer = null;
 					holderPanelMenuMore[classList].add(isActiveClass);
 				}, 2000);
 			}

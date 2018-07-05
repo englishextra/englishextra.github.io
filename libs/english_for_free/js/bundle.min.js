@@ -249,43 +249,6 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 	root.imagePromise = imagePromise;
 })("undefined" !== typeof window ? window : this);
 /*!
- * Timer management (setInterval / setTimeout)
- * @param {Function} fn
- * @param {Number} ms
- * var timers = new Timers();
- * timers.timeout(function () {
- * console.log("before:", timers);
- * timers.clear();
- * timers = null;
- * doSomething();
- * console.log("after:", timers);
- * }, 3000);
- * @see {@link https://github.com/component/timers}
- * @see {@link https://github.com/component/timers/blob/master/index.js}
- * passes jshint
- */
-(function (root) {
-	"use strict";
-	var Timers = function (ids) {
-		this.ids = ids || [];
-	};
-	Timers.prototype.timeout = function (fn, ms) {
-		var id = setTimeout(fn, ms);
-		this.ids.push(id);
-		return id;
-	};
-	Timers.prototype.interval = function (fn, ms) {
-		var id = setInterval(fn, ms);
-		this.ids.push(id);
-		return id;
-	};
-	Timers.prototype.clear = function () {
-		this.ids.forEach(clearTimeout);
-		this.ids = [];
-	};
-	root.Timers = Timers;
-})("undefined" !== typeof window ? window : this, document);
-/*!
  * modified Detect Whether a Font is Installed
  * @param {String} fontName The name of the font to check
  * @return {Boolean}
@@ -928,9 +891,9 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			root[_removeEventListener]("resize", handleDataSrcImageAllWindow);
 			root[_addEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
 			root[_addEventListener]("resize", handleDataSrcImageAllWindow);
-			var timers = setTimeout(function () {
-					clearTimeout(timers);
-					timers = null;
+			var timer = setTimeout(function () {
+					clearTimeout(timer);
+					timer = null;
 					handleDataSrcImageAll();
 				}, 500);
 		};
@@ -984,10 +947,9 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 				setStyleDisplayBlock(sCurDesc);
 				var sRevealPos = _this.offsetTop;
 				var sHidePos = root.pageYOffset || docElem.scrollTop;
-				var timers = new Timers();
-				timers.timeout(function () {
-					timers.clear();
-					timers = null;
+				var timer = setTimeout(function () {
+					clearTimeout(timer);
+					timer = null;
 					scroll2Top(sRevealPos, 20000);
 				}, 100);
 				sCurDesc[classList].add(an);
@@ -1037,18 +999,16 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 				 */
 				var sClose = sCurDesc ? sCurDesc[getElementsByClassName](s4)[0] || "" : "";
 				var doOnClose = function () {
-					var timers = new Timers();
-					timers.timeout(function () {
-						timers.clear();
-						timers = null;
+					var timer = setTimeout(function () {
+						clearTimeout(timer);
+						timer = null;
 						scroll2Top(sHidePos, 20000);
 					}, 100);
 					sCurDesc[classList].remove(an1);
 					sCurDesc[classList].add(an2);
-					var timers2 = new Timers();
-					timers2.timeout(function () {
-						timers2.clear();
-						timers2 = null;
+					var timer2 = setTimeout(function () {
+						clearTimeout(timer2);
+						timer2 = null;
 						setStyleDisplayNone(sCurDesc);
 						setStyleDisplayNone(sShow);
 						sCurDesc[classList].remove(an);

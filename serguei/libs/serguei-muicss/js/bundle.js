@@ -732,9 +732,9 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				},
 				hide: function (callback, timeout) {
 					var delay = timeout || 500;
-					var timers = setTimeout(function () {
-						clearTimeout(timers);
-						timers = null;
+					var timer = setTimeout(function () {
+						clearTimeout(timer);
+						timer = null;
 						spinner[style].display = "none";
 						if (callback && "function" === typeof callback) {
 							callback();
@@ -1021,9 +1021,9 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			root[_removeEventListener]("resize", handleDataSrcImageAllWindow);
 			root[_addEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
 			root[_addEventListener]("resize", handleDataSrcImageAllWindow);
-			var timers = setTimeout(function () {
-					clearTimeout(timers);
-					timers = null;
+			var timer = setTimeout(function () {
+					clearTimeout(timer);
+					timer = null;
 					handleDataSrcImageAll();
 				}, 500);
 		};
@@ -1075,9 +1075,9 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			root[_removeEventListener]("resize", handleDataSrcIframeAllWindow);
 			root[_addEventListener]("scroll", handleDataSrcIframeAllWindow, {passive: true});
 			root[_addEventListener]("resize", handleDataSrcIframeAllWindow);
-			var timers = setTimeout(function () {
-					clearTimeout(timers);
-					timers = null;
+			var timer = setTimeout(function () {
+					clearTimeout(timer);
+					timer = null;
 					handleDataSrcIframeAll();
 				}, 500);
 		};
@@ -1300,9 +1300,9 @@ unescape, verge, VK, WheelIndicator, Ya*/
 						}
 						if (callback && "function" === typeof callback) {
 							if (options.timeout && "number" === typeof options.timeout) {
-								var timers = setTimeout(function () {
-									clearTimeout(timers);
-									timers = null;
+								var timer = setTimeout(function () {
+									clearTimeout(timer);
+									timer = null;
 									callback();
 								}, options.timeout);
 							} else {
@@ -1331,9 +1331,9 @@ unescape, verge, VK, WheelIndicator, Ya*/
 		var updateMinigrid = function (delay, parentIsActive) {
 			var timeout = delay || 100;
 			if (mgrid) {
-				var timers = setTimeout(function () {
-						clearTimeout(timers);
-						timers = null;
+				var timer = setTimeout(function () {
+						clearTimeout(timer);
+						timer = null;
 						mgrid.mount();
 					}, timeout);
 				if (parentIsActive && parentIsActive.nodeName) {
@@ -2207,9 +2207,9 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				onContentInserted: function (jsonObj, titleString) {
 					document[title] = (titleString ? titleString + " - " : "") + (initialDocumentTitle ? initialDocumentTitle + (userBrowsingDetails ? userBrowsingDetails : "") : "");
 					if (appContentParent) {
-						var timers = setTimeout(function () {
-							clearTimeout(timers);
-							timers = null;
+						var timer = setTimeout(function () {
+							clearTimeout(timer);
+							timer = null;
 							manageMinigrid().then(function () {
 								manageDisqusEmbed();
 							}).then(function () {

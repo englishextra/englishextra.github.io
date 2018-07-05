@@ -3112,7 +3112,7 @@ u,
 	left: 0;
 }
 
-.app-content {
+.card-wrap {
 	width: 100%;
 	height: 100%;
 }
@@ -4724,7 +4724,7 @@ u,
  * html,body {height: auto;}
  * body{overflow-x: visible;}
  * .col .holder-hidden-layer,.js .col .holder-hidden-layer {max-height: 100%;overflow-y: visible;}
- * .container .content-wrapper,.app-content .content-wrapper {position: relative;}
+ * .container .content-wrapper,.card-wrap .content-wrapper {position: relative;}
  */
 
 @media print {
@@ -5034,7 +5034,7 @@ u,
 	.container, */
 
 	.container .content-wrapper,
-	.app-content .content-wrapper {
+	.card-wrap .content-wrapper {
 		position: relative;
 	}
 

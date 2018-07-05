@@ -307,43 +307,6 @@ Ya*/
 	root.imagePromise = imagePromise;
 })("undefined" !== typeof window ? window : this);
 /*!
- * Timer management (setInterval / setTimeout)
- * @param {Function} fn
- * @param {Number} ms
- * var timers = new Timers();
- * timers.timeout(function () {
- * console.log("before:", timers);
- * timers.clear();
- * timers = null;
- * doSomething();
- * console.log("after:", timers);
- * }, 3000);
- * @see {@link https://github.com/component/timers}
- * @see {@link https://github.com/component/timers/blob/master/index.js}
- * passes jshint
- */
-(function (root) {
-	"use strict";
-	var Timers = function (ids) {
-		this.ids = ids || [];
-	};
-	Timers.prototype.timeout = function (fn, ms) {
-		var id = setTimeout(fn, ms);
-		this.ids.push(id);
-		return id;
-	};
-	Timers.prototype.interval = function (fn, ms) {
-		var id = setInterval(fn, ms);
-		this.ids.push(id);
-		return id;
-	};
-	Timers.prototype.clear = function () {
-		this.ids.forEach(clearTimeout);
-		this.ids = [];
-	};
-	root.Timers = Timers;
-})("undefined" !== typeof window ? window : this, document);
-/*!
  * modified Detect Whether a Font is Installed
  * @param {String} fontName The name of the font to check
  * @return {Boolean}
@@ -807,15 +770,14 @@ Ya*/
 				},
 				hide: function (callback, timeout) {
 					var delay = timeout || 500;
-					var timers = new Timers();
-					timers.timeout(function () {
-						timers.clear();
-						timers = null;
-						docBody[classList].remove(isActiveClass);
-						if (callback && "function" === typeof callback) {
-							callback();
-						}
-					}, delay);
+					var timer = setTimeout(function () {
+							clearTimeout(timer);
+							timer = null;
+							docBody[classList].remove(isActiveClass);
+							if (callback && "function" === typeof callback) {
+								callback();
+							}
+						}, delay);
 				}
 			};
 		})();
@@ -1191,9 +1153,9 @@ Ya*/
 			root[_removeEventListener]("resize", handleDataSrcImageAllWindow);
 			root[_addEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
 			root[_addEventListener]("resize", handleDataSrcImageAllWindow);
-			var timers = setTimeout(function () {
-					clearTimeout(timers);
-					timers = null;
+			var timer = setTimeout(function () {
+					clearTimeout(timer);
+					timer = null;
 					handleDataSrcImageAll();
 				}, 500);
 		};
@@ -1244,9 +1206,9 @@ Ya*/
 			root[_removeEventListener]("resize", handleDataSrcIframeAllWindow);
 			root[_addEventListener]("scroll", handleDataSrcIframeAllWindow, {passive: true});
 			root[_addEventListener]("resize", handleDataSrcIframeAllWindow);
-			var timers = setTimeout(function () {
-					clearTimeout(timers);
-					timers = null;
+			var timer = setTimeout(function () {
+					clearTimeout(timer);
+					timer = null;
 					handleDataSrcIframeAll();
 				}, 500);
 		};
@@ -1292,20 +1254,18 @@ Ya*/
 					img.src = dummySrc;
 					container[style].display = "none";
 				};
-				var timers = new Timers();
-				timers.timeout(function () {
-					timers.clear();
-					timers = null;
+				var timer = setTimeout(function () {
+					clearTimeout(timer);
+					timer = null;
 					hideImg();
 				}, 400);
 			};
 			if (container && img) {
 				img[classList].remove(fadeInUpClass);
 				img[classList].add(fadeOutDownClass);
-				var timers = new Timers();
-				timers.timeout(function () {
-					timers.clear();
-					timers = null;
+				var timer = setTimeout(function () {
+					clearTimeout(timer);
+					timer = null;
 					hideContainer();
 				}, 400);
 			}
@@ -1583,10 +1543,9 @@ Ya*/
 							});
 					}
 				}
-				var timers = new Timers();
-				timers.timeout(function () {
-					timers.clear();
-					timers = null;
+				var timer = setTimeout(function () {
+					clearTimeout(timer);
+					timer = null;
 					if ("undefined" !== typeof msnry && msnry) {
 						msnry.layout();
 					} else {
@@ -1760,10 +1719,9 @@ Ya*/
 				appendFragment(notibarContainer, docBody);
 				notibarContainer[classList].remove(fadeOutUpClass);
 				notibarContainer[classList].add(fadeInDownClass);
-				var timers = new Timers();
-				timers.timeout(function () {
-					timers.clear();
-					timers = null;
+				var timer = setTimeout(function () {
+					clearTimeout(timer);
+					timer = null;
 					hideMessage();
 				}, settings.timeout);
 			}
@@ -1775,10 +1733,9 @@ Ya*/
 			var cookieDatum = "Выбрать статью можно щелкнув по самофиксирующейся планке с заголовком текущей страницы.";
 			var locationOrigin = parseLink(root.location.href).origin;
 			var arrange = function () {
-				var timers = new Timers();
-				timers.timeout(function () {
-					timers.clear();
-					timers = null;
+				var timer = setTimeout(function () {
+					clearTimeout(timer);
+					timer = null;
 					var msgObj = document[createElement]("a");
 					/* jshint -W107 */
 					msgObj.href = "javascript:void(0);";
@@ -2103,10 +2060,9 @@ Ya*/
 							});
 						if (carouselRenderParent) {
 							manageExternalLinkAll(carouselRenderParent);
-							var timers = new Timers();
-							timers.timeout(function () {
-								timers.clear();
-								timers = null;
+							var timer = setTimeout(function () {
+								clearTimeout(timer);
+								timer = null;
 								handleDataSrcImageAll();
 							}, 500);
 						}
@@ -2510,10 +2466,9 @@ Ya*/
 							insertFromTemplate(asideObj, asideTemplateId, asideRenderId, function () {
 								if (asideRenderParent) {
 									manageExternalLinkAll(asideRenderParent);
-									var timers = new Timers();
-									timers.timeout(function () {
-										timers.clear();
-										timers = null;
+									var timer = setTimeout(function () {
+										clearTimeout(timer);
+										timer = null;
 										handleDataSrcImageAll();
 									}, 500);
 								}
@@ -2558,10 +2513,9 @@ Ya*/
 								if (contentsGridRenderParent) {
 									initMasonry(contentsGridRenderParent);
 									manageExternalLinkAll(contentsGridRenderParent);
-									var timers = new Timers();
-									timers.timeout(function () {
-										timers.clear();
-										timers = null;
+									var timer = setTimeout(function () {
+										clearTimeout(timer);
+										timer = null;
 										handleDataSrcImageAll();
 									}, 500);
 								}
@@ -2575,18 +2529,17 @@ Ya*/
 					 * put when templates rendered
 					 */
 					if (appContentParent) {
-						var timers = new Timers();
-						timers.timeout(function () {
-							timers.clear();
-							timers = null;
-							handleDataSrcIframeAll();
-							handleDataSrcImageAll();
-							manageExternalLinkAll(appContentParent);
-							manageImgLightboxLinkAll(appContentParent);
-							manageIframeLightboxLinkAll(appContentParent);
-							manageChaptersSelect(appContentParent);
-							manageExpandingLayers(appContentParent);
-						}, 100);
+						var timer = setTimeout(function () {
+								clearTimeout(timer);
+								timer = null;
+								handleDataSrcIframeAll();
+								handleDataSrcImageAll();
+								manageExternalLinkAll(appContentParent);
+								manageImgLightboxLinkAll(appContentParent);
+								manageIframeLightboxLinkAll(appContentParent);
+								manageChaptersSelect(appContentParent);
+								manageExpandingLayers(appContentParent);
+							}, 100);
 					}
 					LoadingSpinner.hide(scroll2Top.bind(null, 0, 20000));
 				};
