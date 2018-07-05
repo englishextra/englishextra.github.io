@@ -1569,7 +1569,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 					clearTimeout(timer);
 					timer = null;
 					handleDataSrcImageAll();
-				}, 500);
+				}, 100);
 		};
 		manageDataSrcImageAll();
 		/* root[_addEventListener]("load", manageDataSrcImageAll); */

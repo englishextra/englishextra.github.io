@@ -1157,7 +1157,7 @@ Ya*/
 					clearTimeout(timer);
 					timer = null;
 					handleDataSrcImageAll();
-				}, 500);
+				}, 100);
 		};
 		manageDataSrcImageAll();
 		/* root[_addEventListener]("load", manageDataSrcImageAll); */
@@ -1210,7 +1210,7 @@ Ya*/
 					clearTimeout(timer);
 					timer = null;
 					handleDataSrcIframeAll();
-				}, 500);
+				}, 100);
 		};
 		manageDataSrcIframeAll();
 		/* root[_addEventListener]("load", manageDataSrcIframeAll); */

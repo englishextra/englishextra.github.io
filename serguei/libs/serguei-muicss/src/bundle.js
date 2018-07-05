@@ -1024,7 +1024,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 					clearTimeout(timer);
 					timer = null;
 					handleDataSrcImageAll();
-				}, 500);
+				}, 100);
 		};
 		manageDataSrcImageAll();
 
@@ -1078,7 +1078,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 					clearTimeout(timer);
 					timer = null;
 					handleDataSrcIframeAll();
-				}, 500);
+				}, 100);
 		};
 		manageDataSrcIframeAll();
 
@@ -2088,6 +2088,32 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			}
 		}); */
 
+		var managePrevNextLinks = function (jsonObj) {
+			var btnPrevPage = document[getElementsByClassName]("btn-prev-page")[0] || "";
+			var btnNextPage = document[getElementsByClassName]("btn-next-page")[0] || "";
+			if (btnPrevPage && btnNextPage) {
+				var locationHash = root.location.hash || "";
+				var prevHash;
+				var nextHash;
+				if (locationHash) {
+					for (var i = 0, l = jsonObj.hashes[_length]; i < l; i += 1) {
+						if (locationHash === jsonObj.hashes[i].href) {
+							prevHash = i > 0 ? jsonObj.hashes[i - 1].href : jsonObj.hashes[jsonObj.hashes[_length] - 1].href;
+							nextHash = jsonObj.hashes[_length] > i + 1 ? jsonObj.hashes[i + 1].href : jsonObj.hashes[0].href;
+							break;
+						}
+					}
+				} else {
+					prevHash = jsonObj.hashes[jsonObj.hashes[_length] - 1].href;
+					nextHash = jsonObj.hashes[1].href;
+				}
+				if (prevHash && nextHash) {
+					btnPrevPage.href = prevHash;
+					btnNextPage.href = nextHash;
+				}
+			}
+		};
+
 		var jhrouter;
 		jhrouter = new JsonHashRouter("./libs/serguei-muicss/json/navigation.min.json", appContentId, {
 				jsonHomePropName: "home",
@@ -2150,10 +2176,21 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				onContentInserted: function (jsonObj, titleString) {
 					document[title] = (titleString ? titleString + " - " : "") + (initialDocumentTitle ? initialDocumentTitle + (userBrowsingDetails ? userBrowsingDetails : "") : "");
 					if (appContentParent) {
+						managePrevNextLinks(jsonObj);
+						manageExternalLinkAll(appContentParent);
+						manageImgLightboxLinkAll(appContentParent);
+						manageIframeLightboxLinkAll(appContentParent);
+						manageDropdownButtonAll(appContentParent);
+						manageHljsCodeAll(appContentParent);
+						manageRippleEffect();
+						highlightSidedrawerItem();
 						var timer = setTimeout(function () {
 							clearTimeout(timer);
 							timer = null;
 							manageMinigrid().then(function () {
+								handleDataSrcIframeAll(appContentParent);
+								handleDataSrcImageAll(appContentParent);
+							}).then(function () {
 								manageDisqusEmbed();
 							}).then(function () {
 								manageInstagramEmbeds();
@@ -2164,38 +2201,6 @@ unescape, verge, VK, WheelIndicator, Ya*/
 							}).catch (function (err) {
 								console.log("fail: manageMinigrid", err);
 							});
-							handleDataSrcIframeAll(appContentParent);
-							handleDataSrcImageAll(appContentParent);
-							manageExternalLinkAll(appContentParent);
-							manageImgLightboxLinkAll(appContentParent);
-							manageIframeLightboxLinkAll(appContentParent);
-							manageDropdownButtonAll(appContentParent);
-							manageHljsCodeAll(appContentParent);
-							manageRippleEffect();
-							highlightSidedrawerItem();
-							var btnPrevPage = document[getElementsByClassName]("btn-prev-page")[0] || "";
-							var btnNextPage = document[getElementsByClassName]("btn-next-page")[0] || "";
-							if (btnPrevPage && btnNextPage) {
-								var locationHash = root.location.hash || "";
-								var prevHash;
-								var nextHash;
-								if (locationHash) {
-									for (var i = 0, l = jsonObj.hashes[_length]; i < l; i += 1) {
-										if (locationHash === jsonObj.hashes[i].href) {
-											prevHash = i > 0 ? jsonObj.hashes[i - 1].href : jsonObj.hashes[jsonObj.hashes[_length] - 1].href;
-											nextHash = jsonObj.hashes[_length] > i + 1 ? jsonObj.hashes[i + 1].href : jsonObj.hashes[0].href;
-											break;
-										}
-									}
-								} else {
-									prevHash = jsonObj.hashes[jsonObj.hashes[_length] - 1].href;
-									nextHash = jsonObj.hashes[1].href;
-								}
-								if (prevHash && nextHash) {
-									btnPrevPage.href = prevHash;
-									btnNextPage.href = nextHash;
-								}
-							}
 						}, 100);
 					}
 					LoadingSpinner.hide();

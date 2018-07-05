@@ -895,7 +895,7 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 					clearTimeout(timer);
 					timer = null;
 					handleDataSrcImageAll();
-				}, 500);
+				}, 100);
 		};
 		manageDataSrcImageAll();
 

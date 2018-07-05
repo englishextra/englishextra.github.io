@@ -1351,7 +1351,7 @@ Ya*/
 					clearTimeout(timer);
 					timer = null;
 					handleDataSrcImageAll();
-				}, 500);
+				}, 100);
 		};
 		manageDataSrcImageAll();
 
@@ -1400,7 +1400,7 @@ Ya*/
 					clearTimeout(timer);
 					timer = null;
 					handleDataSrcIframeAll();
-				}, 500);
+				}, 100);
 		};
 		manageDataSrcIframeAll();
 

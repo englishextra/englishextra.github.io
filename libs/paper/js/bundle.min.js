@@ -1249,7 +1249,7 @@ ToProgress, unescape, verge, VK, Ya*/
 					clearTimeout(timer);
 					timer = null;
 					handleDataSrcImageAll();
-				}, 500);
+				}, 100);
 		};
 		manageDataSrcImageAll();
 
@@ -1298,7 +1298,7 @@ ToProgress, unescape, verge, VK, Ya*/
 					clearTimeout(timer);
 					timer = null;
 					handleDataSrcIframeAll();
-				}, 500);
+				}, 100);
 		};
 		manageDataSrcIframeAll();
 
