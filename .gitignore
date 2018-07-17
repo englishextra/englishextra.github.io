@@ -7,10 +7,10 @@
 /.idea
 /.settings
 /.url
+/serguei/libs/serguei-muicss/img/sprite-english-through-movies
 intelxdk.config.additions.xml
 project-info.json
 xdk-publish-meta-data.json
 node_modules/
 *.ai
 *.psd
-/serguei/libs/serguei-muicss/img/sprite-english-through-movies
