@@ -976,10 +976,12 @@ unescape, verge, VK, WheelIndicator, Ya*/
 		};
 		manageExternalLinkAll();
 
-		var handleDataSrcImageAll = function (scope) {
-			var ctx = scope && scope.nodeName ? scope : "";
+		var handleDataSrcImageAll = function (callback) {
+			var cb = function () {
+				return callback && "function" === typeof callback && callback();
+			};
 			var dataSrcImgClass = "data-src-img";
-			var imgAll = ctx ? ctx[getElementsByClassName](dataSrcImgClass) || "" : document[getElementsByClassName](dataSrcImgClass) || "";
+			var imgAll = document[getElementsByClassName](dataSrcImgClass) || "";
 			var arrange = function (e) {
 				/*!
 				 * true if elem is in same y-axis as the viewport or within 100px of it
@@ -1000,6 +1002,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 							});
 							e[classList].add(isActiveClass);
 							e[classList].add(isBindedClass);
+							cb();
 						}
 					}
 				}
@@ -1028,10 +1031,12 @@ unescape, verge, VK, WheelIndicator, Ya*/
 		};
 		manageDataSrcImageAll();
 
-		var handleDataSrcIframeAll = function (scope) {
-			var ctx = scope && scope.nodeName ? scope : "";
+		var handleDataSrcIframeAll = function (callback) {
+			var cb = function () {
+				return callback && "function" === typeof callback && callback();
+			};
 			var dataSrcIframeClass = "data-src-iframe";
-			var iframeAll = ctx ? ctx[getElementsByClassName](dataSrcIframeClass) || "" : document[getElementsByClassName](dataSrcIframeClass) || "";
+			var iframeAll = document[getElementsByClassName](dataSrcIframeClass) || "";
 			var arrange = function (e) {
 				/*!
 				 * true if elem is in same y-axis as the viewport or within 100px of it
@@ -1054,6 +1059,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 							e[setAttribute]("mozallowfullscreen", "true");
 							e[setAttribute]("scrolling", "no");
 							e[setAttribute]("allowfullscreen", "true");
+							cb();
 						}
 					}
 				}
@@ -1340,7 +1346,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				var timer = setTimeout(function () {
 						clearTimeout(timer);
 						timer = null;
-						logThis();
+						/* logThis(); */
 						mgrid.mount();
 						cb();
 					}, timeout);
@@ -1388,7 +1394,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 					if (keyHeight < height) {
 						clearInterval(timer);
 						timer = null;
-						logThis(timer, slot, height);
+						/* logThis(timer, slot, height); */
 						cb();
 					}
 				}, slot);
@@ -2188,8 +2194,8 @@ unescape, verge, VK, WheelIndicator, Ya*/
 							clearTimeout(timer);
 							timer = null;
 							manageMinigrid().then(function () {
-								handleDataSrcIframeAll(appContentParent);
-								handleDataSrcImageAll(appContentParent);
+								handleDataSrcIframeAll(updateMinigridThrottled);
+								handleDataSrcImageAll(updateMinigridThrottled);
 							}).then(function () {
 								manageDisqusEmbed();
 							}).then(function () {
