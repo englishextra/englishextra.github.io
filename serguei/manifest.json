@@ -19,9 +19,9 @@
 	}],
 	"scope": "/serguei/",
 	"mjs_access_whitelist": [{
-		"url": "https://englishextra.gitlab.io/"
+		"url": "https://englishextra.github.io/serguei/"
 	}],
-	"start_url": "https://englishextra.gitlab.io/",
+	"start_url": "https://englishextra.github.io/serguei/",
 	"display": "standalone",
 	"orientation": "any",
 	"ms_TileColor": "#F03B4C",
