@@ -17,6 +17,7 @@ module.exports = {
 				"../../cdn/minigrid/3.1.1/js/minigrid.fixed.js",
 				//"../../cdn/t.js/0.1.0/js/t.fixed.js",
 				"./node_modules/mustache/mustache.js",
+				"../../cdn/ReadMore.js/1.0.0/js/readMoreJS.fixed.js",
 				"../../cdn/ripple-js/1.4.4/js/ripple.fixed.js"
 				//"../../cdn/highlight.js/9.12.0/js/highlight.pack.fixed.js",
 				//"../../cdn/wheel-indicator/1.1.4/js/wheel-indicator.fixed.js",
@@ -48,6 +49,7 @@ module.exports = {
 				"../../cdn/minigrid/3.1.1/js/minigrid.fixed.js",
 				//"../../cdn/t.js/0.1.0/js/t.fixed.js",
 				"./node_modules/mustache/mustache.js",
+				"../../cdn/ReadMore.js/1.0.0/js/readMoreJS.fixed.js",
 				"../../cdn/ripple-js/1.4.4/js/ripple.fixed.js"
 				//"../../cdn/highlight.js/9.12.0/js/highlight.pack.fixed.js",
 				//"../../cdn/wheel-indicator/1.1.4/js/wheel-indicator.fixed.js",

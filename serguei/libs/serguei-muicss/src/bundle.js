@@ -1460,8 +1460,8 @@ unescape, verge, VK, WheelIndicator, Ya*/
 							var i,
 							l;
 							for (i = 0, l = instagramMedia[_length]; i < l; i += 1) {
-								if (!instagramMedia[i][classList].contains(isBindedMinigridCardClass)) {
-									instagramMedia[i][classList].add(isBindedMinigridCardClass);
+								if (!instagramMedia[i][parentNode][classList].contains(isBindedMinigridCardClass)) {
+									instagramMedia[i][parentNode][classList].add(isBindedMinigridCardClass);
 									triggerOnHeightChange(instagramMedia[i][parentNode], 1000, null, setIsActiveClass.bind(null, instagramMedia[i][parentNode]));
 									instagramMedia[i][parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
 								}
@@ -1494,8 +1494,8 @@ unescape, verge, VK, WheelIndicator, Ya*/
 							var i,
 							l;
 							for (i = 0, l = twitterTweet[_length]; i < l; i += 1) {
-								if (!twitterTweet[i][classList].contains(isBindedMinigridCardClass)) {
-									twitterTweet[i][classList].add(isBindedMinigridCardClass);
+								if (!twitterTweet[i][parentNode][classList].contains(isBindedMinigridCardClass)) {
+									twitterTweet[i][parentNode][classList].add(isBindedMinigridCardClass);
 									triggerOnHeightChange(twitterTweet[i][parentNode], 1000, null, setIsActiveClass.bind(null, twitterTweet[i][parentNode]));
 									twitterTweet[i][parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
 								}
@@ -1532,8 +1532,8 @@ unescape, verge, VK, WheelIndicator, Ya*/
 							var i,
 							l;
 							for (i = 0, l = vkPost[_length]; i < l; i += 1) {
-								if (!vkPost[i][classList].contains(isBindedMinigridCardClass)) {
-									vkPost[i][classList].add(isBindedMinigridCardClass);
+								if (!vkPost[i][parentNode][classList].contains(isBindedMinigridCardClass)) {
+									vkPost[i][parentNode][classList].add(isBindedMinigridCardClass);
 									triggerOnHeightChange(vkPost[i][parentNode], 1000, null, setIsActiveClass.bind(null, vkPost[i][parentNode]));
 									vkPost[i][parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
 									initVkPost(vkPost[i].id, vkPost[i][dataset].vkOwnerid, vkPost[i][dataset].vkPostid, vkPost[i][dataset].vkHash);
@@ -1555,6 +1555,30 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				}
 			}
 		};
+
+		var manageReadMore = function () {
+			if (root.$readMoreJS) {
+				$readMoreJS.init({
+					target: ".dummy",
+					numOfWords: 12,
+					toggle: true,
+					moreLink: "Читать больше",
+					lessLink: "Сделать меньше",
+					inline: false,
+					customBlockElement: "p"
+				});
+				var rmLink = document[getElementsByClassName]("rm-link") || "";
+				if (rmLink) {
+					for (var i = 0, l = rmLink[_length]; i < l; i += 1) {
+						if (!rmLink[i][classList].contains(isBindedClass)) {
+							rmLink[i][classList].add(isBindedClass);
+							rmLink[i][_addEventListener]("click", updateMinigrid);
+						}
+					}
+				}
+			}
+		};
+		manageReadMore();
 
 		var cardWrapClass = "card-wrap";
 
@@ -1595,12 +1619,23 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				var cardGrid = document[getElementsByClassName](cardGridClass)[0] || "";
 				var updateMinigridOnMutations = function () {
 					if (!cardGrid[classList].contains(isBindedClass)) {
+						cardGrid[classList].add(isBindedClass);
 						/*!
 						 * execute this function at most once every ... milliseconds
 						 */
 						/* var throttleLogic = throttle(updateMinigrid.bind(null, 2000), 2000);
 						observeMutations(cardGrid, throttleLogic, {log: false}); */
-						cardGrid[classList].add(isBindedClass);
+						var cardWrap = document[getElementsByClassName](cardWrapClass) || "";
+						if (cardWrap) {
+							var i,
+							l;
+							for (i = 0, l = cardWrap[_length]; i < l; i += 1) {
+								if (!cardWrap[i][classList].contains(isBindedMinigridCardClass)) {
+									cardWrap[i][classList].add(isBindedMinigridCardClass);
+									cardWrap[i][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
+								}
+							}
+						}
 					}
 				};
 				var onMinigridCreated = function () {
@@ -2190,6 +2225,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 						manageHljsCodeAll(appContentParent);
 						manageRippleEffect();
 						highlightSidedrawerItem();
+						manageReadMore();
 						var timer = setTimeout(function () {
 							clearTimeout(timer);
 							timer = null;

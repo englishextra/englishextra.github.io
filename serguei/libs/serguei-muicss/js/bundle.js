@@ -1556,6 +1556,30 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			}
 		};
 
+		var manageReadMore = function () {
+			if (root.$readMoreJS) {
+				$readMoreJS.init({
+					target: ".dummy",
+					numOfWords: 12,
+					toggle: true,
+					moreLink: "Читать больше",
+					lessLink: "Сделать меньше",
+					inline: false,
+					customBlockElement: "p"
+				});
+				var rmLink = document[getElementsByClassName]("rm-link") || "";
+				if (rmLink) {
+					for (var i = 0, l = rmLink[_length]; i < l; i += 1) {
+						if (!rmLink[i][classList].contains(isBindedClass)) {
+							rmLink[i][classList].add(isBindedClass);
+							rmLink[i][_addEventListener]("click", updateMinigrid);
+						}
+					}
+				}
+			}
+		};
+		manageReadMore();
+
 		var cardWrapClass = "card-wrap";
 
 		var addCardWrapCssRule;
