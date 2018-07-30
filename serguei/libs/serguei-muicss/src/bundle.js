@@ -1,6 +1,6 @@
-/*global ActiveXObject, console, DISQUS, doesFontExist, hljs, IframeLightbox,
-imgLightbox, imagePromise, instgrm, JsonHashRouter, loadCSS, loadJsCss,
-Minigrid, Mustache, Promise, QRCode, require, ripple, t, twttr,
+/*global $readMoreJS, ActiveXObject, console, DISQUS, doesFontExist, hljs,
+IframeLightbox, imgLightbox, imagePromise, instgrm, JsonHashRouter, loadCSS,
+loadJsCss, Minigrid, Mustache, Promise, QRCode, require, ripple, t, twttr,
 unescape, verge, VK, WheelIndicator, Ya*/
 /*property console, join, split */
 /*!
