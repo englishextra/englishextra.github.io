@@ -1022,14 +1022,14 @@ button {
 	display: inline-block;
 	width: 1.000em;
 	height: 1.000em;
-	background-image: url('data:image/svg+xml;utf8,<svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="1.000em" height="1.000em" viewBox="0 0 24 24" enable-background="new 0 0 24 24"><path d="M16.59,8.59L12,13.17L7.41,8.59L6,10l6,6l6-6L16.59,8.59z"/></svg>');
+	background-image: url('data:image/svg+xml;utf8,<svg%20version="1.1"%20xmlns="http://www.w3.org/2000/svg"%20x="0px"%20y="0px"%20width="1.000em"%20height="1.000em"%20viewBox="0%200%2024%2024"%20enable-background="new%200%200%2024%2024"><path%20fill="%23212121"%20d="M16.59,8.59L12,13.17L7.41,8.59L6,10l6,6l6-6L16.59,8.59z"/></svg>');
 	background-position: 0 0.125em;
 	background-repeat: no-repeat;
 	background-size: 1.000em 1.000em;
 }
 
 .card-wrap .btn-expand-hidden-layer.is-active:after {
-	background-image: url('data:image/svg+xml;utf8,<svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="1.000em" height="1.000em" viewBox="0 0 24 24" enable-background="new 0 0 24 24"><path d="M12,8l-6,6l1.41,1.41L12,10.83l4.59,4.58L18,14L12,8z"/></svg>');
+	background-image: url('data:image/svg+xml;utf8,<svg%20version="1.1"%20xmlns="http://www.w3.org/2000/svg"%20x="0px"%20y="0px"%20width="1.000em"%20height="1.000em"%20viewBox="0%200%2024%2024"%20enable-background="new%200%200%2024%2024"><path%20fill="%23212121"%20d="M12,8l-6,6l1.41,1.41L12,10.83l4.59,4.58L18,14L12,8z"/></svg>');
 }
 
 .card-wrap .holder-hidden-layer {
