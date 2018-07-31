@@ -1649,17 +1649,6 @@ unescape, verge, VK, WheelIndicator, Ya*/
 						 */
 						/* var throttleLogic = throttle(updateMinigrid.bind(null, 2000), 2000);
 						observeMutations(cardGrid, throttleLogic, {log: false}); */
-						var cardWrap = document[getElementsByClassName](cardWrapClass) || "";
-						if (cardWrap) {
-							var i,
-							l;
-							for (i = 0, l = cardWrap[_length]; i < l; i += 1) {
-								if (!cardWrap[i][classList].contains(isBindedMinigridCardClass)) {
-									cardWrap[i][classList].add(isBindedMinigridCardClass);
-									cardWrap[i][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
-								}
-							}
-						}
 					}
 				};
 				var onMinigridCreated = function () {

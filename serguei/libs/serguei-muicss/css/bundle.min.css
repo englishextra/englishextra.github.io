@@ -1011,6 +1011,10 @@ button {
 
 .card-wrap .btn-expand-hidden-layer {
 	text-decoration: underline;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 	cursor: pointer;
 }
 
@@ -1070,6 +1074,7 @@ button {
 	line-height: 2.500rem;
 	color: #616161;
 	background-color: rgba(255, 255, 255, 0.5);
+	-webkit-box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
 	box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
 	margin: 0;
 }
@@ -1228,6 +1233,7 @@ button {
 	line-height: 2.500rem;
 	color: #616161;
 	background-color: rgba(255, 255, 255, 0.5);
+	-webkit-box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
 	box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12);
 	/*!
 	 * Centering things
@@ -1235,6 +1241,7 @@ button {
 	 */
 	position: fixed;
 	top: 50%;
+	-webkit-transform: translate(0, -50%);
 	transform: translate(0, -50%);
 	margin: 0;
 }
