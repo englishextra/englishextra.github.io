@@ -1564,7 +1564,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 					toggle: true,
 					moreLink: "Показать больше",
 					lessLink: "Показать меньше",
-					inline: false,
+					inline: true,
 					customBlockElement: "p"
 				});
 				var rmLink = document[getElementsByClassName]("rm-link") || "";
