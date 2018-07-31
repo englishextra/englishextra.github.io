@@ -1562,8 +1562,8 @@ unescape, verge, VK, WheelIndicator, Ya*/
 					target: ".dummy",
 					numOfWords: 12,
 					toggle: true,
-					moreLink: "Читать больше",
-					lessLink: "Сделать меньше",
+					moreLink: "Показать больше",
+					lessLink: "Показать меньше",
 					inline: false,
 					customBlockElement: "p"
 				});
@@ -1578,7 +1578,31 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				}
 			}
 		};
-		manageReadMore();
+
+		var manageExpandingLayers = function () {
+			var btn = document[getElementsByClassName]("btn-expand-hidden-layer") || "";
+			var arrange = function (e) {
+				var handleExpandingLayerAll = function () {
+					var _this = this;
+					var s = _this.nextElementSibling || "";
+					if (s) {
+						_this[classList].toggle(isActiveClass);
+						s[classList].toggle(isActiveClass);
+						updateMinigrid();
+					}
+					return;
+				};
+				if (!e[classList].contains(isBindedClass)) {
+					e[_addEventListener]("click", handleExpandingLayerAll);
+					e[classList].add(isBindedClass);
+				}
+			};
+			if (btn) {
+				for (var i = 0, l = btn[_length]; i < l; i += 1) {
+					arrange(btn[i]);
+				}
+			}
+		};
 
 		var cardWrapClass = "card-wrap";
 
@@ -2226,6 +2250,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 						manageRippleEffect();
 						highlightSidedrawerItem();
 						manageReadMore();
+						manageExpandingLayers();
 						var timer = setTimeout(function () {
 							clearTimeout(timer);
 							timer = null;
