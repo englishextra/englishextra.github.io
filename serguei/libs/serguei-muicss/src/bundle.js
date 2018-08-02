@@ -1562,8 +1562,8 @@ unescape, verge, VK, WheelIndicator, Ya*/
 					target: ".dummy",
 					numOfWords: 12,
 					toggle: true,
-					moreLink: "Показать больше",
-					lessLink: "Показать меньше",
+					moreLink: "&lt;Показать&#160;больше&gt;",
+					lessLink: "&lt;Показать&#160;меньше&gt;",
 					inline: true,
 					customBlockElement: "p"
 				});
