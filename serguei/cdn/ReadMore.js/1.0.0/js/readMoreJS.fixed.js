@@ -71,7 +71,7 @@
 						moreContainer = doc.createElement('div');
 					}
 				}
-				moreContainer.innerHTML = '<a id="rm-more_' +
+				moreContainer.innerHTML = '<a href="javascript:void(0);" id="rm-more_' +
 					i +
 					'" class="rm-link" style="cursor:pointer;">' +
 					options.moreLink +
