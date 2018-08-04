@@ -1560,10 +1560,10 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			if (root.$readMoreJS) {
 				$readMoreJS.init({
 					target: ".dummy",
-					numOfWords: 12,
+					numOfWords: 10,
 					toggle: true,
-					moreLink: "&lt;Показать&#160;больше&gt;",
-					lessLink: "&lt;Показать&#160;меньше&gt;",
+					moreLink: "БОЛЬШЕ",
+					lessLink: "МЕНЬШЕ",
 					inline: true,
 					customBlockElement: "p"
 				});
