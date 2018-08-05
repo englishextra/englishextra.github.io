@@ -946,6 +946,8 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya, zoomwall */
 			}).then(function () {
 				timerCreateGallery = setTimeout(createGallery, 500);
 			}).then(function () {
+				manageExternalLinkAll(wrapper);
+			}).then(function () {
 				timerSetLazyloading = setTimeout(setLazyloading, 1000);
 			}).catch (function (err) {
 				console.log("Cannot create zoomwall gallery", err);

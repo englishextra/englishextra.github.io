@@ -832,7 +832,6 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 				for (var i = 0, l = link[_length]; i < l; i += 1) {
 					arrange(link[i]);
 				}
-				/* forEach(link, arrange, false); */
 			}
 		};
 		manageExternalLinkAll();

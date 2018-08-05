@@ -1106,7 +1106,6 @@ Ya*/
 				for (var i = 0, l = link[_length]; i < l; i += 1) {
 					arrange(link[i]);
 				}
-				/* forEach(link, arrange, false); */
 			}
 		};
 		manageExternalLinkAll();
@@ -1229,7 +1228,6 @@ Ya*/
 				for (var i = 0, l = link[_length]; i < l; i += 1) {
 					arrange(link[i]);
 				}
-				/* forEach(link, arrange, false); */
 			}
 		};
 		manageIframeLightboxLinkAll();
@@ -1349,7 +1347,6 @@ Ya*/
 				for (var j = 0, l = link[_length]; j < l; j += 1) {
 					arrange(link[j]);
 				}
-				/* forEach(link, arrange, false); */
 			}
 		};
 

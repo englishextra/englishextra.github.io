@@ -971,7 +971,6 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				for (var i = 0, l = linkAll[_length]; i < l; i += 1) {
 					arrange(linkAll[i]);
 				}
-				/* forEach(linkAll, arrange, false); */
 			}
 		};
 		manageExternalLinkAll();
@@ -1011,7 +1010,6 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				for (var i = 0, l = imgAll[_length]; i < l; i += 1) {
 					arrange(imgAll[i]);
 				}
-				/* forEach(imgAll, arrange, false); */
 			}
 		};
 		var handleDataSrcImageAllWindow = function () {
@@ -1068,7 +1066,6 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				for (var i = 0, l = iframeAll[_length]; i < l; i += 1) {
 					arrange(iframeAll[i]);
 				}
-				/* forEach(iframeAll, arrange, false); */
 			}
 		};
 		var handleDataSrcIframeAllWindow = function () {
@@ -1112,7 +1109,6 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				for (var i = 0, l = link[_length]; i < l; i += 1) {
 					arrange(link[i]);
 				}
-				/* forEach(link, arrange, false); */
 			}
 		};
 		manageIframeLightboxLinkAll();
@@ -1578,6 +1574,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				}
 			}
 		};
+		manageReadMore();
 
 		var manageExpandingLayers = function () {
 			var btn = document[getElementsByClassName]("btn-expand-hidden-layer") || "";
@@ -1603,6 +1600,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				}
 			}
 		};
+		manageExpandingLayers();
 
 		var cardWrapClass = "card-wrap";
 
