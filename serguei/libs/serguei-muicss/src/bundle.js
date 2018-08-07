@@ -1085,6 +1085,57 @@ unescape, verge, VK, WheelIndicator, Ya*/
 		};
 		manageDataSrcIframeAll();
 
+		var manageDataQrcodeImageAll = function (callback) {
+			var cb = function () {
+				return callback && "function" === typeof callback && callback();
+			};
+			var dataQrcodeImgClass = "data-qrcode-img";
+			var img = document[getElementsByClassName](dataQrcodeImgClass) || "";
+			var generateImg = function (e) {
+				var qrcode = e[dataset].qrcode || "";
+				qrcode = decodeURIComponent(qrcode);
+				if (qrcode) {
+					var imgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(qrcode);
+					e.title = qrcode;
+					e.alt = qrcode;
+					if (root.QRCode) {
+						if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
+							imgSrc = QRCode.generateSVG(qrcode, {
+									ecclevel: "M",
+									fillcolor: "#F3F3F3",
+									textcolor: "#191919",
+									margin: 4,
+									modulesize: 8
+								});
+							var XMLS = new XMLSerializer();
+							imgSrc = XMLS.serializeToString(imgSrc);
+							imgSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(imgSrc)));
+							e.src = imgSrc;
+						} else {
+							imgSrc = QRCode.generatePNG(qrcode, {
+									ecclevel: "M",
+									format: "html",
+									fillcolor: "#F3F3F3",
+									textcolor: "#191919",
+									margin: 4,
+									modulesize: 8
+								});
+							e.src = imgSrc;
+						}
+					} else {
+						e.src = imgSrc;
+					}
+					cb();
+				}
+			};
+			if (img) {
+				for (var i = 0, l = img[_length]; i < l; i += 1) {
+					generateImg(img[i]);
+				}
+			}
+		};
+		manageDataQrcodeImageAll();
+
 		var manageIframeLightboxLinkAll = function (scope) {
 			var ctx = scope && scope.nodeName ? scope : "";
 			var linkClass = "iframe-lightbox-link";
@@ -1129,6 +1180,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				});
 			}
 		};
+		manageImgLightboxLinkAll();
 
 		var appContentId = "app-content";
 		var appContent = document[getElementById](appContentId) || "";

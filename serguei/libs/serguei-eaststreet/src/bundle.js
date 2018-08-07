@@ -1616,7 +1616,6 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 				for (var i = 0, l = img[_length]; i < l; i += 1) {
 					generateImg(img[i]);
 				}
-				/* forEach(img, generateImg, false); */
 			};
 			if (img) {
 				/* var jsUrl = "../cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js";
