@@ -991,14 +991,14 @@ button {
 }
 
 img.office-qrcode-img {
-	width: 7.000rem;
+	width: 7.500rem;
 }
 .contacts-buttons--phone:after {
 	content: "";
 	display: inline-block;
 	width: 1.500em;
 	height: 1.500em;
-	background-image: url('data:image/svg+xml;utf8,<svg%20version="1.1"%20xmlns="http://www.w3.org/2000/svg"%20x="0px"%20y="0px"%20width="1.500em"%20height="1.500em"%20viewBox="0%200%2024%2024"%20enable-background="new%200%200%2024%2024"><path%20fill="#{encodecolor($clr-grey-900)}"%20d="M6.54,5C6.6,5.89,6.75,6.76,6.99,7.59l-1.2,1.2C5.38,7.59,5.12,6.32,5.03,5H6.54 M16.4,17.02c0.85,0.24,1.72,0.39,2.6,0.45v1.49c-1.32-0.09-2.59-0.35-3.8-0.75L16.4,17.02 M7.5,3H4C3.45,3,3,3.45,3,4c0,9.39,7.61,17,17,17c0.55,0,1-0.45,1-1v-3.49c0-0.55-0.45-1-1-1c-1.24,0-2.45-0.2-3.57-0.57c-0.1-0.04-0.21-0.05-0.31-0.05c-0.26,0-0.51,0.1-0.71,0.29l-2.2,2.2c-2.83-1.45-5.15-3.76-6.59-6.59l2.2-2.2C9.1,8.31,9.18,7.92,9.07,7.57C8.7,6.45,8.5,5.25,8.5,4C8.5,3.45,8.05,3,7.5,3L7.5,3z"/></svg>');
+	background-image: url("data:image/svg+xml;utf8,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'%20x='0px'%20y='0px'%20width='1.500em'%20height='1.500em'%20viewBox='0%200%2024%2024'%20enable-background='new%200%200%2024%2024'><path%20fill='#{encodecolor($clr-grey-900)}'%20d='M6.54,5C6.6,5.89,6.75,6.76,6.99,7.59l-1.2,1.2C5.38,7.59,5.12,6.32,5.03,5H6.54 M16.4,17.02c0.85,0.24,1.72,0.39,2.6,0.45v1.49c-1.32-0.09-2.59-0.35-3.8-0.75L16.4,17.02 M7.5,3H4C3.45,3,3,3.45,3,4c0,9.39,7.61,17,17,17c0.55,0,1-0.45,1-1v-3.49c0-0.55-0.45-1-1-1c-1.24,0-2.45-0.2-3.57-0.57c-0.1-0.04-0.21-0.05-0.31-0.05c-0.26,0-0.51,0.1-0.71,0.29l-2.2,2.2c-2.83-1.45-5.15-3.76-6.59-6.59l2.2-2.2C9.1,8.31,9.18,7.92,9.07,7.57C8.7,6.45,8.5,5.25,8.5,4C8.5,3.45,8.05,3,7.5,3L7.5,3z'/></svg>");
 	background-position: 0 0;
 	background-repeat: no-repeat;
 	background-size: 1.500em 1.500em;
@@ -1017,7 +1017,7 @@ img.office-qrcode-img {
 	display: inline-block;
 	width: 1.500em;
 	height: 1.500em;
-	background-image: url('data:image/svg+xml;utf8,<svg%20version="1.1"%20xmlns="http://www.w3.org/2000/svg"%20x="0px"%20y="0px"%20width="1.500em"%20height="1.500em"%20viewBox="0%200%2024%2024"%20enable-background="new%200%200%2024%2024"><path%20fill="#{encodecolor($clr-grey-900)}"%20d="M12,2C8.13,2,5,5.13,5,9c0,5.25,7,13,7,13s7-7.75,7-13C19,5.13,15.87,2,12,2z%20M7,9c0-2.76,2.24-5,5-5s5,2.24,5,5c0,2.88-2.88,7.19-5,9.88C9.92,16.21,7,11.85,7,9z"/><circle%20fill="#{encodecolor($clr-grey-900)}"%20cx="12"%20cy="9"%20r="2.5"/></svg>');
+	background-image: url("data:image/svg+xml;utf8,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'%20x='0px'%20y='0px'%20width='1.500em'%20height='1.500em'%20viewBox='0%200%2024%2024'%20enable-background='new%200%200%2024%2024'><path%20fill='#{encodecolor($clr-grey-900)}'%20d='M12,2C8.13,2,5,5.13,5,9c0,5.25,7,13,7,13s7-7.75,7-13C19,5.13,15.87,2,12,2z%20M7,9c0-2.76,2.24-5,5-5s5,2.24,5,5c0,2.88-2.88,7.19-5,9.88C9.92,16.21,7,11.85,7,9z'/><circle%20fill='#{encodecolor($clr-grey-900)}'%20cx='12'%20cy='9'%20r='2.5'/></svg>");
 	background-position: 0 0;
 	background-repeat: no-repeat;
 	background-size: 1.500em 1.500em;
@@ -1036,7 +1036,7 @@ img.office-qrcode-img {
 	display: inline-block;
 	width: 1.500em;
 	height: 1.500em;
-	background-image: url('data:image/svg+xml;utf8,<svg%20version="1.1"%20xmlns="http://www.w3.org/2000/svg"%20x="0px"%20y="0px"%20width="1.500em"%20height="1.500em"%20viewBox="0%200%2024%2024"%20enable-background="new%200%200%2024%2024"><path%20fill="#{encodecolor($clr-grey-900)}"%20d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z"/></svg>');
+	background-image: url("data:image/svg+xml;utf8,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'%20x='0px'%20y='0px'%20width='1.500em'%20height='1.500em'%20viewBox='0%200%2024%2024'%20enable-background='new%200%200%2024%2024'><path%20fill='#{encodecolor($clr-grey-900)}'%20d='M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z'/></svg>");
 	background-position: 0 0;
 	background-repeat: no-repeat;
 	background-size: 1.500em 1.500em;
@@ -1064,14 +1064,14 @@ img.office-qrcode-img {
 	display: inline-block;
 	width: 1.000em;
 	height: 1.000em;
-	background-image: url('data:image/svg+xml;utf8,<svg%20version="1.1"%20xmlns="http://www.w3.org/2000/svg"%20x="0px"%20y="0px"%20width="1.000em"%20height="1.000em"%20viewBox="0%200%2024%2024"%20enable-background="new%200%200%2024%2024"><path%20fill="#{encodecolor($clr-grey-900)}"%20d="M16.59,8.59L12,13.17L7.41,8.59L6,10l6,6l6-6L16.59,8.59z"/></svg>');
+	background-image: url("data:image/svg+xml;utf8,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'%20x='0px'%20y='0px'%20width='1.000em'%20height='1.000em'%20viewBox='0%200%2024%2024'%20enable-background='new%200%200%2024%2024'><path%20fill='#{encodecolor($clr-grey-900)}'%20d='M16.59,8.59L12,13.17L7.41,8.59L6,10l6,6l6-6L16.59,8.59z'/></svg>");
 	background-position: 0 0.125em;
 	background-repeat: no-repeat;
 	background-size: 1.000em 1.000em;
 }
 
 .card-wrap .btn-expand-hidden-layer.is-active:after {
-	background-image: url('data:image/svg+xml;utf8,<svg%20version="1.1"%20xmlns="http://www.w3.org/2000/svg"%20x="0px"%20y="0px"%20width="1.000em"%20height="1.000em"%20viewBox="0%200%2024%2024"%20enable-background="new%200%200%2024%2024"><path%20fill="#{encodecolor($clr-grey-900)}"%20d="M12,8l-6,6l1.41,1.41L12,10.83l4.59,4.58L18,14L12,8z"/></svg>');
+	background-image: url("data:image/svg+xml;utf8,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'%20x='0px'%20y='0px'%20width='1.000em'%20height='1.000em'%20viewBox='0%200%2024%2024'%20enable-background='new%200%200%2024%2024'><path%20fill='#{encodecolor($clr-grey-900)}'%20d='M12,8l-6,6l1.41,1.41L12,10.83l4.59,4.58L18,14L12,8z'/></svg>");
 }
 
 .card-wrap .holder-hidden-layer {
