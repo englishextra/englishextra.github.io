@@ -66,8 +66,8 @@
 			"href": "https://www.instagram.com/shimanskybiz/",
 			"title": "Инстаграм"
 		}, {
-			"href": "https://twitter.com/englishextra",
-			"title": "Твиттер"
+			"href": "tg://resolve?domain=english_tushino",
+			"title": "Телеграм"
 		}
 	]
 }
