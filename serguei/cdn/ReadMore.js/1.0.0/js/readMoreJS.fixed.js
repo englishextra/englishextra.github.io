@@ -40,7 +40,7 @@
 			lessLink: 'read less'
 		};
 		options = RM.helpers.extendObj({}, defaults, options);
-		var target = doc.querySelectorAll(options.target),
+		var target = doc.getElementsByClassName(options.target),
 		targetLen = target.length,
 		targetContent,
 		trimmedTargetContent,
@@ -83,7 +83,7 @@
 				}
 			}
 		}
-		rmLink = doc.querySelectorAll('.rm-link');
+		rmLink = doc.getElementsByClassName('rm-link');
 		var func = function () {
 			moreLinkID = this.getAttribute('id');
 			index = moreLinkID.split('_')[1];
