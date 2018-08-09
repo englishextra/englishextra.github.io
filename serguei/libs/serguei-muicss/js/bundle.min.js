@@ -1134,7 +1134,6 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				}
 			}
 		};
-		manageDataQrcodeImageAll();
 
 		var manageIframeLightboxLinkAll = function (scope) {
 			var ctx = scope && scope.nodeName ? scope : "";
@@ -1162,7 +1161,6 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				}
 			}
 		};
-		manageIframeLightboxLinkAll();
 
 		var manageImgLightboxLinkAll = function (scope) {
 			var ctx = scope && scope.nodeName ? scope : "";
@@ -1180,7 +1178,6 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				});
 			}
 		};
-		manageImgLightboxLinkAll();
 
 		var appContentId = "app-content";
 		var appContent = document[getElementById](appContentId) || "";
@@ -1620,13 +1617,12 @@ unescape, verge, VK, WheelIndicator, Ya*/
 					for (var i = 0, l = rmLink[_length]; i < l; i += 1) {
 						if (!rmLink[i][classList].contains(isBindedClass)) {
 							rmLink[i][classList].add(isBindedClass);
-							rmLink[i][_addEventListener]("click", updateMinigrid);
+							rmLink[i][_addEventListener]("click", updateMinigridThrottled);
 						}
 					}
 				}
 			}
 		};
-		manageReadMore();
 
 		var manageExpandingLayers = function () {
 			var btn = document[getElementsByClassName]("btn-expand-hidden-layer") || "";
@@ -1637,7 +1633,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 					if (s) {
 						_this[classList].toggle(isActiveClass);
 						s[classList].toggle(isActiveClass);
-						updateMinigrid();
+						updateMinigridThrottled();
 					}
 					return;
 				};
@@ -1652,7 +1648,6 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				}
 			}
 		};
-		manageExpandingLayers();
 
 		var cardWrapClass = "card-wrap";
 
@@ -1766,7 +1761,6 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				}
 			}
 		};
-		/* manageSidedrawerCategoryAll(); */
 
 		var hideSidedrawerOnNavigating = function () {
 			var linkAll;
@@ -1785,7 +1779,6 @@ unescape, verge, VK, WheelIndicator, Ya*/
 				appContentParent[_addEventListener]("click", hideSidedrawer);
 			}
 		};
-		/* hideSidedrawerOnNavigating(); */
 
 		var handleMenuButton = function () {
 			if (sidedrawer) {
@@ -2296,6 +2289,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 							manageMinigrid().then(function () {
 								handleDataSrcIframeAll(updateMinigridThrottled);
 								handleDataSrcImageAll(updateMinigridThrottled);
+								manageDataQrcodeImageAll(updateMinigridThrottled);
 							}).then(function () {
 								manageDisqusEmbed();
 							}).then(function () {

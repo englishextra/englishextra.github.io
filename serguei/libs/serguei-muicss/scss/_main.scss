@@ -985,14 +985,13 @@ button {
 
 .office-hours,
 .office-address,
-.office-phone-qrcode {
+.office-qrcode {
 	font-size: 0.750rem;
 	line-height: 0.938rem;
 }
 
-.office-phone-qrcode img,
-.office-web-qrcode img {
-	width: 9.000rem;
+img.office-qrcode-img {
+	width: 7.000rem;
 }
 .contacts-buttons--phone:after {
 	content: "";
