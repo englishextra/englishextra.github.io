@@ -993,6 +993,13 @@ button {
 img.office-qrcode-img {
 	width: 7.500rem;
 }
+
+.contacts-buttons--phone,
+.contacts-buttons--map,
+.contacts-buttons--web {
+	min-width: 1.500rem;
+	min-height: 1.500rem;
+}
 .contacts-buttons--phone:after {
 	content: "";
 	display: inline-block;
