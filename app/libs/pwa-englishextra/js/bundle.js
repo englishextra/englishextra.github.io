@@ -513,7 +513,6 @@ Ya*/
 		var isDropdownClass = "is-dropdown";
 		var isFixedClass = "is-fixed";
 		var isCollapsableClass = "is-collapsable";
-		var isActiveDisqusThreadClass = "is-active-disqus-thread";
 
 		progressBar.increase(20);
 
@@ -1088,7 +1087,8 @@ Ya*/
 			var linkTag = "a";
 			var link = ctx ? ctx[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
 			var arrange = function (e) {
-				if (!e[classList].contains(isBindedClass)) {
+				var isBindedExternalLinkClass = "is-binded-external-link";
+				if (!e[classList].contains(isBindedExternalLinkClass)) {
 					var url = e[getAttribute]("href") || "";
 					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
 						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
@@ -1098,7 +1098,7 @@ Ya*/
 						} else {
 							e[_addEventListener]("click", handleExternalLink.bind(null, url));
 						}
-						e[classList].add(isBindedClass);
+						e[classList].add(isBindedExternalLinkClass);
 					}
 				}
 			};
@@ -1573,7 +1573,7 @@ Ya*/
 			var locationHref = root.location.href || "";
 			var disqusThreadShortname = disqusThread ? (disqusThread[dataset].shortname || "") : "";
 			var hideDisqusButton = function () {
-				disqusThread[classList].add(isActiveDisqusThreadClass);
+				disqusThread[classList].add(isActiveClass);
 				btn[style].display = "none";
 			};
 			var hideDisqusThread = function () {
@@ -2588,7 +2588,10 @@ Ya*/
 					}
 				};
 				handleRoutesWindow();
-				root[_addEventListener]("hashchange", handleRoutesWindow);
+				if (!docElem[classList].contains(isBindedHandleRoutesWindowClass)) {
+					docElem[classList].add(isBindedHandleRoutesWindowClass);
+					root[_addEventListener]("hashchange", handleRoutesWindow);
+				}
 				/*!
 				 * insertFromTemplate used in renderTemplate
 				 * will remove event listener from select (parent) element,

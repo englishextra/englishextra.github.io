@@ -478,7 +478,6 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 		var title = "title";
 		var _addEventListener = "addEventListener";
 		var _removeEventListener = "removeEventListener";
-		var isActiveDisqusThreadClass = "is-active-disqus-thread";
 
 		progressBar.increase(20);
 
@@ -1378,7 +1377,8 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 			var classList = "classList";
 			var isBindedClass = "is-binded";
 			var arrange = function (e) {
-				if (!e[classList].contains(isBindedClass)) {
+				var isBindedExternalLinkClass = "is-binded-external-link";
+				if (!e[classList].contains(isBindedExternalLinkClass)) {
 					var url = e[getAttribute]("href") || "";
 					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
 						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
@@ -1388,7 +1388,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 						} else {
 							e[_addEventListener]("click", handleExternalLink.bind(null, url));
 						}
-						e[classList].add(isBindedClass);
+						e[classList].add(isBindedExternalLinkClass);
 					}
 				}
 			};
@@ -2074,7 +2074,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 			};
 			if (btn && disqusThread && disqusThreadShortname && locationHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					disqusThread[classList].add(isActiveDisqusThreadClass);
+					disqusThread[classList].add(isActiveClass);
 					setStyleDisplayNone(btn);
 					var jsUrl = forcedHTTP + "://" + disqusThreadShortname + ".disqus.com/embed.js";
 					if (!scriptIsLoaded(jsUrl)) {

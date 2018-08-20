@@ -646,7 +646,8 @@ unescape, WebSlides*/
 			var classList = "classList";
 			var isBindedClass = "is-binded";
 			var arrange = function (e) {
-				if (!e[classList].contains(isBindedClass)) {
+				var isBindedExternalLinkClass = "is-binded-external-link";
+				if (!e[classList].contains(isBindedExternalLinkClass)) {
 					var url = e[getAttribute]("href") || "";
 					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
 						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
@@ -656,7 +657,7 @@ unescape, WebSlides*/
 						} else {
 							e[_addEventListener]("click", handleExternalLink.bind(null, url));
 						}
-						e[classList].add(isBindedClass);
+						e[classList].add(isBindedExternalLinkClass);
 					}
 				}
 			};

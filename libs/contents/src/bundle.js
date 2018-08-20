@@ -443,7 +443,6 @@ ToProgress, unescape, verge, VK, Ya*/
 		var title = "title";
 		var _addEventListener = "addEventListener";
 		var _removeEventListener = "removeEventListener";
-		var isActiveDisqusThreadClass = "is-active-disqus-thread";
 
 		progressBar.increase(20);
 
@@ -1064,7 +1063,7 @@ ToProgress, unescape, verge, VK, Ya*/
 							}
 						}
 					}, 100);
-					disqusThread[classList].add(isActiveDisqusThreadClass);
+					disqusThread[classList].add(isActiveClass);
 				};
 				/* var jsUrl = getHTTP(true) + "://" + disqusThreadShortname + ".disqus.com/embed.js";
 				if (!scriptIsLoaded(jsUrl)) {

@@ -991,6 +991,8 @@ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 				cardGrid[style].opacity = 1;
 			};
 			var mgrid;
+		
+		var isBindedMinigridCardClass = "is-binded-minigrid-card";
 			var initMinigrid = function () {
 				mgrid = new Minigrid({
 						container: cardGridClass,

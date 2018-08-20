@@ -52,6 +52,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			var docElem = document.documentElement || "";
 			var docBody = document.body || "";
 			var appendChild = "appendChild";
+			var classList = "classList";
 			var cloneNode = "cloneNode";
 			var createContextualFragment = "createContextualFragment";
 			var createDocumentFragment = "createDocumentFragment";
@@ -62,6 +63,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			var replaceChild = "replaceChild";
 			var _addEventListener = "addEventListener";
 			var _length = "length";
+			var isBindedHandleRoutesWindowClass = "is-binded-handle-routes-window";
 			var insertExternalHTML = function (id, url, callback) {
 				var container = document[getElementById](id.replace(/^#/, "")) || "";
 				var arrange = function () {
@@ -190,7 +192,10 @@ unescape, verge, VK, WheelIndicator, Ya*/
 					}
 				};
 				handleRoutesWindow();
-				root[_addEventListener]("hashchange", handleRoutesWindow);
+				if (!docElem[classList].contains(isBindedHandleRoutesWindowClass)) {
+					docElem[classList].add(isBindedHandleRoutesWindowClass);
+					root[_addEventListener]("hashchange", handleRoutesWindow);
+				}
 			};
 			var render = document[getElementById](renderId) || "";
 			if (render) {
@@ -462,12 +467,6 @@ unescape, verge, VK, WheelIndicator, Ya*/
 		var _removeEventListener = "removeEventListener";
 		var isActiveClass = "is-active";
 		var isBindedClass = "is-binded";
-		var isFixedClass = "is-fixed";
-		var isHiddenClass = "is-hidden";
-		var isBindedIframeLightboxLinkClass = "is-binded-iframe-lightbox-link";
-		var isBindedMinigridCardClass = "is-binded-minigrid-card";
-		var isCollapsableClass = "is-collapsable";
-		var isActiveDisqusThreadClass = "is-active-disqus-thread";
 
 		/* progressBar.increase(20); */
 
@@ -941,19 +940,20 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var handleExternalLink = function (url, ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			var logicHandleExternalLink = openDeviceBrowser.bind(null, url);
-			var debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
-			debounceLogicHandleExternalLink();
-		};
 		var manageExternalLinkAll = function (scope) {
 			var ctx = scope && scope.nodeName ? scope : "";
 			var linkTag = "a";
 			var linkAll = ctx ? ctx[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
+			var handleExternalLink = function (url, ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var logicHandleExternalLink = openDeviceBrowser.bind(null, url);
+				var debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
+				debounceLogicHandleExternalLink();
+			};
 			var arrange = function (e) {
-				if (!e[classList].contains(isBindedClass)) {
+				var isBindedExternalLinkClass = "is-binded-external-link";
+				if (!e[classList].contains(isBindedExternalLinkClass)) {
 					var url = e[getAttribute]("href") || "";
 					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
 						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
@@ -963,7 +963,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 						} else {
 							e[_addEventListener]("click", handleExternalLink.bind(null, url));
 						}
-						e[classList].add(isBindedClass);
+						e[classList].add(isBindedExternalLinkClass);
 					}
 				}
 			};
@@ -1140,6 +1140,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			var linkClass = "iframe-lightbox-link";
 			var link = ctx ? ctx[getElementsByClassName](linkClass) || "" : document[getElementsByClassName](linkClass) || "";
 			var arrange = function (e) {
+				var isBindedIframeLightboxLinkClass = "is-binded-iframe-lightbox-link";
 				if (!e[classList].contains(isBindedIframeLightboxLinkClass)) {
 					e.lightbox = new IframeLightbox(e, {
 						onLoaded: function() {
@@ -1189,6 +1190,8 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			docBody[classList].add(hideSidedrawerClass);
 			sidedrawer[classList].remove(activeClass);
 		};
+
+		var isCollapsableClass = "is-collapsable";
 
 		var manageOtherCollapsableAll = function (_self) {
 			var _this = _self || this;
@@ -1377,6 +1380,8 @@ unescape, verge, VK, WheelIndicator, Ya*/
 		};
 
 		var mgrid;
+		
+		var isBindedMinigridCardClass = "is-binded-minigrid-card";
 
 		var updateMinigrid = function (delay, callback) {
 			var cb = function () {
@@ -1458,7 +1463,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 			};
 			var initScript = function () {
 				var setDisqusCSSClass = function () {
-					disqusThread[classList].add(isActiveDisqusThreadClass);
+					disqusThread[classList].add(isActiveClass);
 				};
 				if (root.DISQUS) {
 					try {
@@ -1842,6 +1847,9 @@ unescape, verge, VK, WheelIndicator, Ya*/
 
 		var appBar = document[getElementsByTagName]("header")[0] || "";
 		var appBarHeight = appBar.offsetHeight || 0;
+
+		var isFixedClass = "is-fixed";
+		var isHiddenClass = "is-hidden";
 
 		var hideAppBar = function () {
 			var logic = function () {
@@ -2303,13 +2311,13 @@ unescape, verge, VK, WheelIndicator, Ya*/
 								handleDataSrcImageAll(updateMinigridThrottled);
 								manageDataQrcodeImageAll(updateMinigridThrottled);
 							}).then(function () {
-								manageDisqusEmbed();
-							}).then(function () {
 								manageInstagramEmbeds();
 							}).then(function () {
 								manageTwitterEmbeds();
 							}).then(function () {
 								manageVkEmbeds();
+							}).then(function () {
+								manageDisqusEmbed();
 							}).catch (function (err) {
 								console.log("fail: manageMinigrid", err);
 							});
