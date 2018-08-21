@@ -1,7 +1,7 @@
 /*global $readMoreJS, ActiveXObject, console, DISQUS, doesFontExist, hljs,
-IframeLightbox, imgLightbox, imagePromise, instgrm, JsonHashRouter, loadCSS,
+IframeLightbox, imgLightbox, instgrm, JsonHashRouter, loadCSS,
 loadJsCss, Minigrid, Mustache, Promise, QRCode, require, ripple, t, twttr,
-unescape, verge, VK, WheelIndicator, Ya*/
+unescape, VK, WheelIndicator, Ya*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -224,7 +224,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
  * @see {@link https://gist.github.com/englishextra/3e95d301d1d47fe6e26e3be198f0675e}
  * passes jshint
  */
-(function (root) {
+/* (function (root) {
 	"use strict";
 	var imagePromise = function (s) {
 		if (root.Promise) {
@@ -256,7 +256,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 		}
 	};
 	root.imagePromise = imagePromise;
-})("undefined" !== typeof window ? window : this);
+})("undefined" !== typeof window ? window : this); */
 /*!
  * modified Detect Whether a Font is Installed
  * @param {String} fontName The name of the font to check
@@ -975,18 +975,14 @@ unescape, verge, VK, WheelIndicator, Ya*/
 		};
 		manageExternalLinkAll();
 
-		var handleDataSrcImageAll = function (callback) {
+		/* var handleDataSrcImageAll = function (callback) {
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
 			var dataSrcImgClass = "data-src-img";
 			var imgAll = document[getElementsByClassName](dataSrcImgClass) || "";
 			var arrange = function (e) {
-				/*!
-				 * true if elem is in same y-axis as the viewport or within 100px of it
-				 * @see {@link https://github.com/ryanve/verge}
-				 */
-				if (verge.inY(e, 100) /* && 0 !== e.offsetHeight */) {
+				if (verge.inY(e, 100)) {
 					if (!e[classList].contains(isBindedClass)) {
 						var srcString = e[dataset].src || "";
 						if (srcString) {
@@ -1027,20 +1023,58 @@ unescape, verge, VK, WheelIndicator, Ya*/
 					handleDataSrcImageAll();
 				}, 100);
 		};
+		manageDataSrcImageAll(); */
+
+		var handleDataSrcImageAll = function (callback) {
+			var cb = function () {
+				return callback && "function" === typeof callback && callback();
+			};
+			var images = document[getElementsByClassName]("data-src-img") || "";
+			var i = images[_length];
+			var isBindedDataSrcImgClass = "is-binded-data-src-img";
+			while (i--) {
+				var wH = root.innerHeight;
+				var boundingRect = images[i].getBoundingClientRect();
+				var offset = 100;
+				var yPositionTop = boundingRect.top - wH;
+				var yPositionBottom = boundingRect.bottom;
+				if (!images[i][classList].contains(isBindedDataSrcImgClass) && yPositionTop <= offset && yPositionBottom >= -offset) {
+					images[i][classList].add(isBindedDataSrcImgClass);
+					images[i].src = images[i][dataset].src || "";
+					images[i][classList].add(isActiveClass);
+					images[i][classList].add(isBindedClass);
+					cb();
+				}
+			}
+		};
+		var manageDataSrcImageAll = function () {
+			var _scroll = function (a, b) {
+				return root[_addEventListener]("scroll", function () {
+					clearTimeout(b);
+					b = setTimeout(a, 200);
+				}, {passive: true}),
+				a;
+			};
+			var _resize = function (a, b) {
+				return root[_addEventListener]("resize", function () {
+					clearTimeout(b);
+					b = setTimeout(a, 200);
+				}, {passive: true}),
+				a;
+			};
+			_scroll(handleDataSrcImageAll);
+			_resize(handleDataSrcImageAll);
+		};
 		manageDataSrcImageAll();
 
-		var handleDataSrcIframeAll = function (callback) {
+		/* var handleDataSrcIframeAll = function (callback) {
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
 			var dataSrcIframeClass = "data-src-iframe";
 			var iframeAll = document[getElementsByClassName](dataSrcIframeClass) || "";
 			var arrange = function (e) {
-				/*!
-				 * true if elem is in same y-axis as the viewport or within 100px of it
-				 * @see {@link https://github.com/ryanve/verge}
-				 */
-				if (verge.inY(e, 100) /* && 0 !== e.offsetHeight */) {
+				if (verge.inY(e, 100)) {
 					if (!e[classList].contains(isBindedClass)) {
 						var srcString = e[dataset].src || "";
 						if (srcString) {
@@ -1082,6 +1116,54 @@ unescape, verge, VK, WheelIndicator, Ya*/
 					timer = null;
 					handleDataSrcIframeAll();
 				}, 100);
+		};
+		manageDataSrcIframeAll(); */
+
+		var handleDataSrcIframeAll = function (callback) {
+			var cb = function () {
+				return callback && "function" === typeof callback && callback();
+			};
+			var iframes = document[getElementsByClassName]("data-src-iframe") || "";
+			var i = iframes[_length];
+			var isBindedDataSrcIframeClass = "is-binded-data-src-iframe";
+			while (i--) {
+				var wH = root.innerHeight;
+				var boundingRect = iframes[i].getBoundingClientRect();
+				var offset = 100;
+				var yPositionTop = boundingRect.top - wH;
+				var yPositionBottom = boundingRect.bottom;
+				if (!iframes[i][classList].contains(isBindedDataSrcIframeClass) && yPositionTop <= offset && yPositionBottom >= -offset) {
+					iframes[i][classList].add(isBindedDataSrcIframeClass);
+					iframes[i].src = iframes[i][dataset].src || "";
+					iframes[i][classList].add(isActiveClass);
+					iframes[i][classList].add(isBindedClass);
+					iframes[i][setAttribute]("frameborder", "no");
+					iframes[i][setAttribute]("style", "border:none;");
+					iframes[i][setAttribute]("webkitallowfullscreen", "true");
+					iframes[i][setAttribute]("mozallowfullscreen", "true");
+					iframes[i][setAttribute]("scrolling", "no");
+					iframes[i][setAttribute]("allowfullscreen", "true");
+					cb();
+				}
+			}
+		};
+		var manageDataSrcIframeAll = function () {
+			var _scroll = function (a, b) {
+				return root[_addEventListener]("scroll", function () {
+					clearTimeout(b);
+					b = setTimeout(a, 200);
+				}, {passive: true}),
+				a;
+			};
+			var _resize = function (a, b) {
+				return root[_addEventListener]("resize", function () {
+					clearTimeout(b);
+					b = setTimeout(a, 200);
+				}, {passive: true}),
+				a;
+			};
+			_scroll(handleDataSrcIframeAll);
+			_resize(handleDataSrcIframeAll);
 		};
 		manageDataSrcIframeAll();
 
@@ -1380,7 +1462,7 @@ unescape, verge, VK, WheelIndicator, Ya*/
 		};
 
 		var mgrid;
-		
+
 		var isBindedMinigridCardClass = "is-binded-minigrid-card";
 
 		var updateMinigrid = function (delay, callback) {
