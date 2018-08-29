@@ -1038,7 +1038,7 @@ unescape, VK, WheelIndicator, Ya*/
 				var offset = 100;
 				var yPositionTop = boundingRect.top - wH;
 				var yPositionBottom = boundingRect.bottom;
-				if (!images[i][classList].contains(isBindedDataSrcImgClass) && yPositionTop <= offset && yPositionBottom >= -offset) {
+				if (!images[i][classList].contains(isBindedDataSrcImgClass) && verge.inY(images[i], 100)) {
 					images[i][classList].add(isBindedDataSrcImgClass);
 					images[i].src = images[i][dataset].src || "";
 					images[i][classList].add(isActiveClass);
