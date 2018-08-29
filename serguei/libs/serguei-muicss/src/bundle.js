@@ -1705,7 +1705,7 @@ unescape, VK, WheelIndicator, Ya*/
 						target: "dummy",
 						numOfWords: 10,
 						toggle: true,
-						moreLink: "[&#8230;]",
+						moreLink: "БОЛЬШЕ",
 						lessLink: "МЕНЬШЕ",
 						inline: true,
 						customBlockElement: "p"
