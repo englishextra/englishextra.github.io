@@ -1063,6 +1063,11 @@ unescape, VK, WheelIndicator, Ya*/
 			};
 			_scroll(handleDataSrcImageAll);
 			_resize(handleDataSrcImageAll);
+			var timer = setTimeout(function () {
+					clearTimeout(timer);
+					timer = null;
+					handleDataSrcImageAll();
+				}, 100);
 		};
 		manageDataSrcImageAll();
 
