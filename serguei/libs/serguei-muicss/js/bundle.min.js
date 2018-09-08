@@ -709,11 +709,12 @@ unescape, VK, WheelIndicator, Ya*/
 		};
 
 		var LoadingSpinner = (function () {
-			var spinner = document[getElementsByClassName]("half-circle-spinner")[0] || "";
+			var spinner = document[getElementById]("loading-spinner") || "";
 			if (!spinner) {
 				spinner = document[createElement]('div');
 				var spinnerInner = document[createElement]("div");
 				spinnerInner[setAttribute]("class", "half-circle-spinner");
+				spinnerInner.id = "loading-spinner";
 				spinnerInner[setAttribute]("aria-hidden", "true");
 				var spinnerCircle1 = document[createElement]("div");
 				spinnerCircle1[setAttribute]("class", "circle circle-1");
