@@ -548,7 +548,7 @@ button {
 .mui-dropdown__menu > li > a:hover,
 .mui-dropdown__menu > li > a:active {
 	text-decoration: none;
-	background-color: #FF6E7F;
+	background-color: #FF5868;
 }
 
 /*!
@@ -1926,7 +1926,7 @@ img.office-qrcode-img {
 #sidedrawer li > strong:hover,
 #sidedrawer li > strong:active {
 	text-decoration: none;
-	background-color: #FF6E7F;
+	background-color: #FF5868;
 }
 
 #sidedrawer li strong + ul > li a {
@@ -2024,7 +2024,7 @@ img.office-qrcode-img {
 .mui-appbar .mui-dropdown__menu > li > a:hover,
 .mui-appbar .mui-dropdown__menu > li > a:active {
 	color: #2B2B2B;
-	background-color: #FF6E7F;
+	background-color: #FF5868;
 }
 
 /*!
