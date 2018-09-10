@@ -1,6 +1,6 @@
 {
 	"name": "serguei-muicss-dev",
-	"description": "Developing Tutor of English in Tushino Portfolio PWA with https://github.com/muicss/mui. Lightweight CSS framework https://www.muicss.com. No JS framework. Demo site: https://englishextra.gitlab.io/",
+	"description": "Developing Tutor of English in Tushino Portfolio PWA with https://github.com/muicss/mui.",
 	"main": "gulpfile.js",
 	"authors": ["englishextra <englishextra@yandex.ru> (https://github.com/englishextra)"],
 	"license": "MIT",

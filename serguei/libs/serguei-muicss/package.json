@@ -1,7 +1,7 @@
 {
 	"name": "serguei-muicss-dev",
 	"version": "1.0.0",
-	"description": "Developing Tutor of English in Tushino Portfolio PWA with https://github.com/muicss/mui. Lightweight CSS framework https://www.muicss.com. No JS framework. Demo site: https://englishextra.gitlab.io/",
+	"description": "Developing Tutor of English in Tushino Portfolio PWA with https://github.com/muicss/mui.",
 	"keywords": [
 		"english",
 		"webapp",
@@ -28,6 +28,7 @@
 		"gulp-minify-css": "1.2.2",
 		"gulp-sass": "2.1.1",
 		"jquery": "^3.3.1",
+		"macy": "^2.3.0",
 		"mustache": "^2.3.0",
 		"normalize.css": "^8.0.0"
 	},

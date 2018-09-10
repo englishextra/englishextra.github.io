@@ -402,19 +402,23 @@ ToProgress, unescape, VK, Ya*/
 			var f = function (a) {
 				var b = a.split(" ");
 				if (selectors) {
-					for (var c = 0; c < b[_length]; c += 1) {
+					var c;
+					for (c = 0; c < b[_length]; c += 1) {
 						a = b[c];
 						selectors.add(a);
 					}
+					c = null;
 				}
 			};
 			var g = function (a) {
 				var b = a.split(" ");
 				if (selectors) {
-					for (var c = 0; c < b[_length]; c += 1) {
+					var c;
+					for (c = 0; c < b[_length]; c += 1) {
 						a = b[c];
 						selectors.remove(a);
 					}
+					c = null;
 				}
 			};
 			var h = {
@@ -715,9 +719,12 @@ ToProgress, unescape, VK, Ya*/
 				}
 			};
 			if (link) {
-				for (var i = 0, l = link[_length]; i < l; i += 1) {
+				var i,
+				l;
+				for (i = 0, l = link[_length]; i < l; i += 1) {
 					arrange(link[i]);
 				}
+				i = l = null;
 			}
 		};
 		manageExternalLinkAll();
@@ -1206,9 +1213,11 @@ ToProgress, unescape, VK, Ya*/
 		listeners: [],
 		active: function () {
 			this.called_ready = true;
-			for (var i = 0; i < this.listeners[_length]; i++) {
+			var i;
+			for (i = 0; i < this.listeners[_length]; i++) {
 				this.listeners[i]();
 			}
+			i = null;
 		},
 		ready: function (callback) {
 			if (this.called_ready) {

@@ -459,9 +459,12 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya, zoomwall */
 						hideProgressBar();
 					}
 				};
-				for (var i = 0, l = e[_length]; i < l; i += 1) {
+				var i,
+				l;
+				for (i = 0, l = e[_length]; i < l; i += 1) {
 					triggerOnMutation(e[i]);
 				}
+				i = l = null;
 			};
 			if (context) {
 				mo = new MutationObserver(getMutations);
@@ -1374,9 +1377,11 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya, zoomwall */
 		listeners: [],
 		active: function () {
 			this.called_ready = true;
-			for (var i = 0; i < this.listeners[_length]; i++) {
+			var i;
+			for (i = 0; i < this.listeners[_length]; i++) {
 				this.listeners[i]();
 			}
+			i = null;
 		},
 		ready: function (callback) {
 			if (this.called_ready) {

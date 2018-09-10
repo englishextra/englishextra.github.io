@@ -1212,9 +1212,11 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 		listeners: [],
 		active: function () {
 			this.called_ready = true;
-			for (var i = 0; i < this.listeners[_length]; i++) {
+			var i;
+			for (i = 0; i < this.listeners[_length]; i++) {
 				this.listeners[i]();
 			}
+			i = null;
 		},
 		ready: function (callback) {
 			if (this.called_ready) {
