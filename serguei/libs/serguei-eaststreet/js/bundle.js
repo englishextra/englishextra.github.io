@@ -2379,6 +2379,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 						manageDataQrcodeImageAll(appContentParent);
 						manageChaptersSelect(appContentParent);
 						manageExpandingLayers(appContentParent);
+						handleDataSrcImageAll();
 					}, 100);
 				LoadingSpinner.hide(scroll2Top.bind(null, 0, 20000));
 			};
