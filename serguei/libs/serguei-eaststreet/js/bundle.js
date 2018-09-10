@@ -1726,7 +1726,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 								manageExternalLinkAll(containerParent);
 								manageImgLightboxLinkAll(containerParent);
 								handleDataSrcImageAll();
-							}, 500);
+							}, 100);
 						}
 					};
 					insertTextAsFragment(t, container, cb);
