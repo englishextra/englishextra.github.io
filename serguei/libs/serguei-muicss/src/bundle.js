@@ -1055,6 +1055,7 @@ unescape, VK, WheelIndicator, Ya*/
 				if (!images[i][classList].contains(isBindedDataSrcImgClass) && yPositionTop <= offset && yPositionBottom >= -offset) {
 					images[i][classList].add(isBindedDataSrcImgClass);
 					images[i].src = images[i][dataset].src || "";
+					images[i].srcset = images[i][dataset].srcset || "";
 					images[i][classList].add(isActiveClass);
 					cb();
 				}
@@ -2399,7 +2400,7 @@ unescape, VK, WheelIndicator, Ya*/
 									clearTimeout(timer);
 									timer = null;
 									scroll2Top(0, 20000);
-								}, 500);
+								}, 1000);
 						}
 					};
 					if (img && !macyContainer[classList].contains(isActiveClass)) {
