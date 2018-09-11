@@ -2372,7 +2372,11 @@ unescape, VK, WheelIndicator, Ya*/
 					var imgCounter = 0;
 					var incrementCounter = function () {
 						imgCounter++;
+						this[classList].add("data-src-img");
 						if (imgCounter === imgLength) {
+							macyContainer[classList].add(isActiveClass);
+							handleDataSrcImageAll();
+							scroll2Top(1, 20000);
 							if (macy) {
 								macy.remove();
 							}
@@ -2391,7 +2395,11 @@ unescape, VK, WheelIndicator, Ya*/
 										360: 1
 									}
 								});
-							macyContainer[classList].add(isActiveClass);
+							var timer = setTimeout(function () {
+									clearTimeout(timer);
+									timer = null;
+									scroll2Top(0, 20000);
+								}, 500);
 						}
 					};
 					if (img && !macyContainer[classList].contains(isActiveClass)) {

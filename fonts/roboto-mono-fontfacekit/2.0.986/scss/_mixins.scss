@@ -5,4 +5,5 @@
 			url('#{$FontPath}/#{$FontName}-#{$FontType}.woff?v=#{$FontVersion}') format('woff'),
 			url('#{$FontPath}/#{$FontName}-#{$FontType}.ttf') format('truetype'),
 			url('#{$FontPath}/#{$FontName}-#{$FontType}.svg##{$FontName}#{$FontType}') format('svg');
+			font-display:swap;
 }

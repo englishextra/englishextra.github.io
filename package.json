@@ -20,6 +20,7 @@
 		"beautify-css": "^1.0.0",
 		"browserify": "^14.4.0",
 		"clean-css-cli": "^4.1.5",
+		"critical": "^1.3.4",
 		"electron": "^1.6.11",
 		"electron-debug": "^1.1.0",
 		"electron-packager": "^8.7.1",
