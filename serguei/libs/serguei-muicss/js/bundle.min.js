@@ -1817,11 +1817,8 @@ unescape, VK, WheelIndicator, Ya*/
 
 		var cardGridClass = "card-grid";
 
-		var manageMinigrid = function (callback) {
+		var manageMinigrid = function () {
 			return new Promise(function (resolve, reject) {
-				var cb = function () {
-					return callback && "function" === typeof callback && callback();
-				};
 				var cardGrid = document[getElementsByClassName](cardGridClass)[0] || "";
 				var updateMinigridOnMutations = function () {
 					if (!cardGrid[classList].contains(isBindedClass)) {
@@ -1839,7 +1836,6 @@ unescape, VK, WheelIndicator, Ya*/
 					cardGrid[style].opacity = 1;
 					/* addCardWrapCssRule(); */
 					updateMinigridOnMutations();
-					cb();
 				};
 				var initMinigrid = function () {
 					try {
@@ -2366,58 +2362,68 @@ unescape, VK, WheelIndicator, Ya*/
 		var manageMacy = function () {
 			var macyContainerClass = "macy-container";
 			var macyContainer = document[getElementsByClassName](macyContainerClass)[0] || "";
-			var handleMacyContainer = function () {
-				if (root.Macy) {
-					var img = macyContainer[getElementsByTagName]("img") || "";
-					var imgLength = img[_length] || 0;
-					var imgCounter = 0;
-					var incrementCounter = function () {
-						imgCounter++;
-						this[classList].add("data-src-img");
-						if (imgCounter === imgLength) {
-							macyContainer[classList].add(isActiveClass);
-							handleDataSrcImageAll();
-							scroll2Top(1, 20000);
-							if (macy) {
-								macy.remove();
-							}
-							macy = new Macy({
-									container: "." + macyContainerClass,
-									trueOrder: false,
-									waitForImages: false,
-									margin: 0,
-									columns: 5,
-									breakAt: {
-										1280: 5,
-										1024: 4,
-										960: 3,
-										640: 2,
-										480: 2,
-										360: 1
-									}
-								});
-							var timer = setTimeout(function () {
-									clearTimeout(timer);
-									timer = null;
-									scroll2Top(0, 20000);
-								}, 1000);
+			var initMacy = function () {
+				return new Promise(function (resolve, reject) {
+					try {
+						if (macy) {
+							macy.remove();
 						}
-					};
-					if (img && !macyContainer[classList].contains(isActiveClass)) {
-						var onError = function () {
-							console.log("cannot load ", this.src);
-						};
-						var i,
-						l;
-						for (i = 0, l = img[_length]; i < l; i += 1) {
-							img[i][_addEventListener]("load", incrementCounter, false);
-							img[i][_addEventListener]("error", onError, false);
-						}
-						i = l = null;
+						macy = new Macy({
+								container: "." + macyContainerClass,
+								trueOrder: false,
+								waitForImages: false,
+								margin: 0,
+								columns: 5,
+								breakAt: {
+									1280: 5,
+									1024: 4,
+									960: 3,
+									640: 2,
+									480: 2,
+									360: 1
+								}
+							});
+						resolve();
+					} catch (err) {
+						reject(err);
+						throw new Error("cannot init Macy", err);
 					}
+				});
+			};
+			var handleMacyContainer = function () {
+				var img = macyContainer[getElementsByTagName]("img") || "";
+				var imgLength = img[_length] || 0;
+				var imgCounter = 0;
+				var onLoad = function () {
+					imgCounter++;
+					this[classList].add("data-src-img");
+					if (imgCounter === imgLength) {
+						scroll2Top(1, 20000);
+						initMacy().then(function () {
+							handleDataSrcImageAll();
+						}).then(function () {
+							scroll2Top(0, 20000);
+						}).then(function () {
+							macyContainer[classList].add(isActiveClass);
+						}).catch (function (err) {
+							console.log("fail: initMacy", err);
+						});
+					}
+				};
+				var onError = function () {
+					console.log("cannot load ", this.src);
+				};
+				if (img && !macyContainer[classList].contains(isActiveClass)) {
+					var i,
+					l;
+					for (i = 0, l = img[_length]; i < l; i += 1) {
+						img[i][_addEventListener]("load", onLoad, false);
+						img[i][_addEventListener]("error", onError, false);
+					}
+					i = l = null;
 				}
 			};
-			if (macyContainer) {
+			if (root.Macy && macyContainer) {
 				handleMacyContainer();
 			}
 		};
