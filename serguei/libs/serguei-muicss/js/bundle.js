@@ -2360,10 +2360,10 @@ unescape, VK, WheelIndicator, Ya*/
 
 		var macy;
 		var manageMacy = function () {
-			var macyContainerClass = "macy-container";
-			var macyContainer = document[getElementsByClassName](macyContainerClass)[0] || "";
-			var initMacy = function () {
-				return new Promise(function (resolve, reject) {
+			return new Promise(function (resolve, reject) {
+				var macyContainerClass = "macy-container";
+				var macyContainer = document[getElementsByClassName](macyContainerClass)[0] || "";
+				var initMacy = function () {
 					try {
 						if (macy) {
 							macy.remove();
@@ -2383,49 +2383,52 @@ unescape, VK, WheelIndicator, Ya*/
 									360: 1
 								}
 							});
+						macyContainer[classList].add(isActiveClass);
 						resolve();
 					} catch (err) {
 						reject(err);
 						throw new Error("cannot init Macy", err);
 					}
-				});
-			};
-			var handleMacyContainer = function () {
-				var img = macyContainer[getElementsByTagName]("img") || "";
-				var imgLength = img[_length] || 0;
-				var imgCounter = 0;
-				var onLoad = function () {
-					imgCounter++;
-					this[classList].add("data-src-img");
-					if (imgCounter === imgLength) {
-						scroll2Top(1, 20000);
-						initMacy().then(function () {
-							handleDataSrcImageAll();
-						}).then(function () {
-							scroll2Top(0, 20000);
-						}).then(function () {
-							macyContainer[classList].add(isActiveClass);
-						}).catch (function (err) {
-							console.log("fail: initMacy", err);
-						});
+				};
+				var handleMacyContainer = function () {
+					var img = macyContainer[getElementsByTagName]("img") || "";
+					var imgLength = img[_length] || 0;
+					var imgCounter = 0;
+					var onLoad;
+					var onError;
+					var addListeners = function (e) {
+						e[_addEventListener]("load", onLoad, false);
+						e[_addEventListener]("error", onError, false);
+					};
+					var removeListeners = function (e) {
+						e[_removeEventListener]("load", onLoad, false);
+						e[_removeEventListener]("error", onError, false);
+					};
+					onLoad = function () {
+						removeListeners(this);
+						imgCounter++;
+						if (imgCounter === imgLength) {
+							scroll2Top(1, 20000);
+							initMacy();
+						}
+					};
+					onError = function () {
+						removeListeners(this);
+						console.log("cannot load ", this.src);
+					};
+					if (img && !macyContainer[classList].contains(isActiveClass)) {
+						var i,
+						l;
+						for (i = 0, l = img[_length]; i < l; i += 1) {
+							addListeners(img[i]);
+						}
+						i = l = null;
 					}
 				};
-				var onError = function () {
-					console.log("cannot load ", this.src);
-				};
-				if (img && !macyContainer[classList].contains(isActiveClass)) {
-					var i,
-					l;
-					for (i = 0, l = img[_length]; i < l; i += 1) {
-						img[i][_addEventListener]("load", onLoad, false);
-						img[i][_addEventListener]("error", onError, false);
-					}
-					i = l = null;
+				if (root.Macy && macyContainer) {
+					handleMacyContainer();
 				}
-			};
-			if (root.Macy && macyContainer) {
-				handleMacyContainer();
-			}
+			});
 		};
 
 		var jhrouter;
@@ -2502,10 +2505,16 @@ unescape, VK, WheelIndicator, Ya*/
 						highlightSidedrawerItem();
 						manageReadMore();
 						manageExpandingLayers();
-						manageMacy();
-						var timer = setTimeout(function () {
+						manageMacy().then(function () {
+							handleDataSrcImageAll();
+						}).then(function () {
+							scroll2Top(0, 20000);
+						}).catch (function (err) {
+							console.log("fail: manageMacy", err);
+						});
+						/* var timer = setTimeout(function () {
 							clearTimeout(timer);
-							timer = null;
+							timer = null; */
 							manageMinigrid().then(function () {
 								handleDataSrcIframeAll(updateMinigridThrottled);
 								handleDataSrcImageAll(updateMinigridThrottled);
@@ -2521,7 +2530,7 @@ unescape, VK, WheelIndicator, Ya*/
 							}).catch (function (err) {
 								console.log("fail: manageMinigrid", err);
 							});
-						}, 100);
+						/* }, 100); */
 					}
 					LoadingSpinner.hide();
 					scroll2Top(0, 20000);
