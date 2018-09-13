@@ -372,8 +372,8 @@ unescape, VK, WheelIndicator, Ya*/
 				(_this.body || _this.head)[appendChild](script);
 			}
 		};
-		var i,
-			l;
+				var i,
+		l;
 		for (i = 0, l = _this.files[_length]; i < l; i += 1) {
 			if ((/\.js$|\.js\?/).test(_this.files[i])) {
 				_this.js.push(_this.files[i]);
@@ -1629,6 +1629,7 @@ unescape, VK, WheelIndicator, Ya*/
 									instagramMedia[i][parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
 								}
 							}
+							i = l = null;
 						}
 					} catch (err) {
 						/* console.log("cannot instgrm.Embeds.process", err); */
@@ -1663,6 +1664,7 @@ unescape, VK, WheelIndicator, Ya*/
 									twitterTweet[i][parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
 								}
 							}
+							i = l = null;
 						}
 					} catch (err) {
 						/* console.log("cannot twttr.widgets.load", err); */
@@ -1702,6 +1704,7 @@ unescape, VK, WheelIndicator, Ya*/
 									initVkPost(vkPost[i].id, vkPost[i][dataset].vkOwnerid, vkPost[i][dataset].vkPostid, vkPost[i][dataset].vkHash);
 								}
 							}
+							i = l = null;
 						}
 					} catch (err) {
 						/* console.log("cannot initVkPost", err); */
@@ -1743,6 +1746,7 @@ unescape, VK, WheelIndicator, Ya*/
 					for (i = 0, l = rmLink[_length]; i < l; i += 1) {
 						arrange(rmLink[i]);
 					}
+					i = l = null;
 				}
 			};
 			if (rmLink) {
@@ -2343,6 +2347,7 @@ unescape, VK, WheelIndicator, Ya*/
 							break;
 						}
 					}
+					i = l = null;
 				} else {
 					prevHash = jsonObj.hashes[jsonObj.hashes[_length] - 1].href;
 					nextHash = jsonObj.hashes[1].href;
