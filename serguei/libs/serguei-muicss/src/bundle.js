@@ -1500,10 +1500,7 @@ unescape, VK, WheelIndicator, Ya*/
 
 		var isBindedMinigridCardClass = "is-binded-minigrid-card";
 
-		var updateMinigrid = function (delay, callback) {
-			var cb = function () {
-				return callback && "function" === typeof callback && callback();
-			};
+		var updateMinigrid = function (delay) {
 			var timeout = delay || 100;
 			var logThis;
 			logThis = function () {
@@ -1515,7 +1512,6 @@ unescape, VK, WheelIndicator, Ya*/
 						timer = null;
 						/* logThis(); */
 						mgrid.mount();
-						cb();
 					}, timeout);
 			}
 		};
@@ -1857,7 +1853,7 @@ unescape, VK, WheelIndicator, Ya*/
 						throw new Error("cannot init initMinigrid", err);
 					}
 				};
-				if (cardGrid) {
+				if (root.Minigrid && cardGrid) {
 					initMinigrid();
 				}
 			});
@@ -2431,6 +2427,24 @@ unescape, VK, WheelIndicator, Ya*/
 			});
 		};
 
+		var updateMacy = function (delay) {
+			var timeout = delay || 100;
+			var logThis;
+			logThis = function () {
+				console.log("updateMacy");
+			};
+			if (macy) {
+				var timer = setTimeout(function () {
+						clearTimeout(timer);
+						timer = null;
+						/* logThis(); */
+						macy.recalculate(true, true);
+					}, timeout);
+			}
+		};
+
+		var updateMacyThrottled = throttle(updateMacy, 2000);
+
 		var jhrouter;
 		jhrouter = new JsonHashRouter("./libs/serguei-muicss/json/navigation.min.json", appContentId, {
 				jsonHomePropName: "home",
@@ -2506,31 +2520,27 @@ unescape, VK, WheelIndicator, Ya*/
 						manageReadMore();
 						manageExpandingLayers();
 						manageMacy().then(function () {
-							handleDataSrcImageAll();
+							handleDataSrcImageAll(updateMacyThrottled);
 						}).then(function () {
 							scroll2Top(0, 20000);
 						}).catch (function (err) {
 							console.log("fail: manageMacy", err);
 						});
-						/* var timer = setTimeout(function () {
-							clearTimeout(timer);
-							timer = null; */
-							manageMinigrid().then(function () {
-								handleDataSrcIframeAll(updateMinigridThrottled);
-								handleDataSrcImageAll(updateMinigridThrottled);
-								manageDataQrcodeImageAll(updateMinigridThrottled);
-							}).then(function () {
-								manageInstagramEmbeds();
-							}).then(function () {
-								manageTwitterEmbeds();
-							}).then(function () {
-								manageVkEmbeds();
-							}).then(function () {
-								manageDisqusEmbed();
-							}).catch (function (err) {
-								console.log("fail: manageMinigrid", err);
-							});
-						/* }, 100); */
+						manageMinigrid().then(function () {
+							handleDataSrcIframeAll(updateMinigridThrottled);
+							handleDataSrcImageAll(updateMinigridThrottled);
+							manageDataQrcodeImageAll(updateMinigridThrottled);
+						}).then(function () {
+							manageInstagramEmbeds();
+						}).then(function () {
+							manageTwitterEmbeds();
+						}).then(function () {
+							manageVkEmbeds();
+						}).then(function () {
+							manageDisqusEmbed();
+						}).catch (function (err) {
+							console.log("fail: manageMinigrid", err);
+						});
 					}
 					LoadingSpinner.hide();
 					scroll2Top(0, 20000);
