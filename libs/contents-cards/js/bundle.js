@@ -1007,7 +1007,7 @@ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 				onMinigridCreated();
 				addCardWrapCssRule();
 			};
-						var updateMinigrid = function () {
+			var updateMinigrid = function () {
 				if (mgrid) {
 					var timer = setTimeout(function () {
 							clearTimeout(timer);
@@ -1042,6 +1042,8 @@ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		}).then(function (text) {
 			generateCardGrid(text).then(function () {
 				timerCreateGrid = setTimeout(createGrid, 500);
+			}).then(function () {
+				manageExternalLinkAll(wrapper);
 			}).then(function () {
 				manageExternalLinkAll(wrapper);
 			}).then(function () {
