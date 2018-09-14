@@ -8,6 +8,7 @@
 	url(./RobotoMono-Bold.svg#RobotoMono-Bold) format("svg");
 	font-style: normal;
 	font-weight: 700;
+	font-display: swap;
 }
 
 @font-face {
@@ -20,6 +21,7 @@
 	url(./RobotoMono-BoldItalic.svg#RobotoMono-BoldItalic) format("svg");
 	font-style: italic;
 	font-weight: 700;
+	font-display: swap;
 }
 
 @font-face {
@@ -32,6 +34,7 @@
 	url(./RobotoMono-Italic.svg#RobotoMono-Italic) format("svg");
 	font-style: italic;
 	font-weight: 400;
+	font-display: swap;
 }
 
 @font-face {
@@ -44,6 +47,7 @@
 	url(./RobotoMono-Light.svg#RobotoMono-Light) format("svg");
 	font-style: normal;
 	font-weight: 300;
+	font-display: swap;
 }
 
 @font-face {
@@ -56,6 +60,7 @@
 	url(./RobotoMono-LightItalic.svg#RobotoMono-LightItalic) format("svg");
 	font-style: italic;
 	font-weight: 300;
+	font-display: swap;
 }
 
 @font-face {
@@ -68,6 +73,7 @@
 	url(./RobotoMono-Medium.svg#RobotoMono-Medium) format("svg");
 	font-style: normal;
 	font-weight: 500;
+	font-display: swap;
 }
 
 @font-face {
@@ -80,6 +86,7 @@
 	url(./RobotoMono-MediumItalic.svg#RobotoMono-MediumItalic) format("svg");
 	font-style: italic;
 	font-weight: 500;
+	font-display: swap;
 }
 
 @font-face {
@@ -92,6 +99,7 @@
 	url(./RobotoMono-Regular.svg#RobotoMono-Regular) format("svg");
 	font-style: normal;
 	font-weight: 400;
+	font-display: swap;
 }
 
 @font-face {
@@ -104,6 +112,7 @@
 	url(./RobotoMono-Thin.svg#RobotoMono-Thin) format("svg");
 	font-style: normal;
 	font-weight: 100;
+	font-display: swap;
 }
 
 @font-face {
@@ -116,4 +125,5 @@
 	url(./RobotoMono-ThinItalic.svg#RobotoMono-ThinItalic) format("svg");
 	font-style: italic;
 	font-weight: 100;
+	font-display: swap;
 }

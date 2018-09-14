@@ -67,6 +67,7 @@ EB5262
 	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Thin.woff?v=2.137) format("woff");
 	font-weight: 100;
 	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
@@ -75,6 +76,7 @@ EB5262
 	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-ThinItalic.woff?v=2.137) format("woff");
 	font-weight: 100;
 	font-style: italic;
+	font-display: swap;
 }
 
 @font-face {
@@ -83,6 +85,7 @@ EB5262
 	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Light.woff?v=2.137) format("woff");
 	font-weight: 300;
 	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
@@ -91,6 +94,7 @@ EB5262
 	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-LightItalic.woff?v=2.137) format("woff");
 	font-weight: 300;
 	font-style: italic;
+	font-display: swap;
 }
 
 @font-face {
@@ -99,6 +103,7 @@ EB5262
 	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Regular.woff?v=2.137) format("woff");
 	font-weight: 400;
 	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
@@ -107,6 +112,7 @@ EB5262
 	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Regular.woff?v=2.137) format("woff");
 	font-weight: 400;
 	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
@@ -115,6 +121,7 @@ EB5262
 	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Italic.woff?v=2.137) format("woff");
 	font-weight: 400;
 	font-style: italic;
+	font-display: swap;
 }
 
 @font-face {
@@ -123,6 +130,7 @@ EB5262
 	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Italic.woff?v=2.137) format("woff");
 	font-weight: 400;
 	font-style: italic;
+	font-display: swap;
 }
 
 @font-face {
@@ -131,6 +139,7 @@ EB5262
 	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Medium.woff?v=2.137) format("woff");
 	font-weight: 500;
 	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
@@ -139,6 +148,7 @@ EB5262
 	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-MediumItalic.woff?v=2.137) format("woff");
 	font-weight: 500;
 	font-style: italic;
+	font-display: swap;
 }
 
 @font-face {
@@ -147,6 +157,7 @@ EB5262
 	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Bold.woff?v=2.137) format("woff");
 	font-weight: 700;
 	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
@@ -155,6 +166,7 @@ EB5262
 	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Bold.woff?v=2.137) format("woff");
 	font-weight: 700;
 	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
@@ -163,6 +175,7 @@ EB5262
 	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BoldItalic.woff?v=2.137) format("woff");
 	font-weight: 700;
 	font-style: italic;
+	font-display: swap;
 }
 
 @font-face {
@@ -171,6 +184,7 @@ EB5262
 	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BoldItalic.woff?v=2.137) format("woff");
 	font-weight: 700;
 	font-style: italic;
+	font-display: swap;
 }
 
 @font-face {
@@ -179,6 +193,7 @@ EB5262
 	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Black.woff?v=2.137) format("woff");
 	font-weight: 900;
 	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
@@ -187,6 +202,7 @@ EB5262
 	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BlackItalic.woff?v=2.137) format("woff");
 	font-weight: 900;
 	font-style: italic;
+	font-display: swap;
 }
 
 html {

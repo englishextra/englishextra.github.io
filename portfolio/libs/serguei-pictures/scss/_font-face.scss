@@ -5,6 +5,7 @@
 	src: url(../../../fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.woff2) format("woff2"), url(../../../fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.woff) format("woff"), url(../../../fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.ttf) format("truetype");
 	font-weight: normal;
 	font-style: normal;
+	font-display: swap;
 }
 
 /* @font-face {
@@ -12,6 +13,7 @@
 	src: url(../../../fonts/exo2-fontfacekit/Exo2Light.woff2) format("woff2"), url(../../../fonts/exo2-fontfacekit/Exo2Light.woff) format("woff"), url(../../../fonts/exo2-fontfacekit/Exo2Light.ttf) format("truetype");
 	font-style: normal;
 	font-weight: 300;
+	font-display: swap;
 }
 
 @font-face {
@@ -19,6 +21,7 @@
 	src: url(../../../fonts/exo2-fontfacekit/Exo2Regular.woff2) format("woff2"), url(../../../fonts/exo2-fontfacekit/Exo2Regular.woff) format("woff"), url(../../../fonts/exo2-fontfacekit/Exo2Regular.ttf) format("truetype");
 	font-style: normal;
 	font-weight: 400;
+	font-display: swap;
 } */
 
 @font-face {
@@ -27,6 +30,7 @@
 	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Thin.woff?v=2.137) format("woff");
 	font-weight: 100;
 	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
@@ -35,6 +39,7 @@
 	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-ThinItalic.woff?v=2.137) format("woff");
 	font-weight: 100;
 	font-style: italic;
+	font-display: swap;
 }
 
 @font-face {
@@ -43,6 +48,7 @@
 	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Light.woff?v=2.137) format("woff");
 	font-weight: 300;
 	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
@@ -51,6 +57,7 @@
 	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-LightItalic.woff?v=2.137) format("woff");
 	font-weight: 300;
 	font-style: italic;
+	font-display: swap;
 }
 
 @font-face {
@@ -59,6 +66,7 @@
 	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Regular.woff?v=2.137) format("woff");
 	font-weight: 400;
 	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
@@ -67,6 +75,7 @@
 	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Regular.woff?v=2.137) format("woff");
 	font-weight: 400;
 	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
@@ -75,6 +84,7 @@
 	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Italic.woff?v=2.137) format("woff");
 	font-weight: 400;
 	font-style: italic;
+	font-display: swap;
 }
 
 @font-face {
@@ -83,6 +93,7 @@
 	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Italic.woff?v=2.137) format("woff");
 	font-weight: 400;
 	font-style: italic;
+	font-display: swap;
 }
 
 @font-face {
@@ -91,6 +102,7 @@
 	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Medium.woff?v=2.137) format("woff");
 	font-weight: 500;
 	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
@@ -99,6 +111,7 @@
 	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-MediumItalic.woff?v=2.137) format("woff");
 	font-weight: 500;
 	font-style: italic;
+	font-display: swap;
 }
 
 @font-face {
@@ -107,6 +120,7 @@
 	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Bold.woff?v=2.137) format("woff");
 	font-weight: 700;
 	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
@@ -115,6 +129,7 @@
 	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Bold.woff?v=2.137) format("woff");
 	font-weight: 700;
 	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
@@ -123,6 +138,7 @@
 	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BoldItalic.woff?v=2.137) format("woff");
 	font-weight: 700;
 	font-style: italic;
+	font-display: swap;
 }
 
 @font-face {
@@ -131,6 +147,7 @@
 	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BoldItalic.woff?v=2.137) format("woff");
 	font-weight: 700;
 	font-style: italic;
+	font-display: swap;
 }
 
 @font-face {
@@ -139,6 +156,7 @@
 	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Black.woff?v=2.137) format("woff");
 	font-weight: 900;
 	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
@@ -147,6 +165,7 @@
 	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BlackItalic.woff?v=2.137) format("woff");
 	font-weight: 900;
 	font-style: italic;
+	font-display: swap;
 }
 
 @font-face {
@@ -159,6 +178,7 @@
 	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Thin.svg#RobotoMonoThin) format("svg");
 	font-weight: 100;
 	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
@@ -171,6 +191,7 @@
 	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-ThinItalic.svg#RobotoMonoThinItalic) format("svg");
 	font-weight: 100;
 	font-style: italic;
+	font-display: swap;
 }
 
 @font-face {
@@ -183,6 +204,7 @@
 	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Light.svg#RobotoMonoLight) format("svg");
 	font-weight: 300;
 	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
@@ -195,6 +217,7 @@
 	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-LightItalic.svg#RobotoMonoLightItalic) format("svg");
 	font-weight: 300;
 	font-style: italic;
+	font-display: swap;
 }
 
 @font-face {
@@ -207,6 +230,7 @@
 	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.svg#RobotoMonoRegular) format("svg");
 	font-weight: 400;
 	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
@@ -219,6 +243,7 @@
 	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.svg#RobotoMonoRegular) format("svg");
 	font-weight: 400;
 	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
@@ -231,6 +256,7 @@
 	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.svg#RobotoMonoItalic) format("svg");
 	font-weight: 400;
 	font-style: italic;
+	font-display: swap;
 }
 
 @font-face {
@@ -243,6 +269,7 @@
 	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.svg#RobotoMonoItalic) format("svg");
 	font-weight: 400;
 	font-style: italic;
+	font-display: swap;
 }
 
 @font-face {
@@ -255,6 +282,7 @@
 	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Medium.svg#RobotoMonoMedium) format("svg");
 	font-weight: 500;
 	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
@@ -267,6 +295,7 @@
 	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-MediumItalic.svg#RobotoMonoMediumItalic) format("svg");
 	font-weight: 500;
 	font-style: italic;
+	font-display: swap;
 }
 
 @font-face {
@@ -279,6 +308,7 @@
 	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.svg#RobotoMonoBold) format("svg");
 	font-weight: 700;
 	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
@@ -291,6 +321,7 @@
 	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.svg#RobotoMonoBold) format("svg");
 	font-weight: 700;
 	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
@@ -303,6 +334,7 @@
 	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.svg#RobotoMonoBoldItalic) format("svg");
 	font-weight: 700;
 	font-style: italic;
+	font-display: swap;
 }
 
 @font-face {
@@ -315,4 +347,5 @@
 	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.svg#RobotoMonoBoldItalic) format("svg");
 	font-weight: 700;
 	font-style: italic;
+	font-display: swap;
 }
