@@ -2,18 +2,16 @@
 	"name": "serguei-muicss-dev",
 	"version": "1.0.0",
 	"description": "Developing Tutor of English in Tushino Portfolio PWA with https://github.com/muicss/mui.",
-	"keywords": [
-		"english",
-		"webapp",
-		"spa",
-		"html",
-		"css",
-		"scss",
-		"js",
-		"pwa",
-		"material",
-		"material-design"
-	],
+	"keywords": ["english",
+	"webapp",
+	"spa",
+	"html",
+	"css",
+	"scss",
+	"js",
+	"pwa",
+	"material",
+	"material-design"],
 	"main": "gulpfile.js",
 	"scripts": {
 		"start": "gulp default",
@@ -36,8 +34,17 @@
 		"type": "git",
 		"url": "git+https://github.com/englishextra/serguei-muicss-dev.git"
 	},
-	"author": "englishextra <englishextra@yandex.ru> (https://github.com/englishextra)",
-	"license": "MIT",
+	"maintainers": {
+		"name": "Serguei Shimansky",
+		"email": "englishextra@mail.ru",
+		"url": "https://github.com/englishextra"
+	},
+	"author": {
+		"name": "Serguei Shimansky",
+		"email": "englishextra@mail.ru",
+		"url": "https://github.com/englishextra"
+	},
+	"license": "(MIT)",
 	"bugs": {
 		"url": "https://github.com/englishextra/serguei-muicss-dev/issues"
 	},
