@@ -16,3 +16,4 @@ node_modules/
 *.psd
 .GITHUB.md
 .SOUNDCLOUD.md
+.src

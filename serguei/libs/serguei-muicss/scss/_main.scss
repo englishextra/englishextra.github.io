@@ -552,7 +552,7 @@ button {
 }
 
 .mui-btn.mui-btn--primary {
-	background-color: $clr-light-blue-500;
+	background-color: $custom-color-primary;
 }
 
 .mui-btn.mui-btn--danger {
@@ -650,7 +650,7 @@ button {
 	display: block;
 	width: 100%;
 	height: 10.000rem;
-	color: $clr-light-blue-500;
+	color: $custom-color-primary;
 	background-color: $clr-grey-200;
 	border-radius: 0.125rem;
 	cursor: pointer;
