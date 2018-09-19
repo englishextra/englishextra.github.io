@@ -40,6 +40,10 @@
 			"url": "./includes/serguei-muicss/map.html",
 			"title": "Карта"
 		}, {
+			"href": "#/about",
+			"url": "./includes/serguei-muicss/about.html",
+			"title": "Об этом ресурсе"
+		}, {
 			"href": "#/contacts",
 			"url": "./includes/serguei-muicss/contacts.html",
 			"title": "Контакты"
