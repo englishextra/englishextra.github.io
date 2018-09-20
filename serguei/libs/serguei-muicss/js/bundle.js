@@ -1859,9 +1859,8 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 		var onMinigridCreated = function () {
 			root[_addEventListener]("resize", updateMinigrid, {passive: true});
 			var cardGrid = document[getElementsByClassName](cardGridClass)[0] || "";
-			cardGrid[style].visibility = "visible";
-			cardGrid[style].opacity = 1;
 			/* addCardWrapCssRule(); */
+			cardGrid[classList].add(isActiveClass);
 			if (!cardGrid[classList].contains(isBindedClass)) {
 				cardGrid[classList].add(isBindedClass);
 				/* var throttleLogic = throttle(updateMinigrid.bind(null, 2000), 2000);
