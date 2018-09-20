@@ -28,7 +28,8 @@
 		"jquery": "^3.3.1",
 		"macy": "^2.3.0",
 		"mustache": "^2.3.0",
-		"normalize.css": "^8.0.0"
+		"normalize.css": "^8.0.0",
+		"wolfy87-eventemitter": "^5.2.5"
 	},
 	"repository": {
 		"type": "git",

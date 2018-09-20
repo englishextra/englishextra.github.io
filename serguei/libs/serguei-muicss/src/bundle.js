@@ -1,7 +1,7 @@
-/*global $readMoreJS, ActiveXObject, console, DISQUS, doesFontExist, hljs,
-IframeLightbox, imgLightbox, instgrm, JsonHashRouter, loadCSS,
-loadJsCss, Macy, Minigrid, Mustache, Promise, QRCode, require, ripple, t, twttr,
-unescape, VK, WheelIndicator, Ya*/
+/*global $readMoreJS, ActiveXObject, console, DISQUS, doesFontExist,
+EventEmitter, hljs, IframeLightbox, imgLightbox, instgrm,
+JsonHashRouter, loadCSS, loadJsCss, Macy, Minigrid, Mustache, Promise,
+QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -2359,7 +2359,7 @@ unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var macy;
+		/* var macy;
 		var manageMacy = function () {
 			return new Promise(function (resolve, reject) {
 				var macyContainerClass = "macy-container";
@@ -2387,8 +2387,7 @@ unescape, VK, WheelIndicator, Ya*/
 						macyContainer[classList].add(isActiveClass);
 						resolve();
 					} catch (err) {
-						reject(err);
-						throw new Error("cannot init Macy", err);
+						reject("cannot init Macy", err);
 					}
 				};
 				var handleMacyContainer = function () {
@@ -2410,12 +2409,94 @@ unescape, VK, WheelIndicator, Ya*/
 						imgCounter++;
 						if (imgCounter === imgLength) {
 							scroll2Top(1, 20000);
+							console.log("manageMacy: " + imgCounter + " images loaded");
 							initMacy();
 						}
 					};
 					onError = function () {
 						removeListeners(this);
 						console.log("cannot load ", this.src);
+					};
+					if (img && !macyContainer[classList].contains(isActiveClass)) {
+						var i,
+						l;
+						for (i = 0, l = img[_length]; i < l; i += 1) {
+							addListeners(img[i]);
+						}
+						i = l = null;
+					}
+				};
+				if (root.Macy && macyContainer) {
+					handleMacyContainer();
+				}
+			});
+		}; */
+
+		var macyEvent = new EventEmitter();
+
+		var macy;
+
+		var initMacy = function () {
+			var macyContainerClass = "macy-container";
+			var macyContainer = document[getElementsByClassName](macyContainerClass)[0] || "";
+			try {
+				if (macy) {
+					macy.remove();
+				}
+				macy = new Macy({
+						container: "." + macyContainerClass,
+						trueOrder: false,
+						waitForImages: false,
+						margin: 0,
+						columns: 5,
+						breakAt: {
+							1280: 5,
+							1024: 4,
+							960: 3,
+							640: 2,
+							480: 2,
+							360: 1
+						}
+					});
+				macyContainer[classList].add(isActiveClass);
+			} catch (err) {
+				throw new Error("cannot init Macy", err);
+			}
+		};
+
+		macyEvent.addListeners("imagesloaded", [initMacy]);
+
+		var manageMacy = function () {
+			return new Promise(function (resolve, reject) {
+				var macyContainerClass = "macy-container";
+				var macyContainer = document[getElementsByClassName](macyContainerClass)[0] || "";
+				var handleMacyContainer = function () {
+					var img = macyContainer[getElementsByTagName]("img") || "";
+					var imgLength = img[_length] || 0;
+					var imgCounter = 0;
+					var onLoad;
+					var onError;
+					var addListeners = function (e) {
+						e[_addEventListener]("load", onLoad, false);
+						e[_addEventListener]("error", onError, false);
+					};
+					var removeListeners = function (e) {
+						e[_removeEventListener]("load", onLoad, false);
+						e[_removeEventListener]("error", onError, false);
+					};
+					onLoad = function () {
+						removeListeners(this);
+						imgCounter++;
+						if (imgCounter === imgLength) {
+							macyEvent.emitEvent("imagesloaded");
+							scroll2Top(1, 20000);
+							console.log("manageMacy: " + imgCounter + " images loaded");
+							resolve();
+						}
+					};
+					onError = function () {
+						removeListeners(this);
+						reject("manageMacy: cannot load " + this.src);
 					};
 					if (img && !macyContainer[classList].contains(isActiveClass)) {
 						var i,
@@ -2529,7 +2610,7 @@ unescape, VK, WheelIndicator, Ya*/
 						}).then(function () {
 							scroll2Top(0, 20000);
 						}).catch (function (err) {
-							console.log("fail: manageMacy", err);
+							console.log(err);
 						});
 						manageMinigrid().then(function () {
 							handleDataSrcIframeAll(updateMinigridThrottled);
@@ -2544,7 +2625,7 @@ unescape, VK, WheelIndicator, Ya*/
 						}).then(function () {
 							manageDisqusEmbed();
 						}).catch (function (err) {
-							console.log("fail: manageMinigrid", err);
+							console.log(err);
 						});
 					}
 					LoadingSpinner.hide();
