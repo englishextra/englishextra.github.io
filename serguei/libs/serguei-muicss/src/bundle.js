@@ -1851,10 +1851,9 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 							});
 						mgrid.mount();
 						onMinigridCreated();
-						resolve();
+						resolve("initMinigrid: inited Minigrid");
 					} catch (err) {
-						reject(err);
-						throw new Error("cannot init initMinigrid", err);
+						reject("initMinigrid: cannot init Minigrid " + err);
 					}
 				};
 				if (root.Minigrid && cardGrid) {
@@ -2385,9 +2384,9 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 								}
 							});
 						macyContainer[classList].add(isActiveClass);
-						resolve();
+						resolve("manageMacy: inited Macy");
 					} catch (err) {
-						reject("cannot init Macy", err);
+						reject("manageMacy: cannot init Macy " + err);
 					}
 				};
 				var handleMacyContainer = function () {
@@ -2415,7 +2414,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 					};
 					onError = function () {
 						removeListeners(this);
-						console.log("cannot load ", this.src);
+						console.log("manageMacy: cannot load ", this.src);
 					};
 					if (img && !macyContainer[classList].contains(isActiveClass)) {
 						var i,
@@ -2490,8 +2489,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 						if (imgCounter === imgLength) {
 							macyEvent.emitEvent("imagesloaded");
 							scroll2Top(1, 20000);
-							console.log("manageMacy: " + imgCounter + " images loaded");
-							resolve();
+							resolve("manageMacy: all " + imgCounter + " images loaded");
 						}
 					};
 					onError = function () {
