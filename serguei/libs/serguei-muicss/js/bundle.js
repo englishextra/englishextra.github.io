@@ -1815,7 +1815,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var cardGridClass = "card-grid";
+		/* var cardGridClass = "card-grid";
 
 		var manageMinigrid = function () {
 			return new Promise(function (resolve, reject) {
@@ -1823,18 +1823,13 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 				var updateMinigridOnMutations = function () {
 					if (!cardGrid[classList].contains(isBindedClass)) {
 						cardGrid[classList].add(isBindedClass);
-						/*!
-						 * execute this function at most once every ... milliseconds
-						 */
-						/* var throttleLogic = throttle(updateMinigrid.bind(null, 2000), 2000);
-						observeMutations(cardGrid, throttleLogic, {log: false}); */
 					}
 				};
 				var onMinigridCreated = function () {
 					root[_addEventListener]("resize", updateMinigrid, {passive: true});
 					cardGrid[style].visibility = "visible";
 					cardGrid[style].opacity = 1;
-					/* addCardWrapCssRule(); */
+					addCardWrapCssRule();
 					updateMinigridOnMutations();
 				};
 				var initMinigrid = function () {
@@ -1846,11 +1841,55 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 						mgrid = new Minigrid({
 								container: cardGridClass,
 								item: cardWrapClass,
-								gutter: 20/* ,
-								done: onMinigridCreated */
+								gutter: 20
 							});
 						mgrid.mount();
 						onMinigridCreated();
+						resolve("initMinigrid: inited Minigrid");
+					} catch (err) {
+						reject("initMinigrid: cannot init Minigrid " + err);
+					}
+				};
+				if (root.Minigrid && cardGrid) {
+					initMinigrid();
+				}
+			});
+		}; */
+
+		var onMinigridCreated = function () {
+			root[_addEventListener]("resize", updateMinigrid, {passive: true});
+			var cardGrid = document[getElementsByClassName](cardGridClass)[0] || "";
+			cardGrid[style].visibility = "visible";
+			cardGrid[style].opacity = 1;
+			/* addCardWrapCssRule(); */
+			if (!cardGrid[classList].contains(isBindedClass)) {
+				cardGrid[classList].add(isBindedClass);
+				/* var throttleLogic = throttle(updateMinigrid.bind(null, 2000), 2000);
+				observeMutations(cardGrid, throttleLogic, {log: false}); */
+			}
+		};
+
+		var minigridEvent = new EventEmitter();
+		minigridEvent.addListeners("minigridcreated", [onMinigridCreated]);
+
+		var cardGridClass = "card-grid";
+
+		var manageMinigrid = function () {
+			return new Promise(function (resolve, reject) {
+				var cardGrid = document[getElementsByClassName](cardGridClass)[0] || "";
+				var initMinigrid = function () {
+					try {
+						if (mgrid) {
+							mgrid = null;
+							root[_removeEventListener]("resize", updateMinigrid);
+						}
+						mgrid = new Minigrid({
+								container: cardGridClass,
+								item: cardWrapClass,
+								gutter: 20
+							});
+						mgrid.mount();
+						minigridEvent.emitEvent("minigridcreated");
 						resolve("initMinigrid: inited Minigrid");
 					} catch (err) {
 						reject("initMinigrid: cannot init Minigrid " + err);
@@ -2431,8 +2470,6 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			});
 		}; */
 
-		var macyEvent = new EventEmitter();
-
 		var macy;
 
 		var initMacy = function () {
@@ -2463,6 +2500,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
+		var macyEvent = new EventEmitter();
 		macyEvent.addListeners("imagesloaded", [initMacy]);
 
 		var manageMacy = function () {
