@@ -1274,454 +1274,6 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var appContentId = "app-content";
-		var appContent = document[getElementById](appContentId) || "";
-		var appContentParent = appContent ? appContent[parentNode] ? appContent[parentNode] : "" : "";
-
-		var sidedrawer = document[getElementById]("sidedrawer") || "";
-
-		var activeClass = "active";
-		var hideSidedrawerClass = "hide-sidedrawer";
-
-		var hideSidedrawer = function () {
-			docBody[classList].add(hideSidedrawerClass);
-			sidedrawer[classList].remove(activeClass);
-		};
-
-		var isCollapsableClass = "is-collapsable";
-
-		var manageOtherCollapsableAll = function (_self) {
-			var _this = _self || this;
-			var btn = document[getElementsByClassName](isCollapsableClass) || "";
-			var removeActiveClass = function (e) {
-				if (_this !== e) {
-					e[classList].remove(isActiveClass);
-				}
-			};
-			if (btn) {
-				var i,
-				l;
-				for (i = 0, l = btn[_length]; i < l; i += 1) {
-					removeActiveClass(btn[i]);
-				}
-				i = l = null;
-			}
-			if (sidedrawer && _self !== sidedrawer) {
-				hideSidedrawer();
-			}
-		};
-		var manageCollapsableAll = function () {
-			if (appContentParent) {
-				appContentParent[_addEventListener]("click", manageOtherCollapsableAll);
-			}
-		};
-		manageCollapsableAll();
-		root[_addEventListener]("hashchange", manageOtherCollapsableAll);
-
-		var hideCurrentDropdownMenu = function (e) {
-			if (e) {
-				if (/* e[style].display !== "none" || */e[classList].contains(isActiveClass)) {
-					/* e[style].display = "none"; */
-					e[classList].remove(isActiveClass);
-					manageOtherCollapsableAll(e);
-				}
-			}
-		};
-		var handleDropdownButton = function (evt) {
-			evt.stopPropagation();
-			evt.preventDefault();
-			var _this = this;
-			var dropdownMenu = _this.nextElementSibling;
-			var dropdownButtonRect = _this.getBoundingClientRect();
-			var top = dropdownButtonRect.top + dropdownButtonRect.height;
-			var left = dropdownButtonRect.left;
-			if (dropdownMenu) {
-				dropdownMenu[style].top = top + "px";
-				if (!dropdownMenu[classList].contains("mui-dropdown__menu--right")) {
-					dropdownMenu[style].left = left + "px";
-				}
-				if (/* dropdownMenu[style].display === "none" || */!dropdownMenu[classList].contains(isActiveClass)) {
-					/* dropdownMenu[style].display = "block"; */
-					dropdownMenu[classList].add(isActiveClass);
-				} else {
-					/* dropdownMenu[style].display = "none"; */
-					dropdownMenu[classList].remove(isActiveClass);
-				}
-				manageOtherCollapsableAll(dropdownMenu);
-				var linkAll = dropdownMenu[getElementsByTagName]("a") || "";
-				if (linkAll) {
-					var i,
-					l;
-					for (i = 0, l = linkAll[_length]; i < l; i += 1) {
-						linkAll[i][_addEventListener]("click", hideCurrentDropdownMenu.bind(null, dropdownMenu));
-					}
-					i = l = null;
-				}
-			}
-		};
-		var manageDropdownButtonAll = function (scope) {
-			var ctx = scope && scope.nodeName ? scope : "";
-			var linkTag = "a";
-			var linkAll = ctx ? ctx[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
-			var dropdownButtonAll = [];
-			var j,
-			m;
-			for (j = 0, m = linkAll[_length]; j < m; j += 1) {
-				if (linkAll[j][dataset].muiToggle) {
-					dropdownButtonAll.push(linkAll[j]);
-				}
-			}
-			j = m = null;
-			if (dropdownButtonAll) {
-				var i,
-				l;
-				for (i = 0, l = dropdownButtonAll[_length]; i < l; i += 1) {
-					if (!dropdownButtonAll[i][classList].contains(isBindedClass) &&
-						dropdownButtonAll[i].nextElementSibling.nodeName.toLowerCase() === "ul" &&
-						dropdownButtonAll[i].nextElementSibling.nodeType === 1
-						) {
-							dropdownButtonAll[i][_addEventListener]("click", handleDropdownButton);
-							dropdownButtonAll[i][classList].add(isBindedClass);
-							/* dropdownButtonAll[i].nextElementSibling[style].display = "none"; */
-							dropdownButtonAll[i][classList].remove(isActiveClass);
-							dropdownButtonAll[i].nextElementSibling[classList].add(isCollapsableClass);
-					}
-				}
-				i = l = null;
-			}
-		};
-		manageDropdownButtonAll();
-
-		var hideDropdownMenuAll = function () {
-			var dropdownMenuAll = document[getElementsByClassName]("mui-dropdown__menu") || "";
-			if (dropdownMenuAll) {
-				var i,
-				l;
-				for (i = 0, l = dropdownMenuAll[_length]; i < l; i += 1) {
-					if (/* dropdownMenuAll[i][style].display !== "none" || */dropdownMenuAll[i][classList].contains(isActiveClass)) {
-						/* dropdownMenuAll[i][style].display = "none"; */
-						dropdownMenuAll[i][classList].remove(isActiveClass);
-					}
-				}
-				i = l = null;
-			}
-		};
-		var hideDropdownMenuAllOnNavigating = function () {
-			if (appContentParent) {
-				appContentParent[_addEventListener]("click", hideDropdownMenuAll);
-			}
-			root[_addEventListener]("resize", hideDropdownMenuAll);
-		};
-		hideDropdownMenuAllOnNavigating();
-
-		var manageHljsCodeAll = function (scope) {
-			var ctx = scope && scope.nodeName ? scope : "";
-			var codeTag = "code";
-			var codeAll = ctx ? ctx[getElementsByTagName](codeTag) || "" : document[getElementsByTagName](codeTag) || "";
-			if (root.hljs) {
-				var i,
-				l;
-				for (i = 0, l = codeAll[_length]; i < l; i += 1) {
-					if (codeAll[i][classList].contains("hljs") && !codeAll[i][classList].contains(isBindedClass)) {
-						hljs.highlightBlock(codeAll[i]);
-						codeAll[i][classList].add(isBindedClass);
-					}
-				}
-				i = l = null;
-			}
-		};
-
-		var manageRippleEffect = function () {
-			if (root.ripple) {
-				ripple.registerRipples();
-			}
-		};
-		manageRippleEffect();
-
-		var observeMutations;
-		observeMutations = function (scope, callback, settings) {
-			var context = scope && scope.nodeName ? scope : "";
-			var options = settings || {};
-			options.disconnect = options.disconnect || false;
-			options.timeout = options.timeout || null;
-			options.childList = options.childList || true;
-			options.subtree = options.subtree || true;
-			options.attributes = options.attributes || false;
-			options.characterData = options.characterData || false;
-			options.log = options.log || false;
-			var mo;
-			var getMutations = function (e) {
-				var triggerOnMutation = function (m) {
-					if (options.log) {
-						console.log("mutations observer: " + m.type);
-						console.log(m.type, "target: " + m.target.tagName + ("." + m.target[className] || "#" + m.target.id || ""));
-						console.log(m.type, "added: " + m.addedNodes[_length] + " nodes");
-						console.log(m.type, "removed: " + m.removedNodes[_length] + " nodes");
-					}
-					if ("childList" === m.type ||
-						"subtree" === m.type ||
-						"attributes" === m.type ||
-						"characterData" === m.type) {
-						if (options.disconnect) {
-							 mo.disconnect();
-						}
-						if (callback && "function" === typeof callback) {
-							if (options.timeout && "number" === typeof options.timeout) {
-								var timer = setTimeout(function () {
-									clearTimeout(timer);
-									timer = null;
-									callback();
-								}, options.timeout);
-							} else {
-								callback();
-							}
-						}
-					}
-				};
-				var i,
-				l;
-				for (i = 0, l = e[_length]; i < l; i += 1) {
-					triggerOnMutation(e[i]);
-				}
-				i = l = null;
-			};
-			if (context) {
-				mo = new MutationObserver(getMutations);
-				mo.observe(context, {
-					childList: options.childList,
-					subtree: options.subtree,
-					attributes: options.attributes,
-					characterData: options.characterData
-				});
-			}
-		};
-
-		var mgrid;
-
-		var isBindedMinigridCardClass = "is-binded-minigrid-card";
-
-		var updateMinigrid = function (delay) {
-			var timeout = delay || 100;
-			var logThis;
-			logThis = function () {
-				console.log("updateMinigrid");
-			};
-			if (mgrid) {
-				var timer = setTimeout(function () {
-						clearTimeout(timer);
-						timer = null;
-						/* logThis(); */
-						mgrid.mount();
-					}, timeout);
-			}
-		};
-
-		var updateMinigridThrottled = throttle(updateMinigrid, 2000);
-
-		var setIsActiveClass = function (e) {
-			if (e && e.nodeName && !e[classList].contains(isActiveClass)) {
-				e[classList].add(isActiveClass);
-			}
-		};
-
-		var triggerOnHeightChange = function (e, delay, tresholdHeight, callback) {
-			var cb = function () {
-				return callback && "function" === typeof callback && callback();
-			};
-			var keyHeight = tresholdHeight || 108;
-			var logThis;
-			logThis = function (timer, slot, height) {
-				console.log("triggerOnHeightChange:",
-					timer,
-					slot,
-					keyHeight,
-					e.nodeName ? e.nodeName : "",
-					e.className ? "." + e.className : "",
-					e.id ? "#" + e.id : "",
-					height);
-			};
-			/* destroy operation if for some time
-			failed - you should multiply counter
-			by set interval slot
-			to get milliseconds */
-			var counter = 8;
-			var slot = delay || 100;
-			var timer = setInterval(function () {
-					counter--;
-					if (counter === 0) {
-						clearInterval(timer);
-						timer = null;
-					}
-					var height = e.clientHeight || e.offsetHeight || "";
-					/* logThis(timer, slot, height); */
-					if (keyHeight < height) {
-						clearInterval(timer);
-						timer = null;
-						/* logThis(timer, slot, height); */
-						cb();
-					}
-				}, slot);
-		};
-
-		var manageDisqusEmbed = function () {
-			var disqusThread = document[getElementById]("disqus_thread") || "";
-			var locationHref = root.location.href || "";
-			var disqusThreadShortname = disqusThread ? (disqusThread[dataset].shortname || "") : "";
-			var hideDisqusThread = function () {
-				removeChildren(disqusThread);
-				var replacementText = document[createElement]("p");
-				replacementText[appendChild](document[createTextNode]("Комментарии доступны только в веб версии этой страницы."));
-				appendFragment(replacementText, disqusThread);
-				disqusThread.removeAttribute("id");
-			};
-			var initScript = function () {
-				var setDisqusCSSClass = function () {
-					disqusThread[classList].add(isActiveClass);
-				};
-				if (root.DISQUS) {
-					try {
-						DISQUS.reset({
-							reload: true,
-							config: function () {
-								this.page.identifier = disqusThreadShortname;
-								this.page.url = locationHref;
-							}
-						});
-						if (!disqusThread[parentNode][classList].contains(isBindedMinigridCardClass)) {
-							disqusThread[parentNode][classList].add(isBindedMinigridCardClass);
-							triggerOnHeightChange(disqusThread[parentNode], 1000, null, setDisqusCSSClass);
-							disqusThread[parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
-						}
-					} catch (err) {
-						/* console.log("cannot DISQUS.reset", err); */
-					}
-				}
-			};
-			if (disqusThread && disqusThreadShortname && locationHref) {
-				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					var jsUrl = forcedHTTP + "://" + disqusThreadShortname + ".disqus.com/embed.js";
-					if (!scriptIsLoaded(jsUrl)) {
-						var load;
-						load = new loadJsCss([jsUrl], initScript);
-					} else {
-						initScript();
-					}
-				} else {
-					hideDisqusThread();
-				}
-			}
-		};
-
-		var manageInstagramEmbeds = function () {
-			var instagramMedia = document[getElementsByClassName]("instagram-media")[0] || "";
-			var initScript = function () {
-				if (root.instgrm) {
-					try {
-						var instagramMedia = document[getElementsByClassName]("instagram-media") || "";
-						if (instagramMedia) {
-							instgrm.Embeds.process();
-							var i,
-							l;
-							for (i = 0, l = instagramMedia[_length]; i < l; i += 1) {
-								if (!instagramMedia[i][parentNode][classList].contains(isBindedMinigridCardClass)) {
-									instagramMedia[i][parentNode][classList].add(isBindedMinigridCardClass);
-									triggerOnHeightChange(instagramMedia[i][parentNode], 1000, null, setIsActiveClass.bind(null, instagramMedia[i][parentNode]));
-									instagramMedia[i][parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
-								}
-							}
-							i = l = null;
-						}
-					} catch (err) {
-						/* console.log("cannot instgrm.Embeds.process", err); */
-					}
-				}
-			};
-			if (instagramMedia) {
-				var jsUrl = forcedHTTP + "://www.instagram.com/embed.js";
-				if (!scriptIsLoaded(jsUrl)) {
-					var load;
-					load = new loadJsCss([jsUrl], initScript);
-				} else {
-					initScript();
-				}
-			}
-		};
-
-		var manageTwitterEmbeds = function () {
-			var twitterTweet = document[getElementsByClassName]("twitter-tweet")[0] || "";
-			var initScript = function () {
-				if (root.twttr) {
-					try {
-						var twitterTweet = document[getElementsByClassName]("twitter-tweet") || "";
-						if (twitterTweet) {
-							twttr.widgets.load();
-							var i,
-							l;
-							for (i = 0, l = twitterTweet[_length]; i < l; i += 1) {
-								if (!twitterTweet[i][parentNode][classList].contains(isBindedMinigridCardClass)) {
-									twitterTweet[i][parentNode][classList].add(isBindedMinigridCardClass);
-									triggerOnHeightChange(twitterTweet[i][parentNode], 1000, null, setIsActiveClass.bind(null, twitterTweet[i][parentNode]));
-									twitterTweet[i][parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
-								}
-							}
-							i = l = null;
-						}
-					} catch (err) {
-						/* console.log("cannot twttr.widgets.load", err); */
-					}
-				}
-			};
-			if (twitterTweet) {
-				var jsUrl = forcedHTTP + "://platform.twitter.com/widgets.js";
-				if (!scriptIsLoaded(jsUrl)) {
-					var load;
-					load = new loadJsCss([jsUrl], initScript);
-				} else {
-					initScript();
-				}
-			}
-		};
-
-		var manageVkEmbeds = function () {
-			var vkPost = document[getElementsByClassName]("vk-post")[0] || "";
-			var initScript = function () {
-				var initVkPost = function (element_id, owner_id, post_id, hash) {
-					if (!VK.Widgets.Post(element_id, owner_id, post_id, hash)) {
-						initVkPost();
-					}
-				};
-				if (root.VK && VK.Widgets && VK.Widgets.Post) {
-					try {
-						var vkPost = document[getElementsByClassName]("vk-post") || "";
-						if (vkPost) {
-							var i,
-							l;
-							for (i = 0, l = vkPost[_length]; i < l; i += 1) {
-								if (!vkPost[i][parentNode][classList].contains(isBindedMinigridCardClass)) {
-									vkPost[i][parentNode][classList].add(isBindedMinigridCardClass);
-									triggerOnHeightChange(vkPost[i][parentNode], 1000, null, setIsActiveClass.bind(null, vkPost[i][parentNode]));
-									vkPost[i][parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
-									initVkPost(vkPost[i].id, vkPost[i][dataset].vkOwnerid, vkPost[i][dataset].vkPostid, vkPost[i][dataset].vkHash);
-								}
-							}
-							i = l = null;
-						}
-					} catch (err) {
-						/* console.log("cannot initVkPost", err); */
-					}
-				}
-			};
-			if (vkPost) {
-				var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
-				if (!scriptIsLoaded(jsUrl)) {
-					var load;
-					load = new loadJsCss([jsUrl], initScript);
-				} else {
-					initScript();
-				}
-			}
-		};
-
 		var manageReadMore = function () {
 			var rmLink = document[getElementsByClassName]("rm-link") || "";
 			var arrange = function (e) {
@@ -1785,298 +1337,6 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 				i = l = null;
 			}
 		};
-
-		var cardWrapClass = "card-wrap";
-
-		var addCardWrapCssRule;
-		addCardWrapCssRule = function () {
-			var toDashedAll = function (str) {
-				return str.replace((/([A-Z])/g), function ($1) {
-					return "-" + $1.toLowerCase();
-				});
-			};
-			var docElemStyle = docElem[style];
-			var transitionProperty = typeof docElemStyle.transition === "string" ?
-				"transition" : "WebkitTransition";
-			var transformProperty = typeof docElemStyle.transform === "string" ?
-				"transform" : "WebkitTransform";
-			var styleSheet = document[styleSheets][0] || "";
-			if (styleSheet) {
-				var cssRule;
-				cssRule = toDashedAll([".",
-							cardWrapClass,
-							"{",
-							transitionProperty,
-							": ",
-							transformProperty,
-							" 0.4s ease-out;",
-							"}"].join(""));
-				styleSheet.insertRule(cssRule, 0);
-			}
-		};
-
-		/* var cardGridClass = "card-grid";
-
-		var manageMinigrid = function () {
-			return new Promise(function (resolve, reject) {
-				var cardGrid = document[getElementsByClassName](cardGridClass)[0] || "";
-				var updateMinigridOnMutations = function () {
-					if (!cardGrid[classList].contains(isBindedClass)) {
-						cardGrid[classList].add(isBindedClass);
-					}
-				};
-				var onMinigridCreated = function () {
-					root[_addEventListener]("resize", updateMinigrid, {passive: true});
-					cardGrid[style].visibility = "visible";
-					cardGrid[style].opacity = 1;
-					addCardWrapCssRule();
-					updateMinigridOnMutations();
-				};
-				var initMinigrid = function () {
-					try {
-						if (mgrid) {
-							mgrid = null;
-							root[_removeEventListener]("resize", updateMinigrid);
-						}
-						mgrid = new Minigrid({
-								container: cardGridClass,
-								item: cardWrapClass,
-								gutter: 20
-							});
-						mgrid.mount();
-						onMinigridCreated();
-						resolve("initMinigrid: inited Minigrid");
-					} catch (err) {
-						reject("initMinigrid: cannot init Minigrid " + err);
-					}
-				};
-				if (root.Minigrid && cardGrid) {
-					initMinigrid();
-				}
-			});
-		}; */
-
-		var onMinigridCreated = function () {
-			root[_addEventListener]("resize", updateMinigrid, {passive: true});
-			var cardGrid = document[getElementsByClassName](cardGridClass)[0] || "";
-			/* addCardWrapCssRule(); */
-			cardGrid[classList].add(isActiveClass);
-			if (!cardGrid[classList].contains(isBindedClass)) {
-				cardGrid[classList].add(isBindedClass);
-				/* var throttleLogic = throttle(updateMinigrid.bind(null, 2000), 2000);
-				observeMutations(cardGrid, throttleLogic, {log: false}); */
-			}
-		};
-
-		var appEvents = new EventEmitter();
-
-		appEvents.addListeners("MinigridCreated", [onMinigridCreated]);
-
-		var cardGridClass = "card-grid";
-
-		var manageMinigrid = function () {
-			return new Promise(function (resolve, reject) {
-				var cardGrid = document[getElementsByClassName](cardGridClass)[0] || "";
-				var initMinigrid = function () {
-					try {
-						if (mgrid) {
-							mgrid = null;
-							root[_removeEventListener]("resize", updateMinigrid);
-						}
-						mgrid = new Minigrid({
-								container: cardGridClass,
-								item: cardWrapClass,
-								gutter: 20
-							});
-						mgrid.mount();
-						appEvents.emitEvent("MinigridCreated");
-						resolve("initMinigrid: inited Minigrid");
-					} catch (err) {
-						reject("initMinigrid: cannot init Minigrid " + err);
-					}
-				};
-				if (root.Minigrid && cardGrid) {
-					initMinigrid();
-				}
-			});
-		};
-
-		var handleSidedrawerCategory = function (evt) {
-			evt.stopPropagation();
-			evt.preventDefault();
-			var _this = this;
-			var categoryItem = _this.nextElementSibling;
-			if (categoryItem) {
-				if (categoryItem[style].display === "none") {
-					categoryItem[style].display = "block";
-				} else {
-					categoryItem[style].display = "none";
-				}
-			}
-		};
-		var manageSidedrawerCategoryAll = function () {
-			var sidedrawerCategoryAll = sidedrawer ? sidedrawer[getElementsByTagName]("strong") || "" : "";
-			if (sidedrawerCategoryAll) {
-				var i,
-				l;
-				for (i = 0, l = sidedrawerCategoryAll[_length]; i < l; i += 1) {
-					if (!sidedrawerCategoryAll[i][classList].contains(isBindedClass) &&
-						sidedrawerCategoryAll[i].nextElementSibling.nodeName.toLowerCase() === "ul" &&
-						sidedrawerCategoryAll[i].nextElementSibling.nodeType === 1
-						) {
-							sidedrawerCategoryAll[i].nextElementSibling[style].display = "none";
-							sidedrawerCategoryAll[i][_addEventListener]("click", handleSidedrawerCategory);
-							sidedrawerCategoryAll[i][classList].add(isBindedClass);
-					}
-				}
-				i = l = null;
-			}
-		};
-
-		var hideSidedrawerOnNavigating = function () {
-			var linkAll;
-			if (sidedrawer) {
-				linkAll = sidedrawer[getElementsByTagName]("a") || "";
-				if (linkAll) {
-					var i,
-					l;
-					for (i = 0, l = linkAll[_length]; i < l; i += 1) {
-						if (!linkAll[i][classList].contains(isBindedClass)) {
-							linkAll[i][_addEventListener]("click", hideSidedrawer);
-							linkAll[i][classList].add(isBindedClass);
-						}
-					}
-					i = l = null;
-				}
-			}
-			if (appContentParent) {
-				appContentParent[_addEventListener]("click", hideSidedrawer);
-			}
-		};
-
-		var handleMenuButton = function () {
-			if (sidedrawer) {
-				if (!docBody[classList].contains(hideSidedrawerClass)) {
-					docBody[classList].add(hideSidedrawerClass);
-				} else {
-					docBody[classList].remove(hideSidedrawerClass);
-				}
-				if (!sidedrawer[classList].contains(activeClass)) {
-					sidedrawer[classList].add(activeClass);
-				} else {
-					sidedrawer[classList].remove(activeClass);
-				}
-				manageOtherCollapsableAll(sidedrawer);
-			}
-		};
-		var manageSidedrawer = function () {
-			var menuButtonAll = document[getElementsByClassName]("sidedrawer-toggle") || "";
-			if (menuButtonAll) {
-				var i,
-				l;
-				for (i = 0, l = menuButtonAll[_length]; i < l; i += 1) {
-					if (!menuButtonAll[i][classList].contains(isBindedClass)) {
-						menuButtonAll[i][_addEventListener]("click", handleMenuButton);
-						menuButtonAll[i][classList].add(isBindedClass);
-					}
-				}
-				i = l = null;
-			}
-		};
-		manageSidedrawer();
-
-		var highlightSidedrawerItem = function () {
-			var sidedrawerCategoriesList = document[getElementById]("render_sitedrawer_categories") || "";
-			var items = sidedrawerCategoriesList ? sidedrawerCategoriesList[getElementsByTagName]("a") || "" : "";
-			var locationHref = root.location.href || "";
-			var addItemHandler = function (e) {
-				if (locationHref === e.href) {
-					e[classList].add(isActiveClass);
-				} else {
-					e[classList].remove(isActiveClass);
-				}
-			};
-			var addItemHandlerAll = function () {
-				var i,
-				l;
-				for (i = 0, l = items[_length]; i < l; i += 1) {
-					addItemHandler(items[i]);
-				}
-				i = l = null;
-			};
-			if (sidedrawerCategoriesList && items && locationHref) {
-				addItemHandlerAll();
-			}
-		};
-		root[_addEventListener]("hashchange", highlightSidedrawerItem);
-
-		var appBar = document[getElementsByTagName]("header")[0] || "";
-		var appBarHeight = appBar.offsetHeight || 0;
-
-		var isFixedClass = "is-fixed";
-		var isHiddenClass = "is-hidden";
-
-		var hideAppBar = function () {
-			var logic = function () {
-				appBar[classList].remove(isFixedClass);
-				if ((document[body].scrollTop || docElem.scrollTop || 0) > appBarHeight) {
-					appBar[classList].add(isHiddenClass);
-				} else {
-					appBar[classList].remove(isHiddenClass);
-				}
-			};
-			var throttleLogic = throttle(logic, 100);
-			throttleLogic();
-		};
-		var revealAppBar = function () {
-			var logic = function () {
-				appBar[classList].remove(isHiddenClass);
-				if ((document[body].scrollTop || docElem.scrollTop || 0) > appBarHeight) {
-					appBar[classList].add(isFixedClass);
-				} else {
-					appBar[classList].remove(isFixedClass);
-				}
-			};
-			var throttleLogic = throttle(logic, 100);
-			throttleLogic();
-		};
-		var resetAppBar = function () {
-			var logic = function () {
-				if ((document[body].scrollTop || docElem.scrollTop || 0) < appBarHeight) {
-					appBar[classList].remove(isHiddenClass);
-					appBar[classList].remove(isFixedClass);
-				}
-			};
-			var throttleLogic = throttle(logic, 100);
-			throttleLogic();
-		};
-		if (appBar) {
-			root[_addEventListener]("scroll", resetAppBar, {passive: true});
-			if (hasTouch) {
-				if (root.tocca) {
-					root[_addEventListener]("swipeup", hideAppBar, {passive: true});
-					root[_addEventListener]("swipedown", revealAppBar, {passive: true});
-				}
-			} else {
-				if (hasWheel) {
-					if (root.WheelIndicator) {
-						var indicator;
-						indicator = new WheelIndicator({
-								elem: root,
-								callback: function (e) {
-									if ("down" === e.direction) {
-										hideAppBar();
-									}
-									if ("up" === e.direction) {
-										revealAppBar();
-									}
-								},
-								preventMouse: false
-							});
-					}
-				}
-			}
-		}
 
 		var manageLocationQrCodeImage = function () {
 			var btn = document[getElementsByClassName]("btn-toggle-holder-qrcode")[0] || "";
@@ -2333,68 +1593,576 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 		};
 		initUiTotop();
 
-		/* loadUnparsedJSON("./libs/serguei-muicss/json/menus.json", function (jsonResponse) {
-			var dropdownContactsTemplateId = "template_dropdown_contacts";
-			if (root.t) {
-				dropdownContactsTemplateId = "t_template_dropdown_contacts";
-			} else {
-				if (root.Mustache) {
-					dropdownContactsTemplateId = "mustache_template_dropdown_contacts";
-				}
-			}
-			var dropdownContactsTemplate = document[getElementById](dropdownContactsTemplateId) || "";
-			var dropdownContactsRenderId = "render_dropdown_contacts";
-			var dropdownContactsRender = document[getElementById](dropdownContactsRenderId) || "";
-			if (dropdownContactsTemplate && dropdownContactsRender) {
-				insertFromTemplate(jsonResponse, dropdownContactsTemplateId, dropdownContactsRenderId, function () {
-					manageDropdownButtonAll();
-				}, true);
-			}
-			var dropdownAdsTemplateId = "template_dropdown_ads";
-			if (root.t) {
-				dropdownAdsTemplateId = "t_template_dropdown_ads";
-			} else {
-				if (root.Mustache) {
-					dropdownAdsTemplateId = "mustache_template_dropdown_ads";
-				}
-			}
-			var dropdownAdsTemplate = document[getElementById](dropdownAdsTemplateId) || "";
-			var dropdownAdsRenderId = "render_dropdown_ads";
-			var dropdownAdsRender = document[getElementById](dropdownAdsRenderId) || "";
-			if (dropdownAdsTemplate && dropdownAdsRender) {
-				insertFromTemplate(jsonResponse, dropdownAdsTemplateId, dropdownAdsRenderId, function () {
-					manageDropdownButtonAll();
-				}, true);
-			}
-		}); */
+		var appContentId = "app-content";
+		var appContent = document[getElementById](appContentId) || "";
+		var appContentParent = appContent ? appContent[parentNode] ? appContent[parentNode] : "" : "";
 
-		var managePrevNextLinks = function (jsonObj) {
-			var btnPrevPage = document[getElementsByClassName]("btn-prev-page")[0] || "";
-			var btnNextPage = document[getElementsByClassName]("btn-next-page")[0] || "";
-			if (btnPrevPage && btnNextPage) {
-				var locationHash = root.location.hash || "";
-				var prevHash;
-				var nextHash;
-				if (locationHash) {
+		var sidedrawer = document[getElementById]("sidedrawer") || "";
+
+		var activeClass = "active";
+		var hideSidedrawerClass = "hide-sidedrawer";
+
+		var hideSidedrawer = function () {
+			docBody[classList].add(hideSidedrawerClass);
+			sidedrawer[classList].remove(activeClass);
+		};
+
+		var isCollapsableClass = "is-collapsable";
+
+		var manageOtherCollapsableAll = function (_self) {
+			var _this = _self || this;
+			var btn = document[getElementsByClassName](isCollapsableClass) || "";
+			var removeActiveClass = function (e) {
+				if (_this !== e) {
+					e[classList].remove(isActiveClass);
+				}
+			};
+			if (btn) {
+				var i,
+				l;
+				for (i = 0, l = btn[_length]; i < l; i += 1) {
+					removeActiveClass(btn[i]);
+				}
+				i = l = null;
+			}
+			if (sidedrawer && _self !== sidedrawer) {
+				hideSidedrawer();
+			}
+		};
+		var manageCollapsableAll = function () {
+			if (appContentParent) {
+				appContentParent[_addEventListener]("click", manageOtherCollapsableAll);
+			}
+		};
+		manageCollapsableAll();
+		root[_addEventListener]("hashchange", manageOtherCollapsableAll);
+
+		var hideCurrentDropdownMenu = function (e) {
+			if (e) {
+				if (/* e[style].display !== "none" || */e[classList].contains(isActiveClass)) {
+					/* e[style].display = "none"; */
+					e[classList].remove(isActiveClass);
+					manageOtherCollapsableAll(e);
+				}
+			}
+		};
+		var handleDropdownButton = function (evt) {
+			evt.stopPropagation();
+			evt.preventDefault();
+			var _this = this;
+			var dropdownMenu = _this.nextElementSibling;
+			var dropdownButtonRect = _this.getBoundingClientRect();
+			var top = dropdownButtonRect.top + dropdownButtonRect.height;
+			var left = dropdownButtonRect.left;
+			if (dropdownMenu) {
+				dropdownMenu[style].top = top + "px";
+				if (!dropdownMenu[classList].contains("mui-dropdown__menu--right")) {
+					dropdownMenu[style].left = left + "px";
+				}
+				if (/* dropdownMenu[style].display === "none" || */!dropdownMenu[classList].contains(isActiveClass)) {
+					/* dropdownMenu[style].display = "block"; */
+					dropdownMenu[classList].add(isActiveClass);
+				} else {
+					/* dropdownMenu[style].display = "none"; */
+					dropdownMenu[classList].remove(isActiveClass);
+				}
+				manageOtherCollapsableAll(dropdownMenu);
+				var linkAll = dropdownMenu[getElementsByTagName]("a") || "";
+				if (linkAll) {
 					var i,
 					l;
-					for (i = 0, l = jsonObj.hashes[_length]; i < l; i += 1) {
-						if (locationHash === jsonObj.hashes[i].href) {
-							prevHash = i > 0 ? jsonObj.hashes[i - 1].href : jsonObj.hashes[jsonObj.hashes[_length] - 1].href;
-							nextHash = jsonObj.hashes[_length] > i + 1 ? jsonObj.hashes[i + 1].href : jsonObj.hashes[0].href;
-							break;
-						}
+					for (i = 0, l = linkAll[_length]; i < l; i += 1) {
+						linkAll[i][_addEventListener]("click", hideCurrentDropdownMenu.bind(null, dropdownMenu));
 					}
 					i = l = null;
-				} else {
-					prevHash = jsonObj.hashes[jsonObj.hashes[_length] - 1].href;
-					nextHash = jsonObj.hashes[1].href;
-				}
-				if (prevHash && nextHash) {
-					btnPrevPage.href = prevHash;
-					btnNextPage.href = nextHash;
 				}
 			}
+		};
+		var manageDropdownButtonAll = function (scope) {
+			var ctx = scope && scope.nodeName ? scope : "";
+			var linkTag = "a";
+			var linkAll = ctx ? ctx[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
+			var dropdownButtonAll = [];
+			var j,
+			m;
+			for (j = 0, m = linkAll[_length]; j < m; j += 1) {
+				if (linkAll[j][dataset].muiToggle) {
+					dropdownButtonAll.push(linkAll[j]);
+				}
+			}
+			j = m = null;
+			if (dropdownButtonAll) {
+				var i,
+				l;
+				for (i = 0, l = dropdownButtonAll[_length]; i < l; i += 1) {
+					if (!dropdownButtonAll[i][classList].contains(isBindedClass) &&
+						dropdownButtonAll[i].nextElementSibling.nodeName.toLowerCase() === "ul" &&
+						dropdownButtonAll[i].nextElementSibling.nodeType === 1
+						) {
+							dropdownButtonAll[i][_addEventListener]("click", handleDropdownButton);
+							dropdownButtonAll[i][classList].add(isBindedClass);
+							/* dropdownButtonAll[i].nextElementSibling[style].display = "none"; */
+							dropdownButtonAll[i][classList].remove(isActiveClass);
+							dropdownButtonAll[i].nextElementSibling[classList].add(isCollapsableClass);
+					}
+				}
+				i = l = null;
+			}
+		};
+		manageDropdownButtonAll();
+
+		var hideDropdownMenuAll = function () {
+			var dropdownMenuAll = document[getElementsByClassName]("mui-dropdown__menu") || "";
+			if (dropdownMenuAll) {
+				var i,
+				l;
+				for (i = 0, l = dropdownMenuAll[_length]; i < l; i += 1) {
+					if (/* dropdownMenuAll[i][style].display !== "none" || */dropdownMenuAll[i][classList].contains(isActiveClass)) {
+						/* dropdownMenuAll[i][style].display = "none"; */
+						dropdownMenuAll[i][classList].remove(isActiveClass);
+					}
+				}
+				i = l = null;
+			}
+		};
+		var hideDropdownMenuAllOnNavigating = function () {
+			if (appContentParent) {
+				appContentParent[_addEventListener]("click", hideDropdownMenuAll);
+			}
+			root[_addEventListener]("resize", hideDropdownMenuAll);
+		};
+		hideDropdownMenuAllOnNavigating();
+
+		var manageHljsCodeAll = function (scope) {
+			var ctx = scope && scope.nodeName ? scope : "";
+			var codeTag = "code";
+			var codeAll = ctx ? ctx[getElementsByTagName](codeTag) || "" : document[getElementsByTagName](codeTag) || "";
+			if (root.hljs) {
+				var i,
+				l;
+				for (i = 0, l = codeAll[_length]; i < l; i += 1) {
+					if (codeAll[i][classList].contains("hljs") && !codeAll[i][classList].contains(isBindedClass)) {
+						hljs.highlightBlock(codeAll[i]);
+						codeAll[i][classList].add(isBindedClass);
+					}
+				}
+				i = l = null;
+			}
+		};
+
+		var manageRippleEffect = function () {
+			if (root.ripple) {
+				ripple.registerRipples();
+			}
+		};
+		manageRippleEffect();
+
+		var mgrid;
+
+		var isBindedMinigridCardClass = "is-binded-minigrid-card";
+
+		var updateMinigrid = function (delay) {
+			var timeout = delay || 100;
+			var logThis;
+			logThis = function () {
+				console.log("updateMinigrid");
+			};
+			if (mgrid) {
+				var timer = setTimeout(function () {
+						clearTimeout(timer);
+						timer = null;
+						/* logThis(); */
+						mgrid.mount();
+					}, timeout);
+			}
+		};
+
+		var updateMinigridThrottled = throttle(updateMinigrid, 2000);
+
+		var setIsActiveClass = function (e) {
+			if (e && e.nodeName && !e[classList].contains(isActiveClass)) {
+				e[classList].add(isActiveClass);
+			}
+		};
+
+		var triggerOnHeightChange = function (e, delay, tresholdHeight, callback) {
+			var cb = function () {
+				return callback && "function" === typeof callback && callback();
+			};
+			var keyHeight = tresholdHeight || 108;
+			var logThis;
+			logThis = function (timer, slot, height) {
+				console.log("triggerOnHeightChange:",
+					timer,
+					slot,
+					keyHeight,
+					e.nodeName ? e.nodeName : "",
+					e.className ? "." + e.className : "",
+					e.id ? "#" + e.id : "",
+					height);
+			};
+			/* destroy operation if for some time
+			failed - you should multiply counter
+			by set interval slot
+			to get milliseconds */
+			var counter = 8;
+			var slot = delay || 100;
+			var timer = setInterval(function () {
+					counter--;
+					if (counter === 0) {
+						clearInterval(timer);
+						timer = null;
+					}
+					var height = e.clientHeight || e.offsetHeight || "";
+					/* logThis(timer, slot, height); */
+					if (keyHeight < height) {
+						clearInterval(timer);
+						timer = null;
+						/* logThis(timer, slot, height); */
+						cb();
+					}
+				}, slot);
+		};
+
+		var manageDisqusEmbed = function () {
+			var disqusThread = document[getElementById]("disqus_thread") || "";
+			var locationHref = root.location.href || "";
+			var disqusThreadShortname = disqusThread ? (disqusThread[dataset].shortname || "") : "";
+			var hideDisqusThread = function () {
+				removeChildren(disqusThread);
+				var replacementText = document[createElement]("p");
+				replacementText[appendChild](document[createTextNode]("Комментарии доступны только в веб версии этой страницы."));
+				appendFragment(replacementText, disqusThread);
+				disqusThread.removeAttribute("id");
+			};
+			var initScript = function () {
+				var setDisqusCSSClass = function () {
+					disqusThread[classList].add(isActiveClass);
+				};
+				if (root.DISQUS) {
+					try {
+						DISQUS.reset({
+							reload: true,
+							config: function () {
+								this.page.identifier = disqusThreadShortname;
+								this.page.url = locationHref;
+							}
+						});
+						if (!disqusThread[parentNode][classList].contains(isBindedMinigridCardClass)) {
+							disqusThread[parentNode][classList].add(isBindedMinigridCardClass);
+							triggerOnHeightChange(disqusThread[parentNode], 1000, null, setDisqusCSSClass);
+							disqusThread[parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
+						}
+					} catch (err) {
+						/* console.log("cannot DISQUS.reset", err); */
+					}
+				}
+			};
+			if (disqusThread && disqusThreadShortname && locationHref) {
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					var jsUrl = forcedHTTP + "://" + disqusThreadShortname + ".disqus.com/embed.js";
+					if (!scriptIsLoaded(jsUrl)) {
+						var load;
+						load = new loadJsCss([jsUrl], initScript);
+					} else {
+						initScript();
+					}
+				} else {
+					hideDisqusThread();
+				}
+			}
+		};
+
+		var manageInstagramEmbeds = function () {
+			var instagramMedia = document[getElementsByClassName]("instagram-media")[0] || "";
+			var initScript = function () {
+				if (root.instgrm) {
+					try {
+						var instagramMedia = document[getElementsByClassName]("instagram-media") || "";
+						if (instagramMedia) {
+							instgrm.Embeds.process();
+							var i,
+							l;
+							for (i = 0, l = instagramMedia[_length]; i < l; i += 1) {
+								if (!instagramMedia[i][parentNode][classList].contains(isBindedMinigridCardClass)) {
+									instagramMedia[i][parentNode][classList].add(isBindedMinigridCardClass);
+									triggerOnHeightChange(instagramMedia[i][parentNode], 1000, null, setIsActiveClass.bind(null, instagramMedia[i][parentNode]));
+									instagramMedia[i][parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
+								}
+							}
+							i = l = null;
+						}
+					} catch (err) {
+						/* console.log("cannot instgrm.Embeds.process", err); */
+					}
+				}
+			};
+			if (instagramMedia) {
+				var jsUrl = forcedHTTP + "://www.instagram.com/embed.js";
+				if (!scriptIsLoaded(jsUrl)) {
+					var load;
+					load = new loadJsCss([jsUrl], initScript);
+				} else {
+					initScript();
+				}
+			}
+		};
+
+		var manageTwitterEmbeds = function () {
+			var twitterTweet = document[getElementsByClassName]("twitter-tweet")[0] || "";
+			var initScript = function () {
+				if (root.twttr) {
+					try {
+						var twitterTweet = document[getElementsByClassName]("twitter-tweet") || "";
+						if (twitterTweet) {
+							twttr.widgets.load();
+							var i,
+							l;
+							for (i = 0, l = twitterTweet[_length]; i < l; i += 1) {
+								if (!twitterTweet[i][parentNode][classList].contains(isBindedMinigridCardClass)) {
+									twitterTweet[i][parentNode][classList].add(isBindedMinigridCardClass);
+									triggerOnHeightChange(twitterTweet[i][parentNode], 1000, null, setIsActiveClass.bind(null, twitterTweet[i][parentNode]));
+									twitterTweet[i][parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
+								}
+							}
+							i = l = null;
+						}
+					} catch (err) {
+						/* console.log("cannot twttr.widgets.load", err); */
+					}
+				}
+			};
+			if (twitterTweet) {
+				var jsUrl = forcedHTTP + "://platform.twitter.com/widgets.js";
+				if (!scriptIsLoaded(jsUrl)) {
+					var load;
+					load = new loadJsCss([jsUrl], initScript);
+				} else {
+					initScript();
+				}
+			}
+		};
+
+		var manageVkEmbeds = function () {
+			var vkPost = document[getElementsByClassName]("vk-post")[0] || "";
+			var initScript = function () {
+				var initVkPost = function (element_id, owner_id, post_id, hash) {
+					if (!VK.Widgets.Post(element_id, owner_id, post_id, hash)) {
+						initVkPost();
+					}
+				};
+				if (root.VK && VK.Widgets && VK.Widgets.Post) {
+					try {
+						var vkPost = document[getElementsByClassName]("vk-post") || "";
+						if (vkPost) {
+							var i,
+							l;
+							for (i = 0, l = vkPost[_length]; i < l; i += 1) {
+								if (!vkPost[i][parentNode][classList].contains(isBindedMinigridCardClass)) {
+									vkPost[i][parentNode][classList].add(isBindedMinigridCardClass);
+									triggerOnHeightChange(vkPost[i][parentNode], 1000, null, setIsActiveClass.bind(null, vkPost[i][parentNode]));
+									vkPost[i][parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
+									initVkPost(vkPost[i].id, vkPost[i][dataset].vkOwnerid, vkPost[i][dataset].vkPostid, vkPost[i][dataset].vkHash);
+								}
+							}
+							i = l = null;
+						}
+					} catch (err) {
+						/* console.log("cannot initVkPost", err); */
+					}
+				}
+			};
+			if (vkPost) {
+				var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
+				if (!scriptIsLoaded(jsUrl)) {
+					var load;
+					load = new loadJsCss([jsUrl], initScript);
+				} else {
+					initScript();
+				}
+			}
+		};
+
+		var observeMutations;
+		observeMutations = function (scope, callback, settings) {
+			var context = scope && scope.nodeName ? scope : "";
+			var options = settings || {};
+			options.disconnect = options.disconnect || false;
+			options.timeout = options.timeout || null;
+			options.childList = options.childList || true;
+			options.subtree = options.subtree || true;
+			options.attributes = options.attributes || false;
+			options.characterData = options.characterData || false;
+			options.log = options.log || false;
+			var mo;
+			var getMutations = function (e) {
+				var triggerOnMutation = function (m) {
+					if (options.log) {
+						console.log("mutations observer: " + m.type);
+						console.log(m.type, "target: " + m.target.tagName + ("." + m.target[className] || "#" + m.target.id || ""));
+						console.log(m.type, "added: " + m.addedNodes[_length] + " nodes");
+						console.log(m.type, "removed: " + m.removedNodes[_length] + " nodes");
+					}
+					if ("childList" === m.type ||
+						"subtree" === m.type ||
+						"attributes" === m.type ||
+						"characterData" === m.type) {
+						if (options.disconnect) {
+							 mo.disconnect();
+						}
+						if (callback && "function" === typeof callback) {
+							if (options.timeout && "number" === typeof options.timeout) {
+								var timer = setTimeout(function () {
+									clearTimeout(timer);
+									timer = null;
+									callback();
+								}, options.timeout);
+							} else {
+								callback();
+							}
+						}
+					}
+				};
+				var i,
+				l;
+				for (i = 0, l = e[_length]; i < l; i += 1) {
+					triggerOnMutation(e[i]);
+				}
+				i = l = null;
+			};
+			if (context) {
+				mo = new MutationObserver(getMutations);
+				mo.observe(context, {
+					childList: options.childList,
+					subtree: options.subtree,
+					attributes: options.attributes,
+					characterData: options.characterData
+				});
+			}
+		};
+
+		var cardWrapClass = "card-wrap";
+
+		var addCardWrapCssRule;
+		addCardWrapCssRule = function () {
+			var toDashedAll = function (str) {
+				return str.replace((/([A-Z])/g), function ($1) {
+					return "-" + $1.toLowerCase();
+				});
+			};
+			var docElemStyle = docElem[style];
+			var transitionProperty = typeof docElemStyle.transition === "string" ?
+				"transition" : "WebkitTransition";
+			var transformProperty = typeof docElemStyle.transform === "string" ?
+				"transform" : "WebkitTransform";
+			var styleSheet = document[styleSheets][0] || "";
+			if (styleSheet) {
+				var cssRule;
+				cssRule = toDashedAll([".",
+							cardWrapClass,
+							"{",
+							transitionProperty,
+							": ",
+							transformProperty,
+							" 0.4s ease-out;",
+							"}"].join(""));
+				styleSheet.insertRule(cssRule, 0);
+			}
+		};
+
+		/* var cardGridClass = "card-grid";
+
+		var manageMinigrid = function () {
+			return new Promise(function (resolve, reject) {
+				var cardGrid = document[getElementsByClassName](cardGridClass)[0] || "";
+				var updateMinigridOnMutations = function () {
+					if (!cardGrid[classList].contains(isBindedClass)) {
+						cardGrid[classList].add(isBindedClass);
+					}
+				};
+				var onMinigridCreated = function () {
+					root[_addEventListener]("resize", updateMinigrid, {passive: true});
+					cardGrid[style].visibility = "visible";
+					cardGrid[style].opacity = 1;
+					addCardWrapCssRule();
+					updateMinigridOnMutations();
+				};
+				var initMinigrid = function () {
+					try {
+						if (mgrid) {
+							mgrid = null;
+							root[_removeEventListener]("resize", updateMinigrid);
+						}
+						mgrid = new Minigrid({
+								container: cardGridClass,
+								item: cardWrapClass,
+								gutter: 20
+							});
+						mgrid.mount();
+						onMinigridCreated();
+						resolve("initMinigrid: inited Minigrid");
+					} catch (err) {
+						reject("initMinigrid: cannot init Minigrid " + err);
+					}
+				};
+				if (root.Minigrid && cardGrid) {
+					initMinigrid();
+				}
+			});
+		}; */
+
+		var appEvents = new EventEmitter();
+
+		var cardGridClass = "card-grid";
+
+		var onMinigridCreated = function () {
+			root[_addEventListener]("resize", updateMinigrid, {passive: true});
+			var cardGrid = document[getElementsByClassName](cardGridClass)[0] || "";
+			/* addCardWrapCssRule(); */
+			cardGrid[classList].add(isActiveClass);
+			/* if (!cardGrid[classList].contains(isBindedClass)) {
+				cardGrid[classList].add(isBindedClass);
+				var throttleLogic = throttle(updateMinigrid.bind(null, 2000), 2000);
+				observeMutations(cardGrid, throttleLogic, {log: false});
+			} */
+		};
+		var initMinigrid = function () {
+			try {
+				if (mgrid) {
+					mgrid = null;
+					root[_removeEventListener]("resize", updateMinigrid);
+				}
+				mgrid = new Minigrid({
+						container: cardGridClass,
+						item: cardWrapClass,
+						gutter: 20,
+						done: onMinigridCreated
+					});
+				mgrid.mount();
+			} catch (err) {
+				throw new Error("cannot init Minigrid " + err);
+			}
+		};
+
+		appEvents.addListeners("MinigridCardsFound", [initMinigrid]);
+
+		var manageMinigrid = function () {
+			return new Promise(function (resolve, reject) {
+				var cardGrid = document[getElementsByClassName](cardGridClass)[0] || "";
+				var handleCardGrid = function () {
+					var cardWrap = cardGrid[getElementsByClassName](cardWrapClass) || "";
+					var cardWrapLength = cardWrap[_length] || 0;
+					if (cardWrap && !cardGrid[classList].contains(isActiveClass)) {
+						resolve("manageMinigrid: found " + cardWrapLength + " cards");
+						appEvents.emitEvent("MinigridCardsFound");
+					} else {
+						reject("manageMinigrid: no cards found");
+					}
+				};
+				if (root.Minigrid && cardGrid) {
+					handleCardGrid();
+				}
+			});
 		};
 
 		/* var macy;
@@ -2472,8 +2240,9 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 
 		var macy;
 
+		var macyContainerClass = "macy-container";
+
 		var initMacy = function () {
-			var macyContainerClass = "macy-container";
 			var macyContainer = document[getElementsByClassName](macyContainerClass)[0] || "";
 			try {
 				if (macy) {
@@ -2496,7 +2265,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 					});
 				macyContainer[classList].add(isActiveClass);
 			} catch (err) {
-				throw new Error("cannot init Macy", err);
+				throw new Error("cannot init Macy " + err);
 			}
 		};
 
@@ -2504,7 +2273,6 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 
 		var manageMacy = function () {
 			return new Promise(function (resolve, reject) {
-				var macyContainerClass = "macy-container";
 				var macyContainer = document[getElementsByClassName](macyContainerClass)[0] || "";
 				var handleMacyContainer = function () {
 					var img = macyContainer[getElementsByTagName]("img") || "";
@@ -2524,9 +2292,9 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 						removeListeners(this);
 						imgCounter++;
 						if (imgCounter === imgLength) {
+							resolve("manageMacy: all " + imgCounter + " images loaded");
 							appEvents.emitEvent("MacyImagesLoaded");
 							scroll2Top(1, 20000);
-							resolve("manageMacy: all " + imgCounter + " images loaded");
 						}
 					};
 					onError = function () {
@@ -2565,6 +2333,247 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 		};
 
 		var updateMacyThrottled = throttle(updateMacy, 2000);
+
+		var handleSidedrawerCategory = function (evt) {
+			evt.stopPropagation();
+			evt.preventDefault();
+			var _this = this;
+			var categoryItem = _this.nextElementSibling;
+			if (categoryItem) {
+				if (categoryItem[style].display === "none") {
+					categoryItem[style].display = "block";
+				} else {
+					categoryItem[style].display = "none";
+				}
+			}
+		};
+		var manageSidedrawerCategoryAll = function () {
+			var sidedrawerCategoryAll = sidedrawer ? sidedrawer[getElementsByTagName]("strong") || "" : "";
+			if (sidedrawerCategoryAll) {
+				var i,
+				l;
+				for (i = 0, l = sidedrawerCategoryAll[_length]; i < l; i += 1) {
+					if (!sidedrawerCategoryAll[i][classList].contains(isBindedClass) &&
+						sidedrawerCategoryAll[i].nextElementSibling.nodeName.toLowerCase() === "ul" &&
+						sidedrawerCategoryAll[i].nextElementSibling.nodeType === 1
+						) {
+							sidedrawerCategoryAll[i].nextElementSibling[style].display = "none";
+							sidedrawerCategoryAll[i][_addEventListener]("click", handleSidedrawerCategory);
+							sidedrawerCategoryAll[i][classList].add(isBindedClass);
+					}
+				}
+				i = l = null;
+			}
+		};
+
+		var hideSidedrawerOnNavigating = function () {
+			var linkAll;
+			if (sidedrawer) {
+				linkAll = sidedrawer[getElementsByTagName]("a") || "";
+				if (linkAll) {
+					var i,
+					l;
+					for (i = 0, l = linkAll[_length]; i < l; i += 1) {
+						if (!linkAll[i][classList].contains(isBindedClass)) {
+							linkAll[i][_addEventListener]("click", hideSidedrawer);
+							linkAll[i][classList].add(isBindedClass);
+						}
+					}
+					i = l = null;
+				}
+			}
+			if (appContentParent) {
+				appContentParent[_addEventListener]("click", hideSidedrawer);
+			}
+		};
+
+		var handleMenuButton = function () {
+			if (sidedrawer) {
+				if (!docBody[classList].contains(hideSidedrawerClass)) {
+					docBody[classList].add(hideSidedrawerClass);
+				} else {
+					docBody[classList].remove(hideSidedrawerClass);
+				}
+				if (!sidedrawer[classList].contains(activeClass)) {
+					sidedrawer[classList].add(activeClass);
+				} else {
+					sidedrawer[classList].remove(activeClass);
+				}
+				manageOtherCollapsableAll(sidedrawer);
+			}
+		};
+		var manageSidedrawer = function () {
+			var menuButtonAll = document[getElementsByClassName]("sidedrawer-toggle") || "";
+			if (menuButtonAll) {
+				var i,
+				l;
+				for (i = 0, l = menuButtonAll[_length]; i < l; i += 1) {
+					if (!menuButtonAll[i][classList].contains(isBindedClass)) {
+						menuButtonAll[i][_addEventListener]("click", handleMenuButton);
+						menuButtonAll[i][classList].add(isBindedClass);
+					}
+				}
+				i = l = null;
+			}
+		};
+		manageSidedrawer();
+
+		var highlightSidedrawerItem = function () {
+			var sidedrawerCategoriesList = document[getElementById]("render_sitedrawer_categories") || "";
+			var items = sidedrawerCategoriesList ? sidedrawerCategoriesList[getElementsByTagName]("a") || "" : "";
+			var locationHref = root.location.href || "";
+			var addItemHandler = function (e) {
+				if (locationHref === e.href) {
+					e[classList].add(isActiveClass);
+				} else {
+					e[classList].remove(isActiveClass);
+				}
+			};
+			var addItemHandlerAll = function () {
+				var i,
+				l;
+				for (i = 0, l = items[_length]; i < l; i += 1) {
+					addItemHandler(items[i]);
+				}
+				i = l = null;
+			};
+			if (sidedrawerCategoriesList && items && locationHref) {
+				addItemHandlerAll();
+			}
+		};
+		root[_addEventListener]("hashchange", highlightSidedrawerItem);
+
+		var appBar = document[getElementsByTagName]("header")[0] || "";
+		var appBarHeight = appBar.offsetHeight || 0;
+
+		var isFixedClass = "is-fixed";
+		var isHiddenClass = "is-hidden";
+
+		var hideAppBar = function () {
+			var logic = function () {
+				appBar[classList].remove(isFixedClass);
+				if ((document[body].scrollTop || docElem.scrollTop || 0) > appBarHeight) {
+					appBar[classList].add(isHiddenClass);
+				} else {
+					appBar[classList].remove(isHiddenClass);
+				}
+			};
+			var throttleLogic = throttle(logic, 100);
+			throttleLogic();
+		};
+		var revealAppBar = function () {
+			var logic = function () {
+				appBar[classList].remove(isHiddenClass);
+				if ((document[body].scrollTop || docElem.scrollTop || 0) > appBarHeight) {
+					appBar[classList].add(isFixedClass);
+				} else {
+					appBar[classList].remove(isFixedClass);
+				}
+			};
+			var throttleLogic = throttle(logic, 100);
+			throttleLogic();
+		};
+		var resetAppBar = function () {
+			var logic = function () {
+				if ((document[body].scrollTop || docElem.scrollTop || 0) < appBarHeight) {
+					appBar[classList].remove(isHiddenClass);
+					appBar[classList].remove(isFixedClass);
+				}
+			};
+			var throttleLogic = throttle(logic, 100);
+			throttleLogic();
+		};
+		if (appBar) {
+			root[_addEventListener]("scroll", resetAppBar, {passive: true});
+			if (hasTouch) {
+				if (root.tocca) {
+					root[_addEventListener]("swipeup", hideAppBar, {passive: true});
+					root[_addEventListener]("swipedown", revealAppBar, {passive: true});
+				}
+			} else {
+				if (hasWheel) {
+					if (root.WheelIndicator) {
+						var indicator;
+						indicator = new WheelIndicator({
+								elem: root,
+								callback: function (e) {
+									if ("down" === e.direction) {
+										hideAppBar();
+									}
+									if ("up" === e.direction) {
+										revealAppBar();
+									}
+								},
+								preventMouse: false
+							});
+					}
+				}
+			}
+		}
+
+		var managePrevNextLinks = function (jsonObj) {
+			var btnPrevPage = document[getElementsByClassName]("btn-prev-page")[0] || "";
+			var btnNextPage = document[getElementsByClassName]("btn-next-page")[0] || "";
+			if (btnPrevPage && btnNextPage) {
+				var locationHash = root.location.hash || "";
+				var prevHash;
+				var nextHash;
+				if (locationHash) {
+					var i,
+					l;
+					for (i = 0, l = jsonObj.hashes[_length]; i < l; i += 1) {
+						if (locationHash === jsonObj.hashes[i].href) {
+							prevHash = i > 0 ? jsonObj.hashes[i - 1].href : jsonObj.hashes[jsonObj.hashes[_length] - 1].href;
+							nextHash = jsonObj.hashes[_length] > i + 1 ? jsonObj.hashes[i + 1].href : jsonObj.hashes[0].href;
+							break;
+						}
+					}
+					i = l = null;
+				} else {
+					prevHash = jsonObj.hashes[jsonObj.hashes[_length] - 1].href;
+					nextHash = jsonObj.hashes[1].href;
+				}
+				if (prevHash && nextHash) {
+					btnPrevPage.href = prevHash;
+					btnNextPage.href = nextHash;
+				}
+			}
+		};
+
+		/* loadUnparsedJSON("./libs/serguei-muicss/json/menus.json", function (jsonResponse) {
+			var dropdownContactsTemplateId = "template_dropdown_contacts";
+			if (root.t) {
+				dropdownContactsTemplateId = "t_template_dropdown_contacts";
+			} else {
+				if (root.Mustache) {
+					dropdownContactsTemplateId = "mustache_template_dropdown_contacts";
+				}
+			}
+			var dropdownContactsTemplate = document[getElementById](dropdownContactsTemplateId) || "";
+			var dropdownContactsRenderId = "render_dropdown_contacts";
+			var dropdownContactsRender = document[getElementById](dropdownContactsRenderId) || "";
+			if (dropdownContactsTemplate && dropdownContactsRender) {
+				insertFromTemplate(jsonResponse, dropdownContactsTemplateId, dropdownContactsRenderId, function () {
+					manageDropdownButtonAll();
+				}, true);
+			}
+			var dropdownAdsTemplateId = "template_dropdown_ads";
+			if (root.t) {
+				dropdownAdsTemplateId = "t_template_dropdown_ads";
+			} else {
+				if (root.Mustache) {
+					dropdownAdsTemplateId = "mustache_template_dropdown_ads";
+				}
+			}
+			var dropdownAdsTemplate = document[getElementById](dropdownAdsTemplateId) || "";
+			var dropdownAdsRenderId = "render_dropdown_ads";
+			var dropdownAdsRender = document[getElementById](dropdownAdsRenderId) || "";
+			if (dropdownAdsTemplate && dropdownAdsRender) {
+				insertFromTemplate(jsonResponse, dropdownAdsTemplateId, dropdownAdsRenderId, function () {
+					manageDropdownButtonAll();
+				}, true);
+			}
+		}); */
 
 		var jhrouter;
 		jhrouter = new JsonHashRouter("./libs/serguei-muicss/json/navigation.min.json", appContentId, {
