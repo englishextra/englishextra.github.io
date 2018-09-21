@@ -1868,8 +1868,9 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var minigridEvent = new EventEmitter();
-		minigridEvent.addListeners("minigridcreated", [onMinigridCreated]);
+		var appEvents = new EventEmitter();
+
+		appEvents.addListeners("MinigridCreated", [onMinigridCreated]);
 
 		var cardGridClass = "card-grid";
 
@@ -1888,7 +1889,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 								gutter: 20
 							});
 						mgrid.mount();
-						minigridEvent.emitEvent("minigridcreated");
+						appEvents.emitEvent("MinigridCreated");
 						resolve("initMinigrid: inited Minigrid");
 					} catch (err) {
 						reject("initMinigrid: cannot init Minigrid " + err);
@@ -2499,8 +2500,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var macyEvent = new EventEmitter();
-		macyEvent.addListeners("imagesloaded", [initMacy]);
+		appEvents.addListeners("MacyImagesLoaded", [initMacy]);
 
 		var manageMacy = function () {
 			return new Promise(function (resolve, reject) {
@@ -2524,7 +2524,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 						removeListeners(this);
 						imgCounter++;
 						if (imgCounter === imgLength) {
-							macyEvent.emitEvent("imagesloaded");
+							appEvents.emitEvent("MacyImagesLoaded");
 							scroll2Top(1, 20000);
 							resolve("manageMacy: all " + imgCounter + " images loaded");
 						}
