@@ -1817,7 +1817,7 @@ Ya*/
 									});
 								}
 							} catch (err) {
-								/* console.log("cannot yshare.updateContent or Ya.share2", err); */
+								throw new Error("cannot yshare.updateContent or Ya.share2 " + err);
 							}
 						}
 					};
@@ -1869,7 +1869,7 @@ Ya*/
 								});
 								vlike = true;
 							} catch (err) {
-								/* console.log("cannot VK.init", err); */
+								throw new Error("cannot VK.init " + err);
 							}
 						}
 					};

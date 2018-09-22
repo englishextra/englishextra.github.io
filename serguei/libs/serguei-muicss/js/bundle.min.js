@@ -450,7 +450,6 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 
 		var appendChild = "appendChild";
 		var body = "body";
-		var className = "className";
 		var cloneNode = "cloneNode";
 		var createContextualFragment = "createContextualFragment";
 		var createDocumentFragment = "createDocumentFragment";
@@ -465,7 +464,6 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 		var setAttribute = "setAttribute";
 		var setAttributeNS = "setAttributeNS";
 		var style = "style";
-		var styleSheets = "styleSheets";
 		var title = "title";
 		var _removeEventListener = "removeEventListener";
 		var isActiveClass = "is-active";
@@ -1468,7 +1466,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 									});
 								}
 							} catch (err) {
-								/* console.log("cannot yshare.updateContent or Ya.share2", err); */
+								throw new Error("cannot yshare.updateContent or Ya.share2 " + err);
 							}
 						}
 					};
@@ -1518,7 +1516,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 								});
 								vlike = true;
 							} catch (err) {
-								/* console.log("cannot VK.init", err); */
+								throw new Error("cannot VK.init " + err);
 							}
 						}
 					};
@@ -1777,7 +1775,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var updateMinigridThrottled = throttle(updateMinigrid, 2000);
+		var updateMinigridThrottled = throttle(updateMinigrid, 1000);
 
 		var setIsActiveClass = function (e) {
 			if (e && e.nodeName && !e[classList].contains(isActiveClass)) {
@@ -1854,7 +1852,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 							disqusThread[parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
 						}
 					} catch (err) {
-						/* console.log("cannot DISQUS.reset", err); */
+						throw new Error("cannot DISQUS.reset " + err);
 					}
 				}
 			};
@@ -1893,7 +1891,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 							i = l = null;
 						}
 					} catch (err) {
-						/* console.log("cannot instgrm.Embeds.process", err); */
+						throw new Error("cannot instgrm.Embeds.process " + err);
 					}
 				}
 			};
@@ -1928,7 +1926,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 							i = l = null;
 						}
 					} catch (err) {
-						/* console.log("cannot twttr.widgets.load", err); */
+						throw new Error("cannot twttr.widgets.load " + err);
 					}
 				}
 			};
@@ -1968,7 +1966,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 							i = l = null;
 						}
 					} catch (err) {
-						/* console.log("cannot initVkPost", err); */
+						throw new Error("cannot initVkPost " + err);
 					}
 				}
 			};
@@ -1983,7 +1981,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var observeMutations;
+		/* var observeMutations;
 		observeMutations = function (scope, callback, settings) {
 			var context = scope && scope.nodeName ? scope : "";
 			var options = settings || {};
@@ -2039,11 +2037,11 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 					characterData: options.characterData
 				});
 			}
-		};
+		}; */
 
 		var cardWrapClass = "card-wrap";
 
-		var addCardWrapCssRule;
+		/* var addCardWrapCssRule;
 		addCardWrapCssRule = function () {
 			var toDashedAll = function (str) {
 				return str.replace((/([A-Z])/g), function ($1) {
@@ -2068,7 +2066,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 							"}"].join(""));
 				styleSheet.insertRule(cssRule, 0);
 			}
-		};
+		}; */
 
 		/* var cardGridClass = "card-grid";
 
@@ -2084,7 +2082,6 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 					root[_addEventListener]("resize", updateMinigrid, {passive: true});
 					cardGrid[style].visibility = "visible";
 					cardGrid[style].opacity = 1;
-					addCardWrapCssRule();
 					updateMinigridOnMutations();
 				};
 				var initMinigrid = function () {
@@ -2118,13 +2115,14 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 		var onMinigridCreated = function () {
 			root[_addEventListener]("resize", updateMinigrid, {passive: true});
 			var cardGrid = document[getElementsByClassName](cardGridClass)[0] || "";
-			/* addCardWrapCssRule(); */
-			cardGrid[classList].add(isActiveClass);
-			/* if (!cardGrid[classList].contains(isBindedClass)) {
-				cardGrid[classList].add(isBindedClass);
-				var throttleLogic = throttle(updateMinigrid.bind(null, 2000), 2000);
-				observeMutations(cardGrid, throttleLogic, {log: false});
-			} */
+			if (cardGrid) {
+				cardGrid[classList].add(isActiveClass);
+				/* if (!cardGrid[classList].contains(isBindedClass)) {
+					cardGrid[classList].add(isBindedClass);
+					var throttleLogic = throttle(updateMinigrid.bind(null, 2000), 2000);
+					observeMutations(cardGrid, throttleLogic, {log: false});
+				} */
+			}
 		};
 		var initMinigrid = function () {
 			try {
@@ -2332,7 +2330,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var updateMacyThrottled = throttle(updateMacy, 2000);
+		var updateMacyThrottled = throttle(updateMacy, 1000);
 
 		var handleSidedrawerCategory = function (evt) {
 			evt.stopPropagation();
