@@ -209,58 +209,6 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 	root.JsonHashRouter = JsonHashRouter;
 })("undefined" !== typeof window ? window : this, document);
 /*!
- * return image is loaded promise
- * @see {@link https://jsfiddle.net/englishextra/56pavv7d/}
- * @param {String|Object} s image path string or HTML DOM Image Object
- * var m = document.querySelector("img") || "";
- * var s = m.src || "";
- * imagePromise(m).then(function (r) {
- * alert(r);
- * }).catch (function (err) {
- * alert(err);
- * });
- * imagePromise(s).then(function (r) {
- * alert(r);
- * }).catch (function (err) {
- * alert(err);
- * });
- * @see {@link https://gist.github.com/englishextra/3e95d301d1d47fe6e26e3be198f0675e}
- * passes jshint
- */
-/* (function (root) {
-	"use strict";
-	var imagePromise = function (s) {
-		if (root.Promise) {
-			return new Promise(function (y, n) {
-				var f = function (e, p) {
-					e.onload = function () {
-						y(p);
-					};
-					e.onerror = function () {
-						n(p);
-					};
-					e.src = p;
-				};
-				if ("string" === typeof s) {
-					var a = new Image();
-					f(a, s);
-				} else {
-					if ("img" !== s.tagName) {
-						return Promise.reject();
-					} else {
-						if (s.src) {
-							f(s, s.src);
-						}
-					}
-				}
-			});
-		} else {
-			throw new Error("Promise is not in global object");
-		}
-	};
-	root.imagePromise = imagePromise;
-})("undefined" !== typeof window ? window : this); */
-/*!
  * modified Detect Whether a Font is Installed
  * @param {String} fontName The name of the font to check
  * @return {Boolean}
@@ -413,26 +361,6 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 	var _length = "length";
 
 	docBody[classList].add("hide-sidedrawer");
-
-	/* var progressBar = new ToProgress({
-			id: "top-progress-bar",
-			color: "#FF2C40",
-			height: "0.188rem",
-			duration: 0.2,
-			zIndex: 999
-		});
-
-	var hideProgressBar = function () {
-		progressBar.finish();
-		progressBar.hide();
-	};
-
-	progressBar.complete = function () {
-		return this.finish(),
-		this.hide();
-	}; */
-
-	/* progressBar.increase(20); */
 
 	var hasTouch = "ontouchstart" in docElem || "";
 
@@ -756,25 +684,6 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		/* var loadUnparsedJSON = function (url, callback, onerror) {
-			var cb = function (string) {
-				return callback && "function" === typeof callback && callback(string);
-			};
-			var x = root.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
-			x.overrideMimeType("application/json;charset=utf-8");
-			x.open("GET", url, !0);
-			x.withCredentials = !1;
-			x.onreadystatechange = function () {
-				if (x.status === "404" || x.status === "0") {
-					console.log("Error XMLHttpRequest-ing file", x.status);
-					return onerror && "function" === typeof onerror && onerror();
-				} else if (x.readyState === 4 && x.status === 200 && x.responseText) {
-					cb(x.responseText);
-				}
-			};
-			x.send(null);
-		}; */
-
 		var safelyParseJSON = function (response) {
 			var isJson = function (obj) {
 				var objType = typeof obj;
@@ -984,59 +893,6 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 		};
 		manageExternalLinkAll();
 
-		/* var handleDataSrcImageAll = function (callback) {
-			var cb = function () {
-				return callback && "function" === typeof callback && callback();
-			};
-			var dataSrcImgClass = "data-src-img";
-			var imgAll = document[getElementsByClassName](dataSrcImgClass) || "";
-			var arrange = function (e) {
-				if (verge.inY(e, 100)) {
-					if (!e[classList].contains(isBindedClass)) {
-						var srcString = e[dataset].src || "";
-						if (srcString) {
-							if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
-								e[dataset].src = srcString.replace(/^/, forcedHTTP + ":");
-								srcString = e[dataset].src;
-							}
-							imagePromise(srcString).then(function () {
-								e.src = srcString;
-							}).catch (function (err) {
-								console.log("cannot load image with imagePromise:", srcString, err);
-							});
-							e[classList].add(isActiveClass);
-							e[classList].add(isBindedClass);
-							cb();
-						}
-					}
-				}
-			};
-			if (imgAll) {
-				var i,
-				l;
-				for (i = 0, l = imgAll[_length]; i < l; i += 1) {
-					arrange(imgAll[i]);
-				}
-				i = l = null;
-			}
-		};
-		var handleDataSrcImageAllWindow = function () {
-			var throttleHandleDataSrcImageAll = throttle(handleDataSrcImageAll, 100);
-			throttleHandleDataSrcImageAll();
-		};
-		var manageDataSrcImageAll = function () {
-			root[_removeEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
-			root[_removeEventListener]("resize", handleDataSrcImageAllWindow);
-			root[_addEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
-			root[_addEventListener]("resize", handleDataSrcImageAllWindow);
-			var timer = setTimeout(function () {
-					clearTimeout(timer);
-					timer = null;
-					handleDataSrcImageAll();
-				}, 100);
-		};
-		manageDataSrcImageAll(); */
-
 		var handleDataSrcImageAll = function (callback) {
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
@@ -1073,61 +929,6 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 				}, 100);
 		};
 		manageDataSrcImageAll();
-
-		/* var handleDataSrcIframeAll = function (callback) {
-			var cb = function () {
-				return callback && "function" === typeof callback && callback();
-			};
-			var dataSrcIframeClass = "data-src-iframe";
-			var iframeAll = document[getElementsByClassName](dataSrcIframeClass) || "";
-			var arrange = function (e) {
-				if (verge.inY(e, 100)) {
-					if (!e[classList].contains(isBindedClass)) {
-						var srcString = e[dataset].src || "";
-						if (srcString) {
-							if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
-								e[dataset].src = srcString.replace(/^/, forcedHTTP + ":");
-								srcString = e[dataset].src;
-							}
-							e.src = srcString;
-							e[classList].add(isActiveClass);
-							e[classList].add(isBindedClass);
-							e[setAttribute]("frameborder", "no");
-							e[setAttribute]("style", "border:none;");
-							e[setAttribute]("webkitallowfullscreen", "true");
-							e[setAttribute]("mozallowfullscreen", "true");
-							e[setAttribute]("scrolling", "no");
-							e[setAttribute]("allowfullscreen", "true");
-							cb();
-						}
-					}
-				}
-			};
-			if (iframeAll) {
-				var i,
-				l;
-				for (i = 0, l = iframeAll[_length]; i < l; i += 1) {
-					arrange(iframeAll[i]);
-				}
-				i = l = null;
-			}
-		};
-		var handleDataSrcIframeAllWindow = function () {
-			var throttlehandleDataSrcIframeAll = throttle(handleDataSrcIframeAll, 100);
-			throttlehandleDataSrcIframeAll();
-		};
-		var manageDataSrcIframeAll = function () {
-			root[_removeEventListener]("scroll", handleDataSrcIframeAllWindow, {passive: true});
-			root[_removeEventListener]("resize", handleDataSrcIframeAllWindow);
-			root[_addEventListener]("scroll", handleDataSrcIframeAllWindow, {passive: true});
-			root[_addEventListener]("resize", handleDataSrcIframeAllWindow);
-			var timer = setTimeout(function () {
-					clearTimeout(timer);
-					timer = null;
-					handleDataSrcIframeAll();
-				}, 100);
-		};
-		manageDataSrcIframeAll(); */
 
 		var handleDataSrcIframeAll = function (callback) {
 			var cb = function () {
@@ -1387,13 +1188,6 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 						removeChildren(holder);
 						appendFragment(newImg, holder);
 					};
-					/* var jsUrl = "./cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js"; */
-					/* if (!scriptIsLoaded(jsUrl)) {
-						var load;
-						load = new loadJsCss([jsUrl], initScript);
-					} else {
-						initScript();
-					} */
 					initScript();
 				};
 				var debounceLogicHandleLocationQrCodeButton = debounce(logicHandleLocationQrCodeButton, 200);
@@ -1755,9 +1549,9 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 		};
 		manageRippleEffect();
 
-		var mgrid;
+		var appEvents = new EventEmitter();
 
-		var isBindedMinigridCardClass = "is-binded-minigrid-card";
+		var mgrid;
 
 		var updateMinigrid = function (delay) {
 			var timeout = delay || 100;
@@ -1821,6 +1615,8 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 					}
 				}, slot);
 		};
+
+		var isBindedMinigridCardClass = "is-binded-minigrid-card";
 
 		var manageDisqusEmbed = function () {
 			var disqusThread = document[getElementById]("disqus_thread") || "";
@@ -1981,164 +1777,39 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		/* var observeMutations;
-		observeMutations = function (scope, callback, settings) {
-			var context = scope && scope.nodeName ? scope : "";
-			var options = settings || {};
-			options.disconnect = options.disconnect || false;
-			options.timeout = options.timeout || null;
-			options.childList = options.childList || true;
-			options.subtree = options.subtree || true;
-			options.attributes = options.attributes || false;
-			options.characterData = options.characterData || false;
-			options.log = options.log || false;
-			var mo;
-			var getMutations = function (e) {
-				var triggerOnMutation = function (m) {
-					if (options.log) {
-						console.log("mutations observer: " + m.type);
-						console.log(m.type, "target: " + m.target.tagName + ("." + m.target[className] || "#" + m.target.id || ""));
-						console.log(m.type, "added: " + m.addedNodes[_length] + " nodes");
-						console.log(m.type, "removed: " + m.removedNodes[_length] + " nodes");
-					}
-					if ("childList" === m.type ||
-						"subtree" === m.type ||
-						"attributes" === m.type ||
-						"characterData" === m.type) {
-						if (options.disconnect) {
-							 mo.disconnect();
-						}
-						if (callback && "function" === typeof callback) {
-							if (options.timeout && "number" === typeof options.timeout) {
-								var timer = setTimeout(function () {
-									clearTimeout(timer);
-									timer = null;
-									callback();
-								}, options.timeout);
-							} else {
-								callback();
-							}
-						}
-					}
-				};
-				var i,
-				l;
-				for (i = 0, l = e[_length]; i < l; i += 1) {
-					triggerOnMutation(e[i]);
-				}
-				i = l = null;
-			};
-			if (context) {
-				mo = new MutationObserver(getMutations);
-				mo.observe(context, {
-					childList: options.childList,
-					subtree: options.subtree,
-					attributes: options.attributes,
-					characterData: options.characterData
-				});
-			}
-		}; */
-
 		var cardWrapClass = "card-wrap";
 
-		/* var addCardWrapCssRule;
-		addCardWrapCssRule = function () {
-			var toDashedAll = function (str) {
-				return str.replace((/([A-Z])/g), function ($1) {
-					return "-" + $1.toLowerCase();
-				});
-			};
-			var docElemStyle = docElem[style];
-			var transitionProperty = typeof docElemStyle.transition === "string" ?
-				"transition" : "WebkitTransition";
-			var transformProperty = typeof docElemStyle.transform === "string" ?
-				"transform" : "WebkitTransform";
-			var styleSheet = document[styleSheets][0] || "";
-			if (styleSheet) {
-				var cssRule;
-				cssRule = toDashedAll([".",
-							cardWrapClass,
-							"{",
-							transitionProperty,
-							": ",
-							transformProperty,
-							" 0.4s ease-out;",
-							"}"].join(""));
-				styleSheet.insertRule(cssRule, 0);
-			}
-		}; */
-
-		/* var cardGridClass = "card-grid";
-
-		var manageMinigrid = function () {
-			return new Promise(function (resolve, reject) {
-				var cardGrid = document[getElementsByClassName](cardGridClass)[0] || "";
-				var updateMinigridOnMutations = function () {
-					if (!cardGrid[classList].contains(isBindedClass)) {
-						cardGrid[classList].add(isBindedClass);
-					}
-				};
-				var onMinigridCreated = function () {
-					root[_addEventListener]("resize", updateMinigrid, {passive: true});
-					cardGrid[style].visibility = "visible";
-					cardGrid[style].opacity = 1;
-					updateMinigridOnMutations();
-				};
-				var initMinigrid = function () {
-					try {
-						if (mgrid) {
-							mgrid = null;
-							root[_removeEventListener]("resize", updateMinigrid);
-						}
-						mgrid = new Minigrid({
-								container: cardGridClass,
-								item: cardWrapClass,
-								gutter: 20
-							});
-						mgrid.mount();
-						onMinigridCreated();
-						resolve("initMinigrid: inited Minigrid");
-					} catch (err) {
-						reject("initMinigrid: cannot init Minigrid " + err);
-					}
-				};
-				if (root.Minigrid && cardGrid) {
-					initMinigrid();
-				}
-			});
-		}; */
-
-		var appEvents = new EventEmitter();
+		appEvents.addListeners("MinigridInited", [handleDataSrcIframeAll.bind(null, updateMinigridThrottled),
+				handleDataSrcImageAll.bind(null, updateMinigridThrottled),
+				manageDataQrcodeImageAll.bind(null, updateMinigridThrottled),
+				scroll2Top.bind(null, 0, 20000),
+				manageInstagramEmbeds,
+				manageTwitterEmbeds,
+				manageVkEmbeds,
+				manageDisqusEmbed]);
 
 		var cardGridClass = "card-grid";
 
-		var onMinigridCreated = function () {
-			root[_addEventListener]("resize", updateMinigrid, {passive: true});
+		var initMinigrid = function () {
 			var cardGrid = document[getElementsByClassName](cardGridClass)[0] || "";
 			if (cardGrid) {
-				cardGrid[classList].add(isActiveClass);
-				/* if (!cardGrid[classList].contains(isBindedClass)) {
-					cardGrid[classList].add(isBindedClass);
-					var throttleLogic = throttle(updateMinigrid.bind(null, 2000), 2000);
-					observeMutations(cardGrid, throttleLogic, {log: false});
-				} */
-			}
-		};
-		var initMinigrid = function () {
-			try {
-				if (mgrid) {
-					mgrid = null;
-					root[_removeEventListener]("resize", updateMinigrid);
+				try {
+					if (mgrid) {
+						mgrid = null;
+						root[_removeEventListener]("resize", updateMinigrid);
+					}
+					mgrid = new Minigrid({
+							container: cardGridClass,
+							item: cardWrapClass,
+							gutter: 20
+						});
+					mgrid.mount();
+					cardGrid[classList].add(isActiveClass);
+					root[_addEventListener]("resize", updateMinigrid, {passive: true});
+					appEvents.emitEvent("MinigridInited");
+				} catch (err) {
+					throw new Error("cannot init Minigrid " + err);
 				}
-				mgrid = new Minigrid({
-						container: cardGridClass,
-						item: cardWrapClass,
-						gutter: 20,
-						done: onMinigridCreated
-					});
-				mgrid.mount();
-			} catch (err) {
-				throw new Error("cannot init Minigrid " + err);
 			}
 		};
 
@@ -2151,8 +1822,9 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 					var cardWrap = cardGrid[getElementsByClassName](cardWrapClass) || "";
 					var cardWrapLength = cardWrap[_length] || 0;
 					if (cardWrap && !cardGrid[classList].contains(isActiveClass)) {
-						resolve("manageMinigrid: found " + cardWrapLength + " cards");
+						scroll2Top(1, 20000);
 						appEvents.emitEvent("MinigridCardsFound");
+						resolve("manageMinigrid: found " + cardWrapLength + " cards");
 					} else {
 						reject("manageMinigrid: no cards found");
 					}
@@ -2163,107 +1835,59 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			});
 		};
 
-		/* var macy;
-		var manageMacy = function () {
-			return new Promise(function (resolve, reject) {
-				var macyContainerClass = "macy-container";
-				var macyContainer = document[getElementsByClassName](macyContainerClass)[0] || "";
-				var initMacy = function () {
-					try {
-						if (macy) {
-							macy.remove();
-						}
-						macy = new Macy({
-								container: "." + macyContainerClass,
-								trueOrder: false,
-								waitForImages: false,
-								margin: 0,
-								columns: 5,
-								breakAt: {
-									1280: 5,
-									1024: 4,
-									960: 3,
-									640: 2,
-									480: 2,
-									360: 1
-								}
-							});
-						macyContainer[classList].add(isActiveClass);
-						resolve("manageMacy: inited Macy");
-					} catch (err) {
-						reject("manageMacy: cannot init Macy " + err);
-					}
-				};
-				var handleMacyContainer = function () {
-					var img = macyContainer[getElementsByTagName]("img") || "";
-					var imgLength = img[_length] || 0;
-					var imgCounter = 0;
-					var onLoad;
-					var onError;
-					var addListeners = function (e) {
-						e[_addEventListener]("load", onLoad, false);
-						e[_addEventListener]("error", onError, false);
-					};
-					var removeListeners = function (e) {
-						e[_removeEventListener]("load", onLoad, false);
-						e[_removeEventListener]("error", onError, false);
-					};
-					onLoad = function () {
-						removeListeners(this);
-						imgCounter++;
-						if (imgCounter === imgLength) {
-							scroll2Top(1, 20000);
-							console.log("manageMacy: " + imgCounter + " images loaded");
-							initMacy();
-						}
-					};
-					onError = function () {
-						removeListeners(this);
-						console.log("manageMacy: cannot load ", this.src);
-					};
-					if (img && !macyContainer[classList].contains(isActiveClass)) {
-						var i,
-						l;
-						for (i = 0, l = img[_length]; i < l; i += 1) {
-							addListeners(img[i]);
-						}
-						i = l = null;
-					}
-				};
-				if (root.Macy && macyContainer) {
-					handleMacyContainer();
-				}
-			});
-		}; */
-
 		var macy;
+
+		var updateMacy = function (delay) {
+			var timeout = delay || 100;
+			var logThis;
+			logThis = function () {
+				console.log("updateMacy");
+			};
+			if (macy) {
+				var timer = setTimeout(function () {
+						clearTimeout(timer);
+						timer = null;
+						/* logThis(); */
+						macy.recalculate(true, true);
+					}, timeout);
+			}
+		};
+
+		var updateMacyThrottled = throttle(updateMacy, 1000);
+
+		appEvents.addListeners("MacyInited", [handleDataSrcIframeAll.bind(null, updateMacyThrottled),
+				handleDataSrcImageAll.bind(null, updateMacyThrottled),
+				scroll2Top.bind(null, 0, 20000)]);
 
 		var macyContainerClass = "macy-container";
 
 		var initMacy = function () {
 			var macyContainer = document[getElementsByClassName](macyContainerClass)[0] || "";
-			try {
-				if (macy) {
-					macy.remove();
+			if (macyContainer) {
+				try {
+					if (macy) {
+						macy.remove();
+					}
+					macy = new Macy({
+							container: "." + macyContainerClass,
+							trueOrder: false,
+							waitForImages: false,
+							margin: 0,
+							columns: 5,
+							breakAt: {
+								1280: 5,
+								1024: 4,
+								960: 3,
+								640: 2,
+								480: 2,
+								360: 1
+							}
+						});
+					macyContainer[classList].add(isActiveClass);
+					appEvents.emitEvent("MacyInited");
+				} catch (err) {
+					throw new Error("cannot init Macy " + err);
 				}
-				macy = new Macy({
-						container: "." + macyContainerClass,
-						trueOrder: false,
-						waitForImages: false,
-						margin: 0,
-						columns: 5,
-						breakAt: {
-							1280: 5,
-							1024: 4,
-							960: 3,
-							640: 2,
-							480: 2,
-							360: 1
-						}
-					});
-				macyContainer[classList].add(isActiveClass);
-			} catch (err) {
-				throw new Error("cannot init Macy " + err);
 			}
 		};
 
@@ -2290,9 +1914,9 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 						removeListeners(this);
 						imgCounter++;
 						if (imgCounter === imgLength) {
-							resolve("manageMacy: all " + imgCounter + " images loaded");
-							appEvents.emitEvent("MacyImagesLoaded");
 							scroll2Top(1, 20000);
+							appEvents.emitEvent("MacyImagesLoaded");
+							resolve("manageMacy: all " + imgCounter + " images loaded");
 						}
 					};
 					onError = function () {
@@ -2313,24 +1937,6 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 				}
 			});
 		};
-
-		var updateMacy = function (delay) {
-			var timeout = delay || 100;
-			var logThis;
-			logThis = function () {
-				console.log("updateMacy");
-			};
-			if (macy) {
-				var timer = setTimeout(function () {
-						clearTimeout(timer);
-						timer = null;
-						/* logThis(); */
-						macy.recalculate(true, true);
-					}, timeout);
-			}
-		};
-
-		var updateMacyThrottled = throttle(updateMacy, 1000);
 
 		var handleSidedrawerCategory = function (evt) {
 			evt.stopPropagation();
@@ -2538,41 +2144,6 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		/* loadUnparsedJSON("./libs/serguei-muicss/json/menus.json", function (jsonResponse) {
-			var dropdownContactsTemplateId = "template_dropdown_contacts";
-			if (root.t) {
-				dropdownContactsTemplateId = "t_template_dropdown_contacts";
-			} else {
-				if (root.Mustache) {
-					dropdownContactsTemplateId = "mustache_template_dropdown_contacts";
-				}
-			}
-			var dropdownContactsTemplate = document[getElementById](dropdownContactsTemplateId) || "";
-			var dropdownContactsRenderId = "render_dropdown_contacts";
-			var dropdownContactsRender = document[getElementById](dropdownContactsRenderId) || "";
-			if (dropdownContactsTemplate && dropdownContactsRender) {
-				insertFromTemplate(jsonResponse, dropdownContactsTemplateId, dropdownContactsRenderId, function () {
-					manageDropdownButtonAll();
-				}, true);
-			}
-			var dropdownAdsTemplateId = "template_dropdown_ads";
-			if (root.t) {
-				dropdownAdsTemplateId = "t_template_dropdown_ads";
-			} else {
-				if (root.Mustache) {
-					dropdownAdsTemplateId = "mustache_template_dropdown_ads";
-				}
-			}
-			var dropdownAdsTemplate = document[getElementById](dropdownAdsTemplateId) || "";
-			var dropdownAdsRenderId = "render_dropdown_ads";
-			var dropdownAdsRender = document[getElementById](dropdownAdsRenderId) || "";
-			if (dropdownAdsTemplate && dropdownAdsRender) {
-				insertFromTemplate(jsonResponse, dropdownAdsTemplateId, dropdownAdsRenderId, function () {
-					manageDropdownButtonAll();
-				}, true);
-			}
-		}); */
-
 		var jhrouter;
 		jhrouter = new JsonHashRouter("./libs/serguei-muicss/json/navigation.min.json", appContentId, {
 				jsonHomePropName: "home",
@@ -2647,17 +2218,30 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 						highlightSidedrawerItem();
 						manageReadMore();
 						manageExpandingLayers();
-						manageMacy().then(function () {
+						manageMacy().then(function (result) {
+							console.log(result);
+						})
+						/* .then(function () {
 							handleDataSrcImageAll(updateMacyThrottled);
 						}).then(function () {
+							handleDataSrcIframeAll(updateMacyThrottled);
+						}).then(function () {
 							scroll2Top(0, 20000);
-						}).catch (function (err) {
+						}) */
+						.catch (function (err) {
 							console.log(err);
 						});
-						manageMinigrid().then(function () {
-							handleDataSrcIframeAll(updateMinigridThrottled);
-							handleDataSrcImageAll(updateMinigridThrottled);
+						manageMinigrid().then(function (result) {
+							console.log(result);
+						})
+						/* .then(function () {
+							handleDataSrcImageAll(updateMacyThrottled);
+						}).then(function () {
+							handleDataSrcIframeAll(updateMacyThrottled);
+						}).then(function () {
 							manageDataQrcodeImageAll(updateMinigridThrottled);
+						}).then(function () {
+							scroll2Top(0, 20000);
 						}).then(function () {
 							manageInstagramEmbeds();
 						}).then(function () {
@@ -2666,7 +2250,8 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 							manageVkEmbeds();
 						}).then(function () {
 							manageDisqusEmbed();
-						}).catch (function (err) {
+						}) */
+						.catch (function (err) {
 							console.log(err);
 						});
 					}
@@ -2687,7 +2272,9 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 		"./node_modules/normalize.css/normalize.css",
 		"../../cdn/highlight.js/9.12.0/css/hljs.css",
 		"./bower_components/iframe-lightbox/iframe-lightbox.css",
+				//"../../cdn/iframe-lightbox/0.1.7/css/iframe-lightbox.fixed.css",
 		"./bower_components/img-lightbox/img-lightbox.css",
+				//"../../cdn/img-lightbox/0.1.2/css/img-lightbox.fixed.css",
 		"./bower_components/mui/src/sass/mui.css"
 	]; */
 
@@ -2744,13 +2331,17 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 		"./node_modules/jquery/dist/jquery.js",
 		"./bower_components/mui/packages/cdn/js/mui.js",
 		"./bower_components/iframe-lightbox/iframe-lightbox.js",
+				//"../../cdn/iframe-lightbox/0.1.7/js/iframe-lightbox.fixed.js",
 		"./bower_components/img-lightbox/img-lightbox.js",
+				//"../../cdn/img-lightbox/0.1.2/js/img-lightbox.fixed.js",
 		"./bower_components/qrjs2/qrjs2.js",
+				//"../../cdn/qrjs2/0.1.6/js/qrjs2.fixed.js",
 		"./bower_components/wheel-indicator/lib/wheel-indicator.js",
 		"./bower_components/verge/verge.js",
 		"./bower_components/Tocca.js/Tocca.js",
 		"../../cdn/t.js/0.1.0/js/t.fixed.js",
 		"./node_modules/mustache/mustache.js",
+				//"../../cdn/mustache/2.3.0/js/mustache.fixed.js",
 		"../../cdn/highlight.js/9.12.0/js/highlight.pack.fixed.js",
 		"../../cdn/verge/1.9.1/js/verge.fixed.js",
 		"../../cdn/Tocca.js/2.0.1/js/Tocca.fixed.js",

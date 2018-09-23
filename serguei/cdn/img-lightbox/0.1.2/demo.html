@@ -1,0 +1,121 @@
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>img-lightbox Demo</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width">
+	<link rel="dns-prefetch" href="https://fonts.googleapis.com" /><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" /><link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" /><link rel="dns-prefetch" href="https://farm9.staticflickr.com" /><link rel="dns-prefetch" href="https://farm8.staticflickr.com" /><link rel="dns-prefetch" href="https://farm7.staticflickr.com" /><link rel="dns-prefetch" href="https://farm6.staticflickr.com" /><link rel="dns-prefetch" href="https://farm5.staticflickr.com" /><link rel="dns-prefetch" href="https://farm4.staticflickr.com" /><link rel="dns-prefetch" href="https://farm3.staticflickr.com" /><link rel="dns-prefetch" href="https://farm2.staticflickr.com" /><link rel="dns-prefetch" href="https://farm1.staticflickr.com" /><link rel="dns-prefetch" href="https://i.vimeocdn.com" /><link rel="dns-prefetch" href="https://f.vimeocdn.com" /><link rel="dns-prefetch" href="https://w.soundcloud.com" /><link rel="dns-prefetch" href="https://a.disquscdn.com" /><link rel="dns-prefetch" href="https://api-maps.yandex.ru" /><link rel="dns-prefetch" href="https://chart.googleapis.com" /><link rel="dns-prefetch" href="https://connect.mail.ru" /><link rel="dns-prefetch" href="https://connect.ok.ru" /><link rel="dns-prefetch" href="https://disqus.com" /><link rel="dns-prefetch" href="https://graph.facebook.com" /><link rel="dns-prefetch" href="https://mc.yandex.ru" /><link rel="dns-prefetch" href="https://www.google-analytics.com" /><link rel="dns-prefetch" href="https://yastatic.net" /><link rel="dns-prefetch" href="https://audiomack.com" /><link rel="dns-prefetch" href="https://api.audiomack.com" /><link rel="dns-prefetch" href="https://platform.twitter.com" /><link rel="dns-prefetch" href="https://www.instagram.com" /><link rel="dns-prefetch" href="https://api.audiomack.com" />
+	<link rel="stylesheet" href="./css/img-lightbox.fixed.css">
+	<script>
+		var imagesPreloaded=false;(function(m){m="[object Array]"===Object.prototype.toString.apply(m)?m:[m];var t=function(){return (imagesPreloaded=true);},f=function(){return (imagesPreloaded=false);},c=[];for(var i=0,l=m.length;i<l;i++){c[i]=new Image();c[i].onabort=f;c[i].onerror=f;c[i].onload=t;c[i].src=m[i];}}(["https://farm1.staticflickr.com/955/27854475488_4f2b7f52e4_k.jpg","https://farm1.staticflickr.com/955/27854475488_4f2b7f52e4_z.jpg"]));
+	</script>
+</head>
+
+<body>
+	<h1 class="title">img-lightbox Demo</h1>
+	<p>Responsive no-jQuery pure JS/CSS Lightbox for images, no dependencies, 10kb unminified source code, with demo</p>
+
+	<h2>Demo</h2>
+	<p>
+		<a href="https://codepen.io/englishextra/full/YLQxRp/">codepen</a>
+		<a href="https://fiddle.jshell.net/englishextra/8hhpbv4h/show/">jsfiddle</a>
+		<a href="https://output.jsbin.com/laxudog">jsbin</a>
+	</p>
+
+	<h2>Features</h2>
+	<ul>
+		<li>Simple initialization</li>
+		<li>SPA / PWA friendly: prevents multiple same events assigning</li>
+		<li>Debounced launch</li>
+		<li>Custom event callbacks</li>
+	</ul>
+
+	<h2>CDN</h2>
+	<h4>jsDelivr</h4>
+	<p>
+		<code>https://cdn.jsdelivr.net/gh/englishextra/img-lightbox@latest/img-lightbox.min.js</code>
+		<br/>
+		<code>https://cdn.jsdelivr.net/gh/englishextra/img-lightbox@latest/img-lightbox.min.css</code>
+	</p>
+	<h4>unpkg</h4>
+	<p>
+		<code>https://unpkg.com/img-lightbox@latest/img-lightbox.js</code>
+		<br/>
+		<code>https://unpkg.com/img-lightbox@latest/img-lightbox.css</code>
+	</p>
+	<h2>Install</h2>
+	<h4>npm</h4>
+	<p>
+		<code>npm install img-lightbox</code>
+	</p>
+	<h4>bower</h4>
+	<p>
+		<code>bower install img-lightbox</code>
+	</p>
+	<h2>Setup</h2>
+	<p><code>class</code> &quot;img-lightbox-link&quot; is required and hardcoded.</p>
+	<p><code>data-src</code> is required, and contains URL of your image.</p>
+	<h2><a href="https://farm1.staticflickr.com/955/27854475488_4f2b7f52e4_k.jpg" class="img-lightbox-link" data-src="https://farm1.staticflickr.com/955/27854475488_4f2b7f52e4_k.jpg" aria-hidden="true" rel="lightbox"><img src="https://farm1.staticflickr.com/955/27854475488_5f82a379ca_z.jpg" alt="Image Lightbox" /></a></h2>
+	<pre><code>&lt;a href=&quot;https://farm1.staticflickr.com/955/27854475488_4f2b7f52e4_k.jpg&quot;
+class=&quot;img-lightbox-link&quot;
+data-src=&quot;https://farm1.staticflickr.com/955/27854475488_4f2b7f52e4_k.jpg&quot;
+aria-hidden=&quot;true&quot;
+rel=&quot;lightbox&quot;&gt;&lt;img src=&quot;https://farm1.staticflickr.com/955/27854475488_5f82a379ca_z.jpg&quot; alt=&quot;Image Lightbox&quot; /&gt;&lt;/a&gt;</code></pre>
+	<h2>Initialize</h2>
+	<pre><code>imgLightbox(document.body || &quot;&quot;);</code></pre>
+	<h2>Tips</h2>
+	<p>SPA / PWA developers don't need to bother: built-in class is added to a link.</p>
+	<p>That way you avoid multiple assignments to a single element.</p>
+	<h2>Examples of event handling</h2>
+	<pre><code>var manageImgLightboxLinks = function (root, scope) {
+	var ctx = scope &amp;&amp; scope.nodeName ? scope : &quot;&quot;;
+	if (root.imgLightbox) {
+		imgLightbox(ctx, {
+			onCreated: function () {
+				// show your preloader
+			},
+			onLoaded: function () {
+				// hide your preloader
+			},
+			onError: function () {
+				// hide your preloader
+			},
+			onClosed: function () {
+				// hide your preloader
+			}
+		});
+	}
+};
+manageImgLightboxLinks(&quot;undefined&quot; !== typeof window ? window : this, document.body || &quot;&quot;);</code></pre>
+	<h2>GitHub</h2>
+	<p><a href="https://github.com/englishextra/img-lightbox">englishextra/img-lightbox</a></p>
+	<h2>License</h2>
+	<p>Available under <a href="https://opensource.org/licenses/MIT">MIT License</a></p>
+	<script src="./js/img-lightbox.fixed.js"></script>
+	<script>
+		var manageImgLightboxLinks = function (root, scope) {
+			var ctx = scope && scope.nodeName ? scope : "";
+			if (root.imgLightbox) {
+				imgLightbox(ctx, {
+					onCreated: function () {
+						// show your preloader
+					},
+					onLoaded: function () {
+						// hide your preloader
+					},
+					onError: function () {
+						// hide your preloader
+					},
+					onClosed: function () {
+						// hide your preloader
+					}
+				});
+			}
+		};
+		manageImgLightboxLinks("undefined" !== typeof window ? window : this, document.body || "");
+	</script>
+</body>
+
+</html>
