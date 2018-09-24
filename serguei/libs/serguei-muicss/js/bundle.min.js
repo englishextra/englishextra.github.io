@@ -1431,8 +1431,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 
 		var hideCurrentDropdownMenu = function (e) {
 			if (e) {
-				if (/* e[style].display !== "none" || */e[classList].contains(isActiveClass)) {
-					/* e[style].display = "none"; */
+				if (e[classList].contains(isActiveClass)) {
 					e[classList].remove(isActiveClass);
 					manageOtherCollapsableAll(e);
 				}
@@ -1451,11 +1450,9 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 				if (!dropdownMenu[classList].contains("mui-dropdown__menu--right")) {
 					dropdownMenu[style].left = left + "px";
 				}
-				if (/* dropdownMenu[style].display === "none" || */!dropdownMenu[classList].contains(isActiveClass)) {
-					/* dropdownMenu[style].display = "block"; */
+				if (!dropdownMenu[classList].contains(isActiveClass)) {
 					dropdownMenu[classList].add(isActiveClass);
 				} else {
-					/* dropdownMenu[style].display = "none"; */
 					dropdownMenu[classList].remove(isActiveClass);
 				}
 				manageOtherCollapsableAll(dropdownMenu);
@@ -1493,7 +1490,6 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 						) {
 							dropdownButtonAll[i][_addEventListener]("click", handleDropdownButton);
 							dropdownButtonAll[i][classList].add(isBindedClass);
-							/* dropdownButtonAll[i].nextElementSibling[style].display = "none"; */
 							dropdownButtonAll[i][classList].remove(isActiveClass);
 							dropdownButtonAll[i].nextElementSibling[classList].add(isCollapsableClass);
 					}
@@ -1509,8 +1505,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 				var i,
 				l;
 				for (i = 0, l = dropdownMenuAll[_length]; i < l; i += 1) {
-					if (/* dropdownMenuAll[i][style].display !== "none" || */dropdownMenuAll[i][classList].contains(isActiveClass)) {
-						/* dropdownMenuAll[i][style].display = "none"; */
+					if (dropdownMenuAll[i][classList].contains(isActiveClass)) {
 						dropdownMenuAll[i][classList].remove(isActiveClass);
 					}
 				}
