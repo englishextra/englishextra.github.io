@@ -1,6 +1,8 @@
 /*!
  * @license Minigrid v3.1.1 minimal cascading grid layout http://alves.im/minigrid
  * @see {@link https://github.com/henriquea/minigrid}
+ * changed element selection method
+ * passes jshint
  */
 (function(root, document) {
 	"use strict";
@@ -15,13 +17,26 @@
 		}
 		return a;
 	}
+	var elementsSelector;
+	elementsSelector = function (selector, context, undefined) {
+		var matches = {
+			"#": "getElementById",
+			".": "getElementsByClassName",
+			"@": "getElementsByName",
+			"=": "getElementsByTagName",
+			"*": "querySelectorAll"
+		}
+		[selector[0]];
+		var el = (((context === undefined) ? document : context)[matches](selector.slice(1)));
+		return ((el.length < 2) ? el[0] : el);
+	};
 	var Minigrid = function(props) {
 		var containerEle = props.container instanceof Node ?
 			(props.container) :
-			(document[getElementById](props.container) || document[getElementsByClassName](props.container)[0] || "");
+			(elementsSelector(props.container) || "");
 		var itemsNodeList = props.item instanceof NodeList ?
 			props.item :
-			(containerEle[getElementsByClassName](props.item) || "");
+			(elementsSelector(props.item) || "");
 		this.props = extend(props, {
 			container: containerEle,
 			nodeList: itemsNodeList

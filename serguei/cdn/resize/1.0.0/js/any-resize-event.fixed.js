@@ -2,8 +2,17 @@
 LegoMushroom @legomushroom http://legomushroom.com
 MIT License 2014
  */
-/*jshint -W083 */
+/*!
+ * @see {@link https://github.com/legomushroom/resize/blob/master/dist/any-resize-event.js}
+ * v1.0.0
+ * fixed functions within the loop and some variables
+ * not defined on more upper level
+ * and if (proto.prototype === null || proto.prototype === undefined)
+ * passes jshint
+ */
+/*global define, module*/
 (function () {
+	"use strict";
 	var Main;
 	Main = (function () {
 		function Main(o) {
@@ -55,54 +64,54 @@ MIT License 2014
 					_results;
 					_ref = this.allowedProtos;
 					_results = [];
+					var fn1 = function (proto) {
+						var listener,
+						remover;
+						listener = proto.prototype.addEventListener || proto.prototype.attachEvent;
+						var wrappedListener;
+						(function (listener) {
+							wrappedListener = function () {
+								var option;
+								if (this !== window || this !== document) {
+									option = arguments[0] === 'onresize' && !this.isAnyResizeEventInited;
+									if (option) {
+										it.handleResize({
+											args: arguments,
+											that: this
+										});
+									}
+								}
+								return listener.apply(this, arguments);
+							};
+							if (proto.prototype.addEventListener) {
+								return (proto.prototype.addEventListener = wrappedListener);
+							} else if (proto.prototype.attachEvent) {
+								return (proto.prototype.attachEvent = wrappedListener);
+							}
+						})(listener);
+						remover = proto.prototype.removeEventListener || proto.prototype.detachEvent;
+						return (function (remover) {
+							var wrappedRemover;
+							wrappedRemover = function () {
+								this.isAnyResizeEventInited = false;
+								if (this.iframe) {
+									this.removeChild(this.iframe);
+								}
+								return remover.apply(this, arguments);
+							};
+							if (proto.prototype.removeEventListener) {
+								return (proto.prototype.removeEventListener = wrappedRemover);
+							} else if (proto.prototype.detachEvent) {
+								return (proto.prototype.detachEvent = wrappedListener);
+							}
+						})(remover);
+					};
 					for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
 						proto = _ref[i];
-						if (proto.prototype === null) {
+						if (proto.prototype === null || proto.prototype === undefined) {
 							continue;
 						}
-						_results.push((function (proto) {
-								var listener,
-								remover;
-								listener = proto.prototype.addEventListener || proto.prototype.attachEvent;
-								var wrappedListener;
-								(function (listener) {
-									wrappedListener = function () {
-										var option;
-										if (this !== window || this !== document) {
-											option = arguments[0] === 'onresize' && !this.isAnyResizeEventInited;
-											if (option) {
-												it.handleResize({
-													args: arguments,
-													that: this
-												});
-											}
-
-										}
-										return listener.apply(this, arguments);
-									};
-									if (proto.prototype.addEventListener) {
-										return (proto.prototype.addEventListener = wrappedListener);
-									} else if (proto.prototype.attachEvent) {
-										return (proto.prototype.attachEvent = wrappedListener);
-									}
-								})(listener);
-								remover = proto.prototype.removeEventListener || proto.prototype.detachEvent;
-								return (function (remover) {
-									var wrappedRemover;
-									wrappedRemover = function () {
-										this.isAnyResizeEventInited = false;
-										if (this.iframe) {
-											this.removeChild(this.iframe);
-										}
-										return remover.apply(this, arguments);
-									};
-									if (proto.prototype.removeEventListener) {
-										return (proto.prototype.removeEventListener = wrappedRemover);
-									} else if (proto.prototype.detachEvent) {
-										return (proto.prototype.detachEvent = wrappedListener);
-									}
-								})(remover);
-							})(proto));
+						_results.push((fn1)(proto));
 					}
 					return _results;
 				}).call(this));
@@ -133,7 +142,7 @@ MIT License 2014
 				}
 				if ((_ref = iframe.contentWindow) !== null) {
 					_ref.onresize = (function (_this) {
-						return function (e) {
+						return function () {
 							return _this.dispatchEvent(el);
 						};
 					})(this);
@@ -190,25 +199,26 @@ MIT License 2014
 			it = this;
 			_ref = this.allowedProtos;
 			_results = [];
+			var fn2 = function (proto) {
+				var listener;
+				listener = proto.prototype.addEventListener || proto.prototype.attachEvent;
+				if (proto.prototype.addEventListener) {
+					proto.prototype.addEventListener = Element.prototype.addEventListener;
+				} else if (proto.prototype.attachEvent) {
+					proto.prototype.attachEvent = Element.prototype.attachEvent;
+				}
+				if (proto.prototype.removeEventListener) {
+					return (proto.prototype.removeEventListener = Element.prototype.removeEventListener);
+				} else if (proto.prototype.detachEvent) {
+					return (proto.prototype.detachEvent = Element.prototype.detachEvent);
+				}
+			};
 			for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
 				proto = _ref[i];
-				if (proto.prototype === null) {
+				if (proto.prototype === null || proto.prototype === undefined) {
 					continue;
 				}
-				_results.push((function (proto) {
-						var listener;
-						listener = proto.prototype.addEventListener || proto.prototype.attachEvent;
-						if (proto.prototype.addEventListener) {
-							proto.prototype.addEventListener = Element.prototype.addEventListener;
-						} else if (proto.prototype.attachEvent) {
-							proto.prototype.attachEvent = Element.prototype.attachEvent;
-						}
-						if (proto.prototype.removeEventListener) {
-							return (proto.prototype.removeEventListener = Element.prototype.removeEventListener);
-						} else if (proto.prototype.detachEvent) {
-							return (proto.prototype.detachEvent = Element.prototype.detachEvent);
-						}
-					})(proto));
+				_results.push((fn2)(proto));
 			}
 			return _results;
 		};
@@ -229,4 +239,3 @@ MIT License 2014
 		}
 	}
 }).call(this);
-/*jshint +W083 */

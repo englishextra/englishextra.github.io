@@ -18,6 +18,7 @@
 		"bundle": "gulp bundle-assets"
 	},
 	"devDependencies": {
+		"any-resize-event": "^1.0.0",
 		"browser-sync": "2.10.1",
 		"gulp": "3.9.1",
 		"gulp-autoprefixer": "3.1.0",
@@ -27,6 +28,7 @@
 		"gulp-sass": "2.1.1",
 		"jquery": "^3.3.1",
 		"macy": "^2.3.0",
+		"minigrid": "^3.1.1",
 		"mustache": "^2.3.0",
 		"normalize.css": "^8.0.0",
 		"wolfy87-eventemitter": "^5.2.5"

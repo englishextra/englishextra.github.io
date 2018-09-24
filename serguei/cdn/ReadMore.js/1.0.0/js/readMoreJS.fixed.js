@@ -1,9 +1,14 @@
-/**
+/*!
  * @app ReadMoreJS
  * @desc Breaks the content of an element to the specified number of words
  * @version 1.0.0
  * @license The MIT License (MIT)
  * @author George Raptis | http://georap.gr
+ * @see {@link https://github.com/georapbox/ReadMore.js/blob/master/src/readMoreJS.js}
+ * changed: rmLink = doc.querySelectorAll('.rm-link');
+ * to: rmLink = doc.getElementsByClassName('rm-link');
+ * changed: var target = doc.querySelectorAll(options.target)
+ * to: var target = elementsSelector(options.target)
  */
 (function (win, doc, undef) {
 	'use strict';
@@ -40,7 +45,20 @@
 			lessLink: 'read less'
 		};
 		options = RM.helpers.extendObj({}, defaults, options);
-		var target = doc.getElementsByClassName(options.target),
+		var elementsSelector;
+		elementsSelector = function (selector, context, undefined) {
+			var matches = {
+				"#": "getElementById",
+				".": "getElementsByClassName",
+				"@": "getElementsByName",
+				"=": "getElementsByTagName",
+				"*": "querySelectorAll"
+			}
+			[selector[0]];
+			var el = (((context === undefined) ? document : context)[matches](selector.slice(1)));
+			return ((el.length < 2) ? el[0] : el);
+		};
+		var target = elementsSelector(options.target),
 		targetLen = target.length,
 		targetContent,
 		trimmedTargetContent,

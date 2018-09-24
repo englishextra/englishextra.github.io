@@ -1084,7 +1084,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			var initScript = function () {
 				if (root.$readMoreJS) {
 					$readMoreJS.init({
-						target: "dummy",
+						target: ".dummy",
 						numOfWords: 10,
 						toggle: true,
 						moreLink: "БОЛЬШЕ",
@@ -1799,8 +1799,8 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 						root[_removeEventListener]("resize", updateMinigrid);
 					}
 					mgrid = new Minigrid({
-							container: cardGridClass,
-							item: cardWrapClass,
+							container: "." + cardGridClass,
+							item: "." + cardWrapClass,
 							gutter: 20
 						});
 					mgrid.mount();
