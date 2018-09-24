@@ -1179,12 +1179,14 @@ ToProgress, unescape, VK, Ya*/
 			}
 		};
 
-		if (supportsCanvas) {
+		/* if (supportsCanvas) {
 			slot = setInterval(checkFontIsLoaded, 100);
 		} else {
 			slot = null;
 			onFontsLoaded();
-		}
+		} */
+		var load;
+		load = new loadJsCss(scripts, run);
 	};
 
 	loadCSS(
