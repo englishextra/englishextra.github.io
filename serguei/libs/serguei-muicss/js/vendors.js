@@ -2440,7 +2440,7 @@
 		}
 	};
 	window.$readMoreJS = RM;
-})(this, this.document);
+})("undefined" !== typeof window ? window : this, document);
 
 /*!
  * A small javascript library for ripples

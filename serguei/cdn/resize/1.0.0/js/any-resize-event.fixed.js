@@ -238,4 +238,4 @@ MIT License 2014
 			window.anyResizeEvent = new Main();
 		}
 	}
-}).call(this);
+}).call("undefined" !== typeof window ? window : this);

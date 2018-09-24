@@ -12,7 +12,7 @@
 		global.Macy = factory();
 	}
 }
-	(this, (function () {
+	("undefined" !== typeof window ? window : this, (function () {
 			'use strict';
 			var $e = function $e(parameter, context) {
 				if (!(this instanceof $e)) {
