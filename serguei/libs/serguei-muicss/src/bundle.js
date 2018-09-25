@@ -1564,7 +1564,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var updateMinigridThrottled = throttle(updateMinigrid, 1000);
+		var updateMinigridThrottled = throttle(updateMinigrid, 2000);
 
 		var setIsActiveClass = function (e) {
 			if (e && e.nodeName && !e[classList].contains(isActiveClass)) {
@@ -1848,7 +1848,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var updateMacyThrottled = throttle(updateMacy, 1000);
+		var updateMacyThrottled = throttle(updateMacy, 2000);
 
 		appEvents.addListeners("MacyInited", [handleDataSrcIframeAll.bind(null, updateMacyThrottled),
 				handleDataSrcImageAll.bind(null, updateMacyThrottled),
