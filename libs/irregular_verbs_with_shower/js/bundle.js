@@ -1025,8 +1025,7 @@
 			slot = null;
 			onFontsLoaded();
 		} */
-		var load;
-		load = new loadJsCss(scripts, run);
+		onFontsLoaded();
 	};
 
 	loadCSS(

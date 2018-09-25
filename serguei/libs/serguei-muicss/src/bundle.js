@@ -1,6 +1,6 @@
 /*global $readMoreJS, ActiveXObject, console, DISQUS, doesFontExist,
 EventEmitter, hljs, IframeLightbox, imgLightbox, instgrm,
-JsonHashRouter, loadCSS, loadJsCss, Macy, Minigrid, Mustache, Promise,
+JsonHashRouter, loadJsCss, Macy, Minigrid, Mustache, Promise,
 QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 /*property console, join, split */
 /*!
@@ -238,36 +238,6 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 		}
 	};
 	root.doesFontExist = doesFontExist;
-})("undefined" !== typeof window ? window : this, document);
-/*!
- * load CSS async
- * modified order of arguments, added callback option, removed CommonJS stuff
- * @see {@link https://github.com/filamentgroup/loadCSS}
- * @see {@link https://gist.github.com/englishextra/50592e9944bd2edc46fe5a82adec3396}
- * @param {String} hrefString path string
- * @param {Object} callback callback function
- * @param {String} media media attribute string value
- * @param {Object} [before] target HTML element
- * loadCSS(hrefString,callback,media,before)
- */
-(function(root, document) {
-	"use strict";
-	var loadCSS = function(_href, callback) {
-		var ref = document.getElementsByTagName("head")[0] || "";
-		var link = document.createElement("link");
-		link.rel = "stylesheet";
-		link.href = _href;
-		link.media = "all";
-		if (ref) {
-			ref.appendChild(link);
-			if (callback && "function" === typeof callback) {
-				link.onload = callback;
-			}
-			return link;
-		}
-		return;
-	};
-	root.loadCSS = loadCSS;
 })("undefined" !== typeof window ? window : this, document);
 /*!
  * modified loadExt
@@ -2337,7 +2307,8 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 	 * load scripts after webfonts loaded using doesFontExist
 	 */
 
-	var supportsCanvas = (function() {
+	var supportsCanvas;
+	supportsCanvas	= (function() {
 		var elem = document[createElement]("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
 	})();
@@ -2345,9 +2316,12 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 	var onFontsLoadedCallback = function() {
 
 		var slot;
+
 		var onFontsLoaded = function() {
-			clearInterval(slot);
-			slot = null;
+			if (slot) {
+				clearInterval(slot);
+				slot = null;
+			}
 
 			/* progressBar.increase(20); */
 
@@ -2355,7 +2329,8 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			load = new loadJsCss(scripts, run);
 		};
 
-		var checkFontIsLoaded = function() {
+		var checkFontIsLoaded;
+		checkFontIsLoaded = function() {
 			/*!
 			 * check only for fonts that are used in current page
 			 */
@@ -2370,13 +2345,13 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			slot = null;
 			onFontsLoaded();
 		} */
-		var load;
-		load = new loadJsCss(scripts, run);
+		onFontsLoaded();
 	};
 
-	loadCSS(
+	var load;
+	load = new loadJsCss([
 		/* forcedHTTP + "://fonts.googleapis.com/css?family=Roboto+Mono%7CRoboto:300,400,500,700&subset=cyrillic,latin-ext", */
-		"./libs/serguei-muicss/css/vendors.min.css",
+		"./libs/serguei-muicss/css/vendors.min.css"],
 		onFontsLoadedCallback
 	);
 
