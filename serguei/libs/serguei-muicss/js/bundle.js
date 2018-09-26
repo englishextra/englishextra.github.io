@@ -268,6 +268,11 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			link.type = "text/css";
 			link.href = file;
 			/* _this.head[appendChild](link); */
+			link.media = "only x";
+			link.onload = function () {
+				null;
+				this.media = "all";
+			};
 			link[setAttribute]("property", "stylesheet");
 			(_this.body || _this.head)[appendChild](link);
 		};
