@@ -255,6 +255,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 		var insertBefore = "insertBefore";
 		var _length = "length";
 		var parentNode = "parentNode";
+		var setAttribute = "setAttribute";
 		_this.files = files;
 		_this.js = [];
 		_this.head = document[getElementsByTagName]("head")[0] || "";
@@ -266,7 +267,9 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			link.rel = "stylesheet";
 			link.type = "text/css";
 			link.href = file;
-			_this.head[appendChild](link);
+			/* _this.head[appendChild](link); */
+			link[setAttribute]("property", "stylesheet");
+			(_this.body || _this.head)[appendChild](link);
 		};
 		_this.loadScript = function(i) {
 			var script = document[createElement]("script");
@@ -284,11 +287,12 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 				loadNextScript();
 			};
 			_this.head[appendChild](script);
-			if (_this.ref[parentNode]) {
+			/* if (_this.ref[parentNode]) {
 				_this.ref[parentNode][insertBefore](script, _this.ref);
 			} else {
 				(_this.body || _this.head)[appendChild](script);
-			}
+			} */
+			(_this.body || _this.head)[appendChild](script);
 		};
 		var i,
 		l;
