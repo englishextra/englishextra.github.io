@@ -290,7 +290,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 				(_this.body || _this.head)[appendChild](script);
 			}
 		};
-				var i,
+		var i,
 		l;
 		for (i = 0, l = _this.files[_length]; i < l; i += 1) {
 			if ((/\.js$|\.js\?/).test(_this.files[i])) {
@@ -2348,12 +2348,29 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 		onFontsLoaded();
 	};
 
-	var load;
-	load = new loadJsCss([
-		/* forcedHTTP + "://fonts.googleapis.com/css?family=Roboto+Mono%7CRoboto:300,400,500,700&subset=cyrillic,latin-ext", */
-		"./libs/serguei-muicss/css/vendors.min.css"],
-		onFontsLoadedCallback
-	);
+	var loadDeferred = function () {
+		var timer;
+		var logic = function () {
+			clearTimeout(timer);
+			timer = null;
+			var load;
+			load = new loadJsCss([
+						/* forcedHTTP + "://fonts.googleapis.com/css?family=Roboto+Mono%7CRoboto:300,400,500,700&subset=cyrillic,latin-ext", */
+						"./libs/serguei-muicss/css/vendors.min.css"],
+					onFontsLoadedCallback);
+		};
+		var req;
+		var raf = function () {
+			cancelAnimationFrame(req);
+			timer = setTimeout(logic, 0);
+		};
+		if (root.requestAnimationFrame) {
+			req = requestAnimationFrame(raf);
+		} else {
+			root[_addEventListener]("load", logic);
+		}
+	};
+	loadDeferred();
 
 	/*!
 	 * load scripts after webfonts loaded using webfontloader
