@@ -270,7 +270,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			/* _this.head[appendChild](link); */
 			link.media = "only x";
 			link.onload = function () {
-				null;
+				this.onload = null;
 				this.media = "all";
 			};
 			link[setAttribute]("property", "stylesheet");
