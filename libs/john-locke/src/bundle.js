@@ -947,8 +947,8 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 			if (hasTouch) {
 				mousewheeldown[style].display = "none";
 				if (root.tocca) {
-					root[_addEventListener]("swipeup", revealStart, {passive: true});
-					root[_addEventListener]("swipedown", concealStart, {passive: true});
+					document[_addEventListener]("swipeup", revealStart, {passive: true});
+					document[_addEventListener]("swipedown", concealStart, {passive: true});
 				}
 			} else {
 				if (hasWheel) {

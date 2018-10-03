@@ -2065,8 +2065,8 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			root[_addEventListener]("scroll", resetAppBar, {passive: true});
 			if (hasTouch) {
 				if (root.tocca) {
-					root[_addEventListener]("swipeup", hideAppBar, {passive: true});
-					root[_addEventListener]("swipedown", revealAppBar, {passive: true});
+					document[_addEventListener]("swipeup", hideAppBar, {passive: true});
+					document[_addEventListener]("swipedown", revealAppBar, {passive: true});
 				}
 			} else {
 				if (hasWheel) {
