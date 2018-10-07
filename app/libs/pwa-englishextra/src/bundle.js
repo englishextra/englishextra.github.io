@@ -2389,6 +2389,7 @@ Ya*/
 			var masonryGridClass = "masonry-grid";
 			var routesJsonUrl = "./libs/pwa-englishextra/json/routes.json";
 			var contentsListButtonDefaultText = contentsSelect ? (contentsSelect.options[0].firstChild.textContent || "") : "";
+			var isBindedHandleRoutesWindowClass = "is-binded-handle-routes-window";
 			var processRoutesJsonResponse = function (routesJsonResponse) {
 				var routesJsonObj;
 				try {
