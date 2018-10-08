@@ -252,9 +252,9 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 		var body = "body";
 		var createElement = "createElement";
 		var getElementsByTagName = "getElementsByTagName";
-		var insertBefore = "insertBefore";
+		/* var insertBefore = "insertBefore"; */
 		var _length = "length";
-		var parentNode = "parentNode";
+		/* var parentNode = "parentNode"; */
 		var setAttribute = "setAttribute";
 		_this.files = files;
 		_this.js = [];
@@ -1116,6 +1116,8 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
+		var isCollapsableClass = "is-collapsable";
+
 		var manageLocationQrCodeImage = function () {
 			var btn = document[getElementsByClassName]("btn-toggle-holder-qrcode")[0] || "";
 			var holder = document[getElementsByClassName]("holder-location-qrcode")[0] || "";
@@ -1377,8 +1379,6 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			docBody[classList].add(hideSidedrawerClass);
 			sidedrawer[classList].remove(activeClass);
 		};
-
-		var isCollapsableClass = "is-collapsable";
 
 		var manageOtherCollapsableAll = function (_self) {
 			var _this = _self || this;
