@@ -50,14 +50,14 @@
 		}
 	],
 	"more": [{
+			"href": "https://yandex.ru/uslugi/search/?profile=SergueiShimansky",
+			"title": "Яндекс.Услуги"
+		}, {
 			"href": "https://yandex.ru/maps/org/repetitor_sergey_shimanskiy/1085972151",
 			"title": "Яндекс.Карты"
 		}, {
 			"href": "http://podgotovka.ru/detail.php?siteid=4293",
 			"title": "Подготовка.Ру"
-		}, {
-			"href": "https://repforum.ru/viewtopic.php?t=2929",
-			"title": "Форум репетиторов"
 		}, {
 			"href": "https://englishextra.github.io/",
 			"title": "Мой сайт"
