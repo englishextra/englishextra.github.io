@@ -18,10 +18,15 @@
 		"bundle": "gulp bundle-assets"
 	},
 	"devDependencies": {
+		"@babel/core": "^7.1.2",
+		"@babel/plugin-transform-object-assign": "^7.0.0",
+		"@babel/preset-env": "^7.1.0",
+		"adaptivecards": "^1.1.0",
 		"any-resize-event": "^1.0.0",
 		"browser-sync": "2.10.1",
 		"gulp": "3.9.1",
 		"gulp-autoprefixer": "3.1.0",
+		"gulp-babel": "^8.0.0",
 		"gulp-bundle-assets": "2.29.0",
 		"gulp-cli": "1.4.0",
 		"gulp-minify-css": "1.2.2",
