@@ -596,7 +596,7 @@ ToProgress, unescape, verge, VK, Ya*/
 			x.open("GET", url, !0);
 			x.withCredentials = !1;
 			x.onreadystatechange = function () {
-				if (x.status === "404" || x.status === "0") {
+				if (x.status === 404 || x.status === 0) {
 					console.log("Error XMLHttpRequest-ing file", x.status);
 					return onerror && "function" === typeof onerror && onerror();
 				} else if (x.readyState === 4 && x.status === 200 && x.responseText) {

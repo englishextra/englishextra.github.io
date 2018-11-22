@@ -75,7 +75,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 						var cb = function () {
 							return callback && "function" === typeof callback && callback();
 						};
-						if (x.status === "404" || x.status === "0") {
+						if (x.status === 404 || x.status === 0) {
 							console.log("Error XMLHttpRequest-ing file", x.status);
 						} else if (x.readyState === 4 && x.status === 200 && x.responseText) {
 							var frag = x.responseText;
@@ -114,7 +114,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 				x.open("GET", url, !0);
 				x.withCredentials = !1;
 				x.onreadystatechange = function () {
-					if (x.status === "404" || x.status === "0") {
+					if (x.status === 404 || x.status === 0) {
 						console.log("Error XMLHttpRequest-ing file", x.status);
 					} else if (x.readyState === 4 && x.status === 200 && x.responseText) {
 						cb(x.responseText);
@@ -1827,7 +1827,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var updateMacyThrottled = throttle(updateMacy, 2000);
+		var updateMacyThrottled = throttle(updateMacy, 1000);
 
 		appEvents.addListeners("MacyInited", [handleDataSrcIframeAll.bind(null, updateMacyThrottled),
 				handleDataSrcImageAll.bind(null, updateMacyThrottled),
