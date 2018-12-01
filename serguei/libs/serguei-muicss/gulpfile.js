@@ -1,5 +1,6 @@
 /*!
  * @see {@link https://github.com/mildrenben/surface/blob/master/gulpfile.js}
+ * @see {@link https://www.webstoemp.com/blog/gulp-setup/}
  */
 // gulpfile.js
 var gulp = require("gulp"),
