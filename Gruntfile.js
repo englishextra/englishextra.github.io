@@ -6,7 +6,7 @@ module.exports = function (grunt) {
 		jshint: {
 			all: [
 				"**/libs/**/src/bundle.js"//,
-				// "**/libs/**/js/vendors.js"
+				//"**/libs/**/js/include-script/src/*.js"
 			]
 		}
 	});
