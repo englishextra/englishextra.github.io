@@ -1,11 +1,11 @@
 // ==========================================================================
 //
-// Name:    UI Color Palette
+// Name:	UI Color Palette
 // Description: The color palette of material design.
 // Version:   2.3.1
 //
 // Author:   Denis Malinochkin
-// Git:     https://github.com/mrmlnc/material-color
+// Git:	 https://github.com/mrmlnc/material-color
 //
 // twitter:   @mrmlnc
 //
@@ -802,27 +802,27 @@ $clr-white: map-get($clr-white-list, "base");
 //
 
 $clr-list-all: (
- "red":     $clr-red-list,
- "pink":    $clr-pink-list,
+ "red":	 $clr-red-list,
+ "pink":	$clr-pink-list,
  "purple":   $clr-purple-list,
  "deep-purple": $clr-deep-purple-list,
  "indigo":   $clr-indigo-list,
- "blue":    $clr-blue-list,
+ "blue":	$clr-blue-list,
  "light-blue": $clr-light-blue-list,
- "cyan":    $clr-cyan-list,
- "teal":    $clr-teal-list,
- "green":    $clr-green-list,
+ "cyan":	$clr-cyan-list,
+ "teal":	$clr-teal-list,
+ "green":	$clr-green-list,
  "light-green": $clr-light-green-list,
- "lime":    $clr-lime-list,
+ "lime":	$clr-lime-list,
  "yellow":   $clr-yellow-list,
- "amber":    $clr-amber-list,
+ "amber":	$clr-amber-list,
  "orange":   $clr-orange-list,
  "deep-orange": $clr-deep-orange-list,
- "brown":    $clr-brown-list,
- "grey":    $clr-grey-list,
+ "brown":	$clr-brown-list,
+ "grey":	$clr-grey-list,
  "blue-grey":  $clr-blue-grey-list,
- "black":    $clr-black-list,
- "white":    $clr-white-list
+ "black":	$clr-black-list,
+ "white":	$clr-white-list
 );
 
 

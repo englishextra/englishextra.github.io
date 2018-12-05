@@ -504,4 +504,4 @@
     }
   };
   root.UWP = UWP;
-})("undefined" !== typeof window ? window : void 0, document);
+})("undefined" !== typeof window ? window : this, document);

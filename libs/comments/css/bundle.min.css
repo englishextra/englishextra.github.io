@@ -2526,6 +2526,11 @@ html > body > .ui-pnotify {
  * main
  */
 
+/*!
+ * Default CSS Values for HTML Elements
+ * @see {@link https://www.w3schools.com/cssref/css_default_values.asp}
+ */
+
 html,
 body {
 	height: 100%;

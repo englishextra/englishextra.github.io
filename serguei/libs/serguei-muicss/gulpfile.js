@@ -1,8 +1,10 @@
+/*global require */
 /*!
  * @see {@link https://github.com/mildrenben/surface/blob/master/gulpfile.js}
  * @see {@link https://www.webstoemp.com/blog/gulp-setup/}
+ * @see {@link https://gulpjs.com/plugins/blackList.json}
+ * @see {@link https://hackernoon.com/how-to-automate-all-the-things-with-gulp-b21a3fc96885}
  */
-// gulpfile.js
 var gulp = require("gulp"),
 bundle = require("gulp-bundle-assets"),
 sass = require("gulp-sass"),

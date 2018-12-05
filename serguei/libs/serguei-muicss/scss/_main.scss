@@ -1,14 +1,20 @@
 @function encodecolor($string) {
-	@if type-of($string) == 'color' {
-        $hex: str-slice(ie-hex-str($string), 4);
-        $string:unquote("#{$hex}");
-    }
-    $string: '%23' + $string;
+	@if type-of($string)=='color' {
+		$hex: str-slice(ie-hex-str($string), 4);
+		$string:unquote("#{$hex}");
+	}
+
+	$string: '%23'+$string;
 	@return $string;
 }
 
 /*!
  * root
+ */
+
+/*!
+ * Default CSS Values for HTML Elements
+ * @see {@link https://www.w3schools.com/cssref/css_default_values.asp}
  */
 
 html,

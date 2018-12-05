@@ -2,10 +2,10 @@
  font-family: 'micon';
  src: url('../font/micon.eot?22763409');
  src: url('../font/micon.eot?22763409#iefix') format('embedded-opentype'),
-    url('../font/micon.woff2?22763409') format('woff2'),
-    url('../font/micon.woff?22763409') format('woff'),
-    url('../font/micon.ttf?22763409') format('truetype'),
-    url('../font/micon.svg?22763409#micon') format('svg');
+	url('../font/micon.woff2?22763409') format('woff2'),
+	url('../font/micon.woff?22763409') format('woff'),
+	url('../font/micon.ttf?22763409') format('truetype'),
+	url('../font/micon.svg?22763409#micon') format('svg');
  font-weight: normal;
  font-style: normal;
  font-display: swap;

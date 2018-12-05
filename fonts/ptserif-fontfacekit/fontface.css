@@ -1,47 +1,47 @@
 @font-face {
-    font-family: 'PT Serif';
-    src: url('./PT_Serif-Bold.eot');
-    src: url('./PT_Serif-Bold.eot?#iefix') format('embedded-opentype'),
-         url('./PT_Serif-Bold.woff2') format('woff2'),
-         url('./PT_Serif-Bold.woff') format('woff'),
-         url('./PT_Serif-Bold.ttf') format('truetype'),
-         url('./PT_Serif-Bold.svg#PT_SerifWebBold') format('svg');
+	font-family: 'PT Serif';
+	src: url('./PT_Serif-Bold.eot');
+	src: url('./PT_Serif-Bold.eot?#iefix') format('embedded-opentype'),
+		 url('./PT_Serif-Bold.woff2') format('woff2'),
+		 url('./PT_Serif-Bold.woff') format('woff'),
+		 url('./PT_Serif-Bold.ttf') format('truetype'),
+		 url('./PT_Serif-Bold.svg#PT_SerifWebBold') format('svg');
 		 font-style: normal;
 		 font-weight: 700;
 		 font-display: swap;
 }
 @font-face {
-    font-family: 'PT Serif';
-    src: url('./PT_Serif-BoldItalic.eot');
-    src: url('./PT_Serif-BoldItalic.eot?#iefix') format('embedded-opentype'),
-         url('./PT_Serif-BoldItalic.woff2') format('woff2'),
-         url('./PT_Serif-BoldItalic.woff') format('woff'),
-         url('./PT_Serif-BoldItalic.ttf') format('truetype'),
-         url('./PT_Serif-BoldItalic.svg#PT_SerifWebBoldItalic') format('svg');
+	font-family: 'PT Serif';
+	src: url('./PT_Serif-BoldItalic.eot');
+	src: url('./PT_Serif-BoldItalic.eot?#iefix') format('embedded-opentype'),
+		 url('./PT_Serif-BoldItalic.woff2') format('woff2'),
+		 url('./PT_Serif-BoldItalic.woff') format('woff'),
+		 url('./PT_Serif-BoldItalic.ttf') format('truetype'),
+		 url('./PT_Serif-BoldItalic.svg#PT_SerifWebBoldItalic') format('svg');
 		 font-style: italic;
 		 font-weight: 700;
 		 font-display: swap;
 }
 @font-face {
-    font-family: 'PT Serif';
-    src: url('./PT_Serif-Italic.eot');
-    src: url('./PT_Serif-Italic.eot?#iefix') format('embedded-opentype'),
-         url('./PT_Serif-Italic.woff2') format('woff2'),
-         url('./PT_Serif-Italic.woff') format('woff'),
-         url('./PT_Serif-Italic.ttf') format('truetype'),
-         url('./PT_Serif-Italic.svg#PT_SerifWebItalic') format('svg');
+	font-family: 'PT Serif';
+	src: url('./PT_Serif-Italic.eot');
+	src: url('./PT_Serif-Italic.eot?#iefix') format('embedded-opentype'),
+		 url('./PT_Serif-Italic.woff2') format('woff2'),
+		 url('./PT_Serif-Italic.woff') format('woff'),
+		 url('./PT_Serif-Italic.ttf') format('truetype'),
+		 url('./PT_Serif-Italic.svg#PT_SerifWebItalic') format('svg');
 		 font-style: italic;
 		 font-weight: 400;
 		 font-display: swap;
 }
 @font-face {
-    font-family: 'PT Serif';
-    src: url('./PT_Serif-Regular.eot');
-    src: url('./PT_Serif-Regular.eot?#iefix') format('embedded-opentype'),
-         url('./PT_Serif-Regular.woff2') format('woff2'),
-         url('./PT_Serif-Regular.woff') format('woff'),
-         url('./PT_Serif-Regular.ttf') format('truetype'),
-         url('./PT_Serif-Regular.svg#PT_SerifWebRegular') format('svg');
+	font-family: 'PT Serif';
+	src: url('./PT_Serif-Regular.eot');
+	src: url('./PT_Serif-Regular.eot?#iefix') format('embedded-opentype'),
+		 url('./PT_Serif-Regular.woff2') format('woff2'),
+		 url('./PT_Serif-Regular.woff') format('woff'),
+		 url('./PT_Serif-Regular.ttf') format('truetype'),
+		 url('./PT_Serif-Regular.svg#PT_SerifWebRegular') format('svg');
 		 font-style: normal;
 		 font-weight: 400;
 		 font-display: swap;
