@@ -57,9 +57,6 @@ body {
 	 * Sticky Footer
 	 * The position relative on body is required to make it work.
 	 */
-	/* min-height: 100%;
-	position: relative;
-	padding-bottom: 3.500rem; */
 }
 
 /*!
@@ -135,7 +132,7 @@ textarea,
 button {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	text-shadow: 0.063rem 0.063rem 0.063rem rgba(0, 0, 0, 0.004);
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
 }
 
 /*!
@@ -1208,16 +1205,16 @@ img.office-qrcode-img {
 	/*overflow-y: hidden;*/
 }
 
-.macy-container {
+.macy-grid {
 	color: transparent;
 	transition: visibility 0s, opacity 0.2s ease;
 }
 
-.macy-container a {
+.macy-grid a {
 	overflow: hidden;
 }
 
-.macy-container img {
+.macy-grid img {
 	display: block;
 	width: 100%;
 	height: auto;

@@ -63,7 +63,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			var replaceChild = "replaceChild";
 			var _addEventListener = "addEventListener";
 			var _length = "length";
-			var isBindedHandleRoutesWindowClass = "is-binded-handle-routes-window";
+			var handleRoutesWindowIsBindedClass = "handle-routes-window--is-binded";
 			var insertExternalHTML = function (id, url, callback) {
 				var container = document[getElementById](id.replace(/^#/, "")) || "";
 				var arrange = function () {
@@ -195,8 +195,8 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 					}
 				};
 				handleRoutesWindow();
-				if (!docElem[classList].contains(isBindedHandleRoutesWindowClass)) {
-					docElem[classList].add(isBindedHandleRoutesWindowClass);
+				if (!docElem[classList].contains(handleRoutesWindowIsBindedClass)) {
+					docElem[classList].add(handleRoutesWindowIsBindedClass);
 					root[_addEventListener]("hashchange", handleRoutesWindow);
 				}
 			};
@@ -846,8 +846,8 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 				debounceLogicHandleExternalLink();
 			};
 			var arrange = function (e) {
-				var isBindedExternalLinkClass = "is-binded-external-link";
-				if (!e[classList].contains(isBindedExternalLinkClass)) {
+				var externalLinkIsBindedClass = "external-link--is-binded";
+				if (!e[classList].contains(externalLinkIsBindedClass)) {
 					var url = e[getAttribute]("href") || "";
 					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
 						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
@@ -857,7 +857,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 						} else {
 							e[_addEventListener]("click", handleExternalLink.bind(null, url));
 						}
-						e[classList].add(isBindedExternalLinkClass);
+						e[classList].add(externalLinkIsBindedClass);
 					}
 				}
 			};
@@ -878,15 +878,15 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			};
 			var images = document[getElementsByClassName]("data-src-img") || "";
 			var i = images[_length];
-			var isBindedDataSrcImgClass = "is-binded-data-src-img";
+			var dataSrcImgIsBindedClass = "data-src-img--is-binded";
 			while (i--) {
 				var wH = root.innerHeight;
 				var boundingRect = images[i].getBoundingClientRect();
 				var offset = 100;
 				var yPositionTop = boundingRect.top - wH;
 				var yPositionBottom = boundingRect.bottom;
-				if (!images[i][classList].contains(isBindedDataSrcImgClass) && yPositionTop <= offset && yPositionBottom >= -offset) {
-					images[i][classList].add(isBindedDataSrcImgClass);
+				if (!images[i][classList].contains(dataSrcImgIsBindedClass) && yPositionTop <= offset && yPositionBottom >= -offset) {
+					images[i][classList].add(dataSrcImgIsBindedClass);
 					images[i].src = images[i][dataset].src || "";
 					images[i].srcset = images[i][dataset].srcset || "";
 					images[i][classList].add(isActiveClass);
@@ -915,15 +915,15 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			};
 			var iframes = document[getElementsByClassName]("data-src-iframe") || "";
 			var i = iframes[_length];
-			var isBindedDataSrcIframeClass = "is-binded-data-src-iframe";
+			var dataSrcIframeIsBindedClass = "data-src-iframe--is-binded";
 			while (i--) {
 				var wH = root.innerHeight;
 				var boundingRect = iframes[i].getBoundingClientRect();
 				var offset = 100;
 				var yPositionTop = boundingRect.top - wH;
 				var yPositionBottom = boundingRect.bottom;
-				if (!iframes[i][classList].contains(isBindedDataSrcIframeClass) && yPositionTop <= offset && yPositionBottom >= -offset) {
-					iframes[i][classList].add(isBindedDataSrcIframeClass);
+				if (!iframes[i][classList].contains(dataSrcIframeIsBindedClass) && yPositionTop <= offset && yPositionBottom >= -offset) {
+					iframes[i][classList].add(dataSrcIframeIsBindedClass);
 					iframes[i].src = iframes[i][dataset].src || "";
 					iframes[i][classList].add(isActiveClass);
 					iframes[i][setAttribute]("frameborder", "no");
@@ -1009,8 +1009,8 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			var linkClass = "iframe-lightbox-link";
 			var link = ctx ? ctx[getElementsByClassName](linkClass) || "" : document[getElementsByClassName](linkClass) || "";
 			var arrange = function (e) {
-				var isBindedIframeLightboxLinkClass = "is-binded-iframe-lightbox-link";
-				if (!e[classList].contains(isBindedIframeLightboxLinkClass)) {
+				var iframeLightboxLinkIsBindedClass = "iframe-lightbox-link--is-binded";
+				if (!e[classList].contains(iframeLightboxLinkIsBindedClass)) {
 					e.lightbox = new IframeLightbox(e, {
 						onLoaded: function() {
 							LoadingSpinner.hide();
@@ -1022,7 +1022,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 							LoadingSpinner.show();
 						}
 					});
-					e[classList].add(isBindedIframeLightboxLinkClass);
+					e[classList].add(iframeLightboxLinkIsBindedClass);
 				}
 			};
 			if (link) {
@@ -1590,7 +1590,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 				}, slot);
 		};
 
-		var isBindedMinigridCardClass = "is-binded-minigrid-card";
+		var minigridCardIsBindedClass = "minigrid-card--is-binded";
 
 		var manageDisqusEmbed = function () {
 			var disqusThread = document[getElementById]("disqus_thread") || "";
@@ -1616,8 +1616,8 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 								this.page.url = locationHref;
 							}
 						});
-						if (!disqusThread[parentNode][classList].contains(isBindedMinigridCardClass)) {
-							disqusThread[parentNode][classList].add(isBindedMinigridCardClass);
+						if (!disqusThread[parentNode][classList].contains(minigridCardIsBindedClass)) {
+							disqusThread[parentNode][classList].add(minigridCardIsBindedClass);
 							triggerOnHeightChange(disqusThread[parentNode], 1000, null, setDisqusCSSClass);
 							disqusThread[parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
 						}
@@ -1652,8 +1652,8 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 							var i,
 							l;
 							for (i = 0, l = instagramMedia[_length]; i < l; i += 1) {
-								if (!instagramMedia[i][parentNode][classList].contains(isBindedMinigridCardClass)) {
-									instagramMedia[i][parentNode][classList].add(isBindedMinigridCardClass);
+								if (!instagramMedia[i][parentNode][classList].contains(minigridCardIsBindedClass)) {
+									instagramMedia[i][parentNode][classList].add(minigridCardIsBindedClass);
 									triggerOnHeightChange(instagramMedia[i][parentNode], 1000, null, setIsActiveClass.bind(null, instagramMedia[i][parentNode]));
 									instagramMedia[i][parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
 								}
@@ -1687,8 +1687,8 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 							var i,
 							l;
 							for (i = 0, l = twitterTweet[_length]; i < l; i += 1) {
-								if (!twitterTweet[i][parentNode][classList].contains(isBindedMinigridCardClass)) {
-									twitterTweet[i][parentNode][classList].add(isBindedMinigridCardClass);
+								if (!twitterTweet[i][parentNode][classList].contains(minigridCardIsBindedClass)) {
+									twitterTweet[i][parentNode][classList].add(minigridCardIsBindedClass);
 									triggerOnHeightChange(twitterTweet[i][parentNode], 1000, null, setIsActiveClass.bind(null, twitterTweet[i][parentNode]));
 									twitterTweet[i][parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
 								}
@@ -1726,8 +1726,8 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 							var i,
 							l;
 							for (i = 0, l = vkPost[_length]; i < l; i += 1) {
-								if (!vkPost[i][parentNode][classList].contains(isBindedMinigridCardClass)) {
-									vkPost[i][parentNode][classList].add(isBindedMinigridCardClass);
+								if (!vkPost[i][parentNode][classList].contains(minigridCardIsBindedClass)) {
+									vkPost[i][parentNode][classList].add(minigridCardIsBindedClass);
 									triggerOnHeightChange(vkPost[i][parentNode], 1000, null, setIsActiveClass.bind(null, vkPost[i][parentNode]));
 									vkPost[i][parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
 									initVkPost(vkPost[i].id, vkPost[i][dataset].vkOwnerid, vkPost[i][dataset].vkPostid, vkPost[i][dataset].vkHash);
@@ -1833,17 +1833,17 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 				handleDataSrcImageAll.bind(null, updateMacyThrottled),
 				scroll2Top.bind(null, 0, 20000)]);
 
-		var macyContainerClass = "macy-container";
+		var macyGridClass = "macy-grid";
 
 		var initMacy = function () {
-			var macyContainer = document[getElementsByClassName](macyContainerClass)[0] || "";
+			var macyContainer = document[getElementsByClassName](macyGridClass)[0] || "";
 			if (macyContainer) {
 				try {
 					if (macy) {
 						macy.remove();
 					}
 					macy = new Macy({
-							container: "." + macyContainerClass,
+							container: "." + macyGridClass,
 							trueOrder: false,
 							waitForImages: false,
 							margin: 0,
@@ -1869,7 +1869,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 
 		var manageMacy = function () {
 			return new Promise(function (resolve, reject) {
-				var macyContainer = document[getElementsByClassName](macyContainerClass)[0] || "";
+				var macyContainer = document[getElementsByClassName](macyGridClass)[0] || "";
 				var handleMacyContainer = function () {
 					var img = macyContainer[getElementsByTagName]("img") || "";
 					var imgLength = img[_length] || 0;

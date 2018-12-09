@@ -5,6 +5,7 @@ module.exports = {
 	bundle: {
 		"js/vendors": {
 			scripts: [
+				// "../../cdn/adaptivecards/1.1.0/js/adaptivecards.fixed.js",
 				// "../../cdn/EventEmitter/5.2.5/js/EventEmitter.fixed.js",
 				// "../../cdn/glightbox/1.0.8/js/glightbox.fixed.js",
 				// "../../cdn/highlight.js/9.12.0/js/highlight.pack.fixed.js",
@@ -72,6 +73,7 @@ module.exports = {
 		},
 		"js/vendors.min": {
 			scripts: [
+				// "../../cdn/adaptivecards/1.1.0/js/adaptivecards.fixed.js",
 				// "../../cdn/EventEmitter/5.2.5/js/EventEmitter.fixed.js",
 				// "../../cdn/glightbox/1.0.8/js/glightbox.fixed.js",
 				// "../../cdn/highlight.js/9.12.0/js/highlight.pack.fixed.js",

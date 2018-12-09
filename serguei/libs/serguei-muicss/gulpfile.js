@@ -18,11 +18,6 @@ muicss = {
 	css: "./bower_components/mui/src/sass"
 },
 
-/* material = {
-	scss: "../../fonts/material-design-icons/3.0.1/scss/material-icons.scss",
-	css: "../../fonts/material-design-icons/3.0.1/css"
-}, */
-
 material = {
 	scss: "../../fonts/MaterialDesign-Webfont/2.2.43/scss/materialdesignicons.scss",
 	css: "../../fonts/MaterialDesign-Webfont/2.2.43/css"

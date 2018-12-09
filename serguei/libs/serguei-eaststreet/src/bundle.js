@@ -1384,8 +1384,8 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 			var classList = "classList";
 			var isBindedClass = "is-binded";
 			var arrange = function (e) {
-				var isBindedExternalLinkClass = "is-binded-external-link";
-				if (!e[classList].contains(isBindedExternalLinkClass)) {
+				var externalLinkIsBindedClass = "external-link--is-binded";
+				if (!e[classList].contains(externalLinkIsBindedClass)) {
 					var url = e[getAttribute]("href") || "";
 					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
 						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
@@ -1395,7 +1395,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 						} else {
 							e[_addEventListener]("click", handleExternalLink.bind(null, url));
 						}
-						e[classList].add(isBindedExternalLinkClass);
+						e[classList].add(externalLinkIsBindedClass);
 					}
 				}
 			};

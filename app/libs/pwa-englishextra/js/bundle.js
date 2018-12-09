@@ -1091,8 +1091,8 @@ Ya*/
 			var linkTag = "a";
 			var link = ctx ? ctx[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
 			var arrange = function (e) {
-				var isBindedExternalLinkClass = "is-binded-external-link";
-				if (!e[classList].contains(isBindedExternalLinkClass)) {
+				var externalLinkIsBindedClass = "external-link--is-binded";
+				if (!e[classList].contains(externalLinkIsBindedClass)) {
 					var url = e[getAttribute]("href") || "";
 					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
 						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
@@ -1102,7 +1102,7 @@ Ya*/
 						} else {
 							e[_addEventListener]("click", handleExternalLink.bind(null, url));
 						}
-						e[classList].add(isBindedExternalLinkClass);
+						e[classList].add(externalLinkIsBindedClass);
 					}
 				}
 			};
@@ -2389,7 +2389,7 @@ Ya*/
 			var masonryGridClass = "masonry-grid";
 			var routesJsonUrl = "./libs/pwa-englishextra/json/routes.json";
 			var contentsListButtonDefaultText = contentsSelect ? (contentsSelect.options[0].firstChild.textContent || "") : "";
-			var isBindedHandleRoutesWindowClass = "is-binded-handle-routes-window";
+			var handleRoutesWindowIsBindedClass = "handle-routes-window--is-binded";
 			var processRoutesJsonResponse = function (routesJsonResponse) {
 				var routesJsonObj;
 				try {
@@ -2604,8 +2604,8 @@ Ya*/
 					}
 				};
 				handleRoutesWindow();
-				if (!docElem[classList].contains(isBindedHandleRoutesWindowClass)) {
-					docElem[classList].add(isBindedHandleRoutesWindowClass);
+				if (!docElem[classList].contains(handleRoutesWindowIsBindedClass)) {
+					docElem[classList].add(handleRoutesWindowIsBindedClass);
 					root[_addEventListener]("hashchange", handleRoutesWindow);
 				}
 				/*!
