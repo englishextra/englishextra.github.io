@@ -1012,7 +1012,8 @@ img.office-qrcode-img {
 	display: inline-block;
 	width: 1.500em;
 	height: 1.500em;
-	background-image: url("data:image/svg+xml;utf8,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'%20x='0px'%20y='0px'%20width='1.500em'%20height='1.500em'%20viewBox='0%200%2024%2024'%20enable-background='new%200%200%2024%2024'><path%20fill='#{encodecolor($clr-grey-900)}'%20d='M17,2V2H17V6H15C14.31,6 14,6.81 14,7.5V10H14L17,10V14H14V22H10V14H7V10H10V6A4,4 0 0,1 14,2H17Z'/></svg>");
+	/* https://stackoverflow.com/questions/10768451/inline-svg-in-css */
+	background-image: url("data:image/svg+xml;utf8,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'%20x='0px'%20y='0px'%20width='1.500em'%20height='1.500em'%20viewBox='0%200%2024%2024'%20enable-background='new%200%200%2024%2024'><path%20fill='#{encodecolor($clr-grey-900)}'%20d='M17,2V2H17V6H15C14.31,6%2014,6.81%2014,7.5V10H14L17,10V14H14V22H10V14H7V10H10V6A4,4%200%200,1%2014,2H17Z'/></svg>");
 	background-position: 0 0;
 	background-repeat: no-repeat;
 	background-size: 1.500em 1.500em;
@@ -1031,7 +1032,8 @@ img.office-qrcode-img {
 	display: inline-block;
 	width: 1.500em;
 	height: 1.500em;
-	background-image: url("data:image/svg+xml;utf8,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'%20x='0px'%20y='0px'%20width='1.500em'%20height='1.500em'%20viewBox='0%200%2024%2024'%20enable-background='new%200%200%2024%2024'><path%20fill='#{encodecolor($clr-grey-900)}'%20d='M20.8,7.74C20.93,7.32 20.8,7 20.18,7H18.16C17.64,7 17.41,7.27 17.28,7.57C17.28,7.57 16.25,10.08 14.79,11.72C14.31,12.19 14.1,12.34 13.84,12.34C13.71,12.34 13.5,12.19 13.5,11.76V7.74C13.5,7.23 13.38,7 12.95,7H9.76C9.44,7 9.25,7.24 9.25,7.47C9.25,7.95 10,8.07 10.05,9.44V12.42C10.05,13.08 9.93,13.2 9.68,13.2C9,13.2 7.32,10.67 6.33,7.79C6.13,7.23 5.94,7 5.42,7H3.39C2.82,7 2.7,7.27 2.7,7.57C2.7,8.11 3.39,10.77 5.9,14.29C7.57,16.7 9.93,18 12.08,18C13.37,18 13.53,17.71 13.53,17.21V15.39C13.53,14.82 13.65,14.7 14.06,14.7C14.36,14.7 14.87,14.85 16.07,16C17.45,17.38 17.67,18 18.45,18H20.47C21.05,18 21.34,17.71 21.18,17.14C21,16.57 20.34,15.74 19.47,14.76C19,14.21 18.29,13.61 18.07,13.3C17.77,12.92 17.86,12.75 18.07,12.4C18.07,12.4 20.54,8.93 20.8,7.74Z'/></svg>");
+	/* https://stackoverflow.com/questions/10768451/inline-svg-in-css */
+	background-image: url("data:image/svg+xml;utf8,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'%20x='0px'%20y='0px'%20width='1.500em'%20height='1.500em'%20viewBox='0%200%2024%2024'%20enable-background='new%200%200%2024%2024'><path%20fill='#{encodecolor($clr-grey-900)}'%20d='M20.8,7.74C20.93,7.32%2020.8,7%2020.18,7H18.16C17.64,7%2017.41,7.27%2017.28,7.57C17.28,7.57%2016.25,10.08%2014.79,11.72C14.31,12.19%2014.1,12.34%2013.84,12.34C13.71,12.34%2013.5,12.19%2013.5,11.76V7.74C13.5,7.23%2013.38,7%2012.95,7H9.76C9.44,7%209.25,7.24%209.25,7.47C9.25,7.95%2010,8.07%2010.05,9.44V12.42C10.05,13.08%209.93,13.2%209.68,13.2C9,13.2%207.32,10.67%206.33,7.79C6.13,7.23%205.94,7%205.42,7H3.39C2.82,7%202.7,7.27%202.7,7.57C2.7,8.11%203.39,10.77%205.9,14.29C7.57,16.7%209.93,18%2012.08,18C13.37,18%2013.53,17.71%2013.53,17.21V15.39C13.53,14.82%2013.65,14.7%2014.06,14.7C14.36,14.7%2014.87,14.85%2016.07,16C17.45,17.38%2017.67,18%2018.45,18H20.47C21.05,18%2021.34,17.71%2021.18,17.14C21,16.57%2020.34,15.74%2019.47,14.76C19,14.21%2018.29,13.61%2018.07,13.3C17.77,12.92%2017.86,12.75%2018.07,12.4C18.07,12.4%2020.54,8.93%2020.8,7.74Z'/></svg>");
 	background-position: 0 0;
 	background-repeat: no-repeat;
 	background-size: 1.500em 1.500em;
@@ -1050,7 +1052,8 @@ img.office-qrcode-img {
 	display: inline-block;
 	width: 1.500em;
 	height: 1.500em;
-	background-image: url("data:image/svg+xml;utf8,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'%20x='0px'%20y='0px'%20width='1.500em'%20height='1.500em'%20viewBox='0%200%2024%2024'%20enable-background='new%200%200%2024%2024'><path%20fill='#{encodecolor($clr-grey-900)}'%20d='M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z'/></svg>");
+	/* https://stackoverflow.com/questions/10768451/inline-svg-in-css */
+	background-image: url("data:image/svg+xml;utf8,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'%20x='0px'%20y='0px'%20width='1.500em'%20height='1.500em'%20viewBox='0%200%2024%2024'%20enable-background='new%200%200%2024%2024'><path%20fill='#{encodecolor($clr-grey-900)}'%20d='M7.8,2H16.2C19.4,2%2022,4.6%2022,7.8V16.2A5.8,5.8%200%200,1%2016.2,22H7.8C4.6,22%202,19.4%202,16.2V7.8A5.8,5.8%200%200,1%207.8,2M7.6,4A3.6,3.6%200%200,0%204,7.6V16.4C4,18.39%205.61,20%207.6,20H16.4A3.6,3.6%200%200,0%2020,16.4V7.6C20,5.61%2018.39,4%2016.4,4H7.6M17.25,5.5A1.25,1.25%200%200,1%2018.5,6.75A1.25,1.25%200%200,1%2017.25,8A1.25,1.25%200%200,1%2016,6.75A1.25,1.25%200%200,1%2017.25,5.5M12,7A5,5%200%200,1%2017,12A5,5%200%200,1%2012,17A5,5%200%200,1%207,12A5,5%200%200,1%2012,7M12,9A3,3%200%200,0%209,12A3,3%200%200,0%2012,15A3,3%200%200,0%2015,12A3,3%200%200,0%2012,9Z'/></svg>");
 	background-position: 0 0;
 	background-repeat: no-repeat;
 	background-size: 1.500em 1.500em;
@@ -1069,6 +1072,7 @@ img.office-qrcode-img {
 	display: inline-block;
 	width: 1.500em;
 	height: 1.500em;
+	/* https://stackoverflow.com/questions/10768451/inline-svg-in-css */
 	background-image: url("data:image/svg+xml;utf8,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'%20x='0px'%20y='0px'%20width='1.500em'%20height='1.500em'%20viewBox='0%200%2024%2024'%20enable-background='new%200%200%2024%2024'><path%20fill='#{encodecolor($clr-grey-900)}'%20d='M6.54,5C6.6,5.89,6.75,6.76,6.99,7.59l-1.2,1.2C5.38,7.59,5.12,6.32,5.03,5H6.54 M16.4,17.02c0.85,0.24,1.72,0.39,2.6,0.45v1.49c-1.32-0.09-2.59-0.35-3.8-0.75L16.4,17.02 M7.5,3H4C3.45,3,3,3.45,3,4c0,9.39,7.61,17,17,17c0.55,0,1-0.45,1-1v-3.49c0-0.55-0.45-1-1-1c-1.24,0-2.45-0.2-3.57-0.57c-0.1-0.04-0.21-0.05-0.31-0.05c-0.26,0-0.51,0.1-0.71,0.29l-2.2,2.2c-2.83-1.45-5.15-3.76-6.59-6.59l2.2-2.2C9.1,8.31,9.18,7.92,9.07,7.57C8.7,6.45,8.5,5.25,8.5,4C8.5,3.45,8.05,3,7.5,3L7.5,3z'/></svg>");
 	background-position: 0 0;
 	background-repeat: no-repeat;
@@ -1088,6 +1092,7 @@ img.office-qrcode-img {
 	display: inline-block;
 	width: 1.500em;
 	height: 1.500em;
+	/* https://stackoverflow.com/questions/10768451/inline-svg-in-css */
 	background-image: url("data:image/svg+xml;utf8,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'%20x='0px'%20y='0px'%20width='1.500em'%20height='1.500em'%20viewBox='0%200%2024%2024'%20enable-background='new%200%200%2024%2024'><path%20fill='#{encodecolor($clr-grey-900)}'%20d='M12,2C8.13,2,5,5.13,5,9c0,5.25,7,13,7,13s7-7.75,7-13C19,5.13,15.87,2,12,2z%20M7,9c0-2.76,2.24-5,5-5s5,2.24,5,5c0,2.88-2.88,7.19-5,9.88C9.92,16.21,7,11.85,7,9z'/><circle%20fill='#{encodecolor($clr-grey-900)}'%20cx='12'%20cy='9'%20r='2.5'/></svg>");
 	background-position: 0 0;
 	background-repeat: no-repeat;
@@ -1107,7 +1112,8 @@ img.office-qrcode-img {
 	display: inline-block;
 	width: 1.500em;
 	height: 1.500em;
-	background-image: url("data:image/svg+xml;utf8,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'%20x='0px'%20y='0px'%20width='1.500em'%20height='1.500em'%20viewBox='0%200%2024%2024'%20enable-background='new%200%200%2024%2024'><path%20fill='#{encodecolor($clr-grey-900)}'%20d='M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z'/></svg>");
+	/* https://stackoverflow.com/questions/10768451/inline-svg-in-css */
+	background-image: url("data:image/svg+xml;utf8,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'%20x='0px'%20y='0px'%20width='1.500em'%20height='1.500em'%20viewBox='0%200%2024%2024'%20enable-background='new%200%200%2024%2024'><path%20fill='#{encodecolor($clr-grey-900)}'%20d='M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3%203,3.9%203,5V19A2,2%200%200,0%205,21H19A2,2%200%200,0%2021,19V12H19V19Z'/></svg>");
 	background-position: 0 0;
 	background-repeat: no-repeat;
 	background-size: 1.500em 1.500em;
@@ -1135,6 +1141,7 @@ img.office-qrcode-img {
 	display: inline-block;
 	width: 1.000em;
 	height: 1.000em;
+	/* https://stackoverflow.com/questions/10768451/inline-svg-in-css */
 	background-image: url("data:image/svg+xml;utf8,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'%20x='0px'%20y='0px'%20width='1.000em'%20height='1.000em'%20viewBox='0%200%2024%2024'%20enable-background='new%200%200%2024%2024'><path%20fill='#{encodecolor($clr-grey-900)}'%20d='M16.59,8.59L12,13.17L7.41,8.59L6,10l6,6l6-6L16.59,8.59z'/></svg>");
 	background-position: 0 0.125em;
 	background-repeat: no-repeat;
@@ -1142,6 +1149,7 @@ img.office-qrcode-img {
 }
 
 .card-wrap .btn-expand-hidden-layer.is-active:after {
+	/* https://stackoverflow.com/questions/10768451/inline-svg-in-css */
 	background-image: url("data:image/svg+xml;utf8,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'%20x='0px'%20y='0px'%20width='1.000em'%20height='1.000em'%20viewBox='0%200%2024%2024'%20enable-background='new%200%200%2024%2024'><path%20fill='#{encodecolor($clr-grey-900)}'%20d='M12,8l-6,6l1.41,1.41L12,10.83l4.59,4.58L18,14L12,8z'/></svg>");
 }
 
@@ -1163,7 +1171,7 @@ img.office-qrcode-img {
 
 .shell-table {
 	border: none;
-	border-collapse: collapse\;
+	border-collapse: collapse;
 }
 
 .shell-table td {
@@ -1676,8 +1684,8 @@ img.office-qrcode-img {
  * hide default css preloader
  */
 
-.iframe-lightbox .content > .body {
-	background-image: none;
+.iframe-lightbox .content > .body .half-circle-spinner {
+	display: none;
 }
 
 .iframe-lightbox iframe {

@@ -1808,7 +1808,7 @@ u,
 	border-left: 1.000em solid $color-rgba-loading-spinner-text;
 	transform: translateZ(0);
 	animation: load8 1.1s infinite linear;
-	z-index: 3;
+	z-index: 1000000;
 }
 
 .is-active-loading-spinner .loading-spinner,

@@ -9,7 +9,7 @@ module.exports = {
 				// "../../cdn/EventEmitter/5.2.5/js/EventEmitter.fixed.js",
 				// "../../cdn/glightbox/1.0.8/js/glightbox.fixed.js",
 				// "../../cdn/highlight.js/9.12.0/js/highlight.pack.fixed.js",
-				// "../../cdn/iframe-lightbox/0.1.7/js/iframe-lightbox.fixed.js",
+				// "../../cdn/iframe-lightbox/0.2.2/js/iframe-lightbox.fixed.js",
 				// "../../cdn/imagesloaded/4.1.4/js/imagesloaded.pkgd.fixed.js",
 				// "../../cdn/img-lightbox/0.1.2/js/img-lightbox.fixed.js",
 				// "../../cdn/lazyload/10.19.0/js/lazyload.iife.fixed.js",
@@ -51,14 +51,14 @@ module.exports = {
 				"../../cdn/minigrid/3.1.1/js/minigrid.fixed.js",
 				"../../cdn/ReadMore.js/1.0.0/js/readMoreJS.fixed.js",
 				"../../cdn/ripple-js/1.4.4/js/ripple.fixed.js",
-				"./bower_components/iframe-lightbox/iframe-lightbox.js",
-				"./bower_components/img-lightbox/img-lightbox.js",
-				"./bower_components/qrjs2/qrjs2.js",
-				"./bower_components/Tocca.js/Tocca.js",
-				"./bower_components/wheel-indicator/lib/wheel-indicator.js",
+				"../../cdn/iframe-lightbox/0.2.2/js/iframe-lightbox.fixed.js",
+				"../../cdn/img-lightbox/0.1.2/js/img-lightbox.fixed.js",
+				"../../cdn/qrjs2/0.1.6/js/qrjs2.fixed.js",
+				"../../cdn/Tocca.js/2.0.1/js/Tocca.fixed.js",
+				"../../cdn/wheel-indicator/1.1.4/js/wheel-indicator.fixed.js",
 				"../../cdn/resize/1.0.0/js/any-resize-event.fixed.js",
-				"./node_modules/mustache/mustache.js",
-				"./node_modules/wolfy87-eventemitter/EventEmitter.js"
+				"../../cdn/mustache/2.3.0/js/mustache.fixed.js",
+				"../../cdn/EventEmitter/5.2.5/js/EventEmitter.fixed.js"
 			],
 			"options": {
 				rev: false,
@@ -77,7 +77,7 @@ module.exports = {
 				// "../../cdn/EventEmitter/5.2.5/js/EventEmitter.fixed.js",
 				// "../../cdn/glightbox/1.0.8/js/glightbox.fixed.js",
 				// "../../cdn/highlight.js/9.12.0/js/highlight.pack.fixed.js",
-				// "../../cdn/iframe-lightbox/0.1.7/js/iframe-lightbox.fixed.js",
+				// "../../cdn/iframe-lightbox/0.2.2/js/iframe-lightbox.fixed.js",
 				// "../../cdn/imagesloaded/4.1.4/js/imagesloaded.pkgd.fixed.js",
 				// "../../cdn/img-lightbox/0.1.2/js/img-lightbox.fixed.js",
 				// "../../cdn/lazyload/10.19.0/js/lazyload.iife.fixed.js",
@@ -119,14 +119,14 @@ module.exports = {
 				"../../cdn/minigrid/3.1.1/js/minigrid.fixed.js",
 				"../../cdn/ReadMore.js/1.0.0/js/readMoreJS.fixed.js",
 				"../../cdn/ripple-js/1.4.4/js/ripple.fixed.js",
-				"./bower_components/iframe-lightbox/iframe-lightbox.js",
-				"./bower_components/img-lightbox/img-lightbox.js",
-				"./bower_components/qrjs2/qrjs2.js",
-				"./bower_components/Tocca.js/Tocca.js",
-				"./bower_components/wheel-indicator/lib/wheel-indicator.js",
+				"../../cdn/iframe-lightbox/0.2.2/js/iframe-lightbox.fixed.js",
+				"../../cdn/img-lightbox/0.1.2/js/img-lightbox.fixed.js",
+				"../../cdn/qrjs2/0.1.6/js/qrjs2.fixed.js",
+				"../../cdn/Tocca.js/2.0.1/js/Tocca.fixed.js",
+				"../../cdn/wheel-indicator/1.1.4/js/wheel-indicator.fixed.js",
 				"../../cdn/resize/1.0.0/js/any-resize-event.fixed.js",
-				"./node_modules/mustache/mustache.js",
-				"./node_modules/wolfy87-eventemitter/EventEmitter.js"
+				"../../cdn/mustache/2.3.0/js/mustache.fixed.js",
+				"../../cdn/EventEmitter/5.2.5/js/EventEmitter.fixed.js"
 			],
 			"options": {
 				rev: false,
@@ -141,9 +141,10 @@ module.exports = {
 		},
 		"css/vendors": {
 			styles: [
+				// "../../cdn/adaptivecards/1.1.0/scss/adaptivecards.custom.css",
 				// "../../cdn/glightbox/1.0.8/css/glightbox.fixed.css",
 				// "../../cdn/highlight.js/9.12.0/css/hljs.css",
-				// "../../cdn/iframe-lightbox/0.1.7/css/iframe-lightbox.fixed.css",
+				// "../../cdn/iframe-lightbox/0.2.2/css/iframe-lightbox.fixed.css",
 				// "../../cdn/img-lightbox/0.1.2/css/img-lightbox.fixed.css",
 				// "../../cdn/lightgallery.js/1.1.1/css/lightgallery.fixed.css",
 				// "../../cdn/mui/0.9.39/css/mui.css",
@@ -159,9 +160,9 @@ module.exports = {
 				// "./node_modules/normalize.css/normalize.css",
 				"../../fonts/roboto-fontfacekit/2.137/css/roboto.css",
 				"../../fonts/roboto-mono-fontfacekit/2.0.986/css/roboto-mono.css",
-				"./bower_components/iframe-lightbox/iframe-lightbox.css",
-				"./bower_components/img-lightbox/img-lightbox.css",
-				"./bower_components/mui/src/sass/mui.css"
+				"../../cdn/iframe-lightbox/0.2.2/css/iframe-lightbox.fixed.css",
+				"../../cdn/img-lightbox/0.1.2/css/img-lightbox.fixed.css",
+				"../../cdn/mui/0.9.39/css/mui.css"
 			],
 			"options": {
 				rev: false,
@@ -177,9 +178,10 @@ module.exports = {
 		},
 		"css/vendors.min": {
 			styles: [
+				// "../../cdn/adaptivecards/1.1.0/scss/adaptivecards.custom.css",
 				// "../../cdn/glightbox/1.0.8/css/glightbox.fixed.css",
 				// "../../cdn/highlight.js/9.12.0/css/hljs.css",
-				// "../../cdn/iframe-lightbox/0.1.7/css/iframe-lightbox.fixed.css",
+				// "../../cdn/iframe-lightbox/0.2.2/css/iframe-lightbox.fixed.css",
 				// "../../cdn/img-lightbox/0.1.2/css/img-lightbox.fixed.css",
 				// "../../cdn/lightgallery.js/1.1.1/css/lightgallery.fixed.css",
 				// "../../cdn/mui/0.9.39/css/mui.css",
@@ -195,9 +197,9 @@ module.exports = {
 				// "./node_modules/normalize.css/normalize.css",
 				"../../fonts/roboto-fontfacekit/2.137/css/roboto.css",
 				"../../fonts/roboto-mono-fontfacekit/2.0.986/css/roboto-mono.css",
-				"./bower_components/iframe-lightbox/iframe-lightbox.css",
-				"./bower_components/img-lightbox/img-lightbox.css",
-				"./bower_components/mui/src/sass/mui.css"
+				"../../cdn/iframe-lightbox/0.2.2/css/iframe-lightbox.fixed.css",
+				"../../cdn/img-lightbox/0.1.2/css/img-lightbox.fixed.css",
+				"../../cdn/mui/0.9.39/css/mui.css"
 			],
 			"options": {
 				rev: false,

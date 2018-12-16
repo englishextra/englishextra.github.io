@@ -1,1 +1,1 @@
-mogrify -format jpg -interlace plane -quality 80 ./.src/*.jpg
+mogrify -format jpg -strip -interlace JPEG -colorspace sRGB -quality 80 ./.src/*.jpg
