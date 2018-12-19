@@ -938,7 +938,7 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			};
 			if (holder && locationHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					/* var jsUrl = "../cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js";
+					/* var jsUrl = "../cdn/qrjs2/0.1.7/js/qrjs2.fixed.min.js";
 					if (!scriptIsLoaded(jsUrl)) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
@@ -1689,7 +1689,7 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 	/* var scripts = ["../cdn/verge/1.9.1/js/verge.fixed.min.js",
 		"../cdn/Tocca.js/2.0.1/js/Tocca.fixed.min.js",
 		"../cdn/packery/2.1.1/js/packery.imagesloaded.pkgd.fixed.min.js",
-		"../cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js",
+		"../cdn/qrjs2/0.1.7/js/qrjs2.fixed.min.js",
 		"../cdn/photoswipe/4.1.0/js/photoswipe.photoswipe-ui-default.fixed.min.js"]; */
 
 	scripts.push("./libs/serguei-pictures/js/vendors.min.js");

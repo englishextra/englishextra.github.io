@@ -725,7 +725,7 @@ unescape, WebSlides*/
 				i = l = null;
 			};
 			if (img) {
-				/* var jsUrl = "../cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js";
+				/* var jsUrl = "../cdn/qrjs2/0.1.7/js/qrjs2.fixed.min.js";
 				if (!scriptIsLoaded(jsUrl)) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
@@ -815,7 +815,7 @@ unescape, WebSlides*/
 
 	/* var scripts = [forcedHTTP + "://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.js",
 		forcedHTTP + "://cdn.jsdelivr.net/npm/webslides@1.4.2/static/js/webslides.js",
-		"../cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js"]; */
+		"../cdn/qrjs2/0.1.7/js/qrjs2.fixed.min.js"]; */
 	scripts.push("./libs/serguei-webslides/js/vendors.min.js");
 
 	/*!

@@ -877,7 +877,7 @@ ToProgress, unescape, VK, Ya*/
 			};
 			if (holder && locationHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					/* var jsUrl = "../cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js";
+					/* var jsUrl = "../cdn/qrjs2/0.1.7/js/qrjs2.fixed.min.js";
 					if (!scriptIsLoaded(jsUrl)) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);

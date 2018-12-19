@@ -895,7 +895,7 @@
 	var _addEventListener = "addEventListener";
 	var _length = "length";
 	var _removeEventListener = "removeEventListener";
-	var isBindedimgLightboxLinkClass = "is-binded-img-lightbox-link";
+	var isBindedimgLightboxLinkClass = "img-lightbox-link--is-binded";
 
 	var getHTTP = function getHTTP(force) {
 		var any = force || "";

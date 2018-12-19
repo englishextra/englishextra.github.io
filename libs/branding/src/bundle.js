@@ -1409,10 +1409,8 @@ Ya*/
 		};
 		manageDataSrcIframeAll();
 
-		var manageIframeLightboxLinkAll = function (scope) {
-			var ctx = scope && scope.nodeName ? scope : "";
-			var linkClass = "iframe-lightbox-link";
-			var link = ctx ? ctx[getElementsByClassName](linkClass) || "" : document[getElementsByClassName](linkClass) || "";
+		var manageIframeLightboxLinkAll = function (linkClass) {
+			var link = document[getElementsByClassName](linkClass) || "";
 			var isBindedClass = "is-binded";
 			var arrange = function (e) {
 				if (!e[classList].contains(isBindedClass)) {
@@ -1566,7 +1564,7 @@ Ya*/
 			};
 			if (holder && locationHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					/* var jsUrl = "../../cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js";
+					/* var jsUrl = "../../cdn/qrjs2/0.1.7/js/qrjs2.fixed.min.js";
 					if (!scriptIsLoaded(jsUrl)) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
@@ -2228,7 +2226,7 @@ Ya*/
 	/* var scripts = ["../../cdn/verge/1.9.1/js/verge.fixed.min.js",
 		"../../cdn/iframe-lightbox/0.1.6/js/iframe-lightbox.fixed.min.js",
 		"../../cdn/Tocca.js/2.0.1/js/Tocca.fixed.min.js",
-		"../../cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js",
+		"../../cdn/qrjs2/0.1.7/js/qrjs2.fixed.min.js",
 		"../../cdn/tablesort/4.0.1/js/tablesort.fixed.min.js",
 		"../../cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js",
 		"../../cdn/google-code-prettify/0.1/js/prettify.bundled.fixed.min.js",

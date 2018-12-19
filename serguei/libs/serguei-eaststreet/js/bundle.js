@@ -1631,7 +1631,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 				i = l = null;
 			};
 			if (img) {
-				/* var jsUrl = "../cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js";
+				/* var jsUrl = "../cdn/qrjs2/0.1.7/js/qrjs2.fixed.min.js";
 				if (!scriptIsLoaded(jsUrl)) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
@@ -1922,7 +1922,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 			};
 			if (btn && page && holder && locationHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					/* var jsUrl = "../cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js";
+					/* var jsUrl = "../cdn/qrjs2/0.1.7/js/qrjs2.fixed.min.js";
 					if (!scriptIsLoaded(jsUrl)) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
@@ -2375,7 +2375,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 						manageDisqusButton(appContentParent);
 						manageExternalLinkAll(appContentParent);
 						manageDataTargetLinks(appContentParent);
-						manageImgLightboxLinkAll(appContentParent);
+						manageImgLightboxLinkAll("img-lightbox-link");
 						manageDataQrcodeImageAll(appContentParent);
 						manageChaptersSelect(appContentParent);
 						manageExpandingLayers(appContentParent);
@@ -2550,7 +2550,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 
 	/* var scripts = ["./cdn/verge/1.9.1/js/verge.fixed.min.js",
 		"./cdn/iframe-lightbox/0.1.6/js/iframe-lightbox.fixed.min.js",
-		"./cdn/qrjs2/0.1.6/js/qrjs2.fixed.min.js",
+		"./cdn/qrjs2/0.1.7/js/qrjs2.fixed.min.js",
 		"./cdn/js-cookie/2.1.3/js/js.cookie.fixed.min.js",
 		"./cdn/kamil/0.1.1/js/kamil.fixed.min.js",
 		"./cdn/routie/0.3.2/js/routie.fixed.js",
