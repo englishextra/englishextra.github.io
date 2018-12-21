@@ -612,7 +612,7 @@ Ya*/
 		var safelyParseJSON = function (response) {
 			var isJson = function (obj) {
 				var objType = typeof obj;
-				return ['boolean', 'number', "string", 'symbol', "function"].indexOf(objType) === -1;
+				return ["boolean", "number", "string", 'symbol', "function"].indexOf(objType) === -1;
 			};
 			if (!isJson(response)) {
 				return JSON.parse(response);
@@ -1414,7 +1414,9 @@ Ya*/
 			var isBindedClass = "is-binded";
 			var arrange = function (e) {
 				if (!e[classList].contains(isBindedClass)) {
-					e.lightbox = new IframeLightbox(e);
+					e.lightbox = new IframeLightbox(e, {
+								touch: false
+							});
 					e[classList].add(isBindedClass);
 				}
 			};

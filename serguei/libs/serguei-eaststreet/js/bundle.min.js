@@ -869,7 +869,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 		var safelyParseJSON = function (response) {
 			var isJson = function (obj) {
 				var objType = typeof obj;
-				return ['boolean', 'number', "string", 'symbol', "function"].indexOf(objType) === -1;
+				return ["boolean", "number", "string", 'symbol', "function"].indexOf(objType) === -1;
 			};
 			if (!isJson(response)) {
 				return JSON.parse(response);

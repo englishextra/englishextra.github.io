@@ -671,7 +671,9 @@
 		this.href = elem[dataset].src || "";
 		this.dataPaddingBottom = elem[dataset].paddingBottom || "";
 		this.dataScrolling = elem[dataset].scrolling || "";
-		this.scrolling = options.scrolling; //Event handlers
+		this.dataTouch = elem[dataset].touch || "";
+		this.scrolling = options.scrolling;
+		this.touch = options.touch; //Event handlers
 
 		this.onOpened = options.onOpened;
 		this.onIframeLoaded = options.onIframeLoaded;

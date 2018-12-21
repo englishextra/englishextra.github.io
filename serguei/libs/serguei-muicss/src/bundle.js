@@ -673,7 +673,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 		var safelyParseJSON = function (response) {
 			var isJson = function (obj) {
 				var objType = typeof obj;
-				return ['boolean', 'number', "string", 'symbol', "function"].indexOf(objType) === -1;
+				return ["boolean", "number", "string", 'symbol', "function"].indexOf(objType) === -1;
 			};
 			if (!isJson(response)) {
 				return JSON.parse(response);
@@ -1014,20 +1014,19 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 		var manageIframeLightboxLinkAll = function (linkClass) {
 			var link = document[getElementsByClassName](linkClass) || "";
 			var arrange = function (e) {
-				var iframeLightboxLinkIsBindedClass = "iframe-lightbox-link--is-binded";
-				if (!e[classList].contains(iframeLightboxLinkIsBindedClass)) {
+				if (root.IframeLightbox) {
 					e.lightbox = new IframeLightbox(e, {
-						onLoaded: function() {
-							LoadingSpinner.hide();
-						},
-						onClosed: function() {
-							LoadingSpinner.hide();
-						},
-						onOpened: function() {
-							LoadingSpinner.show();
-						}
-					});
-					e[classList].add(iframeLightboxLinkIsBindedClass);
+							onLoaded: function () {
+								LoadingSpinner.hide();
+							},
+							onClosed: function () {
+								LoadingSpinner.hide();
+							},
+							onOpened: function () {
+								LoadingSpinner.show();
+							},
+							touch: false
+						});
 				}
 			};
 			if (link) {
@@ -1051,7 +1050,8 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 					},
 					onError: function () {
 						LoadingSpinner.hide();
-					}
+					},
+					touch: false
 				});
 			}
 		};
@@ -2246,8 +2246,8 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 				"../../fonts/roboto-fontfacekit/2.137/css/roboto.css",
 				"../../fonts/roboto-mono-fontfacekit/2.0.986/css/roboto-mono.css",
 				"../../cdn/mui/0.9.39/css/mui.css",
-				"../../cdn/iframe-lightbox/0.2.5/css/iframe-lightbox.fixed.css",
-				"../../cdn/img-lightbox/0.1.8/css/img-lightbox.fixed.css"
+				"../../cdn/iframe-lightbox/0.2.7/css/iframe-lightbox.fixed.css",
+				"../../cdn/img-lightbox/0.2.0/css/img-lightbox.fixed.css"
 	]; */
 
 	var scripts = [
@@ -2301,7 +2301,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 
 	/* var scripts = [
 				"./bower_components/iframe-lightbox/iframe-lightbox.js",
-				"../../cdn/img-lightbox/0.1.8/js/img-lightbox.fixed.js",
+				"../../cdn/img-lightbox/0.2.0/js/img-lightbox.fixed.js",
 				"../../cdn/qrjs2/0.1.7/js/qrjs2.fixed.js",
 				"../../cdn/Tocca.js/2.0.1/js/Tocca.fixed.js",
 				"../../cdn/wheel-indicator/1.1.4/js/wheel-indicator.fixed.js",
