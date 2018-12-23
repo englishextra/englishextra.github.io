@@ -455,7 +455,7 @@
 
 .iframe-lightbox .backdrop {
 	position: absolute;
-	background-color: rgba(0, 0, 0, 0.7);
+	background-color: rgba(0, 0, 0, 0.92);
 	cursor: default;
 	/* z-index: 1; */
 }
