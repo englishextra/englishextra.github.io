@@ -1,137 +1,30 @@
-/*jslint node: true */
-/*jslint esversion: 6 */
-gulp.task("git-check", function (done) {
-	"use strict";
-	if (!sh.which("git")) {
-		console.log(
-			" " + gutil.colors.red("Git is not installed."),
-			"\n Git, the version control system, is required to download Ionic.",
-			"\n Download git here:", gutil.colors.cyan("http://git-scm.com/downloads") + ".",
-			"\n Once git is installed, run \"" + gutil.colors.cyan("gulp install") + "\" again.");
-		process.exit(1);
-	}
-	done();
-});
+/*global require */
 /*!
- * @see {@link https://github.com/GoogleChrome/sw-precache/issues/97}
- * @see {@link https://github.com/GoogleChrome/sw-precache#runtime-caching}
- * @see {@link https://developers.google.com/web/ilt/pwa/using-sw-precache-and-sw-toolbox}
- * @see {@link https://github.com/deanhume/Service-Worker-Toolbox/blob/master/sw.js}
- * @see {@link https://github.com/GoogleChrome/ioweb2016/blob/master/gulp_scripts/service-worker.js}
+ * @see {@link https://github.com/mildrenben/surface/blob/master/gulpfile.js}
+ * @see {@link https://www.webstoemp.com/blog/gulp-setup/}
+ * @see {@link https://gulpjs.com/plugins/blackList.json}
+ * @see {@link https://hackernoon.com/how-to-automate-all-the-things-with-gulp-b21a3fc96885}
+ * @see {@link https://stackoverflow.com/questions/36897877/gulp-error-the-following-tasks-did-not-complete-did-you-forget-to-signal-async}
+ * @see {@link https://zzz.buzz/2016/11/19/gulp-4-0-upgrade-guide/}
+ * @see {@link https://blog.khophi.co/migrate-gulp-4-complete-example/}
+ * @see {@link https://www.joezimjs.com/javascript/complete-guide-upgrading-gulp-4/}
+ * @see {@link https://codeburst.io/switching-to-gulp-4-0-271ae63530c0}
  */
-gulp.task("generate-service-worker", function (callback) {
-	"use strict";
-	var path = require("path");
-	var swPrecache = require("sw-precache");
-	swPrecache.write(`service-worker.min.js`, {
-	cacheId: "englishextra",
-	directoryIndex: "/",
-	navigateFallback: "./",
-	/* dynamicUrlToDependencies: {
-		"./": "index.html"
-	}, */
-	staticFileGlobs: [
-		"index.html"// ,
-		// "manifest.json",
-		// "yandex-tableau.json",
-		// "**.{png,ico,svg}",
-		// "cdn/**/*.{png,jpg,js,json,css}",
-		// "fonts/**/*.{eot,ttf,woff,woff2}",
-		// "libs/**/img/**/*.{png,jpg}",
-		// "pages/**/*.html"
-		],
-	stripPrefix: "",
-	runtimeCaching: [{
-			urlPattern: /^https:\/\/yastatic\.net/,
-			handler: "networkFirst"/* ,
-			options: {
-				debug: true
-			} */
-		}, {
-			urlPattern: /^https:\/\/vk\.com/,
-			handler: "networkFirst"/* ,
-			options: {
-				debug: true
-			} */
-		}, {
-			urlPattern: /^https:\/\/mc\.yandex\.ru/,
-			handler: "networkFirst"/* ,
-			options: {
-				debug: true
-			} */
-		}, {
-			urlPattern: /^https:\/\/www\.google-analytics\.com/,
-			handler: "networkFirst"/* ,
-			options: {
-				debug: true
-			} */
-		}, {
-			urlPattern: /^https:\/\/ssl\.google-analytics\.com/,
-			handler: "networkFirst"/* ,
-			options: {
-				debug: true
-			} */
-		}, {
-			urlPattern: /^https:\/\/(.*?)\.disqus\.com/,
-			handler: "networkOnly"/* ,
-			options: {
-				debug: true
-			} */
-		}, {
-			urlPattern: /^https:\/\/w\.soundcloud\.com/,
-			handler: "networkOnly"/* ,
-			options: {
-				debug: true
-			} */
-		}, {
-			urlPattern: /^https:\/\/player\.vimeo\.com/,
-			handler: "networkOnly"/* ,
-			options: {
-				debug: true
-			} */
-		}, {
-			urlPattern: /^https:\/\/www\.youtube\.com/,
-			handler: "networkOnly"/* ,
-			options: {
-				debug: true
-			} */
-		}, {
-			urlPattern: /^https:\/\/(.*?)\.staticflickr\.com/,
-			handler: "networkFirst"/* ,
-			options: {
-				debug: true
-			} */
-		}, {
-			urlPattern: /^\/([^\/]+\.js)$/,
-			handler: "networkOnly",
-			options: {
-				debug: true
-			}
-		}, {
-			urlPattern: /^\/([^\/]+\.json)$/,
-			handler: "networkOnly",
-			options: {
-				debug: true
-			}
-		}, {
-			urlPattern: /\/cdn\//,
-			handler: "networkFirst"/* ,
-			options: {
-				debug: true
-			} */
-		}, {
-			urlPattern: /\/pages\//,
-			handler: "networkFirst"/* ,
-			options: {
-				debug: true
-			} */
-		}, {
-			urlPattern: /\/libs\//,
-			handler: "networkFirst"/* ,
-			options: {
-				debug: true
-			} */
-		}
-	]
-	}, callback);
+
+var gulp = require("gulp");
+var eslint = require("gulp-eslint");
+
+var options = {
+	libPaths: {
+		src: "**/libs/**/src/bundle.js"
+	},
+};
+
+gulp.task("lint-js", function () {
+	return gulp.src(options.libPaths.src)
+	.pipe(eslint())
+	.pipe(eslint.format())
+	.pipe(eslint.failAfterError());
 });
+
+gulp.task("default", gulp.task("lint-js"));
