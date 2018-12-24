@@ -56,34 +56,12 @@
 	content: "\e094";
 }
 
-@-webkit-keyframes lg-right-end {
-	0% {
-		left: 0;
-	}
-	50% {
-		left: -30px;
-	}
-	100% {
-		left: 0;
-	}
-}
 @keyframes lg-right-end {
 	0% {
 		left: 0;
 	}
 	50% {
 		left: -30px;
-	}
-	100% {
-		left: 0;
-	}
-}
-@-webkit-keyframes lg-left-end {
-	0% {
-		left: 0;
-	}
-	50% {
-		left: 30px;
 	}
 	100% {
 		left: 0;
@@ -101,12 +79,10 @@
 	}
 }
 .lg-outer.lg-right-end .lg-object {
-	-webkit-animation: lg-right-end 0.3s;
 	animation: lg-right-end 0.3s;
 	position: relative;
 }
 .lg-outer.lg-left-end .lg-object {
-	-webkit-animation: lg-left-end 0.3s;
 	animation: lg-left-end 0.3s;
 	position: relative;
 }
@@ -176,39 +152,29 @@
 
 .lg-toolbar, .lg-prev, .lg-next {
 	opacity: 1;
-	transition: opacity 0.35s cubic-bezier(0, 0, 0.25, 1) 0s, color 0.2s linear, -webkit-transform 0.35s cubic-bezier(0, 0, 0.25, 1) 0s;
 	transition: transform 0.35s cubic-bezier(0, 0, 0.25, 1) 0s, opacity 0.35s cubic-bezier(0, 0, 0.25, 1) 0s, color 0.2s linear;
-	transition: transform 0.35s cubic-bezier(0, 0, 0.25, 1) 0s, opacity 0.35s cubic-bezier(0, 0, 0.25, 1) 0s, color 0.2s linear, -webkit-transform 0.35s cubic-bezier(0, 0, 0.25, 1) 0s;
 }
 
 .lg-hide-items .lg-prev {
 	opacity: 0;
-	-webkit-transform: translate3d(-10px, 0, 0);
 	transform: translate3d(-10px, 0, 0);
 }
 .lg-hide-items .lg-next {
 	opacity: 0;
-	-webkit-transform: translate3d(10px, 0, 0);
 	transform: translate3d(10px, 0, 0);
 }
 .lg-hide-items .lg-toolbar {
 	opacity: 0;
-	-webkit-transform: translate3d(0, -10px, 0);
 	transform: translate3d(0, -10px, 0);
 }
 
 body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-object {
-	-webkit-transform: scale3d(0.5, 0.5, 0.5);
 	transform: scale3d(0.5, 0.5, 0.5);
 	opacity: 0;
-	transition: opacity 250ms cubic-bezier(0, 0, 0.25, 1), -webkit-transform 250ms cubic-bezier(0, 0, 0.25, 1) 0s !important;
 	transition: transform 250ms cubic-bezier(0, 0, 0.25, 1) 0s, opacity 250ms cubic-bezier(0, 0, 0.25, 1) !important;
-	transition: transform 250ms cubic-bezier(0, 0, 0.25, 1) 0s, opacity 250ms cubic-bezier(0, 0, 0.25, 1), -webkit-transform 250ms cubic-bezier(0, 0, 0.25, 1) 0s !important;
-	-webkit-transform-origin: 50% 50%;
 	transform-origin: 50% 50%;
 }
 body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object {
-	-webkit-transform: scale3d(1, 1, 1);
 	transform: scale3d(1, 1, 1);
 	opacity: 1;
 }
@@ -220,21 +186,14 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 	width: 100%;
 	z-index: 1080;
 	max-height: 350px;
-	-webkit-transform: translate3d(0, 100%, 0);
 	transform: translate3d(0, 100%, 0);
-	transition: -webkit-transform 0.25s cubic-bezier(0, 0, 0.25, 1) 0s;
 	transition: transform 0.25s cubic-bezier(0, 0, 0.25, 1) 0s;
-	transition: transform 0.25s cubic-bezier(0, 0, 0.25, 1) 0s, -webkit-transform 0.25s cubic-bezier(0, 0, 0.25, 1) 0s;
 }
 .lg-outer .lg-thumb-outer.lg-grab .lg-thumb-item {
-	cursor: -webkit-grab;
-	cursor: -o-grab;
-	cursor: -ms-grab;
 	cursor: grab;
 }
 .lg-outer .lg-thumb-outer.lg-grabbing .lg-thumb-item {
 	cursor: move;
-	cursor: -webkit-grabbing;
 	cursor: -o-grabbing;
 	cursor: -ms-grabbing;
 	cursor: grabbing;
@@ -243,7 +202,6 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 	transition-duration: 0s !important;
 }
 .lg-outer.lg-thumb-open .lg-thumb-outer {
-	-webkit-transform: translate3d(0, 0%, 0);
 	transform: translate3d(0, 0%, 0);
 }
 .lg-outer .lg-thumb {
@@ -272,7 +230,6 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 .lg-outer .lg-thumb-item img {
 	width: 100%;
 	height: 100%;
-	-o-object-fit: cover;
 	   object-fit: cover;
 }
 .lg-outer.lg-has-thumb .lg-item {
@@ -417,28 +374,19 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 	transition-duration: 0s;
 }
 .lg-outer.lg-use-transition-for-zoom .lg-item.lg-complete.lg-zoomable .lg-img-wrap {
-	transition: -webkit-transform 0.3s cubic-bezier(0, 0, 0.25, 1) 0s;
 	transition: transform 0.3s cubic-bezier(0, 0, 0.25, 1) 0s;
-	transition: transform 0.3s cubic-bezier(0, 0, 0.25, 1) 0s, -webkit-transform 0.3s cubic-bezier(0, 0, 0.25, 1) 0s;
 }
 .lg-outer.lg-use-left-for-zoom .lg-item.lg-complete.lg-zoomable .lg-img-wrap {
 	transition: left 0.3s cubic-bezier(0, 0, 0.25, 1) 0s, top 0.3s cubic-bezier(0, 0, 0.25, 1) 0s;
 }
 .lg-outer .lg-item.lg-complete.lg-zoomable .lg-img-wrap {
-	-webkit-transform: translate3d(0, 0, 0);
 	transform: translate3d(0, 0, 0);
-	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
 }
 .lg-outer .lg-item.lg-complete.lg-zoomable .lg-image {
-	-webkit-transform: scale3d(1, 1, 1);
 	transform: scale3d(1, 1, 1);
-	transition: opacity 0.15s, -webkit-transform 0.3s cubic-bezier(0, 0, 0.25, 1) 0s !important;
 	transition: transform 0.3s cubic-bezier(0, 0, 0.25, 1) 0s, opacity 0.15s !important;
-	transition: transform 0.3s cubic-bezier(0, 0, 0.25, 1) 0s, opacity 0.15s, -webkit-transform 0.3s cubic-bezier(0, 0, 0.25, 1) 0s !important;
-	-webkit-transform-origin: 0 0;
 	transform-origin: 0 0;
-	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
 }
 
@@ -487,7 +435,6 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 }
 .lg-outer .lg-pager-cont:hover .lg-pager-thumb-cont {
 	opacity: 1;
-	-webkit-transform: translate3d(0, 0, 0);
 	transform: translate3d(0, 0, 0);
 }
 .lg-outer .lg-pager-cont.lg-pager-active .lg-pager {
@@ -506,10 +453,7 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 	position: absolute;
 	width: 120px;
 	border-radius: 3px;
-	transition: opacity 0.15s ease 0s, -webkit-transform 0.15s ease 0s;
 	transition: opacity 0.15s ease 0s, transform 0.15s ease 0s;
-	transition: opacity 0.15s ease 0s, transform 0.15s ease 0s, -webkit-transform 0.15s ease 0s;
-	-webkit-transform: translate3d(0, 5px, 0);
 	transform: translate3d(0, 5px, 0);
 }
 .lg-outer .lg-pager-thumb-cont img {
@@ -564,7 +508,6 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 }
 .lg-outer.lg-dropdown-active .lg-dropdown, .lg-outer.lg-dropdown-active #lg-dropdown-overlay {
 	transition-delay: 0s;
-	-webkit-transform: translate3d(0, 0px, 0);
 	transform: translate3d(0, 0px, 0);
 	opacity: 1;
 	visibility: visible;
@@ -585,11 +528,8 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 	top: 50px;
 	opacity: 0;
 	visibility: hidden;
-	-webkit-transform: translate3d(0, 5px, 0);
 	transform: translate3d(0, 5px, 0);
-	transition: visibility 0s linear 0.5s, opacity 0.18s linear 0s, -webkit-transform 0.18s linear 0s;
 	transition: transform 0.18s linear 0s, visibility 0s linear 0.5s, opacity 0.18s linear 0s;
-	transition: transform 0.18s linear 0s, visibility 0s linear 0.5s, opacity 0.18s linear 0s, -webkit-transform 0.18s linear 0s;
 }
 .lg-outer .lg-dropdown:after {
 	content: "";
@@ -707,14 +647,10 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 	opacity: 1;
 }
 .lg-outer.lg-grab img.lg-object {
-	cursor: -webkit-grab;
-	cursor: -o-grab;
-	cursor: -ms-grab;
 	cursor: grab;
 }
 .lg-outer.lg-grabbing img.lg-object {
 	cursor: move;
-	cursor: -webkit-grabbing;
 	cursor: -o-grabbing;
 	cursor: -ms-grabbing;
 	cursor: grabbing;
@@ -816,11 +752,9 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 	transition: none 0s ease 0s !important;
 }
 .lg-css3.lg-use-css3 .lg-item {
-	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
 }
 .lg-css3.lg-use-left .lg-item {
-	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
 }
 .lg-css3.lg-fade .lg-item {
@@ -836,22 +770,17 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 	opacity: 0;
 }
 .lg-css3.lg-slide.lg-use-css3 .lg-item.lg-prev-slide {
-	-webkit-transform: translate3d(-100%, 0, 0);
 	transform: translate3d(-100%, 0, 0);
 }
 .lg-css3.lg-slide.lg-use-css3 .lg-item.lg-next-slide {
-	-webkit-transform: translate3d(100%, 0, 0);
 	transform: translate3d(100%, 0, 0);
 }
 .lg-css3.lg-slide.lg-use-css3 .lg-item.lg-current {
-	-webkit-transform: translate3d(0, 0, 0);
 	transform: translate3d(0, 0, 0);
 	opacity: 1;
 }
 .lg-css3.lg-slide.lg-use-css3 .lg-item.lg-prev-slide, .lg-css3.lg-slide.lg-use-css3 .lg-item.lg-next-slide, .lg-css3.lg-slide.lg-use-css3 .lg-item.lg-current {
-	transition: opacity 0.1s ease 0s, -webkit-transform 1s cubic-bezier(0, 0, 0.25, 1) 0s;
 	transition: transform 1s cubic-bezier(0, 0, 0.25, 1) 0s, opacity 0.1s ease 0s;
-	transition: transform 1s cubic-bezier(0, 0, 0.25, 1) 0s, opacity 0.1s ease 0s, -webkit-transform 1s cubic-bezier(0, 0, 0.25, 1) 0s;
 }
 .lg-css3.lg-slide.lg-use-left .lg-item {
 	opacity: 0;

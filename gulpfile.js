@@ -20,11 +20,11 @@ var options = {
 	},
 };
 
-gulp.task("lint-js", function () {
+gulp.task("lint-libbundle-js", function () {
 	return gulp.src(options.libPaths.src)
 	.pipe(eslint())
 	.pipe(eslint.format())
 	.pipe(eslint.failAfterError());
 });
 
-gulp.task("default", gulp.task("lint-js"));
+gulp.task("default", gulp.task("lint-libbundle-js"));
