@@ -16,7 +16,7 @@ var eslint = require("gulp-eslint");
 
 var options = {
 	libPaths: {
-		src: "**/libs/**/src/bundle.js"
+		src: "**/libs/**/src/*.js"
 	},
 };
 
