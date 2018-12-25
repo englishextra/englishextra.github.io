@@ -18,7 +18,7 @@
 	right: -50%;
 	left: -50%;
 	visibility: visible;
-	background-color: $TitleBarAndAppBarLight;
+	background-color: $title-bar-and-app-bar-light;
 	text-decoration: none;
 	text-align: center;
 	transform-origin: 50% 100%;
@@ -26,7 +26,7 @@
 }
 
 .badge a:hover {
-	background-color: $TitleBarAndAppBarLight;
+	background-color: $title-bar-and-app-bar-light;
 }
 
 .shower-list {

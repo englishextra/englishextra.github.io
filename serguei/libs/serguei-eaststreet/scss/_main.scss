@@ -108,7 +108,7 @@ u,
 }
 
 ::placeholder {
-	color: $PlaceholderText !important;
+	color: $placeholder-text !important;
 	opacity: 1;
 }
 
@@ -237,7 +237,7 @@ u,
 	font-family: "eaststreet";
 	content: "\E900";
 	font-size: 3.200rem;
-	background-color: $AccentColor;
+	background-color: $accent-color;
 } */
 
 .col .btn-larger .mi {
@@ -409,7 +409,7 @@ u,
 .col img[data-src],
 .col iframe.data-src-iframe,
 .col iframe[data-src] {
-	background-color: $LeftNavBarLight;
+	background-color: $left-nav-bar-light;
 }
 
 .col img.data-src-img.is-active,
@@ -589,7 +589,7 @@ u,
 	line-height: 2.267rem;
 	text-align: center;
 	text-decoration: none;
-	border: 0.067rem solid $TitleBarAndAppBarDark;
+	border: 0.067rem solid $title-bar-and-app-bar-dark;
 }
 
 .col a.btn-larger i.fa,
@@ -605,8 +605,8 @@ u,
 .col a.btn-primary,
 .col a.btn-primary:focus {
 	color: #FFFFFF;
-	background-color: $TitleBarAndAppBarDark;
-	border-color: $TitleBarAndAppBarDark;
+	background-color: $title-bar-and-app-bar-dark;
+	border-color: $title-bar-and-app-bar-dark;
 }
 
 .col .btn-primary:hover,
@@ -621,36 +621,36 @@ u,
 .col .btn-secondary:focus,
 .col a.btn-secondary,
 .col a.btn-secondary:focus {
-	color: $ButtonText;
-	background-color: $ButtonBackground;
-	border-color: $ButtonBackground;
+	color: $button-text;
+	background-color: $button-background;
+	border-color: $button-background;
 }
 
 .col .btn-secondary:hover,
 .col .btn-secondary:active,
 .col a.btn-secondary:hover,
 .col a.btn-secondary:active {
-	color: $ButtonText;
-	background-color: $ButtonBackground;
-	border-color: $ButtonOutline;
+	color: $button-text;
+	background-color: $button-background;
+	border-color: $button-outline;
 }
 
 .col .btn-link,
 .col .btn-link:focus,
 .col a.btn-link,
 .col a.btn-link:focus {
-	color: $ButtonText;
+	color: $button-text;
 	background-color: transparent;
-	border-color: $ButtonBackground;
+	border-color: $button-background;
 }
 
 .col .btn-link:hover,
 .col .btn-link:active,
 .col a.btn-link:hover,
 .col a.btn-link:active {
-	color: $ButtonText;
-	background-color: $ButtonBackground;
-	border-color: $ButtonOutline;
+	color: $button-text;
+	background-color: $button-background;
+	border-color: $button-outline;
 }
 
 /*!
@@ -660,7 +660,7 @@ u,
 .col .vcard {
 	display: none;
 	font-size: 0.867rem;
-	background-color: $LeftNavBarLight;
+	background-color: $left-nav-bar-light;
 	padding: 0.533rem 0.800rem;
 }
 
@@ -674,7 +674,7 @@ u,
 
 .col .aside {
 	display: block;
-	background-color: $LeftNavBarLight;
+	background-color: $left-nav-bar-light;
 	padding: 1.333rem 1.333rem;
 }
 
@@ -737,7 +737,7 @@ u,
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	color: inherit;
-	background-color: $LeftNavBarLight;
+	background-color: $left-nav-bar-light;
 	appearance: none;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
@@ -772,7 +772,7 @@ u,
 .holder-chapters-select .chapters-select:focus,
 .holder-chapters-select .chapters-select:hover,
 .holder-chapters-select .chapters-select:active {
-	border: 0.067rem solid $LeftNavBarLight;
+	border: 0.067rem solid $left-nav-bar-light;
 }
 
 /*!
@@ -925,7 +925,7 @@ u,
 /* .btn-toggle-ui-sidepanel:focus, */
 .btn-toggle-ui-sidepanel:active {
 	color: $color-hex-body-text;
-	background-color: $AccentColor;
+	background-color: $accent-color;
 }
 
 .page.is-active-ui-sidepanel .btn-toggle-ui-sidepanel.mi-GlobalNavButton:before,
@@ -969,7 +969,7 @@ u,
 /* .ui-sidepanel-list a:focus, */
 .ui-sidepanel-list a:active {
 	color: $color-hex-body-text;
-	background-color: $AccentColor;
+	background-color: $accent-color;
 }
 
 /*!
@@ -986,8 +986,8 @@ u,
 	top: 3.200rem;
 	left: 6.400rem;
 	overflow-y: auto;
-	background-color: $LeftNavBarLight;
-	border: 0.067rem solid $AccentColor;
+	background-color: $left-nav-bar-light;
+	border: 0.067rem solid $accent-color;
 	transition: left 0.2s linear, visibility 0s, opacity 0.2s ease;
 	margin: 0;
 }
@@ -1033,7 +1033,7 @@ u,
 .btn-toggle-ui-menumore:focus, */
 .btn-toggle-ui-menumore:active {
 	color: $color-hex-body-text;
-	background-color: $AccentColor;
+	background-color: $accent-color;
 }
 
 .page.is-active-ui-sidepanel .btn-toggle-ui-menumore {
@@ -1067,13 +1067,13 @@ u,
 }
 
 .ui-menumore-list a:hover {
-	background-color: $TitleBarAndAppBarLight;
+	background-color: $title-bar-and-app-bar-light;
 }
 
 /* .ui-menumore-list a:focus, */
 .ui-menumore-list a:active {
 	color: $color-hex-body-text;
-	background-color: $AccentColor;
+	background-color: $accent-color;
 }
 
 /*!
@@ -1122,7 +1122,7 @@ u,
 /* .ui-sidebar a:focus, */
 .ui-sidebar a:active {
 	color: $color-hex-body-text;
-	background-color: $AccentColor;
+	background-color: $accent-color;
 }
 
 .ui-sidebar a.mi {
@@ -1268,8 +1268,8 @@ u,
 /* .holder-search-form button[type^=submit]:focus, */
 .holder-search-form button[type^=submit]:active {
 	color: $color-hex-body-text;
-	background-color: $AccentColor;
-	border: 0.067rem solid $AccentColor;
+	background-color: $accent-color;
+	border: 0.067rem solid $accent-color;
 }
 
 .holder-search-text:before,
@@ -1459,7 +1459,7 @@ u,
 /* .ui-totop:focus, */
 .ui-totop:active {
 	color: $color-hex-body-text;
-	background-color: $AccentColor;
+	background-color: $accent-color;
 }
 
 /*!
@@ -1681,7 +1681,7 @@ u,
 
 .card-wrap.card-wrap--copyright {
 	color: inherit;
-	background-color: $LeftNavBarLight;
+	background-color: $left-nav-bar-light;
 	padding: 1.000rem;
 	margin-top: 1.333rem;
 }
@@ -1848,7 +1848,7 @@ img.office-qrcode-img {
  */
 
 #disqus_thread {
-	background-color: $LeftNavBarLight;
+	background-color: $left-nav-bar-light;
 }
 
 #disqus_thread.is-active iframe {

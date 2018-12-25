@@ -31,7 +31,7 @@ body {
 	line-height: 1.333rem;
 	width: 100%;
 	color: $color-hex-body-text;
-	background-color: $ButtonBackgroundDark;
+	background-color: $button-background-dark;
 	text-size-adjust: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
@@ -108,7 +108,7 @@ u,
 }
 
 ::placeholder {
-	color: $PlaceholderText !important;
+	color: $placeholder-text !important;
 	opacity: 1;
 }
 
@@ -171,7 +171,7 @@ u,
 	top: 0;
 	line-height: 0;
 	overflow: hidden;
-	/* background-color: $ButtonBackgroundDark; */
+	/* background-color: $button-background-dark; */
 }
 
 .scene,
@@ -379,7 +379,7 @@ u,
 	font-weight: 400;
 	font-size: 1.200rem;
 	line-height: 1.500rem;
-	color: $TitleBarAndAppBarDark;
+	color: $title-bar-and-app-bar-dark;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -410,7 +410,7 @@ u,
 	font-size: 3.333rem;
 	line-height: 4.000rem;
 	text-transform: uppercase;
-	color: $TitleBarAndAppBarDark;
+	color: $title-bar-and-app-bar-dark;
 	background-color: rgba(230, 230, 230, 0.8);
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -605,11 +605,11 @@ u,
 	position: fixed;
 	bottom: 0;
 	right: 3.200rem;
-	background-color: $TitleBarAndAppBarLight;
+	background-color: $title-bar-and-app-bar-light;
 }
 
 .btn-share a > * {
-	fill: $ButtonOutline;
+	fill: $button-outline;
 }
 
 .btn-share svg {
@@ -628,11 +628,11 @@ u,
 	position: fixed;
 	bottom: 0;
 	right: 6.400rem;
-	background-color: $TitleBarAndAppBarLight;
+	background-color: $title-bar-and-app-bar-light;
 }
 
 .btn-like a > * {
-	fill: $ButtonOutline;
+	fill: $button-outline;
 }
 
 .btn-like svg {
@@ -707,8 +707,8 @@ u,
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	color: $LeftNavBarLight;
-	background-color: $TitleBarAndAppBarDark;
+	color: $left-nav-bar-light;
+	background-color: $title-bar-and-app-bar-dark;
 	padding-right: 1.333rem;
 	padding-left: 1.333rem;
 	margin: 0;

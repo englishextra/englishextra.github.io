@@ -17,7 +17,7 @@
 	text-align: left;
 	overflow-y: auto;
 	color: inherit;
-	background-color: $LeftNavBarLight;
+	background-color: $left-nav-bar-light;
 	border: none;
 	border-radius: 0;
 	box-sizing: border-box;
@@ -44,12 +44,12 @@
 .kamil-autocomplete li.kamil-active,
 .kamil-autocomplete li:hover {
 	color: inherit;
-	background-color: $TitleBarAndAppBarLight;
+	background-color: $title-bar-and-app-bar-light;
 }
 
 /* .kamil-autocomplete li:focus, */
 .kamil-autocomplete li:active {
 	color: $color-hex-body-text;
-	background-color: $AccentColor;
+	background-color: $accent-color;
 }
 

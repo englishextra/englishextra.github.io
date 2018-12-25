@@ -109,7 +109,7 @@ u,
 }
 
 ::placeholder {
-	color: $PlaceholderText !important;
+	color: $placeholder-text !important;
 	opacity: 1;
 }
 
@@ -207,7 +207,7 @@ u,
 /* .btn-nav-menu:focus, */
 .btn-nav-menu:active {
 	color: $color-hex-body-text;
-	background-color: $AccentColor;
+	background-color: $accent-color;
 }
 
 .holder-btn-nav-menu {
@@ -376,7 +376,7 @@ u,
 /* .btn-share-buttons:focus, */
 .btn-share-buttons:active {
 	color: $color-hex-body-text;
-	background-color: $AccentColor;
+	background-color: $accent-color;
 }
 
 .btn-share-buttons:before {
@@ -447,7 +447,7 @@ u,
 /* .btn-show-vk-like:focus, */
 .btn-show-vk-like:active {
 	color: $color-hex-body-text;
-	background-color: $AccentColor;
+	background-color: $accent-color;
 }
 
 .btn-show-vk-like:before {
@@ -494,7 +494,7 @@ u,
 /* .ui-totop:focus, */
 .ui-totop:active {
 	color: $color-hex-body-text;
-	background-color: $AccentColor;
+	background-color: $accent-color;
 }
 
 /*!

@@ -1985,18 +1985,18 @@ img.office-qrcode-img {
 
 .mui-appbar {
 	color: #FFFFFF;
-	background-color: $ButtonBackgroundDark;
+	background-color: $button-background-dark;
 }
 
 .mui-appbar .mui-dropdown__menu > li > a {
 	color: #FFFFFF;
-	background-color: $ButtonBackgroundDark;
+	background-color: $button-background-dark;
 }
 
 .mui-appbar .mui-dropdown__menu > li > a:focus,
 .mui-appbar .mui-dropdown__menu > li > a:hover,
 .mui-appbar .mui-dropdown__menu > li > a:active {
-	color: $ButtonBackgroundDark;
+	color: $button-background-dark;
 	background-color: $custom-color-highlight-hover;
 }
 

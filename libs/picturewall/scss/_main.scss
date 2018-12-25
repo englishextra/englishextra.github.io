@@ -31,7 +31,7 @@ body {
 	line-height: 1.333rem;
 	width: 100%;
 	color: $color-hex-body-text;
-	background-color: $ButtonBackgroundDark;
+	background-color: $button-background-dark;
 	text-size-adjust: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
@@ -108,7 +108,7 @@ u,
 }
 
 ::placeholder {
-	color: $PlaceholderText !important;
+	color: $placeholder-text !important;
 	opacity: 1;
 }
 
@@ -166,7 +166,7 @@ u,
 .wrapper {
 	width: 100%;
 	min-height: 100%;
-	/* background-color: $ButtonBackgroundDark; */
+	/* background-color: $button-background-dark; */
 }
 
 .title-bar {
@@ -177,7 +177,7 @@ u,
 	top: 0;
 	transition: top 0.4s ease-out;
 	text-align: center;
-	background-color: $TitleBarAndAppBarDark;
+	background-color: $title-bar-and-app-bar-dark;
 	/* z-index: 1; */
 }
 
@@ -194,7 +194,7 @@ u,
 .title-bar a:link,
 .title-bar a:visited {
 	text-decoration: none;
-	color: $TitleBarAndAppBarLight;
+	color: $title-bar-and-app-bar-light;
 }
 
 .title-bar a:hover {
@@ -208,7 +208,7 @@ u,
 }
 
 .title-bar-icon > * {
-	fill: $TitleBarAndAppBarLight;
+	fill: $title-bar-and-app-bar-light;
 }
 
 .btn-title-bar svg {
@@ -218,7 +218,7 @@ u,
 .btn-title-bar {
 	display: block;
 	position: relative;
-	color: $TitleBarAndAppBarLight;
+	color: $title-bar-and-app-bar-light;
 }
 
 .btn-title-bar.back {
@@ -254,11 +254,11 @@ u,
 	position: fixed;
 	bottom: 0;
 	right: 3.200rem;
-	background-color: $ButtonBackgroundDark;
+	background-color: $button-background-dark;
 }
 
 .btn-share a > * {
-	fill: $TitleBarAndAppBarLight;
+	fill: $title-bar-and-app-bar-light;
 }
 
 .btn-share svg {
@@ -277,11 +277,11 @@ u,
 	position: fixed;
 	bottom: 0;
 	right: 6.400rem;
-	background-color: $ButtonBackgroundDark;
+	background-color: $button-background-dark;
 }
 
 .btn-like a > * {
-	fill: $TitleBarAndAppBarLight;
+	fill: $title-bar-and-app-bar-light;
 }
 
 .btn-like svg {
@@ -301,7 +301,7 @@ u,
 	position: fixed;
 	bottom: 0;
 	right: 0;
-	background-color: $ButtonBackgroundDark;
+	background-color: $button-background-dark;
 }
 
 .btn-totop.is-active {
@@ -309,7 +309,7 @@ u,
 }
 
 .btn-totop a > * {
-	fill: $TitleBarAndAppBarLight;
+	fill: $title-bar-and-app-bar-light;
 }
 
 .btn-totop svg {

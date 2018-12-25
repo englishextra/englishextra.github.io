@@ -50,12 +50,12 @@ acronym {
 }
 
 ::placeholder {
-	color: $PlaceholderText !important;
+	color: $placeholder-text !important;
 	opacity: 1;
 }
 
 .bg-primary {
-	background-color: $AccentColor;
+	background-color: $accent-color;
 }
 
 .bg-trans-dark,
@@ -96,7 +96,7 @@ acronym {
 }
 
 ul.tabs li:before {
-	background-color: $AccentColor;
+	background-color: $accent-color;
 }
 
 .gallery li a {
@@ -167,7 +167,7 @@ input[type="submit"],
 .button:hover,
 button[type="submit"]:hover,
 input[type="submit"]:hover {
-	border: 0.067rem solid $AccentColor;
+	border: 0.067rem solid $accent-color;
 }
 
 button[type="submit"],
@@ -177,7 +177,7 @@ input[type="submit"],
 button[type="submit"]:hover,
 input[type="submit"]:hover {
 	color: $color-hex-body-text;
-	background-color: $AccentColor;
+	background-color: $accent-color;
 	text-shadow: none;
 }
 
@@ -185,17 +185,17 @@ input[type="submit"]:hover {
 button[type="submit"]:active,
 input[type="submit"]:active {
 	color: $color-hex-body-text;
-	background-color: $AccentColor;
+	background-color: $accent-color;
 }
 
 .bg-white a.button.ghost,
 .bg-gradient-white a.button.ghost {
 	color: $color-hex-body-text;
-	border: 0.067rem solid $AccentColor;
+	border: 0.067rem solid $accent-color;
 }
 
 fieldset {
-	border: 0.067rem solid $AccentColor;
+	border: 0.067rem solid $accent-color;
 }
 
 .toc,
@@ -219,7 +219,7 @@ fieldset {
 }
 
 #webslides-zoomed .column > .wrap-zoom.current {
-	border: 0.6rem solid $AccentColorBrighter;
+	border: 0.6rem solid $accent-color-brighter;
 }
 
 .text-slide-number {

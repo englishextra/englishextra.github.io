@@ -108,7 +108,7 @@ u,
 }
 
 ::placeholder {
-	color: $PlaceholderText !important;
+	color: $placeholder-text !important;
 	opacity: 1;
 }
 
@@ -268,7 +268,7 @@ u,
 .col img[data-src],
 .col iframe.data-src-iframe,
 .col iframe[data-src] {
-	background-color: $LeftNavBarLight;
+	background-color: $left-nav-bar-light;
 }
 
 .col img.data-src-img.is-active,
@@ -507,7 +507,7 @@ u,
 	/* top: 3.200rem; */
 	top: 0;
 	left: 0;
-	background-color: $TitleBarAndAppBarDark;
+	background-color: $title-bar-and-app-bar-dark;
 	z-index: 2;
 }
 
@@ -554,7 +554,7 @@ u,
 	position: absolute;
 	list-style: none;
 	color: #FFFFFF;
-	background-color: $TitleBarAndAppBarDark;
+	background-color: $title-bar-and-app-bar-dark;
 	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
 	transition: visibility 0s, opacity .2s ease;
 	padding: 0;
@@ -573,7 +573,7 @@ u,
 }
 
 .navbar-list li:hover {
-	background-color: $TitleBarAndAppBarDarkItemHighlight;
+	background-color: $title-bar-and-app-bar-dark-item-highlight;
 }
 
 .navbar-list li a {
@@ -588,7 +588,7 @@ u,
 
 .navbar-list li a:active {
 	color: $color-hex-body-text;
-	background-color: $AccentColor;
+	background-color: $accent-color;
 }
 
 /*!
@@ -707,7 +707,7 @@ u,
 .ui-panel-contents-select {
 	width: 100%;
 	height: 3.200rem;
-	background-color: $TitleBarAndAppBarLight;
+	background-color: $title-bar-and-app-bar-light;
 }
 
 .ui-panel-contents-select.is-fixed {
@@ -739,7 +739,7 @@ u,
 	white-space: nowrap;
 	text-overflow: ellipsis; */
 	color: $color-hex-body-text;
-	background-color: $TitleBarAndAppBarLight;
+	background-color: $title-bar-and-app-bar-light;
 	border: none;
 	appearance: none;
 	-webkit-tap-highlight-color: transparent;
@@ -771,7 +771,7 @@ u,
 }
 
 .holder-contents-select .ui-icon > * {
-	fill: $ButtonText;
+	fill: $button-text;
 }
 
 /*!
@@ -782,7 +782,7 @@ u,
 .holder-contents-select .contents-select:focus,
 .holder-contents-select .contents-select:hover,
 .holder-contents-select .contents-select:active {
-	border: 0.067rem solid $TitleBarAndAppBarLight;
+	border: 0.067rem solid $title-bar-and-app-bar-light;
 }
 
 /*!
@@ -810,7 +810,7 @@ u,
 .holder-contents-select .contents-list li {
 	height: 3.200rem;
 	line-height: 3.200rem;
-	background-color: $TitleBarAndAppBarLight;
+	background-color: $title-bar-and-app-bar-light;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -818,7 +818,7 @@ u,
 }
 
 .holder-contents-select .contents-list li:hover {
-	background-color: $ButtonBackground;
+	background-color: $button-background;
 	cursor: default;
 }
 
@@ -831,8 +831,8 @@ u,
 	height: 3.200rem;
 	font-size: 0.933rem;
 	line-height: 3.200rem;
-	color: $ButtonText;
-	background-color: $TitleBarAndAppBarLight;
+	color: $button-text;
+	background-color: $title-bar-and-app-bar-light;
 	cursor: default;
 	padding: 0 3.200rem 0 0.933rem;
 }
@@ -841,7 +841,7 @@ u,
 .holder-contents-select a:hover,
 .holder-contents-select a:active,
 .holder-contents-select a:visited {
-	color: $ButtonText;
+	color: $button-text;
 	text-decoration: none;
 }
 
@@ -862,7 +862,7 @@ u,
 }
 
 .holder-contents-select a .ui-icon > * {
-	fill: $ButtonText;
+	fill: $button-text;
 }
 
 /*!
@@ -877,7 +877,7 @@ u,
 	/* top: 3.200rem; */
 	top: 0;
 	left: 0;
-	background-color: $TitleBarAndAppBarDark;
+	background-color: $title-bar-and-app-bar-dark;
 	background-image: url(../img/home-1920x1080.jpg);
 	background-size: cover;
 	background-position: center;
@@ -906,7 +906,7 @@ u,
 	text-transform: uppercase;
 	white-space: nowrap;
 	overflow: hidden;
-	color: $ButtonBackgroundDark;
+	color: $button-background-dark;
 	padding: 0;
 	margin: 0;
 }
@@ -974,7 +974,7 @@ u,
 
 .col .aside {
 	display: block;
-	background-color: $LeftNavBarLight;
+	background-color: $left-nav-bar-light;
 	padding: 1.333rem 1.333rem;
 }
 
@@ -1030,7 +1030,7 @@ u,
 	line-height: 2.267rem;
 	text-align: center;
 	text-decoration: none;
-	border: 0.067rem solid $TitleBarAndAppBarDark;
+	border: 0.067rem solid $title-bar-and-app-bar-dark;
 }
 
 .col a.btn-larger i.fa,
@@ -1046,8 +1046,8 @@ u,
 .col a.btn-primary,
 .col a.btn-primary:focus {
 	color: #FFFFFF;
-	background-color: $TitleBarAndAppBarDark;
-	border-color: $TitleBarAndAppBarDark;
+	background-color: $title-bar-and-app-bar-dark;
+	border-color: $title-bar-and-app-bar-dark;
 }
 
 .col .btn-primary:hover,
@@ -1062,36 +1062,36 @@ u,
 .col .btn-secondary:focus,
 .col a.btn-secondary,
 .col a.btn-secondary:focus {
-	color: $ButtonText;
-	background-color: $ButtonBackground;
-	border-color: $ButtonBackground;
+	color: $button-text;
+	background-color: $button-background;
+	border-color: $button-background;
 }
 
 .col .btn-secondary:hover,
 .col .btn-secondary:active,
 .col a.btn-secondary:hover,
 .col a.btn-secondary:active {
-	color: $ButtonText;
-	background-color: $ButtonBackground;
-	border-color: $ButtonOutline;
+	color: $button-text;
+	background-color: $button-background;
+	border-color: $button-outline;
 }
 
 .col .btn-link,
 .col .btn-link:focus,
 .col a.btn-link,
 .col a.btn-link:focus {
-	color: $ButtonText;
+	color: $button-text;
 	background-color: transparent;
-	border-color: $ButtonBackground;
+	border-color: $button-background;
 }
 
 .col .btn-link:hover,
 .col .btn-link:active,
 .col a.btn-link:hover,
 .col a.btn-link:active {
-	color: $ButtonText;
-	background-color: $ButtonBackground;
-	border-color: $ButtonOutline;
+	color: $button-text;
+	background-color: $button-background;
+	border-color: $button-outline;
 }
 
 /*!
@@ -1114,7 +1114,7 @@ u,
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	color: inherit;
-	background-color: $LeftNavBarLight;
+	background-color: $left-nav-bar-light;
 	appearance: none;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
@@ -1152,7 +1152,7 @@ u,
 }
 
 .holder-chapters-select .ui-icon > * {
-	fill: $ButtonText;
+	fill: $button-text;
 }
 
 /*!
@@ -1163,7 +1163,7 @@ u,
 .holder-chapters-select .chapters-select:focus,
 .holder-chapters-select .chapters-select:hover,
 .holder-chapters-select .chapters-select:active {
-	border: 0.067rem solid $LeftNavBarLight;
+	border: 0.067rem solid $left-nav-bar-light;
 }
 
 /*!
@@ -1191,7 +1191,7 @@ u,
 .holder-chapters-select .chapters-list li {
 	height: 2.400rem;
 	line-height: 2.400rem;
-	background-color: $LeftNavBarLight;
+	background-color: $left-nav-bar-light;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -1199,7 +1199,7 @@ u,
 }
 
 .holder-chapters-select .chapters-list li:hover {
-	background-color: $TitleBarAndAppBarLight;
+	background-color: $title-bar-and-app-bar-light;
 	cursor: default;
 }
 
@@ -1212,8 +1212,8 @@ u,
 	height: 2.400rem;
 	font-size: 0.933rem;
 	line-height: 2.400rem;
-	color: $ButtonText;
-	background-color: $LeftNavBarLight;
+	color: $button-text;
+	background-color: $left-nav-bar-light;
 	cursor: default;
 	padding: 0 2.400rem 0 0.533rem;
 }
@@ -1222,7 +1222,7 @@ u,
 .holder-chapters-select a:hover,
 .holder-chapters-select a:active,
 .holder-chapters-select a:visited {
-	color: $ButtonText;
+	color: $button-text;
 	text-decoration: none;
 }
 
@@ -1243,7 +1243,7 @@ u,
 }
 
 .holder-chapters-select a .ui-icon > * {
-	fill: $ButtonText;
+	fill: $button-text;
 }
 
 /*!
@@ -1336,11 +1336,11 @@ u,
 	font-family: inherit;
 	font-size: 0.933rem;
 	line-height: 1.133rem;
-	color: $PlaceholderText;
-	border-color: $PlaceholderText;
+	color: $placeholder-text;
+	border-color: $placeholder-text;
 	border-style: solid;
 	border-width: 0.067rem;
-	background-color: $TitleBarAndAppBarDark;
+	background-color: $title-bar-and-app-bar-dark;
 	transition: width 0.2s linear;
   transition-delay: 0.2s;
 	-webkit-tap-highlight-color: transparent;
@@ -1354,8 +1354,8 @@ u,
 .holder-search-form input[type^=search]:active {
 	width: 18.133rem;
 	color: inherit;
-	background-color: $LeftNavBarLight;
-	border-color: $LeftNavBarLight;
+	background-color: $left-nav-bar-light;
+	border-color: $left-nav-bar-light;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
@@ -1378,7 +1378,7 @@ u,
 	right: 0;
 	font-size: 0;
 	line-height: 0;
-	color: $PlaceholderText;
+	color: $placeholder-text;
 	background-color: transparent;
 	border: 0.067rem solid transparent;
 	cursor: pointer;
@@ -1387,7 +1387,7 @@ u,
 
 /* .holder-search-form button[type^=submit]:focus, */
 .holder-search-form button[type^=submit]:active {
-	color: $AccentColor;
+	color: $accent-color;
 }
 
 .holder-search-form button[type^=submit] .ui-icon {
@@ -1400,11 +1400,11 @@ u,
 }
 
 .holder-search-form button[type^=submit] .ui-icon > * {
-	fill: $PlaceholderText;
+	fill: $placeholder-text;
 }
 
 .holder-search-form button[type^=submit]:active .ui-icon > * {
-	fill: $AccentColor;
+	fill: $accent-color;
 }
 
 /*!
@@ -1473,7 +1473,7 @@ u,
 }
 
 .global-button-icon > * {
-	fill: $ButtonText;
+	fill: $button-text;
 }
 
 /*!
@@ -1527,7 +1527,7 @@ u,
 	 */
 	/* position: relative; */
 	color: #FFFFFF;
-	background-color: $TitleBarAndAppBarDark;
+	background-color: $title-bar-and-app-bar-dark;
 }
 
 .footer {
@@ -1688,7 +1688,7 @@ u,
 }
 
 .ui-totop:hover {
-	background-color: $TitleBarAndAppBarDark;
+	background-color: $title-bar-and-app-bar-dark;
 }
 
 /*!
@@ -1888,7 +1888,7 @@ u,
  */
 
 #disqus_thread {
-	background-color: $LeftNavBarLight;
+	background-color: $left-nav-bar-light;
 }
 
 #disqus_thread.is-active iframe {
