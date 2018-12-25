@@ -15,13 +15,13 @@ var gulp = require("gulp");
 var eslint = require("gulp-eslint");
 
 var options = {
-	libPaths: {
+	libbundle: {
 		src: "**/libs/**/src/*.js"
 	},
 };
 
 gulp.task("lint-libbundle-js", function () {
-	return gulp.src(options.libPaths.src)
+	return gulp.src(options.libbundle.src)
 	.pipe(eslint())
 	.pipe(eslint.format())
 	.pipe(eslint.failAfterError());

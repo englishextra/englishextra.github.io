@@ -1,3 +1,0 @@
-gulp bundle-assets
-
-pause
