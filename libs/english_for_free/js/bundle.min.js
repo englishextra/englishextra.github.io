@@ -1213,14 +1213,14 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			var navigatorUserAgent = navigator.userAgent || "";
 			var linkHref;
 			if (/Windows/i.test(navigatorUserAgent) && /(WOW64|Win64)/i.test(navigatorUserAgent)) {
-				linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-win32-x64-setup.exe";
+				linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.1/englishextra-win32-x64-setup.exe";
 			} else if (/(x86_64|x86-64|x64;|amd64|AMD64|x64_64)/i.test(navigatorUserAgent) && /(Linux|X11)/i.test(navigatorUserAgent)) {
-				linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-linux-x64.tar.gz";
+				linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.1/englishextra-linux-x64.tar.gz";
 			} else if (/IEMobile/i.test(navigatorUserAgent)) {
-				linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra.Windows10_1.0.0.0_x86_debug.appx";
+				linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.1/englishextra.Windows10_x86_debug.appx";
 			} else {
 				if (/Android/i.test(navigatorUserAgent)) {
-					linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-debug.apk";
+					linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.1/englishextra-debug.apk";
 				}
 			}
 			var arrange = function () {
