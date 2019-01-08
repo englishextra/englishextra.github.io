@@ -700,7 +700,7 @@ template {
  * minigrid
  */
 
-.card-grid {
+.minigrid {
 	width: 100%;
 	max-width: 1280px;
 	margin: 0 auto;
@@ -709,13 +709,13 @@ template {
 	top: 3.200rem;
 }
 
-.card-grid:after {
+.minigrid:after {
 	content: "";
 	display: table;
 	clear: both;
 }
 
-.card-wrap {
+.minigrid__item {
 	width: 264px;
 	overflow: hidden;
 	background-color: #FFFFFF;
@@ -730,7 +730,7 @@ template {
 	box-shadow: 0 0.133rem 0 rgba(150, 150, 150, 0.2);
 }
 
-.card-wrap a {
+.minigrid__item a {
 	color: inherit;
 	-webkit-tap-highlight-color: transparent;
 	outline: none;

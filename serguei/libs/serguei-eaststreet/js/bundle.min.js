@@ -1373,9 +1373,7 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 		var handleExternalLink = function (url, ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			var logicHandleExternalLink = openDeviceBrowser.bind(null, url);
-			var debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
-			debounceLogicHandleExternalLink();
+			debounce(openDeviceBrowser.bind(null, url), 200).call(root);
 		};
 		var manageExternalLinkAll = function (scope) {
 			var ctx = scope && scope.nodeName ? scope : "";
@@ -2373,10 +2371,10 @@ ToProgress, unescape, verge, VK, Ya, ymaps*/
 						timer = null;
 						manageYandexMapButton("ymap");
 						manageDisqusButton(appContentParent);
-						manageExternalLinkAll(appContentParent);
+						manageExternalLinkAll();
 						manageDataTargetLinks(appContentParent);
 						manageImgLightboxLinkAll("img-lightbox-link");
-						manageDataQrcodeImageAll(appContentParent);
+						manageDataQrcodeImageAll();
 						manageChaptersSelect(appContentParent);
 						manageExpandingLayers(appContentParent);
 						handleDataSrcImageAll();

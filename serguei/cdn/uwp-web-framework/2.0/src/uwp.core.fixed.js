@@ -42,6 +42,13 @@
 			return p + parseInt(c, 10);
 		}, 0) / 3;
 	};
+	var removeChildren = function (e) {
+		if (e && e.firstChild) {
+			for (; e.firstChild; ) {
+				e.removeChild(e.firstChild);
+			}
+		}
+	};
 
 	/*!
 	 * @see {@link http://www.javascriptkit.com/javatutors/loadjavascriptcss2.shtml}
@@ -395,7 +402,8 @@
 			/* Clears the page content */
 
 			UWP.main.classList.remove("error");
-			UWP.main.innerHTML = "";
+			/* UWP.main.innerHTML = ""; */
+			removeChildren(UWP.main);
 			/* Displays error message */
 
 			function displayError(title) {
@@ -446,7 +454,8 @@
 					var pageIncludeStyle = page ? page.getElementsByTagName("include-style")[0] || "" : "";
 					/* Puts the new content in place */
 
-					UWP.main.innerHTML = "";
+					/* UWP.main.innerHTML = ""; */
+					removeChildren(UWP.main);
 					UWP.main.innerHTML = pageBody;
 
 					UWP.main.classList.remove("start-animation");

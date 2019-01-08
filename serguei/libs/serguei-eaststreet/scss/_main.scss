@@ -295,7 +295,7 @@ u,
 	left: 0;
 }
 
-.card-wrap {
+.minigrid__item {
 	width: 100%;
 	height: 100%;
 }
@@ -1679,19 +1679,19 @@ u,
  * copyright
  */
 
-.card-wrap.card-wrap--copyright {
+.minigrid__item.minigrid__item--copyright {
 	color: inherit;
 	background-color: $left-nav-bar-light;
 	padding: 1.000rem;
 	margin-top: 1.333rem;
 }
 
-.card-wrap.card-wrap--copyright a {
+.minigrid__item.minigrid__item--copyright a {
 	color: inherit;
 	text-decoration: underline;
 }
 
-.card-wrap .contacts-buttons {
+.minigrid__item .contacts-buttons {
 	white-space: nowrap;
 }
 
@@ -1829,16 +1829,16 @@ img.office-qrcode-img {
 	margin-top: 0.500em;
 }
 
-.card-wrap.card-wrap--copyright h3:first-child {
+.minigrid__item.minigrid__item--copyright h3:first-child {
 	margin-top: 0;
 }
 
-.card-wrap.card-wrap--copyright .mui--text-subhead {
+.minigrid__item.minigrid__item--copyright .mui--text-subhead {
 	font-size: 1.133rem;
 }
 
-.card-wrap.card-wrap--copyright .mui--text-caption,
-.card-wrap.card-wrap--copyright .copyright {
+.minigrid__item.minigrid__item--copyright .mui--text-caption,
+.minigrid__item.minigrid__item--copyright .copyright {
 	font-size: 0.800rem;
 	line-height: 1.067rem;
 }

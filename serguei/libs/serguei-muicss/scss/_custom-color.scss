@@ -34,7 +34,7 @@ $clr-brand-color-list: (
 	"900": #90232C
 );
 
-$clr-brand-color:  map-get($clr-brand-color-list, "base");
+$clr-brand-color:	map-get($clr-brand-color-list, "base");
 
 $clr-brand-color-50: map-get($clr-brand-color-list, "50");
 $clr-brand-color-100: map-get($clr-brand-color-list, "100");

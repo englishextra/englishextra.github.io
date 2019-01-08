@@ -45,7 +45,7 @@
 			body {
 				font-family: Roboto, sans-serif;
 				color: #212121 !important;/* mui.css has rgba(0, 0, 0, 0.87) body text */
-				background-color: #F5F5F5 !important;/* mui.css has white body background */
+				background-color: #F2F2F2 !important;/* mui.css has white body background */
 				margin: 0;
 			}
 			html,
@@ -194,8 +194,8 @@
 			/*!
 			 * hide before scripts and styles loaded
 			 */
-			.macy-grid,
-			.card-grid,
+			.macy,
+			.minigrid,
 			#sidedrawer,
 			#header,
 			#footer,
@@ -203,15 +203,15 @@
 				visibility: hidden;
 				opacity: 0;
 			}
-			.macy-grid.is-active,
-			.card-grid.is-active {
+			.macy.is-active,
+			.minigrid.is-active {
 				visibility: visible;
 				opacity: 1;
 			}
 			template,
 			#sidedrawer li > strong + ul,
-			.card-wrap img,
-			.card-wrap iframe,
+			.minigrid__item img,
+			.minigrid__item iframe,
 			.btn-prev-page.mui-btn,
 			.btn-next-page.mui-btn,
 			.btn-toggle-holder-mobileapps-buttons.mui-btn--fab,
@@ -230,11 +230,11 @@
 			.holder-vk-like {
 				display: none;
 			}
-			/* .macy-grid a {
+			/* .macy a {
 				-webkit-transition: top 0.2s ease 0s;
 				transition: top 0.2s ease 0s;
 			}
-			.card-wrap {
+			.minigrid__item {
 				-webkit-transition: -webkit-transform 0.4s ease-out;
 				transition: -webkit-transform 0.4s ease-out;
 				transition: transform 0.4s ease-out;
@@ -249,8 +249,8 @@
 				.hollow-dots-spinner {
 					display: none;
 				}
-				.macy-grid,
-				.card-grid,
+				.macy,
+				.minigrid,
 				#sidedrawer,
 				#header,
 				#footer,
@@ -259,8 +259,8 @@
 					opacity: 1;
 				}
 				#sidedrawer li>strong+ul,
-				.card-wrap img,
-				.card-wrap iframe {
+				.minigrid__item img,
+				.minigrid__item iframe {
 					display: block;
 				}
 			</style>

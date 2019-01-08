@@ -17,9 +17,9 @@ function _typeof(obj) {
 }
 
 /*global $readMoreJS, ActiveXObject, console, DISQUS, doesFontExist,
-EventEmitter, hljs, IframeLightbox, imgLightbox, instgrm,
-JsonHashRouter, loadJsCss, Macy, Minigrid, Mustache, Promise,
-QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
+EventEmitter, hljs, IframeLightbox, imgLightbox, instgrm, JsonHashRouter,
+loadJsCss, Macy, Minigrid, Mustache, Promise, QRCode, require, ripple, t,
+twttr, unescape, VK, WheelIndicator, Ya*/
 
 /*property console, join, split */
 
@@ -818,26 +818,6 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			document[title] = document[title] + userBrowsingDetails;
 		}
 
-		var scriptIsLoaded = function scriptIsLoaded(scriptSrc) {
-			var scriptAll, i, l;
-
-			for (
-				scriptAll = document[getElementsByTagName]("script") || "",
-					i = 0,
-					l = scriptAll[_length];
-				i < l;
-				i += 1
-			) {
-				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
-					scriptAll = i = l = null;
-					return true;
-				}
-			}
-
-			scriptAll = i = l = null;
-			return false;
-		};
-
 		var debounce = function debounce(func, wait) {
 			var timeout;
 			var args;
@@ -939,38 +919,17 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			tick();
 		};
 
-		var appendFragment = function appendFragment(e, a) {
-			var parent = a || document[getElementsByTagName]("body")[0] || "";
-
-			if (e) {
-				var df = document[createDocumentFragment]() || "";
-
-				if ("string" === typeof e) {
-					e = document[createTextNode](e);
-				}
-
-				df[appendChild](e);
-				parent[appendChild](df);
-			}
-		};
-
 		var LoadingSpinner = (function() {
 			var spinner = document[getElementById]("loading-spinner") || "";
 
 			if (!spinner) {
 				spinner = document[createElement]("div");
-				var spinnerInner = document[createElement]("div");
-				spinnerInner[setAttribute]("class", "half-circle-spinner");
-				spinnerInner.id = "loading-spinner";
-				spinnerInner[setAttribute]("aria-hidden", "true");
-				var spinnerCircle1 = document[createElement]("div");
-				spinnerCircle1[setAttribute]("class", "circle circle-1");
-				spinnerInner[appendChild](spinnerCircle1);
-				var spinnerCircle2 = document[createElement]("div");
-				spinnerCircle2[setAttribute]("class", "circle circle-2");
-				spinnerInner[appendChild](spinnerCircle2);
-				spinner[appendChild](spinnerInner);
-				appendFragment(spinner, docBody);
+				spinner[setAttribute]("class", "half-circle-spinner");
+				spinner[setAttribute]("id", "loading-spinner");
+				spinner[setAttribute]("aria-hidden", "true");
+				spinner[innerHTML] =
+					'<div class="circle circle-1"></div><div class="circle circle-2"></div>';
+				docBody[appendChild](spinner);
 			}
 
 			return {
@@ -991,6 +950,21 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 				}
 			};
 		})();
+
+		var appendFragment = function appendFragment(e, a) {
+			var parent = a || document[getElementsByTagName]("body")[0] || "";
+
+			if (e) {
+				var df = document[createDocumentFragment]() || "";
+
+				if ("string" === typeof e) {
+					e = document[createTextNode](e);
+				}
+
+				df[appendChild](e);
+				parent[appendChild](df);
+			}
+		};
 
 		var removeChildren = function removeChildren(e) {
 			if (e && e.firstChild) {
@@ -1286,22 +1260,13 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var manageExternalLinkAll = function manageExternalLinkAll(scope) {
-			var ctx = scope && scope.nodeName ? scope : "";
-			var linkTag = "a";
-			var linkAll = ctx
-				? ctx[getElementsByTagName](linkTag) || ""
-				: document[getElementsByTagName](linkTag) || "";
+		var manageExternalLinkAll = function manageExternalLinkAll() {
+			var link = document[getElementsByTagName]("a") || "";
 
 			var handleExternalLink = function handleExternalLink(url, ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				var logicHandleExternalLink = openDeviceBrowser.bind(null, url);
-				var debounceLogicHandleExternalLink = debounce(
-					logicHandleExternalLink,
-					200
-				);
-				debounceLogicHandleExternalLink();
+				debounce(openDeviceBrowser.bind(null, url), 200);
 			};
 
 			var arrange = function arrange(e) {
@@ -1335,11 +1300,11 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 				}
 			};
 
-			if (linkAll) {
+			if (link) {
 				var i, l;
 
-				for (i = 0, l = linkAll[_length]; i < l; i += 1) {
-					arrange(linkAll[i]);
+				for (i = 0, l = link[_length]; i < l; i += 1) {
+					arrange(link[i]);
 				}
 
 				i = l = null;
@@ -1539,14 +1504,13 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var manageIframeLightboxLinkAll = function (linkClass) {
+		var manageIframeLightboxLinkAll = function manageIframeLightboxLinkAll(
+			linkClass
+		) {
 			var link = document[getElementsByClassName](linkClass) || "";
 
 			var arrange = function arrange(e) {
-				var iframeLightboxLinkIsBindedClass =
-					"iframe-lightbox-link--is-binded";
-
-				if (!e[classList].contains(iframeLightboxLinkIsBindedClass)) {
+				if (root.IframeLightbox) {
 					e.lightbox = new IframeLightbox(e, {
 						onLoaded: function onLoaded() {
 							LoadingSpinner.hide();
@@ -1556,9 +1520,9 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 						},
 						onOpened: function onOpened() {
 							LoadingSpinner.show();
-						}
+						},
+						touch: false
 					});
-					e[classList].add(iframeLightboxLinkIsBindedClass);
 				}
 			};
 
@@ -1574,12 +1538,10 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 		};
 
 		var manageImgLightboxLinkAll = function manageImgLightboxLinkAll(
-			scope
+			linkClass
 		) {
-			var ctx = scope && scope.nodeName ? scope : "";
-
 			if (root.imgLightbox) {
-				imgLightbox(ctx, {
+				imgLightbox(linkClass, {
 					onCreated: function onCreated() {
 						LoadingSpinner.show();
 					},
@@ -1588,7 +1550,8 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 					},
 					onError: function onError() {
 						LoadingSpinner.hide();
-					}
+					},
+					touch: false
 				});
 			}
 		};
@@ -1626,11 +1589,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			};
 
 			if (rmLink) {
-				var timer = setTimeout(function() {
-					clearTimeout(timer);
-					timer = null;
-					initScript();
-				}, 100);
+				initScript();
 			}
 		};
 
@@ -1844,35 +1803,33 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 					manageOtherCollapsableAll(holder);
 
 					var initScript = function initScript() {
-						if (root.Ya) {
-							try {
-								if (yshare) {
-									yshare.updateContent({
+						try {
+							if (yshare) {
+								yshare.updateContent({
+									title: document[title] || "",
+									description: document[title] || "",
+									url: root.location.href || ""
+								});
+							} else {
+								yshare = Ya.share2(yaShare2Id, {
+									content: {
 										title: document[title] || "",
 										description: document[title] || "",
 										url: root.location.href || ""
-									});
-								} else {
-									yshare = Ya.share2(yaShare2Id, {
-										content: {
-											title: document[title] || "",
-											description: document[title] || "",
-											url: root.location.href || ""
-										}
-									});
-								}
-							} catch (err) {
-								throw new Error(
-									"cannot yshare.updateContent or Ya.share2 " +
-										err
-								);
+									}
+								});
 							}
+						} catch (err) {
+							throw new Error(
+								"cannot yshare.updateContent or Ya.share2 " +
+									err
+							);
 						}
 					};
 
 					var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
 
-					if (!scriptIsLoaded(jsUrl)) {
+					if (!root.Ya) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {
@@ -1917,7 +1874,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 					manageOtherCollapsableAll(holder);
 
 					var initScript = function initScript() {
-						if (root.VK && !vlike) {
+						if (!vlike) {
 							try {
 								VK.init({
 									apiId: vkLike[dataset].apiid || "",
@@ -1937,7 +1894,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 
 					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
 
-					if (!scriptIsLoaded(jsUrl)) {
+					if (!root.VK) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {
@@ -2122,40 +2079,36 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 
 			var _this = this;
 
-			var dropdownMenu = _this.nextElementSibling;
+			var menu = _this.nextElementSibling;
 
-			var dropdownButtonRect = _this.getBoundingClientRect();
+			var rect = _this.getBoundingClientRect();
 
-			var top = dropdownButtonRect.top + dropdownButtonRect.height;
-			var left = dropdownButtonRect.left;
+			var top = rect.top + rect.height;
+			var left = rect.left;
 
-			if (dropdownMenu) {
-				dropdownMenu[style].top = top + "px";
+			if (menu) {
+				menu[style].top = top + "px";
 
-				if (
-					!dropdownMenu[classList].contains(
-						"mui-dropdown__menu--right"
-					)
-				) {
-					dropdownMenu[style].left = left + "px";
+				if (!menu[classList].contains("mui-dropdown__menu--right")) {
+					menu[style].left = left + "px";
 				}
 
-				if (!dropdownMenu[classList].contains(isActiveClass)) {
-					dropdownMenu[classList].add(isActiveClass);
+				if (!menu[classList].contains(isActiveClass)) {
+					menu[classList].add(isActiveClass);
 				} else {
-					dropdownMenu[classList].remove(isActiveClass);
+					menu[classList].remove(isActiveClass);
 				}
 
-				manageOtherCollapsableAll(dropdownMenu);
-				var linkAll = dropdownMenu[getElementsByTagName]("a") || "";
+				manageOtherCollapsableAll(menu);
+				var link = menu[getElementsByTagName]("a") || "";
 
-				if (linkAll) {
+				if (link) {
 					var i, l;
 
-					for (i = 0, l = linkAll[_length]; i < l; i += 1) {
-						linkAll[i][_addEventListener](
+					for (i = 0, l = link[_length]; i < l; i += 1) {
+						link[i][_addEventListener](
 							"click",
-							hideCurrentDropdownMenu.bind(null, dropdownMenu)
+							hideCurrentDropdownMenu.bind(null, menu)
 						);
 					}
 
@@ -2164,44 +2117,37 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var manageDropdownButtonAll = function manageDropdownButtonAll(scope) {
-			var ctx = scope && scope.nodeName ? scope : "";
-			var linkTag = "a";
-			var linkAll = ctx
-				? ctx[getElementsByTagName](linkTag) || ""
-				: document[getElementsByTagName](linkTag) || "";
-			var dropdownButtonAll = [];
+		var manageDropdownButtonAll = function manageDropdownButtonAll() {
+			var link = document[getElementsByTagName]("a") || "";
+			var btn = [];
 			var j, m;
 
-			for (j = 0, m = linkAll[_length]; j < m; j += 1) {
-				if (linkAll[j][dataset].muiToggle) {
-					dropdownButtonAll.push(linkAll[j]);
+			for (j = 0, m = link[_length]; j < m; j += 1) {
+				if (link[j][dataset].muiToggle) {
+					btn.push(link[j]);
 				}
 			}
 
 			j = m = null;
 
-			if (dropdownButtonAll) {
+			if (btn) {
 				var i, l;
 
-				for (i = 0, l = dropdownButtonAll[_length]; i < l; i += 1) {
+				for (i = 0, l = btn[_length]; i < l; i += 1) {
 					if (
-						!dropdownButtonAll[i][classList].contains(
-							isBindedClass
-						) &&
-						dropdownButtonAll[
-							i
-						].nextElementSibling.nodeName.toLowerCase() === "ul" &&
-						dropdownButtonAll[i].nextElementSibling.nodeType === 1
+						!btn[i][classList].contains(isBindedClass) &&
+						btn[i].nextElementSibling.nodeName.toLowerCase() ===
+							"ul" &&
+						btn[i].nextElementSibling.nodeType === 1
 					) {
-						dropdownButtonAll[i][_addEventListener](
+						btn[i][_addEventListener](
 							"click",
 							handleDropdownButton
 						);
 
-						dropdownButtonAll[i][classList].add(isBindedClass);
-						dropdownButtonAll[i][classList].remove(isActiveClass);
-						dropdownButtonAll[i].nextElementSibling[classList].add(
+						btn[i][classList].add(isBindedClass);
+						btn[i][classList].remove(isActiveClass);
+						btn[i].nextElementSibling[classList].add(
 							isCollapsableClass
 						);
 					}
@@ -2214,15 +2160,15 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 		manageDropdownButtonAll();
 
 		var hideDropdownMenuAll = function hideDropdownMenuAll() {
-			var dropdownMenuAll =
+			var menu =
 				document[getElementsByClassName]("mui-dropdown__menu") || "";
 
-			if (dropdownMenuAll) {
+			if (menu) {
 				var i, l;
 
-				for (i = 0, l = dropdownMenuAll[_length]; i < l; i += 1) {
-					if (dropdownMenuAll[i][classList].contains(isActiveClass)) {
-						dropdownMenuAll[i][classList].remove(isActiveClass);
+				for (i = 0, l = menu[_length]; i < l; i += 1) {
+					if (menu[i][classList].contains(isActiveClass)) {
+						menu[i][classList].remove(isActiveClass);
 					}
 				}
 
@@ -2243,23 +2189,19 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 
 		hideDropdownMenuAllOnNavigating();
 
-		var manageHljsCodeAll = function manageHljsCodeAll(scope) {
-			var ctx = scope && scope.nodeName ? scope : "";
-			var codeTag = "code";
-			var codeAll = ctx
-				? ctx[getElementsByTagName](codeTag) || ""
-				: document[getElementsByTagName](codeTag) || "";
+		var manageHljsCodeAll = function manageHljsCodeAll() {
+			var code = document[getElementsByTagName]("code") || "";
 
 			if (root.hljs) {
 				var i, l;
 
-				for (i = 0, l = codeAll[_length]; i < l; i += 1) {
+				for (i = 0, l = code[_length]; i < l; i += 1) {
 					if (
-						codeAll[i][classList].contains("hljs") &&
-						!codeAll[i][classList].contains(isBindedClass)
+						code[i][classList].contains("hljs") &&
+						!code[i][classList].contains(isBindedClass)
 					) {
-						hljs.highlightBlock(codeAll[i]);
-						codeAll[i][classList].add(isBindedClass);
+						hljs.highlightBlock(code[i]);
+						code[i][classList].add(isBindedClass);
 					}
 				}
 
@@ -2275,7 +2217,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 
 		manageRippleEffect();
 		var appEvents = new EventEmitter();
-		var mgrid;
+		root.minigridInstance = null;
 
 		var updateMinigrid = function updateMinigrid(delay) {
 			var timeout = delay || 100;
@@ -2285,13 +2227,13 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 				console.log("updateMinigrid");
 			};
 
-			if (mgrid) {
+			if (root.minigridInstance) {
 				var timer = setTimeout(function() {
 					clearTimeout(timer);
 					timer = null;
 					/* logThis(); */
 
-					mgrid.mount();
+					root.minigridInstance.mount();
 				}, timeout);
 			}
 		};
@@ -2357,7 +2299,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			}, slot);
 		};
 
-		var minigridCardIsBindedClass = "minigrid-card--is-binded";
+		var minigridItemIsBindedClass = "minigrid__item--is-binded";
 
 		var manageDisqusEmbed = function manageDisqusEmbed() {
 			var disqusThread = document[getElementById]("disqus_thread") || "";
@@ -2383,42 +2325,40 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 					disqusThread[classList].add(isActiveClass);
 				};
 
-				if (root.DISQUS) {
-					try {
-						DISQUS.reset({
-							reload: true,
-							config: function config() {
-								this.page.identifier = disqusThreadShortname;
-								this.page.url = locationHref;
-							}
-						});
-
-						if (
-							!disqusThread[parentNode][classList].contains(
-								minigridCardIsBindedClass
-							)
-						) {
-							disqusThread[parentNode][classList].add(
-								minigridCardIsBindedClass
-							);
-							triggerOnHeightChange(
-								disqusThread[parentNode],
-								1000,
-								null,
-								setDisqusCSSClass
-							);
-
-							disqusThread[parentNode][_addEventListener](
-								"onresize",
-								updateMinigridThrottled,
-								{
-									passive: true
-								}
-							);
+				try {
+					DISQUS.reset({
+						reload: true,
+						config: function config() {
+							this.page.identifier = disqusThreadShortname;
+							this.page.url = locationHref;
 						}
-					} catch (err) {
-						throw new Error("cannot DISQUS.reset " + err);
+					});
+
+					if (
+						!disqusThread[parentNode][classList].contains(
+							minigridItemIsBindedClass
+						)
+					) {
+						disqusThread[parentNode][classList].add(
+							minigridItemIsBindedClass
+						);
+						triggerOnHeightChange(
+							disqusThread[parentNode],
+							1000,
+							null,
+							setDisqusCSSClass
+						);
+
+						disqusThread[parentNode][_addEventListener](
+							"onresize",
+							updateMinigridThrottled,
+							{
+								passive: true
+							}
+						);
 					}
+				} catch (err) {
+					throw new Error("cannot DISQUS.reset " + err);
 				}
 			};
 
@@ -2430,7 +2370,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 						disqusThreadShortname +
 						".disqus.com/embed.js";
 
-					if (!scriptIsLoaded(jsUrl)) {
+					if (!root.DISQUS) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {
@@ -2447,60 +2387,57 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 				document[getElementsByClassName]("instagram-media")[0] || "";
 
 			var initScript = function initScript() {
-				if (root.instgrm) {
-					try {
-						var instagramMedia =
-							document[getElementsByClassName](
-								"instagram-media"
-							) || "";
+				try {
+					var instagramMedia =
+						document[getElementsByClassName]("instagram-media") ||
+						"";
 
-						if (instagramMedia) {
-							instgrm.Embeds.process();
-							var i, l;
+					if (instagramMedia) {
+						instgrm.Embeds.process();
+						var i, l;
 
-							for (
-								i = 0, l = instagramMedia[_length];
-								i < l;
-								i += 1
+						for (
+							i = 0, l = instagramMedia[_length];
+							i < l;
+							i += 1
+						) {
+							if (
+								!instagramMedia[i][parentNode][
+									classList
+								].contains(minigridItemIsBindedClass)
 							) {
-								if (
-									!instagramMedia[i][parentNode][
-										classList
-									].contains(minigridCardIsBindedClass)
-								) {
-									instagramMedia[i][parentNode][
-										classList
-									].add(minigridCardIsBindedClass);
-									triggerOnHeightChange(
-										instagramMedia[i][parentNode],
-										1000,
+								instagramMedia[i][parentNode][classList].add(
+									minigridItemIsBindedClass
+								);
+								triggerOnHeightChange(
+									instagramMedia[i][parentNode],
+									1000,
+									null,
+									setIsActiveClass.bind(
 										null,
-										setIsActiveClass.bind(
-											null,
-											instagramMedia[i][parentNode]
-										)
-									);
+										instagramMedia[i][parentNode]
+									)
+								);
 
-									instagramMedia[i][parentNode][
-										_addEventListener
-									]("onresize", updateMinigridThrottled, {
-										passive: true
-									});
-								}
+								instagramMedia[i][parentNode][
+									_addEventListener
+								]("onresize", updateMinigridThrottled, {
+									passive: true
+								});
 							}
-
-							i = l = null;
 						}
-					} catch (err) {
-						throw new Error("cannot instgrm.Embeds.process " + err);
+
+						i = l = null;
 					}
+				} catch (err) {
+					throw new Error("cannot instgrm.Embeds.process " + err);
 				}
 			};
 
 			if (instagramMedia) {
 				var jsUrl = forcedHTTP + "://www.instagram.com/embed.js";
 
-				if (!scriptIsLoaded(jsUrl)) {
+				if (!root.instgrm) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
 				} else {
@@ -2514,59 +2451,54 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 				document[getElementsByClassName]("twitter-tweet")[0] || "";
 
 			var initScript = function initScript() {
-				if (root.twttr) {
-					try {
-						var twitterTweet =
-							document[getElementsByClassName]("twitter-tweet") ||
-							"";
+				try {
+					var twitterTweet =
+						document[getElementsByClassName]("twitter-tweet") || "";
 
-						if (twitterTweet) {
-							twttr.widgets.load();
-							var i, l;
+					if (twitterTweet) {
+						twttr.widgets.load();
+						var i, l;
 
-							for (
-								i = 0, l = twitterTweet[_length];
-								i < l;
-								i += 1
+						for (i = 0, l = twitterTweet[_length]; i < l; i += 1) {
+							if (
+								!twitterTweet[i][parentNode][
+									classList
+								].contains(minigridItemIsBindedClass)
 							) {
-								if (
-									!twitterTweet[i][parentNode][
-										classList
-									].contains(minigridCardIsBindedClass)
-								) {
-									twitterTweet[i][parentNode][classList].add(
-										minigridCardIsBindedClass
-									);
-									triggerOnHeightChange(
-										twitterTweet[i][parentNode],
-										1000,
+								twitterTweet[i][parentNode][classList].add(
+									minigridItemIsBindedClass
+								);
+								triggerOnHeightChange(
+									twitterTweet[i][parentNode],
+									1000,
+									null,
+									setIsActiveClass.bind(
 										null,
-										setIsActiveClass.bind(
-											null,
-											twitterTweet[i][parentNode]
-										)
-									);
+										twitterTweet[i][parentNode]
+									)
+								);
 
-									twitterTweet[i][parentNode][
-										_addEventListener
-									]("onresize", updateMinigridThrottled, {
+								twitterTweet[i][parentNode][_addEventListener](
+									"onresize",
+									updateMinigridThrottled,
+									{
 										passive: true
-									});
-								}
+									}
+								);
 							}
-
-							i = l = null;
 						}
-					} catch (err) {
-						throw new Error("cannot twttr.widgets.load " + err);
+
+						i = l = null;
 					}
+				} catch (err) {
+					throw new Error("cannot twttr.widgets.load " + err);
 				}
 			};
 
 			if (twitterTweet) {
 				var jsUrl = forcedHTTP + "://platform.twitter.com/widgets.js";
 
-				if (!scriptIsLoaded(jsUrl)) {
+				if (!root.twttr) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
 				} else {
@@ -2590,62 +2522,60 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 					}
 				};
 
-				if (root.VK && VK.Widgets && VK.Widgets.Post) {
-					try {
-						var vkPost =
-							document[getElementsByClassName]("vk-post") || "";
+				try {
+					var vkPost =
+						document[getElementsByClassName]("vk-post") || "";
 
-						if (vkPost) {
-							var i, l;
+					if (vkPost) {
+						var i, l;
 
-							for (i = 0, l = vkPost[_length]; i < l; i += 1) {
-								if (
-									!vkPost[i][parentNode][classList].contains(
-										minigridCardIsBindedClass
-									)
-								) {
-									vkPost[i][parentNode][classList].add(
-										minigridCardIsBindedClass
-									);
-									triggerOnHeightChange(
-										vkPost[i][parentNode],
-										1000,
+						for (i = 0, l = vkPost[_length]; i < l; i += 1) {
+							if (
+								!vkPost[i][parentNode][classList].contains(
+									minigridItemIsBindedClass
+								)
+							) {
+								vkPost[i][parentNode][classList].add(
+									minigridItemIsBindedClass
+								);
+								triggerOnHeightChange(
+									vkPost[i][parentNode],
+									1000,
+									null,
+									setIsActiveClass.bind(
 										null,
-										setIsActiveClass.bind(
-											null,
-											vkPost[i][parentNode]
-										)
-									);
+										vkPost[i][parentNode]
+									)
+								);
 
-									vkPost[i][parentNode][_addEventListener](
-										"onresize",
-										updateMinigridThrottled,
-										{
-											passive: true
-										}
-									);
+								vkPost[i][parentNode][_addEventListener](
+									"onresize",
+									updateMinigridThrottled,
+									{
+										passive: true
+									}
+								);
 
-									initVkPost(
-										vkPost[i].id,
-										vkPost[i][dataset].vkOwnerid,
-										vkPost[i][dataset].vkPostid,
-										vkPost[i][dataset].vkHash
-									);
-								}
+								initVkPost(
+									vkPost[i].id,
+									vkPost[i][dataset].vkOwnerid,
+									vkPost[i][dataset].vkPostid,
+									vkPost[i][dataset].vkHash
+								);
 							}
-
-							i = l = null;
 						}
-					} catch (err) {
-						throw new Error("cannot initVkPost " + err);
+
+						i = l = null;
 					}
+				} catch (err) {
+					throw new Error("cannot initVkPost " + err);
 				}
 			};
 
 			if (vkPost) {
 				var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
 
-				if (!scriptIsLoaded(jsUrl)) {
+				if (!(root.VK && VK.Widgets && VK.Widgets.Post)) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
 				} else {
@@ -2654,7 +2584,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var cardWrapClass = "card-wrap";
+		var minigridItemClass = "minigrid__item";
 		appEvents.addListeners("MinigridInited", [
 			handleDataSrcIframeAll.bind(null, updateMinigridThrottled),
 			handleDataSrcImageAll.bind(null, updateMinigridThrottled),
@@ -2665,27 +2595,27 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			manageVkEmbeds,
 			manageDisqusEmbed
 		]);
-		var cardGridClass = "card-grid";
+		var minigridClass = "minigrid";
 
 		var initMinigrid = function initMinigrid() {
-			var cardGrid =
-				document[getElementsByClassName](cardGridClass)[0] || "";
+			var minigrid =
+				document[getElementsByClassName](minigridClass)[0] || "";
 
-			if (cardGrid) {
+			if (minigrid) {
 				try {
-					if (mgrid) {
-						mgrid = null;
+					if (root.minigridInstance) {
+						root.minigridInstance = null;
 
 						root[_removeEventListener]("resize", updateMinigrid);
 					}
 
-					mgrid = new Minigrid({
-						container: "." + cardGridClass,
-						item: "." + cardWrapClass,
+					root.minigridInstance = new Minigrid({
+						container: "." + minigridClass,
+						item: "." + minigridItemClass,
 						gutter: 20
 					});
-					mgrid.mount();
-					cardGrid[classList].add(isActiveClass);
+					root.minigridInstance.mount();
+					minigrid[classList].add(isActiveClass);
 
 					root[_addEventListener]("resize", updateMinigrid, {
 						passive: true
@@ -2698,39 +2628,42 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		appEvents.addListeners("MinigridCardsFound", [initMinigrid]);
+		appEvents.addListeners("MinigridItemsFound", [initMinigrid]);
 
 		var manageMinigrid = function manageMinigrid() {
 			return new Promise(function(resolve, reject) {
-				var cardGrid =
-					document[getElementsByClassName](cardGridClass)[0] || "";
+				var minigrid =
+					document[getElementsByClassName](minigridClass)[0] || "";
 
-				var handleCardGrid = function handleCardGrid() {
-					var cardWrap =
-						cardGrid[getElementsByClassName](cardWrapClass) || "";
-					var cardWrapLength = cardWrap[_length] || 0;
+				var handleMinigrid = function handleMinigrid() {
+					var minigridItem =
+						minigrid[getElementsByClassName](minigridItemClass) ||
+						"";
+					var minigridItemLength = minigridItem[_length] || 0;
 
 					if (
-						cardWrap &&
-						!cardGrid[classList].contains(isActiveClass)
+						minigridItem &&
+						!minigrid[classList].contains(isActiveClass)
 					) {
 						scroll2Top(1, 20000);
-						appEvents.emitEvent("MinigridCardsFound");
+						appEvents.emitEvent("MinigridItemsFound");
 						resolve(
-							"manageMinigrid: found " + cardWrapLength + " cards"
+							"manageMinigrid: found " +
+								minigridItemLength +
+								" cards"
 						);
 					} else {
 						reject("manageMinigrid: no cards found");
 					}
 				};
 
-				if (root.Minigrid && cardGrid) {
-					handleCardGrid();
+				if (root.Minigrid && minigrid) {
+					handleMinigrid();
 				}
 			});
 		};
 
-		var macy;
+		root.macyInstance = null;
 
 		var updateMacy = function updateMacy(delay) {
 			var timeout = delay || 100;
@@ -2740,13 +2673,13 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 				console.log("updateMacy");
 			};
 
-			if (macy) {
+			if (root.macyInstance) {
 				var timer = setTimeout(function() {
 					clearTimeout(timer);
 					timer = null;
 					/* logThis(); */
 
-					macy.recalculate(true, true);
+					root.macyInstance.recalculate(true, true);
 				}, timeout);
 			}
 		};
@@ -2757,20 +2690,20 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			handleDataSrcImageAll.bind(null, updateMacyThrottled),
 			scroll2Top.bind(null, 0, 20000)
 		]);
-		var macyGridClass = "macy-grid";
+		var macyClass = "macy";
 
 		var initMacy = function initMacy() {
 			var macyContainer =
-				document[getElementsByClassName](macyGridClass)[0] || "";
+				document[getElementsByClassName](macyClass)[0] || "";
 
 			if (macyContainer) {
 				try {
-					if (macy) {
-						macy.remove();
+					if (root.macyInstance) {
+						root.macyInstance.remove();
 					}
 
-					macy = new Macy({
-						container: "." + macyGridClass,
+					root.macyInstance = new Macy({
+						container: "." + macyClass,
 						trueOrder: false,
 						waitForImages: false,
 						margin: 0,
@@ -2797,7 +2730,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 		var manageMacy = function manageMacy() {
 			return new Promise(function(resolve, reject) {
 				var macyContainer =
-					document[getElementsByClassName](macyGridClass)[0] || "";
+					document[getElementsByClassName](macyClass)[0] || "";
 
 				var handleMacyContainer = function handleMacyContainer() {
 					var img = macyContainer[getElementsByTagName]("img") || "";
@@ -2912,22 +2845,19 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 		};
 
 		var hideSidedrawerOnNavigating = function hideSidedrawerOnNavigating() {
-			var linkAll;
+			var link;
 
 			if (sidedrawer) {
-				linkAll = sidedrawer[getElementsByTagName]("a") || "";
+				link = sidedrawer[getElementsByTagName]("a") || "";
 
-				if (linkAll) {
+				if (link) {
 					var i, l;
 
-					for (i = 0, l = linkAll[_length]; i < l; i += 1) {
-						if (!linkAll[i][classList].contains(isBindedClass)) {
-							linkAll[i][_addEventListener](
-								"click",
-								hideSidedrawer
-							);
+					for (i = 0, l = link[_length]; i < l; i += 1) {
+						if (!link[i][classList].contains(isBindedClass)) {
+							link[i][_addEventListener]("click", hideSidedrawer);
 
-							linkAll[i][classList].add(isBindedClass);
+							link[i][classList].add(isBindedClass);
 						}
 					}
 
@@ -3280,11 +3210,11 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 
 					if (appContentParent) {
 						managePrevNextLinks(jsonObj);
-						manageExternalLinkAll(appContentParent);
+						manageExternalLinkAll();
 						manageImgLightboxLinkAll("img-lightbox-link");
 						manageIframeLightboxLinkAll("iframe-lightbox-link");
-						manageDropdownButtonAll(appContentParent);
-						manageHljsCodeAll(appContentParent);
+						manageDropdownButtonAll();
+						manageHljsCodeAll();
 						manageRippleEffect();
 						highlightSidedrawerItem();
 						manageReadMore();

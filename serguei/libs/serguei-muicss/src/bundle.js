@@ -1,7 +1,7 @@
 /*global $readMoreJS, ActiveXObject, console, DISQUS, doesFontExist,
-EventEmitter, hljs, IframeLightbox, imgLightbox, instgrm,
-JsonHashRouter, loadJsCss, Macy, Minigrid, Mustache, Promise,
-QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
+EventEmitter, hljs, IframeLightbox, imgLightbox, instgrm, JsonHashRouter,
+loadJsCss, Macy, Minigrid, Mustache, Promise, QRCode, require, ripple, t,
+twttr, unescape, VK, WheelIndicator, Ya*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -244,9 +244,9 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
  * @see {@link https://gist.github.com/englishextra/ff9dc7ab002312568742861cb80865c9}
  * passes jshint
  */
-(function(root, document) {
+(function (root, document) {
 	"use strict";
-	var loadJsCss = function(files, callback) {
+	var loadJsCss = function (files, callback) {
 		var _this = this;
 		var appendChild = "appendChild";
 		var body = "body";
@@ -261,8 +261,8 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 		_this.head = document[getElementsByTagName]("head")[0] || "";
 		_this.body = document[body] || "";
 		_this.ref = document[getElementsByTagName]("script")[0] || "";
-		_this.callback = callback || function() {};
-		_this.loadStyle = function(file) {
+		_this.callback = callback || function () {};
+		_this.loadStyle = function (file) {
 			var link = document[createElement]("link");
 			link.rel = "stylesheet";
 			link.type = "text/css";
@@ -276,19 +276,19 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			link[setAttribute]("property", "stylesheet");
 			(_this.body || _this.head)[appendChild](link);
 		};
-		_this.loadScript = function(i) {
+		_this.loadScript = function (i) {
 			var script = document[createElement]("script");
 			script.type = "text/javascript";
 			script.async = true;
 			script.src = _this.js[i];
-			var loadNextScript = function() {
+			var loadNextScript = function () {
 				if (++i < _this.js[_length]) {
 					_this.loadScript(i);
 				} else {
 					_this.callback();
 				}
 			};
-			script.onload = function() {
+			script.onload = function () {
 				loadNextScript();
 			};
 			_this.head[appendChild](script);
@@ -340,7 +340,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 	var _length = "length";
 
 	docBody[classList].add("hide-sidedrawer");
-	
+
 	var toStringFn = {}.toString;
 	var supportsSvgSmilAnimation = !!document[createElementNS] && (/SVGAnimate/).test(toStringFn.call(document[createElementNS]("http://www.w3.org/2000/svg", "animate"))) || "";
 
@@ -514,20 +514,6 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			document[title] = document[title] + userBrowsingDetails;
 		}
 
-		var scriptIsLoaded = function (scriptSrc) {
-			var scriptAll,
-			i,
-			l;
-			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[_length]; i < l; i += 1) {
-				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
-					scriptAll = i = l = null;
-					return true;
-				}
-			}
-			scriptAll = i = l = null;
-			return false;
-		};
-
 		var debounce = function (func, wait) {
 			var timeout;
 			var args;
@@ -615,34 +601,15 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			tick();
 		};
 
-		var appendFragment = function (e, a) {
-			var parent = a || document[getElementsByTagName]("body")[0] || "";
-			if (e) {
-				var df = document[createDocumentFragment]() || "";
-				if ("string" === typeof e) {
-					e = document[createTextNode](e);
-				}
-				df[appendChild](e);
-				parent[appendChild](df);
-			}
-		};
-
 		var LoadingSpinner = (function () {
 			var spinner = document[getElementById]("loading-spinner") || "";
 			if (!spinner) {
-				spinner = document[createElement]('div');
-				var spinnerInner = document[createElement]("div");
-				spinnerInner[setAttribute]("class", "half-circle-spinner");
-				spinnerInner.id = "loading-spinner";
-				spinnerInner[setAttribute]("aria-hidden", "true");
-				var spinnerCircle1 = document[createElement]("div");
-				spinnerCircle1[setAttribute]("class", "circle circle-1");
-				spinnerInner[appendChild](spinnerCircle1);
-				var spinnerCircle2 = document[createElement]("div");
-				spinnerCircle2[setAttribute]("class", "circle circle-2");
-				spinnerInner[appendChild](spinnerCircle2);
-				spinner[appendChild](spinnerInner);
-				appendFragment(spinner, docBody);
+				spinner = document[createElement]("div");
+				spinner[setAttribute]("class", "half-circle-spinner");
+				spinner[setAttribute]("id", "loading-spinner");
+				spinner[setAttribute]("aria-hidden", "true");
+				spinner[innerHTML] = '<div class="circle circle-1"></div><div class="circle circle-2"></div>';
+				docBody[appendChild](spinner);
 			}
 			return {
 				show: function () {
@@ -661,6 +628,18 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 				}
 			};
 		})();
+
+		var appendFragment = function (e, a) {
+			var parent = a || document[getElementsByTagName]("body")[0] || "";
+			if (e) {
+				var df = document[createDocumentFragment]() || "";
+				if ("string" === typeof e) {
+					e = document[createTextNode](e);
+				}
+				df[appendChild](e);
+				parent[appendChild](df);
+			}
+		};
 
 		var removeChildren = function (e) {
 			if (e && e.firstChild) {
@@ -841,16 +820,12 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var manageExternalLinkAll = function (scope) {
-			var ctx = scope && scope.nodeName ? scope : "";
-			var linkTag = "a";
-			var linkAll = ctx ? ctx[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
+		var manageExternalLinkAll = function () {
+			var link = document[getElementsByTagName]("a") || "";
 			var handleExternalLink = function (url, ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				var logicHandleExternalLink = openDeviceBrowser.bind(null, url);
-				var debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
-				debounceLogicHandleExternalLink();
+				debounce(openDeviceBrowser.bind(null, url), 200);
 			};
 			var arrange = function (e) {
 				var externalLinkIsBindedClass = "external-link--is-binded";
@@ -868,11 +843,11 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 					}
 				}
 			};
-			if (linkAll) {
+			if (link) {
 				var i,
 				l;
-				for (i = 0, l = linkAll[_length]; i < l; i += 1) {
-					arrange(linkAll[i]);
+				for (i = 0, l = link[_length]; i < l; i += 1) {
+					arrange(link[i]);
 				}
 				i = l = null;
 			}
@@ -1084,11 +1059,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 				}
 			};
 			if (rmLink) {
-				var timer = setTimeout(function () {
-						clearTimeout(timer);
-						timer = null;
-						initScript();
-					}, 100);
+				initScript();
 			}
 		};
 
@@ -1227,30 +1198,28 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 					holder[classList].add(isCollapsableClass);
 					manageOtherCollapsableAll(holder);
 					var initScript = function () {
-						if (root.Ya) {
-							try {
-								if (yshare) {
-									yshare.updateContent({
+						try {
+							if (yshare) {
+								yshare.updateContent({
+									title: document[title] || "",
+									description: document[title] || "",
+									url: root.location.href || ""
+								});
+							} else {
+								yshare = Ya.share2(yaShare2Id, {
+									content: {
 										title: document[title] || "",
 										description: document[title] || "",
 										url: root.location.href || ""
-									});
-								} else {
-									yshare = Ya.share2(yaShare2Id, {
-										content: {
-											title: document[title] || "",
-											description: document[title] || "",
-											url: root.location.href || ""
-										}
-									});
-								}
-							} catch (err) {
-								throw new Error("cannot yshare.updateContent or Ya.share2 " + err);
+									}
+								});
 							}
+						} catch (err) {
+							throw new Error("cannot yshare.updateContent or Ya.share2 " + err);
 						}
 					};
 					var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
-					if (!scriptIsLoaded(jsUrl)) {
+					if (!root.Ya) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {
@@ -1282,7 +1251,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 					holder[classList].add(isCollapsableClass);
 					manageOtherCollapsableAll(holder);
 					var initScript = function () {
-						if (root.VK && !vlike) {
+						if (!vlike) {
 							try {
 								VK.init({
 									apiId: (vkLike[dataset].apiid || ""),
@@ -1300,7 +1269,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 						}
 					};
 					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
-					if (!scriptIsLoaded(jsUrl)) {
+					if (!root.VK) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {
@@ -1424,57 +1393,55 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			evt.stopPropagation();
 			evt.preventDefault();
 			var _this = this;
-			var dropdownMenu = _this.nextElementSibling;
-			var dropdownButtonRect = _this.getBoundingClientRect();
-			var top = dropdownButtonRect.top + dropdownButtonRect.height;
-			var left = dropdownButtonRect.left;
-			if (dropdownMenu) {
-				dropdownMenu[style].top = top + "px";
-				if (!dropdownMenu[classList].contains("mui-dropdown__menu--right")) {
-					dropdownMenu[style].left = left + "px";
+			var menu = _this.nextElementSibling;
+			var rect = _this.getBoundingClientRect();
+			var top = rect.top + rect.height;
+			var left = rect.left;
+			if (menu) {
+				menu[style].top = top + "px";
+				if (!menu[classList].contains("mui-dropdown__menu--right")) {
+					menu[style].left = left + "px";
 				}
-				if (!dropdownMenu[classList].contains(isActiveClass)) {
-					dropdownMenu[classList].add(isActiveClass);
+				if (!menu[classList].contains(isActiveClass)) {
+					menu[classList].add(isActiveClass);
 				} else {
-					dropdownMenu[classList].remove(isActiveClass);
+					menu[classList].remove(isActiveClass);
 				}
-				manageOtherCollapsableAll(dropdownMenu);
-				var linkAll = dropdownMenu[getElementsByTagName]("a") || "";
-				if (linkAll) {
+				manageOtherCollapsableAll(menu);
+				var link = menu[getElementsByTagName]("a") || "";
+				if (link) {
 					var i,
 					l;
-					for (i = 0, l = linkAll[_length]; i < l; i += 1) {
-						linkAll[i][_addEventListener]("click", hideCurrentDropdownMenu.bind(null, dropdownMenu));
+					for (i = 0, l = link[_length]; i < l; i += 1) {
+						link[i][_addEventListener]("click", hideCurrentDropdownMenu.bind(null, menu));
 					}
 					i = l = null;
 				}
 			}
 		};
-		var manageDropdownButtonAll = function (scope) {
-			var ctx = scope && scope.nodeName ? scope : "";
-			var linkTag = "a";
-			var linkAll = ctx ? ctx[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
-			var dropdownButtonAll = [];
+		var manageDropdownButtonAll = function () {
+			var link = document[getElementsByTagName]("a") || "";
+			var btn = [];
 			var j,
 			m;
-			for (j = 0, m = linkAll[_length]; j < m; j += 1) {
-				if (linkAll[j][dataset].muiToggle) {
-					dropdownButtonAll.push(linkAll[j]);
+			for (j = 0, m = link[_length]; j < m; j += 1) {
+				if (link[j][dataset].muiToggle) {
+					btn.push(link[j]);
 				}
 			}
 			j = m = null;
-			if (dropdownButtonAll) {
+			if (btn) {
 				var i,
 				l;
-				for (i = 0, l = dropdownButtonAll[_length]; i < l; i += 1) {
-					if (!dropdownButtonAll[i][classList].contains(isBindedClass) &&
-						dropdownButtonAll[i].nextElementSibling.nodeName.toLowerCase() === "ul" &&
-						dropdownButtonAll[i].nextElementSibling.nodeType === 1
+				for (i = 0, l = btn[_length]; i < l; i += 1) {
+					if (!btn[i][classList].contains(isBindedClass) &&
+						btn[i].nextElementSibling.nodeName.toLowerCase() === "ul" &&
+						btn[i].nextElementSibling.nodeType === 1
 						) {
-							dropdownButtonAll[i][_addEventListener]("click", handleDropdownButton);
-							dropdownButtonAll[i][classList].add(isBindedClass);
-							dropdownButtonAll[i][classList].remove(isActiveClass);
-							dropdownButtonAll[i].nextElementSibling[classList].add(isCollapsableClass);
+							btn[i][_addEventListener]("click", handleDropdownButton);
+							btn[i][classList].add(isBindedClass);
+							btn[i][classList].remove(isActiveClass);
+							btn[i].nextElementSibling[classList].add(isCollapsableClass);
 					}
 				}
 				i = l = null;
@@ -1483,13 +1450,13 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 		manageDropdownButtonAll();
 
 		var hideDropdownMenuAll = function () {
-			var dropdownMenuAll = document[getElementsByClassName]("mui-dropdown__menu") || "";
-			if (dropdownMenuAll) {
+			var menu = document[getElementsByClassName]("mui-dropdown__menu") || "";
+			if (menu) {
 				var i,
 				l;
-				for (i = 0, l = dropdownMenuAll[_length]; i < l; i += 1) {
-					if (dropdownMenuAll[i][classList].contains(isActiveClass)) {
-						dropdownMenuAll[i][classList].remove(isActiveClass);
+				for (i = 0, l = menu[_length]; i < l; i += 1) {
+					if (menu[i][classList].contains(isActiveClass)) {
+						menu[i][classList].remove(isActiveClass);
 					}
 				}
 				i = l = null;
@@ -1503,17 +1470,15 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 		};
 		hideDropdownMenuAllOnNavigating();
 
-		var manageHljsCodeAll = function (scope) {
-			var ctx = scope && scope.nodeName ? scope : "";
-			var codeTag = "code";
-			var codeAll = ctx ? ctx[getElementsByTagName](codeTag) || "" : document[getElementsByTagName](codeTag) || "";
+		var manageHljsCodeAll = function () {
+			var code = document[getElementsByTagName]("code") || "";
 			if (root.hljs) {
 				var i,
 				l;
-				for (i = 0, l = codeAll[_length]; i < l; i += 1) {
-					if (codeAll[i][classList].contains("hljs") && !codeAll[i][classList].contains(isBindedClass)) {
-						hljs.highlightBlock(codeAll[i]);
-						codeAll[i][classList].add(isBindedClass);
+				for (i = 0, l = code[_length]; i < l; i += 1) {
+					if (code[i][classList].contains("hljs") && !code[i][classList].contains(isBindedClass)) {
+						hljs.highlightBlock(code[i]);
+						code[i][classList].add(isBindedClass);
 					}
 				}
 				i = l = null;
@@ -1529,7 +1494,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 
 		var appEvents = new EventEmitter();
 
-		var mgrid;
+		root.minigridInstance = null;
 
 		var updateMinigrid = function (delay) {
 			var timeout = delay || 100;
@@ -1537,12 +1502,12 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			logThis = function () {
 				console.log("updateMinigrid");
 			};
-			if (mgrid) {
+			if (root.minigridInstance) {
 				var timer = setTimeout(function () {
 						clearTimeout(timer);
 						timer = null;
 						/* logThis(); */
-						mgrid.mount();
+						root.minigridInstance.mount();
 					}, timeout);
 			}
 		};
@@ -1594,7 +1559,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 				}, slot);
 		};
 
-		var minigridCardIsBindedClass = "minigrid-card--is-binded";
+		var minigridItemIsBindedClass = "minigrid__item--is-binded";
 
 		var manageDisqusEmbed = function () {
 			var disqusThread = document[getElementById]("disqus_thread") || "";
@@ -1611,29 +1576,27 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 				var setDisqusCSSClass = function () {
 					disqusThread[classList].add(isActiveClass);
 				};
-				if (root.DISQUS) {
-					try {
-						DISQUS.reset({
-							reload: true,
-							config: function () {
-								this.page.identifier = disqusThreadShortname;
-								this.page.url = locationHref;
-							}
-						});
-						if (!disqusThread[parentNode][classList].contains(minigridCardIsBindedClass)) {
-							disqusThread[parentNode][classList].add(minigridCardIsBindedClass);
-							triggerOnHeightChange(disqusThread[parentNode], 1000, null, setDisqusCSSClass);
-							disqusThread[parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
+				try {
+					DISQUS.reset({
+						reload: true,
+						config: function () {
+							this.page.identifier = disqusThreadShortname;
+							this.page.url = locationHref;
 						}
-					} catch (err) {
-						throw new Error("cannot DISQUS.reset " + err);
+					});
+					if (!disqusThread[parentNode][classList].contains(minigridItemIsBindedClass)) {
+						disqusThread[parentNode][classList].add(minigridItemIsBindedClass);
+						triggerOnHeightChange(disqusThread[parentNode], 1000, null, setDisqusCSSClass);
+						disqusThread[parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
 					}
+				} catch (err) {
+					throw new Error("cannot DISQUS.reset " + err);
 				}
 			};
 			if (disqusThread && disqusThreadShortname && locationHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					var jsUrl = forcedHTTP + "://" + disqusThreadShortname + ".disqus.com/embed.js";
-					if (!scriptIsLoaded(jsUrl)) {
+					if (!root.DISQUS) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {
@@ -1648,30 +1611,28 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 		var manageInstagramEmbeds = function () {
 			var instagramMedia = document[getElementsByClassName]("instagram-media")[0] || "";
 			var initScript = function () {
-				if (root.instgrm) {
-					try {
-						var instagramMedia = document[getElementsByClassName]("instagram-media") || "";
-						if (instagramMedia) {
-							instgrm.Embeds.process();
-							var i,
-							l;
-							for (i = 0, l = instagramMedia[_length]; i < l; i += 1) {
-								if (!instagramMedia[i][parentNode][classList].contains(minigridCardIsBindedClass)) {
-									instagramMedia[i][parentNode][classList].add(minigridCardIsBindedClass);
-									triggerOnHeightChange(instagramMedia[i][parentNode], 1000, null, setIsActiveClass.bind(null, instagramMedia[i][parentNode]));
-									instagramMedia[i][parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
-								}
+				try {
+					var instagramMedia = document[getElementsByClassName]("instagram-media") || "";
+					if (instagramMedia) {
+						instgrm.Embeds.process();
+						var i,
+						l;
+						for (i = 0, l = instagramMedia[_length]; i < l; i += 1) {
+							if (!instagramMedia[i][parentNode][classList].contains(minigridItemIsBindedClass)) {
+								instagramMedia[i][parentNode][classList].add(minigridItemIsBindedClass);
+								triggerOnHeightChange(instagramMedia[i][parentNode], 1000, null, setIsActiveClass.bind(null, instagramMedia[i][parentNode]));
+								instagramMedia[i][parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
 							}
-							i = l = null;
 						}
-					} catch (err) {
-						throw new Error("cannot instgrm.Embeds.process " + err);
+						i = l = null;
 					}
+				} catch (err) {
+					throw new Error("cannot instgrm.Embeds.process " + err);
 				}
 			};
 			if (instagramMedia) {
 				var jsUrl = forcedHTTP + "://www.instagram.com/embed.js";
-				if (!scriptIsLoaded(jsUrl)) {
+				if (!root.instgrm) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
 				} else {
@@ -1683,30 +1644,28 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 		var manageTwitterEmbeds = function () {
 			var twitterTweet = document[getElementsByClassName]("twitter-tweet")[0] || "";
 			var initScript = function () {
-				if (root.twttr) {
-					try {
-						var twitterTweet = document[getElementsByClassName]("twitter-tweet") || "";
-						if (twitterTweet) {
-							twttr.widgets.load();
-							var i,
-							l;
-							for (i = 0, l = twitterTweet[_length]; i < l; i += 1) {
-								if (!twitterTweet[i][parentNode][classList].contains(minigridCardIsBindedClass)) {
-									twitterTweet[i][parentNode][classList].add(minigridCardIsBindedClass);
-									triggerOnHeightChange(twitterTweet[i][parentNode], 1000, null, setIsActiveClass.bind(null, twitterTweet[i][parentNode]));
-									twitterTweet[i][parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
-								}
+				try {
+					var twitterTweet = document[getElementsByClassName]("twitter-tweet") || "";
+					if (twitterTweet) {
+						twttr.widgets.load();
+						var i,
+						l;
+						for (i = 0, l = twitterTweet[_length]; i < l; i += 1) {
+							if (!twitterTweet[i][parentNode][classList].contains(minigridItemIsBindedClass)) {
+								twitterTweet[i][parentNode][classList].add(minigridItemIsBindedClass);
+								triggerOnHeightChange(twitterTweet[i][parentNode], 1000, null, setIsActiveClass.bind(null, twitterTweet[i][parentNode]));
+								twitterTweet[i][parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
 							}
-							i = l = null;
 						}
-					} catch (err) {
-						throw new Error("cannot twttr.widgets.load " + err);
+						i = l = null;
 					}
+				} catch (err) {
+					throw new Error("cannot twttr.widgets.load " + err);
 				}
 			};
 			if (twitterTweet) {
 				var jsUrl = forcedHTTP + "://platform.twitter.com/widgets.js";
-				if (!scriptIsLoaded(jsUrl)) {
+				if (!root.twttr) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
 				} else {
@@ -1723,30 +1682,28 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 						initVkPost();
 					}
 				};
-				if (root.VK && VK.Widgets && VK.Widgets.Post) {
-					try {
-						var vkPost = document[getElementsByClassName]("vk-post") || "";
-						if (vkPost) {
-							var i,
-							l;
-							for (i = 0, l = vkPost[_length]; i < l; i += 1) {
-								if (!vkPost[i][parentNode][classList].contains(minigridCardIsBindedClass)) {
-									vkPost[i][parentNode][classList].add(minigridCardIsBindedClass);
-									triggerOnHeightChange(vkPost[i][parentNode], 1000, null, setIsActiveClass.bind(null, vkPost[i][parentNode]));
-									vkPost[i][parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
-									initVkPost(vkPost[i].id, vkPost[i][dataset].vkOwnerid, vkPost[i][dataset].vkPostid, vkPost[i][dataset].vkHash);
-								}
+				try {
+					var vkPost = document[getElementsByClassName]("vk-post") || "";
+					if (vkPost) {
+						var i,
+						l;
+						for (i = 0, l = vkPost[_length]; i < l; i += 1) {
+							if (!vkPost[i][parentNode][classList].contains(minigridItemIsBindedClass)) {
+								vkPost[i][parentNode][classList].add(minigridItemIsBindedClass);
+								triggerOnHeightChange(vkPost[i][parentNode], 1000, null, setIsActiveClass.bind(null, vkPost[i][parentNode]));
+								vkPost[i][parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
+								initVkPost(vkPost[i].id, vkPost[i][dataset].vkOwnerid, vkPost[i][dataset].vkPostid, vkPost[i][dataset].vkHash);
 							}
-							i = l = null;
 						}
-					} catch (err) {
-						throw new Error("cannot initVkPost " + err);
+						i = l = null;
 					}
+				} catch (err) {
+					throw new Error("cannot initVkPost " + err);
 				}
 			};
 			if (vkPost) {
 				var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
-				if (!scriptIsLoaded(jsUrl)) {
+				if (!(root.VK && VK.Widgets && VK.Widgets.Post)) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
 				} else {
@@ -1755,7 +1712,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var cardWrapClass = "card-wrap";
+		var minigridItemClass = "minigrid__item";
 
 		appEvents.addListeners("MinigridInited", [handleDataSrcIframeAll.bind(null, updateMinigridThrottled),
 				handleDataSrcImageAll.bind(null, updateMinigridThrottled),
@@ -1766,23 +1723,23 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 				manageVkEmbeds,
 				manageDisqusEmbed]);
 
-		var cardGridClass = "card-grid";
+		var minigridClass = "minigrid";
 
 		var initMinigrid = function () {
-			var cardGrid = document[getElementsByClassName](cardGridClass)[0] || "";
-			if (cardGrid) {
+			var minigrid = document[getElementsByClassName](minigridClass)[0] || "";
+			if (minigrid) {
 				try {
-					if (mgrid) {
-						mgrid = null;
+					if (root.minigridInstance) {
+						root.minigridInstance = null;
 						root[_removeEventListener]("resize", updateMinigrid);
 					}
-					mgrid = new Minigrid({
-							container: "." + cardGridClass,
-							item: "." + cardWrapClass,
+					root.minigridInstance = new Minigrid({
+							container: "." + minigridClass,
+							item: "." + minigridItemClass,
 							gutter: 20
 						});
-					mgrid.mount();
-					cardGrid[classList].add(isActiveClass);
+					root.minigridInstance.mount();
+					minigrid[classList].add(isActiveClass);
 					root[_addEventListener]("resize", updateMinigrid, {passive: true});
 					appEvents.emitEvent("MinigridInited");
 				} catch (err) {
@@ -1791,29 +1748,29 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		appEvents.addListeners("MinigridCardsFound", [initMinigrid]);
+		appEvents.addListeners("MinigridItemsFound", [initMinigrid]);
 
 		var manageMinigrid = function () {
 			return new Promise(function (resolve, reject) {
-				var cardGrid = document[getElementsByClassName](cardGridClass)[0] || "";
-				var handleCardGrid = function () {
-					var cardWrap = cardGrid[getElementsByClassName](cardWrapClass) || "";
-					var cardWrapLength = cardWrap[_length] || 0;
-					if (cardWrap && !cardGrid[classList].contains(isActiveClass)) {
+				var minigrid = document[getElementsByClassName](minigridClass)[0] || "";
+				var handleMinigrid = function () {
+					var minigridItem = minigrid[getElementsByClassName](minigridItemClass) || "";
+					var minigridItemLength = minigridItem[_length] || 0;
+					if (minigridItem && !minigrid[classList].contains(isActiveClass)) {
 						scroll2Top(1, 20000);
-						appEvents.emitEvent("MinigridCardsFound");
-						resolve("manageMinigrid: found " + cardWrapLength + " cards");
+						appEvents.emitEvent("MinigridItemsFound");
+						resolve("manageMinigrid: found " + minigridItemLength + " cards");
 					} else {
 						reject("manageMinigrid: no cards found");
 					}
 				};
-				if (root.Minigrid && cardGrid) {
-					handleCardGrid();
+				if (root.Minigrid && minigrid) {
+					handleMinigrid();
 				}
 			});
 		};
 
-		var macy;
+		root.macyInstance = null;
 
 		var updateMacy = function (delay) {
 			var timeout = delay || 100;
@@ -1821,12 +1778,12 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			logThis = function () {
 				console.log("updateMacy");
 			};
-			if (macy) {
+			if (root.macyInstance) {
 				var timer = setTimeout(function () {
 						clearTimeout(timer);
 						timer = null;
 						/* logThis(); */
-						macy.recalculate(true, true);
+						root.macyInstance.recalculate(true, true);
 					}, timeout);
 			}
 		};
@@ -1837,17 +1794,17 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 				handleDataSrcImageAll.bind(null, updateMacyThrottled),
 				scroll2Top.bind(null, 0, 20000)]);
 
-		var macyGridClass = "macy-grid";
+		var macyClass = "macy";
 
 		var initMacy = function () {
-			var macyContainer = document[getElementsByClassName](macyGridClass)[0] || "";
+			var macyContainer = document[getElementsByClassName](macyClass)[0] || "";
 			if (macyContainer) {
 				try {
-					if (macy) {
-						macy.remove();
+					if (root.macyInstance) {
+						root.macyInstance.remove();
 					}
-					macy = new Macy({
-							container: "." + macyGridClass,
+					root.macyInstance = new Macy({
+							container: "." + macyClass,
 							trueOrder: false,
 							waitForImages: false,
 							margin: 0,
@@ -1873,7 +1830,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 
 		var manageMacy = function () {
 			return new Promise(function (resolve, reject) {
-				var macyContainer = document[getElementsByClassName](macyGridClass)[0] || "";
+				var macyContainer = document[getElementsByClassName](macyClass)[0] || "";
 				var handleMacyContainer = function () {
 					var img = macyContainer[getElementsByTagName]("img") || "";
 					var imgLength = img[_length] || 0;
@@ -1949,16 +1906,16 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 		};
 
 		var hideSidedrawerOnNavigating = function () {
-			var linkAll;
+			var link;
 			if (sidedrawer) {
-				linkAll = sidedrawer[getElementsByTagName]("a") || "";
-				if (linkAll) {
+				link = sidedrawer[getElementsByTagName]("a") || "";
+				if (link) {
 					var i,
 					l;
-					for (i = 0, l = linkAll[_length]; i < l; i += 1) {
-						if (!linkAll[i][classList].contains(isBindedClass)) {
-							linkAll[i][_addEventListener]("click", hideSidedrawer);
-							linkAll[i][classList].add(isBindedClass);
+					for (i = 0, l = link[_length]; i < l; i += 1) {
+						if (!link[i][classList].contains(isBindedClass)) {
+							link[i][_addEventListener]("click", hideSidedrawer);
+							link[i][classList].add(isBindedClass);
 						}
 					}
 					i = l = null;
@@ -2187,11 +2144,11 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 					document[title] = (titleString ? titleString + " - " : "") + (initialDocumentTitle ? initialDocumentTitle + (userBrowsingDetails ? userBrowsingDetails : "") : "");
 					if (appContentParent) {
 						managePrevNextLinks(jsonObj);
-						manageExternalLinkAll(appContentParent);
+						manageExternalLinkAll();
 						manageImgLightboxLinkAll("img-lightbox-link");
 						manageIframeLightboxLinkAll("iframe-lightbox-link");
-						manageDropdownButtonAll(appContentParent);
-						manageHljsCodeAll(appContentParent);
+						manageDropdownButtonAll();
+						manageHljsCodeAll();
 						manageRippleEffect();
 						highlightSidedrawerItem();
 						manageReadMore();

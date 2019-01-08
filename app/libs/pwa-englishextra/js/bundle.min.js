@@ -1082,9 +1082,7 @@ Ya*/
 		var handleExternalLink = function (url, ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			var logicHandleExternalLink = openDeviceBrowser.bind(null, url);
-			var debounceLogicHandleExternalLink = debounce(logicHandleExternalLink, 200);
-			debounceLogicHandleExternalLink();
+			debounce(openDeviceBrowser.bind(null, url), 200).call(root);
 		};
 		var manageExternalLinkAll = function (scope) {
 			var ctx = scope && scope.nodeName ? scope : "";
@@ -2216,30 +2214,28 @@ Ya*/
 					holder[classList].add(isCollapsableClass);
 					handleOtherSocialButtons(holder);
 					var initScript = function () {
-						if (root.Ya) {
-							try {
-								if (yshare) {
-									yshare.updateContent({
+						try {
+							if (yshare) {
+								yshare.updateContent({
+									title: document[title] || "",
+									description: document[title] || "",
+									url: root.location.href || ""
+								});
+							} else {
+								yshare = Ya.share2(yaShare2Id, {
+									content: {
 										title: document[title] || "",
 										description: document[title] || "",
 										url: root.location.href || ""
-									});
-								} else {
-									yshare = Ya.share2(yaShare2Id, {
-										content: {
-											title: document[title] || "",
-											description: document[title] || "",
-											url: root.location.href || ""
-										}
-									});
-								}
-							} catch (err) {
-								throw new Error("cannot yshare.updateContent or Ya.share2 " + err);
+									}
+								});
 							}
+						} catch (err) {
+							throw new Error("cannot yshare.updateContent or Ya.share2 " + err);
 						}
 					};
 					var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
-					if (!scriptIsLoaded(jsUrl)) {
+					if (!root.Ya) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {
@@ -2271,7 +2267,7 @@ Ya*/
 					holder[classList].add(isCollapsableClass);
 					handleOtherSocialButtons(holder);
 					var initScript = function () {
-						if (root.VK && !vlike) {
+						if (!vlike) {
 							try {
 								VK.init({
 									apiId: (vkLike[dataset].apiid || ""),
@@ -2289,7 +2285,7 @@ Ya*/
 						}
 					};
 					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
-					if (!scriptIsLoaded(jsUrl)) {
+					if (!root.VK) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {
@@ -2547,7 +2543,7 @@ Ya*/
 								timer = null;
 								handleDataSrcIframeAll();
 								handleDataSrcImageAll();
-								manageExternalLinkAll(appContentParent);
+								manageExternalLinkAll();
 								manageImgLightboxLinkAll("img-lightbox-link");
 								manageIframeLightboxLinkAll("iframe-lightbox-link");
 								manageChaptersSelect(appContentParent);

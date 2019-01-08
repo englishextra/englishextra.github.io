@@ -478,10 +478,10 @@ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 			}
 		};
 
-		var cardGridClass = "card-grid";
-		var cardGrid = document[getElementsByClassName](cardGridClass)[0] || "";
+		var minigridClass = "minigrid";
+		var minigrid = document[getElementsByClassName](minigridClass)[0] || "";
 
-		observeMutations(cardGrid);
+		observeMutations(minigrid);
 
 		/*jshint bitwise: false */
 		var parseLink = function (url, full) {
@@ -726,7 +726,7 @@ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		manageExternalLinkAll(wrapper);
 
 		var dataSrcImgClass = "data-src-img";
-		var cardWrapClass = "card-wrap";
+		var minigridItemClass = "minigrid__item";
 		var jsonHrefKeyName = "href";
 		var jsonSrcKeyName = "src";
 		var jsonTitleKeyName = "title";
@@ -858,7 +858,7 @@ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 				 */
 				var pagesKeysNumber = countObjKeys(jsonObj.pages);
 				insertFromTemplate(jsonObj, "template_card_grid", "target_card_grid", function () {
-					if (wrapper[getElementsByClassName](cardWrapClass)[pagesKeysNumber - 1]) {
+					if (wrapper[getElementsByClassName](minigridItemClass)[pagesKeysNumber - 1]) {
 						resolve();
 					} else {
 						reject();
@@ -890,13 +890,13 @@ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 							jsonObj[key][jsonTitleKeyName] &&
 							jsonObj[key][jsonTextKeyName]) {
 
-							var cardWrap = document[createElement]("div");
-							cardWrap[classList].add(cardWrapClass);
+							var minigridItem = document[createElement]("div");
+							minigridItem[classList].add(minigridItemClass);
 
 							var card = document[createElement]("div");
 							card[classList].add(cardClass);
 
-							cardWrap[appendChild](card);
+							minigridItem[appendChild](card);
 
 							var img = document[createElement]("img");
 							if (jsonObj[key][jsonWidthKeyName] && jsonObj[key][jsonHeightKeyName]) {
@@ -941,16 +941,16 @@ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 							cardLink[href] = ["", jsonObj[key][jsonHrefKeyName]].join("");
 							cardLink[appendChild](card);
 
-							cardWrap[appendChild](cardLink);
+							minigridItem[appendChild](cardLink);
 
-							df[appendChild](cardWrap);
+							df[appendChild](minigridItem);
 							df[appendChild](document[createTextNode]("\n"));
 						}
 					}
 				}
 				key = null;
 
-				if (cardGrid[appendChild](df)) {
+				if (minigrid[appendChild](df)) {
 					resolve();
 				} else {
 					reject();
@@ -973,7 +973,7 @@ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 			if (styleSheet) {
 				var cssRule;
 				cssRule = toDashedAll([".",
-							cardWrapClass,
+							minigridItemClass,
 							"{",
 							transitionProperty,
 							": ",
@@ -990,16 +990,16 @@ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 			timerCreateGrid = null;
 
 			var onMinigridCreated = function () {
-				cardGrid[style].visibility = "visible";
-				cardGrid[style].opacity = 1;
+				minigrid[style].visibility = "visible";
+				minigrid[style].opacity = 1;
 			};
 			var mgrid;
 		
-		var minigridCardIsBindedClass = "minigrid-card--is-binded";
+		var minigridItemIsBindedClass = "minigrid__item--is-binded";
 			var initMinigrid = function () {
 				mgrid = new Minigrid({
-						container: cardGridClass,
-						item: cardWrapClass,
+						container: minigridClass,
+						item: minigridItemClass,
 						gutter: 20/* ,
 						done: onMinigridCreated */
 					});

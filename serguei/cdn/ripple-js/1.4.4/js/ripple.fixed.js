@@ -143,8 +143,8 @@
 						rippleButtons[i].innerHTML += '<div class="rippleContainer"></div>';
 					}
 				};
+				var isBindedRippleClass = "ripple--is-binded";
 				for (i = 0; i < rippleButtons.length; i++) {
-					var isBindedRippleClass = "is-binded-ripple";
 					if (!rippleButtons[i].classList.contains(isBindedRippleClass)) {
 						rippleButtons[i].classList.add(isBindedRippleClass);
 						fn1();
