@@ -1512,7 +1512,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var updateMinigridThrottled = throttle(updateMinigrid, 2000);
+		var updateMinigridThrottled = throttle(updateMinigrid, 1000);
 
 		var setIsActiveClass = function (e) {
 			if (e && e.nodeName && !e[classList].contains(isActiveClass)) {
