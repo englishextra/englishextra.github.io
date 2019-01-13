@@ -1712,8 +1712,6 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var minigridItemClass = "minigrid__item";
-
 		appEvents.addListeners("MinigridInited", [handleDataSrcIframeAll.bind(null, updateMinigridThrottled),
 				handleDataSrcImageAll.bind(null, updateMinigridThrottled),
 				manageDataQrcodeImageAll.bind(null, updateMinigridThrottled),
@@ -1724,6 +1722,8 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 				manageDisqusEmbed]);
 
 		var minigridClass = "minigrid";
+
+		var minigridItemClass = "minigrid__item";
 
 		var initMinigrid = function () {
 			var minigrid = document[getElementsByClassName](minigridClass)[0] || "";
@@ -1750,7 +1750,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 
 		appEvents.addListeners("MinigridItemsFound", [initMinigrid]);
 
-		var manageMinigrid = function () {
+		var manageMinigrid = function (minigridClass) {
 			return new Promise(function (resolve, reject) {
 				var minigrid = document[getElementsByClassName](minigridClass)[0] || "";
 				var handleMinigrid = function () {
@@ -1828,7 +1828,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 
 		appEvents.addListeners("MacyImagesLoaded", [initMacy]);
 
-		var manageMacy = function () {
+		var manageMacy = function (macyClass) {
 			return new Promise(function (resolve, reject) {
 				var macyContainer = document[getElementsByClassName](macyClass)[0] || "";
 				var handleMacyContainer = function () {
@@ -2153,7 +2153,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 						highlightSidedrawerItem();
 						manageReadMore();
 						manageExpandingLayers();
-						manageMacy().then(function (result) {
+						manageMacy(macyClass).then(function (result) {
 							console.log(result);
 						})
 						/* .then(function () {
@@ -2166,7 +2166,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 						.catch (function (err) {
 							console.log(err);
 						});
-						manageMinigrid().then(function (result) {
+						manageMinigrid(minigridClass).then(function (result) {
 							console.log(result);
 						})
 						/* .then(function () {
