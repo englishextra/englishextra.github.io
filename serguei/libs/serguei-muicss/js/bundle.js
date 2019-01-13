@@ -2584,7 +2584,6 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var minigridItemClass = "minigrid__item";
 		appEvents.addListeners("MinigridInited", [
 			handleDataSrcIframeAll.bind(null, updateMinigridThrottled),
 			handleDataSrcImageAll.bind(null, updateMinigridThrottled),
@@ -2596,6 +2595,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			manageDisqusEmbed
 		]);
 		var minigridClass = "minigrid";
+		var minigridItemClass = "minigrid__item";
 
 		var initMinigrid = function initMinigrid() {
 			var minigrid =
@@ -2630,7 +2630,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 
 		appEvents.addListeners("MinigridItemsFound", [initMinigrid]);
 
-		var manageMinigrid = function manageMinigrid() {
+		var manageMinigrid = function manageMinigrid(minigridClass) {
 			return new Promise(function(resolve, reject) {
 				var minigrid =
 					document[getElementsByClassName](minigridClass)[0] || "";
@@ -2727,7 +2727,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 
 		appEvents.addListeners("MacyImagesLoaded", [initMacy]);
 
-		var manageMacy = function manageMacy() {
+		var manageMacy = function manageMacy(macyClass) {
 			return new Promise(function(resolve, reject) {
 				var macyContainer =
 					document[getElementsByClassName](macyClass)[0] || "";
@@ -3219,7 +3219,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 						highlightSidedrawerItem();
 						manageReadMore();
 						manageExpandingLayers();
-						manageMacy()
+						manageMacy(macyClass)
 							.then(function(result) {
 								console.log(result);
 							})
@@ -3233,7 +3233,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 							.catch(function(err) {
 								console.log(err);
 							});
-						manageMinigrid()
+						manageMinigrid(minigridClass)
 							.then(function(result) {
 								console.log(result);
 							})
