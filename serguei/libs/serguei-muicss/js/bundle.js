@@ -637,8 +637,6 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		var _removeEventListener = "removeEventListener";
 		var isActiveClass = "is-active";
 		var isBindedClass = "is-binded";
-		/* progressBar.increase(20); */
-
 		if (docElem && docElem[classList]) {
 			docElem[classList].remove("no-js");
 			docElem[classList].add("js");
@@ -3380,9 +3378,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 				clearInterval(slot);
 				slot = null;
 			}
-			/* progressBar.increase(20); */
-
-			var load;
+				var load;
 			load = new loadJsCss(scripts, run);
 		};
 
