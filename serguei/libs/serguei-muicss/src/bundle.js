@@ -2143,6 +2143,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 				onContentInserted: function (jsonObj, titleString) {
 					document[title] = (titleString ? titleString + " - " : "") + (initialDocumentTitle ? initialDocumentTitle + (userBrowsingDetails ? userBrowsingDetails : "") : "");
 					if (appContentParent) {
+						highlightSidedrawerItem();
 						managePrevNextLinks(jsonObj);
 						manageExternalLinkAll();
 						manageImgLightboxLinkAll("img-lightbox-link");
@@ -2150,7 +2151,6 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 						manageDropdownButtonAll();
 						manageHljsCodeAll();
 						manageRippleEffect();
-						highlightSidedrawerItem();
 						manageReadMore();
 						manageExpandingLayers();
 						manageMacy(macyClass).then(function (result) {

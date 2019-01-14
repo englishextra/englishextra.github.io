@@ -3209,6 +3209,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 							: "");
 
 					if (appContentParent) {
+						highlightSidedrawerItem();
 						managePrevNextLinks(jsonObj);
 						manageExternalLinkAll();
 						manageImgLightboxLinkAll("img-lightbox-link");
@@ -3216,7 +3217,6 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 						manageDropdownButtonAll();
 						manageHljsCodeAll();
 						manageRippleEffect();
-						highlightSidedrawerItem();
 						manageReadMore();
 						manageExpandingLayers();
 						manageMacy(macyClass)
