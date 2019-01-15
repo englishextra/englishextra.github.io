@@ -78,6 +78,11 @@ select:active {
 	outline: none;
 }
 
+input[type="button"]::-moz-focus-inner,
+button::-moz-focus-inner {
+	border: 0;
+}
+
 img {
 	border: 0;
 	-ms-interpolation-mode: bicubic;
@@ -366,7 +371,6 @@ button {
 .mui-panel {
 	border: none;
 	border-radius: 0.125rem;
-	/* box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.16), 0 0.125rem 0.625rem 0 rgba(0, 0, 0, 0.12); */
 	box-shadow: 0 0.063rem 0.063rem 0 rgba(0, 0, 0, 0.16), 0 0 0.063rem 0 rgba(0, 0, 0, 0.12);
 	/*!
 	 * remove left and right margin on mobile

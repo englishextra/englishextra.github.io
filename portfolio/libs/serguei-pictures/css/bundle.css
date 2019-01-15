@@ -1816,6 +1816,11 @@ select:active {
 	outline: none;
 }
 
+input[type="button"]::-moz-focus-inner,
+button::-moz-focus-inner {
+	border: 0;
+}
+
 img {
 	border: 0;
 	-ms-interpolation-mode: bicubic;
