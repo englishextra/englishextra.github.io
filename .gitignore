@@ -16,3 +16,4 @@ intelxdk.config.additions.xml
 node_modules/
 project-info.json
 xdk-publish-meta-data.json
+*.zip

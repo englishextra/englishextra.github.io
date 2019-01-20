@@ -1,15 +1,18 @@
 {
 	"name": "englishextra",
-	"productName": "englishextra",
-	"companyName": "englishextra.github.io",
 	"version": "0.1.0",
 	"description": "English Grammar for Russian-Speakers",
+	"keywords": ["spa",
+	"pwa",
+	"webapp"],
+	"main_file": "index.js",
+	"electronVersion": "4.0.0",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/englishextra/englishextra.github.io.git"
 	},
 	"dependencies": {
-		"npm": "^6.5.0"
+		"npm": "^6.6.0"
 	},
 	"devDependencies": {
 		"gulp": "^4.0.0",
@@ -20,14 +23,14 @@
 		"test": "gulp lint-libbundle-js"
 	},
 	"email": "englishextra@mail.ru",
-	"url": "https://github.com/englishextra/englishextra.github.io/issues",
+	"url": "https://github.com/englishextra/qrjs/issues",
 	"maintainers": {
 		"name": "Serguei Shimansky",
 		"email": "englishextra@mail.ru",
 		"url": "https://github.com/englishextra"
 	},
 	"author": {
-		"name": "Serguei Shimansky",
+		"name": "englishextra",
 		"email": "englishextra@mail.ru",
 		"url": "https://github.com/englishextra"
 	},
