@@ -11,7 +11,7 @@
 	"email": "englishextra@mail.ru",
 	"url": "https://github.com/englishextra/englishextra.github.io/issues",
 	"main_file": "index.js",
-	"electronVersion": "1.6.11",
+	"electronVersion": "4.0.0",
 	"dependencies": {
 		"autoprefixer": "^7.1.1",
 		"babel-cli": "^6.24.1",

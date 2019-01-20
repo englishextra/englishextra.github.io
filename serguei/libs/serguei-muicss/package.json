@@ -2,18 +2,9 @@
 	"name": "serguei-muicss-dev",
 	"version": "1.0.0",
 	"description": "Developing Tutor of English in Tushino Portfolio PWA with https://github.com/muicss/mui.",
-	"keywords": [
-		"english",
-		"webapp",
-		"spa",
-		"html",
-		"css",
-		"scss",
-		"js",
-		"pwa",
-		"material",
-		"material-design"
-	],
+	"keywords": ["spa",
+	"pwa",
+	"webapp"],
 	"main": "gulpfile.js",
 	"dependencies": {
 		"npm": "^6.5.0"
