@@ -1036,37 +1036,44 @@
 		var onCreated = options.onCreated;
 		var onClosed = options.onClosed;
 		var link = document[getElementsByClassName](_linkClass) || "";
-		var container = document[createElement]("div");
-		container[classList].add(containerClass);
-		var html = [];
-		html.push('<img src="' + dummySrc + '" alt="" />');
-		html.push(
-			'<div class="half-circle-spinner"><div class="circle circle-1"></div><div class="circle circle-2"></div></div>'
-		);
-		html.push('<a href="javascript:void(0);" class="btn-close"></a>');
-		container[innerHTML] = html.join("");
-		docBody[appendChild](container);
-		container = document[getElementsByClassName](containerClass)[0] || "";
+		var container =
+			document[getElementsByClassName](containerClass)[0] || "";
 		var img = container
 			? container[getElementsByTagName]("img")[0] || ""
 			: "";
-		var btnClose = container
-			? container[getElementsByClassName](btnCloseClass)[0] || ""
-			: "";
 
-		var handleImgLightboxContainer = function handleImgLightboxContainer() {
-			hideImgLightbox(onClosed);
-		};
+		if (!container) {
+			container = document[createElement]("div");
+			container[classList].add(containerClass);
+			var html = [];
+			html.push('<img src="' + dummySrc + '" alt="" />');
+			html.push(
+				'<div class="half-circle-spinner"><div class="circle circle-1"></div><div class="circle circle-2"></div></div>'
+			);
+			html.push('<a href="javascript:void(0);" class="btn-close"></a>');
+			container[innerHTML] = html.join("");
+			docBody[appendChild](container);
+			img = container
+				? container[getElementsByTagName]("img")[0] || ""
+				: "";
+			var btnClose = container
+				? container[getElementsByClassName](btnCloseClass)[0] || ""
+				: "";
 
-		container[_addEventListener]("click", handleImgLightboxContainer);
-
-		btnClose[_addEventListener]("click", handleImgLightboxContainer);
-
-		root[_addEventListener]("keyup", function(ev) {
-			if (27 === (ev.which || ev.keyCode)) {
+			var handleImgLightboxContainer = function handleImgLightboxContainer() {
 				hideImgLightbox(onClosed);
-			}
-		});
+			};
+
+			container[_addEventListener]("click", handleImgLightboxContainer);
+
+			btnClose[_addEventListener]("click", handleImgLightboxContainer);
+
+			root[_addEventListener]("keyup", function(ev) {
+				if (27 === (ev.which || ev.keyCode)) {
+					hideImgLightbox(onClosed);
+				}
+			});
+		}
 
 		var arrange = function arrange(e) {
 			var hrefString =
@@ -3960,17 +3967,5 @@ function _typeof(obj) {
 		return EventEmitter;
 	};
 
-	if (typeof define === "function" && define.amd) {
-		define(function() {
-			return EventEmitter;
-		});
-	} else if (
-		(typeof module === "undefined" ? "undefined" : _typeof(module)) ===
-			"object" &&
-		module.exports
-	) {
-		module.exports = EventEmitter;
-	} else {
-		exports.EventEmitter = EventEmitter;
-	}
+	exports.EventEmitter = EventEmitter;
 })(typeof window !== "undefined" ? window : this || {});

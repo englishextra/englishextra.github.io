@@ -637,6 +637,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		var _removeEventListener = "removeEventListener";
 		var isActiveClass = "is-active";
 		var isBindedClass = "is-binded";
+
 		if (docElem && docElem[classList]) {
 			docElem[classList].remove("no-js");
 			docElem[classList].add("js");
@@ -1264,9 +1265,11 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			var handleExternalLink = function handleExternalLink(url, ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				var logic = function () {
+
+				var logic = function logic() {
 					openDeviceBrowser(url);
 				};
+
 				debounce(logic, 200).call(root);
 			};
 
@@ -1716,11 +1719,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 					initScript();
 				};
 
-				var debouncelogic = debounce(
-					logic,
-					200
-				);
-				debouncelogic();
+				debounce(logic, 200).call(root);
 			};
 
 			if (btn && holder && locationHref) {
@@ -1766,11 +1765,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 					manageOtherCollapsableAll(holder);
 				};
 
-				var debouncelogic = debounce(
-					logic,
-					200
-				);
-				debouncelogic();
+				debounce(logic, 200).call(root);
 			};
 
 			if (btn && holder) {
@@ -1838,11 +1833,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 					}
 				};
 
-				var debouncelogic = debounce(
-					logic,
-					200
-				);
-				debouncelogic();
+				debounce(logic, 200).call(root);
 			};
 
 			if (btn && holder && yaShare2) {
@@ -1903,11 +1894,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 					}
 				};
 
-				var debouncelogic = debounce(
-					logic,
-					200
-				);
-				debouncelogic();
+				debounce(logic, 200).call(root);
 			};
 
 			if (btn && holder && vkLike) {
@@ -3381,7 +3368,8 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 				clearInterval(slot);
 				slot = null;
 			}
-				var load;
+
+			var load;
 			load = new loadJsCss(scripts, run);
 		};
 
