@@ -722,7 +722,10 @@
 		var handleExternalLink = function (url, ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			debounce(openDeviceBrowser.bind(null, url), 200).call(root);
+			var logic = function () {
+					openDeviceBrowser(url);
+				};
+				debounce(logic, 200).call(root);
 		};
 		var manageExternalLinkAll = function (scope) {
 			var ctx = scope && scope.nodeName ? scope : "";

@@ -823,7 +823,10 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			var handleExternalLink = function (url, ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				debounce(openDeviceBrowser.bind(null, url), 200);
+				var logic = function () {
+					openDeviceBrowser(url);
+				};
+				debounce(logic, 200).call(root);
 			};
 			var arrange = function (e) {
 				var externalLinkIsBindedClass = "external-link--is-binded";
@@ -1102,7 +1105,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 				ev.stopPropagation();
 				ev.preventDefault();
 				manageOtherCollapsableAll(holder);
-				var logicHandleLocationQrCodeButton = function () {
+				var logic = function () {
 					holder[classList].toggle(isActiveClass);
 					var locationHref = root.location.href || "";
 					var newImg = document[createElement]("img");
@@ -1144,8 +1147,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 					};
 					initScript();
 				};
-				var debounceLogicHandleLocationQrCodeButton = debounce(logicHandleLocationQrCodeButton, 200);
-				debounceLogicHandleLocationQrCodeButton();
+				debounce(logic, 200).call(root);
 			};
 			if (btn && holder && locationHref) {
 				holder[classList].add(isCollapsableClass);
@@ -1166,13 +1168,12 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			var handleMobileappsButton = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				var logicHandleMobileappsButton = function () {
+				var logic = function () {
 					holder[classList].toggle(isActiveClass);
 					holder[classList].add(isCollapsableClass);
 					manageOtherCollapsableAll(holder);
 				};
-				var debounceLogicHandleMobileappsButton = debounce(logicHandleMobileappsButton, 200);
-				debounceLogicHandleMobileappsButton();
+				debounce(logic, 200).call(root);
 			};
 			if (btn && holder) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
@@ -1191,7 +1192,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			var handleShareButton = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				var logicHandleShareButton = function () {
+				var logic = function () {
 					holder[classList].toggle(isActiveClass);
 					holder[classList].add(isCollapsableClass);
 					manageOtherCollapsableAll(holder);
@@ -1224,8 +1225,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 						initScript();
 					}
 				};
-				var debounceLogicHandleShareButton = debounce(logicHandleShareButton, 200);
-				debounceLogicHandleShareButton();
+				debounce(logic, 200).call(root);
 			};
 			if (btn && holder && yaShare2) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
@@ -1244,7 +1244,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			var handleVKLikeButton = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				var logicHandleVKLikeButton = function () {
+				var logic = function () {
 					holder[classList].toggle(isActiveClass);
 					holder[classList].add(isCollapsableClass);
 					manageOtherCollapsableAll(holder);
@@ -1274,8 +1274,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 						initScript();
 					}
 				};
-				var debounceLogicHandleVKLikeButton = debounce(logicHandleVKLikeButton, 200);
-				debounceLogicHandleVKLikeButton();
+				debounce(logic, 200).call(root);
 			};
 			if (btn && holder && vkLike) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {

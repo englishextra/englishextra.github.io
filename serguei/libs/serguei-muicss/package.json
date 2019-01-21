@@ -36,8 +36,10 @@
 	"scripts": {
 		"test": "gulp lint-libbundle-js"
 	},
-	"main_file": "index.js",
-	"electronVersion": "4.0.0",
+	"main": "main.js",
+	"window": {
+		"icon": "favicon-32x32.png"
+	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/englishextra/serguei-muicss-dev.git"

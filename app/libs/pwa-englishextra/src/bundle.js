@@ -1082,7 +1082,10 @@ Ya*/
 		var handleExternalLink = function (url, ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			debounce(openDeviceBrowser.bind(null, url), 200).call(root);
+			var logic = function () {
+					openDeviceBrowser(url);
+				};
+				debounce(logic, 200).call(root);
 		};
 		var manageExternalLinkAll = function (scope) {
 			var ctx = scope && scope.nodeName ? scope : "";
@@ -2138,7 +2141,7 @@ Ya*/
 			var handleLocationQrCodeButton = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				var logicHandleLocationQrCodeButton = function () {
+				var logic = function () {
 					holder[classList].toggle(isActiveClass);
 					holder[classList].add(isCollapsableClass);
 					handleOtherSocialButtons(holder);
@@ -2189,8 +2192,7 @@ Ya*/
 					} */
 					initScript();
 				};
-				var debounceLogicHandleLocationQrCodeButton = debounce(logicHandleLocationQrCodeButton, 200);
-				debounceLogicHandleLocationQrCodeButton();
+				debounce(logic, 200).call(root);
 			};
 			if (btn && holder && locationHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
@@ -2209,7 +2211,7 @@ Ya*/
 			var handleShareButton = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				var logicHandleShareButton = function () {
+				var logic = function () {
 					holder[classList].toggle(isActiveClass);
 					holder[classList].add(isCollapsableClass);
 					handleOtherSocialButtons(holder);
@@ -2242,8 +2244,7 @@ Ya*/
 						initScript();
 					}
 				};
-				var debounceLogicHandleShareButton = debounce(logicHandleShareButton, 200);
-				debounceLogicHandleShareButton();
+				debounce(logic, 200).call(root);
 			};
 			if (btn && holder && yaShare2) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
@@ -2262,7 +2263,7 @@ Ya*/
 			var handleVKLikeButton = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				var logicHandleVKLikeButton = function () {
+				var logic = function () {
 					holder[classList].toggle(isActiveClass);
 					holder[classList].add(isCollapsableClass);
 					handleOtherSocialButtons(holder);
@@ -2292,8 +2293,7 @@ Ya*/
 						initScript();
 					}
 				};
-				var debounceLogicHandleVKLikeButton = debounce(logicHandleVKLikeButton, 200);
-				debounceLogicHandleVKLikeButton();
+				debounce(logic, 200).call(root);
 			};
 			if (btn && holder && vkLike) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {

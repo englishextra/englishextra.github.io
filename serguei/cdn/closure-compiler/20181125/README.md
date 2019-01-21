@@ -79,14 +79,14 @@ java -jar target/closure-compiler-1.0-SNAPSHOT.jar
 
 This starts the compiler in interactive mode. Type
 
-```javascript
+ ```js
 var x = 17 + 25;
 ```
 
 then hit "Enter", then hit "Ctrl-Z" (on Windows) or "Ctrl-D" (on Mac or Linux)
 and "Enter" again. The Compiler will respond:
 
-```javascript
+ ```js
 var x=42;
 ```
 

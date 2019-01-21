@@ -17,20 +17,14 @@ app.on("window-all-closed", function () {
 // called when Electron inits and is ready to create a browser window
 app.on("ready", function () {
 	// create the window
-	// https://github.com/electron/electron/blob/master/docs/api/browser-window.md
-	// https://electronjs.org/docs/tutorial/security
 	mainWindow = new BrowserWindow({
-			webPreferences: {
-				contextIsolation: true,
-				nodeIntegration: true
-			},
-			width: 844,
-			height: 640,
-			icon: "favicon.ico",
+			width : 844,
+			height : 640,
+			icon : "favicon.ico",
 			title : "Английский без регистрации"
 		});
 	// load index.html
-	/* mainWindow.loadURL("file://" + __dirname + "/index.html"); */
+	/* mainWindow.loadURL("file://" + __dirname + "/www/index.html"); */
 	mainWindow.loadURL(path.join("file://", __dirname, "/index.html"));
 	// open DevTools.
 	// mainWindow.webContents.openDevTools();

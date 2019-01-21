@@ -213,14 +213,6 @@
 		exports.EventEmitter = originalGlobalValue;
 		return EventEmitter;
 	};
-	if (typeof define === 'function' && define.amd) {
-		define(function () {
-			return EventEmitter;
-		});
-	} else if (typeof module === 'object' && module.exports) {
-		module.exports = EventEmitter;
-	} else {
-		exports.EventEmitter = EventEmitter;
-	}
+	exports.EventEmitter = EventEmitter;
 })
 (typeof window !== 'undefined' ? window : this || {});
