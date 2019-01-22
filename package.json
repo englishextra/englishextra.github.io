@@ -2,11 +2,9 @@
 	"name": "englishextra",
 	"version": "0.1.0",
 	"description": "English Grammar for Russian-Speakers",
-	"keywords": [
-		"spa",
-		"pwa",
-		"webapp"
-	],
+	"keywords": ["spa",
+	"pwa",
+	"webapp"],
 	"main": "main.js",
 	"window": {
 		"icon": "favicon-32x32.png"

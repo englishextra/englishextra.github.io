@@ -5,7 +5,10 @@
 	"keywords": ["spa",
 	"pwa",
 	"webapp"],
-	"main": "gulpfile.js",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/englishextra/serguei-muicss-dev.git"
+	},
 	"dependencies": {
 		"npm": "^6.6.0"
 	},
@@ -35,14 +38,6 @@
 	},
 	"scripts": {
 		"test": "gulp lint-libbundle-js"
-	},
-	"main": "main.js",
-	"window": {
-		"icon": "favicon-32x32.png"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/englishextra/serguei-muicss-dev.git"
 	},
 	"email": "englishextra@mail.ru",
 	"url": "https://github.com/englishextra/qrjs/issues",
