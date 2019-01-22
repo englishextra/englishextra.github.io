@@ -2,9 +2,11 @@
 	"name": "englishextra",
 	"version": "0.1.0",
 	"description": "English Grammar for Russian-Speakers",
-	"keywords": ["spa",
-	"pwa",
-	"webapp"],
+	"keywords": [
+		"spa",
+		"pwa",
+		"webapp"
+	],
 	"main": "main.js",
 	"window": {
 		"icon": "favicon-32x32.png"
@@ -17,9 +19,22 @@
 		"npm": "^6.6.0"
 	},
 	"devDependencies": {
+		"@babel/core": "^7.2.2",
+		"@babel/plugin-transform-arrow-functions": "^7.2.0",
+		"@babel/plugin-transform-async-to-generator": "^7.2.0",
+		"@babel/plugin-transform-object-assign": "^7.2.0",
+		"@babel/preset-env": "^7.2.0",
 		"gulp": "^4.0.0",
+		"gulp-babel": "^8.0.0",
 		"gulp-cli": "^2.0.1",
-		"gulp-eslint": "^5.0.0"
+		"gulp-eslint": "^5.0.0",
+		"gulp-plumber": "^1.2.1",
+		"gulp-prettier": "^2.0.0",
+		"gulp-rename": "^1.4.0",
+		"gulp-replace": "^1.0.0",
+		"gulp-sourcemaps": "^2.6.4",
+		"gulp-strip-debug": "^3.0.0",
+		"gulp-uglify": "^3.0.1"
 	},
 	"scripts": {
 		"test": "gulp lint-libbundle-js"
