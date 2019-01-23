@@ -817,7 +817,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			document[title] = document[title] + userBrowsingDetails;
 		}
 
-		var debounce = function debounce(func, wait) {
+		var debounce = function (func, wait) {
 			var timeout;
 			var args;
 			var context;
@@ -844,7 +844,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			};
 		};
 
-		var throttle = function throttle(func, wait) {
+		var throttle = function (func, wait) {
 			var ctx;
 			var args;
 			var rtn;
@@ -1937,7 +1937,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			};
 
 			var handleUiTotopWindow = function handleUiTotopWindow(_this) {
-				var logicHandleUiTotopWindow = function logicHandleUiTotopWindow() {
+				var logic = function logic() {
 					var btn =
 						document[getElementsByClassName](btnClass)[0] || "";
 					var scrollPosition =
@@ -1960,11 +1960,11 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 					}
 				};
 
-				var throttleLogicHandleUiTotopWindow = throttle(
-					logicHandleUiTotopWindow,
+				var throttlelogic = throttle(
+					logic,
 					100
 				);
-				throttleLogicHandleUiTotopWindow();
+				throttlelogic();
 			};
 
 			anchor[classList].add(btnClass, "mui-btn");
@@ -2952,8 +2952,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 				}
 			};
 
-			var throttleLogic = throttle(logic, 100);
-			throttleLogic();
+			throttle(logic, 100).call(root);
 		};
 
 		var revealAppBar = function revealAppBar() {
@@ -2970,8 +2969,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 				}
 			};
 
-			var throttleLogic = throttle(logic, 100);
-			throttleLogic();
+			throttle(logic, 100).call(root);
 		};
 
 		var resetAppBar = function resetAppBar() {
@@ -2985,8 +2983,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 				}
 			};
 
-			var throttleLogic = throttle(logic, 100);
-			throttleLogic();
+			throttle(logic, 100).call(root);
 		};
 
 		if (appBar) {

@@ -877,10 +877,9 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 				}
 			}
 		};
-		var handleDataSrcImageAllWindow = function () {
-			var throttleHandleDataSrcImageAll = throttle(handleDataSrcImageAll, 100);
-			throttleHandleDataSrcImageAll();
-		};
+		
+		var handleDataSrcImageAllWindow = throttle(handleDataSrcImageAll, 100);
+		
 		var manageDataSrcImageAll = function () {
 			root[_addEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
 			root[_addEventListener]("resize", handleDataSrcImageAllWindow, {passive: true});
@@ -919,10 +918,9 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 				}
 			}
 		};
-		var handleDataSrcIframeAllWindow = function () {
-			var throttlehandleDataSrcIframeAll = throttle(handleDataSrcIframeAll, 100);
-			throttlehandleDataSrcIframeAll();
-		};
+		
+		var handleDataSrcIframeAllWindow = throttle(handleDataSrcIframeAll, 100);
+		
 		var manageDataSrcIframeAll = function () {
 			root[_addEventListener]("scroll", handleDataSrcIframeAllWindow, {passive: true});
 			root[_addEventListener]("resize", handleDataSrcIframeAllWindow, {passive: true});
@@ -1302,7 +1300,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 				scroll2Top(0, 20000);
 			};
 			var handleUiTotopWindow = function (_this) {
-				var logicHandleUiTotopWindow = function () {
+				var logic = function () {
 					var btn = document[getElementsByClassName](btnClass)[0] || "";
 					var scrollPosition = _this.pageYOffset || docElem.scrollTop || docBody.scrollTop || "";
 					var windowHeight = _this.innerHeight || docElem.clientHeight || docBody.clientHeight || "";
@@ -1314,8 +1312,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 						}
 					}
 				};
-				var throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
-				throttleLogicHandleUiTotopWindow();
+				throttle(logic, 100).call(root);
 			};
 			anchor[classList].add(btnClass, "mui-btn");
 			anchor[classList].add(btnClass, "mui-btn--fab");
@@ -1994,8 +1991,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 					appBar[classList].remove(isHiddenClass);
 				}
 			};
-			var throttleLogic = throttle(logic, 100);
-			throttleLogic();
+			throttle(logic, 100).call(root);
 		};
 		var revealAppBar = function () {
 			var logic = function () {
@@ -2006,8 +2002,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 					appBar[classList].remove(isFixedClass);
 				}
 			};
-			var throttleLogic = throttle(logic, 100);
-			throttleLogic();
+			throttle(logic, 100).call(root);
 		};
 		var resetAppBar = function () {
 			var logic = function () {
@@ -2016,8 +2011,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 					appBar[classList].remove(isFixedClass);
 				}
 			};
-			var throttleLogic = throttle(logic, 100);
-			throttleLogic();
+			throttle(logic, 100).call(root);
 		};
 		if (appBar) {
 			root[_addEventListener]("scroll", resetAppBar, {passive: true});

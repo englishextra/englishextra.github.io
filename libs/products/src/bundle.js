@@ -1030,8 +1030,7 @@ ToProgress, unescape, VK, Ya*/
 						initScript();
 					}
 				};
-				var debounceLogic = debounce(logic, 200);
-				debounceLogic();
+				debounce(logic, 200).call(root);
 			};
 			if (btn && yaShare2) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
@@ -1082,8 +1081,7 @@ ToProgress, unescape, VK, Ya*/
 						initScript();
 					}
 				};
-				var debounceLogic = debounce(logic, 200);
-				debounceLogic();
+				debounce(logic, 200).call(root);
 			};
 			if (btn && vkLike) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
@@ -1153,7 +1151,8 @@ ToProgress, unescape, VK, Ya*/
 	 * load scripts after webfonts loaded using doesFontExist
 	 */
 
-	var supportsCanvas = (function () {
+	var supportsCanvas;
+	supportsCanvas	= (function () {
 		var elem = document[createElement]("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
 	})();
@@ -1171,7 +1170,8 @@ ToProgress, unescape, VK, Ya*/
 			load = new loadJsCss(scripts, run);
 		};
 
-		var checkFontIsLoaded = function () {
+		var checkFontIsLoaded;
+		checkFontIsLoaded = function () {
 			/*!
 			 * check only for fonts that are used in current page
 			 */

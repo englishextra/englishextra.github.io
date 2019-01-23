@@ -689,9 +689,10 @@ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 				var handleExternalLink = function (url, evt) {
 					evt.stopPropagation();
 					evt.preventDefault();
-					var logic = openDeviceBrowser.bind(null, url);
-					var debounceLogic = debounce(logic, 200);
-					debounceLogic();
+					var logic = function () {
+						openDeviceBrowser(url);
+					};
+					debounce(logic, 200).call(root);
 				};
 				if (!e[classList].contains(isBindedClass) &&
 						!e.target &&
@@ -1115,8 +1116,7 @@ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 					initScript();
 				}
 			};
-			var debounceLogic = debounce(logic, 200);
-			debounceLogic();
+			debounce(logic, 200).call(root);
 		};
 
 		if (btnShare && btnShareLink && yaShare2) {
@@ -1168,8 +1168,7 @@ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 					initScript();
 				}
 			};
-			var debounceLogic = debounce(logic, 200);
-			debounceLogic();
+			debounce(logic, 200).call(root);
 		};
 
 		if (btnLike && btnLikeLink && vkLike) {
@@ -1190,8 +1189,7 @@ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 					titleBar[classList].remove(isFixedClass);
 				}
 			};
-			var throttleLogic = throttle(logic, 100);
-			throttleLogic();
+			throttle(logic, 100).call(root);
 		};
 		if (titleBar) {
 			root[_addEventListener]("scroll", handleTitleBar, {passive: true});
@@ -1217,8 +1215,7 @@ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 					titleBar[classList].remove(slideOutUpClass);
 				}
 			};
-			var throttleLogic = throttle(logic, 100);
-			throttleLogic();
+			throttle(logic, 100).call(root);
 		};
 		var revealTitleBar = function () {
 			var logic = function () {
@@ -1231,8 +1228,7 @@ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 					titleBar[classList].remove(slideInDownClass);
 				}
 			};
-			var throttleLogic = throttle(logic, 100);
-			throttleLogic();
+			throttle(logic, 100).call(root);
 		};
 		if (wrapper && titleBar) {
 			titleBar[classList].add(animatedClass);
@@ -1277,8 +1273,7 @@ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 					titleBar[classList].remove(isHiddenClass);
 				}
 			};
-			var throttleLogic = throttle(logic, 100);
-			throttleLogic();
+			throttle(logic, 100).call(root);
 		};
 		var revealTitleBar = function () {
 			var logic = function () {
@@ -1289,8 +1284,7 @@ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 					titleBar[classList].remove(isFixedClass);
 				}
 			};
-			var throttleLogic = throttle(logic, 100);
-			throttleLogic();
+			throttle(logic, 100).call(root);
 		};
 		var resetTitleBar = function () {
 			var logic = function () {
@@ -1299,8 +1293,7 @@ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 					titleBar[classList].remove(isFixedClass);
 				}
 			};
-			var throttleLogic = throttle(logic, 100);
-			throttleLogic();
+			throttle(logic, 100).call(root);
 		};
 		if (titleBar) {
 			root[_addEventListener]("scroll", resetTitleBar, {passive: true});
@@ -1350,8 +1343,7 @@ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 					}
 				}
 			};
-			var throttleLogic = throttle(logic, 100);
-			throttleLogic();
+			throttle(logic, 100).call(root);
 		};
 		if (btnTotop) {
 			btnTotop[_addEventListener]("click", handleBtnTotop);
@@ -1419,7 +1411,8 @@ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 	 * load scripts after webfonts loaded using doesFontExist
 	 */
 
-	var supportsCanvas = (function () {
+	var supportsCanvas;
+	supportsCanvas	= (function () {
 		var elem = document[createElement]("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
 	})();
@@ -1437,7 +1430,8 @@ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 			load = new loadJsCss(scripts, run);
 		};
 
-		var checkFontIsLoaded = function () {
+		var checkFontIsLoaded;
+		checkFontIsLoaded = function () {
 			/*!
 			 * check only for fonts that are used in current page
 			 */

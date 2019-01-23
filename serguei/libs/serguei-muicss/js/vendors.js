@@ -700,7 +700,7 @@
 			this.create();
 		}
 
-		var debounce = function debounce(func, wait) {
+		var debounce = function (func, wait) {
 			var timeout, args, context, timestamp;
 			return function() {
 				context = this;
@@ -942,7 +942,7 @@
 		"onmsgesturechange" in root ||
 		navigator.msMaxTouchPoints;
 
-	var debounce = function debounce(func, wait) {
+	var debounce = function (func, wait) {
 		var timeout;
 		var args;
 		var context;

@@ -1151,10 +1151,9 @@ Ya*/
 				/* forEach(img, arrange, false); */
 			}
 		};
-		var handleDataSrcImageAllWindow = function () {
-			var throttleHandleDataSrcImageAll = throttle(handleDataSrcImageAll, 100);
-			throttleHandleDataSrcImageAll();
-		};
+		
+		var handleDataSrcImageAllWindow = throttle(handleDataSrcImageAll, 100);
+		
 		var manageDataSrcImageAll = function () {
 			root[_removeEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
 			root[_removeEventListener]("resize", handleDataSrcImageAllWindow);
@@ -1204,10 +1203,9 @@ Ya*/
 				/* forEach(iframe, arrange, false); */
 			}
 		};
-		var handleDataSrcIframeAllWindow = function () {
-			var throttlehandleDataSrcIframeAll = throttle(handleDataSrcIframeAll, 100);
-			throttlehandleDataSrcIframeAll();
-		};
+		
+		var handleDataSrcIframeAllWindow = throttle(handleDataSrcIframeAll, 100);
+		
 		var manageDataSrcIframeAll = function () {
 			root[_removeEventListener]("scroll", handleDataSrcIframeAllWindow, {passive: true});
 			root[_removeEventListener]("resize", handleDataSrcIframeAllWindow);
@@ -1318,7 +1316,7 @@ Ya*/
 					ev.stopPropagation();
 					ev.preventDefault();
 					var _this = this;
-					var logicHandleImgLightboxLink = function () {
+					var logic = function () {
 						var hrefString = _this[getAttribute]("href") || "";
 						if (container && img && hrefString) {
 							LoadingSpinner.show();
@@ -1340,8 +1338,7 @@ Ya*/
 							LoadingSpinner.hide();
 						}
 					};
-					var debounceLogicHandleImgLightboxLink = debounce(logicHandleImgLightboxLink, 200);
-					debounceLogicHandleImgLightboxLink();
+					debounce(logic, 200).call(root);
 				};
 				if (!e[classList].contains(isBindedClass)) {
 					var hrefString = e[getAttribute]("href") || "";
@@ -1602,7 +1599,7 @@ Ya*/
 				var handleDisqusButton = function (ev) {
 					ev.stopPropagation();
 					ev.preventDefault();
-					var logicHandleDisqusButton = function () {
+					var logic = function () {
 						var initScript = function () {
 							if (root.DISQUS) {
 								try {
@@ -1628,8 +1625,7 @@ Ya*/
 							initScript();
 						}
 					};
-					var debounceLogicHandleDisqusButton = debounce(logicHandleDisqusButton, 200);
-					debounceLogicHandleDisqusButton();
+					debounce(logic, 200).call(root);
 				};
 				btn[_addEventListener]("click", handleDisqusButton);
 				btn[classList].add(isBindedClass);
@@ -1782,11 +1778,10 @@ Ya*/
 			var searchInput = document[getElementById]("text") || "";
 			var handleSearchInputValue = function () {
 				var _this = this;
-				var logicHandleSearchInputValue = function () {
+				var logic = function () {
 					_this.value = _this.value.replace(/\\/g, "").replace(/ +(?= )/g, " ").replace(/\/+(?=\/)/g, "/") || "";
 				};
-				var debounceLogicHandleSearchInputValue = debounce(logicHandleSearchInputValue, 200);
-				debounceLogicHandleSearchInputValue();
+				debounce(logic, 200).call(root);
 			};
 			if (searchInput) {
 				searchInput.focus();
@@ -1874,7 +1869,7 @@ Ya*/
 					/*!
 					 * fix typo - non latin characters found
 					 */
-					var logicReplaceTypo = function () {
+					var logic = function () {
 						while (itemsLength < 1) {
 							var textInputValue = textInput.value || "";
 							if (/[^\u0000-\u007f]/.test(textInputValue)) {
@@ -1897,8 +1892,7 @@ Ya*/
 							itemsLength += 1;
 						}
 					};
-					var debounceLogicReplaceTypo = debounce(logicReplaceTypo, 200);
-					debounceLogicReplaceTypo();
+					debounce(logic, 200).call(root);
 					/*!
 					 * truncate text
 					 */
@@ -2039,9 +2033,7 @@ Ya*/
 					alignToMasterBottomLeft(showRenderNavbarMoreId, renderNavbarMoreId);
 				};
 				var handleShowNavbarListsWindow = function () {
-					var logicHandleShowNavbarListsWindow = alignNavbarListAll;
-					var throttleLogicHandleShowNavbarListsWindow = throttle(logicHandleShowNavbarListsWindow, 100);
-					throttleLogicHandleShowNavbarListsWindow();
+					throttle(alignNavbarListAll, 100).call(root);
 				};
 				if (popularTemplate && popularRender) {
 					insertFromTemplate(navigationJsonResponse, popularTemplateId, popularRenderId, function () {
@@ -2092,15 +2084,14 @@ Ya*/
 			var uiPanelContentsSelect = document[getElementsByClassName]("ui-panel-contents-select")[0] || "";
 			var criticalHeight = (uiPanelNavigation ? uiPanelNavigation.offsetHeight : 0) + (holderHero ? holderHero.offsetHeight : 0);
 			var handleUiPanelContentsSelect = function () {
-				var logicHandleUiPanelContentsSelect = function () {
+				var logic = function () {
 					if ((docBody.scrollTop || docElem.scrollTop || 0) > criticalHeight) {
 						uiPanelContentsSelect[classList].add(isFixedClass);
 					} else {
 						uiPanelContentsSelect[classList].remove(isFixedClass);
 					}
 				};
-				var throttleLogicHandleUiPanelContentsSelect = throttle(logicHandleUiPanelContentsSelect, 100);
-				throttleLogicHandleUiPanelContentsSelect();
+				throttle(logic, 100).call(root);
 			};
 			if (uiPanelContentsSelect) {
 				root[_addEventListener]("scroll", handleUiPanelContentsSelect, {passive: true});
@@ -2802,7 +2793,7 @@ Ya*/
 				scroll2Top(0, 20000);
 			};
 			var handleUiTotopWindow = function (_this) {
-				var logicHandleUiTotopWindow = function () {
+				var logic = function () {
 					var btn = document[getElementsByClassName](btnClass)[0] || "";
 					var scrollPosition = _this.pageYOffset || docElem.scrollTop || docBody.scrollTop || "";
 					var windowHeight = _this.innerHeight || docElem.clientHeight || docBody.clientHeight || "";
@@ -2814,8 +2805,7 @@ Ya*/
 						}
 					}
 				};
-				var throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
-				throttleLogicHandleUiTotopWindow();
+				throttle(logic, 100).call(root);
 			};
 			anchor[classList].add(btnClass);
 			/* jshint -W107 */
@@ -2895,7 +2885,8 @@ Ya*/
 	 * load scripts after webfonts loaded using doesFontExist
 	 */
 
-	var supportsCanvas = (function () {
+	var supportsCanvas;
+	supportsCanvas	= (function () {
 		var elem = document[createElement]("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
 	})();
@@ -2913,7 +2904,8 @@ Ya*/
 			load = new loadJsCss(scripts, run);
 		};
 
-		var checkFontIsLoaded = function () {
+		var checkFontIsLoaded;
+		checkFontIsLoaded = function () {
 			/*!
 			 * check only for fonts that are used in current page
 			 */

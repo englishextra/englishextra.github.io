@@ -829,8 +829,7 @@
 						initScript();
 					}
 				};
-				var debounceLogic = debounce(logic, 200);
-				debounceLogic();
+				debounce(logic, 200).call(root);
 			};
 			if (btn && yaShare2) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
@@ -881,8 +880,7 @@
 						initScript();
 					}
 				};
-				var debounceLogic = debounce(logic, 200);
-				debounceLogic();
+				debounce(logic, 200).call(root);
 			};
 			if (btn && vkLike) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
@@ -905,7 +903,7 @@
 				scroll2Top(0, 20000);
 			};
 			var handleUiTotopWindow = function (_this) {
-				var logicHandleUiTotopWindow = function () {
+				var logic = function () {
 					var btn = document[getElementsByClassName](btnClass)[0] || "";
 					var scrollPosition = _this.pageYOffset || docElem.scrollTop || docBody.scrollTop || "";
 					var windowHeight = _this.innerHeight || docElem.clientHeight || docBody.clientHeight || "";
@@ -917,8 +915,7 @@
 						}
 					}
 				};
-				var throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
-				throttleLogicHandleUiTotopWindow();
+				throttle(logic, 100).call(root);
 			};
 			anchor[classList].add(btnClass);
 			/* jshint -W107 */
@@ -993,7 +990,8 @@
 	 * load scripts after webfonts loaded using doesFontExist
 	 */
 
-	var supportsCanvas = (function () {
+	var supportsCanvas;
+	supportsCanvas	= (function () {
 		var elem = document[createElement]("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
 	})();
@@ -1011,7 +1009,8 @@
 			load = new loadJsCss(scripts, run);
 		};
 
-		var checkFontIsLoaded = function () {
+		var checkFontIsLoaded;
+		checkFontIsLoaded = function () {
 			/*!
 			 * check only for fonts that are used in current page
 			 */

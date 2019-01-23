@@ -501,7 +501,8 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 
 	var styleSheetsLength = document[styleSheets][_length] || 0;
 
-	var supportsCanvas = (function () {
+	var supportsCanvas;
+	supportsCanvas	= (function () {
 		var elem = document[createElement]("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
 	})();
@@ -751,9 +752,10 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 				var handleExternalLink = function (url, evt) {
 					evt.stopPropagation();
 					evt.preventDefault();
-					var logic = openDeviceBrowser.bind(null, url);
-					var debounceLogic = debounce(logic, 200);
-					debounceLogic();
+					var logic = function () {
+						openDeviceBrowser(url);
+					};
+					debounce(logic, 200).call(root);
 				};
 				if (!e[classList].contains(isBindedClass) &&
 						!e.target &&
@@ -1036,8 +1038,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 					initScript();
 				}
 			};
-			var debounceLogic = debounce(logic, 200);
-			debounceLogic();
+			debounce(logic, 200).call(root);
 		};
 
 		if (btnShare && btnShareLink && yaShare2) {
@@ -1089,8 +1090,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 					initScript();
 				}
 			};
-			var debounceLogic = debounce(logic, 200);
-			debounceLogic();
+			debounce(logic, 200).call(root);
 		};
 
 		if (btnLike && btnLikeLink && vkLike) {
@@ -1174,7 +1174,8 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 			load = new loadJsCss(scripts, run);
 		};
 
-		var checkFontIsLoaded = function () {
+		var checkFontIsLoaded;
+		checkFontIsLoaded = function () {
 			/*!
 			 * check only for fonts that are used in current page
 			 */

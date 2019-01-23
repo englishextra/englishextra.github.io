@@ -968,10 +968,9 @@ ToProgress, unescape, verge, VK, Ya*/
 				}
 			}
 		};
-		var handleDataSrcImageAllWindow = function () {
-			var throttleHandleDataSrcImageAll = throttle(handleDataSrcImageAll, 100);
-			throttleHandleDataSrcImageAll();
-		};
+		
+		var handleDataSrcImageAllWindow = throttle(handleDataSrcImageAll, 100);
+		
 		var manageDataSrcImageAll = function () {
 			root[_removeEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
 			root[_removeEventListener]("resize", handleDataSrcImageAllWindow);
@@ -1173,11 +1172,10 @@ ToProgress, unescape, verge, VK, Ya*/
 			var searchInput = document[getElementById]("text") || "";
 			var handleSearchInputValue = function () {
 				var _this = this;
-				var logicHandleSearchInputValue = function () {
+				var logic = function () {
 					_this.value = _this.value.replace(/\\/g, "").replace(/ +(?= )/g, " ").replace(/\/+(?=\/)/g, "/") || "";
 				};
-				var debounceLogicHandleSearchInputValue = debounce(logicHandleSearchInputValue, 200);
-				debounceLogicHandleSearchInputValue();
+				debounce(logic, 200).call(root);
 			};
 			if (searchInput) {
 				searchInput.focus();
@@ -1496,8 +1494,7 @@ ToProgress, unescape, verge, VK, Ya*/
 						initScript();
 					}
 				};
-				var debounceLogic = debounce(logic, 200);
-				debounceLogic();
+				debounce(logic, 200).call(root);
 			};
 			if (btn && yaShare2) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
@@ -1548,8 +1545,7 @@ ToProgress, unescape, verge, VK, Ya*/
 						initScript();
 					}
 				};
-				var debounceLogic = debounce(logic, 200);
-				debounceLogic();
+				debounce(logic, 200).call(root);
 			};
 			if (btn && vkLike) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
@@ -1731,7 +1727,7 @@ ToProgress, unescape, verge, VK, Ya*/
 				scroll2Top(0, 20000);
 			};
 			var handleUiTotopWindow = function (_this) {
-				var logicHandleUiTotopWindow = function () {
+				var logic = function () {
 					var btn = document[getElementsByClassName](btnClass)[0] || "";
 					var scrollPosition = _this.pageYOffset || docElem.scrollTop || docBody.scrollTop || "";
 					var windowHeight = _this.innerHeight || docElem.clientHeight || docBody.clientHeight || "";
@@ -1743,8 +1739,7 @@ ToProgress, unescape, verge, VK, Ya*/
 						}
 					}
 				};
-				var throttleLogicHandleUiTotopWindow = throttle(logicHandleUiTotopWindow, 100);
-				throttleLogicHandleUiTotopWindow();
+				throttle(logic, 100).call(root);
 			};
 			anchor[classList].add(btnClass);
 			/* jshint -W107 */
@@ -1823,7 +1818,8 @@ ToProgress, unescape, verge, VK, Ya*/
 	 * load scripts after webfonts loaded using doesFontExist
 	 */
 
-	var supportsCanvas = (function () {
+	var supportsCanvas;
+	supportsCanvas	= (function () {
 		var elem = document[createElement]("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
 	})();
@@ -1841,7 +1837,8 @@ ToProgress, unescape, verge, VK, Ya*/
 			load = new loadJsCss(scripts, run);
 		};
 
-		var checkFontIsLoaded = function () {
+		var checkFontIsLoaded;
+		checkFontIsLoaded = function () {
 			/*!
 			 * check only for fonts that are used in current page
 			 */
