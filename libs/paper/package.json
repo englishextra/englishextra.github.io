@@ -2,11 +2,9 @@
 	"name": "paper",
 	"version": "0.1.0",
 	"description": "a Web UI library",
-	"keywords": [
-		"spa",
-		"pwa",
-		"webapp"
-	],
+	"keywords": ["spa",
+	"pwa",
+	"webapp"],
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/englishextra/shimansky.biz.git"

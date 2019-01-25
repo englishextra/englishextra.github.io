@@ -1,4 +1,12 @@
-/*! @import "main"; */
+@function encodecolor($string) {
+	@if type-of($string)=='color' {
+		$hex: str-slice(ie-hex-str($string), 4);
+		$string:unquote("#{$hex}");
+	}
+
+	$string: '%23'+$string;
+	@return $string;
+}
 
 /*!
  * main
@@ -1801,6 +1809,33 @@ img.office-qrcode-img {
 .minigrid__item.minigrid__item--copyright .copyright {
 	font-size: 0.800rem;
 	line-height: 1.067rem;
+}
+
+/*!
+ * iframe-lightbox
+ * hide default css preloader
+ */
+
+.iframe-lightbox .content > .body .half-circle-spinner {
+	display: none;
+}
+
+.iframe-lightbox iframe {
+	box-shadow: 0.250rem 0.250rem 0.250rem 0 rgba(3, 3, 3, 0.3);
+}
+
+/*!
+ * img-lightbox
+ * hide default css preloader
+ * daneden.github.io/animate.css/
+ */
+
+.img-lightbox .half-circle-spinner {
+	display: none;
+}
+
+.img-lightbox img {
+	box-shadow: 0.250rem 0.250rem 0.250rem 0 rgba(3, 3, 3, 0.3);
 }
 
 /*!

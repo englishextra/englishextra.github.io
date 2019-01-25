@@ -1,7 +1,5 @@
 /*! libs\products\scss\bundle.scss */
-
 /*! @import "englishextra-ui-colors" */
-
 /*!
  * englishextra-ui colors
  * use microsoft.com/en-us/design/color
@@ -12,7 +10,6 @@
  * localhost/tools/hexcolortool/index.html
  * localhost/tools/css3-playground/
  */
-
 /* 0073D2
 007DD1
 5E308F
@@ -36,7 +33,6 @@ EB5262
 615FC8
 744DA5
 3087CD */
-
 /* \$(.*?)\: (.*?)\;
 \t\t\t\t\t\t\t\t\t\t<div class="masonry-grid-item"><div class="bg-\1"><span class="color-variable-name">$\1</span></div></div>
 
@@ -44,14 +40,16 @@ EB5262
 .bg-\1 {
 	background-color: $\1;
 } */
-
 /*! @import "englishextra-ui-variables"; */
-
 /*! @import "font-face"; */
-
 @font-face {
 	font-family: "englishextra-ui-icons";
-	src: url(../../../fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.woff2) format("woff2"), url(../../../fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.woff) format("woff"), url(../../../fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.ttf) format("truetype");
+	src: url(../../../fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.woff2)
+			format("woff2"),
+		url(../../../fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.woff)
+			format("woff"),
+		url(../../../fonts/englishextra-ui-icons-fontfacekit/englishextra-ui-icons.ttf)
+			format("truetype");
 	font-weight: normal;
 	font-style: normal;
 	font-display: swap;
@@ -72,11 +70,12 @@ EB5262
 	font-weight: 400;
 	font-display: swap;
 } */
-
 @font-face {
 	font-family: Roboto;
-	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Thin.woff2?v=2.137) format("woff2"),
-	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Thin.woff?v=2.137) format("woff");
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Thin.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Thin.woff?v=2.137)
+			format("woff");
 	font-weight: 100;
 	font-style: normal;
 	font-display: swap;
@@ -84,8 +83,10 @@ EB5262
 
 @font-face {
 	font-family: Roboto;
-	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-ThinItalic.woff2?v=2.137) format("woff2"),
-	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-ThinItalic.woff?v=2.137) format("woff");
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-ThinItalic.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-ThinItalic.woff?v=2.137)
+			format("woff");
 	font-weight: 100;
 	font-style: italic;
 	font-display: swap;
@@ -93,8 +94,10 @@ EB5262
 
 @font-face {
 	font-family: Roboto;
-	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Light.woff2?v=2.137) format("woff2"),
-	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Light.woff?v=2.137) format("woff");
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Light.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Light.woff?v=2.137)
+			format("woff");
 	font-weight: 300;
 	font-style: normal;
 	font-display: swap;
@@ -102,8 +105,10 @@ EB5262
 
 @font-face {
 	font-family: Roboto;
-	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-LightItalic.woff2?v=2.137) format("woff2"),
-	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-LightItalic.woff?v=2.137) format("woff");
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-LightItalic.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-LightItalic.woff?v=2.137)
+			format("woff");
 	font-weight: 300;
 	font-style: italic;
 	font-display: swap;
@@ -111,8 +116,10 @@ EB5262
 
 @font-face {
 	font-family: Roboto;
-	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Regular.woff2?v=2.137) format("woff2"),
-	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Regular.woff?v=2.137) format("woff");
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Regular.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Regular.woff?v=2.137)
+			format("woff");
 	font-weight: 400;
 	font-style: normal;
 	font-display: swap;
@@ -120,8 +127,10 @@ EB5262
 
 @font-face {
 	font-family: Roboto;
-	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Regular.woff2?v=2.137) format("woff2"),
-	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Regular.woff?v=2.137) format("woff");
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Regular.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Regular.woff?v=2.137)
+			format("woff");
 	font-weight: 400;
 	font-style: normal;
 	font-display: swap;
@@ -129,8 +138,10 @@ EB5262
 
 @font-face {
 	font-family: Roboto;
-	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Italic.woff2?v=2.137) format("woff2"),
-	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Italic.woff?v=2.137) format("woff");
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Italic.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Italic.woff?v=2.137)
+			format("woff");
 	font-weight: 400;
 	font-style: italic;
 	font-display: swap;
@@ -138,8 +149,10 @@ EB5262
 
 @font-face {
 	font-family: Roboto;
-	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Italic.woff2?v=2.137) format("woff2"),
-	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Italic.woff?v=2.137) format("woff");
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Italic.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Italic.woff?v=2.137)
+			format("woff");
 	font-weight: 400;
 	font-style: italic;
 	font-display: swap;
@@ -147,8 +160,10 @@ EB5262
 
 @font-face {
 	font-family: Roboto;
-	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Medium.woff2?v=2.137) format("woff2"),
-	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Medium.woff?v=2.137) format("woff");
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Medium.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Medium.woff?v=2.137)
+			format("woff");
 	font-weight: 500;
 	font-style: normal;
 	font-display: swap;
@@ -156,8 +171,10 @@ EB5262
 
 @font-face {
 	font-family: Roboto;
-	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-MediumItalic.woff2?v=2.137) format("woff2"),
-	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-MediumItalic.woff?v=2.137) format("woff");
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-MediumItalic.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-MediumItalic.woff?v=2.137)
+			format("woff");
 	font-weight: 500;
 	font-style: italic;
 	font-display: swap;
@@ -165,8 +182,10 @@ EB5262
 
 @font-face {
 	font-family: Roboto;
-	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Bold.woff2?v=2.137) format("woff2"),
-	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Bold.woff?v=2.137) format("woff");
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Bold.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Bold.woff?v=2.137)
+			format("woff");
 	font-weight: 700;
 	font-style: normal;
 	font-display: swap;
@@ -174,8 +193,10 @@ EB5262
 
 @font-face {
 	font-family: Roboto;
-	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Bold.woff2?v=2.137) format("woff2"),
-	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Bold.woff?v=2.137) format("woff");
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Bold.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Bold.woff?v=2.137)
+			format("woff");
 	font-weight: 700;
 	font-style: normal;
 	font-display: swap;
@@ -183,8 +204,10 @@ EB5262
 
 @font-face {
 	font-family: Roboto;
-	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BoldItalic.woff2?v=2.137) format("woff2"),
-	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BoldItalic.woff?v=2.137) format("woff");
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BoldItalic.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BoldItalic.woff?v=2.137)
+			format("woff");
 	font-weight: 700;
 	font-style: italic;
 	font-display: swap;
@@ -192,8 +215,10 @@ EB5262
 
 @font-face {
 	font-family: Roboto;
-	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BoldItalic.woff2?v=2.137) format("woff2"),
-	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BoldItalic.woff?v=2.137) format("woff");
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BoldItalic.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BoldItalic.woff?v=2.137)
+			format("woff");
 	font-weight: 700;
 	font-style: italic;
 	font-display: swap;
@@ -201,8 +226,10 @@ EB5262
 
 @font-face {
 	font-family: Roboto;
-	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Black.woff2?v=2.137) format("woff2"),
-	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Black.woff?v=2.137) format("woff");
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Black.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Black.woff?v=2.137)
+			format("woff");
 	font-weight: 900;
 	font-style: normal;
 	font-display: swap;
@@ -210,8 +237,10 @@ EB5262
 
 @font-face {
 	font-family: Roboto;
-	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BlackItalic.woff2?v=2.137) format("woff2"),
-	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BlackItalic.woff?v=2.137) format("woff");
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BlackItalic.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BlackItalic.woff?v=2.137)
+			format("woff");
 	font-weight: 900;
 	font-style: italic;
 	font-display: swap;
@@ -220,11 +249,16 @@ EB5262
 @font-face {
 	font-family: "Roboto Mono";
 	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Thin.eot);
-	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Thin.eot?#iefix) format("embedded-opentype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Thin.woff2?v=2.0.986) format("woff2"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Thin.woff?v=2.0.986) format("woff"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Thin.ttf) format("truetype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Thin.svg#RobotoMonoThin) format("svg");
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Thin.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Thin.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Thin.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Thin.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Thin.svg#RobotoMonoThin)
+			format("svg");
 	font-weight: 100;
 	font-style: normal;
 	font-display: swap;
@@ -233,11 +267,16 @@ EB5262
 @font-face {
 	font-family: "Roboto Mono";
 	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-ThinItalic.eot);
-	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-ThinItalic.eot?#iefix) format("embedded-opentype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-ThinItalic.woff2?v=2.0.986) format("woff2"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-ThinItalic.woff?v=2.0.986) format("woff"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-ThinItalic.ttf) format("truetype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-ThinItalic.svg#RobotoMonoThinItalic) format("svg");
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-ThinItalic.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-ThinItalic.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-ThinItalic.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-ThinItalic.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-ThinItalic.svg#RobotoMonoThinItalic)
+			format("svg");
 	font-weight: 100;
 	font-style: italic;
 	font-display: swap;
@@ -246,11 +285,16 @@ EB5262
 @font-face {
 	font-family: "Roboto Mono";
 	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Light.eot);
-	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Light.eot?#iefix) format("embedded-opentype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Light.woff2?v=2.0.986) format("woff2"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Light.woff?v=2.0.986) format("woff"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Light.ttf) format("truetype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Light.svg#RobotoMonoLight) format("svg");
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Light.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Light.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Light.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Light.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Light.svg#RobotoMonoLight)
+			format("svg");
 	font-weight: 300;
 	font-style: normal;
 	font-display: swap;
@@ -259,11 +303,16 @@ EB5262
 @font-face {
 	font-family: "Roboto Mono";
 	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-LightItalic.eot);
-	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-LightItalic.eot?#iefix) format("embedded-opentype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-LightItalic.woff2?v=2.0.986) format("woff2"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-LightItalic.woff?v=2.0.986) format("woff"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-LightItalic.ttf) format("truetype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-LightItalic.svg#RobotoMonoLightItalic) format("svg");
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-LightItalic.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-LightItalic.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-LightItalic.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-LightItalic.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-LightItalic.svg#RobotoMonoLightItalic)
+			format("svg");
 	font-weight: 300;
 	font-style: italic;
 	font-display: swap;
@@ -272,11 +321,16 @@ EB5262
 @font-face {
 	font-family: "Roboto Mono";
 	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.eot);
-	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.eot?#iefix) format("embedded-opentype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.woff2?v=2.0.986) format("woff2"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.woff?v=2.0.986) format("woff"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.ttf) format("truetype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.svg#RobotoMonoRegular) format("svg");
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.svg#RobotoMonoRegular)
+			format("svg");
 	font-weight: 400;
 	font-style: normal;
 	font-display: swap;
@@ -285,11 +339,16 @@ EB5262
 @font-face {
 	font-family: "Roboto Mono";
 	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.eot);
-	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.eot?#iefix) format("embedded-opentype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.woff2?v=2.0.986) format("woff2"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.woff?v=2.0.986) format("woff"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.ttf) format("truetype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.svg#RobotoMonoRegular) format("svg");
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.svg#RobotoMonoRegular)
+			format("svg");
 	font-weight: 400;
 	font-style: normal;
 	font-display: swap;
@@ -298,11 +357,16 @@ EB5262
 @font-face {
 	font-family: "Roboto Mono";
 	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.eot);
-	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.eot?#iefix) format("embedded-opentype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.woff2?v=2.0.986) format("woff2"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.woff?v=2.0.986) format("woff"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.ttf) format("truetype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.svg#RobotoMonoItalic) format("svg");
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.svg#RobotoMonoItalic)
+			format("svg");
 	font-weight: 400;
 	font-style: italic;
 	font-display: swap;
@@ -311,11 +375,16 @@ EB5262
 @font-face {
 	font-family: "Roboto Mono";
 	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.eot);
-	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.eot?#iefix) format("embedded-opentype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.woff2?v=2.0.986) format("woff2"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.woff?v=2.0.986) format("woff"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.ttf) format("truetype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.svg#RobotoMonoItalic) format("svg");
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.svg#RobotoMonoItalic)
+			format("svg");
 	font-weight: 400;
 	font-style: italic;
 	font-display: swap;
@@ -324,11 +393,16 @@ EB5262
 @font-face {
 	font-family: "Roboto Mono";
 	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Medium.eot);
-	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Medium.eot?#iefix) format("embedded-opentype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Medium.woff2?v=2.0.986) format("woff2"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Medium.woff?v=2.0.986) format("woff"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Medium.ttf) format("truetype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Medium.svg#RobotoMonoMedium) format("svg");
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Medium.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Medium.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Medium.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Medium.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Medium.svg#RobotoMonoMedium)
+			format("svg");
 	font-weight: 500;
 	font-style: normal;
 	font-display: swap;
@@ -337,11 +411,16 @@ EB5262
 @font-face {
 	font-family: "Roboto Mono";
 	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-MediumItalic.eot);
-	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-MediumItalic.eot?#iefix) format("embedded-opentype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-MediumItalic.woff2?v=2.0.986) format("woff2"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-MediumItalic.woff?v=2.0.986) format("woff"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-MediumItalic.ttf) format("truetype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-MediumItalic.svg#RobotoMonoMediumItalic) format("svg");
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-MediumItalic.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-MediumItalic.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-MediumItalic.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-MediumItalic.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-MediumItalic.svg#RobotoMonoMediumItalic)
+			format("svg");
 	font-weight: 500;
 	font-style: italic;
 	font-display: swap;
@@ -350,11 +429,16 @@ EB5262
 @font-face {
 	font-family: "Roboto Mono";
 	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.eot);
-	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.eot?#iefix) format("embedded-opentype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.woff2?v=2.0.986) format("woff2"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.woff?v=2.0.986) format("woff"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.ttf) format("truetype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.svg#RobotoMonoBold) format("svg");
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.svg#RobotoMonoBold)
+			format("svg");
 	font-weight: 700;
 	font-style: normal;
 	font-display: swap;
@@ -363,11 +447,16 @@ EB5262
 @font-face {
 	font-family: "Roboto Mono";
 	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.eot);
-	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.eot?#iefix) format("embedded-opentype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.woff2?v=2.0.986) format("woff2"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.woff?v=2.0.986) format("woff"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.ttf) format("truetype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.svg#RobotoMonoBold) format("svg");
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.svg#RobotoMonoBold)
+			format("svg");
 	font-weight: 700;
 	font-style: normal;
 	font-display: swap;
@@ -376,11 +465,16 @@ EB5262
 @font-face {
 	font-family: "Roboto Mono";
 	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.eot);
-	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.eot?#iefix) format("embedded-opentype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.woff2?v=2.0.986) format("woff2"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.woff?v=2.0.986) format("woff"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.ttf) format("truetype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.svg#RobotoMonoBoldItalic) format("svg");
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.svg#RobotoMonoBoldItalic)
+			format("svg");
 	font-weight: 700;
 	font-style: italic;
 	font-display: swap;
@@ -389,30 +483,31 @@ EB5262
 @font-face {
 	font-family: "Roboto Mono";
 	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.eot);
-	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.eot?#iefix) format("embedded-opentype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.woff2?v=2.0.986) format("woff2"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.woff?v=2.0.986) format("woff"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.ttf) format("truetype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.svg#RobotoMonoBoldItalic) format("svg");
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.svg#RobotoMonoBoldItalic)
+			format("svg");
 	font-weight: 700;
 	font-style: italic;
 	font-display: swap;
 }
 
 /*! @import "normalize"; */
-
 /*! normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */
-
 /*!
  * 1. Change the default font family in all browsers (opinionated).
  * 2. Correct the line height in all browsers.
  * 3. Prevent adjustments of font size after orientation changes in
  *		IE on Windows Phone and in iOS.
  */
-
 /* Document
 	========================================================================== */
-
 html {
 	font-family: sans-serif;
 	/* 1 */
@@ -426,11 +521,9 @@ html {
 
 /* Sections
 	========================================================================== */
-
 /*!
  * Remove the margin in all browsers (opinionated).
  */
-
 body {
 	margin: 0;
 }
@@ -438,7 +531,6 @@ body {
 /*!
  * Add the correct display in IE 9-.
  */
-
 article,
 aside,
 footer,
@@ -452,7 +544,6 @@ section {
  * Correct the font size and margin on `h1` elements within `section` and
  * `article` contexts in Chrome, Firefox, and Safari.
  */
-
 h1 {
 	font-size: 2em;
 	margin: 0.67em 0;
@@ -460,12 +551,10 @@ h1 {
 
 /* Grouping content
 	========================================================================== */
-
 /*!
  * Add the correct display in IE 9-.
  * 1. Add the correct display in IE.
  */
-
 figcaption,
 figure,
 main {
@@ -476,7 +565,6 @@ main {
 /*!
  * Add the correct margin in IE 8.
  */
-
 figure {
 	margin: 1em 40px;
 }
@@ -485,7 +573,6 @@ figure {
  * 1. Add the correct box sizing in Firefox.
  * 2. Show the overflow in Edge and IE.
  */
-
 hr {
 	-webkit-box-sizing: content-box;
 	box-sizing: content-box;
@@ -500,7 +587,6 @@ hr {
  * 1. Correct the inheritance and scaling of font size in all browsers.
  * 2. Correct the odd `em` font sizing in all browsers.
  */
-
 pre {
 	font-family: monospace, monospace;
 	/* 1 */
@@ -510,12 +596,10 @@ pre {
 
 /* Text-level semantics
 	========================================================================== */
-
 /*!
  * 1. Remove the gray background on active links in IE 10.
  * 2. Remove gaps in links underline in iOS 8+ and Safari 8+.
  */
-
 a {
 	background-color: transparent;
 	/* 1 */
@@ -527,7 +611,6 @@ a {
  * Remove the outline on focused links when they are also active or hovered
  * in all browsers (opinionated).
  */
-
 a:active,
 a:hover {
 	outline-width: 0;
@@ -537,12 +620,12 @@ a:hover {
  * 1. Remove the bottom border in Firefox 39-.
  * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
  */
-
 abbr[title] {
 	border-bottom: none;
 	/* 1 */
 	text-decoration: underline;
 	/* 2 */
+	-webkit-text-decoration: underline dotted;
 	text-decoration: underline dotted;
 	/* 2 */
 }
@@ -550,7 +633,6 @@ abbr[title] {
 /*!
  * Prevent the duplicate application of `bolder` by the next rule in Safari 6.
  */
-
 b,
 strong {
 	font-weight: inherit;
@@ -559,7 +641,6 @@ strong {
 /*!
  * Add the correct font weight in Chrome, Edge, and Safari.
  */
-
 b,
 strong {
 	font-weight: bolder;
@@ -569,7 +650,6 @@ strong {
  * 1. Correct the inheritance and scaling of font size in all browsers.
  * 2. Correct the odd `em` font sizing in all browsers.
  */
-
 code,
 kbd,
 samp {
@@ -582,7 +662,6 @@ samp {
 /*!
  * Add the correct font style in Android 4.3-.
  */
-
 dfn {
 	font-style: italic;
 }
@@ -590,7 +669,6 @@ dfn {
 /*!
  * Add the correct background and color in IE 9-.
  */
-
 mark {
 	background-color: #ff0;
 	color: #000;
@@ -599,7 +677,6 @@ mark {
 /*!
  * Add the correct font size in all browsers.
  */
-
 small {
 	font-size: 80%;
 }
@@ -608,7 +685,6 @@ small {
  * Prevent `sub` and `sup` elements from affecting the line height in
  * all browsers.
  */
-
 sub,
 sup {
 	font-size: 75%;
@@ -627,11 +703,9 @@ sup {
 
 /* Embedded content
 	========================================================================== */
-
 /*!
  * Add the correct display in IE 9-.
  */
-
 audio,
 video {
 	display: inline-block;
@@ -640,7 +714,6 @@ video {
 /*!
  * Add the correct display in iOS 4-7.
  */
-
 audio:not([controls]) {
 	display: none;
 	height: 0;
@@ -649,7 +722,6 @@ audio:not([controls]) {
 /*!
  * Remove the border on images inside links in IE 10-.
  */
-
 img {
 	border-style: none;
 }
@@ -657,19 +729,16 @@ img {
 /*!
  * Hide the overflow in IE.
  */
-
 svg:not(:root) {
 	overflow: hidden;
 }
 
 /* Forms
 	========================================================================== */
-
 /*!
  * 1. Change the font styles in all browsers (opinionated).
  * 2. Remove the margin in Firefox and Safari.
  */
-
 button,
 input,
 optgroup,
@@ -689,7 +758,6 @@ textarea {
  * Show the overflow in IE.
  * 1. Show the overflow in Edge.
  */
-
 button,
 input {
 	/* 1 */
@@ -700,7 +768,6 @@ input {
  * Remove the inheritance of text transform in Edge, Firefox, and IE.
  * 1. Remove the inheritance of text transform in Firefox.
  */
-
 button,
 select {
 	/* 1 */
@@ -712,7 +779,6 @@ select {
  *		controls in Android 4.
  * 2. Correct the inability to style clickable types in iOS and Safari.
  */
-
 button,
 html [type="button"],
 [type="reset"],
@@ -724,7 +790,6 @@ html [type="button"],
 /*!
  * Remove the inner border and padding in Firefox.
  */
-
 button::-moz-focus-inner,
 [type="button"]::-moz-focus-inner,
 [type="reset"]::-moz-focus-inner,
@@ -736,7 +801,6 @@ button::-moz-focus-inner,
 /*!
  * Restore the focus styles unset by the previous rule.
  */
-
 button:-moz-focusring,
 [type="button"]:-moz-focusring,
 [type="reset"]:-moz-focusring,
@@ -747,7 +811,6 @@ button:-moz-focusring,
 /*!
  * Change the border, margin, and padding in all browsers (opinionated).
  */
-
 fieldset {
 	border: 1px solid #c0c0c0;
 	margin: 0 2px;
@@ -760,7 +823,6 @@ fieldset {
  * 3. Remove the padding so developers are not caught out when they zero out
  *		`fieldset` elements in all browsers.
  */
-
 legend {
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
@@ -781,7 +843,6 @@ legend {
  * 1. Add the correct display in IE 9-.
  * 2. Add the correct vertical alignment in Chrome, Firefox, and Opera.
  */
-
 progress {
 	display: inline-block;
 	/* 1 */
@@ -792,7 +853,6 @@ progress {
 /*!
  * Remove the default vertical scrollbar in IE.
  */
-
 textarea {
 	overflow: auto;
 }
@@ -801,7 +861,6 @@ textarea {
  * 1. Add the correct box sizing in IE 10-.
  * 2. Remove the padding in IE 10-.
  */
-
 [type="checkbox"],
 [type="radio"] {
 	-webkit-box-sizing: border-box;
@@ -814,7 +873,6 @@ textarea {
 /*!
  * Correct the cursor style of increment and decrement buttons in Chrome.
  */
-
 [type="number"]::-webkit-inner-spin-button,
 [type="number"]::-webkit-outer-spin-button {
 	height: auto;
@@ -824,7 +882,6 @@ textarea {
  * 1. Correct the odd appearance in Chrome and Safari.
  * 2. Correct the outline style in Safari.
  */
-
 [type="search"] {
 	-webkit-appearance: textfield;
 	/* 1 */
@@ -835,7 +892,6 @@ textarea {
 /*!
  * Remove the inner padding and cancel buttons in Chrome and Safari on macOS.
  */
-
 [type="search"]::-webkit-search-cancel-button,
 [type="search"]::-webkit-search-decoration {
 	-webkit-appearance: none;
@@ -845,7 +901,6 @@ textarea {
  * 1. Correct the inability to style clickable types in iOS and Safari.
  * 2. Change font properties to `inherit` in Safari.
  */
-
 ::-webkit-file-upload-button {
 	-webkit-appearance: button;
 	/* 1 */
@@ -855,12 +910,10 @@ textarea {
 
 /* Interactive
 	========================================================================== */
-
 /*
  * Add the correct display in IE 9-.
  * 1. Add the correct display in Edge, IE, and Firefox.
  */
-
 details,
 menu {
 	display: block;
@@ -869,18 +922,15 @@ menu {
 /*
  * Add the correct display in all browsers.
  */
-
 summary {
 	display: list-item;
 }
 
 /* Scripting
 	========================================================================== */
-
 /*!
  * Add the correct display in IE 9-.
  */
-
 canvas {
 	display: inline-block;
 }
@@ -888,37 +938,31 @@ canvas {
 /*!
  * Add the correct display in IE.
  */
-
 template {
 	display: none;
 }
 
 /* Hidden
 	========================================================================== */
-
 /*!
  * Add the correct display in IE 10-.
  */
-
 [hidden] {
 	display: none;
 }
 
 /*! @import "products-doslide"; */
-
 /*!
  * DoSlide v1.1.3
  * (c) 2016 MopTym <moptym@163.com>
  * Released under the MIT License.
  * Homepage - https://github.com/MopTym/doSlide
  */
-
 /*!
  * renamed wrap class
  * @see {@link https://github.com/MopTym/doSlide/issues/19#issuecomment-205791702}
  * @see {@link https://github.com/MopTym/doSlide/blob/master/demo/3_1_slider.html}
  */
-
 .ds-parent {
 	overflow: hidden;
 	padding: 0;
@@ -980,7 +1024,7 @@ body {
 }
 
 .slide-1 {
-	background-color: #52796F;
+	background-color: #52796f;
 	background-image: url(../img/bg-img-1.png);
 }
 
@@ -990,7 +1034,7 @@ body {
 }
 
 .slide-3 {
-	background-color: #A23E48;
+	background-color: #a23e48;
 	background-image: url(../img/bg-img-3.png);
 }
 
@@ -1001,11 +1045,11 @@ body {
 	left: 0;
 	font-size: 0.938rem;
 	font-weight: 400;
-	line-height: 1.200;
-	color: #FFFFFF;
+	line-height: 1.2;
+	color: #ffffff;
 	background-color: transparent;
 	border-radius: 0 0 0.625em 0.625em;
-	padding: 0.563em 0.750em 0.563em 0.750em;
+	padding: 0.563em 0.75em 0.563em 0.75em;
 	margin: 0 5.125em;
 }
 
@@ -1020,16 +1064,13 @@ body {
 }
 
 /*! @import "main"; */
-
 /*!
  * main
  */
-
 /*!
  * Default CSS Values for HTML Elements
  * @see {@link https://www.w3schools.com/cssref/css_default_values.asp}
  */
-
 html,
 body {
 	height: 100%;
@@ -1046,13 +1087,14 @@ html {
 }
 
 body {
-	font-family: "Roboto", "Segoe UI", "Segoe WP", "HelveticaNeue", "Roboto", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
+	font-family: "Roboto", "Segoe UI", "Segoe WP", "HelveticaNeue", "Roboto",
+		"Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
 	font-weight: 400;
-	font-size: 1.000rem;
+	font-size: 1rem;
 	line-height: 1.333rem;
 	width: 100%;
 	color: #191919;
-	background-color: #F0F0F0;
+	background-color: #f0f0f0;
 	-webkit-text-size-adjust: none;
 	-moz-text-size-adjust: none;
 	-ms-text-size-adjust: none;
@@ -1072,7 +1114,6 @@ body {
 /*!
  * englishextra specific rules
  */
-
 a {
 	color: inherit;
 	text-decoration: none;
@@ -1131,11 +1172,6 @@ u,
 	box-sizing: border-box;
 }
 
-::-moz-selection {
-	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(58, 150, 221, 0.9);
-}
-
 ::selection {
 	color: rgba(255, 255, 255, 0.9);
 	background-color: rgba(58, 150, 221, 0.9);
@@ -1151,6 +1187,11 @@ u,
 	opacity: 1;
 }
 
+::-ms-input-placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
 ::placeholder {
 	color: #878787 !important;
 	opacity: 1;
@@ -1159,7 +1200,6 @@ u,
 /*!
  * clearfix css-tricks.com/snippets/css/clear-fix/
  */
-
 .cf:after {
 	content: "";
 	display: table;
@@ -1169,7 +1209,6 @@ u,
 /*!
  * fit width
  */
-
 .fit-width {
 	min-width: 100%;
 }
@@ -1177,7 +1216,6 @@ u,
 /*!
  * hide and show on mobile
  */
-
 .page .show-inline-on-mobile,
 .page .show-block-on-mobile {
 	display: none;
@@ -1189,11 +1227,9 @@ u,
 		width: 0;
 		height: 0;
 	}
-
 	.page .show-inline-on-mobile {
 		display: inline;
 	}
-
 	.page .show-block-on-mobile {
 		display: block;
 	}
@@ -1202,7 +1238,6 @@ u,
 /*!
  * other
  */
-
 .page {
 	width: 100%;
 	/**
@@ -1218,7 +1253,7 @@ u,
 	opacity: 1;
 	-webkit-transition: left 0.2s linear, opacity 0.2s ease;
 	transition: left 0.2s linear, opacity 0.2s ease;
-	background-color: #F0F0F0;
+	background-color: #f0f0f0;
 }
 
 .page img {
@@ -1233,32 +1268,30 @@ u,
 }
 
 /*! @import "products-nav-menu"; */
-
 /*!
  * nav-menu
  */
-
 .btn-nav-menu {
 	display: inline-block;
-	width: 3.200rem;
-	height: 3.200rem;
+	width: 3.2rem;
+	height: 3.2rem;
 	position: fixed;
 	top: 0;
 	left: 0;
-	color: #FFFFFF;
+	color: #ffffff;
 	-webkit-transition: left 0.2s linear, background-color 0.2s ease;
 	transition: left 0.2s linear, background-color 0.2s ease;
 	cursor: pointer;
 }
 
 .btn-nav-menu:hover {
-	background-color: #2D2D2D;
+	background-color: #2d2d2d;
 }
 
 .page.is-active .btn-nav-menu,
 .btn-nav-menu:active {
 	color: #191919;
-	background-color: #D83544;
+	background-color: #d83544;
 }
 
 .btn-nav-menu {
@@ -1270,21 +1303,20 @@ u,
 	font-family: "englishextra-ui-icons";
 	content: "\e90f";
 	font-size: 1.333rem;
-	line-height: 3.200rem;
+	line-height: 3.2rem;
 }
 
 /*!
  * menu more
  */
-
 .btn-menu-more {
 	display: inline-block;
-	width: 3.200rem;
-	height: 3.200rem;
+	width: 3.2rem;
+	height: 3.2rem;
 	position: fixed;
 	top: 0;
-	left: 3.200rem;
-	color: #FFFFFF;
+	left: 3.2rem;
+	color: #ffffff;
 	text-decoration: none;
 	-webkit-transition: left 0.2s linear, background-color 0.2s ease;
 	transition: left 0.2s linear, background-color 0.2s ease;
@@ -1296,14 +1328,13 @@ u,
 }
 
 .btn-menu-more:hover {
-	background-color: #2D2D2D;
+	background-color: #2d2d2d;
 }
 
 /* .btn-menu-more:focus, */
-
 .btn-menu-more:active {
 	color: #191919;
-	background-color: #D83544;
+	background-color: #d83544;
 }
 
 .btn-menu-more {
@@ -1315,7 +1346,7 @@ u,
 	font-family: "englishextra-ui-icons";
 	content: "\e915";
 	font-size: 1.333rem;
-	line-height: 3.200rem;
+	line-height: 3.2rem;
 }
 
 .holder-panel-menu-more {
@@ -1323,11 +1354,11 @@ u,
 	visibility: hidden;
 	opacity: 0;
 	position: fixed;
-	top: 3.200rem;
-	left: 3.200rem;
+	top: 3.2rem;
+	left: 3.2rem;
 	color: #191919;
-	background-color: #F2F2F2;
-	border: 0.067rem solid #D83544;
+	background-color: #f2f2f2;
+	border: 0.067rem solid #d83544;
 	-webkit-box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
 	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
 	-webkit-transition: visibility 0s, opacity 0.2s ease;
@@ -1348,7 +1379,7 @@ u,
 	width: 18.133rem;
 	height: 100%;
 	font-size: 0.867em;
-	line-height: 3.200rem;
+	line-height: 3.2rem;
 	list-style-type: none;
 	padding: 0;
 	margin: 0;
@@ -1369,25 +1400,23 @@ u,
 
 .panel-menu-more li a:hover {
 	color: inherit;
-	background-color: #E6E6E6;
+	background-color: #e6e6e6;
 }
 
 /* .panel-menu-more li a:focus, */
-
 .panel-menu-more li a:active {
 	color: #191919;
-	background-color: #D83544;
+	background-color: #d83544;
 }
 
 /*!
  * other
  */
-
 .cd-prev,
 .cd-next {
 	display: none;
-	width: 3.200rem;
-	height: 3.200rem;
+	width: 3.2rem;
+	height: 3.2rem;
 	text-indent: 100%;
 	white-space: nowrap;
 	overflow: hidden;
@@ -1411,7 +1440,7 @@ u,
 .cd-prev,
 .cd-next {
 	text-align: center;
-	color: #FFFFFF;
+	color: #ffffff;
 	background-color: rgba(45, 45, 45, 0.5);
 	-webkit-transition: background-color 0.2s ease;
 	transition: background-color 0.2s ease;
@@ -1421,8 +1450,8 @@ u,
 	display: block;
 	font-family: "englishextra-ui-icons";
 	content: "\e904";
-	font-size: 1.500rem;
-	line-height: 3.200rem;
+	font-size: 1.5rem;
+	line-height: 3.2rem;
 	text-indent: 0;
 }
 
@@ -1430,38 +1459,36 @@ u,
 	display: block;
 	font-family: "englishextra-ui-icons";
 	content: "\e906";
-	font-size: 1.500rem;
-	line-height: 3.200rem;
+	font-size: 1.5rem;
+	line-height: 3.2rem;
 	text-indent: 0;
 }
 
 .cd-prev:hover,
 .cd-next:hover {
-	background-color: #2D2D2D;
+	background-color: #2d2d2d;
 }
 
 /* .cd-prev:focus,
 .cd-next:focus, */
-
 .cd-prev:active,
 .cd-next:active {
 	color: #191919;
-	background-color: #D83544;
+	background-color: #d83544;
 }
 
 /*!
  * ya-share2
  * yandex.ru/blog/share/kak-uvelichit-shrift-tsifr-sch-tchika#comment-add
  */
-
 .ya-share2 .ya-share2__container_size_m .ya-share2__icon {
-	height: 3.200rem;
-	width: 3.200rem;
+	height: 3.2rem;
+	width: 3.2rem;
 }
 
 .ya-share2 .ya-share2__container_size_m .ya-share2__counter {
 	font-size: 1.333rem;
-	line-height: 3.200rem;
+	line-height: 3.2rem;
 }
 
 .ya-share2 .ya-share2__container_size_m .ya-share2__title {
@@ -1481,13 +1508,12 @@ u,
 /*!
  * pluso, yashare
  */
-
 .ya-share2 {
 	display: inline-block;
 	visibility: hidden;
 	opacity: 0;
 	position: fixed;
-	right: 3.200rem;
+	right: 3.2rem;
 	bottom: 0;
 	-webkit-box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
 	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
@@ -1504,9 +1530,9 @@ u,
 	display: inline-block;
 	visibility: hidden;
 	opacity: 0;
-	height: 3.200rem;
+	height: 3.2rem;
 	position: fixed;
-	right: 3.200rem;
+	right: 3.2rem;
 	bottom: 0;
 	-webkit-box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
 	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
@@ -1521,15 +1547,15 @@ u,
 
 .btn-share-buttons {
 	display: inline-block;
-	width: 3.200rem;
-	height: 3.200rem;
+	width: 3.2rem;
+	height: 3.2rem;
 	position: fixed;
-	right: 3.200rem;
+	right: 3.2rem;
 	bottom: 0;
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
-	color: #FFFFFF;
+	color: #ffffff;
 	background-color: rgba(45, 45, 45, 0.5);
 	border: none;
 	overflow: hidden;
@@ -1540,40 +1566,38 @@ u,
 }
 
 .btn-share-buttons:hover {
-	background-color: #2D2D2D;
+	background-color: #2d2d2d;
 }
 
 /* .btn-share-buttons:focus, */
-
 .btn-share-buttons:active {
 	color: #191919;
-	background-color: #D83544;
+	background-color: #d83544;
 }
 
 .btn-share-buttons:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e91d";
 	font-size: 1.333rem;
-	line-height: 3.200rem;
+	line-height: 3.2rem;
 }
 
 /*!
  * vk-like
  */
-
 .holder-vk-like {
 	display: block;
 	visibility: hidden;
 	opacity: 0;
 	overflow: hidden;
-	height: 3.200rem;
+	height: 3.2rem;
 	position: fixed;
-	right: 6.400rem;
+	right: 6.4rem;
 	bottom: 0;
 	line-height: 0;
 	-webkit-transition: visibility 0s, opacity 0.2s ease;
 	transition: visibility 0s, opacity 0.2s ease;
-	background-color: #5E81A8;
+	background-color: #5e81a8;
 	-webkit-box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
 	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
 	z-index: 1;
@@ -1597,15 +1621,15 @@ u,
 
 .btn-show-vk-like {
 	display: inline-block;
-	width: 3.200rem;
-	height: 3.200rem;
+	width: 3.2rem;
+	height: 3.2rem;
 	position: fixed;
 	bottom: 0;
-	right: 6.400rem;
+	right: 6.4rem;
 	text-indent: 0;
 	text-align: center;
 	text-decoration: none;
-	color: #FFFFFF;
+	color: #ffffff;
 	background-color: rgba(45, 45, 45, 0.5);
 	border: none;
 	overflow: hidden;
@@ -1616,42 +1640,40 @@ u,
 }
 
 .btn-show-vk-like:hover {
-	background-color: #2D2D2D;
+	background-color: #2d2d2d;
 }
 
 /* .btn-show-vk-like:focus, */
-
 .btn-show-vk-like:active {
 	color: #191919;
-	background-color: #D83544;
+	background-color: #d83544;
 }
 
 .btn-show-vk-like:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e925";
 	font-size: 1.333rem;
-	line-height: 3.200rem;
+	line-height: 3.2rem;
 }
 
 /*!
  * location qr code
  */
-
 .holder-location-qrcode {
 	display: block;
 	width: 100%;
 	float: left;
 	text-align: left;
-	background-color: #FFFFFF;
+	background-color: #ffffff;
 }
 
 .holder-location-qrcode .qr-code-img,
 .holder-location-qrcode img {
 	display: block;
-	width: 9.000rem;
-	height: 9.000rem;
+	width: 9rem;
+	height: 9rem;
 	background-color: transparent;
-	background-size: 9.000rem 9.000rem;
+	background-size: 9rem 9rem;
 	border: 0;
 	vertical-align: bottom;
 	padding: 0;
@@ -1661,14 +1683,11 @@ u,
 /*!
  * @see {@link https://gist.github.com/englishextra/40b7c4ffde33bfb58aff259afe229d6a}
  */
-
 /*------------------------------------------
  Foundation Media Queries
   http://foundation.zurb.com/docs/media-queries.html
 --------------------------------------------*/
-
 /* Small screens - MOBILE */
-
 @media only screen {
 	html {
 		font-size: 12px;
@@ -1676,7 +1695,6 @@ u,
 }
 
 /* Define mobile styles - Mobile First */
-
 @media only screen and (max-width: 40em) {
 	html {
 		font-size: 13px;
@@ -1684,9 +1702,7 @@ u,
 }
 
 /* max-width 640px, mobile-only styles, use when QAing mobile issues */
-
 /* Medium screens - TABLET */
-
 @media only screen and (min-width: 40.063em) {
 	html {
 		font-size: 13px;
@@ -1694,7 +1710,6 @@ u,
 }
 
 /* min-width 641px, medium screens */
-
 @media only screen and (min-width: 40.063em) and (max-width: 64em) {
 	html {
 		font-size: 15px;
@@ -1702,9 +1717,7 @@ u,
 }
 
 /* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
-
 /* Large screens - DESKTOP */
-
 @media only screen and (min-width: 64.063em) {
 	html {
 		font-size: 15px;
@@ -1712,7 +1725,6 @@ u,
 }
 
 /* min-width 1025px, large screens */
-
 @media only screen and (min-width: 64.063em) and (max-width: 90em) {
 	html {
 		font-size: 15px;
@@ -1720,9 +1732,7 @@ u,
 }
 
 /* min-width 1024px and max-width 1440px, use when QAing large screen-only issues */
-
 /* XLarge screens */
-
 @media only screen and (min-width: 90.063em) {
 	html {
 		font-size: 15px;
@@ -1730,7 +1740,6 @@ u,
 }
 
 /* min-width 1441px, xlarge screens */
-
 @media only screen and (min-width: 90.063em) and (max-width: 120em) {
 	html {
 		font-size: 18px;
@@ -1738,9 +1747,7 @@ u,
 }
 
 /* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */
-
 /* XXLarge screens */
-
 @media only screen and (min-width: 120.063em) {
 	html {
 		font-size: 19px;
@@ -1748,5 +1755,3 @@ u,
 }
 
 /* min-width 1921px, xlarge screens */
-
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3Njc3MvYnVuZGxlLnNjc3MiLCIuLi9zY3NzL19lbmdsaXNoZXh0cmEtdWktY29sb3JzLnNjc3MiLCIuLi9zY3NzL19lbmdsaXNoZXh0cmEtdWktdmFyaWFibGVzLnNjc3MiLCIuLi9zY3NzL19mb250LWZhY2Uuc2NzcyIsIi4uL3Njc3MvX25vcm1hbGl6ZS5zY3NzIiwiYnVuZGxlLmNzcyIsIi4uL3Njc3MvX2Rvc2xpZGUuc2NzcyIsIi4uL3Njc3MvX21haW4uc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxxQ0FBcUM7QUNBckMsdUNBQXVDO0FBRXZDOzs7Ozs7Ozs7R0FTRztBQUVIOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O1NBc0JTO0FBNkZUOzs7Ozs7SUFNSTtBQ3RJSiwyQ0FBMkM7QUNBM0MsMkJBQTJCO0FBRTNCO0NBQ0MscUNBQW9DO0NBQ3BDLDRTQUEyUztDQUMzUyxvQkFBbUI7Q0FDbkIsbUJBQWtCLEVBQUE7O0FBR25COzs7Ozs7Ozs7Ozs7SUFZSTtBQ3JCSiwyQkFBMkI7QUFFM0IsNEVBQTRFO0FBRTVFOzs7OztHQUtHO0FBRUg7OEVBQzhFO0FBRTlFO0NBQ0Msd0JBQXVCO0NBQUcsT0FBTztDQUNqQyxrQkFBaUI7Q0FBRyxPQUFPO0NBQzNCLDJCQUEwQjtDQUFHLE9BQU87Q0FDcEMsK0JBQThCO0NBQUcsT0FBTyxFQUN4Qzs7QUFFRDs4RUFDOEU7QUFFOUU7O0dBRUc7QUFFSDtDQUNDLFVBQVMsRUFDVDs7QUFFRDs7R0FFRztBQUVIOzs7Ozs7Q0FNQyxlQUFjLEVBQ2Q7O0FBRUQ7OztHQUdHO0FBRUg7Q0FDQyxlQUFjO0NBQ2QsaUJBQWdCLEVBQ2hCOztBQUVEOzhFQUM4RTtBQUU5RTs7O0dBR0c7QUFFSDs7O0NBRU8sT0FBTztDQUNiLGVBQWMsRUFDZDs7QUFFRDs7R0FFRztBQUVIO0NBQ0MsaUJBQWdCLEVBQ2hCOztBQUVEOzs7R0FHRztBQUVIO0NBQ0MsZ0NBQXVCO1NBQXZCLHdCQUF1QjtDQUFHLE9BQU87Q0FDakMs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Qix1QkFBc0I7Q0FDdEIsZUFBYyxFQUNkOztBQUVEO0NBQ0Msc0JBQXFCO0NBQ3JCLGdCQUFlO0NBQ2YsaUJBQWdCO0NBQ2hCLGdCQUFlO0NBQ2YsVUFBUztDQUNULGdCQUFlO0NBQ2YsZUFBYztDQUNkLG1CQUFrQjtDQUNsQixzQkFBcUI7Q0FDckIsZUFBYztDQUNkLHdDTnhkaUQ7Q015ZGpELGFBQVk7Q0FDWixpQkFBZ0I7Q0FDaEIsK0NBQXNDO0NBQXRDLHVDQUFzQztDQUN0Qyx5Q0FBd0M7Q0FDeEMsY0FBYSxFQUNiOztBQUVEO0NBQ0MsMEJOaGV3QyxFTWlleEM7O0FBRUQsOEJBQThCO0FBQzlCO0NBQ0MsZU41ZjRCO0NNNmY1QiwwQk5qaEJvQixFTWtoQnBCOztBQUVEO0NBQ0MscUNBQW9DO0NBQ3BDLGlCQUFnQjtDQUNoQixvQkFBbUI7Q0FDbkIsc0JBQXFCLEVBQ3JCOztBQUVEOztHQUVHO0FBRUg7Q0FDQyxlQUFjO0NBQ2QsWUFBVztDQUNYLFlBQVc7Q0FDWCxpQkFBZ0I7Q0FDaEIsMEJBQXlCLEVBQ3pCOztBQUVEOztDQUVDLGVBQWM7Q0FDZCxnQkFBZTtDQUNmLGlCQUFnQjtDQUNoQiw4QkFBNkI7Q0FDN0IsbUNBQWtDO0NBQ2xDLFVBQVM7Q0FDVCx1QkFBc0I7Q0FDdEIsV0FBVTtDQUNWLFVBQVMsRUFDVDs7QUFFRDs7R0FFRztBQUVIOzs7OENBRzhDO0FBRTlDLDRCQUE0QjtBQUU1QjtDQUNDO0VBQ0MsZ0JBQWUsRUFDZixFQUFBOztBQUdGLHlDQUF5QztBQUV6QztDQUNDO0VBQ0MsZ0JBQWUsRUFDZixFQUFBOztBQUdGLHVFQUF1RTtBQUV2RSw2QkFBNkI7QUFFN0I7Q0FDQztFQUNDLGdCQUFlLEVBQ2YsRUFBQTs7QUFHRixxQ0FBcUM7QUFFckM7Q0FDQztFQUNDLGdCQUFlLEVBQ2YsRUFBQTs7QUFHRiw2RUFBNkU7QUFFN0UsNkJBQTZCO0FBRTdCO0NBQ0M7RUFDQyxnQkFBZSxFQUNmLEVBQUE7O0FBR0YscUNBQXFDO0FBRXJDO0NBQ0M7RUFDQyxnQkFBZSxFQUNmLEVBQUE7O0FBR0Ysb0ZBQW9GO0FBRXBGLG9CQUFvQjtBQUVwQjtDQUNDO0VBQ0MsZ0JBQWUsRUFDZixFQUFBOztBQUdGLHNDQUFzQztBQUV0QztDQUNDO0VBQ0MsZ0JBQWUsRUFDZixFQUFBOztBQUdGLHFGQUFxRjtBQUVyRixxQkFBcUI7QUFFckI7Q0FDQztFQUNDLGdCQUFlLEVBQ2YsRUFBQTs7QUFHRixzQ0FBc0MiLCJmaWxlIjoiYnVuZGxlLmNzcyJ9 */

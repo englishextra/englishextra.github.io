@@ -1144,14 +1144,14 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 	})();
 
 	if (needsPolyfills) {
-		scripts.push("../../cdn/polyfills/js/polyfills.fixed.min.js");
+		scripts.push("./cdn/polyfills/js/polyfills.fixed.min.js");
 	}
 
 	/* scripts.push("./cdn/platform/1.3.4/js/platform.fixed.min.js",
-		"./cdn/qrjs2/0.1.7/js/qrjs2.fixed.min.js",
-		"./cdn/parallax-js/3.1.0/js/parallax.fixed.min.js",
-		"./cdn/Tocca.js/2.0.1/js/Tocca.fixed.min.js",
-		"./cdn/wheel-indicator/1.1.4/js/wheel-indicator.fixed.min.js"); */
+		"./cdn/qrjs2/0.1.7/js/qrjs2.fixed.js",
+		"./cdn/parallax-js/3.1.0/js/parallax.fixed.js",
+		"./cdn/Tocca.js/2.0.1/js/Tocca.fixed.js",
+		"./cdn/wheel-indicator/1.1.4/js/wheel-indicator.fixed.js"); */
 
 	scripts.push("./libs/john-locke/js/vendors.min.js");
 

@@ -1,35 +1,66 @@
+function _typeof(obj) {
+	if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+		_typeof = function _typeof(obj) {
+			return typeof obj;
+		};
+	} else {
+		_typeof = function _typeof(obj) {
+			return obj &&
+				typeof Symbol === "function" &&
+				obj.constructor === Symbol &&
+				obj !== Symbol.prototype
+				? "symbol"
+				: typeof obj;
+		};
+	}
+	return _typeof(obj);
+}
+
 /*jslint browser: true */
+
 /*jslint node: true */
+
 /*global doesFontExist, loadCSS, loadJsCss, require, ToProgress, VK, Ya*/
+
 /*property console, join, split */
+
 /*!
  * safe way to handle console.log
  * @see {@link https://github.com/paulmillr/console-polyfill}
  */
-(function(root){
+(function(root) {
 	"use strict";
+
 	if (!root.console) {
 		root.console = {};
 	}
+
 	var con = root.console;
 	var prop;
 	var method;
-	var dummy = function () {};
+
+	var dummy = function dummy() {};
+
 	var properties = ["memory"];
-	var methods = ["assert,clear,count,debug,dir,dirxml,error,exception,group,",
+	var methods = [
+		"assert,clear,count,debug,dir,dirxml,error,exception,group,",
 		"groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd,",
-		"show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn"];
+		"show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn"
+	];
 	methods.join("").split(",");
+
 	for (; (prop = properties.pop()); ) {
 		if (!con[prop]) {
 			con[prop] = {};
 		}
 	}
+
 	for (; (method = methods.pop()); ) {
 		if (!con[method]) {
 			con[method] = dummy;
 		}
 	}
+
 	prop = method = dummy = properties = methods = null;
 })("undefined" !== typeof window ? window : this);
 /*!
@@ -45,10 +76,12 @@
  * @see {@link https://jsfiddle.net/englishextra/z5xhjde8/}
  * passes jshint
  */
-(function (root, document, undefined) {
+
+(function(root, document, undefined) {
 	"use strict";
-	var ToProgress = (function () {
-		var TP = function () {
+
+	var ToProgress = (function() {
+		var TP = function TP() {
 			var _addEventListener = "addEventListener";
 			var appendChild = "appendChild";
 			var createElement = "createElement";
@@ -60,15 +93,17 @@
 			var prototype = "prototype";
 			var _removeEventListener = "removeEventListener";
 			var style = "style";
+
 			function whichTransitionEvent() {
 				var t,
-				el = document[createElement]("fakeelement");
+					el = document[createElement]("fakeelement");
 				var transitions = {
-					"transition": "transitionend",
-					"OTransition": "oTransitionEnd",
-					"MozTransition": "transitionend",
-					"WebkitTransition": "webkitTransitionEnd"
+					transition: "transitionend",
+					OTransition: "oTransitionEnd",
+					MozTransition: "transitionend",
+					WebkitTransition: "webkitTransitionEnd"
 				};
+
 				for (t in transitions) {
 					if (transitions[hasOwnProperty](t)) {
 						if (el[style][t] !== undefined) {
@@ -77,7 +112,9 @@
 					}
 				}
 			}
+
 			var transitionEvent = whichTransitionEvent();
+
 			function ToProgress(opt, selector) {
 				this.progress = 0;
 				this.options = {
@@ -87,45 +124,72 @@
 					duration: 0.2,
 					zIndex: "auto"
 				};
-				if (opt && typeof opt === "object") {
+
+				if (opt && _typeof(opt) === "object") {
 					for (var key in opt) {
 						if (opt[hasOwnProperty](key)) {
 							this.options[key] = opt[key];
 						}
 					}
 				}
+
 				this.options.opacityDuration = this.options.duration * 3;
 				this.progressBar = document[createElement]("div");
 				this.progressBar.id = this.options.id;
-				this.progressBar.setCSS = function (style) {
+
+				this.progressBar.setCSS = function(style) {
 					for (var property in style) {
 						if (style[hasOwnProperty](property)) {
 							this.style[property] = style[property];
 						}
 					}
 				};
+
 				this.progressBar.setCSS({
-					"position": selector ? "relative" : "fixed",
-					"top": "0",
-					"left": "0",
-					"right": "0",
+					position: selector ? "relative" : "fixed",
+					top: "0",
+					left: "0",
+					right: "0",
 					"background-color": this.options.color,
-					"height": this.options.height,
-					"width": "0%",
-					"transition": "width " + this.options.duration + "s" + ", opacity " + this.options.opacityDuration + "s",
-					"-moz-transition": "width " + this.options.duration + "s" + ", opacity " + this.options.opacityDuration + "s",
-					"-webkit-transition": "width " + this.options.duration + "s" + ", opacity " + this.options.opacityDuration + "s",
+					height: this.options.height,
+					width: "0%",
+					transition:
+						"width " +
+						this.options.duration +
+						"s" +
+						", opacity " +
+						this.options.opacityDuration +
+						"s",
+					"-moz-transition":
+						"width " +
+						this.options.duration +
+						"s" +
+						", opacity " +
+						this.options.opacityDuration +
+						"s",
+					"-webkit-transition":
+						"width " +
+						this.options.duration +
+						"s" +
+						", opacity " +
+						this.options.opacityDuration +
+						"s",
 					"z-index": this.options.zIndex
 				});
+
 				if (selector) {
 					var el;
+
 					if (selector.indexOf("#", 0) !== -1) {
 						el = document[getElementById](selector) || "";
 					} else {
 						if (selector.indexOf(".", 0) !== -1) {
-							el = document[getElementsByClassName](selector)[0] || "";
+							el =
+								document[getElementsByClassName](selector)[0] ||
+								"";
 						}
 					}
+
 					if (el) {
 						if (el.hasChildNodes()) {
 							el.insertBefore(this.progressBar, el[firstChild]);
@@ -137,14 +201,18 @@
 					document.body[appendChild](this.progressBar);
 				}
 			}
-			ToProgress[prototype].transit = function () {
+
+			ToProgress[prototype].transit = function() {
 				this.progressBar[style].width = this.progress + "%";
 			};
-			ToProgress[prototype].getProgress = function () {
+
+			ToProgress[prototype].getProgress = function() {
 				return this.progress;
 			};
-			ToProgress[prototype].setProgress = function (progress, callback) {
+
+			ToProgress[prototype].setProgress = function(progress, callback) {
 				this.show();
+
 				if (progress > 100) {
 					this.progress = 100;
 				} else if (progress < 0) {
@@ -152,47 +220,76 @@
 				} else {
 					this.progress = progress;
 				}
+
 				this.transit();
+
 				if (callback) {
 					callback();
 				}
 			};
-			ToProgress[prototype].increase = function (toBeIncreasedProgress, callback) {
+
+			ToProgress[prototype].increase = function(
+				toBeIncreasedProgress,
+				callback
+			) {
 				this.show();
-				this.setProgress(this.progress + toBeIncreasedProgress, callback);
+				this.setProgress(
+					this.progress + toBeIncreasedProgress,
+					callback
+				);
 			};
-			ToProgress[prototype].decrease = function (toBeDecreasedProgress, callback) {
+
+			ToProgress[prototype].decrease = function(
+				toBeDecreasedProgress,
+				callback
+			) {
 				this.show();
-				this.setProgress(this.progress - toBeDecreasedProgress, callback);
+				this.setProgress(
+					this.progress - toBeDecreasedProgress,
+					callback
+				);
 			};
-			ToProgress[prototype].finish = function (callback) {
+
+			ToProgress[prototype].finish = function(callback) {
 				var that = this;
 				this.setProgress(100, callback);
 				this.hide();
+
 				if (transitionEvent) {
-					this.progressBar[_addEventListener](transitionEvent, function (e) {
-						that.reset();
-						that.progressBar[_removeEventListener](e.type, TP);
-					});
+					this.progressBar[_addEventListener](
+						transitionEvent,
+						function(e) {
+							that.reset();
+
+							that.progressBar[_removeEventListener](e.type, TP);
+						}
+					);
 				}
 			};
-			ToProgress[prototype].reset = function (callback) {
+
+			ToProgress[prototype].reset = function(callback) {
 				this.progress = 0;
 				this.transit();
+
 				if (callback) {
 					callback();
 				}
 			};
-			ToProgress[prototype].hide = function () {
+
+			ToProgress[prototype].hide = function() {
 				this.progressBar[style][opacity] = "0";
 			};
-			ToProgress[prototype].show = function () {
+
+			ToProgress[prototype].show = function() {
 				this.progressBar[style][opacity] = "1";
 			};
+
 			return ToProgress;
 		};
+
 		return TP();
 	})();
+
 	root.ToProgress = ToProgress;
 })("undefined" !== typeof window ? window : this, document);
 /*!
@@ -203,9 +300,11 @@
  * @see {@link https://www.kirupa.com/html5/detect_whether_font_is_installed.htm}
  * passes jshint
  */
-(function (root, document) {
+
+(function(root, document) {
 	"use strict";
-	var doesFontExist = function (fontName) {
+
+	var doesFontExist = function doesFontExist(fontName) {
 		var createElement = "createElement";
 		var getContext = "getContext";
 		var measureText = "measureText";
@@ -218,12 +317,14 @@
 		context.font = "72px '" + fontName + "', monospace";
 		var newSize = context[measureText](text)[width];
 		canvas = null;
+
 		if (newSize === baselineSize) {
 			return false;
 		} else {
 			return true;
 		}
 	};
+
 	root.doesFontExist = doesFontExist;
 })("undefined" !== typeof window ? window : this, document);
 /*!
@@ -237,23 +338,30 @@
  * @param {Object} [before] target HTML element
  * loadCSS(hrefString,callback,media,before)
  */
-(function (root, document) {
+
+(function(root, document) {
 	"use strict";
-	var loadCSS = function (_href, callback) {
+
+	var loadCSS = function loadCSS(_href, callback) {
 		var ref = document.getElementsByTagName("head")[0] || "";
 		var link = document.createElement("link");
 		link.rel = "stylesheet";
 		link.href = _href;
 		link.media = "all";
+
 		if (ref) {
 			ref.appendChild(link);
+
 			if (callback && "function" === typeof callback) {
 				link.onload = callback;
 			}
+
 			return link;
 		}
+
 		return;
 	};
+
 	root.loadCSS = loadCSS;
 })("undefined" !== typeof window ? window : this, document);
 /*!
@@ -261,10 +369,13 @@
  * @see {@link https://gist.github.com/englishextra/ff9dc7ab002312568742861cb80865c9}
  * passes jshint
  */
-(function (root, document) {
+
+(function(root, document) {
 	"use strict";
-	var loadJsCss = function (files, callback) {
+
+	var loadJsCss = function loadJsCss(files, callback) {
 		var _this = this;
+
 		var appendChild = "appendChild";
 		var body = "body";
 		var createElement = "createElement";
@@ -277,103 +388,120 @@
 		_this.head = document[getElementsByTagName]("head")[0] || "";
 		_this.body = document[body] || "";
 		_this.ref = document[getElementsByTagName]("script")[0] || "";
-		_this.callback = callback || function () {};
-		_this.loadStyle = function (file) {
+
+		_this.callback = callback || function() {};
+
+		_this.loadStyle = function(file) {
 			var link = document[createElement]("link");
 			link.rel = "stylesheet";
 			link.type = "text/css";
 			link.href = file;
+
 			_this.head[appendChild](link);
 		};
-		_this.loadScript = function (i) {
+
+		_this.loadScript = function(i) {
 			var script = document[createElement]("script");
 			script.type = "text/javascript";
 			script.async = true;
 			script.src = _this.js[i];
-			var loadNextScript = function () {
+
+			var loadNextScript = function loadNextScript() {
 				if (++i < _this.js[_length]) {
 					_this.loadScript(i);
 				} else {
 					_this.callback();
 				}
 			};
-			script.onload = function () {
+
+			script.onload = function() {
 				loadNextScript();
 			};
+
 			_this.head[appendChild](script);
+
 			if (_this.ref[parentNode]) {
 				_this.ref[parentNode][insertBefore](script, _this.ref);
 			} else {
 				(_this.body || _this.head)[appendChild](script);
 			}
 		};
-		var i,
-		l;
+
+		var i, l;
+
 		for (i = 0, l = _this.files[_length]; i < l; i += 1) {
-			if ((/\.js$|\.js\?/).test(_this.files[i])) {
+			if (/\.js$|\.js\?/.test(_this.files[i])) {
 				_this.js.push(_this.files[i]);
 			}
-			if ((/\.css$|\.css\?|\/css\?/).test(_this.files[i])) {
+
+			if (/\.css$|\.css\?|\/css\?/.test(_this.files[i])) {
 				_this.loadStyle(_this.files[i]);
 			}
 		}
+
 		i = l = null;
+
 		if (_this.js[_length] > 0) {
 			_this.loadScript(0);
 		} else {
 			_this.callback();
 		}
 	};
+
 	root.loadJsCss = loadJsCss;
 })("undefined" !== typeof window ? window : this, document);
 /*!
  * app logic
  */
-(function (root, document) {
+
+(function(root, document) {
 	"use strict";
 
 	var docElem = document.documentElement || "";
 	var docImplem = document.implementation || "";
 	var docBody = document.body || "";
-
 	var createElement = "createElement";
 	var createElementNS = "createElementNS";
 	var defineProperty = "defineProperty";
 	var getOwnPropertyDescriptor = "getOwnPropertyDescriptor";
 	var querySelector = "querySelector";
-	var querySelectorAll = "querySelectorAll";	var _addEventListener = "addEventListener";
+	var querySelectorAll = "querySelectorAll";
+	var _addEventListener = "addEventListener";
 	var _length = "length";
-
 	var progressBar = new ToProgress({
-			id: "top-progress-bar",
-			color: "#FF2C40",
-			height: "0.200rem",
-			duration: 0.2,
-			zIndex: 999
-		});
+		id: "top-progress-bar",
+		color: "#FF2C40",
+		height: "0.200rem",
+		duration: 0.2,
+		zIndex: 999
+	});
 
-	var hideProgressBar = function () {
+	var hideProgressBar = function hideProgressBar() {
 		progressBar.finish();
 		progressBar.hide();
 	};
-
 	/* progressBar.complete = function () {
-		return this.finish(),
-		this.hide();
-	}; */
+  	return this.finish(),
+  	this.hide();
+  }; */
 
 	progressBar.increase(20);
 
-	var getHTTP = function (force) {
+	var getHTTP = function getHTTP(force) {
 		var any = force || "";
 		var locationProtocol = root.location.protocol || "";
-		return "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : any ? "http" : "";
+		return "http:" === locationProtocol
+			? "http"
+			: "https:" === locationProtocol
+			? "https"
+			: any
+			? "http"
+			: "";
 	};
 
 	var forcedHTTP = getHTTP(true);
 
-	var run = function () {
-
+	var run = function run() {
 		var appendChild = "appendChild";
 		var classList = "classList";
 		var dataset = "dataset";
@@ -385,7 +513,6 @@
 		var style = "style";
 		var title = "title";
 		var _addEventListener = "addEventListener";
-
 		progressBar.increase(20);
 
 		if (docElem && docElem[classList]) {
@@ -393,31 +520,40 @@
 			docElem[classList].add("js");
 		}
 
-		var earlyDeviceFormfactor = (function (selectors) {
+		var earlyDeviceFormfactor = (function(selectors) {
 			var orientation;
 			var size;
-			var f = function (a) {
+
+			var f = function f(a) {
 				var b = a.split(" ");
+
 				if (selectors) {
 					var c;
+
 					for (c = 0; c < b[_length]; c += 1) {
 						a = b[c];
 						selectors.add(a);
 					}
+
 					c = null;
 				}
 			};
-			var g = function (a) {
+
+			var g = function g(a) {
 				var b = a.split(" ");
+
 				if (selectors) {
 					var c;
+
 					for (c = 0; c < b[_length]; c += 1) {
 						a = b[c];
 						selectors.remove(a);
 					}
+
 					c = null;
 				}
 			};
+
 			var h = {
 				landscape: "all and (orientation:landscape)",
 				portrait: "all and (orientation:portrait)"
@@ -430,8 +566,9 @@
 			var d;
 			var matchMedia = "matchMedia";
 			var matches = "matches";
-			var o = function (a, b) {
-				var c = function (a) {
+
+			var o = function o(a, b) {
+				var c = function c(a) {
 					if (a[matches]) {
 						f(b);
 						orientation = b;
@@ -439,11 +576,13 @@
 						g(b);
 					}
 				};
+
 				c(a);
 				a.addListener(c);
 			};
-			var s = function (a, b) {
-				var c = function (a) {
+
+			var s = function s(a, b) {
+				var c = function c(a) {
 					if (a[matches]) {
 						f(b);
 						size = b;
@@ -451,136 +590,190 @@
 						g(b);
 					}
 				};
+
 				c(a);
 				a.addListener(c);
 			};
+
 			for (d in h) {
 				if (h.hasOwnProperty(d)) {
 					o(root[matchMedia](h[d]), d);
 				}
 			}
+
 			for (d in k) {
 				if (k.hasOwnProperty(d)) {
 					s(root[matchMedia](k[d]), d);
 				}
 			}
+
 			return {
 				orientation: orientation || "",
 				size: size || ""
 			};
 		})(docElem[classList] || "");
 
-		var earlyDeviceType = (function (mobile, desktop, opera) {
-			var selector = (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i).test(opera) || (/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i).test(opera.substr(0, 4)) ? mobile : desktop;
+		var earlyDeviceType = (function(mobile, desktop, opera) {
+			var selector =
+				/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(
+					opera
+				) ||
+				/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(
+					opera.substr(0, 4)
+				)
+					? mobile
+					: desktop;
 			docElem[classList].add(selector);
 			return selector;
-		})("mobile", "desktop", navigator.userAgent || navigator.vendor || (root).opera);
+		})(
+			"mobile",
+			"desktop",
+			navigator.userAgent || navigator.vendor || root.opera
+		);
 
-		var earlySvgSupport = (function (selector) {
-			selector = docImplem.hasFeature("http://www.w3.org/2000/svg", "1.1") ? selector : "no-" + selector;
+		var earlySvgSupport = (function(selector) {
+			selector = docImplem.hasFeature("http://www.w3.org/2000/svg", "1.1")
+				? selector
+				: "no-" + selector;
 			docElem[classList].add(selector);
 			return selector;
 		})("svg");
 
-		var earlySvgasimgSupport = (function (selector) {
-			selector = docImplem.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1") ? selector : "no-" + selector;
+		var earlySvgasimgSupport = (function(selector) {
+			selector = docImplem.hasFeature(
+				"http://www.w3.org/TR/SVG11/feature#Image",
+				"1.1"
+			)
+				? selector
+				: "no-" + selector;
 			docElem[classList].add(selector);
 			return selector;
 		})("svgasimg");
 
-		var earlyHasTouch = (function (selector) {
+		var earlyHasTouch = (function(selector) {
 			selector = "ontouchstart" in docElem ? selector : "no-" + selector;
 			docElem[classList].add(selector);
 			return selector;
 		})("touch");
 
-		var getHumanDate = (function () {
-			var newDate = (new Date());
+		var getHumanDate = (function() {
+			var newDate = new Date();
 			var newDay = newDate.getDate();
 			var newYear = newDate.getFullYear();
 			var newMonth = newDate.getMonth();
-			(newMonth += 1);
+			newMonth += 1;
+
 			if (10 > newDay) {
 				newDay = "0" + newDay;
 			}
+
 			if (10 > newMonth) {
 				newMonth = "0" + newMonth;
 			}
+
 			return newYear + "-" + newMonth + "-" + newDay;
 		})();
 
-		var userBrowsingDetails = " [" + (getHumanDate ? getHumanDate : "") + (earlyDeviceType ? " " + earlyDeviceType : "") + (earlyDeviceFormfactor.orientation ? " " + earlyDeviceFormfactor.orientation : "") + (earlyDeviceFormfactor.size ? " " + earlyDeviceFormfactor.size : "") + (earlySvgSupport ? " " + earlySvgSupport : "") + (earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") + (earlyHasTouch ? " " + earlyHasTouch : "") + "]";
+		var userBrowsingDetails =
+			" [" +
+			(getHumanDate ? getHumanDate : "") +
+			(earlyDeviceType ? " " + earlyDeviceType : "") +
+			(earlyDeviceFormfactor.orientation
+				? " " + earlyDeviceFormfactor.orientation
+				: "") +
+			(earlyDeviceFormfactor.size
+				? " " + earlyDeviceFormfactor.size
+				: "") +
+			(earlySvgSupport ? " " + earlySvgSupport : "") +
+			(earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") +
+			(earlyHasTouch ? " " + earlyHasTouch : "") +
+			"]";
 
 		if (document[title]) {
 			document[title] = document[title] + userBrowsingDetails;
 		}
 
-		var scriptIsLoaded = function (scriptSrc) {
-			var scriptAll,
-			i,
-			l;
-			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[_length]; i < l; i += 1) {
+		var scriptIsLoaded = function scriptIsLoaded(scriptSrc) {
+			var scriptAll, i, l;
+
+			for (
+				scriptAll = document[getElementsByTagName]("script") || "",
+					i = 0,
+					l = scriptAll[_length];
+				i < l;
+				i += 1
+			) {
 				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
 					scriptAll = i = l = null;
 					return true;
 				}
 			}
+
 			scriptAll = i = l = null;
 			return false;
 		};
 
-		var setStyleDisplayNone = function (a) {
+		var setStyleDisplayNone = function setStyleDisplayNone(a) {
 			if (a) {
 				a[style].display = "none";
 			}
 		};
 
-		var scroll2Top = function (scrollTargetY, speed, easing) {
+		var scroll2Top = function scroll2Top(scrollTargetY, speed, easing) {
 			var scrollY = root.scrollY || docElem.scrollTop;
 			var posY = scrollTargetY || 0;
 			var rate = speed || 2000;
 			var soothing = easing || "easeOutSine";
 			var currentTime = 0;
-			var time = Math.max(0.1, Math.min(Math.abs(scrollY - posY) / rate, 0.8));
+			var time = Math.max(
+				0.1,
+				Math.min(Math.abs(scrollY - posY) / rate, 0.8)
+			);
 			var easingEquations = {
-				easeOutSine: function (pos) {
+				easeOutSine: function easeOutSine(pos) {
 					return Math.sin(pos * (Math.PI / 2));
 				},
-				easeInOutSine: function (pos) {
-					return (-0.5 * (Math.cos(Math.PI * pos) - 1));
+				easeInOutSine: function easeInOutSine(pos) {
+					return -0.5 * (Math.cos(Math.PI * pos) - 1);
 				},
-				easeInOutQuint: function (pos) {
+				easeInOutQuint: function easeInOutQuint(pos) {
 					if ((pos /= 0.5) < 1) {
 						return 0.5 * Math.pow(pos, 5);
 					}
-					return 0.5 * (Math.pow((pos - 2), 5) + 2);
+
+					return 0.5 * (Math.pow(pos - 2, 5) + 2);
 				}
 			};
+
 			function tick() {
 				currentTime += 1 / 60;
 				var p = currentTime / time;
 				var t = easingEquations[soothing](p);
+
 				if (p < 1) {
 					requestAnimationFrame(tick);
-					root.scrollTo(0, scrollY + ((posY - scrollY) * t));
+					root.scrollTo(0, scrollY + (posY - scrollY) * t);
 				} else {
 					root.scrollTo(0, posY);
 				}
 			}
+
 			tick();
 		};
 
-		var debounce = function (func, wait) {
+		var debounce = function debounce(func, wait) {
 			var timeout;
 			var args;
 			var context;
 			var timestamp;
-			return function () {
+			return function() {
 				context = this;
 				args = [].slice.call(arguments, 0);
 				timestamp = new Date();
-				var later = function () {
-					var last = (new Date()) - timestamp;
+
+				var later = function later() {
+					var last = new Date() - timestamp;
+
 					if (last < wait) {
 						timeout = setTimeout(later, wait - last);
 					} else {
@@ -588,18 +781,20 @@
 						func.apply(context, args);
 					}
 				};
+
 				if (!timeout) {
 					timeout = setTimeout(later, wait);
 				}
 			};
 		};
 
-		var throttle = function (func, wait) {
+		var throttle = function throttle(func, wait) {
 			var ctx;
 			var args;
 			var rtn;
 			var timeoutID;
 			var last = 0;
+
 			function call() {
 				timeoutID = 0;
 				last = +new Date();
@@ -607,10 +802,12 @@
 				ctx = null;
 				args = null;
 			}
+
 			return function throttled() {
 				ctx = this;
 				args = arguments;
 				var delta = new Date() - last;
+
 				if (!timeoutID) {
 					if (delta >= wait) {
 						call();
@@ -618,65 +815,115 @@
 						timeoutID = setTimeout(call, wait - delta);
 					}
 				}
+
 				return rtn;
 			};
 		};
-
 		/*jshint bitwise: false */
-		var parseLink = function (url, full) {
+
+		var parseLink = function parseLink(url, full) {
 			var _full = full || "";
-			return (function () {
-				var _replace = function (s) {
+
+			return (function() {
+				var _replace = function _replace(s) {
 					return s.replace(/^(#|\?)/, "").replace(/\:$/, "");
 				};
+
 				var _location = location || "";
-				var _protocol = function (protocol) {
+
+				var _protocol = function _protocol(protocol) {
 					switch (protocol) {
-					case "http:":
-						return _full ? ":" + 80 : 80;
-					case "https:":
-						return _full ? ":" + 443 : 443;
-					default:
-						return _full ? ":" + _location.port : _location.port;
+						case "http:":
+							return _full ? ":" + 80 : 80;
+
+						case "https:":
+							return _full ? ":" + 443 : 443;
+
+						default:
+							return _full
+								? ":" + _location.port
+								: _location.port;
 					}
 				};
-				var _isAbsolute = (0 === url.indexOf("//") || !!~url.indexOf("://"));
+
+				var _isAbsolute =
+					0 === url.indexOf("//") || !!~url.indexOf("://");
+
 				var _locationHref = root.location || "";
-				var _origin = function () {
-					var o = _locationHref.protocol + "//" + _locationHref.hostname + (_locationHref.port ? ":" + _locationHref.port : "");
+
+				var _origin = function _origin() {
+					var o =
+						_locationHref.protocol +
+						"//" +
+						_locationHref.hostname +
+						(_locationHref.port ? ":" + _locationHref.port : "");
 					return o || "";
 				};
-				var _isCrossDomain = function () {
+
+				var _isCrossDomain = function _isCrossDomain() {
 					var c = document[createElement]("a");
 					c.href = url;
-					var v = c.protocol + "//" + c.hostname + (c.port ? ":" + c.port : "");
+					var v =
+						c.protocol +
+						"//" +
+						c.hostname +
+						(c.port ? ":" + c.port : "");
 					return v !== _origin();
 				};
+
 				var _link = document[createElement]("a");
+
 				_link.href = url;
 				return {
 					href: _link.href,
 					origin: _origin(),
 					host: _link.host || _location.host,
-					port: ("0" === _link.port || "" === _link.port) ? _protocol(_link.protocol) : (_full ? _link.port : _replace(_link.port)),
+					port:
+						"0" === _link.port || "" === _link.port
+							? _protocol(_link.protocol)
+							: _full
+							? _link.port
+							: _replace(_link.port),
 					hash: _full ? _link.hash : _replace(_link.hash),
 					hostname: _link.hostname || _location.hostname,
-					pathname: _link.pathname.charAt(0) !== "/" ? (_full ? "/" + _link.pathname : _link.pathname) : (_full ? _link.pathname : _link.pathname.slice(1)),
-					protocol: !_link.protocol || ":" === _link.protocol ? (_full ? _location.protocol : _replace(_location.protocol)) : (_full ? _link.protocol : _replace(_link.protocol)),
+					pathname:
+						_link.pathname.charAt(0) !== "/"
+							? _full
+								? "/" + _link.pathname
+								: _link.pathname
+							: _full
+							? _link.pathname
+							: _link.pathname.slice(1),
+					protocol:
+						!_link.protocol || ":" === _link.protocol
+							? _full
+								? _location.protocol
+								: _replace(_location.protocol)
+							: _full
+							? _link.protocol
+							: _replace(_link.protocol),
 					search: _full ? _link.search : _replace(_link.search),
 					query: _full ? _link.search : _replace(_link.search),
 					isAbsolute: _isAbsolute,
 					isRelative: !_isAbsolute,
 					isCrossDomain: _isCrossDomain(),
-					hasHTTP: (/^(http|https):\/\//i).test(url) ? true : false
+					hasHTTP: /^(http|https):\/\//i.test(url) ? true : false
 				};
 			})();
 		};
 		/*jshint bitwise: true */
 
-		var isNodejs = "undefined" !== typeof process && "undefined" !== typeof require || "";
-		var isElectron = "undefined" !== typeof root && root.process && "renderer" === root.process.type || "";
-		var isNwjs = (function () {
+		var isNodejs =
+			("undefined" !== typeof process &&
+				"undefined" !== typeof require) ||
+			"";
+		var isElectron =
+			("undefined" !== typeof root &&
+				root.process &&
+				"renderer" === root.process.type) ||
+			"";
+
+		var isNwjs = (function() {
 			if ("undefined" !== typeof isNodejs && isNodejs) {
 				try {
 					if ("undefined" !== typeof require("nw.gui")) {
@@ -686,31 +933,43 @@
 					return false;
 				}
 			}
+
 			return false;
 		})();
 
-		var openDeviceBrowser = function (url) {
-			var triggerForElectron = function () {
+		var openDeviceBrowser = function openDeviceBrowser(url) {
+			var triggerForElectron = function triggerForElectron() {
 				var es = isElectron ? require("electron").shell : "";
 				return es ? es.openExternal(url) : "";
 			};
-			var triggerForNwjs = function () {
+
+			var triggerForNwjs = function triggerForNwjs() {
 				var ns = isNwjs ? require("nw.gui").Shell : "";
 				return ns ? ns.openExternal(url) : "";
 			};
-			var triggerForHTTP = function () {
+
+			var triggerForHTTP = function triggerForHTTP() {
 				return true;
 			};
-			var triggerForLocal = function () {
+
+			var triggerForLocal = function triggerForLocal() {
 				return root.open(url, "_system", "scrollbars=1,location=no");
 			};
+
 			if (isElectron) {
 				triggerForElectron();
 			} else if (isNwjs) {
 				triggerForNwjs();
 			} else {
 				var locationProtocol = root.location.protocol || "",
-				hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
+					hasHTTP = locationProtocol
+						? "http:" === locationProtocol
+							? "http"
+							: "https:" === locationProtocol
+							? "https"
+							: ""
+						: "";
+
 				if (hasHTTP) {
 					triggerForHTTP();
 				} else {
@@ -719,86 +978,113 @@
 			}
 		};
 
-		var handleExternalLink = function (url, ev) {
+		var handleExternalLink = function handleExternalLink(url, ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
-			var logic = function () {
-					openDeviceBrowser(url);
-				};
-				debounce(logic, 200).call(root);
+
+			var logic = function logic() {
+				openDeviceBrowser(url);
+			};
+
+			debounce(logic, 200).call(root);
 		};
-		var manageExternalLinkAll = function (scope) {
-			var ctx = scope && scope.nodeName ? scope : "";
-			var linkTag = "a";
-			var link = ctx ? ctx[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
+
+		var manageExternalLinkAll = function manageExternalLinkAll() {
+			var link = document[getElementsByTagName]("a") || "";
 			var isBindedClass = "is-binded";
-			var arrange = function (e) {
+
+			var arrange = function arrange(e) {
 				if (!e[classList].contains(isBindedClass)) {
 					var url = e[getAttribute]("href") || "";
-					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-						e[title] = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+
+					if (
+						url &&
+						parseLink(url).isCrossDomain &&
+						parseLink(url).hasHTTP
+					) {
+						e[title] =
+							"" +
+							(parseLink(url).hostname || "") +
+							" откроется в новой вкладке";
+
 						if ("undefined" !== typeof getHTTP && getHTTP()) {
 							e.target = "_blank";
 							e.rel = "noopener";
 						} else {
-							e[_addEventListener]("click", handleExternalLink.bind(null, url));
+							e[_addEventListener](
+								"click",
+								handleExternalLink.bind(null, url)
+							);
 						}
+
 						e[classList].add(isBindedClass);
 					}
 				}
 			};
+
 			if (link) {
-				var i,
-				l;
+				var i, l;
+
 				for (i = 0, l = link[_length]; i < l; i += 1) {
 					arrange(link[i]);
 				}
+
 				i = l = null;
 			}
 		};
+
 		manageExternalLinkAll();
-
 		/* var initShower = function () {
-			var jsUrl = "../../cdn/shower/1.0.1/js/shower.fixed.min.js";
-			if (!scriptIsLoaded(jsUrl)) {
-				var load;
-				load = new loadJsCss([jsUrl]);
-			}
-		};
-		initShower(); */
+    	var jsUrl = "../../cdn/shower/1.0.1/js/shower.fixed.js";
+    	if (!scriptIsLoaded(jsUrl)) {
+    		var load;
+    		load = new loadJsCss([jsUrl]);
+    	}
+    };
+    initShower(); */
 
-		var hideOtherIsSocial = function (thisObj) {
+		var hideOtherIsSocial = function hideOtherIsSocial(thisObj) {
 			var _thisObj = thisObj || this;
+
 			var isActiveClass = "is-active";
-			var isSocialAll = document[getElementsByClassName]("is-social") || "";
+			var isSocialAll =
+				document[getElementsByClassName]("is-social") || "";
+
 			if (isSocialAll) {
-				var k,
-				n;
+				var k, n;
+
 				for (k = 0, n = isSocialAll[_length]; k < n; k += 1) {
 					if (_thisObj !== isSocialAll[k]) {
 						isSocialAll[k][classList].remove(isActiveClass);
 					}
 				}
+
 				k = n = null;
 			}
 		};
+
 		root[_addEventListener]("click", hideOtherIsSocial);
 
 		var yshare;
-		var manageShareButton = function () {
-			var btn = document[getElementsByClassName]("btn-share-buttons")[0] || "";
+
+		var manageShareButton = function manageShareButton() {
+			var btn =
+				document[getElementsByClassName]("btn-share-buttons")[0] || "";
 			var yaShare2Id = "ya-share2";
 			var yaShare2 = document[getElementById](yaShare2Id) || "";
 			var locationHref = root.location || "";
 			var documentTitle = document[title] || "";
 			var isActiveClass = "is-active";
-			var handleShareButton = function (ev) {
+
+			var handleShareButton = function handleShareButton(ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				var logic = function () {
+
+				var logic = function logic() {
 					yaShare2[classList].toggle(isActiveClass);
 					hideOtherIsSocial(yaShare2);
-					var initScript = function () {
+
+					var initScript = function initScript() {
 						if (root.Ya) {
 							try {
 								if (yshare) {
@@ -817,11 +1103,16 @@
 									});
 								}
 							} catch (err) {
-								throw new Error("cannot yshare.updateContent or Ya.share2 " + err);
+								throw new Error(
+									"cannot yshare.updateContent or Ya.share2 " +
+										err
+								);
 							}
 						}
 					};
+
 					var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
+
 					if (!scriptIsLoaded(jsUrl)) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
@@ -829,8 +1120,10 @@
 						initScript();
 					}
 				};
+
 				debounce(logic, 200).call(root);
 			};
+
 			if (btn && yaShare2) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					btn[_addEventListener]("click", handleShareButton);
@@ -839,26 +1132,32 @@
 				}
 			}
 		};
-		manageShareButton();
 
+		manageShareButton();
 		var vlike;
-		var manageVKLikeButton = function () {
+
+		var manageVKLikeButton = function manageVKLikeButton() {
 			var vkLikeId = "vk-like";
 			var vkLike = document[getElementById](vkLikeId) || "";
-			var holderVkLike = document[getElementsByClassName]("holder-vk-like")[0] || "";
-			var btn = document[getElementsByClassName]("btn-show-vk-like")[0] || "";
+			var holderVkLike =
+				document[getElementsByClassName]("holder-vk-like")[0] || "";
+			var btn =
+				document[getElementsByClassName]("btn-show-vk-like")[0] || "";
 			var isActiveClass = "is-active";
-			var handleVKLikeButton = function (ev) {
+
+			var handleVKLikeButton = function handleVKLikeButton(ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				var logic = function () {
+
+				var logic = function logic() {
 					holderVkLike[classList].toggle(isActiveClass);
 					hideOtherIsSocial(holderVkLike);
-					var initScript = function () {
+
+					var initScript = function initScript() {
 						if (root.VK && !vlike) {
 							try {
 								VK.init({
-									apiId: (vkLike[dataset].apiid || ""),
+									apiId: vkLike[dataset].apiid || "",
 									nameTransportPath: "/xd_receiver.htm",
 									onlyWidgets: true
 								});
@@ -872,7 +1171,9 @@
 							}
 						}
 					};
+
 					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?147";
+
 					if (!scriptIsLoaded(jsUrl)) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
@@ -880,8 +1181,10 @@
 						initScript();
 					}
 				};
+
 				debounce(logic, 200).call(root);
 			};
+
 			if (btn && vkLike) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					btn[_addEventListener]("click", handleVKLikeButton);
@@ -890,23 +1193,36 @@
 				}
 			}
 		};
+
 		manageVKLikeButton();
 
-		var initUiTotop = function () {
+		var initUiTotop = function initUiTotop() {
 			var btnClass = "ui-totop";
 			var btnTitle = "Наверх";
 			var isActiveClass = "is-active";
 			var anchor = document[createElement]("a");
-			var handleUiTotopAnchor = function (ev) {
+
+			var handleUiTotopAnchor = function handleUiTotopAnchor(ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				scroll2Top(0, 20000);
 			};
-			var handleUiTotopWindow = function (_this) {
-				var logic = function () {
-					var btn = document[getElementsByClassName](btnClass)[0] || "";
-					var scrollPosition = _this.pageYOffset || docElem.scrollTop || docBody.scrollTop || "";
-					var windowHeight = _this.innerHeight || docElem.clientHeight || docBody.clientHeight || "";
+
+			var handleUiTotopWindow = function handleUiTotopWindow(_this) {
+				var logic = function logic() {
+					var btn =
+						document[getElementsByClassName](btnClass)[0] || "";
+					var scrollPosition =
+						_this.pageYOffset ||
+						docElem.scrollTop ||
+						docBody.scrollTop ||
+						"";
+					var windowHeight =
+						_this.innerHeight ||
+						docElem.clientHeight ||
+						docBody.clientHeight ||
+						"";
+
 					if (scrollPosition && windowHeight && btn) {
 						if (scrollPosition > windowHeight) {
 							btn[classList].add(isActiveClass);
@@ -915,169 +1231,191 @@
 						}
 					}
 				};
+
 				throttle(logic, 100).call(root);
 			};
+
 			anchor[classList].add(btnClass);
 			/* jshint -W107 */
+
 			anchor.href = "javascript:void(0);";
 			/* jshint +W107 */
+
 			anchor.title = btnTitle;
 			docBody[appendChild](anchor);
+
 			if (docBody) {
 				anchor[_addEventListener]("click", handleUiTotopAnchor);
+
 				root[_addEventListener]("scroll", handleUiTotopWindow, {
 					passive: true
 				});
 			}
 		};
-		initUiTotop();
 
+		initUiTotop();
 		hideProgressBar();
 	};
-
 	/* var scripts = ["../../libs/irregular_verbs_with_shower/css/bundle.min.css"]; */
+
 	var scripts = [];
 
-	var supportsPassive = (function () {
+	var supportsPassive = (function() {
 		var support = false;
+
 		try {
-			var opts = Object[defineProperty] && Object[defineProperty]({}, "passive", {
-					get: function () {
+			var opts =
+				Object[defineProperty] &&
+				Object[defineProperty]({}, "passive", {
+					get: function get() {
 						support = true;
 					}
 				});
-			root[_addEventListener]("test", function () {}, opts);
+
+			root[_addEventListener]("test", function() {}, opts);
 		} catch (err) {}
+
 		return support;
 	})();
 
-	var needsPolyfills = (function () {
-		return !String.prototype.startsWith ||
-		!supportsPassive ||
-		!root.requestAnimationFrame ||
-		!root.matchMedia ||
-		("undefined" === typeof root.Element && !("dataset" in docElem)) ||
-		!("classList" in document[createElement]("_")) ||
-		document[createElementNS] && !("classList" in document[createElementNS]("http://www.w3.org/2000/svg", "g")) ||
-		/* !document.importNode || */
-		/* !("content" in document[createElement]("template")) || */
-		(root.attachEvent && !root[_addEventListener]) ||
-		!("onhashchange" in root) ||
-		!Array.prototype.indexOf ||
-		!root.Promise ||
-		!root.fetch ||
-		!document[querySelectorAll] ||
-		!document[querySelector] ||
-		!Function.prototype.bind ||
-		(Object[defineProperty] &&
-			Object[getOwnPropertyDescriptor] &&
-			Object[getOwnPropertyDescriptor](Element.prototype, "textContent") &&
-			!Object[getOwnPropertyDescriptor](Element.prototype, "textContent").get) ||
-		!("undefined" !== typeof root.localStorage && "undefined" !== typeof root.sessionStorage) ||
-		!root.WeakMap ||
-		!root.MutationObserver;
+	var needsPolyfills = (function() {
+		return (
+			!String.prototype.startsWith ||
+			!supportsPassive ||
+			!root.requestAnimationFrame ||
+			!root.matchMedia ||
+			("undefined" === typeof root.Element && !("dataset" in docElem)) ||
+			!("classList" in document[createElement]("_")) ||
+			(document[createElementNS] &&
+				!(
+					"classList" in
+					document[createElementNS]("http://www.w3.org/2000/svg", "g")
+				)) ||
+			/* !document.importNode || */
+
+			/* !("content" in document[createElement]("template")) || */
+			(root.attachEvent && !root[_addEventListener]) ||
+			!("onhashchange" in root) ||
+			!Array.prototype.indexOf ||
+			!root.Promise ||
+			!root.fetch ||
+			!document[querySelectorAll] ||
+			!document[querySelector] ||
+			!Function.prototype.bind ||
+			(Object[defineProperty] &&
+				Object[getOwnPropertyDescriptor] &&
+				Object[getOwnPropertyDescriptor](
+					Element.prototype,
+					"textContent"
+				) &&
+				!Object[getOwnPropertyDescriptor](
+					Element.prototype,
+					"textContent"
+				).get) ||
+			!(
+				"undefined" !== typeof root.localStorage &&
+				"undefined" !== typeof root.sessionStorage
+			) ||
+			!root.WeakMap ||
+			!root.MutationObserver
+		);
 	})();
 
 	if (needsPolyfills) {
 		scripts.push("../../cdn/polyfills/js/polyfills.fixed.min.js");
 	}
-
-	/* var scripts = ["../../cdn/shower/1.0.1/js/shower.fixed.min.js"]; */
+	/* var scripts = ["../../cdn/shower/1.0.1/js/shower.fixed.js"]; */
 
 	scripts.push("../../libs/irregular_verbs_with_shower/js/vendors.min.js");
-
 	/*!
 	 * load scripts after webfonts loaded using doesFontExist
 	 */
 
 	var supportsCanvas;
-	supportsCanvas	= (function () {
+
+	supportsCanvas = (function() {
 		var elem = document[createElement]("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
 	})();
 
-	var onFontsLoadedCallback = function () {
-
+	var onFontsLoadedCallback = function onFontsLoadedCallback() {
 		var slot;
-		var onFontsLoaded = function () {
+
+		var onFontsLoaded = function onFontsLoaded() {
 			clearInterval(slot);
 			slot = null;
-
 			progressBar.increase(20);
-
 			var load;
 			load = new loadJsCss(scripts, run);
 		};
 
 		var checkFontIsLoaded;
-		checkFontIsLoaded = function () {
+
+		checkFontIsLoaded = function checkFontIsLoaded() {
 			/*!
 			 * check only for fonts that are used in current page
 			 */
-			if (doesFontExist("Roboto") /* && doesFontExist("Roboto Mono") */) {
+			if (
+				doesFontExist("Roboto")
+				/* && doesFontExist("Roboto Mono") */
+			) {
 				onFontsLoaded();
 			}
 		};
-
 		/* if (supportsCanvas) {
-			slot = setInterval(checkFontIsLoaded, 100);
-		} else {
-			slot = null;
-			onFontsLoaded();
-		} */
+    	slot = setInterval(checkFontIsLoaded, 100);
+    } else {
+    	slot = null;
+    	onFontsLoaded();
+    } */
+
 		onFontsLoaded();
 	};
 
 	loadCSS(
-			/* forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic,latin-ext", */
-			"../../libs/irregular_verbs_with_shower/css/bundle.min.css",
-			onFontsLoadedCallback
-		);
-
+		/* forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic,latin-ext", */
+		"../../libs/irregular_verbs_with_shower/css/bundle.min.css",
+		onFontsLoadedCallback
+	);
 	/*!
 	 * load scripts after webfonts loaded using webfontloader
 	 */
 
 	/* root.WebFontConfig = {
-		google: {
-			families: [
-				"Roboto:300,400,400i,700,700i:cyrillic",
-				"Roboto Mono:400,700:cyrillic,latin-ext"
-			]
-		},
-		listeners: [],
-		active: function () {
-			this.called_ready = true;
-			var i;
-			for (i = 0; i < this.listeners[_length]; i++) {
-				this.listeners[i]();
-			}
-			i = null;
-		},
-		ready: function (callback) {
-			if (this.called_ready) {
-				callback();
-			} else {
-				this.listeners.push(callback);
-			}
-		}
-	};
-
-	var onFontsLoadedCallback = function () {
-
-		var onFontsLoaded = function () {
-			progressBar.increase(20);
-
-			var load;
-			load = new loadJsCss(scripts, run);
-		};
-
-		root.WebFontConfig.ready(onFontsLoaded);
-	};
-
-	var load;
-	load = new loadJsCss(
-			[forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"],
-			onFontsLoadedCallback
-		); */
+  	google: {
+  		families: [
+  			"Roboto:300,400,400i,700,700i:cyrillic",
+  			"Roboto Mono:400,700:cyrillic,latin-ext"
+  		]
+  	},
+  	listeners: [],
+  	active: function () {
+  		this.called_ready = true;
+  		var i;
+  		for (i = 0; i < this.listeners[_length]; i++) {
+  			this.listeners[i]();
+  		}
+  		i = null;
+  	},
+  	ready: function (callback) {
+  		if (this.called_ready) {
+  			callback();
+  		} else {
+  			this.listeners.push(callback);
+  		}
+  	}
+  };
+  	var onFontsLoadedCallback = function () {
+  		var onFontsLoaded = function () {
+  		progressBar.increase(20);
+  			var load;
+  		load = new loadJsCss(scripts, run);
+  	};
+  		root.WebFontConfig.ready(onFontsLoaded);
+  };
+  	var load;
+  load = new loadJsCss(
+  		[forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"],
+  		onFontsLoadedCallback
+  	); */
 })("undefined" !== typeof window ? window : this, document);

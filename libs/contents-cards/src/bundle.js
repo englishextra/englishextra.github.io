@@ -995,12 +995,11 @@ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 				minigrid[style].opacity = 1;
 			};
 			var mgrid;
-		
-		var minigridItemIsBindedClass = "minigrid__item--is-binded";
+
 			var initMinigrid = function () {
 				mgrid = new Minigrid({
-						container: minigridClass,
-						item: minigridItemClass,
+						container: "." + minigridClass,
+						item: "." + minigridItemClass,
 						gutter: 20/* ,
 						done: onMinigridCreated */
 					});
@@ -1395,15 +1394,15 @@ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 	})();
 
 	if (needsPolyfills) {
-		scripts.push("../../cdn/polyfills/js/polyfills.fixed.min.js");
+		scripts.push("./cdn/polyfills/js/polyfills.fixed.min.js");
 	}
 
-	/* scripts.push("./cdn/platform/1.3.4/js/platform.fixed.min.js",
+	/* scripts.push("./cdn/platform/1.3.4/js/platform.fixed.js",
 		"./cdn/minigrid/3.1.1/js/minigrid.fixed.min.js",
 		"./cdn/echo.js/0.1.0/js/echo.fixed.min.js",
 		"./cdn/t.js/0.1.0/js/t.fixed.min.js",
-		"./cdn/Tocca.js/2.0.1/js/Tocca.fixed.min.js",
-		"./cdn/wheel-indicator/1.1.4/js/wheel-indicator.fixed.min.js"); */
+		"./cdn/Tocca.js/2.0.1/js/Tocca.fixed.js",
+		"./cdn/wheel-indicator/1.1.4/js/wheel-indicator.fixed.js"); */
 
 	scripts.push("./libs/contents-cards/js/vendors.min.js");
 

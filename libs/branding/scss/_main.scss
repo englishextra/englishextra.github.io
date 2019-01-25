@@ -1986,6 +1986,33 @@ u,
 }
 
 /*!
+ * iframe-lightbox
+ * hide default css preloader
+ */
+
+.iframe-lightbox .content > .body .half-circle-spinner {
+	display: none;
+}
+
+.iframe-lightbox iframe {
+	box-shadow: 0.250rem 0.250rem 0.250rem 0 rgba(3, 3, 3, 0.3);
+}
+
+/*!
+ * img-lightbox
+ * hide default css preloader
+ * daneden.github.io/animate.css/
+ */
+
+.img-lightbox .half-circle-spinner {
+	display: none;
+}
+
+.img-lightbox img {
+	box-shadow: 0.250rem 0.250rem 0.250rem 0 rgba(3, 3, 3, 0.3);
+}
+
+/*!
  * disqus
  */
 

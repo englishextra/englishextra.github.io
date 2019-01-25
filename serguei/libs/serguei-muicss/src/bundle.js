@@ -2137,8 +2137,8 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 						highlightSidedrawerItem();
 						managePrevNextLinks(jsonObj);
 						manageExternalLinkAll();
-						manageImgLightboxLinkAll("img-lightbox-link");
-						manageIframeLightboxLinkAll("iframe-lightbox-link");
+						manageImgLightbox(imgLightboxLinkClass);
+						manageIframeLightbox(iframeLightboxLinkClass);
 						manageDropdownButtonAll();
 						manageHljsCodeAll();
 						manageRippleEffect();

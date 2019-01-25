@@ -1,8 +1,8 @@
 /*jslint browser: true */
 /*jslint node: true */
 /*global ActiveXObject, doesFontExist, Draggabilly, imagePromise, Kamil,
-loadCSS, loadJsCss, Masonry, Packery, Promise, QRCode, require, Timers,
-ToProgress, unescape, verge, VK, Ya*/
+loadCSS, loadJsCss, Masonry, Packery, Promise, QRCode, require, ToProgress,
+unescape, verge, VK, Ya*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -907,10 +907,8 @@ ToProgress, unescape, verge, VK, Ya*/
 				};
 				debounce(logic, 200).call(root);
 		};
-		var manageExternalLinkAll = function (scope) {
-			var ctx = scope && scope.nodeName ? scope : "";
-			var linkTag = "a";
-			var link = ctx ? ctx[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
+		var manageExternalLinkAll = function () {
+			var link = document[getElementsByTagName]("a") || "";
 			var isBindedClass = "is-binded";
 			var arrange = function (e) {
 				if (!e[classList].contains(isBindedClass)) {
@@ -968,9 +966,9 @@ ToProgress, unescape, verge, VK, Ya*/
 				}
 			}
 		};
-		
+
 		var handleDataSrcImageAllWindow = throttle(handleDataSrcImageAll, 100);
-		
+
 		var manageDataSrcImageAll = function () {
 			root[_removeEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
 			root[_removeEventListener]("resize", handleDataSrcImageAllWindow);
@@ -1103,7 +1101,7 @@ ToProgress, unescape, verge, VK, Ya*/
 			if (grid && gridItem) {
 				/* var jsUrl = "../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
 				/* var jsUrl = "../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js"; */
-				/* var jsUrl = "../cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
+				/* var jsUrl = "../cdn/packery/2.1.1/js/packery.pkgd.fixed.js";
 				if (!scriptIsLoaded(jsUrl)) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
@@ -1231,7 +1229,7 @@ ToProgress, unescape, verge, VK, Ya*/
 			};
 			if (holder && locationHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					/* var jsUrl = "../../cdn/qrjs2/0.1.7/js/qrjs2.fixed.min.js";
+					/* var jsUrl = "../../cdn/qrjs2/0.1.7/js/qrjs2.fixed.js";
 					if (!scriptIsLoaded(jsUrl)) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
@@ -1706,7 +1704,7 @@ ToProgress, unescape, verge, VK, Ya*/
 				loadUnparsedJSON(jsonUrl, processJsonResponse);
 			};
 			if (searchForm && textInput) {
-				/* var jsUrl = "../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
+				/* var jsUrl = "../cdn/kamil/0.1.1/js/kamil.fixed.js";
 				if (!scriptIsLoaded(jsUrl)) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
@@ -1806,11 +1804,11 @@ ToProgress, unescape, verge, VK, Ya*/
 		scripts.push("../cdn/polyfills/js/polyfills.fixed.min.js");
 	}
 
-	/* var scripts = ["../cdn/verge/1.9.1/js/verge.fixed.min.js",
-		"../cdn/Tocca.js/2.0.1/js/Tocca.fixed.min.js",
-		"../cdn/qrjs2/0.1.7/js/qrjs2.fixed.min.js",
-		"../cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js",
-		"../cdn/kamil/0.1.1/js/kamil.fixed.min.js"]; */
+	/* var scripts = ["../cdn/verge/1.9.1/js/verge.fixed.js",
+		"../cdn/Tocca.js/2.0.1/js/Tocca.fixed.js",
+		"../cdn/qrjs2/0.1.7/js/qrjs2.fixed.js",
+		"../cdn/packery/2.1.1/js/packery.pkgd.fixed.js",
+		"../cdn/kamil/0.1.1/js/kamil.fixed.js"]; */
 
 	scripts.push("../libs/contents/js/vendors.min.js");
 

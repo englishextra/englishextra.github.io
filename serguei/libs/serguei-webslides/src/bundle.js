@@ -644,12 +644,9 @@ unescape, WebSlides*/
 				};
 				debounce(logic, 200).call(root);
 		};
-		var manageExternalLinkAll = function (scope) {
-			var ctx = scope && scope.nodeName ? scope : "";
-			var linkTag = "a";
-			var link = ctx ? ctx[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
+		var manageExternalLinkAll = function () {
+			var link = document[getElementsByTagName]("a") || "";
 			var classList = "classList";
-			var isBindedClass = "is-binded";
 			var arrange = function (e) {
 				var externalLinkIsBindedClass = "external-link--is-binded";
 				if (!e[classList].contains(externalLinkIsBindedClass)) {
@@ -726,7 +723,7 @@ unescape, WebSlides*/
 				i = l = null;
 			};
 			if (img) {
-				/* var jsUrl = "../cdn/qrjs2/0.1.7/js/qrjs2.fixed.min.js";
+				/* var jsUrl = "./cdn/qrjs2/0.1.7/js/qrjs2.fixed.js";
 				if (!scriptIsLoaded(jsUrl)) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
@@ -811,12 +808,12 @@ unescape, WebSlides*/
 	})();
 
 	if (needsPolyfills) {
-		scripts.push("../cdn/polyfills/js/polyfills.fixed.min.js");
+		scripts.push("./cdn/polyfills/js/polyfills.fixed.min.js");
 	}
 
 	/* var scripts = [forcedHTTP + "://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.js",
 		forcedHTTP + "://cdn.jsdelivr.net/npm/webslides@1.4.2/static/js/webslides.js",
-		"../cdn/qrjs2/0.1.7/js/qrjs2.fixed.min.js"]; */
+		"./cdn/qrjs2/0.1.7/js/qrjs2.fixed.js"]; */
 	scripts.push("./libs/serguei-webslides/js/vendors.min.js");
 
 	/*!

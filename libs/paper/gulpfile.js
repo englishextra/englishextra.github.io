@@ -10,6 +10,7 @@
  * @see {@link https://www.joezimjs.com/javascript/complete-guide-upgrading-gulp-4/}
  * @see {@link https://codeburst.io/switching-to-gulp-4-0-271ae63530c0}
  */
+var currentLibName = "paper";
 
 var gulp = require("gulp");
 var plumber = require("gulp-plumber");
@@ -214,23 +215,12 @@ var options = {
 			"../../cdn/img-lightbox/0.2.3/js/img-lightbox.fixed.js",
 			"../../cdn/Tocca.js/2.0.1/js/Tocca.fixed.js",
 			"../../cdn/qrjs2/0.1.7/js/qrjs2.fixed.js",
-			"../../cdn/tablesort/4.0.1/js/tablesort.fixed.min.js",
-			"../../cdn/js-cookie/2.1.3/js/js.cookie.fixed.min.js",
-			"../../cdn/kamil/0.1.1/js/kamil.fixed.min.js"
+			"../../cdn/tablesort/4.0.1/js/tablesort.fixed.js",
+			"../../cdn/js-cookie/2.1.3/js/js.cookie.fixed.js",
+			"../../cdn/kamil/0.1.1/js/kamil.fixed.js"
 		],
 		js: "./js",
-		scss: [
-			"../../fonts/roboto-fontfacekit/2.137/css/roboto.css",
-			"../../fonts/roboto-mono-fontfacekit/2.0.986/css/roboto-mono.css",
-			"../../cdn/typeboost-uwp.css/0.1.8/css/typeboost-uwp.css",
-			"../../cdn/uwp-web-framework/2.0/css/uwp.style.fixed.css"
-		],
-		css: "./css",
 		concatOptions: {
-			css: {
-				path: "vendors.css",
-				newLine: "\n"
-			},
 			js: {
 				path: "vendors.js",
 				newLine: "\n"
@@ -329,11 +319,12 @@ gulp.task("browser-sync", gulp.series(gulp.parallel(
 			server: "../../"
 		});
 
-		gulp.watch("./css/*.css").on("change", reload);
-		gulp.watch("./scss/*.scss", gulp.parallel("compile-libbundle-css")).on("change", reload);
-		gulp.watch("./js/*.js").on("change", reload);
-		gulp.watch("./src/*.js", gulp.parallel("compile-libbundle-js")).on("change", reload);
-		gulp.watch("./json/*.json").on("change", reload);
+		gulp.watch("../../**/*.html").on("change", reload);
+		gulp.watch("../../libs/" + currentLibName + "/css/*.css").on("change", reload);
+		gulp.watch("../../libs/" + currentLibName + "/scss/*.scss", gulp.parallel("compile-libbundle-css")).on("change", reload);
+		gulp.watch("../../libs/" + currentLibName + "/js/*.js").on("change", reload);
+		gulp.watch("../../libs/" + currentLibName + "/src/*.js", gulp.parallel("compile-libbundle-js")).on("change", reload);
+		gulp.watch("../../libs/" + currentLibName + "/json/*.json").on("change", reload);
 	}));
 
 gulp.task("default", gulp.task("browser-sync"));

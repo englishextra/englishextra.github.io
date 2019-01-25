@@ -930,10 +930,8 @@ ToProgress, unescape, verge, VK, Ya*/
 				};
 				debounce(logic, 200).call(root);
 		};
-		var manageExternalLinkAll = function (scope) {
-			var ctx = scope && scope.nodeName ? scope : "";
-			var linkTag = "a";
-			var link = ctx ? ctx[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
+		var manageExternalLinkAll = function () {
+			var link = document[getElementsByTagName]("a") || "";
 			var isBindedClass = "is-binded";
 			var arrange = function (e) {
 				if (!e[classList].contains(isBindedClass)) {
@@ -1081,7 +1079,7 @@ ToProgress, unescape, verge, VK, Ya*/
 				}
 			};
 			if (tableSort) {
-				/* var jsUrl = "../../cdn/tablesort/4.0.1/js/tablesort.fixed.min.js";
+				/* var jsUrl = "../../cdn/tablesort/4.0.1/js/tablesort.fixed.js";
 				if (!scriptIsLoaded(jsUrl)) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
@@ -1357,7 +1355,7 @@ ToProgress, unescape, verge, VK, Ya*/
 			};
 			if (holder && locationHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					/* var jsUrl = "../../cdn/qrjs2/0.1.7/js/qrjs2.fixed.min.js";
+					/* var jsUrl = "../../cdn/qrjs2/0.1.7/js/qrjs2.fixed.js";
 					if (!scriptIsLoaded(jsUrl)) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
@@ -1909,7 +1907,7 @@ ToProgress, unescape, verge, VK, Ya*/
 				}
 			};
 			if (searchForm && textInput) {
-				/* var jsUrl = "../../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
+				/* var jsUrl = "../../cdn/kamil/0.1.1/js/kamil.fixed.js";
 				if (!scriptIsLoaded(jsUrl)) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
@@ -2013,13 +2011,13 @@ ToProgress, unescape, verge, VK, Ya*/
 		scripts.push("../../cdn/polyfills/js/polyfills.fixed.min.js");
 	}
 
-	/* var scripts = ["../../cdn/verge/1.9.1/js/verge.fixed.min.js",
-		"../../cdn/iframe-lightbox/0.1.6/js/iframe-lightbox.fixed.min.js",
-		"../../cdn/Tocca.js/2.0.1/js/Tocca.fixed.min.js",
-		"../../cdn/qrjs2/0.1.7/js/qrjs2.fixed.min.js",
-		"../../cdn/tablesort/4.0.1/js/tablesort.fixed.min.js",
-		"../../cdn/js-cookie/2.1.3/js/js.cookie.fixed.min.js",
-		"../../cdn/kamil/0.1.1/js/kamil.fixed.min.js"]; */
+	/* var scripts = ["../../cdn/verge/1.9.1/js/verge.fixed.js",
+		"../../cdn/iframe-lightbox/0.1.6/js/iframe-lightbox.fixed.js",
+		"../../cdn/Tocca.js/2.0.1/js/Tocca.fixed.js",
+		"../../cdn/qrjs2/0.1.7/js/qrjs2.fixed.js",
+		"../../cdn/tablesort/4.0.1/js/tablesort.fixed.js",
+		"../../cdn/js-cookie/2.1.3/js/js.cookie.fixed.js",
+		"../../cdn/kamil/0.1.1/js/kamil.fixed.js"]; */
 
 	scripts.push("../../libs/paper/js/vendors.min.js");
 

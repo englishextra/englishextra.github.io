@@ -828,10 +828,8 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 				};
 				debounce(logic, 200).call(root);
 		};
-		var manageExternalLinkAll = function (scope) {
-			var ctx = scope && scope.nodeName ? scope : "";
-			var linkTag = "a";
-			var link = ctx ? ctx[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
+		var manageExternalLinkAll = function () {
+			var link = document[getElementsByTagName]("a") || "";
 			var isBindedClass = "is-binded";
 			var arrange = function (e) {
 				if (!e[classList].contains(isBindedClass)) {
@@ -1095,7 +1093,7 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			};
 			if (holder && locationHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					/* var jsUrl = "../../cdn/qrjs2/0.1.7/js/qrjs2.fixed.min.js";
+					/* var jsUrl = "./cdn/qrjs2/0.1.7/js/qrjs2.fixed.js";
 					if (!scriptIsLoaded(jsUrl)) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
@@ -1464,7 +1462,7 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 		hideProgressBar();
 	};
 
-	/* var scripts = ["../../libs/english_for_free/css/bundle.min.css"]; */
+	/* var scripts = ["./libs/english_for_free/css/bundle.min.css"]; */
 	var scripts = [];
 
 	var supportsPassive = (function () {
@@ -1508,13 +1506,13 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 	})();
 
 	if (needsPolyfills) {
-		scripts.push("../../cdn/polyfills/js/polyfills.fixed.min.js");
+		scripts.push("./cdn/polyfills/js/polyfills.fixed.min.js");
 	}
 
-	/* var scripts = ["../../cdn/verge/1.9.1/js/verge.fixed.min.js",
-		"../../cdn/Tocca.js/2.0.1/js/Tocca.fixed.min.js"]; */
+	/* var scripts = ["./cdn/verge/1.9.1/js/verge.fixed.js",
+		"./cdn/Tocca.js/2.0.1/js/Tocca.fixed.js"]; */
 
-	scripts.push("../../libs/english_for_free/js/vendors.min.js");
+	scripts.push("./libs/english_for_free/js/vendors.min.js");
 
 	/*!
 	 * load scripts after webfonts loaded using doesFontExist
@@ -1560,7 +1558,7 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 
 	loadCSS(
 			/* forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic,latin-ext", */
-			"../../libs/english_for_free/css/bundle.min.css",
+			"./libs/english_for_free/css/bundle.min.css",
 			onFontsLoadedCallback
 		);
 

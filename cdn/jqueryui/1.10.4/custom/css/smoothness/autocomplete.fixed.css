@@ -1,0 +1,38 @@
+/**
+ * overrides to jquery-ui-1.10.4.custom.min.css
+ */
+
+.ui-autocomplete {
+	font-family: inherit;
+	color: inherit;
+	background: #FFFFFF;
+	border: 0.063rem solid #C3C3C3;
+	border-radius: 0;
+	z-index: 999;
+}
+
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-focus,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus {
+	background: #DFDFDF;
+	border: 0.063rem solid #DFDFDF;
+	border-radius: 0;
+	padding: 0;
+	margin: 0;
+}
+
+.ui-menu-item,
+.ui-menu-item .ui-corner-all {
+	font-size: 0.813rem;
+	font-weight: 400 !important;
+	color: inherit;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+}
+
+.ui-widget-shadow {
+	border-radius: 0;
+}

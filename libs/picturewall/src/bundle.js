@@ -1299,15 +1299,15 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya, zoomwall */
 	})();
 
 	if (needsPolyfills) {
-		scripts.push("../../cdn/polyfills/js/polyfills.fixed.min.js");
+		scripts.push("./cdn/polyfills/js/polyfills.fixed.min.js");
 	}
 
-	/* scripts.push("./cdn/platform/1.3.4/js/platform.fixed.min.js",
+	/* scripts.push("./cdn/platform/1.3.4/js/platform.fixed.js",
 		"./cdn/zoomwall.js/1.1.1/js/zoomwall.fixed.min.js",
 		"./cdn/echo.js/0.1.0/js/echo.fixed.min.js",
 		"./cdn/t.js/0.1.0/js/t.fixed.min.js",
-		"./cdn/Tocca.js/2.0.1/js/Tocca.fixed.min.js",
-		"./cdn/wheel-indicator/1.1.4/js/wheel-indicator.fixed.min.js"); */
+		"./cdn/Tocca.js/2.0.1/js/Tocca.fixed.js",
+		"./cdn/wheel-indicator/1.1.4/js/wheel-indicator.fixed.js"); */
 
 	scripts.push("./libs/picturewall/js/vendors.min.js");
 

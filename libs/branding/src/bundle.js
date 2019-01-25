@@ -1,9 +1,9 @@
 /*jslint browser: true */
 /*jslint node: true */
 /*global ActiveXObject, Cookies, doesFontExist, Draggabilly, IframeLightbox,
-imagePromise, Kamil, loadCSS, loadJsCss, Masonry, Packery, prettyPrint,
-Promise, QRCode, require, Tablesort, Timers, ToProgress, unescape, verge, VK,
-Ya*/
+imgLightbox, imagePromise, Kamil, loadCSS, loadJsCss, Masonry, Packery,
+prettyPrint, Promise, QRCode, require, Tablesort, ToProgress, unescape, verge,
+VK, Ya*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -931,10 +931,8 @@ Ya*/
 				};
 				debounce(logic, 200).call(root);
 		};
-		var manageExternalLinkAll = function (scope) {
-			var ctx = scope && scope.nodeName ? scope : "";
-			var linkTag = "a";
-			var link = ctx ? ctx[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
+		var manageExternalLinkAll = function () {
+			var link = document[getElementsByTagName]("a") || "";
 			var isBindedClass = "is-binded";
 			var arrange = function (e) {
 				if (!e[classList].contains(isBindedClass)) {
@@ -1082,7 +1080,7 @@ Ya*/
 				}
 			};
 			if (tableSort) {
-				/* var jsUrl = "../../cdn/tablesort/4.0.1/js/tablesort.fixed.min.js";
+				/* var jsUrl = "../../cdn/tablesort/4.0.1/js/tablesort.fixed.js";
 				if (!scriptIsLoaded(jsUrl)) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
@@ -1167,7 +1165,7 @@ Ya*/
 			if (grid && gridItem) {
 				/* var jsUrl = "../../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
 				/* var jsUrl = "../../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js"; */
-				/* var jsUrl = "../../cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js";
+				/* var jsUrl = "../../cdn/packery/2.1.1/js/packery.pkgd.fixed.js";
 				if (!scriptIsLoaded(jsUrl)) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
@@ -1185,7 +1183,7 @@ Ya*/
 				}
 			};
 			if (pre) {
-				/* var jsUrl = "../../cdn/google-code-prettify/0.1/js/prettify.bundled.fixed.min.js";
+				/* var jsUrl = "../../cdn/google-code-prettify/0.1/js/prettify.bundled.fixed.js";
 				if (!scriptIsLoaded(jsUrl)) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
@@ -1194,124 +1192,6 @@ Ya*/
 			}
 		};
 		initPrettyPrint();
-
-		var hideImgLightbox = function () {
-			var container = document[getElementsByClassName]("img-lightbox-container")[0] || "";
-			var img = container ? container[getElementsByTagName]("img")[0] || "" : "";
-			var animatedClass = "animated";
-			var fadeInClass = "fadeIn";
-			var fadeInUpClass = "fadeInUp";
-			var fadeOutClass = "fadeOut";
-			var fadeOutDownClass = "fadeOutDown";
-			var dummySrc = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
-			var hideContainer = function () {
-				container[classList].remove(fadeInClass);
-				container[classList].add(fadeOutClass);
-				var hideImg = function () {
-					container[classList].remove(animatedClass);
-					container[classList].remove(fadeOutClass);
-					img[classList].remove(animatedClass);
-					img[classList].remove(fadeOutDownClass);
-					img.src = dummySrc;
-					container[style].display = "none";
-				};
-				var timer = setTimeout(function () {
-					clearTimeout(timer);
-					timer = null;
-					hideImg();
-				}, 400);
-			};
-			if (container && img) {
-				img[classList].remove(fadeInUpClass);
-				img[classList].add(fadeOutDownClass);
-				var timer = setTimeout(function () {
-					clearTimeout(timer);
-					timer = null;
-					hideContainer();
-				}, 400);
-			}
-		};
-		var handleImgLightboxContainer = function () {
-			var container = document[getElementsByClassName]("img-lightbox-container")[0] || "";
-			if (container) {
-				container[_removeEventListener]("click", handleImgLightboxContainer);
-				hideImgLightbox();
-			}
-		};
-		var handleImgLightboxWindow = function (ev) {
-			root[_removeEventListener]("keyup", handleImgLightboxWindow);
-			if (27 === (ev.which || ev.keyCode)) {
-				hideImgLightbox();
-			}
-		};
-		var manageImgLightboxLinkAll = function (scope) {
-			var ctx = scope && scope.nodeName ? scope : "";
-			var linkClass = "img-lightbox-link";
-			var link = ctx ? ctx[getElementsByClassName](linkClass) || "" : document[getElementsByClassName](linkClass) || "";
-			var containerClass = "img-lightbox-container";
-			var container = document[getElementsByClassName](containerClass)[0] || "";
-			var img = container ? container[getElementsByTagName]("img")[0] || "" : "";
-			var animatedClass = "animated";
-			var fadeInClass = "fadeIn";
-			var fadeInUpClass = "fadeInUp";
-			var isBindedClass = "is-binded";
-			var dummySrc = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
-			if (!container) {
-				container = document[createElement]("div");
-				img = document[createElement]("img");
-				img.src = dummySrc;
-				img.alt = "";
-				container[appendChild](img);
-				container[classList].add(containerClass);
-				appendFragment(container, docBody);
-			}
-			var arrange = function (e) {
-				var handleImgLightboxLink = function (ev) {
-					ev.stopPropagation();
-					ev.preventDefault();
-					var _this = this;
-					var logic = function () {
-						var hrefString = _this[getAttribute]("href") || "";
-						if (container && img && hrefString) {
-							LoadingSpinner.show();
-							container[classList].add(animatedClass);
-							container[classList].add(fadeInClass);
-							img[classList].add(animatedClass);
-							img[classList].add(fadeInUpClass);
-							if (parseLink(hrefString).isAbsolute && !parseLink(hrefString).hasHTTP) {
-								hrefString = hrefString.replace(/^/, forcedHTTP + ":");
-							}
-							imagePromise(hrefString).then(function () {
-								img.src = hrefString;
-							}).catch (function (err) {
-								console.log("cannot load image with imagePromise:", hrefString, err);
-							});
-							root[_addEventListener]("keyup", handleImgLightboxWindow);
-							container[_addEventListener]("click", handleImgLightboxContainer);
-							container[style].display = "block";
-							LoadingSpinner.hide();
-						}
-					};
-					debounce(logic, 200).call(root);
-				};
-				if (!e[classList].contains(isBindedClass)) {
-					var hrefString = e[getAttribute]("href") || "";
-					if (hrefString) {
-						if (parseLink(hrefString).isAbsolute && !parseLink(hrefString).hasHTTP) {
-							e.setAttribute("href", hrefString.replace(/^/, forcedHTTP + ":"));
-						}
-						e[_addEventListener]("click", handleImgLightboxLink);
-						e[classList].add(isBindedClass);
-					}
-				}
-			};
-			if (link) {
-				for (var j = 0, l = link[_length]; j < l; j += 1) {
-					arrange(link[j]);
-				}
-			}
-		};
-		manageImgLightboxLinkAll();
 
 		var handleDataSrcImageAll = function () {
 			var img = document[getElementsByClassName]("data-src-img") || "";
@@ -1343,9 +1223,9 @@ Ya*/
 				}
 			}
 		};
-		
+
 		var handleDataSrcImageAllWindow = throttle(handleDataSrcImageAll, 100);
-		
+
 		var manageDataSrcImageAll = function () {
 			root[_removeEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
 			root[_removeEventListener]("resize", handleDataSrcImageAllWindow);
@@ -1391,9 +1271,9 @@ Ya*/
 				}
 			}
 		};
-		
+
 		var handleDataSrcIframeAllWindow = throttle(handleDataSrcIframeAll, 100);
-		
+
 		var manageDataSrcIframeAll = function () {
 			root[_removeEventListener]("scroll", handleDataSrcIframeAllWindow, {passive: true});
 			root[_removeEventListener]("resize", handleDataSrcIframeAllWindow);
@@ -1407,25 +1287,67 @@ Ya*/
 		};
 		manageDataSrcIframeAll();
 
-		var manageIframeLightboxLinkAll = function (linkClass) {
-			var link = document[getElementsByClassName](linkClass) || "";
-			var arrange = function (e) {
-				if (root.IframeLightbox) {
-					e.lightbox = new IframeLightbox(e, {
-							touch: false
-						});
+		var imgLightboxLinkClass = "img-lightbox-link";
+
+		/*!
+		 * @see {@link https://github.com/englishextra/img-lightbox}
+		 */
+		var manageImgLightbox = function (imgLightboxLinkClass) {
+			var initScript = function () {
+				var link = document[getElementsByClassName](imgLightboxLinkClass) || "";
+				if (link) {
+					imgLightbox(imgLightboxLinkClass, {
+						onLoaded: function () {
+							LoadingSpinner.hide();
+						},
+						onClosed: function () {
+							LoadingSpinner.hide();
+						},
+						onCreated: function () {
+							LoadingSpinner.show();
+						},
+						touch: false
+					});
 				}
 			};
-			if (link) {
-				var i,
-				l;
-				for (i = 0, l = link[_length]; i < l; i += 1) {
-					arrange(link[i]);
-				}
-				i = l = null;
-			}
+			initScript();
 		};
-		manageIframeLightboxLinkAll("iframe-lightbox-link");
+		manageImgLightbox(imgLightboxLinkClass);
+
+		var iframeLightboxLinkClass = "iframe-lightbox-link";
+
+		/*!
+		 * @see {@link https://github.com/englishextra/iframe-lightbox}
+		 */
+		var manageIframeLightbox = function (iframeLightboxLinkClass) {
+			var initScript = function () {
+				var link = document[getElementsByClassName](iframeLightboxLinkClass) || "";
+				var arrange = function (e) {
+					e.lightbox = new IframeLightbox(e, {
+							onLoaded: function () {
+								LoadingSpinner.hide();
+							},
+							onClosed: function () {
+								LoadingSpinner.hide();
+							},
+							onOpened: function () {
+								LoadingSpinner.show();
+							},
+							touch: false
+						});
+				};
+				if (link) {
+					var i,
+					l;
+					for (i = 0, l = link[_length]; i < l; i += 1) {
+						arrange(link[i]);
+					}
+					i = l = null;
+				}
+			};
+			initScript();
+		};
+		manageIframeLightbox(iframeLightboxLinkClass);
 
 		var handleChaptersSelect = function () {
 			var _this = this;
@@ -1561,7 +1483,7 @@ Ya*/
 			};
 			if (holder && locationHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					/* var jsUrl = "../../cdn/qrjs2/0.1.7/js/qrjs2.fixed.min.js";
+					/* var jsUrl = "../../cdn/qrjs2/0.1.7/js/qrjs2.fixed.js";
 					if (!scriptIsLoaded(jsUrl)) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
@@ -2113,7 +2035,7 @@ Ya*/
 				}
 			};
 			if (searchForm && textInput) {
-				/* var jsUrl = "../../cdn/kamil/0.1.1/js/kamil.fixed.min.js";
+				/* var jsUrl = "../../cdn/kamil/0.1.1/js/kamil.fixed.js";
 				if (!scriptIsLoaded(jsUrl)) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
@@ -2217,15 +2139,15 @@ Ya*/
 		scripts.push("../../cdn/polyfills/js/polyfills.fixed.min.js");
 	}
 
-	/* var scripts = ["../../cdn/verge/1.9.1/js/verge.fixed.min.js",
-		"../../cdn/iframe-lightbox/0.1.6/js/iframe-lightbox.fixed.min.js",
-		"../../cdn/Tocca.js/2.0.1/js/Tocca.fixed.min.js",
-		"../../cdn/qrjs2/0.1.7/js/qrjs2.fixed.min.js",
-		"../../cdn/tablesort/4.0.1/js/tablesort.fixed.min.js",
-		"../../cdn/packery/2.1.1/js/packery.pkgd.fixed.min.js",
-		"../../cdn/google-code-prettify/0.1/js/prettify.bundled.fixed.min.js",
-		"../../cdn/js-cookie/2.1.3/js/js.cookie.fixed.min.js",
-		"../../cdn/kamil/0.1.1/js/kamil.fixed.min.js"]; */
+	/* var scripts = ["../../cdn/verge/1.9.1/js/verge.fixed.js",
+		"../../cdn/iframe-lightbox/0.1.6/js/iframe-lightbox.fixed.js",
+		"../../cdn/Tocca.js/2.0.1/js/Tocca.fixed.js",
+		"../../cdn/qrjs2/0.1.7/js/qrjs2.fixed.js",
+		"../../cdn/tablesort/4.0.1/js/tablesort.fixed.js",
+		"../../cdn/packery/2.1.1/js/packery.pkgd.fixed.js",
+		"../../cdn/google-code-prettify/0.1/js/prettify.bundled.fixed.js",
+		"../../cdn/js-cookie/2.1.3/js/js.cookie.fixed.js",
+		"../../cdn/kamil/0.1.1/js/kamil.fixed.js"]; */
 
 	scripts.push("../../libs/branding/js/vendors.min.js");
 

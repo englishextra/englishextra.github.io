@@ -1,11 +1,8 @@
 @charset "UTF-8";
-
 /*!
  * libs\serguei-webslides\scss\bundle.scss
  */
-
 /*! @import "englishextra-ui-colors" */
-
 /*!
  * englishextra-ui colors
  * use microsoft.com/en-us/design/color
@@ -16,7 +13,6 @@
  * localhost/tools/hexcolortool/index.html
  * localhost/tools/css3-playground/
  */
-
 /* 0073D2
 007DD1
 5E308F
@@ -40,7 +36,6 @@ EB5262
 615FC8
 744DA5
 3087CD */
-
 /* \$(.*?)\: (.*?)\;
 \t\t\t\t\t\t\t\t\t\t<div class="masonry-grid-item"><div class="bg-\1"><span class="color-variable-name">$\1</span></div></div>
 
@@ -48,13 +43,14 @@ EB5262
 .bg-\1 {
 	background-color: $\1;
 } */
-
 /*! @import "englishextra-ui-variables"; */
-
+/*! @import "font-face"; */
 @font-face {
 	font-family: Roboto;
-	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Thin.woff2?v=2.137) format("woff2"),
-	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Thin.woff?v=2.137) format("woff");
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Thin.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Thin.woff?v=2.137)
+			format("woff");
 	font-weight: 100;
 	font-style: normal;
 	font-display: swap;
@@ -62,8 +58,10 @@ EB5262
 
 @font-face {
 	font-family: Roboto;
-	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-ThinItalic.woff2?v=2.137) format("woff2"),
-	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-ThinItalic.woff?v=2.137) format("woff");
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-ThinItalic.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-ThinItalic.woff?v=2.137)
+			format("woff");
 	font-weight: 100;
 	font-style: italic;
 	font-display: swap;
@@ -71,8 +69,10 @@ EB5262
 
 @font-face {
 	font-family: Roboto;
-	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Light.woff2?v=2.137) format("woff2"),
-	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Light.woff?v=2.137) format("woff");
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Light.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Light.woff?v=2.137)
+			format("woff");
 	font-weight: 300;
 	font-style: normal;
 	font-display: swap;
@@ -80,8 +80,10 @@ EB5262
 
 @font-face {
 	font-family: Roboto;
-	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-LightItalic.woff2?v=2.137) format("woff2"),
-	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-LightItalic.woff?v=2.137) format("woff");
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-LightItalic.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-LightItalic.woff?v=2.137)
+			format("woff");
 	font-weight: 300;
 	font-style: italic;
 	font-display: swap;
@@ -89,8 +91,10 @@ EB5262
 
 @font-face {
 	font-family: Roboto;
-	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Regular.woff2?v=2.137) format("woff2"),
-	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Regular.woff?v=2.137) format("woff");
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Regular.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Regular.woff?v=2.137)
+			format("woff");
 	font-weight: 400;
 	font-style: normal;
 	font-display: swap;
@@ -98,8 +102,10 @@ EB5262
 
 @font-face {
 	font-family: Roboto;
-	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Regular.woff2?v=2.137) format("woff2"),
-	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Regular.woff?v=2.137) format("woff");
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Regular.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Regular.woff?v=2.137)
+			format("woff");
 	font-weight: 400;
 	font-style: normal;
 	font-display: swap;
@@ -107,8 +113,10 @@ EB5262
 
 @font-face {
 	font-family: Roboto;
-	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Italic.woff2?v=2.137) format("woff2"),
-	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Italic.woff?v=2.137) format("woff");
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Italic.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Italic.woff?v=2.137)
+			format("woff");
 	font-weight: 400;
 	font-style: italic;
 	font-display: swap;
@@ -116,8 +124,10 @@ EB5262
 
 @font-face {
 	font-family: Roboto;
-	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Italic.woff2?v=2.137) format("woff2"),
-	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Italic.woff?v=2.137) format("woff");
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Italic.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Italic.woff?v=2.137)
+			format("woff");
 	font-weight: 400;
 	font-style: italic;
 	font-display: swap;
@@ -125,8 +135,10 @@ EB5262
 
 @font-face {
 	font-family: Roboto;
-	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Medium.woff2?v=2.137) format("woff2"),
-	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Medium.woff?v=2.137) format("woff");
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Medium.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Medium.woff?v=2.137)
+			format("woff");
 	font-weight: 500;
 	font-style: normal;
 	font-display: swap;
@@ -134,8 +146,10 @@ EB5262
 
 @font-face {
 	font-family: Roboto;
-	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-MediumItalic.woff2?v=2.137) format("woff2"),
-	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-MediumItalic.woff?v=2.137) format("woff");
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-MediumItalic.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-MediumItalic.woff?v=2.137)
+			format("woff");
 	font-weight: 500;
 	font-style: italic;
 	font-display: swap;
@@ -143,8 +157,10 @@ EB5262
 
 @font-face {
 	font-family: Roboto;
-	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Bold.woff2?v=2.137) format("woff2"),
-	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Bold.woff?v=2.137) format("woff");
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Bold.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Bold.woff?v=2.137)
+			format("woff");
 	font-weight: 700;
 	font-style: normal;
 	font-display: swap;
@@ -152,8 +168,10 @@ EB5262
 
 @font-face {
 	font-family: Roboto;
-	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Bold.woff2?v=2.137) format("woff2"),
-	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Bold.woff?v=2.137) format("woff");
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Bold.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Bold.woff?v=2.137)
+			format("woff");
 	font-weight: 700;
 	font-style: normal;
 	font-display: swap;
@@ -161,8 +179,10 @@ EB5262
 
 @font-face {
 	font-family: Roboto;
-	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BoldItalic.woff2?v=2.137) format("woff2"),
-	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BoldItalic.woff?v=2.137) format("woff");
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BoldItalic.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BoldItalic.woff?v=2.137)
+			format("woff");
 	font-weight: 700;
 	font-style: italic;
 	font-display: swap;
@@ -170,8 +190,10 @@ EB5262
 
 @font-face {
 	font-family: Roboto;
-	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BoldItalic.woff2?v=2.137) format("woff2"),
-	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BoldItalic.woff?v=2.137) format("woff");
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BoldItalic.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BoldItalic.woff?v=2.137)
+			format("woff");
 	font-weight: 700;
 	font-style: italic;
 	font-display: swap;
@@ -179,8 +201,10 @@ EB5262
 
 @font-face {
 	font-family: Roboto;
-	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Black.woff2?v=2.137) format("woff2"),
-	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Black.woff?v=2.137) format("woff");
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Black.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Black.woff?v=2.137)
+			format("woff");
 	font-weight: 900;
 	font-style: normal;
 	font-display: swap;
@@ -188,8 +212,10 @@ EB5262
 
 @font-face {
 	font-family: Roboto;
-	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BlackItalic.woff2?v=2.137) format("woff2"),
-	url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BlackItalic.woff?v=2.137) format("woff");
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BlackItalic.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BlackItalic.woff?v=2.137)
+			format("woff");
 	font-weight: 900;
 	font-style: italic;
 	font-display: swap;
@@ -198,11 +224,16 @@ EB5262
 @font-face {
 	font-family: "Roboto Mono";
 	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Thin.eot);
-	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Thin.eot?#iefix) format("embedded-opentype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Thin.woff2?v=2.0.986) format("woff2"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Thin.woff?v=2.0.986) format("woff"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Thin.ttf) format("truetype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Thin.svg#RobotoMonoThin) format("svg");
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Thin.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Thin.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Thin.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Thin.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Thin.svg#RobotoMonoThin)
+			format("svg");
 	font-weight: 100;
 	font-style: normal;
 	font-display: swap;
@@ -211,11 +242,16 @@ EB5262
 @font-face {
 	font-family: "Roboto Mono";
 	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-ThinItalic.eot);
-	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-ThinItalic.eot?#iefix) format("embedded-opentype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-ThinItalic.woff2?v=2.0.986) format("woff2"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-ThinItalic.woff?v=2.0.986) format("woff"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-ThinItalic.ttf) format("truetype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-ThinItalic.svg#RobotoMonoThinItalic) format("svg");
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-ThinItalic.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-ThinItalic.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-ThinItalic.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-ThinItalic.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-ThinItalic.svg#RobotoMonoThinItalic)
+			format("svg");
 	font-weight: 100;
 	font-style: italic;
 	font-display: swap;
@@ -224,11 +260,16 @@ EB5262
 @font-face {
 	font-family: "Roboto Mono";
 	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Light.eot);
-	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Light.eot?#iefix) format("embedded-opentype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Light.woff2?v=2.0.986) format("woff2"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Light.woff?v=2.0.986) format("woff"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Light.ttf) format("truetype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Light.svg#RobotoMonoLight) format("svg");
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Light.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Light.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Light.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Light.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Light.svg#RobotoMonoLight)
+			format("svg");
 	font-weight: 300;
 	font-style: normal;
 	font-display: swap;
@@ -237,11 +278,16 @@ EB5262
 @font-face {
 	font-family: "Roboto Mono";
 	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-LightItalic.eot);
-	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-LightItalic.eot?#iefix) format("embedded-opentype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-LightItalic.woff2?v=2.0.986) format("woff2"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-LightItalic.woff?v=2.0.986) format("woff"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-LightItalic.ttf) format("truetype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-LightItalic.svg#RobotoMonoLightItalic) format("svg");
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-LightItalic.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-LightItalic.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-LightItalic.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-LightItalic.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-LightItalic.svg#RobotoMonoLightItalic)
+			format("svg");
 	font-weight: 300;
 	font-style: italic;
 	font-display: swap;
@@ -250,11 +296,16 @@ EB5262
 @font-face {
 	font-family: "Roboto Mono";
 	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.eot);
-	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.eot?#iefix) format("embedded-opentype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.woff2?v=2.0.986) format("woff2"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.woff?v=2.0.986) format("woff"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.ttf) format("truetype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.svg#RobotoMonoRegular) format("svg");
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.svg#RobotoMonoRegular)
+			format("svg");
 	font-weight: 400;
 	font-style: normal;
 	font-display: swap;
@@ -263,11 +314,16 @@ EB5262
 @font-face {
 	font-family: "Roboto Mono";
 	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.eot);
-	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.eot?#iefix) format("embedded-opentype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.woff2?v=2.0.986) format("woff2"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.woff?v=2.0.986) format("woff"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.ttf) format("truetype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.svg#RobotoMonoRegular) format("svg");
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.svg#RobotoMonoRegular)
+			format("svg");
 	font-weight: 400;
 	font-style: normal;
 	font-display: swap;
@@ -276,11 +332,16 @@ EB5262
 @font-face {
 	font-family: "Roboto Mono";
 	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.eot);
-	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.eot?#iefix) format("embedded-opentype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.woff2?v=2.0.986) format("woff2"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.woff?v=2.0.986) format("woff"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.ttf) format("truetype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.svg#RobotoMonoItalic) format("svg");
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.svg#RobotoMonoItalic)
+			format("svg");
 	font-weight: 400;
 	font-style: italic;
 	font-display: swap;
@@ -289,11 +350,16 @@ EB5262
 @font-face {
 	font-family: "Roboto Mono";
 	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.eot);
-	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.eot?#iefix) format("embedded-opentype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.woff2?v=2.0.986) format("woff2"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.woff?v=2.0.986) format("woff"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.ttf) format("truetype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.svg#RobotoMonoItalic) format("svg");
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.svg#RobotoMonoItalic)
+			format("svg");
 	font-weight: 400;
 	font-style: italic;
 	font-display: swap;
@@ -302,11 +368,16 @@ EB5262
 @font-face {
 	font-family: "Roboto Mono";
 	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Medium.eot);
-	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Medium.eot?#iefix) format("embedded-opentype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Medium.woff2?v=2.0.986) format("woff2"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Medium.woff?v=2.0.986) format("woff"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Medium.ttf) format("truetype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Medium.svg#RobotoMonoMedium) format("svg");
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Medium.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Medium.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Medium.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Medium.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Medium.svg#RobotoMonoMedium)
+			format("svg");
 	font-weight: 500;
 	font-style: normal;
 	font-display: swap;
@@ -315,11 +386,16 @@ EB5262
 @font-face {
 	font-family: "Roboto Mono";
 	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-MediumItalic.eot);
-	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-MediumItalic.eot?#iefix) format("embedded-opentype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-MediumItalic.woff2?v=2.0.986) format("woff2"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-MediumItalic.woff?v=2.0.986) format("woff"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-MediumItalic.ttf) format("truetype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-MediumItalic.svg#RobotoMonoMediumItalic) format("svg");
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-MediumItalic.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-MediumItalic.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-MediumItalic.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-MediumItalic.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-MediumItalic.svg#RobotoMonoMediumItalic)
+			format("svg");
 	font-weight: 500;
 	font-style: italic;
 	font-display: swap;
@@ -328,11 +404,16 @@ EB5262
 @font-face {
 	font-family: "Roboto Mono";
 	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.eot);
-	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.eot?#iefix) format("embedded-opentype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.woff2?v=2.0.986) format("woff2"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.woff?v=2.0.986) format("woff"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.ttf) format("truetype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.svg#RobotoMonoBold) format("svg");
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.svg#RobotoMonoBold)
+			format("svg");
 	font-weight: 700;
 	font-style: normal;
 	font-display: swap;
@@ -341,11 +422,16 @@ EB5262
 @font-face {
 	font-family: "Roboto Mono";
 	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.eot);
-	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.eot?#iefix) format("embedded-opentype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.woff2?v=2.0.986) format("woff2"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.woff?v=2.0.986) format("woff"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.ttf) format("truetype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.svg#RobotoMonoBold) format("svg");
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.svg#RobotoMonoBold)
+			format("svg");
 	font-weight: 700;
 	font-style: normal;
 	font-display: swap;
@@ -354,11 +440,16 @@ EB5262
 @font-face {
 	font-family: "Roboto Mono";
 	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.eot);
-	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.eot?#iefix) format("embedded-opentype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.woff2?v=2.0.986) format("woff2"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.woff?v=2.0.986) format("woff"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.ttf) format("truetype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.svg#RobotoMonoBoldItalic) format("svg");
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.svg#RobotoMonoBoldItalic)
+			format("svg");
 	font-weight: 700;
 	font-style: italic;
 	font-display: swap;
@@ -367,18 +458,22 @@ EB5262
 @font-face {
 	font-family: "Roboto Mono";
 	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.eot);
-	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.eot?#iefix) format("embedded-opentype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.woff2?v=2.0.986) format("woff2"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.woff?v=2.0.986) format("woff"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.ttf) format("truetype"),
-	url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.svg#RobotoMonoBoldItalic) format("svg");
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.svg#RobotoMonoBoldItalic)
+			format("svg");
 	font-weight: 700;
 	font-style: italic;
 	font-display: swap;
 }
 
 /* @import "webslides-base"; */
-
 /*!
  * Name: WebSlides
  * Version: 1.5.0
@@ -387,7 +482,6 @@ EB5262
  * URL: https://github.com/webslides/webslides#readme
  * Credits: @jlantunez, @LuisSacristan, @Belelros
  */
-
 /*-----------------------------------------------------------------------------------
 	0. CSS Reset & Normalize
 	1. Base
@@ -431,13 +525,11 @@ EB5262
  18. Print
  19. Colors - separate scss _webslides-colors.fixed.scss
 ----------------------------------------------------------------------------------- */
-
 /*
 =========================================
 0. CSS Reset & Normalize
 =========================================
 */
-
 html,
 body,
 div,
@@ -547,14 +639,14 @@ body {
 
 blockquote,
 q {
-	quotes: '' '';
+	quotes: "" "";
 }
 
 blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-	content: '';
+	content: "";
 }
 
 table {
@@ -627,7 +719,7 @@ a:hover {
 
 sup,
 sub {
-	font-size: .75em;
+	font-size: 0.75em;
 	height: 0;
 	line-height: 2.2em;
 	position: relative;
@@ -639,11 +731,11 @@ sup {
 }
 
 sub {
-	top: .5ex;
+	top: 0.5ex;
 }
 
 small {
-	font-size: .75em;
+	font-size: 0.75em;
 	line-height: 1.72;
 }
 
@@ -689,10 +781,6 @@ ins {
 	text-shadow: none;
 }
 
-::-moz-selection {
-	text-shadow: none;
-}
-
 ::selection {
 	text-shadow: none;
 }
@@ -704,7 +792,7 @@ img {
 }
 
 img:hover {
-	opacity: .9;
+	opacity: 0.9;
 }
 
 svg:not(:root) {
@@ -735,7 +823,6 @@ dd {
 }
 
 /*=== Clearing === */
-
 header:before,
 header:after,
 main:before,
@@ -750,7 +837,7 @@ footer:after,
 .clear:after,
 .wrap:before,
 .wrap:after {
-	content: '';
+	content: "";
 	display: table;
 }
 
@@ -767,10 +854,8 @@ footer:after,
 /*=========================================
 1. Base --> Baseline: 8px = .8rem
 =========================================== */
-
 /* -- Disable elastic scrolling/bounce:
 webslides.js will add .ws-ready automatically. Don't worry :) -- */
-
 .ws-ready,
 .ws-ready body {
 	height: 100%;
@@ -810,8 +895,8 @@ input:focus,
 textarea:focus,
 button {
 	text-decoration: none;
-	-webkit-transition: all .3s ease-out;
-	transition: all .3s ease-out;
+	-webkit-transition: all 0.3s ease-out;
+	transition: all 0.3s ease-out;
 }
 
 p a:active {
@@ -819,7 +904,7 @@ p a:active {
 	top: 2px;
 }
 
-nav a[rel='external'] em,
+nav a[rel="external"] em,
 .hidden {
 	clip: rect(1px, 1px, 1px, 1px);
 	height: 1px;
@@ -835,7 +920,7 @@ nav a[rel='external'] em,
 .shadow:before,
 .shadow:after {
 	bottom: 1.6rem;
-	content: '';
+	content: "";
 	max-width: 300px;
 	position: absolute;
 	top: 80%;
@@ -856,7 +941,6 @@ nav a[rel='external'] em,
 }
 
 /*=== 1.1 WRAP/CONTAINER === */
-
 .wrap,
 header nav,
 footer nav {
@@ -882,7 +966,7 @@ footer nav {
 }
 
 .radius {
-	border-radius: .4rem;
+	border-radius: 0.4rem;
 }
 
 .alignright {
@@ -902,8 +986,8 @@ footer nav {
 img.aligncenter,
 figure.aligncenter {
 	display: block;
-	margin-bottom: .8rem;
-	margin-top: .8rem;
+	margin-bottom: 0.8rem;
+	margin-top: 0.8rem;
 }
 
 img.alignleft,
@@ -919,42 +1003,35 @@ figure.aligncenter {
 img.alignright,
 svg.alignright,
 figure.alignright {
-	margin: .8rem 0 .8rem 2.4rem;
+	margin: 0.8rem 0 0.8rem 2.4rem;
 }
 
 img.alignleft,
 svg.alignleft,
 figure.alignleft {
-	margin: .8rem 2.4rem .8rem 0;
+	margin: 0.8rem 2.4rem 0.8rem 0;
 }
 
 /*=== div.size-60, img.size-50, h1.size-40, p.size-30... === */
-
 @media (min-width: 1024px) {
 	.size-80 {
 		width: 80%;
 	}
-
 	.size-70 {
 		width: 70%;
 	}
-
 	.size-60 {
 		width: 60%;
 	}
-
 	.size-50 {
 		width: 50%;
 	}
-
 	.size-40 {
 		width: 40%;
 	}
-
 	.size-30 {
 		width: 30%;
 	}
-
 	.size-20 {
 		width: 20%;
 	}
@@ -962,7 +1039,7 @@ figure.alignleft {
 
 pre,
 code {
-	font-family: 'Cousine', monospace;
+	font-family: "Cousine", monospace;
 }
 
 pre {
@@ -985,31 +1062,26 @@ pre code {
 }
 
 code {
-	padding: .4rem;
+	padding: 0.4rem;
 }
 
 /* === 1.2 Animations ================
 Just 5 basic animations:
 .fadeIn, .fadeInUp, .zoomIn, .slideInLeft, and .slideInRight
 https://github.com/daneden/animate.css */
-
 /*-- fadeIn -- */
-
 @-webkit-keyframes fadeIn {
 	from {
 		opacity: 0;
 	}
-
 	to {
 		opacity: 1;
 	}
 }
-
 @keyframes fadeIn {
 	from {
 		opacity: 0;
 	}
-
 	to {
 		opacity: 1;
 	}
@@ -1021,28 +1093,24 @@ https://github.com/daneden/animate.css */
 }
 
 /*-- fadeInUp -- */
-
 @-webkit-keyframes fadeInUp {
 	from {
 		opacity: 0;
 		-webkit-transform: translate3d(0, 100%, 0);
 		transform: translate3d(0, 100%, 0);
 	}
-
 	to {
 		opacity: 1;
 		-webkit-transform: none;
 		transform: none;
 	}
 }
-
 @keyframes fadeInUp {
 	from {
 		opacity: 0;
 		-webkit-transform: translate3d(0, 100%, 0);
 		transform: translate3d(0, 100%, 0);
 	}
-
 	to {
 		opacity: 1;
 		-webkit-transform: none;
@@ -1056,24 +1124,20 @@ https://github.com/daneden/animate.css */
 }
 
 /*-- zoomIn -- */
-
 @-webkit-keyframes zoomIn {
 	from {
 		-webkit-transform: scale3d(0.3, 0.3, 0.3);
 		transform: scale3d(0.3, 0.3, 0.3);
 	}
-
 	50% {
 		opacity: 1;
 	}
 }
-
 @keyframes zoomIn {
 	from {
 		-webkit-transform: scale3d(0.3, 0.3, 0.3);
 		transform: scale3d(0.3, 0.3, 0.3);
 	}
-
 	50% {
 		opacity: 1;
 	}
@@ -1085,27 +1149,23 @@ https://github.com/daneden/animate.css */
 }
 
 /*-- slideInLeft -- */
-
 @-webkit-keyframes slideInLeft {
 	from {
 		-webkit-transform: translate3d(-100%, 0, 0);
 		transform: translate3d(-100%, 0, 0);
 		visibility: visible;
 	}
-
 	to {
 		-webkit-transform: translate3d(0, 0, 0);
 		transform: translate3d(0, 0, 0);
 	}
 }
-
 @keyframes slideInLeft {
 	from {
 		-webkit-transform: translate3d(-100%, 0, 0);
 		transform: translate3d(-100%, 0, 0);
 		visibility: visible;
 	}
-
 	to {
 		-webkit-transform: translate3d(0, 0, 0);
 		transform: translate3d(0, 0, 0);
@@ -1120,27 +1180,23 @@ https://github.com/daneden/animate.css */
 }
 
 /*-- slideInRight -- */
-
 @-webkit-keyframes slideInRight {
 	from {
 		-webkit-transform: translate3d(100%, 0, 0);
 		transform: translate3d(100%, 0, 0);
 		visibility: visible;
 	}
-
 	to {
 		-webkit-transform: translate3d(0, 0, 0);
 		transform: translate3d(0, 0, 0);
 	}
 }
-
 @keyframes slideInRight {
 	from {
 		-webkit-transform: translate3d(100%, 0, 0);
 		transform: translate3d(100%, 0, 0);
 		visibility: visible;
 	}
-
 	to {
 		-webkit-transform: translate3d(0, 0, 0);
 		transform: translate3d(0, 0, 0);
@@ -1155,25 +1211,21 @@ https://github.com/daneden/animate.css */
 }
 
 /* Animated Background (Matrix) */
-
 @-webkit-keyframes anim {
 	0% {
 		-webkit-transform: translateY(0);
 		transform: translateY(0);
 	}
-
 	100% {
 		-webkit-transform: translateY(-1200px);
 		transform: translateY(-1200px);
 	}
 }
-
 @keyframes anim {
 	0% {
 		-webkit-transform: translateY(0);
 		transform: translateY(0);
 	}
-
 	100% {
 		-webkit-transform: translateY(-1200px);
 		transform: translateY(-1200px);
@@ -1181,7 +1233,6 @@ https://github.com/daneden/animate.css */
 }
 
 /* Duration */
-
 .slow {
 	-webkit-animation-duration: 4s;
 	animation-duration: 4s;
@@ -1193,7 +1244,6 @@ https://github.com/daneden/animate.css */
 }
 
 /*=== 1.3 Responsive Media (videos, iframe...) === */
-
 .embed {
 	height: 0;
 	overflow: hidden;
@@ -1271,11 +1321,9 @@ https://github.com/daneden/animate.css */
 }
 
 /*=== HTML Browser (Screenshots) ================ */
-
 /* <figure class="browser"> img </figure> */
-
 .browser {
-	border-radius: .3rem;
+	border-radius: 0.3rem;
 	margin: 0 auto 3.2rem;
 	max-width: 1024px;
 	overflow: hidden;
@@ -1296,8 +1344,8 @@ p + .browser {
 }
 
 .browser:before {
-	content: '\25CF  \25CF  \25CF';
-	font-size: .8rem;
+	content: "\25CF  \25CF  \25CF";
+	font-size: 0.8rem;
 	left: 0;
 	line-height: 0;
 	padding: 1.6rem;
@@ -1315,7 +1363,6 @@ p + .browser {
 
 /*=== 1.4. Basic Grid (Flexible blocks)
 Auto-fill & Equal height === */
-
 .grid {
 	clear: both;
 	display: -webkit-box;
@@ -1332,7 +1379,7 @@ Auto-fill & Equal height === */
 }
 
 .grid:before {
-	content: '';
+	content: "";
 	display: table;
 }
 
@@ -1349,8 +1396,8 @@ Auto-fill & Equal height === */
 	flex-direction: column;
 	padding: 2.4rem;
 	position: relative;
-	-webkit-transition: .3s;
-	transition: .3s;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
 	width: 100%;
 }
 
@@ -1364,23 +1411,18 @@ Auto-fill & Equal height === */
 	.grid > .column {
 		width: 25%;
 	}
-
 	.grid.sm .column:nth-child(1) {
 		width: 30%;
 	}
-
 	.grid.sm .column:nth-child(2) {
 		width: 70%;
 	}
-
 	.grid.ms .column:nth-child(1) {
 		width: 70%;
 	}
-
 	.grid.ms .column:nth-child(2) {
 		width: 30%;
 	}
-
 	.grid.sms .column:nth-child(2) {
 		width: 50%;
 	}
@@ -1389,16 +1431,14 @@ Auto-fill & Equal height === */
 /*=========================================
 3. Header & Footer
 =========================================== */
-
 /* -- If you want an unique, global header/footer,read this:
 https://github.com/webslides/webslides/issues/57 -- */
-
 header,
 footer,
 #navigation {
 	padding: 2.4rem;
-	-webkit-transition: all .4s ease-in-out;
-	transition: all .4s ease-in-out;
+	-webkit-transition: all 0.4s ease-in-out;
+	transition: all 0.4s ease-in-out;
 	width: 100%;
 }
 
@@ -1408,7 +1448,7 @@ footer p {
 	margin-bottom: 0;
 }
 
-header[role='banner'] img,
+header[role="banner"] img,
 footer img {
 	height: 4rem;
 	vertical-align: middle;
@@ -1435,11 +1475,11 @@ header,
 	top: auto;
 }
 
-header[role='banner'] {
+header[role="banner"] {
 	opacity: 0;
 }
 
-header[role='banner']:hover {
+header[role="banner"]:hover {
 	opacity: 1;
 }
 
@@ -1452,7 +1492,6 @@ header[role='banner']:hover {
 }
 
 /*=== 3.1. Logo === */
-
 .logo {
 	text-transform: lowercase;
 }
@@ -1472,9 +1511,7 @@ header[role='banner']:hover {
 /*=========================================
 4. Navigation
 =========================================== */
-
 /*=== 4.1. Navbars === */
-
 nav ul {
 	display: -webkit-box;
 	display: -ms-flexbox;
@@ -1502,11 +1539,11 @@ nav ul li {
 }
 
 nav ul li:first-child,
-nav[role='navigation'] ul li {
+nav[role="navigation"] ul li {
 	margin-left: 0;
 }
 
-nav[role='navigation'] li a {
+nav[role="navigation"] li a {
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
@@ -1520,8 +1557,8 @@ nav[role='navigation'] li a {
 	text-decoration: none;
 }
 
-nav[role='navigation'] li a svg {
-	margin: 1.5rem .4rem 1.5rem 0;
+nav[role="navigation"] li a svg {
+	margin: 1.5rem 0.4rem 1.5rem 0;
 }
 
 header nav ul {
@@ -1554,7 +1591,6 @@ nav.navbar ul li {
 		flex-flow: column wrap;
 		padding: 0;
 	}
-
 	nav.navbar li a {
 		-webkit-box-pack: start;
 		-ms-flex-pack: start;
@@ -1566,13 +1602,11 @@ nav.navbar ul li {
 5. SLIDES (Full Screen)
 Vertically and horizontally centered
 ============================================== */
-
 /* Fade transition to all slides.
 * = All HTML elements will have those styles.*/
-
 section * {
-	-webkit-animation: fadeIn .6s ease-in-out;
-	animation: fadeIn .6s ease-in-out;
+	-webkit-animation: fadeIn 0.6s ease-in-out;
+	animation: fadeIn 0.6s ease-in-out;
 }
 
 section .background,
@@ -1583,7 +1617,6 @@ section .dark {
 }
 
 /*=== Section = Slide === */
-
 section,
 .slide {
 	display: -webkit-box;
@@ -1615,7 +1648,6 @@ section,
 }
 
 /*slide with no padding (full card, .embed youtube video...) */
-
 .fullscreen {
 	padding: 0;
 	/* Fixed/Visible header?
@@ -1624,7 +1656,6 @@ section,
 }
 
 /* slide alignment - top */
-
 .slide-top {
 	-webkit-box-pack: start;
 	-ms-flex-pack: start;
@@ -1632,7 +1663,6 @@ section,
 }
 
 /* slide alignment - bottom */
-
 .slide-bottom {
 	-webkit-box-pack: end;
 	-ms-flex-pack: end;
@@ -1641,25 +1671,24 @@ section,
 
 /*== 5.1. Mini container width:50%
 Aligned items [class*="content-"]=== */
-
-[class*='content-'] {
+[class*="content-"] {
 	position: relative;
 	text-align: left;
 }
 
-.wrap[class*='bg-'],
+.wrap[class*="bg-"],
 .wrap.frame,
-[class*='content-'][class*='bg-'],
-[class*='content-'].frame,
-[class*='align'][class*='bg-'] {
+[class*="content-"][class*="bg-"],
+[class*="content-"].frame,
+[class*="align"][class*="bg-"] {
 	padding: 4.8rem;
 }
 
-form[class*='bg-'] {
+form[class*="bg-"] {
 	padding: 2.4rem;
 }
 
-[class*='content-'] > [class*='content-'] p {
+[class*="content-"] > [class*="content-"] p {
 	font-size: 1.8rem;
 	line-height: 3.2rem;
 }
@@ -1670,43 +1699,36 @@ form[class*='bg-'] {
 }
 
 @media (min-width: 768px) {
-	[class*='content-'] {
+	[class*="content-"] {
 		width: 50%;
 	}
-
-	[class*='content-']:after,
-	[class*='content-']:before {
-		content: '';
+	[class*="content-"]:after,
+	[class*="content-"]:before {
+		content: "";
 		display: table;
 	}
-
-	[class*='content-']:after {
+	[class*="content-"]:after {
 		clear: both;
 	}
-
 	.content-left {
 		float: left;
 	}
-
 	.content-right {
 		float: right;
 	}
-
-	[class*='content-'] + [class*='content-'] {
+	[class*="content-"] + [class*="content-"] {
 		margin-bottom: 4.8rem;
 		padding-left: 2.4rem;
 	}
-
-	[class*='content-'] + [class*='size-'] {
+	[class*="content-"] + [class*="size-"] {
 		clear: both;
 		margin-top: 6.4rem;
 	}
 }
 
 /*=== 5.3 Slides - Background Images/Videos === */
-
 .background,
-[class*='background-'] {
+[class*="background-"] {
 	background-repeat: no-repeat;
 	bottom: 0;
 	left: 0;
@@ -1716,7 +1738,6 @@ form[class*='bg-'] {
 }
 
 /*=== BG Positions === */
-
 .background {
 	background-position: center;
 	background-size: cover;
@@ -1763,15 +1784,12 @@ form[class*='bg-'] {
 	.background-left-bottom {
 		background-position: left bottom;
 	}
-
 	.background-right-bottom {
 		background-position: right bottom;
 	}
-
 	.background-right {
 		background-position: right;
 	}
-
 	.background-left {
 		background-position: left;
 	}
@@ -1785,37 +1803,33 @@ form[class*='bg-'] {
 }
 
 /*=== bg image/video overlay === */
-
 /*-- [class*="bg-"] .background.dark, [class*="bg-"] .embed.dark... -- */
-
-[class*='bg-'] .light,
-[class*='bg-'] .light {
-	opacity: .8;
+[class*="bg-"] .light,
+[class*="bg-"] .light {
+	opacity: 0.8;
 }
 
-[class*='bg-'] .dark,
-[class*='bg-'] .dark {
-	opacity: .2;
+[class*="bg-"] .dark,
+[class*="bg-"] .dark {
+	opacity: 0.2;
 }
 
-[class*='bg-'] .background-video.dark {
-	opacity: .5;
+[class*="bg-"] .background-video.dark {
+	opacity: 0.5;
 }
 
 @media (max-width: 1023px) {
-	[class*='background-'] {
-		-webkit-animation: fadeIn ease-in .2;
-		animation: fadeIn ease-in .2;
-		opacity: .2;
+	[class*="background-"] {
+		-webkit-animation: fadeIn ease-in 0.2;
+		animation: fadeIn ease-in 0.2;
+		opacity: 0.2;
 	}
-
 	.background-video {
-		opacity: .8;
+		opacity: 0.8;
 	}
 }
 
 /*=== Animated Background Image === */
-
 .background.anim {
 	-webkit-animation: anim 80s linear infinite;
 	animation: anim 80s linear infinite;
@@ -1826,16 +1840,13 @@ form[class*='bg-'] {
 }
 
 /*=== Background with a frame === */
-
 /*<span class="background" style="background-image:url('image.jpg')"></span>
 <span class="background frame"></span>*/
-
-[class*='background'].frame {
+[class*="background"].frame {
 	margin: 2.4rem;
 }
 
 /* === 5.2 Counter / Navigation Slides === */
-
 #navigation {
 	-webkit-animation: fadeIn 8s;
 	animation: fadeIn 8s;
@@ -1870,16 +1881,16 @@ form[class*='bg-'] {
 }
 
 #counter a:hover {
-	padding: .8rem;
+	padding: 0.8rem;
 }
 
 a#next,
 a#previous {
-	border-radius: .4rem;
+	border-radius: 0.4rem;
 	cursor: pointer;
 	font-size: 2.4rem;
 	height: 4rem;
-	padding: .8rem;
+	padding: 0.8rem;
 	position: absolute;
 	text-align: center;
 	width: 4rem;
@@ -1900,7 +1911,6 @@ a#previous {
 		background: url("../images/swipe.svg") no-repeat center top;
 		background-size: 4.8rem;
 	}
-
 	#navigation a,
 	#counter {
 		display: none;
@@ -1911,7 +1921,6 @@ a#previous {
 6. Magic blocks with flexbox (Auto-fill & Equal Height)
 Blocks Links li>a = .flexblock.blink (.blink required)
 ================================================================= */
-
 .flexblock {
 	clear: both;
 	display: -webkit-box;
@@ -1929,7 +1938,7 @@ Blocks Links li>a = .flexblock.blink (.blink required)
 }
 
 .flexblock:before {
-	content: '';
+	content: "";
 	display: table;
 }
 
@@ -1952,8 +1961,8 @@ Blocks Links li>a = .flexblock.blink (.blink required)
 	-ms-flex: auto;
 	flex: auto;
 	text-align: left;
-	-webkit-transition: .3s;
-	transition: .3s;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
 	width: 100%;
 }
 
@@ -2017,7 +2026,7 @@ footer .column h3 {
 	width: 100%;
 }
 
-[class*='content-'] .flexblock li p {
+[class*="content-"] .flexblock li p {
 	font-size: 1.8rem;
 	line-height: 3.2rem;
 }
@@ -2030,9 +2039,8 @@ footer .column h3 {
 /*====================================================================
 6.1 Features <ul class="flexblock features">
 ====================================================================== */
-
 .flexblock.features > li {
-	border-radius: .4rem;
+	border-radius: 0.4rem;
 	margin-bottom: 4.8rem;
 	width: 100%;
 }
@@ -2074,7 +2082,7 @@ footer .column h3 {
 	.flexblock.features li svg,
 	.flexblock.features li img {
 		float: left;
-		margin-right: .8rem;
+		margin-right: 0.8rem;
 	}
 }
 
@@ -2083,21 +2091,17 @@ footer .column h3 {
 		margin-left: -2%;
 		margin-right: -2%;
 	}
-
 	.flexblock.features > li {
 		margin-left: 2%;
 		margin-right: 2%;
 		width: 29%;
 	}
-
 	.size-50 .flexblock.features > li {
 		width: 46%;
 	}
-
 	.column .flexblock.features > li {
 		width: 100%;
 	}
-
 	footer .flexblock.features > li {
 		margin-bottom: 0;
 	}
@@ -2106,7 +2110,6 @@ footer .column h3 {
 /*=====================================================================
 6.2 Clients Logos <ul class="flexblock clients">
 ======================================================================= */
-
 .flexblock.clients.blink li > a,
 .flexblock.clients li {
 	padding: 0;
@@ -2148,7 +2151,6 @@ footer .column h3 {
 6.3 flexblock.steps <ul class="flexblock steps">
 About, Philosophy...
 =================================================== */
-
 .steps li {
 	width: 100%;
 }
@@ -2156,7 +2158,7 @@ About, Philosophy...
 .steps li img,
 .steps li span {
 	display: block;
-	margin: 0 auto .8rem;
+	margin: 0 auto 0.8rem;
 }
 
 .steps li span {
@@ -2173,7 +2175,6 @@ About, Philosophy...
 	.steps li {
 		width: 25%;
 	}
-
 	.process {
 		border-left-style: solid;
 		border-left-width: 15px;
@@ -2188,7 +2189,6 @@ About, Philosophy...
 /*=================================================
 6.4 Block Numbers - <ul class="flexblock metrics">
 =================================================== */
-
 .metrics li {
 	text-align: center;
 	width: 100%;
@@ -2225,7 +2225,6 @@ About, Philosophy...
 /*=====================================================
 6.5 Specs/Items: <ul class="flexblock specs">
 ======================================================= */
-
 .specs li {
 	text-align: left;
 	width: 100%;
@@ -2233,7 +2232,7 @@ About, Philosophy...
 
 .specs li:after {
 	bottom: -2.4rem;
-	content: '';
+	content: "";
 	display: block;
 	height: 1px;
 	position: relative;
@@ -2277,7 +2276,6 @@ About, Philosophy...
 6.6 Reasons/Why/Numbers (counter-increment)
 <ul class="flexblock reasons">
 =================================================== */
-
 .flexblock.reasons li {
 	counter-increment: list;
 	text-align: left;
@@ -2291,7 +2289,7 @@ About, Philosophy...
 
 .flexblock.reasons li:after {
 	bottom: -2.4rem;
-	content: '';
+	content: "";
 	display: block;
 	height: 1px;
 	position: relative;
@@ -2309,7 +2307,6 @@ About, Philosophy...
 		/* You need two digits? (1-10)*/
 		/*padding-left: 12rem; */
 	}
-
 	.flexblock.reasons li:before {
 		left: 2.4rem;
 		position: absolute;
@@ -2321,12 +2318,11 @@ About, Philosophy...
 Block Thumbnails li+.overlay+image
 img size recommended:800x600px
 =================================================== */
-
 .flexblock.gallery li {
 	margin-bottom: 4.8rem;
 }
 
-.flexblock.gallery li:nth-child(n+4) {
+.flexblock.gallery li:nth-child(n + 4) {
 	-webkit-box-flex: inherit;
 	-ms-flex: inherit;
 	flex: inherit;
@@ -2338,23 +2334,23 @@ img size recommended:800x600px
 }
 
 .flexblock.gallery li figcaption:before {
-	content: '';
+	content: "";
 	height: 0;
 	left: 20%;
-	margin-left: -.5em;
+	margin-left: -0.5em;
 	position: absolute;
-	top: .4rem;
+	top: 0.4rem;
 	-webkit-transform: rotate(135deg);
 	transform: rotate(135deg);
 	-webkit-transform-origin: 0 0;
 	transform-origin: 0 0;
-	-webkit-transition: .1s;
-	transition: .1s;
+	-webkit-transition: 0.1s;
+	transition: 0.1s;
 	width: 0;
 }
 
 .flexblock.gallery li:hover figcaption:before {
-	top: .3rem;
+	top: 0.3rem;
 }
 
 .aligncenter .flexblock.gallery li figcaption:before {
@@ -2373,7 +2369,7 @@ img size recommended:800x600px
 
 .flexblock.gallery h2 + p,
 .flexblock.gallery h3 + p {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 .flexblock.gallery p {
@@ -2383,7 +2379,7 @@ img size recommended:800x600px
 }
 
 .flexblock.gallery li footer {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 	padding: 1.2rem 0 0;
 	position: relative;
 }
@@ -2399,7 +2395,6 @@ img size recommended:800x600px
 		margin-left: -2%;
 		margin-right: -2%;
 	}
-
 	.flexblock.gallery li {
 		margin-left: 2%;
 		margin-right: 2%;
@@ -2411,12 +2406,10 @@ img size recommended:800x600px
 	.flexblock.gallery li {
 		width: 21%;
 	}
-
 	.grid.sm .flexblock.gallery li,
 	.grid.ms .flexblock.gallery li {
 		width: 29%;
 	}
-
 	.grid.sms .flexblock.gallery li {
 		width: 46%;
 	}
@@ -2441,8 +2434,8 @@ img size recommended:800x600px
 	position: absolute;
 	right: 0;
 	top: 0;
-	-webkit-transition: all .3s linear;
-	transition: all .3s linear;
+	-webkit-transition: all 0.3s linear;
+	transition: all 0.3s linear;
 	width: 100%;
 	z-index: 2;
 }
@@ -2454,7 +2447,7 @@ li .overlay {
 }
 
 li .overlay h2 {
-	letter-spacing: .2rem;
+	letter-spacing: 0.2rem;
 	margin: 0;
 	padding: 0 2.4rem;
 	text-align: center;
@@ -2474,7 +2467,6 @@ li:hover .overlay {
 /*===============================================
 6.8 Plans / Pricing <ul class="flexblock plans">
 ================================================= */
-
 .flexblock.plans > li {
 	border-radius: 3px;
 	margin-bottom: 4.8rem;
@@ -2494,13 +2486,13 @@ li:hover .overlay {
 
 .flexblock.plans li p,
 .flexblock.plans li h2 {
-	padding: .8rem 3.2rem;
+	padding: 0.8rem 3.2rem;
 }
 
 .flexblock.plans li h2 {
 	float: left;
 	font-weight: 400;
-	letter-spacing: .1rem;
+	letter-spacing: 0.1rem;
 	text-transform: uppercase;
 	width: 100%;
 }
@@ -2516,7 +2508,7 @@ li:hover .overlay {
 
 .flexblock.plans .price sup {
 	font-size: 1.8rem;
-	margin-right: .4rem;
+	margin-right: 0.4rem;
 }
 
 .flexblock.plans .price li ul {
@@ -2525,7 +2517,7 @@ li:hover .overlay {
 
 .flexblock.plans li ul li {
 	display: block;
-	padding: .8rem 3.2rem;
+	padding: 0.8rem 3.2rem;
 	text-align: left;
 	width: 100%;
 }
@@ -2535,13 +2527,11 @@ li:hover .overlay {
 		margin-left: -2%;
 		margin-right: -2%;
 	}
-
 	.flexblock.plans > li {
 		margin-left: 2%;
 		margin-right: 2%;
 		width: 29%;
 	}
-
 	.flexblock.plans > li:hover,
 	.flexblock.plans > li:nth-child(2) {
 		position: relative;
@@ -2549,7 +2539,6 @@ li:hover .overlay {
 		transform: scale(1.08);
 		z-index: 2;
 	}
-
 	.flexblock.plans:hover li:nth-child(2):not(:hover) {
 		position: relative;
 		-webkit-transform: scale(1);
@@ -2562,7 +2551,6 @@ li:hover .overlay {
 6.9 Block Activity <ul class="activity">
 CV / News
 ============================================= */
-
 .flexblock.activity {
 	-webkit-box-orient: vertical;
 	-webkit-box-direction: normal;
@@ -2605,17 +2593,14 @@ CV / News
 	.flexblock.activity p {
 		float: left;
 	}
-
 	.flexblock.activity .year {
 		width: 15%;
 	}
-
 	.flexblock.activity .title {
 		margin-left: 4%;
 		margin-right: 4%;
 		width: 27%;
 	}
-
 	.flexblock.activity .summary {
 		width: 50%;
 	}
@@ -2624,7 +2609,6 @@ CV / News
 /*=============================================
 7. Promos/Offers (pricing, tagline, CTA...)
 =============================================== */
-
 .cta {
 	display: -webkit-box;
 	display: -ms-flexbox;
@@ -2649,7 +2633,7 @@ CV / News
 	-ms-flex-pack: center;
 	justify-content: center;
 	max-width: 100%;
-	padding: .8rem;
+	padding: 0.8rem;
 }
 
 .number {
@@ -2681,16 +2665,13 @@ CV / News
 		max-width: 50%;
 		padding: 4.8rem;
 	}
-
 	.cta .benefit {
 		text-align: left;
 	}
-
 	.number span {
 		font-size: 16rem;
 		line-height: 16rem;
 	}
-
 	.number span sup {
 		font-size: 6rem;
 		vertical-align: middle;
@@ -2698,7 +2679,6 @@ CV / News
 }
 
 /* --- Header CTA --- */
-
 .cta-cover {
 	display: table;
 	width: 100%;
@@ -2713,15 +2693,12 @@ CV / News
 		float: left;
 		max-width: 80%;
 	}
-
 	.cta-cover h1 strong {
 		display: block;
 	}
-
 	.cta-cover .button {
 		margin-top: 1.2rem;
 	}
-
 	.cta-cover .try {
 		text-align: center;
 	}
@@ -2736,7 +2713,6 @@ CV / News
 /*=========================================
 8. Work/Resumé/CV <ul class="work">
 =========================================== */
-
 .work {
 	clear: both;
 	display: -webkit-box;
@@ -2767,8 +2743,8 @@ p + .work {
 
 .work p {
 	margin-bottom: 0;
-	-webkit-transition: .3s;
-	transition: .3s;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
 }
 
 .work li a {
@@ -2822,7 +2798,6 @@ p + .work {
 		margin-right: 2%;
 		width: 25%;
 	}
-
 	.work li.work-label p:last-child,
 	.work li p:last-child {
 		float: right;
@@ -2833,7 +2808,6 @@ p + .work {
 		text-align: right;
 		top: auto;
 	}
-
 	.work li p.work-date {
 		width: 120px;
 	}
@@ -2853,7 +2827,6 @@ p + .work {
 /*===========================================
 9. Table of contents
 ============================================= */
-
 .toc,
 .toc ol > li:before,
 .chapter {
@@ -2869,7 +2842,7 @@ p + .work {
 .toc ol > li:before {
 	content: counters(item, ".") ". ";
 	display: table-cell;
-	padding-right: .8rem;
+	padding-right: 0.8rem;
 	width: 2.4rem;
 }
 
@@ -2881,10 +2854,10 @@ p + .work {
 	counter-increment: item;
 	display: table;
 	font-weight: 400;
-	margin-bottom: .8rem;
+	margin-bottom: 0.8rem;
 	margin-left: 0;
-	-webkit-transition: .3s;
-	transition: .3s;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
 	width: 100%;
 }
 
@@ -2895,7 +2868,7 @@ p + .work {
 }
 
 .toc li .toc-page:before {
-	content: '';
+	content: "";
 	display: block;
 	left: 0;
 	margin-top: 1.8rem;
@@ -2920,7 +2893,7 @@ p + .work {
 	display: inline-block;
 	font-size: 1.8rem;
 	line-height: 3.2rem;
-	padding-right: .8rem;
+	padding-right: 0.8rem;
 }
 
 .toc-page {
@@ -2930,9 +2903,8 @@ p + .work {
 /*===========================================
 10. Cards
 ============================================= */
-
-[class*='card-'],
-[class*='card-'] > a {
+[class*="card-"],
+[class*="card-"] > a {
 	clear: both;
 	display: -webkit-box;
 	display: -ms-flexbox;
@@ -2944,44 +2916,43 @@ p + .work {
 	position: relative;
 }
 
-.fullscreen [class*='card-'],
-.fullscreen [class*='card-'] > a {
+.fullscreen [class*="card-"],
+.fullscreen [class*="card-"] > a {
 	min-height: 100vh;
 }
 
-[class*='card-'] figure img,
-[class*='card-'] figure iframe {
+[class*="card-"] figure img,
+[class*="card-"] figure iframe {
 	display: block;
 	margin: 0 auto;
 }
 
-[class*='card-'] figure figcaption {
+[class*="card-"] figure figcaption {
 	bottom: 0;
 	font-size: 1.4rem;
 	left: 0;
 	line-height: 2.4rem;
-	padding: .8rem 2.4rem;
+	padding: 0.8rem 2.4rem;
 	position: absolute;
 	z-index: 2;
 }
 
-[class*='card-'] figure figcaption svg {
+[class*="card-"] figure figcaption svg {
 	font-size: 1rem;
 }
 
 @media (min-width: 768px) {
-	[class*='card'][class*='bg-'] figure,
-	.fullscreen [class*='card'] figure {
+	[class*="card"][class*="bg-"] figure,
+	.fullscreen [class*="card"] figure {
 		max-height: 100%;
 		min-width: 380px;
 		text-align: center;
 		vertical-align: middle;
 	}
-
-	[class*='card-'][class*='bg-'] figure img,
-	[class*='card-'][class*='bg-'] figure iframe,
-	.fullscreen [class*='card-'] figure img,
-	.fullscreen [class*='card-'] figure iframe {
+	[class*="card-"][class*="bg-"] figure img,
+	[class*="card-"][class*="bg-"] figure iframe,
+	.fullscreen [class*="card-"] figure img,
+	.fullscreen [class*="card-"] figure iframe {
 		height: 100%;
 		left: 0;
 		-o-object-fit: cover;
@@ -2994,13 +2965,13 @@ p + .work {
 }
 
 .flex-content,
-[class*='card'] blockquote {
+[class*="card"] blockquote {
 	padding: 2.4rem;
 	position: relative;
 }
 
-[class*='card-'] .flex-content,
-[class*='card-'] blockquote {
+[class*="card-"] .flex-content,
+[class*="card-"] blockquote {
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
@@ -3023,63 +2994,54 @@ p + .work {
 	.card-50 .flex-content {
 		width: 50%;
 	}
-
 	.card-30 figure,
 	.card-70 .flex-content,
 	.card-70 blockquote {
 		width: 30%;
 	}
-
 	.card-40 figure,
 	.card-60 .flex-content,
 	.card-60 blockquote {
 		width: 40%;
 	}
-
 	.card-60 figure,
 	.card-40 .flex-content,
 	.card-40 blockquote {
 		width: 60%;
 	}
-
 	.card-70 figure,
 	.card-30 .flex-content,
 	.card-30 blockquote {
 		width: 70%;
 	}
-
-	[class*='card']:nth-child(odd) figure {
+	[class*="card"]:nth-child(odd) figure {
 		-webkit-box-ordinal-group: 1;
 		-ms-flex-order: 0;
 		order: 0;
 	}
-
-	[class*='card']:nth-child(even) figure {
+	[class*="card"]:nth-child(even) figure {
 		-webkit-box-ordinal-group: 2;
 		-ms-flex-order: 1;
 		order: 1;
 	}
-
 	.flex-content,
-	[class*='card'] blockquote {
+	[class*="card"] blockquote {
 		padding: 4.8rem;
 	}
-
-	.fullscreen [class*='card'] .flex-content,
-	.fullscreen [class*='card'] blockquote {
+	.fullscreen [class*="card"] .flex-content,
+	.fullscreen [class*="card"] blockquote {
 		padding: 6.4rem;
 	}
 }
 
 @media (max-width: 767px) {
-	[class*='card-'],
-	[class*='card-'] > a {
+	[class*="card-"],
+	[class*="card-"] > a {
 		-webkit-box-orient: vertical;
 		-webkit-box-direction: normal;
 		-ms-flex-flow: column;
 		flex-flow: column;
 	}
-
 	.card figure,
 	.card header {
 		width: 100%;
@@ -3089,7 +3051,6 @@ p + .work {
 /*=========================================
 11. Quotes
 =========================================== */
-
 blockquote {
 	display: inline-block;
 	position: relative;
@@ -3105,7 +3066,6 @@ blockquote p:last-child {
 }
 
 /* -- Interviews dl.text-interview -- */
-
 dd blockquote p:last-child {
 	margin-bottom: 0;
 }
@@ -3116,7 +3076,7 @@ cite {
 }
 
 cite:before {
-	content: '\2014  \2009';
+	content: "\2014  \2009";
 	margin-right: 6px;
 }
 
@@ -3125,9 +3085,7 @@ cite span {
 }
 
 /* -- A big Blockquote -- */
-
 /* .wall will be deprecated soon. Use .text-quote ;) */
-
 .text-quote,
 .wall {
 	/* Versatility: blockquote, p, h2... */
@@ -3136,11 +3094,11 @@ cite span {
 
 .text-quote:before,
 .wall:before {
-	content: '\201C';
+	content: "\201C";
 	font-family: arial, sans-serif;
 	font-size: 12rem;
 	height: 5.6rem;
-	left: -.8rem;
+	left: -0.8rem;
 	line-height: 1;
 	position: absolute;
 	text-align: center;
@@ -3153,16 +3111,14 @@ cite span {
 	.wall {
 		padding-left: 6.4rem;
 	}
-
 	.text-quote p,
 	.wall p {
 		font-size: 3.2rem;
 		line-height: 4.8rem;
 	}
-
 	.text-quote:before,
 	.wall:before {
-		left: .8rem;
+		left: 0.8rem;
 		top: -1.6rem;
 	}
 }
@@ -3170,15 +3126,14 @@ cite span {
 /*=========================================
 12. Avatars - uifaces.com
 =========================================== */
-
 cite img,
-img[class*='avatar-'] {
+img[class*="avatar-"] {
 	display: inline-block;
 	margin-right: 6px;
 	vertical-align: middle;
 }
 
-img[class*='avatar-'] {
+img[class*="avatar-"] {
 	border-radius: 50%;
 }
 
@@ -3215,7 +3170,6 @@ img.avatar-80 {
 /*=========================================
 13. Tables
 =========================================== */
-
 table {
 	margin-bottom: 3.2rem;
 	margin-top: 3.2rem;
@@ -3225,7 +3179,7 @@ td,
 th,
 thead {
 	border-spacing: 0;
-	padding: .7rem 2.4rem;
+	padding: 0.7rem 2.4rem;
 }
 
 thead th,
@@ -3250,7 +3204,6 @@ tr > td {
 /*=========================================
 14. Forms
 =========================================== */
-
 form {
 	text-align: left;
 }
@@ -3258,15 +3211,15 @@ form {
 form + p,
 form input + p,
 form textarea + p {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
-input[type='text'],
-input[type='email'],
-input[type='tel'],
-input[type='url'],
-input[type='search'],
-input[type='password'] {
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="url"],
+input[type="search"],
+input[type="password"] {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
@@ -3281,25 +3234,25 @@ select {
 	font-weight: 400;
 	height: 4.8rem;
 	margin: 0;
-	padding: .7rem;
+	padding: 0.7rem;
 	position: relative;
 	width: 100%;
 }
 
-input[type='radio'],
-input[type='checkbox'] {
+input[type="radio"],
+input[type="checkbox"] {
 	height: auto;
 	padding: 4px;
 	width: auto;
 }
 
-button[type='submit'],
+button[type="submit"],
 textarea {
 	width: 100%;
 }
 
 textarea {
-	padding: .7rem;
+	padding: 0.7rem;
 }
 
 button {
@@ -3329,9 +3282,9 @@ input.radius {
 }
 
 button,
-input[type='submit'] {
+input[type="submit"] {
 	font-weight: 400;
-	letter-spacing: .1rem;
+	letter-spacing: 0.1rem;
 	text-transform: uppercase;
 }
 
@@ -3354,7 +3307,7 @@ fieldset {
 legend {
 	border: 0;
 	font-weight: 400;
-	letter-spacing: .1rem;
+	letter-spacing: 0.1rem;
 	padding: 1.6rem 2.4rem;
 	text-align: center;
 	text-transform: uppercase;
@@ -3368,8 +3321,8 @@ select:focus {
 }
 
 a.button:hover,
-button[type='submit']:hover,
-input[type='submit']:hover {
+button[type="submit"]:hover,
+input[type="submit"]:hover {
 	-webkit-transform: scale(1.01);
 	transform: scale(1.01);
 }
@@ -3383,57 +3336,54 @@ button:disabled:hover {
 	margin-bottom: 0;
 }
 
-.user input[type='email'],
-.user input[type='search'],
-.user input[type='text'] {
+.user input[type="email"],
+.user input[type="search"],
+.user input[type="text"] {
 	width: 100%;
 }
 
 @media (min-width: 500px) {
-	.user input[type='email'],
-	.user input[type='search'],
-	.user input[type='text'] {
+	.user input[type="email"],
+	.user input[type="search"],
+	.user input[type="text"] {
 		float: left;
 		width: 70%;
 	}
 }
 
 .user button,
-.user input[type='submit'] {
+.user input[type="submit"] {
 	left: 0;
 	width: 100%;
 }
 
 @media (min-width: 500px) {
 	.user button,
-	.user input[type='submit'] {
+	.user input[type="submit"] {
 		cursor: pointer;
 		width: 30%;
 	}
 }
 
 /* Buttons/Badges */
-
 @media (min-width: 500px) {
-	[class*='button'] + [class*='button'] {
+	[class*="button"] + [class*="button"] {
 		margin-left: 1.8rem;
 	}
 }
 
 @media (max-width: 499px) {
-	[class*='button'] + [class*='button'] {
-		margin-top: .8rem;
+	[class*="button"] + [class*="button"] {
+		margin-top: 0.8rem;
 	}
 }
 
 /*=== App Store Badges === */
-
 /* Change width and height: 216x64px, 162x48px, 135x40... */
-
-[class*='badge-'] {
+[class*="badge-"] {
 	background-repeat: no-repeat;
 	background-size: cover;
-	border-radius: .6rem;
+	border-radius: 0.6rem;
 	display: inline-block;
 	height: 40px;
 	line-height: 4rem;
@@ -3441,12 +3391,12 @@ button:disabled:hover {
 	width: 135px;
 }
 
-[class*='badge-']:hover {
-	opacity: .7;
+[class*="badge-"]:hover {
+	opacity: 0.7;
 }
 
 @media (min-width: 1024px) {
-	[class*='badge-'] {
+	[class*="badge-"] {
 		height: 48px;
 		line-height: 4.8rem;
 		width: 162px;
@@ -3454,14 +3404,14 @@ button:disabled:hover {
 }
 
 @media (min-width: 500px) {
-	[class*='badge-'] + [class*='badge-'] {
+	[class*="badge-"] + [class*="badge-"] {
 		margin-left: 1.8rem;
 	}
 }
 
 @media (max-width: 499px) {
-	[class*='badge-'] + [class*='badge-'] {
-		margin-top: .8rem;
+	[class*="badge-"] + [class*="badge-"] {
+		margin-top: 0.8rem;
 	}
 }
 
@@ -3476,9 +3426,7 @@ button:disabled:hover {
 /*=========================================
 15. Longform
 =========================================== */
-
 /* -- Posts = .wrap.longform -- */
-
 .longform {
 	width: 72rem;
 	/* Why 72rem=720px?
@@ -3510,7 +3458,7 @@ button:disabled:hover {
 }
 
 .longform figcaption p,
-.longform [class*='text-pull-'] p {
+.longform [class*="text-pull-"] p {
 	font-size: 1.6rem;
 	line-height: 2.4rem;
 }
@@ -3522,14 +3470,12 @@ button:disabled:hover {
 }
 
 @media (min-width: 1280px) {
-	.longform [class*='text-pull-'] {
+	.longform [class*="text-pull-"] {
 		max-width: 32%;
 	}
-
 	.longform .text-pull-right {
 		margin-right: -256px;
 	}
-
 	.longform .text-pull-left {
 		margin-left: -256px;
 	}
@@ -3546,7 +3492,6 @@ button:disabled:hover {
 16. SAFARI BUGS (flex-wrap)
 Solution: stackoverflow.com/questions/34250282/flexbox-safari-bug-flex-wrap
 =========================================== */
-
 .flexblock:before,
 .flexblock:after,
 .grid:before,
@@ -3559,7 +3504,6 @@ Solution: stackoverflow.com/questions/34250282/flexbox-safari-bug-flex-wrap
 /*==============================================
 18. Slides Index: Thumbnails navigation gallery
 ================================================ */
-
 #webslides-zoomed {
 	-ms-flex-line-pack: start;
 	align-content: flex-start;
@@ -3588,7 +3532,8 @@ Solution: stackoverflow.com/questions/34250282/flexbox-safari-bug-flex-wrap
 	width: 400%;
 }
 
-@media screen and (orientation: portrait), screen and (max-width: 768px) and (orientation: landscape) {
+@media screen and (orientation: portrait),
+	screen and (max-width: 768px) and (orientation: landscape) {
 	#webslides-zoomed .slide {
 		height: 200%;
 		width: 200%;
@@ -3641,13 +3586,13 @@ Solution: stackoverflow.com/questions/34250282/flexbox-safari-bug-flex-wrap
 }
 
 #webslides-zoomed > .wrap > .grid > .column > .wrap-zoom {
-	border-radius: .3rem;
+	border-radius: 0.3rem;
 	display: inline-block;
 	height: 25vh;
 	overflow: hidden;
 	position: relative;
-	-webkit-transition: .3s;
-	transition: .3s;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
 }
 
 @media screen and (max-width: 567px) {
@@ -3699,7 +3644,8 @@ Solution: stackoverflow.com/questions/34250282/flexbox-safari-bug-flex-wrap
 	transform: scale(0.25) translate(-150%, -150vh);
 }
 
-@media screen and (orientation: portrait), screen and (max-width: 768px) and (orientation: landscape) {
+@media screen and (orientation: portrait),
+	screen and (max-width: 768px) and (orientation: landscape) {
 	#webslides-zoomed .column > .wrap-zoom > .slide {
 		-webkit-transform: scale(0.5) translate(-50%, -50%);
 		transform: scale(0.5) translate(-50%, -50%);
@@ -3717,12 +3663,12 @@ Solution: stackoverflow.com/questions/34250282/flexbox-safari-bug-flex-wrap
 	opacity: 0;
 	-webkit-transform: scale(1.2);
 	transform: scale(1.2);
-	-webkit-transition: opacity .4s, -webkit-transform .4s;
-	transition: opacity .4s, -webkit-transform .4s;
-	transition: opacity .4s, transform .4s;
-	transition: opacity .4s, transform .4s, -webkit-transform .4s;
-	-webkit-transition-delay: .2s;
-	transition-delay: .2s;
+	-webkit-transition: opacity 0.4s, -webkit-transform 0.4s;
+	transition: opacity 0.4s, -webkit-transform 0.4s;
+	transition: opacity 0.4s, transform 0.4s;
+	transition: opacity 0.4s, transform 0.4s, -webkit-transform 0.4s;
+	-webkit-transition-delay: 0.2s;
+	transition-delay: 0.2s;
 }
 
 #webslides-zoomed.in .column {
@@ -3733,15 +3679,15 @@ Solution: stackoverflow.com/questions/34250282/flexbox-safari-bug-flex-wrap
 
 .text-slide-number {
 	display: inline-block;
-	margin: .8rem auto;
+	margin: 0.8rem auto;
 	text-align: center;
 }
 
 #webslides {
-	-webkit-transition: -webkit-filter .3s;
-	transition: -webkit-filter .3s;
-	transition: filter .3s;
-	transition: filter .3s, -webkit-filter .3s;
+	-webkit-transition: -webkit-filter 0.3s;
+	transition: -webkit-filter 0.3s;
+	transition: filter 0.3s;
+	transition: filter 0.3s, -webkit-filter 0.3s;
 }
 
 #webslides.disabled,
@@ -3763,13 +3709,11 @@ Solution: stackoverflow.com/questions/34250282/flexbox-safari-bug-flex-wrap
 /*=========================================
 17. PRINT
 =========================================== */
-
 @media print {
-@page {
-		margin: .5cm;
+	@page {
+		margin: 0.5cm;
 		size: A4 landscape;
-}
-
+	}
 	* {
 		background: transparent !important;
 		color: #000 !important;
@@ -3777,7 +3721,6 @@ Solution: stackoverflow.com/questions/34250282/flexbox-safari-bug-flex-wrap
 		filter: none !important;
 		text-shadow: none !important;
 	}
-
 	html,
 	body,
 	#webslides {
@@ -3785,12 +3728,10 @@ Solution: stackoverflow.com/questions/34250282/flexbox-safari-bug-flex-wrap
 		overflow: auto !important;
 		width: auto !important;
 	}
-
 	#webslides {
 		overflow-x: auto !important;
 		overflow-y: auto !important;
 	}
-
 	section,
 	.slide {
 		display: -webkit-box !important;
@@ -3798,17 +3739,14 @@ Solution: stackoverflow.com/questions/34250282/flexbox-safari-bug-flex-wrap
 		display: flex !important;
 		height: auto !important;
 	}
-
 	section * {
 		-webkit-animation: none;
 		animation: none;
 	}
-
 	table,
 	figure {
 		page-break-inside: avoid;
 	}
-
 	#counter,
 	#navigation {
 		display: none;
@@ -3816,7 +3754,6 @@ Solution: stackoverflow.com/questions/34250282/flexbox-safari-bug-flex-wrap
 }
 
 /* @import "webslides-base-fixes"; */
-
 /*!
  * Name: WebSlides
  * Version: 1.5.0
@@ -3825,11 +3762,9 @@ Solution: stackoverflow.com/questions/34250282/flexbox-safari-bug-flex-wrap
  * URL: https://github.com/webslides/webslides#readme
  * Credits: @jlantunez, @LuisSacristan, @Belelros
  */
-
 /*!
  * fixes
  */
-
 .page .show-inline-on-mobile,
 .page .show-block-on-mobile {
 	display: none;
@@ -3841,11 +3776,9 @@ Solution: stackoverflow.com/questions/34250282/flexbox-safari-bug-flex-wrap
 		width: 0;
 		height: 0;
 	}
-
 	.page .show-inline-on-mobile {
 		display: inline;
 	}
-
 	.page .show-block-on-mobile {
 		display: block;
 	}
@@ -3887,11 +3820,9 @@ Solution: stackoverflow.com/questions/34250282/flexbox-safari-bug-flex-wrap
 		width: 5rem;
 		height: 5rem;
 	}
-
 	.no-svg .logo a {
 		background-image: url(../img/logo-96x96.png);
 	}
-
 	.logo {
 		position: fixed;
 		top: 0;
@@ -3924,16 +3855,14 @@ Solution: stackoverflow.com/questions/34250282/flexbox-safari-bug-flex-wrap
 		background-image: url(../img/swipe-96x96.png);
 	}
 } */
-
 #counter a {
-	border-radius: .4rem;
+	border-radius: 0.4rem;
 }
 
 @media (max-width: 1024px) {
 	#navigation {
 		background-image: none;
 	}
-
 	#navigation a,
 	#counter {
 		display: block;
@@ -3956,7 +3885,7 @@ table td,
 th,
 thead {
 	border-spacing: 0;
-	padding: .7rem 2.4rem;
+	padding: 0.7rem 2.4rem;
 }
 
 thead th,
@@ -4003,7 +3932,6 @@ table td {
 /*!
  * see other fixes for tables in _webslides-color-fixes.scss
  */
-
 @media screen and (max-width: 768px) {
 	table,
 	table tr,
@@ -4012,23 +3940,19 @@ table td {
 		-webkit-box-sizing: border-box;
 		box-sizing: border-box;
 	}
-
 	table tr {
 		width: 100%;
 		float: left;
 		position: relative;
 		margin-bottom: 2.4rem;
 	}
-
 	table tr:last-child {
 		margin-bottom: 0;
 	}
-
 	table thead,
 	table tfoot {
 		display: none;
 	}
-
 	table td::before {
 		display: block;
 		float: left;
@@ -4041,7 +3965,6 @@ table td {
 }
 
 /* @import "webslides-typography"; */
-
 /*!
  * Name: WebSlides
  * Version: 1.5.0
@@ -4050,11 +3973,9 @@ table td {
  * URL: https://github.com/webslides/webslides#readme
  * Credits: @jlantunez, @LuisSacristan, @Belelros
  */
-
 /*============================
 2. TYPOGRAPHY & LISTS
 ============================== */
-
 html,
 body {
 	font-weight: 300;
@@ -4067,7 +3988,7 @@ body,
 input,
 select,
 textarea {
-	font-family: 'Roboto', 'San Francisco', helvetica, arial, sans-serif;
+	font-family: "Roboto", "San Francisco", helvetica, arial, sans-serif;
 	font-size: 62.5%;
 }
 
@@ -4104,7 +4025,6 @@ li li {
 }
 
 /*== List .description (Product/Specs) === */
-
 ul.description {
 	padding: 0;
 }
@@ -4114,15 +4034,15 @@ ul.description + p {
 }
 
 ul.description li {
-	padding-bottom: .8rem;
-	padding-top: .8rem;
+	padding-bottom: 0.8rem;
+	padding-top: 0.8rem;
 	position: relative;
-	-webkit-transition: .3s;
-	transition: .3s;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
 }
 
 ul.description li:hover {
-	padding-left: .4rem;
+	padding-left: 0.4rem;
 }
 
 ul.description li,
@@ -4139,14 +4059,14 @@ h1 svg,
 h2 svg,
 h3 svg,
 h4 svg {
-	margin-top: -.8rem;
+	margin-top: -0.8rem;
 }
 
 .text-intro svg,
 .text-quote p svg,
 .wall p svg,
 .try svg {
-	margin-top: -.4rem;
+	margin-top: -0.4rem;
 }
 
 h1 {
@@ -4220,151 +4140,151 @@ h2.alignleft + p.alignright {
 
 h3.alignleft + p.alignright {
 	margin-bottom: 0;
-	margin-top: .4rem;
+	margin-top: 0.4rem;
 }
 
 h1 + h1 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h1 + h2 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h1 + h3 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h1 + h4 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h1 + h5 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h1 + h6 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h2 + h1 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h2 + h2 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h2 + h3 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h2 + h4 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h2 + h5 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h2 + h6 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h3 + h1 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h3 + h2 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h3 + h3 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h3 + h4 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h3 + h5 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h3 + h6 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h4 + h1 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h4 + h2 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h4 + h3 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h4 + h4 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h4 + h5 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h4 + h6 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h5 + h1 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h5 + h2 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h5 + h3 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h5 + h4 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h5 + h5 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h5 + h6 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h6 + h1 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h6 + h2 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h6 + h3 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h6 + h4 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h6 + h5 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h6 + h6 {
-	margin-top: .8rem;
+	margin-top: 0.8rem;
 }
 
 h1 + img,
@@ -4374,71 +4294,67 @@ h3 + img {
 	margin-top: 4.8rem;
 }
 
-[class*='content-'] > [class*='content-'] h2,
-[class*='content-'] > [class*='content-'] h3,
-[class*='content-'] > [class*='content-'] h4 {
+[class*="content-"] > [class*="content-"] h2,
+[class*="content-"] > [class*="content-"] h3,
+[class*="content-"] > [class*="content-"] h4 {
 	font-size: 2.4rem;
 	line-height: 4rem;
 }
 
 /*== 2.1. Headings with background ==*/
-
-h1[class*='bg-'] {
+h1[class*="bg-"] {
 	padding: 2.4rem;
 }
 
-h2[class*='bg-'] {
+h2[class*="bg-"] {
 	padding: 2.4rem;
 }
 
-h3[class*='bg-'] {
+h3[class*="bg-"] {
 	padding: 2.4rem;
 }
 
-h4[class*='bg-'] {
+h4[class*="bg-"] {
 	padding: 2.4rem;
 }
 
-h5[class*='bg-'] {
+h5[class*="bg-"] {
 	padding: 2.4rem;
 }
 
-h6[class*='bg-'] {
+h6[class*="bg-"] {
 	padding: 2.4rem;
 }
 
-ul[class*='bg-'],
-ol[class*='bg-'],
-li[class*='bg-'],
-p[class*='bg-'] {
+ul[class*="bg-"],
+ol[class*="bg-"],
+li[class*="bg-"],
+p[class*="bg-"] {
 	padding: 2.4rem;
 }
 
-h1 [class*='bg-'],
-h2 [class*='bg-'],
-h3 [class*='bg-'] {
-	padding: .4rem .8rem;
+h1 [class*="bg-"],
+h2 [class*="bg-"],
+h3 [class*="bg-"] {
+	padding: 0.4rem 0.8rem;
 }
 
 /*== 2.2. Typography Classes = .text- == */
-
 .text-intro,
-[class*='content-'] p {
+[class*="content-"] p {
 	font-size: 2.4rem;
 	line-height: 4rem;
 }
 
 /* -- Serif -- */
-
 .text-serif,
 h1 span {
-	font-family: 'Maitree', times, serif;
+	font-family: "Maitree", times, serif;
 }
 
 /* -- h1,h2... Promo/Landings -- */
-
 .text-landing {
-	letter-spacing: .4rem;
+	letter-spacing: 0.4rem;
 	text-transform: uppercase;
 }
 
@@ -4449,9 +4365,8 @@ h1 span {
 }
 
 /* -- Subtitle (Before h1, h2) p.subtitle + h1/h2 */
-
 .text-subtitle {
-	letter-spacing: .2rem;
+	letter-spacing: 0.2rem;
 	margin-bottom: 0;
 	text-transform: uppercase;
 }
@@ -4477,7 +4392,6 @@ h1 span {
 }
 
 /* -- Emoji (you'll love this) -- */
-
 .text-emoji {
 	font-size: 6.8rem;
 	line-height: 8.8rem;
@@ -4491,11 +4405,10 @@ h1 span {
 }
 
 /* -- Numbers (results, sales... 23,478,289 iphones) -- */
-
 .text-data {
 	font-size: 6.4rem;
 	line-height: 8rem;
-	margin-bottom: .8rem;
+	margin-bottom: 0.8rem;
 }
 
 @media (min-width: 768px) {
@@ -4513,7 +4426,6 @@ h1 span {
 }
 
 /* -- Magazine Two Columns -- */
-
 @media (min-width: 768px) {
 	.text-cols {
 		-webkit-column-count: 2;
@@ -4522,7 +4434,6 @@ h1 span {
 		column-gap: 4.8rem;
 		text-align: left;
 	}
-
 	.text-landing + .text-cols {
 		margin-top: 3.2rem;
 	}
@@ -4533,22 +4444,21 @@ h1 span {
 	font-size: 11rem;
 	font-weight: 600;
 	line-height: 1;
-	margin: -.4rem 1.6rem 0 0;
+	margin: -0.4rem 1.6rem 0 0;
 	padding: 0;
 	text-transform: uppercase;
 }
 
 /* -- Heading with border -- */
-
 .text-context {
 	position: relative;
 }
 
 .text-context:before {
-	content: '';
+	content: "";
 	display: block;
-	height: .2rem;
-	margin-bottom: .6rem;
+	height: 0.2rem;
+	margin-bottom: 0.6rem;
 	width: 12rem;
 }
 
@@ -4557,14 +4467,13 @@ h1 span {
 }
 
 .text-context.text-uppercase {
-	letter-spacing: .1rem;
+	letter-spacing: 0.1rem;
 }
 
 /* -- Separator/Symbols (stars ***...) -- */
-
 .text-symbols {
 	font-weight: 600;
-	letter-spacing: .8rem;
+	letter-spacing: 0.8rem;
 	text-align: center;
 }
 
@@ -4573,8 +4482,8 @@ h1 span {
 }
 
 .text-separator:before {
-	content: '';
-	height: .4rem;
+	content: "";
+	height: 0.4rem;
 	left: 0;
 	margin-top: -1.6rem;
 	position: absolute;
@@ -4587,15 +4496,13 @@ h1 span {
 		margin-top: 0;
 		width: 80%;
 	}
-
 	.text-separator:before {
 		margin-top: 1.2rem;
 	}
 }
 
 /* -- Pull Quote (Right/Left) -- */
-
-[class*='text-pull'] {
+[class*="text-pull"] {
 	font-size: 2.4rem;
 	font-weight: 400;
 	line-height: 4rem;
@@ -4605,29 +4512,27 @@ h1 span {
 	position: relative;
 }
 
-[class*='text-pull-'] {
-	margin-top: .8rem;
+[class*="text-pull-"] {
+	margin-top: 0.8rem;
 	padding-top: 1.4rem;
 }
 
 @media (min-width: 1024px) {
-	[class*='text-pull-'] {
+	[class*="text-pull-"] {
 		margin-left: -4.8rem;
 		margin-right: -4.8rem;
 	}
 }
 
 @media (min-width: 568px) {
-	[class*='text-pull-'] {
+	[class*="text-pull-"] {
 		max-width: 40%;
 	}
-
 	.text-pull-right {
 		float: right;
 		margin-left: 2.4rem;
 		margin-right: -2.4rem;
 	}
-
 	.text-pull-left {
 		float: left;
 		margin-left: -2.4rem;
@@ -4635,20 +4540,18 @@ h1 span {
 	}
 }
 
-img[class*='text-pull-'],
-figure[class*='text-pull-'] {
-	margin-top: .8rem;
+img[class*="text-pull-"],
+figure[class*="text-pull-"] {
+	margin-top: 0.8rem;
 	padding-top: 0;
 }
 
 /* -- Interviews (Questions & Answers) --- */
-
 /* -- <dl class="text-interview">
 <dt>name</dt>
 <dd><p>question or answer</p>
 </dd>
 --- */
-
 .text-interview dt {
 	font-weight: 600;
 	margin-bottom: 0;
@@ -4666,7 +4569,6 @@ figure[class*='text-pull-'] {
 }
 
 /* -- Info Messages (error, warning, success... -- */
-
 .text-info {
 	font-size: 1.6rem;
 	line-height: 2.4rem;
@@ -4675,46 +4577,40 @@ figure[class*='text-pull-'] {
 /*=========================================
 2.1. San Francisco Font (Apple's new font)
 =========================================== */
-
 .text-apple,
 .bg-apple {
-	font-family: 'San Francisco', helvetica, arial, sans-serif;
+	font-family: "San Francisco", helvetica, arial, sans-serif;
 }
 
 /* Ultra Light */
-
 @font-face {
-	font-family: 'San Francisco';
+	font-family: "San Francisco";
 	font-weight: 100;
 	src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-ultralight-webfont.woff2");
 }
 
 /* Thin */
-
 @font-face {
-	font-family: 'San Francisco';
+	font-family: "San Francisco";
 	font-weight: 200;
 	src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-thin-webfont.woff2");
 }
 
 /* Regular */
-
 @font-face {
-	font-family: 'San Francisco';
+	font-family: "San Francisco";
 	font-weight: 400;
 	src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff2");
 }
 
 /* Bold */
-
 @font-face {
-	font-family: 'San Francisco';
+	font-family: "San Francisco";
 	font-weight: bold;
 	src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-bold-webfont.woff2");
 }
 
 /* @import "webslides-typography-fixes"; */
-
 /*!
  * Name: WebSlides
  * Version: 1.5.0
@@ -4723,14 +4619,13 @@ figure[class*='text-pull-'] {
  * URL: https://github.com/webslides/webslides#readme
  * Credits: @jlantunez, @LuisSacristan, @Belelros
  */
-
 /*!
  * fixes
  */
-
 pre,
 code {
-	font-family: "Roboto Mono", "Consolas", "Monaco", "Droid Sans Mono", "Inconsolata", "Source Code Pro", monospace;
+	font-family: "Roboto Mono", "Consolas", "Monaco", "Droid Sans Mono",
+		"Inconsolata", "Source Code Pro", monospace;
 }
 
 html,
@@ -4738,20 +4633,23 @@ body,
 input,
 select,
 textarea {
-	font-family: "Roboto", "Segoe UI", "Segoe WP", "HelveticaNeue", "Roboto", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
+	font-family: "Roboto", "Segoe UI", "Segoe WP", "HelveticaNeue", "Roboto",
+		"Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
 }
 
 .text-serif,
 h1 span {
-	font-family: "Roboto", "Segoe UI", "Segoe WP", "HelveticaNeue-Light", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif-light, sans-serif;
+	font-family: "Roboto", "Segoe UI", "Segoe WP", "HelveticaNeue-Light",
+		"Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif-light,
+		sans-serif;
 }
 
 blockquote.wall:before {
-	font-family: "Roboto", "Segoe UI", "Segoe WP", "HelveticaNeue", "Roboto", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
+	font-family: "Roboto", "Segoe UI", "Segoe WP", "HelveticaNeue", "Roboto",
+		"Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
 }
 
 /* @import "webslides-color"; */
-
 /*!
  * Name: WebSlides
  * Version: 1.5.0
@@ -4760,14 +4658,11 @@ blockquote.wall:before {
  * URL: https://github.com/webslides/webslides#readme
  * Credits: @jlantunez, @LuisSacristan, @Belelros
  */
-
 /*=========================================
 19. Colors
 =========================================== */
-
 /* -- Disable elastic scrolling/bounce:
 webslides.js will add .ws-ready automatically. Don't worry :) -- */
-
 body {
 	background-color: #f7f9fb;
 	color: #333;
@@ -4782,8 +4677,8 @@ svg {
 	fill: currentColor;
 }
 
-[class*='bg-'] a,
-[class*='bg-gradient-'] a {
+[class*="bg-"] a,
+[class*="bg-gradient-"] a {
 	color: #bce;
 }
 
@@ -4803,14 +4698,18 @@ a:hover {
 }
 
 .flexblock li > a,
-[class*='bg-'] li > a,
-[class*='bg-gradient-'] li > a,
+[class*="bg-"] li > a,
+[class*="bg-gradient-"] li > a,
 article header a {
 	color: inherit;
 }
 
 hr {
-	background: radial-gradient(ellipse at center, rgba(0, 20, 80, 0.2) 0, rgba(255, 255, 255, 0) 75%);
+	background: radial-gradient(
+		ellipse at center,
+		rgba(0, 20, 80, 0.2) 0,
+		rgba(255, 255, 255, 0) 75%
+	);
 }
 
 hr:after {
@@ -4833,10 +4732,6 @@ ins {
 	background-color: rgba(221, 238, 255, 0.8);
 }
 
-::-moz-selection {
-	background-color: rgba(221, 238, 255, 0.8);
-}
-
 ::selection {
 	background-color: rgba(221, 238, 255, 0.8);
 }
@@ -4844,17 +4739,20 @@ ins {
 pre {
 	background: #fff;
 	border: 1px solid rgba(0, 20, 80, 0.1);
-	-webkit-box-shadow: 0 8px 16px rgba(0, 20, 80, 0.04), 0 4px 16px rgba(0, 0, 0, 0.08);
+	-webkit-box-shadow: 0 8px 16px rgba(0, 20, 80, 0.04),
+		0 4px 16px rgba(0, 0, 0, 0.08);
 	box-shadow: 0 8px 16px rgba(0, 20, 80, 0.04), 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 
 pre:hover {
-	-webkit-box-shadow: 0 8px 16px rgba(0, 40, 160, 0.08), 0 8px 24px rgba(0, 0, 0, 0.08);
-	box-shadow: 0 8px 16px rgba(0, 40, 160, 0.08), 0 8px 24px rgba(0, 0, 0, 0.08);
+	-webkit-box-shadow: 0 8px 16px rgba(0, 40, 160, 0.08),
+		0 8px 24px rgba(0, 0, 0, 0.08);
+	box-shadow: 0 8px 16px rgba(0, 40, 160, 0.08),
+		0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
 code,
-[class*='bg-'] pre {
+[class*="bg-"] pre {
 	background-color: rgba(255, 255, 255, 0.09);
 }
 
@@ -4865,9 +4763,7 @@ code,
 /*================================================
 Slides - Backgrounds <section class="bg-primary">
 ================================================== */
-
 /*3 Corp Colors*/
-
 .bg-primary {
 	background-color: #44d;
 }
@@ -4920,20 +4816,25 @@ Slides - Backgrounds <section class="bg-primary">
 	background-color: #3b5998;
 }
 
-[class*='bg-'] .bg-white {
+[class*="bg-"] .bg-white {
 	color: #333;
 	text-shadow: none;
 }
 
 /* BG Apple Keynote*/
-
 .bg-apple {
-	background: -webkit-gradient(linear, left top, left bottom, from(#000), color-stop(50%, #1a2028), to(#293845));
+	background: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		from(#000),
+		color-stop(50%, #1a2028),
+		to(#293845)
+	);
 	background: linear-gradient(to bottom, #000 0%, #1a2028 50%, #293845 100%);
 }
 
 /*Font Color*/
-
 .bg-trans-dark,
 .bg-trans-gradient,
 .bg-primary,
@@ -4944,8 +4845,8 @@ Slides - Backgrounds <section class="bg-primary">
 .bg-red,
 .bg-facebook,
 .bg-apple,
-[class*='bg-black'],
-[class*='bg-gradient-'] {
+[class*="bg-black"],
+[class*="bg-gradient-"] {
 	color: #fff;
 	text-shadow: 0 1px 0 #013;
 }
@@ -4959,7 +4860,6 @@ Slides - Backgrounds <section class="bg-primary">
 }
 
 /*Transparent/Opacity*/
-
 .bg-trans-dark {
 	background: rgba(0, 0, 0, 0.8);
 }
@@ -4969,61 +4869,81 @@ Slides - Backgrounds <section class="bg-primary">
 }
 
 /*Covers/Longforms...*/
-
 .bg-trans-gradient {
-	background: -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, 0.8)), to(transparent));
-	background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+	background: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		from(rgba(0, 0, 0, 0.8)),
+		to(transparent)
+	);
+	background: linear-gradient(
+		to top,
+		rgba(0, 0, 0, 0.8) 0%,
+		transparent 100%
+	);
 }
 
 /*Horizontal Gradient*/
-
 .bg-gradient-h {
 	background: linear-gradient(134deg, #32b 0, #62b 100%);
 }
 
 /*Vertical Gradient*/
-
 .bg-gradient-v {
-	background: -webkit-gradient(linear, left bottom, left top, from(#62b), to(#32b));
+	background: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		from(#62b),
+		to(#32b)
+	);
 	background: linear-gradient(to top, #62b 0%, #32b 100%);
 }
 
 /*Radial Gradient*/
-
 .bg-gradient-r {
 	background: radial-gradient(ellipse at center, #62b 0%, #32b 100%);
 }
 
 /*White Gradient (vertical)*/
-
 .bg-gradient-white {
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f2f4f6), to(#fff));
+	background: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #f2f4f6),
+		to(#fff)
+	);
 	background: linear-gradient(180deg, #f2f4f6 0, #fff 100%);
 	color: #333;
 	text-shadow: none;
 }
 
 /*Gray Gradient (horizontal)*/
-
 .bg-gradient-gray {
-	background: -webkit-gradient(linear, left top, right top, color-stop(0, #f7f9fb), to(#dee2e6));
+	background: -webkit-gradient(
+		linear,
+		left top,
+		right top,
+		color-stop(0, #f7f9fb),
+		to(#dee2e6)
+	);
 	background: linear-gradient(90deg, #f7f9fb 0, #dee2e6 100%);
 	color: #333;
 	text-shadow: none;
 }
 
 /*Border/Frame*/
-
 .frame {
 	border: 0.8rem solid #fff;
 }
 
-[class*='background'].frame {
-	border-width: .2rem;
+[class*="background"].frame {
+	border-width: 0.2rem;
 }
 
 /*Layer/Box Shadow*/
-
 .shadow,
 .pre {
 	position: relative;
@@ -5038,30 +4958,26 @@ Slides - Backgrounds <section class="bg-primary">
 /*============================
 TYPOGRAPHY
 ============================== */
-
 /* -- Horizontal separator
 -- */
-
 .text-separator:before {
 	background-color: rgba(170, 0, 0, 0.8);
 }
 
 /* -- Pull Quote (Right/Left)
 -- */
-
-[class*='text-pull-'] {
+[class*="text-pull-"] {
 	border-top: 4px solid rgba(0, 0, 0, 0.5);
 }
 
-img[class*='text-pull-'],
-figure[class*='text-pull-'] {
+img[class*="text-pull-"],
+figure[class*="text-pull-"] {
 	border-top: 0;
 }
 
 /* -- Context
 -- */
-
-[class*='bg-'] .text-context:before {
+[class*="bg-"] .text-context:before {
 	background-color: #fff;
 }
 
@@ -5072,7 +4988,6 @@ figure[class*='text-pull-'] {
 
 /* -- Text shadow
 -- */
-
 .text-shadow {
 	text-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
 }
@@ -5086,7 +5001,6 @@ color: #abd;
 
 /* -- <pre> comment
 -- */
-
 .code-comment {
 	color: rgba(70, 170, 130, 0.9);
 	text-shadow: none;
@@ -5095,8 +5009,7 @@ color: #abd;
 /*=========================================
 Header/Nav
 =========================================== */
-
-header[role='banner'] {
+header[role="banner"] {
 	background-color: #fff;
 }
 
@@ -5104,17 +5017,17 @@ header[role='banner'] {
 	color: inherit;
 }
 
-nav[role='navigation'] li.active a {
+nav[role="navigation"] li.active a {
 	background-color: #555;
 	color: #fff;
 }
 
-nav[role='navigation'] li a {
+nav[role="navigation"] li a {
 	background-color: rgba(50, 50, 50, 0.9);
 	color: #fff;
 }
 
-nav[role='navigation'] li a:hover {
+nav[role="navigation"] li a:hover {
 	background-color: rgba(50, 50, 50, 0.7);
 }
 
@@ -5145,7 +5058,6 @@ nav li.email a:hover {
 /*===================================================
 .flexblock li hover/active
 ===================================================== */
-
 .flexblock li.active a,
 .metrics li:hover,
 .specs li:hover,
@@ -5156,27 +5068,26 @@ nav li.email a:hover {
 /*=========================================
 Features & Clients List
 =========================================== */
-
 .features li,
 .clients li {
 	background-color: rgba(255, 255, 255, 0.9);
 }
 
-[class*='bg-'] .features li,
-[class*='bg-'] .clients li {
+[class*="bg-"] .features li,
+[class*="bg-"] .clients li {
 	background-color: rgba(255, 255, 255, 0.1);
 }
 
 .features li:hover,
 .clients li:hover {
-	-webkit-box-shadow: 0 8px 16px rgba(0, 20, 80, 0.02), 0 4px 16px rgba(0, 0, 0, 0.08);
+	-webkit-box-shadow: 0 8px 16px rgba(0, 20, 80, 0.02),
+		0 4px 16px rgba(0, 0, 0, 0.08);
 	box-shadow: 0 8px 16px rgba(0, 20, 80, 0.02), 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 
 /*============================
 .flexblock with border
 ============================== */
-
 .border {
 	border-bottom: 1px solid rgba(0, 20, 80, 0.1);
 	border-right: 1px solid rgba(0, 20, 80, 0.1);
@@ -5194,7 +5105,6 @@ Features & Clients List
 /*===========================================
 flexblock.steps
 ============================================= */
-
 .steps li:nth-child(1) {
 	background-color: #e8eef7;
 }
@@ -5225,16 +5135,13 @@ flexblock.steps
 	.process.step-2 {
 		border-left-color: #e8eef7;
 	}
-
 	.process.step-3 {
 		border-left-color: #dde5f3;
 	}
-
 	.process.step-4 {
 		border-left-color: #cdd8ec;
 	}
-
-	.steps li:hover + li [class*='step-'] {
+	.steps li:hover + li [class*="step-"] {
 		border-left-color: #b8cef7;
 	}
 }
@@ -5242,10 +5149,21 @@ flexblock.steps
 /*=========================================================
 Items: You can use for settings, drag&drop, close/delete...
 =========================================================== */
-
 .specs li:after {
-	background: -webkit-gradient(linear, left top, right top, from(rgba(0, 20, 80, 0)), color-stop(50%, rgba(0, 20, 80, 0.2)), to(rgba(0, 20, 80, 0)));
-	background: linear-gradient(to right, rgba(0, 20, 80, 0) 0%, rgba(0, 20, 80, 0.2) 50%, rgba(0, 20, 80, 0) 100%);
+	background: -webkit-gradient(
+		linear,
+		left top,
+		right top,
+		from(rgba(0, 20, 80, 0)),
+		color-stop(50%, rgba(0, 20, 80, 0.2)),
+		to(rgba(0, 20, 80, 0))
+	);
+	background: linear-gradient(
+		to right,
+		rgba(0, 20, 80, 0) 0%,
+		rgba(0, 20, 80, 0.2) 50%,
+		rgba(0, 20, 80, 0) 100%
+	);
 }
 
 .specs li:last-child:after {
@@ -5256,10 +5174,21 @@ Items: You can use for settings, drag&drop, close/delete...
 Why/Steps/Motivation/Reasons -
 Decimal/Numbers
 =========================================================== */
-
 .reasons li:after {
-	background: -webkit-gradient(linear, left top, right top, from(rgba(0, 20, 80, 0)), color-stop(50%, rgba(0, 20, 80, 0.2)), to(rgba(0, 20, 80, 0)));
-	background: linear-gradient(to right, rgba(0, 20, 80, 0) 0%, rgba(0, 20, 80, 0.2) 50%, rgba(0, 20, 80, 0) 100%);
+	background: -webkit-gradient(
+		linear,
+		left top,
+		right top,
+		from(rgba(0, 20, 80, 0)),
+		color-stop(50%, rgba(0, 20, 80, 0.2)),
+		to(rgba(0, 20, 80, 0))
+	);
+	background: linear-gradient(
+		to right,
+		rgba(0, 20, 80, 0) 0%,
+		rgba(0, 20, 80, 0.2) 50%,
+		rgba(0, 20, 80, 0) 100%
+	);
 }
 
 .reasons li:last-child:after {
@@ -5269,7 +5198,6 @@ Decimal/Numbers
 /*=========================================
 Overlays
 =========================================== */
-
 .overlay {
 	background-color: rgba(0, 0, 0, 0.2);
 }
@@ -5287,10 +5215,10 @@ li:hover .overlay {
 /*=========================================
 Gallery li+.overlay+image
 =========================================== */
-
 .gallery li {
 	background-color: rgba(0, 20, 80, 0.06);
-	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.03);
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2),
+		0 4px 8px rgba(0, 0, 0, 0.03);
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.03);
 }
 
@@ -5299,7 +5227,8 @@ Gallery li+.overlay+image
 }
 
 .flexblock.gallery li:hover {
-	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.08);
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2),
+		0 4px 8px rgba(0, 0, 0, 0.08);
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.08);
 }
 
@@ -5317,7 +5246,6 @@ Gallery li+.overlay+image
 }
 
 /*Arrow */
-
 .gallery li figcaption:before {
 	border: 0.8rem solid #000;
 	border-color: transparent transparent #fff #fff;
@@ -5326,7 +5254,6 @@ Gallery li+.overlay+image
 /*=========================================
 Plans / Pricing
 =========================================== */
-
 .plans > li div,
 .flexblock.plans li:hover div {
 	background-color: #fff;
@@ -5334,7 +5261,8 @@ Plans / Pricing
 
 .plans > li:hover,
 .plans > li:nth-child(2) {
-	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1),
+		0 8px 16px rgba(0, 0, 0, 0.1);
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
@@ -5364,7 +5292,6 @@ Plans / Pricing
 /*============================
 Activity/CV/Timeline/News
 ============================== */
-
 .activity li {
 	border-top: 0.1rem solid rgba(0, 20, 80, 0.1);
 }
@@ -5376,7 +5303,6 @@ Activity/CV/Timeline/News
 /*=========================================
 Resume/Work/CV/Portfolio
 =========================================== */
-
 .work-label,
 .work li a {
 	border-bottom: 1px solid rgba(0, 20, 80, 0.1);
@@ -5393,7 +5319,6 @@ Resume/Work/CV/Portfolio
 /*===========================================
 Clients / Services / Logos...
 ============================================= */
-
 .clients.border figcaption {
 	border-top: 1px solid rgba(0, 20, 80, 0.1);
 }
@@ -5401,9 +5326,7 @@ Clients / Services / Logos...
 /*====================
 LOGOS
 ====================== */
-
 /* --- Images (black logo/image) --- */
-
 img.blacklogo {
 	background: none;
 	-webkit-filter: grayscale(100%) brightness(10%) contrast(100%);
@@ -5411,21 +5334,18 @@ img.blacklogo {
 }
 
 /* --- Images (gray logo/image) --- */
-
 img.graylogo {
 	-webkit-filter: grayscale(100%) brightness(10%) contrast(10%);
 	filter: grayscale(100%) brightness(10%) contrast(10%);
 }
 
 /* --- Images (white Logo/Image) --- */
-
 img.whitelogo {
 	-webkit-filter: brightness(0) invert(1);
 	filter: brightness(0) invert(1);
 }
 
 /* --- Logo/Images Hover --- */
-
 li:hover img.blacklogo,
 li:hover img.graylogo,
 img.blacklogo:hover,
@@ -5433,21 +5353,19 @@ img.graylogo:hover {
 	background: none;
 	-webkit-filter: grayscale(0%);
 	filter: grayscale(0%);
-	-webkit-transition: all .6s ease;
-	transition: all .6s ease;
+	-webkit-transition: all 0.6s ease;
+	transition: all 0.6s ease;
 }
 
 /*=========================================================
 Cards
 =========================================================== */
-
-[class*='card-'] > a {
+[class*="card-"] > a {
 	color: inherit;
 }
 
 /* ---
 card ul specs --- */
-
 .description > li {
 	border-bottom: 1px solid rgba(0, 20, 80, 0.1);
 }
@@ -5457,28 +5375,55 @@ card ul specs --- */
 }
 
 /*== Figure Background === */
-
-[class*='card-'][class*='bg-'] figure {
+[class*="card-"][class*="bg-"] figure {
 	background-color: rgba(0, 20, 80, 0.06);
 }
 
 /*== Ficaption Cards === */
-
-[class*='card'] figcaption,
-[class*='card'] figcaption a {
-	background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, 0.2)));
-	background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.2) 100%);
+[class*="card"] figcaption,
+[class*="card"] figcaption a {
+	background: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		from(transparent),
+		to(rgba(0, 0, 0, 0.2))
+	);
+	background: linear-gradient(
+		to bottom,
+		transparent 0%,
+		rgba(0, 0, 0, 0.2) 100%
+	);
 	color: #fff;
 }
 
 /*===CTA (Call to Action - Numbers, Price, Promo...)
 ===== */
-
 @media (min-width: 768px) {
 	.cta .benefit {
-		-o-border-image: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.4) 50%, transparent) 1 100%;
-		border-image: -webkit-gradient(linear, left top, right top, from(transparent), color-stop(50%, rgba(0, 0, 0, 0.4)), to(transparent)) 1 100%;
-		border-image: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.4) 50%, transparent) 1 100%;
+		-o-border-image: linear-gradient(
+				90deg,
+				transparent,
+				rgba(0, 0, 0, 0.4) 50%,
+				transparent
+			)
+			1 100%;
+		border-image: -webkit-gradient(
+				linear,
+				left top,
+				right top,
+				from(transparent),
+				color-stop(50%, rgba(0, 0, 0, 0.4)),
+				to(transparent)
+			)
+			1 100%;
+		border-image: linear-gradient(
+				90deg,
+				transparent,
+				rgba(0, 0, 0, 0.4) 50%,
+				transparent
+			)
+			1 100%;
 		border-left-width: 1px;
 		border-style: solid;
 	}
@@ -5487,7 +5432,6 @@ card ul specs --- */
 /*=========================================
 Tables
 =========================================== */
-
 table td,
 th,
 thead {
@@ -5514,18 +5458,17 @@ tr:nth-child(even) > td:hover {
 /*============================
 Browser (Screenshots)
 ============================== */
-
 .browser {
 	border: 1px solid rgba(0, 20, 80, 0.1);
 }
 
 .browser:hover {
-	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1),
+		0 8px 16px rgba(0, 0, 0, 0.1);
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 /*=== Topbar === */
-
 .browser:before {
 	background-color: rgba(0, 20, 80, 0.1);
 	border-bottom: 1px solid rgba(0, 20, 80, 0.2);
@@ -5540,7 +5483,6 @@ Browser (Screenshots)
 /*=========================================
 Forms
 =========================================== */
-
 input,
 textarea {
 	background-color: #fafbfc;
@@ -5562,8 +5504,8 @@ input:focus::-webkit-input-placeholder {
 }
 
 a.button,
-[class*='badge-'],
-button[type='submit'],
+[class*="badge-"],
+button[type="submit"],
 input {
 	-webkit-box-shadow: 0 10px 16px -8px rgba(0, 20, 80, 0.3);
 	box-shadow: 0 10px 16px -8px rgba(0, 20, 80, 0.3);
@@ -5573,29 +5515,29 @@ button,
 input,
 select,
 textarea,
-button[type='submit'],
-input[type='submit'],
+button[type="submit"],
+input[type="submit"],
 .button,
 .button:hover,
-button[type='submit']:hover,
-input[type='submit']:hover {
+button[type="submit"]:hover,
+input[type="submit"]:hover {
 	border: 1px solid #44d;
 }
 
-button[type='submit'],
-input[type='submit'],
+button[type="submit"],
+input[type="submit"],
 .button,
 .button:hover,
-button[type='submit']:hover,
-input[type='submit']:hover {
+button[type="submit"]:hover,
+input[type="submit"]:hover {
 	background-color: #44d;
 	color: #fff;
 	text-shadow: 0 1px 0 #123;
 }
 
 .button:active,
-button[type='submit']:active,
-input[type='submit']:active {
+button[type="submit"]:active,
+input[type="submit"]:active {
 	background-color: #17d;
 }
 
@@ -5612,12 +5554,12 @@ input[type='submit']:active {
 .bg-primary button,
 .bg-primary button:hover,
 .bg-primary input,
-[class*='bg-gradient-'] .button,
-[class*='bg-'] a.button.ghost {
+[class*="bg-gradient-"] .button,
+[class*="bg-"] a.button.ghost {
 	border-color: #fff;
 }
 
-[class*='bg-'] a.button {
+[class*="bg-"] a.button {
 	color: #fff;
 }
 
@@ -5645,7 +5587,6 @@ legend {
 }
 
 /* Inputs/Buttons - hover */
-
 input:hover,
 select:hover {
 	-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
@@ -5653,8 +5594,7 @@ select:hover {
 }
 
 /* App Store Badges */
-
-[class*='badge-'] {
+[class*="badge-"] {
 	background-color: #000;
 	border: 1px solid #345;
 }
@@ -5666,7 +5606,6 @@ form .flexblock li:hover {
 /*============================
 Table of Contents
 ============================== */
-
 .toc,
 .toc ol > li:before,
 .chapter {
@@ -5680,7 +5619,6 @@ Table of Contents
 /*============================
 Slides (Counter/Arrows)
 ============================== */
-
 #counter,
 #navigation a {
 	color: #abc;
@@ -5694,28 +5632,28 @@ Slides (Counter/Arrows)
 /*============================
 Footer
 ============================== */
-
-footer[role='contentinfo'] {
+footer[role="contentinfo"] {
 	background-color: #fff;
 }
 
 /*============================
 Slides Index
 ============================== */
-
 #webslides-zoomed {
 	background: rgba(0, 10, 40, 0.8);
 }
 
 #webslides-zoomed .column > .wrap-zoom {
 	background-color: #f7f9fb;
-	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.04);
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2),
+		0 4px 8px rgba(0, 0, 0, 0.04);
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.04);
 	color: #333;
 }
 
 #webslides-zoomed .column > .wrap-zoom:hover {
-	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.08);
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2),
+		0 4px 8px rgba(0, 0, 0, 0.08);
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.08);
 }
 
@@ -5728,7 +5666,6 @@ Slides Index
 }
 
 /* @import "webslides-color-fixes"; */
-
 /*!
  * Name: WebSlides
  * Version: 1.5.0
@@ -5737,30 +5674,28 @@ Slides Index
  * URL: https://github.com/webslides/webslides#readme
  * Credits: @jlantunez, @LuisSacristan, @Belelros
  */
-
 /*!
  * fixes
  */
-
 body {
 	color: #191919;
-	background-color: #F9F9F9;
+	background-color: #f9f9f9;
 }
 
 [class*="bg-"] a,
 [class*="bg-gradient-"] a {
-	color: #1467BD;
+	color: #1467bd;
 }
 
 a,
 .bg-white a,
 .bg-light a,
 .bg-gradient-white a {
-	color: #1467BD;
+	color: #1467bd;
 }
 
 a:hover {
-	color: #3585D8;
+	color: #3585d8;
 }
 
 hr:after {
@@ -5771,11 +5706,6 @@ hr:after {
 bbbr,
 acronym {
 	border-bottom: 0.063rem dotted #191919;
-}
-
-::-moz-selection {
-	color: rgba(255, 255, 255, 0.9);
-	background-color: rgba(58, 150, 221, 0.9);
 }
 
 ::selection {
@@ -5793,13 +5723,18 @@ acronym {
 	opacity: 1;
 }
 
+::-ms-input-placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
 ::placeholder {
 	color: #878787 !important;
 	opacity: 1;
 }
 
 .bg-primary {
-	background-color: #D83544;
+	background-color: #d83544;
 }
 
 .bg-trans-dark,
@@ -5812,8 +5747,8 @@ acronym {
 .bg-red,
 .bg-facebook,
 .bg-apple,
-[class*='bg-black'],
-[class*='bg-gradient-'] {
+[class*="bg-black"],
+[class*="bg-gradient-"] {
 	text-shadow: none;
 }
 
@@ -5823,15 +5758,27 @@ acronym {
 }
 
 .bg-gradient-white {
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f2f4f6), to(#fff));
+	background: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #f2f4f6),
+		to(#fff)
+	);
 	background: linear-gradient(180deg, #f2f4f6 0, #fff 100%);
 	color: #191919;
 	text-shadow: none;
 }
 
 .bg-gradient-gray {
-	background: -webkit-gradient(linear, left top, right top, color-stop(0, #F9F9F9), to(#dee2e6));
-	background: linear-gradient(90deg, #F9F9F9 0, #dee2e6 100%);
+	background: -webkit-gradient(
+		linear,
+		left top,
+		right top,
+		color-stop(0, #f9f9f9),
+		to(#dee2e6)
+	);
+	background: linear-gradient(90deg, #f9f9f9 0, #dee2e6 100%);
 	color: #191919;
 	text-shadow: none;
 }
@@ -5842,7 +5789,7 @@ acronym {
 }
 
 ul.tabs li:before {
-	background-color: #D83544;
+	background-color: #d83544;
 }
 
 .gallery li a {
@@ -5889,14 +5836,12 @@ table td {
 	table {
 		border: none;
 	}
-
 	table th,
 	table td {
 		border-top: none;
 		border-right: none;
 		border-left: none;
 	}
-
 	table tr {
 		border: 0.067rem solid rgba(0, 0, 0, 0.5);
 		border-bottom: none;
@@ -5913,7 +5858,7 @@ input[type="submit"],
 .button:hover,
 button[type="submit"]:hover,
 input[type="submit"]:hover {
-	border: 0.067rem solid #D83544;
+	border: 0.067rem solid #d83544;
 }
 
 button[type="submit"],
@@ -5923,7 +5868,7 @@ input[type="submit"],
 button[type="submit"]:hover,
 input[type="submit"]:hover {
 	color: #191919;
-	background-color: #D83544;
+	background-color: #d83544;
 	text-shadow: none;
 }
 
@@ -5931,54 +5876,51 @@ input[type="submit"]:hover {
 button[type="submit"]:active,
 input[type="submit"]:active {
 	color: #191919;
-	background-color: #D83544;
+	background-color: #d83544;
 }
 
 .bg-white a.button.ghost,
 .bg-gradient-white a.button.ghost {
 	color: #191919;
-	border: 0.067rem solid #D83544;
+	border: 0.067rem solid #d83544;
 }
 
 fieldset {
-	border: 0.067rem solid #D83544;
+	border: 0.067rem solid #d83544;
 }
 
 .toc,
 .toc ol > li:before,
 .chapter {
-	background-color: #F9F9F9;
+	background-color: #f9f9f9;
 }
 
 #counter,
 #navigation a {
-	color: #1467BD;
+	color: #1467bd;
 }
 
 #webslides:hover #navigation a:hover {
-	background-color: rgba(0, 0, 0, 0.8);
+	background-color: rgba(0, 0, 0, 0.92);
 	color: #fff;
 }
 
 #webslides-zoomed {
-	background: rgba(0, 0, 0, 0.8);
+	background: rgba(0, 0, 0, 0.92);
 }
 
 #webslides-zoomed .column > .wrap-zoom.current {
-	border: 0.6rem solid #FF6877;
+	border: 0.6rem solid #ff6877;
 }
 
 .text-slide-number {
-	color: #FFFFFF;
+	color: #ffffff;
 }
 
 /*! @import "sprites"; */
-
 /* Generated by http://responsive-css.spritegen.com Responsive CSS Sprite Generator */
-
 /* .books-advanced-grammar-in-use-512x680, .books-collins-cobuild-english-grammar-512x680, .books-essential-grammar-in-use-512x680, .books-golitsynsky-exercises-512x680, .books-macmillan-exam-skills-for-russia-grammar-and-vocabulary-512x680
 { max-width: 100%; background-size: 100%; background-image: url('jpeg.jpg'); } */
-
 img[class^="books-"],
 img[class*=" books-"] {
 	max-width: 100%;
@@ -6007,10 +5949,8 @@ img[class*=" books-"] {
 }
 
 /* Generated by http://responsive-css.spritegen.com Responsive CSS Sprite Generator */
-
 /* .tile-mailto-512x512, .tile-odnoklassniki-512x512, .tile-tel-512x512, .tile-vkontakte-512x512
 { max-width: 100%; background-size: 100%; background-image: url('png.png'); } */
-
 img[class^="tile-"],
 img[class*=" tile-"] {
 	max-width: 100%;
@@ -6048,7 +5988,6 @@ img[class*=" tile-"] {
 /*!
  * custom fixes
  */
-
 @media handheld, only screen and (max-width: 768px) {
 	.page .gallery .data-qrcode-img {
 		display: none;
@@ -6061,5 +6000,3 @@ img[class*=" tile-"] {
 		display: none;
 	}
 }
-
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJ1bmRsZS5jc3MiLCIuLi9zY3NzL2J1bmRsZS5zY3NzIiwiLi4vc2Nzcy9fZW5nbGlzaGV4dHJhLXVpLWNvbG9ycy5zY3NzIiwiLi4vc2Nzcy9fZW5nbGlzaGV4dHJhLXVpLXZhcmlhYmxlcy5zY3NzIiwiLi4vc2Nzcy9fd2Vic2xpZGVzLWJhc2Uuc2NzcyIsIi4uL3Njc3MvX3dlYnNsaWRlcy1iYXNlLWZpeGVzLnNjc3MiLCIuLi9zY3NzL193ZWJzbGlkZXMtdHlwb2dyYXBoeS5zY3NzIiwiLi4vc2Nzcy9fd2Vic2xpZGVzLXR5cG9ncmFwaHktZml4ZXMuc2NzcyIsIi4uL3Njc3MvX3dlYnNsaWRlcy1jb2xvci5zY3NzIiwiLi4vc2Nzcy9fd2Vic2xpZGVzLWNvbG9yLWZpeGVzLnNjc3MiLCIuLi9zY3NzL19zcHJpdGVzLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsaUJBQWlCO0FDQWpCOztHQUVHO0FDRkgsdUNBQXVDO0FBRXZDOzs7Ozs7Ozs7R0FTRztBQUVIOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O1NBc0JTO0FBNkZUOzs7Ozs7SUFNSTtBQ3RJSiwyQ0FBMkM7QUNBM0MsK0JBQStCO0FBRS9COzs7Ozs7O0dBT0c7QUFJSDs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O3NGQTBDc0Y7QUFFdEY7Ozs7RUFJRTtBQUVGOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztDQWdGQyxVQUFTO0NBQ1QsY0FBYTtDQUNiLGdCQUFlO0NBQ2YsVUFBUztDQUNULFdBQVU7Q0FDVix5QkFBd0IsRUFDeEI7O0FBRUQ7Ozs7Ozs7Ozs7OztDQVlDLGVBQWMsRUFDZDs7QUFFRDtDQUNDLGVBQWMsRUFDZDs7QUFFRDs7Q0FFQyxjQUFhLEVBQ2I7O0FBRUQ7Ozs7Q0FJQyxZQUFXLEVBQ1g7O0FBRUQ7Q0FDQywwQkFBeUI7Q0FDekIsa0JB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 */
