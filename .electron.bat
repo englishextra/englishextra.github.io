@@ -1,1 +1,0 @@
-electron ./index.js

@@ -877,9 +877,9 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 				}
 			}
 		};
-		
+
 		var handleDataSrcImageAllWindow = throttle(handleDataSrcImageAll, 100);
-		
+
 		var manageDataSrcImageAll = function () {
 			root[_addEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
 			root[_addEventListener]("resize", handleDataSrcImageAllWindow, {passive: true});
@@ -918,9 +918,9 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 				}
 			}
 		};
-		
+
 		var handleDataSrcIframeAllWindow = throttle(handleDataSrcIframeAll, 100);
-		
+
 		var manageDataSrcIframeAll = function () {
 			root[_addEventListener]("scroll", handleDataSrcIframeAllWindow, {passive: true});
 			root[_addEventListener]("resize", handleDataSrcIframeAllWindow, {passive: true});
@@ -931,6 +931,68 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 				}, 100);
 		};
 		manageDataSrcIframeAll();
+
+		var imgLightboxLinkClass = "img-lightbox-link";
+
+		/*!
+		 * @see {@link https://github.com/englishextra/img-lightbox}
+		 */
+		var manageImgLightbox = function (imgLightboxLinkClass) {
+			var initScript = function () {
+				var link = document[getElementsByClassName](imgLightboxLinkClass) || "";
+				if (link) {
+					imgLightbox(imgLightboxLinkClass, {
+						onLoaded: function () {
+							LoadingSpinner.hide();
+						},
+						onClosed: function () {
+							LoadingSpinner.hide();
+						},
+						onCreated: function () {
+							LoadingSpinner.show();
+						},
+						touch: false
+					});
+				}
+			};
+			initScript();
+		};
+		manageImgLightbox(imgLightboxLinkClass);
+
+		var iframeLightboxLinkClass = "iframe-lightbox-link";
+
+		/*!
+		 * @see {@link https://github.com/englishextra/iframe-lightbox}
+		 */
+		var manageIframeLightbox = function (iframeLightboxLinkClass) {
+			var initScript = function () {
+				var link = document[getElementsByClassName](iframeLightboxLinkClass) || "";
+				var arrange = function (e) {
+					e.lightbox = new IframeLightbox(e, {
+							onLoaded: function () {
+								LoadingSpinner.hide();
+							},
+							onClosed: function () {
+								LoadingSpinner.hide();
+							},
+							onOpened: function () {
+								LoadingSpinner.show();
+							},
+							touch: false
+						});
+				};
+				if (link) {
+					var i,
+					l;
+					for (i = 0, l = link[_length]; i < l; i += 1) {
+						arrange(link[i]);
+					}
+					i = l = null;
+				}
+			};
+			initScript();
+		};
+		manageIframeLightbox(iframeLightboxLinkClass);
 
 		var manageDataQrcodeImageAll = function (callback) {
 			var cb = function () {
@@ -982,51 +1044,6 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 					generateImg(img[i]);
 				}
 				i = l = null;
-			}
-		};
-
-		var manageIframeLightboxLinkAll = function (linkClass) {
-			var link = document[getElementsByClassName](linkClass) || "";
-			var arrange = function (e) {
-				if (root.IframeLightbox) {
-					e.lightbox = new IframeLightbox(e, {
-							onLoaded: function () {
-								LoadingSpinner.hide();
-							},
-							onClosed: function () {
-								LoadingSpinner.hide();
-							},
-							onOpened: function () {
-								LoadingSpinner.show();
-							},
-							touch: false
-						});
-				}
-			};
-			if (link) {
-				var i,
-				l;
-				for (i = 0, l = link[_length]; i < l; i += 1) {
-					arrange(link[i]);
-				}
-				i = l = null;
-			}
-		};
-
-		var manageImgLightboxLinkAll = function (linkClass) {
-			if (root.imgLightbox) {
-				imgLightbox(linkClass, {
-					onCreated: function () {
-						LoadingSpinner.show();
-					},
-					onLoaded: function () {
-						LoadingSpinner.hide();
-					},
-					onError: function () {
-						LoadingSpinner.hide();
-					},
-					touch: false
-				});
 			}
 		};
 

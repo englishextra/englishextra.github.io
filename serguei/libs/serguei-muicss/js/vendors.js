@@ -7,8 +7,6 @@
 (function(root, document) {
 	"use strict";
 
-	var getElementsByClassName = "getElementsByClassName";
-	var getElementById = "getElementById";
 	var _length = "length";
 
 	function extend(a, b) {
@@ -700,7 +698,7 @@
 			this.create();
 		}
 
-		var debounce = function (func, wait) {
+		var debounce = function debounce(func, wait) {
 			var timeout, args, context, timestamp;
 			return function() {
 				context = this;
@@ -942,7 +940,7 @@
 		"onmsgesturechange" in root ||
 		navigator.msMaxTouchPoints;
 
-	var debounce = function (func, wait) {
+	var debounce = function debounce(func, wait) {
 		var timeout;
 		var args;
 		var context;

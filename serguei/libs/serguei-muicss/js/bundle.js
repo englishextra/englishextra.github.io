@@ -817,7 +817,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			document[title] = document[title] + userBrowsingDetails;
 		}
 
-		var debounce = function (func, wait) {
+		var debounce = function debounce(func, wait) {
 			var timeout;
 			var args;
 			var context;
@@ -844,7 +844,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			};
 		};
 
-		var throttle = function (func, wait) {
+		var throttle = function throttle(func, wait) {
 			var ctx;
 			var args;
 			var rtn;
@@ -1347,13 +1347,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var handleDataSrcImageAllWindow = function handleDataSrcImageAllWindow() {
-			var throttleHandleDataSrcImageAll = throttle(
-				handleDataSrcImageAll,
-				100
-			);
-			throttleHandleDataSrcImageAll();
-		};
+		var handleDataSrcImageAllWindow = throttle(handleDataSrcImageAll, 100);
 
 		var manageDataSrcImageAll = function manageDataSrcImageAll() {
 			root[_addEventListener]("scroll", handleDataSrcImageAllWindow, {
@@ -1411,13 +1405,10 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var handleDataSrcIframeAllWindow = function handleDataSrcIframeAllWindow() {
-			var throttlehandleDataSrcIframeAll = throttle(
-				handleDataSrcIframeAll,
-				100
-			);
-			throttlehandleDataSrcIframeAll();
-		};
+		var handleDataSrcIframeAllWindow = throttle(
+			handleDataSrcIframeAll,
+			100
+		);
 
 		var manageDataSrcIframeAll = function manageDataSrcIframeAll() {
 			root[_addEventListener]("scroll", handleDataSrcIframeAllWindow, {
@@ -1436,6 +1427,82 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		};
 
 		manageDataSrcIframeAll();
+		var imgLightboxLinkClass = "img-lightbox-link";
+		/*!
+		 * @see {@link https://github.com/englishextra/img-lightbox}
+		 */
+
+		var manageImgLightbox = function manageImgLightbox(
+			imgLightboxLinkClass
+		) {
+			var initScript = function initScript() {
+				var link =
+					document[getElementsByClassName](imgLightboxLinkClass) ||
+					"";
+
+				if (link) {
+					imgLightbox(imgLightboxLinkClass, {
+						onLoaded: function onLoaded() {
+							LoadingSpinner.hide();
+						},
+						onClosed: function onClosed() {
+							LoadingSpinner.hide();
+						},
+						onCreated: function onCreated() {
+							LoadingSpinner.show();
+						},
+						touch: false
+					});
+				}
+			};
+
+			initScript();
+		};
+
+		manageImgLightbox(imgLightboxLinkClass);
+		var iframeLightboxLinkClass = "iframe-lightbox-link";
+		/*!
+		 * @see {@link https://github.com/englishextra/iframe-lightbox}
+		 */
+
+		var manageIframeLightbox = function manageIframeLightbox(
+			iframeLightboxLinkClass
+		) {
+			var initScript = function initScript() {
+				var link =
+					document[getElementsByClassName](iframeLightboxLinkClass) ||
+					"";
+
+				var arrange = function arrange(e) {
+					e.lightbox = new IframeLightbox(e, {
+						onLoaded: function onLoaded() {
+							LoadingSpinner.hide();
+						},
+						onClosed: function onClosed() {
+							LoadingSpinner.hide();
+						},
+						onOpened: function onOpened() {
+							LoadingSpinner.show();
+						},
+						touch: false
+					});
+				};
+
+				if (link) {
+					var i, l;
+
+					for (i = 0, l = link[_length]; i < l; i += 1) {
+						arrange(link[i]);
+					}
+
+					i = l = null;
+				}
+			};
+
+			initScript();
+		};
+
+		manageIframeLightbox(iframeLightboxLinkClass);
 
 		var manageDataQrcodeImageAll = function manageDataQrcodeImageAll(
 			callback
@@ -1505,58 +1572,6 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 				}
 
 				i = l = null;
-			}
-		};
-
-		var manageIframeLightboxLinkAll = function manageIframeLightboxLinkAll(
-			linkClass
-		) {
-			var link = document[getElementsByClassName](linkClass) || "";
-
-			var arrange = function arrange(e) {
-				if (root.IframeLightbox) {
-					e.lightbox = new IframeLightbox(e, {
-						onLoaded: function onLoaded() {
-							LoadingSpinner.hide();
-						},
-						onClosed: function onClosed() {
-							LoadingSpinner.hide();
-						},
-						onOpened: function onOpened() {
-							LoadingSpinner.show();
-						},
-						touch: false
-					});
-				}
-			};
-
-			if (link) {
-				var i, l;
-
-				for (i = 0, l = link[_length]; i < l; i += 1) {
-					arrange(link[i]);
-				}
-
-				i = l = null;
-			}
-		};
-
-		var manageImgLightboxLinkAll = function manageImgLightboxLinkAll(
-			linkClass
-		) {
-			if (root.imgLightbox) {
-				imgLightbox(linkClass, {
-					onCreated: function onCreated() {
-						LoadingSpinner.show();
-					},
-					onLoaded: function onLoaded() {
-						LoadingSpinner.hide();
-					},
-					onError: function onError() {
-						LoadingSpinner.hide();
-					},
-					touch: false
-				});
 			}
 		};
 
@@ -1960,11 +1975,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 					}
 				};
 
-				var throttlelogic = throttle(
-					logic,
-					100
-				);
-				throttlelogic();
+				throttle(logic, 100).call(root);
 			};
 
 			anchor[classList].add(btnClass, "mui-btn");
@@ -3197,8 +3208,8 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 						highlightSidedrawerItem();
 						managePrevNextLinks(jsonObj);
 						manageExternalLinkAll();
-						manageImgLightboxLinkAll("img-lightbox-link");
-						manageIframeLightboxLinkAll("iframe-lightbox-link");
+						manageImgLightbox(imgLightboxLinkClass);
+						manageIframeLightbox(iframeLightboxLinkClass);
 						manageDropdownButtonAll();
 						manageHljsCodeAll();
 						manageRippleEffect();
