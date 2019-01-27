@@ -575,20 +575,6 @@ ToProgress, unescape, verge, VK, Ya*/
 			document[title] = document[title] + userBrowsingDetails;
 		}
 
-		var scriptIsLoaded = function (scriptSrc) {
-			var scriptAll,
-			i,
-			l;
-			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[_length]; i < l; i += 1) {
-				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
-					scriptAll = i = l = null;
-					return true;
-				}
-			}
-			scriptAll = i = l = null;
-			return false;
-		};
-
 		var loadUnparsedJSON = function (url, callback, onerror) {
 			var cb = function (string) {
 				return callback && "function" === typeof callback && callback(string);
@@ -1080,7 +1066,7 @@ ToProgress, unescape, verge, VK, Ya*/
 			};
 			if (tableSort) {
 				/* var jsUrl = "../../cdn/tablesort/4.0.1/js/tablesort.fixed.js";
-				if (!scriptIsLoaded(jsUrl)) {
+				if (!root.Tablesort) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
 				} else {
@@ -1191,24 +1177,24 @@ ToProgress, unescape, verge, VK, Ya*/
 		 * @see {@link https://github.com/englishextra/img-lightbox}
 		 */
 		var manageImgLightbox = function (imgLightboxLinkClass) {
+			var link = document[getElementsByClassName](imgLightboxLinkClass) || "";
 			var initScript = function () {
-				var link = document[getElementsByClassName](imgLightboxLinkClass) || "";
-				if (link) {
-					imgLightbox(imgLightboxLinkClass, {
-						onLoaded: function () {
-							LoadingSpinner.hide();
-						},
-						onClosed: function () {
-							LoadingSpinner.hide();
-						},
-						onCreated: function () {
-							LoadingSpinner.show();
-						},
-						touch: false
-					});
-				}
+				imgLightbox(imgLightboxLinkClass, {
+					onLoaded: function () {
+						LoadingSpinner.hide();
+					},
+					onClosed: function () {
+						LoadingSpinner.hide();
+					},
+					onCreated: function () {
+						LoadingSpinner.show();
+					},
+					touch: false
+				});
 			};
-			initScript();
+			if (link && root.imgLightbox) {
+				initScript();
+			}
 		};
 		manageImgLightbox(imgLightboxLinkClass);
 
@@ -1218,8 +1204,8 @@ ToProgress, unescape, verge, VK, Ya*/
 		 * @see {@link https://github.com/englishextra/iframe-lightbox}
 		 */
 		var manageIframeLightbox = function (iframeLightboxLinkClass) {
+			var link = document[getElementsByClassName](iframeLightboxLinkClass) || "";
 			var initScript = function () {
-				var link = document[getElementsByClassName](iframeLightboxLinkClass) || "";
 				var arrange = function (e) {
 					e.lightbox = new IframeLightbox(e, {
 							onLoaded: function () {
@@ -1234,16 +1220,16 @@ ToProgress, unescape, verge, VK, Ya*/
 							touch: false
 						});
 				};
-				if (link) {
-					var i,
-					l;
-					for (i = 0, l = link[_length]; i < l; i += 1) {
-						arrange(link[i]);
-					}
-					i = l = null;
+				var i,
+				l;
+				for (i = 0, l = link[_length]; i < l; i += 1) {
+					arrange(link[i]);
 				}
+				i = l = null;
 			};
-			initScript();
+			if (link && root.IframeLightbox) {
+				initScript();
+			}
 		};
 		manageIframeLightbox(iframeLightboxLinkClass);
 
@@ -1356,7 +1342,7 @@ ToProgress, unescape, verge, VK, Ya*/
 			if (holder && locationHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					/* var jsUrl = "../../cdn/qrjs2/0.1.7/js/qrjs2.fixed.js";
-					if (!scriptIsLoaded(jsUrl)) {
+					if (!root.QRCode) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {
@@ -1611,7 +1597,7 @@ ToProgress, unescape, verge, VK, Ya*/
 						}
 					};
 					var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
-					if (!scriptIsLoaded(jsUrl)) {
+					if (!root.Ya) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {
@@ -1661,8 +1647,8 @@ ToProgress, unescape, verge, VK, Ya*/
 							}
 						}
 					};
-					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?147";
-					if (!scriptIsLoaded(jsUrl)) {
+					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
+					if (!root.VK) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {
@@ -1762,7 +1748,7 @@ ToProgress, unescape, verge, VK, Ya*/
 						disqusThread[classList].add(isActiveClass);
 					}
 				};
-				if (!scriptIsLoaded(jsUrl)) {
+				if (!root.DISQUS) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
 				} else {
@@ -1908,7 +1894,7 @@ ToProgress, unescape, verge, VK, Ya*/
 			};
 			if (searchForm && textInput) {
 				/* var jsUrl = "../../cdn/kamil/0.1.1/js/kamil.fixed.js";
-				if (!scriptIsLoaded(jsUrl)) {
+				if (!root.Kamil) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
 				} else {

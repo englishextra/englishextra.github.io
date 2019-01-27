@@ -138,7 +138,6 @@ gulp.task("compile-pwabuilder-serviceworkers-js", function () {
 	.pipe(babel(babelOptions))
 	.pipe(prettier(prettierOptions))
 	/* .pipe(beautify(beautifyOptions)) */
-	.pipe(plumber.stop())
 	.pipe(gulp.dest(options.pwabuilderServiceworkers.js))
 	.pipe(rename(function (path) {
 			path.basename += ".min";
@@ -146,7 +145,8 @@ gulp.task("compile-pwabuilder-serviceworkers-js", function () {
 	.pipe(stripDebug())
 	.pipe(uglify())
 	.pipe(sourcemaps.write("."))
-	.pipe(gulp.dest(options.pwabuilderServiceworkers.js));
+	.pipe(gulp.dest(options.pwabuilderServiceworkers.js))
+	.pipe(plumber.stop());
 });
 
 gulp.task("default", gulp.task("lint-libbundle-js"));

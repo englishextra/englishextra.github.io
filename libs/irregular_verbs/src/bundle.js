@@ -542,19 +542,6 @@ ToProgress, unescape, VK, Ya*/
 			};
 		};
 
-		var scriptIsLoaded = function (scriptSrc) {
-			var scriptAll,
-			i,
-			l;
-			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[_length]; i < l; i += 1) {
-				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
-					scriptAll = i = l = null;
-					return true;
-				}
-			}
-			scriptAll = i = l = null;
-			return false;
-		};
 		var removeChildren = function (e) {
 			if (e && e.firstChild) {
 				for (; e.firstChild; ) {
@@ -738,7 +725,6 @@ ToProgress, unescape, VK, Ya*/
 			var btnShareButtons = document[getElementsByClassName]("btn-share-buttons")[0] || "";
 			var btnUiTotop = document[getElementsByClassName]("ui-totop")[0] || "";
 			var holderSearchForm = document[getElementsByClassName]("holder-search-form")[0] || "";
-			var jsUrl = getHTTP(true) + "://vk.com/js/api/openapi.js?154";
 			var f = false;
 			if (!f) {
 				f = true;
@@ -757,7 +743,7 @@ ToProgress, unescape, VK, Ya*/
 					for (var j = 0, m = args[_length]; j < m; j += 1) {
 						setStyleDisplayBlock(args[j]);
 					}
-					if (!scriptIsLoaded(jsUrl)) {
+					if (!root.VK) {
 						setStyleDisplayBlock(btnShowVKLike);
 					}
 				}
@@ -824,7 +810,7 @@ ToProgress, unescape, VK, Ya*/
 			};
 			if (dsContainer && cdPrev && cdNext) {
 				/* var jsUrl = "../../cdn/doSlide/1.1.4/js/do-slide.fixed.js";
-				if (!scriptIsLoaded(jsUrl)) {
+				if (!root.DoSlide) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
 				} */
@@ -877,7 +863,7 @@ ToProgress, unescape, VK, Ya*/
 			if (holder && locationHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					/* var jsUrl = "../cdn/qrjs2/0.1.7/js/qrjs2.fixed.js";
-					if (!scriptIsLoaded(jsUrl)) {
+					if (!root.QRCode) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} */
@@ -1063,7 +1049,7 @@ ToProgress, unescape, VK, Ya*/
 						}
 					};
 					var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
-					if (!scriptIsLoaded(jsUrl)) {
+					if (!root.Ya) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {
@@ -1113,8 +1099,8 @@ ToProgress, unescape, VK, Ya*/
 							}
 						}
 					};
-					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?147";
-					if (!scriptIsLoaded(jsUrl)) {
+					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
+					if (!root.VK) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {

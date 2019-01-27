@@ -137,6 +137,9 @@ var csslintOptions = {
 		"merge-default-rules": false,
 		"max-warnings": 50
 	},
+	"files": {
+		"ignore": ["scss/_font-face.scss"]
+	},
 	"rules": {
 		"attribute-quotes": 0,
 		"border-zero": 0,
@@ -236,14 +239,14 @@ gulp.task("compile-libbundle-css", function () {
 	.pipe(autoprefixer(autoprefixerOptions))
 	.pipe(prettier(prettierOptions))
 	/* .pipe(beautify(beautifyOptions)) */
-	.pipe(plumber.stop())
 	.pipe(gulp.dest(options.libbundle.css))
 	.pipe(rename(function (path) {
 			path.basename += ".min";
 		}))
 	.pipe(minifyCss(cleanCssOptions))
 	.pipe(sourcemaps.write("."))
-	.pipe(gulp.dest(options.libbundle.css));
+	.pipe(gulp.dest(options.libbundle.css))
+	.pipe(plumber.stop());
 });
 
 gulp.task("lint-libbundle-css", function () {
@@ -260,7 +263,6 @@ gulp.task("compile-libbundle-js", function () {
 	.pipe(babel(babelOptions))
 	.pipe(prettier(prettierOptions))
 	/* .pipe(beautify(beautifyOptions)) */
-	.pipe(plumber.stop())
 	.pipe(gulp.dest(options.libbundle.js))
 	.pipe(rename(function (path) {
 			path.basename += ".min";
@@ -268,7 +270,8 @@ gulp.task("compile-libbundle-js", function () {
 	.pipe(stripDebug())
 	.pipe(uglify())
 	.pipe(sourcemaps.write("."))
-	.pipe(gulp.dest(options.libbundle.js));
+	.pipe(gulp.dest(options.libbundle.js))
+	.pipe(plumber.stop());
 });
 
 gulp.task("lint-libbundle-js", function () {
@@ -286,7 +289,6 @@ gulp.task("compile-vendors-js", function () {
 	.pipe(prettier(prettierOptions))
 	/* .pipe(beautify(beautifyOptions)) */
 	.pipe(concat(options.vendors.concatOptions.js))
-	.pipe(plumber.stop())
 	.pipe(gulp.dest(options.vendors.js))
 	.pipe(rename(function (path) {
 			path.basename += ".min";
@@ -294,7 +296,8 @@ gulp.task("compile-vendors-js", function () {
 	.pipe(stripDebug())
 	.pipe(uglify())
 	.pipe(sourcemaps.write("."))
-	.pipe(gulp.dest(options.vendors.js));
+	.pipe(gulp.dest(options.vendors.js))
+	.pipe(plumber.stop());
 });
 
 gulp.task("lint-vendors-js", function () {
@@ -309,7 +312,7 @@ gulp.task("lint-vendors-js", function () {
  */
 gulp.task("browser-sync", gulp.series(gulp.parallel(
 			"lint-libbundle-js",
-			/* "lint-libbundle-css", */
+			"lint-libbundle-css",
 			"lint-vendors-js"), function watchChanges() {
 
 		browserSync.init({

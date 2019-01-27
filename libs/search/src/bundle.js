@@ -809,11 +809,6 @@
 					arrange();
 				}
 			};
-			/* var jsUrl = "../libs/search/js/vendors.min.js";
-			if (!scriptIsLoaded(jsUrl)) {
-				var load;
-				load = new loadJsCss([jsUrl], initScript);
-			} */
 			initScript();
 		};
 		initSearch();

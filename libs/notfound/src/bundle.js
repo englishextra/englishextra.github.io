@@ -518,20 +518,6 @@ ToProgress, unescape, VK, Ya*/
 			document[title] = document[title] + userBrowsingDetails;
 		}
 
-		var scriptIsLoaded = function (scriptSrc) {
-			var scriptAll,
-			i,
-			l;
-			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[_length]; i < l; i += 1) {
-				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
-					scriptAll = i = l = null;
-					return true;
-				}
-			}
-			scriptAll = i = l = null;
-			return false;
-		};
-
 		var removeChildren = function (e) {
 			if (e && e.firstChild) {
 				for (; e.firstChild; ) {
@@ -776,7 +762,7 @@ ToProgress, unescape, VK, Ya*/
 			if (holder && locationHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					/* var jsUrl = "../../cdn/qrjs2/0.1.7/js/qrjs2.fixed.js";
-					if (!scriptIsLoaded(jsUrl)) {
+					if (!root.QRCode) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {
@@ -1031,7 +1017,7 @@ ToProgress, unescape, VK, Ya*/
 						}
 					};
 					var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
-					if (!scriptIsLoaded(jsUrl)) {
+					if (!root.Ya) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {
@@ -1081,8 +1067,8 @@ ToProgress, unescape, VK, Ya*/
 							}
 						}
 					};
-					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?147";
-					if (!scriptIsLoaded(jsUrl)) {
+					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
+					if (!root.VK) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {

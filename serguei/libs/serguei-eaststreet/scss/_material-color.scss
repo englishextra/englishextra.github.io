@@ -11,7 +11,6 @@
 //
 // ==========================================================================
 
-
 //
 // List of base colors
 //
@@ -37,7 +36,6 @@
 // $clr-blue-grey
 // $clr-black
 // $clr-white
-
 
 //
 // Red
@@ -78,7 +76,6 @@ $clr-red-a200: map-get($clr-red-list, "a200");
 $clr-red-a400: map-get($clr-red-list, "a400");
 $clr-red-a700: map-get($clr-red-list, "a700");
 
-
 //
 // Pink
 //
@@ -117,7 +114,6 @@ $clr-pink-a100: map-get($clr-pink-list, "a100");
 $clr-pink-a200: map-get($clr-pink-list, "a200");
 $clr-pink-a400: map-get($clr-pink-list, "a400");
 $clr-pink-a700: map-get($clr-pink-list, "a700");
-
 
 //
 // Purple
@@ -158,7 +154,6 @@ $clr-purple-a200: map-get($clr-purple-list, "a200");
 $clr-purple-a400: map-get($clr-purple-list, "a400");
 $clr-purple-a700: map-get($clr-purple-list, "a700");
 
-
 //
 // Deep purple
 //
@@ -197,7 +192,6 @@ $clr-deep-purple-a100: map-get($clr-deep-purple-list, "a100");
 $clr-deep-purple-a200: map-get($clr-deep-purple-list, "a200");
 $clr-deep-purple-a400: map-get($clr-deep-purple-list, "a400");
 $clr-deep-purple-a700: map-get($clr-deep-purple-list, "a700");
-
 
 //
 // Indigo
@@ -238,7 +232,6 @@ $clr-indigo-a200: map-get($clr-indigo-list, "a200");
 $clr-indigo-a400: map-get($clr-indigo-list, "a400");
 $clr-indigo-a700: map-get($clr-indigo-list, "a700");
 
-
 //
 // Blue
 //
@@ -277,7 +270,6 @@ $clr-blue-a100: map-get($clr-blue-list, "a100");
 $clr-blue-a200: map-get($clr-blue-list, "a200");
 $clr-blue-a400: map-get($clr-blue-list, "a400");
 $clr-blue-a700: map-get($clr-blue-list, "a700");
-
 
 //
 // Light Blue
@@ -318,7 +310,6 @@ $clr-light-blue-a200: map-get($clr-light-blue-list, "a200");
 $clr-light-blue-a400: map-get($clr-light-blue-list, "a400");
 $clr-light-blue-a700: map-get($clr-light-blue-list, "a700");
 
-
 //
 // Cyan
 //
@@ -357,7 +348,6 @@ $clr-cyan-a100: map-get($clr-cyan-list, "a100");
 $clr-cyan-a200: map-get($clr-cyan-list, "a200");
 $clr-cyan-a400: map-get($clr-cyan-list, "a400");
 $clr-cyan-a700: map-get($clr-cyan-list, "a700");
-
 
 //
 // Teal
@@ -398,7 +388,6 @@ $clr-teal-a200: map-get($clr-teal-list, "a200");
 $clr-teal-a400: map-get($clr-teal-list, "a400");
 $clr-teal-a700: map-get($clr-teal-list, "a700");
 
-
 //
 // Green
 //
@@ -437,7 +426,6 @@ $clr-green-a100: map-get($clr-green-list, "a100");
 $clr-green-a200: map-get($clr-green-list, "a200");
 $clr-green-a400: map-get($clr-green-list, "a400");
 $clr-green-a700: map-get($clr-green-list, "a700");
-
 
 //
 // Light green
@@ -478,7 +466,6 @@ $clr-light-green-a200: map-get($clr-light-green-list, "a200");
 $clr-light-green-a400: map-get($clr-light-green-list, "a400");
 $clr-light-green-a700: map-get($clr-light-green-list, "a700");
 
-
 //
 // Lime
 //
@@ -517,7 +504,6 @@ $clr-lime-a100: map-get($clr-lime-list, "a100");
 $clr-lime-a200: map-get($clr-lime-list, "a200");
 $clr-lime-a400: map-get($clr-lime-list, "a400");
 $clr-lime-a700: map-get($clr-lime-list, "a700");
-
 
 //
 // Yellow
@@ -558,7 +544,6 @@ $clr-yellow-a200: map-get($clr-yellow-list, "a200");
 $clr-yellow-a400: map-get($clr-yellow-list, "a400");
 $clr-yellow-a700: map-get($clr-yellow-list, "a700");
 
-
 //
 // amber
 //
@@ -597,7 +582,6 @@ $clr-amber-a100: map-get($clr-amber-list, "a100");
 $clr-amber-a200: map-get($clr-amber-list, "a200");
 $clr-amber-a400: map-get($clr-amber-list, "a400");
 $clr-amber-a700: map-get($clr-amber-list, "a700");
-
 
 //
 // Orange
@@ -638,7 +622,6 @@ $clr-orange-a200: map-get($clr-orange-list, "a200");
 $clr-orange-a400: map-get($clr-orange-list, "a400");
 $clr-orange-a700: map-get($clr-orange-list, "a700");
 
-
 //
 // Deep orange
 //
@@ -678,7 +661,6 @@ $clr-deep-orange-a200: map-get($clr-deep-orange-list, "a200");
 $clr-deep-orange-a400: map-get($clr-deep-orange-list, "a400");
 $clr-deep-orange-a700: map-get($clr-deep-orange-list, "a700");
 
-
 //
 // Brown
 //
@@ -709,7 +691,6 @@ $clr-brown-600: map-get($clr-brown-list, "600");
 $clr-brown-700: map-get($clr-brown-list, "700");
 $clr-brown-800: map-get($clr-brown-list, "800");
 $clr-brown-900: map-get($clr-brown-list, "900");
-
 
 //
 // Grey
@@ -742,7 +723,6 @@ $clr-grey-700: map-get($clr-grey-list, "700");
 $clr-grey-800: map-get($clr-grey-list, "800");
 $clr-grey-900: map-get($clr-grey-list, "900");
 
-
 //
 // Blue grey
 //
@@ -774,7 +754,6 @@ $clr-blue-grey-700: map-get($clr-blue-grey-list, "700");
 $clr-blue-grey-800: map-get($clr-blue-grey-list, "800");
 $clr-blue-grey-900: map-get($clr-blue-grey-list, "900");
 
-
 //
 // Black
 //
@@ -785,7 +764,6 @@ $clr-black-list: (
 
 $clr-black: map-get($clr-black-list, "base");
 
-
 //
 // White
 //
@@ -795,7 +773,6 @@ $clr-white-list: (
 );
 
 $clr-white: map-get($clr-white-list, "base");
-
 
 //
 // List for all Colors for looping
@@ -824,7 +801,6 @@ $clr-list-all: (
  "black":	$clr-black-list,
  "white":	$clr-white-list
 );
-
 
 //
 // Typography

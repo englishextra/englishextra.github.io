@@ -938,24 +938,24 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		 * @see {@link https://github.com/englishextra/img-lightbox}
 		 */
 		var manageImgLightbox = function (imgLightboxLinkClass) {
+			var link = document[getElementsByClassName](imgLightboxLinkClass) || "";
 			var initScript = function () {
-				var link = document[getElementsByClassName](imgLightboxLinkClass) || "";
-				if (link) {
-					imgLightbox(imgLightboxLinkClass, {
-						onLoaded: function () {
-							LoadingSpinner.hide();
-						},
-						onClosed: function () {
-							LoadingSpinner.hide();
-						},
-						onCreated: function () {
-							LoadingSpinner.show();
-						},
-						touch: false
-					});
-				}
+				imgLightbox(imgLightboxLinkClass, {
+					onLoaded: function () {
+						LoadingSpinner.hide();
+					},
+					onClosed: function () {
+						LoadingSpinner.hide();
+					},
+					onCreated: function () {
+						LoadingSpinner.show();
+					},
+					touch: false
+				});
 			};
-			initScript();
+			if (link && root.imgLightbox) {
+				initScript();
+			}
 		};
 		manageImgLightbox(imgLightboxLinkClass);
 
@@ -965,8 +965,8 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		 * @see {@link https://github.com/englishextra/iframe-lightbox}
 		 */
 		var manageIframeLightbox = function (iframeLightboxLinkClass) {
+			var link = document[getElementsByClassName](iframeLightboxLinkClass) || "";
 			var initScript = function () {
-				var link = document[getElementsByClassName](iframeLightboxLinkClass) || "";
 				var arrange = function (e) {
 					e.lightbox = new IframeLightbox(e, {
 							onLoaded: function () {
@@ -981,16 +981,16 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 							touch: false
 						});
 				};
-				if (link) {
-					var i,
-					l;
-					for (i = 0, l = link[_length]; i < l; i += 1) {
-						arrange(link[i]);
-					}
-					i = l = null;
+				var i,
+				l;
+				for (i = 0, l = link[_length]; i < l; i += 1) {
+					arrange(link[i]);
 				}
+				i = l = null;
 			};
-			initScript();
+			if (link && root.IframeLightbox) {
+				initScript();
+			}
 		};
 		manageIframeLightbox(iframeLightboxLinkClass);
 

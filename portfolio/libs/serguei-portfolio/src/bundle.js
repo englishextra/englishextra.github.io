@@ -1,7 +1,7 @@
 /*jslint browser: true */
 /*jslint node: true */
 /*global doesFontExist, imagePromise, loadCSS, loadJsCss, Promise, QRCode,
-require, Timers, ToProgress, unescape, verge, VK, Ya*/
+require, ToProgress, unescape, verge, VK, Ya*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -571,20 +571,6 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			document[title] = document[title] + userBrowsingDetails;
 		}
 
-		var scriptIsLoaded = function (scriptSrc) {
-			var scriptAll,
-			i,
-			l;
-			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[_length]; i < l; i += 1) {
-				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
-					scriptAll = i = l = null;
-					return true;
-				}
-			}
-			scriptAll = i = l = null;
-			return false;
-		};
-
 		var removeChildren = function (e) {
 			if (e && e.firstChild) {
 				for (; e.firstChild; ) {
@@ -887,9 +873,9 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 				}
 			}
 		};
-		
+
 		var handleDataSrcImageAllWindow = throttle(handleDataSrcImageAll, 100);
-		
+
 		var manageDataSrcImageAll = function () {
 			root[_removeEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
 			root[_removeEventListener]("resize", handleDataSrcImageAllWindow);
@@ -1094,7 +1080,7 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			if (holder && locationHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					/* var jsUrl = "./cdn/qrjs2/0.1.7/js/qrjs2.fixed.js";
-					if (!scriptIsLoaded(jsUrl)) {
+					if (!root.QRCode) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {
@@ -1349,7 +1335,7 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 						}
 					};
 					var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
-					if (!scriptIsLoaded(jsUrl)) {
+					if (!root.Ya) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {
@@ -1399,8 +1385,8 @@ require, Timers, ToProgress, unescape, verge, VK, Ya*/
 							}
 						}
 					};
-					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?147";
-					if (!scriptIsLoaded(jsUrl)) {
+					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
+					if (!root.VK) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {

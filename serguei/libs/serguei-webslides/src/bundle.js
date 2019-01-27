@@ -724,7 +724,7 @@ unescape, WebSlides*/
 			};
 			if (img) {
 				/* var jsUrl = "./cdn/qrjs2/0.1.7/js/qrjs2.fixed.js";
-				if (!scriptIsLoaded(jsUrl)) {
+				if (!root.QRCode) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
 				} else {

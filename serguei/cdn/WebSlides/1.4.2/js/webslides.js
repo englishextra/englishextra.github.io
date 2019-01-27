@@ -81,8 +81,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-
-
 var transitionEvent = '';
 var animationEvent = '';
 
@@ -367,8 +365,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-
-
 var CLASSES = {
   SLIDE: 'slide',
   CURRENT: 'current'
@@ -418,7 +414,6 @@ var Slide = function () {
   /**
    * Hides the node and removes the class that makes it "active".
    */
-
 
   _createClass(Slide, [{
     key: 'hide',
@@ -548,8 +543,6 @@ var Slide = function () {
 
   return Slide;
 }();
-
-
 
 /***/ }),
 /* 2 */
@@ -687,7 +680,6 @@ var MobileDetector = function () {
 /* harmony export (immutable) */ __webpack_exports__["a"] = scrollTo;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__easing__ = __webpack_require__(20);
 
-
 var SCROLLABLE_CONTAINER = document.getElementById('webslides');
 
 /**
@@ -758,11 +750,6 @@ window.WebSlides = __WEBPACK_IMPORTED_MODULE_0__modules_webslides__["a" /* defau
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-
-
-
-
 
 var CLASSES = {
   VERTICAL: 'vertical',
@@ -910,7 +897,6 @@ var WebSlides = function () {
    * eligible to be a Slide Element.
    * @private
    */
-
 
   _createClass(WebSlides, [{
     key: 'removeChildren_',
@@ -1312,17 +1298,6 @@ var WebSlides = function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__youtube__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__zoom__ = __webpack_require__(19);
 
-
-
-
-
-
-
-
-
-
-
-
 /* harmony default export */ __webpack_exports__["a"] = ({
   AutoSlide: __WEBPACK_IMPORTED_MODULE_0__autoslide__["a" /* default */],
   ClickNav: __WEBPACK_IMPORTED_MODULE_1__click_nav__["a" /* default */],
@@ -1346,8 +1321,6 @@ var WebSlides = function () {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-
 
 /**
  * Autoslide plugin.
@@ -1388,7 +1361,6 @@ var AutoSlide = function () {
    * On focus handler. Will decide if stops/play depending on the focused
    * element if autoslide is active.
    */
-
 
   _createClass(AutoSlide, [{
     key: 'onFocus',
@@ -1532,7 +1504,6 @@ var ClickNav = function () {
    * @private
    */
 
-
   _createClass(ClickNav, [{
     key: 'onClick_',
     value: function onClick_(event) {
@@ -1556,8 +1527,6 @@ var ClickNav = function () {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-
 
 var GRID_IMAGE = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYAg' + 'MAAACdGdVrAAAACVBMVEUAAAAtXsUtXcPDDPUWAAAAA3RSTlMAZmHzZFkxAAAAFklEQVQI12M' + 'AA9bBR3ExhAJB1iooBQBGwgVEs/QtuAAAAABJRU5ErkJggg==';
 
@@ -1601,7 +1570,6 @@ var Grid = function () {
    * @param {KeyboardEvent} event The key event.
    * @private
    */
-
 
   _createClass(Grid, [{
     key: 'onKeyPress_',
@@ -1652,7 +1620,6 @@ var Hash = function () {
    * hashchange event handler, makes the WebSlide instance navigate to the
    * needed slide.
    */
-
 
   _createClass(Hash, [{
     key: 'onHashChange_',
@@ -1735,9 +1702,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-
-
-
 /**
  * Keyboard interaction plugin.
  */
@@ -1765,7 +1729,6 @@ var Keyboard = function () {
    * @param {KeyboardEvent} event The key event.
    * @private
    */
-
 
   _createClass(Keyboard, [{
     key: 'onKeyPress_',
@@ -1832,8 +1795,6 @@ var Keyboard = function () {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-
 
 var ELEMENT_ID = {
   NAV: 'navigation',
@@ -1905,7 +1866,6 @@ var Navigation = function () {
    * @private
    */
 
-
   _createClass(Navigation, [{
     key: 'bindEvents_',
     value: function bindEvents_() {
@@ -1940,7 +1900,6 @@ var Navigation = function () {
 
   }, {
     key: 'onSlideChanged_',
-
 
     /**
      * Slide Change event handler. Will update the text on the navigation.
@@ -2016,8 +1975,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-
-
 /**
  * Scroll plugin.
  */
@@ -2079,7 +2036,6 @@ var Scroll = function () {
    * changing to the next slide again.
    * @private
    */
-
 
   _createClass(Scroll, [{
     key: 'onSlideChange_',
@@ -2157,8 +2113,6 @@ var Scroll = function () {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-
 
 var EVENTS = {
   touch: {
@@ -2269,7 +2223,6 @@ var Touch = function () {
    * @param {Event} event The Touch event.
    * @private
    */
-
 
   _createClass(Touch, [{
     key: 'onStart_',
@@ -2409,9 +2362,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-
-
-
 /**
  * Video plugin. Video plugin that allows to autoplay videos once the slide gets
  * active.
@@ -2461,7 +2411,6 @@ var Video = function () {
    * @param {CustomEvent} event
    */
 
-
   _createClass(Video, null, [{
     key: 'onSectionEnabled',
     value: function onSectionEnabled(event) {
@@ -2497,8 +2446,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /* global YT */
-
-
 
 /**
  * Player wrapper around the YT player. This is mostly to get around the event
@@ -2567,7 +2514,6 @@ var Player = function () {
   /**
    * Destroys the iframe. Saves the current time in case it gets restored.
    */
-
 
   _createClass(Player, [{
     key: 'destroy',
@@ -2696,7 +2642,6 @@ var Player = function () {
  * Video plugin.
  */
 
-
 var YouTube = function () {
   /**
    * Grid plugin that shows a grid on top of the WebSlides for easy prototyping.
@@ -2721,7 +2666,6 @@ var YouTube = function () {
   /**
    * Once the YouTube API is ready this gets called so we can start the videos.
    */
-
 
   _createClass(YouTube, [{
     key: 'onYTReady',
@@ -2834,11 +2778,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-
-
-
-
-
 var CLASSES = {
   ZOOM: 'grid',
   DIV: 'column',
@@ -2889,7 +2828,6 @@ var Zoom = function () {
    * On key down handler. Will decide if Zoom in or out
    * @param {Event} event Key down event.
    */
-
 
   _createClass(Zoom, [{
     key: 'onKeyDown',

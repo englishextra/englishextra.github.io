@@ -573,20 +573,6 @@ unescape, verge, VK, Ya*/
 			document[title] = document[title] + userBrowsingDetails;
 		}
 
-		var scriptIsLoaded = function (scriptSrc) {
-			var scriptAll,
-			i,
-			l;
-			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[_length]; i < l; i += 1) {
-				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
-					scriptAll = i = l = null;
-					return true;
-				}
-			}
-			scriptAll = i = l = null;
-			return false;
-		};
-
 		var loadUnparsedJSON = function (url, callback, onerror) {
 			var cb = function (string) {
 				return callback && "function" === typeof callback && callback(string);
@@ -1071,7 +1057,7 @@ unescape, verge, VK, Ya*/
 					disqusThread[classList].add(isActiveClass);
 				};
 				/* var jsUrl = getHTTP(true) + "://" + disqusThreadShortname + ".disqus.com/embed.js";
-				if (!scriptIsLoaded(jsUrl)) {
+				if (!root.DISQUS) {
 					var load;
 					load = new loadJsCss([jsUrl], initDisqus);
 				} */
@@ -1101,11 +1087,7 @@ unescape, verge, VK, Ya*/
 			if (grid && gridItem) {
 				/* var jsUrl = "../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
 				/* var jsUrl = "../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js"; */
-				/* var jsUrl = "../cdn/packery/2.1.1/js/packery.pkgd.fixed.js";
-				if (!scriptIsLoaded(jsUrl)) {
-					var load;
-					load = new loadJsCss([jsUrl], initScript);
-				} */
+				/* var jsUrl = "../cdn/packery/2.1.1/js/packery.pkgd.fixed.js"; */
 				initScript();
 			}
 		};
@@ -1230,7 +1212,7 @@ unescape, verge, VK, Ya*/
 			if (holder && locationHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					/* var jsUrl = "../../cdn/qrjs2/0.1.7/js/qrjs2.fixed.js";
-					if (!scriptIsLoaded(jsUrl)) {
+					if (!root.QRCode) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {
@@ -1485,7 +1467,7 @@ unescape, verge, VK, Ya*/
 						}
 					};
 					var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
-					if (!scriptIsLoaded(jsUrl)) {
+					if (!root.Ya) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {
@@ -1535,8 +1517,8 @@ unescape, verge, VK, Ya*/
 							}
 						}
 					};
-					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?147";
-					if (!scriptIsLoaded(jsUrl)) {
+					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
+					if (!root.VK) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {
@@ -1705,7 +1687,7 @@ unescape, verge, VK, Ya*/
 			};
 			if (searchForm && textInput) {
 				/* var jsUrl = "../cdn/kamil/0.1.1/js/kamil.fixed.js";
-				if (!scriptIsLoaded(jsUrl)) {
+				if (!root.Kamil) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
 				} */

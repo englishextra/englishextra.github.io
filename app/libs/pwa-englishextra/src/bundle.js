@@ -645,20 +645,6 @@ VK, Ya*/
 			document[title] = document[title] + userBrowsingDetails;
 		}
 
-		var scriptIsLoaded = function (scriptSrc) {
-			var scriptAll,
-			i,
-			l;
-			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[_length]; i < l; i += 1) {
-				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
-					scriptAll = i = l = null;
-					return true;
-				}
-			}
-			scriptAll = i = l = null;
-			return false;
-		};
-
 		var debounce = function (func, wait) {
 			var timeout;
 			var args;
@@ -1216,24 +1202,24 @@ VK, Ya*/
 		 * @see {@link https://github.com/englishextra/img-lightbox}
 		 */
 		var manageImgLightbox = function (imgLightboxLinkClass) {
+			var link = document[getElementsByClassName](imgLightboxLinkClass) || "";
 			var initScript = function () {
-				var link = document[getElementsByClassName](imgLightboxLinkClass) || "";
-				if (link) {
-					imgLightbox(imgLightboxLinkClass, {
-						onLoaded: function () {
-							LoadingSpinner.hide();
-						},
-						onClosed: function () {
-							LoadingSpinner.hide();
-						},
-						onCreated: function () {
-							LoadingSpinner.show();
-						},
-						touch: false
-					});
-				}
+				imgLightbox(imgLightboxLinkClass, {
+					onLoaded: function () {
+						LoadingSpinner.hide();
+					},
+					onClosed: function () {
+						LoadingSpinner.hide();
+					},
+					onCreated: function () {
+						LoadingSpinner.show();
+					},
+					touch: false
+				});
 			};
-			initScript();
+			if (link && root.imgLightbox) {
+				initScript();
+			}
 		};
 		manageImgLightbox(imgLightboxLinkClass);
 
@@ -1243,8 +1229,8 @@ VK, Ya*/
 		 * @see {@link https://github.com/englishextra/iframe-lightbox}
 		 */
 		var manageIframeLightbox = function (iframeLightboxLinkClass) {
+			var link = document[getElementsByClassName](iframeLightboxLinkClass) || "";
 			var initScript = function () {
-				var link = document[getElementsByClassName](iframeLightboxLinkClass) || "";
 				var arrange = function (e) {
 					e.lightbox = new IframeLightbox(e, {
 							onLoaded: function () {
@@ -1259,16 +1245,16 @@ VK, Ya*/
 							touch: false
 						});
 				};
-				if (link) {
-					var i,
-					l;
-					for (i = 0, l = link[_length]; i < l; i += 1) {
-						arrange(link[i]);
-					}
-					i = l = null;
+				var i,
+				l;
+				for (i = 0, l = link[_length]; i < l; i += 1) {
+					arrange(link[i]);
 				}
+				i = l = null;
 			};
-			initScript();
+			if (link && root.IframeLightbox) {
+				initScript();
+			}
 		};
 		manageIframeLightbox(iframeLightboxLinkClass);
 
@@ -1479,13 +1465,7 @@ VK, Ya*/
 			};
 			if (grid && gridItem) {
 				/* var jsUrl = "./cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
-				/* var jsUrl = "./cdn/packery/2.1.1/js/packery.pkgd.fixed.js";
-				if (!scriptIsLoaded(jsUrl)) {
-					var load;
-					load = new loadJsCss([jsUrl], initScript);
-				} else {
-					initScript();
-				} */
+				/* var jsUrl = "./cdn/packery/2.1.1/js/packery.pkgd.fixed.js"; */
 				initScript();
 			}
 		};
@@ -1532,7 +1512,7 @@ VK, Ya*/
 							}
 						};
 						var jsUrl = forcedHTTP + "://" + disqusThreadShortname + ".disqus.com/embed.js";
-						if (!scriptIsLoaded(jsUrl)) {
+						if (!root.DISQUS) {
 							var load;
 							load = new loadJsCss([jsUrl], initScript);
 						} else {
@@ -1868,7 +1848,7 @@ VK, Ya*/
 			};
 			if (searchForm && textInput) {
 				/* var jsUrl = "./cdn/kamil/0.1.1/js/kamil.fixed.js";
-				if (!scriptIsLoaded(jsUrl)) {
+				if (!root.Kamil) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
 				} */
@@ -2089,7 +2069,7 @@ VK, Ya*/
 						appendFragment(newImg, holder);
 					};
 					/* var jsUrl = "./cdn/qrjs2/0.1.7/js/qrjs2.fixed.js";
-					if (!scriptIsLoaded(jsUrl)) {
+					if (!root.QRCode) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {

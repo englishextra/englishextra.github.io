@@ -515,20 +515,6 @@
 			document[title] = document[title] + userBrowsingDetails;
 		}
 
-		var scriptIsLoaded = function (scriptSrc) {
-			var scriptAll,
-			i,
-			l;
-			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[_length]; i < l; i += 1) {
-				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
-					scriptAll = i = l = null;
-					return true;
-				}
-			}
-			scriptAll = i = l = null;
-			return false;
-		};
-
 		var setStyleDisplayNone = function (a) {
 			if (a) {
 				a[style].display = "none";
@@ -758,7 +744,7 @@
 
 		/* var initShower = function () {
 			var jsUrl = "../../cdn/shower/1.0.1/js/shower.fixed.js";
-			if (!scriptIsLoaded(jsUrl)) {
+			if (!root.shower) {
 				var load;
 				load = new loadJsCss([jsUrl]);
 			}
@@ -820,7 +806,7 @@
 						}
 					};
 					var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
-					if (!scriptIsLoaded(jsUrl)) {
+					if (!root.Ya) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {
@@ -870,8 +856,8 @@
 							}
 						}
 					};
-					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?147";
-					if (!scriptIsLoaded(jsUrl)) {
+					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
+					if (!root.VK) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {

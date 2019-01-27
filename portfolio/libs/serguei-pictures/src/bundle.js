@@ -2,7 +2,7 @@
 /*jslint node: true */
 /*global doesFontExist, imagePromise, imagesLoaded, imagesPreloaded, loadCSS,
 loadJsCss, Masonry, Packery, PhotoSwipe, PhotoSwipeUI_Default, Promise,
-QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
+QRCode, require, ToProgress, unescape, verge, VK, Ya*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -662,20 +662,6 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			};
 		};
 
-		var scriptIsLoaded = function (scriptSrc) {
-			var scriptAll,
-			i,
-			l;
-			for (scriptAll = document[getElementsByTagName]("script") || "", i = 0, l = scriptAll[_length]; i < l; i += 1) {
-				if (scriptAll[i][getAttribute]("src") === scriptSrc) {
-					scriptAll = i = l = null;
-					return true;
-				}
-			}
-			scriptAll = i = l = null;
-			return false;
-		};
-
 		var removeChildren = function (e) {
 			if (e && e.firstChild) {
 				for (; e.firstChild; ) {
@@ -877,9 +863,9 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 				/* forEach(img, arrange, false); */
 			}
 		};
-		
+
 		var handleDataSrcImageAllWindow = throttle(handleDataSrcImageAll, 100);
-		
+
 		var manageDataSrcImageAll = function () {
 			root[_removeEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
 			root[_removeEventListener]("resize", handleDataSrcImageAllWindow);
@@ -937,7 +923,7 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			if (holder && locationHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					/* var jsUrl = "./cdn/qrjs2/0.1.7/js/qrjs2.fixed.js";
-					if (!scriptIsLoaded(jsUrl)) {
+					if (!root.QRCode) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} */
@@ -1175,11 +1161,7 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			};
 			if (grid && gridItem) {
 				/* var jsUrl = "./cdn/masonry/4.1.1/js/masonry.imagesloaded.pkgd.fixed.min.js"; */
-				/* var jsUrl = "./cdn/packery/2.1.1/js/packery.imagesloaded.pkgd.fixed.js";
-				if (!scriptIsLoaded(jsUrl)) {
-					var load;
-					load = new loadJsCss([jsUrl], initScript);
-				} */
+				/* var jsUrl = "./cdn/packery/2.1.1/js/packery.imagesloaded.pkgd.fixed.js"; */
 				initScript();
 			}
 		};
@@ -1457,7 +1439,7 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 			};
 			if (pswpGallery && pswpGalleryItems) {
 				/* var jsUrl = "./cdn/photoswipe/4.1.0/js/photoswipe.photoswipe-ui-default.fixed.js";
-				if (!scriptIsLoaded(jsUrl)) {
+				if (!root.PhotoSwipe) {
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
 				} */
@@ -1521,7 +1503,7 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 						}
 					};
 					var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
-					if (!scriptIsLoaded(jsUrl)) {
+					if (!root.Ya) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {
@@ -1571,8 +1553,8 @@ QRCode, require, Timers, ToProgress, unescape, verge, VK, Ya*/
 							}
 						}
 					};
-					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?147";
-					if (!scriptIsLoaded(jsUrl)) {
+					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
+					if (!root.VK) {
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {

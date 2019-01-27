@@ -811,11 +811,6 @@
 					arrange();
 				}
 			};
-			/* var jsUrl = "../libs/comments/js/vendors.min.js";
-			if (!scriptIsLoaded(jsUrl)) {
-				var load;
-				load = new loadJsCss([jsUrl], initScript);
-			} */
 			initScript();
 		};
 		initComments();
