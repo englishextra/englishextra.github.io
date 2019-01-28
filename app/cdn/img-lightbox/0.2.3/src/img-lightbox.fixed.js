@@ -29,6 +29,7 @@
 	var fadeInUpClass = "fadeInUp";
 	var fadeOutClass = "fadeOut";
 	var fadeOutDownClass = "fadeOutDown";
+	var imgLightboxWindowIsBindedClass = "img-lightbox-window--is-binded";
 	var imgLightboxOpenClass = "img-lightbox--open";
 	var imgLightboxLinkIsBindedClass = "img-lightbox-link--is-binded";
 	var isLoadedClass = "is-loaded";
@@ -129,11 +130,14 @@
 			};
 			container[_addEventListener]("click", handleImgLightboxContainer);
 			btnClose[_addEventListener]("click", handleImgLightboxContainer);
-			root[_addEventListener]("keyup", function (ev) {
-				if (27 === (ev.which || ev.keyCode)) {
-					hideImgLightbox(onClosed);
-				}
-			});
+			if (!docElem[classList].contains(imgLightboxWindowIsBindedClass)) {
+				docElem[classList].add(imgLightboxWindowIsBindedClass);
+				root[_addEventListener]("keyup", function (ev) {
+					if (27 === (ev.which || ev.keyCode)) {
+						hideImgLightbox(onClosed);
+					}
+				});
+			}
 		}
 		var arrange = function (e) {
 			var hrefString = e[getAttribute]("href") || e[getAttribute]("data-src") || "";

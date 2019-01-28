@@ -790,7 +790,18 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 		/*jshint bitwise: true */
 
 		var isNodejs = "undefined" !== typeof process && "undefined" !== typeof require || "";
-		var isElectron = "undefined" !== typeof root && root.process && "renderer" === root.process.type || "";
+		var isElectron = (function () {
+			if (typeof root !== "undefined" && typeof root.process === "object" && root.process.type === "renderer") {
+				return true;
+			}
+			if (typeof root !== "undefined" && typeof root.process !== "undefined" && typeof root.process.versions === "object" && !!root.process.versions.electron) {
+				return true;
+			}
+			if (typeof navigator === "object" && typeof navigator.userAgent === "string" && navigator.userAgent.indexOf("Electron") >= 0) {
+				return true;
+			}
+			return false;
+		})();
 		var isNwjs = (function () {
 			if ("undefined" !== typeof isNodejs && isNodejs) {
 				try {
@@ -813,9 +824,6 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 				var ns = isNwjs ? require("nw.gui").Shell : "";
 				return ns ? ns.openExternal(url) : "";
 			};
-			var triggerForHTTP = function () {
-				return true;
-			};
 			var triggerForLocal = function () {
 				return root.open(url, "_system", "scrollbars=1,location=no");
 			};
@@ -827,7 +835,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 				var locationProtocol = root.location.protocol || "",
 				hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
 				if (hasHTTP) {
-					triggerForHTTP();
+					return true;
 				} else {
 					triggerForLocal();
 				}

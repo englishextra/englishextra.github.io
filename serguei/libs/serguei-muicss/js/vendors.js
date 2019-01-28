@@ -652,6 +652,7 @@
 	var setAttribute = "setAttribute";
 	var _addEventListener = "addEventListener";
 	var containerClass = "iframe-lightbox";
+	var iframeLightboxWindowIsBindedClass = "iframe-lightbox-window--is-binded";
 	var iframeLightboxOpenClass = "iframe-lightbox--open";
 	var iframeLightboxLinkIsBindedClass = "iframe-lightbox-link--is-binded";
 	var isLoadedClass = "is-loaded";
@@ -779,15 +780,17 @@
 			_this.close();
 		});
 
-		this.btnClose[_addEventListener]("click", function() {
+		this.btnClose[_addEventListener]("click", function () {
 			_this.close();
 		});
-
-		root[_addEventListener]("keyup", function(ev) {
-			if (27 === (ev.which || ev.keyCode)) {
-				_this.close();
-			}
-		});
+		if (!docElem[classList].contains(iframeLightboxWindowIsBindedClass)) {
+			docElem[classList].add(iframeLightboxWindowIsBindedClass);
+			root[_addEventListener]("keyup", function (ev) {
+				if (27 === (ev.which || ev.keyCode)) {
+					_this.close();
+				}
+			});
+		}
 
 		var clearBody = function clearBody() {
 			if (_this.isOpen()) {
@@ -925,6 +928,7 @@
 	var fadeInUpClass = "fadeInUp";
 	var fadeOutClass = "fadeOut";
 	var fadeOutDownClass = "fadeOutDown";
+	var imgLightboxWindowIsBindedClass = "img-lightbox-window--is-binded";
 	var imgLightboxOpenClass = "img-lightbox--open";
 	var imgLightboxLinkIsBindedClass = "img-lightbox-link--is-binded";
 	var isLoadedClass = "is-loaded";
@@ -1065,12 +1069,14 @@
 			container[_addEventListener]("click", handleImgLightboxContainer);
 
 			btnClose[_addEventListener]("click", handleImgLightboxContainer);
-
-			root[_addEventListener]("keyup", function(ev) {
-				if (27 === (ev.which || ev.keyCode)) {
-					hideImgLightbox(onClosed);
-				}
-			});
+			if (!docElem[classList].contains(imgLightboxWindowIsBindedClass)) {
+				docElem[classList].add(imgLightboxWindowIsBindedClass);
+				root[_addEventListener]("keyup", function (ev) {
+					if (27 === (ev.which || ev.keyCode)) {
+						hideImgLightbox(onClosed);
+					}
+				});
+			}
 		}
 
 		var arrange = function arrange(e) {
