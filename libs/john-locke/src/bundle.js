@@ -336,6 +336,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 	var docElem = document.documentElement || "";
 
 	var alt = "alt";
+  var classList = "classList";
 	var className = "className";
 	var createElement = "createElement";
 	var createElementNS = "createElementNS";
@@ -370,13 +371,30 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 		progressBar.hide();
 	};
 
-	/* progressBar.complete = function () {
-		return this.finish(),
-		this.hide();
-	}; */
-
 	var toStringFn = {}.toString;
 	var supportsSvgSmilAnimation = !!document[createElementNS] && (/SVGAnimate/).test(toStringFn.call(document[createElementNS]("http://www.w3.org/2000/svg", "animate"))) || "";
+
+	if (supportsSvgSmilAnimation && docElem) {
+		docElem[classList].add("svganimate");
+	}
+
+	var hasTouch = "ontouchstart" in docElem || "";
+
+	var hasWheel = "onwheel" in document[createElement]("div") || void 0 !== document.onmousewheel || "";
+
+	var getHTTP = function(force) {
+		var any = force || "";
+		var locationProtocol = root.location.protocol || "";
+		return "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : any ? "http" : "";
+	};
+
+	var forcedHTTP = getHTTP(true);
+
+	var supportsCanvas;
+	supportsCanvas	= (function () {
+		var elem = document[createElement]("canvas");
+		return !!(elem.getContext && elem.getContext("2d"));
+	})();
 
 	if (!supportsSvgSmilAnimation) {
 
@@ -501,12 +519,6 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 
 	var styleSheetsLength = document[styleSheets][_length] || 0;
 
-	var supportsCanvas;
-	supportsCanvas	= (function () {
-		var elem = document[createElement]("canvas");
-		return !!(elem.getContext && elem.getContext("2d"));
-	})();
-
 	var slotDrawCanvasAll;
 	var drawCanvasAll = function () {
 		if (document[styleSheets][_length] > styleSheetsLength) {
@@ -536,22 +548,9 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 		slotDrawCanvasAll = setInterval(drawCanvasAll, 100);
 	}
 
-	var hasTouch = "ontouchstart" in docElem || "";
-
-	var hasWheel = "onwheel" in document[createElement]("div") || void 0 !== document.onmousewheel || "";
-
-	var getHTTP = function (force) {
-		var any = force || "";
-		var locationProtocol = root.location.protocol || "";
-		return "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : any ? "http" : "";
-	};
-
-	var forcedHTTP = getHTTP(true);
-
 	var run = function () {
 
 		var appendChild = "appendChild";
-		var classList = "classList";
 		var dataset = "dataset";
 		var getElementById = "getElementById";
 		var href = "href";
@@ -1092,9 +1091,6 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 		}
 	};
 
-	/* var scripts = [
-		forcedHTTP + "://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.2/gh-fork-ribbon.min.css",
-		"./libs/john-locke/css/bundle.min.css"]; */
 	var scripts = [];
 
 	var supportsPassive = (function () {
@@ -1118,8 +1114,6 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 		("undefined" === typeof root.Element && !("dataset" in docElem)) ||
 		!("classList" in document[createElement]("_")) ||
 		document[createElementNS] && !("classList" in document[createElementNS]("http://www.w3.org/2000/svg", "g")) ||
-		/* !document.importNode || */
-		/* !("content" in document[createElement]("template")) || */
 		(root.attachEvent && !root[_addEventListener]) ||
 		!("onhashchange" in root) ||
 		!Array.prototype.indexOf ||
@@ -1141,43 +1135,25 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 		scripts.push("./cdn/polyfills/js/polyfills.fixed.min.js");
 	}
 
-	/* scripts.push("./cdn/platform/1.3.4/js/platform.fixed.min.js",
-		"./cdn/qrjs2/0.1.7/js/qrjs2.fixed.js",
-		"./cdn/parallax-js/3.1.0/js/parallax.fixed.js",
-		"./cdn/Tocca.js/2.0.1/js/Tocca.fixed.js",
-		"./cdn/wheel-indicator/1.1.4/js/wheel-indicator.fixed.js"); */
-
 	scripts.push("./libs/john-locke/js/vendors.min.js");
 
-	/*!
-	 * load scripts after webfonts loaded using doesFontExist
-	 */
-
 	var onFontsLoadedCallback = function () {
-
 		var slot;
 		var onFontsLoaded = function () {
 			clearInterval(slot);
 			slot = null;
-
-			if (!supportsSvgSmilAnimation) {
+			if (!supportsSvgSmilAnimation && "undefined" !== typeof progressBar) {
 				progressBar.increase(20);
 			}
-
 			var load;
 			load = new loadJsCss(scripts, run);
 		};
-
 		var checkFontIsLoaded;
 		checkFontIsLoaded = function () {
-			/*!
-			 * check only for fonts that are used in current page
-			 */
-			if (doesFontExist("Roboto") && doesFontExist("Roboto Condensed") && doesFontExist("PT Serif")) {
+			if (doesFontExist("Roboto") /* && doesFontExist("Roboto Mono") */) {
 				onFontsLoaded();
 			}
 		};
-
 		/* if (supportsCanvas) {
 			slot = setInterval(checkFontIsLoaded, 100);
 		} else {
@@ -1187,15 +1163,7 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 		onFontsLoaded();
 	};
 
-	loadCSS(
-			/* forcedHTTP + "://fonts.googleapis.com/css?family=PT+Serif:400%7CRoboto:400,700%7CRoboto+Condensed:700&subset=cyrillic", */
-			"./libs/john-locke/css/bundle.min.css",
-			onFontsLoadedCallback
-		);
-
-	/*!
-	 * load scripts after webfonts loaded using webfontloader
-	 */
+	loadCSS("./libs/john-locke/css/bundle.min.css", onFontsLoadedCallback);
 
 	/* root.WebFontConfig = {
 		google: {
@@ -1224,22 +1192,16 @@ ToProgress, unescape, VK, WheelIndicator, Ya*/
 	};
 
 	var onFontsLoadedCallback = function () {
-
 		var onFontsLoaded = function () {
-			if (!supportsSvgSmilAnimation) {
+			if (!supportsSvgSmilAnimation && "undefined" !== typeof progressBar) {
 				progressBar.increase(20);
 			}
-
 			var load;
 			load = new loadJsCss(scripts, run);
 		};
-
 		root.WebFontConfig.ready(onFontsLoaded);
 	};
 
 	var load;
-	load = new loadJsCss(
-			[forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"],
-			onFontsLoadedCallback
-		); */
+	load = new loadJsCss([forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"], onFontsLoadedCallback); */
 })("undefined" !== typeof window ? window : this, document);

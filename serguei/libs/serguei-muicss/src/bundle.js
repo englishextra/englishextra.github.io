@@ -1,6 +1,6 @@
 /*global $readMoreJS, ActiveXObject, console, DISQUS, doesFontExist,
 EventEmitter, hljs, IframeLightbox, imgLightbox, instgrm, JsonHashRouter,
-loadJsCss, Macy, Minigrid, Mustache, Promise, QRCode, require, ripple, t,
+loadJsCss, Macy, Minigrid, Mustache, progressBar, Promise, QRCode, require, ripple, t,
 twttr, unescape, VK, WheelIndicator, Ya*/
 /*property console, join, split */
 /*!
@@ -360,7 +360,13 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 
 	var forcedHTTP = getHTTP(true);
 
-	var run = function() {
+	var supportsCanvas;
+	supportsCanvas	= (function () {
+		var elem = document[createElement]("canvas");
+		return !!(elem.getContext && elem.getContext("2d"));
+	})();
+
+	var run = function () {
 
 		var appendChild = "appendChild";
 		var body = "body";
@@ -2215,16 +2221,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			});
 	};
 
-	/* var scripts = [
-				"../../fonts/roboto-fontfacekit/2.137/css/roboto.css",
-				"../../fonts/roboto-mono-fontfacekit/2.0.986/css/roboto-mono.css",
-				"../../cdn/mui/0.9.39/css/mui.css",
-				"../../cdn/iframe-lightbox/0.2.8/css/iframe-lightbox.fixed.css",
-				"../../cdn/img-lightbox/0.2.3/css/img-lightbox.fixed.css"
-	]; */
-
 	var scripts = [
-		/* "./libs/serguei-muicss/css/vendors.min.css", */
 		"./libs/serguei-muicss/css/bundle.min.css"
 	];
 
@@ -2249,8 +2246,6 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			("undefined" === typeof root.Element && !("dataset" in docElem)) ||
 			!("classList" in document[createElement]("_")) ||
 			document[createElementNS] && !("classList" in document[createElementNS]("http://www.w3.org/2000/svg", "g")) ||
-			/* !document.importNode || */
-			/* !("content" in document[createElement]("template")) || */
 			(root.attachEvent && !root[_addEventListener]) ||
 			!("onhashchange" in root) ||
 			!Array.prototype.indexOf ||
@@ -2272,57 +2267,25 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		scripts.push("./cdn/polyfills/js/polyfills.fixed.min.js");
 	}
 
-	/* var scripts = [
-				"./bower_components/iframe-lightbox/iframe-lightbox.js",
-				"../../cdn/img-lightbox/0.2.3/js/img-lightbox.fixed.js",
-				"../../cdn/qrjs2/0.1.7/js/qrjs2.fixed.js",
-				"../../cdn/Tocca.js/2.0.1/js/Tocca.fixed.js",
-				"../../cdn/wheel-indicator/1.1.4/js/wheel-indicator.fixed.js",
-				"../../cdn/resize/1.0.0/js/any-resize-event.fixed.js",
-				"./node_modules/macy/dist/macy.js",
-				"../../cdn/mustache/2.3.0/js/mustache.fixed.js",
-				"../../cdn/EventEmitter/5.2.5/js/EventEmitter.fixed.js",,
-				"../../cdn/minigrid/3.1.1/js/minigrid.fixed.js",
-				"../../cdn/ripple-js/1.4.4/js/ripple.fixed.js",
-				"../../cdn/ReadMore.js/1.0.0/js/readMoreJS.fixed.js"
-	]; */
-
 	scripts.push("./libs/serguei-muicss/js/vendors.min.js");
 
-	/*!
-	 * load scripts after webfonts loaded using doesFontExist
-	 */
-
-	var supportsCanvas;
-	supportsCanvas	= (function() {
-		var elem = document[createElement]("canvas");
-		return !!(elem.getContext && elem.getContext("2d"));
-	})();
-
-	var onFontsLoadedCallback = function() {
-
+	var onFontsLoadedCallback = function () {
 		var slot;
-
-		var onFontsLoaded = function() {
-			if (slot) {
-				clearInterval(slot);
-				slot = null;
+		var onFontsLoaded = function () {
+			clearInterval(slot);
+			slot = null;
+			if (!supportsSvgSmilAnimation && "undefined" !== typeof progressBar) {
+				progressBar.increase(20);
 			}
-
-				var load;
+			var load;
 			load = new loadJsCss(scripts, run);
 		};
-
 		var checkFontIsLoaded;
-		checkFontIsLoaded = function() {
-			/*!
-			 * check only for fonts that are used in current page
-			 */
+		checkFontIsLoaded = function () {
 			if (doesFontExist("Roboto") /* && doesFontExist("Roboto Mono") */) {
 				onFontsLoaded();
 			}
 		};
-
 		/* if (supportsCanvas) {
 			slot = setInterval(checkFontIsLoaded, 100);
 		} else {
@@ -2339,7 +2302,6 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			timer = null;
 			var load;
 			load = new loadJsCss([
-						/* forcedHTTP + "://fonts.googleapis.com/css?family=Roboto+Mono%7CRoboto:300,400,500,700&subset=cyrillic,latin-ext", */
 						"./libs/serguei-muicss/css/vendors.min.css"],
 					onFontsLoadedCallback);
 		};
@@ -2355,10 +2317,6 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		}
 	};
 	loadDeferred();
-
-	/*!
-	 * load scripts after webfonts loaded using webfontloader
-	 */
 
 	/* root.WebFontConfig = {
 		google: {
@@ -2386,20 +2344,16 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 	};
 
 	var onFontsLoadedCallback = function () {
-
 		var onFontsLoaded = function () {
-			progressBar.increase(20);
-
+			if (!supportsSvgSmilAnimation && "undefined" !== typeof progressBar) {
+				progressBar.increase(20);
+			}
 			var load;
 			load = new loadJsCss(scripts, run);
 		};
-
 		root.WebFontConfig.ready(onFontsLoaded);
 	};
 
 	var load;
-	load = new loadJsCss(
-			[forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"],
-			onFontsLoadedCallback
-		); */
+	load = new loadJsCss([forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"], onFontsLoadedCallback); */
 })("undefined" !== typeof window ? window : this, document);

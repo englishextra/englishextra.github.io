@@ -1,6 +1,6 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global doesFontExist, loadCSS, loadJsCss, require, ToProgress*/
+/*global $, jQuery, doesFontExist, loadCSS, loadJsCss, require, ToProgress*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -336,6 +336,7 @@
 	var docImplem = document.implementation || "";
 	var docBody = document.body || "";
 
+	var classList = "classList";
 	var createElement = "createElement";
 	var createElementNS = "createElementNS";
 	var defineProperty = "defineProperty";
@@ -357,25 +358,30 @@
 		progressBar.hide();
 	};
 
-	/* progressBar.complete = function () {
-		return this.finish(),
-		this.hide();
-	}; */
-
 	progressBar.increase(20);
 
-	var getHTTP = function (force) {
+	var toStringFn = {}.toString;
+	var supportsSvgSmilAnimation = !!document[createElementNS] && (/SVGAnimate/).test(toStringFn.call(document[createElementNS]("http://www.w3.org/2000/svg", "animate"))) || "";
+
+	if (supportsSvgSmilAnimation && docElem) {
+		docElem[classList].add("svganimate");
+	}
+
+	var getHTTP = function(force) {
 		var any = force || "";
 		var locationProtocol = root.location.protocol || "";
 		return "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : any ? "http" : "";
 	};
 
-	/*var forcedHTTP = getHTTP(true);*/
+	var supportsCanvas;
+	supportsCanvas	= (function () {
+		var elem = document[createElement]("canvas");
+		return !!(elem.getContext && elem.getContext("2d"));
+	})();
 
 	var run = function () {
 
 		var appendChild = "appendChild";
-		var classList = "classList";
 		var getAttribute = "getAttribute";
 		var getElementById = "getElementById";
 		var getElementsByClassName = "getElementsByClassName";
@@ -973,7 +979,6 @@
 		hideProgressBar();
 	};
 
-	/* var scripts = ["../libs/comments/css/bundle.min.css"]; */
 	var scripts = [];
 
 	var supportsPassive = (function () {
@@ -997,8 +1002,6 @@
 		("undefined" === typeof root.Element && !("dataset" in docElem)) ||
 		!("classList" in document[createElement]("_")) ||
 		document[createElementNS] && !("classList" in document[createElementNS]("http://www.w3.org/2000/svg", "g")) ||
-		/* !document.importNode || */
-		/* !("content" in document[createElement]("template")) || */
 		(root.attachEvent && !root[_addEventListener]) ||
 		!("onhashchange" in root) ||
 		!Array.prototype.indexOf ||
@@ -1020,44 +1023,25 @@
 		scripts.push("../cdn/polyfills/js/polyfills.fixed.min.js");
 	}
 
-	/* var scripts = [forcedHTTP + "://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.js",
-		forcedHTTP + "://github.com/sciactive/pnotify/blob/1.3.1/jquery.pnotify.js"]; */
-
 	scripts.push("../libs/comments/js/vendors.min.js");
 
-	/*!
-	 * load scripts after webfonts loaded using doesFontExist
-	 */
-
-	var supportsCanvas;
-	supportsCanvas	= (function () {
-		var elem = document[createElement]("canvas");
-		return !!(elem.getContext && elem.getContext("2d"));
-	})();
-
 	var onFontsLoadedCallback = function () {
-
 		var slot;
 		var onFontsLoaded = function () {
 			clearInterval(slot);
 			slot = null;
-
-			progressBar.increase(20);
-
+			if (!supportsSvgSmilAnimation && "undefined" !== typeof progressBar) {
+				progressBar.increase(20);
+			}
 			var load;
 			load = new loadJsCss(scripts, run);
 		};
-
 		var checkFontIsLoaded;
 		checkFontIsLoaded = function () {
-			/*!
-			 * check only for fonts that are used in current page
-			 */
 			if (doesFontExist("Roboto") /* && doesFontExist("Roboto Mono") */) {
 				onFontsLoaded();
 			}
 		};
-
 		/* if (supportsCanvas) {
 			slot = setInterval(checkFontIsLoaded, 100);
 		} else {
@@ -1067,15 +1051,7 @@
 		onFontsLoaded();
 	};
 
-	loadCSS(
-			/* forcedHTTP + "://fonts.googleapis.com/css?family=Roboto:300,400,400i,700,700i%7CRoboto+Mono:400,700&subset=cyrillic,latin-ext", */
-			"../libs/comments/css/bundle.min.css",
-			onFontsLoadedCallback
-		);
-
-	/*!
-	 * load scripts after webfonts loaded using webfontloader
-	 */
+	loadCSS("../libs/comments/css/bundle.min.css", onFontsLoadedCallback);
 
 	/* root.WebFontConfig = {
 		google: {
@@ -1103,20 +1079,16 @@
 	};
 
 	var onFontsLoadedCallback = function () {
-
 		var onFontsLoaded = function () {
-			progressBar.increase(20);
-
+			if (!supportsSvgSmilAnimation && "undefined" !== typeof progressBar) {
+				progressBar.increase(20);
+			}
 			var load;
 			load = new loadJsCss(scripts, run);
 		};
-
 		root.WebFontConfig.ready(onFontsLoaded);
 	};
 
 	var load;
-	load = new loadJsCss(
-			[forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"],
-			onFontsLoadedCallback
-		); */
+	load = new loadJsCss([forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"], onFontsLoadedCallback); */
 })("undefined" !== typeof window ? window : this, document);
