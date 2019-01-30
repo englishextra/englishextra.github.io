@@ -1,7 +1,7 @@
 /*jslint browser: true */
 /*jslint node: true */
 /*global ActiveXObject, Cookies, doesFontExist, Draggabilly, IframeLightbox,
-imgLightbox, imagePromise, Kamil, loadCSS, loadJsCss, Masonry, Packery,
+imgLightbox, imagePromise, Kamil, loadJsCss, Masonry, Packery,
 prettyPrint, Promise, QRCode, require, Tablesort, ToProgress, unescape, verge,
 VK, Ya*/
 /*property console, join, split */
@@ -282,63 +282,40 @@ VK, Ya*/
 	root.doesFontExist = doesFontExist;
 })("undefined" !== typeof window ? window : this, document);
 /*!
- * load CSS async
- * modified order of arguments, added callback option, removed CommonJS stuff
- * @see {@link https://github.com/filamentgroup/loadCSS}
- * @see {@link https://gist.github.com/englishextra/50592e9944bd2edc46fe5a82adec3396}
- * @param {String} hrefString path string
- * @param {Object} callback callback function
- * @param {String} media media attribute string value
- * @param {Object} [before] target HTML element
- * loadCSS(hrefString,callback,media,before)
- */
-(function (root, document) {
-	"use strict";
-	var loadCSS = function (_href, callback) {
-		var ref = document.getElementsByTagName("head")[0] || "";
-		var link = document.createElement("link");
-		link.rel = "stylesheet";
-		link.href = _href;
-		link.media = "all";
-		if (ref) {
-			ref.appendChild(link);
-			if (callback && "function" === typeof callback) {
-				link.onload = callback;
-			}
-			return link;
-		}
-		return;
-	};
-	root.loadCSS = loadCSS;
-})("undefined" !== typeof window ? window : this, document);
-/*!
  * modified loadExt
  * @see {@link https://gist.github.com/englishextra/ff9dc7ab002312568742861cb80865c9}
  * passes jshint
  */
 (function (root, document) {
 	"use strict";
-	var loadJsCss = function (files, callback) {
+	var loadJsCss = function (files, callback, type) {
 		var _this = this;
 		var appendChild = "appendChild";
 		var body = "body";
 		var createElement = "createElement";
 		var getElementsByTagName = "getElementsByTagName";
-		var insertBefore = "insertBefore";
+		var setAttribute = "setAttribute";
 		var _length = "length";
-		var parentNode = "parentNode";
 		_this.files = files;
 		_this.js = [];
 		_this.head = document[getElementsByTagName]("head")[0] || "";
 		_this.body = document[body] || "";
 		_this.ref = document[getElementsByTagName]("script")[0] || "";
 		_this.callback = callback || function () {};
+		_this.type = type ? type.toLowerCase() : "";
 		_this.loadStyle = function (file) {
 			var link = document[createElement]("link");
 			link.rel = "stylesheet";
 			link.type = "text/css";
 			link.href = file;
-			_this.head[appendChild](link);
+			/* _this.head[appendChild](link); */
+			link.media = "only x";
+			link.onload = function () {
+				this.onload = null;
+				this.media = "all";
+			};
+			link[setAttribute]("property", "stylesheet");
+			(_this.body || _this.head)[appendChild](link);
 		};
 		_this.loadScript = function (i) {
 			var script = document[createElement]("script");
@@ -356,19 +333,20 @@ VK, Ya*/
 				loadNextScript();
 			};
 			_this.head[appendChild](script);
-			if (_this.ref[parentNode]) {
+			/* if (_this.ref[parentNode]) {
 				_this.ref[parentNode][insertBefore](script, _this.ref);
 			} else {
 				(_this.body || _this.head)[appendChild](script);
-			}
+			} */
+			(_this.body || _this.head)[appendChild](script);
 		};
 		var i,
 		l;
 		for (i = 0, l = _this.files[_length]; i < l; i += 1) {
-			if ((/\.js$|\.js\?/).test(_this.files[i])) {
+			if ((/\.js$|\.js\?/).test(_this.files[i]) || _this.type === "js") {
 				_this.js.push(_this.files[i]);
 			}
-			if ((/\.css$|\.css\?|\/css\?/).test(_this.files[i])) {
+			if ((/\.css$|\.css\?|\/css\?/).test(_this.files[i]) || _this.type === "css") {
 				_this.loadStyle(_this.files[i]);
 			}
 		}
@@ -935,7 +913,7 @@ VK, Ya*/
 		};
 		var manageExternalLinkAll = function () {
 			var link = document[getElementsByTagName]("a") || "";
-			var isBindedClass = "is-binded";
+			var isBindedClass = "external-link--is-binded";
 			var arrange = function (e) {
 				if (!e[classList].contains(isBindedClass)) {
 					var url = e[getAttribute]("href") || "";
@@ -1081,14 +1059,7 @@ VK, Ya*/
 					}
 				}
 			};
-			if (tableSort) {
-				/* var jsUrl = "../../cdn/tablesort/4.0.1/js/tablesort.fixed.js";
-				if (!root.Tablesort) {
-					var load;
-					load = new loadJsCss([jsUrl], initScript);
-				} else {
-					initScript();
-				} */
+			if (tableSort && root.Tablesort) {
 				initScript();
 			}
 		};
@@ -1180,12 +1151,7 @@ VK, Ya*/
 					prettyPrint();
 				}
 			};
-			if (pre) {
-				/* var jsUrl = "../../cdn/google-code-prettify/0.1/js/prettify.bundled.fixed.js";
-				if (!root.prettyPrint) {
-					var load;
-					load = new loadJsCss([jsUrl], initScript);
-				} */
+			if (pre && root.prettyPrint) {
 				initScript();
 			}
 		};
@@ -1479,17 +1445,8 @@ VK, Ya*/
 					appendFragment(img, holder);
 				}
 			};
-			if (holder && locationHref) {
-				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					/* var jsUrl = "../../cdn/qrjs2/0.1.7/js/qrjs2.fixed.js";
-					if (!root.QRCode) {
-						var load;
-						load = new loadJsCss([jsUrl], initScript);
-					} else {
-						initScript();
-					} */
-					initScript();
-				}
+			if (holder && locationHref && "undefined" !== typeof getHTTP && getHTTP() && root.QRCode) {
+				initScript();
 			}
 		};
 		manageLocationQrCodeImage();
@@ -1736,8 +1693,8 @@ VK, Ya*/
 							}
 						}
 					};
-					var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
 					if (!root.Ya) {
+						var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {
@@ -1787,8 +1744,8 @@ VK, Ya*/
 							}
 						}
 					};
-					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
 					if (!root.VK) {
+						var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {
@@ -1879,7 +1836,6 @@ VK, Ya*/
 			var locationHref = root.location.href || "";
 			var disqusThreadShortname = disqusThread ? (disqusThread[dataset].shortname || "") : "";
 			var isActiveClass = "is-active";
-			var jsUrl = forcedHTTP + "://" + disqusThreadShortname + ".disqus.com/embed.js";
 			var loadDisqus = function () {
 				var initScript = function () {
 					if (!disqs) {
@@ -1889,6 +1845,7 @@ VK, Ya*/
 					}
 				};
 				if (!root.DISQUS) {
+					var jsUrl = forcedHTTP + "://" + disqusThreadShortname + ".disqus.com/embed.js";
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
 				} else {
@@ -2032,14 +1989,7 @@ VK, Ya*/
 					loadUnparsedJSON(jsonUrl, processJsonResponse);
 				}
 			};
-			if (searchForm && textInput) {
-				/* var jsUrl = "../../cdn/kamil/0.1.1/js/kamil.fixed.js";
-				if (!root.Kamil) {
-					var load;
-					load = new loadJsCss([jsUrl], initScript);
-				} else {
-					initScript();
-				} */
+			if (searchForm && textInput && root.Kamil) {
 				initScript();
 			}
 		};
@@ -2149,7 +2099,7 @@ VK, Ya*/
 		};
 		var checkFontIsLoaded;
 		checkFontIsLoaded = function () {
-			if (doesFontExist("Roboto") /* && doesFontExist("Roboto Mono") */) {
+			if (doesFontExist("Roboto")) {
 				onFontsLoaded();
 			}
 		};
@@ -2162,20 +2112,23 @@ VK, Ya*/
 		onFontsLoaded();
 	};
 
-	loadCSS("../../libs/branding/css/bundle.min.css", onFontsLoadedCallback);
+	var load;
+	load = new loadJsCss(["../../libs/branding/css/bundle.min.css"], onFontsLoadedCallback);
 
 	/* root.WebFontConfig = {
 		google: {
 			families: [
 				"Roboto:300,400,400i,700,700i:cyrillic",
-				"Roboto Mono:400,700:cyrillic,latin-ext"
+				"Roboto Mono:400,700:cyrillic,latin-ext",
+				"Roboto Condensed:700:cyrillic",
+				"PT Serif:400:cyrillic"
 			]
 		},
 		listeners: [],
 		active: function () {
 			this.called_ready = true;
 			var i;
-			for (i = 0; i < this.listeners[_length]; i++) {
+			for (i = 0; i < this.listeners[_length]; i += 1) {
 				this.listeners[i]();
 			}
 			i = null;

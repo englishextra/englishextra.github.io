@@ -246,22 +246,21 @@ twttr, unescape, VK, WheelIndicator, Ya*/
  */
 (function (root, document) {
 	"use strict";
-	var loadJsCss = function (files, callback) {
+	var loadJsCss = function (files, callback, type) {
 		var _this = this;
 		var appendChild = "appendChild";
 		var body = "body";
 		var createElement = "createElement";
 		var getElementsByTagName = "getElementsByTagName";
-		/* var insertBefore = "insertBefore"; */
-		var _length = "length";
-		/* var parentNode = "parentNode"; */
 		var setAttribute = "setAttribute";
+		var _length = "length";
 		_this.files = files;
 		_this.js = [];
 		_this.head = document[getElementsByTagName]("head")[0] || "";
 		_this.body = document[body] || "";
 		_this.ref = document[getElementsByTagName]("script")[0] || "";
 		_this.callback = callback || function () {};
+		_this.type = type ? type.toLowerCase() : "";
 		_this.loadStyle = function (file) {
 			var link = document[createElement]("link");
 			link.rel = "stylesheet";
@@ -302,10 +301,10 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		var i,
 		l;
 		for (i = 0, l = _this.files[_length]; i < l; i += 1) {
-			if ((/\.js$|\.js\?/).test(_this.files[i])) {
+			if ((/\.js$|\.js\?/).test(_this.files[i]) || _this.type === "js") {
 				_this.js.push(_this.files[i]);
 			}
-			if ((/\.css$|\.css\?|\/css\?/).test(_this.files[i])) {
+			if ((/\.css$|\.css\?|\/css\?/).test(_this.files[i]) || _this.type === "css") {
 				_this.loadStyle(_this.files[i]);
 			}
 		}
@@ -1061,6 +1060,28 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
+		var appEvents = new EventEmitter();
+
+		root.minigridInstance = null;
+
+		var updateMinigrid = function (delay) {
+			var timeout = delay || 100;
+			var logThis;
+			logThis = function () {
+				console.log("updateMinigrid");
+			};
+			if (root.minigridInstance) {
+				var timer = setTimeout(function () {
+						clearTimeout(timer);
+						timer = null;
+						/* logThis(); */
+						root.minigridInstance.mount();
+					}, timeout);
+			}
+		};
+
+		var updateMinigridThrottled = throttle(updateMinigrid, 1000);
+
 		var manageReadMore = function () {
 			var rmLink = document[getElementsByClassName]("rm-link") || "";
 			var arrange = function (e) {
@@ -1121,7 +1142,49 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
+		var appContentId = "app-content";
+		var appContent = document[getElementById](appContentId) || "";
+		var appContentParent = appContent ? appContent[parentNode] ? appContent[parentNode] : "" : "";
+
 		var isCollapsableClass = "is-collapsable";
+
+		var sidedrawer = document[getElementById]("sidedrawer") || "";
+
+		var activeClass = "active";
+		var hideSidedrawerClass = "hide-sidedrawer";
+
+		var hideSidedrawer = function () {
+			docBody[classList].add(hideSidedrawerClass);
+			sidedrawer[classList].remove(activeClass);
+		};
+
+		var manageOtherCollapsableAll = function (_self) {
+			var _this = _self || this;
+			var btn = document[getElementsByClassName](isCollapsableClass) || "";
+			var removeActiveClass = function (e) {
+				if (_this !== e) {
+					e[classList].remove(isActiveClass);
+				}
+			};
+			if (btn) {
+				var i,
+				l;
+				for (i = 0, l = btn[_length]; i < l; i += 1) {
+					removeActiveClass(btn[i]);
+				}
+				i = l = null;
+			}
+			if (sidedrawer && _self !== sidedrawer) {
+				hideSidedrawer();
+			}
+		};
+		var manageCollapsableAll = function () {
+			if (appContentParent) {
+				appContentParent[_addEventListener]("click", manageOtherCollapsableAll);
+			}
+		};
+		manageCollapsableAll();
+		root[_addEventListener]("hashchange", manageOtherCollapsableAll);
 
 		var manageLocationQrCodeImage = function () {
 			var btn = document[getElementsByClassName]("btn-toggle-holder-qrcode")[0] || "";
@@ -1246,8 +1309,8 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 							throw new Error("cannot yshare.updateContent or Ya.share2 " + err);
 						}
 					};
-					var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
 					if (!root.Ya) {
+						var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {
@@ -1295,8 +1358,8 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 							}
 						}
 					};
-					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
 					if (!root.VK) {
+						var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {
@@ -1363,48 +1426,6 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 		initUiTotop();
-
-		var appContentId = "app-content";
-		var appContent = document[getElementById](appContentId) || "";
-		var appContentParent = appContent ? appContent[parentNode] ? appContent[parentNode] : "" : "";
-
-		var sidedrawer = document[getElementById]("sidedrawer") || "";
-
-		var activeClass = "active";
-		var hideSidedrawerClass = "hide-sidedrawer";
-
-		var hideSidedrawer = function () {
-			docBody[classList].add(hideSidedrawerClass);
-			sidedrawer[classList].remove(activeClass);
-		};
-
-		var manageOtherCollapsableAll = function (_self) {
-			var _this = _self || this;
-			var btn = document[getElementsByClassName](isCollapsableClass) || "";
-			var removeActiveClass = function (e) {
-				if (_this !== e) {
-					e[classList].remove(isActiveClass);
-				}
-			};
-			if (btn) {
-				var i,
-				l;
-				for (i = 0, l = btn[_length]; i < l; i += 1) {
-					removeActiveClass(btn[i]);
-				}
-				i = l = null;
-			}
-			if (sidedrawer && _self !== sidedrawer) {
-				hideSidedrawer();
-			}
-		};
-		var manageCollapsableAll = function () {
-			if (appContentParent) {
-				appContentParent[_addEventListener]("click", manageOtherCollapsableAll);
-			}
-		};
-		manageCollapsableAll();
-		root[_addEventListener]("hashchange", manageOtherCollapsableAll);
 
 		var hideCurrentDropdownMenu = function (e) {
 			if (e) {
@@ -1517,28 +1538,6 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		};
 		manageRippleEffect();
 
-		var appEvents = new EventEmitter();
-
-		root.minigridInstance = null;
-
-		var updateMinigrid = function (delay) {
-			var timeout = delay || 100;
-			var logThis;
-			logThis = function () {
-				console.log("updateMinigrid");
-			};
-			if (root.minigridInstance) {
-				var timer = setTimeout(function () {
-						clearTimeout(timer);
-						timer = null;
-						/* logThis(); */
-						root.minigridInstance.mount();
-					}, timeout);
-			}
-		};
-
-		var updateMinigridThrottled = throttle(updateMinigrid, 1000);
-
 		var setIsActiveClass = function (e) {
 			if (e && e.nodeName && !e[classList].contains(isActiveClass)) {
 				e[classList].add(isActiveClass);
@@ -1620,8 +1619,8 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			};
 			if (disqusThread && disqusThreadShortname && locationHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					var jsUrl = forcedHTTP + "://" + disqusThreadShortname + ".disqus.com/embed.js";
 					if (!root.DISQUS) {
+						var jsUrl = forcedHTTP + "://" + disqusThreadShortname + ".disqus.com/embed.js";
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {
@@ -1656,8 +1655,8 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 				}
 			};
 			if (instagramMedia) {
-				var jsUrl = forcedHTTP + "://www.instagram.com/embed.js";
 				if (!root.instgrm) {
+					var jsUrl = forcedHTTP + "://www.instagram.com/embed.js";
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
 				} else {
@@ -1689,8 +1688,8 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 				}
 			};
 			if (twitterTweet) {
-				var jsUrl = forcedHTTP + "://platform.twitter.com/widgets.js";
 				if (!root.twttr) {
+					var jsUrl = forcedHTTP + "://platform.twitter.com/widgets.js";
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
 				} else {
@@ -1727,8 +1726,8 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 				}
 			};
 			if (vkPost) {
-				var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
 				if (!(root.VK && VK.Widgets && VK.Widgets.Post)) {
+					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
 				} else {
@@ -2221,9 +2220,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			});
 	};
 
-	var scripts = [
-		"./libs/serguei-muicss/css/bundle.min.css"
-	];
+	var scripts = ["./libs/serguei-muicss/css/bundle.min.css"];
 
 	var supportsPassive = (function() {
 		var support = false;
@@ -2282,7 +2279,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		};
 		var checkFontIsLoaded;
 		checkFontIsLoaded = function () {
-			if (doesFontExist("Roboto") /* && doesFontExist("Roboto Mono") */) {
+			if (doesFontExist("Roboto")) {
 				onFontsLoaded();
 			}
 		};
@@ -2301,9 +2298,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			clearTimeout(timer);
 			timer = null;
 			var load;
-			load = new loadJsCss([
-						"./libs/serguei-muicss/css/vendors.min.css"],
-					onFontsLoadedCallback);
+			load = new loadJsCss(["./libs/serguei-muicss/css/vendors.min.css"], onFontsLoadedCallback);
 		};
 		var req;
 		var raf = function () {
@@ -2321,15 +2316,17 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 	/* root.WebFontConfig = {
 		google: {
 			families: [
-				"Roboto:300,400,500,700:cyrillic",
-				"Roboto Mono:400:cyrillic,latin-ext"
+				"Roboto:300,400,400i,700,700i:cyrillic",
+				"Roboto Mono:400,700:cyrillic,latin-ext",
+				"Roboto Condensed:700:cyrillic",
+				"PT Serif:400:cyrillic"
 			]
 		},
 		listeners: [],
 		active: function () {
 			this.called_ready = true;
 			var i;
-			for (i = 0; i < this.listeners[_length]; i++) {
+			for (i = 0; i < this.listeners[_length]; i += 1) {
 				this.listeners[i]();
 			}
 			i = null;
