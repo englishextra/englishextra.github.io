@@ -3881,7 +3881,7 @@ function _typeof(obj) {
 			return this.filter(function() {
 				var i = 0;
 
-				for (; i < l; i++) {
+				for (; i < l; i += 1) {
 					if (jQuery.contains(this, targets[i])) {
 						return true;
 					}
@@ -3896,7 +3896,7 @@ function _typeof(obj) {
 				targets = typeof selectors !== "string" && jQuery(selectors);
 
 			if (!rneedsContext.test(selectors)) {
-				for (; i < l; i++) {
+				for (; i < l; i += 1) {
 					for (
 						cur = this[i];
 						cur && cur !== context;
@@ -5246,7 +5246,7 @@ function _typeof(obj) {
 		var i = 0,
 			l = elems.length;
 
-		for (; i < l; i++) {
+		for (; i < l; i += 1) {
 			dataPriv.set(
 				elems[i],
 				"globalEval",
@@ -5269,7 +5269,7 @@ function _typeof(obj) {
 			i = 0,
 			l = elems.length;
 
-		for (; i < l; i++) {
+		for (; i < l; i += 1) {
 			elem = elems[i];
 
 			if (elem || elem === 0) {
@@ -6099,7 +6099,7 @@ function _typeof(obj) {
 				pdataCur.events = {};
 
 				for (type in events) {
-					for (i = 0, l = events[type].length; i < l; i++) {
+					for (i = 0, l = events[type].length; i < l; i += 1) {
 						jQuery.event.add(dest, type, events[type][i]);
 					}
 				}
@@ -6173,7 +6173,7 @@ function _typeof(obj) {
 				scripts = jQuery.map(getAll(fragment, "script"), disableScript);
 				hasScripts = scripts.length;
 
-				for (; i < l; i++) {
+				for (; i < l; i += 1) {
 					node = fragment;
 
 					if (i !== iNoClone) {
@@ -6260,7 +6260,7 @@ function _typeof(obj) {
 				destElements = getAll(clone);
 				srcElements = getAll(elem);
 
-				for (i = 0, l = srcElements.length; i < l; i++) {
+				for (i = 0, l = srcElements.length; i < l; i += 1) {
 					fixInput(srcElements[i], destElements[i]);
 				}
 			}
@@ -6270,7 +6270,7 @@ function _typeof(obj) {
 					srcElements = srcElements || getAll(elem);
 					destElements = destElements || getAll(clone);
 
-					for (i = 0, l = srcElements.length; i < l; i++) {
+					for (i = 0, l = srcElements.length; i < l; i += 1) {
 						cloneCopyEvent(srcElements[i], destElements[i]);
 					}
 				} else {
@@ -6425,7 +6425,7 @@ function _typeof(obj) {
 						value = jQuery.htmlPrefilter(value);
 
 						try {
-							for (; i < l; i++) {
+							for (; i < l; i += 1) {
 								elem = this[i] || {};
 
 								if (elem.nodeType === 1) {

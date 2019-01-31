@@ -90,21 +90,25 @@ ToProgress, unescape, verge, VK, Ya*/
 					zIndex: "auto"
 				};
 				if (opt && typeof opt === "object") {
-					for (var key in opt) {
+					var key;
+					for (key in opt) {
 						if (opt[hasOwnProperty](key)) {
 							this.options[key] = opt[key];
 						}
 					}
+					key = null;
 				}
 				this.options.opacityDuration = this.options.duration * 3;
 				this.progressBar = document[createElement]("div");
 				this.progressBar.id = this.options.id;
 				this.progressBar.setCSS = function (style) {
-					for (var property in style) {
+					var property;
+					for (property in style) {
 						if (style[hasOwnProperty](property)) {
 							this.style[property] = style[property];
 						}
 					}
+					property = null;
 				};
 				this.progressBar.setCSS({
 					"position": selector ? "relative" : "fixed",
@@ -307,13 +311,13 @@ ToProgress, unescape, verge, VK, Ya*/
 			link.rel = "stylesheet";
 			link.type = "text/css";
 			link.href = file;
-			/* _this.head[appendChild](link); */
 			link.media = "only x";
 			link.onload = function () {
 				this.onload = null;
 				this.media = "all";
 			};
 			link[setAttribute]("property", "stylesheet");
+			/* _this.head[appendChild](link); */
 			(_this.body || _this.head)[appendChild](link);
 		};
 		_this.loadScript = function (i) {
@@ -374,7 +378,8 @@ ToProgress, unescape, verge, VK, Ya*/
 	var defineProperty = "defineProperty";
 	var getOwnPropertyDescriptor = "getOwnPropertyDescriptor";
 	var querySelector = "querySelector";
-	var querySelectorAll = "querySelectorAll";	var _addEventListener = "addEventListener";
+	var querySelectorAll = "querySelectorAll";
+	var _addEventListener = "addEventListener";
 	var _length = "length";
 
 	var progressBar = new ToProgress({
@@ -430,6 +435,9 @@ ToProgress, unescape, verge, VK, Ya*/
 		var title = "title";
 		var _addEventListener = "addEventListener";
 		var _removeEventListener = "removeEventListener";
+
+		var isActiveClass = "is-active";
+		var isBindedClass = "is-binded";
 
 		progressBar.increase(20);
 
@@ -784,29 +792,29 @@ ToProgress, unescape, verge, VK, Ya*/
 			}
 		};
 
-		var handleExternalLink = function (url, ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			var logic = function () {
+		var manageExternalLinkAll = function () {
+			var link = document[getElementsByTagName]("a") || "";
+			var handleExternalLink = function (url, ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var logic = function () {
 					openDeviceBrowser(url);
 				};
 				debounce(logic, 200).call(root);
-		};
-		var manageExternalLinkAll = function () {
-			var link = document[getElementsByTagName]("a") || "";
-			var isBindedClass = "external-link--is-binded";
+			};
 			var arrange = function (e) {
-				if (!e[classList].contains(isBindedClass)) {
+				var externalLinkIsBindedClass = "external-link--is-binded";
+				if (!e[classList].contains(externalLinkIsBindedClass)) {
 					var url = e[getAttribute]("href") || "";
 					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-						e[title] = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
 						if ("undefined" !== typeof getHTTP && getHTTP()) {
 							e.target = "_blank";
 							e.rel = "noopener";
 						} else {
 							e[_addEventListener]("click", handleExternalLink.bind(null, url));
 						}
-						e[classList].add(isBindedClass);
+						e[classList].add(externalLinkIsBindedClass);
 					}
 				}
 			};
@@ -823,8 +831,6 @@ ToProgress, unescape, verge, VK, Ya*/
 
 		var handleDataSrcImageAll = function () {
 			var img = document[getElementsByClassName]("data-src-img") || "";
-			var isActiveClass = "is-active";
-			var isBindedClass = "is-binded";
 			var arrange = function (e) {
 				/*!
 				 * true if elem is in same y-axis as the viewport or within 100px of it
@@ -850,10 +856,12 @@ ToProgress, unescape, verge, VK, Ya*/
 				}
 			};
 			if (img) {
-				for (var i = 0, l = img[_length]; i < l; i += 1) {
+				var i,
+				l;
+				for (i = 0, l = img[_length]; i < l; i += 1) {
 					arrange(img[i]);
 				}
-				/* forEach(img, arrange, false); */
+				i = l = null;
 			}
 		};
 
@@ -926,7 +934,6 @@ ToProgress, unescape, verge, VK, Ya*/
 			var panelNavMenu = document[getElementsByClassName]("panel-nav-menu")[0] || "";
 			var panelNavMenuItems = panelNavMenu ? panelNavMenu[getElementsByTagName]("a") || "" : "";
 			var holderPanelMenuMore = document[getElementsByClassName]("holder-panel-menu-more")[0] || "";
-			var isActiveClass = "is-active";
 			var locationHref = root.location.href || "";
 			var removeAllActiveClass = function () {
 				page[classList].remove(isActiveClass);
@@ -996,10 +1003,12 @@ ToProgress, unescape, verge, VK, Ya*/
 						if (panelNavMenu[classList].contains(isActiveClass)) {
 							removeHolderAndAllActiveClass();
 						}
-						for (var j = 0, l = panelNavMenuItems[_length]; j < l; j += 1) {
-							removeActiveClass(panelNavMenuItems[j]);
+						var i,
+						l;
+						for (i = 0, l = panelNavMenuItems[_length]; i < l; i += 1) {
+							removeActiveClass(panelNavMenuItems[i]);
 						}
-						/* forEach(panelNavMenuItems, removeActiveClass, false); */
+						i = l = null;
 						addActiveClass(e);
 					};
 					e[_addEventListener]("click", handleItem);
@@ -1009,10 +1018,12 @@ ToProgress, unescape, verge, VK, Ya*/
 						removeActiveClass(e);
 					}
 				};
-				for (var i = 0, l = panelNavMenuItems[_length]; i < l; i += 1) {
+				var i,
+				l;
+				for (i = 0, l = panelNavMenuItems[_length]; i < l; i += 1) {
 					addItemHandler(panelNavMenuItems[i]);
 				}
-				/* forEach(panelNavMenuItems, addItemHandler, false); */
+				i = l = null;
 			};
 			if (page && container && btnNavMenu && panelNavMenu && panelNavMenuItems) {
 				/*!
@@ -1039,7 +1050,6 @@ ToProgress, unescape, verge, VK, Ya*/
 			var panelMenuMore = document[getElementsByClassName]("panel-menu-more")[0] || "";
 			var panelMenuMoreItems = panelMenuMore ? panelMenuMore[getElementsByTagName]("li") || "" : "";
 			var panelNavMenu = document[getElementsByClassName]("panel-nav-menu")[0] || "";
-			var isActiveClass = "is-active";
 			var handleItem = function () {
 				page[classList].remove(isActiveClass);
 				holderPanelMenuMore[classList].remove(isActiveClass);
@@ -1062,10 +1072,12 @@ ToProgress, unescape, verge, VK, Ya*/
 				var addItemHandler = function (e) {
 					e[_addEventListener]("click", handleItem);
 				};
-				for (var i = 0, l = panelMenuMoreItems[_length]; i < l; i += 1) {
+				var i,
+				l;
+				for (i = 0, l = panelMenuMoreItems[_length]; i < l; i += 1) {
 					addItemHandler(panelMenuMoreItems[i]);
 				}
-				/* forEach(panelMenuMoreItems, addItemHandler, false); */
+				i = l = null;
 			};
 			if (page && container && holderPanelMenuMore && btnMenuMore && panelMenuMore && panelMenuMoreItems) {
 				/*!
@@ -1176,7 +1188,8 @@ ToProgress, unescape, verge, VK, Ya*/
 						childElements,
 						size,
 						item;
-					for (var i = 0; i < numNodes; i++) {
+					var i;
+					for (i = 0; i < numNodes; i++) {
 						el = thumbElements[i];
 						if (el.nodeType !== 1) {
 							continue;
@@ -1212,6 +1225,7 @@ ToProgress, unescape, verge, VK, Ya*/
 						};
 						items.push(item);
 					}
+					i = null;
 					return items;
 				};
 				var closest = function closest(el, fn) {
@@ -1246,12 +1260,14 @@ ToProgress, unescape, verge, VK, Ya*/
 					};
 					if (fromURL) {
 						if (options.galleryPIDs) {
-							for (var j = 0; j < items[_length]; j++) {
+							var j;
+							for (j = 0; j < items[_length]; j += 1) {
 								if (items[j].pid === index) {
 									options.index = j;
 									break;
 								}
 							}
+							j = null;
 						} else {
 							options.index = parseInt(index, 10) - 1;
 						}
@@ -1262,7 +1278,9 @@ ToProgress, unescape, verge, VK, Ya*/
 						return;
 					}
 					var radios = document.getElementsByName('gallery-style');
-					for (var i = 0, length = radios[_length]; i < length; i++) {
+					var i,
+					l;
+					for (i = 0, l = radios[_length]; i < l; i += 1) {
 						if (radios[i].checked) {
 							if (radios[i].id === 'radio-minimal-black') {
 								options.mainClass = 'pswp--minimal--dark';
@@ -1280,6 +1298,7 @@ ToProgress, unescape, verge, VK, Ya*/
 							break;
 						}
 					}
+					i = l = null;
 					if (disableAnimation) {
 						options.showAnimationDuration = 0;
 					}
@@ -1343,7 +1362,8 @@ ToProgress, unescape, verge, VK, Ya*/
 						numChildNodes = childNodes[_length],
 						nodeIndex = 0,
 						index;
-					for (var i = 0; i < numChildNodes; i++) {
+					var i;
+					for (i = 0; i < numChildNodes; i += 1) {
 						if (childNodes[i].nodeType !== 1) {
 							continue;
 						}
@@ -1353,6 +1373,7 @@ ToProgress, unescape, verge, VK, Ya*/
 						}
 						nodeIndex++;
 					}
+					i = null;
 					if (index >= 0) {
 						openPhotoSwipe(index, clickedGallery);
 					}
@@ -1365,7 +1386,8 @@ ToProgress, unescape, verge, VK, Ya*/
 						return params;
 					}
 					var vars = hash.split('&');
-					for (var i = 0; i < vars[_length]; i++) {
+					var i;
+					for (i = 0; i < vars[_length]; i += 1) {
 						if (!vars[i]) {
 							continue;
 						}
@@ -1375,16 +1397,20 @@ ToProgress, unescape, verge, VK, Ya*/
 						}
 						params[pair[0]] = pair[1];
 					}
+					i = null;
 					if (params.gid) {
 						params.gid = parseInt(params.gid, 10);
 					}
 					return params;
 				};
 				var galleryElements = document[querySelectorAll](gallerySelector);
-				for (var i = 0, l = galleryElements[_length]; i < l; i++) {
+				var i,
+				l;
+				for (i = 0, l = galleryElements[_length]; i < l; i += 1) {
 					galleryElements[i][setAttribute]('data-pswp-uid', i + 1);
 					galleryElements[i].onclick = onThumbnailsClick;
 				}
+				i = l = null;
 				var hashData = photoswipeParseHash();
 				if (hashData.pid && hashData.gid) {
 					openPhotoSwipe(hashData.pid, galleryElements[hashData.gid - 1], true, true);
@@ -1407,20 +1433,24 @@ ToProgress, unescape, verge, VK, Ya*/
 								link.href = hrefString.replace(/^/, forcedHTTP + ":");
 							}
 						};
-						for (var i = 0, l = linkArr[_length]; i < l; i += 1) {
+						var i,
+						l;
+						for (i = 0, l = linkArr[_length]; i < l; i += 1) {
 							fixUrl(linkArr[i]);
 						}
-						/* forEach(linkArr, fixUrl, false); */
+						i = l = null;
 					};
 					var galleryLinkArr = e ? e[getElementsByTagName]("a") || "" : "";
 					if (galleryLinkArr) {
 						fixUrlAll(galleryLinkArr);
 					}
 				};
-				for (var i = 0, l = pswpGallery[_length]; i < l; i += 1) {
+				var i,
+				l;
+				for (i = 0, l = pswpGallery[_length]; i < l; i += 1) {
 					arrange(pswpGallery[i]);
 				}
-				/* forEach(galleries, initPhotoSwipeFromDOM, false); */
+				i = l = null;
 				initPhotoSwipeFromDOM(pswpGallerySelector);
 			};
 			if (pswpGallery && pswpGalleryItems && root.PhotoSwipe) {
@@ -1431,14 +1461,13 @@ ToProgress, unescape, verge, VK, Ya*/
 
 		var hideOtherIsSocial = function (thisObj) {
 			var _thisObj = thisObj || this;
-			var isActiveClass = "is-active";
-			var isSocialAll = document[getElementsByClassName]("is-social") || "";
-			if (isSocialAll) {
+			var elem = document[getElementsByClassName]("is-social") || "";
+			if (elem) {
 				var k,
 				n;
-				for (k = 0, n = isSocialAll[_length]; k < n; k += 1) {
-					if (_thisObj !== isSocialAll[k]) {
-						isSocialAll[k][classList].remove(isActiveClass);
+				for (k = 0, n = elem[_length]; k < n; k += 1) {
+					if (_thisObj !== elem[k]) {
+						elem[k][classList].remove(isActiveClass);
 					}
 				}
 				k = n = null;
@@ -1453,7 +1482,6 @@ ToProgress, unescape, verge, VK, Ya*/
 			var yaShare2 = document[getElementById](yaShare2Id) || "";
 			var locationHref = root.location || "";
 			var documentTitle = document[title] || "";
-			var isActiveClass = "is-active";
 			var handleShareButton = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
@@ -1509,7 +1537,6 @@ ToProgress, unescape, verge, VK, Ya*/
 			var vkLike = document[getElementById](vkLikeId) || "";
 			var holderVkLike = document[getElementsByClassName]("holder-vk-like")[0] || "";
 			var btn = document[getElementsByClassName]("btn-show-vk-like")[0] || "";
-			var isActiveClass = "is-active";
 			var handleVKLikeButton = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
@@ -1557,7 +1584,6 @@ ToProgress, unescape, verge, VK, Ya*/
 		var initUiTotop = function () {
 			var btnClass = "ui-totop";
 			var btnTitle = "Наверх";
-			var isActiveClass = "is-active";
 			var anchor = document[createElement]("a");
 			var handleUiTotopAnchor = function (ev) {
 				ev.stopPropagation();

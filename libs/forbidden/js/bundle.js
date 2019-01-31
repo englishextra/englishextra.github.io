@@ -89,21 +89,25 @@ ToProgress, unescape, VK, Ya*/
 					zIndex: "auto"
 				};
 				if (opt && typeof opt === "object") {
-					for (var key in opt) {
+					var key;
+					for (key in opt) {
 						if (opt[hasOwnProperty](key)) {
 							this.options[key] = opt[key];
 						}
 					}
+					key = null;
 				}
 				this.options.opacityDuration = this.options.duration * 3;
 				this.progressBar = document[createElement]("div");
 				this.progressBar.id = this.options.id;
 				this.progressBar.setCSS = function (style) {
-					for (var property in style) {
+					var property;
+					for (property in style) {
 						if (style[hasOwnProperty](property)) {
 							this.style[property] = style[property];
 						}
 					}
+					property = null;
 				};
 				this.progressBar.setCSS({
 					"position": selector ? "relative" : "fixed",
@@ -254,13 +258,13 @@ ToProgress, unescape, VK, Ya*/
 			link.rel = "stylesheet";
 			link.type = "text/css";
 			link.href = file;
-			/* _this.head[appendChild](link); */
 			link.media = "only x";
 			link.onload = function () {
 				this.onload = null;
 				this.media = "all";
 			};
 			link[setAttribute]("property", "stylesheet");
+			/* _this.head[appendChild](link); */
 			(_this.body || _this.head)[appendChild](link);
 		};
 		_this.loadScript = function (i) {
@@ -320,7 +324,8 @@ ToProgress, unescape, VK, Ya*/
 	var defineProperty = "defineProperty";
 	var getOwnPropertyDescriptor = "getOwnPropertyDescriptor";
 	var querySelector = "querySelector";
-	var querySelectorAll = "querySelectorAll";	var _addEventListener = "addEventListener";
+	var querySelectorAll = "querySelectorAll";
+	var _addEventListener = "addEventListener";
 	var _length = "length";
 
 	var progressBar = new ToProgress({
@@ -374,6 +379,8 @@ ToProgress, unescape, VK, Ya*/
 		var title = "title";
 		var _addEventListener = "addEventListener";
 
+		var isActiveClass = "is-active";
+		
 		progressBar.increase(20);
 
 		if (docElem && docElem[classList]) {
@@ -670,29 +677,29 @@ ToProgress, unescape, VK, Ya*/
 			}
 		};
 
-		var handleExternalLink = function (url, ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			var logic = function () {
+		var manageExternalLinkAll = function () {
+			var link = document[getElementsByTagName]("a") || "";
+			var handleExternalLink = function (url, ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var logic = function () {
 					openDeviceBrowser(url);
 				};
 				debounce(logic, 200).call(root);
-		};
-		var manageExternalLinkAll = function () {
-			var link = document[getElementsByTagName]("a") || "";
-			var isBindedClass = "external-link--is-binded";
+			};
 			var arrange = function (e) {
-				if (!e[classList].contains(isBindedClass)) {
+				var externalLinkIsBindedClass = "external-link--is-binded";
+				if (!e[classList].contains(externalLinkIsBindedClass)) {
 					var url = e[getAttribute]("href") || "";
 					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-						e[title] = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
 						if ("undefined" !== typeof getHTTP && getHTTP()) {
 							e.target = "_blank";
 							e.rel = "noopener";
 						} else {
 							e[_addEventListener]("click", handleExternalLink.bind(null, url));
 						}
-						e[classList].add(isBindedClass);
+						e[classList].add(externalLinkIsBindedClass);
 					}
 				}
 			};
@@ -765,7 +772,6 @@ ToProgress, unescape, VK, Ya*/
 			var panelNavMenu = document[getElementsByClassName]("panel-nav-menu")[0] || "";
 			var panelNavMenuItems = panelNavMenu ? panelNavMenu[getElementsByTagName]("a") || "" : "";
 			var holderPanelMenuMore = document[getElementsByClassName]("holder-panel-menu-more")[0] || "";
-			var isActiveClass = "is-active";
 			var locationHref = root.location.href || "";
 			var removeAllActiveClass = function () {
 				page[classList].remove(isActiveClass);
@@ -833,9 +839,12 @@ ToProgress, unescape, VK, Ya*/
 						if (panelNavMenu[classList].contains(isActiveClass)) {
 							removeHolderAndAllActiveClass();
 						}
-						for (var j = 0, l = panelNavMenuItems[_length]; j < l; j += 1) {
-							removeActiveClass(panelNavMenuItems[j]);
+						var i,
+						l;
+						for (i = 0, l = panelNavMenuItems[_length]; i < l; i += 1) {
+							removeActiveClass(panelNavMenuItems[i]);
 						}
+						i = l = null;
 						addActiveClass(e);
 					};
 					e[_addEventListener]("click", handleItem);
@@ -845,9 +854,12 @@ ToProgress, unescape, VK, Ya*/
 						removeActiveClass(e);
 					}
 				};
-				for (var i = 0, l = panelNavMenuItems[_length]; i < l; i += 1) {
+				var i,
+				l;
+				for (i = 0, l = panelNavMenuItems[_length]; i < l; i += 1) {
 					addItemHandler(panelNavMenuItems[i]);
 				}
+				i = l = null;
 			};
 			if (page && container && btnNavMenu && panelNavMenu && panelNavMenuItems) {
 				addContainerHandler();
@@ -911,7 +923,6 @@ ToProgress, unescape, VK, Ya*/
 			var panelMenuMore = document[getElementsByClassName]("panel-menu-more")[0] || "";
 			var panelMenuMoreItems = panelMenuMore ? panelMenuMore[getElementsByTagName]("li") || "" : "";
 			var panelNavMenu = document[getElementsByClassName]("panel-nav-menu")[0] || "";
-			var isActiveClass = "is-active";
 			var handleItem = function () {
 				page[classList].remove(isActiveClass);
 				holderPanelMenuMore[classList].remove(isActiveClass);
@@ -934,9 +945,12 @@ ToProgress, unescape, VK, Ya*/
 				var addItemHandler = function (e) {
 					e[_addEventListener]("click", handleItem);
 				};
-				for (var i = 0, l = panelMenuMoreItems[_length]; i < l; i += 1) {
+				var i,
+				l;
+				for (i = 0, l = panelMenuMoreItems[_length]; i < l; i += 1) {
 					addItemHandler(panelMenuMoreItems[i]);
 				}
+				i = l = null;
 			};
 			if (page && container && holderPanelMenuMore && btnMenuMore && panelMenuMore && panelMenuMoreItems) {
 				addContainerHandler();
@@ -948,14 +962,13 @@ ToProgress, unescape, VK, Ya*/
 
 		var hideOtherIsSocial = function (thisObj) {
 			var _thisObj = thisObj || this;
-			var isActiveClass = "is-active";
-			var isSocialAll = document[getElementsByClassName]("is-social") || "";
-			if (isSocialAll) {
+			var elem = document[getElementsByClassName]("is-social") || "";
+			if (elem) {
 				var k,
 				n;
-				for (k = 0, n = isSocialAll[_length]; k < n; k += 1) {
-					if (_thisObj !== isSocialAll[k]) {
-						isSocialAll[k][classList].remove(isActiveClass);
+				for (k = 0, n = elem[_length]; k < n; k += 1) {
+					if (_thisObj !== elem[k]) {
+						elem[k][classList].remove(isActiveClass);
 					}
 				}
 				k = n = null;
@@ -970,7 +983,6 @@ ToProgress, unescape, VK, Ya*/
 			var yaShare2 = document[getElementById](yaShare2Id) || "";
 			var locationHref = root.location || "";
 			var documentTitle = document[title] || "";
-			var isActiveClass = "is-active";
 			var handleShareButton = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
@@ -1026,7 +1038,6 @@ ToProgress, unescape, VK, Ya*/
 			var vkLike = document[getElementById](vkLikeId) || "";
 			var holderVkLike = document[getElementsByClassName]("holder-vk-like")[0] || "";
 			var btn = document[getElementsByClassName]("btn-show-vk-like")[0] || "";
-			var isActiveClass = "is-active";
 			var handleVKLikeButton = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();

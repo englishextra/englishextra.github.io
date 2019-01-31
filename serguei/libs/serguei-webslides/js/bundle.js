@@ -89,21 +89,25 @@ unescape, WebSlides*/
 					zIndex: "auto"
 				};
 				if (opt && typeof opt === "object") {
-					for (var key in opt) {
+					var key;
+					for (key in opt) {
 						if (opt[hasOwnProperty](key)) {
 							this.options[key] = opt[key];
 						}
 					}
+					key = null;
 				}
 				this.options.opacityDuration = this.options.duration * 3;
 				this.progressBar = document[createElement]("div");
 				this.progressBar.id = this.options.id;
 				this.progressBar.setCSS = function (style) {
-					for (var property in style) {
+					var property;
+					for (property in style) {
 						if (style[hasOwnProperty](property)) {
 							this.style[property] = style[property];
 						}
 					}
+					property = null;
 				};
 				this.progressBar.setCSS({
 					"position": selector ? "relative" : "fixed",
@@ -254,13 +258,13 @@ unescape, WebSlides*/
 			link.rel = "stylesheet";
 			link.type = "text/css";
 			link.href = file;
-			/* _this.head[appendChild](link); */
 			link.media = "only x";
 			link.onload = function () {
 				this.onload = null;
 				this.media = "all";
 			};
 			link[setAttribute]("property", "stylesheet");
+			/* _this.head[appendChild](link); */
 			(_this.body || _this.head)[appendChild](link);
 		};
 		_this.loadScript = function (i) {
@@ -629,16 +633,16 @@ unescape, WebSlides*/
 			}
 		};
 
-		var handleExternalLink = function (url, ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			var logic = function () {
+		var manageExternalLinkAll = function () {
+			var link = document[getElementsByTagName]("a") || "";
+			var handleExternalLink = function (url, ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var logic = function () {
 					openDeviceBrowser(url);
 				};
 				debounce(logic, 200).call(root);
-		};
-		var manageExternalLinkAll = function () {
-			var link = document[getElementsByTagName]("a") || "";
+			};
 			var arrange = function (e) {
 				var externalLinkIsBindedClass = "external-link--is-binded";
 				if (!e[classList].contains(externalLinkIsBindedClass)) {

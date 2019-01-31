@@ -91,21 +91,25 @@ VK, Ya*/
 					zIndex: "auto"
 				};
 				if (opt && typeof opt === "object") {
-					for (var key in opt) {
+					var key;
+					for (key in opt) {
 						if (opt[hasOwnProperty](key)) {
 							this.options[key] = opt[key];
 						}
 					}
+					key = null;
 				}
 				this.options.opacityDuration = this.options.duration * 3;
 				this.progressBar = document[createElement]("div");
 				this.progressBar.id = this.options.id;
 				this.progressBar.setCSS = function (style) {
-					for (var property in style) {
+					var property;
+					for (property in style) {
 						if (style[hasOwnProperty](property)) {
 							this.style[property] = style[property];
 						}
 					}
+					property = null;
 				};
 				this.progressBar.setCSS({
 					"position": selector ? "relative" : "fixed",
@@ -364,13 +368,13 @@ VK, Ya*/
 			link.rel = "stylesheet";
 			link.type = "text/css";
 			link.href = file;
-			/* _this.head[appendChild](link); */
 			link.media = "only x";
 			link.onload = function () {
 				this.onload = null;
 				this.media = "all";
 			};
 			link[setAttribute]("property", "stylesheet");
+			/* _this.head[appendChild](link); */
 			(_this.body || _this.head)[appendChild](link);
 		};
 		_this.loadScript = function (i) {
@@ -862,6 +866,43 @@ VK, Ya*/
 			}
 		};
 
+		var manageExternalLinkAll = function () {
+			var link = document[getElementsByTagName]("a") || "";
+			var handleExternalLink = function (url, ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var logic = function () {
+					openDeviceBrowser(url);
+				};
+				debounce(logic, 200).call(root);
+			};
+			var arrange = function (e) {
+				var externalLinkIsBindedClass = "external-link--is-binded";
+				if (!e[classList].contains(externalLinkIsBindedClass)) {
+					var url = e[getAttribute]("href") || "";
+					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+						if ("undefined" !== typeof getHTTP && getHTTP()) {
+							e.target = "_blank";
+							e.rel = "noopener";
+						} else {
+							e[_addEventListener]("click", handleExternalLink.bind(null, url));
+						}
+						e[classList].add(externalLinkIsBindedClass);
+					}
+				}
+			};
+			if (link) {
+				var i,
+				l;
+				for (i = 0, l = link[_length]; i < l; i += 1) {
+					arrange(link[i]);
+				}
+				i = l = null;
+			}
+		};
+		manageExternalLinkAll();
+
 		var loadUnparsedJSON = function (url, callback, onerror) {
 			var cb = function (string) {
 				return callback && "function" === typeof callback && callback(string);
@@ -907,7 +948,8 @@ VK, Ya*/
 				a = "f,dult`;pbqrkvyjghcnea[wxio]ms'.zF<DULT~:PBQRKVYJGHCNEA{WXIO}MS'>Z@#$^&|/?";
 				b = '\u0430\u0431\u0432\u0433\u0434\u0435\u0451\u0436\u0437\u0438\u0439\u043a\u043b\u043c\u043d\u043e\u043f\u0440\u0441\u0442\u0443\u0444\u0445\u0446\u0447\u0448\u0449\u044a\u044c\u044b\u044d\u044e\u044f\u0410\u0411\u0412\u0413\u0414\u0415\u0401\u0416\u0417\u0418\u0419\u041a\u041b\u041c\u041d\u041e\u041f\u0420\u0421\u0422\u0423\u0424\u0425\u0426\u0427\u0428\u0429\u042a\u042c\u042b\u042d\u042e\u042f"\u2116;:?/.,';
 			}
-			for (var d = 0; d < e[_length]; d++) {
+			var d;
+			for (d = 0; d < e[_length]; d += 1) {
 				var f = a.indexOf(e.charAt(d));
 				if (c > f) {
 					c += e.charAt(d);
@@ -915,6 +957,7 @@ VK, Ya*/
 					c += b.charAt(f);
 				}
 			}
+			d = null;
 			return c;
 		};
 
@@ -1059,47 +1102,8 @@ VK, Ya*/
 			}
 		};
 
-		var handleExternalLink = function (url, ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			var logic = function () {
-					openDeviceBrowser(url);
-				};
-				debounce(logic, 200).call(root);
-		};
-		var manageExternalLinkAll = function () {
-			var link = document[getElementsByTagName]("a") || "";
-			var arrange = function (e) {
-				var externalLinkIsBindedClass = "external-link--is-binded";
-				if (!e[classList].contains(externalLinkIsBindedClass)) {
-					var url = e[getAttribute]("href") || "";
-					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
-						if ("undefined" !== typeof getHTTP && getHTTP()) {
-							e.target = "_blank";
-							e.rel = "noopener";
-						} else {
-							e[_addEventListener]("click", handleExternalLink.bind(null, url));
-						}
-						e[classList].add(externalLinkIsBindedClass);
-					}
-				}
-			};
-			if (link) {
-				var i,
-				l;
-				for (i = 0, l = link[_length]; i < l; i += 1) {
-					arrange(link[i]);
-				}
-				i = l = null;
-			}
-		};
-		manageExternalLinkAll();
-
 		var handleDataSrcImageAll = function () {
 			var img = document[getElementsByClassName]("data-src-img") || "";
-			var isActiveClass = "is-active";
-			var isBindedClass = "is-binded";
 			var arrange = function (e) {
 				if (verge.inY(e, 100)) {
 					if (!e[classList].contains(isBindedClass)) {
@@ -1121,9 +1125,12 @@ VK, Ya*/
 				}
 			};
 			if (img) {
-				for (var i = 0, l = img[_length]; i < l; i += 1) {
+				var i,
+				l;
+				for (i = 0, l = img[_length]; i < l; i += 1) {
 					arrange(img[i]);
 				}
+				i = l = null;
 			}
 		};
 
@@ -1144,8 +1151,6 @@ VK, Ya*/
 
 		var handleDataSrcIframeAll = function () {
 			var ifrm = document[getElementsByClassName]("data-src-iframe") || "";
-			var isActiveClass = "is-active";
-			var isBindedClass = "is-binded";
 			var arrange = function (e) {
 				if (verge.inY(e, 100)) {
 					if (!e[classList].contains(isBindedClass)) {
@@ -1169,9 +1174,12 @@ VK, Ya*/
 				}
 			};
 			if (ifrm) {
-				for (var i = 0, l = ifrm[_length]; i < l; i += 1) {
+				var i,
+				l;
+				for (i = 0, l = ifrm[_length]; i < l; i += 1) {
 					arrange(ifrm[i]);
 				}
+				i = l = null;
 			}
 		};
 
@@ -1261,10 +1269,12 @@ VK, Ya*/
 				}
 			};
 			if (list) {
-				for (var i = 0, l = list[_length]; i < l; i += 1) {
+				var i,
+				l;
+				for (i = 0, l = list[_length]; i < l; i += 1) {
 					removeActiveClass(list[i]);
 				}
-				/* forEach(list, removeActiveClass, false); */
+				i = l = null;
 			}
 		};
 		var manageOtherDropdownListAll = function () {
@@ -1309,9 +1319,12 @@ VK, Ya*/
 					}
 				};
 				var chaptersSelectOptions = chaptersSelect ? chaptersSelect[getElementsByTagName]("option") || "" : "";
-				for (var i = 0, l = chaptersSelectOptions[_length]; i < l; i += 1) {
+				var i,
+				l;
+				for (i = 0, l = chaptersSelectOptions[_length]; i < l; i += 1) {
 					rerenderOption(chaptersSelectOptions[i]);
 				}
+				i = l = null;
 			}; */
 			var rerenderChaptersList = function () {
 				var handleChaptersListItem = function (listObj, hashString) {
@@ -1344,10 +1357,12 @@ VK, Ya*/
 					df[appendChild](chaptersListItem);
 					df[appendChild](document[createTextNode]("\n"));
 				};
-				for (var i = 0, l = chaptersListItems[_length]; i < l; i += 1) {
+				var i,
+				l;
+				for (i = 0, l = chaptersListItems[_length]; i < l; i += 1) {
 					generateChaptersListItems(chaptersListItems[i], i);
 				}
-				/* forEach(chaptersListItems, generateChaptersListItems, false); */
+				i = l = null;
 				appendFragment(df, chaptersList);
 				chaptersList[classList].add(chaptersListClass);
 				chaptersList[classList].add(isDropdownClass);
@@ -1381,10 +1396,8 @@ VK, Ya*/
 			}
 		};
 
-		var manageExpandingLayers = function (scope) {
-			var ctx = scope && scope.nodeName ? scope : "";
-			var btnClass = "btn-expand-hidden-layer";
-			var btn = ctx ? ctx[getElementsByClassName](btnClass) || "" : document[getElementsByClassName](btnClass) || "";
+		var manageExpandingLayers = function () {
+			var btn = document[getElementsByClassName]("btn-expand-hidden-layer") || "";
 			var arrange = function (e) {
 				var handleExpandingLayerAll = function () {
 					var _this = this;
@@ -1407,7 +1420,6 @@ VK, Ya*/
 					arrange(btn[i]);
 				}
 				i = l = null;
-				/* forEach(btn, arrange, false); */
 			}
 		};
 
@@ -1551,11 +1563,13 @@ VK, Ya*/
 				"datum": defaultDatum,
 				"days": 0,
 			};
-			for (var i in opt) {
+			var i;
+			for (i in opt) {
 				if (opt.hasOwnProperty(i)) {
 					settings[i] = opt[i];
 				}
 			}
+			i = null;
 			var cookieKey = Cookies.get(settings.key) || "";
 			if (cookieKey && cookieKey === decodeURIComponent(settings.datum)) {
 				return;
@@ -1747,12 +1761,11 @@ VK, Ya*/
 						}
 					};
 					if (items) {
-						for (var i = 0; i < itemsLength; i += 1) {
+						var i;
+						for (i = 0; i < itemsLength; i += 1) {
 							limitKamilOutput(items[i], i);
 						}
-						/* forEach(items, function (e, i) {
-							limitKamilOutput(e, i);
-						}, false); */
+						i = null;
 					}
 					/*!
 					 * fix typo - non latin characters found
@@ -1792,10 +1805,12 @@ VK, Ya*/
 						/* e.title = "" + truncText; */
 					};
 					if (lis) {
-						for (var j = 0, m = lis[_length]; j < m; j += 1) {
+						var j,
+						m;
+						for (j = 0, m = lis[_length]; j < m; j += 1) {
 							truncateKamilText(lis[j]);
 						}
-						/* forEach(lis, truncateKamilText, false); */
+						j = m = null;
 					}
 				};
 				/*!
@@ -1893,10 +1908,12 @@ VK, Ya*/
 						e[_addEventListener]("click", handleOtherDropdownLists);
 					};
 					if (items) {
-						for (var i = 0, l = items[_length]; i < l; i += 1) {
+						var i,
+						l;
+						for (i = 0, l = items[_length]; i < l; i += 1) {
 							addHandler(items[i]);
 						}
-						/* forEach(btn, addHandler, false); */
+						i = l = null;
 					}
 				};
 				var handleShowRenderNavbarPopularButton = function (ev) {
@@ -2192,10 +2209,12 @@ VK, Ya*/
 							debugMessage.push((e.className ? "." + e.className : e.id ? "#" + e.id : e.tagName), " ", root.getComputedStyle(e).getPropertyValue("font-size"), " ", root.getComputedStyle(e).getPropertyValue("line-height"), " ", e.offsetWidth, "x", e.offsetHeight, " \u003e ");
 						}
 					};
-					for (var i = 0, l = elements[_length]; i < l; i += 1) {
+					var i,
+					l;
+					for (i = 0, l = elements[_length]; i < l; i += 1) {
 						renderElementsInfo(elements[i]);
 					}
-					/* forEach(elements, renderElementsInfo, false); */
+					i = l = null;
 					debugMessage = debugMessage.join("");
 					debugMessage = debugMessage.slice(0, debugMessage.lastIndexOf(" \u003e "));
 					notiBar({
@@ -2289,14 +2308,18 @@ VK, Ya*/
 					var locationHash = root.location.hash || "";
 					if (contentsSelect) {
 						var optionMatched = false;
-						for (var i = 0, l = contentsSelect.options[_length]; i < l; i += 1) {
+						var i,
+						l;
+						for (i = 0, l = contentsSelect.options[_length]; i < l; i += 1) {
 							if (locationHash === contentsSelect.options[i].value) {
 								optionMatched = true;
 								contentsSelect.selectedIndex = i;
 								break;
 							}
 						}
-						/* for (var key in contentsSelect.options) {
+						i = l = null;
+						/* var key;
+						for (key in contentsSelect.options) {
 							if (contentsSelect.options.hasOwnProperty(key)) {
 								if (locationHash === contentsSelect.options[key].value) {
 									optionMatched = true;
@@ -2304,7 +2327,8 @@ VK, Ya*/
 									break;
 								}
 							}
-						} */
+						}
+						key = null; */
 						if (!optionMatched) {
 							contentsSelect.selectedIndex = 0;
 						}
@@ -2315,14 +2339,18 @@ VK, Ya*/
 						if (contentsListButton) {
 							var itemMatched = false;
 							var contentsListItems = contentsList ? contentsList[getElementsByTagName]("li") || "" : "";
-							for (var j = 0, m = contentsListItems[_length]; j < m; j += 1) {
+							var j,
+							m;
+							for (j = 0, m = contentsListItems[_length]; j < m; j += 1) {
 								if (locationHash === contentsListItems[j][dataset][href]) {
 									itemMatched = true;
 									contentsListButton.replaceChild(document[createTextNode](contentsListItems[j].firstChild.textContent), contentsListButton.firstChild);
 									break;
 								}
 							}
-							/* for (var key2 in contentsListItems) {
+							j = m = null;
+							/* var key2;
+							for (key2 in contentsListItems) {
 								if (contentsListItems.hasOwnProperty(key2)) {
 									if (locationHash === contentsListItems[key2][dataset][href]) {
 										itemMatched = true;
@@ -2330,7 +2358,8 @@ VK, Ya*/
 										break;
 									}
 								}
-							} */
+							}
+							key2 = null; */
 							if (!itemMatched) {
 								contentsListButton.replaceChild(document[createTextNode](contentsListButtonDefaultText), contentsListButton.firstChild);
 							}
@@ -2415,8 +2444,8 @@ VK, Ya*/
 								manageExternalLinkAll();
 								manageImgLightbox(imgLightboxLinkClass);
 								manageIframeLightbox(iframeLightboxLinkClass);
-								manageChaptersSelect(appContentParent);
-								manageExpandingLayers(appContentParent);
+								manageChaptersSelect();
+								manageExpandingLayers();
 							}, 100);
 					}
 					LoadingSpinner.hide(scroll2Top.bind(null, 0, 20000));
@@ -2429,7 +2458,9 @@ VK, Ya*/
 					var locationHash = root.location.hash || "";
 					if (locationHash) {
 						var isFound = false;
-						for (var i = 0, l = routesJsonObj.hashes[_length]; i < l; i += 1) {
+						var i,
+						l;
+						for (i = 0, l = routesJsonObj.hashes[_length]; i < l; i += 1) {
 							if (locationHash === routesJsonObj.hashes[i][href]) {
 								isFound = true;
 								LoadingSpinner.show();
@@ -2437,7 +2468,9 @@ VK, Ya*/
 								break;
 							}
 						}
-						/* for (var key in routesJsonObj.hashes) {
+						i = l = null;
+						/* var key;
+						for (key in routesJsonObj.hashes) {
 							if (routesJsonObj.hashes.hasOwnProperty(key)) {
 								if (locationHash === routesJsonObj.hashes[key][href]) {
 									isFound = true;
@@ -2446,7 +2479,8 @@ VK, Ya*/
 									break;
 								}
 							}
-						} */
+						}
+						key = null; */
 						if (false === isFound) {
 							if (document[getElementById](locationHash.substring(1))) {
 								root.location.hash = locationHash;
@@ -2518,9 +2552,12 @@ VK, Ya*/
 							df[appendChild](document[createTextNode]("\n"));
 						}
 					};
-					for (var i = 0, l = routesJsonObj.hashes[_length]; i < l; i += 1) {
+					var i,
+					l;
+					for (i = 0, l = routesJsonObj.hashes[_length]; i < l; i += 1) {
 						generateContentsSelectOptions(routesJsonObj.hashes[i]);
 					}
+					i = l = null;
 					appendFragment(df, contentsSelectRender);
 					contentsSelect[_addEventListener]("change", handleContentsSelect);
 				}; */
@@ -2557,10 +2594,12 @@ VK, Ya*/
 							df[appendChild](document[createTextNode]("\n"));
 						}
 					};
-					for (var j = 0, m = routesJsonObj.hashes[_length]; j < m; j += 1) {
+					var j,
+					m;
+					for (j = 0, m = routesJsonObj.hashes[_length]; j < m; j += 1) {
 						generateContentsListItems(routesJsonObj.hashes[j]);
 					}
-					/* forEach(routesJsonObj.hashes, generateContentsListItems, false); */
+					j = m = null;
 					appendFragment(df, contentsList);
 					contentsList[classList].add(contentsListClass);
 					contentsList[classList].add(isDropdownClass);

@@ -91,21 +91,25 @@ VK, Ya*/
 					zIndex: "auto"
 				};
 				if (opt && typeof opt === "object") {
-					for (var key in opt) {
+					var key;
+					for (key in opt) {
 						if (opt[hasOwnProperty](key)) {
 							this.options[key] = opt[key];
 						}
 					}
+					key = null;
 				}
 				this.options.opacityDuration = this.options.duration * 3;
 				this.progressBar = document[createElement]("div");
 				this.progressBar.id = this.options.id;
 				this.progressBar.setCSS = function (style) {
-					for (var property in style) {
+					var property;
+					for (property in style) {
 						if (style[hasOwnProperty](property)) {
 							this.style[property] = style[property];
 						}
 					}
+					property = null;
 				};
 				this.progressBar.setCSS({
 					"position": selector ? "relative" : "fixed",
@@ -308,13 +312,13 @@ VK, Ya*/
 			link.rel = "stylesheet";
 			link.type = "text/css";
 			link.href = file;
-			/* _this.head[appendChild](link); */
 			link.media = "only x";
 			link.onload = function () {
 				this.onload = null;
 				this.media = "all";
 			};
 			link[setAttribute]("property", "stylesheet");
+			/* _this.head[appendChild](link); */
 			(_this.body || _this.head)[appendChild](link);
 		};
 		_this.loadScript = function (i) {
@@ -375,7 +379,8 @@ VK, Ya*/
 	var defineProperty = "defineProperty";
 	var getOwnPropertyDescriptor = "getOwnPropertyDescriptor";
 	var querySelector = "querySelector";
-	var querySelectorAll = "querySelectorAll";	var _addEventListener = "addEventListener";
+	var querySelectorAll = "querySelectorAll";
+	var _addEventListener = "addEventListener";
 	var _length = "length";
 
 	var progressBar = new ToProgress({
@@ -432,6 +437,9 @@ VK, Ya*/
 		var style = "style";
 		var title = "title";
 		var _removeEventListener = "removeEventListener";
+
+		var isActiveClass = "is-active";
+		var isBindedClass = "is-binded";
 
 		progressBar.increase(20);
 
@@ -607,7 +615,8 @@ VK, Ya*/
 				a = "f,dult`;pbqrkvyjghcnea[wxio]ms'.zF<DULT~:PBQRKVYJGHCNEA{WXIO}MS'>Z@#$^&|/?";
 				b = '\u0430\u0431\u0432\u0433\u0434\u0435\u0451\u0436\u0437\u0438\u0439\u043a\u043b\u043c\u043d\u043e\u043f\u0440\u0441\u0442\u0443\u0444\u0445\u0446\u0447\u0448\u0449\u044a\u044c\u044b\u044d\u044e\u044f\u0410\u0411\u0412\u0413\u0414\u0415\u0401\u0416\u0417\u0418\u0419\u041a\u041b\u041c\u041d\u041e\u041f\u0420\u0421\u0422\u0423\u0424\u0425\u0426\u0427\u0428\u0429\u042a\u042c\u042b\u042d\u042e\u042f"\u2116;:?/.,';
 			}
-			for (var d = 0; d < e[_length]; d++) {
+			var d;
+			for (d = 0; d < e[_length]; d += 1) {
 				var f = a.indexOf(e.charAt(d));
 				if (c > f) {
 					c += e.charAt(d);
@@ -615,6 +624,7 @@ VK, Ya*/
 					c += b.charAt(f);
 				}
 			}
+			d = null;
 			return c;
 		};
 
@@ -903,29 +913,29 @@ VK, Ya*/
 			}
 		};
 
-		var handleExternalLink = function (url, ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			var logic = function () {
+		var manageExternalLinkAll = function () {
+			var link = document[getElementsByTagName]("a") || "";
+			var handleExternalLink = function (url, ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var logic = function () {
 					openDeviceBrowser(url);
 				};
 				debounce(logic, 200).call(root);
-		};
-		var manageExternalLinkAll = function () {
-			var link = document[getElementsByTagName]("a") || "";
-			var isBindedClass = "external-link--is-binded";
+			};
 			var arrange = function (e) {
-				if (!e[classList].contains(isBindedClass)) {
+				var externalLinkIsBindedClass = "external-link--is-binded";
+				if (!e[classList].contains(externalLinkIsBindedClass)) {
 					var url = e[getAttribute]("href") || "";
 					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-						e[title] = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
 						if ("undefined" !== typeof getHTTP && getHTTP()) {
 							e.target = "_blank";
 							e.rel = "noopener";
 						} else {
 							e[_addEventListener]("click", handleExternalLink.bind(null, url));
 						}
-						e[classList].add(isBindedClass);
+						e[classList].add(externalLinkIsBindedClass);
 					}
 				}
 			};
@@ -1054,9 +1064,12 @@ VK, Ya*/
 							tblsort = new Tablesort(table);
 						}
 					};
-					for (var i = 0, l = tableSort[_length]; i < l; i += 1) {
+					var i,
+					l;
+					for (i = 0, l = tableSort[_length]; i < l; i += 1) {
 						arrange(tableSort[i]);
 					}
+					i = l = null;
 				}
 			};
 			if (tableSort && root.Tablesort) {
@@ -1084,10 +1097,12 @@ VK, Ya*/
 								gutter: 0
 							});
 					};
-					for (var i = 0, l = grid.length; i < l; i += 1) {
+					var i,
+					l;
+					for (i = 0, l = grid.length; i < l; i += 1) {
 						initMsnry(grid[i]);
 					}
-					/* forEach(grid, initMsnry, false); */
+					i = l = null;
 				} else {
 					if (root.Packery) {
 						if (pckry) {
@@ -1101,10 +1116,12 @@ VK, Ya*/
 									percentPosition: true
 								});
 						};
-						for (var j = 0, m = grid.length; j < m; j += 1) {
+						var j,
+						m;
+						for (j = 0, m = grid.length; j < m; j += 1) {
 							initPckry(grid[j]);
 						}
-						/* forEach(grid, initPckry, false); */
+						j = m = null;
 						if (root.Draggabilly) {
 							var draggie,
 							draggies = [],
@@ -1113,10 +1130,12 @@ VK, Ya*/
 								draggie = new Draggabilly(draggableElem, {});
 								draggies.push(draggie);
 							};
-							for (var k = 0, n = gridItem.length; k < n; k += 1) {
+							var k,
+							n;
+							for (k = 0, n = gridItem.length; k < n; k += 1) {
 								initDraggie(gridItem[k]);
 							}
-							/* forEach(gridItem, initDraggie, false); */
+							k = n = null;
 							if (pckry) {
 								pckry.bindDraggabillyEvents(draggie);
 							}
@@ -1159,8 +1178,6 @@ VK, Ya*/
 
 		var handleDataSrcImageAll = function () {
 			var img = document[getElementsByClassName]("data-src-img") || "";
-			var isActiveClass = "is-active";
-			var isBindedClass = "is-binded";
 			var arrange = function (e) {
 				if (verge.inY(e, 100)) {
 					if (!e[classList].contains(isBindedClass)) {
@@ -1182,9 +1199,12 @@ VK, Ya*/
 				}
 			};
 			if (img) {
-				for (var i = 0, l = img[_length]; i < l; i += 1) {
+				var i,
+				l;
+				for (i = 0, l = img[_length]; i < l; i += 1) {
 					arrange(img[i]);
 				}
+				i = l = null;
 			}
 		};
 
@@ -1205,8 +1225,6 @@ VK, Ya*/
 
 		var handleDataSrcIframeAll = function () {
 			var ifrm = document[getElementsByClassName]("data-src-iframe") || "";
-			var isActiveClass = "is-active";
-			var isBindedClass = "is-binded";
 			var arrange = function (e) {
 				if (verge.inY(e, 100)) {
 					if (!e[classList].contains(isBindedClass)) {
@@ -1230,9 +1248,12 @@ VK, Ya*/
 				}
 			};
 			if (ifrm) {
-				for (var i = 0, l = ifrm[_length]; i < l; i += 1) {
+				var i,
+				l;
+				for (i = 0, l = ifrm[_length]; i < l; i += 1) {
 					arrange(ifrm[i]);
 				}
+				i = l = null;
 			}
 		};
 
@@ -1351,7 +1372,6 @@ VK, Ya*/
 
 		var handleExpandingLayerAll = function () {
 			var _this = this;
-			var isActiveClass = "is-active";
 			var layer = _this[parentNode] ? _this[parentNode].nextElementSibling : "";
 			if (layer) {
 				_this[classList].toggle(isActiveClass);
@@ -1359,24 +1379,24 @@ VK, Ya*/
 			}
 			return;
 		};
-		var manageExpandingLayers = function (scope) {
-			var ctx = scope && scope.nodeName ? scope : "";
-			var btnClass = "btn-expand-hidden-layer";
-			var btn = ctx ? ctx[getElementsByClassName](btnClass) || "" : document[getElementsByClassName](btnClass) || "";
+		var manageExpandingLayers = function () {
+			var btn = document[getElementsByClassName]("btn-expand-hidden-layer") || "";
 			var addHandler = function (e) {
 				e[_addEventListener]("click", handleExpandingLayerAll);
 			};
 			if (btn) {
-				for (var i = 0, l = btn[_length]; i < l; i += 1) {
+				var i,
+				l;
+				for (i = 0, l = btn[_length]; i < l; i += 1) {
 					addHandler(btn[i]);
 				}
+				i = l = null;
 			}
 		};
 		manageExpandingLayers();
 
 		var handleSourceCodeLayerAll = function () {
 			var _this = this;
-			var isActiveClass = "is-active";
 			var layer = _this[parentNode] ? _this[parentNode].nextElementSibling : "";
 			if (layer) {
 				_this[classList].toggle(isActiveClass);
@@ -1392,10 +1412,12 @@ VK, Ya*/
 				e[_addEventListener]("click", handleSourceCodeLayerAll);
 			};
 			if (btn) {
-				for (var i = 0, l = btn[_length]; i < l; i += 1) {
+				var i,
+				l;
+				for (i = 0, l = btn[_length]; i < l; i += 1) {
 					addHandler(btn[i]);
 				}
-				/* forEach(btn, addHandler, false); */
+				i = l = null;
 			}
 		};
 		manageSourceCodeLayers();
@@ -1458,7 +1480,6 @@ VK, Ya*/
 			var panelNavMenu = document[getElementsByClassName]("panel-nav-menu")[0] || "";
 			var panelNavMenuItems = panelNavMenu ? panelNavMenu[getElementsByTagName]("a") || "" : "";
 			var holderPanelMenuMore = document[getElementsByClassName]("holder-panel-menu-more")[0] || "";
-			var isActiveClass = "is-active";
 			var locationHref = root.location.href || "";
 			var removeAllActiveClass = function () {
 				page[classList].remove(isActiveClass);
@@ -1526,9 +1547,12 @@ VK, Ya*/
 						if (panelNavMenu[classList].contains(isActiveClass)) {
 							removeHolderAndAllActiveClass();
 						}
-						for (var j = 0, l = panelNavMenuItems[_length]; j < l; j += 1) {
-							removeActiveClass(panelNavMenuItems[j]);
+						var i,
+						l;
+						for (i = 0, l = panelNavMenuItems[_length]; i < l; i += 1) {
+							removeActiveClass(panelNavMenuItems[i]);
 						}
+						i = l = null;
 						addActiveClass(e);
 					};
 					e[_addEventListener]("click", handleItem);
@@ -1538,9 +1562,12 @@ VK, Ya*/
 						removeActiveClass(e);
 					}
 				};
-				for (var i = 0, l = panelNavMenuItems[_length]; i < l; i += 1) {
+				var i,
+				l;
+				for (i = 0, l = panelNavMenuItems[_length]; i < l; i += 1) {
 					addItemHandler(panelNavMenuItems[i]);
 				}
+				i = l = null;
 			};
 			if (page && container && btnNavMenu && panelNavMenu && panelNavMenuItems) {
 				addContainerHandler();
@@ -1604,7 +1631,6 @@ VK, Ya*/
 			var panelMenuMore = document[getElementsByClassName]("panel-menu-more")[0] || "";
 			var panelMenuMoreItems = panelMenuMore ? panelMenuMore[getElementsByTagName]("li") || "" : "";
 			var panelNavMenu = document[getElementsByClassName]("panel-nav-menu")[0] || "";
-			var isActiveClass = "is-active";
 			var handleItem = function () {
 				page[classList].remove(isActiveClass);
 				holderPanelMenuMore[classList].remove(isActiveClass);
@@ -1627,9 +1653,12 @@ VK, Ya*/
 				var addItemHandler = function (e) {
 					e[_addEventListener]("click", handleItem);
 				};
-				for (var i = 0, l = panelMenuMoreItems[_length]; i < l; i += 1) {
+				var i,
+				l;
+				for (i = 0, l = panelMenuMoreItems[_length]; i < l; i += 1) {
 					addItemHandler(panelMenuMoreItems[i]);
 				}
+				i = l = null;
 			};
 			if (page && container && holderPanelMenuMore && btnMenuMore && panelMenuMore && panelMenuMoreItems) {
 				addContainerHandler();
@@ -1641,14 +1670,13 @@ VK, Ya*/
 
 		var hideOtherIsSocial = function (thisObj) {
 			var _thisObj = thisObj || this;
-			var isActiveClass = "is-active";
-			var isSocialAll = document[getElementsByClassName]("is-social") || "";
-			if (isSocialAll) {
+			var elem = document[getElementsByClassName]("is-social") || "";
+			if (elem) {
 				var k,
 				n;
-				for (k = 0, n = isSocialAll[_length]; k < n; k += 1) {
-					if (_thisObj !== isSocialAll[k]) {
-						isSocialAll[k][classList].remove(isActiveClass);
+				for (k = 0, n = elem[_length]; k < n; k += 1) {
+					if (_thisObj !== elem[k]) {
+						elem[k][classList].remove(isActiveClass);
 					}
 				}
 				k = n = null;
@@ -1663,7 +1691,6 @@ VK, Ya*/
 			var yaShare2 = document[getElementById](yaShare2Id) || "";
 			var locationHref = root.location || "";
 			var documentTitle = document[title] || "";
-			var isActiveClass = "is-active";
 			var handleShareButton = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
@@ -1719,7 +1746,6 @@ VK, Ya*/
 			var vkLike = document[getElementById](vkLikeId) || "";
 			var holderVkLike = document[getElementsByClassName]("holder-vk-like")[0] || "";
 			var btn = document[getElementsByClassName]("btn-show-vk-like")[0] || "";
-			var isActiveClass = "is-active";
 			var handleVKLikeButton = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
@@ -1835,7 +1861,6 @@ VK, Ya*/
 			var btn = document[getElementsByClassName]("btn-show-disqus")[0] || "";
 			var locationHref = root.location.href || "";
 			var disqusThreadShortname = disqusThread ? (disqusThread[dataset].shortname || "") : "";
-			var isActiveClass = "is-active";
 			var loadDisqus = function () {
 				var initScript = function () {
 					if (!disqs) {
@@ -1925,9 +1950,11 @@ VK, Ya*/
 						}
 					};
 					if (items) {
-						for (var i = 0; i < itemsLength; i += 1) {
+						var i;
+						for (i = 0; i < itemsLength; i += 1) {
 							limitKamilOutput(items[i], i);
 						}
+						i = null;
 					}
 					while (itemsLength < 1) {
 						var textValue = textInput.value;
@@ -1955,9 +1982,12 @@ VK, Ya*/
 						e.title = "" + truncText;
 					};
 					if (lis) {
-						for (var j = 0, m = lis[_length]; j < m; j += 1) {
+						var j,
+						m;
+						for (j = 0, m = lis[_length]; j < m; j += 1) {
 							truncateKamilText(lis[j]);
 						}
+						j = m = null;
 					}
 				};
 				var handleSuggestionLi = function (ev) {
@@ -1998,7 +2028,6 @@ VK, Ya*/
 		var initUiTotop = function () {
 			var btnClass = "ui-totop";
 			var btnTitle = "Наверх";
-			var isActiveClass = "is-active";
 			var anchor = document[createElement]("a");
 			var handleUiTotopAnchor = function (ev) {
 				ev.stopPropagation();

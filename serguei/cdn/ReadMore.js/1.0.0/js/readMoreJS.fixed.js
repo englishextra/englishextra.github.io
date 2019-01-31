@@ -15,7 +15,7 @@
 	var RM = {};
 	RM.helpers = {
 		extendObj: function () {
-			for (var i = 1, l = arguments.length; i < l; i++) {
+			for (var i = 1, l = arguments.length; i < l; i += 1) {
 				for (var key in arguments[i]) {
 					if (arguments[i].hasOwnProperty(key)) {
 						if (arguments[i][key] && arguments[i][key].constructor && arguments[i][key].constructor === Object) {

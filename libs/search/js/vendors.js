@@ -4596,7 +4596,7 @@ function _typeof(obj) {
 				i = 0,
 				l = this.length;
 
-			for (; i < l; i++) {
+			for (; i < l; i += 1) {
 				if (
 					this[i].nodeType === 1 &&
 					(" " + this[i].className + " ")
@@ -6326,7 +6326,7 @@ function _typeof(obj) {
 						? jQuery(selectors, context || this.context)
 						: 0;
 
-			for (; i < l; i++) {
+			for (; i < l; i += 1) {
 				for (
 					cur = this[i];
 					cur && cur !== context;
@@ -6734,7 +6734,7 @@ function _typeof(obj) {
 						value = value.replace(rxhtmlTag, "<$1></$2>");
 
 						try {
-							for (; i < l; i++) {
+							for (; i < l; i += 1) {
 								// Remove element nodes and prevent memory leaks
 								elem = this[i] || {};
 
@@ -6845,7 +6845,7 @@ function _typeof(obj) {
 					hasScripts = scripts.length; // Use the original fragment for the last item instead of the first because it can end up
 					// being emptied incorrectly in certain situations (#8070).
 
-					for (; i < l; i++) {
+					for (; i < l; i += 1) {
 						node = fragment;
 
 						if (i !== iNoClone) {
@@ -6956,7 +6956,7 @@ function _typeof(obj) {
 			curData.events = {};
 
 			for (type in events) {
-				for (i = 0, l = events[type].length; i < l; i++) {
+				for (i = 0, l = events[type].length; i < l; i += 1) {
 					jQuery.event.add(dest, type, events[type][i]);
 				}
 			}
@@ -7171,7 +7171,7 @@ function _typeof(obj) {
 				nodes = [],
 				i = 0;
 
-			for (; i < l; i++) {
+			for (; i < l; i += 1) {
 				elem = elems[i];
 
 				if (elem || elem === 0) {

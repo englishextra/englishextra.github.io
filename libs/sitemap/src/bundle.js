@@ -89,21 +89,25 @@ loadJsCss, Masonry, Packery, Promise, require, ToProgress, verge*/
 					zIndex: "auto"
 				};
 				if (opt && typeof opt === "object") {
-					for (var key in opt) {
+					var key;
+					for (key in opt) {
 						if (opt[hasOwnProperty](key)) {
 							this.options[key] = opt[key];
 						}
 					}
+					key = null;
 				}
 				this.options.opacityDuration = this.options.duration * 3;
 				this.progressBar = document[createElement]("div");
 				this.progressBar.id = this.options.id;
 				this.progressBar.setCSS = function (style) {
-					for (var property in style) {
+					var property;
+					for (property in style) {
 						if (style[hasOwnProperty](property)) {
 							this.style[property] = style[property];
 						}
 					}
+					property = null;
 				};
 				this.progressBar.setCSS({
 					"position": selector ? "relative" : "fixed",
@@ -306,13 +310,13 @@ loadJsCss, Masonry, Packery, Promise, require, ToProgress, verge*/
 			link.rel = "stylesheet";
 			link.type = "text/css";
 			link.href = file;
-			/* _this.head[appendChild](link); */
 			link.media = "only x";
 			link.onload = function () {
 				this.onload = null;
 				this.media = "all";
 			};
 			link[setAttribute]("property", "stylesheet");
+			/* _this.head[appendChild](link); */
 			(_this.body || _this.head)[appendChild](link);
 		};
 		_this.loadScript = function (i) {
@@ -373,7 +377,8 @@ loadJsCss, Masonry, Packery, Promise, require, ToProgress, verge*/
 	var defineProperty = "defineProperty";
 	var getOwnPropertyDescriptor = "getOwnPropertyDescriptor";
 	var querySelector = "querySelector";
-	var querySelectorAll = "querySelectorAll";	var _addEventListener = "addEventListener";
+	var querySelectorAll = "querySelectorAll";
+	var _addEventListener = "addEventListener";
 	var _length = "length";
 
 	var progressBar = new ToProgress({
@@ -422,6 +427,9 @@ loadJsCss, Masonry, Packery, Promise, require, ToProgress, verge*/
 		var title = "title";
 		var _addEventListener = "addEventListener";
 		var _removeEventListener = "removeEventListener";
+
+		var isActiveClass = "is-active";
+		var isBindedClass = "is-binded";
 
 		progressBar.increase(20);
 
@@ -744,29 +752,29 @@ loadJsCss, Masonry, Packery, Promise, require, ToProgress, verge*/
 			}
 		};
 
-		var handleExternalLink = function (url, ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			var logic = function () {
+		var manageExternalLinkAll = function () {
+			var link = document[getElementsByTagName]("a") || "";
+			var handleExternalLink = function (url, ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var logic = function () {
 					openDeviceBrowser(url);
 				};
 				debounce(logic, 200).call(root);
-		};
-		var manageExternalLinkAll = function () {
-			var link = document[getElementsByTagName]("a") || "";
-			var isBindedClass = "external-link--is-binded";
+			};
 			var arrange = function (e) {
-				if (!e[classList].contains(isBindedClass)) {
+				var externalLinkIsBindedClass = "external-link--is-binded";
+				if (!e[classList].contains(externalLinkIsBindedClass)) {
 					var url = e[getAttribute]("href") || "";
 					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-						e[title] = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
 						if ("undefined" !== typeof getHTTP && getHTTP()) {
 							e.target = "_blank";
 							e.rel = "noopener";
 						} else {
 							e[_addEventListener]("click", handleExternalLink.bind(null, url));
 						}
-						e[classList].add(isBindedClass);
+						e[classList].add(externalLinkIsBindedClass);
 					}
 				}
 			};
@@ -783,8 +791,6 @@ loadJsCss, Masonry, Packery, Promise, require, ToProgress, verge*/
 
 		var handleDataSrcImageAll = function () {
 			var img = document[getElementsByClassName]("data-src-img") || "";
-			var isActiveClass = "is-active";
-			var isBindedClass = "is-binded";
 			var arrange = function (e) {
 				/*!
 				 * true if elem is in same y-axis as the viewport or within 100px of it
@@ -810,10 +816,12 @@ loadJsCss, Masonry, Packery, Promise, require, ToProgress, verge*/
 				}
 			};
 			if (img) {
-				for (var i = 0, l = img[_length]; i < l; i += 1) {
+				var i,
+				l;
+				for (i = 0, l = img[_length]; i < l; i += 1) {
 					arrange(img[i]);
 				}
-				/* forEach(img, arrange, false); */
+				i = l = null;
 			}
 		};
 
@@ -868,16 +876,22 @@ loadJsCss, Masonry, Packery, Promise, require, ToProgress, verge*/
 						iso.arrange({
 							filter: _this.dataset.filter
 						});
-						for (var i = 0, l = btn.length; i < l; i += 1) {
+						var i,
+						l;
+						for (i = 0, l = btn.length; i < l; i += 1) {
 							btn[i].classList.remove("is-active");
 						}
 						_this.classList.add("is-active");
-						for (var j = 0, m = sel.options.length; j < m; j += 1) {
+						i = l = null;
+						var j,
+						m;
+						for (j = 0, m = sel.options.length; j < m; j += 1) {
 							if (sel.options[j].value === _this.dataset.filter) {
 								sel.selectedIndex = j;
 								break;
 							}
 						}
+						j = m = null;
 						var timer = setTimeout(function () {
 								clearTimeout(timer);
 								timer = null;
@@ -885,27 +899,36 @@ loadJsCss, Masonry, Packery, Promise, require, ToProgress, verge*/
 							}, 500);
 					};
 					if (btn) {
-						for (var i = 0, l = btn.length; i < l; i += 1) {
+						var i,
+						l;
+						for (i = 0, l = btn.length; i < l; i += 1) {
 							if (!btn[i].classList.contains("is-binded")) {
 								btn[i].addEventListener("click", handleFilterButtonAll);
 								btn[i].classList.add("is-binded");
 							}
 						}
+						i = l = null;
 					}
 					var handleFilterSelect = function () {
 						var _this = this;
 						iso.arrange({
 							filter: _this.options[_this.selectedIndex].value
 						});
-						for (var i = 0, l = btn.length; i < l; i += 1) {
+						var i,
+						l;
+						for (i = 0, l = btn.length; i < l; i += 1) {
 							btn[i].classList.remove("is-active");
 						}
-						for (var j = 0, m = btn.length; j < m; j += 1) {
+						i = l = null;
+						var j,
+						m;
+						for (j = 0, m = btn.length; j < m; j += 1) {
 							if (btn[j].dataset.filter === _this.options[_this.selectedIndex].value) {
 								btn[j].classList.add("is-active");
 								break;
 							}
 						}
+						j = m = null;
 						var timer = setTimeout(function () {
 								clearTimeout(timer);
 								timer = null;
@@ -960,10 +983,12 @@ loadJsCss, Masonry, Packery, Promise, require, ToProgress, verge*/
 									draggie = new Draggabilly(draggableElem, {});
 									draggies.push(draggie);
 								};
-								for (var j = 0, m = gridItem.length; j < m; j += 1) {
+								var j,
+								m;
+								for (j = 0, m = gridItem.length; j < m; j += 1) {
 									f(gridItem[j]);
 								}
-								/* forEach(gridItem, f, false); */
+								j = m = null;
 								if (pckry && draggie) {
 									pckry.bindDraggabillyEvents(draggie);
 								}
@@ -1001,7 +1026,6 @@ loadJsCss, Masonry, Packery, Promise, require, ToProgress, verge*/
 		var initUiTotop = function () {
 			var btnClass = "ui-totop";
 			var btnTitle = "Наверх";
-			var isActiveClass = "is-active";
 			var anchor = document[createElement]("a");
 			var handleUiTotopAnchor = function (ev) {
 				ev.stopPropagation();

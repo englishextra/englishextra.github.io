@@ -89,21 +89,25 @@ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 					zIndex: "auto"
 				};
 				if (opt && typeof opt === "object") {
-					for (var key in opt) {
+					var key;
+					for (key in opt) {
 						if (opt[hasOwnProperty](key)) {
 							this.options[key] = opt[key];
 						}
 					}
+					key = null;
 				}
 				this.options.opacityDuration = this.options.duration * 3;
 				this.progressBar = document[createElement]("div");
 				this.progressBar.id = this.options.id;
 				this.progressBar.setCSS = function (style) {
-					for (var property in style) {
+					var property;
+					for (property in style) {
 						if (style[hasOwnProperty](property)) {
 							this.style[property] = style[property];
 						}
 					}
+					property = null;
 				};
 				this.progressBar.setCSS({
 					"position": selector ? "relative" : "fixed",
@@ -254,13 +258,13 @@ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 			link.rel = "stylesheet";
 			link.type = "text/css";
 			link.href = file;
-			/* _this.head[appendChild](link); */
 			link.media = "only x";
 			link.onload = function () {
 				this.onload = null;
 				this.media = "all";
 			};
 			link[setAttribute]("property", "stylesheet");
+			/* _this.head[appendChild](link); */
 			(_this.body || _this.head)[appendChild](link);
 		};
 		_this.loadScript = function (i) {
@@ -386,7 +390,6 @@ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		var title = "title";
 
 		var isActiveClass = "is-active";
-		var isBindedClass = "is-binded";
 		var isFixedClass = "is-fixed";
 		var isHiddenClass = "is-hidden";
 
@@ -468,6 +471,58 @@ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 		var minigrid = document[getElementsByClassName](minigridClass)[0] || "";
 
 		observeMutations(minigrid);
+
+		var debounce = function (func, wait) {
+			var timeout;
+			var args;
+			var context;
+			var timestamp;
+			return function () {
+				context = this;
+				args = [].slice.call(arguments, 0);
+				timestamp = new Date();
+				var later = function () {
+					var last = (new Date()) - timestamp;
+					if (last < wait) {
+						timeout = setTimeout(later, wait - last);
+					} else {
+						timeout = null;
+						func.apply(context, args);
+					}
+				};
+				if (!timeout) {
+					timeout = setTimeout(later, wait);
+				}
+			};
+		};
+
+		var throttle = function (func, wait) {
+			var ctx;
+			var args;
+			var rtn;
+			var timeoutID;
+			var last = 0;
+			function call() {
+				timeoutID = 0;
+				last = +new Date();
+				rtn = func.apply(ctx, args);
+				ctx = null;
+				args = null;
+			}
+			return function throttled() {
+				ctx = this;
+				args = arguments;
+				var delta = new Date() - last;
+				if (!timeoutID) {
+					if (delta >= wait) {
+						call();
+					} else {
+						timeoutID = setTimeout(call, wait - delta);
+					}
+				}
+				return rtn;
+			};
+		};
 
 		/*jshint bitwise: false */
 		var parseLink = function (url, full) {
@@ -574,57 +629,42 @@ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 			}
 		};
 
-		var debounce = function (func, wait) {
-			var timeout;
-			var args;
-			var context;
-			var timestamp;
-			return function () {
-				context = this;
-				args = [].slice.call(arguments, 0);
-				timestamp = new Date();
-				var later = function () {
-					var last = (new Date()) - timestamp;
-					if (last < wait) {
-						timeout = setTimeout(later, wait - last);
-					} else {
-						timeout = null;
-						func.apply(context, args);
-					}
+		var manageExternalLinkAll = function () {
+			var link = document[getElementsByTagName]("a") || "";
+			var handleExternalLink = function (url, ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var logic = function () {
+					openDeviceBrowser(url);
 				};
-				if (!timeout) {
-					timeout = setTimeout(later, wait);
-				}
+				debounce(logic, 200).call(root);
 			};
-		};
-
-		var throttle = function (func, wait) {
-			var ctx;
-			var args;
-			var rtn;
-			var timeoutID;
-			var last = 0;
-			function call() {
-				timeoutID = 0;
-				last = +new Date();
-				rtn = func.apply(ctx, args);
-				ctx = null;
-				args = null;
-			}
-			return function throttled() {
-				ctx = this;
-				args = arguments;
-				var delta = new Date() - last;
-				if (!timeoutID) {
-					if (delta >= wait) {
-						call();
-					} else {
-						timeoutID = setTimeout(call, wait - delta);
+			var arrange = function (e) {
+				var externalLinkIsBindedClass = "external-link--is-binded";
+				if (!e[classList].contains(externalLinkIsBindedClass)) {
+					var url = e[getAttribute]("href") || "";
+					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+						if ("undefined" !== typeof getHTTP && getHTTP()) {
+							e.target = "_blank";
+							e.rel = "noopener";
+						} else {
+							e[_addEventListener]("click", handleExternalLink.bind(null, url));
+						}
+						e[classList].add(externalLinkIsBindedClass);
 					}
 				}
-				return rtn;
 			};
+			if (link) {
+				var i,
+				l;
+				for (i = 0, l = link[_length]; i < l; i += 1) {
+					arrange(link[i]);
+				}
+				i = l = null;
+			}
 		};
+		manageExternalLinkAll();
 
 		var scroll2Top = function (scrollTargetY, speed, easing) {
 			var scrollY = root.scrollY || docElem.scrollTop;
@@ -659,47 +699,6 @@ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 				}
 			}
 			tick();
-		};
-
-		var manageExternalLinkAll = function (scope) {
-			var context = scope && scope.nodeName ? scope : "";
-			var linkTag = "a";
-			var externalLinks = context ? context[getElementsByTagName](linkTag) || "" : document[getElementsByTagName](linkTag) || "";
-			var arrange = function (e) {
-				var handleExternalLink = function (url, evt) {
-					evt.stopPropagation();
-					evt.preventDefault();
-					var logic = function () {
-						openDeviceBrowser(url);
-					};
-					debounce(logic, 200).call(root);
-				};
-				if (!e[classList].contains(isBindedClass) &&
-						!e.target &&
-						!e.rel) {
-					var url = e[getAttribute]("href") || "";
-					if (url &&
-						parseLink(url).isCrossDomain &&
-						parseLink(url).hasHTTP) {
-						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
-						if ("undefined" !== typeof getHTTP && getHTTP()) {
-							e.target = "_blank";
-							e.rel = "noopener";
-						} else {
-							e[_addEventListener]("click", handleExternalLink.bind(null, url));
-						}
-						e[classList].add(isBindedClass);
-					}
-				}
-			};
-			if (externalLinks) {
-				var i;
-				var l;
-				for (i = 0, l = externalLinks[_length]; i < l; i += 1) {
-					arrange(externalLinks[i]);
-				}
-				i = l = null;
-			}
 		};
 
 		var wrapper = document[getElementsByClassName]("wrapper")[0] || "";
@@ -792,11 +791,13 @@ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 
 		var countObjKeys = function (obj) {
 			var count = 0;
-			for (var prop in obj) {
+			var prop;
+			for (prop in obj) {
 				if (obj.hasOwnProperty(prop)) {
 					++count;
 				}
 			}
+			prop = null;
 			return count;
 		};
 
@@ -1037,13 +1038,13 @@ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya */
 
 		var hideOtherIsSocial = function (thisObj) {
 			var _thisObj = thisObj || this;
-			var isSocialAll = document[getElementsByClassName]("is-social") || "";
-			if (isSocialAll) {
+			var elem = document[getElementsByClassName]("is-social") || "";
+			if (elem) {
 				var k,
 				n;
-				for (k = 0, n = isSocialAll[_length]; k < n; k += 1) {
-					if (_thisObj !== isSocialAll[k]) {
-						isSocialAll[k][classList].remove(isActiveClass);
+				for (k = 0, n = elem[_length]; k < n; k += 1) {
+					if (_thisObj !== elem[k]) {
+						elem[k][classList].remove(isActiveClass);
 					}
 				}
 				k = n = null;

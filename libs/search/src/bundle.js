@@ -88,21 +88,25 @@
 					zIndex: "auto"
 				};
 				if (opt && typeof opt === "object") {
-					for (var key in opt) {
+					var key;
+					for (key in opt) {
 						if (opt[hasOwnProperty](key)) {
 							this.options[key] = opt[key];
 						}
 					}
+					key = null;
 				}
 				this.options.opacityDuration = this.options.duration * 3;
 				this.progressBar = document[createElement]("div");
 				this.progressBar.id = this.options.id;
 				this.progressBar.setCSS = function (style) {
-					for (var property in style) {
+					var property;
+					for (property in style) {
 						if (style[hasOwnProperty](property)) {
 							this.style[property] = style[property];
 						}
 					}
+					property = null;
 				};
 				this.progressBar.setCSS({
 					"position": selector ? "relative" : "fixed",
@@ -253,13 +257,13 @@
 			link.rel = "stylesheet";
 			link.type = "text/css";
 			link.href = file;
-			/* _this.head[appendChild](link); */
 			link.media = "only x";
 			link.onload = function () {
 				this.onload = null;
 				this.media = "all";
 			};
 			link[setAttribute]("property", "stylesheet");
+			/* _this.head[appendChild](link); */
 			(_this.body || _this.head)[appendChild](link);
 		};
 		_this.loadScript = function (i) {
@@ -320,7 +324,8 @@
 	var defineProperty = "defineProperty";
 	var getOwnPropertyDescriptor = "getOwnPropertyDescriptor";
 	var querySelector = "querySelector";
-	var querySelectorAll = "querySelectorAll";	var _addEventListener = "addEventListener";
+	var querySelectorAll = "querySelectorAll";
+	var _addEventListener = "addEventListener";
 	var _length = "length";
 
 	var progressBar = new ToProgress({
@@ -365,6 +370,8 @@
 		var getElementsByClassName = "getElementsByClassName";
 		var getElementsByTagName = "getElementsByTagName";
 		var title = "title";
+
+		var isActiveClass = "is-active";
 
 		progressBar.increase(20);
 
@@ -687,29 +694,29 @@
 			}
 		};
 
-		var handleExternalLink = function (url, ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			var logic = function () {
+		var manageExternalLinkAll = function () {
+			var link = document[getElementsByTagName]("a") || "";
+			var handleExternalLink = function (url, ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var logic = function () {
 					openDeviceBrowser(url);
 				};
 				debounce(logic, 200).call(root);
-		};
-		var manageExternalLinkAll = function () {
-			var link = document[getElementsByTagName]("a") || "";
-			var isBindedClass = "external-link--is-binded";
+			};
 			var arrange = function (e) {
-				if (!e[classList].contains(isBindedClass)) {
+				var externalLinkIsBindedClass = "external-link--is-binded";
+				if (!e[classList].contains(externalLinkIsBindedClass)) {
 					var url = e[getAttribute]("href") || "";
 					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-						e[title] = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
 						if ("undefined" !== typeof getHTTP && getHTTP()) {
 							e.target = "_blank";
 							e.rel = "noopener";
 						} else {
 							e[_addEventListener]("click", handleExternalLink.bind(null, url));
 						}
-						e[classList].add(isBindedClass);
+						e[classList].add(externalLinkIsBindedClass);
 					}
 				}
 			};
@@ -830,7 +837,6 @@
 			var panelNavMenu = document[getElementsByClassName]("panel-nav-menu")[0] || "";
 			var panelNavMenuItems = panelNavMenu ? panelNavMenu[getElementsByTagName]("a") || "" : "";
 			var holderPanelMenuMore = document[getElementsByClassName]("holder-panel-menu-more")[0] || "";
-			var isActiveClass = "is-active";
 			var locationHref = root.location.href || "";
 			var removeAllActiveClass = function () {
 				page[classList].remove(isActiveClass);
@@ -898,9 +904,12 @@
 						if (panelNavMenu[classList].contains(isActiveClass)) {
 							removeHolderAndAllActiveClass();
 						}
-						for (var j = 0, l = panelNavMenuItems[_length]; j < l; j += 1) {
-							removeActiveClass(panelNavMenuItems[j]);
+						var i,
+						l;
+						for (i = 0, l = panelNavMenuItems[_length]; i < l; i += 1) {
+							removeActiveClass(panelNavMenuItems[i]);
 						}
+						i = l = null;
 						addActiveClass(e);
 					};
 					e[_addEventListener]("click", handleItem);
@@ -910,9 +919,12 @@
 						removeActiveClass(e);
 					}
 				};
-				for (var i = 0, l = panelNavMenuItems[_length]; i < l; i += 1) {
+				var i,
+				l;
+				for (i = 0, l = panelNavMenuItems[_length]; i < l; i += 1) {
 					addItemHandler(panelNavMenuItems[i]);
 				}
+				i = l = null;
 			};
 			if (page && container && btnNavMenu && panelNavMenu && panelNavMenuItems) {
 				addContainerHandler();
@@ -925,7 +937,6 @@
 		var initUiTotop = function () {
 			var btnClass = "ui-totop";
 			var btnTitle = "Наверх";
-			var isActiveClass = "is-active";
 			var anchor = document[createElement]("a");
 			var handleUiTotopAnchor = function (ev) {
 				ev.stopPropagation();

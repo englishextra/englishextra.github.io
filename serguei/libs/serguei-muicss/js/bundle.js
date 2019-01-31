@@ -266,13 +266,13 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			link.rel = "stylesheet";
 			link.type = "text/css";
 			link.href = file;
-			/* _this.head[appendChild](link); */
 			link.media = "only x";
 			link.onload = function () {
 				this.onload = null;
 				this.media = "all";
 			};
 			link[setAttribute]("property", "stylesheet");
+			/* _this.head[appendChild](link); */
 			(_this.body || _this.head)[appendChild](link);
 		};
 		_this.loadScript = function (i) {
@@ -385,6 +385,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		var style = "style";
 		var title = "title";
 		var _removeEventListener = "removeEventListener";
+
 		var isActiveClass = "is-active";
 		var isBindedClass = "is-binded";
 
@@ -769,6 +770,43 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
+		var manageExternalLinkAll = function () {
+			var link = document[getElementsByTagName]("a") || "";
+			var handleExternalLink = function (url, ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var logic = function () {
+					openDeviceBrowser(url);
+				};
+				debounce(logic, 200).call(root);
+			};
+			var arrange = function (e) {
+				var externalLinkIsBindedClass = "external-link--is-binded";
+				if (!e[classList].contains(externalLinkIsBindedClass)) {
+					var url = e[getAttribute]("href") || "";
+					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+						if ("undefined" !== typeof getHTTP && getHTTP()) {
+							e.target = "_blank";
+							e.rel = "noopener";
+						} else {
+							e[_addEventListener]("click", handleExternalLink.bind(null, url));
+						}
+						e[classList].add(externalLinkIsBindedClass);
+					}
+				}
+			};
+			if (link) {
+				var i,
+				l;
+				for (i = 0, l = link[_length]; i < l; i += 1) {
+					arrange(link[i]);
+				}
+				i = l = null;
+			}
+		};
+		manageExternalLinkAll();
+
 		var renderTemplate = function (parsedJson, templateId, targetId) {
 			var template = document[getElementById](templateId) || "";
 			var target = document[getElementById](targetId) || "";
@@ -830,43 +868,6 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 				}
 			}
 		};
-
-		var manageExternalLinkAll = function () {
-			var link = document[getElementsByTagName]("a") || "";
-			var handleExternalLink = function (url, ev) {
-				ev.stopPropagation();
-				ev.preventDefault();
-				var logic = function () {
-					openDeviceBrowser(url);
-				};
-				debounce(logic, 200).call(root);
-			};
-			var arrange = function (e) {
-				var externalLinkIsBindedClass = "external-link--is-binded";
-				if (!e[classList].contains(externalLinkIsBindedClass)) {
-					var url = e[getAttribute]("href") || "";
-					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
-						if ("undefined" !== typeof getHTTP && getHTTP()) {
-							e.target = "_blank";
-							e.rel = "noopener";
-						} else {
-							e[_addEventListener]("click", handleExternalLink.bind(null, url));
-						}
-						e[classList].add(externalLinkIsBindedClass);
-					}
-				}
-			};
-			if (link) {
-				var i,
-				l;
-				for (i = 0, l = link[_length]; i < l; i += 1) {
-					arrange(link[i]);
-				}
-				i = l = null;
-			}
-		};
-		manageExternalLinkAll();
 
 		var handleDataSrcImageAll = function (callback) {
 			var cb = function () {
@@ -1633,10 +1634,11 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		};
 
 		var manageInstagramEmbeds = function () {
-			var instagramMedia = document[getElementsByClassName]("instagram-media")[0] || "";
+			var instagramMediaClass = "instagram-media";
+			var instagramMedia = document[getElementsByClassName](instagramMediaClass)[0] || "";
 			var initScript = function () {
 				try {
-					var instagramMedia = document[getElementsByClassName]("instagram-media") || "";
+					var instagramMedia = document[getElementsByClassName](instagramMediaClass) || "";
 					if (instagramMedia) {
 						instgrm.Embeds.process();
 						var i,
@@ -1666,10 +1668,11 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		};
 
 		var manageTwitterEmbeds = function () {
-			var twitterTweet = document[getElementsByClassName]("twitter-tweet")[0] || "";
+			var twitterTweetClass = "twitter-tweet";
+			var twitterTweet = document[getElementsByClassName](twitterTweetClass)[0] || "";
 			var initScript = function () {
 				try {
-					var twitterTweet = document[getElementsByClassName]("twitter-tweet") || "";
+					var twitterTweet = document[getElementsByClassName](twitterTweetClass) || "";
 					if (twitterTweet) {
 						twttr.widgets.load();
 						var i,
@@ -1699,7 +1702,8 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		};
 
 		var manageVkEmbeds = function () {
-			var vkPost = document[getElementsByClassName]("vk-post")[0] || "";
+			var vkPostClass = "vk-post";
+			var vkPost = document[getElementsByClassName](vkPostClass)[0] || "";
 			var initScript = function () {
 				var initVkPost = function (element_id, owner_id, post_id, hash) {
 					if (!VK.Widgets.Post(element_id, owner_id, post_id, hash)) {
@@ -1707,7 +1711,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 					}
 				};
 				try {
-					var vkPost = document[getElementsByClassName]("vk-post") || "";
+					var vkPost = document[getElementsByClassName](vkPostClass) || "";
 					if (vkPost) {
 						var i,
 						l;
@@ -2292,13 +2296,13 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		onFontsLoaded();
 	};
 
-	var loadDeferred = function () {
+	var loadDeferred = function (urlArray, callback) {
 		var timer;
 		var logic = function () {
 			clearTimeout(timer);
 			timer = null;
 			var load;
-			load = new loadJsCss(["./libs/serguei-muicss/css/vendors.min.css"], onFontsLoadedCallback);
+			load = new loadJsCss(urlArray, callback);
 		};
 		var req;
 		var raf = function () {
@@ -2311,7 +2315,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			root[_addEventListener]("load", logic);
 		}
 	};
-	loadDeferred();
+	loadDeferred(["./libs/serguei-muicss/css/vendors.min.css"], onFontsLoadedCallback);
 
 	/* root.WebFontConfig = {
 		google: {

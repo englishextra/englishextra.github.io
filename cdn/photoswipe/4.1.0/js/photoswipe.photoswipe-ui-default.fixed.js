@@ -3020,7 +3020,7 @@
 					return;
 				}
 				var l = sChildren.length;
-				for (var i = 0; i < l; i++) {
+				for (var i = 0; i < l; i += 1) {
 					item = sChildren[i];
 					classAttr = item.className;
 					for (var a = 0; a < _uiElements.length; a++) {

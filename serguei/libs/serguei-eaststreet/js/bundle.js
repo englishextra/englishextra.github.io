@@ -90,21 +90,25 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 					zIndex: "auto"
 				};
 				if (opt && typeof opt === "object") {
-					for (var key in opt) {
+					var key;
+					for (key in opt) {
 						if (opt[hasOwnProperty](key)) {
 							this.options[key] = opt[key];
 						}
 					}
+					key = null;
 				}
 				this.options.opacityDuration = this.options.duration * 3;
 				this.progressBar = document[createElement]("div");
 				this.progressBar.id = this.options.id;
 				this.progressBar.setCSS = function (style) {
-					for (var property in style) {
+					var property;
+					for (property in style) {
 						if (style[hasOwnProperty](property)) {
 							this.style[property] = style[property];
 						}
 					}
+					property = null;
 				};
 				this.progressBar.setCSS({
 					"position": selector ? "relative" : "fixed",
@@ -307,13 +311,13 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 			link.rel = "stylesheet";
 			link.type = "text/css";
 			link.href = file;
-			/* _this.head[appendChild](link); */
 			link.media = "only x";
 			link.onload = function () {
 				this.onload = null;
 				this.media = "all";
 			};
 			link[setAttribute]("property", "stylesheet");
+			/* _this.head[appendChild](link); */
 			(_this.body || _this.head)[appendChild](link);
 		};
 		_this.loadScript = function (i) {
@@ -437,6 +441,9 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 		var title = "title";
 		var _addEventListener = "addEventListener";
 		var _removeEventListener = "removeEventListener";
+
+		var isActiveClass = "is-active";
+		var isBindedClass = "is-binded";
 
 		progressBar.increase(20);
 
@@ -800,6 +807,43 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 			}
 		};
 
+		var manageExternalLinkAll = function () {
+			var link = document[getElementsByTagName]("a") || "";
+			var handleExternalLink = function (url, ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var logic = function () {
+					openDeviceBrowser(url);
+				};
+				debounce(logic, 200).call(root);
+			};
+			var arrange = function (e) {
+				var externalLinkIsBindedClass = "external-link--is-binded";
+				if (!e[classList].contains(externalLinkIsBindedClass)) {
+					var url = e[getAttribute]("href") || "";
+					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+						if ("undefined" !== typeof getHTTP && getHTTP()) {
+							e.target = "_blank";
+							e.rel = "noopener";
+						} else {
+							e[_addEventListener]("click", handleExternalLink.bind(null, url));
+						}
+						e[classList].add(externalLinkIsBindedClass);
+					}
+				}
+			};
+			if (link) {
+				var i,
+				l;
+				for (i = 0, l = link[_length]; i < l; i += 1) {
+					arrange(link[i]);
+				}
+				i = l = null;
+			}
+		};
+		manageExternalLinkAll();
+
 		var loadUnparsedJSON = function (url, callback, onerror) {
 			var cb = function (string) {
 				return callback && "function" === typeof callback && callback(string);
@@ -845,7 +889,8 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 				a = "f,dult`;pbqrkvyjghcnea[wxio]ms'.zF<DULT~:PBQRKVYJGHCNEA{WXIO}MS'>Z@#$^&|/?";
 				b = '\u0430\u0431\u0432\u0433\u0434\u0435\u0451\u0436\u0437\u0438\u0439\u043a\u043b\u043c\u043d\u043e\u043f\u0440\u0441\u0442\u0443\u0444\u0445\u0446\u0447\u0448\u0449\u044a\u044c\u044b\u044d\u044e\u044f\u0410\u0411\u0412\u0413\u0414\u0415\u0401\u0416\u0417\u0418\u0419\u041a\u041b\u041c\u041d\u041e\u041f\u0420\u0421\u0422\u0423\u0424\u0425\u0426\u0427\u0428\u0429\u042a\u042c\u042b\u042d\u042e\u042f"\u2116;:?/.,';
 			}
-			for (var d = 0; d < e[_length]; d++) {
+			var d;
+			for (d = 0; d < e[_length]; d += 1) {
 				var f = a.indexOf(e.charAt(d));
 				if (c > f) {
 					c += e.charAt(d);
@@ -853,6 +898,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 					c += b.charAt(f);
 				}
 			}
+			d = null;
 			return c;
 		};
 
@@ -1006,11 +1052,13 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 				"datum": defaultDatum,
 				"days": 0,
 			};
-			for (var i in opt) {
+			var i;
+			for (i in opt) {
 				if (opt.hasOwnProperty(i)) {
 					settings[i] = opt[i];
 				}
 			}
+			i = null;
 			var cookieKey = Cookies.get(settings.key) || "";
 			if (cookieKey && cookieKey === decodeURIComponent(settings.datum)) {
 				return;
@@ -1226,10 +1274,12 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 					var g = function (e) {
 						e[_addEventListener]("click", handleOverlaySidepanel);
 					};
-					for (var i = 0, l = items[_length]; i < l; i += 1) {
+					var i,
+					l;
+					for (i = 0, l = items[_length]; i < l; i += 1) {
 						g(items[i]);
 					}
-					/* forEach(items, g, false); */
+					i = l = null;
 				}
 				docBody[_addEventListener]("click", handleOverlaySidepanel);
 			};
@@ -1242,7 +1292,6 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 		var highlightSidepanelItem = function () {
 			var panel = document[getElementsByClassName]("ui-sidepanel-list")[0] || "";
 			var items = panel ? panel[getElementsByTagName]("a") || "" : "";
-			var isActiveClass = "is-active";
 			var locationHref = root.location.href || "";
 			var addItemHandler = function (e) {
 				if (locationHref === e.href) {
@@ -1258,7 +1307,6 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 					addItemHandler(items[i]);
 				}
 				i = l = null;
-				/* forEach(items, addItemHandler, false); */
 			};
 			if (panel && items && locationHref) {
 				addItemHandlerAll();
@@ -1310,10 +1358,12 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 					var addItemHandler = function (e) {
 						e[_addEventListener]("click", handleItem);
 					};
-					for (var i = 0, l = items[_length]; i < l; i += 1) {
+					var i,
+					l;
+					for (i = 0, l = items[_length]; i < l; i += 1) {
 						addItemHandler(items[i]);
 					}
-					/* forEach(items, addItemHandler, false); */
+					i = l = null;
 				}
 			};
 			if (btn && page) {
@@ -1322,47 +1372,8 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 		};
 		initMenuMore();
 
-		var handleExternalLink = function (url, ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			var logic = function () {
-					openDeviceBrowser(url);
-				};
-				debounce(logic, 200).call(root);
-		};
-		var manageExternalLinkAll = function () {
-			var link = document[getElementsByTagName]("a") || "";
-			var arrange = function (e) {
-				var externalLinkIsBindedClass = "external-link--is-binded";
-				if (!e[classList].contains(externalLinkIsBindedClass)) {
-					var url = e[getAttribute]("href") || "";
-					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
-						if ("undefined" !== typeof getHTTP && getHTTP()) {
-							e.target = "_blank";
-							e.rel = "noopener";
-						} else {
-							e[_addEventListener]("click", handleExternalLink.bind(null, url));
-						}
-						e[classList].add(externalLinkIsBindedClass);
-					}
-				}
-			};
-			if (link) {
-				var i,
-				l;
-				for (i = 0, l = link[_length]; i < l; i += 1) {
-					arrange(link[i]);
-				}
-				i = l = null;
-			}
-		};
-		manageExternalLinkAll();
-
 		var handleDataSrcImageAll = function () {
 			var img = document[getElementsByClassName]("data-src-img") || "";
-			var isActiveClass = "is-active";
-			var isBindedClass = "is-binded";
 			var arrange = function (e) {
 				if (verge.inY(e, 100)) {
 					if (!e[classList].contains(isBindedClass)) {
@@ -1384,9 +1395,12 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 				}
 			};
 			if (img) {
-				for (var i = 0, l = img[_length]; i < l; i += 1) {
+				var i,
+				l;
+				for (i = 0, l = img[_length]; i < l; i += 1) {
 					arrange(img[i]);
 				}
+				i = l = null;
 			}
 		};
 
@@ -1407,8 +1421,6 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 
 		var handleDataSrcIframeAll = function () {
 			var ifrm = document[getElementsByClassName]("data-src-iframe") || "";
-			var isActiveClass = "is-active";
-			var isBindedClass = "is-binded";
 			var arrange = function (e) {
 				if (verge.inY(e, 100)) {
 					if (!e[classList].contains(isBindedClass)) {
@@ -1432,9 +1444,12 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 				}
 			};
 			if (ifrm) {
-				for (var i = 0, l = ifrm[_length]; i < l; i += 1) {
+				var i,
+				l;
+				for (i = 0, l = ifrm[_length]; i < l; i += 1) {
 					arrange(ifrm[i]);
 				}
+				i = l = null;
 			}
 		};
 
@@ -1607,7 +1622,6 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 
 		var handleExpandingLayerAll = function () {
 			var _this = this;
-			var isActiveClass = "is-active";
 			var layer = _this[parentNode] ? _this[parentNode].nextElementSibling : "";
 			if (layer) {
 				_this[classList].toggle(isActiveClass);
@@ -1615,18 +1629,18 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 			}
 			return;
 		};
-		var manageExpandingLayers = function (scope) {
-			var ctx = scope && scope.nodeName ? scope : "";
-			var btnClass = "btn-expand-hidden-layer";
-			var btn = ctx ? ctx[getElementsByClassName](btnClass) || "" : document[getElementsByClassName](btnClass) || "";
+		var manageExpandingLayers = function () {
+			var btn = document[getElementsByClassName]("btn-expand-hidden-layer") || "";
 			var addHandler = function (e) {
 				e[_addEventListener]("click", handleExpandingLayerAll);
 			};
 			if (btn) {
-				for (var i = 0, l = btn[_length]; i < l; i += 1) {
+				var i,
+				l;
+				for (i = 0, l = btn[_length]; i < l; i += 1) {
 					addHandler(btn[i]);
 				}
-				/* forEach(btn, addHandler, false); */
+				i = l = null;
 			}
 		};
 
@@ -1673,10 +1687,8 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 			}
 		};
 
-		var manageDataTargetLinks = function (scope) {
-			var ctx = scope && scope.nodeName ? scope : "";
-			var linkClass = "data-target-link";
-			var link = ctx ? ctx[getElementsByClassName](linkClass) || "" : document[getElementsByClassName](linkClass) || "";
+		var manageDataTargetLinks = function () {
+			var link = document[getElementsByClassName]("data-target-link") || "";
 			var arrangeAll = function () {
 				var arrange = function (e) {
 					var includeUrl = e[dataset].include || "",
@@ -1698,7 +1710,6 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 					arrange(link[i]);
 				}
 				i = l = null;
-				/* forEach(a, arrange, false); */
 			};
 			if (link) {
 				arrangeAll();
@@ -1727,10 +1738,12 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 						debugMessage.push((e.className ? "." + e.className : e.id ? "#" + e.id : e.tagName), " ", root.getComputedStyle(e).getPropertyValue("font-size"), " ", root.getComputedStyle(e).getPropertyValue("line-height"), " ", e.offsetWidth, "x", e.offsetHeight, " \u003e ");
 					}
 				};
-				for (var i = 0, l = elements[_length]; i < l; i += 1) {
+				var i,
+				l;
+				for (i = 0, l = elements[_length]; i < l; i += 1) {
 					renderElementsInfo(elements[i]);
 				}
-				/* forEach(elements, renderElementsInfo, false); */
+				i = l = null;
 				debugMessage = debugMessage.join("");
 				debugMessage = debugMessage.slice(0, debugMessage.lastIndexOf(" \u003e "));
 				notiBar({
@@ -1989,7 +2002,6 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 
 		var loadRefreshDisqus = function () {
 			var disqusThread = document[getElementById]("disqus_thread") || "";
-			var isActiveClass = "is-active";
 			var btn = document[getElementsByClassName]("btn-show-disqus")[0] || "";
 			var locationHref = root.location.href || "";
 			var disqusThreadShortname = disqusThread ? (disqusThread[dataset].shortname || "") : "";
@@ -2049,7 +2061,6 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 			var btnDestroy = yandexMap ? (document[getElementById](yandexMap[dataset].btnDestroy) || "") : "";
 			var yandexMapCenter = yandexMap ? (yandexMap[dataset].center || "") : "";
 			var yandexMapZoom = yandexMap ? (yandexMap[dataset].zoom || "") : "";
-			var isActiveClass = "is-active";
 			var handleYandexMapBtnDestroy = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
@@ -2172,12 +2183,11 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 						}
 					};
 					if (items) {
-						for (var i = 0; i < itemsLength; i += 1) {
+						var i;
+						for (i = 0; i < itemsLength; i += 1) {
 							limitKamilOutput(items[i], i);
 						}
-						/* forEach(items, function (e, i) {
-							limitKamilOutput(e, i);
-						}, false); */
+						i = null;
 					}
 					/*!
 					 * fix typo - non latin characters found
@@ -2211,10 +2221,12 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 						e.title = "" + truncText;
 					};
 					if (lis) {
-						for (var j = 0, m = lis[_length]; j < m; j += 1) {
+						var j,
+						m;
+						for (j = 0, m = lis[_length]; j < m; j += 1) {
 							truncateKamilText(lis[j]);
 						}
-						/* forEach(lis, truncateKamilText, false); */
+						j = m = null;
 					}
 				};
 				/*!
@@ -2271,7 +2283,6 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 		var initRoutie = function () {
 			var appContentId = "app-content";
 			var appContent = document[getElementById](appContentId) || "";
-			var appContentParent = appContent[parentNode] || "";
 			var loadVirtualPage = function (c, h, f) {
 				if (c && h) {
 					LoadingSpinner.show();
@@ -2288,14 +2299,14 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 						clearTimeout(timer);
 						timer = null;
 						manageYandexMapButton("ymap");
-						manageDisqusButton(appContentParent);
+						manageDisqusButton();
 						manageExternalLinkAll();
-						manageDataTargetLinks(appContentParent);
+						manageDataTargetLinks();
 						manageImgLightbox(imgLightboxLinkClass);
 						manageIframeLightbox(iframeLightboxLinkClass);
 						manageDataQrcodeImageAll();
-						manageChaptersSelect(appContentParent);
-						manageExpandingLayers(appContentParent);
+						manageChaptersSelect();
+						manageExpandingLayers();
 						handleDataSrcImageAll();
 					}, 100);
 				LoadingSpinner.hide(scroll2Top.bind(null, 0, 20000));
@@ -2378,7 +2389,6 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 		var initUiTotop = function () {
 			var btnClass = "ui-totop";
 			var btnTitle = "Наверх";
-			var isActiveClass = "is-active";
 			var anchor = document[createElement]("a");
 			var handleUiTotopAnchor = function (ev) {
 				ev.stopPropagation();
