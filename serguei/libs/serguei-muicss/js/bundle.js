@@ -1310,7 +1310,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 							throw new Error("cannot yshare.updateContent or Ya.share2 " + err);
 						}
 					};
-					if (!root.Ya) {
+					if (!root.Ya.share2) {
 						var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
 						var load;
 						load = new loadJsCss([jsUrl], initScript);

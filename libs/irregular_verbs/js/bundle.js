@@ -1012,7 +1012,7 @@ ToProgress, unescape, VK, Ya*/
 					yaShare2[classList].toggle(isActiveClass);
 					hideOtherIsSocial(yaShare2);
 					var initScript = function () {
-						if (root.Ya) {
+						if (root.Ya.share2) {
 							try {
 								if (yshare) {
 									yshare.updateContent({
@@ -1034,7 +1034,7 @@ ToProgress, unescape, VK, Ya*/
 							}
 						}
 					};
-					if (!root.Ya) {
+					if (!root.Ya.share2) {
 						var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
