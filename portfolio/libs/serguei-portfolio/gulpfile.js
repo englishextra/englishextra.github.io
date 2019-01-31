@@ -214,7 +214,8 @@ var options = {
 	vendors: {
 		src: [
 			"../../cdn/verge/1.9.1/js/verge.fixed.js",
-			"../../cdn/Tocca.js/2.0.1/js/Tocca.fixed.js"
+			"../../cdn/Tocca.js/2.0.1/js/Tocca.fixed.js",
+			"../../cdn/qrjs2/0.1.7/js/qrjs2.fixed.js"
 		],
 		js: "./js",
 		concatOptions: {
