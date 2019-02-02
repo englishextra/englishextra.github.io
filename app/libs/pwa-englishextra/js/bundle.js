@@ -79,6 +79,7 @@ VK, Ya*/
 						}
 					}
 				}
+				t = null;
 			}
 			var transitionEvent = whichTransitionEvent();
 			function ToProgress(opt, selector) {
@@ -471,7 +472,7 @@ VK, Ya*/
 	var forcedHTTP = getHTTP(true);
 
 	var supportsCanvas;
-	supportsCanvas	= (function () {
+	supportsCanvas = (function () {
 		var elem = document[createElement]("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
 	})();
@@ -685,6 +686,18 @@ VK, Ya*/
 				}
 				return rtn;
 			};
+		};
+
+		var setStyleDisplayBlock = function (a) {
+			if (a) {
+				a[style].display = "block";
+			}
+		};
+
+		var setStyleDisplayNone = function (a) {
+			if (a) {
+				a[style].display = "none";
+			}
 		};
 
 		var scroll2Top = function (scrollTargetY, speed, easing) {
@@ -1219,7 +1232,7 @@ VK, Ya*/
 					touch: false
 				});
 			};
-			if (link && root.imgLightbox) {
+			if (root.imgLightbox && link) {
 				initScript();
 			}
 		};
@@ -1254,7 +1267,7 @@ VK, Ya*/
 				}
 				i = l = null;
 			};
-			if (link && root.IframeLightbox) {
+			if (root.IframeLightbox && link) {
 				initScript();
 			}
 		};
@@ -1485,7 +1498,7 @@ VK, Ya*/
 			var disqusThreadShortname = disqusThread ? (disqusThread[dataset].shortname || "") : "";
 			var hideDisqusButton = function () {
 				disqusThread[classList].add(isActiveClass);
-				btn[style].display = "none";
+				setStyleDisplayNone(btn);
 			};
 			var hideDisqusThread = function () {
 				removeChildren(disqusThread);
@@ -1501,20 +1514,18 @@ VK, Ya*/
 					ev.preventDefault();
 					var logic = function () {
 						var initScript = function () {
-							if (root.DISQUS) {
-								try {
-									DISQUS.reset({
-										reload: true,
-										config: function () {
-											this.page.identifier = disqusThreadShortname;
-											this.page.url = locationHref;
-										}
-									});
-									btn[_removeEventListener]("click", handleDisqusButton);
-									hideDisqusButton();
-								} catch (err) {
-									throw new Error("cannot DISQUS.reset " + err);
-								}
+							try {
+								DISQUS.reset({
+									reload: true,
+									config: function () {
+										this.page.identifier = disqusThreadShortname;
+										this.page.url = locationHref;
+									}
+								});
+								btn[_removeEventListener]("click", handleDisqusButton);
+								hideDisqusButton();
+							} catch (err) {
+								throw new Error("cannot DISQUS.reset " + err);
 							}
 						};
 						var jsUrl = forcedHTTP + "://" + disqusThreadShortname + ".disqus.com/embed.js";
@@ -1720,12 +1731,12 @@ VK, Ya*/
 				var typoAutcompleteList = document[createElement]("ul");
 				var typoListItem = document[createElement]("li");
 				var handleTypoSuggestion = function () {
-					typoAutcompleteList[style].display = "none";
-					typoListItem[style].display = "none";
+					setStyleDisplayNone(typoAutcompleteList);
+					setStyleDisplayNone(typoListItem);
 				};
 				var showTypoSuggestion = function () {
-					typoAutcompleteList[style].display = "block";
-					typoListItem[style].display = "block";
+					setStyleDisplayBlock(typoAutcompleteList);
+					setStyleDisplayBlock(typoListItem);
 				};
 				typoAutcompleteList[classList].add(typoAutcompleteListClass);
 				typoAutcompleteList.id = typoAutcompleteListSelector;
@@ -1855,7 +1866,7 @@ VK, Ya*/
 					}
 				});
 			};
-			if (searchForm && textInput && root.Kamil) {
+			if (root.Kamil && searchForm && textInput) {
 				initScript();
 			}
 		};
@@ -2002,7 +2013,7 @@ VK, Ya*/
 		var handleOtherSocialButtons = function (_self) {
 			var _this = _self || this;
 			var btn = document[getElementsByClassName](isCollapsableClass) || "";
-			var removeActiveClass = function (e) {
+			var arrange = function (e) {
 				if (_this !== e) {
 					e[classList].remove(isActiveClass);
 				}
@@ -2011,7 +2022,7 @@ VK, Ya*/
 				var i,
 				l;
 				for (i = 0, l = btn[_length]; i < l; i += 1) {
-					removeActiveClass(btn[i]);
+					arrange(btn[i]);
 				}
 				i = l = null;
 			}
@@ -2122,7 +2133,7 @@ VK, Ya*/
 							throw new Error("cannot yshare.updateContent or Ya.share2 " + err);
 						}
 					};
-					if (!root.Ya.share2) {
+					if (!(root.Ya && Ya.share2)) {
 						var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
@@ -2171,7 +2182,7 @@ VK, Ya*/
 							}
 						}
 					};
-					if (!root.VK) {
+					if (!(root.VK && VK.init && VK.Widgets && VK.Widgets.Like)) {
 						var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
@@ -2243,7 +2254,7 @@ VK, Ya*/
 				if (locationHref && parseLink(locationHref).hasHTTP && (/^(localhost|127.0.0.1)/).test(parseLink(locationHref).hostname)) {
 					btn[_addEventListener]("click", handleDebugGridButton);
 				} else {
-					btn[style].display = "none";
+					setStyleDisplayNone(btn);
 				}
 			}
 		};
@@ -2787,6 +2798,7 @@ VK, Ya*/
 
 	scripts.push("./libs/pwa-englishextra/js/vendors.min.js");
 
+	var bodyFontFamily = "Roboto";
 	var onFontsLoadedCallback = function () {
 		var slot;
 		var onFontsLoaded = function () {
@@ -2800,7 +2812,7 @@ VK, Ya*/
 		};
 		var checkFontIsLoaded;
 		checkFontIsLoaded = function () {
-			if (doesFontExist("Roboto")) {
+			if (doesFontExist(bodyFontFamily)) {
 				onFontsLoaded();
 			}
 		};
@@ -2815,45 +2827,4 @@ VK, Ya*/
 
 	var load;
 	load = new loadJsCss(["./libs/pwa-englishextra/css/bundle.min.css"], onFontsLoadedCallback);
-
-	/* root.WebFontConfig = {
-		google: {
-			families: [
-				"Roboto:300,400,400i,700,700i:cyrillic",
-				"Roboto Mono:400,700:cyrillic,latin-ext",
-				"Roboto Condensed:700:cyrillic",
-				"PT Serif:400:cyrillic"
-			]
-		},
-		listeners: [],
-		active: function () {
-			this.called_ready = true;
-			var i;
-			for (i = 0; i < this.listeners[_length]; i += 1) {
-				this.listeners[i]();
-			}
-			i = null;
-		},
-		ready: function (callback) {
-			if (this.called_ready) {
-				callback();
-			} else {
-				this.listeners.push(callback);
-			}
-		}
-	};
-
-	var onFontsLoadedCallback = function () {
-		var onFontsLoaded = function () {
-			if (!supportsSvgSmilAnimation && "undefined" !== typeof progressBar) {
-				progressBar.increase(20);
-			}
-			var load;
-			load = new loadJsCss(scripts, run);
-		};
-		root.WebFontConfig.ready(onFontsLoaded);
-	};
-
-	var load;
-	load = new loadJsCss([forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"], onFontsLoadedCallback); */
 })("undefined" !== typeof window ? window : this, document);

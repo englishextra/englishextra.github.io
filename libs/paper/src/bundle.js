@@ -78,6 +78,7 @@ ToProgress, unescape, verge, VK, Ya*/
 						}
 					}
 				}
+				t = null;
 			}
 			var transitionEvent = whichTransitionEvent();
 			function ToProgress(opt, selector) {
@@ -413,7 +414,7 @@ ToProgress, unescape, verge, VK, Ya*/
 	var forcedHTTP = getHTTP(true);
 
 	var supportsCanvas;
-	supportsCanvas	= (function () {
+	supportsCanvas = (function () {
 		var elem = document[createElement]("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
 	})();
@@ -669,18 +670,6 @@ ToProgress, unescape, verge, VK, Ya*/
 			}
 		};
 
-		var setStyleDisplayBlock = function (a) {
-			if (a) {
-				a[style].display = "block";
-			}
-		};
-
-		var setStyleDisplayNone = function (a) {
-			if (a) {
-				a[style].display = "none";
-			}
-		};
-
 		var isValidId = function (a, full) {
 			return full ? /^\#[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? true : false : /^[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? true : false;
 		};
@@ -887,6 +876,18 @@ ToProgress, unescape, verge, VK, Ya*/
 		};
 		manageExternalLinkAll();
 
+		var setStyleDisplayBlock = function (a) {
+			if (a) {
+				a[style].display = "block";
+			}
+		};
+
+		var setStyleDisplayNone = function (a) {
+			if (a) {
+				a[style].display = "none";
+			}
+		};
+
 		var scroll2Top = function (scrollTargetY, speed, easing) {
 			var scrollY = root.scrollY || docElem.scrollTop;
 			var posY = scrollTargetY || 0;
@@ -1042,36 +1043,32 @@ ToProgress, unescape, verge, VK, Ya*/
 		};
 		initNotifier42WriteComment();
 
-		var initTablesort = function (scope) {
-			var ctx = scope && scope.nodeName ? scope : "";
-			var tableSortClass = "table-sort";
-			var tableSort = ctx ? ctx[getElementsByClassName](tableSortClass) || "" : document[getElementsByClassName](tableSortClass) || "";
+		var initTablesort = function () {
+			var tableSort = document[getElementsByClassName]("table-sort") || "";
 			var initScript = function () {
-				if (root.Tablesort) {
-					var arrange = function (e) {
-						var tableId = e.id || "";
-						if (tableId) {
-							var table = document[getElementById](tableId) || "";
-							var caption = table ? table[getElementsByTagName]("caption")[0] || "" : "";
-							if (!caption) {
-								var tableCaption = document[createElement]("caption");
-								prependFragmentBefore(tableCaption, table.firstChild);
-								caption = table.firstChild;
-							}
-							appendFragment("Сортируемая таблица", caption);
-							var tblsort;
-							tblsort = new Tablesort(table);
+				var arrange = function (e) {
+					var tableId = e.id || "";
+					if (tableId) {
+						var table = document[getElementById](tableId) || "";
+						var caption = table ? table[getElementsByTagName]("caption")[0] || "" : "";
+						if (!caption) {
+							var tableCaption = document[createElement]("caption");
+							prependFragmentBefore(tableCaption, table.firstChild);
+							caption = table.firstChild;
 						}
-					};
-					var i,
-					l;
-					for (i = 0, l = tableSort[_length]; i < l; i += 1) {
-						arrange(tableSort[i]);
+						appendFragment("Сортируемая таблица", caption);
+						var tblsort;
+						tblsort = new Tablesort(table);
 					}
-					i = l = null;
+				};
+				var i,
+				l;
+				for (i = 0, l = tableSort[_length]; i < l; i += 1) {
+					arrange(tableSort[i]);
 				}
+				i = l = null;
 			};
-			if (tableSort && root.Tablesort) {
+			if (root.Tablesort && tableSort) {
 				initScript();
 			}
 		};
@@ -1194,7 +1191,7 @@ ToProgress, unescape, verge, VK, Ya*/
 					touch: false
 				});
 			};
-			if (link && root.imgLightbox) {
+			if (root.imgLightbox && link) {
 				initScript();
 			}
 		};
@@ -1229,7 +1226,7 @@ ToProgress, unescape, verge, VK, Ya*/
 				}
 				i = l = null;
 			};
-			if (link && root.IframeLightbox) {
+			if (root.IframeLightbox && link) {
 				initScript();
 			}
 		};
@@ -1341,7 +1338,7 @@ ToProgress, unescape, verge, VK, Ya*/
 					appendFragment(img, holder);
 				}
 			};
-			if (holder && locationHref && "undefined" !== typeof getHTTP && getHTTP() && root.QRCode) {
+			if (root.QRCode && holder && locationHref && "undefined" !== typeof getHTTP && getHTTP()) {
 				initScript();
 			}
 		};
@@ -1572,29 +1569,27 @@ ToProgress, unescape, verge, VK, Ya*/
 					yaShare2[classList].toggle(isActiveClass);
 					hideOtherIsSocial(yaShare2);
 					var initScript = function () {
-						if (root.Ya.share2) {
-							try {
-								if (yshare) {
-									yshare.updateContent({
+						try {
+							if (yshare) {
+								yshare.updateContent({
+									title: documentTitle,
+									description: documentTitle,
+									url: locationHref
+								});
+							} else {
+								yshare = Ya.share2(yaShare2Id, {
+									content: {
 										title: documentTitle,
 										description: documentTitle,
 										url: locationHref
-									});
-								} else {
-									yshare = Ya.share2(yaShare2Id, {
-										content: {
-											title: documentTitle,
-											description: documentTitle,
-											url: locationHref
-										}
-									});
-								}
-							} catch (err) {
-								throw new Error("cannot yshare.updateContent or Ya.share2 " + err);
+									}
+								});
 							}
+						} catch (err) {
+							throw new Error("cannot yshare.updateContent or Ya.share2 " + err);
 						}
 					};
-					if (!root.Ya.share2) {
+					if (!(root.Ya && Ya.share2)) {
 						var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
@@ -1627,7 +1622,7 @@ ToProgress, unescape, verge, VK, Ya*/
 					holderVkLike[classList].toggle(isActiveClass);
 					hideOtherIsSocial(holderVkLike);
 					var initScript = function () {
-						if (root.VK && !vlike) {
+						if (!vlike) {
 							try {
 								VK.init({
 									apiId: (vkLike[dataset].apiid || ""),
@@ -1644,7 +1639,7 @@ ToProgress, unescape, verge, VK, Ya*/
 							}
 						}
 					};
-					if (!root.VK) {
+					if (!(root.VK && VK.init && VK.Widgets && VK.Widgets.Like)) {
 						var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
@@ -1893,7 +1888,7 @@ ToProgress, unescape, verge, VK, Ya*/
 					loadUnparsedJSON(jsonUrl, processJsonResponse);
 				}
 			};
-			if (searchForm && textInput && root.Kamil) {
+			if (root.Kamil && searchForm && textInput) {
 				initScript();
 			}
 		};
@@ -1901,8 +1896,16 @@ ToProgress, unescape, verge, VK, Ya*/
 
 		var initUiTotop = function () {
 			var btnClass = "ui-totop";
-			var btnTitle = "Наверх";
-			var anchor = document[createElement]("a");
+			var btn = document[getElementsByClassName](btnClass)[0] || "";
+			if (!btn) {
+				btn = document[createElement]("a");
+				btn[classList].add(btnClass);
+				/* jshint -W107 */
+				btn.href = "javascript:void(0);";
+				/* jshint +W107 */
+				btn.title = "Наверх";
+				docBody[appendChild](btn);
+			}
 			var handleUiTotopAnchor = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
@@ -1910,7 +1913,6 @@ ToProgress, unescape, verge, VK, Ya*/
 			};
 			var handleUiTotopWindow = function (_this) {
 				var logic = function () {
-					var btn = document[getElementsByClassName](btnClass)[0] || "";
 					var scrollPosition = _this.pageYOffset || docElem.scrollTop || docBody.scrollTop || "";
 					var windowHeight = _this.innerHeight || docElem.clientHeight || docBody.clientHeight || "";
 					if (scrollPosition && windowHeight && btn) {
@@ -1923,17 +1925,9 @@ ToProgress, unescape, verge, VK, Ya*/
 				};
 				throttle(logic, 100).call(root);
 			};
-			anchor[classList].add(btnClass);
-			/* jshint -W107 */
-			anchor.href = "javascript:void(0);";
-			/* jshint +W107 */
-			anchor.title = btnTitle;
-			docBody[appendChild](anchor);
 			if (docBody) {
-				anchor[_addEventListener]("click", handleUiTotopAnchor);
-				root[_addEventListener]("scroll", handleUiTotopWindow, {
-					passive: true
-				});
+				btn[_addEventListener]("click", handleUiTotopAnchor);
+				root[_addEventListener]("scroll", handleUiTotopWindow, {passive: true});
 			}
 		};
 		initUiTotop();
@@ -1989,6 +1983,7 @@ ToProgress, unescape, verge, VK, Ya*/
 
 	scripts.push("../../libs/paper/js/vendors.min.js");
 
+	var bodyFontFamily = "Roboto";
 	var onFontsLoadedCallback = function () {
 		var slot;
 		var onFontsLoaded = function () {
@@ -2002,7 +1997,7 @@ ToProgress, unescape, verge, VK, Ya*/
 		};
 		var checkFontIsLoaded;
 		checkFontIsLoaded = function () {
-			if (doesFontExist("Roboto")) {
+			if (doesFontExist(bodyFontFamily)) {
 				onFontsLoaded();
 			}
 		};
@@ -2017,45 +2012,4 @@ ToProgress, unescape, verge, VK, Ya*/
 
 	var load;
 	load = new loadJsCss(["../../libs/paper/css/bundle.min.css"], onFontsLoadedCallback);
-
-	/* root.WebFontConfig = {
-		google: {
-			families: [
-				"Roboto:300,400,400i,700,700i:cyrillic",
-				"Roboto Mono:400,700:cyrillic,latin-ext",
-				"Roboto Condensed:700:cyrillic",
-				"PT Serif:400:cyrillic"
-			]
-		},
-		listeners: [],
-		active: function () {
-			this.called_ready = true;
-			var i;
-			for (i = 0; i < this.listeners[_length]; i += 1) {
-				this.listeners[i]();
-			}
-			i = null;
-		},
-		ready: function (callback) {
-			if (this.called_ready) {
-				callback();
-			} else {
-				this.listeners.push(callback);
-			}
-		}
-	};
-
-	var onFontsLoadedCallback = function () {
-		var onFontsLoaded = function () {
-			if (!supportsSvgSmilAnimation && "undefined" !== typeof progressBar) {
-				progressBar.increase(20);
-			}
-			var load;
-			load = new loadJsCss(scripts, run);
-		};
-		root.WebFontConfig.ready(onFontsLoaded);
-	};
-
-	var load;
-	load = new loadJsCss([forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"], onFontsLoadedCallback); */
 })("undefined" !== typeof window ? window : this, document);

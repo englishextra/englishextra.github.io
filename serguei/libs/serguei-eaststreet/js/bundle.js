@@ -78,6 +78,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 						}
 					}
 				}
+				t = null;
 			}
 			var transitionEvent = whichTransitionEvent();
 			function ToProgress(opt, selector) {
@@ -413,7 +414,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 	var forcedHTTP = getHTTP(true);
 
 	var supportsCanvas;
-	supportsCanvas	= (function () {
+	supportsCanvas = (function () {
 		var elem = document[createElement]("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
 	})();
@@ -626,6 +627,18 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 				}
 				return rtn;
 			};
+		};
+
+		var setStyleDisplayBlock = function (a) {
+			if (a) {
+				a[style].display = "block";
+			}
+		};
+
+		var setStyleDisplayNone = function (a) {
+			if (a) {
+				a[style].display = "none";
+			}
 		};
 
 		var scroll2Top = function (scrollTargetY, speed, easing) {
@@ -941,18 +954,6 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 				for (; e.firstChild; ) {
 					e.removeChild(e.firstChild);
 				}
-			}
-		};
-
-		var setStyleDisplayBlock = function (a) {
-			if (a) {
-				a[style].display = "block";
-			}
-		};
-
-		var setStyleDisplayNone = function (a) {
-			if (a) {
-				a[style].display = "none";
 			}
 		};
 
@@ -1489,7 +1490,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 					touch: false
 				});
 			};
-			if (link && root.imgLightbox) {
+			if (root.imgLightbox && link) {
 				initScript();
 			}
 		};
@@ -1524,7 +1525,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 				}
 				i = l = null;
 			};
-			if (link && root.IframeLightbox) {
+			if (root.IframeLightbox && link) {
 				initScript();
 			}
 		};
@@ -1578,7 +1579,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 				}
 				i = l = null;
 			};
-			if (img && root.QRCode) {
+			if (root.QRCode && img) {
 				initScript();
 			}
 		};
@@ -1770,7 +1771,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 				if (locationHref && parseLink(locationHref).hasHTTP && (/^(localhost|127.0.0.1)/).test(parseLink(locationHref).hostname)) {
 					btn[_addEventListener]("click", handleDebugGridButton);
 				} else {
-					btn[style].display = "none";
+					setStyleDisplayNone(btn);
 				}
 			}
 		};
@@ -1860,7 +1861,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 				root[_addEventListener]("hashchange", generateLocationQrCodeImg);
 				holder[_addEventListener]("click", handleGenerateLocationQrCodeImgHolder);
 			};
-			if (btn && page && holder && locationHref && "undefined" !== typeof getHTTP && getHTTP() && root.QRCode) {
+			if (root.QRCode && btn && page && holder && locationHref && "undefined" !== typeof getHTTP && getHTTP()) {
 				initScript();
 			}
 		};
@@ -1895,30 +1896,28 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 					page[classList].remove(isActiveMenumoreClass);
 				}
 				var initScript = function () {
-					if (root.Ya.share2) {
-						/*!
-						 * remove ya-share2 class in html markup
-						 * or you will end up with two copies of Ya.share2
-						 */
-						if (yshare) {
-							yshare.updateContent({
+					/*!
+					 * remove ya-share2 class in html markup
+					 * or you will end up with two copies of Ya.share2
+					 */
+					if (yshare) {
+						yshare.updateContent({
+							title: document.title || "",
+							description: document.title || "",
+							url: root.location.href || ""
+						});
+					} else {
+						yshare = Ya.share2(yaShare2Id, {
+							content: {
 								title: document.title || "",
 								description: document.title || "",
 								url: root.location.href || ""
-							});
-						} else {
-							yshare = Ya.share2(yaShare2Id, {
-								content: {
-									title: document.title || "",
-									description: document.title || "",
-									url: root.location.href || ""
-								}
-							});
-						}
+							}
+						});
 					}
 				};
 				if (page[classList].contains(isActiveShareClass)) {
-					if (!root.Ya.share2) {
+					if (!(root.Ya && Ya.share2)) {
 						var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
@@ -1963,27 +1962,25 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 					page[classList].remove(isActiveMenumoreClass);
 				}
 				var initScript = function () {
-					if (root.VK) {
-						if (!vlike) {
-							try {
-								VK.init({
-									apiId: (vkLike[dataset].apiid || ""),
-									nameTransportPath: "/xd_receiver.htm",
-									onlyWidgets: true
-								});
-								VK.Widgets.Like(vkLikeId, {
-									type: "button",
-									height: 24
-								});
-								vlike = true;
-							} catch (err) {
-								throw new Error("cannot VK.init " + err);
-							}
+					if (!vlike) {
+						try {
+							VK.init({
+								apiId: (vkLike[dataset].apiid || ""),
+								nameTransportPath: "/xd_receiver.htm",
+								onlyWidgets: true
+							});
+							VK.Widgets.Like(vkLikeId, {
+								type: "button",
+								height: 24
+							});
+							vlike = true;
+						} catch (err) {
+							throw new Error("cannot VK.init " + err);
 						}
 					}
 				};
 				if (page[classList].contains(isActiveVKLikeClass)) {
-					if (!root.VK) {
+					if (!(root.VK && VK.init && VK.Widgets && VK.Widgets.Like)) {
 						var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
@@ -2006,18 +2003,16 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 			var locationHref = root.location.href || "";
 			var disqusThreadShortname = disqusThread ? (disqusThread[dataset].shortname || "") : "";
 			var initScript = function () {
-				if (root.DISQUS) {
-					try {
-						DISQUS.reset({
-							reload : !0,
-							config : function () {
-								this.page.identifier = disqusThreadShortname;
-								this.page.url = locationHref;
-							}
-						});
-					} catch (err) {
-						throw new Error("cannot DISQUS.reset " + err);
-					}
+				try {
+					DISQUS.reset({
+						reload : !0,
+						config : function () {
+							this.page.identifier = disqusThreadShortname;
+							this.page.url = locationHref;
+						}
+					});
+				} catch (err) {
+					throw new Error("cannot DISQUS.reset " + err);
 				}
 			};
 			if (btn && disqusThread && disqusThreadShortname && locationHref) {
@@ -2079,14 +2074,12 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 							zoom: yandexMapZoom
 						});
 				};
-				if (root.ymaps) {
-					try {
-						ymaps.ready(initMyMap);
-						yandexMap[parentNode][classList].add(isActiveClass);
-						setStyleDisplayNone(btnShow);
-					} catch (err) {
-						console.log("cannot init ymaps", err);
-					}
+				try {
+					ymaps.ready(initMyMap);
+					yandexMap[parentNode][classList].add(isActiveClass);
+					setStyleDisplayNone(btnShow);
+				} catch (err) {
+					console.log("cannot init ymaps", err);
 				}
 			};
 			if (yandexMap && yandexMapCenter && yandexMapZoom && btnShow) {
@@ -2274,7 +2267,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 			var initScript = function () {
 				loadUnparsedJSON(jsonUrl, processJsonResponse);
 			};
-			if (searchForm && textInput && root.Kamil) {
+			if (root.Kamil && searchForm && textInput) {
 				initScript();
 			}
 		};
@@ -2473,6 +2466,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 
 	scripts.push("./libs/serguei-eaststreet/js/vendors.min.js");
 
+	var bodyFontFamily = "Roboto";
 	var onFontsLoadedCallback = function () {
 		var slot;
 		var onFontsLoaded = function () {
@@ -2486,7 +2480,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 		};
 		var checkFontIsLoaded;
 		checkFontIsLoaded = function () {
-			if (doesFontExist("Roboto")) {
+			if (doesFontExist(bodyFontFamily)) {
 				onFontsLoaded();
 			}
 		};
@@ -2501,45 +2495,4 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 
 	var load;
 	load = new loadJsCss(["./libs/serguei-eaststreet/css/bundle.min.css"], onFontsLoadedCallback);
-
-	/* root.WebFontConfig = {
-		google: {
-			families: [
-				"Roboto:300,400,400i,700,700i:cyrillic",
-				"Roboto Mono:400,700:cyrillic,latin-ext",
-				"Roboto Condensed:700:cyrillic",
-				"PT Serif:400:cyrillic"
-			]
-		},
-		listeners: [],
-		active: function () {
-			this.called_ready = true;
-			var i;
-			for (i = 0; i < this.listeners[_length]; i += 1) {
-				this.listeners[i]();
-			}
-			i = null;
-		},
-		ready: function (callback) {
-			if (this.called_ready) {
-				callback();
-			} else {
-				this.listeners.push(callback);
-			}
-		}
-	};
-
-	var onFontsLoadedCallback = function () {
-		var onFontsLoaded = function () {
-			if (!supportsSvgSmilAnimation && "undefined" !== typeof progressBar) {
-				progressBar.increase(20);
-			}
-			var load;
-			load = new loadJsCss(scripts, run);
-		};
-		root.WebFontConfig.ready(onFontsLoaded);
-	};
-
-	var load;
-	load = new loadJsCss([forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"], onFontsLoadedCallback); */
 })("undefined" !== typeof window ? window : this, document);

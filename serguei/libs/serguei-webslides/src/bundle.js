@@ -77,6 +77,7 @@ unescape, WebSlides*/
 						}
 					}
 				}
+				t = null;
 			}
 			var transitionEvent = whichTransitionEvent();
 			function ToProgress(opt, selector) {
@@ -361,7 +362,7 @@ unescape, WebSlides*/
 	var forcedHTTP = getHTTP(true);
 
 	var supportsCanvas;
-	supportsCanvas	= (function () {
+	supportsCanvas = (function () {
 		var elem = document[createElement]("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
 	})();
@@ -718,7 +719,7 @@ unescape, WebSlides*/
 				}
 				i = l = null;
 			};
-			if (img && root.QRCode) {
+			if (root.QRCode && img) {
 				initScript();
 			}
 		};
@@ -727,28 +728,34 @@ unescape, WebSlides*/
 
 		var smallScreen = root.matchMedia("all and (max-width:768px)");
 
-		if (!smallScreen.matches && !hasTouch && "undefined" !== root.jQuery && root.WebSlides) {
-			/*!
-			 * autoslide: number or boolean false Amount of milliseconds to wait to go to next slide automatically.
-			 * changeOnClick: boolean false If true, clicking on the page will go to the next slide unless it's a clickable element. See ClickToNav docs for more info.
-			 * loop: boolean true Lets WebSlides loop the slides so once it reaches the end, going next will make it go to the first slide.
-			 * minWheelDelta: number 40 Controls the amount of scroll needed to trigger a navigation. Lower this number to decrease the scroll resistance.
-			 * navigateOnScroll: number 40 Whether scroll can trigger navigation or not.
-			 * scrollWait: number 450 Controls the amount of time needed to wait for a scroll transition to happen again.
-			 * slideOffset: number 50 Amount of sliding needed to trigger a new navigation.
-			 * showIndex: boolean true Controls if the index can be shown.
-			 */
-			root.ws = new WebSlides({
-					autoslide: true,
-					changeOnClick: false,
-					loop: true,
-					minWheelDelta: 40,
-					navigateOnScroll: true,
-					scrollWait: 450,
-					slideOffset: 50,
-					showIndex: true
-				});
-		}
+		var initWebSlides = function () {
+			var initScript = function () {
+				/*!
+				 * autoslide: number or boolean false Amount of milliseconds to wait to go to next slide automatically.
+				 * changeOnClick: boolean false If true, clicking on the page will go to the next slide unless it's a clickable element. See ClickToNav docs for more info.
+				 * loop: boolean true Lets WebSlides loop the slides so once it reaches the end, going next will make it go to the first slide.
+				 * minWheelDelta: number 40 Controls the amount of scroll needed to trigger a navigation. Lower this number to decrease the scroll resistance.
+				 * navigateOnScroll: number 40 Whether scroll can trigger navigation or not.
+				 * scrollWait: number 450 Controls the amount of time needed to wait for a scroll transition to happen again.
+				 * slideOffset: number 50 Amount of sliding needed to trigger a new navigation.
+				 * showIndex: boolean true Controls if the index can be shown.
+				 */
+				root.ws = new WebSlides({
+						autoslide: true,
+						changeOnClick: false,
+						loop: true,
+						minWheelDelta: 40,
+						navigateOnScroll: true,
+						scrollWait: 450,
+						slideOffset: 50,
+						showIndex: true
+					});
+			};
+			if (root.WebSlides && "undefined" !== root.jQuery && !smallScreen.matches && !hasTouch) {
+				initScript();
+			}
+		};
+		initWebSlides();
 
 		hideProgressBar();
 	};
@@ -799,6 +806,7 @@ unescape, WebSlides*/
 
 	scripts.push("./libs/serguei-webslides/js/vendors.min.js");
 
+	var bodyFontFamily = "Roboto";
 	var onFontsLoadedCallback = function () {
 		var slot;
 		var onFontsLoaded = function () {
@@ -812,7 +820,7 @@ unescape, WebSlides*/
 		};
 		var checkFontIsLoaded;
 		checkFontIsLoaded = function () {
-			if (doesFontExist("Roboto")) {
+			if (doesFontExist(bodyFontFamily)) {
 				onFontsLoaded();
 			}
 		};
@@ -827,45 +835,4 @@ unescape, WebSlides*/
 
 	var load;
 	load = new loadJsCss(["./libs/serguei-webslides/css/bundle.min.css"], onFontsLoadedCallback);
-
-	/* root.WebFontConfig = {
-		google: {
-			families: [
-				"Roboto:300,400,400i,700,700i:cyrillic",
-				"Roboto Mono:400,700:cyrillic,latin-ext",
-				"Roboto Condensed:700:cyrillic",
-				"PT Serif:400:cyrillic"
-			]
-		},
-		listeners: [],
-		active: function () {
-			this.called_ready = true;
-			var i;
-			for (i = 0; i < this.listeners[_length]; i += 1) {
-				this.listeners[i]();
-			}
-			i = null;
-		},
-		ready: function (callback) {
-			if (this.called_ready) {
-				callback();
-			} else {
-				this.listeners.push(callback);
-			}
-		}
-	};
-
-	var onFontsLoadedCallback = function () {
-		var onFontsLoaded = function () {
-			if (!supportsSvgSmilAnimation && "undefined" !== typeof progressBar) {
-				progressBar.increase(20);
-			}
-			var load;
-			load = new loadJsCss(scripts, run);
-		};
-		root.WebFontConfig.ready(onFontsLoaded);
-	};
-
-	var load;
-	load = new loadJsCss([forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"], onFontsLoadedCallback); */
 })("undefined" !== typeof window ? window : this, document);

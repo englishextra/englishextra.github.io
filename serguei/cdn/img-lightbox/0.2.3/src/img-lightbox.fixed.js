@@ -66,6 +66,17 @@
 		var caller = func.bind(this);
 		caller(data);
 	};
+		var setStyleDisplayBlock = function (a) {
+			if (a) {
+				a[style].display = "block";
+			}
+		};
+
+		var setStyleDisplayNone = function (a) {
+			if (a) {
+				a[style].display = "none";
+			}
+		};
 	var hideImgLightbox = function (callback) {
 		var container = document[getElementsByClassName](containerClass)[0] || "";
 		var img = container ? container[getElementsByTagName]("img")[0] || "" : "";
@@ -81,7 +92,7 @@
 					container[classList].remove(isLoadedClass);
 				};
 				img.src = dummySrc;
-				container[style].display = "none";
+				setStyleDisplayNone(container);
 				callCallback(callback, root);
 			};
 			var timer = setTimeout(function () {
@@ -171,7 +182,7 @@
 						}
 					};
 					img.src = hrefString;
-					container[style].display = "block";
+					setStyleDisplayBlock(container);
 				};
 				debounce(logic, rate).call();
 			};

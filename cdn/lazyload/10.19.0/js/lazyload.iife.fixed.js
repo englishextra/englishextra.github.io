@@ -91,7 +91,7 @@ var LazyLoad = function () {
 	};
 
 	/* Auto initialization of one or more instances of lazyload, depending on the
-     options passed in (plain object or an array) */
+	 options passed in (plain object or an array) */
 	function autoInitialize(classObj, options) {
 		if (!options) {
 			return;
@@ -330,7 +330,7 @@ var LazyLoad = function () {
 	}
 
 	/* entry.isIntersecting needs fallback because is null on some versions of MS Edge, and
-    entry.intersectionRatio is not enough alone because it could be 0 on some intersecting elements */
+	entry.intersectionRatio is not enough alone because it could be 0 on some intersecting elements */
 	var isIntersecting = function isIntersecting(entry) {
 		return entry.isIntersecting || entry.intersectionRatio > 0;
 	};

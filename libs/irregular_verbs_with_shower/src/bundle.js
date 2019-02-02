@@ -76,6 +76,7 @@
 						}
 					}
 				}
+				t = null;
 			}
 			var transitionEvent = whichTransitionEvent();
 			function ToProgress(opt, selector) {
@@ -359,7 +360,7 @@
 	var forcedHTTP = getHTTP(true);
 
 	var supportsCanvas;
-	supportsCanvas	= (function () {
+	supportsCanvas = (function () {
 		var elem = document[createElement]("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
 	})();
@@ -781,29 +782,27 @@
 					yaShare2[classList].toggle(isActiveClass);
 					hideOtherIsSocial(yaShare2);
 					var initScript = function () {
-						if (root.Ya.share2) {
-							try {
-								if (yshare) {
-									yshare.updateContent({
+						try {
+							if (yshare) {
+								yshare.updateContent({
+									title: documentTitle,
+									description: documentTitle,
+									url: locationHref
+								});
+							} else {
+								yshare = Ya.share2(yaShare2Id, {
+									content: {
 										title: documentTitle,
 										description: documentTitle,
 										url: locationHref
-									});
-								} else {
-									yshare = Ya.share2(yaShare2Id, {
-										content: {
-											title: documentTitle,
-											description: documentTitle,
-											url: locationHref
-										}
-									});
-								}
-							} catch (err) {
-								throw new Error("cannot yshare.updateContent or Ya.share2 " + err);
+									}
+								});
 							}
+						} catch (err) {
+							throw new Error("cannot yshare.updateContent or Ya.share2 " + err);
 						}
 					};
-					if (!root.Ya.share2) {
+					if (!(root.Ya && Ya.share2)) {
 						var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
@@ -836,7 +835,7 @@
 					holderVkLike[classList].toggle(isActiveClass);
 					hideOtherIsSocial(holderVkLike);
 					var initScript = function () {
-						if (root.VK && !vlike) {
+						if (!vlike) {
 							try {
 								VK.init({
 									apiId: (vkLike[dataset].apiid || ""),
@@ -853,7 +852,7 @@
 							}
 						}
 					};
-					if (!root.VK) {
+					if (!(root.VK && VK.init && VK.Widgets && VK.Widgets.Like)) {
 						var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
@@ -875,8 +874,16 @@
 
 		var initUiTotop = function () {
 			var btnClass = "ui-totop";
-			var btnTitle = "Наверх";
-			var anchor = document[createElement]("a");
+			var btn = document[getElementsByClassName](btnClass)[0] || "";
+			if (!btn) {
+				btn = document[createElement]("a");
+				btn[classList].add(btnClass);
+				/* jshint -W107 */
+				btn.href = "javascript:void(0);";
+				/* jshint +W107 */
+				btn.title = "Наверх";
+				docBody[appendChild](btn);
+			}
 			var handleUiTotopAnchor = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
@@ -884,7 +891,6 @@
 			};
 			var handleUiTotopWindow = function (_this) {
 				var logic = function () {
-					var btn = document[getElementsByClassName](btnClass)[0] || "";
 					var scrollPosition = _this.pageYOffset || docElem.scrollTop || docBody.scrollTop || "";
 					var windowHeight = _this.innerHeight || docElem.clientHeight || docBody.clientHeight || "";
 					if (scrollPosition && windowHeight && btn) {
@@ -897,17 +903,9 @@
 				};
 				throttle(logic, 100).call(root);
 			};
-			anchor[classList].add(btnClass);
-			/* jshint -W107 */
-			anchor.href = "javascript:void(0);";
-			/* jshint +W107 */
-			anchor.title = btnTitle;
-			docBody[appendChild](anchor);
 			if (docBody) {
-				anchor[_addEventListener]("click", handleUiTotopAnchor);
-				root[_addEventListener]("scroll", handleUiTotopWindow, {
-					passive: true
-				});
+				btn[_addEventListener]("click", handleUiTotopAnchor);
+				root[_addEventListener]("scroll", handleUiTotopWindow, {passive: true});
 			}
 		};
 		initUiTotop();
@@ -961,6 +959,7 @@
 
 	scripts.push("../../libs/irregular_verbs_with_shower/js/vendors.min.js");
 
+	var bodyFontFamily = "Roboto";
 	var onFontsLoadedCallback = function () {
 		var slot;
 		var onFontsLoaded = function () {
@@ -974,7 +973,7 @@
 		};
 		var checkFontIsLoaded;
 		checkFontIsLoaded = function () {
-			if (doesFontExist("Roboto")) {
+			if (doesFontExist(bodyFontFamily)) {
 				onFontsLoaded();
 			}
 		};
@@ -989,45 +988,4 @@
 
 	var load;
 	load = new loadJsCss(["../../libs/irregular_verbs_with_shower/css/bundle.min.css"], onFontsLoadedCallback);
-
-	/* root.WebFontConfig = {
-		google: {
-			families: [
-				"Roboto:300,400,400i,700,700i:cyrillic",
-				"Roboto Mono:400,700:cyrillic,latin-ext",
-				"Roboto Condensed:700:cyrillic",
-				"PT Serif:400:cyrillic"
-			]
-		},
-		listeners: [],
-		active: function () {
-			this.called_ready = true;
-			var i;
-			for (i = 0; i < this.listeners[_length]; i += 1) {
-				this.listeners[i]();
-			}
-			i = null;
-		},
-		ready: function (callback) {
-			if (this.called_ready) {
-				callback();
-			} else {
-				this.listeners.push(callback);
-			}
-		}
-	};
-
-	var onFontsLoadedCallback = function () {
-		var onFontsLoaded = function () {
-			if (!supportsSvgSmilAnimation && "undefined" !== typeof progressBar) {
-				progressBar.increase(20);
-			}
-			var load;
-			load = new loadJsCss(scripts, run);
-		};
-		root.WebFontConfig.ready(onFontsLoaded);
-	};
-
-	var load;
-	load = new loadJsCss([forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"], onFontsLoadedCallback); */
 })("undefined" !== typeof window ? window : this, document);

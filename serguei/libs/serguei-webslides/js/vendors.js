@@ -12506,9 +12506,9 @@ function _typeof(obj) {
 
 					this.ws_ = wsInstance;
 					var CSS =
-						"body.baseline {\n                  background: url(" +
+						"body.baseline {\n				  background: url(" +
 						GRID_IMAGE +
-						") left top .8rem/.8rem;\n                }";
+						") left top .8rem/.8rem;\n				}";
 					var head =
 						document.head ||
 						document.getElementsByTagName("head")[0];

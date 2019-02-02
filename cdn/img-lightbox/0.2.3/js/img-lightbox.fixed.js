@@ -105,7 +105,7 @@
 				};
 
 				img.src = dummySrc;
-				container[style].display = "none";
+				setStyleDisplayNone(container);
 				callCallback(callback, root);
 			};
 
@@ -223,7 +223,7 @@
 					};
 
 					img.src = hrefString;
-					container[style].display = "block";
+					setStyleDisplayBlock(container);
 				};
 
 				debounce(logic, rate).call();

@@ -2044,7 +2044,7 @@ u,
 	height: 6.4rem;
 }
 
-.btn-share {
+.btn-share-buttons {
 	width: 3.2rem;
 	height: 3.2rem;
 	position: fixed;
@@ -2053,21 +2053,21 @@ u,
 	background-color: #e6e6e6;
 }
 
-.btn-share a > * {
+.btn-share-buttons a > * {
 	fill: #767676;
 }
 
-.btn-share svg {
+.btn-share-buttons svg {
 	display: block;
 	width: 3.2rem;
 	height: 3.2rem;
 }
 
-.btn-share a {
+.btn-share-buttons a {
 	font-size: 0;
 }
 
-.btn-like {
+.btn-show-vk-like {
 	width: 3.2rem;
 	height: 3.2rem;
 	position: fixed;
@@ -2076,17 +2076,17 @@ u,
 	background-color: #e6e6e6;
 }
 
-.btn-like a > * {
+.btn-show-vk-like a > * {
 	fill: #767676;
 }
 
-.btn-like svg {
+.btn-show-vk-like svg {
 	display: block;
 	width: 3.2rem;
 	height: 3.2rem;
 }
 
-.btn-like a {
+.btn-show-vk-like a {
 	font-size: 0;
 }
 

@@ -77,6 +77,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya, zoomwall */
 						}
 					}
 				}
+				t = null;
 			}
 			var transitionEvent = whichTransitionEvent();
 			function ToProgress(opt, selector) {
@@ -363,7 +364,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya, zoomwall */
 	var forcedHTTP = getHTTP(true);
 
 	var supportsCanvas;
-	supportsCanvas	= (function () {
+	supportsCanvas = (function () {
 		var elem = document[createElement]("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
 	})();
@@ -382,7 +383,6 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya, zoomwall */
 		var getElementById = "getElementById";
 		var getElementsByClassName = "getElementsByClassName";
 		var getElementsByTagName = "getElementsByTagName";
-		var href = "href";
 		var innerHTML = "innerHTML";
 		var parentNode = "parentNode";
 		var style = "style";
@@ -393,7 +393,6 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya, zoomwall */
 		var isHiddenClass = "is-hidden";
 
 		var documentTitle = document[title] || "";
-		var locationHref = root.location[href] || "";
 		var navigatorUserAgent = navigator.userAgent || "";
 
 		progressBar.increase(20);
@@ -420,7 +419,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya, zoomwall */
 
 		var platformName = "";
 		var platformDescription = "";
-		if (navigatorUserAgent && root.platform) {
+		if (root.platform && navigatorUserAgent) {
 			platformName = platform.name || "";
 			platformDescription = platform.description || "";
 			document[title] = documentTitle +
@@ -664,6 +663,12 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya, zoomwall */
 			}
 		};
 		manageExternalLinkAll();
+
+		var setStyleDisplayNone = function (a) {
+			if (a) {
+				a[style].display = "none";
+			}
+		};
 
 		var scroll2Top = function (scrollTargetY, speed, easing) {
 			var scrollY = root.scrollY || docElem.scrollTop;
@@ -958,21 +963,20 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya, zoomwall */
 		};
 		root[_addEventListener]("click", hideOtherIsSocial);
 
-		var yaShare2Id = "ya-share2";
-
-		var yaShare2 = document[getElementById](yaShare2Id) || "";
-
-		var btnShare = document[getElementsByClassName]("btn-share")[0] || "";
-		var btnShareLink = btnShare ? btnShare[getElementsByTagName]("a")[0] || "" : "";
 		var yshare;
-		var showYaShare2 = function (ev) {
-			ev.preventDefault();
-			ev.stopPropagation();
-			var logic = function () {
-				yaShare2[classList].toggle(isActiveClass);
-				hideOtherIsSocial(yaShare2);
-				var initScript = function () {
-					if (root.Ya.share2) {
+		var manageShareButton = function () {
+			var btn = document[getElementsByClassName]("btn-share-buttons")[0] || "";
+			var yaShare2Id = "ya-share2";
+			var yaShare2 = document[getElementById](yaShare2Id) || "";
+			var locationHref = root.location || "";
+			var documentTitle = document[title] || "";
+			var handleShareButton = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var logic = function () {
+					yaShare2[classList].toggle(isActiveClass);
+					hideOtherIsSocial(yaShare2);
+					var initScript = function () {
 						try {
 							if (yshare) {
 								yshare.updateContent({
@@ -992,42 +996,40 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya, zoomwall */
 						} catch (err) {
 							throw new Error("cannot yshare.updateContent or Ya.share2 " + err);
 						}
+					};
+					if (!(root.Ya && Ya.share2)) {
+						var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
+						var load;
+						load = new loadJsCss([jsUrl], initScript);
+					} else {
+						initScript();
 					}
 				};
-				if (!root.Ya.share2) {
-					var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
-					var load;
-					load = new loadJsCss([jsUrl], initScript);
-				} else {
-					initScript();
-				}
+				debounce(logic, 200).call(root);
 			};
-			debounce(logic, 200).call(root);
+			if (btn && yaShare2) {
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					btn[_addEventListener]("click", handleShareButton);
+				} else {
+					setStyleDisplayNone(btn);
+				}
+			}
 		};
-
-		if (btnShare && btnShareLink && yaShare2) {
-			btnShareLink[_addEventListener]("click", showYaShare2);
-		}
-
-		var vkLikeClass = "vk-like";
-		var vkLike = document[getElementsByClassName](vkLikeClass)[0] || "";
-
-		var holderVkLikeClass = "holder-vk-like";
-		var holderVkLike = document[getElementsByClassName](holderVkLikeClass)[0] || "";
-
-		var btnLike = document[getElementsByClassName]("btn-like")[0] || "";
-		var btnLikeLink = btnLike ? btnLike[getElementsByTagName]("a")[0] || "" : "";
-		var vkLikeId = "vk-like";
+		manageShareButton();
 
 		var vlike;
-		var showVkLike = function (ev) {
-			ev.preventDefault();
-			ev.stopPropagation();
-			var logic = function () {
-				holderVkLike[classList].toggle(isActiveClass);
-				hideOtherIsSocial(holderVkLike);
-				var initScript = function () {
-					if (root.VK) {
+		var manageVKLikeButton = function () {
+			var vkLikeId = "vk-like";
+			var vkLike = document[getElementById](vkLikeId) || "";
+			var holderVkLike = document[getElementsByClassName]("holder-vk-like")[0] || "";
+			var btn = document[getElementsByClassName]("btn-show-vk-like")[0] || "";
+			var handleVKLikeButton = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var logic = function () {
+					holderVkLike[classList].toggle(isActiveClass);
+					hideOtherIsSocial(holderVkLike);
+					var initScript = function () {
 						if (!vlike) {
 							try {
 								VK.init({
@@ -1044,22 +1046,26 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya, zoomwall */
 								throw new Error("cannot VK.init " + err);
 							}
 						}
+					};
+					if (!(root.VK && VK.init && VK.Widgets && VK.Widgets.Like)) {
+						var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
+						var load;
+						load = new loadJsCss([jsUrl], initScript);
+					} else {
+						initScript();
 					}
 				};
-				if (!root.VK) {
-					var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
-					var load;
-					load = new loadJsCss([jsUrl], initScript);
-				} else {
-					initScript();
-				}
+				debounce(logic, 200).call(root);
 			};
-			debounce(logic, 200).call(root);
+			if (btn && vkLike) {
+				if ("undefined" !== typeof getHTTP && getHTTP()) {
+					btn[_addEventListener]("click", handleVKLikeButton);
+				} else {
+					setStyleDisplayNone(btn);
+				}
+			}
 		};
-
-		if (btnLike && btnLikeLink && vkLike) {
-			btnLikeLink[_addEventListener]("click", showVkLike);
-		}
+		manageVKLikeButton();
 
 		var titleBar = document[getElementsByClassName]("title-bar")[0] || "";
 		var titleBarHeight = titleBar.offsetHeight || 0;
@@ -1209,32 +1215,43 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya, zoomwall */
 			}
 		}
 
-		var btnClass = "btn-totop";
-		var btnTotop = document[getElementsByClassName](btnClass)[0] || "";
-		var handleBtnTotop = function (evt) {
-			evt.stopPropagation();
-			evt.preventDefault();
-			scroll2Top(0, 20000);
-		};
-		var handleBtnTotopWindow = function (_this) {
-			var logic = function () {
-				var btn = document[getElementsByClassName](btnClass)[0] || "";
-				var scrollPosition = _this.pageYOffset || docElem.scrollTop || docBody.scrollTop || "";
-				var windowHeight = _this.innerHeight || docElem.clientHeight || docBody.clientHeight || "";
-				if (scrollPosition && windowHeight && btn) {
-					if (scrollPosition > windowHeight) {
-						btn[classList].add(isActiveClass);
-					} else {
-						btn[classList].remove(isActiveClass);
-					}
-				}
+		var initUiTotop = function () {
+			var btnClass = "ui-totop";
+			var btn = document[getElementsByClassName](btnClass)[0] || "";
+			if (!btn) {
+				btn = document[createElement]("a");
+				btn[classList].add(btnClass);
+				/* jshint -W107 */
+				btn.href = "javascript:void(0);";
+				/* jshint +W107 */
+				btn.title = "Наверх";
+				docBody[appendChild](btn);
+			}
+			var handleUiTotopAnchor = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				scroll2Top(0, 20000);
 			};
-			throttle(logic, 100).call(root);
+			var handleUiTotopWindow = function (_this) {
+				var logic = function () {
+					var scrollPosition = _this.pageYOffset || docElem.scrollTop || docBody.scrollTop || "";
+					var windowHeight = _this.innerHeight || docElem.clientHeight || docBody.clientHeight || "";
+					if (scrollPosition && windowHeight && btn) {
+						if (scrollPosition > windowHeight) {
+							btn[classList].add(isActiveClass);
+						} else {
+							btn[classList].remove(isActiveClass);
+						}
+					}
+				};
+				throttle(logic, 100).call(root);
+			};
+			if (docBody) {
+				btn[_addEventListener]("click", handleUiTotopAnchor);
+				root[_addEventListener]("scroll", handleUiTotopWindow, {passive: true});
+			}
 		};
-		if (btnTotop) {
-			btnTotop[_addEventListener]("click", handleBtnTotop);
-			root[_addEventListener]("scroll", handleBtnTotopWindow, {passive: true});
-		}
+		initUiTotop();
 	};
 
 	var scripts = [];
@@ -1283,6 +1300,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya, zoomwall */
 
 	scripts.push("./libs/picturewall/js/vendors.min.js");
 
+	var bodyFontFamily = "Roboto";
 	var onFontsLoadedCallback = function () {
 		var slot;
 		var onFontsLoaded = function () {
@@ -1296,7 +1314,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya, zoomwall */
 		};
 		var checkFontIsLoaded;
 		checkFontIsLoaded = function () {
-			if (doesFontExist("Roboto")) {
+			if (doesFontExist(bodyFontFamily)) {
 				onFontsLoaded();
 			}
 		};
@@ -1311,45 +1329,4 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya, zoomwall */
 
 	var load;
 	load = new loadJsCss(["./libs/picturewall/css/bundle.min.css"], onFontsLoadedCallback);
-
-	/* root.WebFontConfig = {
-		google: {
-			families: [
-				"Roboto:300,400,400i,700,700i:cyrillic",
-				"Roboto Mono:400,700:cyrillic,latin-ext",
-				"Roboto Condensed:700:cyrillic",
-				"PT Serif:400:cyrillic"
-			]
-		},
-		listeners: [],
-		active: function () {
-			this.called_ready = true;
-			var i;
-			for (i = 0; i < this.listeners[_length]; i += 1) {
-				this.listeners[i]();
-			}
-			i = null;
-		},
-		ready: function (callback) {
-			if (this.called_ready) {
-				callback();
-			} else {
-				this.listeners.push(callback);
-			}
-		}
-	};
-
-	var onFontsLoadedCallback = function () {
-		var onFontsLoaded = function () {
-			if (!supportsSvgSmilAnimation && "undefined" !== typeof progressBar) {
-				progressBar.increase(20);
-			}
-			var load;
-			load = new loadJsCss(scripts, run);
-		};
-		root.WebFontConfig.ready(onFontsLoaded);
-	};
-
-	var load;
-	load = new loadJsCss([forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"], onFontsLoadedCallback); */
 })("undefined" !== typeof window ? window : this, document);

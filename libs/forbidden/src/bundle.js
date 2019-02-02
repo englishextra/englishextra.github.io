@@ -77,6 +77,7 @@ ToProgress, unescape, VK, Ya*/
 						}
 					}
 				}
+				t = null;
 			}
 			var transitionEvent = whichTransitionEvent();
 			function ToProgress(opt, selector) {
@@ -359,7 +360,7 @@ ToProgress, unescape, VK, Ya*/
 	var forcedHTTP = getHTTP(true);
 
 	var supportsCanvas;
-	supportsCanvas	= (function () {
+	supportsCanvas = (function () {
 		var elem = document[createElement]("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
 	})();
@@ -759,7 +760,7 @@ ToProgress, unescape, VK, Ya*/
 					appendFragment(img, holder);
 				}
 			};
-			if (holder && locationHref && "undefined" !== typeof getHTTP && getHTTP() && root.QRCode) {
+			if (root.QRCode && holder && locationHref && "undefined" !== typeof getHTTP && getHTTP()) {
 				initScript();
 			}
 		};
@@ -990,29 +991,27 @@ ToProgress, unescape, VK, Ya*/
 					yaShare2[classList].toggle(isActiveClass);
 					hideOtherIsSocial(yaShare2);
 					var initScript = function () {
-						if (root.Ya.share2) {
-							try {
-								if (yshare) {
-									yshare.updateContent({
+						try {
+							if (yshare) {
+								yshare.updateContent({
+									title: documentTitle,
+									description: documentTitle,
+									url: locationHref
+								});
+							} else {
+								yshare = Ya.share2(yaShare2Id, {
+									content: {
 										title: documentTitle,
 										description: documentTitle,
 										url: locationHref
-									});
-								} else {
-									yshare = Ya.share2(yaShare2Id, {
-										content: {
-											title: documentTitle,
-											description: documentTitle,
-											url: locationHref
-										}
-									});
-								}
-							} catch (err) {
-								throw new Error("cannot yshare.updateContent or Ya.share2 " + err);
+									}
+								});
 							}
+						} catch (err) {
+							throw new Error("cannot yshare.updateContent or Ya.share2 " + err);
 						}
 					};
-					if (!root.Ya.share2) {
+					if (!(root.Ya && Ya.share2)) {
 						var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
@@ -1045,7 +1044,7 @@ ToProgress, unescape, VK, Ya*/
 					holderVkLike[classList].toggle(isActiveClass);
 					hideOtherIsSocial(holderVkLike);
 					var initScript = function () {
-						if (root.VK && !vlike) {
+						if (!vlike) {
 							try {
 								VK.init({
 									apiId: (vkLike[dataset].apiid || ""),
@@ -1062,7 +1061,7 @@ ToProgress, unescape, VK, Ya*/
 							}
 						}
 					};
-					if (!root.VK) {
+					if (!(root.VK && VK.init && VK.Widgets && VK.Widgets.Like)) {
 						var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
@@ -1129,6 +1128,7 @@ ToProgress, unescape, VK, Ya*/
 		scripts.push("/cdn/polyfills/js/polyfills.fixed.min.js");
 	}
 
+	var bodyFontFamily = "Roboto";
 	var onFontsLoadedCallback = function () {
 		var slot;
 		var onFontsLoaded = function () {
@@ -1142,7 +1142,7 @@ ToProgress, unescape, VK, Ya*/
 		};
 		var checkFontIsLoaded;
 		checkFontIsLoaded = function () {
-			if (doesFontExist("Roboto")) {
+			if (doesFontExist(bodyFontFamily)) {
 				onFontsLoaded();
 			}
 		};
@@ -1157,45 +1157,4 @@ ToProgress, unescape, VK, Ya*/
 
 	var load;
 	load = new loadJsCss(["/libs/forbidden/css/bundle.min.css"], onFontsLoadedCallback);
-
-	/* root.WebFontConfig = {
-		google: {
-			families: [
-				"Roboto:300,400,400i,700,700i:cyrillic",
-				"Roboto Mono:400,700:cyrillic,latin-ext",
-				"Roboto Condensed:700:cyrillic",
-				"PT Serif:400:cyrillic"
-			]
-		},
-		listeners: [],
-		active: function () {
-			this.called_ready = true;
-			var i;
-			for (i = 0; i < this.listeners[_length]; i += 1) {
-				this.listeners[i]();
-			}
-			i = null;
-		},
-		ready: function (callback) {
-			if (this.called_ready) {
-				callback();
-			} else {
-				this.listeners.push(callback);
-			}
-		}
-	};
-
-	var onFontsLoadedCallback = function () {
-		var onFontsLoaded = function () {
-			if (!supportsSvgSmilAnimation && "undefined" !== typeof progressBar) {
-				progressBar.increase(20);
-			}
-			var load;
-			load = new loadJsCss(scripts, run);
-		};
-		root.WebFontConfig.ready(onFontsLoaded);
-	};
-
-	var load;
-	load = new loadJsCss([forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"], onFontsLoadedCallback); */
 })("undefined" !== typeof window ? window : this, document);

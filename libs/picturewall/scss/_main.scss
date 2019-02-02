@@ -253,7 +253,7 @@ u,
 	right: 0;
 }
 
-.btn-share {
+.btn-share-buttons {
 	width: 3.200rem;
 	height: 3.200rem;
 	position: fixed;
@@ -262,21 +262,21 @@ u,
 	background-color: $button-background-dark;
 }
 
-.btn-share a > * {
+.btn-share-buttons a > * {
 	fill: $title-bar-and-app-bar-light;
 }
 
-.btn-share svg {
+.btn-share-buttons svg {
 	display: block;
 	width: 3.200rem;
 	height: 3.200rem;
 }
 
-.btn-share a {
+.btn-share-buttons a {
 	font-size: 0;
 }
 
-.btn-like {
+.btn-show-vk-like {
 	width: 3.200rem;
 	height: 3.200rem;
 	position: fixed;
@@ -285,21 +285,21 @@ u,
 	background-color: $button-background-dark;
 }
 
-.btn-like a > * {
+.btn-show-vk-like a > * {
 	fill: $title-bar-and-app-bar-light;
 }
 
-.btn-like svg {
+.btn-show-vk-like svg {
 	display: block;
 	width: 3.200rem;
 	height: 3.200rem;
 }
 
-.btn-like a {
+.btn-show-vk-like a {
 	font-size: 0;
 }
 
-.btn-totop {
+.ui-totop {
 	display: none;
 	width: 3.200rem;
 	height: 3.200rem;
@@ -309,21 +309,21 @@ u,
 	background-color: $button-background-dark;
 }
 
-.btn-totop.is-active {
+.ui-totop.is-active {
 	display: block;
 }
 
-.btn-totop a > * {
+.ui-totop a > * {
 	fill: $title-bar-and-app-bar-light;
 }
 
-.btn-totop svg {
+.ui-totop svg {
 	display: block;
 	width: 3.200rem;
 	height: 3.200rem;
 }
 
-.btn-totop a {
+.ui-totop a {
 	font-size: 0;
 }
 

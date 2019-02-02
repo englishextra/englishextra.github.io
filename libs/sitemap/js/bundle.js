@@ -77,6 +77,7 @@ loadJsCss, Masonry, Packery, Promise, require, ToProgress, verge*/
 						}
 					}
 				}
+				t = null;
 			}
 			var transitionEvent = whichTransitionEvent();
 			function ToProgress(opt, selector) {
@@ -412,7 +413,7 @@ loadJsCss, Masonry, Packery, Promise, require, ToProgress, verge*/
 	var forcedHTTP = getHTTP(true);
 
 	var supportsCanvas;
-	supportsCanvas	= (function () {
+	supportsCanvas = (function () {
 		var elem = document[createElement]("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
 	})();
@@ -879,9 +880,9 @@ loadJsCss, Masonry, Packery, Promise, require, ToProgress, verge*/
 						var i,
 						l;
 						for (i = 0, l = btn.length; i < l; i += 1) {
-							btn[i].classList.remove("is-active");
+							btn[i].classList.remove(isActiveClass);
 						}
-						_this.classList.add("is-active");
+						_this.classList.add(isActiveClass);
 						i = l = null;
 						var j,
 						m;
@@ -902,9 +903,9 @@ loadJsCss, Masonry, Packery, Promise, require, ToProgress, verge*/
 						var i,
 						l;
 						for (i = 0, l = btn.length; i < l; i += 1) {
-							if (!btn[i].classList.contains("is-binded")) {
+							if (!btn[i].classList.contains(isBindedClass)) {
 								btn[i].addEventListener("click", handleFilterButtonAll);
-								btn[i].classList.add("is-binded");
+								btn[i].classList.add(isBindedClass);
 							}
 						}
 						i = l = null;
@@ -917,14 +918,14 @@ loadJsCss, Masonry, Packery, Promise, require, ToProgress, verge*/
 						var i,
 						l;
 						for (i = 0, l = btn.length; i < l; i += 1) {
-							btn[i].classList.remove("is-active");
+							btn[i].classList.remove(isActiveClass);
 						}
 						i = l = null;
 						var j,
 						m;
 						for (j = 0, m = btn.length; j < m; j += 1) {
 							if (btn[j].dataset.filter === _this.options[_this.selectedIndex].value) {
-								btn[j].classList.add("is-active");
+								btn[j].classList.add(isActiveClass);
 								break;
 							}
 						}
@@ -936,9 +937,9 @@ loadJsCss, Masonry, Packery, Promise, require, ToProgress, verge*/
 							}, 500);
 					};
 					if (sel) {
-						if (!sel.classList.contains("is-binded")) {
+						if (!sel.classList.contains(isBindedClass)) {
 							sel.addEventListener("change", handleFilterSelect);
-							sel.classList.add("is-binded");
+							sel.classList.add(isBindedClass);
 						}
 					}
 					if (controls) {
@@ -1025,8 +1026,16 @@ loadJsCss, Masonry, Packery, Promise, require, ToProgress, verge*/
 
 		var initUiTotop = function () {
 			var btnClass = "ui-totop";
-			var btnTitle = "Наверх";
-			var anchor = document[createElement]("a");
+			var btn = document[getElementsByClassName](btnClass)[0] || "";
+			if (!btn) {
+				btn = document[createElement]("a");
+				btn[classList].add(btnClass);
+				/* jshint -W107 */
+				btn.href = "javascript:void(0);";
+				/* jshint +W107 */
+				btn.title = "Наверх";
+				docBody[appendChild](btn);
+			}
 			var handleUiTotopAnchor = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
@@ -1034,7 +1043,6 @@ loadJsCss, Masonry, Packery, Promise, require, ToProgress, verge*/
 			};
 			var handleUiTotopWindow = function (_this) {
 				var logic = function () {
-					var btn = document[getElementsByClassName](btnClass)[0] || "";
 					var scrollPosition = _this.pageYOffset || docElem.scrollTop || docBody.scrollTop || "";
 					var windowHeight = _this.innerHeight || docElem.clientHeight || docBody.clientHeight || "";
 					if (scrollPosition && windowHeight && btn) {
@@ -1047,17 +1055,9 @@ loadJsCss, Masonry, Packery, Promise, require, ToProgress, verge*/
 				};
 				throttle(logic, 100).call(root);
 			};
-			anchor[classList].add(btnClass);
-			/* jshint -W107 */
-			anchor.href = "javascript:void(0);";
-			/* jshint +W107 */
-			anchor[title] = btnTitle;
-			docBody[appendChild](anchor);
 			if (docBody) {
-				anchor[_addEventListener]("click", handleUiTotopAnchor);
-				root[_addEventListener]("scroll", handleUiTotopWindow, {
-					passive: true
-				});
+				btn[_addEventListener]("click", handleUiTotopAnchor);
+				root[_addEventListener]("scroll", handleUiTotopWindow, {passive: true});
 			}
 		};
 		initUiTotop();
@@ -1111,6 +1111,7 @@ loadJsCss, Masonry, Packery, Promise, require, ToProgress, verge*/
 
 	scripts.push("./libs/sitemap/js/vendors.min.js");
 
+	var bodyFontFamily = "Roboto";
 	var onFontsLoadedCallback = function () {
 		var slot;
 		var onFontsLoaded = function () {
@@ -1124,7 +1125,7 @@ loadJsCss, Masonry, Packery, Promise, require, ToProgress, verge*/
 		};
 		var checkFontIsLoaded;
 		checkFontIsLoaded = function () {
-			if (doesFontExist("Roboto")) {
+			if (doesFontExist(bodyFontFamily)) {
 				onFontsLoaded();
 			}
 		};
@@ -1139,45 +1140,4 @@ loadJsCss, Masonry, Packery, Promise, require, ToProgress, verge*/
 
 	var load;
 	load = new loadJsCss(["./libs/sitemap/css/bundle.min.css"], onFontsLoadedCallback);
-
-	/* root.WebFontConfig = {
-		google: {
-			families: [
-				"Roboto:300,400,400i,700,700i:cyrillic",
-				"Roboto Mono:400,700:cyrillic,latin-ext",
-				"Roboto Condensed:700:cyrillic",
-				"PT Serif:400:cyrillic"
-			]
-		},
-		listeners: [],
-		active: function () {
-			this.called_ready = true;
-			var i;
-			for (i = 0; i < this.listeners[_length]; i += 1) {
-				this.listeners[i]();
-			}
-			i = null;
-		},
-		ready: function (callback) {
-			if (this.called_ready) {
-				callback();
-			} else {
-				this.listeners.push(callback);
-			}
-		}
-	};
-
-	var onFontsLoadedCallback = function () {
-		var onFontsLoaded = function () {
-			if (!supportsSvgSmilAnimation && "undefined" !== typeof progressBar) {
-				progressBar.increase(20);
-			}
-			var load;
-			load = new loadJsCss(scripts, run);
-		};
-		root.WebFontConfig.ready(onFontsLoaded);
-	};
-
-	var load;
-	load = new loadJsCss([forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"], onFontsLoadedCallback); */
 })("undefined" !== typeof window ? window : this, document);

@@ -1515,7 +1515,7 @@ function _typeof(obj) {
 				});
 			}
 			/* Attributes
-      ---------------------------------------------------------------------- */
+	  ---------------------------------------------------------------------- */
 			// Support: IE<8
 			// Verify that getAttribute really returns attributes and not properties (excepting IE8 booleans)
 
@@ -1524,7 +1524,7 @@ function _typeof(obj) {
 				return !div.getAttribute("className");
 			});
 			/* getElement(s)By*
-      ---------------------------------------------------------------------- */
+	  ---------------------------------------------------------------------- */
 			// Check if getElementsByTagName("*") returns only elements
 
 			support.getElementsByTagName = assert(function(div) {
@@ -1628,7 +1628,7 @@ function _typeof(obj) {
 					}
 				};
 			/* QSA/matchesSelector
-      ---------------------------------------------------------------------- */
+	  ---------------------------------------------------------------------- */
 			// QSA and matchesSelector support
 			// matchesSelector(:active) reports false when true (IE9/Opera 11.5)
 
@@ -1713,7 +1713,7 @@ function _typeof(obj) {
 			rbuggyMatches =
 				rbuggyMatches.length && new RegExp(rbuggyMatches.join("|"));
 			/* Contains
-      ---------------------------------------------------------------------- */
+	  ---------------------------------------------------------------------- */
 			// Element contains another
 			// Purposefully does not implement inclusive descendent
 			// As in, an element does not contain itself
@@ -1749,7 +1749,7 @@ function _typeof(obj) {
 							return false;
 					  };
 			/* Sorting
-      ---------------------------------------------------------------------- */
+	  ---------------------------------------------------------------------- */
 			// Document order sorting
 
 			sortOrder = docElem.compareDocumentPosition
@@ -2023,15 +2023,15 @@ function _typeof(obj) {
 				},
 				CHILD: function CHILD(match) {
 					/* matches from matchExpr["CHILD"]
-          	1 type (only|nth|...)
-          	2 what (child|of-type)
-          	3 argument (even|odd|\d*|\d*n([+-]\d+)?|...)
-          	4 xn-component of xn+y argument ([+-]?\d*n|)
-          	5 sign of xn-component
-          	6 x of xn-component
-          	7 sign of y-component
-          	8 y of y-component
-          */
+		  	1 type (only|nth|...)
+		  	2 what (child|of-type)
+		  	3 argument (even|odd|\d*|\d*n([+-]\d+)?|...)
+		  	4 xn-component of xn+y argument ([+-]?\d*n|)
+		  	5 sign of xn-component
+		  	6 x of xn-component
+		  	7 sign of y-component
+		  	8 y of y-component
+		  */
 					match[1] = match[1].toLowerCase();
 
 					if (match[1].slice(0, 3) === "nth") {
@@ -8329,8 +8329,8 @@ function _typeof(obj) {
 		/* Prefilters
 		 * 1) They are useful to introduce custom dataTypes (see ajax/jsonp.js for an example)
 		 * 2) These are called:
-		 *    - BEFORE asking for a transport
-		 *    - AFTER param serialization (s.data is a string if s.processData is true)
+		 *	- BEFORE asking for a transport
+		 *	- AFTER param serialization (s.data is a string if s.processData is true)
 		 * 3) key is the dataType
 		 * 4) the catchall symbol "*" can be used
 		 * 5) execution will start with transport dataType and THEN continue down to "*" if needed
@@ -8543,16 +8543,16 @@ function _typeof(obj) {
 			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 
 			/*
-      timeout: 0,
-      data: null,
-      dataType: null,
-      username: null,
-      password: null,
-      cache: null,
-      throws: false,
-      traditional: false,
-      headers: {},
-      */
+	  timeout: 0,
+	  data: null,
+	  dataType: null,
+	  username: null,
+	  password: null,
+	  cache: null,
+	  throws: false,
+	  traditional: false,
+	  headers: {},
+	  */
 			accepts: {
 				"*": allTypes,
 				text: "text/plain",

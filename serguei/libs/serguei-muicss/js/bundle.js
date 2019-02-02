@@ -360,7 +360,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 	var forcedHTTP = getHTTP(true);
 
 	var supportsCanvas;
-	supportsCanvas	= (function () {
+	supportsCanvas = (function () {
 		var elem = document[createElement]("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
 	})();
@@ -570,6 +570,18 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			};
 		};
 
+		var setStyleDisplayBlock = function (a) {
+			if (a) {
+				a[style].display = "block";
+			}
+		};
+
+		var setStyleDisplayNone = function (a) {
+			if (a) {
+				a[style].display = "none";
+			}
+		};
+
 		var scroll2Top = function (scrollTargetY, speed, easing) {
 			var scrollY = root.scrollY || docElem.scrollTop;
 			var posY = scrollTargetY || 0;
@@ -624,7 +636,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 					var timer = setTimeout(function () {
 						clearTimeout(timer);
 						timer = null;
-						spinner[style].display = "none";
+						setStyleDisplayNone(spinner);
 						if (callback && "function" === typeof callback) {
 							callback();
 						}
@@ -967,7 +979,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 					touch: false
 				});
 			};
-			if (link && root.imgLightbox) {
+			if (root.imgLightbox && link) {
 				initScript();
 			}
 		};
@@ -1002,7 +1014,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 				}
 				i = l = null;
 			};
-			if (link && root.IframeLightbox) {
+			if (root.IframeLightbox && link) {
 				initScript();
 			}
 		};
@@ -1085,32 +1097,30 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 
 		var manageReadMore = function () {
 			var rmLink = document[getElementsByClassName]("rm-link") || "";
-			var arrange = function (e) {
-				if (!e[classList].contains(isBindedClass)) {
-					e[classList].add(isBindedClass);
-					e[_addEventListener]("click", updateMinigrid);
-				}
-			};
 			var initScript = function () {
-				if (root.$readMoreJS) {
-					$readMoreJS.init({
-						target: ".dummy",
-						numOfWords: 10,
-						toggle: true,
-						moreLink: "БОЛЬШЕ",
-						lessLink: "МЕНЬШЕ",
-						inline: true,
-						customBlockElement: "p"
-					});
-					var i,
-					l;
-					for (i = 0, l = rmLink[_length]; i < l; i += 1) {
-						arrange(rmLink[i]);
+				$readMoreJS.init({
+					target: ".dummy",
+					numOfWords: 10,
+					toggle: true,
+					moreLink: "БОЛЬШЕ",
+					lessLink: "МЕНЬШЕ",
+					inline: true,
+					customBlockElement: "p"
+				});
+				var arrange = function (e) {
+					if (!e[classList].contains(isBindedClass)) {
+						e[classList].add(isBindedClass);
+						e[_addEventListener]("click", updateMinigrid);
 					}
-					i = l = null;
+				};
+				var i,
+				l;
+				for (i = 0, l = rmLink[_length]; i < l; i += 1) {
+					arrange(rmLink[i]);
 				}
+				i = l = null;
 			};
-			if (rmLink) {
+			if (root.$readMoreJS && rmLink) {
 				initScript();
 			}
 		};
@@ -1162,7 +1172,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		var manageOtherCollapsableAll = function (_self) {
 			var _this = _self || this;
 			var btn = document[getElementsByClassName](isCollapsableClass) || "";
-			var removeActiveClass = function (e) {
+			var arrange = function (e) {
 				if (_this !== e) {
 					e[classList].remove(isActiveClass);
 				}
@@ -1171,7 +1181,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 				var i,
 				l;
 				for (i = 0, l = btn[_length]; i < l; i += 1) {
-					removeActiveClass(btn[i]);
+					arrange(btn[i]);
 				}
 				i = l = null;
 			}
@@ -1310,7 +1320,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 							throw new Error("cannot yshare.updateContent or Ya.share2 " + err);
 						}
 					};
-					if (!root.Ya.share2) {
+					if (!(root.Ya && Ya.share2)) {
 						var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
@@ -1359,7 +1369,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 							}
 						}
 					};
-					if (!root.VK) {
+					if (!(root.VK && VK.init && VK.Widgets && VK.Widgets.Like)) {
 						var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
@@ -1428,14 +1438,6 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		};
 		initUiTotop();
 
-		var hideCurrentDropdownMenu = function (e) {
-			if (e) {
-				if (e[classList].contains(isActiveClass)) {
-					e[classList].remove(isActiveClass);
-					manageOtherCollapsableAll(e);
-				}
-			}
-		};
 		var handleDropdownButton = function (evt) {
 			evt.stopPropagation();
 			evt.preventDefault();
@@ -1444,6 +1446,14 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			var rect = _this.getBoundingClientRect();
 			var top = rect.top + rect.height;
 			var left = rect.left;
+			var hideCurrentDropdownMenu = function (e) {
+				if (e) {
+					if (e[classList].contains(isActiveClass)) {
+						e[classList].remove(isActiveClass);
+						manageOtherCollapsableAll(e);
+					}
+				}
+			};
 			if (menu) {
 				menu[style].top = top + "px";
 				if (!menu[classList].contains("mui-dropdown__menu--right")) {
@@ -1496,20 +1506,20 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		};
 		manageDropdownButtonAll();
 
-		var hideDropdownMenuAll = function () {
-			var menu = document[getElementsByClassName]("mui-dropdown__menu") || "";
-			if (menu) {
-				var i,
-				l;
-				for (i = 0, l = menu[_length]; i < l; i += 1) {
-					if (menu[i][classList].contains(isActiveClass)) {
-						menu[i][classList].remove(isActiveClass);
-					}
-				}
-				i = l = null;
-			}
-		};
 		var hideDropdownMenuAllOnNavigating = function () {
+			var hideDropdownMenuAll = function () {
+				var menu = document[getElementsByClassName]("mui-dropdown__menu") || "";
+				if (menu) {
+					var i,
+					l;
+					for (i = 0, l = menu[_length]; i < l; i += 1) {
+						if (menu[i][classList].contains(isActiveClass)) {
+							menu[i][classList].remove(isActiveClass);
+						}
+					}
+					i = l = null;
+				}
+			};
 			if (appContentParent) {
 				appContentParent[_addEventListener]("click", hideDropdownMenuAll);
 			}
@@ -1519,7 +1529,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 
 		var manageHljsCodeAll = function () {
 			var code = document[getElementsByTagName]("code") || "";
-			if (root.hljs) {
+			var initScript = function () {
 				var i,
 				l;
 				for (i = 0, l = code[_length]; i < l; i += 1) {
@@ -1529,6 +1539,9 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 					}
 				}
 				i = l = null;
+			};
+			if (root.hljs && code) {
+				initScript();
 			}
 		};
 
@@ -1781,19 +1794,19 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		var manageMinigrid = function (minigridClass) {
 			return new Promise(function (resolve, reject) {
 				var minigrid = document[getElementsByClassName](minigridClass)[0] || "";
-				var handleMinigrid = function () {
-					var minigridItem = minigrid[getElementsByClassName](minigridItemClass) || "";
-					var minigridItemLength = minigridItem[_length] || 0;
-					if (minigridItem && !minigrid[classList].contains(isActiveClass)) {
+				var initScript = function () {
+					var item = minigrid[getElementsByClassName](minigridItemClass) || "";
+					var itemLength = item[_length] || 0;
+					if (item && !minigrid[classList].contains(isActiveClass)) {
 						scroll2Top(1, 20000);
 						appEvents.emitEvent("MinigridItemsFound");
-						resolve("manageMinigrid: found " + minigridItemLength + " cards");
+						resolve("manageMinigrid: found " + itemLength + " cards");
 					} else {
-						reject("manageMinigrid: no cards found");
+						reject("manageMinigrid: no items found");
 					}
 				};
 				if (root.Minigrid && minigrid) {
-					handleMinigrid();
+					initScript();
 				}
 			});
 		};
@@ -1825,8 +1838,8 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		var macyClass = "macy";
 
 		var initMacy = function () {
-			var macyContainer = document[getElementsByClassName](macyClass)[0] || "";
-			if (macyContainer) {
+			var macy = document[getElementsByClassName](macyClass)[0] || "";
+			if (macy) {
 				try {
 					if (root.macyInstance) {
 						root.macyInstance.remove();
@@ -1846,7 +1859,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 								360: 1
 							}
 						});
-					macyContainer[classList].add(isActiveClass);
+					macy[classList].add(isActiveClass);
 					appEvents.emitEvent("MacyInited");
 				} catch (err) {
 					throw new Error("cannot init Macy " + err);
@@ -1854,13 +1867,22 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		appEvents.addListeners("MacyImagesLoaded", [initMacy]);
+		appEvents.addListeners("MacyItemsFound", [initMacy]);
 
 		var manageMacy = function (macyClass) {
 			return new Promise(function (resolve, reject) {
-				var macyContainer = document[getElementsByClassName](macyClass)[0] || "";
-				var handleMacyContainer = function () {
-					var img = macyContainer[getElementsByTagName]("img") || "";
+				var macy = document[getElementsByClassName](macyClass)[0] || "";
+				var initScript = function () {
+					var item = macy ? (macy.children || macy[querySelectorAll]("." + macyClass + " > *") || "") : "";
+					var itemLength = item[_length] || 0;
+					if (item && !macy[classList].contains(isActiveClass)) {
+						scroll2Top(1, 20000);
+						appEvents.emitEvent("MacyItemsFound");
+						resolve("manageMacy: found " + itemLength + " items");
+					} else {
+						reject("manageMacy: no items found");
+					}
+					/* var img = macy[getElementsByTagName]("img") || "";
 					var imgLength = img[_length] || 0;
 					var imgCounter = 0;
 					var onLoad;
@@ -1878,7 +1900,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 						imgCounter++;
 						if (imgCounter === imgLength) {
 							scroll2Top(1, 20000);
-							appEvents.emitEvent("MacyImagesLoaded");
+							appEvents.emitEvent("MacyItemsFound");
 							resolve("manageMacy: all " + imgCounter + " images loaded");
 						}
 					};
@@ -1886,17 +1908,17 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 						removeListeners(this);
 						reject("manageMacy: cannot load " + this.src);
 					};
-					if (img && !macyContainer[classList].contains(isActiveClass)) {
+					if (img && !macy[classList].contains(isActiveClass)) {
 						var i,
 						l;
 						for (i = 0, l = img[_length]; i < l; i += 1) {
 							addListeners(img[i]);
 						}
 						i = l = null;
-					}
+					} */
 				};
-				if (root.Macy && macyContainer) {
-					handleMacyContainer();
+				if (root.Macy && macy) {
+					initScript();
 				}
 			});
 		};
@@ -1908,9 +1930,9 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			var categoryItem = _this.nextElementSibling;
 			if (categoryItem) {
 				if (categoryItem[style].display === "none") {
-					categoryItem[style].display = "block";
+					setStyleDisplayBlock(categoryItem);
 				} else {
-					categoryItem[style].display = "none";
+					setStyleDisplayNone(categoryItem);
 				}
 			}
 		};
@@ -1924,7 +1946,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 						sidedrawerCategoryAll[i].nextElementSibling.nodeName.toLowerCase() === "ul" &&
 						sidedrawerCategoryAll[i].nextElementSibling.nodeType === 1
 						) {
-							sidedrawerCategoryAll[i].nextElementSibling[style].display = "none";
+							setStyleDisplayNone(sidedrawerCategoryAll[i].nextElementSibling);
 							sidedrawerCategoryAll[i][_addEventListener]("click", handleSidedrawerCategory);
 							sidedrawerCategoryAll[i][classList].add(isBindedClass);
 					}
@@ -2270,6 +2292,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 
 	scripts.push("./libs/serguei-muicss/js/vendors.min.js");
 
+	var bodyFontFamily = "Roboto";
 	var onFontsLoadedCallback = function () {
 		var slot;
 		var onFontsLoaded = function () {
@@ -2283,7 +2306,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		};
 		var checkFontIsLoaded;
 		checkFontIsLoaded = function () {
-			if (doesFontExist("Roboto")) {
+			if (doesFontExist(bodyFontFamily)) {
 				onFontsLoaded();
 			}
 		};
@@ -2315,46 +2338,6 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			root[_addEventListener]("load", logic);
 		}
 	};
+
 	loadDeferred(["./libs/serguei-muicss/css/vendors.min.css"], onFontsLoadedCallback);
-
-	/* root.WebFontConfig = {
-		google: {
-			families: [
-				"Roboto:300,400,400i,700,700i:cyrillic",
-				"Roboto Mono:400,700:cyrillic,latin-ext",
-				"Roboto Condensed:700:cyrillic",
-				"PT Serif:400:cyrillic"
-			]
-		},
-		listeners: [],
-		active: function () {
-			this.called_ready = true;
-			var i;
-			for (i = 0; i < this.listeners[_length]; i += 1) {
-				this.listeners[i]();
-			}
-			i = null;
-		},
-		ready: function (callback) {
-			if (this.called_ready) {
-				callback();
-			} else {
-				this.listeners.push(callback);
-			}
-		}
-	};
-
-	var onFontsLoadedCallback = function () {
-		var onFontsLoaded = function () {
-			if (!supportsSvgSmilAnimation && "undefined" !== typeof progressBar) {
-				progressBar.increase(20);
-			}
-			var load;
-			load = new loadJsCss(scripts, run);
-		};
-		root.WebFontConfig.ready(onFontsLoaded);
-	};
-
-	var load;
-	load = new loadJsCss([forcedHTTP + "://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js"], onFontsLoadedCallback); */
 })("undefined" !== typeof window ? window : this, document);
