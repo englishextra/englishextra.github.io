@@ -2705,8 +2705,7 @@ VK, Ya*/
 
 		var initUiTotop = function () {
 			var btnClass = "ui-totop";
-			var btnTitle = "Наверх";
-			var anchor = document[createElement]("a");
+			var btn = document[getElementsByClassName](btnClass)[0] || "";
 			var insertUpSvg = function (targetObj) {
 				var svg = document[createElementNS]("http://www.w3.org/2000/svg", "svg");
 				var use = document[createElementNS]("http://www.w3.org/2000/svg", "use");
@@ -2715,14 +2714,23 @@ VK, Ya*/
 				svg[appendChild](use);
 				targetObj[appendChild](svg);
 			};
-			var handleUiTotopAnchor = function (ev) {
+			if (!btn) {
+				btn = document[createElement]("a");
+				btn[classList].add(btnClass);
+				/* jshint -W107 */
+				btn.href = "javascript:void(0);";
+				/* jshint +W107 */
+				btn.title = "Наверх";
+				insertUpSvg(btn);
+				docBody[appendChild](btn);
+			}
+			var handleUiTotop = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				scroll2Top(0, 20000);
 			};
 			var handleUiTotopWindow = function (_this) {
 				var logic = function () {
-					var btn = document[getElementsByClassName](btnClass)[0] || "";
 					var scrollPosition = _this.pageYOffset || docElem.scrollTop || docBody.scrollTop || "";
 					var windowHeight = _this.innerHeight || docElem.clientHeight || docBody.clientHeight || "";
 					if (scrollPosition && windowHeight && btn) {
@@ -2735,15 +2743,8 @@ VK, Ya*/
 				};
 				throttle(logic, 100).call(root);
 			};
-			anchor[classList].add(btnClass);
-			/* jshint -W107 */
-			anchor.href = "javascript:void(0);";
-			/* jshint +W107 */
-			anchor.title = btnTitle;
-			insertUpSvg(anchor);
-			docBody[appendChild](anchor);
 			if (docBody) {
-				anchor[_addEventListener]("click", handleUiTotopAnchor);
+				btn[_addEventListener]("click", handleUiTotop);
 				root[_addEventListener]("scroll", handleUiTotopWindow, {passive: true});
 			}
 		};

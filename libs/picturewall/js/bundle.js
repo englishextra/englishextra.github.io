@@ -1227,7 +1227,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya, zoomwall */
 				btn.title = "Наверх";
 				docBody[appendChild](btn);
 			}
-			var handleUiTotopAnchor = function (ev) {
+			var handleUiTotop = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				scroll2Top(0, 20000);
@@ -1247,7 +1247,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya, zoomwall */
 				throttle(logic, 100).call(root);
 			};
 			if (docBody) {
-				btn[_addEventListener]("click", handleUiTotopAnchor);
+				btn[_addEventListener]("click", handleUiTotop);
 				root[_addEventListener]("scroll", handleUiTotopWindow, {passive: true});
 			}
 		};
