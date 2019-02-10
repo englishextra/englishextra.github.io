@@ -241,36 +241,27 @@
 			};
 		};
 
-		var logic = function logic() {
+		var logic = function () {
 			_this.open();
 		};
 
-		var handleIframeLightboxLink = function handleIframeLightboxLink(e) {
+		var handleIframeLightboxLink = function (e) {
 			e.stopPropagation();
 			e.preventDefault();
 			debounce(logic, this.rate).call();
 		};
-
-		if (
-			!this.trigger[classList].contains(iframeLightboxLinkIsBindedClass)
-		) {
+		if (!this.trigger[classList].contains(iframeLightboxLinkIsBindedClass)) {
 			this.trigger[classList].add(iframeLightboxLinkIsBindedClass);
-
 			this.trigger[_addEventListener]("click", handleIframeLightboxLink);
-
 			if (isTouch && (_this.touch || _this.dataTouch)) {
-				this.trigger[_addEventListener](
-					"touchstart",
-					handleIframeLightboxLink
-				);
+				this.trigger[_addEventListener]("touchstart", handleIframeLightboxLink);
 			}
 		}
 	};
 
 	IframeLightbox.prototype.create = function() {
 		var _this = this,
-			backdrop = document[createElement]("div");
-
+		backdrop = document[createElement]("div");
 		backdrop[classList].add("backdrop");
 		this.el = document[createElement]("div");
 		this.el[classList].add(containerClass);
@@ -388,16 +379,14 @@
 		docBody[classList].add(iframeLightboxOpenClass);
 		this.callCallback(this.onOpened, this);
 	};
-
-	IframeLightbox.prototype.close = function() {
+	IframeLightbox.prototype.close = function () {
 		this.el[classList].remove(isOpenedClass);
 		this.body[classList].remove(isLoadedClass);
 		docElem[classList].remove(iframeLightboxOpenClass);
 		docBody[classList].remove(iframeLightboxOpenClass);
 		this.callCallback(this.onClosed, this);
 	};
-
-	IframeLightbox.prototype.isOpen = function() {
+	IframeLightbox.prototype.isOpen = function () {
 		return this.el[classList].contains(isOpenedClass);
 	};
 
@@ -489,58 +478,57 @@
 		};
 	};
 
-	var callCallback = function callCallback(func, data) {
+	var callCallback = function (func, data) {
 		if (typeof func !== "function") {
 			return;
 		}
-
 		var caller = func.bind(this);
 		caller(data);
 	};
+		var setStyleDisplayBlock = function (a) {
+			if (a) {
+				a[style].display = "block";
+			}
+		};
 
-	var hideImgLightbox = function hideImgLightbox(callback) {
-		var container =
-			document[getElementsByClassName](containerClass)[0] || "";
-		var img = container
-			? container[getElementsByTagName]("img")[0] || ""
-			: "";
-
-		var hideContainer = function hideContainer() {
+		var setStyleDisplayNone = function (a) {
+			if (a) {
+				a[style].display = "none";
+			}
+		};
+	var hideImgLightbox = function (callback) {
+		var container = document[getElementsByClassName](containerClass)[0] || "";
+		var img = container ? container[getElementsByTagName]("img")[0] || "" : "";
+		var hideContainer = function () {
 			container[classList].remove(fadeInClass);
 			container[classList].add(fadeOutClass);
-
-			var hideImg = function hideImg() {
+			var hideImg = function () {
 				container[classList].remove(animatedClass);
 				container[classList].remove(fadeOutClass);
 				img[classList].remove(animatedClass);
 				img[classList].remove(fadeOutDownClass);
-
-				img.onload = function() {
+				img.onload = function () {
 					container[classList].remove(isLoadedClass);
 				};
-
 				img.src = dummySrc;
 				setStyleDisplayNone(container);
 				callCallback(callback, root);
 			};
-
-			var timer = setTimeout(function() {
-				clearTimeout(timer);
-				timer = null;
-				hideImg();
-			}, 400);
+			var timer = setTimeout(function () {
+					clearTimeout(timer);
+					timer = null;
+					hideImg();
+				}, 400);
 		};
-
 		if (container && img) {
 			img[classList].remove(fadeInUpClass);
 			img[classList].add(fadeOutDownClass);
-			var timer = setTimeout(function() {
-				clearTimeout(timer);
-				timer = null;
-				hideContainer();
-			}, 400);
+			var timer = setTimeout(function () {
+					clearTimeout(timer);
+					timer = null;
+					hideContainer();
+				}, 400);
 		}
-
 		docElem[classList].remove(imgLightboxOpenClass);
 		docBody[classList].remove(imgLightboxOpenClass);
 	};
@@ -556,29 +544,19 @@
 		var onCreated = options.onCreated;
 		var onClosed = options.onClosed;
 		var link = document[getElementsByClassName](_linkClass) || "";
-		var container =
-			document[getElementsByClassName](containerClass)[0] || "";
-		var img = container
-			? container[getElementsByTagName]("img")[0] || ""
-			: "";
-
+		var container = document[getElementsByClassName](containerClass)[0] || "";
+		var img = container ? container[getElementsByTagName]("img")[0] || "" : "";
 		if (!container) {
 			container = document[createElement]("div");
 			container[classList].add(containerClass);
 			var html = [];
 			html.push('<img src="' + dummySrc + '" alt="" />');
-			html.push(
-				'<div class="half-circle-spinner"><div class="circle circle-1"></div><div class="circle circle-2"></div></div>'
-			);
+			html.push('<div class="half-circle-spinner"><div class="circle circle-1"></div><div class="circle circle-2"></div></div>');
 			html.push('<a href="javascript:void(0);" class="btn-close"></a>');
 			container[innerHTML] = html.join("");
 			docBody[appendChild](container);
-			img = container
-				? container[getElementsByTagName]("img")[0] || ""
-				: "";
-			var btnClose = container
-				? container[getElementsByClassName](btnCloseClass)[0] || ""
-				: "";
+			img = container ? container[getElementsByTagName]("img")[0] || "" : "";
+			var btnClose = container ? container[getElementsByClassName](btnCloseClass)[0] || "" : "";
 
 			var handleImgLightboxContainer = function handleImgLightboxContainer() {
 				hideImgLightbox(onClosed);
@@ -606,49 +584,39 @@
 				return;
 			}
 
-			var handleImgLightboxLink = function handleImgLightboxLink(ev) {
+			var handleImgLightboxLink = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				docElem[classList].add(imgLightboxOpenClass);
 				docBody[classList].add(imgLightboxOpenClass);
 				container[classList].remove(isLoadedClass);
-
 				var logic = function logic() {
 					if (onCreated) {
 						callCallback(onCreated, root);
 					}
-
 					container[classList].add(animatedClass);
 					container[classList].add(fadeInClass);
 					img[classList].add(animatedClass);
 					img[classList].add(fadeInUpClass);
-
-					img.onload = function() {
+					img.onload = function () {
 						container[classList].add(isLoadedClass);
-
 						if (onLoaded) {
 							callCallback(onLoaded, root);
 						}
 					};
-
-					img.onerror = function() {
+					img.onerror = function () {
 						if (onError) {
 							callCallback(onError, root);
 						}
 					};
-
 					img.src = hrefString;
 					setStyleDisplayBlock(container);
 				};
-
 				debounce(logic, rate).call();
 			};
-
 			if (!e[classList].contains(imgLightboxLinkIsBindedClass)) {
 				e[classList].add(imgLightboxLinkIsBindedClass);
-
 				e[_addEventListener]("click", handleImgLightboxLink);
-
 				if (isTouch && (touch || dataTouch)) {
 					e[_addEventListener]("touchstart", handleImgLightboxLink);
 				}
@@ -1731,10 +1699,7 @@
 			var textcolor = options.textcolor ? options.textcolor : "#000000";
 			var matrix = QRCode.generate(data, options);
 			var modsize = Math.max(options.modulesize || 5, 0.5);
-			var margin = Math.max(
-				options.margin !== null ? options.margin : 4,
-				0.0
-			);
+			var margin = Math.max(options.margin !== null ? options.margin : 4, 0.0);
 			var e = document[createElement]("div");
 			var n = matrix[length];
 			var html = [
@@ -1787,44 +1752,19 @@
 			var size = modsize * (n + 2 * margin);
 			/* var common = ' class= "fg"' + ' width="' + modsize + '" height="' + modsize + '"/>'; */
 
-			var e = document[createElementNS](
-				"http://www.w3.org/2000/svg",
-				"svg"
-			);
+			var e = document[createElementNS]("http://www.w3.org/2000/svg", "svg");
 			e[setAttributeNS](null, "viewBox", "0 0 " + size + " " + size);
 			e[setAttributeNS](null, "style", "shape-rendering:crispEdges");
 			var qrcodeId = "qrcode" + Date.now();
 			e[setAttributeNS](null, "id", qrcodeId);
 			var frag = document[createDocumentFragment]();
 			/* var svg = ['<style scoped>.bg{fill:' + fillcolor + '}.fg{fill:' + textcolor + '}</style>', '<rect class="bg" x="0" y="0"', 'width="' + size + '" height="' + size + '"/>', ]; */
-
-			var style = document[createElementNS](
-				"http://www.w3.org/2000/svg",
-				"style"
-			);
-			style[appendChild](
-				document[createTextNode](
-					"#" +
-						qrcodeId +
-						" .bg{fill:" +
-						fillcolor +
-						"}#" +
-						qrcodeId +
-						" .fg{fill:" +
-						textcolor +
-						"}"
-				)
-			);
+			var style = document[createElementNS]("http://www.w3.org/2000/svg", "style");
+			style[appendChild](document[createTextNode]("#" + qrcodeId + " .bg{fill:" + fillcolor + "}#" + qrcodeId + " .fg{fill:" + textcolor + "}"));
 			/* style[setAttributeNS](null, "scoped", "scoped"); */
-
 			frag[appendChild](style);
-
-			var createRect = function createRect(c, f, x, y, s) {
-				var fg =
-					document[createElementNS](
-						"http://www.w3.org/2000/svg",
-						"rect"
-					) || "";
+			var createRect = function (c, f, x, y, s) {
+				var fg = document[createElementNS]("http://www.w3.org/2000/svg", "rect") || "";
 				fg[setAttributeNS](null, "class", c);
 				fg[setAttributeNS](null, "fill", f);
 				fg[setAttributeNS](null, "x", x);
@@ -2114,7 +2054,7 @@
 				}
 			},
 			refresh: function refresh() {
-				void 0 !== this.current && this.sortTable(this.current, !0);
+				void 0 !== this.current && this.sortTable(this.current, true);
 			}
 		}),
 		"undefined" != typeof module && module.exports
@@ -2319,7 +2259,7 @@
 			},
 			trigger: function trigger(e, n, i) {
 				var s = t.createEvent("HTMLEvents");
-				s.initEvent(n, !0, !0);
+				s.initEvent(n, !0, true);
 
 				for (var r in i) {
 					i.hasOwnProperty(r) && (s[r] = i[r]);

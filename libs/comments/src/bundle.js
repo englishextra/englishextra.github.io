@@ -1,6 +1,7 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global $, jQuery, doesFontExist, loadJsCss, require, ToProgress*/
+/*global $, jQuery, doesFontExist, loadJsCss, addListener, removeListener, getByClass, addClass, hasClass, removeClass,
+toggleClass, require, ToProgress*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -33,6 +34,98 @@
 	prop = method = dummy = properties = methods = null;
 })("undefined" !== typeof window ? window : this);
 /*!
+ * Super-simple wrapper around addEventListener and attachEvent (old IE).
+ * Does not handle differences in the Event-objects.
+ * @see {@link https://github.com/finn-no/eventlistener}
+ */
+(function (root) {
+	"use strict";
+	var wrap = function (standard, fallback) {
+		return function (el, type, listener, useCapture) {
+			if (el[standard]) {
+				el[standard](type, listener, useCapture);
+			} else {
+				if (el[fallback]) {
+					el[fallback]("on" + type, listener);
+				}
+			}
+		};
+	};
+	root.addListener = wrap("addEventListener", "attachEvent");
+	root.removeListener = wrap("removeEventListener", "detachEvent");
+})("undefined" !== typeof window ? window : this);
+/*!
+ * get elements by class name wrapper
+ */
+(function (root, document) {
+	"use strict";
+	var getByClass = function (parent, name) {
+		if (!Element.getElementsByClassName) {
+			var children = (parent || document.body).getElementsByTagName("*"),
+			elements = [],
+			classRE = new RegExp("\\b" + name + "\\b"),
+			child;
+			var i,
+			l;
+			for (i = 0, l = children.length; i < l; i += 1) {
+				child = children[i];
+				if (classRE.test(child.className)) {
+					elements.push(child);
+				}
+			}
+			i = l = null;
+			return elements;
+		} else {
+			return parent ? parent.getElementsByClassName(name) : "";
+		}
+	};
+	root.getByClass = getByClass;
+})("undefined" !== typeof window ? window : this, document);
+/*!
+ * class list wrapper
+ */
+(function (root, document) {
+	"use strict";
+	var classList = "classList";
+	var hasClass;
+	var addClass;
+	var removeClass;
+	if (classList in document.documentElement) {
+		hasClass = function (el, name) {
+			return el[classList].contains(name);
+		};
+		addClass = function (el, name) {
+			el[classList].add(name);
+		};
+		removeClass = function (el, name) {
+			el[classList].remove(name);
+		};
+	} else {
+		hasClass = function (el, name) {
+			return new RegExp("\\b" + name + "\\b").test(el.className);
+		};
+		addClass = function (el, name) {
+			if (!hasClass(el, name)) {
+				el.className += " " + name;
+			}
+		};
+		removeClass = function (el, name) {
+			el.className = el.className.replace(new RegExp("\\b" + name + "\\b", "g"), "");
+		};
+	}
+	var toggleClass = function (el, name) {
+		if (hasClass(el, name)) {
+			removeClass(el, name);
+		} else {
+			addClass(el, name);
+		}
+	};
+	root.hasClass = hasClass;
+	root.addClass = addClass;
+	root.removeClass = removeClass;
+	root.toggleClass = toggleClass;
+})("undefined" !== typeof window ? window : this, document);
+/*!
  * modified ToProgress v0.1.1
  * arguments.callee changed to TP, a local wrapper function,
  * so that public function name is now customizable;
@@ -51,7 +144,6 @@
 		var TP = function () {
 			var _addEventListener = "addEventListener";
 			var appendChild = "appendChild";
-			var createElement = "createElement";
 			var firstChild = "firstChild";
 			var getElementById = "getElementById";
 			var getElementsByClassName = "getElementsByClassName";
@@ -62,7 +154,7 @@
 			var style = "style";
 			function whichTransitionEvent() {
 				var t,
-				el = document[createElement]("fakeelement");
+				el = document.createElement("fakeelement");
 				var transitions = {
 					"transition": "transitionend",
 					"OTransition": "oTransitionEnd",
@@ -98,7 +190,7 @@
 					key = null;
 				}
 				this.options.opacityDuration = this.options.duration * 3;
-				this.progressBar = document[createElement]("div");
+				this.progressBar = document.createElement("div");
 				this.progressBar.id = this.options.id;
 				this.progressBar.setCSS = function (style) {
 					var property;
@@ -211,11 +303,10 @@
 (function (root, document) {
 	"use strict";
 	var doesFontExist = function (fontName) {
-		var createElement = "createElement";
 		var getContext = "getContext";
 		var measureText = "measureText";
 		var width = "width";
-		var canvas = document[createElement]("canvas");
+		var canvas = document.createElement("canvas");
 		var context = canvas[getContext]("2d");
 		var text = "abcdefghijklmnopqrstuvwxyz0123456789";
 		context.font = "72px monospace";
@@ -242,7 +333,6 @@
 		var _this = this;
 		var appendChild = "appendChild";
 		var body = "body";
-		var createElement = "createElement";
 		var getElementsByTagName = "getElementsByTagName";
 		var setAttribute = "setAttribute";
 		var _length = "length";
@@ -254,7 +344,7 @@
 		_this.callback = callback || function () {};
 		_this.type = type ? type.toLowerCase() : "";
 		_this.loadStyle = function (file) {
-			var link = document[createElement]("link");
+			var link = document.createElement("link");
 			link.rel = "stylesheet";
 			link.type = "text/css";
 			link.href = file;
@@ -268,7 +358,7 @@
 			(_this.body || _this.head)[appendChild](link);
 		};
 		_this.loadScript = function (i) {
-			var script = document[createElement]("script");
+			var script = document.createElement("script");
 			script.type = "text/javascript";
 			script.async = true;
 			script.src = _this.js[i];
@@ -319,14 +409,6 @@
 	var docImplem = document.implementation || "";
 	var docBody = document.body || "";
 
-	var classList = "classList";
-	var createElement = "createElement";
-	var createElementNS = "createElementNS";
-	var defineProperty = "defineProperty";
-	var getOwnPropertyDescriptor = "getOwnPropertyDescriptor";
-	var querySelector = "querySelector";
-	var querySelectorAll = "querySelectorAll";
-	var _addEventListener = "addEventListener";
 	var _length = "length";
 
 	var progressBar = new ToProgress({
@@ -345,21 +427,22 @@
 	progressBar.increase(20);
 
 	var toStringFn = {}.toString;
-	var supportsSvgSmilAnimation = !!document[createElementNS] && (/SVGAnimate/).test(toStringFn.call(document[createElementNS]("http://www.w3.org/2000/svg", "animate"))) || "";
+	var supportsSvgSmilAnimation = !!document.createElementNS &&
+		(/SVGAnimate/).test(toStringFn.call(document.createElementNS("http://www.w3.org/2000/svg", "animate"))) || "";
 
 	if (supportsSvgSmilAnimation && docElem) {
-		docElem[classList].add("svganimate");
+		addClass(docElem, "svganimate");
 	}
 
-	var getHTTP = function(force) {
+	var getHTTP = function (force) {
 		var any = force || "";
-		var locationProtocol = root.location.protocol || "";
-		return "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : any ? "http" : "";
+		var locProtocol = root.location.protocol || "";
+		return "http:" === locProtocol ? "http" : "https:" === locProtocol ? "https" : any ? "http" : "";
 	};
 
 	var supportsCanvas;
 	supportsCanvas = (function () {
-		var elem = document[createElement]("canvas");
+		var elem = document.createElement("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
 	})();
 
@@ -368,7 +451,6 @@
 		var appendChild = "appendChild";
 		var getAttribute = "getAttribute";
 		var getElementById = "getElementById";
-		var getElementsByClassName = "getElementsByClassName";
 		var getElementsByTagName = "getElementsByTagName";
 		var title = "title";
 
@@ -376,9 +458,9 @@
 
 		progressBar.increase(20);
 
-		if (docElem && docElem[classList]) {
-			docElem[classList].remove("no-js");
-			docElem[classList].add("js");
+		if (docElem && docElem.classList) {
+			removeClass(docElem, "no-js");
+			addClass(docElem, "js");
 		}
 
 		var earlyDeviceFormfactor = (function (selectors) {
@@ -456,29 +538,32 @@
 				orientation: orientation || "",
 				size: size || ""
 			};
-		})(docElem[classList] || "");
+		})(docElem.classList || "");
 
 		var earlyDeviceType = (function (mobile, desktop, opera) {
-			var selector = (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i).test(opera) || (/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i).test(opera.substr(0, 4)) ? mobile : desktop;
-			docElem[classList].add(selector);
+			var selector = (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i).test(opera) ||
+				(/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i).test(opera.substr(0, 4)) ?
+				mobile :
+				desktop;
+			addClass(docElem, selector);
 			return selector;
 		})("mobile", "desktop", navigator.userAgent || navigator.vendor || (root).opera);
 
 		var earlySvgSupport = (function (selector) {
 			selector = docImplem.hasFeature("http://www.w3.org/2000/svg", "1.1") ? selector : "no-" + selector;
-			docElem[classList].add(selector);
+			addClass(docElem, selector);
 			return selector;
 		})("svg");
 
 		var earlySvgasimgSupport = (function (selector) {
 			selector = docImplem.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1") ? selector : "no-" + selector;
-			docElem[classList].add(selector);
+			addClass(docElem, selector);
 			return selector;
 		})("svgasimg");
 
 		var earlyHasTouch = (function (selector) {
 			selector = "ontouchstart" in docElem ? selector : "no-" + selector;
-			docElem[classList].add(selector);
+			addClass(docElem, selector);
 			return selector;
 		})("touch");
 
@@ -497,10 +582,18 @@
 			return newYear + "-" + newMonth + "-" + newDay;
 		})();
 
-		var userBrowsingDetails = " [" + (getHumanDate ? getHumanDate : "") + (earlyDeviceType ? " " + earlyDeviceType : "") + (earlyDeviceFormfactor.orientation ? " " + earlyDeviceFormfactor.orientation : "") + (earlyDeviceFormfactor.size ? " " + earlyDeviceFormfactor.size : "") + (earlySvgSupport ? " " + earlySvgSupport : "") + (earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") + (earlyHasTouch ? " " + earlyHasTouch : "") + "]";
+		var userBrowser = " [" +
+			(getHumanDate ? getHumanDate : "") +
+			(earlyDeviceType ? " " + earlyDeviceType : "") +
+			(earlyDeviceFormfactor.orientation ? " " + earlyDeviceFormfactor.orientation : "") +
+			(earlyDeviceFormfactor.size ? " " + earlyDeviceFormfactor.size : "") +
+			(earlySvgSupport ? " " + earlySvgSupport : "") +
+			(earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") +
+			(earlyHasTouch ? " " + earlyHasTouch : "") +
+			"]";
 
 		if (document[title]) {
-			document[title] = document[title] + userBrowsingDetails;
+			document[title] = document[title] + userBrowser;
 		}
 
 		var scroll2Top = function (scrollTargetY, speed, easing) {
@@ -611,26 +704,36 @@
 				var _isAbsolute = (0 === url.indexOf("//") || !!~url.indexOf("://"));
 				var _locationHref = root.location || "";
 				var _origin = function () {
-					var o = _locationHref.protocol + "//" + _locationHref.hostname + (_locationHref.port ? ":" + _locationHref.port : "");
+					var o = _locationHref.protocol +
+						"//" +
+						_locationHref.hostname +
+						(_locationHref.port ? ":" + _locationHref.port : "");
 					return o || "";
 				};
 				var _isCrossDomain = function () {
-					var c = document[createElement]("a");
+					var c = document.createElement("a");
 					c.href = url;
 					var v = c.protocol + "//" + c.hostname + (c.port ? ":" + c.port : "");
 					return v !== _origin();
 				};
-				var _link = document[createElement]("a");
+				var _link = document.createElement("a");
 				_link.href = url;
 				return {
 					href: _link.href,
 					origin: _origin(),
 					host: _link.host || _location.host,
-					port: ("0" === _link.port || "" === _link.port) ? _protocol(_link.protocol) : (_full ? _link.port : _replace(_link.port)),
+					port: ("0" === _link.port || "" === _link.port) ?
+						_protocol(_link.protocol) :
+						(_full ? _link.port : _replace(_link.port)),
 					hash: _full ? _link.hash : _replace(_link.hash),
 					hostname: _link.hostname || _location.hostname,
-					pathname: _link.pathname.charAt(0) !== "/" ? (_full ? "/" + _link.pathname : _link.pathname) : (_full ? _link.pathname : _link.pathname.slice(1)),
-					protocol: !_link.protocol || ":" === _link.protocol ? (_full ? _location.protocol : _replace(_location.protocol)) : (_full ? _link.protocol : _replace(_link.protocol)),
+					pathname: _link.pathname.charAt(0) !== "/" ?
+						(_full ? "/" + _link.pathname : _link.pathname) :
+						(_full ? _link.pathname : _link.pathname.slice(1)),
+					protocol: !_link.protocol ||
+						":" === _link.protocol ?
+						(_full ? _location.protocol : _replace(_location.protocol)) :
+						(_full ? _link.protocol : _replace(_link.protocol)),
 					search: _full ? _link.search : _replace(_link.search),
 					query: _full ? _link.search : _replace(_link.search),
 					isAbsolute: _isAbsolute,
@@ -644,13 +747,20 @@
 
 		var isNodejs = "undefined" !== typeof process && "undefined" !== typeof require || "";
 		var isElectron = (function () {
-			if (typeof root !== "undefined" && typeof root.process === "object" && root.process.type === "renderer") {
+			if (typeof root !== "undefined" &&
+				typeof root.process === "object" &&
+				root.process.type === "renderer") {
 				return true;
 			}
-			if (typeof root !== "undefined" && typeof root.process !== "undefined" && typeof root.process.versions === "object" && !!root.process.versions.electron) {
+			if (typeof root !== "undefined" &&
+				typeof root.process !== "undefined" &&
+				typeof root.process.versions === "object" &&
+				!!root.process.versions.electron) {
 				return true;
 			}
-			if (typeof navigator === "object" && typeof navigator.userAgent === "string" && navigator.userAgent.indexOf("Electron") >= 0) {
+			if (typeof navigator === "object" &&
+				typeof navigator.userAgent === "string" &&
+				navigator.userAgent.indexOf("Electron") >= 0) {
 				return true;
 			}
 			return false;
@@ -669,35 +779,35 @@
 		})();
 
 		var openDeviceBrowser = function (url) {
-			var triggerForElectron = function () {
+			var onElectron = function () {
 				var es = isElectron ? require("electron").shell : "";
 				return es ? es.openExternal(url) : "";
 			};
-			var triggerForNwjs = function () {
+			var onNwjs = function () {
 				var ns = isNwjs ? require("nw.gui").Shell : "";
 				return ns ? ns.openExternal(url) : "";
 			};
-			var triggerForLocal = function () {
+			var onLocal = function () {
 				return root.open(url, "_system", "scrollbars=1,location=no");
 			};
 			if (isElectron) {
-				triggerForElectron();
+				onElectron();
 			} else if (isNwjs) {
-				triggerForNwjs();
+				onNwjs();
 			} else {
-				var locationProtocol = root.location.protocol || "",
-				hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
+				var locProtocol = root.location.protocol || "",
+				hasHTTP = locProtocol ? "http:" === locProtocol ? "http" : "https:" === locProtocol ? "https" : "" : "";
 				if (hasHTTP) {
 					return true;
 				} else {
-					triggerForLocal();
+					onLocal();
 				}
 			}
 		};
 
 		var manageExternalLinkAll = function () {
 			var link = document[getElementsByTagName]("a") || "";
-			var handleExternalLink = function (url, ev) {
+			var handle = function (url, ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				var logic = function () {
@@ -707,7 +817,7 @@
 			};
 			var arrange = function (e) {
 				var externalLinkIsBindedClass = "external-link--is-binded";
-				if (!e[classList].contains(externalLinkIsBindedClass)) {
+				if (!hasClass(e, externalLinkIsBindedClass)) {
 					var url = e[getAttribute]("href") || "";
 					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
 						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
@@ -715,9 +825,9 @@
 							e.target = "_blank";
 							e.rel = "noopener";
 						} else {
-							e[_addEventListener]("click", handleExternalLink.bind(null, url));
+							addListener(e, "click", handle.bind(null, url));
 						}
-						e[classList].add(externalLinkIsBindedClass);
+						addClass(e, externalLinkIsBindedClass);
 					}
 				}
 			};
@@ -768,13 +878,13 @@
 						if (commentsTextarea) {
 							var handleSubmitBtn = function () {
 								var commentsTextareaValue = commentsTextarea.val();
-								var locationHref = encodeURIComponent(root.location.href.split("#")[0]);
+								var locHref = encodeURIComponent(root.location.href.split("#")[0]);
 								var docTitle = encodeURIComponent(document[title].replace("'", "&#39;"));
-								var ajaxData = commentsTextareaId + "=" + commentsTextareaValue + "&self_href=" + locationHref + "&self_title=" + docTitle;
+								var ajaxData = commentsTextareaId + "=" + commentsTextareaValue + "&self_href=" + locHref + "&self_title=" + docTitle;
 								if (commentsTextareaValue) {
 									localStorage.setItem(commentsTextareaId, JSON.stringify(commentsTextareaValue));
 								}
-								if (!commentsTextareaValue || !locationHref || !docTitle) {
+								if (!commentsTextareaValue || !locHref || !docTitle) {
 									return notify(errorMsg), false;
 								}
 								submitButton.hide();
@@ -823,55 +933,55 @@
 		};
 		manageCommentsTextarea();
 
-		var initNavMenu = function () {
+		var manageNavMenu = function () {
 			var container = document[getElementById]("container") || "";
 			var page = document[getElementById]("page") || "";
-			var btnNavMenu = document[getElementsByClassName]("btn-nav-menu")[0] || "";
-			var panelNavMenu = document[getElementsByClassName]("panel-nav-menu")[0] || "";
+			var btnNavMenu = getByClass(document, "btn-nav-menu")[0] || "";
+			var panelNavMenu = getByClass(document, "panel-nav-menu")[0] || "";
 			var panelNavMenuItems = panelNavMenu ? panelNavMenu[getElementsByTagName]("a") || "" : "";
-			var holderPanelMenuMore = document[getElementsByClassName]("holder-panel-menu-more")[0] || "";
-			var locationHref = root.location.href || "";
+			var holderPanelMenuMore = getByClass(document, "holder-panel-menu-more")[0] || "";
+			var locHref = root.location.href || "";
 			var removeAllActiveClass = function () {
-				page[classList].remove(isActiveClass);
-				panelNavMenu[classList].remove(isActiveClass);
-				btnNavMenu[classList].remove(isActiveClass);
+				removeClass(page, isActiveClass);
+				removeClass(panelNavMenu, isActiveClass);
+				removeClass(btnNavMenu, isActiveClass);
 			};
 			var removeHolderActiveClass = function () {
-				if (holderPanelMenuMore && holderPanelMenuMore[classList].contains(isActiveClass)) {
-					holderPanelMenuMore[classList].remove(isActiveClass);
+				if (holderPanelMenuMore && hasClass(holderPanelMenuMore, isActiveClass)) {
+					removeClass(holderPanelMenuMore, isActiveClass);
 				}
 			};
 			var addContainerHandler = function () {
 				var handleContainerLeft = function () {
 					removeHolderActiveClass();
-					if (panelNavMenu[classList].contains(isActiveClass)) {
+					if (hasClass(panelNavMenu, isActiveClass)) {
 						removeAllActiveClass();
 					}
 				};
 				var handleContainerRight = function () {
 					removeHolderActiveClass();
 					var addAllActiveClass = function () {
-						page[classList].add(isActiveClass);
-						panelNavMenu[classList].add(isActiveClass);
-						btnNavMenu[classList].add(isActiveClass);
+						addClass(page, isActiveClass);
+						addClass(panelNavMenu, isActiveClass);
+						addClass(btnNavMenu, isActiveClass);
 					};
-					if (!panelNavMenu[classList].contains(isActiveClass)) {
+					if (!hasClass(panelNavMenu, isActiveClass)) {
 						addAllActiveClass();
 					}
 				};
-				container[_addEventListener]("click", handleContainerLeft);
+				addListener(container, "click", handleContainerLeft);
 				if (root.tocca) {
 					if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-						container[_addEventListener]("swipeleft", handleContainerLeft);
-						container[_addEventListener]("swiperight", handleContainerRight);
+						addListener(container, "swipeleft", handleContainerLeft);
+						addListener(container, "swiperight", handleContainerRight);
 					}
 				}
 			};
 			var addBtnHandler = function () {
 				var toggleAllActiveClass = function () {
-					page[classList].toggle(isActiveClass);
-					panelNavMenu[classList].toggle(isActiveClass);
-					btnNavMenu[classList].toggle(isActiveClass);
+					toggleClass(page, isActiveClass);
+					toggleClass(panelNavMenu, isActiveClass);
+					toggleClass(btnNavMenu, isActiveClass);
 				};
 				var handleBtnNavMenu = function (ev) {
 					ev.stopPropagation();
@@ -879,22 +989,22 @@
 					removeHolderActiveClass();
 					toggleAllActiveClass();
 				};
-				btnNavMenu[_addEventListener]("click", handleBtnNavMenu);
+				addListener(btnNavMenu, "click", handleBtnNavMenu);
 			};
 			var addItemHandlerAll = function () {
 				var addItemHandler = function (e) {
 					var addActiveClass = function (e) {
-						e[classList].add(isActiveClass);
+						addClass(e, isActiveClass);
 					};
 					var removeHolderAndAllActiveClass = function () {
 						removeHolderActiveClass();
 						removeAllActiveClass();
 					};
 					var removeActiveClass = function (e) {
-						e[classList].remove(isActiveClass);
+						removeClass(e, isActiveClass);
 					};
 					var handleItem = function () {
-						if (panelNavMenu[classList].contains(isActiveClass)) {
+						if (hasClass(panelNavMenu, isActiveClass)) {
 							removeHolderAndAllActiveClass();
 						}
 						var i,
@@ -905,8 +1015,8 @@
 						i = l = null;
 						addActiveClass(e);
 					};
-					e[_addEventListener]("click", handleItem);
-					if (locationHref === e.href) {
+					addListener(e, "click", handleItem);
+					if (locHref === e.href) {
 						addActiveClass(e);
 					} else {
 						removeActiveClass(e);
@@ -919,51 +1029,55 @@
 				}
 				i = l = null;
 			};
-			if (page && container && btnNavMenu && panelNavMenu && panelNavMenuItems) {
+			if (page &&
+				container &&
+				btnNavMenu &&
+				panelNavMenu &&
+				panelNavMenuItems) {
 				addContainerHandler();
 				addBtnHandler();
 				addItemHandlerAll();
 			}
 		};
-		initNavMenu();
+		manageNavMenu();
 
-		var initUiTotop = function () {
-			var btnClass = "ui-totop";
-			var btn = document[getElementsByClassName](btnClass)[0] || "";
+		var manageBtnTotop = function () {
+			var btnClass = "btn-totop";
+			var btn = getByClass(document, btnClass)[0] || "";
 			if (!btn) {
-				btn = document[createElement]("a");
-				btn[classList].add(btnClass);
+				btn = document.createElement("a");
+				addClass(btn, btnClass);
 				/* jshint -W107 */
 				btn.href = "javascript:void(0);";
 				/* jshint +W107 */
 				btn.title = "Наверх";
 				docBody[appendChild](btn);
 			}
-			var handleUiTotop = function (ev) {
+			var handle = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				scroll2Top(0, 20000);
 			};
-			var handleUiTotopWindow = function (_this) {
+			var handleWindow = function (_this) {
 				var logic = function () {
 					var scrollPosition = _this.pageYOffset || docElem.scrollTop || docBody.scrollTop || "";
 					var windowHeight = _this.innerHeight || docElem.clientHeight || docBody.clientHeight || "";
 					if (scrollPosition && windowHeight && btn) {
 						if (scrollPosition > windowHeight) {
-							btn[classList].add(isActiveClass);
+							addClass(btn, isActiveClass);
 						} else {
-							btn[classList].remove(isActiveClass);
+							removeClass(btn, isActiveClass);
 						}
 					}
 				};
 				throttle(logic, 100).call(root);
 			};
 			if (docBody) {
-				btn[_addEventListener]("click", handleUiTotop);
-				root[_addEventListener]("scroll", handleUiTotopWindow, {passive: true});
+				addListener(btn, "click", handle);
+				addListener(root, "scroll", handleWindow, {passive: true});
 			}
 		};
-		initUiTotop();
+		manageBtnTotop();
 
 		hideProgressBar();
 	};
@@ -973,12 +1087,12 @@
 	var supportsPassive = (function () {
 		var support = false;
 		try {
-			var opts = Object[defineProperty] && Object[defineProperty]({}, "passive", {
+			var opts = Object.defineProperty && Object.defineProperty({}, "passive", {
 					get: function () {
 						support = true;
 					}
 				});
-			root[_addEventListener]("test", function () {}, opts);
+			addListener(root, "test", function () {}, opts);
 		} catch (err) {}
 		return support;
 	})();
@@ -989,20 +1103,20 @@
 		!root.requestAnimationFrame ||
 		!root.matchMedia ||
 		("undefined" === typeof root.Element && !("dataset" in docElem)) ||
-		!("classList" in document[createElement]("_")) ||
-		document[createElementNS] && !("classList" in document[createElementNS]("http://www.w3.org/2000/svg", "g")) ||
-		(root.attachEvent && !root[_addEventListener]) ||
+		!("classList" in document.createElement("_")) ||
+		document.createElementNS && !("classList" in document.createElementNS("http://www.w3.org/2000/svg", "g")) ||
+		(root.attachEvent && !root.addEventListener) ||
 		!("onhashchange" in root) ||
 		!Array.prototype.indexOf ||
 		!root.Promise ||
 		!root.fetch ||
-		!document[querySelectorAll] ||
-		!document[querySelector] ||
+		!document.querySelectorAll ||
+		!document.querySelector ||
 		!Function.prototype.bind ||
-		(Object[defineProperty] &&
-			Object[getOwnPropertyDescriptor] &&
-			Object[getOwnPropertyDescriptor](Element.prototype, "textContent") &&
-			!Object[getOwnPropertyDescriptor](Element.prototype, "textContent").get) ||
+		(Object.defineProperty &&
+			Object.getOwnPropertyDescriptor &&
+			Object.getOwnPropertyDescriptor(Element.prototype, "textContent") &&
+			!Object.getOwnPropertyDescriptor(Element.prototype, "textContent").get) ||
 		!("undefined" !== typeof root.localStorage && "undefined" !== typeof root.sessionStorage) ||
 		!root.WeakMap ||
 		!root.MutationObserver;
@@ -1015,9 +1129,10 @@
 	scripts.push("../libs/comments/js/vendors.min.js");
 
 	var bodyFontFamily = "Roboto";
-	var onFontsLoadedCallback = function () {
+
+	var onFontsLoaded = function () {
 		var slot;
-		var onFontsLoaded = function () {
+		var init = function () {
 			clearInterval(slot);
 			slot = null;
 			if (!supportsSvgSmilAnimation && "undefined" !== typeof progressBar) {
@@ -1026,21 +1141,21 @@
 			var load;
 			load = new loadJsCss(scripts, run);
 		};
-		var checkFontIsLoaded;
-		checkFontIsLoaded = function () {
+		var check;
+		check = function () {
 			if (doesFontExist(bodyFontFamily)) {
-				onFontsLoaded();
+				init();
 			}
 		};
 		/* if (supportsCanvas) {
-			slot = setInterval(checkFontIsLoaded, 100);
+			slot = setInterval(check, 100);
 		} else {
 			slot = null;
-			onFontsLoaded();
+			init();
 		} */
-		onFontsLoaded();
+		init();
 	};
 
 	var load;
-	load = new loadJsCss(["../libs/comments/css/bundle.min.css"], onFontsLoadedCallback);
+	load = new loadJsCss(["../libs/comments/css/bundle.min.css"], onFontsLoaded);
 })("undefined" !== typeof window ? window : this, document);

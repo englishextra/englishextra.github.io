@@ -10948,7 +10948,7 @@ function _typeof(obj) {
 			}
 
 			var pnotify = $("<div />", {
-				class: "ui-pnotify " + opts.addclass,
+				class: "ui-pnotify " + opts.getByClass, addClass,
 				css: {
 					display: "none"
 				},

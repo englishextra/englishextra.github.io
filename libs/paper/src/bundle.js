@@ -1,8 +1,8 @@
 /*jslint browser: true */
 /*jslint node: true */
 /*global ActiveXObject, Cookies, doesFontExist, IframeLightbox, imgLightbox,
-imagePromise, Kamil, loadJsCss, Promise, QRCode, require, Tablesort,
-ToProgress, unescape, verge, VK, Ya*/
+imagePromise, Kamil, loadJsCss, addListener, removeListener, getByClass, addClass, hasClass, removeClass, toggleClass,
+Promise, QRCode, require, Tablesort, ToProgress, unescape, verge, VK, Ya*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -35,6 +35,98 @@ ToProgress, unescape, verge, VK, Ya*/
 	prop = method = dummy = properties = methods = null;
 })("undefined" !== typeof window ? window : this);
 /*!
+ * Super-simple wrapper around addEventListener and attachEvent (old IE).
+ * Does not handle differences in the Event-objects.
+ * @see {@link https://github.com/finn-no/eventlistener}
+ */
+(function (root) {
+	"use strict";
+	var wrap = function (standard, fallback) {
+		return function (el, type, listener, useCapture) {
+			if (el[standard]) {
+				el[standard](type, listener, useCapture);
+			} else {
+				if (el[fallback]) {
+					el[fallback]("on" + type, listener);
+				}
+			}
+		};
+	};
+	root.addListener = wrap("addEventListener", "attachEvent");
+	root.removeListener = wrap("removeEventListener", "detachEvent");
+})("undefined" !== typeof window ? window : this);
+/*!
+ * get elements by class name wrapper
+ */
+(function (root, document) {
+	"use strict";
+	var getByClass = function (parent, name) {
+		if (!Element.getElementsByClassName) {
+			var children = (parent || document.body).getElementsByTagName("*"),
+			elements = [],
+			classRE = new RegExp("\\b" + name + "\\b"),
+			child;
+			var i,
+			l;
+			for (i = 0, l = children.length; i < l; i += 1) {
+				child = children[i];
+				if (classRE.test(child.className)) {
+					elements.push(child);
+				}
+			}
+			i = l = null;
+			return elements;
+		} else {
+			return parent ? parent.getElementsByClassName(name) : "";
+		}
+	};
+	root.getByClass = getByClass;
+})("undefined" !== typeof window ? window : this, document);
+/*!
+ * class list wrapper
+ */
+(function (root, document) {
+	"use strict";
+	var classList = "classList";
+	var hasClass;
+	var addClass;
+	var removeClass;
+	if (classList in document.documentElement) {
+		hasClass = function (el, name) {
+			return el[classList].contains(name);
+		};
+		addClass = function (el, name) {
+			el[classList].add(name);
+		};
+		removeClass = function (el, name) {
+			el[classList].remove(name);
+		};
+	} else {
+		hasClass = function (el, name) {
+			return new RegExp("\\b" + name + "\\b").test(el.className);
+		};
+		addClass = function (el, name) {
+			if (!hasClass(el, name)) {
+				el.className += " " + name;
+			}
+		};
+		removeClass = function (el, name) {
+			el.className = el.className.replace(new RegExp("\\b" + name + "\\b", "g"), "");
+		};
+	}
+	var toggleClass = function (el, name) {
+		if (hasClass(el, name)) {
+			removeClass(el, name);
+		} else {
+			addClass(el, name);
+		}
+	};
+	root.hasClass = hasClass;
+	root.addClass = addClass;
+	root.removeClass = removeClass;
+	root.toggleClass = toggleClass;
+})("undefined" !== typeof window ? window : this, document);
+/*!
  * modified ToProgress v0.1.1
  * arguments.callee changed to TP, a local wrapper function,
  * so that public function name is now customizable;
@@ -53,7 +145,6 @@ ToProgress, unescape, verge, VK, Ya*/
 		var TP = function () {
 			var _addEventListener = "addEventListener";
 			var appendChild = "appendChild";
-			var createElement = "createElement";
 			var firstChild = "firstChild";
 			var getElementById = "getElementById";
 			var getElementsByClassName = "getElementsByClassName";
@@ -64,7 +155,7 @@ ToProgress, unescape, verge, VK, Ya*/
 			var style = "style";
 			function whichTransitionEvent() {
 				var t,
-				el = document[createElement]("fakeelement");
+				el = document.createElement("fakeelement");
 				var transitions = {
 					"transition": "transitionend",
 					"OTransition": "oTransitionEnd",
@@ -100,7 +191,7 @@ ToProgress, unescape, verge, VK, Ya*/
 					key = null;
 				}
 				this.options.opacityDuration = this.options.duration * 3;
-				this.progressBar = document[createElement]("div");
+				this.progressBar = document.createElement("div");
 				this.progressBar.id = this.options.id;
 				this.progressBar.setCSS = function (style) {
 					var property;
@@ -265,11 +356,10 @@ ToProgress, unescape, verge, VK, Ya*/
 (function (root, document) {
 	"use strict";
 	var doesFontExist = function (fontName) {
-		var createElement = "createElement";
 		var getContext = "getContext";
 		var measureText = "measureText";
 		var width = "width";
-		var canvas = document[createElement]("canvas");
+		var canvas = document.createElement("canvas");
 		var context = canvas[getContext]("2d");
 		var text = "abcdefghijklmnopqrstuvwxyz0123456789";
 		context.font = "72px monospace";
@@ -296,7 +386,6 @@ ToProgress, unescape, verge, VK, Ya*/
 		var _this = this;
 		var appendChild = "appendChild";
 		var body = "body";
-		var createElement = "createElement";
 		var getElementsByTagName = "getElementsByTagName";
 		var setAttribute = "setAttribute";
 		var _length = "length";
@@ -308,7 +397,7 @@ ToProgress, unescape, verge, VK, Ya*/
 		_this.callback = callback || function () {};
 		_this.type = type ? type.toLowerCase() : "";
 		_this.loadStyle = function (file) {
-			var link = document[createElement]("link");
+			var link = document.createElement("link");
 			link.rel = "stylesheet";
 			link.type = "text/css";
 			link.href = file;
@@ -322,7 +411,7 @@ ToProgress, unescape, verge, VK, Ya*/
 			(_this.body || _this.head)[appendChild](link);
 		};
 		_this.loadScript = function (i) {
-			var script = document[createElement]("script");
+			var script = document.createElement("script");
 			script.type = "text/javascript";
 			script.async = true;
 			script.src = _this.js[i];
@@ -373,14 +462,6 @@ ToProgress, unescape, verge, VK, Ya*/
 	var docImplem = document.implementation || "";
 	var docBody = document.body || "";
 
-	var classList = "classList";
-	var createElement = "createElement";
-	var createElementNS = "createElementNS";
-	var defineProperty = "defineProperty";
-	var getOwnPropertyDescriptor = "getOwnPropertyDescriptor";
-	var querySelector = "querySelector";
-	var querySelectorAll = "querySelectorAll";
-	var _addEventListener = "addEventListener";
 	var _length = "length";
 
 	var progressBar = new ToProgress({
@@ -399,23 +480,24 @@ ToProgress, unescape, verge, VK, Ya*/
 	progressBar.increase(20);
 
 	var toStringFn = {}.toString;
-	var supportsSvgSmilAnimation = !!document[createElementNS] && (/SVGAnimate/).test(toStringFn.call(document[createElementNS]("http://www.w3.org/2000/svg", "animate"))) || "";
+	var supportsSvgSmilAnimation = !!document.createElementNS &&
+		(/SVGAnimate/).test(toStringFn.call(document.createElementNS("http://www.w3.org/2000/svg", "animate"))) || "";
 
 	if (supportsSvgSmilAnimation && docElem) {
-		docElem[classList].add("svganimate");
+		addClass(docElem, "svganimate");
 	}
 
-	var getHTTP = function(force) {
+	var getHTTP = function (force) {
 		var any = force || "";
-		var locationProtocol = root.location.protocol || "";
-		return "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : any ? "http" : "";
+		var locProtocol = root.location.protocol || "";
+		return "http:" === locProtocol ? "http" : "https:" === locProtocol ? "https" : any ? "http" : "";
 	};
 
 	var forcedHTTP = getHTTP(true);
 
 	var supportsCanvas;
 	supportsCanvas = (function () {
-		var elem = document[createElement]("canvas");
+		var elem = document.createElement("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
 	})();
 
@@ -428,7 +510,6 @@ ToProgress, unescape, verge, VK, Ya*/
 		var dataset = "dataset";
 		var getAttribute = "getAttribute";
 		var getElementById = "getElementById";
-		var getElementsByClassName = "getElementsByClassName";
 		var getElementsByTagName = "getElementsByTagName";
 		var parentNode = "parentNode";
 		var remove = "remove";
@@ -436,16 +517,16 @@ ToProgress, unescape, verge, VK, Ya*/
 		var setAttribute = "setAttribute";
 		var style = "style";
 		var title = "title";
-		var _removeEventListener = "removeEventListener";
 
 		var isActiveClass = "is-active";
 		var isBindedClass = "is-binded";
+		var isSocialClass = "is-social";
 
 		progressBar.increase(20);
 
-		if (docElem && docElem[classList]) {
-			docElem[classList].remove("no-js");
-			docElem[classList].add("js");
+		if (docElem && docElem.classList) {
+			removeClass(docElem, "no-js");
+			addClass(docElem, "js");
 		}
 
 		var earlyDeviceFormfactor = (function (selectors) {
@@ -523,29 +604,32 @@ ToProgress, unescape, verge, VK, Ya*/
 				orientation: orientation || "",
 				size: size || ""
 			};
-		})(docElem[classList] || "");
+		})(docElem.classList || "");
 
 		var earlyDeviceType = (function (mobile, desktop, opera) {
-			var selector = (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i).test(opera) || (/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i).test(opera.substr(0, 4)) ? mobile : desktop;
-			docElem[classList].add(selector);
+			var selector = (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i).test(opera) ||
+				(/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i).test(opera.substr(0, 4)) ?
+				mobile :
+				desktop;
+			addClass(docElem, selector);
 			return selector;
 		})("mobile", "desktop", navigator.userAgent || navigator.vendor || (root).opera);
 
 		var earlySvgSupport = (function (selector) {
 			selector = docImplem.hasFeature("http://www.w3.org/2000/svg", "1.1") ? selector : "no-" + selector;
-			docElem[classList].add(selector);
+			addClass(docElem, selector);
 			return selector;
 		})("svg");
 
 		var earlySvgasimgSupport = (function (selector) {
 			selector = docImplem.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1") ? selector : "no-" + selector;
-			docElem[classList].add(selector);
+			addClass(docElem, selector);
 			return selector;
 		})("svgasimg");
 
 		var earlyHasTouch = (function (selector) {
 			selector = "ontouchstart" in docElem ? selector : "no-" + selector;
-			docElem[classList].add(selector);
+			addClass(docElem, selector);
 			return selector;
 		})("touch");
 
@@ -564,10 +648,18 @@ ToProgress, unescape, verge, VK, Ya*/
 			return newYear + "-" + newMonth + "-" + newDay;
 		})();
 
-		var userBrowsingDetails = " [" + (getHumanDate ? getHumanDate : "") + (earlyDeviceType ? " " + earlyDeviceType : "") + (earlyDeviceFormfactor.orientation ? " " + earlyDeviceFormfactor.orientation : "") + (earlyDeviceFormfactor.size ? " " + earlyDeviceFormfactor.size : "") + (earlySvgSupport ? " " + earlySvgSupport : "") + (earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") + (earlyHasTouch ? " " + earlyHasTouch : "") + "]";
+		var userBrowser = " [" +
+			(getHumanDate ? getHumanDate : "") +
+			(earlyDeviceType ? " " + earlyDeviceType : "") +
+			(earlyDeviceFormfactor.orientation ? " " + earlyDeviceFormfactor.orientation : "") +
+			(earlyDeviceFormfactor.size ? " " + earlyDeviceFormfactor.size : "") +
+			(earlySvgSupport ? " " + earlySvgSupport : "") +
+			(earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") +
+			(earlyHasTouch ? " " + earlyHasTouch : "") +
+			"]";
 
 		if (document[title]) {
-			document[title] = document[title] + userBrowsingDetails;
+			document[title] = document[title] + userBrowser;
 		}
 
 		var loadUnparsedJSON = function (url, callback, onerror) {
@@ -576,8 +668,8 @@ ToProgress, unescape, verge, VK, Ya*/
 			};
 			var x = root.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
 			x.overrideMimeType("application/json;charset=utf-8");
-			x.open("GET", url, !0);
-			x.withCredentials = !1;
+			x.open("GET", url, true);
+			x.withCredentials = false;
 			x.onreadystatechange = function () {
 				if (x.status === 404 || x.status === 0) {
 					console.log("Error XMLHttpRequest-ing file", x.status);
@@ -602,8 +694,8 @@ ToProgress, unescape, verge, VK, Ya*/
 		};
 
 		var truncString = function (str, max, add) {
-			add = add || "\u2026";
-			return ("string" === typeof str && str[_length] > max ? str.substring(0, max) + add : str);
+			var _add = add || "\u2026";
+			return ("string" === typeof str && str[_length] > max ? str.substring(0, max) + _add : str);
 		};
 
 		var fixEnRuTypo = function (e, a, b) {
@@ -628,15 +720,15 @@ ToProgress, unescape, verge, VK, Ya*/
 			return c;
 		};
 
-		var removeElement = function (elem) {
-			if (elem) {
-				if ("undefined" !== typeof elem[remove]) {
-					return elem[remove]();
-				} else {
-					return elem[parentNode] && elem[parentNode][removeChild](elem);
-				}
+	var removeElement = function (a) {
+		if (a) {
+			if ("undefined" !== typeof a[remove]) {
+				return a[remove]();
+			} else {
+				return a[parentNode] && a[parentNode][removeChild](a);
 			}
-		};
+		}
+	};
 
 		var removeChildren = function (e) {
 			if (e && e.firstChild) {
@@ -755,26 +847,36 @@ ToProgress, unescape, verge, VK, Ya*/
 				var _isAbsolute = (0 === url.indexOf("//") || !!~url.indexOf("://"));
 				var _locationHref = root.location || "";
 				var _origin = function () {
-					var o = _locationHref.protocol + "//" + _locationHref.hostname + (_locationHref.port ? ":" + _locationHref.port : "");
+					var o = _locationHref.protocol +
+						"//" +
+						_locationHref.hostname +
+						(_locationHref.port ? ":" + _locationHref.port : "");
 					return o || "";
 				};
 				var _isCrossDomain = function () {
-					var c = document[createElement]("a");
+					var c = document.createElement("a");
 					c.href = url;
 					var v = c.protocol + "//" + c.hostname + (c.port ? ":" + c.port : "");
 					return v !== _origin();
 				};
-				var _link = document[createElement]("a");
+				var _link = document.createElement("a");
 				_link.href = url;
 				return {
 					href: _link.href,
 					origin: _origin(),
 					host: _link.host || _location.host,
-					port: ("0" === _link.port || "" === _link.port) ? _protocol(_link.protocol) : (_full ? _link.port : _replace(_link.port)),
+					port: ("0" === _link.port || "" === _link.port) ?
+						_protocol(_link.protocol) :
+						(_full ? _link.port : _replace(_link.port)),
 					hash: _full ? _link.hash : _replace(_link.hash),
 					hostname: _link.hostname || _location.hostname,
-					pathname: _link.pathname.charAt(0) !== "/" ? (_full ? "/" + _link.pathname : _link.pathname) : (_full ? _link.pathname : _link.pathname.slice(1)),
-					protocol: !_link.protocol || ":" === _link.protocol ? (_full ? _location.protocol : _replace(_location.protocol)) : (_full ? _link.protocol : _replace(_link.protocol)),
+					pathname: _link.pathname.charAt(0) !== "/" ?
+						(_full ? "/" + _link.pathname : _link.pathname) :
+						(_full ? _link.pathname : _link.pathname.slice(1)),
+					protocol: !_link.protocol ||
+						":" === _link.protocol ?
+						(_full ? _location.protocol : _replace(_location.protocol)) :
+						(_full ? _link.protocol : _replace(_link.protocol)),
 					search: _full ? _link.search : _replace(_link.search),
 					query: _full ? _link.search : _replace(_link.search),
 					isAbsolute: _isAbsolute,
@@ -788,13 +890,20 @@ ToProgress, unescape, verge, VK, Ya*/
 
 		var isNodejs = "undefined" !== typeof process && "undefined" !== typeof require || "";
 		var isElectron = (function () {
-			if (typeof root !== "undefined" && typeof root.process === "object" && root.process.type === "renderer") {
+			if (typeof root !== "undefined" &&
+				typeof root.process === "object" &&
+				root.process.type === "renderer") {
 				return true;
 			}
-			if (typeof root !== "undefined" && typeof root.process !== "undefined" && typeof root.process.versions === "object" && !!root.process.versions.electron) {
+			if (typeof root !== "undefined" &&
+				typeof root.process !== "undefined" &&
+				typeof root.process.versions === "object" &&
+				!!root.process.versions.electron) {
 				return true;
 			}
-			if (typeof navigator === "object" && typeof navigator.userAgent === "string" && navigator.userAgent.indexOf("Electron") >= 0) {
+			if (typeof navigator === "object" &&
+				typeof navigator.userAgent === "string" &&
+				navigator.userAgent.indexOf("Electron") >= 0) {
 				return true;
 			}
 			return false;
@@ -813,35 +922,35 @@ ToProgress, unescape, verge, VK, Ya*/
 		})();
 
 		var openDeviceBrowser = function (url) {
-			var triggerForElectron = function () {
+			var onElectron = function () {
 				var es = isElectron ? require("electron").shell : "";
 				return es ? es.openExternal(url) : "";
 			};
-			var triggerForNwjs = function () {
+			var onNwjs = function () {
 				var ns = isNwjs ? require("nw.gui").Shell : "";
 				return ns ? ns.openExternal(url) : "";
 			};
-			var triggerForLocal = function () {
+			var onLocal = function () {
 				return root.open(url, "_system", "scrollbars=1,location=no");
 			};
 			if (isElectron) {
-				triggerForElectron();
+				onElectron();
 			} else if (isNwjs) {
-				triggerForNwjs();
+				onNwjs();
 			} else {
-				var locationProtocol = root.location.protocol || "",
-				hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
+				var locProtocol = root.location.protocol || "",
+				hasHTTP = locProtocol ? "http:" === locProtocol ? "http" : "https:" === locProtocol ? "https" : "" : "";
 				if (hasHTTP) {
 					return true;
 				} else {
-					triggerForLocal();
+					onLocal();
 				}
 			}
 		};
 
 		var manageExternalLinkAll = function () {
 			var link = document[getElementsByTagName]("a") || "";
-			var handleExternalLink = function (url, ev) {
+			var handle = function (url, ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				var logic = function () {
@@ -851,7 +960,7 @@ ToProgress, unescape, verge, VK, Ya*/
 			};
 			var arrange = function (e) {
 				var externalLinkIsBindedClass = "external-link--is-binded";
-				if (!e[classList].contains(externalLinkIsBindedClass)) {
+				if (!hasClass(e, externalLinkIsBindedClass)) {
 					var url = e[getAttribute]("href") || "";
 					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
 						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
@@ -859,9 +968,9 @@ ToProgress, unescape, verge, VK, Ya*/
 							e.target = "_blank";
 							e.rel = "noopener";
 						} else {
-							e[_addEventListener]("click", handleExternalLink.bind(null, url));
+							addListener(e, "click", handle.bind(null, url));
 						}
-						e[classList].add(externalLinkIsBindedClass);
+						addClass(e, externalLinkIsBindedClass);
 					}
 				}
 			};
@@ -925,23 +1034,23 @@ ToProgress, unescape, verge, VK, Ya*/
 
 		var LoadingSpinner = (function () {
 			var spinnerClass = "loading-spinner";
-			var spinner = document[getElementsByClassName](spinnerClass)[0] || "";
-			var isActiveClass = "is-active-loading-spinner";
+			var spinner = getByClass(document, spinnerClass)[0] || "";
+			var isActiveClass = "loading-spinner--is-active";
 			if (!spinner) {
-				spinner = document[createElement]("div");
-				spinner[classList].add(spinnerClass);
+				spinner = document.createElement("div");
+				addClass(spinner, spinnerClass);
 				appendFragment(spinner, docBody);
 			}
 			return {
 				show: function () {
-					return docBody[classList].contains(isActiveClass) || docBody[classList].add(isActiveClass);
+					return hasClass(docBody, isActiveClass) || addClass(docBody, isActiveClass);
 				},
 				hide: function (callback, timeout) {
 					var delay = timeout || 500;
 					var timer = setTimeout(function () {
 							clearTimeout(timer);
 							timer = null;
-							docBody[classList].remove(isActiveClass);
+							removeClass(docBody, isActiveClass);
 							if (callback && "function" === typeof callback) {
 								callback();
 							}
@@ -954,36 +1063,35 @@ ToProgress, unescape, verge, VK, Ya*/
 			var msgObj = annonce || "No message passed as argument";
 			var delay = timeout || 0;
 			var msgClass = elemClass || "";
-			var getElementsByClassName = "getElementsByClassName";
 			var cls = "notifier42";
-			var container = document[getElementsByClassName](cls)[0] || "";
+			var container = getByClass(document, cls)[0] || "";
 			var an = "animated";
 			var an2 = "fadeInUp";
 			var an4 = "fadeOutDown";
 			if (!container) {
-				container = document[createElement]("div");
+				container = document.createElement("div");
 				appendFragment(container, docBody);
 			}
-			container[classList].add(cls);
-			container[classList].add(an);
-			container[classList].add(an2);
+			addClass(container, cls);
+			addClass(container, an);
+			addClass(container, an2);
 			if (msgClass) {
-				container[classList].add(msgClass);
+				addClass(container, msgClass);
 			}
 			if ("string" === typeof msgObj) {
 				msgObj = document[createTextNode](msgObj);
 			}
 			appendFragment(msgObj, container);
 			var clearContainer = function (cb) {
-				container[classList].remove(an2);
-				container[classList].add(an4);
+				removeClass(container, an2);
+				addClass(container, an4);
 				var timer = setTimeout(function () {
 					clearTimeout(timer);
 					timer = null;
-					container[classList].remove(an);
-					container[classList].remove(an4);
+					removeClass(container, an);
+					removeClass(container, an4);
 					if (msgClass) {
-						container[classList].remove(msgClass);
+						removeClass(container, msgClass);
 					}
 					removeChildren(container);
 					if (cb && "function" === typeof cb) {
@@ -991,8 +1099,8 @@ ToProgress, unescape, verge, VK, Ya*/
 					}
 				}, 400);
 			};
-			container[_addEventListener]("click", function handleContainer() {
-				this[_removeEventListener]("click", handleContainer);
+			addListener(container, "click", function handleContainer() {
+				removeListener(this, "click", handleContainer);
 				clearContainer();
 			});
 			if (0 !== delay) {
@@ -1008,15 +1116,16 @@ ToProgress, unescape, verge, VK, Ya*/
 				}
 			};
 		};
-		var initNotifier42WriteComment = function () {
+
+		var notifyWriteComment = function () {
 			if ("undefined" !== typeof getHTTP && !getHTTP()) {
 				return;
 			}
 			var cookieKey = "_notifier42_write_comment_";
 			var msgText = "Напишите, что понравилось, а что нет. Регистрироваться не нужно.";
-			var locationOrigin = parseLink(root.location.href).origin;
+			var locOrigin = parseLink(root.location.href).origin;
 			var showMsg = function () {
-				var msgObj = document[createElement]("a");
+				var msgObj = document.createElement("a");
 				/* jshint -W107 */
 				msgObj.href = "javascript:void(0);";
 				/* jshint +W107 */
@@ -1024,16 +1133,16 @@ ToProgress, unescape, verge, VK, Ya*/
 				var handleMsgObj = function (ev) {
 					ev.stopPropagation();
 					ev.preventDefault();
-					msgObj[_removeEventListener]("click", handleMsgObj);
+					removeListener(msgObj, "click", handleMsgObj);
 					var targetObj = document[getElementById]("disqus_thread") || "";
 					scroll2Top((targetObj ? findPos(targetObj).top : 0), 20000);
 				};
-				msgObj[_addEventListener]("click", handleMsgObj);
+				addListener(msgObj, "click", handleMsgObj);
 				var nf42;
 				nf42 = new Notifier42(msgObj, 8000);
 				Cookies.set(cookieKey, msgText);
 			};
-			if (!Cookies.get(cookieKey) && locationOrigin) {
+			if (!Cookies.get(cookieKey) && locOrigin) {
 				var timer = setTimeout(function () {
 					clearTimeout(timer);
 					timer = null;
@@ -1041,10 +1150,10 @@ ToProgress, unescape, verge, VK, Ya*/
 				}, 16000);
 			}
 		};
-		initNotifier42WriteComment();
+		notifyWriteComment();
 
-		var initTablesort = function () {
-			var tableSort = document[getElementsByClassName]("table-sort") || "";
+		var manageTablesort = function () {
+			var tableSort = getByClass(document, "table-sort") || "";
 			var initScript = function () {
 				var arrange = function (e) {
 					var tableId = e.id || "";
@@ -1052,7 +1161,7 @@ ToProgress, unescape, verge, VK, Ya*/
 						var table = document[getElementById](tableId) || "";
 						var caption = table ? table[getElementsByTagName]("caption")[0] || "" : "";
 						if (!caption) {
-							var tableCaption = document[createElement]("caption");
+							var tableCaption = document.createElement("caption");
 							prependFragmentBefore(tableCaption, table.firstChild);
 							caption = table.firstChild;
 						}
@@ -1072,13 +1181,13 @@ ToProgress, unescape, verge, VK, Ya*/
 				initScript();
 			}
 		};
-		initTablesort();
+		manageTablesort();
 
-		var handleDataSrcImageAll = function () {
-			var img = document[getElementsByClassName]("data-src-img") || "";
+		var handleDataSrcImgAll = function () {
+			var img = getByClass(document, "data-src-img") || "";
 			var arrange = function (e) {
 				if (verge.inY(e, 100)) {
-					if (!e[classList].contains(isBindedClass)) {
+					if (!hasClass(e, isBindedClass)) {
 						var srcString = e[dataset].src || "";
 						if (srcString) {
 							if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
@@ -1090,8 +1199,8 @@ ToProgress, unescape, verge, VK, Ya*/
 							}).catch (function (err) {
 								console.log("cannot load image with imagePromise:", srcString, err);
 							});
-							e[classList].add(isActiveClass);
-							e[classList].add(isBindedClass);
+							addClass(e, isActiveClass);
+							addClass(e, isBindedClass);
 						}
 					}
 				}
@@ -1106,26 +1215,26 @@ ToProgress, unescape, verge, VK, Ya*/
 			}
 		};
 
-		var handleDataSrcImageAllWindow = throttle(handleDataSrcImageAll, 100);
+		var handleDataSrcImgAllWindow = throttle(handleDataSrcImgAll, 100);
 
-		var manageDataSrcImageAll = function () {
-			root[_removeEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
-			root[_removeEventListener]("resize", handleDataSrcImageAllWindow);
-			root[_addEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
-			root[_addEventListener]("resize", handleDataSrcImageAllWindow);
+		var manageDataSrcImgAll = function () {
+			removeListener(root, "scroll", handleDataSrcImgAllWindow, {passive: true});
+			removeListener(root, "resize", handleDataSrcImgAllWindow);
+			addListener(root, "scroll", handleDataSrcImgAllWindow, {passive: true});
+			addListener(root, "resize", handleDataSrcImgAllWindow);
 			var timer = setTimeout(function () {
 					clearTimeout(timer);
 					timer = null;
-					handleDataSrcImageAll();
+					handleDataSrcImgAll();
 				}, 100);
 		};
-		manageDataSrcImageAll();
+		manageDataSrcImgAll();
 
 		var handleDataSrcIframeAll = function () {
-			var ifrm = document[getElementsByClassName]("data-src-iframe") || "";
+			var ifrm = getByClass(document, "data-src-iframe") || "";
 			var arrange = function (e) {
 				if (verge.inY(e, 100)) {
-					if (!e[classList].contains(isBindedClass)) {
+					if (!hasClass(e, isBindedClass)) {
 						var srcString = e[dataset].src || "";
 						if (srcString) {
 							if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
@@ -1139,8 +1248,8 @@ ToProgress, unescape, verge, VK, Ya*/
 							e[setAttribute]("mozallowfullscreen", "true");
 							e[setAttribute]("scrolling", "no");
 							e[setAttribute]("allowfullscreen", "true");
-							e[classList].add(isActiveClass);
-							e[classList].add(isBindedClass);
+							addClass(e, isActiveClass);
+							addClass(e, isBindedClass);
 						}
 					}
 				}
@@ -1158,10 +1267,10 @@ ToProgress, unescape, verge, VK, Ya*/
 		var handleDataSrcIframeAllWindow = throttle(handleDataSrcIframeAll, 100);
 
 		var manageDataSrcIframeAll = function () {
-			root[_removeEventListener]("scroll", handleDataSrcIframeAllWindow, {passive: true});
-			root[_removeEventListener]("resize", handleDataSrcIframeAllWindow);
-			root[_addEventListener]("scroll", handleDataSrcIframeAllWindow, {passive: true});
-			root[_addEventListener]("resize", handleDataSrcIframeAllWindow);
+			removeListener(root, "scroll", handleDataSrcIframeAllWindow, {passive: true});
+			removeListener(root, "resize", handleDataSrcIframeAllWindow);
+			addListener(root, "scroll", handleDataSrcIframeAllWindow, {passive: true});
+			addListener(root, "resize", handleDataSrcIframeAllWindow);
 			var timer = setTimeout(function () {
 					clearTimeout(timer);
 					timer = null;
@@ -1176,7 +1285,7 @@ ToProgress, unescape, verge, VK, Ya*/
 		 * @see {@link https://github.com/englishextra/img-lightbox}
 		 */
 		var manageImgLightbox = function (imgLightboxLinkClass) {
-			var link = document[getElementsByClassName](imgLightboxLinkClass) || "";
+			var link = getByClass(document, imgLightboxLinkClass) || "";
 			var initScript = function () {
 				imgLightbox(imgLightboxLinkClass, {
 					onLoaded: function () {
@@ -1203,7 +1312,7 @@ ToProgress, unescape, verge, VK, Ya*/
 		 * @see {@link https://github.com/englishextra/iframe-lightbox}
 		 */
 		var manageIframeLightbox = function (iframeLightboxLinkClass) {
-			var link = document[getElementsByClassName](iframeLightboxLinkClass) || "";
+			var link = getByClass(document, iframeLightboxLinkClass) || "";
 			var initScript = function () {
 				var arrange = function (e) {
 					e.lightbox = new IframeLightbox(e, {
@@ -1232,29 +1341,29 @@ ToProgress, unescape, verge, VK, Ya*/
 		};
 		manageIframeLightbox(iframeLightboxLinkClass);
 
-		var handleChaptersSelect = function () {
-			var _this = this;
-			var hashString = _this.options[_this.selectedIndex].value || "";
-			if (hashString) {
-				var targetObj = hashString ? (isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/, "")) || "" : "") : "";
-				if (targetObj) {
-					scroll2Top((targetObj ? findPos(targetObj).top : 0), 20000);
-				} else {
-					root.location.href = hashString;
-				}
-			}
-		};
 		var manageChaptersSelect = function () {
 			var chaptersSelect = document[getElementById]("chapters-select") || "";
+			var handle = function () {
+				var _this = this;
+				var hashString = _this.options[_this.selectedIndex].value || "";
+				if (hashString) {
+					var targetObj = hashString ? (isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/, "")) || "" : "") : "";
+					if (targetObj) {
+						scroll2Top((targetObj ? findPos(targetObj).top : 0), 20000);
+					} else {
+						root.location.href = hashString;
+					}
+				}
+			};
 			if (chaptersSelect) {
-				chaptersSelect[_addEventListener]("change", handleChaptersSelect);
+				addListener(chaptersSelect, "change", handle);
 			}
 		};
 		manageChaptersSelect();
 
 		var manageSearchInput = function () {
 			var searchInput = document[getElementById]("text") || "";
-			var handleSearchInputValue = function () {
+			var handle = function () {
 				var _this = this;
 				var logic = function () {
 					_this.value = _this.value.replace(/\\/g, "").replace(/ +(?= )/g, " ").replace(/\/+(?=\/)/g, "/") || "";
@@ -1263,24 +1372,24 @@ ToProgress, unescape, verge, VK, Ya*/
 			};
 			if (searchInput) {
 				searchInput.focus();
-				searchInput[_addEventListener]("input", handleSearchInputValue);
+				addListener(searchInput, "input", handle);
 			}
 		};
 		manageSearchInput();
 
-		var handleExpandingLayerAll = function () {
-			var _this = this;
-			var layer = _this[parentNode] ? _this[parentNode].nextElementSibling : "";
-			if (layer) {
-				_this[classList].toggle(isActiveClass);
-				layer[classList].toggle(isActiveClass);
-			}
-			return;
-		};
-		var manageExpandingLayers = function () {
-			var btn = document[getElementsByClassName]("btn-expand-hidden-layer") || "";
+		var manageExpandingLayerAll = function () {
+			var btn = getByClass(document, "btn-expand-hidden-layer") || "";
+			var handle = function () {
+				var _this = this;
+				var layer = _this[parentNode] ? _this[parentNode].nextElementSibling : "";
+				if (layer) {
+					toggleClass(_this, isActiveClass);
+					toggleClass(layer, isActiveClass);
+				}
+				return;
+			};
 			var addHandler = function (e) {
-				e[_addEventListener]("click", handleExpandingLayerAll);
+				addListener(e, "click", handle);
 			};
 			if (btn) {
 				var i,
@@ -1291,23 +1400,23 @@ ToProgress, unescape, verge, VK, Ya*/
 				i = l = null;
 			}
 		};
-		manageExpandingLayers();
+		manageExpandingLayerAll();
 
 		var qcode;
-		var manageLocationQrCodeImage = function () {
-			var holder = document[getElementsByClassName]("holder-location-qrcode")[0] || "";
-			var locationHref = root.location.href || "";
+		var manageLocationQrcode = function () {
+			var holder = getByClass(document, "holder-location-qrcode")[0] || "";
+			var locHref = root.location.href || "";
 			var initScript = function () {
 				if (!qcode) {
 					qcode = true;
-					var locationHref = root.location.href || "";
-					var img = document[createElement]("img");
+					var locHref = root.location.href || "";
+					var img = document.createElement("img");
 					var imgTitle = document.title ? ("Ссылка на страницу «" + document.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
-					var imgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(locationHref);
+					var imgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(locHref);
 					img.alt = imgTitle;
 					if (root.QRCode) {
 						if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
-							imgSrc = QRCode.generateSVG(locationHref, {
+							imgSrc = QRCode.generateSVG(locHref, {
 									ecclevel: "M",
 									fillcolor: "#FFFFFF",
 									textcolor: "#191919",
@@ -1319,7 +1428,7 @@ ToProgress, unescape, verge, VK, Ya*/
 							imgSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(imgSrc)));
 							img.src = imgSrc;
 						} else {
-							imgSrc = QRCode.generatePNG(locationHref, {
+							imgSrc = QRCode.generatePNG(locHref, {
 									ecclevel: "M",
 									format: "html",
 									fillcolor: "#FFFFFF",
@@ -1332,67 +1441,70 @@ ToProgress, unescape, verge, VK, Ya*/
 					} else {
 						img.src = imgSrc;
 					}
-					img[classList].add("qr-code-img");
+					addClass(img, "qr-code-img");
 					img.title = imgTitle;
 					removeChildren(holder);
 					appendFragment(img, holder);
 				}
 			};
-			if (root.QRCode && holder && locationHref && "undefined" !== typeof getHTTP && getHTTP()) {
+			if (root.QRCode &&
+				holder &&
+				locHref &&
+				"undefined" !== typeof getHTTP && getHTTP()) {
 				initScript();
 			}
 		};
-		manageLocationQrCodeImage();
+		manageLocationQrcode();
 
-		var initNavMenu = function () {
+		var manageNavMenu = function () {
 			var container = document[getElementById]("container") || "";
 			var page = document[getElementById]("page") || "";
-			var btnNavMenu = document[getElementsByClassName]("btn-nav-menu")[0] || "";
-			var panelNavMenu = document[getElementsByClassName]("panel-nav-menu")[0] || "";
+			var btnNavMenu = getByClass(document, "btn-nav-menu")[0] || "";
+			var panelNavMenu = getByClass(document, "panel-nav-menu")[0] || "";
 			var panelNavMenuItems = panelNavMenu ? panelNavMenu[getElementsByTagName]("a") || "" : "";
-			var holderPanelMenuMore = document[getElementsByClassName]("holder-panel-menu-more")[0] || "";
-			var locationHref = root.location.href || "";
+			var holderPanelMenuMore = getByClass(document, "holder-panel-menu-more")[0] || "";
+			var locHref = root.location.href || "";
 			var removeAllActiveClass = function () {
-				page[classList].remove(isActiveClass);
-				panelNavMenu[classList].remove(isActiveClass);
-				btnNavMenu[classList].remove(isActiveClass);
+				removeClass(page, isActiveClass);
+				removeClass(panelNavMenu, isActiveClass);
+				removeClass(btnNavMenu, isActiveClass);
 			};
 			var removeHolderActiveClass = function () {
-				if (holderPanelMenuMore && holderPanelMenuMore[classList].contains(isActiveClass)) {
-					holderPanelMenuMore[classList].remove(isActiveClass);
+				if (holderPanelMenuMore && hasClass(holderPanelMenuMore, isActiveClass)) {
+					removeClass(holderPanelMenuMore, isActiveClass);
 				}
 			};
 			var addContainerHandler = function () {
 				var handleContainerLeft = function () {
 					removeHolderActiveClass();
-					if (panelNavMenu[classList].contains(isActiveClass)) {
+					if (hasClass(panelNavMenu, isActiveClass)) {
 						removeAllActiveClass();
 					}
 				};
 				var handleContainerRight = function () {
 					removeHolderActiveClass();
 					var addAllActiveClass = function () {
-						page[classList].add(isActiveClass);
-						panelNavMenu[classList].add(isActiveClass);
-						btnNavMenu[classList].add(isActiveClass);
+						addClass(page, isActiveClass);
+						addClass(panelNavMenu, isActiveClass);
+						addClass(btnNavMenu, isActiveClass);
 					};
-					if (!panelNavMenu[classList].contains(isActiveClass)) {
+					if (!hasClass(panelNavMenu, isActiveClass)) {
 						addAllActiveClass();
 					}
 				};
-				container[_addEventListener]("click", handleContainerLeft);
+				addListener(container, "click", handleContainerLeft);
 				if (root.tocca) {
 					if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-						container[_addEventListener]("swipeleft", handleContainerLeft);
-						container[_addEventListener]("swiperight", handleContainerRight);
+						addListener(container, "swipeleft", handleContainerLeft);
+						addListener(container, "swiperight", handleContainerRight);
 					}
 				}
 			};
 			var addBtnHandler = function () {
 				var toggleAllActiveClass = function () {
-					page[classList].toggle(isActiveClass);
-					panelNavMenu[classList].toggle(isActiveClass);
-					btnNavMenu[classList].toggle(isActiveClass);
+					toggleClass(page, isActiveClass);
+					toggleClass(panelNavMenu, isActiveClass);
+					toggleClass(btnNavMenu, isActiveClass);
 				};
 				var handleBtnNavMenu = function (ev) {
 					ev.stopPropagation();
@@ -1400,22 +1512,22 @@ ToProgress, unescape, verge, VK, Ya*/
 					removeHolderActiveClass();
 					toggleAllActiveClass();
 				};
-				btnNavMenu[_addEventListener]("click", handleBtnNavMenu);
+				addListener(btnNavMenu, "click", handleBtnNavMenu);
 			};
 			var addItemHandlerAll = function () {
 				var addItemHandler = function (e) {
 					var addActiveClass = function (e) {
-						e[classList].add(isActiveClass);
+						addClass(e, isActiveClass);
 					};
 					var removeHolderAndAllActiveClass = function () {
 						removeHolderActiveClass();
 						removeAllActiveClass();
 					};
 					var removeActiveClass = function (e) {
-						e[classList].remove(isActiveClass);
+						removeClass(e, isActiveClass);
 					};
 					var handleItem = function () {
-						if (panelNavMenu[classList].contains(isActiveClass)) {
+						if (hasClass(panelNavMenu, isActiveClass)) {
 							removeHolderAndAllActiveClass();
 						}
 						var i,
@@ -1426,8 +1538,8 @@ ToProgress, unescape, verge, VK, Ya*/
 						i = l = null;
 						addActiveClass(e);
 					};
-					e[_addEventListener]("click", handleItem);
-					if (locationHref === e.href) {
+					addListener(e, "click", handleItem);
+					if (locHref === e.href) {
 						addActiveClass(e);
 					} else {
 						removeActiveClass(e);
@@ -1440,34 +1552,37 @@ ToProgress, unescape, verge, VK, Ya*/
 				}
 				i = l = null;
 			};
-			if (page && container && btnNavMenu && panelNavMenu && panelNavMenuItems) {
+			if (page &&
+				container &&
+				btnNavMenu &&
+				panelNavMenu &&
+				panelNavMenuItems) {
 				addContainerHandler();
 				addBtnHandler();
 				addItemHandlerAll();
 			}
 		};
-		initNavMenu();
+		manageNavMenu();
 
-		var addAppUpdatesLink = function () {
-			var panel = document[getElementsByClassName]("panel-menu-more")[0] || "";
+		var addUpdateAppLink = function () {
+			var panel = getByClass(document, "panel-menu-more")[0] || "";
 			var items = panel ? panel[getElementsByTagName]("li") || "" : "";
-			var navigatorUserAgent = navigator.userAgent || "";
+			var navUA = navigator.userAgent || "";
 			var linkHref;
-			if (/Windows/i.test(navigatorUserAgent) && /(WOW64|Win64)/i.test(navigatorUserAgent)) {
+			if (/Windows/i.test(navUA) && /(WOW64|Win64)/i.test(navUA)) {
 				linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-win32-x64-setup.exe";
-			} else if (/(x86_64|x86-64|x64;|amd64|AMD64|x64_64)/i.test(navigatorUserAgent) && /(Linux|X11)/i.test(navigatorUserAgent)) {
+			} else if (/(x86_64|x86-64|x64;|amd64|AMD64|x64_64)/i.test(navUA) && /(Linux|X11)/i.test(navUA)) {
 				linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-linux-x64.tar.gz";
-			} else if (/IEMobile/i.test(navigatorUserAgent)) {
+			} else if (/IEMobile/i.test(navUA)) {
 				linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra.Windows10_x86_debug.appx";
 			} else {
-				if (/Android/i.test(navigatorUserAgent)) {
+				if (/Android/i.test(navUA)) {
 					linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-debug.apk";
 				}
 			}
 			var arrange = function () {
-				var listItem = document[createElement]("li");
-				var link = document[createElement]("a");
-				var linkText = "Скачать приложение сайта";
+				var listItem = document.createElement("li");
+				var link = document.createElement("a");
 				link.title = "" + (parseLink(linkHref).hostname || "") + " откроется в новой вкладке";
 				link.href = linkHref;
 				var handleAppUpdatesLink = function () {
@@ -1480,9 +1595,9 @@ ToProgress, unescape, verge, VK, Ya*/
 					/* jshint -W107 */
 					link.href = "javascript:void(0);";
 					/* jshint +W107 */
-					link[_addEventListener]("click", handleAppUpdatesLink);
+					addListener(link, "click", handleAppUpdatesLink);
 				}
-				link[appendChild](document[createTextNode]("" + linkText));
+				link[appendChild](document[createTextNode]("Скачать приложение сайта"));
 				listItem[appendChild](link);
 				if (panel.hasChildNodes()) {
 					prependFragmentBefore(listItem, panel.firstChild);
@@ -1492,37 +1607,37 @@ ToProgress, unescape, verge, VK, Ya*/
 				arrange();
 			}
 		};
-		addAppUpdatesLink();
+		addUpdateAppLink();
 
-		var initMenuMore = function () {
+		var manageMenuMore = function () {
 			var container = document[getElementById]("container") || "";
 			var page = document[getElementById]("page") || "";
-			var holderPanelMenuMore = document[getElementsByClassName]("holder-panel-menu-more")[0] || "";
-			var btnMenuMore = document[getElementsByClassName]("btn-menu-more")[0] || "";
-			var panelMenuMore = document[getElementsByClassName]("panel-menu-more")[0] || "";
+			var holderPanelMenuMore = getByClass(document, "holder-panel-menu-more")[0] || "";
+			var btnMenuMore = getByClass(document, "btn-menu-more")[0] || "";
+			var panelMenuMore = getByClass(document, "panel-menu-more")[0] || "";
 			var panelMenuMoreItems = panelMenuMore ? panelMenuMore[getElementsByTagName]("li") || "" : "";
-			var panelNavMenu = document[getElementsByClassName]("panel-nav-menu")[0] || "";
+			var panelNavMenu = getByClass(document, "panel-nav-menu")[0] || "";
 			var handleItem = function () {
-				page[classList].remove(isActiveClass);
-				holderPanelMenuMore[classList].remove(isActiveClass);
-				if (panelNavMenu && panelNavMenu[classList].contains(isActiveClass)) {
-					panelNavMenu[classList].remove(isActiveClass);
+				removeClass(page, isActiveClass);
+				removeClass(holderPanelMenuMore, isActiveClass);
+				if (panelNavMenu && hasClass(panelNavMenu, isActiveClass)) {
+					removeClass(panelNavMenu, isActiveClass);
 				}
 			};
 			var addContainerHandler = function () {
-				container[_addEventListener]("click", handleItem);
+				addListener(container, "click", handleItem);
 			};
 			var addBtnHandler = function () {
 				var handleBtnMenuMore = function (ev) {
 					ev.stopPropagation();
 					ev.preventDefault();
-					holderPanelMenuMore[classList].toggle(isActiveClass);
+					toggleClass(holderPanelMenuMore, isActiveClass);
 				};
-				btnMenuMore[_addEventListener]("click", handleBtnMenuMore);
+				addListener(btnMenuMore, "click", handleBtnMenuMore);
 			};
 			var addItemHandlerAll = function () {
 				var addItemHandler = function (e) {
-					e[_addEventListener]("click", handleItem);
+					addListener(e, "click", handleItem);
 				};
 				var i,
 				l;
@@ -1531,57 +1646,62 @@ ToProgress, unescape, verge, VK, Ya*/
 				}
 				i = l = null;
 			};
-			if (page && container && holderPanelMenuMore && btnMenuMore && panelMenuMore && panelMenuMoreItems) {
+			if (page &&
+				container &&
+				holderPanelMenuMore &&
+				btnMenuMore &&
+				panelMenuMore &&
+				panelMenuMoreItems) {
 				addContainerHandler();
 				addBtnHandler();
 				addItemHandlerAll();
 			}
 		};
-		initMenuMore();
+		manageMenuMore();
 
 		var hideOtherIsSocial = function (thisObj) {
 			var _thisObj = thisObj || this;
-			var elem = document[getElementsByClassName]("is-social") || "";
+			var elem = getByClass(document, isSocialClass) || "";
 			if (elem) {
 				var k,
 				n;
 				for (k = 0, n = elem[_length]; k < n; k += 1) {
 					if (_thisObj !== elem[k]) {
-						elem[k][classList].remove(isActiveClass);
+						removeClass(elem[k], isActiveClass);
 					}
 				}
 				k = n = null;
 			}
 		};
-		root[_addEventListener]("click", hideOtherIsSocial);
+		addListener(root, "click", hideOtherIsSocial);
 
 		var yshare;
-		var manageShareButton = function () {
-			var btn = document[getElementsByClassName]("btn-share-buttons")[0] || "";
+		var manageShareButtons = function () {
+			var btn = getByClass(document, "btn-share-buttons")[0] || "";
 			var yaShare2Id = "ya-share2";
 			var yaShare2 = document[getElementById](yaShare2Id) || "";
-			var locationHref = root.location || "";
-			var documentTitle = document[title] || "";
-			var handleShareButton = function (ev) {
+			var locHref = root.location || "";
+			var docTitle = document[title] || "";
+			var handle = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				var logic = function () {
-					yaShare2[classList].toggle(isActiveClass);
+					toggleClass(yaShare2, isActiveClass);
 					hideOtherIsSocial(yaShare2);
 					var initScript = function () {
 						try {
 							if (yshare) {
 								yshare.updateContent({
-									title: documentTitle,
-									description: documentTitle,
-									url: locationHref
+									title: docTitle,
+									description: docTitle,
+									url: locHref
 								});
 							} else {
 								yshare = Ya.share2(yaShare2Id, {
 									content: {
-										title: documentTitle,
-										description: documentTitle,
-										url: locationHref
+										title: docTitle,
+										description: docTitle,
+										url: locHref
 									}
 								});
 							}
@@ -1601,25 +1721,25 @@ ToProgress, unescape, verge, VK, Ya*/
 			};
 			if (btn && yaShare2) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					btn[_addEventListener]("click", handleShareButton);
+					addListener(btn, "click", handle);
 				} else {
 					setStyleDisplayNone(btn);
 				}
 			}
 		};
-		manageShareButton();
+		manageShareButtons();
 
 		var vlike;
 		var manageVKLikeButton = function () {
 			var vkLikeId = "vk-like";
 			var vkLike = document[getElementById](vkLikeId) || "";
-			var holderVkLike = document[getElementsByClassName]("holder-vk-like")[0] || "";
-			var btn = document[getElementsByClassName]("btn-show-vk-like")[0] || "";
-			var handleVKLikeButton = function (ev) {
+			var holderVkLike = getByClass(document, "holder-vk-like")[0] || "";
+			var btn = getByClass(document, "btn-show-vk-like")[0] || "";
+			var handle = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				var logic = function () {
-					holderVkLike[classList].toggle(isActiveClass);
+					toggleClass(holderVkLike, isActiveClass);
 					hideOtherIsSocial(holderVkLike);
 					var initScript = function () {
 						if (!vlike) {
@@ -1651,7 +1771,7 @@ ToProgress, unescape, verge, VK, Ya*/
 			};
 			if (btn && vkLike) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					btn[_addEventListener]("click", handleVKLikeButton);
+					addListener(btn, "click", handle);
 				} else {
 					setStyleDisplayNone(btn);
 				}
@@ -1659,25 +1779,25 @@ ToProgress, unescape, verge, VK, Ya*/
 		};
 		manageVKLikeButton();
 
-		var initDownloadAppBtn = function () {
-			var navigatorUserAgent = navigator.userAgent || "";
+		var manageDownloadAppBtn = function () {
+			var navUA = navigator.userAgent || "";
 			var cls = "btn-download-app";
 			var an = "animated";
 			var an2 = "bounceInRight";
 			var an4 = "bounceOutRight";
 			var bgUrl;
 			var linkHref;
-			if (/Windows/i.test(navigatorUserAgent) && /(WOW64|Win64)/i.test(navigatorUserAgent)) {
+			if (/Windows/i.test(navUA) && /(WOW64|Win64)/i.test(navUA)) {
 				bgUrl = "url(../../libs/products/img/download_windows_app_144x52.png)";
 				linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-win32-x64-setup.exe";
-			} else if (/(x86_64|x86-64|x64;|amd64|AMD64|x64_64)/i.test(navigatorUserAgent) && /(Linux|X11)/i.test(navigatorUserAgent)) {
+			} else if (/(x86_64|x86-64|x64;|amd64|AMD64|x64_64)/i.test(navUA) && /(Linux|X11)/i.test(navUA)) {
 				bgUrl = "url(../../libs/products/img/download_linux_app_144x52.png)";
 				linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-linux-x64.tar.gz";
-			} else if (/IEMobile/i.test(navigatorUserAgent)) {
+			} else if (/IEMobile/i.test(navUA)) {
 				bgUrl = "url(../../libs/products/img/download_wp_app_144x52.png)";
 				linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra.Windows10_x86_debug.appx";
 			} else {
-				if (/Android/i.test(navigatorUserAgent)) {
+				if (/Android/i.test(navUA)) {
 					bgUrl = "url(../../libs/products/img/download_android_app_144x52.png)";
 					linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-debug.apk";
 				}
@@ -1688,33 +1808,33 @@ ToProgress, unescape, verge, VK, Ya*/
 					ev.preventDefault();
 					openDeviceBrowser(linkHref);
 				};
-				var link = document[createElement]("a");
+				var link = document.createElement("a");
 				link.style.backgroundImage = bgUrl;
-				link[classList].add(cls);
-				link[classList].add(an);
-				link[classList].add(an2);
+				addClass(link, cls);
+				addClass(link, an);
+				addClass(link, an2);
 				link.href = linkHref;
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					link.target = "_blank";
 					link.rel = "noopener";
 				} else {
-					link[_addEventListener]("click", handleDownloadAppBtn);
+					addListener(link, "click", handleDownloadAppBtn);
 				}
 				appendFragment(link, docBody);
 				var timer = setTimeout(function () {
 					clearTimeout(timer);
 					timer = null;
-					link[classList].remove(an2);
-					link[classList].add(an4);
+					removeClass(link, an2);
+					addClass(link, an4);
 					var timer2 = setTimeout(function () {
 						clearTimeout(timer2);
 						timer2 = null;
-						link[_removeEventListener]("click", handleDownloadAppBtn);
+						removeListener(link, "click", handleDownloadAppBtn);
 						removeElement(link);
 					}, 750);
 				}, 8000);
 			};
-			if (docBody && navigatorUserAgent && linkHref) {
+			if (docBody && navUA && linkHref) {
 				var timer = setTimeout(function () {
 					clearTimeout(timer);
 					timer = null;
@@ -1722,24 +1842,24 @@ ToProgress, unescape, verge, VK, Ya*/
 				}, 3000);
 			}
 		};
-		initDownloadAppBtn();
+		manageDownloadAppBtn();
 
 		var disqs;
-		var initDisqusOnScroll = function () {
+		var manageDisqusOnScroll = function () {
 			var disqusThread = document[getElementById]("disqus_thread") || "";
-			var btn = document[getElementsByClassName]("btn-show-disqus")[0] || "";
-			var locationHref = root.location.href || "";
-			var disqusThreadShortname = disqusThread ? (disqusThread[dataset].shortname || "") : "";
+			var btn = getByClass(document, "btn-show-disqus")[0] || "";
+			var locHref = root.location.href || "";
+			var shortname = disqusThread ? (disqusThread[dataset].shortname || "") : "";
 			var loadDisqus = function () {
 				var initScript = function () {
 					if (!disqs) {
 						disqs = true;
 						setStyleDisplayNone(btn);
-						disqusThread[classList].add(isActiveClass);
+						addClass(disqusThread, isActiveClass);
 					}
 				};
 				if (!root.DISQUS) {
-					var jsUrl = forcedHTTP + "://" + disqusThreadShortname + ".disqus.com/embed.js";
+					var jsUrl = forcedHTTP + "://" + shortname + ".disqus.com/embed.js";
 					var load;
 					load = new loadJsCss([jsUrl], initScript);
 				} else {
@@ -1750,12 +1870,12 @@ ToProgress, unescape, verge, VK, Ya*/
 				var handleDisqusButton = function (ev) {
 					ev.preventDefault();
 					ev.stopPropagation();
-					btn[_removeEventListener]("click", handleDisqusButton);
+					removeListener(btn, "click", handleDisqusButton);
 					loadDisqus();
 				};
-				btn[_addEventListener]("click", handleDisqusButton);
+				addListener(btn, "click", handleDisqusButton);
 			};
-			if (btn && disqusThread && disqusThreadShortname && locationHref) {
+			if (btn && disqusThread && shortname && locHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					addHandler();
 				} else {
@@ -1767,11 +1887,11 @@ ToProgress, unescape, verge, VK, Ya*/
 				}
 			}
 		};
-		initDisqusOnScroll();
+		manageDisqusOnScroll();
 
 		var kaml;
-		var initKamilAutocomplete = function () {
-			var searchForm = document[getElementsByClassName]("search-form")[0] || "";
+		var manageKamil = function () {
+			var searchForm = getByClass(document, "search-form")[0] || "";
 			var textInputSelector = "#text";
 			var textInput = document[getElementById]("text") || "";
 			var container = document[getElementById]("container") || "";
@@ -1794,8 +1914,8 @@ ToProgress, unescape, verge, VK, Ya*/
 					console.log("cannot init generateMenu", err);
 					return;
 				}
-				var suggestionUl = document[createElement]("ul");
-				var suggestionLi = document[createElement]("li");
+				var suggestionUl = document.createElement("ul");
+				var suggestionLi = document.createElement("li");
 				var handleTypoSuggestion = function () {
 					setStyleDisplayNone(suggestionUl);
 					setStyleDisplayNone(suggestionLi);
@@ -1804,7 +1924,7 @@ ToProgress, unescape, verge, VK, Ya*/
 					setStyleDisplayBlock(suggestionUl);
 					setStyleDisplayBlock(suggestionLi);
 				};
-				suggestionUl[classList].add(suggestionUlClass);
+				addClass(suggestionUl, suggestionUlClass);
 				suggestionUl.id = suggestionUlId;
 				handleTypoSuggestion();
 				suggestionUl[appendChild](suggestionLi);
@@ -1866,9 +1986,9 @@ ToProgress, unescape, verge, VK, Ya*/
 					textInput.value = suggestionLi.firstChild.textContent || "";
 					setStyleDisplayNone(suggestionUl);
 				};
-				suggestionLi[_addEventListener]("click", handleSuggestionLi);
+				addListener(suggestionLi, "click", handleSuggestionLi);
 				if (container) {
-					container[_addEventListener]("click", handleTypoSuggestion);
+					addListener(container, "click", handleTypoSuggestion);
 				}
 				ac.on("kamilselect", function (e) {
 					var kamilItemLink = e.item.href || "";
@@ -1892,45 +2012,45 @@ ToProgress, unescape, verge, VK, Ya*/
 				initScript();
 			}
 		};
-		initKamilAutocomplete();
+		manageKamil();
 
-		var initUiTotop = function () {
-			var btnClass = "ui-totop";
-			var btn = document[getElementsByClassName](btnClass)[0] || "";
+		var manageBtnTotop = function () {
+			var btnClass = "btn-totop";
+			var btn = getByClass(document, btnClass)[0] || "";
 			if (!btn) {
-				btn = document[createElement]("a");
-				btn[classList].add(btnClass);
+				btn = document.createElement("a");
+				addClass(btn, btnClass);
 				/* jshint -W107 */
 				btn.href = "javascript:void(0);";
 				/* jshint +W107 */
 				btn.title = "Наверх";
 				docBody[appendChild](btn);
 			}
-			var handleUiTotop = function (ev) {
+			var handle = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				scroll2Top(0, 20000);
 			};
-			var handleUiTotopWindow = function (_this) {
+			var handleWindow = function (_this) {
 				var logic = function () {
 					var scrollPosition = _this.pageYOffset || docElem.scrollTop || docBody.scrollTop || "";
 					var windowHeight = _this.innerHeight || docElem.clientHeight || docBody.clientHeight || "";
 					if (scrollPosition && windowHeight && btn) {
 						if (scrollPosition > windowHeight) {
-							btn[classList].add(isActiveClass);
+							addClass(btn, isActiveClass);
 						} else {
-							btn[classList].remove(isActiveClass);
+							removeClass(btn, isActiveClass);
 						}
 					}
 				};
 				throttle(logic, 100).call(root);
 			};
 			if (docBody) {
-				btn[_addEventListener]("click", handleUiTotop);
-				root[_addEventListener]("scroll", handleUiTotopWindow, {passive: true});
+				addListener(btn, "click", handle);
+				addListener(root, "scroll", handleWindow, {passive: true});
 			}
 		};
-		initUiTotop();
+		manageBtnTotop();
 
 		hideProgressBar();
 
@@ -1942,12 +2062,12 @@ ToProgress, unescape, verge, VK, Ya*/
 	var supportsPassive = (function () {
 		var support = false;
 		try {
-			var opts = Object[defineProperty] && Object[defineProperty]({}, "passive", {
+			var opts = Object.defineProperty && Object.defineProperty({}, "passive", {
 					get: function () {
 						support = true;
 					}
 				});
-			root[_addEventListener]("test", function () {}, opts);
+			addListener(root, "test", function () {}, opts);
 		} catch (err) {}
 		return support;
 	})();
@@ -1958,20 +2078,20 @@ ToProgress, unescape, verge, VK, Ya*/
 		!root.requestAnimationFrame ||
 		!root.matchMedia ||
 		("undefined" === typeof root.Element && !("dataset" in docElem)) ||
-		!("classList" in document[createElement]("_")) ||
-		document[createElementNS] && !("classList" in document[createElementNS]("http://www.w3.org/2000/svg", "g")) ||
-		(root.attachEvent && !root[_addEventListener]) ||
+		!("classList" in document.createElement("_")) ||
+		document.createElementNS && !("classList" in document.createElementNS("http://www.w3.org/2000/svg", "g")) ||
+		(root.attachEvent && !root.addEventListener) ||
 		!("onhashchange" in root) ||
 		!Array.prototype.indexOf ||
 		!root.Promise ||
 		!root.fetch ||
-		!document[querySelectorAll] ||
-		!document[querySelector] ||
+		!document.querySelectorAll ||
+		!document.querySelector ||
 		!Function.prototype.bind ||
-		(Object[defineProperty] &&
-			Object[getOwnPropertyDescriptor] &&
-			Object[getOwnPropertyDescriptor](Element.prototype, "textContent") &&
-			!Object[getOwnPropertyDescriptor](Element.prototype, "textContent").get) ||
+		(Object.defineProperty &&
+			Object.getOwnPropertyDescriptor &&
+			Object.getOwnPropertyDescriptor(Element.prototype, "textContent") &&
+			!Object.getOwnPropertyDescriptor(Element.prototype, "textContent").get) ||
 		!("undefined" !== typeof root.localStorage && "undefined" !== typeof root.sessionStorage) ||
 		!root.WeakMap ||
 		!root.MutationObserver;
@@ -1984,9 +2104,10 @@ ToProgress, unescape, verge, VK, Ya*/
 	scripts.push("../../libs/paper/js/vendors.min.js");
 
 	var bodyFontFamily = "Roboto";
-	var onFontsLoadedCallback = function () {
+
+	var onFontsLoaded = function () {
 		var slot;
-		var onFontsLoaded = function () {
+		var init = function () {
 			clearInterval(slot);
 			slot = null;
 			if (!supportsSvgSmilAnimation && "undefined" !== typeof progressBar) {
@@ -1995,21 +2116,21 @@ ToProgress, unescape, verge, VK, Ya*/
 			var load;
 			load = new loadJsCss(scripts, run);
 		};
-		var checkFontIsLoaded;
-		checkFontIsLoaded = function () {
+		var check;
+		check = function () {
 			if (doesFontExist(bodyFontFamily)) {
-				onFontsLoaded();
+				init();
 			}
 		};
 		/* if (supportsCanvas) {
-			slot = setInterval(checkFontIsLoaded, 100);
+			slot = setInterval(check, 100);
 		} else {
 			slot = null;
-			onFontsLoaded();
+			init();
 		} */
-		onFontsLoaded();
+		init();
 	};
 
 	var load;
-	load = new loadJsCss(["../../libs/paper/css/bundle.min.css"], onFontsLoadedCallback);
+	load = new loadJsCss(["../../libs/paper/css/bundle.min.css"], onFontsLoaded);
 })("undefined" !== typeof window ? window : this, document);

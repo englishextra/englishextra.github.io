@@ -1635,7 +1635,7 @@ var WheelIndicator = (function(t, e) {
 			_this.listen();
 		};
 
-		var isBindedEchoClass = "is-binded-echo";
+		var isBindedEchoClass = "echo--is-binded";
 
 		var isBindedEcho = (function() {
 			return (
@@ -1720,14 +1720,14 @@ var WheelIndicator = (function(t, e) {
 
 			try {
 				var opts =
-					Object[defineProperty] &&
-					Object[defineProperty]({}, "passive", {
+					Object.defineProperty &&
+					Object.defineProperty({}, "passive", {
 						get: function get() {
 							support = true;
 						}
 					});
 
-				root[_addEventListener]("test", function() {}, opts);
+				root.addEventListener("test", function() {}, opts);
 			} catch (err) {}
 
 			return support;
@@ -1742,7 +1742,7 @@ var WheelIndicator = (function(t, e) {
 			},
 			listen: function listen() {
 				if (!isBindedEcho) {
-					root[_addEventListener](
+					addListener(root, 
 						"scroll",
 						throttleEchoImageAll,
 						supportsPassive

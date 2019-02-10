@@ -1504,11 +1504,11 @@ u,
 }
 
 /*!
- * overrides to ui-totop
+ * overrides to btn-totop
  */
-.full #ui-totop,
-.full #ui-totop-hover,
-.full #ui-totop:hover {
+.full #btn-totop,
+.full #btn-totop-hover,
+.full #btn-totop:hover {
 	position: absolute;
 	top: -9999px;
 	left: -9999px;
@@ -1696,7 +1696,7 @@ u,
 /*!
  * @see {@link https://github.com/sksmatt/UItoTop-jQuery-Plugin/}
  */
-.ui-totop {
+.btn-totop {
 	display: inline-block;
 	visibility: hidden;
 	opacity: 0;
@@ -1719,22 +1719,22 @@ u,
 	outline: none;
 }
 
-.ui-totop:before {
+.btn-totop:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e923";
 }
 
-.ui-totop.is-active {
+.btn-totop.is-active {
 	visibility: visible;
 	opacity: 1;
 }
 
-.ui-totop:hover {
+.btn-totop:hover {
 	background-color: #d5d5d5;
 }
 
-/* .ui-totop:focus, */
-.ui-totop:active {
+/* .btn-totop:focus, */
+.btn-totop:active {
 	color: #191919;
 	background-color: #d83544;
 }

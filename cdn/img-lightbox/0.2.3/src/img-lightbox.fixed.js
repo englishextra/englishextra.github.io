@@ -36,29 +36,29 @@
 	var dummySrc = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
 	var isMobile = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(Android)|(PlayBook)|(BB10)|(BlackBerry)|(Opera Mini)|(IEMobile)|(webOS)|(MeeGo)/i);
 	var isTouch = isMobile !== null || document.createTouch !== undefined || "ontouchstart" in root || "onmsgesturechange" in root || navigator.msMaxTouchPoints;
-	var debounce = function (func, wait) {
-		var timeout;
-		var args;
-		var context;
-		var timestamp;
-		return function () {
-			context = this;
-			args = [].slice.call(arguments, 0);
-			timestamp = new Date();
-			var later = function () {
-				var last = new Date() - timestamp;
-				if (last < wait) {
-					timeout = setTimeout(later, wait - last);
-				} else {
-					timeout = null;
-					func.apply(context, args);
+		var debounce = function (func, wait) {
+			var timeout;
+			var args;
+			var context;
+			var timestamp;
+			return function () {
+				context = this;
+				args = [].slice.call(arguments, 0);
+				timestamp = new Date();
+				var later = function () {
+					var last = (new Date()) - timestamp;
+					if (last < wait) {
+						timeout = setTimeout(later, wait - last);
+					} else {
+						timeout = null;
+						func.apply(context, args);
+					}
+				};
+				if (!timeout) {
+					timeout = setTimeout(later, wait);
 				}
 			};
-			if (!timeout) {
-				timeout = setTimeout(later, wait);
-			}
 		};
-	};
 	var callCallback = function (func, data) {
 		if (typeof func !== "function") {
 			return;

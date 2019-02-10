@@ -1204,10 +1204,7 @@
 			var textcolor = options.textcolor ? options.textcolor : "#000000";
 			var matrix = QRCode.generate(data, options);
 			var modsize = Math.max(options.modulesize || 5, 0.5);
-			var margin = Math.max(
-				options.margin !== null ? options.margin : 4,
-				0.0
-			);
+			var margin = Math.max(options.margin !== null ? options.margin : 4, 0.0);
 			var e = document[createElement]("div");
 			var n = matrix[length];
 			var html = [
@@ -1260,44 +1257,19 @@
 			var size = modsize * (n + 2 * margin);
 			/* var common = ' class= "fg"' + ' width="' + modsize + '" height="' + modsize + '"/>'; */
 
-			var e = document[createElementNS](
-				"http://www.w3.org/2000/svg",
-				"svg"
-			);
+			var e = document[createElementNS]("http://www.w3.org/2000/svg", "svg");
 			e[setAttributeNS](null, "viewBox", "0 0 " + size + " " + size);
 			e[setAttributeNS](null, "style", "shape-rendering:crispEdges");
 			var qrcodeId = "qrcode" + Date.now();
 			e[setAttributeNS](null, "id", qrcodeId);
 			var frag = document[createDocumentFragment]();
 			/* var svg = ['<style scoped>.bg{fill:' + fillcolor + '}.fg{fill:' + textcolor + '}</style>', '<rect class="bg" x="0" y="0"', 'width="' + size + '" height="' + size + '"/>', ]; */
-
-			var style = document[createElementNS](
-				"http://www.w3.org/2000/svg",
-				"style"
-			);
-			style[appendChild](
-				document[createTextNode](
-					"#" +
-						qrcodeId +
-						" .bg{fill:" +
-						fillcolor +
-						"}#" +
-						qrcodeId +
-						" .fg{fill:" +
-						textcolor +
-						"}"
-				)
-			);
+			var style = document[createElementNS]("http://www.w3.org/2000/svg", "style");
+			style[appendChild](document[createTextNode]("#" + qrcodeId + " .bg{fill:" + fillcolor + "}#" + qrcodeId + " .fg{fill:" + textcolor + "}"));
 			/* style[setAttributeNS](null, "scoped", "scoped"); */
-
 			frag[appendChild](style);
-
-			var createRect = function createRect(c, f, x, y, s) {
-				var fg =
-					document[createElementNS](
-						"http://www.w3.org/2000/svg",
-						"rect"
-					) || "";
+			var createRect = function (c, f, x, y, s) {
+				var fg = document[createElementNS]("http://www.w3.org/2000/svg", "rect") || "";
 				fg[setAttributeNS](null, "class", c);
 				fg[setAttributeNS](null, "fill", f);
 				fg[setAttributeNS](null, "x", x);
@@ -1424,7 +1396,7 @@ function _typeof(obj) {
 				return void 0 !== e ? e : document.documentElement.scrollTop;
 			},
 			unbind: function unbind(e, t, n) {
-				i.bind(e, t, n, !0);
+				i.bind(e, t, n, true);
 			},
 			removeClass: function removeClass(e, t) {
 				var n = new RegExp("(\\s|^)" + t + "(\\s|$)");
@@ -3366,7 +3338,7 @@ function _typeof(obj) {
 													holder: e,
 													clearPlaceholder: !0
 											  })
-											: uo(t, n, l, n.img, it || Jn, !0);
+											: uo(t, n, l, n.img, it || Jn, true);
 									}
 
 									(n.loadComplete = null),
@@ -3525,7 +3497,7 @@ function _typeof(obj) {
 						if (!("detail" in e)) return;
 						wo.y = e.detail;
 					}
-					Bt(w, !0);
+					Bt(w, true);
 					var t = ft.x - wo.x,
 						n = ft.y - wo.y;
 					(s.modal ||

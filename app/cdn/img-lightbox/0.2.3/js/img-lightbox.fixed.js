@@ -74,58 +74,57 @@
 		};
 	};
 
-	var callCallback = function callCallback(func, data) {
+	var callCallback = function (func, data) {
 		if (typeof func !== "function") {
 			return;
 		}
-
 		var caller = func.bind(this);
 		caller(data);
 	};
+		var setStyleDisplayBlock = function (a) {
+			if (a) {
+				a[style].display = "block";
+			}
+		};
 
-	var hideImgLightbox = function hideImgLightbox(callback) {
-		var container =
-			document[getElementsByClassName](containerClass)[0] || "";
-		var img = container
-			? container[getElementsByTagName]("img")[0] || ""
-			: "";
-
-		var hideContainer = function hideContainer() {
+		var setStyleDisplayNone = function (a) {
+			if (a) {
+				a[style].display = "none";
+			}
+		};
+	var hideImgLightbox = function (callback) {
+		var container = document[getElementsByClassName](containerClass)[0] || "";
+		var img = container ? container[getElementsByTagName]("img")[0] || "" : "";
+		var hideContainer = function () {
 			container[classList].remove(fadeInClass);
 			container[classList].add(fadeOutClass);
-
-			var hideImg = function hideImg() {
+			var hideImg = function () {
 				container[classList].remove(animatedClass);
 				container[classList].remove(fadeOutClass);
 				img[classList].remove(animatedClass);
 				img[classList].remove(fadeOutDownClass);
-
-				img.onload = function() {
+				img.onload = function () {
 					container[classList].remove(isLoadedClass);
 				};
-
 				img.src = dummySrc;
 				setStyleDisplayNone(container);
 				callCallback(callback, root);
 			};
-
-			var timer = setTimeout(function() {
-				clearTimeout(timer);
-				timer = null;
-				hideImg();
-			}, 400);
+			var timer = setTimeout(function () {
+					clearTimeout(timer);
+					timer = null;
+					hideImg();
+				}, 400);
 		};
-
 		if (container && img) {
 			img[classList].remove(fadeInUpClass);
 			img[classList].add(fadeOutDownClass);
-			var timer = setTimeout(function() {
-				clearTimeout(timer);
-				timer = null;
-				hideContainer();
-			}, 400);
+			var timer = setTimeout(function () {
+					clearTimeout(timer);
+					timer = null;
+					hideContainer();
+				}, 400);
 		}
-
 		docElem[classList].remove(imgLightboxOpenClass);
 		docBody[classList].remove(imgLightboxOpenClass);
 	};
@@ -141,29 +140,19 @@
 		var onCreated = options.onCreated;
 		var onClosed = options.onClosed;
 		var link = document[getElementsByClassName](_linkClass) || "";
-		var container =
-			document[getElementsByClassName](containerClass)[0] || "";
-		var img = container
-			? container[getElementsByTagName]("img")[0] || ""
-			: "";
-
+		var container = document[getElementsByClassName](containerClass)[0] || "";
+		var img = container ? container[getElementsByTagName]("img")[0] || "" : "";
 		if (!container) {
 			container = document[createElement]("div");
 			container[classList].add(containerClass);
 			var html = [];
 			html.push('<img src="' + dummySrc + '" alt="" />');
-			html.push(
-				'<div class="half-circle-spinner"><div class="circle circle-1"></div><div class="circle circle-2"></div></div>'
-			);
+			html.push('<div class="half-circle-spinner"><div class="circle circle-1"></div><div class="circle circle-2"></div></div>');
 			html.push('<a href="javascript:void(0);" class="btn-close"></a>');
 			container[innerHTML] = html.join("");
 			docBody[appendChild](container);
-			img = container
-				? container[getElementsByTagName]("img")[0] || ""
-				: "";
-			var btnClose = container
-				? container[getElementsByClassName](btnCloseClass)[0] || ""
-				: "";
+			img = container ? container[getElementsByTagName]("img")[0] || "" : "";
+			var btnClose = container ? container[getElementsByClassName](btnCloseClass)[0] || "" : "";
 
 			var handleImgLightboxContainer = function handleImgLightboxContainer() {
 				hideImgLightbox(onClosed);
@@ -191,49 +180,39 @@
 				return;
 			}
 
-			var handleImgLightboxLink = function handleImgLightboxLink(ev) {
+			var handleImgLightboxLink = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				docElem[classList].add(imgLightboxOpenClass);
 				docBody[classList].add(imgLightboxOpenClass);
 				container[classList].remove(isLoadedClass);
-
 				var logic = function logic() {
 					if (onCreated) {
 						callCallback(onCreated, root);
 					}
-
 					container[classList].add(animatedClass);
 					container[classList].add(fadeInClass);
 					img[classList].add(animatedClass);
 					img[classList].add(fadeInUpClass);
-
-					img.onload = function() {
+					img.onload = function () {
 						container[classList].add(isLoadedClass);
-
 						if (onLoaded) {
 							callCallback(onLoaded, root);
 						}
 					};
-
-					img.onerror = function() {
+					img.onerror = function () {
 						if (onError) {
 							callCallback(onError, root);
 						}
 					};
-
 					img.src = hrefString;
 					setStyleDisplayBlock(container);
 				};
-
 				debounce(logic, rate).call();
 			};
-
 			if (!e[classList].contains(imgLightboxLinkIsBindedClass)) {
 				e[classList].add(imgLightboxLinkIsBindedClass);
-
 				e[_addEventListener]("click", handleImgLightboxLink);
-
 				if (isTouch && (touch || dataTouch)) {
 					e[_addEventListener]("touchstart", handleImgLightboxLink);
 				}

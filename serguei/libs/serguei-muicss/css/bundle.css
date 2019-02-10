@@ -1671,7 +1671,7 @@ img.office-qrcode-img {
 /*!
  * @see {@link https://github.com/sksmatt/UItoTop-jQuery-Plugin/}
  */
-.ui-totop {
+.btn-totop {
 	display: inline-block;
 	visibility: hidden;
 	opacity: 0;
@@ -1694,7 +1694,7 @@ img.office-qrcode-img {
 	outline: none;
 }
 
-.ui-totop .ui-icon {
+.btn-totop .ui-icon {
 	/*!
 	 * Centering things
 	 * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
@@ -1707,21 +1707,21 @@ img.office-qrcode-img {
 	margin-left: auto;
 }
 
-.ui-totop .ui-icon > * {
+.btn-totop .ui-icon > * {
 	fill: currentColor;
 }
 
-.ui-totop.is-active {
+.btn-totop.is-active {
 	visibility: visible;
 	opacity: 1;
 }
 
-/* .ui-totop:focus,
-.ui-totop:hover,
-.ui-totop:active {
+/* .btn-totop:focus,
+.btn-totop:hover,
+.btn-totop:active {
 	background-color: $color-rgba-page-overlay-bg;
 } */
-.ui-totop.mui-btn--fab {
+.btn-totop.mui-btn--fab {
 	width: 3rem;
 	height: 3rem;
 	position: fixed;

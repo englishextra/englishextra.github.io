@@ -27,7 +27,7 @@
 			_this.render();
 			_this.listen();
 		};
-		var isBindedEchoClass = "is-binded-echo";
+		var isBindedEchoClass = "echo--is-binded";
 		var isBindedEcho = (function () {
 			return document[documentElement][classList].contains(isBindedEchoClass) || "";
 		})();
@@ -86,12 +86,12 @@
 		var supportsPassive = (function () {
 				var support = false;
 				try {
-					var opts = Object[defineProperty] && Object[defineProperty]({}, "passive", {
+					var opts = Object.defineProperty && Object.defineProperty({}, "passive", {
 							get: function () {
 								support = true;
 							}
 						});
-					root[_addEventListener]("test", function () {}, opts);
+					addListener(root, "test", function () {}, opts);
 				} catch (err) {}
 				return support;
 			})();
@@ -104,7 +104,7 @@
 			},
 			listen: function () {
 				if (!isBindedEcho) {
-					root[_addEventListener]("scroll", throttleEchoImageAll, supportsPassive ? {passive: true} : false);
+					addListener(root, "scroll", throttleEchoImageAll, supportsPassive ? {passive: true} : false);
 					document[documentElement][classList].add(isBindedEchoClass);
 				}
 			}

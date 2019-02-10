@@ -186,7 +186,7 @@
 				},
 				f.prev = f.previous = function (a) {
 					var b = f.getCurrentSlideNumber();
-					return 1 > b ? !1 : (f.go(b - 1), "function" === typeof a && a(), !0);
+					return 1 > b ? !1 : (f.go(b - 1), "function" === typeof a && a(), true);
 				},
 				f._turnPreviousSlide = function (a) {
 					var b = f.getCurrentSlideNumber(),
@@ -231,7 +231,7 @@
 					h.classList.add(h_cls),
 					f.clearPresenterNotes(),
 					f._applyTransform("none"),
-					f.isListMode() ? !1 : (b = f.getCurrentSlideNumber(), f.slideList[b].stopTimer(), f.isSlideMode() && k && history.pushState(null, null, g.pathname + f.getSlideHash(b)), f.scrollToSlide(b), "function" === typeof a && a(), !0);
+					f.isListMode() ? !1 : (b = f.getCurrentSlideNumber(), f.slideList[b].stopTimer(), f.isSlideMode() && k && history.pushState(null, null, g.pathname + f.getSlideHash(b)), f.scrollToSlide(b), "function" === typeof a && a(), true);
 				},
 				f.toggleMode = function (a) {
 					return f.isListMode() ? f.enterSlideMode() : f.enterListMode(),

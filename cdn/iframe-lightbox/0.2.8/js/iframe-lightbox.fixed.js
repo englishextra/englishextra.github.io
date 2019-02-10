@@ -97,36 +97,27 @@
 			};
 		};
 
-		var logic = function logic() {
+		var logic = function () {
 			_this.open();
 		};
 
-		var handleIframeLightboxLink = function handleIframeLightboxLink(e) {
+		var handleIframeLightboxLink = function (e) {
 			e.stopPropagation();
 			e.preventDefault();
 			debounce(logic, this.rate).call();
 		};
-
-		if (
-			!this.trigger[classList].contains(iframeLightboxLinkIsBindedClass)
-		) {
+		if (!this.trigger[classList].contains(iframeLightboxLinkIsBindedClass)) {
 			this.trigger[classList].add(iframeLightboxLinkIsBindedClass);
-
 			this.trigger[_addEventListener]("click", handleIframeLightboxLink);
-
 			if (isTouch && (_this.touch || _this.dataTouch)) {
-				this.trigger[_addEventListener](
-					"touchstart",
-					handleIframeLightboxLink
-				);
+				this.trigger[_addEventListener]("touchstart", handleIframeLightboxLink);
 			}
 		}
 	};
 
 	IframeLightbox.prototype.create = function() {
 		var _this = this,
-			backdrop = document[createElement]("div");
-
+		backdrop = document[createElement]("div");
 		backdrop[classList].add("backdrop");
 		this.el = document[createElement]("div");
 		this.el[classList].add(containerClass);
@@ -244,16 +235,14 @@
 		docBody[classList].add(iframeLightboxOpenClass);
 		this.callCallback(this.onOpened, this);
 	};
-
-	IframeLightbox.prototype.close = function() {
+	IframeLightbox.prototype.close = function () {
 		this.el[classList].remove(isOpenedClass);
 		this.body[classList].remove(isLoadedClass);
 		docElem[classList].remove(iframeLightboxOpenClass);
 		docBody[classList].remove(iframeLightboxOpenClass);
 		this.callCallback(this.onClosed, this);
 	};
-
-	IframeLightbox.prototype.isOpen = function() {
+	IframeLightbox.prototype.isOpen = function () {
 		return this.el[classList].contains(isOpenedClass);
 	};
 

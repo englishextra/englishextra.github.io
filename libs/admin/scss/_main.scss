@@ -701,7 +701,7 @@ u,
 /*!
  * @see {@link https://github.com/sksmatt/UItoTop-jQuery-Plugin/}
  */
-.ui-totop {
+.btn-totop {
 	display: inline-block;
 	visibility: hidden;
 	opacity: 0;
@@ -721,19 +721,19 @@ u,
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
 }
-.ui-totop:before {
+.btn-totop:before {
 	font-family: "englishextra-ui-icons";
 	content: "\e923";
 }
-.ui-totop.is-active {
+.btn-totop.is-active {
 	visibility: visible;
 	opacity: 1;
 }
-.ui-totop:hover {
+.btn-totop:hover {
 	background-color: $color-hex-hover-ui-icon-bg;
 }
-/* .ui-totop:focus, */
-.ui-totop:active {
+/* .btn-totop:focus, */
+.btn-totop:active {
 	color: $color-hex-body-text;
 	background-color: $accent-color;
 }

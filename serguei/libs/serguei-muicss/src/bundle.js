@@ -1,7 +1,10 @@
+/*jslint browser: true */
+/*jslint node: true */
 /*global $readMoreJS, ActiveXObject, console, DISQUS, doesFontExist,
 EventEmitter, hljs, IframeLightbox, imgLightbox, instgrm, JsonHashRouter,
-loadJsCss, Macy, Minigrid, Mustache, progressBar, Promise, QRCode, require, ripple, t,
-twttr, unescape, VK, WheelIndicator, Ya*/
+loadJsCss, addListener, removeListener, getByClass, addClass, hasClass, removeClass, toggleClass, Macy, Minigrid,
+Mustache, progressBar, Promise, QRCode, require, ripple, t, twttr, unescape,
+VK, WheelIndicator, Ya*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -34,6 +37,98 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 	prop = method = dummy = properties = methods = null;
 })("undefined" !== typeof window ? window : this);
 /*!
+ * Super-simple wrapper around addEventListener and attachEvent (old IE).
+ * Does not handle differences in the Event-objects.
+ * @see {@link https://github.com/finn-no/eventlistener}
+ */
+(function (root) {
+	"use strict";
+	var wrap = function (standard, fallback) {
+		return function (el, type, listener, useCapture) {
+			if (el[standard]) {
+				el[standard](type, listener, useCapture);
+			} else {
+				if (el[fallback]) {
+					el[fallback]("on" + type, listener);
+				}
+			}
+		};
+	};
+	root.addListener = wrap("addEventListener", "attachEvent");
+	root.removeListener = wrap("removeEventListener", "detachEvent");
+})("undefined" !== typeof window ? window : this);
+/*!
+ * get elements by class name wrapper
+ */
+(function (root, document) {
+	"use strict";
+	var getByClass = function (parent, name) {
+		if (!Element.getElementsByClassName) {
+			var children = (parent || document.body).getElementsByTagName("*"),
+			elements = [],
+			classRE = new RegExp("\\b" + name + "\\b"),
+			child;
+			var i,
+			l;
+			for (i = 0, l = children.length; i < l; i += 1) {
+				child = children[i];
+				if (classRE.test(child.className)) {
+					elements.push(child);
+				}
+			}
+			i = l = null;
+			return elements;
+		} else {
+			return parent ? parent.getElementsByClassName(name) : "";
+		}
+	};
+	root.getByClass = getByClass;
+})("undefined" !== typeof window ? window : this, document);
+/*!
+ * class list wrapper
+ */
+(function (root, document) {
+	"use strict";
+	var classList = "classList";
+	var hasClass;
+	var addClass;
+	var removeClass;
+	if (classList in document.documentElement) {
+		hasClass = function (el, name) {
+			return el[classList].contains(name);
+		};
+		addClass = function (el, name) {
+			el[classList].add(name);
+		};
+		removeClass = function (el, name) {
+			el[classList].remove(name);
+		};
+	} else {
+		hasClass = function (el, name) {
+			return new RegExp("\\b" + name + "\\b").test(el.className);
+		};
+		addClass = function (el, name) {
+			if (!hasClass(el, name)) {
+				el.className += " " + name;
+			}
+		};
+		removeClass = function (el, name) {
+			el.className = el.className.replace(new RegExp("\\b" + name + "\\b", "g"), "");
+		};
+	}
+	var toggleClass = function (el, name) {
+		if (hasClass(el, name)) {
+			removeClass(el, name);
+		} else {
+			addClass(el, name);
+		}
+	};
+	root.hasClass = hasClass;
+	root.addClass = addClass;
+	root.removeClass = removeClass;
+	root.toggleClass = toggleClass;
+})("undefined" !== typeof window ? window : this, document);
+/*!
  * json based hash routing
  * with loading external html into element
  */
@@ -52,7 +147,6 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			var docElem = document.documentElement || "";
 			var docBody = document.body || "";
 			var appendChild = "appendChild";
-			var classList = "classList";
 			var cloneNode = "cloneNode";
 			var createContextualFragment = "createContextualFragment";
 			var createDocumentFragment = "createDocumentFragment";
@@ -61,16 +155,15 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			var innerHTML = "innerHTML";
 			var parentNode = "parentNode";
 			var replaceChild = "replaceChild";
-			var _addEventListener = "addEventListener";
 			var _length = "length";
-			var handleRoutesWindowIsBindedClass = "handle-routes-window--is-binded";
+			var routerIsBindedClass = "router--is-binded";
 			var insertExternalHTML = function (id, url, callback) {
 				var container = document[getElementById](id.replace(/^#/, "")) || "";
 				var arrange = function () {
 					var x = root.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
 					x.overrideMimeType("text/html;charset=utf-8");
-					x.open("GET", url, !0);
-					x.withCredentials = !1;
+					x.open("GET", url, true);
+					x.withCredentials = false;
 					x.onreadystatechange = function () {
 						var cb = function () {
 							return callback && "function" === typeof callback && callback();
@@ -111,8 +204,8 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 				};
 				var x = root.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
 				x.overrideMimeType("application/json;charset=utf-8");
-				x.open("GET", url, !0);
-				x.withCredentials = !1;
+				x.open("GET", url, true);
+				x.withCredentials = false;
 				x.onreadystatechange = function () {
 					if (x.status === 404 || x.status === 0) {
 						console.log("Error XMLHttpRequest-ing file", x.status);
@@ -195,9 +288,9 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 					}
 				};
 				handleRoutesWindow();
-				if (!docElem[classList].contains(handleRoutesWindowIsBindedClass)) {
-					docElem[classList].add(handleRoutesWindowIsBindedClass);
-					root[_addEventListener]("hashchange", handleRoutesWindow);
+				if (!hasClass(docElem, routerIsBindedClass)) {
+					addClass(docElem, routerIsBindedClass);
+					addListener(root, "hashchange", handleRoutesWindow);
 				}
 			};
 			var render = document[getElementById](renderId) || "";
@@ -219,11 +312,10 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 (function(root, document) {
 	"use strict";
 	var doesFontExist = function(fontName) {
-		var createElement = "createElement";
 		var getContext = "getContext";
 		var measureText = "measureText";
 		var width = "width";
-		var canvas = document[createElement]("canvas");
+		var canvas = document.createElement("canvas");
 		var context = canvas[getContext]("2d");
 		var text = "abcdefghijklmnopqrstuvwxyz0123456789";
 		context.font = "72px monospace";
@@ -250,7 +342,6 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		var _this = this;
 		var appendChild = "appendChild";
 		var body = "body";
-		var createElement = "createElement";
 		var getElementsByTagName = "getElementsByTagName";
 		var setAttribute = "setAttribute";
 		var _length = "length";
@@ -262,7 +353,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		_this.callback = callback || function () {};
 		_this.type = type ? type.toLowerCase() : "";
 		_this.loadStyle = function (file) {
-			var link = document[createElement]("link");
+			var link = document.createElement("link");
 			link.rel = "stylesheet";
 			link.type = "text/css";
 			link.href = file;
@@ -276,7 +367,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			(_this.body || _this.head)[appendChild](link);
 		};
 		_this.loadScript = function (i) {
-			var script = document[createElement]("script");
+			var script = document.createElement("script");
 			script.type = "text/javascript";
 			script.async = true;
 			script.src = _this.js[i];
@@ -327,41 +418,33 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 	var docImplem = document.implementation || "";
 	var docBody = document.body || "";
 
-	var classList = "classList";
-	var createElement = "createElement";
-	var createElementNS = "createElementNS";
-	var defineProperty = "defineProperty";
-	var getElementsByClassName = "getElementsByClassName";
-	var getOwnPropertyDescriptor = "getOwnPropertyDescriptor";
-	var querySelector = "querySelector";
-	var querySelectorAll = "querySelectorAll";
-	var _addEventListener = "addEventListener";
 	var _length = "length";
 
-	docBody[classList].add("hide-sidedrawer");
+	addClass(docBody, "hide-sidedrawer");
 
 	var toStringFn = {}.toString;
-	var supportsSvgSmilAnimation = !!document[createElementNS] && (/SVGAnimate/).test(toStringFn.call(document[createElementNS]("http://www.w3.org/2000/svg", "animate"))) || "";
+	var supportsSvgSmilAnimation = !!document.createElementNS &&
+		(/SVGAnimate/).test(toStringFn.call(document.createElementNS("http://www.w3.org/2000/svg", "animate"))) || "";
 
 	if (supportsSvgSmilAnimation && docElem) {
-		docElem[classList].add("svganimate");
+		addClass(docElem, "svganimate");
 	}
 
 	var hasTouch = "ontouchstart" in docElem || "";
 
-	var hasWheel = "onwheel" in document[createElement]("div") || void 0 !== document.onmousewheel || "";
+	var hasWheel = "onwheel" in document.createElement("div") || void 0 !== document.onmousewheel || "";
 
-	var getHTTP = function(force) {
+	var getHTTP = function (force) {
 		var any = force || "";
-		var locationProtocol = root.location.protocol || "";
-		return "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : any ? "http" : "";
+		var locProtocol = root.location.protocol || "";
+		return "http:" === locProtocol ? "http" : "https:" === locProtocol ? "https" : any ? "http" : "";
 	};
 
 	var forcedHTTP = getHTTP(true);
 
 	var supportsCanvas;
 	supportsCanvas = (function () {
-		var elem = document[createElement]("canvas");
+		var elem = document.createElement("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
 	})();
 
@@ -380,18 +463,21 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		var getElementsByTagName = "getElementsByTagName";
 		var innerHTML = "innerHTML";
 		var parentNode = "parentNode";
+		var querySelectorAll = "querySelectorAll";
 		var setAttribute = "setAttribute";
 		var setAttributeNS = "setAttributeNS";
 		var style = "style";
 		var title = "title";
-		var _removeEventListener = "removeEventListener";
 
 		var isActiveClass = "is-active";
 		var isBindedClass = "is-binded";
+		var isCollapsableClass = "is-collapsable";
+		var isFixedClass = "is-fixed";
+		var isHiddenClass = "is-hidden";
 
-		if (docElem && docElem[classList]) {
-			docElem[classList].remove("no-js");
-			docElem[classList].add("js");
+		if (docElem && docElem.classList) {
+			removeClass(docElem, "no-js");
+			addClass(docElem, "js");
 		}
 
 		var earlyDeviceFormfactor = (function (selectors) {
@@ -469,29 +555,32 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 				orientation: orientation || "",
 				size: size || ""
 			};
-		})(docElem[classList] || "");
+		})(docElem.classList || "");
 
 		var earlyDeviceType = (function (mobile, desktop, opera) {
-			var selector = (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i).test(opera) || (/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i).test(opera.substr(0, 4)) ? mobile : desktop;
-			docElem[classList].add(selector);
+			var selector = (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i).test(opera) ||
+				(/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i).test(opera.substr(0, 4)) ?
+				mobile :
+				desktop;
+			addClass(docElem, selector);
 			return selector;
 		})("mobile", "desktop", navigator.userAgent || navigator.vendor || (root).opera);
 
 		var earlySvgSupport = (function (selector) {
 			selector = docImplem.hasFeature("http://www.w3.org/2000/svg", "1.1") ? selector : "no-" + selector;
-			docElem[classList].add(selector);
+			addClass(docElem, selector);
 			return selector;
 		})("svg");
 
 		var earlySvgasimgSupport = (function (selector) {
 			selector = docImplem.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1") ? selector : "no-" + selector;
-			docElem[classList].add(selector);
+			addClass(docElem, selector);
 			return selector;
 		})("svgasimg");
 
 		var earlyHasTouch = (function (selector) {
 			selector = "ontouchstart" in docElem ? selector : "no-" + selector;
-			docElem[classList].add(selector);
+			addClass(docElem, selector);
 			return selector;
 		})("touch");
 
@@ -510,12 +599,20 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			return newYear + "-" + newMonth + "-" + newDay;
 		})();
 
-		var initialDocumentTitle = document.title || "";
+		var initialDocTitle = document.title || "";
 
-		var userBrowsingDetails = " [" + (getHumanDate ? getHumanDate : "") + (earlyDeviceType ? " " + earlyDeviceType : "") + (earlyDeviceFormfactor.orientation ? " " + earlyDeviceFormfactor.orientation : "") + (earlyDeviceFormfactor.size ? " " + earlyDeviceFormfactor.size : "") + (earlySvgSupport ? " " + earlySvgSupport : "") + (earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") + (earlyHasTouch ? " " + earlyHasTouch : "") + "]";
+		var userBrowser = " [" +
+			(getHumanDate ? getHumanDate : "") +
+			(earlyDeviceType ? " " + earlyDeviceType : "") +
+			(earlyDeviceFormfactor.orientation ? " " + earlyDeviceFormfactor.orientation : "") +
+			(earlyDeviceFormfactor.size ? " " + earlyDeviceFormfactor.size : "") +
+			(earlySvgSupport ? " " + earlySvgSupport : "") +
+			(earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") +
+			(earlyHasTouch ? " " + earlyHasTouch : "") +
+			"]";
 
 		if (document[title]) {
-			document[title] = document[title] + userBrowsingDetails;
+			document[title] = document[title] + userBrowser;
 		}
 
 		var debounce = function (func, wait) {
@@ -620,7 +717,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		var LoadingSpinner = (function () {
 			var spinner = document[getElementById]("loading-spinner") || "";
 			if (!spinner) {
-				spinner = document[createElement]("div");
+				spinner = document.createElement("div");
 				spinner[setAttribute]("class", "half-circle-spinner");
 				spinner[setAttribute]("id", "loading-spinner");
 				spinner[setAttribute]("aria-hidden", "true");
@@ -698,26 +795,36 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 				var _isAbsolute = (0 === url.indexOf("//") || !!~url.indexOf("://"));
 				var _locationHref = root.location || "";
 				var _origin = function () {
-					var o = _locationHref.protocol + "//" + _locationHref.hostname + (_locationHref.port ? ":" + _locationHref.port : "");
+					var o = _locationHref.protocol +
+						"//" +
+						_locationHref.hostname +
+						(_locationHref.port ? ":" + _locationHref.port : "");
 					return o || "";
 				};
 				var _isCrossDomain = function () {
-					var c = document[createElement]("a");
+					var c = document.createElement("a");
 					c.href = url;
 					var v = c.protocol + "//" + c.hostname + (c.port ? ":" + c.port : "");
 					return v !== _origin();
 				};
-				var _link = document[createElement]("a");
+				var _link = document.createElement("a");
 				_link.href = url;
 				return {
 					href: _link.href,
 					origin: _origin(),
 					host: _link.host || _location.host,
-					port: ("0" === _link.port || "" === _link.port) ? _protocol(_link.protocol) : (_full ? _link.port : _replace(_link.port)),
+					port: ("0" === _link.port || "" === _link.port) ?
+						_protocol(_link.protocol) :
+						(_full ? _link.port : _replace(_link.port)),
 					hash: _full ? _link.hash : _replace(_link.hash),
 					hostname: _link.hostname || _location.hostname,
-					pathname: _link.pathname.charAt(0) !== "/" ? (_full ? "/" + _link.pathname : _link.pathname) : (_full ? _link.pathname : _link.pathname.slice(1)),
-					protocol: !_link.protocol || ":" === _link.protocol ? (_full ? _location.protocol : _replace(_location.protocol)) : (_full ? _link.protocol : _replace(_link.protocol)),
+					pathname: _link.pathname.charAt(0) !== "/" ?
+						(_full ? "/" + _link.pathname : _link.pathname) :
+						(_full ? _link.pathname : _link.pathname.slice(1)),
+					protocol: !_link.protocol ||
+						":" === _link.protocol ?
+						(_full ? _location.protocol : _replace(_location.protocol)) :
+						(_full ? _link.protocol : _replace(_link.protocol)),
 					search: _full ? _link.search : _replace(_link.search),
 					query: _full ? _link.search : _replace(_link.search),
 					isAbsolute: _isAbsolute,
@@ -731,13 +838,20 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 
 		var isNodejs = "undefined" !== typeof process && "undefined" !== typeof require || "";
 		var isElectron = (function () {
-			if (typeof root !== "undefined" && typeof root.process === "object" && root.process.type === "renderer") {
+			if (typeof root !== "undefined" &&
+				typeof root.process === "object" &&
+				root.process.type === "renderer") {
 				return true;
 			}
-			if (typeof root !== "undefined" && typeof root.process !== "undefined" && typeof root.process.versions === "object" && !!root.process.versions.electron) {
+			if (typeof root !== "undefined" &&
+				typeof root.process !== "undefined" &&
+				typeof root.process.versions === "object" &&
+				!!root.process.versions.electron) {
 				return true;
 			}
-			if (typeof navigator === "object" && typeof navigator.userAgent === "string" && navigator.userAgent.indexOf("Electron") >= 0) {
+			if (typeof navigator === "object" &&
+				typeof navigator.userAgent === "string" &&
+				navigator.userAgent.indexOf("Electron") >= 0) {
 				return true;
 			}
 			return false;
@@ -756,35 +870,35 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		})();
 
 		var openDeviceBrowser = function (url) {
-			var triggerForElectron = function () {
+			var onElectron = function () {
 				var es = isElectron ? require("electron").shell : "";
 				return es ? es.openExternal(url) : "";
 			};
-			var triggerForNwjs = function () {
+			var onNwjs = function () {
 				var ns = isNwjs ? require("nw.gui").Shell : "";
 				return ns ? ns.openExternal(url) : "";
 			};
-			var triggerForLocal = function () {
+			var onLocal = function () {
 				return root.open(url, "_system", "scrollbars=1,location=no");
 			};
 			if (isElectron) {
-				triggerForElectron();
+				onElectron();
 			} else if (isNwjs) {
-				triggerForNwjs();
+				onNwjs();
 			} else {
-				var locationProtocol = root.location.protocol || "",
-				hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
+				var locProtocol = root.location.protocol || "",
+				hasHTTP = locProtocol ? "http:" === locProtocol ? "http" : "https:" === locProtocol ? "https" : "" : "";
 				if (hasHTTP) {
 					return true;
 				} else {
-					triggerForLocal();
+					onLocal();
 				}
 			}
 		};
 
 		var manageExternalLinkAll = function () {
 			var link = document[getElementsByTagName]("a") || "";
-			var handleExternalLink = function (url, ev) {
+			var handle = function (url, ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				var logic = function () {
@@ -794,7 +908,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			};
 			var arrange = function (e) {
 				var externalLinkIsBindedClass = "external-link--is-binded";
-				if (!e[classList].contains(externalLinkIsBindedClass)) {
+				if (!hasClass(e, externalLinkIsBindedClass)) {
 					var url = e[getAttribute]("href") || "";
 					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
 						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
@@ -802,9 +916,9 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 							e.target = "_blank";
 							e.rel = "noopener";
 						} else {
-							e[_addEventListener]("click", handleExternalLink.bind(null, url));
+							addListener(e, "click", handle.bind(null, url));
 						}
-						e[classList].add(externalLinkIsBindedClass);
+						addClass(e, externalLinkIsBindedClass);
 					}
 				}
 			};
@@ -881,11 +995,11 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var handleDataSrcImageAll = function (callback) {
+		var handleDataSrcImgAll = function (callback) {
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
-			var images = document[getElementsByClassName]("data-src-img") || "";
+			var images = getByClass(document, "data-src-img") || "";
 			var i = images[_length];
 			var dataSrcImgIsBindedClass = "data-src-img--is-binded";
 			while (i--) {
@@ -894,34 +1008,34 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 				var offset = 100;
 				var yPositionTop = boundingRect.top - wH;
 				var yPositionBottom = boundingRect.bottom;
-				if (!images[i][classList].contains(dataSrcImgIsBindedClass) && yPositionTop <= offset && yPositionBottom >= -offset) {
-					images[i][classList].add(dataSrcImgIsBindedClass);
+				if (!hasClass(images[i], dataSrcImgIsBindedClass) && yPositionTop <= offset && yPositionBottom >= -offset) {
+					addClass(images[i], dataSrcImgIsBindedClass);
 					images[i].src = images[i][dataset].src || "";
 					images[i].srcset = images[i][dataset].srcset || "";
-					images[i][classList].add(isActiveClass);
+					addClass(images[i], isActiveClass);
 					cb();
 				}
 			}
 		};
 
-		var handleDataSrcImageAllWindow = throttle(handleDataSrcImageAll, 100);
+		var handleDataSrcImgAllWindow = throttle(handleDataSrcImgAll, 100);
 
-		var manageDataSrcImageAll = function () {
-			root[_addEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
-			root[_addEventListener]("resize", handleDataSrcImageAllWindow, {passive: true});
+		var manageDataSrcImgAll = function () {
+			addListener(root, "scroll", handleDataSrcImgAllWindow, {passive: true});
+			addListener(root, "resize", handleDataSrcImgAllWindow, {passive: true});
 			var timer = setTimeout(function () {
 					clearTimeout(timer);
 					timer = null;
-					handleDataSrcImageAll();
+					handleDataSrcImgAll();
 				}, 100);
 		};
-		manageDataSrcImageAll();
+		manageDataSrcImgAll();
 
 		var handleDataSrcIframeAll = function (callback) {
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
-			var iframes = document[getElementsByClassName]("data-src-iframe") || "";
+			var iframes = getByClass(document, "data-src-iframe") || "";
 			var i = iframes[_length];
 			var dataSrcIframeIsBindedClass = "data-src-iframe--is-binded";
 			while (i--) {
@@ -930,10 +1044,10 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 				var offset = 100;
 				var yPositionTop = boundingRect.top - wH;
 				var yPositionBottom = boundingRect.bottom;
-				if (!iframes[i][classList].contains(dataSrcIframeIsBindedClass) && yPositionTop <= offset && yPositionBottom >= -offset) {
-					iframes[i][classList].add(dataSrcIframeIsBindedClass);
+				if (!hasClass(iframes[i], dataSrcIframeIsBindedClass) && yPositionTop <= offset && yPositionBottom >= -offset) {
+					addClass(iframes[i], dataSrcIframeIsBindedClass);
 					iframes[i].src = iframes[i][dataset].src || "";
-					iframes[i][classList].add(isActiveClass);
+					addClass(iframes[i], isActiveClass);
 					iframes[i][setAttribute]("frameborder", "no");
 					iframes[i][setAttribute]("style", "border:none;");
 					iframes[i][setAttribute]("webkitallowfullscreen", "true");
@@ -948,8 +1062,8 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		var handleDataSrcIframeAllWindow = throttle(handleDataSrcIframeAll, 100);
 
 		var manageDataSrcIframeAll = function () {
-			root[_addEventListener]("scroll", handleDataSrcIframeAllWindow, {passive: true});
-			root[_addEventListener]("resize", handleDataSrcIframeAllWindow, {passive: true});
+			addListener(root, "scroll", handleDataSrcIframeAllWindow, {passive: true});
+			addListener(root, "resize", handleDataSrcIframeAllWindow, {passive: true});
 			var timer = setTimeout(function () {
 					clearTimeout(timer);
 					timer = null;
@@ -964,7 +1078,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		 * @see {@link https://github.com/englishextra/img-lightbox}
 		 */
 		var manageImgLightbox = function (imgLightboxLinkClass) {
-			var link = document[getElementsByClassName](imgLightboxLinkClass) || "";
+			var link = getByClass(document, imgLightboxLinkClass) || "";
 			var initScript = function () {
 				imgLightbox(imgLightboxLinkClass, {
 					onLoaded: function () {
@@ -991,7 +1105,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		 * @see {@link https://github.com/englishextra/iframe-lightbox}
 		 */
 		var manageIframeLightbox = function (iframeLightboxLinkClass) {
-			var link = document[getElementsByClassName](iframeLightboxLinkClass) || "";
+			var link = getByClass(document, iframeLightboxLinkClass) || "";
 			var initScript = function () {
 				var arrange = function (e) {
 					e.lightbox = new IframeLightbox(e, {
@@ -1020,12 +1134,12 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		};
 		manageIframeLightbox(iframeLightboxLinkClass);
 
-		var manageDataQrcodeImageAll = function (callback) {
+		var manageDataQrcodeImgAll = function (callback) {
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
 			var dataQrcodeImgClass = "data-qrcode-img";
-			var img = document[getElementsByClassName](dataQrcodeImgClass) || "";
+			var img = getByClass(document, dataQrcodeImgClass) || "";
 			var generateImg = function (e) {
 				var qrcode = e[dataset].qrcode || "";
 				qrcode = decodeURIComponent(qrcode);
@@ -1095,24 +1209,37 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 
 		var updateMinigridThrottled = throttle(updateMinigrid, 1000);
 
-		var manageReadMore = function () {
-			var rmLink = document[getElementsByClassName]("rm-link") || "";
+		var manageReadMore = function (callback, options) {
+			var cb = function () {
+				return callback && "function" === typeof callback && callback();
+			};
+			var defaultSettings = {
+				target: ".dummy",
+				numOfWords: 10,
+				toggle: true,
+				moreLink: "БОЛЬШЕ",
+				lessLink: "МЕНЬШЕ",
+				inline: true,
+				customBlockElement: "p"
+			};
+			var settings = options || {};
+			var opt;
+			for (opt in defaultSettings) {
+				if (defaultSettings.hasOwnProperty(opt) && !settings.hasOwnProperty(opt)) {
+					settings[opt] = defaultSettings[opt];
+				}
+			}
+			opt = null;
+			var rmLink = getByClass(document, "rm-link") || "";
+			var arrange = function (e) {
+				var rmLinkIsBindedClass = "rm-link--is-binded";
+				if (!hasClass(e, rmLinkIsBindedClass)) {
+					addClass(e, rmLinkIsBindedClass);
+					addListener(e, "click", cb);
+				}
+			};
 			var initScript = function () {
-				$readMoreJS.init({
-					target: ".dummy",
-					numOfWords: 10,
-					toggle: true,
-					moreLink: "БОЛЬШЕ",
-					lessLink: "МЕНЬШЕ",
-					inline: true,
-					customBlockElement: "p"
-				});
-				var arrange = function (e) {
-					if (!e[classList].contains(isBindedClass)) {
-						e[classList].add(isBindedClass);
-						e[_addEventListener]("click", updateMinigrid);
-					}
-				};
+				$readMoreJS.init(settings);
 				var i,
 				l;
 				for (i = 0, l = rmLink[_length]; i < l; i += 1) {
@@ -1125,22 +1252,22 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var manageExpandingLayers = function () {
-			var btn = document[getElementsByClassName]("btn-expand-hidden-layer") || "";
+		var manageExpandingLayerAll = function () {
+			var btn = getByClass(document, "btn-expand-hidden-layer") || "";
 			var arrange = function (e) {
-				var handleExpandingLayerAll = function () {
+				var handle = function () {
 					var _this = this;
 					var s = _this.nextElementSibling || "";
 					if (s) {
-						_this[classList].toggle(isActiveClass);
-						s[classList].toggle(isActiveClass);
+						toggleClass(_this, isActiveClass);
+						toggleClass(s, isActiveClass);
 						updateMinigrid();
 					}
 					return;
 				};
-				if (!e[classList].contains(isBindedClass)) {
-					e[_addEventListener]("click", handleExpandingLayerAll);
-					e[classList].add(isBindedClass);
+				if (!hasClass(e, isBindedClass)) {
+					addListener(e, "click", handle);
+					addClass(e, isBindedClass);
 				}
 			};
 			if (btn) {
@@ -1157,24 +1284,21 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		var appContent = document[getElementById](appContentId) || "";
 		var appContentParent = appContent ? appContent[parentNode] ? appContent[parentNode] : "" : "";
 
-		var isCollapsableClass = "is-collapsable";
-
 		var sidedrawer = document[getElementById]("sidedrawer") || "";
 
-		var activeClass = "active";
 		var hideSidedrawerClass = "hide-sidedrawer";
 
 		var hideSidedrawer = function () {
-			docBody[classList].add(hideSidedrawerClass);
-			sidedrawer[classList].remove(activeClass);
+			addClass(docBody, hideSidedrawerClass);
+			removeClass(sidedrawer, isActiveClass);
 		};
 
 		var manageOtherCollapsableAll = function (_self) {
 			var _this = _self || this;
-			var btn = document[getElementsByClassName](isCollapsableClass) || "";
+			var btn = getByClass(document, isCollapsableClass) || "";
 			var arrange = function (e) {
 				if (_this !== e) {
-					e[classList].remove(isActiveClass);
+					removeClass(e, isActiveClass);
 				}
 			};
 			if (btn) {
@@ -1191,34 +1315,34 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		};
 		var manageCollapsableAll = function () {
 			if (appContentParent) {
-				appContentParent[_addEventListener]("click", manageOtherCollapsableAll);
+				addListener(appContentParent, "click", manageOtherCollapsableAll);
 			}
 		};
 		manageCollapsableAll();
-		root[_addEventListener]("hashchange", manageOtherCollapsableAll);
+		addListener(root, "hashchange", manageOtherCollapsableAll);
 
-		var manageLocationQrCodeImage = function () {
-			var btn = document[getElementsByClassName]("btn-toggle-holder-qrcode")[0] || "";
-			var holder = document[getElementsByClassName]("holder-location-qrcode")[0] || "";
-			var locationHref = root.location.href || "";
-			var hideLocationQrCodeImage = function () {
-				holder[classList].remove(isActiveClass);
+		var manageLocationQrcode = function () {
+			var btn = getByClass(document, "btn-toggle-holder-qrcode")[0] || "";
+			var holder = getByClass(document, "holder-location-qrcode")[0] || "";
+			var locHref = root.location.href || "";
+			var hideHolder = function () {
+				removeClass(holder, isActiveClass);
 			};
-			var handleLocationQrCodeButton = function (ev) {
+			var handleBtn = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				manageOtherCollapsableAll(holder);
 				var logic = function () {
-					holder[classList].toggle(isActiveClass);
-					var locationHref = root.location.href || "";
-					var newImg = document[createElement]("img");
+					toggleClass(holder, isActiveClass);
+					var locHref = root.location.href || "";
+					var newImg = document.createElement("img");
 					var newTitle = document[title] ? ("Ссылка на страницу «" + document[title].replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
-					var newSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(locationHref);
+					var newSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(locHref);
 					newImg.alt = newTitle;
 					var initScript = function () {
 						if (root.QRCode) {
 							if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
-								newSrc = QRCode.generateSVG(locationHref, {
+								newSrc = QRCode.generateSVG(locHref, {
 										ecclevel: "M",
 										fillcolor: "#FFFFFF",
 										textcolor: "#212121",
@@ -1230,7 +1354,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 								newSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(newSrc)));
 								newImg.src = newSrc;
 							} else {
-								newSrc = QRCode.generatePNG(locationHref, {
+								newSrc = QRCode.generatePNG(locHref, {
 										ecclevel: "M",
 										format: "html",
 										fillcolor: "#FFFFFF",
@@ -1243,7 +1367,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 						} else {
 							newImg.src = newSrc;
 						}
-						newImg[classList].add("qr-code-img");
+						addClass(newImg, "qr-code-img");
 						newImg.title = newTitle;
 						removeChildren(holder);
 						appendFragment(newImg, holder);
@@ -1252,52 +1376,52 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 				};
 				debounce(logic, 200).call(root);
 			};
-			if (btn && holder && locationHref) {
-				holder[classList].add(isCollapsableClass);
+			if (btn && holder && locHref) {
+				addClass(holder, isCollapsableClass);
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					btn[_addEventListener]("click", handleLocationQrCodeButton);
+					addListener(btn, "click", handleBtn);
 					if (appContentParent) {
-						appContentParent[_addEventListener]("click", hideLocationQrCodeImage);
+						addListener(appContentParent, "click", hideHolder);
 					}
-					root[_addEventListener]("hashchange", hideLocationQrCodeImage);
+					addListener(root, "hashchange", hideHolder);
 				}
 			}
 		};
-		manageLocationQrCodeImage();
+		manageLocationQrcode();
 
-		var manageMobileappsButton = function () {
-			var btn = document[getElementsByClassName]("btn-toggle-holder-mobileapps-buttons")[0] || "";
-			var holder = document[getElementsByClassName]("holder-mobileapps-buttons")[0] || "";
-			var handleMobileappsButton = function (ev) {
+		var manageMobileappsButtons = function () {
+			var btn = getByClass(document, "btn-toggle-holder-mobileapps-buttons")[0] || "";
+			var holder = getByClass(document, "holder-mobileapps-buttons")[0] || "";
+			var handle = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				var logic = function () {
-					holder[classList].toggle(isActiveClass);
-					holder[classList].add(isCollapsableClass);
+					toggleClass(holder, isActiveClass);
+					addClass(holder, isCollapsableClass);
 					manageOtherCollapsableAll(holder);
 				};
 				debounce(logic, 200).call(root);
 			};
 			if (btn && holder) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					btn[_addEventListener]("click", handleMobileappsButton);
+					addListener(btn, "click", handle);
 				}
 			}
 		};
-		manageMobileappsButton();
+		manageMobileappsButtons();
 
 		var yshare;
-		var manageShareButton = function () {
-			var btn = document[getElementsByClassName]("btn-toggle-holder-share-buttons")[0] || "";
+		var manageShareButtons = function () {
+			var btn = getByClass(document, "btn-toggle-holder-share-buttons")[0] || "";
 			var yaShare2Id = "ya-share2";
 			var yaShare2 = document[getElementById](yaShare2Id) || "";
-			var holder = document[getElementsByClassName]("holder-share-buttons")[0] || "";
-			var handleShareButton = function (ev) {
+			var holder = getByClass(document, "holder-share-buttons")[0] || "";
+			var handle = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				var logic = function () {
-					holder[classList].toggle(isActiveClass);
-					holder[classList].add(isCollapsableClass);
+					toggleClass(holder, isActiveClass);
+					addClass(holder, isCollapsableClass);
 					manageOtherCollapsableAll(holder);
 					var initScript = function () {
 						try {
@@ -1332,24 +1456,24 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			};
 			if (btn && holder && yaShare2) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					btn[_addEventListener]("click", handleShareButton);
+					addListener(btn, "click", handle);
 				}
 			}
 		};
-		manageShareButton();
+		manageShareButtons();
 
 		var vlike;
 		var manageVKLikeButton = function () {
-			var btn = document[getElementsByClassName]("btn-toggle-holder-vk-like")[0] || "";
-			var holder = document[getElementsByClassName]("holder-vk-like")[0] || "";
+			var btn = getByClass(document, "btn-toggle-holder-vk-like")[0] || "";
+			var holder = getByClass(document, "holder-vk-like")[0] || "";
 			var vkLikeId = "vk-like";
 			var vkLike = document[getElementById](vkLikeId) || "";
-			var handleVKLikeButton = function (ev) {
+			var handle = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				var logic = function () {
-					holder[classList].toggle(isActiveClass);
-					holder[classList].add(isCollapsableClass);
+					toggleClass(holder, isActiveClass);
+					addClass(holder, isCollapsableClass);
 					manageOtherCollapsableAll(holder);
 					var initScript = function () {
 						if (!vlike) {
@@ -1381,28 +1505,28 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			};
 			if (btn && holder && vkLike) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					btn[_addEventListener]("click", handleVKLikeButton);
+					addListener(btn, "click", handle);
 				}
 			}
 		};
 		manageVKLikeButton();
 
-		var initUiTotop = function () {
-			var btnClass = "ui-totop";
-			var btn = document[getElementsByClassName](btnClass)[0] || "";
+		var manageBtnTotop = function () {
+			var btnClass = "btn-totop";
+			var btn = getByClass(document, btnClass)[0] || "";
 			var insertUpSvg = function (targetObj) {
-				var svg = document[createElementNS]("http://www.w3.org/2000/svg", "svg");
-				var use = document[createElementNS]("http://www.w3.org/2000/svg", "use");
+				var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+				var use = document.createElementNS("http://www.w3.org/2000/svg", "use");
 				svg[setAttribute]("class", "ui-icon");
 				use[setAttributeNS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-outline-arrow_upward");
 				svg[appendChild](use);
 				targetObj[appendChild](svg);
 			};
 			if (!btn) {
-				btn = document[createElement]("a");
-				btn[classList].add(btnClass, "mui-btn");
-				btn[classList].add(btnClass, "mui-btn--fab");
-				btn[classList].add(btnClass, "ripple");
+				btn = document.createElement("a");
+				addClass(btn, btnClass, "mui-btn");
+				addClass(btn, btnClass, "mui-btn--fab");
+				addClass(btn, btnClass, "ripple");
 				btn[setAttribute]("aria-label", "Навигация");
 				/* jshint -W107 */
 				btn.href = "javascript:void(0);";
@@ -1411,70 +1535,32 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 				insertUpSvg(btn);
 				docBody[appendChild](btn);
 			}
-			var handleUiTotop = function (ev) {
+			var handle = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				scroll2Top(0, 20000);
 			};
-			var handleUiTotopWindow = function (_this) {
+			var handleWindow = function (_this) {
 				var logic = function () {
 					var scrollPosition = _this.pageYOffset || docElem.scrollTop || docBody.scrollTop || "";
 					var windowHeight = _this.innerHeight || docElem.clientHeight || docBody.clientHeight || "";
 					if (scrollPosition && windowHeight && btn) {
 						if (scrollPosition > windowHeight) {
-							btn[classList].add(isActiveClass);
+							addClass(btn, isActiveClass);
 						} else {
-							btn[classList].remove(isActiveClass);
+							removeClass(btn, isActiveClass);
 						}
 					}
 				};
 				throttle(logic, 100).call(root);
 			};
 			if (docBody) {
-				btn[_addEventListener]("click", handleUiTotop);
-				root[_addEventListener]("scroll", handleUiTotopWindow, {passive: true});
+				addListener(btn, "click", handle);
+				addListener(root, "scroll", handleWindow, {passive: true});
 			}
 		};
-		initUiTotop();
+		manageBtnTotop();
 
-		var handleDropdownButton = function (evt) {
-			evt.stopPropagation();
-			evt.preventDefault();
-			var _this = this;
-			var menu = _this.nextElementSibling;
-			var rect = _this.getBoundingClientRect();
-			var top = rect.top + rect.height;
-			var left = rect.left;
-			var hideCurrentDropdownMenu = function (e) {
-				if (e) {
-					if (e[classList].contains(isActiveClass)) {
-						e[classList].remove(isActiveClass);
-						manageOtherCollapsableAll(e);
-					}
-				}
-			};
-			if (menu) {
-				menu[style].top = top + "px";
-				if (!menu[classList].contains("mui-dropdown__menu--right")) {
-					menu[style].left = left + "px";
-				}
-				if (!menu[classList].contains(isActiveClass)) {
-					menu[classList].add(isActiveClass);
-				} else {
-					menu[classList].remove(isActiveClass);
-				}
-				manageOtherCollapsableAll(menu);
-				var link = menu[getElementsByTagName]("a") || "";
-				if (link) {
-					var i,
-					l;
-					for (i = 0, l = link[_length]; i < l; i += 1) {
-						link[i][_addEventListener]("click", hideCurrentDropdownMenu.bind(null, menu));
-					}
-					i = l = null;
-				}
-			}
-		};
 		var manageDropdownButtonAll = function () {
 			var link = document[getElementsByTagName]("a") || "";
 			var btn = [];
@@ -1486,18 +1572,55 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 				}
 			}
 			j = m = null;
+			var handle = function (evt) {
+				evt.stopPropagation();
+				evt.preventDefault();
+				var _this = this;
+				var menu = _this.nextElementSibling;
+				var rect = _this.getBoundingClientRect();
+				var top = rect.top + rect.height;
+				var left = rect.left;
+				var hide = function (e) {
+					if (e) {
+						if (hasClass(e, isActiveClass)) {
+							removeClass(e, isActiveClass);
+							manageOtherCollapsableAll(e);
+						}
+					}
+				};
+				if (menu) {
+					menu[style].top = top + "px";
+					if (!hasClass(menu, "mui-dropdown__menu--right")) {
+						menu[style].left = left + "px";
+					}
+					if (!hasClass(menu, isActiveClass)) {
+						addClass(menu, isActiveClass);
+					} else {
+						removeClass(menu, isActiveClass);
+					}
+					manageOtherCollapsableAll(menu);
+					var link = menu[getElementsByTagName]("a") || "";
+					if (link) {
+						var i,
+						l;
+						for (i = 0, l = link[_length]; i < l; i += 1) {
+							addListener(link[i], "click", hide.bind(null, menu));
+						}
+						i = l = null;
+					}
+				}
+			};
 			if (btn) {
 				var i,
 				l;
 				for (i = 0, l = btn[_length]; i < l; i += 1) {
-					if (!btn[i][classList].contains(isBindedClass) &&
+					if (!hasClass(btn[i], isBindedClass) &&
 						btn[i].nextElementSibling.nodeName.toLowerCase() === "ul" &&
-						btn[i].nextElementSibling.nodeType === 1
-						) {
-							btn[i][_addEventListener]("click", handleDropdownButton);
-							btn[i][classList].add(isBindedClass);
-							btn[i][classList].remove(isActiveClass);
-							btn[i].nextElementSibling[classList].add(isCollapsableClass);
+						btn[i].nextElementSibling.nodeType === 1) {
+						addListener(btn[i], "click", handle);
+						addClass(btn[i], isBindedClass);
+						removeClass(btn[i], isActiveClass);
+						addClass(btn[i].nextElementSibling, isCollapsableClass);
 					}
 				}
 				i = l = null;
@@ -1505,36 +1628,36 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		};
 		manageDropdownButtonAll();
 
-		var hideDropdownMenuAllOnNavigating = function () {
-			var hideDropdownMenuAll = function () {
-				var menu = document[getElementsByClassName]("mui-dropdown__menu") || "";
+		var hideOnNavigating = function () {
+			var hide = function () {
+				var menu = getByClass(document, "mui-dropdown__menu") || "";
 				if (menu) {
 					var i,
 					l;
 					for (i = 0, l = menu[_length]; i < l; i += 1) {
-						if (menu[i][classList].contains(isActiveClass)) {
-							menu[i][classList].remove(isActiveClass);
+						if (hasClass(menu[i], isActiveClass)) {
+							removeClass(menu[i], isActiveClass);
 						}
 					}
 					i = l = null;
 				}
 			};
 			if (appContentParent) {
-				appContentParent[_addEventListener]("click", hideDropdownMenuAll);
+				addListener(appContentParent, "click", hide);
 			}
-			root[_addEventListener]("resize", hideDropdownMenuAll);
+			addListener(root, "resize", hide);
 		};
-		hideDropdownMenuAllOnNavigating();
+		hideOnNavigating();
 
-		var manageHljsCodeAll = function () {
+		var manageHljs = function () {
 			var code = document[getElementsByTagName]("code") || "";
 			var initScript = function () {
 				var i,
 				l;
 				for (i = 0, l = code[_length]; i < l; i += 1) {
-					if (code[i][classList].contains("hljs") && !code[i][classList].contains(isBindedClass)) {
+					if (hasClass(code[i], "hljs") && !hasClass(code[i], isBindedClass)) {
 						hljs.highlightBlock(code[i]);
-						code[i][classList].add(isBindedClass);
+						addClass(code[i], isBindedClass);
 					}
 				}
 				i = l = null;
@@ -1544,27 +1667,27 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var manageRippleEffect = function () {
+		var manageRipple = function () {
 			if (root.ripple) {
 				ripple.registerRipples();
 			}
 		};
-		manageRippleEffect();
+		manageRipple();
 
 		var setIsActiveClass = function (e) {
-			if (e && e.nodeName && !e[classList].contains(isActiveClass)) {
-				e[classList].add(isActiveClass);
+			if (e && e.nodeName && !hasClass(e, isActiveClass)) {
+				addClass(e, isActiveClass);
 			}
 		};
 
-		var triggerOnHeightChange = function (e, delay, tresholdHeight, callback) {
+		var onHeightChange = function (e, delay, tresholdHeight, callback) {
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
 			var keyHeight = tresholdHeight || 108;
 			var logThis;
 			logThis = function (timer, slot, height) {
-				console.log("triggerOnHeightChange:",
+				console.log("onHeightChange:",
 					timer,
 					slot,
 					keyHeight,
@@ -1600,66 +1723,66 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 
 		var manageDisqusEmbed = function () {
 			var disqusThread = document[getElementById]("disqus_thread") || "";
-			var locationHref = root.location.href || "";
-			var disqusThreadShortname = disqusThread ? (disqusThread[dataset].shortname || "") : "";
-			var hideDisqusThread = function () {
+			var locHref = root.location.href || "";
+			var shortname = disqusThread ? (disqusThread[dataset].shortname || "") : "";
+			var hide = function () {
 				removeChildren(disqusThread);
-				var replacementText = document[createElement]("p");
+				var replacementText = document.createElement("p");
 				replacementText[appendChild](document[createTextNode]("Комментарии доступны только в веб версии этой страницы."));
 				appendFragment(replacementText, disqusThread);
 				disqusThread.removeAttribute("id");
 			};
 			var initScript = function () {
 				var setDisqusCSSClass = function () {
-					disqusThread[classList].add(isActiveClass);
+					addClass(disqusThread, isActiveClass);
 				};
 				try {
 					DISQUS.reset({
 						reload: true,
 						config: function () {
-							this.page.identifier = disqusThreadShortname;
-							this.page.url = locationHref;
+							this.page.identifier = shortname;
+							this.page.url = locHref;
 						}
 					});
-					if (!disqusThread[parentNode][classList].contains(minigridItemIsBindedClass)) {
-						disqusThread[parentNode][classList].add(minigridItemIsBindedClass);
-						triggerOnHeightChange(disqusThread[parentNode], 1000, null, setDisqusCSSClass);
-						disqusThread[parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
+					if (!hasClass(disqusThread[parentNode], minigridItemIsBindedClass)) {
+						addClass(disqusThread[parentNode], minigridItemIsBindedClass);
+						onHeightChange(disqusThread[parentNode], 1000, null, setDisqusCSSClass);
+						addListener(disqusThread[parentNode], "onresize", updateMinigridThrottled, {passive: true});
 					}
 				} catch (err) {
 					throw new Error("cannot DISQUS.reset " + err);
 				}
 			};
-			if (disqusThread && disqusThreadShortname && locationHref) {
+			if (disqusThread && shortname && locHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					if (!root.DISQUS) {
-						var jsUrl = forcedHTTP + "://" + disqusThreadShortname + ".disqus.com/embed.js";
+						var jsUrl = forcedHTTP + "://" + shortname + ".disqus.com/embed.js";
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {
 						initScript();
 					}
 				} else {
-					hideDisqusThread();
+					hide();
 				}
 			}
 		};
 
-		var manageInstagramEmbeds = function () {
+		var manageInstagramEmbedAll = function () {
 			var instagramMediaClass = "instagram-media";
-			var instagramMedia = document[getElementsByClassName](instagramMediaClass)[0] || "";
+			var instagramMedia = getByClass(document, instagramMediaClass)[0] || "";
 			var initScript = function () {
 				try {
-					var instagramMedia = document[getElementsByClassName](instagramMediaClass) || "";
+					var instagramMedia = getByClass(document, instagramMediaClass) || "";
 					if (instagramMedia) {
 						instgrm.Embeds.process();
 						var i,
 						l;
 						for (i = 0, l = instagramMedia[_length]; i < l; i += 1) {
-							if (!instagramMedia[i][parentNode][classList].contains(minigridItemIsBindedClass)) {
-								instagramMedia[i][parentNode][classList].add(minigridItemIsBindedClass);
-								triggerOnHeightChange(instagramMedia[i][parentNode], 1000, null, setIsActiveClass.bind(null, instagramMedia[i][parentNode]));
-								instagramMedia[i][parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
+							if (!hasClass(instagramMedia[i][parentNode], minigridItemIsBindedClass)) {
+								addClass(instagramMedia[i][parentNode], minigridItemIsBindedClass);
+								onHeightChange(instagramMedia[i][parentNode], 1000, null, setIsActiveClass.bind(null, instagramMedia[i][parentNode]));
+								addListener(instagramMedia[i][parentNode], "onresize", updateMinigridThrottled, {passive: true});
 							}
 						}
 						i = l = null;
@@ -1679,21 +1802,21 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var manageTwitterEmbeds = function () {
+		var manageTwitterEmbedAll = function () {
 			var twitterTweetClass = "twitter-tweet";
-			var twitterTweet = document[getElementsByClassName](twitterTweetClass)[0] || "";
+			var twitterTweet = getByClass(document, twitterTweetClass)[0] || "";
 			var initScript = function () {
 				try {
-					var twitterTweet = document[getElementsByClassName](twitterTweetClass) || "";
+					var twitterTweet = getByClass(document, twitterTweetClass) || "";
 					if (twitterTweet) {
 						twttr.widgets.load();
 						var i,
 						l;
 						for (i = 0, l = twitterTweet[_length]; i < l; i += 1) {
-							if (!twitterTweet[i][parentNode][classList].contains(minigridItemIsBindedClass)) {
-								twitterTweet[i][parentNode][classList].add(minigridItemIsBindedClass);
-								triggerOnHeightChange(twitterTweet[i][parentNode], 1000, null, setIsActiveClass.bind(null, twitterTweet[i][parentNode]));
-								twitterTweet[i][parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
+							if (!hasClass(twitterTweet[i][parentNode], minigridItemIsBindedClass)) {
+								addClass(twitterTweet[i][parentNode], minigridItemIsBindedClass);
+								onHeightChange(twitterTweet[i][parentNode], 1000, null, setIsActiveClass.bind(null, twitterTweet[i][parentNode]));
+								addListener(twitterTweet[i][parentNode], "onresize", updateMinigridThrottled, {passive: true});
 							}
 						}
 						i = l = null;
@@ -1713,9 +1836,9 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var manageVkEmbeds = function () {
+		var manageVkEmbedAll = function () {
 			var vkPostClass = "vk-post";
-			var vkPost = document[getElementsByClassName](vkPostClass)[0] || "";
+			var vkPost = getByClass(document, vkPostClass)[0] || "";
 			var initScript = function () {
 				var initVkPost = function (element_id, owner_id, post_id, hash) {
 					if (!VK.Widgets.Post(element_id, owner_id, post_id, hash)) {
@@ -1723,15 +1846,15 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 					}
 				};
 				try {
-					var vkPost = document[getElementsByClassName](vkPostClass) || "";
+					var vkPost = getByClass(document, vkPostClass) || "";
 					if (vkPost) {
 						var i,
 						l;
 						for (i = 0, l = vkPost[_length]; i < l; i += 1) {
-							if (!vkPost[i][parentNode][classList].contains(minigridItemIsBindedClass)) {
-								vkPost[i][parentNode][classList].add(minigridItemIsBindedClass);
-								triggerOnHeightChange(vkPost[i][parentNode], 1000, null, setIsActiveClass.bind(null, vkPost[i][parentNode]));
-								vkPost[i][parentNode][_addEventListener]("onresize", updateMinigridThrottled, {passive: true});
+							if (!hasClass(vkPost[i][parentNode], minigridItemIsBindedClass)) {
+								addClass(vkPost[i][parentNode], minigridItemIsBindedClass);
+								onHeightChange(vkPost[i][parentNode], 1000, null, setIsActiveClass.bind(null, vkPost[i][parentNode]));
+								addListener(vkPost[i][parentNode], "onresize", updateMinigridThrottled, {passive: true});
 								initVkPost(vkPost[i].id, vkPost[i][dataset].vkOwnerid, vkPost[i][dataset].vkPostid, vkPost[i][dataset].vkHash);
 							}
 						}
@@ -1753,12 +1876,12 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		};
 
 		appEvents.addListeners("MinigridInited", [handleDataSrcIframeAll.bind(null, updateMinigridThrottled),
-				handleDataSrcImageAll.bind(null, updateMinigridThrottled),
-				manageDataQrcodeImageAll.bind(null, updateMinigridThrottled),
+				handleDataSrcImgAll.bind(null, updateMinigridThrottled),
+				manageDataQrcodeImgAll.bind(null, updateMinigridThrottled),
 				scroll2Top.bind(null, 0, 20000),
-				manageInstagramEmbeds,
-				manageTwitterEmbeds,
-				manageVkEmbeds,
+				manageInstagramEmbedAll,
+				manageTwitterEmbedAll,
+				manageVkEmbedAll,
 				manageDisqusEmbed]);
 
 		var minigridClass = "minigrid";
@@ -1766,12 +1889,12 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		var minigridItemClass = "minigrid__item";
 
 		var initMinigrid = function () {
-			var minigrid = document[getElementsByClassName](minigridClass)[0] || "";
+			var minigrid = getByClass(document, minigridClass)[0] || "";
 			if (minigrid) {
 				try {
 					if (root.minigridInstance) {
 						root.minigridInstance = null;
-						root[_removeEventListener]("resize", updateMinigrid);
+						removeListener(root, "resize", updateMinigrid);
 					}
 					root.minigridInstance = new Minigrid({
 							container: "." + minigridClass,
@@ -1779,8 +1902,8 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 							gutter: 20
 						});
 					root.minigridInstance.mount();
-					minigrid[classList].add(isActiveClass);
-					root[_addEventListener]("resize", updateMinigrid, {passive: true});
+					addClass(minigrid, isActiveClass);
+					addListener(root, "resize", updateMinigrid, {passive: true});
 					appEvents.emitEvent("MinigridInited");
 				} catch (err) {
 					throw new Error("cannot init Minigrid " + err);
@@ -1792,11 +1915,11 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 
 		var manageMinigrid = function (minigridClass) {
 			return new Promise(function (resolve, reject) {
-				var minigrid = document[getElementsByClassName](minigridClass)[0] || "";
+				var minigrid = getByClass(document, minigridClass)[0] || "";
 				var initScript = function () {
-					var item = minigrid[getElementsByClassName](minigridItemClass) || "";
+					var item = getByClass(minigrid, minigridItemClass) || "";
 					var itemLength = item[_length] || 0;
-					if (item && !minigrid[classList].contains(isActiveClass)) {
+					if (item && !hasClass(minigrid, isActiveClass)) {
 						scroll2Top(1, 20000);
 						appEvents.emitEvent("MinigridItemsFound");
 						resolve("manageMinigrid: found " + itemLength + " cards");
@@ -1831,13 +1954,13 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		var updateMacyThrottled = throttle(updateMacy, 1000);
 
 		appEvents.addListeners("MacyInited", [handleDataSrcIframeAll.bind(null, updateMacyThrottled),
-				handleDataSrcImageAll.bind(null, updateMacyThrottled),
+				handleDataSrcImgAll.bind(null, updateMacyThrottled),
 				scroll2Top.bind(null, 0, 20000)]);
 
 		var macyClass = "macy";
 
 		var initMacy = function () {
-			var macy = document[getElementsByClassName](macyClass)[0] || "";
+			var macy = getByClass(document, macyClass)[0] || "";
 			if (macy) {
 				try {
 					if (root.macyInstance) {
@@ -1858,7 +1981,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 								360: 1
 							}
 						});
-					macy[classList].add(isActiveClass);
+					addClass(macy, isActiveClass);
 					appEvents.emitEvent("MacyInited");
 				} catch (err) {
 					throw new Error("cannot init Macy " + err);
@@ -1870,11 +1993,11 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 
 		var manageMacy = function (macyClass) {
 			return new Promise(function (resolve, reject) {
-				var macy = document[getElementsByClassName](macyClass)[0] || "";
+				var macy = getByClass(document, macyClass)[0] || "";
 				var initScript = function () {
 					var item = macy ? (macy.children || macy[querySelectorAll]("." + macyClass + " > *") || "") : "";
 					var itemLength = item[_length] || 0;
-					if (item && !macy[classList].contains(isActiveClass)) {
+					if (item && !hasClass(macy, isActiveClass)) {
 						scroll2Top(1, 20000);
 						appEvents.emitEvent("MacyItemsFound");
 						resolve("manageMacy: found " + itemLength + " items");
@@ -1887,12 +2010,12 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 					var onLoad;
 					var onError;
 					var addListeners = function (e) {
-						e[_addEventListener]("load", onLoad, false);
-						e[_addEventListener]("error", onError, false);
+						addListener(e, "load", onLoad, false);
+						addListener(e, "error", onError, false);
 					};
 					var removeListeners = function (e) {
-						e[_removeEventListener]("load", onLoad, false);
-						e[_removeEventListener]("error", onError, false);
+						removeListener(e, "load", onLoad, false);
+						removeListener(e, "error", onError, false);
 					};
 					onLoad = function () {
 						removeListeners(this);
@@ -1907,7 +2030,7 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 						removeListeners(this);
 						reject("manageMacy: cannot load " + this.src);
 					};
-					if (img && !macy[classList].contains(isActiveClass)) {
+					if (img && !hasClass(macy, isActiveClass)) {
 						var i,
 						l;
 						for (i = 0, l = img[_length]; i < l; i += 1) {
@@ -1922,32 +2045,32 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			});
 		};
 
-		var handleSidedrawerCategory = function (evt) {
-			evt.stopPropagation();
-			evt.preventDefault();
-			var _this = this;
-			var categoryItem = _this.nextElementSibling;
-			if (categoryItem) {
-				if (categoryItem[style].display === "none") {
-					setStyleDisplayBlock(categoryItem);
-				} else {
-					setStyleDisplayNone(categoryItem);
-				}
-			}
-		};
 		var manageSidedrawerCategoryAll = function () {
-			var sidedrawerCategoryAll = sidedrawer ? sidedrawer[getElementsByTagName]("strong") || "" : "";
-			if (sidedrawerCategoryAll) {
+			var category = sidedrawer ? sidedrawer[getElementsByTagName]("strong") || "" : "";
+			var handle = function (evt) {
+				evt.stopPropagation();
+				evt.preventDefault();
+				var _this = this;
+				var categoryItem = _this.nextElementSibling;
+				if (categoryItem) {
+					if (categoryItem[style].display === "none") {
+						setStyleDisplayBlock(categoryItem);
+					} else {
+						setStyleDisplayNone(categoryItem);
+					}
+				}
+			};
+			if (category) {
 				var i,
 				l;
-				for (i = 0, l = sidedrawerCategoryAll[_length]; i < l; i += 1) {
-					if (!sidedrawerCategoryAll[i][classList].contains(isBindedClass) &&
-						sidedrawerCategoryAll[i].nextElementSibling.nodeName.toLowerCase() === "ul" &&
-						sidedrawerCategoryAll[i].nextElementSibling.nodeType === 1
+				for (i = 0, l = category[_length]; i < l; i += 1) {
+					if (!hasClass(category[i], isBindedClass) &&
+						category[i].nextElementSibling.nodeName.toLowerCase() === "ul" &&
+						category[i].nextElementSibling.nodeType === 1
 						) {
-							setStyleDisplayNone(sidedrawerCategoryAll[i].nextElementSibling);
-							sidedrawerCategoryAll[i][_addEventListener]("click", handleSidedrawerCategory);
-							sidedrawerCategoryAll[i][classList].add(isBindedClass);
+							setStyleDisplayNone(category[i].nextElementSibling);
+							addListener(category[i], "click", handle);
+							addClass(category[i], isBindedClass);
 					}
 				}
 				i = l = null;
@@ -1962,43 +2085,43 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 					var i,
 					l;
 					for (i = 0, l = link[_length]; i < l; i += 1) {
-						if (!link[i][classList].contains(isBindedClass)) {
-							link[i][_addEventListener]("click", hideSidedrawer);
-							link[i][classList].add(isBindedClass);
+						if (!hasClass(link[i], isBindedClass)) {
+							addListener(link[i], "click", hideSidedrawer);
+							addClass(link[i], isBindedClass);
 						}
 					}
 					i = l = null;
 				}
 			}
 			if (appContentParent) {
-				appContentParent[_addEventListener]("click", hideSidedrawer);
+				addListener(appContentParent, "click", hideSidedrawer);
 			}
 		};
 
-		var handleMenuButton = function () {
-			if (sidedrawer) {
-				if (!docBody[classList].contains(hideSidedrawerClass)) {
-					docBody[classList].add(hideSidedrawerClass);
-				} else {
-					docBody[classList].remove(hideSidedrawerClass);
-				}
-				if (!sidedrawer[classList].contains(activeClass)) {
-					sidedrawer[classList].add(activeClass);
-				} else {
-					sidedrawer[classList].remove(activeClass);
-				}
-				manageOtherCollapsableAll(sidedrawer);
-			}
-		};
 		var manageSidedrawer = function () {
-			var menuButtonAll = document[getElementsByClassName]("sidedrawer-toggle") || "";
-			if (menuButtonAll) {
+			var btn = getByClass(document, "sidedrawer-toggle") || "";
+			var handle = function () {
+				if (sidedrawer) {
+					if (!hasClass(docBody, hideSidedrawerClass)) {
+						addClass(docBody, hideSidedrawerClass);
+					} else {
+						removeClass(docBody, hideSidedrawerClass);
+					}
+					if (!hasClass(sidedrawer, isActiveClass)) {
+						addClass(sidedrawer, isActiveClass);
+					} else {
+						removeClass(sidedrawer, isActiveClass);
+					}
+					manageOtherCollapsableAll(sidedrawer);
+				}
+			};
+			if (btn) {
 				var i,
 				l;
-				for (i = 0, l = menuButtonAll[_length]; i < l; i += 1) {
-					if (!menuButtonAll[i][classList].contains(isBindedClass)) {
-						menuButtonAll[i][_addEventListener]("click", handleMenuButton);
-						menuButtonAll[i][classList].add(isBindedClass);
+				for (i = 0, l = btn[_length]; i < l; i += 1) {
+					if (!hasClass(btn[i], isBindedClass)) {
+						addListener(btn[i], "click", handle);
+						addClass(btn[i], isBindedClass);
 					}
 				}
 				i = l = null;
@@ -2009,12 +2132,12 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		var highlightSidedrawerItem = function () {
 			var sidedrawerCategoriesList = document[getElementById]("render_sitedrawer_categories") || "";
 			var items = sidedrawerCategoriesList ? sidedrawerCategoriesList[getElementsByTagName]("a") || "" : "";
-			var locationHref = root.location.href || "";
+			var locHref = root.location.href || "";
 			var addItemHandler = function (e) {
-				if (locationHref === e.href) {
-					e[classList].add(isActiveClass);
+				if (locHref === e.href) {
+					addClass(e, isActiveClass);
 				} else {
-					e[classList].remove(isActiveClass);
+					removeClass(e, isActiveClass);
 				}
 			};
 			var addItemHandlerAll = function () {
@@ -2025,36 +2148,33 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 				}
 				i = l = null;
 			};
-			if (sidedrawerCategoriesList && items && locationHref) {
+			if (sidedrawerCategoriesList && items && locHref) {
 				addItemHandlerAll();
 			}
 		};
-		root[_addEventListener]("hashchange", highlightSidedrawerItem);
+		addListener(root, "hashchange", highlightSidedrawerItem);
 
 		var appBar = document[getElementsByTagName]("header")[0] || "";
 		var appBarHeight = appBar.offsetHeight || 0;
 
-		var isFixedClass = "is-fixed";
-		var isHiddenClass = "is-hidden";
-
 		var hideAppBar = function () {
 			var logic = function () {
-				appBar[classList].remove(isFixedClass);
+				removeClass(appBar, isFixedClass);
 				if ((document[body].scrollTop || docElem.scrollTop || 0) > appBarHeight) {
-					appBar[classList].add(isHiddenClass);
+					addClass(appBar, isHiddenClass);
 				} else {
-					appBar[classList].remove(isHiddenClass);
+					removeClass(appBar, isHiddenClass);
 				}
 			};
 			throttle(logic, 100).call(root);
 		};
 		var revealAppBar = function () {
 			var logic = function () {
-				appBar[classList].remove(isHiddenClass);
+				removeClass(appBar, isHiddenClass);
 				if ((document[body].scrollTop || docElem.scrollTop || 0) > appBarHeight) {
-					appBar[classList].add(isFixedClass);
+					addClass(appBar, isFixedClass);
 				} else {
-					appBar[classList].remove(isFixedClass);
+					removeClass(appBar, isFixedClass);
 				}
 			};
 			throttle(logic, 100).call(root);
@@ -2062,18 +2182,18 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		var resetAppBar = function () {
 			var logic = function () {
 				if ((document[body].scrollTop || docElem.scrollTop || 0) < appBarHeight) {
-					appBar[classList].remove(isHiddenClass);
-					appBar[classList].remove(isFixedClass);
+					removeClass(appBar, isHiddenClass);
+					removeClass(appBar, isFixedClass);
 				}
 			};
 			throttle(logic, 100).call(root);
 		};
 		if (appBar) {
-			root[_addEventListener]("scroll", resetAppBar, {passive: true});
+			addListener(root, "scroll", resetAppBar, {passive: true});
 			if (hasTouch) {
 				if (root.tocca) {
-					document[_addEventListener]("swipeup", hideAppBar, {passive: true});
-					document[_addEventListener]("swipedown", revealAppBar, {passive: true});
+					addListener(document, "swipeup", hideAppBar, {passive: true});
+					addListener(document, "swipedown", revealAppBar, {passive: true});
 				}
 			} else {
 				if (hasWheel) {
@@ -2096,9 +2216,9 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		}
 
-		var managePrevNextLinks = function (jsonObj) {
-			var btnPrevPage = document[getElementsByClassName]("btn-prev-page")[0] || "";
-			var btnNextPage = document[getElementsByClassName]("btn-next-page")[0] || "";
+		var managePrevNext = function (jsonObj) {
+			var btnPrevPage = getByClass(document, "btn-prev-page")[0] || "";
+			var btnNextPage = getByClass(document, "btn-next-page")[0] || "";
 			if (btnPrevPage && btnNextPage) {
 				var locationHash = root.location.hash || "";
 				var prevHash;
@@ -2134,76 +2254,76 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 				jsonUrlPropName: "url",
 				jsonTitlePropName: "title",
 				onJsonParsed: function (jsonResponse) {
-					var sidedrawerCategoriesTemplateId = "template_sitedrawer_categories";
+					var templateSidedrawerCategoriesId = "template_sitedrawer_categories";
 					if (root.t) {
-						sidedrawerCategoriesTemplateId = "t_template_sitedrawer_categories";
+						templateSidedrawerCategoriesId = "t_template_sitedrawer_categories";
 					} else {
 						if (root.Mustache) {
-							sidedrawerCategoriesTemplateId = "mustache_template_sitedrawer_categories";
+							templateSidedrawerCategoriesId = "mustache_template_sitedrawer_categories";
 						}
 					}
-					var sidedrawerCategoriesTemplate = document[getElementById](sidedrawerCategoriesTemplateId) || "";
-					var sidedrawerCategoriesRenderId = "render_sitedrawer_categories";
-					var sidedrawerCategoriesRender = document[getElementById](sidedrawerCategoriesRenderId) || "";
-					if (sidedrawerCategoriesTemplate && sidedrawerCategoriesRender) {
-						insertFromTemplate(jsonResponse, sidedrawerCategoriesTemplateId, sidedrawerCategoriesRenderId, function () {
+					var templateSidedrawerCategories = document[getElementById](templateSidedrawerCategoriesId) || "";
+					var renderSidedrawerCategoriesId = "render_sitedrawer_categories";
+					var renderSidedrawerCategories = document[getElementById](renderSidedrawerCategoriesId) || "";
+					if (templateSidedrawerCategories && renderSidedrawerCategories) {
+						insertFromTemplate(jsonResponse, templateSidedrawerCategoriesId, renderSidedrawerCategoriesId, function () {
 							manageSidedrawerCategoryAll();
 							hideSidedrawerOnNavigating();
 						}, true);
 					}
-					var dropdownContactsTemplateId = "template_dropdown_contacts";
+					var templateDropdownContactsId = "template_dropdown_contacts";
 					if (root.t) {
-						dropdownContactsTemplateId = "t_template_dropdown_contacts";
+						templateDropdownContactsId = "t_template_dropdown_contacts";
 					} else {
 						if (root.Mustache) {
-							dropdownContactsTemplateId = "mustache_template_dropdown_contacts";
+							templateDropdownContactsId = "mustache_template_dropdown_contacts";
 						}
 					}
-					var dropdownContactsTemplate = document[getElementById](dropdownContactsTemplateId) || "";
-					var dropdownContactsRenderId = "render_dropdown_contacts";
-					var dropdownContactsRender = document[getElementById](dropdownContactsRenderId) || "";
-					if (dropdownContactsTemplate && dropdownContactsRender) {
-						insertFromTemplate(jsonResponse, dropdownContactsTemplateId, dropdownContactsRenderId, function () {
+					var templateDropdownContacts = document[getElementById](templateDropdownContactsId) || "";
+					var renderDropdownContactsId = "render_dropdown_contacts";
+					var renderDropdownContacts = document[getElementById](renderDropdownContactsId) || "";
+					if (templateDropdownContacts && renderDropdownContacts) {
+						insertFromTemplate(jsonResponse, templateDropdownContactsId, renderDropdownContactsId, function () {
 							manageDropdownButtonAll();
 							manageExternalLinkAll();
 						}, true);
 					}
-					var dropdownAdsTemplateId = "template_dropdown_ads";
+					var templateDropdownAdsId = "template_dropdown_ads";
 					if (root.t) {
-						dropdownAdsTemplateId = "t_template_dropdown_ads";
+						templateDropdownAdsId = "t_template_dropdown_ads";
 					} else {
 						if (root.Mustache) {
-							dropdownAdsTemplateId = "mustache_template_dropdown_ads";
+							templateDropdownAdsId = "mustache_template_dropdown_ads";
 						}
 					}
-					var dropdownAdsTemplate = document[getElementById](dropdownAdsTemplateId) || "";
-					var dropdownAdsRenderId = "render_dropdown_ads";
-					var dropdownAdsRender = document[getElementById](dropdownAdsRenderId) || "";
-					if (dropdownAdsTemplate && dropdownAdsRender) {
-						insertFromTemplate(jsonResponse, dropdownAdsTemplateId, dropdownAdsRenderId, function () {
+					var templateDropdownAds = document[getElementById](templateDropdownAdsId) || "";
+					var renderDropdownAdsId = "render_dropdown_ads";
+					var renderDropdownAds = document[getElementById](renderDropdownAdsId) || "";
+					if (templateDropdownAds && renderDropdownAds) {
+						insertFromTemplate(jsonResponse, templateDropdownAdsId, renderDropdownAdsId, function () {
 							manageDropdownButtonAll();
 							manageExternalLinkAll();
 						}, true);
 					}
 				},
 				onContentInserted: function (jsonObj, titleString) {
-					document[title] = (titleString ? titleString + " - " : "") + (initialDocumentTitle ? initialDocumentTitle + (userBrowsingDetails ? userBrowsingDetails : "") : "");
+					document[title] = (titleString ? titleString + " - " : "") + (initialDocTitle ? initialDocTitle + (userBrowser ? userBrowser : "") : "");
 					if (appContentParent) {
 						highlightSidedrawerItem();
-						managePrevNextLinks(jsonObj);
+						managePrevNext(jsonObj);
 						manageExternalLinkAll();
 						manageImgLightbox(imgLightboxLinkClass);
 						manageIframeLightbox(iframeLightboxLinkClass);
 						manageDropdownButtonAll();
-						manageHljsCodeAll();
-						manageRippleEffect();
-						manageReadMore();
-						manageExpandingLayers();
+						manageHljs();
+						manageRipple();
+						manageReadMore(updateMinigrid);
+						manageExpandingLayerAll();
 						manageMacy(macyClass).then(function (result) {
 							console.log(result);
 						})
 						/* .then(function () {
-							handleDataSrcImageAll(updateMacyThrottled);
+							handleDataSrcImgAll(updateMacyThrottled);
 						}).then(function () {
 							handleDataSrcIframeAll(updateMacyThrottled);
 						}).then(function () {
@@ -2216,19 +2336,19 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 							console.log(result);
 						})
 						/* .then(function () {
-							handleDataSrcImageAll(updateMacyThrottled);
+							handleDataSrcImgAll(updateMinigridThrottled);
 						}).then(function () {
-							handleDataSrcIframeAll(updateMacyThrottled);
+							handleDataSrcIframeAll(updateMinigridThrottled);
 						}).then(function () {
-							manageDataQrcodeImageAll(updateMinigridThrottled);
+							manageDataQrcodeImgAll(updateMinigridThrottled);
 						}).then(function () {
 							scroll2Top(0, 20000);
 						}).then(function () {
-							manageInstagramEmbeds();
+							manageInstagramEmbedAll();
 						}).then(function () {
-							manageTwitterEmbeds();
+							manageTwitterEmbedAll();
 						}).then(function () {
-							manageVkEmbeds();
+							manageVkEmbedAll();
 						}).then(function () {
 							manageDisqusEmbed();
 						}) */
@@ -2250,12 +2370,12 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 	var supportsPassive = (function() {
 		var support = false;
 		try {
-			var opts = Object[defineProperty] && Object[defineProperty]({}, "passive", {
+			var opts = Object.defineProperty && Object.defineProperty({}, "passive", {
 				get: function() {
 					support = true;
 				}
 			});
-			root[_addEventListener]("test", function() {}, opts);
+			root.addEventListener("test", function() {}, opts);
 		} catch (err) {}
 		return support;
 	})();
@@ -2266,20 +2386,20 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			!root.requestAnimationFrame ||
 			!root.matchMedia ||
 			("undefined" === typeof root.Element && !("dataset" in docElem)) ||
-			!("classList" in document[createElement]("_")) ||
-			document[createElementNS] && !("classList" in document[createElementNS]("http://www.w3.org/2000/svg", "g")) ||
-			(root.attachEvent && !root[_addEventListener]) ||
+			!("classList" in document.createElement("_")) ||
+			document.createElementNS && !("classList" in document.createElementNS("http://www.w3.org/2000/svg", "g")) ||
+			(root.attachEvent && !root.addEventListener) ||
 			!("onhashchange" in root) ||
 			!Array.prototype.indexOf ||
 			!root.Promise ||
 			!root.fetch ||
-			!document[querySelectorAll] ||
-			!document[querySelector] ||
+			!document.querySelectorAll ||
+			!document.querySelector ||
 			!Function.prototype.bind ||
-			(Object[defineProperty] &&
-				Object[getOwnPropertyDescriptor] &&
-				Object[getOwnPropertyDescriptor](Element.prototype, "textContent") &&
-				!Object[getOwnPropertyDescriptor](Element.prototype, "textContent").get) ||
+			(Object.defineProperty &&
+				Object.getOwnPropertyDescriptor &&
+				Object.getOwnPropertyDescriptor(Element.prototype, "textContent") &&
+				!Object.getOwnPropertyDescriptor(Element.prototype, "textContent").get) ||
 			!("undefined" !== typeof root.localStorage && "undefined" !== typeof root.sessionStorage) ||
 			!root.WeakMap ||
 			!root.MutationObserver;
@@ -2292,9 +2412,10 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 	scripts.push("./libs/serguei-muicss/js/vendors.min.js");
 
 	var bodyFontFamily = "Roboto";
-	var onFontsLoadedCallback = function () {
+
+	var onFontsLoaded = function () {
 		var slot;
-		var onFontsLoaded = function () {
+		var init = function () {
 			clearInterval(slot);
 			slot = null;
 			if (!supportsSvgSmilAnimation && "undefined" !== typeof progressBar) {
@@ -2303,24 +2424,24 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 			var load;
 			load = new loadJsCss(scripts, run);
 		};
-		var checkFontIsLoaded;
-		checkFontIsLoaded = function () {
+		var check;
+		check = function () {
 			if (doesFontExist(bodyFontFamily)) {
-				onFontsLoaded();
+				init();
 			}
 		};
 		/* if (supportsCanvas) {
-			slot = setInterval(checkFontIsLoaded, 100);
+			slot = setInterval(check, 100);
 		} else {
 			slot = null;
-			onFontsLoaded();
+			init();
 		} */
-		onFontsLoaded();
+		init();
 	};
 
 	var loadDeferred = function (urlArray, callback) {
 		var timer;
-		var logic = function () {
+		var handle = function () {
 			clearTimeout(timer);
 			timer = null;
 			var load;
@@ -2329,14 +2450,14 @@ twttr, unescape, VK, WheelIndicator, Ya*/
 		var req;
 		var raf = function () {
 			cancelAnimationFrame(req);
-			timer = setTimeout(logic, 0);
+			timer = setTimeout(handle, 0);
 		};
 		if (root.requestAnimationFrame) {
 			req = requestAnimationFrame(raf);
 		} else {
-			root[_addEventListener]("load", logic);
+			addListener(root, "load", handle);
 		}
 	};
 
-	loadDeferred(["./libs/serguei-muicss/css/vendors.min.css"], onFontsLoadedCallback);
+	loadDeferred(["./libs/serguei-muicss/css/vendors.min.css"], onFontsLoaded);
 })("undefined" !== typeof window ? window : this, document);

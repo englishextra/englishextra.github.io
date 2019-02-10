@@ -766,7 +766,7 @@ function _typeof(obj) {
 					  }))
 					: (n.css("height", i.length + "00%"),
 					  i.css("height", 100 / i.length + "%")),
-					o(t, e, !0);
+					o(t, e, true);
 			}
 
 			function o(t, e, n) {

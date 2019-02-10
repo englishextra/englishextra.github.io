@@ -1,7 +1,8 @@
 /*jslint browser: true */
 /*jslint node: true */
 /*global ActiveXObject, Cookies, DISQUS, doesFontExist, IframeLightbox,
-imgLightbox, imagePromise, Kamil, loadJsCss, Promise, QRCode,
+imgLightbox, imagePromise, Kamil, loadJsCss, addListener, removeListener,
+getByClass, addClass, hasClass, removeClass, toggleClass, Promise, QRCode,
 require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 /*property console, join, split */
 /*!
@@ -35,6 +36,98 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 	prop = method = dummy = properties = methods = null;
 })("undefined" !== typeof window ? window : this);
 /*!
+ * Super-simple wrapper around addEventListener and attachEvent (old IE).
+ * Does not handle differences in the Event-objects.
+ * @see {@link https://github.com/finn-no/eventlistener}
+ */
+(function (root) {
+	"use strict";
+	var wrap = function (standard, fallback) {
+		return function (el, type, listener, useCapture) {
+			if (el[standard]) {
+				el[standard](type, listener, useCapture);
+			} else {
+				if (el[fallback]) {
+					el[fallback]("on" + type, listener);
+				}
+			}
+		};
+	};
+	root.addListener = wrap("addEventListener", "attachEvent");
+	root.removeListener = wrap("removeEventListener", "detachEvent");
+})("undefined" !== typeof window ? window : this);
+/*!
+ * get elements by class name wrapper
+ */
+(function (root, document) {
+	"use strict";
+	var getByClass = function (parent, name) {
+		if (!Element.getElementsByClassName) {
+			var children = (parent || document.body).getElementsByTagName("*"),
+			elements = [],
+			classRE = new RegExp("\\b" + name + "\\b"),
+			child;
+			var i,
+			l;
+			for (i = 0, l = children.length; i < l; i += 1) {
+				child = children[i];
+				if (classRE.test(child.className)) {
+					elements.push(child);
+				}
+			}
+			i = l = null;
+			return elements;
+		} else {
+			return parent ? parent.getElementsByClassName(name) : "";
+		}
+	};
+	root.getByClass = getByClass;
+})("undefined" !== typeof window ? window : this, document);
+/*!
+ * class list wrapper
+ */
+(function (root, document) {
+	"use strict";
+	var classList = "classList";
+	var hasClass;
+	var addClass;
+	var removeClass;
+	if (classList in document.documentElement) {
+		hasClass = function (el, name) {
+			return el[classList].contains(name);
+		};
+		addClass = function (el, name) {
+			el[classList].add(name);
+		};
+		removeClass = function (el, name) {
+			el[classList].remove(name);
+		};
+	} else {
+		hasClass = function (el, name) {
+			return new RegExp("\\b" + name + "\\b").test(el.className);
+		};
+		addClass = function (el, name) {
+			if (!hasClass(el, name)) {
+				el.className += " " + name;
+			}
+		};
+		removeClass = function (el, name) {
+			el.className = el.className.replace(new RegExp("\\b" + name + "\\b", "g"), "");
+		};
+	}
+	var toggleClass = function (el, name) {
+		if (hasClass(el, name)) {
+			removeClass(el, name);
+		} else {
+			addClass(el, name);
+		}
+	};
+	root.hasClass = hasClass;
+	root.addClass = addClass;
+	root.removeClass = removeClass;
+	root.toggleClass = toggleClass;
+})("undefined" !== typeof window ? window : this, document);
+/*!
  * modified ToProgress v0.1.1
  * arguments.callee changed to TP, a local wrapper function,
  * so that public function name is now customizable;
@@ -53,7 +146,6 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 		var TP = function () {
 			var _addEventListener = "addEventListener";
 			var appendChild = "appendChild";
-			var createElement = "createElement";
 			var firstChild = "firstChild";
 			var getElementById = "getElementById";
 			var getElementsByClassName = "getElementsByClassName";
@@ -64,7 +156,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 			var style = "style";
 			function whichTransitionEvent() {
 				var t,
-				el = document[createElement]("fakeelement");
+				el = document.createElement("fakeelement");
 				var transitions = {
 					"transition": "transitionend",
 					"OTransition": "oTransitionEnd",
@@ -100,7 +192,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 					key = null;
 				}
 				this.options.opacityDuration = this.options.duration * 3;
-				this.progressBar = document[createElement]("div");
+				this.progressBar = document.createElement("div");
 				this.progressBar.id = this.options.id;
 				this.progressBar.setCSS = function (style) {
 					var property;
@@ -265,11 +357,10 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 (function (root, document) {
 	"use strict";
 	var doesFontExist = function (fontName) {
-		var createElement = "createElement";
 		var getContext = "getContext";
 		var measureText = "measureText";
 		var width = "width";
-		var canvas = document[createElement]("canvas");
+		var canvas = document.createElement("canvas");
 		var context = canvas[getContext]("2d");
 		var text = "abcdefghijklmnopqrstuvwxyz0123456789";
 		context.font = "72px monospace";
@@ -296,7 +387,6 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 		var _this = this;
 		var appendChild = "appendChild";
 		var body = "body";
-		var createElement = "createElement";
 		var getElementsByTagName = "getElementsByTagName";
 		var setAttribute = "setAttribute";
 		var _length = "length";
@@ -308,7 +398,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 		_this.callback = callback || function () {};
 		_this.type = type ? type.toLowerCase() : "";
 		_this.loadStyle = function (file) {
-			var link = document[createElement]("link");
+			var link = document.createElement("link");
 			link.rel = "stylesheet";
 			link.type = "text/css";
 			link.href = file;
@@ -322,7 +412,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 			(_this.body || _this.head)[appendChild](link);
 		};
 		_this.loadScript = function (i) {
-			var script = document[createElement]("script");
+			var script = document.createElement("script");
 			script.type = "text/javascript";
 			script.async = true;
 			script.src = _this.js[i];
@@ -373,14 +463,6 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 	var docImplem = document.implementation || "";
 	var docBody = document.body || "";
 
-	var classList = "classList";
-	var createElement = "createElement";
-	var createElementNS = "createElementNS";
-	var defineProperty = "defineProperty";
-	var getOwnPropertyDescriptor = "getOwnPropertyDescriptor";
-	var querySelector = "querySelector";
-	var querySelectorAll = "querySelectorAll";
-	var _addEventListener = "addEventListener";
 	var _length = "length";
 
 	var progressBar = new ToProgress({
@@ -399,23 +481,24 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 	progressBar.increase(20);
 
 	var toStringFn = {}.toString;
-	var supportsSvgSmilAnimation = !!document[createElementNS] && (/SVGAnimate/).test(toStringFn.call(document[createElementNS]("http://www.w3.org/2000/svg", "animate"))) || "";
+	var supportsSvgSmilAnimation = !!document.createElementNS &&
+		(/SVGAnimate/).test(toStringFn.call(document.createElementNS("http://www.w3.org/2000/svg", "animate"))) || "";
 
 	if (supportsSvgSmilAnimation && docElem) {
-		docElem[classList].add("svganimate");
+		addClass(docElem, "svganimate");
 	}
 
-	var getHTTP = function(force) {
+	var getHTTP = function (force) {
 		var any = force || "";
-		var locationProtocol = root.location.protocol || "";
-		return "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : any ? "http" : "";
+		var locProtocol = root.location.protocol || "";
+		return "http:" === locProtocol ? "http" : "https:" === locProtocol ? "https" : any ? "http" : "";
 	};
 
 	var forcedHTTP = getHTTP(true);
 
 	var supportsCanvas;
 	supportsCanvas = (function () {
-		var elem = document[createElement]("canvas");
+		var elem = document.createElement("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
 	})();
 
@@ -430,7 +513,6 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 		var dataset = "dataset";
 		var getAttribute = "getAttribute";
 		var getElementById = "getElementById";
-		var getElementsByClassName = "getElementsByClassName";
 		var getElementsByTagName = "getElementsByTagName";
 		var innerHTML = "innerHTML";
 		var parentNode = "parentNode";
@@ -440,17 +522,21 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 		var setAttribute = "setAttribute";
 		var style = "style";
 		var title = "title";
-		var _addEventListener = "addEventListener";
-		var _removeEventListener = "removeEventListener";
 
 		var isActiveClass = "is-active";
 		var isBindedClass = "is-binded";
 
+		var isActiveMenumoreClass = "ui-menumore--is-active";
+		var isActiveQRCodeClass = "holder-location-qrcode--is-active";
+		var isActiveShareClass = "holder-share-buttons--is-active";
+		var isActiveSidepanelClass = "ui-sidepanel--is-active";
+		var isActiveVKLikeClass = "holder-vk-like--is-active";
+
 		progressBar.increase(20);
 
-		if (docElem && docElem[classList]) {
-			docElem[classList].remove("no-js");
-			docElem[classList].add("js");
+		if (docElem && docElem.classList) {
+			removeClass(docElem, "no-js");
+			addClass(docElem, "js");
 		}
 
 		var earlyDeviceFormfactor = (function (selectors) {
@@ -528,29 +614,32 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 				orientation: orientation || "",
 				size: size || ""
 			};
-		})(docElem[classList] || "");
+		})(docElem.classList || "");
 
 		var earlyDeviceType = (function (mobile, desktop, opera) {
-			var selector = (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i).test(opera) || (/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i).test(opera.substr(0, 4)) ? mobile : desktop;
-			docElem[classList].add(selector);
+			var selector = (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i).test(opera) ||
+				(/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i).test(opera.substr(0, 4)) ?
+				mobile :
+				desktop;
+			addClass(docElem, selector);
 			return selector;
 		})("mobile", "desktop", navigator.userAgent || navigator.vendor || (root).opera);
 
 		var earlySvgSupport = (function (selector) {
 			selector = docImplem.hasFeature("http://www.w3.org/2000/svg", "1.1") ? selector : "no-" + selector;
-			docElem[classList].add(selector);
+			addClass(docElem, selector);
 			return selector;
 		})("svg");
 
 		var earlySvgasimgSupport = (function (selector) {
 			selector = docImplem.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1") ? selector : "no-" + selector;
-			docElem[classList].add(selector);
+			addClass(docElem, selector);
 			return selector;
 		})("svgasimg");
 
 		var earlyHasTouch = (function (selector) {
 			selector = "ontouchstart" in docElem ? selector : "no-" + selector;
-			docElem[classList].add(selector);
+			addClass(docElem, selector);
 			return selector;
 		})("touch");
 
@@ -569,12 +658,20 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 			return newYear + "-" + newMonth + "-" + newDay;
 		})();
 
-		var initialDocumentTitle = document.title || "";
+		var initialDocTitle = document.title || "";
 
-		var userBrowsingDetails = " [" + (getHumanDate ? getHumanDate : "") + (earlyDeviceType ? " " + earlyDeviceType : "") + (earlyDeviceFormfactor.orientation ? " " + earlyDeviceFormfactor.orientation : "") + (earlyDeviceFormfactor.size ? " " + earlyDeviceFormfactor.size : "") + (earlySvgSupport ? " " + earlySvgSupport : "") + (earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") + (earlyHasTouch ? " " + earlyHasTouch : "") + "]";
+		var userBrowser = " [" +
+			(getHumanDate ? getHumanDate : "") +
+			(earlyDeviceType ? " " + earlyDeviceType : "") +
+			(earlyDeviceFormfactor.orientation ? " " + earlyDeviceFormfactor.orientation : "") +
+			(earlyDeviceFormfactor.size ? " " + earlyDeviceFormfactor.size : "") +
+			(earlySvgSupport ? " " + earlySvgSupport : "") +
+			(earlySvgasimgSupport ? " " + earlySvgasimgSupport : "") +
+			(earlyHasTouch ? " " + earlyHasTouch : "") +
+			"]";
 
 		if (document[title]) {
-			document[title] = document[title] + userBrowsingDetails;
+			document[title] = document[title] + userBrowser;
 		}
 
 		var debounce = function (func, wait) {
@@ -690,23 +787,23 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 
 		var LoadingSpinner = (function () {
 			var spinnerClass = "loading-spinner";
-			var spinner = document[getElementsByClassName](spinnerClass)[0] || "";
-			var isActiveClass = "is-active-loading-spinner";
+			var spinner = getByClass(document, spinnerClass)[0] || "";
+			var isActiveClass = "loading-spinner--is-active";
 			if (!spinner) {
-				spinner = document[createElement]("div");
-				spinner[classList].add(spinnerClass);
+				spinner = document.createElement("div");
+				addClass(spinner, spinnerClass);
 				appendFragment(spinner, docBody);
 			}
 			return {
 				show: function () {
-					return docBody[classList].contains(isActiveClass) || docBody[classList].add(isActiveClass);
+					return hasClass(docBody, isActiveClass) || addClass(docBody, isActiveClass);
 				},
 				hide: function (callback, timeout) {
 					var delay = timeout || 500;
 					var timer = setTimeout(function () {
 							clearTimeout(timer);
 							timer = null;
-							docBody[classList].remove(isActiveClass);
+							removeClass(docBody, isActiveClass);
 							if (callback && "function" === typeof callback) {
 								callback();
 							}
@@ -736,26 +833,36 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 				var _isAbsolute = (0 === url.indexOf("//") || !!~url.indexOf("://"));
 				var _locationHref = root.location || "";
 				var _origin = function () {
-					var o = _locationHref.protocol + "//" + _locationHref.hostname + (_locationHref.port ? ":" + _locationHref.port : "");
+					var o = _locationHref.protocol +
+						"//" +
+						_locationHref.hostname +
+						(_locationHref.port ? ":" + _locationHref.port : "");
 					return o || "";
 				};
 				var _isCrossDomain = function () {
-					var c = document[createElement]("a");
+					var c = document.createElement("a");
 					c.href = url;
 					var v = c.protocol + "//" + c.hostname + (c.port ? ":" + c.port : "");
 					return v !== _origin();
 				};
-				var _link = document[createElement]("a");
+				var _link = document.createElement("a");
 				_link.href = url;
 				return {
 					href: _link.href,
 					origin: _origin(),
 					host: _link.host || _location.host,
-					port: ("0" === _link.port || "" === _link.port) ? _protocol(_link.protocol) : (_full ? _link.port : _replace(_link.port)),
+					port: ("0" === _link.port || "" === _link.port) ?
+						_protocol(_link.protocol) :
+						(_full ? _link.port : _replace(_link.port)),
 					hash: _full ? _link.hash : _replace(_link.hash),
 					hostname: _link.hostname || _location.hostname,
-					pathname: _link.pathname.charAt(0) !== "/" ? (_full ? "/" + _link.pathname : _link.pathname) : (_full ? _link.pathname : _link.pathname.slice(1)),
-					protocol: !_link.protocol || ":" === _link.protocol ? (_full ? _location.protocol : _replace(_location.protocol)) : (_full ? _link.protocol : _replace(_link.protocol)),
+					pathname: _link.pathname.charAt(0) !== "/" ?
+						(_full ? "/" + _link.pathname : _link.pathname) :
+						(_full ? _link.pathname : _link.pathname.slice(1)),
+					protocol: !_link.protocol ||
+						":" === _link.protocol ?
+						(_full ? _location.protocol : _replace(_location.protocol)) :
+						(_full ? _link.protocol : _replace(_link.protocol)),
 					search: _full ? _link.search : _replace(_link.search),
 					query: _full ? _link.search : _replace(_link.search),
 					isAbsolute: _isAbsolute,
@@ -769,13 +876,20 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 
 		var isNodejs = "undefined" !== typeof process && "undefined" !== typeof require || "";
 		var isElectron = (function () {
-			if (typeof root !== "undefined" && typeof root.process === "object" && root.process.type === "renderer") {
+			if (typeof root !== "undefined" &&
+				typeof root.process === "object" &&
+				root.process.type === "renderer") {
 				return true;
 			}
-			if (typeof root !== "undefined" && typeof root.process !== "undefined" && typeof root.process.versions === "object" && !!root.process.versions.electron) {
+			if (typeof root !== "undefined" &&
+				typeof root.process !== "undefined" &&
+				typeof root.process.versions === "object" &&
+				!!root.process.versions.electron) {
 				return true;
 			}
-			if (typeof navigator === "object" && typeof navigator.userAgent === "string" && navigator.userAgent.indexOf("Electron") >= 0) {
+			if (typeof navigator === "object" &&
+				typeof navigator.userAgent === "string" &&
+				navigator.userAgent.indexOf("Electron") >= 0) {
 				return true;
 			}
 			return false;
@@ -794,35 +908,35 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 		})();
 
 		var openDeviceBrowser = function (url) {
-			var triggerForElectron = function () {
+			var onElectron = function () {
 				var es = isElectron ? require("electron").shell : "";
 				return es ? es.openExternal(url) : "";
 			};
-			var triggerForNwjs = function () {
+			var onNwjs = function () {
 				var ns = isNwjs ? require("nw.gui").Shell : "";
 				return ns ? ns.openExternal(url) : "";
 			};
-			var triggerForLocal = function () {
+			var onLocal = function () {
 				return root.open(url, "_system", "scrollbars=1,location=no");
 			};
 			if (isElectron) {
-				triggerForElectron();
+				onElectron();
 			} else if (isNwjs) {
-				triggerForNwjs();
+				onNwjs();
 			} else {
-				var locationProtocol = root.location.protocol || "",
-				hasHTTP = locationProtocol ? "http:" === locationProtocol ? "http" : "https:" === locationProtocol ? "https" : "" : "";
+				var locProtocol = root.location.protocol || "",
+				hasHTTP = locProtocol ? "http:" === locProtocol ? "http" : "https:" === locProtocol ? "https" : "" : "";
 				if (hasHTTP) {
 					return true;
 				} else {
-					triggerForLocal();
+					onLocal();
 				}
 			}
 		};
 
 		var manageExternalLinkAll = function () {
 			var link = document[getElementsByTagName]("a") || "";
-			var handleExternalLink = function (url, ev) {
+			var handle = function (url, ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				var logic = function () {
@@ -832,7 +946,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 			};
 			var arrange = function (e) {
 				var externalLinkIsBindedClass = "external-link--is-binded";
-				if (!e[classList].contains(externalLinkIsBindedClass)) {
+				if (!hasClass(e, externalLinkIsBindedClass)) {
 					var url = e[getAttribute]("href") || "";
 					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
 						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
@@ -840,9 +954,9 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 							e.target = "_blank";
 							e.rel = "noopener";
 						} else {
-							e[_addEventListener]("click", handleExternalLink.bind(null, url));
+							addListener(e, "click", handle.bind(null, url));
 						}
-						e[classList].add(externalLinkIsBindedClass);
+						addClass(e, externalLinkIsBindedClass);
 					}
 				}
 			};
@@ -863,8 +977,8 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 			};
 			var x = root.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
 			x.overrideMimeType("application/json;charset=utf-8");
-			x.open("GET", url, !0);
-			x.withCredentials = !1;
+			x.open("GET", url, true);
+			x.withCredentials = false;
 			x.onreadystatechange = function () {
 				if (x.status === 404 || x.status === 0) {
 					console.log("Error XMLHttpRequest-ing file", x.status);
@@ -889,8 +1003,8 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 		};
 
 		var truncString = function (str, max, add) {
-			add = add || "\u2026";
-			return ("string" === typeof str && str[_length] > max ? str.substring(0, max) + add : str);
+			var _add = add || "\u2026";
+			return ("string" === typeof str && str[_length] > max ? str.substring(0, max) + _add : str);
 		};
 
 		var fixEnRuTypo = function (e, a, b) {
@@ -939,15 +1053,15 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 			}
 		};
 
-		var removeElement = function (elem) {
-			if (elem) {
-				if ("undefined" !== typeof elem[remove]) {
-					return elem[remove]();
-				} else {
-					return elem[parentNode] && elem[parentNode][removeChild](elem);
-				}
+	var removeElement = function (a) {
+		if (a) {
+			if ("undefined" !== typeof a[remove]) {
+				return a[remove]();
+			} else {
+				return a[parentNode] && a[parentNode][removeChild](a);
 			}
-		};
+		}
+	};
 
 		var removeChildren = function (e) {
 			if (e && e.firstChild) {
@@ -970,16 +1084,16 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 		};
 
 		var insertExternalHTML = function (id, url, callback, onerror) {
+			var cb = function () {
+				return callback && "function" === typeof callback && callback();
+			};
 			var container = document[getElementById](id.replace(/^#/, "")) || "";
 			var arrange = function () {
 				var x = root.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
 				x.overrideMimeType("text/html;charset=utf-8");
-				x.open("GET", url, !0);
-				x.withCredentials = !1;
+				x.open("GET", url, true);
+				x.withCredentials = false;
 				x.onreadystatechange = function () {
-					var cb = function () {
-						return callback && "function" === typeof callback && callback();
-					};
 					if (x.status === 404 || x.status === 0) {
 						console.log("Error XMLHttpRequest-ing file", x.status);
 						return onerror && "function" === typeof onerror && onerror();
@@ -1018,8 +1132,8 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 			};
 			var x = root.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
 			x.overrideMimeType("text/html;charset=utf-8");
-			x.open("GET", url, !0);
-			x.withCredentials = !1;
+			x.open("GET", url, true);
+			x.withCredentials = false;
 			x.onreadystatechange = function () {
 				if (x.status === 404 || x.status === 0) {
 					console.log("Error XMLHttpRequest-ing file " + url, x.status);
@@ -1033,7 +1147,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 
 		var notiBar = function (opt) {
 			var notibarClass = "notibar";
-			var notibarContainer = document[getElementsByClassName](notibarClass)[0] || "";
+			var notibarContainer = getByClass(document, notibarClass)[0] || "";
 			var messageClass = "message";
 			var closeButtonClass = "close";
 			var defaultKey = "_notibar_dismiss_";
@@ -1067,12 +1181,12 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 			if (notibarContainer) {
 				removeChildren(notibarContainer);
 			} else {
-				notibarContainer = document[createElement]("div");
-				notibarContainer[classList].add(notibarClass);
-				notibarContainer[classList].add(animatedClass);
+				notibarContainer = document.createElement("div");
+				addClass(notibarContainer, notibarClass);
+				addClass(notibarContainer, animatedClass);
 			}
-			var msgContainer = document[createElement]("div");
-			msgContainer[classList].add(messageClass);
+			var msgContainer = document.createElement("div");
+			addClass(msgContainer, messageClass);
 			var msgContent = settings.message || "";
 			if ("string" === typeof msgContent) {
 				msgContent = document[createTextNode](msgContent);
@@ -1080,15 +1194,15 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 			msgContainer[appendChild](msgContent);
 			notibarContainer[appendChild](msgContainer);
 			/* var insertCancelSvg = function (targetObj) {
-				var svg = document[createElementNS]("http://www.w3.org/2000/svg", "svg");
-				var use = document[createElementNS]("http://www.w3.org/2000/svg", "use");
+				var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+				var use = document.createElementNS("http://www.w3.org/2000/svg", "use");
 				svg[setAttribute]("class", "ui-icon");
 				use[setAttributeNS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Cancel");
 				svg[appendChild](use);
 				targetObj[appendChild](svg);
 			}, */
-			var closeButton = document[createElement]("a");
-			closeButton[classList].add(closeButtonClass);
+			var closeButton = document.createElement("a");
+			addClass(closeButton, closeButtonClass);
 			/* insertCancelSvg(closeButton); */
 			var setCookie = function () {
 				if (settings.days) {
@@ -1100,24 +1214,24 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 				}
 			};
 			var hideMessage = function () {
-				var notibarContainer = document[getElementsByClassName](notibarClass)[0] || "";
+				var notibarContainer = getByClass(document, notibarClass)[0] || "";
 				if (notibarContainer) {
-					notibarContainer[classList].remove(fadeInDownClass);
-					notibarContainer[classList].add(fadeOutUpClass);
+					removeClass(notibarContainer, fadeInDownClass);
+					addClass(notibarContainer, fadeOutUpClass);
 					removeChildren(notibarContainer);
 				}
 			};
 			var handleCloseButton = function () {
-				closeButton[_removeEventListener]("click", handleCloseButton);
+				removeListener(closeButton, "click", handleCloseButton);
 				hideMessage();
 				setCookie();
 			};
-			closeButton[_addEventListener]("click", handleCloseButton);
+			addListener(closeButton, "click", handleCloseButton);
 			notibarContainer[appendChild](closeButton);
 			if (docBody) {
 				appendFragment(notibarContainer, docBody);
-				notibarContainer[classList].remove(fadeOutUpClass);
-				notibarContainer[classList].add(fadeInDownClass);
+				removeClass(notibarContainer, fadeOutUpClass);
+				addClass(notibarContainer, fadeInDownClass);
 				var timer = setTimeout(function () {
 					clearTimeout(timer);
 					timer = null;
@@ -1131,34 +1245,34 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 			var delay = timeout || 0;
 			var msgClass = elemClass || "";
 			var cls = "notifier42";
-			var container = document[getElementsByClassName](cls)[0] || "";
+			var container = getByClass(document, cls)[0] || "";
 			var an = "animated";
 			var an2 = "fadeInUp";
 			var an4 = "fadeOutDown";
 			if (!container) {
-				container = document[createElement]("div");
+				container = document.createElement("div");
 				appendFragment(container, docBody);
 			}
-			container[classList].add(cls);
-			container[classList].add(an);
-			container[classList].add(an2);
+			addClass(container, cls);
+			addClass(container, an);
+			addClass(container, an2);
 			if (msgClass) {
-				container[classList].add(msgClass);
+				addClass(container, msgClass);
 			}
 			if ("string" === typeof msgObj) {
 				msgObj = document[createTextNode](msgObj);
 			}
 			appendFragment(msgObj, container);
 			var clearContainer = function (cb) {
-				container[classList].remove(an2);
-				container[classList].add(an4);
+				removeClass(container, an2);
+				addClass(container, an4);
 				var timer = setTimeout(function () {
 					clearTimeout(timer);
 					timer = null;
-					container[classList].remove(an);
-					container[classList].remove(an4);
+					removeClass(container, an);
+					removeClass(container, an4);
 					if (msgClass) {
-						container[classList].remove(msgClass);
+						removeClass(container, msgClass);
 					}
 					removeChildren(container);
 					if (cb && "function" === typeof cb) {
@@ -1166,8 +1280,8 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 					}
 				}, 400);
 			};
-			container[_addEventListener]("click", function handleContainer() {
-				this[_removeEventListener]("click", handleContainer);
+			addListener(container, "click", function handleContainer() {
+				removeListener(this, "click", handleContainer);
 				clearContainer();
 			});
 			if (0 !== delay) {
@@ -1190,9 +1304,9 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 			}
 			var cookieKey = "_notifier42_write_me_";
 			var msgText = "Напишите мне, отвечу очень скоро. Регистрироваться не нужно.";
-			var locationOrigin = parseLink(root.location.href).origin;
+			var locOrigin = parseLink(root.location.href).origin;
 			var showMsg = function () {
-				var msgObj = document[createElement]("a");
+				var msgObj = document.createElement("a");
 				/* jshint -W107 */
 				msgObj.href = "javascript:void(0);";
 				appendFragment(msgText, msgObj);
@@ -1200,16 +1314,16 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 				var handleMsgObj = function (ev) {
 					ev.stopPropagation();
 					ev.preventDefault();
-					msgObj[_removeEventListener]("click", handleMsgObj);
+					removeListener(msgObj, "click", handleMsgObj);
 					var targetObj = document[getElementById]("disqus_thread") || "";
 					scroll2Top((targetObj ? findPos(targetObj).top : 0), 20000);
 				};
-				msgObj[_addEventListener]("click", handleMsgObj);
+				addListener(msgObj, "click", handleMsgObj);
 				var nf42;
 				nf42 = new Notifier42(msgObj, 5000);
 				Cookies.set(cookieKey, msgText);
 			};
-			if (!Cookies.get(cookieKey) && locationOrigin) {
+			if (!Cookies.get(cookieKey) && locOrigin) {
 				var timer = setTimeout(function () {
 					clearTimeout(timer);
 					timer = null;
@@ -1220,60 +1334,55 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 		initNotifier42WriteMe();
 
 		var initSidepanel = function () {
-			var btn = document[getElementsByClassName]("btn-toggle-ui-sidepanel")[0] || "";
-			var page = document[getElementsByClassName]("page")[0] || "";
-			var container = document[getElementsByClassName]("container")[0] || "";
-			var overlay = document[getElementsByClassName]("page-overlay")[0] || "";
-			var panel = document[getElementsByClassName]("ui-sidepanel")[0] || "";
+			var btn = getByClass(document, "btn-toggle-ui-sidepanel")[0] || "";
+			var page = getByClass(document, "page")[0] || "";
+			var container = getByClass(document, "container")[0] || "";
+			var overlay = getByClass(document, "page-overlay")[0] || "";
+			var panel = getByClass(document, "ui-sidepanel")[0] || "";
 			var items = panel ? panel[getElementsByTagName]("li") || "" : "";
-			var isActiveQRCodeClass = "is-active-holder-location-qrcode";
-			var isActiveVKLikeClass = "is-active-holder-vk-like";
-			var isActiveShareClass = "is-active-holder-share-buttons";
-			var isActiveSidepanelClass = "is-active-ui-sidepanel";
-			var isActiveMenumoreClass = "is-active-ui-menumore";
 			var arrange = function () {
 				var handleOtherUIElementAll = function () {
-					if (page[classList].contains(isActiveQRCodeClass)) {
-						page[classList].remove(isActiveQRCodeClass);
+					if (hasClass(page, isActiveQRCodeClass)) {
+						removeClass(page, isActiveQRCodeClass);
 					}
-					if (page[classList].contains(isActiveVKLikeClass)) {
-						page[classList].remove(isActiveVKLikeClass);
+					if (hasClass(page, isActiveVKLikeClass)) {
+						removeClass(page, isActiveVKLikeClass);
 					}
-					if (page[classList].contains(isActiveShareClass)) {
-						page[classList].remove(isActiveShareClass);
+					if (hasClass(page, isActiveShareClass)) {
+						removeClass(page, isActiveShareClass);
 					}
-					if (page[classList].contains(isActiveMenumoreClass)) {
-						page[classList].remove(isActiveMenumoreClass);
+					if (hasClass(page, isActiveMenumoreClass)) {
+						removeClass(page, isActiveMenumoreClass);
 					}
 				};
 				var handleBtnSidepanel = function (ev) {
 					ev.stopPropagation();
 					ev.preventDefault();
-					page[classList].toggle(isActiveSidepanelClass);
+					toggleClass(page, isActiveSidepanelClass);
 					handleOtherUIElementAll();
 				};
 				var handleOverlaySidepanel = function () {
-					if (page[classList].contains(isActiveSidepanelClass)) {
-						page[classList].remove(isActiveSidepanelClass);
+					if (hasClass(page, isActiveSidepanelClass)) {
+						removeClass(page, isActiveSidepanelClass);
 					}
 					handleOtherUIElementAll();
 				};
 				var handleContainerSidepanel = function () {
-					if (!page[classList].contains(isActiveSidepanelClass)) {
-						page[classList].add(isActiveSidepanelClass);
+					if (!hasClass(page, isActiveSidepanelClass)) {
+						addClass(page, isActiveSidepanelClass);
 					}
 					handleOtherUIElementAll();
 				};
-				btn[_addEventListener]("click", handleBtnSidepanel);
+				addListener(btn, "click", handleBtnSidepanel);
 				if (root.tocca) {
 					if ("undefined" !== typeof earlyHasTouch && "touch" === earlyHasTouch) {
-						overlay[_addEventListener]("swipeleft", handleOverlaySidepanel);
-						container[_addEventListener]("swiperight", handleContainerSidepanel);
+						addListener(overlay, "swipeleft", handleOverlaySidepanel);
+						addListener(container, "swiperight", handleContainerSidepanel);
 					}
 				}
 				if (items) {
 					var g = function (e) {
-						e[_addEventListener]("click", handleOverlaySidepanel);
+						addListener(e, "click", handleOverlaySidepanel);
 					};
 					var i,
 					l;
@@ -1282,7 +1391,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 					}
 					i = l = null;
 				}
-				docBody[_addEventListener]("click", handleOverlaySidepanel);
+				addListener(docBody, "click", handleOverlaySidepanel);
 			};
 			if (docBody && btn && page && container) {
 				arrange();
@@ -1291,14 +1400,14 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 		initSidepanel();
 
 		var highlightSidepanelItem = function () {
-			var panel = document[getElementsByClassName]("ui-sidepanel-list")[0] || "";
+			var panel = getByClass(document, "ui-sidepanel-list")[0] || "";
 			var items = panel ? panel[getElementsByTagName]("a") || "" : "";
-			var locationHref = root.location.href || "";
+			var locHref = root.location.href || "";
 			var addItemHandler = function (e) {
-				if (locationHref === e.href) {
-					e[classList].add(isActiveClass);
+				if (locHref === e.href) {
+					addClass(e, isActiveClass);
 				} else {
-					e[classList].remove(isActiveClass);
+					removeClass(e, isActiveClass);
 				}
 			};
 			var addItemHandlerAll = function () {
@@ -1309,55 +1418,49 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 				}
 				i = l = null;
 			};
-			if (panel && items && locationHref) {
+			if (panel && items && locHref) {
 				addItemHandlerAll();
 			}
 		};
 		highlightSidepanelItem();
-		root[_addEventListener]("hashchange", highlightSidepanelItem);
+		addListener(root, "hashchange", highlightSidepanelItem);
 
-		var initMenuMore = function () {
-			var btn = document[getElementsByClassName]("btn-toggle-ui-menumore")[0] || "";
-			var page = document[getElementsByClassName]("page")[0] || "";
-			var holder = document[getElementsByClassName]("ui-menumore")[0] || "";
+		var manageMenuMore = function () {
+			var btn = getByClass(document, "btn-toggle-ui-menumore")[0] || "";
+			var page = getByClass(document, "page")[0] || "";
+			var holder = getByClass(document, "ui-menumore")[0] || "";
 			var items = holder ? holder[getElementsByTagName]("li") || "" : "";
-			var isActiveQRCodeClass = "is-active-holder-location-qrcode";
-			var isActiveVKLikeClass = "is-active-holder-vk-like";
-			var isActiveShareClass = "is-active-holder-share-buttons";
-			var isActiveSidepanelClass = "is-active-ui-sidepanel";
-			var isActiveMenumoreClass = "is-active-ui-menumore";
-			var _addEventListener = "addEventListener";
 			var arrange = function () {
 				var handleOtherUIElementAll = function () {
-					if (page[classList].contains(isActiveQRCodeClass)) {
-						page[classList].remove(isActiveQRCodeClass);
+					if (hasClass(page, isActiveQRCodeClass)) {
+						removeClass(page, isActiveQRCodeClass);
 					}
-					if (page[classList].contains(isActiveVKLikeClass)) {
-						page[classList].remove(isActiveVKLikeClass);
+					if (hasClass(page, isActiveVKLikeClass)) {
+						removeClass(page, isActiveVKLikeClass);
 					}
-					if (page[classList].contains(isActiveShareClass)) {
-						page[classList].remove(isActiveShareClass);
+					if (hasClass(page, isActiveShareClass)) {
+						removeClass(page, isActiveShareClass);
 					}
-					if (page[classList].contains(isActiveSidepanelClass)) {
-						page[classList].remove(isActiveSidepanelClass);
+					if (hasClass(page, isActiveSidepanelClass)) {
+						removeClass(page, isActiveSidepanelClass);
 					}
 				};
 				var handleContainer = function (ev) {
 					ev.stopPropagation();
 					ev.preventDefault();
-					page[classList].toggle(isActiveMenumoreClass);
+					toggleClass(page, isActiveMenumoreClass);
 					handleOtherUIElementAll();
 				};
-				btn[_addEventListener]("click", handleContainer);
+				addListener(btn, "click", handleContainer);
 				var handleItem = function () {
-					if (page[classList].contains(isActiveMenumoreClass)) {
-						page[classList].remove(isActiveMenumoreClass);
+					if (hasClass(page, isActiveMenumoreClass)) {
+						removeClass(page, isActiveMenumoreClass);
 					}
 					handleOtherUIElementAll();
 				};
 				if (items) {
 					var addItemHandler = function (e) {
-						e[_addEventListener]("click", handleItem);
+						addListener(e, "click", handleItem);
 					};
 					var i,
 					l;
@@ -1371,13 +1474,13 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 				arrange();
 			}
 		};
-		initMenuMore();
+		manageMenuMore();
 
-		var handleDataSrcImageAll = function () {
-			var img = document[getElementsByClassName]("data-src-img") || "";
+		var handleDataSrcImgAll = function () {
+			var img = getByClass(document, "data-src-img") || "";
 			var arrange = function (e) {
 				if (verge.inY(e, 100)) {
-					if (!e[classList].contains(isBindedClass)) {
+					if (!hasClass(e, isBindedClass)) {
 						var srcString = e[dataset].src || "";
 						if (srcString) {
 							if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
@@ -1389,8 +1492,8 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 							}).catch (function (err) {
 								console.log("cannot load image with imagePromise:", srcString, err);
 							});
-							e[classList].add(isActiveClass);
-							e[classList].add(isBindedClass);
+							addClass(e, isActiveClass);
+							addClass(e, isBindedClass);
 						}
 					}
 				}
@@ -1405,26 +1508,26 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 			}
 		};
 
-		var handleDataSrcImageAllWindow = throttle(handleDataSrcImageAll, 100);
+		var handleDataSrcImgAllWindow = throttle(handleDataSrcImgAll, 100);
 
-		var manageDataSrcImageAll = function () {
-			root[_removeEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
-			root[_removeEventListener]("resize", handleDataSrcImageAllWindow);
-			root[_addEventListener]("scroll", handleDataSrcImageAllWindow, {passive: true});
-			root[_addEventListener]("resize", handleDataSrcImageAllWindow);
+		var manageDataSrcImgAll = function () {
+			removeListener(root, "scroll", handleDataSrcImgAllWindow, {passive: true});
+			removeListener(root, "resize", handleDataSrcImgAllWindow);
+			addListener(root, "scroll", handleDataSrcImgAllWindow, {passive: true});
+			addListener(root, "resize", handleDataSrcImgAllWindow);
 			var timer = setTimeout(function () {
 					clearTimeout(timer);
 					timer = null;
-					handleDataSrcImageAll();
+					handleDataSrcImgAll();
 				}, 100);
 		};
-		manageDataSrcImageAll();
+		manageDataSrcImgAll();
 
 		var handleDataSrcIframeAll = function () {
-			var ifrm = document[getElementsByClassName]("data-src-iframe") || "";
+			var ifrm = getByClass(document, "data-src-iframe") || "";
 			var arrange = function (e) {
 				if (verge.inY(e, 100)) {
-					if (!e[classList].contains(isBindedClass)) {
+					if (!hasClass(e, isBindedClass)) {
 						var srcString = e[dataset].src || "";
 						if (srcString) {
 							if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
@@ -1438,8 +1541,8 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 							e[setAttribute]("mozallowfullscreen", "true");
 							e[setAttribute]("scrolling", "no");
 							e[setAttribute]("allowfullscreen", "true");
-							e[classList].add(isActiveClass);
-							e[classList].add(isBindedClass);
+							addClass(e, isActiveClass);
+							addClass(e, isBindedClass);
 						}
 					}
 				}
@@ -1457,10 +1560,10 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 		var handleDataSrcIframeAllWindow = throttle(handleDataSrcIframeAll, 100);
 
 		var manageDataSrcIframeAll = function () {
-			root[_removeEventListener]("scroll", handleDataSrcIframeAllWindow, {passive: true});
-			root[_removeEventListener]("resize", handleDataSrcIframeAllWindow);
-			root[_addEventListener]("scroll", handleDataSrcIframeAllWindow, {passive: true});
-			root[_addEventListener]("resize", handleDataSrcIframeAllWindow);
+			removeListener(root, "scroll", handleDataSrcIframeAllWindow, {passive: true});
+			removeListener(root, "resize", handleDataSrcIframeAllWindow);
+			addListener(root, "scroll", handleDataSrcIframeAllWindow, {passive: true});
+			addListener(root, "resize", handleDataSrcIframeAllWindow);
 			var timer = setTimeout(function () {
 					clearTimeout(timer);
 					timer = null;
@@ -1475,7 +1578,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 		 * @see {@link https://github.com/englishextra/img-lightbox}
 		 */
 		var manageImgLightbox = function (imgLightboxLinkClass) {
-			var link = document[getElementsByClassName](imgLightboxLinkClass) || "";
+			var link = getByClass(document, imgLightboxLinkClass) || "";
 			var initScript = function () {
 				imgLightbox(imgLightboxLinkClass, {
 					onLoaded: function () {
@@ -1502,7 +1605,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 		 * @see {@link https://github.com/englishextra/iframe-lightbox}
 		 */
 		var manageIframeLightbox = function (iframeLightboxLinkClass) {
-			var link = document[getElementsByClassName](iframeLightboxLinkClass) || "";
+			var link = getByClass(document, iframeLightboxLinkClass) || "";
 			var initScript = function () {
 				var arrange = function (e) {
 					e.lightbox = new IframeLightbox(e, {
@@ -1531,10 +1634,8 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 		};
 		manageIframeLightbox(iframeLightboxLinkClass);
 
-		var manageDataQrcodeImageAll = function (scope) {
-			var ctx = scope && scope.nodeName ? scope : "";
-			var dataQrcodeImgClass = "data-qrcode-img";
-			var img = ctx ? ctx[getElementsByClassName](dataQrcodeImgClass) || "" : document[getElementsByClassName](dataQrcodeImgClass) || "";
+		var manageDataQrcodeImgAll = function () {
+			var img = getByClass(document, "data-qrcode-img") || "";
 			var generateImg = function (e) {
 				var qrcode = e[dataset].qrcode || "";
 				qrcode = decodeURIComponent(qrcode);
@@ -1583,31 +1684,31 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 				initScript();
 			}
 		};
-		manageDataQrcodeImageAll();
-		/* root[_addEventListener]("load", manageDataQrcodeImageAll); */
+		manageDataQrcodeImgAll();
+		/* addListener(root, "load", manageDataQrcodeImgAll); */
 
-		var handleChaptersSelect = function () {
-			var _this = this;
-			var hashString = _this.options[_this.selectedIndex].value || "";
-			if (hashString) {
-				var targetObj = hashString ? (isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/,"")) || "" : "") : "";
-				if (targetObj) {
-					scroll2Top((targetObj ? findPos(targetObj).top : 0), 20000);
-				} else {
-					root.location.href = hashString;
-				}
-			}
-		};
 		var manageChaptersSelect = function () {
 			var chaptersSelect = document[getElementById]("chapters-select") || "";
+			var handle = function () {
+				var _this = this;
+				var hashString = _this.options[_this.selectedIndex].value || "";
+				if (hashString) {
+					var targetObj = hashString ? (isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/,"")) || "" : "") : "";
+					if (targetObj) {
+						scroll2Top((targetObj ? findPos(targetObj).top : 0), 20000);
+					} else {
+						root.location.href = hashString;
+					}
+				}
+			};
 			if (chaptersSelect) {
-				chaptersSelect[_addEventListener]("change", handleChaptersSelect);
+				addListener(chaptersSelect, "change", handle);
 			}
 		};
 
 		var manageSearchInput = function () {
 			var searchInput = document[getElementById]("text") || "";
-			var handleSearchInputValue = function () {
+			var handle = function () {
 				var _this = this;
 				var logic = function () {
 					_this.value = _this.value.replace(/\\/g, "").replace(/ +(?= )/g, " ").replace(/\/+(?=\/)/g, "/") || "";
@@ -1616,24 +1717,24 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 			};
 			if (searchInput) {
 				searchInput.focus();
-				searchInput[_addEventListener]("input", handleSearchInputValue);
+				addListener(searchInput, "input", handle);
 			}
 		};
 		manageSearchInput();
 
-		var handleExpandingLayerAll = function () {
-			var _this = this;
-			var layer = _this[parentNode] ? _this[parentNode].nextElementSibling : "";
-			if (layer) {
-				_this[classList].toggle(isActiveClass);
-				layer[classList].toggle(isActiveClass);
-			}
-			return;
-		};
-		var manageExpandingLayers = function () {
-			var btn = document[getElementsByClassName]("btn-expand-hidden-layer") || "";
+		var manageExpandingLayerAll = function () {
+			var btn = getByClass(document, "btn-expand-hidden-layer") || "";
+			var handle = function () {
+				var _this = this;
+				var layer = _this[parentNode] ? _this[parentNode].nextElementSibling : "";
+				if (layer) {
+					toggleClass(_this, isActiveClass);
+					toggleClass(layer, isActiveClass);
+				}
+				return;
+			};
 			var addHandler = function (e) {
-				e[_addEventListener]("click", handleExpandingLayerAll);
+				addListener(e, "click", handle);
 			};
 			if (btn) {
 				var i,
@@ -1666,7 +1767,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 								manageExternalLinkAll();
 								manageImgLightbox(imgLightboxLinkClass);
 								manageIframeLightbox(iframeLightboxLinkClass);
-								handleDataSrcImageAll();
+								handleDataSrcImgAll();
 								handleDataSrcIframeAll();
 							}, 100);
 						}
@@ -1689,7 +1790,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 		};
 
 		var manageDataTargetLinks = function () {
-			var link = document[getElementsByClassName]("data-target-link") || "";
+			var link = getByClass(document, "data-target-link") || "";
 			var arrangeAll = function () {
 				var arrange = function (e) {
 					var includeUrl = e[dataset].include || "",
@@ -1699,10 +1800,10 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 						var h_e = function (ev) {
 							ev.stopPropagation();
 							ev.preventDefault();
-							e[_removeEventListener]("click", h_e);
+							removeListener(e, "click", h_e);
 							includeHTMLintoTarget(e, includeUrl, targetElement);
 						};
-						e[_addEventListener]("click", h_e);
+						addListener(e, "click", h_e);
 					}
 				};
 				var i,
@@ -1720,18 +1821,18 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 		var manageDebugGridButton = function () {
 			var container = document[getElementById]("container") || "";
 			var page = document[getElementById]("page") || "";
-			var btn = document[getElementsByClassName]("btn-toggle-col-debug")[0] || "";
+			var btn = getByClass(document, "btn-toggle-col-debug")[0] || "";
 			var debugClass = "debug";
 			var cookieKey = "_manageDebugGridButton_";
 			var cookieDatum = "ok";
 			var handleDebugGridContainer = function () {
 				if (container) {
-					container[classList].remove(debugClass);
-					container[_removeEventListener]("click", handleDebugGridContainer);
+					removeClass(container, debugClass);
+					removeListener(container, "click", handleDebugGridContainer);
 				}
 			};
 			var showDebugGridMessage = function () {
-				var col = document[getElementsByClassName]("col")[0] || "";
+				var col = getByClass(document, "col")[0] || "";
 				var elements = [docBody, page, container, col];
 				var debugMessage = [];
 				var renderElementsInfo = function (e) {
@@ -1758,18 +1859,18 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 			var handleDebugGridButton = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				container[classList].toggle(debugClass);
-				if (container[classList].contains(debugClass)) {
-					container[_addEventListener]("click", handleDebugGridContainer);
+				toggleClass(container, debugClass);
+				if (hasClass(container, debugClass)) {
+					addListener(container, "click", handleDebugGridContainer);
 					showDebugGridMessage();
 				} else {
-					container[_removeEventListener]("click", handleDebugGridContainer);
+					removeListener(container, "click", handleDebugGridContainer);
 				}
 			};
 			if (page && container && btn) {
-				var locationHref = root.location.href || "";
-				if (locationHref && parseLink(locationHref).hasHTTP && (/^(localhost|127.0.0.1)/).test(parseLink(locationHref).hostname)) {
-					btn[_addEventListener]("click", handleDebugGridButton);
+				var locHref = root.location.href || "";
+				if (locHref && parseLink(locHref).hasHTTP && (/^(localhost|127.0.0.1)/).test(parseLink(locHref).hostname)) {
+					addListener(btn, "click", handleDebugGridButton);
 				} else {
 					setStyleDisplayNone(btn);
 				}
@@ -1777,39 +1878,34 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 		};
 		manageDebugGridButton();
 
-		var manageLocationQrCodeImage = function () {
-			var btn = document[getElementsByClassName]("btn-toggle-holder-location-qrcode")[0] || "";
-			var page = document[getElementsByClassName]("page")[0] || "";
-			var holder = document[getElementsByClassName]("holder-location-qrcode")[0] || "";
-			var isActiveQRCodeClass = "is-active-holder-location-qrcode";
-			var isActiveVKLikeClass = "is-active-holder-vk-like";
-			var isActiveShareClass = "is-active-holder-share-buttons";
-			var isActiveSidepanelClass = "is-active-ui-sidepanel";
-			var isActiveMenumoreClass = "is-active-ui-menumore";
-			var locationHref = root.location.href || "";
+		var manageLocationQrcode = function () {
+			var btn = getByClass(document, "btn-toggle-holder-location-qrcode")[0] || "";
+			var page = getByClass(document, "page")[0] || "";
+			var holder = getByClass(document, "holder-location-qrcode")[0] || "";
+			var locHref = root.location.href || "";
 			var handleOtherUIElementAll = function () {
-				if (page[classList].contains(isActiveVKLikeClass)) {
-					page[classList].remove(isActiveVKLikeClass);
+				if (hasClass(page, isActiveVKLikeClass)) {
+					removeClass(page, isActiveVKLikeClass);
 				}
-				if (page[classList].contains(isActiveShareClass)) {
-					page[classList].remove(isActiveShareClass);
+				if (hasClass(page, isActiveShareClass)) {
+					removeClass(page, isActiveShareClass);
 				}
-				if (page[classList].contains(isActiveSidepanelClass)) {
-					page[classList].remove(isActiveSidepanelClass);
+				if (hasClass(page, isActiveSidepanelClass)) {
+					removeClass(page, isActiveSidepanelClass);
 				}
-				if (page[classList].contains(isActiveMenumoreClass)) {
-					page[classList].remove(isActiveMenumoreClass);
+				if (hasClass(page, isActiveMenumoreClass)) {
+					removeClass(page, isActiveMenumoreClass);
 				}
 			};
 			var handleGenerateLocationQrCodeImgBtn = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				page[classList].toggle(isActiveQRCodeClass);
+				toggleClass(page, isActiveQRCodeClass);
 				handleOtherUIElementAll();
 			};
 			var removePageIsActiveClass = function () {
-				if (page[classList].contains(isActiveQRCodeClass)) {
-					page[classList].remove(isActiveQRCodeClass);
+				if (hasClass(page, isActiveQRCodeClass)) {
+					removeClass(page, isActiveQRCodeClass);
 				}
 			};
 			var handleGenerateLocationQrCodeImgHolder = function () {
@@ -1817,14 +1913,14 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 				handleOtherUIElementAll();
 			};
 			var generateLocationQrCodeImg = function () {
-				var locationHref = root.location.href || "";
-				var img = document[createElement]("img");
+				var locHref = root.location.href || "";
+				var img = document.createElement("img");
 				var imgTitle = document.title ? ("Ссылка на страницу «" + document.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
-				var imgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(locationHref);
+				var imgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(locHref);
 				img.alt = imgTitle;
 				if (root.QRCode) {
 					if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
-						imgSrc = QRCode.generateSVG(locationHref, {
+						imgSrc = QRCode.generateSVG(locHref, {
 								ecclevel: "M",
 								fillcolor: "#FFFFFF",
 								textcolor: "#191919",
@@ -1836,7 +1932,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 						imgSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(imgSrc)));
 						img.src = imgSrc;
 					} else {
-						imgSrc = QRCode.generatePNG(locationHref, {
+						imgSrc = QRCode.generatePNG(locHref, {
 								ecclevel: "M",
 								format: "html",
 								fillcolor: "#FFFFFF",
@@ -1849,51 +1945,46 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 				} else {
 					img.src = imgSrc;
 				}
-				img[classList].add("qr-code-img");
+				addClass(img, "qr-code-img");
 				img.title = imgTitle;
 				removeChildren(holder);
 				appendFragment(img, holder);
 			};
 			var initScript = function () {
 				removePageIsActiveClass();
-				btn[_addEventListener]("click", generateLocationQrCodeImg);
-				btn[_addEventListener]("click", handleGenerateLocationQrCodeImgBtn);
-				root[_addEventListener]("hashchange", generateLocationQrCodeImg);
-				holder[_addEventListener]("click", handleGenerateLocationQrCodeImgHolder);
+				addListener(btn, "click", generateLocationQrCodeImg);
+				addListener(btn, "click", handleGenerateLocationQrCodeImgBtn);
+				addListener(root, "hashchange", generateLocationQrCodeImg);
+				addListener(holder, "click", handleGenerateLocationQrCodeImgHolder);
 			};
-			if (root.QRCode && btn && page && holder && locationHref && "undefined" !== typeof getHTTP && getHTTP()) {
+			if (root.QRCode && btn && page && holder && locHref && "undefined" !== typeof getHTTP && getHTTP()) {
 				initScript();
 			}
 		};
-		manageLocationQrCodeImage();
+		manageLocationQrcode();
 
 		var yshare;
-		var manageShareButton = function () {
-			var btn = document[getElementsByClassName]("btn-toggle-holder-share-buttons")[0] || "";
+		var manageShareButtons = function () {
+			var btn = getByClass(document, "btn-toggle-holder-share-buttons")[0] || "";
 			var yaShare2Id = "ya-share2";
 			var yaShare2 = document[getElementById](yaShare2Id) || "";
-			var page = document[getElementsByClassName]("page")[0] || "";
-			var holder = document[getElementsByClassName]("holder-share-buttons")[0] || "";
-			var isActiveQRCodeClass = "is-active-holder-location-qrcode";
-			var isActiveVKLikeClass = "is-active-holder-vk-like";
-			var isActiveShareClass = "is-active-holder-share-buttons";
-			var isActiveSidepanelClass = "is-active-ui-sidepanel";
-			var isActiveMenumoreClass = "is-active-ui-menumore";
-			var handleShareButton = function (ev) {
+			var page = getByClass(document, "page")[0] || "";
+			var holder = getByClass(document, "holder-share-buttons")[0] || "";
+			var handle = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				page[classList].toggle(isActiveShareClass);
-				if (page[classList].contains(isActiveQRCodeClass)) {
-					page[classList].remove(isActiveQRCodeClass);
+				toggleClass(page, isActiveShareClass);
+				if (hasClass(page, isActiveQRCodeClass)) {
+					removeClass(page, isActiveQRCodeClass);
 				}
-				if (page[classList].contains(isActiveVKLikeClass)) {
-					page[classList].remove(isActiveVKLikeClass);
+				if (hasClass(page, isActiveVKLikeClass)) {
+					removeClass(page, isActiveVKLikeClass);
 				}
-				if (page[classList].contains(isActiveSidepanelClass)) {
-					page[classList].remove(isActiveSidepanelClass);
+				if (hasClass(page, isActiveSidepanelClass)) {
+					removeClass(page, isActiveSidepanelClass);
 				}
-				if (page[classList].contains(isActiveMenumoreClass)) {
-					page[classList].remove(isActiveMenumoreClass);
+				if (hasClass(page, isActiveMenumoreClass)) {
+					removeClass(page, isActiveMenumoreClass);
 				}
 				var initScript = function () {
 					/*!
@@ -1916,7 +2007,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 						});
 					}
 				};
-				if (page[classList].contains(isActiveShareClass)) {
+				if (hasClass(page, isActiveShareClass)) {
 					if (!(root.Ya && Ya.share2)) {
 						var jsUrl = forcedHTTP + "://yastatic.net/share2/share.js";
 						var load;
@@ -1928,38 +2019,33 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 			};
 			if (btn && page && holder && yaShare2) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					btn[_addEventListener]("click", handleShareButton);
+					addListener(btn, "click", handle);
 				}
 			}
 		};
-		manageShareButton();
+		manageShareButtons();
 
 		var vlike;
 		var manageVKLikeButton = function () {
-			var btn = document[getElementsByClassName]("btn-toggle-holder-vk-like")[0] || "";
-			var page = document[getElementsByClassName]("page")[0] || "";
+			var btn = getByClass(document, "btn-toggle-holder-vk-like")[0] || "";
+			var page = getByClass(document, "page")[0] || "";
 			var vkLikeId = "vk-like";
 			var vkLike = document[getElementById](vkLikeId) || "";
-			var isActiveQRCodeClass = "is-active-holder-location-qrcode";
-			var isActiveVKLikeClass = "is-active-holder-vk-like";
-			var isActiveShareClass = "is-active-holder-share-buttons";
-			var isActiveSidepanelClass = "is-active-ui-sidepanel";
-			var isActiveMenumoreClass = "is-active-ui-menumore";
-			var handleVKLikeButton = function (ev) {
+			var handle = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				page[classList].toggle(isActiveVKLikeClass);
-				if (page[classList].contains(isActiveQRCodeClass)) {
-					page[classList].remove(isActiveQRCodeClass);
+				toggleClass(page, isActiveVKLikeClass);
+				if (hasClass(page, isActiveQRCodeClass)) {
+					removeClass(page, isActiveQRCodeClass);
 				}
-				if (page[classList].contains(isActiveShareClass)) {
-					page[classList].remove(isActiveShareClass);
+				if (hasClass(page, isActiveShareClass)) {
+					removeClass(page, isActiveShareClass);
 				}
-				if (page[classList].contains(isActiveSidepanelClass)) {
-					page[classList].remove(isActiveSidepanelClass);
+				if (hasClass(page, isActiveSidepanelClass)) {
+					removeClass(page, isActiveSidepanelClass);
 				}
-				if (page[classList].contains(isActiveMenumoreClass)) {
-					page[classList].remove(isActiveMenumoreClass);
+				if (hasClass(page, isActiveMenumoreClass)) {
+					removeClass(page, isActiveMenumoreClass);
 				}
 				var initScript = function () {
 					if (!vlike) {
@@ -1979,7 +2065,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 						}
 					}
 				};
-				if (page[classList].contains(isActiveVKLikeClass)) {
+				if (hasClass(page, isActiveVKLikeClass)) {
 					if (!(root.VK && VK.init && VK.Widgets && VK.Widgets.Like)) {
 						var jsUrl = forcedHTTP + "://vk.com/js/api/openapi.js?154";
 						var load;
@@ -1991,7 +2077,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 			};
 			if (btn && page && vkLike) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					btn[_addEventListener]("click", handleVKLikeButton);
+					addListener(btn, "click", handle);
 				}
 			}
 		};
@@ -1999,28 +2085,28 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 
 		var loadRefreshDisqus = function () {
 			var disqusThread = document[getElementById]("disqus_thread") || "";
-			var btn = document[getElementsByClassName]("btn-show-disqus")[0] || "";
-			var locationHref = root.location.href || "";
-			var disqusThreadShortname = disqusThread ? (disqusThread[dataset].shortname || "") : "";
+			var btn = getByClass(document, "btn-show-disqus")[0] || "";
+			var locHref = root.location.href || "";
+			var shortname = disqusThread ? (disqusThread[dataset].shortname || "") : "";
 			var initScript = function () {
 				try {
 					DISQUS.reset({
 						reload : !0,
 						config : function () {
-							this.page.identifier = disqusThreadShortname;
-							this.page.url = locationHref;
+							this.page.identifier = shortname;
+							this.page.url = locHref;
 						}
 					});
 				} catch (err) {
 					throw new Error("cannot DISQUS.reset " + err);
 				}
 			};
-			if (btn && disqusThread && disqusThreadShortname && locationHref) {
+			if (btn && disqusThread && shortname && locHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
-					disqusThread[classList].add(isActiveClass);
+					addClass(disqusThread, isActiveClass);
 					setStyleDisplayNone(btn);
 					if (!root.DISQUS) {
-						var jsUrl = forcedHTTP + "://" + disqusThreadShortname + ".disqus.com/embed.js";
+						var jsUrl = forcedHTTP + "://" + shortname + ".disqus.com/embed.js";
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {
@@ -2037,15 +2123,15 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 		};
 		var manageDisqusButton = function () {
 			var disqusThread = document[getElementById]("disqus_thread") || "";
-			var btn = disqusThread ? (document[getElementsByClassName]("btn-show-disqus")[0] || "") : "";
+			var btn = disqusThread ? (getByClass(document, "btn-show-disqus")[0] || "") : "";
 			var handleManageDisqusButton = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				btn[_removeEventListener]("click", handleManageDisqusButton);
+				removeListener(btn, "click", handleManageDisqusButton);
 				loadRefreshDisqus();
 			};
 			if (disqusThread && btn) {
-				btn[_addEventListener]("click", handleManageDisqusButton);
+				addListener(btn, "click", handleManageDisqusButton);
 			}
 		};
 
@@ -2059,7 +2145,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 			var handleYandexMapBtnDestroy = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				btnDestroy[_removeEventListener]("click", handleYandexMapBtnDestroy);
+				removeListener(btnDestroy, "click", handleYandexMapBtnDestroy);
 				if (mymap) {
 					mymap.destroy();
 				}
@@ -2076,7 +2162,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 				};
 				try {
 					ymaps.ready(initMyMap);
-					yandexMap[parentNode][classList].add(isActiveClass);
+					addClass(yandexMap[parentNode], isActiveClass);
 					setStyleDisplayNone(btnShow);
 				} catch (err) {
 					console.log("cannot init ymaps", err);
@@ -2085,7 +2171,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 			if (yandexMap && yandexMapCenter && yandexMapZoom && btnShow) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					if (btnDestroy) {
-						btnDestroy[_addEventListener]("click", handleYandexMapBtnDestroy);
+						addListener(btnDestroy, "click", handleYandexMapBtnDestroy);
 					}
 					if (!root.ymaps) {
 						var jsUrl = forcedHTTP + "://api-maps.yandex.ru/2.1/?lang=ru_RU";
@@ -2109,17 +2195,17 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 			var handleBtnShow = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				btnShow[_removeEventListener]("click", handleBtnShow);
+				removeListener(btnShow, "click", handleBtnShow);
 				initYandexMap(yandexMapId);
 				return;
 			};
 			if (yandexMap && btnShow) {
-				btnShow[_addEventListener]("click", handleBtnShow);
+				addListener(btnShow, "click", handleBtnShow);
 			}
 		};
 
-		var initKamilAutocomplete = function () {
-			var searchForm = document[getElementsByClassName]("search-form")[0] || "";
+		var manageKamil = function () {
+			var searchForm = getByClass(document, "search-form")[0] || "";
 			var textInputSelector = "#text";
 			var textInput = document[getElementById]("text") || "";
 			var container = document[getElementById]("container") || "";
@@ -2145,8 +2231,8 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 				/*!
 				 * create typo suggestion list
 				 */
-				var suggestionUl = document[createElement]("ul");
-				var suggestionLi = document[createElement]("li");
+				var suggestionUl = document.createElement("ul");
+				var suggestionLi = document.createElement("li");
 				var handleTypoSuggestion = function () {
 					setStyleDisplayNone(suggestionUl);
 					setStyleDisplayNone(suggestionLi);
@@ -2155,7 +2241,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 					setStyleDisplayBlock(suggestionUl);
 					setStyleDisplayBlock(suggestionLi);
 				};
-				suggestionUl[classList].add(suggestionUlClass);
+				addClass(suggestionUl, suggestionUlClass);
 				suggestionUl.id = suggestionUlId;
 				handleTypoSuggestion();
 				suggestionUl[appendChild](suggestionLi);
@@ -2235,12 +2321,12 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 					textInput.value = suggestionLi.firstChild.textContent || "";
 					setStyleDisplayNone(suggestionUl);
 				};
-				suggestionLi[_addEventListener]("click", handleSuggestionLi);
+				addListener(suggestionLi, "click", handleSuggestionLi);
 				/*!
 				 * hide suggestions on outside click
 				 */
 				if (container) {
-					container[_addEventListener]("click", handleTypoSuggestion);
+					addListener(container, "click", handleTypoSuggestion);
 				}
 				/*!
 				 * unless you specify property option in new Kamil
@@ -2271,7 +2357,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 				initScript();
 			}
 		};
-		initKamilAutocomplete();
+		manageKamil();
 
 		var initRoutie = function () {
 			var appContentId = "app-content";
@@ -2287,7 +2373,7 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 				/*!
 				 * hide loading spinner before scrolling
 				 */
-				document.title = (titleString ? titleString + " - " : "" ) + (initialDocumentTitle ? initialDocumentTitle + (userBrowsingDetails ? userBrowsingDetails : "") : "");
+				document.title = (titleString ? titleString + " - " : "" ) + (initialDocTitle ? initialDocTitle + (userBrowser ? userBrowser : "") : "");
 				var timer = setTimeout(function () {
 						clearTimeout(timer);
 						timer = null;
@@ -2297,10 +2383,10 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 						manageDataTargetLinks();
 						manageImgLightbox(imgLightboxLinkClass);
 						manageIframeLightbox(iframeLightboxLinkClass);
-						manageDataQrcodeImageAll();
+						manageDataQrcodeImgAll();
 						manageChaptersSelect();
-						manageExpandingLayers();
-						handleDataSrcImageAll();
+						manageExpandingLayerAll();
+						handleDataSrcImgAll();
 					}, 100);
 				LoadingSpinner.hide(scroll2Top.bind(null, 0, 20000));
 			};
@@ -2379,43 +2465,43 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 		};
 		initRoutie();
 
-		var initUiTotop = function () {
-			var btnClass = "ui-totop";
-			var btn = document[getElementsByClassName](btnClass)[0] || "";
+		var manageBtnTotop = function () {
+			var btnClass = "btn-totop";
+			var btn = getByClass(document, btnClass)[0] || "";
 			if (!btn) {
-				btn = document[createElement]("a");
-				btn[classList].add(btnClass);
+				btn = document.createElement("a");
+				addClass(btn, btnClass);
 				/* jshint -W107 */
 				btn.href = "javascript:void(0);";
 				/* jshint +W107 */
 				btn.title = "Наверх";
 				docBody[appendChild](btn);
 			}
-			var handleUiTotop = function (ev) {
+			var handle = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				scroll2Top(0, 20000);
 			};
-			var handleUiTotopWindow = function (_this) {
+			var handleWindow = function (_this) {
 				var logic = function () {
 					var scrollPosition = _this.pageYOffset || docElem.scrollTop || docBody.scrollTop || "";
 					var windowHeight = _this.innerHeight || docElem.clientHeight || docBody.clientHeight || "";
 					if (scrollPosition && windowHeight && btn) {
 						if (scrollPosition > windowHeight) {
-							btn[classList].add(isActiveClass);
+							addClass(btn, isActiveClass);
 						} else {
-							btn[classList].remove(isActiveClass);
+							removeClass(btn, isActiveClass);
 						}
 					}
 				};
 				throttle(logic, 100).call(root);
 			};
 			if (docBody) {
-				btn[_addEventListener]("click", handleUiTotop);
-				root[_addEventListener]("scroll", handleUiTotopWindow, {passive: true});
+				addListener(btn, "click", handle);
+				addListener(root, "scroll", handleWindow, {passive: true});
 			}
 		};
-		initUiTotop();
+		manageBtnTotop();
 
 		hideProgressBar();
 	};
@@ -2425,12 +2511,12 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 	var supportsPassive = (function () {
 		var support = false;
 		try {
-			var opts = Object[defineProperty] && Object[defineProperty]({}, "passive", {
+			var opts = Object.defineProperty && Object.defineProperty({}, "passive", {
 					get: function () {
 						support = true;
 					}
 				});
-			root[_addEventListener]("test", function () {}, opts);
+			addListener(root, "test", function () {}, opts);
 		} catch (err) {}
 		return support;
 	})();
@@ -2441,20 +2527,20 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 		!root.requestAnimationFrame ||
 		!root.matchMedia ||
 		("undefined" === typeof root.Element && !("dataset" in docElem)) ||
-		!("classList" in document[createElement]("_")) ||
-		document[createElementNS] && !("classList" in document[createElementNS]("http://www.w3.org/2000/svg", "g")) ||
-		(root.attachEvent && !root[_addEventListener]) ||
+		!("classList" in document.createElement("_")) ||
+		document.createElementNS && !("classList" in document.createElementNS("http://www.w3.org/2000/svg", "g")) ||
+		(root.attachEvent && !root.addEventListener) ||
 		!("onhashchange" in root) ||
 		!Array.prototype.indexOf ||
 		!root.Promise ||
 		!root.fetch ||
-		!document[querySelectorAll] ||
-		!document[querySelector] ||
+		!document.querySelectorAll ||
+		!document.querySelector ||
 		!Function.prototype.bind ||
-		(Object[defineProperty] &&
-			Object[getOwnPropertyDescriptor] &&
-			Object[getOwnPropertyDescriptor](Element.prototype, "textContent") &&
-			!Object[getOwnPropertyDescriptor](Element.prototype, "textContent").get) ||
+		(Object.defineProperty &&
+			Object.getOwnPropertyDescriptor &&
+			Object.getOwnPropertyDescriptor(Element.prototype, "textContent") &&
+			!Object.getOwnPropertyDescriptor(Element.prototype, "textContent").get) ||
 		!("undefined" !== typeof root.localStorage && "undefined" !== typeof root.sessionStorage) ||
 		!root.WeakMap ||
 		!root.MutationObserver;
@@ -2467,9 +2553,10 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 	scripts.push("./libs/serguei-eaststreet/js/vendors.min.js");
 
 	var bodyFontFamily = "Roboto";
-	var onFontsLoadedCallback = function () {
+
+	var onFontsLoaded = function () {
 		var slot;
-		var onFontsLoaded = function () {
+		var init = function () {
 			clearInterval(slot);
 			slot = null;
 			if (!supportsSvgSmilAnimation && "undefined" !== typeof progressBar) {
@@ -2478,21 +2565,21 @@ require, routie, ToProgress, unescape, verge, VK, Ya, ymaps*/
 			var load;
 			load = new loadJsCss(scripts, run);
 		};
-		var checkFontIsLoaded;
-		checkFontIsLoaded = function () {
+		var check;
+		check = function () {
 			if (doesFontExist(bodyFontFamily)) {
-				onFontsLoaded();
+				init();
 			}
 		};
 		/* if (supportsCanvas) {
-			slot = setInterval(checkFontIsLoaded, 100);
+			slot = setInterval(check, 100);
 		} else {
 			slot = null;
-			onFontsLoaded();
+			init();
 		} */
-		onFontsLoaded();
+		init();
 	};
 
 	var load;
-	load = new loadJsCss(["./libs/serguei-eaststreet/css/bundle.min.css"], onFontsLoadedCallback);
+	load = new loadJsCss(["./libs/serguei-eaststreet/css/bundle.min.css"], onFontsLoaded);
 })("undefined" !== typeof window ? window : this, document);

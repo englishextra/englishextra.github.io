@@ -299,7 +299,7 @@ u,
 	font-size: 0;
 }
 
-.ui-totop {
+.btn-totop {
 	display: none;
 	width: 3.200rem;
 	height: 3.200rem;
@@ -309,21 +309,21 @@ u,
 	background-color: $title-bar-and-app-bar-light;
 }
 
-.ui-totop.is-active {
+.btn-totop.is-active {
 	display: block;
 }
 
-.ui-totop a > * {
+.btn-totop a > * {
 	fill: $button-outline;
 }
 
-.ui-totop svg {
+.btn-totop svg {
 	display: block;
 	width: 3.200rem;
 	height: 3.200rem;
 }
 
-.ui-totop a {
+.btn-totop a {
 	font-size: 0;
 }
 

@@ -1033,7 +1033,7 @@ u,
 	font-size: 0;
 }
 
-.ui-totop {
+.btn-totop {
 	display: none;
 	width: 3.2rem;
 	height: 3.2rem;
@@ -1043,21 +1043,21 @@ u,
 	background-color: #2b2b2b;
 }
 
-.ui-totop.is-active {
+.btn-totop.is-active {
 	display: block;
 }
 
-.ui-totop a > * {
+.btn-totop a > * {
 	fill: #e6e6e6;
 }
 
-.ui-totop svg {
+.btn-totop svg {
 	display: block;
 	width: 3.2rem;
 	height: 3.2rem;
 }
 
-.ui-totop a {
+.btn-totop a {
 	font-size: 0;
 }
 
