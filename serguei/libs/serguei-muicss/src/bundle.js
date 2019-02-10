@@ -2,9 +2,9 @@
 /*jslint node: true */
 /*global $readMoreJS, ActiveXObject, console, DISQUS, doesFontExist,
 EventEmitter, hljs, IframeLightbox, imgLightbox, instgrm, JsonHashRouter,
-loadJsCss, addListener, removeListener, getByClass, addClass, hasClass, removeClass, toggleClass, Macy, Minigrid,
-Mustache, progressBar, Promise, QRCode, require, ripple, t, twttr, unescape,
-VK, WheelIndicator, Ya*/
+loadJsCss, addListener, removeListener, getByClass, addClass, hasClass,
+removeClass, toggleClass, Macy, Minigrid, Mustache, progressBar, Promise,
+QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
