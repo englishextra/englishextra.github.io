@@ -723,42 +723,50 @@
 			};
 		};
 
-		var logic = function () {
+		var logic = function logic() {
 			_this.open();
 		};
 
-		var handleIframeLightboxLink = function (e) {
+		var handleIframeLightboxLink = function handleIframeLightboxLink(e) {
 			e.stopPropagation();
 			e.preventDefault();
 			debounce(logic, this.rate).call();
 		};
-		if (!this.trigger[classList].contains(iframeLightboxLinkIsBindedClass)) {
+
+		if (
+			!this.trigger[classList].contains(iframeLightboxLinkIsBindedClass)
+		) {
 			this.trigger[classList].add(iframeLightboxLinkIsBindedClass);
+
 			this.trigger[_addEventListener]("click", handleIframeLightboxLink);
+
 			if (isTouch && (_this.touch || _this.dataTouch)) {
-				this.trigger[_addEventListener]("touchstart", handleIframeLightboxLink);
+				this.trigger[_addEventListener](
+					"touchstart",
+					handleIframeLightboxLink
+				);
 			}
 		}
 	};
 
 	IframeLightbox.prototype.create = function() {
 		var _this = this,
-			backdrop = document.createElement("div");
+			backdrop = document[createElement]("div");
 
 		backdrop[classList].add("backdrop");
-		this.el = document.createElement("div");
+		this.el = document[createElement]("div");
 		this.el[classList].add(containerClass);
 		this.el[appendChild](backdrop);
-		this.content = document.createElement("div");
+		this.content = document[createElement]("div");
 		this.content[classList].add("content");
-		this.body = document.createElement("div");
+		this.body = document[createElement]("div");
 		this.body[classList].add("body");
 		this.content[appendChild](this.body);
-		this.contentHolder = document.createElement("div");
+		this.contentHolder = document[createElement]("div");
 		this.contentHolder[classList].add("content-holder");
 		this.contentHolder[appendChild](this.content);
 		this.el[appendChild](this.contentHolder);
-		this.btnClose = document.createElement("a");
+		this.btnClose = document[createElement]("a");
 		this.btnClose[classList].add("btn-close");
 		/* jshint -W107 */
 
@@ -779,7 +787,7 @@
 		if (!docElem[classList].contains(iframeLightboxWindowIsBindedClass)) {
 			docElem[classList].add(iframeLightboxWindowIsBindedClass);
 
-			addListener(root, "keyup", function(ev) {
+			root[_addEventListener]("keyup", function(ev) {
 				if (27 === (ev.which || ev.keyCode)) {
 					_this.close();
 				}
@@ -988,7 +996,7 @@
 
 	var hideImgLightbox = function hideImgLightbox(callback) {
 		var container =
-			getByClass(document, containerClass)[0] || "";
+			document[getElementsByClassName](containerClass)[0] || "";
 		var img = container
 			? container[getElementsByTagName]("img")[0] || ""
 			: "";
@@ -1044,19 +1052,29 @@
 		var onCreated = options.onCreated;
 		var onClosed = options.onClosed;
 		var link = document[getElementsByClassName](_linkClass) || "";
-		var container = document[getElementsByClassName](containerClass)[0] || "";
-		var img = container ? container[getElementsByTagName]("img")[0] || "" : "";
+		var container =
+			document[getElementsByClassName](containerClass)[0] || "";
+		var img = container
+			? container[getElementsByTagName]("img")[0] || ""
+			: "";
+
 		if (!container) {
 			container = document[createElement]("div");
 			container[classList].add(containerClass);
 			var html = [];
 			html.push('<img src="' + dummySrc + '" alt="" />');
-			html.push('<div class="half-circle-spinner"><div class="circle circle-1"></div><div class="circle circle-2"></div></div>');
+			html.push(
+				'<div class="half-circle-spinner"><div class="circle circle-1"></div><div class="circle circle-2"></div></div>'
+			);
 			html.push('<a href="javascript:void(0);" class="btn-close"></a>');
 			container[innerHTML] = html.join("");
 			docBody[appendChild](container);
-			img = container ? container[getElementsByTagName]("img")[0] || "" : "";
-			var btnClose = container ? container[getElementsByClassName](btnCloseClass)[0] || "" : "";
+			img = container
+				? container[getElementsByTagName]("img")[0] || ""
+				: "";
+			var btnClose = container
+				? container[getElementsByClassName](btnCloseClass)[0] || ""
+				: "";
 
 			var handleImgLightboxContainer = function handleImgLightboxContainer() {
 				hideImgLightbox(onClosed);
@@ -1069,7 +1087,7 @@
 			if (!docElem[classList].contains(imgLightboxWindowIsBindedClass)) {
 				docElem[classList].add(imgLightboxWindowIsBindedClass);
 
-				addListener(root, "keyup", function(ev) {
+				root[_addEventListener]("keyup", function(ev) {
 					if (27 === (ev.which || ev.keyCode)) {
 						hideImgLightbox(onClosed);
 					}
@@ -1964,7 +1982,10 @@
 			var textcolor = options.textcolor ? options.textcolor : "#000000";
 			var matrix = QRCode.generate(data, options);
 			var modsize = Math.max(options.modulesize || 5, 0.5);
-			var margin = Math.max(options.margin !== null ? options.margin : 4, 0.0);
+			var margin = Math.max(
+				options.margin !== null ? options.margin : 4,
+				0.0
+			);
 			var e = document[createElement]("div");
 			var n = matrix[length];
 			var html = [
@@ -2017,19 +2038,44 @@
 			var size = modsize * (n + 2 * margin);
 			/* var common = ' class= "fg"' + ' width="' + modsize + '" height="' + modsize + '"/>'; */
 
-			var e = document[createElementNS]("http://www.w3.org/2000/svg", "svg");
+			var e = document[createElementNS](
+				"http://www.w3.org/2000/svg",
+				"svg"
+			);
 			e[setAttributeNS](null, "viewBox", "0 0 " + size + " " + size);
 			e[setAttributeNS](null, "style", "shape-rendering:crispEdges");
 			var qrcodeId = "qrcode" + Date.now();
 			e[setAttributeNS](null, "id", qrcodeId);
 			var frag = document[createDocumentFragment]();
 			/* var svg = ['<style scoped>.bg{fill:' + fillcolor + '}.fg{fill:' + textcolor + '}</style>', '<rect class="bg" x="0" y="0"', 'width="' + size + '" height="' + size + '"/>', ]; */
-			var style = document[createElementNS]("http://www.w3.org/2000/svg", "style");
-			style[appendChild](document[createTextNode]("#" + qrcodeId + " .bg{fill:" + fillcolor + "}#" + qrcodeId + " .fg{fill:" + textcolor + "}"));
+
+			var style = document[createElementNS](
+				"http://www.w3.org/2000/svg",
+				"style"
+			);
+			style[appendChild](
+				document[createTextNode](
+					"#" +
+						qrcodeId +
+						" .bg{fill:" +
+						fillcolor +
+						"}#" +
+						qrcodeId +
+						" .fg{fill:" +
+						textcolor +
+						"}"
+				)
+			);
 			/* style[setAttributeNS](null, "scoped", "scoped"); */
+
 			frag[appendChild](style);
-			var createRect = function (c, f, x, y, s) {
-				var fg = document[createElementNS]("http://www.w3.org/2000/svg", "rect") || "";
+
+			var createRect = function createRect(c, f, x, y, s) {
+				var fg =
+					document[createElementNS](
+						"http://www.w3.org/2000/svg",
+						"rect"
+					) || "";
 				fg[setAttributeNS](null, "class", c);
 				fg[setAttributeNS](null, "fill", f);
 				fg[setAttributeNS](null, "x", x);

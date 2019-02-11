@@ -4821,6 +4821,10 @@ u,
 	white-space: nowrap;
 }
 
+.minigrid__content {
+	padding: 0.938rem;
+}
+
 .office-hours,
 .office-address,
 .office-qrcode {

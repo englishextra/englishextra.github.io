@@ -815,6 +815,13 @@ button {
 	clear: both;
 }
 
+.minigrid img {
+	display: block;
+	width: 100%;
+	height: auto;
+	background-color: #eeeeee;
+}
+
 .minigrid--no-js {
 	width: 100%;
 	margin: 0 auto;
@@ -855,7 +862,7 @@ button {
 		0 0 0.063rem 0 rgba(0, 0, 0, 0.12);
 	box-shadow: 0 0.063rem 0.063rem 0 rgba(0, 0, 0, 0.16),
 		0 0 0.063rem 0 rgba(0, 0, 0, 0.12);
-	padding: 0.938rem;
+	/* padding: 0.938rem; */
 }
 
 @media (min-width: 360px) {
@@ -903,24 +910,15 @@ button {
 .minigrid__item h1:first-child,
 .minigrid__item h2:first-child,
 .minigrid__item h3:first-child,
-.minigrid__item p:first-child,
-.minigrid__item .data-src-img-figure:first-child {
+.minigrid__item p:first-child {
 	margin-top: 0;
 }
 
-.minigrid__item .data-src-img-figure:last-child {
+.minigrid__item h1:only-child,
+.minigrid__item h2:only-child,
+.minigrid__item h3:only-child,
+.minigrid__item p:only-child {
 	margin-bottom: 0;
-}
-
-.minigrid__item .data-src-img-figure,
-.minigrid__item .ymap-iframe-wrapper {
-	margin-right: -1.25rem;
-	margin-left: -1.25rem;
-}
-
-.minigrid__item .data-src-img-figure figcaption {
-	margin-right: 1.25rem;
-	margin-left: 1.25rem;
 }
 
 .minigrid__item.minigrid__item--skeleton {
@@ -987,6 +985,10 @@ button {
 
 .minigrid__item .contacts-buttons {
 	white-space: nowrap;
+}
+
+.minigrid__content {
+	padding: 0.938rem;
 }
 
 .office-hours,

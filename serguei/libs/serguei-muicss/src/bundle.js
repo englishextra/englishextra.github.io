@@ -1231,15 +1231,15 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 			opt = null;
 			var rmLink = getByClass(document, "rm-link") || "";
-			var arrange = function (e) {
-				var rmLinkIsBindedClass = "rm-link--is-binded";
-				if (!hasClass(e, rmLinkIsBindedClass)) {
-					addClass(e, rmLinkIsBindedClass);
-					addListener(e, "click", cb);
-				}
-			};
 			var initScript = function () {
 				$readMoreJS.init(settings);
+				var arrange = function (e) {
+					var rmLinkIsBindedClass = "rm-link--is-binded";
+					if (!hasClass(e, rmLinkIsBindedClass)) {
+						addClass(e, rmLinkIsBindedClass);
+						addListener(e, "click", cb);
+					}
+				};
 				var i,
 				l;
 				for (i = 0, l = rmLink[_length]; i < l; i += 1) {
@@ -1524,9 +1524,10 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			};
 			if (!btn) {
 				btn = document.createElement("a");
-				addClass(btn, btnClass, "mui-btn");
-				addClass(btn, btnClass, "mui-btn--fab");
-				addClass(btn, btnClass, "ripple");
+				addClass(btn, btnClass);
+				addClass(btn, "mui-btn");
+				addClass(btn, "mui-btn--fab");
+				addClass(btn, "ripple");
 				btn[setAttribute]("aria-label", "Навигация");
 				/* jshint -W107 */
 				btn.href = "javascript:void(0);";
@@ -1747,7 +1748,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 					if (!hasClass(disqusThread[parentNode], minigridItemIsBindedClass)) {
 						addClass(disqusThread[parentNode], minigridItemIsBindedClass);
 						onHeightChange(disqusThread[parentNode], 1000, null, setDisqusCSSClass);
-						addListener(disqusThread[parentNode], "onresize", updateMinigridThrottled, {passive: true});
+						/* addListener(disqusThread[parentNode], "onresize", updateMinigridThrottled, {passive: true}); */
 					}
 				} catch (err) {
 					throw new Error("cannot DISQUS.reset " + err);
@@ -1782,7 +1783,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 							if (!hasClass(instagramMedia[i][parentNode], minigridItemIsBindedClass)) {
 								addClass(instagramMedia[i][parentNode], minigridItemIsBindedClass);
 								onHeightChange(instagramMedia[i][parentNode], 1000, null, setIsActiveClass.bind(null, instagramMedia[i][parentNode]));
-								addListener(instagramMedia[i][parentNode], "onresize", updateMinigridThrottled, {passive: true});
+								/* addListener(instagramMedia[i][parentNode], "onresize", updateMinigridThrottled, {passive: true}); */
 							}
 						}
 						i = l = null;
@@ -1816,7 +1817,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 							if (!hasClass(twitterTweet[i][parentNode], minigridItemIsBindedClass)) {
 								addClass(twitterTweet[i][parentNode], minigridItemIsBindedClass);
 								onHeightChange(twitterTweet[i][parentNode], 1000, null, setIsActiveClass.bind(null, twitterTweet[i][parentNode]));
-								addListener(twitterTweet[i][parentNode], "onresize", updateMinigridThrottled, {passive: true});
+								/* addListener(twitterTweet[i][parentNode], "onresize", updateMinigridThrottled, {passive: true}); */
 							}
 						}
 						i = l = null;
@@ -1854,7 +1855,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 							if (!hasClass(vkPost[i][parentNode], minigridItemIsBindedClass)) {
 								addClass(vkPost[i][parentNode], minigridItemIsBindedClass);
 								onHeightChange(vkPost[i][parentNode], 1000, null, setIsActiveClass.bind(null, vkPost[i][parentNode]));
-								addListener(vkPost[i][parentNode], "onresize", updateMinigridThrottled, {passive: true});
+								/* addListener(vkPost[i][parentNode], "onresize", updateMinigridThrottled, {passive: true}); */
 								initVkPost(vkPost[i].id, vkPost[i][dataset].vkOwnerid, vkPost[i][dataset].vkPostid, vkPost[i][dataset].vkHash);
 							}
 						}
@@ -1875,9 +1876,12 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
+		var anyResizeEventIsBindedClass = "any-resize-event--is-binded";
+
 		appEvents.addListeners("MinigridInited", [handleDataSrcIframeAll.bind(null, updateMinigridThrottled),
 				handleDataSrcImgAll.bind(null, updateMinigridThrottled),
 				manageDataQrcodeImgAll.bind(null, updateMinigridThrottled),
+				manageReadMore.bind(null, updateMinigridThrottled),
 				scroll2Top.bind(null, 0, 20000),
 				manageInstagramEmbedAll,
 				manageTwitterEmbedAll,
@@ -1920,6 +1924,15 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 					var item = getByClass(minigrid, minigridItemClass) || "";
 					var itemLength = item[_length] || 0;
 					if (item && !hasClass(minigrid, isActiveClass)) {
+						var i,
+						l;
+						for (i = 0, l = item[_length]; i < l; i += 1) {
+							if (!hasClass(item[i], anyResizeEventIsBindedClass)) {
+								addClass(item[i], anyResizeEventIsBindedClass);
+								addListener(item[i], "onresize", updateMinigridThrottled, {passive: true});
+							}
+						}
+						i = l = null;
 						scroll2Top(1, 20000);
 						appEvents.emitEvent("MinigridItemsFound");
 						resolve("manageMinigrid: found " + itemLength + " cards");
@@ -1955,6 +1968,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 
 		appEvents.addListeners("MacyInited", [handleDataSrcIframeAll.bind(null, updateMacyThrottled),
 				handleDataSrcImgAll.bind(null, updateMacyThrottled),
+				manageReadMore.bind(null, updateMinigridThrottled),
 				scroll2Top.bind(null, 0, 20000)]);
 
 		var macyClass = "macy";
@@ -1998,6 +2012,15 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 					var item = macy ? (macy.children || macy[querySelectorAll]("." + macyClass + " > *") || "") : "";
 					var itemLength = item[_length] || 0;
 					if (item && !hasClass(macy, isActiveClass)) {
+						var i,
+						l;
+						for (i = 0, l = item[_length]; i < l; i += 1) {
+							if (!hasClass(item[i], anyResizeEventIsBindedClass)) {
+								addClass(item[i], anyResizeEventIsBindedClass);
+								addListener(item[i], "onresize", updateMacyThrottled, {passive: true});
+							}
+						}
+						i = l = null;
 						scroll2Top(1, 20000);
 						appEvents.emitEvent("MacyItemsFound");
 						resolve("manageMacy: found " + itemLength + " items");
@@ -2317,7 +2340,6 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 						manageDropdownButtonAll();
 						manageHljs();
 						manageRipple();
-						manageReadMore(updateMinigrid);
 						manageExpandingLayerAll();
 						manageMacy(macyClass).then(function (result) {
 							console.log(result);
