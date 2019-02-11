@@ -61,7 +61,7 @@ removeClass, Masonry, Packery, Promise, require, ToProgress, verge*/
 (function (root, document) {
 	"use strict";
 	var getByClass = function (parent, name) {
-		if (!Element.getElementsByClassName) {
+		if (!document.getElementsByClassName) {
 			var children = (parent || document.body).getElementsByTagName("*"),
 			elements = [],
 			classRE = new RegExp("\\b" + name + "\\b"),

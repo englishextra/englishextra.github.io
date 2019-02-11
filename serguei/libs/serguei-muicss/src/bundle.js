@@ -63,7 +63,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 (function (root, document) {
 	"use strict";
 	var getByClass = function (parent, name) {
-		if (!Element.getElementsByClassName) {
+		if (!document.getElementsByClassName) {
 			var children = (parent || document.body).getElementsByTagName("*"),
 			elements = [],
 			classRE = new RegExp("\\b" + name + "\\b"),
@@ -1213,26 +1213,26 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
-			var defaultSettings = {
-				target: ".dummy",
-				numOfWords: 10,
-				toggle: true,
-				moreLink: "БОЛЬШЕ",
-				lessLink: "МЕНЬШЕ",
-				inline: true,
-				customBlockElement: "p"
-			};
-			var settings = options || {};
-			var opt;
-			for (opt in defaultSettings) {
-				if (defaultSettings.hasOwnProperty(opt) && !settings.hasOwnProperty(opt)) {
-					settings[opt] = defaultSettings[opt];
-				}
-			}
-			opt = null;
-			var rmLink = getByClass(document, "rm-link") || "";
 			var initScript = function () {
+				var defaultSettings = {
+					target: ".dummy",
+					numOfWords: 10,
+					toggle: true,
+					moreLink: "БОЛЬШЕ",
+					lessLink: "МЕНЬШЕ",
+					inline: true,
+					customBlockElement: "p"
+				};
+				var settings = options || {};
+				var opt;
+				for (opt in defaultSettings) {
+					if (defaultSettings.hasOwnProperty(opt) && !settings.hasOwnProperty(opt)) {
+						settings[opt] = defaultSettings[opt];
+					}
+				}
+				opt = null;
 				$readMoreJS.init(settings);
+				var rmLink = getByClass(document, "rm-link") || "";
 				var arrange = function (e) {
 					var rmLinkIsBindedClass = "rm-link--is-binded";
 					if (!hasClass(e, rmLinkIsBindedClass)) {
@@ -1247,7 +1247,7 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 				}
 				i = l = null;
 			};
-			if (root.$readMoreJS && rmLink) {
+			if (root.$readMoreJS) {
 				initScript();
 			}
 		};

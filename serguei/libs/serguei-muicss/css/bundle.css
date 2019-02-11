@@ -822,23 +822,23 @@ button {
 	background-color: #eeeeee;
 }
 
-.minigrid--no-js {
+.no-js .minigrid {
 	width: 100%;
 	margin: 0 auto;
 	position: relative;
 }
 
-.minigrid--no-js:before,
-.minigrid--no-js:after {
+.no-js .minigrid:before,
+.no-js .minigrid:after {
 	content: " ";
 	display: table;
 }
 
-.minigrid--no-js:after {
+.no-js .minigrid:after {
 	clear: both;
 }
 
-.minigrid--no-js .minigrid__item {
+.no-js .minigrid .minigrid__item {
 	margin: 1.25rem;
 }
 

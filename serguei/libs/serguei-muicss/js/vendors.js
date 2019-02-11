@@ -138,7 +138,7 @@
  * @author George Raptis | http://georap.gr
  * @see {@link https://github.com/georapbox/ReadMore.js/blob/master/src/readMoreJS.js}
  * changed: rmLink = doc.querySelectorAll('.rm-link');
- * to: rmLink = doc.getElementsByClassName('rm-link') || "";
+ * to: rmLink = doc.querySelectorAll('.rm-link') || "";
  * changed: var target = doc.querySelectorAll(options.target)
  * to: var target = elementsSelector(options.target)
  */
@@ -194,27 +194,7 @@
 			lessLink: "read less"
 		};
 		options = RM.helpers.extendObj({}, defaults, options);
-		var elementsSelector;
-
-		elementsSelector = function elementsSelector(
-			selector,
-			context,
-			undefined
-		) {
-			var matches = {
-				"#": "getElementById",
-				".": "getElementsByClassName",
-				"@": "getElementsByName",
-				"=": "getElementsByTagName",
-				"*": "querySelectorAll"
-			}[selector[0]];
-			var el = (context === undefined ? document : context)[matches](
-				selector.slice(1)
-			);
-			return el.length < 2 ? el[0] : el;
-		};
-
-		var target = elementsSelector(options.target) || "",
+		var target = doc.querySelectorAll(options.target),
 			targetLen = target.length,
 			targetContent,
 			trimmedTargetContent,
@@ -272,7 +252,7 @@
 			}
 		}
 
-		rmLink = doc.getElementsByClassName("rm-link") || "";
+		rmLink = doc.querySelectorAll(".rm-link") || "";
 
 		var func = function func() {
 			moreLinkID = this.getAttribute("id");
