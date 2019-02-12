@@ -95,32 +95,28 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
  * get elements by class name wrapper
  */
 
-(function(root, document) {
+(function (root, document) {
 	"use strict";
-
-	var getByClass = function getByClass(parent, name) {
-		if (!Element.getElementsByClassName) {
+	var getByClass = function (parent, name) {
+		if (!document.getElementsByClassName) {
 			var children = (parent || document.body).getElementsByTagName("*"),
-				elements = [],
-				classRE = new RegExp("\\b" + name + "\\b"),
-				child;
-			var i, l;
-
+			elements = [],
+			classRE = new RegExp("\\b" + name + "\\b"),
+			child;
+			var i,
+			l;
 			for (i = 0, l = children.length; i < l; i += 1) {
 				child = children[i];
-
 				if (classRE.test(child.className)) {
 					elements.push(child);
 				}
 			}
-
 			i = l = null;
 			return elements;
 		} else {
 			return parent ? parent.getElementsByClassName(name) : "";
 		}
 	};
-
 	root.getByClass = getByClass;
 })("undefined" !== typeof window ? window : this, document);
 /*!
