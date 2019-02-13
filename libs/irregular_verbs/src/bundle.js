@@ -1,7 +1,8 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global doesFontExist, DoSlide, loadJsCss, addListener, removeListener, getByClass, addClass, hasClass, removeClass,
-toggleClass, QRCode, require, ToProgress, unescape, VK, Ya*/
+/*global doesFontExist, DoSlide, loadJsCss, addListener, getByClass, addClass,
+hasClass, removeClass, toggleClass, QRCode, require, ToProgress, unescape, VK,
+Ya*/
 /*property console, split */
 /*!
  * safe way to handle console.log

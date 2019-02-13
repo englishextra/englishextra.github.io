@@ -284,7 +284,8 @@ var options = {
 			"../../cdn/wheel-indicator/1.1.4/js/wheel-indicator.fixed.js",
 			"../../cdn/resize/1.0.0/js/any-resize-event.fixed.js",
 			"../../cdn/mustache/2.3.0/js/mustache.fixed.js",
-			"../../cdn/EventEmitter/5.2.5/js/EventEmitter.fixed.js"
+			"../../cdn/EventEmitter/5.2.5/js/EventEmitter.fixed.js",
+			"../../cdn/lazyload/10.19.0/js/lazyload.iife.fixed.js"
 		],
 		js: "./js",
 		scss: [

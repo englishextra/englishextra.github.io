@@ -2,9 +2,10 @@
 /*jslint node: true */
 /*global $readMoreJS, ActiveXObject, console, DISQUS, doesFontExist,
 EventEmitter, hljs, IframeLightbox, imgLightbox, instgrm, JsonHashRouter,
-loadJsCss, addListener, removeListener, getByClass, addClass, hasClass,
-removeClass, toggleClass, Macy, Minigrid, Mustache, progressBar, Promise,
-QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
+loadJsCss, LazyLoad, addListener, removeListener, getByClass, addClass,
+hasClass, removeClass, toggleClass, LazyLoad, Macy, Minigrid, Mustache,
+progressBar, Promise, QRCode, require, ripple, t, twttr, unescape, VK,
+WheelIndicator, Ya*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -995,89 +996,84 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var handleDataSrcImgAll = function (callback) {
+		var dataSrcImgClass = "data-src-img";
+
+		var dataSrcImgIsBindedClass = "data-src-img--is-binded";
+
+		root.lazyLoadDataSrcImgInstance = null;
+
+		/*!
+		 * @see {@link https://github.com/verlok/lazyload}
+		 */
+		var manageDataSrcImgAll = function (callback) {
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
-			var images = getByClass(document, "data-src-img") || "";
+			var images = getByClass(document, dataSrcImgClass) || "";
 			var i = images[_length];
-			var dataSrcImgIsBindedClass = "data-src-img--is-binded";
 			while (i--) {
-				var wH = root.innerHeight;
-				var boundingRect = images[i].getBoundingClientRect();
-				var offset = 100;
-				var yPositionTop = boundingRect.top - wH;
-				var yPositionBottom = boundingRect.bottom;
-				if (!hasClass(images[i], dataSrcImgIsBindedClass) && yPositionTop <= offset && yPositionBottom >= -offset) {
+				if (!hasClass(images[i], dataSrcImgIsBindedClass)) {
 					addClass(images[i], dataSrcImgIsBindedClass);
-					images[i].src = images[i][dataset].src || "";
-					images[i].srcset = images[i][dataset].srcset || "";
 					addClass(images[i], isActiveClass);
-					cb();
+					addListener(images[i], "load", cb);
 				}
+			}
+			i = null;
+			if (root.LazyLoad) {
+				if (root.lazyLoadDataSrcImgInstance) {
+					root.lazyLoadDataSrcImgInstance.destroy();
+				}
+				root.lazyLoadDataSrcImgInstance = new LazyLoad({
+						elements_selector: "." + dataSrcImgClass
+					});
 			}
 		};
 
-		var handleDataSrcImgAllWindow = throttle(handleDataSrcImgAll, 100);
+		var dataSrcIframeClass = "data-src-iframe";
 
-		var manageDataSrcImgAll = function () {
-			addListener(root, "scroll", handleDataSrcImgAllWindow, {passive: true});
-			addListener(root, "resize", handleDataSrcImgAllWindow, {passive: true});
-			var timer = setTimeout(function () {
-					clearTimeout(timer);
-					timer = null;
-					handleDataSrcImgAll();
-				}, 100);
-		};
-		manageDataSrcImgAll();
+		var dataSrcIframeIsBindedClass = "data-src-iframe--is-binded";
 
-		var handleDataSrcIframeAll = function (callback) {
+		root.lazyLoadDataSrcIframeInstance = null;
+
+		/*!
+		 * @see {@link https://github.com/verlok/lazyload}
+		 */
+		var manageDataSrcIframeAll = function (callback) {
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
-			var iframes = getByClass(document, "data-src-iframe") || "";
+			var iframes = getByClass(document, dataSrcIframeClass) || "";
 			var i = iframes[_length];
-			var dataSrcIframeIsBindedClass = "data-src-iframe--is-binded";
 			while (i--) {
-				var wH = root.innerHeight;
-				var boundingRect = iframes[i].getBoundingClientRect();
-				var offset = 100;
-				var yPositionTop = boundingRect.top - wH;
-				var yPositionBottom = boundingRect.bottom;
-				if (!hasClass(iframes[i], dataSrcIframeIsBindedClass) && yPositionTop <= offset && yPositionBottom >= -offset) {
+				if (!hasClass(iframes[i], dataSrcIframeIsBindedClass)) {
 					addClass(iframes[i], dataSrcIframeIsBindedClass);
-					iframes[i].src = iframes[i][dataset].src || "";
 					addClass(iframes[i], isActiveClass);
+					addListener(iframes[i], "load", cb);
 					iframes[i][setAttribute]("frameborder", "no");
 					iframes[i][setAttribute]("style", "border:none;");
 					iframes[i][setAttribute]("webkitallowfullscreen", "true");
 					iframes[i][setAttribute]("mozallowfullscreen", "true");
 					iframes[i][setAttribute]("scrolling", "no");
 					iframes[i][setAttribute]("allowfullscreen", "true");
-					cb();
 				}
 			}
+			i = null;
+			if (root.LazyLoad) {
+				if (root.lazyLoadDataSrcIframeInstance) {
+					root.lazyLoadDataSrcIframeInstance.destroy();
+				}
+				root.lazyLoadDataSrcIframeInstance = new LazyLoad({
+						elements_selector: "." + dataSrcIframeClass
+					});
+			}
 		};
-
-		var handleDataSrcIframeAllWindow = throttle(handleDataSrcIframeAll, 100);
-
-		var manageDataSrcIframeAll = function () {
-			addListener(root, "scroll", handleDataSrcIframeAllWindow, {passive: true});
-			addListener(root, "resize", handleDataSrcIframeAllWindow, {passive: true});
-			var timer = setTimeout(function () {
-					clearTimeout(timer);
-					timer = null;
-					handleDataSrcIframeAll();
-				}, 100);
-		};
-		manageDataSrcIframeAll();
 
 		var imgLightboxLinkClass = "img-lightbox-link";
 
 		/*!
 		 * @see {@link https://github.com/englishextra/img-lightbox}
 		 */
-		var manageImgLightbox = function (imgLightboxLinkClass) {
+		var manageImgLightbox = function () {
 			var link = getByClass(document, imgLightboxLinkClass) || "";
 			var initScript = function () {
 				imgLightbox(imgLightboxLinkClass, {
@@ -1097,14 +1093,13 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 				initScript();
 			}
 		};
-		manageImgLightbox(imgLightboxLinkClass);
 
 		var iframeLightboxLinkClass = "iframe-lightbox-link";
 
 		/*!
 		 * @see {@link https://github.com/englishextra/iframe-lightbox}
 		 */
-		var manageIframeLightbox = function (iframeLightboxLinkClass) {
+		var manageIframeLightbox = function () {
 			var link = getByClass(document, iframeLightboxLinkClass) || "";
 			var initScript = function () {
 				var arrange = function (e) {
@@ -1132,13 +1127,13 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 				initScript();
 			}
 		};
-		manageIframeLightbox(iframeLightboxLinkClass);
+
+		var dataQrcodeImgClass = "data-qrcode-img";
 
 		var manageDataQrcodeImgAll = function (callback) {
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
-			var dataQrcodeImgClass = "data-qrcode-img";
 			var img = getByClass(document, dataQrcodeImgClass) || "";
 			var generateImg = function (e) {
 				var qrcode = e[dataset].qrcode || "";
@@ -1878,8 +1873,8 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 
 		var anyResizeEventIsBindedClass = "any-resize-event--is-binded";
 
-		appEvents.addListeners("MinigridInited", [handleDataSrcIframeAll.bind(null, updateMinigridThrottled),
-				handleDataSrcImgAll.bind(null, updateMinigridThrottled),
+		appEvents.addListeners("MinigridInited", [manageDataSrcIframeAll.bind(null, updateMinigridThrottled),
+				manageDataSrcImgAll.bind(null, updateMinigridThrottled),
 				manageDataQrcodeImgAll.bind(null, updateMinigridThrottled),
 				manageReadMore.bind(null, updateMinigridThrottled),
 				scroll2Top.bind(null, 0, 20000),
@@ -1966,8 +1961,8 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 
 		var updateMacyThrottled = throttle(updateMacy, 1000);
 
-		appEvents.addListeners("MacyInited", [handleDataSrcIframeAll.bind(null, updateMacyThrottled),
-				handleDataSrcImgAll.bind(null, updateMacyThrottled),
+		appEvents.addListeners("MacyInited", [manageDataSrcIframeAll.bind(null, updateMacyThrottled),
+				manageDataSrcImgAll.bind(null, updateMacyThrottled),
 				manageReadMore.bind(null, updateMinigridThrottled),
 				scroll2Top.bind(null, 0, 20000)]);
 
@@ -2027,40 +2022,6 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 					} else {
 						reject("manageMacy: no items found");
 					}
-					/* var img = macy[getElementsByTagName]("img") || "";
-					var imgLength = img[_length] || 0;
-					var imgCounter = 0;
-					var onLoad;
-					var onError;
-					var addListeners = function (e) {
-						addListener(e, "load", onLoad, false);
-						addListener(e, "error", onError, false);
-					};
-					var removeListeners = function (e) {
-						removeListener(e, "load", onLoad, false);
-						removeListener(e, "error", onError, false);
-					};
-					onLoad = function () {
-						removeListeners(this);
-						imgCounter++;
-						if (imgCounter === imgLength) {
-							scroll2Top(1, 20000);
-							appEvents.emitEvent("MacyItemsFound");
-							resolve("manageMacy: all " + imgCounter + " images loaded");
-						}
-					};
-					onError = function () {
-						removeListeners(this);
-						reject("manageMacy: cannot load " + this.src);
-					};
-					if (img && !hasClass(macy, isActiveClass)) {
-						var i,
-						l;
-						for (i = 0, l = img[_length]; i < l; i += 1) {
-							addListeners(img[i]);
-						}
-						i = l = null;
-					} */
 				};
 				if (root.Macy && macy) {
 					initScript();
@@ -2335,8 +2296,8 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 						highlightSidedrawerItem();
 						managePrevNext(jsonObj);
 						manageExternalLinkAll();
-						manageImgLightbox(imgLightboxLinkClass);
-						manageIframeLightbox(iframeLightboxLinkClass);
+						manageImgLightbox();
+						manageIframeLightbox();
 						manageDropdownButtonAll();
 						manageHljs();
 						manageRipple();
@@ -2345,9 +2306,9 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 							console.log(result);
 						})
 						/* .then(function () {
-							handleDataSrcImgAll(updateMacyThrottled);
+							manageDataSrcImgAll(updateMacyThrottled);
 						}).then(function () {
-							handleDataSrcIframeAll(updateMacyThrottled);
+							manageDataSrcIframeAll(updateMacyThrottled);
 						}).then(function () {
 							scroll2Top(0, 20000);
 						}) */
@@ -2358,9 +2319,9 @@ QRCode, require, ripple, t, twttr, unescape, VK, WheelIndicator, Ya*/
 							console.log(result);
 						})
 						/* .then(function () {
-							handleDataSrcImgAll(updateMinigridThrottled);
+							manageDataSrcImgAll(updateMinigridThrottled);
 						}).then(function () {
-							handleDataSrcIframeAll(updateMinigridThrottled);
+							manageDataSrcIframeAll(updateMinigridThrottled);
 						}).then(function () {
 							manageDataQrcodeImgAll(updateMinigridThrottled);
 						}).then(function () {

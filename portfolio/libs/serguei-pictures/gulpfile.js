@@ -213,11 +213,11 @@ var options = {
 	},
 	vendors: {
 		src: [
-			"../../cdn/verge/1.9.1/js/verge.fixed.js",
 			"../../cdn/Tocca.js/2.0.1/js/Tocca.fixed.js",
 			"../../cdn/qrjs2/0.1.7/js/qrjs2.fixed.js",
 			"../../cdn/photoswipe/4.1.0/js/photoswipe.photoswipe-ui-default.fixed.js",
-			"../../cdn/packery/2.1.1/js/packery.imagesloaded.pkgd.fixed.js"
+			"../../cdn/packery/2.1.1/js/packery.imagesloaded.pkgd.fixed.js",
+			"../../cdn/lazyload/10.19.0/js/lazyload.iife.fixed.js"
 		],
 		js: "./js",
 		concatOptions: {

@@ -1,9 +1,9 @@
 /*jslint browser: true */
 /*jslint node: true */
 /*global ActiveXObject, Cookies, doesFontExist, IframeLightbox, imgLightbox,
-imagePromise, Kamil, loadJsCss, addListener, removeListener, getByClass,
-addClass, hasClass, removeClass, toggleClass, Promise, QRCode, require,
-Tablesort, ToProgress, unescape, verge, VK, Ya*/
+Kamil, loadJsCss, LazyLoad, addListener, removeListener, getByClass, addClass,
+hasClass, removeClass, toggleClass, Promise, QRCode, require, Tablesort,
+ToProgress, unescape, VK, Ya*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -520,7 +520,6 @@ Tablesort, ToProgress, unescape, verge, VK, Ya*/
 		var title = "title";
 
 		var isActiveClass = "is-active";
-		var isBindedClass = "is-binded";
 		var isSocialClass = "is-social";
 
 		progressBar.increase(20);
@@ -1184,99 +1183,77 @@ Tablesort, ToProgress, unescape, verge, VK, Ya*/
 		};
 		manageTablesort();
 
-		var handleDataSrcImgAll = function () {
-			var img = getByClass(document, "data-src-img") || "";
-			var arrange = function (e) {
-				if (verge.inY(e, 100)) {
-					if (!hasClass(e, isBindedClass)) {
-						var srcString = e[dataset].src || "";
-						if (srcString) {
-							if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
-								e[dataset].src = srcString.replace(/^/, forcedHTTP + ":");
-								srcString = e[dataset].src;
-							}
-							imagePromise(srcString).then(function () {
-								e.src = srcString;
-							}).catch (function (err) {
-								console.log("cannot load image with imagePromise:", srcString, err);
-							});
-							addClass(e, isActiveClass);
-							addClass(e, isBindedClass);
-						}
-					}
-				}
+		var dataSrcImgClass = "data-src-img";
+
+		var dataSrcImgIsBindedClass = "data-src-img--is-binded";
+
+		root.lazyLoadDataSrcImgInstance = null;
+
+		/*!
+		 * @see {@link https://github.com/verlok/lazyload}
+		 */
+		var manageDataSrcImgAll = function (callback) {
+			var cb = function () {
+				return callback && "function" === typeof callback && callback();
 			};
-			if (img) {
-				var i,
-				l;
-				for (i = 0, l = img[_length]; i < l; i += 1) {
-					arrange(img[i]);
+			var images = getByClass(document, dataSrcImgClass) || "";
+			var i = images[_length];
+			while (i--) {
+				if (!hasClass(images[i], dataSrcImgIsBindedClass)) {
+					addClass(images[i], dataSrcImgIsBindedClass);
+					addClass(images[i], isActiveClass);
+					addListener(images[i], "load", cb);
 				}
-				i = l = null;
 			}
-		};
-
-		var handleDataSrcImgAllWindow = throttle(handleDataSrcImgAll, 100);
-
-		var manageDataSrcImgAll = function () {
-			removeListener(root, "scroll", handleDataSrcImgAllWindow, {passive: true});
-			removeListener(root, "resize", handleDataSrcImgAllWindow);
-			addListener(root, "scroll", handleDataSrcImgAllWindow, {passive: true});
-			addListener(root, "resize", handleDataSrcImgAllWindow);
-			var timer = setTimeout(function () {
-					clearTimeout(timer);
-					timer = null;
-					handleDataSrcImgAll();
-				}, 100);
+			i = null;
+			if (root.LazyLoad) {
+				if (root.lazyLoadDataSrcImgInstance) {
+					root.lazyLoadDataSrcImgInstance.destroy();
+				}
+				root.lazyLoadDataSrcImgInstance = new LazyLoad({
+						elements_selector: "." + dataSrcImgClass
+					});
+			}
 		};
 		manageDataSrcImgAll();
 
-		var handleDataSrcIframeAll = function () {
-			var ifrm = getByClass(document, "data-src-iframe") || "";
-			var arrange = function (e) {
-				if (verge.inY(e, 100)) {
-					if (!hasClass(e, isBindedClass)) {
-						var srcString = e[dataset].src || "";
-						if (srcString) {
-							if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
-								e[dataset].src = srcString.replace(/^/, forcedHTTP + ":");
-								srcString = e[dataset].src;
-							}
-							e.src = srcString;
-							e[setAttribute]("frameborder", "no");
-							e[setAttribute]("style", "border:none;");
-							e[setAttribute]("webkitallowfullscreen", "true");
-							e[setAttribute]("mozallowfullscreen", "true");
-							e[setAttribute]("scrolling", "no");
-							e[setAttribute]("allowfullscreen", "true");
-							addClass(e, isActiveClass);
-							addClass(e, isBindedClass);
-						}
-					}
-				}
+		var dataSrcIframeClass = "data-src-iframe";
+
+		var dataSrcIframeIsBindedClass = "data-src-iframe--is-binded";
+
+		root.lazyLoadDataSrcIframeInstance = null;
+
+		/*!
+		 * @see {@link https://github.com/verlok/lazyload}
+		 */
+		var manageDataSrcIframeAll = function (callback) {
+			var cb = function () {
+				return callback && "function" === typeof callback && callback();
 			};
-			if (ifrm) {
-				var i,
-				l;
-				for (i = 0, l = ifrm[_length]; i < l; i += 1) {
-					arrange(ifrm[i]);
+			var iframes = getByClass(document, dataSrcIframeClass) || "";
+			var i = iframes[_length];
+			while (i--) {
+				if (!hasClass(iframes[i], dataSrcIframeIsBindedClass)) {
+					addClass(iframes[i], dataSrcIframeIsBindedClass);
+					addClass(iframes[i], isActiveClass);
+					addListener(iframes[i], "load", cb);
+					iframes[i][setAttribute]("frameborder", "no");
+					iframes[i][setAttribute]("style", "border:none;");
+					iframes[i][setAttribute]("webkitallowfullscreen", "true");
+					iframes[i][setAttribute]("mozallowfullscreen", "true");
+					iframes[i][setAttribute]("scrolling", "no");
+					iframes[i][setAttribute]("allowfullscreen", "true");
 				}
-				i = l = null;
 			}
-		};
-
-		var handleDataSrcIframeAllWindow = throttle(handleDataSrcIframeAll, 100);
-
-		var manageDataSrcIframeAll = function () {
-			removeListener(root, "scroll", handleDataSrcIframeAllWindow, {passive: true});
-			removeListener(root, "resize", handleDataSrcIframeAllWindow);
-			addListener(root, "scroll", handleDataSrcIframeAllWindow, {passive: true});
-			addListener(root, "resize", handleDataSrcIframeAllWindow);
-			var timer = setTimeout(function () {
-					clearTimeout(timer);
-					timer = null;
-					handleDataSrcIframeAll();
-				}, 100);
+			i = null;
+			if (root.LazyLoad) {
+				if (root.lazyLoadDataSrcIframeInstance) {
+					root.lazyLoadDataSrcIframeInstance.destroy();
+				}
+				root.lazyLoadDataSrcIframeInstance = new LazyLoad({
+						elements_selector: "." + dataSrcIframeClass
+					});
+			}
 		};
 		manageDataSrcIframeAll();
 
@@ -1285,7 +1262,7 @@ Tablesort, ToProgress, unescape, verge, VK, Ya*/
 		/*!
 		 * @see {@link https://github.com/englishextra/img-lightbox}
 		 */
-		var manageImgLightbox = function (imgLightboxLinkClass) {
+		var manageImgLightbox = function () {
 			var link = getByClass(document, imgLightboxLinkClass) || "";
 			var initScript = function () {
 				imgLightbox(imgLightboxLinkClass, {
@@ -1305,14 +1282,14 @@ Tablesort, ToProgress, unescape, verge, VK, Ya*/
 				initScript();
 			}
 		};
-		manageImgLightbox(imgLightboxLinkClass);
+		manageImgLightbox();
 
 		var iframeLightboxLinkClass = "iframe-lightbox-link";
 
 		/*!
 		 * @see {@link https://github.com/englishextra/iframe-lightbox}
 		 */
-		var manageIframeLightbox = function (iframeLightboxLinkClass) {
+		var manageIframeLightbox = function () {
 			var link = getByClass(document, iframeLightboxLinkClass) || "";
 			var initScript = function () {
 				var arrange = function (e) {
@@ -1340,7 +1317,7 @@ Tablesort, ToProgress, unescape, verge, VK, Ya*/
 				initScript();
 			}
 		};
-		manageIframeLightbox(iframeLightboxLinkClass);
+		manageIframeLightbox();
 
 		var manageChaptersSelect = function () {
 			var chaptersSelect = document[getElementById]("chapters-select") || "";

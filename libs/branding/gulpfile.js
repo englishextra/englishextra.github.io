@@ -213,7 +213,6 @@ var options = {
 	},
 	vendors: {
 		src: [
-			"../../cdn/verge/1.9.1/js/verge.fixed.js",
 			"../../cdn/iframe-lightbox/0.2.8/js/iframe-lightbox.fixed.js",
 			"../../cdn/img-lightbox/0.2.3/js/img-lightbox.fixed.js",
 			"../../cdn/Tocca.js/2.0.1/js/Tocca.fixed.js",
@@ -222,7 +221,8 @@ var options = {
 			"../../cdn/js-cookie/2.1.3/js/js.cookie.fixed.js",
 			"../../cdn/kamil/0.1.1/js/kamil.fixed.js",
 			"../../cdn/google-code-prettify/0.1/js/prettify.bundled.fixed.js",
-			"../../cdn/packery/2.1.1/js/packery.pkgd.fixed.js"
+			"../../cdn/packery/2.1.1/js/packery.pkgd.fixed.js",
+			"../../cdn/lazyload/10.19.0/js/lazyload.iife.fixed.js"
 		],
 		js: "./js",
 		concatOptions: {

@@ -1,7 +1,7 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global $, jQuery, doesFontExist, loadJsCss, addListener, removeListener, getByClass, addClass, hasClass, removeClass,
-toggleClass, require, ToProgress*/
+/*global $, jQuery, doesFontExist, loadJsCss, addListener, getByClass, addClass,
+hasClass, removeClass, toggleClass, require, ToProgress*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log

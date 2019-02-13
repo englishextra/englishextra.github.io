@@ -1,8 +1,8 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global doesFontExist, Draggabilly, imagePromise, imagesLoaded, Isotope,
-loadJsCss, addListener, removeListener, getByClass, addClass, hasClass,
-removeClass, Masonry, Packery, Promise, require, ToProgress, verge*/
+/*global doesFontExist, Draggabilly, Isotope, loadJsCss, imagesLoaded, LazyLoad,
+addListener, getByClass, addClass, hasClass, removeClass, Masonry, Packery,
+Promise, require, ToProgress*/
 /*property console, split */
 /*!
  * safe way to handle console.log
@@ -493,8 +493,6 @@ removeClass, Masonry, Packery, Promise, require, ToProgress, verge*/
 		return "http:" === locProtocol ? "http" : "https:" === locProtocol ? "https" : any ? "http" : "";
 	};
 
-	var forcedHTTP = getHTTP(true);
-
 	var supportsCanvas;
 	supportsCanvas = (function () {
 		var elem = document.createElement("canvas");
@@ -504,9 +502,9 @@ removeClass, Masonry, Packery, Promise, require, ToProgress, verge*/
 	var run = function () {
 
 		var appendChild = "appendChild";
-		var dataset = "dataset";
 		var getAttribute = "getAttribute";
 		var getElementsByTagName = "getElementsByTagName";
+		var setAttribute = "setAttribute";
 		var title = "title";
 
 		var isActiveClass = "is-active";
@@ -898,56 +896,79 @@ removeClass, Masonry, Packery, Promise, require, ToProgress, verge*/
 		};
 		manageExternalLinkAll();
 
-		var handleDataSrcImgAll = function () {
-			var img = getByClass(document, "data-src-img") || "";
-			var arrange = function (e) {
-				/*!
-				 * true if elem is in same y-axis as the viewport or within 100px of it
-				 * @see {@link https://github.com/ryanve/verge}
-				 */
-				if (verge.inY(e, 100) /* && 0 !== e.offsetHeight */) {
-					if (!hasClass(e, isBindedClass)) {
-						var srcString = e[dataset].src || "";
-						if (srcString) {
-							if (parseLink(srcString).isAbsolute && !parseLink(srcString).hasHTTP) {
-								e[dataset].src = srcString.replace(/^/, forcedHTTP + ":");
-								srcString = e[dataset].src;
-							}
-							imagePromise(srcString).then(function () {
-								e.src = srcString;
-							}).catch (function (err) {
-								console.log("cannot load image with imagePromise:", srcString, err);
-							});
-							addClass(e, isActiveClass);
-							addClass(e, isBindedClass);
-						}
-					}
-				}
+		var dataSrcImgClass = "data-src-img";
+
+		var dataSrcImgIsBindedClass = "data-src-img--is-binded";
+
+		root.lazyLoadDataSrcImgInstance = null;
+
+		/*!
+		 * @see {@link https://github.com/verlok/lazyload}
+		 */
+		var manageDataSrcImgAll = function (callback) {
+			var cb = function () {
+				return callback && "function" === typeof callback && callback();
 			};
-			if (img) {
-				var i,
-				l;
-				for (i = 0, l = img[_length]; i < l; i += 1) {
-					arrange(img[i]);
+			var images = getByClass(document, dataSrcImgClass) || "";
+			var i = images[_length];
+			while (i--) {
+				if (!hasClass(images[i], dataSrcImgIsBindedClass)) {
+					addClass(images[i], dataSrcImgIsBindedClass);
+					addClass(images[i], isActiveClass);
+					addListener(images[i], "load", cb);
 				}
-				i = l = null;
+			}
+			i = null;
+			if (root.LazyLoad) {
+				if (root.lazyLoadDataSrcImgInstance) {
+					root.lazyLoadDataSrcImgInstance.destroy();
+				}
+				root.lazyLoadDataSrcImgInstance = new LazyLoad({
+						elements_selector: "." + dataSrcImgClass
+					});
 			}
 		};
-
-		var handleDataSrcImgAllWindow = throttle(handleDataSrcImgAll, 100);
-
-		var manageDataSrcImgAll = function () {
-			removeListener(root, "scroll", handleDataSrcImgAllWindow, {passive: true});
-			removeListener(root, "resize", handleDataSrcImgAllWindow);
-			addListener(root, "scroll", handleDataSrcImgAllWindow, {passive: true});
-			addListener(root, "resize", handleDataSrcImgAllWindow);
-			var timer = setTimeout(function () {
-					clearTimeout(timer);
-					timer = null;
-					handleDataSrcImgAll();
-				}, 100);
-		};
 		manageDataSrcImgAll();
+
+		var dataSrcIframeClass = "data-src-iframe";
+
+		var dataSrcIframeIsBindedClass = "data-src-iframe--is-binded";
+
+		root.lazyLoadDataSrcIframeInstance = null;
+
+		/*!
+		 * @see {@link https://github.com/verlok/lazyload}
+		 */
+		var manageDataSrcIframeAll = function (callback) {
+			var cb = function () {
+				return callback && "function" === typeof callback && callback();
+			};
+			var iframes = getByClass(document, dataSrcIframeClass) || "";
+			var i = iframes[_length];
+			while (i--) {
+				if (!hasClass(iframes[i], dataSrcIframeIsBindedClass)) {
+					addClass(iframes[i], dataSrcIframeIsBindedClass);
+					addClass(iframes[i], isActiveClass);
+					addListener(iframes[i], "load", cb);
+					iframes[i][setAttribute]("frameborder", "no");
+					iframes[i][setAttribute]("style", "border:none;");
+					iframes[i][setAttribute]("webkitallowfullscreen", "true");
+					iframes[i][setAttribute]("mozallowfullscreen", "true");
+					iframes[i][setAttribute]("scrolling", "no");
+					iframes[i][setAttribute]("allowfullscreen", "true");
+				}
+			}
+			i = null;
+			if (root.LazyLoad) {
+				if (root.lazyLoadDataSrcIframeInstance) {
+					root.lazyLoadDataSrcIframeInstance.destroy();
+				}
+				root.lazyLoadDataSrcIframeInstance = new LazyLoad({
+						elements_selector: "." + dataSrcIframeClass
+					});
+			}
+		};
+		manageDataSrcIframeAll();
 
 		var initMasonry = function () {
 			var gridItemClass = "masonry-grid-item";
@@ -1004,7 +1025,7 @@ removeClass, Masonry, Packery, Promise, require, ToProgress, verge*/
 						var timer = setTimeout(function () {
 								clearTimeout(timer);
 								timer = null;
-								handleDataSrcImgAll();
+								manageDataSrcImgAll();
 							}, 500);
 					};
 					if (btn) {
@@ -1041,7 +1062,7 @@ removeClass, Masonry, Packery, Promise, require, ToProgress, verge*/
 						var timer = setTimeout(function () {
 								clearTimeout(timer);
 								timer = null;
-								handleDataSrcImgAll();
+								manageDataSrcImgAll();
 							}, 500);
 					};
 					if (sel) {

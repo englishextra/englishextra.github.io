@@ -213,8 +213,8 @@ var options = {
 	},
 	vendors: {
 		src: [
-			"../../cdn/verge/1.9.1/js/verge.fixed.js",
-			"../../cdn/isotope/3.0.1/js/isotope.imagesloaded.pkgd.fixed.js"
+			"../../cdn/isotope/3.0.1/js/isotope.imagesloaded.pkgd.fixed.js",
+			"../../cdn/lazyload/10.19.0/js/lazyload.iife.fixed.js"
 		],
 		js: "./js",
 		concatOptions: {
