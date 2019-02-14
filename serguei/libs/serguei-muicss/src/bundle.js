@@ -1885,6 +1885,8 @@ WheelIndicator, Ya*/
 
 		var minigridClass = "minigrid";
 
+		var minigridIsActiveClass = "minigrid--is-active";
+
 		var minigridItemClass = "minigrid__item";
 
 		var initMinigrid = function () {
@@ -1901,7 +1903,7 @@ WheelIndicator, Ya*/
 							gutter: 20
 						});
 					root.minigridInstance.mount();
-					addClass(minigrid, isActiveClass);
+					addClass(minigrid, minigridIsActiveClass);
 					addListener(root, "resize", updateMinigrid, {passive: true});
 					appEvents.emitEvent("MinigridInited");
 				} catch (err) {
@@ -1916,15 +1918,18 @@ WheelIndicator, Ya*/
 			return new Promise(function (resolve, reject) {
 				var minigrid = getByClass(document, minigridClass)[0] || "";
 				var initScript = function () {
-					var item = getByClass(minigrid, minigridItemClass) || "";
-					var itemLength = item[_length] || 0;
-					if (item && !hasClass(minigrid, isActiveClass)) {
+					var minigridItems = getByClass(minigrid, minigridItemClass) || "";
+					var itemLength = minigridItems[_length] || 0;
+					if (minigridItems && !hasClass(minigrid, minigridIsActiveClass)) {
 						var i,
 						l;
-						for (i = 0, l = item[_length]; i < l; i += 1) {
-							if (!hasClass(item[i], anyResizeEventIsBindedClass)) {
-								addClass(item[i], anyResizeEventIsBindedClass);
-								addListener(item[i], "onresize", updateMinigridThrottled, {passive: true});
+						for (i = 0, l = minigridItems[_length]; i < l; i += 1) {
+							if (!hasClass(minigridItems[i], minigridItemIsBindedClass)) {
+								addClass(minigridItems[i], minigridItemIsBindedClass);
+							}
+							if (!hasClass(minigridItems[i], anyResizeEventIsBindedClass)) {
+								addClass(minigridItems[i], anyResizeEventIsBindedClass);
+								addListener(minigridItems[i], "onresize", updateMinigridThrottled, {passive: true});
 							}
 						}
 						i = l = null;
@@ -1968,6 +1973,8 @@ WheelIndicator, Ya*/
 
 		var macyClass = "macy";
 
+		var macyIsActiveClass = "macy--is-active";
+
 		var initMacy = function () {
 			var macy = getByClass(document, macyClass)[0] || "";
 			if (macy) {
@@ -1990,7 +1997,7 @@ WheelIndicator, Ya*/
 								360: 1
 							}
 						});
-					addClass(macy, isActiveClass);
+					addClass(macy, macyIsActiveClass);
 					appEvents.emitEvent("MacyInited");
 				} catch (err) {
 					throw new Error("cannot init Macy " + err);
@@ -2004,15 +2011,18 @@ WheelIndicator, Ya*/
 			return new Promise(function (resolve, reject) {
 				var macy = getByClass(document, macyClass)[0] || "";
 				var initScript = function () {
-					var item = macy ? (macy.children || macy[querySelectorAll]("." + macyClass + " > *") || "") : "";
-					var itemLength = item[_length] || 0;
-					if (item && !hasClass(macy, isActiveClass)) {
+					var macyItems = macy ? (macy.children || macy[querySelectorAll]("." + macyClass + " > *") || "") : "";
+					var itemLength = macyItems[_length] || 0;
+					if (macyItems && !hasClass(macy, macyIsActiveClass)) {
 						var i,
 						l;
-						for (i = 0, l = item[_length]; i < l; i += 1) {
-							if (!hasClass(item[i], anyResizeEventIsBindedClass)) {
-								addClass(item[i], anyResizeEventIsBindedClass);
-								addListener(item[i], "onresize", updateMacyThrottled, {passive: true});
+						for (i = 0, l = macyItems[_length]; i < l; i += 1) {
+							if (!hasClass(macyItems[i], macyItemIsBindedClass)) {
+								addClass(macyItems[i], macyItemIsBindedClass);
+							}
+							if (!hasClass(macyItems[i], anyResizeEventIsBindedClass)) {
+								addClass(macyItems[i], anyResizeEventIsBindedClass);
+								addListener(macyItems[i], "onresize", updateMacyThrottled, {passive: true});
 							}
 						}
 						i = l = null;

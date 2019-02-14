@@ -870,7 +870,7 @@ VK, WheelIndicator, Ya*/
 
 		var wrapper = getByClass(document, "wrapper")[0] || "";
 
-		manageExternalLinkAll(wrapper);
+		manageExternalLinkAll();
 
 		var manageLocationQrcode = function () {
 			var qrcode = getByClass(document, "qrcode")[0] || "";
@@ -1194,7 +1194,7 @@ VK, WheelIndicator, Ya*/
 						support = true;
 					}
 				});
-			addListener(root, "test", function () {}, opts);
+			root.addEventListener("test", function() {}, opts);
 		} catch (err) {}
 		return support;
 	})();

@@ -1682,89 +1682,61 @@ if (
  * forced passive event listener if supported
  * passes jshint
  */
-(function(root, document) {
+(function (root, document) {
 	"use strict";
-
-	var echo = function echo(imgClass, dataAttributeName, throttleRate) {
+	var echo = function (imgClass, dataAttributeName, throttleRate) {
 		var _imgClass = imgClass || "data-src-img";
-
 		var _dataAttributeName = dataAttributeName || "src";
-
 		var _throttleRate = throttleRate || 100;
-
-		var _addEventListener = "addEventListener";
 		var classList = "classList";
 		var dataset = "dataset";
-		var defineProperty = "defineProperty";
 		var documentElement = "documentElement";
 		var getAttribute = "getAttribute";
 		var getBoundingClientRect = "getBoundingClientRect";
 		var getElementsByClassName = "getElementsByClassName";
 		var _length = "length";
-
-		var Echo = function Echo(elem) {
+		var Echo = function (elem) {
 			var _this = this;
-
 			_this.elem = elem;
-
 			_this.render();
-
 			_this.listen();
 		};
-
-		var isBindedEchoClass = "echo--is-binded";
-
-		var isBindedEcho = (function() {
-			return (
-				document[documentElement][classList].contains(
-					isBindedEchoClass
-				) || ""
-			);
+		var echoIsBindedClass = "echo--is-binded";
+		var isBindedEcho = (function () {
+			return document[documentElement][classList].contains(echoIsBindedClass) || "";
 		})();
-
 		var echoStore = [];
-
-		var scrolledIntoView = function scrolledIntoView(element) {
+		var scrolledIntoView = function (element) {
 			var coords = element[getBoundingClientRect]();
-			return (
-				(coords.top >= 0 && coords.left >= 0 && coords.top) <=
-				(root.innerHeight || document[documentElement].clientHeight)
-			);
+			return ((coords.top >= 0 && coords.left >= 0 && coords.top) <= (root.innerHeight || document[documentElement].clientHeight));
 		};
-
-		var echoSrc = function echoSrc(img, callback) {
-			img.src =
-				img[dataset][_dataAttributeName] ||
-				img[getAttribute]("data-" + _dataAttributeName);
-
-			if (callback) {
+		var echoSrc = function (img, callback) {
+			img.src = img[dataset][_dataAttributeName] || img[getAttribute]("data-" + _dataAttributeName);
+			if (callback && "function" === typeof callback) {
 				callback();
 			}
 		};
-
-		var removeEcho = function removeEcho(element, index) {
+		var removeEcho = function (element, index) {
 			if (echoStore.indexOf(element) !== -1) {
 				echoStore.splice(index, 1);
 			}
 		};
-
-		var echoImageAll = function echoImageAll() {
-			for (var i = 0; i < echoStore[_length]; i++) {
+		var echoImageAll = function () {
+			var i;
+			for (i = 0; i < echoStore[_length]; i++) {
 				var self = echoStore[i];
-
 				if (scrolledIntoView(self)) {
 					echoSrc(self, removeEcho(self, i));
 				}
 			}
+			i = null;
 		};
-
-		var throttle = function throttle(func, wait) {
+		var throttle = function (func, wait) {
 			var ctx;
 			var args;
 			var rtn;
 			var timeoutID;
 			var last = 0;
-
 			function call() {
 				timeoutID = 0;
 				last = +new Date();
@@ -1772,12 +1744,10 @@ if (
 				ctx = null;
 				args = null;
 			}
-
 			return function throttled() {
 				ctx = this;
 				args = arguments;
 				var delta = new Date() - last;
-
 				if (!timeoutID) {
 					if (delta >= wait) {
 						call();
@@ -1785,68 +1755,50 @@ if (
 						timeoutID = setTimeout(call, wait - delta);
 					}
 				}
-
 				return rtn;
 			};
 		};
-
 		var throttleEchoImageAll = throttle(echoImageAll, _throttleRate);
-
-		var supportsPassive = (function() {
-			var support = false;
-
-			try {
-				var opts =
-					Object.defineProperty &&
-					Object.defineProperty({}, "passive", {
-						get: function get() {
-							support = true;
-						}
-					});
-				addListener(root, "test", function() {}, opts);
-			} catch (err) {}
-
-			return support;
-		})();
-
+		var supportsPassive = (function () {
+				var support = false;
+				try {
+					var opts = Object.defineProperty && Object.defineProperty({}, "passive", {
+							get: function () {
+								support = true;
+							}
+						});
+					root.addEventListener("test", function() {}, opts);
+				} catch (err) {}
+				return support;
+			})();
 		Echo.prototype = {
-			init: function init() {
+			init: function () {
 				echoStore.push(this.elem);
 			},
-			render: function render() {
+			render: function () {
 				echoImageAll();
 			},
-			listen: function listen() {
+			listen: function () {
 				if (!isBindedEcho) {
-					addListener(
-						root,
-						"scroll",
-						throttleEchoImageAll,
-						supportsPassive
-							? {
-									passive: true
-							  }
-							: false
-					);
-					document[documentElement][classList].add(isBindedEchoClass);
+					root.addEventListener("scroll", throttleEchoImageAll, supportsPassive ? {passive: true} : false);
+					root.addEventListener("resize", throttleEchoImageAll);
+					document[documentElement][classList].add(echoIsBindedClass);
 				}
 			}
 		};
 		var lazyImgs = document[getElementsByClassName](_imgClass) || "";
-
-		var walkLazyImageAll = function walkLazyImageAll() {
+		var walkLazyImageAll = function () {
 			for (var i = 0; i < lazyImgs[_length]; i++) {
 				new Echo(lazyImgs[i]).init();
 			}
 		};
-
 		if (lazyImgs) {
 			walkLazyImageAll();
 		}
 	};
-
 	root.echo = echo;
 })("undefined" !== typeof window ? window : this, document);
+
 
 /*!
  * @license Minigrid v3.1.1 minimal cascading grid layout http://alves.im/minigrid

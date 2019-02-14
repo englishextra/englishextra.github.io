@@ -12,10 +12,8 @@
 		var _imgClass = imgClass || "data-src-img";
 		var _dataAttributeName = dataAttributeName || "src";
 		var _throttleRate = throttleRate || 100;
-		var _addEventListener = "addEventListener";
 		var classList = "classList";
 		var dataset = "dataset";
-		var defineProperty = "defineProperty";
 		var documentElement = "documentElement";
 		var getAttribute = "getAttribute";
 		var getBoundingClientRect = "getBoundingClientRect";
@@ -27,9 +25,9 @@
 			_this.render();
 			_this.listen();
 		};
-		var isBindedEchoClass = "echo--is-binded";
+		var echoIsBindedClass = "echo--is-binded";
 		var isBindedEcho = (function () {
-			return document[documentElement][classList].contains(isBindedEchoClass) || "";
+			return document[documentElement][classList].contains(echoIsBindedClass) || "";
 		})();
 		var echoStore = [];
 		var scrolledIntoView = function (element) {
@@ -38,7 +36,7 @@
 		};
 		var echoSrc = function (img, callback) {
 			img.src = img[dataset][_dataAttributeName] || img[getAttribute]("data-" + _dataAttributeName);
-			if (callback) {
+			if (callback && "function" === typeof callback) {
 				callback();
 			}
 		};
@@ -48,12 +46,14 @@
 			}
 		};
 		var echoImageAll = function () {
-			for (var i = 0; i < echoStore[_length]; i++) {
+			var i;
+			for (i = 0; i < echoStore[_length]; i++) {
 				var self = echoStore[i];
 				if (scrolledIntoView(self)) {
 					echoSrc(self, removeEcho(self, i));
 				}
 			}
+			i = null;
 		};
 		var throttle = function (func, wait) {
 			var ctx;
@@ -91,7 +91,7 @@
 								support = true;
 							}
 						});
-					addListener(root, "test", function () {}, opts);
+					root.addEventListener("test", function() {}, opts);
 				} catch (err) {}
 				return support;
 			})();
@@ -104,8 +104,9 @@
 			},
 			listen: function () {
 				if (!isBindedEcho) {
-					addListener(root, "scroll", throttleEchoImageAll, supportsPassive ? {passive: true} : false);
-					document[documentElement][classList].add(isBindedEchoClass);
+					root.addEventListener("scroll", throttleEchoImageAll, supportsPassive ? {passive: true} : false);
+					root.addEventListener("resize", throttleEchoImageAll);
+					document[documentElement][classList].add(echoIsBindedClass);
 				}
 			}
 		};

@@ -806,7 +806,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 
 		var wrapper = getByClass(document, "wrapper")[0] || "";
 
-		manageExternalLinkAll(wrapper);
+		manageExternalLinkAll();
 
 		var dataSrcImgClass = "data-src-img";
 		var jsonSrcKeyName = "src";
@@ -1037,7 +1037,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 				}).then(function () {
 					timerCreateGallery = setTimeout(createGallery, 500);
 				}).then(function () {
-					manageExternalLinkAll(wrapper);
+					manageExternalLinkAll();
 				}).then(function () {
 					timerSetLazyloading = setTimeout(setLazyloading, 1000);
 				}).catch (function (err) {
@@ -1366,7 +1366,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 						support = true;
 					}
 				});
-			addListener(root, "test", function () {}, opts);
+			root.addEventListener("test", function() {}, opts);
 		} catch (err) {}
 		return support;
 	})();

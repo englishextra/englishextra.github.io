@@ -1098,7 +1098,7 @@ hasClass, removeClass, toggleClass, require, ToProgress*/
 						support = true;
 					}
 				});
-			addListener(root, "test", function () {}, opts);
+			root.addEventListener("test", function() {}, opts);
 		} catch (err) {}
 		return support;
 	})();

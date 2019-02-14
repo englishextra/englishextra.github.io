@@ -1214,7 +1214,7 @@ removeClass, toggleClass, QRCode, require, ToProgress, unescape, VK, Ya*/
 						support = true;
 					}
 				});
-			addListener(root, "test", function () {}, opts);
+			root.addEventListener("test", function() {}, opts);
 		} catch (err) {}
 		return support;
 	})();

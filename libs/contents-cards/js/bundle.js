@@ -1,8 +1,8 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global doesFontExist, echo, Headers, loadJsCss, addListener, getByClass,
-addClass, hasClass, removeClass, toggleClass, Minigrid, Mustache, platform,
-Promise, t, ToProgress, VK, WheelIndicator, Ya*/
+/*global ActiveXObject, doesFontExist, echo, loadJsCss, addListener, getByClass,
+ addClass, hasClass, removeClass, toggleClass, Minigrid, Mustache, platform,
+ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -549,6 +549,9 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 		};
 
 		var minigridClass = "minigrid";
+
+		var minigridIsActiveClass = "minigrid--is-active";
+
 		var minigrid = getByClass(document, minigridClass)[0] || "";
 
 		observeMutations(minigrid);
@@ -764,6 +767,25 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 		};
 		manageExternalLinkAll();
 
+		var loadUnparsedJSON = function (url, callback, onerror) {
+			var cb = function (string) {
+				return callback && "function" === typeof callback && callback(string);
+			};
+			var x = root.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+			x.overrideMimeType("application/json;charset=utf-8");
+			x.open("GET", url, true);
+			x.withCredentials = false;
+			x.onreadystatechange = function () {
+				if (x.status === 404 || x.status === 0) {
+					console.log("Error XMLHttpRequest-ing file", x.status);
+					return onerror && "function" === typeof onerror && onerror();
+				} else if (x.readyState === 4 && x.status === 200 && x.responseText) {
+					cb(x.responseText);
+				}
+			};
+			x.send(null);
+		};
+
 		var setStyleDisplayNone = function (a) {
 			if (a) {
 				a[style].display = "none";
@@ -807,7 +829,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 
 		var wrapper = getByClass(document, "wrapper")[0] || "";
 
-		manageExternalLinkAll(wrapper);
+		manageExternalLinkAll();
 
 		var dataSrcImgClass = "data-src-img";
 		var minigridItemClass = "minigrid__item";
@@ -905,7 +927,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 			return count;
 		};
 
-		var manageMinigrid = function () {
+		var manageMinigrid = function (minigridClass) {
 			var generateCardGrid = function (text) {
 
 				return new Promise(function (resolve, reject) {
@@ -1080,25 +1102,26 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 					minigrid[style].visibility = "visible";
 					minigrid[style].opacity = 1;
 				};
-				var mgrid;
+
+				root.minigridInstance = null;
 
 				var initMinigrid = function () {
-					mgrid = new Minigrid({
+					root.minigridInstance = new Minigrid({
 							container: "." + minigridClass,
 							item: "." + minigridItemClass,
-							gutter: 20/* ,
-							done: onMinigridCreated */
+							gutter: 20
 						});
-					mgrid.mount();
+					root.minigridInstance.mount();
+					addClass(minigrid, minigridIsActiveClass);
 					onMinigridCreated();
 					addCardWrapCssRule();
 				};
 				var updateMinigrid = function () {
-					if (mgrid) {
+					if (root.minigridInstance) {
 						var timer = setTimeout(function () {
 								clearTimeout(timer);
 								timer = null;
-								mgrid.mount();
+								root.minigridInstance.mount();
 							}, 100);
 					}
 				};
@@ -1114,7 +1137,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 				echo(dataSrcImgClass, jsonSrcKeyName);
 			};
 
-			var myHeaders = new Headers();
+			/* var myHeaders = new Headers();
 
 			fetch(jsonUrl, {
 				headers: myHeaders,
@@ -1129,9 +1152,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 				generateCardGrid(text).then(function () {
 					timerCreateGrid = setTimeout(createGrid, 500);
 				}).then(function () {
-					manageExternalLinkAll(wrapper);
-				}).then(function () {
-					manageExternalLinkAll(wrapper);
+					manageExternalLinkAll();
 				}).then(function () {
 					timerSetLazyloading = setTimeout(setLazyloading, 1000);
 				}).catch (function (err) {
@@ -1139,9 +1160,18 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 				});
 			}).catch (function (err) {
 				console.log("cannot parse", jsonUrl, err);
-			});
+			}); */
+			if (root.Minigrid && minigrid) {
+				loadUnparsedJSON(jsonUrl, function (text) {
+					generateCardGrid(text);
+					timerCreateGrid = setTimeout(createGrid, 200);
+					timerSetLazyloading = setTimeout(setLazyloading, 500);
+				}, function (err) {
+					console.log("cannot parse", jsonUrl, err);
+				});
+			}
 		};
-		manageMinigrid();
+		manageMinigrid(minigridClass);
 
 		var hideOtherIsSocial = function (thisObj) {
 			var _thisObj = thisObj || this;
@@ -1460,7 +1490,7 @@ Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 						support = true;
 					}
 				});
-			addListener(root, "test", function () {}, opts);
+			root.addEventListener("test", function() {}, opts);
 		} catch (err) {}
 		return support;
 	})();

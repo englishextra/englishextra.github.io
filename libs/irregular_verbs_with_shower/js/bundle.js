@@ -1033,7 +1033,7 @@ removeClass, toggleClass, require, ToProgress, VK, Ya*/
 						support = true;
 					}
 				});
-			addListener(root, "test", function () {}, opts);
+			root.addEventListener("test", function() {}, opts);
 		} catch (err) {}
 		return support;
 	})();

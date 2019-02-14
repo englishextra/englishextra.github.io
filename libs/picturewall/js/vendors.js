@@ -1959,12 +1959,12 @@ if (
 			_this.listen();
 		};
 
-		var isBindedEchoClass = "echo--is-binded";
+		var echoIsBindedClass = "echo--is-binded";
 
 		var isBindedEcho = (function() {
 			return (
 				document[documentElement][classList].contains(
-					isBindedEchoClass
+					echoIsBindedClass
 				) || ""
 			);
 		})();
@@ -1984,7 +1984,7 @@ if (
 				img[dataset][_dataAttributeName] ||
 				img[getAttribute]("data-" + _dataAttributeName);
 
-			if (callback) {
+			if (callback && "function" === typeof callback) {
 				callback();
 			}
 		};
@@ -2075,7 +2075,7 @@ if (
 							  }
 							: false
 					);
-					document[documentElement][classList].add(isBindedEchoClass);
+					document[documentElement][classList].add(echoIsBindedClass);
 				}
 			}
 		};
