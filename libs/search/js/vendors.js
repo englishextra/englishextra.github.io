@@ -1515,7 +1515,7 @@ function _typeof(obj) {
 				});
 			}
 			/* Attributes
-	  ---------------------------------------------------------------------- */
+      ---------------------------------------------------------------------- */
 			// Support: IE<8
 			// Verify that getAttribute really returns attributes and not properties (excepting IE8 booleans)
 
@@ -1524,7 +1524,7 @@ function _typeof(obj) {
 				return !div.getAttribute("className");
 			});
 			/* getElement(s)By*
-	  ---------------------------------------------------------------------- */
+      ---------------------------------------------------------------------- */
 			// Check if getElementsByTagName("*") returns only elements
 
 			support.getElementsByTagName = assert(function(div) {
@@ -1628,7 +1628,7 @@ function _typeof(obj) {
 					}
 				};
 			/* QSA/matchesSelector
-	  ---------------------------------------------------------------------- */
+      ---------------------------------------------------------------------- */
 			// QSA and matchesSelector support
 			// matchesSelector(:active) reports false when true (IE9/Opera 11.5)
 
@@ -1713,7 +1713,7 @@ function _typeof(obj) {
 			rbuggyMatches =
 				rbuggyMatches.length && new RegExp(rbuggyMatches.join("|"));
 			/* Contains
-	  ---------------------------------------------------------------------- */
+      ---------------------------------------------------------------------- */
 			// Element contains another
 			// Purposefully does not implement inclusive descendent
 			// As in, an element does not contain itself
@@ -1749,7 +1749,7 @@ function _typeof(obj) {
 							return false;
 					  };
 			/* Sorting
-	  ---------------------------------------------------------------------- */
+      ---------------------------------------------------------------------- */
 			// Document order sorting
 
 			sortOrder = docElem.compareDocumentPosition
@@ -2023,15 +2023,15 @@ function _typeof(obj) {
 				},
 				CHILD: function CHILD(match) {
 					/* matches from matchExpr["CHILD"]
-		  	1 type (only|nth|...)
-		  	2 what (child|of-type)
-		  	3 argument (even|odd|\d*|\d*n([+-]\d+)?|...)
-		  	4 xn-component of xn+y argument ([+-]?\d*n|)
-		  	5 sign of xn-component
-		  	6 x of xn-component
-		  	7 sign of y-component
-		  	8 y of y-component
-		  */
+          	1 type (only|nth|...)
+          	2 what (child|of-type)
+          	3 argument (even|odd|\d*|\d*n([+-]\d+)?|...)
+          	4 xn-component of xn+y argument ([+-]?\d*n|)
+          	5 sign of xn-component
+          	6 x of xn-component
+          	7 sign of y-component
+          	8 y of y-component
+          */
 					match[1] = match[1].toLowerCase();
 
 					if (match[1].slice(0, 3) === "nth") {
@@ -4596,7 +4596,7 @@ function _typeof(obj) {
 				i = 0,
 				l = this.length;
 
-			for (; i < l; i += 1) {
+			for (; i < l; i++) {
 				if (
 					this[i].nodeType === 1 &&
 					(" " + this[i].className + " ")
@@ -6326,7 +6326,7 @@ function _typeof(obj) {
 						? jQuery(selectors, context || this.context)
 						: 0;
 
-			for (; i < l; i += 1) {
+			for (; i < l; i++) {
 				for (
 					cur = this[i];
 					cur && cur !== context;
@@ -6734,7 +6734,7 @@ function _typeof(obj) {
 						value = value.replace(rxhtmlTag, "<$1></$2>");
 
 						try {
-							for (; i < l; i += 1) {
+							for (; i < l; i++) {
 								// Remove element nodes and prevent memory leaks
 								elem = this[i] || {};
 
@@ -6845,7 +6845,7 @@ function _typeof(obj) {
 					hasScripts = scripts.length; // Use the original fragment for the last item instead of the first because it can end up
 					// being emptied incorrectly in certain situations (#8070).
 
-					for (; i < l; i += 1) {
+					for (; i < l; i++) {
 						node = fragment;
 
 						if (i !== iNoClone) {
@@ -6956,7 +6956,7 @@ function _typeof(obj) {
 			curData.events = {};
 
 			for (type in events) {
-				for (i = 0, l = events[type].length; i < l; i += 1) {
+				for (i = 0, l = events[type].length; i < l; i++) {
 					jQuery.event.add(dest, type, events[type][i]);
 				}
 			}
@@ -7171,7 +7171,7 @@ function _typeof(obj) {
 				nodes = [],
 				i = 0;
 
-			for (; i < l; i += 1) {
+			for (; i < l; i++) {
 				elem = elems[i];
 
 				if (elem || elem === 0) {
@@ -8543,16 +8543,16 @@ function _typeof(obj) {
 			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 
 			/*
-	  timeout: 0,
-	  data: null,
-	  dataType: null,
-	  username: null,
-	  password: null,
-	  cache: null,
-	  throws: false,
-	  traditional: false,
-	  headers: {},
-	  */
+      timeout: 0,
+      data: null,
+      dataType: null,
+      username: null,
+      password: null,
+      cache: null,
+      throws: false,
+      traditional: false,
+      headers: {},
+      */
 			accepts: {
 				"*": allTypes,
 				text: "text/plain",
@@ -10948,7 +10948,7 @@ function _typeof(obj) {
 			}
 
 			var pnotify = $("<div />", {
-				class: "ui-pnotify " + opts.getByClass, addClass,
+				class: "ui-pnotify " + opts.addclass,
 				css: {
 					display: "none"
 				},

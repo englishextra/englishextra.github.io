@@ -1281,12 +1281,47 @@ function _typeof(obj) {
 }.call(this));
 /* jshint ignore:end */
 
-!(function(t, i, e) {
-	"use strict";
+/**
+ * Parallax.js
+ * @author Matthew Wagerfield - @wagerfield
+ * @description Creates a parallax effect between an array of layers,
+ *	   driving the motion from the gyroscope output of a smartdevice.
+ *	   If no gyroscope is available, the cursor position is used.
+ */
+(function(window, document, undefined) {
+	// Strict Mode
+	"use strict"; // Constants
 
-	function s(t, i) {
-		(this.element = t), (this.layers = t.getElementsByClassName("layer"));
-		var e = {
+	var NAME = "Parallax";
+	var MAGIC_NUMBER = 30;
+	var DEFAULTS = {
+		relativeInput: false,
+		clipRelativeInput: false,
+		calibrationThreshold: 100,
+		calibrationDelay: 500,
+		supportDelay: 500,
+		calibrateX: false,
+		calibrateY: true,
+		invertX: true,
+		invertY: true,
+		limitX: false,
+		limitY: false,
+		scalarX: 10.0,
+		scalarY: 10.0,
+		frictionX: 0.1,
+		frictionY: 0.1,
+		originX: 0.5,
+		originY: 0.5,
+		pointerEvents: true,
+		precision: 1
+	};
+
+	function Parallax(element, options) {
+		// DOM Context
+		this.element = element;
+		this.layers = element.getElementsByClassName("layer"); // Data Extraction
+
+		var data = {
 			calibrateX: this.data(this.element, "calibrate-x"),
 			calibrateY: this.data(this.element, "calibrate-y"),
 			invertX: this.data(this.element, "invert-x"),
@@ -1301,428 +1336,531 @@ function _typeof(obj) {
 			originY: this.data(this.element, "origin-y"),
 			pointerEvents: this.data(this.element, "pointer-events"),
 			precision: this.data(this.element, "precision")
-		};
+		}; // Delete Null Data Values
 
-		for (var s in e) {
-			null === e[s] && delete e[s];
-		}
+		for (var key in data) {
+			if (data[key] === null) delete data[key];
+		} // Compose Settings Object
 
-		this.extend(this, r, i, e),
-			(this.calibrationTimer = null),
-			(this.calibrationFlag = !0),
-			(this.enabled = !1),
-			(this.depthsX = []),
-			(this.depthsY = []),
-			(this.raf = null),
-			(this.bounds = null),
-			(this.ex = 0),
-			(this.ey = 0),
-			(this.ew = 0),
-			(this.eh = 0),
-			(this.ecx = 0),
-			(this.ecy = 0),
-			(this.erx = 0),
-			(this.ery = 0),
-			(this.cx = 0),
-			(this.cy = 0),
-			(this.ix = 0),
-			(this.iy = 0),
-			(this.mx = 0),
-			(this.my = 0),
-			(this.vx = 0),
-			(this.vy = 0),
-			(this.onMouseMove = this.onMouseMove.bind(this)),
-			(this.onDeviceOrientation = this.onDeviceOrientation.bind(this)),
-			(this.onOrientationTimer = this.onOrientationTimer.bind(this)),
-			(this.onCalibrationTimer = this.onCalibrationTimer.bind(this)),
-			(this.onAnimationFrame = this.onAnimationFrame.bind(this)),
-			(this.onWindowResize = this.onWindowResize.bind(this)),
-			this.initialise();
+		this.extend(this, DEFAULTS, options, data); // States
+
+		this.calibrationTimer = null;
+		this.calibrationFlag = true;
+		this.enabled = false;
+		this.depthsX = [];
+		this.depthsY = [];
+		this.raf = null; // Element Bounds
+
+		this.bounds = null;
+		this.ex = 0;
+		this.ey = 0;
+		this.ew = 0;
+		this.eh = 0; // Element Center
+
+		this.ecx = 0;
+		this.ecy = 0; // Element Range
+
+		this.erx = 0;
+		this.ery = 0; // Calibration
+
+		this.cx = 0;
+		this.cy = 0; // Input
+
+		this.ix = 0;
+		this.iy = 0; // Motion
+
+		this.mx = 0;
+		this.my = 0; // Velocity
+
+		this.vx = 0;
+		this.vy = 0; // Callbacks
+
+		this.onMouseMove = this.onMouseMove.bind(this);
+		this.onDeviceOrientation = this.onDeviceOrientation.bind(this);
+		this.onOrientationTimer = this.onOrientationTimer.bind(this);
+		this.onCalibrationTimer = this.onCalibrationTimer.bind(this);
+		this.onAnimationFrame = this.onAnimationFrame.bind(this);
+		this.onWindowResize = this.onWindowResize.bind(this); // Initialise
+
+		this.initialise();
 	}
 
-	var o = "Parallax",
-		n = 30,
-		r = {
-			relativeInput: !1,
-			clipRelativeInput: !1,
-			calibrationThreshold: 100,
-			calibrationDelay: 500,
-			supportDelay: 500,
-			calibrateX: !1,
-			calibrateY: !0,
-			invertX: !0,
-			invertY: !0,
-			limitX: !1,
-			limitY: !1,
-			scalarX: 10,
-			scalarY: 10,
-			frictionX: 0.1,
-			frictionY: 0.1,
-			originX: 0.5,
-			originY: 0.5,
-			pointerEvents: !0,
-			precision: 1
-		};
-	(s.prototype.extend = function() {
-		if (arguments.length > 1)
-			for (
-				var t = arguments[0], i = 1, e = arguments.length;
-				e > i;
-				i++
-			) {
-				var s = arguments[i];
+	Parallax.prototype.extend = function() {
+		if (arguments.length > 1) {
+			var master = arguments[0];
 
-				for (var o in s) {
-					s.hasOwnProperty(o) && (t[o] = s[o]);
-				}
-			}
-	}),
-		(s.prototype.data = function(t, i) {
-			return this.deserialize(t.getAttribute("data-" + i));
-		}),
-		(s.prototype.deserialize = function(t) {
-			return "true" === t
-				? !0
-				: "false" === t
-				? !1
-				: "null" === t
-				? null
-				: !isNaN(parseFloat(t)) && isFinite(t)
-				? parseFloat(t)
-				: t;
-		}),
-		(s.prototype.camelCase = function(t) {
-			return t.replace(/-+(.)?/g, function(t, i) {
-				return i ? i.toUpperCase() : "";
-			});
-		}),
-		(s.prototype.transformSupport = function(s) {
-			for (
-				var o = i.createElement("div"),
-					n = !1,
-					r = null,
-					a = !1,
-					h = null,
-					l = null,
-					p = 0,
-					c = this.vendors.length;
-				c > p;
-				p++
-			) {
-				if (
-					(null !== this.vendors[p]
-						? ((h = this.vendors[p][0] + "transform"),
-						  (l = this.vendors[p][1] + "Transform"))
-						: ((h = "transform"), (l = "transform")),
-					o.style[l] !== e)
-				) {
-					n = !0;
-					break;
-				}
-			}
+			for (var i = 1, l = arguments.length; i < l; i += 1) {
+				var object = arguments[i];
 
-			switch (s) {
-				case "2D":
-					a = n;
-					break;
-
-				case "3D":
-					if (n) {
-						var m = i.body || i.createElement("body"),
-							u = i.documentElement,
-							y = u.style.overflow,
-							d = !1;
-						i.body ||
-							((d = !0),
-							(u.style.overflow = "hidden"),
-							u.appendChild(m),
-							(m.style.overflow = "hidden"),
-							(m.style.background = "")),
-							m.appendChild(o),
-							(o.style[l] = "translate3d(1px,1px,1px)"),
-							(r = t.getComputedStyle(o).getPropertyValue(h)),
-							(a = r !== e && r.length > 0 && "none" !== r),
-							(u.style.overflow = y),
-							m.removeChild(o),
-							d &&
-								(m.removeAttribute("style"),
-								m.parentNode.removeChild(m));
-					}
-			}
-
-			return a;
-		}),
-		(s.prototype.ww = null),
-		(s.prototype.wh = null),
-		(s.prototype.wcx = null),
-		(s.prototype.wcy = null),
-		(s.prototype.wrx = null),
-		(s.prototype.wry = null),
-		(s.prototype.portrait = null),
-		(s.prototype.desktop = !navigator.userAgent.match(
-			/(iPhone|iPod|iPad|Android|BlackBerry|BB10|mobi|tablet|opera mini|nexus 7)/i
-		)),
-		(s.prototype.vendors = [
-			null,
-			["-webkit-", "webkit"],
-			["-moz-", "Moz"],
-			["-o-", "O"],
-			["-ms-", "ms"]
-		]),
-		(s.prototype.motionSupport = !!t.DeviceMotionEvent),
-		(s.prototype.orientationSupport = !!t.DeviceOrientationEvent),
-		(s.prototype.orientationStatus = 0),
-		(s.prototype.motionStatus = 0),
-		(s.prototype.propertyCache = {}),
-		(s.prototype.initialise = function() {
-			s.prototype.transform2DSupport === e &&
-				((s.prototype.transform2DSupport = s.prototype.transformSupport(
-					"2D"
-				)),
-				(s.prototype.transform3DSupport = s.prototype.transformSupport(
-					"3D"
-				))),
-				this.transform3DSupport && this.accelerate(this.element);
-			var i = t.getComputedStyle(this.element);
-			"static" === i.getPropertyValue("position") &&
-				(this.element.style.position = "relative"),
-				this.pointerEvents ||
-					(this.element.style.pointerEvents = "none"),
-				this.updateLayers(),
-				this.updateDimensions(),
-				this.enable(),
-				this.queueCalibration(this.calibrationDelay);
-		}),
-		(s.prototype.updateLayers = function() {
-			(this.layers = this.element.getElementsByClassName("layer")),
-				(this.depthsX = []),
-				(this.depthsY = []);
-
-			for (var t = 0, i = this.layers.length; i > t; t++) {
-				var e = this.layers[t];
-				this.transform3DSupport && this.accelerate(e),
-					(e.style.position = t ? "absolute" : "relative"),
-					(e.style.display = "block"),
-					(e.style.left = 0),
-					(e.style.top = 0);
-				var s = this.data(e, "depth") || 0;
-				this.depthsX.push(this.data(e, "depth-x") || s),
-					this.depthsY.push(this.data(e, "depth-y") || s);
-			}
-		}),
-		(s.prototype.updateDimensions = function() {
-			(this.ww = t.innerWidth),
-				(this.wh = t.innerHeight),
-				(this.wcx = this.ww * this.originX),
-				(this.wcy = this.wh * this.originY),
-				(this.wrx = Math.max(this.wcx, this.ww - this.wcx)),
-				(this.wry = Math.max(this.wcy, this.wh - this.wcy));
-		}),
-		(s.prototype.updateBounds = function() {
-			(this.bounds = this.element.getBoundingClientRect()),
-				(this.ex = this.bounds.left),
-				(this.ey = this.bounds.top),
-				(this.ew = this.bounds.width),
-				(this.eh = this.bounds.height),
-				(this.ecx = this.ew * this.originX),
-				(this.ecy = this.eh * this.originY),
-				(this.erx = Math.max(this.ecx, this.ew - this.ecx)),
-				(this.ery = Math.max(this.ecy, this.eh - this.ecy));
-		}),
-		(s.prototype.queueCalibration = function(t) {
-			clearTimeout(this.calibrationTimer),
-				(this.calibrationTimer = setTimeout(
-					this.onCalibrationTimer,
-					t
-				));
-		}),
-		(s.prototype.enable = function() {
-			this.enabled ||
-				((this.enabled = !0),
-				!this.desktop && this.orientationSupport
-					? ((this.portrait = null),
-					  t.addEventListener(
-							"deviceorientation",
-							this.onDeviceOrientation
-					  ),
-					  setTimeout(this.onOrientationTimer, this.supportDelay))
-					: !this.desktop && this.motionSupport
-					? ((this.portrait = null),
-					  t.addEventListener("devicemotion", this.onDeviceMotion),
-					  setTimeout(this.onMotionTimer, this.supportDelay))
-					: ((this.cx = 0),
-					  (this.cy = 0),
-					  (this.portrait = !1),
-					  t.addEventListener("mousemove", this.onMouseMove)),
-				t.addEventListener("resize", this.onWindowResize),
-				(this.raf = requestAnimationFrame(this.onAnimationFrame)));
-		}),
-		(s.prototype.disable = function() {
-			this.enabled &&
-				((this.enabled = !1),
-				this.orientationSupport
-					? t.removeEventListener(
-							"deviceorientation",
-							this.onDeviceOrientation
-					  )
-					: this.motionSupport
-					? t.removeEventListener("devicemotion", this.onDeviceMotion)
-					: t.removeEventListener("mousemove", this.onMouseMove),
-				t.removeEventListener("resize", this.onWindowResize),
-				cancelAnimationFrame(this.raf));
-		}),
-		(s.prototype.calibrate = function(t, i) {
-			(this.calibrateX = t === e ? this.calibrateX : t),
-				(this.calibrateY = i === e ? this.calibrateY : i);
-		}),
-		(s.prototype.invert = function(t, i) {
-			(this.invertX = t === e ? this.invertX : t),
-				(this.invertY = i === e ? this.invertY : i);
-		}),
-		(s.prototype.friction = function(t, i) {
-			(this.frictionX = t === e ? this.frictionX : t),
-				(this.frictionY = i === e ? this.frictionY : i);
-		}),
-		(s.prototype.scalar = function(t, i) {
-			(this.scalarX = t === e ? this.scalarX : t),
-				(this.scalarY = i === e ? this.scalarY : i);
-		}),
-		(s.prototype.limit = function(t, i) {
-			(this.limitX = t === e ? this.limitX : t),
-				(this.limitY = i === e ? this.limitY : i);
-		}),
-		(s.prototype.origin = function(t, i) {
-			(this.originX = t === e ? this.originX : t),
-				(this.originY = i === e ? this.originY : i);
-		}),
-		(s.prototype.clamp = function(t, i, e) {
-			return (t = Math.max(t, i)), (t = Math.min(t, e));
-		}),
-		(s.prototype.css = function(t, i, s) {
-			var o = this.propertyCache[i];
-			if (!o)
-				for (var n = 0, r = this.vendors.length; r > n; n++) {
-					if (
-						((o =
-							null !== this.vendors[n]
-								? this.camelCase(this.vendors[n][1] + "-" + i)
-								: i),
-						t.style[o] !== e)
-					) {
-						this.propertyCache[i] = o;
-						break;
+				for (var key in object) {
+					if (object.hasOwnProperty(key)) {
+						master[key] = object[key];
 					}
 				}
-			t.style[o] = s;
-		}),
-		(s.prototype.accelerate = function(t) {
-			this.css(t, "transform", "translate3d(0,0,0)"),
-				this.css(t, "transform-style", "preserve-3d"),
-				this.css(t, "backface-visibility", "hidden");
-		}),
-		(s.prototype.setPosition = function(t, i, e) {
-			(i = i.toFixed(this.precision) + "px"),
-				(e = e.toFixed(this.precision) + "px"),
-				this.transform3DSupport
-					? this.css(
-							t,
-							"transform",
-							"translate3d(" + i + "," + e + ",0)"
-					  )
-					: this.transform2DSupport
-					? this.css(t, "transform", "translate(" + i + "," + e + ")")
-					: ((t.style.left = i), (t.style.top = e));
-		}),
-		(s.prototype.onOrientationTimer = function() {
-			this.orientationSupport &&
-				0 === this.orientationStatus &&
-				(this.disable(), (this.orientationSupport = !1), this.enable());
-		}),
-		(s.prototype.onMotionTimer = function() {
-			this.motionSupport &&
-				0 === this.motionStatus &&
-				(this.disable(), (this.motionSupport = !1), this.enable());
-		}),
-		(s.prototype.onCalibrationTimer = function() {
-			this.calibrationFlag = !0;
-		}),
-		(s.prototype.onWindowResize = function() {
-			this.updateDimensions();
-		}),
-		(s.prototype.onAnimationFrame = function() {
-			this.updateBounds();
-			var t = this.ix - this.cx,
-				i = this.iy - this.cy;
-			(Math.abs(t) > this.calibrationThreshold ||
-				Math.abs(i) > this.calibrationThreshold) &&
-				this.queueCalibration(0),
-				this.portrait
-					? ((this.mx = this.calibrateX ? i : this.iy),
-					  (this.my = this.calibrateY ? t : this.ix))
-					: ((this.mx = this.calibrateX ? t : this.ix),
-					  (this.my = this.calibrateY ? i : this.iy)),
-				(this.mx *= this.ew * (this.scalarX / 100)),
-				(this.my *= this.eh * (this.scalarY / 100)),
-				isNaN(parseFloat(this.limitX)) ||
-					(this.mx = this.clamp(this.mx, -this.limitX, this.limitX)),
-				isNaN(parseFloat(this.limitY)) ||
-					(this.my = this.clamp(this.my, -this.limitY, this.limitY)),
-				(this.vx += (this.mx - this.vx) * this.frictionX),
-				(this.vy += (this.my - this.vy) * this.frictionY);
+			}
+		}
+	};
 
-			for (var e = 0, s = this.layers.length; s > e; e++) {
-				var o = this.layers[e],
-					n = this.depthsX[e],
-					r = this.depthsY[e],
-					a = this.vx * n * (this.invertX ? -1 : 1),
-					h = this.vy * r * (this.invertY ? -1 : 1);
-				this.setPosition(o, a, h);
+	Parallax.prototype.data = function(element, name) {
+		return this.deserialize(element.getAttribute("data-" + name));
+	};
+
+	Parallax.prototype.deserialize = function(value) {
+		if (value === "true") {
+			return true;
+		} else if (value === "false") {
+			return false;
+		} else if (value === "null") {
+			return null;
+		} else if (!isNaN(parseFloat(value)) && isFinite(value)) {
+			return parseFloat(value);
+		} else {
+			return value;
+		}
+	};
+
+	Parallax.prototype.camelCase = function(value) {
+		return value.replace(/-+(.)?/g, function(match, character) {
+			return character ? character.toUpperCase() : "";
+		});
+	};
+
+	Parallax.prototype.transformSupport = function(value) {
+		var element = document.createElement("div");
+		var propertySupport = false;
+		var propertyValue = null;
+		var featureSupport = false;
+		var cssProperty = null;
+		var jsProperty = null;
+
+		for (var i = 0, l = this.vendors.length; i < l; i += 1) {
+			if (this.vendors[i] !== null) {
+				cssProperty = this.vendors[i][0] + "transform";
+				jsProperty = this.vendors[i][1] + "Transform";
+			} else {
+				cssProperty = "transform";
+				jsProperty = "transform";
 			}
 
+			if (element.style[jsProperty] !== undefined) {
+				propertySupport = true;
+				break;
+			}
+		}
+
+		switch (value) {
+			case "2D":
+				featureSupport = propertySupport;
+				break;
+
+			case "3D":
+				if (propertySupport) {
+					var body = document.body || document.createElement("body");
+					var documentElement = document.documentElement;
+					var documentOverflow = documentElement.style.overflow;
+					var isCreatedBody = false;
+
+					if (!document.body) {
+						isCreatedBody = true;
+						documentElement.style.overflow = "hidden";
+						documentElement.appendChild(body);
+						body.style.overflow = "hidden";
+						body.style.background = "";
+					}
+
+					body.appendChild(element);
+					element.style[jsProperty] = "translate3d(1px,1px,1px)";
+					propertyValue = window
+						.getComputedStyle(element)
+						.getPropertyValue(cssProperty);
+					featureSupport =
+						propertyValue !== undefined &&
+						propertyValue.length > 0 &&
+						propertyValue !== "none";
+					documentElement.style.overflow = documentOverflow;
+					body.removeChild(element);
+
+					if (isCreatedBody) {
+						body.removeAttribute("style");
+						body.parentNode.removeChild(body);
+					}
+				}
+
+				break;
+		}
+
+		return featureSupport;
+	};
+
+	Parallax.prototype.ww = null;
+	Parallax.prototype.wh = null;
+	Parallax.prototype.wcx = null;
+	Parallax.prototype.wcy = null;
+	Parallax.prototype.wrx = null;
+	Parallax.prototype.wry = null;
+	Parallax.prototype.portrait = null;
+	Parallax.prototype.desktop = !navigator.userAgent.match(
+		/(iPhone|iPod|iPad|Android|BlackBerry|BB10|mobi|tablet|opera mini|nexus 7)/i
+	);
+	Parallax.prototype.vendors = [
+		null,
+		["-webkit-", "webkit"],
+		["-moz-", "Moz"],
+		["-o-", "O"],
+		["-ms-", "ms"]
+	];
+	Parallax.prototype.motionSupport = !!window.DeviceMotionEvent;
+	Parallax.prototype.orientationSupport = !!window.DeviceOrientationEvent;
+	Parallax.prototype.orientationStatus = 0;
+	Parallax.prototype.motionStatus = 0;
+	Parallax.prototype.propertyCache = {};
+
+	Parallax.prototype.initialise = function() {
+		if (Parallax.prototype.transform2DSupport === undefined) {
+			Parallax.prototype.transform2DSupport = Parallax.prototype.transformSupport(
+				"2D"
+			);
+			Parallax.prototype.transform3DSupport = Parallax.prototype.transformSupport(
+				"3D"
+			);
+		} // Configure Context Styles
+
+		if (this.transform3DSupport) this.accelerate(this.element);
+		var style = window.getComputedStyle(this.element);
+
+		if (style.getPropertyValue("position") === "static") {
+			this.element.style.position = "relative";
+		} // Pointer events
+
+		if (!this.pointerEvents) {
+			this.element.style.pointerEvents = "none";
+		} // Setup
+
+		this.updateLayers();
+		this.updateDimensions();
+		this.enable();
+		this.queueCalibration(this.calibrationDelay);
+	};
+
+	Parallax.prototype.updateLayers = function() {
+		// Cache Layer Elements
+		this.layers = this.element.getElementsByClassName("layer");
+		this.depthsX = [];
+		this.depthsY = []; // Configure Layer Styles
+
+		for (var i = 0, l = this.layers.length; i < l; i += 1) {
+			var layer = this.layers[i];
+			if (this.transform3DSupport) this.accelerate(layer);
+			layer.style.position = i ? "absolute" : "relative";
+			layer.style.display = "block";
+			layer.style.left = 0;
+			layer.style.top = 0; // Cache Layer Depth
+			//Graceful fallback on depth if depth-x or depth-y is absent
+
+			var depth = this.data(layer, "depth") || 0;
+			this.depthsX.push(this.data(layer, "depth-x") || depth);
+			this.depthsY.push(this.data(layer, "depth-y") || depth);
+		}
+	};
+
+	Parallax.prototype.updateDimensions = function() {
+		this.ww = window.innerWidth;
+		this.wh = window.innerHeight;
+		this.wcx = this.ww * this.originX;
+		this.wcy = this.wh * this.originY;
+		this.wrx = Math.max(this.wcx, this.ww - this.wcx);
+		this.wry = Math.max(this.wcy, this.wh - this.wcy);
+	};
+
+	Parallax.prototype.updateBounds = function() {
+		this.bounds = this.element.getBoundingClientRect();
+		this.ex = this.bounds.left;
+		this.ey = this.bounds.top;
+		this.ew = this.bounds.width;
+		this.eh = this.bounds.height;
+		this.ecx = this.ew * this.originX;
+		this.ecy = this.eh * this.originY;
+		this.erx = Math.max(this.ecx, this.ew - this.ecx);
+		this.ery = Math.max(this.ecy, this.eh - this.ecy);
+	};
+
+	Parallax.prototype.queueCalibration = function(delay) {
+		clearTimeout(this.calibrationTimer);
+		this.calibrationTimer = setTimeout(this.onCalibrationTimer, delay);
+	};
+
+	Parallax.prototype.enable = function() {
+		if (!this.enabled) {
+			this.enabled = true;
+
+			if (!this.desktop && this.orientationSupport) {
+				this.portrait = null;
+				window.addEventListener(
+					"deviceorientation",
+					this.onDeviceOrientation
+				);
+				setTimeout(this.onOrientationTimer, this.supportDelay);
+			} else if (!this.desktop && this.motionSupport) {
+				this.portrait = null;
+				window.addEventListener("devicemotion", this.onDeviceMotion);
+				setTimeout(this.onMotionTimer, this.supportDelay);
+			} else {
+				this.cx = 0;
+				this.cy = 0;
+				this.portrait = false;
+				window.addEventListener("mousemove", this.onMouseMove);
+			}
+
+			window.addEventListener("resize", this.onWindowResize);
 			this.raf = requestAnimationFrame(this.onAnimationFrame);
-		}),
-		(s.prototype.rotate = function() {
-			var t = (event.beta || 0) / n,
-				i = (event.gamma || 0) / n,
-				e = this.wh > this.ww;
-			this.portrait !== e &&
-				((this.portrait = e), (this.calibrationFlag = !0)),
-				this.calibrationFlag &&
-					((this.calibrationFlag = !1), (this.cx = t), (this.cy = i)),
-				(this.ix = t),
-				(this.iy = i);
-		}),
-		(s.prototype.onDeviceOrientation = function(t) {
-			var i = t.beta,
-				e = t.gamma;
-			this.desktop ||
-				null === i ||
-				null === e ||
-				((this.orientationStatus = 1), this.rotate(i, e));
-		}),
-		(s.prototype.onDeviceMotion = function(t) {
-			var i = t.rotationRate.beta,
-				e = t.rotationRate.gamma;
-			this.desktop ||
-				null === i ||
-				null === e ||
-				((this.motionStatus = 1), this.rotate(i, e));
-		}),
-		(s.prototype.onMouseMove = function(t) {
-			var i = t.clientX,
-				e = t.clientY;
-			!this.orientationSupport && this.relativeInput
-				? (this.clipRelativeInput &&
-						((i = Math.max(i, this.ex)),
-						(i = Math.min(i, this.ex + this.ew)),
-						(e = Math.max(e, this.ey)),
-						(e = Math.min(e, this.ey + this.eh))),
-				  (this.ix = (i - this.ex - this.ecx) / this.erx),
-				  (this.iy = (e - this.ey - this.ecy) / this.ery))
-				: ((this.ix = (i - this.wcx) / this.wrx),
-				  (this.iy = (e - this.wcy) / this.wry));
-		}),
-		(t[o] = s);
+		}
+	};
+
+	Parallax.prototype.disable = function() {
+		if (this.enabled) {
+			this.enabled = false;
+
+			if (this.orientationSupport) {
+				window.removeEventListener(
+					"deviceorientation",
+					this.onDeviceOrientation
+				);
+			} else if (this.motionSupport) {
+				window.removeEventListener("devicemotion", this.onDeviceMotion);
+			} else {
+				window.removeEventListener("mousemove", this.onMouseMove);
+			}
+
+			window.removeEventListener("resize", this.onWindowResize);
+			cancelAnimationFrame(this.raf);
+		}
+	};
+
+	Parallax.prototype.calibrate = function(x, y) {
+		this.calibrateX = x === undefined ? this.calibrateX : x;
+		this.calibrateY = y === undefined ? this.calibrateY : y;
+	};
+
+	Parallax.prototype.invert = function(x, y) {
+		this.invertX = x === undefined ? this.invertX : x;
+		this.invertY = y === undefined ? this.invertY : y;
+	};
+
+	Parallax.prototype.friction = function(x, y) {
+		this.frictionX = x === undefined ? this.frictionX : x;
+		this.frictionY = y === undefined ? this.frictionY : y;
+	};
+
+	Parallax.prototype.scalar = function(x, y) {
+		this.scalarX = x === undefined ? this.scalarX : x;
+		this.scalarY = y === undefined ? this.scalarY : y;
+	};
+
+	Parallax.prototype.limit = function(x, y) {
+		this.limitX = x === undefined ? this.limitX : x;
+		this.limitY = y === undefined ? this.limitY : y;
+	};
+
+	Parallax.prototype.origin = function(x, y) {
+		this.originX = x === undefined ? this.originX : x;
+		this.originY = y === undefined ? this.originY : y;
+	};
+
+	Parallax.prototype.clamp = function(value, min, max) {
+		value = Math.max(value, min);
+		value = Math.min(value, max);
+		return value;
+	};
+
+	Parallax.prototype.css = function(element, property, value) {
+		var jsProperty = this.propertyCache[property];
+
+		if (!jsProperty) {
+			for (var i = 0, l = this.vendors.length; i < l; i += 1) {
+				if (this.vendors[i] !== null) {
+					jsProperty = this.camelCase(
+						this.vendors[i][1] + "-" + property
+					);
+				} else {
+					jsProperty = property;
+				}
+
+				if (element.style[jsProperty] !== undefined) {
+					this.propertyCache[property] = jsProperty;
+					break;
+				}
+			}
+		}
+
+		element.style[jsProperty] = value;
+	};
+
+	Parallax.prototype.accelerate = function(element) {
+		this.css(element, "transform", "translate3d(0,0,0)");
+		this.css(element, "transform-style", "preserve-3d");
+		this.css(element, "backface-visibility", "hidden");
+	};
+
+	Parallax.prototype.setPosition = function(element, x, y) {
+		x = x.toFixed(this.precision) + "px";
+		y = y.toFixed(this.precision) + "px";
+
+		if (this.transform3DSupport) {
+			this.css(
+				element,
+				"transform",
+				"translate3d(" + x + "," + y + ",0)"
+			);
+		} else if (this.transform2DSupport) {
+			this.css(element, "transform", "translate(" + x + "," + y + ")");
+		} else {
+			element.style.left = x;
+			element.style.top = y;
+		}
+	};
+
+	Parallax.prototype.onOrientationTimer = function() {
+		if (this.orientationSupport && this.orientationStatus === 0) {
+			this.disable();
+			this.orientationSupport = false;
+			this.enable();
+		}
+	};
+
+	Parallax.prototype.onMotionTimer = function() {
+		if (this.motionSupport && this.motionStatus === 0) {
+			this.disable();
+			this.motionSupport = false;
+			this.enable();
+		}
+	};
+
+	Parallax.prototype.onCalibrationTimer = function() {
+		this.calibrationFlag = true;
+	};
+
+	Parallax.prototype.onWindowResize = function() {
+		this.updateDimensions();
+	};
+
+	Parallax.prototype.onAnimationFrame = function() {
+		this.updateBounds();
+		var dx = this.ix - this.cx;
+		var dy = this.iy - this.cy;
+
+		if (
+			Math.abs(dx) > this.calibrationThreshold ||
+			Math.abs(dy) > this.calibrationThreshold
+		) {
+			this.queueCalibration(0);
+		}
+
+		if (this.portrait) {
+			this.mx = this.calibrateX ? dy : this.iy;
+			this.my = this.calibrateY ? dx : this.ix;
+		} else {
+			this.mx = this.calibrateX ? dx : this.ix;
+			this.my = this.calibrateY ? dy : this.iy;
+		}
+
+		this.mx *= this.ew * (this.scalarX / 100);
+		this.my *= this.eh * (this.scalarY / 100);
+
+		if (!isNaN(parseFloat(this.limitX))) {
+			this.mx = this.clamp(this.mx, -this.limitX, this.limitX);
+		}
+
+		if (!isNaN(parseFloat(this.limitY))) {
+			this.my = this.clamp(this.my, -this.limitY, this.limitY);
+		}
+
+		this.vx += (this.mx - this.vx) * this.frictionX;
+		this.vy += (this.my - this.vy) * this.frictionY;
+
+		for (var i = 0, l = this.layers.length; i < l; i += 1) {
+			var layer = this.layers[i];
+			var depthX = this.depthsX[i];
+			var depthY = this.depthsY[i];
+			var xOffset = this.vx * (depthX * (this.invertX ? -1 : 1));
+			var yOffset = this.vy * (depthY * (this.invertY ? -1 : 1));
+			this.setPosition(layer, xOffset, yOffset);
+		}
+
+		this.raf = requestAnimationFrame(this.onAnimationFrame);
+	};
+
+	Parallax.prototype.rotate = function(beta, gamma) {
+		// Extract Rotation
+		var x = (event.beta || 0) / MAGIC_NUMBER; // -90 :: 90
+
+		var y = (event.gamma || 0) / MAGIC_NUMBER; // -180 :: 180
+		// Detect Orientation Change
+
+		var portrait = this.wh > this.ww;
+
+		if (this.portrait !== portrait) {
+			this.portrait = portrait;
+			this.calibrationFlag = true;
+		} // Set Calibration
+
+		if (this.calibrationFlag) {
+			this.calibrationFlag = false;
+			this.cx = x;
+			this.cy = y;
+		} // Set Input
+
+		this.ix = x;
+		this.iy = y;
+	};
+
+	Parallax.prototype.onDeviceOrientation = function(event) {
+		// Validate environment and event properties.
+		var beta = event.beta;
+		var gamma = event.gamma;
+
+		if (!this.desktop && beta !== null && gamma !== null) {
+			// Set orientation status.
+			this.orientationStatus = 1;
+			this.rotate(beta, gamma);
+		}
+	};
+
+	Parallax.prototype.onDeviceMotion = function(event) {
+		// Validate environment and event properties.
+		var beta = event.rotationRate.beta;
+		var gamma = event.rotationRate.gamma;
+
+		if (!this.desktop && beta !== null && gamma !== null) {
+			// Set motion status.
+			this.motionStatus = 1;
+			this.rotate(beta, gamma);
+		}
+	};
+
+	Parallax.prototype.onMouseMove = function(event) {
+		// Cache mouse coordinates.
+		var clientX = event.clientX;
+		var clientY = event.clientY; // Calculate Mouse Input
+
+		if (!this.orientationSupport && this.relativeInput) {
+			// Clip mouse coordinates inside element bounds.
+			if (this.clipRelativeInput) {
+				clientX = Math.max(clientX, this.ex);
+				clientX = Math.min(clientX, this.ex + this.ew);
+				clientY = Math.max(clientY, this.ey);
+				clientY = Math.min(clientY, this.ey + this.eh);
+			} // Calculate input relative to the element.
+
+			this.ix = (clientX - this.ex - this.ecx) / this.erx;
+			this.iy = (clientY - this.ey - this.ecy) / this.ery;
+		} else {
+			// Calculate input relative to the window.
+			this.ix = (clientX - this.wcx) / this.wrx;
+			this.iy = (clientY - this.wcy) / this.wry;
+		}
+	}; // Expose Parallax
+
+	window[NAME] = Parallax;
 })(window, document);
 
 /*!
@@ -2540,7 +2678,10 @@ function _typeof(obj) {
 			var textcolor = options.textcolor ? options.textcolor : "#000000";
 			var matrix = QRCode.generate(data, options);
 			var modsize = Math.max(options.modulesize || 5, 0.5);
-			var margin = Math.max(options.margin !== null ? options.margin : 4, 0.0);
+			var margin = Math.max(
+				options.margin !== null ? options.margin : 4,
+				0.0
+			);
 			var e = document[createElement]("div");
 			var n = matrix[length];
 			var html = [
@@ -2593,19 +2734,44 @@ function _typeof(obj) {
 			var size = modsize * (n + 2 * margin);
 			/* var common = ' class= "fg"' + ' width="' + modsize + '" height="' + modsize + '"/>'; */
 
-			var e = document[createElementNS]("http://www.w3.org/2000/svg", "svg");
+			var e = document[createElementNS](
+				"http://www.w3.org/2000/svg",
+				"svg"
+			);
 			e[setAttributeNS](null, "viewBox", "0 0 " + size + " " + size);
 			e[setAttributeNS](null, "style", "shape-rendering:crispEdges");
 			var qrcodeId = "qrcode" + Date.now();
 			e[setAttributeNS](null, "id", qrcodeId);
 			var frag = document[createDocumentFragment]();
 			/* var svg = ['<style scoped>.bg{fill:' + fillcolor + '}.fg{fill:' + textcolor + '}</style>', '<rect class="bg" x="0" y="0"', 'width="' + size + '" height="' + size + '"/>', ]; */
-			var style = document[createElementNS]("http://www.w3.org/2000/svg", "style");
-			style[appendChild](document[createTextNode]("#" + qrcodeId + " .bg{fill:" + fillcolor + "}#" + qrcodeId + " .fg{fill:" + textcolor + "}"));
+
+			var style = document[createElementNS](
+				"http://www.w3.org/2000/svg",
+				"style"
+			);
+			style[appendChild](
+				document[createTextNode](
+					"#" +
+						qrcodeId +
+						" .bg{fill:" +
+						fillcolor +
+						"}#" +
+						qrcodeId +
+						" .fg{fill:" +
+						textcolor +
+						"}"
+				)
+			);
 			/* style[setAttributeNS](null, "scoped", "scoped"); */
+
 			frag[appendChild](style);
-			var createRect = function (c, f, x, y, s) {
-				var fg = document[createElementNS]("http://www.w3.org/2000/svg", "rect") || "";
+
+			var createRect = function createRect(c, f, x, y, s) {
+				var fg =
+					document[createElementNS](
+						"http://www.w3.org/2000/svg",
+						"rect"
+					) || "";
 				fg[setAttributeNS](null, "class", c);
 				fg[setAttributeNS](null, "fill", f);
 				fg[setAttributeNS](null, "x", x);
@@ -2704,189 +2870,266 @@ function _typeof(obj) {
 	return _typeof(obj);
 }
 
-var WheelIndicator = (function(t, e) {
-	function i(t) {
-		(this._options = h(u, t)),
-			(this._deltaArray = [0, 0, 0]),
-			(this._isAcceleration = !1),
-			(this._isStopped = !0),
-			(this._direction = ""),
-			(this._timer = ""),
-			(this._isWorking = !0);
-		var e = this;
-		(this._wheelHandler = function(t) {
-			e._isWorking && (o.call(e, t), e._options.preventMouse && r(t));
-		}),
-			a(this._options.elem, l, this._wheelHandler);
-	}
+/*!
+ * modified Generates event when user makes new movement (like a swipe on a touchscreen).
+ * @version 1.1.4
+ * @link https://github.com/Promo/wheel-indicator
+ * @license MIT
+ * @see {@link https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md#feature-detection}
+ * forced passive event listener if supported
+ * passes jshint
+ */
 
-	function n(t) {
-		(t.direction = this._direction), this._options.callback.call(this, t);
-	}
-
-	function r(e) {
-		(e = e || t.event),
-			e.preventDefault ? e.preventDefault() : (e.returnValue = !1);
-	}
-
-	function o(t) {
-		var e = this,
-			i = _d(t);
-
-		if (0 !== i) {
-			var r,
-				o,
-				a = i > 0 ? "down" : "up",
-				c = e._deltaArray.length,
-				h = !1,
-				l = 0;
-
-			for (
-				clearTimeout(e._timer),
-					e._timer = setTimeout(function() {
-						(e._deltaArray = [0, 0, 0]),
-							(e._isStopped = !0),
-							(e._direction = a);
-					}, 150),
-					o = 0;
-				c > o;
-				o++
-			) {
-				0 !== e._deltaArray[o] && (e._deltaArray[o] > 0 ? ++l : --l);
-			}
-
-			Math.abs(l) === c &&
-				((r = l > 0 ? "down" : "up"),
-				r !== e._direction && ((h = !0), (e._direction = a))),
-				e._isStopped ||
-					(h
-						? ((e._isAcceleration = !0), n.call(this, t))
-						: Math.abs(l) === c && s.call(this, t)),
-				e._isStopped &&
-					((e._isStopped = !1),
-					(e._isAcceleration = !0),
-					(e._direction = a),
-					n.call(this, t)),
-				e._deltaArray.shift(),
-				e._deltaArray.push(i);
-		}
-	}
-
-	function s(t) {
-		var e = Math.abs(this._deltaArray[0]),
-			i = Math.abs(this._deltaArray[1]),
-			r = Math.abs(this._deltaArray[2]),
-			o = Math.abs(_d(t));
-		o > r &&
-			r > i &&
-			i > e &&
-			(this._isAcceleration ||
-				(n.call(this, t), (this._isAcceleration = !0))),
-			r > o && i >= r && (this._isAcceleration = !1);
-	}
-
-	function a(t, e, i) {
-		t.addEventListener
-			? t.addEventListener(
-					e,
-					i,
-					p
-						? {
-								passive: !0
-						  }
-						: !1
-			  )
-			: t.attachEvent && t.attachEvent("on" + e, i);
-	}
-
-	function c(t, e, i) {
-		t.removeEventListener
-			? t.removeEventListener(
-					e,
-					i,
-					p
-						? {
-								passive: !0
-						  }
-						: !1
-			  )
-			: t.detachEvent && t.detachEvent("on" + e, i);
-	}
-
-	function h(t, e) {
-		var i,
-			n = {};
-
-		for (i in t) {
-			Object.prototype.hasOwnProperty.call(t, i) && (n[i] = t[i]);
-		}
-
-		for (i in e) {
-			Object.prototype.hasOwnProperty.call(e, i) && (n[i] = e[i]);
-		}
-
-		return n;
-	}
-
-	var l = "onwheel" in e ? "wheel" : "mousewheel",
-		u = {
+/* global module, window, document */
+var WheelIndicator = (function(root, document) {
+	var eventWheel = "onwheel" in document ? "wheel" : "mousewheel",
+		DEFAULTS = {
 			callback: function callback() {},
-			elem: e,
-			preventMouse: !0
+			elem: document,
+			preventMouse: true
 		};
-	i.prototype = {
-		constructor: i,
+
+	function Module(options) {
+		this._options = extend(DEFAULTS, options);
+		this._deltaArray = [0, 0, 0];
+		this._isAcceleration = false;
+		this._isStopped = true;
+		this._direction = "";
+		this._timer = "";
+		this._isWorking = true;
+		var self = this;
+
+		this._wheelHandler = function(event) {
+			if (self._isWorking) {
+				processDelta.call(self, event);
+
+				if (self._options.preventMouse) {
+					preventDefault(event);
+				}
+			}
+		};
+
+		addEvent(this._options.elem, eventWheel, this._wheelHandler);
+	}
+
+	Module.prototype = {
+		constructor: Module,
 		turnOn: function turnOn() {
-			return (this._isWorking = !0), this;
+			this._isWorking = true;
+			return this;
 		},
 		turnOff: function turnOff() {
-			return (this._isWorking = !1), this;
+			this._isWorking = false;
+			return this;
 		},
-		setOptions: function setOptions(t) {
-			return (this._options = h(this._options, t)), this;
+		setOptions: function setOptions(options) {
+			this._options = extend(this._options, options);
+			return this;
 		},
-		getOption: function getOption(t) {
-			var e = this._options[t];
-			if (void 0 !== e) return e;
-			throw Error("Unknown option");
+		getOption: function getOption(option) {
+			var neededOption = this._options[option];
+
+			if (neededOption !== undefined) {
+				return neededOption;
+			}
+
+			throw new Error("Unknown option");
 		},
 		destroy: function destroy() {
-			return c(this._options.elem, l, this._wheelHandler), this;
+			removeEvent(this._options.elem, eventWheel, this._wheelHandler);
+			return this;
 		}
 	};
 
-	var _d = function d(t) {
-			return (_d =
-				t.wheelDelta && !t.deltaY
-					? function(t) {
-							return -1 * t.wheelDelta;
+	function triggerEvent(event) {
+		event.direction = this._direction;
+
+		this._options.callback.call(this, event);
+	}
+
+	var _getDeltaY = function getDeltaY(event) {
+		if (event.wheelDelta && !event.deltaY) {
+			_getDeltaY = function getDeltaY(event) {
+				return event.wheelDelta * -1;
+			};
+		} else {
+			_getDeltaY = function getDeltaY(event) {
+				return event.deltaY;
+			};
+		}
+
+		return _getDeltaY(event);
+	};
+
+	function preventDefault(event) {
+		event = event || root.event;
+
+		if (event.preventDefault) {
+			event.preventDefault();
+		} else {
+			event.returnValue = false;
+		}
+	}
+
+	function processDelta(event) {
+		var self = this,
+			delta = _getDeltaY(event);
+
+		if (delta === 0) return;
+		var direction = delta > 0 ? "down" : "up",
+			arrayLength = self._deltaArray.length,
+			changedDirection = false,
+			repeatDirection = 0,
+			sustainableDirection,
+			i;
+		clearTimeout(self._timer);
+		self._timer = setTimeout(function() {
+			self._deltaArray = [0, 0, 0];
+			self._isStopped = true;
+			self._direction = direction;
+		}, 150);
+
+		for (i = 0; i < arrayLength; i++) {
+			if (self._deltaArray[i] !== 0) {
+				if (self._deltaArray[i] > 0) {
+					++repeatDirection;
+				} else {
+					--repeatDirection;
+				}
+			}
+		}
+
+		if (Math.abs(repeatDirection) === arrayLength) {
+			sustainableDirection = repeatDirection > 0 ? "down" : "up";
+
+			if (sustainableDirection !== self._direction) {
+				changedDirection = true;
+				self._direction = direction;
+			}
+		}
+
+		if (!self._isStopped) {
+			if (changedDirection) {
+				self._isAcceleration = true;
+				triggerEvent.call(this, event);
+			} else {
+				if (Math.abs(repeatDirection) === arrayLength) {
+					analyzeArray.call(this, event);
+				}
+			}
+		}
+
+		if (self._isStopped) {
+			self._isStopped = false;
+			self._isAcceleration = true;
+			self._direction = direction;
+			triggerEvent.call(this, event);
+		}
+
+		self._deltaArray.shift();
+
+		self._deltaArray.push(delta);
+	}
+
+	function analyzeArray(event) {
+		var deltaArray0Abs = Math.abs(this._deltaArray[0]),
+			deltaArray1Abs = Math.abs(this._deltaArray[1]),
+			deltaArray2Abs = Math.abs(this._deltaArray[2]),
+			deltaAbs = Math.abs(_getDeltaY(event));
+
+		if (
+			deltaAbs > deltaArray2Abs &&
+			deltaArray2Abs > deltaArray1Abs &&
+			deltaArray1Abs > deltaArray0Abs
+		) {
+			if (!this._isAcceleration) {
+				triggerEvent.call(this, event);
+				this._isAcceleration = true;
+			}
+		}
+
+		if (deltaAbs < deltaArray2Abs && deltaArray2Abs <= deltaArray1Abs) {
+			this._isAcceleration = false;
+		}
+	}
+
+	var supportsPassive = (function() {
+		var support = false;
+
+		try {
+			var opts =
+				Object.defineProperty &&
+				Object.defineProperty({}, "passive", {
+					get: function get() {
+						support = true;
+					}
+				});
+			root.addEventListener("test", function() {}, opts);
+		} catch (err) {}
+
+		return support;
+	})();
+
+	function addEvent(elem, type, handler) {
+		if (elem.addEventListener) {
+			elem.addEventListener(
+				type,
+				handler,
+				supportsPassive
+					? {
+							passive: true
 					  }
-					: function(t) {
-							return t.deltaY;
-					  })(t);
-		},
-		p = (function() {
-			var e = !1;
+					: false
+			);
+		} else if (elem.attachEvent) {
+			elem.attachEvent("on" + type, handler);
+		}
+	}
 
-			try {
-				var i =
-					Object.defineProperty &&
-					Object.defineProperty({}, "passive", {
-						get: function get() {
-							e = !0;
-						}
-					});
-				t.addEventListener("test", function() {}, i);
-			} catch (n) {}
+	function removeEvent(elem, type, handler) {
+		if (elem.removeEventListener) {
+			elem.removeEventListener(
+				type,
+				handler,
+				supportsPassive
+					? {
+							passive: true
+					  }
+					: false
+			);
+		} else if (elem.detachEvent) {
+			elem.detachEvent("on" + type, handler);
+		}
+	}
 
-			return e;
-		})();
+	function extend(defaults, options) {
+		var extended = {},
+			prop;
 
-	return i;
-})("undefined" != typeof window ? window : this, document);
+		for (prop in defaults) {
+			if (Object.prototype.hasOwnProperty.call(defaults, prop)) {
+				extended[prop] = defaults[prop];
+			}
+		}
 
-"object" == (typeof exports === "undefined" ? "undefined" : _typeof(exports)) &&
-	(module.exports = WheelIndicator);
+		for (prop in options) {
+			if (Object.prototype.hasOwnProperty.call(options, prop)) {
+				extended[prop] = options[prop];
+			}
+		}
+
+		return extended;
+	}
+
+	return Module;
+})("undefined" !== typeof window ? window : this, document);
+
+if (
+	(typeof exports === "undefined" ? "undefined" : _typeof(exports)) ===
+	"object"
+) {
+	module.exports = WheelIndicator;
+}
 
 /*global jQuery */
 

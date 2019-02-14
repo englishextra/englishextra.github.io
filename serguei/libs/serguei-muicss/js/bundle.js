@@ -2310,6 +2310,8 @@ WheelIndicator, Ya*/
 						}).then(function () {
 							manageDataSrcIframeAll(updateMacyThrottled);
 						}).then(function () {
+							manageDataQrcodeImgAll(updateMacyThrottled);
+						})..then(function () {
 							scroll2Top(0, 20000);
 						}) */
 						.catch (function (err) {
@@ -2326,14 +2328,6 @@ WheelIndicator, Ya*/
 							manageDataQrcodeImgAll(updateMinigridThrottled);
 						}).then(function () {
 							scroll2Top(0, 20000);
-						}).then(function () {
-							manageInstagramEmbedAll();
-						}).then(function () {
-							manageTwitterEmbedAll();
-						}).then(function () {
-							manageVkEmbedAll();
-						}).then(function () {
-							manageDisqusEmbed();
 						}) */
 						.catch (function (err) {
 							console.log(err);

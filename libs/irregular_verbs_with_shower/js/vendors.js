@@ -291,7 +291,9 @@
 						var b = f.getCurrentSlideNumber();
 						return 1 > b
 							? !1
-							: (f.go(b - 1), "function" === typeof a && a(), true);
+							: (f.go(b - 1),
+							  "function" === typeof a && a(),
+							  true);
 					}),
 					(f._turnPreviousSlide = function(a) {
 						var b = f.getCurrentSlideNumber(),
@@ -366,7 +368,7 @@
 										),
 								  f.scrollToSlide(b),
 								  "function" === typeof a && a(),
-								  !0)
+								  true)
 						);
 					}),
 					(f.toggleMode = function(a) {

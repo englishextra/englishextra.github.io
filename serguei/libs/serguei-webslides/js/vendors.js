@@ -813,7 +813,10 @@
 			var textcolor = options.textcolor ? options.textcolor : "#000000";
 			var matrix = QRCode.generate(data, options);
 			var modsize = Math.max(options.modulesize || 5, 0.5);
-			var margin = Math.max(options.margin !== null ? options.margin : 4, 0.0);
+			var margin = Math.max(
+				options.margin !== null ? options.margin : 4,
+				0.0
+			);
 			var e = document[createElement]("div");
 			var n = matrix[length];
 			var html = [
@@ -866,19 +869,44 @@
 			var size = modsize * (n + 2 * margin);
 			/* var common = ' class= "fg"' + ' width="' + modsize + '" height="' + modsize + '"/>'; */
 
-			var e = document[createElementNS]("http://www.w3.org/2000/svg", "svg");
+			var e = document[createElementNS](
+				"http://www.w3.org/2000/svg",
+				"svg"
+			);
 			e[setAttributeNS](null, "viewBox", "0 0 " + size + " " + size);
 			e[setAttributeNS](null, "style", "shape-rendering:crispEdges");
 			var qrcodeId = "qrcode" + Date.now();
 			e[setAttributeNS](null, "id", qrcodeId);
 			var frag = document[createDocumentFragment]();
 			/* var svg = ['<style scoped>.bg{fill:' + fillcolor + '}.fg{fill:' + textcolor + '}</style>', '<rect class="bg" x="0" y="0"', 'width="' + size + '" height="' + size + '"/>', ]; */
-			var style = document[createElementNS]("http://www.w3.org/2000/svg", "style");
-			style[appendChild](document[createTextNode]("#" + qrcodeId + " .bg{fill:" + fillcolor + "}#" + qrcodeId + " .fg{fill:" + textcolor + "}"));
+
+			var style = document[createElementNS](
+				"http://www.w3.org/2000/svg",
+				"style"
+			);
+			style[appendChild](
+				document[createTextNode](
+					"#" +
+						qrcodeId +
+						" .bg{fill:" +
+						fillcolor +
+						"}#" +
+						qrcodeId +
+						" .fg{fill:" +
+						textcolor +
+						"}"
+				)
+			);
 			/* style[setAttributeNS](null, "scoped", "scoped"); */
+
 			frag[appendChild](style);
-			var createRect = function (c, f, x, y, s) {
-				var fg = document[createElementNS]("http://www.w3.org/2000/svg", "rect") || "";
+
+			var createRect = function createRect(c, f, x, y, s) {
+				var fg =
+					document[createElementNS](
+						"http://www.w3.org/2000/svg",
+						"rect"
+					) || "";
 				fg[setAttributeNS](null, "class", c);
 				fg[setAttributeNS](null, "fill", f);
 				fg[setAttributeNS](null, "x", x);
@@ -3853,7 +3881,7 @@ function _typeof(obj) {
 			return this.filter(function() {
 				var i = 0;
 
-				for (; i < l; i += 1) {
+				for (; i < l; i++) {
 					if (jQuery.contains(this, targets[i])) {
 						return true;
 					}
@@ -3868,7 +3896,7 @@ function _typeof(obj) {
 				targets = typeof selectors !== "string" && jQuery(selectors);
 
 			if (!rneedsContext.test(selectors)) {
-				for (; i < l; i += 1) {
+				for (; i < l; i++) {
 					for (
 						cur = this[i];
 						cur && cur !== context;
@@ -5218,7 +5246,7 @@ function _typeof(obj) {
 		var i = 0,
 			l = elems.length;
 
-		for (; i < l; i += 1) {
+		for (; i < l; i++) {
 			dataPriv.set(
 				elems[i],
 				"globalEval",
@@ -5241,7 +5269,7 @@ function _typeof(obj) {
 			i = 0,
 			l = elems.length;
 
-		for (; i < l; i += 1) {
+		for (; i < l; i++) {
 			elem = elems[i];
 
 			if (elem || elem === 0) {
@@ -6071,7 +6099,7 @@ function _typeof(obj) {
 				pdataCur.events = {};
 
 				for (type in events) {
-					for (i = 0, l = events[type].length; i < l; i += 1) {
+					for (i = 0, l = events[type].length; i < l; i++) {
 						jQuery.event.add(dest, type, events[type][i]);
 					}
 				}
@@ -6145,7 +6173,7 @@ function _typeof(obj) {
 				scripts = jQuery.map(getAll(fragment, "script"), disableScript);
 				hasScripts = scripts.length;
 
-				for (; i < l; i += 1) {
+				for (; i < l; i++) {
 					node = fragment;
 
 					if (i !== iNoClone) {
@@ -6232,7 +6260,7 @@ function _typeof(obj) {
 				destElements = getAll(clone);
 				srcElements = getAll(elem);
 
-				for (i = 0, l = srcElements.length; i < l; i += 1) {
+				for (i = 0, l = srcElements.length; i < l; i++) {
 					fixInput(srcElements[i], destElements[i]);
 				}
 			}
@@ -6242,7 +6270,7 @@ function _typeof(obj) {
 					srcElements = srcElements || getAll(elem);
 					destElements = destElements || getAll(clone);
 
-					for (i = 0, l = srcElements.length; i < l; i += 1) {
+					for (i = 0, l = srcElements.length; i < l; i++) {
 						cloneCopyEvent(srcElements[i], destElements[i]);
 					}
 				} else {
@@ -6397,7 +6425,7 @@ function _typeof(obj) {
 						value = jQuery.htmlPrefilter(value);
 
 						try {
-							for (; i < l; i += 1) {
+							for (; i < l; i++) {
 								elem = this[i] || {};
 
 								if (elem.nodeType === 1) {

@@ -2050,8 +2050,7 @@ if (
 							support = true;
 						}
 					});
-
-				root.addEventListener("test", function() {}, opts);
+				addListener(root, "test", function() {}, opts);
 			} catch (err) {}
 
 			return support;
@@ -2066,7 +2065,8 @@ if (
 			},
 			listen: function listen() {
 				if (!isBindedEcho) {
-					addListener(root, 
+					addListener(
+						root,
 						"scroll",
 						throttleEchoImageAll,
 						supportsPassive
@@ -2075,7 +2075,6 @@ if (
 							  }
 							: false
 					);
-
 					document[documentElement][classList].add(isBindedEchoClass);
 				}
 			}
@@ -2166,7 +2165,7 @@ if (
 
 				var elem =
 					blocks ||
-					getByClass(document, "zoomwall lightbox")[0];
+					document[getElementsByClassName]("zoomwall lightbox")[0];
 
 				if (elem) {
 					switch (e.keyCode) {
