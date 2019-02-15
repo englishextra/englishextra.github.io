@@ -283,5 +283,5 @@
 			}
 		}
 	};
-	root.zoomwall = zoomwall;
+	root.Zoomwall= zoomwall;
 })("undefined" !== typeof window ? window : this, document);

@@ -1,8 +1,8 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global ActiveXObject, doesFontExist, echo, loadJsCss, addListener, getByClass,
- addClass, hasClass, removeClass, toggleClass, Minigrid, Mustache, platform,
- Promise, t, ToProgress, VK, WheelIndicator, Ya*/
+/*global ActiveXObject, doesFontExist, LazyLoad, loadJsCss, addListener,
+removeListener, getByClass, addClass, hasClass, removeClass, toggleClass,
+Minigrid, Mustache, platform, Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -516,45 +516,151 @@
 			"]";
 		}
 
-		var observeMutations = function (scope) {
-			var context = scope && scope.nodeName ? scope : "";
-			var mo;
-			var getMutations = function (e) {
-				var onMutation = function (m) {
-					console.log("mutations observer: " + m.type);
-					console.log(m.type, "target: " + m.target.tagName + ("." + m.target.className || "#" + m.target.id || ""));
-					console.log(m.type, "added: " + m.addedNodes[_length] + " nodes");
-					console.log(m.type, "removed: " + m.removedNodes[_length] + " nodes");
-					if ("childList" === m.type || "subtree" === m.type) {
-						mo.disconnect();
-						hideProgressBar();
-					}
-				};
-				var i,
-				l;
-				for (i = 0, l = e[_length]; i < l; i += 1) {
-					onMutation(e[i]);
-				}
-				i = l = null;
+		var loadUnparsedJSON = function (url, callback, onerror) {
+			var cb = function (string) {
+				return callback && "function" === typeof callback && callback(string);
 			};
-			if (context) {
-				mo = new MutationObserver(getMutations);
-				mo.observe(context, {
-					childList: true,
-					subtree: true,
-					attributes: false,
-					characterData: false
-				});
+			var x = root.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+			x.overrideMimeType("application/json;charset=utf-8");
+			x.open("GET", url, true);
+			x.withCredentials = false;
+			x.onreadystatechange = function () {
+				if (x.status === 404 || x.status === 0) {
+					console.log("Error XMLHttpRequest-ing file", x.status);
+					return onerror && "function" === typeof onerror && onerror();
+				} else if (x.readyState === 4 && x.status === 200 && x.responseText) {
+					cb(x.responseText);
+				}
+			};
+			x.send(null);
+		};
+
+		var setStyleDisplayNone = function (a) {
+			if (a) {
+				a[style].display = "none";
 			}
 		};
 
-		var minigridClass = "minigrid";
+		var scroll2Top = function (scrollTargetY, speed, easing) {
+			var scrollY = root.scrollY || docElem.scrollTop;
+			var posY = scrollTargetY || 0;
+			var rate = speed || 2000;
+			var soothing = easing || "easeOutSine";
+			var currentTime = 0;
+			var time = Math.max(0.1, Math.min(Math.abs(scrollY - posY) / rate, 0.8));
+			var easingEquations = {
+				easeOutSine: function (pos) {
+					return Math.sin(pos * (Math.PI / 2));
+				},
+				easeInOutSine: function (pos) {
+					return (-0.5 * (Math.cos(Math.PI * pos) - 1));
+				},
+				easeInOutQuint: function (pos) {
+					if ((pos /= 0.5) < 1) {
+						return 0.5 * Math.pow(pos, 5);
+					}
+					return 0.5 * (Math.pow((pos - 2), 5) + 2);
+				}
+			};
+			function tick() {
+				currentTime += 1 / 60;
+				var p = currentTime / time;
+				var t = easingEquations[soothing](p);
+				if (p < 1) {
+					requestAnimationFrame(tick);
+					root.scrollTo(0, scrollY + ((posY - scrollY) * t));
+				} else {
+					root.scrollTo(0, posY);
+				}
+			}
+			tick();
+		};
 
-		var minigridIsActiveClass = "minigrid--is-active";
+		var safelyParseJSON = function (response) {
+			var isJson = function (obj) {
+				var objType = typeof obj;
+				return ["boolean", "number", "string", 'symbol', "function"].indexOf(objType) === -1;
+			};
+			if (!isJson(response)) {
+				return JSON.parse(response);
+			} else {
+				return response;
+			}
+		};
 
-		var minigrid = getByClass(document, minigridClass)[0] || "";
+		var renderTemplate = function (parsedJson, templateId, targetId) {
+			var template = document[getElementById](templateId) || "";
+			var target = document[getElementById](targetId) || "";
+			var jsonObj = safelyParseJSON(parsedJson);
+			if (jsonObj && template && target) {
+				var targetHtml = template[innerHTML] || "";
+				if (root.t) {
+					var renderTargetTemplate = new t(targetHtml);
+					return renderTargetTemplate.render(jsonObj);
+				} else {
+					if (root.Mustache) {
+						Mustache.parse(targetHtml);
+						return Mustache.render(targetHtml, jsonObj);
+					}
+				}
+			}
+			return "cannot renderTemplate";
+		};
 
-		observeMutations(minigrid);
+		var insertTextAsFragment = function (text, container, callback) {
+			var body = document.body || "";
+			var cb = function () {
+				return callback && "function" === typeof callback && callback();
+			};
+			try {
+				var clonedContainer = container[cloneNode](false);
+				if (document[createRange]) {
+					var rg = document[createRange]();
+					rg.selectNode(body);
+					var df = rg[createContextualFragment](text);
+					clonedContainer[appendChild](df);
+					return container[parentNode] ? container[parentNode].replaceChild(clonedContainer, container) : container[innerHTML] = text,
+					cb();
+				} else {
+					clonedContainer[innerHTML] = text;
+					return container[parentNode] ? container[parentNode].replaceChild(document[createDocumentFragment][appendChild](clonedContainer), container) : container[innerHTML] = text,
+					cb();
+				}
+			} catch (e) {
+				console.log(e);
+				return;
+			}
+		};
+
+		var insertFromTemplate = function (parsedJson, templateId, targetId, callback, useInner) {
+			var _useInner = useInner || "";
+			var template = document[getElementById](templateId) || "";
+			var target = document[getElementById](targetId) || "";
+			var cb = function () {
+				return callback && "function" === typeof callback && callback();
+			};
+			if (parsedJson && template && target) {
+				var targetRendered = renderTemplate(parsedJson, templateId, targetId);
+				if (_useInner) {
+					target[innerHTML] = targetRendered;
+					cb();
+				} else {
+					insertTextAsFragment(targetRendered, target, cb);
+				}
+			}
+		};
+
+		var countObjKeys = function (obj) {
+			var count = 0;
+			var prop;
+			for (prop in obj) {
+				if (obj.hasOwnProperty(prop)) {
+					++count;
+				}
+			}
+			prop = null;
+			return count;
+		};
 
 		var debounce = function (func, wait) {
 			var timeout;
@@ -607,6 +713,52 @@
 				return rtn;
 			};
 		};
+
+		var observeMutations = function (scope) {
+			var context = scope && scope.nodeName ? scope : "";
+			var mo;
+			var getMutations = function (e) {
+				var onMutation = function (m) {
+					console.log("mutations observer: " + m.type);
+					console.log(m.type, "target: " + m.target.tagName + ("." + m.target.className || "#" + m.target.id || ""));
+					console.log(m.type, "added: " + m.addedNodes[_length] + " nodes");
+					console.log(m.type, "removed: " + m.removedNodes[_length] + " nodes");
+					if ("childList" === m.type || "subtree" === m.type) {
+						mo.disconnect();
+						hideProgressBar();
+					}
+				};
+				var i,
+				l;
+				for (i = 0, l = e[_length]; i < l; i += 1) {
+					onMutation(e[i]);
+				}
+				i = l = null;
+			};
+			if (context) {
+				mo = new MutationObserver(getMutations);
+				mo.observe(context, {
+					childList: true,
+					subtree: true,
+					attributes: false,
+					characterData: false
+				});
+			}
+		};
+
+		var anyResizeEventIsBindedClass = "any-resize-event--is-binded";
+
+		var minigridClass = "minigrid";
+
+		var minigridIsActiveClass = "minigrid--is-active";
+
+		var minigridItemClass = "minigrid__item";
+
+		var minigridItemIsBindedClass = "minigrid__item--is-binded";
+
+		var minigrid = getByClass(document, minigridClass)[0] || "";
+
+		observeMutations(minigrid);
 
 		/*jshint bitwise: false */
 		var parseLink = function (url, full) {
@@ -767,168 +919,52 @@
 		};
 		manageExternalLinkAll();
 
-		var loadUnparsedJSON = function (url, callback, onerror) {
-			var cb = function (string) {
-				return callback && "function" === typeof callback && callback(string);
-			};
-			var x = root.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
-			x.overrideMimeType("application/json;charset=utf-8");
-			x.open("GET", url, true);
-			x.withCredentials = false;
-			x.onreadystatechange = function () {
-				if (x.status === 404 || x.status === 0) {
-					console.log("Error XMLHttpRequest-ing file", x.status);
-					return onerror && "function" === typeof onerror && onerror();
-				} else if (x.readyState === 4 && x.status === 200 && x.responseText) {
-					cb(x.responseText);
-				}
-			};
-			x.send(null);
-		};
-
-		var setStyleDisplayNone = function (a) {
-			if (a) {
-				a[style].display = "none";
-			}
-		};
-
-		var scroll2Top = function (scrollTargetY, speed, easing) {
-			var scrollY = root.scrollY || docElem.scrollTop;
-			var posY = scrollTargetY || 0;
-			var rate = speed || 2000;
-			var soothing = easing || "easeOutSine";
-			var currentTime = 0;
-			var time = Math.max(0.1, Math.min(Math.abs(scrollY - posY) / rate, 0.8));
-			var easingEquations = {
-				easeOutSine: function (pos) {
-					return Math.sin(pos * (Math.PI / 2));
-				},
-				easeInOutSine: function (pos) {
-					return (-0.5 * (Math.cos(Math.PI * pos) - 1));
-				},
-				easeInOutQuint: function (pos) {
-					if ((pos /= 0.5) < 1) {
-						return 0.5 * Math.pow(pos, 5);
-					}
-					return 0.5 * (Math.pow((pos - 2), 5) + 2);
-				}
-			};
-			function tick() {
-				currentTime += 1 / 60;
-				var p = currentTime / time;
-				var t = easingEquations[soothing](p);
-				if (p < 1) {
-					requestAnimationFrame(tick);
-					root.scrollTo(0, scrollY + ((posY - scrollY) * t));
-				} else {
-					root.scrollTo(0, posY);
-				}
-			}
-			tick();
-		};
-
-		var wrapper = getByClass(document, "wrapper")[0] || "";
-
-		manageExternalLinkAll();
-
 		var dataSrcImgClass = "data-src-img";
-		var minigridItemClass = "minigrid__item";
+
+		var dataSrcImgIsBindedClass = "data-src-img--is-binded";
+
+		root.lazyLoadDataSrcImgInstance = null;
+
+		/*!
+		 * @see {@link https://github.com/verlok/lazyload}
+		 */
+		var manageDataSrcImgAll = function (callback) {
+			var cb = function () {
+				return callback && "function" === typeof callback && callback();
+			};
+			var images = getByClass(document, dataSrcImgClass) || "";
+			var i = images[_length];
+			while (i--) {
+				if (!hasClass(images[i], dataSrcImgIsBindedClass)) {
+					addClass(images[i], dataSrcImgIsBindedClass);
+					addClass(images[i], isActiveClass);
+					addListener(images[i], "load", cb);
+				}
+			}
+			i = null;
+			if (root.LazyLoad) {
+				if (root.lazyLoadDataSrcImgInstance) {
+					root.lazyLoadDataSrcImgInstance.destroy();
+				}
+				root.lazyLoadDataSrcImgInstance = new LazyLoad({
+						elements_selector: "." + dataSrcImgClass
+					});
+			}
+		};
+
 		var jsonHrefKeyName = "href";
 		var jsonSrcKeyName = "src";
 		var jsonTitleKeyName = "title";
 		var jsonTextKeyName = "text";
 		var jsonWidthKeyName = "width";
 		var jsonHeightKeyName = "height";
+
 		var jsonUrl = "./libs/contents-cards/json/contents.json";
 
-		var safelyParseJSON = function (response) {
-			var isJson = function (obj) {
-				var objType = typeof obj;
-				return ["boolean", "number", "string", 'symbol', "function"].indexOf(objType) === -1;
-			};
-			if (!isJson(response)) {
-				return JSON.parse(response);
-			} else {
-				return response;
-			}
-		};
-
-		var renderTemplate = function (parsedJson, templateId, targetId) {
-			var template = document[getElementById](templateId) || "";
-			var target = document[getElementById](targetId) || "";
-			var jsonObj = safelyParseJSON(parsedJson);
-			if (jsonObj && template && target) {
-				var targetHtml = template[innerHTML] || "";
-				if (root.t) {
-					var renderTargetTemplate = new t(targetHtml);
-					return renderTargetTemplate.render(jsonObj);
-				} else {
-					if (root.Mustache) {
-						Mustache.parse(targetHtml);
-						return Mustache.render(targetHtml, jsonObj);
-					}
-				}
-			}
-			return "cannot renderTemplate";
-		};
-
-		var insertTextAsFragment = function (text, container, callback) {
-			var body = document.body || "";
-			var cb = function () {
-				return callback && "function" === typeof callback && callback();
-			};
-			try {
-				var clonedContainer = container[cloneNode](false);
-				if (document[createRange]) {
-					var rg = document[createRange]();
-					rg.selectNode(body);
-					var df = rg[createContextualFragment](text);
-					clonedContainer[appendChild](df);
-					return container[parentNode] ? container[parentNode].replaceChild(clonedContainer, container) : container[innerHTML] = text,
-					cb();
-				} else {
-					clonedContainer[innerHTML] = text;
-					return container[parentNode] ? container[parentNode].replaceChild(document[createDocumentFragment][appendChild](clonedContainer), container) : container[innerHTML] = text,
-					cb();
-				}
-			} catch (e) {
-				console.log(e);
-				return;
-			}
-		};
-
-		var insertFromTemplate = function (parsedJson, templateId, targetId, callback, useInner) {
-			var _useInner = useInner || "";
-			var template = document[getElementById](templateId) || "";
-			var target = document[getElementById](targetId) || "";
-			var cb = function () {
-				return callback && "function" === typeof callback && callback();
-			};
-			if (parsedJson && template && target) {
-				var targetRendered = renderTemplate(parsedJson, templateId, targetId);
-				if (_useInner) {
-					target[innerHTML] = targetRendered;
-					cb();
-				} else {
-					insertTextAsFragment(targetRendered, target, cb);
-				}
-			}
-		};
-
-		var countObjKeys = function (obj) {
-			var count = 0;
-			var prop;
-			for (prop in obj) {
-				if (obj.hasOwnProperty(prop)) {
-					++count;
-				}
-			}
-			prop = null;
-			return count;
-		};
+		var wrapper = getByClass(document, "wrapper")[0] || "";
 
 		var manageMinigrid = function (minigridClass) {
-			var generateCardGrid = function (text) {
+			var generate = function (text) {
 
 				return new Promise(function (resolve, reject) {
 
@@ -952,7 +988,7 @@
 							}
 						}
 					} catch (err) {
-						console.log("cannot init generateCardGrid", err);
+						console.log("cannot init generate", err);
 						return;
 					}
 
@@ -1093,29 +1129,13 @@
 				}
 			};
 
-			var timerCreateGrid;
-			var createGrid = function () {
-				clearTimeout(timerCreateGrid);
-				timerCreateGrid = null;
-
-				var onMinigridCreated = function () {
-					minigrid[style].visibility = "visible";
-					minigrid[style].opacity = 1;
-				};
+			var timerCreate;
+			var create = function () {
+				clearTimeout(timerCreate);
+				timerCreate = null;
 
 				root.minigridInstance = null;
 
-				var initMinigrid = function () {
-					root.minigridInstance = new Minigrid({
-							container: "." + minigridClass,
-							item: "." + minigridItemClass,
-							gutter: 20
-						});
-					root.minigridInstance.mount();
-					addClass(minigrid, minigridIsActiveClass);
-					onMinigridCreated();
-					addCardWrapCssRule();
-				};
 				var updateMinigrid = function () {
 					if (root.minigridInstance) {
 						var timer = setTimeout(function () {
@@ -1125,16 +1145,59 @@
 							}, 100);
 					}
 				};
+
+				var updateMinigridThrottled = throttle(updateMinigrid, 1000);
+
+				var onMinigridCreated = function () {
+					minigrid[style].visibility = "visible";
+					minigrid[style].opacity = 1;
+					addCardWrapCssRule();
+					var minigridItems = getByClass(minigrid, minigridItemClass) || "";
+					if (minigridItems) {
+						var i,
+						l;
+						for (i = 0, l = minigridItems[_length]; i < l; i += 1) {
+							if (!hasClass(minigridItems[i], minigridItemIsBindedClass)) {
+								addClass(minigridItems[i], minigridItemIsBindedClass);
+							}
+							if (!hasClass(minigridItems[i], anyResizeEventIsBindedClass)) {
+								addClass(minigridItems[i], anyResizeEventIsBindedClass);
+								addListener(minigridItems[i], "onresize", updateMinigridThrottled, {passive: true});
+							}
+						}
+						i = l = null;
+					}
+				};
+
+				var initMinigrid = function () {
+					try {
+						if (root.minigridInstance) {
+							root.minigridInstance = null;
+							removeListener(root, "resize", updateMinigridThrottled);
+						}
+						root.minigridInstance = new Minigrid({
+								container: "." + minigridClass,
+								item: "." + minigridItemClass,
+								gutter: 20
+							});
+						root.minigridInstance.mount();
+						addClass(minigrid, minigridIsActiveClass);
+						addListener(root, "resize", updateMinigridThrottled, {passive: true});
+						onMinigridCreated();
+					} catch (err) {
+						throw new Error("cannot init Minigrid " + err);
+					}
+				};
 				initMinigrid();
-				addListener(root, "resize", updateMinigrid, {passive: true});
 			};
 
-			var timerSetLazyloading;
-			var setLazyloading = function () {
-				clearTimeout(timerSetLazyloading);
-				timerSetLazyloading = null;
+			var timerLazy;
+			var lazy = function () {
+				clearTimeout(timerLazy);
+				timerLazy = null;
 
-				echo(dataSrcImgClass, jsonSrcKeyName);
+				/* echo(dataSrcImgClass, jsonSrcKeyName); */
+				manageDataSrcImgAll();
 			};
 
 			/* var myHeaders = new Headers();
@@ -1149,12 +1212,12 @@
 					throw new Error("cannot fetch", jsonUrl);
 				}
 			}).then(function (text) {
-				generateCardGrid(text).then(function () {
-					timerCreateGrid = setTimeout(createGrid, 500);
+				generate(text).then(function () {
+					timerCreate = setTimeout(create, 500);
 				}).then(function () {
 					manageExternalLinkAll();
 				}).then(function () {
-					timerSetLazyloading = setTimeout(setLazyloading, 1000);
+					timerLazy = setTimeout(lazy, 1000);
 				}).catch (function (err) {
 					console.log("Cannot create card grid", err);
 				});
@@ -1163,9 +1226,9 @@
 			}); */
 			if (root.Minigrid && minigrid) {
 				loadUnparsedJSON(jsonUrl, function (text) {
-					generateCardGrid(text);
-					timerCreateGrid = setTimeout(createGrid, 200);
-					timerSetLazyloading = setTimeout(setLazyloading, 500);
+					generate(text);
+					timerCreate = setTimeout(create, 200);
+					timerLazy = setTimeout(lazy, 500);
 				}, function (err) {
 					console.log("cannot parse", jsonUrl, err);
 				});

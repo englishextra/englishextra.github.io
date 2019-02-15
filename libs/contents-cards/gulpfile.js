@@ -216,9 +216,10 @@ var options = {
 			"../../cdn/platform/1.3.4/js/platform.fixed.js",
 			"../../cdn/wheel-indicator/1.1.4/js/wheel-indicator.fixed.js",
 			"../../cdn/t.js/0.1.0/js/t.fixed.js",
-			"../../cdn/echo.js/0.1.0/js/echo.fixed.js",
 			"../../cdn/minigrid/3.1.1/js/minigrid.fixed.js",
-			"../../cdn/Tocca.js/2.0.1/js/Tocca.fixed.js"
+			"../../cdn/Tocca.js/2.0.1/js/Tocca.fixed.js",
+			"../../cdn/resize/1.0.0/js/any-resize-event.fixed.js",
+			"../../cdn/lazyload/10.19.0/js/lazyload.iife.fixed.js"
 		],
 		js: "./js",
 		concatOptions: {

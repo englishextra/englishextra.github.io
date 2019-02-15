@@ -1675,132 +1675,6 @@ if (
 })("undefined" !== typeof window ? window : this);
 
 /*!
- * modified Echo.js, simple JavaScript image lazy loading
- * added option to specify data attribute and img class
- * @see {@link https://toddmotto.com/echo-js-simple-javascript-image-lazy-loading/}
- * @see {@link https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md#feature-detection}
- * forced passive event listener if supported
- * passes jshint
- */
-(function (root, document) {
-	"use strict";
-	var echo = function (imgClass, dataAttributeName, throttleRate) {
-		var _imgClass = imgClass || "data-src-img";
-		var _dataAttributeName = dataAttributeName || "src";
-		var _throttleRate = throttleRate || 100;
-		var classList = "classList";
-		var dataset = "dataset";
-		var documentElement = "documentElement";
-		var getAttribute = "getAttribute";
-		var getBoundingClientRect = "getBoundingClientRect";
-		var getElementsByClassName = "getElementsByClassName";
-		var _length = "length";
-		var Echo = function (elem) {
-			var _this = this;
-			_this.elem = elem;
-			_this.render();
-			_this.listen();
-		};
-		var echoIsBindedClass = "echo--is-binded";
-		var isBindedEcho = (function () {
-			return document[documentElement][classList].contains(echoIsBindedClass) || "";
-		})();
-		var echoStore = [];
-		var scrolledIntoView = function (element) {
-			var coords = element[getBoundingClientRect]();
-			return ((coords.top >= 0 && coords.left >= 0 && coords.top) <= (root.innerHeight || document[documentElement].clientHeight));
-		};
-		var echoSrc = function (img, callback) {
-			img.src = img[dataset][_dataAttributeName] || img[getAttribute]("data-" + _dataAttributeName);
-			if (callback && "function" === typeof callback) {
-				callback();
-			}
-		};
-		var removeEcho = function (element, index) {
-			if (echoStore.indexOf(element) !== -1) {
-				echoStore.splice(index, 1);
-			}
-		};
-		var echoImageAll = function () {
-			var i;
-			for (i = 0; i < echoStore[_length]; i++) {
-				var self = echoStore[i];
-				if (scrolledIntoView(self)) {
-					echoSrc(self, removeEcho(self, i));
-				}
-			}
-			i = null;
-		};
-		var throttle = function (func, wait) {
-			var ctx;
-			var args;
-			var rtn;
-			var timeoutID;
-			var last = 0;
-			function call() {
-				timeoutID = 0;
-				last = +new Date();
-				rtn = func.apply(ctx, args);
-				ctx = null;
-				args = null;
-			}
-			return function throttled() {
-				ctx = this;
-				args = arguments;
-				var delta = new Date() - last;
-				if (!timeoutID) {
-					if (delta >= wait) {
-						call();
-					} else {
-						timeoutID = setTimeout(call, wait - delta);
-					}
-				}
-				return rtn;
-			};
-		};
-		var throttleEchoImageAll = throttle(echoImageAll, _throttleRate);
-		var supportsPassive = (function () {
-				var support = false;
-				try {
-					var opts = Object.defineProperty && Object.defineProperty({}, "passive", {
-							get: function () {
-								support = true;
-							}
-						});
-					root.addEventListener("test", function() {}, opts);
-				} catch (err) {}
-				return support;
-			})();
-		Echo.prototype = {
-			init: function () {
-				echoStore.push(this.elem);
-			},
-			render: function () {
-				echoImageAll();
-			},
-			listen: function () {
-				if (!isBindedEcho) {
-					root.addEventListener("scroll", throttleEchoImageAll, supportsPassive ? {passive: true} : false);
-					root.addEventListener("resize", throttleEchoImageAll);
-					document[documentElement][classList].add(echoIsBindedClass);
-				}
-			}
-		};
-		var lazyImgs = document[getElementsByClassName](_imgClass) || "";
-		var walkLazyImageAll = function () {
-			for (var i = 0; i < lazyImgs[_length]; i++) {
-				new Echo(lazyImgs[i]).init();
-			}
-		};
-		if (lazyImgs) {
-			walkLazyImageAll();
-		}
-	};
-	root.echo = echo;
-})("undefined" !== typeof window ? window : this, document);
-
-
-/*!
  * @license Minigrid v3.1.1 minimal cascading grid layout http://alves.im/minigrid
  * @see {@link https://github.com/henriquea/minigrid}
  * changed element selection method
@@ -2178,3 +2052,883 @@ if (
 		return defaults;
 	};
 })(document, "undefined" !== typeof window ? window : this);
+
+function _typeof(obj) {
+	if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+		_typeof = function _typeof(obj) {
+			return typeof obj;
+		};
+	} else {
+		_typeof = function _typeof(obj) {
+			return obj &&
+				typeof Symbol === "function" &&
+				obj.constructor === Symbol &&
+				obj !== Symbol.prototype
+				? "symbol"
+				: typeof obj;
+		};
+	}
+	return _typeof(obj);
+}
+
+/*!
+LegoMushroom @legomushroom http://legomushroom.com
+MIT License 2014
+ */
+
+/*!
+ * @see {@link https://github.com/legomushroom/resize/blob/master/dist/any-resize-event.js}
+ * v1.0.0
+ * fixed functions within the loop and some variables
+ * not defined on more upper level
+ * and if (proto.prototype === null || proto.prototype === undefined)
+ * passes jshint
+ */
+
+/*global define, module*/
+
+/*!
+LegoMushroom @legomushroom http://legomushroom.com
+MIT License 2014
+ */
+(function() {
+	var Main;
+
+	Main = (function() {
+		function Main(o) {
+			this.o = o != null ? o : {};
+
+			if (window.isAnyResizeEventInited) {
+				return;
+			}
+
+			this.vars();
+			this.redefineProto();
+		}
+
+		Main.prototype.vars = function() {
+			window.isAnyResizeEventInited = true;
+			this.allowedProtos = [
+				HTMLDivElement,
+				HTMLFormElement,
+				HTMLLinkElement,
+				HTMLBodyElement,
+				HTMLParagraphElement,
+				HTMLFieldSetElement,
+				HTMLLegendElement,
+				HTMLLabelElement,
+				HTMLButtonElement,
+				HTMLUListElement,
+				HTMLOListElement,
+				HTMLLIElement,
+				HTMLHeadingElement,
+				HTMLQuoteElement,
+				HTMLPreElement,
+				HTMLBRElement,
+				HTMLFontElement,
+				HTMLHRElement,
+				HTMLModElement,
+				HTMLParamElement,
+				HTMLMapElement,
+				HTMLTableElement,
+				HTMLTableCaptionElement,
+				HTMLImageElement,
+				HTMLTableCellElement,
+				HTMLSelectElement,
+				HTMLInputElement,
+				HTMLTextAreaElement,
+				HTMLAnchorElement,
+				HTMLObjectElement,
+				HTMLTableColElement,
+				HTMLTableSectionElement,
+				HTMLTableRowElement
+			];
+			return (this.timerElements = {
+				img: 1,
+				textarea: 1,
+				input: 1,
+				embed: 1,
+				object: 1,
+				svg: 1,
+				canvas: 1,
+				tr: 1,
+				tbody: 1,
+				thead: 1,
+				tfoot: 1,
+				a: 1,
+				select: 1,
+				option: 1,
+				optgroup: 1,
+				dl: 1,
+				dt: 1,
+				br: 1,
+				basefont: 1,
+				font: 1,
+				col: 1,
+				iframe: 1
+			});
+		};
+
+		Main.prototype.redefineProto = function() {
+			var i, it, proto, t;
+			it = this;
+			return (t = function() {
+				var _i, _len, _ref, _results;
+
+				_ref = this.allowedProtos;
+				_results = [];
+
+				var fn = function fn(proto) {
+					var listener, remover;
+					listener =
+						proto.prototype.addEventListener ||
+						proto.prototype.attachEvent;
+					var wrappedListener;
+
+					(function(listener) {
+						wrappedListener = function wrappedListener() {
+							var option;
+
+							if (this !== window || this !== document) {
+								option =
+									arguments[0] === "onresize" &&
+									!this.isAnyResizeEventInited;
+
+								if (option) {
+									it.handleResize({
+										args: arguments,
+										that: this
+									});
+								}
+							}
+
+							return listener.apply(this, arguments);
+						};
+
+						if (proto.prototype.addEventListener) {
+							return (proto.prototype.addEventListener = wrappedListener);
+						} else if (proto.prototype.attachEvent) {
+							return (proto.prototype.attachEvent = wrappedListener);
+						}
+					})(listener);
+
+					remover =
+						proto.prototype.removeEventListener ||
+						proto.prototype.detachEvent;
+					return (function(remover) {
+						var wrappedRemover;
+
+						wrappedRemover = function wrappedRemover() {
+							this.isAnyResizeEventInited = false;
+
+							if (this.iframe) {
+								this.removeChild(this.iframe);
+							}
+
+							return remover.apply(this, arguments);
+						};
+
+						if (proto.prototype.removeEventListener) {
+							return (proto.prototype.removeEventListener = wrappedRemover);
+						} else if (proto.prototype.detachEvent) {
+							return (proto.prototype.detachEvent = wrappedListener);
+						}
+					})(remover);
+				};
+
+				for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+					proto = _ref[i];
+
+					if (proto.prototype == null) {
+						continue;
+					}
+					/* _results.push(fn.bind(null, proto)()); */
+
+					_results.push(fn(proto));
+				}
+
+				return _results;
+			}.call(this));
+		};
+
+		Main.prototype.handleResize = function(args) {
+			var computedStyle, el, iframe, isEmpty, isStatic, _ref;
+
+			el = args.that;
+
+			if (!this.timerElements[el.tagName.toLowerCase()]) {
+				iframe = document.createElement("iframe");
+				el.appendChild(iframe);
+				iframe.style.width = "100%";
+				iframe.style.height = "100%";
+				iframe.style.position = "absolute";
+				iframe.style.zIndex = -999;
+				iframe.style.opacity = 0;
+				iframe.style.top = 0;
+				iframe.style.left = 0;
+				iframe.setAttribute("title", "any-resize-event");
+				iframe.setAttribute("aria-hidden", true);
+				computedStyle = window.getComputedStyle
+					? getComputedStyle(el)
+					: el.currentStyle;
+				isStatic =
+					computedStyle.position === "static" &&
+					el.style.position === "";
+				isEmpty =
+					computedStyle.position === "" && el.style.position === "";
+
+				if (isStatic || isEmpty) {
+					el.style.position = "relative";
+				}
+
+				if ((_ref = iframe.contentWindow) != null) {
+					_ref.onresize = (function(_this) {
+						return function(e) {
+							return _this.dispatchEvent(el);
+						};
+					})(this);
+				}
+
+				el.iframe = iframe;
+			} else {
+				this.initTimer(el);
+			}
+
+			return (el.isAnyResizeEventInited = true);
+		};
+
+		Main.prototype.initTimer = function(el) {
+			var height, width;
+			width = 0;
+			height = 0;
+			return (this.interval = setInterval(
+				(function(_this) {
+					return function() {
+						var newHeight, newWidth;
+						newWidth = el.offsetWidth;
+						newHeight = el.offsetHeight;
+
+						if (newWidth !== width || newHeight !== height) {
+							_this.dispatchEvent(el);
+
+							width = newWidth;
+							return (height = newHeight);
+						}
+					};
+				})(this),
+				this.o.interval || 62.5
+			));
+		};
+
+		Main.prototype.dispatchEvent = function(el) {
+			var e;
+
+			if (document.createEvent) {
+				e = document.createEvent("HTMLEvents");
+				e.initEvent("onresize", false, false);
+				return el.dispatchEvent(e);
+			} else if (document.createEventObject) {
+				e = document.createEventObject();
+				return el.fireEvent("onresize", e);
+			} else {
+				return false;
+			}
+		};
+
+		Main.prototype.destroy = function() {
+			var i, it, proto, _i, _len, _ref, _results;
+
+			clearInterval(this.interval);
+			this.interval = null;
+			window.isAnyResizeEventInited = false;
+			it = this;
+			_ref = this.allowedProtos;
+			_results = [];
+
+			var fn = function fn(proto) {
+				var listener;
+				listener =
+					proto.prototype.addEventListener ||
+					proto.prototype.attachEvent;
+
+				if (proto.prototype.addEventListener) {
+					proto.prototype.addEventListener =
+						Element.prototype.addEventListener;
+				} else if (proto.prototype.attachEvent) {
+					proto.prototype.attachEvent = Element.prototype.attachEvent;
+				}
+
+				if (proto.prototype.removeEventListener) {
+					return (proto.prototype.removeEventListener =
+						Element.prototype.removeEventListener);
+				} else if (proto.prototype.detachEvent) {
+					return (proto.prototype.detachEvent =
+						Element.prototype.detachEvent);
+				}
+			};
+
+			for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+				proto = _ref[i];
+
+				if (proto.prototype == null) {
+					continue;
+				}
+
+				_results.push(fn(proto));
+			}
+
+			return _results;
+		};
+
+		return Main;
+	})();
+
+	if (typeof define === "function" && define.amd) {
+		define("any-resize-event", [], function() {
+			return new Main();
+		});
+	} else if (
+		(typeof module === "undefined" ? "undefined" : _typeof(module)) ===
+			"object" &&
+		_typeof(module.exports) === "object"
+	) {
+		module.exports = new Main();
+	} else {
+		if (typeof window !== "undefined" && window !== null) {
+			window.AnyResizeEvent = Main;
+		}
+
+		if (typeof window !== "undefined" && window !== null) {
+			window.anyResizeEvent = new Main();
+		}
+	}
+}.call(this));
+
+var _extends =
+	Object.assign ||
+	function(target) {
+		for (var i = 1; i < arguments.length; i++) {
+			var source = arguments[i];
+
+			for (var key in source) {
+				if (Object.prototype.hasOwnProperty.call(source, key)) {
+					target[key] = source[key];
+				}
+			}
+		}
+
+		return target;
+	};
+
+var LazyLoad = (function() {
+	"use strict";
+
+	var defaultSettings = {
+		elements_selector: "img",
+		container: document,
+		threshold: 300,
+		thresholds: null,
+		data_src: "src",
+		data_srcset: "srcset",
+		data_sizes: "sizes",
+		data_bg: "bg",
+		class_loading: "loading",
+		class_loaded: "loaded",
+		class_error: "error",
+		load_delay: 0,
+		callback_load: null,
+		callback_error: null,
+		callback_set: null,
+		callback_enter: null,
+		callback_finish: null,
+		to_webp: false
+	};
+
+	var getInstanceSettings = function getInstanceSettings(customSettings) {
+		return _extends({}, defaultSettings, customSettings);
+	};
+
+	var dataPrefix = "data-";
+	var processedDataName = "was-processed";
+	var timeoutDataName = "ll-timeout";
+	var trueString = "true";
+
+	var getData = function getData(element, attribute) {
+		return element.getAttribute(dataPrefix + attribute);
+	};
+
+	var setData = function setData(element, attribute, value) {
+		var attrName = dataPrefix + attribute;
+
+		if (value === null) {
+			element.removeAttribute(attrName);
+			return;
+		}
+
+		element.setAttribute(attrName, value);
+	};
+
+	var setWasProcessedData = function setWasProcessedData(element) {
+		return setData(element, processedDataName, trueString);
+	};
+
+	var getWasProcessedData = function getWasProcessedData(element) {
+		return getData(element, processedDataName) === trueString;
+	};
+
+	var setTimeoutData = function setTimeoutData(element, value) {
+		return setData(element, timeoutDataName, value);
+	};
+
+	var getTimeoutData = function getTimeoutData(element) {
+		return getData(element, timeoutDataName);
+	};
+
+	var purgeProcessedElements = function purgeProcessedElements(elements) {
+		return elements.filter(function(element) {
+			return !getWasProcessedData(element);
+		});
+	};
+
+	var purgeOneElement = function purgeOneElement(elements, elementToPurge) {
+		return elements.filter(function(element) {
+			return element !== elementToPurge;
+		});
+	};
+	/* Creates instance and notifies it through the window element */
+
+	var createInstance = function createInstance(classObj, options) {
+		var event;
+		var eventString = "LazyLoad::Initialized";
+		var instance = new classObj(options);
+
+		try {
+			// Works in modern browsers
+			event = new CustomEvent(eventString, {
+				detail: {
+					instance: instance
+				}
+			});
+		} catch (err) {
+			// Works in Internet Explorer (all versions)
+			event = document.createEvent("CustomEvent");
+			event.initCustomEvent(eventString, false, false, {
+				instance: instance
+			});
+		}
+
+		window.dispatchEvent(event);
+	};
+	/* Auto initialization of one or more instances of lazyload, depending on the
+   options passed in (plain object or an array) */
+
+	function autoInitialize(classObj, options) {
+		if (!options) {
+			return;
+		}
+
+		if (!options.length) {
+			// Plain object
+			createInstance(classObj, options);
+		} else {
+			// Array of objects
+			for (var i = 0, optionsItem; (optionsItem = options[i]); i += 1) {
+				createInstance(classObj, optionsItem);
+			}
+		}
+	}
+
+	var replaceExtToWebp = function replaceExtToWebp(value, condition) {
+		return condition ? value.replace(/\.(jpe?g|png)/gi, ".webp") : value;
+	};
+
+	var detectWebp = function detectWebp() {
+		var webpString = "image/webp";
+		var canvas = document.createElement("canvas");
+
+		if (canvas.getContext && canvas.getContext("2d")) {
+			return (
+				canvas.toDataURL(webpString).indexOf("data:" + webpString) === 0
+			);
+		}
+
+		return false;
+	};
+
+	var runningOnBrowser = typeof window !== "undefined";
+	var isBot =
+		(runningOnBrowser && !("onscroll" in window)) ||
+		/(gle|ing|ro)bot|crawl|spider/i.test(navigator.userAgent);
+	var supportsIntersectionObserver =
+		runningOnBrowser && "IntersectionObserver" in window;
+	var supportsClassList =
+		runningOnBrowser && "classList" in document.createElement("p");
+	var supportsWebp = runningOnBrowser && detectWebp();
+
+	var setSourcesInChildren = function setSourcesInChildren(
+		parentTag,
+		attrName,
+		dataAttrName,
+		toWebpFlag
+	) {
+		for (var i = 0, childTag; (childTag = parentTag.children[i]); i += 1) {
+			if (childTag.tagName === "SOURCE") {
+				var attrValue = getData(childTag, dataAttrName);
+				setAttributeIfValue(childTag, attrName, attrValue, toWebpFlag);
+			}
+		}
+	};
+
+	var setAttributeIfValue = function setAttributeIfValue(
+		element,
+		attrName,
+		value,
+		toWebpFlag
+	) {
+		if (!value) {
+			return;
+		}
+
+		element.setAttribute(attrName, replaceExtToWebp(value, toWebpFlag));
+	};
+
+	var setSourcesImg = function setSourcesImg(element, settings) {
+		var toWebpFlag = supportsWebp && settings.to_webp;
+		var srcsetDataName = settings.data_srcset;
+		var parent = element.parentNode;
+
+		if (parent && parent.tagName === "PICTURE") {
+			setSourcesInChildren(parent, "srcset", srcsetDataName, toWebpFlag);
+		}
+
+		var sizesDataValue = getData(element, settings.data_sizes);
+		setAttributeIfValue(element, "sizes", sizesDataValue);
+		var srcsetDataValue = getData(element, srcsetDataName);
+		setAttributeIfValue(element, "srcset", srcsetDataValue, toWebpFlag);
+		var srcDataValue = getData(element, settings.data_src);
+		setAttributeIfValue(element, "src", srcDataValue, toWebpFlag);
+	};
+
+	var setSourcesIframe = function setSourcesIframe(element, settings) {
+		var srcDataValue = getData(element, settings.data_src);
+		setAttributeIfValue(element, "src", srcDataValue);
+	};
+
+	var setSourcesVideo = function setSourcesVideo(element, settings) {
+		var srcDataName = settings.data_src;
+		var srcDataValue = getData(element, srcDataName);
+		setSourcesInChildren(element, "src", srcDataName);
+		setAttributeIfValue(element, "src", srcDataValue);
+		element.load();
+	};
+
+	var setSourcesBgImage = function setSourcesBgImage(element, settings) {
+		var toWebpFlag = supportsWebp && settings.to_webp;
+		var srcDataValue = getData(element, settings.data_src);
+		var bgDataValue = getData(element, settings.data_bg);
+
+		if (srcDataValue) {
+			var setValue = replaceExtToWebp(srcDataValue, toWebpFlag);
+			element.style.backgroundImage = 'url("' + setValue + '")';
+		}
+
+		if (bgDataValue) {
+			var _setValue = replaceExtToWebp(bgDataValue, toWebpFlag);
+
+			element.style.backgroundImage = _setValue;
+		}
+	};
+
+	var setSourcesFunctions = {
+		IMG: setSourcesImg,
+		IFRAME: setSourcesIframe,
+		VIDEO: setSourcesVideo
+	};
+
+	var setSources = function setSources(element, instance) {
+		var settings = instance._settings;
+		var tagName = element.tagName;
+		var setSourcesFunction = setSourcesFunctions[tagName];
+
+		if (setSourcesFunction) {
+			setSourcesFunction(element, settings);
+
+			instance._updateLoadingCount(1);
+
+			instance._elements = purgeOneElement(instance._elements, element);
+			return;
+		}
+
+		setSourcesBgImage(element, settings);
+	};
+
+	var addClass = function addClass(element, className) {
+		if (supportsClassList) {
+			element.classList.add(className);
+			return;
+		}
+
+		element.className += (element.className ? " " : "") + className;
+	};
+
+	var removeClass = function removeClass(element, className) {
+		if (supportsClassList) {
+			element.classList.remove(className);
+			return;
+		}
+
+		element.className = element.className
+			.replace(new RegExp("(^|\\s+)" + className + "(\\s+|$)"), " ")
+			.replace(/^\s+/, "")
+			.replace(/\s+$/, "");
+	};
+
+	var callbackIfSet = function callbackIfSet(callback, argument) {
+		if (callback) {
+			callback(argument);
+		}
+	};
+
+	var genericLoadEventName = "load";
+	var mediaLoadEventName = "loadeddata";
+	var errorEventName = "error";
+
+	var addEventListener = function addEventListener(
+		element,
+		eventName,
+		handler
+	) {
+		element.addEventListener(eventName, handler);
+	};
+
+	var removeEventListener = function removeEventListener(
+		element,
+		eventName,
+		handler
+	) {
+		element.removeEventListener(eventName, handler);
+	};
+
+	var addEventListeners = function addEventListeners(
+		element,
+		loadHandler,
+		errorHandler
+	) {
+		addEventListener(element, genericLoadEventName, loadHandler);
+		addEventListener(element, mediaLoadEventName, loadHandler);
+		addEventListener(element, errorEventName, errorHandler);
+	};
+
+	var removeEventListeners = function removeEventListeners(
+		element,
+		loadHandler,
+		errorHandler
+	) {
+		removeEventListener(element, genericLoadEventName, loadHandler);
+		removeEventListener(element, mediaLoadEventName, loadHandler);
+		removeEventListener(element, errorEventName, errorHandler);
+	};
+
+	var eventHandler = function eventHandler(event, success, instance) {
+		var settings = instance._settings;
+		var className = success ? settings.class_loaded : settings.class_error;
+		var callback = success
+			? settings.callback_load
+			: settings.callback_error;
+		var element = event.target;
+		removeClass(element, settings.class_loading);
+		addClass(element, className);
+		callbackIfSet(callback, element);
+
+		instance._updateLoadingCount(-1);
+	};
+
+	var addOneShotEventListeners = function addOneShotEventListeners(
+		element,
+		instance
+	) {
+		var loadHandler = function loadHandler(event) {
+			eventHandler(event, true, instance);
+			removeEventListeners(element, loadHandler, errorHandler);
+		};
+
+		var errorHandler = function errorHandler(event) {
+			eventHandler(event, false, instance);
+			removeEventListeners(element, loadHandler, errorHandler);
+		};
+
+		addEventListeners(element, loadHandler, errorHandler);
+	};
+
+	var managedTags = ["IMG", "IFRAME", "VIDEO"];
+
+	var loadAndUnobserve = function loadAndUnobserve(
+		element,
+		observer,
+		instance
+	) {
+		revealElement(element, instance);
+		observer.unobserve(element);
+	};
+
+	var cancelDelayLoad = function cancelDelayLoad(element) {
+		var timeoutId = getTimeoutData(element);
+
+		if (!timeoutId) {
+			return; // do nothing if timeout doesn't exist
+		}
+
+		clearTimeout(timeoutId);
+		setTimeoutData(element, null);
+	};
+
+	var delayLoad = function delayLoad(element, observer, instance) {
+		var loadDelay = instance._settings.load_delay;
+		var timeoutId = getTimeoutData(element);
+
+		if (timeoutId) {
+			return; // do nothing if timeout already set
+		}
+
+		timeoutId = setTimeout(function() {
+			loadAndUnobserve(element, observer, instance);
+			cancelDelayLoad(element);
+		}, loadDelay);
+		setTimeoutData(element, timeoutId);
+	};
+
+	function revealElement(element, instance, force) {
+		var settings = instance._settings;
+
+		if (!force && getWasProcessedData(element)) {
+			return; // element has already been processed and force wasn't true
+		}
+
+		callbackIfSet(settings.callback_enter, element);
+
+		if (managedTags.indexOf(element.tagName) > -1) {
+			addOneShotEventListeners(element, instance);
+			addClass(element, settings.class_loading);
+		}
+
+		setSources(element, instance);
+		setWasProcessedData(element);
+		callbackIfSet(settings.callback_set, element);
+	}
+	/* entry.isIntersecting needs fallback because is null on some versions of MS Edge, and
+  entry.intersectionRatio is not enough alone because it could be 0 on some intersecting elements */
+
+	var isIntersecting = function isIntersecting(entry) {
+		return entry.isIntersecting || entry.intersectionRatio > 0;
+	};
+
+	var getObserverSettings = function getObserverSettings(settings) {
+		return {
+			root: settings.container === document ? null : settings.container,
+			rootMargin: settings.thresholds || settings.threshold + "px"
+		};
+	};
+
+	var LazyLoad = function LazyLoad(customSettings, elements) {
+		this._settings = getInstanceSettings(customSettings);
+
+		this._setObserver();
+
+		this._loadingCount = 0;
+		this.update(elements);
+	};
+
+	LazyLoad.prototype = {
+		_manageIntersection: function _manageIntersection(entry) {
+			var observer = this._observer;
+			var loadDelay = this._settings.load_delay;
+			var element = entry.target; // WITHOUT LOAD DELAY
+
+			if (!loadDelay) {
+				if (isIntersecting(entry)) {
+					loadAndUnobserve(element, observer, this);
+				}
+
+				return;
+			} // WITH LOAD DELAY
+
+			if (isIntersecting(entry)) {
+				delayLoad(element, observer, this);
+			} else {
+				cancelDelayLoad(element);
+			}
+		},
+		_onIntersection: function _onIntersection(entries) {
+			entries.forEach(this._manageIntersection.bind(this));
+		},
+		_setObserver: function _setObserver() {
+			if (!supportsIntersectionObserver) {
+				return;
+			}
+
+			this._observer = new IntersectionObserver(
+				this._onIntersection.bind(this),
+				getObserverSettings(this._settings)
+			);
+		},
+		_updateLoadingCount: function _updateLoadingCount(plusMinus) {
+			this._loadingCount += plusMinus;
+
+			if (this._elements.length === 0 && this._loadingCount === 0) {
+				callbackIfSet(this._settings.callback_finish);
+			}
+		},
+		update: function update(elements) {
+			var _this = this;
+
+			var settings = this._settings;
+			var nodeSet =
+				elements ||
+				settings.container.querySelectorAll(settings.elements_selector);
+			this._elements = purgeProcessedElements(
+				Array.prototype.slice.call(nodeSet) // NOTE: nodeset to array for IE compatibility
+			);
+
+			if (isBot || !this._observer) {
+				this.loadAll();
+				return;
+			}
+
+			this._elements.forEach(function(element) {
+				_this._observer.observe(element);
+			});
+		},
+		destroy: function destroy() {
+			var _this2 = this;
+
+			if (this._observer) {
+				this._elements.forEach(function(element) {
+					_this2._observer.unobserve(element);
+				});
+
+				this._observer = null;
+			}
+
+			this._elements = null;
+			this._settings = null;
+		},
+		load: function load(element, force) {
+			revealElement(element, this, force);
+		},
+		loadAll: function loadAll() {
+			var _this3 = this;
+
+			var elements = this._elements;
+			elements.forEach(function(element) {
+				_this3.load(element);
+			});
+		}
+	};
+	/* Automatic instances creation if required (useful for async script loading) */
+
+	if (runningOnBrowser) {
+		autoInitialize(LazyLoad, window.lazyLoadOptions);
+	}
+
+	return LazyLoad;
+})();

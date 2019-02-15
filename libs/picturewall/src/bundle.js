@@ -1,8 +1,8 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global doesFontExist, echo, Headers, loadJsCss, addListener, getByClass,
-addClass, hasClass, removeClass, toggleClass, Mustache, platform, Promise, t,
-ToProgress, VK, WheelIndicator, Ya, zoomwall*/
+/*global ActiveXObject, doesFontExist, LazyLoad, loadJsCss, addListener,
+ getByClass, addClass, hasClass, removeClass, toggleClass, Zoomwall, Mustache,
+ platform, Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -515,42 +515,151 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 			"]";
 		}
 
-		var observeMutations = function (scope) {
-			var context = scope && scope.nodeName ? scope : "";
-			var mo;
-			var getMutations = function (e) {
-				var onMutation = function (m) {
-					console.log("mutations observer: " + m.type);
-					console.log(m.type, "target: " + m.target.tagName + ("." + m.target.className || "#" + m.target.id || ""));
-					console.log(m.type, "added: " + m.addedNodes[_length] + " nodes");
-					console.log(m.type, "removed: " + m.removedNodes[_length] + " nodes");
-					if ("childList" === m.type || "subtree" === m.type) {
-						mo.disconnect();
-						hideProgressBar();
-					}
-				};
-				var i,
-				l;
-				for (i = 0, l = e[_length]; i < l; i += 1) {
-					onMutation(e[i]);
-				}
-				i = l = null;
+		var loadUnparsedJSON = function (url, callback, onerror) {
+			var cb = function (string) {
+				return callback && "function" === typeof callback && callback(string);
 			};
-			if (context) {
-				mo = new MutationObserver(getMutations);
-				mo.observe(context, {
-					childList: true,
-					subtree: true,
-					attributes: false,
-					characterData: false
-				});
+			var x = root.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+			x.overrideMimeType("application/json;charset=utf-8");
+			x.open("GET", url, true);
+			x.withCredentials = false;
+			x.onreadystatechange = function () {
+				if (x.status === 404 || x.status === 0) {
+					console.log("Error XMLHttpRequest-ing file", x.status);
+					return onerror && "function" === typeof onerror && onerror();
+				} else if (x.readyState === 4 && x.status === 200 && x.responseText) {
+					cb(x.responseText);
+				}
+			};
+			x.send(null);
+		};
+
+		var setStyleDisplayNone = function (a) {
+			if (a) {
+				a[style].display = "none";
 			}
 		};
 
-		var zoomwallGalleryClass = "zoomwall";
-		var zoomwallGallery = getByClass(document, zoomwallGalleryClass)[0] || "";
+		var scroll2Top = function (scrollTargetY, speed, easing) {
+			var scrollY = root.scrollY || docElem.scrollTop;
+			var posY = scrollTargetY || 0;
+			var rate = speed || 2000;
+			var soothing = easing || "easeOutSine";
+			var currentTime = 0;
+			var time = Math.max(0.1, Math.min(Math.abs(scrollY - posY) / rate, 0.8));
+			var easingEquations = {
+				easeOutSine: function (pos) {
+					return Math.sin(pos * (Math.PI / 2));
+				},
+				easeInOutSine: function (pos) {
+					return (-0.5 * (Math.cos(Math.PI * pos) - 1));
+				},
+				easeInOutQuint: function (pos) {
+					if ((pos /= 0.5) < 1) {
+						return 0.5 * Math.pow(pos, 5);
+					}
+					return 0.5 * (Math.pow((pos - 2), 5) + 2);
+				}
+			};
+			function tick() {
+				currentTime += 1 / 60;
+				var p = currentTime / time;
+				var t = easingEquations[soothing](p);
+				if (p < 1) {
+					requestAnimationFrame(tick);
+					root.scrollTo(0, scrollY + ((posY - scrollY) * t));
+				} else {
+					root.scrollTo(0, posY);
+				}
+			}
+			tick();
+		};
 
-		observeMutations(zoomwallGallery);
+		var safelyParseJSON = function (response) {
+			var isJson = function (obj) {
+				var objType = typeof obj;
+				return ["boolean", "number", "string", 'symbol', "function"].indexOf(objType) === -1;
+			};
+			if (!isJson(response)) {
+				return JSON.parse(response);
+			} else {
+				return response;
+			}
+		};
+
+		var renderTemplate = function (parsedJson, templateId, targetId) {
+			var template = document[getElementById](templateId) || "";
+			var target = document[getElementById](targetId) || "";
+			var jsonObj = safelyParseJSON(parsedJson);
+			if (jsonObj && template && target) {
+				var targetHtml = template[innerHTML] || "";
+				if (root.t) {
+					var renderTargetTemplate = new t(targetHtml);
+					return renderTargetTemplate.render(jsonObj);
+				} else {
+					if (root.Mustache) {
+						Mustache.parse(targetHtml);
+						return Mustache.render(targetHtml, jsonObj);
+					}
+				}
+			}
+			return "cannot renderTemplate";
+		};
+
+		var insertTextAsFragment = function (text, container, callback) {
+			var body = document.body || "";
+			var cb = function () {
+				return callback && "function" === typeof callback && callback();
+			};
+			try {
+				var clonedContainer = container[cloneNode](false);
+				if (document[createRange]) {
+					var rg = document[createRange]();
+					rg.selectNode(body);
+					var df = rg[createContextualFragment](text);
+					clonedContainer[appendChild](df);
+					return container[parentNode] ? container[parentNode].replaceChild(clonedContainer, container) : container[innerHTML] = text,
+					cb();
+				} else {
+					clonedContainer[innerHTML] = text;
+					return container[parentNode] ? container[parentNode].replaceChild(document[createDocumentFragment][appendChild](clonedContainer), container) : container[innerHTML] = text,
+					cb();
+				}
+			} catch (e) {
+				console.log(e);
+				return;
+			}
+		};
+
+		var insertFromTemplate = function (parsedJson, templateId, targetId, callback, useInner) {
+			var _useInner = useInner || "";
+			var template = document[getElementById](templateId) || "";
+			var target = document[getElementById](targetId) || "";
+			var cb = function () {
+				return callback && "function" === typeof callback && callback();
+			};
+			if (parsedJson && template && target) {
+				var targetRendered = renderTemplate(parsedJson, templateId, targetId);
+				if (_useInner) {
+					target[innerHTML] = targetRendered;
+					cb();
+				} else {
+					insertTextAsFragment(targetRendered, target, cb);
+				}
+			}
+		};
+
+		var countObjKeys = function (obj) {
+			var count = 0;
+			var prop;
+			for (prop in obj) {
+				if (obj.hasOwnProperty(prop)) {
+					++count;
+				}
+			}
+			prop = null;
+			return count;
+		};
 
 		var debounce = function (func, wait) {
 			var timeout;
@@ -603,6 +712,46 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 				return rtn;
 			};
 		};
+
+		var observeMutations = function (scope) {
+			var context = scope && scope.nodeName ? scope : "";
+			var mo;
+			var getMutations = function (e) {
+				var onMutation = function (m) {
+					console.log("mutations observer: " + m.type);
+					console.log(m.type, "target: " + m.target.tagName + ("." + m.target.className || "#" + m.target.id || ""));
+					console.log(m.type, "added: " + m.addedNodes[_length] + " nodes");
+					console.log(m.type, "removed: " + m.removedNodes[_length] + " nodes");
+					if ("childList" === m.type || "subtree" === m.type) {
+						mo.disconnect();
+						hideProgressBar();
+					}
+				};
+				var i,
+				l;
+				for (i = 0, l = e[_length]; i < l; i += 1) {
+					onMutation(e[i]);
+				}
+				i = l = null;
+			};
+			if (context) {
+				mo = new MutationObserver(getMutations);
+				mo.observe(context, {
+					childList: true,
+					subtree: true,
+					attributes: false,
+					characterData: false
+				});
+			}
+		};
+
+		var zoomwallClass = "zoomwall";
+
+		var zoomwallIsActiveClass = "zoomwall--is-active";
+
+		var zoomwall = getByClass(document, zoomwallClass)[0] || "";
+
+		observeMutations(zoomwall);
 
 		/*jshint bitwise: false */
 		var parseLink = function (url, full) {
@@ -763,146 +912,50 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 		};
 		manageExternalLinkAll();
 
-		var setStyleDisplayNone = function (a) {
-			if (a) {
-				a[style].display = "none";
-			}
-		};
-
-		var scroll2Top = function (scrollTargetY, speed, easing) {
-			var scrollY = root.scrollY || docElem.scrollTop;
-			var posY = scrollTargetY || 0;
-			var rate = speed || 2000;
-			var soothing = easing || "easeOutSine";
-			var currentTime = 0;
-			var time = Math.max(0.1, Math.min(Math.abs(scrollY - posY) / rate, 0.8));
-			var easingEquations = {
-				easeOutSine: function (pos) {
-					return Math.sin(pos * (Math.PI / 2));
-				},
-				easeInOutSine: function (pos) {
-					return (-0.5 * (Math.cos(Math.PI * pos) - 1));
-				},
-				easeInOutQuint: function (pos) {
-					if ((pos /= 0.5) < 1) {
-						return 0.5 * Math.pow(pos, 5);
-					}
-					return 0.5 * (Math.pow((pos - 2), 5) + 2);
-				}
-			};
-			function tick() {
-				currentTime += 1 / 60;
-				var p = currentTime / time;
-				var t = easingEquations[soothing](p);
-				if (p < 1) {
-					requestAnimationFrame(tick);
-					root.scrollTo(0, scrollY + ((posY - scrollY) * t));
-				} else {
-					root.scrollTo(0, posY);
-				}
-			}
-			tick();
-		};
-
-		var wrapper = getByClass(document, "wrapper")[0] || "";
-
-		manageExternalLinkAll();
-
 		var dataSrcImgClass = "data-src-img";
+
+		var dataSrcImgIsBindedClass = "data-src-img--is-binded";
+
+		root.lazyLoadDataSrcImgInstance = null;
+
+		/*!
+		 * @see {@link https://github.com/verlok/lazyload}
+		 */
+		var manageDataSrcImgAll = function (callback) {
+			var cb = function () {
+				return callback && "function" === typeof callback && callback();
+			};
+			var images = getByClass(document, dataSrcImgClass) || "";
+			var i = images[_length];
+			while (i--) {
+				if (!hasClass(images[i], dataSrcImgIsBindedClass)) {
+					addClass(images[i], dataSrcImgIsBindedClass);
+					addClass(images[i], isActiveClass);
+					addListener(images[i], "load", cb);
+				}
+			}
+			i = null;
+			if (root.LazyLoad) {
+				if (root.lazyLoadDataSrcImgInstance) {
+					root.lazyLoadDataSrcImgInstance.destroy();
+				}
+				root.lazyLoadDataSrcImgInstance = new LazyLoad({
+						elements_selector: "." + dataSrcImgClass
+					});
+			}
+		};
+
 		var jsonSrcKeyName = "src";
 		var jsonWidthKeyName = "width";
 		var jsonHeightKeyName = "height";
 		var jsonTitleKeyName = "title";
+
 		var jsonUrl = "./libs/contents-cards/json/contents.json";
 
-		var safelyParseJSON = function (response) {
-			var isJson = function (obj) {
-				var objType = typeof obj;
-				return ["boolean", "number", "string", 'symbol', "function"].indexOf(objType) === -1;
-			};
-			if (!isJson(response)) {
-				return JSON.parse(response);
-			} else {
-				return response;
-			}
-		};
-
-		var renderTemplate = function (parsedJson, templateId, targetId) {
-			var template = document[getElementById](templateId) || "";
-			var target = document[getElementById](targetId) || "";
-			var jsonObj = safelyParseJSON(parsedJson);
-			if (jsonObj && template && target) {
-				var targetHtml = template[innerHTML] || "";
-				if (root.t) {
-					var renderTargetTemplate = new t(targetHtml);
-					return renderTargetTemplate.render(jsonObj);
-				} else {
-					if (root.Mustache) {
-						Mustache.parse(targetHtml);
-						return Mustache.render(targetHtml, jsonObj);
-					}
-				}
-			}
-			return "cannot renderTemplate";
-		};
-
-		var insertTextAsFragment = function (text, container, callback) {
-			var body = document.body || "";
-			var cb = function () {
-				return callback && "function" === typeof callback && callback();
-			};
-			try {
-				var clonedContainer = container[cloneNode](false);
-				if (document[createRange]) {
-					var rg = document[createRange]();
-					rg.selectNode(body);
-					var df = rg[createContextualFragment](text);
-					clonedContainer[appendChild](df);
-					return container[parentNode] ? container[parentNode].replaceChild(clonedContainer, container) : container[innerHTML] = text,
-					cb();
-				} else {
-					clonedContainer[innerHTML] = text;
-					return container[parentNode] ? container[parentNode].replaceChild(document[createDocumentFragment][appendChild](clonedContainer), container) : container[innerHTML] = text,
-					cb();
-				}
-			} catch (e) {
-				console.log(e);
-				return;
-			}
-		};
-
-		var insertFromTemplate = function (parsedJson, templateId, targetId, callback, useInner) {
-			var _useInner = useInner || "";
-			var template = document[getElementById](templateId) || "";
-			var target = document[getElementById](targetId) || "";
-			var cb = function () {
-				return callback && "function" === typeof callback && callback();
-			};
-			if (parsedJson && template && target) {
-				var targetRendered = renderTemplate(parsedJson, templateId, targetId);
-				if (_useInner) {
-					target[innerHTML] = targetRendered;
-					cb();
-				} else {
-					insertTextAsFragment(targetRendered, target, cb);
-				}
-			}
-		};
-
-		var countObjKeys = function (obj) {
-			var count = 0;
-			var prop;
-			for (prop in obj) {
-				if (obj.hasOwnProperty(prop)) {
-					++count;
-				}
-			}
-			prop = null;
-			return count;
-		};
+		var wrapper = getByClass(document, "wrapper")[0] || "";
 
 		var manageZoomwall = function () {
-			var generateGallery = function (text) {
+			var generate = function (text) {
 
 				return new Promise(function (resolve, reject) {
 
@@ -922,7 +975,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 							}
 						}
 					} catch (err) {
-						console.log("cannot init generateGallery", err);
+						console.log("cannot init generate", err);
 						return;
 					}
 
@@ -992,7 +1045,7 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 					}
 					key = null;
 
-					if (zoomwallGallery[appendChild](df)) {
+					if (zoomwall[appendChild](df)) {
 						resolve();
 					} else {
 						reject();
@@ -1000,27 +1053,42 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 				});
 			};
 
-			var timerCreateGallery;
-			var createGallery = function () {
-				clearTimeout(timerCreateGallery);
-				timerCreateGallery = null;
+			var timerCreate;
+			var create = function () {
+				clearTimeout(timerCreate);
+				timerCreate = null;
 
 				var onZoomwallCreated = function () {
-					zoomwallGallery[style].visibility = "visible";
-					zoomwallGallery[style].opacity = 1;
+					zoomwall[style].visibility = "visible";
+					zoomwall[style].opacity = 1;
 				};
-				zoomwall.create(zoomwallGallery, true, jsonSrcKeyName, null, onZoomwallCreated);
+
+				root.zoomwallInstance = null;
+
+				var initZoomwall = function () {
+					try {
+						if (root.zoomwallInstance) {
+							root.zoomwallInstance = null;
+						}
+						root.zoomwallInstance = new Zoomwall.create(zoomwall, true, jsonSrcKeyName, null, onZoomwallCreated);
+						addClass(zoomwall, zoomwallIsActiveClass);
+					} catch (err) {
+						throw new Error("cannot init Zoomwall " + err);
+					}
+				};
+				initZoomwall();
 			};
 
-			var timerSetLazyloading;
-			var setLazyloading = function () {
-				clearTimeout(timerSetLazyloading);
-				timerSetLazyloading = null;
+			var timerLazy;
+			var lazy = function () {
+				clearTimeout(timerLazy);
+				timerLazy = null;
 
-				echo(dataSrcImgClass, jsonSrcKeyName);
+				/* echo(dataSrcImgClass, jsonSrcKeyName); */
+				manageDataSrcImgAll();
 			};
 
-			var myHeaders = new Headers();
+			/* var myHeaders = new Headers();
 
 			fetch(jsonUrl, {
 				headers: myHeaders,
@@ -1032,20 +1100,27 @@ ToProgress, VK, WheelIndicator, Ya, zoomwall*/
 					throw new Error("cannot fetch", jsonUrl);
 				}
 			}).then(function (text) {
-				generateGallery(text).then(function (result) {
-					return result;
-				}).then(function () {
-					timerCreateGallery = setTimeout(createGallery, 500);
+				generate(text).then(function () {
+					timerCreate = setTimeout(create, 500);
 				}).then(function () {
 					manageExternalLinkAll();
 				}).then(function () {
-					timerSetLazyloading = setTimeout(setLazyloading, 1000);
+					timerLazy = setTimeout(lazy, 1000);
 				}).catch (function (err) {
 					console.log("Cannot create zoomwall gallery", err);
 				});
 			}).catch (function (err) {
 				console.log("cannot parse", jsonUrl, err);
-			});
+			}); */
+			if (root.Zoomwall && zoomwall) {
+				loadUnparsedJSON(jsonUrl, function (text) {
+					generate(text);
+					timerCreate = setTimeout(create, 200);
+					timerLazy = setTimeout(lazy, 500);
+				}, function (err) {
+					console.log("cannot parse", jsonUrl, err);
+				});
+			}
 		};
 		manageZoomwall();
 

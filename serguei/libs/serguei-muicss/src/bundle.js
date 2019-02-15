@@ -1895,7 +1895,7 @@ WheelIndicator, Ya*/
 				try {
 					if (root.minigridInstance) {
 						root.minigridInstance = null;
-						removeListener(root, "resize", updateMinigrid);
+						removeListener(root, "resize", updateMinigridThrottled);
 					}
 					root.minigridInstance = new Minigrid({
 							container: "." + minigridClass,
@@ -1904,7 +1904,7 @@ WheelIndicator, Ya*/
 						});
 					root.minigridInstance.mount();
 					addClass(minigrid, minigridIsActiveClass);
-					addListener(root, "resize", updateMinigrid, {passive: true});
+					addListener(root, "resize", updateMinigridThrottled, {passive: true});
 					appEvents.emitEvent("MinigridInited");
 				} catch (err) {
 					throw new Error("cannot init Minigrid " + err);
