@@ -156,8 +156,8 @@
 				</symbol>
 			</defs>
 		</svg>
-		<div id="container" class="wrapper">
-			<div class="minigrid" id="target_card_grid"></div>
+		<div class="container" id="container">
+			<div class="minigrid" id="render_minigrid"></div>
 			<div class="title-bar" role="navigation">
 				<a class="btn-title-bar back" href="./" title="Начало">
 					<svg class="title-bar-icon">
@@ -195,7 +195,7 @@
 			<div class="is-social" id="ya-share2" data-direction="horizontal" data-services="vkontakte,odnoklassniki,facebook,whatsapp,pocket"></div>
 			<div class="holder-vk-like is-social"><div class="vk-like" id="vk-like" data-apiid="4367728"></div></div>
 		</div>
-		<template id="template_card_grid">
+		<template id="template_minigrid">
 			{{@pages}}
 				<div class="minigrid__item">
 					<a href="{{%_val.href}}">

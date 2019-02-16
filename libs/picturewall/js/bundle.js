@@ -959,7 +959,7 @@
 
 		var jsonUrl = "./libs/contents-cards/json/contents.json";
 
-		var wrapper = getByClass(document, "wrapper")[0] || "";
+		var container = getByClass(document, "container")[0] || "";
 
 		var manageZoomwall = function () {
 			var generate = function (text) {
@@ -996,8 +996,13 @@
 					 * to fix that select elemnts in a container that doesnt have source template
 					 */
 					var pagesKeysNumber = countObjKeys(jsonObj.pages);
-					insertFromTemplate(jsonObj, "template_zoomwall", "target_zoomwall", function () {
-						if (getByClass(wrapper, zoomwallItemClass)[pagesKeysNumber - 1]) {
+					insertFromTemplate(jsonObj, "template_zoomwall", "render_zoomwall", function () {
+						var zoomwallLastItem = container ?
+							getByClass(container, zoomwallItemClass) ?
+							getByClass(container, zoomwallItemClass)[pagesKeysNumber - 1] :
+							"" :
+							"";
+						if (zoomwallLastItem) {
 							resolve();
 						} else {
 							reject();
@@ -1321,7 +1326,7 @@
 			};
 			throttle(logic, 100).call(root);
 		};
-		if (wrapper && titleBar) {
+		if (container && titleBar) {
 			addClass(titleBar, animatedClass);
 			addClass(titleBar, duration4msClass);
 			if (hasTouch) {

@@ -961,7 +961,7 @@ Minigrid, Mustache, platform, Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 
 		var jsonUrl = "./libs/contents-cards/json/contents.json";
 
-		var wrapper = getByClass(document, "wrapper")[0] || "";
+		var container = getByClass(document, "container")[0] || "";
 
 		var manageMinigrid = function (minigridClass) {
 			var generate = function (text) {
@@ -1002,8 +1002,13 @@ Minigrid, Mustache, platform, Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 					 * to fix that select elemnts in a container that doesnt have source template
 					 */
 					var pagesKeysNumber = countObjKeys(jsonObj.pages);
-					insertFromTemplate(jsonObj, "template_card_grid", "target_card_grid", function () {
-						if (getByClass(wrapper, minigridItemClass)[pagesKeysNumber - 1]) {
+					insertFromTemplate(jsonObj, "template_minigrid", "render_minigrid", function () {
+						var minigridLastItem = container ?
+							getByClass(container, minigridItemClass) ?
+							getByClass(container, minigridItemClass)[pagesKeysNumber - 1] :
+							"" :
+							"";
+						if  (minigridLastItem)  {
 							resolve();
 						} else {
 							reject();
@@ -1411,7 +1416,7 @@ Minigrid, Mustache, platform, Promise, t, ToProgress, VK, WheelIndicator, Ya*/
 			};
 			throttle(logic, 100).call(root);
 		};
-		if (wrapper && titleBar) {
+		if (container && titleBar) {
 			addClass(titleBar, animatedClass);
 			addClass(titleBar, duration4msClass);
 			if (hasTouch) {
