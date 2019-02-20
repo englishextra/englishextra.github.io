@@ -87,19 +87,18 @@ Ya*/
  */
 (function (root, document) {
 	"use strict";
-	var classList = "classList";
 	var hasClass;
 	var addClass;
 	var removeClass;
-	if (classList in document.documentElement) {
+	if ("classList" in document.documentElement) {
 		hasClass = function (el, name) {
-			return el[classList].contains(name);
+			return el.classList.contains(name);
 		};
 		addClass = function (el, name) {
-			el[classList].add(name);
+			el.classList.add(name);
 		};
 		removeClass = function (el, name) {
-			el[classList].remove(name);
+			el.classList.remove(name);
 		};
 	} else {
 		hasClass = function (el, name) {
@@ -143,19 +142,9 @@ Ya*/
 	"use strict";
 	var ToProgress = (function () {
 		var TP = function () {
-			var _addEventListener = "addEventListener";
-			var appendChild = "appendChild";
-			var firstChild = "firstChild";
-			var getElementById = "getElementById";
-			var getElementsByClassName = "getElementsByClassName";
-			var hasOwnProperty = "hasOwnProperty";
-			var opacity = "opacity";
-			var prototype = "prototype";
-			var _removeEventListener = "removeEventListener";
-			var style = "style";
 			function whichTransitionEvent() {
-				var t,
-				el = document.createElement("fakeelement");
+				var t;
+				var el = document.createElement("fakeelement");
 				var transitions = {
 					"transition": "transitionend",
 					"OTransition": "oTransitionEnd",
@@ -163,14 +152,15 @@ Ya*/
 					"WebkitTransition": "webkitTransitionEnd"
 				};
 				for (t in transitions) {
-					if (transitions[hasOwnProperty](t)) {
-						if (el[style][t] !== undefined) {
+					if (transitions.hasOwnProperty(t)) {
+						if (el.style[t] !== undefined) {
 							return transitions[t];
 						}
 					}
 				}
 				t = null;
 			}
+
 			var transitionEvent = whichTransitionEvent();
 			function ToProgress(opt, selector) {
 				this.progress = 0;
@@ -184,7 +174,7 @@ Ya*/
 				if (opt && typeof opt === "object") {
 					var key;
 					for (key in opt) {
-						if (opt[hasOwnProperty](key)) {
+						if (opt.hasOwnProperty(key)) {
 							this.options[key] = opt[key];
 						}
 					}
@@ -196,7 +186,7 @@ Ya*/
 				this.progressBar.setCSS = function (style) {
 					var property;
 					for (property in style) {
-						if (style[hasOwnProperty](property)) {
+						if (style.hasOwnProperty(property)) {
 							this.style[property] = style[property];
 						}
 					}
@@ -218,30 +208,30 @@ Ya*/
 				if (selector) {
 					var el;
 					if (selector.indexOf("#", 0) !== -1) {
-						el = document[getElementById](selector) || "";
+						el = document.getElementById(selector) || "";
 					} else {
 						if (selector.indexOf(".", 0) !== -1) {
-							el = document[getElementsByClassName](selector)[0] || "";
+							el = document.getElementsByClassName(selector)[0] || "";
 						}
 					}
 					if (el) {
 						if (el.hasChildNodes()) {
-							el.insertBefore(this.progressBar, el[firstChild]);
+							el.insertBefore(this.progressBar, el.firstChild);
 						} else {
-							el[appendChild](this.progressBar);
+							el.appendChild(this.progressBar);
 						}
 					}
 				} else {
-					document.body[appendChild](this.progressBar);
+					document.body.appendChild(this.progressBar);
 				}
 			}
-			ToProgress[prototype].transit = function () {
-				this.progressBar[style].width = this.progress + "%";
+			ToProgress.prototype.transit = function () {
+				this.progressBar.style.width = this.progress + "%";
 			};
-			ToProgress[prototype].getProgress = function () {
+			ToProgress.prototype.getProgress = function () {
 				return this.progress;
 			};
-			ToProgress[prototype].setProgress = function (progress, callback) {
+			ToProgress.prototype.setProgress = function (progress, callback) {
 				this.show();
 				if (progress > 100) {
 					this.progress = 100;
@@ -255,37 +245,37 @@ Ya*/
 					callback();
 				}
 			};
-			ToProgress[prototype].increase = function (toBeIncreasedProgress, callback) {
+			ToProgress.prototype.increase = function (toBeIncreasedProgress, callback) {
 				this.show();
 				this.setProgress(this.progress + toBeIncreasedProgress, callback);
 			};
-			ToProgress[prototype].decrease = function (toBeDecreasedProgress, callback) {
+			ToProgress.prototype.decrease = function (toBeDecreasedProgress, callback) {
 				this.show();
 				this.setProgress(this.progress - toBeDecreasedProgress, callback);
 			};
-			ToProgress[prototype].finish = function (callback) {
+			ToProgress.prototype.finish = function (callback) {
 				var that = this;
 				this.setProgress(100, callback);
 				this.hide();
 				if (transitionEvent) {
-					this.progressBar[_addEventListener](transitionEvent, function (e) {
+					this.progressBar.addEventListener(transitionEvent, function (e) {
 						that.reset();
-						that.progressBar[_removeEventListener](e.type, TP);
+						that.progressBar.removeEventListener(e.type, TP);
 					});
 				}
 			};
-			ToProgress[prototype].reset = function (callback) {
+			ToProgress.prototype.reset = function (callback) {
 				this.progress = 0;
 				this.transit();
 				if (callback) {
 					callback();
 				}
 			};
-			ToProgress[prototype].hide = function () {
-				this.progressBar[style][opacity] = "0";
+			ToProgress.prototype.hide = function () {
+				this.progressBar.style.opacity = "0";
 			};
-			ToProgress[prototype].show = function () {
-				this.progressBar[style][opacity] = "1";
+			ToProgress.prototype.show = function () {
+				this.progressBar.style.opacity = "1";
 			};
 			return ToProgress;
 		};
@@ -304,16 +294,13 @@ Ya*/
 (function (root, document) {
 	"use strict";
 	var doesFontExist = function (fontName) {
-		var getContext = "getContext";
-		var measureText = "measureText";
-		var width = "width";
 		var canvas = document.createElement("canvas");
-		var context = canvas[getContext]("2d");
+		var context = canvas.getContext("2d");
 		var text = "abcdefghijklmnopqrstuvwxyz0123456789";
 		context.font = "72px monospace";
-		var baselineSize = context[measureText](text)[width];
+		var baselineSize = context.measureText(text).width;
 		context.font = "72px '" + fontName + "', monospace";
-		var newSize = context[measureText](text)[width];
+		var newSize = context.measureText(text).width;
 		canvas = null;
 		if (newSize === baselineSize) {
 			return false;
@@ -332,16 +319,11 @@ Ya*/
 	"use strict";
 	var loadJsCss = function (files, callback, type) {
 		var _this = this;
-		var appendChild = "appendChild";
-		var body = "body";
-		var getElementsByTagName = "getElementsByTagName";
-		var setAttribute = "setAttribute";
-		var _length = "length";
 		_this.files = files;
 		_this.js = [];
-		_this.head = document[getElementsByTagName]("head")[0] || "";
-		_this.body = document[body] || "";
-		_this.ref = document[getElementsByTagName]("script")[0] || "";
+		_this.head = document.getElementsByTagName("head")[0] || "";
+		_this.body = document.body || "";
+		_this.ref = document.getElementsByTagName("script")[0] || "";
 		_this.callback = callback || function () {};
 		_this.type = type ? type.toLowerCase() : "";
 		_this.loadStyle = function (file) {
@@ -354,9 +336,9 @@ Ya*/
 				this.onload = null;
 				this.media = "all";
 			};
-			link[setAttribute]("property", "stylesheet");
-			/* _this.head[appendChild](link); */
-			(_this.body || _this.head)[appendChild](link);
+			link.setAttribute("property", "stylesheet");
+			/* _this.head.appendChild(link); */
+			(_this.body || _this.head).appendChild(link);
 		};
 		_this.loadScript = function (i) {
 			var script = document.createElement("script");
@@ -364,7 +346,7 @@ Ya*/
 			script.async = true;
 			script.src = _this.js[i];
 			var loadNextScript = function () {
-				if (++i < _this.js[_length]) {
+				if (++i < _this.js.length) {
 					_this.loadScript(i);
 				} else {
 					_this.callback();
@@ -373,17 +355,17 @@ Ya*/
 			script.onload = function () {
 				loadNextScript();
 			};
-			_this.head[appendChild](script);
-			/* if (_this.ref[parentNode]) {
-				_this.ref[parentNode][insertBefore](script, _this.ref);
+			_this.head.appendChild(script);
+			/* if (_this.ref.parentNode) {
+				_this.ref.parentNode[insertBefore](script, _this.ref);
 			} else {
-				(_this.body || _this.head)[appendChild](script);
+				(_this.body || _this.head).appendChild(script);
 			} */
-			(_this.body || _this.head)[appendChild](script);
+			(_this.body || _this.head).appendChild(script);
 		};
 		var i,
 		l;
-		for (i = 0, l = _this.files[_length]; i < l; i += 1) {
+		for (i = 0, l = _this.files.length; i < l; i += 1) {
 			if ((/\.js$|\.js\?/).test(_this.files[i]) || _this.type === "js") {
 				_this.js.push(_this.files[i]);
 			}
@@ -392,7 +374,7 @@ Ya*/
 			}
 		}
 		i = l = null;
-		if (_this.js[_length] > 0) {
+		if (_this.js.length > 0) {
 			_this.loadScript(0);
 		} else {
 			_this.callback();
@@ -408,8 +390,6 @@ Ya*/
 
 	var docElem = document.documentElement || "";
 	var docImplem = document.implementation || "";
-
-	var _length = "length";
 
 	var progressBar = new ToProgress({
 			id: "top-progress-bar",
@@ -442,24 +422,12 @@ Ya*/
 
 	var forcedHTTP = getHTTP(true);
 
-	var supportsCanvas;
-	supportsCanvas = (function () {
+	/* var supportsCanvas = (function () {
 		var elem = document.createElement("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
-	})();
+	})(); */
 
 	var run = function () {
-
-		var appendChild = "appendChild";
-		var createDocumentFragment = "createDocumentFragment";
-		var createTextNode = "createTextNode";
-		var dataset = "dataset";
-		var getAttribute = "getAttribute";
-		var getElementById = "getElementById";
-		var getElementsByTagName = "getElementsByTagName";
-		var parentNode = "parentNode";
-		var style = "style";
-		var title = "title";
 
 		var isActiveClass = "is-active";
 		var isSocialClass = "is-social";
@@ -474,24 +442,24 @@ Ya*/
 		var earlyDeviceFormfactor = (function (selectors) {
 			var orientation;
 			var size;
-			var f = function (a) {
-				var b = a.split(" ");
+			var f = function (e) {
+				var b = e.split(" ");
 				if (selectors) {
 					var c;
-					for (c = 0; c < b[_length]; c += 1) {
-						a = b[c];
-						selectors.add(a);
+					for (c = 0; c < b.length; c += 1) {
+						e = b[c];
+						selectors.add(e);
 					}
 					c = null;
 				}
 			};
-			var g = function (a) {
-				var b = a.split(" ");
+			var g = function (e) {
+				var b = e.split(" ");
 				if (selectors) {
 					var c;
-					for (c = 0; c < b[_length]; c += 1) {
-						a = b[c];
-						selectors.remove(a);
+					for (c = 0; c < b.length; c += 1) {
+						e = b[c];
+						selectors.remove(e);
 					}
 					c = null;
 				}
@@ -600,8 +568,8 @@ Ya*/
 			(earlyHasTouch ? " " + earlyHasTouch : "") +
 			"]";
 
-		if (document[title]) {
-			document[title] = document[title] + userBrowser;
+		if (document.title) {
+			document.title = document.title + userBrowser;
 		}
 
 		var debounce = function (func, wait) {
@@ -636,36 +604,36 @@ Ya*/
 			}
 		};
 		var appendFragment = function (e, a) {
-			var parent = a || document[getElementsByTagName]("body")[0] || "";
+			var parent = a || document.getElementsByTagName("body")[0] || "";
 			if (e) {
-				var df = document[createDocumentFragment]() || "";
+				var df = document.createDocumentFragment() || "";
 				if ("string" === typeof e) {
-					e = document[createTextNode](e);
+					e = document.createTextNode(e);
 				}
-				df[appendChild](e);
-				parent[appendChild](df);
+				df.appendChild(e);
+				parent.appendChild(df);
 			}
 		};
 		var prependFragmentBefore = function (e, a) {
 			if ("string" === typeof e) {
-				e = document[createTextNode](e);
+				e = document.createTextNode(e);
 			}
-			var p = a[parentNode] || "";
-			var df = document[createDocumentFragment]();
+			var p = a.parentNode || "";
+			var df = document.createDocumentFragment();
 			if (p) {
-				df[appendChild](e);
+				df.appendChild(e);
 				p.insertBefore(df, a);
 			}
 		};
-		var setStyleDisplayBlock = function (a) {
-			if (a) {
-				a[style].display = "block";
+		var setStyleDisplayBlock = function (e) {
+			if (e) {
+				e.style.display = "block";
 			}
 		};
 
-		var setStyleDisplayNone = function (a) {
-			if (a) {
-				a[style].display = "none";
+		var setStyleDisplayNone = function (e) {
+			if (e) {
+				e.style.display = "none";
 			}
 		};
 		/*jshint bitwise: false */
@@ -756,7 +724,7 @@ Ya*/
 					if ("undefined" !== typeof require("nw.gui")) {
 						return true;
 					}
-				} catch (e) {
+				} catch (err) {
 					return false;
 				}
 			}
@@ -780,8 +748,8 @@ Ya*/
 			} else if (isNwjs) {
 				onNwjs();
 			} else {
-				var locProtocol = root.location.protocol || "",
-				hasHTTP = locProtocol ? "http:" === locProtocol ? "http" : "https:" === locProtocol ? "https" : "" : "";
+				var locProtocol = root.location.protocol || "";
+				var hasHTTP = locProtocol ? "http:" === locProtocol ? "http" : "https:" === locProtocol ? "https" : "" : "";
 				if (hasHTTP) {
 					return true;
 				} else {
@@ -791,7 +759,7 @@ Ya*/
 		};
 
 		var manageExternalLinkAll = function () {
-			var link = document[getElementsByTagName]("a") || "";
+			var link = document.getElementsByTagName("a") || "";
 			var handle = function (url, ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
@@ -803,7 +771,7 @@ Ya*/
 			var arrange = function (e) {
 				var externalLinkIsBindedClass = "external-link--is-binded";
 				if (!hasClass(e, externalLinkIsBindedClass)) {
-					var url = e[getAttribute]("href") || "";
+					var url = e.getAttribute("href") || "";
 					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
 						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
 						if ("undefined" !== typeof getHTTP && getHTTP()) {
@@ -819,7 +787,7 @@ Ya*/
 			if (link) {
 				var i,
 				l;
-				for (i = 0, l = link[_length]; i < l; i += 1) {
+				for (i = 0, l = link.length; i < l; i += 1) {
 					arrange(link[i]);
 				}
 				i = l = null;
@@ -851,7 +819,7 @@ Ya*/
 					(root.innerWidth === screen.width && root.innerHeight === screen.height)) {
 					var i,
 					l;
-					for (i = 0, l = args[_length]; i < l; i += 1) {
+					for (i = 0, l = args.length; i < l; i += 1) {
 						setStyleDisplayNone(args[i]);
 					}
 					i = l = null;
@@ -859,7 +827,7 @@ Ya*/
 				} else {
 					var j,
 					m;
-					for (j = 0, m = args[_length]; j < m; j += 1) {
+					for (j = 0, m = args.length; j < m; j += 1) {
 						setStyleDisplayBlock(args[j]);
 					}
 					j = m = null;
@@ -936,7 +904,7 @@ Ya*/
 			var initScript = function () {
 				var locHref = root.location.href || "";
 				var img = document.createElement("img");
-				var imgTitle = document[title] ? ("Ссылка на страницу «" + document[title].replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
+				var imgTitle = document.title ? ("Ссылка на страницу «" + document.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
 				var imgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(locHref);
 				img.alt = imgTitle;
 				if (root.QRCode) {
@@ -967,7 +935,7 @@ Ya*/
 					img.src = imgSrc;
 				}
 				addClass(img, "qr-code-img");
-				img[title] = imgTitle;
+				img.title = imgTitle;
 				removeChildren(holder);
 				appendFragment(img, holder);
 			};
@@ -981,12 +949,12 @@ Ya*/
 		manageLocationQrcode();
 
 		var manageMenuMore = function () {
-			var container = document[getElementById]("container") || "";
-			var page = document[getElementById]("page") || "";
+			var container = document.getElementById("container") || "";
+			var page = document.getElementById("page") || "";
 			var holderPanelMenuMore = getByClass(document, "holder-panel-menu-more")[0] || "";
 			var btnMenuMore = getByClass(document, "btn-menu-more")[0] || "";
 			var panelMenuMore = getByClass(document, "panel-menu-more")[0] || "";
-			var panelMenuMoreItems = panelMenuMore ? panelMenuMore[getElementsByTagName]("li") || "" : "";
+			var panelMenuMoreItems = panelMenuMore ? panelMenuMore.getElementsByTagName("li") || "" : "";
 			var panelNavMenu = getByClass(document, "panel-nav-menu")[0] || "";
 			var handleItem = function () {
 				removeClass(page, isActiveClass);
@@ -1012,7 +980,7 @@ Ya*/
 				};
 				var i,
 				l;
-				for (i = 0, l = panelMenuMoreItems[_length]; i < l; i += 1) {
+				for (i = 0, l = panelMenuMoreItems.length; i < l; i += 1) {
 					addItemHandler(panelMenuMoreItems[i]);
 				}
 				i = l = null;
@@ -1053,7 +1021,7 @@ Ya*/
 
 		var addUpdateAppLink = function () {
 			var panel = getByClass(document, "panel-menu-more")[0] || "";
-			var items = panel ? panel[getElementsByTagName]("li") || "" : "";
+			var items = panel ? panel.getElementsByTagName("li") || "" : "";
 			var navUA = navigator.userAgent || "";
 			var linkHref;
 			if (/Windows/i.test(navUA) && /(WOW64|Win64)/i.test(navUA)) {
@@ -1088,8 +1056,8 @@ Ya*/
 					/* jshint +W107 */
 					addListener(link, "click", handleAppUpdatesLink);
 				}
-				link[appendChild](document[createTextNode]("" + linkText));
-				listItem[appendChild](link);
+				link.appendChild(document.createTextNode("" + linkText));
+				listItem.appendChild(link);
 				if (panel.hasChildNodes()) {
 					prependFragmentBefore(listItem, panel.firstChild);
 				}
@@ -1106,7 +1074,7 @@ Ya*/
 			if (elem) {
 				var k,
 				n;
-				for (k = 0, n = elem[_length]; k < n; k += 1) {
+				for (k = 0, n = elem.length; k < n; k += 1) {
 					if (_thisObj !== elem[k]) {
 						removeClass(elem[k], isActiveClass);
 					}
@@ -1120,9 +1088,9 @@ Ya*/
 		var manageShareButtons = function () {
 			var btn = getByClass(document, "btn-share-buttons")[0] || "";
 			var yaShare2Id = "ya-share2";
-			var yaShare2 = document[getElementById](yaShare2Id) || "";
+			var yaShare2 = document.getElementById(yaShare2Id) || "";
 			var locHref = root.location || "";
-			var docTitle = document[title] || "";
+			var docTitle = document.title || "";
 			var handle = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
@@ -1173,7 +1141,7 @@ Ya*/
 		var vlike;
 		var manageVKLikeButton = function () {
 			var vkLikeId = "vk-like";
-			var vkLike = document[getElementById](vkLikeId) || "";
+			var vkLike = document.getElementById(vkLikeId) || "";
 			var holderVkLike = getByClass(document, "holder-vk-like")[0] || "";
 			var btn = getByClass(document, "btn-show-vk-like")[0] || "";
 			var handle = function (ev) {
@@ -1186,7 +1154,7 @@ Ya*/
 						if (!vlike) {
 							try {
 								VK.init({
-									apiId: (vkLike[dataset].apiid || ""),
+									apiId: (vkLike.dataset.apiid || ""),
 									nameTransportPath: "/xd_receiver.htm",
 									onlyWidgets: true
 								});

@@ -12,14 +12,9 @@
 		var _imgClass = imgClass || "data-src-img";
 		var _dataAttributeName = dataAttributeName || "src";
 		var _throttleRate = throttleRate || 100;
-		var classList = "classList";
-		var dataset = "dataset";
-		var documentElement = "documentElement";
-		var getAttribute = "getAttribute";
+			var documentElement = "documentElement";
 		var getBoundingClientRect = "getBoundingClientRect";
-		var getElementsByClassName = "getElementsByClassName";
-		var _length = "length";
-		var Echo = function (elem) {
+				var Echo = function (elem) {
 			var _this = this;
 			_this.elem = elem;
 			_this.render();
@@ -27,7 +22,7 @@
 		};
 		var echoIsBindedClass = "echo--is-binded";
 		var isBindedEcho = (function () {
-			return document[documentElement][classList].contains(echoIsBindedClass) || "";
+			return document[documentElement].classList.contains(echoIsBindedClass) || "";
 		})();
 		var echoStore = [];
 		var scrolledIntoView = function (element) {
@@ -35,7 +30,7 @@
 			return ((coords.top >= 0 && coords.left >= 0 && coords.top) <= (root.innerHeight || document[documentElement].clientHeight));
 		};
 		var echoSrc = function (img, callback) {
-			img.src = img[dataset][_dataAttributeName] || img[getAttribute]("data-" + _dataAttributeName);
+			img.src = img.dataset[_dataAttributeName] || img.getAttribute("data-" + _dataAttributeName);
 			if (callback && "function" === typeof callback) {
 				callback();
 			}
@@ -47,7 +42,7 @@
 		};
 		var echoImageAll = function () {
 			var i;
-			for (i = 0; i < echoStore[_length]; i++) {
+			for (i = 0; i < echoStore.length; i++) {
 				var self = echoStore[i];
 				if (scrolledIntoView(self)) {
 					echoSrc(self, removeEcho(self, i));
@@ -106,13 +101,13 @@
 				if (!isBindedEcho) {
 					root.addEventListener("scroll", throttleEchoImageAll, supportsPassive ? {passive: true} : false);
 					root.addEventListener("resize", throttleEchoImageAll);
-					document[documentElement][classList].add(echoIsBindedClass);
+					document[documentElement].classList.add(echoIsBindedClass);
 				}
 			}
 		};
-		var lazyImgs = document[getElementsByClassName](_imgClass) || "";
+		var lazyImgs = document.getElementsByClassName(_imgClass) || "";
 		var walkLazyImageAll = function () {
-			for (var i = 0; i < lazyImgs[_length]; i++) {
+			for (var i = 0; i < lazyImgs.length; i++) {
 				new Echo(lazyImgs[i]).init();
 			}
 		};

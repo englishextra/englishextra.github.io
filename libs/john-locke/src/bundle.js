@@ -87,19 +87,18 @@ VK, WheelIndicator, Ya*/
  */
 (function (root, document) {
 	"use strict";
-	var classList = "classList";
 	var hasClass;
 	var addClass;
 	var removeClass;
-	if (classList in document.documentElement) {
+	if ("classList" in document.documentElement) {
 		hasClass = function (el, name) {
-			return el[classList].contains(name);
+			return el.classList.contains(name);
 		};
 		addClass = function (el, name) {
-			el[classList].add(name);
+			el.classList.add(name);
 		};
 		removeClass = function (el, name) {
-			el[classList].remove(name);
+			el.classList.remove(name);
 		};
 	} else {
 		hasClass = function (el, name) {
@@ -143,19 +142,9 @@ VK, WheelIndicator, Ya*/
 	"use strict";
 	var ToProgress = (function () {
 		var TP = function () {
-			var _addEventListener = "addEventListener";
-			var appendChild = "appendChild";
-			var firstChild = "firstChild";
-			var getElementById = "getElementById";
-			var getElementsByClassName = "getElementsByClassName";
-			var hasOwnProperty = "hasOwnProperty";
-			var opacity = "opacity";
-			var prototype = "prototype";
-			var _removeEventListener = "removeEventListener";
-			var style = "style";
 			function whichTransitionEvent() {
-				var t,
-				el = document.createElement("fakeelement");
+				var t;
+				var el = document.createElement("fakeelement");
 				var transitions = {
 					"transition": "transitionend",
 					"OTransition": "oTransitionEnd",
@@ -163,14 +152,15 @@ VK, WheelIndicator, Ya*/
 					"WebkitTransition": "webkitTransitionEnd"
 				};
 				for (t in transitions) {
-					if (transitions[hasOwnProperty](t)) {
-						if (el[style][t] !== undefined) {
+					if (transitions.hasOwnProperty(t)) {
+						if (el.style[t] !== undefined) {
 							return transitions[t];
 						}
 					}
 				}
 				t = null;
 			}
+
 			var transitionEvent = whichTransitionEvent();
 			function ToProgress(opt, selector) {
 				this.progress = 0;
@@ -184,7 +174,7 @@ VK, WheelIndicator, Ya*/
 				if (opt && typeof opt === "object") {
 					var key;
 					for (key in opt) {
-						if (opt[hasOwnProperty](key)) {
+						if (opt.hasOwnProperty(key)) {
 							this.options[key] = opt[key];
 						}
 					}
@@ -196,7 +186,7 @@ VK, WheelIndicator, Ya*/
 				this.progressBar.setCSS = function (style) {
 					var property;
 					for (property in style) {
-						if (style[hasOwnProperty](property)) {
+						if (style.hasOwnProperty(property)) {
 							this.style[property] = style[property];
 						}
 					}
@@ -218,30 +208,30 @@ VK, WheelIndicator, Ya*/
 				if (selector) {
 					var el;
 					if (selector.indexOf("#", 0) !== -1) {
-						el = document[getElementById](selector) || "";
+						el = document.getElementById(selector) || "";
 					} else {
 						if (selector.indexOf(".", 0) !== -1) {
-							el = document[getElementsByClassName](selector)[0] || "";
+							el = document.getElementsByClassName(selector)[0] || "";
 						}
 					}
 					if (el) {
 						if (el.hasChildNodes()) {
-							el.insertBefore(this.progressBar, el[firstChild]);
+							el.insertBefore(this.progressBar, el.firstChild);
 						} else {
-							el[appendChild](this.progressBar);
+							el.appendChild(this.progressBar);
 						}
 					}
 				} else {
-					document.body[appendChild](this.progressBar);
+					document.body.appendChild(this.progressBar);
 				}
 			}
-			ToProgress[prototype].transit = function () {
-				this.progressBar[style].width = this.progress + "%";
+			ToProgress.prototype.transit = function () {
+				this.progressBar.style.width = this.progress + "%";
 			};
-			ToProgress[prototype].getProgress = function () {
+			ToProgress.prototype.getProgress = function () {
 				return this.progress;
 			};
-			ToProgress[prototype].setProgress = function (progress, callback) {
+			ToProgress.prototype.setProgress = function (progress, callback) {
 				this.show();
 				if (progress > 100) {
 					this.progress = 100;
@@ -255,37 +245,37 @@ VK, WheelIndicator, Ya*/
 					callback();
 				}
 			};
-			ToProgress[prototype].increase = function (toBeIncreasedProgress, callback) {
+			ToProgress.prototype.increase = function (toBeIncreasedProgress, callback) {
 				this.show();
 				this.setProgress(this.progress + toBeIncreasedProgress, callback);
 			};
-			ToProgress[prototype].decrease = function (toBeDecreasedProgress, callback) {
+			ToProgress.prototype.decrease = function (toBeDecreasedProgress, callback) {
 				this.show();
 				this.setProgress(this.progress - toBeDecreasedProgress, callback);
 			};
-			ToProgress[prototype].finish = function (callback) {
+			ToProgress.prototype.finish = function (callback) {
 				var that = this;
 				this.setProgress(100, callback);
 				this.hide();
 				if (transitionEvent) {
-					this.progressBar[_addEventListener](transitionEvent, function (e) {
+					this.progressBar.addEventListener(transitionEvent, function (e) {
 						that.reset();
-						that.progressBar[_removeEventListener](e.type, TP);
+						that.progressBar.removeEventListener(e.type, TP);
 					});
 				}
 			};
-			ToProgress[prototype].reset = function (callback) {
+			ToProgress.prototype.reset = function (callback) {
 				this.progress = 0;
 				this.transit();
 				if (callback) {
 					callback();
 				}
 			};
-			ToProgress[prototype].hide = function () {
-				this.progressBar[style][opacity] = "0";
+			ToProgress.prototype.hide = function () {
+				this.progressBar.style.opacity = "0";
 			};
-			ToProgress[prototype].show = function () {
-				this.progressBar[style][opacity] = "1";
+			ToProgress.prototype.show = function () {
+				this.progressBar.style.opacity = "1";
 			};
 			return ToProgress;
 		};
@@ -304,16 +294,13 @@ VK, WheelIndicator, Ya*/
 (function (root, document) {
 	"use strict";
 	var doesFontExist = function (fontName) {
-		var getContext = "getContext";
-		var measureText = "measureText";
-		var width = "width";
 		var canvas = document.createElement("canvas");
-		var context = canvas[getContext]("2d");
+		var context = canvas.getContext("2d");
 		var text = "abcdefghijklmnopqrstuvwxyz0123456789";
 		context.font = "72px monospace";
-		var baselineSize = context[measureText](text)[width];
+		var baselineSize = context.measureText(text).width;
 		context.font = "72px '" + fontName + "', monospace";
-		var newSize = context[measureText](text)[width];
+		var newSize = context.measureText(text).width;
 		canvas = null;
 		if (newSize === baselineSize) {
 			return false;
@@ -332,16 +319,11 @@ VK, WheelIndicator, Ya*/
 	"use strict";
 	var loadJsCss = function (files, callback, type) {
 		var _this = this;
-		var appendChild = "appendChild";
-		var body = "body";
-		var getElementsByTagName = "getElementsByTagName";
-		var setAttribute = "setAttribute";
-		var _length = "length";
 		_this.files = files;
 		_this.js = [];
-		_this.head = document[getElementsByTagName]("head")[0] || "";
-		_this.body = document[body] || "";
-		_this.ref = document[getElementsByTagName]("script")[0] || "";
+		_this.head = document.getElementsByTagName("head")[0] || "";
+		_this.body = document.body || "";
+		_this.ref = document.getElementsByTagName("script")[0] || "";
 		_this.callback = callback || function () {};
 		_this.type = type ? type.toLowerCase() : "";
 		_this.loadStyle = function (file) {
@@ -354,9 +336,9 @@ VK, WheelIndicator, Ya*/
 				this.onload = null;
 				this.media = "all";
 			};
-			link[setAttribute]("property", "stylesheet");
-			/* _this.head[appendChild](link); */
-			(_this.body || _this.head)[appendChild](link);
+			link.setAttribute("property", "stylesheet");
+			/* _this.head.appendChild(link); */
+			(_this.body || _this.head).appendChild(link);
 		};
 		_this.loadScript = function (i) {
 			var script = document.createElement("script");
@@ -364,7 +346,7 @@ VK, WheelIndicator, Ya*/
 			script.async = true;
 			script.src = _this.js[i];
 			var loadNextScript = function () {
-				if (++i < _this.js[_length]) {
+				if (++i < _this.js.length) {
 					_this.loadScript(i);
 				} else {
 					_this.callback();
@@ -373,17 +355,17 @@ VK, WheelIndicator, Ya*/
 			script.onload = function () {
 				loadNextScript();
 			};
-			_this.head[appendChild](script);
-			/* if (_this.ref[parentNode]) {
-				_this.ref[parentNode][insertBefore](script, _this.ref);
+			_this.head.appendChild(script);
+			/* if (_this.ref.parentNode) {
+				_this.ref.parentNode[insertBefore](script, _this.ref);
 			} else {
-				(_this.body || _this.head)[appendChild](script);
+				(_this.body || _this.head).appendChild(script);
 			} */
-			(_this.body || _this.head)[appendChild](script);
+			(_this.body || _this.head).appendChild(script);
 		};
 		var i,
 		l;
-		for (i = 0, l = _this.files[_length]; i < l; i += 1) {
+		for (i = 0, l = _this.files.length; i < l; i += 1) {
 			if ((/\.js$|\.js\?/).test(_this.files[i]) || _this.type === "js") {
 				_this.js.push(_this.files[i]);
 			}
@@ -392,7 +374,7 @@ VK, WheelIndicator, Ya*/
 			}
 		}
 		i = l = null;
-		if (_this.js[_length] > 0) {
+		if (_this.js.length > 0) {
 			_this.loadScript(0);
 		} else {
 			_this.callback();
@@ -407,20 +389,6 @@ VK, WheelIndicator, Ya*/
 	"use strict";
 
 	var docElem = document.documentElement || "";
-
-	var alt = "alt";
-	var className = "className";
-	var getAttribute = "getAttribute";
-	var getElementsByTagName = "getElementsByTagName";
-	var height = "height";
-	var parentNode = "parentNode";
-	var remove = "remove";
-	var removeChild = "removeChild";
-	var src = "src";
-	var style = "style";
-	var styleSheets = "styleSheets";
-	var width = "width";
-	var _length = "length";
 
 	var progressBar = new ToProgress({
 			id: "top-progress-bar",
@@ -455,38 +423,35 @@ VK, WheelIndicator, Ya*/
 
 	var forcedHTTP = getHTTP(true);
 
-	var supportsCanvas;
-	supportsCanvas = (function () {
+	var supportsCanvas = (function () {
 		var elem = document.createElement("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
 	})();
 
 	if (!supportsSvgSmilAnimation) {
-
 		progressBar.increase(20);
-
 		addListener(root, "load", hideProgressBar);
 	}
 
-	var removeElement = function (a) {
-		if (a) {
-			if ("undefined" !== typeof a[remove]) {
-				return a[remove]();
-			} else {
-				return a[parentNode] && a[parentNode][removeChild](a);
-			}
-		}
-	};
-
-		var setStyleDisplayBlock = function (a) {
-			if (a) {
-				a[style].display = "block";
+		var removeElement = function (e) {
+			if (e) {
+				if ("undefined" !== typeof e.remove) {
+					return e.remove();
+				} else {
+					return e.parentNode && e.parentNode.removeChild(e);
+				}
 			}
 		};
 
-		var setStyleDisplayNone = function (a) {
-			if (a) {
-				a[style].display = "none";
+		var setStyleDisplayBlock = function (e) {
+			if (e) {
+				e.style.display = "block";
+			}
+		};
+
+		var setStyleDisplayNone = function (e) {
+			if (e) {
+				e.style.display = "none";
 			}
 		};
 
@@ -520,11 +485,11 @@ VK, WheelIndicator, Ya*/
 
 	var hidePreloaders = function () {
 		if (ripple) {
-			ripple[className] += " " + bounceOutUpClass;
+			ripple.className += " " + bounceOutUpClass;
 			timerRipple = setTimeout(deferRemoveRipple, 5000);
 		}
 		if (loading) {
-			loading[className] += " " + bounceOutUpClass;
+			loading.className += " " + bounceOutUpClass;
 			timerLoading = setTimeout(deferRemoveLoading, 5000);
 		}
 	};
@@ -543,8 +508,8 @@ VK, WheelIndicator, Ya*/
 		if (svgNosmilImgAll) {
 			var i,
 			l;
-			for (i = 0, l = svgNosmilImgAll[_length]; i < l; i += 1) {
-				svgNosmilImgAll[i][src] = svgNosmilImgAll[i][getAttribute]("data-fallback-src");
+			for (i = 0, l = svgNosmilImgAll.length; i < l; i += 1) {
+				svgNosmilImgAll[i].src = svgNosmilImgAll[i].getAttribute("data-fallback-src");
 			}
 			i = l = null;
 		}
@@ -555,8 +520,8 @@ VK, WheelIndicator, Ya*/
 		if (svgSmilImgAll) {
 			var j,
 			m;
-			for (j = 0, m = svgSmilImgAll[_length]; j < m; j += 1) {
-				svgSmilImgAll[j][src] = svgSmilImgAll[j][getAttribute]("data-fallback-src");
+			for (j = 0, m = svgSmilImgAll.length; j < m; j += 1) {
+				svgSmilImgAll[j].src = svgSmilImgAll[j].getAttribute("data-fallback-src");
 			}
 			j = m = null;
 		}
@@ -570,10 +535,10 @@ VK, WheelIndicator, Ya*/
 		addListener(img, "load", function () {
 			var ctx = canvasObj.getContext("2d");
 			if (ctx) {
-				ctx.drawImage(img, 0, 0, canvasObj[width], canvasObj[height]);
+				ctx.drawImage(img, 0, 0, canvasObj.width, canvasObj.height);
 			}
 		});
-		img[src] = url;
+		img.src = url;
 	};
 
 	var replaceCanvasWithImg = function (canvasObj, url) {
@@ -581,34 +546,34 @@ VK, WheelIndicator, Ya*/
 			return;
 		}
 		var img = document.createElement("img");
-		img[src] = url;
-		img[alt] = "";
-		img[className] = canvasObj[className].split(" ").join(" ");
-		img[width] = canvasObj[width];
-		img[height] = canvasObj[height];
-		if (canvasObj[parentNode]) {
-			canvasObj[parentNode].insertBefore(img, canvasObj.nextSibling);
+		img.src = url;
+		img.alt = "";
+		img.className = canvasObj.className.split(" ").join(" ");
+		img.width = canvasObj.width;
+		img.height = canvasObj.height;
+		if (canvasObj.parentNode) {
+			canvasObj.parentNode.insertBefore(img, canvasObj.nextSibling);
 		}
 		setStyleDisplayNone(canvasObj);
 	};
 
-	var canvasAll = document[getElementsByTagName]("canvas") || "";
+	var canvasAll = document.getElementsByTagName("canvas") || "";
 
-	var styleSheetsLength = document[styleSheets][_length] || 0;
+	var styleSheetsLength = document.styleSheets.length || 0;
 
 	var slotDrawCanvasAll;
 	var drawCanvasAll = function () {
-		if (document[styleSheets][_length] > styleSheetsLength) {
+		if (document.styleSheets.length > styleSheetsLength) {
 			clearInterval(slotDrawCanvasAll);
 			slotDrawCanvasAll = null;
 			var i,
 			l,
 			canvasObj,
 			url;
-			for (i = 0, l = canvasAll[_length]; i < l; i += 1) {
-				if (canvasAll[i][getAttribute]("data-src")) {
+			for (i = 0, l = canvasAll.length; i < l; i += 1) {
+				if (canvasAll[i].getAttribute("data-src")) {
 					canvasObj = canvasAll[i];
-					url = canvasAll[i][getAttribute]("data-src");
+					url = canvasAll[i].getAttribute("data-src");
 					if (supportsCanvas) {
 						drawImageFromUrl(canvasObj, url);
 					} else {
@@ -627,22 +592,14 @@ VK, WheelIndicator, Ya*/
 
 	var run = function () {
 
-		var appendChild = "appendChild";
-		var dataset = "dataset";
-		var getElementById = "getElementById";
-		var href = "href";
-		var opacity = "opacity";
-		var title = "title";
-		var visibility = "visibility";
-
 		var bounceInUpClass = "bounceInUp";
 		var bounceOutDownClass = "bounceOutDown";
 
 		var isActiveClass = "is-active";
 		var isSocialClass = "is-social";
 
-		var docTitle = document[title] || "";
-		var locHref = root.location[href] || "";
+		var docTitle = document.title || "";
+		var locHref = root.location.href || "";
 		var navUA = navigator.userAgent || "";
 
 		if (!supportsSvgSmilAnimation) {
@@ -674,7 +631,7 @@ VK, WheelIndicator, Ya*/
 		if (root.platform && navUA) {
 			brName = platform.name || "";
 			brDescription = platform.description || "";
-			document[title] = docTitle +
+			document.title = docTitle +
 			" [" +
 			(getHumanDate ? " " + getHumanDate : "") +
 			(brDescription ? " " + brDescription : "") +
@@ -684,6 +641,13 @@ VK, WheelIndicator, Ya*/
 			(hasWheel ? " mousewheel" : "") +
 			"]";
 		}
+
+		var setVisible = function (e) {
+			if (e) {
+				e.style.visibility = "visible";
+				e.style.opacity = 1;
+			}
+		};
 
 		var debounce = function (func, wait) {
 			var timeout;
@@ -797,7 +761,7 @@ VK, WheelIndicator, Ya*/
 					if ("undefined" !== typeof require("nw.gui")) {
 						return true;
 					}
-				} catch (e) {
+				} catch (err) {
 					return false;
 				}
 			}
@@ -821,8 +785,8 @@ VK, WheelIndicator, Ya*/
 			} else if (isNwjs) {
 				onNwjs();
 			} else {
-				var locProtocol = root.location.protocol || "",
-				hasHTTP = locProtocol ? "http:" === locProtocol ? "http" : "https:" === locProtocol ? "https" : "" : "";
+				var locProtocol = root.location.protocol || "";
+				var hasHTTP = locProtocol ? "http:" === locProtocol ? "http" : "https:" === locProtocol ? "https" : "" : "";
 				if (hasHTTP) {
 					return true;
 				} else {
@@ -832,7 +796,7 @@ VK, WheelIndicator, Ya*/
 		};
 
 		var manageExternalLinkAll = function () {
-			var link = document[getElementsByTagName]("a") || "";
+			var link = document.getElementsByTagName("a") || "";
 			var handle = function (url, ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
@@ -844,7 +808,7 @@ VK, WheelIndicator, Ya*/
 			var arrange = function (e) {
 				var externalLinkIsBindedClass = "external-link--is-binded";
 				if (!hasClass(e, externalLinkIsBindedClass)) {
-					var url = e[getAttribute]("href") || "";
+					var url = e.getAttribute("href") || "";
 					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
 						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
 						if ("undefined" !== typeof getHTTP && getHTTP()) {
@@ -860,16 +824,12 @@ VK, WheelIndicator, Ya*/
 			if (link) {
 				var i,
 				l;
-				for (i = 0, l = link[_length]; i < l; i += 1) {
+				for (i = 0, l = link.length; i < l; i += 1) {
 					arrange(link[i]);
 				}
 				i = l = null;
 			}
 		};
-		manageExternalLinkAll();
-
-		var wrapper = getByClass(document, "wrapper")[0] || "";
-
 		manageExternalLinkAll();
 
 		var manageLocationQrcode = function () {
@@ -878,14 +838,13 @@ VK, WheelIndicator, Ya*/
 			var showQrcode = function () {
 				clearTimeout(timerQrcode);
 				timerQrcode = null;
-				qrcode[style][visibility] = "visible";
-				qrcode[style][opacity] = 1;
+				setVisible(qrcode);
 			};
 			if (qrcode) {
 				var img = document.createElement("img");
 				var imgTitle = docTitle ? ("Ссылка на страницу «" + docTitle.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
 				var imgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(locHref);
-				img[alt] = imgTitle;
+				img.alt = imgTitle;
 				if (root.QRCode) {
 					if (supportsSvgAsImg) {
 						imgSrc = QRCode.generateSVG(locHref, {
@@ -898,7 +857,7 @@ VK, WheelIndicator, Ya*/
 						var XMLS = new XMLSerializer();
 						imgSrc = XMLS.serializeToString(imgSrc);
 						imgSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(imgSrc)));
-						img[src] = imgSrc;
+						img.src = imgSrc;
 					} else {
 						imgSrc = QRCode.generatePNG(locHref, {
 								ecclevel: "M",
@@ -908,13 +867,13 @@ VK, WheelIndicator, Ya*/
 								margin: 4,
 								modulesize: 8
 							});
-						img[src] = imgSrc;
+						img.src = imgSrc;
 					}
 				} else {
-					img[src] = imgSrc;
+					img.src = imgSrc;
 				}
-				img[title] = imgTitle;
-				qrcode[appendChild](img);
+				img.title = imgTitle;
+				qrcode.appendChild(img);
 				timerQrcode = setTimeout(showQrcode, 2000);
 			}
 		};
@@ -922,14 +881,13 @@ VK, WheelIndicator, Ya*/
 
 		var manageDownloadAppBtn = function () {
 			var downloadApp = getByClass(document, "download-app")[0] || "";
-			var link = downloadApp ? downloadApp[getElementsByTagName]("a")[0] || "" : "";
-			var img = downloadApp ? downloadApp[getElementsByTagName]("img")[0] || "" : "";
+			var link = downloadApp ? downloadApp.getElementsByTagName("a")[0] || "" : "";
+			var img = downloadApp ? downloadApp.getElementsByTagName("img")[0] || "" : "";
 			var timer;
 			var showDownloadApp = function () {
 				clearTimeout(timer);
 				timer = null;
-				downloadApp[style][visibility] = "visible";
-				downloadApp[style][opacity] = 1;
+				setVisible(downloadApp);
 			};
 			if (root.platform && navUA && downloadApp && link && img) {
 				var osFamily = platform.os.family || "";
@@ -968,21 +926,21 @@ VK, WheelIndicator, Ya*/
 					}
 				}
 				if (imgSrc && linkHref) {
-					link[href] = linkHref;
+					link.href = linkHref;
 					link.rel = "noopener";
 					link.target = "_blank";
-					link[title] = "Скачать приложение";
+					link.title = "Скачать приложение";
 					if (!supportsSvgAsImg) {
 						imgSrc = [imgSrc.slice(0, -3), "png"].join("");
 					}
-					img[src] = imgSrc;
+					img.src = imgSrc;
 					timer = setTimeout(showDownloadApp, 1000);
 				}
 			}
 		};
 		manageDownloadAppBtn();
 
-		var scene = document[getElementById]("scene") || "";
+		var scene = document.getElementById("scene") || "";
 		var parallax;
 		if (root.Parallax && scene) {
 			parallax = new Parallax(scene);
@@ -1069,7 +1027,7 @@ VK, WheelIndicator, Ya*/
 			if (elem) {
 				var k,
 				n;
-				for (k = 0, n = elem[_length]; k < n; k += 1) {
+				for (k = 0, n = elem.length; k < n; k += 1) {
 					if (_thisObj !== elem[k]) {
 						removeClass(elem[k], isActiveClass);
 					}
@@ -1083,9 +1041,9 @@ VK, WheelIndicator, Ya*/
 		var manageShareButtons = function () {
 			var btn = getByClass(document, "btn-share-buttons")[0] || "";
 			var yaShare2Id = "ya-share2";
-			var yaShare2 = document[getElementById](yaShare2Id) || "";
+			var yaShare2 = document.getElementById(yaShare2Id) || "";
 			var locHref = root.location || "";
-			var docTitle = document[title] || "";
+			var docTitle = document.title || "";
 			var handle = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
@@ -1136,7 +1094,7 @@ VK, WheelIndicator, Ya*/
 		var vlike;
 		var manageVKLikeButton = function () {
 			var vkLikeId = "vk-like";
-			var vkLike = document[getElementById](vkLikeId) || "";
+			var vkLike = document.getElementById(vkLikeId) || "";
 			var holderVkLike = getByClass(document, "holder-vk-like")[0] || "";
 			var btn = getByClass(document, "btn-show-vk-like")[0] || "";
 			var handle = function (ev) {
@@ -1149,7 +1107,7 @@ VK, WheelIndicator, Ya*/
 						if (!vlike) {
 							try {
 								VK.init({
-									apiId: (vkLike[dataset].apiid || ""),
+									apiId: (vkLike.dataset.apiid || ""),
 									nameTransportPath: "/xd_receiver.htm",
 									onlyWidgets: true
 								});

@@ -19,8 +19,7 @@
 (function(root) {
 	"use strict";
 
-	var hasOwnProperty = "hasOwnProperty";
-	var _length = "length";
+	var _hasOwnProperty = "hasOwnProperty";
 	var replace = "replace";
 	var blockregex = /\{\{(([@!]?)(.+?))\}\}(([\s\S]+?)(\{\{:\1\}\}([\s\S]+?))?)\{\{\/\1\}\}/g;
 	var valregex = /\{\{([=%])(.+?)\}\}/g;
@@ -36,7 +35,7 @@
 	function get_value(vars, key) {
 		var parts = key.split(".");
 
-		while (parts[_length]) {
+		while (parts.length) {
 			if (!(parts[0] in vars)) {
 				return false;
 			}
@@ -83,7 +82,7 @@
 				__ = vars._val;
 
 				for (i in val) {
-					if (val[hasOwnProperty](i)) {
+					if (val.hasOwnProperty(i)) {
 						vars._key = i;
 						vars._val = val[i];
 						temp += render(inner, vars);
@@ -129,16 +128,6 @@
 
 	var docElem = document.documentElement || "";
 	var docBody = document.body || "";
-	var appendChild = "appendChild";
-	var classList = "classList";
-	var createElement = "createElement";
-	var dataset = "dataset";
-	var getAttribute = "getAttribute";
-	var getElementById = "getElementById";
-	var getElementsByClassName = "getElementsByClassName";
-	var innerHTML = "innerHTML";
-	var setAttribute = "setAttribute";
-	var _addEventListener = "addEventListener";
 	var containerClass = "iframe-lightbox";
 	var iframeLightboxWindowIsBindedClass = "iframe-lightbox-window--is-binded";
 	var iframeLightboxOpenClass = "iframe-lightbox--open";
@@ -159,16 +148,16 @@
 	var IframeLightbox = function IframeLightbox(elem, settings) {
 		var options = settings || {};
 		this.trigger = elem;
-		this.el = document[getElementsByClassName](containerClass)[0] || "";
-		this.body = this.el ? this.el[getElementsByClassName]("body")[0] : "";
+		this.el = document.getElementsByClassName(containerClass)[0] || "";
+		this.body = this.el ? this.el.getElementsByClassName("body")[0] : "";
 		this.content = this.el
-			? this.el[getElementsByClassName]("content")[0]
+			? this.el.getElementsByClassName("content")[0]
 			: "";
-		this.src = elem[dataset].src || "";
-		this.href = elem[getAttribute]("href") || "";
-		this.dataPaddingBottom = elem[dataset].paddingBottom || "";
-		this.dataScrolling = elem[dataset].scrolling || "";
-		this.dataTouch = elem[dataset].touch || "";
+		this.src = elem.dataset.src || "";
+		this.href = elem.getAttribute("href") || "";
+		this.dataPaddingBottom = elem.dataset.paddingBottom || "";
+		this.dataScrolling = elem.dataset.scrolling || "";
+		this.dataTouch = elem.dataset.touch || "";
 		this.rate = options.rate || 500;
 		this.scrolling = options.scrolling;
 		this.touch = options.touch;
@@ -222,14 +211,14 @@
 		};
 
 		if (
-			!this.trigger[classList].contains(iframeLightboxLinkIsBindedClass)
+			!this.trigger.classList.contains(iframeLightboxLinkIsBindedClass)
 		) {
-			this.trigger[classList].add(iframeLightboxLinkIsBindedClass);
+			this.trigger.classList.add(iframeLightboxLinkIsBindedClass);
 
-			this.trigger[_addEventListener]("click", handleIframeLightboxLink);
+			this.trigger.addEventListener("click", handleIframeLightboxLink);
 
 			if (isTouch && (_this.touch || _this.dataTouch)) {
-				this.trigger[_addEventListener](
+				this.trigger.addEventListener(
 					"touchstart",
 					handleIframeLightboxLink
 				);
@@ -239,43 +228,43 @@
 
 	IframeLightbox.prototype.create = function() {
 		var _this = this,
-			backdrop = document[createElement]("div");
+			backdrop = document.createElement("div");
 
-		backdrop[classList].add("backdrop");
-		this.el = document[createElement]("div");
-		this.el[classList].add(containerClass);
-		this.el[appendChild](backdrop);
-		this.content = document[createElement]("div");
-		this.content[classList].add("content");
-		this.body = document[createElement]("div");
-		this.body[classList].add("body");
-		this.content[appendChild](this.body);
-		this.contentHolder = document[createElement]("div");
-		this.contentHolder[classList].add("content-holder");
-		this.contentHolder[appendChild](this.content);
-		this.el[appendChild](this.contentHolder);
-		this.btnClose = document[createElement]("a");
-		this.btnClose[classList].add("btn-close");
+		backdrop.classList.add("backdrop");
+		this.el = document.createElement("div");
+		this.el.classList.add(containerClass);
+		this.el.appendChild(backdrop);
+		this.content = document.createElement("div");
+		this.content.classList.add("content");
+		this.body = document.createElement("div");
+		this.body.classList.add("body");
+		this.content.appendChild(this.body);
+		this.contentHolder = document.createElement("div");
+		this.contentHolder.classList.add("content-holder");
+		this.contentHolder.appendChild(this.content);
+		this.el.appendChild(this.contentHolder);
+		this.btnClose = document.createElement("a");
+		this.btnClose.classList.add("btn-close");
 		/* jshint -W107 */
 
-		this.btnClose[setAttribute]("href", "javascript:void(0);");
+		this.btnClose.setAttribute("href", "javascript:void(0);");
 		/* jshint +W107 */
 
-		this.el[appendChild](this.btnClose);
-		docBody[appendChild](this.el);
+		this.el.appendChild(this.btnClose);
+		docBody.appendChild(this.el);
 
-		backdrop[_addEventListener]("click", function() {
+		backdrop.addEventListener("click", function() {
 			_this.close();
 		});
 
-		this.btnClose[_addEventListener]("click", function() {
+		this.btnClose.addEventListener("click", function() {
 			_this.close();
 		});
 
-		if (!docElem[classList].contains(iframeLightboxWindowIsBindedClass)) {
-			docElem[classList].add(iframeLightboxWindowIsBindedClass);
+		if (!docElem.classList.contains(iframeLightboxWindowIsBindedClass)) {
+			docElem.classList.add(iframeLightboxWindowIsBindedClass);
 
-			root[_addEventListener]("keyup", function(ev) {
+			root.addEventListener("keyup", function(ev) {
 				if (27 === (ev.which || ev.keyCode)) {
 					_this.close();
 				}
@@ -287,18 +276,18 @@
 				return;
 			}
 
-			_this.el[classList].remove(isShowingClass);
+			_this.el.classList.remove(isShowingClass);
 
-			_this.body[innerHTML] = "";
+			_this.body.innerHTML = "";
 		};
 
-		this.el[_addEventListener]("transitionend", clearBody, false);
+		this.el.addEventListener("transitionend", clearBody, false);
 
-		this.el[_addEventListener]("webkitTransitionEnd", clearBody, false);
+		this.el.addEventListener("webkitTransitionEnd", clearBody, false);
 
-		this.el[_addEventListener]("mozTransitionEnd", clearBody, false);
+		this.el.addEventListener("mozTransitionEnd", clearBody, false);
 
-		this.el[_addEventListener]("msTransitionEnd", clearBody, false);
+		this.el.addEventListener("msTransitionEnd", clearBody, false);
 
 		this.callCallback(this.onCreated, this);
 	};
@@ -321,20 +310,20 @@
 		html.push(
 			'<div class="half-circle-spinner"><div class="circle circle-1"></div><div class="circle circle-2"></div></div>'
 		);
-		this.body[innerHTML] = html.join("");
+		this.body.innerHTML = html.join("");
 
 		(function(iframeId, body) {
-			var iframe = document[getElementById](iframeId);
+			var iframe = document.getElementById(iframeId);
 
 			iframe.onload = function() {
 				this.style.opacity = 1;
-				body[classList].add(isLoadedClass);
+				body.classList.add(isLoadedClass);
 
 				if (_this.scrolling || _this.dataScrolling) {
 					iframe.removeAttribute("scrolling");
 					iframe.style.overflow = "scroll";
 				} else {
-					iframe[setAttribute]("scrolling", "no");
+					iframe.setAttribute("scrolling", "no");
 					iframe.style.overflow = "hidden";
 				}
 
@@ -354,23 +343,23 @@
 			this.content.removeAttribute("style");
 		}
 
-		this.el[classList].add(isShowingClass);
-		this.el[classList].add(isOpenedClass);
-		docElem[classList].add(iframeLightboxOpenClass);
-		docBody[classList].add(iframeLightboxOpenClass);
+		this.el.classList.add(isShowingClass);
+		this.el.classList.add(isOpenedClass);
+		docElem.classList.add(iframeLightboxOpenClass);
+		docBody.classList.add(iframeLightboxOpenClass);
 		this.callCallback(this.onOpened, this);
 	};
 
 	IframeLightbox.prototype.close = function() {
-		this.el[classList].remove(isOpenedClass);
-		this.body[classList].remove(isLoadedClass);
-		docElem[classList].remove(iframeLightboxOpenClass);
-		docBody[classList].remove(iframeLightboxOpenClass);
+		this.el.classList.remove(isOpenedClass);
+		this.body.classList.remove(isLoadedClass);
+		docElem.classList.remove(iframeLightboxOpenClass);
+		docBody.classList.remove(iframeLightboxOpenClass);
 		this.callCallback(this.onClosed, this);
 	};
 
 	IframeLightbox.prototype.isOpen = function() {
-		return this.el[classList].contains(isOpenedClass);
+		return this.el.classList.contains(isOpenedClass);
 	};
 
 	IframeLightbox.prototype.callCallback = function(func, data) {
@@ -402,16 +391,6 @@
 	var docElem = document.documentElement || "";
 	var docBody = document.body || "";
 	var animatedClass = "animated";
-	var appendChild = "appendChild";
-	var classList = "classList";
-	var createElement = "createElement";
-	var getAttribute = "getAttribute";
-	var getElementsByClassName = "getElementsByClassName";
-	var getElementsByTagName = "getElementsByTagName";
-	var innerHTML = "innerHTML";
-	var style = "style";
-	var _addEventListener = "addEventListener";
-	var _length = "length";
 	var btnCloseClass = "btn-close";
 	var containerClass = "img-lightbox";
 	var fadeInClass = "fadeIn";
@@ -472,35 +451,35 @@
 
 	var setStyleDisplayBlock = function setStyleDisplayBlock(a) {
 		if (a) {
-			a[style].display = "block";
+			a.style.display = "block";
 		}
 	};
 
 	var setStyleDisplayNone = function setStyleDisplayNone(a) {
 		if (a) {
-			a[style].display = "none";
+			a.style.display = "none";
 		}
 	};
 
 	var hideImgLightbox = function hideImgLightbox(callback) {
 		var container =
-			document[getElementsByClassName](containerClass)[0] || "";
+			document.getElementsByClassName(containerClass)[0] || "";
 		var img = container
-			? container[getElementsByTagName]("img")[0] || ""
+			? container.getElementsByTagName("img")[0] || ""
 			: "";
 
 		var hideContainer = function hideContainer() {
-			container[classList].remove(fadeInClass);
-			container[classList].add(fadeOutClass);
+			container.classList.remove(fadeInClass);
+			container.classList.add(fadeOutClass);
 
 			var hideImg = function hideImg() {
-				container[classList].remove(animatedClass);
-				container[classList].remove(fadeOutClass);
-				img[classList].remove(animatedClass);
-				img[classList].remove(fadeOutDownClass);
+				container.classList.remove(animatedClass);
+				container.classList.remove(fadeOutClass);
+				img.classList.remove(animatedClass);
+				img.classList.remove(fadeOutDownClass);
 
 				img.onload = function() {
-					container[classList].remove(isLoadedClass);
+					container.classList.remove(isLoadedClass);
 				};
 
 				img.src = dummySrc;
@@ -516,8 +495,8 @@
 		};
 
 		if (container && img) {
-			img[classList].remove(fadeInUpClass);
-			img[classList].add(fadeOutDownClass);
+			img.classList.remove(fadeInUpClass);
+			img.classList.add(fadeOutDownClass);
 			var timer = setTimeout(function() {
 				clearTimeout(timer);
 				timer = null;
@@ -525,8 +504,8 @@
 			}, 400);
 		}
 
-		docElem[classList].remove(imgLightboxOpenClass);
-		docBody[classList].remove(imgLightboxOpenClass);
+		docElem.classList.remove(imgLightboxOpenClass);
+		docBody.classList.remove(imgLightboxOpenClass);
 	};
 
 	var imgLightbox = function imgLightbox(linkClass, settings) {
@@ -539,43 +518,43 @@
 		var onLoaded = options.onLoaded;
 		var onCreated = options.onCreated;
 		var onClosed = options.onClosed;
-		var link = document[getElementsByClassName](_linkClass) || "";
+		var link = document.getElementsByClassName(_linkClass) || "";
 		var container =
-			document[getElementsByClassName](containerClass)[0] || "";
+			document.getElementsByClassName(containerClass)[0] || "";
 		var img = container
-			? container[getElementsByTagName]("img")[0] || ""
+			? container.getElementsByTagName("img")[0] || ""
 			: "";
 
 		if (!container) {
-			container = document[createElement]("div");
-			container[classList].add(containerClass);
+			container = document.createElement("div");
+			container.classList.add(containerClass);
 			var html = [];
 			html.push('<img src="' + dummySrc + '" alt="" />');
 			html.push(
 				'<div class="half-circle-spinner"><div class="circle circle-1"></div><div class="circle circle-2"></div></div>'
 			);
 			html.push('<a href="javascript:void(0);" class="btn-close"></a>');
-			container[innerHTML] = html.join("");
-			docBody[appendChild](container);
+			container.innerHTML = html.join("");
+			docBody.appendChild(container);
 			img = container
-				? container[getElementsByTagName]("img")[0] || ""
+				? container.getElementsByTagName("img")[0] || ""
 				: "";
 			var btnClose = container
-				? container[getElementsByClassName](btnCloseClass)[0] || ""
+				? container.getElementsByClassName(btnCloseClass)[0] || ""
 				: "";
 
 			var handleImgLightboxContainer = function handleImgLightboxContainer() {
 				hideImgLightbox(onClosed);
 			};
 
-			container[_addEventListener]("click", handleImgLightboxContainer);
+			container.addEventListener("click", handleImgLightboxContainer);
 
-			btnClose[_addEventListener]("click", handleImgLightboxContainer);
+			btnClose.addEventListener("click", handleImgLightboxContainer);
 
-			if (!docElem[classList].contains(imgLightboxWindowIsBindedClass)) {
-				docElem[classList].add(imgLightboxWindowIsBindedClass);
+			if (!docElem.classList.contains(imgLightboxWindowIsBindedClass)) {
+				docElem.classList.add(imgLightboxWindowIsBindedClass);
 
-				root[_addEventListener]("keyup", function(ev) {
+				root.addEventListener("keyup", function(ev) {
 					if (27 === (ev.which || ev.keyCode)) {
 						hideImgLightbox(onClosed);
 					}
@@ -585,8 +564,8 @@
 
 		var arrange = function arrange(e) {
 			var hrefString =
-				e[getAttribute]("href") || e[getAttribute]("data-src") || "";
-			var dataTouch = e[getAttribute]("data-touch") || "";
+				e.getAttribute("href") || e.getAttribute("data-src") || "";
+			var dataTouch = e.getAttribute("data-touch") || "";
 
 			if (!hrefString) {
 				return;
@@ -595,22 +574,22 @@
 			var handleImgLightboxLink = function handleImgLightboxLink(ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				docElem[classList].add(imgLightboxOpenClass);
-				docBody[classList].add(imgLightboxOpenClass);
-				container[classList].remove(isLoadedClass);
+				docElem.classList.add(imgLightboxOpenClass);
+				docBody.classList.add(imgLightboxOpenClass);
+				container.classList.remove(isLoadedClass);
 
 				var logic = function logic() {
 					if (onCreated) {
 						callCallback(onCreated, root);
 					}
 
-					container[classList].add(animatedClass);
-					container[classList].add(fadeInClass);
-					img[classList].add(animatedClass);
-					img[classList].add(fadeInUpClass);
+					container.classList.add(animatedClass);
+					container.classList.add(fadeInClass);
+					img.classList.add(animatedClass);
+					img.classList.add(fadeInUpClass);
 
 					img.onload = function() {
-						container[classList].add(isLoadedClass);
+						container.classList.add(isLoadedClass);
 
 						if (onLoaded) {
 							callCallback(onLoaded, root);
@@ -630,13 +609,13 @@
 				debounce(logic, rate).call();
 			};
 
-			if (!e[classList].contains(imgLightboxLinkIsBindedClass)) {
-				e[classList].add(imgLightboxLinkIsBindedClass);
+			if (!e.classList.contains(imgLightboxLinkIsBindedClass)) {
+				e.classList.add(imgLightboxLinkIsBindedClass);
 
-				e[_addEventListener]("click", handleImgLightboxLink);
+				e.addEventListener("click", handleImgLightboxLink);
 
 				if (isTouch && (touch || dataTouch)) {
-					e[_addEventListener]("touchstart", handleImgLightboxLink);
+					e.addEventListener("touchstart", handleImgLightboxLink);
 				}
 			}
 		};
@@ -644,7 +623,7 @@
 		if (container && img && link) {
 			var i, l;
 
-			for (i = 0, l = link[_length]; i < l; i += 1) {
+			for (i = 0, l = link.length; i < l; i += 1) {
 				arrange(link[i]);
 			}
 
@@ -1384,15 +1363,6 @@
 		return matrix;
 	};
 
-	var appendChild = "appendChild";
-	var createElement = "createElement";
-	var createElementNS = "createElementNS";
-	var setAttributeNS = "setAttributeNS";
-	var createRange = "createRange";
-	var selectNodeContents = "selectNodeContents";
-	var createContextualFragment = "createContextualFragment";
-	var createDocumentFragment = "createDocumentFragment";
-	var createTextNode = "createTextNode";
 	var QRCode = {
 		generate: function generate(data, settings) {
 			var options = settings || {};
@@ -1474,7 +1444,7 @@
 				options.margin !== null ? options.margin : 4,
 				0.0
 			);
-			var e = document[createElement]("div");
+			var e = document.createElement("div");
 			var n = matrix[length];
 			var html = [
 				'<table border="0" cellspacing="0" cellpadding="0" style="border:' +
@@ -1507,12 +1477,12 @@
 			e.className = "qrcode";
 			/* e.innerHTML = html.join("") + "</table>"; */
 
-			var range = document[createRange]();
-			range[selectNodeContents](e);
-			var frag = range[createContextualFragment](
+			var range = document.createRange();
+			range.selectNodeContents(e);
+			var frag = range.createContextualFragment(
 				html.join("") + "</table>"
 			);
-			e[appendChild](frag);
+			e.appendChild(frag);
 			return e;
 		},
 		generateSVG: function generateSVG(data, settings) {
@@ -1526,23 +1496,23 @@
 			var size = modsize * (n + 2 * margin);
 			/* var common = ' class= "fg"' + ' width="' + modsize + '" height="' + modsize + '"/>'; */
 
-			var e = document[createElementNS](
+			var e = document.createElementNS(
 				"http://www.w3.org/2000/svg",
 				"svg"
 			);
-			e[setAttributeNS](null, "viewBox", "0 0 " + size + " " + size);
-			e[setAttributeNS](null, "style", "shape-rendering:crispEdges");
+			e.setAttributeNS(null, "viewBox", "0 0 " + size + " " + size);
+			e.setAttributeNS(null, "style", "shape-rendering:crispEdges");
 			var qrcodeId = "qrcode" + Date.now();
-			e[setAttributeNS](null, "id", qrcodeId);
-			var frag = document[createDocumentFragment]();
+			e.setAttributeNS(null, "id", qrcodeId);
+			var frag = document.createDocumentFragment();
 			/* var svg = ['<style scoped>.bg{fill:' + fillcolor + '}.fg{fill:' + textcolor + '}</style>', '<rect class="bg" x="0" y="0"', 'width="' + size + '" height="' + size + '"/>', ]; */
 
-			var style = document[createElementNS](
+			var style = document.createElementNS(
 				"http://www.w3.org/2000/svg",
 				"style"
 			);
-			style[appendChild](
-				document[createTextNode](
+			style.appendChild(
+				document.createTextNode(
 					"#" +
 						qrcodeId +
 						" .bg{fill:" +
@@ -1554,26 +1524,26 @@
 						"}"
 				)
 			);
-			/* style[setAttributeNS](null, "scoped", "scoped"); */
+			/* style.setAttributeNS(null, "scoped", "scoped"); */
 
-			frag[appendChild](style);
+			frag.appendChild(style);
 
 			var createRect = function createRect(c, f, x, y, s) {
 				var fg =
-					document[createElementNS](
+					document.createElementNS(
 						"http://www.w3.org/2000/svg",
 						"rect"
 					) || "";
-				fg[setAttributeNS](null, "class", c);
-				fg[setAttributeNS](null, "fill", f);
-				fg[setAttributeNS](null, "x", x);
-				fg[setAttributeNS](null, "y", y);
-				fg[setAttributeNS](null, "width", s);
-				fg[setAttributeNS](null, "height", s);
+				fg.setAttributeNS(null, "class", c);
+				fg.setAttributeNS(null, "fill", f);
+				fg.setAttributeNS(null, "x", x);
+				fg.setAttributeNS(null, "y", y);
+				fg.setAttributeNS(null, "width", s);
+				fg.setAttributeNS(null, "height", s);
 				return fg;
 			};
 
-			frag[appendChild](createRect("bg", "none", 0, 0, size));
+			frag.appendChild(createRect("bg", "none", 0, 0, size));
 			var yo = margin * modsize;
 
 			for (var y = 0; y < n; ++y) {
@@ -1582,7 +1552,7 @@
 				for (var x = 0; x < n; ++x) {
 					if (matrix[y][x]) {
 						/* svg.push('<rect x="' + xo + '" y="' + yo + '"', common); */
-						frag[appendChild](
+						frag.appendChild(
 							createRect("fg", "none", xo, yo, modsize)
 						);
 					}
@@ -1594,7 +1564,7 @@
 			}
 			/* e.innerHTML = svg.join(""); */
 
-			e[appendChild](frag);
+			e.appendChild(frag);
 			return e;
 		},
 		generatePNG: function generatePNG(data, settings) {
@@ -1611,7 +1581,7 @@
 			);
 			var n = matrix[length];
 			var size = modsize * (n + 2 * margin);
-			var canvas = document[createElement]("canvas"),
+			var canvas = document.createElement("canvas"),
 				context;
 			canvas.width = canvas.height = size;
 			context = canvas.getContext("2d");

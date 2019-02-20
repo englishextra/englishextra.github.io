@@ -18,8 +18,7 @@
  */
 (function (root) {
 	"use strict";
-	var hasOwnProperty = "hasOwnProperty";
-	var _length = "length";
+	var _hasOwnProperty = "hasOwnProperty";
 	var replace = "replace";
 	var blockregex = /\{\{(([@!]?)(.+?))\}\}(([\s\S]+?)(\{\{:\1\}\}([\s\S]+?))?)\{\{\/\1\}\}/g;
 	var valregex = /\{\{([=%])(.+?)\}\}/g;
@@ -31,7 +30,7 @@
 	}
 	function get_value(vars, key) {
 		var parts = key.split(".");
-		while (parts[_length]) {
+		while (parts.length) {
 			if (!(parts[0]in vars)) {
 				return false;
 			}
@@ -60,7 +59,7 @@
 				_ = vars._key;
 				__ = vars._val;
 				for (i in val) {
-					if (val[hasOwnProperty](i)) {
+					if (val.hasOwnProperty(i)) {
 						vars._key = i;
 						vars._val = val[i];
 						temp += render(inner, vars);

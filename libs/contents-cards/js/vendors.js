@@ -1581,8 +1581,7 @@ if (
 (function(root) {
 	"use strict";
 
-	var hasOwnProperty = "hasOwnProperty";
-	var _length = "length";
+	var _hasOwnProperty = "hasOwnProperty";
 	var replace = "replace";
 	var blockregex = /\{\{(([@!]?)(.+?))\}\}(([\s\S]+?)(\{\{:\1\}\}([\s\S]+?))?)\{\{\/\1\}\}/g;
 	var valregex = /\{\{([=%])(.+?)\}\}/g;
@@ -1598,7 +1597,7 @@ if (
 	function get_value(vars, key) {
 		var parts = key.split(".");
 
-		while (parts[_length]) {
+		while (parts.length) {
 			if (!(parts[0] in vars)) {
 				return false;
 			}
@@ -1645,7 +1644,7 @@ if (
 				__ = vars._val;
 
 				for (i in val) {
-					if (val[hasOwnProperty](i)) {
+					if (val.hasOwnProperty(i)) {
 						vars._key = i;
 						vars._val = val[i];
 						temp += render(inner, vars);
@@ -1682,8 +1681,6 @@ if (
  */
 (function(root, document) {
 	"use strict";
-
-	var _length = "length";
 
 	function extend(a, b) {
 		for (var key in b) {
@@ -1731,7 +1728,7 @@ if (
 			return false;
 		}
 
-		if (!this.props.nodeList || this.props.nodeList[_length] === 0) {
+		if (!this.props.nodeList || this.props.nodeList.length === 0) {
 			return false;
 		}
 

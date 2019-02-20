@@ -1581,8 +1581,7 @@ if (
 (function(root) {
 	"use strict";
 
-	var hasOwnProperty = "hasOwnProperty";
-	var _length = "length";
+	var _hasOwnProperty = "hasOwnProperty";
 	var replace = "replace";
 	var blockregex = /\{\{(([@!]?)(.+?))\}\}(([\s\S]+?)(\{\{:\1\}\}([\s\S]+?))?)\{\{\/\1\}\}/g;
 	var valregex = /\{\{([=%])(.+?)\}\}/g;
@@ -1598,7 +1597,7 @@ if (
 	function get_value(vars, key) {
 		var parts = key.split(".");
 
-		while (parts[_length]) {
+		while (parts.length) {
 			if (!(parts[0] in vars)) {
 				return false;
 			}
@@ -1645,7 +1644,7 @@ if (
 				__ = vars._val;
 
 				for (i in val) {
-					if (val[hasOwnProperty](i)) {
+					if (val.hasOwnProperty(i)) {
 						vars._key = i;
 						vars._val = val[i];
 						temp += render(inner, vars);
@@ -1686,19 +1685,12 @@ if (
 (function(root, document) {
 	"use strict";
 
-	var _addEventListener = "addEventListener";
 	var children = "children";
-	var classList = "classList";
-	var dataset = "dataset";
 	var getComputedStyle = "getComputedStyle";
-	var getElementsByClassName = "getElementsByClassName";
-	var hasOwnProperty = "hasOwnProperty";
-	var _length = "length";
+	var _hasOwnProperty = "hasOwnProperty";
 	var nextElementSibling = "nextElementSibling";
 	var offsetTop = "offsetTop";
-	var parentNode = "parentNode";
 	var previousElementSibling = "previousElementSibling";
-	var style = "style";
 	var zoomwall = {
 		create: function create(
 			blocks,
@@ -1713,16 +1705,16 @@ if (
 				dataAttributeHighresName || "highres";
 			_this.dataAttributeLowresName = dataAttributeLowresName || "lowres";
 			zoomwall.resize(blocks[children]);
-			blocks[classList].remove("loading");
+			blocks.classList.remove("loading");
 
-			blocks[_addEventListener]("click", function() {
-				if (_this[children] && _this[children][_length] > 0) {
+			blocks.addEventListener("click", function() {
+				if (_this[children] && _this[children].length > 0) {
 					zoomwall.shrink(_this[children][0]);
 				}
 			});
 
-			for (var i = 0; i < blocks[children][_length]; i++) {
-				blocks[children][i][_addEventListener](
+			for (var i = 0; i < blocks[children].length; i++) {
+				blocks[children][i].addEventListener(
 					"click",
 					zoomwall.animate
 				);
@@ -1744,12 +1736,12 @@ if (
 
 				var elem =
 					blocks ||
-					document[getElementsByClassName]("zoomwall lightbox")[0];
+					document.getElementsByClassName("zoomwall lightbox")[0];
 
 				if (elem) {
 					switch (e.keyCode) {
 						case 27:
-							if (elem[children] && elem[children][_length] > 0) {
+							if (elem[children] && elem[children].length > 0) {
 								zoomwall.shrink(elem[children][0]);
 							}
 
@@ -1769,15 +1761,15 @@ if (
 				}
 			};
 
-			document[_addEventListener]("keydown", keyPager);
+			document.addEventListener("keydown", keyPager);
 
 			return keyPager;
 		},
 		resizeRow: function resizeRow(row, width) {
-			if (row && row[_length] > 1) {
+			if (row && row.length > 1) {
 				for (var i in row) {
-					if (row[hasOwnProperty](i)) {
-						row[i][style].width =
+					if (row.hasOwnProperty(i)) {
+						row[i].style.width =
 							(parseInt(
 								root[getComputedStyle](row[i]).width,
 								10
@@ -1785,7 +1777,7 @@ if (
 								width) *
 								100 +
 							"%";
-						row[i][style].height = "auto";
+						row[i].style.height = "auto";
 					}
 				}
 			}
@@ -1794,7 +1786,7 @@ if (
 			var width = 0;
 
 			for (var i in row) {
-				if (row[hasOwnProperty](i)) {
+				if (row.hasOwnProperty(i)) {
 					width += parseInt(root[getComputedStyle](row[i]).width, 10);
 				}
 			}
@@ -1805,7 +1797,7 @@ if (
 			var row = [];
 			var top = -1;
 
-			for (var c = 0; c < blocks[_length]; c++) {
+			for (var c = 0; c < blocks.length; c++) {
 				var block = blocks[c];
 
 				if (block) {
@@ -1824,12 +1816,12 @@ if (
 			zoomwall.resizeRow(row, zoomwall.calcRowWidth(row));
 		},
 		reset: function reset(block) {
-			block[style].transform = "translate(0, 0) scale(1)";
-			block[style].webkitTransform = "translate(0, 0) scale(1)";
-			block[classList].remove("active");
+			block.style.transform = "translate(0, 0) scale(1)";
+			block.style.webkitTransform = "translate(0, 0) scale(1)";
+			block.classList.remove("active");
 		},
 		shrink: function shrink(block) {
-			block[parentNode][classList].remove("lightbox");
+			block.parentNode.classList.remove("lightbox");
 			zoomwall.reset(block);
 			var prev = block[previousElementSibling];
 
@@ -1845,19 +1837,19 @@ if (
 				next = next[nextElementSibling];
 			}
 
-			if (block[dataset].lowres) {
-				block.src = block[dataset].lowres;
+			if (block.dataset.lowres) {
+				block.src = block.dataset.lowres;
 			}
 		},
 		expand: function expand(block) {
 			var _this = this;
 
-			block[classList].add("active");
-			block[parentNode][classList].add("lightbox");
-			var parentStyle = root[getComputedStyle](block[parentNode]);
+			block.classList.add("active");
+			block.parentNode.classList.add("lightbox");
+			var parentStyle = root[getComputedStyle](block.parentNode);
 			var parentWidth = parseInt(parentStyle.width, 10);
 			var parentHeight = parseInt(parentStyle.height, 10);
-			var parentTop = block[parentNode].getBoundingClientRect().top;
+			var parentTop = block.parentNode.getBoundingClientRect().top;
 			var blockStyle = root[getComputedStyle](block);
 			var blockWidth = parseInt(blockStyle.width, 10);
 			var blockHeight = parseInt(blockStyle.height, 10);
@@ -1869,16 +1861,16 @@ if (
 				targetHeight -= parentTop;
 			}
 
-			if (block[dataset][_this.dataAttributeHighresName]) {
+			if (block.dataset[_this.dataAttributeHighresName]) {
 				if (
 					block.src !==
-						block[dataset][_this.dataAttributeHighresName] &&
-					block[dataset][_this.dataAttributeLowresName] === undefined
+						block.dataset[_this.dataAttributeHighresName] &&
+					block.dataset[_this.dataAttributeLowresName] === undefined
 				) {
-					block[dataset][_this.dataAttributeLowresName] = block.src;
+					block.dataset[_this.dataAttributeLowresName] = block.src;
 				}
 
-				block.src = block[dataset][_this.dataAttributeHighresName];
+				block.src = block.dataset[_this.dataAttributeHighresName];
 			}
 
 			var row = [];
@@ -1904,7 +1896,7 @@ if (
 			}
 
 			var offsetY =
-				parentTop - block[parentNode][offsetTop] + block[offsetTop];
+				parentTop - block.parentNode[offsetTop] + block[offsetTop];
 
 			if (
 				parentHeight < root.innerHeight ||
@@ -1919,7 +1911,7 @@ if (
 
 			var leftOffsetX = 0;
 
-			for (var i = 0; i < row[_length] && row[i] !== block; i++) {
+			for (var i = 0; i < row.length && row[i] !== block; i++) {
 				leftOffsetX +=
 					parseInt(root[getComputedStyle](row[i]).width, 10) * scale;
 			}
@@ -1928,7 +1920,7 @@ if (
 				parentWidth / 2 - (blockWidth * scale) / 2 - leftOffsetX;
 			var rightOffsetX = 0;
 
-			for (var j = row[_length] - 1; j >= 0 && row[j] !== block; j--) {
+			for (var j = row.length - 1; j >= 0 && row[j] !== block; j--) {
 				rightOffsetX +=
 					parseInt(root[getComputedStyle](row[j]).width, 10) * scale;
 			}
@@ -1938,7 +1930,7 @@ if (
 			var itemOffset = 0;
 			var prevWidth = 0;
 
-			for (var k = 0; k < row[_length]; k++) {
+			for (var k = 0; k < row.length; k++) {
 				itemOffset += prevWidth * scale - prevWidth;
 				prevWidth = parseInt(root[getComputedStyle](row[k]).width, 10);
 				var percentageOffsetX =
@@ -1947,9 +1939,9 @@ if (
 					(-offsetY /
 						parseInt(root[getComputedStyle](row[k]).height, 10)) *
 					100;
-				row[k][style].transformOrigin = "0% 0%";
-				row[k][style].webkitTransformOrigin = "0% 0%";
-				row[k][style].transform =
+				row[k].style.transformOrigin = "0% 0%";
+				row[k].style.webkitTransformOrigin = "0% 0%";
+				row[k].style.transform =
 					"translate(" +
 					percentageOffsetX.toFixed(8) +
 					"%, " +
@@ -1957,7 +1949,7 @@ if (
 					"%) scale(" +
 					scale.toFixed(8) +
 					")";
-				row[k][style].webkitTransform =
+				row[k].style.webkitTransform =
 					"translate(" +
 					percentageOffsetX.toFixed(8) +
 					"%, " +
@@ -1971,7 +1963,7 @@ if (
 			var prevHeight;
 			itemOffset = 0;
 			prevWidth = 0;
-			var next2 = row[row[_length] - 1][nextElementSibling];
+			var next2 = row[row.length - 1][nextElementSibling];
 			var nextRowTop = -1;
 
 			while (next2) {
@@ -1993,9 +1985,9 @@ if (
 				var percentageOffsetX2 =
 					((itemOffset + leftOffsetX) / prevWidth) * 100;
 				var percentageOffsetY2 = (nextOffsetY / prevHeight) * 100;
-				next2[style].transformOrigin = "0% 0%";
-				next2[style].webkitTransformOrigin = "0% 0%";
-				next2[style].transform =
+				next2.style.transformOrigin = "0% 0%";
+				next2.style.webkitTransformOrigin = "0% 0%";
+				next2.style.transform =
 					"translate(" +
 					percentageOffsetX2.toFixed(8) +
 					"%, " +
@@ -2003,7 +1995,7 @@ if (
 					"%) scale(" +
 					scale.toFixed(8) +
 					")";
-				next2[style].webkitTransform =
+				next2.style.webkitTransform =
 					"translate(" +
 					percentageOffsetX2.toFixed(8) +
 					"%, " +
@@ -2040,9 +2032,9 @@ if (
 					(prevOffsetY /
 						parseInt(root[getComputedStyle](prev2).height, 10)) *
 					100;
-				prev2[style].transformOrigin = "100% 0%";
-				prev2[style].webkitTransformOrigin = "100% 0%";
-				prev2[style].transform =
+				prev2.style.transformOrigin = "100% 0%";
+				prev2.style.webkitTransformOrigin = "100% 0%";
+				prev2.style.transform =
 					"translate(" +
 					percentageOffsetX3.toFixed(8) +
 					"%, " +
@@ -2050,7 +2042,7 @@ if (
 					"%) scale(" +
 					scale.toFixed(8) +
 					")";
-				prev2[style].webkitTransform =
+				prev2.style.webkitTransform =
 					"translate(" +
 					percentageOffsetX3.toFixed(8) +
 					"%, " +
@@ -2064,15 +2056,15 @@ if (
 		animate: function animate(e) {
 			var _this = this;
 
-			if (_this[classList].contains("active")) {
+			if (_this.classList.contains("active")) {
 				zoomwall.shrink(_this);
 			} else {
-				var actives = _this[parentNode][getElementsByClassName](
+				var actives = _this.parentNode.getElementsByClassName(
 					"active"
 				);
 
-				for (var i = 0; i < actives[_length]; i++) {
-					actives[i][classList].remove("active");
+				for (var i = 0; i < actives.length; i++) {
+					actives[i].classList.remove("active");
 				}
 
 				zoomwall.expand(_this);
@@ -2081,9 +2073,9 @@ if (
 			e.stopPropagation();
 		},
 		page: function page(blocks, isNext) {
-			var actives = blocks[getElementsByClassName]("active");
+			var actives = blocks.getElementsByClassName("active");
 
-			if (actives && actives[_length] > 0) {
+			if (actives && actives.length > 0) {
 				var current = actives[0];
 				var next;
 
@@ -2094,10 +2086,10 @@ if (
 				}
 
 				if (next) {
-					current[classList].remove("active");
+					current.classList.remove("active");
 
-					if (current[dataset].lowres) {
-						current.src = current[dataset].lowres;
+					if (current.dataset.lowres) {
+						current.src = current.dataset.lowres;
 					}
 
 					zoomwall.expand(next);

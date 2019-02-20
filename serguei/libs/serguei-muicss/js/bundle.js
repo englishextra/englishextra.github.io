@@ -90,19 +90,18 @@ WheelIndicator, Ya*/
  */
 (function (root, document) {
 	"use strict";
-	var classList = "classList";
 	var hasClass;
 	var addClass;
 	var removeClass;
-	if (classList in document.documentElement) {
+	if ("classList" in document.documentElement) {
 		hasClass = function (el, name) {
-			return el[classList].contains(name);
+			return el.classList.contains(name);
 		};
 		addClass = function (el, name) {
-			el[classList].add(name);
+			el.classList.add(name);
 		};
 		removeClass = function (el, name) {
-			el[classList].remove(name);
+			el.classList.remove(name);
 		};
 	} else {
 		hasClass = function (el, name) {
@@ -147,19 +146,9 @@ WheelIndicator, Ya*/
 			options.jsonTitlePropName = options.jsonTitlePropName || "title";
 			var docElem = document.documentElement || "";
 			var docBody = document.body || "";
-			var appendChild = "appendChild";
-			var cloneNode = "cloneNode";
-			var createContextualFragment = "createContextualFragment";
-			var createDocumentFragment = "createDocumentFragment";
-			var createRange = "createRange";
-			var getElementById = "getElementById";
-			var innerHTML = "innerHTML";
-			var parentNode = "parentNode";
-			var replaceChild = "replaceChild";
-			var _length = "length";
-			var routerIsBindedClass = "router--is-binded";
+			var jsonHashRouterIsBindedClass = "json-hash-router--is-binded";
 			var insertExternalHTML = function (id, url, callback) {
-				var container = document[getElementById](id.replace(/^#/, "")) || "";
+				var container = document.getElementById(id.replace(/^#/, "")) || "";
 				var arrange = function () {
 					var x = root.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
 					x.overrideMimeType("text/html;charset=utf-8");
@@ -174,17 +163,17 @@ WheelIndicator, Ya*/
 						} else if (x.readyState === 4 && x.status === 200 && x.responseText) {
 							var frag = x.responseText;
 							try {
-								var clonedContainer = container[cloneNode](false);
-								if (document[createRange]) {
-									var rg = document[createRange]();
+								var clonedContainer = container.cloneNode(false);
+								if (document.createRange) {
+									var rg = document.createRange();
 									rg.selectNode(docBody);
-									var df = rg[createContextualFragment](frag);
-									clonedContainer[appendChild](df);
-									return container[parentNode] ? container[parentNode][replaceChild](clonedContainer, container) : container[innerHTML] = frag,
+									var df = rg.createContextualFragment(frag);
+									clonedContainer.appendChild(df);
+									return container.parentNode ? container.parentNode.replaceChild(clonedContainer, container) : container.innerHTML = frag,
 									cb();
 								} else {
-									clonedContainer[innerHTML] = frag;
-									return container[parentNode] ? container[parentNode][replaceChild](document[createDocumentFragment][appendChild](clonedContainer), container) : container[innerHTML] = frag,
+									clonedContainer.innerHTML = frag;
+									return container.parentNode ? container.parentNode.replaceChild(document.createDocumentFragment.appendChild(clonedContainer), container) : container.innerHTML = frag,
 									cb();
 								}
 							} catch (e) {
@@ -199,7 +188,7 @@ WheelIndicator, Ya*/
 					arrange();
 				}
 			};
-			var loadUnparsedJSON = function (url, callback) {
+			var loadJsonResponse = function (url, callback) {
 				var cb = function (string) {
 					return callback && "function" === typeof callback && callback(string);
 				};
@@ -219,13 +208,13 @@ WheelIndicator, Ya*/
 			var isValidId = function (a, full) {
 				return full ? /^\#[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? true : false : /^[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? true : false;
 			};
-			var findPos = function (a) {
-				a = a.getBoundingClientRect();
-				return {
-					top: Math.round(a.top + (root.pageYOffset || docElem.scrollTop || docBody.scrollTop) - (docElem.clientTop || docBody.clientTop || 0)),
-					left: Math.round(a.left + (root.pageXOffset || docElem.scrollLeft || docBody.scrollLeft) - (docElem.clientLeft || docBody.clientLeft || 0))
-				};
+		var findPos = function (e) {
+			e = e.getBoundingClientRect();
+			return {
+				top: Math.round(e.top + (root.pageYOffset || docElem.scrollTop || docBody.scrollTop) - (docElem.clientTop || docBody.clientTop || 0)),
+				left: Math.round(e.left + (root.pageXOffset || docElem.scrollLeft || docBody.scrollLeft) - (docElem.clientLeft || docBody.clientLeft || 0))
 			};
+		};
 			var processJsonResponse = function (jsonResponse) {
 				var jsonObj;
 				try {
@@ -260,7 +249,7 @@ WheelIndicator, Ya*/
 						var isFound = false;
 						var i,
 						l;
-						for (i = 0, l = jsonObj[options.jsonHashesPropName][_length]; i < l; i += 1) {
+						for (i = 0, l = jsonObj[options.jsonHashesPropName].length; i < l; i += 1) {
 							if (locationHash === jsonObj[options.jsonHashesPropName][i][options.jsonHrefPropName]) {
 								isFound = true;
 								insertExternalHTML(renderId, jsonObj[options.jsonHashesPropName][i][options.jsonUrlPropName], triggerOnContentInserted.bind(null, jsonObj, jsonObj[options.jsonHashesPropName][i][options.jsonTitlePropName]));
@@ -269,7 +258,7 @@ WheelIndicator, Ya*/
 						}
 						i = l = null;
 						if (false === isFound) {
-							var targetObj = locationHash ? (isValidId(locationHash, true) ? document[getElementById](locationHash.replace(/^#/, "")) || "" : "") : "";
+							var targetObj = locationHash ? (isValidId(locationHash, true) ? document.getElementById(locationHash.replace(/^#/, "")) || "" : "") : "";
 							if (targetObj) {
 								root.scrollTo(findPos(targetObj).left, findPos(targetObj).top);
 							} else {
@@ -289,14 +278,14 @@ WheelIndicator, Ya*/
 					}
 				};
 				handleRoutesWindow();
-				if (!hasClass(docElem, routerIsBindedClass)) {
-					addClass(docElem, routerIsBindedClass);
+				if (!hasClass(docElem, jsonHashRouterIsBindedClass)) {
+					addClass(docElem, jsonHashRouterIsBindedClass);
 					addListener(root, "hashchange", handleRoutesWindow);
 				}
 			};
-			var render = document[getElementById](renderId) || "";
+			var render = document.getElementById(renderId) || "";
 			if (render) {
-				loadUnparsedJSON(jsonUrl, processJsonResponse);
+				loadJsonResponse(jsonUrl, processJsonResponse);
 			}
 		};
 	})();
@@ -313,16 +302,13 @@ WheelIndicator, Ya*/
 (function(root, document) {
 	"use strict";
 	var doesFontExist = function(fontName) {
-		var getContext = "getContext";
-		var measureText = "measureText";
-		var width = "width";
 		var canvas = document.createElement("canvas");
-		var context = canvas[getContext]("2d");
+		var context = canvas.getContext("2d");
 		var text = "abcdefghijklmnopqrstuvwxyz0123456789";
 		context.font = "72px monospace";
-		var baselineSize = context[measureText](text)[width];
+		var baselineSize = context.measureText(text).width;
 		context.font = "72px '" + fontName + "', monospace";
-		var newSize = context[measureText](text)[width];
+		var newSize = context.measureText(text).width;
 		canvas = null;
 		if (newSize === baselineSize) {
 			return false;
@@ -341,16 +327,11 @@ WheelIndicator, Ya*/
 	"use strict";
 	var loadJsCss = function (files, callback, type) {
 		var _this = this;
-		var appendChild = "appendChild";
-		var body = "body";
-		var getElementsByTagName = "getElementsByTagName";
-		var setAttribute = "setAttribute";
-		var _length = "length";
 		_this.files = files;
 		_this.js = [];
-		_this.head = document[getElementsByTagName]("head")[0] || "";
-		_this.body = document[body] || "";
-		_this.ref = document[getElementsByTagName]("script")[0] || "";
+		_this.head = document.getElementsByTagName("head")[0] || "";
+		_this.body = document.body || "";
+		_this.ref = document.getElementsByTagName("script")[0] || "";
 		_this.callback = callback || function () {};
 		_this.type = type ? type.toLowerCase() : "";
 		_this.loadStyle = function (file) {
@@ -363,9 +344,9 @@ WheelIndicator, Ya*/
 				this.onload = null;
 				this.media = "all";
 			};
-			link[setAttribute]("property", "stylesheet");
-			/* _this.head[appendChild](link); */
-			(_this.body || _this.head)[appendChild](link);
+			link.setAttribute("property", "stylesheet");
+			/* _this.head.appendChild(link); */
+			(_this.body || _this.head).appendChild(link);
 		};
 		_this.loadScript = function (i) {
 			var script = document.createElement("script");
@@ -373,7 +354,7 @@ WheelIndicator, Ya*/
 			script.async = true;
 			script.src = _this.js[i];
 			var loadNextScript = function () {
-				if (++i < _this.js[_length]) {
+				if (++i < _this.js.length) {
 					_this.loadScript(i);
 				} else {
 					_this.callback();
@@ -382,17 +363,17 @@ WheelIndicator, Ya*/
 			script.onload = function () {
 				loadNextScript();
 			};
-			_this.head[appendChild](script);
-			/* if (_this.ref[parentNode]) {
-				_this.ref[parentNode][insertBefore](script, _this.ref);
+			_this.head.appendChild(script);
+			/* if (_this.ref.parentNode) {
+				_this.ref.parentNode[insertBefore](script, _this.ref);
 			} else {
-				(_this.body || _this.head)[appendChild](script);
+				(_this.body || _this.head).appendChild(script);
 			} */
-			(_this.body || _this.head)[appendChild](script);
+			(_this.body || _this.head).appendChild(script);
 		};
 		var i,
 		l;
-		for (i = 0, l = _this.files[_length]; i < l; i += 1) {
+		for (i = 0, l = _this.files.length; i < l; i += 1) {
 			if ((/\.js$|\.js\?/).test(_this.files[i]) || _this.type === "js") {
 				_this.js.push(_this.files[i]);
 			}
@@ -401,7 +382,7 @@ WheelIndicator, Ya*/
 			}
 		}
 		i = l = null;
-		if (_this.js[_length] > 0) {
+		if (_this.js.length > 0) {
 			_this.loadScript(0);
 		} else {
 			_this.callback();
@@ -418,8 +399,6 @@ WheelIndicator, Ya*/
 	var docElem = document.documentElement || "";
 	var docImplem = document.implementation || "";
 	var docBody = document.body || "";
-
-	var _length = "length";
 
 	addClass(docBody, "hide-sidedrawer");
 
@@ -443,32 +422,12 @@ WheelIndicator, Ya*/
 
 	var forcedHTTP = getHTTP(true);
 
-	var supportsCanvas;
-	supportsCanvas = (function () {
+	/* var supportsCanvas = (function () {
 		var elem = document.createElement("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
-	})();
+	})(); */
 
 	var run = function () {
-
-		var appendChild = "appendChild";
-		var body = "body";
-		var cloneNode = "cloneNode";
-		var createContextualFragment = "createContextualFragment";
-		var createDocumentFragment = "createDocumentFragment";
-		var createRange = "createRange";
-		var createTextNode = "createTextNode";
-		var dataset = "dataset";
-		var getAttribute = "getAttribute";
-		var getElementById = "getElementById";
-		var getElementsByTagName = "getElementsByTagName";
-		var innerHTML = "innerHTML";
-		var parentNode = "parentNode";
-		var querySelectorAll = "querySelectorAll";
-		var setAttribute = "setAttribute";
-		var setAttributeNS = "setAttributeNS";
-		var style = "style";
-		var title = "title";
 
 		var isActiveClass = "is-active";
 		var isBindedClass = "is-binded";
@@ -484,24 +443,24 @@ WheelIndicator, Ya*/
 		var earlyDeviceFormfactor = (function (selectors) {
 			var orientation;
 			var size;
-			var f = function (a) {
-				var b = a.split(" ");
+			var f = function (e) {
+				var b = e.split(" ");
 				if (selectors) {
 					var c;
-					for (c = 0; c < b[_length]; c += 1) {
-						a = b[c];
-						selectors.add(a);
+					for (c = 0; c < b.length; c += 1) {
+						e = b[c];
+						selectors.add(e);
 					}
 					c = null;
 				}
 			};
-			var g = function (a) {
-				var b = a.split(" ");
+			var g = function (e) {
+				var b = e.split(" ");
 				if (selectors) {
 					var c;
-					for (c = 0; c < b[_length]; c += 1) {
-						a = b[c];
-						selectors.remove(a);
+					for (c = 0; c < b.length; c += 1) {
+						e = b[c];
+						selectors.remove(e);
 					}
 					c = null;
 				}
@@ -612,8 +571,8 @@ WheelIndicator, Ya*/
 			(earlyHasTouch ? " " + earlyHasTouch : "") +
 			"]";
 
-		if (document[title]) {
-			document[title] = document[title] + userBrowser;
+		if (document.title) {
+			document.title = document.title + userBrowser;
 		}
 
 		var debounce = function (func, wait) {
@@ -668,15 +627,15 @@ WheelIndicator, Ya*/
 			};
 		};
 
-		var setStyleDisplayBlock = function (a) {
-			if (a) {
-				a[style].display = "block";
+		var setStyleDisplayBlock = function (e) {
+			if (e) {
+				e.style.display = "block";
 			}
 		};
 
-		var setStyleDisplayNone = function (a) {
-			if (a) {
-				a[style].display = "none";
+		var setStyleDisplayNone = function (e) {
+			if (e) {
+				e.style.display = "none";
 			}
 		};
 
@@ -716,18 +675,18 @@ WheelIndicator, Ya*/
 		};
 
 		var LoadingSpinner = (function () {
-			var spinner = document[getElementById]("loading-spinner") || "";
+			var spinner = document.getElementById("loading-spinner") || "";
 			if (!spinner) {
 				spinner = document.createElement("div");
-				spinner[setAttribute]("class", "half-circle-spinner");
-				spinner[setAttribute]("id", "loading-spinner");
-				spinner[setAttribute]("aria-hidden", "true");
-				spinner[innerHTML] = '<div class="circle circle-1"></div><div class="circle circle-2"></div>';
-				docBody[appendChild](spinner);
+				spinner.setAttribute("class", "half-circle-spinner");
+				spinner.setAttribute("id", "loading-spinner");
+				spinner.setAttribute("aria-hidden", "true");
+				spinner.innerHTML = '<div class="circle circle-1"></div><div class="circle circle-2"></div>';
+				docBody.appendChild(spinner);
 			}
 			return {
 				show: function () {
-					return (spinner[style].display = "block");
+					return (spinner.style.display = "block");
 				},
 				hide: function (callback, timeout) {
 					var delay = timeout || 500;
@@ -744,14 +703,14 @@ WheelIndicator, Ya*/
 		})();
 
 		var appendFragment = function (e, a) {
-			var parent = a || document[getElementsByTagName]("body")[0] || "";
+			var parent = a || document.getElementsByTagName("body")[0] || "";
 			if (e) {
-				var df = document[createDocumentFragment]() || "";
+				var df = document.createDocumentFragment() || "";
 				if ("string" === typeof e) {
-					e = document[createTextNode](e);
+					e = document.createTextNode(e);
 				}
-				df[appendChild](e);
-				parent[appendChild](df);
+				df.appendChild(e);
+				parent.appendChild(df);
 			}
 		};
 
@@ -863,7 +822,7 @@ WheelIndicator, Ya*/
 					if ("undefined" !== typeof require("nw.gui")) {
 						return true;
 					}
-				} catch (e) {
+				} catch (err) {
 					return false;
 				}
 			}
@@ -887,8 +846,8 @@ WheelIndicator, Ya*/
 			} else if (isNwjs) {
 				onNwjs();
 			} else {
-				var locProtocol = root.location.protocol || "",
-				hasHTTP = locProtocol ? "http:" === locProtocol ? "http" : "https:" === locProtocol ? "https" : "" : "";
+				var locProtocol = root.location.protocol || "";
+				var hasHTTP = locProtocol ? "http:" === locProtocol ? "http" : "https:" === locProtocol ? "https" : "" : "";
 				if (hasHTTP) {
 					return true;
 				} else {
@@ -898,7 +857,7 @@ WheelIndicator, Ya*/
 		};
 
 		var manageExternalLinkAll = function () {
-			var link = document[getElementsByTagName]("a") || "";
+			var link = document.getElementsByTagName("a") || "";
 			var handle = function (url, ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
@@ -910,7 +869,7 @@ WheelIndicator, Ya*/
 			var arrange = function (e) {
 				var externalLinkIsBindedClass = "external-link--is-binded";
 				if (!hasClass(e, externalLinkIsBindedClass)) {
-					var url = e[getAttribute]("href") || "";
+					var url = e.getAttribute("href") || "";
 					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
 						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
 						if ("undefined" !== typeof getHTTP && getHTTP()) {
@@ -926,7 +885,7 @@ WheelIndicator, Ya*/
 			if (link) {
 				var i,
 				l;
-				for (i = 0, l = link[_length]; i < l; i += 1) {
+				for (i = 0, l = link.length; i < l; i += 1) {
 					arrange(link[i]);
 				}
 				i = l = null;
@@ -934,42 +893,23 @@ WheelIndicator, Ya*/
 		};
 		manageExternalLinkAll();
 
-		var renderTemplate = function (parsedJson, templateId, targetId) {
-			var template = document[getElementById](templateId) || "";
-			var target = document[getElementById](targetId) || "";
-			var jsonObj = safelyParseJSON(parsedJson);
-			if (jsonObj && template && target) {
-				var targetHtml = template[innerHTML] || "";
-				if (root.t) {
-					var renderTargetTemplate = new t(targetHtml);
-					return renderTargetTemplate.render(jsonObj);
-				} else {
-					if (root.Mustache) {
-						Mustache.parse(targetHtml);
-						return Mustache.render(targetHtml, jsonObj);
-					}
-				}
-			}
-			return "cannot renderTemplate";
-		};
-
 		var insertTextAsFragment = function (text, container, callback) {
 			var body = document.body || "";
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
 			try {
-				var clonedContainer = container[cloneNode](false);
-				if (document[createRange]) {
-					var rg = document[createRange]();
+				var clonedContainer = container.cloneNode(false);
+				if (document.createRange) {
+					var rg = document.createRange();
 					rg.selectNode(body);
-					var df = rg[createContextualFragment](text);
-					clonedContainer[appendChild](df);
-					return container[parentNode] ? container[parentNode].replaceChild(clonedContainer, container) : container[innerHTML] = text,
+					var df = rg.createContextualFragment(text);
+					clonedContainer.appendChild(df);
+					return container.parentNode ? container.parentNode.replaceChild(clonedContainer, container) : container.innerHTML = text,
 					cb();
 				} else {
-					clonedContainer[innerHTML] = text;
-					return container[parentNode] ? container[parentNode].replaceChild(document[createDocumentFragment][appendChild](clonedContainer), container) : container[innerHTML] = text,
+					clonedContainer.innerHTML = text;
+					return container.parentNode ? container.parentNode.replaceChild(document.createDocumentFragment.appendChild(clonedContainer), container) : container.innerHTML = text,
 					cb();
 				}
 			} catch (e) {
@@ -978,20 +918,39 @@ WheelIndicator, Ya*/
 			}
 		};
 
-		var insertFromTemplate = function (parsedJson, templateId, targetId, callback, useInner) {
-			var _useInner = useInner || "";
-			var template = document[getElementById](templateId) || "";
-			var target = document[getElementById](targetId) || "";
+		var renderTemplate = function (parsedJson, templateId, renderId) {
+			var template = document.getElementById(templateId) || "";
+			var render = document.getElementById(renderId) || "";
+			var jsonObj = safelyParseJSON(parsedJson);
+			if (jsonObj && template && render) {
+				var templateContent = template.innerHTML || "";
+				if (root.t) {
+					var parsedTemplate = new t(templateContent);
+					return parsedTemplate.render(jsonObj);
+				} else {
+					if (root.Mustache) {
+						Mustache.parse(templateContent);
+						return Mustache.render(templateContent, jsonObj);
+					}
+				}
+			}
+			return "cannot renderTemplate";
+		};
+
+		var insertFromTemplate = function (parsedJson, templateId, renderId, callback, useInner) {
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
-			if (parsedJson && template && target) {
-				var targetRendered = renderTemplate(parsedJson, templateId, targetId);
+			var _useInner = useInner || "";
+			var template = document.getElementById(templateId) || "";
+			var render = document.getElementById(renderId) || "";
+			if (parsedJson && template && render) {
+				var html = renderTemplate(parsedJson, templateId, renderId);
 				if (_useInner) {
-					target[innerHTML] = targetRendered;
+					render.innerHTML = html;
 					cb();
 				} else {
-					insertTextAsFragment(targetRendered, target, cb);
+					insertTextAsFragment(html, render, cb);
 				}
 			}
 		};
@@ -1010,7 +969,7 @@ WheelIndicator, Ya*/
 				return callback && "function" === typeof callback && callback();
 			};
 			var images = getByClass(document, dataSrcImgClass) || "";
-			var i = images[_length];
+			var i = images.length;
 			while (i--) {
 				if (!hasClass(images[i], dataSrcImgIsBindedClass)) {
 					addClass(images[i], dataSrcImgIsBindedClass);
@@ -1043,18 +1002,18 @@ WheelIndicator, Ya*/
 				return callback && "function" === typeof callback && callback();
 			};
 			var iframes = getByClass(document, dataSrcIframeClass) || "";
-			var i = iframes[_length];
+			var i = iframes.length;
 			while (i--) {
 				if (!hasClass(iframes[i], dataSrcIframeIsBindedClass)) {
 					addClass(iframes[i], dataSrcIframeIsBindedClass);
 					addClass(iframes[i], isActiveClass);
 					addListener(iframes[i], "load", cb);
-					iframes[i][setAttribute]("frameborder", "no");
-					iframes[i][setAttribute]("style", "border:none;");
-					iframes[i][setAttribute]("webkitallowfullscreen", "true");
-					iframes[i][setAttribute]("mozallowfullscreen", "true");
-					iframes[i][setAttribute]("scrolling", "no");
-					iframes[i][setAttribute]("allowfullscreen", "true");
+					iframes[i].setAttribute("frameborder", "no");
+					iframes[i].setAttribute("style", "border:none;");
+					iframes[i].setAttribute("webkitallowfullscreen", "true");
+					iframes[i].setAttribute("mozallowfullscreen", "true");
+					iframes[i].setAttribute("scrolling", "no");
+					iframes[i].setAttribute("allowfullscreen", "true");
 				}
 			}
 			i = null;
@@ -1118,7 +1077,7 @@ WheelIndicator, Ya*/
 				};
 				var i,
 				l;
-				for (i = 0, l = link[_length]; i < l; i += 1) {
+				for (i = 0, l = link.length; i < l; i += 1) {
 					arrange(link[i]);
 				}
 				i = l = null;
@@ -1136,7 +1095,7 @@ WheelIndicator, Ya*/
 			};
 			var img = getByClass(document, dataQrcodeImgClass) || "";
 			var generateImg = function (e) {
-				var qrcode = e[dataset].qrcode || "";
+				var qrcode = e.dataset.qrcode || "";
 				qrcode = decodeURIComponent(qrcode);
 				if (qrcode) {
 					var imgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(qrcode);
@@ -1175,7 +1134,7 @@ WheelIndicator, Ya*/
 			if (img) {
 				var i,
 				l;
-				for (i = 0, l = img[_length]; i < l; i += 1) {
+				for (i = 0, l = img.length; i < l; i += 1) {
 					generateImg(img[i]);
 				}
 				i = l = null;
@@ -1237,7 +1196,7 @@ WheelIndicator, Ya*/
 				};
 				var i,
 				l;
-				for (i = 0, l = rmLink[_length]; i < l; i += 1) {
+				for (i = 0, l = rmLink.length; i < l; i += 1) {
 					arrange(rmLink[i]);
 				}
 				i = l = null;
@@ -1268,7 +1227,7 @@ WheelIndicator, Ya*/
 			if (btn) {
 				var i,
 				l;
-				for (i = 0, l = btn[_length]; i < l; i += 1) {
+				for (i = 0, l = btn.length; i < l; i += 1) {
 					arrange(btn[i]);
 				}
 				i = l = null;
@@ -1276,10 +1235,10 @@ WheelIndicator, Ya*/
 		};
 
 		var appContentId = "app-content";
-		var appContent = document[getElementById](appContentId) || "";
-		var appContentParent = appContent ? appContent[parentNode] ? appContent[parentNode] : "" : "";
+		var appContent = document.getElementById(appContentId) || "";
+		var appContentParent = appContent ? appContent.parentNode ? appContent.parentNode : "" : "";
 
-		var sidedrawer = document[getElementById]("sidedrawer") || "";
+		var sidedrawer = document.getElementById("sidedrawer") || "";
 
 		var hideSidedrawerClass = "hide-sidedrawer";
 
@@ -1288,7 +1247,7 @@ WheelIndicator, Ya*/
 			removeClass(sidedrawer, isActiveClass);
 		};
 
-		var manageOtherCollapsableAll = function (_self) {
+		var manageCollapsableAll = function (_self) {
 			var _this = _self || this;
 			var btn = getByClass(document, isCollapsableClass) || "";
 			var arrange = function (e) {
@@ -1299,7 +1258,7 @@ WheelIndicator, Ya*/
 			if (btn) {
 				var i,
 				l;
-				for (i = 0, l = btn[_length]; i < l; i += 1) {
+				for (i = 0, l = btn.length; i < l; i += 1) {
 					arrange(btn[i]);
 				}
 				i = l = null;
@@ -1308,13 +1267,10 @@ WheelIndicator, Ya*/
 				hideSidedrawer();
 			}
 		};
-		var manageCollapsableAll = function () {
-			if (appContentParent) {
-				addListener(appContentParent, "click", manageOtherCollapsableAll);
-			}
-		};
-		manageCollapsableAll();
-		addListener(root, "hashchange", manageOtherCollapsableAll);
+		if (appContentParent) {
+			addListener(appContentParent, "click", manageCollapsableAll);
+		}
+		addListener(root, "hashchange", manageCollapsableAll);
 
 		var manageLocationQrcode = function () {
 			var btn = getByClass(document, "btn-toggle-holder-qrcode")[0] || "";
@@ -1326,12 +1282,12 @@ WheelIndicator, Ya*/
 			var handleBtn = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				manageOtherCollapsableAll(holder);
+				manageCollapsableAll(holder);
 				var logic = function () {
 					toggleClass(holder, isActiveClass);
 					var locHref = root.location.href || "";
 					var newImg = document.createElement("img");
-					var newTitle = document[title] ? ("Ссылка на страницу «" + document[title].replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
+					var newTitle = document.title ? ("Ссылка на страницу «" + document.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
 					var newSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(locHref);
 					newImg.alt = newTitle;
 					var initScript = function () {
@@ -1393,7 +1349,7 @@ WheelIndicator, Ya*/
 				var logic = function () {
 					toggleClass(holder, isActiveClass);
 					addClass(holder, isCollapsableClass);
-					manageOtherCollapsableAll(holder);
+					manageCollapsableAll(holder);
 				};
 				debounce(logic, 200).call(root);
 			};
@@ -1409,7 +1365,7 @@ WheelIndicator, Ya*/
 		var manageShareButtons = function () {
 			var btn = getByClass(document, "btn-toggle-holder-share-buttons")[0] || "";
 			var yaShare2Id = "ya-share2";
-			var yaShare2 = document[getElementById](yaShare2Id) || "";
+			var yaShare2 = document.getElementById(yaShare2Id) || "";
 			var holder = getByClass(document, "holder-share-buttons")[0] || "";
 			var handle = function (ev) {
 				ev.stopPropagation();
@@ -1417,20 +1373,20 @@ WheelIndicator, Ya*/
 				var logic = function () {
 					toggleClass(holder, isActiveClass);
 					addClass(holder, isCollapsableClass);
-					manageOtherCollapsableAll(holder);
+					manageCollapsableAll(holder);
 					var initScript = function () {
 						try {
 							if (yshare) {
 								yshare.updateContent({
-									title: document[title] || "",
-									description: document[title] || "",
+									title: document.title || "",
+									description: document.title || "",
 									url: root.location.href || ""
 								});
 							} else {
 								yshare = Ya.share2(yaShare2Id, {
 									content: {
-										title: document[title] || "",
-										description: document[title] || "",
+										title: document.title || "",
+										description: document.title || "",
 										url: root.location.href || ""
 									}
 								});
@@ -1462,19 +1418,19 @@ WheelIndicator, Ya*/
 			var btn = getByClass(document, "btn-toggle-holder-vk-like")[0] || "";
 			var holder = getByClass(document, "holder-vk-like")[0] || "";
 			var vkLikeId = "vk-like";
-			var vkLike = document[getElementById](vkLikeId) || "";
+			var vkLike = document.getElementById(vkLikeId) || "";
 			var handle = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				var logic = function () {
 					toggleClass(holder, isActiveClass);
 					addClass(holder, isCollapsableClass);
-					manageOtherCollapsableAll(holder);
+					manageCollapsableAll(holder);
 					var initScript = function () {
 						if (!vlike) {
 							try {
 								VK.init({
-									apiId: (vkLike[dataset].apiid || ""),
+									apiId: (vkLike.dataset.apiid || ""),
 									nameTransportPath: "/xd_receiver.htm",
 									onlyWidgets: true
 								});
@@ -1512,10 +1468,10 @@ WheelIndicator, Ya*/
 			var insertUpSvg = function (targetObj) {
 				var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 				var use = document.createElementNS("http://www.w3.org/2000/svg", "use");
-				svg[setAttribute]("class", "ui-icon");
-				use[setAttributeNS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-outline-arrow_upward");
-				svg[appendChild](use);
-				targetObj[appendChild](svg);
+				svg.setAttribute("class", "ui-icon");
+				use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-outline-arrow_upward");
+				svg.appendChild(use);
+				targetObj.appendChild(svg);
 			};
 			if (!btn) {
 				btn = document.createElement("a");
@@ -1523,13 +1479,13 @@ WheelIndicator, Ya*/
 				addClass(btn, "mui-btn");
 				addClass(btn, "mui-btn--fab");
 				addClass(btn, "ripple");
-				btn[setAttribute]("aria-label", "Навигация");
+				btn.setAttribute("aria-label", "Навигация");
 				/* jshint -W107 */
 				btn.href = "javascript:void(0);";
 				/* jshint +W107 */
 				btn.title = "Наверх";
 				insertUpSvg(btn);
-				docBody[appendChild](btn);
+				docBody.appendChild(btn);
 			}
 			var handle = function (ev) {
 				ev.stopPropagation();
@@ -1558,12 +1514,12 @@ WheelIndicator, Ya*/
 		manageBtnTotop();
 
 		var manageDropdownButtonAll = function () {
-			var link = document[getElementsByTagName]("a") || "";
+			var link = document.getElementsByTagName("a") || "";
 			var btn = [];
 			var j,
 			m;
-			for (j = 0, m = link[_length]; j < m; j += 1) {
-				if (link[j][dataset].muiToggle) {
+			for (j = 0, m = link.length; j < m; j += 1) {
+				if (link[j].dataset.muiToggle) {
 					btn.push(link[j]);
 				}
 			}
@@ -1580,26 +1536,26 @@ WheelIndicator, Ya*/
 					if (e) {
 						if (hasClass(e, isActiveClass)) {
 							removeClass(e, isActiveClass);
-							manageOtherCollapsableAll(e);
+							manageCollapsableAll(e);
 						}
 					}
 				};
 				if (menu) {
-					menu[style].top = top + "px";
+					menu.style.top = top + "px";
 					if (!hasClass(menu, "mui-dropdown__menu--right")) {
-						menu[style].left = left + "px";
+						menu.style.left = left + "px";
 					}
 					if (!hasClass(menu, isActiveClass)) {
 						addClass(menu, isActiveClass);
 					} else {
 						removeClass(menu, isActiveClass);
 					}
-					manageOtherCollapsableAll(menu);
-					var link = menu[getElementsByTagName]("a") || "";
+					manageCollapsableAll(menu);
+					var link = menu.getElementsByTagName("a") || "";
 					if (link) {
 						var i,
 						l;
-						for (i = 0, l = link[_length]; i < l; i += 1) {
+						for (i = 0, l = link.length; i < l; i += 1) {
 							addListener(link[i], "click", hide.bind(null, menu));
 						}
 						i = l = null;
@@ -1609,7 +1565,7 @@ WheelIndicator, Ya*/
 			if (btn) {
 				var i,
 				l;
-				for (i = 0, l = btn[_length]; i < l; i += 1) {
+				for (i = 0, l = btn.length; i < l; i += 1) {
 					if (!hasClass(btn[i], isBindedClass) &&
 						btn[i].nextElementSibling.nodeName.toLowerCase() === "ul" &&
 						btn[i].nextElementSibling.nodeType === 1) {
@@ -1630,7 +1586,7 @@ WheelIndicator, Ya*/
 				if (menu) {
 					var i,
 					l;
-					for (i = 0, l = menu[_length]; i < l; i += 1) {
+					for (i = 0, l = menu.length; i < l; i += 1) {
 						if (hasClass(menu[i], isActiveClass)) {
 							removeClass(menu[i], isActiveClass);
 						}
@@ -1646,11 +1602,11 @@ WheelIndicator, Ya*/
 		hideOnNavigating();
 
 		var manageHljs = function () {
-			var code = document[getElementsByTagName]("code") || "";
+			var code = document.getElementsByTagName("code") || "";
 			var initScript = function () {
 				var i,
 				l;
-				for (i = 0, l = code[_length]; i < l; i += 1) {
+				for (i = 0, l = code.length; i < l; i += 1) {
 					if (hasClass(code[i], "hljs") && !hasClass(code[i], isBindedClass)) {
 						hljs.highlightBlock(code[i]);
 						addClass(code[i], isBindedClass);
@@ -1718,13 +1674,13 @@ WheelIndicator, Ya*/
 		var minigridItemIsBindedClass = "minigrid__item--is-binded";
 
 		var manageDisqusEmbed = function () {
-			var disqusThread = document[getElementById]("disqus_thread") || "";
+			var disqusThread = document.getElementById("disqus_thread") || "";
 			var locHref = root.location.href || "";
-			var shortname = disqusThread ? (disqusThread[dataset].shortname || "") : "";
+			var shortname = disqusThread ? (disqusThread.dataset.shortname || "") : "";
 			var hide = function () {
 				removeChildren(disqusThread);
 				var replacementText = document.createElement("p");
-				replacementText[appendChild](document[createTextNode]("Комментарии доступны только в веб версии этой страницы."));
+				replacementText.appendChild(document.createTextNode("Комментарии доступны только в веб версии этой страницы."));
 				appendFragment(replacementText, disqusThread);
 				disqusThread.removeAttribute("id");
 			};
@@ -1740,10 +1696,10 @@ WheelIndicator, Ya*/
 							this.page.url = locHref;
 						}
 					});
-					if (!hasClass(disqusThread[parentNode], minigridItemIsBindedClass)) {
-						addClass(disqusThread[parentNode], minigridItemIsBindedClass);
-						onHeightChange(disqusThread[parentNode], 1000, null, setDisqusCSSClass);
-						/* addListener(disqusThread[parentNode], "onresize", updateMinigridThrottled, {passive: true}); */
+					if (!hasClass(disqusThread.parentNode, minigridItemIsBindedClass)) {
+						addClass(disqusThread.parentNode, minigridItemIsBindedClass);
+						onHeightChange(disqusThread.parentNode, 1000, null, setDisqusCSSClass);
+						/* addListener(disqusThread.parentNode, "onresize", updateMinigridThrottled, {passive: true}); */
 					}
 				} catch (err) {
 					throw new Error("cannot DISQUS.reset " + err);
@@ -1774,11 +1730,11 @@ WheelIndicator, Ya*/
 						instgrm.Embeds.process();
 						var i,
 						l;
-						for (i = 0, l = instagramMedia[_length]; i < l; i += 1) {
-							if (!hasClass(instagramMedia[i][parentNode], minigridItemIsBindedClass)) {
-								addClass(instagramMedia[i][parentNode], minigridItemIsBindedClass);
-								onHeightChange(instagramMedia[i][parentNode], 1000, null, setIsActiveClass.bind(null, instagramMedia[i][parentNode]));
-								/* addListener(instagramMedia[i][parentNode], "onresize", updateMinigridThrottled, {passive: true}); */
+						for (i = 0, l = instagramMedia.length; i < l; i += 1) {
+							if (!hasClass(instagramMedia[i].parentNode, minigridItemIsBindedClass)) {
+								addClass(instagramMedia[i].parentNode, minigridItemIsBindedClass);
+								onHeightChange(instagramMedia[i].parentNode, 1000, null, setIsActiveClass.bind(null, instagramMedia[i].parentNode));
+								/* addListener(instagramMedia[i].parentNode, "onresize", updateMinigridThrottled, {passive: true}); */
 							}
 						}
 						i = l = null;
@@ -1808,11 +1764,11 @@ WheelIndicator, Ya*/
 						twttr.widgets.load();
 						var i,
 						l;
-						for (i = 0, l = twitterTweet[_length]; i < l; i += 1) {
-							if (!hasClass(twitterTweet[i][parentNode], minigridItemIsBindedClass)) {
-								addClass(twitterTweet[i][parentNode], minigridItemIsBindedClass);
-								onHeightChange(twitterTweet[i][parentNode], 1000, null, setIsActiveClass.bind(null, twitterTweet[i][parentNode]));
-								/* addListener(twitterTweet[i][parentNode], "onresize", updateMinigridThrottled, {passive: true}); */
+						for (i = 0, l = twitterTweet.length; i < l; i += 1) {
+							if (!hasClass(twitterTweet[i].parentNode, minigridItemIsBindedClass)) {
+								addClass(twitterTweet[i].parentNode, minigridItemIsBindedClass);
+								onHeightChange(twitterTweet[i].parentNode, 1000, null, setIsActiveClass.bind(null, twitterTweet[i].parentNode));
+								/* addListener(twitterTweet[i].parentNode, "onresize", updateMinigridThrottled, {passive: true}); */
 							}
 						}
 						i = l = null;
@@ -1846,12 +1802,12 @@ WheelIndicator, Ya*/
 					if (vkPost) {
 						var i,
 						l;
-						for (i = 0, l = vkPost[_length]; i < l; i += 1) {
-							if (!hasClass(vkPost[i][parentNode], minigridItemIsBindedClass)) {
-								addClass(vkPost[i][parentNode], minigridItemIsBindedClass);
-								onHeightChange(vkPost[i][parentNode], 1000, null, setIsActiveClass.bind(null, vkPost[i][parentNode]));
-								/* addListener(vkPost[i][parentNode], "onresize", updateMinigridThrottled, {passive: true}); */
-								initVkPost(vkPost[i].id, vkPost[i][dataset].vkOwnerid, vkPost[i][dataset].vkPostid, vkPost[i][dataset].vkHash);
+						for (i = 0, l = vkPost.length; i < l; i += 1) {
+							if (!hasClass(vkPost[i].parentNode, minigridItemIsBindedClass)) {
+								addClass(vkPost[i].parentNode, minigridItemIsBindedClass);
+								onHeightChange(vkPost[i].parentNode, 1000, null, setIsActiveClass.bind(null, vkPost[i].parentNode));
+								/* addListener(vkPost[i].parentNode, "onresize", updateMinigridThrottled, {passive: true}); */
+								initVkPost(vkPost[i].id, vkPost[i].dataset.vkOwnerid, vkPost[i].dataset.vkPostid, vkPost[i].dataset.vkHash);
 							}
 						}
 						i = l = null;
@@ -1914,16 +1870,16 @@ WheelIndicator, Ya*/
 
 		appEvents.addListeners("MinigridItemsFound", [initMinigrid]);
 
-		var manageMinigrid = function (minigridClass) {
+		var manageMinigrid = function () {
 			return new Promise(function (resolve, reject) {
 				var minigrid = getByClass(document, minigridClass)[0] || "";
 				var initScript = function () {
 					var minigridItems = getByClass(minigrid, minigridItemClass) || "";
-					var itemLength = minigridItems[_length] || 0;
+					var itemLength = minigridItems.length || 0;
 					if (minigridItems && !hasClass(minigrid, minigridIsActiveClass)) {
 						var i,
 						l;
-						for (i = 0, l = minigridItems[_length]; i < l; i += 1) {
+						for (i = 0, l = minigridItems.length; i < l; i += 1) {
 							if (!hasClass(minigridItems[i], minigridItemIsBindedClass)) {
 								addClass(minigridItems[i], minigridItemIsBindedClass);
 							}
@@ -1973,6 +1929,8 @@ WheelIndicator, Ya*/
 
 		var macyClass = "macy";
 
+		var macyItemIsBindedClass = "macy__item--is-binded";
+
 		var macyIsActiveClass = "macy--is-active";
 
 		var initMacy = function () {
@@ -2007,16 +1965,16 @@ WheelIndicator, Ya*/
 
 		appEvents.addListeners("MacyItemsFound", [initMacy]);
 
-		var manageMacy = function (macyClass) {
+		var manageMacy = function () {
 			return new Promise(function (resolve, reject) {
 				var macy = getByClass(document, macyClass)[0] || "";
 				var initScript = function () {
-					var macyItems = macy ? (macy.children || macy[querySelectorAll]("." + macyClass + " > *") || "") : "";
-					var itemLength = macyItems[_length] || 0;
+					var macyItems = macy ? (macy.children || macy.querySelectorAll("." + macyClass + " > *") || "") : "";
+					var itemLength = macyItems.length || 0;
 					if (macyItems && !hasClass(macy, macyIsActiveClass)) {
 						var i,
 						l;
-						for (i = 0, l = macyItems[_length]; i < l; i += 1) {
+						for (i = 0, l = macyItems.length; i < l; i += 1) {
 							if (!hasClass(macyItems[i], macyItemIsBindedClass)) {
 								addClass(macyItems[i], macyItemIsBindedClass);
 							}
@@ -2040,14 +1998,14 @@ WheelIndicator, Ya*/
 		};
 
 		var manageSidedrawerCategoryAll = function () {
-			var category = sidedrawer ? sidedrawer[getElementsByTagName]("strong") || "" : "";
+			var category = sidedrawer ? sidedrawer.getElementsByTagName("strong") || "" : "";
 			var handle = function (evt) {
 				evt.stopPropagation();
 				evt.preventDefault();
 				var _this = this;
 				var categoryItem = _this.nextElementSibling;
 				if (categoryItem) {
-					if (categoryItem[style].display === "none") {
+					if (categoryItem.style.display === "none") {
 						setStyleDisplayBlock(categoryItem);
 					} else {
 						setStyleDisplayNone(categoryItem);
@@ -2057,7 +2015,7 @@ WheelIndicator, Ya*/
 			if (category) {
 				var i,
 				l;
-				for (i = 0, l = category[_length]; i < l; i += 1) {
+				for (i = 0, l = category.length; i < l; i += 1) {
 					if (!hasClass(category[i], isBindedClass) &&
 						category[i].nextElementSibling.nodeName.toLowerCase() === "ul" &&
 						category[i].nextElementSibling.nodeType === 1
@@ -2074,11 +2032,11 @@ WheelIndicator, Ya*/
 		var hideSidedrawerOnNavigating = function () {
 			var link;
 			if (sidedrawer) {
-				link = sidedrawer[getElementsByTagName]("a") || "";
+				link = sidedrawer.getElementsByTagName("a") || "";
 				if (link) {
 					var i,
 					l;
-					for (i = 0, l = link[_length]; i < l; i += 1) {
+					for (i = 0, l = link.length; i < l; i += 1) {
 						if (!hasClass(link[i], isBindedClass)) {
 							addListener(link[i], "click", hideSidedrawer);
 							addClass(link[i], isBindedClass);
@@ -2106,13 +2064,13 @@ WheelIndicator, Ya*/
 					} else {
 						removeClass(sidedrawer, isActiveClass);
 					}
-					manageOtherCollapsableAll(sidedrawer);
+					manageCollapsableAll(sidedrawer);
 				}
 			};
 			if (btn) {
 				var i,
 				l;
-				for (i = 0, l = btn[_length]; i < l; i += 1) {
+				for (i = 0, l = btn.length; i < l; i += 1) {
 					if (!hasClass(btn[i], isBindedClass)) {
 						addListener(btn[i], "click", handle);
 						addClass(btn[i], isBindedClass);
@@ -2124,8 +2082,8 @@ WheelIndicator, Ya*/
 		manageSidedrawer();
 
 		var highlightSidedrawerItem = function () {
-			var sidedrawerCategoriesList = document[getElementById]("render_sitedrawer_categories") || "";
-			var items = sidedrawerCategoriesList ? sidedrawerCategoriesList[getElementsByTagName]("a") || "" : "";
+			var sidedrawerCategoriesList = document.getElementById("render_sitedrawer_categories") || "";
+			var items = sidedrawerCategoriesList ? sidedrawerCategoriesList.getElementsByTagName("a") || "" : "";
 			var locHref = root.location.href || "";
 			var addItemHandler = function (e) {
 				if (locHref === e.href) {
@@ -2137,7 +2095,7 @@ WheelIndicator, Ya*/
 			var addItemHandlerAll = function () {
 				var i,
 				l;
-				for (i = 0, l = items[_length]; i < l; i += 1) {
+				for (i = 0, l = items.length; i < l; i += 1) {
 					addItemHandler(items[i]);
 				}
 				i = l = null;
@@ -2148,13 +2106,13 @@ WheelIndicator, Ya*/
 		};
 		addListener(root, "hashchange", highlightSidedrawerItem);
 
-		var appBar = document[getElementsByTagName]("header")[0] || "";
+		var appBar = document.getElementsByTagName("header")[0] || "";
 		var appBarHeight = appBar.offsetHeight || 0;
 
 		var hideAppBar = function () {
 			var logic = function () {
 				removeClass(appBar, isFixedClass);
-				if ((document[body].scrollTop || docElem.scrollTop || 0) > appBarHeight) {
+				if ((document.body.scrollTop || docElem.scrollTop || 0) > appBarHeight) {
 					addClass(appBar, isHiddenClass);
 				} else {
 					removeClass(appBar, isHiddenClass);
@@ -2165,7 +2123,7 @@ WheelIndicator, Ya*/
 		var revealAppBar = function () {
 			var logic = function () {
 				removeClass(appBar, isHiddenClass);
-				if ((document[body].scrollTop || docElem.scrollTop || 0) > appBarHeight) {
+				if ((document.body.scrollTop || docElem.scrollTop || 0) > appBarHeight) {
 					addClass(appBar, isFixedClass);
 				} else {
 					removeClass(appBar, isFixedClass);
@@ -2175,7 +2133,7 @@ WheelIndicator, Ya*/
 		};
 		var resetAppBar = function () {
 			var logic = function () {
-				if ((document[body].scrollTop || docElem.scrollTop || 0) < appBarHeight) {
+				if ((document.body.scrollTop || docElem.scrollTop || 0) < appBarHeight) {
 					removeClass(appBar, isHiddenClass);
 					removeClass(appBar, isFixedClass);
 				}
@@ -2220,16 +2178,16 @@ WheelIndicator, Ya*/
 				if (locationHash) {
 					var i,
 					l;
-					for (i = 0, l = jsonObj.hashes[_length]; i < l; i += 1) {
+					for (i = 0, l = jsonObj.hashes.length; i < l; i += 1) {
 						if (locationHash === jsonObj.hashes[i].href) {
-							prevHash = i > 0 ? jsonObj.hashes[i - 1].href : jsonObj.hashes[jsonObj.hashes[_length] - 1].href;
-							nextHash = jsonObj.hashes[_length] > i + 1 ? jsonObj.hashes[i + 1].href : jsonObj.hashes[0].href;
+							prevHash = i > 0 ? jsonObj.hashes[i - 1].href : jsonObj.hashes[jsonObj.hashes.length - 1].href;
+							nextHash = jsonObj.hashes.length > i + 1 ? jsonObj.hashes[i + 1].href : jsonObj.hashes[0].href;
 							break;
 						}
 					}
 					i = l = null;
 				} else {
-					prevHash = jsonObj.hashes[jsonObj.hashes[_length] - 1].href;
+					prevHash = jsonObj.hashes[jsonObj.hashes.length - 1].href;
 					nextHash = jsonObj.hashes[1].href;
 				}
 				if (prevHash && nextHash) {
@@ -2256,9 +2214,9 @@ WheelIndicator, Ya*/
 							templateSidedrawerCategoriesId = "mustache_template_sitedrawer_categories";
 						}
 					}
-					var templateSidedrawerCategories = document[getElementById](templateSidedrawerCategoriesId) || "";
+					var templateSidedrawerCategories = document.getElementById(templateSidedrawerCategoriesId) || "";
 					var renderSidedrawerCategoriesId = "render_sitedrawer_categories";
-					var renderSidedrawerCategories = document[getElementById](renderSidedrawerCategoriesId) || "";
+					var renderSidedrawerCategories = document.getElementById(renderSidedrawerCategoriesId) || "";
 					if (templateSidedrawerCategories && renderSidedrawerCategories) {
 						insertFromTemplate(jsonResponse, templateSidedrawerCategoriesId, renderSidedrawerCategoriesId, function () {
 							manageSidedrawerCategoryAll();
@@ -2273,9 +2231,9 @@ WheelIndicator, Ya*/
 							templateDropdownContactsId = "mustache_template_dropdown_contacts";
 						}
 					}
-					var templateDropdownContacts = document[getElementById](templateDropdownContactsId) || "";
+					var templateDropdownContacts = document.getElementById(templateDropdownContactsId) || "";
 					var renderDropdownContactsId = "render_dropdown_contacts";
-					var renderDropdownContacts = document[getElementById](renderDropdownContactsId) || "";
+					var renderDropdownContacts = document.getElementById(renderDropdownContactsId) || "";
 					if (templateDropdownContacts && renderDropdownContacts) {
 						insertFromTemplate(jsonResponse, templateDropdownContactsId, renderDropdownContactsId, function () {
 							manageDropdownButtonAll();
@@ -2290,9 +2248,9 @@ WheelIndicator, Ya*/
 							templateDropdownAdsId = "mustache_template_dropdown_ads";
 						}
 					}
-					var templateDropdownAds = document[getElementById](templateDropdownAdsId) || "";
+					var templateDropdownAds = document.getElementById(templateDropdownAdsId) || "";
 					var renderDropdownAdsId = "render_dropdown_ads";
-					var renderDropdownAds = document[getElementById](renderDropdownAdsId) || "";
+					var renderDropdownAds = document.getElementById(renderDropdownAdsId) || "";
 					if (templateDropdownAds && renderDropdownAds) {
 						insertFromTemplate(jsonResponse, templateDropdownAdsId, renderDropdownAdsId, function () {
 							manageDropdownButtonAll();
@@ -2301,7 +2259,7 @@ WheelIndicator, Ya*/
 					}
 				},
 				onContentInserted: function (jsonObj, titleString) {
-					document[title] = (titleString ? titleString + " - " : "") + (initialDocTitle ? initialDocTitle + (userBrowser ? userBrowser : "") : "");
+					document.title = (titleString ? titleString + " - " : "") + (initialDocTitle ? initialDocTitle + (userBrowser ? userBrowser : "") : "");
 					if (appContentParent) {
 						highlightSidedrawerItem();
 						managePrevNext(jsonObj);
@@ -2312,7 +2270,7 @@ WheelIndicator, Ya*/
 						manageHljs();
 						manageRipple();
 						manageExpandingLayerAll();
-						manageMacy(macyClass).then(function (result) {
+						manageMacy().then(function (result) {
 							console.log(result);
 						})
 						/* .then(function () {
@@ -2327,7 +2285,7 @@ WheelIndicator, Ya*/
 						.catch (function (err) {
 							console.log(err);
 						});
-						manageMinigrid(minigridClass).then(function (result) {
+						manageMinigrid().then(function (result) {
 							console.log(result);
 						})
 						/* .then(function () {

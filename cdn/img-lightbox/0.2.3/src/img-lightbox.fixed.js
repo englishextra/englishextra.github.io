@@ -13,16 +13,6 @@
 	var docElem = document.documentElement || "";
 	var docBody = document.body || "";
 	var animatedClass = "animated";
-	var appendChild = "appendChild";
-	var classList = "classList";
-	var createElement = "createElement";
-	var getAttribute = "getAttribute";
-	var getElementsByClassName = "getElementsByClassName";
-	var getElementsByTagName = "getElementsByTagName";
-	var innerHTML = "innerHTML";
-	var style = "style";
-	var _addEventListener = "addEventListener";
-	var _length = "length";
 	var btnCloseClass = "btn-close";
 	var containerClass = "img-lightbox";
 	var fadeInClass = "fadeIn";
@@ -66,30 +56,30 @@
 		var caller = func.bind(this);
 		caller(data);
 	};
-		var setStyleDisplayBlock = function (a) {
-			if (a) {
-				a[style].display = "block";
+		var setStyleDisplayBlock = function (e) {
+			if (e) {
+				e.style.display = "block";
 			}
 		};
 
-		var setStyleDisplayNone = function (a) {
-			if (a) {
-				a[style].display = "none";
+		var setStyleDisplayNone = function (e) {
+			if (e) {
+				e.style.display = "none";
 			}
 		};
 	var hideImgLightbox = function (callback) {
-		var container = document[getElementsByClassName](containerClass)[0] || "";
-		var img = container ? container[getElementsByTagName]("img")[0] || "" : "";
+		var container = document.getElementsByClassName(containerClass)[0] || "";
+		var img = container ? container.getElementsByTagName("img")[0] || "" : "";
 		var hideContainer = function () {
-			container[classList].remove(fadeInClass);
-			container[classList].add(fadeOutClass);
+			container.classList.remove(fadeInClass);
+			container.classList.add(fadeOutClass);
 			var hideImg = function () {
-				container[classList].remove(animatedClass);
-				container[classList].remove(fadeOutClass);
-				img[classList].remove(animatedClass);
-				img[classList].remove(fadeOutDownClass);
+				container.classList.remove(animatedClass);
+				container.classList.remove(fadeOutClass);
+				img.classList.remove(animatedClass);
+				img.classList.remove(fadeOutDownClass);
 				img.onload = function () {
-					container[classList].remove(isLoadedClass);
+					container.classList.remove(isLoadedClass);
 				};
 				img.src = dummySrc;
 				setStyleDisplayNone(container);
@@ -102,16 +92,16 @@
 				}, 400);
 		};
 		if (container && img) {
-			img[classList].remove(fadeInUpClass);
-			img[classList].add(fadeOutDownClass);
+			img.classList.remove(fadeInUpClass);
+			img.classList.add(fadeOutDownClass);
 			var timer = setTimeout(function () {
 					clearTimeout(timer);
 					timer = null;
 					hideContainer();
 				}, 400);
 		}
-		docElem[classList].remove(imgLightboxOpenClass);
-		docBody[classList].remove(imgLightboxOpenClass);
+		docElem.classList.remove(imgLightboxOpenClass);
+		docBody.classList.remove(imgLightboxOpenClass);
 	};
 	var imgLightbox = function (linkClass, settings) {
 		var _linkClass = linkClass || "";
@@ -122,28 +112,28 @@
 		var onLoaded = options.onLoaded;
 		var onCreated = options.onCreated;
 		var onClosed = options.onClosed;
-		var link = document[getElementsByClassName](_linkClass) || "";
-		var container = document[getElementsByClassName](containerClass)[0] || "";
-		var img = container ? container[getElementsByTagName]("img")[0] || "" : "";
+		var link = document.getElementsByClassName(_linkClass) || "";
+		var container = document.getElementsByClassName(containerClass)[0] || "";
+		var img = container ? container.getElementsByTagName("img")[0] || "" : "";
 		if (!container) {
-			container = document[createElement]("div");
-			container[classList].add(containerClass);
+			container = document.createElement("div");
+			container.classList.add(containerClass);
 			var html = [];
 			html.push('<img src="' + dummySrc + '" alt="" />');
 			html.push('<div class="half-circle-spinner"><div class="circle circle-1"></div><div class="circle circle-2"></div></div>');
 			html.push('<a href="javascript:void(0);" class="btn-close"></a>');
-			container[innerHTML] = html.join("");
-			docBody[appendChild](container);
-			img = container ? container[getElementsByTagName]("img")[0] || "" : "";
-			var btnClose = container ? container[getElementsByClassName](btnCloseClass)[0] || "" : "";
+			container.innerHTML = html.join("");
+			docBody.appendChild(container);
+			img = container ? container.getElementsByTagName("img")[0] || "" : "";
+			var btnClose = container ? container.getElementsByClassName(btnCloseClass)[0] || "" : "";
 			var handleImgLightboxContainer = function () {
 				hideImgLightbox(onClosed);
 			};
-			container[_addEventListener]("click", handleImgLightboxContainer);
-			btnClose[_addEventListener]("click", handleImgLightboxContainer);
-			if (!docElem[classList].contains(imgLightboxWindowIsBindedClass)) {
-				docElem[classList].add(imgLightboxWindowIsBindedClass);
-				root[_addEventListener]("keyup", function (ev) {
+			container.addEventListener("click", handleImgLightboxContainer);
+			btnClose.addEventListener("click", handleImgLightboxContainer);
+			if (!docElem.classList.contains(imgLightboxWindowIsBindedClass)) {
+				docElem.classList.add(imgLightboxWindowIsBindedClass);
+				root.addEventListener("keyup", function (ev) {
 					if (27 === (ev.which || ev.keyCode)) {
 						hideImgLightbox(onClosed);
 					}
@@ -151,27 +141,27 @@
 			}
 		}
 		var arrange = function (e) {
-			var hrefString = e[getAttribute]("href") || e[getAttribute]("data-src") || "";
-			var dataTouch = e[getAttribute]("data-touch") || "";
+			var hrefString = e.getAttribute("href") || e.getAttribute("data-src") || "";
+			var dataTouch = e.getAttribute("data-touch") || "";
 			if (!hrefString) {
 				return;
 			}
 			var handleImgLightboxLink = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
-				docElem[classList].add(imgLightboxOpenClass);
-				docBody[classList].add(imgLightboxOpenClass);
-				container[classList].remove(isLoadedClass);
+				docElem.classList.add(imgLightboxOpenClass);
+				docBody.classList.add(imgLightboxOpenClass);
+				container.classList.remove(isLoadedClass);
 				var logic = function logic() {
 					if (onCreated) {
 						callCallback(onCreated, root);
 					}
-					container[classList].add(animatedClass);
-					container[classList].add(fadeInClass);
-					img[classList].add(animatedClass);
-					img[classList].add(fadeInUpClass);
+					container.classList.add(animatedClass);
+					container.classList.add(fadeInClass);
+					img.classList.add(animatedClass);
+					img.classList.add(fadeInUpClass);
 					img.onload = function () {
-						container[classList].add(isLoadedClass);
+						container.classList.add(isLoadedClass);
 						if (onLoaded) {
 							callCallback(onLoaded, root);
 						}
@@ -186,18 +176,18 @@
 				};
 				debounce(logic, rate).call();
 			};
-			if (!e[classList].contains(imgLightboxLinkIsBindedClass)) {
-				e[classList].add(imgLightboxLinkIsBindedClass);
-				e[_addEventListener]("click", handleImgLightboxLink);
+			if (!e.classList.contains(imgLightboxLinkIsBindedClass)) {
+				e.classList.add(imgLightboxLinkIsBindedClass);
+				e.addEventListener("click", handleImgLightboxLink);
 				if (isTouch && (touch || dataTouch)) {
-					e[_addEventListener]("touchstart", handleImgLightboxLink);
+					e.addEventListener("touchstart", handleImgLightboxLink);
 				}
 			}
 		};
 		if (container && img && link) {
 			var i,
 			l;
-			for (i = 0, l = link[_length]; i < l; i += 1) {
+			for (i = 0, l = link.length; i < l; i += 1) {
 				arrange(link[i]);
 			}
 			i = l = null;

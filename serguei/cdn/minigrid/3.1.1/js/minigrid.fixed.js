@@ -6,7 +6,6 @@
  */
 (function(root, document) {
 	"use strict";
-	var _length = "length";
 	function extend(a, b) {
 		for (var key in b) {
 			if (b.hasOwnProperty(key)) {
@@ -44,7 +43,7 @@
 		if (!this.props.container) {
 			return false;
 		}
-		if (!this.props.nodeList || this.props.nodeList[_length] === 0) {
+		if (!this.props.nodeList || this.props.nodeList.length === 0) {
 			return false;
 		}
 		var gutter = (typeof this.props.gutter === "number" && isFinite(this.props.gutter) && Math.floor(this.props.gutter) === this.props.gutter) ? this.props.gutter : 0;

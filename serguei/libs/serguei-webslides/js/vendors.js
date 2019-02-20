@@ -727,15 +727,6 @@
 		return matrix;
 	};
 
-	var appendChild = "appendChild";
-	var createElement = "createElement";
-	var createElementNS = "createElementNS";
-	var setAttributeNS = "setAttributeNS";
-	var createRange = "createRange";
-	var selectNodeContents = "selectNodeContents";
-	var createContextualFragment = "createContextualFragment";
-	var createDocumentFragment = "createDocumentFragment";
-	var createTextNode = "createTextNode";
 	var QRCode = {
 		generate: function generate(data, settings) {
 			var options = settings || {};
@@ -817,7 +808,7 @@
 				options.margin !== null ? options.margin : 4,
 				0.0
 			);
-			var e = document[createElement]("div");
+			var e = document.createElement("div");
 			var n = matrix[length];
 			var html = [
 				'<table border="0" cellspacing="0" cellpadding="0" style="border:' +
@@ -850,12 +841,12 @@
 			e.className = "qrcode";
 			/* e.innerHTML = html.join("") + "</table>"; */
 
-			var range = document[createRange]();
-			range[selectNodeContents](e);
-			var frag = range[createContextualFragment](
+			var range = document.createRange();
+			range.selectNodeContents(e);
+			var frag = range.createContextualFragment(
 				html.join("") + "</table>"
 			);
-			e[appendChild](frag);
+			e.appendChild(frag);
 			return e;
 		},
 		generateSVG: function generateSVG(data, settings) {
@@ -869,23 +860,23 @@
 			var size = modsize * (n + 2 * margin);
 			/* var common = ' class= "fg"' + ' width="' + modsize + '" height="' + modsize + '"/>'; */
 
-			var e = document[createElementNS](
+			var e = document.createElementNS(
 				"http://www.w3.org/2000/svg",
 				"svg"
 			);
-			e[setAttributeNS](null, "viewBox", "0 0 " + size + " " + size);
-			e[setAttributeNS](null, "style", "shape-rendering:crispEdges");
+			e.setAttributeNS(null, "viewBox", "0 0 " + size + " " + size);
+			e.setAttributeNS(null, "style", "shape-rendering:crispEdges");
 			var qrcodeId = "qrcode" + Date.now();
-			e[setAttributeNS](null, "id", qrcodeId);
-			var frag = document[createDocumentFragment]();
+			e.setAttributeNS(null, "id", qrcodeId);
+			var frag = document.createDocumentFragment();
 			/* var svg = ['<style scoped>.bg{fill:' + fillcolor + '}.fg{fill:' + textcolor + '}</style>', '<rect class="bg" x="0" y="0"', 'width="' + size + '" height="' + size + '"/>', ]; */
 
-			var style = document[createElementNS](
+			var style = document.createElementNS(
 				"http://www.w3.org/2000/svg",
 				"style"
 			);
-			style[appendChild](
-				document[createTextNode](
+			style.appendChild(
+				document.createTextNode(
 					"#" +
 						qrcodeId +
 						" .bg{fill:" +
@@ -897,26 +888,26 @@
 						"}"
 				)
 			);
-			/* style[setAttributeNS](null, "scoped", "scoped"); */
+			/* style.setAttributeNS(null, "scoped", "scoped"); */
 
-			frag[appendChild](style);
+			frag.appendChild(style);
 
 			var createRect = function createRect(c, f, x, y, s) {
 				var fg =
-					document[createElementNS](
+					document.createElementNS(
 						"http://www.w3.org/2000/svg",
 						"rect"
 					) || "";
-				fg[setAttributeNS](null, "class", c);
-				fg[setAttributeNS](null, "fill", f);
-				fg[setAttributeNS](null, "x", x);
-				fg[setAttributeNS](null, "y", y);
-				fg[setAttributeNS](null, "width", s);
-				fg[setAttributeNS](null, "height", s);
+				fg.setAttributeNS(null, "class", c);
+				fg.setAttributeNS(null, "fill", f);
+				fg.setAttributeNS(null, "x", x);
+				fg.setAttributeNS(null, "y", y);
+				fg.setAttributeNS(null, "width", s);
+				fg.setAttributeNS(null, "height", s);
 				return fg;
 			};
 
-			frag[appendChild](createRect("bg", "none", 0, 0, size));
+			frag.appendChild(createRect("bg", "none", 0, 0, size));
 			var yo = margin * modsize;
 
 			for (var y = 0; y < n; ++y) {
@@ -925,7 +916,7 @@
 				for (var x = 0; x < n; ++x) {
 					if (matrix[y][x]) {
 						/* svg.push('<rect x="' + xo + '" y="' + yo + '"', common); */
-						frag[appendChild](
+						frag.appendChild(
 							createRect("fg", "none", xo, yo, modsize)
 						);
 					}
@@ -937,7 +928,7 @@
 			}
 			/* e.innerHTML = svg.join(""); */
 
-			e[appendChild](frag);
+			e.appendChild(frag);
 			return e;
 		},
 		generatePNG: function generatePNG(data, settings) {
@@ -954,7 +945,7 @@
 			);
 			var n = matrix[length];
 			var size = modsize * (n + 2 * margin);
-			var canvas = document[createElement]("canvas"),
+			var canvas = document.createElement("canvas"),
 				context;
 			canvas.width = canvas.height = size;
 			context = canvas.getContext("2d");

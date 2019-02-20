@@ -86,19 +86,18 @@ hasClass, removeClass, toggleClass, require, ToProgress*/
  */
 (function (root, document) {
 	"use strict";
-	var classList = "classList";
 	var hasClass;
 	var addClass;
 	var removeClass;
-	if (classList in document.documentElement) {
+	if ("classList" in document.documentElement) {
 		hasClass = function (el, name) {
-			return el[classList].contains(name);
+			return el.classList.contains(name);
 		};
 		addClass = function (el, name) {
-			el[classList].add(name);
+			el.classList.add(name);
 		};
 		removeClass = function (el, name) {
-			el[classList].remove(name);
+			el.classList.remove(name);
 		};
 	} else {
 		hasClass = function (el, name) {
@@ -142,19 +141,9 @@ hasClass, removeClass, toggleClass, require, ToProgress*/
 	"use strict";
 	var ToProgress = (function () {
 		var TP = function () {
-			var _addEventListener = "addEventListener";
-			var appendChild = "appendChild";
-			var firstChild = "firstChild";
-			var getElementById = "getElementById";
-			var getElementsByClassName = "getElementsByClassName";
-			var hasOwnProperty = "hasOwnProperty";
-			var opacity = "opacity";
-			var prototype = "prototype";
-			var _removeEventListener = "removeEventListener";
-			var style = "style";
 			function whichTransitionEvent() {
-				var t,
-				el = document.createElement("fakeelement");
+				var t;
+				var el = document.createElement("fakeelement");
 				var transitions = {
 					"transition": "transitionend",
 					"OTransition": "oTransitionEnd",
@@ -162,14 +151,15 @@ hasClass, removeClass, toggleClass, require, ToProgress*/
 					"WebkitTransition": "webkitTransitionEnd"
 				};
 				for (t in transitions) {
-					if (transitions[hasOwnProperty](t)) {
-						if (el[style][t] !== undefined) {
+					if (transitions.hasOwnProperty(t)) {
+						if (el.style[t] !== undefined) {
 							return transitions[t];
 						}
 					}
 				}
 				t = null;
 			}
+
 			var transitionEvent = whichTransitionEvent();
 			function ToProgress(opt, selector) {
 				this.progress = 0;
@@ -183,7 +173,7 @@ hasClass, removeClass, toggleClass, require, ToProgress*/
 				if (opt && typeof opt === "object") {
 					var key;
 					for (key in opt) {
-						if (opt[hasOwnProperty](key)) {
+						if (opt.hasOwnProperty(key)) {
 							this.options[key] = opt[key];
 						}
 					}
@@ -195,7 +185,7 @@ hasClass, removeClass, toggleClass, require, ToProgress*/
 				this.progressBar.setCSS = function (style) {
 					var property;
 					for (property in style) {
-						if (style[hasOwnProperty](property)) {
+						if (style.hasOwnProperty(property)) {
 							this.style[property] = style[property];
 						}
 					}
@@ -217,30 +207,30 @@ hasClass, removeClass, toggleClass, require, ToProgress*/
 				if (selector) {
 					var el;
 					if (selector.indexOf("#", 0) !== -1) {
-						el = document[getElementById](selector) || "";
+						el = document.getElementById(selector) || "";
 					} else {
 						if (selector.indexOf(".", 0) !== -1) {
-							el = document[getElementsByClassName](selector)[0] || "";
+							el = document.getElementsByClassName(selector)[0] || "";
 						}
 					}
 					if (el) {
 						if (el.hasChildNodes()) {
-							el.insertBefore(this.progressBar, el[firstChild]);
+							el.insertBefore(this.progressBar, el.firstChild);
 						} else {
-							el[appendChild](this.progressBar);
+							el.appendChild(this.progressBar);
 						}
 					}
 				} else {
-					document.body[appendChild](this.progressBar);
+					document.body.appendChild(this.progressBar);
 				}
 			}
-			ToProgress[prototype].transit = function () {
-				this.progressBar[style].width = this.progress + "%";
+			ToProgress.prototype.transit = function () {
+				this.progressBar.style.width = this.progress + "%";
 			};
-			ToProgress[prototype].getProgress = function () {
+			ToProgress.prototype.getProgress = function () {
 				return this.progress;
 			};
-			ToProgress[prototype].setProgress = function (progress, callback) {
+			ToProgress.prototype.setProgress = function (progress, callback) {
 				this.show();
 				if (progress > 100) {
 					this.progress = 100;
@@ -254,37 +244,37 @@ hasClass, removeClass, toggleClass, require, ToProgress*/
 					callback();
 				}
 			};
-			ToProgress[prototype].increase = function (toBeIncreasedProgress, callback) {
+			ToProgress.prototype.increase = function (toBeIncreasedProgress, callback) {
 				this.show();
 				this.setProgress(this.progress + toBeIncreasedProgress, callback);
 			};
-			ToProgress[prototype].decrease = function (toBeDecreasedProgress, callback) {
+			ToProgress.prototype.decrease = function (toBeDecreasedProgress, callback) {
 				this.show();
 				this.setProgress(this.progress - toBeDecreasedProgress, callback);
 			};
-			ToProgress[prototype].finish = function (callback) {
+			ToProgress.prototype.finish = function (callback) {
 				var that = this;
 				this.setProgress(100, callback);
 				this.hide();
 				if (transitionEvent) {
-					this.progressBar[_addEventListener](transitionEvent, function (e) {
+					this.progressBar.addEventListener(transitionEvent, function (e) {
 						that.reset();
-						that.progressBar[_removeEventListener](e.type, TP);
+						that.progressBar.removeEventListener(e.type, TP);
 					});
 				}
 			};
-			ToProgress[prototype].reset = function (callback) {
+			ToProgress.prototype.reset = function (callback) {
 				this.progress = 0;
 				this.transit();
 				if (callback) {
 					callback();
 				}
 			};
-			ToProgress[prototype].hide = function () {
-				this.progressBar[style][opacity] = "0";
+			ToProgress.prototype.hide = function () {
+				this.progressBar.style.opacity = "0";
 			};
-			ToProgress[prototype].show = function () {
-				this.progressBar[style][opacity] = "1";
+			ToProgress.prototype.show = function () {
+				this.progressBar.style.opacity = "1";
 			};
 			return ToProgress;
 		};
@@ -303,16 +293,13 @@ hasClass, removeClass, toggleClass, require, ToProgress*/
 (function (root, document) {
 	"use strict";
 	var doesFontExist = function (fontName) {
-		var getContext = "getContext";
-		var measureText = "measureText";
-		var width = "width";
 		var canvas = document.createElement("canvas");
-		var context = canvas[getContext]("2d");
+		var context = canvas.getContext("2d");
 		var text = "abcdefghijklmnopqrstuvwxyz0123456789";
 		context.font = "72px monospace";
-		var baselineSize = context[measureText](text)[width];
+		var baselineSize = context.measureText(text).width;
 		context.font = "72px '" + fontName + "', monospace";
-		var newSize = context[measureText](text)[width];
+		var newSize = context.measureText(text).width;
 		canvas = null;
 		if (newSize === baselineSize) {
 			return false;
@@ -331,16 +318,11 @@ hasClass, removeClass, toggleClass, require, ToProgress*/
 	"use strict";
 	var loadJsCss = function (files, callback, type) {
 		var _this = this;
-		var appendChild = "appendChild";
-		var body = "body";
-		var getElementsByTagName = "getElementsByTagName";
-		var setAttribute = "setAttribute";
-		var _length = "length";
 		_this.files = files;
 		_this.js = [];
-		_this.head = document[getElementsByTagName]("head")[0] || "";
-		_this.body = document[body] || "";
-		_this.ref = document[getElementsByTagName]("script")[0] || "";
+		_this.head = document.getElementsByTagName("head")[0] || "";
+		_this.body = document.body || "";
+		_this.ref = document.getElementsByTagName("script")[0] || "";
 		_this.callback = callback || function () {};
 		_this.type = type ? type.toLowerCase() : "";
 		_this.loadStyle = function (file) {
@@ -353,9 +335,9 @@ hasClass, removeClass, toggleClass, require, ToProgress*/
 				this.onload = null;
 				this.media = "all";
 			};
-			link[setAttribute]("property", "stylesheet");
-			/* _this.head[appendChild](link); */
-			(_this.body || _this.head)[appendChild](link);
+			link.setAttribute("property", "stylesheet");
+			/* _this.head.appendChild(link); */
+			(_this.body || _this.head).appendChild(link);
 		};
 		_this.loadScript = function (i) {
 			var script = document.createElement("script");
@@ -363,7 +345,7 @@ hasClass, removeClass, toggleClass, require, ToProgress*/
 			script.async = true;
 			script.src = _this.js[i];
 			var loadNextScript = function () {
-				if (++i < _this.js[_length]) {
+				if (++i < _this.js.length) {
 					_this.loadScript(i);
 				} else {
 					_this.callback();
@@ -372,17 +354,17 @@ hasClass, removeClass, toggleClass, require, ToProgress*/
 			script.onload = function () {
 				loadNextScript();
 			};
-			_this.head[appendChild](script);
-			/* if (_this.ref[parentNode]) {
-				_this.ref[parentNode][insertBefore](script, _this.ref);
+			_this.head.appendChild(script);
+			/* if (_this.ref.parentNode) {
+				_this.ref.parentNode[insertBefore](script, _this.ref);
 			} else {
-				(_this.body || _this.head)[appendChild](script);
+				(_this.body || _this.head).appendChild(script);
 			} */
-			(_this.body || _this.head)[appendChild](script);
+			(_this.body || _this.head).appendChild(script);
 		};
 		var i,
 		l;
-		for (i = 0, l = _this.files[_length]; i < l; i += 1) {
+		for (i = 0, l = _this.files.length; i < l; i += 1) {
 			if ((/\.js$|\.js\?/).test(_this.files[i]) || _this.type === "js") {
 				_this.js.push(_this.files[i]);
 			}
@@ -391,7 +373,7 @@ hasClass, removeClass, toggleClass, require, ToProgress*/
 			}
 		}
 		i = l = null;
-		if (_this.js[_length] > 0) {
+		if (_this.js.length > 0) {
 			_this.loadScript(0);
 		} else {
 			_this.callback();
@@ -408,8 +390,6 @@ hasClass, removeClass, toggleClass, require, ToProgress*/
 	var docElem = document.documentElement || "";
 	var docImplem = document.implementation || "";
 	var docBody = document.body || "";
-
-	var _length = "length";
 
 	var progressBar = new ToProgress({
 			id: "top-progress-bar",
@@ -440,19 +420,12 @@ hasClass, removeClass, toggleClass, require, ToProgress*/
 		return "http:" === locProtocol ? "http" : "https:" === locProtocol ? "https" : any ? "http" : "";
 	};
 
-	var supportsCanvas;
-	supportsCanvas = (function () {
+	/* var supportsCanvas = (function () {
 		var elem = document.createElement("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
-	})();
+	})(); */
 
 	var run = function () {
-
-		var appendChild = "appendChild";
-		var getAttribute = "getAttribute";
-		var getElementById = "getElementById";
-		var getElementsByTagName = "getElementsByTagName";
-		var title = "title";
 
 		var isActiveClass = "is-active";
 
@@ -466,24 +439,24 @@ hasClass, removeClass, toggleClass, require, ToProgress*/
 		var earlyDeviceFormfactor = (function (selectors) {
 			var orientation;
 			var size;
-			var f = function (a) {
-				var b = a.split(" ");
+			var f = function (e) {
+				var b = e.split(" ");
 				if (selectors) {
 					var c;
-					for (c = 0; c < b[_length]; c += 1) {
-						a = b[c];
-						selectors.add(a);
+					for (c = 0; c < b.length; c += 1) {
+						e = b[c];
+						selectors.add(e);
 					}
 					c = null;
 				}
 			};
-			var g = function (a) {
-				var b = a.split(" ");
+			var g = function (e) {
+				var b = e.split(" ");
 				if (selectors) {
 					var c;
-					for (c = 0; c < b[_length]; c += 1) {
-						a = b[c];
-						selectors.remove(a);
+					for (c = 0; c < b.length; c += 1) {
+						e = b[c];
+						selectors.remove(e);
 					}
 					c = null;
 				}
@@ -592,8 +565,8 @@ hasClass, removeClass, toggleClass, require, ToProgress*/
 			(earlyHasTouch ? " " + earlyHasTouch : "") +
 			"]";
 
-		if (document[title]) {
-			document[title] = document[title] + userBrowser;
+		if (document.title) {
+			document.title = document.title + userBrowser;
 		}
 
 		var scroll2Top = function (scrollTargetY, speed, easing) {
@@ -771,7 +744,7 @@ hasClass, removeClass, toggleClass, require, ToProgress*/
 					if ("undefined" !== typeof require("nw.gui")) {
 						return true;
 					}
-				} catch (e) {
+				} catch (err) {
 					return false;
 				}
 			}
@@ -795,8 +768,8 @@ hasClass, removeClass, toggleClass, require, ToProgress*/
 			} else if (isNwjs) {
 				onNwjs();
 			} else {
-				var locProtocol = root.location.protocol || "",
-				hasHTTP = locProtocol ? "http:" === locProtocol ? "http" : "https:" === locProtocol ? "https" : "" : "";
+				var locProtocol = root.location.protocol || "";
+				var hasHTTP = locProtocol ? "http:" === locProtocol ? "http" : "https:" === locProtocol ? "https" : "" : "";
 				if (hasHTTP) {
 					return true;
 				} else {
@@ -806,7 +779,7 @@ hasClass, removeClass, toggleClass, require, ToProgress*/
 		};
 
 		var manageExternalLinkAll = function () {
-			var link = document[getElementsByTagName]("a") || "";
+			var link = document.getElementsByTagName("a") || "";
 			var handle = function (url, ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
@@ -818,7 +791,7 @@ hasClass, removeClass, toggleClass, require, ToProgress*/
 			var arrange = function (e) {
 				var externalLinkIsBindedClass = "external-link--is-binded";
 				if (!hasClass(e, externalLinkIsBindedClass)) {
-					var url = e[getAttribute]("href") || "";
+					var url = e.getAttribute("href") || "";
 					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
 						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
 						if ("undefined" !== typeof getHTTP && getHTTP()) {
@@ -834,7 +807,7 @@ hasClass, removeClass, toggleClass, require, ToProgress*/
 			if (link) {
 				var i,
 				l;
-				for (i = 0, l = link[_length]; i < l; i += 1) {
+				for (i = 0, l = link.length; i < l; i += 1) {
 					arrange(link[i]);
 				}
 				i = l = null;
@@ -924,7 +897,7 @@ hasClass, removeClass, toggleClass, require, ToProgress*/
 		initSearch();
 
 		var manageSearchInput = function () {
-			var searchInput = document[getElementById]("text") || "";
+			var searchInput = document.getElementById("text") || "";
 			var handle = function () {
 				var _this = this;
 				var logic = function () {
@@ -940,11 +913,11 @@ hasClass, removeClass, toggleClass, require, ToProgress*/
 		manageSearchInput();
 
 		var manageNavMenu = function () {
-			var container = document[getElementById]("container") || "";
-			var page = document[getElementById]("page") || "";
+			var container = document.getElementById("container") || "";
+			var page = document.getElementById("page") || "";
 			var btnNavMenu = getByClass(document, "btn-nav-menu")[0] || "";
 			var panelNavMenu = getByClass(document, "panel-nav-menu")[0] || "";
-			var panelNavMenuItems = panelNavMenu ? panelNavMenu[getElementsByTagName]("a") || "" : "";
+			var panelNavMenuItems = panelNavMenu ? panelNavMenu.getElementsByTagName("a") || "" : "";
 			var holderPanelMenuMore = getByClass(document, "holder-panel-menu-more")[0] || "";
 			var locHref = root.location.href || "";
 			var removeAllActiveClass = function () {
@@ -1015,7 +988,7 @@ hasClass, removeClass, toggleClass, require, ToProgress*/
 						}
 						var i,
 						l;
-						for (i = 0, l = panelNavMenuItems[_length]; i < l; i += 1) {
+						for (i = 0, l = panelNavMenuItems.length; i < l; i += 1) {
 							removeActiveClass(panelNavMenuItems[i]);
 						}
 						i = l = null;
@@ -1030,7 +1003,7 @@ hasClass, removeClass, toggleClass, require, ToProgress*/
 				};
 				var i,
 				l;
-				for (i = 0, l = panelNavMenuItems[_length]; i < l; i += 1) {
+				for (i = 0, l = panelNavMenuItems.length; i < l; i += 1) {
 					addItemHandler(panelNavMenuItems[i]);
 				}
 				i = l = null;
@@ -1057,7 +1030,7 @@ hasClass, removeClass, toggleClass, require, ToProgress*/
 				btn.href = "javascript:void(0);";
 				/* jshint +W107 */
 				btn.title = "Наверх";
-				docBody[appendChild](btn);
+				docBody.appendChild(btn);
 			}
 			var handle = function (ev) {
 				ev.stopPropagation();

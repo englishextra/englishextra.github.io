@@ -88,19 +88,18 @@ ToProgress, unescape, VK, Ya*/
  */
 (function (root, document) {
 	"use strict";
-	var classList = "classList";
 	var hasClass;
 	var addClass;
 	var removeClass;
-	if (classList in document.documentElement) {
+	if ("classList" in document.documentElement) {
 		hasClass = function (el, name) {
-			return el[classList].contains(name);
+			return el.classList.contains(name);
 		};
 		addClass = function (el, name) {
-			el[classList].add(name);
+			el.classList.add(name);
 		};
 		removeClass = function (el, name) {
-			el[classList].remove(name);
+			el.classList.remove(name);
 		};
 	} else {
 		hasClass = function (el, name) {
@@ -144,19 +143,9 @@ ToProgress, unescape, VK, Ya*/
 	"use strict";
 	var ToProgress = (function () {
 		var TP = function () {
-			var _addEventListener = "addEventListener";
-			var appendChild = "appendChild";
-			var firstChild = "firstChild";
-			var getElementById = "getElementById";
-			var getElementsByClassName = "getElementsByClassName";
-			var hasOwnProperty = "hasOwnProperty";
-			var opacity = "opacity";
-			var prototype = "prototype";
-			var _removeEventListener = "removeEventListener";
-			var style = "style";
 			function whichTransitionEvent() {
-				var t,
-				el = document.createElement("fakeelement");
+				var t;
+				var el = document.createElement("fakeelement");
 				var transitions = {
 					"transition": "transitionend",
 					"OTransition": "oTransitionEnd",
@@ -164,14 +153,15 @@ ToProgress, unescape, VK, Ya*/
 					"WebkitTransition": "webkitTransitionEnd"
 				};
 				for (t in transitions) {
-					if (transitions[hasOwnProperty](t)) {
-						if (el[style][t] !== undefined) {
+					if (transitions.hasOwnProperty(t)) {
+						if (el.style[t] !== undefined) {
 							return transitions[t];
 						}
 					}
 				}
 				t = null;
 			}
+
 			var transitionEvent = whichTransitionEvent();
 			function ToProgress(opt, selector) {
 				this.progress = 0;
@@ -185,7 +175,7 @@ ToProgress, unescape, VK, Ya*/
 				if (opt && typeof opt === "object") {
 					var key;
 					for (key in opt) {
-						if (opt[hasOwnProperty](key)) {
+						if (opt.hasOwnProperty(key)) {
 							this.options[key] = opt[key];
 						}
 					}
@@ -197,7 +187,7 @@ ToProgress, unescape, VK, Ya*/
 				this.progressBar.setCSS = function (style) {
 					var property;
 					for (property in style) {
-						if (style[hasOwnProperty](property)) {
+						if (style.hasOwnProperty(property)) {
 							this.style[property] = style[property];
 						}
 					}
@@ -219,30 +209,30 @@ ToProgress, unescape, VK, Ya*/
 				if (selector) {
 					var el;
 					if (selector.indexOf("#", 0) !== -1) {
-						el = document[getElementById](selector) || "";
+						el = document.getElementById(selector) || "";
 					} else {
 						if (selector.indexOf(".", 0) !== -1) {
-							el = document[getElementsByClassName](selector)[0] || "";
+							el = document.getElementsByClassName(selector)[0] || "";
 						}
 					}
 					if (el) {
 						if (el.hasChildNodes()) {
-							el.insertBefore(this.progressBar, el[firstChild]);
+							el.insertBefore(this.progressBar, el.firstChild);
 						} else {
-							el[appendChild](this.progressBar);
+							el.appendChild(this.progressBar);
 						}
 					}
 				} else {
-					document.body[appendChild](this.progressBar);
+					document.body.appendChild(this.progressBar);
 				}
 			}
-			ToProgress[prototype].transit = function () {
-				this.progressBar[style].width = this.progress + "%";
+			ToProgress.prototype.transit = function () {
+				this.progressBar.style.width = this.progress + "%";
 			};
-			ToProgress[prototype].getProgress = function () {
+			ToProgress.prototype.getProgress = function () {
 				return this.progress;
 			};
-			ToProgress[prototype].setProgress = function (progress, callback) {
+			ToProgress.prototype.setProgress = function (progress, callback) {
 				this.show();
 				if (progress > 100) {
 					this.progress = 100;
@@ -256,37 +246,37 @@ ToProgress, unescape, VK, Ya*/
 					callback();
 				}
 			};
-			ToProgress[prototype].increase = function (toBeIncreasedProgress, callback) {
+			ToProgress.prototype.increase = function (toBeIncreasedProgress, callback) {
 				this.show();
 				this.setProgress(this.progress + toBeIncreasedProgress, callback);
 			};
-			ToProgress[prototype].decrease = function (toBeDecreasedProgress, callback) {
+			ToProgress.prototype.decrease = function (toBeDecreasedProgress, callback) {
 				this.show();
 				this.setProgress(this.progress - toBeDecreasedProgress, callback);
 			};
-			ToProgress[prototype].finish = function (callback) {
+			ToProgress.prototype.finish = function (callback) {
 				var that = this;
 				this.setProgress(100, callback);
 				this.hide();
 				if (transitionEvent) {
-					this.progressBar[_addEventListener](transitionEvent, function (e) {
+					this.progressBar.addEventListener(transitionEvent, function (e) {
 						that.reset();
-						that.progressBar[_removeEventListener](e.type, TP);
+						that.progressBar.removeEventListener(e.type, TP);
 					});
 				}
 			};
-			ToProgress[prototype].reset = function (callback) {
+			ToProgress.prototype.reset = function (callback) {
 				this.progress = 0;
 				this.transit();
 				if (callback) {
 					callback();
 				}
 			};
-			ToProgress[prototype].hide = function () {
-				this.progressBar[style][opacity] = "0";
+			ToProgress.prototype.hide = function () {
+				this.progressBar.style.opacity = "0";
 			};
-			ToProgress[prototype].show = function () {
-				this.progressBar[style][opacity] = "1";
+			ToProgress.prototype.show = function () {
+				this.progressBar.style.opacity = "1";
 			};
 			return ToProgress;
 		};
@@ -357,16 +347,13 @@ ToProgress, unescape, VK, Ya*/
 (function (root, document) {
 	"use strict";
 	var doesFontExist = function (fontName) {
-		var getContext = "getContext";
-		var measureText = "measureText";
-		var width = "width";
 		var canvas = document.createElement("canvas");
-		var context = canvas[getContext]("2d");
+		var context = canvas.getContext("2d");
 		var text = "abcdefghijklmnopqrstuvwxyz0123456789";
 		context.font = "72px monospace";
-		var baselineSize = context[measureText](text)[width];
+		var baselineSize = context.measureText(text).width;
 		context.font = "72px '" + fontName + "', monospace";
-		var newSize = context[measureText](text)[width];
+		var newSize = context.measureText(text).width;
 		canvas = null;
 		if (newSize === baselineSize) {
 			return false;
@@ -385,16 +372,11 @@ ToProgress, unescape, VK, Ya*/
 	"use strict";
 	var loadJsCss = function (files, callback, type) {
 		var _this = this;
-		var appendChild = "appendChild";
-		var body = "body";
-		var getElementsByTagName = "getElementsByTagName";
-		var setAttribute = "setAttribute";
-		var _length = "length";
 		_this.files = files;
 		_this.js = [];
-		_this.head = document[getElementsByTagName]("head")[0] || "";
-		_this.body = document[body] || "";
-		_this.ref = document[getElementsByTagName]("script")[0] || "";
+		_this.head = document.getElementsByTagName("head")[0] || "";
+		_this.body = document.body || "";
+		_this.ref = document.getElementsByTagName("script")[0] || "";
 		_this.callback = callback || function () {};
 		_this.type = type ? type.toLowerCase() : "";
 		_this.loadStyle = function (file) {
@@ -407,9 +389,9 @@ ToProgress, unescape, VK, Ya*/
 				this.onload = null;
 				this.media = "all";
 			};
-			link[setAttribute]("property", "stylesheet");
-			/* _this.head[appendChild](link); */
-			(_this.body || _this.head)[appendChild](link);
+			link.setAttribute("property", "stylesheet");
+			/* _this.head.appendChild(link); */
+			(_this.body || _this.head).appendChild(link);
 		};
 		_this.loadScript = function (i) {
 			var script = document.createElement("script");
@@ -417,7 +399,7 @@ ToProgress, unescape, VK, Ya*/
 			script.async = true;
 			script.src = _this.js[i];
 			var loadNextScript = function () {
-				if (++i < _this.js[_length]) {
+				if (++i < _this.js.length) {
 					_this.loadScript(i);
 				} else {
 					_this.callback();
@@ -426,17 +408,17 @@ ToProgress, unescape, VK, Ya*/
 			script.onload = function () {
 				loadNextScript();
 			};
-			_this.head[appendChild](script);
-			/* if (_this.ref[parentNode]) {
-				_this.ref[parentNode][insertBefore](script, _this.ref);
+			_this.head.appendChild(script);
+			/* if (_this.ref.parentNode) {
+				_this.ref.parentNode[insertBefore](script, _this.ref);
 			} else {
-				(_this.body || _this.head)[appendChild](script);
+				(_this.body || _this.head).appendChild(script);
 			} */
-			(_this.body || _this.head)[appendChild](script);
+			(_this.body || _this.head).appendChild(script);
 		};
 		var i,
 		l;
-		for (i = 0, l = _this.files[_length]; i < l; i += 1) {
+		for (i = 0, l = _this.files.length; i < l; i += 1) {
 			if ((/\.js$|\.js\?/).test(_this.files[i]) || _this.type === "js") {
 				_this.js.push(_this.files[i]);
 			}
@@ -445,7 +427,7 @@ ToProgress, unescape, VK, Ya*/
 			}
 		}
 		i = l = null;
-		if (_this.js[_length] > 0) {
+		if (_this.js.length > 0) {
 			_this.loadScript(0);
 		} else {
 			_this.callback();
@@ -462,8 +444,6 @@ ToProgress, unescape, VK, Ya*/
 	var docElem = document.documentElement || "";
 	var docImplem = document.implementation || "";
 	var docBody = document.body || "";
-
-	var _length = "length";
 
 	var progressBar = new ToProgress({
 			id: "top-progress-bar",
@@ -496,28 +476,12 @@ ToProgress, unescape, VK, Ya*/
 
 	var forcedHTTP = getHTTP(true);
 
-	var supportsCanvas;
-	supportsCanvas = (function () {
+	/* var supportsCanvas = (function () {
 		var elem = document.createElement("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
-	})();
+	})(); */
 
 	var run = function () {
-
-		var appendChild = "appendChild";
-		var createDocumentFragment = "createDocumentFragment";
-		var createRange = "createRange";
-		var createTextNode = "createTextNode";
-		var dataset = "dataset";
-		var getAttribute = "getAttribute";
-		var getElementById = "getElementById";
-		var getElementsByTagName = "getElementsByTagName";
-		var parentNode = "parentNode";
-		var remove = "remove";
-		var removeChild = "removeChild";
-		var setAttribute = "setAttribute";
-		var style = "style";
-		var title = "title";
 
 		var isActiveClass = "is-active";
 		var isSocialClass = "is-social";
@@ -532,24 +496,24 @@ ToProgress, unescape, VK, Ya*/
 		var earlyDeviceFormfactor = (function (selectors) {
 			var orientation;
 			var size;
-			var f = function (a) {
-				var b = a.split(" ");
+			var f = function (e) {
+				var b = e.split(" ");
 				if (selectors) {
 					var c;
-					for (c = 0; c < b[_length]; c += 1) {
-						a = b[c];
-						selectors.add(a);
+					for (c = 0; c < b.length; c += 1) {
+						e = b[c];
+						selectors.add(e);
 					}
 					c = null;
 				}
 			};
-			var g = function (a) {
-				var b = a.split(" ");
+			var g = function (e) {
+				var b = e.split(" ");
 				if (selectors) {
 					var c;
-					for (c = 0; c < b[_length]; c += 1) {
-						a = b[c];
-						selectors.remove(a);
+					for (c = 0; c < b.length; c += 1) {
+						e = b[c];
+						selectors.remove(e);
 					}
 					c = null;
 				}
@@ -658,11 +622,11 @@ ToProgress, unescape, VK, Ya*/
 			(earlyHasTouch ? " " + earlyHasTouch : "") +
 			"]";
 
-		if (document[title]) {
-			document[title] = document[title] + userBrowser;
+		if (document.title) {
+			document.title = document.title + userBrowser;
 		}
 
-		var loadUnparsedJSON = function (url, callback, onerror) {
+		var loadJsonResponse = function (url, callback, onerror) {
 			var cb = function (string) {
 				return callback && "function" === typeof callback && callback(string);
 			};
@@ -695,7 +659,7 @@ ToProgress, unescape, VK, Ya*/
 
 		var truncString = function (str, max, add) {
 			var _add = add || "\u2026";
-			return ("string" === typeof str && str[_length] > max ? str.substring(0, max) + _add : str);
+			return ("string" === typeof str && str.length > max ? str.substring(0, max) + _add : str);
 		};
 
 		var fixEnRuTypo = function (e, a, b) {
@@ -708,7 +672,7 @@ ToProgress, unescape, VK, Ya*/
 				b = '\u0430\u0431\u0432\u0433\u0434\u0435\u0451\u0436\u0437\u0438\u0439\u043a\u043b\u043c\u043d\u043e\u043f\u0440\u0441\u0442\u0443\u0444\u0445\u0446\u0447\u0448\u0449\u044a\u044c\u044b\u044d\u044e\u044f\u0410\u0411\u0412\u0413\u0414\u0415\u0401\u0416\u0417\u0418\u0419\u041a\u041b\u041c\u041d\u041e\u041f\u0420\u0421\u0422\u0423\u0424\u0425\u0426\u0427\u0428\u0429\u042a\u042c\u042b\u042d\u042e\u042f"\u2116;:?/.,';
 			}
 			var d;
-			for (d = 0; d < e[_length]; d += 1) {
+			for (d = 0; d < e.length; d += 1) {
 				var f = a.indexOf(e.charAt(d));
 				if (c > f) {
 					c += e.charAt(d);
@@ -720,15 +684,15 @@ ToProgress, unescape, VK, Ya*/
 			return c;
 		};
 
-	var removeElement = function (a) {
-		if (a) {
-			if ("undefined" !== typeof a[remove]) {
-				return a[remove]();
-			} else {
-				return a[parentNode] && a[parentNode][removeChild](a);
+		var removeElement = function (e) {
+			if (e) {
+				if ("undefined" !== typeof e.remove) {
+					return e.remove();
+				} else {
+					return e.parentNode && e.parentNode.removeChild(e);
+				}
 			}
-		}
-	};
+		};
 
 		var removeChildren = function (e) {
 			if (e && e.firstChild) {
@@ -739,25 +703,25 @@ ToProgress, unescape, VK, Ya*/
 		};
 
 		var appendFragment = function (e, a) {
-			var parent = a || document[getElementsByTagName]("body")[0] || "";
+			var parent = a || document.getElementsByTagName("body")[0] || "";
 			if (e) {
-				var df = document[createDocumentFragment]() || "";
+				var df = document.createDocumentFragment() || "";
 				if ("string" === typeof e) {
-					e = document[createTextNode](e);
+					e = document.createTextNode(e);
 				}
-				df[appendChild](e);
-				parent[appendChild](df);
+				df.appendChild(e);
+				parent.appendChild(df);
 			}
 		};
 
 		var prependFragmentBefore = function (e, a) {
 			if ("string" === typeof e) {
-				e = document[createTextNode](e);
+				e = document.createTextNode(e);
 			}
-			var p = a[parentNode] || "";
-			var df = document[createDocumentFragment]();
+			var p = a.parentNode || "";
+			var df = document.createDocumentFragment();
 			if (p) {
-				df[appendChild](e);
+				df.appendChild(e);
 				p.insertBefore(df, a);
 			}
 		};
@@ -766,11 +730,11 @@ ToProgress, unescape, VK, Ya*/
 			return full ? /^\#[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? true : false : /^[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? true : false;
 		};
 
-		var findPos = function (a) {
-			a = a.getBoundingClientRect();
+		var findPos = function (e) {
+			e = e.getBoundingClientRect();
 			return {
-				top: Math.round(a.top + (root.pageYOffset || docElem.scrollTop || docBody.scrollTop) - (docElem.clientTop || docBody.clientTop || 0)),
-				left: Math.round(a.left + (root.pageXOffset || docElem.scrollLeft || docBody.scrollLeft) - (docElem.clientLeft || docBody.clientLeft || 0))
+				top: Math.round(e.top + (root.pageYOffset || docElem.scrollTop || docBody.scrollTop) - (docElem.clientTop || docBody.clientTop || 0)),
+				left: Math.round(e.left + (root.pageXOffset || docElem.scrollLeft || docBody.scrollLeft) - (docElem.clientLeft || docBody.clientLeft || 0))
 			};
 		};
 
@@ -914,7 +878,7 @@ ToProgress, unescape, VK, Ya*/
 					if ("undefined" !== typeof require("nw.gui")) {
 						return true;
 					}
-				} catch (e) {
+				} catch (err) {
 					return false;
 				}
 			}
@@ -938,8 +902,8 @@ ToProgress, unescape, VK, Ya*/
 			} else if (isNwjs) {
 				onNwjs();
 			} else {
-				var locProtocol = root.location.protocol || "",
-				hasHTTP = locProtocol ? "http:" === locProtocol ? "http" : "https:" === locProtocol ? "https" : "" : "";
+				var locProtocol = root.location.protocol || "";
+				var hasHTTP = locProtocol ? "http:" === locProtocol ? "http" : "https:" === locProtocol ? "https" : "" : "";
 				if (hasHTTP) {
 					return true;
 				} else {
@@ -949,7 +913,7 @@ ToProgress, unescape, VK, Ya*/
 		};
 
 		var manageExternalLinkAll = function () {
-			var link = document[getElementsByTagName]("a") || "";
+			var link = document.getElementsByTagName("a") || "";
 			var handle = function (url, ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
@@ -961,7 +925,7 @@ ToProgress, unescape, VK, Ya*/
 			var arrange = function (e) {
 				var externalLinkIsBindedClass = "external-link--is-binded";
 				if (!hasClass(e, externalLinkIsBindedClass)) {
-					var url = e[getAttribute]("href") || "";
+					var url = e.getAttribute("href") || "";
 					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
 						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
 						if ("undefined" !== typeof getHTTP && getHTTP()) {
@@ -977,7 +941,7 @@ ToProgress, unescape, VK, Ya*/
 			if (link) {
 				var i,
 				l;
-				for (i = 0, l = link[_length]; i < l; i += 1) {
+				for (i = 0, l = link.length; i < l; i += 1) {
 					arrange(link[i]);
 				}
 				i = l = null;
@@ -985,15 +949,15 @@ ToProgress, unescape, VK, Ya*/
 		};
 		manageExternalLinkAll();
 
-		var setStyleDisplayBlock = function (a) {
-			if (a) {
-				a[style].display = "block";
+		var setStyleDisplayBlock = function (e) {
+			if (e) {
+				e.style.display = "block";
 			}
 		};
 
-		var setStyleDisplayNone = function (a) {
-			if (a) {
-				a[style].display = "none";
+		var setStyleDisplayNone = function (e) {
+			if (e) {
+				e.style.display = "none";
 			}
 		};
 
@@ -1079,7 +1043,7 @@ ToProgress, unescape, VK, Ya*/
 				addClass(container, msgClass);
 			}
 			if ("string" === typeof msgObj) {
-				msgObj = document[createTextNode](msgObj);
+				msgObj = document.createTextNode(msgObj);
 			}
 			appendFragment(msgObj, container);
 			var clearContainer = function (cb) {
@@ -1134,7 +1098,7 @@ ToProgress, unescape, VK, Ya*/
 					ev.stopPropagation();
 					ev.preventDefault();
 					removeListener(msgObj, "click", handleMsgObj);
-					var targetObj = document[getElementById]("disqus_thread") || "";
+					var targetObj = document.getElementById("disqus_thread") || "";
 					scroll2Top((targetObj ? findPos(targetObj).top : 0), 20000);
 				};
 				addListener(msgObj, "click", handleMsgObj);
@@ -1158,8 +1122,8 @@ ToProgress, unescape, VK, Ya*/
 				var arrange = function (e) {
 					var tableId = e.id || "";
 					if (tableId) {
-						var table = document[getElementById](tableId) || "";
-						var caption = table ? table[getElementsByTagName]("caption")[0] || "" : "";
+						var table = document.getElementById(tableId) || "";
+						var caption = table ? table.getElementsByTagName("caption")[0] || "" : "";
 						if (!caption) {
 							var tableCaption = document.createElement("caption");
 							prependFragmentBefore(tableCaption, table.firstChild);
@@ -1172,7 +1136,7 @@ ToProgress, unescape, VK, Ya*/
 				};
 				var i,
 				l;
-				for (i = 0, l = tableSort[_length]; i < l; i += 1) {
+				for (i = 0, l = tableSort.length; i < l; i += 1) {
 					arrange(tableSort[i]);
 				}
 				i = l = null;
@@ -1197,7 +1161,7 @@ ToProgress, unescape, VK, Ya*/
 				return callback && "function" === typeof callback && callback();
 			};
 			var images = getByClass(document, dataSrcImgClass) || "";
-			var i = images[_length];
+			var i = images.length;
 			while (i--) {
 				if (!hasClass(images[i], dataSrcImgIsBindedClass)) {
 					addClass(images[i], dataSrcImgIsBindedClass);
@@ -1231,18 +1195,18 @@ ToProgress, unescape, VK, Ya*/
 				return callback && "function" === typeof callback && callback();
 			};
 			var iframes = getByClass(document, dataSrcIframeClass) || "";
-			var i = iframes[_length];
+			var i = iframes.length;
 			while (i--) {
 				if (!hasClass(iframes[i], dataSrcIframeIsBindedClass)) {
 					addClass(iframes[i], dataSrcIframeIsBindedClass);
 					addClass(iframes[i], isActiveClass);
 					addListener(iframes[i], "load", cb);
-					iframes[i][setAttribute]("frameborder", "no");
-					iframes[i][setAttribute]("style", "border:none;");
-					iframes[i][setAttribute]("webkitallowfullscreen", "true");
-					iframes[i][setAttribute]("mozallowfullscreen", "true");
-					iframes[i][setAttribute]("scrolling", "no");
-					iframes[i][setAttribute]("allowfullscreen", "true");
+					iframes[i].setAttribute("frameborder", "no");
+					iframes[i].setAttribute("style", "border:none;");
+					iframes[i].setAttribute("webkitallowfullscreen", "true");
+					iframes[i].setAttribute("mozallowfullscreen", "true");
+					iframes[i].setAttribute("scrolling", "no");
+					iframes[i].setAttribute("allowfullscreen", "true");
 				}
 			}
 			i = null;
@@ -1308,7 +1272,7 @@ ToProgress, unescape, VK, Ya*/
 				};
 				var i,
 				l;
-				for (i = 0, l = link[_length]; i < l; i += 1) {
+				for (i = 0, l = link.length; i < l; i += 1) {
 					arrange(link[i]);
 				}
 				i = l = null;
@@ -1320,12 +1284,12 @@ ToProgress, unescape, VK, Ya*/
 		manageIframeLightbox();
 
 		var manageChaptersSelect = function () {
-			var chaptersSelect = document[getElementById]("chapters-select") || "";
+			var chaptersSelect = document.getElementById("chapters-select") || "";
 			var handle = function () {
 				var _this = this;
 				var hashString = _this.options[_this.selectedIndex].value || "";
 				if (hashString) {
-					var targetObj = hashString ? (isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/, "")) || "" : "") : "";
+					var targetObj = hashString ? (isValidId(hashString, true) ? document.getElementById(hashString.replace(/^#/, "")) || "" : "") : "";
 					if (targetObj) {
 						scroll2Top((targetObj ? findPos(targetObj).top : 0), 20000);
 					} else {
@@ -1340,7 +1304,7 @@ ToProgress, unescape, VK, Ya*/
 		manageChaptersSelect();
 
 		var manageSearchInput = function () {
-			var searchInput = document[getElementById]("text") || "";
+			var searchInput = document.getElementById("text") || "";
 			var handle = function () {
 				var _this = this;
 				var logic = function () {
@@ -1359,7 +1323,7 @@ ToProgress, unescape, VK, Ya*/
 			var btn = getByClass(document, "btn-expand-hidden-layer") || "";
 			var handle = function () {
 				var _this = this;
-				var layer = _this[parentNode] ? _this[parentNode].nextElementSibling : "";
+				var layer = _this.parentNode ? _this.parentNode.nextElementSibling : "";
 				if (layer) {
 					toggleClass(_this, isActiveClass);
 					toggleClass(layer, isActiveClass);
@@ -1372,7 +1336,7 @@ ToProgress, unescape, VK, Ya*/
 			if (btn) {
 				var i,
 				l;
-				for (i = 0, l = btn[_length]; i < l; i += 1) {
+				for (i = 0, l = btn.length; i < l; i += 1) {
 					addHandler(btn[i]);
 				}
 				i = l = null;
@@ -1435,11 +1399,11 @@ ToProgress, unescape, VK, Ya*/
 		manageLocationQrcode();
 
 		var manageNavMenu = function () {
-			var container = document[getElementById]("container") || "";
-			var page = document[getElementById]("page") || "";
+			var container = document.getElementById("container") || "";
+			var page = document.getElementById("page") || "";
 			var btnNavMenu = getByClass(document, "btn-nav-menu")[0] || "";
 			var panelNavMenu = getByClass(document, "panel-nav-menu")[0] || "";
-			var panelNavMenuItems = panelNavMenu ? panelNavMenu[getElementsByTagName]("a") || "" : "";
+			var panelNavMenuItems = panelNavMenu ? panelNavMenu.getElementsByTagName("a") || "" : "";
 			var holderPanelMenuMore = getByClass(document, "holder-panel-menu-more")[0] || "";
 			var locHref = root.location.href || "";
 			var removeAllActiveClass = function () {
@@ -1510,7 +1474,7 @@ ToProgress, unescape, VK, Ya*/
 						}
 						var i,
 						l;
-						for (i = 0, l = panelNavMenuItems[_length]; i < l; i += 1) {
+						for (i = 0, l = panelNavMenuItems.length; i < l; i += 1) {
 							removeActiveClass(panelNavMenuItems[i]);
 						}
 						i = l = null;
@@ -1525,7 +1489,7 @@ ToProgress, unescape, VK, Ya*/
 				};
 				var i,
 				l;
-				for (i = 0, l = panelNavMenuItems[_length]; i < l; i += 1) {
+				for (i = 0, l = panelNavMenuItems.length; i < l; i += 1) {
 					addItemHandler(panelNavMenuItems[i]);
 				}
 				i = l = null;
@@ -1544,7 +1508,7 @@ ToProgress, unescape, VK, Ya*/
 
 		var addUpdateAppLink = function () {
 			var panel = getByClass(document, "panel-menu-more")[0] || "";
-			var items = panel ? panel[getElementsByTagName]("li") || "" : "";
+			var items = panel ? panel.getElementsByTagName("li") || "" : "";
 			var navUA = navigator.userAgent || "";
 			var linkHref;
 			if (/Windows/i.test(navUA) && /(WOW64|Win64)/i.test(navUA)) {
@@ -1575,8 +1539,8 @@ ToProgress, unescape, VK, Ya*/
 					/* jshint +W107 */
 					addListener(link, "click", handleAppUpdatesLink);
 				}
-				link[appendChild](document[createTextNode]("Скачать приложение сайта"));
-				listItem[appendChild](link);
+				link.appendChild(document.createTextNode("Скачать приложение сайта"));
+				listItem.appendChild(link);
 				if (panel.hasChildNodes()) {
 					prependFragmentBefore(listItem, panel.firstChild);
 				}
@@ -1588,12 +1552,12 @@ ToProgress, unescape, VK, Ya*/
 		addUpdateAppLink();
 
 		var manageMenuMore = function () {
-			var container = document[getElementById]("container") || "";
-			var page = document[getElementById]("page") || "";
+			var container = document.getElementById("container") || "";
+			var page = document.getElementById("page") || "";
 			var holderPanelMenuMore = getByClass(document, "holder-panel-menu-more")[0] || "";
 			var btnMenuMore = getByClass(document, "btn-menu-more")[0] || "";
 			var panelMenuMore = getByClass(document, "panel-menu-more")[0] || "";
-			var panelMenuMoreItems = panelMenuMore ? panelMenuMore[getElementsByTagName]("li") || "" : "";
+			var panelMenuMoreItems = panelMenuMore ? panelMenuMore.getElementsByTagName("li") || "" : "";
 			var panelNavMenu = getByClass(document, "panel-nav-menu")[0] || "";
 			var handleItem = function () {
 				removeClass(page, isActiveClass);
@@ -1619,7 +1583,7 @@ ToProgress, unescape, VK, Ya*/
 				};
 				var i,
 				l;
-				for (i = 0, l = panelMenuMoreItems[_length]; i < l; i += 1) {
+				for (i = 0, l = panelMenuMoreItems.length; i < l; i += 1) {
 					addItemHandler(panelMenuMoreItems[i]);
 				}
 				i = l = null;
@@ -1643,7 +1607,7 @@ ToProgress, unescape, VK, Ya*/
 			if (elem) {
 				var k,
 				n;
-				for (k = 0, n = elem[_length]; k < n; k += 1) {
+				for (k = 0, n = elem.length; k < n; k += 1) {
 					if (_thisObj !== elem[k]) {
 						removeClass(elem[k], isActiveClass);
 					}
@@ -1657,9 +1621,9 @@ ToProgress, unescape, VK, Ya*/
 		var manageShareButtons = function () {
 			var btn = getByClass(document, "btn-share-buttons")[0] || "";
 			var yaShare2Id = "ya-share2";
-			var yaShare2 = document[getElementById](yaShare2Id) || "";
+			var yaShare2 = document.getElementById(yaShare2Id) || "";
 			var locHref = root.location || "";
-			var docTitle = document[title] || "";
+			var docTitle = document.title || "";
 			var handle = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
@@ -1710,7 +1674,7 @@ ToProgress, unescape, VK, Ya*/
 		var vlike;
 		var manageVKLikeButton = function () {
 			var vkLikeId = "vk-like";
-			var vkLike = document[getElementById](vkLikeId) || "";
+			var vkLike = document.getElementById(vkLikeId) || "";
 			var holderVkLike = getByClass(document, "holder-vk-like")[0] || "";
 			var btn = getByClass(document, "btn-show-vk-like")[0] || "";
 			var handle = function (ev) {
@@ -1723,7 +1687,7 @@ ToProgress, unescape, VK, Ya*/
 						if (!vlike) {
 							try {
 								VK.init({
-									apiId: (vkLike[dataset].apiid || ""),
+									apiId: (vkLike.dataset.apiid || ""),
 									nameTransportPath: "/xd_receiver.htm",
 									onlyWidgets: true
 								});
@@ -1824,10 +1788,10 @@ ToProgress, unescape, VK, Ya*/
 
 		var disqs;
 		var manageDisqusOnScroll = function () {
-			var disqusThread = document[getElementById]("disqus_thread") || "";
+			var disqusThread = document.getElementById("disqus_thread") || "";
 			var btn = getByClass(document, "btn-show-disqus")[0] || "";
 			var locHref = root.location.href || "";
-			var shortname = disqusThread ? (disqusThread[dataset].shortname || "") : "";
+			var shortname = disqusThread ? (disqusThread.dataset.shortname || "") : "";
 			var loadDisqus = function () {
 				var initScript = function () {
 					if (!disqs) {
@@ -1858,10 +1822,10 @@ ToProgress, unescape, VK, Ya*/
 					addHandler();
 				} else {
 					removeChildren(disqusThread);
-					var msgText = document[createRange]().createContextualFragment("<p>Комментарии доступны только в веб версии этой страницы.</p>");
+					var msgText = document.createRange().createContextualFragment("<p>Комментарии доступны только в веб версии этой страницы.</p>");
 					appendFragment(msgText, disqusThread);
 					disqusThread.removeAttribute("id");
-					setStyleDisplayNone(btn[parentNode]);
+					setStyleDisplayNone(btn.parentNode);
 				}
 			}
 		};
@@ -1871,8 +1835,8 @@ ToProgress, unescape, VK, Ya*/
 		var manageKamil = function () {
 			var searchForm = getByClass(document, "search-form")[0] || "";
 			var textInputSelector = "#text";
-			var textInput = document[getElementById]("text") || "";
-			var container = document[getElementById]("container") || "";
+			var textInput = document.getElementById("text") || "";
+			var container = document.getElementById("container") || "";
 			var suggestionUlId = "kamil-typo-autocomplete";
 			var suggestionUlClass = "kamil-autocomplete";
 			var jsonUrl = "../../app/libs/pwa-englishextra/json/routes.json";
@@ -1905,11 +1869,11 @@ ToProgress, unescape, VK, Ya*/
 				addClass(suggestionUl, suggestionUlClass);
 				suggestionUl.id = suggestionUlId;
 				handleTypoSuggestion();
-				suggestionUl[appendChild](suggestionLi);
-				textInput[parentNode].insertBefore(suggestionUl, textInput.nextElementSibling);
+				suggestionUl.appendChild(suggestionLi);
+				textInput.parentNode.insertBefore(suggestionUl, textInput.nextElementSibling);
 				ac.renderMenu = function (ul, stance) {
 					var items = stance || "";
-					var itemsLength = items[_length];
+					var itemsLength = items.length;
 					var _this = this;
 					var limitKamilOutput = function (e, i) {
 						if (i < 10) {
@@ -1932,26 +1896,26 @@ ToProgress, unescape, VK, Ya*/
 						}
 						showTypoSuggestion();
 						removeChildren(suggestionLi);
-						suggestionLi[appendChild](document[createTextNode]("" + textValue));
+						suggestionLi.appendChild(document.createTextNode("" + textValue));
 						if (textValue.match(/^\s*$/)) {
 							handleTypoSuggestion();
 						}
-						if (textInput.value[_length] < 3 || textInput.value.match(/^\s*$/)) {
+						if (textInput.value.length < 3 || textInput.value.match(/^\s*$/)) {
 							handleTypoSuggestion();
 						}
 						itemsLength += 1;
 					}
-					var lis = ul ? ul[getElementsByTagName]("li") || "" : "";
+					var lis = ul ? ul.getElementsByTagName("li") || "" : "";
 					var truncateKamilText = function (e) {
 						var truncText = e.firstChild.textContent || "";
-						var truncTextObj = document[createTextNode](truncString(truncText, 24));
+						var truncTextObj = document.createTextNode(truncString(truncText, 24));
 						e.replaceChild(truncTextObj, e.firstChild);
 						e.title = "" + truncText;
 					};
 					if (lis) {
 						var j,
 						m;
-						for (j = 0, m = lis[_length]; j < m; j += 1) {
+						for (j = 0, m = lis.length; j < m; j += 1) {
 							truncateKamilText(lis[j]);
 						}
 						j = m = null;
@@ -1983,7 +1947,7 @@ ToProgress, unescape, VK, Ya*/
 			var initScript = function () {
 				if (!kaml) {
 					kaml = true;
-					loadUnparsedJSON(jsonUrl, processJsonResponse);
+					loadJsonResponse(jsonUrl, processJsonResponse);
 				}
 			};
 			if (root.Kamil && searchForm && textInput) {
@@ -2002,7 +1966,7 @@ ToProgress, unescape, VK, Ya*/
 				btn.href = "javascript:void(0);";
 				/* jshint +W107 */
 				btn.title = "Наверх";
-				docBody[appendChild](btn);
+				docBody.appendChild(btn);
 			}
 			var handle = function (ev) {
 				ev.stopPropagation();

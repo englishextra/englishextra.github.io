@@ -88,19 +88,18 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
  */
 (function (root, document) {
 	"use strict";
-	var classList = "classList";
 	var hasClass;
 	var addClass;
 	var removeClass;
-	if (classList in document.documentElement) {
+	if ("classList" in document.documentElement) {
 		hasClass = function (el, name) {
-			return el[classList].contains(name);
+			return el.classList.contains(name);
 		};
 		addClass = function (el, name) {
-			el[classList].add(name);
+			el.classList.add(name);
 		};
 		removeClass = function (el, name) {
-			el[classList].remove(name);
+			el.classList.remove(name);
 		};
 	} else {
 		hasClass = function (el, name) {
@@ -144,19 +143,9 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 	"use strict";
 	var ToProgress = (function () {
 		var TP = function () {
-			var _addEventListener = "addEventListener";
-			var appendChild = "appendChild";
-			var firstChild = "firstChild";
-			var getElementById = "getElementById";
-			var getElementsByClassName = "getElementsByClassName";
-			var hasOwnProperty = "hasOwnProperty";
-			var opacity = "opacity";
-			var prototype = "prototype";
-			var _removeEventListener = "removeEventListener";
-			var style = "style";
 			function whichTransitionEvent() {
-				var t,
-				el = document.createElement("fakeelement");
+				var t;
+				var el = document.createElement("fakeelement");
 				var transitions = {
 					"transition": "transitionend",
 					"OTransition": "oTransitionEnd",
@@ -164,14 +153,15 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 					"WebkitTransition": "webkitTransitionEnd"
 				};
 				for (t in transitions) {
-					if (transitions[hasOwnProperty](t)) {
-						if (el[style][t] !== undefined) {
+					if (transitions.hasOwnProperty(t)) {
+						if (el.style[t] !== undefined) {
 							return transitions[t];
 						}
 					}
 				}
 				t = null;
 			}
+
 			var transitionEvent = whichTransitionEvent();
 			function ToProgress(opt, selector) {
 				this.progress = 0;
@@ -185,7 +175,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 				if (opt && typeof opt === "object") {
 					var key;
 					for (key in opt) {
-						if (opt[hasOwnProperty](key)) {
+						if (opt.hasOwnProperty(key)) {
 							this.options[key] = opt[key];
 						}
 					}
@@ -197,7 +187,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 				this.progressBar.setCSS = function (style) {
 					var property;
 					for (property in style) {
-						if (style[hasOwnProperty](property)) {
+						if (style.hasOwnProperty(property)) {
 							this.style[property] = style[property];
 						}
 					}
@@ -219,30 +209,30 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 				if (selector) {
 					var el;
 					if (selector.indexOf("#", 0) !== -1) {
-						el = document[getElementById](selector) || "";
+						el = document.getElementById(selector) || "";
 					} else {
 						if (selector.indexOf(".", 0) !== -1) {
-							el = document[getElementsByClassName](selector)[0] || "";
+							el = document.getElementsByClassName(selector)[0] || "";
 						}
 					}
 					if (el) {
 						if (el.hasChildNodes()) {
-							el.insertBefore(this.progressBar, el[firstChild]);
+							el.insertBefore(this.progressBar, el.firstChild);
 						} else {
-							el[appendChild](this.progressBar);
+							el.appendChild(this.progressBar);
 						}
 					}
 				} else {
-					document.body[appendChild](this.progressBar);
+					document.body.appendChild(this.progressBar);
 				}
 			}
-			ToProgress[prototype].transit = function () {
-				this.progressBar[style].width = this.progress + "%";
+			ToProgress.prototype.transit = function () {
+				this.progressBar.style.width = this.progress + "%";
 			};
-			ToProgress[prototype].getProgress = function () {
+			ToProgress.prototype.getProgress = function () {
 				return this.progress;
 			};
-			ToProgress[prototype].setProgress = function (progress, callback) {
+			ToProgress.prototype.setProgress = function (progress, callback) {
 				this.show();
 				if (progress > 100) {
 					this.progress = 100;
@@ -256,37 +246,37 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 					callback();
 				}
 			};
-			ToProgress[prototype].increase = function (toBeIncreasedProgress, callback) {
+			ToProgress.prototype.increase = function (toBeIncreasedProgress, callback) {
 				this.show();
 				this.setProgress(this.progress + toBeIncreasedProgress, callback);
 			};
-			ToProgress[prototype].decrease = function (toBeDecreasedProgress, callback) {
+			ToProgress.prototype.decrease = function (toBeDecreasedProgress, callback) {
 				this.show();
 				this.setProgress(this.progress - toBeDecreasedProgress, callback);
 			};
-			ToProgress[prototype].finish = function (callback) {
+			ToProgress.prototype.finish = function (callback) {
 				var that = this;
 				this.setProgress(100, callback);
 				this.hide();
 				if (transitionEvent) {
-					this.progressBar[_addEventListener](transitionEvent, function (e) {
+					this.progressBar.addEventListener(transitionEvent, function (e) {
 						that.reset();
-						that.progressBar[_removeEventListener](e.type, TP);
+						that.progressBar.removeEventListener(e.type, TP);
 					});
 				}
 			};
-			ToProgress[prototype].reset = function (callback) {
+			ToProgress.prototype.reset = function (callback) {
 				this.progress = 0;
 				this.transit();
 				if (callback) {
 					callback();
 				}
 			};
-			ToProgress[prototype].hide = function () {
-				this.progressBar[style][opacity] = "0";
+			ToProgress.prototype.hide = function () {
+				this.progressBar.style.opacity = "0";
 			};
-			ToProgress[prototype].show = function () {
-				this.progressBar[style][opacity] = "1";
+			ToProgress.prototype.show = function () {
+				this.progressBar.style.opacity = "1";
 			};
 			return ToProgress;
 		};
@@ -357,16 +347,13 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 (function (root, document) {
 	"use strict";
 	var doesFontExist = function (fontName) {
-		var getContext = "getContext";
-		var measureText = "measureText";
-		var width = "width";
 		var canvas = document.createElement("canvas");
-		var context = canvas[getContext]("2d");
+		var context = canvas.getContext("2d");
 		var text = "abcdefghijklmnopqrstuvwxyz0123456789";
 		context.font = "72px monospace";
-		var baselineSize = context[measureText](text)[width];
+		var baselineSize = context.measureText(text).width;
 		context.font = "72px '" + fontName + "', monospace";
-		var newSize = context[measureText](text)[width];
+		var newSize = context.measureText(text).width;
 		canvas = null;
 		if (newSize === baselineSize) {
 			return false;
@@ -385,16 +372,11 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 	"use strict";
 	var loadJsCss = function (files, callback, type) {
 		var _this = this;
-		var appendChild = "appendChild";
-		var body = "body";
-		var getElementsByTagName = "getElementsByTagName";
-		var setAttribute = "setAttribute";
-		var _length = "length";
 		_this.files = files;
 		_this.js = [];
-		_this.head = document[getElementsByTagName]("head")[0] || "";
-		_this.body = document[body] || "";
-		_this.ref = document[getElementsByTagName]("script")[0] || "";
+		_this.head = document.getElementsByTagName("head")[0] || "";
+		_this.body = document.body || "";
+		_this.ref = document.getElementsByTagName("script")[0] || "";
 		_this.callback = callback || function () {};
 		_this.type = type ? type.toLowerCase() : "";
 		_this.loadStyle = function (file) {
@@ -407,9 +389,9 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 				this.onload = null;
 				this.media = "all";
 			};
-			link[setAttribute]("property", "stylesheet");
-			/* _this.head[appendChild](link); */
-			(_this.body || _this.head)[appendChild](link);
+			link.setAttribute("property", "stylesheet");
+			/* _this.head.appendChild(link); */
+			(_this.body || _this.head).appendChild(link);
 		};
 		_this.loadScript = function (i) {
 			var script = document.createElement("script");
@@ -417,7 +399,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			script.async = true;
 			script.src = _this.js[i];
 			var loadNextScript = function () {
-				if (++i < _this.js[_length]) {
+				if (++i < _this.js.length) {
 					_this.loadScript(i);
 				} else {
 					_this.callback();
@@ -426,17 +408,17 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			script.onload = function () {
 				loadNextScript();
 			};
-			_this.head[appendChild](script);
-			/* if (_this.ref[parentNode]) {
-				_this.ref[parentNode][insertBefore](script, _this.ref);
+			_this.head.appendChild(script);
+			/* if (_this.ref.parentNode) {
+				_this.ref.parentNode[insertBefore](script, _this.ref);
 			} else {
-				(_this.body || _this.head)[appendChild](script);
+				(_this.body || _this.head).appendChild(script);
 			} */
-			(_this.body || _this.head)[appendChild](script);
+			(_this.body || _this.head).appendChild(script);
 		};
 		var i,
 		l;
-		for (i = 0, l = _this.files[_length]; i < l; i += 1) {
+		for (i = 0, l = _this.files.length; i < l; i += 1) {
 			if ((/\.js$|\.js\?/).test(_this.files[i]) || _this.type === "js") {
 				_this.js.push(_this.files[i]);
 			}
@@ -445,7 +427,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			}
 		}
 		i = l = null;
-		if (_this.js[_length] > 0) {
+		if (_this.js.length > 0) {
 			_this.loadScript(0);
 		} else {
 			_this.callback();
@@ -462,8 +444,6 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 	var docElem = document.documentElement || "";
 	var docImplem = document.implementation || "";
 	var docBody = document.body || "";
-
-	var _length = "length";
 
 	var progressBar = new ToProgress({
 			id: "top-progress-bar",
@@ -496,32 +476,12 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 
 	var forcedHTTP = getHTTP(true);
 
-	var supportsCanvas;
-	supportsCanvas = (function () {
+	/* var supportsCanvas = (function () {
 		var elem = document.createElement("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
-	})();
+	})(); */
 
 	var run = function () {
-
-		var appendChild = "appendChild";
-		var cloneNode = "cloneNode";
-		var createContextualFragment = "createContextualFragment";
-		var createDocumentFragment = "createDocumentFragment";
-		var createRange = "createRange";
-		var createTextNode = "createTextNode";
-		var dataset = "dataset";
-		var getAttribute = "getAttribute";
-		var getElementById = "getElementById";
-		var getElementsByTagName = "getElementsByTagName";
-		var innerHTML = "innerHTML";
-		var parentNode = "parentNode";
-		var remove = "remove";
-		var removeChild = "removeChild";
-		var replaceChild = "replaceChild";
-		var setAttribute = "setAttribute";
-		var style = "style";
-		var title = "title";
 
 		var isActiveClass = "is-active";
 
@@ -541,24 +501,24 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 		var earlyDeviceFormfactor = (function (selectors) {
 			var orientation;
 			var size;
-			var f = function (a) {
-				var b = a.split(" ");
+			var f = function (e) {
+				var b = e.split(" ");
 				if (selectors) {
 					var c;
-					for (c = 0; c < b[_length]; c += 1) {
-						a = b[c];
-						selectors.add(a);
+					for (c = 0; c < b.length; c += 1) {
+						e = b[c];
+						selectors.add(e);
 					}
 					c = null;
 				}
 			};
-			var g = function (a) {
-				var b = a.split(" ");
+			var g = function (e) {
+				var b = e.split(" ");
 				if (selectors) {
 					var c;
-					for (c = 0; c < b[_length]; c += 1) {
-						a = b[c];
-						selectors.remove(a);
+					for (c = 0; c < b.length; c += 1) {
+						e = b[c];
+						selectors.remove(e);
 					}
 					c = null;
 				}
@@ -669,8 +629,8 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			(earlyHasTouch ? " " + earlyHasTouch : "") +
 			"]";
 
-		if (document[title]) {
-			document[title] = document[title] + userBrowser;
+		if (document.title) {
+			document.title = document.title + userBrowser;
 		}
 
 		var debounce = function (func, wait) {
@@ -725,15 +685,15 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			};
 		};
 
-		var setStyleDisplayBlock = function (a) {
-			if (a) {
-				a[style].display = "block";
+		var setStyleDisplayBlock = function (e) {
+			if (e) {
+				e.style.display = "block";
 			}
 		};
 
-		var setStyleDisplayNone = function (a) {
-			if (a) {
-				a[style].display = "none";
+		var setStyleDisplayNone = function (e) {
+			if (e) {
+				e.style.display = "none";
 			}
 		};
 
@@ -773,14 +733,14 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 		};
 
 		var appendFragment = function (e, a) {
-			var parent = a || document[getElementsByTagName]("body")[0] || "";
+			var parent = a || document.getElementsByTagName("body")[0] || "";
 			if (e) {
-				var df = document[createDocumentFragment]() || "";
+				var df = document.createDocumentFragment() || "";
 				if ("string" === typeof e) {
-					e = document[createTextNode](e);
+					e = document.createTextNode(e);
 				}
-				df[appendChild](e);
-				parent[appendChild](df);
+				df.appendChild(e);
+				parent.appendChild(df);
 			}
 		};
 
@@ -899,7 +859,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 					if ("undefined" !== typeof require("nw.gui")) {
 						return true;
 					}
-				} catch (e) {
+				} catch (err) {
 					return false;
 				}
 			}
@@ -923,8 +883,8 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			} else if (isNwjs) {
 				onNwjs();
 			} else {
-				var locProtocol = root.location.protocol || "",
-				hasHTTP = locProtocol ? "http:" === locProtocol ? "http" : "https:" === locProtocol ? "https" : "" : "";
+				var locProtocol = root.location.protocol || "";
+				var hasHTTP = locProtocol ? "http:" === locProtocol ? "http" : "https:" === locProtocol ? "https" : "" : "";
 				if (hasHTTP) {
 					return true;
 				} else {
@@ -934,7 +894,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 		};
 
 		var manageExternalLinkAll = function () {
-			var link = document[getElementsByTagName]("a") || "";
+			var link = document.getElementsByTagName("a") || "";
 			var handle = function (url, ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
@@ -946,7 +906,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			var arrange = function (e) {
 				var externalLinkIsBindedClass = "external-link--is-binded";
 				if (!hasClass(e, externalLinkIsBindedClass)) {
-					var url = e[getAttribute]("href") || "";
+					var url = e.getAttribute("href") || "";
 					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
 						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
 						if ("undefined" !== typeof getHTTP && getHTTP()) {
@@ -962,7 +922,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			if (link) {
 				var i,
 				l;
-				for (i = 0, l = link[_length]; i < l; i += 1) {
+				for (i = 0, l = link.length; i < l; i += 1) {
 					arrange(link[i]);
 				}
 				i = l = null;
@@ -970,7 +930,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 		};
 		manageExternalLinkAll();
 
-		var loadUnparsedJSON = function (url, callback, onerror) {
+		var loadJsonResponse = function (url, callback, onerror) {
 			var cb = function (string) {
 				return callback && "function" === typeof callback && callback(string);
 			};
@@ -1003,7 +963,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 
 		var truncString = function (str, max, add) {
 			var _add = add || "\u2026";
-			return ("string" === typeof str && str[_length] > max ? str.substring(0, max) + _add : str);
+			return ("string" === typeof str && str.length > max ? str.substring(0, max) + _add : str);
 		};
 
 		var fixEnRuTypo = function (e, a, b) {
@@ -1016,7 +976,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 				b = '\u0430\u0431\u0432\u0433\u0434\u0435\u0451\u0436\u0437\u0438\u0439\u043a\u043b\u043c\u043d\u043e\u043f\u0440\u0441\u0442\u0443\u0444\u0445\u0446\u0447\u0448\u0449\u044a\u044c\u044b\u044d\u044e\u044f\u0410\u0411\u0412\u0413\u0414\u0415\u0401\u0416\u0417\u0418\u0419\u041a\u041b\u041c\u041d\u041e\u041f\u0420\u0421\u0422\u0423\u0424\u0425\u0426\u0427\u0428\u0429\u042a\u042c\u042b\u042d\u042e\u042f"\u2116;:?/.,';
 			}
 			var d;
-			for (d = 0; d < e[_length]; d += 1) {
+			for (d = 0; d < e.length; d += 1) {
 				var f = a.indexOf(e.charAt(d));
 				if (c > f) {
 					c += e.charAt(d);
@@ -1033,17 +993,17 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 				return callback && "function" === typeof callback && callback();
 			};
 			try {
-				var clonedContainer = container[cloneNode](false);
-				if (document[createRange]) {
-					var rg = document[createRange]();
+				var clonedContainer = container.cloneNode(false);
+				if (document.createRange) {
+					var rg = document.createRange();
 					rg.selectNode(docBody);
-					var df = rg[createContextualFragment](text);
-					clonedContainer[appendChild](df);
-					return container[parentNode] ? container[parentNode].replaceChild(clonedContainer, container) : container[innerHTML] = text,
+					var df = rg.createContextualFragment(text);
+					clonedContainer.appendChild(df);
+					return container.parentNode ? container.parentNode.replaceChild(clonedContainer, container) : container.innerHTML = text,
 					cb();
 				} else {
-					clonedContainer[innerHTML] = text;
-					return container[parentNode] ? container[parentNode].replaceChild(document[createDocumentFragment][appendChild](clonedContainer), container) : container[innerHTML] = text,
+					clonedContainer.innerHTML = text;
+					return container.parentNode ? container.parentNode.replaceChild(document.createDocumentFragment.appendChild(clonedContainer), container) : container.innerHTML = text,
 					cb();
 				}
 			} catch (e) {
@@ -1052,15 +1012,15 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			}
 		};
 
-	var removeElement = function (a) {
-		if (a) {
-			if ("undefined" !== typeof a[remove]) {
-				return a[remove]();
-			} else {
-				return a[parentNode] && a[parentNode][removeChild](a);
+		var removeElement = function (e) {
+			if (e) {
+				if ("undefined" !== typeof e.remove) {
+					return e.remove();
+				} else {
+					return e.parentNode && e.parentNode.removeChild(e);
+				}
 			}
-		}
-	};
+		};
 
 		var removeChildren = function (e) {
 			if (e && e.firstChild) {
@@ -1074,11 +1034,11 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			return full ? /^\#[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? true : false : /^[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? true : false;
 		};
 
-		var findPos = function (a) {
-			a = a.getBoundingClientRect();
+		var findPos = function (e) {
+			e = e.getBoundingClientRect();
 			return {
-				top: Math.round(a.top + (root.pageYOffset || docElem.scrollTop || docBody.scrollTop) - (docElem.clientTop || docBody.clientTop || 0)),
-				left: Math.round(a.left + (root.pageXOffset || docElem.scrollLeft || docBody.scrollLeft) - (docElem.clientLeft || docBody.clientLeft || 0))
+				top: Math.round(e.top + (root.pageYOffset || docElem.scrollTop || docBody.scrollTop) - (docElem.clientTop || docBody.clientTop || 0)),
+				left: Math.round(e.left + (root.pageXOffset || docElem.scrollLeft || docBody.scrollLeft) - (docElem.clientLeft || docBody.clientLeft || 0))
 			};
 		};
 
@@ -1086,7 +1046,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
-			var container = document[getElementById](id.replace(/^#/, "")) || "";
+			var container = document.getElementById(id.replace(/^#/, "")) || "";
 			var arrange = function () {
 				var x = root.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
 				x.overrideMimeType("text/html;charset=utf-8");
@@ -1099,17 +1059,17 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 					} else if (x.readyState === 4 && x.status === 200 && x.responseText) {
 						var frag = x.responseText;
 						try {
-							var clonedContainer = container[cloneNode](false);
-							if (document[createRange]) {
-								var rg = document[createRange]();
+							var clonedContainer = container.cloneNode(false);
+							if (document.createRange) {
+								var rg = document.createRange();
 								rg.selectNode(docBody);
-								var df = rg[createContextualFragment](frag);
-								clonedContainer[appendChild](df);
-								return container[parentNode] ? container[parentNode][replaceChild](clonedContainer, container) : container[innerHTML] = frag,
+								var df = rg.createContextualFragment(frag);
+								clonedContainer.appendChild(df);
+								return container.parentNode ? container.parentNode.replaceChild(clonedContainer, container) : container.innerHTML = frag,
 								cb();
 							} else {
-								clonedContainer[innerHTML] = frag;
-								return container[parentNode] ? container[parentNode][replaceChild](document[createDocumentFragment][appendChild](clonedContainer), container) : container[innerHTML] = frag,
+								clonedContainer.innerHTML = frag;
+								return container.parentNode ? container.parentNode.replaceChild(document.createDocumentFragment.appendChild(clonedContainer), container) : container.innerHTML = frag,
 								cb();
 							}
 						} catch (e) {
@@ -1188,17 +1148,17 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			addClass(msgContainer, messageClass);
 			var msgContent = settings.message || "";
 			if ("string" === typeof msgContent) {
-				msgContent = document[createTextNode](msgContent);
+				msgContent = document.createTextNode(msgContent);
 			}
-			msgContainer[appendChild](msgContent);
-			notibarContainer[appendChild](msgContainer);
+			msgContainer.appendChild(msgContent);
+			notibarContainer.appendChild(msgContainer);
 			/* var insertCancelSvg = function (targetObj) {
 				var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 				var use = document.createElementNS("http://www.w3.org/2000/svg", "use");
-				svg[setAttribute]("class", "ui-icon");
-				use[setAttributeNS]("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Cancel");
-				svg[appendChild](use);
-				targetObj[appendChild](svg);
+				svg.setAttribute("class", "ui-icon");
+				use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Cancel");
+				svg.appendChild(use);
+				targetObj.appendChild(svg);
 			}, */
 			var closeButton = document.createElement("a");
 			addClass(closeButton, closeButtonClass);
@@ -1226,7 +1186,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 				setCookie();
 			};
 			addListener(closeButton, "click", handleCloseButton);
-			notibarContainer[appendChild](closeButton);
+			notibarContainer.appendChild(closeButton);
 			if (docBody) {
 				appendFragment(notibarContainer, docBody);
 				removeClass(notibarContainer, fadeOutUpClass);
@@ -1259,7 +1219,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 				addClass(container, msgClass);
 			}
 			if ("string" === typeof msgObj) {
-				msgObj = document[createTextNode](msgObj);
+				msgObj = document.createTextNode(msgObj);
 			}
 			appendFragment(msgObj, container);
 			var clearContainer = function (cb) {
@@ -1314,7 +1274,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 					ev.stopPropagation();
 					ev.preventDefault();
 					removeListener(msgObj, "click", handleMsgObj);
-					var targetObj = document[getElementById]("disqus_thread") || "";
+					var targetObj = document.getElementById("disqus_thread") || "";
 					scroll2Top((targetObj ? findPos(targetObj).top : 0), 20000);
 				};
 				addListener(msgObj, "click", handleMsgObj);
@@ -1338,7 +1298,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			var container = getByClass(document, "container")[0] || "";
 			var overlay = getByClass(document, "page-overlay")[0] || "";
 			var panel = getByClass(document, "ui-sidepanel")[0] || "";
-			var items = panel ? panel[getElementsByTagName]("li") || "" : "";
+			var items = panel ? panel.getElementsByTagName("li") || "" : "";
 			var arrange = function () {
 				var handleOtherUIElementAll = function () {
 					if (hasClass(page, isActiveQRCodeClass)) {
@@ -1385,7 +1345,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 					};
 					var i,
 					l;
-					for (i = 0, l = items[_length]; i < l; i += 1) {
+					for (i = 0, l = items.length; i < l; i += 1) {
 						g(items[i]);
 					}
 					i = l = null;
@@ -1400,7 +1360,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 
 		var highlightSidepanelItem = function () {
 			var panel = getByClass(document, "ui-sidepanel-list")[0] || "";
-			var items = panel ? panel[getElementsByTagName]("a") || "" : "";
+			var items = panel ? panel.getElementsByTagName("a") || "" : "";
 			var locHref = root.location.href || "";
 			var addItemHandler = function (e) {
 				if (locHref === e.href) {
@@ -1412,7 +1372,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			var addItemHandlerAll = function () {
 				var i,
 				l;
-				for (i = 0, l = items[_length]; i < l; i += 1) {
+				for (i = 0, l = items.length; i < l; i += 1) {
 					addItemHandler(items[i]);
 				}
 				i = l = null;
@@ -1428,7 +1388,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			var btn = getByClass(document, "btn-toggle-ui-menumore")[0] || "";
 			var page = getByClass(document, "page")[0] || "";
 			var holder = getByClass(document, "ui-menumore")[0] || "";
-			var items = holder ? holder[getElementsByTagName]("li") || "" : "";
+			var items = holder ? holder.getElementsByTagName("li") || "" : "";
 			var arrange = function () {
 				var handleOtherUIElementAll = function () {
 					if (hasClass(page, isActiveQRCodeClass)) {
@@ -1463,7 +1423,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 					};
 					var i,
 					l;
-					for (i = 0, l = items[_length]; i < l; i += 1) {
+					for (i = 0, l = items.length; i < l; i += 1) {
 						addItemHandler(items[i]);
 					}
 					i = l = null;
@@ -1489,7 +1449,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 				return callback && "function" === typeof callback && callback();
 			};
 			var images = getByClass(document, dataSrcImgClass) || "";
-			var i = images[_length];
+			var i = images.length;
 			while (i--) {
 				if (!hasClass(images[i], dataSrcImgIsBindedClass)) {
 					addClass(images[i], dataSrcImgIsBindedClass);
@@ -1522,18 +1482,18 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 				return callback && "function" === typeof callback && callback();
 			};
 			var iframes = getByClass(document, dataSrcIframeClass) || "";
-			var i = iframes[_length];
+			var i = iframes.length;
 			while (i--) {
 				if (!hasClass(iframes[i], dataSrcIframeIsBindedClass)) {
 					addClass(iframes[i], dataSrcIframeIsBindedClass);
 					addClass(iframes[i], isActiveClass);
 					addListener(iframes[i], "load", cb);
-					iframes[i][setAttribute]("frameborder", "no");
-					iframes[i][setAttribute]("style", "border:none;");
-					iframes[i][setAttribute]("webkitallowfullscreen", "true");
-					iframes[i][setAttribute]("mozallowfullscreen", "true");
-					iframes[i][setAttribute]("scrolling", "no");
-					iframes[i][setAttribute]("allowfullscreen", "true");
+					iframes[i].setAttribute("frameborder", "no");
+					iframes[i].setAttribute("style", "border:none;");
+					iframes[i].setAttribute("webkitallowfullscreen", "true");
+					iframes[i].setAttribute("mozallowfullscreen", "true");
+					iframes[i].setAttribute("scrolling", "no");
+					iframes[i].setAttribute("allowfullscreen", "true");
 				}
 			}
 			i = null;
@@ -1598,7 +1558,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 				};
 				var i,
 				l;
-				for (i = 0, l = link[_length]; i < l; i += 1) {
+				for (i = 0, l = link.length; i < l; i += 1) {
 					arrange(link[i]);
 				}
 				i = l = null;
@@ -1612,7 +1572,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 		var manageDataQrcodeImgAll = function () {
 			var img = getByClass(document, "data-qrcode-img") || "";
 			var generateImg = function (e) {
-				var qrcode = e[dataset].qrcode || "";
+				var qrcode = e.dataset.qrcode || "";
 				qrcode = decodeURIComponent(qrcode);
 				if (qrcode) {
 					var imgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(qrcode);
@@ -1650,7 +1610,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			var initScript = function () {
 				var i,
 				l;
-				for (i = 0, l = img[_length]; i < l; i += 1) {
+				for (i = 0, l = img.length; i < l; i += 1) {
 					generateImg(img[i]);
 				}
 				i = l = null;
@@ -1663,12 +1623,12 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 		/* addListener(root, "load", manageDataQrcodeImgAll); */
 
 		var manageChaptersSelect = function () {
-			var chaptersSelect = document[getElementById]("chapters-select") || "";
+			var chaptersSelect = document.getElementById("chapters-select") || "";
 			var handle = function () {
 				var _this = this;
 				var hashString = _this.options[_this.selectedIndex].value || "";
 				if (hashString) {
-					var targetObj = hashString ? (isValidId(hashString, true) ? document[getElementById](hashString.replace(/^#/,"")) || "" : "") : "";
+					var targetObj = hashString ? (isValidId(hashString, true) ? document.getElementById(hashString.replace(/^#/,"")) || "" : "") : "";
 					if (targetObj) {
 						scroll2Top((targetObj ? findPos(targetObj).top : 0), 20000);
 					} else {
@@ -1682,7 +1642,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 		};
 
 		var manageSearchInput = function () {
-			var searchInput = document[getElementById]("text") || "";
+			var searchInput = document.getElementById("text") || "";
 			var handle = function () {
 				var _this = this;
 				var logic = function () {
@@ -1701,7 +1661,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			var btn = getByClass(document, "btn-expand-hidden-layer") || "";
 			var handle = function () {
 				var _this = this;
-				var layer = _this[parentNode] ? _this[parentNode].nextElementSibling : "";
+				var layer = _this.parentNode ? _this.parentNode.nextElementSibling : "";
 				if (layer) {
 					toggleClass(_this, isActiveClass);
 					toggleClass(layer, isActiveClass);
@@ -1714,7 +1674,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			if (btn) {
 				var i,
 				l;
-				for (i = 0, l = btn[_length]; i < l; i += 1) {
+				for (i = 0, l = btn.length; i < l; i += 1) {
 					addHandler(btn[i]);
 				}
 				i = l = null;
@@ -1722,12 +1682,12 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 		};
 
 		var includeHTMLintoTarget = function (_this, u, t) {
-			var container = document[getElementById](t.replace(/^#/,""))||"" || "";
-			var containerParent = container[parentNode] || "";
+			var container = document.getElementById(t.replace(/^#/,""))||"" || "";
+			var containerParent = container.parentNode || "";
 			var arrangeContainer = function () {
 				var hideBtn = function () {
-					if (_this[parentNode]) {
-						setStyleDisplayNone(_this[parentNode]);
+					if (_this.parentNode) {
+						setStyleDisplayNone(_this.parentNode);
 					} else {
 						setStyleDisplayNone(_this);
 					}
@@ -1768,8 +1728,8 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			var link = getByClass(document, "data-target-link") || "";
 			var arrangeAll = function () {
 				var arrange = function (e) {
-					var includeUrl = e[dataset].include || "",
-					targetElement = e[dataset].target || "";
+					var includeUrl = e.dataset.include || "",
+					targetElement = e.dataset.target || "";
 					if (includeUrl && targetElement) {
 						e.title = "Появится здесь же";
 						var h_e = function (ev) {
@@ -1783,7 +1743,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 				};
 				var i,
 				l;
-				for (i = 0, l = link[_length]; i < l; i += 1) {
+				for (i = 0, l = link.length; i < l; i += 1) {
 					arrange(link[i]);
 				}
 				i = l = null;
@@ -1794,8 +1754,8 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 		};
 
 		var manageDebugGridButton = function () {
-			var container = document[getElementById]("container") || "";
-			var page = document[getElementById]("page") || "";
+			var container = document.getElementById("container") || "";
+			var page = document.getElementById("page") || "";
 			var btn = getByClass(document, "btn-toggle-col-debug")[0] || "";
 			var debugClass = "debug";
 			var cookieKey = "_manageDebugGridButton_";
@@ -1817,7 +1777,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 				};
 				var i,
 				l;
-				for (i = 0, l = elements[_length]; i < l; i += 1) {
+				for (i = 0, l = elements.length; i < l; i += 1) {
 					renderElementsInfo(elements[i]);
 				}
 				i = l = null;
@@ -1942,7 +1902,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 		var manageShareButtons = function () {
 			var btn = getByClass(document, "btn-toggle-holder-share-buttons")[0] || "";
 			var yaShare2Id = "ya-share2";
-			var yaShare2 = document[getElementById](yaShare2Id) || "";
+			var yaShare2 = document.getElementById(yaShare2Id) || "";
 			var page = getByClass(document, "page")[0] || "";
 			var holder = getByClass(document, "holder-share-buttons")[0] || "";
 			var handle = function (ev) {
@@ -2005,7 +1965,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			var btn = getByClass(document, "btn-toggle-holder-vk-like")[0] || "";
 			var page = getByClass(document, "page")[0] || "";
 			var vkLikeId = "vk-like";
-			var vkLike = document[getElementById](vkLikeId) || "";
+			var vkLike = document.getElementById(vkLikeId) || "";
 			var handle = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
@@ -2026,7 +1986,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 					if (!vlike) {
 						try {
 							VK.init({
-								apiId: (vkLike[dataset].apiid || ""),
+								apiId: (vkLike.dataset.apiid || ""),
 								nameTransportPath: "/xd_receiver.htm",
 								onlyWidgets: true
 							});
@@ -2059,10 +2019,10 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 		manageVKLikeButton();
 
 		var loadRefreshDisqus = function () {
-			var disqusThread = document[getElementById]("disqus_thread") || "";
+			var disqusThread = document.getElementById("disqus_thread") || "";
 			var btn = getByClass(document, "btn-show-disqus")[0] || "";
 			var locHref = root.location.href || "";
-			var shortname = disqusThread ? (disqusThread[dataset].shortname || "") : "";
+			var shortname = disqusThread ? (disqusThread.dataset.shortname || "") : "";
 			var initScript = function () {
 				try {
 					DISQUS.reset({
@@ -2089,15 +2049,15 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 					}
 				} else {
 					removeChildren(disqusThread);
-					var msgText = document[createRange]().createContextualFragment("<p>Комментарии доступны только в веб версии этой страницы.</p>");
+					var msgText = document.createRange().createContextualFragment("<p>Комментарии доступны только в веб версии этой страницы.</p>");
 					appendFragment(msgText, disqusThread);
 					disqusThread.removeAttribute("id");
-					setStyleDisplayNone(btn[parentNode]);
+					setStyleDisplayNone(btn.parentNode);
 				}
 			}
 		};
 		var manageDisqusButton = function () {
-			var disqusThread = document[getElementById]("disqus_thread") || "";
+			var disqusThread = document.getElementById("disqus_thread") || "";
 			var btn = disqusThread ? (getByClass(document, "btn-show-disqus")[0] || "") : "";
 			var handleManageDisqusButton = function (ev) {
 				ev.stopPropagation();
@@ -2112,11 +2072,11 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 
 		var mymap;
 		var initYandexMap = function (yandexMapId) {
-			var yandexMap = document[getElementById](yandexMapId) || "";
-			var btnShow = yandexMap ? (document[getElementById](yandexMap[dataset].btnShow) || "") : "";
-			var btnDestroy = yandexMap ? (document[getElementById](yandexMap[dataset].btnDestroy) || "") : "";
-			var yandexMapCenter = yandexMap ? (yandexMap[dataset].center || "") : "";
-			var yandexMapZoom = yandexMap ? (yandexMap[dataset].zoom || "") : "";
+			var yandexMap = document.getElementById(yandexMapId) || "";
+			var btnShow = yandexMap ? (document.getElementById(yandexMap.dataset.btnShow) || "") : "";
+			var btnDestroy = yandexMap ? (document.getElementById(yandexMap.dataset.btnDestroy) || "") : "";
+			var yandexMapCenter = yandexMap ? (yandexMap.dataset.center || "") : "";
+			var yandexMapZoom = yandexMap ? (yandexMap.dataset.zoom || "") : "";
 			var handleYandexMapBtnDestroy = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
@@ -2137,7 +2097,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 				};
 				try {
 					ymaps.ready(initMyMap);
-					addClass(yandexMap[parentNode], isActiveClass);
+					addClass(yandexMap.parentNode, isActiveClass);
 					setStyleDisplayNone(btnShow);
 				} catch (err) {
 					console.log("cannot init ymaps", err);
@@ -2157,16 +2117,16 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 					}
 				} else {
 					removeChildren(yandexMap);
-					var msgText = document[createRange]().createContextualFragment("<p>Карты доступны только в веб версии этой страницы.</p>");
+					var msgText = document.createRange().createContextualFragment("<p>Карты доступны только в веб версии этой страницы.</p>");
 					appendFragment(msgText, yandexMap);
 					yandexMap.removeAttribute("id");
-					setStyleDisplayNone(btnShow[parentNode]);
+					setStyleDisplayNone(btnShow.parentNode);
 				}
 			}
 		};
 		var manageYandexMapButton = function (yandexMapId) {
-			var yandexMap = document[getElementById](yandexMapId) || "";
-			var btnShow = yandexMap ? (document[getElementById](yandexMap[dataset].btnShow) || "") : "";
+			var yandexMap = document.getElementById(yandexMapId) || "";
+			var btnShow = yandexMap ? (document.getElementById(yandexMap.dataset.btnShow) || "") : "";
 			var handleBtnShow = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
@@ -2182,8 +2142,8 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 		var manageKamil = function () {
 			var searchForm = getByClass(document, "search-form")[0] || "";
 			var textInputSelector = "#text";
-			var textInput = document[getElementById]("text") || "";
-			var container = document[getElementById]("container") || "";
+			var textInput = document.getElementById("text") || "";
+			var container = document.getElementById("container") || "";
 			var suggestionUlId = "kamil-typo-autocomplete";
 			var suggestionUlClass = "kamil-autocomplete";
 			var jsonUrl = "../app/libs/pwa-englishextra/json/routes.json";
@@ -2219,14 +2179,14 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 				addClass(suggestionUl, suggestionUlClass);
 				suggestionUl.id = suggestionUlId;
 				handleTypoSuggestion();
-				suggestionUl[appendChild](suggestionLi);
-				textInput[parentNode].insertBefore(suggestionUl, textInput.nextElementSibling);
+				suggestionUl.appendChild(suggestionLi);
+				textInput.parentNode.insertBefore(suggestionUl, textInput.nextElementSibling);
 				/*!
 				 * show suggestions
 				 */
 				ac.renderMenu = function (ul, stance) {
 					var items = stance || "";
-					var itemsLength = items[_length];
+					var itemsLength = items.length;
 					var _this = this;
 					/*!
 					 * limit output
@@ -2255,11 +2215,11 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 						}
 						showTypoSuggestion();
 						removeChildren(suggestionLi);
-						suggestionLi[appendChild](document[createTextNode]("" + textValue));
+						suggestionLi.appendChild(document.createTextNode("" + textValue));
 						if (textValue.match(/^\s*$/)) {
 							handleTypoSuggestion();
 						}
-						if (textInput.value[_length] < 3 || textInput.value.match(/^\s*$/)) {
+						if (textInput.value.length < 3 || textInput.value.match(/^\s*$/)) {
 							handleTypoSuggestion();
 						}
 						itemsLength += 1;
@@ -2267,17 +2227,17 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 					/*!
 					 * truncate text
 					 */
-					var lis = ul ? ul[getElementsByTagName]("li") || "" : "";
+					var lis = ul ? ul.getElementsByTagName("li") || "" : "";
 					var truncateKamilText = function (e) {
 						var truncText = e.firstChild.textContent || "";
-						var truncTextObj = document[createTextNode](truncString(truncText, 24));
+						var truncTextObj = document.createTextNode(truncString(truncText, 24));
 						e.replaceChild(truncTextObj, e.firstChild);
 						e.title = "" + truncText;
 					};
 					if (lis) {
 						var j,
 						m;
-						for (j = 0, m = lis[_length]; j < m; j += 1) {
+						for (j = 0, m = lis.length; j < m; j += 1) {
 							truncateKamilText(lis[j]);
 						}
 						j = m = null;
@@ -2326,7 +2286,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 				});
 			};
 			var initScript = function () {
-				loadUnparsedJSON(jsonUrl, processJsonResponse);
+				loadJsonResponse(jsonUrl, processJsonResponse);
 			};
 			if (root.Kamil && searchForm && textInput) {
 				initScript();
@@ -2336,7 +2296,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 
 		var initRoutie = function () {
 			var appContentId = "app-content";
-			var appContent = document[getElementById](appContentId) || "";
+			var appContent = document.getElementById(appContentId) || "";
 			var loadVirtualPage = function (c, h, f) {
 				if (c && h) {
 					LoadingSpinner.show();
@@ -2366,8 +2326,8 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 				LoadingSpinner.hide(scroll2Top.bind(null, 0, 20000));
 			};
 			var loadNotFoundPage = function (containerClass) {
-				var container = document[getElementById](containerClass) || "";
-				var msgText = document[createRange]().createContextualFragment('<div class="padded-content"><div class="col"><div class="row"><div class="column small-12 medium-12 large-12"><p>Нет такой страницы. <a href="#/home">Исправить?</a></p></div></div></div></div>');
+				var container = document.getElementById(containerClass) || "";
+				var msgText = document.createRange().createContextualFragment('<div class="padded-content"><div class="col"><div class="row"><div class="column small-12 medium-12 large-12"><p>Нет такой страницы. <a href="#/home">Исправить?</a></p></div></div></div></div>');
 				if (container) {
 					LoadingSpinner.show();
 					removeChildren(container);
@@ -2450,7 +2410,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 				btn.href = "javascript:void(0);";
 				/* jshint +W107 */
 				btn.title = "Наверх";
-				docBody[appendChild](btn);
+				docBody.appendChild(btn);
 			}
 			var handle = function (ev) {
 				ev.stopPropagation();
