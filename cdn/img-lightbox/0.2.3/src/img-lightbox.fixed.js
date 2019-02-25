@@ -56,13 +56,13 @@
 		var caller = func.bind(this);
 		caller(data);
 	};
-		var setStyleDisplayBlock = function (e) {
+		var setDisplayBlock = function (e) {
 			if (e) {
 				e.style.display = "block";
 			}
 		};
 
-		var setStyleDisplayNone = function (e) {
+		var setDisplayNone = function (e) {
 			if (e) {
 				e.style.display = "none";
 			}
@@ -82,7 +82,7 @@
 					container.classList.remove(isLoadedClass);
 				};
 				img.src = dummySrc;
-				setStyleDisplayNone(container);
+				setDisplayNone(container);
 				callCallback(callback, root);
 			};
 			var timer = setTimeout(function () {
@@ -172,7 +172,7 @@
 						}
 					};
 					img.src = hrefString;
-					setStyleDisplayBlock(container);
+					setDisplayBlock(container);
 				};
 				debounce(logic, rate).call();
 			};

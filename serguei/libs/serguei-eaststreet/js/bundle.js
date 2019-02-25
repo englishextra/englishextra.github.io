@@ -114,17 +114,16 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			el.className = el.className.replace(new RegExp("\\b" + name + "\\b", "g"), "");
 		};
 	}
-	var toggleClass = function (el, name) {
+	root.hasClass = hasClass;
+	root.addClass = addClass;
+	root.removeClass = removeClass;
+	root.toggleClass = function (el, name) {
 		if (hasClass(el, name)) {
 			removeClass(el, name);
 		} else {
 			addClass(el, name);
 		}
 	};
-	root.hasClass = hasClass;
-	root.addClass = addClass;
-	root.removeClass = removeClass;
-	root.toggleClass = toggleClass;
 })("undefined" !== typeof window ? window : this, document);
 /*!
  * modified ToProgress v0.1.1
@@ -461,6 +460,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 	progressBar.increase(20);
 
 	var toStringFn = {}.toString;
+
 	var supportsSvgSmilAnimation = !!document.createElementNS &&
 		(/SVGAnimate/).test(toStringFn.call(document.createElementNS("http://www.w3.org/2000/svg", "animate"))) || "";
 
@@ -685,13 +685,13 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			};
 		};
 
-		var setStyleDisplayBlock = function (e) {
+		var setDisplayBlock = function (e) {
 			if (e) {
 				e.style.display = "block";
 			}
 		};
 
-		var setStyleDisplayNone = function (e) {
+		var setDisplayNone = function (e) {
 			if (e) {
 				e.style.display = "none";
 			}
@@ -834,6 +834,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 		/*jshint bitwise: true */
 
 		var isNodejs = "undefined" !== typeof process && "undefined" !== typeof require || "";
+
 		var isElectron = (function () {
 			if (typeof root !== "undefined" &&
 				typeof root.process === "object" &&
@@ -853,6 +854,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			}
 			return false;
 		})();
+
 		var isNwjs = (function () {
 			if ("undefined" !== typeof isNodejs && isNodejs) {
 				try {
@@ -1362,7 +1364,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			var panel = getByClass(document, "ui-sidepanel-list")[0] || "";
 			var items = panel ? panel.getElementsByTagName("a") || "" : "";
 			var locHref = root.location.href || "";
-			var addItemHandler = function (e) {
+			var arrange = function (e) {
 				if (locHref === e.href) {
 					addClass(e, isActiveClass);
 				} else {
@@ -1373,7 +1375,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 				var i,
 				l;
 				for (i = 0, l = items.length; i < l; i += 1) {
-					addItemHandler(items[i]);
+					arrange(items[i]);
 				}
 				i = l = null;
 			};
@@ -1687,9 +1689,9 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			var arrangeContainer = function () {
 				var hideBtn = function () {
 					if (_this.parentNode) {
-						setStyleDisplayNone(_this.parentNode);
+						setDisplayNone(_this.parentNode);
 					} else {
-						setStyleDisplayNone(_this);
+						setDisplayNone(_this);
 					}
 				};
 				var processResponse = function (t) {
@@ -1711,7 +1713,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 				};
 				var hideAllOnError = function () {
 					hideBtn();
-					setStyleDisplayNone(container);
+					setDisplayNone(container);
 				};
 				loadExternalHTML(u, function (r) {
 					processResponse(r);
@@ -1807,7 +1809,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 				if (locHref && parseLink(locHref).hasHTTP && (/^(localhost|127.0.0.1)/).test(parseLink(locHref).hostname)) {
 					addListener(btn, "click", handleDebugGridButton);
 				} else {
-					setStyleDisplayNone(btn);
+					setDisplayNone(btn);
 				}
 			}
 		};
@@ -2039,7 +2041,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			if (btn && disqusThread && shortname && locHref) {
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					addClass(disqusThread, isActiveClass);
-					setStyleDisplayNone(btn);
+					setDisplayNone(btn);
 					if (!root.DISQUS) {
 						var jsUrl = forcedHTTP + "://" + shortname + ".disqus.com/embed.js";
 						var load;
@@ -2052,7 +2054,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 					var msgText = document.createRange().createContextualFragment("<p>Комментарии доступны только в веб версии этой страницы.</p>");
 					appendFragment(msgText, disqusThread);
 					disqusThread.removeAttribute("id");
-					setStyleDisplayNone(btn.parentNode);
+					setDisplayNone(btn.parentNode);
 				}
 			}
 		};
@@ -2098,7 +2100,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 				try {
 					ymaps.ready(initMyMap);
 					addClass(yandexMap.parentNode, isActiveClass);
-					setStyleDisplayNone(btnShow);
+					setDisplayNone(btnShow);
 				} catch (err) {
 					console.log("cannot init ymaps", err);
 				}
@@ -2120,7 +2122,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 					var msgText = document.createRange().createContextualFragment("<p>Карты доступны только в веб версии этой страницы.</p>");
 					appendFragment(msgText, yandexMap);
 					yandexMap.removeAttribute("id");
-					setStyleDisplayNone(btnShow.parentNode);
+					setDisplayNone(btnShow.parentNode);
 				}
 			}
 		};
@@ -2169,12 +2171,12 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 				var suggestionUl = document.createElement("ul");
 				var suggestionLi = document.createElement("li");
 				var handleTypoSuggestion = function () {
-					setStyleDisplayNone(suggestionUl);
-					setStyleDisplayNone(suggestionLi);
+					setDisplayNone(suggestionUl);
+					setDisplayNone(suggestionLi);
 				};
 				var showTypoSuggestion = function () {
-					setStyleDisplayBlock(suggestionUl);
-					setStyleDisplayBlock(suggestionLi);
+					setDisplayBlock(suggestionUl);
+					setDisplayBlock(suggestionLi);
 				};
 				addClass(suggestionUl, suggestionUlClass);
 				suggestionUl.id = suggestionUlId;
@@ -2254,7 +2256,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 					 */
 					textInput.focus();
 					textInput.value = suggestionLi.firstChild.textContent || "";
-					setStyleDisplayNone(suggestionUl);
+					setDisplayNone(suggestionUl);
 				};
 				addListener(suggestionLi, "click", handleSuggestionLi);
 				/*!
@@ -2500,8 +2502,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			var load;
 			load = new loadJsCss(scripts, run);
 		};
-		var check;
-		check = function () {
+		var check = function () {
 			if (doesFontExist(bodyFontFamily)) {
 				init();
 			}

@@ -113,17 +113,16 @@ VK, WheelIndicator, Ya*/
 			el.className = el.className.replace(new RegExp("\\b" + name + "\\b", "g"), "");
 		};
 	}
-	var toggleClass = function (el, name) {
+	root.hasClass = hasClass;
+	root.addClass = addClass;
+	root.removeClass = removeClass;
+	root.toggleClass = function (el, name) {
 		if (hasClass(el, name)) {
 			removeClass(el, name);
 		} else {
 			addClass(el, name);
 		}
 	};
-	root.hasClass = hasClass;
-	root.addClass = addClass;
-	root.removeClass = removeClass;
-	root.toggleClass = toggleClass;
 })("undefined" !== typeof window ? window : this, document);
 /*!
  * modified ToProgress v0.1.1
@@ -404,6 +403,7 @@ VK, WheelIndicator, Ya*/
 	};
 
 	var toStringFn = {}.toString;
+
 	var supportsSvgSmilAnimation = !!document.createElementNS &&
 		(/SVGAnimate/).test(toStringFn.call(document.createElementNS("http://www.w3.org/2000/svg", "animate"))) || "";
 
@@ -443,13 +443,13 @@ VK, WheelIndicator, Ya*/
 			}
 		};
 
-		var setStyleDisplayBlock = function (e) {
+		var setDisplayBlock = function (e) {
 			if (e) {
 				e.style.display = "block";
 			}
 		};
 
-		var setStyleDisplayNone = function (e) {
+		var setDisplayNone = function (e) {
 			if (e) {
 				e.style.display = "none";
 			}
@@ -554,7 +554,7 @@ VK, WheelIndicator, Ya*/
 		if (canvasObj.parentNode) {
 			canvasObj.parentNode.insertBefore(img, canvasObj.nextSibling);
 		}
-		setStyleDisplayNone(canvasObj);
+		setDisplayNone(canvasObj);
 	};
 
 	var canvasAll = document.getElementsByTagName("canvas") || "";
@@ -736,6 +736,7 @@ VK, WheelIndicator, Ya*/
 		/*jshint bitwise: true */
 
 		var isNodejs = "undefined" !== typeof process && "undefined" !== typeof require || "";
+
 		var isElectron = (function () {
 			if (typeof root !== "undefined" &&
 				typeof root.process === "object" &&
@@ -755,6 +756,7 @@ VK, WheelIndicator, Ya*/
 			}
 			return false;
 		})();
+
 		var isNwjs = (function () {
 			if ("undefined" !== typeof isNodejs && isNodejs) {
 				try {
@@ -955,12 +957,12 @@ VK, WheelIndicator, Ya*/
 			if (start) {
 				removeClass(start, bounceOutDownClass);
 				addClass(start, bounceInUpClass);
-				setStyleDisplayBlock(start);
+				setDisplayBlock(start);
 			}
 			if (hand) {
 				removeClass(hand, bounceOutDownClass);
 				addClass(hand, bounceInUpClass);
-				setStyleDisplayBlock(hand);
+				setDisplayBlock(hand);
 			}
 			if (guesture) {
 				addClass(guesture, bounceOutUpClass);
@@ -980,8 +982,8 @@ VK, WheelIndicator, Ya*/
 			var hideStart = function () {
 				clearTimeout(timer);
 				timer = null;
-				setStyleDisplayNone(start);
-				setStyleDisplayNone(hand);
+				setDisplayNone(start);
+				setDisplayNone(hand);
 			};
 			timer = setTimeout(hideStart, 1000);
 		};
@@ -990,14 +992,14 @@ VK, WheelIndicator, Ya*/
 		var swipeup = getByClass(document, "swipeup")[0] || "";
 		if (mousewheeldown && swipeup) {
 			if (hasTouch) {
-				setStyleDisplayNone(mousewheeldown);
+				setDisplayNone(mousewheeldown);
 				if (root.tocca) {
 					addListener(document, "swipeup", revealStart, {passive: true});
 					addListener(document, "swipedown", concealStart, {passive: true});
 				}
 			} else {
 				if (hasWheel) {
-					setStyleDisplayNone(swipeup);
+					setDisplayNone(swipeup);
 					if (root.WheelIndicator) {
 						var indicator;
 						indicator = new WheelIndicator({
@@ -1017,7 +1019,7 @@ VK, WheelIndicator, Ya*/
 			}
 			if (hasTouch || hasWheel) {
 				addClass(guesture, bounceInUpClass);
-				setStyleDisplayBlock(guesture);
+				setDisplayBlock(guesture);
 			}
 		}
 
@@ -1085,7 +1087,7 @@ VK, WheelIndicator, Ya*/
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					addListener(btn, "click", handle);
 				} else {
-					setStyleDisplayNone(btn);
+					setDisplayNone(btn);
 				}
 			}
 		};
@@ -1135,7 +1137,7 @@ VK, WheelIndicator, Ya*/
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					addListener(btn, "click", handle);
 				} else {
-					setStyleDisplayNone(btn);
+					setDisplayNone(btn);
 				}
 			}
 		};
@@ -1201,8 +1203,7 @@ VK, WheelIndicator, Ya*/
 			var load;
 			load = new loadJsCss(scripts, run);
 		};
-		var check;
-		check = function () {
+		var check = function () {
 			if (doesFontExist(bodyFontFamily)) {
 				init();
 			}

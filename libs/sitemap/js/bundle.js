@@ -113,17 +113,16 @@ Promise, require, ToProgress*/
 			el.className = el.className.replace(new RegExp("\\b" + name + "\\b", "g"), "");
 		};
 	}
-	var toggleClass = function (el, name) {
+	root.hasClass = hasClass;
+	root.addClass = addClass;
+	root.removeClass = removeClass;
+	root.toggleClass = function (el, name) {
 		if (hasClass(el, name)) {
 			removeClass(el, name);
 		} else {
 			addClass(el, name);
 		}
 	};
-	root.hasClass = hasClass;
-	root.addClass = addClass;
-	root.removeClass = removeClass;
-	root.toggleClass = toggleClass;
 })("undefined" !== typeof window ? window : this, document);
 /*!
  * modified ToProgress v0.1.1
@@ -460,6 +459,7 @@ Promise, require, ToProgress*/
 	progressBar.increase(20);
 
 	var toStringFn = {}.toString;
+
 	var supportsSvgSmilAnimation = !!document.createElementNS &&
 		(/SVGAnimate/).test(toStringFn.call(document.createElementNS("http://www.w3.org/2000/svg", "animate"))) || "";
 
@@ -773,6 +773,7 @@ Promise, require, ToProgress*/
 		/*jshint bitwise: true */
 
 		var isNodejs = "undefined" !== typeof process && "undefined" !== typeof require || "";
+
 		var isElectron = (function () {
 			if (typeof root !== "undefined" &&
 				typeof root.process === "object" &&
@@ -792,6 +793,7 @@ Promise, require, ToProgress*/
 			}
 			return false;
 		})();
+
 		var isNwjs = (function () {
 			if ("undefined" !== typeof isNodejs && isNodejs) {
 				try {
@@ -1226,8 +1228,7 @@ Promise, require, ToProgress*/
 			var load;
 			load = new loadJsCss(scripts, run);
 		};
-		var check;
-		check = function () {
+		var check = function () {
 			if (doesFontExist(bodyFontFamily)) {
 				init();
 			}

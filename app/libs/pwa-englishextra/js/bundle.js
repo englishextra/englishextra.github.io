@@ -115,17 +115,16 @@ VK, Ya*/
 			el.className = el.className.replace(new RegExp("\\b" + name + "\\b", "g"), "");
 		};
 	}
-	var toggleClass = function (el, name) {
+	root.hasClass = hasClass;
+	root.addClass = addClass;
+	root.removeClass = removeClass;
+	root.toggleClass = function (el, name) {
 		if (hasClass(el, name)) {
 			removeClass(el, name);
 		} else {
 			addClass(el, name);
 		}
 	};
-	root.hasClass = hasClass;
-	root.addClass = addClass;
-	root.removeClass = removeClass;
-	root.toggleClass = toggleClass;
 })("undefined" !== typeof window ? window : this, document);
 /*!
  * modified ToProgress v0.1.1
@@ -515,6 +514,7 @@ VK, Ya*/
 	progressBar.increase(20);
 
 	var toStringFn = {}.toString;
+
 	var supportsSvgSmilAnimation = !!document.createElementNS &&
 		(/SVGAnimate/).test(toStringFn.call(document.createElementNS("http://www.w3.org/2000/svg", "animate"))) || "";
 
@@ -737,13 +737,13 @@ VK, Ya*/
 			};
 		};
 
-		var setStyleDisplayBlock = function (e) {
+		var setDisplayBlock = function (e) {
 			if (e) {
 				e.style.display = "block";
 			}
 		};
 
-		var setStyleDisplayNone = function (e) {
+		var setDisplayNone = function (e) {
 			if (e) {
 				e.style.display = "none";
 			}
@@ -886,6 +886,7 @@ VK, Ya*/
 		/*jshint bitwise: true */
 
 		var isNodejs = "undefined" !== typeof process && "undefined" !== typeof require || "";
+
 		var isElectron = (function () {
 			if (typeof root !== "undefined" &&
 				typeof root.process === "object" &&
@@ -905,6 +906,7 @@ VK, Ya*/
 			}
 			return false;
 		})();
+
 		var isNwjs = (function () {
 			if ("undefined" !== typeof isNodejs && isNodejs) {
 				try {
@@ -1535,7 +1537,7 @@ VK, Ya*/
 			var shortname = disqusThread ? (disqusThread.dataset.shortname || "") : "";
 			var hideDisqusButton = function () {
 				addClass(disqusThread, isActiveClass);
-				setStyleDisplayNone(btn);
+				setDisplayNone(btn);
 			};
 			var hide = function () {
 				removeChildren(disqusThread);
@@ -1768,12 +1770,12 @@ VK, Ya*/
 				var typoAutcompleteList = document.createElement("ul");
 				var typoListItem = document.createElement("li");
 				var handleTypoSuggestion = function () {
-					setStyleDisplayNone(typoAutcompleteList);
-					setStyleDisplayNone(typoListItem);
+					setDisplayNone(typoAutcompleteList);
+					setDisplayNone(typoListItem);
 				};
 				var showTypoSuggestion = function () {
-					setStyleDisplayBlock(typoAutcompleteList);
-					setStyleDisplayBlock(typoListItem);
+					setDisplayBlock(typoAutcompleteList);
+					setDisplayBlock(typoListItem);
 				};
 				addClass(typoAutcompleteList, typoAutcompleteListClass);
 				typoAutcompleteList.id = typoAutcompleteListSelector;
@@ -2291,7 +2293,7 @@ VK, Ya*/
 				if (locHref && parseLink(locHref).hasHTTP && (/^(localhost|127.0.0.1)/).test(parseLink(locHref).hostname)) {
 					addListener(btn, "click", handleDebugGridButton);
 				} else {
-					setStyleDisplayNone(btn);
+					setDisplayNone(btn);
 				}
 			}
 		};
@@ -2847,8 +2849,7 @@ VK, Ya*/
 			var load;
 			load = new loadJsCss(scripts, run);
 		};
-		var check;
-		check = function () {
+		var check = function () {
 			if (doesFontExist(bodyFontFamily)) {
 				init();
 			}

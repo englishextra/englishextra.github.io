@@ -113,17 +113,16 @@ Ya*/
 			el.className = el.className.replace(new RegExp("\\b" + name + "\\b", "g"), "");
 		};
 	}
-	var toggleClass = function (el, name) {
+	root.hasClass = hasClass;
+	root.addClass = addClass;
+	root.removeClass = removeClass;
+	root.toggleClass = function (el, name) {
 		if (hasClass(el, name)) {
 			removeClass(el, name);
 		} else {
 			addClass(el, name);
 		}
 	};
-	root.hasClass = hasClass;
-	root.addClass = addClass;
-	root.removeClass = removeClass;
-	root.toggleClass = toggleClass;
 })("undefined" !== typeof window ? window : this, document);
 /*!
  * modified ToProgress v0.1.1
@@ -407,6 +406,7 @@ Ya*/
 	progressBar.increase(20);
 
 	var toStringFn = {}.toString;
+
 	var supportsSvgSmilAnimation = !!document.createElementNS &&
 		(/SVGAnimate/).test(toStringFn.call(document.createElementNS("http://www.w3.org/2000/svg", "animate"))) || "";
 
@@ -625,13 +625,13 @@ Ya*/
 				p.insertBefore(df, a);
 			}
 		};
-		var setStyleDisplayBlock = function (e) {
+		var setDisplayBlock = function (e) {
 			if (e) {
 				e.style.display = "block";
 			}
 		};
 
-		var setStyleDisplayNone = function (e) {
+		var setDisplayNone = function (e) {
 			if (e) {
 				e.style.display = "none";
 			}
@@ -699,6 +699,7 @@ Ya*/
 		/*jshint bitwise: true */
 
 		var isNodejs = "undefined" !== typeof process && "undefined" !== typeof require || "";
+
 		var isElectron = (function () {
 			if (typeof root !== "undefined" &&
 				typeof root.process === "object" &&
@@ -718,6 +719,7 @@ Ya*/
 			}
 			return false;
 		})();
+
 		var isNwjs = (function () {
 			if ("undefined" !== typeof isNodejs && isNodejs) {
 				try {
@@ -820,19 +822,19 @@ Ya*/
 					var i,
 					l;
 					for (i = 0, l = args.length; i < l; i += 1) {
-						setStyleDisplayNone(args[i]);
+						setDisplayNone(args[i]);
 					}
 					i = l = null;
-					setStyleDisplayNone(btnShowVKLike);
+					setDisplayNone(btnShowVKLike);
 				} else {
 					var j,
 					m;
 					for (j = 0, m = args.length; j < m; j += 1) {
-						setStyleDisplayBlock(args[j]);
+						setDisplayBlock(args[j]);
 					}
 					j = m = null;
 					if (!(root.VK && VK.init && VK.Widgets && VK.Widgets.Like)) {
-						setStyleDisplayBlock(btnShowVKLike);
+						setDisplayBlock(btnShowVKLike);
 					}
 				}
 			}
@@ -887,8 +889,8 @@ Ya*/
 				/*!
 				 * init next button if no slide autorotation
 				 */
-				setStyleDisplayBlock(cdPrev);
-				setStyleDisplayBlock(cdNext);
+				setDisplayBlock(cdPrev);
+				setDisplayBlock(cdNext);
 				addListener(cdPrev, "click", handleCdPrev);
 				addListener(cdNext, "click", handleCdNext);
 			};
@@ -1132,7 +1134,7 @@ Ya*/
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					addListener(btn, "click", handle);
 				} else {
-					setStyleDisplayNone(btn);
+					setDisplayNone(btn);
 				}
 			}
 		};
@@ -1182,7 +1184,7 @@ Ya*/
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					addListener(btn, "click", handle);
 				} else {
-					setStyleDisplayNone(btn);
+					setDisplayNone(btn);
 				}
 			}
 		};
@@ -1250,8 +1252,7 @@ Ya*/
 			var load;
 			load = new loadJsCss(scripts, run);
 		};
-		var check;
-		check = function () {
+		var check = function () {
 			if (doesFontExist(bodyFontFamily)) {
 				init();
 			}

@@ -81,9 +81,7 @@
 				var fn1 = function () {
 					rippleButtons[i].addEventListener("touchstart", function (e) {
 						rippleStart(e);
-					}, {
-						passive: true
-					});
+					}, {passive: true});
 					rippleButtons[i].addEventListener("touchmove", function (e) {
 						if (e.target.hasAttribute("ripple-cancel-on-move")) {
 							rippleRetrieve(e);
@@ -99,36 +97,24 @@
 						if (!overEl) {
 							rippleRetrieve(e);
 						}
-					}, {
-						passive: true
-					});
+					}, {passive: true});
 					rippleButtons[i].addEventListener("touchend", function (e) {
 						rippleEnd(e);
-					}, {
-						passive: true
-					});
+					}, {passive: true});
 					rippleButtons[i].addEventListener("mousedown", function (e) {
 						rippleStart(e);
-					}, {
-						passive: true
-					});
+					}, {passive: true});
 					rippleButtons[i].addEventListener("mouseup", function (e) {
 						rippleEnd(e);
-					}, {
-						passive: true
-					});
+					}, {passive: true});
 					rippleButtons[i].addEventListener("mousemove", function (e) {
 						if (e.target.hasAttribute("ripple-cancel-on-move") && (e.movementX !== 0 || e.movementY !== 0)) {
 							rippleRetrieve(e);
 						}
-					}, {
-						passive: true
-					});
+					}, {passive: true});
 					rippleButtons[i].addEventListener("mouseleave", function (e) {
 						rippleRetrieve(e);
-					}, {
-						passive: true
-					});
+					}, {passive: true});
 					rippleButtons[i].addEventListener("transitionend", function (e) {
 						if (e.target.getAttribute("animating") === "2" || e.target.getAttribute("animating") === "3") {
 							e.target.style.transition = "none";
@@ -136,9 +122,7 @@
 							e.target.style.boxShadow = "none";
 							e.target.setAttribute("animating", "0");
 						}
-					}, {
-						passive: true
-					});
+					}, {passive: true});
 					if (getRippleContainer(rippleButtons[i]) === rippleButtons[i]) {
 						rippleButtons[i].innerHTML += '<div class="rippleContainer"></div>';
 					}

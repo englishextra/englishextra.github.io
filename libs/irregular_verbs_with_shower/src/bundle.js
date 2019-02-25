@@ -112,17 +112,16 @@ removeClass, toggleClass, require, ToProgress, VK, Ya*/
 			el.className = el.className.replace(new RegExp("\\b" + name + "\\b", "g"), "");
 		};
 	}
-	var toggleClass = function (el, name) {
+	root.hasClass = hasClass;
+	root.addClass = addClass;
+	root.removeClass = removeClass;
+	root.toggleClass = function (el, name) {
 		if (hasClass(el, name)) {
 			removeClass(el, name);
 		} else {
 			addClass(el, name);
 		}
 	};
-	root.hasClass = hasClass;
-	root.addClass = addClass;
-	root.removeClass = removeClass;
-	root.toggleClass = toggleClass;
 })("undefined" !== typeof window ? window : this, document);
 /*!
  * modified ToProgress v0.1.1
@@ -407,6 +406,7 @@ removeClass, toggleClass, require, ToProgress, VK, Ya*/
 	progressBar.increase(20);
 
 	var toStringFn = {}.toString;
+
 	var supportsSvgSmilAnimation = !!document.createElementNS &&
 		(/SVGAnimate/).test(toStringFn.call(document.createElementNS("http://www.w3.org/2000/svg", "animate"))) || "";
 
@@ -572,7 +572,7 @@ removeClass, toggleClass, require, ToProgress, VK, Ya*/
 			document.title = document.title + userBrowser;
 		}
 
-		var setStyleDisplayNone = function (e) {
+		var setDisplayNone = function (e) {
 			if (e) {
 				e.style.display = "none";
 			}
@@ -728,6 +728,7 @@ removeClass, toggleClass, require, ToProgress, VK, Ya*/
 		/*jshint bitwise: true */
 
 		var isNodejs = "undefined" !== typeof process && "undefined" !== typeof require || "";
+
 		var isElectron = (function () {
 			if (typeof root !== "undefined" &&
 				typeof root.process === "object" &&
@@ -747,6 +748,7 @@ removeClass, toggleClass, require, ToProgress, VK, Ya*/
 			}
 			return false;
 		})();
+
 		var isNwjs = (function () {
 			if ("undefined" !== typeof isNodejs && isNodejs) {
 				try {
@@ -897,7 +899,7 @@ removeClass, toggleClass, require, ToProgress, VK, Ya*/
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					addListener(btn, "click", handle);
 				} else {
-					setStyleDisplayNone(btn);
+					setDisplayNone(btn);
 				}
 			}
 		};
@@ -947,7 +949,7 @@ removeClass, toggleClass, require, ToProgress, VK, Ya*/
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					addListener(btn, "click", handle);
 				} else {
-					setStyleDisplayNone(btn);
+					setDisplayNone(btn);
 				}
 			}
 		};
@@ -1053,8 +1055,7 @@ removeClass, toggleClass, require, ToProgress, VK, Ya*/
 			var load;
 			load = new loadJsCss(scripts, run);
 		};
-		var check;
-		check = function () {
+		var check = function () {
 			if (doesFontExist(bodyFontFamily)) {
 				init();
 			}

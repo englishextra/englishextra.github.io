@@ -113,17 +113,16 @@ require, ToProgress, unescape, VK, Ya*/
 			el.className = el.className.replace(new RegExp("\\b" + name + "\\b", "g"), "");
 		};
 	}
-	var toggleClass = function (el, name) {
+	root.hasClass = hasClass;
+	root.addClass = addClass;
+	root.removeClass = removeClass;
+	root.toggleClass = function (el, name) {
 		if (hasClass(el, name)) {
 			removeClass(el, name);
 		} else {
 			addClass(el, name);
 		}
 	};
-	root.hasClass = hasClass;
-	root.addClass = addClass;
-	root.removeClass = removeClass;
-	root.toggleClass = toggleClass;
 })("undefined" !== typeof window ? window : this, document);
 /*!
  * modified ToProgress v0.1.1
@@ -460,6 +459,7 @@ require, ToProgress, unescape, VK, Ya*/
 	progressBar.increase(20);
 
 	var toStringFn = {}.toString;
+
 	var supportsSvgSmilAnimation = !!document.createElementNS &&
 		(/SVGAnimate/).test(toStringFn.call(document.createElementNS("http://www.w3.org/2000/svg", "animate"))) || "";
 
@@ -657,20 +657,13 @@ require, ToProgress, unescape, VK, Ya*/
 			}
 		};
 
-		var setStyleOpacity = function (a, n) {
-			n = n || 1;
-			if (a) {
-				a.style.opacity = n;
-			}
-		};
-
-		var setStyleDisplayBlock = function (e) {
+		var setDisplayBlock = function (e) {
 			if (e) {
 				e.style.display = "block";
 			}
 		};
 
-		var setStyleDisplayNone = function (e) {
+		var setDisplayNone = function (e) {
 			if (e) {
 				e.style.display = "none";
 			}
@@ -826,6 +819,7 @@ require, ToProgress, unescape, VK, Ya*/
 		/*jshint bitwise: true */
 
 		var isNodejs = "undefined" !== typeof process && "undefined" !== typeof require || "";
+
 		var isElectron = (function () {
 			if (typeof root !== "undefined" &&
 				typeof root.process === "object" &&
@@ -845,6 +839,7 @@ require, ToProgress, unescape, VK, Ya*/
 			}
 			return false;
 		})();
+
 		var isNwjs = (function () {
 			if ("undefined" !== typeof isNodejs && isNodejs) {
 				try {
@@ -1035,13 +1030,13 @@ require, ToProgress, unescape, VK, Ya*/
 				 */
 				_this.parentNode.insertBefore(sShowDiv, _this.nextElementSibling);
 				var sShow = getByClass(document, s2)[0] || "";
-				setStyleDisplayBlock(sShow);
+				setDisplayBlock(sShow);
 				var sCurDesc = getByClass(document, s3)[0] || "";
 				removeChildren(sCurDesc);
 				sCurDesc.insertAdjacentHTML("beforeend", sDescHtml);
 				sCurDesc.appendChild(sCloseDiv);
-				setStyleOpacity(sCurDesc, 0);
-				setStyleDisplayBlock(sCurDesc);
+				sCurDesc.style.opacity = 0;
+				setDisplayBlock(sCurDesc);
 				var sRevealPos = _this.offsetTop;
 				var sHidePos = root.pageYOffset || docElem.scrollTop;
 				var timer = setTimeout(function () {
@@ -1108,8 +1103,8 @@ require, ToProgress, unescape, VK, Ya*/
 					var timer2 = setTimeout(function () {
 						clearTimeout(timer2);
 						timer2 = null;
-						setStyleDisplayNone(sCurDesc);
-						setStyleDisplayNone(sShow);
+						setDisplayNone(sCurDesc);
+						setDisplayNone(sShow);
 						removeClass(sCurDesc, an);
 						removeClass(sCurDesc, an2);
 					}, 200);
@@ -1464,7 +1459,7 @@ require, ToProgress, unescape, VK, Ya*/
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					addListener(btn, "click", handle);
 				} else {
-					setStyleDisplayNone(btn);
+					setDisplayNone(btn);
 				}
 			}
 		};
@@ -1514,7 +1509,7 @@ require, ToProgress, unescape, VK, Ya*/
 				if ("undefined" !== typeof getHTTP && getHTTP()) {
 					addListener(btn, "click", handle);
 				} else {
-					setStyleDisplayNone(btn);
+					setDisplayNone(btn);
 				}
 			}
 		};
@@ -1620,8 +1615,7 @@ require, ToProgress, unescape, VK, Ya*/
 			var load;
 			load = new loadJsCss(scripts, run);
 		};
-		var check;
-		check = function () {
+		var check = function () {
 			if (doesFontExist(bodyFontFamily)) {
 				init();
 			}
