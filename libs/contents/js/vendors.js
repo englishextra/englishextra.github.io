@@ -4281,19 +4281,19 @@ function _typeof(obj) {
 		this.unstamp(item.element);
 	};
 
-	proto.bindDraggabillyEvents = function(draggie) {
-		this._bindDraggabillyEvents(draggie, "on");
+	proto.bindDraggabillyEvents = function(root.draggabillyInstance) {
+		this._bindDraggabillyEvents(root.draggabillyInstance, "on");
 	};
 
-	proto.unbindDraggabillyEvents = function(draggie) {
-		this._bindDraggabillyEvents(draggie, "off");
+	proto.unbindDraggabillyEvents = function(root.draggabillyInstance) {
+		this._bindDraggabillyEvents(root.draggabillyInstance, "off");
 	};
 
-	proto._bindDraggabillyEvents = function(draggie, method) {
+	proto._bindDraggabillyEvents = function(root.draggabillyInstance, method) {
 		var handlers = this.handleDraggabilly;
-		draggie[method]("dragStart", handlers.dragStart);
-		draggie[method]("dragMove", handlers.dragMove);
-		draggie[method]("dragEnd", handlers.dragEnd);
+		root.draggabillyInstance[method]("dragStart", handlers.dragStart);
+		root.draggabillyInstance[method]("dragMove", handlers.dragMove);
+		root.draggabillyInstance[method]("dragEnd", handlers.dragEnd);
 	};
 
 	proto.bindUIDraggableEvents = function($elems) {

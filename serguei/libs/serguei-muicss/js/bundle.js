@@ -4,7 +4,7 @@
 console, debounce, DISQUS, doesFontExist, EventEmitter, findPos, forcedHTTP,
 getByClass, getHumanDate, hasClass, hasTouch, hasWheel, hljs, IframeLightbox,
 imgLightbox, insertExternalHTML, insertFromTemplate, insertTextAsFragment,
-instgrm, isElectron, isNwjs, isValidId, JsonHashRouter, LazyLoad,
+instgrm, isNodejs, isElectron, isNwjs, isValidId, JsonHashRouter, LazyLoad,
 loadDeferred, loadJsCss, loadJsonResponse, Macy, Minigrid, Mustache,
 needsPolyfills, openDeviceBrowser, parseLink, progressBar, Promise, QRCode,
 removeChildren, removeClass, removeListener, renderTemplate, require, ripple,
@@ -47,7 +47,7 @@ unescape, VK, WheelIndicator, Ya*/
  */
 (function (root) {
 	"use strict";
-	var supportsPassive = (function () {
+	root.supportsPassive = (function () {
 		var support = false;
 		try {
 			var opts = Object.defineProperty && Object.defineProperty({}, "passive", {
@@ -59,7 +59,6 @@ unescape, VK, WheelIndicator, Ya*/
 		} catch (err) {}
 		return support;
 	})();
-	root.supportsPassive = supportsPassive;
 })("undefined" !== typeof window ? window : this);
 /*!
  * supportsSvgSmilAnimation
@@ -67,20 +66,18 @@ unescape, VK, WheelIndicator, Ya*/
 (function (root, document) {
 	"use strict";
 	var toStringFn = {}.toString;
-	var supportsSvgSmilAnimation = !!document.createElementNS &&
+	root.supportsSvgSmilAnimation = !!document.createElementNS &&
 		(/SVGAnimate/).test(toStringFn.call(document.createElementNS("http://www.w3.org/2000/svg", "animate"))) || "";
-	root.supportsSvgSmilAnimation = supportsSvgSmilAnimation;
 })("undefined" !== typeof window ? window : this, document);
 /*!
  * supportsCanvas
  */
 (function (root, document) {
 	"use strict";
-	var supportsCanvas = (function () {
+	root.supportsCanvas = (function () {
 		var elem = document.createElement("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
 	})();
-	root.supportsCanvas = supportsCanvas;
 })("undefined" !== typeof window ? window : this, document);
 /*!
  * hasWheel
@@ -101,7 +98,7 @@ unescape, VK, WheelIndicator, Ya*/
  */
 (function (root, document) {
 	"use strict";
-	var needsPolyfills = (function () {
+	root.needsPolyfills = (function () {
 		return !String.prototype.startsWith ||
 		!supportsPassive ||
 		!root.requestAnimationFrame ||
@@ -125,14 +122,13 @@ unescape, VK, WheelIndicator, Ya*/
 		!root.WeakMap ||
 		!root.MutationObserver;
 	})();
-	root.needsPolyfills = needsPolyfills;
 })("undefined" !== typeof window ? window : this, document);
 /*!
  * getHumanDate
  */
 (function (root) {
 	"use strict";
-	var getHumanDate = (function () {
+	root.getHumanDate = (function () {
 		var newDate = (new Date());
 		var newDay = newDate.getDate();
 		var newYear = newDate.getFullYear();
@@ -146,7 +142,6 @@ unescape, VK, WheelIndicator, Ya*/
 		}
 		return newYear + "-" + newMonth + "-" + newDay;
 	})();
-	root.getHumanDate = getHumanDate;
 })("undefined" !== typeof window ? window : this);
 /*!
  * Super-simple wrapper around addEventListener and attachEvent (old IE).
@@ -174,7 +169,7 @@ unescape, VK, WheelIndicator, Ya*/
  */
 (function (root, document) {
 	"use strict";
-	var getByClass = function (parent, name) {
+	root.getByClass = function (parent, name) {
 		if (!document.getElementsByClassName) {
 			var children = (parent || document.body).getElementsByTagName("*"),
 			elements = [],
@@ -194,7 +189,6 @@ unescape, VK, WheelIndicator, Ya*/
 			return parent ? parent.getElementsByClassName(name) : "";
 		}
 	};
-	root.getByClass = getByClass;
 })("undefined" !== typeof window ? window : this, document);
 /*!
  * class list wrapper
@@ -244,7 +238,7 @@ unescape, VK, WheelIndicator, Ya*/
 (function (root, document) {
 	"use strict";
 	/*jshint bitwise: false */
-	var parseLink = function (url, full) {
+	root.parseLink = function (url, full) {
 		var _full = full || "";
 		return (function () {
 			var _replace = function (s) {
@@ -304,7 +298,6 @@ unescape, VK, WheelIndicator, Ya*/
 		})();
 	};
 	/*jshint bitwise: true */
-	root.parseLink = parseLink;
 })("undefined" !== typeof window ? window : this, document);
 /*!
  * getHTTP
@@ -324,7 +317,7 @@ unescape, VK, WheelIndicator, Ya*/
  */
 (function (root) {
 	"use strict";
-	var throttle = function (func, wait) {
+	root.throttle = function (func, wait) {
 		var ctx;
 		var args;
 		var rtn;
@@ -351,14 +344,13 @@ unescape, VK, WheelIndicator, Ya*/
 			return rtn;
 		};
 	};
-	root.throttle = throttle;
 })("undefined" !== typeof window ? window : this);
 /*!
  * debounce
  */
 (function (root) {
 	"use strict";
-	var debounce = function (func, wait) {
+	root.debounce = function (func, wait) {
 		var timeout;
 		var args;
 		var context;
@@ -381,15 +373,14 @@ unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 	};
-	root.debounce = debounce;
 })("undefined" !== typeof window ? window : this);
 /*!
  * isNodejs isElectron isNwjs;
  */
 (function (root) {
 	"use strict";
-	var isNodejs = "undefined" !== typeof process && "undefined" !== typeof require || "";
-	var isElectron = (function () {
+	root.isNodejs = "undefined" !== typeof process && "undefined" !== typeof require || "";
+	root.isElectron = (function () {
 		if (typeof root !== "undefined" &&
 			typeof root.process === "object" &&
 			root.process.type === "renderer") {
@@ -408,7 +399,7 @@ unescape, VK, WheelIndicator, Ya*/
 		}
 		return false;
 	})();
-	var isNwjs = (function () {
+	root.isNwjs = (function () {
 		if ("undefined" !== typeof isNodejs && isNodejs) {
 			try {
 				if ("undefined" !== typeof require("nw.gui")) {
@@ -420,16 +411,13 @@ unescape, VK, WheelIndicator, Ya*/
 		}
 		return false;
 	})();
-	root.isNodejs = isNodejs;
-	root.isElectron = isElectron;
-	root.isNwjs = isNwjs;
 })("undefined" !== typeof window ? window : this);
 /*!
  * openDeviceBrowser
  */
 (function (root) {
 	"use strict";
-	var openDeviceBrowser = function (url) {
+	root.openDeviceBrowser = function (url) {
 		var onElectron = function () {
 			var es = isElectron ? require("electron").shell : "";
 			return es ? es.openExternal(url) : "";
@@ -446,8 +434,8 @@ unescape, VK, WheelIndicator, Ya*/
 		} else if (isNwjs) {
 			onNwjs();
 		} else {
-			var locProtocol = root.location.protocol || "",
-			hasHTTP = locProtocol ? "http:" === locProtocol ? "http" : "https:" === locProtocol ? "https" : "" : "";
+			var locProtocol = root.location.protocol || "";
+			var hasHTTP = locProtocol ? "http:" === locProtocol ? "http" : "https:" === locProtocol ? "https" : "" : "";
 			if (hasHTTP) {
 				return true;
 			} else {
@@ -455,16 +443,14 @@ unescape, VK, WheelIndicator, Ya*/
 			}
 		}
 	};
-	root.openDeviceBrowser = openDeviceBrowser;
 })("undefined" !== typeof window ? window : this);
 /*!
  * scroll2Top
  */
 (function (root, document) {
 	"use strict";
-	var docElem = document.documentElement || "";
-	var scroll2Top = function (scrollTargetY, speed, easing) {
-		var scrollY = root.scrollY || docElem.scrollTop;
+	root.scroll2Top = function (scrollTargetY, speed, easing) {
+		var scrollY = root.scrollY || document.documentElement.scrollTop;
 		var posY = scrollTargetY || 0;
 		var rate = speed || 2000;
 		var soothing = easing || "easeOutSine";
@@ -497,51 +483,47 @@ unescape, VK, WheelIndicator, Ya*/
 		}
 		tick();
 	};
-	root.scroll2Top = scroll2Top;
 })("undefined" !== typeof window ? window : this, document);
 /*!
  * setDisplayBlock
  */
 (function (root) {
 	"use strict";
-	var setDisplayBlock = function (e) {
+	root.setDisplayBlock = function (e) {
 		if (e) {
 			e.style.display = "block";
 		}
 	};
-	root.setDisplayBlock = setDisplayBlock;
 })("undefined" !== typeof window ? window : this);
 /*!
  * setDisplayNone
  */
 (function (root) {
 	"use strict";
-	var setDisplayNone = function (e) {
+	root.setDisplayNone = function (e) {
 		if (e) {
 			e.style.display = "none";
 		}
 	};
-	root.setDisplayNone = setDisplayNone;
 })("undefined" !== typeof window ? window : this);
 /*!
  * setVisible
  */
 (function (root) {
 	"use strict";
-	var setVisible = function (e) {
+	root.setVisible = function (e) {
 		if (e) {
 			e.style.visibility = "visible";
 			e.style.opacity = 1;
 		}
 	};
-	root.setVisible = setVisible;
 })("undefined" !== typeof window ? window : this);
 /*!
  * appendFragment
  */
 (function (root, document) {
 	"use strict";
-	var appendFragment = function (e, a) {
+	root.appendFragment = function (e, a) {
 		var parent = a || document.getElementsByTagName("body")[0] || "";
 		if (e) {
 			var df = document.createDocumentFragment() || "";
@@ -552,14 +534,13 @@ unescape, VK, WheelIndicator, Ya*/
 			parent.appendChild(df);
 		}
 	};
-	root.appendFragment = appendFragment;
 })("undefined" !== typeof window ? window : this, document);
 /*!
  * removeElement
  */
 (function (root) {
 	"use strict";
-	var removeElement = function (e) {
+	root.removeElement = function (e) {
 		if (e) {
 			if ("undefined" !== typeof e.remove) {
 				return e.remove();
@@ -568,21 +549,19 @@ unescape, VK, WheelIndicator, Ya*/
 			}
 		}
 	};
-	root.removeElement = removeElement;
 })("undefined" !== typeof window ? window : this);
 /*!
  * removeChildren
  */
 (function (root) {
 	"use strict";
-	var removeChildren = function (e) {
+	root.removeChildren = function (e) {
 		if (e && e.firstChild) {
 			for (; e.firstChild; ) {
 				e.removeChild(e.firstChild);
 			}
 		}
 	};
-	root.removeChildren = removeChildren;
 })("undefined" !== typeof window ? window : this);
 /*!
  * findPos
@@ -591,21 +570,20 @@ unescape, VK, WheelIndicator, Ya*/
 	"use strict";
 	var docElem = document.documentElement || "";
 	var docBody = document.body || "";
-	var findPos = function (e) {
+	root.findPos = function (e) {
 		e = e.getBoundingClientRect();
 		return {
 			top: Math.round(e.top + (root.pageYOffset || docElem.scrollTop || docBody.scrollTop) - (docElem.clientTop || docBody.clientTop || 0)),
 			left: Math.round(e.left + (root.pageXOffset || docElem.scrollLeft || docBody.scrollLeft) - (docElem.clientLeft || docBody.clientLeft || 0))
 		};
 	};
-	root.findPos = findPos;
 })("undefined" !== typeof window ? window : this);
 /*!
  * safelyParseJSON
  */
 (function (root) {
 	"use strict";
-	var safelyParseJSON = function (response) {
+	root.safelyParseJSON = function (response) {
 		var isJson = function (obj) {
 			var objType = typeof obj;
 			return ["boolean", "number", "string", 'symbol', "function"].indexOf(objType) === -1;
@@ -616,25 +594,22 @@ unescape, VK, WheelIndicator, Ya*/
 			return response;
 		}
 	};
-	root.safelyParseJSON = safelyParseJSON;
 })("undefined" !== typeof window ? window : this);
 /*!
  * isValidId
  */
 (function (root) {
 	"use strict";
-	var isValidId = function (a, full) {
+	root.isValidId = function (a, full) {
 		return full ? /^\#[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? true : false : /^[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? true : false;
 	};
-	root.isValidId = isValidId;
 })("undefined" !== typeof window ? window : this);
 /*!
  * insertTextAsFragment
  */
 (function (root, document) {
 	"use strict";
-	var insertTextAsFragment = function (text, container, callback) {
-		var body = document.body || "";
+	root.insertTextAsFragment = function (text, container, callback) {
 		var cb = function () {
 			return callback && "function" === typeof callback && callback();
 		};
@@ -642,7 +617,7 @@ unescape, VK, WheelIndicator, Ya*/
 			var clonedContainer = container.cloneNode(false);
 			if (document.createRange) {
 				var rg = document.createRange();
-				rg.selectNode(body);
+				rg.selectNode(document.body);
 				var df = rg.createContextualFragment(text);
 				clonedContainer.appendChild(df);
 				return container.parentNode ? container.parentNode.replaceChild(clonedContainer, container) : container.innerHTML = text,
@@ -657,14 +632,13 @@ unescape, VK, WheelIndicator, Ya*/
 			return;
 		}
 	};
-	root.insertTextAsFragment = insertTextAsFragment;
 })("undefined" !== typeof window ? window : this, document);
 /*!
  * renderTemplate
  */
 (function (root, document) {
 	"use strict";
-	var renderTemplate = function (parsedJson, templateId, renderId) {
+	root.renderTemplate = function (parsedJson, templateId, renderId) {
 		var template = document.getElementById(templateId) || "";
 		var render = document.getElementById(renderId) || "";
 		var jsonObj = safelyParseJSON(parsedJson);
@@ -682,38 +656,36 @@ unescape, VK, WheelIndicator, Ya*/
 		}
 		return "cannot renderTemplate";
 	};
-	root.renderTemplate = renderTemplate;
 })("undefined" !== typeof window ? window : this, document);
 /*!
  * insertFromTemplate
  */
 (function (root, document) {
 	"use strict";
-		var insertFromTemplate = function (parsedJson, templateId, renderId, callback, useInner) {
-			var cb = function () {
-				return callback && "function" === typeof callback && callback();
-			};
-			var _useInner = useInner || "";
-			var template = document.getElementById(templateId) || "";
-			var render = document.getElementById(renderId) || "";
-			if (parsedJson && template && render) {
-				var html = renderTemplate(parsedJson, templateId, renderId);
-				if (_useInner) {
-					render.innerHTML = html;
-					cb();
-				} else {
-					insertTextAsFragment(html, render, cb);
-				}
-			}
+	root.insertFromTemplate = function (parsedJson, templateId, renderId, callback, useInner) {
+		var cb = function () {
+			return callback && "function" === typeof callback && callback();
 		};
-	root.insertFromTemplate = insertFromTemplate;
+		var _useInner = useInner || "";
+		var template = document.getElementById(templateId) || "";
+		var render = document.getElementById(renderId) || "";
+		if (parsedJson && template && render) {
+			var html = renderTemplate(parsedJson, templateId, renderId);
+			if (_useInner) {
+				render.innerHTML = html;
+				cb();
+			} else {
+				insertTextAsFragment(html, render, cb);
+			}
+		}
+	};
 })("undefined" !== typeof window ? window : this, document);
 /*!
  * loadJsonResponse
  */
 (function (root) {
 	"use strict";
-	var loadJsonResponse = function (url, callback, onerror) {
+	root.loadJsonResponse = function (url, callback, onerror) {
 		var cb = function (string) {
 			return callback && "function" === typeof callback && callback(string);
 		};
@@ -731,14 +703,13 @@ unescape, VK, WheelIndicator, Ya*/
 		};
 		x.send(null);
 	};
-	root.loadJsonResponse = loadJsonResponse;
 })("undefined" !== typeof window ? window : this);
 /*!
  * insertExternalHTML
  */
 (function (root, document) {
 	"use strict";
-	var insertExternalHTML = function (id, url, callback, onerror) {
+	root.insertExternalHTML = function (id, url, callback, onerror) {
 		var cb = function () {
 			return callback && "function" === typeof callback && callback();
 		};
@@ -780,7 +751,6 @@ unescape, VK, WheelIndicator, Ya*/
 			arrange();
 		}
 	};
-	root.insertExternalHTML = insertExternalHTML;
 })("undefined" !== typeof window ? window : this, document);
 /*!
  * json based hash routing
@@ -789,7 +759,7 @@ unescape, VK, WheelIndicator, Ya*/
 /*global ActiveXObject, console */
 (function (root, document) {
 	"use strict";
-	var JsonHashRouter = (function () {
+	root.JsonHashRouter = (function () {
 		return function (jsonUrl, renderId, settings) {
 			var options = settings || {};
 			options.jsonHomePropName = options.jsonHomePropName || "home";
@@ -874,7 +844,6 @@ unescape, VK, WheelIndicator, Ya*/
 			}
 		};
 	})();
-	root.JsonHashRouter = JsonHashRouter;
 })("undefined" !== typeof window ? window : this, document);
 /*!
  * modified Detect Whether a Font is Installed
@@ -886,7 +855,7 @@ unescape, VK, WheelIndicator, Ya*/
  */
 (function(root, document) {
 	"use strict";
-	var doesFontExist = function(fontName) {
+	root.doesFontExist = function (fontName) {
 		var canvas = document.createElement("canvas");
 		var context = canvas.getContext("2d");
 		var text = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -901,7 +870,6 @@ unescape, VK, WheelIndicator, Ya*/
 			return true;
 		}
 	};
-	root.doesFontExist = doesFontExist;
 })("undefined" !== typeof window ? window : this, document);
 /*!
  * modified loadExt
@@ -910,7 +878,7 @@ unescape, VK, WheelIndicator, Ya*/
  */
 (function (root, document) {
 	"use strict";
-	var loadJsCss = function (files, callback, type) {
+	root.loadJsCss = function (files, callback, type) {
 		var _this = this;
 		_this.files = files;
 		_this.js = [];
@@ -973,14 +941,13 @@ unescape, VK, WheelIndicator, Ya*/
 			_this.callback();
 		}
 	};
-	root.loadJsCss = loadJsCss;
 })("undefined" !== typeof window ? window : this, document);
 /*!
  * loadDeferred
  */
 (function (root) {
 	"use strict";
-	var loadDeferred = function (urlArray, callback) {
+	root.loadDeferred = function (urlArray, callback) {
 		var timer;
 		var handle = function () {
 			clearTimeout(timer);
@@ -999,7 +966,6 @@ unescape, VK, WheelIndicator, Ya*/
 			addListener(root, "load", handle);
 		}
 	};
-	root.loadDeferred = loadDeferred;
 })("undefined" !== typeof window ? window : this);
 /*!
  * app logic
@@ -1623,7 +1589,7 @@ unescape, VK, WheelIndicator, Ya*/
 		};
 		manageMobileappsButtons();
 
-		var yshare;
+		root.yaShareInstance = null;
 		var manageShareButtons = function () {
 			var btn = getByClass(document, "btn-toggle-holder-share-buttons")[0] || "";
 			var yaShare2Id = "ya-share2";
@@ -1638,14 +1604,14 @@ unescape, VK, WheelIndicator, Ya*/
 					manageCollapsableAll(holder);
 					var initScript = function () {
 						try {
-							if (yshare) {
-								yshare.updateContent({
+							if (root.yaShareInstance) {
+								root.yaShareInstance.updateContent({
 									title: document.title || "",
 									description: document.title || "",
 									url: root.location.href || ""
 								});
 							} else {
-								yshare = Ya.share2(yaShare2Id, {
+								root.yaShareInstance = Ya.share2(yaShare2Id, {
 									content: {
 										title: document.title || "",
 										description: document.title || "",
@@ -1654,7 +1620,7 @@ unescape, VK, WheelIndicator, Ya*/
 								});
 							}
 						} catch (err) {
-							throw new Error("cannot yshare.updateContent or Ya.share2 " + err);
+							throw new Error("cannot root.yaShareInstance.updateContent or Ya.share2 " + err);
 						}
 					};
 					if (!(root.Ya && Ya.share2)) {
@@ -1675,7 +1641,7 @@ unescape, VK, WheelIndicator, Ya*/
 		};
 		manageShareButtons();
 
-		var vlike;
+		root.vkLikeInstance = null;
 		var manageVKLikeButton = function () {
 			var btn = getByClass(document, "btn-toggle-holder-vk-like")[0] || "";
 			var holder = getByClass(document, "holder-vk-like")[0] || "";
@@ -1689,7 +1655,7 @@ unescape, VK, WheelIndicator, Ya*/
 					addClass(holder, isCollapsableClass);
 					manageCollapsableAll(holder);
 					var initScript = function () {
-						if (!vlike) {
+						if (!root.vkLikeInstance) {
 							try {
 								VK.init({
 									apiId: (vkLike.dataset.apiid || ""),
@@ -1700,7 +1666,7 @@ unescape, VK, WheelIndicator, Ya*/
 									type: "button",
 									height: 24
 								});
-								vlike = true;
+								root.vkLikeInstance = true;
 							} catch (err) {
 								throw new Error("cannot VK.init " + err);
 							}

@@ -1,9 +1,15 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global ActiveXObject, Cookies, DISQUS, doesFontExist, IframeLightbox,
-imgLightbox, Kamil, loadJsCss, LazyLoad, addListener, removeListener,
-getByClass, addClass, hasClass, removeClass, toggleClass, Promise, QRCode,
-require, routie, ToProgress, unescape, VK, Ya, ymaps*/
+/*global ActiveXObject, addClass, addListener, appendFragment, Cookies,
+debounce, DISQUS, doesFontExist, findPos, fixEnRuTypo, forcedHTTP, getByClass,
+getHumanDate, hasClass, IframeLightbox, imgLightbox, insertExternalHTML,
+insertTextAsFragment, isNodejs, isElectron, isNwjs, isValidId, Kamil,
+LazyLoad, loadDeferred, loadExternalHTML, loadJsCss, loadJsonResponse,
+needsPolyfills, openDeviceBrowser, parseLink, QRCode, removeChildren,
+removeClass, removeElement, removeListener, require, routie, safelyParseJSON,
+scroll2Top, setDisplayBlock, setDisplayNone, supportsCanvas, supportsPassive,
+supportsSvgSmilAnimation, throttle, toggleClass, ToProgress, truncString,
+unescape, VK, Ya, ymaps*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -36,6 +42,93 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 	prop = method = dummy = properties = methods = null;
 })("undefined" !== typeof window ? window : this);
 /*!
+ * supportsPassive
+ */
+(function (root) {
+	"use strict";
+	root.supportsPassive = (function () {
+		var support = false;
+		try {
+			var opts = Object.defineProperty && Object.defineProperty({}, "passive", {
+					get: function () {
+						support = true;
+					}
+				});
+			root.addEventListener("test", function() {}, opts);
+		} catch (err) {}
+		return support;
+	})();
+})("undefined" !== typeof window ? window : this);
+/*!
+ * supportsSvgSmilAnimation
+ */
+(function (root, document) {
+	"use strict";
+	var toStringFn = {}.toString;
+	root.supportsSvgSmilAnimation = !!document.createElementNS &&
+		(/SVGAnimate/).test(toStringFn.call(document.createElementNS("http://www.w3.org/2000/svg", "animate"))) || "";
+})("undefined" !== typeof window ? window : this, document);
+/*!
+ * supportsCanvas
+ */
+(function (root, document) {
+	"use strict";
+	root.supportsCanvas = (function () {
+		var elem = document.createElement("canvas");
+		return !!(elem.getContext && elem.getContext("2d"));
+	})();
+})("undefined" !== typeof window ? window : this, document);
+/*!
+ * needsPolyfills
+ */
+(function (root, document) {
+	"use strict";
+	root.needsPolyfills = (function () {
+		return !String.prototype.startsWith ||
+		!supportsPassive ||
+		!root.requestAnimationFrame ||
+		!root.matchMedia ||
+		("undefined" === typeof root.Element && !("dataset" in document.documentElement)) ||
+		!("classList" in document.createElement("_")) ||
+		document.createElementNS && !("classList" in document.createElementNS("http://www.w3.org/2000/svg", "g")) ||
+		(root.attachEvent && !root.addEventListener) ||
+		!("onhashchange" in root) ||
+		!Array.prototype.indexOf ||
+		!root.Promise ||
+		!root.fetch ||
+		!document.querySelectorAll ||
+		!document.querySelector ||
+		!Function.prototype.bind ||
+		(Object.defineProperty &&
+			Object.getOwnPropertyDescriptor &&
+			Object.getOwnPropertyDescriptor(Element.prototype, "textContent") &&
+			!Object.getOwnPropertyDescriptor(Element.prototype, "textContent").get) ||
+		!("undefined" !== typeof root.localStorage && "undefined" !== typeof root.sessionStorage) ||
+		!root.WeakMap ||
+		!root.MutationObserver;
+	})();
+})("undefined" !== typeof window ? window : this, document);
+/*!
+ * getHumanDate
+ */
+(function (root) {
+	"use strict";
+	root.getHumanDate = (function () {
+		var newDate = (new Date());
+		var newDay = newDate.getDate();
+		var newYear = newDate.getFullYear();
+		var newMonth = newDate.getMonth();
+		(newMonth += 1);
+		if (10 > newDay) {
+			newDay = "0" + newDay;
+		}
+		if (10 > newMonth) {
+			newMonth = "0" + newMonth;
+		}
+		return newYear + "-" + newMonth + "-" + newDay;
+	})();
+})("undefined" !== typeof window ? window : this);
+/*!
  * Super-simple wrapper around addEventListener and attachEvent (old IE).
  * Does not handle differences in the Event-objects.
  * @see {@link https://github.com/finn-no/eventlistener}
@@ -61,7 +154,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
  */
 (function (root, document) {
 	"use strict";
-	var getByClass = function (parent, name) {
+	root.getByClass = function (parent, name) {
 		if (!document.getElementsByClassName) {
 			var children = (parent || document.body).getElementsByTagName("*"),
 			elements = [],
@@ -81,7 +174,6 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			return parent ? parent.getElementsByClassName(name) : "";
 		}
 	};
-	root.getByClass = getByClass;
 })("undefined" !== typeof window ? window : this, document);
 /*!
  * class list wrapper
@@ -122,6 +214,541 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			removeClass(el, name);
 		} else {
 			addClass(el, name);
+		}
+	};
+})("undefined" !== typeof window ? window : this, document);
+/*!
+ * parseLink
+ */
+(function (root, document) {
+	"use strict";
+	/*jshint bitwise: false */
+	root.parseLink = function (url, full) {
+		var _full = full || "";
+		return (function () {
+			var _replace = function (s) {
+				return s.replace(/^(#|\?)/, "").replace(/\:$/, "");
+			};
+			var _location = location || "";
+			var _protocol = function (protocol) {
+				switch (protocol) {
+				case "http:":
+					return _full ? ":" + 80 : 80;
+				case "https:":
+					return _full ? ":" + 443 : 443;
+				default:
+					return _full ? ":" + _location.port : _location.port;
+				}
+			};
+			var _isAbsolute = (0 === url.indexOf("//") || !!~url.indexOf("://"));
+			var _locationHref = root.location || "";
+			var _origin = function () {
+				var o = _locationHref.protocol +
+					"//" +
+					_locationHref.hostname +
+					(_locationHref.port ? ":" + _locationHref.port : "");
+				return o || "";
+			};
+			var _isCrossDomain = function () {
+				var c = document.createElement("a");
+				c.href = url;
+				var v = c.protocol + "//" + c.hostname + (c.port ? ":" + c.port : "");
+				return v !== _origin();
+			};
+			var _link = document.createElement("a");
+			_link.href = url;
+			return {
+				href: _link.href,
+				origin: _origin(),
+				host: _link.host || _location.host,
+				port: ("0" === _link.port || "" === _link.port) ?
+				_protocol(_link.protocol) :
+				(_full ? _link.port : _replace(_link.port)),
+				hash: _full ? _link.hash : _replace(_link.hash),
+				hostname: _link.hostname || _location.hostname,
+				pathname: _link.pathname.charAt(0) !== "/" ?
+				(_full ? "/" + _link.pathname : _link.pathname) :
+				(_full ? _link.pathname : _link.pathname.slice(1)),
+				protocol: !_link.protocol ||
+				":" === _link.protocol ?
+				(_full ? _location.protocol : _replace(_location.protocol)) :
+				(_full ? _link.protocol : _replace(_link.protocol)),
+				search: _full ? _link.search : _replace(_link.search),
+				query: _full ? _link.search : _replace(_link.search),
+				isAbsolute: _isAbsolute,
+				isRelative: !_isAbsolute,
+				isCrossDomain: _isCrossDomain(),
+				hasHTTP: (/^(http|https):\/\//i).test(url) ? true : false
+			};
+		})();
+	};
+	/*jshint bitwise: true */
+})("undefined" !== typeof window ? window : this, document);
+/*!
+ * getHTTP
+ */
+(function (root) {
+	"use strict";
+	var getHTTP = function (force) {
+		var any = force || "";
+		var locProtocol = root.location.protocol || "";
+		return "http:" === locProtocol ? "http" : "https:" === locProtocol ? "https" : any ? "http" : "";
+	};
+	root.getHTTP = getHTTP;
+	root.forcedHTTP = getHTTP(true);
+})("undefined" !== typeof window ? window : this);
+/*!
+ * throttle
+ */
+(function (root) {
+	"use strict";
+	root.throttle = function (func, wait) {
+		var ctx;
+		var args;
+		var rtn;
+		var timeoutID;
+		var last = 0;
+		function call() {
+			timeoutID = 0;
+			last = +new Date();
+			rtn = func.apply(ctx, args);
+			ctx = null;
+			args = null;
+		}
+		return function throttled() {
+			ctx = this;
+			args = arguments;
+			var delta = new Date() - last;
+			if (!timeoutID) {
+				if (delta >= wait) {
+					call();
+				} else {
+					timeoutID = setTimeout(call, wait - delta);
+				}
+			}
+			return rtn;
+		};
+	};
+})("undefined" !== typeof window ? window : this);
+/*!
+ * debounce
+ */
+(function (root) {
+	"use strict";
+	root.debounce = function (func, wait) {
+		var timeout;
+		var args;
+		var context;
+		var timestamp;
+		return function () {
+			context = this;
+			args = [].slice.call(arguments, 0);
+			timestamp = new Date();
+			var later = function () {
+				var last = (new Date()) - timestamp;
+				if (last < wait) {
+					timeout = setTimeout(later, wait - last);
+				} else {
+					timeout = null;
+					func.apply(context, args);
+				}
+			};
+			if (!timeout) {
+				timeout = setTimeout(later, wait);
+			}
+		};
+	};
+})("undefined" !== typeof window ? window : this);
+/*!
+ * isNodejs isElectron isNwjs;
+ */
+(function (root) {
+	"use strict";
+	root.isNodejs = "undefined" !== typeof process && "undefined" !== typeof require || "";
+	root.isElectron = (function () {
+		if (typeof root !== "undefined" &&
+			typeof root.process === "object" &&
+			root.process.type === "renderer") {
+			return true;
+		}
+		if (typeof root !== "undefined" &&
+			typeof root.process !== "undefined" &&
+			typeof root.process.versions === "object" &&
+			!!root.process.versions.electron) {
+			return true;
+		}
+		if (typeof navigator === "object" &&
+			typeof navigator.userAgent === "string" &&
+			navigator.userAgent.indexOf("Electron") >= 0) {
+			return true;
+		}
+		return false;
+	})();
+	root.isNwjs = (function () {
+		if ("undefined" !== typeof isNodejs && isNodejs) {
+			try {
+				if ("undefined" !== typeof require("nw.gui")) {
+					return true;
+				}
+			} catch (err) {
+				return false;
+			}
+		}
+		return false;
+	})();
+})("undefined" !== typeof window ? window : this);
+/*!
+ * openDeviceBrowser
+ */
+(function (root) {
+	"use strict";
+	root.openDeviceBrowser = function (url) {
+		var onElectron = function () {
+			var es = isElectron ? require("electron").shell : "";
+			return es ? es.openExternal(url) : "";
+		};
+		var onNwjs = function () {
+			var ns = isNwjs ? require("nw.gui").Shell : "";
+			return ns ? ns.openExternal(url) : "";
+		};
+		var onLocal = function () {
+			return root.open(url, "_system", "scrollbars=1,location=no");
+		};
+		if (isElectron) {
+			onElectron();
+		} else if (isNwjs) {
+			onNwjs();
+		} else {
+			var locProtocol = root.location.protocol || "";
+			var hasHTTP = locProtocol ? "http:" === locProtocol ? "http" : "https:" === locProtocol ? "https" : "" : "";
+			if (hasHTTP) {
+				return true;
+			} else {
+				onLocal();
+			}
+		}
+	};
+})("undefined" !== typeof window ? window : this);
+/*!
+ * scroll2Top
+ */
+(function (root, document) {
+	"use strict";
+	root.scroll2Top = function (scrollTargetY, speed, easing) {
+		var scrollY = root.scrollY || document.documentElement.scrollTop;
+		var posY = scrollTargetY || 0;
+		var rate = speed || 2000;
+		var soothing = easing || "easeOutSine";
+		var currentTime = 0;
+		var time = Math.max(0.1, Math.min(Math.abs(scrollY - posY) / rate, 0.8));
+		var easingEquations = {
+			easeOutSine: function (pos) {
+				return Math.sin(pos * (Math.PI / 2));
+			},
+			easeInOutSine: function (pos) {
+				return (-0.5 * (Math.cos(Math.PI * pos) - 1));
+			},
+			easeInOutQuint: function (pos) {
+				if ((pos /= 0.5) < 1) {
+					return 0.5 * Math.pow(pos, 5);
+				}
+				return 0.5 * (Math.pow((pos - 2), 5) + 2);
+			}
+		};
+		function tick() {
+			currentTime += 1 / 60;
+			var p = currentTime / time;
+			var t = easingEquations[soothing](p);
+			if (p < 1) {
+				requestAnimationFrame(tick);
+				root.scrollTo(0, scrollY + ((posY - scrollY) * t));
+			} else {
+				root.scrollTo(0, posY);
+			}
+		}
+		tick();
+	};
+})("undefined" !== typeof window ? window : this, document);
+/*!
+ * setDisplayBlock
+ */
+(function (root) {
+	"use strict";
+	root.setDisplayBlock = function (e) {
+		if (e) {
+			e.style.display = "block";
+		}
+	};
+})("undefined" !== typeof window ? window : this);
+/*!
+ * setDisplayNone
+ */
+(function (root) {
+	"use strict";
+	root.setDisplayNone = function (e) {
+		if (e) {
+			e.style.display = "none";
+		}
+	};
+})("undefined" !== typeof window ? window : this);
+/*!
+ * setVisible
+ */
+(function (root) {
+	"use strict";
+	root.setVisible = function (e) {
+		if (e) {
+			e.style.visibility = "visible";
+			e.style.opacity = 1;
+		}
+	};
+})("undefined" !== typeof window ? window : this);
+/*!
+ * appendFragment
+ */
+(function (root, document) {
+	"use strict";
+	root.appendFragment = function (e, a) {
+		var parent = a || document.getElementsByTagName("body")[0] || "";
+		if (e) {
+			var df = document.createDocumentFragment() || "";
+			if ("string" === typeof e) {
+				e = document.createTextNode(e);
+			}
+			df.appendChild(e);
+			parent.appendChild(df);
+		}
+	};
+})("undefined" !== typeof window ? window : this, document);
+/*!
+ * removeElement
+ */
+(function (root) {
+	"use strict";
+	root.removeElement = function (e) {
+		if (e) {
+			if ("undefined" !== typeof e.remove) {
+				return e.remove();
+			} else {
+				return e.parentNode && e.parentNode.removeChild(e);
+			}
+		}
+	};
+})("undefined" !== typeof window ? window : this);
+/*!
+ * removeChildren
+ */
+(function (root) {
+	"use strict";
+	root.removeChildren = function (e) {
+		if (e && e.firstChild) {
+			for (; e.firstChild; ) {
+				e.removeChild(e.firstChild);
+			}
+		}
+	};
+})("undefined" !== typeof window ? window : this);
+/*!
+ * findPos
+ */
+(function (root) {
+	"use strict";
+	var docElem = document.documentElement || "";
+	var docBody = document.body || "";
+	root.findPos = function (e) {
+		e = e.getBoundingClientRect();
+		return {
+			top: Math.round(e.top + (root.pageYOffset || docElem.scrollTop || docBody.scrollTop) - (docElem.clientTop || docBody.clientTop || 0)),
+			left: Math.round(e.left + (root.pageXOffset || docElem.scrollLeft || docBody.scrollLeft) - (docElem.clientLeft || docBody.clientLeft || 0))
+		};
+	};
+})("undefined" !== typeof window ? window : this);
+/*!
+ * safelyParseJSON
+ */
+(function (root) {
+	"use strict";
+	root.safelyParseJSON = function (response) {
+		var isJson = function (obj) {
+			var objType = typeof obj;
+			return ["boolean", "number", "string", 'symbol', "function"].indexOf(objType) === -1;
+		};
+		if (!isJson(response)) {
+			return JSON.parse(response);
+		} else {
+			return response;
+		}
+	};
+})("undefined" !== typeof window ? window : this);
+/*!
+ * fixEnRuTypo
+ */
+(function (root) {
+	"use strict";
+	root.fixEnRuTypo = function (e, a, b) {
+		var c = "";
+		if ("ru" === a && "en" === b) {
+			a = '\u0430\u0431\u0432\u0433\u0434\u0435\u0451\u0436\u0437\u0438\u0439\u043a\u043b\u043c\u043d\u043e\u043f\u0440\u0441\u0442\u0443\u0444\u0445\u0446\u0447\u0448\u0449\u044a\u044c\u044b\u044d\u044e\u044f\u0410\u0411\u0412\u0413\u0414\u0415\u0401\u0416\u0417\u0418\u0419\u041a\u041b\u041c\u041d\u041e\u041f\u0420\u0421\u0422\u0423\u0424\u0425\u0426\u0427\u0428\u0429\u042a\u042c\u042b\u042d\u042e\u042f"\u2116;:?/.,';
+			b = "f,dult`;pbqrkvyjghcnea[wxio]ms'.zF<DULT~:PBQRKVYJGHCNEA{WXIO}MS'>Z@#$^&|/?";
+		} else {
+			a = "f,dult`;pbqrkvyjghcnea[wxio]ms'.zF<DULT~:PBQRKVYJGHCNEA{WXIO}MS'>Z@#$^&|/?";
+			b = '\u0430\u0431\u0432\u0433\u0434\u0435\u0451\u0436\u0437\u0438\u0439\u043a\u043b\u043c\u043d\u043e\u043f\u0440\u0441\u0442\u0443\u0444\u0445\u0446\u0447\u0448\u0449\u044a\u044c\u044b\u044d\u044e\u044f\u0410\u0411\u0412\u0413\u0414\u0415\u0401\u0416\u0417\u0418\u0419\u041a\u041b\u041c\u041d\u041e\u041f\u0420\u0421\u0422\u0423\u0424\u0425\u0426\u0427\u0428\u0429\u042a\u042c\u042b\u042d\u042e\u042f"\u2116;:?/.,';
+		}
+		var d;
+		for (d = 0; d < e.length; d += 1) {
+			var f = a.indexOf(e.charAt(d));
+			if (c > f) {
+				c += e.charAt(d);
+			} else {
+				c += b.charAt(f);
+			}
+		}
+		d = null;
+		return c;
+	};
+})("undefined" !== typeof window ? window : this);
+/*!
+ * truncString
+ */
+(function (root) {
+	"use strict";
+	root.truncString = function (str, max, add) {
+		var _add = add || "\u2026";
+		return ("string" === typeof str && str.length > max ? str.substring(0, max) + _add : str);
+	};
+})("undefined" !== typeof window ? window : this);
+/*!
+ * isValidId
+ */
+(function (root) {
+	"use strict";
+	root.isValidId = function (a, full) {
+		return full ? /^\#[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? true : false : /^[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? true : false;
+	};
+})("undefined" !== typeof window ? window : this);
+/*!
+ * insertTextAsFragment
+ */
+(function (root, document) {
+	"use strict";
+	root.insertTextAsFragment = function (text, container, callback) {
+		var cb = function () {
+			return callback && "function" === typeof callback && callback();
+		};
+		try {
+			var clonedContainer = container.cloneNode(false);
+			if (document.createRange) {
+				var rg = document.createRange();
+				rg.selectNode(document.body);
+				var df = rg.createContextualFragment(text);
+				clonedContainer.appendChild(df);
+				return container.parentNode ? container.parentNode.replaceChild(clonedContainer, container) : container.innerHTML = text,
+				cb();
+			} else {
+				clonedContainer.innerHTML = text;
+				return container.parentNode ? container.parentNode.replaceChild(document.createDocumentFragment.appendChild(clonedContainer), container) : container.innerHTML = text,
+				cb();
+			}
+		} catch (e) {
+			console.log(e);
+			return;
+		}
+	};
+})("undefined" !== typeof window ? window : this, document);
+/*!
+ * loadJsonResponse
+ */
+(function (root) {
+	"use strict";
+	root.loadJsonResponse = function (url, callback, onerror) {
+		var cb = function (string) {
+			return callback && "function" === typeof callback && callback(string);
+		};
+		var x = root.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+		x.overrideMimeType("application/json;charset=utf-8");
+		x.open("GET", url, true);
+		x.withCredentials = false;
+		x.onreadystatechange = function () {
+			if (x.status === 404 || x.status === 0) {
+				console.log("Error XMLHttpRequest-ing file", x.status);
+				return onerror && "function" === typeof onerror && onerror();
+			} else if (x.readyState === 4 && x.status === 200 && x.responseText) {
+				cb(x.responseText);
+			}
+		};
+		x.send(null);
+	};
+})("undefined" !== typeof window ? window : this);
+/*!
+ * loadExternalHTML
+ */
+(function (root) {
+	"use strict";
+	var loadExternalHTML = function (url, callback, onerror) {
+		var cb = function (string) {
+			return callback && "function" === typeof callback && callback(string);
+		};
+		var x = root.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+		x.overrideMimeType("text/html;charset=utf-8");
+		x.open("GET", url, true);
+		x.withCredentials = false;
+		x.onreadystatechange = function () {
+			if (x.status === 404 || x.status === 0) {
+				console.log("Error XMLHttpRequest-ing file " + url, x.status);
+				return onerror && "function" === typeof onerror && onerror();
+			} else if (x.readyState === 4 && x.status === 200 && x.responseText) {
+				cb(x.responseText);
+			}
+		};
+		x.send(null);
+	};
+	root.loadExternalHTML = loadExternalHTML;
+})("undefined" !== typeof window ? window : this);
+/*!
+ * insertExternalHTML
+ */
+(function (root, document) {
+	"use strict";
+	root.insertExternalHTML = function (id, url, callback, onerror) {
+		var cb = function () {
+			return callback && "function" === typeof callback && callback();
+		};
+		var container = document.getElementById(id.replace(/^#/, "")) || "";
+		var arrange = function () {
+			var x = root.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+			x.overrideMimeType("text/html;charset=utf-8");
+			x.open("GET", url, true);
+			x.withCredentials = false;
+			x.onreadystatechange = function () {
+				if (x.status === 404 || x.status === 0) {
+					console.log("Error XMLHttpRequest-ing file", x.status);
+					return onerror && "function" === typeof onerror && onerror();
+				} else if (x.readyState === 4 && x.status === 200 && x.responseText) {
+					var frag = x.responseText;
+					try {
+						var clonedContainer = container.cloneNode(false);
+						if (document.createRange) {
+							var rg = document.createRange();
+							rg.selectNode(document.body);
+							var df = rg.createContextualFragment(frag);
+							clonedContainer.appendChild(df);
+							return container.parentNode ? container.parentNode.replaceChild(clonedContainer, container) : container.innerHTML = frag,
+							cb();
+						} else {
+							clonedContainer.innerHTML = frag;
+							return container.parentNode ? container.parentNode.replaceChild(document.createDocumentFragment.appendChild(clonedContainer), container) : container.innerHTML = frag,
+							cb();
+						}
+					} catch (e) {
+						console.log(e);
+					}
+					return;
+				}
+			};
+			x.send(null);
+		};
+		if (container) {
+			arrange();
 		}
 	};
 })("undefined" !== typeof window ? window : this, document);
@@ -284,58 +911,6 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 	root.ToProgress = ToProgress;
 })("undefined" !== typeof window ? window : this, document);
 /*!
- * return image is loaded promise
- * @see {@link https://jsfiddle.net/englishextra/56pavv7d/}
- * @param {String|Object} s image path string or HTML DOM Image Object
- * var m = document.querySelector("img") || "";
- * var s = m.src || "";
- * imagePromise(m).then(function (r) {
- * alert(r);
- * }).catch (function (err) {
- * alert(err);
- * });
- * imagePromise(s).then(function (r) {
- * alert(r);
- * }).catch (function (err) {
- * alert(err);
- * });
- * @see {@link https://gist.github.com/englishextra/3e95d301d1d47fe6e26e3be198f0675e}
- * passes jshint
- */
-(function (root) {
-	"use strict";
-	var imagePromise = function (s) {
-		if (root.Promise) {
-			return new Promise(function (y, n) {
-				var f = function (e, p) {
-					e.onload = function () {
-						y(p);
-					};
-					e.onerror = function () {
-						n(p);
-					};
-					e.src = p;
-				};
-				if ("string" === typeof s) {
-					var a = new Image();
-					f(a, s);
-				} else {
-					if ("img" !== s.tagName) {
-						return Promise.reject();
-					} else {
-						if (s.src) {
-							f(s, s.src);
-						}
-					}
-				}
-			});
-		} else {
-			throw new Error("Promise is not in global object");
-		}
-	};
-	root.imagePromise = imagePromise;
-})("undefined" !== typeof window ? window : this);
-/*!
  * modified Detect Whether a Font is Installed
  * @param {String} fontName The name of the font to check
  * @return {Boolean}
@@ -345,7 +920,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
  */
 (function (root, document) {
 	"use strict";
-	var doesFontExist = function (fontName) {
+	root.doesFontExist = function (fontName) {
 		var canvas = document.createElement("canvas");
 		var context = canvas.getContext("2d");
 		var text = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -360,7 +935,6 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			return true;
 		}
 	};
-	root.doesFontExist = doesFontExist;
 })("undefined" !== typeof window ? window : this, document);
 /*!
  * modified loadExt
@@ -369,7 +943,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
  */
 (function (root, document) {
 	"use strict";
-	var loadJsCss = function (files, callback, type) {
+	root.loadJsCss = function (files, callback, type) {
 		var _this = this;
 		_this.files = files;
 		_this.js = [];
@@ -432,8 +1006,32 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			_this.callback();
 		}
 	};
-	root.loadJsCss = loadJsCss;
 })("undefined" !== typeof window ? window : this, document);
+/*!
+ * loadDeferred
+ */
+(function (root) {
+	"use strict";
+	root.loadDeferred = function (urlArray, callback) {
+		var timer;
+		var handle = function () {
+			clearTimeout(timer);
+			timer = null;
+			var load;
+			load = new loadJsCss(urlArray, callback);
+		};
+		var req;
+		var raf = function () {
+			cancelAnimationFrame(req);
+			timer = setTimeout(handle, 0);
+		};
+		if (root.requestAnimationFrame) {
+			req = requestAnimationFrame(raf);
+		} else {
+			addListener(root, "load", handle);
+		}
+	};
+})("undefined" !== typeof window ? window : this);
 /*!
  * app logic
  */
@@ -459,27 +1057,9 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 
 	progressBar.increase(20);
 
-	var toStringFn = {}.toString;
-
-	var supportsSvgSmilAnimation = !!document.createElementNS &&
-		(/SVGAnimate/).test(toStringFn.call(document.createElementNS("http://www.w3.org/2000/svg", "animate"))) || "";
-
 	if (supportsSvgSmilAnimation && docElem) {
 		addClass(docElem, "svganimate");
 	}
-
-	var getHTTP = function (force) {
-		var any = force || "";
-		var locProtocol = root.location.protocol || "";
-		return "http:" === locProtocol ? "http" : "https:" === locProtocol ? "https" : any ? "http" : "";
-	};
-
-	var forcedHTTP = getHTTP(true);
-
-	/* var supportsCanvas = (function () {
-		var elem = document.createElement("canvas");
-		return !!(elem.getContext && elem.getContext("2d"));
-	})(); */
 
 	var run = function () {
 
@@ -602,21 +1182,6 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			return selector;
 		})("touch");
 
-		var getHumanDate = (function () {
-			var newDate = (new Date());
-			var newDay = newDate.getDate();
-			var newYear = newDate.getFullYear();
-			var newMonth = newDate.getMonth();
-			(newMonth += 1);
-			if (10 > newDay) {
-				newDay = "0" + newDay;
-			}
-			if (10 > newMonth) {
-				newMonth = "0" + newMonth;
-			}
-			return newYear + "-" + newMonth + "-" + newDay;
-		})();
-
 		var initialDocTitle = document.title || "";
 
 		var userBrowser = " [" +
@@ -632,117 +1197,6 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 		if (document.title) {
 			document.title = document.title + userBrowser;
 		}
-
-		var debounce = function (func, wait) {
-			var timeout;
-			var args;
-			var context;
-			var timestamp;
-			return function () {
-				context = this;
-				args = [].slice.call(arguments, 0);
-				timestamp = new Date();
-				var later = function () {
-					var last = (new Date()) - timestamp;
-					if (last < wait) {
-						timeout = setTimeout(later, wait - last);
-					} else {
-						timeout = null;
-						func.apply(context, args);
-					}
-				};
-				if (!timeout) {
-					timeout = setTimeout(later, wait);
-				}
-			};
-		};
-
-		var throttle = function (func, wait) {
-			var ctx;
-			var args;
-			var rtn;
-			var timeoutID;
-			var last = 0;
-			function call() {
-				timeoutID = 0;
-				last = +new Date();
-				rtn = func.apply(ctx, args);
-				ctx = null;
-				args = null;
-			}
-			return function throttled() {
-				ctx = this;
-				args = arguments;
-				var delta = new Date() - last;
-				if (!timeoutID) {
-					if (delta >= wait) {
-						call();
-					} else {
-						timeoutID = setTimeout(call, wait - delta);
-					}
-				}
-				return rtn;
-			};
-		};
-
-		var setDisplayBlock = function (e) {
-			if (e) {
-				e.style.display = "block";
-			}
-		};
-
-		var setDisplayNone = function (e) {
-			if (e) {
-				e.style.display = "none";
-			}
-		};
-
-		var scroll2Top = function (scrollTargetY, speed, easing) {
-			var scrollY = root.scrollY || docElem.scrollTop;
-			var posY = scrollTargetY || 0;
-			var rate = speed || 2000;
-			var soothing = easing || "easeOutSine";
-			var currentTime = 0;
-			var time = Math.max(0.1, Math.min(Math.abs(scrollY - posY) / rate, 0.8));
-			var easingEquations = {
-				easeOutSine: function (pos) {
-					return Math.sin(pos * (Math.PI / 2));
-				},
-				easeInOutSine: function (pos) {
-					return (-0.5 * (Math.cos(Math.PI * pos) - 1));
-				},
-				easeInOutQuint: function (pos) {
-					if ((pos /= 0.5) < 1) {
-						return 0.5 * Math.pow(pos, 5);
-					}
-					return 0.5 * (Math.pow((pos - 2), 5) + 2);
-				}
-			};
-			function tick() {
-				currentTime += 1 / 60;
-				var p = currentTime / time;
-				var t = easingEquations[soothing](p);
-				if (p < 1) {
-					requestAnimationFrame(tick);
-					root.scrollTo(0, scrollY + ((posY - scrollY) * t));
-				} else {
-					root.scrollTo(0, posY);
-				}
-			}
-			tick();
-		};
-
-		var appendFragment = function (e, a) {
-			var parent = a || document.getElementsByTagName("body")[0] || "";
-			if (e) {
-				var df = document.createDocumentFragment() || "";
-				if ("string" === typeof e) {
-					e = document.createTextNode(e);
-				}
-				df.appendChild(e);
-				parent.appendChild(df);
-			}
-		};
 
 		var LoadingSpinner = (function () {
 			var spinnerClass = "loading-spinner";
@@ -771,130 +1225,6 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			};
 		})();
 
-		/*jshint bitwise: false */
-		var parseLink = function (url, full) {
-			var _full = full || "";
-			return (function () {
-				var _replace = function (s) {
-					return s.replace(/^(#|\?)/, "").replace(/\:$/, "");
-				};
-				var _location = location || "";
-				var _protocol = function (protocol) {
-					switch (protocol) {
-					case "http:":
-						return _full ? ":" + 80 : 80;
-					case "https:":
-						return _full ? ":" + 443 : 443;
-					default:
-						return _full ? ":" + _location.port : _location.port;
-					}
-				};
-				var _isAbsolute = (0 === url.indexOf("//") || !!~url.indexOf("://"));
-				var _locationHref = root.location || "";
-				var _origin = function () {
-					var o = _locationHref.protocol +
-						"//" +
-						_locationHref.hostname +
-						(_locationHref.port ? ":" + _locationHref.port : "");
-					return o || "";
-				};
-				var _isCrossDomain = function () {
-					var c = document.createElement("a");
-					c.href = url;
-					var v = c.protocol + "//" + c.hostname + (c.port ? ":" + c.port : "");
-					return v !== _origin();
-				};
-				var _link = document.createElement("a");
-				_link.href = url;
-				return {
-					href: _link.href,
-					origin: _origin(),
-					host: _link.host || _location.host,
-					port: ("0" === _link.port || "" === _link.port) ?
-						_protocol(_link.protocol) :
-						(_full ? _link.port : _replace(_link.port)),
-					hash: _full ? _link.hash : _replace(_link.hash),
-					hostname: _link.hostname || _location.hostname,
-					pathname: _link.pathname.charAt(0) !== "/" ?
-						(_full ? "/" + _link.pathname : _link.pathname) :
-						(_full ? _link.pathname : _link.pathname.slice(1)),
-					protocol: !_link.protocol ||
-						":" === _link.protocol ?
-						(_full ? _location.protocol : _replace(_location.protocol)) :
-						(_full ? _link.protocol : _replace(_link.protocol)),
-					search: _full ? _link.search : _replace(_link.search),
-					query: _full ? _link.search : _replace(_link.search),
-					isAbsolute: _isAbsolute,
-					isRelative: !_isAbsolute,
-					isCrossDomain: _isCrossDomain(),
-					hasHTTP: (/^(http|https):\/\//i).test(url) ? true : false
-				};
-			})();
-		};
-		/*jshint bitwise: true */
-
-		var isNodejs = "undefined" !== typeof process && "undefined" !== typeof require || "";
-
-		var isElectron = (function () {
-			if (typeof root !== "undefined" &&
-				typeof root.process === "object" &&
-				root.process.type === "renderer") {
-				return true;
-			}
-			if (typeof root !== "undefined" &&
-				typeof root.process !== "undefined" &&
-				typeof root.process.versions === "object" &&
-				!!root.process.versions.electron) {
-				return true;
-			}
-			if (typeof navigator === "object" &&
-				typeof navigator.userAgent === "string" &&
-				navigator.userAgent.indexOf("Electron") >= 0) {
-				return true;
-			}
-			return false;
-		})();
-
-		var isNwjs = (function () {
-			if ("undefined" !== typeof isNodejs && isNodejs) {
-				try {
-					if ("undefined" !== typeof require("nw.gui")) {
-						return true;
-					}
-				} catch (err) {
-					return false;
-				}
-			}
-			return false;
-		})();
-
-		var openDeviceBrowser = function (url) {
-			var onElectron = function () {
-				var es = isElectron ? require("electron").shell : "";
-				return es ? es.openExternal(url) : "";
-			};
-			var onNwjs = function () {
-				var ns = isNwjs ? require("nw.gui").Shell : "";
-				return ns ? ns.openExternal(url) : "";
-			};
-			var onLocal = function () {
-				return root.open(url, "_system", "scrollbars=1,location=no");
-			};
-			if (isElectron) {
-				onElectron();
-			} else if (isNwjs) {
-				onNwjs();
-			} else {
-				var locProtocol = root.location.protocol || "";
-				var hasHTTP = locProtocol ? "http:" === locProtocol ? "http" : "https:" === locProtocol ? "https" : "" : "";
-				if (hasHTTP) {
-					return true;
-				} else {
-					onLocal();
-				}
-			}
-		};
-
 		var manageExternalLinkAll = function () {
 			var link = document.getElementsByTagName("a") || "";
 			var handle = function (url, ev) {
@@ -911,7 +1241,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 					var url = e.getAttribute("href") || "";
 					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
 						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
-						if ("undefined" !== typeof getHTTP && getHTTP()) {
+						if (root.getHTTP && root.getHTTP()) {
 							e.target = "_blank";
 							e.rel = "noopener";
 						} else {
@@ -931,180 +1261,6 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			}
 		};
 		manageExternalLinkAll();
-
-		var loadJsonResponse = function (url, callback, onerror) {
-			var cb = function (string) {
-				return callback && "function" === typeof callback && callback(string);
-			};
-			var x = root.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
-			x.overrideMimeType("application/json;charset=utf-8");
-			x.open("GET", url, true);
-			x.withCredentials = false;
-			x.onreadystatechange = function () {
-				if (x.status === 404 || x.status === 0) {
-					console.log("Error XMLHttpRequest-ing file", x.status);
-					return onerror && "function" === typeof onerror && onerror();
-				} else if (x.readyState === 4 && x.status === 200 && x.responseText) {
-					cb(x.responseText);
-				}
-			};
-			x.send(null);
-		};
-
-		var safelyParseJSON = function (response) {
-			var isJson = function (obj) {
-				var objType = typeof obj;
-				return ["boolean", "number", "string", 'symbol', "function"].indexOf(objType) === -1;
-			};
-			if (!isJson(response)) {
-				return JSON.parse(response);
-			} else {
-				return response;
-			}
-		};
-
-		var truncString = function (str, max, add) {
-			var _add = add || "\u2026";
-			return ("string" === typeof str && str.length > max ? str.substring(0, max) + _add : str);
-		};
-
-		var fixEnRuTypo = function (e, a, b) {
-			var c = "";
-			if ("ru" === a && "en" === b) {
-				a = '\u0430\u0431\u0432\u0433\u0434\u0435\u0451\u0436\u0437\u0438\u0439\u043a\u043b\u043c\u043d\u043e\u043f\u0440\u0441\u0442\u0443\u0444\u0445\u0446\u0447\u0448\u0449\u044a\u044c\u044b\u044d\u044e\u044f\u0410\u0411\u0412\u0413\u0414\u0415\u0401\u0416\u0417\u0418\u0419\u041a\u041b\u041c\u041d\u041e\u041f\u0420\u0421\u0422\u0423\u0424\u0425\u0426\u0427\u0428\u0429\u042a\u042c\u042b\u042d\u042e\u042f"\u2116;:?/.,';
-				b = "f,dult`;pbqrkvyjghcnea[wxio]ms'.zF<DULT~:PBQRKVYJGHCNEA{WXIO}MS'>Z@#$^&|/?";
-			} else {
-				a = "f,dult`;pbqrkvyjghcnea[wxio]ms'.zF<DULT~:PBQRKVYJGHCNEA{WXIO}MS'>Z@#$^&|/?";
-				b = '\u0430\u0431\u0432\u0433\u0434\u0435\u0451\u0436\u0437\u0438\u0439\u043a\u043b\u043c\u043d\u043e\u043f\u0440\u0441\u0442\u0443\u0444\u0445\u0446\u0447\u0448\u0449\u044a\u044c\u044b\u044d\u044e\u044f\u0410\u0411\u0412\u0413\u0414\u0415\u0401\u0416\u0417\u0418\u0419\u041a\u041b\u041c\u041d\u041e\u041f\u0420\u0421\u0422\u0423\u0424\u0425\u0426\u0427\u0428\u0429\u042a\u042c\u042b\u042d\u042e\u042f"\u2116;:?/.,';
-			}
-			var d;
-			for (d = 0; d < e.length; d += 1) {
-				var f = a.indexOf(e.charAt(d));
-				if (c > f) {
-					c += e.charAt(d);
-				} else {
-					c += b.charAt(f);
-				}
-			}
-			d = null;
-			return c;
-		};
-
-		var insertTextAsFragment = function (text, container, callback) {
-			var cb = function () {
-				return callback && "function" === typeof callback && callback();
-			};
-			try {
-				var clonedContainer = container.cloneNode(false);
-				if (document.createRange) {
-					var rg = document.createRange();
-					rg.selectNode(docBody);
-					var df = rg.createContextualFragment(text);
-					clonedContainer.appendChild(df);
-					return container.parentNode ? container.parentNode.replaceChild(clonedContainer, container) : container.innerHTML = text,
-					cb();
-				} else {
-					clonedContainer.innerHTML = text;
-					return container.parentNode ? container.parentNode.replaceChild(document.createDocumentFragment.appendChild(clonedContainer), container) : container.innerHTML = text,
-					cb();
-				}
-			} catch (e) {
-				console.log(e);
-				return;
-			}
-		};
-
-		var removeElement = function (e) {
-			if (e) {
-				if ("undefined" !== typeof e.remove) {
-					return e.remove();
-				} else {
-					return e.parentNode && e.parentNode.removeChild(e);
-				}
-			}
-		};
-
-		var removeChildren = function (e) {
-			if (e && e.firstChild) {
-				for (; e.firstChild; ) {
-					e.removeChild(e.firstChild);
-				}
-			}
-		};
-
-		var isValidId = function (a, full) {
-			return full ? /^\#[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? true : false : /^[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? true : false;
-		};
-
-		var findPos = function (e) {
-			e = e.getBoundingClientRect();
-			return {
-				top: Math.round(e.top + (root.pageYOffset || docElem.scrollTop || docBody.scrollTop) - (docElem.clientTop || docBody.clientTop || 0)),
-				left: Math.round(e.left + (root.pageXOffset || docElem.scrollLeft || docBody.scrollLeft) - (docElem.clientLeft || docBody.clientLeft || 0))
-			};
-		};
-
-		var insertExternalHTML = function (id, url, callback, onerror) {
-			var cb = function () {
-				return callback && "function" === typeof callback && callback();
-			};
-			var container = document.getElementById(id.replace(/^#/, "")) || "";
-			var arrange = function () {
-				var x = root.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
-				x.overrideMimeType("text/html;charset=utf-8");
-				x.open("GET", url, true);
-				x.withCredentials = false;
-				x.onreadystatechange = function () {
-					if (x.status === 404 || x.status === 0) {
-						console.log("Error XMLHttpRequest-ing file", x.status);
-						return onerror && "function" === typeof onerror && onerror();
-					} else if (x.readyState === 4 && x.status === 200 && x.responseText) {
-						var frag = x.responseText;
-						try {
-							var clonedContainer = container.cloneNode(false);
-							if (document.createRange) {
-								var rg = document.createRange();
-								rg.selectNode(docBody);
-								var df = rg.createContextualFragment(frag);
-								clonedContainer.appendChild(df);
-								return container.parentNode ? container.parentNode.replaceChild(clonedContainer, container) : container.innerHTML = frag,
-								cb();
-							} else {
-								clonedContainer.innerHTML = frag;
-								return container.parentNode ? container.parentNode.replaceChild(document.createDocumentFragment.appendChild(clonedContainer), container) : container.innerHTML = frag,
-								cb();
-							}
-						} catch (e) {
-							console.log(e);
-						}
-						return;
-					}
-				};
-				x.send(null);
-			};
-			if (container) {
-				arrange();
-			}
-		};
-
-		var loadExternalHTML = function (url, callback, onerror) {
-			var cb = function (string) {
-				return callback && "function" === typeof callback && callback(string);
-			};
-			var x = root.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
-			x.overrideMimeType("text/html;charset=utf-8");
-			x.open("GET", url, true);
-			x.withCredentials = false;
-			x.onreadystatechange = function () {
-				if (x.status === 404 || x.status === 0) {
-					console.log("Error XMLHttpRequest-ing file " + url, x.status);
-					return onerror && "function" === typeof onerror && onerror();
-				} else if (x.readyState === 4 && x.status === 200 && x.responseText) {
-					cb(x.responseText);
-				}
-			};
-			x.send(null);
-		};
 
 		var notiBar = function (opt) {
 			var notibarClass = "notibar";
@@ -1260,7 +1416,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 		};
 
 		var initNotifier42WriteMe = function () {
-			if ("undefined" !== typeof getHTTP && !getHTTP()) {
+			if (root.getHTTP && !root.getHTTP()) {
 				return;
 			}
 			var cookieKey = "_notifier42_write_me_";
@@ -1894,13 +2050,13 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 				addListener(root, "hashchange", generateLocationQrCodeImg);
 				addListener(holder, "click", handleGenerateLocationQrCodeImgHolder);
 			};
-			if (root.QRCode && btn && page && holder && locHref && "undefined" !== typeof getHTTP && getHTTP()) {
+			if (root.QRCode && btn && page && holder && locHref && root.getHTTP && root.getHTTP()) {
 				initScript();
 			}
 		};
 		manageLocationQrcode();
 
-		var yshare;
+		root.yaShareInstance = null;
 		var manageShareButtons = function () {
 			var btn = getByClass(document, "btn-toggle-holder-share-buttons")[0] || "";
 			var yaShare2Id = "ya-share2";
@@ -1928,14 +2084,14 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 					 * remove ya-share2 class in html markup
 					 * or you will end up with two copies of Ya.share2
 					 */
-					if (yshare) {
-						yshare.updateContent({
+					if (root.yaShareInstance) {
+						root.yaShareInstance.updateContent({
 							title: document.title || "",
 							description: document.title || "",
 							url: root.location.href || ""
 						});
 					} else {
-						yshare = Ya.share2(yaShare2Id, {
+						root.yaShareInstance = Ya.share2(yaShare2Id, {
 							content: {
 								title: document.title || "",
 								description: document.title || "",
@@ -1955,14 +2111,14 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 				}
 			};
 			if (btn && page && holder && yaShare2) {
-				if ("undefined" !== typeof getHTTP && getHTTP()) {
+				if (root.getHTTP && root.getHTTP()) {
 					addListener(btn, "click", handle);
 				}
 			}
 		};
 		manageShareButtons();
 
-		var vlike;
+		root.vkLikeInstance = null;
 		var manageVKLikeButton = function () {
 			var btn = getByClass(document, "btn-toggle-holder-vk-like")[0] || "";
 			var page = getByClass(document, "page")[0] || "";
@@ -1985,7 +2141,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 					removeClass(page, isActiveMenumoreClass);
 				}
 				var initScript = function () {
-					if (!vlike) {
+					if (!root.vkLikeInstance) {
 						try {
 							VK.init({
 								apiId: (vkLike.dataset.apiid || ""),
@@ -1996,7 +2152,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 								type: "button",
 								height: 24
 							});
-							vlike = true;
+							root.vkLikeInstance = true;
 						} catch (err) {
 							throw new Error("cannot VK.init " + err);
 						}
@@ -2013,7 +2169,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 				}
 			};
 			if (btn && page && vkLike) {
-				if ("undefined" !== typeof getHTTP && getHTTP()) {
+				if (root.getHTTP && root.getHTTP()) {
 					addListener(btn, "click", handle);
 				}
 			}
@@ -2039,7 +2195,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 				}
 			};
 			if (btn && disqusThread && shortname && locHref) {
-				if ("undefined" !== typeof getHTTP && getHTTP()) {
+				if (root.getHTTP && root.getHTTP()) {
 					addClass(disqusThread, isActiveClass);
 					setDisplayNone(btn);
 					if (!root.DISQUS) {
@@ -2072,7 +2228,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			}
 		};
 
-		var mymap;
+		root.ymapsInstance = null;
 		var initYandexMap = function (yandexMapId) {
 			var yandexMap = document.getElementById(yandexMapId) || "";
 			var btnShow = yandexMap ? (document.getElementById(yandexMap.dataset.btnShow) || "") : "";
@@ -2083,16 +2239,16 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 				ev.stopPropagation();
 				ev.preventDefault();
 				removeListener(btnDestroy, "click", handleYandexMapBtnDestroy);
-				if (mymap) {
-					mymap.destroy();
+				if (root.ymapsInstance) {
+					root.ymapsInstance.destroy();
 				}
 			};
 			var initScript = function () {
 				var initMyMap = function () {
-					if (mymap) {
-						mymap.destroy();
+					if (root.ymapsInstance) {
+						root.ymapsInstance.destroy();
 					}
-					mymap = new ymaps.Map(yandexMapId, {
+					root.ymapsInstance = new ymaps.Map(yandexMapId, {
 							center: JSON.parse(yandexMapCenter),
 							zoom: yandexMapZoom
 						});
@@ -2106,7 +2262,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 				}
 			};
 			if (yandexMap && yandexMapCenter && yandexMapZoom && btnShow) {
-				if ("undefined" !== typeof getHTTP && getHTTP()) {
+				if (root.getHTTP && root.getHTTP()) {
 					if (btnDestroy) {
 						addListener(btnDestroy, "click", handleYandexMapBtnDestroy);
 					}
@@ -2141,6 +2297,7 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 			}
 		};
 
+		root.kamilInstance = null;
 		var manageKamil = function () {
 			var searchForm = getByClass(document, "search-form")[0] || "";
 			var textInputSelector = "#text";
@@ -2288,7 +2445,10 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 				});
 			};
 			var initScript = function () {
-				loadJsonResponse(jsonUrl, processJsonResponse);
+				if (!root.kamilInstance) {
+					root.kamilInstance = true;
+					loadJsonResponse(jsonUrl, processJsonResponse);
+				}
 			};
 			if (root.Kamil && searchForm && textInput) {
 				initScript();
@@ -2356,14 +2516,14 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 						});
 					},
 					"/schedule": function () {
-						if ("undefined" !== typeof getHTTP && getHTTP()) {
+						if (root.getHTTP && root.getHTTP()) {
 							loadVirtualPage(appContentId, "./includes/serguei-eaststreet/schedule.html", function () {
 								reinitVirtualPage("Расписание");
 							});
 						}
 					},
 					"/map": function () {
-						if ("undefined" !== typeof getHTTP && getHTTP()) {
+						if (root.getHTTP && root.getHTTP()) {
 							loadVirtualPage(appContentId, "./includes/serguei-eaststreet/map.html", function () {
 								reinitVirtualPage("Карта");
 							});
@@ -2445,53 +2605,13 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 
 	var scripts = [];
 
-	var supportsPassive = (function () {
-		var support = false;
-		try {
-			var opts = Object.defineProperty && Object.defineProperty({}, "passive", {
-					get: function () {
-						support = true;
-					}
-				});
-			root.addEventListener("test", function() {}, opts);
-		} catch (err) {}
-		return support;
-	})();
-
-	var needsPolyfills = (function () {
-		return !String.prototype.startsWith ||
-		!supportsPassive ||
-		!root.requestAnimationFrame ||
-		!root.matchMedia ||
-		("undefined" === typeof root.Element && !("dataset" in docElem)) ||
-		!("classList" in document.createElement("_")) ||
-		document.createElementNS && !("classList" in document.createElementNS("http://www.w3.org/2000/svg", "g")) ||
-		(root.attachEvent && !root.addEventListener) ||
-		!("onhashchange" in root) ||
-		!Array.prototype.indexOf ||
-		!root.Promise ||
-		!root.fetch ||
-		!document.querySelectorAll ||
-		!document.querySelector ||
-		!Function.prototype.bind ||
-		(Object.defineProperty &&
-			Object.getOwnPropertyDescriptor &&
-			Object.getOwnPropertyDescriptor(Element.prototype, "textContent") &&
-			!Object.getOwnPropertyDescriptor(Element.prototype, "textContent").get) ||
-		!("undefined" !== typeof root.localStorage && "undefined" !== typeof root.sessionStorage) ||
-		!root.WeakMap ||
-		!root.MutationObserver;
-	})();
-
 	if (needsPolyfills) {
 		scripts.push("./cdn/polyfills/js/polyfills.fixed.min.js");
 	}
 
 	scripts.push("./libs/serguei-eaststreet/js/vendors.min.js");
 
-	var bodyFontFamily = "Roboto";
-
-	var onFontsLoaded = function () {
+	var loadOnFontsReady = function (bodyFontFamily, useCheck) {
 		var slot;
 		var init = function () {
 			clearInterval(slot);
@@ -2507,15 +2627,15 @@ require, routie, ToProgress, unescape, VK, Ya, ymaps*/
 				init();
 			}
 		};
-		/* if (supportsCanvas) {
+		if (useCheck && supportsCanvas) {
 			slot = setInterval(check, 100);
 		} else {
 			slot = null;
 			init();
-		} */
-		init();
+		}
 	};
 
-	var load;
-	load = new loadJsCss(["./libs/serguei-eaststreet/css/bundle.min.css"], onFontsLoaded);
+	var bodyFontFamily = "Roboto";
+
+	loadDeferred(["./libs/serguei-eaststreet/css/bundle.min.css"], loadOnFontsReady.bind(null, bodyFontFamily, null));
 })("undefined" !== typeof window ? window : this, document);
