@@ -1998,7 +1998,7 @@ img.office-qrcode-img {
 	background-color: transparent;
 }
 
-#sidedrawer.active {
+#sidedrawer.is-active {
 	-webkit-transform: translate(15rem);
 	transform: translate(15rem);
 }
