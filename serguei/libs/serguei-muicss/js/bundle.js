@@ -1903,6 +1903,7 @@ unescape, VK, WheelIndicator, Ya*/
 
 		var manageDisqusEmbed = function () {
 			var disqusThread = document.getElementById("disqus_thread") || "";
+			var disqusThreadIsBindedClass = "disqus-thread--is-binded";
 			var locHref = root.location.href || "";
 			var shortname = disqusThread ? (disqusThread.dataset.shortname || "") : "";
 			var hide = function () {
@@ -1913,9 +1914,6 @@ unescape, VK, WheelIndicator, Ya*/
 				disqusThread.removeAttribute("id");
 			};
 			var initScript = function () {
-				var setDisqusCSSClass = function () {
-					addClass(disqusThread, isActiveClass);
-				};
 				try {
 					DISQUS.reset({
 						reload: true,
@@ -1924,10 +1922,10 @@ unescape, VK, WheelIndicator, Ya*/
 							this.page.url = locHref;
 						}
 					});
-					if (!hasClass(disqusThread.parentNode, minigridItemIsBindedClass)) {
-						addClass(disqusThread.parentNode, minigridItemIsBindedClass);
-						onHeightChange(disqusThread.parentNode, 1000, null, setDisqusCSSClass);
-						/* addListener(disqusThread.parentNode, "onresize", updateMinigridThrottled, {passive: true}); */
+					if (!hasClass(disqusThread.parentNode.parentNode, disqusThreadIsBindedClass)) {
+						addClass(disqusThread.parentNode.parentNode, disqusThreadIsBindedClass);
+						console.log(disqusThread.parentNode.parentNode.className);
+						onHeightChange(disqusThread.parentNode, 1000, null, setIsActiveClass.bind(null, disqusThread.parentNode.parentNode));
 					}
 				} catch (err) {
 					throw new Error("cannot DISQUS.reset " + err);
@@ -1950,6 +1948,7 @@ unescape, VK, WheelIndicator, Ya*/
 
 		var manageInstagramEmbedAll = function () {
 			var instagramMediaClass = "instagram-media";
+			var instagramMediaIsBindedClass = "instagram-media--is-binded";
 			var instagramMedia = getByClass(document, instagramMediaClass)[0] || "";
 			var initScript = function () {
 				try {
@@ -1959,10 +1958,10 @@ unescape, VK, WheelIndicator, Ya*/
 						var i,
 						l;
 						for (i = 0, l = instagramMedia.length; i < l; i += 1) {
-							if (!hasClass(instagramMedia[i].parentNode, minigridItemIsBindedClass)) {
-								addClass(instagramMedia[i].parentNode, minigridItemIsBindedClass);
+							if (!hasClass(instagramMedia[i].parentNode, instagramMediaIsBindedClass)) {
+								addClass(instagramMedia[i].parentNode, instagramMediaIsBindedClass);
+								console.log(instagramMedia[i].parentNode.className);
 								onHeightChange(instagramMedia[i].parentNode, 1000, null, setIsActiveClass.bind(null, instagramMedia[i].parentNode));
-								/* addListener(instagramMedia[i].parentNode, "onresize", updateMinigridThrottled, {passive: true}); */
 							}
 						}
 						i = l = null;
@@ -1984,6 +1983,7 @@ unescape, VK, WheelIndicator, Ya*/
 
 		var manageTwitterEmbedAll = function () {
 			var twitterTweetClass = "twitter-tweet";
+			var twitterTweetIsBindedClass = "twitter-tweet--is-binded";
 			var twitterTweet = getByClass(document, twitterTweetClass)[0] || "";
 			var initScript = function () {
 				try {
@@ -1993,10 +1993,10 @@ unescape, VK, WheelIndicator, Ya*/
 						var i,
 						l;
 						for (i = 0, l = twitterTweet.length; i < l; i += 1) {
-							if (!hasClass(twitterTweet[i].parentNode, minigridItemIsBindedClass)) {
-								addClass(twitterTweet[i].parentNode, minigridItemIsBindedClass);
+							if (!hasClass(twitterTweet[i].parentNode, twitterTweetIsBindedClass)) {
+								addClass(twitterTweet[i].parentNode, twitterTweetIsBindedClass);
+								console.log(twitterTweet[i].parentNode.className);
 								onHeightChange(twitterTweet[i].parentNode, 1000, null, setIsActiveClass.bind(null, twitterTweet[i].parentNode));
-								/* addListener(twitterTweet[i].parentNode, "onresize", updateMinigridThrottled, {passive: true}); */
 							}
 						}
 						i = l = null;
@@ -2018,6 +2018,7 @@ unescape, VK, WheelIndicator, Ya*/
 
 		var manageVkEmbedAll = function () {
 			var vkPostClass = "vk-post";
+			var vkPostIsBindedClass = "vk-post--is-binded";
 			var vkPost = getByClass(document, vkPostClass)[0] || "";
 			var initScript = function () {
 				var initVkPost = function (element_id, owner_id, post_id, hash) {
@@ -2031,10 +2032,10 @@ unescape, VK, WheelIndicator, Ya*/
 						var i,
 						l;
 						for (i = 0, l = vkPost.length; i < l; i += 1) {
-							if (!hasClass(vkPost[i].parentNode, minigridItemIsBindedClass)) {
-								addClass(vkPost[i].parentNode, minigridItemIsBindedClass);
+							if (!hasClass(vkPost[i].parentNode, vkPostIsBindedClass)) {
+								addClass(vkPost[i].parentNode, vkPostIsBindedClass);
+								console.log(vkPost[i].parentNode.className);
 								onHeightChange(vkPost[i].parentNode, 1000, null, setIsActiveClass.bind(null, vkPost[i].parentNode));
-								/* addListener(vkPost[i].parentNode, "onresize", updateMinigridThrottled, {passive: true}); */
 								initVkPost(vkPost[i].id, vkPost[i].dataset.vkOwnerid, vkPost[i].dataset.vkPostid, vkPost[i].dataset.vkHash);
 							}
 						}
