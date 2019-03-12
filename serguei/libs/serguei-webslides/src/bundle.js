@@ -442,7 +442,7 @@ ToProgress, unescape, WebSlides*/
 	"use strict";
 	var ToProgress = (function () {
 		var TP = function () {
-			function whichTransitionEvent() {
+			var whichTransitionEvent = function () {
 				var t;
 				var el = document.createElement("fakeelement");
 				var transitions = {
@@ -459,10 +459,9 @@ ToProgress, unescape, WebSlides*/
 					}
 				}
 				t = null;
-			}
-
+			};
 			var transitionEvent = whichTransitionEvent();
-			function ToProgress(opt, selector) {
+			var ToProgress = function (opt, selector) {
 				this.progress = 0;
 				this.options = {
 					id: "top-progress-bar",
@@ -524,7 +523,7 @@ ToProgress, unescape, WebSlides*/
 				} else {
 					document.body.appendChild(this.progressBar);
 				}
-			}
+			};
 			ToProgress.prototype.transit = function () {
 				this.progressBar.style.width = this.progress + "%";
 			};
@@ -729,18 +728,16 @@ ToProgress, unescape, WebSlides*/
 
 	progressBar.increase(20);
 
-	if (supportsSvgSmilAnimation && docElem) {
+	if (supportsSvgSmilAnimation) {
 		addClass(docElem, "svganimate");
 	}
 
 	var run = function () {
 
-		progressBar.increase(20);
+		removeClass(docElem, "no-js");
+		addClass(docElem, "js");
 
-		if (docElem && docElem.classList) {
-			removeClass(docElem, "no-js");
-			addClass(docElem, "js");
-		}
+		progressBar.increase(20);
 
 		var earlyDeviceFormfactor = (function (selectors) {
 			var orientation;
@@ -862,15 +859,15 @@ ToProgress, unescape, WebSlides*/
 
 		var manageExternalLinkAll = function () {
 			var link = document.getElementsByTagName("a") || "";
-			var handle = function (url, ev) {
-				ev.stopPropagation();
-				ev.preventDefault();
-				var logic = function () {
-					openDeviceBrowser(url);
-				};
-				debounce(logic, 200).call(root);
-			};
 			var arrange = function (e) {
+				var handle = function (url, ev) {
+					ev.stopPropagation();
+					ev.preventDefault();
+					var logic = function () {
+						openDeviceBrowser(url);
+					};
+					debounce(logic, 200).call(root);
+				};
 				var externalLinkIsBindedClass = "external-link--is-binded";
 				if (!hasClass(e, externalLinkIsBindedClass)) {
 					var url = e.getAttribute("href") || "";

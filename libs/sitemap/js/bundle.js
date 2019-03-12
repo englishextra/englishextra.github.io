@@ -509,7 +509,7 @@ ToProgress*/
 	"use strict";
 	var ToProgress = (function () {
 		var TP = function () {
-			function whichTransitionEvent() {
+			var whichTransitionEvent = function () {
 				var t;
 				var el = document.createElement("fakeelement");
 				var transitions = {
@@ -526,10 +526,9 @@ ToProgress*/
 					}
 				}
 				t = null;
-			}
-
+			};
 			var transitionEvent = whichTransitionEvent();
-			function ToProgress(opt, selector) {
+			var ToProgress = function (opt, selector) {
 				this.progress = 0;
 				this.options = {
 					id: "top-progress-bar",
@@ -591,7 +590,7 @@ ToProgress*/
 				} else {
 					document.body.appendChild(this.progressBar);
 				}
-			}
+			};
 			ToProgress.prototype.transit = function () {
 				this.progressBar.style.width = this.progress + "%";
 			};
@@ -797,7 +796,7 @@ ToProgress*/
 
 	progressBar.increase(20);
 
-	if (supportsSvgSmilAnimation && docElem) {
+	if (supportsSvgSmilAnimation) {
 		addClass(docElem, "svganimate");
 	}
 
@@ -806,12 +805,10 @@ ToProgress*/
 		var isActiveClass = "is-active";
 		var isBindedClass = "is-binded";
 
-		progressBar.increase(20);
+		removeClass(docElem, "no-js");
+		addClass(docElem, "js");
 
-		if (docElem && docElem.classList) {
-			removeClass(docElem, "no-js");
-			addClass(docElem, "js");
-		}
+		progressBar.increase(20);
 
 		var earlyDeviceFormfactor = (function (selectors) {
 			var orientation;
@@ -933,15 +930,15 @@ ToProgress*/
 
 		var manageExternalLinkAll = function () {
 			var link = document.getElementsByTagName("a") || "";
-			var handle = function (url, ev) {
-				ev.stopPropagation();
-				ev.preventDefault();
-				var logic = function () {
-					openDeviceBrowser(url);
-				};
-				debounce(logic, 200).call(root);
-			};
 			var arrange = function (e) {
+				var handle = function (url, ev) {
+					ev.stopPropagation();
+					ev.preventDefault();
+					var logic = function () {
+						openDeviceBrowser(url);
+					};
+					debounce(logic, 200).call(root);
+				};
 				var externalLinkIsBindedClass = "external-link--is-binded";
 				if (!hasClass(e, externalLinkIsBindedClass)) {
 					var url = e.getAttribute("href") || "";
@@ -1227,7 +1224,7 @@ ToProgress*/
 		};
 		initMasonry();
 
-		var manageBtnTotop = function () {
+		var manageTotopBtn = function () {
 			var btnClass = "btn-totop";
 			var btn = getByClass(document, btnClass)[0] || "";
 			if (!btn) {
@@ -1239,12 +1236,12 @@ ToProgress*/
 				btn.title = "Наверх";
 				docBody.appendChild(btn);
 			}
-			var handle = function (ev) {
+			var handleBtn = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				scroll2Top(0, 20000);
 			};
-			var handleWindow = function (_this) {
+			var handleRoot = function (_this) {
 				var logic = function () {
 					var scrollPosition = _this.pageYOffset || docElem.scrollTop || docBody.scrollTop || "";
 					var windowHeight = _this.innerHeight || docElem.clientHeight || docBody.clientHeight || "";
@@ -1259,11 +1256,11 @@ ToProgress*/
 				throttle(logic, 100).call(root);
 			};
 			if (docBody) {
-				addListener(btn, "click", handle);
-				addListener(root, "scroll", handleWindow, {passive: true});
+				addListener(btn, "click", handleBtn);
+				addListener(root, "scroll", handleRoot, {passive: true});
 			}
 		};
-		manageBtnTotop();
+		manageTotopBtn();
 
 		hideProgressBar();
 	};

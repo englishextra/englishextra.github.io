@@ -1,7 +1,7 @@
 /*jslint browser: true */
 /*jslint node: true*/
 /*global ActiveXObject, addClass, addListener, appendFragment, Cookies,
-debounce, doesFontExist, findPos, fixEnRuTypo, forcedHTTP, getByClass,
+debounce, DISQUS, doesFontExist, findPos, fixEnRuTypo, forcedHTTP, getByClass,
 getHumanDate, hasClass, IframeLightbox, imgLightbox, isNodejs, isElectron,
 isNwjs, isValidId, Kamil, LazyLoad, loadDeferred, loadJsCss, loadJsonResponse,
 needsPolyfills, openDeviceBrowser, parseLink, prependFragmentBefore, QRCode,
@@ -683,7 +683,7 @@ ToProgress, truncString, unescape, VK, Ya*/
 	"use strict";
 	var ToProgress = (function () {
 		var TP = function () {
-			function whichTransitionEvent() {
+			var whichTransitionEvent = function () {
 				var t;
 				var el = document.createElement("fakeelement");
 				var transitions = {
@@ -700,10 +700,9 @@ ToProgress, truncString, unescape, VK, Ya*/
 					}
 				}
 				t = null;
-			}
-
+			};
 			var transitionEvent = whichTransitionEvent();
-			function ToProgress(opt, selector) {
+			var ToProgress = function (opt, selector) {
 				this.progress = 0;
 				this.options = {
 					id: "top-progress-bar",
@@ -765,7 +764,7 @@ ToProgress, truncString, unescape, VK, Ya*/
 				} else {
 					document.body.appendChild(this.progressBar);
 				}
-			}
+			};
 			ToProgress.prototype.transit = function () {
 				this.progressBar.style.width = this.progress + "%";
 			};
@@ -971,7 +970,7 @@ ToProgress, truncString, unescape, VK, Ya*/
 
 	progressBar.increase(20);
 
-	if (supportsSvgSmilAnimation && docElem) {
+	if (supportsSvgSmilAnimation) {
 		addClass(docElem, "svganimate");
 	}
 
@@ -980,12 +979,10 @@ ToProgress, truncString, unescape, VK, Ya*/
 		var isActiveClass = "is-active";
 		var isSocialClass = "is-social";
 
-		progressBar.increase(20);
+		removeClass(docElem, "no-js");
+		addClass(docElem, "js");
 
-		if (docElem && docElem.classList) {
-			removeClass(docElem, "no-js");
-			addClass(docElem, "js");
-		}
+		progressBar.increase(20);
 
 		var earlyDeviceFormfactor = (function (selectors) {
 			var orientation;
@@ -1107,15 +1104,15 @@ ToProgress, truncString, unescape, VK, Ya*/
 
 		var manageExternalLinkAll = function () {
 			var link = document.getElementsByTagName("a") || "";
-			var handle = function (url, ev) {
-				ev.stopPropagation();
-				ev.preventDefault();
-				var logic = function () {
-					openDeviceBrowser(url);
-				};
-				debounce(logic, 200).call(root);
-			};
 			var arrange = function (e) {
+				var handle = function (url, ev) {
+					ev.stopPropagation();
+					ev.preventDefault();
+					var logic = function () {
+						openDeviceBrowser(url);
+					};
+					debounce(logic, 200).call(root);
+				};
 				var externalLinkIsBindedClass = "external-link--is-binded";
 				if (!hasClass(e, externalLinkIsBindedClass)) {
 					var url = e.getAttribute("href") || "";
@@ -1431,11 +1428,13 @@ ToProgress, truncString, unescape, VK, Ya*/
 
 		var manageChaptersSelect = function () {
 			var chaptersSelect = document.getElementById("chapters-select") || "";
-			var handle = function () {
+			var handleChaptersSelect = function () {
 				var _this = this;
 				var hashString = _this.options[_this.selectedIndex].value || "";
 				if (hashString) {
-					var targetObj = hashString ? (isValidId(hashString, true) ? document.getElementById(hashString.replace(/^#/, "")) || "" : "") : "";
+					var targetObj = hashString ?
+					(isValidId(hashString, true) ? document.getElementById(hashString.replace(/^#/, "")) || "" : "")
+					: "";
 					if (targetObj) {
 						scroll2Top((targetObj ? findPos(targetObj).top : 0), 20000);
 					} else {
@@ -1444,14 +1443,14 @@ ToProgress, truncString, unescape, VK, Ya*/
 				}
 			};
 			if (chaptersSelect) {
-				addListener(chaptersSelect, "change", handle);
+				addListener(chaptersSelect, "change", handleChaptersSelect);
 			}
 		};
 		manageChaptersSelect();
 
 		var manageSearchInput = function () {
 			var searchInput = document.getElementById("text") || "";
-			var handle = function () {
+			var handleSearchInput = function () {
 				var _this = this;
 				var logic = function () {
 					_this.value = _this.value.replace(/\\/g, "").replace(/ +(?= )/g, " ").replace(/\/+(?=\/)/g, "/") || "";
@@ -1460,14 +1459,14 @@ ToProgress, truncString, unescape, VK, Ya*/
 			};
 			if (searchInput) {
 				searchInput.focus();
-				addListener(searchInput, "input", handle);
+				addListener(searchInput, "input", handleSearchInput);
 			}
 		};
 		manageSearchInput();
 
 		var manageExpandingLayerAll = function () {
 			var btn = getByClass(document, "btn-expand-hidden-layer") || "";
-			var handle = function () {
+			var handleBtn = function () {
 				var _this = this;
 				var layer = _this.parentNode ? _this.parentNode.nextElementSibling : "";
 				if (layer) {
@@ -1476,14 +1475,14 @@ ToProgress, truncString, unescape, VK, Ya*/
 				}
 				return;
 			};
-			var addHandler = function (e) {
-				addListener(e, "click", handle);
+			var arrange = function (e) {
+				addListener(e, "click", handleBtn);
 			};
 			if (btn) {
 				var i,
 				l;
 				for (i = 0, l = btn.length; i < l; i += 1) {
-					addHandler(btn[i]);
+					arrange(btn[i]);
 				}
 				i = l = null;
 			}
@@ -1547,15 +1546,15 @@ ToProgress, truncString, unescape, VK, Ya*/
 		var manageNavMenu = function () {
 			var container = document.getElementById("container") || "";
 			var page = document.getElementById("page") || "";
-			var btnNavMenu = getByClass(document, "btn-nav-menu")[0] || "";
-			var panelNavMenu = getByClass(document, "panel-nav-menu")[0] || "";
-			var panelNavMenuItems = panelNavMenu ? panelNavMenu.getElementsByTagName("a") || "" : "";
+			var btn = getByClass(document, "btn-nav-menu")[0] || "";
+			var panel = getByClass(document, "panel-nav-menu")[0] || "";
+			var panelItems = panel ? panel.getElementsByTagName("a") || "" : "";
 			var holderPanelMenuMore = getByClass(document, "holder-panel-menu-more")[0] || "";
 			var locHref = root.location.href || "";
 			var removeAllActiveClass = function () {
 				removeClass(page, isActiveClass);
-				removeClass(panelNavMenu, isActiveClass);
-				removeClass(btnNavMenu, isActiveClass);
+				removeClass(panel, isActiveClass);
+				removeClass(btn, isActiveClass);
 			};
 			var removeHolderActiveClass = function () {
 				if (holderPanelMenuMore && hasClass(holderPanelMenuMore, isActiveClass)) {
@@ -1565,7 +1564,7 @@ ToProgress, truncString, unescape, VK, Ya*/
 			var addContainerHandler = function () {
 				var handleContainerLeft = function () {
 					removeHolderActiveClass();
-					if (hasClass(panelNavMenu, isActiveClass)) {
+					if (hasClass(panel, isActiveClass)) {
 						removeAllActiveClass();
 					}
 				};
@@ -1573,10 +1572,10 @@ ToProgress, truncString, unescape, VK, Ya*/
 					removeHolderActiveClass();
 					var addAllActiveClass = function () {
 						addClass(page, isActiveClass);
-						addClass(panelNavMenu, isActiveClass);
-						addClass(btnNavMenu, isActiveClass);
+						addClass(panel, isActiveClass);
+						addClass(btn, isActiveClass);
 					};
-					if (!hasClass(panelNavMenu, isActiveClass)) {
+					if (!hasClass(panel, isActiveClass)) {
 						addAllActiveClass();
 					}
 				};
@@ -1591,16 +1590,16 @@ ToProgress, truncString, unescape, VK, Ya*/
 			var addBtnHandler = function () {
 				var toggleAllActiveClass = function () {
 					toggleClass(page, isActiveClass);
-					toggleClass(panelNavMenu, isActiveClass);
-					toggleClass(btnNavMenu, isActiveClass);
+					toggleClass(panel, isActiveClass);
+					toggleClass(btn, isActiveClass);
 				};
-				var handleBtnNavMenu = function (ev) {
+				var handleBtn = function (ev) {
 					ev.stopPropagation();
 					ev.preventDefault();
 					removeHolderActiveClass();
 					toggleAllActiveClass();
 				};
-				addListener(btnNavMenu, "click", handleBtnNavMenu);
+				addListener(btn, "click", handleBtn);
 			};
 			var addItemHandlerAll = function () {
 				var addItemHandler = function (e) {
@@ -1615,13 +1614,13 @@ ToProgress, truncString, unescape, VK, Ya*/
 						removeClass(e, isActiveClass);
 					};
 					var handleItem = function () {
-						if (hasClass(panelNavMenu, isActiveClass)) {
+						if (hasClass(panel, isActiveClass)) {
 							removeHolderAndAllActiveClass();
 						}
 						var i,
 						l;
-						for (i = 0, l = panelNavMenuItems.length; i < l; i += 1) {
-							removeActiveClass(panelNavMenuItems[i]);
+						for (i = 0, l = panelItems.length; i < l; i += 1) {
+							removeActiveClass(panelItems[i]);
 						}
 						i = l = null;
 						addActiveClass(e);
@@ -1635,19 +1634,19 @@ ToProgress, truncString, unescape, VK, Ya*/
 				};
 				var i,
 				l;
-				for (i = 0, l = panelNavMenuItems.length; i < l; i += 1) {
-					addItemHandler(panelNavMenuItems[i]);
+				for (i = 0, l = panelItems.length; i < l; i += 1) {
+					addItemHandler(panelItems[i]);
 				}
 				i = l = null;
 			};
 			if (page &&
 				container &&
-				btnNavMenu &&
-				panelNavMenu &&
-				panelNavMenuItems) {
-				addContainerHandler();
-				addBtnHandler();
-				addItemHandlerAll();
+				btn &&
+				panel &&
+				panelItems) {
+					addContainerHandler();
+					addBtnHandler();
+					addItemHandlerAll();
 			}
 		};
 		manageNavMenu();
@@ -1673,7 +1672,7 @@ ToProgress, truncString, unescape, VK, Ya*/
 				var link = document.createElement("a");
 				link.title = "" + (parseLink(linkHref).hostname || "") + " откроется в новой вкладке";
 				link.href = linkHref;
-				var handleAppUpdatesLink = function () {
+				var handleLink = function () {
 					openDeviceBrowser(linkHref);
 				};
 				if (root.getHTTP && root.getHTTP()) {
@@ -1683,7 +1682,7 @@ ToProgress, truncString, unescape, VK, Ya*/
 					/* jshint -W107 */
 					link.href = "javascript:void(0);";
 					/* jshint +W107 */
-					addListener(link, "click", handleAppUpdatesLink);
+					addListener(link, "click", handleLink);
 				}
 				link.appendChild(document.createTextNode("Скачать приложение сайта"));
 				listItem.appendChild(link);
@@ -1700,14 +1699,14 @@ ToProgress, truncString, unescape, VK, Ya*/
 		var manageMenuMore = function () {
 			var container = document.getElementById("container") || "";
 			var page = document.getElementById("page") || "";
-			var holderPanelMenuMore = getByClass(document, "holder-panel-menu-more")[0] || "";
-			var btnMenuMore = getByClass(document, "btn-menu-more")[0] || "";
-			var panelMenuMore = getByClass(document, "panel-menu-more")[0] || "";
-			var panelMenuMoreItems = panelMenuMore ? panelMenuMore.getElementsByTagName("li") || "" : "";
+			var holder = getByClass(document, "holder-panel-menu-more")[0] || "";
+			var btn = getByClass(document, "btn-menu-more")[0] || "";
+			var panel = getByClass(document, "panel-menu-more")[0] || "";
+			var panelItems = panel ? panel.getElementsByTagName("li") || "" : "";
 			var panelNavMenu = getByClass(document, "panel-nav-menu")[0] || "";
 			var handleItem = function () {
 				removeClass(page, isActiveClass);
-				removeClass(holderPanelMenuMore, isActiveClass);
+				removeClass(holder, isActiveClass);
 				if (panelNavMenu && hasClass(panelNavMenu, isActiveClass)) {
 					removeClass(panelNavMenu, isActiveClass);
 				}
@@ -1716,12 +1715,12 @@ ToProgress, truncString, unescape, VK, Ya*/
 				addListener(container, "click", handleItem);
 			};
 			var addBtnHandler = function () {
-				var handleBtnMenuMore = function (ev) {
+				var handlebtn = function (ev) {
 					ev.stopPropagation();
 					ev.preventDefault();
-					toggleClass(holderPanelMenuMore, isActiveClass);
+					toggleClass(holder, isActiveClass);
 				};
-				addListener(btnMenuMore, "click", handleBtnMenuMore);
+				addListener(btn, "click", handlebtn);
 			};
 			var addItemHandlerAll = function () {
 				var addItemHandler = function (e) {
@@ -1729,20 +1728,20 @@ ToProgress, truncString, unescape, VK, Ya*/
 				};
 				var i,
 				l;
-				for (i = 0, l = panelMenuMoreItems.length; i < l; i += 1) {
-					addItemHandler(panelMenuMoreItems[i]);
+				for (i = 0, l = panelItems.length; i < l; i += 1) {
+					addItemHandler(panelItems[i]);
 				}
 				i = l = null;
 			};
 			if (page &&
 				container &&
-				holderPanelMenuMore &&
-				btnMenuMore &&
-				panelMenuMore &&
-				panelMenuMoreItems) {
-				addContainerHandler();
-				addBtnHandler();
-				addItemHandlerAll();
+				holder &&
+				btn &&
+				panel &&
+				panelItems) {
+					addContainerHandler();
+					addBtnHandler();
+					addItemHandlerAll();
 			}
 		};
 		manageMenuMore();
@@ -1751,26 +1750,26 @@ ToProgress, truncString, unescape, VK, Ya*/
 			var _thisObj = thisObj || this;
 			var elem = getByClass(document, isSocialClass) || "";
 			if (elem) {
-				var k,
-				n;
-				for (k = 0, n = elem.length; k < n; k += 1) {
-					if (_thisObj !== elem[k]) {
-						removeClass(elem[k], isActiveClass);
+				var i,
+				l;
+				for (i = 0, l = elem.length; i < l; i += 1) {
+					if (_thisObj !== elem[i]) {
+						removeClass(elem[i], isActiveClass);
 					}
 				}
-				k = n = null;
+				i = l = null;
 			}
 		};
 		addListener(root, "click", hideOtherIsSocial);
 
-		root.yaShareInstance = null;
-		var manageShareButtons = function () {
+		root.yaShare2Instance = null;
+		var manageYaShare2Btn = function () {
 			var btn = getByClass(document, "btn-share-buttons")[0] || "";
 			var yaShare2Id = "ya-share2";
 			var yaShare2 = document.getElementById(yaShare2Id) || "";
 			var locHref = root.location || "";
 			var docTitle = document.title || "";
-			var handle = function (ev) {
+			var handleBtn = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				var logic = function () {
@@ -1778,14 +1777,14 @@ ToProgress, truncString, unescape, VK, Ya*/
 					hideOtherIsSocial(yaShare2);
 					var initScript = function () {
 						try {
-							if (root.yaShareInstance) {
-								root.yaShareInstance.updateContent({
+							if (root.yaShare2Instance) {
+								root.yaShare2Instance.updateContent({
 									title: docTitle,
 									description: docTitle,
 									url: locHref
 								});
 							} else {
-								root.yaShareInstance = Ya.share2(yaShare2Id, {
+								root.yaShare2Instance = Ya.share2(yaShare2Id, {
 									content: {
 										title: docTitle,
 										description: docTitle,
@@ -1794,7 +1793,7 @@ ToProgress, truncString, unescape, VK, Ya*/
 								});
 							}
 						} catch (err) {
-							throw new Error("cannot root.yaShareInstance.updateContent or Ya.share2 " + err);
+							throw new Error("cannot root.yaShare2Instance.updateContent or Ya.share2 " + err);
 						}
 					};
 					if (!(root.Ya && Ya.share2)) {
@@ -1809,21 +1808,21 @@ ToProgress, truncString, unescape, VK, Ya*/
 			};
 			if (btn && yaShare2) {
 				if (root.getHTTP && root.getHTTP()) {
-					addListener(btn, "click", handle);
+					addListener(btn, "click", handleBtn);
 				} else {
 					setDisplayNone(btn);
 				}
 			}
 		};
-		manageShareButtons();
+		manageYaShare2Btn();
 
 		root.vkLikeInstance = null;
-		var manageVKLikeButton = function () {
+		var manageVkLikeBtn = function () {
 			var vkLikeId = "vk-like";
 			var vkLike = document.getElementById(vkLikeId) || "";
 			var holderVkLike = getByClass(document, "holder-vk-like")[0] || "";
 			var btn = getByClass(document, "btn-show-vk-like")[0] || "";
-			var handle = function (ev) {
+			var handleBtn = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				var logic = function () {
@@ -1859,13 +1858,13 @@ ToProgress, truncString, unescape, VK, Ya*/
 			};
 			if (btn && vkLike) {
 				if (root.getHTTP && root.getHTTP()) {
-					addListener(btn, "click", handle);
+					addListener(btn, "click", handleBtn);
 				} else {
 					setDisplayNone(btn);
 				}
 			}
 		};
-		manageVKLikeButton();
+		manageVkLikeBtn();
 
 		var manageDownloadAppBtn = function () {
 			var navUA = navigator.userAgent || "";
@@ -1891,34 +1890,34 @@ ToProgress, truncString, unescape, VK, Ya*/
 				}
 			}
 			var arrange = function () {
-				var handleDownloadAppBtn = function (ev) {
+				var handleBtn = function (ev) {
 					ev.stopPropagation();
 					ev.preventDefault();
 					openDeviceBrowser(linkHref);
 				};
-				var link = document.createElement("a");
-				link.style.backgroundImage = bgUrl;
-				addClass(link, cls);
-				addClass(link, an);
-				addClass(link, an2);
-				link.href = linkHref;
+				var btn = document.createElement("a");
+				btn.style.backgroundImage = bgUrl;
+				addClass(btn, cls);
+				addClass(btn, an);
+				addClass(btn, an2);
+				btn.href = linkHref;
 				if (root.getHTTP && root.getHTTP()) {
-					link.target = "_blank";
-					link.rel = "noopener";
+					btn.target = "_blank";
+					btn.rel = "noopener";
 				} else {
-					addListener(link, "click", handleDownloadAppBtn);
+					addListener(btn, "click", handleBtn);
 				}
-				appendFragment(link, docBody);
+				appendFragment(btn, docBody);
 				var timer = setTimeout(function () {
 					clearTimeout(timer);
 					timer = null;
-					removeClass(link, an2);
-					addClass(link, an4);
+					removeClass(btn, an2);
+					addClass(btn, an4);
 					var timer2 = setTimeout(function () {
 						clearTimeout(timer2);
 						timer2 = null;
-						removeListener(link, "click", handleDownloadAppBtn);
-						removeElement(link);
+						removeListener(btn, "click", handleBtn);
+						removeElement(btn);
 					}, 750);
 				}, 8000);
 			};
@@ -1932,50 +1931,61 @@ ToProgress, truncString, unescape, VK, Ya*/
 		};
 		manageDownloadAppBtn();
 
-		var disqs;
-		var manageDisqusOnScroll = function () {
-			var disqusThread = document.getElementById("disqus_thread") || "";
+		var manageDisqusBtn = function () {
 			var btn = getByClass(document, "btn-show-disqus")[0] || "";
+			var disqusThread = document.getElementById("disqus_thread") || "";
 			var locHref = root.location.href || "";
 			var shortname = disqusThread ? (disqusThread.dataset.shortname || "") : "";
-			var loadDisqus = function () {
-				var initScript = function () {
-					if (!disqs) {
-						disqs = true;
-						setDisplayNone(btn);
-						addClass(disqusThread, isActiveClass);
+			var hideDisqusButton = function () {
+				addClass(disqusThread, isActiveClass);
+				setDisplayNone(btn);
+			};
+			var hide = function () {
+				removeChildren(disqusThread);
+				var replacementText = document.createElement("p");
+				replacementText.appendChild(document.createTextNode("Комментарии доступны только в веб версии этой страницы."));
+				appendFragment(replacementText, disqusThread);
+				disqusThread.removeAttribute("id");
+				hideDisqusButton();
+			};
+			var handleBtn = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var logic = function () {
+					var initScript = function () {
+						try {
+							DISQUS.reset({
+								reload: true,
+								config: function () {
+									this.page.identifier = shortname;
+									this.page.url = locHref;
+								}
+							});
+							removeListener(btn, "click", handleBtn);
+							hideDisqusButton();
+						} catch (err) {
+							throw new Error("cannot DISQUS.reset " + err);
+						}
+					};
+					var jsUrl = forcedHTTP + "://" + shortname + ".disqus.com/embed.js";
+					if (!root.DISQUS) {
+						var load;
+						load = new loadJsCss([jsUrl], initScript);
+					} else {
+						initScript();
 					}
 				};
-				if (!root.DISQUS) {
-					var jsUrl = forcedHTTP + "://" + shortname + ".disqus.com/embed.js";
-					var load;
-					load = new loadJsCss([jsUrl], initScript);
-				} else {
-					initScript();
-				}
+				debounce(logic, 200).call(root);
 			};
-			var addHandler = function () {
-				var handleDisqusButton = function (ev) {
-					ev.preventDefault();
-					ev.stopPropagation();
-					removeListener(btn, "click", handleDisqusButton);
-					loadDisqus();
-				};
-				addListener(btn, "click", handleDisqusButton);
-			};
-			if (btn && disqusThread && shortname && locHref) {
+			if (disqusThread && btn && shortname && locHref) {
 				if (root.getHTTP && root.getHTTP()) {
-					addHandler();
+					addListener(btn, "click", handleBtn);
 				} else {
-					removeChildren(disqusThread);
-					var msgText = document.createRange().createContextualFragment("<p>Комментарии доступны только в веб версии этой страницы.</p>");
-					appendFragment(msgText, disqusThread);
-					disqusThread.removeAttribute("id");
-					setDisplayNone(btn.parentNode);
+					hide();
 				}
 			}
 		};
-		manageDisqusOnScroll();
+		manageDisqusBtn();
 
 		root.kamilInstance = null;
 		var manageKamil = function () {
@@ -2102,7 +2112,7 @@ ToProgress, truncString, unescape, VK, Ya*/
 		};
 		manageKamil();
 
-		var manageBtnTotop = function () {
+		var manageTotopBtn = function () {
 			var btnClass = "btn-totop";
 			var btn = getByClass(document, btnClass)[0] || "";
 			if (!btn) {
@@ -2114,12 +2124,12 @@ ToProgress, truncString, unescape, VK, Ya*/
 				btn.title = "Наверх";
 				docBody.appendChild(btn);
 			}
-			var handle = function (ev) {
+			var handleBtn = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				scroll2Top(0, 20000);
 			};
-			var handleWindow = function (_this) {
+			var handleRoot = function (_this) {
 				var logic = function () {
 					var scrollPosition = _this.pageYOffset || docElem.scrollTop || docBody.scrollTop || "";
 					var windowHeight = _this.innerHeight || docElem.clientHeight || docBody.clientHeight || "";
@@ -2134,11 +2144,11 @@ ToProgress, truncString, unescape, VK, Ya*/
 				throttle(logic, 100).call(root);
 			};
 			if (docBody) {
-				addListener(btn, "click", handle);
-				addListener(root, "scroll", handleWindow, {passive: true});
+				addListener(btn, "click", handleBtn);
+				addListener(root, "scroll", handleRoot, {passive: true});
 			}
 		};
-		manageBtnTotop();
+		manageTotopBtn();
 
 		hideProgressBar();
 

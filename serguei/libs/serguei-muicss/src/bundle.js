@@ -979,7 +979,7 @@ unescape, VK, WheelIndicator, Ya*/
 
 	addClass(docBody, "hide-sidedrawer");
 
-	if (supportsSvgSmilAnimation && docElem) {
+	if (supportsSvgSmilAnimation) {
 		addClass(docElem, "svganimate");
 	}
 
@@ -991,10 +991,8 @@ unescape, VK, WheelIndicator, Ya*/
 		var isFixedClass = "is-fixed";
 		var isHiddenClass = "is-hidden";
 
-		if (docElem && docElem.classList) {
-			removeClass(docElem, "no-js");
-			addClass(docElem, "js");
-		}
+		removeClass(docElem, "no-js");
+		addClass(docElem, "js");
 
 		var earlyDeviceFormfactor = (function (selectors) {
 			var orientation;
@@ -1146,15 +1144,15 @@ unescape, VK, WheelIndicator, Ya*/
 
 		var manageExternalLinkAll = function () {
 			var link = document.getElementsByTagName("a") || "";
-			var handle = function (url, ev) {
-				ev.stopPropagation();
-				ev.preventDefault();
-				var logic = function () {
-					openDeviceBrowser(url);
-				};
-				debounce(logic, 200).call(root);
-			};
 			var arrange = function (e) {
+				var handle = function (url, ev) {
+					ev.stopPropagation();
+					ev.preventDefault();
+					var logic = function () {
+						openDeviceBrowser(url);
+					};
+					debounce(logic, 200).call(root);
+				};
 				var externalLinkIsBindedClass = "external-link--is-binded";
 				if (!hasClass(e, externalLinkIsBindedClass)) {
 					var url = e.getAttribute("href") || "";
@@ -1568,10 +1566,10 @@ unescape, VK, WheelIndicator, Ya*/
 		};
 		manageLocationQrcode();
 
-		var manageMobileappsButtons = function () {
+		var manageMobileappsBtn = function () {
 			var btn = getByClass(document, "btn-toggle-holder-mobileapps-buttons")[0] || "";
 			var holder = getByClass(document, "holder-mobileapps-buttons")[0] || "";
-			var handle = function (ev) {
+			var handleBtn = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				var logic = function () {
@@ -1583,19 +1581,19 @@ unescape, VK, WheelIndicator, Ya*/
 			};
 			if (btn && holder) {
 				if (root.getHTTP && root.getHTTP()) {
-					addListener(btn, "click", handle);
+					addListener(btn, "click", handleBtn);
 				}
 			}
 		};
-		manageMobileappsButtons();
+		manageMobileappsBtn();
 
-		root.yaShareInstance = null;
-		var manageShareButtons = function () {
+		root.yaShare2Instance = null;
+		var manageYaShare2Btn = function () {
 			var btn = getByClass(document, "btn-toggle-holder-share-buttons")[0] || "";
 			var yaShare2Id = "ya-share2";
 			var yaShare2 = document.getElementById(yaShare2Id) || "";
 			var holder = getByClass(document, "holder-share-buttons")[0] || "";
-			var handle = function (ev) {
+			var handleBtn = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				var logic = function () {
@@ -1604,14 +1602,14 @@ unescape, VK, WheelIndicator, Ya*/
 					manageCollapsableAll(holder);
 					var initScript = function () {
 						try {
-							if (root.yaShareInstance) {
-								root.yaShareInstance.updateContent({
+							if (root.yaShare2Instance) {
+								root.yaShare2Instance.updateContent({
 									title: document.title || "",
 									description: document.title || "",
 									url: root.location.href || ""
 								});
 							} else {
-								root.yaShareInstance = Ya.share2(yaShare2Id, {
+								root.yaShare2Instance = Ya.share2(yaShare2Id, {
 									content: {
 										title: document.title || "",
 										description: document.title || "",
@@ -1620,7 +1618,7 @@ unescape, VK, WheelIndicator, Ya*/
 								});
 							}
 						} catch (err) {
-							throw new Error("cannot root.yaShareInstance.updateContent or Ya.share2 " + err);
+							throw new Error("cannot root.yaShare2Instance.updateContent or Ya.share2 " + err);
 						}
 					};
 					if (!(root.Ya && Ya.share2)) {
@@ -1635,19 +1633,19 @@ unescape, VK, WheelIndicator, Ya*/
 			};
 			if (btn && holder && yaShare2) {
 				if (root.getHTTP && root.getHTTP()) {
-					addListener(btn, "click", handle);
+					addListener(btn, "click", handleBtn);
 				}
 			}
 		};
-		manageShareButtons();
+		manageYaShare2Btn();
 
 		root.vkLikeInstance = null;
-		var manageVKLikeButton = function () {
+		var manageVkLikeBtn = function () {
 			var btn = getByClass(document, "btn-toggle-holder-vk-like")[0] || "";
 			var holder = getByClass(document, "holder-vk-like")[0] || "";
 			var vkLikeId = "vk-like";
 			var vkLike = document.getElementById(vkLikeId) || "";
-			var handle = function (ev) {
+			var handleBtn = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				var logic = function () {
@@ -1684,13 +1682,13 @@ unescape, VK, WheelIndicator, Ya*/
 			};
 			if (btn && holder && vkLike) {
 				if (root.getHTTP && root.getHTTP()) {
-					addListener(btn, "click", handle);
+					addListener(btn, "click", handleBtn);
 				}
 			}
 		};
-		manageVKLikeButton();
+		manageVkLikeBtn();
 
-		var manageBtnTotop = function () {
+		var manageTotopBtn = function () {
 			var btnClass = "btn-totop";
 			var btn = getByClass(document, btnClass)[0] || "";
 			var insertUpSvg = function (e) {
@@ -1715,12 +1713,12 @@ unescape, VK, WheelIndicator, Ya*/
 				insertUpSvg(btn);
 				docBody.appendChild(btn);
 			}
-			var handle = function (ev) {
+			var handleBtn = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				scroll2Top(0, 20000);
 			};
-			var handleWindow = function (_this) {
+			var handleRoot = function (_this) {
 				var logic = function () {
 					var scrollPosition = _this.pageYOffset || docElem.scrollTop || docBody.scrollTop || "";
 					var windowHeight = _this.innerHeight || docElem.clientHeight || docBody.clientHeight || "";
@@ -1735,13 +1733,13 @@ unescape, VK, WheelIndicator, Ya*/
 				throttle(logic, 100).call(root);
 			};
 			if (docBody) {
-				addListener(btn, "click", handle);
-				addListener(root, "scroll", handleWindow, {passive: true});
+				addListener(btn, "click", handleBtn);
+				addListener(root, "scroll", handleRoot, {passive: true});
 			}
 		};
-		manageBtnTotop();
+		manageTotopBtn();
 
-		var manageDropdownButtonAll = function () {
+		var manageDropdownBtnAll = function () {
 			var link = document.getElementsByTagName("a") || "";
 			var btn = [];
 			var j,
@@ -1752,7 +1750,7 @@ unescape, VK, WheelIndicator, Ya*/
 				}
 			}
 			j = m = null;
-			var handle = function (evt) {
+			var handleBtn = function (evt) {
 				evt.stopPropagation();
 				evt.preventDefault();
 				var _this = this;
@@ -1760,7 +1758,7 @@ unescape, VK, WheelIndicator, Ya*/
 				var rect = _this.getBoundingClientRect();
 				var top = rect.top + rect.height;
 				var left = rect.left;
-				var hide = function (e) {
+				var handleLink = function (e) {
 					if (e) {
 						if (hasClass(e, isActiveClass)) {
 							removeClass(e, isActiveClass);
@@ -1784,7 +1782,7 @@ unescape, VK, WheelIndicator, Ya*/
 						var i,
 						l;
 						for (i = 0, l = link.length; i < l; i += 1) {
-							addListener(link[i], "click", hide.bind(null, menu));
+							addListener(link[i], "click", handleLink.bind(null, menu));
 						}
 						i = l = null;
 					}
@@ -1797,7 +1795,7 @@ unescape, VK, WheelIndicator, Ya*/
 					if (!hasClass(btn[i], isBindedClass) &&
 						btn[i].nextElementSibling.nodeName.toLowerCase() === "ul" &&
 						btn[i].nextElementSibling.nodeType === 1) {
-						addListener(btn[i], "click", handle);
+						addListener(btn[i], "click", handleBtn);
 						addClass(btn[i], isBindedClass);
 						removeClass(btn[i], isActiveClass);
 						addClass(btn[i].nextElementSibling, isCollapsableClass);
@@ -1806,7 +1804,7 @@ unescape, VK, WheelIndicator, Ya*/
 				i = l = null;
 			}
 		};
-		manageDropdownButtonAll();
+		manageDropdownBtnAll();
 
 		var hideOnNavigating = function () {
 			var hide = function () {
@@ -1925,7 +1923,7 @@ unescape, VK, WheelIndicator, Ya*/
 					if (!hasClass(disqusThread.parentNode.parentNode, disqusThreadIsBindedClass)) {
 						addClass(disqusThread.parentNode.parentNode, disqusThreadIsBindedClass);
 						console.log(disqusThread.parentNode.parentNode.className);
-						onHeightChange(disqusThread.parentNode, 1000, null, setIsActiveClass.bind(null, disqusThread.parentNode.parentNode));
+						onHeightChange(disqusThread.parentNode.parentNode, 1000, null, setIsActiveClass.bind(null, disqusThread));
 					}
 				} catch (err) {
 					throw new Error("cannot DISQUS.reset " + err);
@@ -2228,7 +2226,7 @@ unescape, VK, WheelIndicator, Ya*/
 
 		var manageSidedrawerCategoryAll = function () {
 			var category = sidedrawer ? sidedrawer.getElementsByTagName("strong") || "" : "";
-			var handle = function (evt) {
+			var handleCategory = function (evt) {
 				evt.stopPropagation();
 				evt.preventDefault();
 				var _this = this;
@@ -2250,7 +2248,7 @@ unescape, VK, WheelIndicator, Ya*/
 						category[i].nextElementSibling.nodeType === 1
 						) {
 							setDisplayNone(category[i].nextElementSibling);
-							addListener(category[i], "click", handle);
+							addListener(category[i], "click", handleCategory);
 							addClass(category[i], isBindedClass);
 					}
 				}
@@ -2278,7 +2276,7 @@ unescape, VK, WheelIndicator, Ya*/
 
 		var manageSidedrawer = function () {
 			var btn = getByClass(document, "sidedrawer-toggle") || "";
-			var handle = function () {
+			var handleBtn = function () {
 				if (sidedrawer) {
 					if (!hasClass(docBody, hideSidedrawerClass)) {
 						addClass(docBody, hideSidedrawerClass);
@@ -2298,7 +2296,7 @@ unescape, VK, WheelIndicator, Ya*/
 				l;
 				for (i = 0, l = btn.length; i < l; i += 1) {
 					if (!hasClass(btn[i], isBindedClass)) {
-						addListener(btn[i], "click", handle);
+						addListener(btn[i], "click", handleBtn);
 						addClass(btn[i], isBindedClass);
 					}
 				}
@@ -2466,7 +2464,7 @@ unescape, VK, WheelIndicator, Ya*/
 					var renderDropdownContacts = document.getElementById(renderDropdownContactsId) || "";
 					if (templateDropdownContacts && renderDropdownContacts) {
 						insertFromTemplate(jsonResponse, templateDropdownContactsId, renderDropdownContactsId, function () {
-							manageDropdownButtonAll();
+							manageDropdownBtnAll();
 							manageExternalLinkAll();
 						}, true);
 					}
@@ -2483,7 +2481,7 @@ unescape, VK, WheelIndicator, Ya*/
 					var renderDropdownAds = document.getElementById(renderDropdownAdsId) || "";
 					if (templateDropdownAds && renderDropdownAds) {
 						insertFromTemplate(jsonResponse, templateDropdownAdsId, renderDropdownAdsId, function () {
-							manageDropdownButtonAll();
+							manageDropdownBtnAll();
 							manageExternalLinkAll();
 						}, true);
 					}
@@ -2496,7 +2494,7 @@ unescape, VK, WheelIndicator, Ya*/
 						manageExternalLinkAll();
 						manageImgLightbox();
 						manageIframeLightbox();
-						manageDropdownButtonAll();
+						manageDropdownBtnAll();
 						manageHljs();
 						manageRipple();
 						manageExpandingLayerAll();

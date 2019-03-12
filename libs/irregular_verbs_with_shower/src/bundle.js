@@ -519,7 +519,7 @@ supportsSvgSmilAnimation, throttle, toggleClass, ToProgress, VK, Ya*/
 	"use strict";
 	var ToProgress = (function () {
 		var TP = function () {
-			function whichTransitionEvent() {
+			var whichTransitionEvent = function () {
 				var t;
 				var el = document.createElement("fakeelement");
 				var transitions = {
@@ -536,10 +536,9 @@ supportsSvgSmilAnimation, throttle, toggleClass, ToProgress, VK, Ya*/
 					}
 				}
 				t = null;
-			}
-
+			};
 			var transitionEvent = whichTransitionEvent();
-			function ToProgress(opt, selector) {
+			var ToProgress = function (opt, selector) {
 				this.progress = 0;
 				this.options = {
 					id: "top-progress-bar",
@@ -601,7 +600,7 @@ supportsSvgSmilAnimation, throttle, toggleClass, ToProgress, VK, Ya*/
 				} else {
 					document.body.appendChild(this.progressBar);
 				}
-			}
+			};
 			ToProgress.prototype.transit = function () {
 				this.progressBar.style.width = this.progress + "%";
 			};
@@ -807,21 +806,19 @@ supportsSvgSmilAnimation, throttle, toggleClass, ToProgress, VK, Ya*/
 
 	progressBar.increase(20);
 
-	if (supportsSvgSmilAnimation && docElem) {
+	if (supportsSvgSmilAnimation) {
 		addClass(docElem, "svganimate");
 	}
 
 	var run = function () {
 
-			var isActiveClass = "is-active";
+		var isActiveClass = "is-active";
 		var isSocialClass = "is-social";
 
-		progressBar.increase(20);
+		removeClass(docElem, "no-js");
+		addClass(docElem, "js");
 
-		if (docElem && docElem.classList) {
-			removeClass(docElem, "no-js");
-			addClass(docElem, "js");
-		}
+		progressBar.increase(20);
 
 		var earlyDeviceFormfactor = (function (selectors) {
 			var orientation;
@@ -943,15 +940,15 @@ supportsSvgSmilAnimation, throttle, toggleClass, ToProgress, VK, Ya*/
 
 		var manageExternalLinkAll = function () {
 			var link = document.getElementsByTagName("a") || "";
-			var handle = function (url, ev) {
-				ev.stopPropagation();
-				ev.preventDefault();
-				var logic = function () {
-					openDeviceBrowser(url);
-				};
-				debounce(logic, 200).call(root);
-			};
 			var arrange = function (e) {
+				var handle = function (url, ev) {
+					ev.stopPropagation();
+					ev.preventDefault();
+					var logic = function () {
+						openDeviceBrowser(url);
+					};
+					debounce(logic, 200).call(root);
+				};
 				var externalLinkIsBindedClass = "external-link--is-binded";
 				if (!hasClass(e, externalLinkIsBindedClass)) {
 					var url = e.getAttribute("href") || "";
@@ -991,26 +988,26 @@ supportsSvgSmilAnimation, throttle, toggleClass, ToProgress, VK, Ya*/
 			var _thisObj = thisObj || this;
 			var elem = getByClass(document, isSocialClass) || "";
 			if (elem) {
-				var k,
-				n;
-				for (k = 0, n = elem.length; k < n; k += 1) {
-					if (_thisObj !== elem[k]) {
-						removeClass(elem[k], isActiveClass);
+				var i,
+				l;
+				for (i = 0, l = elem.length; i < l; i += 1) {
+					if (_thisObj !== elem[i]) {
+						removeClass(elem[i], isActiveClass);
 					}
 				}
-				k = n = null;
+				i = l = null;
 			}
 		};
 		addListener(root, "click", hideOtherIsSocial);
 
-		root.yaShareInstance = null;
-		var manageShareButtons = function () {
+		root.yaShare2Instance = null;
+		var manageYaShare2Btn = function () {
 			var btn = getByClass(document, "btn-share-buttons")[0] || "";
 			var yaShare2Id = "ya-share2";
 			var yaShare2 = document.getElementById(yaShare2Id) || "";
 			var locHref = root.location || "";
 			var docTitle = document.title || "";
-			var handle = function (ev) {
+			var handleBtn = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				var logic = function () {
@@ -1018,14 +1015,14 @@ supportsSvgSmilAnimation, throttle, toggleClass, ToProgress, VK, Ya*/
 					hideOtherIsSocial(yaShare2);
 					var initScript = function () {
 						try {
-							if (root.yaShareInstance) {
-								root.yaShareInstance.updateContent({
+							if (root.yaShare2Instance) {
+								root.yaShare2Instance.updateContent({
 									title: docTitle,
 									description: docTitle,
 									url: locHref
 								});
 							} else {
-								root.yaShareInstance = Ya.share2(yaShare2Id, {
+								root.yaShare2Instance = Ya.share2(yaShare2Id, {
 									content: {
 										title: docTitle,
 										description: docTitle,
@@ -1034,7 +1031,7 @@ supportsSvgSmilAnimation, throttle, toggleClass, ToProgress, VK, Ya*/
 								});
 							}
 						} catch (err) {
-							throw new Error("cannot root.yaShareInstance.updateContent or Ya.share2 " + err);
+							throw new Error("cannot root.yaShare2Instance.updateContent or Ya.share2 " + err);
 						}
 					};
 					if (!(root.Ya && Ya.share2)) {
@@ -1049,21 +1046,21 @@ supportsSvgSmilAnimation, throttle, toggleClass, ToProgress, VK, Ya*/
 			};
 			if (btn && yaShare2) {
 				if (root.getHTTP && root.getHTTP()) {
-					addListener(btn, "click", handle);
+					addListener(btn, "click", handleBtn);
 				} else {
 					setDisplayNone(btn);
 				}
 			}
 		};
-		manageShareButtons();
+		manageYaShare2Btn();
 
 		root.vkLikeInstance = null;
-		var manageVKLikeButton = function () {
+		var manageVkLikeBtn = function () {
 			var vkLikeId = "vk-like";
 			var vkLike = document.getElementById(vkLikeId) || "";
 			var holderVkLike = getByClass(document, "holder-vk-like")[0] || "";
 			var btn = getByClass(document, "btn-show-vk-like")[0] || "";
-			var handle = function (ev) {
+			var handleBtn = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				var logic = function () {
@@ -1099,15 +1096,15 @@ supportsSvgSmilAnimation, throttle, toggleClass, ToProgress, VK, Ya*/
 			};
 			if (btn && vkLike) {
 				if (root.getHTTP && root.getHTTP()) {
-					addListener(btn, "click", handle);
+					addListener(btn, "click", handleBtn);
 				} else {
 					setDisplayNone(btn);
 				}
 			}
 		};
-		manageVKLikeButton();
+		manageVkLikeBtn();
 
-		var manageBtnTotop = function () {
+		var manageTotopBtn = function () {
 			var btnClass = "btn-totop";
 			var btn = getByClass(document, btnClass)[0] || "";
 			if (!btn) {
@@ -1119,12 +1116,12 @@ supportsSvgSmilAnimation, throttle, toggleClass, ToProgress, VK, Ya*/
 				btn.title = "Наверх";
 				docBody.appendChild(btn);
 			}
-			var handle = function (ev) {
+			var handleBtn = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				scroll2Top(0, 20000);
 			};
-			var handleWindow = function (_this) {
+			var handleRoot = function (_this) {
 				var logic = function () {
 					var scrollPosition = _this.pageYOffset || docElem.scrollTop || docBody.scrollTop || "";
 					var windowHeight = _this.innerHeight || docElem.clientHeight || docBody.clientHeight || "";
@@ -1139,11 +1136,11 @@ supportsSvgSmilAnimation, throttle, toggleClass, ToProgress, VK, Ya*/
 				throttle(logic, 100).call(root);
 			};
 			if (docBody) {
-				addListener(btn, "click", handle);
-				addListener(root, "scroll", handleWindow, {passive: true});
+				addListener(btn, "click", handleBtn);
+				addListener(root, "scroll", handleRoot, {passive: true});
 			}
 		};
-		manageBtnTotop();
+		manageTotopBtn();
 
 		hideProgressBar();
 	};

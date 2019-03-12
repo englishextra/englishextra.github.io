@@ -227,7 +227,7 @@
 			mainScrollEndFriction: 0.35,
 			panEndFriction: 0.35,
 			isClickableElement: function (el) {
-				return el.tagName === 'A';
+				return el.tagName === "A";
 			},
 			getDoubleTapZoom: function (isMouseClick, item) {
 				if (isMouseClick) {
@@ -2457,7 +2457,7 @@
 				if (!vars[i]) {
 					continue;
 				}
-				var pair = vars[i].split('=');
+				var pair = vars[i].split("=");
 				if (pair.length < 2) {
 					continue;
 				}

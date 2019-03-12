@@ -769,7 +769,7 @@ unescape, VK, Ya, ymaps*/
 	"use strict";
 	var ToProgress = (function () {
 		var TP = function () {
-			function whichTransitionEvent() {
+			var whichTransitionEvent = function () {
 				var t;
 				var el = document.createElement("fakeelement");
 				var transitions = {
@@ -786,10 +786,9 @@ unescape, VK, Ya, ymaps*/
 					}
 				}
 				t = null;
-			}
-
+			};
 			var transitionEvent = whichTransitionEvent();
-			function ToProgress(opt, selector) {
+			var ToProgress = function (opt, selector) {
 				this.progress = 0;
 				this.options = {
 					id: "top-progress-bar",
@@ -851,7 +850,7 @@ unescape, VK, Ya, ymaps*/
 				} else {
 					document.body.appendChild(this.progressBar);
 				}
-			}
+			};
 			ToProgress.prototype.transit = function () {
 				this.progressBar.style.width = this.progress + "%";
 			};
@@ -1057,7 +1056,7 @@ unescape, VK, Ya, ymaps*/
 
 	progressBar.increase(20);
 
-	if (supportsSvgSmilAnimation && docElem) {
+	if (supportsSvgSmilAnimation) {
 		addClass(docElem, "svganimate");
 	}
 
@@ -1071,12 +1070,10 @@ unescape, VK, Ya, ymaps*/
 		var isActiveSidepanelClass = "ui-sidepanel--is-active";
 		var isActiveVKLikeClass = "holder-vk-like--is-active";
 
-		progressBar.increase(20);
+		removeClass(docElem, "no-js");
+		addClass(docElem, "js");
 
-		if (docElem && docElem.classList) {
-			removeClass(docElem, "no-js");
-			addClass(docElem, "js");
-		}
+		progressBar.increase(20);
 
 		var earlyDeviceFormfactor = (function (selectors) {
 			var orientation;
@@ -1227,15 +1224,15 @@ unescape, VK, Ya, ymaps*/
 
 		var manageExternalLinkAll = function () {
 			var link = document.getElementsByTagName("a") || "";
-			var handle = function (url, ev) {
-				ev.stopPropagation();
-				ev.preventDefault();
-				var logic = function () {
-					openDeviceBrowser(url);
-				};
-				debounce(logic, 200).call(root);
-			};
 			var arrange = function (e) {
+				var handle = function (url, ev) {
+					ev.stopPropagation();
+					ev.preventDefault();
+					var logic = function () {
+						openDeviceBrowser(url);
+					};
+					debounce(logic, 200).call(root);
+				};
 				var externalLinkIsBindedClass = "external-link--is-binded";
 				if (!hasClass(e, externalLinkIsBindedClass)) {
 					var url = e.getAttribute("href") || "";
@@ -1782,7 +1779,7 @@ unescape, VK, Ya, ymaps*/
 
 		var manageChaptersSelect = function () {
 			var chaptersSelect = document.getElementById("chapters-select") || "";
-			var handle = function () {
+			var handleChaptersSelect = function () {
 				var _this = this;
 				var hashString = _this.options[_this.selectedIndex].value || "";
 				if (hashString) {
@@ -1795,13 +1792,13 @@ unescape, VK, Ya, ymaps*/
 				}
 			};
 			if (chaptersSelect) {
-				addListener(chaptersSelect, "change", handle);
+				addListener(chaptersSelect, "change", handleChaptersSelect);
 			}
 		};
 
 		var manageSearchInput = function () {
 			var searchInput = document.getElementById("text") || "";
-			var handle = function () {
+			var handleSearchInput = function () {
 				var _this = this;
 				var logic = function () {
 					_this.value = _this.value.replace(/\\/g, "").replace(/ +(?= )/g, " ").replace(/\/+(?=\/)/g, "/") || "";
@@ -1810,14 +1807,14 @@ unescape, VK, Ya, ymaps*/
 			};
 			if (searchInput) {
 				searchInput.focus();
-				addListener(searchInput, "input", handle);
+				addListener(searchInput, "input", handleSearchInput);
 			}
 		};
 		manageSearchInput();
 
 		var manageExpandingLayerAll = function () {
 			var btn = getByClass(document, "btn-expand-hidden-layer") || "";
-			var handle = function () {
+			var handleBtn = function () {
 				var _this = this;
 				var layer = _this.parentNode ? _this.parentNode.nextElementSibling : "";
 				if (layer) {
@@ -1826,14 +1823,14 @@ unescape, VK, Ya, ymaps*/
 				}
 				return;
 			};
-			var addHandler = function (e) {
-				addListener(e, "click", handle);
+			var arrange = function (e) {
+				addListener(e, "click", handleBtn);
 			};
 			if (btn) {
 				var i,
 				l;
 				for (i = 0, l = btn.length; i < l; i += 1) {
-					addHandler(btn[i]);
+					arrange(btn[i]);
 				}
 				i = l = null;
 			}
@@ -1911,20 +1908,20 @@ unescape, VK, Ya, ymaps*/
 			}
 		};
 
-		var manageDebugGridButton = function () {
+		var manageDebugGridBtn = function () {
 			var container = document.getElementById("container") || "";
 			var page = document.getElementById("page") || "";
 			var btn = getByClass(document, "btn-toggle-col-debug")[0] || "";
 			var debugClass = "debug";
 			var cookieKey = "_manageDebugGridButton_";
 			var cookieDatum = "ok";
-			var handleDebugGridContainer = function () {
+			var handleContainer = function () {
 				if (container) {
 					removeClass(container, debugClass);
-					removeListener(container, "click", handleDebugGridContainer);
+					removeListener(container, "click", handleContainer);
 				}
 			};
-			var showDebugGridMessage = function () {
+			var showMsg = function () {
 				var col = getByClass(document, "col")[0] || "";
 				var elements = [docBody, page, container, col];
 				var debugMessage = [];
@@ -1949,27 +1946,27 @@ unescape, VK, Ya, ymaps*/
 					"days": 0
 				});
 			};
-			var handleDebugGridButton = function (ev) {
+			var handleBtn = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				toggleClass(container, debugClass);
 				if (hasClass(container, debugClass)) {
-					addListener(container, "click", handleDebugGridContainer);
-					showDebugGridMessage();
+					addListener(container, "click", handleContainer);
+					showMsg();
 				} else {
-					removeListener(container, "click", handleDebugGridContainer);
+					removeListener(container, "click", handleContainer);
 				}
 			};
 			if (page && container && btn) {
 				var locHref = root.location.href || "";
 				if (locHref && parseLink(locHref).hasHTTP && (/^(localhost|127.0.0.1)/).test(parseLink(locHref).hostname)) {
-					addListener(btn, "click", handleDebugGridButton);
+					addListener(btn, "click", handleBtn);
 				} else {
 					setDisplayNone(btn);
 				}
 			}
 		};
-		manageDebugGridButton();
+		manageDebugGridBtn();
 
 		var manageLocationQrcode = function () {
 			var btn = getByClass(document, "btn-toggle-holder-location-qrcode")[0] || "";
@@ -2056,14 +2053,14 @@ unescape, VK, Ya, ymaps*/
 		};
 		manageLocationQrcode();
 
-		root.yaShareInstance = null;
-		var manageShareButtons = function () {
+		root.yaShare2Instance = null;
+		var manageYaShare2Btn = function () {
 			var btn = getByClass(document, "btn-toggle-holder-share-buttons")[0] || "";
 			var yaShare2Id = "ya-share2";
 			var yaShare2 = document.getElementById(yaShare2Id) || "";
 			var page = getByClass(document, "page")[0] || "";
 			var holder = getByClass(document, "holder-share-buttons")[0] || "";
-			var handle = function (ev) {
+			var handleBtn = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				toggleClass(page, isActiveShareClass);
@@ -2084,14 +2081,14 @@ unescape, VK, Ya, ymaps*/
 					 * remove ya-share2 class in html markup
 					 * or you will end up with two copies of Ya.share2
 					 */
-					if (root.yaShareInstance) {
-						root.yaShareInstance.updateContent({
+					if (root.yaShare2Instance) {
+						root.yaShare2Instance.updateContent({
 							title: document.title || "",
 							description: document.title || "",
 							url: root.location.href || ""
 						});
 					} else {
-						root.yaShareInstance = Ya.share2(yaShare2Id, {
+						root.yaShare2Instance = Ya.share2(yaShare2Id, {
 							content: {
 								title: document.title || "",
 								description: document.title || "",
@@ -2112,19 +2109,19 @@ unescape, VK, Ya, ymaps*/
 			};
 			if (btn && page && holder && yaShare2) {
 				if (root.getHTTP && root.getHTTP()) {
-					addListener(btn, "click", handle);
+					addListener(btn, "click", handleBtn);
 				}
 			}
 		};
-		manageShareButtons();
+		manageYaShare2Btn();
 
 		root.vkLikeInstance = null;
-		var manageVKLikeButton = function () {
+		var manageVkLikeBtn = function () {
 			var btn = getByClass(document, "btn-toggle-holder-vk-like")[0] || "";
 			var page = getByClass(document, "page")[0] || "";
 			var vkLikeId = "vk-like";
 			var vkLike = document.getElementById(vkLikeId) || "";
-			var handle = function (ev) {
+			var handleBtn = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				toggleClass(page, isActiveVKLikeClass);
@@ -2170,61 +2167,64 @@ unescape, VK, Ya, ymaps*/
 			};
 			if (btn && page && vkLike) {
 				if (root.getHTTP && root.getHTTP()) {
-					addListener(btn, "click", handle);
+					addListener(btn, "click", handleBtn);
 				}
 			}
 		};
-		manageVKLikeButton();
+		manageVkLikeBtn();
 
-		var loadRefreshDisqus = function () {
-			var disqusThread = document.getElementById("disqus_thread") || "";
+		var manageDisqusBtn = function () {
 			var btn = getByClass(document, "btn-show-disqus")[0] || "";
+			var disqusThread = document.getElementById("disqus_thread") || "";
 			var locHref = root.location.href || "";
 			var shortname = disqusThread ? (disqusThread.dataset.shortname || "") : "";
-			var initScript = function () {
-				try {
-					DISQUS.reset({
-						reload : !0,
-						config : function () {
-							this.page.identifier = shortname;
-							this.page.url = locHref;
-						}
-					});
-				} catch (err) {
-					throw new Error("cannot DISQUS.reset " + err);
-				}
+			var hideDisqusButton = function () {
+				addClass(disqusThread, isActiveClass);
+				setDisplayNone(btn);
 			};
-			if (btn && disqusThread && shortname && locHref) {
-				if (root.getHTTP && root.getHTTP()) {
-					addClass(disqusThread, isActiveClass);
-					setDisplayNone(btn);
+			var hide = function () {
+				removeChildren(disqusThread);
+				var replacementText = document.createElement("p");
+				replacementText.appendChild(document.createTextNode("Комментарии доступны только в веб версии этой страницы."));
+				appendFragment(replacementText, disqusThread);
+				disqusThread.removeAttribute("id");
+				hideDisqusButton();
+			};
+			var handleBtn = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var logic = function () {
+					var initScript = function () {
+						try {
+							DISQUS.reset({
+								reload: true,
+								config: function () {
+									this.page.identifier = shortname;
+									this.page.url = locHref;
+								}
+							});
+							removeListener(btn, "click", handleBtn);
+							hideDisqusButton();
+						} catch (err) {
+							throw new Error("cannot DISQUS.reset " + err);
+						}
+					};
+					var jsUrl = forcedHTTP + "://" + shortname + ".disqus.com/embed.js";
 					if (!root.DISQUS) {
-						var jsUrl = forcedHTTP + "://" + shortname + ".disqus.com/embed.js";
 						var load;
 						load = new loadJsCss([jsUrl], initScript);
 					} else {
 						initScript();
 					}
-				} else {
-					removeChildren(disqusThread);
-					var msgText = document.createRange().createContextualFragment("<p>Комментарии доступны только в веб версии этой страницы.</p>");
-					appendFragment(msgText, disqusThread);
-					disqusThread.removeAttribute("id");
-					setDisplayNone(btn.parentNode);
-				}
-			}
-		};
-		var manageDisqusButton = function () {
-			var disqusThread = document.getElementById("disqus_thread") || "";
-			var btn = disqusThread ? (getByClass(document, "btn-show-disqus")[0] || "") : "";
-			var handleManageDisqusButton = function (ev) {
-				ev.stopPropagation();
-				ev.preventDefault();
-				removeListener(btn, "click", handleManageDisqusButton);
-				loadRefreshDisqus();
+				};
+				debounce(logic, 200).call(root);
 			};
-			if (disqusThread && btn) {
-				addListener(btn, "click", handleManageDisqusButton);
+			if (disqusThread && btn && shortname && locHref) {
+				if (root.getHTTP && root.getHTTP()) {
+					addListener(btn, "click", handleBtn);
+				} else {
+					hide();
+				}
 			}
 		};
 
@@ -2475,7 +2475,7 @@ unescape, VK, Ya, ymaps*/
 						clearTimeout(timer);
 						timer = null;
 						manageYandexMapButton("ymap");
-						manageDisqusButton();
+						manageDisqusBtn();
 						manageExternalLinkAll();
 						manageDataTargetLinks();
 						manageImgLightbox();
@@ -2562,7 +2562,7 @@ unescape, VK, Ya, ymaps*/
 		};
 		initRoutie();
 
-		var manageBtnTotop = function () {
+		var manageTotopBtn = function () {
 			var btnClass = "btn-totop";
 			var btn = getByClass(document, btnClass)[0] || "";
 			if (!btn) {
@@ -2574,12 +2574,12 @@ unescape, VK, Ya, ymaps*/
 				btn.title = "Наверх";
 				docBody.appendChild(btn);
 			}
-			var handle = function (ev) {
+			var handleBtn = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				scroll2Top(0, 20000);
 			};
-			var handleWindow = function (_this) {
+			var handleRoot = function (_this) {
 				var logic = function () {
 					var scrollPosition = _this.pageYOffset || docElem.scrollTop || docBody.scrollTop || "";
 					var windowHeight = _this.innerHeight || docElem.clientHeight || docBody.clientHeight || "";
@@ -2594,11 +2594,11 @@ unescape, VK, Ya, ymaps*/
 				throttle(logic, 100).call(root);
 			};
 			if (docBody) {
-				addListener(btn, "click", handle);
-				addListener(root, "scroll", handleWindow, {passive: true});
+				addListener(btn, "click", handleBtn);
+				addListener(root, "scroll", handleRoot, {passive: true});
 			}
 		};
-		manageBtnTotop();
+		manageTotopBtn();
 
 		hideProgressBar();
 	};

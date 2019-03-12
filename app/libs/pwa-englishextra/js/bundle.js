@@ -818,7 +818,7 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 	"use strict";
 	var ToProgress = (function () {
 		var TP = function () {
-			function whichTransitionEvent() {
+			var whichTransitionEvent = function () {
 				var t;
 				var el = document.createElement("fakeelement");
 				var transitions = {
@@ -835,10 +835,9 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 					}
 				}
 				t = null;
-			}
-
+			};
 			var transitionEvent = whichTransitionEvent();
-			function ToProgress(opt, selector) {
+			var ToProgress = function (opt, selector) {
 				this.progress = 0;
 				this.options = {
 					id: "top-progress-bar",
@@ -900,7 +899,7 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 				} else {
 					document.body.appendChild(this.progressBar);
 				}
-			}
+			};
 			ToProgress.prototype.transit = function () {
 				this.progressBar.style.width = this.progress + "%";
 			};
@@ -1159,7 +1158,7 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 
 	progressBar.increase(20);
 
-	if (supportsSvgSmilAnimation && docElem) {
+	if (supportsSvgSmilAnimation) {
 		addClass(docElem, "svganimate");
 	}
 
@@ -1171,12 +1170,10 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 		var isFixedClass = "is-fixed";
 		var isCollapsableClass = "is-collapsable";
 
-		progressBar.increase(20);
+		removeClass(docElem, "no-js");
+		addClass(docElem, "js");
 
-		if (docElem && docElem.classList) {
-			removeClass(docElem, "no-js");
-			addClass(docElem, "js");
-		}
+		progressBar.increase(20);
 
 		var earlyDeviceFormfactor = (function (selectors) {
 			var orientation;
@@ -1327,15 +1324,15 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 
 		var manageExternalLinkAll = function () {
 			var link = document.getElementsByTagName("a") || "";
-			var handle = function (url, ev) {
-				ev.stopPropagation();
-				ev.preventDefault();
-				var logic = function () {
-					openDeviceBrowser(url);
-				};
-				debounce(logic, 200).call(root);
-			};
 			var arrange = function (e) {
+				var handle = function (url, ev) {
+					ev.stopPropagation();
+					ev.preventDefault();
+					var logic = function () {
+						openDeviceBrowser(url);
+					};
+					debounce(logic, 200).call(root);
+				};
 				var externalLinkIsBindedClass = "external-link--is-binded";
 				if (!hasClass(e, externalLinkIsBindedClass)) {
 					var url = e.getAttribute("href") || "";
@@ -1544,7 +1541,7 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 			var uiPanelContentsSelect = getByClass(document, "ui-panel-contents-select")[0] || "";
 			var chaptersListClass = "chapters-list";
 			/* var rerenderChaptersSelect = function () {
-				var handle = function () {
+				var handleСhaptersSelect = function () {
 					var _this = this;
 					var hashString = _this.options[_this.selectedIndex].value || "";
 					var uiPanelContentsSelectHeight = uiPanelContentsSelect ? (hasClass(uiPanelContentsSelect, isFixedClass) ? uiPanelContentsSelect.offsetHeight : uiPanelContentsSelect.offsetHeight * 2) : 0;
@@ -1558,7 +1555,7 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 					}
 				};
 				if (!hasClass(chaptersSelect, isBindedClass)) {
-					addListener(chaptersSelect, "change", handle);
+					addListener(chaptersSelect, "change", handleСhaptersSelect);
 					addClass(chaptersSelect, isBindedClass);
 				}
 				var rerenderOption = function (option) {
@@ -1593,11 +1590,11 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 				};
 				var chaptersList = document.createElement("ul");
 				var chaptersListItems = chaptersSelect ? chaptersSelect.getElementsByTagName("option") || "" : "";
-				var chaptersListButtonDefaultText = "";
+				var chaptersListBtnDefaultText = "";
 				var df = document.createDocumentFragment();
 				var generateChaptersListItems = function (_this, i) {
 					if (0 === i) {
-						chaptersListButtonDefaultText = _this.firstChild.textContent;
+						chaptersListBtnDefaultText = _this.firstChild.textContent;
 					}
 					var chaptersListItem = document.createElement("li");
 					var chaptersListItemText = _this.firstChild.textContent || "";
@@ -1619,11 +1616,11 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 				addClass(chaptersList, chaptersListClass);
 				addClass(chaptersList, isDropdownClass);
 				holderChaptersSelect.replaceChild(chaptersList, chaptersSelect.parentNode.parentNode);
-				var chaptersListButton = document.createElement("a");
-				chaptersListButton.appendChild(document.createTextNode(chaptersListButtonDefaultText));
-				chaptersList.parentNode.insertBefore(chaptersListButton, chaptersList);
+				var chaptersListBtn = document.createElement("a");
+				chaptersListBtn.appendChild(document.createTextNode(chaptersListBtnDefaultText));
+				chaptersList.parentNode.insertBefore(chaptersListBtn, chaptersList);
 				/* jshint -W107 */
-				chaptersListButton.href = "javascript:void(0);";
+				chaptersListBtn.href = "javascript:void(0);";
 				/* jshint +W107 */
 				var insertChevronDownSmallSvg = function (targetObj) {
 					var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -1633,14 +1630,14 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 					svg.appendChild(use);
 					targetObj.appendChild(svg);
 				};
-				insertChevronDownSmallSvg(chaptersListButton);
-				var handleChaptersListItemsButton = function (ev) {
+				insertChevronDownSmallSvg(chaptersListBtn);
+				var handleChaptersListBtn = function (ev) {
 					ev.stopPropagation();
 					ev.preventDefault();
 					toggleClass(chaptersList, isActiveClass);
 					handleOtherDropdownLists(chaptersList);
 				};
-				addListener(chaptersListButton, "click", handleChaptersListItemsButton);
+				addListener(chaptersListBtn, "click", handleChaptersListBtn);
 			};
 			if (holderChaptersSelect && chaptersSelect) {
 				/* rerenderChaptersSelect(); */
@@ -1651,7 +1648,7 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 		var manageExpandingLayerAll = function () {
 			var btn = getByClass(document, "btn-expand-hidden-layer") || "";
 			var arrange = function (e) {
-				var handle = function () {
+				var handleBtn = function () {
 					var _this = this;
 					var s = _this.parentNode ? _this.parentNode.nextElementSibling : "";
 					if (s) {
@@ -1661,7 +1658,7 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 					return;
 				};
 				if (!hasClass(e, isBindedClass)) {
-					addListener(e, "click", handle);
+					addListener(e, "click", handleBtn);
 					addClass(e, isBindedClass);
 				}
 			};
@@ -1725,7 +1722,7 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 			}
 		};
 
-		var manageDisqusButton = function () {
+		var manageDisqusBtn = function () {
 			var btn = getByClass(document, "btn-show-disqus")[0] || "";
 			var disqusThread = document.getElementById("disqus_thread") || "";
 			var locHref = root.location.href || "";
@@ -1742,44 +1739,38 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 				disqusThread.removeAttribute("id");
 				hideDisqusButton();
 			};
-			var addBtnHandler = function () {
-				var handleDisqusButton = function (ev) {
-					ev.stopPropagation();
-					ev.preventDefault();
-					var logic = function () {
-						var initScript = function () {
-							try {
-								DISQUS.reset({
-									reload: true,
-									config: function () {
-										this.page.identifier = shortname;
-										this.page.url = locHref;
-									}
-								});
-								removeListener(btn, "click", handleDisqusButton);
-								hideDisqusButton();
-							} catch (err) {
-								throw new Error("cannot DISQUS.reset " + err);
-							}
-						};
-						var jsUrl = forcedHTTP + "://" + shortname + ".disqus.com/embed.js";
-						if (!root.DISQUS) {
-							var load;
-							load = new loadJsCss([jsUrl], initScript);
-						} else {
-							initScript();
+			var handleBtn = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var logic = function () {
+					var initScript = function () {
+						try {
+							DISQUS.reset({
+								reload: true,
+								config: function () {
+									this.page.identifier = shortname;
+									this.page.url = locHref;
+								}
+							});
+							removeListener(btn, "click", handleBtn);
+							hideDisqusButton();
+						} catch (err) {
+							throw new Error("cannot DISQUS.reset " + err);
 						}
 					};
-					debounce(logic, 200).call(root);
+					var jsUrl = forcedHTTP + "://" + shortname + ".disqus.com/embed.js";
+					if (!root.DISQUS) {
+						var load;
+						load = new loadJsCss([jsUrl], initScript);
+					} else {
+						initScript();
+					}
 				};
-				addListener(btn, "click", handleDisqusButton);
-				addClass(btn, isBindedClass);
+				debounce(logic, 200).call(root);
 			};
 			if (disqusThread && btn && shortname && locHref) {
 				if (root.getHTTP && root.getHTTP()) {
-					if (!hasClass(btn, isBindedClass)) {
-						addBtnHandler();
-					}
+					addListener(btn, "click", handleBtn);
 				} else {
 					hide();
 				}
@@ -1923,7 +1914,7 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 
 		var manageSearchInput = function () {
 			var searchInput = document.getElementById("text") || "";
-			var handle = function () {
+			var handleSearchInput = function () {
 				var _this = this;
 				var logic = function () {
 					_this.value = _this.value.replace(/\\/g, "").replace(/ +(?= )/g, " ").replace(/\/+(?=\/)/g, "/") || "";
@@ -1932,7 +1923,7 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 			};
 			if (searchInput) {
 				searchInput.focus();
-				addListener(searchInput, "input", handle);
+				addListener(searchInput, "input", handleSearchInput);
 			}
 		};
 		manageSearchInput();
@@ -2150,25 +2141,25 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 				}
 				var handleListItemAll = function (e) {
 					var items = e ? e.getElementsByTagName("li") || "" : "";
-					var addHandler = function (e) {
+					var arrange = function (e) {
 						addListener(e, "click", handleOtherDropdownLists);
 					};
 					if (items) {
 						var i,
 						l;
 						for (i = 0, l = items.length; i < l; i += 1) {
-							addHandler(items[i]);
+							arrange(items[i]);
 						}
 						i = l = null;
 					}
 				};
-				var handleShowRenderNavbarPopularButton = function (ev) {
+				var handleShowRenderNavbarPopular = function (ev) {
 					ev.stopPropagation();
 					ev.preventDefault();
 					toggleClass(renderNavbarPopular, isActiveClass);
 					handleOtherDropdownLists(renderNavbarPopular);
 				};
-				var handleShowRenderNavbarMoreButton = function (ev) {
+				var handleShowRenderNavbarMore = function (ev) {
 					ev.stopPropagation();
 					ev.preventDefault();
 					toggleClass(renderNavbarMore, isActiveClass);
@@ -2188,8 +2179,8 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 								alignNavbarListAll();
 								handleListItemAll(renderNavbarPopular);
 								handleListItemAll(renderNavbarMore);
-								addListener(showRenderNavbarPopular, "click", handleShowRenderNavbarPopularButton);
-								addListener(showRenderNavbarMore, "click", handleShowRenderNavbarMoreButton);
+								addListener(showRenderNavbarPopular, "click", handleShowRenderNavbarPopular);
+								addListener(showRenderNavbarMore, "click", handleShowRenderNavbarMore);
 								addListener(root, "resize", handleShowNavbarListsWindow);
 								if (navbarParent) {
 									manageExternalLinkAll(navbarParent);
@@ -2245,7 +2236,7 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 		};
 		fixUiPanelContentsSelect();
 
-		var handleOtherSocialButtons = function (_self) {
+		var handleOtherSocialBtnAll = function (_self) {
 			var _this = _self || this;
 			var btn = getByClass(document, isCollapsableClass) || "";
 			var arrange = function (e) {
@@ -2262,14 +2253,14 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 				i = l = null;
 			}
 		};
-		var manageOtherSocialButtonAll = function () {
+		var manageOtherSocialBtnAll = function () {
 			var container = document.getElementById("container") || "";
 			if (container) {
-				addListener(container, "click", handleOtherSocialButtons);
+				addListener(container, "click", handleOtherSocialBtnAll);
 			}
 		};
-		manageOtherSocialButtonAll();
-		addListener(root, "hashchange", handleOtherSocialButtons);
+		manageOtherSocialBtnAll();
+		addListener(root, "hashchange", handleOtherSocialBtnAll);
 
 		var manageLocationQrcode = function () {
 			var btn = getByClass(document, "btn-toggle-holder-location-qrcode")[0] || "";
@@ -2281,7 +2272,7 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 				var logic = function () {
 					toggleClass(holder, isActiveClass);
 					addClass(holder, isCollapsableClass);
-					handleOtherSocialButtons(holder);
+					handleOtherSocialBtnAll(holder);
 					var locHref = root.location.href || "";
 					var newImg = document.createElement("img");
 					var newTitle = document.title ? ("Ссылка на страницу «" + document.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
@@ -2334,29 +2325,29 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 		};
 		manageLocationQrcode();
 
-		root.yaShareInstance = null;
-		var manageShareButtons = function () {
+		root.yaShare2Instance = null;
+		var manageYaShare2Btn = function () {
 			var btn = getByClass(document, "btn-toggle-holder-share-buttons")[0] || "";
 			var yaShare2Id = "ya-share2";
 			var yaShare2 = document.getElementById(yaShare2Id) || "";
 			var holder = getByClass(document, "holder-share-buttons")[0] || "";
-			var handle = function (ev) {
+			var handleBtn = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				var logic = function () {
 					toggleClass(holder, isActiveClass);
 					addClass(holder, isCollapsableClass);
-					handleOtherSocialButtons(holder);
+					handleOtherSocialBtnAll(holder);
 					var initScript = function () {
 						try {
-							if (root.yaShareInstance) {
-								root.yaShareInstance.updateContent({
+							if (root.yaShare2Instance) {
+								root.yaShare2Instance.updateContent({
 									title: document.title || "",
 									description: document.title || "",
 									url: root.location.href || ""
 								});
 							} else {
-								root.yaShareInstance = Ya.share2(yaShare2Id, {
+								root.yaShare2Instance = Ya.share2(yaShare2Id, {
 									content: {
 										title: document.title || "",
 										description: document.title || "",
@@ -2365,7 +2356,7 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 								});
 							}
 						} catch (err) {
-							throw new Error("cannot root.yaShareInstance.updateContent or Ya.share2 " + err);
+							throw new Error("cannot root.yaShare2Instance.updateContent or Ya.share2 " + err);
 						}
 					};
 					if (!(root.Ya && Ya.share2)) {
@@ -2380,25 +2371,25 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 			};
 			if (btn && holder && yaShare2) {
 				if (root.getHTTP && root.getHTTP()) {
-					addListener(btn, "click", handle);
+					addListener(btn, "click", handleBtn);
 				}
 			}
 		};
-		manageShareButtons();
+		manageYaShare2Btn();
 
 		root.vkLikeInstance = null;
-		var manageVKLikeButton = function () {
+		var manageVkLikeBtn = function () {
 			var btn = getByClass(document, "btn-toggle-holder-vk-like")[0] || "";
 			var holder = getByClass(document, "holder-vk-like")[0] || "";
 			var vkLikeId = "vk-like";
 			var vkLike = document.getElementById(vkLikeId) || "";
-			var handle = function (ev) {
+			var handleBtn = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				var logic = function () {
 					toggleClass(holder, isActiveClass);
 					addClass(holder, isCollapsableClass);
-					handleOtherSocialButtons(holder);
+					handleOtherSocialBtnAll(holder);
 					var initScript = function () {
 						if (!root.vkLikeInstance) {
 							try {
@@ -2429,24 +2420,24 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 			};
 			if (btn && holder && vkLike) {
 				if (root.getHTTP && root.getHTTP()) {
-					addListener(btn, "click", handle);
+					addListener(btn, "click", handleBtn);
 				}
 			}
 		};
-		manageVKLikeButton();
+		manageVkLikeBtn();
 
-		var manageDebugGridButton = function () {
+		var manageDebugGridBtn = function () {
 			var container = document.getElementById("container") || "";
 			var page = document.getElementById("page") || "";
 			var btn = getByClass(document, "btn-toggle-col-debug")[0] || "";
 			var debugClass = "debug";
 			var cookieKey = "_manageDebugGridButton_";
 			var cookieDatum = "ok";
-			var handleDebugGridButton = function (ev) {
+			var handleBtn = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				toggleClass(container, debugClass);
-				var showDebugGridMessage = function () {
+				var showMsg = function () {
 					var col = getByClass(document, "col")[0] || "";
 					var elements = [docBody, page, container, col];
 					var debugMessage = [];
@@ -2471,29 +2462,29 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 						"days": 0
 					});
 				};
-				var handleDebugGridContainer = function () {
+				var handleContainer = function () {
 					if (container) {
 						removeClass(container, debugClass);
-						removeListener(container, "click", handleDebugGridContainer);
+						removeListener(container, "click", handleContainer);
 					}
 				};
 				if (hasClass(container, debugClass)) {
-					addListener(container, "click", handleDebugGridContainer);
-					showDebugGridMessage();
+					addListener(container, "click", handleContainer);
+					showMsg();
 				} else {
-					removeListener(container, "click", handleDebugGridContainer);
+					removeListener(container, "click", handleContainer);
 				}
 			};
 			if (page && container && btn) {
 				var locHref = root.location.href || "";
 				if (locHref && parseLink(locHref).hasHTTP && (/^(localhost|127.0.0.1)/).test(parseLink(locHref).hostname)) {
-					addListener(btn, "click", handleDebugGridButton);
+					addListener(btn, "click", handleBtn);
 				} else {
 					setDisplayNone(btn);
 				}
 			}
 		};
-		manageDebugGridButton();
+		manageDebugGridBtn();
 
 		var initRouting = function () {
 			var appContentId = "app-content";
@@ -2646,7 +2637,7 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 						}
 						insertTextAsFragment(renderComments, commentsRender, function () {
 							if (commentsRenderParent) {
-								manageDisqusButton(commentsRenderParent);
+								manageDisqusBtn();
 							}
 						});
 					}
@@ -2769,7 +2760,7 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 					contentsSelectRender.innerHTML = contentsSelectRendered;
 				} */
 				/* var rerenderContentsSelect = function () {
-					var handle = function () {
+					var handleContentsSelect = function () {
 						var _this = this;
 						var hashString = _this.options[_this.selectedIndex].value || "";
 						if (hashString) {
@@ -2805,7 +2796,7 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 					}
 					i = l = null;
 					appendFragment(df, contentsSelectRender);
-					addListener(contentsSelect, "change", handle);
+					addListener(contentsSelect, "change", handleContentsSelect);
 				}; */
 				var rerenderContentsList = function () {
 					var handleContentsListItem = function (listObj, hashString) {
@@ -2936,7 +2927,7 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 		};
 		addListener(root, "hashchange", updateInsertedDom); */
 
-		var manageBtnTotop = function () {
+		var manageTotopBtn = function () {
 			var btnClass = "btn-totop";
 			var btn = getByClass(document, btnClass)[0] || "";
 			var insertUpSvg = function (e) {
@@ -2957,12 +2948,12 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 				insertUpSvg(btn);
 				docBody.appendChild(btn);
 			}
-			var handle = function (ev) {
+			var handleBtn = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				scroll2Top(0, 20000);
 			};
-			var handleWindow = function (_this) {
+			var handleRoot = function (_this) {
 				var logic = function () {
 					var scrollPosition = _this.pageYOffset || docElem.scrollTop || docBody.scrollTop || "";
 					var windowHeight = _this.innerHeight || docElem.clientHeight || docBody.clientHeight || "";
@@ -2977,11 +2968,11 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 				throttle(logic, 100).call(root);
 			};
 			if (docBody) {
-				addListener(btn, "click", handle);
-				addListener(root, "scroll", handleWindow, {passive: true});
+				addListener(btn, "click", handleBtn);
+				addListener(root, "scroll", handleRoot, {passive: true});
 			}
 		};
-		manageBtnTotop();
+		manageTotopBtn();
 
 		hideProgressBar();
 	};

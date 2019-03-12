@@ -473,7 +473,7 @@ WheelIndicator, Ya*/
 	"use strict";
 	var ToProgress = (function () {
 		var TP = function () {
-			function whichTransitionEvent() {
+			var whichTransitionEvent = function () {
 				var t;
 				var el = document.createElement("fakeelement");
 				var transitions = {
@@ -490,10 +490,9 @@ WheelIndicator, Ya*/
 					}
 				}
 				t = null;
-			}
-
+			};
 			var transitionEvent = whichTransitionEvent();
-			function ToProgress(opt, selector) {
+			var ToProgress = function (opt, selector) {
 				this.progress = 0;
 				this.options = {
 					id: "top-progress-bar",
@@ -555,7 +554,7 @@ WheelIndicator, Ya*/
 				} else {
 					document.body.appendChild(this.progressBar);
 				}
-			}
+			};
 			ToProgress.prototype.transit = function () {
 				this.progressBar.style.width = this.progress + "%";
 			};
@@ -757,7 +756,7 @@ WheelIndicator, Ya*/
 		progressBar.hide();
 	};
 
-	if (supportsSvgSmilAnimation && docElem) {
+	if (supportsSvgSmilAnimation) {
 		addClass(docElem, "svganimate");
 	}
 
@@ -909,18 +908,16 @@ WheelIndicator, Ya*/
 		var isActiveClass = "is-active";
 		var isSocialClass = "is-social";
 
-		var docTitle = document.title || "";
-		var locHref = root.location.href || "";
-		var navUA = navigator.userAgent || "";
+		removeClass(docElem, "no-js");
+		addClass(docElem, "js");
 
 		if (!supportsSvgSmilAnimation) {
 			progressBar.increase(20);
 		}
 
-		if (docElem && docElem.classList) {
-			removeClass(docElem, "no-js");
-			addClass(docElem, "js");
-		}
+		var docTitle = document.title || "";
+		var locHref = root.location.href || "";
+		var navUA = navigator.userAgent || "";
 
 		var brName = "";
 		var brDescription = "";
@@ -940,15 +937,15 @@ WheelIndicator, Ya*/
 
 		var manageExternalLinkAll = function () {
 			var link = document.getElementsByTagName("a") || "";
-			var handle = function (url, ev) {
-				ev.stopPropagation();
-				ev.preventDefault();
-				var logic = function () {
-					openDeviceBrowser(url);
-				};
-				debounce(logic, 200).call(root);
-			};
 			var arrange = function (e) {
+				var handle = function (url, ev) {
+					ev.stopPropagation();
+					ev.preventDefault();
+					var logic = function () {
+						openDeviceBrowser(url);
+					};
+					debounce(logic, 200).call(root);
+				};
 				var externalLinkIsBindedClass = "external-link--is-binded";
 				if (!hasClass(e, externalLinkIsBindedClass)) {
 					var url = e.getAttribute("href") || "";
@@ -1168,26 +1165,26 @@ WheelIndicator, Ya*/
 			var _thisObj = thisObj || this;
 			var elem = getByClass(document, isSocialClass) || "";
 			if (elem) {
-				var k,
-				n;
-				for (k = 0, n = elem.length; k < n; k += 1) {
-					if (_thisObj !== elem[k]) {
-						removeClass(elem[k], isActiveClass);
+				var i,
+				l;
+				for (i = 0, l = elem.length; i < l; i += 1) {
+					if (_thisObj !== elem[i]) {
+						removeClass(elem[i], isActiveClass);
 					}
 				}
-				k = n = null;
+				i = l = null;
 			}
 		};
 		addListener(root, "click", hideOtherIsSocial);
 
-		root.yaShareInstance = null;
-		var manageShareButtons = function () {
+		root.yaShare2Instance = null;
+		var manageYaShare2Btn = function () {
 			var btn = getByClass(document, "btn-share-buttons")[0] || "";
 			var yaShare2Id = "ya-share2";
 			var yaShare2 = document.getElementById(yaShare2Id) || "";
 			var locHref = root.location || "";
 			var docTitle = document.title || "";
-			var handle = function (ev) {
+			var handleBtn = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				var logic = function () {
@@ -1195,14 +1192,14 @@ WheelIndicator, Ya*/
 					hideOtherIsSocial(yaShare2);
 					var initScript = function () {
 						try {
-							if (root.yaShareInstance) {
-								root.yaShareInstance.updateContent({
+							if (root.yaShare2Instance) {
+								root.yaShare2Instance.updateContent({
 									title: docTitle,
 									description: docTitle,
 									url: locHref
 								});
 							} else {
-								root.yaShareInstance = Ya.share2(yaShare2Id, {
+								root.yaShare2Instance = Ya.share2(yaShare2Id, {
 									content: {
 										title: docTitle,
 										description: docTitle,
@@ -1211,7 +1208,7 @@ WheelIndicator, Ya*/
 								});
 							}
 						} catch (err) {
-							throw new Error("cannot root.yaShareInstance.updateContent or Ya.share2 " + err);
+							throw new Error("cannot root.yaShare2Instance.updateContent or Ya.share2 " + err);
 						}
 					};
 					if (!(root.Ya && Ya.share2)) {
@@ -1226,21 +1223,21 @@ WheelIndicator, Ya*/
 			};
 			if (btn && yaShare2) {
 				if (root.getHTTP && root.getHTTP()) {
-					addListener(btn, "click", handle);
+					addListener(btn, "click", handleBtn);
 				} else {
 					setDisplayNone(btn);
 				}
 			}
 		};
-		manageShareButtons();
+		manageYaShare2Btn();
 
 		root.vkLikeInstance = null;
-		var manageVKLikeButton = function () {
+		var manageVkLikeBtn = function () {
 			var vkLikeId = "vk-like";
 			var vkLike = document.getElementById(vkLikeId) || "";
 			var holderVkLike = getByClass(document, "holder-vk-like")[0] || "";
 			var btn = getByClass(document, "btn-show-vk-like")[0] || "";
-			var handle = function (ev) {
+			var handleBtn = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				var logic = function () {
@@ -1276,13 +1273,13 @@ WheelIndicator, Ya*/
 			};
 			if (btn && vkLike) {
 				if (root.getHTTP && root.getHTTP()) {
-					addListener(btn, "click", handle);
+					addListener(btn, "click", handleBtn);
 				} else {
 					setDisplayNone(btn);
 				}
 			}
 		};
-		manageVKLikeButton();
+		manageVkLikeBtn();
 	};
 
 	var scripts = [];

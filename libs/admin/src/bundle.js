@@ -508,7 +508,7 @@ throttle, toggleClass, ToProgress*/
 	"use strict";
 	var ToProgress = (function () {
 		var TP = function () {
-			function whichTransitionEvent() {
+			var whichTransitionEvent = function () {
 				var t;
 				var el = document.createElement("fakeelement");
 				var transitions = {
@@ -525,10 +525,9 @@ throttle, toggleClass, ToProgress*/
 					}
 				}
 				t = null;
-			}
-
+			};
 			var transitionEvent = whichTransitionEvent();
-			function ToProgress(opt, selector) {
+			var ToProgress = function (opt, selector) {
 				this.progress = 0;
 				this.options = {
 					id: "top-progress-bar",
@@ -590,7 +589,7 @@ throttle, toggleClass, ToProgress*/
 				} else {
 					document.body.appendChild(this.progressBar);
 				}
-			}
+			};
 			ToProgress.prototype.transit = function () {
 				this.progressBar.style.width = this.progress + "%";
 			};
@@ -796,7 +795,7 @@ throttle, toggleClass, ToProgress*/
 
 	progressBar.increase(20);
 
-	if (supportsSvgSmilAnimation && docElem) {
+	if (supportsSvgSmilAnimation) {
 		addClass(docElem, "svganimate");
 	}
 
@@ -804,12 +803,10 @@ throttle, toggleClass, ToProgress*/
 
 		var isActiveClass = "is-active";
 
-		progressBar.increase(20);
+		removeClass(docElem, "no-js");
+		addClass(docElem, "js");
 
-		if (docElem && docElem.classList) {
-			removeClass(docElem, "no-js");
-			addClass(docElem, "js");
-		}
+		progressBar.increase(20);
 
 		var earlyDeviceFormfactor = (function (selectors) {
 			var orientation;
@@ -931,15 +928,15 @@ throttle, toggleClass, ToProgress*/
 
 		var manageExternalLinkAll = function () {
 			var link = document.getElementsByTagName("a") || "";
-			var handle = function (url, ev) {
-				ev.stopPropagation();
-				ev.preventDefault();
-				var logic = function () {
-					openDeviceBrowser(url);
-				};
-				debounce(logic, 200).call(root);
-			};
 			var arrange = function (e) {
+				var handle = function (url, ev) {
+					ev.stopPropagation();
+					ev.preventDefault();
+					var logic = function () {
+						openDeviceBrowser(url);
+					};
+					debounce(logic, 200).call(root);
+				};
 				var externalLinkIsBindedClass = "external-link--is-binded";
 				if (!hasClass(e, externalLinkIsBindedClass)) {
 					var url = e.getAttribute("href") || "";
@@ -969,15 +966,15 @@ throttle, toggleClass, ToProgress*/
 		var manageNavMenu = function () {
 			var container = document.getElementById("container") || "";
 			var page = document.getElementById("page") || "";
-			var btnNavMenu = getByClass(document, "btn-nav-menu")[0] || "";
-			var panelNavMenu = getByClass(document, "panel-nav-menu")[0] || "";
-			var panelNavMenuItems = panelNavMenu ? panelNavMenu.getElementsByTagName("a") || "" : "";
+			var btn = getByClass(document, "btn-nav-menu")[0] || "";
+			var panel = getByClass(document, "panel-nav-menu")[0] || "";
+			var panelItems = panel ? panel.getElementsByTagName("a") || "" : "";
 			var holderPanelMenuMore = getByClass(document, "holder-panel-menu-more")[0] || "";
 			var locHref = root.location.href || "";
 			var removeAllActiveClass = function () {
 				removeClass(page, isActiveClass);
-				removeClass(panelNavMenu, isActiveClass);
-				removeClass(btnNavMenu, isActiveClass);
+				removeClass(panel, isActiveClass);
+				removeClass(btn, isActiveClass);
 			};
 			var removeHolderActiveClass = function () {
 				if (holderPanelMenuMore && hasClass(holderPanelMenuMore, isActiveClass)) {
@@ -987,7 +984,7 @@ throttle, toggleClass, ToProgress*/
 			var addContainerHandler = function () {
 				var handleContainerLeft = function () {
 					removeHolderActiveClass();
-					if (hasClass(panelNavMenu, isActiveClass)) {
+					if (hasClass(panel, isActiveClass)) {
 						removeAllActiveClass();
 					}
 				};
@@ -995,10 +992,10 @@ throttle, toggleClass, ToProgress*/
 					removeHolderActiveClass();
 					var addAllActiveClass = function () {
 						addClass(page, isActiveClass);
-						addClass(panelNavMenu, isActiveClass);
-						addClass(btnNavMenu, isActiveClass);
+						addClass(panel, isActiveClass);
+						addClass(btn, isActiveClass);
 					};
-					if (!hasClass(panelNavMenu, isActiveClass)) {
+					if (!hasClass(panel, isActiveClass)) {
 						addAllActiveClass();
 					}
 				};
@@ -1013,16 +1010,16 @@ throttle, toggleClass, ToProgress*/
 			var addBtnHandler = function () {
 				var toggleAllActiveClass = function () {
 					toggleClass(page, isActiveClass);
-					toggleClass(panelNavMenu, isActiveClass);
-					toggleClass(btnNavMenu, isActiveClass);
+					toggleClass(panel, isActiveClass);
+					toggleClass(btn, isActiveClass);
 				};
-				var handleBtnNavMenu = function (ev) {
+				var handleBtn = function (ev) {
 					ev.stopPropagation();
 					ev.preventDefault();
 					removeHolderActiveClass();
 					toggleAllActiveClass();
 				};
-				addListener(btnNavMenu, "click", handleBtnNavMenu);
+				addListener(btn, "click", handleBtn);
 			};
 			var addItemHandlerAll = function () {
 				var addItemHandler = function (e) {
@@ -1037,13 +1034,13 @@ throttle, toggleClass, ToProgress*/
 						removeClass(e, isActiveClass);
 					};
 					var handleItem = function () {
-						if (hasClass(panelNavMenu, isActiveClass)) {
+						if (hasClass(panel, isActiveClass)) {
 							removeHolderAndAllActiveClass();
 						}
 						var i,
 						l;
-						for (i = 0, l = panelNavMenuItems.length; i < l; i += 1) {
-							removeActiveClass(panelNavMenuItems[i]);
+						for (i = 0, l = panelItems.length; i < l; i += 1) {
+							removeActiveClass(panelItems[i]);
 						}
 						i = l = null;
 						addActiveClass(e);
@@ -1057,24 +1054,24 @@ throttle, toggleClass, ToProgress*/
 				};
 				var i,
 				l;
-				for (i = 0, l = panelNavMenuItems.length; i < l; i += 1) {
-					addItemHandler(panelNavMenuItems[i]);
+				for (i = 0, l = panelItems.length; i < l; i += 1) {
+					addItemHandler(panelItems[i]);
 				}
 				i = l = null;
 			};
 			if (page &&
 				container &&
-				btnNavMenu &&
-				panelNavMenu &&
-				panelNavMenuItems) {
-				addContainerHandler();
-				addBtnHandler();
-				addItemHandlerAll();
+				btn &&
+				panel &&
+				panelItems) {
+					addContainerHandler();
+					addBtnHandler();
+					addItemHandlerAll();
 			}
 		};
 		manageNavMenu();
 
-		var manageBtnTotop = function () {
+		var manageTotopBtn = function () {
 			var btnClass = "btn-totop";
 			var btn = getByClass(document, btnClass)[0] || "";
 			if (!btn) {
@@ -1086,12 +1083,12 @@ throttle, toggleClass, ToProgress*/
 				btn.title = "Наверх";
 				docBody.appendChild(btn);
 			}
-			var handle = function (ev) {
+			var handleBtn = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				scroll2Top(0, 20000);
 			};
-			var handleWindow = function (_this) {
+			var handleRoot = function (_this) {
 				var logic = function () {
 					var scrollPosition = _this.pageYOffset || docElem.scrollTop || docBody.scrollTop || "";
 					var windowHeight = _this.innerHeight || docElem.clientHeight || docBody.clientHeight || "";
@@ -1106,11 +1103,11 @@ throttle, toggleClass, ToProgress*/
 				throttle(logic, 100).call(root);
 			};
 			if (docBody) {
-				addListener(btn, "click", handle);
-				addListener(root, "scroll", handleWindow, {passive: true});
+				addListener(btn, "click", handleBtn);
+				addListener(root, "scroll", handleRoot, {passive: true});
 			}
 		};
-		manageBtnTotop();
+		manageTotopBtn();
 
 		hideProgressBar();
 	};

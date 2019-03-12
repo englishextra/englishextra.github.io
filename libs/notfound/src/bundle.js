@@ -494,7 +494,7 @@ toggleClass, ToProgress, unescape, VK, Ya*/
 	"use strict";
 	var ToProgress = (function () {
 		var TP = function () {
-			function whichTransitionEvent() {
+			var whichTransitionEvent = function () {
 				var t;
 				var el = document.createElement("fakeelement");
 				var transitions = {
@@ -511,10 +511,9 @@ toggleClass, ToProgress, unescape, VK, Ya*/
 					}
 				}
 				t = null;
-			}
-
+			};
 			var transitionEvent = whichTransitionEvent();
-			function ToProgress(opt, selector) {
+			var ToProgress = function (opt, selector) {
 				this.progress = 0;
 				this.options = {
 					id: "top-progress-bar",
@@ -576,7 +575,7 @@ toggleClass, ToProgress, unescape, VK, Ya*/
 				} else {
 					document.body.appendChild(this.progressBar);
 				}
-			}
+			};
 			ToProgress.prototype.transit = function () {
 				this.progressBar.style.width = this.progress + "%";
 			};
@@ -781,7 +780,7 @@ toggleClass, ToProgress, unescape, VK, Ya*/
 
 	progressBar.increase(20);
 
-	if (supportsSvgSmilAnimation && docElem) {
+	if (supportsSvgSmilAnimation) {
 		addClass(docElem, "svganimate");
 	}
 
@@ -790,12 +789,10 @@ toggleClass, ToProgress, unescape, VK, Ya*/
 		var isActiveClass = "is-active";
 		var isSocialClass = "is-social";
 
-		progressBar.increase(20);
+		removeClass(docElem, "no-js");
+		addClass(docElem, "js");
 
-		if (docElem && docElem.classList) {
-			removeClass(docElem, "no-js");
-			addClass(docElem, "js");
-		}
+		progressBar.increase(20);
 
 		var earlyDeviceFormfactor = (function (selectors) {
 			var orientation;
@@ -917,15 +914,15 @@ toggleClass, ToProgress, unescape, VK, Ya*/
 
 		var manageExternalLinkAll = function () {
 			var link = document.getElementsByTagName("a") || "";
-			var handle = function (url, ev) {
-				ev.stopPropagation();
-				ev.preventDefault();
-				var logic = function () {
-					openDeviceBrowser(url);
-				};
-				debounce(logic, 200).call(root);
-			};
 			var arrange = function (e) {
+				var handle = function (url, ev) {
+					ev.stopPropagation();
+					ev.preventDefault();
+					var logic = function () {
+						openDeviceBrowser(url);
+					};
+					debounce(logic, 200).call(root);
+				};
 				var externalLinkIsBindedClass = "external-link--is-binded";
 				if (!hasClass(e, externalLinkIsBindedClass)) {
 					var url = e.getAttribute("href") || "";
@@ -1009,15 +1006,15 @@ toggleClass, ToProgress, unescape, VK, Ya*/
 		var manageNavMenu = function () {
 			var container = document.getElementById("container") || "";
 			var page = document.getElementById("page") || "";
-			var btnNavMenu = getByClass(document, "btn-nav-menu")[0] || "";
-			var panelNavMenu = getByClass(document, "panel-nav-menu")[0] || "";
-			var panelNavMenuItems = panelNavMenu ? panelNavMenu.getElementsByTagName("a") || "" : "";
+			var btn = getByClass(document, "btn-nav-menu")[0] || "";
+			var panel = getByClass(document, "panel-nav-menu")[0] || "";
+			var panelItems = panel ? panel.getElementsByTagName("a") || "" : "";
 			var holderPanelMenuMore = getByClass(document, "holder-panel-menu-more")[0] || "";
 			var locHref = root.location.href || "";
 			var removeAllActiveClass = function () {
 				removeClass(page, isActiveClass);
-				removeClass(panelNavMenu, isActiveClass);
-				removeClass(btnNavMenu, isActiveClass);
+				removeClass(panel, isActiveClass);
+				removeClass(btn, isActiveClass);
 			};
 			var removeHolderActiveClass = function () {
 				if (holderPanelMenuMore && hasClass(holderPanelMenuMore, isActiveClass)) {
@@ -1027,7 +1024,7 @@ toggleClass, ToProgress, unescape, VK, Ya*/
 			var addContainerHandler = function () {
 				var handleContainerLeft = function () {
 					removeHolderActiveClass();
-					if (hasClass(panelNavMenu, isActiveClass)) {
+					if (hasClass(panel, isActiveClass)) {
 						removeAllActiveClass();
 					}
 				};
@@ -1035,10 +1032,10 @@ toggleClass, ToProgress, unescape, VK, Ya*/
 					removeHolderActiveClass();
 					var addAllActiveClass = function () {
 						addClass(page, isActiveClass);
-						addClass(panelNavMenu, isActiveClass);
-						addClass(btnNavMenu, isActiveClass);
+						addClass(panel, isActiveClass);
+						addClass(btn, isActiveClass);
 					};
-					if (!hasClass(panelNavMenu, isActiveClass)) {
+					if (!hasClass(panel, isActiveClass)) {
 						addAllActiveClass();
 					}
 				};
@@ -1053,16 +1050,16 @@ toggleClass, ToProgress, unescape, VK, Ya*/
 			var addBtnHandler = function () {
 				var toggleAllActiveClass = function () {
 					toggleClass(page, isActiveClass);
-					toggleClass(panelNavMenu, isActiveClass);
-					toggleClass(btnNavMenu, isActiveClass);
+					toggleClass(panel, isActiveClass);
+					toggleClass(btn, isActiveClass);
 				};
-				var handleBtnNavMenu = function (ev) {
+				var handleBtn = function (ev) {
 					ev.stopPropagation();
 					ev.preventDefault();
 					removeHolderActiveClass();
 					toggleAllActiveClass();
 				};
-				addListener(btnNavMenu, "click", handleBtnNavMenu);
+				addListener(btn, "click", handleBtn);
 			};
 			var addItemHandlerAll = function () {
 				var addItemHandler = function (e) {
@@ -1077,13 +1074,13 @@ toggleClass, ToProgress, unescape, VK, Ya*/
 						removeClass(e, isActiveClass);
 					};
 					var handleItem = function () {
-						if (hasClass(panelNavMenu, isActiveClass)) {
+						if (hasClass(panel, isActiveClass)) {
 							removeHolderAndAllActiveClass();
 						}
 						var i,
 						l;
-						for (i = 0, l = panelNavMenuItems.length; i < l; i += 1) {
-							removeActiveClass(panelNavMenuItems[i]);
+						for (i = 0, l = panelItems.length; i < l; i += 1) {
+							removeActiveClass(panelItems[i]);
 						}
 						i = l = null;
 						addActiveClass(e);
@@ -1097,19 +1094,19 @@ toggleClass, ToProgress, unescape, VK, Ya*/
 				};
 				var i,
 				l;
-				for (i = 0, l = panelNavMenuItems.length; i < l; i += 1) {
-					addItemHandler(panelNavMenuItems[i]);
+				for (i = 0, l = panelItems.length; i < l; i += 1) {
+					addItemHandler(panelItems[i]);
 				}
 				i = l = null;
 			};
 			if (page &&
 				container &&
-				btnNavMenu &&
-				panelNavMenu &&
-				panelNavMenuItems) {
-				addContainerHandler();
-				addBtnHandler();
-				addItemHandlerAll();
+				btn &&
+				panel &&
+				panelItems) {
+					addContainerHandler();
+					addBtnHandler();
+					addItemHandlerAll();
 			}
 		};
 		manageNavMenu();
@@ -1135,7 +1132,7 @@ toggleClass, ToProgress, unescape, VK, Ya*/
 				var link = document.createElement("a");
 				link.title = "" + (parseLink(linkHref).hostname || "") + " откроется в новой вкладке";
 				link.href = linkHref;
-				var handleAppUpdatesLink = function () {
+				var handleLink = function () {
 					openDeviceBrowser(linkHref);
 				};
 				if (root.getHTTP && root.getHTTP()) {
@@ -1145,7 +1142,7 @@ toggleClass, ToProgress, unescape, VK, Ya*/
 					/* jshint -W107 */
 					link.href = "javascript:void(0);";
 					/* jshint +W107 */
-					addListener(link, "click", handleAppUpdatesLink);
+					addListener(link, "click", handleLink);
 				}
 				link.appendChild(document.createTextNode("Скачать приложение сайта"));
 				listItem.appendChild(link);
@@ -1162,14 +1159,14 @@ toggleClass, ToProgress, unescape, VK, Ya*/
 		var manageMenuMore = function () {
 			var container = document.getElementById("container") || "";
 			var page = document.getElementById("page") || "";
-			var holderPanelMenuMore = getByClass(document, "holder-panel-menu-more")[0] || "";
-			var btnMenuMore = getByClass(document, "btn-menu-more")[0] || "";
-			var panelMenuMore = getByClass(document, "panel-menu-more")[0] || "";
-			var panelMenuMoreItems = panelMenuMore ? panelMenuMore.getElementsByTagName("li") || "" : "";
+			var holder = getByClass(document, "holder-panel-menu-more")[0] || "";
+			var btn = getByClass(document, "btn-menu-more")[0] || "";
+			var panel = getByClass(document, "panel-menu-more")[0] || "";
+			var panelItems = panel ? panel.getElementsByTagName("li") || "" : "";
 			var panelNavMenu = getByClass(document, "panel-nav-menu")[0] || "";
 			var handleItem = function () {
 				removeClass(page, isActiveClass);
-				removeClass(holderPanelMenuMore, isActiveClass);
+				removeClass(holder, isActiveClass);
 				if (panelNavMenu && hasClass(panelNavMenu, isActiveClass)) {
 					removeClass(panelNavMenu, isActiveClass);
 				}
@@ -1178,12 +1175,12 @@ toggleClass, ToProgress, unescape, VK, Ya*/
 				addListener(container, "click", handleItem);
 			};
 			var addBtnHandler = function () {
-				var handleBtnMenuMore = function (ev) {
+				var handlebtn = function (ev) {
 					ev.stopPropagation();
 					ev.preventDefault();
-					toggleClass(holderPanelMenuMore, isActiveClass);
+					toggleClass(holder, isActiveClass);
 				};
-				addListener(btnMenuMore, "click", handleBtnMenuMore);
+				addListener(btn, "click", handlebtn);
 			};
 			var addItemHandlerAll = function () {
 				var addItemHandler = function (e) {
@@ -1191,20 +1188,20 @@ toggleClass, ToProgress, unescape, VK, Ya*/
 				};
 				var i,
 				l;
-				for (i = 0, l = panelMenuMoreItems.length; i < l; i += 1) {
-					addItemHandler(panelMenuMoreItems[i]);
+				for (i = 0, l = panelItems.length; i < l; i += 1) {
+					addItemHandler(panelItems[i]);
 				}
 				i = l = null;
 			};
 			if (page &&
 				container &&
-				holderPanelMenuMore &&
-				btnMenuMore &&
-				panelMenuMore &&
-				panelMenuMoreItems) {
-				addContainerHandler();
-				addBtnHandler();
-				addItemHandlerAll();
+				holder &&
+				btn &&
+				panel &&
+				panelItems) {
+					addContainerHandler();
+					addBtnHandler();
+					addItemHandlerAll();
 			}
 		};
 		manageMenuMore();
@@ -1213,26 +1210,26 @@ toggleClass, ToProgress, unescape, VK, Ya*/
 			var _thisObj = thisObj || this;
 			var elem = getByClass(document, isSocialClass) || "";
 			if (elem) {
-				var k,
-				n;
-				for (k = 0, n = elem.length; k < n; k += 1) {
-					if (_thisObj !== elem[k]) {
-						removeClass(elem[k], isActiveClass);
+				var i,
+				l;
+				for (i = 0, l = elem.length; i < l; i += 1) {
+					if (_thisObj !== elem[i]) {
+						removeClass(elem[i], isActiveClass);
 					}
 				}
-				k = n = null;
+				i = l = null;
 			}
 		};
 		addListener(root, "click", hideOtherIsSocial);
 
-		root.yaShareInstance = null;
-		var manageShareButtons = function () {
+		root.yaShare2Instance = null;
+		var manageYaShare2Btn = function () {
 			var btn = getByClass(document, "btn-share-buttons")[0] || "";
 			var yaShare2Id = "ya-share2";
 			var yaShare2 = document.getElementById(yaShare2Id) || "";
 			var locHref = root.location || "";
 			var docTitle = document.title || "";
-			var handle = function (ev) {
+			var handleBtn = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				var logic = function () {
@@ -1240,14 +1237,14 @@ toggleClass, ToProgress, unescape, VK, Ya*/
 					hideOtherIsSocial(yaShare2);
 					var initScript = function () {
 						try {
-							if (root.yaShareInstance) {
-								root.yaShareInstance.updateContent({
+							if (root.yaShare2Instance) {
+								root.yaShare2Instance.updateContent({
 									title: docTitle,
 									description: docTitle,
 									url: locHref
 								});
 							} else {
-								root.yaShareInstance = Ya.share2(yaShare2Id, {
+								root.yaShare2Instance = Ya.share2(yaShare2Id, {
 									content: {
 										title: docTitle,
 										description: docTitle,
@@ -1256,7 +1253,7 @@ toggleClass, ToProgress, unescape, VK, Ya*/
 								});
 							}
 						} catch (err) {
-							throw new Error("cannot root.yaShareInstance.updateContent or Ya.share2 " + err);
+							throw new Error("cannot root.yaShare2Instance.updateContent or Ya.share2 " + err);
 						}
 					};
 					if (!(root.Ya && Ya.share2)) {
@@ -1271,21 +1268,21 @@ toggleClass, ToProgress, unescape, VK, Ya*/
 			};
 			if (btn && yaShare2) {
 				if (root.getHTTP && root.getHTTP()) {
-					addListener(btn, "click", handle);
+					addListener(btn, "click", handleBtn);
 				} else {
 					setDisplayNone(btn);
 				}
 			}
 		};
-		manageShareButtons();
+		manageYaShare2Btn();
 
 		root.vkLikeInstance = null;
-		var manageVKLikeButton = function () {
+		var manageVkLikeBtn = function () {
 			var vkLikeId = "vk-like";
 			var vkLike = document.getElementById(vkLikeId) || "";
 			var holderVkLike = getByClass(document, "holder-vk-like")[0] || "";
 			var btn = getByClass(document, "btn-show-vk-like")[0] || "";
-			var handle = function (ev) {
+			var handleBtn = function (ev) {
 				ev.stopPropagation();
 				ev.preventDefault();
 				var logic = function () {
@@ -1321,13 +1318,13 @@ toggleClass, ToProgress, unescape, VK, Ya*/
 			};
 			if (btn && vkLike) {
 				if (root.getHTTP && root.getHTTP()) {
-					addListener(btn, "click", handle);
+					addListener(btn, "click", handleBtn);
 				} else {
 					setDisplayNone(btn);
 				}
 			}
 		};
-		manageVKLikeButton();
+		manageVkLikeBtn();
 
 		hideProgressBar();
 	};
