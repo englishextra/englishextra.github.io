@@ -52,7 +52,7 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 						support = true;
 					}
 				});
-			root.addEventListener("test", function() {}, opts);
+			root.addEventListener("test", function () {}, opts);
 		} catch (err) {}
 		return support;
 	})();
@@ -547,18 +547,20 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 		};
 		try {
 			var clonedContainer = container.cloneNode(false);
-			if (document.createRange) {
-				var rg = document.createRange();
-				rg.selectNode(document.body);
-				var df = rg.createContextualFragment(text);
-				clonedContainer.appendChild(df);
-				return container.parentNode ? container.parentNode.replaceChild(clonedContainer, container) : container.innerHTML = text,
-				cb();
+			if (container.parentNode) {
+				if (document.createRange) {
+					var rg = document.createRange();
+					rg.selectNode(document.body);
+					var df = rg.createContextualFragment(text);
+					clonedContainer.appendChild(df);
+					container.parentNode.replaceChild(clonedContainer, container);
+				} else {
+					container.parentNode.replaceChild(document.createDocumentFragment.appendChild(clonedContainer), container);
+				}
 			} else {
-				clonedContainer.innerHTML = text;
-				return container.parentNode ? container.parentNode.replaceChild(document.createDocumentFragment.appendChild(clonedContainer), container) : container.innerHTML = text,
-				cb();
+				container.innerHTML = text;
 			}
+			cb();
 		} catch (e) {
 			console.log(e);
 			return;

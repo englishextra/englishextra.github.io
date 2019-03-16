@@ -2,14 +2,14 @@
 /*jslint node: true */
 /*global ActiveXObject, addClass, addListener, appendFragment, Cookies,
 debounce, DISQUS, doesFontExist, findPos, fixEnRuTypo, forcedHTTP, getByClass,
-getHumanDate, hasClass, IframeLightbox, imgLightbox, insertExternalHTML,
-insertTextAsFragment, isNodejs, isElectron, isNwjs, isValidId, Kamil,
-LazyLoad, loadDeferred, loadExternalHTML, loadJsCss, loadJsonResponse,
-needsPolyfills, openDeviceBrowser, parseLink, QRCode, removeChildren,
-removeClass, removeElement, removeListener, require, routie, safelyParseJSON,
-scroll2Top, setDisplayBlock, setDisplayNone, supportsCanvas, supportsPassive,
-supportsSvgSmilAnimation, throttle, toggleClass, ToProgress, truncString,
-unescape, VK, Ya, ymaps*/
+getHumanDate, hasClass, IframeLightbox, imgLightbox, includeHTMLintoTarget,
+insertExternalHTML, insertTextAsFragment, isNodejs, isElectron, isNwjs,
+isValidId, Kamil, LazyLoad, loadDeferred, loadExternalHTML, loadJsCss,
+loadJsonResponse, needsPolyfills, openDeviceBrowser, parseLink, QRCode,
+removeChildren, removeClass, removeElement, removeListener, require, routie,
+safelyParseJSON, scroll2Top, setDisplayBlock, setDisplayNone, supportsCanvas,
+supportsPassive, supportsSvgSmilAnimation, throttle, toggleClass, ToProgress,
+truncString, unescape, VK, Ya, ymaps*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -54,7 +54,7 @@ unescape, VK, Ya, ymaps*/
 						support = true;
 					}
 				});
-			root.addEventListener("test", function() {}, opts);
+			root.addEventListener("test", function () {}, opts);
 		} catch (err) {}
 		return support;
 	})();
@@ -637,18 +637,20 @@ unescape, VK, Ya, ymaps*/
 		};
 		try {
 			var clonedContainer = container.cloneNode(false);
-			if (document.createRange) {
-				var rg = document.createRange();
-				rg.selectNode(document.body);
-				var df = rg.createContextualFragment(text);
-				clonedContainer.appendChild(df);
-				return container.parentNode ? container.parentNode.replaceChild(clonedContainer, container) : container.innerHTML = text,
-				cb();
+			if (container.parentNode) {
+				if (document.createRange) {
+					var rg = document.createRange();
+					rg.selectNode(document.body);
+					var df = rg.createContextualFragment(text);
+					clonedContainer.appendChild(df);
+					container.parentNode.replaceChild(clonedContainer, container);
+				} else {
+					container.parentNode.replaceChild(document.createDocumentFragment.appendChild(clonedContainer), container);
+				}
 			} else {
-				clonedContainer.innerHTML = text;
-				return container.parentNode ? container.parentNode.replaceChild(document.createDocumentFragment.appendChild(clonedContainer), container) : container.innerHTML = text,
-				cb();
+				container.innerHTML = text;
 			}
+			cb();
 		} catch (e) {
 			console.log(e);
 			return;
@@ -705,6 +707,47 @@ unescape, VK, Ya, ymaps*/
 	root.loadExternalHTML = loadExternalHTML;
 })("undefined" !== typeof window ? window : this);
 /*!
+ * includeHTMLintoTarget
+ */
+(function (root, document) {
+	"use strict";
+	var includeHTMLintoTarget = function (_thisObj, url, text, callback) {
+		var cb = function () {
+			return callback && "function" === typeof callback && callback();
+		};
+		var container = document.getElementById(text.replace(/^#/, "")) || "" || "";
+		var arrangeContainer = function () {
+			var hideBtn = function () {
+				if (_thisObj.parentNode) {
+					setDisplayNone(_thisObj.parentNode);
+				} else {
+					setDisplayNone(_thisObj);
+				}
+			};
+			var processResponse = function (text) {
+				var onInserted = function () {
+					hideBtn();
+					cb();
+				};
+				insertTextAsFragment(text, container, onInserted);
+			};
+			var hideAllOnError = function () {
+				hideBtn();
+				setDisplayNone(container);
+			};
+			loadExternalHTML(url, function (text) {
+				processResponse(text);
+			}, function () {
+				hideAllOnError();
+			});
+		};
+		if (container) {
+			arrangeContainer();
+		}
+	};
+	root.includeHTMLintoTarget = includeHTMLintoTarget;
+})("undefined" !== typeof window ? window : this, document);
+/*!
  * insertExternalHTML
  */
 (function (root, document) {
@@ -727,18 +770,21 @@ unescape, VK, Ya, ymaps*/
 					var frag = x.responseText;
 					try {
 						var clonedContainer = container.cloneNode(false);
-						if (document.createRange) {
-							var rg = document.createRange();
-							rg.selectNode(document.body);
-							var df = rg.createContextualFragment(frag);
-							clonedContainer.appendChild(df);
-							return container.parentNode ? container.parentNode.replaceChild(clonedContainer, container) : container.innerHTML = frag,
-							cb();
+						if (container.parentNode) {
+							if (document.createRange) {
+								var rg = document.createRange();
+								rg.selectNode(document.body);
+								var df = rg.createContextualFragment(frag);
+								clonedContainer.appendChild(df);
+								container.parentNode.replaceChild(clonedContainer, container);
+							} else {
+								clonedContainer.innerHTML = frag;
+								container.parentNode.replaceChild(document.createDocumentFragment.appendChild(clonedContainer), container);
+							}
 						} else {
-							clonedContainer.innerHTML = frag;
-							return container.parentNode ? container.parentNode.replaceChild(document.createDocumentFragment.appendChild(clonedContainer), container) : container.innerHTML = frag,
-							cb();
+							container.innerHTML = frag;
 						}
+						cb();
 					} catch (e) {
 						console.log(e);
 					}
@@ -1836,75 +1882,40 @@ unescape, VK, Ya, ymaps*/
 			}
 		};
 
-		var includeHTMLintoTarget = function (_this, u, t) {
-			var container = document.getElementById(t.replace(/^#/,""))||"" || "";
-			var containerParent = container.parentNode || "";
-			var arrangeContainer = function () {
-				var hideBtn = function () {
-					if (_this.parentNode) {
-						setDisplayNone(_this.parentNode);
-					} else {
-						setDisplayNone(_this);
-					}
-				};
-				var processResponse = function (t) {
-					var cb = function () {
-						hideBtn();
-						if (containerParent) {
-							var timer = setTimeout(function () {
-								clearTimeout(timer);
-								timer = null;
-								manageExternalLinkAll();
-								manageImgLightbox();
-								manageIframeLightbox();
-								manageDataSrcImgAll();
-								manageDataSrcIframeAll();
-							}, 100);
-						}
-					};
-					insertTextAsFragment(t, container, cb);
-				};
-				var hideAllOnError = function () {
-					hideBtn();
-					setDisplayNone(container);
-				};
-				loadExternalHTML(u, function (r) {
-					processResponse(r);
-				}, function () {
-					hideAllOnError();
-				});
-			};
-			if (container) {
-				arrangeContainer();
-			}
-		};
-
 		var manageDataTargetLinks = function () {
 			var link = getByClass(document, "data-target-link") || "";
-			var arrangeAll = function () {
-				var arrange = function (e) {
-					var includeUrl = e.dataset.include || "",
-					targetElement = e.dataset.target || "";
-					if (includeUrl && targetElement) {
-						e.title = "Появится здесь же";
-						var h_e = function (ev) {
-							ev.stopPropagation();
-							ev.preventDefault();
-							removeListener(e, "click", h_e);
-							includeHTMLintoTarget(e, includeUrl, targetElement);
-						};
-						addListener(e, "click", h_e);
-					}
+			var arrange = function (e) {
+				var onIncluded = function () {
+					var timer = setTimeout(function () {
+							clearTimeout(timer);
+							timer = null;
+							manageExternalLinkAll();
+							manageImgLightbox();
+							manageIframeLightbox();
+							manageDataSrcImgAll();
+							manageDataSrcIframeAll();
+						}, 100);
 				};
+				var includeUrl = e.dataset.include || "";
+				var targetElement = e.dataset.target || "";
+				var handleLink = function (ev) {
+					ev.stopPropagation();
+					ev.preventDefault();
+					removeListener(e, "click", handleLink);
+					includeHTMLintoTarget(e, includeUrl, targetElement, onIncluded);
+				};
+				if (includeUrl && targetElement) {
+					e.title = "Появится здесь же";
+					addListener(e, "click", handleLink);
+				}
+			};
+			if (link) {
 				var i,
 				l;
 				for (i = 0, l = link.length; i < l; i += 1) {
 					arrange(link[i]);
 				}
 				i = l = null;
-			};
-			if (link) {
-				arrangeAll();
 			}
 		};
 

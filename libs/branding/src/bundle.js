@@ -54,7 +54,7 @@ truncString, unescape, VK, Ya*/
 						support = true;
 					}
 				});
-			root.addEventListener("test", function() {}, opts);
+			root.addEventListener("test", function () {}, opts);
 		} catch (err) {}
 		return support;
 	})();

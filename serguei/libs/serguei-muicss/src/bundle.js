@@ -55,7 +55,7 @@ unescape, VK, WheelIndicator, Ya*/
 						support = true;
 					}
 				});
-			root.addEventListener("test", function() {}, opts);
+			root.addEventListener("test", function () {}, opts);
 		} catch (err) {}
 		return support;
 	})();
@@ -615,18 +615,20 @@ unescape, VK, WheelIndicator, Ya*/
 		};
 		try {
 			var clonedContainer = container.cloneNode(false);
-			if (document.createRange) {
-				var rg = document.createRange();
-				rg.selectNode(document.body);
-				var df = rg.createContextualFragment(text);
-				clonedContainer.appendChild(df);
-				return container.parentNode ? container.parentNode.replaceChild(clonedContainer, container) : container.innerHTML = text,
-				cb();
+			if (container.parentNode) {
+				if (document.createRange) {
+					var rg = document.createRange();
+					rg.selectNode(document.body);
+					var df = rg.createContextualFragment(text);
+					clonedContainer.appendChild(df);
+					container.parentNode.replaceChild(clonedContainer, container);
+				} else {
+					container.parentNode.replaceChild(document.createDocumentFragment.appendChild(clonedContainer), container);
+				}
 			} else {
-				clonedContainer.innerHTML = text;
-				return container.parentNode ? container.parentNode.replaceChild(document.createDocumentFragment.appendChild(clonedContainer), container) : container.innerHTML = text,
-				cb();
+				container.innerHTML = text;
 			}
+			cb();
 		} catch (e) {
 			console.log(e);
 			return;
@@ -727,18 +729,21 @@ unescape, VK, WheelIndicator, Ya*/
 					var frag = x.responseText;
 					try {
 						var clonedContainer = container.cloneNode(false);
-						if (document.createRange) {
-							var rg = document.createRange();
-							rg.selectNode(document.body);
-							var df = rg.createContextualFragment(frag);
-							clonedContainer.appendChild(df);
-							return container.parentNode ? container.parentNode.replaceChild(clonedContainer, container) : container.innerHTML = frag,
-							cb();
+						if (container.parentNode) {
+							if (document.createRange) {
+								var rg = document.createRange();
+								rg.selectNode(document.body);
+								var df = rg.createContextualFragment(frag);
+								clonedContainer.appendChild(df);
+								container.parentNode.replaceChild(clonedContainer, container);
+							} else {
+								clonedContainer.innerHTML = frag;
+								container.parentNode.replaceChild(document.createDocumentFragment.appendChild(clonedContainer), container);
+							}
 						} else {
-							clonedContainer.innerHTML = frag;
-							return container.parentNode ? container.parentNode.replaceChild(document.createDocumentFragment.appendChild(clonedContainer), container) : container.innerHTML = frag,
-							cb();
+							container.innerHTML = frag;
 						}
+						cb();
 					} catch (e) {
 						console.log(e);
 					}
