@@ -1477,7 +1477,6 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 				initScript();
 			}
 		};
-		manageImgLightbox();
 
 		var iframeLightboxLinkClass = "iframe-lightbox-link";
 
@@ -1512,7 +1511,6 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 				initScript();
 			}
 		};
-		manageIframeLightbox();
 
 		var handleOtherDropdownLists = function (_self) {
 			var _this = _self || this;
@@ -2883,54 +2881,6 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 			}
 		};
 		initRouting();
-
-		/* var observeMutations = function (scope) {
-			var ctx = scope && scope.nodeName ? scope : "";
-			var mo;
-			var getMutations = function (e) {
-				var onMutation = function (m) {
-					console.log("mutations observer: " + m.type);
-					console.log(m.type, "target: " + m.target.tagName + ("." + m.target.className || "#" + m.target.id || ""));
-					console.log(m.type, "added: " + m.addedNodes.length + " nodes");
-					console.log(m.type, "removed: " + m.removedNodes.length + " nodes");
-					if ("childList" === m.type || "subtree" === m.type) {
-						mo.disconnect();
-					}
-				};
-				var i,
-				l;
-				for (i = 0, l = e.length; i < l; i += 1) {
-					onMutation(e[i]);
-				}
-				i = l = null;
-			};
-			if (ctx) {
-				mo = new MutationObserver(getMutations);
-				mo.observe(ctx, {
-					childList: true,
-					subtree: true,
-					attributes: false,
-					characterData: false
-				});
-			}
-		}; */
-		/*!
-		 * apply changes to inserted DOM
-		 * because replace child is used in the first place
-		 * to insert new content, and if parent node doesnt exist
-		 * inner html method is applied,
-		 * the parent node should be observed, not the target
-		 * node for the insertion
-		 */
-		/* var updateInsertedDom = function () {
-			var ctx = document.getElementById("app-content").parentNode || "";
-			var locationHash = root.location.hash || "";
-			if (ctx && locationHash) {
-				console.log("triggered function: updateInsertedDom");
-				observeMutations(ctx);
-			}
-		};
-		addListener(root, "hashchange", updateInsertedDom); */
 
 		var manageTotopBtn = function () {
 			var btnClass = "btn-totop";

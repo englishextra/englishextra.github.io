@@ -1733,7 +1733,6 @@ truncString, unescape, VK, Ya, ymaps*/
 				initScript();
 			}
 		};
-		manageImgLightbox();
 
 		var iframeLightboxLinkClass = "iframe-lightbox-link";
 
@@ -1768,7 +1767,6 @@ truncString, unescape, VK, Ya, ymaps*/
 				initScript();
 			}
 		};
-		manageIframeLightbox();
 
 		var manageDataQrcodeImgAll = function () {
 			var img = getByClass(document, "data-qrcode-img") || "";
@@ -1820,8 +1818,6 @@ truncString, unescape, VK, Ya, ymaps*/
 				initScript();
 			}
 		};
-		manageDataQrcodeImgAll();
-		/* addListener(root, "load", manageDataQrcodeImgAll); */
 
 		var manageChaptersSelect = function () {
 			var chaptersSelect = document.getElementById("chapters-select") || "";
