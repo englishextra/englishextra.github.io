@@ -562,8 +562,8 @@ WheelIndicator, Ya*/
 				container.innerHTML = text;
 			}
 			cb();
-		} catch (e) {
-			console.log(e);
+		} catch (err) {
+			console.log(err);
 			return;
 		}
 	};

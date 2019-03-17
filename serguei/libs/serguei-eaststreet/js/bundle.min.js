@@ -651,8 +651,8 @@ truncString, unescape, VK, Ya, ymaps*/
 				container.innerHTML = text;
 			}
 			cb();
-		} catch (e) {
-			console.log(e);
+		} catch (err) {
+			console.log(err);
 			return;
 		}
 	};
@@ -785,8 +785,8 @@ truncString, unescape, VK, Ya, ymaps*/
 							container.innerHTML = frag;
 						}
 						cb();
-					} catch (e) {
-						console.log(e);
+					} catch (err) {
+						console.log(err);
 					}
 					return;
 				}

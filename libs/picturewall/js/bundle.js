@@ -561,8 +561,8 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 				container.innerHTML = text;
 			}
 			cb();
-		} catch (e) {
-			console.log(e);
+		} catch (err) {
+			console.log(err);
 			return;
 		}
 	};

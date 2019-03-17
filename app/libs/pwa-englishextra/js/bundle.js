@@ -678,8 +678,8 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 				container.innerHTML = text;
 			}
 			cb();
-		} catch (e) {
-			console.log(e);
+		} catch (err) {
+			console.log(err);
 			return;
 		}
 	};
@@ -793,8 +793,8 @@ throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 							container.innerHTML = frag;
 						}
 						cb();
-					} catch (e) {
-						console.log(e);
+					} catch (err) {
+						console.log(err);
 					}
 					return;
 				}

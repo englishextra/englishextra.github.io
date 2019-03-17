@@ -629,8 +629,8 @@ unescape, VK, WheelIndicator, Ya*/
 				container.innerHTML = text;
 			}
 			cb();
-		} catch (e) {
-			console.log(e);
+		} catch (err) {
+			console.log(err);
 			return;
 		}
 	};
@@ -744,8 +744,8 @@ unescape, VK, WheelIndicator, Ya*/
 							container.innerHTML = frag;
 						}
 						cb();
-					} catch (e) {
-						console.log(e);
+					} catch (err) {
+						console.log(err);
 					}
 					return;
 				}
@@ -1755,9 +1755,9 @@ unescape, VK, WheelIndicator, Ya*/
 				}
 			}
 			j = m = null;
-			var handleBtn = function (evt) {
-				evt.stopPropagation();
-				evt.preventDefault();
+			var handleBtn = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
 				var _this = this;
 				var menu = _this.nextElementSibling;
 				var rect = _this.getBoundingClientRect();
@@ -2231,9 +2231,9 @@ unescape, VK, WheelIndicator, Ya*/
 
 		var manageSidedrawerCategoryAll = function () {
 			var category = sidedrawer ? sidedrawer.getElementsByTagName("strong") || "" : "";
-			var handleCategory = function (evt) {
-				evt.stopPropagation();
-				evt.preventDefault();
+			var handleCategory = function (ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
 				var _this = this;
 				var categoryItem = _this.nextElementSibling;
 				if (categoryItem) {
