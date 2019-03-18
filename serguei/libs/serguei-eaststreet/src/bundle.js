@@ -15,7 +15,7 @@ truncString, unescape, VK, Ya, ymaps*/
  * safe way to handle console.log
  * @see {@link https://github.com/paulmillr/console-polyfill}
  */
-(function(root){
+(function (root, document) {
 	"use strict";
 	if (!root.console) {
 		root.console = {};
@@ -40,12 +40,10 @@ truncString, unescape, VK, Ya, ymaps*/
 		}
 	}
 	prop = method = dummy = properties = methods = null;
-})("undefined" !== typeof window ? window : this);
-/*!
- * supportsPassive
- */
-(function (root) {
-	"use strict";
+
+	/*!
+	 * supportsPassive
+	 */
 	root.supportsPassive = (function () {
 		var support = false;
 		try {
@@ -58,31 +56,27 @@ truncString, unescape, VK, Ya, ymaps*/
 		} catch (err) {}
 		return support;
 	})();
-})("undefined" !== typeof window ? window : this);
-/*!
- * supportsSvgSmilAnimation
- */
-(function (root, document) {
-	"use strict";
-	var toStringFn = {}.toString;
-	root.supportsSvgSmilAnimation = !!document.createElementNS &&
+
+	/*!
+	 * supportsSvgSmilAnimation
+	 */
+	root.supportsSvgSmilAnimation = (function () {
+		var toStringFn = {}.toString;
+		return !!document.createElementNS &&
 		(/SVGAnimate/).test(toStringFn.call(document.createElementNS("http://www.w3.org/2000/svg", "animate"))) || "";
-})("undefined" !== typeof window ? window : this, document);
-/*!
- * supportsCanvas
- */
-(function (root, document) {
-	"use strict";
+	})();
+
+	/*!
+	 * supportsCanvas
+	 */
 	root.supportsCanvas = (function () {
 		var elem = document.createElement("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
 	})();
-})("undefined" !== typeof window ? window : this, document);
-/*!
- * needsPolyfills
- */
-(function (root, document) {
-	"use strict";
+
+	/*!
+	 * needsPolyfills
+	 */
 	root.needsPolyfills = (function () {
 		return !String.prototype.startsWith ||
 		!supportsPassive ||
@@ -107,12 +101,10 @@ truncString, unescape, VK, Ya, ymaps*/
 		!root.WeakMap ||
 		!root.MutationObserver;
 	})();
-})("undefined" !== typeof window ? window : this, document);
-/*!
- * getHumanDate
- */
-(function (root) {
-	"use strict";
+
+	/*!
+	 * getHumanDate
+	 */
 	root.getHumanDate = (function () {
 		var newDate = (new Date());
 		var newDay = newDate.getDate();
@@ -127,15 +119,13 @@ truncString, unescape, VK, Ya, ymaps*/
 		}
 		return newYear + "-" + newMonth + "-" + newDay;
 	})();
-})("undefined" !== typeof window ? window : this);
-/*!
- * Super-simple wrapper around addEventListener and attachEvent (old IE).
- * Does not handle differences in the Event-objects.
- * @see {@link https://github.com/finn-no/eventlistener}
- */
-(function (root) {
-	"use strict";
-	var wrap = function (standard, fallback) {
+
+	/*!
+	 * Super-simple wrapper around addEventListener and attachEvent (old IE).
+	 * Does not handle differences in the Event-objects.
+	 * @see {@link https://github.com/finn-no/eventlistener}
+	 */
+	var wrapListener = function (standard, fallback) {
 		return function (el, type, listener, useCapture) {
 			if (el[standard]) {
 				el[standard](type, listener, useCapture);
@@ -146,14 +136,12 @@ truncString, unescape, VK, Ya, ymaps*/
 			}
 		};
 	};
-	root.addListener = wrap("addEventListener", "attachEvent");
-	root.removeListener = wrap("removeEventListener", "detachEvent");
-})("undefined" !== typeof window ? window : this);
-/*!
- * get elements by class name wrapper
- */
-(function (root, document) {
-	"use strict";
+	root.addListener = wrapListener("addEventListener", "attachEvent");
+	root.removeListener = wrapListener("removeEventListener", "detachEvent");
+
+	/*!
+	 * get elements by class name wrapper
+	 */
 	root.getByClass = function (parent, name) {
 		if (!document.getElementsByClassName) {
 			var children = (parent || document.body).getElementsByTagName("*"),
@@ -174,12 +162,10 @@ truncString, unescape, VK, Ya, ymaps*/
 			return parent ? parent.getElementsByClassName(name) : "";
 		}
 	};
-})("undefined" !== typeof window ? window : this, document);
-/*!
- * class list wrapper
- */
-(function (root, document) {
-	"use strict";
+
+	/*!
+	 * class list wrapper
+	 */
 	var hasClass;
 	var addClass;
 	var removeClass;
@@ -216,12 +202,10 @@ truncString, unescape, VK, Ya, ymaps*/
 			addClass(el, name);
 		}
 	};
-})("undefined" !== typeof window ? window : this, document);
-/*!
- * parseLink
- */
-(function (root, document) {
-	"use strict";
+
+	/*!
+	 * parseLink
+	 */
 	/*jshint bitwise: false */
 	root.parseLink = function (url, full) {
 		var _full = full || "";
@@ -283,12 +267,10 @@ truncString, unescape, VK, Ya, ymaps*/
 		})();
 	};
 	/*jshint bitwise: true */
-})("undefined" !== typeof window ? window : this, document);
-/*!
- * getHTTP
- */
-(function (root) {
-	"use strict";
+
+	/*!
+	 * getHTTP
+	 */
 	var getHTTP = function (force) {
 		var any = force || "";
 		var locProtocol = root.location.protocol || "";
@@ -296,12 +278,10 @@ truncString, unescape, VK, Ya, ymaps*/
 	};
 	root.getHTTP = getHTTP;
 	root.forcedHTTP = getHTTP(true);
-})("undefined" !== typeof window ? window : this);
-/*!
- * throttle
- */
-(function (root) {
-	"use strict";
+
+	/*!
+	 * throttle
+	 */
 	root.throttle = function (func, wait) {
 		var ctx;
 		var args;
@@ -329,12 +309,10 @@ truncString, unescape, VK, Ya, ymaps*/
 			return rtn;
 		};
 	};
-})("undefined" !== typeof window ? window : this);
-/*!
- * debounce
- */
-(function (root) {
-	"use strict";
+
+	/*!
+	 * debounce
+	 */
 	root.debounce = function (func, wait) {
 		var timeout;
 		var args;
@@ -358,12 +336,10 @@ truncString, unescape, VK, Ya, ymaps*/
 			}
 		};
 	};
-})("undefined" !== typeof window ? window : this);
-/*!
- * isNodejs isElectron isNwjs;
- */
-(function (root) {
-	"use strict";
+
+	/*!
+	 * isNodejs isElectron isNwjs;
+	 */
 	root.isNodejs = "undefined" !== typeof process && "undefined" !== typeof require || "";
 	root.isElectron = (function () {
 		if (typeof root !== "undefined" &&
@@ -396,12 +372,10 @@ truncString, unescape, VK, Ya, ymaps*/
 		}
 		return false;
 	})();
-})("undefined" !== typeof window ? window : this);
-/*!
- * openDeviceBrowser
- */
-(function (root) {
-	"use strict";
+
+	/*!
+	 * openDeviceBrowser
+	 */
 	root.openDeviceBrowser = function (url) {
 		var onElectron = function () {
 			var es = isElectron ? require("electron").shell : "";
@@ -428,12 +402,10 @@ truncString, unescape, VK, Ya, ymaps*/
 			}
 		}
 	};
-})("undefined" !== typeof window ? window : this);
-/*!
- * scroll2Top
- */
-(function (root, document) {
-	"use strict";
+
+	/*!
+	 * scroll2Top
+	 */
 	root.scroll2Top = function (scrollTargetY, speed, easing) {
 		var scrollY = root.scrollY || document.documentElement.scrollTop;
 		var posY = scrollTargetY || 0;
@@ -468,46 +440,38 @@ truncString, unescape, VK, Ya, ymaps*/
 		}
 		tick();
 	};
-})("undefined" !== typeof window ? window : this, document);
-/*!
- * setDisplayBlock
- */
-(function (root) {
-	"use strict";
+
+	/*!
+	 * setDisplayBlock
+	 */
 	root.setDisplayBlock = function (e) {
 		if (e) {
 			e.style.display = "block";
 		}
 	};
-})("undefined" !== typeof window ? window : this);
-/*!
- * setDisplayNone
- */
-(function (root) {
-	"use strict";
+
+	/*!
+	 * setDisplayNone
+	 */
 	root.setDisplayNone = function (e) {
 		if (e) {
 			e.style.display = "none";
 		}
 	};
-})("undefined" !== typeof window ? window : this);
-/*!
- * setVisible
- */
-(function (root) {
-	"use strict";
+
+	/*!
+	 * setVisible
+	 */
 	root.setVisible = function (e) {
 		if (e) {
 			e.style.visibility = "visible";
 			e.style.opacity = 1;
 		}
 	};
-})("undefined" !== typeof window ? window : this);
-/*!
- * appendFragment
- */
-(function (root, document) {
-	"use strict";
+
+	/*!
+	 * appendFragment
+	 */
 	root.appendFragment = function (e, a) {
 		var parent = a || document.getElementsByTagName("body")[0] || "";
 		if (e) {
@@ -519,12 +483,10 @@ truncString, unescape, VK, Ya, ymaps*/
 			parent.appendChild(df);
 		}
 	};
-})("undefined" !== typeof window ? window : this, document);
-/*!
- * removeElement
- */
-(function (root) {
-	"use strict";
+
+	/*!
+	 * removeElement
+	 */
 	root.removeElement = function (e) {
 		if (e) {
 			if ("undefined" !== typeof e.remove) {
@@ -534,12 +496,10 @@ truncString, unescape, VK, Ya, ymaps*/
 			}
 		}
 	};
-})("undefined" !== typeof window ? window : this);
-/*!
- * removeChildren
- */
-(function (root) {
-	"use strict";
+
+	/*!
+	 * removeChildren
+	 */
 	root.removeChildren = function (e) {
 		if (e && e.firstChild) {
 			for (; e.firstChild; ) {
@@ -547,27 +507,23 @@ truncString, unescape, VK, Ya, ymaps*/
 			}
 		}
 	};
-})("undefined" !== typeof window ? window : this);
-/*!
- * findPos
- */
-(function (root) {
-	"use strict";
-	var docElem = document.documentElement || "";
-	var docBody = document.body || "";
+
+	/*!
+	 * findPos
+	 */
 	root.findPos = function (e) {
 		e = e.getBoundingClientRect();
+		var docElem = document.documentElement || "";
+		var docBody = document.body || "";
 		return {
 			top: Math.round(e.top + (root.pageYOffset || docElem.scrollTop || docBody.scrollTop) - (docElem.clientTop || docBody.clientTop || 0)),
 			left: Math.round(e.left + (root.pageXOffset || docElem.scrollLeft || docBody.scrollLeft) - (docElem.clientLeft || docBody.clientLeft || 0))
 		};
 	};
-})("undefined" !== typeof window ? window : this);
-/*!
- * safelyParseJSON
- */
-(function (root) {
-	"use strict";
+
+	/*!
+	 * safelyParseJSON
+	 */
 	root.safelyParseJSON = function (response) {
 		var isJson = function (obj) {
 			var objType = typeof obj;
@@ -579,12 +535,10 @@ truncString, unescape, VK, Ya, ymaps*/
 			return response;
 		}
 	};
-})("undefined" !== typeof window ? window : this);
-/*!
- * fixEnRuTypo
- */
-(function (root) {
-	"use strict";
+
+	/*!
+	 * fixEnRuTypo
+	 */
 	root.fixEnRuTypo = function (e, a, b) {
 		var c = "";
 		if ("ru" === a && "en" === b) {
@@ -606,31 +560,25 @@ truncString, unescape, VK, Ya, ymaps*/
 		d = null;
 		return c;
 	};
-})("undefined" !== typeof window ? window : this);
-/*!
- * truncString
- */
-(function (root) {
-	"use strict";
+
+	/*!
+	 * truncString
+	 */
 	root.truncString = function (str, max, add) {
 		var _add = add || "\u2026";
 		return ("string" === typeof str && str.length > max ? str.substring(0, max) + _add : str);
 	};
-})("undefined" !== typeof window ? window : this);
-/*!
- * isValidId
- */
-(function (root) {
-	"use strict";
+
+	/*!
+	 * isValidId
+	 */
 	root.isValidId = function (a, full) {
 		return full ? /^\#[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? true : false : /^[A-Za-z][-A-Za-z0-9_:.]*$/.test(a) ? true : false;
 	};
-})("undefined" !== typeof window ? window : this);
-/*!
- * insertTextAsFragment
- */
-(function (root, document) {
-	"use strict";
+
+	/*!
+	 * insertTextAsFragment
+	 */
 	root.insertTextAsFragment = function (text, container, callback) {
 		var cb = function () {
 			return callback && "function" === typeof callback && callback();
@@ -656,12 +604,10 @@ truncString, unescape, VK, Ya, ymaps*/
 			return;
 		}
 	};
-})("undefined" !== typeof window ? window : this, document);
-/*!
- * loadJsonResponse
- */
-(function (root) {
-	"use strict";
+
+	/*!
+	 * loadJsonResponse
+	 */
 	root.loadJsonResponse = function (url, callback, onerror) {
 		var cb = function (string) {
 			return callback && "function" === typeof callback && callback(string);
@@ -680,13 +626,11 @@ truncString, unescape, VK, Ya, ymaps*/
 		};
 		x.send(null);
 	};
-})("undefined" !== typeof window ? window : this);
-/*!
- * loadExternalHTML
- */
-(function (root) {
-	"use strict";
-	var loadExternalHTML = function (url, callback, onerror) {
+
+	/*!
+	 * loadExternalHTML
+	 */
+	root.loadExternalHTML = function (url, callback, onerror) {
 		var cb = function (string) {
 			return callback && "function" === typeof callback && callback(string);
 		};
@@ -704,14 +648,11 @@ truncString, unescape, VK, Ya, ymaps*/
 		};
 		x.send(null);
 	};
-	root.loadExternalHTML = loadExternalHTML;
-})("undefined" !== typeof window ? window : this);
-/*!
- * includeHTMLintoTarget
- */
-(function (root, document) {
-	"use strict";
-	var includeHTMLintoTarget = function (_thisObj, url, text, callback) {
+
+	/*!
+	 * includeHTMLintoTarget
+	 */
+	root.includeHTMLintoTarget = function (_thisObj, url, text, callback) {
 		var cb = function () {
 			return callback && "function" === typeof callback && callback();
 		};
@@ -745,13 +686,10 @@ truncString, unescape, VK, Ya, ymaps*/
 			arrangeContainer();
 		}
 	};
-	root.includeHTMLintoTarget = includeHTMLintoTarget;
-})("undefined" !== typeof window ? window : this, document);
-/*!
- * insertExternalHTML
- */
-(function (root, document) {
-	"use strict";
+
+	/*!
+	 * insertExternalHTML
+	 */
 	root.insertExternalHTML = function (id, url, callback, onerror) {
 		var cb = function () {
 			return callback && "function" === typeof callback && callback();
@@ -797,23 +735,21 @@ truncString, unescape, VK, Ya, ymaps*/
 			arrange();
 		}
 	};
-})("undefined" !== typeof window ? window : this, document);
-/*!
- * modified ToProgress v0.1.1
- * arguments.callee changed to TP, a local wrapper function,
- * so that public function name is now customizable;
- * wrapped in curly brackets:
- * else{document.body.appendChild(this.progressBar);};
- * removed module check
- * @see {@link http://github.com/djyde/ToProgress}
- * @see {@link https://github.com/djyde/ToProgress/blob/master/ToProgress.js}
- * @see {@link https://gist.github.com/englishextra/6a8c79c9efbf1f2f50523d46a918b785}
- * @see {@link https://jsfiddle.net/englishextra/z5xhjde8/}
- * passes jshint
- */
-(function (root, document, undefined) {
-	"use strict";
-	var ToProgress = (function () {
+
+	/*!
+	 * modified ToProgress v0.1.1
+	 * arguments.callee changed to TP, a local wrapper function,
+	 * so that public function name is now customizable;
+	 * wrapped in curly brackets:
+	 * else{document.body.appendChild(this.progressBar);};
+	 * removed module check
+	 * @see {@link http://github.com/djyde/ToProgress}
+	 * @see {@link https://github.com/djyde/ToProgress/blob/master/ToProgress.js}
+	 * @see {@link https://gist.github.com/englishextra/6a8c79c9efbf1f2f50523d46a918b785}
+	 * @see {@link https://jsfiddle.net/englishextra/z5xhjde8/}
+	 * passes jshint
+	 */
+	root.ToProgress = (function () {
 		var TP = function () {
 			var whichTransitionEvent = function () {
 				var t;
@@ -953,18 +889,15 @@ truncString, unescape, VK, Ya, ymaps*/
 		};
 		return TP();
 	})();
-	root.ToProgress = ToProgress;
-})("undefined" !== typeof window ? window : this, document);
-/*!
- * modified Detect Whether a Font is Installed
- * @param {String} fontName The name of the font to check
- * @return {Boolean}
- * @author Kirupa <sam@samclarke.com>
- * @see {@link https://www.kirupa.com/html5/detect_whether_font_is_installed.htm}
- * passes jshint
- */
-(function (root, document) {
-	"use strict";
+
+	/*!
+	 * modified Detect Whether a Font is Installed
+	 * @param {String} fontName The name of the font to check
+	 * @return {Boolean}
+	 * @author Kirupa <sam@samclarke.com>
+	 * @see {@link https://www.kirupa.com/html5/detect_whether_font_is_installed.htm}
+	 * passes jshint
+	 */
 	root.doesFontExist = function (fontName) {
 		var canvas = document.createElement("canvas");
 		var context = canvas.getContext("2d");
@@ -980,14 +913,12 @@ truncString, unescape, VK, Ya, ymaps*/
 			return true;
 		}
 	};
-})("undefined" !== typeof window ? window : this, document);
-/*!
- * modified loadExt
- * @see {@link https://gist.github.com/englishextra/ff9dc7ab002312568742861cb80865c9}
- * passes jshint
- */
-(function (root, document) {
-	"use strict";
+
+	/*!
+	 * modified loadExt
+	 * @see {@link https://gist.github.com/englishextra/ff9dc7ab002312568742861cb80865c9}
+	 * passes jshint
+	 */
 	root.loadJsCss = function (files, callback, type) {
 		var _this = this;
 		_this.files = files;
@@ -1051,12 +982,10 @@ truncString, unescape, VK, Ya, ymaps*/
 			_this.callback();
 		}
 	};
-})("undefined" !== typeof window ? window : this, document);
-/*!
- * loadDeferred
- */
-(function (root) {
-	"use strict";
+
+	/*!
+	 * loadDeferred
+	 */
 	root.loadDeferred = function (urlArray, callback) {
 		var timer;
 		var handle = function () {
@@ -1076,7 +1005,7 @@ truncString, unescape, VK, Ya, ymaps*/
 			addListener(root, "load", handle);
 		}
 	};
-})("undefined" !== typeof window ? window : this);
+})("undefined" !== typeof window ? window : this, document);
 /*!
  * app logic
  */

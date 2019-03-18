@@ -13,7 +13,7 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
  * safe way to handle console.log
  * @see {@link https://github.com/paulmillr/console-polyfill}
  */
-(function(root){
+(function (root, document) {
 	"use strict";
 	if (!root.console) {
 		root.console = {};
@@ -38,12 +38,10 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 		}
 	}
 	prop = method = dummy = properties = methods = null;
-})("undefined" !== typeof window ? window : this);
-/*!
- * supportsPassive
- */
-(function (root) {
-	"use strict";
+
+	/*!
+	 * supportsPassive
+	 */
 	root.supportsPassive = (function () {
 		var support = false;
 		try {
@@ -56,45 +54,37 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 		} catch (err) {}
 		return support;
 	})();
-})("undefined" !== typeof window ? window : this);
-/*!
- * supportsSvgSmilAnimation
- */
-(function (root, document) {
-	"use strict";
-	var toStringFn = {}.toString;
-	root.supportsSvgSmilAnimation = !!document.createElementNS &&
+
+	/*!
+	 * supportsSvgSmilAnimation
+	 */
+	root.supportsSvgSmilAnimation = (function () {
+		var toStringFn = {}.toString;
+		return !!document.createElementNS &&
 		(/SVGAnimate/).test(toStringFn.call(document.createElementNS("http://www.w3.org/2000/svg", "animate"))) || "";
-})("undefined" !== typeof window ? window : this, document);
-/*!
- * supportsCanvas
- */
-(function (root, document) {
-	"use strict";
+	})();
+
+	/*!
+	 * supportsCanvas
+	 */
 	root.supportsCanvas = (function () {
 		var elem = document.createElement("canvas");
 		return !!(elem.getContext && elem.getContext("2d"));
 	})();
-})("undefined" !== typeof window ? window : this, document);
-/*!
- * hasWheel
- */
-(function (root, document) {
-	"use strict";
+
+	/*!
+	 * hasWheel
+	 */
 	root.hasWheel = "onwheel" in document.createElement("div") || void 0 !== document.onmousewheel || "";
-})("undefined" !== typeof window ? window : this, document);
-/*!
- * hasTouch
- */
-(function (root, document) {
-	"use strict";
+
+	/*!
+	 * hasTouch
+	 */
 	root.hasTouch = "ontouchstart" in document.documentElement || "";
-})("undefined" !== typeof window ? window : this, document);
-/*!
- * needsPolyfills
- */
-(function (root, document) {
-	"use strict";
+
+	/*!
+	 * needsPolyfills
+	 */
 	root.needsPolyfills = (function () {
 		return !String.prototype.startsWith ||
 		!supportsPassive ||
@@ -119,12 +109,10 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 		!root.WeakMap ||
 		!root.MutationObserver;
 	})();
-})("undefined" !== typeof window ? window : this, document);
-/*!
- * getHumanDate
- */
-(function (root) {
-	"use strict";
+
+	/*!
+	 * getHumanDate
+	 */
 	root.getHumanDate = (function () {
 		var newDate = (new Date());
 		var newDay = newDate.getDate();
@@ -139,15 +127,13 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 		}
 		return newYear + "-" + newMonth + "-" + newDay;
 	})();
-})("undefined" !== typeof window ? window : this);
-/*!
- * Super-simple wrapper around addEventListener and attachEvent (old IE).
- * Does not handle differences in the Event-objects.
- * @see {@link https://github.com/finn-no/eventlistener}
- */
-(function (root) {
-	"use strict";
-	var wrap = function (standard, fallback) {
+
+	/*!
+	 * Super-simple wrapper around addEventListener and attachEvent (old IE).
+	 * Does not handle differences in the Event-objects.
+	 * @see {@link https://github.com/finn-no/eventlistener}
+	 */
+	var wrapListener = function (standard, fallback) {
 		return function (el, type, listener, useCapture) {
 			if (el[standard]) {
 				el[standard](type, listener, useCapture);
@@ -158,14 +144,12 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 			}
 		};
 	};
-	root.addListener = wrap("addEventListener", "attachEvent");
-	root.removeListener = wrap("removeEventListener", "detachEvent");
-})("undefined" !== typeof window ? window : this);
-/*!
- * get elements by class name wrapper
- */
-(function (root, document) {
-	"use strict";
+	root.addListener = wrapListener("addEventListener", "attachEvent");
+	root.removeListener = wrapListener("removeEventListener", "detachEvent");
+
+	/*!
+	 * get elements by class name wrapper
+	 */
 	root.getByClass = function (parent, name) {
 		if (!document.getElementsByClassName) {
 			var children = (parent || document.body).getElementsByTagName("*"),
@@ -186,12 +170,10 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 			return parent ? parent.getElementsByClassName(name) : "";
 		}
 	};
-})("undefined" !== typeof window ? window : this, document);
-/*!
- * class list wrapper
- */
-(function (root, document) {
-	"use strict";
+
+	/*!
+	 * class list wrapper
+	 */
 	var hasClass;
 	var addClass;
 	var removeClass;
@@ -228,12 +210,10 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 			addClass(el, name);
 		}
 	};
-})("undefined" !== typeof window ? window : this, document);
-/*!
- * parseLink
- */
-(function (root, document) {
-	"use strict";
+
+	/*!
+	 * parseLink
+	 */
 	/*jshint bitwise: false */
 	root.parseLink = function (url, full) {
 		var _full = full || "";
@@ -295,12 +275,10 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 		})();
 	};
 	/*jshint bitwise: true */
-})("undefined" !== typeof window ? window : this, document);
-/*!
- * getHTTP
- */
-(function (root) {
-	"use strict";
+
+	/*!
+	 * getHTTP
+	 */
 	var getHTTP = function (force) {
 		var any = force || "";
 		var locProtocol = root.location.protocol || "";
@@ -308,12 +286,10 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 	};
 	root.getHTTP = getHTTP;
 	root.forcedHTTP = getHTTP(true);
-})("undefined" !== typeof window ? window : this);
-/*!
- * throttle
- */
-(function (root) {
-	"use strict";
+
+	/*!
+	 * throttle
+	 */
 	root.throttle = function (func, wait) {
 		var ctx;
 		var args;
@@ -341,12 +317,10 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 			return rtn;
 		};
 	};
-})("undefined" !== typeof window ? window : this);
-/*!
- * debounce
- */
-(function (root) {
-	"use strict";
+
+	/*!
+	 * debounce
+	 */
 	root.debounce = function (func, wait) {
 		var timeout;
 		var args;
@@ -370,12 +344,10 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 			}
 		};
 	};
-})("undefined" !== typeof window ? window : this);
-/*!
- * isNodejs isElectron isNwjs;
- */
-(function (root) {
-	"use strict";
+
+	/*!
+	 * isNodejs isElectron isNwjs;
+	 */
 	root.isNodejs = "undefined" !== typeof process && "undefined" !== typeof require || "";
 	root.isElectron = (function () {
 		if (typeof root !== "undefined" &&
@@ -408,12 +380,10 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 		}
 		return false;
 	})();
-})("undefined" !== typeof window ? window : this);
-/*!
- * openDeviceBrowser
- */
-(function (root) {
-	"use strict";
+
+	/*!
+	 * openDeviceBrowser
+	 */
 	root.openDeviceBrowser = function (url) {
 		var onElectron = function () {
 			var es = isElectron ? require("electron").shell : "";
@@ -440,12 +410,10 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 			}
 		}
 	};
-})("undefined" !== typeof window ? window : this);
-/*!
- * scroll2Top
- */
-(function (root, document) {
-	"use strict";
+
+	/*!
+	 * scroll2Top
+	 */
 	root.scroll2Top = function (scrollTargetY, speed, easing) {
 		var scrollY = root.scrollY || document.documentElement.scrollTop;
 		var posY = scrollTargetY || 0;
@@ -480,35 +448,29 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 		}
 		tick();
 	};
-})("undefined" !== typeof window ? window : this, document);
-/*!
- * setDisplayNone
- */
-(function (root) {
-	"use strict";
+
+	/*!
+	 * setDisplayNone
+	 */
 	root.setDisplayNone = function (e) {
 		if (e) {
 			e.style.display = "none";
 		}
 	};
-})("undefined" !== typeof window ? window : this);
-/*!
- * setVisible
- */
-(function (root) {
-	"use strict";
+
+	/*!
+	 * setVisible
+	 */
 	root.setVisible = function (e) {
 		if (e) {
 			e.style.visibility = "visible";
 			e.style.opacity = 1;
 		}
 	};
-})("undefined" !== typeof window ? window : this);
-/*!
- * removeElement
- */
-(function (root) {
-	"use strict";
+
+	/*!
+	 * removeElement
+	 */
 	root.removeElement = function (e) {
 		if (e) {
 			if ("undefined" !== typeof e.remove) {
@@ -518,12 +480,10 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 			}
 		}
 	};
-})("undefined" !== typeof window ? window : this);
-/*!
- * safelyParseJSON
- */
-(function (root) {
-	"use strict";
+
+	/*!
+	 * safelyParseJSON
+	 */
 	root.safelyParseJSON = function (response) {
 		var isJson = function (obj) {
 			var objType = typeof obj;
@@ -535,12 +495,10 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 			return response;
 		}
 	};
-})("undefined" !== typeof window ? window : this);
-/*!
- * insertTextAsFragment
- */
-(function (root, document) {
-	"use strict";
+
+	/*!
+	 * insertTextAsFragment
+	 */
 	root.insertTextAsFragment = function (text, container, callback) {
 		var cb = function () {
 			return callback && "function" === typeof callback && callback();
@@ -566,12 +524,10 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 			return;
 		}
 	};
-})("undefined" !== typeof window ? window : this, document);
-/*!
- * renderTemplate
- */
-(function (root, document) {
-	"use strict";
+
+	/*!
+	 * renderTemplate
+	 */
 	root.renderTemplate = function (parsedJson, templateId, renderId) {
 		var template = document.getElementById(templateId) || "";
 		var render = document.getElementById(renderId) || "";
@@ -590,12 +546,10 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 		}
 		return "cannot renderTemplate";
 	};
-})("undefined" !== typeof window ? window : this, document);
-/*!
- * insertFromTemplate
- */
-(function (root, document) {
-	"use strict";
+
+	/*!
+	 * insertFromTemplate
+	 */
 	root.insertFromTemplate = function (parsedJson, templateId, renderId, callback, useInner) {
 		var cb = function () {
 			return callback && "function" === typeof callback && callback();
@@ -613,13 +567,11 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 			}
 		}
 	};
-})("undefined" !== typeof window ? window : this, document);
-/*!
- * loadJsonResponsePromise
- */
-(function (root) {
-	"use strict";
-	var loadJsonResponsePromise = function (url) {
+
+	/*!
+	 * loadJsonResponsePromise
+	 */
+	root.loadJsonResponsePromise = function (url) {
 		return new Promise(function (resolve, reject) {
 			var x = root.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
 			x.overrideMimeType("application/json;charset=utf-8");
@@ -635,24 +587,21 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 			x.send(null);
 		});
 	};
-	root.loadJsonResponsePromise = loadJsonResponsePromise;
-})("undefined" !== typeof window ? window : this);
-/*!
- * modified ToProgress v0.1.1
- * arguments.callee changed to TP, a local wrapper function,
- * so that public function name is now customizable;
- * wrapped in curly brackets:
- * else{document.body.appendChild(this.progressBar);};
- * removed module check
- * @see {@link http://github.com/djyde/ToProgress}
- * @see {@link https://github.com/djyde/ToProgress/blob/master/ToProgress.js}
- * @see {@link https://gist.github.com/englishextra/6a8c79c9efbf1f2f50523d46a918b785}
- * @see {@link https://jsfiddle.net/englishextra/z5xhjde8/}
- * passes jshint
- */
-(function (root, document, undefined) {
-	"use strict";
-	var ToProgress = (function () {
+
+	/*!
+	 * modified ToProgress v0.1.1
+	 * arguments.callee changed to TP, a local wrapper function,
+	 * so that public function name is now customizable;
+	 * wrapped in curly brackets:
+	 * else{document.body.appendChild(this.progressBar);};
+	 * removed module check
+	 * @see {@link http://github.com/djyde/ToProgress}
+	 * @see {@link https://github.com/djyde/ToProgress/blob/master/ToProgress.js}
+	 * @see {@link https://gist.github.com/englishextra/6a8c79c9efbf1f2f50523d46a918b785}
+	 * @see {@link https://jsfiddle.net/englishextra/z5xhjde8/}
+	 * passes jshint
+	 */
+	root.ToProgress = (function () {
 		var TP = function () {
 			var whichTransitionEvent = function () {
 				var t;
@@ -792,18 +741,15 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 		};
 		return TP();
 	})();
-	root.ToProgress = ToProgress;
-})("undefined" !== typeof window ? window : this, document);
-/*!
- * modified Detect Whether a Font is Installed
- * @param {String} fontName The name of the font to check
- * @return {Boolean}
- * @author Kirupa <sam@samclarke.com>
- * @see {@link https://www.kirupa.com/html5/detect_whether_font_is_installed.htm}
- * passes jshint
- */
-(function (root, document) {
-	"use strict";
+
+	/*!
+	 * modified Detect Whether a Font is Installed
+	 * @param {String} fontName The name of the font to check
+	 * @return {Boolean}
+	 * @author Kirupa <sam@samclarke.com>
+	 * @see {@link https://www.kirupa.com/html5/detect_whether_font_is_installed.htm}
+	 * passes jshint
+	 */
 	root.doesFontExist = function (fontName) {
 		var canvas = document.createElement("canvas");
 		var context = canvas.getContext("2d");
@@ -819,14 +765,12 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 			return true;
 		}
 	};
-})("undefined" !== typeof window ? window : this, document);
-/*!
- * modified loadExt
- * @see {@link https://gist.github.com/englishextra/ff9dc7ab002312568742861cb80865c9}
- * passes jshint
- */
-(function (root, document) {
-	"use strict";
+
+	/*!
+	 * modified loadExt
+	 * @see {@link https://gist.github.com/englishextra/ff9dc7ab002312568742861cb80865c9}
+	 * passes jshint
+	 */
 	root.loadJsCss = function (files, callback, type) {
 		var _this = this;
 		_this.files = files;
@@ -890,12 +834,10 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 			_this.callback();
 		}
 	};
-})("undefined" !== typeof window ? window : this, document);
-/*!
- * loadDeferred
- */
-(function (root) {
-	"use strict";
+
+	/*!
+	 * loadDeferred
+	 */
 	root.loadDeferred = function (urlArray, callback) {
 		var timer;
 		var handle = function () {
@@ -915,7 +857,7 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 			addListener(root, "load", handle);
 		}
 	};
-})("undefined" !== typeof window ? window : this);
+})("undefined" !== typeof window ? window : this, document);
 /*!
  * app logic
  */
