@@ -4,7 +4,7 @@
 forcedHTTP, getByClass, getHumanDate, hasClass, hasTouch, hasWheel,
 insertFromTemplate, insertTextAsFragment, isNodejs, isElectron, isNwjs,
 LazyLoad, loadDeferred, loadJsCss, loadJsonResponsePromise, Mustache,
-needsPolyfills, openDeviceBrowser, parseLink, platform, removeClass,
+needsPolyfills, openDeviceBrowser, parseLink, platform, Promise, removeClass,
 renderTemplate, safelyParseJSON, scroll2Top, setDisplayNone, setVisible,
 supportsCanvas, supportsPassive, supportsSvgSmilAnimation, t, throttle,
 toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
@@ -898,18 +898,12 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 
 		progressBar.increase(20);
 
-		var docTitle = document.title || "";
-		var navUA = navigator.userAgent || "";
-
-		var brName = "";
-		var brDescription = "";
-		if (root.platform && navUA) {
-			brName = platform.name || "";
-			brDescription = platform.description || "";
-			document.title = docTitle +
+		if (root.platform && document.title && navigator.userAgent) {
+			var userBrowserDescription = platform.description || "";
+			document.title = document.title +
 			" [" +
 			(getHumanDate ? " " + getHumanDate : "") +
-			(brDescription ? " " + brDescription : "") +
+			(userBrowserDescription ? " " + userBrowserDescription : "") +
 			((hasTouch || hasWheel) ? " with" : "") +
 			(hasTouch ? " touch" : "") +
 			((hasTouch && hasWheel) ? "," : "") +
@@ -1379,7 +1373,7 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 		var titleBarHeight = titleBar.offsetHeight || 0;
 
 		/*!
-		 * set fixed on scroll/swipedependong on titleBar position
+		 * set fixed on scroll/swipe depending on on titleBar position
 		 */
 		/* var handleTitleBar = function () {
 			var logic = function () {

@@ -870,19 +870,12 @@ WheelIndicator, Ya*/
 			progressBar.increase(20);
 		}
 
-		var docTitle = document.title || "";
-		var locHref = root.location.href || "";
-		var navUA = navigator.userAgent || "";
-
-		var brName = "";
-		var brDescription = "";
-		if (root.platform && navUA) {
-			brName = platform.name || "";
-			brDescription = platform.description || "";
-			document.title = docTitle +
+		if (root.platform && document.title && navigator.userAgent) {
+			var userBrowserDescription = platform.description || "";
+			document.title = document.title +
 			" [" +
 			(getHumanDate ? " " + getHumanDate : "") +
-			(brDescription ? " " + brDescription : "") +
+			(userBrowserDescription ? " " + userBrowserDescription : "") +
 			((hasTouch || hasWheel) ? " with" : "") +
 			(hasTouch ? " touch" : "") +
 			((hasTouch && hasWheel) ? "," : "") +
@@ -929,6 +922,8 @@ WheelIndicator, Ya*/
 
 		var manageLocationQrcode = function () {
 			var qrcode = getByClass(document, "qrcode")[0] || "";
+			var docTitle = document.title || "";
+			var locHref = root.location.href || "";
 			var timerQrcode;
 			var showQrcode = function () {
 				clearTimeout(timerQrcode);
@@ -978,6 +973,7 @@ WheelIndicator, Ya*/
 			var downloadApp = getByClass(document, "download-app")[0] || "";
 			var link = downloadApp ? downloadApp.getElementsByTagName("a")[0] || "" : "";
 			var img = downloadApp ? downloadApp.getElementsByTagName("img")[0] || "" : "";
+			var navUA = navigator.userAgent || "";
 			var timer;
 			var showDownloadApp = function () {
 				clearTimeout(timer);
@@ -985,18 +981,19 @@ WheelIndicator, Ya*/
 				setVisible(downloadApp);
 			};
 			if (root.platform && navUA && downloadApp && link && img) {
+				var osBrowser = platform.name || "";
 				var osFamily = platform.os.family || "";
 				var osVersion = platform.os.version || "";
 				var osArchitecture = platform.os.architecture || "";
 				/* console.log(navUA);
 				console.log(platform.os);
-				console.log(brName + "|" + osFamily + "|" + osVersion + "|" + osArchitecture + "|" + brDescription); */
+				console.log(osBrowser + "|" + osFamily + "|" + osVersion + "|" + osArchitecture + "|" + userBrowserDescription); */
 				var imgSrc;
 				var linkHref;
 				if (osFamily.indexOf("Windows Phone", 0) !== -1 && "10.0" === osVersion) {
 					imgSrc = "./libs/products/img/download_wp_app_144x52.svg";
 					linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra.Windows10_x86_debug.appx";
-				} else if (brName.indexOf("IE Mobile", 0) !== -1 && ("7.5" === osVersion || "8.0" === osVersion || "8.1" === osVersion)) {
+				} else if (osBrowser.indexOf("IE Mobile", 0) !== -1 && ("7.5" === osVersion || "8.0" === osVersion || "8.1" === osVersion)) {
 					imgSrc = "./libs/products/img/download_wp_app_144x52.svg";
 					linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra_app-debug.xap";
 				} else if (osFamily.indexOf("Windows", 0) !== -1 && 64 === osArchitecture) {

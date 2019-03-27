@@ -899,18 +899,12 @@ WheelIndicator, Ya*/
 
 		progressBar.increase(20);
 
-		var docTitle = document.title || "";
-		var navUA = navigator.userAgent || "";
-
-		var brName = "";
-		var brDescription = "";
-		if (root.platform && navUA) {
-			brName = platform.name || "";
-			brDescription = platform.description || "";
-			document.title = docTitle +
+		if (root.platform && document.title && navigator.userAgent) {
+			var userBrowserDescription = platform.description || "";
+			document.title = document.title +
 			" [" +
 			(getHumanDate ? " " + getHumanDate : "") +
-			(brDescription ? " " + brDescription : "") +
+			(userBrowserDescription ? " " + userBrowserDescription : "") +
 			((hasTouch || hasWheel) ? " with" : "") +
 			(hasTouch ? " touch" : "") +
 			((hasTouch && hasWheel) ? "," : "") +
@@ -1476,7 +1470,7 @@ WheelIndicator, Ya*/
 		var titleBarHeight = titleBar.offsetHeight || 0;
 
 		/*!
-		 * set fixed on scroll/swipedependong on titleBar position
+		 * set fixed on scroll/swipe depending on on titleBar position
 		 */
 		/* var handleTitleBar = function () {
 			var logic = function () {
