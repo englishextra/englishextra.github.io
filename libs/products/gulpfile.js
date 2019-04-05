@@ -213,7 +213,8 @@ var options = {
 	},
 	vendors: {
 		src: [
-			"../../cdn/doSlide/1.1.4/js/do-slide.fixed.js"
+			"../../cdn/doSlide/1.1.4/js/do-slide.fixed.js",
+			"../../cdn/qrjs2/0.1.7/js/qrjs2.fixed.js"
 		],
 		js: "./js",
 		concatOptions: {

@@ -1120,10 +1120,6 @@ WheelIndicator, Ya*/
 		};
 		manageExternalLinkAll();
 
-		var dataSrcImgClass = "data-src-img";
-
-		var dataSrcImgIsBindedClass = "data-src-img--is-binded";
-
 		root.lazyLoadDataSrcImgInstance = null;
 
 		/*!
@@ -1133,6 +1129,8 @@ WheelIndicator, Ya*/
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
+			var dataSrcImgClass = "data-src-img";
+			var dataSrcImgIsBindedClass = "data-src-img--is-binded";
 			var images = getByClass(document, dataSrcImgClass) || "";
 			var i = images.length;
 			while (i--) {
@@ -1153,10 +1151,6 @@ WheelIndicator, Ya*/
 			}
 		};
 
-		var dataSrcIframeClass = "data-src-iframe";
-
-		var dataSrcIframeIsBindedClass = "data-src-iframe--is-binded";
-
 		root.lazyLoadDataSrcIframeInstance = null;
 
 		/*!
@@ -1166,6 +1160,8 @@ WheelIndicator, Ya*/
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
+			var dataSrcIframeClass = "data-src-iframe";
+			var dataSrcIframeIsBindedClass = "data-src-iframe--is-binded";
 			var iframes = getByClass(document, dataSrcIframeClass) || "";
 			var i = iframes.length;
 			while (i--) {
@@ -1192,12 +1188,11 @@ WheelIndicator, Ya*/
 			}
 		};
 
-		var imgLightboxLinkClass = "img-lightbox-link";
-
 		/*!
 		 * @see {@link https://github.com/englishextra/img-lightbox}
 		 */
 		var manageImgLightbox = function () {
+			var imgLightboxLinkClass = "img-lightbox-link";
 			var link = getByClass(document, imgLightboxLinkClass) || "";
 			var initScript = function () {
 				imgLightbox(imgLightboxLinkClass, {
@@ -1218,12 +1213,11 @@ WheelIndicator, Ya*/
 			}
 		};
 
-		var iframeLightboxLinkClass = "iframe-lightbox-link";
-
 		/*!
 		 * @see {@link https://github.com/englishextra/iframe-lightbox}
 		 */
 		var manageIframeLightbox = function () {
+			var iframeLightboxLinkClass = "iframe-lightbox-link";
 			var link = getByClass(document, iframeLightboxLinkClass) || "";
 			var initScript = function () {
 				var arrange = function (e) {

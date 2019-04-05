@@ -1004,10 +1004,6 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 		};
 		manageExternalLinkAll();
 
-		var dataSrcImgClass = "data-src-img";
-
-		var dataSrcImgIsBindedClass = "data-src-img--is-binded";
-
 		root.lazyLoadDataSrcImgInstance = null;
 
 		/*!
@@ -1017,6 +1013,8 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
+			var dataSrcImgClass = "data-src-img";
+			var dataSrcImgIsBindedClass = "data-src-img--is-binded";
 			var images = getByClass(document, dataSrcImgClass) || "";
 			var i = images.length;
 			while (i--) {
@@ -1080,19 +1078,6 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 					 * so you might have length + 1
 					 * to fix that select elemnts in a container that doesnt have source template
 					 */
-					/* var pagesKeysNumber = countObjKeys(jsonObj.pages);
-					insertFromTemplate(jsonObj, "template_zoomwall", "render_zoomwall", function () {
-						var zoomwallLastItem = container ?
-							getByClass(container, zoomwallItemClass) ?
-							getByClass(container, zoomwallItemClass)[pagesKeysNumber - 1] :
-							"" :
-							"";
-						if (zoomwallLastItem) {
-							resolve();
-						} else {
-							reject();
-						}
-					}, true);	 */
 					var pagesKeysNumber = countObjKeys(jsonObj.pages);
 					insertFromTemplate(jsonObj, "template_zoomwall", "render_zoomwall", function () {
 						var zoomwallItems = getByClass(container, zoomwallItemClass) || "";
@@ -1109,55 +1094,6 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 						i = l = null;
 						return reject();
 					}, true);
-
-					/*!
-					 * render with creating DOM Nodes
-					 */
-					/* var alt = "alt";
-
-					jsonObj = jsonObj.pages;
-
-					var df = document.createDocumentFragment();
-
-					var key;
-					for (key in jsonObj) {
-						if (jsonObj.hasOwnProperty(key)) {
-							if (jsonObj[key][jsonSrcKeyName]) {
-								var img = document.createElement("img");
-								if (jsonObj[key][jsonWidthKeyName]) {
-									img.src = ["data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20",
-										jsonObj[key][jsonWidthKeyName],
-										"%20",
-										jsonObj[key][jsonHeightKeyName],
-										"%27%2F%3E"].join("");
-								} else {
-									var dummyImg = new Image();
-									dummyImg.src = jsonObj[key][jsonSrcKeyName];
-									var dummyImgWidth = dummyImg.naturalWidth;
-									var dummyImgHeight = dummyImg.naturalHeight;
-									if (dummyImgWidth && dummyImgHeight) {
-										img.src = ["data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20", dummyImgWidth, "%20", dummyImgHeight, "%27%2F%3E"].join("");
-									} else {
-										img.src = ["data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20", 640, "%20", 360, "%27%2F%3E"].join("");
-									}
-								}
-								img.dataset[jsonSrcKeyName] = jsonObj[key][jsonSrcKeyName];
-								addClass(img, dataSrcImgClass);
-								img.alt = jsonObj[key][jsonTitleKeyName];
-								img.title = jsonObj[key][jsonTitleKeyName];
-
-								df.appendChild(img);
-								df.appendChild(document.createTextNode("\n"));
-							}
-						}
-					}
-					key = null;
-
-					if (zoomwall.appendChild(df)) {
-						resolve();
-					} else {
-						reject();
-					} */
 				});
 			};
 
@@ -1201,43 +1137,10 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 			var lazy = function () {
 				clearTimeout(timerLazy);
 				timerLazy = null;
-
-				/* echo(dataSrcImgClass, jsonSrcKeyName); */
 				manageDataSrcImgAll();
 			};
 
-			/* var myHeaders = new Headers();
-
-			fetch(jsonUrl, {
-				headers: myHeaders,
-				credentials: "same-origin"
-			}).then(function (response) {
-				if (response.ok) {
-					return response.text();
-				} else {
-					throw new Error("cannot fetch", jsonUrl);
-				}
-			}).then(function (text) {
-				generate(text).then(function () {
-					timerCreate = setTimeout(create, 500);
-				}).then(function () {
-					manageExternalLinkAll();
-				}).then(function () {
-					timerLazy = setTimeout(lazy, 1000);
-				}).catch (function (err) {
-					console.log("Cannot create zoomwall gallery", err);
-				});
-			}).catch (function (err) {
-				throw new Error("cannot parse " + jsonUrl + " " + err);
-			}); */
 			if (root.Zoomwall && zoomwall) {
-				/* loadJsonResponse(jsonUrl, function (text) {
-					generate(text);
-					timerCreate = setTimeout(create, 200);
-					timerLazy = setTimeout(lazy, 500);
-				}, function (err) {
-					throw new Error("cannot parse " + jsonUrl + " " + err);
-				}); */
 				loadJsonResponsePromise(jsonUrl).then(function (response) {
 					generate(response);
 					timerCreate = setTimeout(create, 200);
@@ -1371,87 +1274,6 @@ toggleClass, ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 
 		var titleBar = getByClass(document, "title-bar")[0] || "";
 		var titleBarHeight = titleBar.offsetHeight || 0;
-
-		/*!
-		 * set fixed on scroll/swipe depending on on titleBar position
-		 */
-		/* var handleTitleBar = function () {
-			var logic = function () {
-				if ((document.body.scrollTop || docElem.scrollTop || 0) > titleBarHeight) {
-					addClass(titleBar, isFixedClass);
-				} else {
-					removeClass(titleBar, isFixedClass);
-				}
-			};
-			throttle(logic, 100).call(root);
-		};
-		if (titleBar) {
-			addListener(root, "scroll", handleTitleBar, {passive: true});
-		} */
-
-		/*!
-		 * set fixed depending on scroll/swipe direction
-		 * and titleBar position
-		 * needs animate.css classes
-		 */
-		/* var animatedClass = "animated";
-		var duration4msClass = "duration-4ms";
-		var slideInDownClass = "slideInDown";
-		var slideOutUpClass = "slideOutUp";
-
-		var hideTitleBar = function () {
-			var logic = function () {
-				removeClass(titleBar, slideInDownClass);
-				if ((document.body.scrollTop || docElem.scrollTop || 0) > titleBarHeight) {
-					addClass(titleBar, slideOutUpClass);
-				} else {
-					removeClass(titleBar, isFixedClass);
-					removeClass(titleBar, slideOutUpClass);
-				}
-			};
-			throttle(logic, 100).call(root);
-		};
-		var revealTitleBar = function () {
-			var logic = function () {
-				removeClass(titleBar, slideOutUpClass);
-				if ((document.body.scrollTop || docElem.scrollTop || 0) > titleBarHeight) {
-					addClass(titleBar, isFixedClass);
-					addClass(titleBar, slideInDownClass);
-				} else {
-					removeClass(titleBar, isFixedClass);
-					removeClass(titleBar, slideInDownClass);
-				}
-			};
-			throttle(logic, 100).call(root);
-		};
-		if (container && titleBar) {
-			addClass(titleBar, animatedClass);
-			addClass(titleBar, duration4msClass);
-			if (hasTouch) {
-				if (root.tocca) {
-					addListener(document, "swipeup", hideTitleBar, {passive: true});
-					addListener(document, "swipedown", revealTitleBar, {passive: true});
-				}
-			} else {
-				if (hasWheel) {
-					if (root.WheelIndicator) {
-						var indicator;
-						indicator = new WheelIndicator({
-								elem: root,
-								callback: function (e) {
-									if ("down" === e.direction) {
-										hideTitleBar();
-									}
-									if ("up" === e.direction) {
-										revealTitleBar();
-									}
-								},
-								preventMouse: false
-							});
-					}
-				}
-			}
-		} */
 
 		/*!
 		 * set fixed or hidden class depending on scroll/swipe direction

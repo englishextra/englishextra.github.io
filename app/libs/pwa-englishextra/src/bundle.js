@@ -6,12 +6,12 @@ earlySvgasimgSupport, earlyHasTouch, earlyDeviceType, earlyDeviceFormfactor,
 findPos, fixEnRuTypo, forcedHTTP, getByClass, getHumanDate, hasClass,
 IframeLightbox, imgLightbox, insertExternalHTML, insertFromTemplate,
 insertTextAsFragment, isNodejs, isElectron, isNwjs, isValidId, Kamil,
-LazyLoad, loadDeferred, loadJsCss, loadJsonResponse, Masonry, Mustache,
-needsPolyfills, openDeviceBrowser, Packery, parseLink, QRCode, removeChildren,
-removeClass, removeListener, renderTemplate, require, safelyParseJSON,
-scroll2Top, setDisplayBlock, setDisplayNone, supportsCanvas, supportsPassive,
-supportsSvgSmilAnimation, t, throttle, toggleClass, ToProgress, truncString,
-unescape, VK, Ya*/
+LazyLoad, loadDeferred, LoadingSpinner, loadJsCss, loadJsonResponse, Masonry,
+Mustache, needsPolyfills, notiBar, openDeviceBrowser, Packery, parseLink,
+QRCode, removeChildren, removeClass, removeListener, renderTemplate, require,
+safelyParseJSON, scroll2Top, setDisplayBlock, setDisplayNone, supportsCanvas,
+supportsPassive, supportsSvgSmilAnimation, t, throttle, toggleClass,
+ToProgress, truncString, unescape, VK, Ya*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -722,6 +722,105 @@ unescape, VK, Ya*/
 	};
 
 	/*!
+	 * notiBar
+	 */
+	root.notiBar = function (opt) {
+		var docBody = document.body || "";
+		var notibarClass = "notibar";
+		var notibarContainer = getByClass(document, notibarClass)[0] || "";
+		var messageClass = "message";
+		var closeButtonClass = "close";
+		var defaultKey = "_notibar_dismiss_";
+		var defaultDatum = "ok";
+		var animatedClass = "animated";
+		var fadeInDownClass = "fadeInDown";
+		var fadeOutUpClass = "fadeOutUp";
+		if ("string" === typeof opt) {
+			opt = {
+				"message": opt
+			};
+		}
+		var settings = {
+			"message": "",
+			"timeout": 10000,
+			"key": defaultKey,
+			"datum": defaultDatum,
+			"days": 0,
+		};
+		var i;
+		for (i in opt) {
+			if (opt.hasOwnProperty(i)) {
+				settings[i] = opt[i];
+			}
+		}
+		i = null;
+		var cookieKey = Cookies.get(settings.key) || "";
+		if (cookieKey && cookieKey === decodeURIComponent(settings.datum)) {
+			return;
+		}
+		if (notibarContainer) {
+			removeChildren(notibarContainer);
+		} else {
+			notibarContainer = document.createElement("div");
+			addClass(notibarContainer, notibarClass);
+			addClass(notibarContainer, animatedClass);
+		}
+		var msgContainer = document.createElement("div");
+		addClass(msgContainer, messageClass);
+		var msgContent = settings.message || "";
+		if ("string" === typeof msgContent) {
+			msgContent = document.createTextNode(msgContent);
+		}
+		msgContainer.appendChild(msgContent);
+		notibarContainer.appendChild(msgContainer);
+		/* var insertCancelSvg = function (targetObj) {
+			var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+			var use = document.createElementNS("http://www.w3.org/2000/svg", "use");
+			svg.setAttribute("class", "ui-icon");
+			use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Cancel");
+			svg.appendChild(use);
+			targetObj.appendChild(svg);
+		}, */
+		var closeButton = document.createElement("a");
+		addClass(closeButton, closeButtonClass);
+		/* insertCancelSvg(closeButton); */
+		var setCookie = function () {
+			if (settings.days) {
+				Cookies.set(settings.key, settings.datum, {
+					expires: settings.days
+				});
+			} else {
+				Cookies.set(settings.key, settings.datum);
+			}
+		};
+		var hideMessage = function () {
+			var notibarContainer = getByClass(document, notibarClass)[0] || "";
+			if (notibarContainer) {
+				removeClass(notibarContainer, fadeInDownClass);
+				addClass(notibarContainer, fadeOutUpClass);
+				removeChildren(notibarContainer);
+			}
+		};
+		var handleCloseButton = function () {
+			removeListener(closeButton, "click", handleCloseButton);
+			hideMessage();
+			setCookie();
+		};
+		addListener(closeButton, "click", handleCloseButton);
+		notibarContainer.appendChild(closeButton);
+		if (docBody) {
+			appendFragment(notibarContainer, docBody);
+			removeClass(notibarContainer, fadeOutUpClass);
+			addClass(notibarContainer, fadeInDownClass);
+			var timer = setTimeout(function () {
+				clearTimeout(timer);
+				timer = null;
+				hideMessage();
+			}, settings.timeout);
+		}
+	};
+
+	/*!
 	 * modified ToProgress v0.1.1
 	 * arguments.callee changed to TP, a local wrapper function,
 	 * so that public function name is now customizable;
@@ -873,6 +972,37 @@ unescape, VK, Ya*/
 			return ToProgress;
 		};
 		return TP();
+	})();
+
+	/*!
+	 * LoadingSpinner
+	 */
+	root.LoadingSpinner = (function () {
+		var docBody = document.body || "";
+		var spinnerClass = "loading-spinner";
+		var spinner = getByClass(document, spinnerClass)[0] || "";
+		var isActiveClass = "loading-spinner--is-active";
+		if (!spinner) {
+			spinner = document.createElement("div");
+			addClass(spinner, spinnerClass);
+			appendFragment(spinner, docBody);
+		}
+		return {
+			show: function () {
+				return hasClass(docBody, isActiveClass) || addClass(docBody, isActiveClass);
+			},
+			hide: function (callback, timeout) {
+				var delay = timeout || 500;
+				var timer = setTimeout(function () {
+						clearTimeout(timer);
+						timer = null;
+						removeClass(docBody, isActiveClass);
+						if (callback && "function" === typeof callback) {
+							callback();
+						}
+					}, delay);
+			}
+		};
 	})();
 
 	/*!
@@ -1206,33 +1336,6 @@ unescape, VK, Ya*/
 			document.title = document.title + userBrowser;
 		}
 
-		var LoadingSpinner = (function () {
-			var spinnerClass = "loading-spinner";
-			var spinner = getByClass(document, spinnerClass)[0] || "";
-			var isActiveClass = "loading-spinner--is-active";
-			if (!spinner) {
-				spinner = document.createElement("div");
-				addClass(spinner, spinnerClass);
-				appendFragment(spinner, docBody);
-			}
-			return {
-				show: function () {
-					return hasClass(docBody, isActiveClass) || addClass(docBody, isActiveClass);
-				},
-				hide: function (callback, timeout) {
-					var delay = timeout || 500;
-					var timer = setTimeout(function () {
-							clearTimeout(timer);
-							timer = null;
-							removeClass(docBody, isActiveClass);
-							if (callback && "function" === typeof callback) {
-								callback();
-							}
-						}, delay);
-				}
-			};
-		})();
-
 		var manageExternalLinkAll = function () {
 			var link = document.getElementsByTagName("a") || "";
 			var arrange = function (e) {
@@ -1286,10 +1389,6 @@ unescape, VK, Ya*/
 			}
 		};
 
-		var dataSrcImgClass = "data-src-img";
-
-		var dataSrcImgIsBindedClass = "data-src-img--is-binded";
-
 		root.lazyLoadDataSrcImgInstance = null;
 
 		/*!
@@ -1299,6 +1398,8 @@ unescape, VK, Ya*/
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
+			var dataSrcImgClass = "data-src-img";
+			var dataSrcImgIsBindedClass = "data-src-img--is-binded";
 			var images = getByClass(document, dataSrcImgClass) || "";
 			var i = images.length;
 			while (i--) {
@@ -1319,10 +1420,6 @@ unescape, VK, Ya*/
 			}
 		};
 
-		var dataSrcIframeClass = "data-src-iframe";
-
-		var dataSrcIframeIsBindedClass = "data-src-iframe--is-binded";
-
 		root.lazyLoadDataSrcIframeInstance = null;
 
 		/*!
@@ -1332,6 +1429,8 @@ unescape, VK, Ya*/
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
+			var dataSrcIframeClass = "data-src-iframe";
+			var dataSrcIframeIsBindedClass = "data-src-iframe--is-binded";
 			var iframes = getByClass(document, dataSrcIframeClass) || "";
 			var i = iframes.length;
 			while (i--) {
@@ -1358,12 +1457,11 @@ unescape, VK, Ya*/
 			}
 		};
 
-		var imgLightboxLinkClass = "img-lightbox-link";
-
 		/*!
 		 * @see {@link https://github.com/englishextra/img-lightbox}
 		 */
 		var manageImgLightbox = function () {
+			var imgLightboxLinkClass = "img-lightbox-link";
 			var link = getByClass(document, imgLightboxLinkClass) || "";
 			var initScript = function () {
 				imgLightbox(imgLightboxLinkClass, {
@@ -1384,12 +1482,11 @@ unescape, VK, Ya*/
 			}
 		};
 
-		var iframeLightboxLinkClass = "iframe-lightbox-link";
-
 		/*!
 		 * @see {@link https://github.com/englishextra/iframe-lightbox}
 		 */
 		var manageIframeLightbox = function () {
+			var iframeLightboxLinkClass = "iframe-lightbox-link";
 			var link = getByClass(document, iframeLightboxLinkClass) || "";
 			var initScript = function () {
 				var arrange = function (e) {
@@ -1683,101 +1780,6 @@ unescape, VK, Ya*/
 				} else {
 					hide();
 				}
-			}
-		};
-
-		var notiBar = function (opt) {
-			var notibarClass = "notibar";
-			var notibarContainer = getByClass(document, notibarClass)[0] || "";
-			var messageClass = "message";
-			var closeButtonClass = "close";
-			var defaultKey = "_notibar_dismiss_";
-			var defaultDatum = "ok";
-			var animatedClass = "animated";
-			var fadeInDownClass = "fadeInDown";
-			var fadeOutUpClass = "fadeOutUp";
-			if ("string" === typeof opt) {
-				opt = {
-					"message": opt
-				};
-			}
-			var settings = {
-				"message": "",
-				"timeout": 10000,
-				"key": defaultKey,
-				"datum": defaultDatum,
-				"days": 0,
-			};
-			var i;
-			for (i in opt) {
-				if (opt.hasOwnProperty(i)) {
-					settings[i] = opt[i];
-				}
-			}
-			i = null;
-			var cookieKey = Cookies.get(settings.key) || "";
-			if (cookieKey && cookieKey === decodeURIComponent(settings.datum)) {
-				return;
-			}
-			if (notibarContainer) {
-				removeChildren(notibarContainer);
-			} else {
-				notibarContainer = document.createElement("div");
-				addClass(notibarContainer, notibarClass);
-				addClass(notibarContainer, animatedClass);
-			}
-			var msgContainer = document.createElement("div");
-			addClass(msgContainer, messageClass);
-			var msgContent = settings.message || "";
-			if ("string" === typeof msgContent) {
-				msgContent = document.createTextNode(msgContent);
-			}
-			msgContainer.appendChild(msgContent);
-			notibarContainer.appendChild(msgContainer);
-			var insertCancelSvg = function (targetObj) {
-				var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-				var use = document.createElementNS("http://www.w3.org/2000/svg", "use");
-				svg.setAttribute("class", "ui-icon");
-				use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", "#ui-icon-Cancel");
-				svg.appendChild(use);
-				targetObj.appendChild(svg);
-			},
-			closeButton = document.createElement("a");
-			addClass(closeButton, closeButtonClass);
-			insertCancelSvg(closeButton);
-			var setCookie = function () {
-				if (settings.days) {
-					Cookies.set(settings.key, settings.datum, {
-						expires: settings.days
-					});
-				} else {
-					Cookies.set(settings.key, settings.datum);
-				}
-			};
-			var hideMessage = function () {
-				var notibarContainer = getByClass(document, notibarClass)[0] || "";
-				if (notibarContainer) {
-					removeClass(notibarContainer, fadeInDownClass);
-					addClass(notibarContainer, fadeOutUpClass);
-					removeChildren(notibarContainer);
-				}
-			};
-			var handleCloseButton = function () {
-				removeListener(closeButton, "click", handleCloseButton);
-				hideMessage();
-				setCookie();
-			};
-			addListener(closeButton, "click", handleCloseButton);
-			notibarContainer.appendChild(closeButton);
-			if (docBody) {
-				appendFragment(notibarContainer, docBody);
-				removeClass(notibarContainer, fadeOutUpClass);
-				addClass(notibarContainer, fadeInDownClass);
-				var timer = setTimeout(function () {
-					clearTimeout(timer);
-					timer = null;
-					hideMessage();
-				}, settings.timeout);
 			}
 		};
 

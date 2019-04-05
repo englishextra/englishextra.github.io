@@ -5,11 +5,12 @@ debounce, DISQUS, doesFontExist, earlySvgSupport, earlySvgasimgSupport,
 earlyHasTouch, earlyDeviceType, earlyDeviceFormfactor,  findPos, fixEnRuTypo,
 forcedHTTP, getByClass, getHumanDate, hasClass, IframeLightbox, imgLightbox,
 isNodejs, isElectron, isNwjs, isValidId, Kamil, LazyLoad, loadDeferred,
-loadJsCss, loadJsonResponse, needsPolyfills, openDeviceBrowser, parseLink,
-prependFragmentBefore, QRCode, removeChildren, removeClass, removeElement,
-removeListener, require, safelyParseJSON, scroll2Top, setDisplayBlock,
-setDisplayNone, supportsCanvas, supportsPassive, supportsSvgSmilAnimation,
-Tablesort, throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
+LoadingSpinner, loadJsCss, loadJsonResponse, needsPolyfills, Notifier42,
+openDeviceBrowser, parseLink, prependFragmentBefore, QRCode, removeChildren,
+removeClass, removeElement, removeListener, require, safelyParseJSON,
+scroll2Top, setDisplayBlock, setDisplayNone, supportsCanvas, supportsPassive,
+supportsSvgSmilAnimation, Tablesort, throttle, toggleClass, ToProgress,
+truncString, unescape, VK, Ya*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -614,6 +615,68 @@ Tablesort, throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 	};
 
 	/*!
+	 * Notifier42
+	 */
+	root.Notifier42 = function (annonce, timeout, elemClass) {
+		var docBody = document.body || "";
+		var msgObj = annonce || "No message passed as argument";
+		var delay = timeout || 0;
+		var msgClass = elemClass || "";
+		var cls = "notifier42";
+		var container = getByClass(document, cls)[0] || "";
+		var an = "animated";
+		var an2 = "fadeInUp";
+		var an4 = "fadeOutDown";
+		if (!container) {
+			container = document.createElement("div");
+			appendFragment(container, docBody);
+		}
+		addClass(container, cls);
+		addClass(container, an);
+		addClass(container, an2);
+		if (msgClass) {
+			addClass(container, msgClass);
+		}
+		if ("string" === typeof msgObj) {
+			msgObj = document.createTextNode(msgObj);
+		}
+		appendFragment(msgObj, container);
+		var clearContainer = function (cb) {
+			removeClass(container, an2);
+			addClass(container, an4);
+			var timer = setTimeout(function () {
+				clearTimeout(timer);
+				timer = null;
+				removeClass(container, an);
+				removeClass(container, an4);
+				if (msgClass) {
+					removeClass(container, msgClass);
+				}
+				removeChildren(container);
+				if (cb && "function" === typeof cb) {
+					cb();
+				}
+			}, 400);
+		};
+		addListener(container, "click", function handleContainer() {
+			removeListener(this, "click", handleContainer);
+			clearContainer();
+		});
+		if (0 !== delay) {
+			var timer = setTimeout(function () {
+				clearTimeout(timer);
+				timer = null;
+				clearContainer();
+			}, delay);
+		}
+		return {
+			destroy: function () {
+				return clearContainer(removeElement.bind(null, container));
+			}
+		};
+	};
+
+	/*!
 	 * modified ToProgress v0.1.1
 	 * arguments.callee changed to TP, a local wrapper function,
 	 * so that public function name is now customizable;
@@ -765,6 +828,37 @@ Tablesort, throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 			return ToProgress;
 		};
 		return TP();
+	})();
+
+	/*!
+	 * LoadingSpinner
+	 */
+	root.LoadingSpinner = (function () {
+		var docBody = document.body || "";
+		var spinnerClass = "loading-spinner";
+		var spinner = getByClass(document, spinnerClass)[0] || "";
+		var isActiveClass = "loading-spinner--is-active";
+		if (!spinner) {
+			spinner = document.createElement("div");
+			addClass(spinner, spinnerClass);
+			appendFragment(spinner, docBody);
+		}
+		return {
+			show: function () {
+				return hasClass(docBody, isActiveClass) || addClass(docBody, isActiveClass);
+			},
+			hide: function (callback, timeout) {
+				var delay = timeout || 500;
+				var timer = setTimeout(function () {
+						clearTimeout(timer);
+						timer = null;
+						removeClass(docBody, isActiveClass);
+						if (callback && "function" === typeof callback) {
+							callback();
+						}
+					}, delay);
+			}
+		};
 	})();
 
 	/*!
@@ -1080,91 +1174,6 @@ Tablesort, throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 		};
 		manageExternalLinkAll();
 
-		var LoadingSpinner = (function () {
-			var spinnerClass = "loading-spinner";
-			var spinner = getByClass(document, spinnerClass)[0] || "";
-			var isActiveClass = "loading-spinner--is-active";
-			if (!spinner) {
-				spinner = document.createElement("div");
-				addClass(spinner, spinnerClass);
-				appendFragment(spinner, docBody);
-			}
-			return {
-				show: function () {
-					return hasClass(docBody, isActiveClass) || addClass(docBody, isActiveClass);
-				},
-				hide: function (callback, timeout) {
-					var delay = timeout || 500;
-					var timer = setTimeout(function () {
-							clearTimeout(timer);
-							timer = null;
-							removeClass(docBody, isActiveClass);
-							if (callback && "function" === typeof callback) {
-								callback();
-							}
-						}, delay);
-				}
-			};
-		})();
-
-		var Notifier42 = function (annonce, timeout, elemClass) {
-			var msgObj = annonce || "No message passed as argument";
-			var delay = timeout || 0;
-			var msgClass = elemClass || "";
-			var cls = "notifier42";
-			var container = getByClass(document, cls)[0] || "";
-			var an = "animated";
-			var an2 = "fadeInUp";
-			var an4 = "fadeOutDown";
-			if (!container) {
-				container = document.createElement("div");
-				appendFragment(container, docBody);
-			}
-			addClass(container, cls);
-			addClass(container, an);
-			addClass(container, an2);
-			if (msgClass) {
-				addClass(container, msgClass);
-			}
-			if ("string" === typeof msgObj) {
-				msgObj = document.createTextNode(msgObj);
-			}
-			appendFragment(msgObj, container);
-			var clearContainer = function (cb) {
-				removeClass(container, an2);
-				addClass(container, an4);
-				var timer = setTimeout(function () {
-					clearTimeout(timer);
-					timer = null;
-					removeClass(container, an);
-					removeClass(container, an4);
-					if (msgClass) {
-						removeClass(container, msgClass);
-					}
-					removeChildren(container);
-					if (cb && "function" === typeof cb) {
-						cb();
-					}
-				}, 400);
-			};
-			addListener(container, "click", function handleContainer() {
-				removeListener(this, "click", handleContainer);
-				clearContainer();
-			});
-			if (0 !== delay) {
-				var timer = setTimeout(function () {
-					clearTimeout(timer);
-					timer = null;
-					clearContainer();
-				}, delay);
-			}
-			return {
-				destroy: function () {
-					return clearContainer(removeElement.bind(null, container));
-				}
-			};
-		};
-
 		var notifyWriteComment = function () {
 			if (root.getHTTP && !root.getHTTP()) {
 				return;
@@ -1231,10 +1240,6 @@ Tablesort, throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 		};
 		manageTablesort();
 
-		var dataSrcImgClass = "data-src-img";
-
-		var dataSrcImgIsBindedClass = "data-src-img--is-binded";
-
 		root.lazyLoadDataSrcImgInstance = null;
 
 		/*!
@@ -1244,6 +1249,8 @@ Tablesort, throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
+			var dataSrcImgClass = "data-src-img";
+			var dataSrcImgIsBindedClass = "data-src-img--is-binded";
 			var images = getByClass(document, dataSrcImgClass) || "";
 			var i = images.length;
 			while (i--) {
@@ -1265,10 +1272,6 @@ Tablesort, throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 		};
 		manageDataSrcImgAll();
 
-		var dataSrcIframeClass = "data-src-iframe";
-
-		var dataSrcIframeIsBindedClass = "data-src-iframe--is-binded";
-
 		root.lazyLoadDataSrcIframeInstance = null;
 
 		/*!
@@ -1278,6 +1281,8 @@ Tablesort, throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
+			var dataSrcIframeClass = "data-src-iframe";
+			var dataSrcIframeIsBindedClass = "data-src-iframe--is-binded";
 			var iframes = getByClass(document, dataSrcIframeClass) || "";
 			var i = iframes.length;
 			while (i--) {
@@ -1305,12 +1310,11 @@ Tablesort, throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 		};
 		manageDataSrcIframeAll();
 
-		var imgLightboxLinkClass = "img-lightbox-link";
-
 		/*!
 		 * @see {@link https://github.com/englishextra/img-lightbox}
 		 */
 		var manageImgLightbox = function () {
+			var imgLightboxLinkClass = "img-lightbox-link";
 			var link = getByClass(document, imgLightboxLinkClass) || "";
 			var initScript = function () {
 				imgLightbox(imgLightboxLinkClass, {
@@ -1332,12 +1336,11 @@ Tablesort, throttle, toggleClass, ToProgress, truncString, unescape, VK, Ya*/
 		};
 		manageImgLightbox();
 
-		var iframeLightboxLinkClass = "iframe-lightbox-link";
-
 		/*!
 		 * @see {@link https://github.com/englishextra/iframe-lightbox}
 		 */
 		var manageIframeLightbox = function () {
+			var iframeLightboxLinkClass = "iframe-lightbox-link";
 			var link = getByClass(document, iframeLightboxLinkClass) || "";
 			var initScript = function () {
 				var arrange = function (e) {

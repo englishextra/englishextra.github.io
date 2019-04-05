@@ -4075,7 +4075,8 @@ u,
 	background-color: #d83544;
 }
 
-.page.ui-sidepanel--is-active .btn-toggle-ui-sidepanel.mi-GlobalNavButton:before,
+.page.ui-sidepanel--is-active
+	.btn-toggle-ui-sidepanel.mi-GlobalNavButton:before,
 .page.ui-sidepanel--is-active
 	.btn-toggle-ui-sidepanel.es-mi-GlobalNavButton:before {
 	/* font-family: "micon"; */
@@ -4767,6 +4768,63 @@ u,
 }
 
 .notibar.animated {
+	-webkit-animation-duration: 0.2s;
+	animation-duration: 0.2s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+}
+
+/*!
+ * notifier42
+ * inspired by github.com/mlcheng/js-toast
+ */
+.notifier42 {
+	display: block;
+	opacity: 0;
+	/* width: calc(100% - 6.400rem); */
+	width: 100%;
+	/* min-height: 3.200rem; */
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	font-size: 0.933rem;
+	line-height: 1.333rem;
+	text-align: center;
+	word-break: keep-all;
+	color: rgba(255, 255, 255, 0.9);
+	background-color: rgba(25, 25, 25, 0.9);
+	-webkit-box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
+	padding: 0;
+	margin: 0 auto;
+}
+
+.notifier42.animated {
+	padding: 0.933rem 3.2rem;
+	min-height: 3.2rem;
+}
+
+.notifier42.notice {
+	background-color: rgba(25, 25, 25, 0.9);
+}
+
+.notifier42.warning {
+	background-color: rgba(25, 25, 25, 0.9);
+}
+
+.notifier42.error {
+	background-color: rgba(25, 25, 25, 0.9);
+}
+
+.notifier42.success {
+	background-color: rgba(25, 25, 25, 0.9);
+}
+
+/*!
+ * reset for animate.css
+ * daneden.github.io/animate.css/
+ */
+.notifier42.animated {
 	-webkit-animation-duration: 0.2s;
 	animation-duration: 0.2s;
 	-webkit-animation-fill-mode: both;

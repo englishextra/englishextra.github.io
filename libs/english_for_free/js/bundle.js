@@ -988,10 +988,6 @@ supportsSvgSmilAnimation, throttle, toggleClass, ToProgress, unescape, VK, Ya*/
 		};
 		manageExternalLinkAll();
 
-		var dataSrcImgClass = "data-src-img";
-
-		var dataSrcImgIsBindedClass = "data-src-img--is-binded";
-
 		root.lazyLoadDataSrcImgInstance = null;
 
 		/*!
@@ -1001,6 +997,8 @@ supportsSvgSmilAnimation, throttle, toggleClass, ToProgress, unescape, VK, Ya*/
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
+			var dataSrcImgClass = "data-src-img";
+			var dataSrcImgIsBindedClass = "data-src-img--is-binded";
 			var images = getByClass(document, dataSrcImgClass) || "";
 			var i = images.length;
 			while (i--) {
@@ -1022,10 +1020,6 @@ supportsSvgSmilAnimation, throttle, toggleClass, ToProgress, unescape, VK, Ya*/
 		};
 		manageDataSrcImgAll();
 
-		var dataSrcIframeClass = "data-src-iframe";
-
-		var dataSrcIframeIsBindedClass = "data-src-iframe--is-binded";
-
 		root.lazyLoadDataSrcIframeInstance = null;
 
 		/*!
@@ -1035,6 +1029,8 @@ supportsSvgSmilAnimation, throttle, toggleClass, ToProgress, unescape, VK, Ya*/
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
+			var dataSrcIframeClass = "data-src-iframe";
+			var dataSrcIframeIsBindedClass = "data-src-iframe--is-binded";
 			var iframes = getByClass(document, dataSrcIframeClass) || "";
 			var i = iframes.length;
 			while (i--) {
