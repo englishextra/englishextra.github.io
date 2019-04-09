@@ -2,7 +2,7 @@
 /*jslint node: true */
 /*global ActiveXObject, addClass, addListener, appendFragment, Cookies,
 debounce, DISQUS, doesFontExist, earlySvgSupport, earlySvgasimgSupport,
-earlyHasTouch, earlyDeviceType, earlyDeviceFormfactor,  Draggabilly, findPos,
+earlyHasTouch, earlyDeviceType, earlyDeviceFormfactor, Draggabilly, findPos,
 fixEnRuTypo, forcedHTTP, getByClass, getHumanDate, hasClass, IframeLightbox,
 imgLightbox, isNodejs, isElectron, isNwjs, isValidId, Kamil, LazyLoad,
 loadDeferred, LoadingSpinner, loadJsCss, loadJsonResponse, Masonry,
@@ -1437,8 +1437,7 @@ truncString, unescape, VK, Ya*/
 		 * @see {@link https://github.com/englishextra/iframe-lightbox}
 		 */
 		var manageIframeLightbox = function () {
-			var iframeLightboxLinkClass = "iframe-lightbox-link";
-			var link = getByClass(document, iframeLightboxLinkClass) || "";
+			var link = getByClass(document, "iframe-lightbox-link") || "";
 			var initScript = function () {
 				var arrange = function (e) {
 					e.lightbox = new IframeLightbox(e, {
@@ -1567,31 +1566,27 @@ truncString, unescape, VK, Ya*/
 					var imgTitle = document.title ? ("Ссылка на страницу «" + document.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
 					var imgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(locHref);
 					img.alt = imgTitle;
-					if (root.QRCode) {
-						if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
-							imgSrc = QRCode.generateSVG(locHref, {
-									ecclevel: "M",
-									fillcolor: "#FFFFFF",
-									textcolor: "#191919",
-									margin: 4,
-									modulesize: 8
-								});
-							var XMLS = new XMLSerializer();
-							imgSrc = XMLS.serializeToString(imgSrc);
-							imgSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(imgSrc)));
-							img.src = imgSrc;
-						} else {
-							imgSrc = QRCode.generatePNG(locHref, {
-									ecclevel: "M",
-									format: "html",
-									fillcolor: "#FFFFFF",
-									textcolor: "#191919",
-									margin: 4,
-									modulesize: 8
-								});
-							img.src = imgSrc;
-						}
+					if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
+						imgSrc = QRCode.generateSVG(locHref, {
+								ecclevel: "M",
+								fillcolor: "#FFFFFF",
+								textcolor: "#191919",
+								margin: 4,
+								modulesize: 8
+							});
+						var XMLS = new XMLSerializer();
+						imgSrc = XMLS.serializeToString(imgSrc);
+						imgSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(imgSrc)));
+						img.src = imgSrc;
 					} else {
+						imgSrc = QRCode.generatePNG(locHref, {
+								ecclevel: "M",
+								format: "html",
+								fillcolor: "#FFFFFF",
+								textcolor: "#191919",
+								margin: 4,
+								modulesize: 8
+							});
 						img.src = imgSrc;
 					}
 					addClass(img, "qr-code-img");
@@ -1604,6 +1599,7 @@ truncString, unescape, VK, Ya*/
 				holder &&
 				locHref &&
 				root.getHTTP && root.getHTTP()) {
+
 				initScript();
 			}
 		};

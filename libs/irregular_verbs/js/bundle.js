@@ -1066,6 +1066,7 @@ ToProgress, unescape, VK, Ya*/
 				holder &&
 				locHref &&
 				root.getHTTP && root.getHTTP()) {
+
 				initScript();
 			}
 		};

@@ -1486,8 +1486,7 @@ ToProgress, truncString, unescape, VK, Ya*/
 		 * @see {@link https://github.com/englishextra/iframe-lightbox}
 		 */
 		var manageIframeLightbox = function () {
-			var iframeLightboxLinkClass = "iframe-lightbox-link";
-			var link = getByClass(document, iframeLightboxLinkClass) || "";
+			var link = getByClass(document, "iframe-lightbox-link") || "";
 			var initScript = function () {
 				var arrange = function (e) {
 					e.lightbox = new IframeLightbox(e, {
@@ -2228,10 +2227,13 @@ ToProgress, truncString, unescape, VK, Ya*/
 				};
 				debounce(logic, 200).call(root);
 			};
-			if (btn && holder && locHref) {
-				if (root.getHTTP && root.getHTTP()) {
-					addListener(btn, "click", handleBtn);
-				}
+			if (root.QRCode &&
+				btn &&
+				holder &&
+				locHref &&
+				root.getHTTP && root.getHTTP()) {
+
+				addListener(btn, "click", handleBtn);
 			}
 		};
 		manageLocationQrcode();

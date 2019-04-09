@@ -2,7 +2,7 @@
 /*jslint node: true */
 /*global ActiveXObject, addClass, addListener, appendFragment, Cookies,
 debounce, DISQUS, doesFontExist, earlySvgSupport, earlySvgasimgSupport,
-earlyHasTouch, earlyDeviceType, earlyDeviceFormfactor,  findPos, fixEnRuTypo,
+earlyHasTouch, earlyDeviceType, earlyDeviceFormfactor, findPos, fixEnRuTypo,
 forcedHTTP, getByClass, getHumanDate, hasClass, IframeLightbox, imgLightbox,
 includeHTMLintoTarget, insertExternalHTML, insertTextAsFragment, isNodejs,
 isElectron, isNwjs, isValidId, Kamil, LazyLoad, loadDeferred,
@@ -1679,8 +1679,7 @@ unescape, VK, Ya, ymaps*/
 		 * @see {@link https://github.com/englishextra/iframe-lightbox}
 		 */
 		var manageIframeLightbox = function () {
-			var iframeLightboxLinkClass = "iframe-lightbox-link";
-			var link = getByClass(document, iframeLightboxLinkClass) || "";
+			var link = getByClass(document, "iframe-lightbox-link") || "";
 			var initScript = function () {
 				var arrange = function (e) {
 					e.lightbox = new IframeLightbox(e, {

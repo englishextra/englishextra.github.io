@@ -1,7 +1,7 @@
 /*jslint browser: true */
 /*jslint node: true */
 /*global doesFontExist, earlySvgSupport, earlySvgasimgSupport, earlyHasTouch,
-earlyDeviceType, earlyDeviceFormfactor,  prependFragmentBefore, getHumanDate,
+earlyDeviceType, earlyDeviceFormfactor, prependFragmentBefore, getHumanDate,
 isNodejs, isElectron, supportsPassive, supportsSvgSmilAnimation,
 supportsCanvas, needsPolyfills, forcedHTTP, openDeviceBrowser, isNwjs,
 appendFragment, removeChildren, setDisplayBlock, setDisplayNone, debounce,
@@ -1016,6 +1016,7 @@ unescape, VK, Ya*/
 				holder &&
 				locHref &&
 				root.getHTTP && root.getHTTP()) {
+
 				initScript();
 			}
 		};

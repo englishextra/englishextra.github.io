@@ -920,31 +920,27 @@ supportsSvgSmilAnimation, toggleClass, ToProgress, unescape, VK, Ya*/
 					var imgTitle = document.title ? ("Ссылка на страницу «" + document.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
 					var imgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(locHref);
 					img.alt = imgTitle;
-					if (root.QRCode) {
-						if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
-							imgSrc = QRCode.generateSVG(locHref, {
-									ecclevel: "M",
-									fillcolor: "#FFFFFF",
-									textcolor: "#191919",
-									margin: 4,
-									modulesize: 8
-								});
-							var XMLS = new XMLSerializer();
-							imgSrc = XMLS.serializeToString(imgSrc);
-							imgSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(imgSrc)));
-							img.src = imgSrc;
-						} else {
-							imgSrc = QRCode.generatePNG(locHref, {
-									ecclevel: "M",
-									format: "html",
-									fillcolor: "#FFFFFF",
-									textcolor: "#191919",
-									margin: 4,
-									modulesize: 8
-								});
-							img.src = imgSrc;
-						}
+					if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
+						imgSrc = QRCode.generateSVG(locHref, {
+								ecclevel: "M",
+								fillcolor: "#FFFFFF",
+								textcolor: "#191919",
+								margin: 4,
+								modulesize: 8
+							});
+						var XMLS = new XMLSerializer();
+						imgSrc = XMLS.serializeToString(imgSrc);
+						imgSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(imgSrc)));
+						img.src = imgSrc;
 					} else {
+						imgSrc = QRCode.generatePNG(locHref, {
+								ecclevel: "M",
+								format: "html",
+								fillcolor: "#FFFFFF",
+								textcolor: "#191919",
+								margin: 4,
+								modulesize: 8
+							});
 						img.src = imgSrc;
 					}
 					addClass(img, "qr-code-img");
@@ -957,6 +953,7 @@ supportsSvgSmilAnimation, toggleClass, ToProgress, unescape, VK, Ya*/
 				holder &&
 				locHref &&
 				root.getHTTP && root.getHTTP()) {
+
 				initScript();
 			}
 		};

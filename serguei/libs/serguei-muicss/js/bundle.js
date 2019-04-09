@@ -1217,8 +1217,7 @@ WheelIndicator, Ya*/
 		 * @see {@link https://github.com/englishextra/iframe-lightbox}
 		 */
 		var manageIframeLightbox = function () {
-			var iframeLightboxLinkClass = "iframe-lightbox-link";
-			var link = getByClass(document, iframeLightboxLinkClass) || "";
+			var link = getByClass(document, "iframe-lightbox-link") || "";
 			var initScript = function () {
 				var arrange = function (e) {
 					e.lightbox = new IframeLightbox(e, {
@@ -1246,13 +1245,11 @@ WheelIndicator, Ya*/
 			}
 		};
 
-		var dataQrcodeImgClass = "data-qrcode-img";
-
 		var manageDataQrcodeImgAll = function (callback) {
 			var cb = function () {
 				return callback && "function" === typeof callback && callback();
 			};
-			var img = getByClass(document, dataQrcodeImgClass) || "";
+			var img = getByClass(document, "data-qrcode-img") || "";
 			var generateImg = function (e) {
 				var qrcode = e.dataset.qrcode || "";
 				qrcode = decodeURIComponent(qrcode);
