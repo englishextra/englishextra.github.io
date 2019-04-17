@@ -2,10 +2,11 @@
 /*jslint node: true */
 /*global addClass, addListener, debounce, doesFontExist, earlySvgSupport,
 earlySvgasimgSupport, earlyHasTouch, earlyDeviceType, earlyDeviceFormfactor,
-forcedHTTP, getByClass, getHumanDate, hasClass, hasTouch, isNodejs,
-isElectron, isNwjs, loadDeferred, loadJsCss, needsPolyfills,
-openDeviceBrowser, parseLink, QRCode, removeClass, require, supportsCanvas,
-supportsPassive, supportsSvgSmilAnimation, ToProgress, unescape, WebSlides*/
+forcedHTTP, getByClass, getHumanDate, hasTouch, isNodejs, isElectron, isNwjs,
+loadDeferred, loadJsCss, manageDataQrcodeImgAll, manageExternalLinkAll,
+needsPolyfills, openDeviceBrowser, parseLink, QRCode, removeClass, require,
+supportsCanvas, supportsPassive, supportsSvgSmilAnimation, ToProgress,
+unescape, WebSlides*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -126,7 +127,7 @@ supportsPassive, supportsSvgSmilAnimation, ToProgress, unescape, WebSlides*/
 	 * Does not handle differences in the Event-objects.
 	 * @see {@link https://github.com/finn-no/eventlistener}
 	 */
-	var wrapListener = function (standard, fallback) {
+	var setListener = function (standard, fallback) {
 		return function (el, type, listener, useCapture) {
 			if (el[standard]) {
 				el[standard](type, listener, useCapture);
@@ -137,8 +138,8 @@ supportsPassive, supportsSvgSmilAnimation, ToProgress, unescape, WebSlides*/
 			}
 		};
 	};
-	root.addListener = wrapListener("addEventListener", "attachEvent");
-	root.removeListener = wrapListener("removeEventListener", "detachEvent");
+	root.addListener = setListener("addEventListener", "attachEvent");
+	root.removeListener = setListener("removeEventListener", "detachEvent");
 
 	/*!
 	 * get elements by class name wrapper
@@ -551,6 +552,100 @@ supportsPassive, supportsSvgSmilAnimation, ToProgress, unescape, WebSlides*/
 	})();
 
 	/*!
+	 * manageExternalLinkAll
+	 */
+	root.manageExternalLinkAll = function () {
+		var link = document.getElementsByTagName("a") || "";
+		var arrange = function (e) {
+			var handleLink = function (url, ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var logic = function () {
+					openDeviceBrowser(url);
+				};
+				debounce(logic, 200).call(root);
+			};
+			var externalLinkIsBindedClass = "external-link--is-binded";
+			if (!hasClass(e, externalLinkIsBindedClass)) {
+				var url = e.getAttribute("href") || "";
+				if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+					e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+					if (root.getHTTP && root.getHTTP()) {
+						e.target = "_blank";
+						e.rel = "noopener";
+					} else {
+						addListener(e, "click", handleLink.bind(null, url));
+					}
+					addClass(e, externalLinkIsBindedClass);
+				}
+			}
+		};
+		if (link) {
+			var i,
+			l;
+			for (i = 0, l = link.length; i < l; i += 1) {
+				arrange(link[i]);
+			}
+			i = l = null;
+		}
+	};
+
+	/*!
+	 * manageDataQrcodeImgAll
+	 */
+	root.manageDataQrcodeImgAll = function (callback) {
+		var cb = function () {
+			return callback && "function" === typeof callback && callback();
+		};
+		var img = getByClass(document, "data-qrcode-img") || "";
+		var generateImg = function (e) {
+			var qrcode = e.dataset.qrcode || "";
+			qrcode = decodeURIComponent(qrcode);
+			if (qrcode) {
+				var imgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(qrcode);
+				e.title = qrcode;
+				e.alt = qrcode;
+				if (root.QRCode) {
+					if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
+						imgSrc = QRCode.generateSVG(qrcode, {
+								ecclevel: "M",
+								fillcolor: "#F3F3F3",
+								textcolor: "#191919",
+								margin: 4,
+								modulesize: 8
+							});
+						var XMLS = new XMLSerializer();
+						imgSrc = XMLS.serializeToString(imgSrc);
+						imgSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(imgSrc)));
+						e.src = imgSrc;
+					} else {
+						imgSrc = QRCode.generatePNG(qrcode, {
+								ecclevel: "M",
+								format: "html",
+								fillcolor: "#F3F3F3",
+								textcolor: "#191919",
+								margin: 4,
+								modulesize: 8
+							});
+						e.src = imgSrc;
+					}
+				} else {
+					e.src = imgSrc;
+				}
+				cb();
+			}
+		};
+		if (img) {
+			var i,
+			l;
+			for (i = 0, l = img.length; i < l; i += 1) {
+				generateImg(img[i]);
+			}
+			i = l = null;
+		}
+	};
+
+	/*!
 	 * modified Detect Whether a Font is Installed
 	 * @param {String} fontName The name of the font to check
 	 * @return {Boolean}
@@ -822,110 +917,24 @@ supportsPassive, supportsSvgSmilAnimation, ToProgress, unescape, WebSlides*/
 			document.title = document.title + userBrowser;
 		}
 
-		var manageExternalLinkAll = function () {
-			var link = document.getElementsByTagName("a") || "";
-			var arrange = function (e) {
-				var handle = function (url, ev) {
-					ev.stopPropagation();
-					ev.preventDefault();
-					var logic = function () {
-						openDeviceBrowser(url);
-					};
-					debounce(logic, 200).call(root);
-				};
-				var externalLinkIsBindedClass = "external-link--is-binded";
-				if (!hasClass(e, externalLinkIsBindedClass)) {
-					var url = e.getAttribute("href") || "";
-					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
-						if (root.getHTTP && root.getHTTP()) {
-							e.target = "_blank";
-							e.rel = "noopener";
-						} else {
-							addListener(e, "click", handle.bind(null, url));
-						}
-						addClass(e, externalLinkIsBindedClass);
-					}
-				}
-			};
-			if (link) {
-				var i,
-				l;
-				for (i = 0, l = link.length; i < l; i += 1) {
-					arrange(link[i]);
-				}
-				i = l = null;
-			}
-		};
 		manageExternalLinkAll();
 
-		var manageDataQrcodeImgAll = function () {
-			var img = getByClass(document, "data-qrcode-img") || "";
-			var generateImg = function (e) {
-				var qrcode = e.dataset.qrcode || "";
-				qrcode = decodeURIComponent(qrcode);
-				if (qrcode) {
-					var imgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(qrcode);
-					e.title = qrcode;
-					e.alt = qrcode;
-					if (root.QRCode) {
-						if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
-							imgSrc = QRCode.generateSVG(qrcode, {
-									ecclevel: "M",
-									fillcolor: "#F3F3F3",
-									textcolor: "#191919",
-									margin: 4,
-									modulesize: 8
-								});
-							var XMLS = new XMLSerializer();
-							imgSrc = XMLS.serializeToString(imgSrc);
-							imgSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(imgSrc)));
-							e.src = imgSrc;
-						} else {
-							imgSrc = QRCode.generatePNG(qrcode, {
-									ecclevel: "M",
-									format: "html",
-									fillcolor: "#F3F3F3",
-									textcolor: "#191919",
-									margin: 4,
-									modulesize: 8
-								});
-							e.src = imgSrc;
-						}
-					} else {
-						e.src = imgSrc;
-					}
-				}
-			};
-			var initScript = function () {
-				var i,
-				l;
-				for (i = 0, l = img.length; i < l; i += 1) {
-					generateImg(img[i]);
-				}
-				i = l = null;
-			};
-			if (root.QRCode && img) {
-				initScript();
-			}
-		};
 		manageDataQrcodeImgAll();
-		/* addListener(root, "load", manageDataQrcodeImgAll); */
 
 		var smallScreen = root.matchMedia("all and (max-width:768px)");
 
+		/*!
+		 * autoslide: number or boolean false Amount of milliseconds to wait to go to next slide automatically.
+		 * changeOnClick: boolean false If true, clicking on the page will go to the next slide unless it's a clickable element. See ClickToNav docs for more info.
+		 * loop: boolean true Lets WebSlides loop the slides so once it reaches the end, going next will make it go to the first slide.
+		 * minWheelDelta: number 40 Controls the amount of scroll needed to trigger a navigation. Lower this number to decrease the scroll resistance.
+		 * navigateOnScroll: number 40 Whether scroll can trigger navigation or not.
+		 * scrollWait: number 450 Controls the amount of time needed to wait for a scroll transition to happen again.
+		 * slideOffset: number 50 Amount of sliding needed to trigger a new navigation.
+		 * showIndex: boolean true Controls if the index can be shown.
+		 */
 		var initWebSlides = function () {
-			var initScript = function () {
-				/*!
-				 * autoslide: number or boolean false Amount of milliseconds to wait to go to next slide automatically.
-				 * changeOnClick: boolean false If true, clicking on the page will go to the next slide unless it's a clickable element. See ClickToNav docs for more info.
-				 * loop: boolean true Lets WebSlides loop the slides so once it reaches the end, going next will make it go to the first slide.
-				 * minWheelDelta: number 40 Controls the amount of scroll needed to trigger a navigation. Lower this number to decrease the scroll resistance.
-				 * navigateOnScroll: number 40 Whether scroll can trigger navigation or not.
-				 * scrollWait: number 450 Controls the amount of time needed to wait for a scroll transition to happen again.
-				 * slideOffset: number 50 Amount of sliding needed to trigger a new navigation.
-				 * showIndex: boolean true Controls if the index can be shown.
-				 */
+			if (root.WebSlides && "undefined" !== root.jQuery && !smallScreen.matches && !hasTouch) {
 				root.ws = new WebSlides({
 						autoslide: true,
 						changeOnClick: false,
@@ -936,9 +945,6 @@ supportsPassive, supportsSvgSmilAnimation, ToProgress, unescape, WebSlides*/
 						slideOffset: 50,
 						showIndex: true
 					});
-			};
-			if (root.WebSlides && "undefined" !== root.jQuery && !smallScreen.matches && !hasTouch) {
-				initScript();
 			}
 		};
 		initWebSlides();

@@ -1,17 +1,21 @@
 /*jslint browser: true */
 /*jslint node: true */
 /*global ActiveXObject, addClass, addListener, appendFragment, Cookies,
-debounce, DISQUS, doesFontExist, earlySvgSupport, earlySvgasimgSupport,
-earlyHasTouch, earlyDeviceType, earlyDeviceFormfactor, Draggabilly, findPos,
-fixEnRuTypo, forcedHTTP, getByClass, getHumanDate, hasClass, IframeLightbox,
-imgLightbox, isNodejs, isElectron, isNwjs, isValidId, Kamil, LazyLoad,
-loadDeferred, LoadingSpinner, loadJsCss, loadJsonResponse, Masonry,
-needsPolyfills, Notifier42, openDeviceBrowser, Packery, parseLink,
-prependFragmentBefore, prettyPrint, QRCode, removeChildren, removeClass,
-removeElement, removeListener, require, safelyParseJSON, scroll2Top,
-setDisplayBlock, setDisplayNone, supportsCanvas, supportsPassive,
-supportsSvgSmilAnimation, Tablesort, throttle, toggleClass, ToProgress,
-truncString, unescape, VK, Ya*/
+dataSrcIframeClass, dataSrcImgClass, debounce, DISQUS, doesFontExist,
+earlySvgSupport, earlySvgasimgSupport, earlyHasTouch, earlyDeviceType,
+earlyDeviceFormfactor, Draggabilly, findPos, fixEnRuTypo, forcedHTTP,
+getByClass, getHumanDate, hasClass, IframeLightbox, imgLightbox, isNodejs,
+isElectron, isNwjs, isValidId, Kamil, LazyLoad, loadDeferred, LoadingSpinner,
+loadJsCss, loadJsonResponse, manageChaptersSelect, manageImgLightbox,
+manageIframeLightbox, manageExpandingLayerAll, manageExternalLinkAll,
+manageDataSrcImgAll, manageDataSrcIframeAll, manageLocationQrcode,
+mangePrettyPrint, manageSearchInput, manageSourceCodeLayers, manageTablesort,
+needsPolyfills, Masonry, needsPolyfills, Notifier42, openDeviceBrowser,
+Packery, parseLink, prependFragmentBefore, prettyPrint, QRCode,
+removeChildren, removeClass, removeElement, removeListener, require,
+safelyParseJSON, scroll2Top, setDisplayBlock, setDisplayNone, supportsCanvas,
+supportsPassive, supportsSvgSmilAnimation, Tablesort, throttle, toggleClass,
+ToProgress, truncString, unescape, VK, Ya*/
 /*property console, join, split */
 /*!
  * safe way to handle console.log
@@ -127,7 +131,7 @@ truncString, unescape, VK, Ya*/
 	 * Does not handle differences in the Event-objects.
 	 * @see {@link https://github.com/finn-no/eventlistener}
 	 */
-	var wrapListener = function (standard, fallback) {
+	var setListener = function (standard, fallback) {
 		return function (el, type, listener, useCapture) {
 			if (el[standard]) {
 				el[standard](type, listener, useCapture);
@@ -138,8 +142,8 @@ truncString, unescape, VK, Ya*/
 			}
 		};
 	};
-	root.addListener = wrapListener("addEventListener", "attachEvent");
-	root.removeListener = wrapListener("removeEventListener", "detachEvent");
+	root.addListener = setListener("addEventListener", "attachEvent");
+	root.removeListener = setListener("removeEventListener", "detachEvent");
 
 	/*!
 	 * get elements by class name wrapper
@@ -832,6 +836,382 @@ truncString, unescape, VK, Ya*/
 	})();
 
 	/*!
+	 * manageExternalLinkAll
+	 */
+	root.manageExternalLinkAll = function () {
+		var link = document.getElementsByTagName("a") || "";
+		var arrange = function (e) {
+			var handleLink = function (url, ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var logic = function () {
+					openDeviceBrowser(url);
+				};
+				debounce(logic, 200).call(root);
+			};
+			var externalLinkIsBindedClass = "external-link--is-binded";
+			if (!hasClass(e, externalLinkIsBindedClass)) {
+				var url = e.getAttribute("href") || "";
+				if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+					e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+					if (root.getHTTP && root.getHTTP()) {
+						e.target = "_blank";
+						e.rel = "noopener";
+					} else {
+						addListener(e, "click", handleLink.bind(null, url));
+					}
+					addClass(e, externalLinkIsBindedClass);
+				}
+			}
+		};
+		if (link) {
+			var i,
+			l;
+			for (i = 0, l = link.length; i < l; i += 1) {
+				arrange(link[i]);
+			}
+			i = l = null;
+		}
+	};
+
+	/*!
+	 * manageDataSrcImgAll
+	 * @see {@link https://github.com/verlok/lazyload}
+	 */
+	root.dataSrcImgClass = "data-src-img";
+
+	root.lazyLoadDataSrcImgInstance = null;
+	root.manageDataSrcImgAll = function (callback) {
+		var cb = function () {
+			return callback && "function" === typeof callback && callback();
+		};
+		var isActiveClass = "is-active";
+		var dataSrcImgIsBindedClass = "data-src-img--is-binded";
+		var images = getByClass(document, dataSrcImgClass) || "";
+		var i = images.length;
+		while (i--) {
+			if (!hasClass(images[i], dataSrcImgIsBindedClass)) {
+				addClass(images[i], dataSrcImgIsBindedClass);
+				addClass(images[i], isActiveClass);
+				addListener(images[i], "load", cb);
+			}
+		}
+		i = null;
+		if (root.LazyLoad) {
+			if (root.lazyLoadDataSrcImgInstance) {
+				root.lazyLoadDataSrcImgInstance.destroy();
+			}
+			root.lazyLoadDataSrcImgInstance = new LazyLoad({
+					elements_selector: "." + dataSrcImgClass
+				});
+		}
+	};
+
+	/*!
+	 * manageDataSrcIframeAll
+	 * @see {@link https://github.com/verlok/lazyload}
+	 */
+	root.dataSrcIframeClass = "data-src-iframe";
+
+	root.lazyLoadDataSrcIframeInstance = null;
+	root.manageDataSrcIframeAll = function (callback) {
+		var cb = function () {
+			return callback && "function" === typeof callback && callback();
+		};
+		var isActiveClass = "is-active";
+		var dataSrcIframeIsBindedClass = "data-src-iframe--is-binded";
+		var iframes = getByClass(document, dataSrcIframeClass) || "";
+		var i = iframes.length;
+		while (i--) {
+			if (!hasClass(iframes[i], dataSrcIframeIsBindedClass)) {
+				addClass(iframes[i], dataSrcIframeIsBindedClass);
+				addClass(iframes[i], isActiveClass);
+				addListener(iframes[i], "load", cb);
+				iframes[i].setAttribute("frameborder", "no");
+				iframes[i].setAttribute("style", "border:none;");
+				iframes[i].setAttribute("webkitallowfullscreen", "true");
+				iframes[i].setAttribute("mozallowfullscreen", "true");
+				iframes[i].setAttribute("scrolling", "no");
+				iframes[i].setAttribute("allowfullscreen", "true");
+			}
+		}
+		i = null;
+		if (root.LazyLoad) {
+			if (root.lazyLoadDataSrcIframeInstance) {
+				root.lazyLoadDataSrcIframeInstance.destroy();
+			}
+			root.lazyLoadDataSrcIframeInstance = new LazyLoad({
+					elements_selector: "." + dataSrcIframeClass
+				});
+		}
+	};
+
+	/*!
+	 * manageImgLightbox
+	 * @see {@link https://github.com/englishextra/img-lightbox}
+	 */
+	root.manageImgLightbox = function () {
+		var imgLightboxLinkClass = "img-lightbox-link";
+		var link = getByClass(document, imgLightboxLinkClass) || "";
+		var initScript = function () {
+			imgLightbox(imgLightboxLinkClass, {
+				onLoaded: function () {
+					LoadingSpinner.hide();
+				},
+				onClosed: function () {
+					LoadingSpinner.hide();
+				},
+				onCreated: function () {
+					LoadingSpinner.show();
+				},
+				touch: false
+			});
+		};
+		if (root.imgLightbox && link) {
+			initScript();
+		}
+	};
+
+	/*!
+	 * manageIframeLightbox
+	 * @see {@link https://github.com/englishextra/iframe-lightbox}
+	 */
+	root.manageIframeLightbox = function () {
+		var link = getByClass(document, "iframe-lightbox-link") || "";
+		var initScript = function () {
+			var arrange = function (e) {
+				e.lightbox = new IframeLightbox(e, {
+						onLoaded: function () {
+							LoadingSpinner.hide();
+						},
+						onClosed: function () {
+							LoadingSpinner.hide();
+						},
+						onOpened: function () {
+							LoadingSpinner.show();
+						},
+						touch: false
+					});
+			};
+			var i,
+			l;
+			for (i = 0, l = link.length; i < l; i += 1) {
+				arrange(link[i]);
+			}
+			i = l = null;
+		};
+		if (root.IframeLightbox && link) {
+			initScript();
+		}
+	};
+
+	/*!
+	 * manageLocationQrcode
+	 */
+	root.manageLocationQrcode = function () {
+		var holder = getByClass(document, "holder-location-qrcode")[0] || "";
+		var locHref = root.location.href || "";
+		var initScript = function () {
+			var locHref = root.location.href || "";
+			var img = document.createElement("img");
+			var imgTitle = document.title ? ("Ссылка на страницу «" + document.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
+			var imgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(locHref);
+			img.alt = imgTitle;
+			if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
+				imgSrc = QRCode.generateSVG(locHref, {
+						ecclevel: "M",
+						fillcolor: "#FFFFFF",
+						textcolor: "#191919",
+						margin: 4,
+						modulesize: 8
+					});
+				var XMLS = new XMLSerializer();
+				imgSrc = XMLS.serializeToString(imgSrc);
+				imgSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(imgSrc)));
+				img.src = imgSrc;
+			} else {
+				imgSrc = QRCode.generatePNG(locHref, {
+						ecclevel: "M",
+						format: "html",
+						fillcolor: "#FFFFFF",
+						textcolor: "#191919",
+						margin: 4,
+						modulesize: 8
+					});
+				img.src = imgSrc;
+			}
+			addClass(img, "qr-code-img");
+			img.title = imgTitle;
+			removeChildren(holder);
+			appendFragment(img, holder);
+		};
+		if (root.QRCode &&
+			holder &&
+			locHref &&
+			root.getHTTP && root.getHTTP()) {
+
+			initScript();
+		}
+	};
+
+	/*!
+	 * manageExpandingLayerAll
+	 */
+	root.manageExpandingLayerAll = function (callback) {
+		var cb = function () {
+			return callback && "function" === typeof callback && callback();
+		};
+		var btn = getByClass(document, "btn-expand-hidden-layer") || "";
+		var isActiveClass = "is-active";
+		var isBindedClass = "is-binded";
+		var arrange = function (e) {
+			var handle = function () {
+				var _this = this;
+				var layer = _this.parentNode ? _this.parentNode.nextElementSibling : "";
+				if (layer) {
+					toggleClass(_this, isActiveClass);
+					toggleClass(layer, isActiveClass);
+					cb();
+				}
+				return;
+			};
+			if (!hasClass(e, isBindedClass)) {
+				addListener(e, "click", handle);
+				addClass(e, isBindedClass);
+			}
+		};
+		if (btn) {
+			var i,
+			l;
+			for (i = 0, l = btn.length; i < l; i += 1) {
+				arrange(btn[i]);
+			}
+			i = l = null;
+		}
+	};
+
+	/*!
+	 * manageSourceCodeLayers
+	 */
+	root.manageSourceCodeLayers = function (callback) {
+		var cb = function () {
+			return callback && "function" === typeof callback && callback();
+		};
+		var btn = getByClass(document, "sg-btn--source") || "";
+		var isActiveClass = "is-active";
+		var isBindedClass = "is-binded";
+		var arrange = function (e) {
+			var handle = function () {
+				var _this = this;
+				var layer = _this.parentNode ? _this.parentNode.nextElementSibling : "";
+				if (layer) {
+					toggleClass(_this, isActiveClass);
+					toggleClass(layer, isActiveClass);
+					cb();
+				}
+				return;
+			};
+			if (!hasClass(e, isBindedClass)) {
+				addListener(e, "click", handle);
+				addClass(e, isBindedClass);
+			}
+		};
+		if (btn) {
+			var i,
+			l;
+			for (i = 0, l = btn.length; i < l; i += 1) {
+				arrange(btn[i]);
+			}
+			i = l = null;
+		}
+	};
+
+	/*!
+	 * manageSearchInput
+	 */
+	root.manageSearchInput = function () {
+		var text = document.getElementById("text") || "";
+		var handle = function () {
+			var _this = this;
+			var logic = function () {
+				_this.value = _this.value.replace(/\\/g, "").replace(/ +(?= )/g, " ").replace(/\/+(?=\/)/g, "/") || "";
+			};
+			debounce(logic, 200).call(root);
+		};
+		if (text) {
+			text.focus();
+			addListener(text, "input", handle);
+		}
+	};
+
+	/*!
+	 * manageChaptersSelect
+	 */
+	root.manageChaptersSelect = function () {
+		var chaptersSelect = document.getElementById("chapters-select") || "";
+		var handleChaptersSelect = function () {
+			var _this = this;
+			var hashString = _this.options[_this.selectedIndex].value || "";
+			if (hashString) {
+				var targetObj = hashString ?
+				(isValidId(hashString, true) ? document.getElementById(hashString.replace(/^#/, "")) || "" : "")
+				: "";
+				if (targetObj) {
+					scroll2Top((targetObj ? findPos(targetObj).top : 0), 20000);
+				} else {
+					root.location.href = hashString;
+				}
+			}
+		};
+		if (chaptersSelect) {
+			addListener(chaptersSelect, "change", handleChaptersSelect);
+		}
+	};
+
+	/*!
+	 * mangePrettyPrint
+	 */
+	root.mangePrettyPrint = function () {
+		var pre = getByClass(document, "prettyprint")[0] || "";
+		if (root.prettyPrint && pre) {
+			prettyPrint();
+		}
+	};
+
+	/*!
+	 * manageExpandingLayerAll
+	 */
+	root.manageTablesort = function () {
+		var tableSort = getByClass(document, "table-sort") || "";
+		var initScript = function () {
+			var arrange = function (e) {
+				var tableId = e.id || "";
+				if (tableId) {
+					var table = document.getElementById(tableId) || "";
+					var caption = table ? table.getElementsByTagName("caption")[0] || "" : "";
+					if (!caption) {
+						var tableCaption = document.createElement("caption");
+						prependFragmentBefore(tableCaption, table.firstChild);
+						caption = table.firstChild;
+					}
+					appendFragment("Сортируемая таблица", caption);
+					var tblsort;
+					tblsort = new Tablesort(table);
+				}
+			};
+			var i,
+			l;
+			for (i = 0, l = tableSort.length; i < l; i += 1) {
+				arrange(tableSort[i]);
+			}
+			i = l = null;
+		};
+		if (root.Tablesort && tableSort) {
+			initScript();
+		}
+	};
+
+	/*!
 	 * LoadingSpinner
 	 */
 	root.LoadingSpinner = (function () {
@@ -1138,472 +1518,29 @@ truncString, unescape, VK, Ya*/
 			document.title = document.title + userBrowser;
 		}
 
-		var manageExternalLinkAll = function () {
-			var link = document.getElementsByTagName("a") || "";
-			var arrange = function (e) {
-				var handle = function (url, ev) {
-					ev.stopPropagation();
-					ev.preventDefault();
-					var logic = function () {
-						openDeviceBrowser(url);
-					};
-					debounce(logic, 200).call(root);
-				};
-				var externalLinkIsBindedClass = "external-link--is-binded";
-				if (!hasClass(e, externalLinkIsBindedClass)) {
-					var url = e.getAttribute("href") || "";
-					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
-						if (root.getHTTP && root.getHTTP()) {
-							e.target = "_blank";
-							e.rel = "noopener";
-						} else {
-							addListener(e, "click", handle.bind(null, url));
-						}
-						addClass(e, externalLinkIsBindedClass);
-					}
-				}
-			};
-			if (link) {
-				var i,
-				l;
-				for (i = 0, l = link.length; i < l; i += 1) {
-					arrange(link[i]);
-				}
-				i = l = null;
-			}
-		};
 		manageExternalLinkAll();
 
-		var notifyWriteComment = function () {
-			if (root.getHTTP && !root.getHTTP()) {
-				return;
-			}
-			var cookieKey = "_notifier42_write_comment_";
-			var msgText = "Напишите, что понравилось, а что нет. Регистрироваться не нужно.";
-			var locOrigin = parseLink(root.location.href).origin;
-			var showMsg = function () {
-				var msgObj = document.createElement("a");
-				/* jshint -W107 */
-				msgObj.href = "javascript:void(0);";
-				/* jshint +W107 */
-				appendFragment(msgText, msgObj);
-				var handleMsgObj = function (ev) {
-					ev.stopPropagation();
-					ev.preventDefault();
-					removeListener(msgObj, "click", handleMsgObj);
-					var targetObj = document.getElementById("disqus_thread") || "";
-					scroll2Top((targetObj ? findPos(targetObj).top : 0), 20000);
-				};
-				addListener(msgObj, "click", handleMsgObj);
-				var nf42;
-				nf42 = new Notifier42(msgObj, 8000);
-				Cookies.set(cookieKey, msgText);
-			};
-			if (!Cookies.get(cookieKey) && locOrigin) {
-				var timer = setTimeout(function () {
-					clearTimeout(timer);
-					timer = null;
-					showMsg();
-				}, 16000);
-			}
-		};
-		notifyWriteComment();
-
-		var manageTablesort = function () {
-			var tableSort = getByClass(document, "table-sort") || "";
-			var initScript = function () {
-				var arrange = function (e) {
-					var tableId = e.id || "";
-					if (tableId) {
-						var table = document.getElementById(tableId) || "";
-						var caption = table ? table.getElementsByTagName("caption")[0] || "" : "";
-						if (!caption) {
-							var tableCaption = document.createElement("caption");
-							prependFragmentBefore(tableCaption, table.firstChild);
-							caption = table.firstChild;
-						}
-						appendFragment("Сортируемая таблица", caption);
-						var tblsort;
-						tblsort = new Tablesort(table);
-					}
-				};
-				var i,
-				l;
-				for (i = 0, l = tableSort.length; i < l; i += 1) {
-					arrange(tableSort[i]);
-				}
-				i = l = null;
-			};
-			if (root.Tablesort && tableSort) {
-				initScript();
-			}
-		};
-		manageTablesort();
-
-		root.draggabillyInstance = null;
-		root.masonryInstance = null;
-		root.packeryInstance = null;
-		var initAllMasonry = function () {
-			var gridItemSelector = ".masonry-grid-item";
-			var gridSizerSelector = ".masonry-grid-sizer";
-			var grid = getByClass(document, "masonry-grid") || "";
-			var gridItem = getByClass(document, "masonry-grid-item") || "";
-			var initScript = function () {
-				if (root.Masonry) {
-					if (root.masonryInstance) {
-						root.masonryInstance.destroy();
-					}
-					var initMsnry = function (e) {
-						root.masonryInstance = new Masonry(e, {
-								itemSelector: gridItemSelector,
-								columnWidth: gridSizerSelector,
-								gutter: 0
-							});
-					};
-					var i,
-					l;
-					for (i = 0, l = grid.length; i < l; i += 1) {
-						initMsnry(grid[i]);
-					}
-					i = l = null;
-				} else {
-					if (root.Packery) {
-						if (root.packeryInstance) {
-							root.packeryInstance.destroy();
-						}
-						var initPckry = function (e) {
-							root.packeryInstance = new Packery(e, {
-									itemSelector: gridItemSelector,
-									columnWidth: gridSizerSelector,
-									gutter: 0,
-									percentPosition: true
-								});
-						};
-						var j,
-						m;
-						for (j = 0, m = grid.length; j < m; j += 1) {
-							initPckry(grid[j]);
-						}
-						j = m = null;
-						if (root.Draggabilly) {
-							var draggies = [];
-							var initDraggie = function (e) {
-								var draggableElem = e;
-								root.draggabillyInstance = new Draggabilly(draggableElem, {});
-								draggies.push(root.draggabillyInstance);
-							};
-							var k,
-							n;
-							for (k = 0, n = gridItem.length; k < n; k += 1) {
-								initDraggie(gridItem[k]);
-							}
-							k = n = null;
-							if (root.packeryInstance) {
-								root.packeryInstance.bindDraggabillyEvents(root.draggabillyInstance);
-							}
-						}
-					}
-				}
-				var timer = setTimeout(function () {
-					clearTimeout(timer);
-					timer = null;
-					if (root.masonryInstance) {
-						root.masonryInstance.layout();
-					} else {
-						if (root.packeryInstance) {
-							root.packeryInstance.layout();
-						}
-					}
-				}, 500);
-			};
-			if (grid && gridItem) {
-				/* var jsUrl = "../../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
-				/* var jsUrl = "../../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js"; */
-				/* var jsUrl = "../../cdn/packery/2.1.1/js/packery.pkgd.fixed.js"; */
-				initScript();
-			}
-		};
-		initAllMasonry();
-
-		var initPrettyPrint = function () {
-			var pre = getByClass(document, "prettyprint")[0] || "";
-			var initScript = function () {
-				prettyPrint();
-			};
-			if (root.prettyPrint && pre) {
-				initScript();
-			}
-		};
-		initPrettyPrint();
-
-		root.lazyLoadDataSrcImgInstance = null;
-
-		/*!
-		 * @see {@link https://github.com/verlok/lazyload}
-		 */
-		var manageDataSrcImgAll = function (callback) {
-			var cb = function () {
-				return callback && "function" === typeof callback && callback();
-			};
-			var dataSrcImgClass = "data-src-img";
-			var dataSrcImgIsBindedClass = "data-src-img--is-binded";
-			var images = getByClass(document, dataSrcImgClass) || "";
-			var i = images.length;
-			while (i--) {
-				if (!hasClass(images[i], dataSrcImgIsBindedClass)) {
-					addClass(images[i], dataSrcImgIsBindedClass);
-					addClass(images[i], isActiveClass);
-					addListener(images[i], "load", cb);
-				}
-			}
-			i = null;
-			if (root.LazyLoad) {
-				if (root.lazyLoadDataSrcImgInstance) {
-					root.lazyLoadDataSrcImgInstance.destroy();
-				}
-				root.lazyLoadDataSrcImgInstance = new LazyLoad({
-						elements_selector: "." + dataSrcImgClass
-					});
-			}
-		};
 		manageDataSrcImgAll();
 
-		root.lazyLoadDataSrcIframeInstance = null;
-
-		/*!
-		 * @see {@link https://github.com/verlok/lazyload}
-		 */
-		var manageDataSrcIframeAll = function (callback) {
-			var cb = function () {
-				return callback && "function" === typeof callback && callback();
-			};
-			var dataSrcIframeClass = "data-src-iframe";
-			var dataSrcIframeIsBindedClass = "data-src-iframe--is-binded";
-			var iframes = getByClass(document, dataSrcIframeClass) || "";
-			var i = iframes.length;
-			while (i--) {
-				if (!hasClass(iframes[i], dataSrcIframeIsBindedClass)) {
-					addClass(iframes[i], dataSrcIframeIsBindedClass);
-					addClass(iframes[i], isActiveClass);
-					addListener(iframes[i], "load", cb);
-					iframes[i].setAttribute("frameborder", "no");
-					iframes[i].setAttribute("style", "border:none;");
-					iframes[i].setAttribute("webkitallowfullscreen", "true");
-					iframes[i].setAttribute("mozallowfullscreen", "true");
-					iframes[i].setAttribute("scrolling", "no");
-					iframes[i].setAttribute("allowfullscreen", "true");
-				}
-			}
-			i = null;
-			if (root.LazyLoad) {
-				if (root.lazyLoadDataSrcIframeInstance) {
-					root.lazyLoadDataSrcIframeInstance.destroy();
-				}
-				root.lazyLoadDataSrcIframeInstance = new LazyLoad({
-						elements_selector: "." + dataSrcIframeClass
-					});
-			}
-		};
 		manageDataSrcIframeAll();
 
-		/*!
-		 * @see {@link https://github.com/englishextra/img-lightbox}
-		 */
-		var manageImgLightbox = function () {
-			var imgLightboxLinkClass = "img-lightbox-link";
-			var link = getByClass(document, imgLightboxLinkClass) || "";
-			var initScript = function () {
-				imgLightbox(imgLightboxLinkClass, {
-					onLoaded: function () {
-						LoadingSpinner.hide();
-					},
-					onClosed: function () {
-						LoadingSpinner.hide();
-					},
-					onCreated: function () {
-						LoadingSpinner.show();
-					},
-					touch: false
-				});
-			};
-			if (root.imgLightbox && link) {
-				initScript();
-			}
-		};
 		manageImgLightbox();
 
-		/*!
-		 * @see {@link https://github.com/englishextra/iframe-lightbox}
-		 */
-		var manageIframeLightbox = function () {
-			var link = getByClass(document, "iframe-lightbox-link") || "";
-			var initScript = function () {
-				var arrange = function (e) {
-					e.lightbox = new IframeLightbox(e, {
-							onLoaded: function () {
-								LoadingSpinner.hide();
-							},
-							onClosed: function () {
-								LoadingSpinner.hide();
-							},
-							onOpened: function () {
-								LoadingSpinner.show();
-							},
-							touch: false
-						});
-				};
-				var i,
-				l;
-				for (i = 0, l = link.length; i < l; i += 1) {
-					arrange(link[i]);
-				}
-				i = l = null;
-			};
-			if (root.IframeLightbox && link) {
-				initScript();
-			}
-		};
 		manageIframeLightbox();
 
-		var manageChaptersSelect = function () {
-			var chaptersSelect = document.getElementById("chapters-select") || "";
-			var handleChaptersSelect = function () {
-				var _this = this;
-				var hashString = _this.options[_this.selectedIndex].value || "";
-				if (hashString) {
-					var targetObj = hashString ?
-					(isValidId(hashString, true) ? document.getElementById(hashString.replace(/^#/, "")) || "" : "")
-					: "";
-					if (targetObj) {
-						scroll2Top((targetObj ? findPos(targetObj).top : 0), 20000);
-					} else {
-						root.location.href = hashString;
-					}
-				}
-			};
-			if (chaptersSelect) {
-				addListener(chaptersSelect, "change", handleChaptersSelect);
-			}
-		};
-		manageChaptersSelect();
-
-		var manageSearchInput = function () {
-			var searchInput = document.getElementById("text") || "";
-			var handleSearchInput = function () {
-				var _this = this;
-				var logic = function () {
-					_this.value = _this.value.replace(/\\/g, "").replace(/ +(?= )/g, " ").replace(/\/+(?=\/)/g, "/") || "";
-				};
-				debounce(logic, 200).call(root);
-			};
-			if (searchInput) {
-				searchInput.focus();
-				addListener(searchInput, "input", handleSearchInput);
-			}
-		};
-		manageSearchInput();
-
-		var manageExpandingLayerAll = function () {
-			var btn = getByClass(document, "btn-expand-hidden-layer") || "";
-			var handleBtn = function () {
-				var _this = this;
-				var layer = _this.parentNode ? _this.parentNode.nextElementSibling : "";
-				if (layer) {
-					toggleClass(_this, isActiveClass);
-					toggleClass(layer, isActiveClass);
-				}
-				return;
-			};
-			var arrange = function (e) {
-				addListener(e, "click", handleBtn);
-			};
-			if (btn) {
-				var i,
-				l;
-				for (i = 0, l = btn.length; i < l; i += 1) {
-					arrange(btn[i]);
-				}
-				i = l = null;
-			}
-		};
 		manageExpandingLayerAll();
 
-		var handleSourceCodeLayerAll = function () {
-			var _this = this;
-			var layer = _this.parentNode ? _this.parentNode.nextElementSibling : "";
-			if (layer) {
-				toggleClass(_this, isActiveClass);
-				toggleClass(layer, isActiveClass);
-			}
-			return;
-		};
-		var manageSourceCodeLayers = function () {
-			var btn = getByClass(document, "sg-btn--source") || "";
-			var arrange = function (e) {
-				addListener(e, "click", handleSourceCodeLayerAll);
-			};
-			if (btn) {
-				var i,
-				l;
-				for (i = 0, l = btn.length; i < l; i += 1) {
-					arrange(btn[i]);
-				}
-				i = l = null;
-			}
-		};
+		manageLocationQrcode();
+
+		manageTablesort();
+
+		manageSearchInput();
+
+		manageChaptersSelect();
+
 		manageSourceCodeLayers();
 
-		root.locationQrcodeInstance = null;
-		var manageLocationQrcode = function () {
-			var holder = getByClass(document, "holder-location-qrcode")[0] || "";
-			var locHref = root.location.href || "";
-			var initScript = function () {
-				if (!root.locationQrcodeInstance) {
-					root.locationQrcodeInstance = true;
-					var locHref = root.location.href || "";
-					var img = document.createElement("img");
-					var imgTitle = document.title ? ("Ссылка на страницу «" + document.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
-					var imgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(locHref);
-					img.alt = imgTitle;
-					if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
-						imgSrc = QRCode.generateSVG(locHref, {
-								ecclevel: "M",
-								fillcolor: "#FFFFFF",
-								textcolor: "#191919",
-								margin: 4,
-								modulesize: 8
-							});
-						var XMLS = new XMLSerializer();
-						imgSrc = XMLS.serializeToString(imgSrc);
-						imgSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(imgSrc)));
-						img.src = imgSrc;
-					} else {
-						imgSrc = QRCode.generatePNG(locHref, {
-								ecclevel: "M",
-								format: "html",
-								fillcolor: "#FFFFFF",
-								textcolor: "#191919",
-								margin: 4,
-								modulesize: 8
-							});
-						img.src = imgSrc;
-					}
-					addClass(img, "qr-code-img");
-					img.title = imgTitle;
-					removeChildren(holder);
-					appendFragment(img, holder);
-				}
-			};
-			if (root.QRCode &&
-				holder &&
-				locHref &&
-				root.getHTTP && root.getHTTP()) {
-
-				initScript();
-			}
-		};
-		manageLocationQrcode();
+		mangePrettyPrint();
 
 		var manageNavMenu = function () {
 			var container = document.getElementById("container") || "";
@@ -1713,51 +1650,6 @@ truncString, unescape, VK, Ya*/
 		};
 		manageNavMenu();
 
-		var addUpdateAppLink = function () {
-			var panel = getByClass(document, "panel-menu-more")[0] || "";
-			var items = panel ? panel.getElementsByTagName("li") || "" : "";
-			var navUA = navigator.userAgent || "";
-			var linkHref;
-			if (/Windows/i.test(navUA) && /(WOW64|Win64)/i.test(navUA)) {
-				linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-win32-x64-setup.exe";
-			} else if (/(x86_64|x86-64|x64;|amd64|AMD64|x64_64)/i.test(navUA) && /(Linux|X11)/i.test(navUA)) {
-				linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-linux-x64.tar.gz";
-			} else if (/IEMobile/i.test(navUA)) {
-				linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra.Windows10_x86_debug.appx";
-			} else {
-				if (/Android/i.test(navUA)) {
-					linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-debug.apk";
-				}
-			}
-			var arrange = function () {
-				var listItem = document.createElement("li");
-				var link = document.createElement("a");
-				link.title = "" + (parseLink(linkHref).hostname || "") + " откроется в новой вкладке";
-				link.href = linkHref;
-				var handleLink = function () {
-					openDeviceBrowser(linkHref);
-				};
-				if (root.getHTTP && root.getHTTP()) {
-					link.target = "_blank";
-					link.rel = "noopener";
-				} else {
-					/* jshint -W107 */
-					link.href = "javascript:void(0);";
-					/* jshint +W107 */
-					addListener(link, "click", handleLink);
-				}
-				link.appendChild(document.createTextNode("Скачать приложение сайта"));
-				listItem.appendChild(link);
-				if (panel.hasChildNodes()) {
-					prependFragmentBefore(listItem, panel.firstChild);
-				}
-			};
-			if (panel && items && linkHref) {
-				arrange();
-			}
-		};
-		addUpdateAppLink();
-
 		var manageMenuMore = function () {
 			var container = document.getElementById("container") || "";
 			var page = document.getElementById("page") || "";
@@ -1807,6 +1699,126 @@ truncString, unescape, VK, Ya*/
 			}
 		};
 		manageMenuMore();
+
+		var notifyWriteComment = function () {
+			if (root.getHTTP && !root.getHTTP()) {
+				return;
+			}
+			var cookieKey = "_notifier42_write_comment_";
+			var msgText = "Напишите, что понравилось, а что нет. Регистрироваться не нужно.";
+			var locOrigin = parseLink(root.location.href).origin;
+			var showMsg = function () {
+				var msgObj = document.createElement("a");
+				/* jshint -W107 */
+				msgObj.href = "javascript:void(0);";
+				/* jshint +W107 */
+				appendFragment(msgText, msgObj);
+				var handleMsgObj = function (ev) {
+					ev.stopPropagation();
+					ev.preventDefault();
+					removeListener(msgObj, "click", handleMsgObj);
+					var targetObj = document.getElementById("disqus_thread") || "";
+					scroll2Top((targetObj ? findPos(targetObj).top : 0), 20000);
+				};
+				addListener(msgObj, "click", handleMsgObj);
+				var nf42;
+				nf42 = new Notifier42(msgObj, 8000);
+				Cookies.set(cookieKey, msgText);
+			};
+			if (!Cookies.get(cookieKey) && locOrigin) {
+				var timer = setTimeout(function () {
+					clearTimeout(timer);
+					timer = null;
+					showMsg();
+				}, 16000);
+			}
+		};
+		notifyWriteComment();
+
+		root.draggabillyInstance = null;
+		root.masonryInstance = null;
+		root.packeryInstance = null;
+		var initAllMasonry = function () {
+			var gridItemSelector = ".masonry-grid-item";
+			var gridSizerSelector = ".masonry-grid-sizer";
+			var grid = getByClass(document, "masonry-grid") || "";
+			var gridItem = getByClass(document, "masonry-grid-item") || "";
+			var initScript = function () {
+				if (root.Masonry) {
+					if (root.masonryInstance) {
+						root.masonryInstance.destroy();
+					}
+					var initMsnry = function (e) {
+						root.masonryInstance = new Masonry(e, {
+								itemSelector: gridItemSelector,
+								columnWidth: gridSizerSelector,
+								gutter: 0
+							});
+					};
+					var i,
+					l;
+					for (i = 0, l = grid.length; i < l; i += 1) {
+						initMsnry(grid[i]);
+					}
+					i = l = null;
+				} else {
+					if (root.Packery) {
+						if (root.packeryInstance) {
+							root.packeryInstance.destroy();
+						}
+						var initPckry = function (e) {
+							root.packeryInstance = new Packery(e, {
+									itemSelector: gridItemSelector,
+									columnWidth: gridSizerSelector,
+									gutter: 0,
+									percentPosition: true
+								});
+						};
+						var j,
+						m;
+						for (j = 0, m = grid.length; j < m; j += 1) {
+							initPckry(grid[j]);
+						}
+						j = m = null;
+						if (root.Draggabilly) {
+							var draggies = [];
+							var initDraggie = function (e) {
+								var draggableElem = e;
+								root.draggabillyInstance = new Draggabilly(draggableElem, {});
+								draggies.push(root.draggabillyInstance);
+							};
+							var k,
+							n;
+							for (k = 0, n = gridItem.length; k < n; k += 1) {
+								initDraggie(gridItem[k]);
+							}
+							k = n = null;
+							if (root.packeryInstance) {
+								root.packeryInstance.bindDraggabillyEvents(root.draggabillyInstance);
+							}
+						}
+					}
+				}
+				var timer = setTimeout(function () {
+					clearTimeout(timer);
+					timer = null;
+					if (root.masonryInstance) {
+						root.masonryInstance.layout();
+					} else {
+						if (root.packeryInstance) {
+							root.packeryInstance.layout();
+						}
+					}
+				}, 500);
+			};
+			if (grid && gridItem) {
+				/* var jsUrl = "../../cdn/masonry/4.1.1/js/masonry.pkgd.fixed.min.js"; */
+				/* var jsUrl = "../../cdn/packery/2.1.1/js/packery.draggabilly.pkgd.fixed.min.js"; */
+				/* var jsUrl = "../../cdn/packery/2.1.1/js/packery.pkgd.fixed.js"; */
+				initScript();
+			}
+		};
+		initAllMasonry();
 
 		var hideOtherIsSocial = function (thisObj) {
 			var _thisObj = thisObj || this;
@@ -1927,6 +1939,51 @@ truncString, unescape, VK, Ya*/
 			}
 		};
 		manageVkLikeBtn();
+
+		var addUpdateAppLink = function () {
+			var panel = getByClass(document, "panel-menu-more")[0] || "";
+			var items = panel ? panel.getElementsByTagName("li") || "" : "";
+			var navUA = navigator.userAgent || "";
+			var linkHref;
+			if (/Windows/i.test(navUA) && /(WOW64|Win64)/i.test(navUA)) {
+				linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-win32-x64-setup.exe";
+			} else if (/(x86_64|x86-64|x64;|amd64|AMD64|x64_64)/i.test(navUA) && /(Linux|X11)/i.test(navUA)) {
+				linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-linux-x64.tar.gz";
+			} else if (/IEMobile/i.test(navUA)) {
+				linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra.Windows10_x86_debug.appx";
+			} else {
+				if (/Android/i.test(navUA)) {
+					linkHref = "https://github.com/englishextra/englishextra-app/releases/download/v1.0.0/englishextra-debug.apk";
+				}
+			}
+			var arrange = function () {
+				var listItem = document.createElement("li");
+				var link = document.createElement("a");
+				link.title = "" + (parseLink(linkHref).hostname || "") + " откроется в новой вкладке";
+				link.href = linkHref;
+				var handleLink = function () {
+					openDeviceBrowser(linkHref);
+				};
+				if (root.getHTTP && root.getHTTP()) {
+					link.target = "_blank";
+					link.rel = "noopener";
+				} else {
+					/* jshint -W107 */
+					link.href = "javascript:void(0);";
+					/* jshint +W107 */
+					addListener(link, "click", handleLink);
+				}
+				link.appendChild(document.createTextNode("Скачать приложение сайта"));
+				listItem.appendChild(link);
+				if (panel.hasChildNodes()) {
+					prependFragmentBefore(listItem, panel.firstChild);
+				}
+			};
+			if (panel && items && linkHref) {
+				arrange();
+			}
+		};
+		addUpdateAppLink();
 
 		var manageDownloadAppBtn = function () {
 			var navUA = navigator.userAgent || "";

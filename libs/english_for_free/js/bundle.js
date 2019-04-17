@@ -1,9 +1,11 @@
 /*jslint browser: true */
 /*jslint node: true */
-/*global addClass, addListener, appendFragment, debounce, doesFontExist,
-earlySvgSupport, earlySvgasimgSupport, earlyHasTouch, earlyDeviceType,
-earlyDeviceFormfactor, forcedHTTP, getByClass, getHumanDate, hasClass,
-isNodejs, isElectron, isNwjs, LazyLoad, loadDeferred, loadJsCss,
+/*global addClass, addListener, appendFragment, dataSrcIframeClass,
+dataSrcImgClass, debounce, doesFontExist, earlySvgSupport,
+earlySvgasimgSupport, earlyHasTouch, earlyDeviceType, earlyDeviceFormfactor,
+forcedHTTP, getByClass, getHumanDate, hasClass, isNodejs, isElectron, isNwjs,
+LazyLoad, loadDeferred, loadJsCss, manageDataSrcIframeAll,
+manageDataSrcImgAll, manageExternalLinkAll, manageLocationQrcode,
 needsPolyfills, openDeviceBrowser, parseLink, prependFragmentBefore, QRCode,
 removeChildren, removeClass, removeListener, require, scroll2Top,
 setDisplayBlock, setDisplayNone, supportsCanvas, supportsPassive,
@@ -123,7 +125,7 @@ supportsSvgSmilAnimation, throttle, toggleClass, ToProgress, unescape, VK, Ya*/
 	 * Does not handle differences in the Event-objects.
 	 * @see {@link https://github.com/finn-no/eventlistener}
 	 */
-	var wrapListener = function (standard, fallback) {
+	var setListener = function (standard, fallback) {
 		return function (el, type, listener, useCapture) {
 			if (el[standard]) {
 				el[standard](type, listener, useCapture);
@@ -134,8 +136,8 @@ supportsSvgSmilAnimation, throttle, toggleClass, ToProgress, unescape, VK, Ya*/
 			}
 		};
 	};
-	root.addListener = wrapListener("addEventListener", "attachEvent");
-	root.removeListener = wrapListener("removeEventListener", "detachEvent");
+	root.addListener = setListener("addEventListener", "attachEvent");
+	root.removeListener = setListener("removeEventListener", "detachEvent");
 
 	/*!
 	 * get elements by class name wrapper
@@ -676,6 +678,166 @@ supportsSvgSmilAnimation, throttle, toggleClass, ToProgress, unescape, VK, Ya*/
 	})();
 
 	/*!
+	 * manageExternalLinkAll
+	 */
+	root.manageExternalLinkAll = function () {
+		var link = document.getElementsByTagName("a") || "";
+		var arrange = function (e) {
+			var handleLink = function (url, ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var logic = function () {
+					openDeviceBrowser(url);
+				};
+				debounce(logic, 200).call(root);
+			};
+			var externalLinkIsBindedClass = "external-link--is-binded";
+			if (!hasClass(e, externalLinkIsBindedClass)) {
+				var url = e.getAttribute("href") || "";
+				if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+					e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+					if (root.getHTTP && root.getHTTP()) {
+						e.target = "_blank";
+						e.rel = "noopener";
+					} else {
+						addListener(e, "click", handleLink.bind(null, url));
+					}
+					addClass(e, externalLinkIsBindedClass);
+				}
+			}
+		};
+		if (link) {
+			var i,
+			l;
+			for (i = 0, l = link.length; i < l; i += 1) {
+				arrange(link[i]);
+			}
+			i = l = null;
+		}
+	};
+
+	/*!
+	 * manageDataSrcImgAll
+	 * @see {@link https://github.com/verlok/lazyload}
+	 */
+	root.dataSrcImgClass = "data-src-img";
+
+	root.lazyLoadDataSrcImgInstance = null;
+	root.manageDataSrcImgAll = function (callback) {
+		var cb = function () {
+			return callback && "function" === typeof callback && callback();
+		};
+		var isActiveClass = "is-active";
+		var dataSrcImgIsBindedClass = "data-src-img--is-binded";
+		var images = getByClass(document, dataSrcImgClass) || "";
+		var i = images.length;
+		while (i--) {
+			if (!hasClass(images[i], dataSrcImgIsBindedClass)) {
+				addClass(images[i], dataSrcImgIsBindedClass);
+				addClass(images[i], isActiveClass);
+				addListener(images[i], "load", cb);
+			}
+		}
+		i = null;
+		if (root.LazyLoad) {
+			if (root.lazyLoadDataSrcImgInstance) {
+				root.lazyLoadDataSrcImgInstance.destroy();
+			}
+			root.lazyLoadDataSrcImgInstance = new LazyLoad({
+					elements_selector: "." + dataSrcImgClass
+				});
+		}
+	};
+
+	/*!
+	 * manageDataSrcIframeAll
+	 * @see {@link https://github.com/verlok/lazyload}
+	 */
+	root.dataSrcIframeClass = "data-src-iframe";
+
+	root.lazyLoadDataSrcIframeInstance = null;
+	root.manageDataSrcIframeAll = function (callback) {
+		var cb = function () {
+			return callback && "function" === typeof callback && callback();
+		};
+		var isActiveClass = "is-active";
+		var dataSrcIframeIsBindedClass = "data-src-iframe--is-binded";
+		var iframes = getByClass(document, dataSrcIframeClass) || "";
+		var i = iframes.length;
+		while (i--) {
+			if (!hasClass(iframes[i], dataSrcIframeIsBindedClass)) {
+				addClass(iframes[i], dataSrcIframeIsBindedClass);
+				addClass(iframes[i], isActiveClass);
+				addListener(iframes[i], "load", cb);
+				iframes[i].setAttribute("frameborder", "no");
+				iframes[i].setAttribute("style", "border:none;");
+				iframes[i].setAttribute("webkitallowfullscreen", "true");
+				iframes[i].setAttribute("mozallowfullscreen", "true");
+				iframes[i].setAttribute("scrolling", "no");
+				iframes[i].setAttribute("allowfullscreen", "true");
+			}
+		}
+		i = null;
+		if (root.LazyLoad) {
+			if (root.lazyLoadDataSrcIframeInstance) {
+				root.lazyLoadDataSrcIframeInstance.destroy();
+			}
+			root.lazyLoadDataSrcIframeInstance = new LazyLoad({
+					elements_selector: "." + dataSrcIframeClass
+				});
+		}
+	};
+
+	/*!
+	 * manageLocationQrcode
+	 */
+	root.manageLocationQrcode = function () {
+		var holder = getByClass(document, "holder-location-qrcode")[0] || "";
+		var locHref = root.location.href || "";
+		var initScript = function () {
+			var locHref = root.location.href || "";
+			var img = document.createElement("img");
+			var imgTitle = document.title ? ("Ссылка на страницу «" + document.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
+			var imgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(locHref);
+			img.alt = imgTitle;
+			if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
+				imgSrc = QRCode.generateSVG(locHref, {
+						ecclevel: "M",
+						fillcolor: "#FFFFFF",
+						textcolor: "#191919",
+						margin: 4,
+						modulesize: 8
+					});
+				var XMLS = new XMLSerializer();
+				imgSrc = XMLS.serializeToString(imgSrc);
+				imgSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(imgSrc)));
+				img.src = imgSrc;
+			} else {
+				imgSrc = QRCode.generatePNG(locHref, {
+						ecclevel: "M",
+						format: "html",
+						fillcolor: "#FFFFFF",
+						textcolor: "#191919",
+						margin: 4,
+						modulesize: 8
+					});
+				img.src = imgSrc;
+			}
+			addClass(img, "qr-code-img");
+			img.title = imgTitle;
+			removeChildren(holder);
+			appendFragment(img, holder);
+		};
+		if (root.QRCode &&
+			holder &&
+			locHref &&
+			root.getHTTP && root.getHTTP()) {
+
+			initScript();
+		}
+	};
+
+	/*!
 	 * modified Detect Whether a Font is Installed
 	 * @param {String} fontName The name of the font to check
 	 * @return {Boolean}
@@ -951,112 +1113,13 @@ supportsSvgSmilAnimation, throttle, toggleClass, ToProgress, unescape, VK, Ya*/
 			document.title = document.title + userBrowser;
 		}
 
-		var manageExternalLinkAll = function () {
-			var link = document.getElementsByTagName("a") || "";
-			var arrange = function (e) {
-				var handle = function (url, ev) {
-					ev.stopPropagation();
-					ev.preventDefault();
-					var logic = function () {
-						openDeviceBrowser(url);
-					};
-					debounce(logic, 200).call(root);
-				};
-				var externalLinkIsBindedClass = "external-link--is-binded";
-				if (!hasClass(e, externalLinkIsBindedClass)) {
-					var url = e.getAttribute("href") || "";
-					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
-						if (root.getHTTP && root.getHTTP()) {
-							e.target = "_blank";
-							e.rel = "noopener";
-						} else {
-							addListener(e, "click", handle.bind(null, url));
-						}
-						addClass(e, externalLinkIsBindedClass);
-					}
-				}
-			};
-			if (link) {
-				var i,
-				l;
-				for (i = 0, l = link.length; i < l; i += 1) {
-					arrange(link[i]);
-				}
-				i = l = null;
-			}
-		};
 		manageExternalLinkAll();
 
-		root.lazyLoadDataSrcImgInstance = null;
-
-		/*!
-		 * @see {@link https://github.com/verlok/lazyload}
-		 */
-		var manageDataSrcImgAll = function (callback) {
-			var cb = function () {
-				return callback && "function" === typeof callback && callback();
-			};
-			var dataSrcImgClass = "data-src-img";
-			var dataSrcImgIsBindedClass = "data-src-img--is-binded";
-			var images = getByClass(document, dataSrcImgClass) || "";
-			var i = images.length;
-			while (i--) {
-				if (!hasClass(images[i], dataSrcImgIsBindedClass)) {
-					addClass(images[i], dataSrcImgIsBindedClass);
-					addClass(images[i], isActiveClass);
-					addListener(images[i], "load", cb);
-				}
-			}
-			i = null;
-			if (root.LazyLoad) {
-				if (root.lazyLoadDataSrcImgInstance) {
-					root.lazyLoadDataSrcImgInstance.destroy();
-				}
-				root.lazyLoadDataSrcImgInstance = new LazyLoad({
-						elements_selector: "." + dataSrcImgClass
-					});
-			}
-		};
 		manageDataSrcImgAll();
 
-		root.lazyLoadDataSrcIframeInstance = null;
-
-		/*!
-		 * @see {@link https://github.com/verlok/lazyload}
-		 */
-		var manageDataSrcIframeAll = function (callback) {
-			var cb = function () {
-				return callback && "function" === typeof callback && callback();
-			};
-			var dataSrcIframeClass = "data-src-iframe";
-			var dataSrcIframeIsBindedClass = "data-src-iframe--is-binded";
-			var iframes = getByClass(document, dataSrcIframeClass) || "";
-			var i = iframes.length;
-			while (i--) {
-				if (!hasClass(iframes[i], dataSrcIframeIsBindedClass)) {
-					addClass(iframes[i], dataSrcIframeIsBindedClass);
-					addClass(iframes[i], isActiveClass);
-					addListener(iframes[i], "load", cb);
-					iframes[i].setAttribute("frameborder", "no");
-					iframes[i].setAttribute("style", "border:none;");
-					iframes[i].setAttribute("webkitallowfullscreen", "true");
-					iframes[i].setAttribute("mozallowfullscreen", "true");
-					iframes[i].setAttribute("scrolling", "no");
-					iframes[i].setAttribute("allowfullscreen", "true");
-				}
-			}
-			i = null;
-			if (root.LazyLoad) {
-				if (root.lazyLoadDataSrcIframeInstance) {
-					root.lazyLoadDataSrcIframeInstance.destroy();
-				}
-				root.lazyLoadDataSrcIframeInstance = new LazyLoad({
-						elements_selector: "." + dataSrcIframeClass
-					});
-			}
-		};
 		manageDataSrcIframeAll();
+
+		manageLocationQrcode();
 
 		/*!
 		 * init superbox
@@ -1205,57 +1268,6 @@ supportsSvgSmilAnimation, throttle, toggleClass, ToProgress, unescape, VK, Ya*/
 			}
 		};
 		manageSuperbox();
-
-		root.locationQrcodeInstance = null;
-		var manageLocationQrcode = function () {
-			var holder = getByClass(document, "holder-location-qrcode")[0] || "";
-			var locHref = root.location.href || "";
-			var initScript = function () {
-				if (!root.locationQrcodeInstance) {
-					root.locationQrcodeInstance = true;
-					var locHref = root.location.href || "";
-					var img = document.createElement("img");
-					var imgTitle = document.title ? ("Ссылка на страницу «" + document.title.replace(/\[[^\]]*?\]/g, "").trim() + "»") : "";
-					var imgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(locHref);
-					img.alt = imgTitle;
-					if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
-						imgSrc = QRCode.generateSVG(locHref, {
-								ecclevel: "M",
-								fillcolor: "#FFFFFF",
-								textcolor: "#191919",
-								margin: 4,
-								modulesize: 8
-							});
-						var XMLS = new XMLSerializer();
-						imgSrc = XMLS.serializeToString(imgSrc);
-						imgSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(imgSrc)));
-						img.src = imgSrc;
-					} else {
-						imgSrc = QRCode.generatePNG(locHref, {
-								ecclevel: "M",
-								format: "html",
-								fillcolor: "#FFFFFF",
-								textcolor: "#191919",
-								margin: 4,
-								modulesize: 8
-							});
-						img.src = imgSrc;
-					}
-					addClass(img, "qr-code-img");
-					img.title = imgTitle;
-					removeChildren(holder);
-					appendFragment(img, holder);
-				}
-			};
-			if (root.QRCode &&
-				holder &&
-				locHref &&
-				root.getHTTP && root.getHTTP()) {
-
-				initScript();
-			}
-		};
-		manageLocationQrcode();
 
 		var manageNavMenu = function () {
 			var container = document.getElementById("container") || "";

@@ -1271,7 +1271,7 @@ img.office-qrcode-img {
  * share buttons
  */
 
-.btn-toggle-holder-qrcode.mui-btn--fab,
+.btn-toggle-holder-location-qrcode.mui-btn--fab,
 .btn-toggle-holder-mobileapps-buttons.mui-btn--fab,
 .btn-toggle-holder-share-buttons.mui-btn--fab,
 .btn-toggle-holder-vk-like.mui-btn--fab {
@@ -1288,7 +1288,7 @@ img.office-qrcode-img {
 	margin: 0;
 }
 
-.btn-toggle-holder-qrcode.mui-btn--fab {
+.btn-toggle-holder-location-qrcode.mui-btn--fab {
 	bottom: 13.000rem;
 }
 
@@ -1304,9 +1304,9 @@ img.office-qrcode-img {
 	bottom: 4.000rem;
 }
 
-.btn-toggle-holder-qrcode.mui-btn--fab:focus,
-.btn-toggle-holder-qrcode.mui-btn--fab:hover,
-.btn-toggle-holder-qrcode.mui-btn--fab:active,
+.btn-toggle-holder-location-qrcode.mui-btn--fab:focus,
+.btn-toggle-holder-location-qrcode.mui-btn--fab:hover,
+.btn-toggle-holder-location-qrcode.mui-btn--fab:active,
 .btn-toggle-holder-mobileapps-buttons.mui-btn--fab:focus,
 .btn-toggle-holder-mobileapps-buttons.mui-btn--fab:hover,
 .btn-toggle-holder-mobileapps-buttons.mui-btn--fab:active,
@@ -1320,7 +1320,7 @@ img.office-qrcode-img {
 }
 
 .btn-toggle-holder-mobileapps-buttons .ui-icon,
-.btn-toggle-holder-qrcode .ui-icon,
+.btn-toggle-holder-location-qrcode .ui-icon,
 .btn-toggle-holder-share-buttons .ui-icon,
 .btn-toggle-holder-vk-like .ui-icon {
 	/*!
@@ -1335,7 +1335,7 @@ img.office-qrcode-img {
 	margin-left: auto;
 }
 
-.btn-toggle-holder-qrcode .ui-icon > *,
+.btn-toggle-holder-location-qrcode .ui-icon > *,
 .btn-toggle-holder-mobileapps-buttons .ui-icon > *,
 .btn-toggle-holder-share-buttons .ui-icon > *,
 .btn-toggle-holder-vk-like .ui-icon > * {
@@ -1343,7 +1343,7 @@ img.office-qrcode-img {
 }
 
 @media (max-width: 959px) {
-	.btn-toggle-holder-qrcode.mui-btn--fab {
+	.btn-toggle-holder-location-qrcode.mui-btn--fab {
 		display: none;
 	}
 }
@@ -1357,7 +1357,7 @@ img.office-qrcode-img {
 }
 
 @media (max-height: 559px) {
-	.btn-toggle-holder-qrcode.mui-btn--fab {
+	.btn-toggle-holder-location-qrcode.mui-btn--fab {
 		display: none;
 	}
 }

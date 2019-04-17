@@ -1,13 +1,16 @@
 /*jslint browser: true */
 /*jslint node: true */
 /*global $readMoreJS, ActiveXObject, addClass, addListener, appendFragment,
-console, debounce, DISQUS, doesFontExist, earlySvgSupport,
-earlySvgasimgSupport, earlyHasTouch, earlyDeviceType, earlyDeviceFormfactor,
-EventEmitter, findPos, forcedHTTP, getByClass, getHumanDate, hasClass,
-hasTouch, hasWheel, hljs, IframeLightbox, imgLightbox, insertExternalHTML,
-insertFromTemplate, insertTextAsFragment, instgrm, isNodejs, isElectron,
-isNwjs, isValidId, JsonHashRouter, LazyLoad, loadDeferred, loadJsCss,
-loadJsonResponse, Macy, Minigrid, Mustache, needsPolyfills, openDeviceBrowser,
+console, dataSrcIframeClass, dataSrcImgClass, debounce, DISQUS, doesFontExist,
+earlySvgSupport, earlySvgasimgSupport, earlyHasTouch, earlyDeviceType,
+earlyDeviceFormfactor, EventEmitter, findPos, forcedHTTP, getByClass,
+getHumanDate, hasClass, hasTouch, hasWheel, hljs, IframeLightbox, imgLightbox,
+insertExternalHTML, insertFromTemplate, insertTextAsFragment, instgrm,
+isNodejs, isElectron, isNwjs, isValidId, JsonHashRouter, LazyLoad,
+loadDeferred, LoadingSpinner, loadJsCss, loadJsonResponse, Macy,
+manageImgLightbox, manageIframeLightbox, manageExpandingLayerAll,
+manageExternalLinkAll, manageDataQrcodeImgAll, manageDataSrcImgAll,
+manageDataSrcIframeAll, Minigrid, Mustache, needsPolyfills, openDeviceBrowser,
 parseLink, progressBar, Promise, QRCode, removeChildren, removeClass,
 removeListener, renderTemplate, require, ripple, safelyParseJSON, scroll2Top,
 setDisplayBlock, setDisplayNone, supportsCanvas, supportsPassive,
@@ -138,7 +141,7 @@ WheelIndicator, Ya*/
 	 * Does not handle differences in the Event-objects.
 	 * @see {@link https://github.com/finn-no/eventlistener}
 	 */
-	var wrapListener = function (standard, fallback) {
+	var setListener = function (standard, fallback) {
 		return function (el, type, listener, useCapture) {
 			if (el[standard]) {
 				el[standard](type, listener, useCapture);
@@ -149,8 +152,8 @@ WheelIndicator, Ya*/
 			}
 		};
 	};
-	root.addListener = wrapListener("addEventListener", "attachEvent");
-	root.removeListener = wrapListener("removeEventListener", "detachEvent");
+	root.addListener = setListener("addEventListener", "attachEvent");
+	root.removeListener = setListener("removeEventListener", "detachEvent");
 
 	/*!
 	 * get elements by class name wrapper
@@ -790,6 +793,299 @@ WheelIndicator, Ya*/
 	})();
 
 	/*!
+	 * manageExternalLinkAll
+	 */
+	root.manageExternalLinkAll = function () {
+		var link = document.getElementsByTagName("a") || "";
+		var arrange = function (e) {
+			var handleLink = function (url, ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var logic = function () {
+					openDeviceBrowser(url);
+				};
+				debounce(logic, 200).call(root);
+			};
+			var externalLinkIsBindedClass = "external-link--is-binded";
+			if (!hasClass(e, externalLinkIsBindedClass)) {
+				var url = e.getAttribute("href") || "";
+				if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+					e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+					if (root.getHTTP && root.getHTTP()) {
+						e.target = "_blank";
+						e.rel = "noopener";
+					} else {
+						addListener(e, "click", handleLink.bind(null, url));
+					}
+					addClass(e, externalLinkIsBindedClass);
+				}
+			}
+		};
+		if (link) {
+			var i,
+			l;
+			for (i = 0, l = link.length; i < l; i += 1) {
+				arrange(link[i]);
+			}
+			i = l = null;
+		}
+	};
+
+	/*!
+	 * manageDataSrcImgAll
+	 * @see {@link https://github.com/verlok/lazyload}
+	 */
+	root.dataSrcImgClass = "data-src-img";
+
+	root.lazyLoadDataSrcImgInstance = null;
+	root.manageDataSrcImgAll = function (callback) {
+		var cb = function () {
+			return callback && "function" === typeof callback && callback();
+		};
+		var isActiveClass = "is-active";
+		var dataSrcImgIsBindedClass = "data-src-img--is-binded";
+		var images = getByClass(document, dataSrcImgClass) || "";
+		var i = images.length;
+		while (i--) {
+			if (!hasClass(images[i], dataSrcImgIsBindedClass)) {
+				addClass(images[i], dataSrcImgIsBindedClass);
+				addClass(images[i], isActiveClass);
+				addListener(images[i], "load", cb);
+			}
+		}
+		i = null;
+		if (root.LazyLoad) {
+			if (root.lazyLoadDataSrcImgInstance) {
+				root.lazyLoadDataSrcImgInstance.destroy();
+			}
+			root.lazyLoadDataSrcImgInstance = new LazyLoad({
+					elements_selector: "." + dataSrcImgClass
+				});
+		}
+	};
+
+	/*!
+	 * manageDataSrcIframeAll
+	 * @see {@link https://github.com/verlok/lazyload}
+	 */
+	root.dataSrcIframeClass = "data-src-iframe";
+
+	root.lazyLoadDataSrcIframeInstance = null;
+	root.manageDataSrcIframeAll = function (callback) {
+		var cb = function () {
+			return callback && "function" === typeof callback && callback();
+		};
+		var isActiveClass = "is-active";
+		var dataSrcIframeIsBindedClass = "data-src-iframe--is-binded";
+		var iframes = getByClass(document, dataSrcIframeClass) || "";
+		var i = iframes.length;
+		while (i--) {
+			if (!hasClass(iframes[i], dataSrcIframeIsBindedClass)) {
+				addClass(iframes[i], dataSrcIframeIsBindedClass);
+				addClass(iframes[i], isActiveClass);
+				addListener(iframes[i], "load", cb);
+				iframes[i].setAttribute("frameborder", "no");
+				iframes[i].setAttribute("style", "border:none;");
+				iframes[i].setAttribute("webkitallowfullscreen", "true");
+				iframes[i].setAttribute("mozallowfullscreen", "true");
+				iframes[i].setAttribute("scrolling", "no");
+				iframes[i].setAttribute("allowfullscreen", "true");
+			}
+		}
+		i = null;
+		if (root.LazyLoad) {
+			if (root.lazyLoadDataSrcIframeInstance) {
+				root.lazyLoadDataSrcIframeInstance.destroy();
+			}
+			root.lazyLoadDataSrcIframeInstance = new LazyLoad({
+					elements_selector: "." + dataSrcIframeClass
+				});
+		}
+	};
+
+	/*!
+	 * manageImgLightbox
+	 * @see {@link https://github.com/englishextra/img-lightbox}
+	 */
+	root.manageImgLightbox = function () {
+		var imgLightboxLinkClass = "img-lightbox-link";
+		var link = getByClass(document, imgLightboxLinkClass) || "";
+		var initScript = function () {
+			imgLightbox(imgLightboxLinkClass, {
+				onLoaded: function () {
+					LoadingSpinner.hide();
+				},
+				onClosed: function () {
+					LoadingSpinner.hide();
+				},
+				onCreated: function () {
+					LoadingSpinner.show();
+				},
+				touch: false
+			});
+		};
+		if (root.imgLightbox && link) {
+			initScript();
+		}
+	};
+
+	/*!
+	 * manageIframeLightbox
+	 * @see {@link https://github.com/englishextra/iframe-lightbox}
+	 */
+	root.manageIframeLightbox = function () {
+		var link = getByClass(document, "iframe-lightbox-link") || "";
+		var initScript = function () {
+			var arrange = function (e) {
+				e.lightbox = new IframeLightbox(e, {
+						onLoaded: function () {
+							LoadingSpinner.hide();
+						},
+						onClosed: function () {
+							LoadingSpinner.hide();
+						},
+						onOpened: function () {
+							LoadingSpinner.show();
+						},
+						touch: false
+					});
+			};
+			var i,
+			l;
+			for (i = 0, l = link.length; i < l; i += 1) {
+				arrange(link[i]);
+			}
+			i = l = null;
+		};
+		if (root.IframeLightbox && link) {
+			initScript();
+		}
+	};
+
+	/*!
+	 * manageDataQrcodeImgAll
+	 */
+	root.manageDataQrcodeImgAll = function (callback) {
+		var cb = function () {
+			return callback && "function" === typeof callback && callback();
+		};
+		var img = getByClass(document, "data-qrcode-img") || "";
+		var generateImg = function (e) {
+			var qrcode = e.dataset.qrcode || "";
+			qrcode = decodeURIComponent(qrcode);
+			if (qrcode) {
+				var imgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(qrcode);
+				e.title = qrcode;
+				e.alt = qrcode;
+				if (root.QRCode) {
+					if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
+						imgSrc = QRCode.generateSVG(qrcode, {
+								ecclevel: "M",
+								fillcolor: "#F3F3F3",
+								textcolor: "#191919",
+								margin: 4,
+								modulesize: 8
+							});
+						var XMLS = new XMLSerializer();
+						imgSrc = XMLS.serializeToString(imgSrc);
+						imgSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(imgSrc)));
+						e.src = imgSrc;
+					} else {
+						imgSrc = QRCode.generatePNG(qrcode, {
+								ecclevel: "M",
+								format: "html",
+								fillcolor: "#F3F3F3",
+								textcolor: "#191919",
+								margin: 4,
+								modulesize: 8
+							});
+						e.src = imgSrc;
+					}
+				} else {
+					e.src = imgSrc;
+				}
+				cb();
+			}
+		};
+		if (img) {
+			var i,
+			l;
+			for (i = 0, l = img.length; i < l; i += 1) {
+				generateImg(img[i]);
+			}
+			i = l = null;
+		}
+	};
+
+	/*!
+	 * manageExpandingLayerAll
+	 */
+	root.manageExpandingLayerAll = function (callback) {
+		var cb = function () {
+			return callback && "function" === typeof callback && callback();
+		};
+		var btn = getByClass(document, "btn-expand-hidden-layer") || "";
+		var isActiveClass = "is-active";
+		var isBindedClass = "is-binded";
+		var arrange = function (e) {
+			var handle = function () {
+				var _this = this;
+				var layer = _this.parentNode ? _this.parentNode.nextElementSibling : "";
+				if (layer) {
+					toggleClass(_this, isActiveClass);
+					toggleClass(layer, isActiveClass);
+					cb();
+				}
+				return;
+			};
+			if (!hasClass(e, isBindedClass)) {
+				addListener(e, "click", handle);
+				addClass(e, isBindedClass);
+			}
+		};
+		if (btn) {
+			var i,
+			l;
+			for (i = 0, l = btn.length; i < l; i += 1) {
+				arrange(btn[i]);
+			}
+			i = l = null;
+		}
+	};
+
+	/*!
+	 * LoadingSpinner
+	 */
+	root.LoadingSpinner = (function () {
+		var spinner = document.getElementById("loading-spinner") || "";
+		if (!spinner) {
+			spinner = document.createElement("div");
+			spinner.setAttribute("class", "half-circle-spinner");
+			spinner.setAttribute("id", "loading-spinner");
+			spinner.setAttribute("aria-hidden", "true");
+			spinner.innerHTML = '<div class="circle circle-1"></div><div class="circle circle-2"></div>';
+			var docBody = document.body || "";
+			docBody.appendChild(spinner);
+		}
+		return {
+			show: function () {
+				return (spinner.style.display = "block");
+			},
+			hide: function (callback, timeout) {
+				var delay = timeout || 500;
+				var timer = setTimeout(function () {
+					clearTimeout(timer);
+					timer = null;
+					setDisplayNone(spinner);
+					if (callback && "function" === typeof callback) {
+						callback();
+					}
+				}, delay);
+			}
+		};
+	})();
+
+	/*!
 	 * modified Detect Whether a Font is Installed
 	 * @param {String} fontName The name of the font to check
 	 * @return {Boolean}
@@ -1055,247 +1351,7 @@ WheelIndicator, Ya*/
 			document.title = document.title + userBrowser;
 		}
 
-		var LoadingSpinner = (function () {
-			var spinner = document.getElementById("loading-spinner") || "";
-			if (!spinner) {
-				spinner = document.createElement("div");
-				spinner.setAttribute("class", "half-circle-spinner");
-				spinner.setAttribute("id", "loading-spinner");
-				spinner.setAttribute("aria-hidden", "true");
-				spinner.innerHTML = '<div class="circle circle-1"></div><div class="circle circle-2"></div>';
-				docBody.appendChild(spinner);
-			}
-			return {
-				show: function () {
-					return (spinner.style.display = "block");
-				},
-				hide: function (callback, timeout) {
-					var delay = timeout || 500;
-					var timer = setTimeout(function () {
-						clearTimeout(timer);
-						timer = null;
-						setDisplayNone(spinner);
-						if (callback && "function" === typeof callback) {
-							callback();
-						}
-					}, delay);
-				}
-			};
-		})();
-
-		var manageExternalLinkAll = function () {
-			var link = document.getElementsByTagName("a") || "";
-			var arrange = function (e) {
-				var handle = function (url, ev) {
-					ev.stopPropagation();
-					ev.preventDefault();
-					var logic = function () {
-						openDeviceBrowser(url);
-					};
-					debounce(logic, 200).call(root);
-				};
-				var externalLinkIsBindedClass = "external-link--is-binded";
-				if (!hasClass(e, externalLinkIsBindedClass)) {
-					var url = e.getAttribute("href") || "";
-					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
-						if (root.getHTTP && root.getHTTP()) {
-							e.target = "_blank";
-							e.rel = "noopener";
-						} else {
-							addListener(e, "click", handle.bind(null, url));
-						}
-						addClass(e, externalLinkIsBindedClass);
-					}
-				}
-			};
-			if (link) {
-				var i,
-				l;
-				for (i = 0, l = link.length; i < l; i += 1) {
-					arrange(link[i]);
-				}
-				i = l = null;
-			}
-		};
 		manageExternalLinkAll();
-
-		root.lazyLoadDataSrcImgInstance = null;
-
-		/*!
-		 * @see {@link https://github.com/verlok/lazyload}
-		 */
-		var manageDataSrcImgAll = function (callback) {
-			var cb = function () {
-				return callback && "function" === typeof callback && callback();
-			};
-			var dataSrcImgClass = "data-src-img";
-			var dataSrcImgIsBindedClass = "data-src-img--is-binded";
-			var images = getByClass(document, dataSrcImgClass) || "";
-			var i = images.length;
-			while (i--) {
-				if (!hasClass(images[i], dataSrcImgIsBindedClass)) {
-					addClass(images[i], dataSrcImgIsBindedClass);
-					addClass(images[i], isActiveClass);
-					addListener(images[i], "load", cb);
-				}
-			}
-			i = null;
-			if (root.LazyLoad) {
-				if (root.lazyLoadDataSrcImgInstance) {
-					root.lazyLoadDataSrcImgInstance.destroy();
-				}
-				root.lazyLoadDataSrcImgInstance = new LazyLoad({
-						elements_selector: "." + dataSrcImgClass
-					});
-			}
-		};
-
-		root.lazyLoadDataSrcIframeInstance = null;
-
-		/*!
-		 * @see {@link https://github.com/verlok/lazyload}
-		 */
-		var manageDataSrcIframeAll = function (callback) {
-			var cb = function () {
-				return callback && "function" === typeof callback && callback();
-			};
-			var dataSrcIframeClass = "data-src-iframe";
-			var dataSrcIframeIsBindedClass = "data-src-iframe--is-binded";
-			var iframes = getByClass(document, dataSrcIframeClass) || "";
-			var i = iframes.length;
-			while (i--) {
-				if (!hasClass(iframes[i], dataSrcIframeIsBindedClass)) {
-					addClass(iframes[i], dataSrcIframeIsBindedClass);
-					addClass(iframes[i], isActiveClass);
-					addListener(iframes[i], "load", cb);
-					iframes[i].setAttribute("frameborder", "no");
-					iframes[i].setAttribute("style", "border:none;");
-					iframes[i].setAttribute("webkitallowfullscreen", "true");
-					iframes[i].setAttribute("mozallowfullscreen", "true");
-					iframes[i].setAttribute("scrolling", "no");
-					iframes[i].setAttribute("allowfullscreen", "true");
-				}
-			}
-			i = null;
-			if (root.LazyLoad) {
-				if (root.lazyLoadDataSrcIframeInstance) {
-					root.lazyLoadDataSrcIframeInstance.destroy();
-				}
-				root.lazyLoadDataSrcIframeInstance = new LazyLoad({
-						elements_selector: "." + dataSrcIframeClass
-					});
-			}
-		};
-
-		/*!
-		 * @see {@link https://github.com/englishextra/img-lightbox}
-		 */
-		var manageImgLightbox = function () {
-			var imgLightboxLinkClass = "img-lightbox-link";
-			var link = getByClass(document, imgLightboxLinkClass) || "";
-			var initScript = function () {
-				imgLightbox(imgLightboxLinkClass, {
-					onLoaded: function () {
-						LoadingSpinner.hide();
-					},
-					onClosed: function () {
-						LoadingSpinner.hide();
-					},
-					onCreated: function () {
-						LoadingSpinner.show();
-					},
-					touch: false
-				});
-			};
-			if (root.imgLightbox && link) {
-				initScript();
-			}
-		};
-
-		/*!
-		 * @see {@link https://github.com/englishextra/iframe-lightbox}
-		 */
-		var manageIframeLightbox = function () {
-			var link = getByClass(document, "iframe-lightbox-link") || "";
-			var initScript = function () {
-				var arrange = function (e) {
-					e.lightbox = new IframeLightbox(e, {
-							onLoaded: function () {
-								LoadingSpinner.hide();
-							},
-							onClosed: function () {
-								LoadingSpinner.hide();
-							},
-							onOpened: function () {
-								LoadingSpinner.show();
-							},
-							touch: false
-						});
-				};
-				var i,
-				l;
-				for (i = 0, l = link.length; i < l; i += 1) {
-					arrange(link[i]);
-				}
-				i = l = null;
-			};
-			if (root.IframeLightbox && link) {
-				initScript();
-			}
-		};
-
-		var manageDataQrcodeImgAll = function (callback) {
-			var cb = function () {
-				return callback && "function" === typeof callback && callback();
-			};
-			var img = getByClass(document, "data-qrcode-img") || "";
-			var generateImg = function (e) {
-				var qrcode = e.dataset.qrcode || "";
-				qrcode = decodeURIComponent(qrcode);
-				if (qrcode) {
-					var imgSrc = forcedHTTP + "://chart.googleapis.com/chart?cht=qr&chld=M%7C4&choe=UTF-8&chs=512x512&chl=" + encodeURIComponent(qrcode);
-					e.title = qrcode;
-					e.alt = qrcode;
-					if (root.QRCode) {
-						if ("undefined" !== typeof earlySvgSupport && "svg" === earlySvgSupport) {
-							imgSrc = QRCode.generateSVG(qrcode, {
-									ecclevel: "M",
-									fillcolor: "#F3F3F3",
-									textcolor: "#191919",
-									margin: 4,
-									modulesize: 8
-								});
-							var XMLS = new XMLSerializer();
-							imgSrc = XMLS.serializeToString(imgSrc);
-							imgSrc = "data:image/svg+xml;base64," + root.btoa(unescape(encodeURIComponent(imgSrc)));
-							e.src = imgSrc;
-						} else {
-							imgSrc = QRCode.generatePNG(qrcode, {
-									ecclevel: "M",
-									format: "html",
-									fillcolor: "#F3F3F3",
-									textcolor: "#191919",
-									margin: 4,
-									modulesize: 8
-								});
-							e.src = imgSrc;
-						}
-					} else {
-						e.src = imgSrc;
-					}
-					cb();
-				}
-			};
-			if (img) {
-				var i,
-				l;
-				for (i = 0, l = img.length; i < l; i += 1) {
-					generateImg(img[i]);
-				}
-				i = l = null;
-			}
-		};
 
 		var appEvents = new EventEmitter();
 
@@ -1362,34 +1418,6 @@ WheelIndicator, Ya*/
 			}
 		};
 
-		var manageExpandingLayerAll = function () {
-			var btn = getByClass(document, "btn-expand-hidden-layer") || "";
-			var arrange = function (e) {
-				var handle = function () {
-					var _this = this;
-					var s = _this.nextElementSibling || "";
-					if (s) {
-						toggleClass(_this, isActiveClass);
-						toggleClass(s, isActiveClass);
-						updateMinigrid();
-					}
-					return;
-				};
-				if (!hasClass(e, isBindedClass)) {
-					addListener(e, "click", handle);
-					addClass(e, isBindedClass);
-				}
-			};
-			if (btn) {
-				var i,
-				l;
-				for (i = 0, l = btn.length; i < l; i += 1) {
-					arrange(btn[i]);
-				}
-				i = l = null;
-			}
-		};
-
 		var appContentId = "app-content";
 
 		var appContent = document.getElementById(appContentId) || "";
@@ -1431,7 +1459,7 @@ WheelIndicator, Ya*/
 		addListener(root, "hashchange", manageCollapsableAll);
 
 		var manageLocationQrcode = function () {
-			var btn = getByClass(document, "btn-toggle-holder-qrcode")[0] || "";
+			var btn = getByClass(document, "btn-toggle-holder-location-qrcode")[0] || "";
 			var holder = getByClass(document, "holder-location-qrcode")[0] || "";
 			var locHref = root.location.href || "";
 			var hideHolder = function () {
@@ -2429,7 +2457,7 @@ WheelIndicator, Ya*/
 						manageDropdownBtnAll();
 						manageHljs();
 						manageRipple();
-						manageExpandingLayerAll();
+						manageExpandingLayerAll(updateMinigrid);
 						manageMacy().then(function (result) {
 							console.log(result);
 						})

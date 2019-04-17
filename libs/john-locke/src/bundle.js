@@ -1,8 +1,8 @@
 /*jslint browser: true */
 /*jslint node: true */
 /*global addClass, addListener, debounce, doesFontExist, forcedHTTP, getByClass,
-getHumanDate, hasClass, hasTouch, hasWheel, isNodejs, isElectron, isNwjs,
-loadDeferred, loadJsCss, needsPolyfills, openDeviceBrowser, Parallax,
+getHumanDate, hasTouch, hasWheel, isNodejs, isElectron, isNwjs, loadDeferred,
+loadJsCss, manageExternalLinkAll, needsPolyfills, openDeviceBrowser, Parallax,
 parseLink, platform, QRCode, removeClass, removeElement, setDisplayBlock,
 setDisplayNone, setVisible, supportsCanvas, supportsPassive,
 supportsSvgSmilAnimation, toggleClass, ToProgress, unescape, VK,
@@ -132,7 +132,7 @@ WheelIndicator, Ya*/
 	 * Does not handle differences in the Event-objects.
 	 * @see {@link https://github.com/finn-no/eventlistener}
 	 */
-	var wrapListener = function (standard, fallback) {
+	var setListener = function (standard, fallback) {
 		return function (el, type, listener, useCapture) {
 			if (el[standard]) {
 				el[standard](type, listener, useCapture);
@@ -143,8 +143,8 @@ WheelIndicator, Ya*/
 			}
 		};
 	};
-	root.addListener = wrapListener("addEventListener", "attachEvent");
-	root.removeListener = wrapListener("removeEventListener", "detachEvent");
+	root.addListener = setListener("addEventListener", "attachEvent");
+	root.removeListener = setListener("removeEventListener", "detachEvent");
 
 	/*!
 	 * get elements by class name wrapper
@@ -575,6 +575,45 @@ WheelIndicator, Ya*/
 	})();
 
 	/*!
+	 * manageExternalLinkAll
+	 */
+	root.manageExternalLinkAll = function () {
+		var link = document.getElementsByTagName("a") || "";
+		var arrange = function (e) {
+			var handleLink = function (url, ev) {
+				ev.stopPropagation();
+				ev.preventDefault();
+				var logic = function () {
+					openDeviceBrowser(url);
+				};
+				debounce(logic, 200).call(root);
+			};
+			var externalLinkIsBindedClass = "external-link--is-binded";
+			if (!hasClass(e, externalLinkIsBindedClass)) {
+				var url = e.getAttribute("href") || "";
+				if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
+					e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
+					if (root.getHTTP && root.getHTTP()) {
+						e.target = "_blank";
+						e.rel = "noopener";
+					} else {
+						addListener(e, "click", handleLink.bind(null, url));
+					}
+					addClass(e, externalLinkIsBindedClass);
+				}
+			}
+		};
+		if (link) {
+			var i,
+			l;
+			for (i = 0, l = link.length; i < l; i += 1) {
+				arrange(link[i]);
+			}
+			i = l = null;
+		}
+	};
+
+	/*!
 	 * modified Detect Whether a Font is Installed
 	 * @param {String} fontName The name of the font to check
 	 * @return {Boolean}
@@ -883,41 +922,6 @@ WheelIndicator, Ya*/
 			"]";
 		}
 
-		var manageExternalLinkAll = function () {
-			var link = document.getElementsByTagName("a") || "";
-			var arrange = function (e) {
-				var handle = function (url, ev) {
-					ev.stopPropagation();
-					ev.preventDefault();
-					var logic = function () {
-						openDeviceBrowser(url);
-					};
-					debounce(logic, 200).call(root);
-				};
-				var externalLinkIsBindedClass = "external-link--is-binded";
-				if (!hasClass(e, externalLinkIsBindedClass)) {
-					var url = e.getAttribute("href") || "";
-					if (url && parseLink(url).isCrossDomain && parseLink(url).hasHTTP) {
-						e.title = "" + (parseLink(url).hostname || "") + " откроется в новой вкладке";
-						if (root.getHTTP && root.getHTTP()) {
-							e.target = "_blank";
-							e.rel = "noopener";
-						} else {
-							addListener(e, "click", handle.bind(null, url));
-						}
-						addClass(e, externalLinkIsBindedClass);
-					}
-				}
-			};
-			if (link) {
-				var i,
-				l;
-				for (i = 0, l = link.length; i < l; i += 1) {
-					arrange(link[i]);
-				}
-				i = l = null;
-			}
-		};
 		manageExternalLinkAll();
 
 		var manageLocationQrcode = function () {
