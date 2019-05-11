@@ -1774,8 +1774,6 @@ function _typeof(obj) {
 
 /*jslint node: true */
 
-/*global global, ActiveXObject, define, escape, module, pnotify, Proxy, jQuery, require, self, setImmediate, window */
-
 /*!
  * modified Packery PACKAGED v2.1.1
  * Gapless, draggable grid layouts
@@ -4281,19 +4279,19 @@ function _typeof(obj) {
 		this.unstamp(item.element);
 	};
 
-	proto.bindDraggabillyEvents = function(root.draggabillyInstance) {
-		this._bindDraggabillyEvents(root.draggabillyInstance, "on");
+	proto.bindDraggabillyEvents = function(draggie) {
+		this._bindDraggabillyEvents(draggie, "on");
 	};
 
-	proto.unbindDraggabillyEvents = function(root.draggabillyInstance) {
-		this._bindDraggabillyEvents(root.draggabillyInstance, "off");
+	proto.unbindDraggabillyEvents = function(draggie) {
+		this._bindDraggabillyEvents(draggie, "off");
 	};
 
-	proto._bindDraggabillyEvents = function(root.draggabillyInstance, method) {
+	proto._bindDraggabillyEvents = function(draggie, method) {
 		var handlers = this.handleDraggabilly;
-		root.draggabillyInstance[method]("dragStart", handlers.dragStart);
-		root.draggabillyInstance[method]("dragMove", handlers.dragMove);
-		root.draggabillyInstance[method]("dragEnd", handlers.dragEnd);
+		draggie[method]("dragStart", handlers.dragStart);
+		draggie[method]("dragMove", handlers.dragMove);
+		draggie[method]("dragEnd", handlers.dragEnd);
 	};
 
 	proto.bindUIDraggableEvents = function($elems) {

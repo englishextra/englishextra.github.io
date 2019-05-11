@@ -103,7 +103,7 @@
 			"resolved": "https://registry.npmjs.org/gulp-uglify/-/gulp-uglify-3.0.1.tgz"
 		},
 		"npm": {
-			"version": "6.7.0",
+			"version": "6.9.0",
 			"from": "npm@^6.6.0",
 			"resolved": "https://registry.npmjs.org/npm/-/npm-6.7.0.tgz"
 		}

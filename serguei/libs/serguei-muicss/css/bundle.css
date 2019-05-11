@@ -112,12 +112,22 @@ u,
 	box-sizing: border-box;
 }
 
+::-moz-selection {
+	color: #212121;
+	background-color: #b3e5fc;
+}
+
 ::selection {
 	color: #212121;
 	background-color: #b3e5fc;
 }
 
 ::-webkit-input-placeholder {
+	color: #757575 !important;
+	opacity: 1;
+}
+
+::-moz-placeholder {
 	color: #757575 !important;
 	opacity: 1;
 }

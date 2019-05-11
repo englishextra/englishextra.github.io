@@ -97,11 +97,8 @@
 			debounce(logic, this.rate).call();
 		};
 
-		if (
-			!this.trigger.classList.contains(iframeLightboxLinkIsBindedClass)
-		) {
+		if (!this.trigger.classList.contains(iframeLightboxLinkIsBindedClass)) {
 			this.trigger.classList.add(iframeLightboxLinkIsBindedClass);
-
 			this.trigger.addEventListener("click", handleIframeLightboxLink);
 
 			if (isTouch && (_this.touch || _this.dataTouch)) {
@@ -139,18 +136,15 @@
 
 		this.el.appendChild(this.btnClose);
 		docBody.appendChild(this.el);
-
 		backdrop.addEventListener("click", function() {
 			_this.close();
 		});
-
 		this.btnClose.addEventListener("click", function() {
 			_this.close();
 		});
 
 		if (!docElem.classList.contains(iframeLightboxWindowIsBindedClass)) {
 			docElem.classList.add(iframeLightboxWindowIsBindedClass);
-
 			root.addEventListener("keyup", function(ev) {
 				if (27 === (ev.which || ev.keyCode)) {
 					_this.close();
@@ -169,13 +163,9 @@
 		};
 
 		this.el.addEventListener("transitionend", clearBody, false);
-
 		this.el.addEventListener("webkitTransitionEnd", clearBody, false);
-
 		this.el.addEventListener("mozTransitionEnd", clearBody, false);
-
 		this.el.addEventListener("msTransitionEnd", clearBody, false);
-
 		this.callCallback(this.onCreated, this);
 	};
 
@@ -336,13 +326,13 @@
 		caller(data);
 	};
 
-	var setDisplayBlock = function (e) {
+	var setDisplayBlock = function setDisplayBlock(e) {
 		if (e) {
 			e.style.display = "block";
 		}
 	};
 
-	var setDisplayNone = function (e) {
+	var setDisplayNone = function setDisplayNone(e) {
 		if (e) {
 			e.style.display = "none";
 		}
@@ -435,12 +425,10 @@
 			};
 
 			container.addEventListener("click", handleImgLightboxContainer);
-
 			btnClose.addEventListener("click", handleImgLightboxContainer);
 
 			if (!docElem.classList.contains(imgLightboxWindowIsBindedClass)) {
 				docElem.classList.add(imgLightboxWindowIsBindedClass);
-
 				root.addEventListener("keyup", function(ev) {
 					if (27 === (ev.which || ev.keyCode)) {
 						hideImgLightbox(onClosed);
@@ -498,7 +486,6 @@
 
 			if (!e.classList.contains(imgLightboxLinkIsBindedClass)) {
 				e.classList.add(imgLightboxLinkIsBindedClass);
-
 				e.addEventListener("click", handleImgLightboxLink);
 
 				if (isTouch && (touch || dataTouch)) {

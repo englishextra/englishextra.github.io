@@ -257,7 +257,7 @@ function _typeof(obj) {
 					});
 				}
 			})
-			.catch(function(img) {
+			["catch"](function(img) {
 				return ctx.emit(ctx.constants.EVENT_IMAGE_ERROR, {
 					img: img
 				});

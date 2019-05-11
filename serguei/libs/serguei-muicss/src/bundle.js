@@ -1030,7 +1030,7 @@ WheelIndicator, Ya*/
 		var arrange = function (e) {
 			var handle = function () {
 				var _this = this;
-				var layer = _this.parentNode ? _this.parentNode.nextElementSibling : "";
+				var layer = _this.nextElementSibling || "";
 				if (layer) {
 					toggleClass(_this, isActiveClass);
 					toggleClass(layer, isActiveClass);

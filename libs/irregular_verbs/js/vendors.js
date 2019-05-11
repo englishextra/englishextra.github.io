@@ -172,7 +172,7 @@ function _typeof2(obj) {
 						"_data",
 						_config.DATA_DESCRIPTOR
 					);
-					this.$ = _util2.default;
+					this.$ = _util2["default"];
 					this.callbacks = {
 						onChanged: [],
 						onBeforeChange: [],
@@ -339,12 +339,12 @@ function _typeof2(obj) {
 				}
 			};
 
-			DoSlide.use(_keyboard2.default);
-			DoSlide.$ = _util2.default;
-			DoSlide.supportedTransition = _util2.default.getSupportedCSS(
+			DoSlide.use(_keyboard2["default"]);
+			DoSlide.$ = _util2["default"];
+			DoSlide.supportedTransition = _util2["default"].getSupportedCSS(
 				"transition"
 			);
-			DoSlide.supportedTransform = _util2.default.getSupportedCSS(
+			DoSlide.supportedTransform = _util2["default"].getSupportedCSS(
 				"transform"
 			);
 			module.exports = DoSlide;
@@ -902,7 +902,7 @@ function _typeof2(obj) {
 				return typeof tar !== "undefined";
 			}
 
-			exports.default = util;
+			exports["default"] = util;
 		},
 		function(module, exports, __webpack_require__) {
 			"use strict";
@@ -939,7 +939,7 @@ function _typeof2(obj) {
 					_event.startListen(doSlide);
 				}
 
-				_util2.default.removeClass(
+				_util2["default"].removeClass(
 					doSlide.el,
 					doSlide.config.initClass
 				);
@@ -969,11 +969,11 @@ function _typeof2(obj) {
 
 			var _event = __webpack_require__(5);
 
-			var supportedTransition = _util2.default.getSupportedCSS(
+			var supportedTransition = _util2["default"].getSupportedCSS(
 				"transition"
 			);
 
-			var supportedTransform = _util2.default.getSupportedCSS(
+			var supportedTransform = _util2["default"].getSupportedCSS(
 				"transform"
 			);
 
@@ -995,10 +995,10 @@ function _typeof2(obj) {
 
 			function initSections(doSlide, initIndex) {
 				/* var $container = (0, _util2.default)(doSlide.el); */
-				var $container = _util2.default(doSlide.el);
+				var $container = _util2["default"](doSlide.el);
 				/* var $sections = (0, _util2.default)(doSlide.sections); */
 
-				var $sections = _util2.default(doSlide.sections);
+				var $sections = _util2["default"](doSlide.sections);
 
 				if (doSlide.config.horizontal) {
 					$container.css("width", $sections.length + "00%");
@@ -1046,26 +1046,32 @@ function _typeof2(obj) {
 
 			function toggleTransitionClass(config, cur, tar, isAdd) {
 				if (isAdd) {
-					_util2.default.addClass(cur, config.transitionOutClass);
+					_util2["default"].addClass(cur, config.transitionOutClass);
 
-					_util2.default.addClass(tar, config.transitionInClass);
+					_util2["default"].addClass(tar, config.transitionInClass);
 				} else {
-					_util2.default.removeClass(cur, config.transitionOutClass);
+					_util2["default"].removeClass(
+						cur,
+						config.transitionOutClass
+					);
 
-					_util2.default.removeClass(tar, config.transitionInClass);
+					_util2["default"].removeClass(
+						tar,
+						config.transitionInClass
+					);
 				}
 			}
 
 			function setActiveClass(doSlide, index) {
 				/* (0, _util2.default)(doSlide.sections).each(function (section, i) { */
-				_util2.default(doSlide.sections).each(function(section, i) {
+				_util2["default"](doSlide.sections).each(function(section, i) {
 					if (i === index) {
-						_util2.default.addClass(
+						_util2["default"].addClass(
 							section,
 							doSlide.config.activeClass
 						);
 					} else {
-						_util2.default.removeClass(
+						_util2["default"].removeClass(
 							section,
 							doSlide.config.activeClass
 						);
@@ -1153,7 +1159,7 @@ function _typeof2(obj) {
 							"ms";
 						var transitionClean = supportedTransform + " 0ms";
 
-						_util2.default.css(
+						_util2["default"].css(
 							doSlide.el,
 							supportedTransition,
 							isImmediate ? transitionClean : transition
@@ -1169,13 +1175,13 @@ function _typeof2(obj) {
 							? "translate3d(" + translate + ",0)"
 							: "translate(" + translate + ")";
 
-					_util2.default.css(
+					_util2["default"].css(
 						doSlide.el,
 						supportedTransform,
 						translate
 					);
 				} else {
-					_util2.default.css(
+					_util2["default"].css(
 						doSlide.el,
 						config.horizontal ? "left" : "top",
 						-index + "00%"
@@ -1226,7 +1232,7 @@ function _typeof2(obj) {
 			}
 
 			function execute(callbacks, args, context, breakValue) {
-				return _util2.default.forEach(
+				return _util2["default"].forEach(
 					callbacks,
 					function(callback) {
 						return callback.apply(context, args);
@@ -1261,7 +1267,7 @@ function _typeof2(obj) {
 			}
 
 			function listenUserMouseWheel(doSlide, eventElem) {
-				_util2.default.onMouseWheel(
+				_util2["default"].onMouseWheel(
 					eventElem,
 					function(direction) {
 						if (
@@ -1289,7 +1295,7 @@ function _typeof2(obj) {
 			}
 
 			function listenUserSwipe(doSlide, eventElem) {
-				_util2.default.onSwipe(
+				_util2["default"].onSwipe(
 					eventElem,
 					function(direction) {
 						if (
@@ -1383,7 +1389,7 @@ function _typeof2(obj) {
 
 					this.eventType = "keydown";
 					this.eventElement = window;
-					this.for = doSlide;
+					this["for"] = doSlide;
 					this.$ = doSlide.$;
 					this.isOn = false;
 					this.listener = listener.bind(this);
@@ -1522,7 +1528,7 @@ function _typeof2(obj) {
 
 			var listener = function listener(event) {
 				var mappings = this.mappings || [];
-				var doSlide = this.for;
+				var doSlide = this["for"];
 				mappings.forEach(function(mapping) {
 					if (mapping.filter.call(doSlide, event) === true) {
 						mapping.action.call(doSlide, event);
@@ -1546,7 +1552,7 @@ function _typeof2(obj) {
 				})();
 			}
 
-			exports.default = {
+			exports["default"] = {
 				install: install
 			};
 		}

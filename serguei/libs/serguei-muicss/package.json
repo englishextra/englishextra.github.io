@@ -2,15 +2,17 @@
 	"name": "serguei-muicss-dev",
 	"version": "1.0.0",
 	"description": "Developing Tutor of English in Tushino Portfolio PWA with https://github.com/muicss/mui.",
-	"keywords": ["spa",
-	"pwa",
-	"webapp"],
+	"keywords": [
+		"spa",
+		"pwa",
+		"webapp"
+	],
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/englishextra/serguei-muicss-dev.git"
 	},
 	"dependencies": {
-		"npm": "^6.7.0"
+		"npm": "^6.9.0"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.2.2",

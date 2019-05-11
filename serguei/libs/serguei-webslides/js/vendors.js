@@ -4541,7 +4541,7 @@ function _typeof(obj) {
 	var readyList = jQuery.Deferred();
 
 	jQuery.fn.ready = function(fn) {
-		readyList.then(fn).catch(function(error) {
+		readyList.then(fn)["catch"](function(error) {
 			jQuery.readyException(error);
 		});
 		return this;
@@ -8960,7 +8960,7 @@ function _typeof(obj) {
 					}
 
 					if (conv !== true) {
-						if (conv && s.throws) {
+						if (conv && s["throws"]) {
 							response = conv(response);
 						} else {
 							try {

@@ -1706,7 +1706,6 @@ if (
 			_this.dataAttributeLowresName = dataAttributeLowresName || "lowres";
 			zoomwall.resize(blocks[children]);
 			blocks.classList.remove("loading");
-
 			blocks.addEventListener("click", function() {
 				if (_this[children] && _this[children].length > 0) {
 					zoomwall.shrink(_this[children][0]);
@@ -1714,10 +1713,7 @@ if (
 			});
 
 			for (var i = 0; i < blocks[children].length; i++) {
-				blocks[children][i].addEventListener(
-					"click",
-					zoomwall.animate
-				);
+				blocks[children][i].addEventListener("click", zoomwall.animate);
 			}
 
 			if (enableKeys) {
@@ -1762,7 +1758,6 @@ if (
 			};
 
 			document.addEventListener("keydown", keyPager);
-
 			return keyPager;
 		},
 		resizeRow: function resizeRow(row, width) {
@@ -2059,9 +2054,7 @@ if (
 			if (_this.classList.contains("active")) {
 				zoomwall.shrink(_this);
 			} else {
-				var actives = _this.parentNode.getElementsByClassName(
-					"active"
-				);
+				var actives = _this.parentNode.getElementsByClassName("active");
 
 				for (var i = 0; i < actives.length; i++) {
 					actives[i].classList.remove("active");

@@ -2,15 +2,17 @@
 	"name": "serguei-pictures",
 	"version": "0.1.0",
 	"description": "a Web UI library",
-	"keywords": ["spa",
-	"pwa",
-	"webapp"],
+	"keywords": [
+		"spa",
+		"pwa",
+		"webapp"
+	],
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/englishextra/shimansky.biz.git"
 	},
 	"dependencies": {
-		"npm": "^6.7.0"
+		"npm": "^6.9.0"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.2.2",
