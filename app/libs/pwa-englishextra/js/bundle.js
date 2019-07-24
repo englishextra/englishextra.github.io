@@ -1883,7 +1883,7 @@ ToProgress, truncString, unescape, VK, Ya*/
 							minChars: 2
 						});
 				} catch (err) {
-					console.log("cannot init Kamil", err);
+					console.log("cannot init Kamil " + err);
 					return;
 				}
 				/*!
@@ -2071,7 +2071,7 @@ ToProgress, truncString, unescape, VK, Ya*/
 					}
 					navigationJsonObj = null;
 				} catch (err) {
-					console.log("cannot init processNavigationJsonResponse", err);
+					console.log("cannot init processNavigationJsonResponse " + err);
 					return;
 				}
 				var handleListItemAll = function (e) {
@@ -2243,12 +2243,7 @@ ToProgress, truncString, unescape, VK, Ya*/
 				};
 				debounce(logic, 200).call(root);
 			};
-			if (root.QRCode &&
-				btn &&
-				holder &&
-				locHref &&
-				root.getHTTP && root.getHTTP()) {
-
+			if (root.QRCode && btn && holder && locHref && root.getHTTP && root.getHTTP()) {
 				addListener(btn, "click", handleBtn);
 			}
 		};
@@ -2298,10 +2293,8 @@ ToProgress, truncString, unescape, VK, Ya*/
 				};
 				debounce(logic, 200).call(root);
 			};
-			if (btn && holder && yaShare2) {
-				if (root.getHTTP && root.getHTTP()) {
-					addListener(btn, "click", handleBtn);
-				}
+			if (btn && holder && yaShare2 && root.getHTTP && root.getHTTP()) {
+				addListener(btn, "click", handleBtn);
 			}
 		};
 		manageYaShare2Btn();
@@ -2347,10 +2340,8 @@ ToProgress, truncString, unescape, VK, Ya*/
 				};
 				debounce(logic, 200).call(root);
 			};
-			if (btn && holder && vkLike) {
-				if (root.getHTTP && root.getHTTP()) {
-					addListener(btn, "click", handleBtn);
-				}
+			if (btn && holder && vkLike && root.getHTTP && root.getHTTP()) {
+				addListener(btn, "click", handleBtn);
 			}
 		};
 		manageVkLikeBtn();
@@ -2454,7 +2445,7 @@ ToProgress, truncString, unescape, VK, Ya*/
 						}
 					}
 				} catch (err) {
-					console.log("cannot init processRoutesJsonResponse", err);
+					console.log("cannot init processRoutesJsonResponse " + err);
 					return;
 				}
 				var renderMasonry;

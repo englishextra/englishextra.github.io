@@ -2015,13 +2015,7 @@ truncString, unescape, VK, Ya, ymaps*/
 				removeChildren(holder);
 				appendFragment(img, holder);
 			};
-			if (root.QRCode &&
-				btn &&
-				page &&
-				holder &&
-				locHref &&
-				root.getHTTP && root.getHTTP()) {
-
+			if (root.QRCode && btn && page && holder && locHref && root.getHTTP && root.getHTTP()) {
 				removePageIsActiveClass();
 				addListener(btn, "click", generateLocationQrCodeImg);
 				addListener(btn, "click", handleGenerateLocationQrCodeImgBtn);
@@ -2236,7 +2230,7 @@ truncString, unescape, VK, Ya, ymaps*/
 					addClass(yandexMap.parentNode, isActiveClass);
 					setDisplayNone(btnShow);
 				} catch (err) {
-					console.log("cannot init ymaps", err);
+					console.log("cannot init ymaps " + err);
 				}
 			};
 			if (yandexMap && yandexMapCenter && yandexMapZoom && btnShow) {
@@ -2297,7 +2291,7 @@ truncString, unescape, VK, Ya, ymaps*/
 							minChars: 2
 						});
 				} catch (err) {
-					console.log("cannot init generateMenu", err);
+					console.log("cannot init generateMenu " + err);
 					return;
 				}
 				/*!

@@ -1072,7 +1072,7 @@ ToProgress, VK, WheelIndicator, Ya, Zoomwall*/
 							}
 						}
 					} catch (err) {
-						console.log("cannot init generate", err);
+						console.log("cannot init generate " + err);
 						return;
 					}
 

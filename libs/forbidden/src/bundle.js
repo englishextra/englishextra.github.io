@@ -676,11 +676,7 @@ toggleClass, ToProgress, unescape, VK, Ya*/
 			removeChildren(holder);
 			appendFragment(img, holder);
 		};
-		if (root.QRCode &&
-			holder &&
-			locHref &&
-			root.getHTTP && root.getHTTP()) {
-
+		if (root.QRCode && holder && locHref && root.getHTTP && root.getHTTP()) {
 			initScript();
 		}
 	};

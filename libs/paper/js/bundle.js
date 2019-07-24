@@ -1044,11 +1044,7 @@ truncString, unescape, VK, Ya*/
 			removeChildren(holder);
 			appendFragment(img, holder);
 		};
-		if (root.QRCode &&
-			holder &&
-			locHref &&
-			root.getHTTP && root.getHTTP()) {
-
+		if (root.QRCode && holder && locHref && root.getHTTP && root.getHTTP()) {
 			initScript();
 		}
 	};
@@ -1992,7 +1988,7 @@ truncString, unescape, VK, Ya*/
 							minChars: 2
 						});
 				} catch (err) {
-					console.log("cannot init generateMenu", err);
+					console.log("cannot init generateMenu " + err);
 					return;
 				}
 				var suggestionUl = document.createElement("ul");

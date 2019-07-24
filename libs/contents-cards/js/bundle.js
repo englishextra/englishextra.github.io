@@ -1080,7 +1080,7 @@ throttle, toggleClass, ToProgress, VK, WheelIndicator, Ya*/
 							}
 						}
 					} catch (err) {
-						console.log("cannot init generate", err);
+						console.log("cannot init generate " + err);
 						return;
 					}
 

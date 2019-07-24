@@ -731,7 +731,7 @@ WheelIndicator, Ya*/
 						}
 					}
 				} catch (err) {
-					console.log("cannot init processJsonResponse", err);
+					console.log("cannot init processJsonResponse " + err);
 					return;
 				}
 				if ("function" === typeof options.onJsonParsed) {
@@ -1539,10 +1539,8 @@ WheelIndicator, Ya*/
 				};
 				debounce(logic, 200).call(root);
 			};
-			if (btn && holder) {
-				if (root.getHTTP && root.getHTTP()) {
-					addListener(btn, "click", handleBtn);
-				}
+			if (btn && holder && root.getHTTP && root.getHTTP()) {
+				addListener(btn, "click", handleBtn);
 			}
 		};
 		manageMobileappsBtn();
@@ -1591,10 +1589,8 @@ WheelIndicator, Ya*/
 				};
 				debounce(logic, 200).call(root);
 			};
-			if (btn && holder && yaShare2) {
-				if (root.getHTTP && root.getHTTP()) {
-					addListener(btn, "click", handleBtn);
-				}
+			if (btn && holder && yaShare2 && root.getHTTP && root.getHTTP()) {
+				addListener(btn, "click", handleBtn);
 			}
 		};
 		manageYaShare2Btn();
@@ -1640,10 +1636,8 @@ WheelIndicator, Ya*/
 				};
 				debounce(logic, 200).call(root);
 			};
-			if (btn && holder && vkLike) {
-				if (root.getHTTP && root.getHTTP()) {
-					addListener(btn, "click", handleBtn);
-				}
+			if (btn && holder && vkLike && root.getHTTP && root.getHTTP()) {
+				addListener(btn, "click", handleBtn);
 			}
 		};
 		manageVkLikeBtn();

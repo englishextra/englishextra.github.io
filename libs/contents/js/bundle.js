@@ -943,11 +943,7 @@ unescape, VK, Ya*/
 			removeChildren(holder);
 			appendFragment(img, holder);
 		};
-		if (root.QRCode &&
-			holder &&
-			locHref &&
-			root.getHTTP && root.getHTTP()) {
-
+		if (root.QRCode && holder && locHref && root.getHTTP && root.getHTTP()) {
 			initScript();
 		}
 	};
@@ -1406,7 +1402,7 @@ unescape, VK, Ya*/
 						}
 					}
 				} catch (err) {
-					console.log("cannot init processJsonResponse", err);
+					console.log("cannot init processJsonResponse " + err);
 					return;
 				}
 				var df = document.createDocumentFragment();
@@ -1781,7 +1777,7 @@ unescape, VK, Ya*/
 							minChars: 2
 						});
 				} catch (err) {
-					console.log("cannot init generateMenu", err);
+					console.log("cannot init generateMenu " + err);
 					return;
 				}
 				/*!
