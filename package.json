@@ -1,0 +1,55 @@
+{
+	"name": "englishextra.github.io",
+	"version": "0.1.0",
+	"description": "English Grammar for Russian-Speakers, a PWA website + SPA",
+	"keywords": [
+		"spa",
+		"pwa",
+		"webapp"
+	],
+	"main": "main.js",
+	"window": {
+		"icon": "favicon-32x32.png"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/englishextra/englishextra.github.io.git"
+	},
+	"dependencies": {
+		"npm": "^6.14.8"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.2.2",
+		"@babel/plugin-transform-arrow-functions": "^7.2.0",
+		"@babel/plugin-transform-async-to-generator": "^7.2.0",
+		"@babel/plugin-transform-object-assign": "^7.2.0",
+		"@babel/preset-env": "^7.2.0",
+		"gulp": "^4.0.0",
+		"gulp-babel": "^8.0.0",
+		"gulp-cli": "^2.0.1",
+		"gulp-eslint": "^5.0.0",
+		"gulp-plumber": "^1.2.1",
+		"gulp-prettier": "^2.0.0",
+		"gulp-rename": "^1.4.0",
+		"gulp-replace": "^1.0.0",
+		"gulp-sourcemaps": "^2.6.4",
+		"gulp-strip-debug": "^3.0.0",
+		"gulp-uglify": "^3.0.1"
+	},
+	"scripts": {
+		"test": "gulp lint-libbundle-js"
+	},
+	"email": "englishextra@mail.ru",
+	"url": "https://github.com/englishextra/englishextra.github.io/issues",
+	"maintainers": [{
+		"name": "Serguei Shimansky",
+		"email": "englishextra@mail.ru",
+		"url": "https://github.com/englishextra"
+	}],
+	"author": {
+		"name": "englishextra",
+		"email": "englishextra@mail.ru",
+		"url": "https://github.com/englishextra"
+	},
+	"license": "(MIT)"
+}

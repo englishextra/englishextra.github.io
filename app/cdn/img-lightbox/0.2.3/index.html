@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>img-lightbox Demo Page</title>
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="dns-prefetch" href="https://fonts.googleapis.com" /><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" /><link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" /><link rel="dns-prefetch" href="https://farm9.staticflickr.com" /><link rel="dns-prefetch" href="https://farm8.staticflickr.com" /><link rel="dns-prefetch" href="https://farm7.staticflickr.com" /><link rel="dns-prefetch" href="https://farm6.staticflickr.com" /><link rel="dns-prefetch" href="https://farm5.staticflickr.com" /><link rel="dns-prefetch" href="https://farm4.staticflickr.com" /><link rel="dns-prefetch" href="https://farm3.staticflickr.com" /><link rel="dns-prefetch" href="https://farm2.staticflickr.com" /><link rel="dns-prefetch" href="https://farm1.staticflickr.com" /><link rel="dns-prefetch" href="https://i.vimeocdn.com" /><link rel="dns-prefetch" href="https://f.vimeocdn.com" /><link rel="dns-prefetch" href="https://w.soundcloud.com" /><link rel="dns-prefetch" href="https://a.disquscdn.com" /><link rel="dns-prefetch" href="https://api-maps.yandex.ru" /><link rel="dns-prefetch" href="https://chart.googleapis.com" /><link rel="dns-prefetch" href="https://connect.mail.ru" /><link rel="dns-prefetch" href="https://connect.ok.ru" /><link rel="dns-prefetch" href="https://disqus.com" /><link rel="dns-prefetch" href="https://graph.facebook.com" /><link rel="dns-prefetch" href="https://mc.yandex.ru" /><link rel="dns-prefetch" href="https://www.google-analytics.com" /><link rel="dns-prefetch" href="https://yastatic.net" /><link rel="dns-prefetch" href="https://audiomack.com" /><link rel="dns-prefetch" href="https://api.audiomack.com" /><link rel="dns-prefetch" href="https://platform.twitter.com" /><link rel="dns-prefetch" href="https://www.instagram.com" />
+		<link rel="stylesheet" href="./css/img-lightbox.css" />
+	</head>
+	<body>
+		<h1 class="title">img-lightbox Demo</h1>
+		<p>Responsive no-jQuery pure JS/CSS Lightbox for images, no dependencies, 10kb unminified source code, with demo</p>
+		<h2>Demo</h2>
+		<p>
+			<a href="https://codepen.io/englishextra/full/YLQxRp/">codepen</a>
+			<a href="https://fiddle.jshell.net/englishextra/8hhpbv4h/show/">jsfiddle</a>
+			<a href="https://output.jsbin.com/laxudog">jsbin</a>
+		</p>
+		<h2>Features</h2>
+		<ul>
+			<li>Simple initialization</li>
+			<li>SPA / PWA friendly: prevents multiple same events assigning</li>
+			<li>Debounced launch, default 500ms, custom rate can be set with rate property of options object</li>
+			<li>Preloading spinner that is unset after onload event succeeds</li>
+			<li>Pure CSS Retina Ready UI images, no external ones (prompted by github.com/jasomdotnet, thanks)</li>
+			<li>Custom event callbacks</li>
+		</ul>
+		<h2>CDN</h2>
+		<h4>jsDelivr</h4>
+		<p>
+			<code>https://cdn.jsdelivr.net/gh/englishextra/img-lightbox@0.1.8/js/img-lightbox.min.js</code>
+			<br />
+			<code>https://cdn.jsdelivr.net/gh/englishextra/img-lightbox@0.1.8/css/img-lightbox.min.css</code>
+		</p>
+		<h4>unpkg</h4>
+		<p>
+			<code>https://unpkg.com/img-lightbox@0.1.8/js/img-lightbox.js</code>
+			<br />
+			<code>https://unpkg.com/img-lightbox@0.1.8/css/img-lightbox.css</code>
+		</p>
+		<h2>Install</h2>
+		<h4>npm</h4>
+		<p>
+			<code>npm install img-lightbox</code>
+		</p>
+		<h2>Setup</h2>
+		<p><code>class</code> is required, and can be any class name you choose (in this demo it's &quot;img-lightbox-link&quot;).</p>
+		<p><code>data-src</code> is another method to get the source URL when you do not want the link to lead to some real URL.</p>
+		<p><code>href</code> is required, and contains URL of your image.</p>
+		<h2><a href="https://farm1.staticflickr.com/955/27854475488_5f82a379ca_z.jpg" class="img-lightbox-link" aria-hidden="true" rel="lightbox" aria-label="Лайтбокс"><img src="https://farm1.staticflickr.com/955/27854475488_5f82a379ca_z.jpg" alt="Image Lightbox" /></a></h2>
+		<pre><code>&lt;a href=&quot;https://farm1.staticflickr.com/955/27854475488_5f82a379ca_z.jpg&quot;
+class=&quot;img-lightbox-link&quot;
+aria-hidden=&quot;true&quot;
+rel=&quot;lightbox&quot;&gt;&lt;img src=&quot;https://farm1.staticflickr.com/955/27854475488_5f82a379ca_z.jpg&quot; alt=&quot;Image Lightbox&quot; /&gt;&lt;/a&gt;</code></pre>
+		<p>For those who don't use 3rd-party scripts that interfere with links behaviour and don't force <code>window.location</code> they have no need in either <code>data-touch="true"</code> or <code>{touch: true}</code>.</p>
+		<p>When you have scripts that interfere, then to keep lightbox working, use <code>{touch: true}</code> or <code>data-touch="true"</code> (you shouldn't enable this touch override if you have a full screen image in a lighbox link and have no other space to scroll down).</p>
+		<p><code>data-src</code> or <code>href</code> doesn't matter.</p>
+		<h2>Initialize</h2>
+		<pre><code>imgLightbox(&quot;img-lightbox-link&quot;);</code></pre>
+		<h2>Tips</h2>
+		<p>SPA / PWA developers don't need to bother: work-related class is added to a link.</p>
+		<p>That way you avoid multiple assignments to a single element.</p>
+		<h2>Examples of event handling</h2>
+		<pre><code>(function(root){
+	&quot;use strict&quot;;
+	if (root.imgLightbox) {
+		imgLightbox(&quot;img-lightbox-link&quot;, {
+			onCreated: function () {
+				/* show your preloader */
+			},
+			onLoaded: function () {
+				/* hide your preloader */
+			},
+			onError: function () {
+				/* hide your preloader */
+			},
+			onClosed: function () {
+				/* hide your preloader */
+			},
+			rate: 500 /* default: 500 */
+		});
+	}
+})(&quot;undefined&quot; !== typeof window ? window : this);</code></pre>
+		<h2>GitHub</h2>
+		<p><a href="https://github.com/englishextra/img-lightbox">englishextra/img-lightbox</a></p>
+		<h2>License</h2>
+		<p>Available under <a href="https://opensource.org/licenses/MIT">MIT License</a></p>
+		<!-- <script src="./js/touch-keyboard-navigation.js"></script> -->
+		<script src="./js/img-lightbox.js"></script>
+		<script>
+			(function(root) {
+				"use strict";
+				if (root.imgLightbox) {
+					imgLightbox("img-lightbox-link", {
+						onCreated: function() {
+							/* show your preloader */
+						},
+						onLoaded: function() {
+							/* hide your preloader */
+						},
+						onError: function() {
+							/* hide your preloader */
+						},
+						onClosed: function() {
+							/* hide your preloader */
+						},
+						rate: 500 /* default: 500 */,
+						touch: false /* default: false - use with care for responsive images in links on vertical mobile screens */
+					});
+				}
+			})("undefined" !== typeof window ? window : this);
+		</script>
+	</body>
+</html>

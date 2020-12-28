@@ -1,0 +1,4 @@
+git gc
+
+pause
+

@@ -1,0 +1,366 @@
+html {
+/* background: url(https://www.feedburner.com/fb/feed-styles/images/html.jpg) repeat-x #ddd center top; */
+}
+
+html#podcast {
+/* background: url(https://www.feedburner.com/fb/feed-styles/images/html-podcast.jpg) repeat-x #424242 center top; */
+}
+
+a:link,
+a:visited,
+a:active {
+	color: #0078D7;
+/* font-weight: bold; */
+}
+
+h1 a:link,
+h1 a:visited,
+h1 a:hover,
+h1 a:active {
+	color: #727FBD;
+	background-color: transparent;
+	text-decoration: none;
+}
+
+body#podcast h1 a:link,
+body#podcast h1 a:visited,
+body#podcast h1 a:hover,
+body#podcast h1 a:active {
+	color: #191919;
+	background-color: transparent;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+p#subscribeLink {
+	font-size: 16px;
+	text-align: center;
+	margin-top: 8px;
+}
+
+body#browserfriendly p#subscribeLink a {
+	background-color: #ffc;
+	border: 1px solid #CCCCCC;
+	padding: 8px 4px 4px 4px;
+}
+
+body#podcast p#subscribeLink a {
+	background-color: #191919;
+	color: white;
+	border: 1px solid #CCCCCC;
+	padding: 6px 6px 6px 6px;
+}
+
+p#resetLink {
+	text-align: center;
+}
+
+p#resetLink a:link,
+p#resetLink a:visited,
+p#resetLink a:hover,
+p#resetLink a:active {
+	color: #191919;
+	text-decoration: underline;
+}
+
+img#feedimage {
+	float: right;
+	padding-bottom: 10px;
+/* padding-left: 20px; */
+	max-width: 25%;
+}
+
+body#browserfriendly {
+/* background: url(https://www.feedburner.com/fb/feed-styles/images/body.jpg) repeat-y center top; */
+	margin: 0 auto;
+	width: 100%;
+	max-width: 770px;
+	padding: 0;
+	font-family: "Roboto", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", "HelveticaNeue", "Roboto", sans-serif;
+	font-size: 12px;
+	color: #767676;
+}
+
+body#podcast {
+/* background: url(https://www.feedburner.com/fb/feed-styles/images/body-podcast.jpg) repeat-y center top; */
+	margin: 0 auto;
+	width: 100%;
+	max-width: 770px;
+	padding: 0;
+	font-family: "Roboto", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", "HelveticaNeue", "Roboto", sans-serif;
+	font-size: 12px;
+	color: #767676;
+}
+
+body#browserfriendly p,
+body#podcast p {
+	margin-bottom: 1em;
+}
+
+body#browserfriendly div#bodycontainer {
+/* background: url(https://www.feedburner.com/fb/feed-styles/images/bodycontainer.jpg) no-repeat center top; */
+	margin: 0 auto;
+	width: 100%;
+	max-width: 770px;
+	padding: 0;
+}
+
+body#podcast div#bodycontainer {
+/* background: url(https://www.feedburner.com/fb/feed-styles/images/bodycontainer-podcast.jpg) no-repeat center top; */
+	margin: 0 auto;
+	width: 100%;
+	max-width: 770px;
+	padding: 0;
+}
+
+div#bodycontainer #bannerblock {
+	margin: 1.500em 20px 1.500em 20px;
+	padding-top: 10px;
+	padding-right: 20px;
+	border-bottom: 1px solid #CCCCCC;
+}
+
+div#bodycontainer #bodyblock {
+	margin: 10px 20px 0 20px;
+	color: black;
+}
+
+body#browserfriendly div#bannerblock h1,
+body#podcast div#bannerblock h1 {
+	font-size: 32px;
+	font-weight: normal;
+	color: #900;
+	line-height: 101%;
+	letter-spacing: -.5px;
+}
+
+body#browserfriendly div#bannerblock h2,
+body#podcast div#bannerblock h2 {
+	font-size: 15px;
+	color: #767676;
+}
+
+body#browserfriendly div.subscribeblock h3,
+body#podcast div.subscribeblock h3 {
+	padding-left: 0px;
+}
+
+div.subscribeblock {
+	float: right;
+	margin: 0 0 24px 12px;
+	width: 50%;
+	max-width: 372px;
+}
+
+.action {
+	background: white;
+	padding: 0;
+	border-bottom: 1px solid #CCCCCC;
+	border-left: 1px solid #CCCCCC;
+/* background: transparent url(https://www.feedburner.com/fb/i/bg/bg_rounded.gif) no-repeat right top; */
+}
+
+div#subscribe-userchoice,
+div#subscribe-options {
+	padding: 0 12px 0 12px;
+}
+
+div#subscribe-options h3 {
+	font-size: 18px;
+	color: #767676;
+}
+
+div#subscribe-options h4 {
+	font-weight: normal;
+	margin: 14px 0 6px 0;
+}
+
+div#subscribe-options div#webbased {
+	text-align: center;
+}
+
+div#subscribe-options div img {
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-bottom: 3px;
+}
+
+div#subscribe-options p {
+	margin-top: 12px;
+	line-height: 150%;
+}
+
+div#subscribe-options p.desktopsub {
+	margin: 0;
+	margin-top: 10px;
+}
+
+div#subscribe-options input#text {
+	width: 100%;
+	max-width: 300px;
+	color: #191919;
+	border: 1px solid #CCCCCC;
+	padding: 2px;
+}
+
+blockquote {
+	margin-left: 3em;
+}
+
+option {
+	padding-left: 8px;
+}
+
+div#savemychoice {
+	text-align: center;
+/* background: url(https://www.feedburner.com/fb/i/bg/bg_gray.gif) repeat-x left top; */
+	padding: 12px;
+	border-right: 1px solid #626262;
+}
+
+body#browserfriendly ul li.regularitem,
+body#podcast ul li.regularitem {
+/* background: url(https://www.feedburner.com/fb/feed-styles/images/itemqube2.gif) no-repeat left top; */
+	padding: 0 0 0 0;
+	margin-bottom: 16px;
+}
+
+body#browserfriendly ul li.spliceditem,
+body#podcast ul li.spliceditem {
+	border-bottom: 1px solid #CCCCCC;
+	background: #eee;
+	padding-top: 6px;
+	padding-bottom: 0;
+}
+
+body#browserfriendly div.itemcontent ul,
+body#podcast div.itemcontent ul {
+	list-style: square;
+	padding-left: 1em;
+	margin-bottom: 1em;
+}
+
+body#browserfriendly div.itemcontent li,
+body#podcast div.itemcontent li {
+	margin-left: 2.4em;
+	margin-bottom: .5em;
+}
+
+body#browserfriendly div.itemcontent ol,
+body#podcast div.itemcontent ol {
+	list-style-type: decimal;
+	margin-bottom: 1em;
+}
+
+h3#currentFeedContent {
+	clear: both;
+	font-size: 24px;
+	color: #767676;
+	border-bottom: 1px solid #CCCCCC;
+	margin-bottom: 16px;
+}
+
+h4.itemtitle {
+	font-size: 18px;
+	letter-spacing: -.25px;
+	font-weight: 700;
+}
+
+h5.itemposttime {
+	font-size: 14px;
+	font-weight: normal;
+	color: #767676;
+	margin-top: 3px;
+	margin-bottom: 6px;
+}
+
+h5.itemposttime span {
+	color: #393939;
+}
+
+div.itemcontent {
+	font-size: 14px;
+	line-height: 130% ! important;
+	overflow: hidden;
+	width: 99%;
+}
+
+div.itemcontent img[align=right] {
+	padding-left: 12px;
+	padding-bottom: 12px;
+}
+
+div.itemcontent img[align=left] {
+	padding-right: 12px;
+	padding-bottom: 12px;
+}
+
+p#emailthis {
+/* background: url(https://www.feedburner.com/fb/feed-styles/images/email.gif) no-repeat left top; */
+	width: 290px;
+	line-height: 120% ! important;
+	padding-top: 2px;
+	padding-left: 20px;
+}
+
+p#embedthis {
+/* background: url(https://www.feedburner.com/fb/feed-styles/images/copy_paste.gif) no-repeat left top; */
+	padding-left: 20px;
+}
+
+p.podcastmediaenclosure {
+	padding-top: 6px;
+	padding-left: 0;
+	height: 16px;
+/* background: url(https://www.feedburner.com/fb/feed-styles/images/playnow.gif) no-repeat left center; */
+}
+
+p.podcastmediaenclosure a {
+	color: #191919;
+}
+
+p.mediaenclosure {
+	text-transform: uppercase;
+	font-weight: bold;
+	margin: 10px 0 10px 0;
+}
+
+p.mediaenclosure a {
+	text-transform: none;
+}
+
+p.splicedwatermark {
+	text-align: right;
+	color: #767676;
+	margin-bottom: 0 ! important;
+}
+
+body#browserfriendly p.about,
+body#podcast p.about {
+	color: #767676;
+	line-height: 130%;
+	font-size: 14px;
+}
+
+div#bodycontainer #footer {
+	border-top: 1px solid #CCCCCC;
+	margin: 10px 20px 0 20px;
+	padding: 16px 120px 12px 120px;
+	vertical-align: middle;
+	clear: both;
+}
+
+div#bodycontainer #footer p {
+/* width: 324px; */
+	text-align: center;
+	line-height: 140%;
+}
+
+div#bodycontainer #footer img {
+	float: right;
+	margin-top: 10px;
+}
+

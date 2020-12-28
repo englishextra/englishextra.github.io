@@ -1,0 +1,9 @@
+@mixin fontdef-woff($FontPath, $FontName, $FontVersion:"2.0.986", $FontType:"Regular") {
+	src:	url('#{$FontPath}/#{$FontName}-#{$FontType}.eot');
+	src:	url('#{$FontPath}/#{$FontName}-#{$FontType}.eot?#iefix') format('embedded-opentype'),
+			url('#{$FontPath}/#{$FontName}-#{$FontType}.woff2?v=#{$FontVersion}') format('woff2'),
+			url('#{$FontPath}/#{$FontName}-#{$FontType}.woff?v=#{$FontVersion}') format('woff'),
+			url('#{$FontPath}/#{$FontName}-#{$FontType}.ttf') format('truetype'),
+			url('#{$FontPath}/#{$FontName}-#{$FontType}.svg##{$FontName}#{$FontType}') format('svg');
+			font-display: swap;
+}

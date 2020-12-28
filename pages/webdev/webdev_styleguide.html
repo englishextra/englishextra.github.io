@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta property="og:image" content="https://englishextra.github.io/image_src.jpg" />
+		<meta property="og:title" content="«Английский без регистрации»" />
+		<meta property="og:description" content="Грамматика, ОГЭ / ЕГЭ / PET /FCE / IELTS, пособия, культура, ремесло. Сайт: englishextra.github.io" />
+		<meta property="og:url" content="https://englishextra.github.io/" />
+		<meta property="og:type" content="website" />
+		<meta name="twitter:image" content="https://englishextra.github.io/image_src.jpg" />
+		<meta name="twitter:title" content="«Английский без регистрации»" />
+		<meta name="twitter:description" content="Грамматика, ОГЭ / ЕГЭ / PET /FCE / IELTS, пособия, культура, ремесло. Сайт: englishextra.github.io" />
+		<meta name="twitter:site" content="@englishextra" />
+		<meta name="twitter:card" content="summary" />
+		<meta name="robots" content="index,follow" />
+		<meta name="keywords" content="английский,гиа,глаголы,диалоги,егэ,идиомы,ключи,косвенная,макмилан,Москва,неправильные,огэ,ответы,правила,репетитор,рефераты,речь,решебник,тесты,топики,Тушино,употребление,чтения,article,comparative,conditionals,degrees,english,grammar,idioms,irregular,macmillan,prepositions,reading,tenses,tests,transcripts,verbs" />
+		<meta name="description" content="UI Style Guide" /><title>UI Style Guide</title>
+		<link rel="dns-prefetch" href="https://fonts.googleapis.com" /><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" /><link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" /><link rel="dns-prefetch" href="https://farm9.staticflickr.com" /><link rel="dns-prefetch" href="https://farm8.staticflickr.com" /><link rel="dns-prefetch" href="https://farm7.staticflickr.com" /><link rel="dns-prefetch" href="https://farm6.staticflickr.com" /><link rel="dns-prefetch" href="https://farm5.staticflickr.com" /><link rel="dns-prefetch" href="https://farm4.staticflickr.com" /><link rel="dns-prefetch" href="https://farm3.staticflickr.com" /><link rel="dns-prefetch" href="https://farm2.staticflickr.com" /><link rel="dns-prefetch" href="https://farm1.staticflickr.com" /><link rel="dns-prefetch" href="https://i.vimeocdn.com" /><link rel="dns-prefetch" href="https://f.vimeocdn.com" /><link rel="dns-prefetch" href="https://w.soundcloud.com" /><link rel="dns-prefetch" href="https://a.disquscdn.com" /><link rel="dns-prefetch" href="https://api-maps.yandex.ru" /><link rel="dns-prefetch" href="https://chart.googleapis.com" /><link rel="dns-prefetch" href="https://connect.mail.ru" /><link rel="dns-prefetch" href="https://connect.ok.ru" /><link rel="dns-prefetch" href="https://disqus.com" /><link rel="dns-prefetch" href="https://graph.facebook.com" /><link rel="dns-prefetch" href="https://mc.yandex.ru" /><link rel="dns-prefetch" href="https://www.google-analytics.com" /><link rel="dns-prefetch" href="https://yastatic.net" /><link rel="dns-prefetch" href="https://audiomack.com" /><link rel="dns-prefetch" href="https://api.audiomack.com" /><link rel="dns-prefetch" href="https://platform.twitter.com" /><link rel="dns-prefetch" href="https://www.instagram.com" /><link rel="dns-prefetch" href="https://api.audiomack.com" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+		<link rel="manifest" type="application/manifest+json" href="/manifest.webmanifest" />
+		<link rel="mask-icon" href="/mask-icon.svg" color="#F03B4C" />
+		<meta name="mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-title" content="englishextra" />
+		<meta name="application-name" content="englishextra" />
+		<meta name="msapplication-TileColor" content="#F03B4C" />
+		<meta name="theme-color" content="#F03B4C" />
+		<link rel="yandex-tableau-widget" href="/yandex-tableau-widget.json" />
+		<link rel="image_src" href="/image_src.jpg" type="image/jpeg" title="Английский без регистрации" />
+		<link rel="sitemap" href="/sitemap.xml" type="application/xml" />
+		<link rel="alternate" href="https://englishextra.github.io/feeds/pages.xml" type="application/rss+xml" title="Заголовки - Английский без регистрации" />
+		<link rel="search" href="https://englishextra.github.io/searchplugins/mycroft/sitesearch.xml" type="application/opensearchdescription+xml" title="Поиск - Английский без регистрации" />
+		<style>
+			body {
+				font-family: Roboto, sans-serif;
+				color: transparent;
+				background-color: #F0F0F0;
+				margin: 0;
+			}
+			body,
+			a {
+				color: transparent;
+			}
+			[hidden],
+			button,
+			canvas,
+			img,
+			input[type^=text],
+			select,
+			svg,
+			template {
+				display: none;
+			}
+			html,
+			body {
+				height: 100%;
+			}
+			html {
+				font-size: 15px;
+				line-height: 20px;
+			}
+			body {
+				font-size: 1.000rem;
+				line-height: 1.333rem;
+				margin: 0;
+			}
+			.container {
+				visibility: hidden;
+				opacity: 0;
+			}
+			@media only screen {
+				html {
+					font-size: 12px;
+				}
+			}
+			@media only screen and (max-width:40em) {
+				html {
+					font-size: 12px;
+				}
+			}
+			@media only screen and (min-width:40.063em) {
+				html {
+					font-size: 12px;
+				}
+			}
+			@media only screen and (min-width:40.063em) and (max-width:64em) {
+				html {
+					font-size: 15px;
+				}
+			}
+			@media only screen and (min-width:64.063em) {
+				html {
+					font-size: 15px;
+				}
+			}
+			@media only screen and (min-width:64.063em) and (max-width:90em) {
+				html {
+					font-size: 15px;
+				}
+			}
+			@media only screen and (min-width:90.063em) {
+				html {
+					font-size: 15px;
+				}
+			}
+			@media only screen and (min-width:90.063em) and (max-width:120em) {
+				html {
+					font-size: 18px;
+				}
+			}
+			@media only screen and (min-width:120.063em) {
+				html {
+					font-size: 18px;
+				}
+			}
+		</style>
+		<noscript>
+			<link rel="stylesheet" href="./../../libs/branding/css/bundle.min.css" />
+			<style>
+				.container {
+					visibility: visible;
+					opacity: 1;
+				}
+			</style>
+		</noscript>
+	</head>
+	<body>
+		<!-- https://haltersweb.github.io/Accessibility/svg.html --><svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" focusable="false">
+			<defs>
+				<symbol id="ui-icon-Up" viewBox="0 0 96 96">
+					<path d="M66.5,46.4l-1.8,1.8L49.3,32.8V68h-2.5V32.8L31.3,48.2l-1.8-1.8L48,28L66.5,46.4z"></path>
+				</symbol>
+				<symbol id="ui-icon-Like" viewBox="0 0 96 96">
+					<path d="M64.3,42.9c0.5,0,1,0.1,1.4,0.3c0.5,0.2,0.9,0.5,1.2,0.8c0.3,0.3,0.6,0.8,0.8,1.2c0.2,0.5,0.3,1,0.3,1.5 c0,0.4-0.1,0.8-0.2,1.2l-5,15.4c-0.1,0.4-0.3,0.7-0.5,1.1s-0.5,0.6-0.8,0.8c-0.3,0.2-0.7,0.4-1,0.5C60,65.9,59.7,66,59.3,66h-10 c-2.3,0-4.6-0.5-6.7-1.4c-0.9-0.4-1.9-0.7-2.8-0.9c-0.9-0.2-1.9-0.3-2.9-0.3H28v-18h8.1c0.8,0,1.6-0.2,2.4-0.5 c0.7-0.3,1.4-0.8,2-1.4l12.1-12.5c0.3-0.3,0.7-0.6,1-0.8c0.3-0.2,0.7-0.3,1.2-0.3c0.4,0,0.8,0.1,1.2,0.3s0.7,0.4,1,0.7 c0.3,0.3,0.5,0.6,0.7,1c0.2,0.4,0.2,0.8,0.2,1.2c0,1.1-0.1,2.1-0.4,3.1c-0.2,1-0.6,2-1,2.9c-0.3,0.6-0.5,1.2-0.7,1.8 s-0.3,1.2-0.4,1.9L64.3,42.9L64.3,42.9z M59.3,63.4c0.3,0,0.5-0.1,0.7-0.2c0.2-0.2,0.4-0.4,0.5-0.6c0.1-0.2,0.2-0.5,0.4-1.1 c0.2-0.5,0.4-1.2,0.6-1.9c0.2-0.8,0.5-1.6,0.8-2.5c0.3-0.9,0.6-1.8,0.9-2.7c0.3-0.9,0.6-1.8,0.9-2.7c0.3-0.9,0.5-1.7,0.8-2.4 c0.2-0.7,0.4-1.3,0.5-1.7c0.1-0.4,0.2-0.7,0.2-0.8c0-0.3-0.1-0.6-0.4-0.9c-0.2-0.3-0.5-0.4-0.9-0.4H53c0-0.7,0-1.4,0-2 s0.1-1.2,0.2-1.8s0.2-1.2,0.4-1.7c0.2-0.6,0.4-1.2,0.7-1.8c0.4-0.8,0.6-1.6,0.8-2.4c0.2-0.8,0.3-1.7,0.3-2.5c0-0.2-0.1-0.3-0.2-0.5 c-0.1-0.1-0.3-0.2-0.4-0.2c-0.1,0-0.1,0-0.2,0.1l-0.2,0.2L42.3,45.4c-0.4,0.4-0.9,0.8-1.3,1.1c-0.5,0.3-1,0.6-1.5,0.8 c-1,0.5-2.2,0.7-3.3,0.7h-5.6v12.9h6.2c2.3,0,4.6,0.5,6.7,1.4c1.9,0.8,3.8,1.2,5.8,1.2L59.3,63.4L59.3,63.4z"></path>
+				</symbol>
+				<symbol id="ui-icon-Share" viewBox="0 0 96 96">
+					<path d="M65.1,54c0.4,0.3,0.8,0.6,1.2,1c0.4,0.4,0.7,0.8,0.9,1.3c0.2,0.5,0.4,0.9,0.6,1.4c0.1,0.5,0.2,1,0.2,1.5 c0,0.9-0.2,1.7-0.5,2.4c-0.3,0.8-0.8,1.4-1.3,2c-0.6,0.6-1.2,1-2,1.3c-0.8,0.3-1.6,0.5-2.4,0.5c-1.2,0-2.3-0.3-3.3-1 c-1.5,1.1-3.1,2-4.9,2.6S49.9,68,48,68c-1.9,0-3.7-0.3-5.5-0.9s-3.4-1.4-4.9-2.6c-1,0.6-2.1,1-3.3,1c-0.9,0-1.7-0.2-2.4-0.5 s-1.4-0.8-2-1.3c-0.6-0.6-1-1.2-1.3-2c-0.3-0.8-0.5-1.6-0.5-2.4c0-0.5,0.1-1,0.2-1.5c0.1-0.5,0.3-1,0.6-1.4c0.2-0.5,0.6-0.9,0.9-1.3 c0.4-0.4,0.8-0.7,1.2-1c-0.1-0.6-0.2-1.2-0.3-1.7c-0.1-0.6-0.1-1.2-0.1-1.7c0-1.8,0.3-3.5,0.8-5.2c0.5-1.7,1.3-3.2,2.3-4.7 c1-1.4,2.2-2.7,3.5-3.8c1.4-1.1,2.9-2,4.6-2.6c0-0.8,0.2-1.6,0.5-2.4s0.8-1.4,1.3-2c0.6-0.6,1.2-1,2-1.3c0.8-0.3,1.6-0.5,2.4-0.5 c0.8,0,1.6,0.2,2.4,0.5s1.4,0.8,2,1.3c0.6,0.6,1,1.2,1.3,2s0.5,1.5,0.5,2.4c1.7,0.6,3.2,1.5,4.6,2.6c1.4,1.1,2.6,2.4,3.5,3.8 c1,1.4,1.7,3,2.3,4.7c0.5,1.7,0.8,3.4,0.8,5.2c0,0.6,0,1.2-0.1,1.7C65.4,52.8,65.3,53.4,65.1,54L65.1,54z M48,30.5 c-0.5,0-1,0.1-1.5,0.3s-0.9,0.5-1.2,0.8c-0.3,0.3-0.6,0.7-0.8,1.2c-0.2,0.5-0.3,0.9-0.3,1.5c0,0.5,0.1,1,0.3,1.5 c0.2,0.5,0.5,0.9,0.8,1.2c0.3,0.3,0.7,0.6,1.2,0.8S47.5,38,48,38s1-0.1,1.5-0.3c0.5-0.2,0.9-0.5,1.2-0.8c0.3-0.3,0.6-0.7,0.8-1.2 c0.2-0.5,0.3-0.9,0.3-1.5c0-0.5-0.1-1-0.3-1.5c-0.2-0.5-0.5-0.9-0.8-1.2c-0.3-0.3-0.7-0.6-1.2-0.8S48.5,30.5,48,30.5z M30.5,59.3 c0,0.5,0.1,1,0.3,1.5c0.2,0.5,0.5,0.9,0.8,1.2c0.3,0.3,0.7,0.6,1.2,0.8c0.5,0.2,0.9,0.3,1.5,0.3c0.5,0,1-0.1,1.5-0.3 s0.9-0.5,1.2-0.8s0.6-0.7,0.8-1.2s0.3-0.9,0.3-1.5s-0.1-1-0.3-1.5s-0.5-0.9-0.8-1.2s-0.7-0.6-1.2-0.8s-0.9-0.3-1.5-0.3 c-0.5,0-1,0.1-1.5,0.3c-0.5,0.2-0.9,0.5-1.2,0.8c-0.3,0.3-0.6,0.7-0.8,1.2C30.6,58.2,30.5,58.7,30.5,59.3z M48,65.5 c1.5,0,3-0.2,4.5-0.7s2.8-1.1,4.1-2c-0.4-0.5-0.6-1.1-0.8-1.7c-0.2-0.6-0.3-1.2-0.3-1.8c0-0.9,0.2-1.7,0.5-2.4 c0.3-0.8,0.8-1.4,1.3-2c0.6-0.6,1.2-1,2-1.3c0.8-0.3,1.6-0.5,2.4-0.5c0.2,0,0.3,0,0.5,0c0.2,0,0.3,0,0.5,0.1 c0.2-0.9,0.2-1.7,0.2-2.6c0-1.5-0.2-3-0.7-4.4c-0.4-1.4-1.1-2.7-1.9-3.9c-0.8-1.2-1.8-2.3-2.9-3.2c-1.1-0.9-2.4-1.7-3.8-2.3 c-0.2,0.6-0.6,1.1-0.9,1.6c-0.4,0.5-0.9,0.9-1.4,1.2s-1.1,0.6-1.6,0.8c-0.6,0.2-1.2,0.3-1.8,0.3c-0.6,0-1.2-0.1-1.8-0.3 c-0.6-0.2-1.1-0.4-1.6-0.8c-0.5-0.3-1-0.7-1.4-1.2c-0.4-0.5-0.7-1-0.9-1.6c-1.4,0.6-2.7,1.4-3.8,2.3c-1.1,0.9-2.1,2-2.9,3.2 s-1.4,2.5-1.9,3.9C33.2,47.5,33,49,33,50.5c0,0.9,0.1,1.7,0.2,2.6c0.9-0.2,1.8-0.1,2.7,0.2c0.9,0.3,1.7,0.7,2.3,1.3 c0.7,0.6,1.2,1.3,1.6,2.1s0.6,1.7,0.6,2.7c0,0.6-0.1,1.2-0.3,1.8c-0.2,0.6-0.5,1.2-0.8,1.7c1.3,0.9,2.6,1.6,4.1,2 C45,65.3,46.5,65.5,48,65.5L48,65.5z M61.7,63c0.5,0,1-0.1,1.5-0.3c0.5-0.2,0.9-0.5,1.2-0.8s0.6-0.7,0.8-1.2 c0.2-0.5,0.3-0.9,0.3-1.5s-0.1-1-0.3-1.5c-0.2-0.5-0.5-0.9-0.8-1.2s-0.7-0.6-1.2-0.8c-0.5-0.2-0.9-0.3-1.5-0.3c-0.5,0-1,0.1-1.5,0.3 c-0.5,0.2-0.9,0.5-1.2,0.8c-0.3,0.3-0.6,0.7-0.8,1.2c-0.2,0.5-0.3,0.9-0.3,1.5c0,0.5,0.1,1,0.3,1.5c0.2,0.5,0.5,0.9,0.8,1.2 c0.3,0.3,0.7,0.6,1.2,0.8C60.7,62.9,61.2,63,61.7,63z"></path>
+				</symbol>
+				<symbol id="ui-icon-Search" viewBox="0 0 32 32">
+					<path d="M21 0q1.516 0 2.922 0.391t2.625 1.109 2.227 1.727 1.727 2.227 1.109 2.625 0.391 2.922-0.391 2.922-1.109 2.625-1.727 2.227-2.227 1.727-2.625 1.109-2.922 0.391q-1.953 0-3.742-0.656t-3.289-1.891l-12.266 12.25q-0.297 0.297-0.703 0.297t-0.703-0.297-0.297-0.703 0.297-0.703l12.25-12.266q-1.234-1.5-1.891-3.289t-0.656-3.742q0-1.516 0.391-2.922t1.109-2.625 1.727-2.227 2.227-1.727 2.625-1.109 2.922-0.391zM21 20q1.859 0 3.5-0.711t2.859-1.93 1.93-2.859 0.711-3.5-0.711-3.5-1.93-2.859-2.859-1.93-3.5-0.711-3.5 0.711-2.859 1.93-1.93 2.859-0.711 3.5 0.711 3.5 1.93 2.859 2.859 1.93 3.5 0.711z"></path>
+				</symbol>
+				<symbol id="ui-icon-ChevronDown" viewBox="0 0 32 32">
+					<path d="M16 21.85l14.568-14.564 1.432 1.432-16 15.996-16-15.996 1.432-1.432 14.568 14.564z"></path>
+				</symbol>
+				<symbol id="ui-icon-ChevronDownSmall" viewBox="0 0 32 32">
+					<path d="M28.191 6.107l3.809 3.791-16 15.995-16-15.995 3.809-3.791 12.191 12.189 12.191-12.189z"></path>
+				</symbol>
+				<symbol id="ui-icon-GlobalNavButton" viewBox="0 0 96 96">
+					<path d="M68,39.4H28V37h40V39.4z M68,59H28v-2.4h40V59z M68,49.2H28v-2.4h40V49.2z"></path>
+				</symbol>
+				<symbol id="ui-icon-More" viewBox="0 0 96 96">
+					<path d="M30.9,45.1c0.4,0,0.8,0.1,1.1,0.2c0.3,0.1,0.6,0.4,0.9,0.6s0.5,0.6,0.6,0.9s0.2,0.7,0.2,1.1s-0.1,0.8-0.2,1.1 c-0.1,0.3-0.4,0.6-0.6,0.9s-0.6,0.5-0.9,0.6c-0.3,0.1-0.7,0.2-1.1,0.2s-0.8-0.1-1.1-0.2c-0.3-0.1-0.6-0.4-0.9-0.6s-0.5-0.6-0.6-0.9 S28,48.4,28,48s0.1-0.8,0.2-1.1c0.1-0.3,0.4-0.6,0.6-0.9c0.3-0.3,0.6-0.5,0.9-0.6S30.5,45.1,30.9,45.1z M48,45.1 c0.4,0,0.8,0.1,1.1,0.2c0.3,0.1,0.6,0.4,0.9,0.6s0.5,0.6,0.6,0.9s0.2,0.7,0.2,1.1s-0.1,0.8-0.2,1.1c-0.1,0.3-0.4,0.6-0.6,0.9 s-0.6,0.5-0.9,0.6c-0.3,0.1-0.7,0.2-1.1,0.2s-0.8-0.1-1.1-0.2c-0.3-0.1-0.6-0.4-0.9-0.6c-0.3-0.3-0.5-0.6-0.6-0.9s-0.2-0.7-0.2-1.1 s0.1-0.8,0.2-1.1c0.1-0.3,0.4-0.6,0.6-0.9c0.3-0.3,0.6-0.5,0.9-0.6S47.6,45.1,48,45.1z M65.1,45.1c0.4,0,0.8,0.1,1.1,0.2 c0.3,0.1,0.6,0.4,0.9,0.6c0.3,0.3,0.5,0.6,0.6,0.9c0.1,0.3,0.2,0.7,0.2,1.1s-0.1,0.8-0.2,1.1c-0.1,0.3-0.4,0.6-0.6,0.9 c-0.3,0.3-0.6,0.5-0.9,0.6c-0.3,0.1-0.7,0.2-1.1,0.2c-0.4,0-0.8-0.1-1.1-0.2c-0.3-0.1-0.6-0.4-0.9-0.6c-0.3-0.3-0.5-0.6-0.6-0.9 c-0.1-0.3-0.2-0.7-0.2-1.1s0.1-0.8,0.2-1.1c0.1-0.3,0.4-0.6,0.6-0.9s0.6-0.5,0.9-0.6C64.4,45.2,64.7,45.1,65.1,45.1z"></path>
+				</symbol>
+				<symbol id="ui-icon-Vk" viewBox="0 0 96 96">
+					<path d="M67.079,37.611c0.281-0.947,0-1.611-1.313-1.611h-4.377c-1.125,0-1.626,0.6-1.907,1.263c0,0-2.22,5.495-5.377,9.032c-1.032,1.042-1.469,1.358-2.032,1.358c-0.281,0-0.688-0.316-0.688-1.263v-8.779c0-1.137-0.313-1.611-1.251-1.611h-6.878c-0.688,0-1.125,0.537-1.125,1.011c0,1.074,1.563,1.326,1.751,4.295v6.505c0,1.421-0.25,1.674-0.813,1.674c-1.469,0-5.096-5.495-7.222-11.811C35.409,36.505,35.003,36,33.877,36h-4.377C28.25,36,28,36.6,28,37.263c0,1.168,1.469,6.979,6.909,14.653C38.536,57.158,43.632,60,48.259,60c2.782,0,3.126-0.632,3.126-1.705v-3.979c0-1.263,0.25-1.516,1.157-1.516c0.657,0,1.751,0.316,4.346,2.842c2.97,3,3.47,4.358,5.127,4.358h4.377c1.251,0,1.876-0.632,1.501-1.863c-0.406-1.232-1.813-3.032-3.689-5.179c-1.032-1.232-2.564-2.526-3.001-3.189c-0.657-0.853-0.469-1.232,0-1.958C61.202,47.779,66.548,40.2,67.079,37.611z"></path>
+				</symbol>
+				<symbol id="ui-icon-Cancel" viewBox="0 0 32 32">
+					<path d="M28.203 5.203l-10.781 10.797 10.781 10.797-1.406 1.406-10.797-10.781-10.797 10.781-1.406-1.406 10.781-10.797-10.781-10.797 1.406-1.406 10.797 10.781 10.797-10.781 1.406 1.406z"></path>
+				</symbol>
+				<symbol id="ui-icon-Back" viewBox="0 0 96 96">
+					<path d="M69,46.742v2.516H33.78l15.416,15.472L47.433,66.5L29,48l18.433-18.5l1.763,1.769L33.78,46.742H69z"></path>
+				</symbol>
+				<symbol id="ui-icon-ChevronRightSmall" viewBox="0 0 96 96">
+					<path d="M41.8,32L58,48L41.8,64L38,60.2L50.3,48L38,35.8C38,35.8,41.8,32,41.8,32z"></path>
+				</symbol>
+				<symbol id="ui-icon-ChevronLeftSmall" viewBox="0 0 96 96">
+					<path d="M58,35.8L45.7,48L58,60.2L54.2,64L38,48l16.2-16C54.2,32,58,35.8,58,35.8z"></path>
+				</symbol>
+			</defs>
+		</svg>
+		<div class="page" id="page" role="document">
+			<div class="panel-nav-top"></div>
+			<div class="container" id="container" role="main">
+				<div class="content-wrapper">
+					<div class="grid-narrow grid-pad">
+						<div class="col col-1-1">
+							<div class="content">
+								<h1 id="h1">UI&#160;Style Guide</h1><p class="subhead">This style guide is the foundation of building this web resource and its apps, and it gives your a basic picture of how a web developer should use typefaces and colors in terms of their role on the interface of a web resource.</p><p class="larger">Это руководство по&#160;стилю оформления является основой построения данного ресурса и&#160;его приложений, и&#160;дает общее представление о&#160;том, как веб-разработчик должен использовать шрифты и&#160;цвета с&#160;точки зрения их&#160;роли в&#160;интерфейсе веб-ресурса.</p>
+							</div>
+						</div>
+					</div>
+					<div class="grid-narrow grid-pad">
+						<div class="col col-1-1">
+							<div class="content">
+								<h2 class="sg-h2" id="a0">Contents</h2>
+								<div class="holder-chapters-select">
+									<form method="get" action="javascript:void(0);">
+										<p>
+											<select class="chapters-select" id="chapters-select" aria-label="Select / Выбрать">
+												<option value="#">Jump To Section&#8230;</option>
+												<option value="#a1">About</option>
+												<option value="#a3">UI Colors</option>
+												<option value="#a17">Heading 1 Font Stack</option>
+												<option value="#a18">Body Copy Font Stack</option>
+												<option value="#a19">IPA Symbols Font Stack</option>
+												<option value="#a20">Preformatted Text Font Stack</option>
+												<option value="#a21">Address</option>
+												<option value="#a22">Blockquote</option>
+												<option value="#a23">Details</option>
+												<option value="#a24">Figure</option>
+												<option value="#a25">Form Buttons</option>
+												<option value="#a26">Form Fields Default</option>
+												<option value="#a27">Form Fields Disabled</option>
+												<option value="#a28">Form Fields Readonly</option>
+												<option value="#a29">Form Fields with Datalist</option>
+												<option value="#a30">Form Fieldset</option>
+												<option value="#a31">Headings</option>
+												<option value="#a32">HR</option>
+												<option value="#a33">List Definition</option>
+												<option value="#a34">List Ordered</option>
+												<option value="#a35">List Unordered</option>
+												<option value="#a36">Default Image</option>
+												<option value="#a37">Linked Image</option>
+												<option value="#a38">SVG Logo</option>
+												<option value="#a39">Video</option>
+												<option value="#a40">Preformated Text</option>
+												<option value="#a41">Sample Content Block</option>
+												<option value="#a42">Default Table</option>
+												<option value="#a43">Text Elements</option>
+												<option value="#a44">Time</option>
+												<option value="#a46">Credits</option>
+											</select>
+										</p>
+									</form>
+								</div>
+								<div class="holder-btn-expand-hidden-layer">
+									<h2 class="btn-expand-hidden-layer sg-h2" id="a1">About&#160;<svg class="ui-icon" role="img" focusable="false"><use xlink:href="#ui-icon-ChevronDownSmall"></use></svg></h2></div><div class="holder-hidden-layer">
+									<p>The highlights:</p>
+									<ul>
+										<li>It all starts with the logo.</li>
+										<li>Choose the colors belonging to a certain palette, not just out of the blue; try to assign a color a unique functionality.</li>
+										<li>Choose from known font pairs so that heading and body copy are contrasting, not conflicting.</li>
+										<li>Do not choose smaller and lighter, even if the content is useful, the visitor is likely to leave the resource that owns an irritating and uncomfortable representation.</li>
+										<li>Minimalism is always a good thing.</li>
+									</ul>
+									<hr />
+									<p>Основные моменты:</p>
+									<ul>
+										<li>Все начинается с&#160;логотипа.</li>
+										<li>Выбирайте цвета, принадлежащие готовой палитре, не с&#160;потолка; старайтесь каждому цвету назначить свой уникальный функционал.</li>
+										<li>Выбирайте шрифты из&#160;готовых пар так, чтобы заголовки и&#160;тексты контрастировали, но не&#160;конфликтовали.</li>
+										<li>Не мельчите и не&#160;выбеливайте: даже если контент полезен посетителю, он&#160;уйдет с&#160;ресурса, имеющего раздражающее и&#160;неудобное представление.</li>
+										<li>Минимализм&#160;&#8212; всегда хорошо.</li>
+									</ul>
+								</div>
+								<div class="holder-btn-expand-hidden-layer">
+									<h2 class="btn-expand-hidden-layer sg-h2" id="a3">UI Colors&#160;<svg class="ui-icon" role="img" focusable="false"><use xlink:href="#ui-icon-ChevronDownSmall"></use></svg></h2></div><div class="holder-hidden-layer">
+									<div class="masonry-grid">
+										<div class="masonry-grid-sizer"></div>
+										<div class="masonry-grid-item"><div class="bg-AccentColor"><span class="color-variable-name">$AccentColor</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-AccentColorBrighter"><span class="color-variable-name">$AccentColorBrighter</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-LeftNavBarDark"><span class="color-variable-name">$LeftNavBarDark</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-TitleBarAndAppBarDark"><span class="color-variable-name">$TitleBarAndAppBarDark</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-TitleBarAndAppBarDarkItemHighlight"><span class="color-variable-name">$TitleBarAndAppBarDarkItemHighlight</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-LeftNavBarLight"><span class="color-variable-name">$LeftNavBarLight</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-TitleBarAndAppBarLight"><span class="color-variable-name">$TitleBarAndAppBarLight</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-ButtonBackground"><span class="color-variable-name">$ButtonBackground</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-ButtonBackgroundDark"><span class="color-variable-name">$ButtonBackgroundDark</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-ButtonText"><span class="color-variable-name">$ButtonText</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-ButtonOutline"><span class="color-variable-name">$ButtonOutline</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-PlaceholderText"><span class="color-variable-name">$PlaceholderText</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-rgba-selection-text"><span class="color-variable-name">$color-rgba-selection-text</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-rgba-selection-bg"><span class="color-variable-name">$color-rgba-selection-bg</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-hex-body-text"><span class="color-variable-name">$color-hex-body-text</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-hex-gray-text"><span class="color-variable-name">$color-hex-gray-text</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-hex-link"><span class="color-variable-name">$color-hex-link</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-hex-hover-link"><span class="color-variable-name">$color-hex-hover-link</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-hex-visited-link"><span class="color-variable-name">$color-hex-visited-link</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-hex-progress-bar"><span class="color-variable-name">$color-hex-progress-bar</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-hex-highlight"><span class="color-variable-name">$color-hex-highlight</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-hex-url"><span class="color-variable-name">$color-hex-url</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-hex-page-bg"><span class="color-variable-name">$color-hex-page-bg</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-rgba-page-overlay-bg"><span class="color-variable-name">$color-rgba-page-overlay-bg</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-hex-divider"><span class="color-variable-name">$color-hex-divider</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-hex-lighter-divider"><span class="color-variable-name">$color-hex-lighter-divider</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-hex-ui-icon-bg"><span class="color-variable-name">$color-hex-ui-icon-bg</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-rgba-ui-icon-bg"><span class="color-variable-name">$color-rgba-ui-icon-bg</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-hex-hover-ui-icon-bg"><span class="color-variable-name">$color-hex-hover-ui-icon-bg</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-rgba-dark-ui-icon-bg"><span class="color-variable-name">$color-rgba-dark-ui-icon-bg</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-hex-hover-dark-ui-icon-bg"><span class="color-variable-name">$color-hex-hover-dark-ui-icon-bg</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-hex-ui-button-bg"><span class="color-variable-name">$color-hex-ui-button-bg</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-hex-hover-ui-button-bg"><span class="color-variable-name">$color-hex-hover-ui-button-bg</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-hex-ui-button-secondary-bg"><span class="color-variable-name">$color-hex-ui-button-secondary-bg</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-hex-hover-ui-button-secondary-bg"><span class="color-variable-name">$color-hex-hover-ui-button-secondary-bg</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-hex-active-input-bg"><span class="color-variable-name">$color-hex-active-input-bg</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-hex-disabled-input-bg"><span class="color-variable-name">$color-hex-disabled-input-bg</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-hex-dark-ui-bar-bg"><span class="color-variable-name">$color-hex-dark-ui-bar-bg</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-hex-dark-ui-bar-hover-item-bg"><span class="color-variable-name">$color-hex-dark-ui-bar-hover-item-bg</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-hex-dark-ui-bar-active-item-bg"><span class="color-variable-name">$color-hex-dark-ui-bar-active-item-bg</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-hex-darker-ui-bar-bg"><span class="color-variable-name">$color-hex-darker-ui-bar-bg</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-hex-darker-ui-bar-hover-item-bg"><span class="color-variable-name">$color-hex-darker-ui-bar-hover-item-bg</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-hex-darker-ui-bar-active-item-bg"><span class="color-variable-name">$color-hex-darker-ui-bar-active-item-bg</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-rgba-darker-ui-bar-inset-shadow"><span class="color-variable-name">$color-rgba-darker-ui-bar-inset-shadow</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-hex-ui-bar-bg"><span class="color-variable-name">$color-hex-ui-bar-bg</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-rgba-ui-bar-shadow"><span class="color-variable-name">$color-rgba-ui-bar-shadow</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-hex-lighter-page-bg"><span class="color-variable-name">$color-hex-lighter-page-bg</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-rgba-card-shadow"><span class="color-variable-name">$color-rgba-card-shadow</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-rgba-lightbox-shadow"><span class="color-variable-name">$color-rgba-lightbox-shadow</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-rgba-hint-bg"><span class="color-variable-name">$color-rgba-hint-bg</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-rgba-loading-spinner-text"><span class="color-variable-name">$color-rgba-loading-spinner-text</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-rgba-loading-spinner-bg"><span class="color-variable-name">$color-rgba-loading-spinner-bg</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-rgba-notifier42-text"><span class="color-variable-name">$color-rgba-notifier42-text</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-rgba-notifier42-bg"><span class="color-variable-name">$color-rgba-notifier42-bg</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-rgba-notifier42-notice"><span class="color-variable-name">$color-rgba-notifier42-notice</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-rgba-notifier42-success"><span class="color-variable-name">$color-rgba-notifier42-success</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-rgba-notifier42-warning"><span class="color-variable-name">$color-rgba-notifier42-warning</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-rgba-notifier42-error"><span class="color-variable-name">$color-rgba-notifier42-error</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-rgba-img-lightbox-border"><span class="color-variable-name">$color-rgba-img-lightbox-border</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-hex-englishextra-logo-bg"><span class="color-variable-name">$color-hex-englishextra-logo-bg</span></div></div>
+										<div class="masonry-grid-item"><div class="bg-color-hex-vk-like-bg"><span class="color-variable-name">$color-hex-vk-like-bg</span></div></div>
+									</div>
+								</div>
+								<div class="holder-btn-expand-hidden-layer">
+									<h2 class="btn-expand-hidden-layer sg-h2" id="a17">Heading 1 Font Stack&#160;<svg class="ui-icon" role="img" focusable="false"><use xlink:href="#ui-icon-ChevronDownSmall"></use></svg></h2></div><div class="holder-hidden-layer">
+									<div class="sg-font sg-font-secondary">
+										&quot;Roboto Light&quot;,&quot;Segoe UI Light&quot;,sans-serif
+									</div>
+									<div class="sg-markup-controls">
+										<span class="sg-btn sg-btn--source">View Source</span>
+									</div>
+									<div class="sg-source sg-animated">
+										<pre class="prettyprint lang-css linenums line-numbers"><code>h1 {
+	font-family: &quot;Roboto Light&quot;,&quot;Segoe UI Light&quot;,sans-serif;
+	font-weight: 300;
+	font-size: 3.375rem;
+	line-height: 1.200;
+}</code></pre>
+									</div>
+								</div>
+								<div class="holder-btn-expand-hidden-layer">
+									<h2 class="btn-expand-hidden-layer sg-h2" id="a18">Body Copy Font Stack&#160;<svg class="ui-icon" role="img" focusable="false"><use xlink:href="#ui-icon-ChevronDownSmall"></use></svg></h2></div><div class="holder-hidden-layer">
+									<div class="sg-font sg-font-primary">
+										&quot;Roboto&quot;,&quot;Segoe UI&quot;,sans-serif
+									</div>
+									<div class="sg-markup-controls">
+										<span class="sg-btn sg-btn--source">View Source</span>
+									</div>
+									<div class="sg-source sg-animated">
+										<pre class="prettyprint lang-css linenums line-numbers"><code>p {
+	font-family: &quot;Roboto&quot;,&quot;Segoe UI&quot;,sans-serif;
+	font-weight: 400;
+	font-size: 1.000rem;
+	line-height: 1.500;
+}</code></pre>
+									</div>
+								</div>
+								<div class="holder-btn-expand-hidden-layer">
+									<h2 class="btn-expand-hidden-layer sg-h2" id="a19">IPA Symbols Font Stack&#160;<svg class="ui-icon" role="img" focusable="false"><use xlink:href="#ui-icon-ChevronDownSmall"></use></svg></h2></div><div class="holder-hidden-layer">
+									<div class="sg-font sg-font-phonetic">
+										&quot;Roboto Mono&quot;,&quot;Consolas&quot;,sans-serif
+									</div>
+									<div class="sg-markup-controls">
+										<span class="sg-btn sg-btn--source">View Source</span>
+									</div>
+									<div class="sg-source sg-animated">
+										<pre class="prettyprint lang-css linenums line-numbers"><code>.phonetic {
+	font-family: &quot;Roboto Mono&quot;,&quot;Consolas&quot;,sans-serif;
+	font-weight: 400;
+	font-size: inherit;
+	line-height: 1.500;
+}</code></pre>
+									</div>
+								</div>
+								<div class="holder-btn-expand-hidden-layer">
+									<h2 class="btn-expand-hidden-layer sg-h2" id="a20">Preformatted Text Font Stack&#160;<svg class="ui-icon" role="img" focusable="false"><use xlink:href="#ui-icon-ChevronDownSmall"></use></svg></h2></div><div class="holder-hidden-layer">
+									<div class="sg-font sg-font-preformatted">
+										&quot;Roboto Mono&quot;,&quot;Consolas&quot;,monospace
+									</div>
+									<div class="sg-markup-controls">
+										<span class="sg-btn sg-btn--source">View Source</span>
+									</div>
+									<div class="sg-source sg-animated">
+										<pre class="prettyprint lang-css linenums line-numbers"><code>pre code {
+	font-family: &quot;Roboto Mono&quot;,&quot;Consolas&quot;,monospace;
+	font-weight: 400;
+	font-size: 0.875rem;
+	line-height: 1.500;
+}</code></pre>
+									</div>
+								</div>
+								<div class="holder-btn-expand-hidden-layer">
+									<h2 class="btn-expand-hidden-layer sg-h2" id="a21">Address&#160;<svg class="ui-icon" role="img" focusable="false"><use xlink:href="#ui-icon-ChevronDownSmall"></use></svg></h2></div><div class="holder-hidden-layer">
+									<div>
+										<address>Company Name, Inc.<br />811 7th Ave, Suite 700 Manhattan, NY 10019<br />USA</address>
+									</div>
+									<div class="sg-markup-controls">
+										<span class="sg-btn sg-btn--source">View Source</span>
+									</div>
+									<div class="sg-source sg-animated">
+										<pre class="prettyprint lang-html linenums line-numbers"><code>&lt;address&gt;
+	Company Name, Inc.&lt;br /&gt;
+	811 7th Ave, Suite 700&lt;br /&gt;
+	Manhattan, NY 10019&lt;br /&gt;
+	USA
+&lt;/address&gt;</code></pre>
+									</div>
+								</div>
+								<div class="holder-btn-expand-hidden-layer">
+									<h2 class="btn-expand-hidden-layer sg-h2" id="a22">Blockquote&#160;<svg class="ui-icon" role="img" focusable="false"><use xlink:href="#ui-icon-ChevronDownSmall"></use></svg></h2></div><div class="holder-hidden-layer">
+									<div>
+										<blockquote>
+											<p>Some sort of famous witty quote marked up with a &lt;blockquote&gt; and a child &lt;p&gt; element.</p>
+										</blockquote>
+										<blockquote>
+											Even better philosophical quote marked up with just a &lt;blockquote&gt; element.
+										</blockquote>
+									</div>
+									<div class="sg-markup-controls">
+										<span class="sg-btn sg-btn--source">View Source</span>
+									</div>
+									<div class="sg-source sg-animated">
+										<pre class="prettyprint lang-html linenums line-numbers"><code>&lt;blockquote&gt;
+	&lt;p&gt;Some sort of famous witty quote marked up with a &amp;lt;blockquote&amp;gt; and a child &amp;lt;p&amp;gt; element.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;Even better philosophical quote marked up with just a &amp;lt;blockquote&amp;gt; element.&lt;/blockquote&gt;</code></pre>
+									</div>
+								</div>
+								<div class="holder-btn-expand-hidden-layer">
+									<h2 class="btn-expand-hidden-layer sg-h2" id="a23">Details&#160;<svg class="ui-icon" role="img" focusable="false"><use xlink:href="#ui-icon-ChevronDownSmall"></use></svg></h2></div><div class="holder-hidden-layer">
+									<div>
+										<details open="open">
+											<summary>More info</summary>
+											<ul>
+												<li>Point 1</li>
+												<li>Point 2</li>
+											</ul>
+										</details>
+										<details>
+											<summary>More info</summary>
+											<ul>
+												<li>Point 1</li>
+												<li>Point 2</li>
+											</ul>
+										</details>
+										<details>
+											<summary>More info</summary>
+											<ul>
+												<li>Point 1</li>
+												<li>Point 2</li>
+											</ul>
+										</details>
+									</div>
+									<div class="sg-markup-controls">
+										<span class="sg-btn sg-btn--source">View Source</span>
+									</div>
+									<div class="sg-source sg-animated">
+										<pre class="prettyprint lang-html linenums line-numbers"><code>&lt;details open=&quot;open&quot;&gt;
+	&lt;summary&gt;More info&lt;/summary&gt;
+	&lt;div&gt;
+		&lt;p&gt;Additional information&lt;/p&gt;
+		&lt;ul&gt;
+			&lt;li&gt;Point 1&lt;/li&gt;
+			&lt;li&gt;Point 2&lt;/li&gt;
+		&lt;/ul&gt;
+	&lt;/div&gt;
+&lt;/details&gt;
+&lt;details&gt;
+	&lt;summary&gt;More info&lt;/summary&gt;
+	&lt;div&gt;
+		&lt;p&gt;Additional information&lt;/p&gt;
+		&lt;ul&gt;
+			&lt;li&gt;Point 1&lt;/li&gt;
+			&lt;li&gt;Point 2&lt;/li&gt;
+		&lt;/ul&gt;
+	&lt;/div&gt;
+&lt;/details&gt;
+&lt;details&gt;
+	&lt;summary&gt;More info&lt;/summary&gt;
+	&lt;div&gt;
+		&lt;p&gt;Additional information&lt;/p&gt;
+		&lt;ul&gt;
+			&lt;li&gt;Point 1&lt;/li&gt;
+			&lt;li&gt;Point 2&lt;/li&gt;
+		&lt;/ul&gt;
+	&lt;/div&gt;
+&lt;/details&gt;</code></pre>
+									</div>
+								</div>
+								<div class="holder-btn-expand-hidden-layer">
+									<h2 class="btn-expand-hidden-layer sg-h2" id="a24">Figure&#160;<svg class="ui-icon" role="img" focusable="false"><use xlink:href="#ui-icon-ChevronDownSmall"></use></svg></h2></div><div class="holder-hidden-layer">
+									<div>
+										<figure>
+											<img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20640%20360%27%2F%3E" data-src="../../libs/branding/img/640x360.png" class="data-src-img" alt="" />
+											<figcaption>Figcaption content</figcaption>
+										</figure>
+									</div>
+									<div class="sg-markup-controls">
+										<span class="sg-btn sg-btn--source">View Source</span>
+									</div>
+									<div class="sg-source sg-animated">
+										<pre class="prettyprint lang-html linenums line-numbers"><code>&lt;figure&gt;
+	&lt;img src=&quot;//placehold.it/640x360&quot; alt=&quot;Image alt text 1&quot; /&gt;
+	&lt;figcaption&gt;Figcaption content&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+									</div>
+								</div>
+								<div class="holder-btn-expand-hidden-layer">
+									<h2 class="btn-expand-hidden-layer sg-h2" id="a25">Form Buttons&#160;<svg class="ui-icon" role="img" focusable="false"><use xlink:href="#ui-icon-ChevronDownSmall"></use></svg></h2></div><div class="holder-hidden-layer">
+									<div>
+										<form>
+											<fieldset>
+												<legend>Buttons</legend>
+												<p><input type="reset" value="Input type button" /></p>
+												<p><input type="reset" value="Input type reset" /></p>
+												<p><input type="submit" onclick="return false;" value="Input type submit" /></p>
+												<p><input type="submit" value="Input type submit disabled" disabled="disabled" /></p>
+												<p><button type="button">Button type button</button></p>
+												<p><button type="reset">Button type reset</button></p>
+												<p><button type="submit" onclick="return false;">Button type submit</button></p>
+												<p><button type="button" disabled="disabled">Button type button disabled</button></p>
+												<p><button>Button</button></p>
+											</fieldset>
+										</form>
+									</div>
+									<div class="sg-markup-controls">
+										<span class="sg-btn sg-btn--source">View Source</span>
+									</div>
+									<div class="sg-source sg-animated">
+										<pre class="prettyprint lang-html linenums line-numbers"><code>&lt;form&gt;
+	&lt;fieldset&gt;
+		&lt;legend&gt;Buttons&lt;/legend&gt;
+		&lt;p&gt;&lt;input type=&quot;button&quot; value=&quot;Input type button&quot; /&gt;&lt;/p&gt;
+		&lt;p&gt;&lt;input type=&quot;reset&quot; value=&quot;Input type reset&quot; /&gt;&lt;/p&gt;
+		&lt;p&gt;&lt;input type=&quot;submit&quot; value=&quot;Input type submit&quot; /&gt;&lt;/p&gt;
+		&lt;p&gt;&lt;input type=&quot;submit&quot; value=&quot;Input type submit disabled&quot; disabled=&quot;disabled&quot; /&gt;&lt;/p&gt;
+		&lt;p&gt;&lt;button type=&quot;button&quot;&gt;Button type button&lt;/button&gt;&lt;/p&gt;
+		&lt;p&gt;&lt;button type=&quot;reset&quot;&gt;Button type reset&lt;/button&gt;&lt;/p&gt;
+		&lt;p&gt;&lt;button type=&quot;submit&quot;&gt;Button type submit&lt;/button&gt;&lt;/p&gt;
+		&lt;p&gt;&lt;button type=&quot;button&quot; disabled=&quot;disabled&quot;&gt;Button type button disabled&lt;/button&gt;&lt;/p&gt;
+		&lt;p&gt;&lt;button&gt;Button&lt;/button&gt;&lt;/p&gt;
+	&lt;/fieldset&gt;
+&lt;/form&gt;</code></pre>
+									</div>
+								</div>
+								<div class="holder-btn-expand-hidden-layer">
+									<h2 class="btn-expand-hidden-layer sg-h2" id="a26">Form Fields Default&#160;<svg class="ui-icon" role="img" focusable="false"><use xlink:href="#ui-icon-ChevronDownSmall"></use></svg></h2></div><div class="holder-hidden-layer">
+									<div>
+										<form>
+											<fieldset>
+												<legend>Form Fields</legend>
+												<div>
+													<label for="text-input">Text input</label>
+													<input id="text-input" type="text" />
+												</div>
+												<div>
+													<label for="text-input-placeholder">Text input with placeholder</label>
+													<input id="text-input-placeholder" type="text" placeholder="I'm placeholder text" />
+												</div>
+												<div>
+													<label for="readonly-input">Readonly input</label>
+													<input id="readonly-input" type="text" value="Read only text input" readonly="readonly" />
+												</div>
+												<div>
+													<label for="disabled-input">Disabled input</label>
+													<input id="disabled-input" type="text" value="Disabled text input" disabled="disabled" />
+												</div>
+												<div>
+													<label for="required-input">Required input <span class="required">*</span></label>
+													<input id="required-input" type="text" required aria-required="true" />
+												</div>
+												<div>
+													<label for="email-input">Email input</label>
+													<input id="email-input" type="email" />
+												</div>
+												<div>
+													<label for="search-input">Search input</label>
+													<input id="search-input" type="search" />
+												</div>
+												<div>
+													<label for="speech-input">Speech recognition input</label>
+													<input id="speech-input" type="text" name="speech" />
+												</div>
+												<div>
+													<label for="tel-input">Tel input</label>
+													<input id="tel-input" type="tel" />
+												</div>
+												<div>
+													<label for="url-input">URL input</label>
+													<input id="url-input" type="url" placeholder="https://" />
+												</div>
+												<div>
+													<label for="password-input">Password input</label>
+													<input id="password-input" type="password" value="password" />
+												</div>
+												<div>
+													<label for="select-field">Select field</label>
+													<select id="select-field">
+														<option>Option 01</option>
+														<option>Option 02</option>
+													</select>
+												</div>
+												<div>
+													<label for="multiple-select-field">Multiple select field</label>
+													<select id="multiple-select-field" multiple size="5">
+														<option>Option 1</option>
+														<option>Option 2</option>
+														<option>Option 3</option>
+														<option>Option 4</option>
+														<option>Option 5</option>
+														<option>Option 6</option>
+														<option>Option 7</option>
+														<option>Option 8</option>
+														<option>Option 9</option>
+														<option>Option 10</option>
+													</select>
+												</div>
+												<div>
+													<label for="radio-input"><input id="radio-input" type="radio" name="rad" />Radio input</label>
+												</div>
+												<div>
+													<label for="checkbox-input"><input id="checkbox-input" type="checkbox" />Checkbox input</label>
+												</div>
+												<div>
+													<label for="file-input">File input</label>
+													<input id="file-input" type="file" />
+												</div>
+												<div>
+													<label for="textarea">Textarea</label>
+													<textarea id="textarea" cols="30" rows="5" >Textarea text</textarea>
+												</div>
+												<div>
+													<label for="color-input">Color input</label>
+													<input id="color-input" type="color" value="#000000" />
+												</div>
+												<div>
+													<label for="number-input">Number input</label>
+													<input id="number-input" type="number" value="5" min="0" max="10" />
+												</div>
+												<div>
+													<label for="range-input">Range input</label>
+													<input id="range-input" type="range" value="0" min="0" max="100" />
+													<output>0</output>
+													<script>
+														if (document.querySelector) {
+															document.querySelector("#range-input").onchange = function(e) {
+																e.target.nextElementSibling.innerText = e.target.value;
+															}
+														}
+													</script>
+												</div>
+												<div>
+													<label for="date-input">Date input</label>
+													<input id="date-input" type="date" />
+												</div>
+												<div>
+													<label for="month-input">Month input</label>
+													<input id="month-input" type="month" />
+												</div>
+												<div>
+													<label for="week-input">Week input</label>
+													<input id="week-input" type="week" />
+												</div>
+												<div>
+													<label for="time-input">Time input</label>
+													<input id="time-input" type="time" />
+												</div>
+												<div>
+													<label for="datetime-input">Datetime input</label>
+													<input id="datetime-input" type="datetime" />
+												</div>
+												<div>
+													<label for="datetime-local-input">Datetime-local input</label>
+													<input id="datetime-local-input" type="datetime-local" />
+												</div>
+											</fieldset>
+										</form>
+									</div>
+									<div class="sg-markup-controls">
+										<span class="sg-btn sg-btn--source">View Source</span>
+									</div>
+									<div class="sg-source sg-animated">
+										<pre class="prettyprint lang-html linenums line-numbers"><code>&lt;form&gt;
+	&lt;fieldset&gt;
+	&lt;legend&gt;Form Fields&lt;/legend&gt;
+	&lt;div&gt;&lt;label for=&quot;text-input&quot;&gt;Text input&lt;/label&gt; &lt;input id=&quot;text-input&quot; type=&quot;text&quot; /&gt;&lt;/div&gt;
+	&lt;div&gt;&lt;label for=&quot;text-input-placeholder&quot;&gt;Text input with placeholder&lt;/label&gt; &lt;input id=&quot;text-input-placeholder&quot; type=&quot;text&quot; placeholder=&quot;I'm placeholder text&quot; /&gt;&lt;/div&gt;
+	&lt;div&gt;&lt;label for=&quot;readonly-input&quot;&gt;Readonly input&lt;/label&gt; &lt;input id=&quot;readonly-input&quot; type=&quot;text&quot; value=&quot;Read only text input&quot; readonly=&quot;readonly&quot; /&gt;&lt;/div&gt;
+	&lt;div&gt;&lt;label for=&quot;disabled-input&quot;&gt;Disabled input&lt;/label&gt; &lt;input id=&quot;disabled-input&quot; type=&quot;text&quot; value=&quot;Disabled text input&quot; disabled=&quot;disabled&quot; /&gt;&lt;/div&gt;
+	&lt;div&gt;&lt;label for=&quot;required-input&quot;&gt;Required input &lt;span class=&quot;required&quot;&gt;*&lt;/span&gt;&lt;/label&gt; &lt;input id=&quot;required-input&quot; type=&quot;text&quot; required aria-required=&quot;true&quot; /&gt;&lt;/div&gt;
+	&lt;div&gt;&lt;label for=&quot;email-input&quot;&gt;Email input&lt;/label&gt; &lt;input id=&quot;email-input&quot; type=&quot;email&quot; /&gt;&lt;/div&gt;
+	&lt;div&gt;&lt;label for=&quot;search-input&quot;&gt;Search input&lt;/label&gt; &lt;input id=&quot;search-input&quot; type=&quot;search&quot; /&gt;&lt;/div&gt;
+	&lt;div&gt;&lt;label for=&quot;speech-input&quot;&gt;Speech recognition input&lt;/label&gt; &lt;input id=&quot;speech-input&quot; type=&quot;text&quot; name=&quot;speech&quot; /&gt;&lt;/div&gt;
+	&lt;div&gt;&lt;label for=&quot;tel-input&quot;&gt;Tel input&lt;/label&gt; &lt;input id=&quot;tel-input&quot; type=&quot;tel&quot; /&gt;&lt;/div&gt;
+	&lt;div&gt;&lt;label for=&quot;url-input&quot;&gt;URL input&lt;/label&gt; &lt;input id=&quot;url-input&quot; type=&quot;url&quot; placeholder=&quot;https://&quot; /&gt;&lt;/div&gt;
+	&lt;div&gt;&lt;label for=&quot;password-input&quot;&gt;Password input&lt;/label&gt; &lt;input id=&quot;password-input&quot; type=&quot;password&quot; value=&quot;password&quot; /&gt;&lt;/div&gt;
+	&lt;div&gt;&lt;label for=&quot;select-field&quot;&gt;Select field&lt;/label&gt; &lt;select id=&quot;select-field&quot;&gt;&lt;option&gt;Option 01&lt;/option&gt;&lt;option&gt;Option 02&lt;/option&gt;&lt;/select&gt;&lt;/div&gt;
+	&lt;div&gt;&lt;label for=&quot;multiple-select-field&quot;&gt;Multiple select field&lt;/label&gt;&lt;select id=&quot;multiple-select-field&quot; multiple size=&quot;5&quot;&gt;&lt;option&gt;Option 1&lt;/option&gt;&lt;option&gt;Option 2&lt;/option&gt;&lt;option&gt;Option 3&lt;/option&gt;&lt;option&gt;Option 4&lt;/option&gt;&lt;option&gt;Option 5&lt;/option&gt;&lt;option&gt;Option 6&lt;/option&gt;&lt;option&gt;Option 7&lt;/option&gt;&lt;option&gt;Option 8&lt;/option&gt;&lt;option&gt;Option 9&lt;/option&gt;&lt;option&gt;Option 10&lt;/option&gt;&lt;/select&gt;&lt;/div&gt;
+	&lt;div&gt;&lt;label for=&quot;radio-input&quot;&gt;&lt;input id=&quot;radio-input&quot; type=&quot;radio&quot; name=&quot;rad&quot; /&gt; Radio input&lt;/label&gt;&lt;/div&gt;
+	&lt;div&gt;&lt;label for=&quot;checkbox-input&quot;&gt;&lt;input id=&quot;checkbox-input&quot; type=&quot;checkbox&quot; /&gt; Checkbox input&lt;/label&gt;&lt;/div&gt;
+	&lt;div&gt;&lt;label for=&quot;file-input&quot;&gt;File input&lt;/label&gt; &lt;input id=&quot;file-input&quot; type=&quot;file&quot; /&gt;&lt;/div&gt;
+	&lt;div&gt;&lt;label for=&quot;textarea&quot;&gt;Textarea&lt;/label&gt; &lt;textarea id=&quot;textarea&quot; cols=&quot;30&quot; rows=&quot;5&quot; &gt;Textarea text&lt;/textarea&gt;&lt;/div&gt;
+	&lt;div&gt;&lt;label for=&quot;color-input&quot;&gt;Color input&lt;/label&gt; &lt;input id=&quot;color-input&quot; type=&quot;color&quot; value=&quot;#000000&quot; /&gt;&lt;/div&gt;
+	&lt;div&gt;&lt;label for=&quot;number-input&quot;&gt;Number input&lt;/label&gt; &lt;input id=&quot;number-input&quot; type=&quot;number&quot; value=&quot;5&quot; min=&quot;0&quot; max=&quot;10&quot; /&gt;&lt;/div&gt;
+	&lt;div&gt;&lt;label for=&quot;range-input&quot;&gt;Range input&lt;/label&gt; &lt;input id=&quot;range-input&quot; type=&quot;range&quot; value=&quot;0&quot; min=&quot;0&quot; max=&quot;100&quot; /&gt; &lt;output&gt;0&lt;/output&gt;
+	&lt;script&gt;
+		if (document.querySelector) {
+			document.querySelector(&quot;#range-input&quot;).onchange = function(e) {
+				e.target.nextElementSibling.innerText = e.target.value;
+			}
+		}
+	&lt;/script&gt;
+	&lt;/div&gt;
+	&lt;div&gt;&lt;label for=&quot;date-input&quot;&gt;Date input&lt;/label&gt; &lt;input id=&quot;date-input&quot; type=&quot;date&quot; /&gt;&lt;/div&gt;
+	&lt;div&gt;&lt;label for=&quot;month-input&quot;&gt;Month input&lt;/label&gt; &lt;input id=&quot;month-input&quot; type=&quot;month&quot; /&gt;&lt;/div&gt;
+	&lt;div&gt;&lt;label for=&quot;week-input&quot;&gt;Week input&lt;/label&gt; &lt;input id=&quot;week-input&quot; type=&quot;week&quot; /&gt;&lt;/div&gt;
+	&lt;div&gt;&lt;label for=&quot;time-input&quot;&gt;Time input&lt;/label&gt; &lt;input id=&quot;time-input&quot; type=&quot;time&quot; /&gt;&lt;/div&gt;
+	&lt;div&gt;&lt;label for=&quot;datetime-input&quot;&gt;Datetime input&lt;/label&gt; &lt;input id=&quot;datetime-input&quot; type=&quot;datetime&quot; /&gt;&lt;/div&gt;
+	&lt;div&gt;&lt;label for=&quot;datetime-local-input&quot;&gt;Datetime-local input&lt;/label&gt; &lt;input id=&quot;datetime-local-input&quot; type=&quot;datetime-local&quot; /&gt;&lt;/div&gt;
+	&lt;/fieldset&gt;
+&lt;/form&gt;</code></pre>
+									</div>
+								</div>
+								<div class="holder-btn-expand-hidden-layer">
+									<h2 class="btn-expand-hidden-layer sg-h2" id="a27">Form Fields Disabled&#160;<svg class="ui-icon" role="img" focusable="false"><use xlink:href="#ui-icon-ChevronDownSmall"></use></svg></h2></div><div class="holder-hidden-layer">
+									<div>
+										<form>
+											<fieldset>
+												<legend>Disabled Form Fields</legend>
+												<div>
+													<label for="text-input-disabled">Disabled text input</label>
+													<input id="text-input-disabled" type="text" value="Disabled text input" disabled="disabled" />
+												</div>
+												<div>
+													<label for="select-field-disabled">Disabled select field</label>
+													<select id="select-field-disabled" disabled="disabled">
+														<option>Option 01</option>
+														<option>Option 02</option>
+													</select>
+												</div>
+												<div>
+													<label for="file-input-disabled">Disabled file input</label>
+													<input id="file-input-disabled" type="file" disabled="disabled" />
+												</div>
+												<div>
+													<label for="radio-input-disabled"><input id="radio-input-disabled" type="radio" name="rad" disabled="disabled" />Disabled radio input</label>
+												</div>
+												<div>
+													<label for="checkbox-input-disabled"><input id="checkbox-input-disabled" type="checkbox" disabled="disabled" />Disabled checkbox input</label>
+												</div>
+												<div>
+													<label for="color-input-disabled">Disabled color input</label>
+													<input id="color-input-disabled" type="color" value="#000000" disabled="disabled" />
+												</div>
+												<div>
+													<label for="range-input-disabled">Disabled range input</label>
+													<input id="range-input-disabled" type="range" disabled="disabled" />
+												</div>
+												<div>
+													<label for="number-input-disabled">Disabled number input</label>
+													<input id="number-input-disabled" type="number" value="5" min="0" max="10" disabled="disabled" />
+												</div>
+												<div>
+													<label for="textarea-disabled">Disabled textarea</label>
+													<textarea id="textarea-disabled" cols="30" rows="5" disabled="disabled">Textarea text</textarea>
+												</div>
+											</fieldset>
+										</form>
+									</div>
+									<div class="sg-markup-controls">
+										<span class="sg-btn sg-btn--source">View Source</span>
+									</div>
+									<div class="sg-source sg-animated">
+										<pre class="prettyprint lang-html linenums line-numbers"><code>&lt;form&gt;
+	&lt;fieldset&gt;
+		&lt;legend&gt;Disabled Form Fields&lt;/legend&gt;
+		&lt;div&gt;&lt;label for=&quot;text-input-disabled&quot;&gt; Disabled text input&lt;/label&gt; &lt;input id=&quot;text-input-disabled&quot; type=&quot;text&quot; value=&quot;Disabled text input&quot; disabled=&quot;disabled&quot; /&gt;&lt;/div&gt;
+		&lt;div&gt;&lt;label for=&quot;select-field-disabled&quot;&gt; Disabled select field&lt;/label&gt; &lt;select id=&quot;select-field-disabled&quot; disabled=&quot;disabled&quot;&gt;&lt;option&gt;Option 01&lt;/option&gt;&lt;option&gt;Option 02&lt;/option&gt;&lt;/select&gt;&lt;/div&gt;
+		&lt;div&gt;&lt;label for=&quot;file-input-disabled&quot;&gt; Disabled file input&lt;/label&gt; &lt;input id=&quot;file-input-disabled&quot; type=&quot;file&quot; disabled=&quot;disabled&quot; /&gt;&lt;/div&gt;
+		&lt;div&gt;&lt;label for=&quot;radio-input-disabled&quot;&gt;&lt;input id=&quot;radio-input-disabled&quot; type=&quot;radio&quot; name=&quot;rad&quot; disabled=&quot;disabled&quot; /&gt; Disabled radio input&lt;/label&gt;&lt;/div&gt;
+		&lt;div&gt;&lt;label for=&quot;checkbox-input-disabled&quot;&gt;&lt;input id=&quot;checkbox-input-disabled&quot; type=&quot;checkbox&quot; disabled=&quot;disabled&quot; /&gt; Disabled checkbox input&lt;/label&gt;&lt;/div&gt;
+		&lt;div&gt;&lt;label for=&quot;color-input-disabled&quot;&gt; Disabled color input&lt;/label&gt; &lt;input id=&quot;color-input-disabled&quot; type=&quot;color&quot; value=&quot;#000000&quot; disabled=&quot;disabled&quot; /&gt;&lt;/div&gt;
+		&lt;div&gt;&lt;label for=&quot;range-input-disabled&quot;&gt; Disabled range input&lt;/label&gt; &lt;input id=&quot;range-input-disabled&quot; type=&quot;range&quot; disabled=&quot;disabled&quot; /&gt;&lt;/div&gt;
+		&lt;div&gt;&lt;label for=&quot;number-input-disabled&quot;&gt; Disabled number input&lt;/label&gt; &lt;input id=&quot;number-input-disabled&quot; type=&quot;number&quot; value=&quot;5&quot; min=&quot;0&quot; max=&quot;10&quot; disabled=&quot;disabled&quot; /&gt;&lt;/div&gt;
+		&lt;div&gt;&lt;label for=&quot;textarea-disabled&quot;&gt; Disabled textarea&lt;/label&gt; &lt;textarea id=&quot;textarea-disabled&quot; cols=&quot;30&quot; rows=&quot;5&quot; disabled=&quot;disabled&quot;&gt;Textarea text&lt;/textarea&gt;&lt;/div&gt;
+	&lt;/fieldset&gt;
+&lt;/form&gt;</code></pre>
+									</div>
+								</div>
+								<div class="holder-btn-expand-hidden-layer">
+									<h2 class="btn-expand-hidden-layer sg-h2" id="a28">Form Fields Readonly&#160;<svg class="ui-icon" role="img" focusable="false"><use xlink:href="#ui-icon-ChevronDownSmall"></use></svg></h2></div><div class="holder-hidden-layer">
+									<div>
+										<form>
+											<fieldset>
+												<legend>Readonly Form Fields</legend>
+												<div>
+													<label for="text-input-readonly">Readonly text input</label>
+													<input id="text-input-readonly" type="text" value="Readonly text input" readonly="readonly" />
+												</div>
+												<div>
+													<label for="number-input-readonly">Readonly number input</label>
+													<input id="number-input-readonly" type="number" value="5" min="0" max="10" readonly="readonly" />
+												</div>
+												<div>
+													<label for="textarea-readonly">Readonly textarea</label>
+													<textarea id="textarea-readonly" cols="30" rows="5" readonly="readonly">Textarea text</textarea>
+												</div>
+											</fieldset>
+										</form>
+									</div>
+									<div class="sg-markup-controls">
+										<span class="sg-btn sg-btn--source">View Source</span>
+									</div>
+									<div class="sg-source sg-animated">
+										<pre class="prettyprint lang-html linenums line-numbers"><code>&lt;form&gt;
+	&lt;fieldset&gt;
+		&lt;legend&gt;Readonly Form Fields&lt;/legend&gt;
+		&lt;div&gt;&lt;label for=&quot;text-input-readonly&quot;&gt;Readonly text input&lt;/label&gt; &lt;input id=&quot;text-input-readonly&quot; type=&quot;text&quot; value=&quot;Readonly text input&quot; readonly=&quot;readonly&quot;&gt;&lt;/div&gt;
+		&lt;div&gt;&lt;label for=&quot;number-input-readonly&quot;&gt;Readonly number input&lt;/label&gt; &lt;input id=&quot;number-input-readonly&quot; type=&quot;number&quot; value=&quot;5&quot; min=&quot;0&quot; max=&quot;10&quot; readonly=&quot;readonly&quot;&gt;&lt;/div&gt;
+		&lt;div&gt;&lt;label for=&quot;textarea-readonly&quot;&gt;Readonly textarea&lt;/label&gt; &lt;textarea id=&quot;textarea-readonly&quot; cols=&quot;30&quot; rows=&quot;5&quot; readonly=&quot;readonly&quot;&gt;Textarea text&lt;/textarea&gt;&lt;/div&gt;
+	&lt;/fieldset&gt;
+&lt;/form&gt;</code></pre>
+									</div>
+								</div>
+								<div class="holder-btn-expand-hidden-layer">
+									<h2 class="btn-expand-hidden-layer sg-h2" id="a29">Form Fields with Datalist&#160;<svg class="ui-icon" role="img" focusable="false"><use xlink:href="#ui-icon-ChevronDownSmall"></use></svg></h2></div><div class="holder-hidden-layer">
+									<div>
+										<form>
+											<fieldset>
+												<legend>Form Fields With Datalist</legend>
+												<div>
+													<label for="text-input-datalist">Text input with datalist</label>
+													<input id="text-input-datalist" type="text" value="" list="fav-color" placeholder="Type your favorite color" />
+													<datalist id="fav-color">
+														<option value="Red">Red</option>
+														<option value="Orange">Orange</option>
+														<option value="Yellow">Yellow</option>
+														<option value="Green">Green</option>
+														<option value="Blue">Blue</option>
+														<option value="Purple">Purple</option>
+													</datalist>
+												</div>
+												<div>
+													<label for="range-input-datalist">Range input with datalist</label>
+													<input id="range-input-datalist" type="range" value="0" min="0" max="100" list="number" />
+													<output>0</output>
+													<datalist id="number">
+														<option>25</option>
+														<option>50</option>
+														<option>75</option>
+													</datalist>
+													<script>
+														if (document.querySelector) {
+															document.querySelector("#range-input-datalist").onchange = function(e) {
+																e.target.nextElementSibling.innerText = e.target.value;
+															}
+														}
+													</script>
+												</div>
+												<div>
+													<label for="color-input-datalist">Color input with datalist</label>
+													<input id="color-input-datalist" type="color" value="#000000" list="color" />
+													<datalist id="color">
+														<option>#ff0000</option>
+														<option>#0000ff</option>
+														<option>#00ff00</option>
+														<option>#ffff00</option>
+														<option>#00ffff</option>
+													</datalist>
+												</div>
+												<div>
+													<label for="date-input-datalist">Date input with datalist</label>
+													<input id="date-input-datalist" type="date" list="days" />
+													<datalist id="days">
+														<option label="Independence Day">2013-07-04</option>
+														<option label="Labor Day">2013-09-02</option>
+														<option label="Columbus Day">2013-10-14</option>
+													</datalist>
+												</div>
+												<div>
+													<label for="time-input-datalist">Time input with datalist</label>
+													<input id="time-input-datalist" type="time" list="times" />
+													<datalist id="times">
+														<option label="Midnight">00:00</option>
+														<option>06:00</option>
+														<option label="Noon">12:00</option>
+														<option>18:00</option>
+													</datalist>
+												</div>
+												<div>
+													<label for="datetime-local-input-datalist">Datetime-local input with datalist</label>
+													<input id="datetime-local-input-datalist" type="datetime-local" list="datetime-locals" />
+													<datalist id="datetime-locals">
+														<option label="Santa Visit">2012-12-24T23:59</option>
+														<option label="Chrismas party">2012-12-25T18:00</option>
+														<option>2012-12-30T00:00</option>
+														<option label="Happy New Year">2013-01-01T00:00</option>
+													</datalist>
+												</div>
+												<div>
+													<label for="month-input-datalist">Month input with datalist</label>
+													<input id="month-input-datalist" type="month" list="months" />
+													<datalist id="months">
+														<option label="End of last century">2000-12</option>
+														<option>2010-01</option>
+														<option>2011-01</option>
+														<option>2012-01</option>
+														<option>2013-01</option>
+													</datalist>
+												</div>
+												<div>
+													<label for="week-input-datalist">Week input with datalist</label>
+													<input id="week-input-datalist" type="week" list="weeks" />
+													<datalist id="weeks">
+														<option label="First week of 2013">2013-W01</option>
+														<option label="Second week of 2013">2013-W02</option>
+														<option label="13th week of 2013">2013-W13</option>
+														<option label="The last week of 2013">2013-W52</option>
+													</datalist>
+												</div>
+											</fieldset>
+										</form>
+									</div>
+									<div class="sg-markup-controls">
+										<span class="sg-btn sg-btn--source">View Source</span>
+									</div>
+									<div class="sg-source sg-animated">
+										<pre class="prettyprint lang-html linenums line-numbers"><code>&lt;form&gt;
+	&lt;fieldset&gt;
+		&lt;legend&gt;Form Fields With Datalist&lt;/legend&gt;
+		&lt;div&gt;
+			&lt;label for=&quot;text-input-datalist&quot;&gt;Text input with datalist&lt;/label&gt;
+			&lt;input id=&quot;text-input-datalist&quot; type=&quot;text&quot; value=&quot;&quot; list=&quot;fav-color&quot; placeholder=&quot;Type your favorite color&quot; /&gt;
+			&lt;datalist id=&quot;fav-color&quot;&gt;
+				&lt;option value=&quot;Red&quot;&gt;Red&lt;/option&gt;
+				&lt;option value=&quot;Orange&quot;&gt;Orange&lt;/option&gt;
+				&lt;option value=&quot;Yellow&quot;&gt;Yellow&lt;/option&gt;
+				&lt;option value=&quot;Green&quot;&gt;Green&lt;/option&gt;
+				&lt;option value=&quot;Blue&quot;&gt;Blue&lt;/option&gt;
+				&lt;option value=&quot;Purple&quot;&gt;Purple&lt;/option&gt;
+			&lt;/datalist&gt;
+		&lt;/div&gt;
+		&lt;div&gt;
+			&lt;label for=&quot;range-input-datalist&quot;&gt;Range input with datalist&lt;/label&gt;
+			&lt;input id=&quot;range-input-datalist&quot; type=&quot;range&quot; value=&quot;0&quot; min=&quot;0&quot; max=&quot;100&quot; list=&quot;number&quot; /&gt;
+			&lt;output&gt;0&lt;/output&gt;
+			&lt;datalist id=&quot;number&quot;&gt;
+				&lt;option&gt;25&lt;/option&gt;
+				&lt;option&gt;50&lt;/option&gt;
+				&lt;option&gt;75&lt;/option&gt;
+			&lt;/datalist&gt;
+			&lt;script&gt;
+			if (document.querySelector) {
+				document.querySelector(&quot;#range-input-datalist&quot;).onchange = function(e) {
+					e.target.nextElementSibling.innerText = e.target.value;
+				}
+			}
+		&lt;/script&gt;
+		&lt;/div&gt;
+		&lt;div&gt;
+			&lt;label for=&quot;color-input-datalist&quot;&gt;Color input with datalist&lt;/label&gt;
+			&lt;input id=&quot;color-input-datalist&quot; type=&quot;color&quot; value=&quot;#000000&quot; list=&quot;color&quot; /&gt;
+			&lt;datalist id=&quot;color&quot;&gt;
+				&lt;option&gt;#ff0000&lt;/option&gt;
+				&lt;option&gt;#0000ff&lt;/option&gt;
+				&lt;option&gt;#00ff00&lt;/option&gt;
+				&lt;option&gt;#ffff00&lt;/option&gt;
+				&lt;option&gt;#00ffff&lt;/option&gt;
+			&lt;/datalist&gt;
+		&lt;/div&gt;
+		&lt;div&gt;
+			&lt;label for=&quot;date-input-datalist&quot;&gt;Date input with datalist&lt;/label&gt;
+			&lt;input id=&quot;date-input-datalist&quot; type=&quot;date&quot; list=&quot;days&quot; /&gt;
+			&lt;datalist id=&quot;days&quot;&gt;
+				&lt;option label=&quot;Independence Day&quot;&gt;2013-07-04&lt;/option&gt;
+				&lt;option label=&quot;Labor Day&quot;&gt;2013-09-02&lt;/option&gt;
+				&lt;option label=&quot;Columbus Day&quot;&gt;2013-10-14&lt;/option&gt;
+			&lt;/datalist&gt;
+		&lt;/div&gt;
+		&lt;div&gt;
+			&lt;label for=&quot;time-input-datalist&quot;&gt;Time input with datalist&lt;/label&gt;
+			&lt;input id=&quot;time-input-datalist&quot; type=&quot;time&quot; list=&quot;times&quot; /&gt;
+			&lt;datalist id=&quot;times&quot;&gt;
+				&lt;option label=&quot;Midnight&quot;&gt;00:00&lt;/option&gt;
+				&lt;option&gt;06:00&lt;/option&gt;
+				&lt;option label=&quot;Noon&quot;&gt;12:00&lt;/option&gt;
+				&lt;option&gt;18:00&lt;/option&gt;
+			&lt;/datalist&gt;
+		&lt;/div&gt;
+		&lt;div&gt;
+			&lt;label for=&quot;datetime-local-input-datalist&quot;&gt;Datetime-local input with datalist&lt;/label&gt;
+			&lt;input id=&quot;datetime-local-input-datalist&quot; type=&quot;datetime-local&quot; list=&quot;datetime-locals&quot; /&gt;
+			&lt;datalist id=&quot;datetime-locals&quot;&gt;
+				&lt;option label=&quot;Santa Visit&quot;&gt;2012-12-24T23:59&lt;/option&gt;
+				&lt;option label=&quot;Chrismas party&quot;&gt;2012-12-25T18:00&lt;/option&gt;
+				&lt;option&gt;2012-12-30T00:00&lt;/option&gt;
+				&lt;option label=&quot;Happy New Year&quot;&gt;2013-01-01T00:00&lt;/option&gt;
+			&lt;/datalist&gt;
+		&lt;/div&gt;
+		&lt;div&gt;
+			&lt;label for=&quot;month-input-datalist&quot;&gt;Month input with datalist&lt;/label&gt;
+			&lt;input id=&quot;month-input-datalist&quot; type=&quot;month&quot; list=&quot;months&quot; /&gt;
+			&lt;datalist id=&quot;months&quot;&gt;
+				&lt;option label=&quot;End of last century&quot;&gt;2000-12&lt;/option&gt;
+				&lt;option&gt;2010-01&lt;/option&gt;
+				&lt;option&gt;2011-01&lt;/option&gt;
+				&lt;option&gt;2012-01&lt;/option&gt;
+				&lt;option&gt;2013-01&lt;/option&gt;
+			&lt;/datalist&gt;
+		&lt;/div&gt;
+		&lt;div&gt;
+			&lt;label for=&quot;week-input-datalist&quot;&gt;Week input with datalist&lt;/label&gt;
+			&lt;input id=&quot;week-input-datalist&quot; type=&quot;week&quot; list=&quot;weeks&quot; /&gt;
+			&lt;datalist id=&quot;weeks&quot;&gt;
+				&lt;option label=&quot;First week of 2013&quot;&gt;2013-W01&lt;/option&gt;
+				&lt;option label=&quot;Second week of 2013&quot;&gt;2013-W02&lt;/option&gt;
+				&lt;option label=&quot;13th week of 2013&quot;&gt;2013-W13&lt;/option&gt;
+				&lt;option label=&quot;The last week of 2013&quot;&gt;2013-W52&lt;/option&gt;
+			&lt;/datalist&gt;
+		&lt;/div&gt;
+	&lt;/fieldset&gt;
+&lt;/form&gt;</code></pre>
+									</div>
+								</div>
+								<div class="holder-btn-expand-hidden-layer">
+									<h2 class="btn-expand-hidden-layer sg-h2" id="a30">Form Fieldset&#160;<svg class="ui-icon" role="img" focusable="false"><use xlink:href="#ui-icon-ChevronDownSmall"></use></svg></h2></div><div class="holder-hidden-layer">
+									<div>
+										<form>
+											<fieldset>
+												<legend>Fieldset with legend</legend>
+												<p>
+													<label for="fieldset-text-input1">Text Input</label>
+													<input id="fieldset-text-input1" type="text" /><input type="submit" onclick="return false;" value="Submit" />
+												</p>
+											</fieldset>
+										</form>
+									</div>
+									<div class="sg-markup-controls">
+										<span class="sg-btn sg-btn--source">View Source</span>
+									</div>
+									<div class="sg-source sg-animated">
+										<pre class="prettyprint lang-html linenums line-numbers"><code>&lt;form&gt;
+	&lt;fieldset&gt;
+		&lt;legend&gt;Fieldset with legend&lt;/legend&gt;
+		&lt;p&gt;&lt;label for=&quot;fieldset-text-input1&quot;&gt;Text Input&lt;/label&gt; &lt;input id=&quot;fieldset-text-input1&quot; type=&quot;text&quot; /&gt;&lt;input type=&quot;submit&quot; value=&quot;Submit&quot; /&gt;&lt;/p&gt;
+	&lt;/fieldset&gt;
+&lt;/form&gt;</code></pre>
+									</div>
+								</div>
+								<div class="holder-btn-expand-hidden-layer">
+									<h2 class="btn-expand-hidden-layer sg-h2" id="a31">Headings&#160;<svg class="ui-icon" role="img" focusable="false"><use xlink:href="#ui-icon-ChevronDownSmall"></use></svg></h2></div><div class="holder-hidden-layer">
+									<div>
+										<h1 id="h1">Heading 1 with <small>small text</small> and a <a href="#">link</a></h1>
+										<h2>Heading 2 with <small>small text</small> and a <a href="#">link</a></h2>
+										<h3>Heading 3 with <small>small text</small> and a <a href="#">link</a></h3>
+										<h4>Heading 4 with <small>small text</small> and a <a href="#">link</a></h4>
+										<h5>Heading 5 with <small>small text</small> and a <a href="#">link</a></h5>
+										<h6>Heading 6 with <small>small text</small> and a <a href="#">link</a></h6>
+									</div>
+									<div class="sg-markup-controls">
+										<span class="sg-btn sg-btn--source">View Source</span>
+									</div>
+									<div class="sg-source sg-animated">
+										<pre class="prettyprint lang-html linenums line-numbers"><code>&lt;h1&gt;Heading 1 with &lt;small&gt;small text&lt;/small&gt; and a &lt;a href=&quot;#&quot;&gt;link&lt;/a&gt;&lt;/h1&gt;
+&lt;h2&gt;Heading 2 with &lt;small&gt;small text&lt;/small&gt; and a &lt;a href=&quot;#&quot;&gt;link&lt;/a&gt;&lt;/h2&gt;
+&lt;h3&gt;Heading 3 with &lt;small&gt;small text&lt;/small&gt; and a &lt;a href=&quot;#&quot;&gt;link&lt;/a&gt;&lt;/h3&gt;
+&lt;h4&gt;Heading 4 with &lt;small&gt;small text&lt;/small&gt; and a &lt;a href=&quot;#&quot;&gt;link&lt;/a&gt;&lt;/h4&gt;
+&lt;h5&gt;Heading 5 with &lt;small&gt;small text&lt;/small&gt; and a &lt;a href=&quot;#&quot;&gt;link&lt;/a&gt;&lt;/h5&gt;
+&lt;h6&gt;Heading 6 with &lt;small&gt;small text&lt;/small&gt; and a &lt;a href=&quot;#&quot;&gt;link&lt;/a&gt;&lt;/h6&gt;</code></pre>
+									</div>
+								</div>
+								<div class="holder-btn-expand-hidden-layer">
+									<h2 class="btn-expand-hidden-layer sg-h2" id="a32">HR&#160;<svg class="ui-icon" role="img" focusable="false"><use xlink:href="#ui-icon-ChevronDownSmall"></use></svg></h2></div><div class="holder-hidden-layer">
+									<hr />
+									<div class="sg-markup-controls">
+										<span class="sg-btn sg-btn--source">View Source</span>
+									</div>
+									<div class="sg-source sg-animated">
+										<pre class="prettyprint lang-html linenums line-numbers"><code>&lt;hr /&gt;</code></pre>
+									</div>
+								</div>
+								<div class="holder-btn-expand-hidden-layer">
+									<h2 class="btn-expand-hidden-layer sg-h2" id="a33">List Definition&#160;<svg class="ui-icon" role="img" focusable="false"><use xlink:href="#ui-icon-ChevronDownSmall"></use></svg></h2></div><div class="holder-hidden-layer">
+									<div>
+										<dl>
+											<dt>Description name</dt>
+											<dd>Description value</dd>
+											<dt>Description name</dt>
+											<dd>Description value</dd>
+											<dd>Description value</dd>
+											<dt>Description name</dt>
+											<dt>Description name</dt>
+											<dd>Description value</dd>
+										</dl>
+									</div>
+									<div class="sg-markup-controls">
+										<span class="sg-btn sg-btn--source">View Source</span>
+									</div>
+									<div class="sg-source sg-animated">
+										<pre class="prettyprint lang-html linenums line-numbers"><code>&lt;dl&gt;
+	&lt;dt&gt;Description name&lt;/dt&gt;
+	&lt;dd&gt;Description value&lt;/dd&gt;
+	&lt;dt&gt;Description name&lt;/dt&gt;
+	&lt;dd&gt;Description value&lt;/dd&gt;
+	&lt;dd&gt;Description value&lt;/dd&gt;
+	&lt;dt&gt;Description name&lt;/dt&gt;
+	&lt;dt&gt;Description name&lt;/dt&gt;
+	&lt;dd&gt;Description value&lt;/dd&gt;
+&lt;/dl&gt;</code></pre>
+									</div>
+								</div>
+								<div class="holder-btn-expand-hidden-layer">
+									<h2 class="btn-expand-hidden-layer sg-h2" id="a34">List Ordered&#160;<svg class="ui-icon" role="img" focusable="false"><use xlink:href="#ui-icon-ChevronDownSmall"></use></svg></h2></div><div class="holder-hidden-layer">
+									<div>
+										<ol>
+											<li>list item 1</li>
+											<li>list item 1
+												<ol>
+													<li>list item 2</li>
+													<li>list item 2
+														<ol>
+															<li>list item 3</li>
+															<li>list item 3</li>
+														</ol></li>
+													<li>list item 2</li>
+													<li>list item 2</li>
+												</ol></li>
+											<li>list item 1</li>
+											<li>list item 1</li>
+										</ol>
+									</div>
+									<div class="sg-markup-controls">
+										<span class="sg-btn sg-btn--source">View Source</span>
+									</div>
+									<div class="sg-source sg-animated">
+										<pre class="prettyprint lang-html linenums line-numbers"><code>&lt;ol&gt;
+	&lt;li&gt;list item 1&lt;/li&gt;
+	&lt;li&gt;list item 1
+		&lt;ol&gt;
+			&lt;li&gt;list item 2&lt;/li&gt;
+			&lt;li&gt;list item 2
+				&lt;ol&gt;
+					&lt;li&gt;list item 3&lt;/li&gt;
+					&lt;li&gt;list item 3&lt;/li&gt;
+				&lt;/ol&gt;
+			&lt;/li&gt;
+			&lt;li&gt;list item 2&lt;/li&gt;
+			&lt;li&gt;list item 2&lt;/li&gt;
+		&lt;/ol&gt;
+	&lt;/li&gt;
+	&lt;li&gt;list item 1&lt;/li&gt;
+	&lt;li&gt;list item 1&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+									</div>
+								</div>
+								<div class="holder-btn-expand-hidden-layer">
+									<h2 class="btn-expand-hidden-layer sg-h2" id="a35">List Unordered&#160;<svg class="ui-icon" role="img" focusable="false"><use xlink:href="#ui-icon-ChevronDownSmall"></use></svg></h2></div><div class="holder-hidden-layer">
+									<div>
+										<ul>
+											<li>list item 1</li>
+											<li>list item 1
+												<ul>
+													<li>list item 2</li>
+													<li>list item 2
+														<ul>
+															<li>list item 3</li>
+															<li>list item 3</li>
+														</ul></li>
+													<li>list item 2</li>
+													<li>list item 2</li>
+												</ul></li>
+											<li>list item 1</li>
+											<li>list item 1</li>
+										</ul>
+									</div>
+									<div class="sg-markup-controls">
+										<span class="sg-btn sg-btn--source">View Source</span>
+									</div>
+									<div class="sg-source sg-animated">
+										<pre class="prettyprint lang-html linenums line-numbers"><code>&lt;ul&gt;
+	&lt;li&gt;list item 1&lt;/li&gt;
+	&lt;li&gt;list item 1
+		&lt;ul&gt;
+			&lt;li&gt;list item 2&lt;/li&gt;
+			&lt;li&gt;list item 2
+				&lt;ul&gt;
+					&lt;li&gt;list item 3&lt;/li&gt;
+					&lt;li&gt;list item 3&lt;/li&gt;
+				&lt;/ul&gt;
+			&lt;/li&gt;
+			&lt;li&gt;list item 2&lt;/li&gt;
+			&lt;li&gt;list item 2&lt;/li&gt;
+		&lt;/ul&gt;
+	&lt;/li&gt;
+	&lt;li&gt;list item 1&lt;/li&gt;
+	&lt;li&gt;list item 1&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+									</div>
+								</div>
+								<div class="holder-btn-expand-hidden-layer">
+									<h2 class="btn-expand-hidden-layer sg-h2" id="a36">Default Image&#160;<svg class="ui-icon" role="img" focusable="false"><use xlink:href="#ui-icon-ChevronDownSmall"></use></svg></h2></div><div class="holder-hidden-layer">
+									<div>
+										<img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20640%20360%27%2F%3E" data-src="../../libs/branding/img/640x360.png" class="data-src-img" alt="" />
+									</div>
+									<div class="sg-markup-controls">
+										<span class="sg-btn sg-btn--source">View Source</span>
+									</div>
+									<div class="sg-source sg-animated">
+										<pre class="prettyprint lang-html linenums line-numbers"><code>&lt;img src=&quot;//placehold.it/640x360&quot; alt=&quot;Image alt text 3&quot; /&gt;</code></pre>
+									</div>
+								</div>
+								<div class="holder-btn-expand-hidden-layer">
+									<h2 class="btn-expand-hidden-layer sg-h2" id="a37">Linked Image&#160;<svg class="ui-icon" role="img" focusable="false"><use xlink:href="#ui-icon-ChevronDownSmall"></use></svg></h2></div><div class="holder-hidden-layer">
+									<div>
+										<a href="../../libs/branding/img/640x360.png" class="img-lightbox-link" target="_blank" rel="lightbox" aria-label="Лайтбокс"><img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20640%20360%27%2F%3E" data-src="../../libs/branding/img/640x360.png" class="data-src-img" alt="" /></a>
+									</div>
+									<div class="sg-markup-controls">
+										<span class="sg-btn sg-btn--source">View Source</span>
+									</div>
+									<div class="sg-source sg-animated">
+										<pre class="prettyprint lang-html linenums line-numbers"><code>&lt;a href=&quot;#&quot;&gt;&lt;img src=&quot;//placehold.it/640x360&quot; alt=&quot;Image alt text 4&quot; /&gt;&lt;/a&gt;</code></pre>
+									</div>
+								</div>
+								<div class="holder-btn-expand-hidden-layer">
+									<h2 class="btn-expand-hidden-layer sg-h2" id="a38">SVG Logo&#160;<svg class="ui-icon" role="img" focusable="false"><use xlink:href="#ui-icon-ChevronDownSmall"></use></svg></h2></div><div class="holder-hidden-layer">
+									<div>
+										<img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2048 48%27%2F%3E" data-src="../../libs/branding/img/sitelogo-48x48.svg" class="data-src-img" alt= />
+									</div>
+									<div class="sg-markup-controls">
+										<span class="sg-btn sg-btn--source">View Source</span>
+									</div>
+									<div class="sg-source sg-animated">
+										<pre class="prettyprint lang-html linenums line-numbers"><code>&lt;svg version=&quot;1.1&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; x=&quot;0px&quot; y=&quot;0px&quot; viewBox=&quot;0 0 48 48&quot; enable-background=&quot;new 0 0 48 48&quot;&gt;&lt;rect fill=&quot;#F03B4C&quot; width=&quot;48&quot; height=&quot;48&quot;&gt;&lt;/rect&gt;&lt;path fill=&quot;#191919&quot; d=&quot;M31.8,43c-0.5,0-1.2-0.2-1.8-0.4c-2.6-0.9-3.7-2.9-3.2-5.7c0.5-2.2,1.2-4.1,2-6.1c0.5-1.4,1.1-2.6,1.7-4c0.3-0.9,0.8-2,1.1-2.9l0,0c-0.3,0.4-0.7,0.7-1,1.1c-0.9,0.9-1.8,2-2.7,2.9c-1.4,1.6-3,3.3-4.6,4.9c-1.1,1.1-2.5,2.4-4.1,3.2c-1,0.5-2,0.7-2.9,0.4c-1.7-0.5-2.6-1.8-2.5-3.8c0.1-1.6,0.5-3.2,1.4-4.9c0.7-1.5,1.4-2.9,2-4.5c0.3-0.7,0.7-1.5,1-2.2l0.8-1.8c0.9-2,1.9-4.2,2.8-6.3c0.2-0.6,0.5-1.3,0.5-2c0.1-0.2,0.1-0.5,0.2-0.7c-0.1,0.2-0.2,0.2-0.3,0.5c-1.2,1.7-2.3,3.4-3.6,5.1c-0.3,0.6-0.8,1.1-1.1,1.6c-0.9,1.3-1.9,2.6-2.8,4c-0.5,0.8-1.4,1.4-2.1,2c-0.8,0.5-1.7,0.6-2.5,0.2c-0.8-0.4-1.4-1.1-1.8-2c-0.5-1.5,0-2.9,0.5-4c0.5-1.1,1-2,1.4-2.9c0.5-0.8,0.9-1.7,1.4-2.5c0.5-0.9,0.9-1.8,0.8-2.9c0-0.6-0.3-1.1-0.8-1.5c-0.2-0.2-0.5-0.2-1,0c-1,0.5-1.7,1.3-2.3,2c-0.5,0.6-1,0.8-1.6,0.5C6.4,10.1,6.2,9.7,6,9.5C6,9.1,6,8.8,6.3,8.4c1-1.6,2.3-2.6,3.7-3.2c1.7-0.7,3.4,0,4.5,1.7c0.8,1.3,0.9,2.6,0.5,4c-0.5,1.3-0.9,2.5-1.4,3.6c-0.3,0.7-0.7,1.5-1,2.2c-0.3,0.7-0.7,1.5-1,2.2c-0.2,0.5-0.2,0.9-0.3,1.5v0.2c0,0,0,0.2,0.1,0.2c0.1,0,0.1-0.2,0.2-0.2c0.2-0.2,0.3-0.4,0.5-0.6c0.5-0.6,1-1.1,1.4-1.7c0.8-1.3,1.7-2.5,2.5-3.6c0.7-1.1,1.4-2.2,2.1-3.3c0.9-1.3,1.7-2.4,2.6-3.4c0.8-0.9,1.6-1.4,2.3-1.6c0.8-0.2,1.4,0.2,2.1,0.6c0.7,0.6,1,1.4,1.1,2.2c0.1,1.1,0,2.2-0.5,3.3l-0.2,0.7c-0.7,2-1.4,3.9-2.3,5.8c-0.7,1.6-1.4,3.2-2.1,4.9c-0.7,1.6-1.4,3.2-2.1,4.9c-0.3,0.9-0.7,2-0.9,2.9c-0.1,0.2-0.1,0.6-0.2,0.8c0,0.2,0,0.2,0,0.2c0.2-0.2,0.5-0.2,0.7-0.5c1.6-1.1,2.9-2.6,4.3-4.1c2-2.3,4.3-4.8,6.5-7c0.8-0.9,1.8-1.6,2.8-2c1-0.5,2-0.4,2.8,0.2c0.8,0.5,1.4,1.3,1.6,2.3c0.2,1.1,0,2-0.1,2.7c-0.5,1.8-1.1,3.6-1.8,5.2c-0.2,0.5-0.3,0.9-0.5,1.4c-0.9,2.3-1.6,4.1-2.3,5.8c-0.1,0.4-0.1,0.7-0.2,1.1c0,0.2-0.1,0.4-0.1,0.6h0.1c0.3,0,0.8,0,1-0.2c1.2-0.5,2.3-1.5,3.2-2.4c0.7-0.7,1.4-1.4,2-2l0.1-0.2c0.7-0.7,1.4-0.7,2.1,0c0.5,0.5,1,0.9,1.4,1.4c0.3,0.4,0.5,0.7,0.5,1.1c0,0.4-0.1,0.7-0.5,0.9l-0.2,0.2c-1.8,1.8-3.6,3.6-5.9,4.9C34,42.6,32.9,43,31.8,43z&quot;/&gt;
+&lt;/svg&gt;</code></pre>
+									</div>
+								</div>
+								<div class="holder-btn-expand-hidden-layer">
+									<h2 class="btn-expand-hidden-layer sg-h2" id="a39">Video&#160;<svg class="ui-icon" role="img" focusable="false"><use xlink:href="#ui-icon-ChevronDownSmall"></use></svg></h2></div><div class="holder-hidden-layer">
+									<div>
+										<video id="video1" poster="../../libs/branding/img/video-poster-dummy-640x360.svg"></video>
+										<!-- <video id="video2" controls="" poster="../../libs/branding/img/big_buck_bunny_640x360.jpg">
+											<source id="webm" src="https://www.quirksmode.org/html5/videos/big_buck_bunny.webm" type="video/webm">
+											<source id="ogv" src="https://www.quirksmode.org/html5/videos/big_buck_bunny.ogv" type="video/ogg">
+											<source id="mp4" src="https://www.quirksmode.org/html5/videos/big_buck_bunny.mp4" type="video/mp4">
+											<source id="mp4" src="https://www.quirksmode.org/html5/videos/big_buck_bunny.3gp" type="video/3gp">
+										</video> -->
+										<script>
+											(function(d,v,l){/*englishextra.github.io/i.test(l)|| */(v&&(v.style.display="none"),a=d.getElementsByTagName("script"),a=a[a.length-1],b=d.createElement("div"),v2=d.createElement("video"),v2.setAttribute("id","video2"),v2.setAttribute("controls","null"),v2.setAttribute("poster","../../libs/branding/img/big_buck_bunny_640x360.jpg"),n1=d.createTextNode("\n"),v2.appendChild(n1),s1=d.createElement("source"),s1.setAttribute("id","webm"),s1.setAttribute("src","../../libs/branding/media/big_buck_bunny.webm"),s1.setAttribute("type","video/webm"),v2.appendChild(s1),n2=d.createTextNode("\n"),v2.appendChild(n2),s2=d.createElement("source"),s2.setAttribute("id","ogv"),s2.setAttribute("src","../../libs/branding/media/big_buck_bunny.ogv"),s2.setAttribute("type","video/ogg"),v2.appendChild(s2),n3=d.createTextNode("\n"),v2.appendChild(n3),s3=d.createElement("source"),s3.setAttribute("id","mp4"),s3.setAttribute("src","../../libs/branding/media/big_buck_bunny.mp4"),s3.setAttribute("type","video/mp4"),v2.appendChild(s3),n4=d.createTextNode("\n"),v2.appendChild(n4),s4=d.createElement("source"),s4.setAttribute("id","mp4"),s4.setAttribute("src","../../libs/branding/media/big_buck_bunny.3gp"),s4.setAttribute("type","video/3gp"),v2.appendChild(s4),n5=d.createTextNode("\n"),v2.appendChild(n5),b.appendChild(v2),n6=d.createTextNode("\n"),b.appendChild(n6),a.parentNode.insertBefore(b,a));})(document,document.getElementById("video1")||"",window.location.href||"");
+										</script>
+									</div>
+									<div class="sg-markup-controls">
+										<span class="sg-btn sg-btn--source">View Source</span>
+									</div>
+									<div class="sg-source sg-animated">
+										<pre class="prettyprint lang-html linenums line-numbers"><code>&lt;video id=&quot;video2&quot; controls=&quot;&quot; poster=&quot;../libs/branding/img/big_buck_bunny_640x360.jpg&quot;&gt;
+	&lt;source id=&quot;webm&quot; src=&quot;https://www.quirksmode.org/html5/videos/big_buck_bunny.webm&quot; type=&quot;video/webm&quot;&gt;
+	&lt;source id=&quot;ogv&quot; src=&quot;https://www.quirksmode.org/html5/videos/big_buck_bunny.ogv&quot; type=&quot;video/ogg&quot;&gt;
+	&lt;source id=&quot;mp4&quot; src=&quot;https://www.quirksmode.org/html5/videos/big_buck_bunny.mp4&quot; type=&quot;video/mp4&quot;&gt;
+	&lt;source id=&quot;mp4&quot; src=&quot;https://www.quirksmode.org/html5/videos/big_buck_bunny.3gp&quot; type=&quot;video/3gp&quot;&gt;
+&lt;/video&gt;</code></pre>
+									</div>
+								</div>
+								<div class="holder-btn-expand-hidden-layer">
+									<h2 class="btn-expand-hidden-layer sg-h2" id="a40">Preformated Text&#160;<svg class="ui-icon" role="img" focusable="false"><use xlink:href="#ui-icon-ChevronDownSmall"></use></svg></h2></div><div class="holder-hidden-layer">
+									<div>
+										<pre><code>&lt;html&gt;
+	&lt;head&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;div class="main"&gt; &lt;div&gt;
+	&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+									</div>
+									<div class="sg-markup-controls">
+										<span class="sg-btn sg-btn--source">View Source</span>
+									</div>
+									<div class="sg-source sg-animated">
+										<pre class="prettyprint lang-html linenums line-numbers"><code>&lt;pre&gt;&lt;code&gt;&amp;lt;html&amp;gt;
+	&amp;lt;head&amp;gt;
+	&amp;lt;/head&amp;gt;
+	&amp;lt;body&amp;gt;
+		&amp;lt;div class=&amp;quot;main&amp;quot;&amp;gt; &amp;lt;div&amp;gt;
+	&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;&lt;/code&gt;&lt;/pre&gt;</code></pre>
+									</div>
+								</div>
+								<div class="holder-btn-expand-hidden-layer">
+									<h2 class="btn-expand-hidden-layer sg-h2" id="a41">Sample Content Block&#160;<svg class="ui-icon" role="img" focusable="false"><use xlink:href="#ui-icon-ChevronDownSmall"></use></svg></h2></div><div class="holder-hidden-layer">
+									<div>
+										<h1 id="h1">Hello World</h1>
+										<p>Lorem ipsum dolor sit amet, <a href="#">consectetur</a> adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+										<hr />
+										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+										<ul>
+											<li>In voluptate velit esse cillum</li>
+											<li>In voluptate velit esse cillum</li>
+											<li>In voluptate velit esse cillum</li>
+										</ul>
+										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+									</div>
+									<div class="sg-markup-controls">
+										<span class="sg-btn sg-btn--source">View Source</span>
+									</div>
+									<div class="sg-source sg-animated">
+										<pre class="prettyprint lang-html linenums line-numbers"><code>&lt;h1&gt;Hello World&lt;/h1&gt;
+&lt;p&gt;Lorem ipsum dolor sit amet, &lt;a href=&quot;#&quot;&gt;consectetur&lt;/a&gt; adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
+&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
+&lt;ul&gt;
+	&lt;li&gt;In voluptate velit esse cillum&lt;/li&gt;
+	&lt;li&gt;In voluptate velit esse cillum&lt;/li&gt;
+	&lt;li&gt;In voluptate velit esse cillum&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;</code></pre>
+									</div>
+								</div>
+								<div class="holder-btn-expand-hidden-layer">
+									<h2 class="btn-expand-hidden-layer sg-h2" id="a42">Default Table&#160;<svg class="ui-icon" role="img" focusable="false"><use xlink:href="#ui-icon-ChevronDownSmall"></use></svg></h2></div><div class="holder-hidden-layer">
+									<div>
+										<table class="respond fit-width">
+											<caption>Table Caption</caption>
+											<thead>
+												<tr>
+													<th scope="col">thead th</th>
+													<th scope="col">thead th</th>
+													<th scope="col">thead th</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>tbody td</td>
+													<td>tbody td</td>
+													<td>tbody td</td>
+												</tr>
+												<tr>
+													<td>tbody td</td>
+													<td>tbody td</td>
+													<td>tbody td</td>
+												</tr>
+												<tr>
+													<td>tbody td</td>
+													<td>tbody td</td>
+													<td>tbody td</td>
+												</tr>
+											</tbody>
+										</table>
+										<table class="respond fit-width">
+											<caption>Table Caption</caption>
+											<thead>
+												<tr>
+													<th id="th1" scope="col">thead th</th>
+													<th id="th2" scope="col">thead th</th>
+													<th id="th3" scope="col">thead th</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th id="th4" scope="row" headers="th1">tbody th</th>
+													<td headers="th2 th4">tbody td</td>
+													<td headers="th3 th4">tbody td</td>
+												</tr>
+												<tr>
+													<th id="th5" scope="row" headers="th1">tbody th</th>
+													<td headers="th2 th5">tbody td</td>
+													<td headers="th3 th5">tbody td</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div class="sg-markup-controls">
+										<span class="sg-btn sg-btn--source">View Source</span>
+									</div>
+									<div class="sg-source sg-animated">
+										<pre class="prettyprint lang-html linenums line-numbers"><code>&lt;h3&gt;Default Table&lt;/h3&gt;
+&lt;table&gt;
+	&lt;caption&gt;Table Caption&lt;/caption&gt;
+	&lt;thead&gt;
+		&lt;tr&gt;
+			&lt;th scope=&quot;col&quot;&gt;thead th&lt;/th&gt;
+			&lt;th scope=&quot;col&quot;&gt;thead th&lt;/th&gt;
+			&lt;th scope=&quot;col&quot;&gt;thead th&lt;/th&gt;
+		&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+		&lt;tr&gt;
+			&lt;td&gt;tbody td&lt;/td&gt;
+			&lt;td&gt;tbody td&lt;/td&gt;
+			&lt;td&gt;tbody td&lt;/td&gt;
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;tbody td&lt;/td&gt;
+			&lt;td&gt;tbody td&lt;/td&gt;
+			&lt;td&gt;tbody td&lt;/td&gt;
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;tbody td&lt;/td&gt;
+			&lt;td&gt;tbody td&lt;/td&gt;
+			&lt;td&gt;tbody td&lt;/td&gt;
+		&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table&gt;
+	&lt;caption&gt;Table Caption&lt;/caption&gt;
+	&lt;thead&gt;
+		&lt;tr&gt;
+			&lt;th id=&quot;th1&quot; scope=&quot;col&quot;&gt;thead th&lt;/th&gt;
+			&lt;th id=&quot;th2&quot; scope=&quot;col&quot;&gt;thead th&lt;/th&gt;
+			&lt;th id=&quot;th3&quot; scope=&quot;col&quot;&gt;thead th&lt;/th&gt;
+		&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+		&lt;tr&gt;
+			&lt;th id=&quot;th4&quot; scope=&quot;row&quot; headers=&quot;th1&quot;&gt;tbody th&lt;/th&gt;
+			&lt;td headers=&quot;th2 th4&quot;&gt;tbody td&lt;/td&gt;
+			&lt;td headers=&quot;th3 th4&quot;&gt;tbody td&lt;/td&gt;
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;th id=&quot;th5&quot; scope=&quot;row&quot; headers=&quot;th1&quot;&gt;tbody th&lt;/th&gt;
+			&lt;td headers=&quot;th2 th5&quot;&gt;tbody td&lt;/td&gt;
+			&lt;td headers=&quot;th3 th5&quot;&gt;tbody td&lt;/td&gt;
+		&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+									</div>
+								</div>
+								<div class="holder-btn-expand-hidden-layer">
+									<h2 class="btn-expand-hidden-layer sg-h2" id="a43">Text Elements&#160;<svg class="ui-icon" role="img" focusable="false"><use xlink:href="#ui-icon-ChevronDownSmall"></use></svg></h2></div><div class="holder-hidden-layer">
+									<div>
+										<p>The <a href="#">a element</a> example</p>
+										<p>The <abbr>abbr element</abbr> and an <abbr title="Abbreviation">abbr</abbr> element with title examples</p>
+										<p>The <b>b element</b> example</p>
+										<p>The <cite>cite element</cite> example</p>
+										<p>The <code>code element</code> example</p>
+										<p>The <em>em element</em> example</p>
+										<p>The <del>del element</del> example</p>
+										<p>The <dfn>dfn element</dfn> and <dfn title="Title text">dfn element with title</dfn> examples</p>
+										<p>The <i>i element</i> example</p>
+										<p>The <ins>ins element</ins> example</p>
+										<p>The <kbd>kbd element</kbd> example</p>
+										<p>The <mark>mark element</mark> example</p>
+										<p>The <q>q element</q> example</p>
+										<p>The <q>q element <q>inside</q> a q element</q> example</p>
+										<p>The <s>s element</s> example</p>
+										<p>The <samp>samp element</samp> example</p>
+										<p>The <small>small element</small> example</p>
+										<p>The <span>span element</span> example</p>
+										<p>The <strong>strong element</strong> example</p>
+										<p>The <sub>sub element</sub> example</p>
+										<p>The <sup>sup element</sup> example</p>
+										<p>The <u>u element</u> example</p>
+										<p>The <var>var element</var> example</p>
+									</div>
+									<div class="sg-markup-controls">
+										<span class="sg-btn sg-btn--source">View Source</span>
+									</div>
+									<div class="sg-source sg-animated">
+										<pre class="prettyprint lang-html linenums line-numbers"><code>&lt;p&gt;The &lt;a href=&quot;#&quot;&gt;a element&lt;/a&gt; example&lt;/p&gt;
+&lt;p&gt;The &lt;abbr&gt;abbr element&lt;/abbr&gt; and an &lt;abbr title=&quot;Abbreviation&quot;&gt;abbr&lt;/abbr&gt; element with title examples&lt;/p&gt;
+&lt;p&gt;The &lt;b&gt;b element&lt;/b&gt; example&lt;/p&gt;
+&lt;p&gt;The &lt;cite&gt;cite element&lt;/cite&gt; example&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;code element&lt;/code&gt; example&lt;/p&gt;
+&lt;p&gt;The &lt;em&gt;em element&lt;/em&gt; example&lt;/p&gt;
+&lt;p&gt;The &lt;del&gt;del element&lt;/del&gt; example&lt;/p&gt;
+&lt;p&gt;The &lt;dfn&gt;dfn element&lt;/dfn&gt; and &lt;dfn title=&quot;Title text&quot;&gt;dfn element with title&lt;/dfn&gt; examples&lt;/p&gt;
+&lt;p&gt;The &lt;i&gt;i element&lt;/i&gt; example&lt;/p&gt;
+&lt;p&gt;The &lt;ins&gt;ins element&lt;/ins&gt; example&lt;/p&gt;
+&lt;p&gt;The &lt;kbd&gt;kbd element&lt;/kbd&gt; example&lt;/p&gt;
+&lt;p&gt;The &lt;mark&gt;mark element&lt;/mark&gt; example&lt;/p&gt;
+&lt;p&gt;The &lt;q&gt;q element&lt;/q&gt; example&lt;/p&gt;
+&lt;p&gt;The &lt;q&gt;q element &lt;q&gt;inside&lt;/q&gt; a q element&lt;/q&gt; example&lt;/p&gt;
+&lt;p&gt;The &lt;s&gt;s element&lt;/s&gt; example&lt;/p&gt;
+&lt;p&gt;The &lt;samp&gt;samp element&lt;/samp&gt; example&lt;/p&gt;
+&lt;p&gt;The &lt;small&gt;small element&lt;/small&gt; example&lt;/p&gt;
+&lt;p&gt;The &lt;span&gt;span element&lt;/span&gt; example&lt;/p&gt;
+&lt;p&gt;The &lt;strong&gt;strong element&lt;/strong&gt; example&lt;/p&gt;
+&lt;p&gt;The &lt;sub&gt;sub element&lt;/sub&gt; example&lt;/p&gt;
+&lt;p&gt;The &lt;sup&gt;sup element&lt;/sup&gt; example&lt;/p&gt;
+&lt;p&gt;The &lt;u&gt;u element&lt;/u&gt; example&lt;/p&gt;
+&lt;p&gt;The &lt;var&gt;var element&lt;/var&gt; example&lt;/p&gt;</code></pre>
+									</div>
+								</div>
+								<div class="holder-btn-expand-hidden-layer">
+									<h2 class="btn-expand-hidden-layer sg-h2" id="a44">Time&#160;<svg class="ui-icon" role="img" focusable="false"><use xlink:href="#ui-icon-ChevronDownSmall"></use></svg></h2></div><div class="holder-hidden-layer">
+									<div>
+										Remember, remember the <time datetime="1605-11-05">5<sup>th</sup> of November</time>
+									</div>
+									<div class="sg-markup-controls">
+										<span class="sg-btn sg-btn--source">View Source</span>
+									</div>
+									<div class="sg-source sg-animated">
+										<pre class="prettyprint lang-html linenums line-numbers"><code>&lt;p&gt;Remember, remember the &lt;time datetime=&quot;1605-11-05&quot;&gt;5&lt;sup&gt;th&lt;/sup&gt; of November&lt;/time&gt;&lt;/p&gt;</code></pre>
+									</div>
+								</div>
+								<div class="holder-btn-expand-hidden-layer">
+									<h2 class="btn-expand-hidden-layer sg-h2" id="a46">Credits&#160;<svg class="ui-icon" role="img" focusable="false"><use xlink:href="#ui-icon-ChevronDownSmall"></use></svg></h2></div><div class="holder-hidden-layer">
+									<div>
+										<a href="https://github.com/bjankord/Style-Guide-Boilerplate">bjankord&#160;/ Style-Guide-Boilerplate</a>	&#8226;&#160; <a href="https://github.com/necolas/normalize.css">necolas&#160;/ normalize.css</a>	&#8226;&#160; <a href="https://github.com/englishextra/typeboost.css">englishextra&#160;/ typeboost.css</a>	&#8226;&#160; <a href="http://www.flatuicolorpicker.com/">vbaimas&#160;/ Best Flat Colors For UI Design</a>	&#8226;&#160; <a href="http://tintui.com/">Tint UI&#160;/ Material Design</a>	&#8226;&#160; <a href="https://github.com/google/google-code-prettify">google&#160;/ google-code-prettify</a>	&#8226;&#160; <a href="https://github.com/jmblog/color-themes-for-google-code-prettify">jmblog&#160;/ color-themes-for-google-code-prettify</a>	&#8226;&#160; <a href="https://github.com/SlexAxton/yepnope.js">SlexAxton&#160;/ yepnope.js</a>	&#8226;&#160; <a href="https://placehold.it/">placehold.it</a>	&#8226;&#160; <a href="http://cssguidelin.es/">Harry&#160;Roberts&#160;/ CSS&#160;Guidelines</a>
+									</div>
+								</div>
+								<h2>Комментарии</h2>
+								<p><span class="bolder">Регистрироваться необязательно.</span> Поставьте курсор в&#160;текстовую область, щелкните по&#160;появившемуся полю &#171;Имя&#187;, отметьте опцию &#171;Хотел&#160;бы написать как&#160;гость&#187;.</p>
+								<div><button class="btn-larger btn-primary fit-width btn-show-disqus">Показать все сообщения</button></div>
+								<div id="disqus_thread" data-shortname="englishextragithubio"></div>
+								<h2>Далее</h2>
+								<div class="holder-bottom-navigation"><a href="../../pages/webdev/webdev_about.html" class="btn-larger btn-primary fit-half-width">Следующая</a><a href="../../contents.html" rel="contents" class="btn-larger btn-secondary fit-half-width">Содержание</a><a href="../../sitemap.html" class="btn-larger btn-secondary fit-half-width">Карта сайта</a><a href="https://vk.com/englishextragithubio" class="btn-larger btn-link fit-half-width">&#171;ВКонтакте&#187;</a><a href="https://t.me/" onclick="var a='https',b=':',c='//t.me/',k='englishextra_website';this.href=a+b+c+k;" target="_blank" class="btn-larger btn-link fit-half-width">Телеграм</a><a href="https://yandex.ru/profile/1085972151" class="btn-larger btn-link fit-half-width">Репетитор</a></div>
+							</div>
+						</div>
+					</div>
+					<div class="grid-narrow grid-pad">
+						<div class="col col-1-1">
+							<div class="footer">
+				<p class="mui--text-caption">
+					<a href="/terms.html">Соглашение</a>
+					&#160;&#160; <a href="/policy.html">Политика</a>
+					&#160;&#160; <a href="mailto:" onclick="var a='mailto',b=':',c='englishextra2',k='%40',q='yahoo',s='.',v='com';this.href=a+b+c+k+q+s+v;">&#169;&#160;2020&#160;englishextra</a>
+				</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<ul class="panel-nav-menu">
+				<li><a href="../../contents.html" rel="contents">Содержание</a></li>
+				<li><a href="../../pages/articles/articles_reading_rules_utf.html">Правила чтения</a></li>
+				<li><a href="../../pages/grammar/grammar_usage_of_articles_a_the.html">Артикли a&#160;/ an и&#160;the</a></li>
+				<li><a href="../../pages/grammar/grammar_usage_of_tenses.html">Употребление времен</a></li>
+				<li><a href="../../pages/grammar/grammar_phrasal_verbs.html">Фразовые глаголы</a></li>
+				<li><a href="../../pages/aids/aids_topics.html">Топики на&#160;английском</a></li>
+				<li><a href="../../pages/tests/tests_grammar_tests_with_answers.html">Тесты по&#160;грамматике</a></li>
+				<li><a href="../../pages/tests/tests_gia_ege_letter_sample.html">ГИА&#160;/ ЕГЭ: Задания&#160;33, 39, 40</a></li>
+				<li><a href="../../pages/tests/tests_ege_essay_sample.html">ЕГЭ: Задание&#160;40</a></li>
+				<li><a href="../../sitemap.html">Карта сайта</a></li>
+			</ul>
+			<a href="../../contents.html" rel="contents" class="btn-nav-menu" onclick="return false;" title="Содержание">
+				<svg class="ui-icon" role="img" focusable="false">
+					<use xlink:href="#ui-icon-GlobalNavButton"></use>
+				</svg>
+			</a>
+			<div class="holder-panel-menu-more">
+				<ul class="panel-menu-more">
+				<li><a href="https://github.com/englishextra/irrverbsscr/releases/download/v0.1.1/irrverbsscr-win32-ia32-setup.exe">Заставка &#171;Неправильные глаголы&#187;</a></li>
+				<li><a href="https://github.com/englishextra/englishgrammartips/releases/download/v0.1.1/rough_and_ready_grammar_tips.pdf">E-book &#171;Подсказки по&#160;грамматике&#187;</a></li>
+				<li><a href="../../serguei/index.html">Репетитор английского в Тушино</a></li>
+				<li><span class="holder-location-qrcode"><img src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20144%20144%27%2F%3E" alt="" /></span></li>
+				</ul>
+			</div>
+			<button class="btn-menu-more" title="Еще">
+				<svg class="ui-icon" role="img" focusable="false">
+					<use xlink:href="#ui-icon-More"></use>
+				</svg>
+			</button>
+			<button class="btn-show-vk-like" title="Нравится">
+				<svg class="ui-icon" role="img" focusable="false">
+					<use xlink:href="#ui-icon-Like"></use>
+				</svg>
+			</button><span class="holder-vk-like is-social"><span class="vk-like" id="vk-like" data-apiid="4367728"></span></span>
+			<div class="holder-search-form">
+				<form action="https://yandex.ru/sitesearch" class="search-form" id="search-form" target="_blank" onsubmit="return false;" method="get" enctype="application/x-www-form-urlencoded">
+					<div class="form-group">
+						<div class="holder-search-text">
+							<input type="text" name="text" id="text" autocomplete="off" placeholder="Поиск" aria-label="Keywords / Ключевые слова" /><button type="submit" aria-label="Submit / Отправить">
+								<svg class="ui-icon" role="img" focusable="false">
+									<use xlink:href="#ui-icon-Search"></use>
+								</svg>
+							</button>
+						</div>
+						<input name="searchid" id="searchid" value="2192588" type="hidden" />
+						<input name="web" id="web" value="1" type="hidden" />
+					</div>
+				</form>
+			</div>
+		</div>
+			<button class="btn-share-buttons" title="Поделиться">
+				<svg class="ui-icon" role="img" focusable="false">
+					<use xlink:href="#ui-icon-Share"></use>
+				</svg>
+			</button><div class="is-social" id="ya-share2" data-services="vkontakte,odnoklassniki,facebook,whatsapp,pocket" data-counter=""></div>
+		<script src="./../../libs/branding/js/bundle.min.js" async=""></script>
+		<script>
+			(function(root,document){"use strict";if(root.location.protocol!=="https:"&&root.location.protocol!=="http:"){return;}var s=document.createElement("script");s.async=true;document.body.appendChild(s);s.setAttribute("src","/sw-register.min.js");s.setAttribute("data-service-worker","/sw.min.js");})("undefined"!==typeof window?window:this,document);
+		</script>
+		<!-- Yandex.Metrika counter --><script>if(/^http/.test(window.location.protocol||"")&&!(/^(localhost|127.0.0.1)/).test(window.location.hostname||"")){(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments);};m[i].l=1*new Date();k=e.createElement(t);a=e.getElementsByTagName(t)[0];k.async=1;k.src=r;a.parentNode.insertBefore(k,a);}(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym"));try{if(window.ym){ym(23664397,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true,trackHash:true});}}catch(e){}}</script><noscript><div><img src="//mc.yandex.ru/watch/23664397" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter --><!-- Google Analytics --><script>if(/^http/.test(window.location.protocol||"")&&!(/^(localhost|127.0.0.1)/).test(window.location.hostname||"")){(function(i,s,o,g,r,a,m){i.GoogleAnalyticsObject=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments);};i[r].l=1*new Date();a=s.createElement(o);m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m);}(window,document,"script","//www.google-analytics.com/analytics.js","ga"));ga("create","UA-47269668-1","auto");ga("send","pageview");}</script><!-- /Google Analytics -->
+	</body>
+</html>

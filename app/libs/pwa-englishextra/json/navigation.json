@@ -1,0 +1,65 @@
+{
+	"navbar_popular": [{
+			"href": "#/articles_reading_rules_utf",
+			"title": "Правила чтения"
+		},
+		{
+			"href": "#/grammar_usage_of_articles_a_the",
+			"title": "Артикли a / an и the"
+		},
+		{
+			"href": "#/grammar_usage_of_tenses",
+			"title": "Употребление времен"
+		},
+		{
+			"href": "#/tests_gia_ege_letter_sample",
+			"title": "ГИА / ЕГЭ: Задания 33, 39, 40"
+		},
+		{
+			"href": "#/tests_ege_essay_sample",
+			"title": "ЕГЭ: Задание 40"
+		},
+		{
+			"href": "#/tests_grammar_tests_with_answers",
+			"title": "Тесты по грамматике"
+		},
+		{
+			"href": "#/aids_topics",
+			"title": "Топики на английском"
+		}
+	],
+	"navbar_more": [{
+			"href": "#/about",
+			"title": "О сайте (приложении)"
+		},
+		{
+			"href": "../picturewall.html",
+			"title": "Все иллюстрации"
+		},
+		{
+			"href": "https://vk.com/englishextragithubio",
+			"title": "Паблик ВК"
+		},
+		{
+			"href": "../serguei/index.html",
+			"title": "Репетитор английского в Тушино"
+		},
+		{
+			"href": "../index.html",
+			"title": "Мой сайт"
+		}
+	],
+	"b_carousel": [{
+			"href": "../pages/more/more_irregular_verbs.html",
+			"src": "./libs/pwa-englishextra/img/sprite-more-banner/@1x/more-banner-irrverbsscr-1920x270.jpg"
+		},
+		{
+			"href": "../pages/more/more_products.html",
+			"src": "./libs/pwa-englishextra/img/sprite-more-banner/@1x/more-banner-englishextra-app-1920x270.jpg"
+		},
+		{
+			"href": "../pages/more/more_newsletter_can_get_english_for_free.html",
+			"src": "./libs/pwa-englishextra/img/sprite-more-banner/@1x/more-banner-english4free-1920x270.jpg"
+		}
+	]
+}

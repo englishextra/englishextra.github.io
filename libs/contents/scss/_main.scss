@@ -1,0 +1,1152 @@
+/*! @import "contents-main"; */
+
+/*!
+ * main
+ */
+
+/*!
+ * Default CSS Values for HTML Elements
+ * @see {@link https://www.w3schools.com/cssref/css_default_values.asp}
+ */
+
+html,
+body {
+	height: 100%;
+}
+
+html {
+	font-size: 15px;
+	line-height: 20px;
+/**
+ * set the parent to background transparent
+ * and position relative to parent, absolute for child
+ */
+	background-color: transparent;
+}
+
+body {
+	font-family: "Roboto", $font-family-local-sans-regular;
+	font-weight: 400;
+	font-size: 1.000rem;
+	line-height: 1.333rem;
+	width: 100%;
+	color: $color-hex-body-text;
+	background-color: $color-hex-page-bg;
+	text-size-adjust: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-moz-font-feature-settings: "liga", "kern";
+	-webkit-touch-callout: none;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+	overflow-x: hidden;
+	margin: 0;
+	padding: 0;
+}
+
+/*!
+ * englishextra specific rules
+ */
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+a:focus,
+a:active,
+button:focus,
+button:active,
+select:focus,
+select:active {
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+}
+
+input[type="button"]::-moz-focus-inner,
+button::-moz-focus-inner {
+	border: 0;
+}
+
+img {
+	border: 0;
+	-ms-interpolation-mode: bicubic;
+	vertical-align: bottom;
+}
+
+p:first-child {
+	margin-top: 0;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+
+b,
+strong,
+.bolder {
+	font-weight: bold;
+}
+
+i,
+em,
+.italic {
+	font-style: italic;
+}
+
+u,
+.underline {
+	text-decoration: underline;
+}
+
+*,
+*:after,
+*::before {
+	box-sizing: border-box;
+}
+
+::selection {
+	color: $color-rgba-selection-text;
+	background-color: $color-rgba-selection-bg;
+}
+
+::placeholder {
+	color: $placeholder-text !important;
+	opacity: 1;
+}
+
+/*!
+ * clearfix css-tricks.com/snippets/css/clear-fix/
+ */
+
+.cf:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+/*!
+ * fit width
+ */
+
+.fit-width {
+	min-width: 100%;
+}
+
+/*!
+ * hide and show on mobile
+ */
+
+.page .show-inline-on-mobile,
+.page .show-block-on-mobile {
+	display: none;
+}
+
+@media only screen and (max-width: 800px) {
+	.page .hide-on-mobile {
+		display: none;
+		width: 0;
+		height: 0;
+	}
+
+	.page .show-inline-on-mobile {
+		display: inline;
+	}
+
+	.page .show-block-on-mobile {
+		display: block;
+	}
+}
+
+.page .hide {
+	display: none;
+}
+
+.page .show-inline {
+	display: inline;
+}
+
+.page .show-inline-block {
+	display: inline-block;
+}
+
+.page .show-block {
+	display: block;
+}
+
+/*!
+ * other
+ */
+
+.page {
+	width: 100%;
+/**
+ * set the parent to min height 100%, not just height
+ * and position relative to parent, absolute for child
+ */
+	min-height: 100%;
+	position: relative;
+	top: 0;
+/* left: 18.133rem; */
+	left: 0;
+	background-color: $color-hex-page-bg;
+	transition: left 0.2s linear;
+}
+
+.page.is-active {
+	position: relative;
+	left: 18.133rem;
+}
+
+.page img,
+.masonry-grid img {
+	display: block;
+}
+
+.panel-nav-top {
+	display: block;
+	width: 100%;
+	height: 3.200rem;
+	background-color: $color-hex-ui-bar-bg;
+}
+
+.container {
+	width: 100%;
+	height: 100%;
+	visibility: visible;
+	opacity: 1;
+	transition: visibility 0s, opacity 0.2s ease;
+	padding: 0;
+	margin: 0 auto;
+}
+
+/*!
+ * nav menu
+ */
+
+.panel-nav-menu {
+	display: block;
+	width: 18.133rem;
+	height: 100%;
+	position: fixed;
+	top: 0;
+/* left: 18.133rem; */
+	left: 0;
+	bottom: 0;
+	font-size: 0.933rem;
+	line-height: 3.200rem;
+	list-style: none;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+	background-color: $color-hex-darker-ui-bar-bg;
+	transition: left 0.2s linear;
+	padding: 0;
+	margin: 0;
+	margin-left: -18.133rem;
+}
+
+.panel-nav-menu li {
+	position: relative;
+	top: 0;
+	left: 0;
+	font-weight: 400;
+	padding: 0;
+	margin: 0;
+}
+
+.panel-nav-menu li a {
+	display: block;
+	text-decoration: none;
+	white-space: normal;
+	white-space: nowrap;
+	font-size: 0.933rem;
+	color: #FFFFFF;
+	border: none;
+	transition: background-color 0.2s ease;
+	padding-right: 1.333rem;
+	padding-left: 1.333rem;
+}
+
+.panel-nav-menu li a:hover {
+	background-color: $color-hex-darker-ui-bar-hover-item-bg;
+}
+
+/* .panel-nav-menu li a:focus, */
+
+.panel-nav-menu li a:active {
+	color: $color-hex-body-text;
+	background-color: $accent-color;
+}
+
+.panel-nav-menu li a.is-active {
+	background-color: $color-hex-darker-ui-bar-active-item-bg;
+}
+
+.btn-nav-menu {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+	position: fixed;
+	top: 0;
+/* left: 18.133rem; */
+	left: 0;
+	background-color: $color-hex-ui-icon-bg;
+	transition: left 0.2s linear, background-color 0.2s ease;
+	outline: none;
+	cursor: pointer;
+	border: 0;
+}
+
+.btn-nav-menu .ui-icon {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+/*! @see {@link https://www.w3.org/Style/Examples/007/center.en.html#hv3} */
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin-top: auto;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.btn-nav-menu .ui-icon > * {
+	fill: $color-hex-gray-text;
+}
+
+.btn-nav-menu:hover {
+	background-color: $color-hex-hover-ui-icon-bg;
+}
+
+.page.is-active .panel-nav-menu {
+	left: 18.133rem;
+	width: 18.133rem;
+}
+
+.page.is-active .btn-nav-menu {
+	left: 18.133rem;
+}
+
+/*!
+ * menu more
+ */
+
+.btn-menu-more {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+	position: fixed;
+	top: 0;
+	left: 3.200rem;
+	background-color: $color-hex-ui-icon-bg;
+	transition: left 0.2s linear, background-color 0.2s ease;
+	outline: none;
+	cursor: pointer;
+	border: 0;
+}
+
+.btn-menu-more .ui-icon {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+/*! @see {@link https://www.w3.org/Style/Examples/007/center.en.html#hv3} */
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin-top: auto;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.btn-menu-more .ui-icon > * {
+	fill: $color-hex-gray-text;
+}
+
+.btn-menu-more:hover {
+	background-color: $color-hex-hover-ui-icon-bg;
+}
+
+.btn-menu-more:active {
+	color: $color-hex-body-text;
+	background-color: $accent-color;
+}
+
+.page.is-active .btn-menu-more {
+	left: 21.333rem;
+}
+
+.holder-panel-menu-more {
+	display: block;
+	visibility: hidden;
+	opacity: 0;
+	position: fixed;
+	top: 3.200rem;
+	left: 3.200rem;
+	color: $color-hex-body-text;
+	background-color: $left-nav-bar-light;
+	border: 0.067rem solid $accent-color;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+	transition: visibility 0s, opacity 0.2s ease;
+}
+
+.page.is-active .holder-panel-menu-more {
+	left: 21.333rem;
+}
+
+.holder-panel-menu-more.is-active {
+	visibility: visible;
+	opacity: 1;
+}
+
+.panel-menu-more {
+	display: block;
+	width: 18.133rem;
+	height: 100%;
+	font-size: 0.933rem;
+	line-height: 3.200rem;
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.panel-menu-more li a {
+	display: block;
+	font-weight: 400;
+	text-decoration: none;
+	color: inherit;
+	transition: background-color 0.2s ease;
+	overflow-x: hidden;
+	white-space: nowrap;
+	padding-right: 1.333rem;
+	padding-left: 1.333rem;
+}
+
+.panel-menu-more li a:hover {
+	color: inherit;
+	background-color: $title-bar-and-app-bar-light;
+}
+
+/* .panel-menu-more li a:focus, */
+
+.panel-menu-more li a:active {
+	color: $color-hex-body-text;
+	background-color: $accent-color;
+}
+
+/*!
+ * search form
+ */
+
+.holder-search-form {
+	display: inline-block;
+	position: fixed;
+	top: 0.400rem;
+	right: 0.400rem;
+}
+
+.holder-search-form input[type^="text"],
+.holder-search-form input[type^="search"] {
+	display: inline-block;
+	width: 9.600rem;
+	height: 2.400rem;
+	font-family: inherit;
+	font-size: 0.933rem;
+	line-height: 1.133rem;
+	color: inherit;
+	border-color: transparent;
+	border-style: solid;
+	border-width: 0.067rem;
+	transition: width 0.2s linear;
+	transition-delay: 0.2s;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+	padding: 0.533rem 2.400rem 0.533rem 0.533rem;
+}
+
+.holder-search-form input[type^="text"]:focus,
+.holder-search-form input[type^="text"]:active,
+.holder-search-form input[type^="search"]:focus,
+.holder-search-form input[type^="search"]:active {
+	width: 18.133rem;
+	background-color: $color-hex-hover-ui-icon-bg;
+	border-color: transparent;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+}
+
+@media only screen and (max-width: 480px) {
+	.holder-search-form input[type^="text"]:focus,
+	.holder-search-form input[type^="text"]:active,
+	.holder-search-form input[type^="search"]:focus,
+	.holder-search-form input[type^="search"]:active {
+		width: 14.133rem;
+	}
+}
+
+.holder-search-form button[type^="submit"] {
+	display: inline-block;
+	width: 2.400rem;
+	height: 2.400rem;
+	position: absolute;
+	top: 0;
+	right: 0;
+	font-size: 0;
+	line-height: 0;
+	color: $placeholder-text;
+	background-color: transparent;
+	border: 0.067rem solid transparent;
+	cursor: pointer;
+	padding: 1.133rem;
+}
+
+.holder-search-form button[type^="submit"]:active {
+	color: $accent-color;
+}
+
+.holder-search-form button[type^="submit"] .ui-icon {
+	display: block;
+	width: 1.067rem;
+	height: 1.067rem;
+	position: relative;
+	right: 0.533rem;
+	bottom: 0.533rem;
+}
+
+.holder-search-form button[type^="submit"] .ui-icon > * {
+	fill: $placeholder-text;
+}
+
+.holder-search-form button[type^="submit"]:active .ui-icon > * {
+	fill: $accent-color;
+}
+
+.holder-search-form input[type^="text"],
+.holder-search-form input[type^="search"] {
+	display: inline-block;
+	background-color: $color-hex-ui-bar-bg;
+}
+
+/*!
+ * contents select
+ */
+
+.wrapper-holder-contents-select {
+	width: 100%;
+	text-align: center;
+}
+
+.holder-contents-select {
+	display: inline-block;
+	width: 100%;
+/* masonry grid padding 0 but we add some */
+	max-width: calc(720px - 1.333rem);
+	margin: 0 0 1.333rem 0;
+}
+
+@media only screen and (max-width: 800px) {
+	.holder-contents-select {
+		width: 100%;
+/* masonry grid padding 0 but we add some */
+		max-width: calc(100% - 1.333rem);
+	}
+
+	.holder-contents-select {
+		width: 100%;
+/* masonry grid padding 0 but we add some */
+		max-width: calc(100% - 1.333rem);
+	}
+}
+
+.holder-contents-select .contents-select {
+	display: inline-block;
+	width: 100%;
+	height: 3.200rem;
+	font-family: inherit;
+	font-size: 0.933rem;
+	color: inherit;
+	background-color: $title-bar-and-app-bar-light;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+	padding-right: 0.667rem;
+	padding-left: 0.667rem;
+	margin: 0;
+}
+
+.holder-contents-select .contents-select:-moz-focusring {
+	color: transparent;
+	text-shadow: 0 0 0 #000000;
+}
+
+.holder-contents-select .contents-select::-ms-expand {
+	display: none;
+}
+
+.holder-contents-select .contents-select::-ms-value {
+	background: none;
+	color: inherit;
+}
+
+/*!
+ * fix select border for electron and nw
+ */
+
+.holder-contents-select .contents-select,
+.holder-contents-select .contents-select:hover,
+.holder-contents-select .contents-select:active,
+.holder-contents-select .contents-select:focus {
+	border: 0.067rem solid #FFFFFF;
+}
+
+.holder-contents-select .contents-list-button {
+	width: 100%;
+}
+
+.holder-contents-select .contents-list {
+	width: 100%;
+/* masonry grid padding 0 but we add some */
+	max-width: calc(720px - 1.333rem);
+}
+
+@media only screen and (max-width: 800px) {
+	.holder-contents-select .contents-list-button {
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list {
+		width: 100%;
+/* masonry grid padding 0 but we add some */
+		max-width: calc(100% - 1.333rem);
+	}
+}
+
+/*!
+ * contents select replacement with list
+ */
+
+.holder-contents-select .contents-list {
+	max-height: 0;
+	position: absolute;
+	list-style: none;
+	font-size: 0.933rem;
+	text-align: left;
+	overflow-x: hidden;
+	overflow-y: auto;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+	transition: max-height 0.2s linear;
+	padding: 0;
+	margin: 0;
+	z-index: 1;
+}
+
+.holder-contents-select .contents-list.is-active {
+	max-height: 16.000rem;
+}
+
+.holder-contents-select .contents-list li {
+	height: 3.200rem;
+	line-height: 3.200rem;
+	background-color: $title-bar-and-app-bar-light;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding-right: 0.733rem;
+	padding-left: 0.733rem;
+}
+
+.holder-contents-select .contents-list li:hover {
+	background-color: $button-background;
+	cursor: default;
+}
+
+.holder-contents-select .contents-list li:first-child {
+	display: none;
+}
+
+.holder-contents-select .contents-list-button {
+	display: inline-block;
+	height: 3.200rem;
+	font-size: 0.933rem;
+	font-weight: 400;
+	line-height: 3.200rem;
+	text-align: left;
+	color: $color-hex-body-text;
+	background-color: $title-bar-and-app-bar-light;
+	padding-right: 0.733rem;
+	padding-left: 0.733rem;
+	outline: none;
+	cursor: pointer;
+	border: 0;
+}
+
+.holder-contents-select .contents-list-button:focus,
+.holder-contents-select .contents-list-button:hover,
+.holder-contents-select .contents-list-button:active,
+.holder-contents-select .contents-list-button:visited {
+	text-decoration: none;
+	color: $button-text;
+	background-color: $title-bar-and-app-bar-light;
+	border: 0;
+}
+
+/*!
+ * reset for svg icon
+ */
+
+.holder-contents-select .contents-list-button .ui-icon {
+	display: inline-block;
+	width: 0.429em;
+	height: 0.429em;
+	float: right;
+	position: relative;
+	top: 1.400em;
+	right: 0;
+	margin: 0;
+	pointer-events: none;
+}
+
+.holder-contents-select .contents-list-button .ui-icon > * {
+	fill: $color-hex-body-text;
+}
+
+/*!
+ * buttons
+ */
+
+.col div + .holder-bottom-navigation,
+.holder-bottom-navigation:first-child {
+	margin-top: 1.333rem;
+}
+
+.col .btn-larger,
+.masonry-grid-wrapper .btn-larger {
+	display: inline-block;
+	height: 3.200rem;
+	font-family: inherit;
+	font-size: 0.933rem;
+	font-weight: 400;
+	line-height: 3.067rem;
+	text-align: center;
+	text-decoration: none;
+	border: 0.067rem solid $title-bar-and-app-bar-dark;
+	padding-right: 0.733rem;
+	padding-left: 0.733rem;
+}
+
+.col .btn-larger i.fa,
+.col .btn-larger i.mi,
+.col .btn-larger i.mdi,
+.col .btn-larger i.material-icons {
+	font-size: 0.800rem;
+	line-height: 3.200rem;
+}
+
+.col .btn-primary,
+.col .btn-primary:focus,
+.col .btn-primary:visited,
+.col a.btn-primary,
+.col a.btn-primary:focus,
+.col a.btn-primary:visited,
+.masonry-grid-wrapper .btn-primary,
+.masonry-grid-wrapper .btn-primary:focus,
+.masonry-grid-wrapper .btn-primary:visited,
+.masonry-grid-wrapper a.btn-primary,
+.masonry-grid-wrapper a.btn-primary:focus,
+.masonry-grid-wrapper a.btn-primary:visited {
+	color: #FFFFFF;
+	background-color: $title-bar-and-app-bar-dark;
+	border-color: $title-bar-and-app-bar-dark;
+}
+
+.col .btn-primary:hover,
+.col .btn-primary:active,
+.col a.btn-primary:hover,
+.col a.btn-primary:active,
+.masonry-grid-wrapper .btn-primary:hover,
+.masonry-grid-wrapper .btn-primary:active,
+.masonry-grid-wrapper a.btn-primary:hover,
+.masonry-grid-wrapper a.btn-primary:active {
+	background-color: #000000;
+	border-color: #000000;
+}
+
+.col .btn-secondary,
+.col .btn-secondary:focus,
+.col .btn-secondary:visited,
+.col a.btn-secondary,
+.col a.btn-secondary:focus,
+.col a.btn-secondary:visited,
+.masonry-grid-wrapper .btn-secondary,
+.masonry-grid-wrapper .btn-secondary:focus,
+.masonry-grid-wrapper .btn-secondary:visited,
+.masonry-grid-wrapper a.btn-secondary,
+.masonry-grid-wrapper a.btn-secondary:focus,
+.masonry-grid-wrapper a.btn-secondary:visited {
+	color: $button-text;
+	background-color: $button-background;
+	border-color: $button-background;
+}
+
+.col .btn-secondary:hover,
+.col .btn-secondary:active,
+.col a.btn-secondary:hover,
+.col a.btn-secondary:active,
+.masonry-grid-wrapper .btn-secondary:hover,
+.masonry-grid-wrapper .btn-secondary:active,
+.masonry-grid-wrapper a.btn-secondary:hover,
+.masonry-grid-wrapper a.btn-secondary:active {
+	color: $button-text;
+	background-color: $button-background;
+	border-color: $button-outline;
+}
+
+.col .btn-link,
+.col .btn-link:focus,
+.col .btn-link:visited,
+.col a.btn-link,
+.col a.btn-link:focus,
+.col a.btn-link:visited {
+	color: $button-text;
+	background-color: transparent;
+	border-color: $button-background;
+}
+
+.col .btn-link:hover,
+.col .btn-link:active,
+.col a.btn-link:hover,
+.col a.btn-link:active {
+	color: $button-text;
+	background-color: $button-background;
+	border-color: $button-outline;
+}
+
+/*!
+ * footer
+ */
+
+.col .footer p {
+	font-size: 0.933rem;
+	line-height: 1.333rem;
+}
+
+.footer a {
+	color: $color-hex-gray-text;
+	border-bottom-width: 0.067rem;
+	border-bottom-style: solid;
+	border-bottom-color: $color-hex-gray-text;
+}
+
+.footer a:hover,
+.footer a:active,
+.footer a:focus {
+	color: $color-hex-gray-text;
+}
+
+/*!
+ * ya-share2
+ * yandex.ru/blog/share/kak-uvelichit-shrift-tsifr-sch-tchika#comment-add
+ */
+
+#ya-share2 .ya-share2__icon {
+	height: 3.200rem;
+	width: 3.200rem;
+	background-size: 3.200rem 3.200rem;
+}
+
+#ya-share2 .ya-share2__title {
+	width: 0;
+	height: 0;
+	overflow: hidden;
+}
+
+#ya-share2 .ya-share2__item {
+	margin: 0;
+}
+
+#ya-share2 .ya-share2__badge {
+	border-radius: 0;
+}
+
+/*!
+ * pluso, yashare
+ */
+
+.ya-share2 {
+	display: inline-block;
+	visibility: hidden;
+	opacity: 0;
+	position: fixed;
+	right: 3.200rem;
+	bottom: 0;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+	transition: visibility 0s, opacity 0.2s ease;
+}
+
+.ya-share2.is-active {
+	visibility: visible;
+	opacity: 1;
+}
+
+.btn-share-buttons {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+	position: fixed;
+	bottom: 0;
+	right: 3.200rem;
+	font-size: 0;
+	background-color: $title-bar-and-app-bar-light;
+	outline: none;
+	cursor: pointer;
+	border: 0;
+}
+
+.btn-share-buttons .ui-icon {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+/*! @see {@link https://www.w3.org/Style/Examples/007/center.en.html#hv3} */
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-right: -50%;
+	transform: translate(-50%, -50%);
+}
+
+.btn-share-buttons .ui-icon > * {
+	fill: $button-outline;
+}
+
+/*!
+ * vk-like
+ */
+
+.holder-vk-like {
+	display: block;
+	visibility: hidden;
+	opacity: 0;
+	overflow: hidden;
+	height: 3.200rem;
+	position: fixed;
+	right: 6.400rem;
+	bottom: 0;
+	line-height: 0;
+	transition: visibility 0s, opacity 0.2s ease;
+	background-color: $color-hex-vk-like-bg;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+	z-index: 1;
+}
+
+.holder-vk-like.is-active {
+	visibility: visible;
+	opacity: 1;
+}
+
+.vk-like {
+	display: inline-block;
+	height: 24px;
+	position: absolute;
+	top: 50%;
+	transform: translate(0, -50%);
+	margin: 0 0 0 0.667rem;
+	line-height: 0;
+}
+
+.btn-show-vk-like {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+	position: fixed;
+	bottom: 0;
+	right: 6.400rem;
+	font-size: 0;
+	background-color: $title-bar-and-app-bar-light;
+	outline: none;
+	cursor: pointer;
+	border: 0;
+}
+
+.btn-show-vk-like .ui-icon {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+/*! @see {@link https://www.w3.org/Style/Examples/007/center.en.html#hv3} */
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-right: -50%;
+	transform: translate(-50%, -50%);
+}
+
+.btn-show-vk-like .ui-icon > * {
+	fill: $button-outline;
+}
+
+/*!
+ * @see {@link https://github.com/sksmatt/UItoTop-jQuery-Plugin/}
+ */
+
+.btn-totop {
+	display: none;
+	width: 3.200rem;
+	height: 3.200rem;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	background-color: $title-bar-and-app-bar-light;
+	outline: none;
+	cursor: pointer;
+	border: 0;
+}
+
+.btn-totop .ui-icon {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+/*! @see {@link https://www.w3.org/Style/Examples/007/center.en.html#hv3} */
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-right: -50%;
+	transform: translate(-50%, -50%);
+}
+
+.btn-totop.is-active {
+	display: block;
+}
+
+.btn-totop .ui-icon > * {
+	fill: $button-outline;
+}
+
+/*!
+ * location qr code
+ */
+
+.holder-location-qrcode {
+	display: block;
+	width: 100%;
+	float: left;
+	text-align: left;
+	background-color: #FFFFFF;
+}
+
+.holder-location-qrcode .qr-code-img,
+.holder-location-qrcode img {
+	display: block;
+	width: 9.000rem;
+	height: 9.000rem;
+	background-color: transparent;
+	background-size: 9.000rem 9.000rem;
+	border: 0;
+	vertical-align: bottom;
+	padding: 0;
+	margin: 0;
+}
+
+/*!
+ * disqus
+ */
+
+#disqus_thread.is-active iframe {
+	margin: 0 0 -0.533em 0;
+	padding: 0;
+}
+
+/*!
+ * @see {@link https://gist.github.com/englishextra/40b7c4ffde33bfb58aff259afe229d6a}
+ */
+
+/*------------------------------------------
+	Foundation Media Queries
+	http://foundation.zurb.com/docs/media-queries.html
+--------------------------------------------*/
+
+/* Small screens - MOBILE */
+
+@media only screen {
+	html {
+		font-size: 12px;
+	}
+}
+
+/* Define mobile styles - Mobile First */
+
+@media only screen and (max-width: 40em) {
+	html {
+		font-size: 13px;
+	}
+}
+
+/* max-width 640px, mobile-only styles, use when QAing mobile issues */
+
+/* Medium screens - TABLET */
+
+@media only screen and (min-width: 40.063em) {
+	html {
+		font-size: 13px;
+	}
+}
+
+/* min-width 641px, medium screens */
+
+@media only screen and (min-width: 40.063em) and (max-width: 64em) {
+	html {
+		font-size: 15px;
+	}
+}
+
+/* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
+
+/* Large screens - DESKTOP */
+
+@media only screen and (min-width: 64.063em) {
+	html {
+		font-size: 15px;
+	}
+}
+
+/* min-width 1025px, large screens */
+
+@media only screen and (min-width: 64.063em) and (max-width: 90em) {
+	html {
+		font-size: 15px;
+	}
+}
+
+/* min-width 1024px and max-width 1440px, use when QAing large screen-only issues */
+
+/* XLarge screens */
+
+@media only screen and (min-width: 90.063em) {
+	html {
+		font-size: 15px;
+	}
+}
+
+/* min-width 1441px, xlarge screens */
+
+@media only screen and (min-width: 90.063em) and (max-width: 120em) {
+	html {
+		font-size: 18px;
+	}
+}
+
+/* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */
+
+/* XXLarge screens */
+
+@media only screen and (min-width: 120.063em) {
+	html {
+		font-size: 19px;
+	}
+}
+
+/* min-width 1921px, xlarge screens */
+

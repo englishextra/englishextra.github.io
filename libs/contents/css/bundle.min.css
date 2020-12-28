@@ -1,0 +1,2458 @@
+/*! libs\contents\scss\bundle.scss */
+
+/*! @import "englishextra-ui-colors" */
+
+/*!
+ * englishextra-ui colors
+ * use microsoft.com/en-us/design/color
+ * localhost/tools/Tinter-Shader/index.html
+ * localhost/tools/perfect_colors/
+ * localhost/tools/TinyColor/index.html
+ * localhost/tools/color-palette-generator/index.html
+ * localhost/tools/hexcolortool/index.html
+ * localhost/tools/css3-playground/
+ */
+
+/* 0073D2
+007DD1
+5E308F
+9C0087
+D13636
+F23819
+FF4141
+00AC54
+547E71
+8C582C
+F5630E
+FDE000
+C3C3C3
+D54848
+2D7C9A
+2F79B6
+EF6B50
+EB5262
+706D6A
+60867B
+615FC8
+744DA5
+3087CD */
+
+/* \$(.*?)\: (.*?)\;
+\t\t\t\t\t\t\t\t\t\t<div class="masonry-grid-item"><div class="bg-\1"><span class="color-variable-name">$\1</span></div></div>
+
+\$(.*?)\: (.*?)\;
+.bg-\1 {
+	background-color: $\1;
+} */
+
+/*! @import "englishextra-variables"; */
+
+/*! @import "font-face"; */
+
+/* @font-face {
+	font-family: "Source Sans Pro";
+	src: url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Light.otf.woff2) format("woff2"), url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Light.otf.woff) format("woff"), url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Light.ttf) format("truetype");
+	font-weight: 300;
+	font-style: normal;
+	font-stretch: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Source Sans Pro";
+	src: url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Regular.otf.woff2) format("woff2"), url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Regular.otf.woff) format("woff"), url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Regular.ttf) format("truetype");
+	font-weight: 400;
+	font-style: normal;
+	font-stretch: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Source Sans Pro";
+	src: url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Bold.otf.woff2) format("woff2"), url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Bold.otf.woff) format("woff"), url(../../../fonts/source-sans-pro-fontfacekit/SourceSansPro-Bold.ttf) format("truetype");
+	font-weight: 700;
+	font-style: normal;
+	font-stretch: normal;
+	font-display: swap;
+} */
+
+@font-face {
+	font-family: Roboto;
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Thin.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Thin.woff?v=2.137)
+			format("woff");
+	font-weight: 100;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: Roboto;
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-ThinItalic.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-ThinItalic.woff?v=2.137)
+			format("woff");
+	font-weight: 100;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: Roboto;
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Light.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Light.woff?v=2.137)
+			format("woff");
+	font-weight: 300;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: Roboto;
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-LightItalic.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-LightItalic.woff?v=2.137)
+			format("woff");
+	font-weight: 300;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: Roboto;
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Regular.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Regular.woff?v=2.137)
+			format("woff");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: Roboto;
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Regular.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Regular.woff?v=2.137)
+			format("woff");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: Roboto;
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Italic.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Italic.woff?v=2.137)
+			format("woff");
+	font-weight: 400;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: Roboto;
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Italic.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Italic.woff?v=2.137)
+			format("woff");
+	font-weight: 400;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: Roboto;
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Medium.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Medium.woff?v=2.137)
+			format("woff");
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: Roboto;
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-MediumItalic.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-MediumItalic.woff?v=2.137)
+			format("woff");
+	font-weight: 500;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: Roboto;
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Bold.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Bold.woff?v=2.137)
+			format("woff");
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: Roboto;
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Bold.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Bold.woff?v=2.137)
+			format("woff");
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: Roboto;
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BoldItalic.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BoldItalic.woff?v=2.137)
+			format("woff");
+	font-weight: 700;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: Roboto;
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BoldItalic.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BoldItalic.woff?v=2.137)
+			format("woff");
+	font-weight: 700;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: Roboto;
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Black.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-Black.woff?v=2.137)
+			format("woff");
+	font-weight: 900;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: Roboto;
+	src: url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BlackItalic.woff2?v=2.137)
+			format("woff2"),
+		url(../../../fonts/roboto-fontfacekit/2.137/Roboto-BlackItalic.woff?v=2.137)
+			format("woff");
+	font-weight: 900;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Roboto Mono";
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Thin.eot);
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Thin.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Thin.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Thin.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Thin.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Thin.svg#RobotoMonoThin)
+			format("svg");
+	font-weight: 100;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Roboto Mono";
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-ThinItalic.eot);
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-ThinItalic.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-ThinItalic.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-ThinItalic.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-ThinItalic.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-ThinItalic.svg#RobotoMonoThinItalic)
+			format("svg");
+	font-weight: 100;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Roboto Mono";
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Light.eot);
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Light.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Light.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Light.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Light.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Light.svg#RobotoMonoLight)
+			format("svg");
+	font-weight: 300;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Roboto Mono";
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-LightItalic.eot);
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-LightItalic.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-LightItalic.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-LightItalic.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-LightItalic.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-LightItalic.svg#RobotoMonoLightItalic)
+			format("svg");
+	font-weight: 300;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Roboto Mono";
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.eot);
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.svg#RobotoMonoRegular)
+			format("svg");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Roboto Mono";
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.eot);
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Regular.svg#RobotoMonoRegular)
+			format("svg");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Roboto Mono";
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.eot);
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.svg#RobotoMonoItalic)
+			format("svg");
+	font-weight: 400;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Roboto Mono";
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.eot);
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Italic.svg#RobotoMonoItalic)
+			format("svg");
+	font-weight: 400;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Roboto Mono";
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Medium.eot);
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Medium.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Medium.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Medium.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Medium.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Medium.svg#RobotoMonoMedium)
+			format("svg");
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Roboto Mono";
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-MediumItalic.eot);
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-MediumItalic.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-MediumItalic.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-MediumItalic.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-MediumItalic.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-MediumItalic.svg#RobotoMonoMediumItalic)
+			format("svg");
+	font-weight: 500;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Roboto Mono";
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.eot);
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.svg#RobotoMonoBold)
+			format("svg");
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Roboto Mono";
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.eot);
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-Bold.svg#RobotoMonoBold)
+			format("svg");
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Roboto Mono";
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.eot);
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.svg#RobotoMonoBoldItalic)
+			format("svg");
+	font-weight: 700;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Roboto Mono";
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.eot);
+	src: url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.eot?#iefix)
+			format("embedded-opentype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.woff2?v=2.0.986)
+			format("woff2"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.woff?v=2.0.986)
+			format("woff"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.ttf)
+			format("truetype"),
+		url(../../../fonts/roboto-mono-fontfacekit/2.0.986/RobotoMono-BoldItalic.svg#RobotoMonoBoldItalic)
+			format("svg");
+	font-weight: 700;
+	font-style: italic;
+	font-display: swap;
+}
+
+/*! @import "normalize"; */
+
+/*! normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */
+
+/*!
+ * 1. Change the default font family in all browsers (opinionated).
+ * 2. Correct the line height in all browsers.
+ * 3. Prevent adjustments of font size after orientation changes in
+ *		IE on Windows Phone and in iOS.
+ */
+
+/* Document
+	========================================================================== */
+html {
+	font-family: sans-serif;
+/* 1 */
+	line-height: 1.15;
+/* 2 */
+	-ms-text-size-adjust: 100%;
+/* 3 */
+	-webkit-text-size-adjust: 100%;
+/* 3 */
+}
+
+/* Sections
+	========================================================================== */
+
+/*!
+ * Remove the margin in all browsers (opinionated).
+ */
+body {
+	margin: 0;
+}
+
+/*!
+ * Add the correct display in IE 9-.
+ */
+article,
+aside,
+footer,
+header,
+nav,
+section {
+	display: block;
+}
+
+/*!
+ * Correct the font size and margin on `h1` elements within `section` and
+ * `article` contexts in Chrome, Firefox, and Safari.
+ */
+h1 {
+	font-size: 2em;
+	margin: 0.67em 0;
+}
+
+/* Grouping content
+	========================================================================== */
+
+/*!
+ * Add the correct display in IE 9-.
+ * 1. Add the correct display in IE.
+ */
+figcaption,
+figure,
+main {
+/* 1 */
+	display: block;
+}
+
+/*!
+ * Add the correct margin in IE 8.
+ */
+figure {
+	margin: 1em 40px;
+}
+
+/*!
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+hr {
+	-webkit-box-sizing: content-box;
+	box-sizing: content-box;
+/* 1 */
+	height: 0;
+/* 1 */
+	overflow: visible;
+/* 2 */
+}
+
+/*!
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+pre {
+	font-family: monospace, monospace;
+/* 1 */
+	font-size: 1em;
+/* 2 */
+}
+
+/* Text-level semantics
+	========================================================================== */
+
+/*!
+ * 1. Remove the gray background on active links in IE 10.
+ * 2. Remove gaps in links underline in iOS 8+ and Safari 8+.
+ */
+a {
+	background-color: transparent;
+/* 1 */
+	-webkit-text-decoration-skip: objects;
+/* 2 */
+}
+
+/*!
+ * Remove the outline on focused links when they are also active or hovered
+ * in all browsers (opinionated).
+ */
+a:active,
+a:hover {
+	outline-width: 0;
+}
+
+/*!
+ * 1. Remove the bottom border in Firefox 39-.
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ */
+abbr[title] {
+	border-bottom: none;
+/* 1 */
+	text-decoration: underline;
+/* 2 */
+	-webkit-text-decoration: underline dotted;
+	text-decoration: underline dotted;
+/* 2 */
+}
+
+/*!
+ * Prevent the duplicate application of `bolder` by the next rule in Safari 6.
+ */
+b,
+strong {
+	font-weight: inherit;
+}
+
+/*!
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+b,
+strong {
+	font-weight: bolder;
+}
+
+/*!
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+code,
+kbd,
+samp {
+	font-family: monospace, monospace;
+/* 1 */
+	font-size: 1em;
+/* 2 */
+}
+
+/*!
+ * Add the correct font style in Android 4.3-.
+ */
+dfn {
+	font-style: italic;
+}
+
+/*!
+ * Add the correct background and color in IE 9-.
+ */
+mark {
+	background-color: #ff0;
+	color: #000000;
+}
+
+/*!
+ * Add the correct font size in all browsers.
+ */
+small {
+	font-size: 80%;
+}
+
+/*!
+ * Prevent `sub` and `sup` elements from affecting the line height in
+ * all browsers.
+ */
+sub,
+sup {
+	font-size: 75%;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
+}
+
+sub {
+	bottom: -0.25em;
+}
+
+sup {
+	top: -0.5em;
+}
+
+/* Embedded content
+	========================================================================== */
+
+/*!
+ * Add the correct display in IE 9-.
+ */
+audio,
+video {
+	display: inline-block;
+}
+
+/*!
+ * Add the correct display in iOS 4-7.
+ */
+audio:not([controls]) {
+	display: none;
+	height: 0;
+}
+
+/*!
+ * Remove the border on images inside links in IE 10-.
+ */
+img {
+	border-style: none;
+}
+
+/*!
+ * Hide the overflow in IE.
+ */
+svg:not(:root) {
+	overflow: hidden;
+}
+
+/* Forms
+	========================================================================== */
+
+/*!
+ * 1. Change the font styles in all browsers (opinionated).
+ * 2. Remove the margin in Firefox and Safari.
+ */
+button,
+input,
+optgroup,
+select,
+textarea {
+	font-family: sans-serif;
+/* 1 */
+	font-size: 100%;
+/* 1 */
+	line-height: 1.15;
+/* 1 */
+	margin: 0;
+/* 2 */
+}
+
+/*!
+ * Show the overflow in IE.
+ * 1. Show the overflow in Edge.
+ */
+button,
+input {
+/* 1 */
+	overflow: visible;
+}
+
+/*!
+ * Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 1. Remove the inheritance of text transform in Firefox.
+ */
+button,
+select {
+/* 1 */
+	text-transform: none;
+}
+
+/*!
+ * 1. Prevent a WebKit bug where (2) destroys native `audio` and `video`
+ *		controls in Android 4.
+ * 2. Correct the inability to style clickable types in iOS and Safari.
+ */
+button,
+html [type="button"],
+[type="reset"],
+[type="submit"] {
+	-webkit-appearance: button;
+/* 2 */
+}
+
+/*!
+ * Remove the inner border and padding in Firefox.
+ */
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+	border-style: none;
+	padding: 0;
+}
+
+/*!
+ * Restore the focus styles unset by the previous rule.
+ */
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+	outline: 1px dotted ButtonText;
+}
+
+/*!
+ * Change the border, margin, and padding in all browsers (opinionated).
+ */
+fieldset {
+	border: 1px solid #c0c0c0;
+	margin: 0 2px;
+	padding: 0.35em 0.625em 0.75em;
+}
+
+/*!
+ * 1. Correct the text wrapping in Edge and IE.
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
+ * 3. Remove the padding so developers are not caught out when they zero out
+ *		`fieldset` elements in all browsers.
+ */
+legend {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+/* 1 */
+	color: inherit;
+/* 2 */
+	display: table;
+/* 1 */
+	max-width: 100%;
+/* 1 */
+	padding: 0;
+/* 3 */
+	white-space: normal;
+/* 1 */
+}
+
+/*!
+ * 1. Add the correct display in IE 9-.
+ * 2. Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ */
+progress {
+	display: inline-block;
+/* 1 */
+	vertical-align: baseline;
+/* 2 */
+}
+
+/*!
+ * Remove the default vertical scrollbar in IE.
+ */
+textarea {
+	overflow: auto;
+}
+
+/*!
+ * 1. Add the correct box sizing in IE 10-.
+ * 2. Remove the padding in IE 10-.
+ */
+[type="checkbox"],
+[type="radio"] {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+/* 1 */
+	padding: 0;
+/* 2 */
+}
+
+/*!
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+	height: auto;
+}
+
+/*!
+ * 1. Correct the odd appearance in Chrome and Safari.
+ * 2. Correct the outline style in Safari.
+ */
+[type="search"] {
+	-webkit-appearance: textfield;
+/* 1 */
+	outline-offset: -2px;
+/* 2 */
+}
+
+/*!
+ * Remove the inner padding and cancel buttons in Chrome and Safari on macOS.
+ */
+[type="search"]::-webkit-search-cancel-button,
+[type="search"]::-webkit-search-decoration {
+	-webkit-appearance: none;
+}
+
+/*!
+ * 1. Correct the inability to style clickable types in iOS and Safari.
+ * 2. Change font properties to `inherit` in Safari.
+ */
+::-webkit-file-upload-button {
+	-webkit-appearance: button;
+/* 1 */
+	font: inherit;
+/* 2 */
+}
+
+/* Interactive
+	========================================================================== */
+
+/*
+ * Add the correct display in IE 9-.
+ * 1. Add the correct display in Edge, IE, and Firefox.
+ */
+details,
+menu {
+	display: block;
+}
+
+/*
+ * Add the correct display in all browsers.
+ */
+summary {
+	display: list-item;
+}
+
+/* Scripting
+	========================================================================== */
+
+/*!
+ * Add the correct display in IE 9-.
+ */
+canvas {
+	display: inline-block;
+}
+
+/*!
+ * Add the correct display in IE.
+ */
+template {
+	display: none;
+}
+
+/* Hidden
+	========================================================================== */
+
+/*!
+ * Add the correct display in IE 10-.
+ */
+[hidden] {
+	display: none;
+}
+
+/*! @import "kamil-autocomplete.fixed"; */
+
+/*!
+ * modified Kamil v0.0.1
+ * Autocomplete library
+ * oss6.github.io/kamil
+ * MIT License
+ * by Ossama Edbali
+ */
+
+.kamil-autocomplete {
+	display: none;
+	max-height: 16rem;
+	position: absolute;
+	list-style: none;
+	font-size: 0.933rem;
+	text-align: left;
+	overflow-y: auto;
+	color: inherit;
+	background-color: #f2f2f2;
+	border: 0.067rem solid #d83544;
+	border-radius: 0;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
+	outline: none;
+	padding: 0;
+	margin: 0;
+}
+
+.kamil-autocomplete li {
+	font-weight: 400;
+	line-height: 3.200rem;
+	overflow-x: hidden;
+	white-space: nowrap;
+	padding-right: 1.333rem;
+	padding-left: 1.333rem;
+	cursor: pointer;
+}
+
+.kamil-autocomplete li.kamil-active,
+.kamil-autocomplete li:hover {
+	color: inherit;
+	background-color: #e6e6e6;
+}
+
+/* .kamil-autocomplete li:focus, */
+
+.kamil-autocomplete li:active {
+	color: #191919;
+	background-color: #d83544;
+}
+
+.kamil-autocomplete {
+	display: none;
+	max-height: 16rem;
+	position: absolute;
+	list-style: none;
+	font-size: 0.933rem;
+	text-align: left;
+	overflow-y: auto;
+	color: inherit;
+	background-color: #f2f2f2;
+	border: 0.067rem solid #d83544;
+	border-radius: 0;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
+	outline: none;
+	padding: 0;
+	margin: 0;
+}
+
+.kamil-autocomplete li {
+	font-weight: 400;
+	line-height: 3.200rem;
+	overflow-x: hidden;
+	white-space: nowrap;
+	padding-right: 1.333rem;
+	padding-left: 1.333rem;
+	cursor: pointer;
+}
+
+.kamil-autocomplete li.kamil-active,
+.kamil-autocomplete li:hover {
+	color: inherit;
+	background-color: #e6e6e6;
+}
+
+/* .kamil-autocomplete li:focus, */
+
+.kamil-autocomplete li:active {
+	color: #191919;
+	background-color: #d83544;
+}
+
+/*! @import "contents-masonry-grid"; */
+
+/*!
+ * masonry grid
+ */
+
+.masonry-grid-wrapper {
+	width: 100%;
+	height: 100%;
+	background-color: #f0f0f0;
+	/** stackoverflow.com/questions/14967413/background-color-not-showing-for-a-div
+	Because the content collapses when the children are floated
+	and adding the overflow rule restores the behavior you'd expect. */
+	overflow-x: auto;
+	overflow-y: hidden;
+}
+
+.masonry-grid-wrapper #h1,
+.masonry-grid-wrapper h1 {
+	font-family: "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", "Segoe UI", "Segoe WP", "HelveticaNeue-Light", sans-serif-light, sans-serif;
+	font-weight: 400;
+	font-size: 1.4rem;
+	line-height: 1.2;
+	text-align: center;
+	margin: 1.333rem 3%;
+}
+
+.masonry-grid-wrapper .footer {
+	/** 720px - 24px - 24px */
+	max-width: 44.8em;
+	font-size: 0.933rem;
+	line-height: 1.333rem;
+	text-align: center;
+	margin: 1.333rem auto;
+}
+
+.masonry-grid {
+	display: block;
+	margin: 0 auto;
+}
+
+.masonry-grid:after {
+	display: block;
+	content: "";
+	clear: both;
+}
+
+.masonry-grid-row:after {
+	display: block;
+	visibility: hidden;
+	clear: both;
+	height: 0;
+	content: ".";
+	overflow: hidden;
+	width: 0;
+	font-size: 0;
+	line-height: 0;
+}
+
+.masonry-grid-item {
+	float: left;
+	overflow: hidden;
+	border: 0.067rem solid rgba(150, 150, 150, 0.2);
+	border-radius: 0.2rem;
+	-webkit-box-shadow: 0 0.133rem 0 rgba(150, 150, 150, 0.2);
+	box-shadow: 0 0.133rem 0 rgba(150, 150, 150, 0.2);
+	margin: 1.5%;
+}
+
+.masonry-grid-item a,
+.masonry-grid-item a:hover,
+.masonry-grid-item a:active,
+.masonry-grid-item a:focus {
+	color: inherit;
+}
+
+.masonry-grid-item img {
+	display: block;
+	width: 100%;
+	height: auto;
+	background-color: #FFFFFF;
+}
+
+.masonry-grid-item-content {
+	background-color: #FFFFFF;
+	padding: 1.067rem;
+}
+
+.masonry-grid-item-content h2 {
+	font-weight: 400;
+	font-size: 1.125rem;
+	line-height: 1.424rem;
+	margin: 0;
+	margin-bottom: 0.267rem;
+}
+
+.masonry-grid-item-content h2 a {
+	color: inherit;
+	border-bottom-color: transparent;
+	border-bottom-style: solid;
+	border-bottom-width: 0.067rem;
+	text-decoration: none;
+}
+
+.masonry-grid-item-content h2 a:hover,
+.masonry-grid-item-content h2 a:active,
+.masonry-grid-item-content h2 a:focus {
+	color: inherit;
+	border-bottom-color: inherit;
+	border-bottom-style: solid;
+	border-bottom-width: 0.067rem;
+}
+
+.masonry-grid-item-content p {
+	font-weight: 400;
+	font-size: 1.000rem;
+	line-height: 1.25rem;
+	margin: 0;
+}
+
+.masonry-grid-item-content img {
+	padding: -0.8em;
+}
+
+@media only screen and (max-width: 20em) {
+	.masonry-grid {
+		max-width: 93.8%;
+	}
+	.masonry-grid-sizer {
+		width: 100%;
+	}
+	.masonry-grid-item {
+		float: none;
+		width: 97%;
+	}
+}
+
+@media only screen and (min-width: 20.063em) {
+	.masonry-grid {
+		max-width: 93.8%;
+	}
+	.masonry-grid-sizer {
+		width: 100%;
+	}
+	.masonry-grid-item {
+		float: none;
+		width: 97%;
+	}
+}
+
+@media only screen and (min-width: 30.063em) {
+	.masonry-grid-sizer {
+		width: 50%;
+	}
+	.masonry-grid-item {
+		float: left;
+		width: 47%;
+	}
+}
+
+@media only screen and (min-width: 50.063em) {
+	.masonry-grid {
+		max-width: 81.3%;
+	}
+}
+
+@media only screen and (min-width: 60.063em) {
+	.masonry-grid {
+		max-width: 93.8%;
+	}
+	.masonry-grid-sizer {
+		width: 33.333%;
+	}
+	.masonry-grid-item {
+		width: 30%;
+	}
+}
+
+@media only screen and (min-width: 74.063em) {
+	.masonry-grid {
+		max-width: 81.3%;
+	}
+}
+
+@media only screen and (min-width: 80.063em) {
+	.masonry-grid {
+		max-width: 93.8%;
+	}
+	.masonry-grid-sizer {
+		width: 25%;
+	}
+	.masonry-grid-item {
+		width: 22%;
+	}
+}
+
+@media only screen and (min-width: 90.063em) {
+	.masonry-grid {
+		max-width: 81.3%;
+	}
+}
+
+/*! @import "contents-main"; */
+
+/*!
+ * main
+ */
+
+/*!
+ * Default CSS Values for HTML Elements
+ * @see {@link https://www.w3schools.com/cssref/css_default_values.asp}
+ */
+html,
+body {
+	height: 100%;
+}
+
+html {
+	font-size: 15px;
+	line-height: 20px;
+	/**
+ * set the parent to background transparent
+ * and position relative to parent, absolute for child
+ */
+	background-color: transparent;
+}
+
+body {
+	font-family: "Roboto", "Segoe UI", "Segoe WP", "HelveticaNeue", "Roboto", "Source Sans Pro", "Open Sans", "Exo2", "Fira Sans", sans-serif;
+	font-weight: 400;
+	font-size: 1.000rem;
+	line-height: 1.333rem;
+	width: 100%;
+	color: #191919;
+	background-color: #f0f0f0;
+	-webkit-text-size-adjust: none;
+	-moz-text-size-adjust: none;
+	-ms-text-size-adjust: none;
+	text-size-adjust: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-moz-font-feature-settings: "liga", "kern";
+	-webkit-touch-callout: none;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+	overflow-x: hidden;
+	margin: 0;
+	padding: 0;
+}
+
+/*!
+ * englishextra specific rules
+ */
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+a:focus,
+a:active,
+button:focus,
+button:active,
+select:focus,
+select:active {
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+}
+
+input[type="button"]::-moz-focus-inner,
+button::-moz-focus-inner {
+	border: 0;
+}
+
+img {
+	border: 0;
+	-ms-interpolation-mode: bicubic;
+	vertical-align: bottom;
+}
+
+p:first-child {
+	margin-top: 0;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+
+b,
+strong,
+.bolder {
+	font-weight: bold;
+}
+
+i,
+em,
+.italic {
+	font-style: italic;
+}
+
+u,
+.underline {
+	text-decoration: underline;
+}
+
+*,
+*:after,
+*::before {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+::-moz-selection {
+	color: rgba(255, 255, 255, 0.9);
+	background-color: rgba(58, 150, 221, 0.9);
+}
+
+::selection {
+	color: rgba(255, 255, 255, 0.9);
+	background-color: rgba(58, 150, 221, 0.9);
+}
+
+::-webkit-input-placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
+::-moz-placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
+:-ms-input-placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
+::-ms-input-placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
+::placeholder {
+	color: #878787 !important;
+	opacity: 1;
+}
+
+/*!
+ * clearfix css-tricks.com/snippets/css/clear-fix/
+ */
+
+.cf:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+/*!
+ * fit width
+ */
+
+.fit-width {
+	min-width: 100%;
+}
+
+/*!
+ * hide and show on mobile
+ */
+
+.page .show-inline-on-mobile,
+.page .show-block-on-mobile {
+	display: none;
+}
+
+@media only screen and (max-width: 800px) {
+	.page .hide-on-mobile {
+		display: none;
+		width: 0;
+		height: 0;
+	}
+	.page .show-inline-on-mobile {
+		display: inline;
+	}
+	.page .show-block-on-mobile {
+		display: block;
+	}
+}
+
+.page .hide {
+	display: none;
+}
+
+.page .show-inline {
+	display: inline;
+}
+
+.page .show-inline-block {
+	display: inline-block;
+}
+
+.page .show-block {
+	display: block;
+}
+
+/*!
+ * other
+ */
+
+.page {
+	width: 100%;
+	/**
+ * set the parent to min height 100%, not just height
+ * and position relative to parent, absolute for child
+ */
+	min-height: 100%;
+	position: relative;
+	top: 0;
+/* left: 18.133rem; */
+	left: 0;
+	background-color: #f0f0f0;
+	-webkit-transition: left 0.2s linear;
+	transition: left 0.2s linear;
+}
+
+.page.is-active {
+	position: relative;
+	left: 18.133rem;
+}
+
+.page img,
+.masonry-grid img {
+	display: block;
+}
+
+.panel-nav-top {
+	display: block;
+	width: 100%;
+	height: 3.200rem;
+	background-color: #e7e7e7;
+}
+
+.container {
+	width: 100%;
+	height: 100%;
+	visibility: visible;
+	opacity: 1;
+	-webkit-transition: visibility 0s, opacity 0.2s ease;
+	transition: visibility 0s, opacity 0.2s ease;
+	padding: 0;
+	margin: 0 auto;
+}
+
+/*!
+ * nav menu
+ */
+
+.panel-nav-menu {
+	display: block;
+	width: 18.133rem;
+	height: 100%;
+	position: fixed;
+	top: 0;
+/* left: 18.133rem; */
+	left: 0;
+	bottom: 0;
+	font-size: 0.933rem;
+	line-height: 3.200rem;
+	list-style: none;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+	background-color: #232323;
+	-webkit-transition: left 0.2s linear;
+	transition: left 0.2s linear;
+	padding: 0;
+	margin: 0;
+	margin-left: -18.133rem;
+}
+
+.panel-nav-menu li {
+	position: relative;
+	top: 0;
+	left: 0;
+	font-weight: 400;
+	padding: 0;
+	margin: 0;
+}
+
+.panel-nav-menu li a {
+	display: block;
+	text-decoration: none;
+	white-space: normal;
+	white-space: nowrap;
+	font-size: 0.933rem;
+	color: #FFFFFF;
+	border: none;
+	-webkit-transition: background-color 0.2s ease;
+	transition: background-color 0.2s ease;
+	padding-right: 1.333rem;
+	padding-left: 1.333rem;
+}
+
+.panel-nav-menu li a:hover {
+	background-color: #414141;
+}
+
+/* .panel-nav-menu li a:focus, */
+
+.panel-nav-menu li a:active {
+	color: #191919;
+	background-color: #d83544;
+}
+
+.panel-nav-menu li a.is-active {
+	background-color: #801e26;
+}
+
+.btn-nav-menu {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+	position: fixed;
+	top: 0;
+/* left: 18.133rem; */
+	left: 0;
+	background-color: #E7E7E7;
+	-webkit-transition: left 0.2s linear, background-color 0.2s ease;
+	transition: left 0.2s linear, background-color 0.2s ease;
+	outline: none;
+	cursor: pointer;
+	border: 0;
+}
+
+.btn-nav-menu .ui-icon {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+/*! @see {@link https://www.w3.org/Style/Examples/007/center.en.html#hv3} */
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin-top: auto;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.btn-nav-menu .ui-icon > * {
+	fill: #616161;
+}
+
+.btn-nav-menu:hover {
+	background-color: #D5D5D5;
+}
+
+.page.is-active .panel-nav-menu {
+	left: 18.133rem;
+	width: 18.133rem;
+}
+
+.page.is-active .btn-nav-menu {
+	left: 18.133rem;
+}
+
+/*!
+ * menu more
+ */
+
+.btn-menu-more {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+	position: fixed;
+	top: 0;
+	left: 3.200rem;
+	background-color: #E7E7E7;
+	transition: left 0.2s linear, background-color 0.2s ease;
+	outline: none;
+	cursor: pointer;
+	border: 0;
+}
+
+.btn-menu-more .ui-icon {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+/*! @see {@link https://www.w3.org/Style/Examples/007/center.en.html#hv3} */
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin-top: auto;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.btn-menu-more .ui-icon > * {
+	fill: #616161;
+}
+
+.btn-menu-more:hover {
+	background-color: #D5D5D5;
+}
+
+.btn-menu-more:active {
+	color: #191919;
+	background-color: #D83544;
+}
+
+.page.is-active .btn-menu-more {
+	left: 21.333rem;
+}
+
+.holder-panel-menu-more {
+	display: block;
+	visibility: hidden;
+	opacity: 0;
+	position: fixed;
+	top: 3.200rem;
+	left: 3.200rem;
+	color: #191919;
+	background-color: #f2f2f2;
+	border: 0.067rem solid #d83544;
+	-webkit-box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
+	-webkit-transition: visibility 0s, opacity 0.2s ease;
+	transition: visibility 0s, opacity 0.2s ease;
+}
+
+.page.is-active .holder-panel-menu-more {
+	left: 21.333rem;
+}
+
+.holder-panel-menu-more.is-active {
+	visibility: visible;
+	opacity: 1;
+}
+
+.panel-menu-more {
+	display: block;
+	width: 18.133rem;
+	height: 100%;
+	font-size: 0.933rem;
+	line-height: 3.200rem;
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.panel-menu-more li a {
+	display: block;
+	font-weight: 400;
+	text-decoration: none;
+	color: inherit;
+	-webkit-transition: background-color 0.2s ease;
+	transition: background-color 0.2s ease;
+	overflow-x: hidden;
+	white-space: nowrap;
+	padding-right: 1.333rem;
+	padding-left: 1.333rem;
+}
+
+.panel-menu-more li a:hover {
+	color: inherit;
+	background-color: #e6e6e6;
+}
+
+/* .panel-menu-more li a:focus, */
+
+.panel-menu-more li a:active {
+	color: #191919;
+	background-color: #d83544;
+}
+
+/*!
+ * search form
+ */
+
+.holder-search-form {
+	display: inline-block;
+	position: fixed;
+	top: 0.4rem;
+	right: 0.4rem;
+}
+
+.holder-search-form input[type^="text"],
+.holder-search-form input[type^="search"] {
+	display: inline-block;
+	width: 9.6rem;
+	height: 2.400rem;
+	font-family: inherit;
+	font-size: 0.933rem;
+	line-height: 1.133rem;
+	color: inherit;
+	border-color: transparent;
+	border-style: solid;
+	border-width: 0.067rem;
+	-webkit-transition: width 0.2s linear;
+	transition: width 0.2s linear;
+	-webkit-transition-delay: 0.2s;
+	transition-delay: 0.2s;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+	padding: 0.533rem 2.400rem 0.533rem 0.533rem;
+}
+
+.holder-search-form input[type^="text"]:focus,
+.holder-search-form input[type^="text"]:active,
+.holder-search-form input[type^="search"]:focus,
+.holder-search-form input[type^="search"]:active {
+	width: 18.133rem;
+	background-color: #d5d5d5;
+	border-color: transparent;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+}
+
+@media only screen and (max-width: 480px) {
+	.holder-search-form input[type^="text"]:focus,
+	.holder-search-form input[type^="text"]:active,
+	.holder-search-form input[type^="search"]:focus,
+	.holder-search-form input[type^="search"]:active {
+		width: 14.133rem;
+	}
+}
+
+.holder-search-form button[type^="submit"] {
+	display: inline-block;
+	width: 2.400rem;
+	height: 2.400rem;
+	position: absolute;
+	top: 0;
+	right: 0;
+	font-size: 0;
+	line-height: 0;
+	color: #878787;
+	background-color: transparent;
+	border: 0.067rem solid transparent;
+	cursor: pointer;
+	padding: 1.133rem;
+}
+
+.holder-search-form button[type^="submit"]:active {
+	color: #D83544;
+}
+
+.holder-search-form button[type^="submit"] .ui-icon {
+	display: block;
+	width: 1.067rem;
+	height: 1.067rem;
+	position: relative;
+	right: 0.533rem;
+	bottom: 0.533rem;
+}
+
+.holder-search-form button[type^="submit"] .ui-icon > * {
+	fill: #878787;
+}
+
+.holder-search-form button[type^="submit"]:active .ui-icon > * {
+	fill: #D83544;
+}
+
+.holder-search-form input[type^="text"],
+.holder-search-form input[type^="search"] {
+	display: inline-block;
+	background-color: #e7e7e7;
+}
+
+/*!
+ * contents select
+ */
+
+.wrapper-holder-contents-select {
+	width: 100%;
+	text-align: center;
+}
+
+.holder-contents-select {
+	display: inline-block;
+	width: 100%;
+/* masonry grid padding 0 but we add some */
+	max-width: calc(720px - 1.333rem);
+	margin: 0 0 1.333rem 0;
+}
+
+@media only screen and (max-width: 800px) {
+	.holder-contents-select {
+		width: 100%;
+/* masonry grid padding 0 but we add some */
+		max-width: calc(100% - 1.333rem);
+	}
+
+	.holder-contents-select {
+		width: 100%;
+/* masonry grid padding 0 but we add some */
+		max-width: calc(100% - 1.333rem);
+	}
+}
+
+.holder-contents-select .contents-select {
+	display: inline-block;
+	width: 100%;
+	height: 3.200rem;
+	font-family: inherit;
+	font-size: 0.933rem;
+	color: inherit;
+	background-color: #E6E6E6;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+	padding-right: 0.667rem;
+	padding-left: 0.667rem;
+	margin: 0;
+}
+
+.holder-contents-select .contents-select:-moz-focusring {
+	color: transparent;
+	text-shadow: 0 0 0 #000000;
+}
+
+.holder-contents-select .contents-select::-ms-expand {
+	display: none;
+}
+
+.holder-contents-select .contents-select::-ms-value {
+	background: none;
+	color: inherit;
+}
+
+/*!
+ * fix select border for electron and nw
+ */
+
+.holder-contents-select .contents-select,
+.holder-contents-select .contents-select:hover,
+.holder-contents-select .contents-select:active,
+.holder-contents-select .contents-select:focus {
+	border: 0.067rem solid #FFFFFF;
+}
+
+.holder-contents-select .contents-list-button {
+	width: 100%;
+}
+
+.holder-contents-select .contents-list {
+	width: 100%;
+/* masonry grid padding 0 but we add some */
+	max-width: calc(720px - 1.333rem);
+}
+
+@media only screen and (max-width: 800px) {
+	.holder-contents-select .contents-list-button {
+		width: 100%;
+	}
+
+	.holder-contents-select .contents-list {
+		width: 100%;
+/* masonry grid padding 0 but we add some */
+		max-width: calc(100% - 1.333rem);
+	}
+}
+
+/*!
+ * contents select replacement with list
+ */
+
+.holder-contents-select .contents-list {
+	max-height: 0;
+	position: absolute;
+	list-style: none;
+	font-size: 0.933rem;
+	text-align: left;
+	overflow-x: hidden;
+	overflow-y: auto;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
+	transition: max-height 0.2s linear;
+	padding: 0;
+	margin: 0;
+	z-index: 1;
+}
+
+.holder-contents-select .contents-list.is-active {
+	max-height: 16.000rem;
+}
+
+.holder-contents-select .contents-list li {
+	height: 3.200rem;
+	line-height: 3.200rem;
+	background-color: #E6E6E6;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding-right: 0.733rem;
+	padding-left: 0.733rem;
+}
+
+.holder-contents-select .contents-list li:hover {
+	background-color: #CCCCCC;
+	cursor: default;
+}
+
+.holder-contents-select .contents-list li:first-child {
+	display: none;
+}
+
+.holder-contents-select .contents-list-button {
+	display: inline-block;
+	height: 3.200rem;
+	font-size: 0.933rem;
+	font-weight: 400;
+	line-height: 3.200rem;
+	text-align: left;
+	color: #191919;
+	background-color: #E6E6E6;
+	padding-right: 0.733rem;
+	padding-left: 0.733rem;
+	outline: none;
+	cursor: pointer;
+	border: 0;
+}
+
+.holder-contents-select .contents-list-button:focus,
+.holder-contents-select .contents-list-button:hover,
+.holder-contents-select .contents-list-button:active,
+.holder-contents-select .contents-list-button:visited {
+	text-decoration: none;
+	color: #191919;
+	background-color: #E6E6E6;
+	border: 0;
+}
+
+/*!
+ * reset for svg icon
+ */
+
+.holder-contents-select .contents-list-button .ui-icon {
+	display: inline-block;
+	width: 0.429em;
+	height: 0.429em;
+	float: right;
+	position: relative;
+	top: 1.400em;
+	right: 0;
+	margin: 0;
+	pointer-events: none;
+}
+
+.holder-contents-select .contents-list-button .ui-icon > * {
+	fill: #191919;
+}
+
+/*!
+ * buttons
+ */
+
+.col div + .holder-bottom-navigation,
+.holder-bottom-navigation:first-child {
+	margin-top: 1.333rem;
+}
+
+.col .btn-larger,
+.masonry-grid-wrapper .btn-larger {
+	display: inline-block;
+	height: 3.200rem;
+	font-family: inherit;
+	font-size: 0.933rem;
+	font-weight: 400;
+	line-height: 3.067rem;
+	text-align: center;
+	text-decoration: none;
+	border: 0.067rem solid #1f1f1f;
+	padding-right: 0.733rem;
+	padding-left: 0.733rem;
+}
+
+.col .btn-larger i.fa,
+.col .btn-larger i.mi,
+.col .btn-larger i.mdi,
+.col .btn-larger i.material-icons {
+	font-size: 0.800rem;
+	line-height: 3.200rem;
+}
+
+.col .btn-primary,
+.col .btn-primary:focus,
+.col .btn-primary:visited,
+.col a.btn-primary,
+.col a.btn-primary:focus,
+.col a.btn-primary:visited,
+.masonry-grid-wrapper .btn-primary,
+.masonry-grid-wrapper .btn-primary:focus,
+.masonry-grid-wrapper .btn-primary:visited,
+.masonry-grid-wrapper a.btn-primary,
+.masonry-grid-wrapper a.btn-primary:focus,
+.masonry-grid-wrapper a.btn-primary:visited {
+	color: #FFFFFF;
+	background-color: #1f1f1f;
+	border-color: #1f1f1f;
+}
+
+.col .btn-primary:hover,
+.col .btn-primary:active,
+.col a.btn-primary:hover,
+.col a.btn-primary:active,
+.masonry-grid-wrapper .btn-primary:hover,
+.masonry-grid-wrapper .btn-primary:active,
+.masonry-grid-wrapper a.btn-primary:hover,
+.masonry-grid-wrapper a.btn-primary:active {
+	background-color: #000000;
+	border-color: #000000;
+}
+
+.col .btn-secondary,
+.col .btn-secondary:focus,
+.col .btn-secondary:visited,
+.col a.btn-secondary,
+.col a.btn-secondary:focus,
+.col a.btn-secondary:visited,
+.masonry-grid-wrapper .btn-secondary,
+.masonry-grid-wrapper .btn-secondary:focus,
+.masonry-grid-wrapper .btn-secondary:visited,
+.masonry-grid-wrapper a.btn-secondary,
+.masonry-grid-wrapper a.btn-secondary:focus,
+.masonry-grid-wrapper a.btn-secondary:visited {
+	color: #191919;
+	background-color: #cccccc;
+	border-color: #cccccc;
+}
+
+.col .btn-secondary:hover,
+.col .btn-secondary:active,
+.col a.btn-secondary:hover,
+.col a.btn-secondary:active,
+.masonry-grid-wrapper .btn-secondary:hover,
+.masonry-grid-wrapper .btn-secondary:active,
+.masonry-grid-wrapper a.btn-secondary:hover,
+.masonry-grid-wrapper a.btn-secondary:active {
+	color: #191919;
+	background-color: #cccccc;
+	border-color: #767676;
+}
+
+.col .btn-link,
+.col .btn-link:focus,
+.col .btn-link:visited,
+.col a.btn-link,
+.col a.btn-link:focus,
+.col a.btn-link:visited {
+	color: #191919;
+	background-color: transparent;
+	border-color: #cccccc;
+}
+
+.col .btn-link:hover,
+.col .btn-link:active,
+.col a.btn-link:hover,
+.col a.btn-link:active {
+	color: #191919;
+	background-color: #cccccc;
+	border-color: #767676;
+}
+
+/*!
+ * footer
+ */
+
+.col .footer p {
+	font-size: 0.933rem;
+	line-height: 1.333rem;
+}
+
+.footer a {
+	color: #616161;
+	border-bottom-width: 0.067rem;
+	border-bottom-style: solid;
+	border-bottom-color: #616161;
+}
+
+.footer a:hover,
+.footer a:active,
+.footer a:focus {
+	color: #616161;
+}
+
+/*!
+ * ya-share2
+ * yandex.ru/blog/share/kak-uvelichit-shrift-tsifr-sch-tchika#comment-add
+ */
+#ya-share2 .ya-share2__icon {
+	height: 3.200rem;
+	width: 3.200rem;
+	background-size: 3.2rem 3.200rem;
+}
+
+#ya-share2 .ya-share2__title {
+	width: 0;
+	height: 0;
+	overflow: hidden;
+}
+
+#ya-share2 .ya-share2__item {
+	margin: 0;
+}
+
+#ya-share2 .ya-share2__badge {
+	border-radius: 0;
+}
+
+/*!
+ * pluso, yashare
+ */
+
+.ya-share2 {
+	display: inline-block;
+	visibility: hidden;
+	opacity: 0;
+	position: fixed;
+	right: 3.200rem;
+	bottom: 0;
+	-webkit-box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
+	-webkit-transition: visibility 0s, opacity 0.2s ease;
+	transition: visibility 0s, opacity 0.2s ease;
+}
+
+.ya-share2.is-active {
+	visibility: visible;
+	opacity: 1;
+}
+
+.btn-share-buttons {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+	position: fixed;
+	bottom: 0;
+	right: 3.200rem;
+	font-size: 0;
+	background-color: #e6e6e6;
+	outline: none;
+	cursor: pointer;
+	border: 0;
+}
+
+.btn-share-buttons .ui-icon {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+/*! @see {@link https://www.w3.org/Style/Examples/007/center.en.html#hv3} */
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-right: -50%;
+	transform: translate(-50%, -50%);
+}
+
+.btn-share-buttons .ui-icon > * {
+	fill: #767676;
+}
+
+/*!
+ * vk-like
+ */
+
+.holder-vk-like {
+	display: block;
+	visibility: hidden;
+	opacity: 0;
+	overflow: hidden;
+	height: 3.200rem;
+	position: fixed;
+	right: 6.400rem;
+	bottom: 0;
+	line-height: 0;
+	-webkit-transition: visibility 0s, opacity 0.2s ease;
+	transition: visibility 0s, opacity 0.2s ease;
+	background-color: #5181B8;
+	-webkit-box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
+	z-index: 1;
+}
+
+.holder-vk-like.is-active {
+	visibility: visible;
+	opacity: 1;
+}
+
+.vk-like {
+	display: inline-block;
+	height: 24px;
+	position: absolute;
+	top: 50%;
+	-webkit-transform: translate(0, -50%);
+	transform: translate(0, -50%);
+	margin: 0 0 0 0.667rem;
+	line-height: 0;
+}
+
+.btn-show-vk-like {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+	position: fixed;
+	bottom: 0;
+	right: 6.400rem;
+	font-size: 0;
+	background-color: #e6e6e6;
+	outline: none;
+	cursor: pointer;
+	border: 0;
+}
+
+.btn-show-vk-like .ui-icon {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+/*! @see {@link https://www.w3.org/Style/Examples/007/center.en.html#hv3} */
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-right: -50%;
+	transform: translate(-50%, -50%);
+}
+
+.btn-show-vk-like .ui-icon > * {
+	fill: #767676;
+}
+
+/*!
+ * @see {@link https://github.com/sksmatt/UItoTop-jQuery-Plugin/}
+ */
+
+.btn-totop {
+	display: none;
+	width: 3.200rem;
+	height: 3.200rem;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	background-color: #e6e6e6;
+	outline: none;
+	cursor: pointer;
+	border: 0;
+}
+
+.btn-totop .ui-icon {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+/*! @see {@link https://www.w3.org/Style/Examples/007/center.en.html#hv3} */
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-right: -50%;
+	transform: translate(-50%, -50%);
+}
+
+.btn-totop.is-active {
+	display: block;
+}
+
+.btn-totop .ui-icon > * {
+	fill: #767676;
+}
+
+/*!
+ * location qr code
+ */
+
+.holder-location-qrcode {
+	display: block;
+	width: 100%;
+	float: left;
+	text-align: left;
+	background-color: #FFFFFF;
+}
+
+.holder-location-qrcode .qr-code-img,
+.holder-location-qrcode img {
+	display: block;
+	width: 9rem;
+	height: 9rem;
+	background-color: transparent;
+	background-size: 9rem 9rem;
+	border: 0;
+	vertical-align: bottom;
+	padding: 0;
+	margin: 0;
+}
+
+/*!
+ * disqus
+ */
+#disqus_thread.is-active iframe {
+	margin: 0 0 -0.533em 0;
+	padding: 0;
+}
+
+/*!
+ * @see {@link https://gist.github.com/englishextra/40b7c4ffde33bfb58aff259afe229d6a}
+ */
+
+/*------------------------------------------
+	Foundation Media Queries
+	http://foundation.zurb.com/docs/media-queries.html
+--------------------------------------------*/
+/* Small screens - MOBILE */
+
+@media only screen {
+	html {
+		font-size: 12px;
+	}
+}
+
+/* Define mobile styles - Mobile First */
+
+@media only screen and (max-width: 40em) {
+	html {
+		font-size: 13px;
+	}
+}
+
+/* max-width 640px, mobile-only styles, use when QAing mobile issues */
+
+/* Medium screens - TABLET */
+
+@media only screen and (min-width: 40.063em) {
+	html {
+		font-size: 13px;
+	}
+}
+
+/* min-width 641px, medium screens */
+
+@media only screen and (min-width: 40.063em) and (max-width: 64em) {
+	html {
+		font-size: 15px;
+	}
+}
+
+/* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
+
+/* Large screens - DESKTOP */
+
+@media only screen and (min-width: 64.063em) {
+	html {
+		font-size: 15px;
+	}
+}
+
+/* min-width 1025px, large screens */
+
+@media only screen and (min-width: 64.063em) and (max-width: 90em) {
+	html {
+		font-size: 15px;
+	}
+}
+
+/* min-width 1024px and max-width 1440px, use when QAing large screen-only issues */
+
+/* XLarge screens */
+
+@media only screen and (min-width: 90.063em) {
+	html {
+		font-size: 15px;
+	}
+}
+
+/* min-width 1441px, xlarge screens */
+
+@media only screen and (min-width: 90.063em) and (max-width: 120em) {
+	html {
+		font-size: 18px;
+	}
+}
+
+/* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */
+
+/* XXLarge screens */
+
+@media only screen and (min-width: 120.063em) {
+	html {
+		font-size: 19px;
+	}
+}
+
+/* min-width 1921px, xlarge screens */

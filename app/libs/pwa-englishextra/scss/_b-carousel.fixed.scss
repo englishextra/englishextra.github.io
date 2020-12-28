@@ -1,0 +1,125 @@
+/*! @import "b-carousel.fixed"; */
+
+/*!
+ * Carousel v1.0
+ * @see {@link https://habrahabr.ru/post/327246/}
+ * @see {@link https://codepen.io/iGetPass/pen/apZPMo}
+ */
+
+.holder-b-carousel {
+	width: 100%;
+/* max-width: 700px; */
+
+/*!
+ * for centering inner element vertically
+ * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
+ */
+	position: relative;
+	margin: 0 auto;
+}
+
+/* MAIN STYLES */
+
+.b-carousel {
+	width: 100%;
+/*!
+ * for centering inner element vertically
+ * @see {@link https://www.w3.org/Style/Examples/007/center.en.html}
+ */
+	position: relative;
+	box-sizing: border-box;
+	overflow: hidden;
+/* border: 1px solid; */
+}
+
+.holder-b-carousel:before {
+	display: block;
+	content: "";
+	width: 100%;
+	padding-top: 56.25%;
+}
+
+.holder-b-carousel > .b-carousel {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.b-carousel__prev,
+.b-carousel__next {
+	width: 3.200rem;
+	height: 3.200rem;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%) translateZ(0);
+	font-size: 0;
+	line-height: 0;
+	text-decoration: none;
+	color: #FFFFFF;
+	background-color: rgba(31, 31, 31, 0.8);
+	outline: none;
+	cursor: pointer;
+	border: 0;
+}
+
+.b-carousel__prev {
+	left: 1.333rem;
+}
+
+.b-carousel__next {
+	right: 1.333rem;
+}
+
+.b-carousel .b-carousel-icon {
+	display: block;
+	width: 1.333rem;
+	height: 1.333rem;
+/*! @see {@link https://www.w3.org/Style/Examples/007/center.en.html#hv3} */
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-right: -50%;
+	transform: translate(-50%, -50%);
+}
+
+.b-carousel .b-carousel-icon > * {
+	fill: #FFFFFF;
+}
+
+.b-carousel__wrap {
+	display: flex;
+	height: 100%;
+	position: relative;
+	transition: transform .4s;
+	transition: transform .4s, -webkit-transform .4s;
+/* will-change: transform; */
+
+/* z-index: 1; */
+}
+
+.b-carousel__item {
+	display: flex;
+	flex: 0 0 100%;
+	overflow: hidden;
+	align-items: center;
+	justify-content: center;
+}
+
+/* .b-carousel__img,
+	.b-carousel__a {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+} */
+
+.b-carousel__img,
+.b-carousel__a {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+

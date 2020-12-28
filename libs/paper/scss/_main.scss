@@ -1,0 +1,1755 @@
+/*! @import "main"; */
+
+/*!
+ * main
+ */
+
+/*!
+ * Default CSS Values for HTML Elements
+ * @see {@link https://www.w3schools.com/cssref/css_default_values.asp}
+ */
+
+html,
+body {
+	height: 100%;
+}
+
+html {
+	font-size: 15px;
+	line-height: 20px;
+/**
+ * set the parent to background transparent
+ * and position relative to parent, absolute for child
+ */
+	background-color: transparent;
+}
+
+body {
+	font-family: "Roboto", $font-family-webfont-sans-regular;
+	font-weight: 400;
+	font-size: 1.000rem;
+	line-height: 1.333rem;
+	width: 100%;
+	color: $color-hex-body-text;
+	background-color: $color-hex-page-bg;
+	text-size-adjust: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-moz-font-feature-settings: "liga", "kern";
+	-webkit-touch-callout: none;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+	overflow-x: hidden;
+	margin: 0;
+	padding: 0;
+}
+
+/*!
+ * englishextra specific rules
+ */
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+a:focus,
+a:active,
+button:focus,
+button:active,
+select:focus,
+select:active {
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+}
+
+input[type="button"]::-moz-focus-inner,
+button::-moz-focus-inner {
+	border: 0;
+}
+
+img {
+	border: 0;
+	-ms-interpolation-mode: bicubic;
+	vertical-align: bottom;
+}
+
+p:first-child {
+	margin-top: 0;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+
+b,
+strong,
+.bolder {
+	font-weight: bold;
+}
+
+i,
+em,
+.italic {
+	font-style: italic;
+}
+
+u,
+.underline {
+	text-decoration: underline;
+}
+
+*,
+*:after,
+*::before {
+	box-sizing: border-box;
+}
+
+::selection {
+	color: $color-rgba-selection-text;
+	background-color: $color-rgba-selection-bg;
+}
+
+::placeholder {
+	color: $placeholder-text !important;
+	opacity: 1;
+}
+
+/*!
+ * clearfix css-tricks.com/snippets/css/clear-fix/
+ */
+
+.cf:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+/*!
+ * fit width
+ */
+
+.fit-width {
+	min-width: 100%;
+}
+
+/*!
+ * fit half width
+ */
+
+.fit-half-width {
+	min-width: 50%;
+}
+
+/*!
+ * hide and show on mobile
+ */
+
+.page .show-inline-on-mobile,
+.page .show-block-on-mobile {
+	display: none;
+}
+
+@media only screen and (max-width: 800px) {
+	.page .hide-on-mobile {
+		display: none;
+		width: 0;
+		height: 0;
+	}
+
+	.page .show-inline-on-mobile {
+		display: inline;
+	}
+
+	.page .show-block-on-mobile {
+		display: block;
+	}
+}
+
+.page .hide {
+	display: none;
+}
+
+.page .show-inline {
+	display: inline;
+}
+
+.page .show-inline-block {
+	display: inline-block;
+}
+
+.page .show-block {
+	display: block;
+}
+
+/*!
+ * fixes to Simple Grid
+ */
+
+.grid:last-child,
+.grid-narrow:last-child {
+/* margin-bottom: 1.333rem; */
+	padding-bottom: 1.333rem;
+}
+
+.grid .col .content h1,
+.grid .col .content h2:first-child,
+.grid .col .content h3:first-child,
+.grid .col .content p:first-child,
+.grid-narrow .col .content h1,
+.grid-narrow .col .content h2:first-child,
+.grid-narrow .col .content h3:first-child,
+.grid-narrow .col .content p:first-child {
+	margin-top: 0;
+}
+
+.grid .col .content h2.btn-expand-hidden-layer:first-child,
+.grid-narrow .col .content h2.btn-expand-hidden-layer:first-child {
+	margin-top: 1.333rem;
+}
+
+.grid .col .footer p,
+.grid-narrow .col .footer p {
+	text-align: center;
+}
+
+/*!
+ * other
+ */
+
+.page {
+	width: 100%;
+/**
+ * set the parent to min height 100%, not just height
+ * and position relative to parent, absolute for child
+ */
+	min-height: 100%;
+	position: relative;
+	top: 0;
+/* left: 18.133rem; */
+	left: 0;
+	background-color: $color-hex-page-bg;
+	transition: left 0.2s linear;
+}
+
+.page.is-active {
+	position: relative;
+	left: 18.133rem;
+}
+
+.page img {
+	display: block;
+}
+
+.panel-nav-top {
+	display: block;
+	width: 100%;
+	height: 3.200rem;
+	background-color: $color-hex-ui-bar-bg;
+}
+
+.container {
+	display: block;
+	width: 100%;
+	height: 100%;
+	visibility: visible;
+	opacity: 1;
+	transition: visibility 0s, opacity 0.2s ease;
+	padding: 0;
+	margin: 0 auto;
+}
+
+.app-content {
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0 auto;
+}
+
+.container .content-wrapper,
+.app-content .content-wrapper {
+	width: 100%;
+	height: 100%;
+	background-color: #FFFFFF;
+}
+
+.container .content-wrapper:after,
+.app-content .content-wrapper:after,
+.app-content:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+/*!
+ * nav menu
+ */
+
+.panel-nav-menu {
+	display: block;
+	width: 18.133rem;
+	height: 100%;
+	position: fixed;
+	top: 0;
+/* left: 18.133rem; */
+	left: 0;
+	bottom: 0;
+	font-size: 0.933rem;
+	line-height: 3.200rem;
+	list-style: none;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+	background-color: $color-hex-darker-ui-bar-bg;
+	transition: left 0.2s linear;
+	padding: 0;
+	margin: 0;
+	margin-left: -18.133rem;
+}
+
+.panel-nav-menu li {
+	position: relative;
+	top: 0;
+	left: 0;
+	font-weight: 400;
+	padding: 0;
+	margin: 0;
+}
+
+.panel-nav-menu li a {
+	display: block;
+	text-decoration: none;
+	white-space: normal;
+	white-space: nowrap;
+	font-size: 0.933rem;
+	color: #FFFFFF;
+	border: none;
+	transition: background-color 0.2s ease;
+	padding-right: 1.333rem;
+	padding-left: 1.333rem;
+}
+
+.panel-nav-menu li a:hover {
+	background-color: $color-hex-darker-ui-bar-hover-item-bg;
+}
+
+/* .panel-nav-menu li a:focus, */
+
+.panel-nav-menu li a:active {
+	color: $color-hex-body-text;
+	background-color: $accent-color;
+}
+
+.panel-nav-menu li a.is-active {
+	background-color: $color-hex-darker-ui-bar-active-item-bg;
+}
+
+.btn-nav-menu {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+	position: fixed;
+	top: 0;
+/* left: 18.133rem; */
+	left: 0;
+	background-color: $color-hex-ui-icon-bg;
+	transition: left 0.2s linear, background-color 0.2s ease;
+	outline: none;
+	cursor: pointer;
+	border: 0;
+}
+
+.btn-nav-menu .ui-icon {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+/*! @see {@link https://www.w3.org/Style/Examples/007/center.en.html#hv3} */
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin-top: auto;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.btn-nav-menu .ui-icon > * {
+	fill: $color-hex-gray-text;
+}
+
+.btn-nav-menu:hover {
+	background-color: $color-hex-hover-ui-icon-bg;
+}
+
+.page.is-active .panel-nav-menu {
+	left: 18.133rem;
+	width: 18.133rem;
+}
+
+.page.is-active .btn-nav-menu {
+	left: 18.133rem;
+}
+
+/*!
+ * menu more
+ */
+
+.btn-menu-more {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+	position: fixed;
+	top: 0;
+	left: 3.200rem;
+	background-color: $color-hex-ui-icon-bg;
+	transition: left 0.2s linear, background-color 0.2s ease;
+	outline: none;
+	cursor: pointer;
+	border: 0;
+}
+
+.btn-menu-more .ui-icon {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+/*! @see {@link https://www.w3.org/Style/Examples/007/center.en.html#hv3} */
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin-top: auto;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.btn-menu-more .ui-icon > * {
+	fill: $color-hex-gray-text;
+}
+
+.btn-menu-more:hover {
+	background-color: $color-hex-hover-ui-icon-bg;
+}
+
+.btn-menu-more:active {
+	color: $color-hex-body-text;
+	background-color: $accent-color;
+}
+
+.page.is-active .btn-menu-more {
+	left: 21.333rem;
+}
+
+.holder-panel-menu-more {
+	display: block;
+	visibility: hidden;
+	opacity: 0;
+	position: fixed;
+	top: 3.200rem;
+	left: 3.200rem;
+	color: $color-hex-body-text;
+	background-color: $left-nav-bar-light;
+	border: 0.067rem solid $accent-color;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+	transition: visibility 0s, opacity 0.2s ease;
+}
+
+.page.is-active .holder-panel-menu-more {
+	left: 21.333rem;
+}
+
+.holder-panel-menu-more.is-active {
+	visibility: visible;
+	opacity: 1;
+}
+
+.panel-menu-more {
+	display: block;
+	width: 18.133rem;
+	height: 100%;
+	font-size: 0.933rem;
+	line-height: 3.200rem;
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.panel-menu-more li a {
+	display: block;
+	font-weight: 400;
+	text-decoration: none;
+	color: inherit;
+	transition: background-color 0.2s ease;
+	overflow-x: hidden;
+	white-space: nowrap;
+	padding-right: 1.333rem;
+	padding-left: 1.333rem;
+}
+
+.panel-menu-more li a:hover {
+	color: inherit;
+	background-color: $title-bar-and-app-bar-light;
+}
+
+/* .panel-menu-more li a:focus, */
+
+.panel-menu-more li a:active {
+	color: $color-hex-body-text;
+	background-color: $accent-color;
+}
+
+/*!
+ * search form
+ */
+
+.holder-search-form {
+	display: inline-block;
+	position: fixed;
+	top: 0.400rem;
+	right: 0.400rem;
+}
+
+.holder-search-form input[type^="text"],
+.holder-search-form input[type^="search"] {
+	display: inline-block;
+	width: 9.600rem;
+	height: 2.400rem;
+	font-family: inherit;
+	font-size: 0.933rem;
+	line-height: 1.133rem;
+	color: inherit;
+	border-color: transparent;
+	border-style: solid;
+	border-width: 0.067rem;
+	transition: width 0.2s linear;
+	transition-delay: 0.2s;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+	padding: 0.533rem 2.400rem 0.533rem 0.533rem;
+}
+
+.holder-search-form input[type^="text"]:focus,
+.holder-search-form input[type^="text"]:active,
+.holder-search-form input[type^="search"]:focus,
+.holder-search-form input[type^="search"]:active {
+	width: 18.133rem;
+	background-color: $color-hex-hover-ui-icon-bg;
+	border-color: transparent;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+}
+
+@media only screen and (max-width: 480px) {
+	.holder-search-form input[type^="text"]:focus,
+	.holder-search-form input[type^="text"]:active,
+	.holder-search-form input[type^="search"]:focus,
+	.holder-search-form input[type^="search"]:active {
+		width: 14.133rem;
+	}
+}
+
+.holder-search-form button[type^="submit"] {
+	display: inline-block;
+	width: 2.400rem;
+	height: 2.400rem;
+	position: absolute;
+	top: 0;
+	right: 0;
+	font-size: 0;
+	line-height: 0;
+	color: $placeholder-text;
+	background-color: transparent;
+	border: 0.067rem solid transparent;
+	cursor: pointer;
+	padding: 1.133rem;
+}
+
+.holder-search-form button[type^="submit"]:active {
+	color: $accent-color;
+}
+
+.holder-search-form button[type^="submit"] .ui-icon {
+	display: block;
+	width: 1.067rem;
+	height: 1.067rem;
+	position: relative;
+	right: 0.533rem;
+	bottom: 0.533rem;
+}
+
+.holder-search-form button[type^="submit"] .ui-icon > * {
+	fill: $placeholder-text;
+}
+
+.holder-search-form button[type^="submit"]:active .ui-icon > * {
+	fill: $accent-color;
+}
+
+.holder-search-form input[type^="text"],
+.holder-search-form input[type^="search"] {
+	display: inline-block;
+	background-color: $color-hex-ui-bar-bg;
+}
+
+/*!
+ * fixes to typeboost.css
+ * modularscale.com
+ * @see {@link https://github.com/modularscale/modularscale-sass}
+ * ----------------
+ * $ms-base: 1em;
+ * $ms-ratio: 1.5,1.1;
+ * ----------------
+ * ms(16) / 3.452em
+ * ms(15) / 3.375em
+ * ms(14) / 3.138em
+ * ms(13) / 2.853em
+ * ms(12) / 2.594em
+ * ms(11) / 2.358em
+ * ms(10) / 2.25em
+ * ms(9) / 2.144em
+ * ms(8) / 1.949em
+ * ms(7) / 1.772em
+ * ms(6) / 1.611em
+ * ms(5) / 1.500em
+ * ms(4) / 1.464em
+ * ms(3) / 1.331em
+ * ms(2) / 1.21em
+ * ms(1) / 1.1em
+ * ms(0) / 1em
+ * ms(-1) / 0.909em
+ * ms(-2) / 0.826em
+ * ms(-3) / 0.751em
+ * ms(-4) / 0.683em
+ * ms(-5) / 0.667em
+ * ms(-6) / 0.621em
+ */
+
+#h1 {
+	margin-top: 0;
+	margin-bottom: 0.533rem;
+}
+
+.col h2 a,
+.col h2 a:focus,
+.col h2 a:hover,
+.col h2 a:active,
+.col h2 a:visited {
+	color: inherit;
+}
+
+.col h2 + div form p:first-child {
+	margin-top: 0;
+}
+
+.col a {
+	font-weight: inherit;
+	color: $color-hex-link;
+}
+
+.col a:focus,
+.col a:hover,
+.col a:active {
+	color: $color-hex-hover-link;
+}
+
+.col a:visited {
+	color: $color-hex-visited-link;
+}
+
+.col p.subhead {
+	font-size: 1.200rem;
+	line-height: 1.600rem;
+}
+
+.col dl dt a {
+	color: inherit;
+	border-bottom-color: inherit;
+	border-bottom-style: solid;
+	border-bottom-width: 0.067rem;
+}
+
+.col dl dt a:focus,
+.col dl dt a:hover,
+.col dl dt a:active {
+	color: inherit;
+}
+
+.col img,
+.col svg,
+.col canvas,
+.col video,
+.col textarea {
+	width: 100%;
+}
+
+.col img.inline {
+	width: auto;
+}
+
+.col img.data-src-img,
+.col img[data-src] {
+	opacity: 0;
+	transition: opacity 0.2s ease;
+}
+
+.col img.data-src-img,
+.col img[data-src],
+.col iframe.data-src-iframe,
+.col iframe[data-src] {
+	background-color: $left-nav-bar-light;
+}
+
+.col img.data-src-img.is-active,
+.col img[data-src].is-active {
+	opacity: 1;
+}
+
+.col figcaption {
+	font-size: 0.933rem;
+	line-height: 1.067rem;
+	margin-top: 0.267rem;
+}
+
+.col figcaption a,
+.col figcaption a:focus,
+.col figcaption a:hover,
+.col figcaption a:active,
+.col figcaption a:visited {
+	color: inherit;
+}
+
+.col figcaption p {
+	font-size: inherit;
+	line-height: inherit;
+}
+
+.col img,
+.col svg,
+.col canvas {
+	height: auto;
+}
+
+.col video,
+.col svg {
+	display: block;
+	padding: 0;
+}
+
+.col canvas {
+	vertical-align: bottom;
+}
+
+.col .video-wrapper {
+	float: none;
+	clear: both;
+	width: 100%;
+	position: relative;
+	padding-bottom: 56.25%;
+	height: 0;
+}
+
+.col .video-wrapper iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.col .soundcloud-wrapper iframe {
+	display:block;
+	width: 100%;
+	height: 166px;
+}
+
+.holder-chapters-select + canvas {
+	margin-top: 1.333rem;
+}
+
+.col table.respond {
+	width: 100%;
+}
+
+.col table {
+	border: none;
+	border-top-width: 0.067rem;
+	border-top-style: solid;
+	border-top-color: $color-hex-divider;
+	border-right-width: 0.067rem;
+	border-right-style: solid;
+	border-right-color: $color-hex-divider;
+	border-left-width: 0.067rem;
+	border-left-style: solid;
+	border-left-color: $color-hex-divider;
+}
+
+.col table th {
+	border: none;
+	border-bottom-width: 0.067rem;
+	border-bottom-style: solid;
+	border-bottom-color: $color-hex-divider;
+}
+
+.col table td {
+	border: none;
+	border-bottom-width: 0.067rem;
+	border-bottom-style: solid;
+	border-bottom-color: $color-hex-divider;
+}
+
+.col table td.with-img-only {
+	padding: 0.533rem;
+}
+
+@media screen and (max-width: 640px) {
+	.col table.respond {
+		border: none;
+	}
+
+	.col table.respond td {
+		display: block;
+	}
+
+	.col table.respond,
+	.col table.respond tr,
+	.col table.respond td {
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+	.col table.respond tr {
+		float: left;
+		position: relative;
+		border: 0.067rem solid $color-hex-divider;
+		border-bottom: none;
+		margin-bottom: 1.333rem;
+	}
+
+	.col table.respond tr:last-child {
+		margin-bottom: 0;
+	}
+
+	.col table.respond thead,
+	.col table.respond tfoot {
+		display: none;
+	}
+
+	.col table.respond td::before {
+		display: block;
+		float: left;
+		content: attr(data-label);
+		font-weight: bold;
+		text-align: right;
+		padding-right: 0.667rem;
+	}
+}
+
+.col hr,
+.col .hr {
+	height: 0.067rem;
+	background-color: $color-hex-divider;
+}
+
+.col .highlight {
+	color: $color-hex-highlight;
+}
+
+.col .phonetic {
+	font-family: "Roboto Mono", $font-family-webfont-monospace;
+}
+
+.col .phonetic,
+.col .italic {
+	color: #000000;
+}
+
+.col .underline {
+	text-decoration: none;
+	border-bottom-width: 0.067rem;
+	border-bottom-style: solid;
+	border-bottom-color: inherit;
+}
+
+/*!
+ * buttons
+ */
+
+.col div + .holder-bottom-navigation,
+.holder-bottom-navigation:first-child {
+	margin-top: 1.333rem;
+}
+
+.col .btn-larger,
+.masonry-grid-wrapper .btn-larger {
+	display: inline-block;
+	height: 3.200rem;
+	font-family: inherit;
+	font-size: 0.933rem;
+	font-weight: 400;
+	line-height: 3.067rem;
+	text-align: center;
+	text-decoration: none;
+	border: 0.067rem solid $title-bar-and-app-bar-dark;
+	padding-right: 0.733rem;
+	padding-left: 0.733rem;
+}
+
+.col .btn-larger i.fa,
+.col .btn-larger i.mi,
+.col .btn-larger i.mdi,
+.col .btn-larger i.material-icons {
+	font-size: 0.800rem;
+	line-height: 3.200rem;
+}
+
+.col .btn-primary,
+.col .btn-primary:focus,
+.col .btn-primary:visited,
+.col a.btn-primary,
+.col a.btn-primary:focus,
+.col a.btn-primary:visited,
+.masonry-grid-wrapper .btn-primary,
+.masonry-grid-wrapper .btn-primary:focus,
+.masonry-grid-wrapper .btn-primary:visited,
+.masonry-grid-wrapper a.btn-primary,
+.masonry-grid-wrapper a.btn-primary:focus,
+.masonry-grid-wrapper a.btn-primary:visited {
+	color: #FFFFFF;
+	background-color: $title-bar-and-app-bar-dark;
+	border-color: $title-bar-and-app-bar-dark;
+}
+
+.col .btn-primary:hover,
+.col .btn-primary:active,
+.col a.btn-primary:hover,
+.col a.btn-primary:active,
+.masonry-grid-wrapper .btn-primary:hover,
+.masonry-grid-wrapper .btn-primary:active,
+.masonry-grid-wrapper a.btn-primary:hover,
+.masonry-grid-wrapper a.btn-primary:active {
+	background-color: #000000;
+	border-color: #000000;
+}
+
+.col .btn-secondary,
+.col .btn-secondary:focus,
+.col .btn-secondary:visited,
+.col a.btn-secondary,
+.col a.btn-secondary:focus,
+.col a.btn-secondary:visited,
+.masonry-grid-wrapper .btn-secondary,
+.masonry-grid-wrapper .btn-secondary:focus,
+.masonry-grid-wrapper .btn-secondary:visited,
+.masonry-grid-wrapper a.btn-secondary,
+.masonry-grid-wrapper a.btn-secondary:focus,
+.masonry-grid-wrapper a.btn-secondary:visited {
+	color: $button-text;
+	background-color: $button-background;
+	border-color: $button-background;
+}
+
+.col .btn-secondary:hover,
+.col .btn-secondary:active,
+.col a.btn-secondary:hover,
+.col a.btn-secondary:active,
+.masonry-grid-wrapper .btn-secondary:hover,
+.masonry-grid-wrapper .btn-secondary:active,
+.masonry-grid-wrapper a.btn-secondary:hover,
+.masonry-grid-wrapper a.btn-secondary:active {
+	color: $button-text;
+	background-color: $button-background;
+	border-color: $button-outline;
+}
+
+.col .btn-link,
+.col .btn-link:focus,
+.col .btn-link:visited,
+.col a.btn-link,
+.col a.btn-link:focus,
+.col a.btn-link:visited {
+	color: $button-text;
+	background-color: transparent;
+	border-color: $button-background;
+}
+
+.col .btn-link:hover,
+.col .btn-link:active,
+.col a.btn-link:hover,
+.col a.btn-link:active {
+	color: $button-text;
+	background-color: $button-background;
+	border-color: $button-outline;
+}
+
+/*!
+ * aside block
+ */
+
+.col .aside {
+	display: block;
+	background-color: $left-nav-bar-light;
+	padding: 1.333rem 1.333rem;
+}
+
+.col .aside *:first-child {
+	margin-top: 0;
+}
+
+.col .aside *:last-child {
+	margin-bottom: 0;
+}
+
+.col .aside p {
+	font-size: 0.933rem;
+	line-height: 1.067rem;
+}
+
+.col .aside h2 {
+	font-size: 1.200rem;
+	line-height: 1.600rem;
+}
+
+.col p + .aside {
+	margin-top: 1.333rem;
+}
+
+.col .aside.hide {
+	display: none;
+}
+
+/*!
+ * fix width for hint.css
+ * where hint class sets display inline block
+ */
+
+[class^="hint--"],
+[class*=" hint--"] {
+	display: block /* !important */;
+}
+
+/*!
+ * chapters select
+ */
+
+.holder-chapters-select {
+	display: block;
+	width: 100%;
+	text-align: left;
+}
+
+.holder-chapters-select .chapters-select {
+	display: block;
+	width: 100%;
+	height: 3.200rem;
+	font-family: inherit;
+	font-size: 0.933rem;
+	text-align: left;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	color: inherit;
+	background-color: $left-nav-bar-light;
+	appearance: none;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+	padding-right: 0.667rem;
+	padding-left: 0.667rem;
+	margin: 0;
+}
+
+.holder-chapters-select .chapters-select:-moz-focusring {
+	color: transparent;
+	text-shadow: 0 0 0 #000000;
+}
+
+.holder-chapters-select .chapters-select::-ms-expand {
+	display: none;
+}
+
+.holder-chapters-select .chapters-select::-ms-value {
+	background: none;
+	color: inherit;
+}
+
+/*!
+ * fix select border for electron and nw
+ */
+
+.holder-chapters-select .chapters-select,
+.holder-chapters-select .chapters-select:focus,
+.holder-chapters-select .chapters-select:hover,
+.holder-chapters-select .chapters-select:active {
+	border: 0.067rem solid $left-nav-bar-light;
+}
+
+.holder-chapters-select .chapters-list-button {
+	width: 100%;
+}
+
+.holder-chapters-select .chapters-list {
+	width: 100%;
+/* simple grid padding 1.333rem */
+	max-width: calc(720px - 2.667rem);
+}
+
+@media only screen and (max-width: 800px) {
+	.holder-chapters-select .chapters-list {
+		width: 100%;
+/* simple grid padding 0.800rem */
+		max-width: calc(100% - 1.600rem);
+	}
+}
+
+/*!
+ * chapters select replacement with list
+ */
+
+.holder-chapters-select .chapters-list {
+	max-height: 0;
+	position: absolute;
+	list-style: none;
+	font-size: 0.933rem;
+	overflow-x: hidden;
+	overflow-y: auto;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 rgba(50, 50, 50, 0.3);
+	transition: max-height 0.2s linear;
+	padding: 0;
+	margin: 0;
+	z-index: 1;
+}
+
+.holder-chapters-select .chapters-list.is-active {
+	max-height: 16.000rem;
+}
+
+.holder-chapters-select .chapters-list li {
+	height: 3.200rem;
+	line-height: 3.200rem;
+	background-color: $title-bar-and-app-bar-light;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding-right: 0.733rem;
+	padding-left: 0.733rem;
+}
+
+.holder-chapters-select .chapters-list li:hover {
+	background-color: $button-background;
+	cursor: default;
+}
+
+.holder-chapters-select .chapters-list li:first-child {
+	display: none;
+}
+
+.holder-chapters-select .chapters-list-button {
+	display: inline-block;
+	height: 3.200rem;
+	font-size: 0.933rem;
+	font-weight: 400;
+	line-height: 3.200rem;
+	text-align: left;
+	color: $color-hex-body-text;
+	background-color: $title-bar-and-app-bar-light;
+	padding-right: 0.733rem;
+	padding-left: 0.733rem;
+	outline: none;
+	cursor: pointer;
+	border: 0;
+}
+
+.holder-chapters-select .chapters-list-button:focus,
+.holder-chapters-select .chapters-list-button:hover,
+.holder-chapters-select .chapters-list-button:active,
+.holder-chapters-select .chapters-list-button:visited {
+	text-decoration: none;
+	color: $button-text;
+	background-color: $title-bar-and-app-bar-light;
+	border: 0;
+}
+
+/*!
+ * reset for svg icon
+ */
+
+.holder-chapters-select .chapters-list-button .ui-icon {
+	display: inline-block;
+	width: 0.429em;
+	height: 0.429em;
+	float: right;
+	position: relative;
+	top: 1.400em;
+	right: 0;
+	margin: 0;
+	pointer-events: none;
+}
+
+.holder-chapters-select .chapters-list-button .ui-icon > * {
+	fill: #191919;
+}
+
+/*!
+ * expanding layer
+ */
+
+.col .btn-expand-hidden-layer {
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+	user-select: none;
+	cursor: pointer;
+}
+
+.col .btn-expand-hidden-layer .ui-icon {
+	display: inline-block;
+	width: 0.400em;
+	height: 0.400em;
+	margin-bottom: 0.167em;
+}
+
+.col .btn-expand-hidden-layer.is-active .ui-icon {
+	content: "";
+	transform: rotate(180deg);
+}
+
+.col .btn-expand-hidden-layer .ui-icon > * {
+	fill: $color-hex-body-text;
+}
+
+.col .holder-hidden-layer {
+	max-height: 100%;
+	position: relative;
+	transition: all 0.2s ease-out;
+	overflow-y: hidden;
+}
+
+.js .col .holder-hidden-layer {
+	max-height: 0;
+	overflow: hidden;
+}
+
+.col .holder-hidden-layer.is-active,
+.legacy .col .holder-hidden-layer {
+	max-height: 100%;
+	overflow-y: hidden;
+}
+
+.col .holder-btn-expand-hidden-layer + .holder-hidden-layer.is-active,
+.legacy .col .holder-btn-expand-hidden-layer + .holder-hidden-layer {
+	margin-top: 0.533rem;
+}
+
+.col .holder-hidden-layer h3:first-child,
+.col .holder-hidden-layer p:first-child,
+.col .holder-hidden-layer table:first-child,
+.col .holder-hidden-layer ol:first-child,
+.col .holder-hidden-layer ul:first-child {
+	margin-top: 0;
+}
+
+.col .holder-hidden-layer p:last-child,
+.col .holder-hidden-layer table:last-child,
+.col .holder-hidden-layer ol:last-child,
+.col .holder-hidden-layer ul:last-child {
+	margin-bottom: 0;
+}
+
+/*!
+ * modified github.com/tristen/tablesort
+ * tristen.ca/tablesort/demo/
+ */
+
+.col table th.sort-header::selection {
+	background: transparent;
+}
+
+.col table th.sort-header {
+	cursor: pointer;
+}
+
+.col table th.sort-up:after {
+	border-bottom: none;
+	border-width: 0;
+}
+
+/*!
+ * footer
+ */
+
+.col .footer {
+	border-top: 0.067rem solid $color-hex-divider;
+}
+
+.col .footer p {
+	font-size: 0.933rem;
+	line-height: 1.333rem;
+}
+
+.col .footer a {
+	color: $color-hex-gray-text;
+	border-bottom-width: 0.067rem;
+	border-bottom-style: solid;
+	border-bottom-color: $color-hex-gray-text;
+}
+
+.col .footer a:hover,
+.col .footer a:active,
+.col .footer a:focus {
+	color: $color-hex-gray-text;
+}
+
+/*!
+ * ya-share2
+ * yandex.ru/blog/share/kak-uvelichit-shrift-tsifr-sch-tchika#comment-add
+ */
+
+#ya-share2 .ya-share2__icon {
+	height: 3.200rem;
+	width: 3.200rem;
+	background-size: 3.200rem 3.200rem;
+}
+
+#ya-share2 .ya-share2__title {
+	width: 0;
+	height: 0;
+	overflow: hidden;
+}
+
+#ya-share2 .ya-share2__item {
+	margin: 0;
+}
+
+#ya-share2 .ya-share2__badge {
+	border-radius: 0;
+}
+
+/*!
+ * pluso, yashare
+ */
+
+.ya-share2 {
+	display: inline-block;
+	visibility: hidden;
+	opacity: 0;
+	position: fixed;
+	right: 3.200rem;
+	bottom: 0;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+	transition: visibility 0s, opacity 0.2s ease;
+}
+
+.ya-share2.is-active {
+	visibility: visible;
+	opacity: 1;
+}
+
+.btn-share-buttons {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+	position: fixed;
+	bottom: 0;
+	right: 3.200rem;
+	font-size: 0;
+	background-color: $title-bar-and-app-bar-light;
+	outline: none;
+	cursor: pointer;
+	border: 0;
+}
+
+.btn-share-buttons .ui-icon {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+/*! @see {@link https://www.w3.org/Style/Examples/007/center.en.html#hv3} */
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-right: -50%;
+	transform: translate(-50%, -50%);
+}
+
+.btn-share-buttons .ui-icon > * {
+	fill: $button-outline;
+}
+
+/*!
+ * vk-like
+ */
+
+.holder-vk-like {
+	display: block;
+	visibility: hidden;
+	opacity: 0;
+	overflow: hidden;
+	height: 3.200rem;
+	position: fixed;
+	right: 6.400rem;
+	bottom: 0;
+	line-height: 0;
+	transition: visibility 0s, opacity 0.2s ease;
+	background-color: $color-hex-vk-like-bg;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+	z-index: 1;
+}
+
+.holder-vk-like.is-active {
+	visibility: visible;
+	opacity: 1;
+}
+
+.vk-like {
+	display: inline-block;
+	height: 24px;
+	position: absolute;
+	top: 50%;
+	transform: translate(0, -50%);
+	margin: 0 0 0 0.667rem;
+	line-height: 0;
+}
+
+.btn-show-vk-like {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+	position: fixed;
+	bottom: 0;
+	right: 6.400rem;
+	font-size: 0;
+	background-color: $title-bar-and-app-bar-light;
+	outline: none;
+	cursor: pointer;
+	border: 0;
+}
+
+.btn-show-vk-like .ui-icon {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+/*! @see {@link https://www.w3.org/Style/Examples/007/center.en.html#hv3} */
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-right: -50%;
+	transform: translate(-50%, -50%);
+}
+
+.btn-show-vk-like .ui-icon > * {
+	fill: $button-outline;
+}
+
+/*!
+ * @see {@link https://github.com/sksmatt/UItoTop-jQuery-Plugin/}
+ */
+
+.btn-totop {
+	display: none;
+	width: 3.200rem;
+	height: 3.200rem;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	background-color: $title-bar-and-app-bar-light;
+	outline: none;
+	cursor: pointer;
+	border: 0;
+}
+
+.btn-totop .ui-icon {
+	display: block;
+	width: 3.200rem;
+	height: 3.200rem;
+/*! @see {@link https://www.w3.org/Style/Examples/007/center.en.html#hv3} */
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-right: -50%;
+	transform: translate(-50%, -50%);
+}
+
+.btn-totop.is-active {
+	display: block;
+}
+
+.btn-totop .ui-icon > * {
+	fill: $button-outline;
+}
+
+/*!
+ * @see {@link https://github.com/lukehaas/css-loaders}
+ * projects.lukehaas.me/css-loaders/
+ * size of a loader dependent on font size
+ */
+
+.loading-spinner--is-active .loading-spinner {
+	font-size: 0.500em;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin: -5.000em 0 0 -5.000em;
+	text-indent: -9999em;
+	border-top: 1.000em solid $color-rgba-loading-spinner-bg;
+	border-right: 1.000em solid $color-rgba-loading-spinner-bg;
+	border-bottom: 1.000em solid $color-rgba-loading-spinner-bg;
+	border-left: 1.000em solid $color-rgba-loading-spinner-text;
+	transform: translateZ(0);
+	animation: load8 1.1s infinite linear;
+	z-index: 1000000;
+}
+
+.loading-spinner--is-active .loading-spinner,
+.loading-spinner--is-active .loading-spinner:after {
+	border-radius: 50%;
+	width: 10.000em;
+	height: 10.000em;
+}
+
+@keyframes load8 {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+/*!
+ * location qr code
+ */
+
+.holder-location-qrcode {
+	display: block;
+	width: 100%;
+	float: left;
+	text-align: left;
+	background-color: #FFFFFF;
+}
+
+.holder-location-qrcode .qr-code-img,
+.holder-location-qrcode img {
+	display: block;
+	width: 9.600rem;
+	height: 9.600rem;
+	background-color: transparent;
+	background-size: 9.600rem 9.600rem;
+	border: 0;
+	vertical-align: bottom;
+	padding: 0;
+	margin: 0;
+}
+
+/*!
+ * notifier42
+ * inspired by github.com/mlcheng/js-toast
+ */
+
+.notifier42 {
+	display: block;
+	opacity : 0;
+/* width: calc(100% - 6.400rem); */
+	width: 100%;
+/* min-height: 3.200rem; */
+	position : fixed;
+	bottom : 0;
+	left: 0;
+	font-size: 0.933rem;
+	line-height: 1.333rem;
+	text-align : center;
+	word-break : keep-all;
+	color : $color-rgba-notifier42-text;
+	background-color: $color-rgba-notifier42-bg;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+	padding: 0;
+	margin: 0 auto;
+	cursor: pointer;
+}
+
+.notifier42.animated {
+	padding: 0.933rem 3.200rem;
+	min-height: 3.200rem;
+}
+
+.notifier42.notice {
+	background-color: $color-rgba-notifier42-notice;
+}
+
+.notifier42.warning {
+	background-color: $color-rgba-notifier42-warning;
+}
+
+.notifier42.error {
+	background-color: $color-rgba-notifier42-error;
+}
+
+.notifier42.success {
+	background-color: $color-rgba-notifier42-success;
+}
+
+/*!
+ * reset for animate.css
+ * daneden.github.io/animate.css/
+ */
+
+.notifier42.animated {
+	animation-duration: 0.2s;
+	animation-fill-mode: both;
+}
+
+/*!
+ * download app btn
+ */
+
+.btn-download-app {
+	display: block;
+	width: 10.200rem;
+	height: 3.467rem;
+	position: fixed;
+	top: 3.600rem;
+	right: 0.400rem;
+	background-position: left top;
+	background-repeat: no-repeat;
+	background-size: 10.200rem 3.600rem;
+	box-shadow: 0.133rem 0.133rem 0.133rem 0 $color-rgba-ui-bar-shadow;
+}
+
+/*!
+ * reset for animate.css
+ * daneden.github.io/animate.css/
+ */
+
+.btn-download-app.animated {
+	animation-duration: 0.2s;
+	animation-fill-mode: both;
+}
+
+/*!
+ * iframe-lightbox
+ * hide default css preloader
+ */
+
+.iframe-lightbox .content > .body .half-circle-spinner {
+	display: none;
+}
+
+.iframe-lightbox iframe {
+	box-shadow: 0.250rem 0.250rem 0.250rem 0 rgba(3, 3, 3, 0.3);
+}
+
+/*!
+ * img-lightbox
+ * hide default css preloader
+ * daneden.github.io/animate.css/
+ */
+
+.img-lightbox .half-circle-spinner {
+	display: none;
+}
+
+.img-lightbox img {
+	box-shadow: 0.250rem 0.250rem 0.250rem 0 rgba(3, 3, 3, 0.3);
+}
+
+/*!
+ * disqus
+ */
+
+#disqus_thread {
+	background-color: $left-nav-bar-light;
+}
+
+#disqus_thread.is-active iframe {
+	margin-top: 0.533rem;
+	padding-right: 1.333rem;
+	padding-left: 1.333rem;
+}
+
+/*!
+ * @see {@link https://gist.github.com/englishextra/40b7c4ffde33bfb58aff259afe229d6a}
+ */
+
+/*------------------------------------------
+	Foundation Media Queries
+	http://foundation.zurb.com/docs/media-queries.html
+--------------------------------------------*/
+
+/* Small screens - MOBILE */
+
+@media only screen {
+	html {
+		font-size: 12px;
+	}
+}
+
+/* Define mobile styles - Mobile First */
+
+@media only screen and (max-width: 40em) {
+	html {
+		font-size: 13px;
+	}
+}
+
+/* max-width 640px, mobile-only styles, use when QAing mobile issues */
+
+/* Medium screens - TABLET */
+
+@media only screen and (min-width: 40.063em) {
+	html {
+		font-size: 13px;
+	}
+}
+
+/* min-width 641px, medium screens */
+
+@media only screen and (min-width: 40.063em) and (max-width: 64em) {
+	html {
+		font-size: 15px;
+	}
+}
+
+/* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
+
+/* Large screens - DESKTOP */
+
+@media only screen and (min-width: 64.063em) {
+	html {
+		font-size: 15px;
+	}
+}
+
+/* min-width 1025px, large screens */
+
+@media only screen and (min-width: 64.063em) and (max-width: 90em) {
+	html {
+		font-size: 15px;
+	}
+}
+
+/* min-width 1024px and max-width 1440px, use when QAing large screen-only issues */
+
+/* XLarge screens */
+
+@media only screen and (min-width: 90.063em) {
+	html {
+		font-size: 15px;
+	}
+}
+
+/* min-width 1441px, xlarge screens */
+
+@media only screen and (min-width: 90.063em) and (max-width: 120em) {
+	html {
+		font-size: 18px;
+	}
+}
+
+/* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */
+
+/* XXLarge screens */
+
+@media only screen and (min-width: 120.063em) {
+	html {
+		font-size: 19px;
+	}
+}
+
+/* min-width 1921px, xlarge screens */

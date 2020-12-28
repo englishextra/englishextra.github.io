@@ -1,0 +1,36 @@
+/*!
+ * modified zoomwall.js v1.1.1
+ * The MIT License (MIT)
+ * Copyright (c) 2014 Eric Leong
+ * @see {@link https://github.com/ericleong/zoomwall.js}
+ * @see {@link https://github.com/ericleong/zoomwall.js/blob/master/zoomwall.js}
+ * passes jshint
+ */
+
+.zoomwall {
+	font-size: 0;
+	overflow: hidden;
+	position: relative;
+	margin-top: 3.200rem;
+}
+
+.zoomwall img {
+	display: inline-block;
+	height: 15vw;
+	opacity: 1;
+	vertical-align: top;
+	transform-origin: 0% 0%;
+	transition-property: transform, opacity;
+	transition-duration: 0.3s;
+	transition-timing-function: ease-out;
+	user-select: none;
+}
+
+.zoomwall.lightbox img {
+	transition-timing-function: ease-in;
+	opacity: 0.3;
+}
+
+.zoomwall.lightbox img.active {
+	opacity: 1;
+}
