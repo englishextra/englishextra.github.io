@@ -4,7 +4,7 @@
  * https://github.com/meanbee/magento-meanbee-pwa/issues/20#issuecomment-497626347
  * This is a reworked code of the "Offline copy of pages" service worker
  */
-var cacheName = "shimansky.biz-offline-v1602190233";
+var cacheName = "shimansky.biz-offline-v1602190234";
 var indexPage = "index.html";
 var offlinePages = [indexPage];
 
