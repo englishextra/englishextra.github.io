@@ -1,0 +1,132 @@
+/*! @import "sitemap-masonry-grid"; */
+
+/*!
+ * masonry grid wrapper
+ */
+
+.masonry-grid-wrapper {
+	width: 92%;
+	height: 100%;
+	max-width: 74.667rem;
+	padding-top: 1.333rem;
+	padding-bottom: 1.333rem;
+	margin: 0 auto;
+}
+
+.masonry-grid-wrapper #h1,
+.masonry-grid-wrapper h1 {
+	font-family: $font-family-webfont-sans-light;
+	font-weight: 400;
+	font-size: 1.600rem;
+	line-height: 1.600rem;
+	text-align: center;
+	margin: 0.267rem 1% 1.733rem 1%;
+}
+
+.masonry-grid-wrapper h1 a {
+	text-decoration: none;
+	color: inherit;
+}
+
+.masonry-grid-wrapper h1 a:hover {
+	background-color: $left-nav-bar-light;
+}
+
+.masonry-grid {
+	display: block;
+	width: 100%;
+	background: transparent;
+	padding: 0;
+	margin: 0 auto 1.333rem auto;
+}
+
+.masonry-grid:after {
+	display: block;
+	content: "";
+	clear: both;
+}
+
+.masonry-grid-item {
+	display: block;
+	float: left;
+	font-size: 1.000rem;
+	font-weight: 300;
+	color: inherit;
+	background-color: #FFFFFF;
+	box-shadow: 0 0.267rem 0.267rem 0 $color-rgba-card-shadow;
+	margin: 2% 1% 0 1%;
+}
+
+.masonry-grid-item:hover {
+	opacity: 0.9;
+}
+
+.masonry-grid-sizer {
+	width: 25%;
+}
+
+.masonry-grid-item {
+	width: 23%;
+}
+
+.masonry-grid-item a {
+	display: block;
+	text-decoration: none;
+	color: inherit;
+}
+
+.masonry-grid-item img {
+	display: block;
+	width: 100%;
+}
+
+.masonry-grid-item h2 {
+	font-weight: 400;
+	font-size: 1.250rem;
+	color: inherit;
+	padding: 1.000rem 1.000rem 0.250rem 1.000rem;
+	margin: 0;
+}
+
+.masonry-grid-item p {
+	color: inherit;
+	padding: 0 1.000rem 1.000rem 1.000rem;
+	margin: 0;
+}
+
+@media only screen and (max-width:1080px) {
+	.masonry-grid-wrapper {
+		width: 100%;
+		padding-left: 1.000rem;
+		padding-right: 1.000rem;
+	}
+
+	.masonry-grid-sizer {
+		width: 50%;
+	}
+
+	.masonry-grid-item {
+		width: 48%;
+	}
+}
+
+@media only screen and (max-width:640px) {
+	.masonry-grid-wrapper {
+		width: 100%;
+	}
+}
+
+@media only screen and (max-width:360px) {
+	.masonry-grid-item {
+		float: none;
+	}
+
+	.masonry-grid-sizer {
+		width: 100%;
+	}
+
+	.masonry-grid-item {
+		width: 98%;
+	}
+}
+

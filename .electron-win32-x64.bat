@@ -1,0 +1,1 @@
+start "" "G:\server\apps\electron-win32-x64\electron.exe" "./index.js"

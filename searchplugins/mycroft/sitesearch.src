@@ -1,0 +1,32 @@
+# Author: Serguei Shimansky englishextra@yandex.ru
+
+<SEARCH
+	version = "7.1"
+	name="Английский без регистрации"
+	description="Английский без регистрации"
+	method="GET"
+	action="http://yandex.ru/sitesearch"
+	searchForm="http://yandex.ru/sitesearch"
+	queryCharset="UTF-8"
+>
+
+<input name="q" user>
+<input name="presentation" value="light">
+<input name="form_source" value="Sherlock">
+
+<interpret
+	browserResultType="result"
+	resultListStart="<!-- shimanskybiz_site::results_block::start -->"
+	resultListEnd="<!-- shimanskybiz_site::results_block::end -->"
+	resultItemStart="<!-- shimanskybiz_site::results_item::start -->"
+	resultItemEnd="<!-- shimanskybiz_site::results_item::end -->"
+	charset="UTF-8"
+>
+</search>
+
+<browser
+	alsomatch="http://yandex.ru/sitesearch"
+	update="http://englishextra.github.io/searchplugins/mycroft/sitesearch.src"
+	updateIcon="http://englishextra.github.io/searchplugins/mycroft/sitesearch.gif"
+	updateCheckDays="1"
+>

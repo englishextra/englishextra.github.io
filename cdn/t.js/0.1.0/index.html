@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>t.js Demo Page</title>
+	</head>
+	<body>
+	<div id="output"></div>
+	<template id="template">
+			<h1 id="h1">{{=h1}}</h1>
+			{{p}}{{=p}}{{:p}}p is empty or null{{/p}}
+		</template>
+		<script src="./js/t.fixed.js"></script>
+		<script>
+		var insertTextAsFragment = function(t, c, f) {
+			"use strict";
+			var d = document,
+				b = d.getElementsByTagName("body")[0] || "",
+				g = function() {
+					return f && "function" === typeof f && f();
+				};
+			try {
+				var n = c.cloneNode(!1);
+				if (d.createRange) {
+					var rg = d.createRange();
+					rg.selectNode(b);
+					var df = rg.createContextualFragment(t);
+					n.appendChild(df);
+					return c.parentNode ? c.parentNode.replaceChild(n, c) : c.innerHTML = t,
+						g();
+				} else {
+					n.innerHTML = t;
+					return c.parentNode ? c.parentNode.replaceChild(d.createDocumentFragment.appendChild(n), c) : c.innerHTML = t,
+						g();
+				}
+			} catch (e) {
+				console.log(e);
+			}
+			return !1;
+		};
+		var html = document.querySelector("#template").innerHTML || "";
+		var template = new t(html);
+		var output = document.querySelector("#output") || "";
+		var render = template.render({
+			h1: "Hello World!",
+			p: "<p>This is test.</p>"
+		});
+		insertTextAsFragment(render, output);
+		</script>
+	</body>
+</html>

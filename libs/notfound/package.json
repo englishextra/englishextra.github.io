@@ -1,0 +1,59 @@
+{
+	"name": "notfound",
+	"version": "0.1.0",
+	"description": "a Web UI library",
+	"keywords": [
+		"spa",
+		"pwa",
+		"webapp"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/englishextra/englishextra.github.io.git"
+	},
+	"dependencies": {
+		"npm": "^7.3.0"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.12.10",
+		"@babel/plugin-transform-arrow-functions": "^7.12.1",
+		"@babel/plugin-transform-async-to-generator": "^7.12.1",
+		"@babel/plugin-transform-object-assign": "^7.12.1",
+		"@babel/preset-env": "^7.12.11",
+		"browser-sync": "^2.26.13",
+		"gulp": "^4.0.2",
+		"gulp-autoprefixer": "^7.0.1",
+		"gulp-babel": "^8.0.0",
+		"gulp-clean-css": "^4.3.0",
+		"gulp-cli": "^2.3.0",
+		"gulp-concat": "^2.6.1",
+		"gulp-eslint": "^6.0.0",
+		"gulp-plumber": "^1.2.1",
+		"gulp-prettier": "^3.0.0",
+		"gulp-rename": "^2.0.0",
+		"gulp-replace": "^1.0.0",
+		"gulp-sass": "^4.0.2",
+		"gulp-sass-lint": "^1.4.0",
+		"gulp-sourcemaps": "^3.0.0",
+		"gulp-strip-debug": "^3.0.0",
+		"gulp-uglify": "^3.0.2"
+	},
+	"scripts": {
+		"test": "gulp lint-libbundle-js"
+	},
+	"email": "englishextra@mail.ru",
+	"url": "https://github.com/englishextra/englishextra.github.io/issues",
+	"maintainers": [
+		{
+			"name": "Serguei Shimansky",
+			"email": "englishextra@mail.ru",
+			"url": "https://github.com/englishextra"
+		}
+	],
+	"author": {
+		"name": "englishextra",
+		"email": "englishextra@mail.ru",
+		"url": "https://github.com/englishextra"
+	},
+	"license": "(MIT)"
+}

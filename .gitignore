@@ -1,0 +1,16 @@
+*.ai
+*.npp
+*.psd
+*.xdk
+*.xdke
+.SOUNDCLOUD.md
+/.idea
+/.settings
+/.url
+intelxdk.config.additions.xml
+node_modules/
+package-lock.json
+project-info.json
+xdk-publish-meta-data.json
+*.zip
+.*.md

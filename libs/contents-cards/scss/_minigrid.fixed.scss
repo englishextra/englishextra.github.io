@@ -1,0 +1,67 @@
+/*!
+ * minigrid
+ */
+
+.minigrid {
+	width: 100%;
+	max-width: 1280px;
+	margin: 0 auto;
+/* transition: visibility 0s, opacity 0.2s ease; */
+	position: relative;
+	top: 3.200rem;
+}
+
+.minigrid:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.minigrid__item {
+	width: 264px;
+	overflow: hidden;
+	background-color: #FFFFFF;
+/* box-shadow: 0 0.333em 0.333em 0 $color-rgba-card-shadow; */
+
+/*!
+ * if transition set, all the images will be loaded
+ */
+
+/* transition: transform 0.4s ease-out; */
+	border: 0.067rem solid $color-rgba-card-shadow;
+	border-radius: 0.200rem;
+	box-shadow: 0 0.133rem 0 $color-rgba-card-shadow;
+}
+
+.minigrid__item a {
+	color: inherit;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+	text-decoration: none;
+}
+
+.card img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.card-content {
+	color: $color-hex-body-text;
+	padding: 1.000rem;
+}
+
+.card-content h2 {
+	font-weight: 400;
+	font-size: 1.266rem;
+	line-height: 1.563rem;
+	margin: 0;
+	margin-bottom: 0.267rem;
+}
+
+.card-content p {
+	font-weight: 400;
+	font-size: 1.000rem;
+	line-height: 1.250rem;
+	margin: 0;
+}

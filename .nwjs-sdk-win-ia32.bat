@@ -1,0 +1,1 @@
+start "" "G:\server\apps\nwjs-sdk-win-ia32\nw.exe" "./"
