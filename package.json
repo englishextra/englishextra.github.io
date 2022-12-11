@@ -16,7 +16,7 @@
 		"url": "https://github.com/englishextra/englishextra.github.io.git"
 	},
 	"dependencies": {
-		"npm": "^7.3.0"
+		"npm": "^8.11.0"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.12.10",
