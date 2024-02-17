@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Escape HTML Entities</title>
+		<script>
+			var hex = new Array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f');
+			function escapeHTML() {
+				var x = document.getElementById("from_text");
+				var preescape = "" + x.value;
+				var escaped = "";
+				var i = 0;
+				var brEscape = document.getElementById('br').checked;
+				var tagEscape = document.getElementById('tag').checked;
+				var others = document.getElementById('other').checked;
+				var nbsp = document.getElementById('nbsp').checked;
+				for (i = 0; i < preescape.length; i++) {
+					var p = preescape.charAt(i);
+					if (others)
+						p = "" + escapeCharx(p);
+					if (tagEscape)
+						p = "" + escapeTags(p);
+					if (brEscape)
+						p = "" + escapeBR(p);
+					if (nbsp)
+						p = "" + escapeNBSP(p);
+					escaped = escaped + p;
+				}
+				x = document.getElementById("to_text");
+				x.value = escaped;
+			}
+			function escapeBR(original) {
+				var thechar = original.charCodeAt(0);
+				switch (thechar) {
+				case 10:
+					return "<br />";
+					break; //newline
+				case '\r':
+					break;
+				}
+				return original;
+			}
+			function escapeNBSP(original) {
+				var thechar = original.charCodeAt(0);
+				switch (thechar) {
+				case 32:
+					return "&#160;";
+					break; //space
+				}
+				return original;
+			}
+			function escapeTags(original) {
+				var thechar = original.charCodeAt(0);
+				switch (thechar) {
+				case 60:
+					return "&lt;";
+					break; //<
+				case 62:
+					return "&gt;";
+					break; //>
+				case 34:
+					return "&quot;";
+					break; //"
+				}
+				return original;
+			}
+			function escapeCharx(original) {
+				var found = true;
+				var thechar = original.charCodeAt(0);
+				switch (thechar) {
+				case 38:
+					return "&amp;";
+					break;
+					/* case 198:return "&AElig;"; break;
+					case 193:return "&Aacute;"; break;
+					case 194:return "&Acirc;"; break;
+					case 192:return "&Agrave;"; break;
+					case 197:return "&Aring;"; break;
+					case 195:return "&Atilde;"; break;
+					case 196:return "&Auml;"; break;
+					case 199:return "&Ccedil;"; break;
+					case 208:return "&ETH;"; break;
+					case 201:return "&Eacute;"; break;
+					case 202:return "&Ecirc;"; break;
+					case 200:return "&Egrave;"; break;
+					case 203:return "&Euml;"; break;
+					case 205:return "&Iacute;"; break;
+					case 206:return "&Icirc;"; break;
+					case 204:return "&Igrave;"; break;
+					case 207:return "&Iuml;"; break;
+					case 209:return "&Ntilde;"; break;
+					case 211:return "&Oacute;"; break;
+					case 212:return "&Ocirc;"; break;
+					case 210:return "&Ograve;"; break;
+					case 216:return "&Oslash;"; break;
+					case 213:return "&Otilde;"; break;
+					case 214:return "&Ouml;"; break;
+					case 222:return "&THORN;"; break;
+					case 218:return "&Uacute;"; break;
+					case 219:return "&Ucirc;"; break;
+					case 217:return "&Ugrave;"; break;
+					case 220:return "&Uuml;"; break;
+					case 221:return "&Yacute;"; break;
+					case 225:return "&aacute;"; break;
+					case 226:return "&acirc;"; break;
+					case 230:return "&aelig;"; break;
+					case 224:return "&agrave;"; break;
+					case 229:return "&aring;"; break;
+					case 227:return "&atilde;"; break;
+					case 228:return "&auml;"; break;
+					case 231:return "&ccedil;"; break;
+					case 233:return "&eacute;"; break;
+					case 234:return "&ecirc;"; break;
+					case 232:return "&egrave;"; break;
+					case 240:return "&eth;"; break;
+					case 235:return "&euml;"; break;
+					case 237:return "&iacute;"; break;
+					case 238:return "&icirc;"; break;
+					case 236:return "&igrave;"; break;
+					case 239:return "&iuml;"; break;
+					case 241:return "&ntilde;"; break;
+					case 243:return "&oacute;"; break;
+					case 244:return "&ocirc;"; break;
+					case 242:return "&ograve;"; break;
+					case 248:return "&oslash;"; break;
+					case 245:return "&otilde;"; break;
+					case 246:return "&ouml;"; break;
+					case 223:return "&szlig;"; break;
+					case 254:return "&thorn;"; break;
+					case 250:return "&uacute;"; break;
+					case 251:return "&ucirc;"; break;
+					case 249:return "&ugrave;"; break;
+					case 252:return "&uuml;"; break;
+					case 253:return "&yacute;"; break;
+					case 255:return "&yuml;"; break;
+					case 162:return "&cent;"; break; */
+				case 198:
+					return "&#198;";
+					break;
+				case 193:
+					return "&#193;";
+					break;
+				case 194:
+					return "&#194;";
+					break;
+				case 192:
+					return "&#192;";
+					break;
+				case 197:
+					return "&#197;";
+					break;
+				case 195:
+					return "&#195;";
+					break;
+				case 196:
+					return "&#196;";
+					break;
+				case 199:
+					return "&#199;";
+					break;
+				case 208:
+					return "&#208;";
+					break;
+				case 201:
+					return "&#201;";
+					break;
+				case 202:
+					return "&#202;";
+					break;
+				case 200:
+					return "&#200;";
+					break;
+				case 203:
+					return "&#203;";
+					break;
+				case 205:
+					return "&#205;";
+					break;
+				case 206:
+					return "&#206;";
+					break;
+				case 204:
+					return "&#204;";
+					break;
+				case 207:
+					return "&#207;";
+					break;
+				case 209:
+					return "&#209;";
+					break;
+				case 211:
+					return "&#211;";
+					break;
+				case 212:
+					return "&#212;";
+					break;
+				case 210:
+					return "&#210;";
+					break;
+				case 216:
+					return "&#216;";
+					break;
+				case 213:
+					return "&#213;";
+					break;
+				case 214:
+					return "&#214;";
+					break;
+				case 222:
+					return "&#222;";
+					break;
+				case 218:
+					return "&#218;";
+					break;
+				case 219:
+					return "&#219;";
+					break;
+				case 217:
+					return "&#217;";
+					break;
+				case 220:
+					return "&#220;";
+					break;
+				case 221:
+					return "&#221;";
+					break;
+				case 225:
+					return "&#225;";
+					break;
+				case 226:
+					return "&#226;";
+					break;
+				case 230:
+					return "&#230;";
+					break;
+				case 224:
+					return "&#224;";
+					break;
+				case 229:
+					return "&#229;";
+					break;
+				case 227:
+					return "&#227;";
+					break;
+				case 228:
+					return "&#228;";
+					break;
+				case 231:
+					return "&#231;";
+					break;
+				case 233:
+					return "&#233;";
+					break;
+				case 234:
+					return "&#234;";
+					break;
+				case 232:
+					return "&#232;";
+					break;
+				case 240:
+					return "&#240;";
+					break;
+				case 235:
+					return "&#235;";
+					break;
+				case 237:
+					return "&#237;";
+					break;
+				case 238:
+					return "&#238;";
+					break;
+				case 236:
+					return "&#236;";
+					break;
+				case 239:
+					return "&#239;";
+					break;
+				case 241:
+					return "&#241;";
+					break;
+				case 243:
+					return "&#243;";
+					break;
+				case 244:
+					return "&#244;";
+					break;
+				case 242:
+					return "&#242;";
+					break;
+				case 248:
+					return "&#248;";
+					break;
+				case 245:
+					return "&#245;";
+					break;
+				case 246:
+					return "&#246;";
+					break;
+				case 223:
+					return "&#223;";
+					break;
+				case 254:
+					return "&#254;";
+					break;
+				case 250:
+					return "&#250;";
+					break;
+				case 251:
+					return "&#251;";
+					break;
+				case 249:
+					return "&#249;";
+					break;
+				case 252:
+					return "&#252;";
+					break;
+				case 253:
+					return "&#253;";
+					break;
+				case 255:
+					return "&#255;";
+					break;
+				case 162:
+					return "&#162;";
+					break;
+				default:
+					found = false;
+					break;
+				}
+				if (!found) {
+					if (thechar > 127) {
+						var c = thechar;
+						var a4 = c % 16;
+						c = Math.floor(c / 16);
+						var a3 = c % 16;
+						c = Math.floor(c / 16);
+						var a2 = c % 16;
+						c = Math.floor(c / 16);
+						var a1 = c % 16;
+						//	alert(a1);
+						return "&#x" + hex[a1] + hex[a2] + hex[a3] + hex[a4] + ";";
+					} else {
+						return original;
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div class="content">
+			<h1 id="h1">Escape HTML Entities</h1>
+			<div>
+				Enter/paste text to HTML Escape:<br />
+				<textarea id="from_text" name="from_text" cols="80" rows="10" onkeyup="escapeHTML();" placeholder="Enter/Insert text"></textarea>
+				<br />
+					<input onclick="escapeHTML();" id="br" type="checkbox">Replace newline with &lt;br/&gt;<br />
+					<input onclick="escapeHTML();" id="tag" checked="checked" type="checkbox">Replace &lt; &gt; "<br />
+					<input onclick="escapeHTML();" id="nbsp" type="checkbox">Replace space with &amp;nbsp;<br />
+					<input onclick="escapeHTML();" id="other" checked="checked" type="checkbox">Escape special characters (&amp; and non latin chars)<br />
+				Escaped result with HTML entities:<br />
+				<textarea id="to_text" name="to_text" cols="80" rows="10" onclick="this.focus();this.select();" placeholder="Safe HTML escaped text"></textarea>
+			</div>
+		</div>
+	</body>
+</html>

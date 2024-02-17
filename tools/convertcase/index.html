@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Convert Case - Convert upper case to lower case, lower case to upper case and more!</title>
+		<link rel="stylesheet" href="./css/app.css" />
+	</head>
+	<body>
+	<div class="wrapper">
+		<!--[if lte IE 8]><div class="message upgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/" target="_blank">upgrade your browser</a> to improve your experience.</div><![endif]-->
+		<div class="nojs message upgrade">JavaScript is required to use this web site. Please turn it on in your browser or whitelist this site, then refresh the page.</div>
+		<div id="container">
+			<p>
+				<label for="content">Simply enter your text and choose the case you want to convert it to.</label>
+			</p>
+			<form action="/" method="post">
+				<div class="row">
+					<textarea id="content" placeholder="Type or paste your content here"></textarea>
+				</div>
+			</form>
+			<div class="messages"></div>
+			<div class="actions">
+				<button id="sentence" class="btn">Sentence case</button>
+				<button id="lower" class="btn">lower case</button>
+				<button id="upper" class="btn">UPPER CASE</button>
+				<button id="capitalized" class="btn">Capitalized Case</button>
+				<button id="alternating" class="btn">aLtErNaTiNg cAsE</button>
+				<button id="title" class="btn">Title Case</button>
+				<button id="inverse" class="btn">InVeRsE CaSe</button>
+				<button id="download" class="btn">Download Text</button>
+				<button id="copy" class="btn" data-clipboard-target="#content">Copy to Clipboard</button>
+			</div>
+			<div class="row counts">Character Count: <span class="char_count">0</span> | Word Count: <span class="word_count">0</span></div>
+		</div>
+	</div>
+		<script src="./js/jquery-3.1.1.min.js"></script>
+		<script>
+	var copied = "Text copied to clipboard!",
+		manual_copy = "Press Ctrl+C to copy text",
+		downloaded = "Text downloaded!",
+		no_text = "Please enter some text first!",
+		file_name = "convertcase-net.txt"
+		</script>
+		<script src="./js/app.min.js"></script>
+	</body>
+</html>

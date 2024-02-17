@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>juniconv</title>
+		<style>
+			a, a:hover {
+				border-bottom: 0 solid #006DC6;
+				color: #006DC6;
+				text-decoration: none;
+			}
+			body {
+				background-color: #222;
+				color: #000;
+				font-family: "Trebuchet MS", Aria, sans-serif;
+				font-size: 14px;
+				text-align: justify;
+				margin: 1em 5em;
+			}
+			code {
+				font-style: normal;
+				font-weight: 400;
+				margin: 0;
+				padding: 0;
+			}
+			div.controls select {
+				margin-bottom: 6px;
+			}
+			div.controls span {
+				display: block;
+				font-weight: 700;
+			}
+			div.editor, h1, h2 {
+				font-weight: 700;
+			}
+			h1 {
+				background-color: #444;
+				color: #FFF;
+				font-size: 170%;
+				margin: 0;
+				padding: 6px 6px 0;
+			}
+			h1 span {
+				background-color: #AAA;
+				color: #000;
+				padding: 0 6px;
+			}
+			h1, h2, h3, h4, h5, h6, strong, b {
+				color: #666;
+			}
+			h2 {
+				background-color: #444;
+				border-bottom: 8px solid #C30;
+				color: #000;
+				font-size: 70%;
+				letter-spacing: 0.25em;
+				margin-bottom: 0;
+				margin-top: 0;
+				padding-bottom: 4px;
+				padding-right: 6px;
+				text-align: right;
+			}
+			hr.pme-hr {
+				border: 0 solid;
+				border-top-width: 1px;
+				height: 1px;
+				margin: 0;
+				padding: 0;
+			}
+			p {
+				margin-bottom: 0.5ex;
+				margin-top: 0;
+			}
+			pre {
+				font-size: 90%;
+				margin: 0;
+				padding: 0;
+			}
+			.code {
+				background-color: #EDEDED;
+				border: 0 solid #EDEDED;
+				overflow: auto;
+				text-align: left;
+				padding: 0.375em 0.5em;
+			}
+			.controls {
+				clear: both;
+				text-align: center;
+				padding: 1em;
+			}
+			.editor {
+				float: left;
+				width: 50%;
+			}
+			.editor textarea {
+				width: 92%;
+				margin: 0.5ex 4%;
+			}
+			#author {
+				color: #000;
+				font-size: 80%;
+				font-weight: bolder;
+				margin-bottom: 1ex;
+				text-align: right;
+			}
+			#author a {
+				color: #000;
+				text-decoration: none;
+			}
+			#author a:hover {
+				text-decoration: underline;
+			}
+			#content {
+				background-color: #AAA;
+				padding: 6px;
+			}
+			#page {
+				border: 6px solid #333;
+			}
+			#search_tags {
+				color: #888;
+				font-size: 10px;
+				list-style: none;
+				text-align: center;
+				margin: 0;
+			}
+			#search_tags li {
+				border-right: 1px solid #888;
+				display: inline;
+				padding: 0 4px;
+			}
+		</style>
+		<title>jUniConv: Unicode Characters to Java Entities Converter</title>
+		<script>
+			function strlenFix(str) {
+				while (str.length < 4)
+				str = "0" + str;
+				return str;
+			}
+			function convert() {
+				var result = '';
+				var source = document.forms["conversion"].elements["input"].value;
+				if (document.forms["conversion"].elements["direction"].value == "0") {
+					/* UTF-8 to entities */
+					for ( i = 0; i < source.length; i++) {
+						charCode = source.charCodeAt(i);
+						if (charCode <= 127) {
+							result += source.charAt(i);
+						} else {
+							result += '\\u' + strlenFix(charCode.toString(16).toUpperCase());
+						}
+					}
+				} else {
+					var state = 0;
+					var chars = 0;
+					var value = "";
+					/* entities to UTF-8 */
+					for ( i = 0; i < source.length; i++) {
+						switch (state) {
+						case 0:
+							if (source.charAt(i) == '\\') {
+								state = 1;
+							} else {
+								result += source.charAt(i);
+							}
+							break;
+						case 1:
+							if (source.charAt(i) == 'u') {
+								state = 2;
+								chars = 0;
+								value = "";
+							} else {
+								result += '\\' + source.charAt(i);
+								state = 0;
+							}
+							break;
+						case 2:
+							chars++;
+							value += source.charAt(i);
+							if (chars >= 4) {
+								result += unescape("%u" + value);
+								state = 0;
+							}
+							break;
+						}
+					}
+				}
+				document.forms["conversion"].elements["output"].value = result;
+			}
+		</script>
+	</head>
+	<body>
+		<div id="page">
+			<h1 id="h1"><span>jUniConv</span> Unicode Characters to Java Entities Converter</h1><h2>A online utility to&#160;convert Unicode characters to Java entities and back</h2>
+			<div id="content">
+				<div id="author">
+					Created by&#160;ITPro CZ
+				</div>
+				<p>
+					Programming in Java? Need czech, russian, chinese or other characters? Use this to convert string to Java entities.
+				</p>
+				<p>
+					Java code <code>
+						System.out.println("\u017Elu\u0165ou\u010Dk\u00FD k\u016F\u0148");</code>
+					writes to stdout string <i>žluťoučký kůň</i>.
+				</p>
+				<form name="conversion" action="/" onsubmit="convert();return false;">
+					<div class="editor">
+						<div>
+							Input:
+						</div>
+						<textarea name="input" cols="48" rows="10"></textarea>
+					</div>					
+					<div class="editor">
+						<div>
+							Output:
+						</div>
+						<textarea name="output" cols="48" rows="10" readonly></textarea>
+					</div>
+					<div class="controls">
+						<span>Direction:</span>
+						<select name="direction">
+							<option value="0">UTF-8 text &gt;&gt; Java entities</option><option value="1">Java entities &gt;&gt; UTF-8 text</option>
+						</select>
+						<br />
+						<input type="submit" value="Convert" />
+						<input type="reset" value="Clear" />
+					</div>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

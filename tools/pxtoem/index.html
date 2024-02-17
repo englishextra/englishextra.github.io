@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>PXtoEM.com: PX to EM conversion made simple.</title>
+		<link rel="stylesheet" href="./css/style.css" />
+	</head>
+	<body>
+		<div class="container">
+				<div class="header">
+				<h1 id="h1"><a href="https://pxtoem.com/">PXtoEM.com <span class="subtitle">PX to EM conversion made simple.</span></a></h1>
+				<ul class="menu">
+				<li class="menu-item current"><a href="#convert" class="menu-item-link">1. Convert</a></li>
+				<li class="menu-item"><a href="#css" class="menu-item-link">2. Grab CSS</a></li>
+				<li class="menu-item"><a href="#learn" class="menu-item-link">3. Learn</a></li>
+				</ul>
+				</div>
+				<div class="pages">
+				<div class="page" id="convert">
+				<div class="convert-base column">
+				<h2>Select your body font size</h2>
+				<h3>Conversions based on 16px browser default size</h3>
+				<div class="conversion-column">
+				<table class="conversion-table base-table">
+				<col class="c25">
+				<col class="c25">
+				<col class="c25">
+				<col class="c25">
+				<thead>
+				<tr>
+				<th>Pixels</th>
+				<th>EMs</th>
+				<th>Percent</th>
+				<th>Points</th>
+				</tr>
+				</thead>
+				<tbody>
+				</tbody>
+				</table>
+				</div>
+				</div>
+				<div class="convert-body column">
+				<h2>Voil&#224;! Your conversions</h2>
+				<h3>Conversions based on your body font size</h3>
+				<div class="conversion-column">
+				<table class="conversion-table body-table">
+				<col class="c25">
+				<col class="c25">
+				<col class="c25">
+				<col class="c25">
+				<thead>
+				<tr>
+				<th>Pixels</th>
+				<th>EMs</th>
+				<th>Percent</th>
+				<th>Points</th>
+				</tr>
+				</thead>
+				<tbody>
+				</tbody>
+				</table>
+				</div>
+				</div>
+				<div class="convert-custom column">
+				<h2>Oh la la! Custom conversion</h2>
+				<h3>Here&rsquo;s a calculator for your custom EM needs</h3>
+				<div class="conversion-column">
+				<h4>1. Enter a base pixel size</h4>
+				<div class="custom-base-size">
+				<input type="text" class="custom-base"> px
+				</div>
+				<h4>2. Convert</h4>
+				<div class="custom-wrap">
+				<div class="custom-px-to-em">
+				<h5>PX to EM</h5>
+				<input type="text" class="custom-px"> px
+				</div>
+				<span class="or">or</span>
+				<div class="custom-em-to-px">
+				<h5>EM to PX</h5>
+				<input type="text" class="custom-em"> em
+				</div>
+				<span class="convert-button">Convert</span>
+				</div>
+				<h4>3. Result</h4>
+				<div class="custom-result"></div>
+				</div>
+				</div>
+				</div>
+				<div class="page hide" id="css">
+				<h2>Generated CSS should make your life simpler</h2>
+				<h3>Based on the fantastic Normalize CSS project*</h3>
+				<pre class="content sh_css"></pre>
+				</div>
+				<div class="page hide" id="learn">
+				<h2>Pixels, EMs, and relative units&hellip; oh my!</h2>
+				<h3>Daunting, but not quite lions, tigers, and bears thanks to PXtoEM.com</h3>
+				<div class="content">
+				<h4>What is an EM?</h4>
+				<p>Wikipedia puts it well: <q>"An em is a unit of measurement in the field of typography, equal to the size of the current font."</q> If your font-size is at 16 pixels, then 1em = 16px</p>
+				<p>For more information visit <a href="https://en.wikipedia.org/wiki/Em_(typography)">Wikipedia</a> and <a href="https://developer.mozilla.org/en/CSS-2_Quick_Reference/Units">Mozilla MDN</a>.</p>
+				<h4>What is the text sizing difference between PX, EM, %, PT?</h4>
+				<p>Pixels and points are static measurements, but commonly used in different mediums. Pixels are used on screens because screens are measured in pixels. Although points can be used on screen, they are the standard in printing because they are a factor of <abbr title="dots per inch">DPI</abbr>.</p>
+				<p>Percent and EMs on the other hand are relative measurements. The size of an EM or percentage unit depends on its parent. If body text is sized at 12 pixels, then text set at 120% or 1.2 EM inside the body will be 1.2 * 12, or 14.4 pixels.</p>
+				<h4>How do I convert between PX, EM, %, and PT?</h4>
+				<p>Assuming you aren&rsquo;t using PXtoEM.com to keep it simple, here are the formulas PXtoEM.com uses.</p>
+				<p><strong>Note:</strong> 16px is used as the body text size in all conversions because that is the browser default. You will change 16px to your base text size.</p>
+				<dl>
+				<dt>PX to EM</dt>
+				<dd>Formula: size in pixels / parent size in pixels</dd>
+				<dd>Example: 12px / 16px = .75em</dd>
+				<dt>PX to %</dt>
+				<dd>Formula: size in pixels / parent size in pixels * 100</dd>
+				<dd>Example: 12px / 16px * 100 = 75%</dd>
+				<dt>PX to PT</dt>
+				<dd>Formula: size in pixels * (points per inch / pixels per inch)</dd>
+				<dd>Example: 16px * (72pt / 96px) = 12pt</dd>
+				<dt>EM to PX<dt>
+				<dd>Formula: size in EMs * parent size in pixels</dd>
+				<dd>Example: .75em * 16px = 12px</dd>
+				<dt>EM to %</dt>
+				<dd>Formula: size in EMs * 100</dd>
+				<dd>Example: .75em * 100 = 75%</dd>
+				</dl>
+				<h4>Why size your text with EMs in CSS?</h4>
+				<p>Style sheets that use EMs are easier to maintain for the designer (especially with PXtoEM.com at your side) and more accessible to end-users.</p>
+				<p>Style sheets become easier to maintain because all text set in EMs scale to the body font-size. Only one element\'s font-size needs to change instead of individually changing the font-size of each element.</p>
+				<p>Accessibility is increased for end-users because text is scaled based on their preferences rather than set statically in pixels. Additionally, end-users can use hot keys to scale the text in all browsers. Many people have difficulty reading small text on a computer screen.</p>
+				<p>For more information visit <a href="https://www.alistapart.com/articles/howtosizetextincss/">A List Apart</a>, <a href="https://www.informit.com/articles/article.aspx?p=397663">informIT</a>, <a href="https://jontangerine.com/log/2007/09/the-incredible-em-and-elastic-layouts-with-css">Jon Tan\'s Blog</a>, and <a href="https://www.thesug.org/blogs/kyles/Lists/Posts/Post.aspx?List=89c8858b%2D90d2%2D4750%2Da11a%2De599248e6c69&amp;ID=22">this SharePoint Blog</a>.</p>
+				<p>This site uses <a href="https://www.blueprintcss.org/">Blueprint CSS</a> to generate your yummy CSS.</p>
+				<h4>What is PXtoEM.com?</h4>
+				<p>PXtoEM.com is px to em conversion made simple. Choose your body font size in pixels (px)and out comes a complete pixel (px) to em conversion table, making elastic web design with CSS a snap. The once daunting challenge of converting pixels (px) to the elusive em has now been reduced to a booger eating pipsqueak. Thanks, PXtoEM.com!</p>
+				<p>PXtoEM.com takes it a step further and gives CSS to start with! After you select your body font size, go to "Get CSS" and there you go!</p>
+				<p>PXtoEM.com was created by&#160;<a href="https://briancray.com/">Brian Cray</a></p>
+				</div>
+				</div>
+				</div>
+				<div class="footer">
+				<p>Site developed and designed by&#160;<a href="https://briancray.com/">Brian Cray</a> for your pixel pushing pleasure.</p>
+				</div>
+		</div>
+		<script src="./js/pxtoem.js"></script>
+	</body>
+</html>

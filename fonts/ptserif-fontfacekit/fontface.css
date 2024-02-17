@@ -1,5 +1,5 @@
 @font-face {
-	font-family: 'PT Serif';
+	font-family: 'PT_SerifWebBold';
 	src: url('./PT_Serif-Bold.eot');
 	src: url('./PT_Serif-Bold.eot?#iefix') format('embedded-opentype'),
 		 url('./PT_Serif-Bold.woff2') format('woff2'),
@@ -11,7 +11,7 @@
 		 font-display: swap;
 }
 @font-face {
-	font-family: 'PT Serif';
+	font-family: 'PT_SerifWebBoldItalic';
 	src: url('./PT_Serif-BoldItalic.eot');
 	src: url('./PT_Serif-BoldItalic.eot?#iefix') format('embedded-opentype'),
 		 url('./PT_Serif-BoldItalic.woff2') format('woff2'),
@@ -23,7 +23,7 @@
 		 font-display: swap;
 }
 @font-face {
-	font-family: 'PT Serif';
+	font-family: 'PT_SerifWebItalic';
 	src: url('./PT_Serif-Italic.eot');
 	src: url('./PT_Serif-Italic.eot?#iefix') format('embedded-opentype'),
 		 url('./PT_Serif-Italic.woff2') format('woff2'),
@@ -35,7 +35,7 @@
 		 font-display: swap;
 }
 @font-face {
-	font-family: 'PT Serif';
+	font-family: 'PT_SerifWebRegular';
 	src: url('./PT_Serif-Regular.eot');
 	src: url('./PT_Serif-Regular.eot?#iefix') format('embedded-opentype'),
 		 url('./PT_Serif-Regular.woff2') format('woff2'),

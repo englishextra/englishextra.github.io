@@ -1,0 +1,9 @@
+name:shimansky.biz
+description: shimansky.biz is a stock of english learning text aids in PDF, DJVU and EPUB
+keywords: english learning guides, pdf, download
+pc: http://shimansky.biz
+mobile: http://shimansky.biz/m/
+rss:http://shimansky.biz/feeds/pages.xml
+longitude:55.7522
+latitude:37.6156
+region:RU

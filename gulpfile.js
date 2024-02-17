@@ -12,7 +12,7 @@
  * @see {@link https://codeburst.io/switching-to-gulp-4-0-271ae63530c0}
  */
 
-var currentLibName = "englishextra.github.io";
+var currentLibName = "shimansky.biz";
 
 var getTimestamp = function () {
 	var dateTime = Date.now();

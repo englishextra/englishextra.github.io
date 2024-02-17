@@ -3,10 +3,14 @@
 *.psd
 *.xdk
 *.xdke
-.SOUNDCLOUD.md
 /.idea
+/.pma
 /.settings
 /.url
+/inc/regional_localhost.inc
+/inc/regional_shimansky.biz.inc
+/sql
+/sqlite
 intelxdk.config.additions.xml
 node_modules/
 package-lock.json
@@ -14,3 +18,8 @@ project-info.json
 xdk-publish-meta-data.json
 *.zip
 .*.md
+*.sublime-project
+*.sublime-workspace
+sw.js
+sw.min.js
+sw.min.js.map

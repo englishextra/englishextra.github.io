@@ -2,10 +2,10 @@
 
 	Editor:
 		Serguei Shimansky
-
+		
 	Site:
 		https://englishextra.github.io/
-
+		
 	Location:
 		Europe/Moscow
 
@@ -14,4 +14,3 @@
 	Content:
 
 		English Grammar for Russian-Speakers.
-

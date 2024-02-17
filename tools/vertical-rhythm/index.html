@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>CSS with vertical rhythm |	drewish</title>
+		<meta name="author" content="andrew morton">
+		<meta name="description" content="eating my own dog food">
+		<meta name="readability-verification" content="9ZZzS7eAwgHQq4kmmTPY3c4BKaQ2etYpQDqMdJUQ"/>
+		<meta name="viewport" content="width=device-width" />
+		<link rel="stylesheet" href="./css/app.css" />
+		<script src="./js/app.js"></script>
+	</head>
+	<body>
+		<header class="row">
+	<div class="large-8 small-12 columns">
+		<h1 id="h1"><a href="/">drewish</a></h1>
+	</div>
+	<hr />
+		</header>
+		<div class="row">
+			<div class="small-12 columns">
+				<h2 class="subheader">CSS with vertical rhythm</h2>
+			</div>
+		</div>
+		<div class="row">
+	<div class="large-12 columns">
+		<p>
+			This tool will help you compute CSS that has a consistent vertical rhythm. If you are not sure what this is all about check out this great <a href="https://webtypography.net/Rhythm_and_Proportion/Vertical_Motion/2.2.2/">article about vertical measure</a>.
+		</p>
+	</div>
+		</div>
+		<div class="row">
+	<div class="large-4 push-8 columns">
+		<form accept-charset="UTF-8" id="vertical-rhythm" data-abide>
+			<label for="edit-font-family">Font family: </label>
+			<select name="font_family" id="edit-font-family">
+				<option value="0" selected="selected">Georgia, serif</option>
+				<option value="1">Times, serif</option>
+				<option value="2">"Times New Roman", serif</option>
+				<option value="3">Arial, sans-serif</option>
+				<option value="4">Helvetica, sans-serif</option>
+				<option value="5">Impact, sans-serif</option>
+				<option value="6">Verdana, sans-serif</option>
+				<option value="7">"Lucida Console", monospace</option>
+			</select>
+			<label for="edit-base-font-size">Base font size (pixels): </label>
+			<input type="number" min="1" name="base_font_size" id="edit-base-font-size" size="60" value="12">
+			<label for="edit-base-line-height">Base line height (pixels): </label>
+			<input type="number" min="1" name="base_line_height" id="edit-base-line-height" size="60" value="18">
+			<label for="edit-font-size">Target font sizes (pixels): </label>
+			<input type="text" maxlength="128" name="font_size" id="edit-font-size" size="60" value="24,22,20,18,16,14">
+		</form>
+	</div>
+	<div class="large-8 pull-4 columns">
+		<div id="output"></div>
+	</div>
+		</div>
+		<script src="./js/vertical-rhythm.js"></script>
+		<footer class="row">
+	<hr />
+	<div class="small-4 columns">
+		<h3>Contact</h3>
+		twitter: <a href="https://twitter.com/drewish">@drewish</a>
+	</div>
+	<div class="small-4 columns">
+	</div>
+	<div class="small-4 columns">
+	</div>
+		</footer>
+		<script>$(document).foundation();</script>
+	</body>
+</html>

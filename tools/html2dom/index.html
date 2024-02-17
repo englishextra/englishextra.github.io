@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>HTML-2-DOM service</title>
+		<style>
+			* {
+				padding: 0px;
+				margin: 0px;
+			}
+			body {
+				padding: 5px;
+				font-family: Georgia;
+			}
+			.result-div {
+				border: solid 1px orange;
+				padding: 20px;
+				margin: 5px 0px 20px 0px;
+			}
+			.source {
+				width: 100%;
+				height: 200px
+			}
+			.output-option {
+				border: solid 1px orange;
+				padding: 5px;
+				cursor: pointer;
+			}
+			.active {
+				background: orange;
+			}
+		</style>
+		<script>
+			var html2dom={result:new String,getDOM:function(html,appendTo){if(html.length=0){this.result="";return this.result}var root_name="kindarandomandhopefullyunique"+Math.round(Math.random()*99999+1E4);html="<"+root_name+">"+html+"</"+root_name+">";var doc;if(window.ActiveXObject){doc=new ActiveXObject("Microsoft.XMLDOM");doc.async="false";doc.loadXML(html)}else{var parser=new DOMParser;doc=parser.parseFromString(html,"text/xml")}var root=doc.documentElement;if(root.hasChildNodes()){if(appendTo)if(typeof appendTo== "object")this.result="var html2dom_root = "+appendTo+";";else{if(typeof appendTo=="string")this.result='var html2dom_root = document.getElementById("'+appendTo+'");'}else this.result="var html2dom_root = document.createElement('div');";this.result+="\n";this.traverse(root,"html2dom_root")}},traverse:function(el,variable){var children=el.childNodes;var max=children.length;for(var i=0;i<max;i++){var nodeval=this.escape(children[i].nodeValue);var newvar=variable+"_"+(i+1);switch(children[i].nodeType){case 1:newvar+= "_"+children[i].nodeName;this.result+=newvar+' = document.createElement("'+children[i].nodeName+'");\n';if(children[i].attributes)for(var j=0,a;a=children[i].attributes[j];j++)this.result+=newvar+'.setAttribute("'+a["nodeName"]+'", "'+this.escape(a["nodeValue"])+'");\n';break;case 3:newvar+="_text";this.result+=newvar+' = document.createTextNode("'+nodeval+'");\n';break;case 8:newvar+="_comment";this.result+=newvar+' = document.createComment("'+nodeval+'");\n';break}if(children[i].hasChildNodes())this.traverse(children[i], newvar);this.result+=variable+".appendChild("+newvar+");\n"}},escape:function(str){if(!str)return null;str=str.replace(/\\/g,"\\\\");str=str.replace(/\"/g,'\\"');str=str.replace(/\n/g,"\\n");str=str.replace(/\r/g,"\\r");return str}};
+		</script>
+		<script>
+			var divs = ["html", "dom", "dom-preview"];
+			function sh(a, c) {
+				for (var b in divs)document.getElementById("result-div-" + divs[b]).style.display = "none", document.getElementById("show-" + divs[b]).className = "output-option";
+				document.getElementById("result-div-" + a).style.display = "block";
+				c.className = "output-option active";
+				switch(a) {
+				case "dom":
+					html2dom.getDOM(document.getElementById("html-source").value);
+					document.getElementById("dom-source").value = html2dom.result;
+					break;
+				case "dom-preview":
+					html2dom.getDOM(document.getElementById("html-source").value, "result-div-dom-preview"), document.getElementById("result-div-dom-preview").innerHTML = "", eval(html2dom.result)
+				}
+			};
+		</script>
+	</head>
+	<body>
+		<h1 id="h1">HTML-2-DOM service</h1>
+		<div>
+			&#160;
+		</div>
+		<div>
+			<span class="output-option active" id="show-html" onclick="sh('html', this)" title="This is the source HTML to be DOM-ed">HTML</span><span class="output-option" id="show-dom" onclick="sh('dom', this)" title="DOM-ed result">DOM</span><span class="output-option" id="show-dom-preview" onclick="sh('dom-preview', this)" title="What the DOM-ed version looks like">Preview</span>
+		</div>
+		<div class="result-div" id="result-div-html">
+			<textarea class="source" id="html-source">&lt;div style="background: orange"&gt;DOM me!&lt;/div&gt;</textarea>
+		</div>		<div class="result-div" id="result-div-dom" style="display: none;">
+			<textarea class="source" id="dom-source"></textarea>
+		</div>		<div class="result-div" id="result-div-dom-preview" style="display: none;">
+			&#160;
+		</div>
+		<address>
+			&#169; <a href="https://elrte.org/">Studio 42</a>
+		</address>
+	</body>
+</html>

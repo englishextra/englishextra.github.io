@@ -1,0 +1,149 @@
+/* CSS Document
+		 HOMEPAGE THEME
+		 Theme Name: Flat UI Color Picker
+		 Theme URI: www.flatuicolorpicker
+		 Description: A Theme for FlatUI
+		 Version: 1.0
+		 Author: Vasilis Baimas (vbaimas)
+		 Author URL: http://www.vbaimas.com
+/*
+/* Table of Content
+==================================================
+	#Site Styles
+	#Page Styles
+	#Media Queries
+/* -----------------------------------------
+	navigation
+----------------------------------------- */
+
+.navigation {clear:both; text-transform:uppercase; position:relative;height: 55px;right: 0;width: 100%;text-align: right;margin-right:25px;top:0;z-index: 9999;}
+
+.navigation ul {margin:0; padding:0; position:relative; float:right; top:1.3em; margin-top:1em;
+}
+
+.navigation li {margin: 0 5px 10px 0; padding: 0; list-style: none; display:inline-block;
+}
+
+.navigation li a {display:inline; margin:0; padding:5px 10px; font-size:1em; line-height:1em; text-decoration:none; color:#444; text-align:right;
+}
+
+.navigation li a:hover {color:#696969; text-decoration:none;}
+.current-menu-item {background-color:#95A5A1; line-height:32px;}
+
+#social {display: inline; left: 30px; position: relative;
+}
+
+#social ul {margin:0; padding:0; left:0; top:1.3em; margin-top:1em;
+}
+
+#social li {padding: 0; list-style: none; display:inline-block;
+}
+
+#facebook {float:right; position: absolute; margin-left: 125px}
+
+#twitter {float:left; position: absolute;margin-right: 15px}
+
+.me {bottom:0; right:0; z-index: 9999;position: absolute; margin-right: 65px;}
+
+.me h4 {font-size:	0.875em;background-color: #019875; line-height:35px; text-align:center;padding:6px;}
+
+.me a {text-decoration:none;color:#fff;}
+
+.item-grey{color:#333;}
+
+/* -----------------------------------------
+	footer
+----------------------------------------- */
+
+.footer{bottom: 0; display: block;left: 0;position: fixed;width: 100%;
+background-color: rgba(255, 255, 255, 0.2);
+padding:30px;
+}
+
+/* #Media Queries
+================================================== */
+
+/* Smaller than standard 960 (devices and browsers) */
+			
+@media only screen and (max-width: 959px)
+	{}
+
+/* Tablet Portrait size to standard 960 (devices and browsers) */
+
+@media only screen and (min-width: 768px) and (max-width: 959px)
+	{
+		.grid{width: 50%;color: #FFFFFF;position: relative;top:45px;margin:0;}
+
+		.item{position: absolute; margin:0;left: 0;right: 0;top:0;bottom: 0; text-align: center;text-transform: uppercase;padding: 8%;font-size: 0.875em;}
+
+		.color-name,.hex-number,.rgb-number,
+.cmyk-number {position: relative;line-height: 22px;text-align: center;}
+
+		.footer {display: none;}
+
+	}
+
+/* All Mobile Sizes (devices and browser) */
+
+@media only screen and (max-width: 767px)
+	{
+		.navigation {clear:both; text-transform:uppercase; position:relative; height: 55px;right: 0;width: 100%;text-align: right;margin-right:25px;top:0;z-index: 9999;}
+
+		.navigation ul {margin:0; padding:0; position:relative; float:right; top:1.3em; margin-top:1em;
+	}
+
+		.navigation li {margin: 0 5px 10px 0; padding: 0; list-style: none; display:inline-block;
+	}
+
+		.navigation li a {display:inline; margin:0; padding:5px 2px; font-size:1em; line-height:1em; text-decoration:none; color:#444; text-align:right;
+	}
+
+		.navigation li a:hover {color:#696969; text-decoration:none;}
+		.current-menu-item {background-color:#95A5A1; line-height:32px;}
+
+		
+		.grid{width: 50%;color: #FFFFFF;position: relative;top:45px;margin:0;}
+
+		.item{position: absolute; margin:0;left: 0;right: 0;top:0;bottom: 0; text-align: center;text-transform: uppercase;padding: 8%;font-size: 0.750em;}
+
+		.color-name,.hex-number,.rgb-number,
+.cmyk-number {position: relative;line-height: 22px;text-align: center;}
+
+		.footer{display: none;}
+
+	}
+
+/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+
+@media only screen and (min-width: 480px) and (max-width: 767px)
+	{
+	.item{position: absolute; margin:0;left: 0;right: 0;top:0;bottom: 0; text-align: center;text-transform: uppercase;padding: 5%;font-size: 0.750em;}
+
+	.grid{width: 50%;color: #FFFFFF;position: relative;top:45px;margin:0;}
+
+	.footer {display: none;}
+
+	.color-name,.hex-number,.rgb-number,
+.cmyk-number {position: relative;line-height: 12px;text-align: center;}
+
+	}
+
+	
+/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+
+@media only screen and (max-width: 479px)
+	{	
+		.grid{width: 50%;padding-bottom: 18%; color: #FFFFFF; position: relative;float: left;top:45px;bottom:0;margin:0;}
+
+		.item{position: absolute; margin:0;left: 0;right: 0;top:0;bottom: 0; text-align: center;text-transform: uppercase;padding: 1%;font-size: 0.688em;}
+
+		.color-name,.hex-number,.rgb-number,
+.cmyk-number {position: relative;line-height: 12px;text-align: center;}
+
+		.navigation,.footer {display: none;}
+
+	}
+
+		
+					
+	

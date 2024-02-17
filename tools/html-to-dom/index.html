@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>HTML to DOM</title>
+		<link rel="stylesheet" href="./css/bootstrap.min.css" />
+		<link rel="stylesheet" href="./css/main.css" />
+		<link rel="stylesheet" href="./css/fontawesome.min.css" />
+		<!-- <Primer Tooltips>-->
+		<link rel="stylesheet" href="./css/primer.min.css" />
+		<!-- </Primer Tooltips>-->
+		<script src="./js/jquery.min.js"></script>
+		<script src="./js/bootstrap.min.js"></script>
+		<!-- <Highlight.js> -->
+		<link rel="stylesheet" href="./css/highlight.min.css" />
+		<script src="./js/highlight.min.js"></script>
+		<script>
+			hljs.initHighlightingOnLoad();
+		</script>
+		<!-- </Highlight.js> -->
+		<!-- <Clipboard js> -->
+		<script src="./js/clipboard.min.js"></script>
+		<!-- </Clipboard js> -->
+		<!-- <HTML-to-DOM> -->
+		<script src="./js/dom-parser.js"></script>
+		<script src="./js/htmltodom.js"></script>
+		<!-- </HTML-to-DOM> -->
+		<script src="./js/main.js"></script>
+	</head>
+	<body>
+			<div class="container">
+				<div class="row p-4">
+				<h1 class="text-center">HTML to DOM <small>v1.1.0</small></h1>
+				</div>
+				<form class="needs-validation form form-inline">
+				<div class="form-row p-2">
+				<div class="form-group col-sm-12 col-md-12 col-lg-12 p-1">
+				<label for="source">Input HTML <span class="text-danger">*</span></label>
+				<textarea id='source' class="form-control" name='source' placeholder='Insert the markup here...'
+				aria-describedby="source-help"></textarea>
+				<small id="source-help" class="form-text text-muted">
+				The HTML code to be parsed. Only the Content of the document will be included (body). Unclosed
+				elements will be auto corrected, but unclosed bracketed delimiters wont.
+				</small>
+				<div class="invalid-feedback"></div>
+				<div class="valid-feedback"></div>
+				</div>
+				</div>
+				<div class="form-row p-2">
+				<div class="form-group col-sm-12 col-md-6 col-lg-6 p-2">
+				<label for="prefix">Variable name prefix <span class="text-danger">*</span></label>
+				<div class="input-group mb-3">
+				<input id='prefix' name='prefix' class="form-control" placeholder='e.g. node' aria-label="Variable Prefix"
+				aria-describedby="prefix-help" value="node" />
+				<div class="input-group-append">
+				<span class="input-group-text id=" prefix-addon">_{n}</span>
+				</div>
+				</div>
+				<small id="prefix-help" class="form-text text-muted">
+				The prefix of the generated variables' names.
+				<br />Variable Name Format: {prefix}_{n}.
+				</small>
+				<div class="invalid-feedback"></div>
+				<div class="valid-feedback"></div>
+				</div>
+				<div class="form-group col-sm-12 col-md-6 col-lg-6 p-2">
+				<div class="custom-control custom-checkbox">
+				<input type="checkbox" class="custom-control-input" id="plain-text" aria-label="Include plain text"
+				aria-describedby="plain-text-help" checked />
+				<label class="custom-control-label" for="plain-text">Include Plain Text</label>
+				</div>
+				<small id="plain-text-help" class="form-text text-muted">
+				Whether to include plain text as <a title="Text" href="https://developer.mozilla.org/en-US/docs/Web/API/Text">Text
+				Nodes</a>.
+				</small>
+				</div>
+				<div class="form-group col-sm-12 col-md-6 col-lg-6 p-2">
+				<div class="custom-control custom-checkbox">
+				<input type="checkbox" class="custom-control-input" id="comments" aria-label="Include comments"
+				aria-describedby="comments-help" />
+				<label class="custom-control-label" for="comments">Include Comments</label>
+				</div>
+				<small id="comments-help" class="form-text text-muted">
+				Whether to include HTML comments as <a title="Text" href="https://developer.mozilla.org/en-US/docs/Web/API/Comment">Comment
+				Nodes</a>.
+				</small>
+				</div>
+				</div>
+				<div class="form-row form-actions">
+				<div class="form-group col-sm-12 col-md-12 col-lg-12 p-1">
+				<button id="submit" type='button' class="btn btn-lg btn-primary" title="Convert HTML to JS">Convert</button>
+				<button id="reset" type='reset' class="btn btn-md btn-warning" title="Reset the form, to its defaults">Reset</button>
+				<button id="download" type='button' class='btn btn-md btn-info' title="Download the output as a .js file">Download
+				as file</button>
+				</div>
+				</div>
+				<div id='error' class="error-block hidden"></div>
+				</form>
+				<div class="row p-2 result-container">
+				<div class="col-sm-12 col-md-12 col-lg-12 p-1">
+				<label for="result">Javascript Output</label>
+				<pre id='result' class='form-control empty p-0' aria-label='result'><code class="javascript"></code></pre>
+				<div class="result-pops">
+				<span id="copy" class="btn btn-sm tooltipped tooltipped-no-delay tooltipped-ne border p-1 mb-2 mr-2 float-left"
+				aria-label="Copy to clipboard">
+				<i class="fa fa-copy fa-fw"></i>
+				</span>
+				<span id="fullscreen" class="btn btn-sm tooltipped tooltipped-no-delay tooltipped-ne border p-1 mb-2 mr-2 float-left"
+				aria-label="Show in Fullscreen">
+				<i class="fa fa-expand-arrows-alt fa-fw"></i>
+				</span>
+				</div>
+				</div>
+				</div>
+				<div id="source-popup" class="container p-3 hidden">
+				<button id='popup-close' class="btn btn-sm btn-danger" title="Close fullscreen" aria-label="close">&#10005;</button>
+				<pre id='result-popup' class='form-control p-0' aria-label='result'><code class="javascript"></code></pre>
+				<div class="result-pops">
+				<span id="copy" class="btn btn-sm tooltipped tooltipped-no-delay tooltipped-nw border p-1 mb-2 mr-2 float-left"
+				aria-label="Copy to clipboard">
+				<i class="fa fa-copy fa-fw"></i>
+				</span>
+				</div>
+				</div>
+			</div>
+			<footer class="container-fluid">
+				<div class="row">
+				<div class="col-sm-12 col-md-12 col-lg-12 p-2">
+				<p class="text-center">
+				Published with <a href="https://pages.github.com/">GitHub Pages</a>
+				</p>
+				<p class="text-center">
+				Maintained by <a href="https://github.com/Damian96">Damian</a>
+				</p>
+				</div>
+				</div>
+			</footer>
+	</body>
+</html>

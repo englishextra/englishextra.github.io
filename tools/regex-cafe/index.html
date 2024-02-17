@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>RegEx Cafe - JavaScript Regular Expression Tester</title>
+		<link rel="stylesheet" href="./css/bootstrap.min.css" />
+		<link rel="stylesheet" href="./css/style.css" />
+	</head>
+	<body>
+		<div class="container">
+			<div id="main">
+				<div id="regex-box">
+					<div class="exp" style="margin-left:40px;">Your regular expression</div>
+					<span class="big-sl" style="margin-left:5px;">/</span>
+					<input type="text" id="regex-str" />
+					<span class="big-sl">/</span>
+					<input type="text" id="regex-opt" />
+				</div>
+				<div id="text-box">
+					<span class="exp" style="margin-top:90px;margin-left:23px;">Your test string</span>
+					<textarea id="text" rows="4" cols="40"></textarea>
+				</div>
+				<div id="results-box">
+					<span class="exp" style="margin-top:90px;margin-left:52px;">Match result</span>
+					<div id="match-results"></div>
+				</div>
+			</div>
+			<div id="ref">
+				<table>
+					<tr>
+						<td>\b</td>
+						<td>Any word boundary character</td>
+						<td>.</td>
+						<td>Any single character</td>
+						<td>(a|b)</td>
+						<td>a or b</td>
+					</tr>
+					<tr>
+						<td>\s</td>
+						<td>Any whitespace character（[ \f\n\r\t\v]）</td>
+						<td>^</td>
+						<td>Start of line</td>
+						<td>a?</td>
+						<td>Zero or one of a</td>
+					</tr>
+					<tr>
+						<td>\d</td>
+						<td>Any digit（[0-9]）</td>
+						<td>$</td>
+						<td>End of line</td>
+						<td>a*</td>
+						<td>Zero or more of a</td>
+					</tr>
+					<tr>
+						<td>\D</td>
+						<td>Any non-digit（[^0-9]）</td>
+						<td>[abc]</td>
+						<td>A single character</td>
+						<td>a+</td>
+						<td>One or more of a</td>
+					</tr>
+					<tr>
+						<td>\w</td>
+						<td>Any word character（[A-Za-z0-9_]）</td>
+						<td>[^abc]</td>
+						<td>Any single character</td>
+						<td>a{3}</td>
+						<td>Exactly 3 of a</td>
+					</tr>
+					<tr>
+						<td>\W</td>
+						<td>Any non-word character </td>
+						<td>[a-z]</td>
+						<td>Any single character in the range a-z</td>
+						<td>a{3,6}</td>
+						<td>Between 3 and 6 of a</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<script src="./js/jquery.min.js"></script>
+		<script src="./js/jquery.textchange.min.js"></script>
+		<script src="./js/script.js"></script>
+	</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>UglifyJS: Online JavaScript minifier</title>
+		<link rel="stylesheet" href="./css/style.css" />
+	</head>
+	<body class="s-input s-output">
+	<div class="header">
+		<h1 id="h1"><a id="header-link" href="https://skalman.github.io/UglifyJS-online/">UglifyJS: Online JavaScript minifier</a></h1>
+	</div>
+	<div class="content">
+		<div class="col i i-input">
+			<textarea id="in" rows="15" cols="80" spellcheck="false" tabindex="1" autofocus="">// Your code goes here
+		</textarea>
+			<div class="tools">
+				<button class="btn-main pull-right" id="btn-go" tabindex="1">Minify</button>
+				<button id="btn-options" tabindex="2">Options</button>
+				<label><input id="cb-as-i-type" checked="checked" type="checkbox"> As I type</label>
+			</div>
+		</div>
+		<div class="col i i-options">
+			<textarea id="options" rows="15" cols="80" spellcheck="false" tabindex="1">// Documentation of the options is available at https://github.com/mishoo/UglifyJS2
+{
+		parse: {
+		strict: false
+	},
+		compress: {
+		sequences: true,
+		properties: true,
+		dead_code: true,
+		drop_debugger: true,
+		unsafe: true,
+		unsafe_comps: true,
+		conditionals: true,
+		comparisons: true,
+		evaluate: true,
+		booleans: true,
+		loops: true,
+		unused: true,
+		hoist_funs: true,
+		hoist_vars: false,
+		if_return: true,
+		join_vars: true,
+		cascade: true,
+		side_effects: true,
+		negate_iife: true,
+		screw_ie8: false,
+		warnings: true,
+		global_defs: {
+		}
+	},
+		output: {
+		indent_start: 0,
+		indent_level: 4,
+		quote_keys: false,
+		space_colon: true,
+		ascii_only: false,
+		inline_script: true,
+		width: 80,
+		max_line_len: 32000,
+		beautify: false,
+		source_map: null,
+		bracketize: false,
+		semicolons: true,
+		comments: /@license|@preserve|^!/,
+		preserve_line: false,
+		screw_ie8: false
+	}
+}
+		</textarea>
+			<div class="tools">
+				<button class="btn-main" id="btn-options-save" tabindex="2">Save</button>
+				<button id="btn-options-reset" tabindex="2">Use defaults</button>
+			</div>
+		</div>
+		<div class="col i i-info">
+			<p>
+				<strong>UglifyJS 2</strong> is an excellent tool to help you minify your JavaScript! It's a tried and tested tool, used by libraries such as jQuery.</p>
+			<p>
+				This is a simple wrapper for the browser around the minifier; the hard work is done by <a href="https://lisperator.net/">Mihai Bazon</a>. If you need an automated solution, I suggest checking out the
+				<a href="https://github.com/mishoo/UglifyJS2">source code</a>, intended for Node.JS.</p>
+			<p>
+				Do you want to help improve this tool? It's on <a href="https://github.com/Skalman/UglifyJS-online">Github</a>.</p>
+			<p><small>
+			This wrapper for the browser was created by <a href="https://danwolff.se/">Dan Wolff</a>.</small></p>
+		</div>
+		<div class="col i i-output">
+			<p>
+				The minified output (<span id="stats">0 bytes, saved 100.00%</span>)</p>
+			<textarea id="out" spellcheck="false" tabindex="3">/* no output! */</textarea>
+		</div>
+		<div class="col i i-error">
+			<pre id="error"></pre>
+		</div>
+	</div>
+		<script src="./js/utils.js"></script>
+		<script src="./js/ast.js"></script>
+		<script src="./js/parse.js"></script>
+		<script src="./js/transform.js"></script>
+		<script src="./js/scope.js"></script>
+		<script src="./js/output.js"></script>
+		<script src="./js/compress.js"></script>
+	<!-- The following aren't needed: sourcemap.js, mozilla-ast.js -->
+		<script src="./js/script.js"></script>
+	</body>
+</html>

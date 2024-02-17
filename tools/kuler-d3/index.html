@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Color Wheel</title>
+		<link rel="stylesheet" href="./css/normalize.css" />
+		<link rel="stylesheet" href="./css/wheel.css" />
+	</head>
+	<body>
+		<svg xmlns="https://www.w3.org/2000/svg" version="1.1" style="display: none;">
+		<defs>
+		<filter id="blur" x="0" y="0">
+		<feGaussianBlur in="SourceGraphic" stdDeviation="150"></feGaussianBlur>
+		</filter>
+		</defs>
+		</svg>
+		<!-- scripts -->
+		<script src="./js/d3.min.js"></script>
+		<script src="./js/tinycolor.js"></script>
+		<script src="./js/colorwheel.js"></script>
+		<script src="./js/colorwheel.mode.js"></script>
+		<script src="./js/colorwheel.theme.js"></script>
+		<script src="./js/colorwheel.gradient.js"></script>
+		<script>
+			var colorWheel = new ColorWheel();
+			colorWheel.bindData(5);
+		</script>
+	</body>
+</html>

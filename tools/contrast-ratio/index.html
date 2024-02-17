@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Contrast Ratio: Easily calculate color contrast ratios. Passing WCAG was never this easy!</title>
+		<link rel="stylesheet" href="./css/style.css" />
+		<script src="./js/incrementable.js"></script>
+	</head>
+	<body>
+		<h1><a href="#"><div><span>Contrast</span></div> <div><strong>ratio</strong></div></a></h1>
+		<label class="background">
+			<span>Background:</span>
+			<input id="background" value="white" autofocus />
+			<output for="background foreground" class="rl" aria-live="polite" aria-label="Relative Luminance"></output>
+		</label>
+		<label class="foreground">
+			<span>Text color:</span>
+			<input id="foreground" value="hsla(200,0%,0%,.7)" />
+			<output for="background foreground" class="rl" aria-live="polite" aria-label="Relative Luminance"></output>
+		</label>
+		<output for="background foreground" class="contrast" tabindex="0" aria-live="polite">
+			<strong>?</strong>
+			<span class="error"></span>
+		</output>
+		<section id="results">
+			<output for="background foreground" id="preciseContrast" aria-label="Precise contrast"></output>
+			<output for="background foreground" id="wcag"></output>
+		</section>
+		<section class="color-display" id="backgroundDisplay">
+			<h1>How to use</h1>
+			<p>As you type, the contrast ratio indicated will update. Hover over the circle to get more detailed information. When semi-transparent colors are involved as backgrounds, the contrast ratio will have an error margin, to account for the different colors they may be over.</p>
+			<p style="font-family: Garamond, 'Palatino Linotype', Georgia, serif;">This sample text attempts to visually demonstrate how readable this color combination is, for normal or <strong>bold</strong> text of various sizes and font styles.</p>
+			<p style="font-size: 11pt;"><strong>Hint:</strong> Press the up and down keyboard arrows while over a number inside a functional color notation. Watch it increment/decrement. Try with the Shift or Alt key too!</p>
+			<footer>
+				By <a href="http://lea.verou.me" rel="noopener" target="_blank">Lea Verou</a>
+				&bull; <a href="https://www.w3.org/TR/WCAG/#contrast-minimum" rel="noopener" target="_blank">WCAG 2.0 on contrast ratio</a>
+			</footer>
+		</section>
+		<section class="color-display" id="foregroundDisplay">
+			<button id="swap">↔ Swap colors</button>
+		</section>
+		<footer></footer>
+		<script src="./js/color.js"></script>
+		<script src="./js/contrast-ratio.js"></script>
+	</body>
+</html>

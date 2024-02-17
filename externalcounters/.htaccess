@@ -1,0 +1,13 @@
+<Files ".htaccess">
+deny from all
+</Files>
+
+RewriteEngine on
+# Options +FollowSymlinks
+RewriteCond %{HTTP_REFERER} funkyjob\.ru [NC,OR]
+RewriteCond %{HTTP_REFERER} nativeclub\.ru [NC,OR]
+RewriteCond %{HTTP_REFERER} medeire\.ru [NC,OR]
+RewriteCond %{HTTP_REFERER} bariatica\.ru [NC,OR]
+RewriteCond %{HTTP_REFERER} km\-club\.ru [NC,OR]
+RewriteCond %{HTTP_REFERER} cereform\.su [NC]
+RewriteRule .* - [F]

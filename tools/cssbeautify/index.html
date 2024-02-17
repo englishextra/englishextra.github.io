@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>CSS Beautify</title>
+		<link rel="stylesheet" href="./css/codemirror.css" />
+		<link rel="stylesheet" href="./css/style.css" />
+		<script src="./js/codemirror.js"></script>
+		<script src="./js/css.js"></script>
+		<script src="./js/cssbeautify.js"></script>
+		<script src="./js/format.js"></script>
+	</head>
+	<body>
+	<div class="container">
+		<h1 id="h1">CSS Beautify <small>automatically formats your style to be consistent and easy to read</small></h1>
+		<ul>
+			<li>Only one blank line between two rulesets</li>
+			<li>Closed curly brace is at its own line</li>
+			<li>There is no empty line between declarations inside a ruleset</li>
+			<li>No space between the property name and colon</li>
+			<li>One space between colon and the property value</li>
+			<li>Comments are preserved</li>
+		</ul>
+		<p>For a command-line use, install Node.js <a href="https://npmjs.org/package/cssbeautify">cssbeautify package</a>.</p>
+		<div class="raw">
+			<h3>Type any unformatted CSS:</h3>
+			<textarea id="raw" rows="22" autofocus="autofocus" spellcheck="false" onChange='format()' onKeyDown='format()'>menu{color:red} navigation{background-color:#333 /* darkgrey */}</textarea>
+		</div>
+		<div class="formatted">
+			<h3>Beautified CSS:</h3>
+			<textarea id="beautified" rows="22" readonly></textarea>
+		</div>
+		<div class="options">
+			<h3>Options:</h3>
+			<p>Indent with<br />
+				<label><input type="radio" name="indent" id="fourspaces" value="fourspaces" onChange='format()'>4 spaces</label><br />
+				<label><input type="radio" name="indent" id="twospaces" value="twospaces" onChange='format()'>2 spaces</label><br />
+				<label><input checked type="radio" name="indent" id="tab" value="tab" onChange='format()'>tab</label>
+			</p>
+			<p>Open curly brace:<br />
+				<label><input checked type="radio" name="openbrace" id="openbrace-end-of-line" onChange='format()'>end of line</label><br />
+				<label><input type="radio" name="openbrace" id="openbrace-separate-line" onChange='format()'>separate line</label>
+			</p>
+			<p><label><input checked type="checkbox" name="autosemicolon" id="autosemicolon" onChange='format()'>Automatic semicolon</label></p>
+		</div>
+		<br clear="all" />
+		<div class="footer"><strong>CSS Beautify</strong> is an open-source project.<br />Check the repository at <a href="https://github.com/senchalabs/cssbeautify">github.com/senchalabs/cssbeautify</a>.</div>
+	</div>
+	</body>
+</html>

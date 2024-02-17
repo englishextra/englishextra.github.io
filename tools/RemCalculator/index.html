@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Rem Calculator - Offroadcode.com</title>
+		<style>
+			html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,dialog,figure,footer,header,hgroup,menu,nav,section,time,mark,audio,video{margin:0;padding:0;border:0;outline:0;vertical-align:baseline;background:transparent}article,aside,dialog,figure,footer,header,hgroup,nav,section{display:block}nav ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}a{margin:0;padding:0;border:0;vertical-align:baseline;background:transparent}ins,mark{background:#333;color:#fff;text-decoration:none}mark{padding:0 .2em;}del{text-decoration:line-through}abbr[title],dfn[title]{border-bottom:1px dotted #000;cursor:help}table{border-collapse:collapse;border-spacing:0}hr{display:block;height:1px;border:0;border-top:1px solid #ccc;margin:1em 0;padding:0}::-moz-selection,::-webkit-selection,::selection{text-shadow:none;background:#333;color:#fff;}.cf:before,.cf:after{content:"";display:table;}.cf:after{clear:both;}.cf{zoom:1;}[type=submit]{cursor:pointer;}*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}html{font-size:100%;}body{padding:0;margin:3em auto;font-family:'Open Sans',sans-serif;color:#33768D;line-height:1.5;max-width:48em;}input,select,textarea{font-family:inherit;}h1,h2,h3,h4,h5,h6,hgroup,ul,ol,dd,p,figure,pre,table,fieldset,hr{ margin-bottom:24px;margin-bottom:1.5rem;}h1,h2,h3,h4,h5,h6{line-height:normal;}p{font-size:16px;font-size:1rem;margin:0 0 1em 0;overflow:hidden;}a{color:#99E5FF;font-weight:600;text-decoration:underline;}a:hover{text-decoration:none;}[type=input]{padding:.4em;}.checker{background:#33768D;padding:1.000em;color:#fff;}label{display:block;float:left;width:50%;padding-top:.4em;font-weight:800;}input{display:block;float:left;width:50%;padding:0.5em 1.000em;color:#33768D;border:2px solid #E0F7FF;}[type=submit]{background:#E0F7FF;margin-left:50%;font-weight:800;font-size:20px;font-size:1.25rem;}[type=submit]:hover{background:#fff;}#output,[role=contentinfo]{margin-top:2em;clear:both;float:left;display:block;width:100%;}#output li{line-height:2;list-style:none;border-bottom:1px solid #E0F7FF;}#output li:last-child{border:none;}
+		</style>
+	</head>
+	<body>
+		<h1 id="h1">The rem checker</h1>
+		<p>
+			If you use rems for setting font sizes, here's a tiny tool to calculate the rem sizes you need for your css.
+		</p>
+		<div class="checker">
+			<p>
+				<label for="base">Choose your &lt;HTML&gt; font-size (px)</label>
+				<input id="base" type="text" value="16">
+			</p>
+			<p>
+				<label for="pxList">px sizes to convert</label>
+				<input id="pxList" type="text" value="8,9,10,11,12,13,14,15,16,18,20,22,24,26,28,30,32,34,36,38,40,42,46">
+			</p>
+			<p>
+				<input id="calc" type="submit" value="Calculate">
+			</p>
+		</div>
+		<ul id="output"></ul>
+		<footer role="contentinfo"></footer>
+		<script src="./js/jquery.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$("#output").empty();
+				$("#calc").click(function(e) {
+					e.preventDefault();
+					var accuracy = 4;
+					// decimal places
+					var out = $("#output");
+					var base = $("#base").val();
+					var px = $("#pxList").val().split(",");
+					out.empty();
+					$.each(px, function(i, v) {
+						var px = parseInt(v);
+						var rem = parseFloat((px / parseInt(base, 10) ).toPrecision(accuracy));
+						var isBase = (rem === 1) ? " <b>(base)</b>" : "";
+						out.append("<li>" + v + "px = " + rem + "rem" + isBase + "</li>");
+					})
+				})
+			});
+		</script>
+	</body>
+</html>

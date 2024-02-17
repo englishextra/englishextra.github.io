@@ -1,0 +1,257 @@
+*,
+*::before,
+*::after,
+*:focus {
+	-webkit-transition: all .3s ease-in-out;
+	transition: all .3s ease-in-out;
+	text-decoration: none;
+	outline: none;
+	box-shadow: none;
+	border: 0;
+	box-sizing: border-box;
+	-ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+*::-webkit-scrollbar,
+*::before::-webkit-scrollbar,
+*::after::-webkit-scrollbar,
+*:focus::-webkit-scrollbar {
+	width: 0 !important;
+}
+
+body {
+	font-family: 'Slabo 27px', serif;
+	margin: 0;
+	padding: 50px 50px 150px 50px;
+}
+
+ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+li {
+	padding: 2px 0;
+}
+
+p {
+	margin-bottom: 0;
+}
+
+table,
+th,
+td {
+	padding: 10px 15px;
+	border-bottom: 1px solid white;
+}
+
+table {
+	margin-top: 10px;
+	border-collapse: collapse;
+	text-align: left;
+}
+
+th:first-of-type,
+td:first-of-type {
+	border-right: 1px solid white;
+}
+
+.notif-container {
+	position: fixed;
+	top: 10px;
+	right: 10px;
+	z-index: 2;
+}
+
+.notif-container .notif {
+	border-radius: 4px;
+	padding: 10px;
+	margin: 10px 0;
+}
+
+.notif-container .notif li {
+	margin: 0;
+}
+
+.notif-container .slide-fade-enter-active,
+.notif-container .slide-fade-leave-active {
+	-webkit-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+
+.notif-container .slide-fade-enter,
+.notif-container .slide-fade-leave-to {
+	opacity: 0;
+	-webkit-transform: translateX(10px);
+	transform: translateX(10px);
+}
+
+.text {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+}
+
+.text div {
+	-webkit-box-flex: 1;
+	-ms-flex: 1;
+	flex: 1;
+	padding: 0 20px;
+}
+
+.text__left input,
+.text__left textarea {
+	margin: 10px auto;
+	padding: 10px;
+	width: 100%;
+	border-radius: 4px;
+}
+
+.text__left textarea {
+	height: 200px;
+}
+
+.text__right {
+	border-left: 1px solid white;
+}
+
+.text__right ul {
+	margin: 10px 0 20px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid white;
+}
+
+.total {
+	position: -webkit-sticky;
+	position: sticky;
+	top: 0;
+	z-index: 1;
+	margin-bottom: 0;
+	padding: 10px 0;
+	border-bottom: 1px solid white;
+}
+
+.colors {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+}
+
+.colors__list {
+	text-transform: lowercase;
+	-webkit-box-flex: 5;
+	-ms-flex: 5;
+	flex: 5;
+	text-align: center;
+	margin-top: 15px;
+}
+
+.colors__list li {
+	display: inline-block;
+}
+
+.colors__circle {
+	border-radius: 100vw;
+	margin: 0;
+	cursor: pointer;
+}
+
+.colors__circle:hover {
+	-webkit-transform: scale(1.3);
+	transform: scale(1.3);
+	margin: 0 10px;
+}
+
+.colors__sidebar {
+	-webkit-box-flex: 1;
+	-ms-flex: 1;
+	flex: 1;
+	position: relative;
+	border-left: 1px solid white;
+	padding: 20px;
+}
+
+.colors__sidebar-data {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	position: -webkit-sticky;
+	position: sticky;
+	top: 50px;
+}
+
+.colors__sidebar-data .radio {
+	margin-bottom: 20px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid white;
+}
+
+.colors__sidebar-data .radio input[type="radio"] {
+	margin: 10px;
+}
+
+.colors__sidebar-data .range {
+	margin-bottom: 20px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid white;
+}
+
+.colors__sidebar-data .range label {
+	margin-bottom: 5px;
+	display: block;
+}
+
+.colors__sidebar-data .range input[type="range"] {
+	margin: 10px 0;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	width: 100%;
+	height: 7px;
+	border-radius: 100vw;
+}
+
+.colors__sidebar-data .range input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	border-radius: 100vw;
+	border: 3px solid white;
+	width: 20px;
+	height: 20px;
+	background: black;
+	cursor: pointer;
+}
+
+.colors__sidebar-data .range input[type="range"]::-moz-range-thumb {
+	border-radius: 100vw;
+	border: 3px solid white;
+	width: 20px;
+	height: 20px;
+	background: black;
+	cursor: pointer;
+}
+
+.colors__sidebar-data>button {
+	margin-bottom: 10px;
+}
+
+.colors__sidebar-data button {
+	border-radius: 4px;
+	cursor: pointer;
+	width: 100%;
+	padding: 10px;
+}
+
+.colors__sidebar-data ul {
+	padding: 10px;
+	border-radius: 4px;
+}
+
+.colors__sidebar-data li {
+	padding: 5px 0;
+}

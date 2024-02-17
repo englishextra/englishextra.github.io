@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Color Palette Generator</title>
+		<link rel="stylesheet" href="./css/colors.css" />
+		<script src="./js/jquery-1.8.0.min.js"></script>
+		<script src="./js/colors.js"></script>
+	</head>
+	<body>
+		<header id="header">
+			<h1 id="h1">Color Palette Generator</h1>
+			<form id="form">
+				<fieldset>
+					<div><label for="r">R</label><input type="number" name="r" id="r" min="0" max="255"></div>
+					<div><label for="g">G</label><input type="number" name="g" id="g" min="0" max="255"></div>
+					<div><label for="b">B</label><input type="number" name="b" id="b" min="0" max="255"></div>
+				</fieldset>
+				<fieldset>
+					<div><label for="h">H</label><input type="number" name="h" id="h" min="-360" max="360"></div>
+					<div><label for="s">S</label><input type="number" name="s" id="s" min="0" max="100"></div>
+					<div><label for="l">L</label><input type="number" name="l" id="l" min="0" max="100"></div>
+				</fieldset>
+				<fieldset>
+					<div><label for="hex">Hex</label> #<input type="text" name="hex" id="hex" size="6"></div>
+				</fieldset>
+				<fieldset>
+					<div id="labels-fieldset"><label for="labels"><input type="checkbox" name="labels" id="labels" value="true"> show labels</label></div>
+				</fieldset>
+			</form>
+		</header>
+		<section id="content">
+			<div id="groups">
+			</div>
+		</section>
+		<footer id="footer">
+			Color Palette Generator
+			&copy; 2012 Philipp Jardas
+		</footer>
+	</body>
+</html>

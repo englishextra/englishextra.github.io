@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>extractCSS - Online CSS Extractor</title>
+		<link rel="stylesheet" href="./css/normalize.css" />
+		<link rel="stylesheet" href="./css/codemirror.css" />
+		<link rel="stylesheet" href="./css/style.css" />
+	</head>
+	<body>
+		<header>
+			<h1 class="Logo">
+				<a href="/">extractCSS</a>
+			</h1>
+			<div class="Options">
+				<div class="Options__container">
+				<div class="Options__title">Extract:</div>
+				<label for="extract_ids">
+				<input type="checkbox" id="extract_ids" name="extract_ids" checked>
+				<span>IDs</span>
+				</label>
+				<label for="extract_classes">
+				<input type="checkbox" id="extract_classes" name="extract_classes" checked>
+				<span>Classes</span>
+				</label>
+				<label for="extract_inline">
+				<input type="checkbox" id="extract_inline" name="extract_inline" checked>
+				<span>Inline Styles</span>
+				</label>
+				<label for="extract_anonstyle" class="tooltip" data-title="When checked, extracts inline styles from elements without any class and id if element has a parent with a class or id.">
+				<input type="checkbox" id="extract_anonstyle" name="extract_children" checked>
+				<span>Anon. Inline Styles <small>i</small></span>
+				</label>
+				</div>
+				<div class="Options__container">
+				<div class="Options__title">Indent CSS With:</div>
+				<label class="radio" for="fourspaces">
+				<input type="radio" id="fourspaces" name="indent" value="fourspaces" checked>
+				<span>4 spaces</span>
+				</label>
+				<label class="radio" for="twospaces">
+				<input type="radio" id="twospaces" name="indent" value="twospaces">
+				<span>2 spaces</span>
+				</label>
+				<label class="radio" for="tab">
+				<input type="radio" id="tab" name="indent" value="tab">
+				<span>Tab</span>
+				</label>
+				</div>
+				<div class="Options__button">
+				<button id="ExtractButton" type="submit">Extract!</button>
+				</div>
+			</div>
+		</header>
+		<main>
+				<div class="Input">
+					<label for="input">Type or Paste Your HTML:</label>
+					<textarea id="input" name="input"></textarea>
+				</div>
+				<div class="Output">
+					<!--<button class="pure-button pure-button-xsmall" id="select_all">Select All</button>-->
+					<label for="output">Extracted CSS:</label>
+					<textarea id="output" name="output"></textarea>
+				</div>
+		</main>
+		</footer>
+			<p><strong>extractCSS</strong> is an open source project created by <a href="https://github.com/adnantopal" target="_blank">Adnan TOPAL</a>. You can check out the repository at <a href="https://github.com/adnantopal/extractcss" target="_blank">GitHub</a>.</p>
+			<p>If have a suggestion or idea, or have found a bug, please create an issue by going to <a href="https://github.com/adnantopal/extractcss/issues" target="_blank">issues page of github repository</a>.</p>
+		</footer>
+		<script src="./js/extractcss.js"></script>
+		<script src="./js/cssbeautify.js"></script>
+		<script src="./js/codemirror.min.js"></script>
+		<script src="./js/custom.js"></script>
+	</body>
+</html>

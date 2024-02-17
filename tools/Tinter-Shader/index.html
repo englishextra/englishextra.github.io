@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Tinter-Shader</title>
+		<link rel="stylesheet" href="./css/reset.css" />
+		<link rel="stylesheet" href="./css/960.css" />
+		<link rel="stylesheet" href="./css/styles.css" />
+		<script src="./js/jquery.js"></script>
+		<script src="./js/tinter-shader.js"></script>
+	</head>
+	<body>
+		<div class="container_12">
+			<div id="header">
+				<div class="grid_6">
+					<h1 id="h1">Color Tinter-Shader</h1><em>Beta</em>
+					<h2>Choose your colors, then get your tints &amp; shades</h2>
+				</div>
+				<div class="grid_6"></div>
+				<div class="clear"></div>
+			</div>
+			<!-- header -->
+			<div id="wrapper">
+				<div class="grid_3">
+					<h3>1. Enter your color values</h3>
+					<p>
+						Enter your colors as hexadecimal RGB values separated by spaces or returns. For example:
+					</p>
+					<form id="color-entry-form" action="#" method="post" name="color-entry-form">
+						<textarea class="monospace" rows="10" cols="20" id="color-values" name="color-values">C3C3C3
+B9C4C6
+151511
+F23B43
+795658
+F03B4C
+848998
+B92D35
+F14444
+5C7C7C
+959595
+3B94F0
+		</textarea>
+						<h3>2. Get your tints &amp; shades</h3>
+						<input value="Get Tints &amp; Shades!" type="submit">
+					</form>
+				</div><!-- grid_3 -->
+				<div class="grid_9">
+					<div id="shades-tints"></div>
+				</div><!-- grid_9 -->
+				<div class="clear"></div>
+			</div><!-- wrapper -->
+			<div class="clear"></div>
+			<div id="footer">
+				<div class="grid_3">
+					<p>
+						© 2010 High Integrity Design, LLC
+					</p>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<!-- footer -->
+		</div><!-- container_12 -->
+	</body>
+</html>

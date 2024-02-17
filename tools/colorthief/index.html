@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>ColorThief</title>
+		<link rel="stylesheet" href="./css/app.css" />
+		<script src="./js/modernizr.custom.js"></script>
+	</head>
+	<body>
+		<div class="wrapper">
+		<section class="intro">
+		<header>
+		<h1 class="logo">Color Thief</h1>
+		</header>
+		<!-- <h4><a href="https://lokeshdhakar.com">by Lokesh Dhakar</a></small></h4>
+		<p class="description">A script for grabbing the color palette from an image. Uses Javascript and the canvas tag to make it happen.</p>
+		<p class="read-more-links"><a href="https://www.lokeshdhakar.com/color-thief/">Read more about it on my blog</a> or <a href="https://github.com/lokesh/color-thief">get the code on Github</a></p>
+		-->	</section>
+		<!-- 	<section id="examples" class="examples">
+		<header>
+		<h2 class="section-header">Examples</h2>
+		</header>
+	</section> -->
+		<section id="drag-drop" class="drag-drop">
+		<!-- <header>
+		<h2 class="section-header">Try it yourself</h2>
+		</header> -->
+		<div id="drop-zone" class="drop-zone">
+		<div class="drop-zone-label default-label">Drag an image here</div>
+		<div class="drop-zone-label dragging-label">Drop it here!</div>
+		</div>
+		<div id="dragged-images" class="dragged-images"></div>
+		</section>
+		</div>
+		<script src="./js/jquery-2.0.2.min.js"></script>
+		<script src="./js/jquery.lettering.js"></script>
+		<script src="./js/mustache.js"></script>
+		<script src="./js/color-thief.js"></script>
+		<!-- Mustache templates -->
+		<script id='image-section-template' type='text/x-mustache'>
+		{{#images}}
+		<div class="image-section {{class}}">
+		<div class="image-wrap">
+		<button class="run-functions-button">
+		<span class="no-touch-label">Click</span>
+		<span class="touch-label">Tap</span>
+		</button>
+		<img src="{{file}}" class="target-image" />
+		</div>
+		<div class="color-thief-output"></div>
+		</div>
+		{{/images}}
+		</script>
+		<script id="color-thief-output-template" type="text/x-mustache">
+		<div class="function get-color">
+		<h3 class="function-title">Dominant Color</h3>
+		<div class="swatches">
+		<div class="swatch" style="background-color: rgb({{color.0}}, {{color.1}}, {{color.2}})"></div>
+		</div>
+		<div class="function-code">
+		<code>colorThief.getColor(image):{{elapsedTimeForGetColor}}ms</code>
+		</div>
+		</div>
+		<div class="function get-palette">
+		<h3 class="function-title">Palette</h3>
+		<div class="function-output">
+		<div class="swatches">
+		{{#palette}}
+		<div class="swatch" style="background-color: rgb({{0}}, {{1}}, {{2}})"></div>
+		{{/palette}}
+		</div>
+		</div>
+		<div class="function-code">
+		<code>colorThief.getPalette(image):{{elapsedTimeForGetPalette}}ms</code>
+		</div>
+		</div>
+		</script>
+		<script src="./js/demo.js"></script>
+	</body>
+</html>

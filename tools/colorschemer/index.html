@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Online Color Scheme Generator</title>
+		<META NAME="keywords" CONTENT="web page design - color - scheme - color scheme - color schemer - colorschemer - rgb - hex - web color - html color - color pick - pick - picker">
+		<META NAME="description" CONTENT="Generate matching color schemes like never before!">
+		<link rel="stylesheet" href="./css/default.css" />
+		<script src="./js/funcs.js"></script>
+	</head>
+	<body bgcolor="#FCFCF9" text="#000000" marginheight="0" marginwidth="0" leftmargin="0" topmargin="0" rightmargin="0" onLoad="ChangeColors(51,102,255);">
+		<div ID="Header">
+			<table cellspacing="0" cellpadding="0" border="0">
+				<tr><td>&#160;</td><td><img src="./header.gif" width="255" height="30" alt="" border="0" /></td></tr>
+				<tr><td colspan="2"><div class="headSmall">Enter an RGB or HEX value, or click on the Color Palette below</div></td></tr>
+			</table>
+		</div>
+		<div ID="ColorInput">
+			<div class="sideHead">Current Color</div>
+			<div class="currentBorder"><div ID="currentColor">&#160;</div></div>
+			<form name="codes" id="codes">
+				<div class="currentBorder">
+					<div class="navBox">
+						<table align="center" cellspacing="0" cellpadding="0" border="0">
+							<tr>
+								<td>R:</td>
+								<td><input type="text" name="r" value="0" maxlength="3" class="rgbBox"></td>
+							</tr>
+							<tr>
+								<td>G:</td>
+								<td><input type="text" name="g" value="0" maxlength="3" class="rgbBox"></td>
+							</tr>
+							<tr>
+								<td>B:</td>
+								<td><input type="text" name="b" value="0" maxlength="3" class="rgbBox"></td>
+							</tr>
+							<tr>
+								<td colspan="2"><input type="button" class="button" value="Set RGB" onClick="ChangeColors(document.getElementById('codes').r.value,document.getElementById('codes').g.value,document.getElementById('codes').b.value);"></td>
+							</tr>
+							<tr>
+								<td colspan="2">#<input type="text" class="hexBox" name="hex" value="000000" maxlength="6"></td>
+							</tr>
+							<tr>
+								<td colspan="2"><input type="button" class="button" value="Set HEX" onClick="SetHex(document.getElementById('codes').hex.value);"></td>
+							</tr>
+						</table>
+						<input type="button" class="button" value="Lighten Scheme" onClick="LightenScheme();" style="margin-bottom: 0px;">
+						<input type="button" class="button" value="Darken Scheme" onClick="DarkenScheme();">
+					</div></div>
+			</form>
+		</div>
+		<div ID="Wheel" align="center">
+			<div ID="swatch0" class="swatch">
+				<div class="border"><div ID="0" class="color" onClick="SetHex(this.style.backgroundColor);">&#160;</div></div>
+				<div ID="0RGB" class="rgb">255.255.255</div>
+				<div ID="0HEX" class="hex">#FFFFFF</div>
+			</div>
+			<div ID="swatch1" class="swatch">
+				<div class="border"><div ID="1" class="color" onClick="SetHex(this.style.backgroundColor);">&#160;</div></div>
+				<div ID="1RGB" class="rgb">255.255.255</div>
+				<div ID="1HEX" class="hex">#FFFFFF</div>
+			</div>
+			<div ID="swatch2" class="swatch">
+				<div class="border"><div ID="2" class="color" onClick="SetHex(this.style.backgroundColor);">&#160;</div></div>
+				<div ID="2RGB" class="rgb">255.255.255</div>
+				<div ID="2HEX" class="hex">#FFFFFF</div>
+			</div>
+			<div ID="swatch3" class="swatch">
+				<div class="border"><div ID="3" class="color" onClick="SetHex(this.style.backgroundColor);">&#160;</div></div>
+				<div ID="3RGB" class="rgb">255.255.255</div>
+				<div ID="3HEX" class="hex">#FFFFFF</div>
+			</div>
+			<div ID="swatch4" class="swatch">
+				<div class="border"><div ID="4" class="color" onClick="SetHex(this.style.backgroundColor);">&#160;</div></div>
+				<div ID="4RGB" class="rgb">255.255.255</div>
+				<div ID="4HEX" class="hex">#FFFFFF</div>
+			</div>
+			<div ID="swatch5" class="swatch">
+				<div class="border"><div ID="5" class="color" onClick="SetHex(this.style.backgroundColor);">&#160;</div></div>
+				<div ID="5RGB" class="rgb">255.255.255</div>
+				<div ID="5HEX" class="hex">#FFFFFF</div>
+			</div>
+			<div ID="swatch6" class="swatch">
+				<div class="border"><div ID="6" class="color" onClick="SetHex(this.style.backgroundColor);">&#160;</div></div>
+				<div ID="6RGB" class="rgb">255.255.255</div>
+				<div ID="6HEX" class="hex">#FFFFFF</div>
+			</div>
+			<div ID="swatch7" class="swatch">
+				<div class="border"><div ID="7" class="color" onClick="SetHex(this.style.backgroundColor);">&#160;</div></div>
+				<div ID="7RGB" class="rgb">255.255.255</div>
+				<div ID="7HEX" class="hex">#FFFFFF</div>
+			</div>
+			<div ID="swatch8" class="swatch">
+				<div class="border"><div ID="8" class="color" onClick="SetHex(this.style.backgroundColor);">&#160;</div></div>
+				<div ID="8RGB" class="rgb">255.255.255</div>
+				<div ID="8HEX" class="hex">#FFFFFF</div>
+			</div>
+			<div ID="swatch9" class="swatch">
+				<div class="border"><div ID="9" class="color" onClick="SetHex(this.style.backgroundColor);">&#160;</div></div>
+				<div ID="9RGB" class="rgb">255.255.255</div>
+				<div ID="9HEX" class="hex">#FFFFFF</div>
+			</div>
+			<div ID="swatch10" class="swatch">
+				<div class="border"><div ID="10" class="color" onClick="SetHex(this.style.backgroundColor);">&#160;</div></div>
+				<div ID="10RGB" class="rgb">255.255.255</div>
+				<div ID="10HEX" class="hex">#FFFFFF</div>
+			</div>
+			<div ID="swatch11" class="swatch">
+				<div class="border"><div ID="11" class="color" onClick="SetHex(this.style.backgroundColor);">&#160;</div></div>
+				<div ID="11RGB" class="rgb">255.255.255</div>
+				<div ID="11HEX" class="hex">#FFFFFF</div>
+			</div>
+			<div ID="swatchm1" class="swatch">
+				<div class="border"><div ID="m1" class="color" onClick="SetHex(this.style.backgroundColor);">&#160;</div></div>
+				<div ID="m1RGB" class="rgb">255.255.255</div>
+				<div ID="m1HEX" class="hex">#FFFFFF</div>
+			</div>
+			<div ID="swatchm2" class="swatch">
+				<div class="border"><div ID="m2" class="color" onClick="SetHex(this.style.backgroundColor);">&#160;</div></div>
+				<div ID="m2RGB" class="rgb">255.255.255</div>
+				<div ID="m2HEX" class="hex">#FFFFFF</div>
+			</div>
+			<div ID="swatchm3" class="swatch">
+				<div class="border"><div ID="m3" class="color" onClick="SetHex(this.style.backgroundColor);">&#160;</div></div>
+				<div ID="m3RGB" class="rgb">255.255.255</div>
+				<div ID="m3HEX" class="hex">#FFFFFF</div>
+			</div>
+			<div ID="swatchm4" class="swatch">
+				<div class="border"><div ID="m4" class="color" onClick="SetHex(this.style.backgroundColor);">&#160;</div></div>
+				<div ID="m4RGB" class="rgb">255.255.255</div>
+				<div ID="m4HEX" class="hex">#FFFFFF</div>
+			</div>
+		</div>
+		<script>DrawPalette();</script>
+	</body>
+</html>

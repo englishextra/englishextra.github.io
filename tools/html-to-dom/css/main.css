@@ -1,0 +1,222 @@
+#source {
+	width: 100%;
+	min-height: 200px;
+	max-height: 400px;
+}
+
+#result {
+	display: block;
+	max-width: 100%;
+	min-height: 100px;
+	height: 200px;
+	overflow: auto;
+	resize: vertical;
+	border-radius: 5px;
+	word-wrap: break-word;
+}
+	#result > code {
+	min-width: 100%;
+	max-width: 100%;
+	min-height: 100%;
+	max-height: 100%;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+	#result.empty + .result-pops {
+	display: none;
+}
+	#result:not(.empty):hover + .result-pops > span {
+	opacity: 1;
+	background-color: #ddd;
+	background-image: linear-gradient(#eee, #ddd);
+	border-color: #ccc;
+}
+
+.result-container .result-pops {
+	position: absolute;
+	top: 0;
+	right: 20px;
+	padding-top: 2px;
+	transform: translate(0, 100%);
+}
+
+.result-pops {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	justify-content: flex-end;
+}
+	.result-pops:hover > span {
+	opacity: 1;
+}
+	.result-pops > span {
+	background-color: #d5d5d5;
+	border-radius: 7.5%;
+	color: #000000;
+	background-color: #eee;
+	background-image: linear-gradient(#fcfcfc, #eee);
+	border: 1px solid #d5d5d5;
+	opacity: 0;
+	transition: opacity .3s ease-in-out;
+}
+	.result-pops > span:hover {
+	 opacity: 1;
+	 background-color: #ddd;
+	 background-image: linear-gradient(#eee, #ddd);
+	 border-color: #ccc;
+}
+
+form.form .form-group {
+	min-height: 160px;
+	align-content: center;
+	justify-content: center;
+}
+	form.form .form-group > .custom-control,
+	form.form .form-group > .input-group,
+	form.form .form-group > .form-control,
+	form.form .form-group > label {
+	min-width: 51%;
+}
+	form.form .form-group .form-text {
+	min-width: 51%;
+	text-align: justify;
+}
+	form.form .form-group.is-invalid .invalid-feedback {
+	display: flex;
+	align-content: center;
+	justify-content: center;
+}
+	form.form .form-group.is-valid .valid-feedback {
+	display: flex;
+	align-content: center;
+	justify-content: center;
+}
+
+form.form .form-actions {
+	width: 100%;
+}
+	form.form .form-actions .form-group {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	justify-content: flex-start;
+}
+@media (max-width: 991.98px) {
+	 form.form .form-actions .form-group {
+		align-items: center;
+		justify-content: center; }
+}
+	form.form .form-actions .form-group > * {
+	 margin: 0 5px;
+}
+	 @media (max-width: 991.98px) {
+		form.form .form-actions .form-group > * {
+		 margin: 10px 5px; }
+}
+	 form.form .form-actions .form-group > *:first-child {
+		margin-left: 0;
+}
+	 form.form .form-actions .form-group > *:last-child {
+		margin-right: 0;
+}
+
+footer {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	background: #343a40;
+}
+	footer p {
+	color: #FFFFFF;
+}
+	footer p a {
+	 color: #80bdff;
+}
+
+.form-group.is-invalid .invalid-feedback {
+	display: block;
+}
+
+form.form .error-block {
+	width: 100%;
+	color: red;
+	text-align: center;
+	font-size: 18px;
+}
+
+h1 small {
+	font-size: 60%;
+}
+
+body.fullscreen {
+	overflow: hidden;
+}
+
+#source-popup {
+	transform: scale(0);
+	transition: all .4s ease-in-out;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	min-width: 100%;
+	min-height: 100%;
+	max-width: 100%;
+	max-height: 100%;
+	overflow: hidden;
+}
+	#source-popup:not(.hidden) {
+	transform: scale(1);
+	background: rgba(58, 58, 58, 0.5);
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-items: center;
+}
+	#source-popup:not(.hidden) pre {
+	 display: block;
+	 width: 100%;
+	 min-width: 100%;
+	 height: 90%;
+	 max-height: 90%;
+}
+	 #source-popup:not(.hidden) pre > code {
+		min-width: 100%;
+		max-width: 100%;
+		min-height: 100%;
+		max-height: 100%;
+		padding-top: 0;
+		padding-bottom: 0;
+}
+	#source-popup:not(.hidden) #popup-close {
+	 align-self: flex-end;
+	 justify-self: end;
+	 position: relative;
+	 top: 5px;
+	 right: -100%;
+	 transform: translate(-100%, -50%);
+}
+	#source-popup #result-popup:hover + .result-pops > span {
+	opacity: 1;
+}
+	#source-popup .result-pops {
+	position: relative;
+	top: -95%;
+	left: calc( 95% - 15px);
+	padding-top: 10px;
+	transform: translate(0, 10%);
+}
+	#source-popup._hiding {
+	transform: scale(0);
+}
+	#source-popup.hidden pre {
+	display: none;
+}
+
+/*# sourceMappingURL=main.css.map */

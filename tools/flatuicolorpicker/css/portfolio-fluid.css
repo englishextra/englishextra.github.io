@@ -1,0 +1,53 @@
+.page-wrap {clear:both; /*float:right; padding:0; top:2em; z-index:1000; position:relative; right:0px; text-transform:uppercase; text-align:right; */
+	left: 0;
+	width: 100%;
+	z-index: 9999;
+/* flexbox setup */
+
+}
+
+.grid
+{
+	width: 20%;
+	padding-bottom: 18%;
+	color: #151515;
+	position: relative;
+	float: left;
+	top:45px;
+	bottom: 0;
+	margin:0;
+	 list-style:none;
+	}
+
+	.item
+{
+	position: absolute;
+	margin:0;
+	left: 0;
+	right: 0;
+	top:0;
+	bottom: 0;
+	text-align: center;
+	text-transform: uppercase;
+	padding: 35%;
+}
+
+.item:hover
+{
+	display: inline;
+	z-index: 999;
+	overflow: hidden;
+/*
+	overflow-x:hidden;
+	overflow-y:hidden;
+ */
+cursor: pointer;
+-webkit-transform: scale(1);
+	-moz-transform: scale(1);
+	-o-transform: scale(1);
+	transform: scale(1);
+	-webkit-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
+	box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
+
+}

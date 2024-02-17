@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Github Release Stats</title>
+		<link rel="stylesheet" href="./css/bootstrap.min.css" />
+		<link rel="stylesheet" href="./css/main.css" />
+	</head>
+	<body>
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="."> <span class="glyphicon glyphicon-stats"></span>&nbsp;
+					Github Release Stats </a>
+				</div>
+				<div class="collapse navbar-collapse" id="main-navbar">
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<a href="https://github.com/Somsubhra/github-release-stats" target="_blank"> <span class="glyphicon glyphicon-eye-open"></span>&nbsp;
+							View project on Github </a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4 col-md-offset-4">
+					<h1 id="h1">Enter project details...</h1>
+					<div class="form form-inline">
+						<div class="form-group">
+							<input type="text" class="form-control" id="username" placeholder="Github username" value="englishextra">
+						</div>
+						<div class="form-group">
+							<input type="search" autocomplete="true" class="form-control" id="repository" placeholder="Repository name" value="englishextra-app">
+							<!-- <select class="form-control" name="repository" id="repository">
+							<optgroup label="English Learners">
+							<option value="englishextra-app" selected="selected">englishextra-app</option>
+							<option value="englishgrammartips">englishgrammartips</option>
+							<option value="irrverbsscr">irrverbsscr</option>
+							</optgroup>
+							</select> -->
+						</div>
+						<button class="btn btn-primary" id="get-stats-button">
+							Get the latest release stats!
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="row" id="description">
+				<h1 id="h1">...and get the latest release stats like download counts, release dates, authors for any Github project.</h1>
+			</div>
+			<div class="row" id="stats-result"></div>
+			<div id="loader-gif">
+				<img src="img/gif-load.gif">
+			</div>
+		</div>
+		<div id="footer">
+			<div class="container">
+				Made with <span class="glyphicon glyphicon-heart"></span> by <a href="https://somsubhra.com" target="_blank">Somsubhra</a>
+			</div>
+		</div>
+		<script src="./js/jquery-1.11.1.min.js"></script>
+		<script src="./js/bootstrap.min.js"></script>
+		<script src="./js/bootstrap3-typeahead.min.js"></script>
+		<script src="./js/main.js"></script>
+	</body>
+</html>

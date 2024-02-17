@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>PX to EM converter</title>
+		<style>
+			textarea {
+				width: 100%;
+				height: 500px;
+			}
+		</style>
+	</head>
+	<body>
+	<form action="javascript:void(0);" method="get">
+		<label for="base">base size:
+			<select name="base" id="base">
+				<option value="14">14</option>
+				<option value="15" selected="selected">15</option>
+				<option value="16">16</option>
+			</select>
+		</label>
+		<button id="button">Convert PX to EM</button>
+		<textarea id="textarea"></textarea>
+	</form>
+		<script>
+			function getUrlVars() {
+				var vars = [],
+					hash;
+				var hashes = window.location.href.slice(window.location.href.indexOf("?") + 1).split("&");
+				for (var i = 0; i < hashes.length; i++) {
+					hash = hashes[i].split("=");
+					vars.push(hash[0]);
+					vars[hash[0]] = hash[1];
+				}
+				return vars;
+			}
+			function round(base, num) {
+				var leadingZero = "";
+				//base 1.2345 num .2345
+				num = num.toString();
+				//remove . from num, num 2345
+				num = num.substring(1, num.length);
+				//if first char is zero 0234, remember it and substring 0, because Math will ignore it when round
+				if (num.charAt(0) == 0) {
+					leadingZero = "0";
+					num = num.substring(1, num.length);
+				}
+				//make last point as decimal places, so Math can round it, num 234.5
+				num = num.replace(last, ".$1");
+				//round num 234.5 -> 235
+				num = Math.round(num);
+				//take only base value, base 1
+				base = base.toString().split(".")[0];
+				//concanate base and rounded decimal, 1 . 235
+				return base + "." + leadingZero + num;
+			}
+			var button = document.getElementById("button") || "";
+			var textarea = document.getElementById("textarea") || "";
+			if (button && textarea) {
+				var basePxSize = getUrlVars()["base"] || 16;
+				var decimalPlaces = 3;
+				////////////////////////////////////////
+				var findPX = new RegExp("(\\d+)px", "g");
+				//define decimalPlaces + 1, to round it if there are more places
+				var decPlaces = new RegExp("(\.\\d{" + decimalPlaces + "}\\d).*", "");
+				var last = new RegExp("(\\d$)", "");
+				button.addEventListener("click", function() {
+					var css = textarea.value || "";
+					var result;
+					while ((result = findPX.exec(css)) !== null) {
+						var px = parseInt(result[1]);
+						var em = px / basePxSize;
+						//find decimal places defined in decimalPlaces variable
+						//if there is more decimal places, round it
+						result = decPlaces.exec(em);
+						if (result !== null) {
+							em = round(em, result[1]);
+						}
+						css = css.replace(px + "px", em + "em");
+					}
+					textarea.value = css;
+				});
+			}
+		</script>
+	</body>
+</html>

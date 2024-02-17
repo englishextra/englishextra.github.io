@@ -1,0 +1,675 @@
+<Files ".htaccess">
+deny from all
+</Files>
+
+# https://github.com/h5bp/html5-boilerplate/wiki/htaccess
+
+# Apache configuration file
+# httpd.apache.org/docs/2.2/mod/quickreference.html
+
+# Note .htaccess files are an overhead, this logic should be in your Apache config if possible
+# httpd.apache.org/docs/2.2/howto/htaccess.html
+
+# Techniques in here adapted from all over, including:
+# Kroc Camen: camendesign.com/.htaccess
+# perishablepress.com/press/2006/01/10/stupid-htaccess-tricks/
+# Sample .htaccess file of CMS MODx: modxcms.com
+
+# If you run a webserver other than Apache, consider:
+# github.com/h5bp/server-configs
+
+# shimansky - SSI
+Options +Includes
+AddType "text/html; charset=UTF-8" .shtml .html .xhtml .php
+AddOutputFilter INCLUDES .shtml .html .xhtml .php
+
+<IfModule mod_headers.c>
+	<FilesMatch "\.(js|css|xml|svg|gz|html)$">
+		Header append Vary: Accept-Encoding
+	</FilesMatch>
+</IfModule>
+
+# ----------------------------------------------------------------------
+# Better website experience for IE users
+# ----------------------------------------------------------------------
+
+# Force the latest IE version, in various cases when it may fall back to IE7 mode
+# github.com/rails/rails/commit/123eb25#commitcomment-118920
+# Use ChromeFrame if it's installed for a better experience for the poor IE folk
+
+<IfModule mod_headers.c>
+	Header set X-UA-Compatible "IE=Edge,chrome=1"
+	# mod_headers can't match by content-type, but we don't want to send this header on *everything*...
+	<FilesMatch "\.(js|css|gif|png|jpe?g|pdf|xml|oga|ogg|m4a|ogv|mp4|m4v|webm|svg|svgz|eot|ttf|otf|woff|ico|webp|appcache|manifest|htc|crx|oex|xpi|safariextz|vcf)$" >
+	Header unset X-UA-Compatible
+	</FilesMatch>
+</IfModule>
+
+# ----------------------------------------------------------------------
+# Cross-domain AJAX requests
+# ----------------------------------------------------------------------
+
+# Serve cross-domain Ajax requests, disabled by default.
+# enable-cors.org
+# code.google.com/p/html5security/wiki/CrossOriginRequestSecurity
+
+# 	<IfModule mod_headers.c>
+# 	Header set Access-Control-Allow-Origin "*"
+# 	</IfModule>
+
+# ----------------------------------------------------------------------
+# CORS-enabled images (@crossorigin)
+# ----------------------------------------------------------------------
+
+# Send CORS headers if browsers request them; enabled by default for images.
+# developer.mozilla.org/en/CORS_Enabled_Image
+# blog.chromium.org/2011/07/using-cross-domain-images-in-webgl-and.html
+# hacks.mozilla.org/2011/11/using-cors-to-load-webgl-textures-from-cross-domain-images/
+# wiki.mozilla.org/Security/Reviews/crossoriginAttribute
+
+<IfModule mod_setenvif.c>
+	<IfModule mod_headers.c>
+	# mod_headers, y u no match by Content-Type?!
+	<FilesMatch "\.(gif|png|jpe?g|svg|svgz|ico|webp)$">
+	SetEnvIf Origin ":" IS_CORS
+	Header set Access-Control-Allow-Origin "*" env=IS_CORS
+	</FilesMatch>
+	</IfModule>
+</IfModule>
+
+# ----------------------------------------------------------------------
+# Webfont access
+# ----------------------------------------------------------------------
+
+# Allow access from all domains for webfonts.
+# Alternatively you could only whitelist your
+# subdomains like "subdomain.example.com".
+
+<IfModule mod_headers.c>
+	<FilesMatch "\.(ttf|ttc|otf|eot|woff|woff2|font.css)$">
+	Header set Access-Control-Allow-Origin "*"
+	</FilesMatch>
+</IfModule>
+
+# shimansky - INDEX
+DirectoryIndex index.php index.html index.htm home.xhtml home.shtml serviceunavailable.html
+
+# ----------------------------------------------------------------------
+# Proper MIME type for all files
+# ----------------------------------------------------------------------
+
+# shimansky - ADDTYPE
+AddType application/x-httpd-php .php .xhtml .inc .class
+
+# shimansky - http://habrahabr.ru/post/145269/
+AddType text/cache-manifest .appcache
+
+# JavaScript
+# Normalize to standard type (it's sniffed in IE anyways)
+# tools.ietf.org/html/rfc4329#section-7.2
+AddType application/javascript		 js
+
+# Audio
+# http://habrahabr.ru/post/148368/
+AddType audio/mpeg		mp3
+AddType audio/ogg		oga ogg
+AddType audio/mp4		m4a
+
+# Video
+AddType video/ogg		ogv
+AddType video/mp4		mp4 m4v
+AddType video/webm		webm
+
+# SVG
+# Required for svg webfonts on iPad
+# twitter.com/FontSquirrel/status/14855840545
+AddType	 image/svg+xml		 svg svgz
+AddEncoding gzip		svgz
+
+# Webfonts
+AddType application/vnd.ms-fontobject eot
+AddType application/x-font-ttf		 ttf ttc
+AddType font/opentype		otf
+AddType application/x-font-woff		woff
+
+# Assorted types
+AddType image/x-icon		ico
+AddType image/webp		webp
+AddType text/cache-manifest		appcache manifest
+AddType text/x-component		htc
+AddType application/x-chrome-extension	 crx
+AddType application/x-opera-extension	 oex
+AddType application/x-xpinstall		xpi
+AddType application/octet-stream		safariextz
+AddType application/x-web-app-manifest+json webapp
+AddType text/x-vcard		vcf
+
+# ----------------------------------------------------------------------
+# Allow concatenation from within specific js and css files
+# ----------------------------------------------------------------------
+
+# e.g. Inside of script.combined.js you could have
+# 	<!--#include file="libs/jquery-1.5.0.min.js" -->
+# 	<!--#include file="plugins/jquery.idletimer.js" -->
+# and they would be included into this single file.
+
+# This is not in use in the boilerplate as it stands. You may
+# choose to name your files in this way for this advantage or
+# concatenate and minify them manually.
+# Disabled by default.
+
+# <FilesMatch "\.combined\.js$">
+# Options +Includes
+# AddOutputFilterByType INCLUDES application/javascript application/json
+# SetOutputFilter INCLUDES
+# </FilesMatch>
+# <FilesMatch "\.combined\.css$">
+# Options +Includes
+# AddOutputFilterByType INCLUDES text/css
+# SetOutputFilter INCLUDES
+# </FilesMatch>
+
+# ----------------------------------------------------------------------
+# Gzip compression
+# ----------------------------------------------------------------------
+
+<IfModule mod_deflate.c>
+
+	# Force deflate for mangled headers developer.yahoo.com/blogs/ydn/posts/2010/12/pushing-beyond-gzipping/
+	<IfModule mod_setenvif.c>
+	<IfModule mod_headers.c>
+	SetEnvIfNoCase ^(Accept-EncodXng|X-cept-Encoding|X{15}|~{15}|-{15})$ ^((gzip|deflate)\s*,?\s*)+|[X~-]{4,13}$ HAVE_Accept-Encoding
+	RequestHeader append Accept-Encoding "gzip,deflate" env=HAVE_Accept-Encoding
+	</IfModule>
+	</IfModule>
+
+	# HTML, TXT, CSS, JavaScript, JSON, XML, HTC:
+	<IfModule filter_module>
+	FilterDeclare COMPRESS
+	FilterProvider COMPRESS DEFLATE resp=Content-Type $text/html
+	FilterProvider COMPRESS DEFLATE resp=Content-Type $text/css
+	FilterProvider COMPRESS DEFLATE resp=Content-Type $text/plain
+	FilterProvider COMPRESS DEFLATE resp=Content-Type $text/xml
+	FilterProvider COMPRESS DEFLATE resp=Content-Type $text/x-component
+	FilterProvider COMPRESS DEFLATE resp=Content-Type $application/javascript
+	FilterProvider COMPRESS DEFLATE resp=Content-Type $application/json
+	FilterProvider COMPRESS DEFLATE resp=Content-Type $application/xml
+	FilterProvider COMPRESS DEFLATE resp=Content-Type $application/xhtml+xml
+	FilterProvider COMPRESS DEFLATE resp=Content-Type $application/rss+xml
+	FilterProvider COMPRESS DEFLATE resp=Content-Type $application/atom+xml
+	FilterProvider COMPRESS DEFLATE resp=Content-Type $application/vnd.ms-fontobject
+	FilterProvider COMPRESS DEFLATE resp=Content-Type $image/svg+xml
+	FilterProvider COMPRESS DEFLATE resp=Content-Type $image/x-icon
+	FilterProvider COMPRESS DEFLATE resp=Content-Type $application/x-font-ttf
+	FilterProvider COMPRESS DEFLATE resp=Content-Type $font/opentype
+	FilterChain	 COMPRESS
+	FilterProtocol COMPRESS DEFLATE change=yes;byteranges=no
+	</IfModule>
+
+	<IfModule !mod_filter.c>
+	# Legacy versions of Apache
+	AddOutputFilterByType DEFLATE text/html text/plain text/css application/json
+	AddOutputFilterByType DEFLATE application/javascript
+	AddOutputFilterByType DEFLATE text/xml application/xml text/x-component
+	AddOutputFilterByType DEFLATE application/xhtml+xml application/rss+xml application/atom+xml
+	AddOutputFilterByType DEFLATE image/x-icon image/svg+xml application/vnd.ms-fontobject application/x-font-ttf font/opentype
+	</IfModule>
+
+</IfModule>
+
+# ----------------------------------------------------------------------
+# Expires headers (for better cache control)
+# ----------------------------------------------------------------------
+
+# These are pretty far-future expires headers.
+# They assume you control versioning with cachebusting query params like
+# 	<script src="application.js?20100608">
+# Additionally, consider that outdated proxies may miscache
+# www.stevesouders.com/blog/2008/08/23/revving-filenames-dont-use-querystring/
+
+# If you don't use filenames to version, lower the CSS and JS to something like
+# "access plus 1 week" or so.
+
+<IfModule mod_expires.c>
+	ExpiresActive on
+
+# Perhaps better to whitelist expires rules? Perhaps.
+	ExpiresDefault		"access plus 1 month"
+
+# cache.appcache needs re-requests in FF 3.6 (thanks Remy ~Introducing HTML5)
+	ExpiresByType text/cache-manifest	 "access plus 0 seconds"
+
+# Your document html
+	ExpiresByType text/html		"access plus 0 seconds"
+
+# Data
+	ExpiresByType text/xml		"access plus 0 seconds"
+	ExpiresByType application/xml		 "access plus 0 seconds"
+	ExpiresByType application/json		 "access plus 0 seconds"
+
+# Feed
+	ExpiresByType application/rss+xml	 "access plus 1 hour"
+	ExpiresByType application/atom+xml	 "access plus 1 hour"
+
+# Favicon (cannot be renamed)
+	ExpiresByType image/x-icon		 "access plus 1 week"
+
+# Media: images, video, audio
+# shimansky - counters are gif images: they shouldn't expire?!
+	ExpiresByType image/gif		"access plus 0 seconds"
+	ExpiresByType image/png		"access plus 0 seconds"
+	ExpiresByType image/jpg		"access plus 0 seconds"
+	ExpiresByType image/jpeg		"access plus 0 seconds"
+	ExpiresByType video/ogg		"access plus 1 month"
+	ExpiresByType audio/ogg		"access plus 1 month"
+	# http://habrahabr.ru/post/148368/
+	ExpiresByType audio/mpeg		"access plus 1 month"
+	ExpiresByType video/mp4		"access plus 1 month"
+	ExpiresByType video/webm		"access plus 1 month"
+
+# HTC files (css3pie)
+	ExpiresByType text/x-component		 "access plus 1 month"
+
+# Webfonts
+	ExpiresByType application/x-font-ttf	"access plus 1 month"
+	ExpiresByType font/opentype		"access plus 1 month"
+	ExpiresByType application/x-font-woff "access plus 1 month"
+	ExpiresByType image/svg+xml		"access plus 1 month"
+	ExpiresByType application/vnd.ms-fontobject "access plus 1 month"
+
+# CSS and JavaScript
+# ExpiresByType text/css		"access plus 1 day"
+# ExpiresByType application/javascript	"access plus 1 day"
+	ExpiresByType text/css		"access plus 1 day"
+	ExpiresByType application/javascript	"access plus 1 day"
+
+</IfModule>
+
+# ----------------------------------------------------------------------
+# ETag removal
+# ----------------------------------------------------------------------
+
+# FileETag None is not enough for every server.
+<IfModule mod_headers.c>
+	Header unset ETag
+</IfModule>
+
+# Since we're sending far-future expires, we don't need ETags for
+# static content.
+# developer.yahoo.com/performance/rules.html#etags
+FileETag None
+
+# ----------------------------------------------------------------------
+# Stop screen flicker in IE on CSS rollovers
+# ----------------------------------------------------------------------
+
+# The following directives stop screen flicker in IE on CSS rollovers - in
+# combination with the "ExpiresByType" rules for images (see above). If
+# needed, un-comment the following rules.
+
+# BrowserMatch "MSIE" brokenvary=1
+# BrowserMatch "Mozilla/4.[0-9]{2}" brokenvary=1
+# BrowserMatch "Opera" !brokenvary
+# SetEnvIf brokenvary 1 force-no-vary
+
+# ----------------------------------------------------------------------
+# Cookie setting from iframes
+# ----------------------------------------------------------------------
+
+# Allow cookies to be set from iframes (for IE only)
+# If needed, uncomment and specify a path or regex in the Location directive
+
+<IfModule mod_headers.c>
+Header set P3P "policyref=\"/w3c/p3p.xml\", CP=\"IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT\""
+</IfModule>
+
+# ----------------------------------------------------------------------
+# Start rewrite engine
+# ----------------------------------------------------------------------
+
+# Turning on the rewrite engine is necessary for the following rules and features.
+# FollowSymLinks must be enabled for this to work.
+
+<IfModule mod_rewrite.c>
+	Options +FollowSymlinks
+	RewriteEngine On
+	RewriteBase /
+
+# RedirectMatch 301 /index\.html https://englishextra.github.io/index.html
+# RedirectMatch 301 /pages/(.*)\.(html) https://englishextra.github.io/pages/$1.html
+
+RewriteCond %{HTTP_USER_AGENT} ^GbPlugin
+RewriteRule .* - [F]
+
+#if the request came from foo.com
+#RewriteCond %{HTTP_REFERER} ^http://foo\.com$
+#then serve it a 403 Forbidden
+#RewriteRule .* - [F]
+
+#RewriteRule ^m/pages/(.*) /pages/$1 [R=301,L]
+
+RewriteCond %{REQUEST_URI} pages/products_sourceforge_londonpictures\.html$
+RewriteRule .* - [F]
+
+RewriteCond %{REQUEST_URI} pages/products_sourceforge_iv-scr-en-ru\.html$
+RewriteRule .* - [F]
+
+RewriteCond %{REQUEST_URI} dl/pdf
+RewriteRule .* - [F]
+
+#RewriteRule ^css/global.css?$ scripts/minify/?type=css&load=global [L]
+#RewriteRule ^js/top.js?$ scripts/minify/?type=js&load=top [L]
+
+#RewriteCond %{HTTP_USER_AGENT} android|avantgo|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge\ |maemo|midp|mmp|opera\ m(ob|in)i|palm(\ os)?|phone|p(ixi|re)\/|plucker|pocket|psp|symbian|treo|up\.(browser|link)|vodafone|wap|windows\ (ce|phone)|xda|xiino [NC,OR]
+#RewriteCond %{HTTP_USER_AGENT} ^(1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a\ wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r\ |s\ )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1\ u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp(\ i|ip)|hs\-c|ht(c(\-|\ |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac(\ |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt(\ |\/)|klon|kpt\ |kwc\-|kyo(c|k)|le(no|xi)|lg(\ g|\/(k|l|u)|50|54|e\-|e\/|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(di|rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-|\ |o|v)|zz)|mt(50|p1|v\ )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v\ )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-|\ )|webc|whit|wi(g\ |nc|nw)|wmlb|wonu|x700|xda(\-|2|g)|yas\-|your|zeto|zte\-) [NC]
+# RewriteRule ^$ http://www.example.com/mobile [R,L]
+
+# shimansky - MAIN REWRITE RULES
+# RewriteRule ^(css|js)/([0-9a-z]+)\.(css|js)?$ $1/?static=$1/$2.$3&type=$3 [L]
+
+# RewriteRule ^archives/([0-9]+)\.html?$ blog/?archive=$1 [L]
+# RewriteRule ^archives/([0-9]+)/?$ blog/?archive=$1 [L]
+# RewriteRule ^archives/([0-9]+)?$ blog/?archive=$1 [L]
+
+# RewriteRule ^mobile/archive/([0-9]+)\.html?$ blog/?archive=$1 [L]
+# RewriteRule ^mobile/archive/([0-9]+)/?$ blog/?archive=$1 [L]
+# RewriteRule ^mobile/archive/([0-9]+)?$ blog/?archive=$1 [L]
+</IfModule>
+
+# ----------------------------------------------------------------------
+# Suppress or force the "www." at the beginning of URLs
+# ----------------------------------------------------------------------
+
+# shimansky - REMOVE www.
+# Options +FollowSymLinks
+# RewriteCond %{HTTP_HOST} ^www.shimansky.biz$ [NC]
+# RewriteRule ^(.*)$ http://shimansky.biz/$1 [R=301,L,QSA]
+
+# The same content should never be available under two different URLs - especially not with and
+# without "www." at the beginning, since this can cause SEO problems (duplicate content).
+# That's why you should choose one of the alternatives and redirect the other one.
+
+# By default option 1 (no "www.") is activated. Remember: Shorter URLs are sexier.
+# no-www.org/faq.php?q=class_b
+
+# If you rather want to use option 2, just comment out all option 1 lines
+# and uncomment option 2.
+# IMPORTANT: NEVER USE BOTH RULES AT THE SAME TIME!
+
+# ----------------------------------------------------------------------
+
+# Option 1:
+# Rewrite "www.example.com -> example.com"
+
+# ----------------------------------------------------------------------
+
+# Option 2:
+# To rewrite "example.com -> www.example.com" uncomment the following lines.
+# Be aware that the following rule might not be a good idea if you
+# use "real" subdomains for certain parts of your website.
+
+# <IfModule mod_rewrite.c>
+# RewriteCond %{HTTPS} !=on
+# RewriteCond %{HTTP_HOST} !^www\..+$ [NC]
+# RewriteRule ^ http://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+# </IfModule>
+
+<IfModule mod_rewrite.c>
+	RewriteCond %{HTTPS} !=on
+	RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+	RewriteRule ^ http://%1%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+# ----------------------------------------------------------------------
+# Built-in filename-based cache busting
+# ----------------------------------------------------------------------
+
+# If you're not using the build script to manage your filename version revving,
+# you might want to consider enabling this, which will route requests for
+# /css/style.20110203.css to /css/style.css
+
+# To understand why this is important and a better idea than all.css?v1231,
+# read: github.com/h5bp/html5-boilerplate/wiki/Version-Control-with-Cachebusting
+
+# Uncomment to enable.
+# <IfModule mod_rewrite.c>
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteRule ^(.+)\.(\d+)\.(js|css|png|jpg|gif)$ $1.$3 [L]
+# </IfModule>
+
+# ----------------------------------------------------------------------
+# Prevent SSL cert warnings
+# ----------------------------------------------------------------------
+
+# Rewrite secure requests properly to prevent SSL cert warnings, e.g. prevent
+# https://www.example.com when your cert only allows https://secure.example.com
+# Uncomment the following lines to use this feature.
+
+# <IfModule mod_rewrite.c>
+# RewriteCond %{SERVER_PORT} !^443
+# RewriteRule ^ https://example-domain-please-change-me.com%{REQUEST_URI} [R=301,L]
+# </IfModule>
+
+# ----------------------------------------------------------------------
+# Prevent 404 errors for non-existing redirected folders
+# ----------------------------------------------------------------------
+
+# without -MultiViews, Apache will give a 404 for a rewrite if a folder of the same name does not exist
+# e.g. /blog/hello : webmasterworld.com/apache/3808792.htm
+
+Options -MultiViews
+
+# ----------------------------------------------------------------------
+# Custom 404 page
+# ----------------------------------------------------------------------
+
+# You can add custom pages to handle 500 or 403 pretty easily, if you like.
+ErrorDocument 404 /404.html
+ErrorDocument 400 /
+ErrorDocument 403 /403.html
+ErrorDocument 500 /
+ErrorDocument 503 /
+
+# ----------------------------------------------------------------------
+# UTF-8 encoding
+# ----------------------------------------------------------------------
+
+# Use UTF-8 encoding for anything served text/plain or text/html
+AddDefaultCharset utf-8
+
+# Force UTF-8 for a number of file formats
+AddCharset utf-8 .css .js .xml .json .rss .atom
+
+# ----------------------------------------------------------------------
+# A little more security
+# ----------------------------------------------------------------------
+
+# Do we want to advertise the exact version number of Apache we're running?
+# Probably not.
+# # This can only be enabled if used in httpd.conf - It will not work in .htaccess
+# ServerTokens Prod
+
+# "-Indexes" will have Apache block users from browsing folders without a default document
+# Usually you should leave this activated, because you shouldn't allow everybody to surf through
+# every folder on your server (which includes rather private places like CMS system folders).
+<IfModule mod_autoindex.c>
+	Options -Indexes
+</IfModule>
+
+# Block access to "hidden" directories whose names begin with a period. This
+# includes directories used by version control systems such as Subversion or Git.
+<IfModule mod_rewrite.c>
+	RewriteCond %{SCRIPT_FILENAME} -d
+	RewriteCond %{SCRIPT_FILENAME} -f
+	RewriteRule "(^|/)\." - [F]
+</IfModule>
+
+php_value date.timezone Europe/Moscow
+
+# Block access to backup and source files
+# This files may be left by some text/html editors and
+# pose a great security danger, when someone can access them
+<FilesMatch "(\.(bak|config|sql|fla|psd|ini|log|sh|inc|swp|dist)|~)$">
+	Order allow,deny
+	Deny from all
+	Satisfy All
+</FilesMatch>
+
+# If your server is not already configured as such, the following directive
+# should be uncommented in order to set PHP's register_globals option to OFF.
+# This closes a major security hole that is abused by most XSS (cross-site
+# scripting) attacks. For more information: http://php.net/register_globals
+#
+# IF REGISTER_GLOBALS DIRECTIVE CAUSES 500 INTERNAL SERVER ERRORS :
+#
+# Your server does not allow PHP directives to be set via .htaccess. In that
+# case you must make this change in your php.ini file instead. If you are
+# using a commercial web host, contact the administrators for assistance in
+# doing this. Not all servers allow local php.ini files, and they should
+# include all PHP configurations (not just this one), or you will effectively
+# reset everything to PHP defaults. Consult www.php.net for more detailed
+# information about setting PHP directives.
+
+# shimansky - FLAGS
+php_flag register_globals off
+php_flag display_errors on
+php_flag magic_quotes_gpc 0
+php_flag magic_quotes_runtime 0
+php_flag magic_quotes_sybase 0
+php_flag file_uploads 1
+php_flag output_buffering on
+
+# don't
+# php_flag zlib.output_compression On
+# php_value zlib.output_compression_level 5
+
+php_value date.timezone "Europe/Moscow"
+
+# php_flag allow_call_time_pass_reference on
+# php_flag allow_url_fopen on
+# php_flag allow_url_include on
+# php_value memory_limit "36M"
+
+# Rename session cookie to something else, than PHPSESSID
+# php_value session.name sid
+
+# Do not show you are using PHP
+# Note: Move this line to php.ini since it won't work in .htaccess
+# php_flag expose_php Off
+
+# Level of log detail - log all errors
+# php_value error_reporting -1
+
+# Write errors to log file
+# php_flag log_errors On
+
+# Do not display errors in browser (production - Off, development - On)
+# php_flag display_errors Off
+
+# Do not display startup errors (production - Off, development - On)
+# php_flag display_startup_errors Off
+
+# Format errors in plain text
+# Note: Leave this setting 'On' for xdebug's var_dump() output
+# php_flag html_errors Off
+
+# Show multiple occurrence of error
+# php_flag ignore_repeated_errors Off
+
+# Show same errors from different sources
+# php_flag ignore_repeated_source Off
+
+# Size limit for error messages
+# php_value log_errors_max_len 1024
+
+# Don't precede error with string (doesn't accept empty string, use whitespace if you need)
+# php_value error_prepend_string " "
+
+# Don't prepend to error (doesn't accept empty string, use whitespace if you need)
+# php_value error_append_string " "
+
+# Increase cookie security
+<IfModule php5_module>
+	php_value session.cookie_httponly true
+</IfModule>
+
+# Order Allow,Deny
+# # Deny from 89.250.
+# Deny from 1.126.
+# Deny from 113.187.
+# Deny from 122.177.
+# Deny from 14.97.
+# Deny from 171.33.
+# Deny from 176.102.
+# Deny from 194.158.
+# Deny from 2.134.
+# Deny from 2.72.
+# Deny from 208.115.
+# Deny from 212.179.
+# Deny from 213.177.
+# Deny from 37.204.
+# Deny from 39.48.
+# Deny from 46.255.
+# Deny from 49.14.
+# Deny from 5.19.
+# Deny from 5.251.
+# Deny from 50.22.
+# Deny from 54.244.
+# Deny from 59.182.
+# Deny from 62.210.
+# Deny from 69.171.
+# Deny from 78.25.
+# Deny from 79.132.
+# Deny from 82.207.
+# Deny from 83.242.
+# Deny from 84.240.
+# Deny from 87.228.
+# Deny from 88.151.
+# Deny from 89.208.
+# Deny from 90.151.
+# Deny from 92.242.
+# Deny from 31.40.
+# Deny from 54.244.
+# Deny from 213.87.
+# Deny from 83.99.
+# Deny from 80.76.
+# Deny from 77.43.
+# Deny from 178.47.
+# Deny from 92.240.
+# Deny from 37.115.
+# Deny from 150.70.
+# Deny from 178.169.
+# Deny from 46.229.
+# Deny from 115.93.
+# Deny from 46.227.
+# Deny from 95.104.
+# Deny from 93.85.
+# Deny from 90.151.
+# Deny from 95.58.
+# Deny from 93.116.
+# Deny from 46.250.
+# Deny from 89.218.
+# Deny from 41.4.
+# Deny from 217.72.
+# Deny from 217.118.
+# Deny from 58.169.
+# Deny from 89.178.
+# Deny from 49.180.
+# Deny from 77.121.
+# Deny from 46.164.
+# Deny from 95.27.
+# Deny from 37.78.
+# Deny from 86.62.
+# Deny from 92.126.
+# Deny from 188.123.
+# Deny from 178.167.
+# Deny from 217.76.
+# Deny from 83.149.
+# Deny from 78.25.
+# Deny from 62.192.
+# Allow from all
+
+# https://github.com/h5bp/html5-boilerplate/wiki/htaccess
+# Do not turn off your ServerSignature (i.e., the Server: HTTP header). Serious attackers can use other kinds of fingerprinting methods to figure out the actual server and components running behind a port. Instead, as a site owner, you should keep track of what's listening on ports on hosts that you control. Run a periodic scanner to make sure nothing suspicious is running on a host you control, and use the ServerSignature to determine if this is the web server and version that you expect.
+# ServerSignature Off

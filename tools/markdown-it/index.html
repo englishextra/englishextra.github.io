@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>markdown-it</title>
+		<link rel="stylesheet" href="./css/bootstrap.css" />
+		<link rel="stylesheet" href="./css/github.css" />
+		<link rel="stylesheet" href="./css/index.css" />
+		<script src="./js/linkid.js" async=""></script>
+		<script src="./js/es5-shim.js"></script>
+		<script src="./js/jquery.js"></script>
+		<script src="./js/lodash.js"></script>
+		<script src="./js/bootstrap.js"></script>
+		<script src="./js/markdown-it.js"></script>
+		<script src="./js/twemoji.js"></script>
+		<script src="./js/index.js"></script>
+	</head>
+	<body class="opt_linkify result-as-html opt__highlight opt_typographer">
+		<div class="container">
+		<h1 id="h1">
+		markdown-it
+		</h1>
+		<div class="form-inline demo-options">
+		<div class="checkbox not-strict">
+		<label data-original-title="enable html tags in source text" title="" class="_tip">
+		<input id="html" type="checkbox"> html
+		</label>
+		</div>
+		<div class="checkbox not-strict">
+		<label data-original-title="produce xtml output (add / to single tags (&lt;br /&gt; instead of &lt;br&gt;)" title="" class="_tip">
+		<input id="xhtmlOut" type="checkbox"> xhtmlOut
+		</label>
+		</div>
+		<div class="checkbox not-strict">
+		<label data-original-title="newlines in paragraphs are rendered as &lt;br&gt;" title="" class="_tip">
+		<input id="breaks" type="checkbox"> breaks
+		</label>
+		</div>
+		<div class="checkbox not-strict">
+		<label data-original-title="autoconvert link-like texts to links" title="" class="_tip">
+		<input checked="checked" id="linkify" type="checkbox"> linkify
+		</label>
+		</div>
+		<div class="checkbox not-strict">
+		<label data-original-title="do typographyc replacements, (c) -&gt; © and so on" title="" class="_tip">
+		<input checked="checked" id="typographer" type="checkbox"> typographer
+		</label>
+		</div>
+		<div class="checkbox not-strict">
+		<label data-original-title="enable output highlight for fenced blocks" title="" class="_tip">
+		<input checked="checked" id="_highlight" type="checkbox"> highlight
+		</label>
+		</div>
+		<div class="form-group not-strict">
+		<input value="language-" data-original-title="css class language prefix for fenced code blocks" id="langPrefix" placeholder="language prefix" title="" class="form-control _tip" type="input">
+		</div>
+		<div class="checkbox">
+		<label data-original-title="force strict CommonMark mode - output will be equal to reference parser" title="" class="_tip">
+		<input id="_strict" type="checkbox"> CommonMark strict
+		</label>
+		</div>
+		</div>
+		</div>
+		<div class="container full-height">
+		<div class="row full-height">
+		<div class="col-xs-6 full-height">
+		<div class="demo-control"><a href="#" class="source-clear">clear</a><a id="permalink" href="" title="Share this snippet as link"><strong>permalink</strong></a></div>
+		<textarea class="source full-height">---
+__Advertisement :)__
+- __[pica](https://nodeca.github.io/pica/demo/)__ - high quality and fast image
+		resize in browser.
+- __[babelfish](https://github.com/nodeca/babelfish/)__ - developer friendly
+		i18n with plurals support and easy syntax.
+You will like those projects!
+---
+# h1 Heading 8-)
+## h2 Heading
+### h3 Heading
+#### h4 Heading
+##### h5 Heading
+###### h6 Heading
+## Horizontal Rules
+___
+---
+***
+## Typographic replacements
+Enable typographer option to see result.
+(c) (C) (r) (R) (tm) (TM) (p) (P) +-
+test.. test... test..... test?..... test!....
+!!!!!! ???? ,, -- ---
+"Smartypants, double quotes" and 'single quotes'
+## Emphasis
+**This is bold text**
+__This is bold text__
+*This is italic text*
+_This is italic text_
+~~Strikethrough~~
+## Blockquotes
+&gt; Blockquotes can also be nested...
+&gt;&gt; ...by using additional greater-than signs right next to each other...
+&gt; &gt; &gt; ...or with spaces between arrows.
+## Lists
+Unordered
++ Create a list by starting a line with `+`, `-`, or `*`
++ Sub-lists are made by indenting 2 spaces:
+		- Marker character change forces new list start:
+		* Ac tristique libero volutpat at
+		+ Facilisis in pretium nisl aliquet
+		- Nulla volutpat aliquam velit
++ Very easy!
+Ordered
+1. Lorem ipsum dolor sit amet
+2. Consectetur adipiscing elit
+3. Integer molestie lorem at massa
+1. You can use sequential numbers...
+1. ...or keep all the numbers as `1.`
+Start numbering with offset:
+57. foo
+1. bar
+## Code
+Inline `code`
+Indented code
+		// Some comments
+		line 1 of code
+		line 2 of code
+		line 3 of code
+Block code "fences"
+```
+Sample text here...
+```
+Syntax highlighting
+``` js
+var foo = function (bar) {
+		return bar++;
+};
+console.log(foo(5));
+```
+## Tables
+| Option | Description |
+| ------ | ----------- |
+| data | path to data files to supply the data that will be passed into templates. |
+| engine | engine to be used for processing templates. Handlebars is the default. |
+| ext | extension to be used for dest files. |
+Right aligned columns
+| Option | Description |
+| ------:| -----------:|
+| data | path to data files to supply the data that will be passed into templates. |
+| engine | engine to be used for processing templates. Handlebars is the default. |
+| ext | extension to be used for dest files. |
+## Links
+[link text](https://dev.nodeca.com)
+[link with title](https://nodeca.github.io/pica/demo/ "title text!")
+Autoconverted link https://github.com/nodeca/pica (enable linkify to see)
+## Images
+![Minion](./img/minion.png)
+![Stormtroopocat](./img/stormtroopocat.jpg "The Stormtroopocat")
+Like links, Images also have a footnote style syntax
+![Alt text][id]
+With a reference later in the document defining the URL location:
+[id]: ./img/dojocat.jpg "The Dojocat"
+## Plugins
+The killer feature of `markdown-it` is very effective support of
+[syntax plugins](https://www.npmjs.org/browse/keyword/markdown-it-plugin).
+### [Emojies](https://github.com/markdown-it/markdown-it-emoji)
+&gt; Classic markup: :wink: :crush: :cry: :tear: :laughing: :yum:
+&gt;
+&gt; Shortcuts (emoticons): :-) :-( 8-) ;)
+see [how to change output](https://github.com/markdown-it/markdown-it-emoji#change-output) with twemoji.
+### [Subscript](https://github.com/markdown-it/markdown-it-sub) / [Superscript](https://github.com/markdown-it/markdown-it-sup)
+- 19^th^
+- H~2~O
+### [\&lt;ins&gt;](https://github.com/markdown-it/markdown-it-ins)
+++Inserted text++
+### [\&lt;mark&gt;](https://github.com/markdown-it/markdown-it-mark)
+==Marked text==
+### [Footnotes](https://github.com/markdown-it/markdown-it-footnote)
+Footnote 1 link[^first].
+Footnote 2 link[^second].
+Inline footnote^[Text of inline footnote] definition.
+Duplicated footnote reference[^second].
+[^first]: Footnote **can have markup**
+		and multiple paragraphs.
+[^second]: Footnote text.
+### [Definition lists](https://github.com/markdown-it/markdown-it-deflist)
+Term 1
+: Definition 1
+with lazy continuation.
+Term 2 with *inline markup*
+: Definition 2
+		{ some code, part of Definition 2 }
+		Third paragraph of definition 2.
+_Compact style:_
+Term 1
+		~ Definition 1
+Term 2
+		~ Definition 2a
+		~ Definition 2b
+### [Abbreviations](https://github.com/markdown-it/markdown-it-abbr)
+This is HTML abbreviation example.
+It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
+*[HTML]: Hyper Text Markup Language
+### [Custom containers](https://github.com/markdown-it/markdown-it-container)
+::: warning
+*here be dragons*
+:::
+		</textarea>
+		</div>
+		<section class="col-xs-6 full-height">
+		<div class="demo-control"><a href="#" data-result-as="html">html</a><a href="#" data-result-as="src">source</a><a href="#" data-result-as="debug">debug</a></div>
+		<div class="result-html full-height"><hr />
+		<p class="line" data-line="1"><strong>Advertisement <img src="./img/36x36/1f603.png" class="emoji" draggable="false" alt=""></strong></p>
+		<ul>
+		<li><strong><a href="https://nodeca.github.io/pica/demo/">pica</a></strong> - high quality and fast image
+resize in browser.</li>
+		<li><strong><a href="https://github.com/nodeca/babelfish/">babelfish</a></strong> - developer friendly
+i18n with plurals support and easy syntax.</li>
+		</ul>
+		<p class="line" data-line="8">You will like those projects!</p>
+		<hr />
+		<h1 class="line" data-line="12">h1 Heading <img src="./img/36x36/1f60e.png" class="emoji" draggable="false" alt=""></h1>
+		<h2 class="line" data-line="13">h2 Heading</h2>
+		<h3 class="line" data-line="14">h3 Heading</h3>
+		<h4 class="line" data-line="15">h4 Heading</h4>
+		<h5 class="line" data-line="16">h5 Heading</h5>
+		<h6 class="line" data-line="17">h6 Heading</h6>
+		<h2 class="line" data-line="20">Horizontal Rules</h2>
+		<hr />
+		<hr />
+		<hr />
+		<h2 class="line" data-line="29">Typographic replacements</h2>
+		<p class="line" data-line="31">Enable typographer option to see result.</p>
+		<p class="line" data-line="33">© © ® ® ™ ™ § § ±</p>
+		<p class="line" data-line="35">test… test… test… test?.. test!..</p>
+		<p class="line" data-line="37">!!! ??? , – —</p>
+		<p class="line" data-line="39">“Smartypants, double quotes” and ‘single quotes’</p>
+		<h2 class="line" data-line="42">Emphasis</h2>
+		<p class="line" data-line="44"><strong>This is bold text</strong></p>
+		<p class="line" data-line="46"><strong>This is bold text</strong></p>
+		<p class="line" data-line="48"><em>This is italic text</em></p>
+		<p class="line" data-line="50"><em>This is italic text</em></p>
+		<p class="line" data-line="52"><s>Strikethrough</s></p>
+		<h2 class="line" data-line="55">Blockquotes</h2>
+		<blockquote>
+		<p>Blockquotes can also be nested…</p>
+		<blockquote>
+		<p>…by using additional greater-than signs right next to each other…</p>
+		<blockquote>
+		<p>…or with spaces between arrows.</p>
+		</blockquote>
+		</blockquote>
+		</blockquote>
+		<h2 class="line" data-line="63">Lists</h2>
+		<p class="line" data-line="65">Unordered</p>
+		<ul>
+		<li>Create a list by starting a line with <code>+</code>, <code>-</code>, or <code>*</code></li>
+		<li>Sub-lists are made by indenting 2 spaces:
+		<ul>
+		<li>Marker character change forces new list start:
+		<ul>
+		<li>Ac tristique libero volutpat at</li>
+		</ul>
+		<ul>
+		<li>Facilisis in pretium nisl aliquet</li>
+		</ul>
+		<ul>
+		<li>Nulla volutpat aliquam velit</li>
+		</ul>
+		</li>
+		</ul>
+		</li>
+		<li>Very easy!</li>
+		</ul>
+		<p class="line" data-line="75">Ordered</p>
+		<ol>
+		<li>Lorem ipsum dolor sit amet</li>
+		<li>Consectetur adipiscing elit</li>
+		<li>Integer molestie lorem at massa</li>
+		</ol>
+		<ol>
+		<li>You can use sequential numbers…</li>
+		<li>…or keep all the numbers as <code>1.</code></li>
+		</ol>
+		<p class="line" data-line="85">Start numbering with offset:</p>
+		<ol start="57">
+		<li>foo</li>
+		<li>bar</li>
+		</ol>
+		<h2 class="line" data-line="91">Code</h2>
+		<p class="line" data-line="93">Inline <code>code</code></p>
+		<p class="line" data-line="95">Indented code</p>
+		<pre><code>// Some comments
+line 1 of code
+line 2 of code
+line 3 of code
+		</code></pre>
+		<p class="line" data-line="103">Block code “fences”</p>
+		<pre class="hljs"><code>Sample text here...
+		</code></pre>
+		<p class="line" data-line="109">Syntax highlighting</p>
+		<pre class="hljs language-js"><code><span class="hljs-keyword">var</span> foo = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">bar</span>) </span>{
+		<span class="hljs-keyword">return</span> bar++;
+};
+		<span class="hljs-built_in">console</span>.log(foo(<span class="hljs-number">5</span>));
+		</code></pre>
+		<h2 class="line" data-line="119">Tables</h2>
+		<table class="table table-striped">
+		<thead>
+		<tr>
+		<th>Option</th>
+		<th>Description</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+		<td>data</td>
+		<td>path to data files to supply the data that will be passed into templates.</td>
+		</tr>
+		<tr>
+		<td>engine</td>
+		<td>engine to be used for processing templates. Handlebars is the default.</td>
+		</tr>
+		<tr>
+		<td>ext</td>
+		<td>extension to be used for dest files.</td>
+		</tr>
+		</tbody>
+		</table>
+		<p class="line" data-line="127">Right aligned columns</p>
+		<table class="table table-striped">
+		<thead>
+		<tr>
+		<th style="text-align:right">Option</th>
+		<th style="text-align:right">Description</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+		<td style="text-align:right">data</td>
+		<td style="text-align:right">path to data files to supply the data that will be passed into templates.</td>
+		</tr>
+		<tr>
+		<td style="text-align:right">engine</td>
+		<td style="text-align:right">engine to be used for processing templates. Handlebars is the default.</td>
+		</tr>
+		<tr>
+		<td style="text-align:right">ext</td>
+		<td style="text-align:right">extension to be used for dest files.</td>
+		</tr>
+		</tbody>
+		</table>
+		<h2 class="line" data-line="136">Links</h2>
+		<p class="line" data-line="138"><a href="https://dev.nodeca.com/">link text</a></p>
+		<p class="line" data-line="140"><a href="https://nodeca.github.io/pica/demo/" title="title text!">link with title</a></p>
+		<p class="line" data-line="142">Autoconverted link <a href="https://github.com/nodeca/pica">https://github.com/nodeca/pica</a> (enable linkify to see)</p>
+		<h2 class="line" data-line="145">Images</h2>
+		<p class="line" data-line="147"><img src="./img/minion.png" alt="Minion">
+		<img src="./img/stormtroopocat.jpg" alt="Stormtroopocat" title="The Stormtroopocat"></p>
+		<p class="line" data-line="150">Like links, Images also have a footnote style syntax</p>
+		<p class="line" data-line="152"><img src="./img/dojocat.jpg" alt="Alt text" title="The Dojocat"></p>
+		<p class="line" data-line="154">With a reference later in the document defining the URL location:</p>
+		<h2 class="line" data-line="159">Plugins</h2>
+		<p class="line" data-line="161">The killer feature of <code>markdown-it</code> is very effective support of
+		<a href="https://www.npmjs.org/browse/keyword/markdown-it-plugin">syntax plugins</a>.</p>
+		<h3 class="line" data-line="165"><a href="https://github.com/markdown-it/markdown-it-emoji">Emojies</a></h3>
+		<blockquote>
+		<p>Classic markup: <img src="./img/36x36/1f609.png" class="emoji" draggable="false" alt=""> :crush: <img src="./img/36x36/1f622.png" class="emoji" draggable="false" alt=""> :tear: <img src="./img/36x36/1f606.png" class="emoji" draggable="false" alt=""> <img src="./img/36x36/1f60b.png" class="emoji" draggable="false" alt=""></p>
+		<p>Shortcuts (emoticons): <img src="./img/36x36/1f603.png" class="emoji" draggable="false" alt=""> <img src="./img/36x36/1f626.png" class="emoji" draggable="false" alt=""> <img src="./img/36x36/1f60e.png" class="emoji" draggable="false" alt=""> <img src="./img/36x36/1f609.png" class="emoji" draggable="false" alt=""></p>
+		</blockquote>
+		<p class="line" data-line="171">see <a href="https://github.com/markdown-it/markdown-it-emoji#change-output">how to change output</a> with twemoji.</p>
+		<h3 class="line" data-line="174"><a href="https://github.com/markdown-it/markdown-it-sub">Subscript</a> / <a href="https://github.com/markdown-it/markdown-it-sup">Superscript</a></h3>
+		<ul>
+		<li>19<sup>th</sup></li>
+		<li>H<sub>2</sub>O</li>
+		</ul>
+		<h3 class="line" data-line="180"><a href="https://github.com/markdown-it/markdown-it-ins">&lt;ins&gt;</a></h3>
+		<p class="line" data-line="182"><ins>Inserted text</ins></p>
+		<h3 class="line" data-line="185"><a href="https://github.com/markdown-it/markdown-it-mark">&lt;mark&gt;</a></h3>
+		<p class="line" data-line="187"><mark>Marked text</mark></p>
+		<h3 class="line" data-line="190"><a href="https://github.com/markdown-it/markdown-it-footnote">Footnotes</a></h3>
+		<p class="line" data-line="192">Footnote 1 link<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>.</p>
+		<p class="line" data-line="194">Footnote 2 link<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>.</p>
+		<p class="line" data-line="196">Inline footnote<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup> definition.</p>
+		<p class="line" data-line="198">Duplicated footnote reference<sup class="footnote-ref"><a href="#fn2" id="fnref2:1">[2]</a></sup>.</p>
+		<h3 class="line" data-line="207"><a href="https://github.com/markdown-it/markdown-it-deflist">Definition lists</a></h3>
+		<dl>
+		<dt>Term 1</dt>
+		<dd>
+		<p>Definition 1
+with lazy continuation.</p>
+		</dd>
+		<dt>Term 2 with <em>inline markup</em></dt>
+		<dd>
+		<p>Definition 2</p>
+		<pre><code> { some code, part of Definition 2 }
+		</code></pre>
+		<p>Third paragraph of definition 2.</p>
+		</dd>
+		</dl>
+		<p class="line" data-line="222"><em>Compact style:</em></p>
+		<dl>
+		<dt>Term 1</dt>
+		<dd>Definition 1</dd>
+		<dt>Term 2</dt>
+		<dd>Definition 2a</dd>
+		<dd>Definition 2b</dd>
+		</dl>
+		<h3 class="line" data-line="232"><a href="https://github.com/markdown-it/markdown-it-abbr">Abbreviations</a></h3>
+		<p class="line" data-line="234">This is <abbr title="Hyper Text Markup Language">HTML</abbr> abbreviation example.</p>
+		<p class="line" data-line="236">It converts “<abbr title="Hyper Text Markup Language">HTML</abbr>”, but keep intact partial entries like “xxxHTMLyyy” and so on.</p>
+		<h3 class="line" data-line="240"><a href="https://github.com/markdown-it/markdown-it-container">Custom containers</a></h3>
+		<div class="warning">
+		<p><em>here be dragons</em></p>
+		</div>
+		<hr class="footnotes-sep">
+		<section class="footnotes">
+		<ol class="footnotes-list">
+		<li id="fn1" class="footnote-item"><p>Footnote <strong>can have markup</strong></p>
+		<p>and multiple paragraphs. <a href="#fnref1" class="footnote-backref">↩</a></p>
+		</li>
+		<li id="fn2" class="footnote-item"><p>Footnote text. <a href="#fnref2" class="footnote-backref">↩</a> <a href="#fnref2:1" class="footnote-backref">↩</a></p>
+		</li>
+		<li id="fn3" class="footnote-item"><p>Text of inline footnote <a href="#fnref3" class="footnote-backref">↩</a></p>
+		</li>
+		</ol>
+		</section>
+		</div>
+		<pre class="hljs result-src full-height"><code class="result-src-content full-height"></code></pre>
+		<pre class="hljs result-debug full-height"><code class="result-debug-content full-height"></code></pre>
+		</section>
+		</div>
+		</div>
+		<div class="gh-ribbon"><a href="https://github.com/markdown-it/markdown-it" target="_blank">Fork me on GitHub</a></div>
+	</body>
+</html>

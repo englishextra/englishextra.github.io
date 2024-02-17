@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>JSONLint - The JSON Validator.</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+				vertical-align: top;
+			}
+			body {
+				font-size: 12px;
+				font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+				line-height: 1.5em;
+			}
+			h1, h2, h3, h4, h5, h6 {
+				color: #111;
+				font-weight: 400;
+			}
+			h1 {
+				font-size: 3em;
+				line-height: 1;
+				margin-bottom: .1em;
+			}
+			h3 {
+				font-size: 1.2em;
+				margin-bottom: 10px;
+			}
+			pre, code, tt {
+				font: 1em 'andale mono', monotype, 'lucida console', monospace;
+				line-height: 1.5;
+			}
+			/* BASICS */
+			.CodeMirror {
+				/* Set height, width, borders, and global font properties here */
+				font-family: monospace;
+				height: 300px;
+				color: black;
+			}
+			/* PADDING */
+			.CodeMirror-lines {
+				padding: 4px 0; /* Vertical padding around content */
+			}
+			.CodeMirror pre {
+				padding: 0 4px; /* Horizontal padding of content */
+			}
+			.CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {
+				background-color: white; /* The little square between H and V scrollbars */
+			}
+			/* GUTTER */
+			.CodeMirror-gutters {
+				border-right: 1px solid #ddd;
+				background-color: #f7f7f7;
+				white-space: nowrap;
+			}
+			.CodeMirror-linenumbers {
+			}
+			.CodeMirror-linenumber {
+				padding: 0 3px 0 5px;
+				min-width: 20px;
+				text-align: right;
+				color: #999;
+				white-space: nowrap;
+			}
+			.CodeMirror-guttermarker {
+				color: black;
+			}
+			.CodeMirror-guttermarker-subtle {
+				color: #999;
+			}
+			/* CURSOR */
+			.CodeMirror-cursor {
+				border-left: 1px solid black;
+				border-right: none;
+				width: 0;
+			}
+			/* Shown when moving in bi-directional text */
+			.CodeMirror div.CodeMirror-secondarycursor {
+				border-left: 1px solid silver;
+			}
+			.cm-fat-cursor .CodeMirror-cursor {
+				width: auto;
+				border: 0;
+				background: #7e7;
+			}
+			.cm-fat-cursor div.CodeMirror-cursors {
+				z-index: 1;
+			}
+			.cm-animate-fat-cursor {
+				width: auto;
+				border: 0;
+				-webkit-animation: blink 1.06s steps(1) infinite;
+				animation: blink 1.06s steps(1) infinite;
+				background-color: #7e7;
+			}
+			@-webkit-keyframes blink {
+			0% {}
+			50% { background-color: transparent; }
+			100% {}
+			}
+			@keyframes blink {
+			0% {}
+			50% { background-color: transparent; }
+			100% {}
+			}
+			/* Can style cursor different in overwrite (non-insert) mode */
+			.CodeMirror-overwrite .CodeMirror-cursor {
+			}
+			.cm-tab {
+				display: inline-block;
+				text-decoration: inherit;
+			}
+			.CodeMirror-ruler {
+				border-left: 1px solid #ccc;
+				position: absolute;
+			}
+			/* DEFAULT THEME */
+			.cm-s-default .cm-header {
+				color: blue;
+			}
+			.cm-s-default .cm-quote {
+				color: #090;
+			}
+			.cm-negative {
+				color: #d44;
+			}
+			.cm-positive {
+				color: #292;
+			}
+			.cm-header, .cm-strong {
+				font-weight: bold;
+			}
+			.cm-em {
+				font-style: italic;
+			}
+			.cm-link {
+				text-decoration: underline;
+			}
+			.cm-strikethrough {
+				text-decoration: line-through;
+			}
+			.cm-s-default .cm-keyword {
+				color: #708;
+			}
+			.cm-s-default .cm-atom {
+				color: #219;
+			}
+			.cm-s-default .cm-number {
+				color: #164;
+			}
+			.cm-s-default .cm-def {
+				color: #00f;
+			}
+			.cm-s-default .cm-variable, .cm-s-default .cm-punctuation, .cm-s-default .cm-property, .cm-s-default .cm-operator {
+			}
+			.cm-s-default .cm-variable-2 {
+				color: #05a;
+			}
+			.cm-s-default .cm-variable-3 {
+				color: #085;
+			}
+			.cm-s-default .cm-comment {
+				color: #a50;
+			}
+			.cm-s-default .cm-string {
+				color: #a11;
+			}
+			.cm-s-default .cm-string-2 {
+				color: #f50;
+			}
+			.cm-s-default .cm-meta {
+				color: #555;
+			}
+			.cm-s-default .cm-qualifier {
+				color: #555;
+			}
+			.cm-s-default .cm-builtin {
+				color: #30a;
+			}
+			.cm-s-default .cm-bracket {
+				color: #997;
+			}
+			.cm-s-default .cm-tag {
+				color: #170;
+			}
+			.cm-s-default .cm-attribute {
+				color: #00c;
+			}
+			.cm-s-default .cm-hr {
+				color: #999;
+			}
+			.cm-s-default .cm-link {
+				color: #00c;
+			}
+			.cm-s-default .cm-error {
+				color: #f00;
+			}
+			.cm-invalidchar {
+				color: #f00;
+			}
+			.CodeMirror-composing {
+				border-bottom: 2px solid;
+			}
+			/* Default styles for common addons */
+			div.CodeMirror span.CodeMirror-matchingbracket {
+				color: #0f0;
+			}
+			div.CodeMirror span.CodeMirror-nonmatchingbracket {
+				color: #f22;
+			}
+			.CodeMirror-matchingtag {
+				background: #FF9600;
+				background: rgba(255, 150, 0, .3);
+			}
+			.CodeMirror-activeline-background {
+				background: #e8f2ff;
+			}
+			/* STOP */
+			/* The rest of this file contains styles related to the mechanics of
+				the editor. You probably shouldn't touch them. */
+			.CodeMirror {
+				position: relative;
+				overflow: hidden;
+				background: white;
+			}
+			.CodeMirror-scroll {
+				overflow: scroll !important; /* Things will break if this is overridden */
+				/* 30px is the magic margin used to hide the element's real scrollbars */
+				/* See overflow: hidden in .CodeMirror */
+				margin-bottom: -30px;
+				margin-right: -30px;
+				padding-bottom: 30px;
+				height: 100%;
+				outline: none; /* Prevent dragging from highlighting the element */
+				position: relative;
+			}
+			.CodeMirror-sizer {
+				position: relative;
+				border-right: 30px solid transparent;
+			}
+			/* The fake, visible scrollbars. Used to force redraw during scrolling
+				before actuall scrolling happens, thus preventing shaking and
+				flickering artifacts. */
+			.CodeMirror-vscrollbar, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {
+				position: absolute;
+				z-index: 6;
+				display: none;
+			}
+			.CodeMirror-vscrollbar {
+				right: 0;
+				top: 0;
+				overflow-x: hidden;
+				overflow-y: scroll;
+			}
+			.CodeMirror-hscrollbar {
+				bottom: 0;
+				left: 0;
+				overflow-y: hidden;
+				overflow-x: scroll;
+			}
+			.CodeMirror-scrollbar-filler {
+				right: 0;
+				bottom: 0;
+			}
+			.CodeMirror-gutter-filler {
+				left: 0;
+				bottom: 0;
+			}
+			.CodeMirror-gutters {
+				position: absolute;
+				left: 0;
+				top: 0;
+				z-index: 3;
+			}
+			.CodeMirror-gutter {
+				white-space: normal;
+				height: 100%;
+				display: inline-block;
+				margin-bottom: -30px;
+				/* Hack to make IE7 behave */
+				*zoom: 1;
+				*display: inline;
+			}
+			.CodeMirror-gutter-wrapper {
+				position: absolute;
+				z-index: 4;
+				background: none !important;
+				border: none !important;
+			}
+			.CodeMirror-gutter-background {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				z-index: 4;
+			}
+			.CodeMirror-gutter-elt {
+				position: absolute;
+				cursor: default;
+				z-index: 4;
+			}
+			.CodeMirror-gutter-wrapper {
+				-webkit-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+			}
+			.CodeMirror-lines {
+				cursor: text;
+				min-height: 1px; /* prevents collapsing before first draw */
+			}
+			.CodeMirror pre {
+				/* Reset some styles that the rest of the page might have set */
+				border-radius: 0;
+				border-width: 0;
+				background: transparent;
+				font-family: inherit;
+				font-size: inherit;
+				margin: 0;
+				white-space: pre;
+				word-wrap: normal;
+				line-height: inherit;
+				color: inherit;
+				z-index: 2;
+				position: relative;
+				overflow: visible;
+				-webkit-tap-highlight-color: transparent;
+			}
+			.CodeMirror-wrap pre {
+				word-wrap: break-word;
+				white-space: pre-wrap;
+				word-break: normal;
+			}
+			.CodeMirror-linebackground {
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				z-index: 0;
+			}
+			.CodeMirror-linewidget {
+				position: relative;
+				z-index: 2;
+				overflow: auto;
+			}
+			.CodeMirror-widget {
+			}
+			.CodeMirror-code {
+				outline: none;
+			}
+			/* Force content-box sizing for the elements where we expect it */
+			.CodeMirror-scroll, .CodeMirror-sizer, .CodeMirror-gutter, .CodeMirror-gutters, .CodeMirror-linenumber {
+				box-sizing: content-box;
+			}
+			.CodeMirror-measure {
+				position: absolute;
+				width: 100%;
+				height: 0;
+				overflow: hidden;
+				visibility: hidden;
+			}
+			.CodeMirror-cursor {
+				position: absolute;
+			}
+			.CodeMirror-measure pre {
+				position: static;
+			}
+			div.CodeMirror-cursors {
+				visibility: hidden;
+				position: relative;
+				z-index: 3;
+			}
+			div.CodeMirror-dragcursors {
+				visibility: visible;
+			}
+			.CodeMirror-focused div.CodeMirror-cursors {
+				visibility: visible;
+			}
+			.CodeMirror-selected {
+				background: #d9d9d9;
+			}
+			.CodeMirror-focused .CodeMirror-selected {
+				background: #d7d4f0;
+			}
+			.CodeMirror-crosshair {
+				cursor: crosshair;
+			}
+			.CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection {
+				background: #d7d4f0;
+			}
+			.CodeMirror-line::selection, .CodeMirror-line > span::selection, .CodeMirror-line > span > span::selection {
+				background: #d7d4f0;
+			}
+			.CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection {
+				background: #d7d4f0;
+			}
+			.cm-searching {
+				background: #ffa;
+				background: rgba(255, 255, 0, .4);
+			}
+			/* IE7 hack to prevent it from returning funny offsetTops on the spans */
+			.CodeMirror span {
+				*vertical-align: text-bottom;
+			}
+			/* Used to force a border model for a node */
+			.cm-force-border {
+				padding-right: .1px;
+			}
+			@media print {
+				/* Hide the cursor when printing */
+				.CodeMirror div.CodeMirror-cursors {
+					visibility: hidden;
+				}
+			}
+			/* See issue #2901 */
+			.cm-tab-wrap-hack:after {
+				content: '';
+			}
+			/* Help users use markselection to safely style text background */
+			span.CodeMirror-selectedtext {
+				background: none;
+			}
+			#faq {
+				padding: 0;
+				height: 0;
+				overflow: hidden;
+				clear: both;
+				padding: 0 1em;
+				transition: all 0.15s ease-out;
+				display: block;
+				border: 2px solid #CCC;
+				margin-top: 1em;
+				opacity: 0;
+			}
+			#faq.expand {
+				padding: 1em 1em;
+				overflow-y: scroll;
+				height: 20em;
+				transition: all 0.25s ease-in;
+				opacity: 1;
+			}
+			#faq h5 {
+				font-size: 1em;
+				font-weight: 700;
+				margin-bottom: 1.5em;
+			}
+			#faq p {
+				margin: 0 0 1.5em;
+			}
+			#faq div {
+				margin-left: 2em;
+			}
+			#faq dd {
+				margin-bottom: 1em;
+				margin-left: 1.5em;
+			}
+			#faq hr {
+				background: #ddd;
+				color: #ddd;
+				clear: both;
+				float: none;
+				width: 100%;
+				height: .1em;
+				border: none;
+				margin: 0 0 1.4em;
+			}
+			header {
+				height: 90px;
+				margin-bottom: 1.5em;
+			}
+			header aside {
+				float: right;
+			}
+			header a.pro {
+				padding: 1px 6px;
+				background: #e1e1e1;
+				color: #06c;
+				font-size: 13px;
+				font-weight: bold;
+				text-decoration: none;
+				float: left;
+				margin: 0;
+				border-radius: 2px;
+			}
+			#headings {
+				float: left;
+			}
+			main {
+				display: block;
+				width: 100%;
+				max-width: 950px;
+				margin: 0 auto;
+				padding: 1.5em 0;
+			}
+			#code, .CodeMirror {
+				width: 100%;
+				height: 400px;
+				border: 1px solid #EEEEEE;
+				margin-bottom: 1em;
+			}
+			.line-error {
+				background-color: #FBE3E4;
+			}
+			button[type="submit"] {
+				font-size: 1.65em;
+				color: #333;
+				padding-left: .5em;
+				padding-right: .5em;
+				font-weight: bold;
+			}
+			#result-container {
+				display: none;
+				padding-top: 1em;
+			}
+			#result-container.shown {
+				display: block;
+			}
+			#result-container h3 {
+				font-size: 1.5em;
+			}
+			#result {
+				border: 1px solid transparent;
+				margin: 1.5em 0;
+				padding: .8em;
+			}
+			#result:empty {
+				display: none;
+			}
+			#result.error {
+				background: #FBE3E4;
+				color: #D12F19;
+				border-color: #FBC2C4;
+			}
+			#result.success {
+				background: #E6EFC2;
+				color: #529214;
+				border-color: #C6D880;
+			}
+			footer:after {
+				content: '';
+				display: table;
+				clear: both;
+			}
+			footer {
+				margin-top: 3em;
+			}
+			footer aside {
+				float: left;
+			}
+			footer nav {
+				float: right;
+			}
+			footer nav a {
+				margin-left: 1em;
+			}
+		</style>
+	</head>
+	<body>
+		<main>
+			<header>
+				<div id="headings">
+					<h1 id="headerText"> JSONLint </h1>
+					<h3> The JSON Validator </h3>
+					<a href="https://pro.jsonlint.com" class="pro" target="_blank">Try PRO ></a>
+				</div>
+				<aside>
+					<div id="bsap_1303970" class="bsarocks bsap_8ef90d658dffbd98fbb5e857333a6b78"></div>
+				</aside>
+			</header>
+			<form name="main">
+				<textarea id="code" name="code"></textarea>
+				<button type="submit" data-ga="validate">
+					Validate
+				</button>
+			</form>
+			<section id="result-container">
+				<h3>Results</h3>
+				<pre id="result"></pre>
+			</section>
+			<footer>
+				<aside>
+					<a href="https://www.github.com/circlecell/jsonlintdotcom" data-ga="sourceLink">Source is on GitHub</a>. Props to <a href="https://www.crockford.com/">Douglas Crockford</a> of <a href="https://www.json.org">JSON</a> and <a href="https://www.jslint.com">JS Lint</a> and
+					<br />
+					<a href="https://zaa.ch/">Zach Carter</a>, who provided the <a href="https://github.com/zaach/jsonlint"> pure JS implementation of jsonlint</a>.
+				</aside>
+				<nav>
+					<a href="#" data-ga="faq" id="faqButton">FAQ</a>
+					<a href="https://buysellads.com/buy/detail/266667" target="_blank" data-ga="advertise">Advertise</a>
+				</nav>
+			</footer>
+			<article id="faq">
+				<h3> FAQ </h3>
+				<hr />
+				<div id="faqAccordion">
+					<h5> What is JSONLint? </h5>
+					<div>
+						<p>
+							JSONLint is a validator and reformatter for <a href="https://www.json.org/">JSON</a>, a lightweight data-interchange format.
+						</p>
+					</div>
+					<h5> Why 'Lint'? </h5>
+					<div>
+						<p>
+							Essentially, I'm just riding on <a href="https://www.jslint.com">JSLint's</a> coattails. The name 'lint' was originally used to find problems in C source files. It's not really valid here because JSON is just a protocol. Shameless? You bet!
+						</p>
+					</div>
+					<h5> Why does it reformat my JSON? </h5>
+					<div>
+						<p>
+							Because your code is ugly! Trust me on this one. What's that you say? It's not? Ok, well then here's <a href="https://www.jsonlint.com/?reformat=no">JSON Lint without the reformatter.</a>
+						</p>
+					</div>
+					<h5> Any secret features? </h5>
+					<div>
+						<p>
+							Sure, a few. You can input a URL and it'll scrape it for JSON and parse that.
+							<br />
+							An example URL to test: <a href="/?json=http%3A%2F%2Fwww.reddit.com%2Fr%2Fprogramming%2Fcomments%2F9szpc%2Fjsonlint_a_handy_json_validator_and_reformatter.json" data-ga="redditUrlInput">https://www.reddit.com/r/programming/comments/9szpc/jsonlint_a_handy_json_validator_and_reformatter.json</a>
+						</p>
+						<p>
+							You can also provide JSON to lint in the URL if you link to JSON Lint with the "json" parameter. <a href="https://www.jsonlint.com?json=%7B%22hello%22%3A%20%22world%22%7D">Here's an example URL to test.</a>
+						</p>
+						<p>
+							Additionally, <a href="https://www.jsonlint.com/?reformat=compress">JSON Lint can also be used as a json compressor if you add ?reformat=compress to the URL.</a>
+						</p>
+					</div>
+					<h5> What are some common errors? </h5>
+					<div>
+						<dl>
+							<dt>
+								<code>
+									Expecting 'STRING'</code>
+							</dt>
+							<dd>
+								You probably have an extra comma at the end of your collection. Something like: <code>
+									{ "a": "b"<span class="highlight">,</span> }</code>
+							</dd>
+							<dt>
+								<code>
+									Expecting 'STRING', 'NUMBER', 'NULL', 'TRUE', 'FALSE', '{', '['</code>
+							</dt>
+							<dd>
+								You probably have an extra comma at the end of your list. Something like: <code>
+									[ "a", "b"<span class="highlight">,</span> ]</code>
+								<br />
+								You also may have not enclosed your collection keys in quotes. Proper format for a collection is: <code>
+									{ "key": "value" }</code>
+							</dd>
+						</dl>
+						<p>
+							Be sure to follow <a href="https://www.json.org/">JSON's syntax</a> properly. For example, <strong>always use double quotes, always quotify your keys, and remove all callback functions</strong>.
+						</p>
+					</div>
+					<h5> A friend and I pasted the same JSON in and got different results. Wat do? </h5>
+					<div>
+						<p>
+							If you and your friend are on different systems (Win/Unix), this is possible due to the way windows handles newlines. Essentially, if you have just newline characters (\n) in your JSON and paste it into JSONLint from a windows machine, it can validate it as valid erroneously since Windows may need a carriage return (\r) as well to detect newlines properly.
+						</p>
+						<p>
+							The solution: Either use direct URL input, or make sure your content's newlines match the architecture your system expects!
+						</p>
+					</div>
+					<h5> Who made this? </h5>
+					<div>
+						<p>
+							<a href="https://www.umbrae.net/">Chris Dary</a> built this. Much is owed to the community (this uses <a href="https://github.com/zaach/jsonlint">Zach Conner's javascript Pure JS JSON parser</a>, for example).
+						</p>
+					</div>
+					<h5> I've got feedback! </h5>
+					<div>
+						Great - hit us up on GitHub.
+					</div>
+				</div>
+			</article>
+		</main>
+		<!-- Don't remove lines below! -->
+		<script src="./js/app.js"></script>
+	</body>
+</html>

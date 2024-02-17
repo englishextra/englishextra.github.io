@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Convert pt to em</title>
+	</head>
+	<body>
+		<div>
+			<form name="convert">
+				<script>
+					function forward1() {
+						with (document.convert) {
+							unit1.value = unit1.value.toString().replace(/[^\d\.eE-]/g, '');
+							if (unit1.value * 0.0836458341698 != 0) {
+								unit2.value = unit1.value * 0.0836458341698;
+							}
+						}
+					}
+					function backward1() {
+						with (document.convert) {
+							unit2.value = unit2.value.toString().replace(/[^\d\.eE-]/g, '');
+							if (unit2.value / 0.0836458341698 != 0) {
+								unit1.value = unit2.value / 0.0836458341698;
+							}
+						}
+					}
+					function forward2() {
+						with (document.convert) {
+							unit3.value = unit3.value.toString().replace(/[^\d\.eE-]/g, '');
+							if (unit3.value * 11.955168 != 0) {
+								unit4.value = unit3.value * 11.955168;
+							}
+						}
+					}
+					function backward2() {
+						with (document.convert) {
+							unit4.value = unit4.value.toString().replace(/[^\d\.eE-]/g, '');
+							if (unit4.value / 11.955168 != 0) {
+								unit3.value = unit4.value / 11.955168;
+							}
+						}
+					}
+				</script>
+				<h1 id="h1">Convert pt to em</h1>
+				<br />
+				<table border="0" cellpadding="7" cellspacing="0">
+					<tbody>
+						<tr>
+							<td>
+								<input type="number" step="0.1" name="unit1" size="10" maxlength="100" style="font-size:1em" onchange="forward1()" value="" />
+							</td><td><strong>pt</strong></td>
+						</tr>
+						<tr>
+							<td>
+								<input type="number" step="0.1" name="unit2" size="10" maxlength="100" style="font-size:1em" onchange="backward1()" value="" />
+							</td><td><strong>em</strong></td>
+						</tr>
+						<tr>
+							<td>
+								<input type="button" value="Convert" onclick="forward1()" />
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<br />
+				<table border="0" cellpadding="7" cellspacing="0">
+					<tbody>
+						<tr>
+							<td>
+								<input type="number" step="0.1" name="unit3" size="10" maxlength="100" style="font-size:1em" onchange="forward2()" value="" />
+							</td><td><strong>em</strong></td>
+						</tr>
+						<tr>
+							<td>
+								<input type="number" step="0.1" name="unit4" size="10" maxlength="100" style="font-size:1em" onchange="backward2()" value="" />
+							</td><td><strong>pt</strong></td>
+						</tr>
+						<tr>
+							<td>
+								<input type=button value="Convert" onclick="forward2()" />
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+		</div>
+	</body>
+</html>

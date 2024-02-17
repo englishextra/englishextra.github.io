@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Full Editor - Quill Rich Text Editor</title>
+		<link rel="stylesheet" href="./css/katex.min.css" />
+		<link rel="stylesheet" href="./css/monokai-sublime.min.css" />
+		<link rel="stylesheet" href="./css/quill.snow.css" />
+		<style>
+			body > #standalone-container {
+					margin: 50px auto;
+					max-width: 720px;
+			}
+			#editor-container {
+					height: 350px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="standalone-container">
+			<div id="toolbar-container">
+					<span class="ql-formats">
+				<select class="ql-font"></select>
+				<select class="ql-size"></select>
+					</span>
+					<span class="ql-formats">
+				<button class="ql-bold"></button>
+				<button class="ql-italic"></button>
+				<button class="ql-underline"></button>
+				<button class="ql-strike"></button>
+					</span>
+					<span class="ql-formats">
+				<select class="ql-color"></select>
+				<select class="ql-background"></select>
+					</span>
+					<span class="ql-formats">
+				<button class="ql-script" value="sub"></button>
+				<button class="ql-script" value="super"></button>
+					</span>
+					<span class="ql-formats">
+				<button class="ql-header" value="1"></button>
+				<button class="ql-header" value="2"></button>
+				<button class="ql-blockquote"></button>
+				<button class="ql-code-block"></button>
+					</span>
+					<span class="ql-formats">
+				<button class="ql-list" value="ordered"></button>
+				<button class="ql-list" value="bullet"></button>
+				<button class="ql-indent" value="-1"></button>
+				<button class="ql-indent" value="+1"></button>
+					</span>
+					<span class="ql-formats">
+				<button class="ql-direction" value="rtl"></button>
+				<select class="ql-align"></select>
+					</span>
+					<span class="ql-formats">
+				<button class="ql-link"></button>
+				<button class="ql-image"></button>
+				<button class="ql-video"></button>
+				<button class="ql-formula"></button>
+					</span>
+					<span class="ql-formats">
+				<button class="ql-clean"></button>
+					</span>
+			</div>
+			<div id="editor-container"></div>
+		</div>
+		<script src="./js/katex.min.js"></script>
+		<script src="./js/highlight.min.js"></script>
+		<script src="./js/quill.min.js"></script>
+		<script>
+			var quill = new Quill('#editor-container', {
+					modules: {
+						formula: true,
+						syntax: true,
+						toolbar: '#toolbar-container'
+					},
+					placeholder: 'Compose an epic...',
+					theme: 'snow'
+				});
+		</script>
+	</body>
+</html>

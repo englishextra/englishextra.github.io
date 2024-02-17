@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Percentage Calculator</title>
+		<link rel="stylesheet" href="./css/percentagecalculator.css"/>
+	</head>
+	<body id="home">
+		<section class="section" id="main">
+			<p id="intro">
+				Percentage Calculator is a free online tool to calculate percentages.
+			</p>
+			<form action="#" method="post" id="f1">
+				<fieldset>
+					What is
+					<input type="text" size="3"/>
+					% of
+					<input type="text" size="7"/>
+					?
+				</fieldset>
+				<fieldset class="total">
+					<input type="submit" value="Calculate"/>
+					<input type="text" size="7" readonly="readonly"/>
+					<span class="remove">%</span>
+				</fieldset>
+			</form>
+			<form action="#" method="post" id="f2">
+				<fieldset>
+					<input type="text" size="5"/>
+					is what percent of
+					<input type="text" size="5"/>
+					?
+				</fieldset>
+				<fieldset class="total">
+					<input type="submit" value="Calculate"/>
+					<input type="text" size="7" readonly="readonly"/>
+					<span>%</span>
+				</fieldset>
+			</form>
+			<form action="#" method="post" id="f3">
+				<fieldset>
+					What is the percentage increase/decrease
+					<br />
+					from
+					<input type="text" size="6"/>
+					to
+					<input type="text" size="6"/>
+					?
+				</fieldset>
+				<fieldset class="total">
+					<br />
+					<input type="submit" value="Calculate"/>
+					<input type="text" size="7" readonly="readonly"/>
+					<span>%</span>
+				</fieldset>
+			</form>
+			<p id="tips">
+				<strong>Tips:</strong> Use tab to move to the next field. Use shift-tab to move to the previous field. Press enter to calculate.
+			</p>
+		</section>
+		<footer class="footer" id="footer">
+			<div>
+				&copy; 2007 - 2017 <a href="https://jarijokinen.com/">Jari Jokinen</a>
+			</div>
+			<nav class="nav">
+				<ul>
+					<li>
+						<a href="/help">Help</a>
+					</li>
+					<li>
+						<a href="/privacy">Privacy</a>
+					</li>
+				</ul>
+			</nav>
+		</footer>
+		<script src="./js/percentagecalculator.js"></script>
+	</body>
+</html>

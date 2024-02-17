@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Full URL Encoder | SecurityWire</title>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-9 middle" id="content">
+					<p>
+						<strong>Full URL Encoder</strong>
+					</p>
+					<p>
+						This will URL encode&nbsp;the full input.
+					</p>
+					<p>
+						Input:
+						<br />
+						<textarea cols="70" rows="8" id="intext"></textarea>
+						<br />
+						<input type="button" onclick="urlencode()" value="Fully URL Encode"/>
+						<br />
+						Output:
+						<br />
+						<textarea cols="70" rows="8" id="outtext"></textarea>
+					</p>
+				</div>
+			</div>
+		</div>
+		<script>
+			function urlencode() {
+				var intext = document.getElementById("intext").value;
+				var newString = "";
+				for ( i = 0; i < intext.length; i++) {
+					newString += "%" + intext.charCodeAt(i).toString(16);
+				}
+				var outtext = document.getElementById("outtext");
+				outtext.value = newString;
+			}
+		</script>
+	</body>
+</html>

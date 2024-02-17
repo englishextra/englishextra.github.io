@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<!-- 1. use /tools/modularscale/index.html?15&px&1.25,1.125&web&text for font size and line height
+2. lazyload images
+3. remove font face, display block, opacity 1, visibility visible in critical inline css
+4. set font display swap in font face in css -->
+<html class="no-js" lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<!-- <meta http-equiv="x-ua-compatible" content="ie=edge" /> -->
+		<!-- https://content-security-policy.com/ --><meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; connect-src 'self' 'unsafe-inline' https:; frame-src 'self' https:; media-src 'self' https:; img-src 'self' 'unsafe-inline' https: data:" />
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>color visualizer</title>
+		<link rel="stylesheet" href="./css/normalize.min.css" />
+		<link rel="stylesheet" href="./css/style.css" />
+	</head>
+	<body>
+	<section id="app">
+		<h1 :style="text">\\ C O L O R - V I S U A L I Z E R</h1>
+		<!-- notifications -->
+		<div class="notif-container">
+			<transition-group name="slide-fade" tag="ul">
+				<li v-for="(n, i) in notifs" v-if="hideNotif(i)" :key="i" class="notif" :style="all">
+					{{ n.text }}
+				</li>
+			</transition-group>
+		</div>
+		<section class="text">
+			<!-- inputs -->
+			<div class="text__left">
+				<ul>
+					<li :style="text">* one color per line</li>
+					<li :style="text">* use any valid color format ( hsl, rgb, hex, etc... )</li>
+				</ul>
+				<textarea v-model="rowList" :style="all"></textarea>
+				<br />
+				<label>
+				Background Color:
+				<input v-model="bg" :style="all">
+				</label>
+				<label>
+				Text Color:
+				<input v-model="txt" :style="all">
+				</label>
+			</div>
+			<!-- helpers -->
+			<div :style="border" class="text__right">
+				<h3 :style="text">Helpers :</h3>
+				<ul :style="border">
+					<li>
+						<a :style="text" href="https://www.molbiotools.com/textextractor.html" target="_blank">http://www.molbiotools.com/textextractor.html</a>
+					</li>
+					<li>
+						<a :style="text" href="https://www.molbiotools.com/listmanipulator.html" target="_blank">http://www.molbiotools.com/listmanipulator.html</a>
+					</li>
+				</ul>
+				<!-- ops -->
+				<table :style="all">
+					<thead>
+						<th :style="{'border-color': tc(bg)}">Keyboard / Mouse</th>
+						<th :style="{'border-color': tc(bg)}">Operation</th>
+					</thead>
+					<tbody>
+						<tr>
+							<td :style="{'border-color': tc(bg)}">Click</td>
+							<td :style="{'border-color': tc(bg)}">Copy Color #code</td>
+						</tr>
+						<tr>
+							<td :style="{'border-color': tc(bg)}">Click & Drag</td>
+							<td :style="{'border-color': tc(bg)}">Sort Colors List</td>
+						</tr>
+						<tr>
+							<td :style="{'border-color': tc(bg)}">Alt + Click</td>
+							<td :style="{'border-color': tc(bg)}">Remove Color</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</section>
+		<!-- total colors avail -->
+		<h3 class="total" :style="[{'background-color': tc(bg)}, border]">Total: <small>{{ colorsList.length }}</small></h3>
+		<section v-if="colorsList" class="colors">
+			<!-- colors list -->
+			<div class="colors__list">
+				<draggable :list="colorsList" @change.moved="showSaveBtn = true">
+					<transition-group name="slide-fade" tag="ul">
+						<li v-for="(c, i) in colorsList" :key="i" :style="bubblePad" v-if="c !== ''" @click="copyColor(c)" @click.alt="removeColor(c)" :data-clipboard-text="toHex(c)" class="item">
+							<p :style="[{ 'background-color': tc(c)}, bubbleSize]" class="colors__circle">
+							</p>
+							<p v-if="showNames">
+								{{ toHex(c) }}
+								<span v-if="c == temp">"ph"</span>
+							</p>
+						</li>
+					</transition-group>
+				</draggable>
+			</div>
+			<!-- sidebar -->
+			<div class="colors__sidebar" :style="border">
+				<div class="colors__sidebar-data">
+					<!-- hex format -->
+					<div class="radio" :style="border">
+						<label>Color Format :</label>
+						<br />
+						<label>RGB: <input type="radio" value="rgb" v-model="codeFormat"></label>
+						<label>RGBA: <input type="radio" value="rgba" v-model="codeFormat"></label>
+					</div>
+					<!-- bubble size -->
+					<div class="range" :style="border">
+						<label>Bubble Size :</label>
+						<input type="range" min="10" max="300" value="100" v-model="size" :style="{'background-color': tc(txt)}">
+					</div>
+					<button @click="showNames =! showNames" :style="all">
+				Show Hex Codes
+				</button>
+					<!-- removed colors -->
+					<button v-if="removedColors.length" @click="undoRemovedColor()" :style="all">
+				Undo Removed
+				</button>
+					<ul v-if="removedColors.length" :style="all">
+						<li v-for="r in removedColors">{{ r.v }}</li>
+					</ul>
+					<!-- save list to file -->
+					<button v-if="showSaveBtn" @click="saveList()" :style="all">
+				Save Current List
+				</button>
+				</div>
+			</div>
+		</section>
+	</section>
+		<script src="./js/tinycolor.min.js"></script>
+		<script src="./js/clipboard.min.js"></script>
+		<script src="./js/vue.js"></script>
+		<script src="./js/Sortable.min.js"></script>
+		<script src="./js/vuedraggable.min.js"></script>
+		<script src="./js/index.js"></script>
+	</body>
+</html>
