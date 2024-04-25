@@ -21,5 +21,3 @@ xdk-publish-meta-data.json
 *.sublime-project
 *.sublime-workspace
 sw.js
-sw.min.js
-sw.min.js.map
